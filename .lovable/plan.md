@@ -65,6 +65,19 @@ Rules that make the later extraction to `texas-shared` mechanical:
 
 Swapping fixtures for Supabase later is one edit in `src/data/index.ts` plus new repository implementations.
 
+## Theme-aware, brand-agnostic components
+
+Every reusable component is written as if a second brand already exists. No component hardcodes TexasDefined copy, colors, fonts, nav items, logos, routes, or tone.
+
+- **Styling** comes from semantic CSS tokens only (`bg-card`, `text-primary`, `font-display`). A brand swap is a token-value swap in one stylesheet — zero component edits. No hex values, no `text-white`/`bg-black`, no brand-named utility classes.
+- **Branding** (logo, wordmark, name, tagline, social handles, default OG image) is read from a `BrandProvider` React context, never imported directly from `src/brand/texasdefined`. The provider is mounted once in `__root.tsx`; components call `useBrand()`.
+- **Copy** — every label, heading, empty state, CTA, and microcopy string is either a prop or resolved from the brand context's copy map. No English literals baked into shared components.
+- **Configuration** — nav structure, enabled sections, feature flags (shop on/off, events on/off), footer columns, and route maps come from a `BrandConfig` object passed through context, so KeepTXRed can enable a different set of surfaces with the same components.
+- **Content shape** — components take domain types (`Article`, `Product`, `Destination`), not TexasDefined-specific shapes, and accept render-prop or slot overrides where a brand may need different chrome.
+
+`src/brand/texasdefined.ts` is the only file that supplies concrete values; adding `keeptxred.ts` beside it is the entire brand-onboarding cost. Any component that cannot be rendered correctly with a different `BrandConfig` is treated as a bug in this phase.
+
+
 ## Shop foundation
 
 Shop routes and product/collection types are built and browsable from fixtures. No cart, checkout, or payment. Editorial-to-commerce linking is built in from day one: articles carry `relatedCollections`, and a `ShopTheStory` component renders inline in article bodies.
