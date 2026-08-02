@@ -1,4 +1,6 @@
 import { Link } from "@tanstack/react-router";
+import { Heart } from "lucide-react";
+import { useState } from "react";
 
 import { useBrand } from "@/brand/context";
 import type { Product } from "@/data/types";
@@ -14,10 +16,11 @@ export function ProductCard({
 }) {
   const brand = useBrand();
   const collection = product.collectionSlugs[0];
+  const [saved, setSaved] = useState(false);
 
   const content = (
     <>
-      <div className="overflow-hidden bg-muted">
+      <div className="relative overflow-hidden bg-muted">
         <img
           src={product.image.src}
           alt={product.image.alt}
@@ -27,6 +30,11 @@ export function ProductCard({
           decoding="async"
           className="aspect-square w-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
+        {product.madeInTexas && (
+          <span className="absolute left-3 top-3 bg-background/90 px-2 py-1 text-[0.625rem] uppercase tracking-widest text-foreground">
+            Made in Texas
+          </span>
+        )}
       </div>
       <div className="pt-4">
         <p className="eyebrow text-muted-foreground">{product.maker}</p>
@@ -40,7 +48,16 @@ export function ProductCard({
   );
 
   return (
-    <article className={cn("group", className)}>
+    <article className={cn("group relative", className)}>
+      <button
+        type="button"
+        onClick={() => setSaved((value) => !value)}
+        aria-pressed={saved}
+        aria-label={saved ? `Remove ${product.name} from saved` : `Save ${product.name}`}
+        className="absolute right-3 top-3 z-10 rounded-full bg-background/90 p-2 text-foreground/70 opacity-0 transition-all hover:text-primary focus-visible:opacity-100 group-hover:opacity-100"
+      >
+        <Heart className={cn("size-4", saved && "fill-primary text-primary")} aria-hidden />
+      </button>
       {collection ? (
         <Link to="/shop/$collection" params={{ collection }} className="block">
           {content}
