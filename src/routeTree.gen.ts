@@ -10,12 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SportsRouteImport } from './routes/sports'
 import { Route as ExploreIndexRouteImport } from './routes/explore.index'
 import { Route as ExploreCategoryRouteImport } from './routes/explore.$category'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SportsRoute = SportsRouteImport.update({
+  id: '/sports',
+  path: '/sports',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ExploreIndexRoute = ExploreIndexRouteImport.update({
@@ -31,30 +37,34 @@ const ExploreCategoryRoute = ExploreCategoryRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/sports': typeof SportsRoute
   '/explore/$category': typeof ExploreCategoryRoute
   '/explore/': typeof ExploreIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/sports': typeof SportsRoute
   '/explore/$category': typeof ExploreCategoryRoute
   '/explore': typeof ExploreIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/sports': typeof SportsRoute
   '/explore/$category': typeof ExploreCategoryRoute
   '/explore/': typeof ExploreIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/explore/$category' | '/explore/'
+  fullPaths: '/' | '/sports' | '/explore/$category' | '/explore/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/explore/$category' | '/explore'
-  id: '__root__' | '/' | '/explore/$category' | '/explore/'
+  to: '/' | '/sports' | '/explore/$category' | '/explore'
+  id: '__root__' | '/' | '/sports' | '/explore/$category' | '/explore/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  SportsRoute: typeof SportsRoute
   ExploreCategoryRoute: typeof ExploreCategoryRoute
   ExploreIndexRoute: typeof ExploreIndexRoute
 }
@@ -66,6 +76,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sports': {
+      id: '/sports'
+      path: '/sports'
+      fullPath: '/sports'
+      preLoaderRoute: typeof SportsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/explore/': {
@@ -87,6 +104,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  SportsRoute: SportsRoute,
   ExploreCategoryRoute: ExploreCategoryRoute,
   ExploreIndexRoute: ExploreIndexRoute,
 }
