@@ -7,7 +7,10 @@ import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { EventCard } from "@/components/editorial/EventCard";
 import { FeatureHero } from "@/components/editorial/FeatureHero";
 import { GuideCard } from "@/components/editorial/GuideCard";
+import { NewsletterSignup } from "@/components/editorial/NewsletterSignup";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
+import type { Destination } from "@/data/types";
+
 import { CollectionStrip } from "@/components/commerce/CollectionStrip";
 import { Container } from "@/components/layout/Container";
 import { texasDefinedBrand } from "@/brand/texasdefined";
