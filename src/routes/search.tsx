@@ -5,7 +5,7 @@ import { z } from "zod";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
 import { searchDocumentsQuery } from "@/data/queries";
-import { searchDocuments } from "@/domain/search/engine";
+import { search, type SearchHit } from "@/domain/search/engine";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const searchSchema = z.object({ q: z.string().optional() });
@@ -33,7 +33,9 @@ function SearchPage() {
   const navigate = useNavigate({ from: "/search" });
   const { data: documents } = useSuspenseQuery(searchDocumentsQuery());
   const query = q ?? "";
-  const results = query ? searchDocuments(documents, query, texasDefinedBrand.id) : [];
+  const results: SearchHit[] = query
+    ? search(documents, { term: query, brandId: texasDefinedBrand.identity.id })
+    : [];
 
   return (
     <Container className="min-h-[60vh] py-16 sm:py-24">
