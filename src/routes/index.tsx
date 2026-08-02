@@ -393,6 +393,59 @@ function HomePage() {
           </ul>
         </Container>
       </Section>
+
+      {brand.features.newsletter && (
+        <Section tone="ink">
+          <Container>
+            <NewsletterSignup />
+          </Container>
+        </Section>
+      )}
     </>
   );
 }
+
+/** Local presentation helper: a titled row of destination cards. */
+function DestinationRow({
+  eyebrow,
+  title,
+  actionLabel,
+  actionTo,
+  destinations,
+  regionName,
+  tone = "default",
+}: {
+  eyebrow: string;
+  title: string;
+  actionLabel: string;
+  actionTo: string;
+  destinations: Destination[];
+  regionName: (id: string) => string | undefined;
+  tone?: "default" | "surface";
+}) {
+  if (destinations.length === 0) return null;
+
+  return (
+    <Section tone={tone}>
+      <Container>
+        <SectionHeader
+          eyebrow={eyebrow}
+          title={title}
+          actionLabel={actionLabel}
+          actionTo={actionTo}
+        />
+        <ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+          {destinations.slice(0, 3).map((destination) => (
+            <li key={destination.id}>
+              <DestinationCard
+                destination={destination}
+                regionLabel={regionName(destination.region)}
+              />
+            </li>
+          ))}
+        </ul>
+      </Container>
+    </Section>
+  );
+}
+
