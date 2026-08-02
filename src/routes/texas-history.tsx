@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
+import enchantedRock from "@/assets/enchanted-rock.jpg";
+
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { CategoryPage } from "@/components/editorial/CategoryPage";
 import { articlesQuery, destinationsQuery, regionsQuery } from "@/data/queries";
@@ -26,6 +28,7 @@ export const Route = createFileRoute("/texas-history")({
       eyebrow="History"
       title="Where the story started"
       intro={description}
+      image={{ src: enchantedRock, alt: 'The granite dome of Enchanted Rock under a wide sky', width: 1600, height: 1067 }}
     />
   ),
 });

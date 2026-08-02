@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
+import heroHillCountry from "@/assets/hero-hill-country.jpg";
+
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { CategoryPage } from "@/components/editorial/CategoryPage";
 import { articlesQuery, destinationsQuery, regionsQuery } from "@/data/queries";
@@ -26,6 +28,7 @@ export const Route = createFileRoute("/real-estate")({
       eyebrow="Real Estate"
       title="Land, houses and the long view"
       intro={description}
+      image={{ src: heroHillCountry, alt: 'Evening light across rolling Texas Hill Country', width: 1600, height: 1067 }}
     />
   ),
 });

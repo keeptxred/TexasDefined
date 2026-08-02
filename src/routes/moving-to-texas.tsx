@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
+import roadTrip from "@/assets/road-trip.jpg";
+
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { CategoryPage } from "@/components/editorial/CategoryPage";
 import { articlesQuery, destinationsQuery, regionsQuery } from "@/data/queries";
@@ -26,6 +28,7 @@ export const Route = createFileRoute("/moving-to-texas")({
       eyebrow="Moving"
       title="Landing well in a very large state"
       intro={description}
+      image={{ src: roadTrip, alt: 'A two-lane Texas farm road running to the horizon', width: 1600, height: 1067 }}
     />
   ),
 });
