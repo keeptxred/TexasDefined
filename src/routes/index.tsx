@@ -105,6 +105,7 @@ function HomePage() {
     <>
       {hero && (
         <FeatureHero
+          variant="split"
           eyebrow={brand.identity.tagline}
           title={hero.title}
           dek={hero.dek}
