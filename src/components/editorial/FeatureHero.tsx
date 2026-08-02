@@ -31,21 +31,22 @@ export function FeatureHero({
 
   if (variant === "split") {
     return (
-      <section className="relative isolate overflow-hidden bg-ink text-ink-foreground">
-        <div className="mx-auto flex min-h-[55vh] w-full max-w-7xl flex-col lg:min-h-[600px] lg:max-h-[700px] lg:flex-row">
-          <div className="animate-rise relative z-10 flex w-full flex-col justify-center px-6 py-14 sm:px-8 lg:w-[42%] lg:px-14 lg:py-20">
-            <p className="eyebrow text-ink-foreground/75">{eyebrow}</p>
-            <h1 className="mt-5 max-w-xl font-display text-4xl leading-[1.08] sm:text-5xl lg:text-[3.25rem]">
+      <section className="relative isolate overflow-hidden bg-background text-foreground">
+        <div className="mx-auto flex w-full max-w-[1600px] flex-col lg:h-[600px] lg:flex-row">
+          {/* Editorial panel — solid warm cream, never over the photo */}
+          <div className="animate-rise relative z-20 flex w-full flex-col justify-center bg-background px-6 py-14 sm:px-10 lg:w-[40%] lg:px-16 lg:py-0">
+            <p className="eyebrow text-primary">{eyebrow}</p>
+            <h1 className="mt-6 max-w-xl font-display text-4xl leading-[1.06] text-ink sm:text-5xl lg:text-[3.4rem]">
               {title}
             </h1>
-            <p className="mt-6 max-w-md text-base leading-relaxed text-ink-foreground/85">
+            <p className="mt-7 max-w-md text-base leading-relaxed text-muted-foreground">
               {dek}
             </p>
-            <div className="mt-8 flex flex-wrap items-center gap-6">
+            <div className="mt-10 flex flex-wrap items-center gap-6">
               <Link
                 to={to}
                 params={params}
-                className="eyebrow group inline-flex items-center gap-2 border-b-2 border-ink-foreground pb-1 transition-opacity hover:opacity-75"
+                className="eyebrow group inline-flex items-center gap-2 border-b-2 border-primary pb-1 text-ink transition-opacity hover:opacity-70"
               >
                 {brand.copy.readMore}
                 <span
@@ -55,11 +56,12 @@ export function FeatureHero({
                   →
                 </span>
               </Link>
-              {meta && <p className="text-xs text-ink-foreground/70">{meta}</p>}
+              {meta && <p className="text-xs text-muted-foreground">{meta}</p>}
             </div>
           </div>
 
-          <div className="relative isolate min-h-[40vh] w-full lg:min-h-0 lg:w-[58%]">
+          {/* Photography — 60% */}
+          <div className="relative isolate h-[52vh] w-full sm:h-[58vh] lg:h-full lg:w-[60%]">
             <img
               src={image.src}
               alt={image.alt}
@@ -69,13 +71,15 @@ export function FeatureHero({
               decoding="async"
               className="animate-slow-zoom absolute inset-0 size-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/50 to-transparent" />
-            <div className="absolute inset-0 bg-gradient-to-t from-ink/60 to-transparent lg:hidden" />
+            {/* Soft feathered transition into the editorial panel */}
+            <div className="pointer-events-none absolute inset-y-0 left-0 z-10 hidden w-40 bg-gradient-to-r from-background via-background/70 to-transparent lg:block" />
+            <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-24 bg-gradient-to-b from-background via-background/50 to-transparent lg:hidden" />
           </div>
         </div>
       </section>
     );
   }
+
 
   return (
     <section className="relative isolate overflow-hidden bg-ink text-ink-foreground">
