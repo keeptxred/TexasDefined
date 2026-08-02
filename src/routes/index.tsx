@@ -60,6 +60,9 @@ export const Route = createFileRoute("/")({
       context.queryClient.ensureQueryData(articlesQuery({ featured: true, limit: 5 })),
       context.queryClient.ensureQueryData(articlesQuery({ limit: 12 })),
       context.queryClient.ensureQueryData(destinationsQuery({})),
+      context.queryClient.ensureQueryData(destinationsQuery({ category: "lakes-rivers" })),
+      context.queryClient.ensureQueryData(destinationsQuery({ category: "state-parks" })),
+      context.queryClient.ensureQueryData(destinationsQuery({ category: "road-trips" })),
       context.queryClient.ensureQueryData(categoriesQuery()),
       context.queryClient.ensureQueryData(regionsQuery()),
       context.queryClient.ensureQueryData(collectionsQuery()),
@@ -67,6 +70,7 @@ export const Route = createFileRoute("/")({
       context.queryClient.ensureQueryData(eventsQuery({ limit: 4 })),
     ]);
   },
+
   component: HomePage,
 });
 
