@@ -97,3 +97,20 @@ Documents the shared-platform plan and states explicitly: **Lovable Cloud must n
 ## Content
 
 Seed fixtures use genuine Texas subjects — Caddo Lake, Enchanted Rock, the Hill Country wine trail, Lockhart barbecue, Palo Duro Canyon, Blue Hole in Wimberley, bluebonnet season — with real, written editorial copy. No lorem ipsum, no empty stub routes; a section ships only when it has real content behind it.
+
+## No duplicate implementations
+
+Any feature with a plausible shared future is built once, in the right abstraction, even if only TexasDefined consumes it today. This means:
+
+- **Auth / roles**: no local auth-only code, no per-brand permission checks. Future auth uses the shared Supabase project with brand-scoped roles; TexasDefined only needs a typed `usePermissions()` hook and a brand context.
+- **Search**: one engine implementation in `domain/search/` that accepts a brand filter and content source. TexasDefined's search page uses it; KeepTXRed's later uses the same engine with a different brand value.
+- **Maps**: a single `Map` component wrapper around a provider-agnostic interface. TexasDefined renders destination maps from fixtures; the same component later accepts live coordinates.
+- **Weather**: a `weather` service interface with a no-op fixture implementation, not inline conditionals in components.
+- **Analytics**: an `analytics` service interface with a console-only stub. Event names include a brand property from context.
+- **AI services**: an `ai` service interface for future recommendations/summaries; no real model calls, but the boundary exists.
+- **Shared React components**: every component in `src/components/` is treated as a future `texas-shared` export. If a component would require TexasDefined-only props, split it into a generic core and a thin TexasDefined wrapper in `src/components/branded/`.
+- **Validation**: all Zod schemas live in `domain/validation/` and describe shared entities, not TexasDefined forms.
+- **Utilities**: formatting, slugs, geo, dates, and URL helpers go into `domain/utils/` and are written without brand assumptions.
+
+The rule of thumb: if KeepTXRed could reasonably need it, it is designed as shared from the first commit. TexasDefined-specific behavior is achieved through configuration and composition, not by forking code.
+
