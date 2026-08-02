@@ -17,6 +17,7 @@ import { Route as HomeGardenRouteImport } from './routes/home-garden'
 import { Route as MovingToTexasRouteImport } from './routes/moving-to-texas'
 import { Route as RealEstateRouteImport } from './routes/real-estate'
 import { Route as SearchRouteImport } from './routes/search'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SportsRouteImport } from './routes/sports'
 import { Route as TexasHistoryRouteImport } from './routes/texas-history'
 import { Route as ArticleSlugRouteImport } from './routes/article.$slug'
@@ -64,6 +65,11 @@ const RealEstateRoute = RealEstateRouteImport.update({
 const SearchRoute = SearchRouteImport.update({
   id: '/search',
   path: '/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SportsRoute = SportsRouteImport.update({
@@ -116,6 +122,7 @@ export interface FileRoutesByFullPath {
   '/moving-to-texas': typeof MovingToTexasRoute
   '/real-estate': typeof RealEstateRoute
   '/search': typeof SearchRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sports': typeof SportsRoute
   '/texas-history': typeof TexasHistoryRoute
   '/article/$slug': typeof ArticleSlugRoute
@@ -134,6 +141,7 @@ export interface FileRoutesByTo {
   '/moving-to-texas': typeof MovingToTexasRoute
   '/real-estate': typeof RealEstateRoute
   '/search': typeof SearchRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sports': typeof SportsRoute
   '/texas-history': typeof TexasHistoryRoute
   '/article/$slug': typeof ArticleSlugRoute
@@ -153,6 +161,7 @@ export interface FileRoutesById {
   '/moving-to-texas': typeof MovingToTexasRoute
   '/real-estate': typeof RealEstateRoute
   '/search': typeof SearchRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sports': typeof SportsRoute
   '/texas-history': typeof TexasHistoryRoute
   '/article/$slug': typeof ArticleSlugRoute
@@ -173,6 +182,7 @@ export interface FileRouteTypes {
     | '/moving-to-texas'
     | '/real-estate'
     | '/search'
+    | '/sitemap.xml'
     | '/sports'
     | '/texas-history'
     | '/article/$slug'
@@ -191,6 +201,7 @@ export interface FileRouteTypes {
     | '/moving-to-texas'
     | '/real-estate'
     | '/search'
+    | '/sitemap.xml'
     | '/sports'
     | '/texas-history'
     | '/article/$slug'
@@ -209,6 +220,7 @@ export interface FileRouteTypes {
     | '/moving-to-texas'
     | '/real-estate'
     | '/search'
+    | '/sitemap.xml'
     | '/sports'
     | '/texas-history'
     | '/article/$slug'
@@ -228,6 +240,7 @@ export interface RootRouteChildren {
   MovingToTexasRoute: typeof MovingToTexasRoute
   RealEstateRoute: typeof RealEstateRoute
   SearchRoute: typeof SearchRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SportsRoute: typeof SportsRoute
   TexasHistoryRoute: typeof TexasHistoryRoute
   ArticleSlugRoute: typeof ArticleSlugRoute
@@ -294,6 +307,13 @@ declare module '@tanstack/react-router' {
       path: '/search'
       fullPath: '/search'
       preLoaderRoute: typeof SearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sports': {
@@ -364,6 +384,7 @@ const rootRouteChildren: RootRouteChildren = {
   MovingToTexasRoute: MovingToTexasRoute,
   RealEstateRoute: RealEstateRoute,
   SearchRoute: SearchRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   SportsRoute: SportsRoute,
   TexasHistoryRoute: TexasHistoryRoute,
   ArticleSlugRoute: ArticleSlugRoute,
@@ -376,3 +397,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

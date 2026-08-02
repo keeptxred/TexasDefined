@@ -5,7 +5,7 @@ import { platform, scope } from "@/data";
 
 const origin = `https://${texasDefinedBrand.identity.domain}`;
 
-export const Route = createFileRoute("/sitemap/xml")({
+export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
       GET: async () => {
