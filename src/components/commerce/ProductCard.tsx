@@ -54,7 +54,7 @@ export function ProductCard({
         onClick={() => setSaved((value) => !value)}
         aria-pressed={saved}
         aria-label={saved ? `Remove ${product.name} from saved` : `Save ${product.name}`}
-        className="absolute right-3 top-3 z-10 rounded-full bg-background/90 p-2 text-foreground/70 opacity-0 transition-all hover:text-primary focus-visible:opacity-100 group-hover:opacity-100"
+        className="absolute right-3 top-3 z-10 rounded-full bg-background/90 p-2 text-foreground/70 transition-all hover:text-primary lg:opacity-0 lg:focus-visible:opacity-100 lg:group-hover:opacity-100"
       >
         <Heart className={cn("size-4", saved && "fill-primary text-primary")} aria-hidden />
       </button>
