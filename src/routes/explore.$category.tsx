@@ -56,6 +56,8 @@ function ExploreCategoryPage() {
       eyebrow={match.eyebrow}
       title={match.name}
       intro={match.description}
+      image={match.image}
     />
   );
+
 }

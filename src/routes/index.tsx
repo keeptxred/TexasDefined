@@ -7,7 +7,10 @@ import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { EventCard } from "@/components/editorial/EventCard";
 import { FeatureHero } from "@/components/editorial/FeatureHero";
 import { GuideCard } from "@/components/editorial/GuideCard";
+import { NewsletterSignup } from "@/components/editorial/NewsletterSignup";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
+import type { Destination } from "@/data/types";
+
 import { CollectionStrip } from "@/components/commerce/CollectionStrip";
 import { Container } from "@/components/layout/Container";
 import { texasDefinedBrand } from "@/brand/texasdefined";
@@ -60,6 +63,9 @@ export const Route = createFileRoute("/")({
       context.queryClient.ensureQueryData(articlesQuery({ featured: true, limit: 5 })),
       context.queryClient.ensureQueryData(articlesQuery({ limit: 12 })),
       context.queryClient.ensureQueryData(destinationsQuery({})),
+      context.queryClient.ensureQueryData(destinationsQuery({ category: "lakes-rivers" })),
+      context.queryClient.ensureQueryData(destinationsQuery({ category: "state-parks" })),
+      context.queryClient.ensureQueryData(destinationsQuery({ category: "road-trips" })),
       context.queryClient.ensureQueryData(categoriesQuery()),
       context.queryClient.ensureQueryData(regionsQuery()),
       context.queryClient.ensureQueryData(collectionsQuery()),
@@ -67,6 +73,7 @@ export const Route = createFileRoute("/")({
       context.queryClient.ensureQueryData(eventsQuery({ limit: 4 })),
     ]);
   },
+
   component: HomePage,
 });
 
@@ -75,6 +82,9 @@ function HomePage() {
   const { data: featured } = useSuspenseQuery(articlesQuery({ featured: true, limit: 5 }));
   const { data: latest } = useSuspenseQuery(articlesQuery({ limit: 12 }));
   const { data: destinations } = useSuspenseQuery(destinationsQuery({}));
+  const { data: lakes } = useSuspenseQuery(destinationsQuery({ category: "lakes-rivers" }));
+  const { data: parks } = useSuspenseQuery(destinationsQuery({ category: "state-parks" }));
+  const { data: roadTrips } = useSuspenseQuery(destinationsQuery({ category: "road-trips" }));
   const { data: categories } = useSuspenseQuery(categoriesQuery());
   const { data: regions } = useSuspenseQuery(regionsQuery());
   const { data: collections } = useSuspenseQuery(collectionsQuery());
@@ -86,8 +96,10 @@ function HomePage() {
   const bbq = latest.find((article) => article.category === "food-bbq");
   const wildlife = latest.find((article) => article.category === "outdoors");
   const secondary = featured.slice(1, 4);
+  const featuredDestinations = destinations.filter((item) => item.featured).slice(0, 4);
   const weekend = destinations.slice(0, 3);
   const hiddenGems = destinations.slice(3, 6);
+
 
   return (
     <>
@@ -120,6 +132,31 @@ function HomePage() {
           </ul>
         </Container>
       </Section>
+
+      <Section tone="surface">
+        <Container>
+          <SectionHeader
+            eyebrow="Featured destinations"
+            title="Where we'd point you first"
+            description="Four places that answer the question better than any brochure could."
+            actionLabel={brand.copy.viewAll}
+            actionTo="/explore"
+          />
+          <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {featuredDestinations.map((destination) => (
+              <li key={destination.id}>
+                <DestinationCard
+                  destination={destination}
+                  tone="overlay"
+                  regionLabel={regionName(destination.region)}
+                />
+              </li>
+            ))}
+          </ul>
+        </Container>
+      </Section>
+
+
 
       <Section tone="surface">
         <Container>
@@ -213,6 +250,7 @@ function HomePage() {
         </Section>
       )}
 
+
       <Section>
         <Container>
           <SectionHeader eyebrow="Hidden gems" title="Places the highway skipped" />
@@ -228,6 +266,37 @@ function HomePage() {
           </ul>
         </Container>
       </Section>
+
+      <DestinationRow
+        tone="surface"
+        eyebrow="Lakes &amp; rivers"
+        title="Cold water, cypress shade"
+        actionLabel={brand.copy.viewAll}
+        actionTo="/explore/lakes-rivers"
+        destinations={lakes}
+        regionName={regionName}
+      />
+
+      <DestinationRow
+        eyebrow="State parks"
+        title="Eighty-nine parks, one state"
+        actionLabel={brand.copy.viewAll}
+        actionTo="/explore/state-parks"
+        destinations={parks}
+        regionName={regionName}
+      />
+
+      <DestinationRow
+        tone="surface"
+        eyebrow="Road trips"
+        title="Take the long way"
+        actionLabel={brand.copy.viewAll}
+        actionTo="/explore/road-trips"
+        destinations={roadTrips}
+        regionName={regionName}
+      />
+
+
 
       {wildlife && (
         <Section tone="surface">
@@ -327,6 +396,59 @@ function HomePage() {
           </ul>
         </Container>
       </Section>
+
+      {brand.features.newsletter && (
+        <Section tone="ink">
+          <Container>
+            <NewsletterSignup />
+          </Container>
+        </Section>
+      )}
     </>
   );
 }
+
+/** Local presentation helper: a titled row of destination cards. */
+function DestinationRow({
+  eyebrow,
+  title,
+  actionLabel,
+  actionTo,
+  destinations,
+  regionName,
+  tone = "default",
+}: {
+  eyebrow: string;
+  title: string;
+  actionLabel: string;
+  actionTo: string;
+  destinations: Destination[];
+  regionName: (id: string) => string | undefined;
+  tone?: "default" | "surface";
+}) {
+  if (destinations.length === 0) return null;
+
+  return (
+    <Section tone={tone}>
+      <Container>
+        <SectionHeader
+          eyebrow={eyebrow}
+          title={title}
+          actionLabel={actionLabel}
+          actionTo={actionTo}
+        />
+        <ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+          {destinations.slice(0, 3).map((destination) => (
+            <li key={destination.id}>
+              <DestinationCard
+                destination={destination}
+                regionLabel={regionName(destination.region)}
+              />
+            </li>
+          ))}
+        </ul>
+      </Container>
+    </Section>
+  );
+}
+
