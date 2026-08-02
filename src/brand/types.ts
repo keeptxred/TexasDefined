@@ -11,8 +11,11 @@ export interface BrandNavItem {
   /** Optional param map for dynamic routes. */
   params?: Record<string, string>;
   description?: string;
+  /** Optional thumbnail used by mega-menu panels. Brand supplies the asset. */
+  image?: { src: string; alt: string };
   children?: BrandNavItem[];
 }
+
 
 export interface BrandFooterColumn {
   title: string;
