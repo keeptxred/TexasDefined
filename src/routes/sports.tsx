@@ -1,0 +1,31 @@
+import { createFileRoute } from "@tanstack/react-router";
+
+import { texasDefinedBrand } from "@/brand/texasdefined";
+import { CategoryPage } from "@/components/editorial/CategoryPage";
+import { articlesQuery, destinationsQuery, regionsQuery } from "@/data/queries";
+import { buildMeta, canonicalLink } from "@/lib/seo";
+
+const description =
+  "Friday night lights, dusty rodeo arenas, big-league Sundays and the small rituals that make Texas sport its own religion.";
+
+export const Route = createFileRoute("/sports")({
+  head: () => ({
+    meta: buildMeta(texasDefinedBrand, { title: "Texas Sports", description }),
+    links: [canonicalLink(texasDefinedBrand, "/sports")],
+  }),
+  loader: async ({ context }) => {
+    await Promise.all([
+      context.queryClient.ensureQueryData(articlesQuery({ category: "sports" })),
+      context.queryClient.ensureQueryData(destinationsQuery({ category: "sports" })),
+      context.queryClient.ensureQueryData(regionsQuery()),
+    ]);
+  },
+  component: () => (
+    <CategoryPage
+      category="sports"
+      eyebrow="Sports"
+      title="Friday nights, rodeo dirt and big-league Sundays"
+      intro={description}
+    />
+  ),
+});
