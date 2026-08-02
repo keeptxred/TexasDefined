@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as EventsRouteImport } from './routes/events'
+import { Route as GuidesRouteImport } from './routes/guides'
 import { Route as HomeGardenRouteImport } from './routes/home-garden'
 import { Route as MovingToTexasRouteImport } from './routes/moving-to-texas'
 import { Route as RealEstateRouteImport } from './routes/real-estate'
@@ -27,6 +28,11 @@ const IndexRoute = IndexRouteImport.update({
 const EventsRoute = EventsRouteImport.update({
   id: '/events',
   path: '/events',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GuidesRoute = GuidesRouteImport.update({
+  id: '/guides',
+  path: '/guides',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HomeGardenRoute = HomeGardenRouteImport.update({
@@ -68,6 +74,7 @@ const ExploreCategoryRoute = ExploreCategoryRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/events': typeof EventsRoute
+  '/guides': typeof GuidesRoute
   '/home-garden': typeof HomeGardenRoute
   '/moving-to-texas': typeof MovingToTexasRoute
   '/real-estate': typeof RealEstateRoute
@@ -79,6 +86,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/events': typeof EventsRoute
+  '/guides': typeof GuidesRoute
   '/home-garden': typeof HomeGardenRoute
   '/moving-to-texas': typeof MovingToTexasRoute
   '/real-estate': typeof RealEstateRoute
@@ -91,6 +99,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/events': typeof EventsRoute
+  '/guides': typeof GuidesRoute
   '/home-garden': typeof HomeGardenRoute
   '/moving-to-texas': typeof MovingToTexasRoute
   '/real-estate': typeof RealEstateRoute
@@ -104,6 +113,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/events'
+    | '/guides'
     | '/home-garden'
     | '/moving-to-texas'
     | '/real-estate'
@@ -115,6 +125,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/events'
+    | '/guides'
     | '/home-garden'
     | '/moving-to-texas'
     | '/real-estate'
@@ -126,6 +137,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/events'
+    | '/guides'
     | '/home-garden'
     | '/moving-to-texas'
     | '/real-estate'
@@ -138,6 +150,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   EventsRoute: typeof EventsRoute
+  GuidesRoute: typeof GuidesRoute
   HomeGardenRoute: typeof HomeGardenRoute
   MovingToTexasRoute: typeof MovingToTexasRoute
   RealEstateRoute: typeof RealEstateRoute
@@ -161,6 +174,13 @@ declare module '@tanstack/react-router' {
       path: '/events'
       fullPath: '/events'
       preLoaderRoute: typeof EventsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guides': {
+      id: '/guides'
+      path: '/guides'
+      fullPath: '/guides'
+      preLoaderRoute: typeof GuidesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/home-garden': {
@@ -218,6 +238,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   EventsRoute: EventsRoute,
+  GuidesRoute: GuidesRoute,
   HomeGardenRoute: HomeGardenRoute,
   MovingToTexasRoute: MovingToTexasRoute,
   RealEstateRoute: RealEstateRoute,
