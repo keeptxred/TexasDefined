@@ -264,6 +264,37 @@ function HomePage() {
         </Container>
       </Section>
 
+      <DestinationRow
+        tone="surface"
+        eyebrow="Lakes &amp; rivers"
+        title="Cold water, cypress shade"
+        actionLabel={brand.copy.viewAll}
+        actionTo="/explore/lakes-rivers"
+        destinations={lakes}
+        regionName={regionName}
+      />
+
+      <DestinationRow
+        eyebrow="State parks"
+        title="Eighty-nine parks, one state"
+        actionLabel={brand.copy.viewAll}
+        actionTo="/explore/state-parks"
+        destinations={parks}
+        regionName={regionName}
+      />
+
+      <DestinationRow
+        tone="surface"
+        eyebrow="Road trips"
+        title="Take the long way"
+        actionLabel={brand.copy.viewAll}
+        actionTo="/explore/road-trips"
+        destinations={roadTrips}
+        regionName={regionName}
+      />
+
+
+
       {wildlife && (
         <Section tone="surface">
           <Container>
