@@ -119,24 +119,6 @@ function HomePage() {
       <Section>
         <Container>
           <SectionHeader
-            eyebrow="Featured"
-            title="The stories defining Texas right now"
-            actionLabel={brand.copy.viewAll}
-            actionTo="/explore"
-          />
-          <ul className="mt-10 grid gap-12 md:grid-cols-3">
-            {secondary.map((article) => (
-              <li key={article.id}>
-                <ArticleCard article={article} />
-              </li>
-            ))}
-          </ul>
-        </Container>
-      </Section>
-
-      <Section tone="surface">
-        <Container>
-          <SectionHeader
             eyebrow="Featured destinations"
             title="Where we'd point you first"
             description="Four places that answer the question better than any brochure could."
@@ -156,6 +138,25 @@ function HomePage() {
           </ul>
         </Container>
       </Section>
+
+      <Section tone="surface">
+        <Container>
+          <SectionHeader
+            eyebrow="Featured"
+            title="The stories defining Texas right now"
+            actionLabel={brand.copy.viewAll}
+            actionTo="/explore"
+          />
+          <ul className="mt-10 grid gap-12 md:grid-cols-3">
+            {secondary.map((article) => (
+              <li key={article.id}>
+                <ArticleCard article={article} />
+              </li>
+            ))}
+          </ul>
+        </Container>
+      </Section>
+
 
 
 
