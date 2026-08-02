@@ -60,7 +60,7 @@ src/
 
 Rules that make the later extraction to `texas-shared` mechanical:
 - `domain/`, `data/types`, `data/repositories`, and `services/` interfaces import nothing brand-specific and nothing from `components/`.
-- Components never import fixtures directly — only repositories via hooks.
+- Components consume repository-backed hooks or route loaders and never import fixture implementations directly, using whichever pattern fits TanStack Start and SSR best per route.
 - Everything brand-specific (copy, palette, nav, SEO) lives in `src/brand/`.
 
 Swapping fixtures for Supabase later is one edit in `src/data/index.ts` plus new repository implementations.
