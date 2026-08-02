@@ -1,4 +1,12 @@
+import caddoLake from "@/assets/caddo-lake.jpg";
+import paloDuro from "@/assets/palo-duro.jpg";
+import roadTrip from "@/assets/road-trip.jpg";
+import smallTown from "@/assets/small-town.jpg";
+import bbqBrisket from "@/assets/bbq-brisket.jpg";
+import wildlife from "@/assets/wildlife.jpg";
+
 import type { BrandConfig } from "./types";
+
 
 /**
  * The ONLY file that supplies concrete TexasDefined values.
