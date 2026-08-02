@@ -20,6 +20,7 @@ import { Route as TexasHistoryRouteImport } from './routes/texas-history'
 import { Route as ExploreIndexRouteImport } from './routes/explore.index'
 import { Route as ExploreCategoryRouteImport } from './routes/explore.$category'
 import { Route as ShopIndexRouteImport } from './routes/shop.index'
+import { Route as ShopCollectionRouteImport } from './routes/shop.$collection'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -76,6 +77,11 @@ const ShopIndexRoute = ShopIndexRouteImport.update({
   path: '/shop/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ShopCollectionRoute = ShopCollectionRouteImport.update({
+  id: '/shop/$collection',
+  path: '/shop/$collection',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -87,6 +93,7 @@ export interface FileRoutesByFullPath {
   '/sports': typeof SportsRoute
   '/texas-history': typeof TexasHistoryRoute
   '/explore/$category': typeof ExploreCategoryRoute
+  '/shop/$collection': typeof ShopCollectionRoute
   '/explore/': typeof ExploreIndexRoute
   '/shop/': typeof ShopIndexRoute
 }
@@ -100,6 +107,7 @@ export interface FileRoutesByTo {
   '/sports': typeof SportsRoute
   '/texas-history': typeof TexasHistoryRoute
   '/explore/$category': typeof ExploreCategoryRoute
+  '/shop/$collection': typeof ShopCollectionRoute
   '/explore': typeof ExploreIndexRoute
   '/shop': typeof ShopIndexRoute
 }
@@ -114,6 +122,7 @@ export interface FileRoutesById {
   '/sports': typeof SportsRoute
   '/texas-history': typeof TexasHistoryRoute
   '/explore/$category': typeof ExploreCategoryRoute
+  '/shop/$collection': typeof ShopCollectionRoute
   '/explore/': typeof ExploreIndexRoute
   '/shop/': typeof ShopIndexRoute
 }
@@ -129,6 +138,7 @@ export interface FileRouteTypes {
     | '/sports'
     | '/texas-history'
     | '/explore/$category'
+    | '/shop/$collection'
     | '/explore/'
     | '/shop/'
   fileRoutesByTo: FileRoutesByTo
@@ -142,6 +152,7 @@ export interface FileRouteTypes {
     | '/sports'
     | '/texas-history'
     | '/explore/$category'
+    | '/shop/$collection'
     | '/explore'
     | '/shop'
   id:
@@ -155,6 +166,7 @@ export interface FileRouteTypes {
     | '/sports'
     | '/texas-history'
     | '/explore/$category'
+    | '/shop/$collection'
     | '/explore/'
     | '/shop/'
   fileRoutesById: FileRoutesById
@@ -169,6 +181,7 @@ export interface RootRouteChildren {
   SportsRoute: typeof SportsRoute
   TexasHistoryRoute: typeof TexasHistoryRoute
   ExploreCategoryRoute: typeof ExploreCategoryRoute
+  ShopCollectionRoute: typeof ShopCollectionRoute
   ExploreIndexRoute: typeof ExploreIndexRoute
   ShopIndexRoute: typeof ShopIndexRoute
 }
@@ -252,6 +265,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ShopIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/shop/$collection': {
+      id: '/shop/$collection'
+      path: '/shop/$collection'
+      fullPath: '/shop/$collection'
+      preLoaderRoute: typeof ShopCollectionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -265,6 +285,7 @@ const rootRouteChildren: RootRouteChildren = {
   SportsRoute: SportsRoute,
   TexasHistoryRoute: TexasHistoryRoute,
   ExploreCategoryRoute: ExploreCategoryRoute,
+  ShopCollectionRoute: ShopCollectionRoute,
   ExploreIndexRoute: ExploreIndexRoute,
   ShopIndexRoute: ShopIndexRoute,
 }
