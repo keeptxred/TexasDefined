@@ -133,6 +133,31 @@ function HomePage() {
       <Section tone="surface">
         <Container>
           <SectionHeader
+            eyebrow="Featured destinations"
+            title="Where we'd point you first"
+            description="Four places that answer the question better than any brochure could."
+            actionLabel={brand.copy.viewAll}
+            actionTo="/explore"
+          />
+          <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {featuredDestinations.map((destination) => (
+              <li key={destination.id}>
+                <DestinationCard
+                  destination={destination}
+                  tone="overlay"
+                  regionLabel={regionName(destination.region)}
+                />
+              </li>
+            ))}
+          </ul>
+        </Container>
+      </Section>
+
+
+
+      <Section tone="surface">
+        <Container>
+          <SectionHeader
             eyebrow="Explore"
             title="Pick a direction"
             description="Seven regions, eighty-nine state parks, and more two-lane road than any other state. Start where your weekend is."
