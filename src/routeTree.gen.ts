@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as EventsRouteImport } from './routes/events'
+import { Route as MovingToTexasRouteImport } from './routes/moving-to-texas'
 import { Route as SportsRouteImport } from './routes/sports'
 import { Route as TexasHistoryRouteImport } from './routes/texas-history'
 import { Route as ExploreIndexRouteImport } from './routes/explore.index'
@@ -24,6 +25,11 @@ const IndexRoute = IndexRouteImport.update({
 const EventsRoute = EventsRouteImport.update({
   id: '/events',
   path: '/events',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MovingToTexasRoute = MovingToTexasRouteImport.update({
+  id: '/moving-to-texas',
+  path: '/moving-to-texas',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SportsRoute = SportsRouteImport.update({
@@ -50,6 +56,7 @@ const ExploreCategoryRoute = ExploreCategoryRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/events': typeof EventsRoute
+  '/moving-to-texas': typeof MovingToTexasRoute
   '/sports': typeof SportsRoute
   '/texas-history': typeof TexasHistoryRoute
   '/explore/$category': typeof ExploreCategoryRoute
@@ -58,6 +65,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/events': typeof EventsRoute
+  '/moving-to-texas': typeof MovingToTexasRoute
   '/sports': typeof SportsRoute
   '/texas-history': typeof TexasHistoryRoute
   '/explore/$category': typeof ExploreCategoryRoute
@@ -67,6 +75,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/events': typeof EventsRoute
+  '/moving-to-texas': typeof MovingToTexasRoute
   '/sports': typeof SportsRoute
   '/texas-history': typeof TexasHistoryRoute
   '/explore/$category': typeof ExploreCategoryRoute
@@ -77,6 +86,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/events'
+    | '/moving-to-texas'
     | '/sports'
     | '/texas-history'
     | '/explore/$category'
@@ -85,6 +95,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/events'
+    | '/moving-to-texas'
     | '/sports'
     | '/texas-history'
     | '/explore/$category'
@@ -93,6 +104,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/events'
+    | '/moving-to-texas'
     | '/sports'
     | '/texas-history'
     | '/explore/$category'
@@ -102,6 +114,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   EventsRoute: typeof EventsRoute
+  MovingToTexasRoute: typeof MovingToTexasRoute
   SportsRoute: typeof SportsRoute
   TexasHistoryRoute: typeof TexasHistoryRoute
   ExploreCategoryRoute: typeof ExploreCategoryRoute
@@ -122,6 +135,13 @@ declare module '@tanstack/react-router' {
       path: '/events'
       fullPath: '/events'
       preLoaderRoute: typeof EventsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/moving-to-texas': {
+      id: '/moving-to-texas'
+      path: '/moving-to-texas'
+      fullPath: '/moving-to-texas'
+      preLoaderRoute: typeof MovingToTexasRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sports': {
@@ -158,6 +178,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   EventsRoute: EventsRoute,
+  MovingToTexasRoute: MovingToTexasRoute,
   SportsRoute: SportsRoute,
   TexasHistoryRoute: TexasHistoryRoute,
   ExploreCategoryRoute: ExploreCategoryRoute,
