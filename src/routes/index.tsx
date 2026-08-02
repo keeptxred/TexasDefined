@@ -79,6 +79,9 @@ function HomePage() {
   const { data: featured } = useSuspenseQuery(articlesQuery({ featured: true, limit: 5 }));
   const { data: latest } = useSuspenseQuery(articlesQuery({ limit: 12 }));
   const { data: destinations } = useSuspenseQuery(destinationsQuery({}));
+  const { data: lakes } = useSuspenseQuery(destinationsQuery({ category: "lakes-rivers" }));
+  const { data: parks } = useSuspenseQuery(destinationsQuery({ category: "state-parks" }));
+  const { data: roadTrips } = useSuspenseQuery(destinationsQuery({ category: "road-trips" }));
   const { data: categories } = useSuspenseQuery(categoriesQuery());
   const { data: regions } = useSuspenseQuery(regionsQuery());
   const { data: collections } = useSuspenseQuery(collectionsQuery());
@@ -90,8 +93,10 @@ function HomePage() {
   const bbq = latest.find((article) => article.category === "food-bbq");
   const wildlife = latest.find((article) => article.category === "outdoors");
   const secondary = featured.slice(1, 4);
+  const featuredDestinations = destinations.filter((item) => item.featured).slice(0, 4);
   const weekend = destinations.slice(0, 3);
   const hiddenGems = destinations.slice(3, 6);
+
 
   return (
     <>
