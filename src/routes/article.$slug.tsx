@@ -71,8 +71,9 @@ function ArticlePage() {
   const { data: article } = useSuspenseQuery(articleQuery(slug));
   const { data: authors } = useSuspenseQuery(authorsQuery());
   const { data: related } = useSuspenseQuery(
-    articlesQuery({ category: article?.category, limit: 4 }),
+    articlesQuery(article ? { category: article.category, limit: 4 } : { limit: 4 }),
   );
+
 
   if (!article) return null;
   const author = authors.find((item) => item.id === article.authorId) ?? null;

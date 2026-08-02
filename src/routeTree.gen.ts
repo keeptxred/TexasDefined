@@ -17,6 +17,7 @@ import { Route as MovingToTexasRouteImport } from './routes/moving-to-texas'
 import { Route as RealEstateRouteImport } from './routes/real-estate'
 import { Route as SportsRouteImport } from './routes/sports'
 import { Route as TexasHistoryRouteImport } from './routes/texas-history'
+import { Route as ArticleSlugRouteImport } from './routes/article.$slug'
 import { Route as ExploreIndexRouteImport } from './routes/explore.index'
 import { Route as ExploreCategoryRouteImport } from './routes/explore.$category'
 import { Route as ShopIndexRouteImport } from './routes/shop.index'
@@ -62,6 +63,11 @@ const TexasHistoryRoute = TexasHistoryRouteImport.update({
   path: '/texas-history',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ArticleSlugRoute = ArticleSlugRouteImport.update({
+  id: '/article/$slug',
+  path: '/article/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ExploreIndexRoute = ExploreIndexRouteImport.update({
   id: '/explore/',
   path: '/explore/',
@@ -92,6 +98,7 @@ export interface FileRoutesByFullPath {
   '/real-estate': typeof RealEstateRoute
   '/sports': typeof SportsRoute
   '/texas-history': typeof TexasHistoryRoute
+  '/article/$slug': typeof ArticleSlugRoute
   '/explore/$category': typeof ExploreCategoryRoute
   '/shop/$collection': typeof ShopCollectionRoute
   '/explore/': typeof ExploreIndexRoute
@@ -106,6 +113,7 @@ export interface FileRoutesByTo {
   '/real-estate': typeof RealEstateRoute
   '/sports': typeof SportsRoute
   '/texas-history': typeof TexasHistoryRoute
+  '/article/$slug': typeof ArticleSlugRoute
   '/explore/$category': typeof ExploreCategoryRoute
   '/shop/$collection': typeof ShopCollectionRoute
   '/explore': typeof ExploreIndexRoute
@@ -121,6 +129,7 @@ export interface FileRoutesById {
   '/real-estate': typeof RealEstateRoute
   '/sports': typeof SportsRoute
   '/texas-history': typeof TexasHistoryRoute
+  '/article/$slug': typeof ArticleSlugRoute
   '/explore/$category': typeof ExploreCategoryRoute
   '/shop/$collection': typeof ShopCollectionRoute
   '/explore/': typeof ExploreIndexRoute
@@ -137,6 +146,7 @@ export interface FileRouteTypes {
     | '/real-estate'
     | '/sports'
     | '/texas-history'
+    | '/article/$slug'
     | '/explore/$category'
     | '/shop/$collection'
     | '/explore/'
@@ -151,6 +161,7 @@ export interface FileRouteTypes {
     | '/real-estate'
     | '/sports'
     | '/texas-history'
+    | '/article/$slug'
     | '/explore/$category'
     | '/shop/$collection'
     | '/explore'
@@ -165,6 +176,7 @@ export interface FileRouteTypes {
     | '/real-estate'
     | '/sports'
     | '/texas-history'
+    | '/article/$slug'
     | '/explore/$category'
     | '/shop/$collection'
     | '/explore/'
@@ -180,6 +192,7 @@ export interface RootRouteChildren {
   RealEstateRoute: typeof RealEstateRoute
   SportsRoute: typeof SportsRoute
   TexasHistoryRoute: typeof TexasHistoryRoute
+  ArticleSlugRoute: typeof ArticleSlugRoute
   ExploreCategoryRoute: typeof ExploreCategoryRoute
   ShopCollectionRoute: typeof ShopCollectionRoute
   ExploreIndexRoute: typeof ExploreIndexRoute
@@ -244,6 +257,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TexasHistoryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/article/$slug': {
+      id: '/article/$slug'
+      path: '/article/$slug'
+      fullPath: '/article/$slug'
+      preLoaderRoute: typeof ArticleSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/explore/': {
       id: '/explore/'
       path: '/explore'
@@ -284,6 +304,7 @@ const rootRouteChildren: RootRouteChildren = {
   RealEstateRoute: RealEstateRoute,
   SportsRoute: SportsRoute,
   TexasHistoryRoute: TexasHistoryRoute,
+  ArticleSlugRoute: ArticleSlugRoute,
   ExploreCategoryRoute: ExploreCategoryRoute,
   ShopCollectionRoute: ShopCollectionRoute,
   ExploreIndexRoute: ExploreIndexRoute,
