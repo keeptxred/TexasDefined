@@ -14,7 +14,12 @@ if (!/^\d+\.\d+\.\d+$/.test(version)) errors.push('Current internal-link policy 
 if (!/^\d{4}-\d{2}-\d{2}$/.test(reviewedAt)) errors.push('Current internal-link policy review date is invalid.');
 if (!history.includes(`version: '${version}'`)) errors.push(`Policy release history does not contain version ${version}.`);
 if (!history.includes(`reviewedAt: '${reviewedAt}'`)) errors.push(`Policy release history does not contain review date ${reviewedAt}.`);
-if (!history.includes('fingerprint: internalLinkPolicyFingerprint()')) errors.push('Current policy history release must record the generated policy fingerprint.');
+if (!history.includes('snapshot:')) errors.push('Policy release history must store immutable policy snapshots.');
+if (!history.includes("fingerprint: 'fnv1a-")) errors.push('Policy release history must store a fixed fingerprint rather than recomputing it from active policies.');
+if (history.includes('fingerprint: internalLinkPolicyFingerprint()')) errors.push('Historical policy fingerprints must not be computed from the active policy set.');
+if (!history.includes('fingerprintSnapshot(release.snapshot)')) errors.push('Policy history validation must verify each immutable snapshot fingerprint.');
+if (!history.includes('policySnapshotForVersion')) errors.push('Policy history must expose exact snapshot retrieval for rollback.');
+if (!history.includes('rollbackContextForVersion')) errors.push('Policy history must expose rollback context.');
 
 let previous;
 try {
@@ -41,7 +46,7 @@ if (errors.length) {
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
-console.log(`Internal-link policy release ${version} reviewed ${reviewedAt} is valid (${changeType}).`);
+console.log(`Internal-link policy release ${version} reviewed ${reviewedAt} has an immutable snapshot and is valid (${changeType}).`);
 
 function value(source, name) {
   return source.match(new RegExp(`${name}\\s*=\\s*['\"]([^'\"]+)['\"]`))?.[1] ?? '';
