@@ -1,14 +1,17 @@
 import type { TexasEntityRecord } from '@/data/knowledge-graph';
 import { auditKnowledgeGraphBehavior, GRAPH_BEHAVIOR_THRESHOLDS } from '@/platform/knowledge-graph-behavior';
+import { auditKnowledgeGraphRegression, GRAPH_REGRESSION_THRESHOLDS } from '@/platform/knowledge-graph-regression';
 
 export function KnowledgeGraphBehavior({ graph }: { graph: TexasEntityRecord[] }) {
   const report = auditKnowledgeGraphBehavior(graph);
+  const regression = auditKnowledgeGraphRegression(graph);
   const { simulation, completeness, benchmark } = report;
+  const healthy = report.healthy && regression.healthy;
   return <section className="mt-12">
     <h2 className="font-display text-3xl">Knowledge-graph behavior</h2>
     <p className="mt-2 text-sm text-muted-foreground">Behavioral checks for reachability, authority, canonical paths, completeness, graph regressions, and AI retrieval.</p>
     <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-      <Metric value={report.healthy ? 'Healthy' : 'Needs review'} label="Behavioral status" detail={`${report.issues.length} threshold issues`} />
+      <Metric value={healthy ? 'Healthy' : 'Needs review'} label="Behavioral status" detail={`${report.issues.length + regression.issues.length} threshold issues`} />
       <Metric value={`${simulation.orphanPercent}%`} label="Orphan entities" detail={`Maximum ${GRAPH_BEHAVIOR_THRESHOLDS.maximumOrphanPercent}%`} />
       <Metric value={String(simulation.connectedComponents)} label="Connected components" detail={`${simulation.largestComponentSharePercent}% in largest component`} />
       <Metric value={`${benchmark.passPercent}%`} label="AI benchmark" detail={`${benchmark.passed}/${benchmark.total} cases passed`} />
@@ -19,7 +22,13 @@ export function KnowledgeGraphBehavior({ graph }: { graph: TexasEntityRecord[] }
       <Metric value={String(completeness.averageScore)} label="Average completeness" detail={`Minimum ${GRAPH_BEHAVIOR_THRESHOLDS.minimumAverageCompleteness}`} />
       <Metric value={String(report.missingCanonicalPaths)} label="Missing canonical paths" detail="Entities without a complete Texas path" />
     </div>
-    {report.issues.length > 0 && <div className="mt-6 rounded-md border border-amber-500/40 p-5"><strong>Behavioral release issues</strong>{report.issues.map((issue) => <p className="mt-2 text-sm" key={issue}>{issue}</p>)}</div>}
+    <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <Metric value={String(regression.graphDensity)} label="Graph density" detail={`Minimum ${GRAPH_REGRESSION_THRESHOLDS.minimumDensity}`} />
+      <Metric value={String(regression.maximumNavigationDepth)} label="Maximum navigation depth" detail={`Maximum ${GRAPH_REGRESSION_THRESHOLDS.maximumNavigationDepth}`} />
+      <Metric value={String(regression.duplicateEntityIds.length)} label="Duplicate entity IDs" detail={`Maximum ${GRAPH_REGRESSION_THRESHOLDS.maximumDuplicateIds}`} />
+      <Metric value={String(regression.missingCanonicalPaths.length)} label="Regression path failures" detail={`Maximum ${GRAPH_REGRESSION_THRESHOLDS.maximumMissingCanonicalPaths}`} />
+    </div>
+    {(report.issues.length > 0 || regression.issues.length > 0) && <div className="mt-6 rounded-md border border-amber-500/40 p-5"><strong>Behavioral release issues</strong>{[...report.issues, ...regression.issues].map((issue) => <p className="mt-2 text-sm" key={issue}>{issue}</p>)}</div>}
     <div className="mt-8 grid gap-6 lg:grid-cols-3">
       <List title="Weakest entities" items={completeness.weakest.slice(0, 10).map((item) => `${item.entityId} · ${item.score}% · missing ${item.missing.join(', ') || 'nothing'}`)} />
       <List title="Highest authority" items={report.authority.slice(0, 10).map((item) => `${item.entityId} · ${item.score}`)} />
