@@ -6,7 +6,7 @@ import { CategoryPage } from "@/components/editorial/CategoryPage";
 import { Container } from "@/components/layout/Container";
 import { categoriesQuery } from "@/data/queries";
 import type { CategorySlug } from "@/data/types";
-import { buildMeta, canonicalLink } from "@/lib/explore-seo";
+import { buildMeta, canonicalLink } from "@/lib/seo";
 
 export const Route = createFileRoute("/explore/category/$category")({
   loader: async ({ context, params }) => {

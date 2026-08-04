@@ -171,7 +171,7 @@ function HomePage() {
             {categories.map((category) => (
               <li key={category.slug}>
                 <Link
-                  to="/explore/$category"
+                  to="/explore/category/$category"
                   params={{ category: category.slug }}
                   className="group relative block overflow-hidden"
                 >
