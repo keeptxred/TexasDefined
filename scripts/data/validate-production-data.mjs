@@ -5,10 +5,10 @@ const root = process.cwd();
 const errors = [];
 const read = (file) => fs.readFileSync(path.join(root, file), 'utf8');
 const requiredFiles = [
-  'src/routes/learn.property-taxes.tsx','src/routes/learn.property-tax-payments.tsx','src/routes/decide.property-taxes.tsx','src/routes/learn.appraisal-districts.tsx','src/routes/do.homestead-exemption.tsx','src/routes/do.property-tax-protest.tsx','src/routes/browse.counties.tsx','src/routes/browse.cities.tsx',
+  'src/routes/learn.property-taxes.tsx','src/routes/learn.property-tax-payments.tsx','src/routes/decide.property-taxes.tsx','src/routes/learn.appraisal-districts.tsx','src/routes/do.homestead-exemption.tsx','src/routes/do.property-tax-protest.tsx','src/routes/browse.counties.tsx','src/routes/browse.cities.tsx','src/routes/article.$slug.tsx',
   'src/routes/admin.platform-health.tsx','src/routes/sitemap[.]xml.ts','src/routes/api.knowledge-graph.ts','src/routes/api.ai.entities.ts','src/routes/llms[.]txt.ts','src/routes/$kind.$slug.tsx',
   'src/data/texas-data-sources.ts','src/data/texas-entity-registry.ts','src/data/knowledge-graph/types.ts','src/data/knowledge-graph/seed.ts','src/data/knowledge-graph/index.ts','src/data/knowledge-graph/explore-adapter.ts','src/data/knowledge-graph/relationships.ts','src/data/knowledge-graph/audit.ts',
-  'src/components/content/AutoEntityLinks.tsx','src/platform/analytics.ts','scripts/data/import-authoritative-entities.mjs','.github/workflows/import-entities.yml',
+  'src/components/content/AutoEntityLinks.tsx','src/components/editorial/ArticleBody.tsx','src/platform/analytics.ts','scripts/data/import-authoritative-entities.mjs','.github/workflows/import-entities.yml',
 ];
 for (const file of requiredFiles) if (!fs.existsSync(path.join(root, file))) errors.push(`Required platform file is missing: ${file}`);
 
@@ -22,6 +22,8 @@ const graphAdapter = read('src/data/knowledge-graph/explore-adapter.ts');
 const relationships = read('src/data/knowledge-graph/relationships.ts');
 const audit = read('src/data/knowledge-graph/audit.ts');
 const entityRoute = read('src/routes/$kind.$slug.tsx');
+const articleRoute = read('src/routes/article.$slug.tsx');
+const articleBody = read('src/components/editorial/ArticleBody.tsx');
 const aiApi = read('src/routes/api.ai.entities.ts');
 const graphApi = read('src/routes/api.knowledge-graph.ts');
 const linker = read('src/components/content/AutoEntityLinks.tsx');
@@ -43,6 +45,8 @@ for (const feature of ['rankRelatedEntities','canonicalEntityPath','direct relat
 for (const feature of ['auditTexasKnowledgeGraph','missing-official-url','missing-coordinates','missing-relationships','review-overdue','duplicate-alias']) if (!audit.includes(feature)) errors.push(`Graph audit feature missing: ${feature}.`);
 for (const feature of ["createFileRoute('/$kind/$slug')",'rankRelatedEntities','application/ld+json','GeoCoordinates','Official website','Open map']) if (!entityRoute.includes(feature)) errors.push(`Entity page feature missing: ${feature}.`);
 for (const feature of ['autoLinkEntityMentions','maxLinks = 8','used.has','canonicalEntityPath']) if (!linker.includes(feature)) errors.push(`Automatic linking feature missing: ${feature}.`);
+for (const feature of ['ArticleBody blocks={article.body} entities={graph}','loadTexasKnowledgeGraph','mentions: mentions.map']) if (!articleRoute.includes(feature)) errors.push(`Article graph integration missing: ${feature}.`);
+for (const feature of ['AutoEntityLinks','entities?: TexasEntityRecord[]','linked = new Set']) if (!articleBody.includes(feature)) errors.push(`Article entity-link rendering missing: ${feature}.`);
 for (const feature of ["createFileRoute('/api/ai/entities')",'@context','about: toJsonLd','mentions: related','access-control-allow-origin']) if (!aiApi.includes(feature)) errors.push(`AI retrieval feature missing: ${feature}.`);
 for (const feature of ["createFileRoute('/api/knowledge-graph')",'Math.min(Math.max(Math.trunc(requestedLimit), 1), 100)','cache-control']) if (!graphApi.includes(feature)) errors.push(`Knowledge graph API feature missing: ${feature}.`);
 for (const adapter of ['census','usgs','tpwd','nps','thc','txdot']) if (!importer.includes(`${adapter}: {`)) errors.push(`Official import adapter missing: ${adapter}.`);
