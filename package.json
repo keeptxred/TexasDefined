@@ -10,6 +10,10 @@
     "preview": "vite preview",
     "lint": "eslint .",
     "format": "prettier --write .",
+    "data:validate": "node scripts/data/validate-production-data.mjs",
+    "data:sync": "node scripts/data/sync-authoritative-data.mjs",
+    "data:sync:strict": "node scripts/data/sync-authoritative-data.mjs --strict",
+    "validate": "npm run data:validate && npm run build",
     "explore:verify:database": "bash scripts/explore/migrate-postgres.sh"
   },
   "dependencies": {
