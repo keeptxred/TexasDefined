@@ -59,7 +59,7 @@ requireSymbols(history, ['INTERNAL_LINK_POLICY_HISTORY','currentInternalLinkPoli
 requireSymbols(component, ['data-entity-id','data-entity-kind','data-link-score','data-link-reasons','resolveInternalEntityLinks'], 'link component');
 requireSymbols(analytics, ['internal_link_shown','internal_link_clicked','IntersectionObserver','recordInternalLinkExposure'], 'analytics');
 requireSymbols(memoryCard, ['internalLinkMemorySummary','Tracked entities','Link impressions','Most exposed','Most engaged','Shown but unclicked'], 'memory health card');
-requireSymbols(historyCard, ['INTERNAL_LINK_POLICY_HISTORY','currentInternalLinkPolicyRelease','validateInternalLinkPolicyHistory','fingerprintMatches','Current release','Change class','Rollback context'], 'policy release history card');
+requireSymbols(historyCard, ['INTERNAL_LINK_POLICY_HISTORY','currentInternalLinkPolicyRelease','validateInternalLinkPolicyHistory','fingerprintMatches','Current release','Change class','rollback context'], 'policy release history card');
 requireSymbols(articleBody, ['INTERNAL_LINK_POLICIES.article',"policyForSurface('article')",'articlePolicy.pageBudget','articlePolicy.blockBudget'], 'article policy integration');
 requireSymbols(guide, ["INTERNAL_LINK_POLICIES['property-tax-guide']","policyForSurface('property-tax-guide')",'surfacePolicy.pageBudget','surfacePolicy.blockBudget','data-link-score'], 'property-tax policy integration');
 requireSymbols(destination, ["INTERNAL_LINK_POLICIES.destination","policyForSurface('destination')",'surfacePolicy.pageBudget','surfacePolicy.blockBudget','excludedEntityIds'], 'destination policy integration');
