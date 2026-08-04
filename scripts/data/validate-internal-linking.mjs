@@ -60,11 +60,11 @@ requireSymbols(rollbackApi, ["createFileRoute('/api/internal-link-policy-rollbac
 requireText(article, 'ArticleBody blocks={article.body} entities={graph}', 'article internal-link activation');
 requireSymbols(destination, ['AutoEntityLinks','loadTexasKnowledgeGraph'], 'destination linking');
 requireSymbols(entity, ['AutoEntityLinks','relatedEntities','excludedEntityIds: [entity.id]'], 'entity linking');
-requireSymbols(health, ['InternalLinkPolicyHistory','Governed internal-link policies'], 'Platform Health policy governance');
-requireSymbols(rollbackPage, ["createFileRoute('/admin/internal-link-rollback')",'InternalLinkRollbackPreview','noindex,nofollow','read-only'], 'rollback admin page');
+requireSymbols(health, ['InternalLinkPolicyHistory','Governed internal-link policies','Rollback operations','/admin/internal-link-rollback','Preview rollback'], 'Platform Health rollback governance');
+requireSymbols(rollbackPage, ["createFileRoute('/admin/internal-link-rollback')",'InternalLinkRollbackPreview','noindex,nofollow','read-only','/admin/platform-health','Return to Platform Health'], 'rollback admin page');
 
 if (errors.length) fail();
-console.log('Phase 2 internal linking, immutable policy releases, read-only rollback previews, intelligent scoring, exposure balancing, analytics, and quality governance are protected.');
+console.log('Phase 2 internal linking, immutable policy releases, discoverable read-only rollback previews, intelligent scoring, exposure balancing, analytics, and quality governance are protected.');
 
 function requireSymbols(source, symbols, area) { for (const symbol of symbols) if (!source.includes(symbol)) errors.push(`${area} feature missing: ${symbol}`); }
 function requireText(source, text, label) { if (!source.includes(text)) errors.push(`Missing ${label}.`); }
