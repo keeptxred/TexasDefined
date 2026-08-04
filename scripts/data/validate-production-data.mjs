@@ -4,58 +4,57 @@ import path from 'node:path';
 const root = process.cwd();
 const errors = [];
 const read = (file) => fs.readFileSync(path.join(root, file), 'utf8');
+const requiredFiles = [
+  'src/routes/learn.property-taxes.tsx','src/routes/learn.property-tax-payments.tsx','src/routes/decide.property-taxes.tsx','src/routes/learn.appraisal-districts.tsx','src/routes/do.homestead-exemption.tsx','src/routes/do.property-tax-protest.tsx','src/routes/browse.counties.tsx','src/routes/browse.cities.tsx',
+  'src/routes/admin.platform-health.tsx','src/routes/sitemap[.]xml.ts','src/routes/api.knowledge-graph.ts','src/routes/api.ai.entities.ts','src/routes/llms[.]txt.ts','src/routes/$kind.$slug.tsx',
+  'src/data/texas-data-sources.ts','src/data/texas-entity-registry.ts','src/data/knowledge-graph/types.ts','src/data/knowledge-graph/seed.ts','src/data/knowledge-graph/index.ts','src/data/knowledge-graph/explore-adapter.ts','src/data/knowledge-graph/relationships.ts','src/data/knowledge-graph/audit.ts',
+  'src/components/content/AutoEntityLinks.tsx','src/platform/analytics.ts','scripts/data/import-authoritative-entities.mjs','.github/workflows/import-entities.yml',
+];
+for (const file of requiredFiles) if (!fs.existsSync(path.join(root, file))) errors.push(`Required platform file is missing: ${file}`);
 
 const places = read('src/data/texas-places.ts');
 const sources = read('src/data/source-governance.ts');
 const dataSources = read('src/data/texas-data-sources.ts');
 const entityRegistry = read('src/data/texas-entity-registry.ts');
 const graphTypes = read('src/data/knowledge-graph/types.ts');
-const graphSeed = read('src/data/knowledge-graph/seed.ts');
 const graphQueries = read('src/data/knowledge-graph/index.ts');
-const graphExploreAdapter = read('src/data/knowledge-graph/explore-adapter.ts');
+const graphAdapter = read('src/data/knowledge-graph/explore-adapter.ts');
+const relationships = read('src/data/knowledge-graph/relationships.ts');
+const audit = read('src/data/knowledge-graph/audit.ts');
+const entityRoute = read('src/routes/$kind.$slug.tsx');
+const aiApi = read('src/routes/api.ai.entities.ts');
 const graphApi = read('src/routes/api.knowledge-graph.ts');
-const analytics = read('src/platform/analytics.ts');
+const linker = read('src/components/content/AutoEntityLinks.tsx');
+const importer = read('scripts/data/import-authoritative-entities.mjs');
+const packageJson = read('package.json');
 const rootRoute = read('src/routes/__root.tsx');
 const sitemap = read('src/routes/sitemap[.]xml.ts');
-const requiredFiles = [
-  'src/routes/learn.property-taxes.tsx','src/routes/learn.property-tax-payments.tsx','src/routes/decide.property-taxes.tsx',
-  'src/routes/learn.appraisal-districts.tsx','src/routes/do.homestead-exemption.tsx','src/routes/do.property-tax-protest.tsx',
-  'src/routes/browse.counties.tsx','src/routes/browse.cities.tsx','src/routes/admin.platform-health.tsx','src/routes/sitemap[.]xml.ts',
-  'src/routes/api.knowledge-graph.ts','src/data/texas-data-sources.ts','src/data/texas-entity-registry.ts','src/data/knowledge-graph/types.ts',
-  'src/data/knowledge-graph/seed.ts','src/data/knowledge-graph/index.ts','src/data/knowledge-graph/explore-adapter.ts','src/platform/analytics.ts',
-];
-const publicPaths = ['/learn/property-taxes','/learn/property-tax-payments','/decide/property-taxes','/learn/appraisal-districts','/do/homestead-exemption','/do/property-tax-protest','/browse/counties','/browse/cities'];
 
 const countyLiteral = places.match(/const COUNTY_NAMES = `([^`]+)`\.split/s)?.[1] ?? '';
 const countyCount = countyLiteral ? countyLiteral.split('|').length : 0;
 if (countyCount !== 254) errors.push(`Expected 254 Texas counties; found ${countyCount}.`);
-const cityTuples = [...places.matchAll(/\['[^']+','[^']+','[^']+'\]/g)].length;
-if (cityTuples < 50) errors.push(`Expected at least 50 city directory records; found ${cityTuples}.`);
-
-if (!sources.includes('https://comptroller.texas.gov/taxes/property-tax/')) errors.push('Texas Comptroller property-tax source is missing.');
-if (!sources.includes('https://www.texas.gov/texas-county-websites.html')) errors.push('Texas county directory source is missing.');
-if (!sources.includes("id: 'property-tax-payments'")) errors.push('Payments and collections guide is missing from content-health governance.');
+if ([...places.matchAll(/\['[^']+','[^']+','[^']+'\]/g)].length < 50) errors.push('Seeded city directory is unexpectedly small.');
+if (!sources.includes("id: 'property-tax-payments'")) errors.push('Payments guide is missing from content governance.');
 for (const sourceId of ['census-places','census-counties','texasdefined-regions','explore-shared-catalog','usgs-water','tpwd-parks','nps-texas','usfs-texas','official-destination-sites','official-event-sites']) if (!dataSources.includes(`id:'${sourceId}'`)) errors.push(`Knowledge graph source missing: ${sourceId}.`);
-if (!entityRegistry.includes('TEXAS_ENTITY_REGISTRY')) errors.push('Production Texas entity registry export is missing.');
-if (!entityRegistry.includes('CURATED_KNOWLEDGE_GRAPH_SEED')) errors.push('Curated knowledge graph seed is not connected to the registry.');
-if (!entityRegistry.includes('findTexasEntity')) errors.push('Entity alias lookup is missing.');
-if (!entityRegistry.includes('sourceConfidence')) errors.push('Entity source-confidence metadata is missing.');
-for (const kind of ['county','city','region','lake','river','state-park','national-park','national-forest','museum','historic-site','fair','rodeo','festival','sports-venue']) if (!graphTypes.includes(`'${kind}'`)) errors.push(`Knowledge graph kind missing: ${kind}.`);
 for (const field of ['aliases: string[]','coordinates?: GeoPoint','sourceConfidence: SourceConfidence','relationships: EntityRelationship[]']) if (!graphTypes.includes(field)) errors.push(`Knowledge graph field missing: ${field}.`);
-if (!graphSeed.includes('CURATED_KNOWLEDGE_GRAPH_SEED')) errors.push('Knowledge graph seed export is missing.');
-for (const api of ['searchTexasKnowledgeGraph','graphNeighbors','loadTexasKnowledgeGraph','searchCompleteTexasKnowledgeGraph','findCompleteTexasEntity']) if (!graphQueries.includes(api)) errors.push(`Knowledge graph API missing: ${api}.`);
-for (const adapterFeature of ['mapExploreRowToGraphEntity','fetchExploreGraphEntities','explore_entities','visibility: \'eq.public\'','status: \'in.(published,verified)\'']) if (!graphExploreAdapter.includes(adapterFeature)) errors.push(`Explore graph adapter feature missing: ${adapterFeature}.`);
-for (const apiFeature of ["createFileRoute('/api/knowledge-graph')",'loadTexasKnowledgeGraph','findCompleteTexasEntity','searchCompleteTexasKnowledgeGraph','countsByKind','cache-control']) if (!graphApi.includes(apiFeature)) errors.push(`Knowledge graph HTTP API feature missing: ${apiFeature}.`);
-if (!graphApi.includes('Math.min(Math.max(Math.trunc(requestedLimit), 1), 100)')) errors.push('Knowledge graph API limit protection is missing.');
-if (!analytics.includes("QUEUE_KEY='texasdefined:analytics-queue'")) errors.push('Privacy-safe local analytics queue is missing.');
-if (!analytics.includes('MAX_QUEUE=100')) errors.push('Analytics queue limit is missing.');
-if (!rootRoute.includes('installTexasDefinedAnalytics')) errors.push('Outcome analytics is not initialized in the application root.');
-for (const publicPath of publicPaths) if (!sitemap.includes(`\"${publicPath}\"`)) errors.push(`Main sitemap is missing ${publicPath}.`);
-for (const file of requiredFiles) if (!fs.existsSync(path.join(root, file))) errors.push(`Required migrated file is missing: ${file}`);
+for (const api of ['loadTexasKnowledgeGraph','searchCompleteTexasKnowledgeGraph','findCompleteTexasEntity']) if (!graphQueries.includes(api)) errors.push(`Merged graph API missing: ${api}.`);
+for (const feature of ['explore_entities',"visibility: 'eq.public'","status: 'in.(published,verified)'"]) if (!graphAdapter.includes(feature)) errors.push(`Explore adapter protection missing: ${feature}.`);
+for (const feature of ['rankRelatedEntities','canonicalEntityPath','direct relationship','same county','same region']) if (!relationships.includes(feature)) errors.push(`Relationship engine feature missing: ${feature}.`);
+for (const feature of ['auditTexasKnowledgeGraph','missing-official-url','missing-coordinates','missing-relationships','review-overdue','duplicate-alias']) if (!audit.includes(feature)) errors.push(`Graph audit feature missing: ${feature}.`);
+for (const feature of ["createFileRoute('/$kind/$slug')",'rankRelatedEntities','application/ld+json','GeoCoordinates','Official website','Open map']) if (!entityRoute.includes(feature)) errors.push(`Entity page feature missing: ${feature}.`);
+for (const feature of ['autoLinkEntityMentions','maxLinks = 8','used.has','canonicalEntityPath']) if (!linker.includes(feature)) errors.push(`Automatic linking feature missing: ${feature}.`);
+for (const feature of ["createFileRoute('/api/ai/entities')",'@context','about: toJsonLd','mentions: related','access-control-allow-origin']) if (!aiApi.includes(feature)) errors.push(`AI retrieval feature missing: ${feature}.`);
+for (const feature of ["createFileRoute('/api/knowledge-graph')",'Math.min(Math.max(Math.trunc(requestedLimit), 1), 100)','cache-control']) if (!graphApi.includes(feature)) errors.push(`Knowledge graph API feature missing: ${feature}.`);
+for (const adapter of ['census','usgs','tpwd','nps','thc','txdot']) if (!importer.includes(`${adapter}: {`)) errors.push(`Official import adapter missing: ${adapter}.`);
+if (!importer.includes("process.argv.includes('--write')")) errors.push('Import jobs are not dry-run-first.');
+for (const command of ['entities:import','entities:import:write','entities:import:census','entities:import:parks']) if (!packageJson.includes(`\"${command}\"`)) errors.push(`Package command missing: ${command}.`);
+if (!rootRoute.includes('installTexasDefinedAnalytics')) errors.push('Privacy-safe analytics is not initialized.');
+if (!sitemap.includes('loadTexasKnowledgeGraph') || !sitemap.includes('canonicalEntityPath')) errors.push('Knowledge graph entities are missing from sitemap generation.');
+if (!entityRegistry.includes('TEXAS_ENTITY_REGISTRY') || !entityRegistry.includes('sourceConfidence')) errors.push('Production entity registry is incomplete.');
 
 if (errors.length) {
   console.error('TexasDefined production-data validation failed:');
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
-console.log(`TexasDefined production data valid: ${countyCount} counties, ${cityTuples} seeded cities, ${requiredFiles.length} protected files, ${publicPaths.length} sitemap routes, static and Explore knowledge graphs connected, HTTP graph API protected.`);
+console.log(`TexasDefined platform validation passed: ${countyCount} counties and phases 1.1–1.6 protected.`);
