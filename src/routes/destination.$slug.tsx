@@ -10,6 +10,7 @@ import { Container } from "@/components/layout/Container";
 import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
 import { articlesQuery, destinationQuery, regionsQuery } from "@/data/queries";
 import { buildMeta, canonicalLink } from "@/lib/seo";
+import { INTERNAL_LINK_POLICIES, policyForSurface } from '@/platform/internal-link-policies';
 
 export const Route = createFileRoute("/destination/$slug")({
   loader: async ({ context, params }) => {
@@ -49,6 +50,11 @@ function DestinationPage() {
   if (!destination) return null;
   const region = regions.find((item) => item.id === destination.region);
   const excludedEntityIds = [`${destination.category}:${destination.slug}`, `attraction:${destination.slug}`];
+  const surfacePolicy = INTERNAL_LINK_POLICIES.destination;
+  const destinationPolicy = policyForSurface('destination', { excludedEntityIds, region: destination.region });
+  let remainingLinks = surfacePolicy.pageBudget;
+  const limit = (requested: number) => Math.max(0, Math.min(requested, surfacePolicy.blockBudget, remainingLinks));
+  const spend = (requested: number) => { const value = limit(requested); remainingLinks -= value; return value; };
 
   return <>
     <section className="relative isolate overflow-hidden bg-ink text-ink-foreground">
@@ -63,13 +69,13 @@ function DestinationPage() {
 
     <Container className="grid gap-12 py-14 lg:grid-cols-[1.6fr_1fr]">
       <div className="editorial-body max-w-2xl">
-        {destination.body.map((paragraph) => <p key={paragraph} className="mt-5 first:mt-0"><AutoEntityLinks text={paragraph} entities={graph} maxLinks={4} policy={{ excludedEntityIds }} /></p>)}
+        {destination.body.map((paragraph) => <p key={paragraph} className="mt-5 first:mt-0"><AutoEntityLinks text={paragraph} entities={graph} maxLinks={spend(4)} policy={destinationPolicy} /></p>)}
         <h2 className="mt-10 font-display text-2xl">Don't miss</h2>
-        <ul className="mt-4 list-disc space-y-2 pl-6 marker:text-primary">{destination.highlights.map((highlight) => <li key={highlight}><AutoEntityLinks text={highlight} entities={graph} maxLinks={1} policy={{ excludedEntityIds }} /></li>)}</ul>
+        <ul className="mt-4 list-disc space-y-2 pl-6 marker:text-primary">{destination.highlights.map((highlight) => <li key={highlight}><AutoEntityLinks text={highlight} entities={graph} maxLinks={spend(1)} policy={destinationPolicy} /></li>)}</ul>
       </div>
       <aside className="space-y-6">
         <dl className="border border-border p-6 text-sm">
-          <dt className="eyebrow text-muted-foreground">Nearest town</dt><dd className="mt-1"><AutoEntityLinks text={destination.nearestTown} entities={graph} maxLinks={1} policy={{ excludedEntityIds }} /></dd>
+          <dt className="eyebrow text-muted-foreground">Nearest town</dt><dd className="mt-1"><AutoEntityLinks text={destination.nearestTown} entities={graph} maxLinks={spend(1)} policy={destinationPolicy} /></dd>
           <dt className="eyebrow mt-4 text-muted-foreground">Best season</dt><dd className="mt-1">{destination.bestSeason}</dd>
           <dt className="eyebrow mt-4 text-muted-foreground">Entry</dt><dd className="mt-1">{destination.entryNote}</dd>
         </dl>
