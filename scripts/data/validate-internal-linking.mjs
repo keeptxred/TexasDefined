@@ -55,7 +55,8 @@ requireSymbols(memory, ['MEMORY_KEY','MAX_ENTITIES = 250','MAX_COUNT = 1000','re
 requireSymbols(quality, ['INTERNAL_LINK_QUALITY_THRESHOLDS','minimumCoveragePercent: 100','maximumAmbiguousAliasPercent','maximumOrphanEntityPercent','maximumUnverifiedEntityPercent','auditInternalLinkQuality'], 'quality');
 requireSymbols(policies, ['INTERNAL_LINK_POLICY_VERSION','INTERNAL_LINK_POLICY_REVIEWED_AT','INTERNAL_LINK_POLICIES','policyForSurface','validateInternalLinkPolicies','internalLinkPolicyFingerprint','pageBudget','blockBudget','minimumScore','ambiguityMargin'], 'policies');
 for (const surface of ['article','destination','property-tax-guide','entity-page']) requireText(policies, `'${surface}'`, `governed route policy ${surface}`);
-requireSymbols(history, ['INTERNAL_LINK_POLICY_HISTORY','currentInternalLinkPolicyRelease','validateInternalLinkPolicyHistory','changeType','fingerprint: internalLinkPolicyFingerprint()'], 'policy history');
+requireSymbols(history, ['INTERNAL_LINK_POLICY_HISTORY','currentInternalLinkPolicyRelease','validateInternalLinkPolicyHistory','changeType','snapshot: POLICY_2_0_0_SNAPSHOT',"fingerprint: 'fnv1a-",'fingerprintSnapshot(release.snapshot)','policySnapshotForVersion','rollbackContextForVersion','cloneSnapshot'], 'immutable policy history');
+if (history.includes('fingerprint: internalLinkPolicyFingerprint()')) errors.push('Policy history still recomputes a historical fingerprint from active policies.');
 requireSymbols(component, ['data-entity-id','data-entity-kind','data-link-score','data-link-reasons','resolveInternalEntityLinks'], 'link component');
 requireSymbols(analytics, ['internal_link_shown','internal_link_clicked','IntersectionObserver','recordInternalLinkExposure'], 'analytics');
 requireSymbols(memoryCard, ['internalLinkMemorySummary','Tracked entities','Link impressions','Most exposed','Most engaged','Shown but unclicked'], 'memory health card');
@@ -73,7 +74,7 @@ requireSymbols(entity, ['AutoEntityLinks','relatedEntities','excludedEntityIds: 
 requireSymbols(health, ['validateInternalLinkPolicies','Governed internal-link policies','Page budget','Ambiguity margin','Link policies','InternalLinkPolicyHistory'], 'Platform Health policy governance');
 
 if (errors.length) fail();
-console.log('Phase 2 internal linking, governed policy releases, release-history health, intelligent scoring, exposure balancing, quality thresholds, bounded memory, analytics, and coverage reporting are protected.');
+console.log('Phase 2 internal linking, immutable governed policy releases, release-history health, intelligent scoring, exposure balancing, quality thresholds, bounded memory, analytics, and coverage reporting are protected.');
 
 function requireSymbols(source, symbols, area) {
   for (const symbol of symbols) if (!source.includes(symbol)) errors.push(`${area} feature missing: ${symbol}`);
