@@ -5,6 +5,11 @@ import {
   INTERNAL_LINK_POLICY_VERSION,
   validateInternalLinkPolicies,
 } from '@/platform/internal-link-policies';
+import {
+  INTERNAL_LINK_POLICY_HISTORY,
+  currentInternalLinkPolicyRelease,
+  validateInternalLinkPolicyHistory,
+} from '@/platform/internal-link-policy-history';
 
 export const Route = createFileRoute('/api/internal-link-policies')({
   server: {
@@ -13,8 +18,11 @@ export const Route = createFileRoute('/api/internal-link-policies')({
         generatedAt: new Date().toISOString(),
         version: INTERNAL_LINK_POLICY_VERSION,
         reviewedAt: INTERNAL_LINK_POLICY_REVIEWED_AT,
+        currentRelease: currentInternalLinkPolicyRelease(),
         validation: validateInternalLinkPolicies(),
+        historyValidation: validateInternalLinkPolicyHistory(),
         policies: Object.values(INTERNAL_LINK_POLICIES),
+        history: INTERNAL_LINK_POLICY_HISTORY,
       }, {
         headers: {
           'cache-control': 'no-store',
