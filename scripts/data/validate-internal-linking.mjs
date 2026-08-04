@@ -14,6 +14,7 @@ const required = [
   'src/components/editorial/ArticleBody.tsx',
   'src/components/guides/PropertyTaxGuidePage.tsx',
   'src/components/admin/InternalLinkMemoryCard.tsx',
+  'src/components/admin/InternalLinkPolicyHistory.tsx',
   'src/routes/api.internal-links.ts',
   'src/routes/api.internal-link-coverage.ts',
   'src/routes/api.internal-link-quality.ts',
@@ -34,6 +35,7 @@ const policies = read('src/platform/internal-link-policies.ts');
 const history = read('src/platform/internal-link-policy-history.ts');
 const analytics = read('src/platform/analytics.ts');
 const memoryCard = read('src/components/admin/InternalLinkMemoryCard.tsx');
+const historyCard = read('src/components/admin/InternalLinkPolicyHistory.tsx');
 const component = read('src/components/content/AutoEntityLinks.tsx');
 const articleBody = read('src/components/editorial/ArticleBody.tsx');
 const guide = read('src/components/guides/PropertyTaxGuidePage.tsx');
@@ -57,6 +59,7 @@ requireSymbols(history, ['INTERNAL_LINK_POLICY_HISTORY','currentInternalLinkPoli
 requireSymbols(component, ['data-entity-id','data-entity-kind','data-link-score','data-link-reasons','resolveInternalEntityLinks'], 'link component');
 requireSymbols(analytics, ['internal_link_shown','internal_link_clicked','IntersectionObserver','recordInternalLinkExposure'], 'analytics');
 requireSymbols(memoryCard, ['internalLinkMemorySummary','Tracked entities','Link impressions','Most exposed','Most engaged','Shown but unclicked'], 'memory health card');
+requireSymbols(historyCard, ['INTERNAL_LINK_POLICY_HISTORY','currentInternalLinkPolicyRelease','validateInternalLinkPolicyHistory','fingerprintMatches','Current release','Change class','Rollback context'], 'policy release history card');
 requireSymbols(articleBody, ['INTERNAL_LINK_POLICIES.article',"policyForSurface('article')",'articlePolicy.pageBudget','articlePolicy.blockBudget'], 'article policy integration');
 requireSymbols(guide, ["INTERNAL_LINK_POLICIES['property-tax-guide']","policyForSurface('property-tax-guide')",'surfacePolicy.pageBudget','surfacePolicy.blockBudget','data-link-score'], 'property-tax policy integration');
 requireSymbols(destination, ["INTERNAL_LINK_POLICIES.destination","policyForSurface('destination')",'surfacePolicy.pageBudget','surfacePolicy.blockBudget','excludedEntityIds'], 'destination policy integration');
@@ -67,10 +70,10 @@ requireSymbols(policyApi, ["createFileRoute('/api/internal-link-policies')",'INT
 requireText(article, 'ArticleBody blocks={article.body} entities={graph}', 'article internal-link activation');
 requireSymbols(destination, ['AutoEntityLinks','loadTexasKnowledgeGraph','excludedEntityIds'], 'destination linking');
 requireSymbols(entity, ['AutoEntityLinks','relatedEntities','excludedEntityIds: [entity.id]'], 'entity-page linking');
-requireSymbols(health, ['validateInternalLinkPolicies','Governed internal-link policies','Page budget','Ambiguity margin','Link policies'], 'Platform Health policy governance');
+requireSymbols(health, ['validateInternalLinkPolicies','Governed internal-link policies','Page budget','Ambiguity margin','Link policies','InternalLinkPolicyHistory'], 'Platform Health policy governance');
 
 if (errors.length) fail();
-console.log('Phase 2 internal linking, governed policy releases, intelligent scoring, exposure balancing, quality thresholds, bounded memory, analytics, and coverage reporting are protected.');
+console.log('Phase 2 internal linking, governed policy releases, release-history health, intelligent scoring, exposure balancing, quality thresholds, bounded memory, analytics, and coverage reporting are protected.');
 
 function requireSymbols(source, symbols, area) {
   for (const symbol of symbols) if (!source.includes(symbol)) errors.push(`${area} feature missing: ${symbol}`);
