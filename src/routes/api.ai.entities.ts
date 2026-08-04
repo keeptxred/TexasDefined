@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { findCompleteTexasEntity, loadTexasKnowledgeGraph, searchCompleteTexasKnowledgeGraph } from '@/data/knowledge-graph';
+import { findCompleteTexasEntity, loadTexasKnowledgeGraph, searchCompleteTexasKnowledgeGraph, type TexasEntityRecord } from '@/data/knowledge-graph';
 import { canonicalEntityPath, rankRelatedEntities } from '@/data/knowledge-graph/relationships';
 
 export const Route = createFileRoute('/api/ai/entities')({
@@ -20,7 +20,7 @@ export const Route = createFileRoute('/api/ai/entities')({
   } } },
 });
 
-function toJsonLd(entity: Awaited<ReturnType<typeof findCompleteTexasEntity>> extends infer T ? Exclude<T, null> : never) {
+function toJsonLd(entity: TexasEntityRecord) {
   return { '@type': schemaType(entity.kind), '@id': `https://texasdefined.com${canonicalEntityPath(entity)}#entity`, name: entity.name, alternateName: entity.aliases, description: entity.description, url: `https://texasdefined.com${canonicalEntityPath(entity)}`, sameAs: entity.officialUrl ? [entity.officialUrl] : undefined, geo: entity.coordinates ? { '@type': 'GeoCoordinates', latitude: entity.coordinates.latitude, longitude: entity.coordinates.longitude } : undefined, containedInPlace: entity.countySlug ? { '@type': 'AdministrativeArea', name: entity.countySlug } : entity.region ? { '@type': 'Place', name: entity.region } : undefined };
 }
 function schemaType(kind: string) { if (['county','city','region','metro-area'].includes(kind)) return 'AdministrativeArea'; if (['fair','rodeo','festival','holiday-event','sporting-event'].includes(kind)) return 'Event'; if (['museum','historic-site','mission','battlefield','attraction'].includes(kind)) return 'TouristAttraction'; return 'Place'; }
