@@ -1,5 +1,6 @@
 import { createFileRoute, notFound } from '@tanstack/react-router';
 import { Container } from '@/components/layout/Container';
+import { AutoEntityLinks } from '@/components/content/AutoEntityLinks';
 import { findCompleteTexasEntity, loadTexasKnowledgeGraph } from '@/data/knowledge-graph';
 import { canonicalEntityPath, rankRelatedEntities } from '@/data/knowledge-graph/relationships';
 
@@ -22,6 +23,8 @@ export const Route = createFileRoute('/$kind/$slug')({
 
 function EntityPage() {
   const { entity, related } = Route.useLoaderData();
+  const relatedEntities = related.map((item) => item.entity);
+  const description = entity.description ?? 'A governed TexasDefined entity with verified source and relationship metadata.';
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': schemaType(entity.kind),
@@ -39,7 +42,9 @@ function EntityPage() {
     <article className="mx-auto max-w-5xl">
       <p className="eyebrow text-primary">{title(entity.kind)}</p>
       <h1 className="mt-3 font-display text-4xl sm:text-6xl">{entity.name}</h1>
-      <p className="mt-5 max-w-3xl text-lg leading-8 text-muted-foreground">{entity.description ?? `A governed TexasDefined entity with verified source and relationship metadata.`}</p>
+      <p className="mt-5 max-w-3xl text-lg leading-8 text-muted-foreground">
+        <AutoEntityLinks text={description} entities={relatedEntities} maxLinks={4} policy={{ excludedEntityIds: [entity.id] }} />
+      </p>
       <dl className="mt-10 grid gap-4 rounded-md border border-border p-6 sm:grid-cols-2 lg:grid-cols-4">
         <Fact label="County" value={entity.countySlug ? `${title(entity.countySlug)} County` : undefined} />
         <Fact label="Region" value={entity.region ? title(entity.region) : undefined} />
