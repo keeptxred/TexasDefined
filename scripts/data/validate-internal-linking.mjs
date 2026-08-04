@@ -33,7 +33,7 @@ for (const feature of ['INTERNAL_LINK_SURFACES','internalLinkCoverageSummary','c
 for (const surface of ['articles','destinations','property-tax-guides','entity-pages','county-directory','city-directory']) if (!coverage.includes(`id:'${surface}'`)) errors.push(`Internal-link surface missing: ${surface}`);
 for (const feature of ['MEMORY_KEY','MAX_ENTITIES = 250','MAX_COUNT = 1000','recordInternalLinkExposure','exposurePenalty','internalLinkExposureWeights','internalLinkMemorySummary','overexposed','mostEngaged','unclicked']) if (!memory.includes(feature)) errors.push(`Internal-link memory feature missing: ${feature}`);
 for (const feature of ['INTERNAL_LINK_QUALITY_THRESHOLDS','minimumCoveragePercent: 100','maximumAmbiguousAliasPercent','maximumOrphanEntityPercent','maximumUnverifiedEntityPercent','auditInternalLinkQuality','ambiguousAliasPercent','orphanEntityPercent','unverifiedEntityPercent']) if (!quality.includes(feature)) errors.push(`Internal-link quality feature missing: ${feature}`);
-for (const feature of ['INTERNAL_LINK_POLICIES','policyForSurface','pageBudget','blockBudget','minimumScore','ambiguityMargin']) if (!policies.includes(feature)) errors.push(`Governed internal-link policy feature missing: ${feature}`);
+for (const feature of ['INTERNAL_LINK_POLICIES','policyForSurface','validateInternalLinkPolicies','page budget must be between 1 and 25','preferred and excluded kinds overlap','preferred kinds contain duplicates','excluded kinds contain duplicates']) if (!policies.includes(feature)) errors.push(`Governed internal-link policy feature missing: ${feature}`);
 for (const surface of ['article','destination','property-tax-guide','entity-page']) if (!policies.includes(`'${surface}'`)) errors.push(`Governed route policy missing: ${surface}`);
 for (const feature of ['data-entity-id','data-entity-kind','data-link-score','data-link-reasons','resolveInternalEntityLinks']) if (!component.includes(feature)) errors.push(`Internal-link component feature missing: ${feature}`);
 for (const feature of ['internal_link_shown','internal_link_clicked','IntersectionObserver','recordInternalLinkExposure','entityKind','score']) if (!analytics.includes(feature)) errors.push(`Internal-link analytics feature missing: ${feature}`);
@@ -48,11 +48,11 @@ for (const feature of ["createFileRoute('/api/internal-link-policies')",'INTERNA
 if (!article.includes('ArticleBody blocks={article.body} entities={graph}')) errors.push('Article internal linking is not active.');
 for (const feature of ['AutoEntityLinks','loadTexasKnowledgeGraph','excludedEntityIds']) if (!destination.includes(feature)) errors.push(`Destination internal linking feature missing: ${feature}`);
 for (const feature of ['AutoEntityLinks','relatedEntities','excludedEntityIds: [entity.id]']) if (!entity.includes(feature)) errors.push(`Generated entity internal linking feature missing: ${feature}`);
-for (const feature of ['internalLinkCoverageSummary','INTERNAL_LINK_SURFACES','Internal-link coverage','InternalLinkMemoryCard']) if (!health.includes(feature)) errors.push(`Platform health internal-link feature missing: ${feature}`);
+for (const feature of ['validateInternalLinkPolicies','Governed internal-link policies','Page budget','Ambiguity margin','Link policies']) if (!health.includes(feature)) errors.push(`Platform health policy-governance feature missing: ${feature}`);
 
 if (errors.length) {
   console.error('Phase 2 internal-linking validation failed:');
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
-console.log('Phase 2 governed internal-link policies, intelligent scoring, exposure balancing, quality thresholds, bounded memory, analytics, and coverage reporting are protected.');
+console.log('Phase 2 governed internal-link policies, drift validation, intelligent scoring, exposure balancing, quality thresholds, bounded memory, analytics, and coverage reporting are protected.');
