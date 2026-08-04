@@ -5,7 +5,9 @@ const read = (path) => fs.readFileSync(path, 'utf8');
 const required = [
   'src/platform/internal-linking.ts',
   'src/platform/internal-link-coverage.ts',
+  'src/platform/analytics.ts',
   'src/components/content/AutoEntityLinks.tsx',
+  'src/components/editorial/ArticleBody.tsx',
   'src/components/guides/PropertyTaxGuidePage.tsx',
   'src/routes/api.internal-links.ts',
   'src/routes/api.internal-link-coverage.ts',
@@ -18,7 +20,9 @@ for (const file of required) if (!fs.existsSync(file)) errors.push(`Missing Phas
 
 const resolver = read('src/platform/internal-linking.ts');
 const coverage = read('src/platform/internal-link-coverage.ts');
+const analytics = read('src/platform/analytics.ts');
 const component = read('src/components/content/AutoEntityLinks.tsx');
+const articleBody = read('src/components/editorial/ArticleBody.tsx');
 const guide = read('src/components/guides/PropertyTaxGuidePage.tsx');
 const previewApi = read('src/routes/api.internal-links.ts');
 const coverageApi = read('src/routes/api.internal-link-coverage.ts');
@@ -27,10 +31,13 @@ const destination = read('src/routes/destination.$slug.tsx');
 const entity = read('src/routes/$kind.$slug.tsx');
 const health = read('src/routes/admin.platform-health.tsx');
 
-for (const feature of ['resolveInternalEntityLinks','InternalLinkPolicy','excludedKinds','existingHrefs','linkedEntityIds','rejectedAmbiguous','rejectedOverlap','entityPriority','internalLinkCoverage']) if (!resolver.includes(feature)) errors.push(`Internal-link resolver feature missing: ${feature}`);
+for (const feature of ['resolveInternalEntityLinks','InternalLinkPolicy','excludedKinds','existingHrefs','linkedEntityIds','rejectedAmbiguous','rejectedOverlap','entityPriority','internalLinkCoverage','minimumScore','ambiguityMargin','contextWindow','InternalLinkTopic','TOPIC_KINDS','CONTEXT_HINTS','scoreCandidate','disambiguated','rejectedLowQuality','averageScore']) if (!resolver.includes(feature)) errors.push(`Internal-link resolver feature missing: ${feature}`);
 for (const feature of ['INTERNAL_LINK_SURFACES','internalLinkCoverageSummary','coveragePercent','eligibleSurfaces','activeSurfaces']) if (!coverage.includes(feature)) errors.push(`Internal-link coverage feature missing: ${feature}`);
 for (const surface of ['articles','destinations','property-tax-guides','entity-pages','county-directory','city-directory']) if (!coverage.includes(`id:'${surface}'`)) errors.push(`Internal-link surface missing: ${surface}`);
-for (const feature of ['data-entity-id','data-entity-kind','resolveInternalEntityLinks']) if (!component.includes(feature)) errors.push(`Internal-link component feature missing: ${feature}`);
+for (const feature of ['data-entity-id','data-entity-kind','data-link-score','data-link-reasons','resolveInternalEntityLinks']) if (!component.includes(feature)) errors.push(`Internal-link component feature missing: ${feature}`);
+for (const feature of ['internal_link_shown','internal_link_clicked','IntersectionObserver','data-entity-id','entityKind','score']) if (!analytics.includes(feature)) errors.push(`Internal-link analytics feature missing: ${feature}`);
+for (const feature of ["topic: 'travel'","minimumScore: 9",'preferredKinds']) if (!articleBody.includes(feature)) errors.push(`Travel topic policy missing: ${feature}`);
+for (const feature of ["topic: 'property-tax'","minimumScore: 9",'appraisal-district','tax-office','data-link-score']) if (!guide.includes(feature)) errors.push(`Property-tax topic policy missing: ${feature}`);
 for (const feature of ["createFileRoute('/api/internal-links')",'50000','diagnostics','cache-control']) if (!previewApi.includes(feature)) errors.push(`Internal-link diagnostics API feature missing: ${feature}`);
 for (const feature of ["createFileRoute('/api/internal-link-coverage')",'internalLinkCoverageSummary','x-robots-tag','no-store']) if (!coverageApi.includes(feature)) errors.push(`Internal-link coverage API feature missing: ${feature}`);
 if (!article.includes('ArticleBody blocks={article.body} entities={graph}')) errors.push('Article internal linking is not active.');
@@ -44,4 +51,4 @@ if (errors.length) {
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
-console.log('Phase 2 internal linking and route-family coverage reporting are protected.');
+console.log('Phase 2 intelligent internal linking, topic policies, quality scoring, analytics, and coverage reporting are protected.');
