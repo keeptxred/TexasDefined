@@ -2,11 +2,11 @@
   "consumer": "TexasDefined",
   "repository": "keeptxred/TexasDefined",
   "coreRepository": "keeptxred/texas-common-core",
-  "coreCommit": "d1be8d321b312cd3349807eed61edf8cc917d0df",
-  "packageVersion": "0.4.0",
-  "apiVersion": "1.2",
-  "capabilities": ["entity-contracts", "entity-canonicalization", "deterministic-fingerprints", "entity-set-diffs", "baseline-quarantine", "promotion-previews", "content-ownership", "duplicate-content-prevention", "cross-site-disposition", "publication-gates", "reviewed-overrides"],
-  "localExtensions": ["status quarantine", "coordinate validation", "approval-token validation", "rollback snapshots", "TexasDefined publishing preview API", "reviewed publication gate API"],
+  "coreCommit": "1611863809cedf1901d2bbf7833db2bc6c503424",
+  "packageVersion": "0.5.0",
+  "apiVersion": "1.3",
+  "capabilities": ["entity-contracts", "entity-canonicalization", "deterministic-fingerprints", "entity-set-diffs", "baseline-quarantine", "promotion-previews", "content-ownership", "duplicate-content-prevention", "cross-site-disposition", "publication-gates", "reviewed-overrides", "governance-events", "governance-analytics", "ownership-drift-detection"],
+  "localExtensions": ["status quarantine", "coordinate validation", "approval-token validation", "rollback snapshots", "TexasDefined publishing preview API", "reviewed publication gate API", "privacy-safe governance event buffer"],
   "excludedDomains": ["branding", "routes", "supabase", "deployment"],
   "reviewedAt": "2026-08-04"
 }
