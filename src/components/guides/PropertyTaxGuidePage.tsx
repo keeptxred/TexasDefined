@@ -26,7 +26,10 @@ export function PropertyTaxGuidePage({ eyebrow, title, intro, sections, official
       maxLinks: Math.min(blockLimit, remainingLinks),
       linkedEntityIds,
       existingHrefs: [officialUrl],
+      topic: 'property-tax',
+      preferredKinds: ['county','city','appraisal-district','tax-office','agency','school-district'],
       excludedKinds: ['utility'],
+      minimumScore: 9,
     });
     linkedEntityIds.push(...result.matches.map((match) => match.entity.id));
     remainingLinks -= result.matches.length;
@@ -42,6 +45,8 @@ export function PropertyTaxGuidePage({ eyebrow, title, intro, sections, official
           href={match.href}
           data-entity-id={match.entity.id}
           data-entity-kind={match.entity.kind}
+          data-link-score={match.score}
+          data-link-reasons={match.reasons.join(',')}
           className="underline decoration-primary/40 underline-offset-2 hover:text-primary"
         >
           {text.slice(match.start, match.end)}
