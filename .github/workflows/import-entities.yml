@@ -1,0 +1,33 @@
+name: Verify authoritative entity imports
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '27 9 * * 1'
+
+permissions:
+  contents: read
+
+jobs:
+  verify-imports:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Validate current production data
+        run: npm run data:validate
+      - name: Dry-run authoritative imports
+        run: npm run entities:import
+      - name: Upload import health report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: entity-import-health
+          path: data/reports/entity-import-health.json
+          if-no-files-found: warn
+          retention-days: 14
