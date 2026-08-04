@@ -20,7 +20,7 @@ import { createClientOnlyFn } from "@tanstack/react-start";
 import { buildSeo } from "@/lib/explore-seo";
 import { orderStopsForRoute } from "@/lib/explore/geography";
 
-const STORAGE_KEY = "keeptxred.explore.trip.v1";
+const STORAGE_KEY = "texasdefined.explore.trip.v1";
 const saveTrip = createClientOnlyFn(async (trip: GeneratedTrip, existingId?: string) => {
   const { saveExploreTrip } = await import("@/services/explore/trip.client");
   return saveExploreTrip(trip, existingId);
