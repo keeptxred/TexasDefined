@@ -1,5 +1,6 @@
 import { queryOptions } from "@tanstack/react-query";
 
+import { fetchExploreDestination, fetchExploreDestinations } from "./explore-remote";
 import { platform, scope } from "./index";
 import type { ArticleQuery, DestinationQuery } from "./repositories";
 import type { Slug } from "./types";
@@ -24,13 +25,32 @@ export const articleQuery = (slug: Slug) =>
 export const destinationsQuery = (params: Omit<DestinationQuery, "brandId"> = {}) =>
   queryOptions({
     queryKey: ["destinations", scope.brandId, params],
-    queryFn: () => platform.destinations.list({ ...scope, ...params }),
+    queryFn: async () => {
+      try {
+        const remote = await fetchExploreDestinations({
+          featured: params.featured,
+          limit: params.limit,
+        });
+        if (remote.length) return remote;
+      } catch (error) {
+        console.error("Explore remote catalog unavailable; using fixtures", error);
+      }
+      return platform.destinations.list({ ...scope, ...params });
+    },
   });
 
 export const destinationQuery = (slug: Slug) =>
   queryOptions({
     queryKey: ["destination", scope.brandId, slug],
-    queryFn: () => platform.destinations.getBySlug(scope, slug),
+    queryFn: async () => {
+      try {
+        const remote = await fetchExploreDestination(slug);
+        if (remote) return remote;
+      } catch (error) {
+        console.error("Explore remote destination unavailable; using fixtures", error);
+      }
+      return platform.destinations.getBySlug(scope, slug);
+    },
   });
 
 export const productsQuery = (params: { collection?: Slug; limit?: number } = {}) =>
