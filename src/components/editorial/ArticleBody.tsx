@@ -3,10 +3,16 @@ import type { TexasEntityRecord } from "@/data/knowledge-graph";
 import { AutoEntityLinks } from "@/components/content/AutoEntityLinks";
 import { ShopTheStory } from "@/components/commerce/ShopTheStory";
 
+const travelPolicy = {
+  topic: 'travel' as const,
+  preferredKinds: ['state-park','national-park','national-forest','lake','river','beach','cavern','museum','historic-site','attraction','scenic-drive','city','festival','rodeo','fair'] as const,
+  minimumScore: 9,
+};
+
 export function PullQuote({ text, attribution, entities = [] }: { text: string; attribution?: string; entities?: TexasEntityRecord[] }) {
   return (
     <figure className="my-10 border-l-2 border-primary pl-6">
-      <blockquote className="font-display text-2xl leading-snug text-foreground sm:text-3xl">“<AutoEntityLinks text={text} entities={entities} maxLinks={2} />”</blockquote>
+      <blockquote className="font-display text-2xl leading-snug text-foreground sm:text-3xl">“<AutoEntityLinks text={text} entities={entities} maxLinks={2} policy={{ ...travelPolicy, preferredKinds: [...travelPolicy.preferredKinds] }} />”</blockquote>
       {attribution && <figcaption className="mt-3 text-xs uppercase tracking-widest text-muted-foreground">{attribution}</figcaption>}
     </figure>
   );
@@ -23,7 +29,7 @@ export function ArticleBody({ blocks, entities = [] }: { blocks: ArticleBlock[];
     const candidates = available();
     const normalized = text.toLowerCase();
     candidates.forEach((entity) => { if ([entity.name, ...entity.aliases].some((label) => label.length >= 4 && normalized.includes(label.toLowerCase()))) linked.add(entity.id); });
-    return <AutoEntityLinks text={text} entities={candidates} maxLinks={maxLinks} />;
+    return <AutoEntityLinks text={text} entities={candidates} maxLinks={maxLinks} policy={{ ...travelPolicy, preferredKinds: [...travelPolicy.preferredKinds] }} />;
   };
   return <div className="editorial-body text-foreground/90">{blocks.map((block, index) => {
     switch (block.type) {
