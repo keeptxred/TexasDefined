@@ -1,0 +1,58 @@
+export type TexasDataDomain =
+  | 'places'
+  | 'counties'
+  | 'school-districts'
+  | 'agencies'
+  | 'parks'
+  | 'utilities'
+  | 'appraisal-districts'
+  | 'tax-offices'
+  | 'elections'
+  | 'representatives';
+
+export type TexasDataSource = {
+  id: string;
+  domain: TexasDataDomain;
+  authority: string;
+  title: string;
+  url: string;
+  format: 'api' | 'csv' | 'json' | 'html' | 'shared-platform';
+  updateCadence: 'daily' | 'weekly' | 'monthly' | 'quarterly' | 'annual' | 'as-needed';
+  canonical: boolean;
+  notes: string;
+};
+
+export const TEXAS_DATA_SOURCES: TexasDataSource[] = [
+  { id:'census-places', domain:'places', authority:'U.S. Census Bureau', title:'Texas incorporated places and census-designated places', url:'https://api.census.gov/data.html', format:'api', updateCadence:'annual', canonical:true, notes:'Use Census place GEOIDs, names, population estimates and geographic relationships.' },
+  { id:'census-counties', domain:'counties', authority:'U.S. Census Bureau', title:'Texas county geography', url:'https://www.census.gov/geographies/reference-files/time-series/geo/gazetteer-files.html', format:'csv', updateCadence:'annual', canonical:true, notes:'Use official state and county FIPS codes and geographic identifiers.' },
+  { id:'texas-counties-directory', domain:'counties', authority:'State of Texas', title:'Texas county websites directory', url:'https://www.texas.gov/texas-county-websites.html', format:'html', updateCadence:'quarterly', canonical:true, notes:'Use for official county website verification.' },
+  { id:'tea-districts', domain:'school-districts', authority:'Texas Education Agency', title:'Texas school district directory and AskTED', url:'https://tea.texas.gov/texas-schools/general-information/askted', format:'csv', updateCadence:'monthly', canonical:true, notes:'Use TEA district identifiers, names, addresses and service regions.' },
+  { id:'texas-agencies', domain:'agencies', authority:'State of Texas', title:'Texas state agency directory', url:'https://www.texas.gov/texas-agencies.html', format:'html', updateCadence:'quarterly', canonical:true, notes:'Canonical directory for state agencies and official websites.' },
+  { id:'tpwd-parks', domain:'parks', authority:'Texas Parks and Wildlife Department', title:'Texas state parks directory', url:'https://tpwd.texas.gov/state-parks/parks-map', format:'html', updateCadence:'monthly', canonical:true, notes:'Use official park names, locations, reservations and closure information.' },
+  { id:'puc-utilities', domain:'utilities', authority:'Public Utility Commission of Texas', title:'Electric utility and retail electric provider information', url:'https://www.puc.texas.gov/industry/electric/', format:'html', updateCadence:'monthly', canonical:true, notes:'Use for regulated utility territories and official provider information.' },
+  { id:'tceq-water', domain:'utilities', authority:'Texas Commission on Environmental Quality', title:'Public drinking water systems', url:'https://www.tceq.texas.gov/drinkingwater', format:'html', updateCadence:'monthly', canonical:true, notes:'Use for public water-system authority and compliance references.' },
+  { id:'comptroller-appraisal-districts', domain:'appraisal-districts', authority:'Texas Comptroller of Public Accounts', title:'County appraisal district directory', url:'https://comptroller.texas.gov/taxes/property-tax/county-directory/', format:'html', updateCadence:'quarterly', canonical:true, notes:'Use for appraisal district contacts and official property-tax administration links.' },
+  { id:'txdmv-tax-offices', domain:'tax-offices', authority:'Texas Department of Motor Vehicles', title:'County tax office directory', url:'https://www.txdmv.gov/tax-assessor-collectors/county-tax-offices', format:'html', updateCadence:'quarterly', canonical:true, notes:'Use for county tax office contacts.' },
+  { id:'sos-elections', domain:'elections', authority:'Texas Secretary of State', title:'Texas elections and voter information', url:'https://www.sos.state.tx.us/elections/', format:'html', updateCadence:'as-needed', canonical:true, notes:'Use for official election dates, rules and county election contacts.' },
+  { id:'keeptxred-government', domain:'representatives', authority:'Keep TX Red shared platform', title:'Texas representatives, districts, bills and elections', url:'https://keeptxred.com/representatives', format:'shared-platform', updateCadence:'daily', canonical:true, notes:'Political and legislative entities remain canonically owned by Keep TX Red.' },
+];
+
+export function sourcesForDomain(domain: TexasDataDomain) {
+  return TEXAS_DATA_SOURCES.filter((source) => source.domain === domain);
+}
+
+export function validateTexasDataSources() {
+  const errors: string[] = [];
+  const ids = new Set<string>();
+  for (const source of TEXAS_DATA_SOURCES) {
+    if (!source.id.trim()) errors.push('Every data source requires an ID.');
+    if (ids.has(source.id)) errors.push(`Duplicate data source ID: ${source.id}`);
+    ids.add(source.id);
+    if (!source.url.startsWith('https://')) errors.push(`${source.id} must use HTTPS.`);
+    if (!source.authority.trim()) errors.push(`${source.id} requires an authority.`);
+    if (!source.canonical) errors.push(`${source.id} must explicitly identify canonical ownership.`);
+  }
+  const required: TexasDataDomain[] = ['places','counties','school-districts','agencies','parks','utilities','appraisal-districts','tax-offices','elections','representatives'];
+  for (const domain of required) if (!sourcesForDomain(domain).length) errors.push(`Missing authoritative source for ${domain}.`);
+  return { valid: errors.length === 0, errors };
+}
