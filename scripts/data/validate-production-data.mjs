@@ -13,6 +13,7 @@ const graphTypes = read('src/data/knowledge-graph/types.ts');
 const graphSeed = read('src/data/knowledge-graph/seed.ts');
 const graphQueries = read('src/data/knowledge-graph/index.ts');
 const graphExploreAdapter = read('src/data/knowledge-graph/explore-adapter.ts');
+const graphApi = read('src/routes/api.knowledge-graph.ts');
 const analytics = read('src/platform/analytics.ts');
 const rootRoute = read('src/routes/__root.tsx');
 const sitemap = read('src/routes/sitemap[.]xml.ts');
@@ -20,7 +21,7 @@ const requiredFiles = [
   'src/routes/learn.property-taxes.tsx','src/routes/learn.property-tax-payments.tsx','src/routes/decide.property-taxes.tsx',
   'src/routes/learn.appraisal-districts.tsx','src/routes/do.homestead-exemption.tsx','src/routes/do.property-tax-protest.tsx',
   'src/routes/browse.counties.tsx','src/routes/browse.cities.tsx','src/routes/admin.platform-health.tsx','src/routes/sitemap[.]xml.ts',
-  'src/data/texas-data-sources.ts','src/data/texas-entity-registry.ts','src/data/knowledge-graph/types.ts',
+  'src/routes/api.knowledge-graph.ts','src/data/texas-data-sources.ts','src/data/texas-entity-registry.ts','src/data/knowledge-graph/types.ts',
   'src/data/knowledge-graph/seed.ts','src/data/knowledge-graph/index.ts','src/data/knowledge-graph/explore-adapter.ts','src/platform/analytics.ts',
 ];
 const publicPaths = ['/learn/property-taxes','/learn/property-tax-payments','/decide/property-taxes','/learn/appraisal-districts','/do/homestead-exemption','/do/property-tax-protest','/browse/counties','/browse/cities'];
@@ -44,6 +45,8 @@ for (const field of ['aliases: string[]','coordinates?: GeoPoint','sourceConfide
 if (!graphSeed.includes('CURATED_KNOWLEDGE_GRAPH_SEED')) errors.push('Knowledge graph seed export is missing.');
 for (const api of ['searchTexasKnowledgeGraph','graphNeighbors','loadTexasKnowledgeGraph','searchCompleteTexasKnowledgeGraph','findCompleteTexasEntity']) if (!graphQueries.includes(api)) errors.push(`Knowledge graph API missing: ${api}.`);
 for (const adapterFeature of ['mapExploreRowToGraphEntity','fetchExploreGraphEntities','explore_entities','visibility: \'eq.public\'','status: \'in.(published,verified)\'']) if (!graphExploreAdapter.includes(adapterFeature)) errors.push(`Explore graph adapter feature missing: ${adapterFeature}.`);
+for (const apiFeature of ["createFileRoute('/api/knowledge-graph')",'loadTexasKnowledgeGraph','findCompleteTexasEntity','searchCompleteTexasKnowledgeGraph','countsByKind','cache-control']) if (!graphApi.includes(apiFeature)) errors.push(`Knowledge graph HTTP API feature missing: ${apiFeature}.`);
+if (!graphApi.includes('Math.min(Math.max(Math.trunc(requestedLimit), 1), 100)')) errors.push('Knowledge graph API limit protection is missing.');
 if (!analytics.includes("QUEUE_KEY='texasdefined:analytics-queue'")) errors.push('Privacy-safe local analytics queue is missing.');
 if (!analytics.includes('MAX_QUEUE=100')) errors.push('Analytics queue limit is missing.');
 if (!rootRoute.includes('installTexasDefinedAnalytics')) errors.push('Outcome analytics is not initialized in the application root.');
@@ -55,4 +58,4 @@ if (errors.length) {
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
-console.log(`TexasDefined production data valid: ${countyCount} counties, ${cityTuples} seeded cities, ${requiredFiles.length} protected files, ${publicPaths.length} sitemap routes, static and Explore knowledge graphs connected.`);
+console.log(`TexasDefined production data valid: ${countyCount} counties, ${cityTuples} seeded cities, ${requiredFiles.length} protected files, ${publicPaths.length} sitemap routes, static and Explore knowledge graphs connected, HTTP graph API protected.`);
