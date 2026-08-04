@@ -46,18 +46,22 @@ export function diffInternalLinkPolicySnapshots(
 export function previewInternalLinkPolicyRollback(targetVersion?: string): InternalLinkPolicyRollbackPreview {
   const current = currentInternalLinkPolicyRelease();
   if (!current) return { available: false, changeCount: 0, changes: [] };
-  const context = targetVersion
-    ? { current, previous: policySnapshotForVersion(targetVersion), available: targetVersion !== current.version }
-    : rollbackContextForVersion(current.version);
-  const target = context.previous;
-  if (!context.available || !target) return { available: false, fromVersion: current.version, changeCount: 0, changes: [] };
-  const changes = diffInternalLinkPolicySnapshots(current.snapshot, target.snapshot);
+  const fallback = rollbackContextForVersion(current.version);
+  const targetSnapshot = targetVersion
+    ? targetVersion === current.version
+      ? undefined
+      : policySnapshotForVersion(targetVersion)
+    : fallback?.rollbackSnapshot;
+  const toVersion = targetVersion ?? fallback?.previous?.version;
+  if (!targetSnapshot || !toVersion) return { available: false, fromVersion: current.version, changeCount: 0, changes: [] };
+  const changes = diffInternalLinkPolicySnapshots(current.snapshot, targetSnapshot);
   return {
     available: true,
     fromVersion: current.version,
-    toVersion: target.version,
+    toVersion,
     changeCount: changes.length,
     changes,
-    targetSnapshot: structuredClone(target.snapshot),
+    targetSnapshot: structuredClone(targetSnapshot),
   };
+
 }
