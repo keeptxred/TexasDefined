@@ -1,0 +1,54 @@
+name: Texas Entity Maintenance
+
+on:
+  schedule:
+    - cron: '17 11 * * 2'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: texas-entity-maintenance
+  cancel-in-progress: false
+
+jobs:
+  maintenance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package.json
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Validate maintenance controls
+        run: node scripts/data/validate-entity-maintenance.mjs
+
+      - name: Dry-run authoritative imports
+        run: node scripts/data/import-authoritative-entities.mjs
+
+      - name: Verify official URLs
+        run: node scripts/data/verify-official-urls.mjs
+
+      - name: Prepare promotion preview
+        run: node scripts/data/prepare-entity-promotion.mjs
+
+      - name: Upload maintenance reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: texas-entity-maintenance-${{ github.run_id }}
+          path: |
+            data/reports/*.json
+            data/imports/*.json
+          if-no-files-found: warn
+          retention-days: 30
