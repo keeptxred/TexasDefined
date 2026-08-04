@@ -1,5 +1,6 @@
 import type { TexasEntityKind, TexasEntityRecord } from '@/data/knowledge-graph';
 import { canonicalEntityPath } from '@/data/knowledge-graph/relationships';
+import { scoreEntityAuthority } from '@/platform/knowledge-graph-behavior';
 
 export type InternalLinkTopic = 'travel' | 'property-tax' | 'government' | 'history' | 'events' | 'general';
 
@@ -36,6 +37,7 @@ export type InternalLinkDiagnostics = {
   accepted: number;
   disambiguated: number;
   exposureBalanced: number;
+  authorityBoosted: number;
   rejectedExisting: number;
   rejectedOverlap: number;
   rejectedExcluded: number;
@@ -73,7 +75,8 @@ export function resolveInternalEntityLinks(text: string, entities: TexasEntityRe
   const policy = { ...DEFAULT_POLICY, ...input };
   const existing = new Set(policy.existingHrefs);
   const used = new Set([...policy.linkedEntityIds, ...policy.excludedEntityIds]);
-  const diagnostics: InternalLinkDiagnostics = { candidates: 0, accepted: 0, disambiguated: 0, exposureBalanced: 0, rejectedExisting: 0, rejectedOverlap: 0, rejectedExcluded: 0, rejectedAmbiguous: 0, rejectedLowQuality: 0 };
+  const authorityScores = new Map(scoreEntityAuthority(entities).map((item) => [item.entityId, item.score]));
+  const diagnostics: InternalLinkDiagnostics = { candidates: 0, accepted: 0, disambiguated: 0, exposureBalanced: 0, authorityBoosted: 0, rejectedExisting: 0, rejectedOverlap: 0, rejectedExcluded: 0, rejectedAmbiguous: 0, rejectedLowQuality: 0 };
   const candidatesBySpan = new Map<string, Candidate[]>();
 
   for (const entity of entities) {
@@ -88,8 +91,9 @@ export function resolveInternalEntityLinks(text: string, entities: TexasEntityRe
       const start = match.index;
       const end = start + match[0].length;
       const context = text.slice(Math.max(0, start - policy.contextWindow), Math.min(text.length, end + policy.contextWindow)).toLowerCase();
-      const scored = scoreCandidate(entity, label, context, policy);
+      const scored = scoreCandidate(entity, label, context, policy, authorityScores);
       if (scored.reasons.some((reason) => reason.startsWith('exposure-penalty:'))) diagnostics.exposureBalanced += 1;
+      if (scored.reasons.some((reason) => reason.startsWith('authority-boost:'))) diagnostics.authorityBoosted += 1;
       const key = `${start}:${end}:${match[0].toLowerCase()}`;
       const list = candidatesBySpan.get(key) ?? [];
       list.push({ entity, label: match[0], start, end, score: scored.score, reasons: scored.reasons });
@@ -132,9 +136,11 @@ export function internalLinkCoverage(texts: string[], entities: TexasEntityRecor
   return { linkedEntities: [...new Set(linkedEntityIds)], links: results.reduce((sum, result) => sum + result.matches.length, 0), averageScore: average(results.flatMap((result) => result.matches.map((match) => match.score))), ambiguous: results.reduce((sum, result) => sum + result.diagnostics.rejectedAmbiguous, 0), paragraphs: texts.length, results };
 }
 
-function scoreCandidate(entity: TexasEntityRecord, label: string, context: string, policy: InternalLinkPolicy) {
+function scoreCandidate(entity: TexasEntityRecord, label: string, context: string, policy: InternalLinkPolicy, authorityScores: Map<string, number>) {
   const reasons: string[] = [];
   let score = entityPriority(entity); reasons.push(`entity-priority:${score}`);
+  const authorityBoost = Math.min(4, Math.floor((authorityScores.get(entity.id) ?? 0) / 25));
+  if (authorityBoost > 0) { score += authorityBoost; reasons.push(`authority-boost:${authorityBoost}`); }
   if (label.toLowerCase() === entity.name.toLowerCase()) { score += 4; reasons.push('canonical-name'); }
   if (policy.preferredKinds.includes(entity.kind)) { score += 5; reasons.push('preferred-kind'); }
   if (TOPIC_KINDS[policy.topic].includes(entity.kind)) { score += 4; reasons.push(`topic:${policy.topic}`); }
