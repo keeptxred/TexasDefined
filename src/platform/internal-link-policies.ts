@@ -46,3 +46,19 @@ export function policyForSurface(id: InternalLinkSurfacePolicy['id'], overrides:
     ...overrides,
   };
 }
+
+export function validateInternalLinkPolicies() {
+  const issues: string[] = [];
+  for (const policy of Object.values(INTERNAL_LINK_POLICIES)) {
+    if (policy.pageBudget < 1 || policy.pageBudget > 25) issues.push(`${policy.id}: page budget must be between 1 and 25.`);
+    if (policy.blockBudget < 1 || policy.blockBudget > policy.pageBudget) issues.push(`${policy.id}: block budget must be between 1 and the page budget.`);
+    if (policy.minimumScore < 6 || policy.minimumScore > 20) issues.push(`${policy.id}: minimum score is outside the governed range.`);
+    if (policy.ambiguityMargin < 2 || policy.ambiguityMargin > 8) issues.push(`${policy.id}: ambiguity margin is outside the governed range.`);
+    if (!policy.preferredKinds.length) issues.push(`${policy.id}: at least one preferred entity kind is required.`);
+    const overlap = policy.preferredKinds.filter((kind) => policy.excludedKinds.includes(kind));
+    if (overlap.length) issues.push(`${policy.id}: preferred and excluded kinds overlap: ${overlap.join(', ')}.`);
+    if (new Set(policy.preferredKinds).size !== policy.preferredKinds.length) issues.push(`${policy.id}: preferred kinds contain duplicates.`);
+    if (new Set(policy.excludedKinds).size !== policy.excludedKinds.length) issues.push(`${policy.id}: excluded kinds contain duplicates.`);
+  }
+  return { valid: issues.length === 0, issues, policies: Object.values(INTERNAL_LINK_POLICIES) };
+}
