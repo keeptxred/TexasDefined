@@ -33,8 +33,8 @@ jobs:
       - name: Validate maintenance controls
         run: node scripts/data/validate-entity-maintenance.mjs
 
-      - name: Dry-run authoritative imports
-        run: node scripts/data/import-authoritative-entities.mjs
+      - name: Stage authoritative imports
+        run: node scripts/data/import-authoritative-entities.mjs --write
 
       - name: Verify official URLs
         run: node scripts/data/verify-official-urls.mjs
