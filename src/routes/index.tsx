@@ -204,7 +204,7 @@ function HomePage() {
             eyebrow="Weekend getaways"
             title="Three places worth the drive"
             actionLabel={brand.copy.viewAll}
-            actionTo="/explore/road-trips"
+            actionTo="/explore/category/road-trips"
           />
           <ul className="mt-10 grid gap-6 sm:grid-cols-3">
             {weekend.map((destination) => (
@@ -274,7 +274,7 @@ function HomePage() {
         eyebrow="Lakes &amp; rivers"
         title="Cold water, cypress shade"
         actionLabel={brand.copy.viewAll}
-        actionTo="/explore/lakes-rivers"
+        actionTo="/explore/category/lakes-rivers"
         destinations={lakes}
         regionName={regionName}
       />
@@ -283,7 +283,7 @@ function HomePage() {
         eyebrow="State parks"
         title="Eighty-nine parks, one state"
         actionLabel={brand.copy.viewAll}
-        actionTo="/explore/state-parks"
+        actionTo="/explore/category/state-parks"
         destinations={parks}
         regionName={regionName}
       />
@@ -293,7 +293,7 @@ function HomePage() {
         eyebrow="Road trips"
         title="Take the long way"
         actionLabel={brand.copy.viewAll}
-        actionTo="/explore/road-trips"
+        actionTo="/explore/category/road-trips"
         destinations={roadTrips}
         regionName={regionName}
       />
