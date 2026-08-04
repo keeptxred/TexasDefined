@@ -124,7 +124,7 @@ function ExploreEntityPage() {
     name: entity.name,
     description: entity.summary || undefined,
     image: entity.heroImageUrl || undefined,
-    url: `https://keeptxred.com/explore/${entity.slug}`,
+    url: `https://texasdefined.com/explore/${entity.slug}`,
     geo:
       entity.latitude != null && entity.longitude != null
         ? {
@@ -147,14 +147,14 @@ function ExploreEntityPage() {
         ? {
             "@type": "AdministrativeArea",
             name: `${entity.county} County, Texas`,
-            url: `https://keeptxred.com${geographyPath("county", entity.county)}`,
+            url: `https://texasdefined.com${geographyPath("county", entity.county)}`,
           }
         : null,
       entity.region
         ? {
             "@type": "Place",
             name: `${entity.region}, Texas`,
-            url: `https://keeptxred.com${geographyPath("region", entity.region)}`,
+            url: `https://texasdefined.com${geographyPath("region", entity.region)}`,
           }
         : null,
     ].filter(Boolean),
@@ -173,21 +173,21 @@ function ExploreEntityPage() {
         "@type": "ListItem",
         position: 1,
         name: "Explore Texas",
-        item: "https://keeptxred.com/explore",
+        item: "https://texasdefined.com/explore",
       },
       {
         "@type": "ListItem",
         position: 2,
         name: entity.region || "Texas destinations",
         item: entity.region
-          ? `https://keeptxred.com${geographyPath("region", entity.region)}`
-          : "https://keeptxred.com/explore/search",
+          ? `https://texasdefined.com${geographyPath("region", entity.region)}`
+          : "https://texasdefined.com/explore/search",
       },
       {
         "@type": "ListItem",
         position: 3,
         name: entity.name,
-        item: `https://keeptxred.com/explore/${entity.slug}`,
+        item: `https://texasdefined.com/explore/${entity.slug}`,
       },
     ],
   };

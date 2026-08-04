@@ -50,7 +50,7 @@ function TexasLighthousesPage() {
     name: "Texas Lighthouses",
     description:
       "Visitor guides for historic lighthouses and maritime landmarks along the Texas coast.",
-    url: "https://keeptxred.com/explore/lighthouses",
+    url: "https://texasdefined.com/explore/lighthouses",
     mainEntity: {
       "@type": "ItemList",
       numberOfItems: items.length,
@@ -58,7 +58,7 @@ function TexasLighthousesPage() {
         "@type": "ListItem",
         position: index + 1,
         name: item.name,
-        url: `https://keeptxred.com/explore/${item.slug}`,
+        url: `https://texasdefined.com/explore/${item.slug}`,
       })),
     },
   };

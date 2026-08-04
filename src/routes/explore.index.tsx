@@ -68,7 +68,7 @@ function ExploreLanding() {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     name: "Explore Texas",
-    url: "https://keeptxred.com/explore",
+    url: "https://texasdefined.com/explore",
     description:
       "Texas destination guides for parks, lakes, caverns, trails, wildlife areas, historic places, and communities.",
     mainEntity: {
@@ -78,7 +78,7 @@ function ExploreLanding() {
         "@type": "ListItem",
         position: index + 1,
         name: item.name,
-        url: `https://keeptxred.com/explore/${item.slug}`,
+        url: `https://texasdefined.com/explore/${item.slug}`,
       })),
     },
   };

@@ -1,6 +1,6 @@
 import type { ExploreEntity } from "@/types/explore/public";
 
-const BASE_URL = "https://keeptxred.com";
+const BASE_URL = "https://texasdefined.com";
 
 type RelatedCavern = Pick<ExploreEntity, "name" | "slug">;
 

@@ -94,12 +94,12 @@ function TexasWildflowerSeasonsPage() {
     headline: "Texas Wildflower Seasons: Best Times, Regions and Road Trips",
     description:
       "A statewide planning guide to Texas wildflower timing, regions, road trips, photography, and responsible viewing.",
-    image: "https://keeptxred.com/images/explore/texas-wildflower-guide-hero.svg",
-    mainEntityOfPage: "https://keeptxred.com/explore/texas-wildflower-seasons",
+    image: "https://texasdefined.com/images/explore/texas-wildflower-guide-hero.svg",
+    mainEntityOfPage: "https://texasdefined.com/explore/texas-wildflower-seasons",
     datePublished: "2026-07-26",
     dateModified: "2026-07-26",
-    author: { "@type": "Organization", name: "Keep TX Red" },
-    publisher: { "@type": "Organization", name: "Keep TX Red" },
+    author: { "@type": "Organization", name: "Texas Defined" },
+    publisher: { "@type": "Organization", name: "Texas Defined" },
   };
   const faqSchema = {
     "@context": "https://schema.org",

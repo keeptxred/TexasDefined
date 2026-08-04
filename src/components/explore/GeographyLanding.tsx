@@ -14,7 +14,7 @@ export function GeographyLanding({ data }: { data: ExploreGeographyPage }) {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     name: `Things to do in ${label}, Texas`,
-    url: `https://keeptxred.com${geographyPath(data.kind, data.name)}`,
+    url: `https://texasdefined.com${geographyPath(data.kind, data.name)}`,
     about:
       data.kind === "county"
         ? { "@type": "AdministrativeArea", name: `${label}, Texas` }
@@ -26,7 +26,7 @@ export function GeographyLanding({ data }: { data: ExploreGeographyPage }) {
         "@type": "ListItem",
         position: index + 1,
         name: item.name,
-        url: `https://keeptxred.com/explore/${item.slug}`,
+        url: `https://texasdefined.com/explore/${item.slug}`,
       })),
     },
   };
@@ -38,13 +38,13 @@ export function GeographyLanding({ data }: { data: ExploreGeographyPage }) {
         "@type": "ListItem",
         position: 1,
         name: "Explore Texas",
-        item: "https://keeptxred.com/explore",
+        item: "https://texasdefined.com/explore",
       },
       {
         "@type": "ListItem",
         position: 2,
         name: label,
-        item: `https://keeptxred.com${geographyPath(data.kind, data.name)}`,
+        item: `https://texasdefined.com${geographyPath(data.kind, data.name)}`,
       },
     ],
   };

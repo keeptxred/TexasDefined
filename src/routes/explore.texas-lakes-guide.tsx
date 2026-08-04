@@ -89,12 +89,12 @@ function TexasLakesGuide() {
     headline: "Texas Lakes Guide: Swimming, Fishing, Camping and Weekend Trips",
     description:
       "A practical statewide guide to planning Texas lake trips by activity, region, season, access, and current conditions.",
-    image: "https://keeptxred.com/images/explore/texas-lakes-guide-hero.svg",
+    image: "https://texasdefined.com/images/explore/texas-lakes-guide-hero.svg",
     datePublished: "2026-07-26",
     dateModified: "2026-07-26",
-    author: { "@type": "Organization", name: "KeepTXRed" },
-    publisher: { "@type": "Organization", name: "KeepTXRed" },
-    mainEntityOfPage: "https://keeptxred.com/explore/texas-lakes-guide",
+    author: { "@type": "Organization", name: "TexasDefined" },
+    publisher: { "@type": "Organization", name: "TexasDefined" },
+    mainEntityOfPage: "https://texasdefined.com/explore/texas-lakes-guide",
   };
   const faqSchema = {
     "@context": "https://schema.org",

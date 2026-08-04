@@ -23,7 +23,7 @@ export const Route = createFileRoute("/explore/texas-state-parks-guide")({
       keywords:
         "Texas state parks guide, best state parks in Texas, Texas camping, Texas hiking, Texas park reservations, Texas State Parks Pass",
       section: "Explore Texas",
-      author: "Keep TX Red Editorial Team",
+      author: "Texas Defined Editorial Team",
     });
     return { meta: seo.meta, links: seo.links };
   },
@@ -135,13 +135,13 @@ function TexasStateParksGuide() {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://keeptxred.com/" },
-      { "@type": "ListItem", position: 2, name: "Explore Texas", item: "https://keeptxred.com/explore" },
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://texasdefined.com/" },
+      { "@type": "ListItem", position: 2, name: "Explore Texas", item: "https://texasdefined.com/explore" },
       {
         "@type": "ListItem",
         position: 3,
         name: "Texas State Parks Guide",
-        item: "https://keeptxred.com/explore/texas-state-parks-guide",
+        item: "https://texasdefined.com/explore/texas-state-parks-guide",
       },
     ],
   };
@@ -151,10 +151,10 @@ function TexasStateParksGuide() {
     headline: "Texas State Parks Guide",
     description:
       "A statewide planning guide to Texas state parks by region, season, activity, reservation needs, and camping style.",
-    image: "https://keeptxred.com/images/explore/texas-state-parks-guide-hero.svg",
-    author: { "@type": "Organization", name: "Keep TX Red" },
-    publisher: { "@type": "Organization", name: "Keep TX Red", url: "https://keeptxred.com" },
-    mainEntityOfPage: "https://keeptxred.com/explore/texas-state-parks-guide",
+    image: "https://texasdefined.com/images/explore/texas-state-parks-guide-hero.svg",
+    author: { "@type": "Organization", name: "Texas Defined" },
+    publisher: { "@type": "Organization", name: "Texas Defined", url: "https://texasdefined.com" },
+    mainEntityOfPage: "https://texasdefined.com/explore/texas-state-parks-guide",
   };
   const faqSchema = {
     "@context": "https://schema.org",
@@ -253,7 +253,7 @@ function TexasStateParksGuide() {
               Texas state parks are not one type of destination. The system stretches from cypress bayous and Gulf beaches to Hill Country rivers, Panhandle canyons, pine forests, spring-fed pools, and Chihuahuan Desert mountains. A traveler choosing between those places is not merely comparing campgrounds. The real decision involves climate, drive time, terrain, water access, crowd levels, reservation pressure, and the kind of experience the trip needs to deliver.
             </p>
             <p>
-              This guide is designed to help you make that decision. Use it with the Keep TX Red <Link to="/explore/search" search={{ ...searchDefaults, types: ["park"] }} className="text-primary hover:underline">Texas park directory</Link>, then open individual destination records to compare activities, amenities, accessibility, maps, and nearby places. For overnight planning, also browse <Link to="/explore/search" search={{ ...searchDefaults, activities: ["camping"] }} className="text-primary hover:underline">Texas camping destinations</Link> and save compatible stops in the <Link to="/explore/trip-planner" className="text-primary hover:underline">Texas trip planner</Link>.
+              This guide is designed to help you make that decision. Use it with the Texas Defined <Link to="/explore/search" search={{ ...searchDefaults, types: ["park"] }} className="text-primary hover:underline">Texas park directory</Link>, then open individual destination records to compare activities, amenities, accessibility, maps, and nearby places. For overnight planning, also browse <Link to="/explore/search" search={{ ...searchDefaults, activities: ["camping"] }} className="text-primary hover:underline">Texas camping destinations</Link> and save compatible stops in the <Link to="/explore/trip-planner" className="text-primary hover:underline">Texas trip planner</Link>.
             </p>
           </div>
         </section>
@@ -402,7 +402,7 @@ function TexasStateParksGuide() {
         </section>
 
         <aside className="border-t pt-8 text-sm leading-6 text-muted-foreground">
-          Park fees, hours, reservation windows, amenities, closures, and rules can change. Confirm details with Texas Parks and Wildlife and the individual park before travel. Keep TX Red’s Explore Texas pages are planning resources, not official park notices.
+          Park fees, hours, reservation windows, amenities, closures, and rules can change. Confirm details with Texas Parks and Wildlife and the individual park before travel. Texas Defined’s Explore Texas pages are planning resources, not official park notices.
         </aside>
       </article>
     </main>

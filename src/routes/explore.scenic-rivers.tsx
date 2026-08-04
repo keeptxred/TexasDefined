@@ -50,7 +50,7 @@ function TexasScenicRiversPage() {
     name: "Texas Scenic Rivers",
     description:
       "Visitor and planning guides for scenic and ecologically significant river segments across Texas.",
-    url: "https://keeptxred.com/explore/scenic-rivers",
+    url: "https://texasdefined.com/explore/scenic-rivers",
     mainEntity: {
       "@type": "ItemList",
       numberOfItems: items.length,
@@ -58,7 +58,7 @@ function TexasScenicRiversPage() {
         "@type": "ListItem",
         position: index + 1,
         name: item.name,
-        url: `https://keeptxred.com/explore/${item.slug}`,
+        url: `https://texasdefined.com/explore/${item.slug}`,
       })),
     },
   };

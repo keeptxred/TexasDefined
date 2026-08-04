@@ -1,13 +1,13 @@
 /**
  * Shared helpers for XML sitemap generation. Keep pure — no side effects.
  * All sitemaps must:
- *  - be UTF-8, absolute canonical HTTPS URLs on keeptxred.com
+ *  - be UTF-8, absolute canonical HTTPS URLs on texasdefined.com
  *  - include a valid <lastmod> for every entry
  *  - omit query strings, fragments, redirects, and duplicate canonicals
  *  - omit <priority>/<changefreq> (Google ignores them)
  */
-export const BASE_URL = "https://keeptxred.com";
-const CANONICAL_HOST = "keeptxred.com";
+export const BASE_URL = "https://texasdefined.com";
+const CANONICAL_HOST = "texasdefined.com";
 const SITE_HOSTS = new Set([CANONICAL_HOST, `www.${CANONICAL_HOST}`]);
 const INVALID_IMAGE_PATTERN =
   /(?:placeholder|spacer|blank(?:[-_.]?image)?|transparent(?:[-_.]?pixel)?|pixel\.gif|1x1)/i;

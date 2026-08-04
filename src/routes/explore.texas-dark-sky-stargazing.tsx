@@ -16,7 +16,7 @@ export const Route = createFileRoute("/explore/texas-dark-sky-stargazing")({
       keywords:
         "Texas stargazing, Texas dark sky parks, best places to see stars in Texas, Big Bend stargazing, Texas astrophotography, dark sky camping Texas",
       section: "Explore Texas",
-      author: "Keep TX Red Editorial Team",
+      author: "Texas Defined Editorial Team",
     });
     return { meta: seo.meta, links: seo.links };
   },
@@ -80,12 +80,12 @@ function TexasDarkSkyStargazingGuide() {
     headline: "Texas Dark Sky and Stargazing Guide",
     description:
       "A practical guide to Texas stargazing regions, seasons, moon phases, camping, safety, and night-sky photography.",
-    image: "https://keeptxred.com/images/explore/texas-dark-sky-stargazing-hero.svg",
-    author: { "@type": "Organization", name: "Keep TX Red Editorial Team" },
-    publisher: { "@type": "Organization", name: "Keep TX Red" },
+    image: "https://texasdefined.com/images/explore/texas-dark-sky-stargazing-hero.svg",
+    author: { "@type": "Organization", name: "Texas Defined Editorial Team" },
+    publisher: { "@type": "Organization", name: "Texas Defined" },
     datePublished: "2026-07-26",
     dateModified: "2026-07-26",
-    mainEntityOfPage: "https://keeptxred.com/explore/texas-dark-sky-stargazing",
+    mainEntityOfPage: "https://texasdefined.com/explore/texas-dark-sky-stargazing",
   };
   const faqSchema = {
     "@context": "https://schema.org",

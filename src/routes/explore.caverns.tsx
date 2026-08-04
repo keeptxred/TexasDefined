@@ -65,7 +65,7 @@ function TexasCavernsPage() {
     "@type": "CollectionPage",
     name: "Texas Caverns and Caves",
     description: "Visitor guides for commercial caverns and public cave attractions across Texas.",
-    url: "https://keeptxred.com/explore/caverns",
+    url: "https://texasdefined.com/explore/caverns",
     mainEntity: {
       "@type": "ItemList",
       numberOfItems: data.total,
@@ -73,7 +73,7 @@ function TexasCavernsPage() {
         "@type": "ListItem",
         position: index + 1,
         name: item.name,
-        url: `https://keeptxred.com/explore/${item.slug}`,
+        url: `https://texasdefined.com/explore/${item.slug}`,
       })),
     },
   };

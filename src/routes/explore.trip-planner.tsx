@@ -548,7 +548,7 @@ function TripPlanner() {
                 ))}
               </div>
               <footer className="mt-10 hidden border-t pt-4 text-xs print:block">
-                KeepTXRed.com · Explore Texas · Verify changing conditions with official sources.
+                TexasDefined.com · Explore Texas · Verify changing conditions with official sources.
               </footer>
             </div>
           )}

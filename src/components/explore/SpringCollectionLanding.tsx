@@ -21,7 +21,7 @@ export function SpringCollectionLanding({
     "@type": "CollectionPage",
     name: collection.title,
     description: collection.description,
-    url: `https://keeptxred.com${canonicalPath}`,
+    url: `https://texasdefined.com${canonicalPath}`,
     mainEntity: {
       "@type": "ItemList",
       numberOfItems: items.length,
@@ -29,7 +29,7 @@ export function SpringCollectionLanding({
         "@type": "ListItem",
         position: index + 1,
         name: item.name,
-        url: `https://keeptxred.com/explore/${item.slug}`,
+        url: `https://texasdefined.com/explore/${item.slug}`,
       })),
     },
   };

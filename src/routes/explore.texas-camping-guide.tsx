@@ -89,12 +89,12 @@ function TexasCampingGuide() {
     headline: "Texas Camping Guide: State Parks, Lakes, RVs and Primitive Campsites",
     description:
       "A practical statewide guide to choosing and planning a Texas camping trip by camping style, region, season, access, weather, and current conditions.",
-    image: "https://keeptxred.com/images/explore/texas-camping-guide-hero.svg",
+    image: "https://texasdefined.com/images/explore/texas-camping-guide-hero.svg",
     datePublished: "2026-07-26",
     dateModified: "2026-07-26",
-    author: { "@type": "Organization", name: "KeepTXRed" },
-    publisher: { "@type": "Organization", name: "KeepTXRed" },
-    mainEntityOfPage: "https://keeptxred.com/explore/texas-camping-guide",
+    author: { "@type": "Organization", name: "TexasDefined" },
+    publisher: { "@type": "Organization", name: "TexasDefined" },
+    mainEntityOfPage: "https://texasdefined.com/explore/texas-camping-guide",
   };
   const faqSchema = {
     "@context": "https://schema.org",

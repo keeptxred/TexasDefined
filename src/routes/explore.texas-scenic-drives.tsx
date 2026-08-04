@@ -16,7 +16,7 @@ export const Route = createFileRoute("/explore/texas-scenic-drives")({
       keywords:
         "Texas scenic drives, Texas road trips, best drives in Texas, Hill Country scenic drive, West Texas road trip, Texas travel routes",
       section: "Explore Texas",
-      author: "Keep TX Red Editorial Team",
+      author: "Texas Defined Editorial Team",
     });
     return { meta: seo.meta, links: seo.links };
   },
@@ -116,12 +116,12 @@ function TexasScenicDrivesPage() {
     headline: "Best Scenic Drives in Texas",
     description:
       "An evergreen guide to Texas scenic drives, regional road trips, seasons, safety, photography, and destination planning.",
-    image: "https://keeptxred.com/images/explore/texas-scenic-drives-hero.svg",
+    image: "https://texasdefined.com/images/explore/texas-scenic-drives-hero.svg",
     datePublished: "2026-07-26",
     dateModified: "2026-07-26",
-    author: { "@type": "Organization", name: "Keep TX Red Editorial Team" },
-    publisher: { "@type": "Organization", name: "Keep TX Red" },
-    mainEntityOfPage: "https://keeptxred.com/explore/texas-scenic-drives",
+    author: { "@type": "Organization", name: "Texas Defined Editorial Team" },
+    publisher: { "@type": "Organization", name: "Texas Defined" },
+    mainEntityOfPage: "https://texasdefined.com/explore/texas-scenic-drives",
   };
   const faqSchema = {
     "@context": "https://schema.org",
