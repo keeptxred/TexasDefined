@@ -7,7 +7,6 @@ import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { EventCard } from "@/components/editorial/EventCard";
 import { FeatureHero } from "@/components/editorial/FeatureHero";
 import { GuideCard } from "@/components/editorial/GuideCard";
-import { NewsletterSignup } from "@/components/editorial/NewsletterSignup";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import type { Destination } from "@/data/types";
 
@@ -93,13 +92,10 @@ function HomePage() {
 
   const hero = featured[0];
   const regionName = (id: string) => regions.find((region) => region.id === id)?.name;
-  const bbq = latest.find((article) => article.category === "food-bbq");
   const wildlife = latest.find((article) => article.category === "outdoors");
   const secondary = featured.slice(1, 4);
   const featuredDestinations = destinations.filter((item) => item.featured).slice(0, 4);
-  const weekend = destinations.slice(0, 3);
   const hiddenGems = destinations.slice(3, 6);
-
 
   return (
     <>
@@ -157,9 +153,6 @@ function HomePage() {
         </Container>
       </Section>
 
-
-
-
       <Section tone="surface">
         <Container>
           <SectionHeader
@@ -197,61 +190,6 @@ function HomePage() {
           </ul>
         </Container>
       </Section>
-
-      <Section>
-        <Container>
-          <SectionHeader
-            eyebrow="Weekend getaways"
-            title="Three places worth the drive"
-            actionLabel={brand.copy.viewAll}
-            actionTo="/explore/road-trips"
-          />
-          <ul className="mt-10 grid gap-6 sm:grid-cols-3">
-            {weekend.map((destination) => (
-              <li key={destination.id}>
-                <DestinationCard
-                  destination={destination}
-                  tone="overlay"
-                  regionLabel={regionName(destination.region)}
-                />
-              </li>
-            ))}
-          </ul>
-        </Container>
-      </Section>
-
-      {bbq && (
-        <Section tone="ink">
-          <Container>
-            <div className="grid items-center gap-10 lg:grid-cols-2">
-              <img
-                src={bbq.hero.src}
-                alt={bbq.hero.alt}
-                width={bbq.hero.width}
-                height={bbq.hero.height}
-                loading="lazy"
-                decoding="async"
-                className="aspect-[4/3] w-full object-cover"
-              />
-              <div>
-                <p className="eyebrow text-ink-foreground/70">Food &amp; barbecue</p>
-                <h2 className="mt-3 font-display text-4xl leading-tight sm:text-5xl">
-                  {bbq.title}
-                </h2>
-                <p className="mt-4 text-base leading-relaxed text-ink-foreground/85">{bbq.dek}</p>
-                <Link
-                  to="/article/$slug"
-                  params={{ slug: bbq.slug }}
-                  className="eyebrow mt-7 inline-block border-b-2 border-ink-foreground pb-1"
-                >
-                  {brand.copy.readMore}
-                </Link>
-              </div>
-            </div>
-          </Container>
-        </Section>
-      )}
-
 
       <Section>
         <Container>
@@ -297,8 +235,6 @@ function HomePage() {
         destinations={roadTrips}
         regionName={regionName}
       />
-
-
 
       {wildlife && (
         <Section tone="surface">
@@ -398,14 +334,6 @@ function HomePage() {
           </ul>
         </Container>
       </Section>
-
-      {brand.features.newsletter && (
-        <Section tone="ink">
-          <Container>
-            <NewsletterSignup />
-          </Container>
-        </Section>
-      )}
     </>
   );
 }
@@ -453,4 +381,3 @@ function DestinationRow({
     </Section>
   );
 }
-
