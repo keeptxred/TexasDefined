@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { Container } from '@/components/layout/Container';
+import { InternalLinkMemoryCard } from '@/components/admin/InternalLinkMemoryCard';
 import { CONTENT_HEALTH_RESOURCES, validateAuthoritativeSources } from '@/data/source-governance';
 import { TEXAS_CITIES, TEXAS_COUNTIES, validateTexasPlaces } from '@/data/texas-places';
 import { loadTexasKnowledgeGraph, validateTexasEntityRegistry } from '@/data/knowledge-graph';
@@ -42,6 +43,7 @@ function Page() {
       <Metric value={String(audit.duplicateAliases)} label="Duplicate aliases" detail="Ambiguous entity resolution" />
     </section>
     {errors.length > 0 && <section className="mt-8 rounded-md border border-destructive/40 p-5"><h2 className="font-display text-2xl">Validation errors</h2>{errors.slice(0, 100).map((error) => <p className="mt-2 text-sm" key={error}>{error}</p>)}</section>}
+    <InternalLinkMemoryCard />
     <section className="mt-12"><h2 className="font-display text-3xl">Internal-link surfaces</h2><div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">{INTERNAL_LINK_SURFACES.map((surface) => <article key={surface.id} className="rounded-md border border-border p-5"><div className="flex items-start justify-between gap-3"><strong>{surface.routePattern}</strong><span className="rounded-full bg-muted px-2 py-1 text-xs capitalize">{surface.status.replace('-', ' ')}</span></div><p className="mt-2 text-sm text-muted-foreground">{surface.notes}</p>{surface.pageBudget ? <p className="mt-2 text-xs text-muted-foreground">Page budget: {surface.pageBudget} links</p> : null}</article>)}</div></section>
     <section className="mt-12"><h2 className="font-display text-3xl">Entity coverage</h2><div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">{Object.entries(counts).sort((a, b) => b[1] - a[1]).map(([kind, count]) => <article key={kind} className="rounded-md border border-border p-5"><strong className="capitalize">{kind.replaceAll('-', ' ')}</strong><p className="mt-2 text-sm text-muted-foreground">{count} records</p></article>)}</div></section>
     <section className="mt-12"><h2 className="font-display text-3xl">Graph review queue</h2><div className="mt-6 space-y-3">{audit.issues.slice(0, 100).map((issue, index) => <article key={`${issue.code}-${issue.entityId ?? index}`} className="rounded-md border border-border p-5"><strong>{issue.code.replaceAll('-', ' ')}</strong><p className="mt-1 text-sm text-muted-foreground">{issue.message}</p></article>)}</div></section>
