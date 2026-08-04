@@ -1,5 +1,4 @@
 import { Fragment, type ReactNode } from 'react';
-import { Link } from '@tanstack/react-router';
 import type { TexasEntityRecord } from '@/data/knowledge-graph';
 import { canonicalEntityPath } from '@/data/knowledge-graph/relationships';
 
@@ -27,7 +26,7 @@ export function autoLinkEntityMentions(text: string, entities: TexasEntityRecord
   let cursor = 0;
   matches.forEach((match, index) => {
     if (match.start > cursor) output.push(text.slice(cursor, match.start));
-    output.push(<Link key={`${match.entity.id}-${index}`} to={canonicalEntityPath(match.entity)} className="underline decoration-primary/40 underline-offset-2 hover:text-primary">{text.slice(match.start, match.end)}</Link>);
+    output.push(<a key={`${match.entity.id}-${index}`} href={canonicalEntityPath(match.entity)} className="underline decoration-primary/40 underline-offset-2 hover:text-primary">{text.slice(match.start, match.end)}</a>);
     cursor = match.end;
   });
   if (cursor < text.length) output.push(text.slice(cursor));
