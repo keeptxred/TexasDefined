@@ -9,67 +9,61 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as AboutRouteImport } from './routes/about'
-import { Route as EventsRouteImport } from './routes/events'
-import { Route as GuidesRouteImport } from './routes/guides'
-import { Route as HomeGardenRouteImport } from './routes/home-garden'
-import { Route as MovingToTexasRouteImport } from './routes/moving-to-texas'
-import { Route as RealEstateRouteImport } from './routes/real-estate'
-import { Route as SearchRouteImport } from './routes/search'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as SportsRouteImport } from './routes/sports'
 import { Route as TexasHistoryRouteImport } from './routes/texas-history'
-import { Route as ArticleSlugRouteImport } from './routes/article.$slug'
-import { Route as DestinationSlugRouteImport } from './routes/destination.$slug'
-import { Route as ExploreIndexRouteImport } from './routes/explore.index'
-import { Route as ExploreCategoryRouteImport } from './routes/explore.$category'
+import { Route as SportsRouteImport } from './routes/sports'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as SitemapExploreDotxmlRouteImport } from './routes/sitemap-explore[.]xml'
+import { Route as SearchRouteImport } from './routes/search'
+import { Route as RealEstateRouteImport } from './routes/real-estate'
+import { Route as MovingToTexasRouteImport } from './routes/moving-to-texas'
+import { Route as LlmsDottxtRouteImport } from './routes/llms[.]txt'
+import { Route as HomeGardenRouteImport } from './routes/home-garden'
+import { Route as GuidesRouteImport } from './routes/guides'
+import { Route as EventsRouteImport } from './routes/events'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as IndexRouteImport } from './routes/index'
 import { Route as ShopIndexRouteImport } from './routes/shop.index'
+import { Route as ExploreIndexRouteImport } from './routes/explore.index'
 import { Route as ShopCollectionRouteImport } from './routes/shop.$collection'
+import { Route as LearnPropertyTaxesRouteImport } from './routes/learn.property-taxes'
+import { Route as LearnPropertyTaxPaymentsRouteImport } from './routes/learn.property-tax-payments'
+import { Route as LearnAppraisalDistrictsRouteImport } from './routes/learn.appraisal-districts'
+import { Route as ExploreSearchRouteImport } from './routes/explore.search'
+import { Route as ExploreCategoryRouteImport } from './routes/explore.$category'
+import { Route as DoPropertyTaxProtestRouteImport } from './routes/do.property-tax-protest'
+import { Route as DoHomesteadExemptionRouteImport } from './routes/do.homestead-exemption'
+import { Route as DestinationSlugRouteImport } from './routes/destination.$slug'
+import { Route as DecidePropertyTaxesRouteImport } from './routes/decide.property-taxes'
+import { Route as BrowseCountiesRouteImport } from './routes/browse.counties'
+import { Route as BrowseCitiesRouteImport } from './routes/browse.cities'
+import { Route as ArticleSlugRouteImport } from './routes/article.$slug'
+import { Route as ApiPublicationGateRouteImport } from './routes/api.publication-gate'
+import { Route as ApiPlatformCoreStatusRouteImport } from './routes/api.platform-core-status'
+import { Route as ApiKnowledgeGraphBehaviorRouteImport } from './routes/api.knowledge-graph-behavior'
+import { Route as ApiKnowledgeGraphRouteImport } from './routes/api.knowledge-graph'
+import { Route as ApiInternalLinksRouteImport } from './routes/api.internal-links'
+import { Route as ApiInternalLinkTestsRouteImport } from './routes/api.internal-link-tests'
+import { Route as ApiInternalLinkQualityRouteImport } from './routes/api.internal-link-quality'
+import { Route as ApiInternalLinkPolicyRollbackRouteImport } from './routes/api.internal-link-policy-rollback'
+import { Route as ApiInternalLinkPoliciesRouteImport } from './routes/api.internal-link-policies'
+import { Route as ApiInternalLinkCoverageRouteImport } from './routes/api.internal-link-coverage'
+import { Route as ApiGovernanceHealthRouteImport } from './routes/api.governance-health'
+import { Route as ApiEntityMaintenanceRouteImport } from './routes/api.entity-maintenance'
+import { Route as ApiEntityImportPreviewRouteImport } from './routes/api.entity-import-preview'
+import { Route as ApiContentDispositionRouteImport } from './routes/api.content-disposition'
+import { Route as AdminPlatformHealthRouteImport } from './routes/admin.platform-health'
+import { Route as AdminKnowledgeGraphBehaviorRouteImport } from './routes/admin.knowledge-graph-behavior'
+import { Route as AdminInternalLinkTestsRouteImport } from './routes/admin.internal-link-tests'
+import { Route as AdminInternalLinkRollbackRouteImport } from './routes/admin.internal-link-rollback'
+import { Route as AdminGovernanceHealthRouteImport } from './routes/admin.governance-health'
+import { Route as AdminEntityMaintenanceRouteImport } from './routes/admin.entity-maintenance'
+import { Route as AdminEntityImportReviewRouteImport } from './routes/admin.entity-import-review'
+import { Route as KindSlugRouteImport } from './routes/$kind.$slug'
+import { Route as ApiAiEntitiesRouteImport } from './routes/api.ai.entities'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AboutRoute = AboutRouteImport.update({
-  id: '/about',
-  path: '/about',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const EventsRoute = EventsRouteImport.update({
-  id: '/events',
-  path: '/events',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const GuidesRoute = GuidesRouteImport.update({
-  id: '/guides',
-  path: '/guides',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const HomeGardenRoute = HomeGardenRouteImport.update({
-  id: '/home-garden',
-  path: '/home-garden',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MovingToTexasRoute = MovingToTexasRouteImport.update({
-  id: '/moving-to-texas',
-  path: '/moving-to-texas',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const RealEstateRoute = RealEstateRouteImport.update({
-  id: '/real-estate',
-  path: '/real-estate',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SearchRoute = SearchRouteImport.update({
-  id: '/search',
-  path: '/search',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
+const TexasHistoryRoute = TexasHistoryRouteImport.update({
+  id: '/texas-history',
+  path: '/texas-history',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SportsRoute = SportsRouteImport.update({
@@ -77,29 +71,59 @@ const SportsRoute = SportsRouteImport.update({
   path: '/sports',
   getParentRoute: () => rootRouteImport,
 } as any)
-const TexasHistoryRoute = TexasHistoryRouteImport.update({
-  id: '/texas-history',
-  path: '/texas-history',
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ArticleSlugRoute = ArticleSlugRouteImport.update({
-  id: '/article/$slug',
-  path: '/article/$slug',
+const SitemapExploreDotxmlRoute = SitemapExploreDotxmlRouteImport.update({
+  id: '/sitemap-explore.xml',
+  path: '/sitemap-explore.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DestinationSlugRoute = DestinationSlugRouteImport.update({
-  id: '/destination/$slug',
-  path: '/destination/$slug',
+const SearchRoute = SearchRouteImport.update({
+  id: '/search',
+  path: '/search',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ExploreIndexRoute = ExploreIndexRouteImport.update({
-  id: '/explore/',
-  path: '/explore/',
+const RealEstateRoute = RealEstateRouteImport.update({
+  id: '/real-estate',
+  path: '/real-estate',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ExploreCategoryRoute = ExploreCategoryRouteImport.update({
-  id: '/explore/$category',
-  path: '/explore/$category',
+const MovingToTexasRoute = MovingToTexasRouteImport.update({
+  id: '/moving-to-texas',
+  path: '/moving-to-texas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LlmsDottxtRoute = LlmsDottxtRouteImport.update({
+  id: '/llms.txt',
+  path: '/llms.txt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HomeGardenRoute = HomeGardenRouteImport.update({
+  id: '/home-garden',
+  path: '/home-garden',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GuidesRoute = GuidesRouteImport.update({
+  id: '/guides',
+  path: '/guides',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EventsRoute = EventsRouteImport.update({
+  id: '/events',
+  path: '/events',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ShopIndexRoute = ShopIndexRouteImport.update({
@@ -107,9 +131,194 @@ const ShopIndexRoute = ShopIndexRouteImport.update({
   path: '/shop/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ExploreIndexRoute = ExploreIndexRouteImport.update({
+  id: '/explore/',
+  path: '/explore/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ShopCollectionRoute = ShopCollectionRouteImport.update({
   id: '/shop/$collection',
   path: '/shop/$collection',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LearnPropertyTaxesRoute = LearnPropertyTaxesRouteImport.update({
+  id: '/learn/property-taxes',
+  path: '/learn/property-taxes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LearnPropertyTaxPaymentsRoute =
+  LearnPropertyTaxPaymentsRouteImport.update({
+    id: '/learn/property-tax-payments',
+    path: '/learn/property-tax-payments',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const LearnAppraisalDistrictsRoute = LearnAppraisalDistrictsRouteImport.update({
+  id: '/learn/appraisal-districts',
+  path: '/learn/appraisal-districts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExploreSearchRoute = ExploreSearchRouteImport.update({
+  id: '/explore/search',
+  path: '/explore/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExploreCategoryRoute = ExploreCategoryRouteImport.update({
+  id: '/explore/$category',
+  path: '/explore/$category',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DoPropertyTaxProtestRoute = DoPropertyTaxProtestRouteImport.update({
+  id: '/do/property-tax-protest',
+  path: '/do/property-tax-protest',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DoHomesteadExemptionRoute = DoHomesteadExemptionRouteImport.update({
+  id: '/do/homestead-exemption',
+  path: '/do/homestead-exemption',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DestinationSlugRoute = DestinationSlugRouteImport.update({
+  id: '/destination/$slug',
+  path: '/destination/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DecidePropertyTaxesRoute = DecidePropertyTaxesRouteImport.update({
+  id: '/decide/property-taxes',
+  path: '/decide/property-taxes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BrowseCountiesRoute = BrowseCountiesRouteImport.update({
+  id: '/browse/counties',
+  path: '/browse/counties',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BrowseCitiesRoute = BrowseCitiesRouteImport.update({
+  id: '/browse/cities',
+  path: '/browse/cities',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArticleSlugRoute = ArticleSlugRouteImport.update({
+  id: '/article/$slug',
+  path: '/article/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicationGateRoute = ApiPublicationGateRouteImport.update({
+  id: '/api/publication-gate',
+  path: '/api/publication-gate',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPlatformCoreStatusRoute = ApiPlatformCoreStatusRouteImport.update({
+  id: '/api/platform-core-status',
+  path: '/api/platform-core-status',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiKnowledgeGraphBehaviorRoute =
+  ApiKnowledgeGraphBehaviorRouteImport.update({
+    id: '/api/knowledge-graph-behavior',
+    path: '/api/knowledge-graph-behavior',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiKnowledgeGraphRoute = ApiKnowledgeGraphRouteImport.update({
+  id: '/api/knowledge-graph',
+  path: '/api/knowledge-graph',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiInternalLinksRoute = ApiInternalLinksRouteImport.update({
+  id: '/api/internal-links',
+  path: '/api/internal-links',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiInternalLinkTestsRoute = ApiInternalLinkTestsRouteImport.update({
+  id: '/api/internal-link-tests',
+  path: '/api/internal-link-tests',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiInternalLinkQualityRoute = ApiInternalLinkQualityRouteImport.update({
+  id: '/api/internal-link-quality',
+  path: '/api/internal-link-quality',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiInternalLinkPolicyRollbackRoute =
+  ApiInternalLinkPolicyRollbackRouteImport.update({
+    id: '/api/internal-link-policy-rollback',
+    path: '/api/internal-link-policy-rollback',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiInternalLinkPoliciesRoute = ApiInternalLinkPoliciesRouteImport.update({
+  id: '/api/internal-link-policies',
+  path: '/api/internal-link-policies',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiInternalLinkCoverageRoute = ApiInternalLinkCoverageRouteImport.update({
+  id: '/api/internal-link-coverage',
+  path: '/api/internal-link-coverage',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiGovernanceHealthRoute = ApiGovernanceHealthRouteImport.update({
+  id: '/api/governance-health',
+  path: '/api/governance-health',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiEntityMaintenanceRoute = ApiEntityMaintenanceRouteImport.update({
+  id: '/api/entity-maintenance',
+  path: '/api/entity-maintenance',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiEntityImportPreviewRoute = ApiEntityImportPreviewRouteImport.update({
+  id: '/api/entity-import-preview',
+  path: '/api/entity-import-preview',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiContentDispositionRoute = ApiContentDispositionRouteImport.update({
+  id: '/api/content-disposition',
+  path: '/api/content-disposition',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminPlatformHealthRoute = AdminPlatformHealthRouteImport.update({
+  id: '/admin/platform-health',
+  path: '/admin/platform-health',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminKnowledgeGraphBehaviorRoute =
+  AdminKnowledgeGraphBehaviorRouteImport.update({
+    id: '/admin/knowledge-graph-behavior',
+    path: '/admin/knowledge-graph-behavior',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AdminInternalLinkTestsRoute = AdminInternalLinkTestsRouteImport.update({
+  id: '/admin/internal-link-tests',
+  path: '/admin/internal-link-tests',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminInternalLinkRollbackRoute =
+  AdminInternalLinkRollbackRouteImport.update({
+    id: '/admin/internal-link-rollback',
+    path: '/admin/internal-link-rollback',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AdminGovernanceHealthRoute = AdminGovernanceHealthRouteImport.update({
+  id: '/admin/governance-health',
+  path: '/admin/governance-health',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminEntityMaintenanceRoute = AdminEntityMaintenanceRouteImport.update({
+  id: '/admin/entity-maintenance',
+  path: '/admin/entity-maintenance',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminEntityImportReviewRoute = AdminEntityImportReviewRouteImport.update({
+  id: '/admin/entity-import-review',
+  path: '/admin/entity-import-review',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KindSlugRoute = KindSlugRouteImport.update({
+  id: '/$kind/$slug',
+  path: '/$kind/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAiEntitiesRoute = ApiAiEntitiesRouteImport.update({
+  id: '/api/ai/entities',
+  path: '/api/ai/entities',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -119,18 +328,52 @@ export interface FileRoutesByFullPath {
   '/events': typeof EventsRoute
   '/guides': typeof GuidesRoute
   '/home-garden': typeof HomeGardenRoute
+  '/llms.txt': typeof LlmsDottxtRoute
   '/moving-to-texas': typeof MovingToTexasRoute
   '/real-estate': typeof RealEstateRoute
   '/search': typeof SearchRoute
+  '/sitemap-explore.xml': typeof SitemapExploreDotxmlRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sports': typeof SportsRoute
   '/texas-history': typeof TexasHistoryRoute
+  '/$kind/$slug': typeof KindSlugRoute
+  '/admin/entity-import-review': typeof AdminEntityImportReviewRoute
+  '/admin/entity-maintenance': typeof AdminEntityMaintenanceRoute
+  '/admin/governance-health': typeof AdminGovernanceHealthRoute
+  '/admin/internal-link-rollback': typeof AdminInternalLinkRollbackRoute
+  '/admin/internal-link-tests': typeof AdminInternalLinkTestsRoute
+  '/admin/knowledge-graph-behavior': typeof AdminKnowledgeGraphBehaviorRoute
+  '/admin/platform-health': typeof AdminPlatformHealthRoute
+  '/api/content-disposition': typeof ApiContentDispositionRoute
+  '/api/entity-import-preview': typeof ApiEntityImportPreviewRoute
+  '/api/entity-maintenance': typeof ApiEntityMaintenanceRoute
+  '/api/governance-health': typeof ApiGovernanceHealthRoute
+  '/api/internal-link-coverage': typeof ApiInternalLinkCoverageRoute
+  '/api/internal-link-policies': typeof ApiInternalLinkPoliciesRoute
+  '/api/internal-link-policy-rollback': typeof ApiInternalLinkPolicyRollbackRoute
+  '/api/internal-link-quality': typeof ApiInternalLinkQualityRoute
+  '/api/internal-link-tests': typeof ApiInternalLinkTestsRoute
+  '/api/internal-links': typeof ApiInternalLinksRoute
+  '/api/knowledge-graph': typeof ApiKnowledgeGraphRoute
+  '/api/knowledge-graph-behavior': typeof ApiKnowledgeGraphBehaviorRoute
+  '/api/platform-core-status': typeof ApiPlatformCoreStatusRoute
+  '/api/publication-gate': typeof ApiPublicationGateRoute
   '/article/$slug': typeof ArticleSlugRoute
+  '/browse/cities': typeof BrowseCitiesRoute
+  '/browse/counties': typeof BrowseCountiesRoute
+  '/decide/property-taxes': typeof DecidePropertyTaxesRoute
   '/destination/$slug': typeof DestinationSlugRoute
+  '/do/homestead-exemption': typeof DoHomesteadExemptionRoute
+  '/do/property-tax-protest': typeof DoPropertyTaxProtestRoute
   '/explore/$category': typeof ExploreCategoryRoute
+  '/explore/search': typeof ExploreSearchRoute
+  '/learn/appraisal-districts': typeof LearnAppraisalDistrictsRoute
+  '/learn/property-tax-payments': typeof LearnPropertyTaxPaymentsRoute
+  '/learn/property-taxes': typeof LearnPropertyTaxesRoute
   '/shop/$collection': typeof ShopCollectionRoute
   '/explore/': typeof ExploreIndexRoute
   '/shop/': typeof ShopIndexRoute
+  '/api/ai/entities': typeof ApiAiEntitiesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -138,18 +381,52 @@ export interface FileRoutesByTo {
   '/events': typeof EventsRoute
   '/guides': typeof GuidesRoute
   '/home-garden': typeof HomeGardenRoute
+  '/llms.txt': typeof LlmsDottxtRoute
   '/moving-to-texas': typeof MovingToTexasRoute
   '/real-estate': typeof RealEstateRoute
   '/search': typeof SearchRoute
+  '/sitemap-explore.xml': typeof SitemapExploreDotxmlRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sports': typeof SportsRoute
   '/texas-history': typeof TexasHistoryRoute
+  '/$kind/$slug': typeof KindSlugRoute
+  '/admin/entity-import-review': typeof AdminEntityImportReviewRoute
+  '/admin/entity-maintenance': typeof AdminEntityMaintenanceRoute
+  '/admin/governance-health': typeof AdminGovernanceHealthRoute
+  '/admin/internal-link-rollback': typeof AdminInternalLinkRollbackRoute
+  '/admin/internal-link-tests': typeof AdminInternalLinkTestsRoute
+  '/admin/knowledge-graph-behavior': typeof AdminKnowledgeGraphBehaviorRoute
+  '/admin/platform-health': typeof AdminPlatformHealthRoute
+  '/api/content-disposition': typeof ApiContentDispositionRoute
+  '/api/entity-import-preview': typeof ApiEntityImportPreviewRoute
+  '/api/entity-maintenance': typeof ApiEntityMaintenanceRoute
+  '/api/governance-health': typeof ApiGovernanceHealthRoute
+  '/api/internal-link-coverage': typeof ApiInternalLinkCoverageRoute
+  '/api/internal-link-policies': typeof ApiInternalLinkPoliciesRoute
+  '/api/internal-link-policy-rollback': typeof ApiInternalLinkPolicyRollbackRoute
+  '/api/internal-link-quality': typeof ApiInternalLinkQualityRoute
+  '/api/internal-link-tests': typeof ApiInternalLinkTestsRoute
+  '/api/internal-links': typeof ApiInternalLinksRoute
+  '/api/knowledge-graph': typeof ApiKnowledgeGraphRoute
+  '/api/knowledge-graph-behavior': typeof ApiKnowledgeGraphBehaviorRoute
+  '/api/platform-core-status': typeof ApiPlatformCoreStatusRoute
+  '/api/publication-gate': typeof ApiPublicationGateRoute
   '/article/$slug': typeof ArticleSlugRoute
+  '/browse/cities': typeof BrowseCitiesRoute
+  '/browse/counties': typeof BrowseCountiesRoute
+  '/decide/property-taxes': typeof DecidePropertyTaxesRoute
   '/destination/$slug': typeof DestinationSlugRoute
+  '/do/homestead-exemption': typeof DoHomesteadExemptionRoute
+  '/do/property-tax-protest': typeof DoPropertyTaxProtestRoute
   '/explore/$category': typeof ExploreCategoryRoute
+  '/explore/search': typeof ExploreSearchRoute
+  '/learn/appraisal-districts': typeof LearnAppraisalDistrictsRoute
+  '/learn/property-tax-payments': typeof LearnPropertyTaxPaymentsRoute
+  '/learn/property-taxes': typeof LearnPropertyTaxesRoute
   '/shop/$collection': typeof ShopCollectionRoute
   '/explore': typeof ExploreIndexRoute
   '/shop': typeof ShopIndexRoute
+  '/api/ai/entities': typeof ApiAiEntitiesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -158,18 +435,52 @@ export interface FileRoutesById {
   '/events': typeof EventsRoute
   '/guides': typeof GuidesRoute
   '/home-garden': typeof HomeGardenRoute
+  '/llms.txt': typeof LlmsDottxtRoute
   '/moving-to-texas': typeof MovingToTexasRoute
   '/real-estate': typeof RealEstateRoute
   '/search': typeof SearchRoute
+  '/sitemap-explore.xml': typeof SitemapExploreDotxmlRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sports': typeof SportsRoute
   '/texas-history': typeof TexasHistoryRoute
+  '/$kind/$slug': typeof KindSlugRoute
+  '/admin/entity-import-review': typeof AdminEntityImportReviewRoute
+  '/admin/entity-maintenance': typeof AdminEntityMaintenanceRoute
+  '/admin/governance-health': typeof AdminGovernanceHealthRoute
+  '/admin/internal-link-rollback': typeof AdminInternalLinkRollbackRoute
+  '/admin/internal-link-tests': typeof AdminInternalLinkTestsRoute
+  '/admin/knowledge-graph-behavior': typeof AdminKnowledgeGraphBehaviorRoute
+  '/admin/platform-health': typeof AdminPlatformHealthRoute
+  '/api/content-disposition': typeof ApiContentDispositionRoute
+  '/api/entity-import-preview': typeof ApiEntityImportPreviewRoute
+  '/api/entity-maintenance': typeof ApiEntityMaintenanceRoute
+  '/api/governance-health': typeof ApiGovernanceHealthRoute
+  '/api/internal-link-coverage': typeof ApiInternalLinkCoverageRoute
+  '/api/internal-link-policies': typeof ApiInternalLinkPoliciesRoute
+  '/api/internal-link-policy-rollback': typeof ApiInternalLinkPolicyRollbackRoute
+  '/api/internal-link-quality': typeof ApiInternalLinkQualityRoute
+  '/api/internal-link-tests': typeof ApiInternalLinkTestsRoute
+  '/api/internal-links': typeof ApiInternalLinksRoute
+  '/api/knowledge-graph': typeof ApiKnowledgeGraphRoute
+  '/api/knowledge-graph-behavior': typeof ApiKnowledgeGraphBehaviorRoute
+  '/api/platform-core-status': typeof ApiPlatformCoreStatusRoute
+  '/api/publication-gate': typeof ApiPublicationGateRoute
   '/article/$slug': typeof ArticleSlugRoute
+  '/browse/cities': typeof BrowseCitiesRoute
+  '/browse/counties': typeof BrowseCountiesRoute
+  '/decide/property-taxes': typeof DecidePropertyTaxesRoute
   '/destination/$slug': typeof DestinationSlugRoute
+  '/do/homestead-exemption': typeof DoHomesteadExemptionRoute
+  '/do/property-tax-protest': typeof DoPropertyTaxProtestRoute
   '/explore/$category': typeof ExploreCategoryRoute
+  '/explore/search': typeof ExploreSearchRoute
+  '/learn/appraisal-districts': typeof LearnAppraisalDistrictsRoute
+  '/learn/property-tax-payments': typeof LearnPropertyTaxPaymentsRoute
+  '/learn/property-taxes': typeof LearnPropertyTaxesRoute
   '/shop/$collection': typeof ShopCollectionRoute
   '/explore/': typeof ExploreIndexRoute
   '/shop/': typeof ShopIndexRoute
+  '/api/ai/entities': typeof ApiAiEntitiesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -179,18 +490,52 @@ export interface FileRouteTypes {
     | '/events'
     | '/guides'
     | '/home-garden'
+    | '/llms.txt'
     | '/moving-to-texas'
     | '/real-estate'
     | '/search'
+    | '/sitemap-explore.xml'
     | '/sitemap.xml'
     | '/sports'
     | '/texas-history'
+    | '/$kind/$slug'
+    | '/admin/entity-import-review'
+    | '/admin/entity-maintenance'
+    | '/admin/governance-health'
+    | '/admin/internal-link-rollback'
+    | '/admin/internal-link-tests'
+    | '/admin/knowledge-graph-behavior'
+    | '/admin/platform-health'
+    | '/api/content-disposition'
+    | '/api/entity-import-preview'
+    | '/api/entity-maintenance'
+    | '/api/governance-health'
+    | '/api/internal-link-coverage'
+    | '/api/internal-link-policies'
+    | '/api/internal-link-policy-rollback'
+    | '/api/internal-link-quality'
+    | '/api/internal-link-tests'
+    | '/api/internal-links'
+    | '/api/knowledge-graph'
+    | '/api/knowledge-graph-behavior'
+    | '/api/platform-core-status'
+    | '/api/publication-gate'
     | '/article/$slug'
+    | '/browse/cities'
+    | '/browse/counties'
+    | '/decide/property-taxes'
     | '/destination/$slug'
+    | '/do/homestead-exemption'
+    | '/do/property-tax-protest'
     | '/explore/$category'
+    | '/explore/search'
+    | '/learn/appraisal-districts'
+    | '/learn/property-tax-payments'
+    | '/learn/property-taxes'
     | '/shop/$collection'
     | '/explore/'
     | '/shop/'
+    | '/api/ai/entities'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -198,18 +543,52 @@ export interface FileRouteTypes {
     | '/events'
     | '/guides'
     | '/home-garden'
+    | '/llms.txt'
     | '/moving-to-texas'
     | '/real-estate'
     | '/search'
+    | '/sitemap-explore.xml'
     | '/sitemap.xml'
     | '/sports'
     | '/texas-history'
+    | '/$kind/$slug'
+    | '/admin/entity-import-review'
+    | '/admin/entity-maintenance'
+    | '/admin/governance-health'
+    | '/admin/internal-link-rollback'
+    | '/admin/internal-link-tests'
+    | '/admin/knowledge-graph-behavior'
+    | '/admin/platform-health'
+    | '/api/content-disposition'
+    | '/api/entity-import-preview'
+    | '/api/entity-maintenance'
+    | '/api/governance-health'
+    | '/api/internal-link-coverage'
+    | '/api/internal-link-policies'
+    | '/api/internal-link-policy-rollback'
+    | '/api/internal-link-quality'
+    | '/api/internal-link-tests'
+    | '/api/internal-links'
+    | '/api/knowledge-graph'
+    | '/api/knowledge-graph-behavior'
+    | '/api/platform-core-status'
+    | '/api/publication-gate'
     | '/article/$slug'
+    | '/browse/cities'
+    | '/browse/counties'
+    | '/decide/property-taxes'
     | '/destination/$slug'
+    | '/do/homestead-exemption'
+    | '/do/property-tax-protest'
     | '/explore/$category'
+    | '/explore/search'
+    | '/learn/appraisal-districts'
+    | '/learn/property-tax-payments'
+    | '/learn/property-taxes'
     | '/shop/$collection'
     | '/explore'
     | '/shop'
+    | '/api/ai/entities'
   id:
     | '__root__'
     | '/'
@@ -217,18 +596,52 @@ export interface FileRouteTypes {
     | '/events'
     | '/guides'
     | '/home-garden'
+    | '/llms.txt'
     | '/moving-to-texas'
     | '/real-estate'
     | '/search'
+    | '/sitemap-explore.xml'
     | '/sitemap.xml'
     | '/sports'
     | '/texas-history'
+    | '/$kind/$slug'
+    | '/admin/entity-import-review'
+    | '/admin/entity-maintenance'
+    | '/admin/governance-health'
+    | '/admin/internal-link-rollback'
+    | '/admin/internal-link-tests'
+    | '/admin/knowledge-graph-behavior'
+    | '/admin/platform-health'
+    | '/api/content-disposition'
+    | '/api/entity-import-preview'
+    | '/api/entity-maintenance'
+    | '/api/governance-health'
+    | '/api/internal-link-coverage'
+    | '/api/internal-link-policies'
+    | '/api/internal-link-policy-rollback'
+    | '/api/internal-link-quality'
+    | '/api/internal-link-tests'
+    | '/api/internal-links'
+    | '/api/knowledge-graph'
+    | '/api/knowledge-graph-behavior'
+    | '/api/platform-core-status'
+    | '/api/publication-gate'
     | '/article/$slug'
+    | '/browse/cities'
+    | '/browse/counties'
+    | '/decide/property-taxes'
     | '/destination/$slug'
+    | '/do/homestead-exemption'
+    | '/do/property-tax-protest'
     | '/explore/$category'
+    | '/explore/search'
+    | '/learn/appraisal-districts'
+    | '/learn/property-tax-payments'
+    | '/learn/property-taxes'
     | '/shop/$collection'
     | '/explore/'
     | '/shop/'
+    | '/api/ai/entities'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -237,83 +650,61 @@ export interface RootRouteChildren {
   EventsRoute: typeof EventsRoute
   GuidesRoute: typeof GuidesRoute
   HomeGardenRoute: typeof HomeGardenRoute
+  LlmsDottxtRoute: typeof LlmsDottxtRoute
   MovingToTexasRoute: typeof MovingToTexasRoute
   RealEstateRoute: typeof RealEstateRoute
   SearchRoute: typeof SearchRoute
+  SitemapExploreDotxmlRoute: typeof SitemapExploreDotxmlRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SportsRoute: typeof SportsRoute
   TexasHistoryRoute: typeof TexasHistoryRoute
+  KindSlugRoute: typeof KindSlugRoute
+  AdminEntityImportReviewRoute: typeof AdminEntityImportReviewRoute
+  AdminEntityMaintenanceRoute: typeof AdminEntityMaintenanceRoute
+  AdminGovernanceHealthRoute: typeof AdminGovernanceHealthRoute
+  AdminInternalLinkRollbackRoute: typeof AdminInternalLinkRollbackRoute
+  AdminInternalLinkTestsRoute: typeof AdminInternalLinkTestsRoute
+  AdminKnowledgeGraphBehaviorRoute: typeof AdminKnowledgeGraphBehaviorRoute
+  AdminPlatformHealthRoute: typeof AdminPlatformHealthRoute
+  ApiContentDispositionRoute: typeof ApiContentDispositionRoute
+  ApiEntityImportPreviewRoute: typeof ApiEntityImportPreviewRoute
+  ApiEntityMaintenanceRoute: typeof ApiEntityMaintenanceRoute
+  ApiGovernanceHealthRoute: typeof ApiGovernanceHealthRoute
+  ApiInternalLinkCoverageRoute: typeof ApiInternalLinkCoverageRoute
+  ApiInternalLinkPoliciesRoute: typeof ApiInternalLinkPoliciesRoute
+  ApiInternalLinkPolicyRollbackRoute: typeof ApiInternalLinkPolicyRollbackRoute
+  ApiInternalLinkQualityRoute: typeof ApiInternalLinkQualityRoute
+  ApiInternalLinkTestsRoute: typeof ApiInternalLinkTestsRoute
+  ApiInternalLinksRoute: typeof ApiInternalLinksRoute
+  ApiKnowledgeGraphRoute: typeof ApiKnowledgeGraphRoute
+  ApiKnowledgeGraphBehaviorRoute: typeof ApiKnowledgeGraphBehaviorRoute
+  ApiPlatformCoreStatusRoute: typeof ApiPlatformCoreStatusRoute
+  ApiPublicationGateRoute: typeof ApiPublicationGateRoute
   ArticleSlugRoute: typeof ArticleSlugRoute
+  BrowseCitiesRoute: typeof BrowseCitiesRoute
+  BrowseCountiesRoute: typeof BrowseCountiesRoute
+  DecidePropertyTaxesRoute: typeof DecidePropertyTaxesRoute
   DestinationSlugRoute: typeof DestinationSlugRoute
+  DoHomesteadExemptionRoute: typeof DoHomesteadExemptionRoute
+  DoPropertyTaxProtestRoute: typeof DoPropertyTaxProtestRoute
   ExploreCategoryRoute: typeof ExploreCategoryRoute
+  ExploreSearchRoute: typeof ExploreSearchRoute
+  LearnAppraisalDistrictsRoute: typeof LearnAppraisalDistrictsRoute
+  LearnPropertyTaxPaymentsRoute: typeof LearnPropertyTaxPaymentsRoute
+  LearnPropertyTaxesRoute: typeof LearnPropertyTaxesRoute
   ShopCollectionRoute: typeof ShopCollectionRoute
   ExploreIndexRoute: typeof ExploreIndexRoute
   ShopIndexRoute: typeof ShopIndexRoute
+  ApiAiEntitiesRoute: typeof ApiAiEntitiesRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/events': {
-      id: '/events'
-      path: '/events'
-      fullPath: '/events'
-      preLoaderRoute: typeof EventsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/guides': {
-      id: '/guides'
-      path: '/guides'
-      fullPath: '/guides'
-      preLoaderRoute: typeof GuidesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/home-garden': {
-      id: '/home-garden'
-      path: '/home-garden'
-      fullPath: '/home-garden'
-      preLoaderRoute: typeof HomeGardenRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/moving-to-texas': {
-      id: '/moving-to-texas'
-      path: '/moving-to-texas'
-      fullPath: '/moving-to-texas'
-      preLoaderRoute: typeof MovingToTexasRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/real-estate': {
-      id: '/real-estate'
-      path: '/real-estate'
-      fullPath: '/real-estate'
-      preLoaderRoute: typeof RealEstateRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/search': {
-      id: '/search'
-      path: '/search'
-      fullPath: '/search'
-      preLoaderRoute: typeof SearchRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
+    '/texas-history': {
+      id: '/texas-history'
+      path: '/texas-history'
+      fullPath: '/texas-history'
+      preLoaderRoute: typeof TexasHistoryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sports': {
@@ -323,39 +714,81 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SportsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/texas-history': {
-      id: '/texas-history'
-      path: '/texas-history'
-      fullPath: '/texas-history'
-      preLoaderRoute: typeof TexasHistoryRouteImport
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/article/$slug': {
-      id: '/article/$slug'
-      path: '/article/$slug'
-      fullPath: '/article/$slug'
-      preLoaderRoute: typeof ArticleSlugRouteImport
+    '/sitemap-explore.xml': {
+      id: '/sitemap-explore.xml'
+      path: '/sitemap-explore.xml'
+      fullPath: '/sitemap-explore.xml'
+      preLoaderRoute: typeof SitemapExploreDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/destination/$slug': {
-      id: '/destination/$slug'
-      path: '/destination/$slug'
-      fullPath: '/destination/$slug'
-      preLoaderRoute: typeof DestinationSlugRouteImport
+    '/search': {
+      id: '/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof SearchRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/explore/': {
-      id: '/explore/'
-      path: '/explore'
-      fullPath: '/explore/'
-      preLoaderRoute: typeof ExploreIndexRouteImport
+    '/real-estate': {
+      id: '/real-estate'
+      path: '/real-estate'
+      fullPath: '/real-estate'
+      preLoaderRoute: typeof RealEstateRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/explore/$category': {
-      id: '/explore/$category'
-      path: '/explore/$category'
-      fullPath: '/explore/$category'
-      preLoaderRoute: typeof ExploreCategoryRouteImport
+    '/moving-to-texas': {
+      id: '/moving-to-texas'
+      path: '/moving-to-texas'
+      fullPath: '/moving-to-texas'
+      preLoaderRoute: typeof MovingToTexasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/llms.txt': {
+      id: '/llms.txt'
+      path: '/llms.txt'
+      fullPath: '/llms.txt'
+      preLoaderRoute: typeof LlmsDottxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/home-garden': {
+      id: '/home-garden'
+      path: '/home-garden'
+      fullPath: '/home-garden'
+      preLoaderRoute: typeof HomeGardenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guides': {
+      id: '/guides'
+      path: '/guides'
+      fullPath: '/guides'
+      preLoaderRoute: typeof GuidesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/events': {
+      id: '/events'
+      path: '/events'
+      fullPath: '/events'
+      preLoaderRoute: typeof EventsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/shop/': {
@@ -365,11 +798,263 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ShopIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/explore/': {
+      id: '/explore/'
+      path: '/explore'
+      fullPath: '/explore/'
+      preLoaderRoute: typeof ExploreIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/shop/$collection': {
       id: '/shop/$collection'
       path: '/shop/$collection'
       fullPath: '/shop/$collection'
       preLoaderRoute: typeof ShopCollectionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/learn/property-taxes': {
+      id: '/learn/property-taxes'
+      path: '/learn/property-taxes'
+      fullPath: '/learn/property-taxes'
+      preLoaderRoute: typeof LearnPropertyTaxesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/learn/property-tax-payments': {
+      id: '/learn/property-tax-payments'
+      path: '/learn/property-tax-payments'
+      fullPath: '/learn/property-tax-payments'
+      preLoaderRoute: typeof LearnPropertyTaxPaymentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/learn/appraisal-districts': {
+      id: '/learn/appraisal-districts'
+      path: '/learn/appraisal-districts'
+      fullPath: '/learn/appraisal-districts'
+      preLoaderRoute: typeof LearnAppraisalDistrictsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/explore/search': {
+      id: '/explore/search'
+      path: '/explore/search'
+      fullPath: '/explore/search'
+      preLoaderRoute: typeof ExploreSearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/explore/$category': {
+      id: '/explore/$category'
+      path: '/explore/$category'
+      fullPath: '/explore/$category'
+      preLoaderRoute: typeof ExploreCategoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/do/property-tax-protest': {
+      id: '/do/property-tax-protest'
+      path: '/do/property-tax-protest'
+      fullPath: '/do/property-tax-protest'
+      preLoaderRoute: typeof DoPropertyTaxProtestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/do/homestead-exemption': {
+      id: '/do/homestead-exemption'
+      path: '/do/homestead-exemption'
+      fullPath: '/do/homestead-exemption'
+      preLoaderRoute: typeof DoHomesteadExemptionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/destination/$slug': {
+      id: '/destination/$slug'
+      path: '/destination/$slug'
+      fullPath: '/destination/$slug'
+      preLoaderRoute: typeof DestinationSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/decide/property-taxes': {
+      id: '/decide/property-taxes'
+      path: '/decide/property-taxes'
+      fullPath: '/decide/property-taxes'
+      preLoaderRoute: typeof DecidePropertyTaxesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/browse/counties': {
+      id: '/browse/counties'
+      path: '/browse/counties'
+      fullPath: '/browse/counties'
+      preLoaderRoute: typeof BrowseCountiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/browse/cities': {
+      id: '/browse/cities'
+      path: '/browse/cities'
+      fullPath: '/browse/cities'
+      preLoaderRoute: typeof BrowseCitiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/article/$slug': {
+      id: '/article/$slug'
+      path: '/article/$slug'
+      fullPath: '/article/$slug'
+      preLoaderRoute: typeof ArticleSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/publication-gate': {
+      id: '/api/publication-gate'
+      path: '/api/publication-gate'
+      fullPath: '/api/publication-gate'
+      preLoaderRoute: typeof ApiPublicationGateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/platform-core-status': {
+      id: '/api/platform-core-status'
+      path: '/api/platform-core-status'
+      fullPath: '/api/platform-core-status'
+      preLoaderRoute: typeof ApiPlatformCoreStatusRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/knowledge-graph-behavior': {
+      id: '/api/knowledge-graph-behavior'
+      path: '/api/knowledge-graph-behavior'
+      fullPath: '/api/knowledge-graph-behavior'
+      preLoaderRoute: typeof ApiKnowledgeGraphBehaviorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/knowledge-graph': {
+      id: '/api/knowledge-graph'
+      path: '/api/knowledge-graph'
+      fullPath: '/api/knowledge-graph'
+      preLoaderRoute: typeof ApiKnowledgeGraphRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/internal-links': {
+      id: '/api/internal-links'
+      path: '/api/internal-links'
+      fullPath: '/api/internal-links'
+      preLoaderRoute: typeof ApiInternalLinksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/internal-link-tests': {
+      id: '/api/internal-link-tests'
+      path: '/api/internal-link-tests'
+      fullPath: '/api/internal-link-tests'
+      preLoaderRoute: typeof ApiInternalLinkTestsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/internal-link-quality': {
+      id: '/api/internal-link-quality'
+      path: '/api/internal-link-quality'
+      fullPath: '/api/internal-link-quality'
+      preLoaderRoute: typeof ApiInternalLinkQualityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/internal-link-policy-rollback': {
+      id: '/api/internal-link-policy-rollback'
+      path: '/api/internal-link-policy-rollback'
+      fullPath: '/api/internal-link-policy-rollback'
+      preLoaderRoute: typeof ApiInternalLinkPolicyRollbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/internal-link-policies': {
+      id: '/api/internal-link-policies'
+      path: '/api/internal-link-policies'
+      fullPath: '/api/internal-link-policies'
+      preLoaderRoute: typeof ApiInternalLinkPoliciesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/internal-link-coverage': {
+      id: '/api/internal-link-coverage'
+      path: '/api/internal-link-coverage'
+      fullPath: '/api/internal-link-coverage'
+      preLoaderRoute: typeof ApiInternalLinkCoverageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/governance-health': {
+      id: '/api/governance-health'
+      path: '/api/governance-health'
+      fullPath: '/api/governance-health'
+      preLoaderRoute: typeof ApiGovernanceHealthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/entity-maintenance': {
+      id: '/api/entity-maintenance'
+      path: '/api/entity-maintenance'
+      fullPath: '/api/entity-maintenance'
+      preLoaderRoute: typeof ApiEntityMaintenanceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/entity-import-preview': {
+      id: '/api/entity-import-preview'
+      path: '/api/entity-import-preview'
+      fullPath: '/api/entity-import-preview'
+      preLoaderRoute: typeof ApiEntityImportPreviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/content-disposition': {
+      id: '/api/content-disposition'
+      path: '/api/content-disposition'
+      fullPath: '/api/content-disposition'
+      preLoaderRoute: typeof ApiContentDispositionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/platform-health': {
+      id: '/admin/platform-health'
+      path: '/admin/platform-health'
+      fullPath: '/admin/platform-health'
+      preLoaderRoute: typeof AdminPlatformHealthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/knowledge-graph-behavior': {
+      id: '/admin/knowledge-graph-behavior'
+      path: '/admin/knowledge-graph-behavior'
+      fullPath: '/admin/knowledge-graph-behavior'
+      preLoaderRoute: typeof AdminKnowledgeGraphBehaviorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/internal-link-tests': {
+      id: '/admin/internal-link-tests'
+      path: '/admin/internal-link-tests'
+      fullPath: '/admin/internal-link-tests'
+      preLoaderRoute: typeof AdminInternalLinkTestsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/internal-link-rollback': {
+      id: '/admin/internal-link-rollback'
+      path: '/admin/internal-link-rollback'
+      fullPath: '/admin/internal-link-rollback'
+      preLoaderRoute: typeof AdminInternalLinkRollbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/governance-health': {
+      id: '/admin/governance-health'
+      path: '/admin/governance-health'
+      fullPath: '/admin/governance-health'
+      preLoaderRoute: typeof AdminGovernanceHealthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/entity-maintenance': {
+      id: '/admin/entity-maintenance'
+      path: '/admin/entity-maintenance'
+      fullPath: '/admin/entity-maintenance'
+      preLoaderRoute: typeof AdminEntityMaintenanceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/entity-import-review': {
+      id: '/admin/entity-import-review'
+      path: '/admin/entity-import-review'
+      fullPath: '/admin/entity-import-review'
+      preLoaderRoute: typeof AdminEntityImportReviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/$kind/$slug': {
+      id: '/$kind/$slug'
+      path: '/$kind/$slug'
+      fullPath: '/$kind/$slug'
+      preLoaderRoute: typeof KindSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/ai/entities': {
+      id: '/api/ai/entities'
+      path: '/api/ai/entities'
+      fullPath: '/api/ai/entities'
+      preLoaderRoute: typeof ApiAiEntitiesRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -381,18 +1066,52 @@ const rootRouteChildren: RootRouteChildren = {
   EventsRoute: EventsRoute,
   GuidesRoute: GuidesRoute,
   HomeGardenRoute: HomeGardenRoute,
+  LlmsDottxtRoute: LlmsDottxtRoute,
   MovingToTexasRoute: MovingToTexasRoute,
   RealEstateRoute: RealEstateRoute,
   SearchRoute: SearchRoute,
+  SitemapExploreDotxmlRoute: SitemapExploreDotxmlRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SportsRoute: SportsRoute,
   TexasHistoryRoute: TexasHistoryRoute,
+  KindSlugRoute: KindSlugRoute,
+  AdminEntityImportReviewRoute: AdminEntityImportReviewRoute,
+  AdminEntityMaintenanceRoute: AdminEntityMaintenanceRoute,
+  AdminGovernanceHealthRoute: AdminGovernanceHealthRoute,
+  AdminInternalLinkRollbackRoute: AdminInternalLinkRollbackRoute,
+  AdminInternalLinkTestsRoute: AdminInternalLinkTestsRoute,
+  AdminKnowledgeGraphBehaviorRoute: AdminKnowledgeGraphBehaviorRoute,
+  AdminPlatformHealthRoute: AdminPlatformHealthRoute,
+  ApiContentDispositionRoute: ApiContentDispositionRoute,
+  ApiEntityImportPreviewRoute: ApiEntityImportPreviewRoute,
+  ApiEntityMaintenanceRoute: ApiEntityMaintenanceRoute,
+  ApiGovernanceHealthRoute: ApiGovernanceHealthRoute,
+  ApiInternalLinkCoverageRoute: ApiInternalLinkCoverageRoute,
+  ApiInternalLinkPoliciesRoute: ApiInternalLinkPoliciesRoute,
+  ApiInternalLinkPolicyRollbackRoute: ApiInternalLinkPolicyRollbackRoute,
+  ApiInternalLinkQualityRoute: ApiInternalLinkQualityRoute,
+  ApiInternalLinkTestsRoute: ApiInternalLinkTestsRoute,
+  ApiInternalLinksRoute: ApiInternalLinksRoute,
+  ApiKnowledgeGraphRoute: ApiKnowledgeGraphRoute,
+  ApiKnowledgeGraphBehaviorRoute: ApiKnowledgeGraphBehaviorRoute,
+  ApiPlatformCoreStatusRoute: ApiPlatformCoreStatusRoute,
+  ApiPublicationGateRoute: ApiPublicationGateRoute,
   ArticleSlugRoute: ArticleSlugRoute,
+  BrowseCitiesRoute: BrowseCitiesRoute,
+  BrowseCountiesRoute: BrowseCountiesRoute,
+  DecidePropertyTaxesRoute: DecidePropertyTaxesRoute,
   DestinationSlugRoute: DestinationSlugRoute,
+  DoHomesteadExemptionRoute: DoHomesteadExemptionRoute,
+  DoPropertyTaxProtestRoute: DoPropertyTaxProtestRoute,
   ExploreCategoryRoute: ExploreCategoryRoute,
+  ExploreSearchRoute: ExploreSearchRoute,
+  LearnAppraisalDistrictsRoute: LearnAppraisalDistrictsRoute,
+  LearnPropertyTaxPaymentsRoute: LearnPropertyTaxPaymentsRoute,
+  LearnPropertyTaxesRoute: LearnPropertyTaxesRoute,
   ShopCollectionRoute: ShopCollectionRoute,
   ExploreIndexRoute: ExploreIndexRoute,
   ShopIndexRoute: ShopIndexRoute,
+  ApiAiEntitiesRoute: ApiAiEntitiesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
