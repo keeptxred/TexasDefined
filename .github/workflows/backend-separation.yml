@@ -1,0 +1,42 @@
+name: Backend separation
+
+on:
+  push:
+    paths:
+      - 'src/routes/decide.property-taxes.tsx'
+      - 'src/routes/do.property-tax-protest.tsx'
+      - 'src/routes/do.homestead-exemption.tsx'
+      - 'src/routes/moving-to-texas-checklist.tsx'
+      - 'src/routes/tax-calculator.tsx'
+      - 'src/routes/texas-property-tax-protest-guide.tsx'
+      - 'src/routes/texas-property-tax-increase-calculator.tsx'
+      - 'src/platform/governance-persistence.ts'
+      - 'supabase/migrations/20260804195800_governance_events.sql'
+      - 'scripts/data/validate-backend-separation.mjs'
+      - '.github/workflows/backend-separation.yml'
+  pull_request:
+    paths:
+      - 'src/routes/decide.property-taxes.tsx'
+      - 'src/routes/do.property-tax-protest.tsx'
+      - 'src/routes/do.homestead-exemption.tsx'
+      - 'src/routes/moving-to-texas-checklist.tsx'
+      - 'src/routes/tax-calculator.tsx'
+      - 'src/routes/texas-property-tax-protest-guide.tsx'
+      - 'src/routes/texas-property-tax-increase-calculator.tsx'
+      - 'src/platform/governance-persistence.ts'
+      - 'supabase/migrations/20260804195800_governance_events.sql'
+      - 'scripts/data/validate-backend-separation.mjs'
+      - '.github/workflows/backend-separation.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node scripts/data/validate-backend-separation.mjs
