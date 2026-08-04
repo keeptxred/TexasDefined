@@ -20,7 +20,7 @@ create index if not exists platform_governance_events_occurred_at_idx on public.
 create index if not exists platform_governance_events_site_idx on public.platform_governance_events (site, occurred_at desc);
 create index if not exists platform_governance_events_domain_idx on public.platform_governance_events (domain, occurred_at desc);
 
-aalter table public.platform_governance_events enable row level security;
+alter table public.platform_governance_events enable row level security;
 
 create or replace function public.prune_platform_governance_events(retain_days integer default 180)
 returns integer
