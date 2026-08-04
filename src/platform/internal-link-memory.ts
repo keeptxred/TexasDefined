@@ -49,11 +49,21 @@ export function exposurePenalty(entityId: string): number {
   return Math.min(4, Math.floor(entry.impressions / 5));
 }
 
+export function internalLinkExposureWeights(): Record<string, number> {
+  return Object.fromEntries(Object.values(readInternalLinkMemory()).map((entry) => [entry.entityId, Math.min(4, Math.floor(entry.impressions / 5))]));
+}
+
 export function internalLinkMemorySummary() {
   const entries = Object.values(readInternalLinkMemory());
+  const impressions = entries.reduce((sum, entry) => sum + entry.impressions, 0);
+  const clicks = entries.reduce((sum, entry) => sum + entry.clicks, 0);
+  const ranked = entries.map((entry) => ({ ...entry, ctr: entry.impressions ? entry.clicks / entry.impressions : 0 }));
   return {
     trackedEntities: entries.length,
-    impressions: entries.reduce((sum, entry) => sum + entry.impressions, 0),
-    clicks: entries.reduce((sum, entry) => sum + entry.clicks, 0),
+    impressions,
+    clicks,
+    overexposed: [...ranked].sort((a, b) => b.impressions - a.impressions || b.clicks - a.clicks).slice(0, 10),
+    mostEngaged: [...ranked].filter((entry) => entry.impressions >= 3).sort((a, b) => b.ctr - a.ctr || b.clicks - a.clicks).slice(0, 10),
+    unclicked: ranked.filter((entry) => entry.impressions >= 5 && entry.clicks === 0).sort((a, b) => b.impressions - a.impressions).slice(0, 10),
   };
 }
