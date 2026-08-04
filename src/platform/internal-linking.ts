@@ -17,6 +17,8 @@ export type InternalLinkPolicy = {
   excludedKinds: TexasEntityKind[];
   existingHrefs: string[];
   linkedEntityIds: string[];
+  entityExposureWeights: Record<string, number>;
+  maximumExposurePenalty: number;
 };
 
 export type InternalLinkMatch = {
@@ -33,6 +35,7 @@ export type InternalLinkDiagnostics = {
   candidates: number;
   accepted: number;
   disambiguated: number;
+  exposureBalanced: number;
   rejectedExisting: number;
   rejectedOverlap: number;
   rejectedExcluded: number;
@@ -50,47 +53,27 @@ const TOPIC_KINDS: Record<InternalLinkTopic, TexasEntityKind[]> = {
 };
 
 const CONTEXT_HINTS: Partial<Record<TexasEntityKind, string[]>> = {
-  county: ['county','commissioners','tax','appraisal','sheriff'],
-  city: ['city','town','downtown','mayor','residents'],
-  lake: ['lake','reservoir','water','fishing','boating'],
-  river: ['river','creek','paddling','flow','watershed'],
-  'state-park': ['park','camping','trail','reservation','tpwd'],
-  'national-park': ['national park','nps','ranger','federal'],
-  cavern: ['cavern','cave','underground','tour'],
-  museum: ['museum','exhibit','collection','gallery'],
-  'historic-site': ['historic','history','landmark','heritage'],
-  festival: ['festival','annual','music','celebration'],
-  rodeo: ['rodeo','livestock','arena','cowboy'],
-  fair: ['fair','midway','livestock','fairground'],
-  'appraisal-district': ['appraisal','market value','protest','arb'],
-  'tax-office': ['tax office','collector','payment','delinquent'],
+  county: ['county','commissioners','tax','appraisal','sheriff'], city: ['city','town','downtown','mayor','residents'],
+  lake: ['lake','reservoir','water','fishing','boating'], river: ['river','creek','paddling','flow','watershed'],
+  'state-park': ['park','camping','trail','reservation','tpwd'], 'national-park': ['national park','nps','ranger','federal'],
+  cavern: ['cavern','cave','underground','tour'], museum: ['museum','exhibit','collection','gallery'],
+  'historic-site': ['historic','history','landmark','heritage'], festival: ['festival','annual','music','celebration'],
+  rodeo: ['rodeo','livestock','arena','cowboy'], fair: ['fair','midway','livestock','fairground'],
+  'appraisal-district': ['appraisal','market value','protest','arb'], 'tax-office': ['tax office','collector','payment','delinquent'],
 };
 
 const DEFAULT_POLICY: InternalLinkPolicy = {
-  maxLinks: 8,
-  minimumLabelLength: 4,
-  minimumScore: 8,
-  ambiguityMargin: 3,
-  contextWindow: 90,
-  topic: 'general',
-  preferredKinds: [],
-  excludedEntityIds: [],
-  excludedKinds: ['utility'],
-  existingHrefs: [],
-  linkedEntityIds: [],
+  maxLinks: 8, minimumLabelLength: 4, minimumScore: 8, ambiguityMargin: 3, contextWindow: 90, topic: 'general', preferredKinds: [],
+  excludedEntityIds: [], excludedKinds: ['utility'], existingHrefs: [], linkedEntityIds: [], entityExposureWeights: {}, maximumExposurePenalty: 4,
 };
 
 type Candidate = { entity: TexasEntityRecord; label: string; start: number; end: number; score: number; reasons: string[] };
 
-export function resolveInternalEntityLinks(
-  text: string,
-  entities: TexasEntityRecord[],
-  input: Partial<InternalLinkPolicy> = {},
-): { matches: InternalLinkMatch[]; diagnostics: InternalLinkDiagnostics } {
+export function resolveInternalEntityLinks(text: string, entities: TexasEntityRecord[], input: Partial<InternalLinkPolicy> = {}): { matches: InternalLinkMatch[]; diagnostics: InternalLinkDiagnostics } {
   const policy = { ...DEFAULT_POLICY, ...input };
   const existing = new Set(policy.existingHrefs);
   const used = new Set([...policy.linkedEntityIds, ...policy.excludedEntityIds]);
-  const diagnostics: InternalLinkDiagnostics = { candidates: 0, accepted: 0, disambiguated: 0, rejectedExisting: 0, rejectedOverlap: 0, rejectedExcluded: 0, rejectedAmbiguous: 0, rejectedLowQuality: 0 };
+  const diagnostics: InternalLinkDiagnostics = { candidates: 0, accepted: 0, disambiguated: 0, exposureBalanced: 0, rejectedExisting: 0, rejectedOverlap: 0, rejectedExcluded: 0, rejectedAmbiguous: 0, rejectedLowQuality: 0 };
   const candidatesBySpan = new Map<string, Candidate[]>();
 
   for (const entity of entities) {
@@ -106,9 +89,10 @@ export function resolveInternalEntityLinks(
       const end = start + match[0].length;
       const context = text.slice(Math.max(0, start - policy.contextWindow), Math.min(text.length, end + policy.contextWindow)).toLowerCase();
       const scored = scoreCandidate(entity, label, context, policy);
+      if (scored.reasons.some((reason) => reason.startsWith('exposure-penalty:'))) diagnostics.exposureBalanced += 1;
       const key = `${start}:${end}:${match[0].toLowerCase()}`;
       const list = candidatesBySpan.get(key) ?? [];
-      list.push({ entity, label: match[0], start, end, ...scored });
+      list.push({ entity, label: match[0], start, end, score: scored.score, reasons: scored.reasons });
       candidatesBySpan.set(key, list);
     }
   }
@@ -134,45 +118,23 @@ export function resolveInternalEntityLinks(
     const href = canonicalEntityPath(candidate.entity);
     if (existing.has(href)) { diagnostics.rejectedExisting += 1; continue; }
     if (accepted.some((item) => candidate.start < item.end && candidate.end > item.start)) { diagnostics.rejectedOverlap += 1; continue; }
-    accepted.push(candidate);
-    used.add(candidate.entity.id);
-    existing.add(href);
+    accepted.push(candidate); used.add(candidate.entity.id); existing.add(href);
   }
 
-  const matches = accepted.sort((a, b) => a.start - b.start).map((candidate) => ({
-    start: candidate.start,
-    end: candidate.end,
-    label: candidate.label,
-    entity: candidate.entity,
-    href: canonicalEntityPath(candidate.entity),
-    score: candidate.score,
-    reasons: candidate.reasons,
-  }));
+  const matches = accepted.sort((a, b) => a.start - b.start).map((candidate) => ({ start: candidate.start, end: candidate.end, label: candidate.label, entity: candidate.entity, href: canonicalEntityPath(candidate.entity), score: candidate.score, reasons: candidate.reasons }));
   diagnostics.accepted = matches.length;
   return { matches, diagnostics };
 }
 
 export function internalLinkCoverage(texts: string[], entities: TexasEntityRecord[], policy: Partial<InternalLinkPolicy> = {}) {
   const linkedEntityIds: string[] = [];
-  const results = texts.map((text) => {
-    const result = resolveInternalEntityLinks(text, entities, { ...policy, linkedEntityIds });
-    linkedEntityIds.push(...result.matches.map((match) => match.entity.id));
-    return result;
-  });
-  return {
-    linkedEntities: [...new Set(linkedEntityIds)],
-    links: results.reduce((sum, result) => sum + result.matches.length, 0),
-    averageScore: average(results.flatMap((result) => result.matches.map((match) => match.score))),
-    ambiguous: results.reduce((sum, result) => sum + result.diagnostics.rejectedAmbiguous, 0),
-    paragraphs: texts.length,
-    results,
-  };
+  const results = texts.map((text) => { const result = resolveInternalEntityLinks(text, entities, { ...policy, linkedEntityIds }); linkedEntityIds.push(...result.matches.map((match) => match.entity.id)); return result; });
+  return { linkedEntities: [...new Set(linkedEntityIds)], links: results.reduce((sum, result) => sum + result.matches.length, 0), averageScore: average(results.flatMap((result) => result.matches.map((match) => match.score))), ambiguous: results.reduce((sum, result) => sum + result.diagnostics.rejectedAmbiguous, 0), paragraphs: texts.length, results };
 }
 
 function scoreCandidate(entity: TexasEntityRecord, label: string, context: string, policy: InternalLinkPolicy) {
   const reasons: string[] = [];
-  let score = entityPriority(entity);
-  reasons.push(`entity-priority:${score}`);
+  let score = entityPriority(entity); reasons.push(`entity-priority:${score}`);
   if (label.toLowerCase() === entity.name.toLowerCase()) { score += 4; reasons.push('canonical-name'); }
   if (policy.preferredKinds.includes(entity.kind)) { score += 5; reasons.push('preferred-kind'); }
   if (TOPIC_KINDS[policy.topic].includes(entity.kind)) { score += 4; reasons.push(`topic:${policy.topic}`); }
@@ -183,6 +145,9 @@ function scoreCandidate(entity: TexasEntityRecord, label: string, context: strin
   if (hintMatches) { score += Math.min(6, hintMatches * 2); reasons.push(`context-hints:${hintMatches}`); }
   const relationshipContext = entity.relationships.filter((relationship) => context.includes(relationship.targetId.split(':').at(-1)?.replaceAll('-', ' ') ?? '')).length;
   if (relationshipContext) { score += Math.min(4, relationshipContext * 2); reasons.push('relationship-context'); }
+  const rawExposure = Math.max(0, Number(policy.entityExposureWeights[entity.id] ?? 0));
+  const exposurePenalty = Math.min(policy.maximumExposurePenalty, Math.floor(rawExposure));
+  if (exposurePenalty > 0) { score -= exposurePenalty; reasons.push(`exposure-penalty:${exposurePenalty}`); }
   if (entity.status === 'pending-source-verification') { score -= 3; reasons.push('pending-verification'); }
   if (entity.sourceConfidence === 'low') { score -= 4; reasons.push('low-confidence'); }
   return { score, reasons };
@@ -194,5 +159,4 @@ function entityPriority(entity: TexasEntityRecord) {
   const kind = ['state-park','national-park','lake','river','city','county','museum','historic-site','festival','rodeo','fair'].includes(entity.kind) ? 3 : 1;
   return confidence + status + kind;
 }
-
 function average(values: number[]) { return values.length ? Number((values.reduce((sum, value) => sum + value, 0) / values.length).toFixed(2)) : 0; }
