@@ -2,27 +2,11 @@
   "consumer": "TexasDefined",
   "repository": "keeptxred/TexasDefined",
   "coreRepository": "keeptxred/texas-common-core",
-  "coreCommit": "f3a6d271c59d1f9f4e30e5d399c17dbbfccca912",
+  "coreCommit": "1ff8a2f276b9536c729f67ee3d00e5a713ad1164",
   "packageVersion": "0.3.0",
   "apiVersion": "1.1",
-  "capabilities": [
-    "entity-contracts",
-    "entity-canonicalization",
-    "deterministic-fingerprints",
-    "entity-set-diffs",
-    "baseline-quarantine",
-    "promotion-previews",
-    "content-ownership",
-    "duplicate-content-prevention",
-    "cross-site-disposition"
-  ],
-  "localExtensions": [
-    "status quarantine",
-    "coordinate validation",
-    "approval-token validation",
-    "rollback snapshots",
-    "TexasDefined publishing preview API"
-  ],
+  "capabilities": ["entity-contracts", "entity-canonicalization", "deterministic-fingerprints", "entity-set-diffs", "baseline-quarantine", "promotion-previews", "content-ownership", "duplicate-content-prevention", "cross-site-disposition"],
+  "localExtensions": ["status quarantine", "coordinate validation", "approval-token validation", "rollback snapshots", "TexasDefined publishing preview API"],
   "excludedDomains": ["branding", "routes", "supabase", "deployment"],
   "reviewedAt": "2026-08-04"
 }
