@@ -4,6 +4,7 @@ const errors = [];
 const required = [
   'src/platform/knowledge-graph-behavior.ts',
   'src/platform/knowledge-graph-regression.ts',
+  'src/platform/internal-linking.ts',
   'src/components/admin/KnowledgeGraphBehavior.tsx',
   'src/routes/api.knowledge-graph-behavior.ts',
   'src/routes/admin.knowledge-graph-behavior.tsx',
@@ -13,9 +14,10 @@ if (errors.length) fail();
 
 const behavior = fs.readFileSync(required[0], 'utf8');
 const regression = fs.readFileSync(required[1], 'utf8');
-const panel = fs.readFileSync(required[2], 'utf8');
-const api = fs.readFileSync(required[3], 'utf8');
-const page = fs.readFileSync(required[4], 'utf8');
+const linking = fs.readFileSync(required[2], 'utf8');
+const panel = fs.readFileSync(required[3], 'utf8');
+const api = fs.readFileSync(required[4], 'utf8');
+const page = fs.readFileSync(required[5], 'utf8');
 
 requireSymbols(behavior, [
   'GRAPH_BEHAVIOR_THRESHOLDS', 'simulateKnowledgeGraph', 'connectedComponents',
@@ -33,15 +35,19 @@ requireSymbols(regression, [
   'missingCanonicalPaths', 'minimumDensity', 'maximumDuplicateIds',
   'maximumBrokenRelationships', 'maximumMissingCanonicalPaths',
 ], 'graph regression engine');
+requireSymbols(linking, [
+  'scoreEntityAuthority', 'authorityScores', 'authorityBoosted',
+  'authority-boost:', 'Math.min(4',
+], 'authority ranking integration');
 for (const benchmark of ['Caddo Lake', 'state parks near Austin', 'property taxes in Travis County', 'best caverns in Texas']) {
   if (!behavior.includes(benchmark)) errors.push(`AI retrieval benchmark missing: ${benchmark}`);
 }
-requireSymbols(panel, ['KnowledgeGraphBehavior', 'Behavioral status', 'Orphan entities', 'Connected components', 'AI benchmark', 'Weakest entities', 'Highest authority'], 'admin panel');
-requireSymbols(api, ["createFileRoute('/api/knowledge-graph-behavior')", 'auditKnowledgeGraphBehavior', 'status: report.healthy ? 200 : 503', 'no-store', 'noindex, nofollow'], 'behavior API');
+requireSymbols(panel, ['KnowledgeGraphBehavior', 'Behavioral status', 'Orphan entities', 'Connected components', 'AI benchmark', 'Graph density', 'Maximum navigation depth', 'Duplicate entity IDs', 'Weakest entities', 'Highest authority'], 'admin panel');
+requireSymbols(api, ["createFileRoute('/api/knowledge-graph-behavior')", 'auditKnowledgeGraphBehavior', 'auditKnowledgeGraphRegression', 'status: healthy ? 200 : 503', 'no-store', 'noindex, nofollow'], 'behavior API');
 requireSymbols(page, ["createFileRoute('/admin/knowledge-graph-behavior')", 'KnowledgeGraphBehavior', 'loadTexasKnowledgeGraph', 'noindex,nofollow', '/admin/platform-health'], 'behavior admin page');
 
 if (errors.length) fail();
-console.log('Knowledge-graph simulation, authority, canonical paths, completeness, full graph regressions, and AI retrieval benchmarks are protected.');
+console.log('Knowledge-graph simulation, authority ranking, canonical paths, completeness, full graph regressions, and AI retrieval benchmarks are protected.');
 
 function requireSymbols(source, symbols, area) {
   for (const symbol of symbols) if (!source.includes(symbol)) errors.push(`${area} feature missing: ${symbol}`);
