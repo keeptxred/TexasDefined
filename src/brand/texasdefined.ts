@@ -76,37 +76,37 @@ export const texasDefinedBrand: BrandConfig = {
       children: [
         {
           label: "Lakes & Rivers",
-          to: "/explore/lakes-rivers",
+          to: "/explore/category/lakes-rivers",
           description: "Spring-fed swimming holes and cypress bayous",
           image: { src: caddoLake, alt: "Cypress trees on Caddo Lake at dawn" },
         },
         {
           label: "State Parks",
-          to: "/explore/state-parks",
+          to: "/explore/category/state-parks",
           description: "Eighty-nine parks, from canyon rim to coast",
           image: { src: paloDuro, alt: "Red rock walls of Palo Duro Canyon" },
         },
         {
           label: "Road Trips",
-          to: "/explore/road-trips",
+          to: "/explore/category/road-trips",
           description: "Two-lane routes worth the long way around",
           image: { src: roadTrip, alt: "A two-lane Texas farm road at sunset" },
         },
         {
           label: "Small Towns",
-          to: "/explore/small-towns",
+          to: "/explore/category/small-towns",
           description: "Courthouse squares, dance halls and pie",
           image: { src: smallTown, alt: "A historic Texas courthouse square" },
         },
         {
           label: "Food & Barbecue",
-          to: "/explore/food-bbq",
+          to: "/explore/category/food-bbq",
           description: "The line, the pit and the plate",
           image: { src: bbqBrisket, alt: "Sliced smoked brisket on butcher paper" },
         },
         {
           label: "Outdoors & Wildlife",
-          to: "/explore/outdoors",
+          to: "/explore/category/outdoors",
           description: "Birding, big skies and brush country",
           image: { src: wildlife, alt: "White-tailed deer in Texas brush country" },
         },
@@ -127,11 +127,11 @@ export const texasDefinedBrand: BrandConfig = {
     {
       title: "Explore",
       items: [
-        { label: "Lakes & Rivers", to: "/explore/lakes-rivers" },
-        { label: "State Parks", to: "/explore/state-parks" },
-        { label: "Road Trips", to: "/explore/road-trips" },
-        { label: "Small Towns", to: "/explore/small-towns" },
-        { label: "Food & Barbecue", to: "/explore/food-bbq" },
+        { label: "Lakes & Rivers", to: "/explore/category/lakes-rivers" },
+        { label: "State Parks", to: "/explore/category/state-parks" },
+        { label: "Road Trips", to: "/explore/category/road-trips" },
+        { label: "Small Towns", to: "/explore/category/small-towns" },
+        { label: "Food & Barbecue", to: "/explore/category/food-bbq" },
       ],
     },
     {

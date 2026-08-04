@@ -12,20 +12,51 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as EventsRouteImport } from './routes/events'
+import { Route as ExploreRouteImport } from './routes/explore'
 import { Route as GuidesRouteImport } from './routes/guides'
 import { Route as HomeGardenRouteImport } from './routes/home-garden'
 import { Route as MovingToTexasRouteImport } from './routes/moving-to-texas'
 import { Route as RealEstateRouteImport } from './routes/real-estate'
 import { Route as SearchRouteImport } from './routes/search'
+import { Route as SitemapExploreLocationsDotxmlRouteImport } from './routes/sitemap-explore-locations[.]xml'
+import { Route as SitemapExploreDotxmlRouteImport } from './routes/sitemap-explore[.]xml'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SportsRouteImport } from './routes/sports'
 import { Route as TexasHistoryRouteImport } from './routes/texas-history'
 import { Route as ArticleSlugRouteImport } from './routes/article.$slug'
 import { Route as DestinationSlugRouteImport } from './routes/destination.$slug'
 import { Route as ExploreIndexRouteImport } from './routes/explore.index'
-import { Route as ExploreCategoryRouteImport } from './routes/explore.$category'
+import { Route as ExploreSlugRouteImport } from './routes/explore.$slug'
+import { Route as ExploreCavernsRouteImport } from './routes/explore.caverns'
+import { Route as ExploreHillCountrySpringsRouteImport } from './routes/explore.hill-country-springs'
+import { Route as ExploreHistoricSitesRouteImport } from './routes/explore.historic-sites'
+import { Route as ExploreLighthousesRouteImport } from './routes/explore.lighthouses'
+import { Route as ExploreMajorSpringsRouteImport } from './routes/explore.major-springs'
+import { Route as ExploreNationalParksRouteImport } from './routes/explore.national-parks'
+import { Route as ExploreNationalWildlifeRefugesRouteImport } from './routes/explore.national-wildlife-refuges'
+import { Route as ExploreScenicRiversRouteImport } from './routes/explore.scenic-rivers'
+import { Route as ExploreSearchRouteImport } from './routes/explore.search'
+import { Route as ExploreSpringConservationAndEducationRouteImport } from './routes/explore.spring-conservation-and-education'
+import { Route as ExploreSpringFedSwimmingRouteImport } from './routes/explore.spring-fed-swimming'
+import { Route as ExploreStateParksRouteImport } from './routes/explore.state-parks'
+import { Route as ExploreTexasCampingGuideRouteImport } from './routes/explore.texas-camping-guide'
+import { Route as ExploreTexasDarkSkyStargazingRouteImport } from './routes/explore.texas-dark-sky-stargazing'
+import { Route as ExploreTexasLakesGuideRouteImport } from './routes/explore.texas-lakes-guide'
+import { Route as ExploreTexasScenicDrivesRouteImport } from './routes/explore.texas-scenic-drives'
+import { Route as ExploreTexasStateParksGuideRouteImport } from './routes/explore.texas-state-parks-guide'
+import { Route as ExploreTexasWildflowerSeasonsRouteImport } from './routes/explore.texas-wildflower-seasons'
+import { Route as ExploreTripPlannerRouteImport } from './routes/explore.trip-planner'
+import { Route as ExploreWildlifeManagementAreasRouteImport } from './routes/explore.wildlife-management-areas'
 import { Route as ShopIndexRouteImport } from './routes/shop.index'
 import { Route as ShopCollectionRouteImport } from './routes/shop.$collection'
+import { Route as ExploreCategoryCategoryRouteImport } from './routes/explore.category.$category'
+import { Route as ExploreCavernSlugRouteImport } from './routes/explore.cavern.$slug'
+import { Route as ExploreCountyCountyRouteImport } from './routes/explore.county.$county'
+import { Route as ExploreLakeSlugRouteImport } from './routes/explore.lake.$slug'
+import { Route as ExploreRegionRegionRouteImport } from './routes/explore.region.$region'
+import { Route as ExploreRiverSlugRouteImport } from './routes/explore.river.$slug'
+import { Route as ExploreStateParkSlugRouteImport } from './routes/explore.state-park.$slug'
+import { Route as ExploreTripTokenRouteImport } from './routes/explore.trip.$token'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -40,6 +71,11 @@ const AboutRoute = AboutRouteImport.update({
 const EventsRoute = EventsRouteImport.update({
   id: '/events',
   path: '/events',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExploreRoute = ExploreRouteImport.update({
+  id: '/explore',
+  path: '/explore',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GuidesRoute = GuidesRouteImport.update({
@@ -65,6 +101,17 @@ const RealEstateRoute = RealEstateRouteImport.update({
 const SearchRoute = SearchRouteImport.update({
   id: '/search',
   path: '/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapExploreLocationsDotxmlRoute =
+  SitemapExploreLocationsDotxmlRouteImport.update({
+    id: '/sitemap-explore-locations.xml',
+    path: '/sitemap-explore-locations.xml',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const SitemapExploreDotxmlRoute = SitemapExploreDotxmlRouteImport.update({
+  id: '/sitemap-explore.xml',
+  path: '/sitemap-explore.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -93,15 +140,125 @@ const DestinationSlugRoute = DestinationSlugRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const ExploreIndexRoute = ExploreIndexRouteImport.update({
-  id: '/explore/',
-  path: '/explore/',
-  getParentRoute: () => rootRouteImport,
+  id: '/',
+  path: '/',
+  getParentRoute: () => ExploreRoute,
 } as any)
-const ExploreCategoryRoute = ExploreCategoryRouteImport.update({
-  id: '/explore/$category',
-  path: '/explore/$category',
-  getParentRoute: () => rootRouteImport,
+const ExploreSlugRoute = ExploreSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => ExploreRoute,
 } as any)
+const ExploreCavernsRoute = ExploreCavernsRouteImport.update({
+  id: '/caverns',
+  path: '/caverns',
+  getParentRoute: () => ExploreRoute,
+} as any)
+const ExploreHillCountrySpringsRoute =
+  ExploreHillCountrySpringsRouteImport.update({
+    id: '/hill-country-springs',
+    path: '/hill-country-springs',
+    getParentRoute: () => ExploreRoute,
+  } as any)
+const ExploreHistoricSitesRoute = ExploreHistoricSitesRouteImport.update({
+  id: '/historic-sites',
+  path: '/historic-sites',
+  getParentRoute: () => ExploreRoute,
+} as any)
+const ExploreLighthousesRoute = ExploreLighthousesRouteImport.update({
+  id: '/lighthouses',
+  path: '/lighthouses',
+  getParentRoute: () => ExploreRoute,
+} as any)
+const ExploreMajorSpringsRoute = ExploreMajorSpringsRouteImport.update({
+  id: '/major-springs',
+  path: '/major-springs',
+  getParentRoute: () => ExploreRoute,
+} as any)
+const ExploreNationalParksRoute = ExploreNationalParksRouteImport.update({
+  id: '/national-parks',
+  path: '/national-parks',
+  getParentRoute: () => ExploreRoute,
+} as any)
+const ExploreNationalWildlifeRefugesRoute =
+  ExploreNationalWildlifeRefugesRouteImport.update({
+    id: '/national-wildlife-refuges',
+    path: '/national-wildlife-refuges',
+    getParentRoute: () => ExploreRoute,
+  } as any)
+const ExploreScenicRiversRoute = ExploreScenicRiversRouteImport.update({
+  id: '/scenic-rivers',
+  path: '/scenic-rivers',
+  getParentRoute: () => ExploreRoute,
+} as any)
+const ExploreSearchRoute = ExploreSearchRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => ExploreRoute,
+} as any)
+const ExploreSpringConservationAndEducationRoute =
+  ExploreSpringConservationAndEducationRouteImport.update({
+    id: '/spring-conservation-and-education',
+    path: '/spring-conservation-and-education',
+    getParentRoute: () => ExploreRoute,
+  } as any)
+const ExploreSpringFedSwimmingRoute =
+  ExploreSpringFedSwimmingRouteImport.update({
+    id: '/spring-fed-swimming',
+    path: '/spring-fed-swimming',
+    getParentRoute: () => ExploreRoute,
+  } as any)
+const ExploreStateParksRoute = ExploreStateParksRouteImport.update({
+  id: '/state-parks',
+  path: '/state-parks',
+  getParentRoute: () => ExploreRoute,
+} as any)
+const ExploreTexasCampingGuideRoute =
+  ExploreTexasCampingGuideRouteImport.update({
+    id: '/texas-camping-guide',
+    path: '/texas-camping-guide',
+    getParentRoute: () => ExploreRoute,
+  } as any)
+const ExploreTexasDarkSkyStargazingRoute =
+  ExploreTexasDarkSkyStargazingRouteImport.update({
+    id: '/texas-dark-sky-stargazing',
+    path: '/texas-dark-sky-stargazing',
+    getParentRoute: () => ExploreRoute,
+  } as any)
+const ExploreTexasLakesGuideRoute = ExploreTexasLakesGuideRouteImport.update({
+  id: '/texas-lakes-guide',
+  path: '/texas-lakes-guide',
+  getParentRoute: () => ExploreRoute,
+} as any)
+const ExploreTexasScenicDrivesRoute =
+  ExploreTexasScenicDrivesRouteImport.update({
+    id: '/texas-scenic-drives',
+    path: '/texas-scenic-drives',
+    getParentRoute: () => ExploreRoute,
+  } as any)
+const ExploreTexasStateParksGuideRoute =
+  ExploreTexasStateParksGuideRouteImport.update({
+    id: '/texas-state-parks-guide',
+    path: '/texas-state-parks-guide',
+    getParentRoute: () => ExploreRoute,
+  } as any)
+const ExploreTexasWildflowerSeasonsRoute =
+  ExploreTexasWildflowerSeasonsRouteImport.update({
+    id: '/texas-wildflower-seasons',
+    path: '/texas-wildflower-seasons',
+    getParentRoute: () => ExploreRoute,
+  } as any)
+const ExploreTripPlannerRoute = ExploreTripPlannerRouteImport.update({
+  id: '/trip-planner',
+  path: '/trip-planner',
+  getParentRoute: () => ExploreRoute,
+} as any)
+const ExploreWildlifeManagementAreasRoute =
+  ExploreWildlifeManagementAreasRouteImport.update({
+    id: '/wildlife-management-areas',
+    path: '/wildlife-management-areas',
+    getParentRoute: () => ExploreRoute,
+  } as any)
 const ShopIndexRoute = ShopIndexRouteImport.update({
   id: '/shop/',
   path: '/shop/',
@@ -112,25 +269,96 @@ const ShopCollectionRoute = ShopCollectionRouteImport.update({
   path: '/shop/$collection',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ExploreCategoryCategoryRoute = ExploreCategoryCategoryRouteImport.update({
+  id: '/category/$category',
+  path: '/category/$category',
+  getParentRoute: () => ExploreRoute,
+} as any)
+const ExploreCavernSlugRoute = ExploreCavernSlugRouteImport.update({
+  id: '/cavern/$slug',
+  path: '/cavern/$slug',
+  getParentRoute: () => ExploreRoute,
+} as any)
+const ExploreCountyCountyRoute = ExploreCountyCountyRouteImport.update({
+  id: '/county/$county',
+  path: '/county/$county',
+  getParentRoute: () => ExploreRoute,
+} as any)
+const ExploreLakeSlugRoute = ExploreLakeSlugRouteImport.update({
+  id: '/lake/$slug',
+  path: '/lake/$slug',
+  getParentRoute: () => ExploreRoute,
+} as any)
+const ExploreRegionRegionRoute = ExploreRegionRegionRouteImport.update({
+  id: '/region/$region',
+  path: '/region/$region',
+  getParentRoute: () => ExploreRoute,
+} as any)
+const ExploreRiverSlugRoute = ExploreRiverSlugRouteImport.update({
+  id: '/river/$slug',
+  path: '/river/$slug',
+  getParentRoute: () => ExploreRoute,
+} as any)
+const ExploreStateParkSlugRoute = ExploreStateParkSlugRouteImport.update({
+  id: '/state-park/$slug',
+  path: '/state-park/$slug',
+  getParentRoute: () => ExploreRoute,
+} as any)
+const ExploreTripTokenRoute = ExploreTripTokenRouteImport.update({
+  id: '/trip/$token',
+  path: '/trip/$token',
+  getParentRoute: () => ExploreRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/events': typeof EventsRoute
+  '/explore': typeof ExploreRouteWithChildren
   '/guides': typeof GuidesRoute
   '/home-garden': typeof HomeGardenRoute
   '/moving-to-texas': typeof MovingToTexasRoute
   '/real-estate': typeof RealEstateRoute
   '/search': typeof SearchRoute
+  '/sitemap-explore-locations.xml': typeof SitemapExploreLocationsDotxmlRoute
+  '/sitemap-explore.xml': typeof SitemapExploreDotxmlRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sports': typeof SportsRoute
   '/texas-history': typeof TexasHistoryRoute
   '/article/$slug': typeof ArticleSlugRoute
   '/destination/$slug': typeof DestinationSlugRoute
-  '/explore/$category': typeof ExploreCategoryRoute
+  '/explore/$slug': typeof ExploreSlugRoute
+  '/explore/caverns': typeof ExploreCavernsRoute
+  '/explore/hill-country-springs': typeof ExploreHillCountrySpringsRoute
+  '/explore/historic-sites': typeof ExploreHistoricSitesRoute
+  '/explore/lighthouses': typeof ExploreLighthousesRoute
+  '/explore/major-springs': typeof ExploreMajorSpringsRoute
+  '/explore/national-parks': typeof ExploreNationalParksRoute
+  '/explore/national-wildlife-refuges': typeof ExploreNationalWildlifeRefugesRoute
+  '/explore/scenic-rivers': typeof ExploreScenicRiversRoute
+  '/explore/search': typeof ExploreSearchRoute
+  '/explore/spring-conservation-and-education': typeof ExploreSpringConservationAndEducationRoute
+  '/explore/spring-fed-swimming': typeof ExploreSpringFedSwimmingRoute
+  '/explore/state-parks': typeof ExploreStateParksRoute
+  '/explore/texas-camping-guide': typeof ExploreTexasCampingGuideRoute
+  '/explore/texas-dark-sky-stargazing': typeof ExploreTexasDarkSkyStargazingRoute
+  '/explore/texas-lakes-guide': typeof ExploreTexasLakesGuideRoute
+  '/explore/texas-scenic-drives': typeof ExploreTexasScenicDrivesRoute
+  '/explore/texas-state-parks-guide': typeof ExploreTexasStateParksGuideRoute
+  '/explore/texas-wildflower-seasons': typeof ExploreTexasWildflowerSeasonsRoute
+  '/explore/trip-planner': typeof ExploreTripPlannerRoute
+  '/explore/wildlife-management-areas': typeof ExploreWildlifeManagementAreasRoute
   '/shop/$collection': typeof ShopCollectionRoute
   '/explore/': typeof ExploreIndexRoute
   '/shop/': typeof ShopIndexRoute
+  '/explore/category/$category': typeof ExploreCategoryCategoryRoute
+  '/explore/cavern/$slug': typeof ExploreCavernSlugRoute
+  '/explore/county/$county': typeof ExploreCountyCountyRoute
+  '/explore/lake/$slug': typeof ExploreLakeSlugRoute
+  '/explore/region/$region': typeof ExploreRegionRegionRoute
+  '/explore/river/$slug': typeof ExploreRiverSlugRoute
+  '/explore/state-park/$slug': typeof ExploreStateParkSlugRoute
+  '/explore/trip/$token': typeof ExploreTripTokenRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -141,35 +369,96 @@ export interface FileRoutesByTo {
   '/moving-to-texas': typeof MovingToTexasRoute
   '/real-estate': typeof RealEstateRoute
   '/search': typeof SearchRoute
+  '/sitemap-explore-locations.xml': typeof SitemapExploreLocationsDotxmlRoute
+  '/sitemap-explore.xml': typeof SitemapExploreDotxmlRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sports': typeof SportsRoute
   '/texas-history': typeof TexasHistoryRoute
   '/article/$slug': typeof ArticleSlugRoute
   '/destination/$slug': typeof DestinationSlugRoute
-  '/explore/$category': typeof ExploreCategoryRoute
+  '/explore/$slug': typeof ExploreSlugRoute
+  '/explore/caverns': typeof ExploreCavernsRoute
+  '/explore/hill-country-springs': typeof ExploreHillCountrySpringsRoute
+  '/explore/historic-sites': typeof ExploreHistoricSitesRoute
+  '/explore/lighthouses': typeof ExploreLighthousesRoute
+  '/explore/major-springs': typeof ExploreMajorSpringsRoute
+  '/explore/national-parks': typeof ExploreNationalParksRoute
+  '/explore/national-wildlife-refuges': typeof ExploreNationalWildlifeRefugesRoute
+  '/explore/scenic-rivers': typeof ExploreScenicRiversRoute
+  '/explore/search': typeof ExploreSearchRoute
+  '/explore/spring-conservation-and-education': typeof ExploreSpringConservationAndEducationRoute
+  '/explore/spring-fed-swimming': typeof ExploreSpringFedSwimmingRoute
+  '/explore/state-parks': typeof ExploreStateParksRoute
+  '/explore/texas-camping-guide': typeof ExploreTexasCampingGuideRoute
+  '/explore/texas-dark-sky-stargazing': typeof ExploreTexasDarkSkyStargazingRoute
+  '/explore/texas-lakes-guide': typeof ExploreTexasLakesGuideRoute
+  '/explore/texas-scenic-drives': typeof ExploreTexasScenicDrivesRoute
+  '/explore/texas-state-parks-guide': typeof ExploreTexasStateParksGuideRoute
+  '/explore/texas-wildflower-seasons': typeof ExploreTexasWildflowerSeasonsRoute
+  '/explore/trip-planner': typeof ExploreTripPlannerRoute
+  '/explore/wildlife-management-areas': typeof ExploreWildlifeManagementAreasRoute
   '/shop/$collection': typeof ShopCollectionRoute
   '/explore': typeof ExploreIndexRoute
   '/shop': typeof ShopIndexRoute
+  '/explore/category/$category': typeof ExploreCategoryCategoryRoute
+  '/explore/cavern/$slug': typeof ExploreCavernSlugRoute
+  '/explore/county/$county': typeof ExploreCountyCountyRoute
+  '/explore/lake/$slug': typeof ExploreLakeSlugRoute
+  '/explore/region/$region': typeof ExploreRegionRegionRoute
+  '/explore/river/$slug': typeof ExploreRiverSlugRoute
+  '/explore/state-park/$slug': typeof ExploreStateParkSlugRoute
+  '/explore/trip/$token': typeof ExploreTripTokenRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/events': typeof EventsRoute
+  '/explore': typeof ExploreRouteWithChildren
   '/guides': typeof GuidesRoute
   '/home-garden': typeof HomeGardenRoute
   '/moving-to-texas': typeof MovingToTexasRoute
   '/real-estate': typeof RealEstateRoute
   '/search': typeof SearchRoute
+  '/sitemap-explore-locations.xml': typeof SitemapExploreLocationsDotxmlRoute
+  '/sitemap-explore.xml': typeof SitemapExploreDotxmlRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sports': typeof SportsRoute
   '/texas-history': typeof TexasHistoryRoute
   '/article/$slug': typeof ArticleSlugRoute
   '/destination/$slug': typeof DestinationSlugRoute
-  '/explore/$category': typeof ExploreCategoryRoute
+  '/explore/$slug': typeof ExploreSlugRoute
+  '/explore/caverns': typeof ExploreCavernsRoute
+  '/explore/hill-country-springs': typeof ExploreHillCountrySpringsRoute
+  '/explore/historic-sites': typeof ExploreHistoricSitesRoute
+  '/explore/lighthouses': typeof ExploreLighthousesRoute
+  '/explore/major-springs': typeof ExploreMajorSpringsRoute
+  '/explore/national-parks': typeof ExploreNationalParksRoute
+  '/explore/national-wildlife-refuges': typeof ExploreNationalWildlifeRefugesRoute
+  '/explore/scenic-rivers': typeof ExploreScenicRiversRoute
+  '/explore/search': typeof ExploreSearchRoute
+  '/explore/spring-conservation-and-education': typeof ExploreSpringConservationAndEducationRoute
+  '/explore/spring-fed-swimming': typeof ExploreSpringFedSwimmingRoute
+  '/explore/state-parks': typeof ExploreStateParksRoute
+  '/explore/texas-camping-guide': typeof ExploreTexasCampingGuideRoute
+  '/explore/texas-dark-sky-stargazing': typeof ExploreTexasDarkSkyStargazingRoute
+  '/explore/texas-lakes-guide': typeof ExploreTexasLakesGuideRoute
+  '/explore/texas-scenic-drives': typeof ExploreTexasScenicDrivesRoute
+  '/explore/texas-state-parks-guide': typeof ExploreTexasStateParksGuideRoute
+  '/explore/texas-wildflower-seasons': typeof ExploreTexasWildflowerSeasonsRoute
+  '/explore/trip-planner': typeof ExploreTripPlannerRoute
+  '/explore/wildlife-management-areas': typeof ExploreWildlifeManagementAreasRoute
   '/shop/$collection': typeof ShopCollectionRoute
   '/explore/': typeof ExploreIndexRoute
   '/shop/': typeof ShopIndexRoute
+  '/explore/category/$category': typeof ExploreCategoryCategoryRoute
+  '/explore/cavern/$slug': typeof ExploreCavernSlugRoute
+  '/explore/county/$county': typeof ExploreCountyCountyRoute
+  '/explore/lake/$slug': typeof ExploreLakeSlugRoute
+  '/explore/region/$region': typeof ExploreRegionRegionRoute
+  '/explore/river/$slug': typeof ExploreRiverSlugRoute
+  '/explore/state-park/$slug': typeof ExploreStateParkSlugRoute
+  '/explore/trip/$token': typeof ExploreTripTokenRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -177,20 +466,51 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/events'
+    | '/explore'
     | '/guides'
     | '/home-garden'
     | '/moving-to-texas'
     | '/real-estate'
     | '/search'
+    | '/sitemap-explore-locations.xml'
+    | '/sitemap-explore.xml'
     | '/sitemap.xml'
     | '/sports'
     | '/texas-history'
     | '/article/$slug'
     | '/destination/$slug'
-    | '/explore/$category'
+    | '/explore/$slug'
+    | '/explore/caverns'
+    | '/explore/hill-country-springs'
+    | '/explore/historic-sites'
+    | '/explore/lighthouses'
+    | '/explore/major-springs'
+    | '/explore/national-parks'
+    | '/explore/national-wildlife-refuges'
+    | '/explore/scenic-rivers'
+    | '/explore/search'
+    | '/explore/spring-conservation-and-education'
+    | '/explore/spring-fed-swimming'
+    | '/explore/state-parks'
+    | '/explore/texas-camping-guide'
+    | '/explore/texas-dark-sky-stargazing'
+    | '/explore/texas-lakes-guide'
+    | '/explore/texas-scenic-drives'
+    | '/explore/texas-state-parks-guide'
+    | '/explore/texas-wildflower-seasons'
+    | '/explore/trip-planner'
+    | '/explore/wildlife-management-areas'
     | '/shop/$collection'
     | '/explore/'
     | '/shop/'
+    | '/explore/category/$category'
+    | '/explore/cavern/$slug'
+    | '/explore/county/$county'
+    | '/explore/lake/$slug'
+    | '/explore/region/$region'
+    | '/explore/river/$slug'
+    | '/explore/state-park/$slug'
+    | '/explore/trip/$token'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -201,53 +521,115 @@ export interface FileRouteTypes {
     | '/moving-to-texas'
     | '/real-estate'
     | '/search'
+    | '/sitemap-explore-locations.xml'
+    | '/sitemap-explore.xml'
     | '/sitemap.xml'
     | '/sports'
     | '/texas-history'
     | '/article/$slug'
     | '/destination/$slug'
-    | '/explore/$category'
+    | '/explore/$slug'
+    | '/explore/caverns'
+    | '/explore/hill-country-springs'
+    | '/explore/historic-sites'
+    | '/explore/lighthouses'
+    | '/explore/major-springs'
+    | '/explore/national-parks'
+    | '/explore/national-wildlife-refuges'
+    | '/explore/scenic-rivers'
+    | '/explore/search'
+    | '/explore/spring-conservation-and-education'
+    | '/explore/spring-fed-swimming'
+    | '/explore/state-parks'
+    | '/explore/texas-camping-guide'
+    | '/explore/texas-dark-sky-stargazing'
+    | '/explore/texas-lakes-guide'
+    | '/explore/texas-scenic-drives'
+    | '/explore/texas-state-parks-guide'
+    | '/explore/texas-wildflower-seasons'
+    | '/explore/trip-planner'
+    | '/explore/wildlife-management-areas'
     | '/shop/$collection'
     | '/explore'
     | '/shop'
+    | '/explore/category/$category'
+    | '/explore/cavern/$slug'
+    | '/explore/county/$county'
+    | '/explore/lake/$slug'
+    | '/explore/region/$region'
+    | '/explore/river/$slug'
+    | '/explore/state-park/$slug'
+    | '/explore/trip/$token'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/events'
+    | '/explore'
     | '/guides'
     | '/home-garden'
     | '/moving-to-texas'
     | '/real-estate'
     | '/search'
+    | '/sitemap-explore-locations.xml'
+    | '/sitemap-explore.xml'
     | '/sitemap.xml'
     | '/sports'
     | '/texas-history'
     | '/article/$slug'
     | '/destination/$slug'
-    | '/explore/$category'
+    | '/explore/$slug'
+    | '/explore/caverns'
+    | '/explore/hill-country-springs'
+    | '/explore/historic-sites'
+    | '/explore/lighthouses'
+    | '/explore/major-springs'
+    | '/explore/national-parks'
+    | '/explore/national-wildlife-refuges'
+    | '/explore/scenic-rivers'
+    | '/explore/search'
+    | '/explore/spring-conservation-and-education'
+    | '/explore/spring-fed-swimming'
+    | '/explore/state-parks'
+    | '/explore/texas-camping-guide'
+    | '/explore/texas-dark-sky-stargazing'
+    | '/explore/texas-lakes-guide'
+    | '/explore/texas-scenic-drives'
+    | '/explore/texas-state-parks-guide'
+    | '/explore/texas-wildflower-seasons'
+    | '/explore/trip-planner'
+    | '/explore/wildlife-management-areas'
     | '/shop/$collection'
     | '/explore/'
     | '/shop/'
+    | '/explore/category/$category'
+    | '/explore/cavern/$slug'
+    | '/explore/county/$county'
+    | '/explore/lake/$slug'
+    | '/explore/region/$region'
+    | '/explore/river/$slug'
+    | '/explore/state-park/$slug'
+    | '/explore/trip/$token'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   EventsRoute: typeof EventsRoute
+  ExploreRoute: typeof ExploreRouteWithChildren
   GuidesRoute: typeof GuidesRoute
   HomeGardenRoute: typeof HomeGardenRoute
   MovingToTexasRoute: typeof MovingToTexasRoute
   RealEstateRoute: typeof RealEstateRoute
   SearchRoute: typeof SearchRoute
+  SitemapExploreLocationsDotxmlRoute: typeof SitemapExploreLocationsDotxmlRoute
+  SitemapExploreDotxmlRoute: typeof SitemapExploreDotxmlRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SportsRoute: typeof SportsRoute
   TexasHistoryRoute: typeof TexasHistoryRoute
   ArticleSlugRoute: typeof ArticleSlugRoute
   DestinationSlugRoute: typeof DestinationSlugRoute
-  ExploreCategoryRoute: typeof ExploreCategoryRoute
   ShopCollectionRoute: typeof ShopCollectionRoute
-  ExploreIndexRoute: typeof ExploreIndexRoute
   ShopIndexRoute: typeof ShopIndexRoute
 }
 
@@ -272,6 +654,13 @@ declare module '@tanstack/react-router' {
       path: '/events'
       fullPath: '/events'
       preLoaderRoute: typeof EventsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/explore': {
+      id: '/explore'
+      path: '/explore'
+      fullPath: '/explore'
+      preLoaderRoute: typeof ExploreRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/guides': {
@@ -307,6 +696,20 @@ declare module '@tanstack/react-router' {
       path: '/search'
       fullPath: '/search'
       preLoaderRoute: typeof SearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap-explore-locations.xml': {
+      id: '/sitemap-explore-locations.xml'
+      path: '/sitemap-explore-locations.xml'
+      fullPath: '/sitemap-explore-locations.xml'
+      preLoaderRoute: typeof SitemapExploreLocationsDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap-explore.xml': {
+      id: '/sitemap-explore.xml'
+      path: '/sitemap-explore.xml'
+      fullPath: '/sitemap-explore.xml'
+      preLoaderRoute: typeof SitemapExploreDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -346,17 +749,157 @@ declare module '@tanstack/react-router' {
     }
     '/explore/': {
       id: '/explore/'
-      path: '/explore'
+      path: '/'
       fullPath: '/explore/'
       preLoaderRoute: typeof ExploreIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof ExploreRoute
     }
-    '/explore/$category': {
-      id: '/explore/$category'
-      path: '/explore/$category'
-      fullPath: '/explore/$category'
-      preLoaderRoute: typeof ExploreCategoryRouteImport
-      parentRoute: typeof rootRouteImport
+    '/explore/$slug': {
+      id: '/explore/$slug'
+      path: '/$slug'
+      fullPath: '/explore/$slug'
+      preLoaderRoute: typeof ExploreSlugRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/caverns': {
+      id: '/explore/caverns'
+      path: '/caverns'
+      fullPath: '/explore/caverns'
+      preLoaderRoute: typeof ExploreCavernsRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/hill-country-springs': {
+      id: '/explore/hill-country-springs'
+      path: '/hill-country-springs'
+      fullPath: '/explore/hill-country-springs'
+      preLoaderRoute: typeof ExploreHillCountrySpringsRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/historic-sites': {
+      id: '/explore/historic-sites'
+      path: '/historic-sites'
+      fullPath: '/explore/historic-sites'
+      preLoaderRoute: typeof ExploreHistoricSitesRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/lighthouses': {
+      id: '/explore/lighthouses'
+      path: '/lighthouses'
+      fullPath: '/explore/lighthouses'
+      preLoaderRoute: typeof ExploreLighthousesRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/major-springs': {
+      id: '/explore/major-springs'
+      path: '/major-springs'
+      fullPath: '/explore/major-springs'
+      preLoaderRoute: typeof ExploreMajorSpringsRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/national-parks': {
+      id: '/explore/national-parks'
+      path: '/national-parks'
+      fullPath: '/explore/national-parks'
+      preLoaderRoute: typeof ExploreNationalParksRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/national-wildlife-refuges': {
+      id: '/explore/national-wildlife-refuges'
+      path: '/national-wildlife-refuges'
+      fullPath: '/explore/national-wildlife-refuges'
+      preLoaderRoute: typeof ExploreNationalWildlifeRefugesRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/scenic-rivers': {
+      id: '/explore/scenic-rivers'
+      path: '/scenic-rivers'
+      fullPath: '/explore/scenic-rivers'
+      preLoaderRoute: typeof ExploreScenicRiversRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/search': {
+      id: '/explore/search'
+      path: '/search'
+      fullPath: '/explore/search'
+      preLoaderRoute: typeof ExploreSearchRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/spring-conservation-and-education': {
+      id: '/explore/spring-conservation-and-education'
+      path: '/spring-conservation-and-education'
+      fullPath: '/explore/spring-conservation-and-education'
+      preLoaderRoute: typeof ExploreSpringConservationAndEducationRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/spring-fed-swimming': {
+      id: '/explore/spring-fed-swimming'
+      path: '/spring-fed-swimming'
+      fullPath: '/explore/spring-fed-swimming'
+      preLoaderRoute: typeof ExploreSpringFedSwimmingRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/state-parks': {
+      id: '/explore/state-parks'
+      path: '/state-parks'
+      fullPath: '/explore/state-parks'
+      preLoaderRoute: typeof ExploreStateParksRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/texas-camping-guide': {
+      id: '/explore/texas-camping-guide'
+      path: '/texas-camping-guide'
+      fullPath: '/explore/texas-camping-guide'
+      preLoaderRoute: typeof ExploreTexasCampingGuideRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/texas-dark-sky-stargazing': {
+      id: '/explore/texas-dark-sky-stargazing'
+      path: '/texas-dark-sky-stargazing'
+      fullPath: '/explore/texas-dark-sky-stargazing'
+      preLoaderRoute: typeof ExploreTexasDarkSkyStargazingRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/texas-lakes-guide': {
+      id: '/explore/texas-lakes-guide'
+      path: '/texas-lakes-guide'
+      fullPath: '/explore/texas-lakes-guide'
+      preLoaderRoute: typeof ExploreTexasLakesGuideRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/texas-scenic-drives': {
+      id: '/explore/texas-scenic-drives'
+      path: '/texas-scenic-drives'
+      fullPath: '/explore/texas-scenic-drives'
+      preLoaderRoute: typeof ExploreTexasScenicDrivesRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/texas-state-parks-guide': {
+      id: '/explore/texas-state-parks-guide'
+      path: '/texas-state-parks-guide'
+      fullPath: '/explore/texas-state-parks-guide'
+      preLoaderRoute: typeof ExploreTexasStateParksGuideRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/texas-wildflower-seasons': {
+      id: '/explore/texas-wildflower-seasons'
+      path: '/texas-wildflower-seasons'
+      fullPath: '/explore/texas-wildflower-seasons'
+      preLoaderRoute: typeof ExploreTexasWildflowerSeasonsRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/trip-planner': {
+      id: '/explore/trip-planner'
+      path: '/trip-planner'
+      fullPath: '/explore/trip-planner'
+      preLoaderRoute: typeof ExploreTripPlannerRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/wildlife-management-areas': {
+      id: '/explore/wildlife-management-areas'
+      path: '/wildlife-management-areas'
+      fullPath: '/explore/wildlife-management-areas'
+      preLoaderRoute: typeof ExploreWildlifeManagementAreasRouteImport
+      parentRoute: typeof ExploreRoute
     }
     '/shop/': {
       id: '/shop/'
@@ -372,38 +915,155 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ShopCollectionRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/explore/category/$category': {
+      id: '/explore/category/$category'
+      path: '/category/$category'
+      fullPath: '/explore/category/$category'
+      preLoaderRoute: typeof ExploreCategoryCategoryRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/cavern/$slug': {
+      id: '/explore/cavern/$slug'
+      path: '/cavern/$slug'
+      fullPath: '/explore/cavern/$slug'
+      preLoaderRoute: typeof ExploreCavernSlugRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/county/$county': {
+      id: '/explore/county/$county'
+      path: '/county/$county'
+      fullPath: '/explore/county/$county'
+      preLoaderRoute: typeof ExploreCountyCountyRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/lake/$slug': {
+      id: '/explore/lake/$slug'
+      path: '/lake/$slug'
+      fullPath: '/explore/lake/$slug'
+      preLoaderRoute: typeof ExploreLakeSlugRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/region/$region': {
+      id: '/explore/region/$region'
+      path: '/region/$region'
+      fullPath: '/explore/region/$region'
+      preLoaderRoute: typeof ExploreRegionRegionRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/river/$slug': {
+      id: '/explore/river/$slug'
+      path: '/river/$slug'
+      fullPath: '/explore/river/$slug'
+      preLoaderRoute: typeof ExploreRiverSlugRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/state-park/$slug': {
+      id: '/explore/state-park/$slug'
+      path: '/state-park/$slug'
+      fullPath: '/explore/state-park/$slug'
+      preLoaderRoute: typeof ExploreStateParkSlugRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/trip/$token': {
+      id: '/explore/trip/$token'
+      path: '/trip/$token'
+      fullPath: '/explore/trip/$token'
+      preLoaderRoute: typeof ExploreTripTokenRouteImport
+      parentRoute: typeof ExploreRoute
+    }
   }
 }
+
+interface ExploreRouteChildren {
+  ExploreSlugRoute: typeof ExploreSlugRoute
+  ExploreCavernsRoute: typeof ExploreCavernsRoute
+  ExploreHillCountrySpringsRoute: typeof ExploreHillCountrySpringsRoute
+  ExploreHistoricSitesRoute: typeof ExploreHistoricSitesRoute
+  ExploreLighthousesRoute: typeof ExploreLighthousesRoute
+  ExploreMajorSpringsRoute: typeof ExploreMajorSpringsRoute
+  ExploreNationalParksRoute: typeof ExploreNationalParksRoute
+  ExploreNationalWildlifeRefugesRoute: typeof ExploreNationalWildlifeRefugesRoute
+  ExploreScenicRiversRoute: typeof ExploreScenicRiversRoute
+  ExploreSearchRoute: typeof ExploreSearchRoute
+  ExploreSpringConservationAndEducationRoute: typeof ExploreSpringConservationAndEducationRoute
+  ExploreSpringFedSwimmingRoute: typeof ExploreSpringFedSwimmingRoute
+  ExploreStateParksRoute: typeof ExploreStateParksRoute
+  ExploreTexasCampingGuideRoute: typeof ExploreTexasCampingGuideRoute
+  ExploreTexasDarkSkyStargazingRoute: typeof ExploreTexasDarkSkyStargazingRoute
+  ExploreTexasLakesGuideRoute: typeof ExploreTexasLakesGuideRoute
+  ExploreTexasScenicDrivesRoute: typeof ExploreTexasScenicDrivesRoute
+  ExploreTexasStateParksGuideRoute: typeof ExploreTexasStateParksGuideRoute
+  ExploreTexasWildflowerSeasonsRoute: typeof ExploreTexasWildflowerSeasonsRoute
+  ExploreTripPlannerRoute: typeof ExploreTripPlannerRoute
+  ExploreWildlifeManagementAreasRoute: typeof ExploreWildlifeManagementAreasRoute
+  ExploreIndexRoute: typeof ExploreIndexRoute
+  ExploreCategoryCategoryRoute: typeof ExploreCategoryCategoryRoute
+  ExploreCavernSlugRoute: typeof ExploreCavernSlugRoute
+  ExploreCountyCountyRoute: typeof ExploreCountyCountyRoute
+  ExploreLakeSlugRoute: typeof ExploreLakeSlugRoute
+  ExploreRegionRegionRoute: typeof ExploreRegionRegionRoute
+  ExploreRiverSlugRoute: typeof ExploreRiverSlugRoute
+  ExploreStateParkSlugRoute: typeof ExploreStateParkSlugRoute
+  ExploreTripTokenRoute: typeof ExploreTripTokenRoute
+}
+
+const ExploreRouteChildren: ExploreRouteChildren = {
+  ExploreSlugRoute: ExploreSlugRoute,
+  ExploreCavernsRoute: ExploreCavernsRoute,
+  ExploreHillCountrySpringsRoute: ExploreHillCountrySpringsRoute,
+  ExploreHistoricSitesRoute: ExploreHistoricSitesRoute,
+  ExploreLighthousesRoute: ExploreLighthousesRoute,
+  ExploreMajorSpringsRoute: ExploreMajorSpringsRoute,
+  ExploreNationalParksRoute: ExploreNationalParksRoute,
+  ExploreNationalWildlifeRefugesRoute: ExploreNationalWildlifeRefugesRoute,
+  ExploreScenicRiversRoute: ExploreScenicRiversRoute,
+  ExploreSearchRoute: ExploreSearchRoute,
+  ExploreSpringConservationAndEducationRoute:
+    ExploreSpringConservationAndEducationRoute,
+  ExploreSpringFedSwimmingRoute: ExploreSpringFedSwimmingRoute,
+  ExploreStateParksRoute: ExploreStateParksRoute,
+  ExploreTexasCampingGuideRoute: ExploreTexasCampingGuideRoute,
+  ExploreTexasDarkSkyStargazingRoute: ExploreTexasDarkSkyStargazingRoute,
+  ExploreTexasLakesGuideRoute: ExploreTexasLakesGuideRoute,
+  ExploreTexasScenicDrivesRoute: ExploreTexasScenicDrivesRoute,
+  ExploreTexasStateParksGuideRoute: ExploreTexasStateParksGuideRoute,
+  ExploreTexasWildflowerSeasonsRoute: ExploreTexasWildflowerSeasonsRoute,
+  ExploreTripPlannerRoute: ExploreTripPlannerRoute,
+  ExploreWildlifeManagementAreasRoute: ExploreWildlifeManagementAreasRoute,
+  ExploreIndexRoute: ExploreIndexRoute,
+  ExploreCategoryCategoryRoute: ExploreCategoryCategoryRoute,
+  ExploreCavernSlugRoute: ExploreCavernSlugRoute,
+  ExploreCountyCountyRoute: ExploreCountyCountyRoute,
+  ExploreLakeSlugRoute: ExploreLakeSlugRoute,
+  ExploreRegionRegionRoute: ExploreRegionRegionRoute,
+  ExploreRiverSlugRoute: ExploreRiverSlugRoute,
+  ExploreStateParkSlugRoute: ExploreStateParkSlugRoute,
+  ExploreTripTokenRoute: ExploreTripTokenRoute,
+}
+
+const ExploreRouteWithChildren =
+  ExploreRoute._addFileChildren(ExploreRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   EventsRoute: EventsRoute,
+  ExploreRoute: ExploreRouteWithChildren,
   GuidesRoute: GuidesRoute,
   HomeGardenRoute: HomeGardenRoute,
   MovingToTexasRoute: MovingToTexasRoute,
   RealEstateRoute: RealEstateRoute,
   SearchRoute: SearchRoute,
+  SitemapExploreLocationsDotxmlRoute: SitemapExploreLocationsDotxmlRoute,
+  SitemapExploreDotxmlRoute: SitemapExploreDotxmlRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SportsRoute: SportsRoute,
   TexasHistoryRoute: TexasHistoryRoute,
   ArticleSlugRoute: ArticleSlugRoute,
   DestinationSlugRoute: DestinationSlugRoute,
-  ExploreCategoryRoute: ExploreCategoryRoute,
   ShopCollectionRoute: ShopCollectionRoute,
-  ExploreIndexRoute: ExploreIndexRoute,
   ShopIndexRoute: ShopIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

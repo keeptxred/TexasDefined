@@ -8,7 +8,7 @@ import { categoriesQuery } from "@/data/queries";
 import type { CategorySlug } from "@/data/types";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
-export const Route = createFileRoute("/explore/$category")({
+export const Route = createFileRoute("/explore/category/$category")({
   loader: async ({ context, params }) => {
     const categories = await context.queryClient.ensureQueryData(categoriesQuery());
     const category = categories.find((item) => item.slug === params.category);
