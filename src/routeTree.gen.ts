@@ -18,6 +18,8 @@ import { Route as HomeGardenRouteImport } from './routes/home-garden'
 import { Route as MovingToTexasRouteImport } from './routes/moving-to-texas'
 import { Route as RealEstateRouteImport } from './routes/real-estate'
 import { Route as SearchRouteImport } from './routes/search'
+import { Route as SitemapExploreLocationsDotxmlRouteImport } from './routes/sitemap-explore-locations[.]xml'
+import { Route as SitemapExploreDotxmlRouteImport } from './routes/sitemap-explore[.]xml'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SportsRouteImport } from './routes/sports'
 import { Route as TexasHistoryRouteImport } from './routes/texas-history'
@@ -38,6 +40,13 @@ import { Route as ExploreSearchRouteImport } from './routes/explore.search'
 import { Route as ExploreSpringConservationAndEducationRouteImport } from './routes/explore.spring-conservation-and-education'
 import { Route as ExploreSpringFedSwimmingRouteImport } from './routes/explore.spring-fed-swimming'
 import { Route as ExploreStateParksRouteImport } from './routes/explore.state-parks'
+import { Route as ExploreTexasCampingGuideRouteImport } from './routes/explore.texas-camping-guide'
+import { Route as ExploreTexasDarkSkyStargazingRouteImport } from './routes/explore.texas-dark-sky-stargazing'
+import { Route as ExploreTexasLakesGuideRouteImport } from './routes/explore.texas-lakes-guide'
+import { Route as ExploreTexasScenicDrivesRouteImport } from './routes/explore.texas-scenic-drives'
+import { Route as ExploreTexasStateParksGuideRouteImport } from './routes/explore.texas-state-parks-guide'
+import { Route as ExploreTexasWildflowerSeasonsRouteImport } from './routes/explore.texas-wildflower-seasons'
+import { Route as ExploreTripPlannerRouteImport } from './routes/explore.trip-planner'
 import { Route as ExploreWildlifeManagementAreasRouteImport } from './routes/explore.wildlife-management-areas'
 import { Route as ShopIndexRouteImport } from './routes/shop.index'
 import { Route as ShopCollectionRouteImport } from './routes/shop.$collection'
@@ -47,6 +56,7 @@ import { Route as ExploreLakeSlugRouteImport } from './routes/explore.lake.$slug
 import { Route as ExploreRegionRegionRouteImport } from './routes/explore.region.$region'
 import { Route as ExploreRiverSlugRouteImport } from './routes/explore.river.$slug'
 import { Route as ExploreStateParkSlugRouteImport } from './routes/explore.state-park.$slug'
+import { Route as ExploreTripTokenRouteImport } from './routes/explore.trip.$token'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -91,6 +101,17 @@ const RealEstateRoute = RealEstateRouteImport.update({
 const SearchRoute = SearchRouteImport.update({
   id: '/search',
   path: '/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapExploreLocationsDotxmlRoute =
+  SitemapExploreLocationsDotxmlRouteImport.update({
+    id: '/sitemap-explore-locations.xml',
+    path: '/sitemap-explore-locations.xml',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const SitemapExploreDotxmlRoute = SitemapExploreDotxmlRouteImport.update({
+  id: '/sitemap-explore.xml',
+  path: '/sitemap-explore.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -197,6 +218,46 @@ const ExploreStateParksRoute = ExploreStateParksRouteImport.update({
   path: '/state-parks',
   getParentRoute: () => ExploreRoute,
 } as any)
+const ExploreTexasCampingGuideRoute =
+  ExploreTexasCampingGuideRouteImport.update({
+    id: '/texas-camping-guide',
+    path: '/texas-camping-guide',
+    getParentRoute: () => ExploreRoute,
+  } as any)
+const ExploreTexasDarkSkyStargazingRoute =
+  ExploreTexasDarkSkyStargazingRouteImport.update({
+    id: '/texas-dark-sky-stargazing',
+    path: '/texas-dark-sky-stargazing',
+    getParentRoute: () => ExploreRoute,
+  } as any)
+const ExploreTexasLakesGuideRoute = ExploreTexasLakesGuideRouteImport.update({
+  id: '/texas-lakes-guide',
+  path: '/texas-lakes-guide',
+  getParentRoute: () => ExploreRoute,
+} as any)
+const ExploreTexasScenicDrivesRoute =
+  ExploreTexasScenicDrivesRouteImport.update({
+    id: '/texas-scenic-drives',
+    path: '/texas-scenic-drives',
+    getParentRoute: () => ExploreRoute,
+  } as any)
+const ExploreTexasStateParksGuideRoute =
+  ExploreTexasStateParksGuideRouteImport.update({
+    id: '/texas-state-parks-guide',
+    path: '/texas-state-parks-guide',
+    getParentRoute: () => ExploreRoute,
+  } as any)
+const ExploreTexasWildflowerSeasonsRoute =
+  ExploreTexasWildflowerSeasonsRouteImport.update({
+    id: '/texas-wildflower-seasons',
+    path: '/texas-wildflower-seasons',
+    getParentRoute: () => ExploreRoute,
+  } as any)
+const ExploreTripPlannerRoute = ExploreTripPlannerRouteImport.update({
+  id: '/trip-planner',
+  path: '/trip-planner',
+  getParentRoute: () => ExploreRoute,
+} as any)
 const ExploreWildlifeManagementAreasRoute =
   ExploreWildlifeManagementAreasRouteImport.update({
     id: '/wildlife-management-areas',
@@ -243,6 +304,11 @@ const ExploreStateParkSlugRoute = ExploreStateParkSlugRouteImport.update({
   path: '/state-park/$slug',
   getParentRoute: () => ExploreRoute,
 } as any)
+const ExploreTripTokenRoute = ExploreTripTokenRouteImport.update({
+  id: '/trip/$token',
+  path: '/trip/$token',
+  getParentRoute: () => ExploreRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -254,6 +320,8 @@ export interface FileRoutesByFullPath {
   '/moving-to-texas': typeof MovingToTexasRoute
   '/real-estate': typeof RealEstateRoute
   '/search': typeof SearchRoute
+  '/sitemap-explore-locations.xml': typeof SitemapExploreLocationsDotxmlRoute
+  '/sitemap-explore.xml': typeof SitemapExploreDotxmlRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sports': typeof SportsRoute
   '/texas-history': typeof TexasHistoryRoute
@@ -273,6 +341,13 @@ export interface FileRoutesByFullPath {
   '/explore/spring-conservation-and-education': typeof ExploreSpringConservationAndEducationRoute
   '/explore/spring-fed-swimming': typeof ExploreSpringFedSwimmingRoute
   '/explore/state-parks': typeof ExploreStateParksRoute
+  '/explore/texas-camping-guide': typeof ExploreTexasCampingGuideRoute
+  '/explore/texas-dark-sky-stargazing': typeof ExploreTexasDarkSkyStargazingRoute
+  '/explore/texas-lakes-guide': typeof ExploreTexasLakesGuideRoute
+  '/explore/texas-scenic-drives': typeof ExploreTexasScenicDrivesRoute
+  '/explore/texas-state-parks-guide': typeof ExploreTexasStateParksGuideRoute
+  '/explore/texas-wildflower-seasons': typeof ExploreTexasWildflowerSeasonsRoute
+  '/explore/trip-planner': typeof ExploreTripPlannerRoute
   '/explore/wildlife-management-areas': typeof ExploreWildlifeManagementAreasRoute
   '/shop/$collection': typeof ShopCollectionRoute
   '/explore/': typeof ExploreIndexRoute
@@ -283,6 +358,7 @@ export interface FileRoutesByFullPath {
   '/explore/region/$region': typeof ExploreRegionRegionRoute
   '/explore/river/$slug': typeof ExploreRiverSlugRoute
   '/explore/state-park/$slug': typeof ExploreStateParkSlugRoute
+  '/explore/trip/$token': typeof ExploreTripTokenRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -293,6 +369,8 @@ export interface FileRoutesByTo {
   '/moving-to-texas': typeof MovingToTexasRoute
   '/real-estate': typeof RealEstateRoute
   '/search': typeof SearchRoute
+  '/sitemap-explore-locations.xml': typeof SitemapExploreLocationsDotxmlRoute
+  '/sitemap-explore.xml': typeof SitemapExploreDotxmlRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sports': typeof SportsRoute
   '/texas-history': typeof TexasHistoryRoute
@@ -312,6 +390,13 @@ export interface FileRoutesByTo {
   '/explore/spring-conservation-and-education': typeof ExploreSpringConservationAndEducationRoute
   '/explore/spring-fed-swimming': typeof ExploreSpringFedSwimmingRoute
   '/explore/state-parks': typeof ExploreStateParksRoute
+  '/explore/texas-camping-guide': typeof ExploreTexasCampingGuideRoute
+  '/explore/texas-dark-sky-stargazing': typeof ExploreTexasDarkSkyStargazingRoute
+  '/explore/texas-lakes-guide': typeof ExploreTexasLakesGuideRoute
+  '/explore/texas-scenic-drives': typeof ExploreTexasScenicDrivesRoute
+  '/explore/texas-state-parks-guide': typeof ExploreTexasStateParksGuideRoute
+  '/explore/texas-wildflower-seasons': typeof ExploreTexasWildflowerSeasonsRoute
+  '/explore/trip-planner': typeof ExploreTripPlannerRoute
   '/explore/wildlife-management-areas': typeof ExploreWildlifeManagementAreasRoute
   '/shop/$collection': typeof ShopCollectionRoute
   '/explore': typeof ExploreIndexRoute
@@ -322,6 +407,7 @@ export interface FileRoutesByTo {
   '/explore/region/$region': typeof ExploreRegionRegionRoute
   '/explore/river/$slug': typeof ExploreRiverSlugRoute
   '/explore/state-park/$slug': typeof ExploreStateParkSlugRoute
+  '/explore/trip/$token': typeof ExploreTripTokenRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -334,6 +420,8 @@ export interface FileRoutesById {
   '/moving-to-texas': typeof MovingToTexasRoute
   '/real-estate': typeof RealEstateRoute
   '/search': typeof SearchRoute
+  '/sitemap-explore-locations.xml': typeof SitemapExploreLocationsDotxmlRoute
+  '/sitemap-explore.xml': typeof SitemapExploreDotxmlRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sports': typeof SportsRoute
   '/texas-history': typeof TexasHistoryRoute
@@ -353,6 +441,13 @@ export interface FileRoutesById {
   '/explore/spring-conservation-and-education': typeof ExploreSpringConservationAndEducationRoute
   '/explore/spring-fed-swimming': typeof ExploreSpringFedSwimmingRoute
   '/explore/state-parks': typeof ExploreStateParksRoute
+  '/explore/texas-camping-guide': typeof ExploreTexasCampingGuideRoute
+  '/explore/texas-dark-sky-stargazing': typeof ExploreTexasDarkSkyStargazingRoute
+  '/explore/texas-lakes-guide': typeof ExploreTexasLakesGuideRoute
+  '/explore/texas-scenic-drives': typeof ExploreTexasScenicDrivesRoute
+  '/explore/texas-state-parks-guide': typeof ExploreTexasStateParksGuideRoute
+  '/explore/texas-wildflower-seasons': typeof ExploreTexasWildflowerSeasonsRoute
+  '/explore/trip-planner': typeof ExploreTripPlannerRoute
   '/explore/wildlife-management-areas': typeof ExploreWildlifeManagementAreasRoute
   '/shop/$collection': typeof ShopCollectionRoute
   '/explore/': typeof ExploreIndexRoute
@@ -363,6 +458,7 @@ export interface FileRoutesById {
   '/explore/region/$region': typeof ExploreRegionRegionRoute
   '/explore/river/$slug': typeof ExploreRiverSlugRoute
   '/explore/state-park/$slug': typeof ExploreStateParkSlugRoute
+  '/explore/trip/$token': typeof ExploreTripTokenRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -376,6 +472,8 @@ export interface FileRouteTypes {
     | '/moving-to-texas'
     | '/real-estate'
     | '/search'
+    | '/sitemap-explore-locations.xml'
+    | '/sitemap-explore.xml'
     | '/sitemap.xml'
     | '/sports'
     | '/texas-history'
@@ -395,6 +493,13 @@ export interface FileRouteTypes {
     | '/explore/spring-conservation-and-education'
     | '/explore/spring-fed-swimming'
     | '/explore/state-parks'
+    | '/explore/texas-camping-guide'
+    | '/explore/texas-dark-sky-stargazing'
+    | '/explore/texas-lakes-guide'
+    | '/explore/texas-scenic-drives'
+    | '/explore/texas-state-parks-guide'
+    | '/explore/texas-wildflower-seasons'
+    | '/explore/trip-planner'
     | '/explore/wildlife-management-areas'
     | '/shop/$collection'
     | '/explore/'
@@ -405,6 +510,7 @@ export interface FileRouteTypes {
     | '/explore/region/$region'
     | '/explore/river/$slug'
     | '/explore/state-park/$slug'
+    | '/explore/trip/$token'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -415,6 +521,8 @@ export interface FileRouteTypes {
     | '/moving-to-texas'
     | '/real-estate'
     | '/search'
+    | '/sitemap-explore-locations.xml'
+    | '/sitemap-explore.xml'
     | '/sitemap.xml'
     | '/sports'
     | '/texas-history'
@@ -434,6 +542,13 @@ export interface FileRouteTypes {
     | '/explore/spring-conservation-and-education'
     | '/explore/spring-fed-swimming'
     | '/explore/state-parks'
+    | '/explore/texas-camping-guide'
+    | '/explore/texas-dark-sky-stargazing'
+    | '/explore/texas-lakes-guide'
+    | '/explore/texas-scenic-drives'
+    | '/explore/texas-state-parks-guide'
+    | '/explore/texas-wildflower-seasons'
+    | '/explore/trip-planner'
     | '/explore/wildlife-management-areas'
     | '/shop/$collection'
     | '/explore'
@@ -444,6 +559,7 @@ export interface FileRouteTypes {
     | '/explore/region/$region'
     | '/explore/river/$slug'
     | '/explore/state-park/$slug'
+    | '/explore/trip/$token'
   id:
     | '__root__'
     | '/'
@@ -455,6 +571,8 @@ export interface FileRouteTypes {
     | '/moving-to-texas'
     | '/real-estate'
     | '/search'
+    | '/sitemap-explore-locations.xml'
+    | '/sitemap-explore.xml'
     | '/sitemap.xml'
     | '/sports'
     | '/texas-history'
@@ -474,6 +592,13 @@ export interface FileRouteTypes {
     | '/explore/spring-conservation-and-education'
     | '/explore/spring-fed-swimming'
     | '/explore/state-parks'
+    | '/explore/texas-camping-guide'
+    | '/explore/texas-dark-sky-stargazing'
+    | '/explore/texas-lakes-guide'
+    | '/explore/texas-scenic-drives'
+    | '/explore/texas-state-parks-guide'
+    | '/explore/texas-wildflower-seasons'
+    | '/explore/trip-planner'
     | '/explore/wildlife-management-areas'
     | '/shop/$collection'
     | '/explore/'
@@ -484,6 +609,7 @@ export interface FileRouteTypes {
     | '/explore/region/$region'
     | '/explore/river/$slug'
     | '/explore/state-park/$slug'
+    | '/explore/trip/$token'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -496,6 +622,8 @@ export interface RootRouteChildren {
   MovingToTexasRoute: typeof MovingToTexasRoute
   RealEstateRoute: typeof RealEstateRoute
   SearchRoute: typeof SearchRoute
+  SitemapExploreLocationsDotxmlRoute: typeof SitemapExploreLocationsDotxmlRoute
+  SitemapExploreDotxmlRoute: typeof SitemapExploreDotxmlRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SportsRoute: typeof SportsRoute
   TexasHistoryRoute: typeof TexasHistoryRoute
@@ -568,6 +696,20 @@ declare module '@tanstack/react-router' {
       path: '/search'
       fullPath: '/search'
       preLoaderRoute: typeof SearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap-explore-locations.xml': {
+      id: '/sitemap-explore-locations.xml'
+      path: '/sitemap-explore-locations.xml'
+      fullPath: '/sitemap-explore-locations.xml'
+      preLoaderRoute: typeof SitemapExploreLocationsDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap-explore.xml': {
+      id: '/sitemap-explore.xml'
+      path: '/sitemap-explore.xml'
+      fullPath: '/sitemap-explore.xml'
+      preLoaderRoute: typeof SitemapExploreDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -710,6 +852,55 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExploreStateParksRouteImport
       parentRoute: typeof ExploreRoute
     }
+    '/explore/texas-camping-guide': {
+      id: '/explore/texas-camping-guide'
+      path: '/texas-camping-guide'
+      fullPath: '/explore/texas-camping-guide'
+      preLoaderRoute: typeof ExploreTexasCampingGuideRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/texas-dark-sky-stargazing': {
+      id: '/explore/texas-dark-sky-stargazing'
+      path: '/texas-dark-sky-stargazing'
+      fullPath: '/explore/texas-dark-sky-stargazing'
+      preLoaderRoute: typeof ExploreTexasDarkSkyStargazingRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/texas-lakes-guide': {
+      id: '/explore/texas-lakes-guide'
+      path: '/texas-lakes-guide'
+      fullPath: '/explore/texas-lakes-guide'
+      preLoaderRoute: typeof ExploreTexasLakesGuideRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/texas-scenic-drives': {
+      id: '/explore/texas-scenic-drives'
+      path: '/texas-scenic-drives'
+      fullPath: '/explore/texas-scenic-drives'
+      preLoaderRoute: typeof ExploreTexasScenicDrivesRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/texas-state-parks-guide': {
+      id: '/explore/texas-state-parks-guide'
+      path: '/texas-state-parks-guide'
+      fullPath: '/explore/texas-state-parks-guide'
+      preLoaderRoute: typeof ExploreTexasStateParksGuideRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/texas-wildflower-seasons': {
+      id: '/explore/texas-wildflower-seasons'
+      path: '/texas-wildflower-seasons'
+      fullPath: '/explore/texas-wildflower-seasons'
+      preLoaderRoute: typeof ExploreTexasWildflowerSeasonsRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/trip-planner': {
+      id: '/explore/trip-planner'
+      path: '/trip-planner'
+      fullPath: '/explore/trip-planner'
+      preLoaderRoute: typeof ExploreTripPlannerRouteImport
+      parentRoute: typeof ExploreRoute
+    }
     '/explore/wildlife-management-areas': {
       id: '/explore/wildlife-management-areas'
       path: '/wildlife-management-areas'
@@ -773,6 +964,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExploreStateParkSlugRouteImport
       parentRoute: typeof ExploreRoute
     }
+    '/explore/trip/$token': {
+      id: '/explore/trip/$token'
+      path: '/trip/$token'
+      fullPath: '/explore/trip/$token'
+      preLoaderRoute: typeof ExploreTripTokenRouteImport
+      parentRoute: typeof ExploreRoute
+    }
   }
 }
 
@@ -791,6 +989,13 @@ interface ExploreRouteChildren {
   ExploreSpringConservationAndEducationRoute: typeof ExploreSpringConservationAndEducationRoute
   ExploreSpringFedSwimmingRoute: typeof ExploreSpringFedSwimmingRoute
   ExploreStateParksRoute: typeof ExploreStateParksRoute
+  ExploreTexasCampingGuideRoute: typeof ExploreTexasCampingGuideRoute
+  ExploreTexasDarkSkyStargazingRoute: typeof ExploreTexasDarkSkyStargazingRoute
+  ExploreTexasLakesGuideRoute: typeof ExploreTexasLakesGuideRoute
+  ExploreTexasScenicDrivesRoute: typeof ExploreTexasScenicDrivesRoute
+  ExploreTexasStateParksGuideRoute: typeof ExploreTexasStateParksGuideRoute
+  ExploreTexasWildflowerSeasonsRoute: typeof ExploreTexasWildflowerSeasonsRoute
+  ExploreTripPlannerRoute: typeof ExploreTripPlannerRoute
   ExploreWildlifeManagementAreasRoute: typeof ExploreWildlifeManagementAreasRoute
   ExploreIndexRoute: typeof ExploreIndexRoute
   ExploreCavernSlugRoute: typeof ExploreCavernSlugRoute
@@ -799,6 +1004,7 @@ interface ExploreRouteChildren {
   ExploreRegionRegionRoute: typeof ExploreRegionRegionRoute
   ExploreRiverSlugRoute: typeof ExploreRiverSlugRoute
   ExploreStateParkSlugRoute: typeof ExploreStateParkSlugRoute
+  ExploreTripTokenRoute: typeof ExploreTripTokenRoute
 }
 
 const ExploreRouteChildren: ExploreRouteChildren = {
@@ -817,6 +1023,13 @@ const ExploreRouteChildren: ExploreRouteChildren = {
     ExploreSpringConservationAndEducationRoute,
   ExploreSpringFedSwimmingRoute: ExploreSpringFedSwimmingRoute,
   ExploreStateParksRoute: ExploreStateParksRoute,
+  ExploreTexasCampingGuideRoute: ExploreTexasCampingGuideRoute,
+  ExploreTexasDarkSkyStargazingRoute: ExploreTexasDarkSkyStargazingRoute,
+  ExploreTexasLakesGuideRoute: ExploreTexasLakesGuideRoute,
+  ExploreTexasScenicDrivesRoute: ExploreTexasScenicDrivesRoute,
+  ExploreTexasStateParksGuideRoute: ExploreTexasStateParksGuideRoute,
+  ExploreTexasWildflowerSeasonsRoute: ExploreTexasWildflowerSeasonsRoute,
+  ExploreTripPlannerRoute: ExploreTripPlannerRoute,
   ExploreWildlifeManagementAreasRoute: ExploreWildlifeManagementAreasRoute,
   ExploreIndexRoute: ExploreIndexRoute,
   ExploreCavernSlugRoute: ExploreCavernSlugRoute,
@@ -825,6 +1038,7 @@ const ExploreRouteChildren: ExploreRouteChildren = {
   ExploreRegionRegionRoute: ExploreRegionRegionRoute,
   ExploreRiverSlugRoute: ExploreRiverSlugRoute,
   ExploreStateParkSlugRoute: ExploreStateParkSlugRoute,
+  ExploreTripTokenRoute: ExploreTripTokenRoute,
 }
 
 const ExploreRouteWithChildren =
@@ -840,6 +1054,8 @@ const rootRouteChildren: RootRouteChildren = {
   MovingToTexasRoute: MovingToTexasRoute,
   RealEstateRoute: RealEstateRoute,
   SearchRoute: SearchRoute,
+  SitemapExploreLocationsDotxmlRoute: SitemapExploreLocationsDotxmlRoute,
+  SitemapExploreDotxmlRoute: SitemapExploreDotxmlRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SportsRoute: SportsRoute,
   TexasHistoryRoute: TexasHistoryRoute,
