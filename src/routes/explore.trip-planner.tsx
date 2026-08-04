@@ -17,7 +17,7 @@ import { generateExploreTrip } from "@/services/explore/public.functions";
 import type { GeneratedTrip, TripPreferences } from "@/types/explore/public";
 import type { SavedTrip } from "@/types/explore/public";
 import { createClientOnlyFn } from "@tanstack/react-start";
-import { buildSeo } from "@/lib/seo";
+import { buildSeo } from "@/lib/explore-seo";
 import { orderStopsForRoute } from "@/lib/explore/geography";
 
 const STORAGE_KEY = "keeptxred.explore.trip.v1";

@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SpringCollectionLanding } from "@/components/explore/SpringCollectionLanding";
 import { getMajorSpringCollectionDestinations, getMajorSpringDiscoveryCollection } from "@/data/explore/collections.major-springs";
-import { buildSeo } from "@/lib/seo";
+import { buildSeo } from "@/lib/explore-seo";
 
 const collectionId = "spring-conservation-and-education";
 const canonicalPath = "/explore/spring-conservation-and-education";

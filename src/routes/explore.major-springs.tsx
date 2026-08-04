@@ -4,7 +4,7 @@ import {
   getMajorSpringCollectionDestinations,
   getMajorSpringDiscoveryCollection,
 } from "@/data/explore/collections.major-springs";
-import { buildSeo } from "@/lib/seo";
+import { buildSeo } from "@/lib/explore-seo";
 
 const collectionId = "major-texas-springs";
 const canonicalPath = "/explore/major-springs";

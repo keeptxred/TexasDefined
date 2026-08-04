@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { EntityGrid } from "@/components/explore/EntityGrid";
 import { getFeaturedCaverns } from "@/services/explore/cavern.functions";
 import { getExploreLanding } from "@/services/explore/public.functions";
-import { buildSeo } from "@/lib/seo";
+import { buildSeo } from "@/lib/explore-seo";
 import { geographyPath } from "@/lib/explore/geography-pages";
 
 export const Route = createFileRoute("/explore/")({

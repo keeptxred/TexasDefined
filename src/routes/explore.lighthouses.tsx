@@ -3,7 +3,7 @@ import { Binoculars, Compass, Landmark, MapPinned } from "lucide-react";
 import { EntityGrid } from "@/components/explore/EntityGrid";
 import { Button } from "@/components/ui/button";
 import { texasLighthouseDestinations } from "@/data/explore/catalog.lighthouses.entities";
-import { buildSeo } from "@/lib/seo";
+import { buildSeo } from "@/lib/explore-seo";
 
 export const Route = createFileRoute("/explore/lighthouses")({
   loader: () => ({ items: texasLighthouseDestinations }),

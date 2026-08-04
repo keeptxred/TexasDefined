@@ -3,7 +3,7 @@ import { AlertTriangle, Compass, MapPinned, Waves } from "lucide-react";
 import { EntityGrid } from "@/components/explore/EntityGrid";
 import { Button } from "@/components/ui/button";
 import { stateScenicRiverDestinations } from "@/data/explore/catalog.state-scenic-rivers.entities";
-import { buildSeo } from "@/lib/seo";
+import { buildSeo } from "@/lib/explore-seo";
 
 export const Route = createFileRoute("/explore/scenic-rivers")({
   loader: () => ({ items: stateScenicRiverDestinations }),

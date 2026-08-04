@@ -2,7 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Printer } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getSharedExploreTrip } from "@/services/explore/public.functions";
-import { buildSeo } from "@/lib/seo";
+import { buildSeo } from "@/lib/explore-seo";
 import type { SavedTrip } from "@/types/explore/public";
 
 export const Route = createFileRoute("/explore/trip/$token")({

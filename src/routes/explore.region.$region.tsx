@@ -1,7 +1,7 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { GeographyLanding } from "@/components/explore/GeographyLanding";
 import { geographyPath, geographySummary } from "@/lib/explore/geography-pages";
-import { buildSeo } from "@/lib/seo";
+import { buildSeo } from "@/lib/explore-seo";
 import { getExploreGeography } from "@/services/explore/public.functions";
 
 export const Route = createFileRoute("/explore/region/$region")({

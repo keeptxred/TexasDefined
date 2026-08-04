@@ -15,7 +15,7 @@ import { ExploreMap } from "@/components/explore/ExploreMap";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { getExploreEntity, getExploreSlugTarget } from "@/services/explore/public.functions";
-import { buildSeo } from "@/lib/seo";
+import { buildSeo } from "@/lib/explore-seo";
 import { geographyPath } from "@/lib/explore/geography-pages";
 import type { ExploreEntity } from "@/types/explore/public";
 

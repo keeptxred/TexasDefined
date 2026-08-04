@@ -8,7 +8,7 @@ import {
   WalletCards,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { buildSeo } from "@/lib/seo";
+import { buildSeo } from "@/lib/explore-seo";
 
 export const Route = createFileRoute("/explore/texas-state-parks-guide")({
   head: () => {

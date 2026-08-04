@@ -9,7 +9,7 @@ import type {
   ExploreSearchInput,
   ExploreSearchResult,
 } from "@/types/explore/public";
-import { buildSeo } from "@/lib/seo";
+import { buildSeo } from "@/lib/explore-seo";
 
 export const Route = createFileRoute("/explore/search")({
   validateSearch: (search) => exploreSearchSchema.parse(search),

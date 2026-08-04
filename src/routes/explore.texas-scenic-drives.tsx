@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Camera, Car, Compass, MapPinned, Mountain, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { buildSeo } from "@/lib/seo";
+import { buildSeo } from "@/lib/explore-seo";
 
 export const Route = createFileRoute("/explore/texas-scenic-drives")({
   head: () => {
