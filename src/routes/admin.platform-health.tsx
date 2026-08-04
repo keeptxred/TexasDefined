@@ -7,18 +7,19 @@ import { loadTexasKnowledgeGraph, validateTexasEntityRegistry } from '@/data/kno
 import { auditTexasKnowledgeGraph } from '@/data/knowledge-graph/audit';
 import { buildContentHealthReport } from '@/platform/content-health';
 import { INTERNAL_LINK_SURFACES, internalLinkCoverageSummary } from '@/platform/internal-link-coverage';
+import { auditInternalLinkQuality, INTERNAL_LINK_QUALITY_THRESHOLDS } from '@/platform/internal-link-quality';
 
 export const Route = createFileRoute('/admin/platform-health')({
   head: () => ({ meta: [{ title: 'Platform Health | TexasDefined' }, { name: 'robots', content: 'noindex,nofollow' }] }),
   loader: async () => {
     const graph = await loadTexasKnowledgeGraph();
-    return { graph, audit: auditTexasKnowledgeGraph(graph) };
+    return { graph, audit: auditTexasKnowledgeGraph(graph), linkQuality: auditInternalLinkQuality(graph) };
   },
   component: Page,
 });
 
 function Page() {
-  const { graph, audit } = Route.useLoaderData();
+  const { graph, audit, linkQuality } = Route.useLoaderData();
   const places = validateTexasPlaces();
   const sources = validateAuthoritativeSources();
   const entities = validateTexasEntityRegistry();
@@ -33,6 +34,12 @@ function Page() {
       <Metric value={errors.length ? 'Needs review' : 'Healthy'} label="Knowledge graph" detail={`${graph.length} merged entities`} />
       <Metric value={String(audit.warnings.length)} label="Graph warnings" detail={`${audit.errors.length} blocking errors`} />
       <Metric value={`${linkCoverage.coveragePercent}%`} label="Internal-link coverage" detail={`${linkCoverage.activeSurfaces}/${linkCoverage.eligibleSurfaces} eligible surfaces active`} />
+      <Metric value={linkQuality.healthy ? 'Healthy' : 'Needs review'} label="Link quality" detail={`${linkQuality.issues.length} threshold issues`} />
+    </section>
+    <section className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <Metric value={`${linkQuality.ambiguousAliasPercent}%`} label="Ambiguous aliases" detail={`${linkQuality.ambiguousAliases} aliases · max ${INTERNAL_LINK_QUALITY_THRESHOLDS.maximumAmbiguousAliasPercent}%`} />
+      <Metric value={`${linkQuality.orphanEntityPercent}%`} label="Orphan entities" detail={`${linkQuality.orphanEntities} entities · max ${INTERNAL_LINK_QUALITY_THRESHOLDS.maximumOrphanEntityPercent}%`} />
+      <Metric value={`${linkQuality.unverifiedEntityPercent}%`} label="Unverified entities" detail={`${linkQuality.unverifiedEntities} entities · max ${INTERNAL_LINK_QUALITY_THRESHOLDS.maximumUnverifiedEntityPercent}%`} />
       <Metric value={String(report.needsAttention)} label="Content attention" detail={`${report.total} monitored resources`} />
     </section>
     <section className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
@@ -43,6 +50,7 @@ function Page() {
       <Metric value={String(audit.duplicateAliases)} label="Duplicate aliases" detail="Ambiguous entity resolution" />
     </section>
     {errors.length > 0 && <section className="mt-8 rounded-md border border-destructive/40 p-5"><h2 className="font-display text-2xl">Validation errors</h2>{errors.slice(0, 100).map((error) => <p className="mt-2 text-sm" key={error}>{error}</p>)}</section>}
+    {linkQuality.issues.length > 0 && <section className="mt-8 rounded-md border border-amber-500/40 p-5"><h2 className="font-display text-2xl">Internal-link quality issues</h2>{linkQuality.issues.map((issue) => <p className="mt-2 text-sm" key={issue}>{issue}</p>)}</section>}
     <InternalLinkMemoryCard />
     <section className="mt-12"><h2 className="font-display text-3xl">Internal-link surfaces</h2><div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">{INTERNAL_LINK_SURFACES.map((surface) => <article key={surface.id} className="rounded-md border border-border p-5"><div className="flex items-start justify-between gap-3"><strong>{surface.routePattern}</strong><span className="rounded-full bg-muted px-2 py-1 text-xs capitalize">{surface.status.replace('-', ' ')}</span></div><p className="mt-2 text-sm text-muted-foreground">{surface.notes}</p>{surface.pageBudget ? <p className="mt-2 text-xs text-muted-foreground">Page budget: {surface.pageBudget} links</p> : null}</article>)}</div></section>
     <section className="mt-12"><h2 className="font-display text-3xl">Entity coverage</h2><div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">{Object.entries(counts).sort((a, b) => b[1] - a[1]).map(([kind, count]) => <article key={kind} className="rounded-md border border-border p-5"><strong className="capitalize">{kind.replaceAll('-', ' ')}</strong><p className="mt-2 text-sm text-muted-foreground">{count} records</p></article>)}</div></section>
