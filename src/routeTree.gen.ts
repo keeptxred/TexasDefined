@@ -26,7 +26,6 @@ import { Route as TexasHistoryRouteImport } from './routes/texas-history'
 import { Route as ArticleSlugRouteImport } from './routes/article.$slug'
 import { Route as DestinationSlugRouteImport } from './routes/destination.$slug'
 import { Route as ExploreIndexRouteImport } from './routes/explore.index'
-import { Route as ExploreCategoryRouteImport } from './routes/explore.$category'
 import { Route as ExploreSlugRouteImport } from './routes/explore.$slug'
 import { Route as ExploreCavernsRouteImport } from './routes/explore.caverns'
 import { Route as ExploreHillCountrySpringsRouteImport } from './routes/explore.hill-country-springs'
@@ -50,6 +49,7 @@ import { Route as ExploreTripPlannerRouteImport } from './routes/explore.trip-pl
 import { Route as ExploreWildlifeManagementAreasRouteImport } from './routes/explore.wildlife-management-areas'
 import { Route as ShopIndexRouteImport } from './routes/shop.index'
 import { Route as ShopCollectionRouteImport } from './routes/shop.$collection'
+import { Route as ExploreCategoryCategoryRouteImport } from './routes/explore.category.$category'
 import { Route as ExploreCavernSlugRouteImport } from './routes/explore.cavern.$slug'
 import { Route as ExploreCountyCountyRouteImport } from './routes/explore.county.$county'
 import { Route as ExploreLakeSlugRouteImport } from './routes/explore.lake.$slug'
@@ -142,11 +142,6 @@ const DestinationSlugRoute = DestinationSlugRouteImport.update({
 const ExploreIndexRoute = ExploreIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => ExploreRoute,
-} as any)
-const ExploreCategoryRoute = ExploreCategoryRouteImport.update({
-  id: '/$category',
-  path: '/$category',
   getParentRoute: () => ExploreRoute,
 } as any)
 const ExploreSlugRoute = ExploreSlugRouteImport.update({
@@ -274,6 +269,11 @@ const ShopCollectionRoute = ShopCollectionRouteImport.update({
   path: '/shop/$collection',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ExploreCategoryCategoryRoute = ExploreCategoryCategoryRouteImport.update({
+  id: '/category/$category',
+  path: '/category/$category',
+  getParentRoute: () => ExploreRoute,
+} as any)
 const ExploreCavernSlugRoute = ExploreCavernSlugRouteImport.update({
   id: '/cavern/$slug',
   path: '/cavern/$slug',
@@ -327,7 +327,6 @@ export interface FileRoutesByFullPath {
   '/texas-history': typeof TexasHistoryRoute
   '/article/$slug': typeof ArticleSlugRoute
   '/destination/$slug': typeof DestinationSlugRoute
-  '/explore/$category': typeof ExploreCategoryRoute
   '/explore/$slug': typeof ExploreSlugRoute
   '/explore/caverns': typeof ExploreCavernsRoute
   '/explore/hill-country-springs': typeof ExploreHillCountrySpringsRoute
@@ -352,6 +351,7 @@ export interface FileRoutesByFullPath {
   '/shop/$collection': typeof ShopCollectionRoute
   '/explore/': typeof ExploreIndexRoute
   '/shop/': typeof ShopIndexRoute
+  '/explore/category/$category': typeof ExploreCategoryCategoryRoute
   '/explore/cavern/$slug': typeof ExploreCavernSlugRoute
   '/explore/county/$county': typeof ExploreCountyCountyRoute
   '/explore/lake/$slug': typeof ExploreLakeSlugRoute
@@ -376,7 +376,6 @@ export interface FileRoutesByTo {
   '/texas-history': typeof TexasHistoryRoute
   '/article/$slug': typeof ArticleSlugRoute
   '/destination/$slug': typeof DestinationSlugRoute
-  '/explore/$category': typeof ExploreCategoryRoute
   '/explore/$slug': typeof ExploreSlugRoute
   '/explore/caverns': typeof ExploreCavernsRoute
   '/explore/hill-country-springs': typeof ExploreHillCountrySpringsRoute
@@ -401,6 +400,7 @@ export interface FileRoutesByTo {
   '/shop/$collection': typeof ShopCollectionRoute
   '/explore': typeof ExploreIndexRoute
   '/shop': typeof ShopIndexRoute
+  '/explore/category/$category': typeof ExploreCategoryCategoryRoute
   '/explore/cavern/$slug': typeof ExploreCavernSlugRoute
   '/explore/county/$county': typeof ExploreCountyCountyRoute
   '/explore/lake/$slug': typeof ExploreLakeSlugRoute
@@ -427,7 +427,6 @@ export interface FileRoutesById {
   '/texas-history': typeof TexasHistoryRoute
   '/article/$slug': typeof ArticleSlugRoute
   '/destination/$slug': typeof DestinationSlugRoute
-  '/explore/$category': typeof ExploreCategoryRoute
   '/explore/$slug': typeof ExploreSlugRoute
   '/explore/caverns': typeof ExploreCavernsRoute
   '/explore/hill-country-springs': typeof ExploreHillCountrySpringsRoute
@@ -452,6 +451,7 @@ export interface FileRoutesById {
   '/shop/$collection': typeof ShopCollectionRoute
   '/explore/': typeof ExploreIndexRoute
   '/shop/': typeof ShopIndexRoute
+  '/explore/category/$category': typeof ExploreCategoryCategoryRoute
   '/explore/cavern/$slug': typeof ExploreCavernSlugRoute
   '/explore/county/$county': typeof ExploreCountyCountyRoute
   '/explore/lake/$slug': typeof ExploreLakeSlugRoute
@@ -479,7 +479,6 @@ export interface FileRouteTypes {
     | '/texas-history'
     | '/article/$slug'
     | '/destination/$slug'
-    | '/explore/$category'
     | '/explore/$slug'
     | '/explore/caverns'
     | '/explore/hill-country-springs'
@@ -504,6 +503,7 @@ export interface FileRouteTypes {
     | '/shop/$collection'
     | '/explore/'
     | '/shop/'
+    | '/explore/category/$category'
     | '/explore/cavern/$slug'
     | '/explore/county/$county'
     | '/explore/lake/$slug'
@@ -528,7 +528,6 @@ export interface FileRouteTypes {
     | '/texas-history'
     | '/article/$slug'
     | '/destination/$slug'
-    | '/explore/$category'
     | '/explore/$slug'
     | '/explore/caverns'
     | '/explore/hill-country-springs'
@@ -553,6 +552,7 @@ export interface FileRouteTypes {
     | '/shop/$collection'
     | '/explore'
     | '/shop'
+    | '/explore/category/$category'
     | '/explore/cavern/$slug'
     | '/explore/county/$county'
     | '/explore/lake/$slug'
@@ -578,7 +578,6 @@ export interface FileRouteTypes {
     | '/texas-history'
     | '/article/$slug'
     | '/destination/$slug'
-    | '/explore/$category'
     | '/explore/$slug'
     | '/explore/caverns'
     | '/explore/hill-country-springs'
@@ -603,6 +602,7 @@ export interface FileRouteTypes {
     | '/shop/$collection'
     | '/explore/'
     | '/shop/'
+    | '/explore/category/$category'
     | '/explore/cavern/$slug'
     | '/explore/county/$county'
     | '/explore/lake/$slug'
@@ -752,13 +752,6 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/explore/'
       preLoaderRoute: typeof ExploreIndexRouteImport
-      parentRoute: typeof ExploreRoute
-    }
-    '/explore/$category': {
-      id: '/explore/$category'
-      path: '/$category'
-      fullPath: '/explore/$category'
-      preLoaderRoute: typeof ExploreCategoryRouteImport
       parentRoute: typeof ExploreRoute
     }
     '/explore/$slug': {
@@ -922,6 +915,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ShopCollectionRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/explore/category/$category': {
+      id: '/explore/category/$category'
+      path: '/category/$category'
+      fullPath: '/explore/category/$category'
+      preLoaderRoute: typeof ExploreCategoryCategoryRouteImport
+      parentRoute: typeof ExploreRoute
+    }
     '/explore/cavern/$slug': {
       id: '/explore/cavern/$slug'
       path: '/cavern/$slug'
@@ -975,7 +975,6 @@ declare module '@tanstack/react-router' {
 }
 
 interface ExploreRouteChildren {
-  ExploreCategoryRoute: typeof ExploreCategoryRoute
   ExploreSlugRoute: typeof ExploreSlugRoute
   ExploreCavernsRoute: typeof ExploreCavernsRoute
   ExploreHillCountrySpringsRoute: typeof ExploreHillCountrySpringsRoute
@@ -998,6 +997,7 @@ interface ExploreRouteChildren {
   ExploreTripPlannerRoute: typeof ExploreTripPlannerRoute
   ExploreWildlifeManagementAreasRoute: typeof ExploreWildlifeManagementAreasRoute
   ExploreIndexRoute: typeof ExploreIndexRoute
+  ExploreCategoryCategoryRoute: typeof ExploreCategoryCategoryRoute
   ExploreCavernSlugRoute: typeof ExploreCavernSlugRoute
   ExploreCountyCountyRoute: typeof ExploreCountyCountyRoute
   ExploreLakeSlugRoute: typeof ExploreLakeSlugRoute
@@ -1008,7 +1008,6 @@ interface ExploreRouteChildren {
 }
 
 const ExploreRouteChildren: ExploreRouteChildren = {
-  ExploreCategoryRoute: ExploreCategoryRoute,
   ExploreSlugRoute: ExploreSlugRoute,
   ExploreCavernsRoute: ExploreCavernsRoute,
   ExploreHillCountrySpringsRoute: ExploreHillCountrySpringsRoute,
@@ -1032,6 +1031,7 @@ const ExploreRouteChildren: ExploreRouteChildren = {
   ExploreTripPlannerRoute: ExploreTripPlannerRoute,
   ExploreWildlifeManagementAreasRoute: ExploreWildlifeManagementAreasRoute,
   ExploreIndexRoute: ExploreIndexRoute,
+  ExploreCategoryCategoryRoute: ExploreCategoryCategoryRoute,
   ExploreCavernSlugRoute: ExploreCavernSlugRoute,
   ExploreCountyCountyRoute: ExploreCountyCountyRoute,
   ExploreLakeSlugRoute: ExploreLakeSlugRoute,
