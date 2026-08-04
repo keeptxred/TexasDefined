@@ -7,6 +7,7 @@ import {
   type PlatformSite,
   type PublicationOverride,
 } from '@/shared/platform-core';
+import { recordGovernanceDecision } from '@/platform/governance-event-store';
 
 const DOMAINS = new Set<ContentDomain>(['travel','food','events','history','moving','home-garden','real-estate','property-tax','shopping','politics','elections','legislation','breaking-news','government-accountability','texas-culture']);
 const SITES = new Set<PlatformSite>(['TexasDefined', 'KeepTXRed']);
@@ -36,7 +37,14 @@ export const Route = createFileRoute('/api/publication-gate')({
     const decision = decideCrossSiteContent(candidate);
     const override = normalizeOverride(input.override);
     const gate = enforcePublicationDecision(candidate, decision, override);
-    return json({ mode: 'enforcement-preview', targetSite: 'TexasDefined', candidate, decision, gate }, gate.publishable ? 200 : 409);
+    const governanceEventIds = recordGovernanceDecision({
+      candidate,
+      decision,
+      gate,
+      override,
+      writer: 'api/publication-gate',
+    });
+    return json({ mode: 'enforcement-preview', targetSite: 'TexasDefined', candidate, decision, gate, governanceEventIds }, gate.publishable ? 200 : 409);
   } } },
 });
 
