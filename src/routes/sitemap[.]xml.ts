@@ -28,7 +28,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           "/guides",
           "/shop",
           "/about",
-          ...categories.map((category) => `/explore/${category.slug}`),
+          ...categories.map((category) => `/explore/category/${category.slug}`),
           ...collections.map((collection) => `/shop/${collection.slug}`),
           ...articles.map((article) => `/article/${article.slug}`),
           ...destinations.map((destination) => `/destination/${destination.slug}`),
