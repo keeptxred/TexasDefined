@@ -41,5 +41,8 @@ jobs:
       - name: Validate Phase 3 entity maintenance
         run: node scripts/data/validate-entity-maintenance.mjs
 
+      - name: Validate shared platform core integration
+        run: node scripts/data/validate-shared-platform-core.mjs
+
       - name: Build production application
         run: npm run build
