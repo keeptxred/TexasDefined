@@ -39,18 +39,17 @@ export type ImportDiff = {
 };
 
 export function auditAuthoritativeSourceFreshness(sources: AuthoritativeSource[], now = new Date()): SourceMaintenanceRecord[] {
-  return sources.map((source) => {
+  const records: SourceMaintenanceRecord[] = sources.map((source) => {
     const lastReviewed = parseDate(source.lastReviewed);
     if (!lastReviewed) return { ...source, state: 'invalid-date' as const };
     const nextReview = new Date(lastReviewed.getTime() + source.reviewEveryDays * 86400000);
     const daysUntilReview = Math.ceil((nextReview.getTime() - now.getTime()) / 86400000);
-    return {
-      ...source,
-      state: daysUntilReview < 0 ? 'overdue' : daysUntilReview <= ENTITY_MAINTENANCE_THRESHOLDS.sourceDueSoonDays ? 'due-soon' : 'current',
-      nextReviewAt: nextReview.toISOString(),
-      daysUntilReview,
-    };
-  }).sort((a, b) => statePriority(a.state) - statePriority(b.state) || (a.daysUntilReview ?? Number.NEGATIVE_INFINITY) - (b.daysUntilReview ?? Number.NEGATIVE_INFINITY));
+    const state: SourceMaintenanceState =
+      daysUntilReview < 0 ? 'overdue' : daysUntilReview <= ENTITY_MAINTENANCE_THRESHOLDS.sourceDueSoonDays ? 'due-soon' : 'current';
+    return { ...source, state, nextReviewAt: nextReview.toISOString(), daysUntilReview };
+  });
+  return records.sort((a, b) => statePriority(a.state) - statePriority(b.state) || (a.daysUntilReview ?? Number.NEGATIVE_INFINITY) - (b.daysUntilReview ?? Number.NEGATIVE_INFINITY));
+
 }
 
 export function auditEntityMaintenance(entities: TexasEntityRecord[], now = new Date()) {

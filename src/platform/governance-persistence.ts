@@ -3,10 +3,13 @@ import type { GovernanceEvent } from '@/shared/platform-core';
 const TABLE = 'platform_governance_events';
 
 function credentials() {
-  const url = process.env.SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  // Server-only. Reserved `SUPABASE_*` names are used when present (self-hosted/CI);
+  // `PLATFORM_SUPABASE_*` carries the shared external project's runtime secrets.
+  const url = process.env.SUPABASE_URL || process.env.PLATFORM_SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.PLATFORM_SUPABASE_SERVICE_ROLE_KEY;
   return url && key ? { url: url.replace(/\/$/, ''), key } : null;
 }
+
 
 function headers(key: string, extra: Record<string, string> = {}) {
   return { apikey: key, authorization: `Bearer ${key}`, 'content-type': 'application/json', ...extra };
