@@ -1,12 +1,20 @@
 import type { TexasEntityRecord } from '@/data/knowledge-graph';
-import { diffEntityImports, type ImportDiff } from '@/platform/entity-maintenance';
+import {
+  diffEntitySets,
+  fingerprintEntities,
+  quarantineEntity as sharedQuarantineEntity,
+  type PromotionPolicy,
+} from '@/shared/platform-core';
 
 export const ENTITY_PROMOTION_POLICY = {
   requireExplicitApproval: true,
   requireRollbackSnapshot: true,
   maximumQuarantinedPercent: 10,
   maximumPendingVerificationPercent: 50,
+  maximumChangePercent: 20,
+  maximumRemovalPercent: 5,
   allowedSourceConfidence: ['official', 'high'] as const,
+  requireOfficialUrl: false,
 } as const;
 
 export type EntityPromotionManifest = {
@@ -18,7 +26,7 @@ export type EntityPromotionManifest = {
   promotableRecords: number;
   quarantinedRecords: number;
   quarantinedPercent: number;
-  diff: ImportDiff;
+  diff: ReturnType<typeof diffEntitySets>;
   safeToPromote: boolean;
   approvalRequired: boolean;
   blockers: string[];
@@ -31,17 +39,29 @@ export function buildEntityPromotionManifest(
   proposed: TexasEntityRecord[],
   generatedAt = new Date().toISOString(),
 ): EntityPromotionManifest {
+  const sharedPolicy: PromotionPolicy = {
+    maximumChangePercent: ENTITY_PROMOTION_POLICY.maximumChangePercent,
+    maximumRemovalPercent: ENTITY_PROMOTION_POLICY.maximumRemovalPercent,
+    allowedSourceConfidence: [...ENTITY_PROMOTION_POLICY.allowedSourceConfidence],
+    requireOfficialUrl: ENTITY_PROMOTION_POLICY.requireOfficialUrl,
+  };
   const quarantine = proposed
-    .map((entity) => ({ entityId: entity.id, reasons: quarantineReasons(entity) }))
+    .map((entity) => ({ entityId: entity.id, reasons: quarantineReasons(entity, sharedPolicy) }))
     .filter((item) => item.reasons.length > 0);
   const quarantinedIds = new Set(quarantine.map((item) => item.entityId));
   const promotable = proposed.filter((entity) => !quarantinedIds.has(entity.id));
-  const diff = diffEntityImports(current, promotable);
+  const diff = diffEntitySets(current, promotable);
   const quarantinedPercent = percent(quarantine.length, proposed.length);
   const pendingPercent = percent(proposed.filter((entity) => entity.status === 'pending-source-verification').length, proposed.length);
-  const blockers = [...diff.blockers];
+  const blockers: string[] = [];
   const warnings: string[] = [];
 
+  if (diff.changePercent > sharedPolicy.maximumChangePercent) {
+    blockers.push(`Change rate ${diff.changePercent}% exceeds ${sharedPolicy.maximumChangePercent}%.`);
+  }
+  if (diff.removalPercent > sharedPolicy.maximumRemovalPercent) {
+    blockers.push(`Removal rate ${diff.removalPercent}% exceeds ${sharedPolicy.maximumRemovalPercent}%.`);
+  }
   if (quarantinedPercent > ENTITY_PROMOTION_POLICY.maximumQuarantinedPercent) {
     blockers.push(`Quarantine rate ${quarantinedPercent}% exceeds ${ENTITY_PROMOTION_POLICY.maximumQuarantinedPercent}%.`);
   } else if (quarantine.length) {
@@ -51,6 +71,7 @@ export function buildEntityPromotionManifest(
     blockers.push(`Pending-verification rate ${pendingPercent}% exceeds ${ENTITY_PROMOTION_POLICY.maximumPendingVerificationPercent}%.`);
   }
   if (!promotable.length && proposed.length) blockers.push('No proposed records remain after quarantine.');
+  if (!proposed.length && current.length) blockers.push('Proposed import is empty.');
 
   const currentFingerprint = fingerprintEntities(current);
   const proposedFingerprint = fingerprintEntities(promotable);
@@ -75,7 +96,7 @@ export function buildEntityPromotionManifest(
 
 export function promotableEntities(proposed: TexasEntityRecord[], manifest: EntityPromotionManifest) {
   const quarantined = new Set(manifest.quarantine.map((item) => item.entityId));
-  return proposed.filter((entity) => !quarantined.has(entity.id)).map(cloneEntity);
+  return proposed.filter((entity) => !quarantined.has(entity.id)).map((entity) => structuredClone(entity));
 }
 
 export function validatePromotionApproval(manifest: EntityPromotionManifest, approvalToken?: string) {
@@ -87,41 +108,22 @@ export function validatePromotionApproval(manifest: EntityPromotionManifest, app
   return { valid: errors.length === 0, errors };
 }
 
-export function fingerprintEntities(entities: TexasEntityRecord[]) {
-  const canonical = JSON.stringify(
-    entities.map(canonicalEntity).sort((left, right) => left.id.localeCompare(right.id)),
-  );
-  let hash = 2166136261;
-  for (let index = 0; index < canonical.length; index += 1) {
-    hash ^= canonical.charCodeAt(index);
-    hash = Math.imul(hash, 16777619);
-  }
-  return `fnv1a-${(hash >>> 0).toString(16).padStart(8, '0')}`;
-}
+export { fingerprintEntities };
 
-function quarantineReasons(entity: TexasEntityRecord) {
-  const reasons: string[] = [];
-  if (!entity.id || !entity.name || !entity.slug) reasons.push('missing-required-identity');
-  if (!entity.sourceId) reasons.push('missing-source-id');
-  if (!ENTITY_PROMOTION_POLICY.allowedSourceConfidence.includes(entity.sourceConfidence as 'official' | 'high')) reasons.push('insufficient-source-confidence');
-  if (!entity.sourceCheckedAt) reasons.push('missing-source-check');
-  if (!entity.reviewDueAt) reasons.push('missing-review-date');
+function quarantineReasons(entity: TexasEntityRecord, policy: PromotionPolicy) {
+  const reasons = sharedQuarantineEntity(entity, policy);
   if (entity.status === 'retired' || entity.status === 'temporarily-closed') reasons.push(`non-promotable-status:${entity.status}`);
-  if (entity.coordinates && (!Number.isFinite(entity.coordinates.latitude) || !Number.isFinite(entity.coordinates.longitude))) reasons.push('invalid-coordinates');
-  if (entity.officialUrl) {
-    try { if (new URL(entity.officialUrl).protocol !== 'https:') reasons.push('official-url-not-https'); }
-    catch { reasons.push('invalid-official-url'); }
-  }
-  return reasons;
+  if (entity.coordinates && (
+    !Number.isFinite(entity.coordinates.latitude)
+    || !Number.isFinite(entity.coordinates.longitude)
+    || entity.coordinates.latitude < -90
+    || entity.coordinates.latitude > 90
+    || entity.coordinates.longitude < -180
+    || entity.coordinates.longitude > 180
+  )) reasons.push('invalid-coordinates');
+  return [...new Set(reasons)];
 }
 
-function canonicalEntity(entity: TexasEntityRecord) {
-  return {
-    ...entity,
-    aliases: [...entity.aliases].sort(),
-    relationships: [...entity.relationships].sort((a, b) => `${a.type}:${a.targetId}`.localeCompare(`${b.type}:${b.targetId}`)),
-    tags: [...(entity.tags ?? [])].sort(),
-  };
+function percent(value: number, total: number) {
+  return total ? Math.round((value / total) * 1000) / 10 : 0;
 }
-function cloneEntity(entity: TexasEntityRecord): TexasEntityRecord { return structuredClone(entity); }
-function percent(value: number, total: number) { return total ? Math.round((value / total) * 1000) / 10 : 0; }
