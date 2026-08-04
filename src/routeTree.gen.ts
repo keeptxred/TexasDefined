@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as EventsRouteImport } from './routes/events'
+import { Route as ExploreRouteImport } from './routes/explore'
 import { Route as GuidesRouteImport } from './routes/guides'
 import { Route as HomeGardenRouteImport } from './routes/home-garden'
 import { Route as MovingToTexasRouteImport } from './routes/moving-to-texas'
@@ -24,8 +25,28 @@ import { Route as ArticleSlugRouteImport } from './routes/article.$slug'
 import { Route as DestinationSlugRouteImport } from './routes/destination.$slug'
 import { Route as ExploreIndexRouteImport } from './routes/explore.index'
 import { Route as ExploreCategoryRouteImport } from './routes/explore.$category'
+import { Route as ExploreSlugRouteImport } from './routes/explore.$slug'
+import { Route as ExploreCavernsRouteImport } from './routes/explore.caverns'
+import { Route as ExploreHillCountrySpringsRouteImport } from './routes/explore.hill-country-springs'
+import { Route as ExploreHistoricSitesRouteImport } from './routes/explore.historic-sites'
+import { Route as ExploreLighthousesRouteImport } from './routes/explore.lighthouses'
+import { Route as ExploreMajorSpringsRouteImport } from './routes/explore.major-springs'
+import { Route as ExploreNationalParksRouteImport } from './routes/explore.national-parks'
+import { Route as ExploreNationalWildlifeRefugesRouteImport } from './routes/explore.national-wildlife-refuges'
+import { Route as ExploreScenicRiversRouteImport } from './routes/explore.scenic-rivers'
+import { Route as ExploreSearchRouteImport } from './routes/explore.search'
+import { Route as ExploreSpringConservationAndEducationRouteImport } from './routes/explore.spring-conservation-and-education'
+import { Route as ExploreSpringFedSwimmingRouteImport } from './routes/explore.spring-fed-swimming'
+import { Route as ExploreStateParksRouteImport } from './routes/explore.state-parks'
+import { Route as ExploreWildlifeManagementAreasRouteImport } from './routes/explore.wildlife-management-areas'
 import { Route as ShopIndexRouteImport } from './routes/shop.index'
 import { Route as ShopCollectionRouteImport } from './routes/shop.$collection'
+import { Route as ExploreCavernSlugRouteImport } from './routes/explore.cavern.$slug'
+import { Route as ExploreCountyCountyRouteImport } from './routes/explore.county.$county'
+import { Route as ExploreLakeSlugRouteImport } from './routes/explore.lake.$slug'
+import { Route as ExploreRegionRegionRouteImport } from './routes/explore.region.$region'
+import { Route as ExploreRiverSlugRouteImport } from './routes/explore.river.$slug'
+import { Route as ExploreStateParkSlugRouteImport } from './routes/explore.state-park.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -40,6 +61,11 @@ const AboutRoute = AboutRouteImport.update({
 const EventsRoute = EventsRouteImport.update({
   id: '/events',
   path: '/events',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExploreRoute = ExploreRouteImport.update({
+  id: '/explore',
+  path: '/explore',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GuidesRoute = GuidesRouteImport.update({
@@ -93,15 +119,90 @@ const DestinationSlugRoute = DestinationSlugRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const ExploreIndexRoute = ExploreIndexRouteImport.update({
-  id: '/explore/',
-  path: '/explore/',
-  getParentRoute: () => rootRouteImport,
+  id: '/',
+  path: '/',
+  getParentRoute: () => ExploreRoute,
 } as any)
 const ExploreCategoryRoute = ExploreCategoryRouteImport.update({
-  id: '/explore/$category',
-  path: '/explore/$category',
-  getParentRoute: () => rootRouteImport,
+  id: '/$category',
+  path: '/$category',
+  getParentRoute: () => ExploreRoute,
 } as any)
+const ExploreSlugRoute = ExploreSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => ExploreRoute,
+} as any)
+const ExploreCavernsRoute = ExploreCavernsRouteImport.update({
+  id: '/caverns',
+  path: '/caverns',
+  getParentRoute: () => ExploreRoute,
+} as any)
+const ExploreHillCountrySpringsRoute =
+  ExploreHillCountrySpringsRouteImport.update({
+    id: '/hill-country-springs',
+    path: '/hill-country-springs',
+    getParentRoute: () => ExploreRoute,
+  } as any)
+const ExploreHistoricSitesRoute = ExploreHistoricSitesRouteImport.update({
+  id: '/historic-sites',
+  path: '/historic-sites',
+  getParentRoute: () => ExploreRoute,
+} as any)
+const ExploreLighthousesRoute = ExploreLighthousesRouteImport.update({
+  id: '/lighthouses',
+  path: '/lighthouses',
+  getParentRoute: () => ExploreRoute,
+} as any)
+const ExploreMajorSpringsRoute = ExploreMajorSpringsRouteImport.update({
+  id: '/major-springs',
+  path: '/major-springs',
+  getParentRoute: () => ExploreRoute,
+} as any)
+const ExploreNationalParksRoute = ExploreNationalParksRouteImport.update({
+  id: '/national-parks',
+  path: '/national-parks',
+  getParentRoute: () => ExploreRoute,
+} as any)
+const ExploreNationalWildlifeRefugesRoute =
+  ExploreNationalWildlifeRefugesRouteImport.update({
+    id: '/national-wildlife-refuges',
+    path: '/national-wildlife-refuges',
+    getParentRoute: () => ExploreRoute,
+  } as any)
+const ExploreScenicRiversRoute = ExploreScenicRiversRouteImport.update({
+  id: '/scenic-rivers',
+  path: '/scenic-rivers',
+  getParentRoute: () => ExploreRoute,
+} as any)
+const ExploreSearchRoute = ExploreSearchRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => ExploreRoute,
+} as any)
+const ExploreSpringConservationAndEducationRoute =
+  ExploreSpringConservationAndEducationRouteImport.update({
+    id: '/spring-conservation-and-education',
+    path: '/spring-conservation-and-education',
+    getParentRoute: () => ExploreRoute,
+  } as any)
+const ExploreSpringFedSwimmingRoute =
+  ExploreSpringFedSwimmingRouteImport.update({
+    id: '/spring-fed-swimming',
+    path: '/spring-fed-swimming',
+    getParentRoute: () => ExploreRoute,
+  } as any)
+const ExploreStateParksRoute = ExploreStateParksRouteImport.update({
+  id: '/state-parks',
+  path: '/state-parks',
+  getParentRoute: () => ExploreRoute,
+} as any)
+const ExploreWildlifeManagementAreasRoute =
+  ExploreWildlifeManagementAreasRouteImport.update({
+    id: '/wildlife-management-areas',
+    path: '/wildlife-management-areas',
+    getParentRoute: () => ExploreRoute,
+  } as any)
 const ShopIndexRoute = ShopIndexRouteImport.update({
   id: '/shop/',
   path: '/shop/',
@@ -112,11 +213,42 @@ const ShopCollectionRoute = ShopCollectionRouteImport.update({
   path: '/shop/$collection',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ExploreCavernSlugRoute = ExploreCavernSlugRouteImport.update({
+  id: '/cavern/$slug',
+  path: '/cavern/$slug',
+  getParentRoute: () => ExploreRoute,
+} as any)
+const ExploreCountyCountyRoute = ExploreCountyCountyRouteImport.update({
+  id: '/county/$county',
+  path: '/county/$county',
+  getParentRoute: () => ExploreRoute,
+} as any)
+const ExploreLakeSlugRoute = ExploreLakeSlugRouteImport.update({
+  id: '/lake/$slug',
+  path: '/lake/$slug',
+  getParentRoute: () => ExploreRoute,
+} as any)
+const ExploreRegionRegionRoute = ExploreRegionRegionRouteImport.update({
+  id: '/region/$region',
+  path: '/region/$region',
+  getParentRoute: () => ExploreRoute,
+} as any)
+const ExploreRiverSlugRoute = ExploreRiverSlugRouteImport.update({
+  id: '/river/$slug',
+  path: '/river/$slug',
+  getParentRoute: () => ExploreRoute,
+} as any)
+const ExploreStateParkSlugRoute = ExploreStateParkSlugRouteImport.update({
+  id: '/state-park/$slug',
+  path: '/state-park/$slug',
+  getParentRoute: () => ExploreRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/events': typeof EventsRoute
+  '/explore': typeof ExploreRouteWithChildren
   '/guides': typeof GuidesRoute
   '/home-garden': typeof HomeGardenRoute
   '/moving-to-texas': typeof MovingToTexasRoute
@@ -128,9 +260,29 @@ export interface FileRoutesByFullPath {
   '/article/$slug': typeof ArticleSlugRoute
   '/destination/$slug': typeof DestinationSlugRoute
   '/explore/$category': typeof ExploreCategoryRoute
+  '/explore/$slug': typeof ExploreSlugRoute
+  '/explore/caverns': typeof ExploreCavernsRoute
+  '/explore/hill-country-springs': typeof ExploreHillCountrySpringsRoute
+  '/explore/historic-sites': typeof ExploreHistoricSitesRoute
+  '/explore/lighthouses': typeof ExploreLighthousesRoute
+  '/explore/major-springs': typeof ExploreMajorSpringsRoute
+  '/explore/national-parks': typeof ExploreNationalParksRoute
+  '/explore/national-wildlife-refuges': typeof ExploreNationalWildlifeRefugesRoute
+  '/explore/scenic-rivers': typeof ExploreScenicRiversRoute
+  '/explore/search': typeof ExploreSearchRoute
+  '/explore/spring-conservation-and-education': typeof ExploreSpringConservationAndEducationRoute
+  '/explore/spring-fed-swimming': typeof ExploreSpringFedSwimmingRoute
+  '/explore/state-parks': typeof ExploreStateParksRoute
+  '/explore/wildlife-management-areas': typeof ExploreWildlifeManagementAreasRoute
   '/shop/$collection': typeof ShopCollectionRoute
   '/explore/': typeof ExploreIndexRoute
   '/shop/': typeof ShopIndexRoute
+  '/explore/cavern/$slug': typeof ExploreCavernSlugRoute
+  '/explore/county/$county': typeof ExploreCountyCountyRoute
+  '/explore/lake/$slug': typeof ExploreLakeSlugRoute
+  '/explore/region/$region': typeof ExploreRegionRegionRoute
+  '/explore/river/$slug': typeof ExploreRiverSlugRoute
+  '/explore/state-park/$slug': typeof ExploreStateParkSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -147,15 +299,36 @@ export interface FileRoutesByTo {
   '/article/$slug': typeof ArticleSlugRoute
   '/destination/$slug': typeof DestinationSlugRoute
   '/explore/$category': typeof ExploreCategoryRoute
+  '/explore/$slug': typeof ExploreSlugRoute
+  '/explore/caverns': typeof ExploreCavernsRoute
+  '/explore/hill-country-springs': typeof ExploreHillCountrySpringsRoute
+  '/explore/historic-sites': typeof ExploreHistoricSitesRoute
+  '/explore/lighthouses': typeof ExploreLighthousesRoute
+  '/explore/major-springs': typeof ExploreMajorSpringsRoute
+  '/explore/national-parks': typeof ExploreNationalParksRoute
+  '/explore/national-wildlife-refuges': typeof ExploreNationalWildlifeRefugesRoute
+  '/explore/scenic-rivers': typeof ExploreScenicRiversRoute
+  '/explore/search': typeof ExploreSearchRoute
+  '/explore/spring-conservation-and-education': typeof ExploreSpringConservationAndEducationRoute
+  '/explore/spring-fed-swimming': typeof ExploreSpringFedSwimmingRoute
+  '/explore/state-parks': typeof ExploreStateParksRoute
+  '/explore/wildlife-management-areas': typeof ExploreWildlifeManagementAreasRoute
   '/shop/$collection': typeof ShopCollectionRoute
   '/explore': typeof ExploreIndexRoute
   '/shop': typeof ShopIndexRoute
+  '/explore/cavern/$slug': typeof ExploreCavernSlugRoute
+  '/explore/county/$county': typeof ExploreCountyCountyRoute
+  '/explore/lake/$slug': typeof ExploreLakeSlugRoute
+  '/explore/region/$region': typeof ExploreRegionRegionRoute
+  '/explore/river/$slug': typeof ExploreRiverSlugRoute
+  '/explore/state-park/$slug': typeof ExploreStateParkSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/events': typeof EventsRoute
+  '/explore': typeof ExploreRouteWithChildren
   '/guides': typeof GuidesRoute
   '/home-garden': typeof HomeGardenRoute
   '/moving-to-texas': typeof MovingToTexasRoute
@@ -167,9 +340,29 @@ export interface FileRoutesById {
   '/article/$slug': typeof ArticleSlugRoute
   '/destination/$slug': typeof DestinationSlugRoute
   '/explore/$category': typeof ExploreCategoryRoute
+  '/explore/$slug': typeof ExploreSlugRoute
+  '/explore/caverns': typeof ExploreCavernsRoute
+  '/explore/hill-country-springs': typeof ExploreHillCountrySpringsRoute
+  '/explore/historic-sites': typeof ExploreHistoricSitesRoute
+  '/explore/lighthouses': typeof ExploreLighthousesRoute
+  '/explore/major-springs': typeof ExploreMajorSpringsRoute
+  '/explore/national-parks': typeof ExploreNationalParksRoute
+  '/explore/national-wildlife-refuges': typeof ExploreNationalWildlifeRefugesRoute
+  '/explore/scenic-rivers': typeof ExploreScenicRiversRoute
+  '/explore/search': typeof ExploreSearchRoute
+  '/explore/spring-conservation-and-education': typeof ExploreSpringConservationAndEducationRoute
+  '/explore/spring-fed-swimming': typeof ExploreSpringFedSwimmingRoute
+  '/explore/state-parks': typeof ExploreStateParksRoute
+  '/explore/wildlife-management-areas': typeof ExploreWildlifeManagementAreasRoute
   '/shop/$collection': typeof ShopCollectionRoute
   '/explore/': typeof ExploreIndexRoute
   '/shop/': typeof ShopIndexRoute
+  '/explore/cavern/$slug': typeof ExploreCavernSlugRoute
+  '/explore/county/$county': typeof ExploreCountyCountyRoute
+  '/explore/lake/$slug': typeof ExploreLakeSlugRoute
+  '/explore/region/$region': typeof ExploreRegionRegionRoute
+  '/explore/river/$slug': typeof ExploreRiverSlugRoute
+  '/explore/state-park/$slug': typeof ExploreStateParkSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -177,6 +370,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/events'
+    | '/explore'
     | '/guides'
     | '/home-garden'
     | '/moving-to-texas'
@@ -188,9 +382,29 @@ export interface FileRouteTypes {
     | '/article/$slug'
     | '/destination/$slug'
     | '/explore/$category'
+    | '/explore/$slug'
+    | '/explore/caverns'
+    | '/explore/hill-country-springs'
+    | '/explore/historic-sites'
+    | '/explore/lighthouses'
+    | '/explore/major-springs'
+    | '/explore/national-parks'
+    | '/explore/national-wildlife-refuges'
+    | '/explore/scenic-rivers'
+    | '/explore/search'
+    | '/explore/spring-conservation-and-education'
+    | '/explore/spring-fed-swimming'
+    | '/explore/state-parks'
+    | '/explore/wildlife-management-areas'
     | '/shop/$collection'
     | '/explore/'
     | '/shop/'
+    | '/explore/cavern/$slug'
+    | '/explore/county/$county'
+    | '/explore/lake/$slug'
+    | '/explore/region/$region'
+    | '/explore/river/$slug'
+    | '/explore/state-park/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -207,14 +421,35 @@ export interface FileRouteTypes {
     | '/article/$slug'
     | '/destination/$slug'
     | '/explore/$category'
+    | '/explore/$slug'
+    | '/explore/caverns'
+    | '/explore/hill-country-springs'
+    | '/explore/historic-sites'
+    | '/explore/lighthouses'
+    | '/explore/major-springs'
+    | '/explore/national-parks'
+    | '/explore/national-wildlife-refuges'
+    | '/explore/scenic-rivers'
+    | '/explore/search'
+    | '/explore/spring-conservation-and-education'
+    | '/explore/spring-fed-swimming'
+    | '/explore/state-parks'
+    | '/explore/wildlife-management-areas'
     | '/shop/$collection'
     | '/explore'
     | '/shop'
+    | '/explore/cavern/$slug'
+    | '/explore/county/$county'
+    | '/explore/lake/$slug'
+    | '/explore/region/$region'
+    | '/explore/river/$slug'
+    | '/explore/state-park/$slug'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/events'
+    | '/explore'
     | '/guides'
     | '/home-garden'
     | '/moving-to-texas'
@@ -226,15 +461,36 @@ export interface FileRouteTypes {
     | '/article/$slug'
     | '/destination/$slug'
     | '/explore/$category'
+    | '/explore/$slug'
+    | '/explore/caverns'
+    | '/explore/hill-country-springs'
+    | '/explore/historic-sites'
+    | '/explore/lighthouses'
+    | '/explore/major-springs'
+    | '/explore/national-parks'
+    | '/explore/national-wildlife-refuges'
+    | '/explore/scenic-rivers'
+    | '/explore/search'
+    | '/explore/spring-conservation-and-education'
+    | '/explore/spring-fed-swimming'
+    | '/explore/state-parks'
+    | '/explore/wildlife-management-areas'
     | '/shop/$collection'
     | '/explore/'
     | '/shop/'
+    | '/explore/cavern/$slug'
+    | '/explore/county/$county'
+    | '/explore/lake/$slug'
+    | '/explore/region/$region'
+    | '/explore/river/$slug'
+    | '/explore/state-park/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   EventsRoute: typeof EventsRoute
+  ExploreRoute: typeof ExploreRouteWithChildren
   GuidesRoute: typeof GuidesRoute
   HomeGardenRoute: typeof HomeGardenRoute
   MovingToTexasRoute: typeof MovingToTexasRoute
@@ -245,9 +501,7 @@ export interface RootRouteChildren {
   TexasHistoryRoute: typeof TexasHistoryRoute
   ArticleSlugRoute: typeof ArticleSlugRoute
   DestinationSlugRoute: typeof DestinationSlugRoute
-  ExploreCategoryRoute: typeof ExploreCategoryRoute
   ShopCollectionRoute: typeof ShopCollectionRoute
-  ExploreIndexRoute: typeof ExploreIndexRoute
   ShopIndexRoute: typeof ShopIndexRoute
 }
 
@@ -272,6 +526,13 @@ declare module '@tanstack/react-router' {
       path: '/events'
       fullPath: '/events'
       preLoaderRoute: typeof EventsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/explore': {
+      id: '/explore'
+      path: '/explore'
+      fullPath: '/explore'
+      preLoaderRoute: typeof ExploreRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/guides': {
@@ -346,17 +607,115 @@ declare module '@tanstack/react-router' {
     }
     '/explore/': {
       id: '/explore/'
-      path: '/explore'
+      path: '/'
       fullPath: '/explore/'
       preLoaderRoute: typeof ExploreIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof ExploreRoute
     }
     '/explore/$category': {
       id: '/explore/$category'
-      path: '/explore/$category'
+      path: '/$category'
       fullPath: '/explore/$category'
       preLoaderRoute: typeof ExploreCategoryRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/$slug': {
+      id: '/explore/$slug'
+      path: '/$slug'
+      fullPath: '/explore/$slug'
+      preLoaderRoute: typeof ExploreSlugRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/caverns': {
+      id: '/explore/caverns'
+      path: '/caverns'
+      fullPath: '/explore/caverns'
+      preLoaderRoute: typeof ExploreCavernsRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/hill-country-springs': {
+      id: '/explore/hill-country-springs'
+      path: '/hill-country-springs'
+      fullPath: '/explore/hill-country-springs'
+      preLoaderRoute: typeof ExploreHillCountrySpringsRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/historic-sites': {
+      id: '/explore/historic-sites'
+      path: '/historic-sites'
+      fullPath: '/explore/historic-sites'
+      preLoaderRoute: typeof ExploreHistoricSitesRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/lighthouses': {
+      id: '/explore/lighthouses'
+      path: '/lighthouses'
+      fullPath: '/explore/lighthouses'
+      preLoaderRoute: typeof ExploreLighthousesRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/major-springs': {
+      id: '/explore/major-springs'
+      path: '/major-springs'
+      fullPath: '/explore/major-springs'
+      preLoaderRoute: typeof ExploreMajorSpringsRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/national-parks': {
+      id: '/explore/national-parks'
+      path: '/national-parks'
+      fullPath: '/explore/national-parks'
+      preLoaderRoute: typeof ExploreNationalParksRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/national-wildlife-refuges': {
+      id: '/explore/national-wildlife-refuges'
+      path: '/national-wildlife-refuges'
+      fullPath: '/explore/national-wildlife-refuges'
+      preLoaderRoute: typeof ExploreNationalWildlifeRefugesRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/scenic-rivers': {
+      id: '/explore/scenic-rivers'
+      path: '/scenic-rivers'
+      fullPath: '/explore/scenic-rivers'
+      preLoaderRoute: typeof ExploreScenicRiversRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/search': {
+      id: '/explore/search'
+      path: '/search'
+      fullPath: '/explore/search'
+      preLoaderRoute: typeof ExploreSearchRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/spring-conservation-and-education': {
+      id: '/explore/spring-conservation-and-education'
+      path: '/spring-conservation-and-education'
+      fullPath: '/explore/spring-conservation-and-education'
+      preLoaderRoute: typeof ExploreSpringConservationAndEducationRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/spring-fed-swimming': {
+      id: '/explore/spring-fed-swimming'
+      path: '/spring-fed-swimming'
+      fullPath: '/explore/spring-fed-swimming'
+      preLoaderRoute: typeof ExploreSpringFedSwimmingRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/state-parks': {
+      id: '/explore/state-parks'
+      path: '/state-parks'
+      fullPath: '/explore/state-parks'
+      preLoaderRoute: typeof ExploreStateParksRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/wildlife-management-areas': {
+      id: '/explore/wildlife-management-areas'
+      path: '/wildlife-management-areas'
+      fullPath: '/explore/wildlife-management-areas'
+      preLoaderRoute: typeof ExploreWildlifeManagementAreasRouteImport
+      parentRoute: typeof ExploreRoute
     }
     '/shop/': {
       id: '/shop/'
@@ -372,13 +731,110 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ShopCollectionRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/explore/cavern/$slug': {
+      id: '/explore/cavern/$slug'
+      path: '/cavern/$slug'
+      fullPath: '/explore/cavern/$slug'
+      preLoaderRoute: typeof ExploreCavernSlugRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/county/$county': {
+      id: '/explore/county/$county'
+      path: '/county/$county'
+      fullPath: '/explore/county/$county'
+      preLoaderRoute: typeof ExploreCountyCountyRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/lake/$slug': {
+      id: '/explore/lake/$slug'
+      path: '/lake/$slug'
+      fullPath: '/explore/lake/$slug'
+      preLoaderRoute: typeof ExploreLakeSlugRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/region/$region': {
+      id: '/explore/region/$region'
+      path: '/region/$region'
+      fullPath: '/explore/region/$region'
+      preLoaderRoute: typeof ExploreRegionRegionRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/river/$slug': {
+      id: '/explore/river/$slug'
+      path: '/river/$slug'
+      fullPath: '/explore/river/$slug'
+      preLoaderRoute: typeof ExploreRiverSlugRouteImport
+      parentRoute: typeof ExploreRoute
+    }
+    '/explore/state-park/$slug': {
+      id: '/explore/state-park/$slug'
+      path: '/state-park/$slug'
+      fullPath: '/explore/state-park/$slug'
+      preLoaderRoute: typeof ExploreStateParkSlugRouteImport
+      parentRoute: typeof ExploreRoute
+    }
   }
 }
+
+interface ExploreRouteChildren {
+  ExploreCategoryRoute: typeof ExploreCategoryRoute
+  ExploreSlugRoute: typeof ExploreSlugRoute
+  ExploreCavernsRoute: typeof ExploreCavernsRoute
+  ExploreHillCountrySpringsRoute: typeof ExploreHillCountrySpringsRoute
+  ExploreHistoricSitesRoute: typeof ExploreHistoricSitesRoute
+  ExploreLighthousesRoute: typeof ExploreLighthousesRoute
+  ExploreMajorSpringsRoute: typeof ExploreMajorSpringsRoute
+  ExploreNationalParksRoute: typeof ExploreNationalParksRoute
+  ExploreNationalWildlifeRefugesRoute: typeof ExploreNationalWildlifeRefugesRoute
+  ExploreScenicRiversRoute: typeof ExploreScenicRiversRoute
+  ExploreSearchRoute: typeof ExploreSearchRoute
+  ExploreSpringConservationAndEducationRoute: typeof ExploreSpringConservationAndEducationRoute
+  ExploreSpringFedSwimmingRoute: typeof ExploreSpringFedSwimmingRoute
+  ExploreStateParksRoute: typeof ExploreStateParksRoute
+  ExploreWildlifeManagementAreasRoute: typeof ExploreWildlifeManagementAreasRoute
+  ExploreIndexRoute: typeof ExploreIndexRoute
+  ExploreCavernSlugRoute: typeof ExploreCavernSlugRoute
+  ExploreCountyCountyRoute: typeof ExploreCountyCountyRoute
+  ExploreLakeSlugRoute: typeof ExploreLakeSlugRoute
+  ExploreRegionRegionRoute: typeof ExploreRegionRegionRoute
+  ExploreRiverSlugRoute: typeof ExploreRiverSlugRoute
+  ExploreStateParkSlugRoute: typeof ExploreStateParkSlugRoute
+}
+
+const ExploreRouteChildren: ExploreRouteChildren = {
+  ExploreCategoryRoute: ExploreCategoryRoute,
+  ExploreSlugRoute: ExploreSlugRoute,
+  ExploreCavernsRoute: ExploreCavernsRoute,
+  ExploreHillCountrySpringsRoute: ExploreHillCountrySpringsRoute,
+  ExploreHistoricSitesRoute: ExploreHistoricSitesRoute,
+  ExploreLighthousesRoute: ExploreLighthousesRoute,
+  ExploreMajorSpringsRoute: ExploreMajorSpringsRoute,
+  ExploreNationalParksRoute: ExploreNationalParksRoute,
+  ExploreNationalWildlifeRefugesRoute: ExploreNationalWildlifeRefugesRoute,
+  ExploreScenicRiversRoute: ExploreScenicRiversRoute,
+  ExploreSearchRoute: ExploreSearchRoute,
+  ExploreSpringConservationAndEducationRoute:
+    ExploreSpringConservationAndEducationRoute,
+  ExploreSpringFedSwimmingRoute: ExploreSpringFedSwimmingRoute,
+  ExploreStateParksRoute: ExploreStateParksRoute,
+  ExploreWildlifeManagementAreasRoute: ExploreWildlifeManagementAreasRoute,
+  ExploreIndexRoute: ExploreIndexRoute,
+  ExploreCavernSlugRoute: ExploreCavernSlugRoute,
+  ExploreCountyCountyRoute: ExploreCountyCountyRoute,
+  ExploreLakeSlugRoute: ExploreLakeSlugRoute,
+  ExploreRegionRegionRoute: ExploreRegionRegionRoute,
+  ExploreRiverSlugRoute: ExploreRiverSlugRoute,
+  ExploreStateParkSlugRoute: ExploreStateParkSlugRoute,
+}
+
+const ExploreRouteWithChildren =
+  ExploreRoute._addFileChildren(ExploreRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   EventsRoute: EventsRoute,
+  ExploreRoute: ExploreRouteWithChildren,
   GuidesRoute: GuidesRoute,
   HomeGardenRoute: HomeGardenRoute,
   MovingToTexasRoute: MovingToTexasRoute,
@@ -389,9 +845,7 @@ const rootRouteChildren: RootRouteChildren = {
   TexasHistoryRoute: TexasHistoryRoute,
   ArticleSlugRoute: ArticleSlugRoute,
   DestinationSlugRoute: DestinationSlugRoute,
-  ExploreCategoryRoute: ExploreCategoryRoute,
   ShopCollectionRoute: ShopCollectionRoute,
-  ExploreIndexRoute: ExploreIndexRoute,
   ShopIndexRoute: ShopIndexRoute,
 }
 export const routeTree = rootRouteImport
