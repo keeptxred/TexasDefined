@@ -5,6 +5,7 @@ import { TEXAS_CITIES, TEXAS_COUNTIES, validateTexasPlaces } from '@/data/texas-
 import { loadTexasKnowledgeGraph, validateTexasEntityRegistry } from '@/data/knowledge-graph';
 import { auditTexasKnowledgeGraph } from '@/data/knowledge-graph/audit';
 import { buildContentHealthReport } from '@/platform/content-health';
+import { INTERNAL_LINK_SURFACES, internalLinkCoverageSummary } from '@/platform/internal-link-coverage';
 
 export const Route = createFileRoute('/admin/platform-health')({
   head: () => ({ meta: [{ title: 'Platform Health | TexasDefined' }, { name: 'robots', content: 'noindex,nofollow' }] }),
@@ -21,14 +22,16 @@ function Page() {
   const sources = validateAuthoritativeSources();
   const entities = validateTexasEntityRegistry();
   const report = buildContentHealthReport(CONTENT_HEALTH_RESOURCES, new Date());
+  const linkCoverage = internalLinkCoverageSummary();
   const errors = [...places.errors, ...sources.errors, ...entities.errors, ...audit.errors.map((issue) => issue.message)];
   const counts = graph.reduce<Record<string, number>>((result, entity) => { result[entity.kind] = (result[entity.kind] ?? 0) + 1; return result; }, {});
   return <Container className="py-16 sm:py-24">
     <p className="eyebrow text-primary">TexasDefined Operations</p><h1 className="mt-3 font-display text-4xl sm:text-6xl">Platform Health</h1>
-    <section className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <section className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
       <Metric value={places.valid ? 'Healthy' : 'Blocked'} label="Statewide place data" detail={`${TEXAS_COUNTIES.length} counties · ${TEXAS_CITIES.length} seeded cities`} />
       <Metric value={errors.length ? 'Needs review' : 'Healthy'} label="Knowledge graph" detail={`${graph.length} merged entities`} />
       <Metric value={String(audit.warnings.length)} label="Graph warnings" detail={`${audit.errors.length} blocking errors`} />
+      <Metric value={`${linkCoverage.coveragePercent}%`} label="Internal-link coverage" detail={`${linkCoverage.activeSurfaces}/${linkCoverage.eligibleSurfaces} eligible surfaces active`} />
       <Metric value={String(report.needsAttention)} label="Content attention" detail={`${report.total} monitored resources`} />
     </section>
     <section className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
@@ -39,6 +42,7 @@ function Page() {
       <Metric value={String(audit.duplicateAliases)} label="Duplicate aliases" detail="Ambiguous entity resolution" />
     </section>
     {errors.length > 0 && <section className="mt-8 rounded-md border border-destructive/40 p-5"><h2 className="font-display text-2xl">Validation errors</h2>{errors.slice(0, 100).map((error) => <p className="mt-2 text-sm" key={error}>{error}</p>)}</section>}
+    <section className="mt-12"><h2 className="font-display text-3xl">Internal-link surfaces</h2><div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">{INTERNAL_LINK_SURFACES.map((surface) => <article key={surface.id} className="rounded-md border border-border p-5"><div className="flex items-start justify-between gap-3"><strong>{surface.routePattern}</strong><span className="rounded-full bg-muted px-2 py-1 text-xs capitalize">{surface.status.replace('-', ' ')}</span></div><p className="mt-2 text-sm text-muted-foreground">{surface.notes}</p>{surface.pageBudget ? <p className="mt-2 text-xs text-muted-foreground">Page budget: {surface.pageBudget} links</p> : null}</article>)}</div></section>
     <section className="mt-12"><h2 className="font-display text-3xl">Entity coverage</h2><div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">{Object.entries(counts).sort((a, b) => b[1] - a[1]).map(([kind, count]) => <article key={kind} className="rounded-md border border-border p-5"><strong className="capitalize">{kind.replaceAll('-', ' ')}</strong><p className="mt-2 text-sm text-muted-foreground">{count} records</p></article>)}</div></section>
     <section className="mt-12"><h2 className="font-display text-3xl">Graph review queue</h2><div className="mt-6 space-y-3">{audit.issues.slice(0, 100).map((issue, index) => <article key={`${issue.code}-${issue.entityId ?? index}`} className="rounded-md border border-border p-5"><strong>{issue.code.replaceAll('-', ' ')}</strong><p className="mt-1 text-sm text-muted-foreground">{issue.message}</p></article>)}</div></section>
     <section className="mt-12"><h2 className="font-display text-3xl">Content review queue</h2><div className="mt-6 space-y-3">{report.items.map((item) => <article key={item.id} className="grid gap-2 rounded-md border border-border p-5 sm:grid-cols-[1fr_auto]"><div><strong>{item.title}</strong><p className="mt-1 text-sm text-muted-foreground">{item.issues.length ? item.issues.join(' · ') : 'No structural issues found'}</p></div><div className="text-sm"><span className="font-medium capitalize">{item.status.replace('-', ' ')}</span><p className="text-muted-foreground">{Number.isFinite(item.daysSinceReview) ? `${item.daysSinceReview} days since review` : 'Invalid review date'}</p></div></article>)}</div></section>
