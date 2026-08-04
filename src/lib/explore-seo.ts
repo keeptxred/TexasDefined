@@ -4,19 +4,19 @@
 
 import { getCavernSeoOverride } from "@/lib/explore/cavern-seo";
 
-export const SITE_URL = "https://keeptxred.com";
-export const SITE_NAME = "Keep TX Red";
-export const SITE_ALTERNATE_NAMES = ["Keep Texas Red", "KeepTXRed.com"] as const;
+export const SITE_URL = "https://texasdefined.com";
+export const SITE_NAME = "Texas Defined";
+export const SITE_ALTERNATE_NAMES = ["TexasDefined", "TexasDefined.com"] as const;
 export const ORGANIZATION_ID = `${SITE_URL}/#organization`;
 export const WEBSITE_ID = `${SITE_URL}/#website`;
-export const TWITTER_HANDLE = "@KeepTXRed";
+export const TWITTER_HANDLE = "@TexasDefined";
 export const DEFAULT_OG_IMAGE = `${SITE_URL}/og/default.jpg`;
-export const DEFAULT_OG_ALT = "Keep TX Red — Texas News, Politics & Conservative Commentary";
+export const DEFAULT_OG_ALT = "Texas Defined — Discover, explore and experience Texas";
 export const PUBLISHER_LOGO = `${SITE_URL}/__l5e/assets-v1/44ccd7e8-589f-48c9-b255-0b52bb83c041/red-texas-icon.png`;
-export const PUBLISHER_LOGO_ALT = "Keep TX Red red Texas logo";
+export const PUBLISHER_LOGO_ALT = "Texas Defined logo";
 export const OFFICIAL_PROFILE_URLS = [
-  "https://www.instagram.com/keeptxreddotcom/",
-  "https://github.com/keeptxred",
+  
+  
 ] as const;
 
 const INVALID_IMAGE_PATTERN =
@@ -241,7 +241,7 @@ export function organizationJsonLd() {
     knowsAbout: ["Texas politics", "Texas policy", "Texas elections", "Texas legislature", "Texas news"],
     contactPoint: {
       "@type": "ContactPoint",
-      email: "admin@keeptxred.com",
+      email: "hello@texasdefined.com",
       contactType: "Editorial",
     },
     areaServed: { "@type": "State", name: "Texas" },
