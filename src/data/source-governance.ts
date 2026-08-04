@@ -11,7 +11,7 @@ export type AuthoritativeSource = {
 };
 
 export const AUTHORITATIVE_SOURCES: AuthoritativeSource[] = [
-  { id: 'tx-comptroller-property-tax', name: 'Texas Comptroller Property Tax Assistance', url: 'https://comptroller.texas.gov/taxes/property-tax/', domain: 'comptroller.texas.gov', topics: ['property taxes', 'appraisal districts', 'exemptions', 'protests'], reviewEveryDays: 60, lastReviewed: '2026-08-03' },
+  { id: 'tx-comptroller-property-tax', name: 'Texas Comptroller Property Tax Assistance', url: 'https://comptroller.texas.gov/taxes/property-tax/', domain: 'comptroller.texas.gov', topics: ['property taxes', 'appraisal districts', 'exemptions', 'protests', 'payments', 'collections'], reviewEveryDays: 60, lastReviewed: '2026-08-03' },
   { id: 'tx-comptroller-county-directory', name: 'Texas Appraisal District Directory', url: 'https://comptroller.texas.gov/taxes/property-tax/county-directory/', domain: 'comptroller.texas.gov', topics: ['counties', 'appraisal districts'], reviewEveryDays: 60, lastReviewed: '2026-08-03' },
   { id: 'texas-county-websites', name: 'Texas County Websites Directory', url: 'https://www.texas.gov/texas-county-websites.html', domain: 'texas.gov', topics: ['counties', 'local government'], reviewEveryDays: 90, lastReviewed: '2026-08-03' },
   { id: 'tx-dps-driver-license', name: 'Texas DPS Driver License', url: 'https://www.dps.texas.gov/section/driver-license', domain: 'dps.texas.gov', topics: ['driver license', 'moving'], reviewEveryDays: 60, lastReviewed: '2026-08-03' },
@@ -21,6 +21,7 @@ export const AUTHORITATIVE_SOURCES: AuthoritativeSource[] = [
 
 export const CONTENT_HEALTH_RESOURCES: ContentHealthInput[] = [
   { id: 'property-taxes', title: 'Texas Property Taxes', lastReviewed: '2026-08-03', reviewEveryDays: 90, officialUrl: AUTHORITATIVE_SOURCES[0].url, goldenRuleComplete: true, trustFramework: true, nextSteps: 8 },
+  { id: 'property-tax-payments', title: 'Texas Property-Tax Payments and Collections', lastReviewed: '2026-08-03', reviewEveryDays: 60, officialUrl: AUTHORITATIVE_SOURCES[0].url, goldenRuleComplete: true, trustFramework: true, nextSteps: 9 },
   { id: 'property-tax-calculator', title: 'Texas Property Tax Calculator', lastReviewed: '2026-08-03', reviewEveryDays: 90, officialUrl: AUTHORITATIVE_SOURCES[0].url, goldenRuleComplete: true, trustFramework: true, nextSteps: 5 },
   { id: 'appraisal-districts', title: 'Texas Appraisal Districts', lastReviewed: '2026-08-03', reviewEveryDays: 60, officialUrl: AUTHORITATIVE_SOURCES[1].url, goldenRuleComplete: true, trustFramework: true, nextSteps: 6 },
   { id: 'homestead-exemption', title: 'Texas Homestead Exemption', lastReviewed: '2026-08-03', reviewEveryDays: 60, officialUrl: 'https://comptroller.texas.gov/taxes/property-tax/exemptions/', goldenRuleComplete: true, trustFramework: true, nextSteps: 6 },
