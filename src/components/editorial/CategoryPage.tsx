@@ -3,9 +3,10 @@ import { Link } from "@tanstack/react-router";
 
 import { ArticleCard } from "@/components/editorial/ArticleCard";
 import { DestinationCard } from "@/components/editorial/DestinationCard";
+import { ExploreDiscovery } from "@/components/editorial/ExploreDiscovery";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
-import { articlesQuery, destinationsQuery, regionsQuery } from "@/data/queries";
+import { articlesQuery, categoriesQuery, destinationsQuery, regionsQuery } from "@/data/queries";
 import type { CategorySlug, ImageRef } from "@/data/types";
 
 const TOP_LEVEL_DEPARTMENTS = new Set<CategorySlug>([
@@ -33,6 +34,7 @@ export function CategoryPage({
   const { data: articles } = useSuspenseQuery(articlesQuery({ category }));
   const { data: destinations } = useSuspenseQuery(destinationsQuery({ category }));
   const { data: regions } = useSuspenseQuery(regionsQuery());
+  const { data: categories } = useSuspenseQuery(categoriesQuery());
 
   const regionName = (id: string) => regions.find((region) => region.id === id)?.name;
   const lead = articles[0];
@@ -101,7 +103,10 @@ export function CategoryPage({
       {destinations.length > 0 && (
         <Section tone="surface">
           <Container>
-            <SectionHeader eyebrow="Worth the drive" title="Places to put on your list" />
+            <SectionHeader
+              eyebrow="Worth the drive"
+              title={`${destinations.length.toLocaleString("en-US")} places to explore`}
+            />
             <ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
               {destinations.map((destination) => (
                 <li key={destination.id}>
@@ -134,6 +139,10 @@ export function CategoryPage({
           )}
         </Container>
       </Section>
+
+      {belongsToExplore && (
+        <ExploreDiscovery currentCategory={category} categories={categories} regions={regions} />
+      )}
     </>
   );
 }
