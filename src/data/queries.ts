@@ -29,6 +29,7 @@ export const destinationsQuery = (params: Omit<DestinationQuery, "brandId"> = {}
       try {
         const remote = await fetchExploreDestinations({
           featured: params.featured,
+          category: params.category,
           limit: params.limit,
         });
         if (remote.length) return remote;
