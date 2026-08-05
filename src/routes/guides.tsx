@@ -9,17 +9,17 @@ import { guidesQuery } from "@/data/queries";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const description =
-  "Straightforward guides, calculators and checklists for buying a home, understanding property taxes, moving and managing everyday life in Texas.";
+  "Straightforward guides, calculators and checklists for buying a home, understanding property taxes, moving and handling everyday life here.";
 
 const migratedGuides = [
-  { to: "/learn/property-taxes", label: "Texas Property Taxes", body: "A plain-English look at appraisals, exemptions, protests, rates and the yearly tax cycle." },
+  { to: "/learn/property-taxes", label: "Property Taxes Without the Guesswork", body: "A plain-English look at appraisals, exemptions, protests, rates and the yearly tax cycle." },
   { to: "/decide/property-taxes", label: "Estimate Your Property Taxes", body: "Get a quick estimate using your home value, exemptions and local tax rate." },
   { to: "/learn/property-tax-payments", label: "Paying Your Property Taxes", body: "What to know about deadlines, escrow, payment plans, late bills and tax liens." },
   { to: "/do/homestead-exemption", label: "File a Homestead Exemption", body: "See who qualifies, what you need and how to file with your appraisal district." },
-  { to: "/do/property-tax-protest", label: "Protest Your Appraisal", body: "A step-by-step guide to deadlines, evidence, informal reviews and ARB hearings." },
+  { to: "/do/property-tax-protest", label: "Protest Your Appraisal", body: "A step-by-step look at deadlines, evidence, informal reviews and ARB hearings." },
   { to: "/learn/appraisal-districts", label: "Find Your Appraisal District", body: "Learn what your local appraisal district does and find the right county office." },
-  { to: "/browse/counties", label: "Texas Counties", body: "Browse all 254 counties and find useful local and official resources." },
-  { to: "/browse/cities", label: "Texas Cities", body: "Explore major cities and regional communities by county and part of the state." },
+  { to: "/browse/counties", label: "Find Your County", body: "Start with your county and head straight to the local offices and information you need." },
+  { to: "/browse/cities", label: "Find a City", body: "Look up a city for nearby stories, moving information and local details." },
 ] as const;
 
 const guideAnchor = (index: number) => `guide-${index + 1}`;
@@ -99,7 +99,7 @@ function GuidesPage() {
   return (
     <>
       <Container className="pb-6 pt-16 sm:pt-24">
-        <p className="eyebrow text-primary">Helpful Texas Guides</p>
+        <p className="eyebrow text-primary">Good to know</p>
         <h1 className="mt-3 max-w-3xl font-display text-4xl leading-tight sm:text-6xl">
           Texas life, made a little easier
         </h1>
@@ -111,8 +111,8 @@ function GuidesPage() {
       <Section tone="surface">
         <Container>
           <SectionHeader
-            eyebrow="Home and property"
-            title="Start with the questions Texas homeowners ask most"
+            eyebrow="Start here"
+            title="The questions homeowners ask us most"
           />
           <ul className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
             {migratedGuides.map((guide, index) => (
@@ -123,7 +123,7 @@ function GuidesPage() {
                 >
                   <h2 className="font-display text-xl">{guide.label}</h2>
                   <p className="mt-3 text-sm leading-6 text-muted-foreground">{guide.body}</p>
-                  <span className="mt-5 inline-block text-sm font-medium text-primary">Read the guide →</span>
+                  <span className="mt-5 inline-block text-sm font-medium text-primary">Take a closer look →</span>
                 </Link>
               </li>
             ))}
@@ -134,7 +134,7 @@ function GuidesPage() {
       {topics.map((topic, index) => (
         <Section key={topic} tone={index % 2 === 0 ? "default" : "surface"}>
           <Container>
-            <SectionHeader eyebrow={topic} title={`More help with ${topic.toLowerCase()}`} />
+            <SectionHeader eyebrow={topic} title={`A little more help with ${topic.toLowerCase()}`} />
             <ul className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {guides
                 .filter((guide) => guide.topic === topic)
