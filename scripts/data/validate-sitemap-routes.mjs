@@ -76,6 +76,8 @@ for (const [filename, aliasPath, targetPath] of migratedGuideRedirects) {
   if (!source.includes('statusCode: 301')) failures.push(`${filename} must remain a permanent redirect.`);
   if (!source.includes(targetPath)) failures.push(`${filename} must redirect to ${targetPath}.`);
   if (!source.includes('location.searchStr')) failures.push(`${filename} must preserve the incoming query string.`);
+  if (!registry.includes(`"${aliasPath}"`)) failures.push(`Redirect-only registry must govern migrated guide alias ${aliasPath}.`);
+  if (indexableSection.includes(`"${aliasPath}"`)) failures.push(`Migrated guide alias remains indexable: ${aliasPath}.`);
   if (sitemap.includes(aliasPath) || exploreSitemap.includes(aliasPath)) {
     failures.push(`Sitemaps must not publish migrated guide alias ${aliasPath}.`);
   }
