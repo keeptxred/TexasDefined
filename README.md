@@ -1,30 +1,10 @@
-# Texas Platform Blueprint
+# TexasDefined
 
-Platform Architecture Decision
+TexasDefined is an independent Texas lifestyle publication covering travel, food, events, history, home and garden, real estate, sports, shopping, and practical guides for living in Texas.
 
-TexasDefined will eventually share a common platform with KeepTXRed.com.
-
-Analyze the best architecture for:
-
-One shared Supabase project versus separate Supabase projects
-
-Shared authentication
-
-Shared datasets
-
-Shared calculators and business logic
-
-Shared admin
-
-Shared media storage
-
-Shared search
-
-Recommend the architecture that provides the best long-term scalability, security, maintainability, and lowest operational cost. Design the project around that architecture, but do not migrate or connect to the existing KeepTXRed Supabase project yet. Leave the final connection until after the architecture has been reviewed and approved.
+The site is maintained as its own application, with separate branding, navigation, SEO, canonical URLs, content, and deployment configuration.
 
 This project was built with [Lovable](https://lovable.dev).
-
-**Live app**: https://texas-common-core.lovable.app
 
 ## Build with Lovable
 
@@ -40,7 +20,7 @@ Prefer working locally? You need Node.js and npm — [install with nvm](https://
 
 ```sh
 git clone <this-repository-url>
-cd <repository-name>
+cd TexasDefined
 npm i
 npm run dev
 ```
