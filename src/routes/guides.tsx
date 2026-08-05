@@ -27,7 +27,7 @@ const travelGuides = [
     to: "/explore/state-parks",
     label: "Texas State Parks Guide",
     body: "Choose parks by region, season, activity, camping style and drive time. Includes reservation planning, family trips, hiking, swimming and nearby stops.",
-    note: "Migrated from the former KeepTXRed statewide parks guide.",
+    note: "Statewide parks guide covering all seven Texas regions.",
   },
   {
     to: "/explore/lakes-rivers",
@@ -69,7 +69,7 @@ const travelGuides = [
     to: "/explore/historic-sites",
     label: "Texas Historic Places",
     body: "Browse forts, missions, battlefields, museums, historic districts and cultural landmarks, then combine them with nearby towns and scenic routes.",
-    note: "Rehomes non-political Texas history and heritage destinations from KeepTXRed.",
+    note: "Texas history and heritage destinations across the state.",
   },
 ] as const;
 
@@ -151,15 +151,16 @@ function GuidesPage() {
       <Section tone="surface">
         <Container>
           <SectionHeader
-            eyebrow="Restored from KeepTXRed"
+            eyebrow="Statewide Collections"
             title="Travel guides that belong on TexasDefined"
-            description="These statewide guides were still present in the original KeepTXRed project but were not clearly exposed after the split. They now point visitors into the matching TexasDefined directories and collections."
+            description="Statewide guides that point visitors into the matching TexasDefined directories and collections."
           />
           <ul className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
             {travelGuides.map((guide, index) => (
               <li key={`${guide.label}-${guide.to}`} id={guideAnchor(index)}>
                 <Link
-                  to={guide.to}
+                  to="/explore/$category"
+                  params={{ category: guide.to.replace("/explore/", "") }}
                   className="block h-full rounded-md border border-border bg-background p-5 transition-colors hover:border-primary/50"
                 >
                   <h2 className="font-display text-xl">{guide.label}</h2>

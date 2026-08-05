@@ -7,7 +7,9 @@ const description = 'A simple starting point for the questions that come with mo
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const pageUrl = `${siteUrl}/texas-resources`;
 
-const groups = [
+type ResourceGroup = { title: string; links: ReadonlyArray<readonly [string, string]> };
+
+const groups: ReadonlyArray<ResourceGroup> = [
   {
     title: 'Moving and settling in',
     links: [
@@ -37,7 +39,7 @@ const groups = [
       ['Living here', '/texas-living'],
     ],
   },
-] as const;
+];
 
 const guideLinks = groups.flatMap((group) => group.links);
 const itemListElement = guideLinks.map(([name, path], index) => ({

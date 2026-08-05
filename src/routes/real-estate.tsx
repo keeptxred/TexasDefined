@@ -5,6 +5,7 @@ import heroHillCountry from "@/assets/hero-hill-country.jpg";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { CategoryPage } from "@/components/editorial/CategoryPage";
 import { articlesQuery, destinationsQuery, regionsQuery } from "@/data/queries";
+import type { Article, Destination } from "@/data/types";
 import { buildEditorialCollectionHead, buildMeta, canonicalLink } from "@/lib/seo";
 
 const description =
@@ -12,7 +13,7 @@ const description =
 const imageAlt = "Evening light across rolling Texas Hill Country";
 
 export const Route = createFileRoute("/real-estate")({
-  head: ({ loaderData }) => loaderData
+  head: ({ loaderData }: { loaderData?: { articles: Article[]; destinations: Destination[] } }) => loaderData
     ? buildEditorialCollectionHead(texasDefinedBrand, {
         canonicalPath: "/real-estate",
         title: "Real Estate",
@@ -47,7 +48,7 @@ export const Route = createFileRoute("/real-estate")({
         }),
         links: [canonicalLink(texasDefinedBrand, "/real-estate")],
       }),
-  loader: async ({ context }) => {
+  loader: async ({ context }): Promise<{ articles: Article[]; destinations: Destination[] }> => {
     const [articles, destinations] = await Promise.all([
       context.queryClient.ensureQueryData(articlesQuery({ category: "real-estate" })),
       context.queryClient.ensureQueryData(destinationsQuery({ category: "real-estate" })),

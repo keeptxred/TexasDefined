@@ -18,13 +18,16 @@ export function MapPreview({
   directionsLabel: string;
   className?: string;
 }) {
-  const validMarkers = markers.filter(({ point }) =>
-    Number.isFinite(point.lat)
-    && Number.isFinite(point.lng)
-    && Math.abs(point.lat) <= 90
-    && Math.abs(point.lng) <= 180
-    && !(point.lat === 0 && point.lng === 0),
+  const validMarkers = markers.filter(({ point: primary }) =>
+    Number.isFinite(primary.lat)
+    && Number.isFinite(primary.lng)
+    && primary.lat >= -90
+    && primary.lat <= 90
+    && primary.lng >= -180
+    && primary.lng <= 180
+    && !(primary.lat === 0 && primary.lng === 0),
   );
+
   const primary: GeoPoint | undefined = validMarkers[0]?.point;
   const image = maps.staticImageUrl(validMarkers, zoom);
 

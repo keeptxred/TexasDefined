@@ -5,6 +5,7 @@ import roadTrip from "@/assets/road-trip.jpg";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { CategoryPage } from "@/components/editorial/CategoryPage";
 import { articlesQuery, destinationsQuery, regionsQuery } from "@/data/queries";
+import type { Article, Destination } from "@/data/types";
 import { buildEditorialCollectionHead, buildMeta, canonicalLink } from "@/lib/seo";
 
 const description =
@@ -12,7 +13,7 @@ const description =
 const imageAlt = "A two-lane Texas farm road running to the horizon";
 
 export const Route = createFileRoute("/moving-to-texas")({
-  head: ({ loaderData }) => loaderData
+  head: ({ loaderData }: { loaderData?: { articles: Article[]; destinations: Destination[] } }) => loaderData
     ? buildEditorialCollectionHead(texasDefinedBrand, {
         canonicalPath: "/moving-to-texas",
         title: "Moving Here",
@@ -47,7 +48,7 @@ export const Route = createFileRoute("/moving-to-texas")({
         }),
         links: [canonicalLink(texasDefinedBrand, "/moving-to-texas")],
       }),
-  loader: async ({ context }) => {
+  loader: async ({ context }): Promise<{ articles: Article[]; destinations: Destination[] }> => {
     const [articles, destinations] = await Promise.all([
       context.queryClient.ensureQueryData(articlesQuery({ category: "moving-to-texas" })),
       context.queryClient.ensureQueryData(destinationsQuery({ category: "moving-to-texas" })),
