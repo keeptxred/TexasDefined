@@ -9,7 +9,7 @@ import { guidesQuery } from "@/data/queries";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const description =
-  "Straightforward guides, calculators and checklists for buying a home, understanding property taxes, moving and handling everyday life here.";
+  "Straightforward Texas travel, moving, homeowner, property-tax and everyday-life guides gathered in one place.";
 
 const migratedGuides = [
   { to: "/learn/property-taxes", label: "Property Taxes Without the Guesswork", body: "A plain-English look at appraisals, exemptions, protests, rates and the yearly tax cycle." },
@@ -22,6 +22,58 @@ const migratedGuides = [
   { to: "/browse/cities", label: "Find a City", body: "Look up a city for nearby stories, moving information and local details." },
 ] as const;
 
+const travelGuides = [
+  {
+    to: "/explore/state-parks",
+    label: "Texas State Parks Guide",
+    body: "Choose parks by region, season, activity, camping style and drive time. Includes reservation planning, family trips, hiking, swimming and nearby stops.",
+    note: "Migrated from the former KeepTXRed statewide parks guide.",
+  },
+  {
+    to: "/explore/lakes-rivers",
+    label: "Texas Lakes & Rivers Guide",
+    body: "Plan swimming, fishing, paddling, boating and lakeside weekends while checking water levels, ramp access, weather and public shoreline access.",
+    note: "Combines the former lakes guide with TexasDefined's river and swimming-hole directory.",
+  },
+  {
+    to: "/explore/outdoors",
+    label: "Texas Camping Guide",
+    body: "Compare state-park, lakeside, primitive and RV camping, with practical advice for seasons, burn bans, water, weather, insects and remote-road preparation.",
+    note: "Migrated from the former statewide camping guide.",
+  },
+  {
+    to: "/explore/road-trips",
+    label: "Texas Scenic Drives",
+    body: "Build Hill Country, Big Bend, Panhandle, Piney Woods and Gulf Coast routes with seasonal timing, fuel planning, photography stops and worthwhile detours.",
+    note: "Migrated from the former scenic-drives guide.",
+  },
+  {
+    to: "/explore/road-trips",
+    label: "Texas Wildflower Seasons",
+    body: "Use a month-by-month approach to bluebonnets and other blooms, with regional timing, responsible roadside viewing and flexible spring road-trip planning.",
+    note: "Migrated from the former wildflower-season guide and placed with road trips.",
+  },
+  {
+    to: "/explore/caverns",
+    label: "Texas Caverns & Caves",
+    body: "Find show caves, guided cavern tours and nearby park pairings, and check tour schedules, accessibility, footwear rules and seasonal conditions before driving.",
+    note: "Restores the cavern material to the Explore directory where it belongs.",
+  },
+  {
+    to: "/explore/small-towns",
+    label: "Texas Small-Town Trips",
+    body: "Plan courthouse-square, dance-hall, historic-district and local-food weekends without treating the town as only a stop between larger attractions.",
+    note: "Exposes the former small-town and regional road-trip material through TexasDefined.",
+  },
+  {
+    to: "/explore/historic-sites",
+    label: "Texas Historic Places",
+    body: "Browse forts, missions, battlefields, museums, historic districts and cultural landmarks, then combine them with nearby towns and scenic routes.",
+    note: "Rehomes non-political Texas history and heritage destinations from KeepTXRed.",
+  },
+] as const;
+
+const allFeaturedGuides = [...travelGuides, ...migratedGuides];
 const guideAnchor = (index: number) => `guide-${index + 1}`;
 const guidesUrl = absoluteUrl(texasDefinedBrand, "/guides");
 
@@ -29,7 +81,7 @@ export const Route = createFileRoute("/guides")({
   head: () => ({
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath: "/guides",
-      title: "Guides for Living Here",
+      title: "Texas Travel, Moving & Homeowner Guides",
       description,
     }),
     links: [canonicalLink(texasDefinedBrand, "/guides")],
@@ -41,7 +93,7 @@ export const Route = createFileRoute("/guides")({
             "@type": "CollectionPage",
             "@id": `${guidesUrl}#page`,
             url: guidesUrl,
-            name: "Guides for Living Here",
+            name: "Texas Travel, Moving & Homeowner Guides",
             description,
             isPartOf: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#website` },
             mainEntity: { "@id": `${guidesUrl}#guide-list` },
@@ -50,26 +102,16 @@ export const Route = createFileRoute("/guides")({
             "@type": "BreadcrumbList",
             "@id": `${guidesUrl}#breadcrumb`,
             itemListElement: [
-              {
-                "@type": "ListItem",
-                position: 1,
-                name: "Home",
-                item: absoluteUrl(texasDefinedBrand, "/"),
-              },
-              {
-                "@type": "ListItem",
-                position: 2,
-                name: "Guides",
-                item: guidesUrl,
-              },
+              { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl(texasDefinedBrand, "/") },
+              { "@type": "ListItem", position: 2, name: "Guides", item: guidesUrl },
             ],
           },
           {
             "@type": "ItemList",
             "@id": `${guidesUrl}#guide-list`,
-            name: "Texas Defined practical guides",
-            numberOfItems: migratedGuides.length,
-            itemListElement: migratedGuides.map((guide, index) => ({
+            name: "Texas Defined guides",
+            numberOfItems: allFeaturedGuides.length,
+            itemListElement: allFeaturedGuides.map((guide, index) => ({
               "@type": "ListItem",
               position: index + 1,
               url: `${guidesUrl}#${guideAnchor(index)}`,
@@ -100,23 +142,43 @@ function GuidesPage() {
     <>
       <Container className="pb-6 pt-16 sm:pt-24">
         <p className="eyebrow text-primary">Good to know</p>
-        <h1 className="mt-3 max-w-3xl font-display text-4xl leading-tight sm:text-6xl">
-          Texas life, made a little easier
+        <h1 className="mt-3 max-w-4xl font-display text-4xl leading-tight sm:text-6xl">
+          Texas travel and everyday life, made easier
         </h1>
-        <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground">
-          {description}
-        </p>
+        <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground">{description}</p>
       </Container>
 
       <Section tone="surface">
         <Container>
           <SectionHeader
-            eyebrow="Start here"
-            title="The questions homeowners ask us most"
+            eyebrow="Restored from KeepTXRed"
+            title="Travel guides that belong on TexasDefined"
+            description="These statewide guides were still present in the original KeepTXRed project but were not clearly exposed after the split. They now point visitors into the matching TexasDefined directories and collections."
           />
           <ul className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+            {travelGuides.map((guide, index) => (
+              <li key={`${guide.label}-${guide.to}`} id={guideAnchor(index)}>
+                <Link
+                  to={guide.to}
+                  className="block h-full rounded-md border border-border bg-background p-5 transition-colors hover:border-primary/50"
+                >
+                  <h2 className="font-display text-xl">{guide.label}</h2>
+                  <p className="mt-3 text-sm leading-6 text-muted-foreground">{guide.body}</p>
+                  <p className="mt-4 text-xs leading-5 text-muted-foreground">{guide.note}</p>
+                  <span className="mt-5 inline-block text-sm font-medium text-primary">Explore the guide →</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </Container>
+      </Section>
+
+      <Section>
+        <Container>
+          <SectionHeader eyebrow="Living in Texas" title="The questions homeowners ask us most" />
+          <ul className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
             {migratedGuides.map((guide, index) => (
-              <li key={guide.to} id={guideAnchor(index)}>
+              <li key={guide.to} id={guideAnchor(travelGuides.length + index)}>
                 <Link
                   to={guide.to}
                   className="block h-full rounded-md border border-border bg-background p-5 transition-colors hover:border-primary/50"
@@ -132,7 +194,7 @@ function GuidesPage() {
       </Section>
 
       {topics.map((topic, index) => (
-        <Section key={topic} tone={index % 2 === 0 ? "default" : "surface"}>
+        <Section key={topic} tone={index % 2 === 0 ? "surface" : "default"}>
           <Container>
             <SectionHeader eyebrow={topic} title={`More help with ${topic.toLowerCase()}`} />
             <ul className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
