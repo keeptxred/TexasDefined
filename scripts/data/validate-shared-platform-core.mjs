@@ -27,7 +27,7 @@ for (const file of ['contract.ts','content-intelligence.ts','publication-gate.ts
 for (const capability of ['content-ownership','duplicate-content-prevention','cross-site-disposition','publication-gates','reviewed-overrides','governance-events','governance-analytics','ownership-drift-detection']) if (!consumer.capabilities.includes(capability) || !contract.includes(`'${capability}'`)) errors.push(`Publication capability missing: ${capability}`);
 requireSymbols(content, ['decideCrossSiteContent','reject-duplicate','cross-link-only','publish-derivative-with-canonical-reference'], 'content engine');
 requireSymbols(gate, ['fingerprintContentDecision','createPublicationOverride','validatePublicationOverride','enforcePublicationDecision','override-required','Override is expired','at least 20 characters'], 'publication gate');
-requireSymbols(governance, ['GovernanceEvent','recordGovernanceEvent','governanceAnalytics','ownershipDrift'], 'governance events');
+requireSymbols(governance, ['GovernanceEvent','createGovernanceEvent','validateGovernanceEvent','summarizeGovernanceEvents','detectOwnershipDrift'], 'governance events');
 requireSymbols(gateApi, ["createFileRoute('/api/publication-gate')","targetSite: 'TexasDefined'",'enforcePublicationDecision','enforcement-preview','gate.publishable ? 200 : 409','100_000','no-store','noindex, nofollow'], 'publication gate API');
 if (gateApi.includes('writeFile') || gateApi.includes('publish: true')) errors.push('Publication gate API contains direct write behavior.');
 if (errors.length) fail();
