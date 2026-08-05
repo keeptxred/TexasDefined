@@ -38,9 +38,12 @@ requireFeatures(engine, [
 ], 'Destination relationship engine');
 
 requireFeatures(component, [
-  'aria-label="Destination relationship sections"',
+  'if (!groups.length) return null',
+  'aria-label="Ways to continue the trip"',
+  'groups.map((group)',
   'href={`#relationship-${group.id}`}',
   'id={`relationship-${group.id}`}',
+  'group.destinations.map',
   'DestinationCard',
   'distanceMiles(destination, item)',
   'About {Math.max(1, Math.round(miles))',
