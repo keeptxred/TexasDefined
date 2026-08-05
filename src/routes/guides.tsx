@@ -6,7 +6,7 @@ import { GuideCard } from "@/components/editorial/GuideCard";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import { guidesQuery } from "@/data/queries";
-import { buildMeta, canonicalLink } from "@/lib/seo";
+import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const description =
   "Straightforward guides, calculators and checklists for buying a home, understanding property taxes, moving and managing everyday life in Texas.";
@@ -22,6 +22,9 @@ const migratedGuides = [
   { to: "/browse/cities", label: "Texas Cities", body: "Explore major cities and regional communities by county and part of the state." },
 ] as const;
 
+const guideAnchor = (index: number) => `guide-${index + 1}`;
+const guidesUrl = absoluteUrl(texasDefinedBrand, "/guides");
+
 export const Route = createFileRoute("/guides")({
   head: () => ({
     meta: buildMeta(texasDefinedBrand, {
@@ -30,6 +33,58 @@ export const Route = createFileRoute("/guides")({
       description,
     }),
     links: [canonicalLink(texasDefinedBrand, "/guides")],
+    scripts: [
+      jsonLd({
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "CollectionPage",
+            "@id": `${guidesUrl}#page`,
+            url: guidesUrl,
+            name: "Helpful Texas Guides",
+            description,
+            isPartOf: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#website` },
+            mainEntity: { "@id": `${guidesUrl}#guide-list` },
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": `${guidesUrl}#breadcrumb`,
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: absoluteUrl(texasDefinedBrand, "/"),
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Guides",
+                item: guidesUrl,
+              },
+            ],
+          },
+          {
+            "@type": "ItemList",
+            "@id": `${guidesUrl}#guide-list`,
+            name: "TexasDefined practical guides",
+            numberOfItems: migratedGuides.length,
+            itemListElement: migratedGuides.map((guide, index) => ({
+              "@type": "ListItem",
+              position: index + 1,
+              url: `${guidesUrl}#${guideAnchor(index)}`,
+              item: {
+                "@type": "WebPage",
+                "@id": absoluteUrl(texasDefinedBrand, guide.to),
+                url: absoluteUrl(texasDefinedBrand, guide.to),
+                name: guide.label,
+                description: guide.body,
+              },
+            })),
+          },
+        ],
+      }),
+    ],
   }),
   loader: async ({ context }) => {
     await context.queryClient.ensureQueryData(guidesQuery());
@@ -60,8 +115,8 @@ function GuidesPage() {
             title="Start with the questions Texas homeowners ask most"
           />
           <ul className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-            {migratedGuides.map((guide) => (
-              <li key={guide.to}>
+            {migratedGuides.map((guide, index) => (
+              <li key={guide.to} id={guideAnchor(index)}>
                 <Link
                   to={guide.to}
                   className="block h-full rounded-md border border-border bg-background p-5 transition-colors hover:border-primary/50"
