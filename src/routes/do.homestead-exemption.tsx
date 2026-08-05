@@ -50,18 +50,18 @@ export const Route = createFileRoute('/do/homestead-exemption')({
     })],
   }),
   component: () => <PropertyTaxGuidePage
-    eyebrow="Texas Home & Property"
-    title="Texas Homestead Exemption Guide"
+    eyebrow="Homeowner basics"
+    title="How to file your homestead exemption"
     intro={description}
     officialUrl="https://comptroller.texas.gov/taxes/property-tax/exemptions/"
-    officialLabel="Check the Texas Comptroller's exemption guidance"
+    officialLabel="Check the latest exemption guidance"
     canonicalPath={canonicalPath}
     stepPrefix="homestead-step-"
     sections={[
       { title: 'What it can do for your tax bill', paragraphs: ['A residence homestead exemption lowers the taxable value used by qualifying taxing units. Extra benefits may be available for homeowners age 65 or older, people with disabilities, disabled veterans and certain surviving spouses.'] },
       { title: 'Who may qualify', paragraphs: ['The home generally must be your principal residence, and you must meet the ownership and occupancy rules. Inherited homes, trusts, manufactured homes and other ownership arrangements can require additional paperwork.'] },
       { title: 'How to file', paragraphs: ['Apply through the appraisal district in the county where the home is located. Filing is generally free, so be cautious of companies charging for a form you can submit yourself.'], steps },
-      { title: 'Do not forget to check it later', paragraphs: ['Review the property account each year to make sure the exemption is still there. Tell the appraisal district when ownership, occupancy or eligibility changes.'] },
+      { title: 'Check it after filing', paragraphs: ['Review the property account each year to make sure the exemption is still there. Tell the appraisal district when ownership, occupancy or eligibility changes.'] },
     ]}
   />,
 });
