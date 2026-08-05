@@ -216,7 +216,7 @@ export async function fetchExploreDestinations(
 
 export async function fetchExploreDestination(slug: string): Promise<Destination | null> {
   if (!hasExploreRemoteData()) return null;
-  const params = new URLSearchParams({ select: "*,explore_entity_types(key,name),explore_locations(city,county,latitude,longitude)", slug: `eq.${slug}`, limit: "1" });
+  const params = new URLSearchParams({ select: "*,explore_entity_types(key,name),explore_locations(city,county,latitude,longitude)", slug: `eq.${slug}`, visibility: "eq.public", status: "in.(published,verified)", limit: "1" });
   const response = await fetch(`${supabaseUrl}/rest/v1/explore_entities?${params}`, { headers: headers() });
   if (!response.ok) throw new Error(`Explore destination request failed: ${response.status}`);
   const rows = await response.json();
