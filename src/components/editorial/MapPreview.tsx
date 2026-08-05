@@ -26,13 +26,11 @@ export function MapPreview({
   return (
     <div className={className}>
       <div className="border border-border bg-secondary/60 p-6">
-        <p className="eyebrow text-muted-foreground">Find Your Way</p>
+        <p className="eyebrow text-muted-foreground">Find your way</p>
         {image ? (
-          <img src={image} alt="Map showing the destination location" width={800} height={400} loading="lazy" className="mt-4 w-full" />
+          <img src={image} alt={`Map showing ${directionsLabel}`} width={800} height={400} loading="lazy" className="mt-4 w-full" />
         ) : (
-          <p className="mt-3 font-display text-2xl">
-            {primary.lat.toFixed(4)}, {primary.lng.toFixed(4)}
-          </p>
+          <p className="mt-3 font-display text-2xl">Ready when you are</p>
         )}
         <ul className="mt-3 space-y-1 text-sm text-muted-foreground">
           {markers.map((marker) => (
