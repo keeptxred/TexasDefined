@@ -9,25 +9,28 @@ for (const feature of [
   "'@type': 'CollectionPage'",
   "'@type': 'ItemList'",
   "'@type': 'BreadcrumbList'",
-  'numberOfItems: itemListElement.length',
+  'numberOfItems: topicItems.length + articleItems.length',
   "isPartOf: { '@id': `${siteUrl}/#website` }",
   'sections.map(([name, path, copy], index)',
+  'articles.map((article, index)',
+  'itemListElement: [...topicItems, ...articleItems]',
+  'breadcrumb: { \'@id\': `${pageUrl}#breadcrumbs` }',
   'aria-label="Breadcrumb"',
   'aria-current="page"',
-  "title: 'Living Here'",
-  "name: 'Living Here'",
-  "name: 'Guides for living here'",
-  '>Living Here</li>',
-  '<p className="eyebrow mt-8 text-primary">Living Here</p>',
+  "title: 'Living in Texas'",
+  "name: 'Living in Texas'",
+  "name: 'Guides for living in Texas'",
+  '>Living in Texas</li>',
+  '<p className="eyebrow mt-8 text-primary">Living in Texas</p>',
 ]) {
   if (!route.includes(feature)) errors.push(`Texas living SEO or naming feature missing: ${feature}.`);
 }
 
 for (const staleLabel of [
-  "title: 'Living in Texas'",
-  "name: 'Living in Texas'",
-  "name: 'Living in Texas guides'",
-  '>Living in Texas</li>',
+  "title: 'Living Here'",
+  "name: 'Living Here'",
+  "name: 'Guides for living here'",
+  '>Living Here</li>',
 ]) {
   if (route.includes(staleLabel)) errors.push(`Texas living route retains stale naming: ${staleLabel}.`);
 }
@@ -38,4 +41,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Living Here metadata, CollectionPage, ItemList, visible breadcrumb, and JSON-LD naming are aligned.');
+console.log('Living in Texas metadata, CollectionPage, mixed ItemList, visible breadcrumb, and JSON-LD naming are aligned.');
