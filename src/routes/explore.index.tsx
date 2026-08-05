@@ -11,7 +11,9 @@ import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 
 const EXPLORE_CATEGORIES = [
   "lakes-rivers",
+  "major-springs",
   "state-parks",
+  "national-parks",
   "caverns",
   "beaches-coast",
   "historic-sites",
@@ -158,7 +160,7 @@ function ExplorePage() {
           <SectionHeader
             eyebrow="Pick a direction"
             title="What sounds good today?"
-            description="Choose a cavern, beach, trail, swimming hole, historic place, small town or plate worth planning around."
+            description="Choose a spring, national park, cavern, beach, trail, swimming hole, historic place, small town or plate worth planning around."
           />
           <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {exploreCategories.map((category) => (
