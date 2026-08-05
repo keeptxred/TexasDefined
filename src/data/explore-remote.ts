@@ -121,7 +121,11 @@ export async function fetchExploreDestinations(
   options: { featured?: boolean; query?: string; category?: CategorySlug; limit?: number } = {},
 ): Promise<Destination[]> {
   if (!hasExploreRemoteData()) return [];
-  const requestedLimit = Math.min(options.limit ?? MAX_REMOTE_DESTINATIONS, MAX_REMOTE_DESTINATIONS);
+  const resultLimit = Math.min(options.limit ?? MAX_REMOTE_DESTINATIONS, MAX_REMOTE_DESTINATIONS);
+  // Entity type is supplied through a related table, so category filtering is
+  // performed after retrieval. Scan the catalog before applying a small result
+  // limit or valid category records later in the ordered catalog can disappear.
+  const scanLimit = options.category ? MAX_REMOTE_DESTINATIONS : resultLimit;
   const params = new URLSearchParams({
     select: "*,explore_entity_types(key,name)",
     visibility: "eq.public",
@@ -135,13 +139,16 @@ export async function fetchExploreDestinations(
   }
 
   const rows: Record<string, unknown>[] = [];
-  for (let offset = 0; offset < requestedLimit; offset += PAGE_SIZE) {
-    const page = await fetchExplorePage(params, offset, Math.min(PAGE_SIZE, requestedLimit - offset));
+  for (let offset = 0; offset < scanLimit; offset += PAGE_SIZE) {
+    const page = await fetchExplorePage(params, offset, Math.min(PAGE_SIZE, scanLimit - offset));
     rows.push(...page);
     if (page.length < PAGE_SIZE) break;
   }
 
-  return rows.filter((row) => matchesCategory(row, options.category)).map(mapRow);
+  return rows
+    .filter((row) => matchesCategory(row, options.category))
+    .map(mapRow)
+    .slice(0, resultLimit);
 }
 
 export async function fetchExploreDestination(slug: string): Promise<Destination | null> {
