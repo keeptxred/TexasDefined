@@ -1,4 +1,5 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
+import { Link } from "@tanstack/react-router";
 
 import { ArticleCard } from "@/components/editorial/ArticleCard";
 import { DestinationCard } from "@/components/editorial/DestinationCard";
@@ -33,8 +34,20 @@ export function CategoryPage({
 
   return (
     <>
+      <Container className="pt-8">
+        <nav aria-label="Breadcrumb" className="text-xs text-muted-foreground">
+          <ol className="flex flex-wrap items-center gap-2">
+            <li><Link to="/" className="hover:text-foreground">Home</Link></li>
+            <li aria-hidden="true">/</li>
+            <li><Link to="/explore" className="hover:text-foreground">Explore</Link></li>
+            <li aria-hidden="true">/</li>
+            <li aria-current="page" className="text-foreground">{title}</li>
+          </ol>
+        </nav>
+      </Container>
+
       {image ? (
-        <section className="relative isolate overflow-hidden bg-ink text-ink-foreground">
+        <section className="relative isolate mt-4 overflow-hidden bg-ink text-ink-foreground">
           <img
             src={image.src}
             alt={image.alt}
@@ -54,7 +67,7 @@ export function CategoryPage({
           </Container>
         </section>
       ) : (
-        <Container className="pb-4 pt-16 sm:pt-24">
+        <Container className="pb-4 pt-12 sm:pt-16">
           <p className="eyebrow text-primary">{eyebrow}</p>
           <h1 className="mt-3 max-w-3xl font-display text-4xl leading-tight sm:text-6xl">
             {title}
