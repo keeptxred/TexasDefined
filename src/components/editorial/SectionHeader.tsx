@@ -38,9 +38,12 @@ export function SectionHeader({
       {actionLabel && actionTo && (
         <Link
           to={actionTo}
-          className="eyebrow shrink-0 border-b border-primary pb-1 text-primary transition-opacity hover:opacity-70"
+          className="eyebrow group inline-flex shrink-0 items-center gap-2 border-b border-primary pb-1 text-primary transition-opacity hover:opacity-70"
         >
           {actionLabel}
+          <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">
+            →
+          </span>
         </Link>
       )}
     </div>
