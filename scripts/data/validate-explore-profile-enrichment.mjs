@@ -7,6 +7,7 @@ const core = fs.readFileSync(path.join(root, 'src/data/explore-core-remote.ts'),
 const queries = fs.readFileSync(path.join(root, 'src/data/queries.ts'), 'utf8');
 const route = fs.readFileSync(path.join(root, 'src/routes/destination.$slug.tsx'), 'utf8');
 const planner = fs.readFileSync(path.join(root, 'src/components/editorial/DestinationVisitPlanner.tsx'), 'utf8');
+const graph = fs.readFileSync(path.join(root, 'src/data/knowledge-graph/explore-adapter.ts'), 'utf8');
 const types = fs.readFileSync(path.join(root, 'src/data/types.ts'), 'utf8');
 const errors = [];
 
@@ -51,23 +52,36 @@ for (const feature of [
   'MAX_REMOTE_DESTINATIONS', 'DESTINATION_FALLBACK_IMAGE',
 ]) if (!core.includes(feature)) errors.push(`Core remote fallback feature missing: ${feature}`);
 
+for (const feature of [
+  'explore_locations(city,county,latitude,longitude)',
+  'explore_entity_sources(source_url,retrieved_at,verified_at)',
+  'explore_entity_activities(explore_activities(key,name))',
+  'explore_entity_amenities(explore_amenities(key,name))',
+  'location.latitude', 'source.source_url', 'activityNames', 'amenityNames',
+  'visibility: \'eq.public\'', 'status: \'in.(published,verified)\'',
+]) if (!graph.includes(feature)) errors.push(`Knowledge graph enrichment feature missing: ${feature}`);
+
+for (const feature of [
+  'destinationSearchDocument',
+  'fetchExploreDestinations({ limit: 5000 })',
+  'fetchCoreExploreDestinations({ limit: 5000 })',
+  'base.filter((document) => document.kind !== "destination")',
+  'destination.managingAuthority',
+  'destination.bestSeason',
+  '...destination.highlights',
+]) if (!queries.includes(feature)) errors.push(`Remote destination search feature missing: ${feature}`);
+
 const enrichedListIndex = queries.indexOf('fetchExploreDestinations(options)');
 const coreListIndex = queries.indexOf('fetchCoreExploreDestinations(options)');
 const fixtureListIndex = queries.indexOf('platform.destinations.list');
-if (!(enrichedListIndex >= 0 && coreListIndex > enrichedListIndex && fixtureListIndex > coreListIndex)) {
-  errors.push('Destination list fallback order must be enriched remote → core remote → fixtures.');
-}
+if (!(enrichedListIndex >= 0 && coreListIndex > enrichedListIndex && fixtureListIndex > coreListIndex)) errors.push('Destination list fallback order must be enriched remote → core remote → fixtures.');
 
 const enrichedDetailIndex = queries.indexOf('fetchExploreDestination(slug)');
 const coreDetailIndex = queries.indexOf('fetchCoreExploreDestination(slug)');
 const fixtureDetailIndex = queries.indexOf('platform.destinations.getBySlug');
-if (!(enrichedDetailIndex >= 0 && coreDetailIndex > enrichedDetailIndex && fixtureDetailIndex > coreDetailIndex)) {
-  errors.push('Destination detail fallback order must be enriched remote → core remote → fixture.');
-}
+if (!(enrichedDetailIndex >= 0 && coreDetailIndex > enrichedDetailIndex && fixtureDetailIndex > coreDetailIndex)) errors.push('Destination detail fallback order must be enriched remote → core remote → fixture.');
 
-if (!remote.includes('visibility: "eq.public"') || !remote.includes('status: "in.(published,verified)"')) {
-  errors.push('Enriched remote Explore publication filters are missing.');
-}
+if (!remote.includes('visibility: "eq.public"') || !remote.includes('status: "in.(published,verified)"')) errors.push('Enriched remote Explore publication filters are missing.');
 
 if (errors.length) {
   console.error('Explore profile enrichment validation failed:');
@@ -75,4 +89,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Explore Phase 1 enrichment, planning, authority, access, discovery, and two-stage remote fallback validation passed.');
+console.log('Explore Phase 1 enrichment, planning, search, AI knowledge graph, authority, access, discovery, and two-stage remote fallback validation passed.');
