@@ -43,7 +43,7 @@ export const Route = createFileRoute('/moving-to-texas-checklist')({
   head: () => ({
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath: '/moving-to-texas-checklist',
-      title: 'Moving to Texas Checklist',
+      title: 'A Smoother First Month in Texas',
       description,
     }),
     links: [canonicalLink(texasDefinedBrand, '/moving-to-texas-checklist')],
@@ -54,7 +54,7 @@ export const Route = createFileRoute('/moving-to-texas-checklist')({
           '@type': 'WebPage',
           '@id': `${pageUrl}#page`,
           url: pageUrl,
-          name: 'Moving to Texas Checklist',
+          name: 'A Smoother First Month in Texas',
           description,
           isPartOf: { '@id': `${siteUrl}/#website` },
           mainEntity: { '@id': `${pageUrl}#howto` },
@@ -63,7 +63,7 @@ export const Route = createFileRoute('/moving-to-texas-checklist')({
         {
           '@type': 'HowTo',
           '@id': `${pageUrl}#howto`,
-          name: 'Moving to Texas checklist',
+          name: 'A moving checklist for your first month in Texas',
           description,
           step: howToSections,
         },
@@ -72,7 +72,7 @@ export const Route = createFileRoute('/moving-to-texas-checklist')({
           '@id': `${pageUrl}#breadcrumbs`,
           itemListElement: [
             { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
-            { '@type': 'ListItem', position: 2, name: 'Moving to Texas', item: `${siteUrl}/moving-to-texas` },
+            { '@type': 'ListItem', position: 2, name: 'Moving Here', item: `${siteUrl}/moving-to-texas` },
             { '@type': 'ListItem', position: 3, name: 'Moving Checklist', item: pageUrl },
           ],
         },
