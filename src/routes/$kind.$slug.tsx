@@ -6,6 +6,8 @@ import { findCompleteTexasEntity, loadTexasKnowledgeGraph } from '@/data/knowled
 import { canonicalEntityPath, rankRelatedEntities } from '@/data/knowledge-graph/relationships';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
+const siteUrl = 'https://texasdefined.com';
+
 export const Route = createFileRoute('/$kind/$slug')({
   loader: async ({ params }) => {
     const graph = await loadTexasKnowledgeGraph();
@@ -33,17 +35,32 @@ function EntityPage() {
   const { entity, related } = Route.useLoaderData();
   const relatedEntities = related.map((item) => item.entity);
   const description = entity.description ?? `A closer look at ${entity.name}, where to find it, and what else is worth seeing nearby.`;
+  const canonicalPath = canonicalEntityPath(entity);
+  const canonicalUrl = `${siteUrl}${canonicalPath}`;
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@type': schemaType(entity.kind),
-    '@id': `https://texasdefined.com${canonicalEntityPath(entity)}#entity`,
-    name: entity.name,
-    alternateName: entity.aliases.length ? entity.aliases : undefined,
-    description: entity.description,
-    url: `https://texasdefined.com${canonicalEntityPath(entity)}`,
-    sameAs: entity.officialUrl ? [entity.officialUrl] : undefined,
-    geo: entity.coordinates ? { '@type': 'GeoCoordinates', latitude: entity.coordinates.latitude, longitude: entity.coordinates.longitude } : undefined,
-    containedInPlace: entity.countySlug ? { '@type': 'AdministrativeArea', name: `${title(entity.countySlug)} County` } : entity.region ? { '@type': 'Place', name: title(entity.region) } : undefined,
+    '@graph': [
+      {
+        '@type': schemaType(entity.kind),
+        '@id': `${canonicalUrl}#entity`,
+        name: entity.name,
+        alternateName: entity.aliases.length ? entity.aliases : undefined,
+        description: entity.description,
+        url: canonicalUrl,
+        sameAs: entity.officialUrl ? [entity.officialUrl] : undefined,
+        geo: entity.coordinates ? { '@type': 'GeoCoordinates', latitude: entity.coordinates.latitude, longitude: entity.coordinates.longitude } : undefined,
+        containedInPlace: entity.countySlug ? { '@type': 'AdministrativeArea', name: `${title(entity.countySlug)} County` } : entity.region ? { '@type': 'Place', name: title(entity.region) } : undefined,
+      },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': `${canonicalUrl}#breadcrumb`,
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
+          { '@type': 'ListItem', position: 2, name: 'Explore Texas', item: `${siteUrl}/explore` },
+          { '@type': 'ListItem', position: 3, name: entity.name, item: canonicalUrl },
+        ],
+      },
+    ],
   };
   return <Container className="py-16 sm:py-24">
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
@@ -79,4 +96,11 @@ function readerLabel(kind: string) {
   };
   return labels[kind] ?? title(kind);
 }
-function schemaType(kind: string) { if (['county','city','region','metro-area'].includes(kind)) return 'AdministrativeArea'; if (['museum','historic-site','mission','battlefield','attraction'].includes(kind)) return 'TouristAttraction'; if (['fair','rodeo','festival','holiday-event','sporting-event'].includes(kind)) return 'Event'; return 'Place'; }
+function schemaType(kind: string) {
+  if (kind === 'city') return 'City';
+  if (['county','region','metro-area'].includes(kind)) return 'AdministrativeArea';
+  if (kind === 'museum') return 'Museum';
+  if (['historic-site','mission','battlefield','attraction'].includes(kind)) return 'TouristAttraction';
+  if (['fair','rodeo','festival','holiday-event','sporting-event'].includes(kind)) return 'Event';
+  return 'Place';
+}
