@@ -5,7 +5,18 @@ import type { Article } from "@/data/types";
 import { formatDate, formatReadingTime } from "@/domain/utils/format";
 import { cn } from "@/lib/utils";
 
+const SECTION_LABELS: Record<string, string> = {
+  "moving-to-texas": "Moving Here",
+  "home-garden": "Front Porch",
+  "texas-history": "Then & Now",
+  "food-bbq": "The Texas Table",
+  outdoors: "Wild Texas",
+  "real-estate": "Putting Down Roots",
+  sports: "The Texas Game",
+};
+
 const editorialLabel = (value: string) =>
+  SECTION_LABELS[value.toLowerCase()] ??
   value
     .replaceAll("-", " ")
     .replace(/\b\w/g, (character) => character.toUpperCase());
