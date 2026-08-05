@@ -6,7 +6,7 @@ import { TEXAS_CITIES } from "@/data/texas-places";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const description =
-  "Find a Texas city by name, county or region, then discover local stories, moving guidance and nearby places worth knowing.";
+  "Find a city by name, county or region, then discover local stories, moving guidance and nearby places worth knowing.";
 
 export const Route = createFileRoute("/browse/cities")({
   head: () => {
@@ -14,7 +14,7 @@ export const Route = createFileRoute("/browse/cities")({
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath: "/browse/cities",
-        title: "Find a Texas City",
+        title: "Find a City",
         description,
       }),
       links: [canonicalLink(texasDefinedBrand, "/browse/cities")],
@@ -26,7 +26,7 @@ export const Route = createFileRoute("/browse/cities")({
               "@type": "CollectionPage",
               "@id": `${pageUrl}#page`,
               url: pageUrl,
-              name: "Find a Texas City",
+              name: "Find a City",
               description,
               isPartOf: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#website` },
               publisher: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#organization` },
@@ -70,7 +70,7 @@ export const Route = createFileRoute("/browse/cities")({
                 {
                   "@type": "ListItem",
                   position: 2,
-                  name: "Texas Cities",
+                  name: "Find a City",
                   item: pageUrl,
                 },
               ],
