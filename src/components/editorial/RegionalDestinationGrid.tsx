@@ -32,10 +32,10 @@ export function RegionalDestinationGrid({
             onClick={() => setVisibleCount((count) => Math.min(count + PAGE_SIZE, destinations.length))}
             className="border border-border bg-background px-6 py-3 text-sm font-medium transition-colors hover:border-primary hover:text-primary"
           >
-            Show {Math.min(PAGE_SIZE, remaining)} more places
+            Keep exploring — {Math.min(PAGE_SIZE, remaining)} more places
           </button>
           <p className="mt-3 text-xs text-muted-foreground">
-            Showing {visible.length.toLocaleString("en-US")} of {destinations.length.toLocaleString("en-US")}
+            {visible.length.toLocaleString("en-US")} of {destinations.length.toLocaleString("en-US")} places on this page
           </p>
         </div>
       )}
