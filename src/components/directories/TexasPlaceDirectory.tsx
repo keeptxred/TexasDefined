@@ -14,8 +14,8 @@ export function TexasPlaceDirectory({ mode }: { mode: "counties" | "cities" }) {
   const title = mode === "counties" ? "Find your Texas county" : "Find a Texas city";
   const intro =
     mode === "counties"
-      ? "Start with a county name, then head straight to the official local offices and information you need."
-      : "Look up a city to find stories, moving information, nearby places and useful local details.";
+      ? "Start with the county name, then head straight to the local offices and answers you need."
+      : "Look up a city for stories, moving advice, nearby places and the details that make daily life easier.";
   const searchLabel = mode === "counties" ? "county" : "city";
 
   return (
@@ -52,10 +52,10 @@ export function TexasPlaceDirectory({ mode }: { mode: "counties" | "cities" }) {
                   key={county.code}
                   className="rounded-md border border-border p-5"
                 >
-                  <p className="eyebrow text-primary">County guide</p>
+                  <p className="eyebrow text-primary">Your county at a glance</p>
                   <h2 className="mt-2 font-display text-2xl">{county.name}</h2>
                   <p className="mt-3 text-sm leading-6 text-muted-foreground">
-                    Find county offices, appraisal information, elections and local services.
+                    County offices, property appraisals, elections and everyday local services.
                   </p>
                   <a
                     className="mt-5 inline-flex items-center gap-2 text-sm font-medium underline"
@@ -63,7 +63,7 @@ export function TexasPlaceDirectory({ mode }: { mode: "counties" | "cities" }) {
                     target="_blank"
                     rel="noreferrer"
                   >
-                    Visit the official county site <ExternalLink className="h-4 w-4" />
+                    Go to the county website <ExternalLink className="h-4 w-4" />
                   </a>
                 </li>
               ))
@@ -76,13 +76,13 @@ export function TexasPlaceDirectory({ mode }: { mode: "counties" | "cities" }) {
                   <p className="eyebrow text-primary">{city.region}</p>
                   <h2 className="mt-2 font-display text-2xl">{city.name}</h2>
                   <p className="mt-3 text-sm leading-6 text-muted-foreground">
-                    {city.county} County · Stories, costs, moving information and places nearby.
+                    {city.county} County · Stories, costs, moving advice and places worth knowing.
                   </p>
                   <a
                     className="mt-5 inline-block text-sm font-medium underline"
                     href={`/search?q=${encodeURIComponent(city.name)}`}
                   >
-                    See what we have on {city.name}
+                    See our {city.name} picks
                   </a>
                 </li>
               ))}
