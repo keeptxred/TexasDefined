@@ -16,7 +16,6 @@ import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { installTexasDefinedAnalytics } from "@/platform/analytics";
-import { canonicalLink } from "@/lib/seo";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
@@ -70,7 +69,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:site", content: texasDefinedBrand.seo.twitterSite ?? "" },
     ],
     links: [
-      canonicalLink(texasDefinedBrand, "/"),
       { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
