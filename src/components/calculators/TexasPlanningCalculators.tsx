@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, type ReactNode } from 'react';
 
 const money = (value: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(Number.isFinite(value) ? value : 0);
 const number = (value: unknown) => Math.max(0, Number(value) || 0);
@@ -7,7 +7,7 @@ function Field({ label, value, onChange, step = 1, suffix }: { label: string; va
   return <label className="space-y-2"><span className="text-sm font-medium">{label}</span><div className="flex items-center rounded border border-border bg-background"><input className="w-full bg-transparent p-3 outline-none" type="number" min="0" step={step} value={value} onChange={(event) => onChange(number(event.target.value))} />{suffix ? <span className="pr-3 text-sm text-muted-foreground">{suffix}</span> : null}</div></label>;
 }
 function Results({ values }: { values: Array<[string, string]> }) { return <section className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{values.map(([label, value]) => <article key={label} className="rounded-lg bg-muted p-5"><p className="text-sm text-muted-foreground">{label}</p><strong className="mt-2 block font-display text-2xl">{value}</strong></article>)}</section>; }
-function Shell({ children, note }: { children: React.ReactNode; note: string }) { return <><section className="mt-10 grid gap-5 rounded-lg border border-border p-6 sm:grid-cols-2 lg:grid-cols-3">{children}</section><p className="mt-6 rounded-lg border border-border p-5 text-sm leading-6 text-muted-foreground"><strong className="text-foreground">Planning estimate only.</strong> {note}</p></>; }
+function Shell({ children, note }: { children: ReactNode; note: string }) { return <><section className="mt-10 grid gap-5 rounded-lg border border-border p-6 sm:grid-cols-2 lg:grid-cols-3">{children}</section><p className="mt-6 rounded-lg border border-border p-5 text-sm leading-6 text-muted-foreground"><strong className="text-foreground">Planning estimate only.</strong> {note}</p></>; }
 
 export function MortgageCalculator() {
   const [price, setPrice] = useState(400000), [down, setDown] = useState(80000), [rate, setRate] = useState(6.5), [years, setYears] = useState(30), [tax, setTax] = useState(2.1), [insurance, setInsurance] = useState(2400);
