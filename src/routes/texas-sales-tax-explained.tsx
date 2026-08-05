@@ -47,8 +47,8 @@ export const Route = createFileRoute('/texas-sales-tax-explained')({
           '@id': `${pageUrl}#breadcrumbs`,
           itemListElement: [
             { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
-            { '@type': 'ListItem', position: 2, name: 'Living in Texas', item: `${siteUrl}/texas-living` },
-            { '@type': 'ListItem', position: 3, name: 'Texas Sales Tax Explained', item: pageUrl },
+            { '@type': 'ListItem', position: 2, name: 'Living Here', item: `${siteUrl}/texas-living` },
+            { '@type': 'ListItem', position: 3, name: 'How Texas Sales Tax Works', item: pageUrl },
           ],
         },
       ],
@@ -65,15 +65,15 @@ function Page() {
           <ol className="flex flex-wrap items-center gap-2">
             <li><Link to="/" className="hover:text-foreground">Home</Link></li>
             <li aria-hidden="true">/</li>
-            <li><Link to="/texas-living" className="hover:text-foreground">Living in Texas</Link></li>
+            <li><Link to="/texas-living" className="hover:text-foreground">Living Here</Link></li>
             <li aria-hidden="true">/</li>
-            <li aria-current="page" className="text-foreground">Texas Sales Tax Explained</li>
+            <li aria-current="page" className="text-foreground">How Texas Sales Tax Works</li>
           </ol>
         </nav>
-        <p className="eyebrow text-primary">Texas taxes</p>
-        <h1>Texas Sales Tax Explained</h1>
+        <p className="eyebrow text-primary">Good to know</p>
+        <h1>How Texas sales tax works</h1>
         <p className="lead">{description}</p>
-        <h2>Why the rate can change from place to place</h2>
+        <h2>Why the rate changes from place to place</h2>
         <p>A purchase can include the statewide rate plus city, county, transit or special-district taxes. The final number depends on what you bought, where the sale happened, where it was delivered and how Texas sourcing rules apply.</p>
         <h2>What is usually taxed—and what may not be</h2>
         <p>Most sales of physical goods are taxable unless an exemption applies. Some services are taxed, while many basic groceries and certain medical, agricultural, manufacturing, resale or nonprofit purchases may be treated differently. The paperwork has to match the exemption.</p>
@@ -85,7 +85,7 @@ function Page() {
         <ol>
           {checklist.map((item, index) => <li id={`sales-tax-step-${index + 1}`} key={item}>{item}</li>)}
         </ol>
-        <p><a href="https://comptroller.texas.gov/taxes/sales/" rel="noreferrer">Check the Texas Comptroller's sales-tax guidance</a></p>
+        <p><a href="https://comptroller.texas.gov/taxes/sales/" rel="noreferrer">Check the latest guidance from the Texas Comptroller</a></p>
         <aside className="not-prose mt-10 rounded-lg bg-muted p-5 text-sm text-muted-foreground">Tax rules and agency guidance can change. Confirm a specific filing, rate or exemption with the Texas Comptroller or a qualified tax professional.</aside>
       </article>
     </Container>
