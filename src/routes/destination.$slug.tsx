@@ -41,16 +41,18 @@ export const Route = createFileRoute("/destination/$slug")({
     const destination = await context.queryClient.ensureQueryData(destinationQuery(params.slug));
     if (!destination) throw notFound();
 
-    const [graph, categories, catalog, regions, relatedArticles] = await Promise.all([
+    const [graph, categories, catalog, regions, relatedArticles, categoryCatalog] = await Promise.all([
       loadTexasKnowledgeGraph(),
       context.queryClient.ensureQueryData(categoriesQuery()),
       context.queryClient.ensureQueryData(destinationsQuery({ limit: 5000 })),
       context.queryClient.ensureQueryData(regionsQuery()),
       context.queryClient.ensureQueryData(articlesQuery({ category: destination.category, limit: 3 })),
+      context.queryClient.ensureQueryData(destinationsQuery({ category: destination.category, limit: 16 })),
     ]);
 
     const relationshipGroups = buildDestinationRelationshipGroups(destination, catalog);
-    return { destination, graph, categories, regions, relatedArticles, relationshipGroups };
+    const relatedDestinations = categoryCatalog.filter((item) => item.slug !== destination.slug).slice(0, 6);
+    return { destination, graph, categories, regions, relatedArticles, relationshipGroups, relatedDestinations };
   },
   head: ({ loaderData, params }) => {
     if (!loaderData) return { meta: [{ title: "Unavailable" }, { name: "robots", content: "noindex, nofollow" }] };
