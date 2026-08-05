@@ -3,6 +3,7 @@ import './validate-events-seo.mjs';
 import './validate-explore-landing-seo.mjs';
 import './validate-moving-checklist-seo.mjs';
 import './validate-practical-guides-seo.mjs';
+import './validate-property-tax-guide-seo.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 
