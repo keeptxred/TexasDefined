@@ -16,6 +16,9 @@ import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { installTexasDefinedAnalytics } from "@/platform/analytics";
+import { canonicalLink } from "@/lib/seo";
+
+const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
 function NotFoundComponent() {
   return (
@@ -56,18 +59,52 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: texasDefinedBrand.seo.defaultTitle },
       { name: "description", content: texasDefinedBrand.seo.defaultDescription },
       { name: "author", content: texasDefinedBrand.identity.name },
+      { property: "og:title", content: texasDefinedBrand.seo.defaultTitle },
+      { property: "og:description", content: texasDefinedBrand.seo.defaultDescription },
+      { property: "og:url", content: siteUrl },
       { property: "og:site_name", content: texasDefinedBrand.identity.name },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: texasDefinedBrand.seo.defaultTitle },
+      { name: "twitter:description", content: texasDefinedBrand.seo.defaultDescription },
       { name: "twitter:site", content: texasDefinedBrand.seo.twitterSite ?? "" },
     ],
     links: [
+      canonicalLink(texasDefinedBrand, "/"),
       { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Public+Sans:wght@400;500;600&display=swap" },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
     ],
+    scripts: [{
+      type: "application/ld+json",
+      children: JSON.stringify({
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": `${siteUrl}/#organization`,
+            name: texasDefinedBrand.identity.name,
+            url: siteUrl,
+            logo: `${siteUrl}/favicon.ico`,
+          },
+          {
+            "@type": "WebSite",
+            "@id": `${siteUrl}/#website`,
+            name: texasDefinedBrand.identity.name,
+            url: siteUrl,
+            description: texasDefinedBrand.seo.defaultDescription,
+            publisher: { "@id": `${siteUrl}/#organization` },
+            potentialAction: {
+              "@type": "SearchAction",
+              target: `${siteUrl}/search?q={search_term_string}`,
+              "query-input": "required name=search_term_string",
+            },
+          },
+        ],
+      }),
+    }],
   }),
   shellComponent: RootShell,
   component: RootComponent,
