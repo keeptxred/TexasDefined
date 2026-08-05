@@ -41,18 +41,22 @@ for (const feature of [
   if (!categoryPage.includes(feature)) errors.push(`Visible Explore category breadcrumb feature missing: ${feature}.`);
 }
 
-for (const category of ['caverns', 'beaches-coast', 'historic-sites']) {
+for (const category of ['major-springs', 'national-parks', 'caverns', 'beaches-coast', 'historic-sites']) {
   if (!types.includes(`| "${category}"`)) errors.push(`Category type missing: ${category}.`);
   if (!fixtures.includes(`slug: "${category}"`)) errors.push(`Category metadata missing: ${category}.`);
   if (!landing.includes(`"${category}"`)) errors.push(`Explore landing category missing: ${category}.`);
 }
 
 for (const feature of [
+  'return "major-springs"',
+  'return "national-parks"',
   'return "caverns"',
   'return "beaches-coast"',
   'return "historic-sites"',
   'explore_entity_types(key,name)',
   'MAX_REMOTE_DESTINATIONS',
+  'const scanLimit = options.category ? MAX_REMOTE_DESTINATIONS : resultLimit',
+  '.slice(0, resultLimit)',
 ]) {
   if (!remote.includes(feature)) errors.push(`Migrated Explore catalog feature missing: ${feature}.`);
 }
@@ -63,4 +67,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Explore category CollectionPage, migrated category, ItemList, and visible breadcrumb validation passed.');
+console.log('Explore category CollectionPage, migrated category, post-filter limits, ItemList, and visible breadcrumb validation passed.');
