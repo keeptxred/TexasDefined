@@ -6,6 +6,12 @@ import { Container } from "@/components/layout/Container";
 import { distanceMiles, type DestinationRelationshipGroup } from "@/data/destination-relationships";
 import type { Destination } from "@/data/types";
 
+/**
+ * Renders the relationship groups produced by the engine, in order:
+ * "Nearby places", "More near the closest town",
+ * "Pair this stop with something different", "People also visit",
+ * "More in this part of Texas".
+ */
 export function DestinationRelationships({
   destination,
   groups,
