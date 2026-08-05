@@ -33,6 +33,7 @@ for (const feature of [
 
 for (const feature of [
   'Visit official source',
+  'Official visitor information',
   'Check reservations',
   'Source checked',
   'destination.hero.credit',
@@ -40,8 +41,15 @@ for (const feature of [
   'sameAs: destination.officialUrl',
   'dateModified: destination.sourceCheckedAt',
   'provider: { "@type": "Organization"',
+  'destinationsQuery({ category: destination.category, limit: 16 })',
+  'relatedDestinations',
+  'Where to point the car next',
+  'destination.accessibilityNotes',
+  'destination.directions',
+  'destination.address',
+  'destination.county',
 ]) {
-  if (!route.includes(feature)) errors.push(`Destination authority feature missing: ${feature}`);
+  if (!route.includes(feature)) errors.push(`Destination authority or discovery feature missing: ${feature}`);
 }
 
 for (const feature of [
@@ -49,6 +57,10 @@ for (const feature of [
   'officialUrl?: string',
   'sourceCheckedAt?: string',
   'reservationUrl?: string',
+  'county?: string',
+  'address?: string',
+  'directions?: string',
+  'accessibilityNotes?: string',
 ]) {
   if (!types.includes(feature)) errors.push(`Destination authority type missing: ${feature}`);
 }
@@ -63,4 +75,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Explore profile, activity, amenity, media, source, and authority enrichment validation passed.');
+console.log('Explore profile, activity, amenity, media, source, authority, access, and nearby-destination enrichment validation passed.');
