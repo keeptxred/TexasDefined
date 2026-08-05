@@ -47,8 +47,8 @@ export const Route = createFileRoute('/texas-first-time-homebuyer-programs')({
           '@id': `${pageUrl}#breadcrumbs`,
           itemListElement: [
             { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
-            { '@type': 'ListItem', position: 2, name: 'Living in Texas', item: `${siteUrl}/texas-living` },
-            { '@type': 'ListItem', position: 3, name: 'First-Time Homebuyer Programs', item: pageUrl },
+            { '@type': 'ListItem', position: 2, name: 'Living Here', item: `${siteUrl}/texas-living` },
+            { '@type': 'ListItem', position: 3, name: 'Buying Your First Home', item: pageUrl },
           ],
         },
       ],
@@ -65,13 +65,13 @@ function Page() {
           <ol className="flex flex-wrap items-center gap-2">
             <li><Link to="/" className="hover:text-foreground">Home</Link></li>
             <li aria-hidden="true">/</li>
-            <li><Link to="/texas-living" className="hover:text-foreground">Living in Texas</Link></li>
+            <li><Link to="/texas-living" className="hover:text-foreground">Living Here</Link></li>
             <li aria-hidden="true">/</li>
-            <li aria-current="page" className="text-foreground">First-Time Homebuyer Programs</li>
+            <li aria-current="page" className="text-foreground">Buying Your First Home</li>
           </ol>
         </nav>
-        <p className="eyebrow text-primary">Buying a Texas home</p>
-        <h1>Texas First-Time Homebuyer Programs</h1>
+        <p className="eyebrow text-primary">Putting down roots</p>
+        <h1>Buying your first Texas home</h1>
         <p className="lead">{description}</p>
         <h2>First, find your comfortable number</h2>
         <p>Start with the full monthly cost—not just the mortgage. Add property taxes, homeowners insurance, mortgage insurance, HOA dues, utilities, maintenance and room for the unexpected.</p>
@@ -80,17 +80,17 @@ function Page() {
           <Link className="rounded-lg border p-5 font-medium" to="/texas-down-payment-assistance-calculator">Estimate possible assistance</Link>
           <Link className="rounded-lg border p-5 font-medium" to="/texas-closing-cost-calculator">Plan for closing costs</Link>
         </div>
-        <h2>What assistance can look like</h2>
+        <h2>The different ways help may work</h2>
         <p>Help may come as a grant, a forgivable lien, a deferred loan, a second mortgage, a mortgage-credit certificate or a lender-specific offer. Compare the interest rate, repayment terms, cash needed at closing and what happens if you sell or refinance.</p>
-        <h2>Your homebuyer checklist</h2>
+        <h2>Your before-you-buy checklist</h2>
         <ol>
           {checklist.map((item, index) => <li id={`homebuyer-step-${index + 1}`} key={item}>{item}</li>)}
         </ol>
-        <h2>Good places to start</h2>
+        <h2>Where to check first</h2>
         <ul>
           <li><a href="https://welcomehome.tdhca.texas.gov/" rel="noreferrer">Texas Department of Housing and Community Affairs homebuyer programs</a></li>
           <li><a href="https://www.tdhca.texas.gov/help-for-texans" rel="noreferrer">TDHCA Help for Texans</a></li>
-          <li><a href="https://www.hud.gov/states/texas" rel="noreferrer">HUD resources for Texas buyers</a></li>
+          <li><a href="https://www.hud.gov/states/texas" rel="noreferrer">HUD guidance for Texas buyers</a></li>
         </ul>
         <aside className="not-prose mt-10 rounded-lg bg-muted p-5 text-sm text-muted-foreground">Programs, rates, funding and limits change. Confirm the details with the agency and participating lender before making a decision.</aside>
       </article>
