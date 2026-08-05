@@ -24,6 +24,8 @@ const staticPublicPaths = [
   "/texas-sales-tax-explained", "/texas-utility-cost-calculator",
 ];
 
+type SitemapEntry = { path: string; lastmod?: string };
+
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
@@ -36,19 +38,23 @@ export const Route = createFileRoute("/sitemap.xml")({
           loadTexasKnowledgeGraph(),
         ]);
 
-        const paths = [
-          ...staticPublicPaths,
-          ...categories.map((category) => `/explore/${category.slug}`),
-          ...collections.map((collection) => `/shop/${collection.slug}`),
-          ...articles.map((article) => `/article/${article.slug}`),
-          ...destinations.map((destination) => `/destination/${destination.slug}`),
-          ...graph.filter((entity) => entity.status === "active" || entity.status === "seasonal").map(canonicalEntityPath),
+        const entries: SitemapEntry[] = [
+          ...staticPublicPaths.map((path) => ({ path })),
+          ...categories.map((category) => ({ path: `/explore/${category.slug}` })),
+          ...collections.map((collection) => ({ path: `/shop/${collection.slug}` })),
+          ...articles.map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(article.publishedAt) })),
+          ...destinations.map((destination) => ({ path: `/destination/${destination.slug}` })),
+          ...graph
+            .filter((entity) => entity.status === "active" || entity.status === "seasonal")
+            .map((entity) => ({ path: canonicalEntityPath(entity), lastmod: toDate(entity.sourceCheckedAt) })),
         ];
 
-        const uniquePaths = [...new Set(paths)].filter((path) => !path.startsWith("/admin") && !path.startsWith("/api/") && path !== "/search" && path !== "/explore/search");
+        const uniqueEntries = [...new Map(entries
+          .filter(({ path }) => !path.startsWith("/admin") && !path.startsWith("/api/") && path !== "/search" && path !== "/explore/search")
+          .map((entry) => [entry.path, entry])).values()];
         const body = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${uniquePaths.map((path) => `  <url><loc>${origin}${path}</loc></url>`).join("\n")}
+${uniqueEntries.map(({ path, lastmod }) => `  <url><loc>${escapeXml(`${origin}${path}`)}</loc>${lastmod ? `<lastmod>${lastmod}</lastmod>` : ""}</url>`).join("\n")}
 </urlset>`;
 
         return new Response(body, { headers: { "content-type": "application/xml; charset=utf-8", "cache-control": "public, max-age=3600" } });
@@ -56,3 +62,13 @@ ${uniquePaths.map((path) => `  <url><loc>${origin}${path}</loc></url>`).join("\n
     },
   },
 });
+
+function toDate(value?: string) {
+  if (!value) return undefined;
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? undefined : date.toISOString().slice(0, 10);
+}
+
+function escapeXml(value: string) {
+  return value.replace(/[&<>"']/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&apos;" })[character] ?? character);
+}
