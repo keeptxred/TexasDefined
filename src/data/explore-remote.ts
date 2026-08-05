@@ -65,6 +65,20 @@ function entityType(row: Record<string, unknown>): string {
   return String(row.entity_type_key || row.entity_type || row.type || "");
 }
 
+/** Human-readable entity type label from the catalog taxonomy. */
+function readableType(row: Record<string, unknown>): string {
+  const relation = row.explore_entity_types;
+  const record = Array.isArray(relation) ? relation[0] : relation;
+  if (record && typeof record === "object") {
+    const label = String((record as Record<string, unknown>).name || "");
+    if (label) return label;
+  }
+  const key = entityType(row);
+  return key ? key.replace(/[_-]+/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()) : "";
+}
+
+
+
 function category(value: unknown): CategorySlug {
   const normalized = String(value || "").toLowerCase().replace(/[\s-]+/g, "_");
   if (["national_park", "national_monument", "national_preserve", "national_seashore"].some((type) => normalized.includes(type))) {
