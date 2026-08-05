@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { useBrand } from "@/brand/context";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { NewsletterSignup } from "@/components/editorial/NewsletterSignup";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
@@ -76,8 +75,6 @@ const PRINCIPLES = [
 ];
 
 function AboutPage() {
-  const brand = useBrand();
-
   return (
     <>
       <Container className="pb-6 pt-16 sm:pt-24">
@@ -107,16 +104,8 @@ function AboutPage() {
       </Section>
 
       <Section tone="surface">
-        <Container className="max-w-2xl">
-          <SectionHeader
-            eyebrow="Stay in touch"
-            title={brand.copy.newsletterHeading}
-            description={brand.copy.newsletterBody}
-            align="center"
-          />
-          <div className="mt-8">
-            <NewsletterSignup />
-          </div>
+        <Container className="max-w-4xl">
+          <NewsletterSignup />
         </Container>
       </Section>
     </>
