@@ -1,5 +1,5 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { createFileRoute, notFound, redirect } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound, redirect } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { CategoryPage } from "@/components/editorial/CategoryPage";
@@ -119,9 +119,15 @@ function CategoryNotFound() {
     <Container className="py-24">
       <p className="eyebrow text-primary">A different road</p>
       <h1 className="mt-3 font-display text-3xl">We haven't made that list yet</h1>
-      <p className="mt-3 text-sm text-muted-foreground">
-        Try another part of Explore and find somewhere worth the drive.
+      <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">
+        The page may have moved, but there are still plenty of places worth the drive.
       </p>
+      <Link
+        to="/explore"
+        className="eyebrow mt-6 inline-block border-b border-primary pb-1 text-primary"
+      >
+        Find another road →
+      </Link>
     </Container>
   );
 }
