@@ -9,6 +9,12 @@ const KIND_LABEL: Record<Guide["kind"], string> = {
   checklist: "Step-by-step",
 };
 
+function topicLabel(topic: string) {
+  return topic
+    .replaceAll("-", " ")
+    .replace(/\b\w/g, (letter) => letter.toUpperCase());
+}
+
 export function GuideCard({ guide }: { guide: Guide }) {
   const brand = useBrand();
   const contract = getCalculator(guide.calculatorId);
@@ -31,7 +37,7 @@ export function GuideCard({ guide }: { guide: Guide }) {
           {guide.status === "coming-soon" && <p className="mt-3">{brand.copy.comingSoonBody}</p>}
         </div>
       )}
-      <p className="mt-5 text-sm text-muted-foreground">Good to know · {guide.topic}</p>
+      <p className="mt-5 text-sm text-muted-foreground">Good to know · {topicLabel(guide.topic)}</p>
     </article>
   );
 }
