@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { Container } from '@/components/layout/Container';
 import { texasDefinedBrand } from '@/brand/texasdefined';
-import { buildMeta, canonicalLink, jsonLdScript } from '@/lib/seo';
+import { buildMeta, canonicalLink } from '@/lib/seo';
 
 const description = 'A simple starting point for the questions that come with moving, buying, owning a home and finding your way around the state.';
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
@@ -50,6 +50,37 @@ const itemListElement = resourceLinks.map(([name, path], index) => ({
   },
 }));
 
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'CollectionPage',
+      '@id': `${pageUrl}#page`,
+      url: pageUrl,
+      name: 'Texas Resources',
+      description,
+      isPartOf: { '@id': `${siteUrl}/#website` },
+      mainEntity: { '@id': `${pageUrl}#resources` },
+      breadcrumb: { '@id': `${pageUrl}#breadcrumbs` },
+    },
+    {
+      '@type': 'ItemList',
+      '@id': `${pageUrl}#resources`,
+      name: 'Texas resources and practical guides',
+      numberOfItems: itemListElement.length,
+      itemListElement,
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${pageUrl}#breadcrumbs`,
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
+        { '@type': 'ListItem', position: 2, name: 'Texas Resources', item: pageUrl },
+      ],
+    },
+  ],
+};
+
 export const Route = createFileRoute('/texas-resources')({
   head: () => ({
     meta: buildMeta(texasDefinedBrand, {
@@ -58,36 +89,7 @@ export const Route = createFileRoute('/texas-resources')({
       description,
     }),
     links: [canonicalLink(texasDefinedBrand, '/texas-resources')],
-    scripts: [jsonLdScript({
-      '@context': 'https://schema.org',
-      '@graph': [
-        {
-          '@type': 'CollectionPage',
-          '@id': `${pageUrl}#page`,
-          url: pageUrl,
-          name: 'Texas Resources',
-          description,
-          isPartOf: { '@id': `${siteUrl}/#website` },
-          mainEntity: { '@id': `${pageUrl}#resources` },
-          breadcrumb: { '@id': `${pageUrl}#breadcrumbs` },
-        },
-        {
-          '@type': 'ItemList',
-          '@id': `${pageUrl}#resources`,
-          name: 'Texas resources and practical guides',
-          numberOfItems: itemListElement.length,
-          itemListElement,
-        },
-        {
-          '@type': 'BreadcrumbList',
-          '@id': `${pageUrl}#breadcrumbs`,
-          itemListElement: [
-            { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
-            { '@type': 'ListItem', position: 2, name: 'Texas Resources', item: pageUrl },
-          ],
-        },
-      ],
-    })],
+    scripts: [{ type: 'application/ld+json', children: JSON.stringify(structuredData) }],
   }),
   component: Page,
 });
