@@ -9,28 +9,61 @@ import { Container } from "@/components/layout/Container";
 import { articleQuery, articlesQuery, authorsQuery } from "@/data/queries";
 import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
 import { formatDate, formatReadingTime } from "@/domain/utils/format";
-import { buildMeta, canonicalLink } from "@/lib/seo";
+import { buildMeta, canonicalLink, schemaTypeForEntityKind } from "@/lib/seo";
+
+const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
 export const Route = createFileRoute("/article/$slug")({
   loader: async ({ context, params }) => {
     const article = await context.queryClient.ensureQueryData(articleQuery(params.slug));
     if (!article) throw notFound();
-    const [, , graph] = await Promise.all([
+    const [authors, , graph] = await Promise.all([
       context.queryClient.ensureQueryData(authorsQuery()),
       context.queryClient.ensureQueryData(articlesQuery({ category: article.category, limit: 4 })),
       loadTexasKnowledgeGraph(),
     ]);
-    return { article, graph };
+    return { article, authors, graph };
   },
   head: ({ loaderData, params }) => {
-    if (!loaderData) return { meta: [{ title: "Unavailable" }, { name: "robots", content: "noindex" }] };
-    const { article, graph } = loaderData;
-    const text = [article.title, article.dek, ...article.body.flatMap((block) => block.type === 'list' ? block.items : 'text' in block ? [block.text] : [])].join(' ').toLowerCase();
-    const mentions = graph.filter((entity) => [entity.name, ...entity.aliases].some((label) => label.length >= 4 && text.includes(label.toLowerCase()))).slice(0, 20);
+    if (!loaderData) return { meta: [{ title: "Unavailable" }, { name: "robots", content: "noindex, nofollow" }] };
+    const { article, authors, graph } = loaderData;
+    const articleUrl = `${siteUrl}/article/${params.slug}`;
+    const author = authors.find((item) => item.id === article.authorId);
+    const text = [article.title, article.dek, ...article.body.flatMap((block) => block.type === "list" ? block.items : "text" in block ? [block.text] : [])].join(" ").toLowerCase();
+    const mentions = graph.filter((entity) => [entity.name, ...entity.aliases].some((label) => {
+      if (label.length < 4) return false;
+      const escaped = label.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      return new RegExp(`(^|\\W)${escaped}(?=$|\\W)`, "i").test(text);
+    })).slice(0, 20);
+
     return {
-      meta: [...buildMeta(texasDefinedBrand, { title: article.title, description: article.dek, type: "article" }), { property: "article:published_time", content: article.publishedAt }],
+      meta: buildMeta(texasDefinedBrand, {
+        title: article.title,
+        description: article.dek,
+        type: "article",
+        canonicalPath: `/article/${params.slug}`,
+        image: article.hero.src,
+        imageAlt: article.hero.alt,
+        publishedTime: article.publishedAt,
+      }),
       links: [canonicalLink(texasDefinedBrand, `/article/${params.slug}`)],
-      scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@type": "Article", headline: article.title, description: article.dek, datePublished: article.publishedAt, articleSection: article.category, publisher: { "@type": "Organization", name: texasDefinedBrand.identity.name }, mentions: mentions.map((entity) => ({ "@type": "Place", name: entity.name, url: `https://texasdefined.com/${entity.kind}/${entity.slug}` })) }) }],
+      scripts: [{ type: "application/ld+json", children: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "@id": `${articleUrl}#article`,
+        url: articleUrl,
+        mainEntityOfPage: { "@type": "WebPage", "@id": articleUrl },
+        headline: article.title,
+        description: article.dek,
+        image: [{ "@type": "ImageObject", url: article.hero.src, caption: article.hero.alt, width: article.hero.width, height: article.hero.height }],
+        datePublished: article.publishedAt,
+        articleSection: article.category,
+        keywords: article.tags,
+        isAccessibleForFree: true,
+        author: author ? { "@type": "Person", name: author.name } : { "@type": "Organization", name: texasDefinedBrand.identity.name },
+        publisher: { "@type": "Organization", "@id": `${siteUrl}/#organization`, name: texasDefinedBrand.identity.name, url: siteUrl },
+        mentions: mentions.map((entity) => ({ "@type": schemaTypeForEntityKind(entity.kind), name: entity.name, url: `${siteUrl}/${entity.kind}/${entity.slug}` })),
+      }) }],
     };
   },
   notFoundComponent: () => <Container className="py-24"><h1 className="font-display text-3xl">That story isn't here</h1><p className="mt-3 text-sm text-muted-foreground">It may have moved. <Link to="/explore" className="text-primary underline">Browse Explore</Link>.</p></Container>,
