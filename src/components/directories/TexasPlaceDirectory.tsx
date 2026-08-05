@@ -1,8 +1,11 @@
-import { useMemo, useState } from "react";
 import { ExternalLink, Search } from "lucide-react";
+import { useMemo, useState } from "react";
 
 import { Container } from "@/components/layout/Container";
 import { findTexasPlaces } from "@/data/texas-places";
+
+export const countyAnchor = (slug: string) => `county-${slug}`;
+export const cityAnchor = (slug: string) => `city-${slug}`;
 
 export function TexasPlaceDirectory({ mode }: { mode: "counties" | "cities" }) {
   const [query, setQuery] = useState("");
@@ -44,7 +47,11 @@ export function TexasPlaceDirectory({ mode }: { mode: "counties" | "cities" }) {
         <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {mode === "counties"
             ? results.counties.map((county) => (
-                <li key={county.code} className="rounded-md border border-border p-5">
+                <li
+                  id={countyAnchor(county.slug)}
+                  key={county.code}
+                  className="rounded-md border border-border p-5"
+                >
                   <p className="eyebrow text-primary">County guide</p>
                   <h2 className="mt-2 font-display text-2xl">{county.name}</h2>
                   <p className="mt-3 text-sm leading-6 text-muted-foreground">
@@ -61,7 +68,11 @@ export function TexasPlaceDirectory({ mode }: { mode: "counties" | "cities" }) {
                 </li>
               ))
             : results.cities.map((city) => (
-                <li key={city.slug} className="rounded-md border border-border p-5">
+                <li
+                  id={cityAnchor(city.slug)}
+                  key={city.slug}
+                  className="rounded-md border border-border p-5"
+                >
                   <p className="eyebrow text-primary">{city.region}</p>
                   <h2 className="mt-2 font-display text-2xl">{city.name}</h2>
                   <p className="mt-3 text-sm leading-6 text-muted-foreground">
