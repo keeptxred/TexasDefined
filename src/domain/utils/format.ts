@@ -28,7 +28,7 @@ export function formatPrice(cents: number, currency = "USD", locale = "en-US"): 
 }
 
 export function formatReadingTime(minutes: number): string {
-  return `${minutes} min read`;
+  return `About ${minutes} minute${minutes === 1 ? "" : "s"}`;
 }
 
 export function slugify(value: string): string {
