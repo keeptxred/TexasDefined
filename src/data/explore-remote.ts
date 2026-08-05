@@ -190,7 +190,7 @@ export async function fetchExploreDestinations(
   // limit or valid category records later in the ordered catalog can disappear.
   const scanLimit = options.category ? MAX_REMOTE_DESTINATIONS : resultLimit;
   const params = new URLSearchParams({
-    select: "*,explore_entity_types(key,name)",
+    select: "*,explore_entity_types(key,name),explore_locations(city,county,latitude,longitude)",
     visibility: "eq.public",
     status: "in.(published,verified)",
     order: "featured.desc,popularity_score.desc,name.asc",
@@ -216,7 +216,7 @@ export async function fetchExploreDestinations(
 
 export async function fetchExploreDestination(slug: string): Promise<Destination | null> {
   if (!hasExploreRemoteData()) return null;
-  const params = new URLSearchParams({ select: "*,explore_entity_types(key,name)", slug: `eq.${slug}`, limit: "1" });
+  const params = new URLSearchParams({ select: "*,explore_entity_types(key,name),explore_locations(city,county,latitude,longitude)", slug: `eq.${slug}`, limit: "1" });
   const response = await fetch(`${supabaseUrl}/rest/v1/explore_entities?${params}`, { headers: headers() });
   if (!response.ok) throw new Error(`Explore destination request failed: ${response.status}`);
   const rows = await response.json();
