@@ -29,6 +29,31 @@ function region(value: unknown): TexasRegion {
   return "prairies-lakes";
 }
 
+/**
+ * The shared catalog stores coordinates, not a named tourism region, so fall
+ * back to the published Texas travel-region boundaries when no region string
+ * is supplied by the record.
+ */
+function regionFromCoordinates(lat: number, lng: number): TexasRegion | undefined {
+  if (!Number.isFinite(lat) || !Number.isFinite(lng) || (lat === 0 && lng === 0)) return undefined;
+  if (lat >= 33) return "panhandle";
+  if (lng <= -100) return "big-bend";
+  if (lng >= -95.5 && lat >= 30) return "piney-woods";
+  if (lat <= 28.6) return "south-texas";
+  if (lat >= 29.4 && lat <= 31.4 && lng <= -97.6) return "hill-country";
+  if (lng >= -97.6 && lat <= 30.2) return "gulf-coast";
+  return "prairies-lakes";
+}
+
+/** Embedded `explore_locations` row, when the catalog provides one. */
+function locationOf(row: Record<string, unknown>): Record<string, unknown> {
+  const relation = row.explore_locations;
+  if (Array.isArray(relation)) return (relation[0] as Record<string, unknown>) ?? {};
+  if (relation && typeof relation === "object") return relation as Record<string, unknown>;
+  return {};
+}
+
+
 function entityType(row: Record<string, unknown>): string {
   const relation = row.explore_entity_types;
   if (relation && typeof relation === "object" && !Array.isArray(relation)) {
@@ -39,6 +64,20 @@ function entityType(row: Record<string, unknown>): string {
   }
   return String(row.entity_type_key || row.entity_type || row.type || "");
 }
+
+/** Human-readable entity type label from the catalog taxonomy. */
+function readableType(row: Record<string, unknown>): string {
+  const relation = row.explore_entity_types;
+  const record = Array.isArray(relation) ? relation[0] : relation;
+  if (record && typeof record === "object") {
+    const label = String((record as Record<string, unknown>).name || "");
+    if (label) return label;
+  }
+  const key = entityType(row);
+  return key ? key.replace(/[_-]+/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()) : "";
+}
+
+
 
 function category(value: unknown): CategorySlug {
   const normalized = String(value || "").toLowerCase().replace(/[\s-]+/g, "_");
@@ -88,11 +127,17 @@ function destinationImage(value: unknown): string {
 }
 
 function mapRow(row: Record<string, unknown>): Destination {
-  const summary = String(row.summary || row.short_description || row.long_description || "Explore this Texas destination.");
-  const lat = Number(row.latitude ?? row.lat ?? 0);
-  const lng = Number(row.longitude ?? row.lng ?? 0);
-  const image = destinationImage(row.hero_image_url ?? row.image_url);
+  const place = locationOf(row);
+  const name = String(row.name || "Texas destination");
   const type = entityType(row);
+  const typeLabel = readableType(row) || "Texas destination";
+  const town = String(place.city || row.city || row.nearest_town || place.county || row.county || "Texas");
+  const summary = String(
+    row.summary || row.short_description || row.long_description || `${typeLabel} near ${town}, Texas.`,
+  );
+  const lat = Number(place.latitude ?? row.latitude ?? row.lat ?? 0);
+  const lng = Number(place.longitude ?? row.longitude ?? row.lng ?? 0);
+  const image = destinationImage(row.hero_image_url ?? row.image_url);
   const highlights = [...stringArray(row.activities), ...stringArray(row.highlights), ...stringArray(row.alternate_names)]
     .filter((item, index, all) => all.indexOf(item) === index)
     .slice(0, 8);
@@ -101,15 +146,18 @@ function mapRow(row: Record<string, unknown>): Destination {
     id: String(row.id || row.slug),
     brandId: "texasdefined",
     slug: String(row.slug || ""),
-    name: String(row.name || "Texas destination"),
+    name,
     summary,
     category: category(type),
-    region: region(row.region || row.region_name || row.geographic_region),
-    nearestTown: String(row.city || row.nearest_town || row.county || "Texas"),
+    region:
+      row.region || row.region_name || row.geographic_region
+        ? region(row.region || row.region_name || row.geographic_region)
+        : regionFromCoordinates(lat, lng) ?? region(place.county),
+    nearestTown: town,
     coordinates: { lat: Number.isFinite(lat) ? lat : 0, lng: Number.isFinite(lng) ? lng : 0 },
     hero: {
       src: image,
-      alt: String(row.hero_image_alt || `${String(row.name || "Texas destination")} in Texas`),
+      alt: String(row.hero_image_alt || `${name} in Texas`),
       width: 1600,
       height: 1000,
     },
@@ -119,6 +167,7 @@ function mapRow(row: Record<string, unknown>): Destination {
     body: [String(row.long_description || summary)],
     featured: Boolean(row.featured),
   };
+
 }
 
 async function fetchExplorePage(params: URLSearchParams, offset: number, limit: number): Promise<Record<string, unknown>[]> {
@@ -141,7 +190,7 @@ export async function fetchExploreDestinations(
   // limit or valid category records later in the ordered catalog can disappear.
   const scanLimit = options.category ? MAX_REMOTE_DESTINATIONS : resultLimit;
   const params = new URLSearchParams({
-    select: "*,explore_entity_types(key,name)",
+    select: "*,explore_entity_types(key,name),explore_locations(city,county,latitude,longitude)",
     visibility: "eq.public",
     status: "in.(published,verified)",
     order: "featured.desc,popularity_score.desc,name.asc",
@@ -167,7 +216,7 @@ export async function fetchExploreDestinations(
 
 export async function fetchExploreDestination(slug: string): Promise<Destination | null> {
   if (!hasExploreRemoteData()) return null;
-  const params = new URLSearchParams({ select: "*,explore_entity_types(key,name)", slug: `eq.${slug}`, limit: "1" });
+  const params = new URLSearchParams({ select: "*,explore_entity_types(key,name),explore_locations(city,county,latitude,longitude)", slug: `eq.${slug}`, visibility: "eq.public", status: "in.(published,verified)", limit: "1" });
   const response = await fetch(`${supabaseUrl}/rest/v1/explore_entities?${params}`, { headers: headers() });
   if (!response.ok) throw new Error(`Explore destination request failed: ${response.status}`);
   const rows = await response.json();
