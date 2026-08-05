@@ -52,6 +52,17 @@ export const REDIRECT_ONLY_PATHS = [
   "/texas-financial-tools",
   "/texas-property-tax-increase-calculator",
   "/texas-property-tax-protest-guide",
+  "/explore/texas-state-parks-guide",
+  "/explore/texas-lakes-guide",
+  "/explore/texas-camping-guide",
+  "/explore/texas-scenic-drives",
+  "/explore/texas-wildflower-seasons",
+  "/explore/national-wildlife-refuges",
+  "/explore/wildlife-management-areas",
+  "/explore/lighthouses",
+  "/explore/spring-fed-swimming",
+  "/explore/hill-country-springs",
+  "/explore/spring-conservation-and-education",
 ] as const;
 
 export const NON_INDEXABLE_PUBLIC_PATHS = ["/search", "/explore/search"] as const;
