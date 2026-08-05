@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "data:validate": "node scripts/data/validate-legacy-links.mjs && node scripts/data/validate-production-data.mjs && node scripts/data/validate-machine-indexing.mjs && node scripts/data/validate-shop-schema.mjs && node scripts/data/validate-data-center-seo.mjs && node scripts/data/validate-place-directory-seo.mjs && node scripts/data/validate-knowledge-graph-platform.mjs && node scripts/data/validate-internal-linking.mjs && node scripts/data/validate-internal-link-policy-release.mjs && node scripts/data/validate-internal-link-golden-corpus.mjs && node scripts/data/validate-knowledge-graph-behavior.mjs",
+    "data:validate": "node scripts/data/validate-legacy-links.mjs && node scripts/data/validate-production-data.mjs && node scripts/data/validate-machine-indexing.mjs && node scripts/data/validate-shop-schema.mjs && node scripts/data/validate-data-center-seo.mjs && node scripts/data/validate-place-directory-seo.mjs && node scripts/data/validate-sitemap-routes.mjs && node scripts/data/validate-knowledge-graph-platform.mjs && node scripts/data/validate-internal-linking.mjs && node scripts/data/validate-internal-link-policy-release.mjs && node scripts/data/validate-internal-link-golden-corpus.mjs && node scripts/data/validate-knowledge-graph-behavior.mjs",
     "data:sync": "node scripts/data/sync-authoritative-data.mjs",
     "data:sync:strict": "node scripts/data/sync-authoritative-data.mjs --strict",
     "entities:import": "node scripts/data/import-authoritative-entities.mjs",
