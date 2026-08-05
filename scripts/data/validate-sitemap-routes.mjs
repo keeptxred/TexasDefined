@@ -10,6 +10,7 @@ const redirects = [
   '/texas-property-tax-increase-calculator',
   '/texas-property-tax-protest-guide',
 ];
+const nonIndexableRoutes = ['/search', '/explore/search'];
 const legacyExploreRedirects = [
   ['src/routes/explore.cavern.$slug.tsx', '/explore/cavern/', '/destination/'],
   ['src/routes/explore.state-park.$slug.tsx', '/explore/state-park/', '/destination/'],
@@ -17,9 +18,9 @@ const legacyExploreRedirects = [
 ];
 
 const failures = [];
+const indexableSection = registry.split('export const REDIRECT_ONLY_PATHS')[0];
 
 for (const path of redirects) {
-  const indexableSection = registry.split('export const REDIRECT_ONLY_PATHS')[0];
   if (indexableSection.includes(`"${path}"`)) {
     failures.push(`Redirect-only path remains in INDEXABLE_STATIC_PATHS: ${path}`);
   }
@@ -28,11 +29,24 @@ for (const path of redirects) {
   }
 }
 
+for (const path of nonIndexableRoutes) {
+  if (indexableSection.includes(`"${path}"`)) failures.push(`Noindex route remains in INDEXABLE_STATIC_PATHS: ${path}`);
+  if (!registry.includes(`"${path}"`)) failures.push(`Noindex route is not governed explicitly: ${path}`);
+  if (sitemap.includes(`"${path}"`)) failures.push(`Primary sitemap source must not publish noindex route ${path}.`);
+  if (exploreSitemap.includes(`${path}`)) failures.push(`Explore sitemap source must not publish noindex route ${path}.`);
+}
+
 if (!registry.includes('REDIRECT_ONLY_PATHS')) {
   failures.push('Redirect-only route registry is missing.');
 }
+if (!registry.includes('NON_INDEXABLE_PUBLIC_PATHS')) {
+  failures.push('Non-indexable public route registry is missing.');
+}
 if (!registry.includes('(REDIRECT_ONLY_PATHS as readonly string[]).includes(path)')) {
   failures.push('isIndexablePublicPath does not reject redirect-only paths.');
+}
+if (!registry.includes('(NON_INDEXABLE_PUBLIC_PATHS as readonly string[]).includes(path)')) {
+  failures.push('isIndexablePublicPath does not reject noindex public paths.');
 }
 if (!sitemap.includes('isIndexablePublicPath(path)')) {
   failures.push('Sitemap does not filter entries through the public-path policy.');
@@ -63,4 +77,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Sitemap, redirect-route, legacy Explore redirect, and category validation passed.');
+console.log('Sitemap, noindex-route, redirect-route, legacy Explore redirect, and category validation passed.');
