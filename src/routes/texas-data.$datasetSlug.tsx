@@ -81,9 +81,11 @@ export const Route = createFileRoute('/texas-data/$datasetSlug')({
   },
   notFoundComponent: () => (
     <Container className="py-24">
-      <p className="eyebrow text-primary">Texas by the Numbers</p>
-      <h1 className="mt-3 font-display text-3xl">We could not find that page</h1>
-      <p className="mt-3 text-sm text-muted-foreground"><Link to="/texas-data" className="text-primary underline">See the facts and finders we do have.</Link></p>
+      <p className="eyebrow text-primary">Texas by the numbers</p>
+      <h1 className="mt-3 font-display text-3xl">That set of numbers took another road</h1>
+      <p className="mt-3 text-sm text-muted-foreground">
+        <Link to="/texas-data" className="text-primary underline">See the Texas facts and comparisons we do have.</Link>
+      </p>
     </Container>
   ),
   component: Page,
@@ -94,17 +96,41 @@ function Page() {
   return (
     <Container className="py-16 sm:py-24">
       <main className="mx-auto max-w-5xl">
-        <p className="eyebrow text-primary">Texas by the Numbers · {dataset.year}</p>
+        <p className="eyebrow text-primary">Texas by the numbers · {dataset.year}</p>
         <h1 className="mt-3 font-display text-4xl sm:text-6xl">{dataset.title}</h1>
         <p className="mt-5 max-w-3xl text-lg leading-8 text-muted-foreground">{dataset.description}</p>
         <div className="mt-10 overflow-hidden rounded-lg border border-border">
           <table className="w-full text-left text-sm">
-            <thead className="bg-muted"><tr><th className="p-4">What we measured</th><th className="p-4">The number</th><th className="hidden p-4 sm:table-cell">Good to know</th></tr></thead>
-            <tbody>{dataset.rows.map((row) => <tr key={row.label} className="border-t border-border"><td className="p-4 font-medium">{row.label}</td><td className="p-4">{formatDatasetValue(row.value, dataset.unit)}</td><td className="hidden p-4 text-muted-foreground sm:table-cell">{row.note ?? '—'}</td></tr>)}</tbody>
+            <thead className="bg-muted">
+              <tr>
+                <th className="p-4">What we looked at</th>
+                <th className="p-4">What we found</th>
+                <th className="hidden p-4 sm:table-cell">Good to know</th>
+              </tr>
+            </thead>
+            <tbody>
+              {dataset.rows.map((row) => (
+                <tr key={row.label} className="border-t border-border">
+                  <td className="p-4 font-medium">{row.label}</td>
+                  <td className="p-4">{formatDatasetValue(row.value, dataset.unit)}</td>
+                  <td className="hidden p-4 text-muted-foreground sm:table-cell">{row.note ?? '—'}</td>
+                </tr>
+              ))}
+            </tbody>
           </table>
         </div>
-        <section className="mt-8 rounded-lg bg-muted p-6 text-sm leading-6 text-muted-foreground"><h2 className="font-display text-xl text-foreground">Where the numbers come from</h2><p className="mt-2">{dataset.methodology}</p><p className="mt-3">Updated {dataset.updated}. Source: <a className="underline" href={dataset.sourceUrl} rel="noreferrer">{dataset.sourceName}</a>.</p></section>
-        <div className="mt-8 flex flex-wrap gap-4 text-sm font-medium"><Link to="/texas-data" className="underline">See more Texas facts</Link><Link to="/learn/property-taxes" className="underline">Understand property taxes</Link><Link to="/browse/counties" className="underline">Find your county</Link></div>
+        <section className="mt-8 rounded-lg bg-muted p-6 text-sm leading-6 text-muted-foreground">
+          <h2 className="font-display text-xl text-foreground">Where the numbers come from</h2>
+          <p className="mt-2">{dataset.methodology}</p>
+          <p className="mt-3">
+            Last checked {dataset.updated}. <a className="underline" href={dataset.sourceUrl} rel="noreferrer">See the original numbers from {dataset.sourceName}.</a>
+          </p>
+        </section>
+        <div className="mt-8 flex flex-wrap gap-4 text-sm font-medium">
+          <Link to="/texas-data" className="underline">See more Texas facts</Link>
+          <Link to="/learn/property-taxes" className="underline">Understand property taxes</Link>
+          <Link to="/browse/counties" className="underline">Find your county</Link>
+        </div>
       </main>
     </Container>
   );
