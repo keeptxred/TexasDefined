@@ -56,7 +56,7 @@ function EntityPage() {
         '@id': `${canonicalUrl}#breadcrumb`,
         itemListElement: [
           { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
-          { '@type': 'ListItem', position: 2, name: 'Explore Texas', item: `${siteUrl}/explore` },
+          { '@type': 'ListItem', position: 2, name: 'Explore', item: `${siteUrl}/explore` },
           { '@type': 'ListItem', position: 3, name: entity.name, item: canonicalUrl },
         ],
       },
@@ -73,14 +73,14 @@ function EntityPage() {
       <dl className="mt-10 grid gap-4 rounded-md border border-border p-6 sm:grid-cols-2 lg:grid-cols-3">
         <Fact label="County" value={entity.countySlug ? `${title(entity.countySlug)} County` : undefined} />
         <Fact label="Part of Texas" value={entity.region ? title(entity.region) : undefined} />
-        {entity.sourceCheckedAt && <Fact label="Details last checked" value={entity.sourceCheckedAt.slice(0, 10)} />}
+        {entity.sourceCheckedAt && <Fact label="Last checked" value={entity.sourceCheckedAt.slice(0, 10)} />}
       </dl>
       <div className="mt-8 flex flex-wrap gap-4">
         {entity.officialUrl && <a className="underline underline-offset-4" href={entity.officialUrl} target="_blank" rel="noreferrer">Visit the official site</a>}
         {entity.coordinates && <a className="underline underline-offset-4" href={`https://www.google.com/maps/search/?api=1&query=${entity.coordinates.latitude},${entity.coordinates.longitude}`} target="_blank" rel="noreferrer">Find it on the map</a>}
       </div>
-      {entity.tags?.length ? <section className="mt-12"><h2 className="font-display text-3xl">Why people know it</h2><div className="mt-4 flex flex-wrap gap-2">{entity.tags.map((tag) => <span key={tag} className="rounded-full bg-muted px-3 py-1 text-sm">{title(tag)}</span>)}</div></section> : null}
-      {related.length ? <section className="mt-14"><h2 className="font-display text-3xl">Keep exploring nearby</h2><div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{related.map(({ entity: candidate }) => <a key={candidate.id} href={canonicalEntityPath(candidate)} className="rounded-md border border-border p-5 transition-colors hover:border-primary"><span className="eyebrow text-primary">{readerLabel(candidate.kind)}</span><strong className="mt-2 block font-display text-xl">{candidate.name}</strong><small className="mt-2 block text-muted-foreground">Take a closer look</small></a>)}</div></section> : null}
+      {entity.tags?.length ? <section className="mt-12"><h2 className="font-display text-3xl">What makes it worth knowing</h2><div className="mt-4 flex flex-wrap gap-2">{entity.tags.map((tag) => <span key={tag} className="rounded-full bg-muted px-3 py-1 text-sm">{title(tag)}</span>)}</div></section> : null}
+      {related.length ? <section className="mt-14"><h2 className="font-display text-3xl">Keep exploring nearby</h2><div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{related.map(({ entity: candidate }) => <a key={candidate.id} href={canonicalEntityPath(candidate)} className="rounded-md border border-border p-5 transition-colors hover:border-primary"><span className="eyebrow text-primary">{readerLabel(candidate.kind)}</span><strong className="mt-2 block font-display text-xl">{candidate.name}</strong><small className="mt-2 block text-muted-foreground">See why it is worth a stop</small></a>)}</div></section> : null}
     </article>
   </Container>;
 }
@@ -90,7 +90,7 @@ function title(value: string) { return value.replaceAll('-', ' ').replace(/\b\w/
 function readerLabel(kind: string) {
   const labels: Record<string, string> = {
     county: 'County guide', city: 'City guide', region: 'Around the state', 'metro-area': 'City life',
-    museum: 'Worth a visit', 'historic-site': 'Then and now', mission: 'Texas history', battlefield: 'Texas history',
+    museum: 'Worth a visit', 'historic-site': 'Then & now', mission: 'Texas history', battlefield: 'Texas history',
     attraction: 'Worth the drive', fair: 'This weekend', rodeo: 'This weekend', festival: 'This weekend',
     'holiday-event': 'Seasonal favorite', 'sporting-event': 'The Texas game',
   };
