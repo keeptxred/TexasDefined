@@ -1,10 +1,10 @@
 import { Link } from "@tanstack/react-router";
 import { Heart } from "lucide-react";
-import { useState } from "react";
 
 import { useBrand } from "@/brand/context";
 import type { Product } from "@/data/types";
 import { formatPrice } from "@/domain/utils/format";
+import { useSavedProduct } from "@/hooks/useSavedProducts";
 import { cn } from "@/lib/utils";
 
 export function ProductCard({
@@ -16,7 +16,7 @@ export function ProductCard({
 }) {
   const brand = useBrand();
   const collection = product.collectionSlugs[0];
-  const [saved, setSaved] = useState(false);
+  const { saved, toggle } = useSavedProduct(product.id);
 
   const content = (
     <>
@@ -51,7 +51,7 @@ export function ProductCard({
     <article className={cn("group relative", className)}>
       <button
         type="button"
-        onClick={() => setSaved((value) => !value)}
+        onClick={toggle}
         aria-pressed={saved}
         aria-label={saved ? `Remove ${product.name} from your saved picks` : `Save ${product.name} for later`}
         title={saved ? "Remove from saved picks" : "Save for later"}
