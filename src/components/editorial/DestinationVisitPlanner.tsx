@@ -16,26 +16,26 @@ export function DestinationVisitPlanner({ destination }: Props) {
   const facilities = unique(destination.highlights.filter((item) => facilityPattern.test(item) && !activities.includes(item)));
   const otherHighlights = unique(destination.highlights.filter((item) => !activities.includes(item) && !facilities.includes(item)));
   const practicalTips = unique([
-    destination.bestSeason ? `Best time indicated by current source data: ${destination.bestSeason}.` : "",
+    destination.bestSeason ? `Best time to go: ${destination.bestSeason}.` : "",
     destination.entryNote,
     destination.reservationUrl ? "Check reservation availability before making the drive." : "",
     destination.accessibilityNotes ? `Accessibility: ${destination.accessibilityNotes}` : "",
-    destination.directions ? `Arrival guidance: ${destination.directions}` : "",
+    destination.directions ? `Getting there: ${destination.directions}` : "",
   ]);
 
   if (!activities.length && !facilities.length && !otherHighlights.length && !practicalTips.length) return null;
 
   return (
     <section aria-labelledby="plan-your-visit" className="mt-12 border-t border-border pt-10">
-      <p className="eyebrow text-primary">Plan your visit</p>
-      <h2 id="plan-your-visit" className="mt-2 font-display text-2xl">What the current source data says</h2>
+      <p className="eyebrow text-primary">Before you go</p>
+      <h2 id="plan-your-visit" className="mt-2 font-display text-2xl">What to know for the visit</h2>
       <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-        These details come from the shared Explore catalog and official-source records. Confirm changing conditions, closures, fees, and availability before traveling.
+        Here is the practical information we have gathered for this place. Conditions, closures, fees and availability can change, so check the official site before making the drive.
       </p>
       <div className="mt-6 grid gap-6 sm:grid-cols-2">
         {activities.length > 0 && (
           <div className="border border-border p-5">
-            <h3 className="font-display text-xl">Activities</h3>
+            <h3 className="font-display text-xl">Things to do</h3>
             <ul className="mt-3 list-disc space-y-2 pl-5 text-sm marker:text-primary">
               {activities.map((item) => <li key={item}>{item}</li>)}
             </ul>
@@ -43,7 +43,7 @@ export function DestinationVisitPlanner({ destination }: Props) {
         )}
         {facilities.length > 0 && (
           <div className="border border-border p-5">
-            <h3 className="font-display text-xl">Facilities and amenities</h3>
+            <h3 className="font-display text-xl">What is available</h3>
             <ul className="mt-3 list-disc space-y-2 pl-5 text-sm marker:text-primary">
               {facilities.map((item) => <li key={item}>{item}</li>)}
             </ul>
@@ -51,7 +51,7 @@ export function DestinationVisitPlanner({ destination }: Props) {
         )}
         {otherHighlights.length > 0 && (
           <div className="border border-border p-5">
-            <h3 className="font-display text-xl">Highlights</h3>
+            <h3 className="font-display text-xl">Do not miss</h3>
             <ul className="mt-3 list-disc space-y-2 pl-5 text-sm marker:text-primary">
               {otherHighlights.map((item) => <li key={item}>{item}</li>)}
             </ul>
@@ -59,7 +59,7 @@ export function DestinationVisitPlanner({ destination }: Props) {
         )}
         {practicalTips.length > 0 && (
           <div className="border border-border p-5">
-            <h3 className="font-display text-xl">Before you leave</h3>
+            <h3 className="font-display text-xl">Good to know</h3>
             <ul className="mt-3 list-disc space-y-2 pl-5 text-sm marker:text-primary">
               {practicalTips.map((item) => <li key={item}>{item}</li>)}
             </ul>
