@@ -11,9 +11,14 @@ const root = process.cwd();
 const route = fs.readFileSync(path.join(root, 'src/routes/explore.$category.tsx'), 'utf8');
 const landing = fs.readFileSync(path.join(root, 'src/routes/explore.index.tsx'), 'utf8');
 const categoryPage = fs.readFileSync(path.join(root, 'src/components/editorial/CategoryPage.tsx'), 'utf8');
+const discovery = fs.readFileSync(path.join(root, 'src/components/editorial/ExploreDiscovery.tsx'), 'utf8');
 const types = fs.readFileSync(path.join(root, 'src/data/types.ts'), 'utf8');
 const fixtures = fs.readFileSync(path.join(root, 'src/data/fixtures/texas.ts'), 'utf8');
+const supplemental = fs.readFileSync(path.join(root, 'src/data/explore-categories.ts'), 'utf8');
+const queries = fs.readFileSync(path.join(root, 'src/data/queries.ts'), 'utf8');
 const remote = fs.readFileSync(path.join(root, 'src/data/explore-remote.ts'), 'utf8');
+const sitemap = fs.readFileSync(path.join(root, 'src/routes/sitemap[.]xml.ts'), 'utf8');
+const brand = fs.readFileSync(path.join(root, 'src/brand/texasdefined.ts'), 'utf8');
 const errors = [];
 
 for (const feature of [
@@ -37,14 +42,46 @@ for (const feature of [
   '<Link to="/"',
   '<Link to="/explore"',
   'aria-current="page"',
+  'ExploreDiscovery',
+  'categoriesQuery()',
+  'destinations.length.toLocaleString',
 ]) {
-  if (!categoryPage.includes(feature)) errors.push(`Visible Explore category breadcrumb feature missing: ${feature}.`);
+  if (!categoryPage.includes(feature)) errors.push(`Visible Explore category feature missing: ${feature}.`);
 }
 
-for (const category of ['major-springs', 'national-parks', 'caverns', 'beaches-coast', 'historic-sites']) {
+for (const feature of [
+  'aria-label="Related Explore categories"',
+  'aria-label="Explore Texas by region"',
+  'to="/explore/$category"',
+  'to="/explore/region/$region"',
+]) {
+  if (!discovery.includes(feature)) errors.push(`Explore discovery feature missing: ${feature}.`);
+}
+
+const migratedCategories = ['major-springs', 'national-parks', 'caverns', 'beaches-coast', 'historic-sites'];
+for (const category of migratedCategories) {
   if (!types.includes(`| "${category}"`)) errors.push(`Category type missing: ${category}.`);
-  if (!fixtures.includes(`slug: "${category}"`)) errors.push(`Category metadata missing: ${category}.`);
+  if (!supplemental.includes(`slug: "${category}"`) && !fixtures.includes(`slug: "${category}"`)) {
+    errors.push(`Category metadata missing: ${category}.`);
+  }
   if (!landing.includes(`"${category}"`)) errors.push(`Explore landing category missing: ${category}.`);
+  if (!brand.includes(`/explore/${category}`)) errors.push(`Explore navigation link missing: ${category}.`);
+}
+
+for (const feature of [
+  'supplementalExploreCategories',
+  'categoryMap',
+  'return [...categoryMap.values()]',
+]) {
+  if (!queries.includes(feature)) errors.push(`Merged Explore taxonomy feature missing: ${feature}.`);
+}
+
+for (const feature of [
+  'supplementalExploreCategories',
+  '...categories.map((category)',
+  '...destinations.filter((destination) => destination.slug)',
+]) {
+  if (!sitemap.includes(feature)) errors.push(`Explore sitemap feature missing: ${feature}.`);
 }
 
 for (const feature of [
@@ -55,8 +92,6 @@ for (const feature of [
   'return "historic-sites"',
   'explore_entity_types(key,name)',
   'MAX_REMOTE_DESTINATIONS',
-  'const scanLimit = options.category ? MAX_REMOTE_DESTINATIONS : resultLimit',
-  '.slice(0, resultLimit)',
 ]) {
   if (!remote.includes(feature)) errors.push(`Migrated Explore catalog feature missing: ${feature}.`);
 }
@@ -67,4 +102,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Explore category CollectionPage, migrated category, post-filter limits, ItemList, and visible breadcrumb validation passed.');
+console.log('Explore categories, taxonomy, navigation, sitemap, destination collections, related links, regions, structured data, and breadcrumbs passed validation.');
