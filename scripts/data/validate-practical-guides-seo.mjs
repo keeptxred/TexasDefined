@@ -7,13 +7,29 @@ const guides = [
     label: 'First-time homebuyer',
     filename: 'src/routes/texas-first-time-homebuyer-programs.tsx',
     canonicalPath: '/texas-first-time-homebuyer-programs',
+    collection: 'checklist',
     stepPrefix: 'homebuyer-step-',
   },
   {
     label: 'Sales tax',
     filename: 'src/routes/texas-sales-tax-explained.tsx',
     canonicalPath: '/texas-sales-tax-explained',
+    collection: 'checklist',
     stepPrefix: 'sales-tax-step-',
+  },
+  {
+    label: 'Vehicle registration',
+    filename: 'src/routes/find-my-dmv.tsx',
+    canonicalPath: '/find-my-dmv',
+    collection: 'steps',
+    stepPrefix: 'vehicle-step-',
+  },
+  {
+    label: 'School district lookup',
+    filename: 'src/routes/find-my-school-district.tsx',
+    canonicalPath: '/find-my-school-district',
+    collection: 'steps',
+    stepPrefix: 'school-step-',
   },
 ];
 const errors = [];
@@ -24,7 +40,7 @@ for (const guide of guides) {
     "'@type': 'HowTo'",
     "'@type': 'HowToStep'",
     "'@type': 'BreadcrumbList'",
-    'checklist.map((text, index)',
+    `${guide.collection}.map((text, index)`,
     'position: index + 1',
     `canonicalPath = '${guide.canonicalPath}'`,
     `url: \`${'${pageUrl}'}#${guide.stepPrefix}${'${index + 1}'}\``,
