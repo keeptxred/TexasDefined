@@ -5,7 +5,7 @@ import { texasDefinedBrand } from "@/brand/texasdefined";
 import { NewsletterSignup } from "@/components/editorial/NewsletterSignup";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
-import { buildMeta, canonicalLink } from "@/lib/seo";
+import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const description =
   "Texas Defined is a lifestyle magazine about the places, food, history, homes, traditions and people that make this state feel like nowhere else.";
@@ -18,6 +18,40 @@ export const Route = createFileRoute("/about")({
       description,
     }),
     links: [canonicalLink(texasDefinedBrand, "/about")],
+    scripts: [
+      jsonLd({
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "AboutPage",
+            "@id": `${absoluteUrl(texasDefinedBrand, "/about")}#page`,
+            url: absoluteUrl(texasDefinedBrand, "/about"),
+            name: "About Texas Defined",
+            description,
+            isPartOf: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#website` },
+            about: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#organization` },
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": `${absoluteUrl(texasDefinedBrand, "/about")}#breadcrumb`,
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: absoluteUrl(texasDefinedBrand, "/"),
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "About Texas Defined",
+                item: absoluteUrl(texasDefinedBrand, "/about"),
+              },
+            ],
+          },
+        ],
+      }),
+    ],
   }),
   component: AboutPage,
 });
