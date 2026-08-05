@@ -35,7 +35,7 @@ export const Route = createFileRoute('/find-my-dmv')({
           '@type': 'BreadcrumbList', '@id': `${pageUrl}#breadcrumbs`,
           itemListElement: [
             { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
-            { '@type': 'ListItem', position: 2, name: 'Moving to Texas', item: `${siteUrl}/moving-to-texas` },
+            { '@type': 'ListItem', position: 2, name: 'Moving Here', item: `${siteUrl}/moving-to-texas` },
             { '@type': 'ListItem', position: 3, name: 'Register a Vehicle', item: pageUrl },
           ],
         },
@@ -56,7 +56,7 @@ function Page() {
             <li aria-current="page" className="text-foreground">Register a Vehicle</li>
           </ol>
         </nav>
-        <p className="eyebrow text-primary">New in Town</p><h1>Getting your car settled in Texas</h1><p className="lead">{description}</p>
+        <p className="eyebrow text-primary">New in town</p><h1>Getting your car settled in Texas</h1><p className="lead">{description}</p>
         <h2>Two offices, two different jobs</h2>
         <p>County tax offices generally handle vehicle registration. The Texas Department of Public Safety handles driver licenses. Check both official sites before making a trip so you know which documents, fees and appointments apply.</p>
         <h2>What to handle first</h2>
