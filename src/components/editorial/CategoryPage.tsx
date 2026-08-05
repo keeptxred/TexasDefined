@@ -8,10 +8,7 @@ import { articlesQuery, destinationsQuery, regionsQuery } from "@/data/queries";
 import type { CategorySlug, ImageRef } from "@/data/types";
 import { useBrand } from "@/brand/context";
 
-/**
- * Generic category page. Every string and image is a prop — no brand or
- * section assumptions live in this component.
- */
+/** Shared presentation for reader-facing category pages. */
 export function CategoryPage({
   category,
   eyebrow,
@@ -77,7 +74,7 @@ export function CategoryPage({
       {destinations.length > 0 && (
         <Section tone="surface">
           <Container>
-            <SectionHeader eyebrow="Places" title="Where to go" />
+            <SectionHeader eyebrow="Worth the drive" title="Places to put on your list" />
             <ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
               {destinations.map((destination) => (
                 <li key={destination.id}>
@@ -94,7 +91,7 @@ export function CategoryPage({
 
       <Section>
         <Container>
-          <SectionHeader eyebrow="Stories" title="Read next" />
+          <SectionHeader eyebrow="More from Texas Defined" title="Keep reading" />
           {others.length > 0 ? (
             <ul className="mt-10 grid gap-12 md:grid-cols-2 lg:grid-cols-3">
               {others.map((article) => (
