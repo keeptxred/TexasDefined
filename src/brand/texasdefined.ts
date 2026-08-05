@@ -7,9 +7,6 @@ import wildlife from "@/assets/wildlife.jpg";
 
 import type { BrandConfig } from "./types";
 
-/**
- * The single source of concrete TexasDefined identity, navigation, copy and SEO values.
- */
 export const texasDefinedBrand: BrandConfig = {
   identity: {
     id: "texasdefined",
@@ -45,15 +42,15 @@ export const texasDefinedBrand: BrandConfig = {
     viewAll: "Keep exploring",
     searchPlaceholder: "Try a town, park, lake or dish",
     searchEmpty: "We couldn’t find a match. Try a town, park, lake or favorite Texas food.",
-    emptyState: "We’re still gathering the good stuff for this section. Check back soon.",
+    emptyState: "Nothing here just yet. We’re still finding the stories and places worth sharing.",
     comingSoon: "On the way",
     comingSoonBody:
-      "We’re putting the finishing touches on this. More helpful details are coming soon.",
+      "We’re still gathering the details that make this useful. Check back for the full story.",
     shopCta: "Browse the shop",
     shopTheStoryHeading: "Things we’d actually buy",
     relatedHeading: "Keep exploring",
     footerNote: "Independent, reader-supported and proudly focused on Texas.",
-    skipToContent: "Skip to main content",
+    skipToContent: "Skip to the story",
     menu: "Menu",
     close: "Close menu",
   },
