@@ -52,22 +52,24 @@ function Page() {
         <nav aria-label="Breadcrumb" className="not-prose text-xs text-muted-foreground">
           <ol className="flex flex-wrap items-center gap-2">
             <li><Link to="/" className="hover:text-foreground">Home</Link></li><li aria-hidden="true">/</li>
-            <li><Link to="/moving-to-texas" className="hover:text-foreground">Moving to Texas</Link></li><li aria-hidden="true">/</li>
-            <li aria-current="page" className="text-foreground">Find Your School District</li>
+            <li><Link to="/moving-to-texas" className="hover:text-foreground">Moving Here</Link></li><li aria-hidden="true">/</li>
+            <li aria-current="page" className="text-foreground">School Districts</li>
           </ol>
         </nav>
         <p className="eyebrow text-primary">Schools & Communities</p><h1>Find the district that serves your address</h1><p className="lead">{description}</p>
         <h2>Why the city name isn’t enough</h2>
-        <p>City limits, ZIP codes, school-district boundaries and attendance zones often overlap in unexpected ways. An address can sit in one city and attend schools in another district, so always verify the exact property.</p>
+        <p>City limits, ZIP codes, district boundaries and attendance zones do not always line up. A home can sit in one city and attend schools in another district, so the exact address matters.</p>
         <h2>The safest way to check</h2>
         <ol>{steps.map((step, index) => <li id={`school-step-${index + 1}`} key={step}>{step}</li>)}</ol>
         <div className="not-prose my-8 grid gap-4 sm:grid-cols-2">
           <a className="rounded-lg border p-5 font-medium" href="https://tea.texas.gov/texas-schools" rel="noreferrer">Start with the Texas Education Agency</a>
-          <a className="rounded-lg border p-5 font-medium" href="https://txschools.gov/" rel="noreferrer">Search TXschools.gov</a>
+          <a className="rounded-lg border p-5 font-medium" href="https://txschools.gov/" rel="noreferrer">Look up schools on TXschools.gov</a>
           <Link className="rounded-lg border p-5 font-medium" to="/browse/cities">Find a city</Link>
           <Link className="rounded-lg border p-5 font-medium" to="/browse/counties">Find your county</Link>
         </div>
-        <aside className="not-prose rounded-lg bg-muted p-5 text-sm text-muted-foreground">The school district is the final authority on campus assignments. Confirm directly before making a housing or enrollment decision.</aside>
+        <aside className="not-prose rounded-lg bg-muted p-5 text-sm text-muted-foreground">
+          Before you sign: the district has the final word on campus assignments. Confirm the address directly before making a housing or enrollment decision.
+        </aside>
       </article>
     </Container>
   );
