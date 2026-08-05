@@ -19,8 +19,10 @@ export function CollectionStrip({ collections }: { collections: Collection[] }) 
                 className="aspect-[4/5] w-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
             </div>
-            <h3 className="mt-4 font-display text-2xl">{collection.name}</h3>
+            <p className="eyebrow mt-4 text-primary">Our picks</p>
+            <h3 className="mt-2 font-display text-2xl">{collection.name}</h3>
             <p className="mt-1 text-sm text-muted-foreground">{collection.tagline}</p>
+            <span className="mt-4 inline-block text-sm font-medium text-primary">Take a closer look →</span>
           </Link>
         </li>
       ))}
