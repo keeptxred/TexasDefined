@@ -146,7 +146,6 @@ function parkEntryNote(profile: Record<string, unknown>): string {
     cleanText(profile.fee_notes),
     formatMoney(profile.entrance_fee_cents),
     profile.reservations_required === true ? "Reservations may be required" : "",
-    cleanText(profile.reservations_url) ? `Reservations: ${cleanText(profile.reservations_url)}` : "",
   ]);
   return parts.join(" · ");
 }
@@ -173,14 +172,11 @@ function profileHighlights(park: Record<string, unknown>, lake: Record<string, u
   return items;
 }
 
-function sourceParagraph(row: Record<string, unknown>): string {
+function sourceDetails(row: Record<string, unknown>): { officialUrl?: string; sourceCheckedAt?: string } {
   const source = records(row.explore_entity_sources)[0] ?? {};
-  const verified = cleanText(source.verified_at || source.retrieved_at);
-  const sourceUrl = cleanText(source.source_url);
-  if (!verified && !sourceUrl) return "";
-  const date = verified ? new Date(verified) : null;
-  const dateLabel = date && !Number.isNaN(date.getTime()) ? date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" }) : "";
-  return `Source information${dateLabel ? ` checked ${dateLabel}` : ""}${sourceUrl ? `: ${sourceUrl}` : "."}`;
+  const officialUrl = cleanText(source.source_url) || undefined;
+  const checked = cleanText(source.verified_at || source.retrieved_at);
+  return { officialUrl, sourceCheckedAt: checked || undefined };
 }
 
 function mapRow(row: Record<string, unknown>): Destination {
@@ -188,6 +184,7 @@ function mapRow(row: Record<string, unknown>): Destination {
   const park = record(row.explore_park_profiles);
   const lake = record(row.explore_lake_profiles);
   const media = mediaFor(row);
+  const source = sourceDetails(row);
   const name = cleanText(row.name) || "Texas destination";
   const type = entityType(row);
   const typeLabel = readableType(row);
@@ -206,13 +203,12 @@ function mapRow(row: Record<string, unknown>): Destination {
     ...stringArray(row.highlights),
     ...stringArray(row.alternate_names),
   ], 12);
-  const managingAuthority = cleanText(park.managing_authority || lake.managing_authority);
+  const managingAuthority = cleanText(park.managing_authority || lake.managing_authority) || undefined;
   const body = unique([
     cleanText(row.long_description),
     summary,
     managingAuthority ? `${name} is managed by ${managingAuthority}.` : "",
     cleanText(park.accessibility_notes),
-    sourceParagraph(row),
   ]);
 
   return {
@@ -232,11 +228,16 @@ function mapRow(row: Record<string, unknown>): Destination {
       alt: cleanText(media.alt_text || media.title || row.hero_image_alt) || `${name} in Texas`,
       width: Number(media.width) > 0 ? Number(media.width) : 1600,
       height: Number(media.height) > 0 ? Number(media.height) : 1000,
+      credit: cleanText(media.credit_text || media.photographer) || undefined,
     },
     bestSeason: cleanText(row.best_season || row.operating_season) || bestSeasonFromActivities(row) || "Check current conditions before visiting",
     entryNote: cleanText(row.entry_note || row.fees) || parkEntryNote(park) || "Confirm current hours, fees, reservations, and access with the official source.",
     highlights,
     body,
+    managingAuthority,
+    officialUrl: source.officialUrl,
+    sourceCheckedAt: source.sourceCheckedAt,
+    reservationUrl: cleanText(park.reservations_url) || undefined,
     featured: Boolean(row.featured),
   };
 }
@@ -249,7 +250,7 @@ const EXPLORE_SELECT = [
   "explore_lake_profiles(surface_area_acres,shoreline_miles,max_depth_feet,water_type,reservoir,managing_authority,swimming_allowed,fishing_allowed,boating_allowed,wake_restrictions)",
   "explore_entity_activities(suitability,best_months,notes,explore_activities(key,name))",
   "explore_entity_amenities(availability,notes,explore_amenities(key,name))",
-  "explore_entity_media(role,sort_order,is_primary,explore_media(external_url,title,alt_text,caption,credit_text,license_name,license_url,width,height))",
+  "explore_entity_media(role,sort_order,is_primary,explore_media(external_url,title,alt_text,caption,credit_text,photographer,license_name,license_url,width,height))",
   "explore_entity_sources(source_url,retrieved_at,verified_at,confidence)",
 ].join(",");
 
