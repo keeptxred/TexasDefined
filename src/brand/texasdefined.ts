@@ -112,7 +112,7 @@ export const texasDefinedBrand: BrandConfig = {
     { label: "History", to: "/texas-history" },
     { label: "Moving Here", to: "/moving-to-texas" },
     { label: "Home", to: "/home-garden" },
-    { label: "Real Estate", to: "/real-estate" },
+    { label: "Living in Texas", to: "/texas-living" },
     { label: "Guides", to: "/guides" },
     { label: "Shop", to: "/shop" },
     { label: "About", to: "/about" },
@@ -133,7 +133,7 @@ export const texasDefinedBrand: BrandConfig = {
       items: [
         { label: "Moving Here", to: "/moving-to-texas" },
         { label: "Home", to: "/home-garden" },
-        { label: "Real Estate", to: "/real-estate" },
+        { label: "Living in Texas", to: "/texas-living" },
         { label: "Guides", to: "/guides" },
       ],
     },
