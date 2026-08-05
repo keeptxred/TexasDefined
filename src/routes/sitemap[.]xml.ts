@@ -4,6 +4,7 @@ import { texasDefinedBrand } from "@/brand/texasdefined";
 import { platform, scope } from "@/data";
 import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
 import { canonicalEntityPath } from "@/data/knowledge-graph/relationships";
+import { TEXAS_DATASETS } from "@/data/texas-data-center";
 import { INDEXABLE_STATIC_PATHS, isIndexablePublicPath } from "@/lib/public-routes";
 
 const origin = `https://${texasDefinedBrand.identity.domain}`;
@@ -28,6 +29,10 @@ export const Route = createFileRoute("/sitemap.xml")({
           ...collections.map((collection) => ({ path: `/shop/${collection.slug}` })),
           ...articles.map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(article.publishedAt) })),
           ...destinations.map((destination) => ({ path: `/destination/${destination.slug}` })),
+          ...TEXAS_DATASETS.map((dataset) => ({
+            path: `/texas-data/${dataset.slug}`,
+            lastmod: toDate(dataset.updated),
+          })),
           ...graph
             .filter((entity) => entity.status === "active" || entity.status === "seasonal")
             .map((entity) => ({ path: canonicalEntityPath(entity), lastmod: toDate(entity.sourceCheckedAt) })),
