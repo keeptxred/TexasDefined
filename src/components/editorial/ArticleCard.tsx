@@ -5,6 +5,11 @@ import type { Article } from "@/data/types";
 import { formatDate, formatReadingTime } from "@/domain/utils/format";
 import { cn } from "@/lib/utils";
 
+const editorialLabel = (value: string) =>
+  value
+    .replaceAll("-", " ")
+    .replace(/\b\w/g, (character) => character.toUpperCase());
+
 export function ArticleCard({
   article,
   size = "default",
@@ -17,6 +22,7 @@ export function ArticleCard({
   className?: string;
 }) {
   const brand = useBrand();
+  const sectionLabel = editorialLabel(article.tags[0] ?? article.category);
 
   return (
     <article className={cn("group flex flex-col", className)}>
@@ -43,7 +49,7 @@ export function ArticleCard({
         />
       </Link>
       <div className={cn("flex flex-1 flex-col", size === "compact" ? "pt-3" : "pt-4")}>
-        <p className="eyebrow text-primary">{article.tags[0] ?? article.category}</p>
+        <p className="eyebrow text-primary">{sectionLabel}</p>
         <h3
           className={cn(
             "mt-2 font-display leading-snug",
