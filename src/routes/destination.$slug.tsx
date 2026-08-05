@@ -3,7 +3,6 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { AutoEntityLinks } from "@/components/content/AutoEntityLinks";
 import { ArticleCard } from "@/components/editorial/ArticleCard";
-import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { DestinationRelationships } from "@/components/editorial/DestinationRelationships";
 import { DestinationVisitPlanner } from "@/components/editorial/DestinationVisitPlanner";
 import { MapPreview } from "@/components/editorial/MapPreview";
@@ -43,18 +42,16 @@ export const Route = createFileRoute("/destination/$slug")({
     const destination = await context.queryClient.ensureQueryData(destinationQuery(params.slug));
     if (!destination) throw notFound();
 
-    const [graph, categories, catalog, regions, relatedArticles, categoryCatalog] = await Promise.all([
+    const [graph, categories, catalog, regions, relatedArticles] = await Promise.all([
       loadTexasKnowledgeGraph(),
       context.queryClient.ensureQueryData(categoriesQuery()),
       context.queryClient.ensureQueryData(destinationsQuery({ limit: 5000 })),
       context.queryClient.ensureQueryData(regionsQuery()),
       context.queryClient.ensureQueryData(articlesQuery({ category: destination.category, limit: 3 })),
-      context.queryClient.ensureQueryData(destinationsQuery({ category: destination.category, limit: 16 })),
     ]);
 
     const relationshipGroups = buildDestinationRelationshipGroups(destination, catalog);
-    const relatedDestinations = categoryCatalog.filter((item) => item.slug !== destination.slug).slice(0, 6);
-    return { destination, graph, categories, regions, relatedArticles, relationshipGroups, relatedDestinations };
+    return { destination, graph, categories, regions, relatedArticles, relationshipGroups };
   },
   head: ({ loaderData, params }) => {
     if (!loaderData) return { meta: [{ title: "Unavailable" }, { name: "robots", content: "noindex, nofollow" }] };
@@ -68,7 +65,6 @@ export const Route = createFileRoute("/destination/$slug")({
     const relatedPlaces = [...new Map(
       relationshipGroups.flatMap((group) => group.destinations).map((item) => [item.slug, item]),
     ).values()];
-    const related = relatedPlaces;
 
     const webPageSchema = {
       "@type": "WebPage",
@@ -79,6 +75,7 @@ export const Route = createFileRoute("/destination/$slug")({
       isPartOf: { "@id": `${siteUrl}/#website` },
       primaryImageOfPage: { "@id": `${url}#primaryimage` },
       mainEntity: { "@id": `${url}#attraction` },
+      breadcrumb: { "@id": `${url}#breadcrumbs` },
       ...(relatedPlaces.length > 0 ? { hasPart: { "@id": `${url}#related-places` } } : {}),
       ...(validExternalUrl(destination.officialUrl) ? { citation: destination.officialUrl } : {}),
       ...(destination.sourceCheckedAt ? { dateModified: destination.sourceCheckedAt } : {}),
@@ -151,7 +148,15 @@ export const Route = createFileRoute("/destination/$slug")({
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
       scripts: [{
         type: "application/ld+json",
-        children: JSON.stringify({ "@context": "https://schema.org", "@graph": [webPageSchema, attractionSchema, ...(related.length > 0 ? [relatedSchema] : []), breadcrumbSchema] }),
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            webPageSchema,
+            attractionSchema,
+            ...(relatedPlaces.length > 0 ? [relatedSchema] : []),
+            breadcrumbSchema,
+          ],
+        }),
       }],
     };
   },
@@ -166,7 +171,7 @@ export const Route = createFileRoute("/destination/$slug")({
 });
 
 function DestinationPage() {
-  const { destination, graph, categories, regions, relatedArticles, relationshipGroups, relatedDestinations } = Route.useLoaderData();
+  const { destination, graph, categories, regions, relatedArticles, relationshipGroups } = Route.useLoaderData();
   const region = regions.find((item) => item.id === destination.region);
   const categoryName = categories.find((category) => category.slug === destination.category)?.name
     ?? destination.category.replace(/-/g, " ");
@@ -253,17 +258,6 @@ function DestinationPage() {
       </Container>
 
       <DestinationRelationships destination={destination} groups={relationshipGroups} regionName={region?.name} />
-
-      {relatedDestinations.length > 0 && (
-        <Section tone="surface">
-          <Container>
-            <SectionHeader eyebrow="Keep exploring" title="Where to point the car next" description={`More ${categoryName.toLowerCase()} across Texas.`} />
-            <ul className="mt-10 grid gap-10 sm:grid-cols-3">
-              {relatedDestinations.map((item) => <li key={item.id}><DestinationCard destination={item} /></li>)}
-            </ul>
-          </Container>
-        </Section>
-      )}
 
       {relatedArticles.length > 0 && (
         <Section>
