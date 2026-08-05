@@ -9,7 +9,7 @@ import { guidesQuery } from "@/data/queries";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const description =
-  "Straightforward Texas travel, moving, homeowner, property-tax and everyday-life guides gathered in one place.";
+  "Straightforward travel, moving, homeowner, property-tax and everyday-life guides gathered in one place.";
 
 const migratedGuides = [
   { to: "/learn/property-taxes", label: "Property Taxes Without the Guesswork", body: "A plain-English look at appraisals, exemptions, protests, rates and the yearly tax cycle." },
@@ -27,49 +27,49 @@ const travelGuides = [
     to: "/explore/state-parks",
     label: "Texas State Parks Guide",
     body: "Choose parks by region, season, activity, camping style and drive time. Includes reservation planning, family trips, hiking, swimming and nearby stops.",
-    note: "Statewide parks guide covering all seven Texas regions.",
+    note: "A statewide guide covering all seven regions.",
   },
   {
     to: "/explore/lakes-rivers",
     label: "Texas Lakes & Rivers Guide",
     body: "Plan swimming, fishing, paddling, boating and lakeside weekends while checking water levels, ramp access, weather and public shoreline access.",
-    note: "Combines the former lakes guide with TexasDefined's river and swimming-hole directory.",
+    note: "Lakes, rivers and swimming holes in one place.",
   },
   {
     to: "/explore/outdoors",
     label: "Texas Camping Guide",
     body: "Compare state-park, lakeside, primitive and RV camping, with practical advice for seasons, burn bans, water, weather, insects and remote-road preparation.",
-    note: "Migrated from the former statewide camping guide.",
+    note: "A practical starting point for camping across the state.",
   },
   {
     to: "/explore/road-trips",
     label: "Texas Scenic Drives",
     body: "Build Hill Country, Big Bend, Panhandle, Piney Woods and Gulf Coast routes with seasonal timing, fuel planning, photography stops and worthwhile detours.",
-    note: "Migrated from the former scenic-drives guide.",
+    note: "Routes worth taking slowly.",
   },
   {
     to: "/explore/road-trips",
     label: "Texas Wildflower Seasons",
     body: "Use a month-by-month approach to bluebonnets and other blooms, with regional timing, responsible roadside viewing and flexible spring road-trip planning.",
-    note: "Migrated from the former wildflower-season guide and placed with road trips.",
+    note: "A spring guide for timing the blooms and taking the long way.",
   },
   {
     to: "/explore/caverns",
     label: "Texas Caverns & Caves",
     body: "Find show caves, guided cavern tours and nearby park pairings, and check tour schedules, accessibility, footwear rules and seasonal conditions before driving.",
-    note: "Restores the cavern material to the Explore directory where it belongs.",
+    note: "Underground stops worth planning ahead for.",
   },
   {
     to: "/explore/small-towns",
     label: "Texas Small-Town Trips",
     body: "Plan courthouse-square, dance-hall, historic-district and local-food weekends without treating the town as only a stop between larger attractions.",
-    note: "Exposes the former small-town and regional road-trip material through TexasDefined.",
+    note: "Weekend ideas built around the town itself.",
   },
   {
     to: "/explore/historic-sites",
     label: "Texas Historic Places",
     body: "Browse forts, missions, battlefields, museums, historic districts and cultural landmarks, then combine them with nearby towns and scenic routes.",
-    note: "Texas history and heritage destinations across the state.",
+    note: "Places where the past still feels close.",
   },
 ] as const;
 
@@ -81,7 +81,7 @@ export const Route = createFileRoute("/guides")({
   head: () => ({
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath: "/guides",
-      title: "Texas Travel, Moving & Homeowner Guides",
+      title: "Guides for Travel and Everyday Life",
       description,
     }),
     links: [canonicalLink(texasDefinedBrand, "/guides")],
@@ -93,7 +93,7 @@ export const Route = createFileRoute("/guides")({
             "@type": "CollectionPage",
             "@id": `${guidesUrl}#page`,
             url: guidesUrl,
-            name: "Texas Travel, Moving & Homeowner Guides",
+            name: "Guides for Travel and Everyday Life",
             description,
             isPartOf: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#website` },
             mainEntity: { "@id": `${guidesUrl}#guide-list` },
@@ -151,9 +151,9 @@ function GuidesPage() {
       <Section tone="surface">
         <Container>
           <SectionHeader
-            eyebrow="Statewide Collections"
-            title="Travel guides that belong on TexasDefined"
-            description="Statewide guides that point visitors into the matching TexasDefined directories and collections."
+            eyebrow="Before you go"
+            title="Guides for seeing more of Texas"
+            description="A few dependable starting points for parks, water, camping, road trips, caverns, small towns and historic places."
           />
           <ul className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
             {travelGuides.map((guide, index) => (
@@ -166,7 +166,7 @@ function GuidesPage() {
                   <h2 className="font-display text-xl">{guide.label}</h2>
                   <p className="mt-3 text-sm leading-6 text-muted-foreground">{guide.body}</p>
                   <p className="mt-4 text-xs leading-5 text-muted-foreground">{guide.note}</p>
-                  <span className="mt-5 inline-block text-sm font-medium text-primary">Explore the guide →</span>
+                  <span className="mt-5 inline-block text-sm font-medium text-primary">Open the guide →</span>
                 </Link>
               </li>
             ))}
@@ -176,7 +176,7 @@ function GuidesPage() {
 
       <Section>
         <Container>
-          <SectionHeader eyebrow="Living in Texas" title="The questions homeowners ask us most" />
+          <SectionHeader eyebrow="Living Here" title="The questions homeowners ask us most" />
           <ul className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
             {migratedGuides.map((guide, index) => (
               <li key={guide.to} id={guideAnchor(travelGuides.length + index)}>
