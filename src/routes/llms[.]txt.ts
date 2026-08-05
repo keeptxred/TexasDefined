@@ -34,6 +34,15 @@ https://texasdefined.com
 - Food and barbecue: https://texasdefined.com/explore/food-bbq
 - Outdoors and wildlife: https://texasdefined.com/explore/outdoors
 
+## Explore regions
+- Hill Country: https://texasdefined.com/explore/region/hill-country
+- Gulf Coast: https://texasdefined.com/explore/region/gulf-coast
+- Big Bend: https://texasdefined.com/explore/region/big-bend
+- Panhandle: https://texasdefined.com/explore/region/panhandle
+- Piney Woods: https://texasdefined.com/explore/region/piney-woods
+- Prairies and Lakes: https://texasdefined.com/explore/region/prairies-lakes
+- South Texas: https://texasdefined.com/explore/region/south-texas
+
 ## Sitemaps
 - https://texasdefined.com/sitemap.xml
 - https://texasdefined.com/sitemap-explore.xml
