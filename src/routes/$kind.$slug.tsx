@@ -1,8 +1,10 @@
 import { createFileRoute, notFound } from '@tanstack/react-router';
+import { texasDefinedBrand } from '@/brand/texasdefined';
 import { Container } from '@/components/layout/Container';
 import { AutoEntityLinks } from '@/components/content/AutoEntityLinks';
 import { findCompleteTexasEntity, loadTexasKnowledgeGraph } from '@/data/knowledge-graph';
 import { canonicalEntityPath, rankRelatedEntities } from '@/data/knowledge-graph/relationships';
+import { buildMeta, canonicalLink } from '@/lib/seo';
 
 export const Route = createFileRoute('/$kind/$slug')({
   loader: async ({ params }) => {
@@ -11,13 +13,19 @@ export const Route = createFileRoute('/$kind/$slug')({
     if (!entity || entity.kind !== params.kind) throw notFound();
     return { entity, related: rankRelatedEntities(entity, graph, 12) };
   },
-  head: ({ loaderData }) => ({
-    meta: loaderData ? [
-      { title: `${loaderData.entity.name} | TexasDefined` },
-      { name: 'description', content: loaderData.entity.description ?? `What to know about ${loaderData.entity.name}, where it is, and what is nearby.` },
-    ] : [],
-    links: loaderData ? [{ rel: 'canonical', href: `https://texasdefined.com${canonicalEntityPath(loaderData.entity)}` }] : [],
-  }),
+  head: ({ loaderData }) => {
+    if (!loaderData) return {};
+    const canonicalPath = canonicalEntityPath(loaderData.entity);
+    const description = loaderData.entity.description ?? `What to know about ${loaderData.entity.name}, where it is, and what is nearby.`;
+    return {
+      meta: buildMeta(texasDefinedBrand, {
+        canonicalPath,
+        title: loaderData.entity.name,
+        description,
+      }),
+      links: [canonicalLink(texasDefinedBrand, canonicalPath)],
+    };
+  },
   component: EntityPage,
 });
 
