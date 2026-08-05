@@ -6,7 +6,7 @@ import { ArticleBody, Byline } from "@/components/editorial/ArticleBody";
 import { ArticleCard } from "@/components/editorial/ArticleCard";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
-import { articleQuery, articlesQuery, authorsQuery } from "@/data/queries";
+import { articleQuery, articlesQuery, authorsQuery, categoriesQuery } from "@/data/queries";
 import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
 import { canonicalEntityPath } from "@/data/knowledge-graph/relationships";
 import { formatDate, formatReadingTime } from "@/domain/utils/format";
@@ -18,41 +18,63 @@ export const Route = createFileRoute("/article/$slug")({
   loader: async ({ context, params }) => {
     const article = await context.queryClient.ensureQueryData(articleQuery(params.slug));
     if (!article) throw notFound();
-    const [authors, , graph] = await Promise.all([
+    const [authors, categories, , graph] = await Promise.all([
       context.queryClient.ensureQueryData(authorsQuery()),
+      context.queryClient.ensureQueryData(categoriesQuery()),
       context.queryClient.ensureQueryData(articlesQuery({ category: article.category, limit: 4 })),
       loadTexasKnowledgeGraph(),
     ]);
-    return { article, authors, graph };
+    return { article, authors, categories, graph };
   },
   head: ({ loaderData, params }) => {
     if (!loaderData) return { meta: [{ title: "Unavailable" }, { name: "robots", content: "noindex, nofollow" }] };
-    const { article, authors, graph } = loaderData;
+    const { article, authors, categories, graph } = loaderData;
     const canonicalPath = `/article/${params.slug}`;
     const articleUrl = `${siteUrl}${canonicalPath}`;
+    const imageUrl = absoluteUrl(texasDefinedBrand, article.hero.src);
     const author = authors.find((item) => item.id === article.authorId);
+    const authorId = author ? `${articleUrl}#author-${author.id}` : `${siteUrl}/#organization`;
     const text = [article.title, article.dek, ...article.body.flatMap((block) => block.type === "list" ? block.items : "text" in block ? [block.text] : [])].join(" ").toLowerCase();
     const mentions = graph.filter((entity) => [entity.name, ...entity.aliases].some((label) => {
       if (label.length < 4) return false;
       const escaped = label.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
       return new RegExp(`(^|\\W)${escaped}(?=$|\\W)`, "i").test(text);
     })).slice(0, 20);
-    const categoryName = article.category.replace(/-/g, " ");
+    const categoryName = categories.find((category) => category.slug === article.category)?.name
+      ?? article.category.replace(/-/g, " ");
 
+    const webPageSchema = {
+      "@type": "WebPage",
+      "@id": articleUrl,
+      url: articleUrl,
+      name: article.title,
+      description: article.dek,
+      isPartOf: { "@id": `${siteUrl}/#website` },
+      primaryImageOfPage: { "@id": `${articleUrl}#primaryimage` },
+      mainEntity: { "@id": `${articleUrl}#article` },
+      breadcrumb: { "@id": `${articleUrl}#breadcrumbs` },
+    };
+    const authorSchema = author ? {
+      "@type": "Person",
+      "@id": authorId,
+      name: author.name,
+      jobTitle: author.role,
+      description: author.bio,
+    } : null;
     const articleSchema = {
       "@type": "Article",
       "@id": `${articleUrl}#article`,
       url: articleUrl,
-      mainEntityOfPage: { "@type": "WebPage", "@id": articleUrl },
+      mainEntityOfPage: { "@id": articleUrl },
       headline: article.title,
       description: article.dek,
-      image: [{ "@type": "ImageObject", url: absoluteUrl(texasDefinedBrand, article.hero.src), caption: article.hero.alt, width: article.hero.width, height: article.hero.height }],
+      image: [{ "@type": "ImageObject", "@id": `${articleUrl}#primaryimage`, url: imageUrl, caption: article.hero.alt, width: article.hero.width, height: article.hero.height }],
       datePublished: article.publishedAt,
-      articleSection: article.category,
+      articleSection: categoryName,
       keywords: article.tags,
       isAccessibleForFree: true,
-      author: author ? { "@type": "Person", name: author.name } : { "@type": "Organization", name: texasDefinedBrand.identity.name },
-      publisher: { "@type": "Organization", "@id": `${siteUrl}/#organization`, name: texasDefinedBrand.identity.name, url: siteUrl },
+      author: { "@id": authorId },
+      publisher: { "@id": `${siteUrl}/#organization` },
       mentions: mentions.map((entity) => ({ "@type": schemaTypeForEntityKind(entity.kind), name: entity.name, url: `${siteUrl}${canonicalEntityPath(entity)}` })),
     };
     const breadcrumbSchema = {
@@ -65,6 +87,7 @@ export const Route = createFileRoute("/article/$slug")({
         { "@type": "ListItem", position: 4, name: article.title, item: articleUrl },
       ],
     };
+    const schemaGraph = [webPageSchema, ...(authorSchema ? [authorSchema] : []), articleSchema, breadcrumbSchema];
 
     return {
       meta: buildMeta(texasDefinedBrand, {
@@ -77,7 +100,7 @@ export const Route = createFileRoute("/article/$slug")({
         publishedTime: article.publishedAt,
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
-      scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": [articleSchema, breadcrumbSchema] }) }],
+      scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": schemaGraph }) }],
     };
   },
   notFoundComponent: () => <Container className="py-24"><p className="eyebrow text-primary">Story not found</p><h1 className="mt-3 font-display text-3xl">This one took a different road</h1><p className="mt-3 text-sm text-muted-foreground">The story may have moved or been retired. <Link to="/explore" className="text-primary underline">Keep exploring</Link>.</p></Container>,
@@ -86,13 +109,14 @@ export const Route = createFileRoute("/article/$slug")({
 
 function ArticlePage() {
   const { slug } = Route.useParams();
-  const { graph } = Route.useLoaderData();
+  const { graph, categories } = Route.useLoaderData();
   const { data: article } = useSuspenseQuery(articleQuery(slug));
   const { data: authors } = useSuspenseQuery(authorsQuery());
   const { data: related } = useSuspenseQuery(articlesQuery(article ? { category: article.category, limit: 4 } : { limit: 4 }));
   if (!article) return null;
   const author = authors.find((item) => item.id === article.authorId) ?? null;
-  const categoryName = article.category.replace(/-/g, " ");
+  const categoryName = categories.find((category) => category.slug === article.category)?.name
+    ?? article.category.replace(/-/g, " ");
 
   return <article>
     <Container className="pt-24">
@@ -100,7 +124,7 @@ function ArticlePage() {
         <ol className="flex flex-wrap items-center gap-2">
           <li><Link to="/" className="hover:text-foreground">Home</Link></li><li aria-hidden="true">/</li>
           <li><Link to="/explore" className="hover:text-foreground">Explore</Link></li><li aria-hidden="true">/</li>
-          <li><Link to="/explore/$category" params={{ category: article.category }} className="capitalize hover:text-foreground">{categoryName}</Link></li><li aria-hidden="true">/</li>
+          <li><Link to="/explore/$category" params={{ category: article.category }} className="hover:text-foreground">{categoryName}</Link></li><li aria-hidden="true">/</li>
           <li aria-current="page" className="truncate text-foreground">{article.title}</li>
         </ol>
       </nav>
