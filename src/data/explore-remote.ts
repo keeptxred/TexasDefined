@@ -208,8 +208,8 @@ function mapRow(row: Record<string, unknown>): Destination {
     cleanText(row.long_description),
     summary,
     managingAuthority ? `${name} is managed by ${managingAuthority}.` : "",
-    cleanText(park.accessibility_notes),
   ]);
+  const addressParts = [cleanText(place.address_line_1), cleanText(place.city), cleanText(place.state_code), cleanText(place.postal_code)].filter(Boolean);
 
   return {
     id: String(row.id || row.slug),
@@ -238,6 +238,10 @@ function mapRow(row: Record<string, unknown>): Destination {
     officialUrl: source.officialUrl,
     sourceCheckedAt: source.sourceCheckedAt,
     reservationUrl: cleanText(park.reservations_url) || undefined,
+    county: county || undefined,
+    address: addressParts.join(", ") || undefined,
+    directions: cleanText(place.directions) || undefined,
+    accessibilityNotes: cleanText(park.accessibility_notes) || undefined,
     featured: Boolean(row.featured),
   };
 }
