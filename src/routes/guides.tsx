@@ -29,7 +29,7 @@ export const Route = createFileRoute("/guides")({
   head: () => ({
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath: "/guides",
-      title: "Helpful Texas Guides",
+      title: "Guides for Living Here",
       description,
     }),
     links: [canonicalLink(texasDefinedBrand, "/guides")],
@@ -41,7 +41,7 @@ export const Route = createFileRoute("/guides")({
             "@type": "CollectionPage",
             "@id": `${guidesUrl}#page`,
             url: guidesUrl,
-            name: "Helpful Texas Guides",
+            name: "Guides for Living Here",
             description,
             isPartOf: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#website` },
             mainEntity: { "@id": `${guidesUrl}#guide-list` },
@@ -67,7 +67,7 @@ export const Route = createFileRoute("/guides")({
           {
             "@type": "ItemList",
             "@id": `${guidesUrl}#guide-list`,
-            name: "TexasDefined practical guides",
+            name: "Texas Defined practical guides",
             numberOfItems: migratedGuides.length,
             itemListElement: migratedGuides.map((guide, index) => ({
               "@type": "ListItem",
@@ -123,7 +123,7 @@ function GuidesPage() {
                 >
                   <h2 className="font-display text-xl">{guide.label}</h2>
                   <p className="mt-3 text-sm leading-6 text-muted-foreground">{guide.body}</p>
-                  <span className="mt-5 inline-block text-sm font-medium text-primary">Take a closer look →</span>
+                  <span className="mt-5 inline-block text-sm font-medium text-primary">Start here →</span>
                 </Link>
               </li>
             ))}
@@ -134,7 +134,7 @@ function GuidesPage() {
       {topics.map((topic, index) => (
         <Section key={topic} tone={index % 2 === 0 ? "default" : "surface"}>
           <Container>
-            <SectionHeader eyebrow={topic} title={`A little more help with ${topic.toLowerCase()}`} />
+            <SectionHeader eyebrow={topic} title={`More help with ${topic.toLowerCase()}`} />
             <ul className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {guides
                 .filter((guide) => guide.topic === topic)
