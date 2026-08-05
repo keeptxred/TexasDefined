@@ -18,9 +18,18 @@ export function MapPreview({
   directionsLabel: string;
   className?: string;
 }) {
-  const primary: GeoPoint | undefined = markers[0]?.point;
-  const image = maps.staticImageUrl(markers, zoom);
+  const validMarkers = markers.filter(({ point }) =>
+    Number.isFinite(point.lat)
+    && Number.isFinite(point.lng)
+    && Math.abs(point.lat) <= 90
+    && Math.abs(point.lng) <= 180
+    && !(point.lat === 0 && point.lng === 0),
+  );
+  const primary: GeoPoint | undefined = validMarkers[0]?.point;
+  const image = maps.staticImageUrl(validMarkers, zoom);
 
+  // A number of migrated records do not yet have authoritative coordinates.
+  // Do not render a map or directions link to the Gulf of Guinea for 0,0.
   if (!primary) return null;
 
   return (
@@ -33,7 +42,7 @@ export function MapPreview({
           <p className="mt-3 font-display text-2xl">Ready when you are</p>
         )}
         <ul className="mt-3 space-y-1 text-sm text-muted-foreground">
-          {markers.map((marker) => (
+          {validMarkers.map((marker) => (
             <li key={marker.id}>{marker.label}</li>
           ))}
         </ul>
