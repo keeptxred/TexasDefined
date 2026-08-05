@@ -38,6 +38,9 @@ export interface Region {
 export type CategorySlug =
   | "lakes-rivers"
   | "state-parks"
+  | "caverns"
+  | "beaches-coast"
+  | "historic-sites"
   | "road-trips"
   | "small-towns"
   | "food-bbq"
