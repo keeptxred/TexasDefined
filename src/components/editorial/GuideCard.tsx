@@ -1,4 +1,7 @@
+import { Link } from "@tanstack/react-router";
+
 import { useBrand } from "@/brand/context";
+import { guideHref, guideIsAvailable } from "@/data/guide-links";
 import type { Guide } from "@/data/types";
 import { getCalculator } from "@/domain/calculators/registry";
 
@@ -18,12 +21,14 @@ function topicLabel(topic: string) {
 export function GuideCard({ guide }: { guide: Guide }) {
   const brand = useBrand();
   const contract = getCalculator(guide.calculatorId);
+  const href = guideHref(guide);
+  const available = guideIsAvailable(guide);
 
-  return (
-    <article className="flex h-full flex-col border border-border bg-card p-6">
+  const card = (
+    <article className="flex h-full flex-col border border-border bg-card p-6 transition-colors group-hover:border-primary/50">
       <div className="flex items-center justify-between gap-3">
         <p className="eyebrow text-primary">{KIND_LABEL[guide.kind]}</p>
-        {guide.status === "coming-soon" && (
+        {!available && (
           <span className="rounded-sm bg-secondary px-2 py-1 text-xs text-secondary-foreground">
             {brand.copy.comingSoon}
           </span>
@@ -34,10 +39,17 @@ export function GuideCard({ guide }: { guide: Guide }) {
       {contract && (
         <div className="mt-5 border-t border-border pt-4 text-sm leading-6 text-muted-foreground">
           <p>Bring a few basic numbers and we’ll help you turn them into a useful starting point.</p>
-          {guide.status === "coming-soon" && <p className="mt-3">{brand.copy.comingSoonBody}</p>}
+          {!available && <p className="mt-3">{brand.copy.comingSoonBody}</p>}
         </div>
       )}
       <p className="mt-5 text-sm text-muted-foreground">Good to know · {topicLabel(guide.topic)}</p>
+      {href && <span className="mt-4 text-sm font-medium text-primary">Open this guide →</span>}
     </article>
   );
+
+  return href ? (
+    <Link to={href} className="group block h-full">
+      {card}
+    </Link>
+  ) : card;
 }
