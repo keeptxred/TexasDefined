@@ -19,6 +19,16 @@ const EXPLORE_CATEGORY_SLUGS = new Set([
   "outdoors",
 ]);
 
+const EXPLORE_REGION_SLUGS = [
+  "hill-country",
+  "gulf-coast",
+  "big-bend",
+  "panhandle",
+  "piney-woods",
+  "prairies-lakes",
+  "south-texas",
+];
+
 function escapeXml(value: string): string {
   return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\"/g, "&quot;").replace(/'/g, "&apos;");
 }
@@ -57,6 +67,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           `${BASE_URL}/explore`,
           ...categorySlugs.map((slug) => `${BASE_URL}/explore/${slug}`),
           ...regions.map((region) => `${BASE_URL}/explore/region/${region.id}`),
+          ...EXPLORE_REGION_SLUGS.map((regionSlug) => `${BASE_URL}/explore/region/${regionSlug}`),
           ...destinations.filter((item) => item.slug).map((item) => `${BASE_URL}/destination/${item.slug}`),
         ];
 
