@@ -8,8 +8,9 @@ import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import { articleQuery, articlesQuery, authorsQuery } from "@/data/queries";
 import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
+import { canonicalEntityPath } from "@/data/knowledge-graph/relationships";
 import { formatDate, formatReadingTime } from "@/domain/utils/format";
-import { buildMeta, canonicalLink, schemaTypeForEntityKind } from "@/lib/seo";
+import { absoluteUrl, buildMeta, canonicalLink, schemaTypeForEntityKind } from "@/lib/seo";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
@@ -45,14 +46,14 @@ export const Route = createFileRoute("/article/$slug")({
       mainEntityOfPage: { "@type": "WebPage", "@id": articleUrl },
       headline: article.title,
       description: article.dek,
-      image: [{ "@type": "ImageObject", url: article.hero.src, caption: article.hero.alt, width: article.hero.width, height: article.hero.height }],
+      image: [{ "@type": "ImageObject", url: absoluteUrl(texasDefinedBrand, article.hero.src), caption: article.hero.alt, width: article.hero.width, height: article.hero.height }],
       datePublished: article.publishedAt,
       articleSection: article.category,
       keywords: article.tags,
       isAccessibleForFree: true,
       author: author ? { "@type": "Person", name: author.name } : { "@type": "Organization", name: texasDefinedBrand.identity.name },
       publisher: { "@type": "Organization", "@id": `${siteUrl}/#organization`, name: texasDefinedBrand.identity.name, url: siteUrl },
-      mentions: mentions.map((entity) => ({ "@type": schemaTypeForEntityKind(entity.kind), name: entity.name, url: `${siteUrl}/${entity.kind}/${entity.slug}` })),
+      mentions: mentions.map((entity) => ({ "@type": schemaTypeForEntityKind(entity.kind), name: entity.name, url: `${siteUrl}${canonicalEntityPath(entity)}` })),
     };
     const breadcrumbSchema = {
       "@type": "BreadcrumbList",
