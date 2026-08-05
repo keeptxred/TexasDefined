@@ -12,11 +12,11 @@ export const Route = createFileRoute("/sports")({
   head: ({ loaderData }) => loaderData
     ? buildEditorialCollectionHead(texasDefinedBrand, {
         canonicalPath: "/sports",
-        title: "Texas Sports",
-        collectionName: "Texas Sports",
+        title: "Sports",
+        collectionName: "The Texas Game",
         description,
-        breadcrumbParentName: "Explore",
-        breadcrumbParentPath: "/explore",
+        breadcrumbParentName: "The Magazine",
+        breadcrumbParentPath: "/",
         items: [
           ...loaderData.articles.map((article) => ({
             type: "Article" as const,
@@ -36,7 +36,7 @@ export const Route = createFileRoute("/sports")({
       })
     : ({
         meta: buildMeta(texasDefinedBrand, {
-          title: "Texas Sports",
+          title: "Sports",
           description,
           canonicalPath: "/sports",
         }),
