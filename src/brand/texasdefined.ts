@@ -7,10 +7,8 @@ import wildlife from "@/assets/wildlife.jpg";
 
 import type { BrandConfig } from "./types";
 
-
 /**
- * The ONLY file that supplies concrete TexasDefined values.
- * Adding `keeptxred.ts` beside it is the entire brand-onboarding cost.
+ * The single source of concrete TexasDefined identity, navigation, copy and SEO values.
  */
 export const texasDefinedBrand: BrandConfig = {
   identity: {
@@ -111,7 +109,6 @@ export const texasDefinedBrand: BrandConfig = {
           image: { src: wildlife, alt: "White-tailed deer in Texas brush country" },
         },
       ],
-
     },
     { label: "Sports", to: "/sports" },
     { label: "Events", to: "/events" },
