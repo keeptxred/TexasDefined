@@ -24,6 +24,8 @@ https://texasdefined.com
 ## Explore categories
 - Lakes and rivers: https://texasdefined.com/explore/lakes-rivers
 - State parks: https://texasdefined.com/explore/state-parks
+- National parks: https://texasdefined.com/explore/national-parks
+- Major springs: https://texasdefined.com/explore/major-springs
 - Caverns and caves: https://texasdefined.com/explore/caverns
 - Beaches and coast: https://texasdefined.com/explore/beaches-coast
 - Historic sites and museums: https://texasdefined.com/explore/historic-sites
