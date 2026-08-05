@@ -2,20 +2,17 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { useBrand } from "@/brand/context";
+import { texasDefinedBrand } from "@/brand/texasdefined";
+import { CollectionStrip } from "@/components/commerce/CollectionStrip";
 import { ArticleCard } from "@/components/editorial/ArticleCard";
 import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { EventCard } from "@/components/editorial/EventCard";
 import { FeatureHero } from "@/components/editorial/FeatureHero";
 import { GuideCard } from "@/components/editorial/GuideCard";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
-import type { Destination } from "@/data/types";
-
-import { CollectionStrip } from "@/components/commerce/CollectionStrip";
 import { Container } from "@/components/layout/Container";
-import { texasDefinedBrand } from "@/brand/texasdefined";
 import {
   articlesQuery,
-  categoriesQuery,
   collectionsQuery,
   destinationsQuery,
   eventsQuery,
@@ -42,17 +39,13 @@ export const Route = createFileRoute("/")({
       context.queryClient.ensureQueryData(articlesQuery({ featured: true, limit: 5 })),
       context.queryClient.ensureQueryData(articlesQuery({ limit: 12 })),
       context.queryClient.ensureQueryData(destinationsQuery({})),
-      context.queryClient.ensureQueryData(destinationsQuery({ category: "lakes-rivers" })),
-      context.queryClient.ensureQueryData(destinationsQuery({ category: "state-parks" })),
       context.queryClient.ensureQueryData(destinationsQuery({ category: "road-trips" })),
-      context.queryClient.ensureQueryData(categoriesQuery()),
       context.queryClient.ensureQueryData(regionsQuery()),
       context.queryClient.ensureQueryData(collectionsQuery()),
       context.queryClient.ensureQueryData(guidesQuery()),
       context.queryClient.ensureQueryData(eventsQuery({ limit: 4 })),
     ]);
   },
-
   component: HomePage,
 });
 
@@ -61,28 +54,25 @@ function HomePage() {
   const { data: featured } = useSuspenseQuery(articlesQuery({ featured: true, limit: 5 }));
   const { data: latest } = useSuspenseQuery(articlesQuery({ limit: 12 }));
   const { data: destinations } = useSuspenseQuery(destinationsQuery({}));
-  const { data: lakes } = useSuspenseQuery(destinationsQuery({ category: "lakes-rivers" }));
-  const { data: parks } = useSuspenseQuery(destinationsQuery({ category: "state-parks" }));
   const { data: roadTrips } = useSuspenseQuery(destinationsQuery({ category: "road-trips" }));
-  const { data: categories } = useSuspenseQuery(categoriesQuery());
   const { data: regions } = useSuspenseQuery(regionsQuery());
   const { data: collections } = useSuspenseQuery(collectionsQuery());
   const { data: guides } = useSuspenseQuery(guidesQuery());
   const { data: events } = useSuspenseQuery(eventsQuery({ limit: 4 }));
 
   const hero = featured[0];
-  const regionName = (id: string) => regions.find((region) => region.id === id)?.name;
-  const wildlife = latest.find((article) => article.category === "outdoors");
-  const secondary = featured.slice(1, 4);
+  const editorPicks = featured.slice(1, 4);
   const featuredDestinations = destinations.filter((item) => item.featured).slice(0, 4);
-  const hiddenGems = destinations.slice(3, 6);
+  const hiddenGems = destinations.filter((item) => !item.featured).slice(0, 3);
+  const worthTheDrive = roadTrips[0] ?? destinations[0];
+  const regionName = (id: string) => regions.find((region) => region.id === id)?.name;
 
   return (
     <>
       {hero && (
         <FeatureHero
           variant="split"
-          eyebrow={brand.identity.tagline}
+          eyebrow="The cover story"
           title={hero.title}
           dek={hero.dek}
           image={hero.hero}
@@ -97,11 +87,11 @@ function HomePage() {
           <SectionHeader
             eyebrow="Start here"
             title="Four places we'd send a friend"
-            description="The kind of places that explain Texas better than a brochure ever could."
-            actionLabel={brand.copy.viewAll}
+            description="No endless list. Just four places that explain this state better than any brochure could."
+            actionLabel="See more places"
             actionTo="/explore"
           />
-          <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {featuredDestinations.map((destination) => (
               <li key={destination.id}>
                 <DestinationCard
@@ -115,146 +105,34 @@ function HomePage() {
         </Container>
       </Section>
 
-      <Section tone="surface">
-        <Container>
-          <SectionHeader
-            eyebrow="Editor's picks"
-            title="Stories worth slowing down for"
-            actionLabel={brand.copy.viewAll}
-            actionTo="/explore"
-          />
-          <ul className="mt-10 grid gap-12 md:grid-cols-3">
-            {secondary.map((article) => (
-              <li key={article.id}>
-                <ArticleCard article={article} />
-              </li>
-            ))}
-          </ul>
-        </Container>
-      </Section>
-
-      <Section tone="surface">
-        <Container>
-          <SectionHeader
-            eyebrow="Pick a direction"
-            title="There is always another road"
-            description="Seven regions, eighty-nine state parks and enough two-lane highway to keep your weekends full for years."
-          />
-          <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {categories.map((category) => (
-              <li key={category.slug}>
-                <Link
-                  to="/explore/$category"
-                  params={{ category: category.slug }}
-                  className="group relative block overflow-hidden"
-                >
-                  {category.image && (
-                    <img
-                      src={category.image.src}
-                      alt={category.image.alt}
-                      width={category.image.width}
-                      height={category.image.height}
-                      loading="lazy"
-                      decoding="async"
-                      className="aspect-[5/3] w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-ink/85 to-transparent" />
-                  <div className="absolute inset-x-0 bottom-0 p-5 text-ink-foreground">
-                    <p className="eyebrow opacity-80">{category.eyebrow}</p>
-                    <h3 className="mt-1 font-display text-2xl">{category.name}</h3>
-                  </div>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </Container>
-      </Section>
-
-      <Section>
-        <Container>
-          <SectionHeader eyebrow="Hidden Texas" title="Places the highway skipped" />
-          <ul className="mt-10 grid gap-10 sm:grid-cols-3">
-            {hiddenGems.map((destination) => (
-              <li key={destination.id}>
-                <DestinationCard
-                  destination={destination}
-                  regionLabel={regionName(destination.region)}
-                />
-              </li>
-            ))}
-          </ul>
-        </Container>
-      </Section>
-
-      <DestinationRow
-        tone="surface"
-        eyebrow="Lakes &amp; rivers"
-        title="Cold water, cypress shade"
-        actionLabel={brand.copy.viewAll}
-        actionTo="/explore/lakes-rivers"
-        destinations={lakes}
-        regionName={regionName}
-      />
-
-      <DestinationRow
-        eyebrow="State parks"
-        title="Eighty-nine parks, one state"
-        actionLabel={brand.copy.viewAll}
-        actionTo="/explore/state-parks"
-        destinations={parks}
-        regionName={regionName}
-      />
-
-      <DestinationRow
-        tone="surface"
-        eyebrow="Road trips"
-        title="Take the long way"
-        actionLabel={brand.copy.viewAll}
-        actionTo="/explore/road-trips"
-        destinations={roadTrips}
-        regionName={regionName}
-      />
-
-      {wildlife && (
+      {editorPicks.length > 0 && (
         <Section tone="surface">
           <Container>
-            <div className="grid items-center gap-10 lg:grid-cols-[1fr_1.15fr]">
-              <div>
-                <p className="eyebrow text-primary">Wild Texas</p>
-                <h2 className="mt-3 font-display text-4xl leading-tight">{wildlife.title}</h2>
-                <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-                  {wildlife.dek}
-                </p>
-                <Link
-                  to="/article/$slug"
-                  params={{ slug: wildlife.slug }}
-                  className="eyebrow mt-7 inline-block border-b-2 border-primary pb-1 text-primary"
-                >
-                  {brand.copy.readMore}
-                </Link>
+            <SectionHeader
+              eyebrow="Editor's picks"
+              title="Stories worth slowing down for"
+              description="The pieces we'd leave open on the kitchen table for someone else to read."
+            />
+            <div className="mt-12 grid gap-10 lg:grid-cols-[1.45fr_1fr]">
+              <ArticleCard article={editorPicks[0]} size="feature" />
+              <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-1">
+                {editorPicks.slice(1).map((article) => (
+                  <ArticleCard key={article.id} article={article} size="compact" />
+                ))}
               </div>
-              <img
-                src={wildlife.hero.src}
-                alt={wildlife.hero.alt}
-                width={wildlife.hero.width}
-                height={wildlife.hero.height}
-                loading="lazy"
-                decoding="async"
-                className="aspect-[3/2] w-full object-cover"
-              />
             </div>
           </Container>
         </Section>
       )}
 
-      {brand.features.events && (
+      {brand.features.events && events.length > 0 && (
         <Section>
           <Container>
             <SectionHeader
               eyebrow="This weekend"
               title="Good reasons to leave the house"
-              actionLabel={brand.copy.viewAll}
+              description="Fairs, festivals, rodeos and the kind of local plans that make a Saturday feel longer."
+              actionLabel="See the full weekend"
               actionTo="/events"
             />
             <div className="mt-8 grid gap-x-12 md:grid-cols-2">
@@ -266,13 +144,77 @@ function HomePage() {
         </Section>
       )}
 
-      {brand.features.guides && (
+      {worthTheDrive && (
+        <Section tone="surface">
+          <Container>
+            <div className="grid items-center gap-10 lg:grid-cols-[1.2fr_0.8fr]">
+              <img
+                src={worthTheDrive.hero.src}
+                alt={worthTheDrive.hero.alt}
+                width={worthTheDrive.hero.width}
+                height={worthTheDrive.hero.height}
+                loading="lazy"
+                decoding="async"
+                className="aspect-[16/10] w-full object-cover"
+              />
+              <div>
+                <p className="eyebrow text-primary">Worth the drive</p>
+                <h2 className="mt-3 font-display text-4xl leading-tight sm:text-5xl">
+                  {worthTheDrive.name}
+                </h2>
+                <p className="mt-5 text-base leading-7 text-muted-foreground">
+                  {worthTheDrive.summary}
+                </p>
+                <Link
+                  to="/destination/$slug"
+                  params={{ slug: worthTheDrive.slug }}
+                  className="eyebrow mt-7 inline-block border-b-2 border-primary pb-1 text-primary"
+                >
+                  Plan the trip
+                </Link>
+              </div>
+            </div>
+          </Container>
+        </Section>
+      )}
+
+      {hiddenGems.length > 0 && (
+        <Section>
+          <Container>
+            <SectionHeader
+              eyebrow="Hidden Texas"
+              title="Places the highway skipped"
+              description="Quieter corners, overlooked stops and places that reward taking the long way."
+            />
+            <ul className="mt-12 grid gap-10 md:grid-cols-[1.15fr_0.85fr]">
+              <li className="md:row-span-2">
+                <DestinationCard
+                  destination={hiddenGems[0]}
+                  tone="overlay"
+                  regionLabel={regionName(hiddenGems[0].region)}
+                />
+              </li>
+              {hiddenGems.slice(1).map((destination) => (
+                <li key={destination.id}>
+                  <DestinationCard
+                    destination={destination}
+                    regionLabel={regionName(destination.region)}
+                  />
+                </li>
+              ))}
+            </ul>
+          </Container>
+        </Section>
+      )}
+
+      {brand.features.guides && guides.length > 0 && (
         <Section tone="surface">
           <Container>
             <SectionHeader
-              eyebrow="Good to know"
+              eyebrow="Front porch"
               title="The practical side of living here"
-              actionLabel={brand.copy.viewAll}
+              description="Homes, moving, money and the everyday questions that come with putting down roots."
+              actionLabel="Open the guides"
               actionTo="/guides"
             />
             <ul className="mt-10 grid gap-6 md:grid-cols-3">
@@ -286,25 +228,30 @@ function HomePage() {
         </Section>
       )}
 
-      {brand.features.shop && (
+      {brand.features.shop && collections.length > 0 && (
         <Section>
           <Container>
             <SectionHeader
               eyebrow="Made here"
               title="Things we'd actually buy"
-              actionLabel={brand.copy.viewAll}
+              description="A few well-made finds with a real connection to the places and stories we cover."
+              actionLabel="Browse the shop"
               actionTo="/shop"
             />
             <div className="mt-10">
-              <CollectionStrip collections={collections} />
+              <CollectionStrip collections={collections.slice(0, 3)} />
             </div>
           </Container>
         </Section>
       )}
 
-      <Section>
+      <Section tone="surface">
         <Container>
-          <SectionHeader eyebrow="New this week" title="The latest from Texas Defined" />
+          <SectionHeader
+            eyebrow="New this week"
+            title="The latest from Texas Defined"
+            description="Fresh stories, useful guides and another reason to keep exploring."
+          />
           <ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
             {latest.slice(0, 8).map((article) => (
               <li key={article.id}>
@@ -315,48 +262,5 @@ function HomePage() {
         </Container>
       </Section>
     </>
-  );
-}
-
-function DestinationRow({
-  eyebrow,
-  title,
-  actionLabel,
-  actionTo,
-  destinations,
-  regionName,
-  tone = "default",
-}: {
-  eyebrow: string;
-  title: string;
-  actionLabel: string;
-  actionTo: string;
-  destinations: Destination[];
-  regionName: (id: string) => string | undefined;
-  tone?: "default" | "surface";
-}) {
-  if (destinations.length === 0) return null;
-
-  return (
-    <Section tone={tone}>
-      <Container>
-        <SectionHeader
-          eyebrow={eyebrow}
-          title={title}
-          actionLabel={actionLabel}
-          actionTo={actionTo}
-        />
-        <ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-          {destinations.slice(0, 3).map((destination) => (
-            <li key={destination.id}>
-              <DestinationCard
-                destination={destination}
-                regionLabel={regionName(destination.region)}
-              />
-            </li>
-          ))}
-        </ul>
-      </Container>
-    </Section>
   );
 }
