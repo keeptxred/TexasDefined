@@ -5,18 +5,25 @@ const engine = fs.readFileSync('src/data/destination-relationships.ts', 'utf8');
 const component = fs.readFileSync('src/components/editorial/DestinationRelationships.tsx', 'utf8');
 const errors = [];
 
-for (const feature of [
+const requireFeatures = (source, features, area) => {
+  for (const feature of features) {
+    if (!source.includes(feature)) errors.push(`${area} feature missing: ${feature}.`);
+  }
+};
+
+requireFeatures(route, [
   'destinationsQuery({ limit: 5000 })',
   'buildDestinationRelationshipGroups(destination, catalog)',
   'DestinationRelationships',
+  '"@type": "ItemList"',
   '"@id": `${url}#related-places`',
+  'hasPart: { "@id": `${url}#related-places` }',
   'numberOfItems: relatedPlaces.length',
   'relationshipGroups.flatMap',
-]) {
-  if (!route.includes(feature)) errors.push(`Destination relationship route feature missing: ${feature}.`);
-}
+  'url: `${siteUrl}/destination/${item.slug}`',
+], 'Destination relationship route');
 
-for (const feature of [
+requireFeatures(engine, [
   'const earthRadiusMiles = 3958.8',
   'Math.atan2',
   'miles <= 75',
@@ -26,20 +33,26 @@ for (const feature of [
   'similar',
   'regional',
   'const used = new Set<string>()',
-]) {
-  if (!engine.includes(feature)) errors.push(`Destination relationship engine feature missing: ${feature}.`);
-}
+  'item.slug !== destination.slug',
+  'new Map(items.map((item) => [item.slug, item]))',
+], 'Destination relationship engine');
 
-for (const feature of [
-  'Destination relationship sections',
-  'Nearby places',
-  'People also visit',
+requireFeatures(component, [
+  'aria-label="Destination relationship sections"',
+  'href={`#relationship-${group.id}`}',
+  'id={`relationship-${group.id}`}',
+  'DestinationCard',
+  'distanceMiles(destination, item)',
   'About {Math.max(1, Math.round(miles))',
   'to="/explore/$category"',
   'to="/explore/region/$region"',
+  'to="/events"',
+  'to="/search"',
   'search={{ q: destination.nearestTown }}',
-]) {
-  if (!component.includes(feature)) errors.push(`Destination relationship UI feature missing: ${feature}.`);
+], 'Destination relationship UI');
+
+if (route.includes('destinationsQuery({ category: destination.category, limit: 16 })')) {
+  errors.push('Destination route regressed to the former same-category-only relationship query.');
 }
 
 if (errors.length) {
@@ -48,4 +61,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Destination proximity, town, complementary-category, similarity, regional, internal-link and structured-data relationships passed validation.');
+console.log('Destination proximity, town, complementary-category, similarity, regional, deduplication, crawlable UI, internal-link exits, and ItemList relationships passed validation.');
