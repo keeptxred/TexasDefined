@@ -3,6 +3,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { AutoEntityLinks } from "@/components/content/AutoEntityLinks";
 import { ArticleCard } from "@/components/editorial/ArticleCard";
+import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { DestinationRelationships } from "@/components/editorial/DestinationRelationships";
 import { MapPreview } from "@/components/editorial/MapPreview";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
@@ -164,7 +165,7 @@ export const Route = createFileRoute("/destination/$slug")({
 });
 
 function DestinationPage() {
-  const { destination, graph, categories, regions, relatedArticles, relationshipGroups } = Route.useLoaderData();
+  const { destination, graph, categories, regions, relatedArticles, relationshipGroups, relatedDestinations } = Route.useLoaderData();
   const region = regions.find((item) => item.id === destination.region);
   const categoryName = categories.find((category) => category.slug === destination.category)?.name
     ?? destination.category.replace(/-/g, " ");
