@@ -74,7 +74,7 @@ export const Route = createFileRoute("/destination/$slug")({
       isPartOf: { "@id": `${siteUrl}/#website` },
       primaryImageOfPage: { "@id": `${url}#primaryimage` },
       mainEntity: { "@id": `${url}#attraction` },
-      hasPart: { "@id": `${url}#related-places` },
+      ...(relatedPlaces.length > 0 ? { hasPart: { "@id": `${url}#related-places` } } : {}),
       ...(validExternalUrl(destination.officialUrl) ? { citation: destination.officialUrl } : {}),
       ...(destination.sourceCheckedAt ? { dateModified: destination.sourceCheckedAt } : {}),
     };
