@@ -42,22 +42,15 @@ function entityType(row: Record<string, unknown>): string {
 
 function category(value: unknown): CategorySlug {
   const normalized = String(value || "").toLowerCase().replace(/[\s-]+/g, "_");
+  if (["cavern", "cave", "karst"].some((type) => normalized.includes(type))) return "caverns";
+  if (["beach", "coast", "seashore", "island", "bay", "shore"].some((type) => normalized.includes(type))) return "beaches-coast";
+  if (["museum", "historic_site", "historical_site", "mission", "battlefield", "monument", "heritage"].some((type) => normalized.includes(type))) {
+    return "historic-sites";
+  }
   if (["lake", "river", "spring", "reservoir", "waterfall", "swimming_hole"].some((type) => normalized.includes(type))) {
     return "lakes-rivers";
   }
-  if (
-    [
-      "state_park",
-      "national_park",
-      "park",
-      "natural_area",
-      "wildlife_refuge",
-      "cavern",
-      "cave",
-      "campground",
-      "trail",
-    ].some((type) => normalized.includes(type))
-  ) {
+  if (["state_park", "national_park", "park", "natural_area", "wildlife_refuge", "campground", "trail"].some((type) => normalized.includes(type))) {
     return "state-parks";
   }
   if (["town", "city", "community", "county"].some((type) => normalized.includes(type))) return "small-towns";
@@ -82,11 +75,9 @@ function mapRow(row: Record<string, unknown>): Destination {
   const lng = Number(row.longitude ?? row.lng ?? 0);
   const image = String(row.hero_image_url || row.image_url || "/images/texasdefined-placeholder.jpg");
   const type = entityType(row);
-  const highlights = [
-    ...stringArray(row.activities),
-    ...stringArray(row.highlights),
-    ...stringArray(row.alternate_names),
-  ].filter((item, index, all) => all.indexOf(item) === index).slice(0, 8);
+  const highlights = [...stringArray(row.activities), ...stringArray(row.highlights), ...stringArray(row.alternate_names)]
+    .filter((item, index, all) => all.indexOf(item) === index)
+    .slice(0, 8);
 
   return {
     id: String(row.id || row.slug),
