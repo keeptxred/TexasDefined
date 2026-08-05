@@ -10,7 +10,7 @@ const sections = [
   ['Estimate a mortgage payment', '/texas-mortgage-calculator', 'Combine principal, interest, property taxes and insurance in one monthly estimate.'],
   ['See what home may fit your budget', '/texas-home-affordability-calculator', 'Use income, debts and housing costs to explore a possible price range.'],
   ['Plan your down payment', '/texas-down-payment-calculator', 'Estimate the down payment, closing costs, reserves and cash you may need.'],
-  ['Estimate closing costs', '/texas-closing-cost-calculator', 'Get an illustrative look at buyer and seller transaction costs.'],
+  ['Estimate closing costs', '/texas-closing-cost-calculator', 'Get a practical look at buyer and seller transaction costs.'],
   ['Explore down-payment help', '/texas-down-payment-assistance-calculator', 'Model possible assistance and the cash gap that may remain.'],
   ['Compare renting and buying', '/texas-rent-vs-buy-calculator', 'Compare simplified long-term costs side by side.'],
   ['See the full cost of owning', '/texas-homeownership-cost-calculator', 'Bring mortgage, taxes, insurance, utilities, maintenance and fees together.'],
@@ -24,7 +24,7 @@ const sections = [
   ['Build a household budget', '/texas-budget-planner', 'Organize monthly spending and set a savings target.'],
   ['Estimate moving costs', '/texas-moving-cost-calculator', 'Plan for transportation, packing, setup costs and a little breathing room.'],
   ['Estimate utility costs', '/texas-utility-cost-calculator', 'Explore possible monthly and annual household utility costs.'],
-  ['Estimate home-insurance costs', '/texas-home-insurance-calculator', 'Build an illustrative premium estimate from replacement cost and additions.'],
+  ['Estimate home-insurance costs', '/texas-home-insurance-calculator', 'Build a starting premium estimate from replacement cost and additions.'],
   ['Understand property taxes', '/learn/property-taxes', 'A plain-English guide to appraisals, exemptions, rates, bills, protests and payments.'],
   ['File a homestead exemption', '/do/homestead-exemption', 'Review eligibility, filing steps and what to check after approval.'],
   ['Prepare an appraisal protest', '/do/property-tax-protest', 'Work through deadlines, evidence, informal review and ARB hearing steps.'],
@@ -40,7 +40,7 @@ export const Route = createFileRoute('/decide/financial-tools')({
   head: () => ({
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath: '/decide/financial-tools',
-      title: 'Texas Money Calculators',
+      title: 'Money Made Clearer',
       description,
     }),
     links: [canonicalLink(texasDefinedBrand, '/decide/financial-tools')],
@@ -52,7 +52,7 @@ export const Route = createFileRoute('/decide/financial-tools')({
             '@type': 'CollectionPage',
             '@id': `${hubUrl}#page`,
             url: hubUrl,
-            name: 'Texas Money Calculators',
+            name: 'Money Made Clearer',
             description,
             isPartOf: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#website` },
             mainEntity: { '@id': `${hubUrl}#tools` },
@@ -62,13 +62,13 @@ export const Route = createFileRoute('/decide/financial-tools')({
             '@id': `${hubUrl}#breadcrumb`,
             itemListElement: [
               { '@type': 'ListItem', position: 1, name: 'Home', item: absoluteUrl(texasDefinedBrand, '/') },
-              { '@type': 'ListItem', position: 2, name: 'Financial tools', item: hubUrl },
+              { '@type': 'ListItem', position: 2, name: 'Money Made Clearer', item: hubUrl },
             ],
           },
           {
             '@type': 'ItemList',
             '@id': `${hubUrl}#tools`,
-            name: 'Texas financial calculators and planning guides',
+            name: 'Calculators and guides for everyday money decisions',
             numberOfItems: sections.length,
             itemListElement: sections.map(([name, path, itemDescription], index) => ({
               '@type': 'ListItem',
@@ -101,7 +101,7 @@ function Page() {
             <Link key={to} to={to} className="rounded-lg border border-border p-6 transition hover:-translate-y-0.5 hover:shadow-sm">
               <h2 className="font-display text-2xl">{title}</h2>
               <p className="mt-3 text-sm leading-6 text-muted-foreground">{copy}</p>
-              <span className="mt-5 block text-sm font-medium text-primary">Try it →</span>
+              <span className="mt-5 block text-sm font-medium text-primary">Start here →</span>
             </Link>
           ))}
         </div>
