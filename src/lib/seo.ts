@@ -31,6 +31,7 @@ export function buildMeta(brand: BrandConfig, page: PageSeo) {
     { property: "og:description", content: page.description },
     { property: "og:type", content: page.type ?? "website" },
     { property: "og:site_name", content: brand.identity.name },
+    { property: "og:locale", content: brand.identity.locale.replace("-", "_") },
     { name: "twitter:card", content: "summary_large_image" },
     { name: "twitter:title", content: fullTitle },
     { name: "twitter:description", content: page.description },
