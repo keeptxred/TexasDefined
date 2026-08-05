@@ -24,7 +24,7 @@ export const Route = createFileRoute("/explore/region/$region")({
       const matchingDestinations = remoteDestinations.filter((destination) => destination.region === region.id);
       if (matchingDestinations.length) destinations = matchingDestinations;
     } catch (error) {
-      console.error("Regional Explore page could not load the remote destination catalog", error);
+      console.error("Regional Explore page could not load all destinations", error);
     }
 
     return { region, regions, destinations };
@@ -34,7 +34,7 @@ export const Route = createFileRoute("/explore/region/$region")({
     const canonicalPath = `/explore/region/${params.region}`;
     const pageUrl = `${siteUrl}${canonicalPath}`;
     const title = `${loaderData.region.name} Travel Guide`;
-    const description = `${loaderData.region.blurb} Browse parks, lakes, towns, historic places, food, road trips and other destinations across ${loaderData.region.name}.`;
+    const description = `${loaderData.region.blurb} Find parks, lakes, towns, historic places, food, road trips and other destinations across ${loaderData.region.name}.`;
     const primaryImage = loaderData.destinations.find((destination) => destination.hero?.src)?.hero;
     const imageId = `${pageUrl}#primaryimage`;
     const categoryCounts = Object.entries(loaderData.destinations.reduce<Record<string, number>>((counts, destination) => {
@@ -51,7 +51,7 @@ export const Route = createFileRoute("/explore/region/$region")({
         isPartOf: { "@id": `${siteUrl}/#website` },
         mainEntity: { "@id": `${pageUrl}#destinations` },
         breadcrumb: { "@id": `${pageUrl}#breadcrumbs` },
-        about: categoryCounts.map(([category, count]) => ({ "@type": "Thing", name: category.replaceAll("-", " "), description: `${count} regional destinations` })),
+        about: categoryCounts.map(([category, count]) => ({ "@type": "Thing", name: category.replaceAll("-", " "), description: `${count} places to explore` })),
         ...(primaryImage ? { primaryImageOfPage: { "@id": imageId }, image: { "@id": imageId } } : {}),
       },
       ...(primaryImage ? [{ "@type": "ImageObject", "@id": imageId, url: absoluteUrl(texasDefinedBrand, primaryImage.src), caption: primaryImage.alt, width: primaryImage.width, height: primaryImage.height }] : []),
@@ -85,7 +85,7 @@ export const Route = createFileRoute("/explore/region/$region")({
     };
   },
   notFoundComponent: () => (
-    <Container className="py-24"><p className="eyebrow text-primary">Another direction</p><h1 className="mt-3 font-display text-3xl">We haven’t mapped that Texas region</h1><Link to="/explore" className="mt-5 inline-block text-primary underline">Return to Explore</Link></Container>
+    <Container className="py-24"><p className="eyebrow text-primary">Another direction</p><h1 className="mt-3 font-display text-3xl">We haven’t mapped that part of Texas yet</h1><Link to="/explore" className="mt-5 inline-block text-primary underline">Find another road</Link></Container>
   ),
   component: RegionPage,
 });
@@ -101,12 +101,12 @@ function RegionPage() {
       <section className="relative isolate mt-4 overflow-hidden bg-ink text-ink-foreground">
         {primaryImage && <img src={primaryImage.src} alt={primaryImage.alt} width={primaryImage.width} height={primaryImage.height} className="absolute inset-0 size-full object-cover opacity-55" />}
         <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/25" />
-        <Container className="relative py-24 sm:py-32"><p className="eyebrow text-ink-foreground/75">Texas region guide</p><h1 className="mt-3 max-w-4xl font-display text-4xl leading-tight sm:text-6xl">Explore {region.name}</h1><p className="mt-5 max-w-2xl text-base leading-relaxed text-ink-foreground/85">{region.blurb}</p><p className="mt-6 text-sm text-ink-foreground/70">{destinations.length.toLocaleString("en-US")} places currently in the guide</p></Container>
+        <Container className="relative py-24 sm:py-32"><p className="eyebrow text-ink-foreground/75">Around the state</p><h1 className="mt-3 max-w-4xl font-display text-4xl leading-tight sm:text-6xl">Explore {region.name}</h1><p className="mt-5 max-w-2xl text-base leading-relaxed text-ink-foreground/85">{region.blurb}</p><p className="mt-6 text-sm text-ink-foreground/70">{destinations.length.toLocaleString("en-US")} place{destinations.length === 1 ? "" : "s"} worth a closer look</p></Container>
       </section>
 
       <RegionalHubSections destinations={destinations} region={region} allRegions={regions} />
 
-      <Container className="py-20"><SectionHeader eyebrow="The complete regional guide" title={`Every place in ${region.name}`} description="Browse the full regional inventory. Open any destination for details, highlights and planning notes." /><RegionalDestinationGrid destinations={destinations} regionName={region.name} /></Container>
+      <Container className="py-20"><SectionHeader eyebrow="Keep exploring" title={`More places in ${region.name}`} description="Take your time with the full list, then open any place for highlights and what to know before you go." /><RegionalDestinationGrid destinations={destinations} regionName={region.name} /></Container>
     </>
   );
 }
