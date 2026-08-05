@@ -1,7 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import smallTown from "@/assets/small-town.jpg";
-
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { CategoryPage } from "@/components/editorial/CategoryPage";
 import { articlesQuery, destinationsQuery, regionsQuery } from "@/data/queries";
@@ -12,7 +10,7 @@ const description =
 
 export const Route = createFileRoute("/sports")({
   head: () => ({
-    meta: buildMeta(texasDefinedBrand, { title: "Texas Sports", description }),
+    meta: buildMeta(texasDefinedBrand, { title: "Texas Sports", description, canonicalPath: "/sports" }),
     links: [canonicalLink(texasDefinedBrand, "/sports")],
   }),
   loader: async ({ context }) => {
@@ -28,7 +26,6 @@ export const Route = createFileRoute("/sports")({
       eyebrow="Sports"
       title="Friday nights, rodeo dirt and big-league Sundays"
       intro={description}
-      image={{ src: smallTown, alt: 'A historic Texas courthouse square at golden hour', width: 1600, height: 1067 }}
     />
   ),
 });
