@@ -63,13 +63,15 @@ const collect = (directory) => {
 for (const root of sourceRoots) collect(root);
 
 const sourceByFile = new Map(sourceFiles.map((file) => [file, fs.readFileSync(file, 'utf8')]));
-const escaped = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const hasRouteLiteral = (source, routePath) =>
+  [`"${routePath}"`, `'${routePath}'`, `\`${routePath}\``].some((literal) => source.includes(literal));
 
 for (const routePath of indexable) {
   if (routePath === '/') continue;
-  const routeLiteral = new RegExp(`["'\\\`]${escaped(routePath)}(?:["'\\\`#?])`);
   const inboundFiles = [...sourceByFile.entries()]
-    .filter(([file, source]) => routeLiteral.test(source) && !source.includes(`createFileRoute('${routePath}')`) && !source.includes(`createFileRoute("${routePath}")`))
+    .filter(([, source]) => hasRouteLiteral(source, routePath))
+    .filter(([, source]) => !source.includes(`createFileRoute('${routePath}')`))
+    .filter(([, source]) => !source.includes(`createFileRoute("${routePath}")`))
     .map(([file]) => file);
   if (!inboundFiles.length) failures.push(`Indexable static route has no discoverable internal-link reference: ${routePath}.`);
 }
