@@ -43,7 +43,7 @@ requireSymbols(promotion, [
   'approvalToken !== manifest.id', 'structuredClone',
 ], 'promotion governance');
 requireSymbols(panel, ['EntityMaintenanceHealth', 'Stale entities', 'Missing official URLs', 'Highest-priority entity reviews', 'Authoritative source schedule'], 'maintenance panel');
-requireSymbols(review, ['EntityImportReview', '/api/entity-import-preview', 'Preview promotion', 'preview-only', 'manifest ID', 'rollback snapshot'], 'import review console');
+requireSymbols(review, ['EntityImportReview', '/api/entity-import-preview', 'Preview promotion', 'read-only manifest', 'manifest ID', 'rollback snapshot'], 'import review console');
 requireSymbols(api, ["createFileRoute('/api/entity-maintenance')", 'auditEntityMaintenanceHealth', 'status: report.healthy ? 200 : 503', 'no-store', 'noindex, nofollow'], 'maintenance API');
 requireSymbols(previewApi, ["createFileRoute('/api/entity-import-preview')", 'buildEntityPromotionManifest', 'promotableEntities', 'preview-only', '10000', 'no-store', 'noindex, nofollow'], 'promotion preview API');
 requireSymbols(page, ["createFileRoute('/admin/entity-maintenance')", 'EntityMaintenanceHealth', 'loadTexasKnowledgeGraph', 'noindex,nofollow', '/admin/entity-import-review', '/admin/platform-health'], 'maintenance admin page');
@@ -54,7 +54,8 @@ requireSymbols(urlVerifier, ['maximumFailurePercent', 'AbortSignal.timeout', "me
 requireSymbols(promotionRunner, [
   '--promote', 'ENTITY_PROMOTION_APPROVAL', 'entity-promotion-manifest.json',
   'entity-promotion-quarantine.json', 'data/snapshots', 'approval !== manifestId',
-  'safeToPromote', 'rollbackSnapshot', 'maximum',
+  'safeToPromote', 'rollbackSnapshot', 'quarantinePercent > 10',
+  'changePercent > 20', 'removalPercent > 5',
 ], 'promotion runner');
 requireSymbols(workflow, [
   'schedule:', "cron: '17 11 * * 2'", 'Stage authoritative imports',
