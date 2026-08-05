@@ -11,6 +11,7 @@ import { canonicalEntityPath } from '@/data/knowledge-graph/relationships';
 const PUBLIC_HEADERS = {
   'cache-control': 'public, max-age=300, stale-while-revalidate=3600',
   'access-control-allow-origin': '*',
+  'x-robots-tag': 'noindex, follow',
 };
 
 const PUBLIC_FIELDS = (entity: TexasEntityRecord) => ({
