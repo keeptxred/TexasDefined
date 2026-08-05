@@ -66,7 +66,7 @@ export const Route = createFileRoute("/destination/$slug")({
       scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": [attractionSchema, breadcrumbSchema] }) }],
     };
   },
-  notFoundComponent: () => <Container className="py-24"><h1 className="font-display text-3xl">We haven't mapped that one yet</h1></Container>,
+  notFoundComponent: () => <Container className="py-24"><p className="eyebrow text-primary">Another road</p><h1 className="mt-3 font-display text-3xl">We haven’t mapped that place yet</h1><p className="mt-3 text-sm text-muted-foreground">Try another destination or head back to <Link to="/explore" className="text-primary underline">Explore</Link>.</p></Container>,
   component: DestinationPage,
 });
 
@@ -88,9 +88,9 @@ function DestinationPage() {
 
   return <>
     <Container className="pt-24">
-      <nav aria-label="Breadcrumb" className="text-xs text-muted-foreground">
+      <nav aria-label="You are here" className="text-xs text-muted-foreground">
         <ol className="flex flex-wrap items-center gap-2">
-          <li><Link to="/" className="hover:text-foreground">Home</Link></li><li aria-hidden="true">/</li>
+          <li><Link to="/" className="hover:text-foreground">Front page</Link></li><li aria-hidden="true">/</li>
           <li><Link to="/explore" className="hover:text-foreground">Explore</Link></li><li aria-hidden="true">/</li>
           <li><Link to="/explore/$category" params={{ category: destination.category }} className="capitalize hover:text-foreground">{categoryName}</Link></li><li aria-hidden="true">/</li>
           <li aria-current="page" className="truncate text-foreground">{destination.name}</li>
@@ -109,31 +109,33 @@ function DestinationPage() {
 
     <Container className="grid gap-12 py-14 lg:grid-cols-[1.6fr_1fr]">
       <div className="editorial-body max-w-2xl">
-        <section aria-labelledby="what-is-it">
-          <h2 id="what-is-it" className="font-display text-2xl">What is {destination.name}?</h2>
+        <section aria-labelledby="why-go">
+          <p className="eyebrow text-primary">Why it’s worth the drive</p>
+          <h2 id="why-go" className="mt-2 font-display text-2xl">What makes {destination.name} special</h2>
           {destination.body.map((paragraph) => <p key={paragraph} className="mt-5"><AutoEntityLinks text={paragraph} entities={graph} maxLinks={spend(4)} policy={destinationPolicy} /></p>)}
         </section>
-        <section aria-labelledby="plan-your-visit" className="mt-10">
-          <h2 id="plan-your-visit" className="font-display text-2xl">Plan your visit</h2>
+        <section aria-labelledby="before-you-go" className="mt-10">
+          <p className="eyebrow text-primary">Before you go</p>
+          <h2 id="before-you-go" className="mt-2 font-display text-2xl">A few things worth knowing</h2>
           <dl className="mt-4 grid gap-4 sm:grid-cols-2">
-            <div><dt className="eyebrow text-muted-foreground">Where is it?</dt><dd className="mt-1">Near <AutoEntityLinks text={destination.nearestTown} entities={graph} maxLinks={spend(1)} policy={destinationPolicy} />, Texas.</dd></div>
+            <div><dt className="eyebrow text-muted-foreground">Closest town</dt><dd className="mt-1">Near <AutoEntityLinks text={destination.nearestTown} entities={graph} maxLinks={spend(1)} policy={destinationPolicy} />, Texas.</dd></div>
             <div><dt className="eyebrow text-muted-foreground">Best time to go</dt><dd className="mt-1">{destination.bestSeason}</dd></div>
-            <div className="sm:col-span-2"><dt className="eyebrow text-muted-foreground">Entry and reservations</dt><dd className="mt-1">{destination.entryNote}</dd></div>
+            <div className="sm:col-span-2"><dt className="eyebrow text-muted-foreground">Tickets, entry and reservations</dt><dd className="mt-1">{destination.entryNote}</dd></div>
           </dl>
         </section>
-        <h2 className="mt-10 font-display text-2xl">Don't miss</h2>
+        <h2 className="mt-10 font-display text-2xl">Don’t leave without seeing</h2>
         <ul className="mt-4 list-disc space-y-2 pl-6 marker:text-primary">{destination.highlights.map((highlight) => <li key={highlight}><AutoEntityLinks text={highlight} entities={graph} maxLinks={spend(1)} policy={destinationPolicy} /></li>)}</ul>
       </div>
       <aside className="space-y-6">
         <dl className="border border-border p-6 text-sm">
-          <dt className="eyebrow text-muted-foreground">Nearest town</dt><dd className="mt-1"><AutoEntityLinks text={destination.nearestTown} entities={graph} maxLinks={spend(1)} policy={destinationPolicy} /></dd>
+          <dt className="eyebrow text-muted-foreground">Closest town</dt><dd className="mt-1"><AutoEntityLinks text={destination.nearestTown} entities={graph} maxLinks={spend(1)} policy={destinationPolicy} /></dd>
           <dt className="eyebrow mt-4 text-muted-foreground">Best season</dt><dd className="mt-1">{destination.bestSeason}</dd>
-          <dt className="eyebrow mt-4 text-muted-foreground">Entry</dt><dd className="mt-1">{destination.entryNote}</dd>
+          <dt className="eyebrow mt-4 text-muted-foreground">What to know before arrival</dt><dd className="mt-1">{destination.entryNote}</dd>
         </dl>
         <MapPreview markers={[{ id: destination.id, label: destination.name, point: destination.coordinates }]} directionsLabel={`${destination.name}, Texas`} />
       </aside>
     </Container>
 
-    <Section tone="surface"><Container><SectionHeader eyebrow="Nearby reading" title="Stories from this corner of Texas" /><ul className="mt-10 grid gap-10 sm:grid-cols-3">{related.map((article) => <li key={article.id}><ArticleCard article={article} size="compact" /></li>)}</ul></Container></Section>
+    <Section tone="surface"><Container><SectionHeader eyebrow="Keep exploring" title="More from this corner of Texas" /><ul className="mt-10 grid gap-10 sm:grid-cols-3">{related.map((article) => <li key={article.id}><ArticleCard article={article} size="compact" /></li>)}</ul></Container></Section>
   </>;
 }
