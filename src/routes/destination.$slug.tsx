@@ -12,6 +12,8 @@ import { articlesQuery, destinationQuery, regionsQuery } from "@/data/queries";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 import { INTERNAL_LINK_POLICIES, policyForSurface } from '@/platform/internal-link-policies';
 
+const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
+
 export const Route = createFileRoute("/destination/$slug")({
   loader: async ({ context, params }) => {
     const destination = await context.queryClient.ensureQueryData(destinationQuery(params.slug));
@@ -24,16 +26,33 @@ export const Route = createFileRoute("/destination/$slug")({
     return { destination, graph };
   },
   head: ({ loaderData, params }) => {
-    if (!loaderData) return { meta: [{ title: "Unavailable" }, { name: "robots", content: "noindex" }] };
+    if (!loaderData) return { meta: [{ title: "Unavailable" }, { name: "robots", content: "noindex, nofollow" }] };
     const { destination } = loaderData;
+    const canonicalPath = `/destination/${params.slug}`;
+    const url = `${siteUrl}${canonicalPath}`;
     return {
-      meta: buildMeta(texasDefinedBrand, { title: destination.name, description: destination.summary }),
-      links: [canonicalLink(texasDefinedBrand, `/destination/${params.slug}`)],
-      scripts: [{ type: "application/ld+json", children: JSON.stringify({
-        "@context": "https://schema.org", "@type": "TouristAttraction", name: destination.name,
+      meta: buildMeta(texasDefinedBrand, {
+        title: destination.name,
         description: destination.summary,
+        canonicalPath,
+        image: destination.hero.src,
+        imageAlt: destination.hero.alt,
+      }),
+      links: [canonicalLink(texasDefinedBrand, canonicalPath)],
+      scripts: [{ type: "application/ld+json", children: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "TouristAttraction",
+        "@id": `${url}#attraction`,
+        url,
+        mainEntityOfPage: { "@type": "WebPage", "@id": url },
+        name: destination.name,
+        description: destination.summary,
+        image: [{ "@type": "ImageObject", url: destination.hero.src, caption: destination.hero.alt, width: destination.hero.width, height: destination.hero.height }],
         geo: { "@type": "GeoCoordinates", latitude: destination.coordinates.lat, longitude: destination.coordinates.lng },
         address: { "@type": "PostalAddress", addressRegion: "TX", addressLocality: destination.nearestTown, addressCountry: "US" },
+        containedInPlace: { "@type": "State", name: "Texas" },
+        touristType: destination.category,
+        isAccessibleForFree: !/fee|ticket|admission|entry/i.test(destination.entryNote),
       }) }],
     };
   },
@@ -69,7 +88,18 @@ function DestinationPage() {
 
     <Container className="grid gap-12 py-14 lg:grid-cols-[1.6fr_1fr]">
       <div className="editorial-body max-w-2xl">
-        {destination.body.map((paragraph) => <p key={paragraph} className="mt-5 first:mt-0"><AutoEntityLinks text={paragraph} entities={graph} maxLinks={spend(4)} policy={destinationPolicy} /></p>)}
+        <section aria-labelledby="what-is-it">
+          <h2 id="what-is-it" className="font-display text-2xl">What is {destination.name}?</h2>
+          {destination.body.map((paragraph) => <p key={paragraph} className="mt-5"><AutoEntityLinks text={paragraph} entities={graph} maxLinks={spend(4)} policy={destinationPolicy} /></p>)}
+        </section>
+        <section aria-labelledby="plan-your-visit" className="mt-10">
+          <h2 id="plan-your-visit" className="font-display text-2xl">Plan your visit</h2>
+          <dl className="mt-4 grid gap-4 sm:grid-cols-2">
+            <div><dt className="eyebrow text-muted-foreground">Where is it?</dt><dd className="mt-1">Near <AutoEntityLinks text={destination.nearestTown} entities={graph} maxLinks={spend(1)} policy={destinationPolicy} />, Texas.</dd></div>
+            <div><dt className="eyebrow text-muted-foreground">Best time to go</dt><dd className="mt-1">{destination.bestSeason}</dd></div>
+            <div className="sm:col-span-2"><dt className="eyebrow text-muted-foreground">Entry and reservations</dt><dd className="mt-1">{destination.entryNote}</dd></div>
+          </dl>
+        </section>
         <h2 className="mt-10 font-display text-2xl">Don't miss</h2>
         <ul className="mt-4 list-disc space-y-2 pl-6 marker:text-primary">{destination.highlights.map((highlight) => <li key={highlight}><AutoEntityLinks text={highlight} entities={graph} maxLinks={spend(1)} policy={destinationPolicy} /></li>)}</ul>
       </div>
