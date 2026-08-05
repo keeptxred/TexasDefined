@@ -259,6 +259,19 @@ function DestinationPage() {
 
       <DestinationRelationships destination={destination} groups={relationshipGroups} regionName={region?.name} />
 
+      {relatedDestinations.length > 0 && (
+        <Section tone="surface">
+          <Container>
+            <SectionHeader eyebrow="Keep exploring" title="Where to point the car next" description={`More ${categoryName.toLowerCase()} across Texas.`} />
+            <ul className="mt-10 grid gap-10 sm:grid-cols-3">
+              {relatedDestinations.map((item) => <li key={item.id}><DestinationCard destination={item} /></li>)}
+            </ul>
+          </Container>
+        </Section>
+      )}
+
+
+
       {relatedArticles.length > 0 && (
         <Section>
           <Container>
