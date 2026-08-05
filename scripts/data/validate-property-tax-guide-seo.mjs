@@ -4,6 +4,7 @@ import path from 'node:path';
 const root = process.cwd();
 const component = fs.readFileSync(path.join(root, 'src/components/guides/PropertyTaxGuidePage.tsx'), 'utf8');
 const calculator = fs.readFileSync(path.join(root, 'src/routes/decide.property-taxes.tsx'), 'utf8');
+const calculatorSeo = fs.readFileSync(path.join(root, 'src/lib/calculator-seo.ts'), 'utf8');
 const guides = [
   ['Homestead exemption', 'src/routes/do.homestead-exemption.tsx', '/do/homestead-exemption', 'homestead-step-'],
   ['Property tax protest', 'src/routes/do.property-tax-protest.tsx', '/do/property-tax-protest', 'protest-step-'],
@@ -35,16 +36,21 @@ for (const [label, filename, canonicalPath, stepPrefix] of guides) {
 }
 
 for (const feature of [
-  "'@type': 'WebApplication'",
-  "applicationCategory: 'FinanceApplication'",
-  "operatingSystem: 'Any'",
-  "browserRequirements: 'Requires JavaScript'",
-  "'@type': 'BreadcrumbList'",
+  'buildCalculatorHead',
   'featureList:',
   'aria-label="Breadcrumb"',
   "canonicalPath = '/decide/property-taxes'",
 ]) {
   if (!calculator.includes(feature)) errors.push(`Property-tax calculator SEO feature missing: ${feature}.`);
+}
+for (const feature of [
+  "'@type': 'WebApplication'",
+  "applicationCategory: 'FinanceApplication'",
+  "operatingSystem: 'Any'",
+  "browserRequirements: 'Requires JavaScript'",
+  "'@type': 'BreadcrumbList'",
+]) {
+  if (!calculatorSeo.includes(feature)) errors.push(`Shared calculator SEO feature missing: ${feature}.`);
 }
 if (calculator.includes('offers:') || calculator.includes('aggregateRating:')) {
   errors.push('Property-tax calculator must not invent offers or ratings.');
