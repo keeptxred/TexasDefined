@@ -25,8 +25,6 @@ export const INDEXABLE_STATIC_PATHS = [
   "/find-my-school-district",
   "/shop",
   "/about",
-  "/tax-calculator",
-  "/texas-financial-tools",
   "/texas-budget-planner",
   "/texas-closing-cost-calculator",
   "/texas-cost-of-living-calculator",
@@ -41,8 +39,6 @@ export const INDEXABLE_STATIC_PATHS = [
   "/texas-mortgage-calculator",
   "/texas-mortgage-payoff-calculator",
   "/texas-moving-cost-calculator",
-  "/texas-property-tax-increase-calculator",
-  "/texas-property-tax-protest-guide",
   "/texas-refinance-savings-calculator",
   "/texas-rent-vs-buy-calculator",
   "/texas-salary-calculator",
@@ -51,10 +47,18 @@ export const INDEXABLE_STATIC_PATHS = [
   "/texas-utility-cost-calculator",
 ] as const;
 
+export const REDIRECT_ONLY_PATHS = [
+  "/tax-calculator",
+  "/texas-financial-tools",
+  "/texas-property-tax-increase-calculator",
+  "/texas-property-tax-protest-guide",
+] as const;
+
 export const NON_INDEXABLE_PUBLIC_PATHS = ["/search", "/explore/search"] as const;
 
 export function isIndexablePublicPath(path: string) {
   return !path.startsWith("/admin")
     && !path.startsWith("/api/")
+    && !(REDIRECT_ONLY_PATHS as readonly string[]).includes(path)
     && !(NON_INDEXABLE_PUBLIC_PATHS as readonly string[]).includes(path);
 }
