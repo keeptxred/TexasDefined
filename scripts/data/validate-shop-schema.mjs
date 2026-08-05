@@ -4,8 +4,11 @@ const collectionRoute = fs.readFileSync('src/routes/shop.$collection.tsx', 'utf8
 const landingRoute = fs.readFileSync('src/routes/shop.index.tsx', 'utf8');
 
 const collectionRequired = [
+  '"@type": "CollectionPage"',
+  '"@type": "BreadcrumbList"',
   '"@type": "ItemList"',
   '"@type": "Product"',
+  'mainEntity: { "@id": itemListId }',
   'numberOfItems: loaderData.products.length',
   'absoluteUrl(texasDefinedBrand, product.image.src)',
   'id={productAnchor(product.id)}',
@@ -16,6 +19,7 @@ const landingRequired = [
   '"@type": "CollectionPage"',
   '"@type": "BreadcrumbList"',
   '"@type": "ItemList"',
+  'mainEntity: { "@id": `${absoluteUrl(texasDefinedBrand, "/shop")}#products` }',
   'numberOfItems: loaderData.products.length',
   'image: shopFlatlay',
   'imageAlt: "A curated flat lay of Texas-made goods"',
