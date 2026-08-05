@@ -40,9 +40,10 @@ export function ShopTheStory({ collectionSlug }: { collectionSlug: string }) {
       <Link
         to="/shop/$collection"
         params={{ collection: collectionSlug }}
-        className="eyebrow mt-6 inline-block border-b border-primary pb-1 text-primary"
+        className="eyebrow group mt-6 inline-flex items-center gap-2 border-b border-primary pb-1 text-primary"
       >
-        See the picks
+        Shop these picks
+        <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">→</span>
       </Link>
     </aside>
   );
