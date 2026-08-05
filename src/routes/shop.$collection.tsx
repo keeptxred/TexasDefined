@@ -6,9 +6,7 @@ import { ProductCard } from "@/components/commerce/ProductCard";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import { collectionQuery, productsQuery } from "@/data/queries";
-import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
-
-const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
+import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 export const Route = createFileRoute("/shop/$collection")({
   loader: async ({ context, params }) => {
@@ -27,33 +25,8 @@ export const Route = createFileRoute("/shop/$collection")({
     }
 
     const canonicalPath = `/shop/${params.collection}`;
-    const collectionUrl = `${siteUrl}${canonicalPath}`;
-    const itemList = {
-      "@context": "https://schema.org",
-      "@type": "ItemList",
-      "@id": `${collectionUrl}#products`,
-      name: `${loaderData.collection.name} products`,
-      description: loaderData.collection.description,
-      url: collectionUrl,
-      numberOfItems: loaderData.products.length,
-      itemListElement: loaderData.products.map((product, index) => ({
-        "@type": "ListItem",
-        position: index + 1,
-        url: `${collectionUrl}#${productAnchor(product.id)}`,
-        item: {
-          "@type": "Product",
-          "@id": `${collectionUrl}#${productAnchor(product.id)}`,
-          name: product.name,
-          description: product.blurb,
-          image: absoluteUrl(texasDefinedBrand, product.image.src),
-          brand: { "@type": "Brand", name: product.maker },
-          category: loaderData.collection.name,
-          additionalProperty: product.madeInTexas
-            ? [{ "@type": "PropertyValue", name: "Made in Texas", value: true }]
-            : undefined,
-        },
-      })),
-    };
+    const collectionUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
+    const itemListId = `${collectionUrl}#products`;
 
     return {
       meta: buildMeta(texasDefinedBrand, {
@@ -65,10 +38,71 @@ export const Route = createFileRoute("/shop/$collection")({
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
       scripts: [
-        {
-          type: "application/ld+json",
-          children: JSON.stringify(itemList),
-        },
+        jsonLd({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "CollectionPage",
+              "@id": `${collectionUrl}#page`,
+              url: collectionUrl,
+              name: loaderData.collection.name,
+              description: loaderData.collection.description,
+              image: absoluteUrl(texasDefinedBrand, loaderData.collection.image.src),
+              isPartOf: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#website` },
+              breadcrumb: { "@id": `${collectionUrl}#breadcrumb` },
+              mainEntity: { "@id": itemListId },
+            },
+            {
+              "@type": "BreadcrumbList",
+              "@id": `${collectionUrl}#breadcrumb`,
+              itemListElement: [
+                {
+                  "@type": "ListItem",
+                  position: 1,
+                  name: "Home",
+                  item: absoluteUrl(texasDefinedBrand, "/"),
+                },
+                {
+                  "@type": "ListItem",
+                  position: 2,
+                  name: "Shop",
+                  item: absoluteUrl(texasDefinedBrand, "/shop"),
+                },
+                {
+                  "@type": "ListItem",
+                  position: 3,
+                  name: loaderData.collection.name,
+                  item: collectionUrl,
+                },
+              ],
+            },
+            {
+              "@type": "ItemList",
+              "@id": itemListId,
+              name: `${loaderData.collection.name} products`,
+              description: loaderData.collection.description,
+              url: collectionUrl,
+              numberOfItems: loaderData.products.length,
+              itemListElement: loaderData.products.map((product, index) => ({
+                "@type": "ListItem",
+                position: index + 1,
+                url: `${collectionUrl}#${productAnchor(product.id)}`,
+                item: {
+                  "@type": "Product",
+                  "@id": `${collectionUrl}#${productAnchor(product.id)}`,
+                  name: product.name,
+                  description: product.blurb,
+                  image: absoluteUrl(texasDefinedBrand, product.image.src),
+                  brand: { "@type": "Brand", name: product.maker },
+                  category: loaderData.collection.name,
+                  additionalProperty: product.madeInTexas
+                    ? [{ "@type": "PropertyValue", name: "Made in Texas", value: true }]
+                    : undefined,
+                },
+              })),
+            },
+          ],
+        }),
       ],
     };
   },
