@@ -66,9 +66,8 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         const urls = [
           `${BASE_URL}/explore`,
           ...categorySlugs.map((slug) => `${BASE_URL}/explore/${slug}`),
-          ...[...new Set([...EXPLORE_REGION_SLUGS, ...regions.map((region) => region.id)])].map(
-            (regionSlug) => `${BASE_URL}/explore/region/${regionSlug}`,
-          ),
+          ...regions.map((region) => `${BASE_URL}/explore/region/${region.id}`),
+          ...EXPLORE_REGION_SLUGS.map((regionSlug) => `${BASE_URL}/explore/region/${regionSlug}`),
           ...destinations.filter((item) => item.slug).map((item) => `${BASE_URL}/destination/${item.slug}`),
         ];
 
