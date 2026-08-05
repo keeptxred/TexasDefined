@@ -54,15 +54,24 @@ for (const feature of [
 for (const feature of [
   'const PAGE_SIZE = 24',
   'destinations.slice(0, visibleCount)',
-  'setVisibleCount',
-  'Show {Math.min(PAGE_SIZE, remaining)} more places',
+  'const remaining = Math.max(0, destinations.length - visibleCount)',
+  'onClick={() => setVisibleCount((count) => Math.min(count + PAGE_SIZE, destinations.length))}',
+  'remaining > 0',
+  'visible.length.toLocaleString("en-US")',
+  'destinations.length.toLocaleString("en-US")',
+  '<DestinationCard',
 ]) {
   if (!collectionGrid.includes(feature)) errors.push(`Destination collection rendering feature missing: ${feature}.`);
 }
 
 for (const feature of [
-  'aria-label="Related Explore categories"',
-  'aria-label="Explore Texas by region"',
+  'const EXPLORE_DEPARTMENTS = new Set<CategorySlug>',
+  'item.slug !== currentCategory',
+  'EXPLORE_DEPARTMENTS.has(item.slug)',
+  'aria-label="More ways to explore Texas"',
+  'aria-label="Choose a part of Texas"',
+  'relatedCategories.map',
+  'regions.map',
   'to="/explore/$category"',
   'to="/explore/region/$region"',
 ]) {
