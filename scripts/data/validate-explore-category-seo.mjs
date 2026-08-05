@@ -1,3 +1,4 @@
+import './validate-editorial-collection-seo.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 
