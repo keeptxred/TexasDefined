@@ -115,6 +115,10 @@ export interface Destination {
   officialUrl?: string;
   sourceCheckedAt?: string;
   reservationUrl?: string;
+  county?: string;
+  address?: string;
+  directions?: string;
+  accessibilityNotes?: string;
   featured?: boolean;
 }
 
