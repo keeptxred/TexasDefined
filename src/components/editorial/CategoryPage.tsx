@@ -66,7 +66,10 @@ export function CategoryPage({
       {lead && (
         <Section>
           <Container>
-            <ArticleCard article={lead} size="feature" />
+            <SectionHeader eyebrow="Start here" title="The story we’d read first" />
+            <div className="mt-10">
+              <ArticleCard article={lead} size="feature" />
+            </div>
           </Container>
         </Section>
       )}
@@ -91,7 +94,7 @@ export function CategoryPage({
 
       <Section>
         <Container>
-          <SectionHeader eyebrow="More from Texas Defined" title="Keep reading" />
+          <SectionHeader eyebrow="Keep reading" title="More stories for the road" />
           {others.length > 0 ? (
             <ul className="mt-10 grid gap-12 md:grid-cols-2 lg:grid-cols-3">
               {others.map((article) => (
