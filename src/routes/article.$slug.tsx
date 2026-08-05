@@ -80,7 +80,7 @@ export const Route = createFileRoute("/article/$slug")({
       scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": [articleSchema, breadcrumbSchema] }) }],
     };
   },
-  notFoundComponent: () => <Container className="py-24"><h1 className="font-display text-3xl">That story isn't here</h1><p className="mt-3 text-sm text-muted-foreground">It may have moved. <Link to="/explore" className="text-primary underline">Browse Explore</Link>.</p></Container>,
+  notFoundComponent: () => <Container className="py-24"><p className="eyebrow text-primary">Story not found</p><h1 className="mt-3 font-display text-3xl">This one took a different road</h1><p className="mt-3 text-sm text-muted-foreground">The story may have moved or been retired. <Link to="/explore" className="text-primary underline">Keep exploring</Link>.</p></Container>,
   component: ArticlePage,
 });
 
@@ -106,7 +106,7 @@ function ArticlePage() {
       </nav>
     </Container>
     <section className="relative isolate mt-4 overflow-hidden bg-ink text-ink-foreground"><img src={article.hero.src} alt={article.hero.alt} width={article.hero.width} height={article.hero.height} fetchPriority="high" decoding="async" className="absolute inset-0 size-full object-cover opacity-60" /><div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/25" /><Container className="relative flex min-h-[60vh] flex-col justify-end pb-14 pt-32"><p className="eyebrow text-ink-foreground/80">{categoryName}</p><h1 className="mt-4 max-w-3xl font-display text-4xl leading-[1.08] sm:text-6xl">{article.title}</h1><p className="mt-5 max-w-2xl text-lg leading-relaxed text-ink-foreground/85">{article.dek}</p></Container></section>
-    <Container className="max-w-3xl py-12"><Byline author={author} meta={`${formatDate(article.publishedAt)} · ${formatReadingTime(article.readingMinutes)}`} /><div className="mt-10"><ArticleBody blocks={article.body} entities={graph} /></div>{article.hero.credit && <p className="mt-10 text-xs text-muted-foreground">Photograph: {article.hero.credit}</p>}<ul className="mt-10 flex flex-wrap gap-2">{article.tags.map((tag) => <li key={tag} className="rounded-sm bg-secondary px-3 py-1 text-xs uppercase tracking-widest text-secondary-foreground">{tag}</li>)}</ul></Container>
-    <Section tone="surface"><Container><SectionHeader eyebrow="Keep reading" title="More in this section" /><ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">{related.filter((item) => item.id !== article.id).slice(0, 3).map((item) => <li key={item.id}><ArticleCard article={item} size="compact" /></li>)}</ul></Container></Section>
+    <Container className="max-w-3xl py-12"><Byline author={author} meta={`${formatDate(article.publishedAt)} · ${formatReadingTime(article.readingMinutes)}`} /><div className="mt-10"><ArticleBody blocks={article.body} entities={graph} /></div>{article.hero.credit && <p className="mt-10 text-xs text-muted-foreground">Photo by {article.hero.credit}</p>}<ul className="mt-10 flex flex-wrap gap-2">{article.tags.map((tag) => <li key={tag} className="rounded-full bg-secondary px-3 py-1 text-xs text-secondary-foreground">{tag}</li>)}</ul></Container>
+    <Section tone="surface"><Container><SectionHeader eyebrow="Keep reading" title="A few more stories worth your time" /><ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">{related.filter((item) => item.id !== article.id).slice(0, 3).map((item) => <li key={item.id}><ArticleCard article={item} size="compact" /></li>)}</ul></Container></Section>
   </article>;
 }
