@@ -22,7 +22,12 @@ export function CollectionStrip({ collections }: { collections: Collection[] }) 
             <p className="eyebrow mt-4 text-primary">Our picks</p>
             <h3 className="mt-2 font-display text-2xl">{collection.name}</h3>
             <p className="mt-1 text-sm text-muted-foreground">{collection.tagline}</p>
-            <span className="mt-4 inline-block text-sm font-medium text-primary">Take a closer look →</span>
+            <span className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-primary">
+              See the collection
+              <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">
+                →
+              </span>
+            </span>
           </Link>
         </li>
       ))}
