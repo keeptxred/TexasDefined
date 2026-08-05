@@ -3,6 +3,7 @@ import fs from 'node:fs';
 const migrated = fs.readFileSync('src/data/fixtures/migrated-editorial.ts', 'utf8');
 const repositories = fs.readFileSync('src/data/fixtures/repositories.ts', 'utf8');
 const redirectRoute = fs.readFileSync('src/routes/news.$slug.tsx', 'utf8');
+const living = fs.readFileSync('src/routes/texas-living.tsx', 'utf8');
 const sitemap = fs.readFileSync('src/routes/sitemap[.]xml.ts', 'utf8');
 const errors = [];
 
@@ -55,6 +56,18 @@ for (const feature of [
   if (!redirectRoute.includes(feature)) errors.push(`Legacy article redirect protection missing: ${feature}`);
 }
 
+for (const feature of [
+  "articlesQuery({ category: 'real-estate' })",
+  "articlesQuery({ category: 'moving-to-texas' })",
+  'homeArticles.slice(0, 9)',
+  'movingArticles.slice(0, 9)',
+  'ArticleCard article={article}',
+  "actionTo=\"/explore/real-estate\"",
+  "actionTo=\"/moving-to-texas\"",
+]) {
+  if (!living.includes(feature)) errors.push(`Living hub migration exposure missing: ${feature}`);
+}
+
 if (!sitemap.includes('platform.articles.list(scope)')) {
   errors.push('Primary sitemap no longer sources the complete article repository.');
 }
@@ -69,4 +82,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Seventeen lifestyle articles, repository exposure, search, sitemap sourcing and legacy redirects passed migration validation.');
+console.log('Seventeen lifestyle articles, Living hub exposure, repository search, sitemap sourcing and legacy redirects passed migration validation.');
