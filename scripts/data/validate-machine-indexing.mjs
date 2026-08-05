@@ -28,6 +28,8 @@ const requiredDiscoveryTargets = [
   '/explore',
   '/explore/lakes-rivers',
   '/explore/state-parks',
+  '/explore/national-parks',
+  '/explore/major-springs',
   '/explore/caverns',
   '/explore/beaches-coast',
   '/explore/historic-sites',
