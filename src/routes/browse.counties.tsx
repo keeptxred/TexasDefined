@@ -6,7 +6,7 @@ import { TEXAS_COUNTIES } from "@/data/texas-places";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const description =
-  "Find any of Texas' 254 counties and head straight to official local offices, appraisal information, elections and public services.";
+  "Find any of Texas' 254 counties and head straight to local offices, property records, election information and public services.";
 
 export const Route = createFileRoute("/browse/counties")({
   head: () => {
@@ -35,7 +35,7 @@ export const Route = createFileRoute("/browse/counties")({
             {
               "@type": "ItemList",
               "@id": `${pageUrl}#counties`,
-              name: "Texas county directory",
+              name: "Texas counties",
               numberOfItems: TEXAS_COUNTIES.length,
               itemListElement: TEXAS_COUNTIES.map((county, index) => ({
                 "@type": "ListItem",
