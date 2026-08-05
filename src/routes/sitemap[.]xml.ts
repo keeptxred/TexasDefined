@@ -17,11 +17,12 @@ export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
       GET: async () => {
-        const [articles, fixtureDestinations, collections, baseCategories, graph] = await Promise.all([
+        const [articles, fixtureDestinations, collections, baseCategories, regions, graph] = await Promise.all([
           platform.articles.list(scope),
           platform.destinations.list(scope),
           platform.collections.list(scope),
           platform.taxonomy.categories(scope),
+          platform.taxonomy.regions(scope),
           loadTexasKnowledgeGraph(),
         ]);
 
@@ -42,6 +43,7 @@ export const Route = createFileRoute("/sitemap.xml")({
         const entries: SitemapEntry[] = [
           ...INDEXABLE_STATIC_PATHS.map((path) => ({ path })),
           ...categories.map((category) => ({ path: `/explore/${category.slug}` })),
+          ...regions.map((region) => ({ path: `/explore/region/${region.id}` })),
           ...collections.map((collection) => ({ path: `/shop/${collection.slug}` })),
           ...articles.map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(article.publishedAt) })),
           ...destinations.filter((destination) => destination.slug).map((destination) => ({ path: `/destination/${destination.slug}` })),
