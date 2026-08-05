@@ -3,7 +3,7 @@ import { texasDefinedBrand } from '@/brand/texasdefined';
 import { Container } from '@/components/layout/Container';
 import { buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
-const description='A plain-English guide to property-tax deadlines, escrow, payment options, late charges, agreements, refunds, liens and tax sales.';
+const description='A plain-English guide to deadlines, escrow, payment options, late charges, agreements, refunds, liens and tax sales.';
 const canonicalPath='/learn/property-tax-payments';
 const siteUrl=`https://${texasDefinedBrand.identity.domain}`;
 const pageUrl=`${siteUrl}${canonicalPath}`;
@@ -17,7 +17,7 @@ const paymentSteps=[
 ];
 export const Route=createFileRoute('/learn/property-tax-payments')({head:()=>({meta: buildMeta(texasDefinedBrand, {
       canonicalPath,
-      title:'Texas Property-Tax Payments and Collections',description}),
+      title:'Paying Your Property Taxes',description}),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
     scripts:[jsonLd({
       '@context':'https://schema.org',
@@ -26,7 +26,7 @@ export const Route=createFileRoute('/learn/property-tax-payments')({head:()=>({m
           '@type':'HowTo',
           '@id':`${pageUrl}#payment-checklist`,
           name:'Before you send a Texas property-tax payment',
-          description:'A practical checklist for verifying and documenting a Texas property-tax payment.',
+          description:'A practical checklist for checking and documenting a Texas property-tax payment.',
           url:pageUrl,
           isPartOf:{'@id':`${siteUrl}/#website`},
           step:paymentSteps.map((text,index)=>({
@@ -42,13 +42,13 @@ export const Route=createFileRoute('/learn/property-tax-payments')({head:()=>({m
           '@id':`${pageUrl}#breadcrumb`,
           itemListElement:[
             {'@type':'ListItem',position:1,name:'Home',item:`${siteUrl}/`},
-            {'@type':'ListItem',position:2,name:'Property Taxes',item:`${siteUrl}/learn/property-taxes`},
-            {'@type':'ListItem',position:3,name:'Property-Tax Payments',item:pageUrl},
+            {'@type':'ListItem',position:2,name:'Property taxes',item:`${siteUrl}/learn/property-taxes`},
+            {'@type':'ListItem',position:3,name:'Paying the bill',item:pageUrl},
           ],
         },
       ],
     })]}),component:Page});
-function Page(){return <Container className="py-16 sm:py-24"><article className="mx-auto max-w-4xl"><nav aria-label="Breadcrumb" className="mb-8 text-sm text-muted-foreground"><Link to="/">Home</Link><span aria-hidden="true"> / </span><Link to="/learn/property-taxes">Property Taxes</Link><span aria-hidden="true"> / </span><span aria-current="page">Payments</span></nav><p className="eyebrow text-primary">When the bill arrives</p><h1 className="mt-3 font-display text-4xl sm:text-6xl">Paying Your Property Taxes</h1><p className="mt-5 text-lg text-muted-foreground">{description}</p><p className="mt-3 text-sm text-muted-foreground">Reviewed August 3, 2026. Your collecting office has the final word on account-specific dates and balances.</p>
+function Page(){return <Container className="py-16 sm:py-24"><article className="mx-auto max-w-4xl"><nav aria-label="Breadcrumb" className="mb-8 text-sm text-muted-foreground"><Link to="/">Home</Link><span aria-hidden="true"> / </span><Link to="/learn/property-taxes">Property taxes</Link><span aria-hidden="true"> / </span><span aria-current="page">Paying the bill</span></nav><p className="eyebrow text-primary">When the bill arrives</p><h1 className="mt-3 font-display text-4xl sm:text-6xl">Paying your property taxes</h1><p className="mt-5 text-lg text-muted-foreground">{description}</p><p className="mt-3 text-sm text-muted-foreground">Reviewed August 3, 2026. Your collecting office has the final word on account-specific dates and balances.</p>
 <div className="mt-12 space-y-12">
 <Section title="Start with the bill itself"><p>Check the owner, account number, legal description, property address, tax year, each taxing unit, taxable value, exemptions, rate, amount due and delinquency date. One statement may include a county, city, school district, MUD, hospital district, emergency-services district, college district and other local units.</p><Callout>Didn’t receive a bill? Contact the collector anyway. A missing bill usually does not erase the tax, penalties, interest or lien.</Callout></Section>
 <Section title="Know the deadline"><p>Taxes are generally due when the bill arrives. In an ordinary year, January 31 is the last day to pay before delinquency and unpaid taxes become delinquent February 1. Corrected bills, late-mailed bills, split-payment plans, protests, disasters and other circumstances can change that date, so use the deadline printed on your statement.</p><p>Continuing a value appeal? You may still need to pay a required amount before delinquency to preserve the appeal.</p></Section>
@@ -60,6 +60,6 @@ function Page(){return <Container className="py-16 sm:py-24"><article className=
 <Section title="Waivers and refunds"><p>Limited waivers may apply when a taxpayer relied on incorrect government information or another defined circumstance can be proven. Refund requests have deadlines and documentation requirements. Put the request in writing and keep copies of notices, receipts and supporting evidence.</p></Section>
 <Section title="Liens, lawsuits and tax sales"><p>Property taxes are secured by a lien. Continued delinquency can lead to a collection lawsuit, judgment, foreclosure and tax sale. Waiting until a lawsuit begins usually makes the problem more expensive and leaves fewer options.</p></Section>
 <section className="rounded-md border border-border p-6"><h2 className="font-display text-2xl">Before you send payment</h2><ol className="mt-4 list-decimal space-y-2 pl-5 text-sm text-muted-foreground">{paymentSteps.map((step,index)=><li id={`payment-step-${index+1}`} key={step}>{step}</li>)}</ol></section>
-</div><div className="mt-12 flex flex-wrap gap-4"><a className="underline" href="https://comptroller.texas.gov/taxes/property-tax/" target="_blank" rel="noreferrer">Check official state guidance</a><Link className="underline" to="/learn/property-taxes">Understand the full tax bill</Link><Link className="underline" to="/browse/counties">Find your county office</Link></div></article></Container>}
+</div><div className="mt-12 flex flex-wrap gap-4"><a className="underline" href="https://comptroller.texas.gov/taxes/property-tax/" target="_blank" rel="noreferrer">See the official state guidance</a><Link className="underline" to="/learn/property-taxes">Understand the full tax bill</Link><Link className="underline" to="/browse/counties">Find your county office</Link></div></article></Container>}
 function Section({title,children}:{title:string;children:React.ReactNode}){return <section><h2 className="font-display text-3xl">{title}</h2><div className="mt-4 space-y-4 leading-7 text-muted-foreground">{children}</div></section>}
 function Callout({children}:{children:React.ReactNode}){return <div className="rounded-md bg-muted p-5 text-foreground">{children}</div>}
