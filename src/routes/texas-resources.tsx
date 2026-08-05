@@ -1,9 +1,11 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { Container } from '@/components/layout/Container';
 import { texasDefinedBrand } from '@/brand/texasdefined';
-import { buildMeta, canonicalLink } from '@/lib/seo';
+import { buildMeta, canonicalLink, jsonLdScript } from '@/lib/seo';
 
 const description = 'A simple starting point for the questions that come with moving, buying, owning a home and finding your way around the state.';
+const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
+const pageUrl = `${siteUrl}/texas-resources`;
 
 const groups = [
   {
@@ -37,6 +39,17 @@ const groups = [
   },
 ] as const;
 
+const resourceLinks = groups.flatMap((group) => group.links);
+const itemListElement = resourceLinks.map(([name, path], index) => ({
+  '@type': 'ListItem',
+  position: index + 1,
+  item: {
+    '@type': 'WebPage',
+    name,
+    url: `${siteUrl}${path}`,
+  },
+}));
+
 export const Route = createFileRoute('/texas-resources')({
   head: () => ({
     meta: buildMeta(texasDefinedBrand, {
@@ -45,6 +58,36 @@ export const Route = createFileRoute('/texas-resources')({
       description,
     }),
     links: [canonicalLink(texasDefinedBrand, '/texas-resources')],
+    scripts: [jsonLdScript({
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'CollectionPage',
+          '@id': `${pageUrl}#page`,
+          url: pageUrl,
+          name: 'Texas Resources',
+          description,
+          isPartOf: { '@id': `${siteUrl}/#website` },
+          mainEntity: { '@id': `${pageUrl}#resources` },
+          breadcrumb: { '@id': `${pageUrl}#breadcrumbs` },
+        },
+        {
+          '@type': 'ItemList',
+          '@id': `${pageUrl}#resources`,
+          name: 'Texas resources and practical guides',
+          numberOfItems: itemListElement.length,
+          itemListElement,
+        },
+        {
+          '@type': 'BreadcrumbList',
+          '@id': `${pageUrl}#breadcrumbs`,
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
+            { '@type': 'ListItem', position: 2, name: 'Texas Resources', item: pageUrl },
+          ],
+        },
+      ],
+    })],
   }),
   component: Page,
 });
@@ -53,7 +96,14 @@ function Page() {
   return (
     <Container className="py-16 sm:py-24">
       <main className="mx-auto max-w-6xl">
-        <p className="eyebrow text-primary">Start Here</p>
+        <nav aria-label="Breadcrumb" className="text-xs text-muted-foreground">
+          <ol className="flex items-center gap-2">
+            <li><Link to="/" className="hover:text-foreground">Home</Link></li>
+            <li aria-hidden="true">/</li>
+            <li aria-current="page" className="text-foreground">Texas Resources</li>
+          </ol>
+        </nav>
+        <p className="eyebrow mt-8 text-primary">Start Here</p>
         <h1 className="mt-3 font-display text-4xl sm:text-6xl">Good answers for everyday Texas life</h1>
         <p className="mt-5 max-w-3xl text-lg leading-8 text-muted-foreground">{description}</p>
         <div className="mt-12 grid gap-6 lg:grid-cols-3">
