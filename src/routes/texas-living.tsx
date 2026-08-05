@@ -30,7 +30,7 @@ const structuredData = {
       '@type': 'CollectionPage',
       '@id': `${pageUrl}#page`,
       url: pageUrl,
-      name: 'Living in Texas',
+      name: 'Living Here',
       description,
       isPartOf: { '@id': `${siteUrl}/#website` },
       mainEntity: { '@id': `${pageUrl}#topics` },
@@ -39,7 +39,7 @@ const structuredData = {
     {
       '@type': 'ItemList',
       '@id': `${pageUrl}#topics`,
-      name: 'Living in Texas guides',
+      name: 'Guides for living here',
       numberOfItems: itemListElement.length,
       itemListElement,
     },
@@ -48,7 +48,7 @@ const structuredData = {
       '@id': `${pageUrl}#breadcrumbs`,
       itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
-        { '@type': 'ListItem', position: 2, name: 'Living in Texas', item: pageUrl },
+        { '@type': 'ListItem', position: 2, name: 'Living Here', item: pageUrl },
       ],
     },
   ],
@@ -58,7 +58,7 @@ export const Route = createFileRoute('/texas-living')({
   head: () => ({
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath: '/texas-living',
-      title: 'Living in Texas',
+      title: 'Living Here',
       description,
     }),
     links: [canonicalLink(texasDefinedBrand, '/texas-living')],
