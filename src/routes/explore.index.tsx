@@ -19,13 +19,15 @@ const EXPLORE_CATEGORIES = [
 ] as const;
 
 const description =
-  "Lakes and rivers, state parks, road trips, small towns, barbecue and the wild outdoors — the places that define Texas, mapped by region.";
+  "Cold rivers, canyon trails, two-lane roads, small-town main streets and barbecue worth waiting for — start with whatever sounds good today.";
 
 export const Route = createFileRoute("/explore/")({
   head: () => ({
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath: "/explore",
-      title: "Explore Texas", description }),
+      title: "Explore Texas",
+      description,
+    }),
     links: [canonicalLink(texasDefinedBrand, "/explore")],
   }),
   loader: async ({ context }) => {
@@ -52,9 +54,9 @@ function ExplorePage() {
   return (
     <>
       <Container className="pb-6 pt-16 sm:pt-24">
-        <p className="eyebrow text-primary">Explore</p>
+        <p className="eyebrow text-primary">Worth the drive</p>
         <h1 className="mt-3 max-w-3xl font-display text-4xl leading-tight sm:text-6xl">
-          268,596 square miles. Start somewhere.
+          Find your next favorite place
         </h1>
         <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground">
           {description}
@@ -63,7 +65,12 @@ function ExplorePage() {
 
       <Section>
         <Container>
-          <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <SectionHeader
+            eyebrow="Pick a direction"
+            title="What sounds good today?"
+            description="Choose a trail, a swimming hole, a small town or a plate worth planning around."
+          />
+          <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {exploreCategories.map((category) => (
               <li key={category.slug}>
                 <Link
@@ -97,7 +104,10 @@ function ExplorePage() {
 
       <Section tone="surface">
         <Container>
-          <SectionHeader eyebrow="Regions" title="Seven Texases" />
+          <SectionHeader
+            eyebrow="Around the state"
+            title="Seven regions, seven different kinds of Texas"
+          />
           <ul className="mt-10 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
             {regions.map((region) => (
               <li key={region.id} className="border-t border-border pt-4">
@@ -111,7 +121,7 @@ function ExplorePage() {
 
       <Section>
         <Container>
-          <SectionHeader eyebrow="Featured places" title="Worth the tank of gas" />
+          <SectionHeader eyebrow="Editor's picks" title="Places worth the tank of gas" />
           <ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
             {destinations.map((destination) => (
               <li key={destination.id}>
@@ -127,7 +137,7 @@ function ExplorePage() {
 
       <Section tone="surface">
         <Container>
-          <SectionHeader eyebrow="Reading" title="Dispatches from the road" />
+          <SectionHeader eyebrow="From the road" title="Stories to take with you" />
           <ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
             {articles.map((article) => (
               <li key={article.id}>
