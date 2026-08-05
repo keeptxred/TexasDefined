@@ -64,6 +64,7 @@ export const Route = createFileRoute("/destination/$slug")({
     const relatedPlaces = [...new Map(
       relationshipGroups.flatMap((group) => group.destinations).map((item) => [item.slug, item]),
     ).values()];
+    const related = relatedPlaces;
 
     const webPageSchema = {
       "@type": "WebPage",
