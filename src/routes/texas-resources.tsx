@@ -39,7 +39,7 @@ const groups = [
   },
 ] as const;
 
-const guideLinks = groups.flatMap((group) => group.links);
+const guideLinks = groups.flatMap((group) => group.links) as ReadonlyArray<readonly [string, string]>;
 const itemListElement = guideLinks.map(([name, path], index) => ({
   '@type': 'ListItem',
   position: index + 1,

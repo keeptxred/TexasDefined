@@ -5,6 +5,7 @@ import enchantedRock from "@/assets/enchanted-rock.jpg";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { CategoryPage } from "@/components/editorial/CategoryPage";
 import { articlesQuery, destinationsQuery, regionsQuery } from "@/data/queries";
+import type { Article, Destination } from "@/data/types";
 import { buildEditorialCollectionHead, buildMeta, canonicalLink } from "@/lib/seo";
 
 const description =
@@ -12,7 +13,7 @@ const description =
 const imageAlt = "The granite dome of Enchanted Rock under a wide sky";
 
 export const Route = createFileRoute("/texas-history")({
-  head: ({ loaderData }) => loaderData
+  head: ({ loaderData }: { loaderData?: { articles: Article[]; destinations: Destination[] } }) => loaderData
     ? buildEditorialCollectionHead(texasDefinedBrand, {
         canonicalPath: "/texas-history",
         title: "History",
@@ -47,7 +48,7 @@ export const Route = createFileRoute("/texas-history")({
         }),
         links: [canonicalLink(texasDefinedBrand, "/texas-history")],
       }),
-  loader: async ({ context }) => {
+  loader: async ({ context }): Promise<{ articles: Article[]; destinations: Destination[] }> => {
     const [articles, destinations] = await Promise.all([
       context.queryClient.ensureQueryData(articlesQuery({ category: "texas-history" })),
       context.queryClient.ensureQueryData(destinationsQuery({ category: "texas-history" })),

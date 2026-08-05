@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title description">
+  <title id="title">Texas Defined destination</title>
+  <desc id="description">A warm illustrated Texas landscape used when a destination photograph is not yet available.</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#d9e5e7"/>
+      <stop offset="1" stop-color="#f3dfc2"/>
+    </linearGradient>
+    <linearGradient id="ground" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#8f6848"/>
+      <stop offset="1" stop-color="#bc7954"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#sky)"/>
+  <circle cx="1250" cy="250" r="95" fill="#d99058" opacity=".85"/>
+  <path d="M0 650C240 560 430 610 650 530s410-10 540 55 260 45 410-15v430H0Z" fill="#7b7560"/>
+  <path d="M0 760c260-95 490-20 710-70s430-25 890 115v195H0Z" fill="url(#ground)"/>
+  <path d="M420 760v-185h38v185m-70-110h102m-51-75-38-72m57 72 42-73" fill="none" stroke="#36483f" stroke-width="22" stroke-linecap="round"/>
+  <text x="90" y="150" fill="#273b36" font-family="Georgia, serif" font-size="70">Texas Defined</text>
+  <text x="94" y="215" fill="#4c5f59" font-family="Arial, sans-serif" font-size="30" letter-spacing="4">A PLACE WORTH EXPLORING</text>
+</svg>

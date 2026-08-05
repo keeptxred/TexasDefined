@@ -76,11 +76,22 @@ function stringArray(value: unknown): string[] {
   return [];
 }
 
+export const DESTINATION_FALLBACK_IMAGE = "/images/texasdefined-destination-placeholder.svg";
+
+/** Only accept absolute http(s) URLs or site-relative paths; anything else falls back. */
+function destinationImage(value: unknown): string {
+  const raw = typeof value === "string" ? value.trim() : "";
+  if (!raw) return DESTINATION_FALLBACK_IMAGE;
+  if (raw.startsWith("/")) return raw;
+  if (/^https?:\/\//i.test(raw)) return raw;
+  return DESTINATION_FALLBACK_IMAGE;
+}
+
 function mapRow(row: Record<string, unknown>): Destination {
   const summary = String(row.summary || row.short_description || row.long_description || "Explore this Texas destination.");
   const lat = Number(row.latitude ?? row.lat ?? 0);
   const lng = Number(row.longitude ?? row.lng ?? 0);
-  const image = String(row.hero_image_url || row.image_url || "/images/texasdefined-placeholder.svg");
+  const image = destinationImage(row.hero_image_url ?? row.image_url);
   const type = entityType(row);
   const highlights = [...stringArray(row.activities), ...stringArray(row.highlights), ...stringArray(row.alternate_names)]
     .filter((item, index, all) => all.indexOf(item) === index)

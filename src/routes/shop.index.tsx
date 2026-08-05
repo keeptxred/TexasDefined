@@ -9,6 +9,7 @@ import { ArticleCard } from "@/components/editorial/ArticleCard";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import { articlesQuery, collectionsQuery, productsQuery } from "@/data/queries";
+import type { Article, Collection, Product } from "@/data/types";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const description =
@@ -17,7 +18,7 @@ const description =
 const productAnchor = (id: string) => `product-${id}`;
 
 export const Route = createFileRoute("/shop/")({
-  head: ({ loaderData }) => ({
+  head: ({ loaderData }: { loaderData?: { collections: Collection[]; products: Product[]; articles: Article[] } }) => ({
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath: "/shop",
       title: "The Shop",
@@ -95,7 +96,7 @@ export const Route = createFileRoute("/shop/")({
         ]
       : [],
   }),
-  loader: async ({ context }) => {
+  loader: async ({ context }): Promise<{ collections: Collection[]; products: Product[]; articles: Article[] }> => {
     const [collections, products, articles] = await Promise.all([
       context.queryClient.ensureQueryData(collectionsQuery()),
       context.queryClient.ensureQueryData(productsQuery({})),

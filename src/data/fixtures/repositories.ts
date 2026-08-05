@@ -38,8 +38,8 @@ const newestFirst = <T extends { publishedAt: string }>(rows: T[]) =>
   [...rows].sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1));
 
 const today = () => new Date().toISOString().slice(0, 10);
-const currentEvents = <T extends { endDate: string }>(rows: T[]) =>
-  rows.filter((event) => event.endDate >= today());
+const currentEvents = <T extends { startDate: string; endDate?: string }>(rows: T[]) =>
+  rows.filter((event) => (event.endDate ? event.endDate >= today() : event.startDate >= today()));
 
 export const fixtureArticles: ArticleRepository = {
   async list(query) {

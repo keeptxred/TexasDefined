@@ -7,6 +7,7 @@ import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import { articlesQuery, categoriesQuery, destinationsQuery, regionsQuery } from "@/data/queries";
+import type { Article, Category, Destination, Region } from "@/data/types";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 
 const EXPLORE_CATEGORIES = [
@@ -29,7 +30,7 @@ const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const pageUrl = `${siteUrl}/explore`;
 
 export const Route = createFileRoute("/explore/")({
-  head: ({ loaderData }) => {
+  head: ({ loaderData }: { loaderData?: { categories: Category[]; regions: Region[]; destinations: Destination[]; articles: Article[] } }) => {
     const categories = (loaderData?.categories ?? []).filter((category) =>
       (EXPLORE_CATEGORIES as readonly string[]).includes(category.slug),
     );
@@ -122,7 +123,7 @@ export const Route = createFileRoute("/explore/")({
       ],
     };
   },
-  loader: async ({ context }) => {
+  loader: async ({ context }): Promise<{ categories: Category[]; regions: Region[]; destinations: Destination[]; articles: Article[] }> => {
     const [categories, regions, destinations, articles] = await Promise.all([
       context.queryClient.ensureQueryData(categoriesQuery()),
       context.queryClient.ensureQueryData(regionsQuery()),
