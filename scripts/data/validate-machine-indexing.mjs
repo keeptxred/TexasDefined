@@ -17,6 +17,7 @@ for (const file of files) {
 }
 
 const llmsSource = fs.readFileSync(path.join(root, 'src/routes/llms[.]txt.ts'), 'utf8');
+const robotsSource = fs.readFileSync(path.join(root, 'public/robots.txt'), 'utf8');
 const requiredDiscoveryTargets = [
   '/api/knowledge-graph',
   '/api/ai/entities',
@@ -47,6 +48,14 @@ for (const target of requiredDiscoveryTargets) {
   }
 }
 
+const adminBlocks = robotsSource.match(/^Disallow: \/admin$/gm) ?? [];
+if (adminBlocks.length !== 5) {
+  errors.push('robots.txt must block the admin root for every declared crawler group.');
+}
+for (const sitemap of ['https://texasdefined.com/sitemap.xml', 'https://texasdefined.com/sitemap-explore.xml']) {
+  if (!robotsSource.includes(`Sitemap: ${sitemap}`)) errors.push(`robots.txt must advertise ${sitemap}.`);
+}
+
 if (!llmsSource.includes('calculator outputs as illustrative planning estimates')) {
   errors.push('llms.txt must preserve calculator retrieval guidance.');
 }
@@ -57,4 +66,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('TexasDefined machine endpoints and AI discovery guidance are protected.');
+console.log('TexasDefined machine endpoints, robots policy, and AI discovery guidance are protected.');
