@@ -7,6 +7,11 @@ import {
 } from '@/data/knowledge-graph';
 import type { TexasEntityKind, TexasEntityRecord } from '@/data/knowledge-graph';
 
+const PUBLIC_HEADERS = {
+  'cache-control': 'public, max-age=300, stale-while-revalidate=3600',
+  'access-control-allow-origin': '*',
+};
+
 const PUBLIC_FIELDS = (entity: TexasEntityRecord) => ({
   id: entity.id,
   kind: entity.kind,
@@ -18,6 +23,7 @@ const PUBLIC_FIELDS = (entity: TexasEntityRecord) => ({
   region: entity.region,
   coordinates: entity.coordinates,
   officialUrl: entity.officialUrl,
+  canonicalUrl: `https://texasdefined.com/${entity.kind}/${entity.slug}`,
   sourceId: entity.sourceId,
   sourceConfidence: entity.sourceConfidence,
   sourceCheckedAt: entity.sourceCheckedAt,
@@ -45,8 +51,8 @@ export const Route = createFileRoute('/api/knowledge-graph')({
 
         if (id) {
           const entity = await findCompleteTexasEntity(id);
-          if (!entity) return Response.json({ error: 'Entity not found' }, { status: 404 });
-          return Response.json({
+          if (!entity) return json({ error: 'Entity not found' }, { status: 404, cacheControl: 'no-store' });
+          return json({
             entity: PUBLIC_FIELDS(entity),
             neighbors: includeRelationships
               ? graphNeighbors(entity.id).map((item) => ({
@@ -55,7 +61,7 @@ export const Route = createFileRoute('/api/knowledge-graph')({
                   entity: item.entity ? PUBLIC_FIELDS(item.entity) : null,
                 }))
               : undefined,
-          }, { headers: { 'cache-control': 'public, max-age=300' } });
+          });
         }
 
         let entities = query
@@ -71,13 +77,20 @@ export const Route = createFileRoute('/api/knowledge-graph')({
           return counts;
         }, {});
 
-        return Response.json({
+        return json({
           total: entities.length,
           countsByKind,
           entities: entities.slice(0, limit).map(PUBLIC_FIELDS),
           filters: { query: query || null, kind: kind || null, county: county || null, region: region || null, limit },
-        }, { headers: { 'cache-control': 'public, max-age=300' } });
+        });
       },
     },
   },
 });
+
+function json(body: unknown, options: { status?: number; cacheControl?: string } = {}) {
+  return Response.json(body, {
+    status: options.status,
+    headers: { ...PUBLIC_HEADERS, 'cache-control': options.cacheControl ?? PUBLIC_HEADERS['cache-control'] },
+  });
+}
