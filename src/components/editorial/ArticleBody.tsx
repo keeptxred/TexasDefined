@@ -10,13 +10,19 @@ export function PullQuote({ text, attribution, entities = [] }: { text: string; 
   return (
     <figure className="my-10 border-l-2 border-primary pl-6">
       <blockquote className="font-display text-2xl leading-snug text-foreground sm:text-3xl">“<AutoEntityLinks text={text} entities={entities} maxLinks={2} policy={policyForSurface('article')} />”</blockquote>
-      {attribution && <figcaption className="mt-3 text-xs uppercase tracking-widest text-muted-foreground">{attribution}</figcaption>}
+      {attribution && <figcaption className="mt-3 text-sm text-muted-foreground">— {attribution}</figcaption>}
     </figure>
   );
 }
 
 export function Byline({ author, meta }: { author: Author | null; meta: string }) {
-  return <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 text-sm text-muted-foreground">{author && <span className="text-foreground">By <span className="font-medium">{author.name}</span><span className="text-muted-foreground">, {author.role}</span></span>}<span>{meta}</span></div>;
+  return (
+    <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground">
+      {author && <span className="text-foreground">By <span className="font-medium">{author.name}</span></span>}
+      {author && <span aria-hidden="true">·</span>}
+      <span>{meta}</span>
+    </div>
+  );
 }
 
 export function ArticleBody({ blocks, entities = [] }: { blocks: ArticleBlock[]; entities?: TexasEntityRecord[] }) {
