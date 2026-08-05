@@ -2,7 +2,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 
 import { ArticleCard } from "@/components/editorial/ArticleCard";
-import { DestinationCard } from "@/components/editorial/DestinationCard";
+import { DestinationCollectionGrid } from "@/components/editorial/DestinationCollectionGrid";
 import { ExploreDiscovery } from "@/components/editorial/ExploreDiscovery";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
@@ -71,20 +71,14 @@ export function CategoryPage({
           <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/25" />
           <Container className="relative py-20 sm:py-28">
             <p className="eyebrow text-ink-foreground/75">{eyebrow}</p>
-            <h1 className="mt-3 max-w-3xl font-display text-4xl leading-tight sm:text-6xl">
-              {title}
-            </h1>
-            <p className="mt-5 max-w-2xl text-base leading-relaxed text-ink-foreground/85">
-              {intro}
-            </p>
+            <h1 className="mt-3 max-w-3xl font-display text-4xl leading-tight sm:text-6xl">{title}</h1>
+            <p className="mt-5 max-w-2xl text-base leading-relaxed text-ink-foreground/85">{intro}</p>
           </Container>
         </section>
       ) : (
         <Container className="pb-4 pt-12 sm:pt-16">
           <p className="eyebrow text-primary">{eyebrow}</p>
-          <h1 className="mt-3 max-w-3xl font-display text-4xl leading-tight sm:text-6xl">
-            {title}
-          </h1>
+          <h1 className="mt-3 max-w-3xl font-display text-4xl leading-tight sm:text-6xl">{title}</h1>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground">{intro}</p>
         </Container>
       )}
@@ -93,9 +87,7 @@ export function CategoryPage({
         <Section>
           <Container>
             <SectionHeader eyebrow="Start here" title="The story we’d read first" />
-            <div className="mt-10">
-              <ArticleCard article={lead} size="feature" />
-            </div>
+            <div className="mt-10"><ArticleCard article={lead} size="feature" /></div>
           </Container>
         </Section>
       )}
@@ -107,16 +99,7 @@ export function CategoryPage({
               eyebrow="Worth the drive"
               title={`${destinations.length.toLocaleString("en-US")} places to explore`}
             />
-            <ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-              {destinations.map((destination) => (
-                <li key={destination.id}>
-                  <DestinationCard
-                    destination={destination}
-                    regionLabel={regionName(destination.region)}
-                  />
-                </li>
-              ))}
-            </ul>
+            <DestinationCollectionGrid destinations={destinations} regionLabel={regionName} />
           </Container>
         </Section>
       )}
@@ -127,9 +110,7 @@ export function CategoryPage({
           {others.length > 0 ? (
             <ul className="mt-10 grid gap-12 md:grid-cols-2 lg:grid-cols-3">
               {others.map((article) => (
-                <li key={article.id}>
-                  <ArticleCard article={article} />
-                </li>
+                <li key={article.id}><ArticleCard article={article} /></li>
               ))}
             </ul>
           ) : (
