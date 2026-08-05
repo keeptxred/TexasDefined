@@ -14,8 +14,13 @@ for (const feature of [
   'groups.flatMap((group) => group.links)',
   'aria-label="Breadcrumb"',
   'aria-current="page"',
+  "['Texas sports', '/sports']",
+  "['Texas history', '/texas-history']",
+  "['Home and garden', '/home-garden']",
+  "['Texas real estate', '/real-estate']",
+  "['About TexasDefined', '/about']",
 ]) {
-  if (!route.includes(feature)) errors.push(`Texas resources SEO feature missing: ${feature}.`);
+  if (!route.includes(feature)) errors.push(`Texas resources SEO or discovery feature missing: ${feature}.`);
 }
 
 if (errors.length) {
@@ -24,4 +29,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Texas resources CollectionPage, ItemList, and breadcrumb validation passed.');
+console.log('Texas resources CollectionPage, ItemList, breadcrumbs, and public-hub discovery links are protected.');
