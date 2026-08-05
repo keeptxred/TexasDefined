@@ -10,6 +10,11 @@ const redirects = [
   '/texas-property-tax-increase-calculator',
   '/texas-property-tax-protest-guide',
 ];
+const legacyExploreRedirects = [
+  ['src/routes/explore.cavern.$slug.tsx', '/explore/cavern/', '/destination/'],
+  ['src/routes/explore.state-park.$slug.tsx', '/explore/state-park/', '/destination/'],
+  ['src/routes/explore.county.$county.tsx', '/explore/county/', '/browse/counties#county-'],
+];
 
 const failures = [];
 
@@ -33,6 +38,13 @@ if (!sitemap.includes('isIndexablePublicPath(path)')) {
   failures.push('Sitemap does not filter entries through the public-path policy.');
 }
 
+for (const [filename, legacyPrefix, targetPrefix] of legacyExploreRedirects) {
+  const source = fs.readFileSync(filename, 'utf8');
+  if (!source.includes('statusCode: 301')) failures.push(`${filename} must remain a permanent redirect.`);
+  if (!source.includes(targetPrefix)) failures.push(`${filename} must redirect to ${targetPrefix}.`);
+  if (exploreSitemap.includes(legacyPrefix)) failures.push(`Explore sitemap must not publish legacy prefix ${legacyPrefix}.`);
+}
+
 for (const feature of [
   'supplementalExploreCategories',
   'categories',
@@ -51,4 +63,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Sitemap redirect-route and Explore category validation passed.');
+console.log('Sitemap, redirect-route, legacy Explore redirect, and category validation passed.');
