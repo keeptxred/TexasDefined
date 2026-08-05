@@ -3,6 +3,9 @@ import type { CategorySlug, Destination, TexasRegion } from "./types";
 const supabaseUrl = String(import.meta.env.VITE_TEXASDEFINED_SUPABASE_URL || import.meta.env.VITE_SUPABASE_URL || "").replace(/\/$/, "");
 const supabaseKey = String(import.meta.env.VITE_TEXASDEFINED_SUPABASE_ANON_KEY || import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || "");
 
+const PAGE_SIZE = 500;
+const MAX_REMOTE_DESTINATIONS = 5000;
+
 export function hasExploreRemoteData(): boolean {
   return Boolean(supabaseUrl && supabaseKey);
 }
@@ -26,12 +29,51 @@ function region(value: unknown): TexasRegion {
   return "prairies-lakes";
 }
 
+function entityType(row: Record<string, unknown>): string {
+  const relation = row.explore_entity_types;
+  if (relation && typeof relation === "object" && !Array.isArray(relation)) {
+    return String((relation as Record<string, unknown>).key || "");
+  }
+  if (Array.isArray(relation) && relation[0] && typeof relation[0] === "object") {
+    return String((relation[0] as Record<string, unknown>).key || "");
+  }
+  return String(row.entity_type_key || row.entity_type || row.type || "");
+}
+
 function category(value: unknown): CategorySlug {
-  const normalized = String(value || "").toLowerCase();
-  if (normalized.includes("lake") || normalized.includes("river") || normalized.includes("spring")) return "lakes-rivers";
-  if (normalized.includes("park") || normalized.includes("natural") || normalized.includes("trail") || normalized.includes("cavern")) return "state-parks";
-  if (normalized.includes("town") || normalized.includes("city")) return "small-towns";
+  const normalized = String(value || "").toLowerCase().replace(/[\s-]+/g, "_");
+  if (["lake", "river", "spring", "reservoir", "waterfall", "swimming_hole"].some((type) => normalized.includes(type))) {
+    return "lakes-rivers";
+  }
+  if (
+    [
+      "state_park",
+      "national_park",
+      "park",
+      "natural_area",
+      "wildlife_refuge",
+      "cavern",
+      "cave",
+      "campground",
+      "trail",
+    ].some((type) => normalized.includes(type))
+  ) {
+    return "state-parks";
+  }
+  if (["town", "city", "community", "county"].some((type) => normalized.includes(type))) return "small-towns";
+  if (["restaurant", "barbecue", "bbq", "winery", "brewery", "food"].some((type) => normalized.includes(type))) return "food-bbq";
+  if (["road_trip", "scenic_drive", "highway"].some((type) => normalized.includes(type))) return "road-trips";
   return "outdoors";
+}
+
+function matchesCategory(row: Record<string, unknown>, requested?: CategorySlug): boolean {
+  return !requested || category(entityType(row)) === requested;
+}
+
+function stringArray(value: unknown): string[] {
+  if (Array.isArray(value)) return value.map(String).filter(Boolean);
+  if (typeof value === "string" && value.trim()) return value.split(/[,;|]/).map((item) => item.trim()).filter(Boolean);
+  return [];
 }
 
 function mapRow(row: Record<string, unknown>): Destination {
@@ -39,14 +81,21 @@ function mapRow(row: Record<string, unknown>): Destination {
   const lat = Number(row.latitude ?? row.lat ?? 0);
   const lng = Number(row.longitude ?? row.lng ?? 0);
   const image = String(row.hero_image_url || row.image_url || "/images/texasdefined-placeholder.jpg");
+  const type = entityType(row);
+  const highlights = [
+    ...stringArray(row.activities),
+    ...stringArray(row.highlights),
+    ...stringArray(row.alternate_names),
+  ].filter((item, index, all) => all.indexOf(item) === index).slice(0, 8);
+
   return {
     id: String(row.id || row.slug),
     brandId: "texasdefined",
     slug: String(row.slug || ""),
     name: String(row.name || "Texas destination"),
     summary,
-    category: category(row.entity_type_key || row.entity_type || row.type),
-    region: region(row.region),
+    category: category(type),
+    region: region(row.region || row.region_name || row.geographic_region),
     nearestTown: String(row.city || row.nearest_town || row.county || "Texas"),
     coordinates: { lat: Number.isFinite(lat) ? lat : 0, lng: Number.isFinite(lng) ? lng : 0 },
     hero: {
@@ -57,35 +106,52 @@ function mapRow(row: Record<string, unknown>): Destination {
     },
     bestSeason: String(row.best_season || row.operating_season || "Check current conditions before visiting"),
     entryNote: String(row.entry_note || row.fees || "Confirm current hours, fees, reservations, and access with the official source."),
-    highlights: Array.isArray(row.activities) ? row.activities.map(String).slice(0, 8) : [],
+    highlights,
     body: [String(row.long_description || summary)],
     featured: Boolean(row.featured),
   };
 }
 
-export async function fetchExploreDestinations(options: { featured?: boolean; query?: string; limit?: number } = {}): Promise<Destination[]> {
+async function fetchExplorePage(params: URLSearchParams, offset: number, limit: number): Promise<Record<string, unknown>[]> {
+  const pageParams = new URLSearchParams(params);
+  pageParams.set("offset", String(offset));
+  pageParams.set("limit", String(limit));
+  const response = await fetch(`${supabaseUrl}/rest/v1/explore_entities?${pageParams}`, { headers: headers() });
+  if (!response.ok) throw new Error(`Explore catalog request failed: ${response.status}`);
+  const rows = await response.json();
+  return Array.isArray(rows) ? rows : [];
+}
+
+export async function fetchExploreDestinations(
+  options: { featured?: boolean; query?: string; category?: CategorySlug; limit?: number } = {},
+): Promise<Destination[]> {
   if (!hasExploreRemoteData()) return [];
+  const requestedLimit = Math.min(options.limit ?? MAX_REMOTE_DESTINATIONS, MAX_REMOTE_DESTINATIONS);
   const params = new URLSearchParams({
-    select: "*",
+    select: "*,explore_entity_types(key,name)",
     visibility: "eq.public",
     status: "in.(published,verified)",
     order: "featured.desc,popularity_score.desc,name.asc",
-    limit: String(options.limit ?? 500),
   });
   if (options.featured) params.set("featured", "eq.true");
   if (options.query?.trim()) {
     const clean = options.query.trim().replace(/[%_,()]/g, "");
     params.set("or", `(name.ilike.*${clean}*,slug.ilike.*${clean}*,summary.ilike.*${clean}*)`);
   }
-  const response = await fetch(`${supabaseUrl}/rest/v1/explore_entities?${params}`, { headers: headers() });
-  if (!response.ok) throw new Error(`Explore catalog request failed: ${response.status}`);
-  const rows = await response.json();
-  return Array.isArray(rows) ? rows.map(mapRow) : [];
+
+  const rows: Record<string, unknown>[] = [];
+  for (let offset = 0; offset < requestedLimit; offset += PAGE_SIZE) {
+    const page = await fetchExplorePage(params, offset, Math.min(PAGE_SIZE, requestedLimit - offset));
+    rows.push(...page);
+    if (page.length < PAGE_SIZE) break;
+  }
+
+  return rows.filter((row) => matchesCategory(row, options.category)).map(mapRow);
 }
 
 export async function fetchExploreDestination(slug: string): Promise<Destination | null> {
   if (!hasExploreRemoteData()) return null;
-  const params = new URLSearchParams({ select: "*", slug: `eq.${slug}`, limit: "1" });
+  const params = new URLSearchParams({ select: "*,explore_entity_types(key,name)", slug: `eq.${slug}`, limit: "1" });
   const response = await fetch(`${supabaseUrl}/rest/v1/explore_entities?${params}`, { headers: headers() });
   if (!response.ok) throw new Error(`Explore destination request failed: ${response.status}`);
   const rows = await response.json();
