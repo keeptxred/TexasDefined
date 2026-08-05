@@ -39,6 +39,16 @@ const groups: ReadonlyArray<ResourceGroup> = [
       ['Living here', '/texas-living'],
     ],
   },
+  {
+    title: 'Stories and everyday Texas',
+    links: [
+      ['Texas sports', '/sports'],
+      ['Texas history', '/texas-history'],
+      ['Home and garden', '/home-garden'],
+      ['Texas real estate', '/real-estate'],
+      ['About TexasDefined', '/about'],
+    ],
+  },
 ];
 
 const guideLinks = groups.flatMap((group) => group.links);
@@ -110,7 +120,7 @@ function Page() {
         <p className="eyebrow mt-8 text-primary">Start Here</p>
         <h1 className="mt-3 font-display text-4xl sm:text-6xl">Good answers for everyday Texas life</h1>
         <p className="mt-5 max-w-3xl text-lg leading-8 text-muted-foreground">{description}</p>
-        <div className="mt-12 grid gap-6 lg:grid-cols-3">
+        <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           {groups.map((group) => (
             <section key={group.title} className="rounded-lg border border-border p-6">
               <h2 className="font-display text-2xl">{group.title}</h2>
