@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { NewsletterSignup } from "@/components/editorial/NewsletterSignup";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
@@ -100,12 +99,6 @@ function AboutPage() {
               </li>
             ))}
           </ul>
-        </Container>
-      </Section>
-
-      <Section tone="surface">
-        <Container className="max-w-4xl">
-          <NewsletterSignup />
         </Container>
       </Section>
     </>
