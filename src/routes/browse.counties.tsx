@@ -6,7 +6,7 @@ import { TEXAS_COUNTIES } from "@/data/texas-places";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const description =
-  "Find any of Texas' 254 counties and head straight to local offices, property records, election information and public services.";
+  "Find any of Texas' 254 counties, then head straight to the local offices, property records, election information and public services you need.";
 
 export const Route = createFileRoute("/browse/counties")({
   head: () => {
@@ -14,7 +14,7 @@ export const Route = createFileRoute("/browse/counties")({
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath: "/browse/counties",
-        title: "Find Your Texas County",
+        title: "Find Your County",
         description,
       }),
       links: [canonicalLink(texasDefinedBrand, "/browse/counties")],
@@ -26,7 +26,7 @@ export const Route = createFileRoute("/browse/counties")({
               "@type": "CollectionPage",
               "@id": `${pageUrl}#page`,
               url: pageUrl,
-              name: "Find Your Texas County",
+              name: "Find Your County",
               description,
               isPartOf: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#website` },
               publisher: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#organization` },
@@ -66,7 +66,7 @@ export const Route = createFileRoute("/browse/counties")({
                 {
                   "@type": "ListItem",
                   position: 2,
-                  name: "Texas Counties",
+                  name: "Find Your County",
                   item: pageUrl,
                 },
               ],
