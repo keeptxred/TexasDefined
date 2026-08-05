@@ -7,7 +7,14 @@ import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import { articlesQuery, destinationsQuery, regionsQuery } from "@/data/queries";
 import type { CategorySlug, ImageRef } from "@/data/types";
-import { useBrand } from "@/brand/context";
+
+const TOP_LEVEL_DEPARTMENTS = new Set<CategorySlug>([
+  "sports",
+  "moving-to-texas",
+  "real-estate",
+  "home-garden",
+  "texas-history",
+]);
 
 /** Shared presentation for reader-facing category pages. */
 export function CategoryPage({
@@ -23,7 +30,6 @@ export function CategoryPage({
   intro: string;
   image?: ImageRef | undefined;
 }) {
-  const brand = useBrand();
   const { data: articles } = useSuspenseQuery(articlesQuery({ category }));
   const { data: destinations } = useSuspenseQuery(destinationsQuery({ category }));
   const { data: regions } = useSuspenseQuery(regionsQuery());
@@ -31,6 +37,7 @@ export function CategoryPage({
   const regionName = (id: string) => regions.find((region) => region.id === id)?.name;
   const lead = articles[0];
   const others = lead ? articles.slice(1) : articles;
+  const belongsToExplore = !TOP_LEVEL_DEPARTMENTS.has(category);
 
   return (
     <>
@@ -38,8 +45,12 @@ export function CategoryPage({
         <nav aria-label="Breadcrumb" className="text-xs text-muted-foreground">
           <ol className="flex flex-wrap items-center gap-2">
             <li><Link to="/" className="hover:text-foreground">Home</Link></li>
-            <li aria-hidden="true">/</li>
-            <li><Link to="/explore" className="hover:text-foreground">Explore</Link></li>
+            {belongsToExplore && (
+              <>
+                <li aria-hidden="true">/</li>
+                <li><Link to="/explore" className="hover:text-foreground">Explore</Link></li>
+              </>
+            )}
             <li aria-hidden="true">/</li>
             <li aria-current="page" className="text-foreground">{title}</li>
           </ol>
@@ -117,7 +128,9 @@ export function CategoryPage({
               ))}
             </ul>
           ) : (
-            <p className="mt-8 text-sm text-muted-foreground">{brand.copy.emptyState}</p>
+            <p className="mt-8 text-sm text-muted-foreground">
+              We’re still finding the right stories for this department. In the meantime, take a look around the rest of Texas Defined.
+            </p>
           )}
         </Container>
       </Section>
