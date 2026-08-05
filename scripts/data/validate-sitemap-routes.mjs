@@ -2,6 +2,7 @@ import fs from 'node:fs';
 
 const registry = fs.readFileSync('src/lib/public-routes.ts', 'utf8');
 const sitemap = fs.readFileSync('src/routes/sitemap[.]xml.ts', 'utf8');
+const exploreSitemap = fs.readFileSync('src/routes/sitemap-explore[.]xml.ts', 'utf8');
 
 const redirects = [
   '/tax-calculator',
@@ -32,10 +33,22 @@ if (!sitemap.includes('isIndexablePublicPath(path)')) {
   failures.push('Sitemap does not filter entries through the public-path policy.');
 }
 
+for (const feature of [
+  'supplementalExploreCategories',
+  'categories',
+  'categorySlugs.map((slug)',
+  '`${BASE_URL}/explore/${slug}`',
+  'new Set(urls)',
+]) {
+  if (!exploreSitemap.includes(feature)) {
+    failures.push(`Explore sitemap category coverage missing: ${feature}`);
+  }
+}
+
 if (failures.length) {
   console.error('Sitemap route validation failed:');
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log('Sitemap redirect-route validation passed.');
+console.log('Sitemap redirect-route and Explore category validation passed.');
