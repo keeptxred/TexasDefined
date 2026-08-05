@@ -74,6 +74,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:description", content: texasDefinedBrand.seo.defaultDescription },
       { property: "og:site_name", content: texasDefinedBrand.identity.name },
       { property: "og:type", content: "website" },
+      { property: "og:locale", content: texasDefinedBrand.identity.locale.replace("-", "_") },
       { property: "og:image", content: defaultSocialImage },
       { property: "og:image:alt", content: defaultSocialImageAlt },
       { name: "twitter:card", content: "summary_large_image" },
@@ -127,7 +128,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: ReactNode }) {
-  return <html lang="en"><head><HeadContent /></head><body>{children}<Scripts /></body></html>;
+  return <html lang={texasDefinedBrand.identity.locale}><head><HeadContent /></head><body>{children}<Scripts /></body></html>;
 }
 
 function RootComponent() {
