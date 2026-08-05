@@ -8,7 +8,7 @@ import { ArticleCard } from "@/components/editorial/ArticleCard";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
-import { articlesQuery, destinationQuery, regionsQuery } from "@/data/queries";
+import { articlesQuery, categoriesQuery, destinationQuery, regionsQuery } from "@/data/queries";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 import { INTERNAL_LINK_POLICIES, policyForSurface } from '@/platform/internal-link-policies';
 
@@ -28,34 +28,47 @@ export const Route = createFileRoute("/destination/$slug")({
   loader: async ({ context, params }) => {
     const destination = await context.queryClient.ensureQueryData(destinationQuery(params.slug));
     if (!destination) throw notFound();
-    const [graph] = await Promise.all([
+    const [graph, categories] = await Promise.all([
       loadTexasKnowledgeGraph(),
+      context.queryClient.ensureQueryData(categoriesQuery()),
       context.queryClient.ensureQueryData(regionsQuery()),
       context.queryClient.ensureQueryData(articlesQuery({ category: destination.category, limit: 3 })),
     ]);
-    return { destination, graph };
+    return { destination, graph, categories };
   },
   head: ({ loaderData, params }) => {
     if (!loaderData) return { meta: [{ title: "Unavailable" }, { name: "robots", content: "noindex, nofollow" }] };
-    const { destination } = loaderData;
+    const { destination, categories } = loaderData;
     const canonicalPath = `/destination/${params.slug}`;
     const url = `${siteUrl}${canonicalPath}`;
+    const imageUrl = absoluteUrl(texasDefinedBrand, destination.hero.src);
+    const categoryName = categories.find((category) => category.slug === destination.category)?.name
+      ?? destination.category.replace(/-/g, " ");
     const validGeo = hasValidCoordinates(destination.coordinates.lat, destination.coordinates.lng);
+    const webPageSchema = {
+      "@type": "WebPage",
+      "@id": url,
+      url,
+      name: destination.name,
+      description: destination.summary,
+      isPartOf: { "@id": `${siteUrl}/#website` },
+      primaryImageOfPage: { "@id": `${url}#primaryimage` },
+      mainEntity: { "@id": `${url}#attraction` },
+    };
     const attractionSchema = {
       "@type": "TouristAttraction",
       "@id": `${url}#attraction`,
       url,
-      mainEntityOfPage: { "@type": "WebPage", "@id": url },
+      mainEntityOfPage: { "@id": url },
       name: destination.name,
       description: destination.summary,
-      image: [{ "@type": "ImageObject", url: absoluteUrl(texasDefinedBrand, destination.hero.src), caption: destination.hero.alt, width: destination.hero.width, height: destination.hero.height }],
+      image: [{ "@type": "ImageObject", "@id": `${url}#primaryimage`, url: imageUrl, caption: destination.hero.alt, width: destination.hero.width, height: destination.hero.height }],
       ...(validGeo
         ? { geo: { "@type": "GeoCoordinates", latitude: destination.coordinates.lat, longitude: destination.coordinates.lng } }
         : {}),
       address: { "@type": "PostalAddress", addressRegion: "TX", addressLocality: destination.nearestTown, addressCountry: "US" },
       containedInPlace: { "@type": "State", name: "Texas" },
-      touristType: destination.category,
-      isAccessibleForFree: !/fee|ticket|admission|entry/i.test(destination.entryNote),
+      touristType: categoryName,
     };
     const breadcrumbSchema = {
       "@type": "BreadcrumbList",
@@ -63,7 +76,7 @@ export const Route = createFileRoute("/destination/$slug")({
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
         { "@type": "ListItem", position: 2, name: "Explore", item: `${siteUrl}/explore` },
-        { "@type": "ListItem", position: 3, name: destination.category.replace(/-/g, " "), item: `${siteUrl}/explore/${destination.category}` },
+        { "@type": "ListItem", position: 3, name: categoryName, item: `${siteUrl}/explore/${destination.category}` },
         { "@type": "ListItem", position: 4, name: destination.name, item: url },
       ],
     };
@@ -76,7 +89,7 @@ export const Route = createFileRoute("/destination/$slug")({
         imageAlt: destination.hero.alt,
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
-      scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": [attractionSchema, breadcrumbSchema] }) }],
+      scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": [webPageSchema, attractionSchema, breadcrumbSchema] }) }],
     };
   },
   notFoundComponent: () => <Container className="py-24"><p className="eyebrow text-primary">Another road</p><h1 className="mt-3 font-display text-3xl">We haven’t mapped that place yet</h1><p className="mt-3 text-sm text-muted-foreground">Try another destination or head back to <Link to="/explore" className="text-primary underline">Explore</Link>.</p></Container>,
@@ -85,13 +98,14 @@ export const Route = createFileRoute("/destination/$slug")({
 
 function DestinationPage() {
   const { slug } = Route.useParams();
-  const { graph } = Route.useLoaderData();
+  const { graph, categories } = Route.useLoaderData();
   const { data: destination } = useSuspenseQuery(destinationQuery(slug));
   const { data: regions } = useSuspenseQuery(regionsQuery());
   const { data: related } = useSuspenseQuery(articlesQuery(destination ? { category: destination.category, limit: 3 } : { limit: 3 }));
   if (!destination) return null;
   const region = regions.find((item) => item.id === destination.region);
-  const categoryName = destination.category.replace(/-/g, " ");
+  const categoryName = categories.find((category) => category.slug === destination.category)?.name
+    ?? destination.category.replace(/-/g, " ");
   const excludedEntityIds = [`${destination.category}:${destination.slug}`, `attraction:${destination.slug}`];
   const surfacePolicy = INTERNAL_LINK_POLICIES.destination;
   const destinationPolicy = policyForSurface('destination', { excludedEntityIds, region: destination.region });
@@ -105,7 +119,7 @@ function DestinationPage() {
         <ol className="flex flex-wrap items-center gap-2">
           <li><Link to="/" className="hover:text-foreground">Front page</Link></li><li aria-hidden="true">/</li>
           <li><Link to="/explore" className="hover:text-foreground">Explore</Link></li><li aria-hidden="true">/</li>
-          <li><Link to="/explore/$category" params={{ category: destination.category }} className="capitalize hover:text-foreground">{categoryName}</Link></li><li aria-hidden="true">/</li>
+          <li><Link to="/explore/$category" params={{ category: destination.category }} className="hover:text-foreground">{categoryName}</Link></li><li aria-hidden="true">/</li>
           <li aria-current="page" className="truncate text-foreground">{destination.name}</li>
         </ol>
       </nav>
