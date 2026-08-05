@@ -16,8 +16,8 @@ export const Route = createFileRoute("/search")({
   validateSearch: searchSchema,
   head: () => ({
     meta: buildMeta(texasDefinedBrand, {
-      title: "Search Texas Defined",
-      description: "Find Texas stories, destinations, guides, events and goods worth knowing about.",
+      title: "Search the Magazine",
+      description: "Find stories, places, guides, weekend ideas and shop picks from across Texas.",
       canonicalPath: "/search",
       robots: "noindex, follow",
     }),
@@ -72,9 +72,9 @@ function SearchPage() {
   return (
     <Container className="min-h-[60vh] py-16 sm:py-24">
       <p className="eyebrow text-primary">Find your way around</p>
-      <h1 className="mt-3 font-display text-4xl leading-tight sm:text-5xl">What are you looking for?</h1>
+      <h1 className="mt-3 font-display text-4xl leading-tight sm:text-5xl">What should we help you find?</h1>
       <p className="mt-4 max-w-xl text-base leading-relaxed text-muted-foreground">
-        Try a lake, town, state park, cavern, historic place, Texas tradition, practical question or favorite dish.
+        Try a lake, town, state park, cavern, historic place, tradition, practical question or favorite dish.
       </p>
       <form
         className="mt-8 flex max-w-xl gap-3"
@@ -90,7 +90,7 @@ function SearchPage() {
       </form>
 
       {searchIsLoading && (
-        <p className="mt-6 text-sm text-muted-foreground">Searching the full Texas destination catalog…</p>
+        <p className="mt-6 text-sm text-muted-foreground">Looking across Texas for the best matches…</p>
       )}
       {query && !searchIsLoading && results.length > 0 && (
         <p className="mt-6 text-sm text-muted-foreground">
@@ -99,12 +99,12 @@ function SearchPage() {
       )}
       {query && !searchIsLoading && results.length === 0 && (
         <p className="mt-8 max-w-xl border-t border-border pt-6 text-sm leading-relaxed text-muted-foreground">
-          We couldn't find a match for “{query}.” Try a broader place name, topic or Texas landmark.
+          Nothing quite matched “{query}.” Try a nearby town, a broader topic or a landmark you know.
         </p>
       )}
       {destinationSearchUnavailable && query && (
         <p className="mt-3 max-w-xl text-xs leading-relaxed text-muted-foreground">
-          The full destination catalog could not be reached, so these results may be limited to the locally available stories and guides.
+          We could not reach every place in our guide just now, so these results may be shorter than usual.
         </p>
       )}
 
@@ -124,10 +124,10 @@ function SearchPage() {
 function kindLabel(kind: string) {
   const labels: Record<string, string> = {
     article: "Story",
-    destination: "Place worth knowing",
+    destination: "Worth the drive",
     event: "This weekend",
-    guide: "Helpful guide",
-    calculator: "Calculator",
+    guide: "Good to know",
+    calculator: "Quick estimate",
     product: "From the shop",
     collection: "Our picks",
     city: "City guide",
