@@ -14,6 +14,16 @@ import { absoluteUrl, buildMeta, canonicalLink, schemaTypeForEntityKind } from "
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
+type ArticleDepartment = { name: string; path: string };
+
+function articleDepartment(category: string): ArticleDepartment {
+  const livingHere = new Set(["moving-to-texas", "home-garden", "real-estate", "property-taxes"]);
+  if (livingHere.has(category)) return { name: "Living Here", path: "/texas-living" };
+  if (category === "sports") return { name: "Sports", path: "/sports" };
+  if (category === "texas-history" || category === "history") return { name: "History", path: "/texas-history" };
+  return { name: "Explore", path: "/explore" };
+}
+
 export const Route = createFileRoute("/article/$slug")({
   loader: async ({ context, params }) => {
     const article = await context.queryClient.ensureQueryData(articleQuery(params.slug));
@@ -42,6 +52,7 @@ export const Route = createFileRoute("/article/$slug")({
     })).slice(0, 20);
     const categoryName = categories.find((category) => category.slug === article.category)?.name
       ?? article.category.replace(/-/g, " ");
+    const department = articleDepartment(article.category);
 
     const webPageSchema = {
       "@type": "WebPage",
@@ -82,7 +93,7 @@ export const Route = createFileRoute("/article/$slug")({
       "@id": `${articleUrl}#breadcrumbs`,
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
-        { "@type": "ListItem", position: 2, name: "Explore", item: `${siteUrl}/explore` },
+        { "@type": "ListItem", position: 2, name: department.name, item: `${siteUrl}${department.path}` },
         { "@type": "ListItem", position: 3, name: categoryName, item: `${siteUrl}/explore/${article.category}` },
         { "@type": "ListItem", position: 4, name: article.title, item: articleUrl },
       ],
@@ -103,7 +114,7 @@ export const Route = createFileRoute("/article/$slug")({
       scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": schemaGraph }) }],
     };
   },
-  notFoundComponent: () => <Container className="py-24"><p className="eyebrow text-primary">Story not found</p><h1 className="mt-3 font-display text-3xl">This one took a different road</h1><p className="mt-3 text-sm text-muted-foreground">The story may have moved or been retired. <Link to="/explore" className="text-primary underline">Keep exploring</Link>.</p></Container>,
+  notFoundComponent: () => <Container className="py-24"><p className="eyebrow text-primary">A missing story</p><h1 className="mt-3 font-display text-3xl">This one took a different road</h1><p className="mt-3 text-sm text-muted-foreground">The story may have moved or been retired. <Link to="/explore" className="text-primary underline">Find another good read</Link>.</p></Container>,
   component: ArticlePage,
 });
 
@@ -117,13 +128,14 @@ function ArticlePage() {
   const author = authors.find((item) => item.id === article.authorId) ?? null;
   const categoryName = categories.find((category) => category.slug === article.category)?.name
     ?? article.category.replace(/-/g, " ");
+  const department = articleDepartment(article.category);
 
   return <article>
     <Container className="pt-24">
       <nav aria-label="Breadcrumb" className="text-xs text-muted-foreground">
         <ol className="flex flex-wrap items-center gap-2">
-          <li><Link to="/" className="hover:text-foreground">Home</Link></li><li aria-hidden="true">/</li>
-          <li><Link to="/explore" className="hover:text-foreground">Explore</Link></li><li aria-hidden="true">/</li>
+          <li><Link to="/" className="hover:text-foreground">Front page</Link></li><li aria-hidden="true">/</li>
+          <li><Link to={department.path} className="hover:text-foreground">{department.name}</Link></li><li aria-hidden="true">/</li>
           <li><Link to="/explore/$category" params={{ category: article.category }} className="hover:text-foreground">{categoryName}</Link></li><li aria-hidden="true">/</li>
           <li aria-current="page" className="truncate text-foreground">{article.title}</li>
         </ol>
