@@ -44,7 +44,7 @@ export function Footer() {
       <div className="border-t border-border/60">
         <Container className="flex flex-col gap-3 py-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {year} {brand.identity.name}
+            © {year} {brand.identity.wordmark}
           </p>
           <div className="flex flex-wrap gap-4">
             {brand.legal.map((item) => (
@@ -58,6 +58,7 @@ export function Footer() {
                 href={item.href}
                 rel="noreferrer noopener"
                 target="_blank"
+                aria-label={`Follow Texas Defined on ${item.label}`}
                 className="transition-colors hover:text-primary"
               >
                 {item.label}
