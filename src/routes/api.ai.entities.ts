@@ -8,6 +8,7 @@ const apiUrl = `${siteUrl}/api/ai/entities`;
 const publicHeaders = {
   'cache-control': 'public, max-age=300, stale-while-revalidate=3600',
   'access-control-allow-origin': '*',
+  'x-robots-tag': 'noindex, follow',
 };
 
 export const Route = createFileRoute('/api/ai/entities')({
