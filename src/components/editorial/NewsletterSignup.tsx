@@ -17,7 +17,7 @@ export function NewsletterSignup() {
     event.preventDefault();
     const result = newsletterSignupSchema.safeParse({ email, brandId: brand.identity.id });
     if (!result.success) {
-      setError("Add a valid email address and we’ll get you on the list.");
+      setError("That email doesn’t look quite right. Give it another try.");
       return;
     }
     setError(null);
@@ -49,7 +49,10 @@ export function NewsletterSignup() {
                 id="newsletter-email"
                 type="email"
                 value={email}
-                onChange={(event) => setEmail(event.target.value)}
+                onChange={(event) => {
+                  setEmail(event.target.value);
+                  if (error) setError(null);
+                }}
                 placeholder={copy.newsletterPlaceholder}
                 aria-invalid={Boolean(error)}
                 aria-describedby={error ? "newsletter-error" : undefined}
