@@ -8,7 +8,7 @@ import { articlesQuery, destinationsQuery, regionsQuery } from "@/data/queries";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const description =
-  "Native plants that survive August, porches built for evening, xeriscape that still looks alive, and interiors that borrow from the ranch without the costume.";
+  "Native plants that survive August, porches made for evening and rooms that feel at home here without dressing up like a ranch.";
 
 export const Route = createFileRoute("/home-garden")({
   head: () => ({
@@ -27,8 +27,8 @@ export const Route = createFileRoute("/home-garden")({
   component: () => (
     <CategoryPage
       category="home-garden"
-      eyebrow="Home &amp; Garden"
-      title="Built for heat, made for evening"
+      eyebrow="Front porch"
+      title="Living well in the heat"
       intro={description}
       image={{ src: bluebonnets, alt: 'Bluebonnets running to a fence line in spring', width: 1600, height: 1067 }}
     />
