@@ -6,7 +6,7 @@ import { TEXAS_CITIES } from "@/data/texas-places";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const description =
-  "Find Texas cities by name, county or region, then discover local stories, moving information and places nearby.";
+  "Find a Texas city by name, county or region, then discover local stories, moving guidance and nearby places worth knowing.";
 
 export const Route = createFileRoute("/browse/cities")({
   head: () => {
@@ -35,7 +35,7 @@ export const Route = createFileRoute("/browse/cities")({
             {
               "@type": "ItemList",
               "@id": `${pageUrl}#cities`,
-              name: "Texas city directory",
+              name: "Texas cities",
               numberOfItems: TEXAS_CITIES.length,
               itemListElement: TEXAS_CITIES.map((city, index) => ({
                 "@type": "ListItem",
