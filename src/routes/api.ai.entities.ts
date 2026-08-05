@@ -17,9 +17,7 @@ export const Route = createFileRoute('/api/ai/entities')({
     const id = url.searchParams.get('id')?.trim();
     const q = url.searchParams.get('q')?.trim() ?? '';
     const requestedLimit = Number(url.searchParams.get('limit') ?? 20);
-    const limit = Number.isFinite(requestedLimit)
-      ? Math.min(50, Math.max(1, Math.trunc(requestedLimit)))
-      : 20;
+    const limit = Number.isFinite(requestedLimit) ? Math.min(50, Math.max(1, Math.trunc(requestedLimit))) : 20;
     const graph = await loadTexasKnowledgeGraph();
 
     if (id) {
@@ -43,6 +41,8 @@ export const Route = createFileRoute('/api/ai/entities')({
         mentions: related,
         source: entity.officialUrl,
         dateModified: entity.sourceCheckedAt,
+        keywords: entity.tags,
+        measurementTechnique: entity.sourceConfidence,
       });
     }
 
@@ -65,7 +65,7 @@ function toJsonLd(entity: TexasEntityRecord) {
     '@type': schemaType(entity.kind),
     '@id': `${siteUrl}${canonicalEntityPath(entity)}#entity`,
     name: entity.name,
-    alternateName: entity.aliases,
+    alternateName: entity.aliases.length ? entity.aliases : undefined,
     description: entity.description,
     url: `${siteUrl}${canonicalEntityPath(entity)}`,
     sameAs: entity.officialUrl ? [entity.officialUrl] : undefined,
@@ -75,9 +75,19 @@ function toJsonLd(entity: TexasEntityRecord) {
       : entity.region
         ? { '@type': 'Place', name: entity.region.replace(/-/g, ' ') }
         : undefined,
+    keywords: entity.tags?.length ? entity.tags : undefined,
+    dateModified: entity.sourceCheckedAt,
+    additionalType: entity.kind,
   };
 }
-function schemaType(kind: string) { if (['county','city','region','metro-area'].includes(kind)) return 'AdministrativeArea'; if (['fair','rodeo','festival','holiday-event','sporting-event'].includes(kind)) return 'Event'; if (['museum','historic-site','mission','battlefield','attraction'].includes(kind)) return 'TouristAttraction'; return 'Place'; }
+
+function schemaType(kind: string) {
+  if (['county','city','region','metro-area'].includes(kind)) return 'AdministrativeArea';
+  if (['fair','rodeo','festival','holiday-event','sporting-event'].includes(kind)) return 'Event';
+  if (['museum','historic-site','mission','battlefield','attraction'].includes(kind)) return 'TouristAttraction';
+  return 'Place';
+}
+
 function json(body: unknown, options: { status?: number; cacheControl?: string } = {}) {
   return Response.json(body, {
     status: options.status,
