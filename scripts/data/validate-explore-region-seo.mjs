@@ -6,7 +6,13 @@ const hub = fs.readFileSync('src/components/editorial/RegionalHubSections.tsx', 
 const sitemap = fs.readFileSync('src/routes/sitemap-explore[.]xml.ts', 'utf8');
 const errors = [];
 
-for (const feature of [
+const requireFeatures = (source, features, area) => {
+  for (const feature of features) {
+    if (!source.includes(feature)) errors.push(`${area} feature missing: ${feature}.`);
+  }
+};
+
+requireFeatures(route, [
   '"@type": "CollectionPage"',
   '"@type": "ItemList"',
   '"@type": "BreadcrumbList"',
@@ -16,27 +22,27 @@ for (const feature of [
   'aria-label="Breadcrumb"',
   'RegionalDestinationGrid',
   'RegionalHubSections',
-  'Texas region guide',
+  'Explore {region.name}',
   'categoryCounts',
   'about: categoryCounts.map',
   'destinations.length.toLocaleString',
-]) {
-  if (!route.includes(feature)) errors.push(`Regional Explore feature missing: ${feature}.`);
-}
+], 'Regional Explore');
 
-for (const feature of [
+requireFeatures(grid, [
   'const PAGE_SIZE = 24',
   'destinations.slice(0, visibleCount)',
-  'Show {Math.min(PAGE_SIZE, remaining)} more places',
-  'Showing {visible.length.toLocaleString',
-]) {
-  if (!grid.includes(feature)) errors.push(`Regional destination grid feature missing: ${feature}.`);
-}
+  'remaining > 0',
+  'setVisibleCount((count) => Math.min(count + PAGE_SIZE, destinations.length))',
+  'Math.min(PAGE_SIZE, remaining)',
+  'visible.length.toLocaleString("en-US")',
+  'destinations.length.toLocaleString("en-US")',
+  'DestinationCard destination={destination}',
+], 'Regional destination grid');
 
-for (const feature of [
-  'The places that define',
-  'Plan by interest',
-  'What to do in',
+requireFeatures(hub, [
+  'leadPlaces.length > 0',
+  'groups.map((group',
+  'What to do in ${region.name}',
   'Build the weekend',
   'Explore another part of Texas',
   'aria-label={`${region.name} travel interests`}',
@@ -47,9 +53,7 @@ for (const feature of [
   'to="/browse/cities"',
   'to="/search"',
   'destinations.filter((destination) => destination.category === section.slug)',
-]) {
-  if (!hub.includes(feature)) errors.push(`Regional editorial hub feature missing: ${feature}.`);
-}
+], 'Regional editorial hub');
 
 for (const category of [
   'state-parks', 'national-parks', 'lakes-rivers', 'major-springs', 'caverns',
