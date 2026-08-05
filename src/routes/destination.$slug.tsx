@@ -1,5 +1,5 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { createFileRoute, notFound } from "@tanstack/react-router";
+import { createFileRoute, notFound, Link } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { AutoEntityLinks } from "@/components/content/AutoEntityLinks";
@@ -30,6 +30,30 @@ export const Route = createFileRoute("/destination/$slug")({
     const { destination } = loaderData;
     const canonicalPath = `/destination/${params.slug}`;
     const url = `${siteUrl}${canonicalPath}`;
+    const attractionSchema = {
+      "@type": "TouristAttraction",
+      "@id": `${url}#attraction`,
+      url,
+      mainEntityOfPage: { "@type": "WebPage", "@id": url },
+      name: destination.name,
+      description: destination.summary,
+      image: [{ "@type": "ImageObject", url: destination.hero.src, caption: destination.hero.alt, width: destination.hero.width, height: destination.hero.height }],
+      geo: { "@type": "GeoCoordinates", latitude: destination.coordinates.lat, longitude: destination.coordinates.lng },
+      address: { "@type": "PostalAddress", addressRegion: "TX", addressLocality: destination.nearestTown, addressCountry: "US" },
+      containedInPlace: { "@type": "State", name: "Texas" },
+      touristType: destination.category,
+      isAccessibleForFree: !/fee|ticket|admission|entry/i.test(destination.entryNote),
+    };
+    const breadcrumbSchema = {
+      "@type": "BreadcrumbList",
+      "@id": `${url}#breadcrumbs`,
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
+        { "@type": "ListItem", position: 2, name: "Explore", item: `${siteUrl}/explore` },
+        { "@type": "ListItem", position: 3, name: destination.category.replace(/-/g, " "), item: `${siteUrl}/explore/${destination.category}` },
+        { "@type": "ListItem", position: 4, name: destination.name, item: url },
+      ],
+    };
     return {
       meta: buildMeta(texasDefinedBrand, {
         title: destination.name,
@@ -39,21 +63,7 @@ export const Route = createFileRoute("/destination/$slug")({
         imageAlt: destination.hero.alt,
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
-      scripts: [{ type: "application/ld+json", children: JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "TouristAttraction",
-        "@id": `${url}#attraction`,
-        url,
-        mainEntityOfPage: { "@type": "WebPage", "@id": url },
-        name: destination.name,
-        description: destination.summary,
-        image: [{ "@type": "ImageObject", url: destination.hero.src, caption: destination.hero.alt, width: destination.hero.width, height: destination.hero.height }],
-        geo: { "@type": "GeoCoordinates", latitude: destination.coordinates.lat, longitude: destination.coordinates.lng },
-        address: { "@type": "PostalAddress", addressRegion: "TX", addressLocality: destination.nearestTown, addressCountry: "US" },
-        containedInPlace: { "@type": "State", name: "Texas" },
-        touristType: destination.category,
-        isAccessibleForFree: !/fee|ticket|admission|entry/i.test(destination.entryNote),
-      }) }],
+      scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": [attractionSchema, breadcrumbSchema] }) }],
     };
   },
   notFoundComponent: () => <Container className="py-24"><h1 className="font-display text-3xl">We haven't mapped that one yet</h1></Container>,
@@ -68,6 +78,7 @@ function DestinationPage() {
   const { data: related } = useSuspenseQuery(articlesQuery(destination ? { category: destination.category, limit: 3 } : { limit: 3 }));
   if (!destination) return null;
   const region = regions.find((item) => item.id === destination.region);
+  const categoryName = destination.category.replace(/-/g, " ");
   const excludedEntityIds = [`${destination.category}:${destination.slug}`, `attraction:${destination.slug}`];
   const surfacePolicy = INTERNAL_LINK_POLICIES.destination;
   const destinationPolicy = policyForSurface('destination', { excludedEntityIds, region: destination.region });
@@ -76,7 +87,17 @@ function DestinationPage() {
   const spend = (requested: number) => { const value = limit(requested); remainingLinks -= value; return value; };
 
   return <>
-    <section className="relative isolate overflow-hidden bg-ink text-ink-foreground">
+    <Container className="pt-24">
+      <nav aria-label="Breadcrumb" className="text-xs text-muted-foreground">
+        <ol className="flex flex-wrap items-center gap-2">
+          <li><Link to="/" className="hover:text-foreground">Home</Link></li><li aria-hidden="true">/</li>
+          <li><Link to="/explore" className="hover:text-foreground">Explore</Link></li><li aria-hidden="true">/</li>
+          <li><Link to="/explore/$category" params={{ category: destination.category }} className="capitalize hover:text-foreground">{categoryName}</Link></li><li aria-hidden="true">/</li>
+          <li aria-current="page" className="truncate text-foreground">{destination.name}</li>
+        </ol>
+      </nav>
+    </Container>
+    <section className="relative isolate mt-4 overflow-hidden bg-ink text-ink-foreground">
       <img src={destination.hero.src} alt={destination.hero.alt} width={destination.hero.width} height={destination.hero.height} fetchPriority="high" decoding="async" className="absolute inset-0 size-full object-cover opacity-65" />
       <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/65 to-ink/20" />
       <Container className="relative flex min-h-[58vh] flex-col justify-end pb-14 pt-32">
