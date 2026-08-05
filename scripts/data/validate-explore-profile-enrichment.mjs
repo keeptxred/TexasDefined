@@ -7,6 +7,8 @@ const core = fs.readFileSync(path.join(root, 'src/data/explore-core-remote.ts'),
 const queries = fs.readFileSync(path.join(root, 'src/data/queries.ts'), 'utf8');
 const route = fs.readFileSync(path.join(root, 'src/routes/destination.$slug.tsx'), 'utf8');
 const planner = fs.readFileSync(path.join(root, 'src/components/editorial/DestinationVisitPlanner.tsx'), 'utf8');
+const relationships = fs.readFileSync(path.join(root, 'src/components/editorial/DestinationRelationships.tsx'), 'utf8');
+const relationshipEngine = fs.readFileSync(path.join(root, 'src/data/destination-relationships.ts'), 'utf8');
 const graph = fs.readFileSync(path.join(root, 'src/data/knowledge-graph/explore-adapter.ts'), 'utf8');
 const ai = fs.readFileSync(path.join(root, 'src/routes/api.ai.entities.ts'), 'utf8');
 const sitemap = fs.readFileSync(path.join(root, 'src/routes/sitemap-explore[.]xml.ts'), 'utf8');
@@ -28,19 +30,36 @@ for (const feature of [
   'Source checked', 'destination.hero.credit', 'citation: destination.officialUrl',
   'sameAs: destination.officialUrl', 'dateModified: destination.sourceCheckedAt',
   'provider: { "@type": "Organization"',
-  'destinationsQuery({ category: destination.category, limit: 16 })',
-  'relatedDestinations', 'Where to point the car next', 'destination.accessibilityNotes',
-  'destination.directions', 'destination.address', 'destination.county',
-  'DestinationVisitPlanner',
+  'destinationsQuery({ limit: 5000 })',
+  'buildDestinationRelationshipGroups(destination, catalog)',
+  'relationshipGroups',
+  'DestinationRelationships',
+  'destination.accessibilityNotes', 'destination.directions', 'destination.address',
+  'destination.county', 'DestinationVisitPlanner',
 ]) if (!route.includes(feature)) errors.push(`Destination authority, discovery, or planning feature missing: ${feature}`);
 
 for (const feature of [
-  'Plan your visit', 'What the current source data says', 'Activities',
-  'Facilities and amenities', 'Before you leave', 'destination.highlights',
-  'destination.bestSeason', 'destination.entryNote', 'destination.reservationUrl',
-  'destination.accessibilityNotes', 'destination.directions',
-  'Confirm changing conditions, closures, fees, and availability before traveling',
+  'const activityPattern', 'const facilityPattern', 'function unique(values: string[])',
+  'const activities = unique(', 'const facilities = unique(', 'const otherHighlights = unique(',
+  'const practicalTips = unique([', 'destination.highlights', 'destination.bestSeason',
+  'destination.entryNote', 'destination.reservationUrl', 'destination.accessibilityNotes',
+  'destination.directions', 'Conditions, closures, fees and availability can change',
+  'aria-labelledby="plan-your-visit"', 'activities.map', 'facilities.map',
+  'otherHighlights.map', 'practicalTips.map',
 ]) if (!planner.includes(feature)) errors.push(`Destination Phase 1 planning feature missing: ${feature}`);
+
+for (const feature of [
+  'if (!groups.length) return null', 'groups.map((group)',
+  'href={`#relationship-${group.id}`}', 'id={`relationship-${group.id}`}',
+  'group.destinations.map', 'to="/explore/$category"', 'to="/explore/region/$region"',
+  'to="/events"', 'to="/search"',
+]) if (!relationships.includes(feature)) errors.push(`Destination relationship discovery feature missing: ${feature}`);
+
+for (const feature of [
+  'miles <= 75', 'COMPLEMENTARY_CATEGORIES', 'sameTown', 'nearbyComplementary',
+  'similar', 'regional', 'const used = new Set<string>()',
+  'item.slug !== destination.slug',
+]) if (!relationshipEngine.includes(feature)) errors.push(`Destination relationship engine feature missing: ${feature}`);
 
 for (const feature of [
   'managingAuthority?: string', 'officialUrl?: string', 'sourceCheckedAt?: string',
@@ -79,8 +98,8 @@ for (const feature of [
 
 for (const feature of [
   'fetchCoreExploreDestinations',
-  'Explore sitemap enrichment unavailable; retrying core remote catalog',
   'validLastModified', '<lastmod>', 'item.sourceCheckedAt',
+  'remoteDestinations.length ? remoteDestinations : fixtureDestinations',
 ]) if (!sitemap.includes(feature)) errors.push(`Explore sitemap enrichment feature missing: ${feature}`);
 
 const enrichedListIndex = queries.indexOf('fetchExploreDestinations(options)');
@@ -94,6 +113,7 @@ const fixtureDetailIndex = queries.indexOf('platform.destinations.getBySlug');
 if (!(enrichedDetailIndex >= 0 && coreDetailIndex > enrichedDetailIndex && fixtureDetailIndex > coreDetailIndex)) errors.push('Destination detail fallback order must be enriched remote → core remote → fixture.');
 
 if (!remote.includes('visibility: "eq.public"') || !remote.includes('status: "in.(published,verified)"')) errors.push('Enriched remote Explore publication filters are missing.');
+if (route.includes('destinationsQuery({ category: destination.category, limit: 16 })')) errors.push('Destination profile enrichment regressed to a duplicate same-category recommendation query.');
 
 if (errors.length) {
   console.error('Explore profile enrichment validation failed:');
@@ -101,4 +121,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Explore Phase 1 enrichment, planning, search, AI, sitemap freshness, authority, access, discovery, and two-stage remote fallback validation passed.');
+console.log('Explore Phase 1 enrichment, planning, search, AI, sitemap freshness, authority, access, relationship discovery, and two-stage remote fallback validation passed.');
