@@ -13,7 +13,7 @@ const sections = [
   ['Understanding property taxes', '/learn/property-taxes', 'A plain-English look at appraisals, exemptions, protests, bills and payments.'],
   ['Find your county', '/browse/counties', 'Start with your county and continue to the offices and information that matter.'],
   ['Find a city', '/browse/cities', 'Look up cities across the state and see what we have nearby.'],
-  ['Registering your vehicle', '/find-my-dmv', 'The steps new residents need, plus the right local office to contact.'],
+  ['Getting your car settled', '/find-my-dmv', 'The steps new residents need, plus the right local office to contact.'],
   ['Finding your school district', '/find-my-school-district', 'Use the official sources that show which district serves an address.'],
 ] as const;
 
@@ -39,7 +39,7 @@ const structuredData = {
     {
       '@type': 'ItemList',
       '@id': `${pageUrl}#topics`,
-      name: 'Texas living topics',
+      name: 'Living in Texas guides',
       numberOfItems: itemListElement.length,
       itemListElement,
     },
@@ -71,18 +71,21 @@ export const Route = createFileRoute('/texas-living')({
           <ol className="flex items-center gap-2">
             <li><Link to="/" className="hover:text-foreground">Home</Link></li>
             <li aria-hidden="true">/</li>
-            <li aria-current="page" className="text-foreground">Living in Texas</li>
+            <li aria-current="page" className="text-foreground">Living Here</li>
           </ol>
         </nav>
         <p className="eyebrow mt-8 text-primary">Living Here</p>
         <h1 className="mt-3 font-display text-4xl sm:text-6xl">The useful side of calling Texas home</h1>
         <p className="mt-5 max-w-3xl text-lg leading-8 text-muted-foreground">{description}</p>
+        <p className="mt-4 max-w-2xl text-sm leading-6 text-muted-foreground">
+          Start with the question in front of you, then follow the next useful step.
+        </p>
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {sections.map(([title, to, copy]) => (
             <Link key={to} to={to} className="rounded-lg border border-border p-6 transition hover:-translate-y-0.5 hover:shadow-sm">
               <h2 className="font-display text-2xl">{title}</h2>
               <p className="mt-3 text-sm leading-6 text-muted-foreground">{copy}</p>
-              <span className="mt-5 block text-sm font-medium text-primary">Take a closer look →</span>
+              <span className="mt-5 block text-sm font-medium text-primary">Start here →</span>
             </Link>
           ))}
         </div>
