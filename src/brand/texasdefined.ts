@@ -4,6 +4,8 @@ import roadTrip from "@/assets/road-trip.jpg";
 import smallTown from "@/assets/small-town.jpg";
 import bbqBrisket from "@/assets/bbq-brisket.jpg";
 import wildlife from "@/assets/wildlife.jpg";
+import blueHole from "@/assets/blue-hole.jpg";
+import bigBend from "@/assets/big-bend.jpg";
 
 import type { BrandConfig } from "./types";
 
@@ -76,10 +78,40 @@ export const texasDefinedBrand: BrandConfig = {
           image: { src: caddoLake, alt: "Cypress trees on Caddo Lake at dawn" },
         },
         {
+          label: "Major Springs",
+          to: "/explore/major-springs",
+          description: "Clear springs, spring-fed pools and swimming water",
+          image: { src: blueHole, alt: "Clear spring-fed water in the Texas Hill Country" },
+        },
+        {
           label: "State Parks",
           to: "/explore/state-parks",
           description: "Canyons, coastlines, trails and campsites",
           image: { src: paloDuro, alt: "Red rock walls of Palo Duro Canyon" },
+        },
+        {
+          label: "National Parks",
+          to: "/explore/national-parks",
+          description: "Big Bend, Guadalupe Mountains and federal lands",
+          image: { src: bigBend, alt: "Desert mountains in Big Bend country" },
+        },
+        {
+          label: "Caverns & Caves",
+          to: "/explore/caverns",
+          description: "Show caves and limestone rooms below ground",
+          image: { src: paloDuro, alt: "Layered Texas limestone landscape" },
+        },
+        {
+          label: "Beaches & Coast",
+          to: "/explore/beaches-coast",
+          description: "Barrier islands, bays and Gulf Coast towns",
+          image: { src: caddoLake, alt: "Texas water landscape at sunrise" },
+        },
+        {
+          label: "Historic Sites",
+          to: "/explore/historic-sites",
+          description: "Missions, museums, monuments and battlefields",
+          image: { src: smallTown, alt: "Historic Texas courthouse square" },
         },
         {
           label: "Road Trips",
@@ -122,7 +154,12 @@ export const texasDefinedBrand: BrandConfig = {
       title: "Start Here",
       items: [
         { label: "Lakes & Rivers", to: "/explore/lakes-rivers" },
+        { label: "Major Springs", to: "/explore/major-springs" },
         { label: "State Parks", to: "/explore/state-parks" },
+        { label: "National Parks", to: "/explore/national-parks" },
+        { label: "Caverns & Caves", to: "/explore/caverns" },
+        { label: "Beaches & Coast", to: "/explore/beaches-coast" },
+        { label: "Historic Sites", to: "/explore/historic-sites" },
         { label: "Road Trips", to: "/explore/road-trips" },
         { label: "Small Towns", to: "/explore/small-towns" },
         { label: "Food & Barbecue", to: "/explore/food-bbq" },
