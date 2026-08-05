@@ -9,7 +9,11 @@ import path from 'node:path';
 
 const root = process.cwd();
 const route = fs.readFileSync(path.join(root, 'src/routes/explore.$category.tsx'), 'utf8');
+const landing = fs.readFileSync(path.join(root, 'src/routes/explore.index.tsx'), 'utf8');
 const categoryPage = fs.readFileSync(path.join(root, 'src/components/editorial/CategoryPage.tsx'), 'utf8');
+const types = fs.readFileSync(path.join(root, 'src/data/types.ts'), 'utf8');
+const fixtures = fs.readFileSync(path.join(root, 'src/data/fixtures/texas.ts'), 'utf8');
+const remote = fs.readFileSync(path.join(root, 'src/data/explore-remote.ts'), 'utf8');
 const errors = [];
 
 for (const feature of [
@@ -37,10 +41,26 @@ for (const feature of [
   if (!categoryPage.includes(feature)) errors.push(`Visible Explore category breadcrumb feature missing: ${feature}.`);
 }
 
+for (const category of ['caverns', 'beaches-coast', 'historic-sites']) {
+  if (!types.includes(`| "${category}"`)) errors.push(`Category type missing: ${category}.`);
+  if (!fixtures.includes(`slug: "${category}"`)) errors.push(`Category metadata missing: ${category}.`);
+  if (!landing.includes(`"${category}"`)) errors.push(`Explore landing category missing: ${category}.`);
+}
+
+for (const feature of [
+  'return "caverns"',
+  'return "beaches-coast"',
+  'return "historic-sites"',
+  'explore_entity_types(key,name)',
+  'MAX_REMOTE_DESTINATIONS',
+]) {
+  if (!remote.includes(feature)) errors.push(`Migrated Explore catalog feature missing: ${feature}.`);
+}
+
 if (errors.length) {
   console.error('Explore category SEO validation failed:');
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
 
-console.log('Explore category CollectionPage, ItemList, and visible breadcrumb validation passed.');
+console.log('Explore category CollectionPage, migrated category, ItemList, and visible breadcrumb validation passed.');
