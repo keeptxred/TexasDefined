@@ -32,30 +32,9 @@ export const Route = createFileRoute("/")({
     meta: buildMeta(texasDefinedBrand, {
       title: "Discover, Explore & Live Texas",
       description,
+      canonicalPath: "/",
     }),
     links: [canonicalLink(texasDefinedBrand, "/")],
-    scripts: [
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@graph": [
-            {
-              "@type": "Organization",
-              name: texasDefinedBrand.identity.name,
-              url: `https://${texasDefinedBrand.identity.domain}`,
-              slogan: texasDefinedBrand.identity.tagline,
-            },
-            {
-              "@type": "WebSite",
-              name: texasDefinedBrand.identity.name,
-              url: `https://${texasDefinedBrand.identity.domain}`,
-              description,
-            },
-          ],
-        }),
-      },
-    ],
   }),
   loader: async ({ context }) => {
     await Promise.all([
