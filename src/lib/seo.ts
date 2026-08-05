@@ -14,7 +14,7 @@ export interface PageSeo {
   modifiedTime?: string;
 }
 
-function absoluteUrl(brand: BrandConfig, value: string) {
+export function absoluteUrl(brand: BrandConfig, value: string) {
   if (/^https?:\/\//i.test(value)) return value;
   const path = value.startsWith("/") ? value : `/${value}`;
   return `https://${brand.identity.domain}${path}`;
