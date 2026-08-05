@@ -12,6 +12,7 @@ import type {
 import { supplementalExploreCategories } from "../explore-categories";
 import { guideHref } from "../guide-links";
 import type { SearchDocument } from "../types";
+import { migratedEditorialArticles } from "./migrated-editorial";
 import {
   articles,
   authors,
@@ -29,6 +30,8 @@ import {
  * single edit in `src/data/index.ts` — no component changes.
  */
 
+const editorialArticles = [...articles, ...migratedEditorialArticles];
+
 const byBrand = <T extends { brandId: string }>(rows: T[], brandId: string) =>
   rows.filter((row) => row.brandId === brandId);
 
@@ -43,7 +46,7 @@ const currentEvents = <T extends { startDate: string; endDate?: string }>(rows: 
 
 export const fixtureArticles: ArticleRepository = {
   async list(query) {
-    let rows = newestFirst(byBrand(articles, query.brandId));
+    let rows = newestFirst(byBrand(editorialArticles, query.brandId));
     if (query.category) rows = rows.filter((a) => a.category === query.category);
     if (query.tag) rows = rows.filter((a) => a.tags.includes(query.tag!));
     if (query.featured !== undefined) rows = rows.filter((a) => Boolean(a.featured) === query.featured);
@@ -51,7 +54,7 @@ export const fixtureArticles: ArticleRepository = {
     return take(rows, query.limit);
   },
   async getBySlug(scope, slug) {
-    return byBrand(articles, scope.brandId).find((a) => a.slug === slug) ?? null;
+    return byBrand(editorialArticles, scope.brandId).find((a) => a.slug === slug) ?? null;
   },
 };
 
@@ -128,7 +131,7 @@ export const fixtureTaxonomy: TaxonomyRepository = {
 export const fixtureSearch: SearchRepository = {
   async documents(scope) {
     const docs: SearchDocument[] = [
-      ...byBrand(articles, scope.brandId).map((a) => ({
+      ...byBrand(editorialArticles, scope.brandId).map((a) => ({
         id: a.id,
         brandId: a.brandId,
         kind: "article" as const,
