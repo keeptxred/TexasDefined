@@ -6,6 +6,7 @@ import {
   searchCompleteTexasKnowledgeGraph,
 } from '@/data/knowledge-graph';
 import type { TexasEntityKind, TexasEntityRecord } from '@/data/knowledge-graph';
+import { canonicalEntityPath } from '@/data/knowledge-graph/relationships';
 
 const PUBLIC_HEADERS = {
   'cache-control': 'public, max-age=300, stale-while-revalidate=3600',
@@ -23,7 +24,7 @@ const PUBLIC_FIELDS = (entity: TexasEntityRecord) => ({
   region: entity.region,
   coordinates: entity.coordinates,
   officialUrl: entity.officialUrl,
-  canonicalUrl: `https://texasdefined.com/${entity.kind}/${entity.slug}`,
+  canonicalUrl: `https://texasdefined.com${canonicalEntityPath(entity)}`,
   sourceId: entity.sourceId,
   sourceConfidence: entity.sourceConfidence,
   sourceCheckedAt: entity.sourceCheckedAt,
