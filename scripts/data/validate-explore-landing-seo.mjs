@@ -17,6 +17,9 @@ for (const feature of [
   'return { categories, regions, destinations, articles }',
   'aria-label="Breadcrumb"',
   'aria-current="page"',
+  '"major-springs"',
+  '"national-parks"',
+  'Choose a spring, national park, cavern, beach',
 ]) {
   if (!route.includes(feature)) errors.push(`Explore landing SEO feature missing: ${feature}.`);
 }
@@ -27,4 +30,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Explore landing CollectionPage, mixed ItemList, and breadcrumb validation passed.');
+console.log('Explore landing CollectionPage, mixed ItemList, breadcrumb, and restored category validation passed.');
