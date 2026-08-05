@@ -1,10 +1,23 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { supplementalExploreCategories } from "@/data/explore-categories";
-import { categories, destinations as fixtureDestinations } from "@/data/fixtures/texas";
+import { categories, destinations as fixtureDestinations, regions } from "@/data/fixtures/texas";
 import { fetchExploreDestinations } from "@/data/explore-remote";
 
 const BASE_URL = "https://texasdefined.com";
+const EXPLORE_CATEGORY_SLUGS = new Set([
+  "lakes-rivers",
+  "major-springs",
+  "state-parks",
+  "national-parks",
+  "caverns",
+  "beaches-coast",
+  "historic-sites",
+  "road-trips",
+  "small-towns",
+  "food-bbq",
+  "outdoors",
+]);
 
 function escapeXml(value: string): string {
   return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\"/g, "&quot;").replace(/'/g, "&apos;");
@@ -24,10 +37,11 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         const destinations = remoteDestinations.length ? remoteDestinations : fixtureDestinations;
         const categorySlugs = [...categories, ...supplementalExploreCategories]
           .map((category) => category.slug)
-          .filter(Boolean);
+          .filter((slug) => EXPLORE_CATEGORY_SLUGS.has(slug));
         const urls = [
           `${BASE_URL}/explore`,
           ...categorySlugs.map((slug) => `${BASE_URL}/explore/${slug}`),
+          ...regions.map((region) => `${BASE_URL}/explore/region/${region.id}`),
           ...destinations.filter((item) => item.slug).map((item) => `${BASE_URL}/destination/${item.slug}`),
         ];
         const entries = [...new Set(urls)]
