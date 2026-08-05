@@ -77,7 +77,7 @@ function mapRow(row: Record<string, unknown>): Destination {
   const summary = String(row.summary || row.short_description || row.long_description || "Explore this Texas destination.");
   const lat = Number(row.latitude ?? row.lat ?? 0);
   const lng = Number(row.longitude ?? row.lng ?? 0);
-  const image = String(row.hero_image_url || row.image_url || "/images/texasdefined-placeholder.jpg");
+  const image = String(row.hero_image_url || row.image_url || "/images/texasdefined-placeholder.svg");
   const type = entityType(row);
   const highlights = [...stringArray(row.activities), ...stringArray(row.highlights), ...stringArray(row.alternate_names)]
     .filter((item, index, all) => all.indexOf(item) === index)
