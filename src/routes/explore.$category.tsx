@@ -1,10 +1,10 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { createFileRoute, notFound } from "@tanstack/react-router";
+import { createFileRoute, notFound, redirect } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { CategoryPage } from "@/components/editorial/CategoryPage";
 import { Container } from "@/components/layout/Container";
-import { articlesQuery, categoriesQuery, destinationsQuery } from "@/data/queries";
+import { articlesQuery, categoriesQuery, destinationQuery, destinationsQuery } from "@/data/queries";
 import type { CategorySlug } from "@/data/types";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 
@@ -14,7 +14,13 @@ export const Route = createFileRoute("/explore/$category")({
   loader: async ({ context, params }) => {
     const categories = await context.queryClient.ensureQueryData(categoriesQuery());
     const category = categories.find((item) => item.slug === params.category);
-    if (!category) throw notFound();
+    if (!category) {
+      const destination = await context.queryClient.ensureQueryData(destinationQuery(params.category));
+      if (destination) {
+        throw redirect({ href: `/destination/${destination.slug}`, statusCode: 301 });
+      }
+      throw notFound();
+    }
     const [articles, destinations] = await Promise.all([
       context.queryClient.ensureQueryData(articlesQuery({ category: category.slug })),
       context.queryClient.ensureQueryData(destinationsQuery({ category: category.slug })),
