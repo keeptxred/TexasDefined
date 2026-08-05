@@ -17,8 +17,15 @@ for (const feature of [
 
 for (const feature of [
   'destinations as fixtureDestinations',
+  'fetchExploreDestinations({ limit: 5000 })',
+  'fetchCoreExploreDestinations({ limit: 5000 })',
+  'let remoteFailed = false',
+  'remoteFailed = true',
   'remoteDestinations.length ? remoteDestinations : fixtureDestinations',
-  'Explore sitemap catalog request failed; using fixture destinations',
+  'if (remoteFailed && destinations.length === 0)',
+  'status: 503',
+  '"Retry-After": "300"',
+  'new Map(destinations.filter((item) => item.slug)',
 ]) {
   if (!exploreSitemap.includes(feature)) errors.push(`Explore sitemap fallback feature missing: ${feature}.`);
 }
