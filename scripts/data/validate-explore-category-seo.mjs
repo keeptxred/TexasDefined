@@ -1,6 +1,7 @@
 import './validate-editorial-collection-seo.mjs';
 import './validate-events-seo.mjs';
 import './validate-explore-landing-seo.mjs';
+import './validate-moving-checklist-seo.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 
