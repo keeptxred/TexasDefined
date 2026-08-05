@@ -44,7 +44,7 @@ export const Route = createFileRoute('/do/property-tax-protest')({
           itemListElement: [
             { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
             { '@type': 'ListItem', position: 2, name: 'Property taxes', item: `${siteUrl}/decide/property-taxes` },
-            { '@type': 'ListItem', position: 3, name: 'Property tax protest', item: pageUrl },
+            { '@type': 'ListItem', position: 3, name: 'Protest your appraisal', item: pageUrl },
           ],
         },
       ],
@@ -52,28 +52,28 @@ export const Route = createFileRoute('/do/property-tax-protest')({
   }),
   component: () => (
     <PropertyTaxGuidePage
-      eyebrow="Challenge an appraisal"
-      title="Texas Property Tax Protest Guide"
+      eyebrow="Know your options"
+      title="How to protest your property appraisal"
       intro={description}
       officialUrl="https://comptroller.texas.gov/taxes/property-tax/protests/"
-      officialLabel="Check the Texas Comptroller's protest guidance"
+      officialLabel="Check the latest protest guidance"
       canonicalPath={canonicalPath}
       stepPrefix="protest-step-"
       sections={[
         {
-          title: 'Do not miss the deadline',
+          title: 'Start with the deadline',
           paragraphs: [
             'Your appraisal notice and Texas law determine the protest deadline. File on time even if you are still gathering evidence; waiting too long can cost you the ordinary right to challenge the value.',
           ],
         },
         {
-          title: 'Choose the right reason',
+          title: 'Choose the reason that fits',
           paragraphs: [
             'Common reasons include an excessive value, unequal appraisal, an incorrect property description, a denied exemption or an ownership error. Select every reason that honestly applies to your property.',
           ],
         },
         {
-          title: 'Build a clean evidence packet',
+          title: 'Build a clear evidence packet',
           paragraphs: [
             'A short, organized case is usually easier to follow than a large pile of unrelated documents.',
           ],
@@ -86,9 +86,9 @@ export const Route = createFileRoute('/do/property-tax-protest')({
           ],
         },
         {
-          title: 'After the decision',
+          title: 'Read the decision carefully',
           paragraphs: [
-            'Read the order carefully and note the deadlines for arbitration, court, SOAH review when available or another appeal. You may still need to pay taxes on time while the challenge continues.',
+            'Note the deadlines for arbitration, court, SOAH review when available or another appeal. You may still need to pay taxes on time while the challenge continues.',
           ],
         },
       ]}
