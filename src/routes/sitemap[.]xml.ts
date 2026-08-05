@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { platform, scope } from "@/data";
+import { supplementalExploreCategories } from "@/data/explore-categories";
 import { fetchExploreDestinations } from "@/data/explore-remote";
 import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
 import { canonicalEntityPath } from "@/data/knowledge-graph/relationships";
@@ -16,13 +17,19 @@ export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
       GET: async () => {
-        const [articles, fixtureDestinations, collections, categories, graph] = await Promise.all([
+        const [articles, fixtureDestinations, collections, baseCategories, graph] = await Promise.all([
           platform.articles.list(scope),
           platform.destinations.list(scope),
           platform.collections.list(scope),
           platform.taxonomy.categories(scope),
           loadTexasKnowledgeGraph(),
         ]);
+
+        const categoryMap = new Map(baseCategories.map((category) => [category.slug, category]));
+        for (const category of supplementalExploreCategories) {
+          if (!categoryMap.has(category.slug)) categoryMap.set(category.slug, category);
+        }
+        const categories = [...categoryMap.values()];
 
         let remoteDestinations = [] as Awaited<ReturnType<typeof fetchExploreDestinations>>;
         try {
