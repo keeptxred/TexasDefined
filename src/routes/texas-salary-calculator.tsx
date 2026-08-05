@@ -3,9 +3,23 @@ import { texasDefinedBrand } from '@/brand/texasdefined';
 import { CalculatorPage } from '@/components/calculators/CalculatorPage';
 import { SalaryCalculator } from '@/components/calculators/TexasPlanningCalculators';
 import { buildCalculatorHead } from '@/lib/calculator-seo';
-const description='Estimate Texas take-home pay after adjustable federal, payroll, benefit and other deductions.';
-export const Route=createFileRoute('/texas-salary-calculator')({head:()=>buildCalculatorHead(texasDefinedBrand, {
-      canonicalPath: '/texas-salary-calculator',
-      title:'Texas Salary Calculator',description,
-      featureList:['Estimate take-home pay','Adjust federal and payroll deductions','Include benefit deductions','Include other deductions'],
-    }),component:()=> <CalculatorPage eyebrow="Texas income planning" title="Texas Salary Calculator" description={description}><SalaryCalculator /></CalculatorPage>});
+
+const description = 'Get a starting estimate of what may reach your paycheck after federal taxes, payroll taxes, benefits and other deductions.';
+
+export const Route = createFileRoute('/texas-salary-calculator')({
+  head: () => buildCalculatorHead(texasDefinedBrand, {
+    canonicalPath: '/texas-salary-calculator',
+    title: 'Estimate your take-home pay',
+    description,
+    featureList: [
+      'Estimate what may reach your paycheck',
+      'Adjust federal and payroll taxes',
+      'Include benefits and other deductions',
+    ],
+  }),
+  component: () => (
+    <CalculatorPage eyebrow="What the paycheck may look like" title="Estimate your take-home pay" description={description}>
+      <SalaryCalculator />
+    </CalculatorPage>
+  ),
+});
