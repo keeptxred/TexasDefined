@@ -8,7 +8,7 @@ import { articlesQuery, destinationsQuery, regionsQuery } from "@/data/queries";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const description =
-  "Missions and cattle trails, oil booms and courthouse squares — how six flags, ten generations and a stubborn streak built the place we live in now.";
+  "Missions and cattle trails, oil booms and courthouse squares — the people, places and turning points that still shape how Texas looks and feels today.";
 
 export const Route = createFileRoute("/texas-history")({
   head: () => ({
@@ -27,8 +27,8 @@ export const Route = createFileRoute("/texas-history")({
   component: () => (
     <CategoryPage
       category="texas-history"
-      eyebrow="History"
-      title="Where the story started"
+      eyebrow="Then &amp; now"
+      title="The stories that built this place"
       intro={description}
       image={{ src: enchantedRock, alt: 'The granite dome of Enchanted Rock under a wide sky', width: 1600, height: 1067 }}
     />
