@@ -2,7 +2,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const root = process.cwd();
-const route = fs.readFileSync(path.join(root, 'src/routes/destination.$slug.tsx'), 'utf8');
+const destinationRoute = fs.readFileSync(path.join(root, 'src/routes/destination.$slug.tsx'), 'utf8');
+const articleRoute = fs.readFileSync(path.join(root, 'src/routes/article.$slug.tsx'), 'utf8');
 const map = fs.readFileSync(path.join(root, 'src/components/editorial/MapPreview.tsx'), 'utf8');
 const remote = fs.readFileSync(path.join(root, 'src/data/explore-remote.ts'), 'utf8');
 const errors = [];
@@ -19,14 +20,37 @@ for (const feature of [
   '"@id": `${url}#primaryimage`',
   'categories.find((category) => category.slug === destination.category)?.name',
 ]) {
-  if (!route.includes(feature)) errors.push(`Destination integrity feature missing: ${feature}.`);
+  if (!destinationRoute.includes(feature)) errors.push(`Destination integrity feature missing: ${feature}.`);
 }
 
-if (route.includes('isAccessibleForFree:')) {
+if (destinationRoute.includes('isAccessibleForFree:')) {
   errors.push('Destination schema must not infer free accessibility from unstructured entry notes.');
 }
-if (route.includes('name: destination.category.replace(/-/g, " ")')) {
+if (destinationRoute.includes('name: destination.category.replace(/-/g, " ")')) {
   errors.push('Destination breadcrumbs must use authoritative taxonomy labels instead of slug-derived labels.');
+}
+
+for (const feature of [
+  'categoriesQuery()',
+  '"@type": "WebPage"',
+  'mainEntity: { "@id": `${articleUrl}#article` }',
+  'mainEntityOfPage: { "@id": articleUrl }',
+  '"@id": `${articleUrl}#primaryimage`',
+  '"@id": authorId',
+  'jobTitle: author.role',
+  'description: author.bio',
+  'articleSection: categoryName',
+  'publisher: { "@id": `${siteUrl}/#organization` }',
+  'categories.find((category) => category.slug === article.category)?.name',
+]) {
+  if (!articleRoute.includes(feature)) errors.push(`Article entity graph feature missing: ${feature}.`);
+}
+
+if (articleRoute.includes('author: author ? { "@type": "Person", name: author.name }')) {
+  errors.push('Article authors must use stable graph identifiers instead of anonymous Person nodes.');
+}
+if (articleRoute.includes('articleSection: article.category')) {
+  errors.push('Article section must use an authoritative taxonomy label instead of a slug.');
 }
 
 for (const feature of [
@@ -42,9 +66,9 @@ if (!remote.includes('/images/texasdefined-destination-placeholder.svg')) {
 }
 
 if (errors.length) {
-  console.error('Destination data integrity validation failed:');
+  console.error('Editorial content integrity validation failed:');
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
 
-console.log('Destination data and entity graph integrity validation passed.');
+console.log('Article and destination data and entity graph integrity validation passed.');
