@@ -11,6 +11,7 @@ const root = process.cwd();
 const route = fs.readFileSync(path.join(root, 'src/routes/explore.$category.tsx'), 'utf8');
 const landing = fs.readFileSync(path.join(root, 'src/routes/explore.index.tsx'), 'utf8');
 const categoryPage = fs.readFileSync(path.join(root, 'src/components/editorial/CategoryPage.tsx'), 'utf8');
+const collectionGrid = fs.readFileSync(path.join(root, 'src/components/editorial/DestinationCollectionGrid.tsx'), 'utf8');
 const discovery = fs.readFileSync(path.join(root, 'src/components/editorial/ExploreDiscovery.tsx'), 'utf8');
 const types = fs.readFileSync(path.join(root, 'src/data/types.ts'), 'utf8');
 const fixtures = fs.readFileSync(path.join(root, 'src/data/fixtures/texas.ts'), 'utf8');
@@ -43,10 +44,20 @@ for (const feature of [
   '<Link to="/explore"',
   'aria-current="page"',
   'ExploreDiscovery',
+  'DestinationCollectionGrid',
   'categoriesQuery()',
   'destinations.length.toLocaleString',
 ]) {
   if (!categoryPage.includes(feature)) errors.push(`Visible Explore category feature missing: ${feature}.`);
+}
+
+for (const feature of [
+  'const PAGE_SIZE = 24',
+  'destinations.slice(0, visibleCount)',
+  'setVisibleCount',
+  'Show {Math.min(PAGE_SIZE, remaining)} more places',
+]) {
+  if (!collectionGrid.includes(feature)) errors.push(`Destination collection rendering feature missing: ${feature}.`);
 }
 
 for (const feature of [
@@ -90,6 +101,10 @@ for (const feature of [
   'return "caverns"',
   'return "beaches-coast"',
   'return "historic-sites"',
+  '"lighthouse"',
+  '"wildlife_refuge"',
+  '"wildlife_management_area"',
+  'return "outdoors"',
   'explore_entity_types(key,name)',
   'MAX_REMOTE_DESTINATIONS',
 ]) {
@@ -102,4 +117,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Explore categories, taxonomy, navigation, sitemap, destination collections, related links, regions, structured data, and breadcrumbs passed validation.');
+console.log('Explore categories, classification, progressive collections, taxonomy, navigation, sitemap, related links, regions, structured data, and breadcrumbs passed validation.');
