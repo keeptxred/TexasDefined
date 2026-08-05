@@ -18,6 +18,15 @@ const indexable = extractArray('INDEXABLE_STATIC_PATHS');
 const redirects = extractArray('REDIRECT_ONLY_PATHS');
 const nonIndexable = extractArray('NON_INDEXABLE_PUBLIC_PATHS');
 const classified = new Set([...indexable, ...redirects, ...nonIndexable]);
+const nestedAdminChildPaths = new Set([
+  '/platform-health',
+  '/knowledge-graph-behavior',
+  '/internal-link-tests',
+  '/internal-link-rollback',
+  '/governance-health',
+  '/entity-maintenance',
+  '/entity-import-review',
+]);
 
 const normalize = (value) => value === '/' ? value : value.replace(/\/$/, '');
 const registeredStaticPublicPaths = new Set(
@@ -27,6 +36,7 @@ const registeredStaticPublicPaths = new Set(
     .filter((routePath) => !routePath.includes('$'))
     .filter((routePath) => !routePath.startsWith('/api/'))
     .filter((routePath) => !routePath.startsWith('/admin'))
+    .filter((routePath) => !nestedAdminChildPaths.has(routePath))
     .filter((routePath) => !routePath.endsWith('.xml'))
     .filter((routePath) => !routePath.endsWith('.txt')),
 );
