@@ -147,7 +147,7 @@ export const Route = createFileRoute("/destination/$slug")({
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
       scripts: [{
         type: "application/ld+json",
-        children: JSON.stringify({ "@context": "https://schema.org", "@graph": [webPageSchema, attractionSchema, relatedSchema, breadcrumbSchema] }),
+        children: JSON.stringify({ "@context": "https://schema.org", "@graph": [webPageSchema, attractionSchema, ...(related.length > 0 ? [relatedSchema] : []), breadcrumbSchema] }),
       }],
     };
   },
