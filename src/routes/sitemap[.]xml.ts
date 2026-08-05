@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { platform, scope } from "@/data";
+import { fetchExploreDestinations } from "@/data/explore-remote";
 import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
 import { canonicalEntityPath } from "@/data/knowledge-graph/relationships";
 import { TEXAS_DATASETS } from "@/data/texas-data-center";
@@ -15,7 +16,7 @@ export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
       GET: async () => {
-        const [articles, destinations, collections, categories, graph] = await Promise.all([
+        const [articles, fixtureDestinations, collections, categories, graph] = await Promise.all([
           platform.articles.list(scope),
           platform.destinations.list(scope),
           platform.collections.list(scope),
@@ -23,12 +24,20 @@ export const Route = createFileRoute("/sitemap.xml")({
           loadTexasKnowledgeGraph(),
         ]);
 
+        let remoteDestinations = [] as Awaited<ReturnType<typeof fetchExploreDestinations>>;
+        try {
+          remoteDestinations = await fetchExploreDestinations({ limit: 5000 });
+        } catch (error) {
+          console.error("Primary sitemap could not load the remote Explore catalog; using fixture destinations", error);
+        }
+
+        const destinations = remoteDestinations.length ? remoteDestinations : fixtureDestinations;
         const entries: SitemapEntry[] = [
           ...INDEXABLE_STATIC_PATHS.map((path) => ({ path })),
           ...categories.map((category) => ({ path: `/explore/${category.slug}` })),
           ...collections.map((collection) => ({ path: `/shop/${collection.slug}` })),
           ...articles.map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(article.publishedAt) })),
-          ...destinations.map((destination) => ({ path: `/destination/${destination.slug}` })),
+          ...destinations.filter((destination) => destination.slug).map((destination) => ({ path: `/destination/${destination.slug}` })),
           ...TEXAS_DATASETS.map((dataset) => ({
             path: `/texas-data/${dataset.slug}`,
             lastmod: toDate(dataset.updated),
