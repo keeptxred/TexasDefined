@@ -21,13 +21,13 @@ export function Header() {
       </a>
       <div onMouseLeave={() => setOpenGroup(null)}>
         <Container width="wide" className="flex h-16 items-center justify-between gap-6">
-          <Link to="/" className="flex items-baseline gap-2" aria-label={brand.identity.name}>
+          <Link to="/" className="flex items-baseline gap-2" aria-label={`${brand.identity.wordmark} front page`}>
             <span className="font-display text-xl tracking-tight text-foreground sm:text-2xl">
               {brand.identity.wordmark}
             </span>
           </Link>
 
-          <nav aria-label="Primary" className="hidden items-center gap-1 lg:flex">
+          <nav aria-label="Main navigation" className="hidden items-center gap-1 lg:flex">
             {brand.nav.map((item) => (
               <div key={item.to} onMouseEnter={() => setOpenGroup(item.children ? item.to : null)}>
                 <Link
@@ -46,7 +46,7 @@ export function Header() {
             {brand.features.search && (
               <Link
                 to="/search"
-                aria-label={brand.copy.searchPlaceholder}
+                aria-label="Search Texas Defined"
                 className="rounded-sm p-2 text-foreground/70 transition-colors hover:text-primary"
               >
                 <Search className="size-[18px]" aria-hidden />
@@ -64,7 +64,6 @@ export function Header() {
           </div>
         </Container>
 
-        {/* Mega menu panel — full-bleed, image-led, driven entirely by brand nav config. */}
         {brand.nav
           .filter((item) => item.children && openGroup === item.to)
           .map((item) => (
@@ -85,7 +84,7 @@ export function Header() {
                     className="eyebrow border-b border-primary pb-1 text-primary"
                     onClick={() => setOpenGroup(null)}
                   >
-                    {brand.copy.viewAll}
+                    See all of {item.label}
                   </Link>
                 </div>
                 <ul className="mt-6 grid grid-cols-3 gap-6 xl:grid-cols-6">
@@ -133,7 +132,7 @@ export function Header() {
         )}
       >
         <Container className="max-h-[70vh] overflow-y-auto py-4">
-          <nav aria-label="Mobile" className="flex flex-col">
+          <nav aria-label="Main menu" className="flex flex-col">
             {brand.nav.map((item) => (
               <div key={item.to} className="border-b border-border/70 py-1 last:border-0">
                 <Link
