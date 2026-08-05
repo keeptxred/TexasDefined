@@ -3,9 +3,45 @@ import { Container } from '@/components/layout/Container';
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
-const description = 'Use official Texas education and local district resources to identify the public school district serving an address.';
-export const Route = createFileRoute('/find-my-school-district')({ head: () => ({ meta: buildMeta(texasDefinedBrand, {
+const description = 'A dependable way to confirm which public school district serves an address before you buy, rent or enroll.';
+
+export const Route = createFileRoute('/find-my-school-district')({
+  head: () => ({
+    meta: buildMeta(texasDefinedBrand, {
       canonicalPath: '/find-my-school-district',
-      title: 'Find My Texas School District', description }),
-    links: [canonicalLink(texasDefinedBrand, '/find-my-school-district')] }), component: Page });
-function Page() { return <Container className="py-16 sm:py-24"><article className="prose prose-gray mx-auto max-w-4xl"><p className="eyebrow text-primary">Schools and communities</p><h1>Find My Texas School District</h1><p className="lead">{description}</p><h2>Why the mailing address is not enough</h2><p>City names, ZIP codes, school-district boundaries, attendance zones, and county lines do not always match. Verify the exact property with official mapping and the district before relying on a listing or informal map.</p><h2>Recommended process</h2><ol><li>Open the Texas Education Agency school and district tools.</li><li>Use the exact property address in an official district or county mapping tool.</li><li>Confirm the assigned campus directly with the district.</li><li>Ask whether boundary changes, transfer rules, or new-campus assignments are pending.</li><li>For a purchase or lease, retain the district’s written confirmation.</li></ol><div className="not-prose my-8 grid gap-4 sm:grid-cols-2"><a className="rounded-lg border p-5 font-medium" href="https://tea.texas.gov/texas-schools" rel="noreferrer">Texas Education Agency school resources</a><a className="rounded-lg border p-5 font-medium" href="https://txschools.gov/" rel="noreferrer">TXschools.gov</a><Link className="rounded-lg border p-5 font-medium" to="/browse/cities">Browse Texas cities</Link><Link className="rounded-lg border p-5 font-medium" to="/browse/counties">Browse Texas counties</Link></div><aside className="not-prose rounded-lg bg-muted p-5 text-sm text-muted-foreground">TexasDefined does not store the entered address or claim a boundary match. The district is the final source for campus assignment.</aside></article></Container>; }
+      title: 'Find Your Texas School District',
+      description,
+    }),
+    links: [canonicalLink(texasDefinedBrand, '/find-my-school-district')],
+  }),
+  component: Page,
+});
+
+function Page() {
+  return (
+    <Container className="py-16 sm:py-24">
+      <article className="prose prose-gray mx-auto max-w-4xl">
+        <p className="eyebrow text-primary">Schools & Communities</p>
+        <h1>Find the district that serves your address</h1>
+        <p className="lead">{description}</p>
+        <h2>Why the city name isn’t enough</h2>
+        <p>City limits, ZIP codes, school-district boundaries and attendance zones often overlap in unexpected ways. An address can sit in one city and attend schools in another district, so always verify the exact property.</p>
+        <h2>The safest way to check</h2>
+        <ol>
+          <li>Start with the Texas Education Agency’s official school and district pages.</li>
+          <li>Enter the exact property address in an official district or county map.</li>
+          <li>Confirm the assigned campus directly with the district.</li>
+          <li>Ask about planned boundary changes, transfers or new-campus assignments.</li>
+          <li>Keep written confirmation when a home purchase or lease depends on the answer.</li>
+        </ol>
+        <div className="not-prose my-8 grid gap-4 sm:grid-cols-2">
+          <a className="rounded-lg border p-5 font-medium" href="https://tea.texas.gov/texas-schools" rel="noreferrer">Start with the Texas Education Agency</a>
+          <a className="rounded-lg border p-5 font-medium" href="https://txschools.gov/" rel="noreferrer">Search TXschools.gov</a>
+          <Link className="rounded-lg border p-5 font-medium" to="/browse/cities">Find a city</Link>
+          <Link className="rounded-lg border p-5 font-medium" to="/browse/counties">Find your county</Link>
+        </div>
+        <aside className="not-prose rounded-lg bg-muted p-5 text-sm text-muted-foreground">The school district is the final authority on campus assignments. Confirm directly before making a housing or enrollment decision.</aside>
+      </article>
+    </Container>
+  );
+}
