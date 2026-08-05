@@ -90,7 +90,7 @@ function Page() {
           <ol className="flex items-center gap-2">
             <li><Link to="/" className="hover:text-foreground">Home</Link></li>
             <li aria-hidden="true">/</li>
-            <li><Link to="/moving-to-texas" className="hover:text-foreground">Moving to Texas</Link></li>
+            <li><Link to="/moving-to-texas" className="hover:text-foreground">Moving Here</Link></li>
             <li aria-hidden="true">/</li>
             <li aria-current="page" className="text-foreground">Moving Checklist</li>
           </ol>
@@ -98,10 +98,14 @@ function Page() {
         <p className="eyebrow mt-8 text-primary">Moving Here</p>
         <h1 className="mt-3 font-display text-4xl sm:text-6xl">A smoother first month in Texas</h1>
         <p className="mt-5 text-lg leading-8 text-muted-foreground">{description}</p>
+        <p className="mt-4 max-w-2xl text-sm leading-6 text-muted-foreground">
+          Work through it in order or jump to the part that matches where you are in the move.
+        </p>
         <div className="mt-10 space-y-6">
           {groups.map((group, groupIndex) => (
             <section key={group.title} className="rounded-lg border border-border p-6">
-              <h2 className="font-display text-3xl">{group.title}</h2>
+              <p className="eyebrow text-primary">Step {groupIndex + 1}</p>
+              <h2 className="mt-2 font-display text-3xl">{group.title}</h2>
               <ul className="mt-5 space-y-4">
                 {group.items.map((item, itemIndex) => (
                   <li id={`step-${groupIndex + 1}-${itemIndex + 1}`} key={item} className="flex gap-3">
@@ -113,7 +117,9 @@ function Page() {
             </section>
           ))}
         </div>
-        <aside className="mt-8 rounded-lg bg-muted p-5 text-sm leading-6 text-muted-foreground">Rules and deadlines can change. Check the responsible state or local office before acting on vehicle, license, voting, tax, school or utility requirements.</aside>
+        <aside className="mt-8 rounded-lg bg-muted p-5 text-sm leading-6 text-muted-foreground">
+          One last check: rules and deadlines can change. Confirm vehicle, license, voting, tax, school and utility details with the responsible state or local office.
+        </aside>
       </article>
     </Container>
   );
