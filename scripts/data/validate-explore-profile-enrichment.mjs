@@ -8,6 +8,8 @@ const queries = fs.readFileSync(path.join(root, 'src/data/queries.ts'), 'utf8');
 const route = fs.readFileSync(path.join(root, 'src/routes/destination.$slug.tsx'), 'utf8');
 const planner = fs.readFileSync(path.join(root, 'src/components/editorial/DestinationVisitPlanner.tsx'), 'utf8');
 const graph = fs.readFileSync(path.join(root, 'src/data/knowledge-graph/explore-adapter.ts'), 'utf8');
+const ai = fs.readFileSync(path.join(root, 'src/routes/api.ai.entities.ts'), 'utf8');
+const sitemap = fs.readFileSync(path.join(root, 'src/routes/sitemap-explore[.]xml.ts'), 'utf8');
 const types = fs.readFileSync(path.join(root, 'src/data/types.ts'), 'utf8');
 const errors = [];
 
@@ -66,10 +68,20 @@ for (const feature of [
   'fetchExploreDestinations({ limit: 5000 })',
   'fetchCoreExploreDestinations({ limit: 5000 })',
   'base.filter((document) => document.kind !== "destination")',
-  'destination.managingAuthority',
-  'destination.bestSeason',
-  '...destination.highlights',
+  'destination.managingAuthority', 'destination.bestSeason', '...destination.highlights',
 ]) if (!queries.includes(feature)) errors.push(`Remote destination search feature missing: ${feature}`);
+
+for (const feature of [
+  'keywords: entity.tags', 'measurementTechnique: entity.sourceConfidence',
+  'dateModified: entity.sourceCheckedAt', 'additionalType: entity.kind',
+  "entity.tags?.length ? entity.tags : undefined",
+]) if (!ai.includes(feature)) errors.push(`AI destination enrichment feature missing: ${feature}`);
+
+for (const feature of [
+  'fetchCoreExploreDestinations',
+  'Explore sitemap enrichment unavailable; retrying core remote catalog',
+  'validLastModified', '<lastmod>', 'item.sourceCheckedAt',
+]) if (!sitemap.includes(feature)) errors.push(`Explore sitemap enrichment feature missing: ${feature}`);
 
 const enrichedListIndex = queries.indexOf('fetchExploreDestinations(options)');
 const coreListIndex = queries.indexOf('fetchCoreExploreDestinations(options)');
@@ -89,4 +101,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Explore Phase 1 enrichment, planning, search, AI knowledge graph, authority, access, discovery, and two-stage remote fallback validation passed.');
+console.log('Explore Phase 1 enrichment, planning, search, AI, sitemap freshness, authority, access, discovery, and two-stage remote fallback validation passed.');
