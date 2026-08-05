@@ -30,10 +30,10 @@ function NotFoundComponent() {
       <meta name="robots" content="noindex, nofollow" />
       <div className="flex min-h-screen items-center justify-center bg-background px-4">
         <div className="max-w-md text-center">
-          <p className="eyebrow text-primary">404</p>
+          <p className="eyebrow text-primary">Wrong turn</p>
           <h1 className="mt-4 font-display text-4xl text-foreground">This road doesn't go through</h1>
-          <p className="mt-3 text-sm text-muted-foreground">The page you're looking for doesn't exist or has been moved.</p>
-          <div className="mt-6"><Link to="/" className="inline-flex items-center justify-center rounded-sm bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90">Back to the homepage</Link></div>
+          <p className="mt-3 text-sm leading-6 text-muted-foreground">The page may have moved, but there is plenty more Texas waiting just down the road.</p>
+          <div className="mt-6"><Link to="/" className="inline-flex items-center justify-center rounded-sm bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90">Start from the front page</Link></div>
         </div>
       </div>
     </>
@@ -50,11 +50,12 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
       <meta name="robots" content="noindex, nofollow" />
       <div className="flex min-h-screen items-center justify-center bg-background px-4">
         <div className="max-w-md text-center">
-          <h1 className="font-display text-2xl tracking-tight text-foreground">This page didn't load</h1>
-          <p className="mt-2 text-sm text-muted-foreground">Something went wrong on our end. You can try refreshing or head back home.</p>
+          <p className="eyebrow text-primary">A small detour</p>
+          <h1 className="mt-3 font-display text-3xl tracking-tight text-foreground">This page didn't load</h1>
+          <p className="mt-3 text-sm leading-6 text-muted-foreground">Something went sideways on our end. Try the page once more or head back to the front page.</p>
           <div className="mt-6 flex flex-wrap justify-center gap-2">
-            <button onClick={() => { router.invalidate(); reset(); }} className="inline-flex items-center justify-center rounded-sm bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90">Try again</button>
-            <a href="/" className="inline-flex items-center justify-center rounded-sm border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent hover:text-accent-foreground">Go home</a>
+            <button onClick={() => { router.invalidate(); reset(); }} className="inline-flex items-center justify-center rounded-sm bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90">Try once more</button>
+            <a href="/" className="inline-flex items-center justify-center rounded-sm border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent hover:text-accent-foreground">Back to the front page</a>
           </div>
         </div>
       </div>
