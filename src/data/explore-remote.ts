@@ -113,11 +113,17 @@ function destinationImage(value: unknown): string {
 }
 
 function mapRow(row: Record<string, unknown>): Destination {
-  const summary = String(row.summary || row.short_description || row.long_description || "Explore this Texas destination.");
-  const lat = Number(row.latitude ?? row.lat ?? 0);
-  const lng = Number(row.longitude ?? row.lng ?? 0);
-  const image = destinationImage(row.hero_image_url ?? row.image_url);
+  const place = locationOf(row);
+  const name = String(row.name || "Texas destination");
   const type = entityType(row);
+  const typeLabel = readableType(row) || "Texas destination";
+  const town = String(place.city || row.city || row.nearest_town || place.county || row.county || "Texas");
+  const summary = String(
+    row.summary || row.short_description || row.long_description || `${typeLabel} near ${town}, Texas.`,
+  );
+  const lat = Number(place.latitude ?? row.latitude ?? row.lat ?? 0);
+  const lng = Number(place.longitude ?? row.longitude ?? row.lng ?? 0);
+  const image = destinationImage(row.hero_image_url ?? row.image_url);
   const highlights = [...stringArray(row.activities), ...stringArray(row.highlights), ...stringArray(row.alternate_names)]
     .filter((item, index, all) => all.indexOf(item) === index)
     .slice(0, 8);
@@ -126,15 +132,18 @@ function mapRow(row: Record<string, unknown>): Destination {
     id: String(row.id || row.slug),
     brandId: "texasdefined",
     slug: String(row.slug || ""),
-    name: String(row.name || "Texas destination"),
+    name,
     summary,
     category: category(type),
-    region: region(row.region || row.region_name || row.geographic_region),
-    nearestTown: String(row.city || row.nearest_town || row.county || "Texas"),
+    region:
+      row.region || row.region_name || row.geographic_region
+        ? region(row.region || row.region_name || row.geographic_region)
+        : regionFromCoordinates(lat, lng) ?? region(place.county),
+    nearestTown: town,
     coordinates: { lat: Number.isFinite(lat) ? lat : 0, lng: Number.isFinite(lng) ? lng : 0 },
     hero: {
       src: image,
-      alt: String(row.hero_image_alt || `${String(row.name || "Texas destination")} in Texas`),
+      alt: String(row.hero_image_alt || `${name} in Texas`),
       width: 1600,
       height: 1000,
     },
@@ -144,6 +153,7 @@ function mapRow(row: Record<string, unknown>): Destination {
     body: [String(row.long_description || summary)],
     featured: Boolean(row.featured),
   };
+
 }
 
 async function fetchExplorePage(params: URLSearchParams, offset: number, limit: number): Promise<Record<string, unknown>[]> {
