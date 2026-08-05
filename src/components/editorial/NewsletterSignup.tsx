@@ -17,7 +17,7 @@ export function NewsletterSignup() {
     event.preventDefault();
     const result = newsletterSignupSchema.safeParse({ email, brandId: brand.identity.id });
     if (!result.success) {
-      setError(result.error.issues[0]?.message ?? "Enter a valid email address");
+      setError("Add a valid email address and we’ll get you on the list.");
       return;
     }
     setError(null);
@@ -38,12 +38,12 @@ export function NewsletterSignup() {
       </div>
       <div>
         {done ? (
-          <p className="font-display text-xl text-primary">{copy.newsletterSuccess}</p>
+          <p className="font-display text-xl text-primary" role="status">{copy.newsletterSuccess}</p>
         ) : (
           <form onSubmit={onSubmit} className="flex flex-col gap-3 sm:flex-row" noValidate>
             <div className="flex-1">
               <label htmlFor="newsletter-email" className="sr-only">
-                {copy.newsletterPlaceholder}
+                Email address for the Texas Defined Letter
               </label>
               <Input
                 id="newsletter-email"
@@ -52,10 +52,11 @@ export function NewsletterSignup() {
                 onChange={(event) => setEmail(event.target.value)}
                 placeholder={copy.newsletterPlaceholder}
                 aria-invalid={Boolean(error)}
+                aria-describedby={error ? "newsletter-error" : undefined}
                 className="h-12 rounded-sm bg-background"
               />
               {error && (
-                <p role="alert" className="mt-2 text-xs text-destructive">
+                <p id="newsletter-error" role="alert" className="mt-2 text-xs text-destructive">
                   {error}
                 </p>
               )}
