@@ -9,8 +9,8 @@ for (const marker of ['"@type": "CollectionPage"', '"@type": "BreadcrumbList"', 
   if (!source.includes(marker)) errors.push(`Guides hub must include ${marker}.`);
 }
 
-if (!source.includes('numberOfItems: migratedGuides.length')) {
-  errors.push('Guides ItemList must derive its count from the linked migrated guides.');
+if (!/numberOfItems: (migratedGuides|allFeaturedGuides)\.length/.test(source)) {
+  errors.push('Guides ItemList must derive its count from the linked guides array.');
 }
 
 if (!source.includes('id={guideAnchor(index)}')) {
