@@ -2,47 +2,21 @@ import { useMemo, useState } from 'react';
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { Container } from '@/components/layout/Container';
 import { texasDefinedBrand } from '@/brand/texasdefined';
-import { buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
+import { buildCalculatorHead } from '@/lib/calculator-seo';
 
 const description = 'Get a quick annual and monthly property-tax estimate using the home value, exemptions, and combined local rate for an address.';
 const canonicalPath = '/decide/property-taxes';
-const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
-const pageUrl = `${siteUrl}${canonicalPath}`;
 
 export const Route = createFileRoute('/decide/property-taxes')({
-  head: () => ({
-    meta: buildMeta(texasDefinedBrand, { canonicalPath, title: 'Texas Property Tax Calculator', description }),
-    links: [canonicalLink(texasDefinedBrand, canonicalPath)],
-    scripts: [jsonLd({
-      '@context': 'https://schema.org',
-      '@graph': [
-        {
-          '@type': 'WebApplication',
-          '@id': `${pageUrl}#application`,
-          url: pageUrl,
-          name: 'Texas Property Tax Calculator',
-          description,
-          applicationCategory: 'FinanceApplication',
-          operatingSystem: 'Any',
-          browserRequirements: 'Requires JavaScript',
-          isPartOf: { '@id': `${siteUrl}/#website` },
-          featureList: [
-            'Estimate taxable value after exemptions',
-            'Estimate annual property taxes',
-            'Estimate monthly property-tax cost',
-          ],
-        },
-        {
-          '@type': 'BreadcrumbList',
-          '@id': `${pageUrl}#breadcrumbs`,
-          itemListElement: [
-            { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
-            { '@type': 'ListItem', position: 2, name: 'Financial tools', item: `${siteUrl}/decide/financial-tools` },
-            { '@type': 'ListItem', position: 3, name: 'Property tax calculator', item: pageUrl },
-          ],
-        },
-      ],
-    })],
+  head: () => buildCalculatorHead(texasDefinedBrand, {
+    canonicalPath,
+    title: 'Texas Property Tax Calculator',
+    description,
+    featureList: [
+      'Estimate taxable value after exemptions',
+      'Estimate annual property taxes',
+      'Estimate monthly property-tax cost',
+    ],
   }),
   component: Page,
 });
