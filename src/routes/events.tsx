@@ -1,5 +1,5 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 
 import bluebonnets from "@/assets/bluebonnets.jpg";
@@ -16,7 +16,8 @@ import { cn } from "@/lib/utils";
 const description =
   "Rodeos, wildflower weekends, barbecue throwdowns, dance halls and county fairs — good reasons to get out of the house.";
 const canonicalPath = "/events";
-const pageUrl = `https://${texasDefinedBrand.identity.domain}${canonicalPath}`;
+const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
+const pageUrl = `${siteUrl}${canonicalPath}`;
 
 export const Route = createFileRoute("/events")({
   loader: async ({ context }) => {
@@ -55,6 +56,42 @@ export const Route = createFileRoute("/events")({
       },
     }));
 
+    const graph = [
+      {
+        "@type": "CollectionPage",
+        "@id": `${pageUrl}#page`,
+        url: pageUrl,
+        name: "Texas Events Calendar",
+        description,
+        image: {
+          "@type": "ImageObject",
+          url: absoluteUrl(texasDefinedBrand, bluebonnets),
+          caption: "Bluebonnets running to a fence line in a Texas spring field",
+          width: 1600,
+          height: 1067,
+        },
+        isPartOf: { "@id": `${siteUrl}/#website` },
+        mainEntity: { "@id": `${pageUrl}#events` },
+        breadcrumb: { "@id": `${pageUrl}#breadcrumbs` },
+      },
+      {
+        "@type": "ItemList",
+        "@id": `${pageUrl}#events`,
+        name: "Texas events calendar",
+        url: pageUrl,
+        numberOfItems: eventItems.length,
+        itemListElement: eventItems,
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${pageUrl}#breadcrumbs`,
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
+          { "@type": "ListItem", position: 2, name: "Events", item: pageUrl },
+        ],
+      },
+    ];
+
     return {
       meta: buildMeta(texasDefinedBrand, {
         title: "Texas Events Calendar",
@@ -68,16 +105,7 @@ export const Route = createFileRoute("/events")({
         ? [
             {
               type: "application/ld+json",
-              children: JSON.stringify({
-                "@context": "https://schema.org",
-                "@type": "ItemList",
-                "@id": `${pageUrl}#events`,
-                name: "Texas events calendar",
-                url: pageUrl,
-                numberOfItems: eventItems.length,
-                itemListElement: eventItems,
-                image: absoluteUrl(texasDefinedBrand, bluebonnets),
-              }),
+              children: JSON.stringify({ "@context": "https://schema.org", "@graph": graph }),
             },
           ]
         : [],
@@ -116,7 +144,14 @@ function EventsPage() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/30" />
         <Container className="relative py-20 sm:py-28">
-          <p className="eyebrow text-ink-foreground/75">This weekend</p>
+          <nav aria-label="Breadcrumb" className="text-xs text-ink-foreground/70">
+            <ol className="flex items-center gap-2">
+              <li><Link to="/" className="hover:text-ink-foreground">Home</Link></li>
+              <li aria-hidden="true">/</li>
+              <li aria-current="page" className="text-ink-foreground">Events</li>
+            </ol>
+          </nav>
+          <p className="eyebrow mt-8 text-ink-foreground/75">This weekend</p>
           <h1 className="mt-3 max-w-3xl font-display text-4xl leading-tight sm:text-6xl">
             Good reasons to leave the house
           </h1>
