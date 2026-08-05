@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
+import { supplementalExploreCategories } from "@/data/explore-categories";
+import { categories } from "@/data/fixtures/texas";
 import { fetchExploreDestinations } from "@/data/explore-remote";
 
 const BASE_URL = "https://texasdefined.com";
@@ -27,8 +29,12 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           });
         }
 
+        const categorySlugs = [...categories, ...supplementalExploreCategories]
+          .map((category) => category.slug)
+          .filter(Boolean);
         const urls = [
           `${BASE_URL}/explore`,
+          ...categorySlugs.map((slug) => `${BASE_URL}/explore/${slug}`),
           ...destinations.filter((item) => item.slug).map((item) => `${BASE_URL}/destination/${item.slug}`),
         ];
         const entries = [...new Set(urls)]
