@@ -11,12 +11,13 @@ const errors = [];
 for (const feature of [
   'function hasValidCoordinates',
   '...(validGeo',
-  'destination.highlights.length > 0',
-  'related.length > 0',
+  'DestinationVisitPlanner',
+  'relatedPlaces.length > 0',
   'categoriesQuery()',
   '"@type": "WebPage"',
   'mainEntity: { "@id": `${url}#attraction` }',
   'mainEntityOfPage: { "@id": url }',
+  'breadcrumb: { "@id": `${url}#breadcrumbs` }',
   '"@id": `${url}#primaryimage`',
   'categories.find((category) => category.slug === destination.category)?.name',
 ]) {
@@ -71,4 +72,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Article and destination data and entity graph integrity validation passed.');
+console.log('Article and destination data, visit-planner, relationship, breadcrumb, and entity graph integrity validation passed.');
