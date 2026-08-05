@@ -111,6 +111,10 @@ export interface Destination {
   entryNote: string;
   highlights: string[];
   body: string[];
+  managingAuthority?: string;
+  officialUrl?: string;
+  sourceCheckedAt?: string;
+  reservationUrl?: string;
   featured?: boolean;
 }
 
