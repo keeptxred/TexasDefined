@@ -31,12 +31,19 @@ for (const feature of [
   'facilityPattern.test(item)',
   '!activities.includes(item)',
   '!facilities.includes(item)',
+  'const practicalTips = unique([',
+  'destination.bestSeason ?',
+  'destination.entryNote',
+  'destination.reservationUrl ?',
+  'destination.accessibilityNotes ?',
+  'destination.directions ?',
   'if (!activities.length && !facilities.length && !otherHighlights.length && !practicalTips.length) return null',
-  'Confirm changing conditions, closures, fees, and availability before traveling.',
-  'destination.reservationUrl ? "Check reservation availability before making the drive."',
-  'destination.accessibilityNotes ? `Accessibility: ${destination.accessibilityNotes}`',
-  'destination.directions ? `Arrival guidance: ${destination.directions}`',
+  'Conditions, closures, fees and availability can change',
   'aria-labelledby="plan-your-visit"',
+  'activities.map',
+  'facilities.map',
+  'otherHighlights.map',
+  'practicalTips.map',
 ]) {
   if (!destinationPlanner.includes(feature)) errors.push(`Destination visit-planner integrity feature missing: ${feature}.`);
 }
