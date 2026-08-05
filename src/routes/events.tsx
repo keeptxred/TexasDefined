@@ -130,9 +130,9 @@ function EventsPage() {
               <p className="mt-2 text-sm leading-relaxed text-ink-foreground/85">
                 {featured.blurb}
               </p>
-              <p className="mt-3 text-xs uppercase tracking-widest text-ink-foreground/70">
+              <p className="mt-3 text-sm text-ink-foreground/70">
                 {formatDateRange(featured.startDate, featured.endDate, brand.identity.locale)} ·{" "}
-                {featured.city} · {regionName(featured.region)}
+                In {featured.city}{regionName(featured.region) ? ` · ${regionName(featured.region)}` : ""}
               </p>
             </div>
           )}
@@ -158,7 +158,7 @@ function EventsPage() {
               onChange={setCategory}
             />
             <FilterRow
-              label="Where in Texas?"
+              label="Where should we look?"
               options={[
                 { value: "all", label: "Anywhere" },
                 ...regions.map((item) => ({ value: item.id, label: item.name })),
@@ -186,7 +186,7 @@ function EventsPage() {
             </div>
 
             <aside className="h-fit border border-border bg-secondary/50 p-6 lg:sticky lg:top-24">
-              <p className="eyebrow text-muted-foreground">Go by region</p>
+              <p className="eyebrow text-muted-foreground">Pick a part of the state</p>
               <ul className="mt-4 space-y-3">
                 {regions.map((item) => {
                   const count = events.filter((event) => event.region === item.id).length;
@@ -198,7 +198,7 @@ function EventsPage() {
                         className="flex w-full items-baseline justify-between gap-4 border-b border-border/70 pb-2 text-left transition-colors hover:text-primary"
                       >
                         <span className="font-display text-lg">{item.name}</span>
-                        <span className="text-xs uppercase tracking-widest text-muted-foreground">
+                        <span className="text-xs text-muted-foreground">
                           {count} pick{count === 1 ? "" : "s"}
                         </span>
                       </button>
