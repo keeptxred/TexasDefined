@@ -206,8 +206,15 @@ function ExplorePage() {
           <ul className="mt-10 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
             {regions.map((region) => (
               <li key={region.id} className="border-t border-border pt-4">
-                <h3 className="font-display text-xl">{region.name}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{region.blurb}</p>
+                <Link
+                  to="/explore/region/$region"
+                  params={{ region: region.id }}
+                  className="group block"
+                >
+                  <h3 className="font-display text-xl transition-colors group-hover:text-primary">{region.name}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{region.blurb}</p>
+                  <span className="mt-3 inline-block text-xs font-medium text-primary">Explore the region →</span>
+                </Link>
               </li>
             ))}
           </ul>
