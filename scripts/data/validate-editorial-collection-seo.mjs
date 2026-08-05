@@ -8,6 +8,7 @@ const routes = [
   ['Moving to Texas', 'src/routes/moving-to-texas.tsx', '/moving-to-texas'],
   ['Real estate', 'src/routes/real-estate.tsx', '/real-estate'],
   ['Home and garden', 'src/routes/home-garden.tsx', '/home-garden'],
+  ['Texas sports', 'src/routes/sports.tsx', '/sports'],
 ];
 const errors = [];
 
