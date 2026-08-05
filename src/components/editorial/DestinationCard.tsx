@@ -37,6 +37,10 @@ export function DestinationCard({
           {regionLabel && <p className="eyebrow opacity-80">{regionLabel}</p>}
           <h3 className="mt-1 font-display text-2xl">{destination.name}</h3>
           <p className="mt-1 line-clamp-2 text-sm opacity-85">{destination.summary}</p>
+          <span className="mt-4 inline-flex items-center gap-2 text-sm font-medium">
+            Plan a visit
+            <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">→</span>
+          </span>
         </div>
       </Link>
     );
@@ -73,6 +77,14 @@ export function DestinationCard({
           </Link>
         </h3>
         <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{destination.summary}</p>
+        <Link
+          to="/destination/$slug"
+          params={{ slug: destination.slug }}
+          className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-primary"
+        >
+          Plan a visit
+          <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">→</span>
+        </Link>
       </div>
     </article>
   );
