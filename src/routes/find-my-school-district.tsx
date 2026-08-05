@@ -17,17 +17,17 @@ const steps = [
 
 export const Route = createFileRoute('/find-my-school-district')({
   head: () => ({
-    meta: buildMeta(texasDefinedBrand, { canonicalPath, title: 'Find Your Texas School District', description }),
+    meta: buildMeta(texasDefinedBrand, { canonicalPath, title: 'Find the School District for an Address', description }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
     scripts: [jsonLd({
       '@context': 'https://schema.org',
       '@graph': [
         {
           '@type': 'HowTo', '@id': `${pageUrl}#howto`, url: pageUrl,
-          name: 'How to verify a Texas school district for an address', description,
+          name: 'How to verify the school district for a Texas address', description,
           isPartOf: { '@id': `${siteUrl}/#website` },
           step: steps.map((text, index) => ({
-            '@type': 'HowToStep', position: index + 1, name: `School district verification step ${index + 1}`,
+            '@type': 'HowToStep', position: index + 1, name: `School district check ${index + 1}`,
             text, url: `${pageUrl}#school-step-${index + 1}`,
           })),
         },
@@ -35,7 +35,7 @@ export const Route = createFileRoute('/find-my-school-district')({
           '@type': 'BreadcrumbList', '@id': `${pageUrl}#breadcrumbs`,
           itemListElement: [
             { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
-            { '@type': 'ListItem', position: 2, name: 'Moving to Texas', item: `${siteUrl}/moving-to-texas` },
+            { '@type': 'ListItem', position: 2, name: 'Moving Here', item: `${siteUrl}/moving-to-texas` },
             { '@type': 'ListItem', position: 3, name: 'Find Your School District', item: pageUrl },
           ],
         },
@@ -56,8 +56,8 @@ function Page() {
             <li aria-current="page" className="text-foreground">School Districts</li>
           </ol>
         </nav>
-        <p className="eyebrow text-primary">Schools & Communities</p><h1>Find the district that serves your address</h1><p className="lead">{description}</p>
-        <h2>Why the city name isn’t enough</h2>
+        <p className="eyebrow text-primary">Schools and Communities</p><h1>Find the district that serves your address</h1><p className="lead">{description}</p>
+        <h2>Why the city name is not enough</h2>
         <p>City limits, ZIP codes, district boundaries and attendance zones do not always line up. A home can sit in one city and attend schools in another district, so the exact address matters.</p>
         <h2>The safest way to check</h2>
         <ol>{steps.map((step, index) => <li id={`school-step-${index + 1}`} key={step}>{step}</li>)}</ol>
