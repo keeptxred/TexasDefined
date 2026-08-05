@@ -48,10 +48,10 @@ requireSymbols(component, ['data-entity-id','data-entity-kind','data-link-score'
 requireSymbols(analytics, ['internal_link_shown','internal_link_clicked','IntersectionObserver','recordInternalLinkExposure'], 'analytics');
 requireSymbols(memoryCard, ['Tracked entities','Link impressions','Most exposed','Most engaged','Shown but unclicked'], 'memory health card');
 requireSymbols(historyCard, ['Current release','Change class','fingerprintMatches'], 'policy history card');
-requireSymbols(rollbackCard, ['previewInternalLinkPolicyRollback','Rollback preview','preview only','changeCount'], 'rollback preview card');
+requireSymbols(rollbackCard, ['previewInternalLinkPolicyRollback','Internal-link policy rollback preview','preview only','changeCount'], 'rollback preview card');
 requireSymbols(articleBody, ['INTERNAL_LINK_POLICIES.article',"policyForSurface('article')",'articlePolicy.pageBudget'], 'article integration');
 requireSymbols(guide, ["INTERNAL_LINK_POLICIES['property-tax-guide']","policyForSurface('property-tax-guide')",'surfacePolicy.pageBudget'], 'guide integration');
-requireSymbols(destination, ["INTERNAL_LINK_POLICIES.destination","policyForSurface('destination')",'excludedEntityIds'], 'destination integration');
+requireSymbols(destination, ['INTERNAL_LINK_POLICIES.destination','policyForSurface','destinationPolicy','excludedEntityIds','surfacePolicy.pageBudget'], 'destination integration');
 requireSymbols(previewApi, ["createFileRoute('/api/internal-links')",'50000','entityExposureWeights','x-robots-tag'], 'preview API');
 requireSymbols(coverageApi, ["createFileRoute('/api/internal-link-coverage')",'no-store'], 'coverage API');
 requireSymbols(qualityApi, ["createFileRoute('/api/internal-link-quality')",'no-store'], 'quality API');
