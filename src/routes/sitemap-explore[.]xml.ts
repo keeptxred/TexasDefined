@@ -5,23 +5,30 @@ import { fetchExploreDestinations } from "@/data/explore-remote";
 const BASE_URL = "https://texasdefined.com";
 
 function escapeXml(value: string): string {
-  return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&apos;");
+  return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\"/g, "&quot;").replace(/'/g, "&apos;");
 }
 
 export const Route = createFileRoute("/sitemap-explore.xml")({
   server: {
     handlers: {
       GET: async () => {
-        let destinations = [] as Awaited<ReturnType<typeof fetchExploreDestinations>>;
+        let destinations: Awaited<ReturnType<typeof fetchExploreDestinations>>;
         try {
           destinations = await fetchExploreDestinations({ limit: 5000 });
         } catch (error) {
           console.error("Explore sitemap catalog request failed", error);
+          return new Response("Explore sitemap temporarily unavailable.", {
+            status: 503,
+            headers: {
+              "Content-Type": "text/plain; charset=utf-8",
+              "Cache-Control": "no-store",
+              "Retry-After": "300",
+            },
+          });
         }
 
         const urls = [
           `${BASE_URL}/explore`,
-          `${BASE_URL}/explore/search`,
           ...destinations.filter((item) => item.slug).map((item) => `${BASE_URL}/destination/${item.slug}`),
         ];
         const entries = [...new Set(urls)]
