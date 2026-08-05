@@ -70,8 +70,8 @@ for (const category of migratedCategories) {
 
 for (const feature of [
   'supplementalExploreCategories',
-  'categoryMap',
-  'return [...categoryMap.values()]',
+  'const merged = new Map',
+  'return [...merged.values()]',
 ]) {
   if (!queries.includes(feature)) errors.push(`Merged Explore taxonomy feature missing: ${feature}.`);
 }
