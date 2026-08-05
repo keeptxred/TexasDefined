@@ -6,7 +6,7 @@ import { articlesQuery, destinationsQuery, regionsQuery } from "@/data/queries";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const description =
-  "Friday night lights, dusty rodeo arenas, big-league Sundays and the small rituals that make Texas sport its own religion.";
+  "Friday night lights, dusty rodeo arenas, big-league Sundays and the small rituals that turn a game into a Texas tradition.";
 
 export const Route = createFileRoute("/sports")({
   head: () => ({
@@ -23,8 +23,8 @@ export const Route = createFileRoute("/sports")({
   component: () => (
     <CategoryPage
       category="sports"
-      eyebrow="Sports"
-      title="Friday nights, rodeo dirt and big-league Sundays"
+      eyebrow="The Texas game"
+      title="Where Friday nights still matter"
       intro={description}
     />
   ),
