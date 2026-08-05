@@ -81,10 +81,11 @@ export function Header() {
                   </div>
                   <Link
                     to={item.to}
-                    className="eyebrow border-b border-primary pb-1 text-primary"
+                    className="eyebrow group inline-flex items-center gap-2 border-b border-primary pb-1 text-primary"
                     onClick={() => setOpenGroup(null)}
                   >
-                    See all of {item.label}
+                    Keep exploring
+                    <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">→</span>
                   </Link>
                 </div>
                 <ul className="mt-6 grid grid-cols-3 gap-6 xl:grid-cols-6">
