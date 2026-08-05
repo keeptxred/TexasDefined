@@ -14,8 +14,8 @@ export const Route = createFileRoute("/search")({
   validateSearch: searchSchema,
   head: () => ({
     meta: buildMeta(texasDefinedBrand, {
-      title: "Search",
-      description: "Search stories, destinations, guides, events and shop goods across Texas.",
+      title: "Search Texas Defined",
+      description: "Find Texas stories, destinations, guides, events and goods worth knowing about.",
       canonicalPath: "/search",
       robots: "noindex, follow",
     }),
@@ -38,8 +38,11 @@ function SearchPage() {
 
   return (
     <Container className="min-h-[60vh] py-16 sm:py-24">
-      <p className="eyebrow text-primary">Search</p>
-      <h1 className="mt-3 font-display text-4xl leading-tight sm:text-5xl">Find it</h1>
+      <p className="eyebrow text-primary">Search Texas Defined</p>
+      <h1 className="mt-3 font-display text-4xl leading-tight sm:text-5xl">What are you looking for?</h1>
+      <p className="mt-4 max-w-xl text-base leading-relaxed text-muted-foreground">
+        Try a lake, town, state park, Texas tradition, practical question or favorite dish.
+      </p>
       <form
         className="mt-8 flex max-w-xl gap-3"
         onSubmit={(event) => {
@@ -48,12 +51,21 @@ function SearchPage() {
           void navigate({ search: { q: String(value ?? "") } });
         }}
       >
-        <label htmlFor="q" className="sr-only">Search TexasDefined</label>
-        <input id="q" name="q" defaultValue={query} placeholder="Caddo Lake, brisket, property tax…" className="w-full border border-input bg-background px-4 py-3 text-sm outline-none focus:border-primary" />
-        <button type="submit" className="shrink-0 bg-primary px-5 py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90">Search</button>
+        <label htmlFor="q" className="sr-only">Search Texas Defined</label>
+        <input id="q" name="q" defaultValue={query} placeholder="Caddo Lake, brisket, property taxes…" className="w-full border border-input bg-background px-4 py-3 text-sm outline-none focus:border-primary" />
+        <button type="submit" className="shrink-0 bg-primary px-5 py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90">Find it</button>
       </form>
 
-      {query && <p className="mt-6 text-sm text-muted-foreground">{results.length} result{results.length === 1 ? "" : "s"} for “{query}”</p>}
+      {query && results.length > 0 && (
+        <p className="mt-6 text-sm text-muted-foreground">
+          {results.length} match{results.length === 1 ? "" : "es"} for “{query}”
+        </p>
+      )}
+      {query && results.length === 0 && (
+        <p className="mt-8 max-w-xl border-t border-border pt-6 text-sm leading-relaxed text-muted-foreground">
+          We couldn't find a match for “{query}.” Try a broader place name, topic or Texas landmark.
+        </p>
+      )}
 
       <ul className="mt-8 max-w-2xl">
         {results.map((result) => (
