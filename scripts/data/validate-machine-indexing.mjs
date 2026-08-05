@@ -38,6 +38,13 @@ const requiredDiscoveryTargets = [
   '/explore/small-towns',
   '/explore/food-bbq',
   '/explore/outdoors',
+  '/explore/region/hill-country',
+  '/explore/region/gulf-coast',
+  '/explore/region/big-bend',
+  '/explore/region/panhandle',
+  '/explore/region/piney-woods',
+  '/explore/region/prairies-lakes',
+  '/explore/region/south-texas',
   '/sitemap.xml',
   '/sitemap-explore.xml',
 ];
@@ -66,4 +73,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('TexasDefined machine endpoints, robots policy, and AI discovery guidance are protected.');
+console.log('TexasDefined machine endpoints, robots policy, category and regional AI discovery guidance are protected.');
