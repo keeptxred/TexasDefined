@@ -1,5 +1,6 @@
 import { queryOptions } from "@tanstack/react-query";
 
+import { supplementalExploreCategories } from "./explore-categories";
 import { fetchExploreDestination, fetchExploreDestinations } from "./explore-remote";
 import { platform, scope } from "./index";
 import type { ArticleQuery, DestinationQuery } from "./repositories";
@@ -87,7 +88,14 @@ export const eventsQuery = (params: { limit?: number } = {}) =>
 export const categoriesQuery = () =>
   queryOptions({
     queryKey: ["categories", scope.brandId],
-    queryFn: () => platform.taxonomy.categories(scope),
+    queryFn: async () => {
+      const categories = await platform.taxonomy.categories(scope);
+      const merged = new Map(categories.map((category) => [category.slug, category]));
+      for (const category of supplementalExploreCategories) {
+        if (!merged.has(category.slug)) merged.set(category.slug, category);
+      }
+      return [...merged.values()];
+    },
   });
 
 export const regionsQuery = () =>
