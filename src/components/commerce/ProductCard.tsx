@@ -31,8 +31,8 @@ export function ProductCard({
           className="aspect-square w-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
         {product.madeInTexas && (
-          <span className="absolute left-3 top-3 bg-background/90 px-2 py-1 text-[0.625rem] uppercase tracking-widest text-foreground">
-            Made in Texas
+          <span className="absolute left-3 top-3 bg-background/90 px-2 py-1 text-xs text-foreground">
+            Made here in Texas
           </span>
         )}
       </div>
@@ -53,7 +53,8 @@ export function ProductCard({
         type="button"
         onClick={() => setSaved((value) => !value)}
         aria-pressed={saved}
-        aria-label={saved ? `Remove ${product.name} from saved` : `Save ${product.name}`}
+        aria-label={saved ? `Remove ${product.name} from your saved picks` : `Save ${product.name} for later`}
+        title={saved ? "Remove from saved picks" : "Save for later"}
         className="absolute right-3 top-3 z-10 rounded-full bg-background/90 p-2 text-foreground/70 transition-all hover:text-primary lg:opacity-0 lg:focus-visible:opacity-100 lg:group-hover:opacity-100"
       >
         <Heart className={cn("size-4", saved && "fill-primary text-primary")} aria-hidden />
