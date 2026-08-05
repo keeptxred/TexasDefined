@@ -2,13 +2,50 @@ import { useMemo, useState } from 'react';
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { Container } from '@/components/layout/Container';
 import { texasDefinedBrand } from '@/brand/texasdefined';
-import { buildMeta, canonicalLink } from '@/lib/seo';
+import { buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 const description = 'Get a quick annual and monthly property-tax estimate using the home value, exemptions, and combined local rate for an address.';
-export const Route = createFileRoute('/decide/property-taxes')({ head: () => ({ meta: buildMeta(texasDefinedBrand, {
-      canonicalPath: '/decide/property-taxes',
-      title: 'Texas Property Tax Calculator', description }),
-    links: [canonicalLink(texasDefinedBrand, '/decide/property-taxes')] }), component: Page });
+const canonicalPath = '/decide/property-taxes';
+const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
+const pageUrl = `${siteUrl}${canonicalPath}`;
+
+export const Route = createFileRoute('/decide/property-taxes')({
+  head: () => ({
+    meta: buildMeta(texasDefinedBrand, { canonicalPath, title: 'Texas Property Tax Calculator', description }),
+    links: [canonicalLink(texasDefinedBrand, canonicalPath)],
+    scripts: [jsonLd({
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'WebApplication',
+          '@id': `${pageUrl}#application`,
+          url: pageUrl,
+          name: 'Texas Property Tax Calculator',
+          description,
+          applicationCategory: 'FinanceApplication',
+          operatingSystem: 'Any',
+          browserRequirements: 'Requires JavaScript',
+          isPartOf: { '@id': `${siteUrl}/#website` },
+          featureList: [
+            'Estimate taxable value after exemptions',
+            'Estimate annual property taxes',
+            'Estimate monthly property-tax cost',
+          ],
+        },
+        {
+          '@type': 'BreadcrumbList',
+          '@id': `${pageUrl}#breadcrumbs`,
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
+            { '@type': 'ListItem', position: 2, name: 'Financial tools', item: `${siteUrl}/decide/financial-tools` },
+            { '@type': 'ListItem', position: 3, name: 'Property tax calculator', item: pageUrl },
+          ],
+        },
+      ],
+    })],
+  }),
+  component: Page,
+});
 
 function Page() {
   const [value, setValue] = useState(400000);
@@ -16,7 +53,9 @@ function Page() {
   const [rate, setRate] = useState(2.1);
   const result = useMemo(() => { const taxable = Math.max(0, value - exemptions); const annual = taxable * rate / 100; return { taxable, annual, monthly: annual / 12 }; }, [value, exemptions, rate]);
   const money = (amount: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(amount);
-  return <Container className="py-16 sm:py-24"><article className="mx-auto max-w-4xl"><p className="eyebrow text-primary">Know before you buy</p><h1 className="mt-3 font-display text-4xl sm:text-6xl">Estimate Your Property Taxes</h1><p className="mt-5 text-lg leading-8 text-muted-foreground">{description}</p>
+  return <Container className="py-16 sm:py-24"><article className="mx-auto max-w-4xl">
+    <nav aria-label="Breadcrumb" className="mb-6 text-sm text-muted-foreground"><Link to="/">Home</Link><span aria-hidden="true"> / </span><Link to="/decide/financial-tools">Financial tools</Link><span aria-hidden="true"> / </span><span aria-current="page">Property tax calculator</span></nav>
+    <p className="eyebrow text-primary">Know before you buy</p><h1 className="mt-3 font-display text-4xl sm:text-6xl">Estimate Your Property Taxes</h1><p className="mt-5 text-lg leading-8 text-muted-foreground">{description}</p>
     <section className="mt-10 grid gap-5 rounded-lg border border-border p-6 sm:grid-cols-3">
       <label className="space-y-2"><span className="text-sm font-medium">Home value</span><input className="w-full rounded border border-border bg-background p-3" type="number" min="0" step="1000" value={value} onChange={e => setValue(Number(e.target.value) || 0)} /></label>
       <label className="space-y-2"><span className="text-sm font-medium">Total exemptions</span><input className="w-full rounded border border-border bg-background p-3" type="number" min="0" step="1000" value={exemptions} onChange={e => setExemptions(Number(e.target.value) || 0)} /></label>
