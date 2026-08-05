@@ -11,6 +11,8 @@ if (!rootRoute.includes('/explore/search?q={search_term_string}')) errors.push('
 if (rootRoute.includes('`${siteUrl}/search?q={search_term_string}`')) errors.push('WebSite SearchAction still advertises the nonexistent /search route.');
 if (!exploreSearchRoute.includes('createFileRoute("/explore/search")')) errors.push('Explore search route is missing.');
 if (!exploreSearchRoute.includes('name="q"')) errors.push('Explore search form does not accept the SearchAction query parameter.');
+if (!exploreSearchRoute.includes('canonicalPath: "/explore/search"')) errors.push('Explore search does not consolidate query variants to its canonical route.');
+if (!exploreSearchRoute.includes('robots: "noindex, follow"')) errors.push('Explore search results are not protected from indexing.');
 
 if (errors.length) {
   console.error('WebSite search-action validation failed:');
@@ -18,4 +20,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('WebSite SearchAction validation passed.');
+console.log('WebSite SearchAction and search-indexing validation passed.');
