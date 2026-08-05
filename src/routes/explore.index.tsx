@@ -7,7 +7,7 @@ import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import { articlesQuery, categoriesQuery, destinationsQuery, regionsQuery } from "@/data/queries";
-import { buildMeta, canonicalLink } from "@/lib/seo";
+import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 
 const EXPLORE_CATEGORIES = [
   "lakes-rivers",
@@ -20,23 +20,103 @@ const EXPLORE_CATEGORIES = [
 
 const description =
   "Cold rivers, canyon trails, two-lane roads, small-town main streets and barbecue worth waiting for — start with whatever sounds good today.";
+const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
+const pageUrl = `${siteUrl}/explore`;
 
 export const Route = createFileRoute("/explore/")({
-  head: () => ({
-    meta: buildMeta(texasDefinedBrand, {
-      canonicalPath: "/explore",
-      title: "Explore Texas",
-      description,
-    }),
-    links: [canonicalLink(texasDefinedBrand, "/explore")],
-  }),
+  head: ({ loaderData }) => {
+    const categories = (loaderData?.categories ?? []).filter((category) =>
+      (EXPLORE_CATEGORIES as readonly string[]).includes(category.slug),
+    );
+    const destinations = loaderData?.destinations ?? [];
+    const articles = loaderData?.articles ?? [];
+    const items = [
+      ...categories.map((category) => ({
+        type: "WebPage" as const,
+        name: category.name,
+        description: category.description,
+        url: `${siteUrl}/explore/${category.slug}`,
+        image: category.image?.src,
+      })),
+      ...destinations.map((destination) => ({
+        type: "TouristAttraction" as const,
+        name: destination.name,
+        description: destination.summary,
+        url: `${siteUrl}/destination/${destination.slug}`,
+        image: destination.hero.src,
+      })),
+      ...articles.map((article) => ({
+        type: "Article" as const,
+        name: article.title,
+        description: article.dek,
+        url: `${siteUrl}/article/${article.slug}`,
+        image: article.hero.src,
+      })),
+    ];
+    const itemListElement = items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      item: {
+        "@type": item.type,
+        name: item.name,
+        description: item.description,
+        url: item.url,
+        image: item.image ? absoluteUrl(texasDefinedBrand, item.image) : undefined,
+      },
+    }));
+
+    return {
+      meta: buildMeta(texasDefinedBrand, {
+        canonicalPath: "/explore",
+        title: "Explore Texas",
+        description,
+      }),
+      links: [canonicalLink(texasDefinedBrand, "/explore")],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "CollectionPage",
+                "@id": `${pageUrl}#page`,
+                url: pageUrl,
+                name: "Explore Texas",
+                description,
+                isPartOf: { "@id": `${siteUrl}/#website` },
+                mainEntity: { "@id": `${pageUrl}#items` },
+                breadcrumb: { "@id": `${pageUrl}#breadcrumbs` },
+              },
+              {
+                "@type": "ItemList",
+                "@id": `${pageUrl}#items`,
+                name: "Explore Texas categories, destinations, and stories",
+                numberOfItems: itemListElement.length,
+                itemListElement,
+              },
+              {
+                "@type": "BreadcrumbList",
+                "@id": `${pageUrl}#breadcrumbs`,
+                itemListElement: [
+                  { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
+                  { "@type": "ListItem", position: 2, name: "Explore", item: pageUrl },
+                ],
+              },
+            ],
+          }),
+        },
+      ],
+    };
+  },
   loader: async ({ context }) => {
-    await Promise.all([
+    const [categories, regions, destinations, articles] = await Promise.all([
       context.queryClient.ensureQueryData(categoriesQuery()),
       context.queryClient.ensureQueryData(regionsQuery()),
       context.queryClient.ensureQueryData(destinationsQuery({ featured: true })),
       context.queryClient.ensureQueryData(articlesQuery({ limit: 6 })),
     ]);
+    return { categories, regions, destinations, articles };
   },
   component: ExplorePage,
 });
@@ -54,7 +134,14 @@ function ExplorePage() {
   return (
     <>
       <Container className="pb-6 pt-16 sm:pt-24">
-        <p className="eyebrow text-primary">Worth the drive</p>
+        <nav aria-label="Breadcrumb" className="text-xs text-muted-foreground">
+          <ol className="flex items-center gap-2">
+            <li><Link to="/" className="hover:text-foreground">Home</Link></li>
+            <li aria-hidden="true">/</li>
+            <li aria-current="page" className="text-foreground">Explore</li>
+          </ol>
+        </nav>
+        <p className="eyebrow mt-8 text-primary">Worth the drive</p>
         <h1 className="mt-3 max-w-3xl font-display text-4xl leading-tight sm:text-6xl">
           Find your next favorite place
         </h1>
