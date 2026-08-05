@@ -16,13 +16,13 @@ interface FeatureHeroProps {
 }
 
 const CATEGORY_LABELS: Record<string, string> = {
-  "moving-to-texas": "Moving here",
-  "home-garden": "Front porch",
-  "real-estate": "Putting down roots",
-  "texas-history": "Then & now",
-  "food-bbq": "The Texas table",
+  "moving-to-texas": "Moving Here",
+  "home-garden": "Front Porch",
+  "real-estate": "Homes and Land",
+  "texas-history": "Then & Now",
+  "food-bbq": "The Texas Table",
   outdoors: "Wild Texas",
-  sports: "The Texas game",
+  sports: "The Texas Game",
 };
 
 function editorialLabel(value: string) {
@@ -118,9 +118,10 @@ export function FeatureHero({
           <Link
             to={to}
             params={params}
-            className="eyebrow border-b-2 border-ink-foreground pb-1 transition-opacity hover:opacity-75"
+            className="eyebrow group inline-flex items-center gap-2 border-b-2 border-ink-foreground pb-1 transition-opacity hover:opacity-75"
           >
             {brand.copy.readMore}
+            <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">→</span>
           </Link>
           {meta && <p className="text-xs text-ink-foreground/70">{meta}</p>}
         </div>
