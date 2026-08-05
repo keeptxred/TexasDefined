@@ -1,7 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { DestinationCard } from "@/components/editorial/DestinationCard";
+import { RegionalDestinationGrid } from "@/components/editorial/RegionalDestinationGrid";
 import { SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import { destinations as fixtureDestinations } from "@/data/fixtures/texas";
@@ -135,17 +135,11 @@ function RegionPage() {
 
       <Container className="pb-20">
         <SectionHeader
-          eyebrow={`${destinations.length} places`}
+          eyebrow={`${destinations.length.toLocaleString("en-US")} places`}
           title={`Where to go in ${region.name}`}
           description="Browse the shared Texas destination catalog by region, then open any place for planning details, highlights and nearby ideas."
         />
-        <ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-          {destinations.map((destination) => (
-            <li key={destination.id}>
-              <DestinationCard destination={destination} regionLabel={region.name} />
-            </li>
-          ))}
-        </ul>
+        <RegionalDestinationGrid destinations={destinations} regionName={region.name} />
       </Container>
     </>
   );
