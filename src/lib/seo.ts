@@ -14,6 +14,22 @@ export interface PageSeo {
   modifiedTime?: string;
 }
 
+interface EditorialCollectionItem {
+  name: string;
+  url: string;
+  image?: string;
+  description?: string;
+  type: "Article" | "TouristAttraction";
+}
+
+interface EditorialCollectionSeo extends PageSeo {
+  canonicalPath: string;
+  collectionName: string;
+  breadcrumbParentName?: string;
+  breadcrumbParentPath?: string;
+  items: EditorialCollectionItem[];
+}
+
 export function absoluteUrl(brand: BrandConfig, value: string) {
   if (/^https?:\/\//i.test(value)) return value;
   const path = value.startsWith("/") ? value : `/${value}`;
@@ -63,6 +79,79 @@ export function jsonLd(data: Record<string, unknown>) {
   return {
     type: "application/ld+json",
     children: JSON.stringify(data),
+  };
+}
+
+export function buildEditorialCollectionHead(brand: BrandConfig, page: EditorialCollectionSeo) {
+  const pageUrl = absoluteUrl(brand, page.canonicalPath);
+  const siteUrl = `https://${brand.identity.domain}`;
+  const breadcrumbItems = [
+    { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
+    ...(page.breadcrumbParentName && page.breadcrumbParentPath
+      ? [{
+          "@type": "ListItem",
+          position: 2,
+          name: page.breadcrumbParentName,
+          item: absoluteUrl(brand, page.breadcrumbParentPath),
+        }]
+      : []),
+    {
+      "@type": "ListItem",
+      position: page.breadcrumbParentName && page.breadcrumbParentPath ? 3 : 2,
+      name: page.collectionName,
+      item: pageUrl,
+    },
+  ];
+  const itemListElement = page.items.map((item, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    item: {
+      "@type": item.type,
+      name: item.name,
+      url: absoluteUrl(brand, item.url),
+      ...(item.description ? { description: item.description } : {}),
+      ...(item.image ? { image: absoluteUrl(brand, item.image) } : {}),
+    },
+  }));
+
+  return {
+    meta: buildMeta(brand, page),
+    links: [canonicalLink(brand, page.canonicalPath)],
+    scripts: [jsonLd({
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "CollectionPage",
+          "@id": `${pageUrl}#collection`,
+          url: pageUrl,
+          name: page.collectionName,
+          description: page.description,
+          ...(page.image
+            ? {
+                image: {
+                  "@type": "ImageObject",
+                  url: absoluteUrl(brand, page.image),
+                  ...(page.imageAlt ? { caption: page.imageAlt } : {}),
+                },
+              }
+            : {}),
+          isPartOf: { "@id": `${siteUrl}/#website` },
+          mainEntity: { "@id": `${pageUrl}#items` },
+          breadcrumb: { "@id": `${pageUrl}#breadcrumbs` },
+        },
+        {
+          "@type": "ItemList",
+          "@id": `${pageUrl}#items`,
+          numberOfItems: itemListElement.length,
+          itemListElement,
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": `${pageUrl}#breadcrumbs`,
+          itemListElement: breadcrumbItems,
+        },
+      ],
+    })],
   };
 }
 
