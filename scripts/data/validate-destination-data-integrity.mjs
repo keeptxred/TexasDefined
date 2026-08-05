@@ -12,8 +12,21 @@ for (const feature of [
   '...(validGeo',
   'destination.highlights.length > 0',
   'related.length > 0',
+  'categoriesQuery()',
+  '"@type": "WebPage"',
+  'mainEntity: { "@id": `${url}#attraction` }',
+  'mainEntityOfPage: { "@id": url }',
+  '"@id": `${url}#primaryimage`',
+  'categories.find((category) => category.slug === destination.category)?.name',
 ]) {
   if (!route.includes(feature)) errors.push(`Destination integrity feature missing: ${feature}.`);
+}
+
+if (route.includes('isAccessibleForFree:')) {
+  errors.push('Destination schema must not infer free accessibility from unstructured entry notes.');
+}
+if (route.includes('name: destination.category.replace(/-/g, " ")')) {
+  errors.push('Destination breadcrumbs must use authoritative taxonomy labels instead of slug-derived labels.');
 }
 
 for (const feature of [
@@ -34,4 +47,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Destination data integrity validation passed.');
+console.log('Destination data and entity graph integrity validation passed.');
