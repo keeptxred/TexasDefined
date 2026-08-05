@@ -6,7 +6,9 @@ import { ProductCard } from "@/components/commerce/ProductCard";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import { collectionQuery, productsQuery } from "@/data/queries";
-import { buildMeta, canonicalLink } from "@/lib/seo";
+import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
+
+const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
 export const Route = createFileRoute("/shop/$collection")({
   loader: async ({ context, params }) => {
@@ -14,20 +16,60 @@ export const Route = createFileRoute("/shop/$collection")({
       collectionQuery(params.collection),
     );
     if (!collection) throw notFound();
-    await context.queryClient.ensureQueryData(productsQuery({ collection: params.collection }));
-    return { collection };
+    const products = await context.queryClient.ensureQueryData(
+      productsQuery({ collection: params.collection }),
+    );
+    return { collection, products };
   },
   head: ({ loaderData, params }) => {
     if (!loaderData) {
       return { meta: [{ title: "Not found" }, { name: "robots", content: "noindex" }] };
     }
+
+    const canonicalPath = `/shop/${params.collection}`;
+    const collectionUrl = `${siteUrl}${canonicalPath}`;
+    const itemList = {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "@id": `${collectionUrl}#products`,
+      name: `${loaderData.collection.name} products`,
+      description: loaderData.collection.description,
+      url: collectionUrl,
+      numberOfItems: loaderData.products.length,
+      itemListElement: loaderData.products.map((product, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        url: `${collectionUrl}#${productAnchor(product.id)}`,
+        item: {
+          "@type": "Product",
+          "@id": `${collectionUrl}#${productAnchor(product.id)}`,
+          name: product.name,
+          description: product.blurb,
+          image: absoluteUrl(texasDefinedBrand, product.image.src),
+          brand: { "@type": "Brand", name: product.maker },
+          category: loaderData.collection.name,
+          additionalProperty: product.madeInTexas
+            ? [{ "@type": "PropertyValue", name: "Made in Texas", value: true }]
+            : undefined,
+        },
+      })),
+    };
+
     return {
       meta: buildMeta(texasDefinedBrand, {
-      canonicalPath: `/shop/${params.collection}`,
-      title: loaderData.collection.name,
+        canonicalPath,
+        title: loaderData.collection.name,
         description: loaderData.collection.description,
+        image: loaderData.collection.image.src,
+        imageAlt: loaderData.collection.image.alt,
       }),
-    links: [canonicalLink(texasDefinedBrand, `/shop/${params.collection}`)],
+      links: [canonicalLink(texasDefinedBrand, canonicalPath)],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify(itemList),
+        },
+      ],
     };
   },
   notFoundComponent: () => (
@@ -74,7 +116,7 @@ function CollectionPage() {
           <SectionHeader eyebrow={collection.tagline} title="In this collection" />
           <ul className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {products.map((product) => (
-              <li key={product.id}>
+              <li key={product.id} id={productAnchor(product.id)}>
                 <ProductCard product={product} />
               </li>
             ))}
@@ -83,4 +125,8 @@ function CollectionPage() {
       </Section>
     </>
   );
+}
+
+function productAnchor(id: string) {
+  return `product-${id.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`;
 }
