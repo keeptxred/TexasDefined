@@ -6,6 +6,7 @@ const component = fs.readFileSync(path.join(root, 'src/components/guides/Propert
 const guides = [
   ['Homestead exemption', 'src/routes/do.homestead-exemption.tsx', '/do/homestead-exemption', 'homestead-step-'],
   ['Property tax protest', 'src/routes/do.property-tax-protest.tsx', '/do/property-tax-protest', 'protest-step-'],
+  ['Appraisal districts', 'src/routes/learn.appraisal-districts.tsx', '/learn/appraisal-districts', 'appraisal-step-'],
 ];
 const errors = [];
 
