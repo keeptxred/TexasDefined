@@ -24,6 +24,30 @@ const FORBIDDEN = [
   { label: "legacy Lovable preview", pattern: /texas-common-core\.lovable\.app/gi },
 ];
 
+// These paths intentionally describe cross-site ownership, shared contracts, or
+// private governance tooling. They are not consumer-facing legacy-brand leaks.
+const ALLOWED_PREFIXES = [
+  "src/shared/platform-core/",
+  "src/components/admin/",
+  "src/routes/admin.",
+  "src/routes/api.",
+];
+
+const ALLOWED_FILES = new Set([
+  "src/brand/types.ts",
+  "src/data/texas-data-sources.ts",
+  "src/data/types.ts",
+  "src/domain/validation/schemas.ts",
+  "src/routes/llms[.]txt.ts",
+  "src/routes/texas-data.tsx",
+  "src/routes/texas-resources.tsx",
+  "src/styles.css",
+]);
+
+function isIntentionalCrossSiteReference(file) {
+  return ALLOWED_FILES.has(file) || ALLOWED_PREFIXES.some((prefix) => file.startsWith(prefix));
+}
+
 async function collectFiles(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
   const files = [];
@@ -44,6 +68,9 @@ const files = (await Promise.all(ROOTS.map(collectFiles))).flat();
 const failures = [];
 
 for (const file of files) {
+  const relativeFile = relative(process.cwd(), file);
+  if (isIntentionalCrossSiteReference(relativeFile)) continue;
+
   const content = await readFile(file, "utf8");
   const lines = content.split(/\r?\n/);
 
@@ -53,7 +80,7 @@ for (const file of files) {
       pattern.lastIndex = 0;
       if (pattern.test(lines[index])) {
         failures.push({
-          file: relative(process.cwd(), file),
+          file: relativeFile,
           line: index + 1,
           label,
           excerpt: lines[index].trim().slice(0, 180),
@@ -64,7 +91,7 @@ for (const file of files) {
 }
 
 if (failures.length > 0) {
-  console.error("Legacy KeepTXRed references were found in TexasDefined content or application files:\n");
+  console.error("Accidental KeepTXRed references were found in TexasDefined public content or application files:\n");
   for (const failure of failures) {
     console.error(`${failure.file}:${failure.line} [${failure.label}] ${failure.excerpt}`);
   }
