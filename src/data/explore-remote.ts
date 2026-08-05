@@ -29,6 +29,31 @@ function region(value: unknown): TexasRegion {
   return "prairies-lakes";
 }
 
+/**
+ * The shared catalog stores coordinates, not a named tourism region, so fall
+ * back to the published Texas travel-region boundaries when no region string
+ * is supplied by the record.
+ */
+function regionFromCoordinates(lat: number, lng: number): TexasRegion | undefined {
+  if (!Number.isFinite(lat) || !Number.isFinite(lng) || (lat === 0 && lng === 0)) return undefined;
+  if (lat >= 33) return "panhandle";
+  if (lng <= -100) return "big-bend";
+  if (lng >= -95.5 && lat >= 30) return "piney-woods";
+  if (lat <= 28.6) return "south-texas";
+  if (lat >= 29.4 && lat <= 31.4 && lng <= -97.6) return "hill-country";
+  if (lng >= -97.6 && lat <= 30.2) return "gulf-coast";
+  return "prairies-lakes";
+}
+
+/** Embedded `explore_locations` row, when the catalog provides one. */
+function locationOf(row: Record<string, unknown>): Record<string, unknown> {
+  const relation = row.explore_locations;
+  if (Array.isArray(relation)) return (relation[0] as Record<string, unknown>) ?? {};
+  if (relation && typeof relation === "object") return relation as Record<string, unknown>;
+  return {};
+}
+
+
 function entityType(row: Record<string, unknown>): string {
   const relation = row.explore_entity_types;
   if (relation && typeof relation === "object" && !Array.isArray(relation)) {
