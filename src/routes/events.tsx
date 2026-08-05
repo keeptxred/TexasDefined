@@ -9,23 +9,75 @@ import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import { eventsQuery, regionsQuery } from "@/data/queries";
 import { formatDateRange } from "@/domain/utils/format";
-import { buildMeta, canonicalLink } from "@/lib/seo";
+import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 import bluebonnets from "@/assets/bluebonnets.jpg";
 
 const description =
   "Rodeos, wildflower weekends, barbecue throwdowns, dance halls and county fairs — a running calendar of what's worth the drive.";
+const canonicalPath = "/events";
+const pageUrl = `https://${texasDefinedBrand.identity.domain}${canonicalPath}`;
 
 export const Route = createFileRoute("/events")({
-  head: () => ({
-    meta: buildMeta(texasDefinedBrand, { title: "Texas Events Calendar", description }),
-    links: [canonicalLink(texasDefinedBrand, "/events")],
-  }),
   loader: async ({ context }) => {
-    await Promise.all([
+    const [events, regions] = await Promise.all([
       context.queryClient.ensureQueryData(eventsQuery({})),
       context.queryClient.ensureQueryData(regionsQuery()),
     ]);
+    return { events, regions };
+  },
+  head: ({ loaderData }) => {
+    const regions = loaderData?.regions ?? [];
+    const regionName = (id: string) => regions.find((item) => item.id === id)?.name;
+    const eventItems = (loaderData?.events ?? []).slice(0, 50).map((event, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      item: {
+        "@type": "Event",
+        "@id": `${pageUrl}#${event.id}`,
+        name: event.name,
+        description: event.blurb,
+        startDate: event.startDate,
+        endDate: event.endDate,
+        eventStatus: "https://schema.org/EventScheduled",
+        eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+        url: `${pageUrl}#${event.id}`,
+        location: {
+          "@type": "Place",
+          name: [event.city, regionName(event.region), "Texas"].filter(Boolean).join(", "),
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: event.city,
+            addressRegion: "TX",
+            addressCountry: "US",
+          },
+        },
+      },
+    }));
+
+    return {
+      meta: buildMeta(texasDefinedBrand, {
+        title: "Texas Events Calendar",
+        description,
+        canonicalPath,
+        image: bluebonnets,
+        imageAlt: "Bluebonnets running to a fence line in a Texas spring field",
+      }),
+      links: [canonicalLink(texasDefinedBrand, canonicalPath)],
+      scripts: eventItems.length ? [{
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          "@id": `${pageUrl}#events`,
+          name: "Texas events calendar",
+          url: pageUrl,
+          numberOfItems: eventItems.length,
+          itemListElement: eventItems,
+          image: absoluteUrl(texasDefinedBrand, bluebonnets),
+        }),
+      }] : [],
+    };
   },
   component: EventsPage,
 });
@@ -50,7 +102,6 @@ function EventsPage() {
 
   return (
     <>
-      {/* Featured event — Event Discovery style hero */}
       <section className="relative isolate overflow-hidden bg-ink text-ink-foreground">
         <img
           src={bluebonnets}
@@ -69,7 +120,7 @@ function EventsPage() {
             {description}
           </p>
           {featured && (
-            <div className="mt-10 max-w-xl border-t border-ink-foreground/30 pt-6">
+            <div id={featured.id} className="mt-10 max-w-xl border-t border-ink-foreground/30 pt-6">
               <p className="eyebrow text-ink-foreground/70">Featured · {featured.category}</p>
               <h2 className="mt-2 font-display text-3xl leading-snug">{featured.name}</h2>
               <p className="mt-2 text-sm leading-relaxed text-ink-foreground/85">
@@ -118,7 +169,7 @@ function EventsPage() {
               {filtered.length > 0 ? (
                 <ul>
                   {filtered.map((event) => (
-                    <li key={event.id}>
+                    <li id={event.id} key={event.id}>
                       <EventCard event={event} regionLabel={regionName(event.region)} />
                     </li>
                   ))}
@@ -130,7 +181,6 @@ function EventsPage() {
               )}
             </div>
 
-            {/* Map-ready rail: swaps to a live map once a tile provider is wired. */}
             <aside className="h-fit border border-border bg-secondary/50 p-6 lg:sticky lg:top-24">
               <p className="eyebrow text-muted-foreground">By region</p>
               <ul className="mt-4 space-y-3">
