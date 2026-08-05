@@ -9,7 +9,7 @@ import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
 import { articlesQuery, destinationQuery, regionsQuery } from "@/data/queries";
-import { buildMeta, canonicalLink } from "@/lib/seo";
+import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 import { INTERNAL_LINK_POLICIES, policyForSurface } from '@/platform/internal-link-policies';
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
@@ -37,7 +37,7 @@ export const Route = createFileRoute("/destination/$slug")({
       mainEntityOfPage: { "@type": "WebPage", "@id": url },
       name: destination.name,
       description: destination.summary,
-      image: [{ "@type": "ImageObject", url: destination.hero.src, caption: destination.hero.alt, width: destination.hero.width, height: destination.hero.height }],
+      image: [{ "@type": "ImageObject", url: absoluteUrl(texasDefinedBrand, destination.hero.src), caption: destination.hero.alt, width: destination.hero.width, height: destination.hero.height }],
       geo: { "@type": "GeoCoordinates", latitude: destination.coordinates.lat, longitude: destination.coordinates.lng },
       address: { "@type": "PostalAddress", addressRegion: "TX", addressLocality: destination.nearestTown, addressCountry: "US" },
       containedInPlace: { "@type": "State", name: "Texas" },
