@@ -26,9 +26,9 @@ export function MapPreview({
   return (
     <div className={className}>
       <div className="border border-border bg-secondary/60 p-6">
-        <p className="eyebrow text-muted-foreground">Location</p>
+        <p className="eyebrow text-muted-foreground">Find Your Way</p>
         {image ? (
-          <img src={image} alt="" width={800} height={400} loading="lazy" className="mt-4 w-full" />
+          <img src={image} alt="Map showing the destination location" width={800} height={400} loading="lazy" className="mt-4 w-full" />
         ) : (
           <p className="mt-3 font-display text-2xl">
             {primary.lat.toFixed(4)}, {primary.lng.toFixed(4)}
@@ -45,7 +45,7 @@ export function MapPreview({
           rel="noreferrer noopener"
           className="eyebrow mt-4 inline-flex items-center gap-2 border-b border-primary pb-1 text-primary"
         >
-          Directions
+          Get directions
           <ExternalLink className="size-3.5" aria-hidden />
         </a>
       </div>
