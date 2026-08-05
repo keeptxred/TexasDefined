@@ -8,13 +8,15 @@ import { Container } from "@/components/layout/Container";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const description =
-  "TexasDefined is a lifestyle publication about what makes Texas Texas — the places, food, history, homes and makers worth knowing.";
+  "Texas Defined is a lifestyle magazine about the places, food, history, homes, traditions and people that make this state feel like nowhere else.";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath: "/about",
-      title: "About TexasDefined", description }),
+      title: "About Texas Defined",
+      description,
+    }),
     links: [canonicalLink(texasDefinedBrand, "/about")],
   }),
   component: AboutPage,
@@ -22,20 +24,20 @@ export const Route = createFileRoute("/about")({
 
 const PRINCIPLES = [
   {
-    title: "We go there",
-    body: "Every destination we publish is one someone on the masthead has stood in. Coordinates, seasons and entry notes come from the trip, not the brochure.",
+    title: "Start with a real question",
+    body: "Where is the drive worth taking? What should you know before you go? What does it really cost to live here? Our best stories begin with the questions Texans and newcomers actually ask.",
   },
   {
-    title: "Not a political publication",
-    body: "Elections, legislation and government belong elsewhere. TexasDefined is about living here — the lakes, the brisket, the porch in September.",
+    title: "Keep Texas life at the center",
+    body: "We cover the everyday experience of Texas — its landscapes, food, homes, history, communities and traditions — without turning every subject into politics.",
   },
   {
-    title: "Makers named",
-    body: "Anything in the shop has a person behind it. We name the maker, the town and why the thing lasts.",
+    title: "Name the people and places",
+    body: "Specific details make a story useful. We tell you the town, the route, the season, the local business or the public source behind the information whenever we can.",
   },
   {
-    title: "Useful over clever",
-    body: "Guides and calculators exist to answer real questions: what the taxes run, what the drive costs, what survives August.",
+    title: "Be useful without being dull",
+    body: "A practical guide can still be a good read. We aim for clear answers, warm writing and enough detail to help you make a plan with confidence.",
   },
 ];
 
@@ -45,19 +47,18 @@ function AboutPage() {
   return (
     <>
       <Container className="pb-6 pt-16 sm:pt-24">
-        <p className="eyebrow text-primary">About</p>
+        <p className="eyebrow text-primary">About Texas Defined</p>
         <h1 className="mt-3 max-w-3xl font-display text-4xl leading-tight sm:text-6xl">
           What defines Texas?
         </h1>
         <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground">
-          {description} It's the question behind every story we run — and the only editorial test a
-          piece has to pass.
+          {description} That question guides every story, guide and recommendation we publish.
         </p>
       </Container>
 
       <Section>
         <Container>
-          <SectionHeader eyebrow="How we work" title="Four rules" />
+          <SectionHeader eyebrow="Our approach" title="What readers can expect" />
           <ul className="mt-10 grid gap-8 sm:grid-cols-2">
             {PRINCIPLES.map((principle) => (
               <li key={principle.title} className="border-t border-border pt-5">
