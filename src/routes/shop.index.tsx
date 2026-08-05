@@ -121,8 +121,8 @@ function ShopPage() {
         <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground">
           {description}
         </p>
-        <p className="mt-3 text-sm text-muted-foreground">
-          The shop is almost ready. We're giving every item one last look before opening the doors.
+        <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">
+          We keep this shelf intentionally small: useful pieces, local makers and goods with a story worth telling.
         </p>
       </Container>
 
@@ -137,7 +137,7 @@ function ShopPage() {
 
       <Section tone="surface">
         <Container>
-          <SectionHeader eyebrow="Our picks" title="Everything on the shelf" />
+          <SectionHeader eyebrow="Our picks" title="A few things worth bringing home" />
           <ul className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {products.map((product) => (
               <li id={productAnchor(product.id)} key={product.id}>
@@ -150,7 +150,7 @@ function ShopPage() {
 
       <Section>
         <Container>
-          <SectionHeader eyebrow="Made here" title="Meet the stories behind the goods" />
+          <SectionHeader eyebrow="Made here" title="Meet the people and places behind the goods" />
           <ul className="mt-10 grid gap-10 sm:grid-cols-3">
             {articles.map((article) => (
               <li key={article.id}>
