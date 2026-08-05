@@ -10,14 +10,18 @@ import {
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
+import heroHillCountry from "@/assets/hero-hill-country.jpg";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { BrandProvider } from "@/brand/context";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { installTexasDefinedAnalytics } from "@/platform/analytics";
+import { absoluteUrl } from "@/lib/seo";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
+const defaultSocialImage = absoluteUrl(texasDefinedBrand, heroHillCountry);
+const defaultSocialImageAlt = "Texas Hill Country landscape at golden hour";
 
 function NotFoundComponent() {
   return (
@@ -60,12 +64,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "author", content: texasDefinedBrand.identity.name },
       { property: "og:title", content: texasDefinedBrand.seo.defaultTitle },
       { property: "og:description", content: texasDefinedBrand.seo.defaultDescription },
-      { property: "og:url", content: siteUrl },
       { property: "og:site_name", content: texasDefinedBrand.identity.name },
       { property: "og:type", content: "website" },
+      { property: "og:image", content: defaultSocialImage },
+      { property: "og:image:alt", content: defaultSocialImageAlt },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: texasDefinedBrand.seo.defaultTitle },
       { name: "twitter:description", content: texasDefinedBrand.seo.defaultDescription },
+      { name: "twitter:image", content: defaultSocialImage },
+      { name: "twitter:image:alt", content: defaultSocialImageAlt },
       { name: "twitter:site", content: texasDefinedBrand.seo.twitterSite ?? "" },
     ],
     links: [
