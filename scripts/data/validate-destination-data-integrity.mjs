@@ -3,6 +3,7 @@ import path from 'node:path';
 
 const root = process.cwd();
 const destinationRoute = fs.readFileSync(path.join(root, 'src/routes/destination.$slug.tsx'), 'utf8');
+const destinationPlanner = fs.readFileSync(path.join(root, 'src/components/editorial/DestinationVisitPlanner.tsx'), 'utf8');
 const articleRoute = fs.readFileSync(path.join(root, 'src/routes/article.$slug.tsx'), 'utf8');
 const map = fs.readFileSync(path.join(root, 'src/components/editorial/MapPreview.tsx'), 'utf8');
 const remote = fs.readFileSync(path.join(root, 'src/data/explore-remote.ts'), 'utf8');
@@ -22,6 +23,22 @@ for (const feature of [
   'categories.find((category) => category.slug === destination.category)?.name',
 ]) {
   if (!destinationRoute.includes(feature)) errors.push(`Destination integrity feature missing: ${feature}.`);
+}
+
+for (const feature of [
+  'function unique(values: string[])',
+  'activityPattern.test(item)',
+  'facilityPattern.test(item)',
+  '!activities.includes(item)',
+  '!facilities.includes(item)',
+  'if (!activities.length && !facilities.length && !otherHighlights.length && !practicalTips.length) return null',
+  'Confirm changing conditions, closures, fees, and availability before traveling.',
+  'destination.reservationUrl ? "Check reservation availability before making the drive."',
+  'destination.accessibilityNotes ? `Accessibility: ${destination.accessibilityNotes}`',
+  'destination.directions ? `Arrival guidance: ${destination.directions}`',
+  'aria-labelledby="plan-your-visit"',
+]) {
+  if (!destinationPlanner.includes(feature)) errors.push(`Destination visit-planner integrity feature missing: ${feature}.`);
 }
 
 if (destinationRoute.includes('isAccessibleForFree:')) {
