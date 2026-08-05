@@ -21,6 +21,17 @@ https://texasdefined.com
 - Property-tax learning hub: https://texasdefined.com/learn/property-taxes
 - Texas Explore: https://texasdefined.com/explore
 
+## Explore categories
+- Lakes and rivers: https://texasdefined.com/explore/lakes-rivers
+- State parks: https://texasdefined.com/explore/state-parks
+- Caverns and caves: https://texasdefined.com/explore/caverns
+- Beaches and coast: https://texasdefined.com/explore/beaches-coast
+- Historic sites and museums: https://texasdefined.com/explore/historic-sites
+- Road trips: https://texasdefined.com/explore/road-trips
+- Small towns: https://texasdefined.com/explore/small-towns
+- Food and barbecue: https://texasdefined.com/explore/food-bbq
+- Outdoors and wildlife: https://texasdefined.com/explore/outdoors
+
 ## Sitemaps
 - https://texasdefined.com/sitemap.xml
 - https://texasdefined.com/sitemap-explore.xml
