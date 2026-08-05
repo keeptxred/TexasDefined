@@ -9,6 +9,7 @@ import type {
   SearchRepository,
   TaxonomyRepository,
 } from "../repositories";
+import { supplementalExploreCategories } from "../explore-categories";
 import type { SearchDocument } from "../types";
 import {
   articles,
@@ -104,7 +105,9 @@ export const fixtureEvents: EventRepository = {
 
 export const fixtureTaxonomy: TaxonomyRepository = {
   async categories() {
-    return categories;
+    const merged = new Map(categories.map((category) => [category.slug, category]));
+    for (const category of supplementalExploreCategories) merged.set(category.slug, category);
+    return [...merged.values()];
   },
   async regions() {
     return regions;
