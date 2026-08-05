@@ -45,7 +45,10 @@ export function DestinationRelationships({
                 const miles = distanceMiles(destination, item);
                 return (
                   <li key={item.id}>
-                    <DestinationCard destination={item} regionLabel={regionName} />
+                    <DestinationCard
+                      destination={item}
+                      regionLabel={item.region === destination.region ? regionName : undefined}
+                    />
                     {miles !== null && (
                       <p className="mt-2 text-xs text-muted-foreground">
                         About {Math.max(1, Math.round(miles)).toLocaleString("en-US")} miles away in a straight line
