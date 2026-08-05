@@ -1,21 +1,9 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { Container } from '@/components/layout/Container';
 import { texasDefinedBrand } from '@/brand/texasdefined';
-import { buildMeta, canonicalLink } from '@/lib/seo';
+import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 const description = 'Clear, practical ways to work through housing costs, paychecks, utilities, insurance, moving expenses and the other numbers that shape life here.';
-
-export const Route = createFileRoute('/decide/financial-tools')({
-  head: () => ({
-    meta: buildMeta(texasDefinedBrand, {
-      canonicalPath: '/decide/financial-tools',
-      title: 'Texas Money Calculators',
-      description,
-    }),
-    links: [canonicalLink(texasDefinedBrand, '/decide/financial-tools')],
-  }),
-  component: Page,
-});
 
 const sections = [
   ['Estimate your property taxes', '/decide/property-taxes', 'See an estimated taxable value and annual or monthly property-tax cost.'],
@@ -45,6 +33,61 @@ const sections = [
   ['Plan your move', '/moving-to-texas', 'Compare places, understand likely costs and get settled.'],
   ['Use the moving checklist', '/moving-to-texas-checklist', 'Keep the practical before-and-after steps in one place.'],
 ] as const;
+
+const hubUrl = absoluteUrl(texasDefinedBrand, '/decide/financial-tools');
+
+export const Route = createFileRoute('/decide/financial-tools')({
+  head: () => ({
+    meta: buildMeta(texasDefinedBrand, {
+      canonicalPath: '/decide/financial-tools',
+      title: 'Texas Money Calculators',
+      description,
+    }),
+    links: [canonicalLink(texasDefinedBrand, '/decide/financial-tools')],
+    scripts: [
+      jsonLd({
+        '@context': 'https://schema.org',
+        '@graph': [
+          {
+            '@type': 'CollectionPage',
+            '@id': `${hubUrl}#page`,
+            url: hubUrl,
+            name: 'Texas Money Calculators',
+            description,
+            isPartOf: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#website` },
+            mainEntity: { '@id': `${hubUrl}#tools` },
+          },
+          {
+            '@type': 'BreadcrumbList',
+            '@id': `${hubUrl}#breadcrumb`,
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: 'Home', item: absoluteUrl(texasDefinedBrand, '/') },
+              { '@type': 'ListItem', position: 2, name: 'Financial tools', item: hubUrl },
+            ],
+          },
+          {
+            '@type': 'ItemList',
+            '@id': `${hubUrl}#tools`,
+            name: 'Texas financial calculators and planning guides',
+            numberOfItems: sections.length,
+            itemListElement: sections.map(([name, path, itemDescription], index) => ({
+              '@type': 'ListItem',
+              position: index + 1,
+              url: absoluteUrl(texasDefinedBrand, path),
+              item: {
+                '@type': 'WebPage',
+                name,
+                description: itemDescription,
+                url: absoluteUrl(texasDefinedBrand, path),
+              },
+            })),
+          },
+        ],
+      }),
+    ],
+  }),
+  component: Page,
+});
 
 function Page() {
   return (
