@@ -91,7 +91,8 @@ for (const feature of [
   '`${BASE_URL}/explore/${slug}`',
   'regions.map((region)',
   '`${BASE_URL}/explore/region/${region.id}`',
-  'new Set(urls)',
+  '[...new Set(staticUrls)]',
+  'new Map(destinations.filter((item) => item.slug)',
 ]) {
   if (!exploreSitemap.includes(feature)) failures.push(`Explore sitemap coverage missing: ${feature}`);
 }
