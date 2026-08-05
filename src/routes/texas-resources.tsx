@@ -39,8 +39,8 @@ const groups = [
   },
 ] as const;
 
-const resourceLinks = groups.flatMap((group) => group.links);
-const itemListElement = resourceLinks.map(([name, path], index) => ({
+const guideLinks = groups.flatMap((group) => group.links);
+const itemListElement = guideLinks.map(([name, path], index) => ({
   '@type': 'ListItem',
   position: index + 1,
   item: {
@@ -57,7 +57,7 @@ const structuredData = {
       '@type': 'CollectionPage',
       '@id': `${pageUrl}#page`,
       url: pageUrl,
-      name: 'Texas Resources',
+      name: 'Start Here',
       description,
       isPartOf: { '@id': `${siteUrl}/#website` },
       mainEntity: { '@id': `${pageUrl}#resources` },
@@ -66,7 +66,7 @@ const structuredData = {
     {
       '@type': 'ItemList',
       '@id': `${pageUrl}#resources`,
-      name: 'Texas resources and practical guides',
+      name: 'Practical guides for living here',
       numberOfItems: itemListElement.length,
       itemListElement,
     },
@@ -75,7 +75,7 @@ const structuredData = {
       '@id': `${pageUrl}#breadcrumbs`,
       itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
-        { '@type': 'ListItem', position: 2, name: 'Texas Resources', item: pageUrl },
+        { '@type': 'ListItem', position: 2, name: 'Start Here', item: pageUrl },
       ],
     },
   ],
@@ -102,7 +102,7 @@ function Page() {
           <ol className="flex items-center gap-2">
             <li><Link to="/" className="hover:text-foreground">Home</Link></li>
             <li aria-hidden="true">/</li>
-            <li aria-current="page" className="text-foreground">Texas Resources</li>
+            <li aria-current="page" className="text-foreground">Start Here</li>
           </ol>
         </nav>
         <p className="eyebrow mt-8 text-primary">Start Here</p>
