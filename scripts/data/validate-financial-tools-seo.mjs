@@ -1,3 +1,4 @@
+import './validate-calculator-app-seo.mjs';
 import fs from 'node:fs';
 
 const route = fs.readFileSync('src/routes/decide.financial-tools.tsx', 'utf8');
