@@ -19,6 +19,11 @@ const canonicalPath = "/events";
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const pageUrl = `${siteUrl}${canonicalPath}`;
 
+const editorialLabel = (value: string) =>
+  value
+    .replaceAll("-", " ")
+    .replace(/\b\w/g, (character) => character.toUpperCase());
+
 export const Route = createFileRoute("/events")({
   loader: async ({ context }) => {
     const [events, regions] = await Promise.all([
@@ -61,7 +66,7 @@ export const Route = createFileRoute("/events")({
         "@type": "CollectionPage",
         "@id": `${pageUrl}#page`,
         url: pageUrl,
-        name: "Texas Events Calendar",
+        name: "This Weekend",
         description,
         image: {
           "@type": "ImageObject",
@@ -77,7 +82,7 @@ export const Route = createFileRoute("/events")({
       {
         "@type": "ItemList",
         "@id": `${pageUrl}#events`,
-        name: "Texas events calendar",
+        name: "Weekend picks around Texas",
         url: pageUrl,
         numberOfItems: eventItems.length,
         itemListElement: eventItems,
@@ -87,14 +92,14 @@ export const Route = createFileRoute("/events")({
         "@id": `${pageUrl}#breadcrumbs`,
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
-          { "@type": "ListItem", position: 2, name: "Events", item: pageUrl },
+          { "@type": "ListItem", position: 2, name: "This Weekend", item: pageUrl },
         ],
       },
     ];
 
     return {
       meta: buildMeta(texasDefinedBrand, {
-        title: "Texas Events Calendar",
+        title: "This Weekend",
         description,
         canonicalPath,
         image: bluebonnets,
@@ -148,7 +153,7 @@ function EventsPage() {
             <ol className="flex items-center gap-2">
               <li><Link to="/" className="hover:text-ink-foreground">Home</Link></li>
               <li aria-hidden="true">/</li>
-              <li aria-current="page" className="text-ink-foreground">Events</li>
+              <li aria-current="page" className="text-ink-foreground">This Weekend</li>
             </ol>
           </nav>
           <p className="eyebrow mt-8 text-ink-foreground/75">This weekend</p>
@@ -160,7 +165,7 @@ function EventsPage() {
           </p>
           {featured && (
             <div id={featured.id} className="mt-10 max-w-xl border-t border-ink-foreground/30 pt-6">
-              <p className="eyebrow text-ink-foreground/70">Our pick · {featured.category}</p>
+              <p className="eyebrow text-ink-foreground/70">Our pick · {editorialLabel(featured.category)}</p>
               <h2 className="mt-2 font-display text-3xl leading-snug">{featured.name}</h2>
               <p className="mt-2 text-sm leading-relaxed text-ink-foreground/85">
                 {featured.blurb}
@@ -187,7 +192,7 @@ function EventsPage() {
               label="What sounds good?"
               options={categories.map((value) => ({
                 value,
-                label: value === "all" ? "Anything" : value,
+                label: value === "all" ? "Anything" : editorialLabel(value),
               }))}
               active={category}
               onChange={setCategory}
