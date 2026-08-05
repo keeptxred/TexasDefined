@@ -8,7 +8,7 @@ import { articlesQuery, destinationsQuery, regionsQuery } from "@/data/queries";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const description =
-  "What nobody tells you about the move: which metro fits your life, what the heat really costs, how property taxes work, and where to land your first weekend.";
+  "A clear-eyed guide to choosing a city, understanding the cost of living, finding a home and settling into everyday life in a very large state.";
 
 export const Route = createFileRoute("/moving-to-texas")({
   head: () => ({
@@ -27,10 +27,10 @@ export const Route = createFileRoute("/moving-to-texas")({
   component: () => (
     <CategoryPage
       category="moving-to-texas"
-      eyebrow="Moving"
-      title="Landing well in a very large state"
+      eyebrow="Moving here"
+      title="Thinking about calling Texas home?"
       intro={description}
-      image={{ src: roadTrip, alt: 'A two-lane Texas farm road running to the horizon', width: 1600, height: 1067 }}
+      image={{ src: roadTrip, alt: "A two-lane Texas farm road running to the horizon", width: 1600, height: 1067 }}
     />
   ),
 });
