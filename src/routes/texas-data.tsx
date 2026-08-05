@@ -7,7 +7,7 @@ import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 const description = 'Useful Texas facts, local finders and practical guidance gathered in one place — whether you are researching a move, comparing costs or simply getting to know the state better.';
 
-const resources = [
+const nextStops = [
   ['Find your county', '/browse/counties', 'Explore all 254 counties and find trusted local information for each one.'],
   ['Find a city', '/browse/cities', 'Get to know major cities, regional centers and communities across the state.'],
   ['Places worth exploring', '/explore', 'Find parks, lakes, caverns, road trips and memorable corners of Texas.'],
@@ -15,6 +15,11 @@ const resources = [
   ['Money and moving help', '/decide/financial-tools', 'Compare household costs, homeownership expenses and moving decisions.'],
   ['A useful place to start', '/texas-resources', 'Find official contacts, local information and practical guides.'],
 ] as const;
+
+const editorialLabel = (value: string) =>
+  value
+    .replaceAll('-', ' ')
+    .replace(/\b\w/g, (character) => character.toUpperCase());
 
 export const Route = createFileRoute('/texas-data')({
   head: () => {
@@ -95,7 +100,7 @@ function Page() {
                 params={{ datasetSlug: dataset.slug }}
                 className="rounded-lg border border-border p-6 transition hover:-translate-y-0.5 hover:shadow-sm"
               >
-                <p className="eyebrow text-primary">{dataset.category} · {dataset.year}</p>
+                <p className="eyebrow text-primary">{editorialLabel(dataset.category)} · {dataset.year}</p>
                 <h3 className="mt-2 font-display text-2xl">{dataset.title}</h3>
                 <p className="mt-3 text-sm leading-6 text-muted-foreground">{dataset.description}</p>
                 <span className="mt-5 block text-sm font-medium text-primary">See the numbers →</span>
@@ -107,7 +112,7 @@ function Page() {
         <section className="mt-14" aria-labelledby="help-heading">
           <h2 id="help-heading" className="font-display text-3xl">Find what you need next</h2>
           <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {resources.map(([title, to, copy]) => (
+            {nextStops.map(([title, to, copy]) => (
               <Link
                 key={to}
                 to={to}
@@ -115,7 +120,7 @@ function Page() {
               >
                 <h3 className="font-display text-2xl">{title}</h3>
                 <p className="mt-3 text-sm leading-6 text-muted-foreground">{copy}</p>
-                <span className="mt-5 block text-sm font-medium text-primary">Take a look →</span>
+                <span className="mt-5 block text-sm font-medium text-primary">Start here →</span>
               </Link>
             ))}
           </div>
