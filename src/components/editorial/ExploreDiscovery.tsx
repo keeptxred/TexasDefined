@@ -37,10 +37,10 @@ export function ExploreDiscovery({
         <SectionHeader
           eyebrow="Keep exploring"
           title="See Texas another way"
-          description="Browse by landscape, destination type or the part of Texas you want to visit next."
+          description="Choose a different landscape, kind of place or corner of Texas for the next trip."
         />
 
-        <nav aria-label="Related Explore categories" className="mt-8">
+        <nav aria-label="More ways to explore Texas" className="mt-8">
           <ul className="flex flex-wrap gap-3">
             {relatedCategories.map((item) => (
               <li key={item.slug}>
@@ -56,8 +56,8 @@ export function ExploreDiscovery({
           </ul>
         </nav>
 
-        <nav aria-label="Explore Texas by region" className="mt-10 border-t border-border pt-8">
-          <p className="eyebrow text-muted-foreground">Browse by region</p>
+        <nav aria-label="Choose a part of Texas" className="mt-10 border-t border-border pt-8">
+          <p className="eyebrow text-muted-foreground">Pick a part of the state</p>
           <ul className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {regions.map((region) => (
               <li key={region.id}>
