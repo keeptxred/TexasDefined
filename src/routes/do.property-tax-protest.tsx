@@ -1,19 +1,54 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { PropertyTaxGuidePage } from '@/components/guides/PropertyTaxGuidePage';
-import { buildMeta, canonicalLink } from '@/lib/seo';
+import { buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 const description =
   'How to protest a Texas property appraisal, meet the deadline, build a useful evidence packet and prepare for the hearing.';
+const canonicalPath = '/do/property-tax-protest';
+const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
+const pageUrl = `${siteUrl}${canonicalPath}`;
+const steps = [
+  "Review the appraisal district's evidence and property record.",
+  'Choose comparable sales or properties and explain the important differences.',
+  'Document condition, damage, access, location or factual errors.',
+  'Write a brief explanation of the value you believe is fair.',
+  'Keep a copy of everything you submit.',
+];
 
 export const Route = createFileRoute('/do/property-tax-protest')({
   head: () => ({
-    meta: buildMeta(texasDefinedBrand, {
-      canonicalPath: '/do/property-tax-protest',
-      title: 'Texas Property Tax Protest',
-      description,
-    }),
-    links: [canonicalLink(texasDefinedBrand, '/do/property-tax-protest')],
+    meta: buildMeta(texasDefinedBrand, { canonicalPath, title: 'Texas Property Tax Protest', description }),
+    links: [canonicalLink(texasDefinedBrand, canonicalPath)],
+    scripts: [jsonLd({
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'HowTo',
+          '@id': `${pageUrl}#howto`,
+          url: pageUrl,
+          name: 'How to prepare a Texas property tax protest',
+          description,
+          isPartOf: { '@id': `${siteUrl}/#website` },
+          step: steps.map((text, index) => ({
+            '@type': 'HowToStep',
+            position: index + 1,
+            name: text,
+            text,
+            url: `${pageUrl}#protest-step-${index + 1}`,
+          })),
+        },
+        {
+          '@type': 'BreadcrumbList',
+          '@id': `${pageUrl}#breadcrumbs`,
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
+            { '@type': 'ListItem', position: 2, name: 'Property taxes', item: `${siteUrl}/decide/property-taxes` },
+            { '@type': 'ListItem', position: 3, name: 'Property tax protest', item: pageUrl },
+          ],
+        },
+      ],
+    })],
   }),
   component: () => (
     <PropertyTaxGuidePage
@@ -22,6 +57,8 @@ export const Route = createFileRoute('/do/property-tax-protest')({
       intro={description}
       officialUrl="https://comptroller.texas.gov/taxes/property-tax/protests/"
       officialLabel="Check the Texas Comptroller's protest guidance"
+      canonicalPath={canonicalPath}
+      stepPrefix="protest-step-"
       sections={[
         {
           title: 'Do not miss the deadline',
@@ -40,13 +77,7 @@ export const Route = createFileRoute('/do/property-tax-protest')({
           paragraphs: [
             'A short, organized case is usually easier to follow than a large pile of unrelated documents.',
           ],
-          steps: [
-            "Review the appraisal district's evidence and property record.",
-            'Choose comparable sales or properties and explain the important differences.',
-            'Document condition, damage, access, location or factual errors.',
-            'Write a brief explanation of the value you believe is fair.',
-            'Keep a copy of everything you submit.',
-          ],
+          steps,
         },
         {
           title: 'At the informal meeting and hearing',
