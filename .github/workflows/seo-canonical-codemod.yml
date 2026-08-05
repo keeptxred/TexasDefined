@@ -1,0 +1,33 @@
+name: Apply SEO canonical metadata codemod
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - scripts/data/fix-seo-canonical-paths.mjs
+      - .github/workflows/seo-canonical-codemod.yml
+
+permissions:
+  contents: write
+
+jobs:
+  codemod:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Apply canonical metadata codemod
+        run: node scripts/data/fix-seo-canonical-paths.mjs
+      - name: Commit route metadata updates
+        run: |
+          if git diff --quiet -- src/routes; then
+            echo "No route metadata changes required."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/routes
+          git commit -m "fix: align canonical and Open Graph URLs"
+          git push origin HEAD:main
