@@ -1,8 +1,9 @@
 import { createFileRoute, Link, notFound } from '@tanstack/react-router';
-import { Container } from '@/components/layout/Container';
+
 import { texasDefinedBrand } from '@/brand/texasdefined';
-import { buildMeta, canonicalLink } from '@/lib/seo';
+import { Container } from '@/components/layout/Container';
 import { formatDatasetValue, getTexasDataset } from '@/data/texas-data-center';
+import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 export const Route = createFileRoute('/texas-data/$datasetSlug')({
   loader: ({ params }) => {
@@ -10,12 +11,74 @@ export const Route = createFileRoute('/texas-data/$datasetSlug')({
     if (!dataset) throw notFound();
     return dataset;
   },
-  head: ({ loaderData }) => loaderData ? ({
-    meta: buildMeta(texasDefinedBrand, {
-      canonicalPath: `/texas-data/${loaderData.slug}`,
-      title: loaderData.title, description: loaderData.description }),
-    links: [canonicalLink(texasDefinedBrand, `/texas-data/${loaderData.slug}`)],
-  }) : {},
+  head: ({ loaderData }) => {
+    if (!loaderData) return {};
+
+    const canonicalPath = `/texas-data/${loaderData.slug}`;
+    const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
+
+    return {
+      meta: buildMeta(texasDefinedBrand, {
+        canonicalPath,
+        title: loaderData.title,
+        description: loaderData.description,
+      }),
+      links: [canonicalLink(texasDefinedBrand, canonicalPath)],
+      scripts: [
+        jsonLd({
+          '@context': 'https://schema.org',
+          '@graph': [
+            {
+              '@type': 'Dataset',
+              '@id': `${pageUrl}#dataset`,
+              name: loaderData.title,
+              description: loaderData.description,
+              url: pageUrl,
+              dateModified: loaderData.updated,
+              temporalCoverage: String(loaderData.year),
+              keywords: [loaderData.category, 'Texas data', 'TexasDefined'],
+              creator: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#organization` },
+              publisher: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#organization` },
+              isIncludedIn: { '@id': `${absoluteUrl(texasDefinedBrand, '/texas-data')}#page` },
+              isBasedOn: loaderData.sourceUrl,
+              measurementTechnique: loaderData.methodology,
+              variableMeasured: loaderData.rows.map((row) => ({
+                '@type': 'PropertyValue',
+                name: row.label,
+                value: row.value,
+                unitText: loaderData.unit,
+                ...(row.note ? { description: row.note } : {}),
+              })),
+            },
+            {
+              '@type': 'BreadcrumbList',
+              '@id': `${pageUrl}#breadcrumb`,
+              itemListElement: [
+                {
+                  '@type': 'ListItem',
+                  position: 1,
+                  name: 'Home',
+                  item: absoluteUrl(texasDefinedBrand, '/'),
+                },
+                {
+                  '@type': 'ListItem',
+                  position: 2,
+                  name: 'Texas Data',
+                  item: absoluteUrl(texasDefinedBrand, '/texas-data'),
+                },
+                {
+                  '@type': 'ListItem',
+                  position: 3,
+                  name: loaderData.title,
+                  item: pageUrl,
+                },
+              ],
+            },
+          ],
+        }),
+      ],
+    };
+  },
   component: Page,
 });
 
