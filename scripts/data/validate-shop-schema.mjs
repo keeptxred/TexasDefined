@@ -1,7 +1,9 @@
 import fs from 'node:fs';
 
-const route = fs.readFileSync('src/routes/shop.$collection.tsx', 'utf8');
-const required = [
+const collectionRoute = fs.readFileSync('src/routes/shop.$collection.tsx', 'utf8');
+const landingRoute = fs.readFileSync('src/routes/shop.index.tsx', 'utf8');
+
+const collectionRequired = [
   '"@type": "ItemList"',
   '"@type": "Product"',
   'numberOfItems: loaderData.products.length',
@@ -10,16 +12,34 @@ const required = [
   'image: loaderData.collection.image.src',
 ];
 
-const missing = required.filter((feature) => !route.includes(feature));
-if (missing.length) {
-  console.error('Shop collection schema validation failed:');
-  for (const feature of missing) console.error(`- Missing ${feature}`);
+const landingRequired = [
+  '"@type": "CollectionPage"',
+  '"@type": "BreadcrumbList"',
+  '"@type": "ItemList"',
+  'numberOfItems: loaderData.products.length',
+  'image: shopFlatlay',
+  'imageAlt: "A curated flat lay of Texas-made goods"',
+  'id={productAnchor(product.id)}',
+  'absoluteUrl(texasDefinedBrand, product.image.src)',
+];
+
+const failures = [
+  ...collectionRequired
+    .filter((feature) => !collectionRoute.includes(feature))
+    .map((feature) => `Collection route missing ${feature}`),
+  ...landingRequired
+    .filter((feature) => !landingRoute.includes(feature))
+    .map((feature) => `Landing route missing ${feature}`),
+];
+
+if (collectionRoute.includes('"@type": "Offer"') || landingRoute.includes('"@type": "Offer"')) {
+  failures.push('Shop routes must not claim Offer data before checkout is available.');
+}
+
+if (failures.length) {
+  console.error('Shop structured-data validation failed:');
+  for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-if (route.includes('"@type": "Offer"')) {
-  console.error('Shop collection schema must not claim Offer data before checkout is available.');
-  process.exit(1);
-}
-
-console.log('Shop collection structured-data validation passed.');
+console.log('Shop structured-data validation passed.');
