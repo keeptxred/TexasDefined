@@ -6,6 +6,9 @@ const routes = [
   ['Mortgage', 'src/routes/texas-mortgage-calculator.tsx'],
   ['Affordability', 'src/routes/texas-home-affordability-calculator.tsx'],
   ['Closing cost', 'src/routes/texas-closing-cost-calculator.tsx'],
+  ['Home insurance', 'src/routes/texas-home-insurance-calculator.tsx'],
+  ['Moving cost', 'src/routes/texas-moving-cost-calculator.tsx'],
+  ['Rent versus buy', 'src/routes/texas-rent-vs-buy-calculator.tsx'],
 ];
 const failures = [];
 
