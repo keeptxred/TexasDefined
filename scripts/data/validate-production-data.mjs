@@ -25,6 +25,7 @@ const entityRoute = read('src/routes/$kind.$slug.tsx');
 const articleRoute = read('src/routes/article.$slug.tsx');
 const destinationRoute = read('src/routes/destination.$slug.tsx');
 const eventsRoute = read('src/routes/events.tsx');
+const aboutRoute = read('src/routes/about.tsx');
 const homeRoute = read('src/routes/index.tsx');
 const exploreSitemap = read('src/routes/sitemap-explore[.]xml.ts');
 const publicRoutes = read('src/lib/public-routes.ts');
@@ -55,6 +56,7 @@ for (const feature of ['used.has','canonicalEntityPath']) if (!internalLinking.i
 for (const feature of ['ArticleBody blocks={article.body} entities={graph}','loadTexasKnowledgeGraph','mentions: mentions.map','absoluteUrl(texasDefinedBrand, article.hero.src)','canonicalEntityPath(entity)']) if (!articleRoute.includes(feature)) errors.push(`Article graph integration missing: ${feature}.`);
 for (const feature of ['absoluteUrl(texasDefinedBrand, destination.hero.src)','BreadcrumbList','TouristAttraction']) if (!destinationRoute.includes(feature)) errors.push(`Destination SEO feature missing: ${feature}.`);
 for (const feature of ['canonicalPath','ItemList','"@type": "Event"','eventStatus','eventAttendanceMode']) if (!eventsRoute.includes(feature)) errors.push(`Event answer feature missing: ${feature}.`);
+for (const feature of ['"@type": "AboutPage"','BreadcrumbList','about: { "@id"','isPartOf: { "@id"']) if (!aboutRoute.includes(feature)) errors.push(`About page SEO feature missing: ${feature}.`);
 for (const feature of ['canonicalPath: "/"']) if (!homeRoute.includes(feature)) errors.push(`Homepage SEO feature missing: ${feature}.`);
 if (homeRoute.includes('"@type": "Organization"') || homeRoute.includes('"@type": "WebSite"')) errors.push('Homepage duplicates the global Organization or WebSite entity graph.');
 for (const feature of ['AutoEntityLinks','entities?: TexasEntityRecord[]','linked = new Set']) if (!articleBody.includes(feature)) errors.push(`Article entity-link rendering missing: ${feature}.`);
