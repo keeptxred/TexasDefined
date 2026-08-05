@@ -9,31 +9,75 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TexasUtilityCostCalculatorRouteImport } from './routes/texas-utility-cost-calculator'
+import { Route as TexasSalesTaxExplainedRouteImport } from './routes/texas-sales-tax-explained'
+import { Route as TexasSalaryComparisonByCityRouteImport } from './routes/texas-salary-comparison-by-city'
+import { Route as TexasSalaryCalculatorRouteImport } from './routes/texas-salary-calculator'
+import { Route as TexasResourcesRouteImport } from './routes/texas-resources'
+import { Route as TexasRentVsBuyCalculatorRouteImport } from './routes/texas-rent-vs-buy-calculator'
+import { Route as TexasRefinanceSavingsCalculatorRouteImport } from './routes/texas-refinance-savings-calculator'
+import { Route as TexasPropertyTaxProtestGuideRouteImport } from './routes/texas-property-tax-protest-guide'
+import { Route as TexasPropertyTaxIncreaseCalculatorRouteImport } from './routes/texas-property-tax-increase-calculator'
+import { Route as TexasMovingCostCalculatorRouteImport } from './routes/texas-moving-cost-calculator'
+import { Route as TexasMortgagePayoffCalculatorRouteImport } from './routes/texas-mortgage-payoff-calculator'
+import { Route as TexasMortgageCalculatorRouteImport } from './routes/texas-mortgage-calculator'
+import { Route as TexasLivingRouteImport } from './routes/texas-living'
+import { Route as TexasHomeownershipCostCalculatorRouteImport } from './routes/texas-homeownership-cost-calculator'
+import { Route as TexasHomeInsuranceCalculatorRouteImport } from './routes/texas-home-insurance-calculator'
+import { Route as TexasHomeEquityGrowthCalculatorRouteImport } from './routes/texas-home-equity-growth-calculator'
+import { Route as TexasHomeEquityCalculatorRouteImport } from './routes/texas-home-equity-calculator'
+import { Route as TexasHomeAffordabilityCalculatorRouteImport } from './routes/texas-home-affordability-calculator'
 import { Route as TexasHistoryRouteImport } from './routes/texas-history'
+import { Route as TexasFirstTimeHomebuyerProgramsRouteImport } from './routes/texas-first-time-homebuyer-programs'
+import { Route as TexasFinancialToolsRouteImport } from './routes/texas-financial-tools'
+import { Route as TexasDownPaymentCalculatorRouteImport } from './routes/texas-down-payment-calculator'
+import { Route as TexasDownPaymentAssistanceCalculatorRouteImport } from './routes/texas-down-payment-assistance-calculator'
+import { Route as TexasDataRouteImport } from './routes/texas-data'
+import { Route as TexasCostOfLivingCalculatorRouteImport } from './routes/texas-cost-of-living-calculator'
+import { Route as TexasClosingCostCalculatorRouteImport } from './routes/texas-closing-cost-calculator'
+import { Route as TexasBudgetPlannerRouteImport } from './routes/texas-budget-planner'
+import { Route as TaxCalculatorRouteImport } from './routes/tax-calculator'
 import { Route as SportsRouteImport } from './routes/sports'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SitemapExploreDotxmlRouteImport } from './routes/sitemap-explore[.]xml'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as RealEstateRouteImport } from './routes/real-estate'
+import { Route as MovingToTexasChecklistRouteImport } from './routes/moving-to-texas-checklist'
 import { Route as MovingToTexasRouteImport } from './routes/moving-to-texas'
 import { Route as LlmsDottxtRouteImport } from './routes/llms[.]txt'
 import { Route as HomeGardenRouteImport } from './routes/home-garden'
 import { Route as GuidesRouteImport } from './routes/guides'
+import { Route as FindMySchoolDistrictRouteImport } from './routes/find-my-school-district'
+import { Route as FindMyDmvRouteImport } from './routes/find-my-dmv'
 import { Route as EventsRouteImport } from './routes/events'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ShopIndexRouteImport } from './routes/shop.index'
 import { Route as ExploreIndexRouteImport } from './routes/explore.index'
+import { Route as TexasDataDatasetSlugRouteImport } from './routes/texas-data.$datasetSlug'
 import { Route as ShopCollectionRouteImport } from './routes/shop.$collection'
 import { Route as LearnPropertyTaxesRouteImport } from './routes/learn.property-taxes'
 import { Route as LearnPropertyTaxPaymentsRouteImport } from './routes/learn.property-tax-payments'
 import { Route as LearnAppraisalDistrictsRouteImport } from './routes/learn.appraisal-districts'
+import { Route as ExploreWildlifeManagementAreasRouteImport } from './routes/explore.wildlife-management-areas'
+import { Route as ExploreTexasWildflowerSeasonsRouteImport } from './routes/explore.texas-wildflower-seasons'
+import { Route as ExploreTexasStateParksGuideRouteImport } from './routes/explore.texas-state-parks-guide'
+import { Route as ExploreTexasScenicDrivesRouteImport } from './routes/explore.texas-scenic-drives'
+import { Route as ExploreTexasLakesGuideRouteImport } from './routes/explore.texas-lakes-guide'
+import { Route as ExploreTexasCampingGuideRouteImport } from './routes/explore.texas-camping-guide'
+import { Route as ExploreSpringFedSwimmingRouteImport } from './routes/explore.spring-fed-swimming'
+import { Route as ExploreSpringConservationAndEducationRouteImport } from './routes/explore.spring-conservation-and-education'
 import { Route as ExploreSearchRouteImport } from './routes/explore.search'
+import { Route as ExploreNationalWildlifeRefugesRouteImport } from './routes/explore.national-wildlife-refuges'
+import { Route as ExploreLighthousesRouteImport } from './routes/explore.lighthouses'
+import { Route as ExploreHillCountrySpringsRouteImport } from './routes/explore.hill-country-springs'
 import { Route as ExploreCategoryRouteImport } from './routes/explore.$category'
 import { Route as DoPropertyTaxProtestRouteImport } from './routes/do.property-tax-protest'
 import { Route as DoHomesteadExemptionRouteImport } from './routes/do.homestead-exemption'
 import { Route as DestinationSlugRouteImport } from './routes/destination.$slug'
 import { Route as DecidePropertyTaxesRouteImport } from './routes/decide.property-taxes'
+import { Route as DecideFinancialToolsRouteImport } from './routes/decide.financial-tools'
 import { Route as BrowseCountiesRouteImport } from './routes/browse.counties'
 import { Route as BrowseCitiesRouteImport } from './routes/browse.cities'
 import { Route as ArticleSlugRouteImport } from './routes/article.$slug'
@@ -59,11 +103,170 @@ import { Route as AdminGovernanceHealthRouteImport } from './routes/admin.govern
 import { Route as AdminEntityMaintenanceRouteImport } from './routes/admin.entity-maintenance'
 import { Route as AdminEntityImportReviewRouteImport } from './routes/admin.entity-import-review'
 import { Route as KindSlugRouteImport } from './routes/$kind.$slug'
+import { Route as ExploreStateParkSlugRouteImport } from './routes/explore.state-park.$slug'
+import { Route as ExploreRiverSlugRouteImport } from './routes/explore.river.$slug'
+import { Route as ExploreRegionRegionRouteImport } from './routes/explore.region.$region'
+import { Route as ExploreLakeSlugRouteImport } from './routes/explore.lake.$slug'
+import { Route as ExploreCountyCountyRouteImport } from './routes/explore.county.$county'
+import { Route as ExploreCavernSlugRouteImport } from './routes/explore.cavern.$slug'
 import { Route as ApiAiEntitiesRouteImport } from './routes/api.ai.entities'
 
+const TexasUtilityCostCalculatorRoute =
+  TexasUtilityCostCalculatorRouteImport.update({
+    id: '/texas-utility-cost-calculator',
+    path: '/texas-utility-cost-calculator',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const TexasSalesTaxExplainedRoute = TexasSalesTaxExplainedRouteImport.update({
+  id: '/texas-sales-tax-explained',
+  path: '/texas-sales-tax-explained',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TexasSalaryComparisonByCityRoute =
+  TexasSalaryComparisonByCityRouteImport.update({
+    id: '/texas-salary-comparison-by-city',
+    path: '/texas-salary-comparison-by-city',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const TexasSalaryCalculatorRoute = TexasSalaryCalculatorRouteImport.update({
+  id: '/texas-salary-calculator',
+  path: '/texas-salary-calculator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TexasResourcesRoute = TexasResourcesRouteImport.update({
+  id: '/texas-resources',
+  path: '/texas-resources',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TexasRentVsBuyCalculatorRoute =
+  TexasRentVsBuyCalculatorRouteImport.update({
+    id: '/texas-rent-vs-buy-calculator',
+    path: '/texas-rent-vs-buy-calculator',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const TexasRefinanceSavingsCalculatorRoute =
+  TexasRefinanceSavingsCalculatorRouteImport.update({
+    id: '/texas-refinance-savings-calculator',
+    path: '/texas-refinance-savings-calculator',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const TexasPropertyTaxProtestGuideRoute =
+  TexasPropertyTaxProtestGuideRouteImport.update({
+    id: '/texas-property-tax-protest-guide',
+    path: '/texas-property-tax-protest-guide',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const TexasPropertyTaxIncreaseCalculatorRoute =
+  TexasPropertyTaxIncreaseCalculatorRouteImport.update({
+    id: '/texas-property-tax-increase-calculator',
+    path: '/texas-property-tax-increase-calculator',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const TexasMovingCostCalculatorRoute =
+  TexasMovingCostCalculatorRouteImport.update({
+    id: '/texas-moving-cost-calculator',
+    path: '/texas-moving-cost-calculator',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const TexasMortgagePayoffCalculatorRoute =
+  TexasMortgagePayoffCalculatorRouteImport.update({
+    id: '/texas-mortgage-payoff-calculator',
+    path: '/texas-mortgage-payoff-calculator',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const TexasMortgageCalculatorRoute = TexasMortgageCalculatorRouteImport.update({
+  id: '/texas-mortgage-calculator',
+  path: '/texas-mortgage-calculator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TexasLivingRoute = TexasLivingRouteImport.update({
+  id: '/texas-living',
+  path: '/texas-living',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TexasHomeownershipCostCalculatorRoute =
+  TexasHomeownershipCostCalculatorRouteImport.update({
+    id: '/texas-homeownership-cost-calculator',
+    path: '/texas-homeownership-cost-calculator',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const TexasHomeInsuranceCalculatorRoute =
+  TexasHomeInsuranceCalculatorRouteImport.update({
+    id: '/texas-home-insurance-calculator',
+    path: '/texas-home-insurance-calculator',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const TexasHomeEquityGrowthCalculatorRoute =
+  TexasHomeEquityGrowthCalculatorRouteImport.update({
+    id: '/texas-home-equity-growth-calculator',
+    path: '/texas-home-equity-growth-calculator',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const TexasHomeEquityCalculatorRoute =
+  TexasHomeEquityCalculatorRouteImport.update({
+    id: '/texas-home-equity-calculator',
+    path: '/texas-home-equity-calculator',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const TexasHomeAffordabilityCalculatorRoute =
+  TexasHomeAffordabilityCalculatorRouteImport.update({
+    id: '/texas-home-affordability-calculator',
+    path: '/texas-home-affordability-calculator',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const TexasHistoryRoute = TexasHistoryRouteImport.update({
   id: '/texas-history',
   path: '/texas-history',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TexasFirstTimeHomebuyerProgramsRoute =
+  TexasFirstTimeHomebuyerProgramsRouteImport.update({
+    id: '/texas-first-time-homebuyer-programs',
+    path: '/texas-first-time-homebuyer-programs',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const TexasFinancialToolsRoute = TexasFinancialToolsRouteImport.update({
+  id: '/texas-financial-tools',
+  path: '/texas-financial-tools',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TexasDownPaymentCalculatorRoute =
+  TexasDownPaymentCalculatorRouteImport.update({
+    id: '/texas-down-payment-calculator',
+    path: '/texas-down-payment-calculator',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const TexasDownPaymentAssistanceCalculatorRoute =
+  TexasDownPaymentAssistanceCalculatorRouteImport.update({
+    id: '/texas-down-payment-assistance-calculator',
+    path: '/texas-down-payment-assistance-calculator',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const TexasDataRoute = TexasDataRouteImport.update({
+  id: '/texas-data',
+  path: '/texas-data',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TexasCostOfLivingCalculatorRoute =
+  TexasCostOfLivingCalculatorRouteImport.update({
+    id: '/texas-cost-of-living-calculator',
+    path: '/texas-cost-of-living-calculator',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const TexasClosingCostCalculatorRoute =
+  TexasClosingCostCalculatorRouteImport.update({
+    id: '/texas-closing-cost-calculator',
+    path: '/texas-closing-cost-calculator',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const TexasBudgetPlannerRoute = TexasBudgetPlannerRouteImport.update({
+  id: '/texas-budget-planner',
+  path: '/texas-budget-planner',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TaxCalculatorRoute = TaxCalculatorRouteImport.update({
+  id: '/tax-calculator',
+  path: '/tax-calculator',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SportsRoute = SportsRouteImport.update({
@@ -91,6 +294,11 @@ const RealEstateRoute = RealEstateRouteImport.update({
   path: '/real-estate',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MovingToTexasChecklistRoute = MovingToTexasChecklistRouteImport.update({
+  id: '/moving-to-texas-checklist',
+  path: '/moving-to-texas-checklist',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MovingToTexasRoute = MovingToTexasRouteImport.update({
   id: '/moving-to-texas',
   path: '/moving-to-texas',
@@ -111,9 +319,24 @@ const GuidesRoute = GuidesRouteImport.update({
   path: '/guides',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FindMySchoolDistrictRoute = FindMySchoolDistrictRouteImport.update({
+  id: '/find-my-school-district',
+  path: '/find-my-school-district',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FindMyDmvRoute = FindMyDmvRouteImport.update({
+  id: '/find-my-dmv',
+  path: '/find-my-dmv',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EventsRoute = EventsRouteImport.update({
   id: '/events',
   path: '/events',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -136,6 +359,11 @@ const ExploreIndexRoute = ExploreIndexRouteImport.update({
   path: '/explore/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TexasDataDatasetSlugRoute = TexasDataDatasetSlugRouteImport.update({
+  id: '/$datasetSlug',
+  path: '/$datasetSlug',
+  getParentRoute: () => TexasDataRoute,
+} as any)
 const ShopCollectionRoute = ShopCollectionRouteImport.update({
   id: '/shop/$collection',
   path: '/shop/$collection',
@@ -157,11 +385,75 @@ const LearnAppraisalDistrictsRoute = LearnAppraisalDistrictsRouteImport.update({
   path: '/learn/appraisal-districts',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ExploreWildlifeManagementAreasRoute =
+  ExploreWildlifeManagementAreasRouteImport.update({
+    id: '/explore/wildlife-management-areas',
+    path: '/explore/wildlife-management-areas',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ExploreTexasWildflowerSeasonsRoute =
+  ExploreTexasWildflowerSeasonsRouteImport.update({
+    id: '/explore/texas-wildflower-seasons',
+    path: '/explore/texas-wildflower-seasons',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ExploreTexasStateParksGuideRoute =
+  ExploreTexasStateParksGuideRouteImport.update({
+    id: '/explore/texas-state-parks-guide',
+    path: '/explore/texas-state-parks-guide',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ExploreTexasScenicDrivesRoute =
+  ExploreTexasScenicDrivesRouteImport.update({
+    id: '/explore/texas-scenic-drives',
+    path: '/explore/texas-scenic-drives',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ExploreTexasLakesGuideRoute = ExploreTexasLakesGuideRouteImport.update({
+  id: '/explore/texas-lakes-guide',
+  path: '/explore/texas-lakes-guide',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExploreTexasCampingGuideRoute =
+  ExploreTexasCampingGuideRouteImport.update({
+    id: '/explore/texas-camping-guide',
+    path: '/explore/texas-camping-guide',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ExploreSpringFedSwimmingRoute =
+  ExploreSpringFedSwimmingRouteImport.update({
+    id: '/explore/spring-fed-swimming',
+    path: '/explore/spring-fed-swimming',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ExploreSpringConservationAndEducationRoute =
+  ExploreSpringConservationAndEducationRouteImport.update({
+    id: '/explore/spring-conservation-and-education',
+    path: '/explore/spring-conservation-and-education',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ExploreSearchRoute = ExploreSearchRouteImport.update({
   id: '/explore/search',
   path: '/explore/search',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ExploreNationalWildlifeRefugesRoute =
+  ExploreNationalWildlifeRefugesRouteImport.update({
+    id: '/explore/national-wildlife-refuges',
+    path: '/explore/national-wildlife-refuges',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ExploreLighthousesRoute = ExploreLighthousesRouteImport.update({
+  id: '/explore/lighthouses',
+  path: '/explore/lighthouses',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExploreHillCountrySpringsRoute =
+  ExploreHillCountrySpringsRouteImport.update({
+    id: '/explore/hill-country-springs',
+    path: '/explore/hill-country-springs',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ExploreCategoryRoute = ExploreCategoryRouteImport.update({
   id: '/explore/$category',
   path: '/explore/$category',
@@ -185,6 +477,11 @@ const DestinationSlugRoute = DestinationSlugRouteImport.update({
 const DecidePropertyTaxesRoute = DecidePropertyTaxesRouteImport.update({
   id: '/decide/property-taxes',
   path: '/decide/property-taxes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DecideFinancialToolsRoute = DecideFinancialToolsRouteImport.update({
+  id: '/decide/financial-tools',
+  path: '/decide/financial-tools',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BrowseCountiesRoute = BrowseCountiesRouteImport.update({
@@ -275,45 +572,75 @@ const ApiContentDispositionRoute = ApiContentDispositionRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminPlatformHealthRoute = AdminPlatformHealthRouteImport.update({
-  id: '/admin/platform-health',
-  path: '/admin/platform-health',
-  getParentRoute: () => rootRouteImport,
+  id: '/platform-health',
+  path: '/platform-health',
+  getParentRoute: () => AdminRoute,
 } as any)
 const AdminKnowledgeGraphBehaviorRoute =
   AdminKnowledgeGraphBehaviorRouteImport.update({
-    id: '/admin/knowledge-graph-behavior',
-    path: '/admin/knowledge-graph-behavior',
-    getParentRoute: () => rootRouteImport,
+    id: '/knowledge-graph-behavior',
+    path: '/knowledge-graph-behavior',
+    getParentRoute: () => AdminRoute,
   } as any)
 const AdminInternalLinkTestsRoute = AdminInternalLinkTestsRouteImport.update({
-  id: '/admin/internal-link-tests',
-  path: '/admin/internal-link-tests',
-  getParentRoute: () => rootRouteImport,
+  id: '/internal-link-tests',
+  path: '/internal-link-tests',
+  getParentRoute: () => AdminRoute,
 } as any)
 const AdminInternalLinkRollbackRoute =
   AdminInternalLinkRollbackRouteImport.update({
-    id: '/admin/internal-link-rollback',
-    path: '/admin/internal-link-rollback',
-    getParentRoute: () => rootRouteImport,
+    id: '/internal-link-rollback',
+    path: '/internal-link-rollback',
+    getParentRoute: () => AdminRoute,
   } as any)
 const AdminGovernanceHealthRoute = AdminGovernanceHealthRouteImport.update({
-  id: '/admin/governance-health',
-  path: '/admin/governance-health',
-  getParentRoute: () => rootRouteImport,
+  id: '/governance-health',
+  path: '/governance-health',
+  getParentRoute: () => AdminRoute,
 } as any)
 const AdminEntityMaintenanceRoute = AdminEntityMaintenanceRouteImport.update({
-  id: '/admin/entity-maintenance',
-  path: '/admin/entity-maintenance',
-  getParentRoute: () => rootRouteImport,
+  id: '/entity-maintenance',
+  path: '/entity-maintenance',
+  getParentRoute: () => AdminRoute,
 } as any)
 const AdminEntityImportReviewRoute = AdminEntityImportReviewRouteImport.update({
-  id: '/admin/entity-import-review',
-  path: '/admin/entity-import-review',
-  getParentRoute: () => rootRouteImport,
+  id: '/entity-import-review',
+  path: '/entity-import-review',
+  getParentRoute: () => AdminRoute,
 } as any)
 const KindSlugRoute = KindSlugRouteImport.update({
   id: '/$kind/$slug',
   path: '/$kind/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExploreStateParkSlugRoute = ExploreStateParkSlugRouteImport.update({
+  id: '/explore/state-park/$slug',
+  path: '/explore/state-park/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExploreRiverSlugRoute = ExploreRiverSlugRouteImport.update({
+  id: '/explore/river/$slug',
+  path: '/explore/river/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExploreRegionRegionRoute = ExploreRegionRegionRouteImport.update({
+  id: '/explore/region/$region',
+  path: '/explore/region/$region',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExploreLakeSlugRoute = ExploreLakeSlugRouteImport.update({
+  id: '/explore/lake/$slug',
+  path: '/explore/lake/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExploreCountyCountyRoute = ExploreCountyCountyRouteImport.update({
+  id: '/explore/county/$county',
+  path: '/explore/county/$county',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExploreCavernSlugRoute = ExploreCavernSlugRouteImport.update({
+  id: '/explore/cavern/$slug',
+  path: '/explore/cavern/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiAiEntitiesRoute = ApiAiEntitiesRouteImport.update({
@@ -325,17 +652,48 @@ const ApiAiEntitiesRoute = ApiAiEntitiesRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AdminRouteWithChildren
   '/events': typeof EventsRoute
+  '/find-my-dmv': typeof FindMyDmvRoute
+  '/find-my-school-district': typeof FindMySchoolDistrictRoute
   '/guides': typeof GuidesRoute
   '/home-garden': typeof HomeGardenRoute
   '/llms.txt': typeof LlmsDottxtRoute
   '/moving-to-texas': typeof MovingToTexasRoute
+  '/moving-to-texas-checklist': typeof MovingToTexasChecklistRoute
   '/real-estate': typeof RealEstateRoute
   '/search': typeof SearchRoute
   '/sitemap-explore.xml': typeof SitemapExploreDotxmlRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sports': typeof SportsRoute
+  '/tax-calculator': typeof TaxCalculatorRoute
+  '/texas-budget-planner': typeof TexasBudgetPlannerRoute
+  '/texas-closing-cost-calculator': typeof TexasClosingCostCalculatorRoute
+  '/texas-cost-of-living-calculator': typeof TexasCostOfLivingCalculatorRoute
+  '/texas-data': typeof TexasDataRouteWithChildren
+  '/texas-down-payment-assistance-calculator': typeof TexasDownPaymentAssistanceCalculatorRoute
+  '/texas-down-payment-calculator': typeof TexasDownPaymentCalculatorRoute
+  '/texas-financial-tools': typeof TexasFinancialToolsRoute
+  '/texas-first-time-homebuyer-programs': typeof TexasFirstTimeHomebuyerProgramsRoute
   '/texas-history': typeof TexasHistoryRoute
+  '/texas-home-affordability-calculator': typeof TexasHomeAffordabilityCalculatorRoute
+  '/texas-home-equity-calculator': typeof TexasHomeEquityCalculatorRoute
+  '/texas-home-equity-growth-calculator': typeof TexasHomeEquityGrowthCalculatorRoute
+  '/texas-home-insurance-calculator': typeof TexasHomeInsuranceCalculatorRoute
+  '/texas-homeownership-cost-calculator': typeof TexasHomeownershipCostCalculatorRoute
+  '/texas-living': typeof TexasLivingRoute
+  '/texas-mortgage-calculator': typeof TexasMortgageCalculatorRoute
+  '/texas-mortgage-payoff-calculator': typeof TexasMortgagePayoffCalculatorRoute
+  '/texas-moving-cost-calculator': typeof TexasMovingCostCalculatorRoute
+  '/texas-property-tax-increase-calculator': typeof TexasPropertyTaxIncreaseCalculatorRoute
+  '/texas-property-tax-protest-guide': typeof TexasPropertyTaxProtestGuideRoute
+  '/texas-refinance-savings-calculator': typeof TexasRefinanceSavingsCalculatorRoute
+  '/texas-rent-vs-buy-calculator': typeof TexasRentVsBuyCalculatorRoute
+  '/texas-resources': typeof TexasResourcesRoute
+  '/texas-salary-calculator': typeof TexasSalaryCalculatorRoute
+  '/texas-salary-comparison-by-city': typeof TexasSalaryComparisonByCityRoute
+  '/texas-sales-tax-explained': typeof TexasSalesTaxExplainedRoute
+  '/texas-utility-cost-calculator': typeof TexasUtilityCostCalculatorRoute
   '/$kind/$slug': typeof KindSlugRoute
   '/admin/entity-import-review': typeof AdminEntityImportReviewRoute
   '/admin/entity-maintenance': typeof AdminEntityMaintenanceRoute
@@ -361,34 +719,84 @@ export interface FileRoutesByFullPath {
   '/article/$slug': typeof ArticleSlugRoute
   '/browse/cities': typeof BrowseCitiesRoute
   '/browse/counties': typeof BrowseCountiesRoute
+  '/decide/financial-tools': typeof DecideFinancialToolsRoute
   '/decide/property-taxes': typeof DecidePropertyTaxesRoute
   '/destination/$slug': typeof DestinationSlugRoute
   '/do/homestead-exemption': typeof DoHomesteadExemptionRoute
   '/do/property-tax-protest': typeof DoPropertyTaxProtestRoute
   '/explore/$category': typeof ExploreCategoryRoute
+  '/explore/hill-country-springs': typeof ExploreHillCountrySpringsRoute
+  '/explore/lighthouses': typeof ExploreLighthousesRoute
+  '/explore/national-wildlife-refuges': typeof ExploreNationalWildlifeRefugesRoute
   '/explore/search': typeof ExploreSearchRoute
+  '/explore/spring-conservation-and-education': typeof ExploreSpringConservationAndEducationRoute
+  '/explore/spring-fed-swimming': typeof ExploreSpringFedSwimmingRoute
+  '/explore/texas-camping-guide': typeof ExploreTexasCampingGuideRoute
+  '/explore/texas-lakes-guide': typeof ExploreTexasLakesGuideRoute
+  '/explore/texas-scenic-drives': typeof ExploreTexasScenicDrivesRoute
+  '/explore/texas-state-parks-guide': typeof ExploreTexasStateParksGuideRoute
+  '/explore/texas-wildflower-seasons': typeof ExploreTexasWildflowerSeasonsRoute
+  '/explore/wildlife-management-areas': typeof ExploreWildlifeManagementAreasRoute
   '/learn/appraisal-districts': typeof LearnAppraisalDistrictsRoute
   '/learn/property-tax-payments': typeof LearnPropertyTaxPaymentsRoute
   '/learn/property-taxes': typeof LearnPropertyTaxesRoute
   '/shop/$collection': typeof ShopCollectionRoute
+  '/texas-data/$datasetSlug': typeof TexasDataDatasetSlugRoute
   '/explore/': typeof ExploreIndexRoute
   '/shop/': typeof ShopIndexRoute
   '/api/ai/entities': typeof ApiAiEntitiesRoute
+  '/explore/cavern/$slug': typeof ExploreCavernSlugRoute
+  '/explore/county/$county': typeof ExploreCountyCountyRoute
+  '/explore/lake/$slug': typeof ExploreLakeSlugRoute
+  '/explore/region/$region': typeof ExploreRegionRegionRoute
+  '/explore/river/$slug': typeof ExploreRiverSlugRoute
+  '/explore/state-park/$slug': typeof ExploreStateParkSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AdminRouteWithChildren
   '/events': typeof EventsRoute
+  '/find-my-dmv': typeof FindMyDmvRoute
+  '/find-my-school-district': typeof FindMySchoolDistrictRoute
   '/guides': typeof GuidesRoute
   '/home-garden': typeof HomeGardenRoute
   '/llms.txt': typeof LlmsDottxtRoute
   '/moving-to-texas': typeof MovingToTexasRoute
+  '/moving-to-texas-checklist': typeof MovingToTexasChecklistRoute
   '/real-estate': typeof RealEstateRoute
   '/search': typeof SearchRoute
   '/sitemap-explore.xml': typeof SitemapExploreDotxmlRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sports': typeof SportsRoute
+  '/tax-calculator': typeof TaxCalculatorRoute
+  '/texas-budget-planner': typeof TexasBudgetPlannerRoute
+  '/texas-closing-cost-calculator': typeof TexasClosingCostCalculatorRoute
+  '/texas-cost-of-living-calculator': typeof TexasCostOfLivingCalculatorRoute
+  '/texas-data': typeof TexasDataRouteWithChildren
+  '/texas-down-payment-assistance-calculator': typeof TexasDownPaymentAssistanceCalculatorRoute
+  '/texas-down-payment-calculator': typeof TexasDownPaymentCalculatorRoute
+  '/texas-financial-tools': typeof TexasFinancialToolsRoute
+  '/texas-first-time-homebuyer-programs': typeof TexasFirstTimeHomebuyerProgramsRoute
   '/texas-history': typeof TexasHistoryRoute
+  '/texas-home-affordability-calculator': typeof TexasHomeAffordabilityCalculatorRoute
+  '/texas-home-equity-calculator': typeof TexasHomeEquityCalculatorRoute
+  '/texas-home-equity-growth-calculator': typeof TexasHomeEquityGrowthCalculatorRoute
+  '/texas-home-insurance-calculator': typeof TexasHomeInsuranceCalculatorRoute
+  '/texas-homeownership-cost-calculator': typeof TexasHomeownershipCostCalculatorRoute
+  '/texas-living': typeof TexasLivingRoute
+  '/texas-mortgage-calculator': typeof TexasMortgageCalculatorRoute
+  '/texas-mortgage-payoff-calculator': typeof TexasMortgagePayoffCalculatorRoute
+  '/texas-moving-cost-calculator': typeof TexasMovingCostCalculatorRoute
+  '/texas-property-tax-increase-calculator': typeof TexasPropertyTaxIncreaseCalculatorRoute
+  '/texas-property-tax-protest-guide': typeof TexasPropertyTaxProtestGuideRoute
+  '/texas-refinance-savings-calculator': typeof TexasRefinanceSavingsCalculatorRoute
+  '/texas-rent-vs-buy-calculator': typeof TexasRentVsBuyCalculatorRoute
+  '/texas-resources': typeof TexasResourcesRoute
+  '/texas-salary-calculator': typeof TexasSalaryCalculatorRoute
+  '/texas-salary-comparison-by-city': typeof TexasSalaryComparisonByCityRoute
+  '/texas-sales-tax-explained': typeof TexasSalesTaxExplainedRoute
+  '/texas-utility-cost-calculator': typeof TexasUtilityCostCalculatorRoute
   '/$kind/$slug': typeof KindSlugRoute
   '/admin/entity-import-review': typeof AdminEntityImportReviewRoute
   '/admin/entity-maintenance': typeof AdminEntityMaintenanceRoute
@@ -414,35 +822,85 @@ export interface FileRoutesByTo {
   '/article/$slug': typeof ArticleSlugRoute
   '/browse/cities': typeof BrowseCitiesRoute
   '/browse/counties': typeof BrowseCountiesRoute
+  '/decide/financial-tools': typeof DecideFinancialToolsRoute
   '/decide/property-taxes': typeof DecidePropertyTaxesRoute
   '/destination/$slug': typeof DestinationSlugRoute
   '/do/homestead-exemption': typeof DoHomesteadExemptionRoute
   '/do/property-tax-protest': typeof DoPropertyTaxProtestRoute
   '/explore/$category': typeof ExploreCategoryRoute
+  '/explore/hill-country-springs': typeof ExploreHillCountrySpringsRoute
+  '/explore/lighthouses': typeof ExploreLighthousesRoute
+  '/explore/national-wildlife-refuges': typeof ExploreNationalWildlifeRefugesRoute
   '/explore/search': typeof ExploreSearchRoute
+  '/explore/spring-conservation-and-education': typeof ExploreSpringConservationAndEducationRoute
+  '/explore/spring-fed-swimming': typeof ExploreSpringFedSwimmingRoute
+  '/explore/texas-camping-guide': typeof ExploreTexasCampingGuideRoute
+  '/explore/texas-lakes-guide': typeof ExploreTexasLakesGuideRoute
+  '/explore/texas-scenic-drives': typeof ExploreTexasScenicDrivesRoute
+  '/explore/texas-state-parks-guide': typeof ExploreTexasStateParksGuideRoute
+  '/explore/texas-wildflower-seasons': typeof ExploreTexasWildflowerSeasonsRoute
+  '/explore/wildlife-management-areas': typeof ExploreWildlifeManagementAreasRoute
   '/learn/appraisal-districts': typeof LearnAppraisalDistrictsRoute
   '/learn/property-tax-payments': typeof LearnPropertyTaxPaymentsRoute
   '/learn/property-taxes': typeof LearnPropertyTaxesRoute
   '/shop/$collection': typeof ShopCollectionRoute
+  '/texas-data/$datasetSlug': typeof TexasDataDatasetSlugRoute
   '/explore': typeof ExploreIndexRoute
   '/shop': typeof ShopIndexRoute
   '/api/ai/entities': typeof ApiAiEntitiesRoute
+  '/explore/cavern/$slug': typeof ExploreCavernSlugRoute
+  '/explore/county/$county': typeof ExploreCountyCountyRoute
+  '/explore/lake/$slug': typeof ExploreLakeSlugRoute
+  '/explore/region/$region': typeof ExploreRegionRegionRoute
+  '/explore/river/$slug': typeof ExploreRiverSlugRoute
+  '/explore/state-park/$slug': typeof ExploreStateParkSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AdminRouteWithChildren
   '/events': typeof EventsRoute
+  '/find-my-dmv': typeof FindMyDmvRoute
+  '/find-my-school-district': typeof FindMySchoolDistrictRoute
   '/guides': typeof GuidesRoute
   '/home-garden': typeof HomeGardenRoute
   '/llms.txt': typeof LlmsDottxtRoute
   '/moving-to-texas': typeof MovingToTexasRoute
+  '/moving-to-texas-checklist': typeof MovingToTexasChecklistRoute
   '/real-estate': typeof RealEstateRoute
   '/search': typeof SearchRoute
   '/sitemap-explore.xml': typeof SitemapExploreDotxmlRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sports': typeof SportsRoute
+  '/tax-calculator': typeof TaxCalculatorRoute
+  '/texas-budget-planner': typeof TexasBudgetPlannerRoute
+  '/texas-closing-cost-calculator': typeof TexasClosingCostCalculatorRoute
+  '/texas-cost-of-living-calculator': typeof TexasCostOfLivingCalculatorRoute
+  '/texas-data': typeof TexasDataRouteWithChildren
+  '/texas-down-payment-assistance-calculator': typeof TexasDownPaymentAssistanceCalculatorRoute
+  '/texas-down-payment-calculator': typeof TexasDownPaymentCalculatorRoute
+  '/texas-financial-tools': typeof TexasFinancialToolsRoute
+  '/texas-first-time-homebuyer-programs': typeof TexasFirstTimeHomebuyerProgramsRoute
   '/texas-history': typeof TexasHistoryRoute
+  '/texas-home-affordability-calculator': typeof TexasHomeAffordabilityCalculatorRoute
+  '/texas-home-equity-calculator': typeof TexasHomeEquityCalculatorRoute
+  '/texas-home-equity-growth-calculator': typeof TexasHomeEquityGrowthCalculatorRoute
+  '/texas-home-insurance-calculator': typeof TexasHomeInsuranceCalculatorRoute
+  '/texas-homeownership-cost-calculator': typeof TexasHomeownershipCostCalculatorRoute
+  '/texas-living': typeof TexasLivingRoute
+  '/texas-mortgage-calculator': typeof TexasMortgageCalculatorRoute
+  '/texas-mortgage-payoff-calculator': typeof TexasMortgagePayoffCalculatorRoute
+  '/texas-moving-cost-calculator': typeof TexasMovingCostCalculatorRoute
+  '/texas-property-tax-increase-calculator': typeof TexasPropertyTaxIncreaseCalculatorRoute
+  '/texas-property-tax-protest-guide': typeof TexasPropertyTaxProtestGuideRoute
+  '/texas-refinance-savings-calculator': typeof TexasRefinanceSavingsCalculatorRoute
+  '/texas-rent-vs-buy-calculator': typeof TexasRentVsBuyCalculatorRoute
+  '/texas-resources': typeof TexasResourcesRoute
+  '/texas-salary-calculator': typeof TexasSalaryCalculatorRoute
+  '/texas-salary-comparison-by-city': typeof TexasSalaryComparisonByCityRoute
+  '/texas-sales-tax-explained': typeof TexasSalesTaxExplainedRoute
+  '/texas-utility-cost-calculator': typeof TexasUtilityCostCalculatorRoute
   '/$kind/$slug': typeof KindSlugRoute
   '/admin/entity-import-review': typeof AdminEntityImportReviewRoute
   '/admin/entity-maintenance': typeof AdminEntityMaintenanceRoute
@@ -468,36 +926,86 @@ export interface FileRoutesById {
   '/article/$slug': typeof ArticleSlugRoute
   '/browse/cities': typeof BrowseCitiesRoute
   '/browse/counties': typeof BrowseCountiesRoute
+  '/decide/financial-tools': typeof DecideFinancialToolsRoute
   '/decide/property-taxes': typeof DecidePropertyTaxesRoute
   '/destination/$slug': typeof DestinationSlugRoute
   '/do/homestead-exemption': typeof DoHomesteadExemptionRoute
   '/do/property-tax-protest': typeof DoPropertyTaxProtestRoute
   '/explore/$category': typeof ExploreCategoryRoute
+  '/explore/hill-country-springs': typeof ExploreHillCountrySpringsRoute
+  '/explore/lighthouses': typeof ExploreLighthousesRoute
+  '/explore/national-wildlife-refuges': typeof ExploreNationalWildlifeRefugesRoute
   '/explore/search': typeof ExploreSearchRoute
+  '/explore/spring-conservation-and-education': typeof ExploreSpringConservationAndEducationRoute
+  '/explore/spring-fed-swimming': typeof ExploreSpringFedSwimmingRoute
+  '/explore/texas-camping-guide': typeof ExploreTexasCampingGuideRoute
+  '/explore/texas-lakes-guide': typeof ExploreTexasLakesGuideRoute
+  '/explore/texas-scenic-drives': typeof ExploreTexasScenicDrivesRoute
+  '/explore/texas-state-parks-guide': typeof ExploreTexasStateParksGuideRoute
+  '/explore/texas-wildflower-seasons': typeof ExploreTexasWildflowerSeasonsRoute
+  '/explore/wildlife-management-areas': typeof ExploreWildlifeManagementAreasRoute
   '/learn/appraisal-districts': typeof LearnAppraisalDistrictsRoute
   '/learn/property-tax-payments': typeof LearnPropertyTaxPaymentsRoute
   '/learn/property-taxes': typeof LearnPropertyTaxesRoute
   '/shop/$collection': typeof ShopCollectionRoute
+  '/texas-data/$datasetSlug': typeof TexasDataDatasetSlugRoute
   '/explore/': typeof ExploreIndexRoute
   '/shop/': typeof ShopIndexRoute
   '/api/ai/entities': typeof ApiAiEntitiesRoute
+  '/explore/cavern/$slug': typeof ExploreCavernSlugRoute
+  '/explore/county/$county': typeof ExploreCountyCountyRoute
+  '/explore/lake/$slug': typeof ExploreLakeSlugRoute
+  '/explore/region/$region': typeof ExploreRegionRegionRoute
+  '/explore/river/$slug': typeof ExploreRiverSlugRoute
+  '/explore/state-park/$slug': typeof ExploreStateParkSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/about'
+    | '/admin'
     | '/events'
+    | '/find-my-dmv'
+    | '/find-my-school-district'
     | '/guides'
     | '/home-garden'
     | '/llms.txt'
     | '/moving-to-texas'
+    | '/moving-to-texas-checklist'
     | '/real-estate'
     | '/search'
     | '/sitemap-explore.xml'
     | '/sitemap.xml'
     | '/sports'
+    | '/tax-calculator'
+    | '/texas-budget-planner'
+    | '/texas-closing-cost-calculator'
+    | '/texas-cost-of-living-calculator'
+    | '/texas-data'
+    | '/texas-down-payment-assistance-calculator'
+    | '/texas-down-payment-calculator'
+    | '/texas-financial-tools'
+    | '/texas-first-time-homebuyer-programs'
     | '/texas-history'
+    | '/texas-home-affordability-calculator'
+    | '/texas-home-equity-calculator'
+    | '/texas-home-equity-growth-calculator'
+    | '/texas-home-insurance-calculator'
+    | '/texas-homeownership-cost-calculator'
+    | '/texas-living'
+    | '/texas-mortgage-calculator'
+    | '/texas-mortgage-payoff-calculator'
+    | '/texas-moving-cost-calculator'
+    | '/texas-property-tax-increase-calculator'
+    | '/texas-property-tax-protest-guide'
+    | '/texas-refinance-savings-calculator'
+    | '/texas-rent-vs-buy-calculator'
+    | '/texas-resources'
+    | '/texas-salary-calculator'
+    | '/texas-salary-comparison-by-city'
+    | '/texas-sales-tax-explained'
+    | '/texas-utility-cost-calculator'
     | '/$kind/$slug'
     | '/admin/entity-import-review'
     | '/admin/entity-maintenance'
@@ -523,34 +1031,84 @@ export interface FileRouteTypes {
     | '/article/$slug'
     | '/browse/cities'
     | '/browse/counties'
+    | '/decide/financial-tools'
     | '/decide/property-taxes'
     | '/destination/$slug'
     | '/do/homestead-exemption'
     | '/do/property-tax-protest'
     | '/explore/$category'
+    | '/explore/hill-country-springs'
+    | '/explore/lighthouses'
+    | '/explore/national-wildlife-refuges'
     | '/explore/search'
+    | '/explore/spring-conservation-and-education'
+    | '/explore/spring-fed-swimming'
+    | '/explore/texas-camping-guide'
+    | '/explore/texas-lakes-guide'
+    | '/explore/texas-scenic-drives'
+    | '/explore/texas-state-parks-guide'
+    | '/explore/texas-wildflower-seasons'
+    | '/explore/wildlife-management-areas'
     | '/learn/appraisal-districts'
     | '/learn/property-tax-payments'
     | '/learn/property-taxes'
     | '/shop/$collection'
+    | '/texas-data/$datasetSlug'
     | '/explore/'
     | '/shop/'
     | '/api/ai/entities'
+    | '/explore/cavern/$slug'
+    | '/explore/county/$county'
+    | '/explore/lake/$slug'
+    | '/explore/region/$region'
+    | '/explore/river/$slug'
+    | '/explore/state-park/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
+    | '/admin'
     | '/events'
+    | '/find-my-dmv'
+    | '/find-my-school-district'
     | '/guides'
     | '/home-garden'
     | '/llms.txt'
     | '/moving-to-texas'
+    | '/moving-to-texas-checklist'
     | '/real-estate'
     | '/search'
     | '/sitemap-explore.xml'
     | '/sitemap.xml'
     | '/sports'
+    | '/tax-calculator'
+    | '/texas-budget-planner'
+    | '/texas-closing-cost-calculator'
+    | '/texas-cost-of-living-calculator'
+    | '/texas-data'
+    | '/texas-down-payment-assistance-calculator'
+    | '/texas-down-payment-calculator'
+    | '/texas-financial-tools'
+    | '/texas-first-time-homebuyer-programs'
     | '/texas-history'
+    | '/texas-home-affordability-calculator'
+    | '/texas-home-equity-calculator'
+    | '/texas-home-equity-growth-calculator'
+    | '/texas-home-insurance-calculator'
+    | '/texas-homeownership-cost-calculator'
+    | '/texas-living'
+    | '/texas-mortgage-calculator'
+    | '/texas-mortgage-payoff-calculator'
+    | '/texas-moving-cost-calculator'
+    | '/texas-property-tax-increase-calculator'
+    | '/texas-property-tax-protest-guide'
+    | '/texas-refinance-savings-calculator'
+    | '/texas-rent-vs-buy-calculator'
+    | '/texas-resources'
+    | '/texas-salary-calculator'
+    | '/texas-salary-comparison-by-city'
+    | '/texas-sales-tax-explained'
+    | '/texas-utility-cost-calculator'
     | '/$kind/$slug'
     | '/admin/entity-import-review'
     | '/admin/entity-maintenance'
@@ -576,34 +1134,84 @@ export interface FileRouteTypes {
     | '/article/$slug'
     | '/browse/cities'
     | '/browse/counties'
+    | '/decide/financial-tools'
     | '/decide/property-taxes'
     | '/destination/$slug'
     | '/do/homestead-exemption'
     | '/do/property-tax-protest'
     | '/explore/$category'
+    | '/explore/hill-country-springs'
+    | '/explore/lighthouses'
+    | '/explore/national-wildlife-refuges'
     | '/explore/search'
+    | '/explore/spring-conservation-and-education'
+    | '/explore/spring-fed-swimming'
+    | '/explore/texas-camping-guide'
+    | '/explore/texas-lakes-guide'
+    | '/explore/texas-scenic-drives'
+    | '/explore/texas-state-parks-guide'
+    | '/explore/texas-wildflower-seasons'
+    | '/explore/wildlife-management-areas'
     | '/learn/appraisal-districts'
     | '/learn/property-tax-payments'
     | '/learn/property-taxes'
     | '/shop/$collection'
+    | '/texas-data/$datasetSlug'
     | '/explore'
     | '/shop'
     | '/api/ai/entities'
+    | '/explore/cavern/$slug'
+    | '/explore/county/$county'
+    | '/explore/lake/$slug'
+    | '/explore/region/$region'
+    | '/explore/river/$slug'
+    | '/explore/state-park/$slug'
   id:
     | '__root__'
     | '/'
     | '/about'
+    | '/admin'
     | '/events'
+    | '/find-my-dmv'
+    | '/find-my-school-district'
     | '/guides'
     | '/home-garden'
     | '/llms.txt'
     | '/moving-to-texas'
+    | '/moving-to-texas-checklist'
     | '/real-estate'
     | '/search'
     | '/sitemap-explore.xml'
     | '/sitemap.xml'
     | '/sports'
+    | '/tax-calculator'
+    | '/texas-budget-planner'
+    | '/texas-closing-cost-calculator'
+    | '/texas-cost-of-living-calculator'
+    | '/texas-data'
+    | '/texas-down-payment-assistance-calculator'
+    | '/texas-down-payment-calculator'
+    | '/texas-financial-tools'
+    | '/texas-first-time-homebuyer-programs'
     | '/texas-history'
+    | '/texas-home-affordability-calculator'
+    | '/texas-home-equity-calculator'
+    | '/texas-home-equity-growth-calculator'
+    | '/texas-home-insurance-calculator'
+    | '/texas-homeownership-cost-calculator'
+    | '/texas-living'
+    | '/texas-mortgage-calculator'
+    | '/texas-mortgage-payoff-calculator'
+    | '/texas-moving-cost-calculator'
+    | '/texas-property-tax-increase-calculator'
+    | '/texas-property-tax-protest-guide'
+    | '/texas-refinance-savings-calculator'
+    | '/texas-rent-vs-buy-calculator'
+    | '/texas-resources'
+    | '/texas-salary-calculator'
+    | '/texas-salary-comparison-by-city'
+    | '/texas-sales-tax-explained'
+    | '/texas-utility-cost-calculator'
     | '/$kind/$slug'
     | '/admin/entity-import-review'
     | '/admin/entity-maintenance'
@@ -629,43 +1237,86 @@ export interface FileRouteTypes {
     | '/article/$slug'
     | '/browse/cities'
     | '/browse/counties'
+    | '/decide/financial-tools'
     | '/decide/property-taxes'
     | '/destination/$slug'
     | '/do/homestead-exemption'
     | '/do/property-tax-protest'
     | '/explore/$category'
+    | '/explore/hill-country-springs'
+    | '/explore/lighthouses'
+    | '/explore/national-wildlife-refuges'
     | '/explore/search'
+    | '/explore/spring-conservation-and-education'
+    | '/explore/spring-fed-swimming'
+    | '/explore/texas-camping-guide'
+    | '/explore/texas-lakes-guide'
+    | '/explore/texas-scenic-drives'
+    | '/explore/texas-state-parks-guide'
+    | '/explore/texas-wildflower-seasons'
+    | '/explore/wildlife-management-areas'
     | '/learn/appraisal-districts'
     | '/learn/property-tax-payments'
     | '/learn/property-taxes'
     | '/shop/$collection'
+    | '/texas-data/$datasetSlug'
     | '/explore/'
     | '/shop/'
     | '/api/ai/entities'
+    | '/explore/cavern/$slug'
+    | '/explore/county/$county'
+    | '/explore/lake/$slug'
+    | '/explore/region/$region'
+    | '/explore/river/$slug'
+    | '/explore/state-park/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AdminRoute: typeof AdminRouteWithChildren
   EventsRoute: typeof EventsRoute
+  FindMyDmvRoute: typeof FindMyDmvRoute
+  FindMySchoolDistrictRoute: typeof FindMySchoolDistrictRoute
   GuidesRoute: typeof GuidesRoute
   HomeGardenRoute: typeof HomeGardenRoute
   LlmsDottxtRoute: typeof LlmsDottxtRoute
   MovingToTexasRoute: typeof MovingToTexasRoute
+  MovingToTexasChecklistRoute: typeof MovingToTexasChecklistRoute
   RealEstateRoute: typeof RealEstateRoute
   SearchRoute: typeof SearchRoute
   SitemapExploreDotxmlRoute: typeof SitemapExploreDotxmlRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SportsRoute: typeof SportsRoute
+  TaxCalculatorRoute: typeof TaxCalculatorRoute
+  TexasBudgetPlannerRoute: typeof TexasBudgetPlannerRoute
+  TexasClosingCostCalculatorRoute: typeof TexasClosingCostCalculatorRoute
+  TexasCostOfLivingCalculatorRoute: typeof TexasCostOfLivingCalculatorRoute
+  TexasDataRoute: typeof TexasDataRouteWithChildren
+  TexasDownPaymentAssistanceCalculatorRoute: typeof TexasDownPaymentAssistanceCalculatorRoute
+  TexasDownPaymentCalculatorRoute: typeof TexasDownPaymentCalculatorRoute
+  TexasFinancialToolsRoute: typeof TexasFinancialToolsRoute
+  TexasFirstTimeHomebuyerProgramsRoute: typeof TexasFirstTimeHomebuyerProgramsRoute
   TexasHistoryRoute: typeof TexasHistoryRoute
+  TexasHomeAffordabilityCalculatorRoute: typeof TexasHomeAffordabilityCalculatorRoute
+  TexasHomeEquityCalculatorRoute: typeof TexasHomeEquityCalculatorRoute
+  TexasHomeEquityGrowthCalculatorRoute: typeof TexasHomeEquityGrowthCalculatorRoute
+  TexasHomeInsuranceCalculatorRoute: typeof TexasHomeInsuranceCalculatorRoute
+  TexasHomeownershipCostCalculatorRoute: typeof TexasHomeownershipCostCalculatorRoute
+  TexasLivingRoute: typeof TexasLivingRoute
+  TexasMortgageCalculatorRoute: typeof TexasMortgageCalculatorRoute
+  TexasMortgagePayoffCalculatorRoute: typeof TexasMortgagePayoffCalculatorRoute
+  TexasMovingCostCalculatorRoute: typeof TexasMovingCostCalculatorRoute
+  TexasPropertyTaxIncreaseCalculatorRoute: typeof TexasPropertyTaxIncreaseCalculatorRoute
+  TexasPropertyTaxProtestGuideRoute: typeof TexasPropertyTaxProtestGuideRoute
+  TexasRefinanceSavingsCalculatorRoute: typeof TexasRefinanceSavingsCalculatorRoute
+  TexasRentVsBuyCalculatorRoute: typeof TexasRentVsBuyCalculatorRoute
+  TexasResourcesRoute: typeof TexasResourcesRoute
+  TexasSalaryCalculatorRoute: typeof TexasSalaryCalculatorRoute
+  TexasSalaryComparisonByCityRoute: typeof TexasSalaryComparisonByCityRoute
+  TexasSalesTaxExplainedRoute: typeof TexasSalesTaxExplainedRoute
+  TexasUtilityCostCalculatorRoute: typeof TexasUtilityCostCalculatorRoute
   KindSlugRoute: typeof KindSlugRoute
-  AdminEntityImportReviewRoute: typeof AdminEntityImportReviewRoute
-  AdminEntityMaintenanceRoute: typeof AdminEntityMaintenanceRoute
-  AdminGovernanceHealthRoute: typeof AdminGovernanceHealthRoute
-  AdminInternalLinkRollbackRoute: typeof AdminInternalLinkRollbackRoute
-  AdminInternalLinkTestsRoute: typeof AdminInternalLinkTestsRoute
-  AdminKnowledgeGraphBehaviorRoute: typeof AdminKnowledgeGraphBehaviorRoute
-  AdminPlatformHealthRoute: typeof AdminPlatformHealthRoute
   ApiContentDispositionRoute: typeof ApiContentDispositionRoute
   ApiEntityImportPreviewRoute: typeof ApiEntityImportPreviewRoute
   ApiEntityMaintenanceRoute: typeof ApiEntityMaintenanceRoute
@@ -683,12 +1334,24 @@ export interface RootRouteChildren {
   ArticleSlugRoute: typeof ArticleSlugRoute
   BrowseCitiesRoute: typeof BrowseCitiesRoute
   BrowseCountiesRoute: typeof BrowseCountiesRoute
+  DecideFinancialToolsRoute: typeof DecideFinancialToolsRoute
   DecidePropertyTaxesRoute: typeof DecidePropertyTaxesRoute
   DestinationSlugRoute: typeof DestinationSlugRoute
   DoHomesteadExemptionRoute: typeof DoHomesteadExemptionRoute
   DoPropertyTaxProtestRoute: typeof DoPropertyTaxProtestRoute
   ExploreCategoryRoute: typeof ExploreCategoryRoute
+  ExploreHillCountrySpringsRoute: typeof ExploreHillCountrySpringsRoute
+  ExploreLighthousesRoute: typeof ExploreLighthousesRoute
+  ExploreNationalWildlifeRefugesRoute: typeof ExploreNationalWildlifeRefugesRoute
   ExploreSearchRoute: typeof ExploreSearchRoute
+  ExploreSpringConservationAndEducationRoute: typeof ExploreSpringConservationAndEducationRoute
+  ExploreSpringFedSwimmingRoute: typeof ExploreSpringFedSwimmingRoute
+  ExploreTexasCampingGuideRoute: typeof ExploreTexasCampingGuideRoute
+  ExploreTexasLakesGuideRoute: typeof ExploreTexasLakesGuideRoute
+  ExploreTexasScenicDrivesRoute: typeof ExploreTexasScenicDrivesRoute
+  ExploreTexasStateParksGuideRoute: typeof ExploreTexasStateParksGuideRoute
+  ExploreTexasWildflowerSeasonsRoute: typeof ExploreTexasWildflowerSeasonsRoute
+  ExploreWildlifeManagementAreasRoute: typeof ExploreWildlifeManagementAreasRoute
   LearnAppraisalDistrictsRoute: typeof LearnAppraisalDistrictsRoute
   LearnPropertyTaxPaymentsRoute: typeof LearnPropertyTaxPaymentsRoute
   LearnPropertyTaxesRoute: typeof LearnPropertyTaxesRoute
@@ -696,15 +1359,210 @@ export interface RootRouteChildren {
   ExploreIndexRoute: typeof ExploreIndexRoute
   ShopIndexRoute: typeof ShopIndexRoute
   ApiAiEntitiesRoute: typeof ApiAiEntitiesRoute
+  ExploreCavernSlugRoute: typeof ExploreCavernSlugRoute
+  ExploreCountyCountyRoute: typeof ExploreCountyCountyRoute
+  ExploreLakeSlugRoute: typeof ExploreLakeSlugRoute
+  ExploreRegionRegionRoute: typeof ExploreRegionRegionRoute
+  ExploreRiverSlugRoute: typeof ExploreRiverSlugRoute
+  ExploreStateParkSlugRoute: typeof ExploreStateParkSlugRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/texas-utility-cost-calculator': {
+      id: '/texas-utility-cost-calculator'
+      path: '/texas-utility-cost-calculator'
+      fullPath: '/texas-utility-cost-calculator'
+      preLoaderRoute: typeof TexasUtilityCostCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/texas-sales-tax-explained': {
+      id: '/texas-sales-tax-explained'
+      path: '/texas-sales-tax-explained'
+      fullPath: '/texas-sales-tax-explained'
+      preLoaderRoute: typeof TexasSalesTaxExplainedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/texas-salary-comparison-by-city': {
+      id: '/texas-salary-comparison-by-city'
+      path: '/texas-salary-comparison-by-city'
+      fullPath: '/texas-salary-comparison-by-city'
+      preLoaderRoute: typeof TexasSalaryComparisonByCityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/texas-salary-calculator': {
+      id: '/texas-salary-calculator'
+      path: '/texas-salary-calculator'
+      fullPath: '/texas-salary-calculator'
+      preLoaderRoute: typeof TexasSalaryCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/texas-resources': {
+      id: '/texas-resources'
+      path: '/texas-resources'
+      fullPath: '/texas-resources'
+      preLoaderRoute: typeof TexasResourcesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/texas-rent-vs-buy-calculator': {
+      id: '/texas-rent-vs-buy-calculator'
+      path: '/texas-rent-vs-buy-calculator'
+      fullPath: '/texas-rent-vs-buy-calculator'
+      preLoaderRoute: typeof TexasRentVsBuyCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/texas-refinance-savings-calculator': {
+      id: '/texas-refinance-savings-calculator'
+      path: '/texas-refinance-savings-calculator'
+      fullPath: '/texas-refinance-savings-calculator'
+      preLoaderRoute: typeof TexasRefinanceSavingsCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/texas-property-tax-protest-guide': {
+      id: '/texas-property-tax-protest-guide'
+      path: '/texas-property-tax-protest-guide'
+      fullPath: '/texas-property-tax-protest-guide'
+      preLoaderRoute: typeof TexasPropertyTaxProtestGuideRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/texas-property-tax-increase-calculator': {
+      id: '/texas-property-tax-increase-calculator'
+      path: '/texas-property-tax-increase-calculator'
+      fullPath: '/texas-property-tax-increase-calculator'
+      preLoaderRoute: typeof TexasPropertyTaxIncreaseCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/texas-moving-cost-calculator': {
+      id: '/texas-moving-cost-calculator'
+      path: '/texas-moving-cost-calculator'
+      fullPath: '/texas-moving-cost-calculator'
+      preLoaderRoute: typeof TexasMovingCostCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/texas-mortgage-payoff-calculator': {
+      id: '/texas-mortgage-payoff-calculator'
+      path: '/texas-mortgage-payoff-calculator'
+      fullPath: '/texas-mortgage-payoff-calculator'
+      preLoaderRoute: typeof TexasMortgagePayoffCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/texas-mortgage-calculator': {
+      id: '/texas-mortgage-calculator'
+      path: '/texas-mortgage-calculator'
+      fullPath: '/texas-mortgage-calculator'
+      preLoaderRoute: typeof TexasMortgageCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/texas-living': {
+      id: '/texas-living'
+      path: '/texas-living'
+      fullPath: '/texas-living'
+      preLoaderRoute: typeof TexasLivingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/texas-homeownership-cost-calculator': {
+      id: '/texas-homeownership-cost-calculator'
+      path: '/texas-homeownership-cost-calculator'
+      fullPath: '/texas-homeownership-cost-calculator'
+      preLoaderRoute: typeof TexasHomeownershipCostCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/texas-home-insurance-calculator': {
+      id: '/texas-home-insurance-calculator'
+      path: '/texas-home-insurance-calculator'
+      fullPath: '/texas-home-insurance-calculator'
+      preLoaderRoute: typeof TexasHomeInsuranceCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/texas-home-equity-growth-calculator': {
+      id: '/texas-home-equity-growth-calculator'
+      path: '/texas-home-equity-growth-calculator'
+      fullPath: '/texas-home-equity-growth-calculator'
+      preLoaderRoute: typeof TexasHomeEquityGrowthCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/texas-home-equity-calculator': {
+      id: '/texas-home-equity-calculator'
+      path: '/texas-home-equity-calculator'
+      fullPath: '/texas-home-equity-calculator'
+      preLoaderRoute: typeof TexasHomeEquityCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/texas-home-affordability-calculator': {
+      id: '/texas-home-affordability-calculator'
+      path: '/texas-home-affordability-calculator'
+      fullPath: '/texas-home-affordability-calculator'
+      preLoaderRoute: typeof TexasHomeAffordabilityCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/texas-history': {
       id: '/texas-history'
       path: '/texas-history'
       fullPath: '/texas-history'
       preLoaderRoute: typeof TexasHistoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/texas-first-time-homebuyer-programs': {
+      id: '/texas-first-time-homebuyer-programs'
+      path: '/texas-first-time-homebuyer-programs'
+      fullPath: '/texas-first-time-homebuyer-programs'
+      preLoaderRoute: typeof TexasFirstTimeHomebuyerProgramsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/texas-financial-tools': {
+      id: '/texas-financial-tools'
+      path: '/texas-financial-tools'
+      fullPath: '/texas-financial-tools'
+      preLoaderRoute: typeof TexasFinancialToolsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/texas-down-payment-calculator': {
+      id: '/texas-down-payment-calculator'
+      path: '/texas-down-payment-calculator'
+      fullPath: '/texas-down-payment-calculator'
+      preLoaderRoute: typeof TexasDownPaymentCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/texas-down-payment-assistance-calculator': {
+      id: '/texas-down-payment-assistance-calculator'
+      path: '/texas-down-payment-assistance-calculator'
+      fullPath: '/texas-down-payment-assistance-calculator'
+      preLoaderRoute: typeof TexasDownPaymentAssistanceCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/texas-data': {
+      id: '/texas-data'
+      path: '/texas-data'
+      fullPath: '/texas-data'
+      preLoaderRoute: typeof TexasDataRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/texas-cost-of-living-calculator': {
+      id: '/texas-cost-of-living-calculator'
+      path: '/texas-cost-of-living-calculator'
+      fullPath: '/texas-cost-of-living-calculator'
+      preLoaderRoute: typeof TexasCostOfLivingCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/texas-closing-cost-calculator': {
+      id: '/texas-closing-cost-calculator'
+      path: '/texas-closing-cost-calculator'
+      fullPath: '/texas-closing-cost-calculator'
+      preLoaderRoute: typeof TexasClosingCostCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/texas-budget-planner': {
+      id: '/texas-budget-planner'
+      path: '/texas-budget-planner'
+      fullPath: '/texas-budget-planner'
+      preLoaderRoute: typeof TexasBudgetPlannerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tax-calculator': {
+      id: '/tax-calculator'
+      path: '/tax-calculator'
+      fullPath: '/tax-calculator'
+      preLoaderRoute: typeof TaxCalculatorRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sports': {
@@ -742,6 +1600,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RealEstateRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/moving-to-texas-checklist': {
+      id: '/moving-to-texas-checklist'
+      path: '/moving-to-texas-checklist'
+      fullPath: '/moving-to-texas-checklist'
+      preLoaderRoute: typeof MovingToTexasChecklistRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/moving-to-texas': {
       id: '/moving-to-texas'
       path: '/moving-to-texas'
@@ -770,11 +1635,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GuidesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/find-my-school-district': {
+      id: '/find-my-school-district'
+      path: '/find-my-school-district'
+      fullPath: '/find-my-school-district'
+      preLoaderRoute: typeof FindMySchoolDistrictRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/find-my-dmv': {
+      id: '/find-my-dmv'
+      path: '/find-my-dmv'
+      fullPath: '/find-my-dmv'
+      preLoaderRoute: typeof FindMyDmvRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/events': {
       id: '/events'
       path: '/events'
       fullPath: '/events'
       preLoaderRoute: typeof EventsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -805,6 +1691,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExploreIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/texas-data/$datasetSlug': {
+      id: '/texas-data/$datasetSlug'
+      path: '/$datasetSlug'
+      fullPath: '/texas-data/$datasetSlug'
+      preLoaderRoute: typeof TexasDataDatasetSlugRouteImport
+      parentRoute: typeof TexasDataRoute
+    }
     '/shop/$collection': {
       id: '/shop/$collection'
       path: '/shop/$collection'
@@ -833,11 +1726,88 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LearnAppraisalDistrictsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/explore/wildlife-management-areas': {
+      id: '/explore/wildlife-management-areas'
+      path: '/explore/wildlife-management-areas'
+      fullPath: '/explore/wildlife-management-areas'
+      preLoaderRoute: typeof ExploreWildlifeManagementAreasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/explore/texas-wildflower-seasons': {
+      id: '/explore/texas-wildflower-seasons'
+      path: '/explore/texas-wildflower-seasons'
+      fullPath: '/explore/texas-wildflower-seasons'
+      preLoaderRoute: typeof ExploreTexasWildflowerSeasonsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/explore/texas-state-parks-guide': {
+      id: '/explore/texas-state-parks-guide'
+      path: '/explore/texas-state-parks-guide'
+      fullPath: '/explore/texas-state-parks-guide'
+      preLoaderRoute: typeof ExploreTexasStateParksGuideRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/explore/texas-scenic-drives': {
+      id: '/explore/texas-scenic-drives'
+      path: '/explore/texas-scenic-drives'
+      fullPath: '/explore/texas-scenic-drives'
+      preLoaderRoute: typeof ExploreTexasScenicDrivesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/explore/texas-lakes-guide': {
+      id: '/explore/texas-lakes-guide'
+      path: '/explore/texas-lakes-guide'
+      fullPath: '/explore/texas-lakes-guide'
+      preLoaderRoute: typeof ExploreTexasLakesGuideRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/explore/texas-camping-guide': {
+      id: '/explore/texas-camping-guide'
+      path: '/explore/texas-camping-guide'
+      fullPath: '/explore/texas-camping-guide'
+      preLoaderRoute: typeof ExploreTexasCampingGuideRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/explore/spring-fed-swimming': {
+      id: '/explore/spring-fed-swimming'
+      path: '/explore/spring-fed-swimming'
+      fullPath: '/explore/spring-fed-swimming'
+      preLoaderRoute: typeof ExploreSpringFedSwimmingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/explore/spring-conservation-and-education': {
+      id: '/explore/spring-conservation-and-education'
+      path: '/explore/spring-conservation-and-education'
+      fullPath: '/explore/spring-conservation-and-education'
+      preLoaderRoute: typeof ExploreSpringConservationAndEducationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/explore/search': {
       id: '/explore/search'
       path: '/explore/search'
       fullPath: '/explore/search'
       preLoaderRoute: typeof ExploreSearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/explore/national-wildlife-refuges': {
+      id: '/explore/national-wildlife-refuges'
+      path: '/explore/national-wildlife-refuges'
+      fullPath: '/explore/national-wildlife-refuges'
+      preLoaderRoute: typeof ExploreNationalWildlifeRefugesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/explore/lighthouses': {
+      id: '/explore/lighthouses'
+      path: '/explore/lighthouses'
+      fullPath: '/explore/lighthouses'
+      preLoaderRoute: typeof ExploreLighthousesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/explore/hill-country-springs': {
+      id: '/explore/hill-country-springs'
+      path: '/explore/hill-country-springs'
+      fullPath: '/explore/hill-country-springs'
+      preLoaderRoute: typeof ExploreHillCountrySpringsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/explore/$category': {
@@ -873,6 +1843,13 @@ declare module '@tanstack/react-router' {
       path: '/decide/property-taxes'
       fullPath: '/decide/property-taxes'
       preLoaderRoute: typeof DecidePropertyTaxesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/decide/financial-tools': {
+      id: '/decide/financial-tools'
+      path: '/decide/financial-tools'
+      fullPath: '/decide/financial-tools'
+      preLoaderRoute: typeof DecideFinancialToolsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/browse/counties': {
@@ -996,58 +1973,100 @@ declare module '@tanstack/react-router' {
     }
     '/admin/platform-health': {
       id: '/admin/platform-health'
-      path: '/admin/platform-health'
+      path: '/platform-health'
       fullPath: '/admin/platform-health'
       preLoaderRoute: typeof AdminPlatformHealthRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AdminRoute
     }
     '/admin/knowledge-graph-behavior': {
       id: '/admin/knowledge-graph-behavior'
-      path: '/admin/knowledge-graph-behavior'
+      path: '/knowledge-graph-behavior'
       fullPath: '/admin/knowledge-graph-behavior'
       preLoaderRoute: typeof AdminKnowledgeGraphBehaviorRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AdminRoute
     }
     '/admin/internal-link-tests': {
       id: '/admin/internal-link-tests'
-      path: '/admin/internal-link-tests'
+      path: '/internal-link-tests'
       fullPath: '/admin/internal-link-tests'
       preLoaderRoute: typeof AdminInternalLinkTestsRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AdminRoute
     }
     '/admin/internal-link-rollback': {
       id: '/admin/internal-link-rollback'
-      path: '/admin/internal-link-rollback'
+      path: '/internal-link-rollback'
       fullPath: '/admin/internal-link-rollback'
       preLoaderRoute: typeof AdminInternalLinkRollbackRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AdminRoute
     }
     '/admin/governance-health': {
       id: '/admin/governance-health'
-      path: '/admin/governance-health'
+      path: '/governance-health'
       fullPath: '/admin/governance-health'
       preLoaderRoute: typeof AdminGovernanceHealthRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AdminRoute
     }
     '/admin/entity-maintenance': {
       id: '/admin/entity-maintenance'
-      path: '/admin/entity-maintenance'
+      path: '/entity-maintenance'
       fullPath: '/admin/entity-maintenance'
       preLoaderRoute: typeof AdminEntityMaintenanceRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AdminRoute
     }
     '/admin/entity-import-review': {
       id: '/admin/entity-import-review'
-      path: '/admin/entity-import-review'
+      path: '/entity-import-review'
       fullPath: '/admin/entity-import-review'
       preLoaderRoute: typeof AdminEntityImportReviewRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AdminRoute
     }
     '/$kind/$slug': {
       id: '/$kind/$slug'
       path: '/$kind/$slug'
       fullPath: '/$kind/$slug'
       preLoaderRoute: typeof KindSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/explore/state-park/$slug': {
+      id: '/explore/state-park/$slug'
+      path: '/explore/state-park/$slug'
+      fullPath: '/explore/state-park/$slug'
+      preLoaderRoute: typeof ExploreStateParkSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/explore/river/$slug': {
+      id: '/explore/river/$slug'
+      path: '/explore/river/$slug'
+      fullPath: '/explore/river/$slug'
+      preLoaderRoute: typeof ExploreRiverSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/explore/region/$region': {
+      id: '/explore/region/$region'
+      path: '/explore/region/$region'
+      fullPath: '/explore/region/$region'
+      preLoaderRoute: typeof ExploreRegionRegionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/explore/lake/$slug': {
+      id: '/explore/lake/$slug'
+      path: '/explore/lake/$slug'
+      fullPath: '/explore/lake/$slug'
+      preLoaderRoute: typeof ExploreLakeSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/explore/county/$county': {
+      id: '/explore/county/$county'
+      path: '/explore/county/$county'
+      fullPath: '/explore/county/$county'
+      preLoaderRoute: typeof ExploreCountyCountyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/explore/cavern/$slug': {
+      id: '/explore/cavern/$slug'
+      path: '/explore/cavern/$slug'
+      fullPath: '/explore/cavern/$slug'
+      preLoaderRoute: typeof ExploreCavernSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/ai/entities': {
@@ -1060,21 +2079,17 @@ declare module '@tanstack/react-router' {
   }
 }
 
-const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  AboutRoute: AboutRoute,
-  EventsRoute: EventsRoute,
-  GuidesRoute: GuidesRoute,
-  HomeGardenRoute: HomeGardenRoute,
-  LlmsDottxtRoute: LlmsDottxtRoute,
-  MovingToTexasRoute: MovingToTexasRoute,
-  RealEstateRoute: RealEstateRoute,
-  SearchRoute: SearchRoute,
-  SitemapExploreDotxmlRoute: SitemapExploreDotxmlRoute,
-  SitemapDotxmlRoute: SitemapDotxmlRoute,
-  SportsRoute: SportsRoute,
-  TexasHistoryRoute: TexasHistoryRoute,
-  KindSlugRoute: KindSlugRoute,
+interface AdminRouteChildren {
+  AdminEntityImportReviewRoute: typeof AdminEntityImportReviewRoute
+  AdminEntityMaintenanceRoute: typeof AdminEntityMaintenanceRoute
+  AdminGovernanceHealthRoute: typeof AdminGovernanceHealthRoute
+  AdminInternalLinkRollbackRoute: typeof AdminInternalLinkRollbackRoute
+  AdminInternalLinkTestsRoute: typeof AdminInternalLinkTestsRoute
+  AdminKnowledgeGraphBehaviorRoute: typeof AdminKnowledgeGraphBehaviorRoute
+  AdminPlatformHealthRoute: typeof AdminPlatformHealthRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
   AdminEntityImportReviewRoute: AdminEntityImportReviewRoute,
   AdminEntityMaintenanceRoute: AdminEntityMaintenanceRoute,
   AdminGovernanceHealthRoute: AdminGovernanceHealthRoute,
@@ -1082,6 +2097,70 @@ const rootRouteChildren: RootRouteChildren = {
   AdminInternalLinkTestsRoute: AdminInternalLinkTestsRoute,
   AdminKnowledgeGraphBehaviorRoute: AdminKnowledgeGraphBehaviorRoute,
   AdminPlatformHealthRoute: AdminPlatformHealthRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
+interface TexasDataRouteChildren {
+  TexasDataDatasetSlugRoute: typeof TexasDataDatasetSlugRoute
+}
+
+const TexasDataRouteChildren: TexasDataRouteChildren = {
+  TexasDataDatasetSlugRoute: TexasDataDatasetSlugRoute,
+}
+
+const TexasDataRouteWithChildren = TexasDataRoute._addFileChildren(
+  TexasDataRouteChildren,
+)
+
+const rootRouteChildren: RootRouteChildren = {
+  IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  AdminRoute: AdminRouteWithChildren,
+  EventsRoute: EventsRoute,
+  FindMyDmvRoute: FindMyDmvRoute,
+  FindMySchoolDistrictRoute: FindMySchoolDistrictRoute,
+  GuidesRoute: GuidesRoute,
+  HomeGardenRoute: HomeGardenRoute,
+  LlmsDottxtRoute: LlmsDottxtRoute,
+  MovingToTexasRoute: MovingToTexasRoute,
+  MovingToTexasChecklistRoute: MovingToTexasChecklistRoute,
+  RealEstateRoute: RealEstateRoute,
+  SearchRoute: SearchRoute,
+  SitemapExploreDotxmlRoute: SitemapExploreDotxmlRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
+  SportsRoute: SportsRoute,
+  TaxCalculatorRoute: TaxCalculatorRoute,
+  TexasBudgetPlannerRoute: TexasBudgetPlannerRoute,
+  TexasClosingCostCalculatorRoute: TexasClosingCostCalculatorRoute,
+  TexasCostOfLivingCalculatorRoute: TexasCostOfLivingCalculatorRoute,
+  TexasDataRoute: TexasDataRouteWithChildren,
+  TexasDownPaymentAssistanceCalculatorRoute:
+    TexasDownPaymentAssistanceCalculatorRoute,
+  TexasDownPaymentCalculatorRoute: TexasDownPaymentCalculatorRoute,
+  TexasFinancialToolsRoute: TexasFinancialToolsRoute,
+  TexasFirstTimeHomebuyerProgramsRoute: TexasFirstTimeHomebuyerProgramsRoute,
+  TexasHistoryRoute: TexasHistoryRoute,
+  TexasHomeAffordabilityCalculatorRoute: TexasHomeAffordabilityCalculatorRoute,
+  TexasHomeEquityCalculatorRoute: TexasHomeEquityCalculatorRoute,
+  TexasHomeEquityGrowthCalculatorRoute: TexasHomeEquityGrowthCalculatorRoute,
+  TexasHomeInsuranceCalculatorRoute: TexasHomeInsuranceCalculatorRoute,
+  TexasHomeownershipCostCalculatorRoute: TexasHomeownershipCostCalculatorRoute,
+  TexasLivingRoute: TexasLivingRoute,
+  TexasMortgageCalculatorRoute: TexasMortgageCalculatorRoute,
+  TexasMortgagePayoffCalculatorRoute: TexasMortgagePayoffCalculatorRoute,
+  TexasMovingCostCalculatorRoute: TexasMovingCostCalculatorRoute,
+  TexasPropertyTaxIncreaseCalculatorRoute:
+    TexasPropertyTaxIncreaseCalculatorRoute,
+  TexasPropertyTaxProtestGuideRoute: TexasPropertyTaxProtestGuideRoute,
+  TexasRefinanceSavingsCalculatorRoute: TexasRefinanceSavingsCalculatorRoute,
+  TexasRentVsBuyCalculatorRoute: TexasRentVsBuyCalculatorRoute,
+  TexasResourcesRoute: TexasResourcesRoute,
+  TexasSalaryCalculatorRoute: TexasSalaryCalculatorRoute,
+  TexasSalaryComparisonByCityRoute: TexasSalaryComparisonByCityRoute,
+  TexasSalesTaxExplainedRoute: TexasSalesTaxExplainedRoute,
+  TexasUtilityCostCalculatorRoute: TexasUtilityCostCalculatorRoute,
+  KindSlugRoute: KindSlugRoute,
   ApiContentDispositionRoute: ApiContentDispositionRoute,
   ApiEntityImportPreviewRoute: ApiEntityImportPreviewRoute,
   ApiEntityMaintenanceRoute: ApiEntityMaintenanceRoute,
@@ -1099,12 +2178,25 @@ const rootRouteChildren: RootRouteChildren = {
   ArticleSlugRoute: ArticleSlugRoute,
   BrowseCitiesRoute: BrowseCitiesRoute,
   BrowseCountiesRoute: BrowseCountiesRoute,
+  DecideFinancialToolsRoute: DecideFinancialToolsRoute,
   DecidePropertyTaxesRoute: DecidePropertyTaxesRoute,
   DestinationSlugRoute: DestinationSlugRoute,
   DoHomesteadExemptionRoute: DoHomesteadExemptionRoute,
   DoPropertyTaxProtestRoute: DoPropertyTaxProtestRoute,
   ExploreCategoryRoute: ExploreCategoryRoute,
+  ExploreHillCountrySpringsRoute: ExploreHillCountrySpringsRoute,
+  ExploreLighthousesRoute: ExploreLighthousesRoute,
+  ExploreNationalWildlifeRefugesRoute: ExploreNationalWildlifeRefugesRoute,
   ExploreSearchRoute: ExploreSearchRoute,
+  ExploreSpringConservationAndEducationRoute:
+    ExploreSpringConservationAndEducationRoute,
+  ExploreSpringFedSwimmingRoute: ExploreSpringFedSwimmingRoute,
+  ExploreTexasCampingGuideRoute: ExploreTexasCampingGuideRoute,
+  ExploreTexasLakesGuideRoute: ExploreTexasLakesGuideRoute,
+  ExploreTexasScenicDrivesRoute: ExploreTexasScenicDrivesRoute,
+  ExploreTexasStateParksGuideRoute: ExploreTexasStateParksGuideRoute,
+  ExploreTexasWildflowerSeasonsRoute: ExploreTexasWildflowerSeasonsRoute,
+  ExploreWildlifeManagementAreasRoute: ExploreWildlifeManagementAreasRoute,
   LearnAppraisalDistrictsRoute: LearnAppraisalDistrictsRoute,
   LearnPropertyTaxPaymentsRoute: LearnPropertyTaxPaymentsRoute,
   LearnPropertyTaxesRoute: LearnPropertyTaxesRoute,
@@ -1112,6 +2204,12 @@ const rootRouteChildren: RootRouteChildren = {
   ExploreIndexRoute: ExploreIndexRoute,
   ShopIndexRoute: ShopIndexRoute,
   ApiAiEntitiesRoute: ApiAiEntitiesRoute,
+  ExploreCavernSlugRoute: ExploreCavernSlugRoute,
+  ExploreCountyCountyRoute: ExploreCountyCountyRoute,
+  ExploreLakeSlugRoute: ExploreLakeSlugRoute,
+  ExploreRegionRegionRoute: ExploreRegionRegionRoute,
+  ExploreRiverSlugRoute: ExploreRiverSlugRoute,
+  ExploreStateParkSlugRoute: ExploreStateParkSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
