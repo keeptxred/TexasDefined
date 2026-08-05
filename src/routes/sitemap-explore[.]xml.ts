@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { supplementalExploreCategories } from "@/data/explore-categories";
-import { categories } from "@/data/fixtures/texas";
+import { categories, destinations as fixtureDestinations } from "@/data/fixtures/texas";
 import { fetchExploreDestinations } from "@/data/explore-remote";
 
 const BASE_URL = "https://texasdefined.com";
@@ -14,21 +14,14 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
   server: {
     handlers: {
       GET: async () => {
-        let destinations: Awaited<ReturnType<typeof fetchExploreDestinations>>;
+        let remoteDestinations: Awaited<ReturnType<typeof fetchExploreDestinations>> = [];
         try {
-          destinations = await fetchExploreDestinations({ limit: 5000 });
+          remoteDestinations = await fetchExploreDestinations({ limit: 5000 });
         } catch (error) {
-          console.error("Explore sitemap catalog request failed", error);
-          return new Response("Explore sitemap temporarily unavailable.", {
-            status: 503,
-            headers: {
-              "Content-Type": "text/plain; charset=utf-8",
-              "Cache-Control": "no-store",
-              "Retry-After": "300",
-            },
-          });
+          console.error("Explore sitemap catalog request failed; using fixture destinations", error);
         }
 
+        const destinations = remoteDestinations.length ? remoteDestinations : fixtureDestinations;
         const categorySlugs = [...categories, ...supplementalExploreCategories]
           .map((category) => category.slug)
           .filter(Boolean);
