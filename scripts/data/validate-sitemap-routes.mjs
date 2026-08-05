@@ -19,6 +19,19 @@ const legacyExploreRedirects = [
   ['src/routes/explore.state-park.$slug.tsx', '/explore/state-park/', '/destination/'],
   ['src/routes/explore.county.$county.tsx', '/explore/county/', '/browse/counties#county-'],
 ];
+const migratedGuideRedirects = [
+  ['src/routes/explore.texas-state-parks-guide.tsx', '/explore/texas-state-parks-guide', '/explore/state-parks'],
+  ['src/routes/explore.texas-lakes-guide.tsx', '/explore/texas-lakes-guide', '/explore/lakes-rivers'],
+  ['src/routes/explore.texas-camping-guide.tsx', '/explore/texas-camping-guide', '/explore/outdoors'],
+  ['src/routes/explore.texas-scenic-drives.tsx', '/explore/texas-scenic-drives', '/explore/road-trips'],
+  ['src/routes/explore.texas-wildflower-seasons.tsx', '/explore/texas-wildflower-seasons', '/explore/road-trips'],
+  ['src/routes/explore.national-wildlife-refuges.tsx', '/explore/national-wildlife-refuges', '/explore/outdoors'],
+  ['src/routes/explore.wildlife-management-areas.tsx', '/explore/wildlife-management-areas', '/explore/outdoors'],
+  ['src/routes/explore.lighthouses.tsx', '/explore/lighthouses', '/explore/beaches-coast'],
+  ['src/routes/explore.spring-fed-swimming.tsx', '/explore/spring-fed-swimming', '/explore/lakes-rivers'],
+  ['src/routes/explore.hill-country-springs.tsx', '/explore/hill-country-springs', '/explore/lakes-rivers'],
+  ['src/routes/explore.spring-conservation-and-education.tsx', '/explore/spring-conservation-and-education', '/explore/lakes-rivers'],
+];
 const regionIds = [
   'hill-country',
   'gulf-coast',
@@ -56,6 +69,16 @@ for (const [filename, legacyPrefix, targetPrefix] of legacyExploreRedirects) {
   if (!source.includes('statusCode: 301')) failures.push(`${filename} must remain a permanent redirect.`);
   if (!source.includes(targetPrefix)) failures.push(`${filename} must redirect to ${targetPrefix}.`);
   if (exploreSitemap.includes(legacyPrefix)) failures.push(`Explore sitemap must not publish legacy prefix ${legacyPrefix}.`);
+}
+
+for (const [filename, aliasPath, targetPath] of migratedGuideRedirects) {
+  const source = fs.readFileSync(filename, 'utf8');
+  if (!source.includes('statusCode: 301')) failures.push(`${filename} must remain a permanent redirect.`);
+  if (!source.includes(targetPath)) failures.push(`${filename} must redirect to ${targetPath}.`);
+  if (!source.includes('location.searchStr')) failures.push(`${filename} must preserve the incoming query string.`);
+  if (sitemap.includes(aliasPath) || exploreSitemap.includes(aliasPath)) {
+    failures.push(`Sitemaps must not publish migrated guide alias ${aliasPath}.`);
+  }
 }
 
 for (const feature of [
@@ -106,4 +129,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Sitemap, indexed regional collection quality, Explore-only category, noindex-route, redirect-route, and legacy destination validation passed.');
+console.log('Sitemap, migrated guide aliases, indexed regional collection quality, Explore-only category, noindex-route, redirect-route, and legacy destination validation passed.');
