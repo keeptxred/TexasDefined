@@ -3,6 +3,7 @@ import fs from 'node:fs';
 const registry = fs.readFileSync('src/lib/public-routes.ts', 'utf8');
 const sitemap = fs.readFileSync('src/routes/sitemap[.]xml.ts', 'utf8');
 const exploreSitemap = fs.readFileSync('src/routes/sitemap-explore[.]xml.ts', 'utf8');
+const regionRoute = fs.readFileSync('src/routes/explore.region.$region.tsx', 'utf8');
 
 const redirects = [
   '/tax-calculator',
@@ -33,12 +34,8 @@ const failures = [];
 const indexableSection = registry.split('export const REDIRECT_ONLY_PATHS')[0];
 
 for (const path of redirects) {
-  if (indexableSection.includes(`"${path}"`)) {
-    failures.push(`Redirect-only path remains in INDEXABLE_STATIC_PATHS: ${path}`);
-  }
-  if (!registry.includes(`"${path}"`)) {
-    failures.push(`Redirect-only path is not governed explicitly: ${path}`);
-  }
+  if (indexableSection.includes(`"${path}"`)) failures.push(`Redirect-only path remains in INDEXABLE_STATIC_PATHS: ${path}`);
+  if (!registry.includes(`"${path}"`)) failures.push(`Redirect-only path is not governed explicitly: ${path}`);
 }
 
 for (const path of nonIndexableRoutes) {
@@ -75,9 +72,7 @@ for (const feature of [
 }
 
 for (const region of regionIds) {
-  if (!exploreSitemap.includes('regions.map((region)')) {
-    failures.push(`Explore sitemap does not generate regional URL: ${region}`);
-  }
+  if (!exploreSitemap.includes('regions.map((region)')) failures.push(`Explore sitemap does not generate regional URL: ${region}`);
 }
 
 for (const category of nonExploreCategories) {
@@ -86,10 +81,29 @@ for (const category of nonExploreCategories) {
   }
 }
 
+for (const feature of [
+  'destinations as fixtureDestinations',
+  'fixtureDestinations.filter((destination) => destination.region === region.id)',
+  'if (matchingDestinations.length) destinations = matchingDestinations',
+  '"@type": "CollectionPage"',
+  '"@type": "ItemList"',
+  '"@type": "BreadcrumbList"',
+  'isPartOf: { "@id": `${siteUrl}/#website` }',
+  'primaryImageOfPage: { "@id": imageId }',
+  'aria-label="Breadcrumb"',
+  '<Link to="/"',
+]) {
+  if (!regionRoute.includes(feature)) failures.push(`Indexed Explore region quality feature missing: ${feature}`);
+}
+
+if (regionRoute.includes('The shared destination catalog is temporarily unavailable')) {
+  failures.push('Indexed Explore region pages must use fixture fallback instead of rendering an empty outage page.');
+}
+
 if (failures.length) {
   console.error('Sitemap route validation failed:');
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log('Sitemap, regional collection, Explore-only category, noindex-route, redirect-route, and legacy destination validation passed.');
+console.log('Sitemap, indexed regional collection quality, Explore-only category, noindex-route, redirect-route, and legacy destination validation passed.');
