@@ -2,6 +2,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 
+import bluebonnets from "@/assets/bluebonnets.jpg";
 import { useBrand } from "@/brand/context";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { EventCard } from "@/components/editorial/EventCard";
@@ -11,10 +12,9 @@ import { eventsQuery, regionsQuery } from "@/data/queries";
 import { formatDateRange } from "@/domain/utils/format";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 import { cn } from "@/lib/utils";
-import bluebonnets from "@/assets/bluebonnets.jpg";
 
 const description =
-  "Rodeos, wildflower weekends, barbecue throwdowns, dance halls and county fairs — a running calendar of what's worth the drive.";
+  "Rodeos, wildflower weekends, barbecue throwdowns, dance halls and county fairs — good reasons to get out of the house.";
 const canonicalPath = "/events";
 const pageUrl = `https://${texasDefinedBrand.identity.domain}${canonicalPath}`;
 
@@ -64,19 +64,23 @@ export const Route = createFileRoute("/events")({
         imageAlt: "Bluebonnets running to a fence line in a Texas spring field",
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
-      scripts: eventItems.length ? [{
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "ItemList",
-          "@id": `${pageUrl}#events`,
-          name: "Texas events calendar",
-          url: pageUrl,
-          numberOfItems: eventItems.length,
-          itemListElement: eventItems,
-          image: absoluteUrl(texasDefinedBrand, bluebonnets),
-        }),
-      }] : [],
+      scripts: eventItems.length
+        ? [
+            {
+              type: "application/ld+json",
+              children: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "ItemList",
+                "@id": `${pageUrl}#events`,
+                name: "Texas events calendar",
+                url: pageUrl,
+                numberOfItems: eventItems.length,
+                itemListElement: eventItems,
+                image: absoluteUrl(texasDefinedBrand, bluebonnets),
+              }),
+            },
+          ]
+        : [],
     };
   },
   component: EventsPage,
@@ -112,16 +116,16 @@ function EventsPage() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/30" />
         <Container className="relative py-20 sm:py-28">
-          <p className="eyebrow text-ink-foreground/75">Events</p>
+          <p className="eyebrow text-ink-foreground/75">This weekend</p>
           <h1 className="mt-3 max-w-3xl font-display text-4xl leading-tight sm:text-6xl">
-            The Texas calendar
+            Good reasons to leave the house
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-ink-foreground/85">
             {description}
           </p>
           {featured && (
             <div id={featured.id} className="mt-10 max-w-xl border-t border-ink-foreground/30 pt-6">
-              <p className="eyebrow text-ink-foreground/70">Featured · {featured.category}</p>
+              <p className="eyebrow text-ink-foreground/70">Our pick · {featured.category}</p>
               <h2 className="mt-2 font-display text-3xl leading-snug">{featured.name}</h2>
               <p className="mt-2 text-sm leading-relaxed text-ink-foreground/85">
                 {featured.blurb}
@@ -138,25 +142,25 @@ function EventsPage() {
       <Section>
         <Container>
           <SectionHeader
-            eyebrow="Browse"
-            title="Find your weekend"
-            description="Filter by what you're in the mood for and how far you're willing to drive."
+            eyebrow="Plan your weekend"
+            title="What are you in the mood for?"
+            description="Choose the kind of outing and the part of the state that works for you."
           />
 
-          <div className="mt-8 space-y-3">
+          <div className="mt-8 space-y-4">
             <FilterRow
-              label="Type"
+              label="What sounds good?"
               options={categories.map((value) => ({
                 value,
-                label: value === "all" ? "Everything" : value,
+                label: value === "all" ? "Anything" : value,
               }))}
               active={category}
               onChange={setCategory}
             />
             <FilterRow
-              label="Region"
+              label="Where in Texas?"
               options={[
-                { value: "all", label: "All of Texas" },
+                { value: "all", label: "Anywhere" },
                 ...regions.map((item) => ({ value: item.id, label: item.name })),
               ]}
               active={region}
@@ -176,13 +180,13 @@ function EventsPage() {
                 </ul>
               ) : (
                 <p className="border-t border-border py-10 text-sm text-muted-foreground">
-                  {brand.copy.emptyState}
+                  Nothing fits those choices right now. Try another part of the state or a different kind of outing.
                 </p>
               )}
             </div>
 
             <aside className="h-fit border border-border bg-secondary/50 p-6 lg:sticky lg:top-24">
-              <p className="eyebrow text-muted-foreground">By region</p>
+              <p className="eyebrow text-muted-foreground">Go by region</p>
               <ul className="mt-4 space-y-3">
                 {regions.map((item) => {
                   const count = events.filter((event) => event.region === item.id).length;
@@ -195,12 +199,10 @@ function EventsPage() {
                       >
                         <span className="font-display text-lg">{item.name}</span>
                         <span className="text-xs uppercase tracking-widest text-muted-foreground">
-                          {count} event{count === 1 ? "" : "s"}
+                          {count} pick{count === 1 ? "" : "s"}
                         </span>
                       </button>
-                      <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-                        {item.blurb}
-                      </p>
+                      <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{item.blurb}</p>
                     </li>
                   );
                 })}
@@ -226,7 +228,7 @@ function FilterRow({
 }) {
   return (
     <div className="flex flex-wrap items-center gap-2">
-      <span className="eyebrow mr-2 text-muted-foreground">{label}</span>
+      <span className="mr-2 text-sm font-medium text-foreground">{label}</span>
       {options.map((option) => (
         <button
           key={option.value}
@@ -234,7 +236,7 @@ function FilterRow({
           onClick={() => onChange(option.value)}
           aria-pressed={active === option.value}
           className={cn(
-            "rounded-full border px-4 py-1.5 text-xs uppercase tracking-widest transition-colors",
+            "rounded-full border px-4 py-1.5 text-sm transition-colors",
             active === option.value
               ? "border-primary bg-primary text-primary-foreground"
               : "border-border text-muted-foreground hover:border-primary hover:text-primary",
