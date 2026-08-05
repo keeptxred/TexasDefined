@@ -33,6 +33,7 @@ export const Route = createFileRoute("/explore/")({
     const categories = (loaderData?.categories ?? []).filter((category) =>
       (EXPLORE_CATEGORIES as readonly string[]).includes(category.slug),
     );
+    const regions = loaderData?.regions ?? [];
     const destinations = loaderData?.destinations ?? [];
     const articles = loaderData?.articles ?? [];
     const items = [
@@ -42,6 +43,13 @@ export const Route = createFileRoute("/explore/")({
         description: category.description,
         url: `${siteUrl}/explore/${category.slug}`,
         image: category.image?.src,
+      })),
+      ...regions.map((region) => ({
+        type: "WebPage" as const,
+        name: `${region.name} Travel Guide`,
+        description: region.blurb,
+        url: `${siteUrl}/explore/region/${region.id}`,
+        image: undefined,
       })),
       ...destinations.map((destination) => ({
         type: "TouristAttraction" as const,
@@ -96,7 +104,7 @@ export const Route = createFileRoute("/explore/")({
               {
                 "@type": "ItemList",
                 "@id": `${pageUrl}#items`,
-                name: "Texas places and stories",
+                name: "Texas categories, regions, places and stories",
                 numberOfItems: itemListElement.length,
                 itemListElement,
               },
