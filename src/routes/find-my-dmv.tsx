@@ -52,22 +52,24 @@ function Page() {
         <nav aria-label="Breadcrumb" className="not-prose text-xs text-muted-foreground">
           <ol className="flex flex-wrap items-center gap-2">
             <li><Link to="/" className="hover:text-foreground">Home</Link></li><li aria-hidden="true">/</li>
-            <li><Link to="/moving-to-texas" className="hover:text-foreground">Moving to Texas</Link></li><li aria-hidden="true">/</li>
+            <li><Link to="/moving-to-texas" className="hover:text-foreground">Moving Here</Link></li><li aria-hidden="true">/</li>
             <li aria-current="page" className="text-foreground">Register a Vehicle</li>
           </ol>
         </nav>
         <p className="eyebrow text-primary">New in Town</p><h1>Getting your car settled in Texas</h1><p className="lead">{description}</p>
         <h2>Two offices, two different jobs</h2>
         <p>County tax offices generally handle vehicle registration. The Texas Department of Public Safety handles driver licenses. Check both official sites before making a trip so you know which documents, fees and appointments apply.</p>
-        <h2>Your first steps</h2>
+        <h2>What to handle first</h2>
         <ol>{steps.map((step, index) => <li id={`vehicle-step-${index + 1}`} key={step}>{step}</li>)}</ol>
         <div className="not-prose my-8 grid gap-4 sm:grid-cols-2">
           <a className="rounded-lg border p-5 font-medium" href="https://www.txdmv.gov/motorists/new-to-texas" rel="noreferrer">See the official TxDMV steps</a>
-          <a className="rounded-lg border p-5 font-medium" href="https://www.dps.texas.gov/section/driver-license" rel="noreferrer">Visit Texas driver-license services</a>
-          <Link className="rounded-lg border p-5 font-medium" to="/browse/counties">Find your county</Link>
-          <Link className="rounded-lg border p-5 font-medium" to="/moving-to-texas-checklist">See the moving checklist</Link>
+          <a className="rounded-lg border p-5 font-medium" href="https://www.dps.texas.gov/section/driver-license" rel="noreferrer">Plan your driver-license visit</a>
+          <Link className="rounded-lg border p-5 font-medium" to="/browse/counties">Find your county office</Link>
+          <Link className="rounded-lg border p-5 font-medium" to="/moving-to-texas-checklist">Open the moving checklist</Link>
         </div>
-        <aside className="not-prose rounded-lg bg-muted p-5 text-sm text-muted-foreground">Use the official state and county pages for the latest office locations, fees, deadlines and document requirements.</aside>
+        <aside className="not-prose rounded-lg bg-muted p-5 text-sm text-muted-foreground">
+          Before you go: use the official state and county pages for current office locations, fees, deadlines and document requirements.
+        </aside>
       </article>
     </Container>
   );
