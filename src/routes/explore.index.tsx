@@ -91,7 +91,7 @@ export const Route = createFileRoute("/explore/")({
               {
                 "@type": "ItemList",
                 "@id": `${pageUrl}#items`,
-                name: "Explore Texas categories, destinations, and stories",
+                name: "Texas places and stories",
                 numberOfItems: itemListElement.length,
                 itemListElement,
               },
@@ -193,7 +193,8 @@ function ExplorePage() {
         <Container>
           <SectionHeader
             eyebrow="Around the state"
-            title="Seven regions, seven different kinds of Texas"
+            title="Seven ways to see Texas"
+            description="Each region has its own landscape, pace and reasons to pull off the highway."
           />
           <ul className="mt-10 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
             {regions.map((region) => (
@@ -208,7 +209,7 @@ function ExplorePage() {
 
       <Section>
         <Container>
-          <SectionHeader eyebrow="Editor's picks" title="Places worth the tank of gas" />
+          <SectionHeader eyebrow="Editor's picks" title="Places we'd send a friend" />
           <ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
             {destinations.map((destination) => (
               <li key={destination.id}>
