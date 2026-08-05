@@ -4,9 +4,9 @@ import { texasDefinedBrand } from "@/brand/texasdefined";
 import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
+import { destinations as fixtureDestinations } from "@/data/fixtures/texas";
 import { fetchExploreDestinations } from "@/data/explore-remote";
 import { regionsQuery } from "@/data/queries";
-import type { TexasRegion } from "@/data/types";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
@@ -17,10 +17,11 @@ export const Route = createFileRoute("/explore/region/$region")({
     const region = regions.find((item) => item.id === params.region);
     if (!region) throw notFound();
 
-    let destinations = [] as Awaited<ReturnType<typeof fetchExploreDestinations>>;
+    let destinations = fixtureDestinations.filter((destination) => destination.region === region.id);
     try {
-      const allDestinations = await fetchExploreDestinations({ limit: 5000 });
-      destinations = allDestinations.filter((destination) => destination.region === region.id);
+      const remoteDestinations = await fetchExploreDestinations({ limit: 5000 });
+      const matchingDestinations = remoteDestinations.filter((destination) => destination.region === region.id);
+      if (matchingDestinations.length) destinations = matchingDestinations;
     } catch (error) {
       console.error("Regional Explore page could not load the remote destination catalog", error);
     }
@@ -31,46 +32,75 @@ export const Route = createFileRoute("/explore/region/$region")({
     if (!loaderData) return { meta: [{ title: "Region not found" }, { name: "robots", content: "noindex" }] };
     const canonicalPath = `/explore/region/${params.region}`;
     const pageUrl = `${siteUrl}${canonicalPath}`;
+    const title = `${loaderData.region.name} Travel Guide`;
+    const description = `${loaderData.region.blurb} Browse parks, lakes, towns, historic places and other destinations across ${loaderData.region.name}.`;
+    const primaryImage = loaderData.destinations.find((destination) => destination.hero?.src)?.hero;
+    const imageId = `${pageUrl}#primaryimage`;
+    const graph = [
+      {
+        "@type": "CollectionPage",
+        "@id": pageUrl,
+        url: pageUrl,
+        name: title,
+        description,
+        isPartOf: { "@id": `${siteUrl}/#website` },
+        mainEntity: { "@id": `${pageUrl}#destinations` },
+        breadcrumb: { "@id": `${pageUrl}#breadcrumbs` },
+        ...(primaryImage ? { primaryImageOfPage: { "@id": imageId }, image: { "@id": imageId } } : {}),
+      },
+      ...(primaryImage
+        ? [{
+            "@type": "ImageObject",
+            "@id": imageId,
+            url: absoluteUrl(texasDefinedBrand, primaryImage.src),
+            caption: primaryImage.alt,
+            width: primaryImage.width,
+            height: primaryImage.height,
+          }]
+        : []),
+      {
+        "@type": "ItemList",
+        "@id": `${pageUrl}#destinations`,
+        name: `Places to explore in ${loaderData.region.name}`,
+        url: pageUrl,
+        numberOfItems: loaderData.destinations.length,
+        itemListElement: loaderData.destinations.map((destination, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          item: {
+            "@type": "TouristAttraction",
+            "@id": `${siteUrl}/destination/${destination.slug}#attraction`,
+            name: destination.name,
+            url: `${siteUrl}/destination/${destination.slug}`,
+            description: destination.summary,
+            image: absoluteUrl(texasDefinedBrand, destination.hero.src),
+          },
+        })),
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${pageUrl}#breadcrumbs`,
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
+          { "@type": "ListItem", position: 2, name: "Explore", item: `${siteUrl}/explore` },
+          { "@type": "ListItem", position: 3, name: loaderData.region.name, item: pageUrl },
+        ],
+      },
+    ];
+
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
-        title: `${loaderData.region.name} Travel Guide`,
-        description: `${loaderData.region.blurb} Browse parks, lakes, towns, historic places and other destinations across ${loaderData.region.name}.`,
+        title,
+        description,
+        image: primaryImage?.src,
+        imageAlt: primaryImage?.alt,
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
-      scripts: [
-        {
-          type: "application/ld+json",
-          children: JSON.stringify({
-            "@context": "https://schema.org",
-            "@graph": [
-              {
-                "@type": "CollectionPage",
-                "@id": `${pageUrl}#page`,
-                url: pageUrl,
-                name: `${loaderData.region.name} Travel Guide`,
-                description: loaderData.region.blurb,
-                mainEntity: { "@id": `${pageUrl}#destinations` },
-              },
-              {
-                "@type": "ItemList",
-                "@id": `${pageUrl}#destinations`,
-                numberOfItems: loaderData.destinations.length,
-                itemListElement: loaderData.destinations.map((destination, index) => ({
-                  "@type": "ListItem",
-                  position: index + 1,
-                  item: {
-                    "@type": "TouristAttraction",
-                    name: destination.name,
-                    url: absoluteUrl(texasDefinedBrand, `/destination/${destination.slug}`),
-                    description: destination.summary,
-                  },
-                })),
-              },
-            ],
-          }),
-        },
-      ],
+      scripts: [{
+        type: "application/ld+json",
+        children: JSON.stringify({ "@context": "https://schema.org", "@graph": graph }),
+      }],
     };
   },
   notFoundComponent: () => (
@@ -90,7 +120,13 @@ function RegionPage() {
     <>
       <Container className="pb-8 pt-16 sm:pt-24">
         <nav aria-label="Breadcrumb" className="text-xs text-muted-foreground">
-          <Link to="/explore" className="hover:text-foreground">Explore</Link> / {region.name}
+          <ol className="flex flex-wrap items-center gap-2">
+            <li><Link to="/" className="hover:text-foreground">Home</Link></li>
+            <li aria-hidden="true">/</li>
+            <li><Link to="/explore" className="hover:text-foreground">Explore</Link></li>
+            <li aria-hidden="true">/</li>
+            <li aria-current="page" className="text-foreground">{region.name}</li>
+          </ol>
         </nav>
         <p className="eyebrow mt-8 text-primary">Around the state</p>
         <h1 className="mt-3 max-w-4xl font-display text-4xl leading-tight sm:text-6xl">Explore {region.name}</h1>
@@ -103,21 +139,13 @@ function RegionPage() {
           title={`Where to go in ${region.name}`}
           description="Browse the shared Texas destination catalog by region, then open any place for planning details, highlights and nearby ideas."
         />
-        {destinations.length ? (
-          <ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-            {destinations.map((destination) => (
-              <li key={destination.id}>
-                <DestinationCard destination={destination} regionLabel={region.name} />
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <div className="mt-10 border border-border p-8">
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              The shared destination catalog is temporarily unavailable. Browse all of <Link to="/explore" className="text-primary underline">Explore Texas</Link> instead.
-            </p>
-          </div>
-        )}
+        <ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+          {destinations.map((destination) => (
+            <li key={destination.id}>
+              <DestinationCard destination={destination} regionLabel={region.name} />
+            </li>
+          ))}
+        </ul>
       </Container>
     </>
   );
