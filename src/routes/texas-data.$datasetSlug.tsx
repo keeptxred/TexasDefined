@@ -11,7 +11,9 @@ export const Route = createFileRoute('/texas-data/$datasetSlug')({
     return dataset;
   },
   head: ({ loaderData }) => loaderData ? ({
-    meta: buildMeta(texasDefinedBrand, { title: loaderData.title, description: loaderData.description }),
+    meta: buildMeta(texasDefinedBrand, {
+      canonicalPath: `/texas-data/${loaderData.slug}`,
+      title: loaderData.title, description: loaderData.description }),
     links: [canonicalLink(texasDefinedBrand, `/texas-data/${loaderData.slug}`)],
   }) : {},
   component: Page,

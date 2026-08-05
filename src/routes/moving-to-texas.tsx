@@ -12,7 +12,9 @@ const description =
 
 export const Route = createFileRoute("/moving-to-texas")({
   head: () => ({
-    meta: buildMeta(texasDefinedBrand, { title: "Moving to Texas", description }),
+    meta: buildMeta(texasDefinedBrand, {
+      canonicalPath: "/moving-to-texas",
+      title: "Moving to Texas", description }),
     links: [canonicalLink(texasDefinedBrand, "/moving-to-texas")],
   }),
   loader: async ({ context }) => {

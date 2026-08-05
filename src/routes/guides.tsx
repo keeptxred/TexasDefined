@@ -25,7 +25,9 @@ const migratedGuides = [
 
 export const Route = createFileRoute("/guides")({
   head: () => ({
-    meta: buildMeta(texasDefinedBrand, { title: "Guides & Tools", description }),
+    meta: buildMeta(texasDefinedBrand, {
+      canonicalPath: "/guides",
+      title: "Guides & Tools", description }),
     links: [canonicalLink(texasDefinedBrand, "/guides")],
   }),
   loader: async ({ context }) => {

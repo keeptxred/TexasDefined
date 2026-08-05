@@ -12,7 +12,9 @@ const description =
 
 export const Route = createFileRoute("/about")({
   head: () => ({
-    meta: buildMeta(texasDefinedBrand, { title: "About TexasDefined", description }),
+    meta: buildMeta(texasDefinedBrand, {
+      canonicalPath: "/about",
+      title: "About TexasDefined", description }),
     links: [canonicalLink(texasDefinedBrand, "/about")],
   }),
   component: AboutPage,

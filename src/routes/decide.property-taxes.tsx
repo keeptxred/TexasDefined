@@ -5,7 +5,10 @@ import { texasDefinedBrand } from '@/brand/texasdefined';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
 const description = 'Estimate annual and monthly Texas property taxes using appraised value, exemptions, and the combined local tax rate for an address.';
-export const Route = createFileRoute('/decide/property-taxes')({ head: () => ({ meta: buildMeta(texasDefinedBrand, { title: 'Texas Property Tax Calculator', description }), links: [canonicalLink(texasDefinedBrand, '/decide/property-taxes')] }), component: Page });
+export const Route = createFileRoute('/decide/property-taxes')({ head: () => ({ meta: buildMeta(texasDefinedBrand, {
+      canonicalPath: '/decide/property-taxes',
+      title: 'Texas Property Tax Calculator', description }),
+    links: [canonicalLink(texasDefinedBrand, '/decide/property-taxes')] }), component: Page });
 
 function Page() {
   const [value, setValue] = useState(400000);

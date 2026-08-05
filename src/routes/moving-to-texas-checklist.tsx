@@ -7,7 +7,9 @@ const description = 'A practical moving-to-Texas checklist covering housing, uti
 
 export const Route = createFileRoute('/moving-to-texas-checklist')({
   head: () => ({
-    meta: buildMeta(texasDefinedBrand, { title: 'Moving to Texas Checklist', description }),
+    meta: buildMeta(texasDefinedBrand, {
+      canonicalPath: '/moving-to-texas-checklist',
+      title: 'Moving to Texas Checklist', description }),
     links: [canonicalLink(texasDefinedBrand, '/moving-to-texas-checklist')],
   }),
   component: Page,

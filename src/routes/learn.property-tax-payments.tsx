@@ -4,7 +4,10 @@ import { Container } from '@/components/layout/Container';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
 const description='Texas property-tax payment deadlines, escrow, installment options, delinquency charges, payment agreements, waivers, refunds, liens and tax sales.';
-export const Route=createFileRoute('/learn/property-tax-payments')({head:()=>({meta:buildMeta(texasDefinedBrand,{title:'Texas Property-Tax Payments and Collections',description}),links:[canonicalLink(texasDefinedBrand,'/learn/property-tax-payments')]}),component:Page});
+export const Route=createFileRoute('/learn/property-tax-payments')({head:()=>({meta: buildMeta(texasDefinedBrand, {
+      canonicalPath: '/learn/property-tax-payments',
+      title:'Texas Property-Tax Payments and Collections',description}),
+    links: [canonicalLink(texasDefinedBrand, '/learn/property-tax-payments')]}),component:Page});
 function Page(){return <Container className="py-16 sm:py-24"><article className="mx-auto max-w-4xl"><p className="eyebrow text-primary">Texas Home & Property</p><h1 className="mt-3 font-display text-4xl sm:text-6xl">Texas Property-Tax Payments and Collections</h1><p className="mt-5 text-lg text-muted-foreground">{description}</p><p className="mt-3 text-sm text-muted-foreground">Last reviewed August 3, 2026. Verify account-specific dates and balances with the collecting office.</p>
 <div className="mt-12 space-y-12">
 <Section title="Reading the tax bill"><p>Check the owner, account number, legal description, property address, tax year, each taxing unit, taxable value, exemptions, rate, amount due and delinquency date. A single statement may collect for a county, city, school district, MUD, hospital district, emergency-services district, college district and other units.</p><Callout>Not receiving a bill generally does not erase the tax, penalties, interest, lien or collection action. Contact the collector when a bill has not arrived.</Callout></Section>

@@ -16,7 +16,9 @@ const datasets = [
 
 export const Route = createFileRoute('/texas-data')({
   head: () => ({
-    meta: buildMeta(texasDefinedBrand, { title: 'Texas Data and Directories', description }),
+    meta: buildMeta(texasDefinedBrand, {
+      canonicalPath: '/texas-data',
+      title: 'Texas Data and Directories', description }),
     links: [canonicalLink(texasDefinedBrand, '/texas-data')],
   }),
   component: Page,

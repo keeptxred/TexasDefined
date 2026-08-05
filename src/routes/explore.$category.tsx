@@ -23,10 +23,11 @@ export const Route = createFileRoute("/explore/$category")({
     }
     return {
       meta: buildMeta(texasDefinedBrand, {
-        title: loaderData.category.name,
+      canonicalPath: `/explore/${params.category}`,
+      title: loaderData.category.name,
         description: loaderData.category.description,
       }),
-      links: [canonicalLink(texasDefinedBrand, `/explore/${params.category}`)],
+    links: [canonicalLink(texasDefinedBrand, `/explore/${params.category}`)],
     };
   },
   notFoundComponent: CategoryNotFound,

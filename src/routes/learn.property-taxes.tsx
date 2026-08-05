@@ -7,7 +7,10 @@ import { buildMeta, canonicalLink } from '@/lib/seo';
 const description = 'Understand Texas property appraisals, exemptions, protests, local tax rates, special districts, payment deadlines, and the records homeowners should verify.';
 
 export const Route = createFileRoute('/learn/property-taxes')({
-  head: () => ({ meta: buildMeta(texasDefinedBrand, { title: 'Texas Property Taxes', description }), links: [canonicalLink(texasDefinedBrand, '/learn/property-taxes')] }),
+  head: () => ({ meta: buildMeta(texasDefinedBrand, {
+      canonicalPath: '/learn/property-taxes',
+      title: 'Texas Property Taxes', description }),
+    links: [canonicalLink(texasDefinedBrand, '/learn/property-taxes')] }),
   component: Page,
 });
 

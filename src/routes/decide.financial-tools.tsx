@@ -4,7 +4,10 @@ import { texasDefinedBrand } from '@/brand/texasdefined';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
 const description='Texas calculators and planning guides for property taxes, mortgages, affordability, relocation, utilities, insurance, equity, refinancing, counties, cities, and household decisions.';
-export const Route=createFileRoute('/decide/financial-tools')({head:()=>({meta:buildMeta(texasDefinedBrand,{title:'Texas Financial Tools',description}),links:[canonicalLink(texasDefinedBrand,'/decide/financial-tools')]}),component:Page});
+export const Route=createFileRoute('/decide/financial-tools')({head:()=>({meta: buildMeta(texasDefinedBrand, {
+      canonicalPath: '/decide/financial-tools',
+      title:'Texas Financial Tools',description}),
+    links: [canonicalLink(texasDefinedBrand, '/decide/financial-tools')]}),component:Page});
 const resources=[
 ['Texas property-tax calculator','/decide/property-taxes','Estimate taxable value and annual and monthly property-tax costs.'],
 ['Texas mortgage calculator','/texas-mortgage-calculator','Estimate principal, interest, property taxes and insurance.'],

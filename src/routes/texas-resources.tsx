@@ -39,7 +39,9 @@ const groups = [
 
 export const Route = createFileRoute('/texas-resources')({
   head: () => ({
-    meta: buildMeta(texasDefinedBrand, { title: 'Texas Resources', description }),
+    meta: buildMeta(texasDefinedBrand, {
+      canonicalPath: '/texas-resources',
+      title: 'Texas Resources', description }),
     links: [canonicalLink(texasDefinedBrand, '/texas-resources')],
   }),
   component: Page,

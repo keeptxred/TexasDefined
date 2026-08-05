@@ -23,10 +23,11 @@ export const Route = createFileRoute("/shop/$collection")({
     }
     return {
       meta: buildMeta(texasDefinedBrand, {
-        title: loaderData.collection.name,
+      canonicalPath: `/shop/${params.collection}`,
+      title: loaderData.collection.name,
         description: loaderData.collection.description,
       }),
-      links: [canonicalLink(texasDefinedBrand, `/shop/${params.collection}`)],
+    links: [canonicalLink(texasDefinedBrand, `/shop/${params.collection}`)],
     };
   },
   notFoundComponent: () => (
