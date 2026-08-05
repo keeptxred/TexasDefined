@@ -12,6 +12,9 @@ import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 const EXPLORE_CATEGORIES = [
   "lakes-rivers",
   "state-parks",
+  "caverns",
+  "beaches-coast",
+  "historic-sites",
   "road-trips",
   "small-towns",
   "food-bbq",
@@ -155,7 +158,7 @@ function ExplorePage() {
           <SectionHeader
             eyebrow="Pick a direction"
             title="What sounds good today?"
-            description="Choose a trail, a swimming hole, a small town or a plate worth planning around."
+            description="Choose a cavern, beach, trail, swimming hole, historic place, small town or plate worth planning around."
           />
           <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {exploreCategories.map((category) => (
@@ -163,9 +166,9 @@ function ExplorePage() {
                 <Link
                   to="/explore/$category"
                   params={{ category: category.slug }}
-                  className="group relative block overflow-hidden"
+                  className="group relative block overflow-hidden border border-border bg-surface"
                 >
-                  {category.image && (
+                  {category.image ? (
                     <img
                       src={category.image.src}
                       alt={category.image.alt}
@@ -175,6 +178,8 @@ function ExplorePage() {
                       decoding="async"
                       className="aspect-[5/4] w-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
+                  ) : (
+                    <div className="aspect-[5/4] w-full bg-gradient-to-br from-primary/25 via-surface to-accent/25" aria-hidden="true" />
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-ink/85 to-transparent" />
                   <div className="absolute inset-x-0 bottom-0 p-6 text-ink-foreground">
