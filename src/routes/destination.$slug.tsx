@@ -107,12 +107,13 @@ export const Route = createFileRoute("/destination/$slug")({
       ...(destination.managingAuthority ? { provider: { "@type": "Organization", name: destination.managingAuthority } } : {}),
       ...(validExternalUrl(destination.officialUrl) ? { sameAs: destination.officialUrl } : {}),
     };
+    const related = relatedPlaces;
     const relatedSchema = {
       "@type": "ItemList",
       "@id": `${url}#related-places`,
       name: `Places related to ${destination.name}`,
-      numberOfItems: relatedPlaces.length,
-      itemListElement: relatedPlaces.map((item, index) => ({
+      numberOfItems: related.length,
+      itemListElement: related.map((item, index) => ({
         "@type": "ListItem",
         position: index + 1,
         item: {
