@@ -46,7 +46,7 @@ export function CategoryPage({
       <Container className="pt-8">
         <nav aria-label="Breadcrumb" className="text-xs text-muted-foreground">
           <ol className="flex flex-wrap items-center gap-2">
-            <li><Link to="/" className="hover:text-foreground">Home</Link></li>
+            <li><Link to="/" className="hover:text-foreground">Front page</Link></li>
             {belongsToExplore && (
               <>
                 <li aria-hidden="true">/</li>
@@ -97,7 +97,7 @@ export function CategoryPage({
           <Container>
             <SectionHeader
               eyebrow="Worth the drive"
-              title={`${destinations.length.toLocaleString("en-US")} places to explore`}
+              title={`${destinations.length.toLocaleString("en-US")} places worth knowing`}
             />
             <DestinationCollectionGrid destinations={destinations} regionLabel={regionName} />
           </Container>
@@ -115,7 +115,7 @@ export function CategoryPage({
             </ul>
           ) : (
             <p className="mt-8 text-sm text-muted-foreground">
-              We’re still finding the right stories for this department. In the meantime, take a look around the rest of Texas Defined.
+              We have more stories on the way. For now, take a look around the rest of Texas Defined.
             </p>
           )}
         </Container>
