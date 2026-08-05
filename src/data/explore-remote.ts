@@ -47,14 +47,17 @@ function category(value: unknown): CategorySlug {
   }
   if (["major_spring", "spring", "spring_fed_pool"].some((type) => normalized.includes(type))) return "major-springs";
   if (["cavern", "cave", "karst"].some((type) => normalized.includes(type))) return "caverns";
-  if (["beach", "coast", "seashore", "island", "bay", "shore"].some((type) => normalized.includes(type))) return "beaches-coast";
+  if (["lighthouse", "beach", "coast", "seashore", "island", "bay", "shore"].some((type) => normalized.includes(type))) return "beaches-coast";
   if (["museum", "historic_site", "historical_site", "mission", "battlefield", "monument", "heritage"].some((type) => normalized.includes(type))) {
     return "historic-sites";
   }
   if (["lake", "river", "reservoir", "waterfall", "swimming_hole"].some((type) => normalized.includes(type))) {
     return "lakes-rivers";
   }
-  if (["state_park", "park", "natural_area", "wildlife_refuge", "campground", "trail"].some((type) => normalized.includes(type))) {
+  if (["wildlife_refuge", "wildlife_management_area", "wildlife_area", "birding_center"].some((type) => normalized.includes(type))) {
+    return "outdoors";
+  }
+  if (["state_park", "park", "natural_area", "campground", "trail"].some((type) => normalized.includes(type))) {
     return "state-parks";
   }
   if (["town", "city", "community", "county"].some((type) => normalized.includes(type))) return "small-towns";
