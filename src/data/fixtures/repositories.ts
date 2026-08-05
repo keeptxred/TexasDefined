@@ -10,6 +10,7 @@ import type {
   TaxonomyRepository,
 } from "../repositories";
 import { supplementalExploreCategories } from "../explore-categories";
+import { guideHref } from "../guide-links";
 import type { SearchDocument } from "../types";
 import {
   articles,
@@ -148,7 +149,7 @@ export const fixtureSearch: SearchRepository = {
         title: g.title,
         summary: g.summary,
         keywords: [g.topic, g.kind],
-        href: `/guides`,
+        href: guideHref(g) ?? "/guides",
       })),
       ...byBrand(products, scope.brandId).map((p) => ({
         id: p.id,
@@ -166,7 +167,7 @@ export const fixtureSearch: SearchRepository = {
         title: e.name,
         summary: e.blurb,
         keywords: [e.city, e.category, e.region],
-        href: `/events`,
+        href: `/events#${e.id}`,
       })),
     ];
     return docs;
