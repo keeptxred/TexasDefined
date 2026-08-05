@@ -14,3 +14,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://texasdefined.com/sitemap.xml
+Sitemap: https://texasdefined.com/sitemap-explore.xml
