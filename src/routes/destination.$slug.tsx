@@ -8,7 +8,7 @@ import { ArticleCard } from "@/components/editorial/ArticleCard";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
-import { articlesQuery, categoriesQuery, destinationQuery, regionsQuery } from "@/data/queries";
+import { articlesQuery, categoriesQuery, destinationQuery, destinationsQuery, regionsQuery } from "@/data/queries";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 import { INTERNAL_LINK_POLICIES, policyForSurface } from '@/platform/internal-link-policies';
 
@@ -39,13 +39,22 @@ export const Route = createFileRoute("/destination/$slug")({
   loader: async ({ context, params }) => {
     const destination = await context.queryClient.ensureQueryData(destinationQuery(params.slug));
     if (!destination) throw notFound();
-    const [graph, categories] = await Promise.all([
+    const [graph, categories, relatedDestinations] = await Promise.all([
       loadTexasKnowledgeGraph(),
       context.queryClient.ensureQueryData(categoriesQuery()),
+      context.queryClient.ensureQueryData(destinationsQuery({ category: destination.category, limit: 16 })),
       context.queryClient.ensureQueryData(regionsQuery()),
       context.queryClient.ensureQueryData(articlesQuery({ category: destination.category, limit: 3 })),
     ]);
-    return { destination, graph, categories };
+    return {
+      destination,
+      graph,
+      categories,
+      relatedDestinations: relatedDestinations
+        .filter((item) => item.slug !== destination.slug)
+        .sort((left, right) => Number(right.region === destination.region) - Number(left.region === destination.region))
+        .slice(0, 4),
+    };
   },
   head: ({ loaderData, params }) => {
     if (!loaderData) return { meta: [{ title: "Unavailable" }, { name: "robots", content: "noindex, nofollow" }] };
@@ -56,6 +65,13 @@ export const Route = createFileRoute("/destination/$slug")({
     const categoryName = categories.find((category) => category.slug === destination.category)?.name
       ?? destination.category.replace(/-/g, " ");
     const validGeo = hasValidCoordinates(destination.coordinates.lat, destination.coordinates.lng);
+    const addressSchema = {
+      "@type": "PostalAddress",
+      addressRegion: "TX",
+      addressLocality: destination.nearestTown,
+      addressCountry: "US",
+      ...(destination.address ? { streetAddress: destination.address } : {}),
+    };
     const webPageSchema = {
       "@type": "WebPage",
       "@id": url,
@@ -87,11 +103,12 @@ export const Route = createFileRoute("/destination/$slug")({
       ...(validGeo
         ? { geo: { "@type": "GeoCoordinates", latitude: destination.coordinates.lat, longitude: destination.coordinates.lng } }
         : {}),
-      address: { "@type": "PostalAddress", addressRegion: "TX", addressLocality: destination.nearestTown, addressCountry: "US" },
+      address: addressSchema,
       containedInPlace: { "@type": "State", name: "Texas" },
       touristType: categoryName,
       ...(destination.managingAuthority ? { provider: { "@type": "Organization", name: destination.managingAuthority } } : {}),
       ...(validExternalUrl(destination.officialUrl) ? { sameAs: destination.officialUrl } : {}),
+      ...(validExternalUrl(destination.reservationUrl) ? { publicAccess: true } : {}),
     };
     const breadcrumbSchema = {
       "@type": "BreadcrumbList",
@@ -121,7 +138,7 @@ export const Route = createFileRoute("/destination/$slug")({
 
 function DestinationPage() {
   const { slug } = Route.useParams();
-  const { graph, categories } = Route.useLoaderData();
+  const { graph, categories, relatedDestinations } = Route.useLoaderData();
   const { data: destination } = useSuspenseQuery(destinationQuery(slug));
   const { data: regions } = useSuspenseQuery(regionsQuery());
   const { data: related } = useSuspenseQuery(articlesQuery(destination ? { category: destination.category, limit: 3 } : { limit: 3 }));
@@ -172,17 +189,24 @@ function DestinationPage() {
           <dl className="mt-4 grid gap-4 sm:grid-cols-2">
             <div><dt className="eyebrow text-muted-foreground">Closest town</dt><dd className="mt-1">Near <AutoEntityLinks text={destination.nearestTown} entities={graph} maxLinks={spend(1)} policy={destinationPolicy} />, Texas.</dd></div>
             <div><dt className="eyebrow text-muted-foreground">Best time to go</dt><dd className="mt-1">{destination.bestSeason}</dd></div>
+            {destination.county && <div><dt className="eyebrow text-muted-foreground">County</dt><dd className="mt-1">{destination.county} County</dd></div>}
+            {destination.address && <div><dt className="eyebrow text-muted-foreground">Address</dt><dd className="mt-1">{destination.address}</dd></div>}
             <div className="sm:col-span-2"><dt className="eyebrow text-muted-foreground">Tickets, entry and reservations</dt><dd className="mt-1">{destination.entryNote}</dd></div>
+            {destination.accessibilityNotes && <div className="sm:col-span-2"><dt className="eyebrow text-muted-foreground">Accessibility</dt><dd className="mt-1">{destination.accessibilityNotes}</dd></div>}
+            {destination.directions && <div className="sm:col-span-2"><dt className="eyebrow text-muted-foreground">Directions</dt><dd className="mt-1">{destination.directions}</dd></div>}
           </dl>
-          {validExternalUrl(destination.reservationUrl) && (
-            <a href={destination.reservationUrl} target="_blank" rel="noreferrer noopener" className="eyebrow mt-5 inline-block border-b border-primary pb-1 text-primary">
-              Check reservations
-            </a>
-          )}
+          <div className="mt-5 flex flex-wrap gap-5">
+            {validExternalUrl(destination.reservationUrl) && (
+              <a href={destination.reservationUrl} target="_blank" rel="noreferrer noopener" className="eyebrow inline-block border-b border-primary pb-1 text-primary">Check reservations</a>
+            )}
+            {validExternalUrl(destination.officialUrl) && (
+              <a href={destination.officialUrl} target="_blank" rel="noreferrer noopener" className="eyebrow inline-block border-b border-primary pb-1 text-primary">Official visitor information</a>
+            )}
+          </div>
         </section>
         {destination.highlights.length > 0 && (
           <section aria-labelledby="destination-highlights" className="mt-10">
-            <h2 id="destination-highlights" className="font-display text-2xl">Don’t leave without seeing</h2>
+            <h2 id="destination-highlights" className="font-display text-2xl">Things to do and know</h2>
             <ul className="mt-4 list-disc space-y-2 pl-6 marker:text-primary">{destination.highlights.map((highlight) => <li key={highlight}><AutoEntityLinks text={highlight} entities={graph} maxLinks={spend(1)} policy={destinationPolicy} /></li>)}</ul>
           </section>
         )}
@@ -199,9 +223,7 @@ function DestinationPage() {
             <p className="eyebrow text-muted-foreground">Official information</p>
             {verifiedLabel && <p className="mt-2 text-muted-foreground">Source checked {verifiedLabel}.</p>}
             {validExternalUrl(destination.officialUrl) && (
-              <a href={destination.officialUrl} target="_blank" rel="noreferrer noopener" className="eyebrow mt-4 inline-block border-b border-primary pb-1 text-primary">
-                Visit official source
-              </a>
+              <a href={destination.officialUrl} target="_blank" rel="noreferrer noopener" className="eyebrow mt-4 inline-block border-b border-primary pb-1 text-primary">Visit official source</a>
             )}
           </div>
         )}
@@ -209,8 +231,30 @@ function DestinationPage() {
       </aside>
     </Container>
 
+    {relatedDestinations.length > 0 && (
+      <Section tone="surface">
+        <Container>
+          <SectionHeader eyebrow="Nearby and similar" title="Where to point the car next" />
+          <ul className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            {relatedDestinations.map((item) => (
+              <li key={item.id}>
+                <Link to="/destination/$slug" params={{ slug: item.slug }} className="group block">
+                  <div className="overflow-hidden bg-muted">
+                    <img src={item.hero.src} alt={item.hero.alt} width={item.hero.width} height={item.hero.height} loading="lazy" decoding="async" className="aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                  </div>
+                  <p className="eyebrow mt-4 text-muted-foreground">{item.nearestTown}</p>
+                  <h3 className="mt-1 font-display text-xl leading-tight group-hover:text-primary">{item.name}</h3>
+                  <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-muted-foreground">{item.summary}</p>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </Container>
+      </Section>
+    )}
+
     {related.length > 0 && (
-      <Section tone="surface"><Container><SectionHeader eyebrow="Keep exploring" title="More from this corner of Texas" /><ul className="mt-10 grid gap-10 sm:grid-cols-3">{related.map((article) => <li key={article.id}><ArticleCard article={article} size="compact" /></li>)}</ul></Container></Section>
+      <Section><Container><SectionHeader eyebrow="Keep reading" title="More from this corner of Texas" /><ul className="mt-10 grid gap-10 sm:grid-cols-3">{related.map((article) => <li key={article.id}><ArticleCard article={article} size="compact" /></li>)}</ul></Container></Section>
     )}
   </>;
 }
