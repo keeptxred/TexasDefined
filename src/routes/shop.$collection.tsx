@@ -108,9 +108,11 @@ export const Route = createFileRoute("/shop/$collection")({
   },
   notFoundComponent: () => (
     <Container className="py-24">
-      <p className="eyebrow text-primary">Shop</p>
-      <h1 className="mt-3 font-display text-3xl">We could not find that shelf</h1>
-      <p className="mt-3 text-sm text-muted-foreground">The collection may have moved or is still being put together.</p>
+      <p className="eyebrow text-primary">A different shelf</p>
+      <h1 className="mt-3 font-display text-3xl">That collection is no longer here</h1>
+      <p className="mt-3 max-w-lg text-sm leading-relaxed text-muted-foreground">
+        It may have sold through or found a new home. The main shop still has a few things worth a look.
+      </p>
     </Container>
   ),
   component: CollectionPage,
@@ -137,7 +139,7 @@ function CollectionPage() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-ink to-ink/30" />
         <Container className="relative py-24 sm:py-32">
-          <p className="eyebrow text-ink-foreground/80">Our Picks</p>
+          <p className="eyebrow text-ink-foreground/80">Our picks</p>
           <h1 className="mt-3 max-w-2xl font-display text-4xl leading-tight sm:text-6xl">
             {collection.name}
           </h1>
@@ -159,7 +161,9 @@ function CollectionPage() {
               ))}
             </ul>
           ) : (
-            <p className="mt-8 text-sm text-muted-foreground">We are still choosing the right pieces for this shelf.</p>
+            <p className="mt-8 max-w-lg text-sm leading-relaxed text-muted-foreground">
+              Nothing on this shelf just yet. We only add a piece when it feels worth recommending.
+            </p>
           )}
         </Container>
       </Section>
