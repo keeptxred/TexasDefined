@@ -6,6 +6,7 @@ const remote = fs.readFileSync(path.join(root, 'src/data/explore-remote.ts'), 'u
 const core = fs.readFileSync(path.join(root, 'src/data/explore-core-remote.ts'), 'utf8');
 const queries = fs.readFileSync(path.join(root, 'src/data/queries.ts'), 'utf8');
 const route = fs.readFileSync(path.join(root, 'src/routes/destination.$slug.tsx'), 'utf8');
+const planner = fs.readFileSync(path.join(root, 'src/components/editorial/DestinationVisitPlanner.tsx'), 'utf8');
 const types = fs.readFileSync(path.join(root, 'src/data/types.ts'), 'utf8');
 const errors = [];
 
@@ -27,7 +28,16 @@ for (const feature of [
   'destinationsQuery({ category: destination.category, limit: 16 })',
   'relatedDestinations', 'Where to point the car next', 'destination.accessibilityNotes',
   'destination.directions', 'destination.address', 'destination.county',
-]) if (!route.includes(feature)) errors.push(`Destination authority or discovery feature missing: ${feature}`);
+  'DestinationVisitPlanner',
+]) if (!route.includes(feature)) errors.push(`Destination authority, discovery, or planning feature missing: ${feature}`);
+
+for (const feature of [
+  'Plan your visit', 'What the current source data says', 'Activities',
+  'Facilities and amenities', 'Before you leave', 'destination.highlights',
+  'destination.bestSeason', 'destination.entryNote', 'destination.reservationUrl',
+  'destination.accessibilityNotes', 'destination.directions',
+  'Confirm changing conditions, closures, fees, and availability before traveling',
+]) if (!planner.includes(feature)) errors.push(`Destination Phase 1 planning feature missing: ${feature}`);
 
 for (const feature of [
   'managingAuthority?: string', 'officialUrl?: string', 'sourceCheckedAt?: string',
@@ -65,4 +75,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Explore enrichment, authority, access, discovery, and two-stage remote fallback validation passed.');
+console.log('Explore Phase 1 enrichment, planning, authority, access, discovery, and two-stage remote fallback validation passed.');
