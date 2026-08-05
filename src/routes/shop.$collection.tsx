@@ -1,5 +1,5 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { createFileRoute, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { ProductCard } from "@/components/commerce/ProductCard";
@@ -113,6 +113,12 @@ export const Route = createFileRoute("/shop/$collection")({
       <p className="mt-3 max-w-lg text-sm leading-relaxed text-muted-foreground">
         It may have sold through or found a new home. The main shop still has a few things worth a look.
       </p>
+      <Link
+        to="/shop"
+        className="eyebrow mt-6 inline-block border-b border-primary pb-1 text-primary"
+      >
+        See what is on the shelf →
+      </Link>
     </Container>
   ),
   component: CollectionPage,
