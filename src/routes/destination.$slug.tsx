@@ -14,6 +14,16 @@ import { INTERNAL_LINK_POLICIES, policyForSurface } from '@/platform/internal-li
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
+function hasValidCoordinates(lat: number, lng: number) {
+  return Number.isFinite(lat)
+    && Number.isFinite(lng)
+    && lat >= -90
+    && lat <= 90
+    && lng >= -180
+    && lng <= 180
+    && !(lat === 0 && lng === 0);
+}
+
 export const Route = createFileRoute("/destination/$slug")({
   loader: async ({ context, params }) => {
     const destination = await context.queryClient.ensureQueryData(destinationQuery(params.slug));
@@ -30,6 +40,7 @@ export const Route = createFileRoute("/destination/$slug")({
     const { destination } = loaderData;
     const canonicalPath = `/destination/${params.slug}`;
     const url = `${siteUrl}${canonicalPath}`;
+    const validGeo = hasValidCoordinates(destination.coordinates.lat, destination.coordinates.lng);
     const attractionSchema = {
       "@type": "TouristAttraction",
       "@id": `${url}#attraction`,
@@ -38,7 +49,9 @@ export const Route = createFileRoute("/destination/$slug")({
       name: destination.name,
       description: destination.summary,
       image: [{ "@type": "ImageObject", url: absoluteUrl(texasDefinedBrand, destination.hero.src), caption: destination.hero.alt, width: destination.hero.width, height: destination.hero.height }],
-      geo: { "@type": "GeoCoordinates", latitude: destination.coordinates.lat, longitude: destination.coordinates.lng },
+      ...(validGeo
+        ? { geo: { "@type": "GeoCoordinates", latitude: destination.coordinates.lat, longitude: destination.coordinates.lng } }
+        : {}),
       address: { "@type": "PostalAddress", addressRegion: "TX", addressLocality: destination.nearestTown, addressCountry: "US" },
       containedInPlace: { "@type": "State", name: "Texas" },
       touristType: destination.category,
@@ -123,8 +136,12 @@ function DestinationPage() {
             <div className="sm:col-span-2"><dt className="eyebrow text-muted-foreground">Tickets, entry and reservations</dt><dd className="mt-1">{destination.entryNote}</dd></div>
           </dl>
         </section>
-        <h2 className="mt-10 font-display text-2xl">Don’t leave without seeing</h2>
-        <ul className="mt-4 list-disc space-y-2 pl-6 marker:text-primary">{destination.highlights.map((highlight) => <li key={highlight}><AutoEntityLinks text={highlight} entities={graph} maxLinks={spend(1)} policy={destinationPolicy} /></li>)}</ul>
+        {destination.highlights.length > 0 && (
+          <section aria-labelledby="destination-highlights" className="mt-10">
+            <h2 id="destination-highlights" className="font-display text-2xl">Don’t leave without seeing</h2>
+            <ul className="mt-4 list-disc space-y-2 pl-6 marker:text-primary">{destination.highlights.map((highlight) => <li key={highlight}><AutoEntityLinks text={highlight} entities={graph} maxLinks={spend(1)} policy={destinationPolicy} /></li>)}</ul>
+          </section>
+        )}
       </div>
       <aside className="space-y-6">
         <dl className="border border-border p-6 text-sm">
@@ -136,6 +153,8 @@ function DestinationPage() {
       </aside>
     </Container>
 
-    <Section tone="surface"><Container><SectionHeader eyebrow="Keep exploring" title="More from this corner of Texas" /><ul className="mt-10 grid gap-10 sm:grid-cols-3">{related.map((article) => <li key={article.id}><ArticleCard article={article} size="compact" /></li>)}</ul></Container></Section>
+    {related.length > 0 && (
+      <Section tone="surface"><Container><SectionHeader eyebrow="Keep exploring" title="More from this corner of Texas" /><ul className="mt-10 grid gap-10 sm:grid-cols-3">{related.map((article) => <li key={article.id}><ArticleCard article={article} size="compact" /></li>)}</ul></Container></Section>
+    )}
   </>;
 }
