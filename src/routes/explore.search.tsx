@@ -17,6 +17,8 @@ export const Route = createFileRoute("/explore/search")({
     meta: buildMeta(texasDefinedBrand, {
       title: "Search Texas Destinations",
       description: "Search Texas parks, lakes, rivers, caverns, trails, historic places, and outdoor destinations.",
+      canonicalPath: "/explore/search",
+      robots: "noindex, follow",
     }),
     links: [canonicalLink(texasDefinedBrand, "/explore/search")],
   }),
