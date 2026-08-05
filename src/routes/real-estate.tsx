@@ -8,7 +8,7 @@ import { articlesQuery, destinationsQuery, regionsQuery } from "@/data/queries";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const description =
-  "Ranchettes, bungalows, lake lots and city lofts — how Texans buy, build and hold land, and what the market looks like from the porch.";
+  "Ranchettes, bungalows, lake lots and city lofts — what homes cost, where people are moving and what to know before you put down roots.";
 
 export const Route = createFileRoute("/real-estate")({
   head: () => ({
@@ -27,10 +27,10 @@ export const Route = createFileRoute("/real-estate")({
   component: () => (
     <CategoryPage
       category="real-estate"
-      eyebrow="Real Estate"
-      title="Land, houses and the long view"
+      eyebrow="Putting down roots"
+      title="Homes, land and the long view"
       intro={description}
-      image={{ src: heroHillCountry, alt: 'Evening light across rolling Texas Hill Country', width: 1600, height: 1067 }}
+      image={{ src: heroHillCountry, alt: "Evening light across rolling Texas Hill Country", width: 1600, height: 1067 }}
     />
   ),
 });
