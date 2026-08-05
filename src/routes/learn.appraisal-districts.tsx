@@ -4,20 +4,20 @@ import { PropertyTaxGuidePage } from '@/components/guides/PropertyTaxGuidePage';
 import { buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 const description =
-  'How to find your Texas appraisal district, check the property record, understand notices and know what to do when something looks wrong.';
+  'How to find your appraisal district, check the property record, understand the notices and act quickly when something does not look right.';
 const canonicalPath = '/learn/appraisal-districts';
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const pageUrl = `${siteUrl}${canonicalPath}`;
 const steps = [
-  'Open the official appraisal district website.',
-  'Find the property account and review the details.',
-  'Download the current appraisal notice and value history.',
-  'Contact the district quickly when something is wrong.',
+  'Open your county appraisal district’s official website.',
+  'Find the property account and check every detail.',
+  'Save the latest appraisal notice and value history.',
+  'Contact the district promptly if something is wrong.',
 ];
 
 export const Route = createFileRoute('/learn/appraisal-districts')({
   head: () => ({
-    meta: buildMeta(texasDefinedBrand, { canonicalPath, title: 'Texas Appraisal Districts', description }),
+    meta: buildMeta(texasDefinedBrand, { canonicalPath, title: 'Find Your Appraisal District', description }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
     scripts: [jsonLd({
       '@context': 'https://schema.org',
@@ -43,7 +43,7 @@ export const Route = createFileRoute('/learn/appraisal-districts')({
           itemListElement: [
             { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
             { '@type': 'ListItem', position: 2, name: 'Property taxes', item: `${siteUrl}/decide/property-taxes` },
-            { '@type': 'ListItem', position: 3, name: 'Appraisal districts', item: pageUrl },
+            { '@type': 'ListItem', position: 3, name: 'Find your appraisal district', item: pageUrl },
           ],
         },
       ],
@@ -51,37 +51,37 @@ export const Route = createFileRoute('/learn/appraisal-districts')({
   }),
   component: () => (
     <PropertyTaxGuidePage
-      eyebrow="Local appraisal"
-      title="Texas Appraisal Districts"
+      eyebrow="Know your local office"
+      title="Find your appraisal district"
       intro={description}
       officialUrl="https://comptroller.texas.gov/taxes/property-tax/county-directory/"
-      officialLabel="Find your official appraisal district"
+      officialLabel="Find the appraisal district for your county"
       canonicalPath={canonicalPath}
       stepPrefix="appraisal-step-"
       sections={[
         {
-          title: 'What the appraisal district handles',
+          title: 'What this office actually does',
           paragraphs: [
-            'Each county appraisal district identifies taxable property, keeps ownership and property details, sets appraised values, administers exemptions and supports the protest process. It does not set local tax rates or collect every tax bill.',
+            'Your county appraisal district identifies taxable property, keeps ownership and property details, sets appraised values, handles exemptions and supports the protest process. It does not set local tax rates or collect every tax bill.',
           ],
         },
         {
-          title: 'What to check on your property account',
+          title: 'Give the property account a careful look',
           paragraphs: [
-            'Confirm the owner name, mailing address, legal description, property details, exemptions, taxing units and value history. Small factual errors can affect both the value and the notices you receive.',
+            'Check the owner name, mailing address, legal description, property details, exemptions, taxing units and value history. Even a small factual error can affect the value or the notices you receive.',
           ],
           steps,
         },
         {
-          title: 'Pay attention to every notice',
+          title: 'Do not set the notice aside',
           paragraphs: [
-            "Read appraisal notices as soon as they arrive. Protest deadlines are tied to the notice and Texas law, and waiting for the tax bill is usually too late to challenge that year's appraisal.",
+            "Read an appraisal notice as soon as it arrives. Protest deadlines are tied to the notice and Texas law, and waiting for the tax bill is usually too late to challenge that year's appraisal.",
           ],
         },
         {
-          title: 'Evidence worth gathering',
+          title: 'What to gather when the value looks wrong',
           paragraphs: [
-            'Helpful records may include comparable sales, photographs, repair estimates, surveys, income and expense information, closing documents and examples of unequal appraisal.',
+            'Useful records can include comparable sales, photographs, repair estimates, surveys, income and expense information, closing documents and examples of similar properties valued differently.',
           ],
         },
       ]}
