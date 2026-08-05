@@ -22,15 +22,16 @@ import {
   guidesQuery,
   regionsQuery,
 } from "@/data/queries";
+import { formatReadingTime } from "@/domain/utils/format";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const description =
-  "A premium Texas lifestyle publication: lakes and cypress bayous, state parks, two-lane road trips, barbecue worth the wait, small towns, history, home and garden, and Texas-made goods.";
+  "Stories, places and practical advice for making the most of life in Texas — from two-lane roads and swimming holes to barbecue, homes and small-town weekends.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: buildMeta(texasDefinedBrand, {
-      title: "Discover, Explore & Live Texas",
+      title: "The Places, Stories & Life of Texas",
       description,
       canonicalPath: "/",
     }),
@@ -87,16 +88,16 @@ function HomePage() {
           image={hero.hero}
           to="/article/$slug"
           params={{ slug: hero.slug }}
-          meta={`${hero.readingMinutes} min read`}
+          meta={formatReadingTime(hero.readingMinutes)}
         />
       )}
 
       <Section>
         <Container>
           <SectionHeader
-            eyebrow="Featured destinations"
-            title="Where we'd point you first"
-            description="Four places that answer the question better than any brochure could."
+            eyebrow="Start here"
+            title="Four places we'd send a friend"
+            description="The kind of places that explain Texas better than a brochure ever could."
             actionLabel={brand.copy.viewAll}
             actionTo="/explore"
           />
@@ -117,8 +118,8 @@ function HomePage() {
       <Section tone="surface">
         <Container>
           <SectionHeader
-            eyebrow="Featured"
-            title="The stories defining Texas right now"
+            eyebrow="Editor's picks"
+            title="Stories worth slowing down for"
             actionLabel={brand.copy.viewAll}
             actionTo="/explore"
           />
@@ -135,9 +136,9 @@ function HomePage() {
       <Section tone="surface">
         <Container>
           <SectionHeader
-            eyebrow="Explore"
-            title="Pick a direction"
-            description="Seven regions, eighty-nine state parks, and more two-lane road than any other state. Start where your weekend is."
+            eyebrow="Pick a direction"
+            title="There is always another road"
+            description="Seven regions, eighty-nine state parks and enough two-lane highway to keep your weekends full for years."
           />
           <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {categories.map((category) => (
@@ -172,7 +173,7 @@ function HomePage() {
 
       <Section>
         <Container>
-          <SectionHeader eyebrow="Hidden gems" title="Places the highway skipped" />
+          <SectionHeader eyebrow="Hidden Texas" title="Places the highway skipped" />
           <ul className="mt-10 grid gap-10 sm:grid-cols-3">
             {hiddenGems.map((destination) => (
               <li key={destination.id}>
@@ -251,8 +252,8 @@ function HomePage() {
         <Section>
           <Container>
             <SectionHeader
-              eyebrow="Seasonal"
-              title="On the Texas calendar"
+              eyebrow="This weekend"
+              title="Good reasons to leave the house"
               actionLabel={brand.copy.viewAll}
               actionTo="/events"
             />
@@ -269,8 +270,8 @@ function HomePage() {
         <Section tone="surface">
           <Container>
             <SectionHeader
-              eyebrow="Guides &amp; tools"
-              title="Practical Texas"
+              eyebrow="Good to know"
+              title="The practical side of living here"
               actionLabel={brand.copy.viewAll}
               actionTo="/guides"
             />
@@ -289,8 +290,8 @@ function HomePage() {
         <Section>
           <Container>
             <SectionHeader
-              eyebrow="Shop"
-              title="Made here, built to last"
+              eyebrow="Made here"
+              title="Things we'd actually buy"
               actionLabel={brand.copy.viewAll}
               actionTo="/shop"
             />
@@ -303,7 +304,7 @@ function HomePage() {
 
       <Section>
         <Container>
-          <SectionHeader eyebrow="Latest" title="Everything new" />
+          <SectionHeader eyebrow="New this week" title="The latest from Texas Defined" />
           <ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
             {latest.slice(0, 8).map((article) => (
               <li key={article.id}>
@@ -317,7 +318,6 @@ function HomePage() {
   );
 }
 
-/** Local presentation helper: a titled row of destination cards. */
 function DestinationRow({
   eyebrow,
   title,
