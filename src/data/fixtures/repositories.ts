@@ -37,6 +37,10 @@ const take = <T>(rows: T[], limit?: number) => (limit ? rows.slice(0, limit) : r
 const newestFirst = <T extends { publishedAt: string }>(rows: T[]) =>
   [...rows].sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1));
 
+const today = () => new Date().toISOString().slice(0, 10);
+const currentEvents = <T extends { endDate: string }>(rows: T[]) =>
+  rows.filter((event) => event.endDate >= today());
+
 export const fixtureArticles: ArticleRepository = {
   async list(query) {
     let rows = newestFirst(byBrand(articles, query.brandId));
@@ -97,7 +101,7 @@ export const fixtureGuides: GuideRepository = {
 
 export const fixtureEvents: EventRepository = {
   async list(query) {
-    const rows = [...byBrand(events, query.brandId)].sort((a, b) =>
+    const rows = currentEvents(byBrand(events, query.brandId)).sort((a, b) =>
       a.startDate < b.startDate ? -1 : 1,
     );
     return take(rows, query.limit);
@@ -160,7 +164,7 @@ export const fixtureSearch: SearchRepository = {
         keywords: [p.maker, ...p.collectionSlugs],
         href: `/shop/${p.collectionSlugs[0] ?? ""}`,
       })),
-      ...byBrand(events, scope.brandId).map((e) => ({
+      ...currentEvents(byBrand(events, scope.brandId)).map((e) => ({
         id: e.id,
         brandId: e.brandId,
         kind: "event" as const,
