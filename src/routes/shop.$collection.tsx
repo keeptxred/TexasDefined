@@ -108,7 +108,9 @@ export const Route = createFileRoute("/shop/$collection")({
   },
   notFoundComponent: () => (
     <Container className="py-24">
-      <h1 className="font-display text-3xl">That collection isn't stocked</h1>
+      <p className="eyebrow text-primary">Shop</p>
+      <h1 className="mt-3 font-display text-3xl">We could not find that shelf</h1>
+      <p className="mt-3 text-sm text-muted-foreground">The collection may have moved or is still being put together.</p>
     </Container>
   ),
   component: CollectionPage,
@@ -135,7 +137,7 @@ function CollectionPage() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-ink to-ink/30" />
         <Container className="relative py-24 sm:py-32">
-          <p className="eyebrow text-ink-foreground/80">Collection</p>
+          <p className="eyebrow text-ink-foreground/80">Our Picks</p>
           <h1 className="mt-3 max-w-2xl font-display text-4xl leading-tight sm:text-6xl">
             {collection.name}
           </h1>
@@ -147,14 +149,18 @@ function CollectionPage() {
 
       <Section>
         <Container>
-          <SectionHeader eyebrow={collection.tagline} title="In this collection" />
-          <ul className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {products.map((product) => (
-              <li key={product.id} id={productAnchor(product.id)}>
-                <ProductCard product={product} />
-              </li>
-            ))}
-          </ul>
+          <SectionHeader eyebrow={collection.tagline} title="What caught our eye" />
+          {products.length > 0 ? (
+            <ul className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+              {products.map((product) => (
+                <li key={product.id} id={productAnchor(product.id)}>
+                  <ProductCard product={product} />
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="mt-8 text-sm text-muted-foreground">We are still choosing the right pieces for this shelf.</p>
+          )}
         </Container>
       </Section>
     </>
