@@ -5,6 +5,7 @@ import { AutoEntityLinks } from "@/components/content/AutoEntityLinks";
 import { ArticleCard } from "@/components/editorial/ArticleCard";
 import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { DestinationRelationships } from "@/components/editorial/DestinationRelationships";
+import { DestinationVisitPlanner } from "@/components/editorial/DestinationVisitPlanner";
 import { MapPreview } from "@/components/editorial/MapPreview";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
@@ -231,14 +232,7 @@ function DestinationPage() {
               {validExternalUrl(destination.officialUrl) && <a href={destination.officialUrl} target="_blank" rel="noreferrer noopener" className="eyebrow inline-block border-b border-primary pb-1 text-primary">Official visitor information</a>}
             </div>
           </section>
-          {destination.highlights.length > 0 && (
-            <section aria-labelledby="destination-highlights" className="mt-10">
-              <h2 id="destination-highlights" className="font-display text-2xl">Things to do and know</h2>
-              <ul className="mt-4 list-disc space-y-2 pl-6 marker:text-primary">
-                {destination.highlights.map((highlight) => <li key={highlight}><AutoEntityLinks text={highlight} entities={graph} maxLinks={spend(1)} policy={destinationPolicy} /></li>)}
-              </ul>
-            </section>
-          )}
+          <DestinationVisitPlanner destination={destination} />
         </div>
         <aside className="space-y-6">
           <dl className="border border-border p-6 text-sm">
@@ -270,8 +264,6 @@ function DestinationPage() {
           </Container>
         </Section>
       )}
-
-
 
       {relatedArticles.length > 0 && (
         <Section>
