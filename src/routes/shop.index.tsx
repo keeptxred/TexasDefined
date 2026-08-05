@@ -62,7 +62,7 @@ export const Route = createFileRoute("/shop/")({
               {
                 "@type": "ItemList",
                 "@id": `${absoluteUrl(texasDefinedBrand, "/shop")}#products`,
-                name: "TexasDefined shop picks",
+                name: "Texas Defined shop picks",
                 numberOfItems: loaderData.products.length,
                 itemListElement: loaderData.products.map((product, index) => ({
                   "@type": "ListItem",
