@@ -24,6 +24,17 @@ function hasValidCoordinates(lat: number, lng: number) {
     && !(lat === 0 && lng === 0);
 }
 
+function validExternalUrl(value?: string) {
+  return Boolean(value && /^https?:\/\//i.test(value));
+}
+
+function checkedDate(value?: string) {
+  if (!value) return "";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "";
+  return date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+}
+
 export const Route = createFileRoute("/destination/$slug")({
   loader: async ({ context, params }) => {
     const destination = await context.queryClient.ensureQueryData(destinationQuery(params.slug));
@@ -54,6 +65,8 @@ export const Route = createFileRoute("/destination/$slug")({
       isPartOf: { "@id": `${siteUrl}/#website` },
       primaryImageOfPage: { "@id": `${url}#primaryimage` },
       mainEntity: { "@id": `${url}#attraction` },
+      ...(validExternalUrl(destination.officialUrl) ? { citation: destination.officialUrl } : {}),
+      ...(destination.sourceCheckedAt ? { dateModified: destination.sourceCheckedAt } : {}),
     };
     const attractionSchema = {
       "@type": "TouristAttraction",
@@ -62,13 +75,23 @@ export const Route = createFileRoute("/destination/$slug")({
       mainEntityOfPage: { "@id": url },
       name: destination.name,
       description: destination.summary,
-      image: [{ "@type": "ImageObject", "@id": `${url}#primaryimage`, url: imageUrl, caption: destination.hero.alt, width: destination.hero.width, height: destination.hero.height }],
+      image: [{
+        "@type": "ImageObject",
+        "@id": `${url}#primaryimage`,
+        url: imageUrl,
+        caption: destination.hero.alt,
+        width: destination.hero.width,
+        height: destination.hero.height,
+        ...(destination.hero.credit ? { creditText: destination.hero.credit } : {}),
+      }],
       ...(validGeo
         ? { geo: { "@type": "GeoCoordinates", latitude: destination.coordinates.lat, longitude: destination.coordinates.lng } }
         : {}),
       address: { "@type": "PostalAddress", addressRegion: "TX", addressLocality: destination.nearestTown, addressCountry: "US" },
       containedInPlace: { "@type": "State", name: "Texas" },
       touristType: categoryName,
+      ...(destination.managingAuthority ? { provider: { "@type": "Organization", name: destination.managingAuthority } } : {}),
+      ...(validExternalUrl(destination.officialUrl) ? { sameAs: destination.officialUrl } : {}),
     };
     const breadcrumbSchema = {
       "@type": "BreadcrumbList",
@@ -112,6 +135,7 @@ function DestinationPage() {
   let remainingLinks = surfacePolicy.pageBudget;
   const limit = (requested: number) => Math.max(0, Math.min(requested, surfacePolicy.blockBudget, remainingLinks));
   const spend = (requested: number) => { const value = limit(requested); remainingLinks -= value; return value; };
+  const verifiedLabel = checkedDate(destination.sourceCheckedAt);
 
   return <>
     <Container className="pt-24">
@@ -131,6 +155,7 @@ function DestinationPage() {
         <p className="eyebrow text-ink-foreground/80">{region?.name ?? "Texas"}</p>
         <h1 className="mt-3 font-display text-4xl leading-tight sm:text-6xl">{destination.name}</h1>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-ink-foreground/85">{destination.summary}</p>
+        {destination.hero.credit && <p className="mt-5 text-xs text-ink-foreground/65">Photo: {destination.hero.credit}</p>}
       </Container>
     </section>
 
@@ -149,6 +174,11 @@ function DestinationPage() {
             <div><dt className="eyebrow text-muted-foreground">Best time to go</dt><dd className="mt-1">{destination.bestSeason}</dd></div>
             <div className="sm:col-span-2"><dt className="eyebrow text-muted-foreground">Tickets, entry and reservations</dt><dd className="mt-1">{destination.entryNote}</dd></div>
           </dl>
+          {validExternalUrl(destination.reservationUrl) && (
+            <a href={destination.reservationUrl} target="_blank" rel="noreferrer noopener" className="eyebrow mt-5 inline-block border-b border-primary pb-1 text-primary">
+              Check reservations
+            </a>
+          )}
         </section>
         {destination.highlights.length > 0 && (
           <section aria-labelledby="destination-highlights" className="mt-10">
@@ -162,7 +192,19 @@ function DestinationPage() {
           <dt className="eyebrow text-muted-foreground">Closest town</dt><dd className="mt-1"><AutoEntityLinks text={destination.nearestTown} entities={graph} maxLinks={spend(1)} policy={destinationPolicy} /></dd>
           <dt className="eyebrow mt-4 text-muted-foreground">Best season</dt><dd className="mt-1">{destination.bestSeason}</dd>
           <dt className="eyebrow mt-4 text-muted-foreground">What to know before arrival</dt><dd className="mt-1">{destination.entryNote}</dd>
+          {destination.managingAuthority && <><dt className="eyebrow mt-4 text-muted-foreground">Managed by</dt><dd className="mt-1">{destination.managingAuthority}</dd></>}
         </dl>
+        {(validExternalUrl(destination.officialUrl) || verifiedLabel) && (
+          <div className="border border-border bg-secondary/40 p-6 text-sm">
+            <p className="eyebrow text-muted-foreground">Official information</p>
+            {verifiedLabel && <p className="mt-2 text-muted-foreground">Source checked {verifiedLabel}.</p>}
+            {validExternalUrl(destination.officialUrl) && (
+              <a href={destination.officialUrl} target="_blank" rel="noreferrer noopener" className="eyebrow mt-4 inline-block border-b border-primary pb-1 text-primary">
+                Visit official source
+              </a>
+            )}
+          </div>
+        )}
         <MapPreview markers={[{ id: destination.id, label: destination.name, point: destination.coordinates }]} directionsLabel={`${destination.name}, Texas`} />
       </aside>
     </Container>
