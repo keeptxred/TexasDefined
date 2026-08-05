@@ -2,6 +2,18 @@ import type { Category } from "./types";
 
 export const supplementalExploreCategories: Category[] = [
   {
+    slug: "national-parks",
+    name: "National Parks",
+    eyebrow: "Big landscapes",
+    description: "National parks, monuments and federally protected landscapes across Texas.",
+  },
+  {
+    slug: "major-springs",
+    name: "Major Springs",
+    eyebrow: "Clear water",
+    description: "Texas springs, spring-fed pools and the waterways they sustain.",
+  },
+  {
     slug: "caverns",
     name: "Caverns & Caves",
     eyebrow: "Below ground",
