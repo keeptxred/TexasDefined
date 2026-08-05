@@ -15,13 +15,13 @@ export const Route = createFileRoute("/home-garden")({
   head: ({ loaderData }) => loaderData
     ? buildEditorialCollectionHead(texasDefinedBrand, {
         canonicalPath: "/home-garden",
-        title: "Texas Home & Garden",
-        collectionName: "Texas Home & Garden",
+        title: "Home & Garden",
+        collectionName: "Front Porch",
         description,
         image: bluebonnets,
         imageAlt,
-        breadcrumbParentName: "Explore",
-        breadcrumbParentPath: "/explore",
+        breadcrumbParentName: "Living Here",
+        breadcrumbParentPath: "/texas-living",
         items: [
           ...loaderData.articles.map((article) => ({
             type: "Article" as const,
@@ -42,7 +42,7 @@ export const Route = createFileRoute("/home-garden")({
     : ({
         meta: buildMeta(texasDefinedBrand, {
           canonicalPath: "/home-garden",
-          title: "Texas Home & Garden",
+          title: "Home & Garden",
           description,
         }),
         links: [canonicalLink(texasDefinedBrand, "/home-garden")],
