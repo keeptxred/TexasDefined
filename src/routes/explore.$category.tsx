@@ -37,9 +37,10 @@ export const Route = createFileRoute("/explore/$category")({
 function CategoryNotFound() {
   return (
     <Container className="py-24">
-      <h1 className="font-display text-3xl">We don't cover that yet</h1>
+      <p className="eyebrow text-primary">A different road</p>
+      <h1 className="mt-3 font-display text-3xl">We haven't made that list yet</h1>
       <p className="mt-3 text-sm text-muted-foreground">
-        Try another section from the Explore menu.
+        Try another part of Explore and find somewhere worth the drive.
       </p>
     </Container>
   );
