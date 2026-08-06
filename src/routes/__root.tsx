@@ -18,6 +18,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { installTexasDefinedAnalytics } from "@/platform/analytics";
 import { absoluteUrl } from "@/lib/seo";
+import { ShopCartProvider } from "@/lib/shop-cart";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const defaultSocialImage = absoluteUrl(texasDefinedBrand, heroHillCountry);
@@ -33,7 +34,7 @@ function NotFoundComponent() {
           <p className="eyebrow text-primary">Wrong turn</p>
           <h1 className="mt-4 font-display text-4xl text-foreground">This road doesn't go through</h1>
           <p className="mt-3 text-sm leading-6 text-muted-foreground">The page may have moved, but there is plenty more Texas waiting just down the road.</p>
-          <div className="mt-6"><Link to="/" className="inline-flex items-center justify-center rounded-sm bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90">Start from the front page</Link></div>
+          <div className="mt-6"><Link to="/" className="inline-flex items-center justify-center rounded-sm bg-primary px-3 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90">Start from the front page</Link></div>
         </div>
       </div>
     </>
@@ -115,7 +116,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
             potentialAction: {
               "@type": "SearchAction",
               target: `${siteUrl}/search?q={search_term_string}`,
-              "query-input": "required name=search_term_string",
+              "query-input": "required name=query_term_string",
             },
           },
         ],
@@ -138,11 +139,13 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <BrandProvider brand={texasDefinedBrand}>
-        <div className="flex min-h-screen flex-col bg-background">
-          <Header />
-          <main id="main" className="flex-1"><Outlet /></main>
-          <Footer />
-        </div>
+        <ShopCartProvider>
+          <div className="flex min-h-screen flex-col bg-background">
+            <Header />
+            <main id="main" className="flex-1"><Outlet /></main>
+            <Footer />
+          </div>
+        </ShopCartProvider>
       </BrandProvider>
     </QueryClientProvider>
   );
