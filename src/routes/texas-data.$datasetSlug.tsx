@@ -57,7 +57,7 @@ export const Route = createFileRoute('/texas-data/$datasetSlug')({
                 {
                   '@type': 'ListItem',
                   position: 1,
-                  name: 'Home',
+                  name: 'Front page',
                   item: absoluteUrl(texasDefinedBrand, '/'),
                 },
                 {
@@ -82,9 +82,9 @@ export const Route = createFileRoute('/texas-data/$datasetSlug')({
   notFoundComponent: () => (
     <Container className="py-24">
       <p className="eyebrow text-primary">Texas by the numbers</p>
-      <h1 className="mt-3 font-display text-3xl">That set of numbers took another road</h1>
+      <h1 className="mt-3 font-display text-3xl">We could not find those numbers</h1>
       <p className="mt-3 text-sm text-muted-foreground">
-        <Link to="/texas-data" className="text-primary underline">See the Texas facts and comparisons we do have.</Link>
+        <Link to="/texas-data" className="text-primary underline">See the Texas facts and comparisons that are available.</Link>
       </p>
     </Container>
   ),
@@ -123,7 +123,7 @@ function Page() {
           <h2 className="font-display text-xl text-foreground">Where the numbers come from</h2>
           <p className="mt-2">{dataset.methodology}</p>
           <p className="mt-3">
-            Last checked {dataset.updated}. <a className="underline" href={dataset.sourceUrl} rel="noreferrer">See the original numbers from {dataset.sourceName}.</a>
+            Details reviewed {formatCheckedDate(dataset.updated)}. <a className="underline" href={dataset.sourceUrl} target="_blank" rel="noreferrer">See the original numbers from {dataset.sourceName}.</a>
           </p>
         </section>
         <div className="mt-8 flex flex-wrap gap-4 text-sm font-medium">
@@ -134,4 +134,14 @@ function Page() {
       </main>
     </Container>
   );
+}
+
+function formatCheckedDate(value: string) {
+  const date = new Date(`${value}T12:00:00`);
+  if (Number.isNaN(date.getTime())) return value;
+  return new Intl.DateTimeFormat('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+  }).format(date);
 }
