@@ -43,6 +43,9 @@ export const Route = createFileRoute("/")({
   head: ({ loaderData }) => {
     const featured = loaderData?.featured ?? [];
     const destinations = loaderData?.destinations ?? [];
+    const homepageDestinations = destinations.some((item) => item.featured)
+      ? destinations.filter((item) => item.featured).slice(0, 4)
+      : destinations.slice(0, 4);
     const curatedItems = [
       ...featured.slice(0, 4).map((article) => ({
         "@type": "Article",
@@ -50,11 +53,15 @@ export const Route = createFileRoute("/")({
         url: `${siteUrl}/article/${article.slug}`,
         image: absoluteUrl(texasDefinedBrand, article.hero.src),
       })),
-      ...destinations.filter((item) => item.featured).slice(0, 4).map((destination) => ({
+      ...homepageDestinations.map((destination) => ({
         "@type": "TouristAttraction",
         name: destination.name,
+        description: destination.summary,
         url: `${siteUrl}/destination/${destination.slug}`,
         image: absoluteUrl(texasDefinedBrand, destination.hero.src),
+        sameAs: destination.officialUrl,
+        dateModified: destination.sourceCheckedAt,
+        provider: destination.managingAuthority ? { "@type": "Organization", name: destination.managingAuthority } : undefined,
       })),
     ];
     const structuredData = {
@@ -109,8 +116,10 @@ function HomePage() {
 
   const hero = featured[0];
   const editorPicks = featured.slice(1, 4);
-  const featuredDestinations = destinations.filter((item) => item.featured).slice(0, 4);
-  const hiddenGems = destinations.filter((item) => !item.featured).slice(0, 3);
+  const explicitlyFeatured = destinations.filter((item) => item.featured);
+  const featuredDestinations = (explicitlyFeatured.length ? explicitlyFeatured : destinations).slice(0, 4);
+  const featuredIds = new Set(featuredDestinations.map((item) => item.id));
+  const hiddenGems = destinations.filter((item) => !featuredIds.has(item.id)).slice(0, 3);
   const worthTheDrive = roadTrips[0] ?? destinations[0];
   const regionName = (id: string) => regions.find((region) => region.id === id)?.name;
 
@@ -120,7 +129,7 @@ function HomePage() {
         <FeatureHero variant="split" eyebrow="The cover story" title={hero.title} dek={hero.dek} image={hero.hero} to="/article/$slug" params={{ slug: hero.slug }} meta={formatReadingTime(hero.readingMinutes)} />
       )}
 
-      <Section><Container><SectionHeader eyebrow="Start here" title="Four places we'd send a friend" description="No endless list. Just four places that explain this state better than any brochure could." actionLabel="Find more places" actionTo="/explore" /><ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">{featuredDestinations.map((destination) => <li key={destination.id}><DestinationCard destination={destination} tone="overlay" regionLabel={regionName(destination.region)} /></li>)}</ul></Container></Section>
+      {featuredDestinations.length > 0 && <Section><Container><SectionHeader eyebrow="Start here" title="Four places we'd send a friend" description="No endless list. Just four places that explain this state better than any brochure could." actionLabel="Find more places" actionTo="/explore" /><ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">{featuredDestinations.map((destination) => <li key={destination.id}><DestinationCard destination={destination} tone="overlay" regionLabel={regionName(destination.region)} /></li>)}</ul></Container></Section>}
 
       {editorPicks.length > 0 && <Section tone="surface"><Container><SectionHeader eyebrow="Editor's picks" title="Stories worth slowing down for" description="The pieces we'd leave open on the kitchen table for someone else to read." /><div className="mt-12 grid gap-10 lg:grid-cols-[1.45fr_1fr]"><ArticleCard article={editorPicks[0]} size="feature" /><div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-1">{editorPicks.slice(1).map((article) => <ArticleCard key={article.id} article={article} size="compact" />)}</div></div></Container></Section>}
 
