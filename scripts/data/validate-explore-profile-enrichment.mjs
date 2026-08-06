@@ -11,7 +11,9 @@ const relationships = fs.readFileSync(path.join(root, 'src/components/editorial/
 const relationshipEngine = fs.readFileSync(path.join(root, 'src/data/destination-relationships.ts'), 'utf8');
 const graph = fs.readFileSync(path.join(root, 'src/data/knowledge-graph/explore-adapter.ts'), 'utf8');
 const ai = fs.readFileSync(path.join(root, 'src/routes/api.ai.entities.ts'), 'utf8');
+const exploreSearch = fs.readFileSync(path.join(root, 'src/routes/explore.search.tsx'), 'utf8');
 const sitemap = fs.readFileSync(path.join(root, 'src/routes/sitemap-explore[.]xml.ts'), 'utf8');
+const primarySitemap = fs.readFileSync(path.join(root, 'src/routes/sitemap[.]xml.ts'), 'utf8');
 const types = fs.readFileSync(path.join(root, 'src/data/types.ts'), 'utf8');
 const errors = [];
 
@@ -91,6 +93,14 @@ for (const feature of [
 ]) if (!queries.includes(feature)) errors.push(`Remote destination search feature missing: ${feature}`);
 
 for (const feature of [
+  'destinationsQuery({ limit: 5000 })', 'scoreDestination', 'searchText',
+  'destination.county', 'destination.managingAuthority', 'destination.bestSeason',
+  '...destination.highlights', 'terms.every((term) => haystack.includes(term))',
+  'right.score - left.score', 'Search by destination, town, county, activity, facility, managing agency or part of Texas',
+]) if (!exploreSearch.includes(feature)) errors.push(`Explore search ranking feature missing: ${feature}`);
+if (exploreSearch.includes('fetchExploreDestinations({ query: q')) errors.push('Explore search bypasses the resilient destination query and core remote fallback.');
+
+for (const feature of [
   'keywords: entity.tags', 'measurementTechnique: entity.sourceConfidence',
   'dateModified: entity.sourceCheckedAt', 'additionalType: entity.kind',
   "entity.tags?.length ? entity.tags : undefined",
@@ -101,6 +111,14 @@ for (const feature of [
   'validLastModified', '<lastmod>', 'item.sourceCheckedAt',
   'remoteDestinations.length ? remoteDestinations : fixtureDestinations',
 ]) if (!sitemap.includes(feature)) errors.push(`Explore sitemap enrichment feature missing: ${feature}`);
+
+for (const feature of [
+  'fetchCoreExploreDestinations',
+  'Primary sitemap enrichment unavailable; retrying core remote catalog',
+  'Primary sitemap core remote catalog unavailable; using outage fixtures',
+  'lastmod: toDate(destination.sourceCheckedAt)',
+  'remoteDestinations.length ? remoteDestinations : fixtureDestinations',
+]) if (!primarySitemap.includes(feature)) errors.push(`Primary sitemap remote freshness feature missing: ${feature}`);
 
 const enrichedListIndex = queries.indexOf('fetchExploreDestinations(options)');
 const coreListIndex = queries.indexOf('fetchCoreExploreDestinations(options)');
@@ -121,4 +139,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Explore Phase 1 enrichment, planning, search, AI, sitemap freshness, authority, access, relationship discovery, and two-stage remote fallback validation passed.');
+console.log('Explore Phase 1 enrichment, planning, ranked search, AI, sitemap freshness, authority, access, relationship discovery, and two-stage remote fallback validation passed.');
