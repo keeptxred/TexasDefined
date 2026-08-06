@@ -3,7 +3,7 @@ export function renderErrorPage(): string {
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>A small detour</title>
+    <title>A small detour | Texas Defined</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
       body { font: 15px/1.5 system-ui, -apple-system, sans-serif; background: #fafafa; color: #111; display: grid; place-items: center; min-height: 100vh; margin: 0; padding: 1.5rem; }
@@ -20,11 +20,11 @@ export function renderErrorPage(): string {
   <body>
     <div class="card">
       <div class="eyebrow">A small detour</div>
-      <h1>We hit a bump in the road</h1>
-      <p>This page did not load the way it should. Try once more, or head back to the front page.</p>
+      <h1>This page took a wrong turn</h1>
+      <p>Give it one more try, or head back to the Texas Defined front page and choose another road.</p>
       <div class="actions">
-        <button class="primary" onclick="location.reload()">Try once more</button>
-        <a class="secondary" href="/">Back to the front page</a>
+        <button class="primary" onclick="location.reload()">Try again</button>
+        <a class="secondary" href="/">Go to the front page</a>
       </div>
     </div>
   </body>
