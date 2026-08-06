@@ -15,12 +15,20 @@ const checklist = [
   'Ask for side-by-side written estimates with and without assistance.',
   'Keep some cash in reserve after closing.',
 ] as const;
+const checklistNames = [
+  'Set a comfortable monthly budget',
+  'Take a homebuyer class',
+  'Check the current program limits',
+  'Find an approved lender',
+  'Compare written loan estimates',
+  'Keep cash in reserve',
+] as const;
 
 export const Route = createFileRoute('/texas-first-time-homebuyer-programs')({
   head: () => ({
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath,
-      title: 'Texas First-Time Homebuyer Programs',
+      title: 'Buying Your First Texas Home',
       description,
     }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
@@ -31,13 +39,13 @@ export const Route = createFileRoute('/texas-first-time-homebuyer-programs')({
           '@type': 'HowTo',
           '@id': `${pageUrl}#howto`,
           url: pageUrl,
-          name: 'How to evaluate Texas first-time homebuyer assistance',
+          name: 'How to evaluate help for buying your first Texas home',
           description,
           isPartOf: { '@id': `${siteUrl}/#website` },
           step: checklist.map((text, index) => ({
             '@type': 'HowToStep',
             position: index + 1,
-            name: `Homebuyer checklist step ${index + 1}`,
+            name: checklistNames[index],
             text,
             url: `${pageUrl}#homebuyer-step-${index + 1}`,
           })),
@@ -46,7 +54,7 @@ export const Route = createFileRoute('/texas-first-time-homebuyer-programs')({
           '@type': 'BreadcrumbList',
           '@id': `${pageUrl}#breadcrumbs`,
           itemListElement: [
-            { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
+            { '@type': 'ListItem', position: 1, name: 'Front page', item: `${siteUrl}/` },
             { '@type': 'ListItem', position: 2, name: 'Living Here', item: `${siteUrl}/texas-living` },
             { '@type': 'ListItem', position: 3, name: 'Buying Your First Home', item: pageUrl },
           ],
@@ -63,7 +71,7 @@ function Page() {
       <article className="prose prose-gray mx-auto max-w-4xl">
         <nav aria-label="Breadcrumb" className="not-prose text-xs text-muted-foreground">
           <ol className="flex flex-wrap items-center gap-2">
-            <li><Link to="/" className="hover:text-foreground">Home</Link></li>
+            <li><Link to="/" className="hover:text-foreground">Front page</Link></li>
             <li aria-hidden="true">/</li>
             <li><Link to="/texas-living" className="hover:text-foreground">Living Here</Link></li>
             <li aria-hidden="true">/</li>
@@ -88,9 +96,9 @@ function Page() {
         </ol>
         <h2>Where to check first</h2>
         <ul>
-          <li><a href="https://welcomehome.tdhca.texas.gov/" rel="noreferrer">Texas Department of Housing and Community Affairs homebuyer programs</a></li>
-          <li><a href="https://www.tdhca.texas.gov/help-for-texans" rel="noreferrer">TDHCA Help for Texans</a></li>
-          <li><a href="https://www.hud.gov/states/texas" rel="noreferrer">HUD guidance for Texas buyers</a></li>
+          <li><a href="https://welcomehome.tdhca.texas.gov/" target="_blank" rel="noreferrer noopener">Texas Department of Housing and Community Affairs homebuyer programs</a></li>
+          <li><a href="https://www.tdhca.texas.gov/help-for-texans" target="_blank" rel="noreferrer noopener">TDHCA Help for Texans</a></li>
+          <li><a href="https://www.hud.gov/states/texas" target="_blank" rel="noreferrer noopener">HUD guidance for Texas buyers</a></li>
         </ul>
         <aside className="not-prose mt-10 rounded-lg bg-muted p-5 text-sm text-muted-foreground">Programs, rates, funding and limits change. Confirm the details with the agency and participating lender before making a decision.</aside>
       </article>
