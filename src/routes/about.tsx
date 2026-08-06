@@ -36,7 +36,7 @@ export const Route = createFileRoute("/about")({
               {
                 "@type": "ListItem",
                 position: 1,
-                name: "Home",
+                name: "Front page",
                 item: absoluteUrl(texasDefinedBrand, "/"),
               },
               {
@@ -65,7 +65,7 @@ const PRINCIPLES = [
   },
   {
     title: "Name the people and places",
-    body: "Specific details make a story useful. We tell you the town, the route, the season, the local business or the public source behind the information whenever we can.",
+    body: "Specific details make a story useful. We tell you the town, the route, the season, the local business or the original source behind the information whenever we can.",
   },
   {
     title: "Be useful without being dull",
