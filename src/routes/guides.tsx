@@ -11,7 +11,7 @@ import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 const description =
   "Straightforward travel, moving, homeowner, property-tax and everyday-life guides gathered in one place.";
 
-const migratedGuides = [
+const practicalGuides = [
   { to: "/learn/property-taxes", label: "Property Taxes Without the Guesswork", body: "A plain-English look at appraisals, exemptions, protests, rates and the yearly tax cycle." },
   { to: "/decide/property-taxes", label: "Estimate Your Property Taxes", body: "Get a quick estimate using your home value, exemptions and local tax rate." },
   { to: "/learn/property-tax-payments", label: "Paying Your Property Taxes", body: "What to know about deadlines, escrow, payment plans, late bills and tax liens." },
@@ -73,9 +73,11 @@ const travelGuides = [
   },
 ] as const;
 
-const allFeaturedGuides = [...travelGuides, ...migratedGuides];
+const allFeaturedGuides = [...travelGuides, ...practicalGuides];
 const guideAnchor = (index: number) => `guide-${index + 1}`;
 const guidesUrl = absoluteUrl(texasDefinedBrand, "/guides");
+const editorialLabel = (value: string) =>
+  value.replaceAll("-", " ").replace(/\b\w/g, (letter) => letter.toUpperCase());
 
 export const Route = createFileRoute("/guides")({
   head: () => ({
@@ -102,7 +104,7 @@ export const Route = createFileRoute("/guides")({
             "@type": "BreadcrumbList",
             "@id": `${guidesUrl}#breadcrumb`,
             itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl(texasDefinedBrand, "/") },
+              { "@type": "ListItem", position: 1, name: "Front page", item: absoluteUrl(texasDefinedBrand, "/") },
               { "@type": "ListItem", position: 2, name: "Guides", item: guidesUrl },
             ],
           },
@@ -176,9 +178,9 @@ function GuidesPage() {
 
       <Section>
         <Container>
-          <SectionHeader eyebrow="Living Here" title="The questions homeowners ask us most" />
+          <SectionHeader eyebrow="Living Here" title="Practical questions worth answering" />
           <ul className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-            {migratedGuides.map((guide, index) => (
+            {practicalGuides.map((guide, index) => (
               <li key={guide.to} id={guideAnchor(travelGuides.length + index)}>
                 <Link
                   to={guide.to}
@@ -197,7 +199,7 @@ function GuidesPage() {
       {topics.map((topic, index) => (
         <Section key={topic} tone={index % 2 === 0 ? "surface" : "default"}>
           <Container>
-            <SectionHeader eyebrow={topic} title={`More help with ${topic.toLowerCase()}`} />
+            <SectionHeader eyebrow={editorialLabel(topic)} title={`More help with ${topic.replaceAll("-", " ").toLowerCase()}`} />
             <ul className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {guides
                 .filter((guide) => guide.topic === topic)
