@@ -5,10 +5,42 @@ import { texasDefinedBrand } from "@/brand/texasdefined";
 import { CategoryPage } from "@/components/editorial/CategoryPage";
 import { Container } from "@/components/layout/Container";
 import { articlesQuery, categoriesQuery, destinationQuery, destinationsQuery } from "@/data/queries";
-import type { CategorySlug } from "@/data/types";
+import type { CategorySlug, Destination } from "@/data/types";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
+
+function validCoordinates(destination: Destination) {
+  const { lat, lng } = destination.coordinates;
+  return Number.isFinite(lat) && Number.isFinite(lng) && lat >= -90 && lat <= 90 && lng >= -180 && lng <= 180 && !(lat === 0 && lng === 0);
+}
+
+function destinationSchema(destination: Destination) {
+  return {
+    "@type": "TouristAttraction",
+    name: destination.name,
+    description: destination.summary,
+    url: `${siteUrl}/destination/${destination.slug}`,
+    image: absoluteUrl(texasDefinedBrand, destination.hero.src),
+    sameAs: destination.officialUrl || undefined,
+    dateModified: destination.sourceCheckedAt || undefined,
+    provider: destination.managingAuthority
+      ? { "@type": "Organization", name: destination.managingAuthority }
+      : undefined,
+    containedInPlace: destination.county
+      ? { "@type": "AdministrativeArea", name: `${destination.county} County` }
+      : destination.nearestTown
+        ? { "@type": "City", name: destination.nearestTown }
+        : undefined,
+    geo: validCoordinates(destination)
+      ? {
+          "@type": "GeoCoordinates",
+          latitude: destination.coordinates.lat,
+          longitude: destination.coordinates.lng,
+        }
+      : undefined,
+  };
+}
 
 export const Route = createFileRoute("/explore/$category")({
   loader: async ({ context, params }) => {
@@ -49,13 +81,7 @@ export const Route = createFileRoute("/explore/$category")({
       ...loaderData.destinations.map((destination, index) => ({
         "@type": "ListItem",
         position: loaderData.articles.length + index + 1,
-        item: {
-          "@type": "TouristAttraction",
-          name: destination.name,
-          description: destination.summary,
-          url: `${siteUrl}/destination/${destination.slug}`,
-          image: absoluteUrl(texasDefinedBrand, destination.hero.src),
-        },
+        item: destinationSchema(destination),
       })),
     ];
     const collectionSchema = {
