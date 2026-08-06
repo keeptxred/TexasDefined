@@ -7,6 +7,7 @@ type StoreProduct = {
   price: number;
   currency: string;
   imageUrl: string;
+  productUrl?: string | null;
   tags?: string[];
   collections?: string[];
   colors?: string[];
@@ -37,7 +38,7 @@ function toProduct(row: StoreProduct): Product {
     blurb: row.description?.trim() || "A Texas-inspired pick selected for the Texas Defined shop.",
     collectionSlugs: row.collections ?? [],
     madeInTexas: false,
-    productUrl: `/shop/${encodeURIComponent(row.id)}`,
+    productUrl: `/shop/product/${encodeURIComponent(row.id)}`,
     colors: row.colors ?? [],
     variants: Array.isArray(row.variants) ? row.variants : [],
   };
