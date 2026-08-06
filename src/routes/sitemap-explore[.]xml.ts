@@ -47,7 +47,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           }
         }
 
-        const destinations = remoteDestinations.length ? remoteDestinations : fixtureDestinations;
+        const destinations = remoteFailed ? fixtureDestinations : remoteDestinations;
         if (remoteFailed && destinations.length === 0) {
           return new Response("Explore catalog temporarily unavailable", {
             status: 503,
