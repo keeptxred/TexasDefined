@@ -1,13 +1,15 @@
 import { Link } from "@tanstack/react-router";
-import { Menu, Search, X } from "lucide-react";
+import { Menu, Search, ShoppingBag, X } from "lucide-react";
 import { useState } from "react";
 
 import { useBrand } from "@/brand/context";
 import { Container } from "./Container";
 import { cn } from "@/lib/utils";
+import { useShopCart } from "@/lib/shop-cart";
 
 export function Header() {
   const brand = useBrand();
+  const cart = useShopCart();
   const [open, setOpen] = useState(false);
   const [openGroup, setOpenGroup] = useState<string | null>(null);
 
@@ -43,6 +45,19 @@ export function Header() {
           </nav>
 
           <div className="flex items-center gap-1">
+            <Link
+              to="/shop/cart"
+              aria-label={cart.count > 0 ? `View your bag with ${cart.count} item${cart.count === 1 ? "" : "s"}` : "View your bag"}
+              className="relative inline-flex items-center gap-1 rounded-sm px-2 py-2 text-sm font-medium text-foreground/70 transition-colors hover:text-primary"
+            >
+              <ShoppingBag className="size-[18px]" aria-hidden />
+              <span className="hidden sm:inline">Bag</span>
+              {cart.count > 0 ? (
+                <span className="inline-flex min-w-5 items-center justify-center rounded-full bg-primary px-1.5 text-[11px] leading-5 text-primary-foreground">
+                  {cart.count}
+                </span>
+              ) : null}
+            </Link>
             {brand.features.search && (
               <Link
                 to="/search"
