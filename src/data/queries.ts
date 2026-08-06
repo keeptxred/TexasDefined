@@ -24,34 +24,58 @@ export const destinationsQuery = (params: Omit<DestinationQuery, "brandId"> = {}
   queryKey: ["destinations", scope.brandId, params],
   queryFn: async () => {
     const options = { featured: params.featured, category: params.category, limit: params.limit };
+    let enrichedFailed = false;
     try {
       const enriched = await fetchExploreDestinations(options);
       if (enriched.length) return enriched;
       if (params.featured) {
         const catalog = await fetchExploreDestinations({ category: params.category, limit: 5000 });
-        if (catalog.length) return featuredFallback(catalog, params.limit ?? 6);
+        return featuredFallback(catalog, params.limit ?? 6);
       }
-    } catch (error) { console.error("Explore enrichment unavailable; retrying core remote catalog", error); }
+      return [];
+    } catch (error) {
+      enrichedFailed = true;
+      console.error("Explore enrichment unavailable; retrying core remote catalog", error);
+    }
+
+    let coreFailed = false;
     try {
       const core = await fetchCoreExploreDestinations(options);
       if (core.length) return core;
       if (params.featured) {
         const catalog = await fetchCoreExploreDestinations({ category: params.category, limit: 5000 });
-        if (catalog.length) return featuredFallback(catalog, params.limit ?? 6);
+        return featuredFallback(catalog, params.limit ?? 6);
       }
-    } catch (error) { console.error("Core Explore remote catalog unavailable; using outage fixtures", error); }
-    return platform.destinations.list({ ...scope, ...params });
+      return [];
+    } catch (error) {
+      coreFailed = true;
+      console.error("Core Explore remote catalog unavailable", error);
+    }
+
+    if (enrichedFailed && coreFailed) return platform.destinations.list({ ...scope, ...params });
+    return [];
   },
 });
 
 export const destinationQuery = (slug: Slug) => queryOptions({
   queryKey: ["destination", scope.brandId, slug],
   queryFn: async () => {
-    try { const enriched = await fetchExploreDestination(slug); if (enriched) return enriched; }
-    catch (error) { console.error("Explore destination enrichment unavailable; retrying core remote record", error); }
-    try { const core = await fetchCoreExploreDestination(slug); if (core) return core; }
-    catch (error) { console.error("Core Explore remote destination unavailable; using outage fixture", error); }
-    return platform.destinations.getBySlug(scope, slug);
+    let enrichedFailed = false;
+    try { return await fetchExploreDestination(slug); }
+    catch (error) {
+      enrichedFailed = true;
+      console.error("Explore destination enrichment unavailable; retrying core remote record", error);
+    }
+
+    let coreFailed = false;
+    try { return await fetchCoreExploreDestination(slug); }
+    catch (error) {
+      coreFailed = true;
+      console.error("Core Explore remote destination unavailable", error);
+    }
+
+    if (enrichedFailed && coreFailed) return platform.destinations.getBySlug(scope, slug);
+    return null;
   },
 });
 
