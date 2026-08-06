@@ -24,5 +24,5 @@ export interface Product { id: string; brandId: BrandId; slug: Slug; name: strin
 export interface Collection { id: string; brandId: BrandId; slug: Slug; name: string; tagline: string; description: string; image: ImageRef; }
 export type GuideKind = "article" | "calculator" | "dataset" | "checklist";
 export interface Guide { id: string; brandId: BrandId; slug: Slug; title: string; summary: string; kind: GuideKind; topic: string; calculatorId?: string; status: "available" | "coming-soon"; }
-export interface TexasEvent { id: string; brandId: BrandId; slug: Slug; name: string; blurb: string; city: string; region: TexasRegion; startDate: string; endDate?: string; category: "music" | "food" | "rodeo" | "seasonal" | "sport" | "culture"; }
+export interface TexasEvent { id: string; brandId: BrandId; slug: Slug; name: string; blurb: string; city: string; region: TexasRegion; startDate: string; endDate?: string; category: "music" | "food" | "rodeo" | "seasonal" | "sport" | "culture"; venue?: string; officialUrl?: string; sourceName?: string; sourceCheckedAt?: string; }
 export interface SearchDocument { id: string; brandId: BrandId; kind: "article" | "destination" | "guide" | "product" | "event"; title: string; summary: string; keywords: string[]; href: string; }
