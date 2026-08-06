@@ -119,17 +119,28 @@ if (llms.includes('id=lake:caddo-lake')) errors.push('AI discovery guidance stil
 
 for (const feature of [
   'fetchCoreExploreDestinations',
+  'let remoteFailed = false',
   'validLastModified', '<lastmod>', 'item.sourceCheckedAt',
-  'remoteDestinations.length ? remoteDestinations : fixtureDestinations',
+  'const destinations = remoteFailed ? fixtureDestinations : remoteDestinations',
 ]) if (!sitemap.includes(feature)) errors.push(`Explore sitemap enrichment feature missing: ${feature}`);
+if (sitemap.includes('remoteDestinations.length ? remoteDestinations : fixtureDestinations')) {
+  errors.push('Explore sitemap still treats a healthy empty remote catalog as an outage.');
+}
 
 for (const feature of [
   'fetchCoreExploreDestinations',
+  'let remoteFailed = false',
   'Primary sitemap enrichment unavailable; retrying core remote catalog',
   'Primary sitemap core remote catalog unavailable; using outage fixtures',
   'lastmod: toDate(destination.sourceCheckedAt)',
-  'remoteDestinations.length ? remoteDestinations : fixtureDestinations',
+  'const destinations = remoteFailed ? fixtureDestinations : remoteDestinations',
 ]) if (!primarySitemap.includes(feature)) errors.push(`Primary sitemap remote freshness feature missing: ${feature}`);
+if (primarySitemap.includes('remoteDestinations.length ? remoteDestinations : fixtureDestinations')) {
+  errors.push('Primary sitemap still treats a healthy empty remote catalog as an outage.');
+}
+if (primarySitemap.includes('if (!remoteDestinations.length)')) {
+  errors.push('Primary sitemap must retry the core adapter only after enrichment failure, not after a healthy empty response.');
+}
 
 const enrichedListIndex = queries.indexOf('fetchExploreDestinations(options)');
 const coreListIndex = queries.indexOf('fetchCoreExploreDestinations(options)');
@@ -150,4 +161,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Explore Phase 1 enrichment, planning, ranked search, AI discovery, sitemap freshness, authority, access, relationship discovery, and two-stage remote fallback validation passed.');
+console.log('Explore Phase 1 enrichment, planning, ranked search, AI discovery, sitemap freshness, authority, access, relationship discovery, and true-outage-only fixture validation passed.');
