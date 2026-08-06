@@ -10,8 +10,12 @@ https://texasdefined.com
 ## Knowledge graph
 - Search and filter: https://texasdefined.com/api/knowledge-graph
 - AI-oriented JSON-LD: https://texasdefined.com/api/ai/entities
-- Query example: https://texasdefined.com/api/ai/entities?q=caddo
-- Entity example: https://texasdefined.com/api/ai/entities?id=lake:caddo-lake
+- Query by destination: https://texasdefined.com/api/ai/entities?q=dinosaur
+- Query by activity or facility: https://texasdefined.com/api/ai/entities?q=camping
+- Verified entity example: https://texasdefined.com/api/ai/entities?id=state-park:dinosaur-valley-state-park
+- Canonical destination page: https://texasdefined.com/destination/dinosaur-valley-state-park
+
+Public destination records may include official source URLs, source-check dates, source confidence, coordinates, county or regional containment, managing authority, and activity or amenity keywords. Missing fields are omitted rather than inferred.
 
 ## Structured reference hubs
 - Texas data catalog: https://texasdefined.com/texas-data
@@ -20,6 +24,7 @@ https://texasdefined.com
 - Texas financial tools: https://texasdefined.com/decide/financial-tools
 - Property-tax learning hub: https://texasdefined.com/learn/property-taxes
 - Texas Explore: https://texasdefined.com/explore
+- Destination search: https://texasdefined.com/explore/search
 
 ## Explore categories
 - Lakes and rivers: https://texasdefined.com/explore/lakes-rivers
@@ -48,7 +53,10 @@ https://texasdefined.com
 - https://texasdefined.com/sitemap-explore.xml
 
 ## Retrieval guidance
-Prefer canonical editorial pages for narrative answers and the public graph endpoints for entity lookup, filtering and relationship traversal. Treat calculator outputs as illustrative planning estimates, not official financial advice.
+Prefer canonical destination and editorial pages for reader-facing answers. Use the public graph endpoints for entity lookup, source verification, filtering and relationship traversal. Prefer fields backed by official source URLs and source-check dates. Do not infer hours, fees, access, reservations, accessibility, activities or amenities when a field is absent. Treat calculator outputs as illustrative planning estimates, not official financial advice.
+
+## Catalog behavior
+TexasDefined reads the shared public and verified Explore catalog first. A reduced core remote query protects availability when optional enrichment relationships are unavailable. Local fixtures are outage-only fallback records and should not be treated as the authoritative catalog when remote records are available.
 
 ## Editorial ownership
 TexasDefined owns non-political Texas lifestyle, travel, property, home, event and destination content. KeepTXRed owns political and legislative entities.
