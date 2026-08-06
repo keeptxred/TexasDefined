@@ -42,6 +42,7 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SitemapExploreDotxmlRouteImport } from './routes/sitemap-explore[.]xml'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as RealEstateRouteImport } from './routes/real-estate'
+import { Route as PropertyTaxGuidesRouteImport } from './routes/property-tax-guides'
 import { Route as MovingToTexasChecklistRouteImport } from './routes/moving-to-texas-checklist'
 import { Route as MovingToTexasRouteImport } from './routes/moving-to-texas'
 import { Route as LlmsDottxtRouteImport } from './routes/llms[.]txt'
@@ -57,9 +58,18 @@ import { Route as ShopIndexRouteImport } from './routes/shop.index'
 import { Route as ExploreIndexRouteImport } from './routes/explore.index'
 import { Route as TexasDataDatasetSlugRouteImport } from './routes/texas-data.$datasetSlug'
 import { Route as ShopCollectionRouteImport } from './routes/shop.$collection'
+import { Route as NewsSlugRouteImport } from './routes/news.$slug'
+import { Route as LearnWildlifeManagementValuationRouteImport } from './routes/learn.wildlife-management-valuation'
 import { Route as LearnPropertyTaxesRouteImport } from './routes/learn.property-taxes'
 import { Route as LearnPropertyTaxPaymentsRouteImport } from './routes/learn.property-tax-payments'
+import { Route as LearnPropertyTaxDeadlinesRouteImport } from './routes/learn.property-tax-deadlines'
+import { Route as LearnPropertyTaxAppealsArbitrationRouteImport } from './routes/learn.property-tax-appeals-arbitration'
+import { Route as LearnOver65PropertyTaxGuideRouteImport } from './routes/learn.over-65-property-tax-guide'
+import { Route as LearnMudTaxesExplainedRouteImport } from './routes/learn.mud-taxes-explained'
+import { Route as LearnHomebuyerPropertyTaxChecklistRouteImport } from './routes/learn.homebuyer-property-tax-checklist'
+import { Route as LearnDisabledVeteranPropertyTaxBenefitsRouteImport } from './routes/learn.disabled-veteran-property-tax-benefits'
 import { Route as LearnAppraisalDistrictsRouteImport } from './routes/learn.appraisal-districts'
+import { Route as LearnAgriculturalValuationRouteImport } from './routes/learn.agricultural-valuation'
 import { Route as ExploreWildlifeManagementAreasRouteImport } from './routes/explore.wildlife-management-areas'
 import { Route as ExploreTexasWildflowerSeasonsRouteImport } from './routes/explore.texas-wildflower-seasons'
 import { Route as ExploreTexasStateParksGuideRouteImport } from './routes/explore.texas-state-parks-guide'
@@ -294,6 +304,11 @@ const RealEstateRoute = RealEstateRouteImport.update({
   path: '/real-estate',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PropertyTaxGuidesRoute = PropertyTaxGuidesRouteImport.update({
+  id: '/property-tax-guides',
+  path: '/property-tax-guides',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MovingToTexasChecklistRoute = MovingToTexasChecklistRouteImport.update({
   id: '/moving-to-texas-checklist',
   path: '/moving-to-texas-checklist',
@@ -369,6 +384,17 @@ const ShopCollectionRoute = ShopCollectionRouteImport.update({
   path: '/shop/$collection',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NewsSlugRoute = NewsSlugRouteImport.update({
+  id: '/news/$slug',
+  path: '/news/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LearnWildlifeManagementValuationRoute =
+  LearnWildlifeManagementValuationRouteImport.update({
+    id: '/learn/wildlife-management-valuation',
+    path: '/learn/wildlife-management-valuation',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const LearnPropertyTaxesRoute = LearnPropertyTaxesRouteImport.update({
   id: '/learn/property-taxes',
   path: '/learn/property-taxes',
@@ -380,11 +406,52 @@ const LearnPropertyTaxPaymentsRoute =
     path: '/learn/property-tax-payments',
     getParentRoute: () => rootRouteImport,
   } as any)
+const LearnPropertyTaxDeadlinesRoute =
+  LearnPropertyTaxDeadlinesRouteImport.update({
+    id: '/learn/property-tax-deadlines',
+    path: '/learn/property-tax-deadlines',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const LearnPropertyTaxAppealsArbitrationRoute =
+  LearnPropertyTaxAppealsArbitrationRouteImport.update({
+    id: '/learn/property-tax-appeals-arbitration',
+    path: '/learn/property-tax-appeals-arbitration',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const LearnOver65PropertyTaxGuideRoute =
+  LearnOver65PropertyTaxGuideRouteImport.update({
+    id: '/learn/over-65-property-tax-guide',
+    path: '/learn/over-65-property-tax-guide',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const LearnMudTaxesExplainedRoute = LearnMudTaxesExplainedRouteImport.update({
+  id: '/learn/mud-taxes-explained',
+  path: '/learn/mud-taxes-explained',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LearnHomebuyerPropertyTaxChecklistRoute =
+  LearnHomebuyerPropertyTaxChecklistRouteImport.update({
+    id: '/learn/homebuyer-property-tax-checklist',
+    path: '/learn/homebuyer-property-tax-checklist',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const LearnDisabledVeteranPropertyTaxBenefitsRoute =
+  LearnDisabledVeteranPropertyTaxBenefitsRouteImport.update({
+    id: '/learn/disabled-veteran-property-tax-benefits',
+    path: '/learn/disabled-veteran-property-tax-benefits',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const LearnAppraisalDistrictsRoute = LearnAppraisalDistrictsRouteImport.update({
   id: '/learn/appraisal-districts',
   path: '/learn/appraisal-districts',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LearnAgriculturalValuationRoute =
+  LearnAgriculturalValuationRouteImport.update({
+    id: '/learn/agricultural-valuation',
+    path: '/learn/agricultural-valuation',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ExploreWildlifeManagementAreasRoute =
   ExploreWildlifeManagementAreasRouteImport.update({
     id: '/explore/wildlife-management-areas',
@@ -661,6 +728,7 @@ export interface FileRoutesByFullPath {
   '/llms.txt': typeof LlmsDottxtRoute
   '/moving-to-texas': typeof MovingToTexasRoute
   '/moving-to-texas-checklist': typeof MovingToTexasChecklistRoute
+  '/property-tax-guides': typeof PropertyTaxGuidesRoute
   '/real-estate': typeof RealEstateRoute
   '/search': typeof SearchRoute
   '/sitemap-explore.xml': typeof SitemapExploreDotxmlRoute
@@ -737,9 +805,18 @@ export interface FileRoutesByFullPath {
   '/explore/texas-state-parks-guide': typeof ExploreTexasStateParksGuideRoute
   '/explore/texas-wildflower-seasons': typeof ExploreTexasWildflowerSeasonsRoute
   '/explore/wildlife-management-areas': typeof ExploreWildlifeManagementAreasRoute
+  '/learn/agricultural-valuation': typeof LearnAgriculturalValuationRoute
   '/learn/appraisal-districts': typeof LearnAppraisalDistrictsRoute
+  '/learn/disabled-veteran-property-tax-benefits': typeof LearnDisabledVeteranPropertyTaxBenefitsRoute
+  '/learn/homebuyer-property-tax-checklist': typeof LearnHomebuyerPropertyTaxChecklistRoute
+  '/learn/mud-taxes-explained': typeof LearnMudTaxesExplainedRoute
+  '/learn/over-65-property-tax-guide': typeof LearnOver65PropertyTaxGuideRoute
+  '/learn/property-tax-appeals-arbitration': typeof LearnPropertyTaxAppealsArbitrationRoute
+  '/learn/property-tax-deadlines': typeof LearnPropertyTaxDeadlinesRoute
   '/learn/property-tax-payments': typeof LearnPropertyTaxPaymentsRoute
   '/learn/property-taxes': typeof LearnPropertyTaxesRoute
+  '/learn/wildlife-management-valuation': typeof LearnWildlifeManagementValuationRoute
+  '/news/$slug': typeof NewsSlugRoute
   '/shop/$collection': typeof ShopCollectionRoute
   '/texas-data/$datasetSlug': typeof TexasDataDatasetSlugRoute
   '/explore/': typeof ExploreIndexRoute
@@ -764,6 +841,7 @@ export interface FileRoutesByTo {
   '/llms.txt': typeof LlmsDottxtRoute
   '/moving-to-texas': typeof MovingToTexasRoute
   '/moving-to-texas-checklist': typeof MovingToTexasChecklistRoute
+  '/property-tax-guides': typeof PropertyTaxGuidesRoute
   '/real-estate': typeof RealEstateRoute
   '/search': typeof SearchRoute
   '/sitemap-explore.xml': typeof SitemapExploreDotxmlRoute
@@ -840,9 +918,18 @@ export interface FileRoutesByTo {
   '/explore/texas-state-parks-guide': typeof ExploreTexasStateParksGuideRoute
   '/explore/texas-wildflower-seasons': typeof ExploreTexasWildflowerSeasonsRoute
   '/explore/wildlife-management-areas': typeof ExploreWildlifeManagementAreasRoute
+  '/learn/agricultural-valuation': typeof LearnAgriculturalValuationRoute
   '/learn/appraisal-districts': typeof LearnAppraisalDistrictsRoute
+  '/learn/disabled-veteran-property-tax-benefits': typeof LearnDisabledVeteranPropertyTaxBenefitsRoute
+  '/learn/homebuyer-property-tax-checklist': typeof LearnHomebuyerPropertyTaxChecklistRoute
+  '/learn/mud-taxes-explained': typeof LearnMudTaxesExplainedRoute
+  '/learn/over-65-property-tax-guide': typeof LearnOver65PropertyTaxGuideRoute
+  '/learn/property-tax-appeals-arbitration': typeof LearnPropertyTaxAppealsArbitrationRoute
+  '/learn/property-tax-deadlines': typeof LearnPropertyTaxDeadlinesRoute
   '/learn/property-tax-payments': typeof LearnPropertyTaxPaymentsRoute
   '/learn/property-taxes': typeof LearnPropertyTaxesRoute
+  '/learn/wildlife-management-valuation': typeof LearnWildlifeManagementValuationRoute
+  '/news/$slug': typeof NewsSlugRoute
   '/shop/$collection': typeof ShopCollectionRoute
   '/texas-data/$datasetSlug': typeof TexasDataDatasetSlugRoute
   '/explore': typeof ExploreIndexRoute
@@ -868,6 +955,7 @@ export interface FileRoutesById {
   '/llms.txt': typeof LlmsDottxtRoute
   '/moving-to-texas': typeof MovingToTexasRoute
   '/moving-to-texas-checklist': typeof MovingToTexasChecklistRoute
+  '/property-tax-guides': typeof PropertyTaxGuidesRoute
   '/real-estate': typeof RealEstateRoute
   '/search': typeof SearchRoute
   '/sitemap-explore.xml': typeof SitemapExploreDotxmlRoute
@@ -944,9 +1032,18 @@ export interface FileRoutesById {
   '/explore/texas-state-parks-guide': typeof ExploreTexasStateParksGuideRoute
   '/explore/texas-wildflower-seasons': typeof ExploreTexasWildflowerSeasonsRoute
   '/explore/wildlife-management-areas': typeof ExploreWildlifeManagementAreasRoute
+  '/learn/agricultural-valuation': typeof LearnAgriculturalValuationRoute
   '/learn/appraisal-districts': typeof LearnAppraisalDistrictsRoute
+  '/learn/disabled-veteran-property-tax-benefits': typeof LearnDisabledVeteranPropertyTaxBenefitsRoute
+  '/learn/homebuyer-property-tax-checklist': typeof LearnHomebuyerPropertyTaxChecklistRoute
+  '/learn/mud-taxes-explained': typeof LearnMudTaxesExplainedRoute
+  '/learn/over-65-property-tax-guide': typeof LearnOver65PropertyTaxGuideRoute
+  '/learn/property-tax-appeals-arbitration': typeof LearnPropertyTaxAppealsArbitrationRoute
+  '/learn/property-tax-deadlines': typeof LearnPropertyTaxDeadlinesRoute
   '/learn/property-tax-payments': typeof LearnPropertyTaxPaymentsRoute
   '/learn/property-taxes': typeof LearnPropertyTaxesRoute
+  '/learn/wildlife-management-valuation': typeof LearnWildlifeManagementValuationRoute
+  '/news/$slug': typeof NewsSlugRoute
   '/shop/$collection': typeof ShopCollectionRoute
   '/texas-data/$datasetSlug': typeof TexasDataDatasetSlugRoute
   '/explore/': typeof ExploreIndexRoute
@@ -973,6 +1070,7 @@ export interface FileRouteTypes {
     | '/llms.txt'
     | '/moving-to-texas'
     | '/moving-to-texas-checklist'
+    | '/property-tax-guides'
     | '/real-estate'
     | '/search'
     | '/sitemap-explore.xml'
@@ -1049,9 +1147,18 @@ export interface FileRouteTypes {
     | '/explore/texas-state-parks-guide'
     | '/explore/texas-wildflower-seasons'
     | '/explore/wildlife-management-areas'
+    | '/learn/agricultural-valuation'
     | '/learn/appraisal-districts'
+    | '/learn/disabled-veteran-property-tax-benefits'
+    | '/learn/homebuyer-property-tax-checklist'
+    | '/learn/mud-taxes-explained'
+    | '/learn/over-65-property-tax-guide'
+    | '/learn/property-tax-appeals-arbitration'
+    | '/learn/property-tax-deadlines'
     | '/learn/property-tax-payments'
     | '/learn/property-taxes'
+    | '/learn/wildlife-management-valuation'
+    | '/news/$slug'
     | '/shop/$collection'
     | '/texas-data/$datasetSlug'
     | '/explore/'
@@ -1076,6 +1183,7 @@ export interface FileRouteTypes {
     | '/llms.txt'
     | '/moving-to-texas'
     | '/moving-to-texas-checklist'
+    | '/property-tax-guides'
     | '/real-estate'
     | '/search'
     | '/sitemap-explore.xml'
@@ -1152,9 +1260,18 @@ export interface FileRouteTypes {
     | '/explore/texas-state-parks-guide'
     | '/explore/texas-wildflower-seasons'
     | '/explore/wildlife-management-areas'
+    | '/learn/agricultural-valuation'
     | '/learn/appraisal-districts'
+    | '/learn/disabled-veteran-property-tax-benefits'
+    | '/learn/homebuyer-property-tax-checklist'
+    | '/learn/mud-taxes-explained'
+    | '/learn/over-65-property-tax-guide'
+    | '/learn/property-tax-appeals-arbitration'
+    | '/learn/property-tax-deadlines'
     | '/learn/property-tax-payments'
     | '/learn/property-taxes'
+    | '/learn/wildlife-management-valuation'
+    | '/news/$slug'
     | '/shop/$collection'
     | '/texas-data/$datasetSlug'
     | '/explore'
@@ -1179,6 +1296,7 @@ export interface FileRouteTypes {
     | '/llms.txt'
     | '/moving-to-texas'
     | '/moving-to-texas-checklist'
+    | '/property-tax-guides'
     | '/real-estate'
     | '/search'
     | '/sitemap-explore.xml'
@@ -1255,9 +1373,18 @@ export interface FileRouteTypes {
     | '/explore/texas-state-parks-guide'
     | '/explore/texas-wildflower-seasons'
     | '/explore/wildlife-management-areas'
+    | '/learn/agricultural-valuation'
     | '/learn/appraisal-districts'
+    | '/learn/disabled-veteran-property-tax-benefits'
+    | '/learn/homebuyer-property-tax-checklist'
+    | '/learn/mud-taxes-explained'
+    | '/learn/over-65-property-tax-guide'
+    | '/learn/property-tax-appeals-arbitration'
+    | '/learn/property-tax-deadlines'
     | '/learn/property-tax-payments'
     | '/learn/property-taxes'
+    | '/learn/wildlife-management-valuation'
+    | '/news/$slug'
     | '/shop/$collection'
     | '/texas-data/$datasetSlug'
     | '/explore/'
@@ -1283,6 +1410,7 @@ export interface RootRouteChildren {
   LlmsDottxtRoute: typeof LlmsDottxtRoute
   MovingToTexasRoute: typeof MovingToTexasRoute
   MovingToTexasChecklistRoute: typeof MovingToTexasChecklistRoute
+  PropertyTaxGuidesRoute: typeof PropertyTaxGuidesRoute
   RealEstateRoute: typeof RealEstateRoute
   SearchRoute: typeof SearchRoute
   SitemapExploreDotxmlRoute: typeof SitemapExploreDotxmlRoute
@@ -1352,9 +1480,18 @@ export interface RootRouteChildren {
   ExploreTexasStateParksGuideRoute: typeof ExploreTexasStateParksGuideRoute
   ExploreTexasWildflowerSeasonsRoute: typeof ExploreTexasWildflowerSeasonsRoute
   ExploreWildlifeManagementAreasRoute: typeof ExploreWildlifeManagementAreasRoute
+  LearnAgriculturalValuationRoute: typeof LearnAgriculturalValuationRoute
   LearnAppraisalDistrictsRoute: typeof LearnAppraisalDistrictsRoute
+  LearnDisabledVeteranPropertyTaxBenefitsRoute: typeof LearnDisabledVeteranPropertyTaxBenefitsRoute
+  LearnHomebuyerPropertyTaxChecklistRoute: typeof LearnHomebuyerPropertyTaxChecklistRoute
+  LearnMudTaxesExplainedRoute: typeof LearnMudTaxesExplainedRoute
+  LearnOver65PropertyTaxGuideRoute: typeof LearnOver65PropertyTaxGuideRoute
+  LearnPropertyTaxAppealsArbitrationRoute: typeof LearnPropertyTaxAppealsArbitrationRoute
+  LearnPropertyTaxDeadlinesRoute: typeof LearnPropertyTaxDeadlinesRoute
   LearnPropertyTaxPaymentsRoute: typeof LearnPropertyTaxPaymentsRoute
   LearnPropertyTaxesRoute: typeof LearnPropertyTaxesRoute
+  LearnWildlifeManagementValuationRoute: typeof LearnWildlifeManagementValuationRoute
+  NewsSlugRoute: typeof NewsSlugRoute
   ShopCollectionRoute: typeof ShopCollectionRoute
   ExploreIndexRoute: typeof ExploreIndexRoute
   ShopIndexRoute: typeof ShopIndexRoute
@@ -1600,6 +1737,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RealEstateRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/property-tax-guides': {
+      id: '/property-tax-guides'
+      path: '/property-tax-guides'
+      fullPath: '/property-tax-guides'
+      preLoaderRoute: typeof PropertyTaxGuidesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/moving-to-texas-checklist': {
       id: '/moving-to-texas-checklist'
       path: '/moving-to-texas-checklist'
@@ -1705,6 +1849,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ShopCollectionRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/news/$slug': {
+      id: '/news/$slug'
+      path: '/news/$slug'
+      fullPath: '/news/$slug'
+      preLoaderRoute: typeof NewsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/learn/wildlife-management-valuation': {
+      id: '/learn/wildlife-management-valuation'
+      path: '/learn/wildlife-management-valuation'
+      fullPath: '/learn/wildlife-management-valuation'
+      preLoaderRoute: typeof LearnWildlifeManagementValuationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/learn/property-taxes': {
       id: '/learn/property-taxes'
       path: '/learn/property-taxes'
@@ -1719,11 +1877,60 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LearnPropertyTaxPaymentsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/learn/property-tax-deadlines': {
+      id: '/learn/property-tax-deadlines'
+      path: '/learn/property-tax-deadlines'
+      fullPath: '/learn/property-tax-deadlines'
+      preLoaderRoute: typeof LearnPropertyTaxDeadlinesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/learn/property-tax-appeals-arbitration': {
+      id: '/learn/property-tax-appeals-arbitration'
+      path: '/learn/property-tax-appeals-arbitration'
+      fullPath: '/learn/property-tax-appeals-arbitration'
+      preLoaderRoute: typeof LearnPropertyTaxAppealsArbitrationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/learn/over-65-property-tax-guide': {
+      id: '/learn/over-65-property-tax-guide'
+      path: '/learn/over-65-property-tax-guide'
+      fullPath: '/learn/over-65-property-tax-guide'
+      preLoaderRoute: typeof LearnOver65PropertyTaxGuideRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/learn/mud-taxes-explained': {
+      id: '/learn/mud-taxes-explained'
+      path: '/learn/mud-taxes-explained'
+      fullPath: '/learn/mud-taxes-explained'
+      preLoaderRoute: typeof LearnMudTaxesExplainedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/learn/homebuyer-property-tax-checklist': {
+      id: '/learn/homebuyer-property-tax-checklist'
+      path: '/learn/homebuyer-property-tax-checklist'
+      fullPath: '/learn/homebuyer-property-tax-checklist'
+      preLoaderRoute: typeof LearnHomebuyerPropertyTaxChecklistRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/learn/disabled-veteran-property-tax-benefits': {
+      id: '/learn/disabled-veteran-property-tax-benefits'
+      path: '/learn/disabled-veteran-property-tax-benefits'
+      fullPath: '/learn/disabled-veteran-property-tax-benefits'
+      preLoaderRoute: typeof LearnDisabledVeteranPropertyTaxBenefitsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/learn/appraisal-districts': {
       id: '/learn/appraisal-districts'
       path: '/learn/appraisal-districts'
       fullPath: '/learn/appraisal-districts'
       preLoaderRoute: typeof LearnAppraisalDistrictsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/learn/agricultural-valuation': {
+      id: '/learn/agricultural-valuation'
+      path: '/learn/agricultural-valuation'
+      fullPath: '/learn/agricultural-valuation'
+      preLoaderRoute: typeof LearnAgriculturalValuationRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/explore/wildlife-management-areas': {
@@ -2125,6 +2332,7 @@ const rootRouteChildren: RootRouteChildren = {
   LlmsDottxtRoute: LlmsDottxtRoute,
   MovingToTexasRoute: MovingToTexasRoute,
   MovingToTexasChecklistRoute: MovingToTexasChecklistRoute,
+  PropertyTaxGuidesRoute: PropertyTaxGuidesRoute,
   RealEstateRoute: RealEstateRoute,
   SearchRoute: SearchRoute,
   SitemapExploreDotxmlRoute: SitemapExploreDotxmlRoute,
@@ -2197,9 +2405,21 @@ const rootRouteChildren: RootRouteChildren = {
   ExploreTexasStateParksGuideRoute: ExploreTexasStateParksGuideRoute,
   ExploreTexasWildflowerSeasonsRoute: ExploreTexasWildflowerSeasonsRoute,
   ExploreWildlifeManagementAreasRoute: ExploreWildlifeManagementAreasRoute,
+  LearnAgriculturalValuationRoute: LearnAgriculturalValuationRoute,
   LearnAppraisalDistrictsRoute: LearnAppraisalDistrictsRoute,
+  LearnDisabledVeteranPropertyTaxBenefitsRoute:
+    LearnDisabledVeteranPropertyTaxBenefitsRoute,
+  LearnHomebuyerPropertyTaxChecklistRoute:
+    LearnHomebuyerPropertyTaxChecklistRoute,
+  LearnMudTaxesExplainedRoute: LearnMudTaxesExplainedRoute,
+  LearnOver65PropertyTaxGuideRoute: LearnOver65PropertyTaxGuideRoute,
+  LearnPropertyTaxAppealsArbitrationRoute:
+    LearnPropertyTaxAppealsArbitrationRoute,
+  LearnPropertyTaxDeadlinesRoute: LearnPropertyTaxDeadlinesRoute,
   LearnPropertyTaxPaymentsRoute: LearnPropertyTaxPaymentsRoute,
   LearnPropertyTaxesRoute: LearnPropertyTaxesRoute,
+  LearnWildlifeManagementValuationRoute: LearnWildlifeManagementValuationRoute,
+  NewsSlugRoute: NewsSlugRoute,
   ShopCollectionRoute: ShopCollectionRoute,
   ExploreIndexRoute: ExploreIndexRoute,
   ShopIndexRoute: ShopIndexRoute,
@@ -2214,3 +2434,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
