@@ -39,10 +39,13 @@ export function ProductCard({
       <div className="pt-4">
         <p className="eyebrow text-muted-foreground">{product.maker}</p>
         <h3 className="mt-1 font-display text-lg leading-snug">{product.name}</h3>
-        <p className="mt-1 text-sm text-muted-foreground">{product.blurb}</p>
-        <p className="mt-2 text-sm font-medium text-foreground">
-          {formatPrice(product.priceCents, product.currency, brand.identity.locale)}
-        </p>
+        <p className="mt-1 line-clamp-3 text-sm text-muted-foreground">{product.blurb}</p>
+        <div className="mt-3 flex items-center justify-between gap-3">
+          <p className="text-sm font-medium text-foreground">
+            {formatPrice(product.priceCents, product.currency, brand.identity.locale)}
+          </p>
+          <span className="text-sm font-semibold text-primary">View product →</span>
+        </div>
       </div>
     </>
   );
@@ -59,7 +62,11 @@ export function ProductCard({
       >
         <Heart className={cn("size-4", saved && "fill-primary text-primary")} aria-hidden />
       </button>
-      {collection ? (
+      {product.productUrl ? (
+        <a href={product.productUrl} className="block" aria-label={`View ${product.name}`}>
+          {content}
+        </a>
+      ) : collection ? (
         <Link to="/shop/$collection" params={{ collection }} className="block">
           {content}
         </Link>
