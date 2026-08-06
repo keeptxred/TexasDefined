@@ -20,17 +20,24 @@ export const Route = createFileRoute("/api/public/store-products")({
             signal: AbortSignal.timeout(8000),
           });
           const body = await upstream.text();
-          return new Response(body, {
-            status: upstream.status,
-            headers: {
-              "content-type": "application/json",
-              "cache-control": "public, max-age=60, s-maxage=300",
+          // Never propagate an upstream 5xx as our own 500 — that surfaces as a
+          // runtime/blank-screen error. Report it as a handled { ok: false } payload
+          // so the client can quietly use its fallback catalog.
+          const ok = upstream.ok;
+          return new Response(
+            ok ? body : JSON.stringify({ ok: false, error: `Upstream storefront error (${upstream.status})`, upstream: body.slice(0, 500) }),
+            {
+              status: 200,
+              headers: {
+                "content-type": "application/json",
+                "cache-control": ok ? "public, max-age=60, s-maxage=300" : "no-store",
+              },
             },
-          });
+          );
         } catch (error) {
           return new Response(
             JSON.stringify({ ok: false, error: error instanceof Error ? error.message : "Upstream unavailable" }),
-            { status: 502, headers: { "content-type": "application/json" } },
+            { status: 200, headers: { "content-type": "application/json", "cache-control": "no-store" } },
           );
         }
       },
