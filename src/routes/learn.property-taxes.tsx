@@ -81,10 +81,50 @@ function Page() {
           ],
         },
         {
-          title: 'Start with who handles what',
+          title: 'The appraisal district: values, records and exemptions',
           paragraphs: [
-            'Questions about value, exemptions, property characteristics or a protest belong with the county appraisal district. Questions about the tax bill, receipts, payment methods or delinquency generally belong with the tax assessor-collector or other collecting office.',
-            'The Texas Comptroller’s Property Tax Assistance Division provides education, forms, statewide data and oversight, but it does not appraise individual properties, set local tax rates, collect local taxes or resolve a dispute between a taxpayer and a local office.'
+            'Each Texas county has an appraisal district responsible for appraising taxable property within the county. The district determines value as of January 1, maintains the appraisal records used by local taxing units and processes applications for exemptions, special appraisals and other forms of tax relief.',
+            'The chief appraiser administers the appraisal office. Questions about market value, property characteristics, ownership records, exemption applications, agricultural or special appraisal and the appraisal methods used on an account should be directed to the appraisal district.',
+            'An appraisal district does not adopt the tax rates shown on a bill and does not decide how a city, school district or other taxing unit spends its revenue.'
+          ],
+        },
+        {
+          title: 'Local taxing units: budgets and tax rates',
+          paragraphs: [
+            'Counties, cities, school districts, junior-college districts and special-purpose districts are examples of local taxing units. Each unit adopts a budget and then sets a property-tax rate through its own public process.',
+            'One address can be served by several taxing units at the same time. The total rate on the final bill is the combination of the rates adopted by the units that have jurisdiction over that property.',
+            'Questions about a unit’s budget, proposed rate, adopted rate or the services funded by that rate belong with the individual taxing unit rather than the appraisal district.'
+          ],
+        },
+        {
+          title: 'The appraisal review board: hearing disputes',
+          paragraphs: [
+            'The appraisal review board, commonly called the ARB, is a separate board of local residents that hears disagreements between property owners and the appraisal district. It can hear protests involving value, unequal appraisal, denied exemptions and other actions that Texas law allows a property owner to challenge.',
+            'The ARB does not set tax rates or collect tax bills. Its role is to resolve appraisal-related disputes after a property owner files a timely protest and follows the local hearing process.',
+            'If an owner disagrees with the ARB’s order, additional appeal options may be available depending on the property and issue. Those options can include binding arbitration, an appeal to the State Office of Administrative Hearings for qualifying property or a lawsuit in district court.'
+          ],
+        },
+        {
+          title: 'The collecting office: bills, receipts and payments',
+          paragraphs: [
+            'In many counties, the county tax assessor-collector collects property taxes for several local taxing units. Some taxing units collect their own taxes or contract with another office, so the collecting office named on the tax statement is the correct starting point.',
+            'Questions about the amount billed, payment methods, tax receipts, tax certificates, delinquency, installment options or payment agreements generally belong with the collecting office serving the taxing unit.',
+            'The collecting office uses the certified taxable value and the rates adopted by local taxing units. It does not ordinarily decide the underlying appraised value or whether an exemption should have been approved.'
+          ],
+        },
+        {
+          title: 'The Texas Comptroller: guidance and oversight',
+          paragraphs: [
+            'The Texas Comptroller’s Property Tax Assistance Division provides education, forms, statewide information, studies and oversight for the local property-tax system. It reviews appraisal-district performance and conducts property-value studies used in the school-finance system.',
+            'The Comptroller does not appraise an individual property, approve a local exemption, set a local tax rate, collect a local property-tax bill or replace the local protest process.',
+            'Most account-specific questions must be handled by the appraisal district, the appraisal review board, the collecting office or the taxing unit responsible for the decision.'
+          ],
+        },
+        {
+          title: 'Use the office responsible for the decision',
+          paragraphs: [
+            'Send value, exemption, ownership-record and protest questions to the appraisal district. Send billing, receipt, payment and delinquency questions to the collecting office. Send budget and tax-rate questions to the governing body of the taxing unit.',
+            'Using the correct office matters most near a deadline. A payment clerk cannot change an appraisal, and an appraiser generally cannot extend a payment deadline shown on a tax bill.'
           ],
         },
         {
@@ -110,6 +150,8 @@ function Page() {
         <div className="mt-4 grid gap-3 text-sm">
           <a className="font-medium text-primary underline" href="https://comptroller.texas.gov/taxes/property-tax/basics.php" target="_blank" rel="noreferrer noopener">Texas Comptroller: Property Tax System Basics</a>
           <a className="font-medium text-primary underline" href="https://comptroller.texas.gov/taxes/property-tax/county-directory/" target="_blank" rel="noreferrer noopener">Texas Comptroller: Local Appraisal District and Tax Office Directory</a>
+          <a className="font-medium text-primary underline" href="https://comptroller.texas.gov/taxes/property-tax/board-of-directors/" target="_blank" rel="noreferrer noopener">Texas Comptroller: Appraisal District Board of Directors</a>
+          <a className="font-medium text-primary underline" href="https://comptroller.texas.gov/taxes/property-tax/about.php" target="_blank" rel="noreferrer noopener">Texas Comptroller: Property Tax Assistance Division</a>
           <a className="font-medium text-primary underline" href="https://comptroller.texas.gov/taxes/property-tax/bill-of-rights.php" target="_blank" rel="noreferrer noopener">Texas Comptroller: Property Taxpayers’ Bill of Rights</a>
         </div>
       </section>
@@ -118,9 +160,9 @@ function Page() {
     <Container className="pb-16 sm:pb-24">
       <section className="mx-auto max-w-4xl rounded-md border border-border p-6">
         <p className="eyebrow text-primary">What to do next</p>
-        <h2 className="mt-2 font-display text-2xl">Learn who does what</h2>
-        <p className="mt-3 text-muted-foreground">The next part of this guide explains the roles of appraisal districts, appraisal review boards, taxing units, collecting offices and the Texas Comptroller before moving into property values and tax rates.</p>
-        <Link to="/learn/appraisal-districts" className="mt-4 inline-block font-medium text-primary underline">Find your appraisal district</Link>
+        <h2 className="mt-2 font-display text-2xl">Understand the values on your notice</h2>
+        <p className="mt-3 text-muted-foreground">The next phase explains market value, appraised value, assessed value and taxable value—four numbers that are related but not interchangeable.</p>
+        <Link to="/decide/property-taxes" className="mt-4 inline-block font-medium text-primary underline">Estimate your property taxes</Link>
       </section>
     </Container>
   </>;
