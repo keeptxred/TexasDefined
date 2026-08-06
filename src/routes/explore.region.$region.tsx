@@ -5,28 +5,54 @@ import { RegionalDestinationGrid } from "@/components/editorial/RegionalDestinat
 import { RegionalHubSections } from "@/components/editorial/RegionalHubSections";
 import { SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
-import { destinations as fixtureDestinations } from "@/data/fixtures/texas";
-import { fetchExploreDestinations } from "@/data/explore-remote";
-import { regionsQuery } from "@/data/queries";
+import { destinationsQuery, regionsQuery } from "@/data/queries";
+import type { Destination } from "@/data/types";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
+function validCoordinates(destination: Destination) {
+  const { lat, lng } = destination.coordinates;
+  return Number.isFinite(lat) && Number.isFinite(lng) && lat >= -90 && lat <= 90 && lng >= -180 && lng <= 180 && !(lat === 0 && lng === 0);
+}
+
+function destinationSchema(destination: Destination) {
+  return {
+    "@type": "TouristAttraction",
+    "@id": `${siteUrl}/destination/${destination.slug}#attraction`,
+    name: destination.name,
+    url: `${siteUrl}/destination/${destination.slug}`,
+    description: destination.summary,
+    image: absoluteUrl(texasDefinedBrand, destination.hero.src),
+    sameAs: destination.officialUrl || undefined,
+    dateModified: destination.sourceCheckedAt || undefined,
+    provider: destination.managingAuthority
+      ? { "@type": "Organization", name: destination.managingAuthority }
+      : undefined,
+    containedInPlace: destination.county
+      ? { "@type": "AdministrativeArea", name: `${destination.county} County` }
+      : destination.nearestTown
+        ? { "@type": "City", name: destination.nearestTown }
+        : undefined,
+    geo: validCoordinates(destination)
+      ? {
+          "@type": "GeoCoordinates",
+          latitude: destination.coordinates.lat,
+          longitude: destination.coordinates.lng,
+        }
+      : undefined,
+  };
+}
+
 export const Route = createFileRoute("/explore/region/$region")({
   loader: async ({ context, params }) => {
-    const regions = await context.queryClient.ensureQueryData(regionsQuery());
+    const [regions, catalog] = await Promise.all([
+      context.queryClient.ensureQueryData(regionsQuery()),
+      context.queryClient.ensureQueryData(destinationsQuery({ limit: 5000 })),
+    ]);
     const region = regions.find((item) => item.id === params.region);
     if (!region) throw notFound();
-
-    let destinations = fixtureDestinations.filter((destination) => destination.region === region.id);
-    try {
-      const remoteDestinations = await fetchExploreDestinations({ limit: 5000 });
-      const matchingDestinations = remoteDestinations.filter((destination) => destination.region === region.id);
-      if (matchingDestinations.length) destinations = matchingDestinations;
-    } catch (error) {
-      console.error("Regional Explore page could not load all destinations", error);
-    }
-
+    const destinations = catalog.filter((destination) => destination.region === region.id);
     return { region, regions, destinations };
   },
   head: ({ loaderData, params }) => {
@@ -64,7 +90,7 @@ export const Route = createFileRoute("/explore/region/$region")({
         itemListElement: loaderData.destinations.map((destination, index) => ({
           "@type": "ListItem",
           position: index + 1,
-          item: { "@type": "TouristAttraction", "@id": `${siteUrl}/destination/${destination.slug}#attraction`, name: destination.name, url: `${siteUrl}/destination/${destination.slug}`, description: destination.summary, image: absoluteUrl(texasDefinedBrand, destination.hero.src) },
+          item: destinationSchema(destination),
         })),
       },
       {
