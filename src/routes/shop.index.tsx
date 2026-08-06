@@ -3,28 +3,26 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import shopFlatlay from "@/assets/shop-flatlay.jpg";
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { CollectionStrip } from "@/components/commerce/CollectionStrip";
 import { ProductCard } from "@/components/commerce/ProductCard";
-import { ArticleCard } from "@/components/editorial/ArticleCard";
-import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
+import { Section } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
-import { articlesQuery, collectionsQuery, productsQuery } from "@/data/queries";
-import type { Article, Collection, Product } from "@/data/types";
+import { productsQuery } from "@/data/queries";
+import type { Product } from "@/data/types";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const description =
-  "Useful, handsome things with a good Texas story behind them — chosen because we'd be glad to keep them ourselves.";
+  "Shop Texas-inspired apparel, gifts and everyday goods selected for Texas Defined.";
 
 const productAnchor = (id: string) => `product-${id}`;
 
 export const Route = createFileRoute("/shop/")({
-  head: ({ loaderData }: { loaderData?: { collections: Collection[]; products: Product[]; articles: Article[] } }) => ({
+  head: ({ loaderData }: { loaderData?: { products: Product[] } }) => ({
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath: "/shop",
-      title: "The Shop",
+      title: "Texas Defined Shop",
       description,
       image: shopFlatlay,
-      imageAlt: "Texas-made goods arranged on a tabletop",
+      imageAlt: "Texas-inspired goods arranged on a tabletop",
     }),
     links: [canonicalLink(texasDefinedBrand, "/shop")],
     scripts: loaderData
@@ -36,58 +34,33 @@ export const Route = createFileRoute("/shop/")({
                 "@type": "CollectionPage",
                 "@id": `${absoluteUrl(texasDefinedBrand, "/shop")}#page`,
                 url: absoluteUrl(texasDefinedBrand, "/shop"),
-                name: "The Shop",
+                name: "Texas Defined Shop",
                 description,
-                image: absoluteUrl(texasDefinedBrand, shopFlatlay),
                 isPartOf: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#website` },
                 mainEntity: { "@id": `${absoluteUrl(texasDefinedBrand, "/shop")}#products` },
               },
               {
-                "@type": "BreadcrumbList",
-                "@id": `${absoluteUrl(texasDefinedBrand, "/shop")}#breadcrumb`,
-                itemListElement: [
-                  {
-                    "@type": "ListItem",
-                    position: 1,
-                    name: "Front page",
-                    item: absoluteUrl(texasDefinedBrand, "/"),
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 2,
-                    name: "Shop",
-                    item: absoluteUrl(texasDefinedBrand, "/shop"),
-                  },
-                ],
-              },
-              {
                 "@type": "ItemList",
                 "@id": `${absoluteUrl(texasDefinedBrand, "/shop")}#products`,
-                name: "Texas Defined shop picks",
+                name: "Texas Defined products",
                 numberOfItems: loaderData.products.length,
                 itemListElement: loaderData.products.map((product, index) => ({
                   "@type": "ListItem",
                   position: index + 1,
-                  url: `${absoluteUrl(texasDefinedBrand, "/shop")}#${productAnchor(product.id)}`,
+                  url: product.productUrl || `${absoluteUrl(texasDefinedBrand, "/shop")}#${productAnchor(product.id)}`,
                   item: {
                     "@type": "Product",
-                    "@id": `${absoluteUrl(texasDefinedBrand, "/shop")}#${productAnchor(product.id)}`,
                     name: product.name,
                     description: product.blurb,
-                    image: absoluteUrl(texasDefinedBrand, product.image.src),
-                    brand: {
-                      "@type": "Brand",
-                      name: product.maker,
+                    image: product.image.src,
+                    brand: { "@type": "Brand", name: product.maker },
+                    offers: {
+                      "@type": "Offer",
+                      priceCurrency: product.currency,
+                      price: (product.priceCents / 100).toFixed(2),
+                      availability: "https://schema.org/InStock",
+                      url: product.productUrl || absoluteUrl(texasDefinedBrand, "/shop"),
                     },
-                    ...(product.madeInTexas
-                      ? {
-                          additionalProperty: {
-                            "@type": "PropertyValue",
-                            name: "Made in Texas",
-                            value: true,
-                          },
-                        }
-                      : {}),
                   },
                 })),
               },
@@ -96,69 +69,56 @@ export const Route = createFileRoute("/shop/")({
         ]
       : [],
   }),
-  loader: async ({ context }): Promise<{ collections: Collection[]; products: Product[]; articles: Article[] }> => {
-    const [collections, products, articles] = await Promise.all([
-      context.queryClient.ensureQueryData(collectionsQuery()),
-      context.queryClient.ensureQueryData(productsQuery({})),
-      context.queryClient.ensureQueryData(articlesQuery({ limit: 3 })),
-    ]);
-    return { collections, products, articles };
+  loader: async ({ context }): Promise<{ products: Product[] }> => {
+    const products = await context.queryClient.ensureQueryData(productsQuery({}));
+    return { products };
   },
   component: ShopPage,
 });
 
 function ShopPage() {
-  const { data: collections } = useSuspenseQuery(collectionsQuery());
   const { data: products } = useSuspenseQuery(productsQuery({}));
-  const { data: articles } = useSuspenseQuery(articlesQuery({ limit: 3 }));
 
   return (
     <>
-      <Container className="pb-6 pt-16 sm:pt-24">
-        <p className="eyebrow text-primary">Made here</p>
-        <h1 className="mt-3 max-w-3xl font-display text-4xl leading-tight sm:text-6xl">
-          Things we'd actually buy
+      <Container className="pb-10 pt-16 sm:pt-24">
+        <p className="eyebrow text-primary">Texas Defined Shop</p>
+        <h1 className="mt-3 max-w-4xl font-display text-4xl leading-tight sm:text-6xl">
+          Wear it. Gift it. Keep Texas close.
         </h1>
         <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground">
           {description}
         </p>
-        <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">
-          We keep this shelf intentionally small: useful pieces, local makers and goods with a story worth telling.
-        </p>
       </Container>
-
-      <Section>
-        <Container>
-          <SectionHeader eyebrow="Shop by story" title="Start with what catches your eye" />
-          <div className="mt-10">
-            <CollectionStrip collections={collections} />
-          </div>
-        </Container>
-      </Section>
 
       <Section tone="surface">
         <Container>
-          <SectionHeader eyebrow="Our picks" title="A few things worth bringing home" />
-          <ul className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {products.map((product) => (
-              <li id={productAnchor(product.id)} key={product.id}>
-                <ProductCard product={product} />
-              </li>
-            ))}
-          </ul>
-        </Container>
-      </Section>
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p className="eyebrow text-primary">Shop all</p>
+              <h2 className="mt-2 font-display text-3xl sm:text-4xl">Texas goods selected for you</h2>
+            </div>
+            <p className="text-sm font-semibold text-muted-foreground">
+              {products.length} {products.length === 1 ? "product" : "products"}
+            </p>
+          </div>
 
-      <Section>
-        <Container>
-          <SectionHeader eyebrow="Made here" title="Meet the people and places behind the goods" />
-          <ul className="mt-10 grid gap-10 sm:grid-cols-3">
-            {articles.map((article) => (
-              <li key={article.id}>
-                <ArticleCard article={article} size="compact" />
-              </li>
-            ))}
-          </ul>
+          {products.length > 0 ? (
+            <ul className="mt-10 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {products.map((product) => (
+                <li id={productAnchor(product.id)} key={product.id}>
+                  <ProductCard product={product} />
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <div className="mt-10 border border-border bg-background p-10 text-center">
+              <h2 className="font-display text-2xl">Products are being selected</h2>
+              <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">
+                The Texas Defined catalog is connected. Products will appear here as soon as they are assigned to TexasDefined in the shared Store Catalog.
+              </p>
+            </div>
+          )}
         </Container>
       </Section>
     </>
