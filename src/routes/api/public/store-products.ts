@@ -54,6 +54,3 @@ export const Route = createFileRoute("/api/public/store-products")({
     },
   },
 });
-    },
-  },
-});
