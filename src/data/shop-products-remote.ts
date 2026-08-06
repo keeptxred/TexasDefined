@@ -51,7 +51,7 @@ export async function fetchAssignedShopProducts(params: { collection?: Slug; lim
   if (params.limit) url.searchParams.set("limit", String(params.limit));
   if (params.id) url.searchParams.set("id", params.id);
 
-  const response = await fetch(url, { headers: { accept: "application/json" } });
+  const response = await fetch(url, { headers: { accept: "application/json" }, signal: AbortSignal.timeout(8000) });
   if (!response.ok) throw new Error(`Commerce catalog unavailable (${response.status})`);
   const payload = await response.json() as { ok?: boolean; products?: StoreProduct[]; error?: string };
   if (!payload.ok) throw new Error(payload.error || "Commerce catalog unavailable");
