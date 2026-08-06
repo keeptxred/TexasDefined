@@ -59,7 +59,7 @@ export const Route = createFileRoute("/home-garden")({
   component: () => (
     <CategoryPage
       category="home-garden"
-      eyebrow="Front porch"
+      eyebrow="Front Porch"
       title="Living well in the heat"
       intro={description}
       image={{ src: bluebonnets, alt: imageAlt, width: 1600, height: 1067 }}
