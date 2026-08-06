@@ -13,8 +13,8 @@ const groups: ReadonlyArray<ResourceGroup> = [
   {
     title: 'Moving and settling in',
     links: [
-      ['Moving to Texas', '/moving-to-texas'],
-      ['Moving checklist', '/moving-to-texas-checklist'],
+      ['Moving Here', '/moving-to-texas'],
+      ['Your first-month checklist', '/moving-to-texas-checklist'],
       ['Register your vehicle', '/find-my-dmv'],
       ['Find your school district', '/find-my-school-district'],
     ],
@@ -22,7 +22,7 @@ const groups: ReadonlyArray<ResourceGroup> = [
   {
     title: 'Money and homeownership',
     links: [
-      ['Money calculators', '/decide/financial-tools'],
+      ['Money Made Clearer', '/decide/financial-tools'],
       ['Understand property taxes', '/learn/property-taxes'],
       ['File a homestead exemption', '/do/homestead-exemption'],
       ['Protest your appraisal', '/do/property-tax-protest'],
@@ -36,17 +36,17 @@ const groups: ReadonlyArray<ResourceGroup> = [
       ['Explore', '/explore'],
       ['Find your county', '/browse/counties'],
       ['Find a city', '/browse/cities'],
-      ['Living here', '/texas-living'],
+      ['Living Here', '/texas-living'],
     ],
   },
   {
     title: 'Stories and everyday Texas',
     links: [
-      ['Texas sports', '/sports'],
-      ['Texas history', '/texas-history'],
-      ['Home and garden', '/home-garden'],
-      ['Texas real estate', '/real-estate'],
-      ['About TexasDefined', '/about'],
+      ['The Texas Game', '/sports'],
+      ['Then & Now', '/texas-history'],
+      ['Home & Garden', '/home-garden'],
+      ['Homes and Land', '/real-estate'],
+      ['About Texas Defined', '/about'],
     ],
   },
 ];
@@ -86,7 +86,7 @@ const structuredData = {
       '@type': 'BreadcrumbList',
       '@id': `${pageUrl}#breadcrumbs`,
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
+        { '@type': 'ListItem', position: 1, name: 'Front page', item: `${siteUrl}/` },
         { '@type': 'ListItem', position: 2, name: 'Start Here', item: pageUrl },
       ],
     },
@@ -112,7 +112,7 @@ function Page() {
       <main className="mx-auto max-w-6xl">
         <nav aria-label="Breadcrumb" className="text-xs text-muted-foreground">
           <ol className="flex items-center gap-2">
-            <li><Link to="/" className="hover:text-foreground">Home</Link></li>
+            <li><Link to="/" className="hover:text-foreground">Front page</Link></li>
             <li aria-hidden="true">/</li>
             <li aria-current="page" className="text-foreground">Start Here</li>
           </ol>
