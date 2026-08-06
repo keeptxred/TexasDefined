@@ -14,10 +14,17 @@ const steps = [
   'Check your county tax office for current fees, hours and accepted payment methods.',
   'Handle your Texas driver license separately through DPS.',
 ] as const;
+const stepNames = [
+  'Arrange Texas insurance',
+  'Check inspection requirements',
+  'Gather your documents',
+  'Confirm county-office details',
+  'Plan your driver-license visit',
+] as const;
 
 export const Route = createFileRoute('/find-my-dmv')({
   head: () => ({
-    meta: buildMeta(texasDefinedBrand, { canonicalPath, title: 'Register a Vehicle in Texas', description }),
+    meta: buildMeta(texasDefinedBrand, { canonicalPath, title: 'Getting Your Car Settled in Texas', description }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
     scripts: [jsonLd({
       '@context': 'https://schema.org',
@@ -27,16 +34,16 @@ export const Route = createFileRoute('/find-my-dmv')({
           name: 'How to register a vehicle after moving to Texas', description,
           isPartOf: { '@id': `${siteUrl}/#website` },
           step: steps.map((text, index) => ({
-            '@type': 'HowToStep', position: index + 1, name: `Vehicle registration step ${index + 1}`,
+            '@type': 'HowToStep', position: index + 1, name: stepNames[index],
             text, url: `${pageUrl}#vehicle-step-${index + 1}`,
           })),
         },
         {
           '@type': 'BreadcrumbList', '@id': `${pageUrl}#breadcrumbs`,
           itemListElement: [
-            { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
+            { '@type': 'ListItem', position: 1, name: 'Front page', item: `${siteUrl}/` },
             { '@type': 'ListItem', position: 2, name: 'Moving Here', item: `${siteUrl}/moving-to-texas` },
-            { '@type': 'ListItem', position: 3, name: 'Register a Vehicle', item: pageUrl },
+            { '@type': 'ListItem', position: 3, name: 'Getting Your Car Settled', item: pageUrl },
           ],
         },
       ],
@@ -51,9 +58,9 @@ function Page() {
       <article className="prose prose-gray mx-auto max-w-4xl">
         <nav aria-label="Breadcrumb" className="not-prose text-xs text-muted-foreground">
           <ol className="flex flex-wrap items-center gap-2">
-            <li><Link to="/" className="hover:text-foreground">Home</Link></li><li aria-hidden="true">/</li>
+            <li><Link to="/" className="hover:text-foreground">Front page</Link></li><li aria-hidden="true">/</li>
             <li><Link to="/moving-to-texas" className="hover:text-foreground">Moving Here</Link></li><li aria-hidden="true">/</li>
-            <li aria-current="page" className="text-foreground">Register a Vehicle</li>
+            <li aria-current="page" className="text-foreground">Getting Your Car Settled</li>
           </ol>
         </nav>
         <p className="eyebrow text-primary">New in town</p><h1>Getting your car settled in Texas</h1><p className="lead">{description}</p>
@@ -62,8 +69,8 @@ function Page() {
         <h2>What to handle first</h2>
         <ol>{steps.map((step, index) => <li id={`vehicle-step-${index + 1}`} key={step}>{step}</li>)}</ol>
         <div className="not-prose my-8 grid gap-4 sm:grid-cols-2">
-          <a className="rounded-lg border p-5 font-medium" href="https://www.txdmv.gov/motorists/new-to-texas" rel="noreferrer">See the official TxDMV steps</a>
-          <a className="rounded-lg border p-5 font-medium" href="https://www.dps.texas.gov/section/driver-license" rel="noreferrer">Plan your driver-license visit</a>
+          <a className="rounded-lg border p-5 font-medium" href="https://www.txdmv.gov/motorists/new-to-texas" target="_blank" rel="noreferrer noopener">See the official TxDMV steps</a>
+          <a className="rounded-lg border p-5 font-medium" href="https://www.dps.texas.gov/section/driver-license" target="_blank" rel="noreferrer noopener">Plan your driver-license visit</a>
           <Link className="rounded-lg border p-5 font-medium" to="/browse/counties">Find your county office</Link>
           <Link className="rounded-lg border p-5 font-medium" to="/moving-to-texas-checklist">Open the moving checklist</Link>
         </div>
