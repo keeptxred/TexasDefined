@@ -82,15 +82,29 @@ export const destinationQuery = (slug: Slug) => queryOptions({
 
 export const productsQuery = (params: { collection?: Slug; limit?: number } = {}) => queryOptions({
   queryKey: ["products", scope.brandId, params],
+  // The shared storefront API occasionally times out. Retry before ever showing the
+  // local outage fallback, and keep the fetched catalog stable so a background
+  // refetch cannot swap the live catalog back to the fixture list.
+  staleTime: 5 * 60 * 1000,
+  gcTime: 30 * 60 * 1000,
+  refetchOnWindowFocus: false,
+  refetchOnMount: false,
+  refetchOnReconnect: false,
   queryFn: async () => {
-    try {
-      return await fetchAssignedShopProducts(params);
-    } catch (error) {
-      console.error("Assigned commerce catalog unavailable; using local catalog fallback", error);
-      return platform.products.list({ ...scope, ...params });
+    let lastError: unknown;
+    for (let attempt = 0; attempt < 3; attempt += 1) {
+      try {
+        return await fetchAssignedShopProducts(params);
+      } catch (error) {
+        lastError = error;
+        if (attempt < 2) await new Promise((resolve) => setTimeout(resolve, 400 * (attempt + 1)));
+      }
     }
+    console.error("Assigned commerce catalog unavailable; using local catalog fallback", lastError);
+    return platform.products.list({ ...scope, ...params });
   },
 });
+
 export const collectionsQuery = () => queryOptions({ queryKey: ["collections", scope.brandId], queryFn: () => platform.collections.list(scope) });
 export const collectionQuery = (slug: Slug) => queryOptions({ queryKey: ["collection", scope.brandId, slug], queryFn: () => platform.collections.getBySlug(scope, slug) });
 export const guidesQuery = () => queryOptions({ queryKey: ["guides", scope.brandId], queryFn: () => platform.guides.list(scope) });
