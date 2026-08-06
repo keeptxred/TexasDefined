@@ -1,12 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { countyAnchor, TexasPlaceDirectory } from "@/components/directories/TexasPlaceDirectory";
+import {
+  countyPropertyAnchor,
+  TexasCountyPropertyDirectory,
+} from "@/components/directories/TexasCountyPropertyDirectory";
 import { TEXAS_COUNTIES } from "@/data/texas-places";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const description =
-  "Find any of Texas' 254 counties, then head straight to the local offices, property records, election information and public services you need.";
+  "Find any of Texas' 254 counties, open a county property-tax guide, then continue to official local offices, appraisal records and public services.";
 
 export const Route = createFileRoute("/browse/counties")({
   head: () => {
@@ -14,7 +17,7 @@ export const Route = createFileRoute("/browse/counties")({
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath: "/browse/counties",
-        title: "Find Your County",
+        title: "Find Your County Property-Tax Guide",
         description,
       }),
       links: [canonicalLink(texasDefinedBrand, "/browse/counties")],
@@ -26,7 +29,7 @@ export const Route = createFileRoute("/browse/counties")({
               "@type": "CollectionPage",
               "@id": `${pageUrl}#page`,
               url: pageUrl,
-              name: "Find Your County",
+              name: "Find Your County Property-Tax Guide",
               description,
               isPartOf: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#website` },
               publisher: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#organization` },
@@ -35,20 +38,17 @@ export const Route = createFileRoute("/browse/counties")({
             {
               "@type": "ItemList",
               "@id": `${pageUrl}#counties`,
-              name: "Texas counties",
+              name: "Texas county property-tax guides",
               numberOfItems: TEXAS_COUNTIES.length,
               itemListElement: TEXAS_COUNTIES.map((county, index) => ({
                 "@type": "ListItem",
                 position: index + 1,
-                url: `${pageUrl}#${countyAnchor(county.slug)}`,
+                url: absoluteUrl(texasDefinedBrand, `/property-tax/county/${county.slug}`),
                 item: {
-                  "@type": "AdministrativeArea",
-                  "@id": `${pageUrl}#${countyAnchor(county.slug)}`,
-                  name: county.name,
-                  containedInPlace: {
-                    "@type": "State",
-                    name: "Texas",
-                  },
+                  "@type": "WebPage",
+                  "@id": absoluteUrl(texasDefinedBrand, `/property-tax/county/${county.slug}`),
+                  url: absoluteUrl(texasDefinedBrand, `/property-tax/county/${county.slug}`),
+                  name: `${county.name} Property-Tax Guide`,
                   sameAs: county.officialDirectoryUrl,
                 },
               })),
@@ -66,7 +66,7 @@ export const Route = createFileRoute("/browse/counties")({
                 {
                   "@type": "ListItem",
                   position: 2,
-                  name: "Find Your County",
+                  name: "County property-tax guides",
                   item: pageUrl,
                 },
               ],
@@ -76,5 +76,7 @@ export const Route = createFileRoute("/browse/counties")({
       ],
     };
   },
-  component: () => <TexasPlaceDirectory mode="counties" />,
+  component: TexasCountyPropertyDirectory,
 });
+
+void countyPropertyAnchor;
