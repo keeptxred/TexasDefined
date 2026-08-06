@@ -29,6 +29,37 @@ const description =
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const pageUrl = `${siteUrl}/explore`;
 
+function validCoordinates(destination: Destination) {
+  const { lat, lng } = destination.coordinates;
+  return Number.isFinite(lat) && Number.isFinite(lng) && !(lat === 0 && lng === 0);
+}
+
+function destinationSchema(destination: Destination) {
+  return {
+    "@type": "TouristAttraction",
+    "@id": `${siteUrl}/destination/${destination.slug}#attraction`,
+    name: destination.name,
+    description: destination.summary,
+    url: `${siteUrl}/destination/${destination.slug}`,
+    image: absoluteUrl(texasDefinedBrand, destination.hero.src),
+    sameAs: destination.officialUrl,
+    dateModified: destination.sourceCheckedAt,
+    provider: destination.managingAuthority
+      ? { "@type": "Organization", name: destination.managingAuthority }
+      : undefined,
+    containedInPlace: destination.county || destination.nearestTown
+      ? { "@type": destination.county ? "AdministrativeArea" : "City", name: destination.county ?? destination.nearestTown }
+      : undefined,
+    geo: validCoordinates(destination)
+      ? {
+          "@type": "GeoCoordinates",
+          latitude: destination.coordinates.lat,
+          longitude: destination.coordinates.lng,
+        }
+      : undefined,
+  };
+}
+
 export const Route = createFileRoute("/explore/")({
   head: ({ loaderData }: { loaderData?: { categories: Category[]; regions: Region[]; destinations: Destination[]; articles: Article[] } }) => {
     const categories = (loaderData?.categories ?? []).filter((category) =>
@@ -39,44 +70,31 @@ export const Route = createFileRoute("/explore/")({
     const articles = loaderData?.articles ?? [];
     const items = [
       ...categories.map((category) => ({
-        type: "WebPage" as const,
+        "@type": "WebPage" as const,
         name: category.name,
         description: category.description,
         url: `${siteUrl}/explore/${category.slug}`,
-        image: category.image?.src,
+        image: category.image?.src ? absoluteUrl(texasDefinedBrand, category.image.src) : undefined,
       })),
       ...regions.map((region) => ({
-        type: "WebPage" as const,
+        "@type": "WebPage" as const,
         name: `${region.name} Guide`,
         description: region.blurb,
         url: `${siteUrl}/explore/region/${region.id}`,
-        image: undefined,
       })),
-      ...destinations.map((destination) => ({
-        type: "TouristAttraction" as const,
-        name: destination.name,
-        description: destination.summary,
-        url: `${siteUrl}/destination/${destination.slug}`,
-        image: destination.hero.src,
-      })),
+      ...destinations.map(destinationSchema),
       ...articles.map((article) => ({
-        type: "Article" as const,
+        "@type": "Article" as const,
         name: article.title,
         description: article.dek,
         url: `${siteUrl}/article/${article.slug}`,
-        image: article.hero.src,
+        image: absoluteUrl(texasDefinedBrand, article.hero.src),
       })),
     ];
     const itemListElement = items.map((item, index) => ({
       "@type": "ListItem",
       position: index + 1,
-      item: {
-        "@type": item.type,
-        name: item.name,
-        description: item.description,
-        url: item.url,
-        image: item.image ? absoluteUrl(texasDefinedBrand, item.image) : undefined,
-      },
+      item,
     }));
 
     return {
@@ -230,21 +248,23 @@ function ExplorePage() {
         </Container>
       </Section>
 
-      <Section>
-        <Container>
-          <SectionHeader eyebrow="Editor's picks" title="Places we'd send a friend" />
-          <ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-            {destinations.map((destination) => (
-              <li key={destination.id}>
-                <DestinationCard
-                  destination={destination}
-                  regionLabel={regions.find((r) => r.id === destination.region)?.name}
-                />
-              </li>
-            ))}
-          </ul>
-        </Container>
-      </Section>
+      {destinations.length > 0 && (
+        <Section>
+          <Container>
+            <SectionHeader eyebrow="Editor's picks" title="Places we'd send a friend" />
+            <ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+              {destinations.map((destination) => (
+                <li key={destination.id}>
+                  <DestinationCard
+                    destination={destination}
+                    regionLabel={regions.find((r) => r.id === destination.region)?.name}
+                  />
+                </li>
+              ))}
+            </ul>
+          </Container>
+        </Section>
+      )}
 
       <Section tone="surface">
         <Container>
