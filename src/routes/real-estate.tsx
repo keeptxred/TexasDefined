@@ -16,7 +16,7 @@ export const Route = createFileRoute("/real-estate")({
   head: ({ loaderData }: { loaderData?: { articles: Article[]; destinations: Destination[] } }) => loaderData
     ? buildEditorialCollectionHead(texasDefinedBrand, {
         canonicalPath: "/real-estate",
-        title: "Real Estate",
+        title: "Homes and Land",
         collectionName: "Homes and Land",
         description,
         image: heroHillCountry,
@@ -43,7 +43,7 @@ export const Route = createFileRoute("/real-estate")({
     : ({
         meta: buildMeta(texasDefinedBrand, {
           canonicalPath: "/real-estate",
-          title: "Real Estate",
+          title: "Homes and Land",
           description,
         }),
         links: [canonicalLink(texasDefinedBrand, "/real-estate")],
