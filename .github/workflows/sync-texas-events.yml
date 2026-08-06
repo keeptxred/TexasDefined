@@ -1,0 +1,32 @@
+name: Sync Texas Events
+
+on:
+  schedule:
+    - cron: "17 11 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: texas-events-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Sync authoritative Texas events
+        env:
+          TEXASDEFINED_SUPABASE_URL: ${{ secrets.TEXASDEFINED_SUPABASE_URL }}
+          TEXASDEFINED_SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.TEXASDEFINED_SUPABASE_SERVICE_ROLE_KEY }}
+        run: node scripts/events/sync-texas-events.mjs
