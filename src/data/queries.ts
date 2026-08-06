@@ -1,5 +1,6 @@
 import { queryOptions } from "@tanstack/react-query";
 
+import { fetchPublishedTexasEvents } from "./events-remote";
 import { fetchCoreExploreDestination, fetchCoreExploreDestinations } from "./explore-core-remote";
 import { supplementalExploreCategories } from "./explore-categories";
 import { fetchExploreDestination, fetchExploreDestinations } from "./explore-remote";
@@ -82,9 +83,6 @@ export const destinationQuery = (slug: Slug) => queryOptions({
 
 export const productsQuery = (params: { collection?: Slug; limit?: number } = {}) => queryOptions({
   queryKey: ["products", scope.brandId, params],
-  // The shared storefront API occasionally times out. Retry before ever showing the
-  // local outage fallback, and keep the fetched catalog stable so a background
-  // refetch cannot swap the live catalog back to the fixture list.
   staleTime: 5 * 60 * 1000,
   gcTime: 30 * 60 * 1000,
   refetchOnWindowFocus: false,
@@ -108,7 +106,19 @@ export const productsQuery = (params: { collection?: Slug; limit?: number } = {}
 export const collectionsQuery = () => queryOptions({ queryKey: ["collections", scope.brandId], queryFn: () => platform.collections.list(scope) });
 export const collectionQuery = (slug: Slug) => queryOptions({ queryKey: ["collection", scope.brandId, slug], queryFn: () => platform.collections.getBySlug(scope, slug) });
 export const guidesQuery = () => queryOptions({ queryKey: ["guides", scope.brandId], queryFn: () => platform.guides.list(scope) });
-export const eventsQuery = (params: { limit?: number } = {}) => queryOptions({ queryKey: ["events", scope.brandId, params], queryFn: () => platform.events.list({ ...scope, ...params }) });
+export const eventsQuery = (params: { limit?: number } = {}) => queryOptions({
+  queryKey: ["events", scope.brandId, params],
+  staleTime: 15 * 60 * 1000,
+  queryFn: async () => {
+    try {
+      const remote = await fetchPublishedTexasEvents(params.limit ?? 24);
+      if (remote.length) return remote;
+    } catch (error) {
+      console.error("Live Texas events catalog unavailable; using curated fixture fallback", error);
+    }
+    return platform.events.list({ ...scope, ...params });
+  },
+});
 
 export const categoriesQuery = () => queryOptions({
   queryKey: ["categories", scope.brandId],
