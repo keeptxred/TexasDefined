@@ -54,31 +54,38 @@ function CartPage() {
       <h1 className="mt-3 font-display text-4xl sm:text-5xl">Your Bag</h1>
 
       {cart.items.length === 0 ? (
-        <div className="mt-10 border border-border bg-card p-10 text-center">
-          <h2 className="font-display text-2xl">Your bag is empty</h2>
-          <Link to="/shop" className="mt-6 inline-flex bg-primary px-5 py-3 font-semibold text-primary-foreground">Return to the shop</Link>
+        <div className="mt-10 border border-border bg-card p-10 text-center sm:p-14">
+          <p className="eyebrow text-primary">Nothing packed yet</p>
+          <h2 className="mt-3 font-display text-3xl">Your bag is ready for a little Texas</h2>
+          <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">
+            Take another look through the shop. We have gathered shirts and gifts inspired by the places, wildlife, and character that make Texas feel like home.
+          </p>
+          <Link to="/shop" className="mt-7 inline-flex bg-primary px-5 py-3 font-semibold text-primary-foreground">Browse the shop</Link>
         </div>
       ) : (
         <div className="mt-10 grid gap-8 lg:grid-cols-[1fr_360px]">
-          <ul className="divide-y divide-border border-y border-border">
-            {cart.items.map((item) => (
-              <li key={item.key} className="grid grid-cols-[88px_1fr] gap-4 py-6 sm:grid-cols-[112px_1fr_auto]">
-                <img src={item.image} alt="" className="aspect-square w-full object-cover" />
-                <div>
-                  <h2 className="font-display text-xl leading-snug" title={item.title}>{displayTitle(item.title)}</h2>
-                  {item.variantTitle ? <p className="mt-2 text-sm text-muted-foreground">{item.variantTitle}</p> : null}
-                  <p className="mt-2 font-semibold">{money(item.price, item.currency)}</p>
-                  <div className="mt-4 flex items-center gap-2">
-                    <button type="button" onClick={() => cart.setQuantity(item.key, item.quantity - 1)} className="h-9 w-9 border">−</button>
-                    <span className="w-8 text-center">{item.quantity}</span>
-                    <button type="button" onClick={() => cart.setQuantity(item.key, item.quantity + 1)} className="h-9 w-9 border">+</button>
-                    <button type="button" onClick={() => cart.remove(item.key)} className="ml-3 text-sm text-muted-foreground underline">Remove</button>
+          <div>
+            <ul className="divide-y divide-border border-y border-border">
+              {cart.items.map((item) => (
+                <li key={item.key} className="grid grid-cols-[88px_1fr] gap-4 py-6 sm:grid-cols-[112px_1fr_auto]">
+                  <img src={item.image} alt="" className="aspect-square w-full object-cover" />
+                  <div>
+                    <h2 className="font-display text-xl leading-snug" title={item.title}>{displayTitle(item.title)}</h2>
+                    {item.variantTitle ? <p className="mt-2 text-sm text-muted-foreground">{item.variantTitle}</p> : null}
+                    <p className="mt-2 font-semibold">{money(item.price, item.currency)}</p>
+                    <div className="mt-4 flex items-center gap-2">
+                      <button type="button" aria-label={`Decrease quantity of ${displayTitle(item.title)}`} onClick={() => cart.setQuantity(item.key, item.quantity - 1)} className="h-9 w-9 border">−</button>
+                      <span className="w-8 text-center">{item.quantity}</span>
+                      <button type="button" aria-label={`Increase quantity of ${displayTitle(item.title)}`} onClick={() => cart.setQuantity(item.key, item.quantity + 1)} className="h-9 w-9 border">+</button>
+                      <button type="button" onClick={() => cart.remove(item.key)} className="ml-3 text-sm text-muted-foreground underline">Remove</button>
+                    </div>
                   </div>
-                </div>
-                <p className="font-semibold sm:text-right">{money(item.price * item.quantity, item.currency)}</p>
-              </li>
-            ))}
-          </ul>
+                  <p className="font-semibold sm:text-right">{money(item.price * item.quantity, item.currency)}</p>
+                </li>
+              ))}
+            </ul>
+            <Link to="/shop" className="mt-5 inline-flex text-sm font-semibold text-primary underline underline-offset-4">← Continue shopping</Link>
+          </div>
 
           <aside className="h-fit border border-border bg-card p-6">
             <h2 className="font-display text-2xl">Order Summary</h2>
