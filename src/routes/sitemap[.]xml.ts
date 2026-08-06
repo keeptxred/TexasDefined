@@ -34,20 +34,20 @@ export const Route = createFileRoute("/sitemap.xml")({
         const categories = [...categoryMap.values()];
 
         let remoteDestinations = [] as Awaited<ReturnType<typeof fetchExploreDestinations>>;
+        let remoteFailed = false;
         try {
           remoteDestinations = await fetchExploreDestinations({ limit: 5000 });
         } catch (error) {
           console.error("Primary sitemap enrichment unavailable; retrying core remote catalog", error);
-        }
-        if (!remoteDestinations.length) {
           try {
             remoteDestinations = await fetchCoreExploreDestinations({ limit: 5000 });
-          } catch (error) {
-            console.error("Primary sitemap core remote catalog unavailable; using outage fixtures", error);
+          } catch (coreError) {
+            remoteFailed = true;
+            console.error("Primary sitemap core remote catalog unavailable; using outage fixtures", coreError);
           }
         }
 
-        const destinations = remoteDestinations.length ? remoteDestinations : fixtureDestinations;
+        const destinations = remoteFailed ? fixtureDestinations : remoteDestinations;
         const entries: SitemapEntry[] = [
           ...INDEXABLE_STATIC_PATHS.map((path) => ({ path })),
           ...categories.map((category) => ({ path: `/explore/${category.slug}` })),
