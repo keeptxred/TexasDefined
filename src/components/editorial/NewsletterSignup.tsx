@@ -24,7 +24,7 @@ export function NewsletterSignup() {
       return;
     }
     if (!signupUrl) {
-      setError("Newsletter signup is not open yet. Please check back soon.");
+      setError("The letter isn’t taking new names just yet. Check back soon.");
       return;
     }
 
@@ -41,7 +41,7 @@ export function NewsletterSignup() {
       analytics.track({ name: "newsletter_signup", brandId: brand.identity.id });
     } catch (submitError) {
       console.error("Newsletter signup failed", submitError);
-      setError("We couldn’t save your email just now. Please try again later.");
+      setError("We couldn’t add you just now. Please give it another try later.");
     } finally {
       setSubmitting(false);
     }
@@ -93,7 +93,7 @@ export function NewsletterSignup() {
           </form>
         ) : (
           <p className="border-l-2 border-primary pl-4 text-sm leading-relaxed text-muted-foreground" role="status">
-            The Texas Defined Letter is being set up now. Signup will open here as soon as email delivery is connected.
+            The Texas Defined Letter isn’t taking new names just yet. Check back soon.
           </p>
         )}
       </div>
