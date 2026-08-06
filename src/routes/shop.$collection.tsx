@@ -21,7 +21,7 @@ export const Route = createFileRoute("/shop/$collection")({
   },
   head: ({ loaderData, params }) => {
     if (!loaderData) {
-      return { meta: [{ title: "Not found" }, { name: "robots", content: "noindex" }] };
+      return { meta: [{ title: "Collection not found | Texas Defined" }, { name: "robots", content: "noindex" }] };
     }
 
     const canonicalPath = `/shop/${params.collection}`;
@@ -59,7 +59,7 @@ export const Route = createFileRoute("/shop/$collection")({
                 {
                   "@type": "ListItem",
                   position: 1,
-                  name: "Home",
+                  name: "Front page",
                   item: absoluteUrl(texasDefinedBrand, "/"),
                 },
                 {
@@ -79,7 +79,7 @@ export const Route = createFileRoute("/shop/$collection")({
             {
               "@type": "ItemList",
               "@id": itemListId,
-              name: `${loaderData.collection.name} products`,
+              name: `${loaderData.collection.name} picks`,
               description: loaderData.collection.description,
               url: collectionUrl,
               numberOfItems: loaderData.products.length,
