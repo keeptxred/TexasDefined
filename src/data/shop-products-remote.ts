@@ -45,7 +45,12 @@ function toProduct(row: StoreProduct): Product {
 }
 
 export async function fetchAssignedShopProducts(params: { collection?: Slug; limit?: number; id?: string } = {}): Promise<Product[]> {
-  const url = new URL("/api/public/store-products", commerceApiBase());
+  // In the browser go through our own same-origin proxy route: the shared
+  // storefront API only allows a fixed CORS origin list, so a direct call from
+  // preview/custom domains fails with "Failed to fetch". On the server we can
+  // call the upstream API directly.
+  const base = typeof window === "undefined" ? commerceApiBase() : window.location.origin;
+  const url = new URL("/api/public/store-products", base);
   url.searchParams.set("site", "texasdefined");
   if (params.collection) url.searchParams.set("collection", params.collection);
   if (params.limit) url.searchParams.set("limit", String(params.limit));

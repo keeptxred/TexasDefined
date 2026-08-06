@@ -126,6 +126,7 @@ import { Route as ExploreRegionRegionRouteImport } from './routes/explore.region
 import { Route as ExploreLakeSlugRouteImport } from './routes/explore.lake.$slug'
 import { Route as ExploreCountyCountyRouteImport } from './routes/explore.county.$county'
 import { Route as ExploreCavernSlugRouteImport } from './routes/explore.cavern.$slug'
+import { Route as ApiPublicStoreProductsRouteImport } from './routes/api/public/store-products'
 import { Route as ApiAiEntitiesRouteImport } from './routes/api.ai.entities'
 
 const TexasUtilityCostCalculatorRoute =
@@ -752,6 +753,11 @@ const ExploreCavernSlugRoute = ExploreCavernSlugRouteImport.update({
   path: '/explore/cavern/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicStoreProductsRoute = ApiPublicStoreProductsRouteImport.update({
+  id: '/api/public/store-products',
+  path: '/api/public/store-products',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiAiEntitiesRoute = ApiAiEntitiesRouteImport.update({
   id: '/api/ai/entities',
   path: '/api/ai/entities',
@@ -869,6 +875,7 @@ export interface FileRoutesByFullPath {
   '/explore/': typeof ExploreIndexRoute
   '/shop/': typeof ShopIndexRoute
   '/api/ai/entities': typeof ApiAiEntitiesRoute
+  '/api/public/store-products': typeof ApiPublicStoreProductsRoute
   '/explore/cavern/$slug': typeof ExploreCavernSlugRoute
   '/explore/county/$county': typeof ExploreCountyCountyRoute
   '/explore/lake/$slug': typeof ExploreLakeSlugRoute
@@ -988,6 +995,7 @@ export interface FileRoutesByTo {
   '/explore': typeof ExploreIndexRoute
   '/shop': typeof ShopIndexRoute
   '/api/ai/entities': typeof ApiAiEntitiesRoute
+  '/api/public/store-products': typeof ApiPublicStoreProductsRoute
   '/explore/cavern/$slug': typeof ExploreCavernSlugRoute
   '/explore/county/$county': typeof ExploreCountyCountyRoute
   '/explore/lake/$slug': typeof ExploreLakeSlugRoute
@@ -1109,6 +1117,7 @@ export interface FileRoutesById {
   '/explore/': typeof ExploreIndexRoute
   '/shop/': typeof ShopIndexRoute
   '/api/ai/entities': typeof ApiAiEntitiesRoute
+  '/api/public/store-products': typeof ApiPublicStoreProductsRoute
   '/explore/cavern/$slug': typeof ExploreCavernSlugRoute
   '/explore/county/$county': typeof ExploreCountyCountyRoute
   '/explore/lake/$slug': typeof ExploreLakeSlugRoute
@@ -1231,6 +1240,7 @@ export interface FileRouteTypes {
     | '/explore/'
     | '/shop/'
     | '/api/ai/entities'
+    | '/api/public/store-products'
     | '/explore/cavern/$slug'
     | '/explore/county/$county'
     | '/explore/lake/$slug'
@@ -1350,6 +1360,7 @@ export interface FileRouteTypes {
     | '/explore'
     | '/shop'
     | '/api/ai/entities'
+    | '/api/public/store-products'
     | '/explore/cavern/$slug'
     | '/explore/county/$county'
     | '/explore/lake/$slug'
@@ -1470,6 +1481,7 @@ export interface FileRouteTypes {
     | '/explore/'
     | '/shop/'
     | '/api/ai/entities'
+    | '/api/public/store-products'
     | '/explore/cavern/$slug'
     | '/explore/county/$county'
     | '/explore/lake/$slug'
@@ -1579,6 +1591,7 @@ export interface RootRouteChildren {
   PropertyTaxCountiesRoute: typeof PropertyTaxCountiesRoute
   ExploreIndexRoute: typeof ExploreIndexRoute
   ApiAiEntitiesRoute: typeof ApiAiEntitiesRoute
+  ApiPublicStoreProductsRoute: typeof ApiPublicStoreProductsRoute
   ExploreCavernSlugRoute: typeof ExploreCavernSlugRoute
   ExploreCountyCountyRoute: typeof ExploreCountyCountyRoute
   ExploreLakeSlugRoute: typeof ExploreLakeSlugRoute
@@ -2409,6 +2422,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExploreCavernSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/store-products': {
+      id: '/api/public/store-products'
+      path: '/api/public/store-products'
+      fullPath: '/api/public/store-products'
+      preLoaderRoute: typeof ApiPublicStoreProductsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/ai/entities': {
       id: '/api/ai/entities'
       path: '/api/ai/entities'
@@ -2576,6 +2596,7 @@ const rootRouteChildren: RootRouteChildren = {
   PropertyTaxCountiesRoute: PropertyTaxCountiesRoute,
   ExploreIndexRoute: ExploreIndexRoute,
   ApiAiEntitiesRoute: ApiAiEntitiesRoute,
+  ApiPublicStoreProductsRoute: ApiPublicStoreProductsRoute,
   ExploreCavernSlugRoute: ExploreCavernSlugRoute,
   ExploreCountyCountyRoute: ExploreCountyCountyRoute,
   ExploreLakeSlugRoute: ExploreLakeSlugRoute,
@@ -2587,3 +2608,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
