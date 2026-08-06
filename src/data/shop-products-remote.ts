@@ -1,4 +1,4 @@
-import type { Product, Slug } from "./types";
+import type { Product, ProductVariant, Slug } from "./types";
 
 type StoreProduct = {
   id: string;
@@ -7,14 +7,15 @@ type StoreProduct = {
   price: number;
   currency: string;
   imageUrl: string;
-  productUrl?: string | null;
   tags?: string[];
   collections?: string[];
+  colors?: string[];
+  variants?: ProductVariant[];
 };
 
 const DEFAULT_COMMERCE_API = "https://keeptxred.com";
 
-function commerceApiBase() {
+export function commerceApiBase() {
   const configured = import.meta.env.VITE_COMMERCE_API_BASE_URL as string | undefined;
   return (configured || DEFAULT_COMMERCE_API).replace(/\/$/, "");
 }
@@ -32,24 +33,22 @@ function toProduct(row: StoreProduct): Product {
     maker: "Texas Defined",
     priceCents: Math.round(Number(row.price || 0) * 100),
     currency: "USD",
-    image: {
-      src: row.imageUrl,
-      alt: row.title,
-      width: 1200,
-      height: 1200,
-    },
-    blurb: row.description?.trim().slice(0, 180) || "A Texas-inspired pick selected for the Texas Defined shop.",
+    image: { src: row.imageUrl, alt: row.title, width: 1200, height: 1200 },
+    blurb: row.description?.trim() || "A Texas-inspired pick selected for the Texas Defined shop.",
     collectionSlugs: row.collections ?? [],
     madeInTexas: false,
-    productUrl: `${commerceApiBase()}/shop/${encodeURIComponent(row.id)}`,
+    productUrl: `/shop/${encodeURIComponent(row.id)}`,
+    colors: row.colors ?? [],
+    variants: Array.isArray(row.variants) ? row.variants : [],
   };
 }
 
-export async function fetchAssignedShopProducts(params: { collection?: Slug; limit?: number } = {}): Promise<Product[]> {
+export async function fetchAssignedShopProducts(params: { collection?: Slug; limit?: number; id?: string } = {}): Promise<Product[]> {
   const url = new URL("/api/public/store-products", commerceApiBase());
   url.searchParams.set("site", "texasdefined");
   if (params.collection) url.searchParams.set("collection", params.collection);
   if (params.limit) url.searchParams.set("limit", String(params.limit));
+  if (params.id) url.searchParams.set("id", params.id);
 
   const response = await fetch(url, { headers: { accept: "application/json" } });
   if (!response.ok) throw new Error(`Commerce catalog unavailable (${response.status})`);
