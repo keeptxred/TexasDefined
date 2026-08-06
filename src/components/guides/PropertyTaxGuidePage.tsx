@@ -16,9 +16,10 @@ type Props = {
   officialLabel: string;
   canonicalPath?: string;
   stepPrefix?: string;
+  reviewedAt?: string;
 };
 
-export function PropertyTaxGuidePage({ eyebrow, title, intro, sections, officialUrl, officialLabel, canonicalPath, stepPrefix = 'guide-step-' }: Props) {
+export function PropertyTaxGuidePage({ eyebrow, title, intro, sections, officialUrl, officialLabel, canonicalPath, stepPrefix = 'guide-step-', reviewedAt = 'August 3, 2026' }: Props) {
   const surfacePolicy = INTERNAL_LINK_POLICIES['property-tax-guide'];
   const linkedEntityIds: string[] = [];
   let remainingLinks = surfacePolicy.pageBudget;
@@ -50,7 +51,7 @@ export function PropertyTaxGuidePage({ eyebrow, title, intro, sections, official
     {canonicalPath && <nav aria-label="Breadcrumb" className="mb-6 text-sm text-muted-foreground"><Link to="/">Home</Link><span aria-hidden="true"> / </span><Link to="/decide/property-taxes">Property taxes</Link><span aria-hidden="true"> / </span><span aria-current="page">{title}</span></nav>}
     <p className="eyebrow text-primary">{eyebrow}</p><h1 className="mt-3 font-display text-4xl leading-tight sm:text-6xl">{title}</h1>
     <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">{linkedText(intro, 3)}</p>
-    <p className="mt-4 text-sm text-muted-foreground">Reviewed August 3, 2026. Start here, then confirm the current details with the responsible office.</p>
+    <p className="mt-4 text-sm text-muted-foreground">Reviewed {reviewedAt}. Start here, then confirm the current details with the responsible office.</p>
     <div className="mt-12 space-y-12">{sections.map((section) => <section key={section.title} className="border-t border-border pt-8"><h2 className="font-display text-3xl">{section.title}</h2><div className="mt-4 space-y-4 text-base leading-7 text-muted-foreground">{section.paragraphs.map((paragraph) => <p key={paragraph}>{linkedText(paragraph)}</p>)}</div>{section.steps && <ol className="mt-6 space-y-3">{section.steps.map((step) => { stepNumber += 1; return <li id={`${stepPrefix}${stepNumber}`} key={step} className="flex gap-4 rounded-md border border-border p-4"><strong className="text-primary">{stepNumber}</strong><span>{linkedText(step, 1)}</span></li>; })}</ol>}</section>)}</div>
     <section className="mt-12 rounded-md bg-muted p-6"><h2 className="font-display text-2xl">What to do next</h2><div className="mt-4 flex flex-wrap gap-4 text-sm font-medium"><Link to="/decide/property-taxes" className="underline">Estimate your property taxes</Link><Link to="/learn/appraisal-districts" className="underline">Find your appraisal district</Link><Link to="/do/homestead-exemption" className="underline">Check the homestead exemption</Link><Link to="/do/property-tax-protest" className="underline">Prepare a protest</Link><a href={officialUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 underline">{officialLabel}<ExternalLink className="h-4 w-4" /></a></div></section>
   </article></Container>;
