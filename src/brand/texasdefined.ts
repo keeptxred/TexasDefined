@@ -12,7 +12,7 @@ import type { BrandConfig } from "./types";
 export const texasDefinedBrand: BrandConfig = {
   identity: {
     id: "texasdefined",
-    name: "TexasDefined",
+    name: "Texas Defined",
     wordmark: "Texas Defined",
     monogram: "TD",
     tagline: "What defines Texas?",
@@ -25,8 +25,8 @@ export const texasDefinedBrand: BrandConfig = {
     ],
   },
   seo: {
-    titleTemplate: "%s | TexasDefined",
-    defaultTitle: "TexasDefined — Explore the Places, Stories & Life of Texas",
+    titleTemplate: "%s | Texas Defined",
+    defaultTitle: "Texas Defined — The Places, Stories and Life of Texas",
     defaultDescription:
       "A friendly guide to the places, food, traditions, homes and everyday experiences that make Texas feel like Texas.",
     twitterSite: "@texasdefined",
@@ -48,7 +48,7 @@ export const texasDefinedBrand: BrandConfig = {
     comingSoon: "On the way",
     comingSoonBody:
       "We’re still gathering the details that make this useful. Check back for the full story.",
-    shopCta: "Browse the shop",
+    shopCta: "See what caught our eye",
     shopTheStoryHeading: "Things we’d actually buy",
     relatedHeading: "Keep exploring",
     footerNote: "Independent, reader-supported and proudly focused on Texas.",
@@ -78,7 +78,7 @@ export const texasDefinedBrand: BrandConfig = {
           image: { src: caddoLake, alt: "Cypress trees on Caddo Lake at dawn" },
         },
         {
-          label: "Major Springs",
+          label: "Springs & Swimming",
           to: "/explore/major-springs",
           description: "Clear springs, spring-fed pools and swimming water",
           image: { src: blueHole, alt: "Clear spring-fed water in the Texas Hill Country" },
@@ -140,11 +140,11 @@ export const texasDefinedBrand: BrandConfig = {
       ],
     },
     { label: "Sports", to: "/sports" },
-    { label: "Weekend", to: "/events" },
+    { label: "This Weekend", to: "/events" },
     { label: "History", to: "/texas-history" },
     { label: "Moving Here", to: "/moving-to-texas" },
-    { label: "Home", to: "/home-garden" },
-    { label: "Living in Texas", to: "/texas-living" },
+    { label: "Home & Garden", to: "/home-garden" },
+    { label: "Living Here", to: "/texas-living" },
     { label: "Guides", to: "/guides" },
     { label: "Shop", to: "/shop" },
     { label: "About", to: "/about" },
@@ -154,7 +154,7 @@ export const texasDefinedBrand: BrandConfig = {
       title: "Start Here",
       items: [
         { label: "Lakes & Rivers", to: "/explore/lakes-rivers" },
-        { label: "Major Springs", to: "/explore/major-springs" },
+        { label: "Springs & Swimming", to: "/explore/major-springs" },
         { label: "State Parks", to: "/explore/state-parks" },
         { label: "National Parks", to: "/explore/national-parks" },
         { label: "Caverns & Caves", to: "/explore/caverns" },
@@ -169,8 +169,8 @@ export const texasDefinedBrand: BrandConfig = {
       title: "Living Here",
       items: [
         { label: "Moving Here", to: "/moving-to-texas" },
-        { label: "Home", to: "/home-garden" },
-        { label: "Living in Texas", to: "/texas-living" },
+        { label: "Home & Garden", to: "/home-garden" },
+        { label: "Living Here", to: "/texas-living" },
         { label: "Guides", to: "/guides" },
       ],
     },
