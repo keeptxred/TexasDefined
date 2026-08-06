@@ -24,7 +24,7 @@ export const Route = createFileRoute("/shop/")({
       title: "The Shop",
       description,
       image: shopFlatlay,
-      imageAlt: "A curated flat lay of Texas-made goods",
+      imageAlt: "Texas-made goods arranged on a tabletop",
     }),
     links: [canonicalLink(texasDefinedBrand, "/shop")],
     scripts: loaderData
@@ -49,7 +49,7 @@ export const Route = createFileRoute("/shop/")({
                   {
                     "@type": "ListItem",
                     position: 1,
-                    name: "Home",
+                    name: "Front page",
                     item: absoluteUrl(texasDefinedBrand, "/"),
                   },
                   {
