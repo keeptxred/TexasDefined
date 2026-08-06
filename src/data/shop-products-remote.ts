@@ -41,6 +41,7 @@ function toProduct(row: StoreProduct): Product {
     blurb: row.description?.trim().slice(0, 180) || "A Texas-inspired pick selected for the Texas Defined shop.",
     collectionSlugs: row.collections ?? [],
     madeInTexas: false,
+    productUrl: row.productUrl || undefined,
   };
 }
 
