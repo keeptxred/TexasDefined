@@ -12,8 +12,8 @@ const nextStops = [
   ['Find a city', '/browse/cities', 'Get to know major cities, regional centers and communities across the state.'],
   ['Places worth exploring', '/explore', 'Find parks, lakes, caverns, road trips and memorable corners of Texas.'],
   ['Property-tax help', '/decide/property-taxes', 'Estimate a property-tax bill and understand the numbers behind it.'],
-  ['Money and moving help', '/decide/financial-tools', 'Compare household costs, homeownership expenses and moving decisions.'],
-  ['A useful place to start', '/texas-resources', 'Find official contacts, local information and practical guides.'],
+  ['Money Made Clearer', '/decide/financial-tools', 'Compare household costs, homeownership expenses and moving decisions.'],
+  ['Start Here', '/texas-resources', 'Find official contacts, local information and practical guides.'],
 ] as const;
 
 const editorialLabel = (value: string) =>
@@ -60,7 +60,7 @@ export const Route = createFileRoute('/texas-data')({
                 {
                   '@type': 'ListItem',
                   position: 1,
-                  name: 'Home',
+                  name: 'Front page',
                   item: absoluteUrl(texasDefinedBrand, '/'),
                 },
                 {
@@ -90,7 +90,7 @@ function Page() {
         <section className="mt-12" aria-labelledby="figures-heading">
           <h2 id="figures-heading" className="font-display text-3xl">A closer look at the numbers</h2>
           <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">
-            Clear comparisons drawn from public sources, with update dates and links back to the original information.
+            Clear comparisons drawn from public sources, with review dates and links back to the original information.
           </p>
           <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {TEXAS_DATASETS.map((dataset) => (
@@ -110,7 +110,7 @@ function Page() {
         </section>
 
         <section className="mt-14" aria-labelledby="help-heading">
-          <h2 id="help-heading" className="font-display text-3xl">Find what you need next</h2>
+          <h2 id="help-heading" className="font-display text-3xl">Where to go next</h2>
           <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {nextStops.map(([title, to, copy]) => (
               <Link
