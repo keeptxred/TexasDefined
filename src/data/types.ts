@@ -134,6 +134,7 @@ export interface Product {
   blurb: string;
   collectionSlugs: Slug[];
   madeInTexas: boolean;
+  productUrl?: string;
 }
 
 export interface Collection {
