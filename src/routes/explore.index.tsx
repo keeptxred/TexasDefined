@@ -47,7 +47,7 @@ export const Route = createFileRoute("/explore/")({
       })),
       ...regions.map((region) => ({
         type: "WebPage" as const,
-        name: `${region.name} Travel Guide`,
+        name: `${region.name} Guide`,
         description: region.blurb,
         url: `${siteUrl}/explore/region/${region.id}`,
         image: undefined,
@@ -105,7 +105,7 @@ export const Route = createFileRoute("/explore/")({
               {
                 "@type": "ItemList",
                 "@id": `${pageUrl}#items`,
-                name: "Texas categories, regions, places and stories",
+                name: "Places, regions and stories worth knowing",
                 numberOfItems: itemListElement.length,
                 itemListElement,
               },
@@ -113,7 +113,7 @@ export const Route = createFileRoute("/explore/")({
                 "@type": "BreadcrumbList",
                 "@id": `${pageUrl}#breadcrumbs`,
                 itemListElement: [
-                  { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
+                  { "@type": "ListItem", position: 1, name: "Front page", item: `${siteUrl}/` },
                   { "@type": "ListItem", position: 2, name: "Explore", item: pageUrl },
                 ],
               },
@@ -150,7 +150,7 @@ function ExplorePage() {
       <Container className="pb-6 pt-16 sm:pt-24">
         <nav aria-label="Breadcrumb" className="text-xs text-muted-foreground">
           <ol className="flex items-center gap-2">
-            <li><Link to="/" className="hover:text-foreground">Home</Link></li>
+            <li><Link to="/" className="hover:text-foreground">Front page</Link></li>
             <li aria-hidden="true">/</li>
             <li aria-current="page" className="text-foreground">Explore</li>
           </ol>
@@ -222,7 +222,7 @@ function ExplorePage() {
                 >
                   <h3 className="font-display text-xl transition-colors group-hover:text-primary">{region.name}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{region.blurb}</p>
-                  <span className="mt-3 inline-block text-xs font-medium text-primary">Explore the region →</span>
+                  <span className="mt-3 inline-block text-xs font-medium text-primary">See the region →</span>
                 </Link>
               </li>
             ))}
