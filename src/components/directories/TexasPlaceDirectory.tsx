@@ -1,0 +1,95 @@
+import { Link } from "@tanstack/react-router";
+import { ExternalLink, Search } from "lucide-react";
+import { useMemo, useState } from "react";
+
+import { Container } from "@/components/layout/Container";
+import { findTexasPlaces } from "@/data/texas-places";
+
+export const countyAnchor = (slug: string) => `county-${slug}`;
+export const cityAnchor = (slug: string) => `city-${slug}`;
+
+export function TexasPlaceDirectory({ mode }: { mode: "counties" | "cities" }) {
+  const [query, setQuery] = useState("");
+  const results = useMemo(() => findTexasPlaces(query), [query]);
+  const items = mode === "counties" ? results.counties : results.cities;
+  const title = mode === "counties" ? "Find your Texas county" : "Find a Texas city";
+  const intro = mode === "counties"
+    ? "Start with the county name, then open a county property-tax guide or continue to official local offices and records."
+    : "Start with a city name, then find local stories, moving guidance and nearby places worth knowing.";
+  const searchLabel = mode === "counties" ? "county" : "city";
+
+  return (
+    <Container className="py-16 sm:py-24">
+      <p className="eyebrow text-primary">Around the state</p>
+      <h1 className="mt-3 font-display text-4xl sm:text-6xl">{title}</h1>
+      <p className="mt-5 max-w-3xl text-lg leading-8 text-muted-foreground">{intro}</p>
+
+      <label className="mt-8 flex max-w-xl items-center gap-3 rounded-md border border-border px-4 py-3">
+        <Search className="h-5 w-5 text-muted-foreground" aria-hidden="true" />
+        <span className="sr-only">Search for a Texas {searchLabel}</span>
+        <input
+          className="w-full bg-transparent outline-none"
+          value={query}
+          onChange={(event) => setQuery(event.target.value)}
+          placeholder={`Type a ${searchLabel} name`}
+        />
+      </label>
+
+      <p className="mt-4 text-sm text-muted-foreground" role="status">
+        {query
+          ? `${items.length} good match${items.length === 1 ? "" : "es"}`
+          : mode === "counties"
+            ? "All 254 counties"
+            : `${items.length} cities to get to know`}
+      </p>
+
+      {items.length > 0 ? (
+        <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {mode === "counties"
+            ? results.counties.map((county) => (
+                <li id={countyAnchor(county.slug)} key={county.code} className="rounded-md border border-border p-5">
+                  <p className="eyebrow text-primary">County property-tax guide</p>
+                  <h2 className="mt-2 font-display text-2xl">{county.name}</h2>
+                  <p className="mt-3 text-sm leading-6 text-muted-foreground">
+                    Property-tax planning, appraisal records, exemptions, protests, local offices and payment research for {county.name}.
+                  </p>
+                  <div className="mt-5 flex flex-wrap gap-4 text-sm font-medium">
+                    <Link
+                      className="underline"
+                      to="/property-tax/county/$county"
+                      params={{ county: county.slug }}
+                    >
+                      Open property-tax guide
+                    </Link>
+                    <a
+                      className="inline-flex items-center gap-2 underline"
+                      href={county.officialDirectoryUrl}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                    >
+                      Official county directory <ExternalLink className="h-4 w-4" aria-hidden="true" />
+                    </a>
+                  </div>
+                </li>
+              ))
+            : results.cities.map((city) => (
+                <li id={cityAnchor(city.slug)} key={city.slug} className="rounded-md border border-border p-5">
+                  <p className="eyebrow text-primary">{city.region}</p>
+                  <h2 className="mt-2 font-display text-2xl">{city.name}</h2>
+                  <p className="mt-3 text-sm leading-6 text-muted-foreground">
+                    {city.county} County · Local stories, living costs, moving guidance and places worth knowing.
+                  </p>
+                  <Link className="mt-5 inline-block text-sm font-medium underline" to="/search" search={{ q: city.name }}>
+                    See what we have on {city.name}
+                  </Link>
+                </li>
+              ))}
+        </ul>
+      ) : (
+        <p className="mt-10 border-t border-border py-8 text-sm text-muted-foreground">
+          No luck with that {searchLabel}. Check the spelling or try a nearby place.
+        </p>
+      )}
+    </Container>
+  );
+}
