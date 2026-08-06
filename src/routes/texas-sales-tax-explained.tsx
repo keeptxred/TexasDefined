@@ -15,12 +15,20 @@ const checklist = [
   'Use the official rate lookup and current guidance.',
   'Keep the invoice and supporting records.',
 ] as const;
+const checklistNames = [
+  'Name what is being sold',
+  'Check whether it is taxable',
+  'Confirm any exemption',
+  'Identify the transaction location',
+  'Look up the current rate',
+  'Keep the supporting records',
+] as const;
 
 export const Route = createFileRoute('/texas-sales-tax-explained')({
   head: () => ({
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath,
-      title: 'Texas Sales Tax Explained',
+      title: 'How Texas Sales Tax Works',
       description,
     }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
@@ -31,13 +39,13 @@ export const Route = createFileRoute('/texas-sales-tax-explained')({
           '@type': 'HowTo',
           '@id': `${pageUrl}#howto`,
           url: pageUrl,
-          name: 'How to verify Texas sales tax for a transaction',
+          name: 'How to check Texas sales tax for a transaction',
           description,
           isPartOf: { '@id': `${siteUrl}/#website` },
           step: checklist.map((text, index) => ({
             '@type': 'HowToStep',
             position: index + 1,
-            name: `Sales-tax check ${index + 1}`,
+            name: checklistNames[index],
             text,
             url: `${pageUrl}#sales-tax-step-${index + 1}`,
           })),
@@ -46,7 +54,7 @@ export const Route = createFileRoute('/texas-sales-tax-explained')({
           '@type': 'BreadcrumbList',
           '@id': `${pageUrl}#breadcrumbs`,
           itemListElement: [
-            { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
+            { '@type': 'ListItem', position: 1, name: 'Front page', item: `${siteUrl}/` },
             { '@type': 'ListItem', position: 2, name: 'Living Here', item: `${siteUrl}/texas-living` },
             { '@type': 'ListItem', position: 3, name: 'How Texas Sales Tax Works', item: pageUrl },
           ],
@@ -63,7 +71,7 @@ function Page() {
       <article className="prose prose-gray mx-auto max-w-4xl">
         <nav aria-label="Breadcrumb" className="not-prose text-xs text-muted-foreground">
           <ol className="flex flex-wrap items-center gap-2">
-            <li><Link to="/" className="hover:text-foreground">Home</Link></li>
+            <li><Link to="/" className="hover:text-foreground">Front page</Link></li>
             <li aria-hidden="true">/</li>
             <li><Link to="/texas-living" className="hover:text-foreground">Living Here</Link></li>
             <li aria-hidden="true">/</li>
@@ -85,7 +93,7 @@ function Page() {
         <ol>
           {checklist.map((item, index) => <li id={`sales-tax-step-${index + 1}`} key={item}>{item}</li>)}
         </ol>
-        <p><a href="https://comptroller.texas.gov/taxes/sales/" rel="noreferrer">Check the latest guidance from the Texas Comptroller</a></p>
+        <p><a href="https://comptroller.texas.gov/taxes/sales/" target="_blank" rel="noreferrer noopener">Check the latest guidance from the Texas Comptroller</a></p>
         <aside className="not-prose mt-10 rounded-lg bg-muted p-5 text-sm text-muted-foreground">Tax rules and agency guidance can change. Confirm a specific filing, rate or exemption with the Texas Comptroller or a qualified tax professional.</aside>
       </article>
     </Container>
