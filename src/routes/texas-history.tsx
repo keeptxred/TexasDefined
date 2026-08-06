@@ -16,7 +16,7 @@ export const Route = createFileRoute("/texas-history")({
   head: ({ loaderData }: { loaderData?: { articles: Article[]; destinations: Destination[] } }) => loaderData
     ? buildEditorialCollectionHead(texasDefinedBrand, {
         canonicalPath: "/texas-history",
-        title: "History",
+        title: "Then & Now",
         collectionName: "Then & Now",
         description,
         image: enchantedRock,
@@ -43,7 +43,7 @@ export const Route = createFileRoute("/texas-history")({
     : ({
         meta: buildMeta(texasDefinedBrand, {
           canonicalPath: "/texas-history",
-          title: "History",
+          title: "Then & Now",
           description,
         }),
         links: [canonicalLink(texasDefinedBrand, "/texas-history")],
@@ -59,7 +59,7 @@ export const Route = createFileRoute("/texas-history")({
   component: () => (
     <CategoryPage
       category="texas-history"
-      eyebrow="Then &amp; now"
+      eyebrow="Then & Now"
       title="The stories that built this place"
       intro={description}
       image={{ src: enchantedRock, alt: imageAlt, width: 1600, height: 1067 }}
