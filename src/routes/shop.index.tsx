@@ -10,6 +10,7 @@ import { productsQuery } from "@/data/queries";
 import type { Product } from "@/data/types";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
+// Live shared storefront catalog for TexasDefined.com.
 const description =
   "Shop Texas-inspired apparel, gifts and everyday goods selected for Texas Defined.";
 
