@@ -14,10 +14,17 @@ const steps = [
   'Ask about planned boundary changes, transfers or new-campus assignments.',
   'Keep written confirmation when a home purchase or lease depends on the answer.',
 ] as const;
+const stepNames = [
+  'Start with the state school pages',
+  'Check the exact address',
+  'Confirm the assigned campus',
+  'Ask about boundary changes',
+  'Keep the answer in writing',
+] as const;
 
 export const Route = createFileRoute('/find-my-school-district')({
   head: () => ({
-    meta: buildMeta(texasDefinedBrand, { canonicalPath, title: 'Find the School District for an Address', description }),
+    meta: buildMeta(texasDefinedBrand, { canonicalPath, title: 'Find the District That Serves Your Address', description }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
     scripts: [jsonLd({
       '@context': 'https://schema.org',
@@ -27,14 +34,14 @@ export const Route = createFileRoute('/find-my-school-district')({
           name: 'How to verify the school district for a Texas address', description,
           isPartOf: { '@id': `${siteUrl}/#website` },
           step: steps.map((text, index) => ({
-            '@type': 'HowToStep', position: index + 1, name: `School district check ${index + 1}`,
+            '@type': 'HowToStep', position: index + 1, name: stepNames[index],
             text, url: `${pageUrl}#school-step-${index + 1}`,
           })),
         },
         {
           '@type': 'BreadcrumbList', '@id': `${pageUrl}#breadcrumbs`,
           itemListElement: [
-            { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
+            { '@type': 'ListItem', position: 1, name: 'Front page', item: `${siteUrl}/` },
             { '@type': 'ListItem', position: 2, name: 'Moving Here', item: `${siteUrl}/moving-to-texas` },
             { '@type': 'ListItem', position: 3, name: 'Find Your School District', item: pageUrl },
           ],
@@ -51,19 +58,19 @@ function Page() {
       <article className="prose prose-gray mx-auto max-w-4xl">
         <nav aria-label="Breadcrumb" className="not-prose text-xs text-muted-foreground">
           <ol className="flex flex-wrap items-center gap-2">
-            <li><Link to="/" className="hover:text-foreground">Home</Link></li><li aria-hidden="true">/</li>
+            <li><Link to="/" className="hover:text-foreground">Front page</Link></li><li aria-hidden="true">/</li>
             <li><Link to="/moving-to-texas" className="hover:text-foreground">Moving Here</Link></li><li aria-hidden="true">/</li>
-            <li aria-current="page" className="text-foreground">School Districts</li>
+            <li aria-current="page" className="text-foreground">Find Your School District</li>
           </ol>
         </nav>
-        <p className="eyebrow text-primary">Schools and Communities</p><h1>Find the district that serves your address</h1><p className="lead">{description}</p>
+        <p className="eyebrow text-primary">Schools and communities</p><h1>Find the district that serves your address</h1><p className="lead">{description}</p>
         <h2>Why the city name is not enough</h2>
         <p>City limits, ZIP codes, district boundaries and attendance zones do not always line up. A home can sit in one city and attend schools in another district, so the exact address matters.</p>
         <h2>The safest way to check</h2>
         <ol>{steps.map((step, index) => <li id={`school-step-${index + 1}`} key={step}>{step}</li>)}</ol>
         <div className="not-prose my-8 grid gap-4 sm:grid-cols-2">
-          <a className="rounded-lg border p-5 font-medium" href="https://tea.texas.gov/texas-schools" rel="noreferrer">Start with the Texas Education Agency</a>
-          <a className="rounded-lg border p-5 font-medium" href="https://txschools.gov/" rel="noreferrer">Look up schools on TXschools.gov</a>
+          <a className="rounded-lg border p-5 font-medium" href="https://tea.texas.gov/texas-schools" target="_blank" rel="noreferrer noopener">Start with the Texas Education Agency</a>
+          <a className="rounded-lg border p-5 font-medium" href="https://txschools.gov/" target="_blank" rel="noreferrer noopener">Look up schools on TXschools.gov</a>
           <Link className="rounded-lg border p-5 font-medium" to="/browse/cities">Find a city</Link>
           <Link className="rounded-lg border p-5 font-medium" to="/browse/counties">Find your county</Link>
         </div>
