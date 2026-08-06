@@ -55,7 +55,7 @@ function EntityPage() {
         '@type': 'BreadcrumbList',
         '@id': `${canonicalUrl}#breadcrumb`,
         itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
+          { '@type': 'ListItem', position: 1, name: 'Front page', item: `${siteUrl}/` },
           { '@type': 'ListItem', position: 2, name: 'Explore', item: `${siteUrl}/explore` },
           { '@type': 'ListItem', position: 3, name: entity.name, item: canonicalUrl },
         ],
@@ -73,10 +73,10 @@ function EntityPage() {
       <dl className="mt-10 grid gap-4 rounded-md border border-border p-6 sm:grid-cols-2 lg:grid-cols-3">
         <Fact label="County" value={entity.countySlug ? `${title(entity.countySlug)} County` : undefined} />
         <Fact label="Part of Texas" value={entity.region ? title(entity.region) : undefined} />
-        {entity.sourceCheckedAt && <Fact label="Last checked" value={entity.sourceCheckedAt.slice(0, 10)} />}
+        {entity.sourceCheckedAt && <Fact label="Details reviewed" value={formatCheckedDate(entity.sourceCheckedAt)} />}
       </dl>
       <div className="mt-8 flex flex-wrap gap-4">
-        {entity.officialUrl && <a className="underline underline-offset-4" href={entity.officialUrl} target="_blank" rel="noreferrer">Visit the official site</a>}
+        {entity.officialUrl && <a className="underline underline-offset-4" href={entity.officialUrl} target="_blank" rel="noreferrer">Visit the official website</a>}
         {entity.coordinates && <a className="underline underline-offset-4" href={`https://www.google.com/maps/search/?api=1&query=${entity.coordinates.latitude},${entity.coordinates.longitude}`} target="_blank" rel="noreferrer">Find it on the map</a>}
       </div>
       {entity.tags?.length ? <section className="mt-12"><h2 className="font-display text-3xl">What makes it worth knowing</h2><div className="mt-4 flex flex-wrap gap-2">{entity.tags.map((tag) => <span key={tag} className="rounded-full bg-muted px-3 py-1 text-sm">{title(tag)}</span>)}</div></section> : null}
@@ -87,12 +87,16 @@ function EntityPage() {
 
 function Fact({ label, value }: { label: string; value?: string }) { return value ? <div><dt className="text-xs uppercase tracking-wide text-muted-foreground">{label}</dt><dd className="mt-1 font-medium">{value}</dd></div> : null; }
 function title(value: string) { return value.replaceAll('-', ' ').replace(/\b\w/g, (character) => character.toUpperCase()); }
+function formatCheckedDate(value: string) {
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? value : date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+}
 function readerLabel(kind: string) {
   const labels: Record<string, string> = {
     county: 'County guide', city: 'City guide', region: 'Around the state', 'metro-area': 'City life',
-    museum: 'Worth a visit', 'historic-site': 'Then & now', mission: 'Texas history', battlefield: 'Texas history',
-    attraction: 'Worth the drive', fair: 'This weekend', rodeo: 'This weekend', festival: 'This weekend',
-    'holiday-event': 'Seasonal favorite', 'sporting-event': 'The Texas game',
+    museum: 'Worth a visit', 'historic-site': 'Then & Now', mission: 'Texas History', battlefield: 'Texas History',
+    attraction: 'Worth the drive', fair: 'This Weekend', rodeo: 'This Weekend', festival: 'This Weekend',
+    'holiday-event': 'Seasonal favorite', 'sporting-event': 'The Texas Game',
   };
   return labels[kind] ?? title(kind);
 }
