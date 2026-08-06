@@ -13,8 +13,8 @@ const pageUrl = `${siteUrl}/texas-living`;
 const sections = [
   ['Places worth knowing', '/explore', 'Parks, lakes, small towns and road trips for the weekends you want to remember.'],
   ['Making the move', '/moving-to-texas', 'Compare places, understand the costs and arrive with fewer surprises.'],
-  ['Home buying and ownership', '/explore/real-estate', 'Mortgages, closing costs, insurance, equity and the complete cost of owning a Texas home.'],
-  ['Money made clearer', '/decide/financial-tools', 'Straightforward calculators for housing, paychecks, utilities, insurance and household costs.'],
+  ['Home buying and ownership', '/real-estate', 'Mortgages, closing costs, insurance, equity and the complete cost of owning a Texas home.'],
+  ['Money Made Clearer', '/decide/financial-tools', 'Straightforward calculators for housing, paychecks, utilities, insurance and household costs.'],
   ['Understanding property taxes', '/learn/property-taxes', 'A plain-English look at appraisals, exemptions, protests, bills and payments.'],
   ['Find your county', '/browse/counties', 'Start with your county and continue to the offices and information that matter.'],
   ['Find a city', '/browse/cities', 'Look up cities across the state and see what we have nearby.'],
@@ -50,7 +50,7 @@ export const Route = createFileRoute('/texas-living')({
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath: '/texas-living',
-        title: 'Living in Texas',
+        title: 'Living Here',
         description,
       }),
       links: [canonicalLink(texasDefinedBrand, '/texas-living')],
@@ -63,7 +63,7 @@ export const Route = createFileRoute('/texas-living')({
               '@type': 'CollectionPage',
               '@id': `${pageUrl}#page`,
               url: pageUrl,
-              name: 'Living in Texas',
+              name: 'Living Here',
               description,
               isPartOf: { '@id': `${siteUrl}/#website` },
               mainEntity: { '@id': `${pageUrl}#topics` },
@@ -72,7 +72,7 @@ export const Route = createFileRoute('/texas-living')({
             {
               '@type': 'ItemList',
               '@id': `${pageUrl}#topics`,
-              name: 'Guides for living in Texas',
+              name: 'Guides for living here',
               numberOfItems: topicItems.length + articleItems.length,
               itemListElement: [...topicItems, ...articleItems],
             },
@@ -80,8 +80,8 @@ export const Route = createFileRoute('/texas-living')({
               '@type': 'BreadcrumbList',
               '@id': `${pageUrl}#breadcrumbs`,
               itemListElement: [
-                { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
-                { '@type': 'ListItem', position: 2, name: 'Living in Texas', item: pageUrl },
+                { '@type': 'ListItem', position: 1, name: 'Front page', item: `${siteUrl}/` },
+                { '@type': 'ListItem', position: 2, name: 'Living Here', item: pageUrl },
               ],
             },
           ],
@@ -101,12 +101,12 @@ function TexasLivingPage() {
         <main className="mx-auto max-w-6xl">
           <nav aria-label="Breadcrumb" className="text-xs text-muted-foreground">
             <ol className="flex items-center gap-2">
-              <li><Link to="/" className="hover:text-foreground">Home</Link></li>
+              <li><Link to="/" className="hover:text-foreground">Front page</Link></li>
               <li aria-hidden="true">/</li>
-              <li aria-current="page" className="text-foreground">Living in Texas</li>
+              <li aria-current="page" className="text-foreground">Living Here</li>
             </ol>
           </nav>
-          <p className="eyebrow mt-8 text-primary">Living in Texas</p>
+          <p className="eyebrow mt-8 text-primary">Living Here</p>
           <h1 className="mt-3 font-display text-4xl sm:text-6xl">The useful side of calling Texas home</h1>
           <p className="mt-5 max-w-3xl text-lg leading-8 text-muted-foreground">{description}</p>
           <p className="mt-4 max-w-2xl text-sm leading-6 text-muted-foreground">
@@ -129,10 +129,10 @@ function TexasLivingPage() {
           <Container>
             <SectionHeader
               eyebrow="Buying and owning"
-              title="The Texas home guides that were worth bringing over"
+              title="Helpful guides for the road home"
               description="Detailed help with mortgages, closing costs, insurance, equity, utilities and the complete cost of ownership."
               actionLabel="See all home guides"
-              actionTo="/explore/real-estate"
+              actionTo="/real-estate"
             />
             <ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
               {homeArticles.slice(0, 9).map((article) => (
@@ -148,7 +148,7 @@ function TexasLivingPage() {
           <Container>
             <SectionHeader
               eyebrow="Making the move"
-              title="Relocation guides built around the exact address"
+              title="Guides for settling into the right place"
               description="City-by-city help with commutes, boundaries, schools, utilities, taxes, insurance and regional costs."
               actionLabel="See all moving guides"
               actionTo="/moving-to-texas"
