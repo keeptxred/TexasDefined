@@ -34,7 +34,7 @@ function NotFoundComponent() {
           <p className="eyebrow text-primary">Wrong turn</p>
           <h1 className="mt-4 font-display text-4xl text-foreground">This road doesn't go through</h1>
           <p className="mt-3 text-sm leading-6 text-muted-foreground">The page may have moved, but there is plenty more Texas waiting just down the road.</p>
-          <div className="mt-6"><Link to="/" className="inline-flex items-center justify-center rounded-sm bg-primary px-3 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90">Start from the front page</Link></div>
+          <div className="mt-6"><Link to="/" className="inline-flex items-center justify-center rounded-sm bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90">Start from the front page</Link></div>
         </div>
       </div>
     </>
@@ -116,7 +116,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
             potentialAction: {
               "@type": "SearchAction",
               target: `${siteUrl}/search?q={search_term_string}`,
-              "query-input": "required name=query_term_string",
+              "query-input": "required name=search_term_string",
             },
           },
         ],
