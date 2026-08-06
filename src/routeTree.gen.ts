@@ -40,9 +40,11 @@ import { Route as TaxCalculatorRouteImport } from './routes/tax-calculator'
 import { Route as SportsRouteImport } from './routes/sports'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SitemapExploreDotxmlRouteImport } from './routes/sitemap-explore[.]xml'
+import { Route as ShopRouteImport } from './routes/shop'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as RealEstateRouteImport } from './routes/real-estate'
 import { Route as PropertyTaxGuidesRouteImport } from './routes/property-tax-guides'
+import { Route as PropertyTaxCalculatorsRouteImport } from './routes/property-tax-calculators'
 import { Route as MovingToTexasChecklistRouteImport } from './routes/moving-to-texas-checklist'
 import { Route as MovingToTexasRouteImport } from './routes/moving-to-texas'
 import { Route as LlmsDottxtRouteImport } from './routes/llms[.]txt'
@@ -57,7 +59,10 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ShopIndexRouteImport } from './routes/shop.index'
 import { Route as ExploreIndexRouteImport } from './routes/explore.index'
 import { Route as TexasDataDatasetSlugRouteImport } from './routes/texas-data.$datasetSlug'
+import { Route as ShopCheckoutReturnRouteImport } from './routes/shop.checkout-return'
+import { Route as ShopCartRouteImport } from './routes/shop.cart'
 import { Route as ShopCollectionRouteImport } from './routes/shop.$collection'
+import { Route as PropertyTaxCountiesRouteImport } from './routes/property-tax.counties'
 import { Route as NewsSlugRouteImport } from './routes/news.$slug'
 import { Route as LearnWildlifeManagementValuationRouteImport } from './routes/learn.wildlife-management-valuation'
 import { Route as LearnPropertyTaxesRouteImport } from './routes/learn.property-taxes'
@@ -113,6 +118,8 @@ import { Route as AdminGovernanceHealthRouteImport } from './routes/admin.govern
 import { Route as AdminEntityMaintenanceRouteImport } from './routes/admin.entity-maintenance'
 import { Route as AdminEntityImportReviewRouteImport } from './routes/admin.entity-import-review'
 import { Route as KindSlugRouteImport } from './routes/$kind.$slug'
+import { Route as ShopProductProductIdRouteImport } from './routes/shop.product.$productId'
+import { Route as PropertyTaxCountyCountyRouteImport } from './routes/property-tax.county.$county'
 import { Route as ExploreStateParkSlugRouteImport } from './routes/explore.state-park.$slug'
 import { Route as ExploreRiverSlugRouteImport } from './routes/explore.river.$slug'
 import { Route as ExploreRegionRegionRouteImport } from './routes/explore.region.$region'
@@ -294,6 +301,11 @@ const SitemapExploreDotxmlRoute = SitemapExploreDotxmlRouteImport.update({
   path: '/sitemap-explore.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ShopRoute = ShopRouteImport.update({
+  id: '/shop',
+  path: '/shop',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SearchRoute = SearchRouteImport.update({
   id: '/search',
   path: '/search',
@@ -307,6 +319,11 @@ const RealEstateRoute = RealEstateRouteImport.update({
 const PropertyTaxGuidesRoute = PropertyTaxGuidesRouteImport.update({
   id: '/property-tax-guides',
   path: '/property-tax-guides',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PropertyTaxCalculatorsRoute = PropertyTaxCalculatorsRouteImport.update({
+  id: '/property-tax-calculators',
+  path: '/property-tax-calculators',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MovingToTexasChecklistRoute = MovingToTexasChecklistRouteImport.update({
@@ -365,9 +382,9 @@ const IndexRoute = IndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const ShopIndexRoute = ShopIndexRouteImport.update({
-  id: '/shop/',
-  path: '/shop/',
-  getParentRoute: () => rootRouteImport,
+  id: '/',
+  path: '/',
+  getParentRoute: () => ShopRoute,
 } as any)
 const ExploreIndexRoute = ExploreIndexRouteImport.update({
   id: '/explore/',
@@ -379,9 +396,24 @@ const TexasDataDatasetSlugRoute = TexasDataDatasetSlugRouteImport.update({
   path: '/$datasetSlug',
   getParentRoute: () => TexasDataRoute,
 } as any)
+const ShopCheckoutReturnRoute = ShopCheckoutReturnRouteImport.update({
+  id: '/checkout-return',
+  path: '/checkout-return',
+  getParentRoute: () => ShopRoute,
+} as any)
+const ShopCartRoute = ShopCartRouteImport.update({
+  id: '/cart',
+  path: '/cart',
+  getParentRoute: () => ShopRoute,
+} as any)
 const ShopCollectionRoute = ShopCollectionRouteImport.update({
-  id: '/shop/$collection',
-  path: '/shop/$collection',
+  id: '/$collection',
+  path: '/$collection',
+  getParentRoute: () => ShopRoute,
+} as any)
+const PropertyTaxCountiesRoute = PropertyTaxCountiesRouteImport.update({
+  id: '/property-tax/counties',
+  path: '/property-tax/counties',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NewsSlugRoute = NewsSlugRouteImport.update({
@@ -680,6 +712,16 @@ const KindSlugRoute = KindSlugRouteImport.update({
   path: '/$kind/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ShopProductProductIdRoute = ShopProductProductIdRouteImport.update({
+  id: '/product/$productId',
+  path: '/product/$productId',
+  getParentRoute: () => ShopRoute,
+} as any)
+const PropertyTaxCountyCountyRoute = PropertyTaxCountyCountyRouteImport.update({
+  id: '/property-tax/county/$county',
+  path: '/property-tax/county/$county',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ExploreStateParkSlugRoute = ExploreStateParkSlugRouteImport.update({
   id: '/explore/state-park/$slug',
   path: '/explore/state-park/$slug',
@@ -728,9 +770,11 @@ export interface FileRoutesByFullPath {
   '/llms.txt': typeof LlmsDottxtRoute
   '/moving-to-texas': typeof MovingToTexasRoute
   '/moving-to-texas-checklist': typeof MovingToTexasChecklistRoute
+  '/property-tax-calculators': typeof PropertyTaxCalculatorsRoute
   '/property-tax-guides': typeof PropertyTaxGuidesRoute
   '/real-estate': typeof RealEstateRoute
   '/search': typeof SearchRoute
+  '/shop': typeof ShopRouteWithChildren
   '/sitemap-explore.xml': typeof SitemapExploreDotxmlRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sports': typeof SportsRoute
@@ -817,7 +861,10 @@ export interface FileRoutesByFullPath {
   '/learn/property-taxes': typeof LearnPropertyTaxesRoute
   '/learn/wildlife-management-valuation': typeof LearnWildlifeManagementValuationRoute
   '/news/$slug': typeof NewsSlugRoute
+  '/property-tax/counties': typeof PropertyTaxCountiesRoute
   '/shop/$collection': typeof ShopCollectionRoute
+  '/shop/cart': typeof ShopCartRoute
+  '/shop/checkout-return': typeof ShopCheckoutReturnRoute
   '/texas-data/$datasetSlug': typeof TexasDataDatasetSlugRoute
   '/explore/': typeof ExploreIndexRoute
   '/shop/': typeof ShopIndexRoute
@@ -828,6 +875,8 @@ export interface FileRoutesByFullPath {
   '/explore/region/$region': typeof ExploreRegionRegionRoute
   '/explore/river/$slug': typeof ExploreRiverSlugRoute
   '/explore/state-park/$slug': typeof ExploreStateParkSlugRoute
+  '/property-tax/county/$county': typeof PropertyTaxCountyCountyRoute
+  '/shop/product/$productId': typeof ShopProductProductIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -841,6 +890,7 @@ export interface FileRoutesByTo {
   '/llms.txt': typeof LlmsDottxtRoute
   '/moving-to-texas': typeof MovingToTexasRoute
   '/moving-to-texas-checklist': typeof MovingToTexasChecklistRoute
+  '/property-tax-calculators': typeof PropertyTaxCalculatorsRoute
   '/property-tax-guides': typeof PropertyTaxGuidesRoute
   '/real-estate': typeof RealEstateRoute
   '/search': typeof SearchRoute
@@ -930,7 +980,10 @@ export interface FileRoutesByTo {
   '/learn/property-taxes': typeof LearnPropertyTaxesRoute
   '/learn/wildlife-management-valuation': typeof LearnWildlifeManagementValuationRoute
   '/news/$slug': typeof NewsSlugRoute
+  '/property-tax/counties': typeof PropertyTaxCountiesRoute
   '/shop/$collection': typeof ShopCollectionRoute
+  '/shop/cart': typeof ShopCartRoute
+  '/shop/checkout-return': typeof ShopCheckoutReturnRoute
   '/texas-data/$datasetSlug': typeof TexasDataDatasetSlugRoute
   '/explore': typeof ExploreIndexRoute
   '/shop': typeof ShopIndexRoute
@@ -941,6 +994,8 @@ export interface FileRoutesByTo {
   '/explore/region/$region': typeof ExploreRegionRegionRoute
   '/explore/river/$slug': typeof ExploreRiverSlugRoute
   '/explore/state-park/$slug': typeof ExploreStateParkSlugRoute
+  '/property-tax/county/$county': typeof PropertyTaxCountyCountyRoute
+  '/shop/product/$productId': typeof ShopProductProductIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -955,9 +1010,11 @@ export interface FileRoutesById {
   '/llms.txt': typeof LlmsDottxtRoute
   '/moving-to-texas': typeof MovingToTexasRoute
   '/moving-to-texas-checklist': typeof MovingToTexasChecklistRoute
+  '/property-tax-calculators': typeof PropertyTaxCalculatorsRoute
   '/property-tax-guides': typeof PropertyTaxGuidesRoute
   '/real-estate': typeof RealEstateRoute
   '/search': typeof SearchRoute
+  '/shop': typeof ShopRouteWithChildren
   '/sitemap-explore.xml': typeof SitemapExploreDotxmlRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sports': typeof SportsRoute
@@ -1044,7 +1101,10 @@ export interface FileRoutesById {
   '/learn/property-taxes': typeof LearnPropertyTaxesRoute
   '/learn/wildlife-management-valuation': typeof LearnWildlifeManagementValuationRoute
   '/news/$slug': typeof NewsSlugRoute
+  '/property-tax/counties': typeof PropertyTaxCountiesRoute
   '/shop/$collection': typeof ShopCollectionRoute
+  '/shop/cart': typeof ShopCartRoute
+  '/shop/checkout-return': typeof ShopCheckoutReturnRoute
   '/texas-data/$datasetSlug': typeof TexasDataDatasetSlugRoute
   '/explore/': typeof ExploreIndexRoute
   '/shop/': typeof ShopIndexRoute
@@ -1055,6 +1115,8 @@ export interface FileRoutesById {
   '/explore/region/$region': typeof ExploreRegionRegionRoute
   '/explore/river/$slug': typeof ExploreRiverSlugRoute
   '/explore/state-park/$slug': typeof ExploreStateParkSlugRoute
+  '/property-tax/county/$county': typeof PropertyTaxCountyCountyRoute
+  '/shop/product/$productId': typeof ShopProductProductIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -1070,9 +1132,11 @@ export interface FileRouteTypes {
     | '/llms.txt'
     | '/moving-to-texas'
     | '/moving-to-texas-checklist'
+    | '/property-tax-calculators'
     | '/property-tax-guides'
     | '/real-estate'
     | '/search'
+    | '/shop'
     | '/sitemap-explore.xml'
     | '/sitemap.xml'
     | '/sports'
@@ -1159,7 +1223,10 @@ export interface FileRouteTypes {
     | '/learn/property-taxes'
     | '/learn/wildlife-management-valuation'
     | '/news/$slug'
+    | '/property-tax/counties'
     | '/shop/$collection'
+    | '/shop/cart'
+    | '/shop/checkout-return'
     | '/texas-data/$datasetSlug'
     | '/explore/'
     | '/shop/'
@@ -1170,6 +1237,8 @@ export interface FileRouteTypes {
     | '/explore/region/$region'
     | '/explore/river/$slug'
     | '/explore/state-park/$slug'
+    | '/property-tax/county/$county'
+    | '/shop/product/$productId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -1183,6 +1252,7 @@ export interface FileRouteTypes {
     | '/llms.txt'
     | '/moving-to-texas'
     | '/moving-to-texas-checklist'
+    | '/property-tax-calculators'
     | '/property-tax-guides'
     | '/real-estate'
     | '/search'
@@ -1272,7 +1342,10 @@ export interface FileRouteTypes {
     | '/learn/property-taxes'
     | '/learn/wildlife-management-valuation'
     | '/news/$slug'
+    | '/property-tax/counties'
     | '/shop/$collection'
+    | '/shop/cart'
+    | '/shop/checkout-return'
     | '/texas-data/$datasetSlug'
     | '/explore'
     | '/shop'
@@ -1283,6 +1356,8 @@ export interface FileRouteTypes {
     | '/explore/region/$region'
     | '/explore/river/$slug'
     | '/explore/state-park/$slug'
+    | '/property-tax/county/$county'
+    | '/shop/product/$productId'
   id:
     | '__root__'
     | '/'
@@ -1296,9 +1371,11 @@ export interface FileRouteTypes {
     | '/llms.txt'
     | '/moving-to-texas'
     | '/moving-to-texas-checklist'
+    | '/property-tax-calculators'
     | '/property-tax-guides'
     | '/real-estate'
     | '/search'
+    | '/shop'
     | '/sitemap-explore.xml'
     | '/sitemap.xml'
     | '/sports'
@@ -1385,7 +1462,10 @@ export interface FileRouteTypes {
     | '/learn/property-taxes'
     | '/learn/wildlife-management-valuation'
     | '/news/$slug'
+    | '/property-tax/counties'
     | '/shop/$collection'
+    | '/shop/cart'
+    | '/shop/checkout-return'
     | '/texas-data/$datasetSlug'
     | '/explore/'
     | '/shop/'
@@ -1396,6 +1476,8 @@ export interface FileRouteTypes {
     | '/explore/region/$region'
     | '/explore/river/$slug'
     | '/explore/state-park/$slug'
+    | '/property-tax/county/$county'
+    | '/shop/product/$productId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -1410,9 +1492,11 @@ export interface RootRouteChildren {
   LlmsDottxtRoute: typeof LlmsDottxtRoute
   MovingToTexasRoute: typeof MovingToTexasRoute
   MovingToTexasChecklistRoute: typeof MovingToTexasChecklistRoute
+  PropertyTaxCalculatorsRoute: typeof PropertyTaxCalculatorsRoute
   PropertyTaxGuidesRoute: typeof PropertyTaxGuidesRoute
   RealEstateRoute: typeof RealEstateRoute
   SearchRoute: typeof SearchRoute
+  ShopRoute: typeof ShopRouteWithChildren
   SitemapExploreDotxmlRoute: typeof SitemapExploreDotxmlRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SportsRoute: typeof SportsRoute
@@ -1492,9 +1576,8 @@ export interface RootRouteChildren {
   LearnPropertyTaxesRoute: typeof LearnPropertyTaxesRoute
   LearnWildlifeManagementValuationRoute: typeof LearnWildlifeManagementValuationRoute
   NewsSlugRoute: typeof NewsSlugRoute
-  ShopCollectionRoute: typeof ShopCollectionRoute
+  PropertyTaxCountiesRoute: typeof PropertyTaxCountiesRoute
   ExploreIndexRoute: typeof ExploreIndexRoute
-  ShopIndexRoute: typeof ShopIndexRoute
   ApiAiEntitiesRoute: typeof ApiAiEntitiesRoute
   ExploreCavernSlugRoute: typeof ExploreCavernSlugRoute
   ExploreCountyCountyRoute: typeof ExploreCountyCountyRoute
@@ -1502,6 +1585,7 @@ export interface RootRouteChildren {
   ExploreRegionRegionRoute: typeof ExploreRegionRegionRoute
   ExploreRiverSlugRoute: typeof ExploreRiverSlugRoute
   ExploreStateParkSlugRoute: typeof ExploreStateParkSlugRoute
+  PropertyTaxCountyCountyRoute: typeof PropertyTaxCountyCountyRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -1723,6 +1807,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapExploreDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/shop': {
+      id: '/shop'
+      path: '/shop'
+      fullPath: '/shop'
+      preLoaderRoute: typeof ShopRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/search': {
       id: '/search'
       path: '/search'
@@ -1742,6 +1833,13 @@ declare module '@tanstack/react-router' {
       path: '/property-tax-guides'
       fullPath: '/property-tax-guides'
       preLoaderRoute: typeof PropertyTaxGuidesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/property-tax-calculators': {
+      id: '/property-tax-calculators'
+      path: '/property-tax-calculators'
+      fullPath: '/property-tax-calculators'
+      preLoaderRoute: typeof PropertyTaxCalculatorsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/moving-to-texas-checklist': {
@@ -1823,10 +1921,10 @@ declare module '@tanstack/react-router' {
     }
     '/shop/': {
       id: '/shop/'
-      path: '/shop'
+      path: '/'
       fullPath: '/shop/'
       preLoaderRoute: typeof ShopIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof ShopRoute
     }
     '/explore/': {
       id: '/explore/'
@@ -1842,11 +1940,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TexasDataDatasetSlugRouteImport
       parentRoute: typeof TexasDataRoute
     }
+    '/shop/checkout-return': {
+      id: '/shop/checkout-return'
+      path: '/checkout-return'
+      fullPath: '/shop/checkout-return'
+      preLoaderRoute: typeof ShopCheckoutReturnRouteImport
+      parentRoute: typeof ShopRoute
+    }
+    '/shop/cart': {
+      id: '/shop/cart'
+      path: '/cart'
+      fullPath: '/shop/cart'
+      preLoaderRoute: typeof ShopCartRouteImport
+      parentRoute: typeof ShopRoute
+    }
     '/shop/$collection': {
       id: '/shop/$collection'
-      path: '/shop/$collection'
+      path: '/$collection'
       fullPath: '/shop/$collection'
       preLoaderRoute: typeof ShopCollectionRouteImport
+      parentRoute: typeof ShopRoute
+    }
+    '/property-tax/counties': {
+      id: '/property-tax/counties'
+      path: '/property-tax/counties'
+      fullPath: '/property-tax/counties'
+      preLoaderRoute: typeof PropertyTaxCountiesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/news/$slug': {
@@ -2234,6 +2353,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KindSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/shop/product/$productId': {
+      id: '/shop/product/$productId'
+      path: '/product/$productId'
+      fullPath: '/shop/product/$productId'
+      preLoaderRoute: typeof ShopProductProductIdRouteImport
+      parentRoute: typeof ShopRoute
+    }
+    '/property-tax/county/$county': {
+      id: '/property-tax/county/$county'
+      path: '/property-tax/county/$county'
+      fullPath: '/property-tax/county/$county'
+      preLoaderRoute: typeof PropertyTaxCountyCountyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/explore/state-park/$slug': {
       id: '/explore/state-park/$slug'
       path: '/explore/state-park/$slug'
@@ -2308,6 +2441,24 @@ const AdminRouteChildren: AdminRouteChildren = {
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
+interface ShopRouteChildren {
+  ShopCollectionRoute: typeof ShopCollectionRoute
+  ShopCartRoute: typeof ShopCartRoute
+  ShopCheckoutReturnRoute: typeof ShopCheckoutReturnRoute
+  ShopIndexRoute: typeof ShopIndexRoute
+  ShopProductProductIdRoute: typeof ShopProductProductIdRoute
+}
+
+const ShopRouteChildren: ShopRouteChildren = {
+  ShopCollectionRoute: ShopCollectionRoute,
+  ShopCartRoute: ShopCartRoute,
+  ShopCheckoutReturnRoute: ShopCheckoutReturnRoute,
+  ShopIndexRoute: ShopIndexRoute,
+  ShopProductProductIdRoute: ShopProductProductIdRoute,
+}
+
+const ShopRouteWithChildren = ShopRoute._addFileChildren(ShopRouteChildren)
+
 interface TexasDataRouteChildren {
   TexasDataDatasetSlugRoute: typeof TexasDataDatasetSlugRoute
 }
@@ -2332,9 +2483,11 @@ const rootRouteChildren: RootRouteChildren = {
   LlmsDottxtRoute: LlmsDottxtRoute,
   MovingToTexasRoute: MovingToTexasRoute,
   MovingToTexasChecklistRoute: MovingToTexasChecklistRoute,
+  PropertyTaxCalculatorsRoute: PropertyTaxCalculatorsRoute,
   PropertyTaxGuidesRoute: PropertyTaxGuidesRoute,
   RealEstateRoute: RealEstateRoute,
   SearchRoute: SearchRoute,
+  ShopRoute: ShopRouteWithChildren,
   SitemapExploreDotxmlRoute: SitemapExploreDotxmlRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SportsRoute: SportsRoute,
@@ -2420,9 +2573,8 @@ const rootRouteChildren: RootRouteChildren = {
   LearnPropertyTaxesRoute: LearnPropertyTaxesRoute,
   LearnWildlifeManagementValuationRoute: LearnWildlifeManagementValuationRoute,
   NewsSlugRoute: NewsSlugRoute,
-  ShopCollectionRoute: ShopCollectionRoute,
+  PropertyTaxCountiesRoute: PropertyTaxCountiesRoute,
   ExploreIndexRoute: ExploreIndexRoute,
-  ShopIndexRoute: ShopIndexRoute,
   ApiAiEntitiesRoute: ApiAiEntitiesRoute,
   ExploreCavernSlugRoute: ExploreCavernSlugRoute,
   ExploreCountyCountyRoute: ExploreCountyCountyRoute,
@@ -2430,17 +2582,8 @@ const rootRouteChildren: RootRouteChildren = {
   ExploreRegionRegionRoute: ExploreRegionRegionRoute,
   ExploreRiverSlugRoute: ExploreRiverSlugRoute,
   ExploreStateParkSlugRoute: ExploreStateParkSlugRoute,
+  PropertyTaxCountyCountyRoute: PropertyTaxCountyCountyRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
