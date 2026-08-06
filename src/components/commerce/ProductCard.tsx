@@ -36,7 +36,7 @@ export function ProductCard({ product, className }: { product: Product; classNam
         <Heart className={cn("size-4", saved && "fill-primary text-primary")} aria-hidden />
       </button>
       {product.productUrl ? (
-        <Link to="/shop/$productId" params={{ productId: product.id }} className="block" aria-label={`View ${product.name}`}>{content}</Link>
+        <Link to="/shop/product/$productId" params={{ productId: product.id }} className="block" aria-label={`View ${product.name}`}>{content}</Link>
       ) : collection ? (
         <Link to="/shop/$collection" params={{ collection }} className="block">{content}</Link>
       ) : content}
