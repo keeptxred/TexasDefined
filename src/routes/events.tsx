@@ -91,7 +91,7 @@ export const Route = createFileRoute("/events")({
         "@type": "BreadcrumbList",
         "@id": `${pageUrl}#breadcrumbs`,
         itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
+          { "@type": "ListItem", position: 1, name: "Front page", item: `${siteUrl}/` },
           { "@type": "ListItem", position: 2, name: "This Weekend", item: pageUrl },
         ],
       },
@@ -151,7 +151,7 @@ function EventsPage() {
         <Container className="relative py-20 sm:py-28">
           <nav aria-label="Breadcrumb" className="text-xs text-ink-foreground/70">
             <ol className="flex items-center gap-2">
-              <li><Link to="/" className="hover:text-ink-foreground">Home</Link></li>
+              <li><Link to="/" className="hover:text-ink-foreground">Front page</Link></li>
               <li aria-hidden="true">/</li>
               <li aria-current="page" className="text-ink-foreground">This Weekend</li>
             </ol>
@@ -172,7 +172,7 @@ function EventsPage() {
               </p>
               <p className="mt-3 text-sm text-ink-foreground/70">
                 {formatDateRange(featured.startDate, featured.endDate, brand.identity.locale)} ·{" "}
-                In {featured.city}{regionName(featured.region) ? ` · ${regionName(featured.region)}` : ""}
+                {featured.city}{regionName(featured.region) ? ` · ${regionName(featured.region)}` : ""}
               </p>
             </div>
           )}
