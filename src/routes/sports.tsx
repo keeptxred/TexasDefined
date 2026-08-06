@@ -13,7 +13,7 @@ export const Route = createFileRoute("/sports")({
   head: ({ loaderData }: { loaderData?: { articles: Article[]; destinations: Destination[] } }) => loaderData
     ? buildEditorialCollectionHead(texasDefinedBrand, {
         canonicalPath: "/sports",
-        title: "Sports",
+        title: "The Texas Game",
         collectionName: "The Texas Game",
         description,
         breadcrumbParentName: "The Magazine",
@@ -37,7 +37,7 @@ export const Route = createFileRoute("/sports")({
       })
     : ({
         meta: buildMeta(texasDefinedBrand, {
-          title: "Sports",
+          title: "The Texas Game",
           description,
           canonicalPath: "/sports",
         }),
@@ -54,7 +54,7 @@ export const Route = createFileRoute("/sports")({
   component: () => (
     <CategoryPage
       category="sports"
-      eyebrow="The Texas game"
+      eyebrow="The Texas Game"
       title="Where Friday nights still matter"
       intro={description}
     />
