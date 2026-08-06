@@ -5,6 +5,7 @@ import { supplementalExploreCategories } from "./explore-categories";
 import { fetchExploreDestination, fetchExploreDestinations } from "./explore-remote";
 import { platform, scope } from "./index";
 import type { ArticleQuery, DestinationQuery } from "./repositories";
+import { fetchAssignedShopProducts } from "./shop-products-remote";
 import type { Destination, SearchDocument, Slug } from "./types";
 
 export const articlesQuery = (params: Omit<ArticleQuery, "brandId"> = {}) => queryOptions({ queryKey: ["articles", scope.brandId, params], queryFn: () => platform.articles.list({ ...scope, ...params }) });
@@ -79,7 +80,17 @@ export const destinationQuery = (slug: Slug) => queryOptions({
   },
 });
 
-export const productsQuery = (params: { collection?: Slug; limit?: number } = {}) => queryOptions({ queryKey: ["products", scope.brandId, params], queryFn: () => platform.products.list({ ...scope, ...params }) });
+export const productsQuery = (params: { collection?: Slug; limit?: number } = {}) => queryOptions({
+  queryKey: ["products", scope.brandId, params],
+  queryFn: async () => {
+    try {
+      return await fetchAssignedShopProducts(params);
+    } catch (error) {
+      console.error("Assigned commerce catalog unavailable; using local catalog fallback", error);
+      return platform.products.list({ ...scope, ...params });
+    }
+  },
+});
 export const collectionsQuery = () => queryOptions({ queryKey: ["collections", scope.brandId], queryFn: () => platform.collections.list(scope) });
 export const collectionQuery = (slug: Slug) => queryOptions({ queryKey: ["collection", scope.brandId, slug], queryFn: () => platform.collections.getBySlug(scope, slug) });
 export const guidesQuery = () => queryOptions({ queryKey: ["guides", scope.brandId], queryFn: () => platform.guides.list(scope) });
