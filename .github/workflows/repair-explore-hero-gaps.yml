@@ -5,7 +5,7 @@ on:
   push:
     branches: [main]
     paths:
-      - "scripts/data/repair-explore-hero-gaps.mjs"
+      - "scripts/data/repair-explore-final.mjs"
       - ".github/workflows/repair-explore-hero-gaps.yml"
 
 permissions:
@@ -38,7 +38,7 @@ jobs:
           fi
 
       - name: Repair final gaps and validate hero inventory
-        run: node scripts/data/repair-explore-hero-gaps.mjs
+        run: node scripts/data/repair-explore-final.mjs
 
       - name: Commit repaired Explore hero assets
         run: |
