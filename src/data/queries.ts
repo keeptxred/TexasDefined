@@ -4,6 +4,7 @@ import { fetchPublishedTexasEvents } from "./events-remote";
 import { fetchCoreExploreDestination, fetchCoreExploreDestinations } from "./explore-core-remote";
 import { supplementalExploreCategories } from "./explore-categories";
 import { fetchExploreDestination, fetchExploreDestinations } from "./explore-remote";
+import { legacyLakeDestinations } from "./fixtures/legacy-lakes";
 import { platform, scope } from "./index";
 import type { ArticleQuery, DestinationQuery } from "./repositories";
 import { fetchAssignedShopProducts } from "./shop-products-remote";
@@ -22,42 +23,55 @@ function featuredFallback(destinations: Destination[], limit = 6) {
     .slice(0, limit);
 }
 
+function mergeDestinations(...groups: Destination[][]): Destination[] {
+  const merged = new Map<string, Destination>();
+  for (const group of groups) {
+    for (const destination of group) {
+      if (!destination.slug || merged.has(destination.slug)) continue;
+      merged.set(destination.slug, destination);
+    }
+  }
+  return [...merged.values()];
+}
+
 export const destinationsQuery = (params: Omit<DestinationQuery, "brandId"> = {}) => queryOptions({
   queryKey: ["destinations", scope.brandId, params],
   queryFn: async () => {
     const options = { featured: params.featured, category: params.category, limit: params.limit };
+    let enriched: Destination[] = [];
+    let core: Destination[] = [];
 
-    // The enriched catalog is preferred, but an empty result is not proof that
-    // the category is empty. During migrations/enrichment some valid public
-    // Explore records may only be available through the core catalog.
     try {
-      const enriched = await fetchExploreDestinations(options);
-      if (enriched.length) return enriched;
-      if (params.featured) {
+      enriched = await fetchExploreDestinations(options);
+      if (params.featured && !enriched.length) {
         const catalog = await fetchExploreDestinations({ category: params.category, limit: 5000 });
-        if (catalog.length) return featuredFallback(catalog, params.limit ?? 6);
+        enriched = featuredFallback(catalog, params.limit ?? 6);
       }
     } catch (error) {
       console.error("Explore enrichment unavailable; retrying core remote catalog", error);
     }
 
-    // Always try the broader core catalog when the enriched path is empty or
-    // unavailable. This prevents populated Explore categories from rendering
-    // as empty simply because enrichment rows have not caught up yet.
-    try {
-      const core = await fetchCoreExploreDestinations(options);
-      if (core.length) return core;
-      if (params.featured) {
-        const catalog = await fetchCoreExploreDestinations({ category: params.category, limit: 5000 });
-        if (catalog.length) return featuredFallback(catalog, params.limit ?? 6);
+    // Lakes and rivers were heavily populated before the site split. Do not
+    // treat a small enriched result set as the complete migration: merge the
+    // broader core catalog and the preserved pre-split lake catalog instead.
+    if (!enriched.length || params.category === "lakes-rivers") {
+      try {
+        core = await fetchCoreExploreDestinations(options);
+        if (params.featured && !core.length) {
+          const catalog = await fetchCoreExploreDestinations({ category: params.category, limit: 5000 });
+          core = featuredFallback(catalog, params.limit ?? 6);
+        }
+      } catch (error) {
+        console.error("Core Explore remote catalog unavailable; using preserved catalog", error);
       }
-    } catch (error) {
-      console.error("Core Explore remote catalog unavailable; retrying local fallback", error);
     }
 
-    // The fixture catalog is intentionally last, but it is better than a blank
-    // category when remote data is temporarily unavailable or mid-migration.
-    return platform.destinations.list({ ...scope, ...params });
+    const local = await platform.destinations.list({ ...scope, ...params });
+    const preserved = params.category === "lakes-rivers" || !params.category ? legacyLakeDestinations : [];
+    const merged = mergeDestinations(enriched, core, preserved, local);
+
+    if (params.featured) return featuredFallback(merged, params.limit ?? 6);
+    return params.limit ? merged.slice(0, params.limit) : merged;
   },
 });
 
@@ -75,9 +89,11 @@ export const destinationQuery = (slug: Slug) => queryOptions({
       const core = await fetchCoreExploreDestination(slug);
       if (core) return core;
     } catch (error) {
-      console.error("Core Explore remote destination unavailable; retrying local fallback", error);
+      console.error("Core Explore remote destination unavailable; retrying preserved catalog", error);
     }
 
+    const preserved = legacyLakeDestinations.find((destination) => destination.slug === slug);
+    if (preserved) return preserved;
     return platform.destinations.getBySlug(scope, slug);
   },
 });
@@ -134,7 +150,7 @@ export const categoriesQuery = () => queryOptions({
 export const regionsQuery = () => queryOptions({ queryKey: ["regions", scope.brandId], queryFn: () => platform.taxonomy.regions(scope) });
 export const authorsQuery = () => queryOptions({ queryKey: ["authors", scope.brandId], queryFn: () => platform.taxonomy.authors(scope) });
 
-function destinationSearchDocument(destination: Awaited<ReturnType<typeof fetchExploreDestinations>>[number]): SearchDocument {
+function destinationSearchDocument(destination: Destination): SearchDocument {
   const keywords = [destination.category, destination.region, destination.nearestTown, destination.county, destination.managingAuthority, destination.bestSeason, ...destination.highlights].filter((value): value is string => Boolean(value));
   return { id: `destination:${destination.slug}`, brandId: "texasdefined", kind: "destination", title: destination.name, summary: destination.summary, keywords: [...new Set(keywords)], href: `/destination/${destination.slug}` };
 }
@@ -143,13 +159,13 @@ export const searchDocumentsQuery = () => queryOptions({
   queryKey: ["search-documents", scope.brandId],
   queryFn: async () => {
     const base = await platform.search.documents(scope);
-    let destinations = [] as Awaited<ReturnType<typeof fetchExploreDestinations>>;
-    try { destinations = await fetchExploreDestinations({ limit: 5000 }); }
+    let enriched: Destination[] = [];
+    let core: Destination[] = [];
+    try { enriched = await fetchExploreDestinations({ limit: 5000 }); }
     catch (error) { console.error("Enriched destination search index unavailable; retrying core remote catalog", error); }
-    if (!destinations.length) {
-      try { destinations = await fetchCoreExploreDestinations({ limit: 5000 }); }
-      catch (coreError) { console.error("Core remote destination search index unavailable; retaining fixture search documents", coreError); }
-    }
+    try { core = await fetchCoreExploreDestinations({ limit: 5000 }); }
+    catch (coreError) { console.error("Core remote destination search index unavailable; retaining preserved destinations", coreError); }
+    const destinations = mergeDestinations(enriched, core, legacyLakeDestinations);
     if (!destinations.length) return base;
     return [...base.filter((document) => document.kind !== "destination"), ...destinations.map(destinationSearchDocument)];
   },
