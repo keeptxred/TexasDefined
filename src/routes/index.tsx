@@ -3,7 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { useBrand } from "@/brand/context";
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { CollectionStrip } from "@/components/commerce/CollectionStrip";
+
 import { ArticleCard } from "@/components/editorial/ArticleCard";
 import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { EventCard } from "@/components/editorial/EventCard";
@@ -13,7 +13,6 @@ import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import {
   articlesQuery,
-  collectionsQuery,
   destinationsQuery,
   eventsQuery,
   guidesQuery,
@@ -28,17 +27,16 @@ const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
 export const Route = createFileRoute("/")({
   loader: async ({ context }) => {
-    const [featured, latest, destinations, roadTrips, regions, collections, guides, events] = await Promise.all([
+    const [featured, latest, destinations, roadTrips, regions, guides, events] = await Promise.all([
       context.queryClient.ensureQueryData(articlesQuery({ featured: true, limit: 5 })),
       context.queryClient.ensureQueryData(articlesQuery({ limit: 12 })),
       context.queryClient.ensureQueryData(destinationsQuery({})),
       context.queryClient.ensureQueryData(destinationsQuery({ category: "road-trips" })),
       context.queryClient.ensureQueryData(regionsQuery()),
-      context.queryClient.ensureQueryData(collectionsQuery()),
       context.queryClient.ensureQueryData(guidesQuery()),
       context.queryClient.ensureQueryData(eventsQuery({ limit: 4 })),
     ]);
-    return { featured, latest, destinations, roadTrips, regions, collections, guides, events };
+    return { featured, latest, destinations, roadTrips, regions, guides, events };
   },
   head: ({ loaderData }) => {
     const featured = loaderData?.featured ?? [];
@@ -110,7 +108,7 @@ function HomePage() {
   const { data: destinations } = useSuspenseQuery(destinationsQuery({}));
   const { data: roadTrips } = useSuspenseQuery(destinationsQuery({ category: "road-trips" }));
   const { data: regions } = useSuspenseQuery(regionsQuery());
-  const { data: collections } = useSuspenseQuery(collectionsQuery());
+  
   const { data: guides } = useSuspenseQuery(guidesQuery());
   const { data: events } = useSuspenseQuery(eventsQuery({ limit: 4 }));
 
@@ -141,7 +139,7 @@ function HomePage() {
 
       {brand.features.guides && guides.length > 0 && <Section tone="surface"><Container><SectionHeader eyebrow="Front porch" title="The practical side of living here" description="Homes, moving, money and the everyday questions that come with putting down roots." actionLabel="Find a helpful guide" actionTo="/guides" /><ul className="mt-10 grid gap-6 md:grid-cols-3">{guides.slice(0, 3).map((guide) => <li key={guide.id}><GuideCard guide={guide} /></li>)}</ul></Container></Section>}
 
-      {brand.features.shop && collections.length > 0 && <Section><Container><SectionHeader eyebrow="Made here" title="Things we'd actually buy" description="A few well-made finds with a real connection to the places and stories we cover." actionLabel="See our picks" actionTo="/shop" /><div className="mt-10"><CollectionStrip collections={collections.slice(0, 3)} /></div></Container></Section>}
+      
 
       <Section tone="surface"><Container><SectionHeader eyebrow="New this week" title="The latest from Texas Defined" description="Fresh stories, useful guides and another reason to keep exploring." /><ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">{latest.slice(0, 8).map((article) => <li key={article.id}><ArticleCard article={article} size="compact" /></li>)}</ul></Container></Section>
     </>
