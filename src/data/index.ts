@@ -15,6 +15,15 @@ import type { Article, ArticleBlock } from "./types";
  * products, events) is still fixture-backed until it moves to the catalog.
  */
 
+const TEXAS_UNDERGROUND_SLUG = "texas-caverns-caves-first-timers-guide";
+const TEXAS_UNDERGROUND_HERO = {
+  src: "/images/explore/caverns/longhorn-cavern-state-park.jpg",
+  alt: "Underground limestone formations inside Longhorn Cavern State Park in Texas",
+  width: 1600,
+  height: 1200,
+  credit: "Billy Hathorn · CC BY 3.0 · Wikimedia Commons",
+} as const;
+
 const wordsInBlock = (block: ArticleBlock) => {
   if (block.type === "shop") return 0;
   const text = block.type === "list" ? block.items.join(" ") : block.text;
@@ -32,8 +41,13 @@ const normalizeArticle = (article: Article): Article => {
       ? caddoLakeCypressMorningArticle
       : article;
 
+  const hero = source.slug === TEXAS_UNDERGROUND_SLUG
+    ? TEXAS_UNDERGROUND_HERO
+    : source.hero;
+
   return {
     ...source,
+    hero,
     readingMinutes: computedReadingMinutes(source),
   };
 };
