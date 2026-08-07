@@ -38,75 +38,45 @@ const hubUrl = absoluteUrl(texasDefinedBrand, '/decide/financial-tools');
 
 export const Route = createFileRoute('/decide/financial-tools')({
   head: () => ({
-    meta: buildMeta(texasDefinedBrand, {
-      canonicalPath: '/decide/financial-tools',
-      title: 'Money Made Clearer',
-      description,
-    }),
+    meta: buildMeta(texasDefinedBrand, { canonicalPath: '/decide/financial-tools', title: 'Texas Money & Home Calculators', description }),
     links: [canonicalLink(texasDefinedBrand, '/decide/financial-tools')],
-    scripts: [
-      jsonLd({
-        '@context': 'https://schema.org',
-        '@graph': [
-          {
-            '@type': 'CollectionPage',
-            '@id': `${hubUrl}#page`,
-            url: hubUrl,
-            name: 'Money Made Clearer',
-            description,
-            isPartOf: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#website` },
-            mainEntity: { '@id': `${hubUrl}#tools` },
-          },
-          {
-            '@type': 'BreadcrumbList',
-            '@id': `${hubUrl}#breadcrumb`,
-            itemListElement: [
-              { '@type': 'ListItem', position: 1, name: 'Home', item: absoluteUrl(texasDefinedBrand, '/') },
-              { '@type': 'ListItem', position: 2, name: 'Money Made Clearer', item: hubUrl },
-            ],
-          },
-          {
-            '@type': 'ItemList',
-            '@id': `${hubUrl}#tools`,
-            name: 'Calculators and guides for everyday money decisions',
-            numberOfItems: sections.length,
-            itemListElement: sections.map(([name, path, itemDescription], index) => ({
-              '@type': 'ListItem',
-              position: index + 1,
-              url: absoluteUrl(texasDefinedBrand, path),
-              item: {
-                '@type': 'WebPage',
-                name,
-                description: itemDescription,
-                url: absoluteUrl(texasDefinedBrand, path),
-              },
-            })),
-          },
-        ],
-      }),
-    ],
+    scripts: [jsonLd({ '@context': 'https://schema.org', '@graph': [
+      { '@type': 'CollectionPage', '@id': `${hubUrl}#page`, url: hubUrl, name: 'Texas Money & Home Calculators', description, isPartOf: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#website` }, mainEntity: { '@id': `${hubUrl}#tools` } },
+      { '@type': 'BreadcrumbList', '@id': `${hubUrl}#breadcrumb`, itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: absoluteUrl(texasDefinedBrand, '/') }, { '@type': 'ListItem', position: 2, name: 'Money & Home Tools', item: hubUrl }] },
+      { '@type': 'ItemList', '@id': `${hubUrl}#tools`, name: 'Calculators and guides for everyday money decisions', numberOfItems: sections.length, itemListElement: sections.map(([name, path, itemDescription], index) => ({ '@type': 'ListItem', position: index + 1, url: absoluteUrl(texasDefinedBrand, path), item: { '@type': 'WebPage', name, description: itemDescription, url: absoluteUrl(texasDefinedBrand, path) } })) },
+    ] })],
   }),
   component: Page,
 });
 
 function Page() {
-  return (
-    <Container className="py-16 sm:py-24">
-      <main className="mx-auto max-w-6xl">
-        <p className="eyebrow text-primary">Money Made Clearer</p>
-        <h1 className="mt-3 font-display text-4xl sm:text-6xl">Work through the numbers before they surprise you</h1>
-        <p className="mt-5 max-w-3xl text-lg leading-8 text-muted-foreground">{description}</p>
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {sections.map(([title, to, copy]) => (
-            <Link key={to} to={to} className="rounded-lg border border-border p-6 transition hover:-translate-y-0.5 hover:shadow-sm">
-              <h2 className="font-display text-2xl">{title}</h2>
-              <p className="mt-3 text-sm leading-6 text-muted-foreground">{copy}</p>
-              <span className="mt-5 block text-sm font-medium text-primary">Start here →</span>
+  return <>
+    <section className="border-b border-border bg-surface">
+      <Container className="py-16 sm:py-24">
+        <p className="eyebrow text-primary">Money & home</p>
+        <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">Work through the numbers before they surprise you.</h1>
+        <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">{description}</p>
+      </Container>
+    </section>
+
+    <Container className="py-14 sm:py-20">
+      <div className="flex flex-wrap items-end justify-between gap-4 border-b border-border pb-5">
+        <div><p className="eyebrow text-primary">The toolkit</p><h2 className="mt-2 font-display text-3xl">Calculators, guides and practical next steps</h2></div>
+        <p className="text-sm text-muted-foreground">{sections.length} tools & guides</p>
+      </div>
+      <ol className="grid border-b border-border sm:grid-cols-2 lg:grid-cols-3">
+        {sections.map(([title, to, copy], index) => (
+          <li key={to} className={`border-b border-border py-7 sm:px-6 ${index % 3 === 0 ? 'lg:pl-0' : ''} ${index % 3 !== 2 ? 'lg:border-r' : ''}`}>
+            <Link to={to} className="group block h-full">
+              <p className="eyebrow text-muted-foreground">{String(index + 1).padStart(2, '0')}</p>
+              <h3 className="mt-3 font-display text-2xl leading-tight transition-colors group-hover:text-primary">{title}</h3>
+              <p className="mt-3 text-sm leading-7 text-muted-foreground">{copy}</p>
+              <span className="eyebrow mt-5 inline-block border-b border-primary pb-1 text-primary">Open →</span>
             </Link>
-          ))}
-        </div>
-        <aside className="mt-10 rounded-lg bg-muted p-6 text-sm leading-6 text-muted-foreground">These estimates are for planning. Confirm official rates, eligibility, deadlines, quotes and property details with the responsible provider or agency.</aside>
-      </main>
+          </li>
+        ))}
+      </ol>
+      <aside className="mt-10 max-w-3xl border-t border-border pt-6 text-sm leading-7 text-muted-foreground"><p className="eyebrow text-primary">Planning note</p><p className="mt-3">These tools are estimates for planning. Confirm official rates, eligibility, deadlines, quotes and property details with the responsible provider or agency.</p></aside>
     </Container>
-  );
+  </>;
 }
