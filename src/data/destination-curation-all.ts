@@ -14,27 +14,9 @@ import { applyCuratedDestinationBatch13, applyCuratedDestinationsBatch13 } from 
 import { applyCuratedDestinationBatch14, applyCuratedDestinationsBatch14 } from "./destination-curation-batch14";
 import { applyCuratedDestinationBatch15, applyCuratedDestinationsBatch15 } from "./destination-curation-batch15";
 import { applyCuratedDestinationBatch16, applyCuratedDestinationsBatch16 } from "./destination-curation-batch16";
+import { applyCuratedDestinationBatch17, applyCuratedDestinationsBatch17 } from "./destination-curation-batch17";
 import type { Destination } from "./types";
-
-const CURATION_SLUG_ALIASES: Record<string, string> = {
-  "choke-canyon-calliham-unit-state-park": "choke-canyon-state-park",
-  "cooper-lake-south-sulphur-unit-state-park": "cooper-lake-state-park",
-  "devil-s-sinkhole-state-natural-area": "devils-sinkhole-state-natural-area",
-  "devils-river-del-norte-unit-state-natural-area": "devils-river-state-natural-area",
-  "indian-lodge-state-park-lodge": "indian-lodge",
-  "lake-somerville-birch-creek-unit-state-park": "lake-somerville-state-park",
-  "lake-somerville-nails-creek-unit-state-park": "lake-somerville-state-park",
-  "sheldon-lake-state-park-environmental-learning-center": "sheldon-lake-state-park",
-};
-
-function runCurators(destination: Destination): Destination {
-  return applyCuratedDestinationBatch16(applyCuratedDestinationBatch15(applyCuratedDestinationBatch14(applyCuratedDestinationBatch13(applyCuratedDestinationBatch12(applyCuratedDestinationBatch11(applyCuratedDestinationBatch10(applyCuratedDestinationBatch9(applyCuratedDestinationBatch8(applyCuratedDestinationBatch7(applyCuratedDestinationBatch6(applyCuratedDestinationBatch5(applyCuratedDestinationBatch4(applyCuratedDestinationBatch3(applyCuratedDestinationBatch2(applyCuratedDestination(destination))))))))))))))));
-}
-
-export function applyAllCuratedDestination(destination: Destination): Destination {
-  const originalSlug = destination.slug;
-  const curationSlug = CURATION_SLUG_ALIASES[originalSlug] ?? originalSlug;
-  const curated = runCurators(curationSlug === originalSlug ? destination : { ...destination, slug: curationSlug });
-  return curationSlug === originalSlug ? curated : { ...curated, slug: originalSlug };
-}
+const CURATION_SLUG_ALIASES: Record<string, string> = {"choke-canyon-calliham-unit-state-park":"choke-canyon-state-park","cooper-lake-south-sulphur-unit-state-park":"cooper-lake-state-park","devil-s-sinkhole-state-natural-area":"devils-sinkhole-state-natural-area","devils-river-del-norte-unit-state-natural-area":"devils-river-state-natural-area","indian-lodge-state-park-lodge":"indian-lodge","lake-somerville-birch-creek-unit-state-park":"lake-somerville-state-park","lake-somerville-nails-creek-unit-state-park":"lake-somerville-state-park","sheldon-lake-state-park-environmental-learning-center":"sheldon-lake-state-park"};
+function runCurators(destination: Destination): Destination { return applyCuratedDestinationBatch17(applyCuratedDestinationBatch16(applyCuratedDestinationBatch15(applyCuratedDestinationBatch14(applyCuratedDestinationBatch13(applyCuratedDestinationBatch12(applyCuratedDestinationBatch11(applyCuratedDestinationBatch10(applyCuratedDestinationBatch9(applyCuratedDestinationBatch8(applyCuratedDestinationBatch7(applyCuratedDestinationBatch6(applyCuratedDestinationBatch5(applyCuratedDestinationBatch4(applyCuratedDestinationBatch3(applyCuratedDestinationBatch2(applyCuratedDestination(destination))))))))))))))))); }
+export function applyAllCuratedDestination(destination: Destination): Destination { const originalSlug=destination.slug; const curationSlug=CURATION_SLUG_ALIASES[originalSlug]??originalSlug; const curated=runCurators(curationSlug===originalSlug?destination:{...destination,slug:curationSlug}); return curationSlug===originalSlug?curated:{...curated,slug:originalSlug}; }
 export function applyAllCuratedDestinations(destinations: Destination[]): Destination[] { return destinations.map(applyAllCuratedDestination); }
