@@ -12,6 +12,7 @@ import type {
 import { supplementalExploreCategories } from "../explore-categories";
 import { guideHref } from "../guide-links";
 import type { SearchDocument } from "../types";
+import { brewsterCountyBigBendArticle } from "./brewster-county-big-bend";
 import { newestEvergreenArticles } from "./newest-evergreen";
 import { highSchoolFootballNewcomersArticle } from "./high-school-football-newcomers";
 import { kolacheOrKlobasnekArticle } from "./kolache-or-klobasnek";
@@ -42,6 +43,7 @@ import {
  */
 
 const editorialArticles = [
+  brewsterCountyBigBendArticle,
   ...newestEvergreenArticles,
   rodeo101Article,
   highSchoolFootballNewcomersArticle,
