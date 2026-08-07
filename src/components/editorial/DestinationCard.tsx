@@ -1,13 +1,6 @@
 import { Link } from "@tanstack/react-router";
 
-import bigBend from "@/assets/big-bend.jpg";
-import blueHole from "@/assets/blue-hole.jpg";
-import caddoLake from "@/assets/caddo-lake.jpg";
-import enchantedRock from "@/assets/enchanted-rock.jpg";
-import paloDuro from "@/assets/palo-duro.jpg";
-import roadTrip from "@/assets/road-trip.jpg";
-import smallTown from "@/assets/small-town.jpg";
-import wildlife from "@/assets/wildlife.jpg";
+import { isDestinationPhotoPlaceholder } from "@/data/explore-hero-reconciliation";
 import type { Destination } from "@/data/types";
 import { cn } from "@/lib/utils";
 
@@ -32,40 +25,16 @@ function cardHighlights(destination: Destination) {
     .slice(0, 3);
 }
 
-function isPlaceholderImage(src: string) {
-  return src.includes("texasdefined-destination-placeholder") || src.includes("texasdefined-placeholder");
-}
-
-function fallbackPhoto(destination: Destination) {
-  // State parks must never borrow photography from another named destination.
-  // A missing park-specific hero is rendered as a neutral placeholder instead.
-  if (destination.category === "state-parks") return null;
-  if (destination.category === "road-trips") return roadTrip;
-  if (destination.category === "small-towns" || destination.category === "historic-sites") return smallTown;
-  if (destination.category === "major-springs") return blueHole;
-  if (destination.category === "lakes-rivers") return caddoLake;
-  if (destination.category === "outdoors") return wildlife;
-  if (destination.region === "big-bend") return bigBend;
-  if (destination.region === "panhandle") return paloDuro;
-  if (destination.region === "piney-woods") return caddoLake;
-  if (destination.region === "hill-country") return enchantedRock;
-  if (destination.region === "gulf-coast") return blueHole;
-  return enchantedRock;
-}
-
 function DestinationImage({ destination, eager, overlay }: { destination: Destination; eager: boolean; overlay: boolean }) {
   const imageClass = overlay
     ? "aspect-[3/4] w-full object-cover transition-transform duration-700 group-hover:scale-105"
     : "aspect-[3/2] w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]";
 
-  const fallback = isPlaceholderImage(destination.hero.src) ? fallbackPhoto(destination) : null;
-  const src = isPlaceholderImage(destination.hero.src) ? fallback : destination.hero.src;
-
-  if (!src) {
+  if (isDestinationPhotoPlaceholder(destination.hero.src)) {
     return (
       <div
         role="img"
-        aria-label={`${destination.name} — park-specific photograph not yet available`}
+        aria-label={`${destination.name} — destination-specific photograph not yet available`}
         className={cn(
           imageClass,
           "relative overflow-hidden bg-[linear-gradient(145deg,hsl(var(--muted)),hsl(var(--secondary))_52%,hsl(var(--primary)/0.18))]",
@@ -79,7 +48,7 @@ function DestinationImage({ destination, eager, overlay }: { destination: Destin
 
   return (
     <img
-      src={src}
+      src={destination.hero.src}
       alt={destination.hero.alt || `${destination.name}, Texas`}
       width={destination.hero.width || 1600}
       height={destination.hero.height || 1067}
