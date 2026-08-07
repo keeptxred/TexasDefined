@@ -13,6 +13,7 @@ import { applyCuratedDestinationBatch12, applyCuratedDestinationsBatch12 } from 
 import { applyCuratedDestinationBatch13, applyCuratedDestinationsBatch13 } from "./destination-curation-batch13";
 import { applyCuratedDestinationBatch14, applyCuratedDestinationsBatch14 } from "./destination-curation-batch14";
 import { applyCuratedDestinationBatch15, applyCuratedDestinationsBatch15 } from "./destination-curation-batch15";
+import { applyCuratedDestinationBatch16, applyCuratedDestinationsBatch16 } from "./destination-curation-batch16";
 import type { Destination } from "./types";
 
 const CURATION_SLUG_ALIASES: Record<string, string> = {
@@ -27,7 +28,7 @@ const CURATION_SLUG_ALIASES: Record<string, string> = {
 };
 
 function runCurators(destination: Destination): Destination {
-  return applyCuratedDestinationBatch15(applyCuratedDestinationBatch14(applyCuratedDestinationBatch13(applyCuratedDestinationBatch12(applyCuratedDestinationBatch11(applyCuratedDestinationBatch10(applyCuratedDestinationBatch9(applyCuratedDestinationBatch8(applyCuratedDestinationBatch7(applyCuratedDestinationBatch6(applyCuratedDestinationBatch5(applyCuratedDestinationBatch4(applyCuratedDestinationBatch3(applyCuratedDestinationBatch2(applyCuratedDestination(destination)))))))))))))));
+  return applyCuratedDestinationBatch16(applyCuratedDestinationBatch15(applyCuratedDestinationBatch14(applyCuratedDestinationBatch13(applyCuratedDestinationBatch12(applyCuratedDestinationBatch11(applyCuratedDestinationBatch10(applyCuratedDestinationBatch9(applyCuratedDestinationBatch8(applyCuratedDestinationBatch7(applyCuratedDestinationBatch6(applyCuratedDestinationBatch5(applyCuratedDestinationBatch4(applyCuratedDestinationBatch3(applyCuratedDestinationBatch2(applyCuratedDestination(destination))))))))))))))));
 }
 
 export function applyAllCuratedDestination(destination: Destination): Destination {
