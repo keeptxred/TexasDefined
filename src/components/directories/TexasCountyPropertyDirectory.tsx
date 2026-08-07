@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router';
-import { ExternalLink, Search } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 import { useMemo, useState } from 'react';
 
 import { Container } from '@/components/layout/Container';
@@ -12,62 +12,44 @@ export function TexasCountyPropertyDirectory() {
   const counties = useMemo(() => findTexasPlaces(query).counties, [query]);
 
   return (
-    <Container className="py-16 sm:py-24">
-      <p className="eyebrow text-primary">All 254 counties</p>
-      <h1 className="mt-3 font-display text-4xl sm:text-6xl">Find your Texas county</h1>
-      <p className="mt-5 max-w-3xl text-lg leading-8 text-muted-foreground">
-        Open a county property-tax guide first, then continue to official county and appraisal-district resources.
-      </p>
+    <>
+      <section className="border-b border-border bg-surface">
+        <Container className="py-16 sm:py-24">
+          <p className="eyebrow text-primary">All 254 counties</p>
+          <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">The Texas county property guide</h1>
+          <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">Find a county, open its property-tax guide and continue to the official local records and offices behind the numbers.</p>
+          <label className="mt-9 flex max-w-2xl border-b-2 border-foreground">
+            <span className="sr-only">Search for a Texas county</span>
+            <input className="w-full bg-transparent px-0 py-4 text-base outline-none placeholder:text-muted-foreground/70" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search by county name" />
+            <span className="eyebrow px-2 py-4 text-primary">Search</span>
+          </label>
+        </Container>
+      </section>
 
-      <label className="mt-8 flex max-w-xl items-center gap-3 rounded-md border border-border px-4 py-3">
-        <Search className="h-5 w-5 text-muted-foreground" aria-hidden="true" />
-        <span className="sr-only">Search for a Texas county</span>
-        <input
-          className="w-full bg-transparent outline-none"
-          value={query}
-          onChange={(event) => setQuery(event.target.value)}
-          placeholder="Type a county name"
-        />
-      </label>
+      <Container className="py-12 sm:py-16">
+        <div className="flex flex-wrap items-end justify-between gap-4 border-b border-border pb-5">
+          <div><p className="eyebrow text-primary">County directory</p><h2 className="mt-2 font-display text-3xl">{query ? `Matches for “${query}”` : 'Every Texas county'}</h2></div>
+          <p className="text-sm text-muted-foreground" role="status">{counties.length.toLocaleString('en-US')} {counties.length === 1 ? 'county' : 'counties'}</p>
+        </div>
 
-      <p className="mt-4 text-sm text-muted-foreground" role="status">
-        {query ? `${counties.length} good match${counties.length === 1 ? '' : 'es'}` : 'All 254 counties'}
-      </p>
-
-      {counties.length ? (
-        <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {counties.map((county) => (
-            <li id={countyPropertyAnchor(county.slug)} key={county.code} className="rounded-md border border-border p-5">
-              <p className="eyebrow text-primary">County property-tax guide</p>
-              <h2 className="mt-2 font-display text-2xl">{county.name}</h2>
-              <p className="mt-3 text-sm leading-6 text-muted-foreground">
-                Appraisal records, exemptions, protest steps, taxing units, calculators and official local resources.
-              </p>
-              <div className="mt-5 flex flex-col items-start gap-3">
-                <Link
-                  className="text-sm font-medium text-primary underline"
-                  to="/property-tax/county/$county"
-                  params={{ county: county.slug }}
-                >
-                  Open the {county.name} property-tax guide
-                </Link>
-                <a
-                  className="inline-flex items-center gap-2 text-sm font-medium underline"
-                  href={county.officialDirectoryUrl}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                >
-                  Visit the official county directory <ExternalLink className="h-4 w-4" aria-hidden="true" />
-                </a>
-              </div>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p className="mt-10 border-t border-border py-8 text-sm text-muted-foreground">
-          No county matched that search. Check the spelling and try again.
-        </p>
-      )}
-    </Container>
+        {counties.length ? (
+          <ul className="grid border-b border-border sm:grid-cols-2 lg:grid-cols-3">
+            {counties.map((county, index) => (
+              <li id={countyPropertyAnchor(county.slug)} key={county.code} className={`border-b border-border py-7 sm:px-6 ${index % 3 === 0 ? 'lg:pl-0' : ''} ${index % 3 !== 2 ? 'lg:border-r' : ''}`}>
+                <p className="eyebrow text-primary">County guide</p>
+                <h3 className="mt-3 font-display text-3xl leading-tight">{county.name}</h3>
+                <p className="mt-3 text-sm leading-7 text-muted-foreground">Appraisal records, exemptions, protest steps, taxing units, calculators and official local resources.</p>
+                <div className="mt-5 flex flex-col items-start gap-3">
+                  <Link className="eyebrow border-b border-primary pb-1 text-primary" to="/property-tax/county/$county" params={{ county: county.slug }}>Open the guide →</Link>
+                  <a className="inline-flex items-center gap-2 text-xs text-muted-foreground underline underline-offset-4" href={county.officialDirectoryUrl} target="_blank" rel="noreferrer noopener">Official county directory <ExternalLink className="h-3.5 w-3.5" aria-hidden /></a>
+                </div>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div className="border-b border-border py-12"><p className="font-display text-3xl">No county matched that search.</p><p className="mt-3 text-sm text-muted-foreground">Check the spelling and try again.</p></div>
+        )}
+      </Container>
+    </>
   );
 }
