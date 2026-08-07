@@ -1,4 +1,4 @@
-import orderingBbqHero from "@/assets/ordering-bbq-hero.jpg";
+import orderingBbqHero from "@/assets/ordering-bbq-hero-photo.jpg";
 
 import type { Article, ArticleBlock } from "../types";
 const p=(text:string):ArticleBlock=>({type:"paragraph",text});
@@ -9,7 +9,7 @@ export const orderingTexasBarbecueArticle: Article = {
   id:"evergreen-ordering-texas-barbecue", brandId:"texasdefined", slug:"beginners-guide-ordering-texas-barbecue",
   title:"A Beginner’s Guide to Ordering Texas Barbecue",
   dek:"New to a Texas barbecue counter? Here is how to order brisket, ribs, sausage, sides and sauce without turning lunch into a vocabulary test.",
-  category:"food-bbq", hero:{src:orderingBbqHero,alt:"An illustrated Texas barbecue tray with brisket, pickles and sides",width:1600,height:900},
+  category:"food-bbq", hero:{src:orderingBbqHero,alt:"A Texas barbecue tray with sliced brisket, sausage, pork ribs, pickles, onions and white bread",width:1600,height:900},
   authorId:"a-marisol", publishedAt:"2026-08-07", readingMinutes:9,
   tags:["texas barbecue","brisket","bbq etiquette","texas food","barbecue guide"], featured:true,
   internalLinks:[

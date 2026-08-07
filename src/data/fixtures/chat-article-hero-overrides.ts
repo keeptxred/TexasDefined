@@ -1,7 +1,7 @@
 import barbecueStylesHero from "@/assets/generated/texas-barbecue-styles-unique.jpg";
-import homeMaintenanceHero from "@/assets/generated/texas-home-maintenance-calendar-unique.jpg";
+import homeMaintenanceHero from "@/assets/texas-home-maintenance-photo.jpg";
 import nativePlantsHero from "@/assets/generated/texas-native-plants-yard-unique.jpg";
-import countiesHero from "@/assets/generated/why-texas-has-254-counties-unique.jpg";
+import countiesHero from "@/assets/why-texas-has-254-counties-photo.jpg";
 
 import { texasBarbecueStylesArticle as barbecueBase } from "./texas-barbecue-styles";
 import { texasHomeMaintenanceCalendarArticle as maintenanceBase } from "./texas-home-maintenance-calendar";
@@ -21,7 +21,7 @@ export const texasNativePlantsYardArticle = {
 
 export const whyTexasHas254CountiesArticle = {
   ...countiesBase,
-  hero: { ...countiesBase.hero, src: countiesHero },
+  hero: { ...countiesBase.hero, src: countiesHero, alt: "A historic red sandstone Texas county courthouse on a small-town square" },
 };
 
 export const texasRegionsExplainedArticle = {
@@ -38,5 +38,5 @@ export const texasRegionsExplainedArticle = {
 
 export const texasHomeMaintenanceCalendarArticle = {
   ...maintenanceBase,
-  hero: { ...maintenanceBase.hero, src: homeMaintenanceHero },
+  hero: { ...maintenanceBase.hero, src: homeMaintenanceHero, alt: "A homeowner checking the outdoor air conditioning unit beside a brick Texas house" },
 };

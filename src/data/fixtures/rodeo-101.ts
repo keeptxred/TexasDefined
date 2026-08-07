@@ -1,4 +1,4 @@
-import rodeoHero from "@/assets/rodeo-101-hero.jpg";
+import rodeoHero from "@/assets/rodeo-101-hero-photo.jpg";
 import type { Article, ArticleBlock } from "../types";
 const p=(text:string):ArticleBlock=>({type:"paragraph",text});
 const h=(text:string):ArticleBlock=>({type:"heading",text});
@@ -8,7 +8,7 @@ export const rodeo101Article: Article = {
   id:"evergreen-rodeo-101", brandId:"texasdefined", slug:"rodeo-101-guide-events-rules-traditions",
   title:"Rodeo 101: A Texan’s Guide to the Events, Rules and Traditions",
   dek:"From bronc riding and bull riding to barrels and roping, here is what you are actually watching when the chute opens.",
-  category:"sports", hero:{src:rodeoHero,alt:"Illustrated cowboy riding a bucking bronc in a Texas rodeo arena",width:1600,height:900},
+  category:"sports", hero:{src:rodeoHero,alt:"A cowboy riding a bucking bronc in a dusty Texas rodeo arena at dusk",width:1600,height:900},
   authorId:"a-marisol", publishedAt:"2026-08-07", readingMinutes:11,
   tags:["texas rodeo","bull riding","barrel racing","bronc riding","texas culture","rodeo guide"], featured:true,
   internalLinks:[
