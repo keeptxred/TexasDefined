@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-07T18:12:36.402Z",
+  "generatedAt": "2026-08-07T18:15:04.744Z",
   "targeted": 20,
   "freeUse": 11,
   "generated": 9,
@@ -45,11 +45,12 @@
       "query": "Texas native plants garden landscape",
       "jpeg": "src/assets/generated/texas-native-plants-yard-unique.jpg",
       "source": "free-use",
-      "credit": "Carlquist, Sherwin John, 1930-2021 · CC BY 4.0 · Wikimedia Commons",
-      "sourceTitle": "File:(Epipactis thunbergii close–up at Nikko Botanical Garden, Japan) - DPLA - 5e4cde2054b37d32ecf85ddc6d1c99cb.jpg",
+      "credit": "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons",
+      "sourceTitle": "File:Texas Discovery Gardens August 2016 28 (Benny J. Simpson Texas Native Plant Collection).jpg",
       "references": [
         "src/data/fixtures/chat-article-hero-overrides.ts"
-      ]
+      ],
+      "specificityVerified": true
     },
     {
       "key": "texas-regions-explained-unique",
@@ -188,11 +189,12 @@
       "query": "Texas Hill Country landscape",
       "jpeg": "src/assets/generated/hill-country-identity.jpg",
       "source": "free-use",
-      "credit": "John Eliot Jenkins · Public domain · Wikimedia Commons",
-      "sourceTitle": "File:John Eliot Jenkins - , sight approx 21.jpg",
+      "credit": "Matthew Rutledge · CC BY 2.0 · Wikimedia Commons",
+      "sourceTitle": "File:Texas hill country.jpg",
       "references": [
         "src/data/fixtures/texas-hill-country-what-makes-it.ts"
-      ]
+      ],
+      "specificityVerified": true
     },
     {
       "key": "texas-hurricane-prep",
@@ -221,11 +223,12 @@
       "query": "Texas public school building",
       "jpeg": "src/assets/generated/texas-school-districts.jpg",
       "source": "free-use",
-      "credit": "Unknown author Unknown author · Public domain · Wikimedia Commons",
-      "sourceTitle": "File:Public School (20106826).jpg",
+      "credit": "No machine-readable author provided. Billy Hathorn assumed (based on copyright claims). · CC BY 3.0 · Wikimedia Commons",
+      "sourceTitle": "File:Texas High School, Texarkana IMG 6386.jpg",
       "references": [
         "src/data/fixtures/texas-school-districts-explained.ts"
-      ]
+      ],
+      "specificityVerified": true
     },
     {
       "key": "texas-town-cultural-roots",
@@ -238,5 +241,10 @@
         "src/data/fixtures/texas-town-cultural-roots.ts"
       ]
     }
+  ],
+  "specificityRepairs": [
+    "texas-native-plants-yard-unique",
+    "hill-country-identity",
+    "texas-school-districts"
   ]
 }
