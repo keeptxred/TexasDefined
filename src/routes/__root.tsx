@@ -90,7 +90,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Public+Sans:wght@400;500;600&display=swap" },
+      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" },
       { rel: "icon", href: "/favicon.png", type: "image/png" },
       { rel: "shortcut icon", href: "/favicon.png", type: "image/png" },
       { rel: "apple-touch-icon", href: "/apple-touch-icon.png", sizes: "180x180" },
@@ -100,27 +100,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       children: JSON.stringify({
         "@context": "https://schema.org",
         "@graph": [
-          {
-            "@type": "Organization",
-            "@id": `${siteUrl}/#organization`,
-            name: texasDefinedBrand.identity.name,
-            url: siteUrl,
-            logo: `${siteUrl}/icon-512.png`,
-            sameAs: texasDefinedBrand.identity.social.map((profile) => profile.href),
-          },
-          {
-            "@type": "WebSite",
-            "@id": `${siteUrl}/#website`,
-            name: texasDefinedBrand.identity.name,
-            url: siteUrl,
-            description: texasDefinedBrand.seo.defaultDescription,
-            publisher: { "@id": `${siteUrl}/#organization` },
-            potentialAction: {
-              "@type": "SearchAction",
-              target: `${siteUrl}/search?q={search_term_string}`,
-              "query-input": "required name=search_term_string",
-            },
-          },
+          { "@type": "Organization", "@id": `${siteUrl}/#organization`, name: texasDefinedBrand.identity.name, url: siteUrl, logo: `${siteUrl}/icon-512.png`, sameAs: texasDefinedBrand.identity.social.map((profile) => profile.href) },
+          { "@type": "WebSite", "@id": `${siteUrl}/#website`, name: texasDefinedBrand.identity.name, url: siteUrl, description: texasDefinedBrand.seo.defaultDescription, publisher: { "@id": `${siteUrl}/#organization` }, potentialAction: { "@type": "SearchAction", target: `${siteUrl}/search?q={search_term_string}`, "query-input": "required name=search_term_string" } },
         ],
       }),
     }],
