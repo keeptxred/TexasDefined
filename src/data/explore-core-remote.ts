@@ -14,6 +14,11 @@ function clean(value: unknown): string {
   return typeof value === "string" ? value.trim() : "";
 }
 
+function strings(value: unknown): string[] {
+  if (Array.isArray(value)) return value.map(String).map((item) => item.trim()).filter(Boolean);
+  return [];
+}
+
 function region(value: unknown): TexasRegion {
   const normalized = String(value || "").toLowerCase();
   if (normalized.includes("hill")) return "hill-country";
@@ -57,8 +62,10 @@ function mapRow(row: Record<string, unknown>): Destination {
   const lat = Number(row.latitude ?? row.lat ?? 0);
   const lng = Number(row.longitude ?? row.lng ?? 0);
   const type = clean(row.entity_type_key || row.entity_type || row.type) || "destination";
-  const summary = clean(row.summary || row.short_description || row.long_description)
+  const summary = clean(row.summary || row.short_description || row.description || row.long_description)
     || `${name} is a ${type.replace(/[_-]+/g, " ")} near ${town}, Texas.`;
+  const heroImage = clean(row.hero_image_url) || DESTINATION_FALLBACK_IMAGE;
+  const highlights = [...new Set([...strings(row.activities), ...strings(row.amenities), ...strings(row.tags)])].slice(0, 12);
   return {
     id: String(row.id || row.slug),
     brandId: "texasdefined",
@@ -71,22 +78,27 @@ function mapRow(row: Record<string, unknown>): Destination {
       : regionFromCoordinates(lat, lng),
     nearestTown: town,
     coordinates: { lat: Number.isFinite(lat) ? lat : 0, lng: Number.isFinite(lng) ? lng : 0 },
-    hero: { src: DESTINATION_FALLBACK_IMAGE, alt: `${name} in Texas`, width: 1600, height: 1000 },
+    hero: {
+      src: heroImage,
+      alt: clean(row.hero_image_alt) || `${name} in Texas`,
+      width: 1600,
+      height: 1000,
+    },
     bestSeason: "Check current conditions before visiting",
     entryNote: "Confirm current hours, fees, reservations, and access with the official source.",
-    highlights: [],
+    highlights,
     body: [summary],
     county,
-    featured: Boolean(row.featured),
+    officialUrl: clean(row.official_url || row.source_url) || undefined,
+    sourceCheckedAt: clean(row.source_updated_at) || undefined,
+    featured: Boolean(row.featured ?? row.is_featured),
   };
 }
 
 function baseParams(): URLSearchParams {
   return new URLSearchParams({
     select: "*",
-    visibility: "eq.public",
-    status: "in.(published,verified)",
-    order: "featured.desc,popularity_score.desc,name.asc",
+    order: "is_featured.desc,popularity_score.desc,name.asc",
   });
 }
 
@@ -94,17 +106,17 @@ export async function fetchCoreExploreDestinations(options: { featured?: boolean
   if (!supabaseUrl || !supabaseKey) return [];
   const limit = Math.min(options.limit ?? MAX_REMOTE_DESTINATIONS, MAX_REMOTE_DESTINATIONS);
   const params = baseParams();
-  if (options.featured) params.set("featured", "eq.true");
+  if (options.featured) params.set("is_featured", "eq.true");
   if (options.query?.trim()) {
     const query = options.query.trim().replace(/[%_,()]/g, "");
-    params.set("or", `(name.ilike.*${query}*,slug.ilike.*${query}*,short_description.ilike.*${query}*,long_description.ilike.*${query}*)`);
+    params.set("or", `(name.ilike.*${query}*,slug.ilike.*${query}*,summary.ilike.*${query}*,description.ilike.*${query}*)`);
   }
   const rows: Record<string, unknown>[] = [];
   for (let offset = 0; offset < MAX_REMOTE_DESTINATIONS; offset += PAGE_SIZE) {
     const pageParams = new URLSearchParams(params);
     pageParams.set("offset", String(offset));
     pageParams.set("limit", String(PAGE_SIZE));
-    const response = await fetch(`${supabaseUrl}/rest/v1/explore_entities?${pageParams}`, { headers: headers() });
+    const response = await fetch(`${supabaseUrl}/rest/v1/explore_public_entities?${pageParams}`, { headers: headers() });
     if (!response.ok) throw new Error(`Core Explore catalog request failed: ${response.status}`);
     const page = await response.json();
     if (!Array.isArray(page)) break;
@@ -119,7 +131,7 @@ export async function fetchCoreExploreDestination(slug: string): Promise<Destina
   const params = baseParams();
   params.set("slug", `eq.${slug}`);
   params.set("limit", "1");
-  const response = await fetch(`${supabaseUrl}/rest/v1/explore_entities?${params}`, { headers: headers() });
+  const response = await fetch(`${supabaseUrl}/rest/v1/explore_public_entities?${params}`, { headers: headers() });
   if (!response.ok) throw new Error(`Core Explore destination request failed: ${response.status}`);
   const rows = await response.json();
   return Array.isArray(rows) && rows[0] ? mapRow(rows[0]) : null;
