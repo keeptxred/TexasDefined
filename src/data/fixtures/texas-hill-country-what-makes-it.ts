@@ -1,0 +1,63 @@
+import hillCountryHero from "@/assets/generated/hill-country-identity.svg";
+
+import type { Article, ArticleBlock } from "../types";
+
+const p = (text: string): ArticleBlock => ({ type: "paragraph", text });
+const h = (text: string): ArticleBlock => ({ type: "heading", text });
+const list = (...items: string[]): ArticleBlock => ({ type: "list", items });
+
+export const texasHillCountryWhatMakesItArticle: Article = {
+  id: "evergreen-texas-hill-country-what-makes-it",
+  brandId: "texasdefined",
+  slug: "texas-hill-country-what-makes-it",
+  title: "What Makes the Texas Hill Country the Hill Country?",
+  dek: "It is more than rolling scenery. Limestone, spring-fed rivers, live oaks, ranch roads, small towns and a distinctive mix of cultures all help define the part of Texas people simply call the Hill Country.",
+  category: "guides",
+  region: "hill-country",
+  hero: { src: hillCountryHero, alt: "Texas Hill Country limestone hills, river, live oaks and wildflowers at sunset", width: 1600, height: 900 },
+  authorId: "a-marisol",
+  publishedAt: "2026-08-07",
+  readingMinutes: 10,
+  tags: ["texas hill country", "hill country", "central texas", "texas geography", "fredericksburg", "texas travel"],
+  featured: true,
+  internalLinks: [
+    { href: "/explore/region/hill-country", label: "Explore the Hill Country", description: "Find parks, towns, rivers and destinations across the region." },
+    { href: "/article/texas-regions-explained", label: "Texas regions explained", description: "See how the Hill Country fits into the larger Texas landscape." },
+    { href: "/explore/texas-scenic-drives", label: "Take a Texas scenic drive", description: "Roads where the landscape is part of the destination." },
+    { href: "/explore/texas-wildflower-seasons", label: "Texas wildflower seasons", description: "Plan around bluebonnets and the blooms that follow them." },
+    { href: "/explore", label: "Explore Texas", description: "Keep going beyond the Hill Country." },
+  ],
+  relatedCollections: [],
+  relatedDestinations: [],
+  body: [
+    p("The Texas Hill Country is one of those regions Texans recognize before anyone explains the boundary. The road begins to rise and fall. Limestone shows through the soil. Live oaks replace flatter prairie horizons. A creek appears below a bluff, then disappears behind cedar and ranch fencing. Somewhere ahead is a courthouse square, a dance hall, a barbecue pit or a German bakery."),
+    p("The Hill Country is not an official political unit with one precise border. It is a geographic and cultural region centered on the Edwards Plateau and the eastern edge of the Edwards Plateau, stretching through a broad part of Central Texas. Different maps draw it differently, but the character is unmistakable."),
+    h("The hills begin with limestone"),
+    p("The region's shape starts underground. Much of the Hill Country sits on layers of limestone that were formed from ancient marine sediments. Over immense spans of time, uplift and erosion exposed that rock and allowed rivers and creeks to carve valleys through it."),
+    p("That geology explains much of what visitors notice: pale road cuts, rocky soils, shallow canyons, caves, sinkholes and clear springs. It also helps explain why water can vanish quickly into the ground in one place and emerge miles away at a spring."),
+    h("Water is the second half of the landscape"),
+    p("The Hill Country would feel very different without its rivers. The Guadalupe, Blanco, Pedernales, Llano, Frio and Nueces systems cut through limestone and create some of the region's best-known swimming holes, tubing stretches and cypress-lined banks."),
+    p("Many of those waterways depend on springs and aquifers, which makes drought more than a seasonal inconvenience. When recharge drops, spring flow can weaken and iconic swimming places can change dramatically."),
+    h("Why the vegetation looks the way it does"),
+    p("Live oaks, Ashe juniper, cedar elm, mesquite, native grasses and wildflowers define much of the visual character. The mix changes with elevation, soil depth, grazing history and rainfall, but the overall impression is a landscape adapted to thin soils, heat and periodic drought."),
+    p("The spring wildflower season is the most photographed version of the Hill Country, but late summer grasses, winter live oaks and the muted greens of drought years are just as much a part of the region's identity."),
+    h("German and Czech settlement left a visible mark"),
+    p("Fredericksburg, New Braunfels, Boerne and surrounding communities carry strong Central European influences that arrived with nineteenth-century immigration. Those influences remain visible in architecture, churches, food traditions, festivals, music and family names."),
+    p("The Hill Country was never culturally one thing. Indigenous history, Mexican and Tejano heritage, ranching traditions, Black communities and later waves of migration all shaped the region. The familiar German-Texas story is important, but it is one layer of a much larger history."),
+    h("Ranching made the back roads matter"),
+    p("Ranching helped shape both the economy and the look of the Hill Country. Fences, cattle guards, stone walls, low-water crossings and narrow farm-to-market roads are not decorative details; they are part of a working landscape."),
+    p("That is why some of the best Hill Country drives do not connect famous attractions. The road itself reveals the region: limestone bluffs, creek bottoms, windmills, grazing land and sudden long views from a ridge."),
+    h("Small towns became part of the appeal"),
+    p("The Hill Country has grown rapidly, but its identity is still tied to towns where the main street, courthouse square or old dance hall feels more important than a suburban commercial strip. Fredericksburg, Wimberley, Blanco, Johnson City, Llano and many smaller places each offer a different version of the region."),
+    p("Tourism has changed these communities, sometimes dramatically. Weekend crowds, short-term rentals and rising land values can make a place feel less local than it once did. Even so, the pattern of small towns separated by ranch country remains a defining feature."),
+    h("The Hill Country is not the same everywhere"),
+    list("The eastern edge around Austin is more urbanized and increasingly suburban.", "The central portion around Fredericksburg and Johnson City mixes ranching, wine tourism and heritage towns.", "The southern and southwestern Hill Country becomes rougher and more canyon-cut, especially toward the Frio and Nueces.", "The northern and western edges open toward drier country and broader ranch landscapes."),
+    p("Calling all of that one region is useful, but it should not flatten the differences. A weekend in Wimberley does not feel like a weekend near Junction, and neither feels exactly like Fredericksburg."),
+    h("Why Texans are so attached to it"),
+    p("Part of the Hill Country's appeal is contrast. It is close enough to Austin and San Antonio for an easy weekend but still capable of feeling rural. It offers cold water in summer, color in spring, dark skies in winter and roads that reward slowing down."),
+    p("The region also concentrates many things Texans think of as distinctly Texan without relying on a theme-park version of the state: ranches, limestone, barbecue, dance halls, courthouse towns, swimming holes, wildflowers and old stone buildings."),
+    h("So where does the Hill Country begin and end?"),
+    p("There is no single answer everyone accepts. Natural regions, tourism maps, county lines and cultural identity all draw different borders. That ambiguity is not a flaw. The Hill Country is better understood as a transition zone with a strong center than as a box on a map."),
+    p("You know you are there when the land starts telling the same story from several directions at once: limestone underfoot, water in the valleys, live oaks on the slopes, ranch roads over the ridges and small towns holding the human history together."),
+  ],
+};
