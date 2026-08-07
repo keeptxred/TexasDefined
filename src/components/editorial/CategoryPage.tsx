@@ -96,30 +96,26 @@ export function CategoryPage({
         <Section tone="surface">
           <Container>
             <SectionHeader
-              eyebrow="Worth the drive"
-              title={`${destinations.length.toLocaleString("en-US")} places worth knowing`}
+              eyebrow="Explore the places"
+              title={`${destinations.length.toLocaleString("en-US")} ${title.toLowerCase()} destinations to explore`}
             />
             <DestinationCollectionGrid destinations={destinations} regionLabel={regionName} />
           </Container>
         </Section>
       )}
 
-      <Section>
-        <Container>
-          <SectionHeader eyebrow="Keep reading" title="More stories for the road" />
-          {others.length > 0 ? (
+      {others.length > 0 && (
+        <Section>
+          <Container>
+            <SectionHeader eyebrow="Keep reading" title="More stories for the road" />
             <ul className="mt-10 grid gap-12 md:grid-cols-2 lg:grid-cols-3">
               {others.map((article) => (
                 <li key={article.id}><ArticleCard article={article} /></li>
               ))}
             </ul>
-          ) : (
-            <p className="mt-8 text-sm text-muted-foreground">
-              We have more stories on the way. For now, take a look around the rest of Texas Defined.
-            </p>
-          )}
-        </Container>
-      </Section>
+          </Container>
+        </Section>
+      )}
 
       {belongsToExplore && (
         <ExploreDiscovery currentCategory={category} categories={categories} regions={regions} />
