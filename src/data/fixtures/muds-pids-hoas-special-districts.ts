@@ -1,0 +1,68 @@
+import specialDistrictsHero from "@/assets/generated/texas-special-districts.svg";
+
+import type { Article, ArticleBlock } from "../types";
+
+const p = (text: string): ArticleBlock => ({ type: "paragraph", text });
+const h = (text: string): ArticleBlock => ({ type: "heading", text });
+const list = (...items: string[]): ArticleBlock => ({ type: "list", items });
+
+export const mudsPidsHoasSpecialDistrictsArticle: Article = {
+  id: "evergreen-muds-pids-hoas-special-districts",
+  brandId: "texasdefined",
+  slug: "muds-pids-hoas-special-districts-texas",
+  title: "MUDs, PIDs, HOAs and Special Districts: What Texas Homebuyers Need to Understand",
+  dek: "A new Texas neighborhood can come with more than a mortgage and city taxes. Learn how MUDs, PIDs, HOAs and other local charges fit together before you decide what a home really costs.",
+  category: "real-estate",
+  hero: { src: specialDistrictsHero, alt: "Texas suburban neighborhood with roads, homes, water infrastructure and district boundary lines", width: 1600, height: 900 },
+  authorId: "a-marisol",
+  publishedAt: "2026-08-07",
+  readingMinutes: 12,
+  tags: ["muds", "pids", "hoa", "texas homebuyers", "special districts", "property taxes", "texas real estate"],
+  featured: true,
+  internalLinks: [
+    { href: "/learn/mud-taxes-explained", label: "MUD taxes explained", description: "Go deeper on how municipal utility districts can affect a property-tax bill." },
+    { href: "/article/true-cost-of-owning-a-home-in-texas", label: "The true cost of owning a home in Texas", description: "Put special districts into the larger monthly ownership budget." },
+    { href: "/article/texas-mortgage-payment-guide", label: "What is included in a Texas mortgage payment?", description: "See which housing costs may be collected through escrow and which are separate." },
+    { href: "/real-estate", label: "Texas real estate", description: "More practical guides for buyers and homeowners." },
+    { href: "/learn/property-taxes", label: "Understand Texas property taxes", description: "See how local taxing units fit into the full property-tax picture." },
+  ],
+  relatedCollections: [],
+  relatedDestinations: [],
+  body: [
+    p("Two Texas houses can have the same list price, the same mortgage rate and very different monthly carrying costs. One reason is the layer of local districts and neighborhood obligations that can sit on top of ordinary city, county and school taxes."),
+    p("The acronyms are everywhere in growing areas: MUD, PID, HOA, WCID, LID and more. They are not interchangeable, and they do not all appear on the same bill. Understanding the difference before you buy can prevent a very expensive surprise."),
+    h("Start with the basic distinction: tax, assessment or private fee"),
+    p("The easiest way to organize the alphabet soup is by asking who created the charge and how it is collected. A governmental district may levy a property tax or assessment under applicable law. An HOA is usually a private association created through recorded covenants and collects dues under those documents."),
+    p("That difference matters because the collection method, voting structure, debt, exemptions and enforcement rules can be very different."),
+    h("What is a MUD?"),
+    p("A municipal utility district is a type of special-purpose governmental district commonly used in developing areas to finance and operate infrastructure such as water, wastewater and drainage. In many master-planned communities, the MUD helped make development possible before a city could or would extend those services."),
+    p("MUDs may issue bonds to pay for infrastructure and levy property taxes to repay debt and fund operations. As debt is retired and the tax base grows, a district's tax rate can change over time."),
+    h("Why a MUD tax can surprise buyers"),
+    p("A listing may emphasize the county and school district while giving less attention to a special district. But the MUD can be a meaningful part of the total tax rate. A buyer comparing neighborhoods should look at the full stack of taxing units tied to the exact address."),
+    p("Do not assume a newer neighborhood automatically has a higher total tax burden, or that an older one is automatically cheaper. Compare the actual districts, rates, taxable value and exemptions."),
+    h("What is a PID?"),
+    p("A public improvement district, or PID, is another mechanism local governments can use to fund improvements that benefit a defined area. Depending on the project and structure, costs may be collected through assessments rather than the same kind of ad valorem property tax used by a MUD."),
+    p("A PID assessment can support roads, landscaping, public spaces, drainage or other improvements. The exact terms matter: how long the obligation runs, how the assessment is calculated, whether it can be prepaid and how it transfers when the property is sold."),
+    h("A PID is not an HOA"),
+    p("This is one of the most important distinctions. A PID is connected to local government and public improvements. An HOA is a private association that enforces recorded covenants and manages shared neighborhood obligations."),
+    p("A property can have both. It can also have a MUD, an HOA and a PID at the same time."),
+    h("What does an HOA pay for?"),
+    p("HOA dues can support amenities, landscaping, pools, gates, private roads, common-area insurance, management and other neighborhood costs. The association may also enforce architectural and use restrictions contained in its governing documents."),
+    p("Buyers should ask for the current dues, transfer fees, resale certificate, budget, reserve information, recent meeting records and any known special assessments allowed under the governing documents."),
+    h("What about WCIDs, LIDs and other districts?"),
+    p("Texas uses several kinds of special districts for water, drainage, levees and other infrastructure. The name matters less than the practical questions: What does it do? Does it levy a tax or assessment? Does it carry debt? How has the rate changed? What is the obligation for this specific property?"),
+    h("How these charges show up in the household budget"),
+    list("Property taxes from governmental districts may be escrowed with a mortgage, depending on the loan and account setup.", "PID assessments may appear on a tax bill or through another collection structure, depending on the district.", "HOA dues are typically separate from the mortgage payment even when a lender counts them in qualification.", "Special assessments can create costs beyond ordinary annual dues.", "Utility rates charged by a district are separate from property taxes and can also affect monthly housing costs."),
+    h("The newest neighborhoods deserve the closest look"),
+    p("Rapid-growth communities often rely on infrastructure financing that is invisible when you tour a model home. A beautiful new subdivision may have excellent amenities and modern utilities, but those benefits have to be paid for somehow."),
+    p("Ask how the roads, water lines, drainage, parks and amenities were financed. Then ask which obligations remain with future property owners."),
+    h("Read the tax certificate, not just the listing"),
+    p("Real-estate marketing often simplifies taxes into one estimate. Buyers should verify the taxing units and current rates for the parcel, then examine the prior tax bill and any district disclosures provided in the transaction."),
+    p("If a special district has outstanding bonds, look at the district's published financial information and understand that rates can change as property values, development and debt service change."),
+    h("A practical comparison before you buy"),
+    list("List every taxing unit attached to the address.", "Identify any PID or other assessment and its remaining term.", "Verify HOA dues, transfer charges and special-assessment authority.", "Ask whether utility service is provided by a city, MUD, private utility or another district.", "Compare the complete annual carrying cost between neighborhoods, not just the mortgage payment.", "Keep room in the budget for rates and assessments to change."),
+    h("The acronym is not the problem; the surprise is"),
+    p("MUDs, PIDs and HOAs are not automatically good or bad. They can finance infrastructure, amenities and services that make a community possible or desirable. The mistake is buying without understanding what you are agreeing to pay for."),
+    p("A Texas homebuyer should be able to explain every recurring charge tied to the address before signing. If one acronym still feels mysterious, keep digging until it does not."),
+  ],
+};
