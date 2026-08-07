@@ -12,7 +12,12 @@ import type {
 import { supplementalExploreCategories } from "../explore-categories";
 import { guideHref } from "../guide-links";
 import type { SearchDocument } from "../types";
+import { highSchoolFootballNewcomersArticle } from "./high-school-football-newcomers";
+import { kolacheOrKlobasnekArticle } from "./kolache-or-klobasnek";
 import { migratedEditorialArticles } from "./migrated-editorial";
+import { orderingTexasBarbecueArticle } from "./ordering-texas-barbecue";
+import { rodeo101Article } from "./rodeo-101";
+import { sixFlagsOverTexasMeaningArticle } from "./six-flags-over-texas-meaning";
 import { texasBarbecueStylesArticle } from "./texas-barbecue-styles";
 import { texasHomeMaintenanceCalendarArticle } from "./texas-home-maintenance-calendar";
 import { texasNativePlantsYardArticle } from "./texas-native-plants-yard";
@@ -36,6 +41,11 @@ import {
  */
 
 const editorialArticles = [
+  rodeo101Article,
+  highSchoolFootballNewcomersArticle,
+  kolacheOrKlobasnekArticle,
+  orderingTexasBarbecueArticle,
+  sixFlagsOverTexasMeaningArticle,
   texasHomeMaintenanceCalendarArticle,
   texasRegionsExplainedArticle,
   whyTexasHas254CountiesArticle,
