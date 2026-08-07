@@ -8,11 +8,20 @@ const OUT_DIR = path.join(ROOT, "public/images/state-parks");
 const MAP_PATH = path.join(ROOT, "src/data/state-park-hero-map.ts");
 const REPORT_PATH = path.join(ROOT, "scripts/data/state-park-hero-report.json");
 const PLACEHOLDER_MARKERS = ["texasdefined-destination-placeholder", "texasdefined-placeholder"];
+const LICENSE_OK = ["public domain", "cc0", "cc by", "cc-by", "cc by-sa", "cc-by-sa"];
+const USER_AGENT = "TexasDefined/1.0 (park-photo sync; https://texasdefined.com)";
+const API_GAP_MS = 850;
+let lastApiRequestAt = 0;
+
 const GENERIC_WORDS = new Set([
   "state", "park", "parks", "natural", "area", "historic", "site", "trailway", "environmental",
-  "learning", "center", "the", "and", "unit", "texas", "recreation", "management",
+  "educational", "learning", "center", "the", "and", "unit", "texas", "recreation", "management",
+  "world", "birding",
 ]);
-const LICENSE_OK = ["public domain", "cc0", "cc by", "cc-by", "cc by-sa", "cc-by-sa"];
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
 function parseEnv(text) {
   const result = {};
@@ -38,7 +47,9 @@ function normalize(value) {
 }
 
 function distinctiveTokens(name) {
-  return normalize(name).split(" ").filter((token) => token.length > 2 && !GENERIC_WORDS.has(token));
+  return normalize(name)
+    .split(" ")
+    .filter((token) => token.length > 2 && !GENERIC_WORDS.has(token));
 }
 
 function cleanHtml(value) {
@@ -54,12 +65,17 @@ function cleanHtml(value) {
 
 function isJpeg(url) {
   const value = String(url || "");
-  return Boolean(value) && !PLACEHOLDER_MARKERS.some((marker) => value.includes(marker)) && /\.jpe?g(?:$|\?|#)/i.test(value);
+  return Boolean(value)
+    && !PLACEHOLDER_MARKERS.some((marker) => value.includes(marker))
+    && /\.jpe?g(?:$|\?|#)/i.test(value);
 }
 
 function isStateParkType(type) {
   const normalized = String(type || "").toLowerCase().replace(/[\s-]+/g, "_");
-  return ["state_park", "park", "natural_area", "campground", "trail"].some((needle) => normalized === needle || normalized.includes(needle));
+  if (["national_park", "national_monument", "national_preserve", "national_seashore"].some((value) => normalized.includes(value))) return false;
+  return ["state_park", "park", "natural_area", "campground", "trail"].some(
+    (value) => normalized === value || normalized.includes(value),
+  );
 }
 
 function slugify(value) {
@@ -84,7 +100,7 @@ async function loadParks() {
       limit: "5000",
     });
     const response = await fetch(`${supabaseUrl}/rest/v1/explore_public_entities?${params}`, {
-      headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` },
+      headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}`, "User-Agent": USER_AGENT },
     });
     if (response.ok) {
       const remote = await response.json();
@@ -136,6 +152,42 @@ async function loadParks() {
   return [...merged.values()].sort((a, b) => a.name.localeCompare(b.name));
 }
 
+async function pacedFetch(url, options = {}, attempts = 5) {
+  let lastError;
+  for (let attempt = 0; attempt < attempts; attempt += 1) {
+    const elapsed = Date.now() - lastApiRequestAt;
+    if (elapsed < API_GAP_MS) await sleep(API_GAP_MS - elapsed);
+    lastApiRequestAt = Date.now();
+
+    try {
+      const response = await fetch(url, {
+        ...options,
+        headers: { "User-Agent": USER_AGENT, Accept: "application/json", ...(options.headers || {}) },
+      });
+      if (response.ok) return response;
+
+      if (![429, 500, 502, 503, 504].includes(response.status)) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      const retryAfter = Number(response.headers.get("retry-after") || 0);
+      const wait = retryAfter > 0 ? retryAfter * 1000 : Math.min(12_000, 1_500 * (2 ** attempt));
+      console.warn(`HTTP ${response.status}; waiting ${wait}ms before retry ${attempt + 2}/${attempts}`);
+      await sleep(wait);
+      lastError = new Error(`HTTP ${response.status}`);
+    } catch (error) {
+      lastError = error;
+      if (attempt < attempts - 1) await sleep(Math.min(12_000, 1_500 * (2 ** attempt)));
+    }
+  }
+  throw lastError || new Error("request failed");
+}
+
+async function apiJson(base, params) {
+  const response = await pacedFetch(`${base}?${params.toString()}`);
+  return response.json();
+}
+
 function licenseAllowed(metadata) {
   const text = cleanHtml(metadata?.LicenseShortName?.value || metadata?.UsageTerms?.value).toLowerCase();
   return LICENSE_OK.some((allowed) => text.includes(allowed));
@@ -149,22 +201,38 @@ function candidateEvidence(page) {
     .join(" ");
 }
 
+function compactParkName(name) {
+  return normalize(
+    name
+      .replace(/^World Birding Center\s*-\s*/i, "")
+      .replace(/\s+State Park & Environmental Learning Center$/i, " State Park")
+      .replace(/\s+State Park Lodge$/i, "")
+      .replace(/\s+State Park & Historic Site$/i, "")
+      .replace(/\s+State Natural Area$/i, "")
+      .replace(/\s+State Park$/i, "")
+      .replace(/\s+State Park & Trailway$/i, ""),
+  );
+}
+
 function specificityScore(page, park) {
-  const evidence = normalize(candidateEvidence(page));
+  const evidenceRaw = candidateEvidence(page);
+  const evidence = normalize(evidenceRaw);
   const title = normalize(page.title || "");
   const tokens = distinctiveTokens(park.name);
   if (!tokens.length) return -1;
 
   const matched = tokens.filter((token) => evidence.includes(token));
-  const required = tokens.length <= 2 ? tokens.length : Math.max(2, Math.ceil(tokens.length * 0.6));
+  const required = tokens.length <= 2 ? 1 : Math.max(2, Math.ceil(tokens.length * 0.5));
   if (matched.length < required) return -1;
 
-  let score = matched.length * 10;
-  const compactName = normalize(park.name.replace(/state park|state natural area|state historic site/gi, ""));
-  if (compactName && evidence.includes(compactName)) score += 45;
-  if (compactName && title.includes(compactName)) score += 35;
-  if (/landscape|view|overlook|trail|lake|river|falls|canyon|mountain|pool|spring|beach|camp|entrance|ccc|historic|pavilion|day use/i.test(candidateEvidence(page))) score += 12;
-  if (/bird|deer|insect|flower|snake|spider|portrait/i.test(page.title || "")) score -= 8;
+  let score = matched.length * 12;
+  const compact = compactParkName(park.name);
+  if (compact && evidence.includes(compact)) score += 60;
+  if (compact && title.includes(compact)) score += 45;
+  if (park.city && evidence.includes(normalize(park.city))) score += 8;
+  if (park.county && evidence.includes(normalize(park.county))) score += 5;
+  if (/landscape|view|overlook|trail|lake|river|falls|canyon|mountain|pool|spring|beach|camp|entrance|ccc|historic|pavilion|day use|scenic/i.test(evidenceRaw)) score += 10;
+  if (/bird|deer|insect|flower|snake|spider|portrait|sign only/i.test(page.title || "")) score -= 8;
   const info = page.imageinfo?.[0];
   const width = Number(info?.thumbwidth || info?.width || 0);
   if (width >= 1400) score += 6;
@@ -172,105 +240,9 @@ function specificityScore(page, park) {
   return score;
 }
 
-async function commonsSearch(query) {
-  const params = new URLSearchParams({
-    action: "query",
-    generator: "search",
-    gsrsearch: query,
-    gsrnamespace: "6",
-    gsrlimit: "30",
-    prop: "imageinfo",
-    iiprop: "url|mime|size|extmetadata",
-    iiurlwidth: "1600",
-    format: "json",
-    origin: "*",
-  });
-  const response = await fetch(`https://commons.wikimedia.org/w/api.php?${params}`);
-  if (!response.ok) return [];
-  const payload = await response.json();
-  return Object.values(payload.query?.pages || {});
-}
-
-async function commonsCategory(name) {
-  const variants = [name, name.replace(/ & Historic Site$/i, ""), name.replace(/ State Natural Area$/i, " State Natural Area")];
-  const pages = [];
-  for (const variant of variants) {
-    const params = new URLSearchParams({
-      action: "query",
-      generator: "categorymembers",
-      gcmtitle: `Category:${variant}`,
-      gcmtype: "file",
-      gcmlimit: "50",
-      prop: "imageinfo",
-      iiprop: "url|mime|size|extmetadata",
-      iiurlwidth: "1600",
-      format: "json",
-      origin: "*",
-    });
-    const response = await fetch(`https://commons.wikimedia.org/w/api.php?${params}`);
-    if (!response.ok) continue;
-    const payload = await response.json();
-    pages.push(...Object.values(payload.query?.pages || {}));
-  }
-  return pages;
-}
-
-async function wikipediaLeadImage(park) {
-  const titleVariants = [
-    park.name,
-    park.name.replace(/ & Trailway$/i, ""),
-    park.name.replace(/ & Historic Site$/i, ""),
-    park.name.replace(/ State Park & Environmental Learning Center$/i, " State Park"),
-  ];
-  for (const title of titleVariants) {
-    const params = new URLSearchParams({
-      action: "query",
-      prop: "pageimages",
-      piprop: "name",
-      redirects: "1",
-      titles: title,
-      format: "json",
-      origin: "*",
-    });
-    const response = await fetch(`https://en.wikipedia.org/w/api.php?${params}`);
-    if (!response.ok) continue;
-    const payload = await response.json();
-    const page = Object.values(payload.query?.pages || {})[0];
-    const file = page?.pageimage;
-    if (!file) continue;
-    const commonsParams = new URLSearchParams({
-      action: "query",
-      titles: `File:${file}`,
-      prop: "imageinfo",
-      iiprop: "url|mime|size|extmetadata",
-      iiurlwidth: "1600",
-      format: "json",
-      origin: "*",
-    });
-    const commonsResponse = await fetch(`https://commons.wikimedia.org/w/api.php?${commonsParams}`);
-    if (!commonsResponse.ok) continue;
-    const commonsPayload = await commonsResponse.json();
-    const commonsPage = Object.values(commonsPayload.query?.pages || {})[0];
-    if (commonsPage) return [commonsPage];
-  }
-  return [];
-}
-
-async function chooseCommonsImage(park, usedSourceTitles) {
-  const base = park.name
-    .replace(/ & Trailway$/i, "")
-    .replace(/ & Historic Site$/i, "")
-    .replace(/ State Park & Environmental Learning Center$/i, " State Park");
-  const queries = [
-    `"${park.name}" Texas`,
-    `"${base}" Texas`,
-    `${base} ${park.city || park.county || "Texas"}`,
-  ];
-  const batches = [await wikipediaLeadImage(park), await commonsCategory(park.name)];
-  for (const query of queries) batches.push(await commonsSearch(query));
-
-  const candidates = new Map();
-  for (const page of batches.flat()) {
+function validCandidates(pages, park, usedSourceTitles) {
+  const rows = [];
+  for (const page of pages) {
     if (!page?.title || usedSourceTitles.has(page.title)) continue;
     const info = page.imageinfo?.[0];
     if (!info || info.mime !== "image/jpeg" || !licenseAllowed(info.extmetadata)) continue;
@@ -278,10 +250,75 @@ async function chooseCommonsImage(park, usedSourceTitles) {
     if (!src || !isJpeg(src)) continue;
     const score = specificityScore(page, park);
     if (score < 0) continue;
-    const current = candidates.get(page.title);
-    if (!current || score > current.score) candidates.set(page.title, { page, score });
+    rows.push({ page, score });
   }
-  return [...candidates.values()].sort((a, b) => b.score - a.score)[0]?.page || null;
+  return rows.sort((a, b) => b.score - a.score);
+}
+
+async function commonsSearch(query, limit = 40) {
+  const params = new URLSearchParams({
+    action: "query",
+    generator: "search",
+    gsrsearch: query,
+    gsrnamespace: "6",
+    gsrlimit: String(limit),
+    prop: "imageinfo",
+    iiprop: "url|mime|size|extmetadata",
+    iiurlwidth: "1600",
+    format: "json",
+    origin: "*",
+  });
+  const payload = await apiJson("https://commons.wikimedia.org/w/api.php", params);
+  return Object.values(payload.query?.pages || {});
+}
+
+async function commonsCategory(name) {
+  const params = new URLSearchParams({
+    action: "query",
+    generator: "categorymembers",
+    gcmtitle: `Category:${name}`,
+    gcmtype: "file",
+    gcmlimit: "50",
+    prop: "imageinfo",
+    iiprop: "url|mime|size|extmetadata",
+    iiurlwidth: "1600",
+    format: "json",
+    origin: "*",
+  });
+  const payload = await apiJson("https://commons.wikimedia.org/w/api.php", params);
+  return Object.values(payload.query?.pages || {});
+}
+
+async function chooseCommonsImage(park, usedSourceTitles) {
+  const exactQueries = [
+    `intitle:\"${park.name}\"`,
+    `\"${park.name}\" Texas`,
+    `${park.name} Texas`,
+  ];
+
+  for (const query of exactQueries) {
+    const rows = validCandidates(await commonsSearch(query), park, usedSourceTitles);
+    if (rows[0] && rows[0].score >= 45) return rows[0].page;
+  }
+
+  const categoryNames = [
+    park.name,
+    park.name.replace(/ & Historic Site$/i, ""),
+    park.name.replace(/^World Birding Center\s*-\s*/i, ""),
+  ];
+  for (const categoryName of [...new Set(categoryNames)]) {
+    const rows = validCandidates(await commonsCategory(categoryName), park, usedSourceTitles);
+    if (rows[0]) return rows[0].page;
+  }
+
+  const base = park.name
+    .replace(/^World Birding Center\s*-\s*/i, "")
+    .replace(/ State Park & Environmental Learning Center$/i, " State Park")
+    .replace(/ State Park Lodge$/i, "")
+    .replace(/ & Historic Site$/i, "");
+  const location = park.city || park.county || "Texas";
+  const fallbackRows = validCandidates(await commonsSearch(`${base} ${location}`, 50), park, usedSourceTitles);
+  return fallbackRows[0]?.page || null;
 }
 
 function creditFor(page) {
@@ -292,8 +329,7 @@ function creditFor(page) {
 }
 
 async function downloadJpeg(url, destinationPath) {
-  const response = await fetch(url, { redirect: "follow" });
-  if (!response.ok) throw new Error(`image download ${response.status}`);
+  const response = await pacedFetch(url, { headers: { Accept: "image/jpeg,image/*;q=0.8" } });
   const contentType = response.headers.get("content-type") || "";
   if (!contentType.includes("image/jpeg")) throw new Error(`expected JPEG, got ${contentType}`);
   const bytes = Buffer.from(await response.arrayBuffer());
@@ -308,8 +344,14 @@ function tsString(value) {
 async function main() {
   await fs.mkdir(OUT_DIR, { recursive: true });
   const parks = await loadParks();
+  if (parks.length !== 99) {
+    throw new Error(`State Parks catalog integrity check failed: expected 99 listings, found ${parks.length}.`);
+  }
+
   const heroCounts = new Map();
-  for (const park of parks) if (isJpeg(park.existingHero)) heroCounts.set(park.existingHero, (heroCounts.get(park.existingHero) || 0) + 1);
+  for (const park of parks) {
+    if (isJpeg(park.existingHero)) heroCounts.set(park.existingHero, (heroCounts.get(park.existingHero) || 0) + 1);
+  }
 
   const usedSourceTitles = new Set();
   const mapRows = [];
@@ -327,11 +369,14 @@ async function main() {
     const existingUnique = isJpeg(park.existingHero) && heroCounts.get(park.existingHero) === 1;
     if (existingUnique) {
       report.retainedUniqueExisting.push(park.slug);
+      console.log(`[${index + 1}/${parks.length}] ${park.name} — retained existing JPEG`);
       continue;
     }
-    if (isJpeg(park.existingHero) && heroCounts.get(park.existingHero) > 1) report.rejectedDuplicateExisting.push(park.slug);
+    if (isJpeg(park.existingHero) && heroCounts.get(park.existingHero) > 1) {
+      report.rejectedDuplicateExisting.push(park.slug);
+    }
 
-    console.log(`[${index + 1}/${parks.length}] ${park.name}`);
+    console.log(`[${index + 1}/${parks.length}] ${park.name} — resolving exact park JPEG`);
     try {
       const page = await chooseCommonsImage(park, usedSourceTitles);
       if (!page) {
@@ -353,10 +398,12 @@ async function main() {
         sourceTitle: page.title,
       });
       report.downloaded.push({ slug: park.slug, name: park.name, sourceTitle: page.title });
+      console.log(`  selected ${page.title}`);
     } catch (error) {
       report.unresolved.push({ slug: park.slug, name: park.name, reason: String(error?.message || error) });
+      console.warn(`  unresolved: ${error?.message || error}`);
     }
-    await new Promise((resolve) => setTimeout(resolve, 80));
+    await sleep(300);
   }
 
   const lines = [
@@ -378,11 +425,6 @@ async function main() {
     unresolved: report.unresolved.length,
     rejectedDuplicateExisting: report.rejectedDuplicateExisting.length,
   }, null, 2));
-
-  if (report.totalParks < 80) {
-    console.error(`Expected a near-complete Texas state park catalog; found only ${report.totalParks}.`);
-    process.exitCode = 2;
-  }
 }
 
 await main();
