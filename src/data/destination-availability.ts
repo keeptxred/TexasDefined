@@ -9,6 +9,8 @@ const UNAVAILABLE_DESTINATION_SLUGS = new Set([
   "powderhorn-state-park",
   "fairfield-lake-state-park",
   "davis-hill-state-park",
+  "battleship-texas",
+  "battleship-texas-state-historic-site",
 ]);
 
 export function isCurrentlyVisitableDestination(destination: Destination): boolean {
