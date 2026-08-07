@@ -5,6 +5,7 @@ import { applyCuratedDestinationBatch4, applyCuratedDestinationsBatch4 } from ".
 import { applyCuratedDestinationBatch5, applyCuratedDestinationsBatch5 } from "./destination-curation-batch5";
 import { applyCuratedDestinationBatch6, applyCuratedDestinationsBatch6 } from "./destination-curation-batch6";
 import { applyCuratedDestinationBatch7, applyCuratedDestinationsBatch7 } from "./destination-curation-batch7";
+import { applyCuratedDestinationBatch8, applyCuratedDestinationsBatch8 } from "./destination-curation-batch8";
 import type { Destination } from "./types";
-export function applyAllCuratedDestination(destination: Destination): Destination { return applyCuratedDestinationBatch7(applyCuratedDestinationBatch6(applyCuratedDestinationBatch5(applyCuratedDestinationBatch4(applyCuratedDestinationBatch3(applyCuratedDestinationBatch2(applyCuratedDestination(destination))))))); }
-export function applyAllCuratedDestinations(destinations: Destination[]): Destination[] { return applyCuratedDestinationsBatch7(applyCuratedDestinationsBatch6(applyCuratedDestinationsBatch5(applyCuratedDestinationsBatch4(applyCuratedDestinationsBatch3(applyCuratedDestinationsBatch2(applyCuratedDestinations(destinations))))))); }
+export function applyAllCuratedDestination(destination: Destination): Destination { return applyCuratedDestinationBatch8(applyCuratedDestinationBatch7(applyCuratedDestinationBatch6(applyCuratedDestinationBatch5(applyCuratedDestinationBatch4(applyCuratedDestinationBatch3(applyCuratedDestinationBatch2(applyCuratedDestination(destination)))))))); }
+export function applyAllCuratedDestinations(destinations: Destination[]): Destination[] { return applyCuratedDestinationsBatch8(applyCuratedDestinationsBatch7(applyCuratedDestinationsBatch6(applyCuratedDestinationsBatch5(applyCuratedDestinationsBatch4(applyCuratedDestinationsBatch3(applyCuratedDestinationsBatch2(applyCuratedDestinations(destinations)))))))); }
