@@ -1,6 +1,9 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { execFile } from "node:child_process";
+import { promisify } from "node:util";
 
+const execFileAsync = promisify(execFile);
 const ROOT = process.cwd();
 const ENV_PATH = path.join(ROOT, ".env");
 const LEGACY_PATH = path.join(ROOT, "src/data/fixtures/legacy-explore.ts");
@@ -11,6 +14,8 @@ const PLACEHOLDER_MARKERS = ["texasdefined-destination-placeholder", "texasdefin
 const LICENSE_OK = ["public domain", "cc0", "cc by", "cc-by", "cc by-sa", "cc-by-sa"];
 const USER_AGENT = "TexasDefined/1.0 (park-photo sync; https://texasdefined.com)";
 const API_GAP_MS = 850;
+const AI_MODEL = "google/gemini-3.1-flash-image";
+const AI_GATEWAY = "https://ai.gateway.lovable.dev/v1/images/generations";
 let lastApiRequestAt = 0;
 
 const GENERIC_WORDS = new Set([
@@ -90,13 +95,14 @@ function slugify(value) {
 async function loadParks() {
   const envText = await fs.readFile(ENV_PATH, "utf8").catch(() => "");
   const env = parseEnv(envText);
+  if (!process.env.LOVABLE_API_KEY && env.LOVABLE_API_KEY) process.env.LOVABLE_API_KEY = env.LOVABLE_API_KEY;
   const supabaseUrl = String(env.VITE_TEXASDEFINED_SUPABASE_URL || env.VITE_SUPABASE_URL || "").replace(/\/$/, "");
   const supabaseKey = String(env.VITE_TEXASDEFINED_SUPABASE_ANON_KEY || env.VITE_SUPABASE_PUBLISHABLE_KEY || "");
   const rows = [];
 
   if (supabaseUrl && supabaseKey) {
     const params = new URLSearchParams({
-      select: "name,slug,entity_type,city,county,region,latitude,longitude,hero_image_url,hero_image_alt",
+      select: "name,slug,entity_type,city,county,region,latitude,longitude,hero_image_url,hero_image_alt,summary,description,activities",
       limit: "5000",
     });
     const response = await fetch(`${supabaseUrl}/rest/v1/explore_public_entities?${params}`, {
@@ -114,6 +120,8 @@ async function loadParks() {
             county: String(row.county || ""),
             lat: Number(row.latitude || 0),
             lng: Number(row.longitude || 0),
+            summary: String(row.summary || row.description || ""),
+            activities: Array.isArray(row.activities) ? row.activities.map(String) : [],
             existingHero: String(row.hero_image_url || ""),
             existingAlt: String(row.hero_image_alt || ""),
             source: "remote",
@@ -128,7 +136,7 @@ async function loadParks() {
   const legacy = await fs.readFile(LEGACY_PATH, "utf8").catch(() => "");
   const block = legacy.match(/const records = `([\s\S]*?)`\.trim\(\)/)?.[1] || "";
   for (const line of block.split(/\r?\n/).map((item) => item.trim()).filter(Boolean)) {
-    const [slug, name, type, town, county, , lat, lng] = line.split("|");
+    const [slug, name, type, town, county, , lat, lng, summary, , activities] = line.split("|");
     if (!isStateParkType(type)) continue;
     rows.push({
       slug,
@@ -137,6 +145,8 @@ async function loadParks() {
       county,
       lat: Number(lat || 0),
       lng: Number(lng || 0),
+      summary: summary || "",
+      activities: String(activities || "").split(",").map((item) => item.trim()).filter(Boolean),
       existingHero: "",
       existingAlt: "",
       source: "preserved",
@@ -165,11 +175,7 @@ async function pacedFetch(url, options = {}, attempts = 5) {
         headers: { "User-Agent": USER_AGENT, Accept: "application/json", ...(options.headers || {}) },
       });
       if (response.ok) return response;
-
-      if (![429, 500, 502, 503, 504].includes(response.status)) {
-        throw new Error(`HTTP ${response.status}`);
-      }
-
+      if (![429, 500, 502, 503, 504].includes(response.status)) throw new Error(`HTTP ${response.status}`);
       const retryAfter = Number(response.headers.get("retry-after") || 0);
       const wait = retryAfter > 0 ? retryAfter * 1000 : Math.min(12_000, 1_500 * (2 ** attempt));
       console.warn(`HTTP ${response.status}; waiting ${wait}ms before retry ${attempt + 2}/${attempts}`);
@@ -220,11 +226,9 @@ function specificityScore(page, park) {
   const title = normalize(page.title || "");
   const tokens = distinctiveTokens(park.name);
   if (!tokens.length) return -1;
-
   const matched = tokens.filter((token) => evidence.includes(token));
   const required = tokens.length <= 2 ? 1 : Math.max(2, Math.ceil(tokens.length * 0.5));
   if (matched.length < required) return -1;
-
   let score = matched.length * 12;
   const compact = compactParkName(park.name);
   if (compact && evidence.includes(compact)) score += 60;
@@ -257,16 +261,8 @@ function validCandidates(pages, park, usedSourceTitles) {
 
 async function commonsSearch(query, limit = 40) {
   const params = new URLSearchParams({
-    action: "query",
-    generator: "search",
-    gsrsearch: query,
-    gsrnamespace: "6",
-    gsrlimit: String(limit),
-    prop: "imageinfo",
-    iiprop: "url|mime|size|extmetadata",
-    iiurlwidth: "1600",
-    format: "json",
-    origin: "*",
+    action: "query", generator: "search", gsrsearch: query, gsrnamespace: "6", gsrlimit: String(limit),
+    prop: "imageinfo", iiprop: "url|mime|size|extmetadata", iiurlwidth: "1600", format: "json", origin: "*",
   });
   const payload = await apiJson("https://commons.wikimedia.org/w/api.php", params);
   return Object.values(payload.query?.pages || {});
@@ -274,43 +270,24 @@ async function commonsSearch(query, limit = 40) {
 
 async function commonsCategory(name) {
   const params = new URLSearchParams({
-    action: "query",
-    generator: "categorymembers",
-    gcmtitle: `Category:${name}`,
-    gcmtype: "file",
-    gcmlimit: "50",
-    prop: "imageinfo",
-    iiprop: "url|mime|size|extmetadata",
-    iiurlwidth: "1600",
-    format: "json",
-    origin: "*",
+    action: "query", generator: "categorymembers", gcmtitle: `Category:${name}`, gcmtype: "file", gcmlimit: "50",
+    prop: "imageinfo", iiprop: "url|mime|size|extmetadata", iiurlwidth: "1600", format: "json", origin: "*",
   });
   const payload = await apiJson("https://commons.wikimedia.org/w/api.php", params);
   return Object.values(payload.query?.pages || {});
 }
 
 async function chooseCommonsImage(park, usedSourceTitles) {
-  const exactQueries = [
-    `intitle:\"${park.name}\"`,
-    `\"${park.name}\" Texas`,
-    `${park.name} Texas`,
-  ];
-
+  const exactQueries = [`intitle:\"${park.name}\"`, `\"${park.name}\" Texas`, `${park.name} Texas`];
   for (const query of exactQueries) {
     const rows = validCandidates(await commonsSearch(query), park, usedSourceTitles);
     if (rows[0] && rows[0].score >= 45) return rows[0].page;
   }
-
-  const categoryNames = [
-    park.name,
-    park.name.replace(/ & Historic Site$/i, ""),
-    park.name.replace(/^World Birding Center\s*-\s*/i, ""),
-  ];
+  const categoryNames = [park.name, park.name.replace(/ & Historic Site$/i, ""), park.name.replace(/^World Birding Center\s*-\s*/i, "")];
   for (const categoryName of [...new Set(categoryNames)]) {
     const rows = validCandidates(await commonsCategory(categoryName), park, usedSourceTitles);
     if (rows[0]) return rows[0].page;
   }
-
   const base = park.name
     .replace(/^World Birding Center\s*-\s*/i, "")
     .replace(/ State Park & Environmental Learning Center$/i, " State Park")
@@ -337,6 +314,60 @@ async function downloadJpeg(url, destinationPath) {
   await fs.writeFile(destinationPath, bytes);
 }
 
+function aiPrompt(park) {
+  const features = [park.summary, park.activities.length ? `Documented activities/features: ${park.activities.join(", ")}.` : ""]
+    .filter(Boolean).join(" ");
+  return [
+    `Create a unique photorealistic editorial landscape image inspired specifically by ${park.name} near ${park.city || "its documented Texas location"}${park.county ? ` in ${park.county} County` : ""}, Texas.`,
+    features,
+    `Use only landscape, vegetation, water, geology, recreation features, and built features that are plausible from this supplied park context. Do not invent a famous landmark that is not described.`,
+    `This is an AI-generated representative editorial image, not a documentary claim that the exact camera view exists.`,
+    `Natural Texas light, realistic photography aesthetic, 16:9 landscape composition, no text, no signs, no logos, no watermarks, no recognizable faces.`,
+    `Make the composition visibly distinct from other Texas state park hero images.`,
+  ].join(" ");
+}
+
+async function generateAiJpeg(park, destinationPath) {
+  const key = process.env.LOVABLE_API_KEY;
+  if (!key) return null;
+  const response = await fetch(AI_GATEWAY, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${key}`,
+      "Lovable-API-Key": key,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      model: AI_MODEL,
+      messages: [{ role: "user", content: aiPrompt(park) }],
+      modalities: ["image", "text"],
+    }),
+  });
+  if (!response.ok) {
+    const body = await response.text().catch(() => "");
+    throw new Error(`AI image gateway ${response.status}: ${body.slice(0, 220)}`);
+  }
+  const payload = await response.json();
+  const b64 = payload.data?.[0]?.b64_json;
+  if (!b64) throw new Error("AI image gateway returned no image data");
+  const bytes = Buffer.from(b64, "base64");
+  if (bytes.length < 20_000) throw new Error(`AI image suspiciously small (${bytes.length} bytes)`);
+
+  if (bytes[0] === 0xff && bytes[1] === 0xd8 && bytes[2] === 0xff) {
+    await fs.writeFile(destinationPath, bytes);
+    return true;
+  }
+
+  const temp = `${destinationPath}.generated`;
+  await fs.writeFile(temp, bytes);
+  try {
+    await execFileAsync("convert", [temp, "-auto-orient", "-strip", "-resize", "1600x1600>", "-quality", "88", destinationPath]);
+  } finally {
+    await fs.rm(temp, { force: true });
+  }
+  return true;
+}
+
 function tsString(value) {
   return JSON.stringify(String(value || ""));
 }
@@ -344,24 +375,17 @@ function tsString(value) {
 async function main() {
   await fs.mkdir(OUT_DIR, { recursive: true });
   const parks = await loadParks();
-  if (parks.length !== 99) {
-    throw new Error(`State Parks catalog integrity check failed: expected 99 listings, found ${parks.length}.`);
-  }
+  if (parks.length !== 99) throw new Error(`State Parks catalog integrity check failed: expected 99 listings, found ${parks.length}.`);
 
   const heroCounts = new Map();
-  for (const park of parks) {
-    if (isJpeg(park.existingHero)) heroCounts.set(park.existingHero, (heroCounts.get(park.existingHero) || 0) + 1);
-  }
+  for (const park of parks) if (isJpeg(park.existingHero)) heroCounts.set(park.existingHero, (heroCounts.get(park.existingHero) || 0) + 1);
 
   const usedSourceTitles = new Set();
   const mapRows = [];
   const report = {
-    generatedAt: new Date().toISOString(),
-    totalParks: parks.length,
-    retainedUniqueExisting: [],
-    downloaded: [],
-    unresolved: [],
-    rejectedDuplicateExisting: [],
+    generatedAt: new Date().toISOString(), totalParks: parks.length,
+    retainedUniqueExisting: [], downloaded: [], aiGenerated: [], unresolved: [], rejectedDuplicateExisting: [],
+    aiAvailable: Boolean(process.env.LOVABLE_API_KEY),
   };
 
   for (let index = 0; index < parks.length; index += 1) {
@@ -372,59 +396,56 @@ async function main() {
       console.log(`[${index + 1}/${parks.length}] ${park.name} — retained existing JPEG`);
       continue;
     }
-    if (isJpeg(park.existingHero) && heroCounts.get(park.existingHero) > 1) {
-      report.rejectedDuplicateExisting.push(park.slug);
-    }
+    if (isJpeg(park.existingHero) && heroCounts.get(park.existingHero) > 1) report.rejectedDuplicateExisting.push(park.slug);
 
     console.log(`[${index + 1}/${parks.length}] ${park.name} — resolving exact park JPEG`);
+    let resolved = false;
     try {
       const page = await chooseCommonsImage(park, usedSourceTitles);
-      if (!page) {
-        report.unresolved.push({ slug: park.slug, name: park.name, reason: "no exact freely licensed JPEG found" });
-        continue;
+      if (page) {
+        const info = page.imageinfo?.[0];
+        const src = info.thumburl || info.url;
+        const relative = `/images/state-parks/${park.slug}.jpg`;
+        await downloadJpeg(src, path.join(OUT_DIR, `${park.slug}.jpg`));
+        usedSourceTitles.add(page.title);
+        mapRows.push({ slug: park.slug, src: relative, alt: `${park.name} in Texas`, width: Number(info.thumbwidth || info.width || 1600), height: Number(info.thumbheight || info.height || 900), credit: creditFor(page) });
+        report.downloaded.push({ slug: park.slug, name: park.name, sourceTitle: page.title });
+        console.log(`  free photo: ${page.title}`);
+        resolved = true;
       }
-      const info = page.imageinfo?.[0];
-      const src = info.thumburl || info.url;
-      const relative = `/images/state-parks/${park.slug}.jpg`;
-      await downloadJpeg(src, path.join(OUT_DIR, `${park.slug}.jpg`));
-      usedSourceTitles.add(page.title);
-      mapRows.push({
-        slug: park.slug,
-        src: relative,
-        alt: `${park.name} in Texas`,
-        width: Number(info.thumbwidth || info.width || 1600),
-        height: Number(info.thumbheight || info.height || 900),
-        credit: creditFor(page),
-        sourceTitle: page.title,
-      });
-      report.downloaded.push({ slug: park.slug, name: park.name, sourceTitle: page.title });
-      console.log(`  selected ${page.title}`);
     } catch (error) {
-      report.unresolved.push({ slug: park.slug, name: park.name, reason: String(error?.message || error) });
-      console.warn(`  unresolved: ${error?.message || error}`);
+      console.warn(`  free-photo lookup failed: ${error?.message || error}`);
     }
+
+    if (!resolved && process.env.LOVABLE_API_KEY) {
+      try {
+        const relative = `/images/state-parks/${park.slug}.jpg`;
+        await generateAiJpeg(park, path.join(OUT_DIR, `${park.slug}.jpg`));
+        mapRows.push({ slug: park.slug, src: relative, alt: `AI-generated editorial landscape for ${park.name}`, width: 1600, height: 900, credit: "AI-generated editorial image · Texas Defined" });
+        report.aiGenerated.push({ slug: park.slug, name: park.name });
+        console.log("  AI-generated park-specific JPEG");
+        resolved = true;
+      } catch (error) {
+        console.warn(`  AI generation failed: ${error?.message || error}`);
+      }
+    }
+
+    if (!resolved) report.unresolved.push({ slug: park.slug, name: park.name, reason: process.env.LOVABLE_API_KEY ? "no exact free photo and AI generation failed" : "no exact free photo; LOVABLE_API_KEY unavailable" });
     await sleep(300);
   }
 
   const lines = [
-    'import type { ImageRef } from "./types";',
-    "",
+    'import type { ImageRef } from "./types";', "",
     "/** Generated by scripts/data/sync-state-park-hero-assets.mjs. Do not hand-edit. */",
     "export const stateParkHeroMap: Record<string, ImageRef> = {",
     ...mapRows.map((row) => `  ${tsString(row.slug)}: { src: ${tsString(row.src)}, alt: ${tsString(row.alt)}, width: ${row.width || 1600}, height: ${row.height || 900}, credit: ${tsString(row.credit)} },`),
-    "};",
-    "",
+    "};", "",
   ];
   await fs.writeFile(MAP_PATH, lines.join("\n"), "utf8");
   await fs.writeFile(REPORT_PATH, `${JSON.stringify(report, null, 2)}\n`, "utf8");
 
-  console.log(JSON.stringify({
-    totalParks: report.totalParks,
-    retainedUniqueExisting: report.retainedUniqueExisting.length,
-    downloaded: report.downloaded.length,
-    unresolved: report.unresolved.length,
-    rejectedDuplicateExisting: report.rejectedDuplicateExisting.length,
-  }, null, 2));
+  console.log(JSON.stringify({ totalParks: report.totalParks, retainedUniqueExisting: report.retainedUniqueExisting.length, downloaded: report.downloaded.length, aiGenerated: report.aiGenerated.length, unresolved: report.unresolved.length, rejectedDuplicateExisting: report.rejectedDuplicateExisting.length, aiAvailable: report.aiAvailable }, null, 2));
+  if (report.unresolved.length) process.exitCode = 3;
 }
 
 await main();
