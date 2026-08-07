@@ -4,6 +4,7 @@ import { fetchPublishedTexasEvents } from "./events-remote";
 import { fetchCoreExploreDestination, fetchCoreExploreDestinations } from "./explore-core-remote";
 import { supplementalExploreCategories } from "./explore-categories";
 import { fetchExploreDestination, fetchExploreDestinations } from "./explore-remote";
+import { legacyExploreDestinations } from "./fixtures/legacy-explore";
 import { legacyLakeDestinations } from "./fixtures/legacy-lakes";
 import { platform, scope } from "./index";
 import type { ArticleQuery, DestinationQuery } from "./repositories";
@@ -34,6 +35,15 @@ function mergeDestinations(...groups: Destination[][]): Destination[] {
   return [...merged.values()];
 }
 
+const preservedExploreDestinations = mergeDestinations(legacyExploreDestinations, legacyLakeDestinations);
+
+function preservedFor(query: Omit<DestinationQuery, "brandId">): Destination[] {
+  let rows = preservedExploreDestinations;
+  if (query.category) rows = rows.filter((destination) => destination.category === query.category);
+  if (query.featured !== undefined) rows = rows.filter((destination) => Boolean(destination.featured) === query.featured);
+  return query.limit ? rows.slice(0, query.limit) : rows;
+}
+
 export const destinationsQuery = (params: Omit<DestinationQuery, "brandId"> = {}) => queryOptions({
   queryKey: ["destinations", scope.brandId, params],
   queryFn: async () => {
@@ -48,26 +58,23 @@ export const destinationsQuery = (params: Omit<DestinationQuery, "brandId"> = {}
         enriched = featuredFallback(catalog, params.limit ?? 6);
       }
     } catch (error) {
-      console.error("Explore enrichment unavailable; retrying core remote catalog", error);
+      console.error("Explore enrichment unavailable; merging core and preserved catalogs", error);
     }
 
-    // Lakes and rivers were heavily populated before the site split. Do not
-    // treat a small enriched result set as the complete migration: merge the
-    // broader core catalog and the preserved pre-split lake catalog instead.
-    if (!enriched.length || params.category === "lakes-rivers") {
-      try {
-        core = await fetchCoreExploreDestinations(options);
-        if (params.featured && !core.length) {
-          const catalog = await fetchCoreExploreDestinations({ category: params.category, limit: 5000 });
-          core = featuredFallback(catalog, params.limit ?? 6);
-        }
-      } catch (error) {
-        console.error("Core Explore remote catalog unavailable; using preserved catalog", error);
+    // A partial remote response must never be interpreted as a complete migration.
+    // Always merge the broader core catalog and the preserved pre-split catalog.
+    try {
+      core = await fetchCoreExploreDestinations(options);
+      if (params.featured && !core.length) {
+        const catalog = await fetchCoreExploreDestinations({ category: params.category, limit: 5000 });
+        core = featuredFallback(catalog, params.limit ?? 6);
       }
+    } catch (error) {
+      console.error("Core Explore remote catalog unavailable; merging preserved catalog", error);
     }
 
     const local = await platform.destinations.list({ ...scope, ...params });
-    const preserved = params.category === "lakes-rivers" || !params.category ? legacyLakeDestinations : [];
+    const preserved = preservedFor(params);
     const merged = mergeDestinations(enriched, core, preserved, local);
 
     if (params.featured) return featuredFallback(merged, params.limit ?? 6);
@@ -92,7 +99,7 @@ export const destinationQuery = (slug: Slug) => queryOptions({
       console.error("Core Explore remote destination unavailable; retrying preserved catalog", error);
     }
 
-    const preserved = legacyLakeDestinations.find((destination) => destination.slug === slug);
+    const preserved = preservedExploreDestinations.find((destination) => destination.slug === slug);
     if (preserved) return preserved;
     return platform.destinations.getBySlug(scope, slug);
   },
@@ -162,10 +169,10 @@ export const searchDocumentsQuery = () => queryOptions({
     let enriched: Destination[] = [];
     let core: Destination[] = [];
     try { enriched = await fetchExploreDestinations({ limit: 5000 }); }
-    catch (error) { console.error("Enriched destination search index unavailable; retrying core remote catalog", error); }
+    catch (error) { console.error("Enriched destination search index unavailable; merging core and preserved catalogs", error); }
     try { core = await fetchCoreExploreDestinations({ limit: 5000 }); }
     catch (coreError) { console.error("Core remote destination search index unavailable; retaining preserved destinations", coreError); }
-    const destinations = mergeDestinations(enriched, core, legacyLakeDestinations);
+    const destinations = mergeDestinations(enriched, core, preservedExploreDestinations);
     if (!destinations.length) return base;
     return [...base.filter((document) => document.kind !== "destination"), ...destinations.map(destinationSearchDocument)];
   },
