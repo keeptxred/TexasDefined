@@ -1,0 +1,66 @@
+import schoolDistrictsHero from "@/assets/generated/texas-school-districts.svg";
+
+import type { Article, ArticleBlock } from "../types";
+
+const p = (text: string): ArticleBlock => ({ type: "paragraph", text });
+const h = (text: string): ArticleBlock => ({ type: "heading", text });
+const list = (...items: string[]): ArticleBlock => ({ type: "list", items });
+
+export const texasSchoolDistrictsExplainedArticle: Article = {
+  id: "evergreen-texas-school-districts-explained",
+  brandId: "texasdefined",
+  slug: "texas-school-districts-explained",
+  title: "Texas School Districts Explained: Why Your City Does Not Determine Your ISD",
+  dek: "City limits and school district boundaries are separate maps. Here is how Texas ISDs work, why one city can contain several districts and how to verify the schools tied to a specific address.",
+  category: "moving-to-texas",
+  hero: { src: schoolDistrictsHero, alt: "Texas public school campus, school bus and neighborhood boundary map imagery", width: 1600, height: 900 },
+  authorId: "a-marisol",
+  publishedAt: "2026-08-07",
+  readingMinutes: 10,
+  tags: ["texas school districts", "isd", "moving to texas", "texas schools", "school boundaries", "home buying"],
+  featured: true,
+  internalLinks: [
+    { href: "/find-my-school-district", label: "Find your school district", description: "Start with the address instead of the city name." },
+    { href: "/moving-to-texas", label: "Moving to Texas", description: "More practical guides for choosing where to live." },
+    { href: "/browse/cities", label: "Browse Texas cities", description: "Explore places without assuming city and school boundaries match." },
+    { href: "/browse/counties", label: "Browse Texas counties", description: "See another layer of local geography that can cross city and district lines." },
+    { href: "/texas-living", label: "Living Here", description: "Understand the systems behind everyday Texas life." },
+  ],
+  relatedCollections: [],
+  relatedDestinations: [],
+  body: [
+    p("One of the first surprises for people moving to Texas is that a city's name does not tell you which public school district serves the home. A Houston address can sit in one of several independent school districts. The same is true around Dallas–Fort Worth, Austin, San Antonio and many fast-growing suburbs."),
+    p("That is because cities and school districts are separate local governments with separate boundaries. Their maps overlap, but they are not designed to match."),
+    h("What does ISD mean?"),
+    p("Most traditional public school systems in Texas are independent school districts, usually shortened to ISD. 'Independent' historically refers to the district's governmental and taxing authority rather than independence from state education law."),
+    p("Each district operates within its own geographic boundary, elects or otherwise seats a governing board under applicable law and manages campuses for students who live within that attendance area, subject to state rules and local policies."),
+    h("Why city limits do not control school boundaries"),
+    p("Municipal boundaries grow through annexation and development. School district boundaries developed through a different history of local school systems, consolidations and community growth. Because the two systems evolved separately, there is no reason their borders would line up perfectly."),
+    p("A single city can therefore contain several school districts. A single school district can also serve addresses in several cities and unincorporated areas."),
+    h("The mailing address can be misleading too"),
+    p("Postal city names are designed to deliver mail, not describe local government. A home may carry a familiar city name in its mailing address while sitting outside that city's limits, in a different county or inside a school district associated with another community."),
+    p("This is why searching by ZIP code or city name alone can produce bad assumptions."),
+    h("District boundary is not the same as campus attendance zone"),
+    p("Even after you identify the correct ISD, you still need to know which elementary, middle and high school serve the address. Districts divide their territory into campus attendance zones, and those zones can change as new schools open or enrollment shifts."),
+    p("A real-estate listing that names a school is helpful but should not be treated as final authority. Verify the address through the district's own boundary or enrollment tools before making a housing decision."),
+    h("Why fast-growing suburbs change so often"),
+    p("Texas growth can turn one school boundary into several in a few years. New subdivisions add hundreds or thousands of students. Districts respond by opening campuses, redrawing attendance zones and sometimes moving neighborhoods from one school to another."),
+    p("A house that feeds one elementary school today may feed another later. Homebuyers should distinguish between the stable district boundary and the more changeable campus attendance zone."),
+    h("What about charter schools?"),
+    p("Public charter schools operate differently from traditional geographic ISDs. They may accept students from a defined geographic area without assigning every neighborhood to a particular campus in the same way an ISD does."),
+    p("That means a family can live inside one ISD and choose an eligible charter option instead. Availability, admissions procedures and transportation vary by school."),
+    h("Can you attend a school outside your district?"),
+    p("Sometimes. District transfer policies, tuition rules, capacity, special programs and state requirements can all affect whether a student may attend outside the home district. Policies differ, and approval is not guaranteed."),
+    p("Do not buy a house assuming an interdistrict transfer will always be available. Treat the assigned district and campus as the baseline."),
+    h("School district boundaries affect more than school choice"),
+    p("The district matters financially because school districts are major local taxing entities. Two nearby houses with similar values can sit in different school districts with different tax rates, bond obligations and exemption policies."),
+    p("That does not mean a lower rate automatically creates a lower bill, because taxable value and other taxing units matter too. It does mean the school district belongs in the full address-level cost comparison."),
+    h("A better home-search workflow"),
+    list("Start with the exact property address, not the subdivision marketing name.", "Verify the ISD using an authoritative district or state source.", "Verify the currently assigned campuses with the district.", "Check whether attendance boundaries are under review for the next school year.", "Compare district tax information as part of the total property-tax picture.", "If a specific program matters, verify eligibility and transportation directly with the district."),
+    h("Do not confuse reputation with fit"),
+    p("Texas school conversations often reduce entire districts to a ranking or reputation. Large districts can contain campuses with very different programs, demographics, facilities and academic results. Smaller districts can change quickly as communities grow."),
+    p("The better question is not simply 'Is this a good district?' It is 'Does this address connect my family to the schools, programs, commute and costs that fit what we need?'"),
+    h("The address is the truth"),
+    p("If there is one rule worth remembering, it is this: in Texas, school geography starts with the address. City names, ZIP codes, subdivisions and real-estate descriptions are clues. The district boundary and campus assignment are what count."),
+  ],
+};
