@@ -13,7 +13,7 @@ const nextStops = [
   ['Places worth exploring', '/explore', 'Find parks, lakes, caverns, road trips and memorable corners of Texas.'],
   ['Property-tax help', '/decide/property-taxes', 'Estimate a property-tax bill and understand the numbers behind it.'],
   ['Money Made Clearer', '/decide/financial-tools', 'Compare household costs, homeownership expenses and moving decisions.'],
-  ['Start Here', '/texas-resources', 'Find official contacts, local information and practical guides.'],
+  ['Texas resources', '/texas-resources', 'Find official contacts, local information and practical guides.'],
 ] as const;
 
 const editorialLabel = (value: string) =>
@@ -57,18 +57,8 @@ export const Route = createFileRoute('/texas-data')({
               '@type': 'BreadcrumbList',
               '@id': `${pageUrl}#breadcrumb`,
               itemListElement: [
-                {
-                  '@type': 'ListItem',
-                  position: 1,
-                  name: 'Front page',
-                  item: absoluteUrl(texasDefinedBrand, '/'),
-                },
-                {
-                  '@type': 'ListItem',
-                  position: 2,
-                  name: 'Texas Facts and Figures',
-                  item: pageUrl,
-                },
+                { '@type': 'ListItem', position: 1, name: 'Front page', item: absoluteUrl(texasDefinedBrand, '/') },
+                { '@type': 'ListItem', position: 2, name: 'Texas Facts and Figures', item: pageUrl },
               ],
             },
           ],
@@ -81,55 +71,63 @@ export const Route = createFileRoute('/texas-data')({
 
 function Page() {
   return (
-    <Container className="py-16 sm:py-24">
-      <main className="mx-auto max-w-6xl">
-        <p className="eyebrow text-primary">Texas at a glance</p>
-        <h1 className="mt-3 font-display text-4xl sm:text-6xl">The numbers behind everyday Texas</h1>
-        <p className="mt-5 max-w-3xl text-lg leading-8 text-muted-foreground">{description}</p>
+    <main>
+      <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
+        <header className="grid gap-8 border-b border-border pb-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end">
+          <div>
+            <p className="eyebrow text-primary">Texas at a glance</p>
+            <h1 className="mt-3 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">The numbers behind everyday Texas</h1>
+            <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground sm:text-xl">{description}</p>
+          </div>
+          <div className="border-l border-border pl-6 text-sm leading-6 text-muted-foreground">
+            Public data is most useful when it has context. Each dataset includes source notes, review dates and a path back to the original information.
+          </div>
+        </header>
 
-        <section className="mt-12" aria-labelledby="figures-heading">
-          <h2 id="figures-heading" className="font-display text-3xl">A closer look at the numbers</h2>
-          <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">
-            Clear comparisons drawn from public sources, with review dates and links back to the original information.
-          </p>
-          <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {TEXAS_DATASETS.map((dataset) => (
+        <section className="py-12" aria-labelledby="figures-heading">
+          <div className="border-b border-border pb-4">
+            <p className="eyebrow text-primary">The data desk</p>
+            <h2 id="figures-heading" className="mt-2 font-display text-4xl">A closer look at the numbers</h2>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3">
+            {TEXAS_DATASETS.map((dataset, index) => (
               <Link
                 key={dataset.slug}
                 to="/texas-data/$datasetSlug"
                 params={{ datasetSlug: dataset.slug }}
-                className="rounded-lg border border-border p-6 transition hover:-translate-y-0.5 hover:shadow-sm"
+                className={`group border-b border-border py-7 sm:px-5 ${index % 3 !== 0 ? 'lg:border-l lg:border-border' : ''}`}
               >
                 <p className="eyebrow text-primary">{editorialLabel(dataset.category)} · {dataset.year}</p>
-                <h3 className="mt-2 font-display text-2xl">{dataset.title}</h3>
+                <h3 className="mt-2 font-display text-2xl leading-tight group-hover:text-primary">{dataset.title}</h3>
                 <p className="mt-3 text-sm leading-6 text-muted-foreground">{dataset.description}</p>
-                <span className="mt-5 block text-sm font-medium text-primary">See the numbers →</span>
+                <span className="mt-5 block text-sm font-semibold">Open the data brief →</span>
               </Link>
             ))}
           </div>
         </section>
 
-        <section className="mt-14" aria-labelledby="help-heading">
-          <h2 id="help-heading" className="font-display text-3xl">Where to go next</h2>
-          <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {nextStops.map(([title, to, copy]) => (
-              <Link
-                key={to}
-                to={to}
-                className="rounded-lg border border-border p-6 transition hover:-translate-y-0.5 hover:shadow-sm"
-              >
-                <h3 className="font-display text-2xl">{title}</h3>
-                <p className="mt-3 text-sm leading-6 text-muted-foreground">{copy}</p>
-                <span className="mt-5 block text-sm font-medium text-primary">Start here →</span>
-              </Link>
-            ))}
+        <section className="border-t border-border py-12" aria-labelledby="help-heading">
+          <div className="grid gap-8 lg:grid-cols-[15rem_1fr]">
+            <div>
+              <p className="eyebrow text-primary">Use the numbers</p>
+              <h2 id="help-heading" className="mt-2 font-display text-4xl">Where to go next</h2>
+            </div>
+            <div className="grid sm:grid-cols-2">
+              {nextStops.map(([title, to, copy]) => (
+                <Link key={to} to={to} className="group border-t border-border py-5 sm:px-5">
+                  <h3 className="font-display text-2xl group-hover:text-primary">{title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-muted-foreground">{copy}</p>
+                  <span className="mt-3 block text-sm font-semibold">Continue →</span>
+                </Link>
+              ))}
+            </div>
           </div>
         </section>
 
-        <aside className="mt-10 rounded-lg border border-border p-5 text-sm leading-6 text-muted-foreground">
-          We favor clear explanations and trusted public sources so you can use these pages as a starting point, not a substitute for official advice.
+        <aside className="border-y border-border py-5 text-sm leading-6 text-muted-foreground">
+          Texas Defined uses public information as a starting point for understanding the state. For official decisions, deadlines or eligibility, follow the source links to the responsible agency.
         </aside>
-      </main>
-    </Container>
+      </Container>
+    </main>
   );
 }
