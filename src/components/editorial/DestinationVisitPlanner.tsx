@@ -1,8 +1,6 @@
 import type { Destination } from "@/data/types";
 
-type Props = {
-  destination: Destination;
-};
+type Props = { destination: Destination };
 
 const activityPattern = /hiking|trail|camping|fishing|swimming|boating|paddling|kayak|canoe|bird|wildlife|cycling|climbing|horse|picnic|photograph|stargaz/i;
 const facilityPattern = /restroom|visitor center|playground|parking|campground|campsite|shower|electric|water|accessible|accessibility|boat ramp|dock|store|rental/i;
@@ -25,46 +23,27 @@ export function DestinationVisitPlanner({ destination }: Props) {
 
   if (!activities.length && !facilities.length && !otherHighlights.length && !practicalTips.length) return null;
 
+  const groups = [
+    { title: "Things to do", items: activities },
+    { title: "Facilities", items: facilities },
+    { title: "Don’t miss", items: otherHighlights },
+    { title: "Good to know", items: practicalTips },
+  ].filter((group) => group.items.length > 0);
+
   return (
-    <section aria-labelledby="plan-your-visit" className="mt-12 border-t border-border pt-10">
-      <p className="eyebrow text-primary">Before you go</p>
-      <h2 id="plan-your-visit" className="mt-2 font-display text-2xl">What to know for the visit</h2>
-      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-        Here is the practical information we have gathered for this place. Conditions, closures, fees and availability can change, so check the official site before making the drive.
-      </p>
-      <div className="mt-6 grid gap-6 sm:grid-cols-2">
-        {activities.length > 0 && (
-          <div className="border border-border p-5">
-            <h3 className="font-display text-xl">Things to do</h3>
-            <ul className="mt-3 list-disc space-y-2 pl-5 text-sm marker:text-primary">
-              {activities.map((item) => <li key={item}>{item}</li>)}
+    <section aria-labelledby="plan-your-visit" className="border-t border-border pt-8">
+      <p className="eyebrow text-primary">Field notes</p>
+      <h2 id="plan-your-visit" className="mt-3 font-display text-3xl">What to know before you go</h2>
+      <p className="mt-4 max-w-2xl text-sm leading-7 text-muted-foreground">Conditions, closures, fees and availability can change. Use these notes to plan, then confirm the latest details with the official source before making the drive.</p>
+      <div className="mt-8 grid border-y border-border sm:grid-cols-2">
+        {groups.map((group, index) => (
+          <div key={group.title} className={`py-6 ${index % 2 === 0 ? "sm:border-r sm:pr-8" : "sm:pl-8"} ${index < groups.length - 2 ? "border-b border-border" : ""}`}>
+            <h3 className="font-display text-2xl">{group.title}</h3>
+            <ul className="mt-4 space-y-2 text-sm leading-6 text-muted-foreground">
+              {group.items.map((item) => <li key={item} className="flex gap-3"><span aria-hidden className="text-primary">—</span><span>{item}</span></li>)}
             </ul>
           </div>
-        )}
-        {facilities.length > 0 && (
-          <div className="border border-border p-5">
-            <h3 className="font-display text-xl">What is available</h3>
-            <ul className="mt-3 list-disc space-y-2 pl-5 text-sm marker:text-primary">
-              {facilities.map((item) => <li key={item}>{item}</li>)}
-            </ul>
-          </div>
-        )}
-        {otherHighlights.length > 0 && (
-          <div className="border border-border p-5">
-            <h3 className="font-display text-xl">Do not miss</h3>
-            <ul className="mt-3 list-disc space-y-2 pl-5 text-sm marker:text-primary">
-              {otherHighlights.map((item) => <li key={item}>{item}</li>)}
-            </ul>
-          </div>
-        )}
-        {practicalTips.length > 0 && (
-          <div className="border border-border p-5">
-            <h3 className="font-display text-xl">Good to know</h3>
-            <ul className="mt-3 list-disc space-y-2 pl-5 text-sm marker:text-primary">
-              {practicalTips.map((item) => <li key={item}>{item}</li>)}
-            </ul>
-          </div>
-        )}
+        ))}
       </div>
     </section>
   );
