@@ -24,6 +24,39 @@ const TEXAS_UNDERGROUND_HERO = {
   credit: "Billy Hathorn · CC BY 3.0 · Wikimedia Commons",
 } as const;
 
+const MOVING_ARTICLE_HEROES: Partial<Record<string, Article["hero"]>> = {
+  "moving-to-austin-guide": {
+    src: "/images/editorial/moving/austin.svg",
+    alt: "Austin skyline across Lady Bird Lake at sunrise",
+    width: 1600,
+    height: 900,
+  },
+  "moving-to-san-antonio-guide": {
+    src: "/images/editorial/moving/san-antonio.svg",
+    alt: "San Antonio River Walk in warm evening light",
+    width: 1600,
+    height: 900,
+  },
+  "moving-to-dallas-fort-worth-guide": {
+    src: "/images/editorial/moving/dallas-fort-worth.svg",
+    alt: "Dallas skyline with Reunion Tower at sunset",
+    width: 1600,
+    height: 900,
+  },
+  "moving-to-houston-address-checklist": {
+    src: "/images/editorial/moving/houston.svg",
+    alt: "Houston skyline beyond a green bayou and freeway",
+    width: 1600,
+    height: 900,
+  },
+  "moving-to-texas-what-nobody-tells-you": {
+    src: "/images/editorial/moving/moving-to-texas.svg",
+    alt: "Moving truck on a Texas road approaching a new home at sunset",
+    width: 1600,
+    height: 900,
+  },
+};
+
 const wordsInBlock = (block: ArticleBlock) => {
   if (block.type === "shop") return 0;
   const text = block.type === "list" ? block.items.join(" ") : block.text;
@@ -43,7 +76,7 @@ const normalizeArticle = (article: Article): Article => {
 
   const hero = source.slug === TEXAS_UNDERGROUND_SLUG
     ? TEXAS_UNDERGROUND_HERO
-    : source.hero;
+    : MOVING_ARTICLE_HEROES[source.slug] ?? source.hero;
 
   return {
     ...source,
