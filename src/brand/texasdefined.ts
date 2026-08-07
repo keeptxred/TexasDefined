@@ -72,6 +72,12 @@ export const texasDefinedBrand: BrandConfig = {
       description: "Parks, lakes, road trips, small towns and more",
       children: [
         {
+          label: "Trip Planner",
+          to: "/explore/trip-planner",
+          description: "Build a Texas itinerary around your interests and driving time",
+          image: { src: roadTrip, alt: "A two-lane Texas road leading toward the horizon" },
+        },
+        {
           label: "Lakes & Rivers",
           to: "/explore/lakes-rivers",
           description: "Swimming holes, quiet rivers and cypress-lined water",
@@ -153,6 +159,7 @@ export const texasDefinedBrand: BrandConfig = {
     {
       title: "Start Here",
       items: [
+        { label: "Trip Planner", to: "/explore/trip-planner" },
         { label: "Lakes & Rivers", to: "/explore/lakes-rivers" },
         { label: "Springs & Swimming", to: "/explore/major-springs" },
         { label: "State Parks", to: "/explore/state-parks" },
