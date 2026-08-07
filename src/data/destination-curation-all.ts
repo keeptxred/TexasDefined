@@ -11,6 +11,7 @@ import { applyCuratedDestinationBatch10, applyCuratedDestinationsBatch10 } from 
 import { applyCuratedDestinationBatch11, applyCuratedDestinationsBatch11 } from "./destination-curation-batch11";
 import { applyCuratedDestinationBatch12, applyCuratedDestinationsBatch12 } from "./destination-curation-batch12";
 import { applyCuratedDestinationBatch13, applyCuratedDestinationsBatch13 } from "./destination-curation-batch13";
+import { applyCuratedDestinationBatch14, applyCuratedDestinationsBatch14 } from "./destination-curation-batch14";
 import type { Destination } from "./types";
 
 const CURATION_SLUG_ALIASES: Record<string, string> = {
@@ -25,29 +26,7 @@ const CURATION_SLUG_ALIASES: Record<string, string> = {
 };
 
 function runCurators(destination: Destination): Destination {
-  return applyCuratedDestinationBatch13(
-    applyCuratedDestinationBatch12(
-      applyCuratedDestinationBatch11(
-        applyCuratedDestinationBatch10(
-          applyCuratedDestinationBatch9(
-            applyCuratedDestinationBatch8(
-              applyCuratedDestinationBatch7(
-                applyCuratedDestinationBatch6(
-                  applyCuratedDestinationBatch5(
-                    applyCuratedDestinationBatch4(
-                      applyCuratedDestinationBatch3(
-                        applyCuratedDestinationBatch2(applyCuratedDestination(destination)),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-    ),
-  );
+  return applyCuratedDestinationBatch14(applyCuratedDestinationBatch13(applyCuratedDestinationBatch12(applyCuratedDestinationBatch11(applyCuratedDestinationBatch10(applyCuratedDestinationBatch9(applyCuratedDestinationBatch8(applyCuratedDestinationBatch7(applyCuratedDestinationBatch6(applyCuratedDestinationBatch5(applyCuratedDestinationBatch4(applyCuratedDestinationBatch3(applyCuratedDestinationBatch2(applyCuratedDestination(destination))))))))))))));
 }
 
 export function applyAllCuratedDestination(destination: Destination): Destination {
@@ -57,6 +36,4 @@ export function applyAllCuratedDestination(destination: Destination): Destinatio
   return curationSlug === originalSlug ? curated : { ...curated, slug: originalSlug };
 }
 
-export function applyAllCuratedDestinations(destinations: Destination[]): Destination[] {
-  return destinations.map(applyAllCuratedDestination);
-}
+export function applyAllCuratedDestinations(destinations: Destination[]): Destination[] { return destinations.map(applyAllCuratedDestination); }
