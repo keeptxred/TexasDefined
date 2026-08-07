@@ -1,7 +1,7 @@
 import { queryOptions } from "@tanstack/react-query";
 
 import { fetchPublishedTexasEvents } from "./events-remote";
-import { applyCuratedDestination, applyCuratedDestinations } from "./destination-curation";
+import { applyAllCuratedDestination, applyAllCuratedDestinations } from "./destination-curation-all";
 import { improveDestinationCatalog, improveDestinationQuality } from "./destination-quality";
 import { fetchCoreExploreDestination, fetchCoreExploreDestinations } from "./explore-core-remote";
 import { supplementalExploreCategories } from "./explore-categories";
@@ -58,13 +58,13 @@ function preservedFor(query: Omit<DestinationQuery, "brandId">): Destination[] {
 
 function applyResolvedHero(destination: Destination) {
   return improveDestinationQuality(
-    applyCuratedDestination(applyExploreHeroAsset(applyStateParkHeroAsset(destination))),
+    applyAllCuratedDestination(applyExploreHeroAsset(applyStateParkHeroAsset(destination))),
   );
 }
 
 function reconcileExploreCatalog(destinations: Destination[]) {
   return improveDestinationCatalog(
-    applyCuratedDestinations(
+    applyAllCuratedDestinations(
       reconcileDestinationHeroes(applyExploreHeroAssets(applyStateParkHeroAssets(destinations))),
     ),
   );
