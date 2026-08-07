@@ -1,0 +1,65 @@
+import foundationHero from "@/assets/generated/texas-foundation-clay-drought.svg";
+
+import type { Article, ArticleBlock } from "../types";
+
+const p = (text: string): ArticleBlock => ({ type: "paragraph", text });
+const h = (text: string): ArticleBlock => ({ type: "heading", text });
+const list = (...items: string[]): ArticleBlock => ({ type: "list", items });
+
+export const texasFoundationCareArticle: Article = {
+  id: "evergreen-texas-foundation-care-clay-drought",
+  brandId: "texasdefined",
+  slug: "texas-foundation-care-clay-soil-drought",
+  title: "Texas Foundation Care: What Heat, Clay Soil and Drought Do to a House",
+  dek: "Expansive clay, long dry spells and sudden rain can move the soil under a Texas house. Learn what is normal, what deserves attention and how drainage and moisture affect a slab foundation.",
+  category: "home-garden",
+  hero: { src: foundationHero, alt: "Texas house shown above a slab foundation and cracked clay soil", width: 1600, height: 1067 },
+  authorId: "a-marisol",
+  publishedAt: "2026-08-07",
+  readingMinutes: 11,
+  tags: ["texas foundation", "clay soil", "foundation care", "drought", "drainage", "slab foundation"],
+  featured: true,
+  internalLinks: [
+    { href: "/home-garden", label: "Home & Garden", description: "Practical guides for maintaining a Texas house and yard." },
+    { href: "/article/texas-home-maintenance-calendar", label: "Texas home maintenance calendar", description: "Build foundation and drainage checks into the year." },
+    { href: "/article/true-cost-of-owning-a-home-in-texas", label: "The true cost of owning a home in Texas", description: "Budget for the systems and repairs ownership can bring." },
+    { href: "/article/best-native-plants-texas-yard", label: "The best native plants for a Texas yard", description: "Landscape in a way that works with local heat, soil and water." },
+  ],
+  relatedCollections: [], relatedDestinations: [],
+  body: [
+    p("Foundation conversations in Texas can become alarming very quickly. A hairline crack appears in drywall, a door starts rubbing in August or a gap opens near a window, and the homeowner immediately imagines piers, engineering reports and a five-figure repair."),
+    p("Some movement is normal. Houses expand, contract and settle, and wood framing changes with humidity. But large parts of Texas also sit on soils that can change volume dramatically as moisture comes and goes. Understanding that soil behavior is more useful than treating every crack as a verdict."),
+    h("Why Texas clay moves"),
+    p("Expansive clay contains minerals that swell when they absorb water and shrink when they dry. During a wet period, soil can push upward. During drought, it can pull away and lose volume. If those moisture changes are uneven around the house, different parts of the foundation can move by different amounts."),
+    p("That is why one side of a house bordered by thirsty trees, afternoon sun and poor irrigation may behave differently from a shaded side receiving regular drainage. The problem is often not simply dry soil or wet soil. It is uneven soil moisture."),
+    h("Drought can expose weaknesses that were already there"),
+    p("During a long hot summer, cracks may become more visible and doors may begin sticking. The timing makes drought look like a sudden cause, but the house may have been responding gradually to changing soil conditions for years."),
+    p("A dry perimeter can pull away from a slab. That visible gap is a clue about soil moisture, but it is not proof that the foundation itself needs structural repair. The pattern of movement across the building matters more than one observation at the edge."),
+    h("Then the rain comes"),
+    p("After dry weather, a major rain event can rehydrate clay quickly. Soil does not always absorb that water evenly. Low spots, leaking gutters, short downspouts and poorly graded beds can concentrate moisture next to one section of the foundation."),
+    p("This is why drainage belongs in the foundation conversation. A homeowner can spend thousands correcting structural movement and still recreate the conditions that contributed to it if roof water continues dumping at the slab edge."),
+    h("What foundation movement can look like inside"),
+    list("Doors that suddenly rub, swing open or refuse to latch.", "Diagonal drywall cracks that start near doors or windows.", "Gaps between trim, cabinets, countertops or walls.", "Flooring that develops new separations or noticeable slopes.", "Windows that become difficult to operate.", "Cracks that reopen after cosmetic repair."),
+    p("None of those signs alone tells you how serious the movement is. What matters is whether several symptoms form a consistent pattern and whether that pattern changes over time."),
+    h("What to look for outside"),
+    list("Brick cracks that step through mortar joints or widen noticeably.", "Separation around windows, doors or exterior trim.", "Soil pulling far away from the slab during dry periods.", "Standing water against the foundation after rain.", "Gutters or downspouts that discharge directly beside the house.", "Large trees with root zones close to the foundation.", "Plumbing leaks or unusually wet areas that can change soil moisture locally."),
+    h("Drainage is the first line of defense"),
+    p("The goal is not to keep all water away from the property. It is to move roof and surface water away from the house without creating erosion or soaking one section of the foundation while another stays dry."),
+    p("Gutters should remain clear and properly pitched. Downspouts should discharge where water can continue moving away. Soil next to the house should not form a bowl that traps rain. Irrigation systems should be checked for broken heads and leaks rather than assumed to be working because the controller turns on."),
+    h("Should you water the foundation?"),
+    p("There is no universal Texas watering schedule that works for every foundation. Soil type, landscaping, rainfall, drainage, foundation design and local restrictions all matter. The useful principle is consistency: avoid extreme swings in moisture when practical, and do not create a permanently saturated perimeter in an attempt to prevent movement."),
+    p("If a homeowner uses soaker hoses or irrigation near the foundation, the goal should be even moisture—not a moat. Local water restrictions and municipal guidance should also be followed."),
+    h("Trees can help a yard and complicate a foundation"),
+    p("Mature trees add shade, value and habitat, but their roots also compete for moisture. Large trees close to a slab can contribute to localized drying during drought, especially in expansive clay."),
+    p("That does not mean a healthy tree should be removed simply because a foundation crack appears. Tree removal changes soil moisture too and can create new conditions. An arborist and a qualified foundation professional can be more useful than guessing from distance alone."),
+    h("When to bring in a professional"),
+    p("If multiple symptoms are growing, floors are measurably changing, plumbing may be involved or cracks are widening quickly, it is reasonable to get a professional evaluation. For a large repair decision, an independent structural engineer can help separate diagnosis from the company selling the repair."),
+    p("Ask for measurements, documented observations and an explanation of what movement pattern the evidence supports. A proposal containing dozens of piers is not the same thing as a diagnosis."),
+    h("Keep a simple house movement record"),
+    p("Photograph cracks with dates. Note when doors begin sticking. Save plumbing repairs, drainage work and foundation inspections. If a crack changes, measure it rather than relying on memory."),
+    p("That record turns a stressful question—'Is my house moving?'—into a more useful one: 'What has changed, where, and over what period of time?'"),
+    h("The Texas foundation goal is stability, not perfection"),
+    p("A slab does not need to be mathematically motionless to perform well. The practical goal is to control water, reduce extreme moisture differences, watch for patterns and respond before a manageable issue becomes a structural one."),
+    p("In Texas, foundation care starts above the ground: with gutters, grading, irrigation, trees and drainage. What happens in the clay below the house is often a response to what the homeowner can see around it."),
+  ],
+};
