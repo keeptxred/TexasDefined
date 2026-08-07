@@ -74,6 +74,14 @@ export function auditDestination(destination: Destination): DestinationAuditResu
   return { slug: destination.slug, score, readyForIndexing: errors === 0 && score >= 76, issues };
 }
 
+export function isSeoReadyDestination(destination: Destination): boolean {
+  return auditDestination(destination).readyForIndexing;
+}
+
+export function filterSeoReadyDestinations(destinations: Destination[]): Destination[] {
+  return destinations.filter(isSeoReadyDestination);
+}
+
 export function auditDestinationCatalog(destinations: Destination[]) {
   const results = destinations.map(auditDestination);
   return {
