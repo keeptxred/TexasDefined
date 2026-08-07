@@ -29,13 +29,16 @@ function NotFoundComponent() {
     <>
       <title>Page not found | TexasDefined</title>
       <meta name="robots" content="noindex, nofollow" />
-      <div className="flex min-h-screen items-center justify-center bg-background px-4">
-        <div className="max-w-md text-center">
+      <div className="bg-background px-4 py-20 sm:py-28">
+        <section className="mx-auto max-w-4xl border-y border-border py-14 text-center sm:py-20">
           <p className="eyebrow text-primary">Wrong turn</p>
-          <h1 className="mt-4 font-display text-4xl text-foreground">This road doesn't go through</h1>
-          <p className="mt-3 text-sm leading-6 text-muted-foreground">The page may have moved, but there is plenty more Texas waiting just down the road.</p>
-          <div className="mt-6"><Link to="/" className="inline-flex items-center justify-center rounded-sm bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90">Start from the front page</Link></div>
-        </div>
+          <h1 className="mx-auto mt-4 max-w-3xl font-display text-5xl leading-[0.98] text-foreground sm:text-7xl">This road doesn&apos;t go through</h1>
+          <p className="mx-auto mt-6 max-w-xl text-base leading-7 text-muted-foreground">The page may have moved, but there is plenty more Texas waiting just down the road.</p>
+          <div className="mx-auto mt-10 flex max-w-lg flex-col border-t border-border sm:flex-row sm:justify-center">
+            <Link to="/" className="border-b border-border px-6 py-4 text-sm font-semibold sm:border-b-0 sm:border-r">Start from the front page</Link>
+            <Link to="/explore" className="px-6 py-4 text-sm font-semibold">Open the Texas guide →</Link>
+          </div>
+        </section>
       </div>
     </>
   );
@@ -49,16 +52,16 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
     <>
       <title>Page unavailable | TexasDefined</title>
       <meta name="robots" content="noindex, nofollow" />
-      <div className="flex min-h-screen items-center justify-center bg-background px-4">
-        <div className="max-w-md text-center">
+      <div className="bg-background px-4 py-20 sm:py-28">
+        <section className="mx-auto max-w-4xl border-y border-border py-14 text-center sm:py-20">
           <p className="eyebrow text-primary">A small detour</p>
-          <h1 className="mt-3 font-display text-3xl tracking-tight text-foreground">This page didn't load</h1>
-          <p className="mt-3 text-sm leading-6 text-muted-foreground">Something went sideways on our end. Try the page once more or head back to the front page.</p>
-          <div className="mt-6 flex flex-wrap justify-center gap-2">
-            <button onClick={() => { router.invalidate(); reset(); }} className="inline-flex items-center justify-center rounded-sm bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90">Try once more</button>
-            <a href="/" className="inline-flex items-center justify-center rounded-sm border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent hover:text-accent-foreground">Back to the front page</a>
+          <h1 className="mx-auto mt-4 max-w-3xl font-display text-5xl leading-[0.98] text-foreground sm:text-7xl">This page didn&apos;t load</h1>
+          <p className="mx-auto mt-6 max-w-xl text-base leading-7 text-muted-foreground">Something went sideways on our end. Try the page once more or head back to the front page.</p>
+          <div className="mx-auto mt-10 flex max-w-lg flex-col border-t border-border sm:flex-row sm:justify-center">
+            <button onClick={() => { router.invalidate(); reset(); }} className="border-b border-border px-6 py-4 text-sm font-semibold sm:border-b-0 sm:border-r">Try once more</button>
+            <a href="/" className="px-6 py-4 text-sm font-semibold">Back to the front page</a>
           </div>
-        </div>
+        </section>
       </div>
     </>
   );
