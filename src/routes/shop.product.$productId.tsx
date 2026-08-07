@@ -10,28 +10,14 @@ export const Route = createFileRoute("/shop/product/$productId")({
   loader: async ({ params }) => {
     const [product] = await fetchAssignedShopProducts({ id: params.productId });
     if (!product) throw notFound();
-    const related = (await fetchAssignedShopProducts({ limit: 12 }))
-      .filter((candidate) => candidate.id !== product.id)
-      .sort((a, b) => {
-        const aMatch = a.collectionSlugs.some((slug) => product.collectionSlugs.includes(slug)) ? 1 : 0;
-        const bMatch = b.collectionSlugs.some((slug) => product.collectionSlugs.includes(slug)) ? 1 : 0;
-        return bMatch - aMatch;
-      })
-      .slice(0, 4);
+    const related = (await fetchAssignedShopProducts({ limit: 12 })).filter((candidate) => candidate.id !== product.id).sort((a, b) => Number(b.collectionSlugs.some((slug) => product.collectionSlugs.includes(slug))) - Number(a.collectionSlugs.some((slug) => product.collectionSlugs.includes(slug)))).slice(0, 4);
     return { product, related };
   },
-  head: ({ loaderData }) => ({
-    meta: [
-      { title: loaderData ? `${loaderData.product.name} | Texas Defined Shop` : "Product | Texas Defined Shop" },
-      { name: "description", content: loaderData?.product.blurb || "Shop Texas-inspired products from Texas Defined." },
-    ],
-  }),
+  head: ({ loaderData }) => ({ meta: [{ title: loaderData ? `${loaderData.product.name} | Texas Defined Shop` : "Product | Texas Defined Shop" }, { name: "description", content: loaderData?.product.blurb || "Shop Texas-inspired products from Texas Defined." }] }),
   component: ProductPage,
 });
 
-function variantLabel(variant: ProductVariant) {
-  return variant.title || `Option ${variant.id}`;
-}
+function variantLabel(variant: ProductVariant) { return variant.title || `Option ${variant.id}`; }
 
 function ProductPage() {
   const { product, related } = Route.useLoaderData();
@@ -43,92 +29,36 @@ function ProductPage() {
   const selected = available.find((variant) => variant.id === variantId) ?? null;
   const image = selected?.image || selected?.images?.[0] || product.image.src;
   const price = Number(selected?.price ?? product.priceCents / 100);
+  const money = (value: number) => new Intl.NumberFormat("en-US", { style: "currency", currency: product.currency }).format(value);
 
   function addToCart() {
-    cart.add({
-      productId: product.id,
-      title: product.name,
-      image,
-      price,
-      currency: product.currency,
-      variantId: selected?.id ?? null,
-      variantTitle: selected ? variantLabel(selected) : null,
-      quantity,
-    });
+    cart.add({ productId: product.id, title: product.name, image, price, currency: product.currency, variantId: selected?.id ?? null, variantTitle: selected ? variantLabel(selected) : null, quantity });
     setAdded(true);
   }
 
-  return (
-    <>
-      <Container className="py-10 sm:py-16">
-        <nav className="mb-8 text-sm text-muted-foreground">
-          <Link to="/shop" className="hover:text-primary">Shop</Link> <span aria-hidden>/</span> {product.name}
-        </nav>
-        <div className="grid gap-10 lg:grid-cols-2">
-          <div className="overflow-hidden bg-muted">
-            <img src={image} alt={product.name} className="aspect-square h-full w-full object-cover" />
-          </div>
-          <div className="flex flex-col justify-center">
-            <p className="eyebrow text-primary">Texas Defined Shop</p>
-            <h1 className="mt-3 font-display text-4xl leading-tight sm:text-5xl">{product.name}</h1>
-            <p className="mt-4 text-2xl font-semibold">{new Intl.NumberFormat("en-US", { style: "currency", currency: product.currency }).format(price)}</p>
-            <p className="mt-5 whitespace-pre-line leading-relaxed text-muted-foreground">{product.blurb}</p>
+  return <>
+    <Container className="pt-10 sm:pt-14"><nav className="text-[0.72rem] uppercase tracking-[0.14em] text-muted-foreground"><Link to="/shop" className="hover:text-primary">Shop</Link> <span aria-hidden>·</span> <span>{product.name}</span></nav></Container>
+    <Container className="py-8 sm:py-12 lg:py-16">
+      <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
+        <div className="overflow-hidden bg-muted"><img src={image} alt={product.name} className="aspect-[4/5] h-full w-full object-cover" /></div>
+        <div className="flex flex-col justify-center">
+          <p className="eyebrow text-primary">The Texas Defined Shop</p>
+          <h1 className="mt-4 font-display text-5xl leading-[0.98] sm:text-6xl">{product.name}</h1>
+          <div className="mt-5 flex items-center justify-between gap-4 border-b border-border pb-5"><p className="text-xl font-semibold">{money(price)}</p><p className="eyebrow text-muted-foreground">{product.maker}</p></div>
+          <p className="mt-6 whitespace-pre-line text-base leading-8 text-muted-foreground">{product.blurb}</p>
 
-            {available.length > 0 ? (
-              <label className="mt-8 text-sm font-semibold">
-                Choose an option
-                <select value={variantId ?? ""} onChange={(event) => setVariantId(Number(event.target.value))} className="mt-2 h-12 w-full border border-input bg-background px-3">
-                  {available.map((variant) => (
-                    <option key={variant.id} value={variant.id}>{variantLabel(variant)} — {new Intl.NumberFormat("en-US", { style: "currency", currency: product.currency }).format(Number(variant.price ?? price))}</option>
-                  ))}
-                </select>
-              </label>
-            ) : null}
+          {available.length > 0 && <label className="eyebrow mt-8 text-muted-foreground">Choose an option<select value={variantId ?? ""} onChange={(event) => setVariantId(Number(event.target.value))} className="mt-3 h-12 w-full border-0 border-b border-border bg-transparent px-0 text-sm font-normal normal-case tracking-normal text-foreground outline-none focus:border-primary">{available.map((variant) => <option key={variant.id} value={variant.id}>{variantLabel(variant)} — {money(Number(variant.price ?? price))}</option>)}</select></label>}
 
-            <div className="mt-6 flex items-center gap-3">
-              <span className="text-sm font-semibold">Quantity</span>
-              <button type="button" aria-label="Decrease quantity" onClick={() => setQuantity((value) => Math.max(1, value - 1))} className="h-10 w-10 border">−</button>
-              <span className="min-w-8 text-center font-semibold">{quantity}</span>
-              <button type="button" aria-label="Increase quantity" onClick={() => setQuantity((value) => Math.min(20, value + 1))} className="h-10 w-10 border">+</button>
-            </div>
+          <div className="mt-7 flex items-center gap-3 border-b border-border pb-7"><span className="eyebrow mr-2 text-muted-foreground">Quantity</span><button type="button" aria-label="Decrease quantity" onClick={() => setQuantity((value) => Math.max(1, value - 1))} className="h-9 w-9 border border-border">−</button><span className="min-w-8 text-center font-semibold">{quantity}</span><button type="button" aria-label="Increase quantity" onClick={() => setQuantity((value) => Math.min(20, value + 1))} className="h-9 w-9 border border-border">+</button></div>
 
-            <button type="button" onClick={addToCart} className="mt-8 inline-flex min-h-12 items-center justify-center bg-primary px-6 font-semibold text-primary-foreground hover:bg-primary/90">
-              Add to Bag
-            </button>
-            {added ? (
-              <div className="mt-4 flex flex-wrap items-center gap-4 text-sm">
-                <span>Added to your bag.</span>
-                <Link to="/shop/cart" className="font-semibold text-primary underline">View Bag ({cart.count})</Link>
-              </div>
-            ) : null}
+          <button type="button" onClick={addToCart} className="mt-7 inline-flex min-h-12 items-center justify-center bg-foreground px-6 text-sm font-semibold uppercase tracking-[0.08em] text-background transition-opacity hover:opacity-85">Add to bag</button>
+          {added && <div className="mt-4 flex flex-wrap items-center gap-4 text-sm"><span>Added to your bag.</span><Link to="/shop/cart" className="border-b border-primary font-semibold text-primary">View bag ({cart.count})</Link></div>}
 
-            <div className="mt-8 grid gap-4 border-t border-border pt-6 text-sm sm:grid-cols-2">
-              <div>
-                <p className="font-semibold text-foreground">Made to order</p>
-                <p className="mt-1 leading-relaxed text-muted-foreground">Printed after you order and usually ships from our U.S. production partner within 3–7 business days.</p>
-              </div>
-              <div>
-                <p className="font-semibold text-foreground">Returns and issues</p>
-                <p className="mt-1 leading-relaxed text-muted-foreground">Because each piece is made to order, we replace items that arrive damaged, misprinted, or incorrect.</p>
-              </div>
-            </div>
-          </div>
+          <div className="mt-10 grid border-t border-border text-sm sm:grid-cols-2"><div className="border-b border-border py-5 sm:border-b-0 sm:border-r sm:pr-6"><p className="eyebrow text-muted-foreground">Made to order</p><p className="mt-2 leading-6 text-muted-foreground">Printed after you order and usually ships from our U.S. production partner within 3–7 business days.</p></div><div className="py-5 sm:pl-6"><p className="eyebrow text-muted-foreground">Returns & issues</p><p className="mt-2 leading-6 text-muted-foreground">Because each piece is made to order, we replace items that arrive damaged, misprinted or incorrect.</p></div></div>
         </div>
-      </Container>
+      </div>
+    </Container>
 
-      {related.length > 0 ? (
-        <section className="border-t border-border bg-card/40 py-14 sm:py-18">
-          <Container>
-            <p className="eyebrow text-primary">More from the shop</p>
-            <h2 className="mt-3 font-display text-3xl sm:text-4xl">You may also like</h2>
-            <ul className="mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-              {related.map((item) => (
-                <li key={item.id}><ProductCard product={item} /></li>
-              ))}
-            </ul>
-          </Container>
-        </section>
-      ) : null}
-    </>
-  );
+    {related.length > 0 && <section className="border-t border-border bg-surface py-16 sm:py-20"><Container><p className="eyebrow text-primary">From the same shelf</p><h2 className="mt-3 font-display text-4xl">More from the shop</h2><ul className="mt-10 grid gap-x-7 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">{related.map((item) => <li key={item.id}><ProductCard product={item} /></li>)}</ul></Container></section>}
+  </>;
 }
