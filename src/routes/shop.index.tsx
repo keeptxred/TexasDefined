@@ -1,4 +1,3 @@
-import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 
 import shopFlatlay from "@/assets/shop-flatlay.jpg";
@@ -78,7 +77,10 @@ export const Route = createFileRoute("/shop/")({
 });
 
 function ShopPage() {
-  const { data: products } = useSuspenseQuery(productsQuery({}));
+  // Render the exact catalog resolved by the route loader. Starting a second
+  // browser query here allowed a failed hydration-time refresh to replace a
+  // valid server-rendered catalog with the fixture outage fallback.
+  const { products } = Route.useLoaderData();
 
   return (
     <>
