@@ -14,6 +14,7 @@ import { guideHref } from "../guide-links";
 import type { SearchDocument } from "../types";
 import { migratedEditorialArticles } from "./migrated-editorial";
 import { texasBarbecueStylesArticle } from "./texas-barbecue-styles";
+import { texasNativePlantsYardArticle } from "./texas-native-plants-yard";
 import {
   articles,
   authors,
@@ -31,7 +32,12 @@ import {
  * single edit in `src/data/index.ts` — no component changes.
  */
 
-const editorialArticles = [texasBarbecueStylesArticle, ...articles, ...migratedEditorialArticles];
+const editorialArticles = [
+  texasNativePlantsYardArticle,
+  texasBarbecueStylesArticle,
+  ...articles,
+  ...migratedEditorialArticles,
+];
 
 const byBrand = <T extends { brandId: string }>(rows: T[], brandId: string) =>
   rows.filter((row) => row.brandId === brandId);
