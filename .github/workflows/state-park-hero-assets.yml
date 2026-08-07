@@ -1,0 +1,46 @@
+name: Sync state park hero assets
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/data/sync-state-park-hero-assets.mjs"
+      - ".github/workflows/state-park-hero-assets.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: state-park-hero-assets
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Resolve and download park-specific JPEGs
+        run: node scripts/data/sync-state-park-hero-assets.mjs
+
+      - name: Commit generated hero assets
+        run: |
+          git config user.name "Texas Defined Data Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add public/images/state-parks src/data/state-park-hero-map.ts scripts/data/state-park-hero-report.json
+          if git diff --cached --quiet; then
+            echo "No state park hero changes to commit."
+            exit 0
+          fi
+          git commit -m "chore: attach park-specific state park hero JPEGs [skip ci]"
+          git push
