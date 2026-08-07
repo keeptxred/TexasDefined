@@ -37,6 +37,9 @@ function isPlaceholderImage(src: string) {
 }
 
 function fallbackPhoto(destination: Destination) {
+  // State parks must never borrow photography from another named destination.
+  // A missing park-specific hero is rendered as a neutral placeholder instead.
+  if (destination.category === "state-parks") return null;
   if (destination.category === "road-trips") return roadTrip;
   if (destination.category === "small-towns" || destination.category === "historic-sites") return smallTown;
   if (destination.category === "major-springs") return blueHole;
@@ -55,7 +58,24 @@ function DestinationImage({ destination, eager, overlay }: { destination: Destin
     ? "aspect-[3/4] w-full object-cover transition-transform duration-700 group-hover:scale-105"
     : "aspect-[3/2] w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]";
 
-  const src = isPlaceholderImage(destination.hero.src) ? fallbackPhoto(destination) : destination.hero.src;
+  const fallback = isPlaceholderImage(destination.hero.src) ? fallbackPhoto(destination) : null;
+  const src = isPlaceholderImage(destination.hero.src) ? fallback : destination.hero.src;
+
+  if (!src) {
+    return (
+      <div
+        role="img"
+        aria-label={`${destination.name} — park-specific photograph not yet available`}
+        className={cn(
+          imageClass,
+          "relative overflow-hidden bg-[linear-gradient(145deg,hsl(var(--muted)),hsl(var(--secondary))_52%,hsl(var(--primary)/0.18))]",
+        )}
+      >
+        <div className="absolute inset-0 opacity-25 [background-image:radial-gradient(circle_at_72%_24%,hsl(var(--primary))_0,transparent_28%),linear-gradient(160deg,transparent_42%,hsl(var(--ink)/0.28)_43%,hsl(var(--ink)/0.28)_58%,transparent_59%)]" />
+        <span className="eyebrow absolute left-5 top-5 text-foreground/65">Photo coming soon</span>
+      </div>
+    );
+  }
 
   return (
     <img
