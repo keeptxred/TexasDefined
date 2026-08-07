@@ -14,41 +14,61 @@ export function Header() {
   const [openGroup, setOpenGroup] = useState<string | null>(null);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border/80 bg-background/96 backdrop-blur supports-[backdrop-filter]:bg-background/90">
-      <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-50 focus:rounded-sm focus:bg-primary focus:px-3 focus:py-2 focus:text-primary-foreground">
+    <header className="sticky top-0 z-50 border-b border-border/80 bg-background/96 backdrop-blur supports-[backdrop-filter]:bg-background/92">
+      <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-50 focus:bg-primary focus:px-3 focus:py-2 focus:text-primary-foreground">
         {brand.copy.skipToContent}
       </a>
+
       <div onMouseLeave={() => setOpenGroup(null)}>
-        <Container width="wide" className="flex h-[4.75rem] items-center justify-between gap-8">
+        <div className="hidden lg:block">
+          <Container width="wide" className="relative flex h-[5.5rem] items-center justify-center border-b border-border/70">
+            <p className="absolute left-0 eyebrow text-muted-foreground">The Texas magazine</p>
+            <Link to="/" className="flex items-baseline" aria-label={`${brand.identity.wordmark} front page`}>
+              <span className="font-display text-[2.8rem] font-semibold leading-none tracking-[-0.045em] text-foreground xl:text-[3.05rem]">
+                {brand.identity.wordmark}
+              </span>
+            </Link>
+            <div className="absolute right-0 flex items-center gap-1">
+              {brand.features.search && <Link to="/search" aria-label="Search Texas Defined" className="inline-flex items-center gap-2 px-2 py-2 text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-foreground/65 transition-colors hover:text-primary"><Search className="size-4" aria-hidden /><span>Search</span></Link>}
+              <Link to="/shop/cart" aria-label={cart.count > 0 ? `View your bag with ${cart.count} item${cart.count === 1 ? "" : "s"}` : "View your bag"} className="relative inline-flex items-center gap-2 px-2 py-2 text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-foreground/65 transition-colors hover:text-primary">
+                <ShoppingBag className="size-4" aria-hidden />
+                <span>Bag</span>
+                {cart.count > 0 ? <span className="inline-flex min-w-5 items-center justify-center rounded-full bg-primary px-1.5 text-[10px] leading-5 tracking-normal text-primary-foreground">{cart.count}</span> : null}
+              </Link>
+            </div>
+          </Container>
+
+          <Container width="wide" className="flex h-[2.9rem] items-center justify-center">
+            <nav aria-label="Main navigation" className="flex items-center justify-center gap-1">
+              {brand.nav.map((item) => (
+                <div key={item.to} onMouseEnter={() => setOpenGroup(item.children ? item.to : null)}>
+                  <Link
+                    to={item.to}
+                    className="relative inline-flex h-[2.9rem] items-center px-3 text-[0.69rem] font-semibold uppercase tracking-[0.13em] text-foreground/70 transition-colors hover:text-primary"
+                    activeProps={{ className: "text-primary" }}
+                    onFocus={() => setOpenGroup(item.children ? item.to : null)}
+                  >
+                    {item.label}
+                  </Link>
+                </div>
+              ))}
+            </nav>
+          </Container>
+        </div>
+
+        <Container width="wide" className="flex h-[4.5rem] items-center justify-between lg:hidden">
           <Link to="/" className="flex shrink-0 items-baseline" aria-label={`${brand.identity.wordmark} front page`}>
-            <span className="font-display text-[1.8rem] font-semibold leading-none tracking-[-0.035em] text-foreground sm:text-[2.05rem]">
+            <span className="font-display text-[1.9rem] font-semibold leading-none tracking-[-0.04em] text-foreground sm:text-[2.1rem]">
               {brand.identity.wordmark}
             </span>
           </Link>
-
-          <nav aria-label="Main navigation" className="hidden items-center gap-0.5 lg:flex">
-            {brand.nav.map((item) => (
-              <div key={item.to} onMouseEnter={() => setOpenGroup(item.children ? item.to : null)}>
-                <Link
-                  to={item.to}
-                  className="relative inline-flex items-center px-3 py-3 text-[0.72rem] font-semibold uppercase tracking-[0.11em] text-foreground/72 transition-colors hover:text-primary"
-                  activeProps={{ className: "text-primary" }}
-                  onFocus={() => setOpenGroup(item.children ? item.to : null)}
-                >
-                  {item.label}
-                </Link>
-              </div>
-            ))}
-          </nav>
-
           <div className="flex items-center gap-0.5">
-            <Link to="/shop/cart" aria-label={cart.count > 0 ? `View your bag with ${cart.count} item${cart.count === 1 ? "" : "s"}` : "View your bag"} className="relative inline-flex items-center gap-1.5 px-2 py-2 text-xs font-semibold uppercase tracking-[0.08em] text-foreground/65 transition-colors hover:text-primary">
-              <ShoppingBag className="size-[17px]" aria-hidden />
-              <span className="hidden sm:inline">Bag</span>
-              {cart.count > 0 ? <span className="inline-flex min-w-5 items-center justify-center rounded-full bg-primary px-1.5 text-[10px] leading-5 tracking-normal text-primary-foreground">{cart.count}</span> : null}
+            <Link to="/shop/cart" aria-label={cart.count > 0 ? `View your bag with ${cart.count} item${cart.count === 1 ? "" : "s"}` : "View your bag"} className="relative inline-flex items-center gap-1.5 p-2 text-foreground/65 transition-colors hover:text-primary">
+              <ShoppingBag className="size-[18px]" aria-hidden />
+              {cart.count > 0 ? <span className="absolute -right-0.5 -top-0.5 inline-flex min-w-4 items-center justify-center rounded-full bg-primary px-1 text-[9px] leading-4 text-primary-foreground">{cart.count}</span> : null}
             </Link>
-            {brand.features.search && <Link to="/search" aria-label="Search Texas Defined" className="p-2 text-foreground/65 transition-colors hover:text-primary"><Search className="size-[17px]" aria-hidden /></Link>}
-            <button type="button" className="p-2 text-foreground/65 transition-colors hover:text-primary lg:hidden" aria-label={open ? brand.copy.close : brand.copy.menu} aria-expanded={open} onClick={() => setOpen((value) => !value)}>
+            {brand.features.search && <Link to="/search" aria-label="Search Texas Defined" className="p-2 text-foreground/65 transition-colors hover:text-primary"><Search className="size-[18px]" aria-hidden /></Link>}
+            <button type="button" className="p-2 text-foreground/65 transition-colors hover:text-primary" aria-label={open ? brand.copy.close : brand.copy.menu} aria-expanded={open} onClick={() => setOpen((value) => !value)}>
               {open ? <X className="size-5" aria-hidden /> : <Menu className="size-5" aria-hidden />}
             </button>
           </div>
@@ -73,9 +93,9 @@ export function Header() {
       </div>
 
       <div className={cn("overflow-hidden border-t border-border bg-background lg:hidden", open ? "block" : "hidden")}>
-        <Container className="max-h-[70vh] overflow-y-auto py-4">
+        <Container className="max-h-[72vh] overflow-y-auto py-4">
           <nav aria-label="Main menu" className="flex flex-col">
-            {brand.nav.map((item) => <div key={item.to} className="border-b border-border/70 py-2 last:border-0"><Link to={item.to} className="block py-2 font-display text-xl font-semibold text-foreground" onClick={() => setOpen(false)}>{item.label}</Link>{item.children && <div className="grid grid-cols-2 gap-x-5 pb-2">{item.children.map((child) => <Link key={child.to} to={child.to} className="py-1.5 text-sm text-muted-foreground" onClick={() => setOpen(false)}>{child.label}</Link>)}</div>}</div>)}
+            {brand.nav.map((item) => <div key={item.to} className="border-b border-border/70 py-2 last:border-0"><Link to={item.to} className="block py-2 font-display text-xl font-semibold text-foreground" onClick={() => setOpen(false)}>{item.label}</Link>{item.children && <div className="grid grid-cols-2 gap-x-5 pb-2">{item.children.map((child) => <Link key={child.to} to={child.to} className="py-1.5 text-sm leading-5 text-muted-foreground" onClick={() => setOpen(false)}>{child.label}</Link>)}</div>}</div>)}
           </nav>
         </Container>
       </div>
