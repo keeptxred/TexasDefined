@@ -1,7 +1,6 @@
 import barbecueStylesHero from "@/assets/generated/texas-barbecue-styles-unique.jpg";
 import homeMaintenanceHero from "@/assets/generated/texas-home-maintenance-calendar-unique.jpg";
 import nativePlantsHero from "@/assets/generated/texas-native-plants-yard-unique.jpg";
-import regionsHero from "@/assets/generated/texas-regions-explained-unique.jpg";
 import countiesHero from "@/assets/generated/why-texas-has-254-counties-unique.jpg";
 
 import { texasBarbecueStylesArticle as barbecueBase } from "./texas-barbecue-styles";
@@ -27,7 +26,14 @@ export const whyTexasHas254CountiesArticle = {
 
 export const texasRegionsExplainedArticle = {
   ...regionsBase,
-  hero: { ...regionsBase.hero, src: regionsHero },
+  hero: {
+    ...regionsBase.hero,
+    src: "/images/explore/national-parks/big-bend-national-park.jpg",
+    alt: "Chisos Mountains rising above the Chihuahuan Desert in Big Bend National Park, Texas",
+    width: 1600,
+    height: 1067,
+    credit: "National Park Service / Wikimedia Commons",
+  },
 };
 
 export const texasHomeMaintenanceCalendarArticle = {
