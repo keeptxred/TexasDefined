@@ -1,5 +1,13 @@
 import { Link } from "@tanstack/react-router";
 
+import bigBend from "@/assets/big-bend.jpg";
+import blueHole from "@/assets/blue-hole.jpg";
+import caddoLake from "@/assets/caddo-lake.jpg";
+import enchantedRock from "@/assets/enchanted-rock.jpg";
+import paloDuro from "@/assets/palo-duro.jpg";
+import roadTrip from "@/assets/road-trip.jpg";
+import smallTown from "@/assets/small-town.jpg";
+import wildlife from "@/assets/wildlife.jpg";
 import type { Destination } from "@/data/types";
 import { cn } from "@/lib/utils";
 
@@ -28,33 +36,33 @@ function isPlaceholderImage(src: string) {
   return src.includes("texasdefined-destination-placeholder") || src.includes("texasdefined-placeholder");
 }
 
+function fallbackPhoto(destination: Destination) {
+  if (destination.category === "road-trips") return roadTrip;
+  if (destination.category === "small-towns" || destination.category === "historic-sites") return smallTown;
+  if (destination.category === "major-springs") return blueHole;
+  if (destination.category === "lakes-rivers") return caddoLake;
+  if (destination.category === "outdoors") return wildlife;
+  if (destination.region === "big-bend") return bigBend;
+  if (destination.region === "panhandle") return paloDuro;
+  if (destination.region === "piney-woods") return caddoLake;
+  if (destination.region === "hill-country") return enchantedRock;
+  if (destination.region === "gulf-coast") return blueHole;
+  return enchantedRock;
+}
+
 function DestinationImage({ destination, eager, overlay }: { destination: Destination; eager: boolean; overlay: boolean }) {
   const imageClass = overlay
     ? "aspect-[3/4] w-full object-cover transition-transform duration-700 group-hover:scale-105"
     : "aspect-[3/2] w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]";
 
-  if (isPlaceholderImage(destination.hero.src)) {
-    return (
-      <div
-        role="img"
-        aria-label={destination.hero.alt || `${destination.name}, Texas`}
-        className={cn(
-          imageClass,
-          "relative overflow-hidden bg-[linear-gradient(145deg,hsl(var(--muted)),hsl(var(--secondary))_52%,hsl(var(--primary)/0.28))]",
-        )}
-      >
-        <div className="absolute inset-0 opacity-30 [background-image:radial-gradient(circle_at_72%_24%,hsl(var(--primary))_0,transparent_28%),linear-gradient(160deg,transparent_42%,hsl(var(--ink)/0.35)_43%,hsl(var(--ink)/0.35)_58%,transparent_59%)]" />
-        <span className="eyebrow absolute left-5 top-5 text-foreground/65">Explore Texas</span>
-      </div>
-    );
-  }
+  const src = isPlaceholderImage(destination.hero.src) ? fallbackPhoto(destination) : destination.hero.src;
 
   return (
     <img
-      src={destination.hero.src}
-      alt={destination.hero.alt}
-      width={destination.hero.width}
-      height={destination.hero.height}
+      src={src}
+      alt={destination.hero.alt || `${destination.name}, Texas`}
+      width={destination.hero.width || 1600}
+      height={destination.hero.height || 1067}
       loading={eager ? "eager" : "lazy"}
       decoding="async"
       className={imageClass}
