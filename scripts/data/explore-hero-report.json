@@ -19,9 +19,10 @@
     "historic-sites": {
       "total": 30,
       "retained": 0,
-      "downloaded": 28,
+      "downloaded": 29,
       "aiGenerated": 0,
-      "unresolved": 2
+      "unresolved": 0,
+      "generatedRepresentative": 1
     },
     "lakes-rivers": {
       "total": 13,
@@ -33,9 +34,10 @@
     "major-springs": {
       "total": 8,
       "retained": 0,
-      "downloaded": 7,
+      "downloaded": 8,
       "aiGenerated": 0,
-      "unresolved": 1
+      "unresolved": 0,
+      "generatedRepresentative": 0
     },
     "national-parks": {
       "total": 3,
@@ -416,26 +418,41 @@
     }
   ],
   "aiGenerated": [],
-  "unresolved": [
+  "unresolved": [],
+  "rejectedDuplicateExisting": [],
+  "aiAvailable": false,
+  "repairedAt": "2026-08-07T17:51:13.262Z",
+  "repairedFree": [
     {
       "slug": "fort-richardson-state-park-state-historic-site",
       "name": "Fort Richardson State Park/State Historic Site",
       "category": "historic-sites",
-      "reason": "no free photo found and LOVABLE_API_KEY unavailable"
-    },
-    {
-      "slug": "lipantitlan-state-historic-site",
-      "name": "Lipantitlan State Historic Site",
-      "category": "historic-sites",
-      "reason": "no free photo found and LOVABLE_API_KEY unavailable"
+      "sourceTitle": "File:0011Fort Richardson Officers Quarters Jacksboro Texas.jpg"
     },
     {
       "slug": "hancock-springs-park",
       "name": "Hancock Springs Park",
       "category": "major-springs",
-      "reason": "no free photo found and LOVABLE_API_KEY unavailable"
+      "sourceTitle": "File:Hancock Park Pool Lampasas Texas.jpg"
+    },
+    {
+      "slug": "village-creek-state-park",
+      "name": "Village Creek State Park",
+      "category": "lakes-rivers",
+      "sourceTitle": "File:Cane Slough Village Creek State Park Texas 2023.jpg"
     }
   ],
-  "rejectedDuplicateExisting": [],
-  "aiAvailable": false
+  "generatedRepresentative": [
+    {
+      "slug": "lipantitlan-state-historic-site",
+      "name": "Lipantitlan State Historic Site",
+      "category": "historic-sites"
+    }
+  ],
+  "validation": {
+    "reconciledHeroEntries": 63,
+    "uniqueHeroSources": 63,
+    "unresolved": 0,
+    "wrongStateVillageCreekCorrected": true
+  }
 }
