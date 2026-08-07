@@ -3,7 +3,7 @@ import { queryOptions } from "@tanstack/react-query";
 import { fetchPublishedTexasEvents } from "./events-remote";
 import { fetchCoreExploreDestination, fetchCoreExploreDestinations } from "./explore-core-remote";
 import { supplementalExploreCategories } from "./explore-categories";
-import { reconcileDestinationHeroes } from "./explore-hero-reconciliation";
+import { isDestinationPhotoPlaceholder, reconcileDestinationHeroes } from "./explore-hero-reconciliation";
 import { applyExploreHeroAsset, applyExploreHeroAssets } from "./explore-heroes";
 import { fetchExploreDestination, fetchExploreDestinations } from "./explore-remote";
 import { legacyExploreDestinations } from "./fixtures/legacy-explore";
@@ -31,8 +31,19 @@ function mergeDestinations(...groups: Destination[][]): Destination[] {
   const merged = new Map<string, Destination>();
   for (const group of groups) {
     for (const destination of group) {
-      if (!destination.slug || merged.has(destination.slug)) continue;
-      merged.set(destination.slug, destination);
+      if (!destination.slug) continue;
+
+      const existing = merged.get(destination.slug);
+      if (!existing) {
+        merged.set(destination.slug, destination);
+        continue;
+      }
+
+      const existingHasPlaceholder = isDestinationPhotoPlaceholder(existing.hero?.src);
+      const incomingHasRealPhoto = !isDestinationPhotoPlaceholder(destination.hero?.src);
+      if (existingHasPlaceholder && incomingHasRealPhoto) {
+        merged.set(destination.slug, { ...existing, hero: destination.hero });
+      }
     }
   }
   return [...merged.values()];
