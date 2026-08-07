@@ -20,16 +20,20 @@ function CheckoutReturnPage() {
   }, [session_id]);
 
   return (
-    <Container className="py-20 text-center sm:py-28">
-      <p className="eyebrow text-primary">Texas Defined Shop</p>
-      <h1 className="mt-4 font-display text-4xl sm:text-5xl">Thank you for your order</h1>
-      <p className="mx-auto mt-5 max-w-xl leading-relaxed text-muted-foreground">
-        Your payment was received. A confirmation will be sent to the email address used during checkout, and your items will be prepared by our print partner.
-      </p>
-      <div className="mt-8 flex flex-wrap justify-center gap-3">
-        <Link to="/shop" className="bg-primary px-5 py-3 font-semibold text-primary-foreground">Continue shopping</Link>
-        <Link to="/" className="border border-border px-5 py-3 font-semibold">Return home</Link>
-      </div>
-    </Container>
+    <main>
+      <Container className="pb-20 pt-14 sm:pb-28 sm:pt-20">
+        <section className="mx-auto max-w-4xl border-y border-border py-14 text-center sm:py-20">
+          <p className="eyebrow text-primary">Texas Defined Shop</p>
+          <h1 className="mx-auto mt-4 max-w-3xl font-display text-5xl leading-[0.98] sm:text-7xl">Thank you for your order</h1>
+          <p className="mx-auto mt-6 max-w-xl text-base leading-7 text-muted-foreground sm:text-lg">
+            Your payment was received. A confirmation will be sent to the email address used during checkout, and your items will be prepared by our print partner.
+          </p>
+          <div className="mx-auto mt-10 flex max-w-md flex-col border-t border-border sm:flex-row sm:justify-center">
+            <Link to="/shop" className="border-b border-border px-6 py-4 text-sm font-semibold sm:border-b-0 sm:border-r">Continue shopping →</Link>
+            <Link to="/" className="px-6 py-4 text-sm font-semibold">Return to the front page</Link>
+          </div>
+        </section>
+      </Container>
+    </main>
   );
 }
