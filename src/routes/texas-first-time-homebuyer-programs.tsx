@@ -26,33 +26,19 @@ const checklistNames = [
 
 export const Route = createFileRoute('/texas-first-time-homebuyer-programs')({
   head: () => ({
-    meta: buildMeta(texasDefinedBrand, {
-      canonicalPath,
-      title: 'Buying Your First Texas Home',
-      description,
-    }),
+    meta: buildMeta(texasDefinedBrand, { canonicalPath, title: 'Buying Your First Texas Home', description }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
     scripts: [jsonLd({
       '@context': 'https://schema.org',
       '@graph': [
         {
-          '@type': 'HowTo',
-          '@id': `${pageUrl}#howto`,
-          url: pageUrl,
-          name: 'How to evaluate help for buying your first Texas home',
-          description,
+          '@type': 'HowTo', '@id': `${pageUrl}#howto`, url: pageUrl,
+          name: 'How to evaluate help for buying your first Texas home', description,
           isPartOf: { '@id': `${siteUrl}/#website` },
-          step: checklist.map((text, index) => ({
-            '@type': 'HowToStep',
-            position: index + 1,
-            name: checklistNames[index],
-            text,
-            url: `${pageUrl}#homebuyer-step-${index + 1}`,
-          })),
+          step: checklist.map((text, index) => ({ '@type': 'HowToStep', position: index + 1, name: checklistNames[index], text, url: `${pageUrl}#homebuyer-step-${index + 1}` })),
         },
         {
-          '@type': 'BreadcrumbList',
-          '@id': `${pageUrl}#breadcrumbs`,
+          '@type': 'BreadcrumbList', '@id': `${pageUrl}#breadcrumbs`,
           itemListElement: [
             { '@type': 'ListItem', position: 1, name: 'Front page', item: `${siteUrl}/` },
             { '@type': 'ListItem', position: 2, name: 'Living Here', item: `${siteUrl}/texas-living` },
@@ -67,41 +53,49 @@ export const Route = createFileRoute('/texas-first-time-homebuyer-programs')({
 
 function Page() {
   return (
-    <Container className="py-16 sm:py-24">
-      <article className="prose prose-gray mx-auto max-w-4xl">
-        <nav aria-label="Breadcrumb" className="not-prose text-xs text-muted-foreground">
-          <ol className="flex flex-wrap items-center gap-2">
-            <li><Link to="/" className="hover:text-foreground">Front page</Link></li>
-            <li aria-hidden="true">/</li>
-            <li><Link to="/texas-living" className="hover:text-foreground">Living Here</Link></li>
-            <li aria-hidden="true">/</li>
-            <li aria-current="page" className="text-foreground">Buying Your First Home</li>
-          </ol>
-        </nav>
-        <p className="eyebrow text-primary">Putting down roots</p>
-        <h1>Buying your first Texas home</h1>
-        <p className="lead">{description}</p>
-        <h2>First, find your comfortable number</h2>
-        <p>Start with the full monthly cost—not just the mortgage. Add property taxes, homeowners insurance, mortgage insurance, HOA dues, utilities, maintenance and room for the unexpected.</p>
-        <div className="not-prose my-8 grid gap-4 sm:grid-cols-3">
-          <Link className="rounded-lg border p-5 font-medium" to="/texas-home-affordability-calculator">See what feels affordable</Link>
-          <Link className="rounded-lg border p-5 font-medium" to="/texas-down-payment-assistance-calculator">Estimate possible assistance</Link>
-          <Link className="rounded-lg border p-5 font-medium" to="/texas-closing-cost-calculator">Plan for closing costs</Link>
-        </div>
-        <h2>The different ways help may work</h2>
-        <p>Help may come as a grant, a forgivable lien, a deferred loan, a second mortgage, a mortgage-credit certificate or a lender-specific offer. Compare the interest rate, repayment terms, cash needed at closing and what happens if you sell or refinance.</p>
-        <h2>Your before-you-buy checklist</h2>
-        <ol>
-          {checklist.map((item, index) => <li id={`homebuyer-step-${index + 1}`} key={item}>{item}</li>)}
-        </ol>
-        <h2>Where to check first</h2>
-        <ul>
-          <li><a href="https://welcomehome.tdhca.texas.gov/" target="_blank" rel="noreferrer noopener">Texas Department of Housing and Community Affairs homebuyer programs</a></li>
-          <li><a href="https://www.tdhca.texas.gov/help-for-texans" target="_blank" rel="noreferrer noopener">TDHCA Help for Texans</a></li>
-          <li><a href="https://www.hud.gov/states/texas" target="_blank" rel="noreferrer noopener">HUD guidance for Texas buyers</a></li>
-        </ul>
-        <aside className="not-prose mt-10 rounded-lg bg-muted p-5 text-sm text-muted-foreground">Programs, rates, funding and limits change. Confirm the details with the agency and participating lender before making a decision.</aside>
-      </article>
-    </Container>
+    <main>
+      <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
+        <article className="mx-auto max-w-6xl">
+          <nav aria-label="Breadcrumb" className="border-b border-border pb-4 text-xs uppercase tracking-[0.14em] text-muted-foreground">
+            <Link to="/">Front page</Link><span aria-hidden="true" className="mx-2">/</span><Link to="/texas-living">Living Here</Link><span aria-hidden="true" className="mx-2">/</span><span className="text-foreground">First home</span>
+          </nav>
+
+          <header className="grid gap-8 border-b border-border py-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end">
+            <div><p className="eyebrow text-primary">Putting down roots</p><h1 className="mt-3 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">Buying your first Texas home</h1><p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground sm:text-xl">{description}</p></div>
+            <p className="border-l border-border pl-6 text-sm leading-6 text-muted-foreground">Start with the full monthly cost, not just principal and interest. Taxes, insurance, utilities, maintenance and reserves all belong in the decision.</p>
+          </header>
+
+          <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
+            <div><p className="eyebrow text-primary">Run the numbers</p><h2 className="mt-2 font-display text-3xl">Find your comfortable number</h2></div>
+            <div className="grid sm:grid-cols-3">
+              <Link className="group border-t border-border py-5 sm:px-5" to="/texas-home-affordability-calculator"><span className="font-display text-xl group-hover:text-primary">Home affordability</span><span className="mt-2 block text-sm text-muted-foreground">Estimate a price range that fits your household.</span></Link>
+              <Link className="group border-t border-border py-5 sm:px-5" to="/texas-down-payment-assistance-calculator"><span className="font-display text-xl group-hover:text-primary">Down-payment assistance</span><span className="mt-2 block text-sm text-muted-foreground">Model possible help and the cash gap that remains.</span></Link>
+              <Link className="group border-t border-border py-5 sm:px-5" to="/texas-closing-cost-calculator"><span className="font-display text-xl group-hover:text-primary">Closing costs</span><span className="mt-2 block text-sm text-muted-foreground">Plan for the transaction costs around closing day.</span></Link>
+            </div>
+          </section>
+
+          <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
+            <div><p className="eyebrow text-primary">Assistance programs</p><h2 className="mt-2 font-display text-3xl">Help can take different forms</h2></div>
+            <p className="max-w-3xl text-base leading-7 text-muted-foreground">Help may come as a grant, a forgivable lien, a deferred loan, a second mortgage, a mortgage-credit certificate or a lender-specific offer. Compare the interest rate, repayment terms, cash needed at closing and what happens if you sell or refinance.</p>
+          </section>
+
+          <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
+            <div><p className="eyebrow text-primary">Before you buy</p><h2 className="mt-2 font-display text-3xl">Six checks worth making</h2></div>
+            <ol className="divide-y divide-border border-y border-border">{checklist.map((item, index) => <li id={`homebuyer-step-${index + 1}`} key={item} className="grid gap-3 py-5 sm:grid-cols-[3rem_1fr]"><span className="font-display text-3xl text-primary">{String(index + 1).padStart(2, '0')}</span><div><h3 className="font-display text-xl">{checklistNames[index]}</h3><p className="mt-1 text-sm leading-6 text-muted-foreground">{item}</p></div></li>)}</ol>
+          </section>
+
+          <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
+            <div><p className="eyebrow text-primary">Official sources</p><h2 className="mt-2 font-display text-3xl">Where to check first</h2></div>
+            <div className="divide-y divide-border border-y border-border text-sm font-semibold">
+              <a className="block py-4 underline decoration-primary/50 underline-offset-4" href="https://welcomehome.tdhca.texas.gov/" target="_blank" rel="noreferrer noopener">Texas Department of Housing and Community Affairs homebuyer programs ↗</a>
+              <a className="block py-4 underline decoration-primary/50 underline-offset-4" href="https://www.tdhca.texas.gov/help-for-texans" target="_blank" rel="noreferrer noopener">TDHCA Help for Texans ↗</a>
+              <a className="block py-4 underline decoration-primary/50 underline-offset-4" href="https://www.hud.gov/states/texas" target="_blank" rel="noreferrer noopener">HUD guidance for Texas buyers ↗</a>
+            </div>
+          </section>
+
+          <aside className="py-6 text-sm leading-6 text-muted-foreground">Programs, rates, funding and limits change. Confirm the details with the agency and participating lender before making a decision.</aside>
+        </article>
+      </Container>
+    </main>
   );
 }
