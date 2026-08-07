@@ -9,17 +9,14 @@ import { productsQuery } from "@/data/queries";
 import type { Product } from "@/data/types";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
-// Live shared storefront catalog for TexasDefined.com.
-const description =
-  "Shop Texas-inspired apparel, gifts and everyday goods selected for Texas Defined.";
-
+const description = "Texas-inspired apparel, gifts and everyday goods selected for the Texas Defined shop.";
 const productAnchor = (id: string) => `product-${id}`;
 
 export const Route = createFileRoute("/shop/")({
   head: ({ loaderData }: { loaderData?: { products: Product[] } }) => ({
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath: "/shop",
-      title: "Texas Defined Shop",
+      title: "The Texas Defined Shop",
       description,
       image: shopFlatlay,
       imageAlt: "Texas-inspired goods arranged on a tabletop",
@@ -34,7 +31,7 @@ export const Route = createFileRoute("/shop/")({
                 "@type": "CollectionPage",
                 "@id": `${absoluteUrl(texasDefinedBrand, "/shop")}#page`,
                 url: absoluteUrl(texasDefinedBrand, "/shop"),
-                name: "Texas Defined Shop",
+                name: "The Texas Defined Shop",
                 description,
                 isPartOf: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#website` },
                 mainEntity: { "@id": `${absoluteUrl(texasDefinedBrand, "/shop")}#products` },
@@ -77,37 +74,42 @@ export const Route = createFileRoute("/shop/")({
 });
 
 function ShopPage() {
-  // Render the exact catalog resolved by the route loader. Starting a second
-  // browser query here allowed a failed hydration-time refresh to replace a
-  // valid server-rendered catalog with the fixture outage fallback.
   const { products } = Route.useLoaderData();
 
   return (
     <>
-      <Container className="pb-10 pt-16 sm:pt-24">
-        <p className="eyebrow text-primary">Texas Defined Shop</p>
-        <h1 className="mt-3 max-w-4xl font-display text-4xl leading-tight sm:text-6xl">
-          Wear it. Gift it. Keep Texas close.
-        </h1>
-        <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground">
-          {description}
-        </p>
-      </Container>
+      <section className="relative isolate overflow-hidden bg-ink text-ink-foreground">
+        <img
+          src={shopFlatlay}
+          alt="Texas-inspired goods arranged on a tabletop"
+          width={1600}
+          height={1067}
+          className="absolute inset-0 size-full object-cover opacity-45"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/75 to-ink/30" />
+        <Container className="relative py-24 sm:py-32">
+          <p className="eyebrow text-ink-foreground/75">The Texas Defined Shop</p>
+          <h1 className="mt-4 max-w-3xl font-display text-5xl leading-[0.98] sm:text-7xl">
+            Texas style, thoughtfully selected.
+          </h1>
+          <p className="mt-6 max-w-xl text-lg leading-8 text-ink-foreground/85">{description}</p>
+        </Container>
+      </section>
 
       <Section tone="surface">
         <Container>
-          <div className="flex flex-wrap items-end justify-between gap-4">
+          <div className="flex flex-wrap items-end justify-between gap-6 border-b border-border pb-6">
             <div>
-              <p className="eyebrow text-primary">Shop all</p>
-              <h2 className="mt-2 font-display text-3xl sm:text-4xl">Texas goods selected for you</h2>
+              <p className="eyebrow text-primary">The collection</p>
+              <h2 className="mt-3 font-display text-4xl sm:text-5xl">Shop Texas Defined</h2>
             </div>
-            <p className="text-sm font-semibold text-muted-foreground">
-              {products.length} {products.length === 1 ? "product" : "products"}
+            <p className="text-sm text-muted-foreground">
+              {products.length} {products.length === 1 ? "piece" : "pieces"}
             </p>
           </div>
 
           {products.length > 0 ? (
-            <ul className="mt-10 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <ul className="mt-10 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {products.map((product) => (
                 <li id={productAnchor(product.id)} key={product.id}>
                   <ProductCard product={product} />
@@ -115,10 +117,10 @@ function ShopPage() {
               ))}
             </ul>
           ) : (
-            <div className="mt-10 border border-border bg-background p-10 text-center">
-              <h2 className="font-display text-2xl">Products are being selected</h2>
+            <div className="mt-10 border-y border-border py-12 text-center">
+              <h2 className="font-display text-3xl">The collection is being curated</h2>
               <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">
-                The Texas Defined catalog is connected. Products will appear here as soon as they are assigned to TexasDefined in the shared Store Catalog.
+                Selected Texas Defined products will appear here as they are added to the shared catalog.
               </p>
             </div>
           )}
