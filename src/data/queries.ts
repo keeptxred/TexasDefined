@@ -1,6 +1,7 @@
 import { queryOptions } from "@tanstack/react-query";
 
 import { fetchPublishedTexasEvents } from "./events-remote";
+import { applyCuratedDestination, applyCuratedDestinations } from "./destination-curation";
 import { improveDestinationCatalog, improveDestinationQuality } from "./destination-quality";
 import { fetchCoreExploreDestination, fetchCoreExploreDestinations } from "./explore-core-remote";
 import { supplementalExploreCategories } from "./explore-categories";
@@ -56,11 +57,17 @@ function preservedFor(query: Omit<DestinationQuery, "brandId">): Destination[] {
 }
 
 function applyResolvedHero(destination: Destination) {
-  return improveDestinationQuality(applyExploreHeroAsset(applyStateParkHeroAsset(destination)));
+  return improveDestinationQuality(
+    applyCuratedDestination(applyExploreHeroAsset(applyStateParkHeroAsset(destination))),
+  );
 }
 
 function reconcileExploreCatalog(destinations: Destination[]) {
-  return improveDestinationCatalog(reconcileDestinationHeroes(applyExploreHeroAssets(applyStateParkHeroAssets(destinations))));
+  return improveDestinationCatalog(
+    applyCuratedDestinations(
+      reconcileDestinationHeroes(applyExploreHeroAssets(applyStateParkHeroAssets(destinations))),
+    ),
+  );
 }
 
 export const destinationsQuery = (params: Omit<DestinationQuery, "brandId"> = {}) => queryOptions({
