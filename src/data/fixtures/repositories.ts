@@ -13,6 +13,7 @@ import { supplementalExploreCategories } from "../explore-categories";
 import { guideHref } from "../guide-links";
 import type { SearchDocument } from "../types";
 import { migratedEditorialArticles } from "./migrated-editorial";
+import { texasBarbecueStylesArticle } from "./texas-barbecue-styles";
 import {
   articles,
   authors,
@@ -30,7 +31,7 @@ import {
  * single edit in `src/data/index.ts` — no component changes.
  */
 
-const editorialArticles = [...articles, ...migratedEditorialArticles];
+const editorialArticles = [texasBarbecueStylesArticle, ...articles, ...migratedEditorialArticles];
 
 const byBrand = <T extends { brandId: string }>(rows: T[], brandId: string) =>
   rows.filter((row) => row.brandId === brandId);
