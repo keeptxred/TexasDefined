@@ -11,7 +11,7 @@ import type {
 } from "../repositories";
 import { supplementalExploreCategories } from "../explore-categories";
 import { guideHref } from "../guide-links";
-import type { SearchDocument } from "../types";
+import type { Article, ArticleBlock, SearchDocument } from "../types";
 import { brewsterCountyBigBendArticle } from "./brewster-county-big-bend";
 import {
   texasBarbecueStylesArticle,
@@ -20,6 +20,7 @@ import {
   texasRegionsExplainedArticle,
   whyTexasHas254CountiesArticle,
 } from "./chat-article-hero-overrides";
+import { exploreFeatureArticles } from "./explore-feature-articles";
 import { newestEvergreenArticles } from "./newest-evergreen";
 import { highSchoolFootballNewcomersArticle } from "./high-school-football-newcomers";
 import { kolacheOrKlobasnekArticle } from "./kolache-or-klobasnek";
@@ -45,6 +46,7 @@ import {
  */
 
 const editorialArticles = [
+  ...exploreFeatureArticles,
   brewsterCountyBigBendArticle,
   ...newestEvergreenArticles,
   rodeo101Article,
@@ -69,6 +71,23 @@ const take = <T>(rows: T[], limit?: number) => (limit ? rows.slice(0, limit) : r
 const newestFirst = <T extends { publishedAt: string }>(rows: T[]) =>
   [...rows].sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1));
 
+const wordsInBlock = (block: ArticleBlock) => {
+  const text = block.type === "list"
+    ? block.items.join(" ")
+    : "text" in block
+      ? block.text
+      : "";
+  return text.trim() ? text.trim().split(/\s+/).length : 0;
+};
+
+const normalizeArticle = (article: Article): Article => {
+  const wordCount = article.body.reduce((total, block) => total + wordsInBlock(block), 0);
+  return {
+    ...article,
+    readingMinutes: Math.max(1, Math.ceil(wordCount / 220)),
+  };
+};
+
 const today = () => new Date().toISOString().slice(0, 10);
 const currentEvents = <T extends { startDate: string; endDate?: string }>(rows: T[]) =>
   rows.filter((event) => (event.endDate ? event.endDate >= today() : event.startDate >= today()));
@@ -80,10 +99,11 @@ export const fixtureArticles: ArticleRepository = {
     if (query.tag) rows = rows.filter((a) => a.tags.includes(query.tag!));
     if (query.featured !== undefined) rows = rows.filter((a) => Boolean(a.featured) === query.featured);
     if (query.excludeSlug) rows = rows.filter((a) => a.slug !== query.excludeSlug);
-    return take(rows, query.limit);
+    return take(rows, query.limit).map(normalizeArticle);
   },
   async getBySlug(scope, slug) {
-    return byBrand(editorialArticles, scope.brandId).find((a) => a.slug === slug) ?? null;
+    const article = byBrand(editorialArticles, scope.brandId).find((a) => a.slug === slug) ?? null;
+    return article ? normalizeArticle(article) : null;
   },
 };
 
