@@ -9,7 +9,7 @@ import { legacyLakeDestinations } from "./fixtures/legacy-lakes";
 import { platform, scope } from "./index";
 import type { ArticleQuery, DestinationQuery } from "./repositories";
 import { fetchAssignedShopProducts } from "./shop-products-remote";
-import { ensureStateParkHero, ensureUniqueStateParkHeroes } from "./state-park-heroes";
+import { hydrateStateParkHero, hydrateUniqueStateParkHeroes } from "./state-park-heroes";
 import type { Destination, SearchDocument, Slug } from "./types";
 
 export const articlesQuery = (params: Omit<ArticleQuery, "brandId"> = {}) => queryOptions({ queryKey: ["articles", scope.brandId, params], queryFn: () => platform.articles.list({ ...scope, ...params }) });
@@ -62,8 +62,6 @@ export const destinationsQuery = (params: Omit<DestinationQuery, "brandId"> = {}
       console.error("Explore enrichment unavailable; merging core and preserved catalogs", error);
     }
 
-    // A partial remote response must never be interpreted as a complete migration.
-    // Always merge the broader core catalog and the preserved pre-split catalog.
     try {
       core = await fetchCoreExploreDestinations(options);
       if (params.featured && !core.length) {
@@ -76,7 +74,7 @@ export const destinationsQuery = (params: Omit<DestinationQuery, "brandId"> = {}
 
     const local = await platform.destinations.list({ ...scope, ...params });
     const preserved = preservedFor(params);
-    const merged = ensureUniqueStateParkHeroes(mergeDestinations(enriched, core, preserved, local));
+    const merged = await hydrateUniqueStateParkHeroes(mergeDestinations(enriched, core, preserved, local));
 
     if (params.featured) return featuredFallback(merged, params.limit ?? 6);
     return params.limit ? merged.slice(0, params.limit) : merged;
@@ -88,22 +86,22 @@ export const destinationQuery = (slug: Slug) => queryOptions({
   queryFn: async () => {
     try {
       const enriched = await fetchExploreDestination(slug);
-      if (enriched) return ensureStateParkHero(enriched);
+      if (enriched) return hydrateStateParkHero(enriched);
     } catch (error) {
       console.error("Explore destination enrichment unavailable; retrying core remote record", error);
     }
 
     try {
       const core = await fetchCoreExploreDestination(slug);
-      if (core) return ensureStateParkHero(core);
+      if (core) return hydrateStateParkHero(core);
     } catch (error) {
       console.error("Core Explore remote destination unavailable; retrying preserved catalog", error);
     }
 
     const preserved = preservedExploreDestinations.find((destination) => destination.slug === slug);
-    if (preserved) return ensureStateParkHero(preserved);
+    if (preserved) return hydrateStateParkHero(preserved);
     const local = await platform.destinations.getBySlug(scope, slug);
-    return local ? ensureStateParkHero(local) : local;
+    return local ? hydrateStateParkHero(local) : local;
   },
 });
 
@@ -174,7 +172,7 @@ export const searchDocumentsQuery = () => queryOptions({
     catch (error) { console.error("Enriched destination search index unavailable; merging core and preserved catalogs", error); }
     try { core = await fetchCoreExploreDestinations({ limit: 5000 }); }
     catch (coreError) { console.error("Core remote destination search index unavailable; retaining preserved destinations", coreError); }
-    const destinations = ensureUniqueStateParkHeroes(mergeDestinations(enriched, core, preservedExploreDestinations));
+    const destinations = await hydrateUniqueStateParkHeroes(mergeDestinations(enriched, core, preservedExploreDestinations));
     if (!destinations.length) return base;
     return [...base.filter((document) => document.kind !== "destination"), ...destinations.map(destinationSearchDocument)];
   },
