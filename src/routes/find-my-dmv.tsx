@@ -54,30 +54,42 @@ export const Route = createFileRoute('/find-my-dmv')({
 
 function Page() {
   return (
-    <Container className="py-16 sm:py-24">
-      <article className="prose prose-gray mx-auto max-w-4xl">
-        <nav aria-label="Breadcrumb" className="not-prose text-xs text-muted-foreground">
-          <ol className="flex flex-wrap items-center gap-2">
-            <li><Link to="/" className="hover:text-foreground">Front page</Link></li><li aria-hidden="true">/</li>
-            <li><Link to="/moving-to-texas" className="hover:text-foreground">Moving Here</Link></li><li aria-hidden="true">/</li>
-            <li aria-current="page" className="text-foreground">Getting Your Car Settled</li>
-          </ol>
-        </nav>
-        <p className="eyebrow text-primary">New in town</p><h1>Getting your car settled in Texas</h1><p className="lead">{description}</p>
-        <h2>Two offices, two different jobs</h2>
-        <p>County tax offices generally handle vehicle registration. The Texas Department of Public Safety handles driver licenses. Check both official sites before making a trip so you know which documents, fees and appointments apply.</p>
-        <h2>What to handle first</h2>
-        <ol>{steps.map((step, index) => <li id={`vehicle-step-${index + 1}`} key={step}>{step}</li>)}</ol>
-        <div className="not-prose my-8 grid gap-4 sm:grid-cols-2">
-          <a className="rounded-lg border p-5 font-medium" href="https://www.txdmv.gov/motorists/new-to-texas" target="_blank" rel="noreferrer noopener">See the official TxDMV steps</a>
-          <a className="rounded-lg border p-5 font-medium" href="https://www.dps.texas.gov/section/driver-license" target="_blank" rel="noreferrer noopener">Plan your driver-license visit</a>
-          <Link className="rounded-lg border p-5 font-medium" to="/browse/counties">Find your county office</Link>
-          <Link className="rounded-lg border p-5 font-medium" to="/moving-to-texas-checklist">Open the moving checklist</Link>
-        </div>
-        <aside className="not-prose rounded-lg bg-muted p-5 text-sm text-muted-foreground">
-          Before you go: use the official state and county pages for current office locations, fees, deadlines and document requirements.
-        </aside>
-      </article>
-    </Container>
+    <main>
+      <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
+        <article className="mx-auto max-w-6xl">
+          <nav aria-label="Breadcrumb" className="border-b border-border pb-4 text-xs uppercase tracking-[0.14em] text-muted-foreground">
+            <Link to="/">Front page</Link><span aria-hidden="true" className="mx-2">/</span><Link to="/moving-to-texas">Moving Here</Link><span aria-hidden="true" className="mx-2">/</span><span className="text-foreground">Vehicle registration</span>
+          </nav>
+
+          <header className="grid gap-8 border-b border-border py-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end">
+            <div>
+              <p className="eyebrow text-primary">New in town</p>
+              <h1 className="mt-3 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">Getting your car settled in Texas</h1>
+              <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground sm:text-xl">{description}</p>
+            </div>
+            <p className="border-l border-border pl-6 text-sm leading-6 text-muted-foreground">County tax offices generally handle vehicle registration. The Texas Department of Public Safety handles driver licenses. They are separate stops with different requirements.</p>
+          </header>
+
+          <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
+            <div><p className="eyebrow text-primary">The checklist</p><h2 className="mt-2 font-display text-3xl">What to handle first</h2></div>
+            <ol className="divide-y divide-border border-y border-border">
+              {steps.map((step, index) => <li id={`vehicle-step-${index + 1}`} key={step} className="grid gap-3 py-5 sm:grid-cols-[3rem_1fr]"><span className="font-display text-3xl text-primary">{String(index + 1).padStart(2, '0')}</span><div><h3 className="font-display text-xl">{stepNames[index]}</h3><p className="mt-1 text-sm leading-6 text-muted-foreground">{step}</p></div></li>)}
+            </ol>
+          </section>
+
+          <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
+            <div><p className="eyebrow text-primary">Official sources</p><h2 className="mt-2 font-display text-3xl">Check before you drive over</h2></div>
+            <div className="grid sm:grid-cols-2">
+              <a className="group border-t border-border py-5 sm:px-5" href="https://www.txdmv.gov/motorists/new-to-texas" target="_blank" rel="noreferrer noopener"><span className="font-display text-xl group-hover:text-primary">Official TxDMV steps</span><span className="ml-2 text-sm">↗</span></a>
+              <a className="group border-t border-border py-5 sm:px-5" href="https://www.dps.texas.gov/section/driver-license" target="_blank" rel="noreferrer noopener"><span className="font-display text-xl group-hover:text-primary">Driver-license information</span><span className="ml-2 text-sm">↗</span></a>
+              <Link className="group border-t border-border py-5 sm:px-5" to="/browse/counties"><span className="font-display text-xl group-hover:text-primary">Find your county office</span><span className="ml-2 text-sm">→</span></Link>
+              <Link className="group border-t border-border py-5 sm:px-5" to="/moving-to-texas-checklist"><span className="font-display text-xl group-hover:text-primary">Moving checklist</span><span className="ml-2 text-sm">→</span></Link>
+            </div>
+          </section>
+
+          <aside className="py-6 text-sm leading-6 text-muted-foreground">Before you go, use the official state and county pages for current office locations, fees, deadlines and document requirements.</aside>
+        </article>
+      </Container>
+    </main>
   );
 }
