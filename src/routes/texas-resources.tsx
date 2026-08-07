@@ -55,11 +55,7 @@ const guideLinks = groups.flatMap((group) => group.links);
 const itemListElement = guideLinks.map(([name, path], index) => ({
   '@type': 'ListItem',
   position: index + 1,
-  item: {
-    '@type': 'WebPage',
-    name,
-    url: `${siteUrl}${path}`,
-  },
+  item: { '@type': 'WebPage', name, url: `${siteUrl}${path}` },
 }));
 
 const structuredData = {
@@ -108,33 +104,48 @@ export const Route = createFileRoute('/texas-resources')({
 
 function Page() {
   return (
-    <Container className="py-16 sm:py-24">
-      <main className="mx-auto max-w-6xl">
-        <nav aria-label="Breadcrumb" className="text-xs text-muted-foreground">
-          <ol className="flex items-center gap-2">
-            <li><Link to="/" className="hover:text-foreground">Front page</Link></li>
-            <li aria-hidden="true">/</li>
-            <li aria-current="page" className="text-foreground">Start Here</li>
-          </ol>
+    <main>
+      <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
+        <nav aria-label="Breadcrumb" className="border-b border-border pb-4 text-xs uppercase tracking-[0.14em] text-muted-foreground">
+          <Link to="/" className="hover:text-foreground">Front page</Link>
+          <span aria-hidden="true" className="mx-2">/</span>
+          <span className="text-foreground">Start Here</span>
         </nav>
-        <p className="eyebrow mt-8 text-primary">Start Here</p>
-        <h1 className="mt-3 font-display text-4xl sm:text-6xl">Good answers for everyday Texas life</h1>
-        <p className="mt-5 max-w-3xl text-lg leading-8 text-muted-foreground">{description}</p>
-        <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-          {groups.map((group) => (
-            <section key={group.title} className="rounded-lg border border-border p-6">
-              <h2 className="font-display text-2xl">{group.title}</h2>
-              <div className="mt-5 space-y-3">
+
+        <header className="grid gap-8 border-b border-border py-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end">
+          <div>
+            <p className="eyebrow text-primary">The Texas Guidebook</p>
+            <h1 className="mt-3 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">Good answers for everyday Texas life</h1>
+            <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground sm:text-xl">{description}</p>
+          </div>
+          <p className="border-l border-border pl-6 text-sm leading-6 text-muted-foreground">
+            Start with the question in front of you. These guides connect practical explanations with the official offices and records that matter when details need verification.
+          </p>
+        </header>
+
+        <div className="divide-y divide-border">
+          {groups.map((group, groupIndex) => (
+            <section key={group.title} className="grid gap-7 py-10 lg:grid-cols-[15rem_1fr]">
+              <div>
+                <p className="eyebrow text-primary">Section {String(groupIndex + 1).padStart(2, '0')}</p>
+                <h2 className="mt-2 font-display text-3xl leading-tight">{group.title}</h2>
+              </div>
+              <div className="grid sm:grid-cols-2">
                 {group.links.map(([label, to]) => (
-                  <Link key={to} to={to} className="block rounded border border-border px-4 py-3 text-sm font-medium hover:border-primary hover:text-primary">
-                    {label} →
+                  <Link key={to} to={to} className="group border-t border-border py-4 sm:px-5">
+                    <span className="font-display text-xl group-hover:text-primary">{label}</span>
+                    <span className="ml-2 text-sm text-muted-foreground">→</span>
                   </Link>
                 ))}
               </div>
             </section>
           ))}
         </div>
-      </main>
-    </Container>
+
+        <footer className="border-t border-border pt-6 text-sm leading-6 text-muted-foreground">
+          Looking for a place rather than a practical guide? <Link to="/explore" className="font-semibold text-foreground underline decoration-primary/50 underline-offset-4">Open the Texas travel guide.</Link>
+        </footer>
+      </Container>
+    </main>
   );
 }
