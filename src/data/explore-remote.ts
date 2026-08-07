@@ -101,6 +101,14 @@ function matchesCategory(row: Record<string, unknown>, requested?: CategorySlug)
 
 export const DESTINATION_FALLBACK_IMAGE = "/images/texasdefined-destination-placeholder.svg";
 
+function storagePublicUrl(bucketValue: unknown, pathValue: unknown): string {
+  const bucket = cleanText(bucketValue);
+  const path = cleanText(pathValue).replace(/^\/+/, "");
+  if (!supabaseUrl || !bucket || !path) return "";
+  const encodedPath = path.split("/").map(encodeURIComponent).join("/");
+  return `${supabaseUrl}/storage/v1/object/public/${encodeURIComponent(bucket)}/${encodedPath}`;
+}
+
 function destinationImage(value: unknown): string {
   const raw = cleanText(value);
   if (!raw) return DESTINATION_FALLBACK_IMAGE;
@@ -109,10 +117,23 @@ function destinationImage(value: unknown): string {
   return DESTINATION_FALLBACK_IMAGE;
 }
 
+function destinationMediaImage(media: Record<string, unknown>, row: Record<string, unknown>): string {
+  const external = destinationImage(media.external_url);
+  if (external !== DESTINATION_FALLBACK_IMAGE) return external;
+  const stored = storagePublicUrl(media.storage_bucket, media.storage_path);
+  if (stored) return stored;
+  return destinationImage(row.hero_image_url || row.image_url);
+}
+
 function mediaFor(row: Record<string, unknown>): Record<string, unknown> {
   const links = records(row.explore_entity_media)
     .filter((link) => cleanText(link.role) === "hero" || cleanText(link.role) === "thumbnail" || Boolean(link.is_primary))
-    .sort((left, right) => Number(Boolean(right.is_primary)) - Number(Boolean(left.is_primary)) || Number(left.sort_order || 0) - Number(right.sort_order || 0));
+    .sort((left, right) => {
+      const roleScore = (value: unknown) => cleanText(value) === "hero" ? 3 : cleanText(value) === "thumbnail" ? 2 : 1;
+      return Number(Boolean(right.is_primary)) - Number(Boolean(left.is_primary))
+        || roleScore(right.role) - roleScore(left.role)
+        || Number(left.sort_order || 0) - Number(right.sort_order || 0);
+    });
   return record(links[0]?.explore_media);
 }
 
@@ -193,7 +214,7 @@ function mapRow(row: Record<string, unknown>): Destination {
   const lat = Number(place.latitude ?? row.latitude ?? row.lat ?? 0);
   const lng = Number(place.longitude ?? row.longitude ?? row.lng ?? 0);
   const summary = cleanText(row.summary || row.short_description || row.long_description) || generatedSummary(name, typeLabel, town, county, park, lake);
-  const image = destinationImage(media.external_url || row.hero_image_url || row.image_url);
+  const image = destinationMediaImage(media, row);
   const activityNames = relatedNames(row.explore_entity_activities, "explore_activities", ["excellent", "good", "available", "seasonal"]);
   const amenityNames = relatedNames(row.explore_entity_amenities, "explore_amenities", ["available", "limited", "seasonal"]);
   const highlights = unique([
@@ -254,7 +275,7 @@ const EXPLORE_SELECT = [
   "explore_lake_profiles(surface_area_acres,shoreline_miles,max_depth_feet,water_type,reservoir,managing_authority,swimming_allowed,fishing_allowed,boating_allowed,wake_restrictions)",
   "explore_entity_activities(suitability,best_months,notes,explore_activities(key,name))",
   "explore_entity_amenities(availability,notes,explore_amenities(key,name))",
-  "explore_entity_media(role,sort_order,is_primary,explore_media(external_url,title,alt_text,caption,credit_text,photographer,license_name,license_url,width,height))",
+  "explore_entity_media(role,sort_order,is_primary,explore_media(storage_bucket,storage_path,external_url,title,alt_text,caption,credit_text,photographer,license_name,license_url,width,height))",
   "explore_entity_sources(source_url,retrieved_at,verified_at,confidence)",
 ].join(",");
 
