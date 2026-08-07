@@ -15,6 +15,7 @@ import type { SearchDocument } from "../types";
 import { migratedEditorialArticles } from "./migrated-editorial";
 import { texasBarbecueStylesArticle } from "./texas-barbecue-styles";
 import { texasNativePlantsYardArticle } from "./texas-native-plants-yard";
+import { whyTexasHas254CountiesArticle } from "./why-texas-has-254-counties";
 import {
   articles,
   authors,
@@ -33,6 +34,7 @@ import {
  */
 
 const editorialArticles = [
+  whyTexasHas254CountiesArticle,
   texasNativePlantsYardArticle,
   texasBarbecueStylesArticle,
   ...articles,
