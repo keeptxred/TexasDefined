@@ -9,9 +9,8 @@ import { legacyLakeDestinations } from "./fixtures/legacy-lakes";
 import { platform, scope } from "./index";
 import type { ArticleQuery, DestinationQuery } from "./repositories";
 import { fetchAssignedShopProducts } from "./shop-products-remote";
+import { applyStateParkHeroAsset, applyStateParkHeroAssets } from "./state-park-heroes";
 import type { Destination, SearchDocument, Slug } from "./types";
-
-const DESTINATION_PLACEHOLDER = "/images/texasdefined-destination-placeholder.svg";
 
 export const articlesQuery = (params: Omit<ArticleQuery, "brandId"> = {}) => queryOptions({ queryKey: ["articles", scope.brandId, params], queryFn: () => platform.articles.list({ ...scope, ...params }) });
 export const articleQuery = (slug: Slug) => queryOptions({ queryKey: ["article", scope.brandId, slug], queryFn: () => platform.articles.getBySlug(scope, slug) });
@@ -35,35 +34,6 @@ function mergeDestinations(...groups: Destination[][]): Destination[] {
     }
   }
   return [...merged.values()];
-}
-
-function isPlaceholderHero(src: string) {
-  return !src || src.includes("texasdefined-destination-placeholder") || src.includes("texasdefined-placeholder");
-}
-
-/**
- * Editorial trust rule for state parks: a photograph may identify only one park.
- * If duplicate hero URLs arrive from migrated/live data, the first record keeps
- * the image and later records are explicitly marked as missing photography.
- */
-function removeDuplicateStateParkHeroes(destinations: Destination[]): Destination[] {
-  const used = new Set<string>();
-  return destinations.map((destination) => {
-    if (destination.category !== "state-parks" || isPlaceholderHero(destination.hero.src)) return destination;
-    if (!used.has(destination.hero.src)) {
-      used.add(destination.hero.src);
-      return destination;
-    }
-    return {
-      ...destination,
-      hero: {
-        src: DESTINATION_PLACEHOLDER,
-        alt: `${destination.name} — park-specific photograph not yet available`,
-        width: 1600,
-        height: 1067,
-      },
-    };
-  });
 }
 
 const preservedExploreDestinations = mergeDestinations(legacyExploreDestinations, legacyLakeDestinations);
@@ -104,7 +74,7 @@ export const destinationsQuery = (params: Omit<DestinationQuery, "brandId"> = {}
 
     const local = await platform.destinations.list({ ...scope, ...params });
     const preserved = preservedFor(params);
-    const merged = removeDuplicateStateParkHeroes(mergeDestinations(enriched, core, preserved, local));
+    const merged = applyStateParkHeroAssets(mergeDestinations(enriched, core, preserved, local));
 
     if (params.featured) return featuredFallback(merged, params.limit ?? 6);
     return params.limit ? merged.slice(0, params.limit) : merged;
@@ -116,21 +86,22 @@ export const destinationQuery = (slug: Slug) => queryOptions({
   queryFn: async () => {
     try {
       const enriched = await fetchExploreDestination(slug);
-      if (enriched) return enriched;
+      if (enriched) return applyStateParkHeroAsset(enriched);
     } catch (error) {
       console.error("Explore destination enrichment unavailable; retrying core remote record", error);
     }
 
     try {
       const core = await fetchCoreExploreDestination(slug);
-      if (core) return core;
+      if (core) return applyStateParkHeroAsset(core);
     } catch (error) {
       console.error("Core Explore remote destination unavailable; retrying preserved catalog", error);
     }
 
     const preserved = preservedExploreDestinations.find((destination) => destination.slug === slug);
-    if (preserved) return preserved;
-    return platform.destinations.getBySlug(scope, slug);
+    if (preserved) return applyStateParkHeroAsset(preserved);
+    const local = await platform.destinations.getBySlug(scope, slug);
+    return local ? applyStateParkHeroAsset(local) : local;
   },
 });
 
@@ -201,7 +172,7 @@ export const searchDocumentsQuery = () => queryOptions({
     catch (error) { console.error("Enriched destination search index unavailable; merging core and preserved catalogs", error); }
     try { core = await fetchCoreExploreDestinations({ limit: 5000 }); }
     catch (coreError) { console.error("Core remote destination search index unavailable; retaining preserved destinations", coreError); }
-    const destinations = removeDuplicateStateParkHeroes(mergeDestinations(enriched, core, preservedExploreDestinations));
+    const destinations = applyStateParkHeroAssets(mergeDestinations(enriched, core, preservedExploreDestinations));
     if (!destinations.length) return base;
     return [...base.filter((document) => document.kind !== "destination"), ...destinations.map(destinationSearchDocument)];
   },
