@@ -1,0 +1,515 @@
+{
+  "generatedAt": "2026-08-07T16:32:34.959Z",
+  "totalParks": 101,
+  "retainedUniqueExisting": [],
+  "downloaded": [
+    {
+      "slug": "abilene-state-park",
+      "name": "Abilene State Park",
+      "sourceTitle": "File:Buffalo Wallow Abilene State Park Texas 2023.jpg"
+    }
+  ],
+  "unresolved": [
+    {
+      "slug": "albert-bessie-kronkosky-state-natural-area",
+      "name": "Albert & Bessie Kronkosky State Natural Area",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "atlanta-state-park",
+      "name": "Atlanta State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "balmorhea-state-park",
+      "name": "Balmorhea State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "barton-warnock-environmental-educational-center-state-park",
+      "name": "Barton Warnock Environmental Educational Center State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "bastrop-state-park",
+      "name": "Bastrop State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "big-bend-national-park",
+      "name": "Big Bend National Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "big-bend-ranch-state-park",
+      "name": "Big Bend Ranch State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "big-spring-state-park",
+      "name": "Big Spring State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "blanco-state-park",
+      "name": "Blanco State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "bonham-state-park",
+      "name": "Bonham State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "brazos-bend-state-park",
+      "name": "Brazos Bend State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "buescher-state-park",
+      "name": "Buescher State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "caddo-lake-state-park",
+      "name": "Caddo Lake State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "caprock-canyons-state-park",
+      "name": "Caprock Canyons State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "caprock-canyons-trailway-estelline-terminal-state-park",
+      "name": "Caprock Canyons Trailway - Estelline Terminal State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "cedar-hill-state-park",
+      "name": "Cedar Hill State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "chinati-mountains-state-natural-area",
+      "name": "Chinati Mountains State Natural Area",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "choke-canyon-calliham-unit-state-park",
+      "name": "Choke Canyon - Calliham Unit State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "choke-canyon-north-shore-unit-state-park",
+      "name": "Choke Canyon - North Shore Unit State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "choke-canyon-south-shore-unit-state-park",
+      "name": "Choke Canyon - South Shore Unit State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "cleburne-state-park",
+      "name": "Cleburne State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "colorado-bend-state-park",
+      "name": "Colorado Bend State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "cooper-lake-doctors-creek-unit-state-park",
+      "name": "Cooper Lake - Doctors Creek Unit State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "cooper-lake-johns-creek-unit-state-park",
+      "name": "Cooper Lake - Johns Creek Unit State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "cooper-lake-south-sulphur-unit-state-park",
+      "name": "Cooper Lake - South Sulphur Unit State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "copper-breaks-state-park",
+      "name": "Copper Breaks State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "daingerfield-state-park",
+      "name": "Daingerfield State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "davis-hill-state-park",
+      "name": "Davis Hill State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "davis-mountains-state-park",
+      "name": "Davis Mountains State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "devil-s-sinkhole-state-natural-area",
+      "name": "Devil's Sinkhole State Natural Area",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "devils-river-big-satan-unit-state-natural-area",
+      "name": "Devils River - Big Satan Unit State Natural Area",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "devils-river-del-norte-unit-state-natural-area",
+      "name": "Devils River - Del Norte Unit State Natural Area",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "dinosaur-valley-state-park",
+      "name": "Dinosaur Valley State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "eisenhower-state-park",
+      "name": "Eisenhower State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "enchanted-rock-state-natural-area",
+      "name": "Enchanted Rock State Natural Area",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "fairfield-lake-state-park",
+      "name": "Fairfield Lake State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "falcon-state-park",
+      "name": "Falcon State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "fort-boggy-state-park",
+      "name": "Fort Boggy State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "fort-parker-state-park",
+      "name": "Fort Parker State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "franklin-mountains-state-park",
+      "name": "Franklin Mountains State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "galveston-island-state-park",
+      "name": "Galveston Island State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "garner-state-park",
+      "name": "Garner State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "goose-island-state-park",
+      "name": "Goose Island State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "government-canyon-state-natural-area",
+      "name": "Government Canyon State Natural Area",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "guadalupe-mountains-national-park",
+      "name": "Guadalupe Mountains National Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "guadalupe-river-state-park",
+      "name": "Guadalupe River State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "hill-country-louise-merrick-unit-state-natural-area",
+      "name": "Hill Country - Louise Merrick Unit State Natural Area",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "honey-creek-state-natural-area",
+      "name": "Honey Creek State Natural Area",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "huntsville-state-park",
+      "name": "Huntsville State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "indian-lodge-state-park-lodge",
+      "name": "Indian Lodge State Park Lodge",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "inks-lake-state-park",
+      "name": "Inks lake State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "kickapoo-cavern-state-park",
+      "name": "Kickapoo Cavern State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "lake-arrowhead-state-park",
+      "name": "Lake Arrowhead State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "lake-bob-sandlin-state-park",
+      "name": "Lake Bob Sandlin State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "lake-brownwood-state-park",
+      "name": "Lake Brownwood State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "lake-casa-blanca-international-state-park",
+      "name": "Lake Casa Blanca International State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "lake-colorado-city-state-park",
+      "name": "Lake Colorado City State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "lake-corpus-christi-state-park",
+      "name": "Lake Corpus Christi State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "lake-livingston-state-park",
+      "name": "Lake Livingston State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "lake-mineral-wells-state-park",
+      "name": "Lake Mineral Wells State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "lake-mineral-wells-trailway-garner-th-state-park",
+      "name": "Lake Mineral Wells Trailway - Garner TH State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "lake-somerville-birch-creek-unit-state-park",
+      "name": "Lake Somerville - Birch Creek Unit State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "lake-somerville-nails-creek-unit-state-park",
+      "name": "Lake Somerville - Nails Creek Unit State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "lake-somerville-trailway-newman-bottom-th-state-park",
+      "name": "Lake Somerville Trailway - Newman Bottom TH State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "lake-tawakoni-state-park",
+      "name": "Lake Tawakoni State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "lake-whitney-state-park",
+      "name": "Lake Whitney State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "lockhart-state-park",
+      "name": "Lockhart State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "longhorn-cavern-state-park",
+      "name": "Longhorn Cavern State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "lost-maples-state-natural-area",
+      "name": "Lost Maples State Natural Area",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "martin-creek-lake-state-park",
+      "name": "Martin Creek Lake State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "martin-dies-jr-state-park",
+      "name": "Martin Dies, Jr. State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "mckinney-falls-state-park",
+      "name": "McKinney Falls State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "meridian-state-park",
+      "name": "Meridian State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "mission-tejas-state-park",
+      "name": "Mission Tejas State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "monahans-sandhills-state-park",
+      "name": "Monahans Sandhills State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "mother-neff-state-park",
+      "name": "Mother Neff State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "mustang-island-state-park",
+      "name": "Mustang Island State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "old-tunnel-state-park",
+      "name": "Old Tunnel State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "palmetto-state-park",
+      "name": "Palmetto State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "palo-duro-canyon-state-park",
+      "name": "Palo Duro Canyon State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "palo-pinto-mountains-state-park",
+      "name": "Palo Pinto Mountains State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "pedernales-falls-state-park",
+      "name": "Pedernales Falls State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "port-isabel-lighthouse-state-park",
+      "name": "Port Isabel Lighthouse State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "possum-kingdom-state-park",
+      "name": "Possum Kingdom State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "powderhorn-state-park",
+      "name": "Powderhorn State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "purtis-creek-state-park",
+      "name": "Purtis Creek State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "ray-roberts-lake-isle-du-bois-unit-state-park",
+      "name": "Ray Roberts Lake - Isle du Bois Unit State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "ray-roberts-lake-johnson-branch-unit-state-park",
+      "name": "Ray Roberts Lake - Johnson Branch Unit State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "ray-roberts-lake-jordon-unit-state-park",
+      "name": "Ray Roberts Lake - Jordon Unit State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "san-angelo-state-park",
+      "name": "San Angelo State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "sea-rim-state-park",
+      "name": "Sea Rim State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "sheldon-lake-state-park",
+      "name": "Sheldon Lake State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "south-llano-river-state-park",
+      "name": "South Llano River State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "stephen-f-austin-state-park",
+      "name": "Stephen F. Austin State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "tyler-state-park",
+      "name": "Tyler State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "village-creek-state-park",
+      "name": "Village Creek State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "world-birding-center-bentsen-rio-grande-valley-state-park",
+      "name": "World Birding Center - Bentsen-Rio Grande Valley State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "world-birding-center-estero-llano-grande-state-park",
+      "name": "World Birding Center - Estero Llano Grande State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "world-birding-center-resaca-de-la-palma-state-park",
+      "name": "World Birding Center - Resaca de la Palma State Park",
+      "reason": "no exact freely licensed JPEG found"
+    },
+    {
+      "slug": "wyler-aerial-tramway-state-park",
+      "name": "Wyler Aerial Tramway State Park",
+      "reason": "no exact freely licensed JPEG found"
+    }
+  ],
+  "rejectedDuplicateExisting": []
+}
