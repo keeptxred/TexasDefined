@@ -3,6 +3,7 @@ import { queryOptions } from "@tanstack/react-query";
 import { fetchPublishedTexasEvents } from "./events-remote";
 import { fetchCoreExploreDestination, fetchCoreExploreDestinations } from "./explore-core-remote";
 import { supplementalExploreCategories } from "./explore-categories";
+import { reconcileDestinationHeroes } from "./explore-hero-reconciliation";
 import { fetchExploreDestination, fetchExploreDestinations } from "./explore-remote";
 import { legacyExploreDestinations } from "./fixtures/legacy-explore";
 import { legacyLakeDestinations } from "./fixtures/legacy-lakes";
@@ -45,6 +46,10 @@ function preservedFor(query: Omit<DestinationQuery, "brandId">): Destination[] {
   return query.limit ? rows.slice(0, query.limit) : rows;
 }
 
+function reconcileExploreCatalog(destinations: Destination[]) {
+  return reconcileDestinationHeroes(applyStateParkHeroAssets(destinations));
+}
+
 export const destinationsQuery = (params: Omit<DestinationQuery, "brandId"> = {}) => queryOptions({
   queryKey: ["destinations", scope.brandId, params],
   queryFn: async () => {
@@ -74,7 +79,7 @@ export const destinationsQuery = (params: Omit<DestinationQuery, "brandId"> = {}
 
     const local = await platform.destinations.list({ ...scope, ...params });
     const preserved = preservedFor(params);
-    const merged = applyStateParkHeroAssets(mergeDestinations(enriched, core, preserved, local));
+    const merged = reconcileExploreCatalog(mergeDestinations(enriched, core, preserved, local));
 
     if (params.featured) return featuredFallback(merged, params.limit ?? 6);
     return params.limit ? merged.slice(0, params.limit) : merged;
@@ -172,7 +177,7 @@ export const searchDocumentsQuery = () => queryOptions({
     catch (error) { console.error("Enriched destination search index unavailable; merging core and preserved catalogs", error); }
     try { core = await fetchCoreExploreDestinations({ limit: 5000 }); }
     catch (coreError) { console.error("Core remote destination search index unavailable; retaining preserved destinations", coreError); }
-    const destinations = applyStateParkHeroAssets(mergeDestinations(enriched, core, preservedExploreDestinations));
+    const destinations = reconcileExploreCatalog(mergeDestinations(enriched, core, preservedExploreDestinations));
     if (!destinations.length) return base;
     return [...base.filter((document) => document.kind !== "destination"), ...destinations.map(destinationSearchDocument)];
   },
