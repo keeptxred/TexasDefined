@@ -1,0 +1,54 @@
+name: Repair Explore hero gaps
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/data/repair-explore-hero-gaps.mjs"
+      - ".github/workflows/repair-explore-hero-gaps.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: repair-explore-hero-gaps
+  cancel-in-progress: false
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Ensure JPEG generation support
+        run: |
+          if ! command -v convert >/dev/null 2>&1; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq imagemagick
+          fi
+
+      - name: Repair final gaps and validate hero inventory
+        run: node scripts/data/repair-explore-hero-gaps.mjs
+
+      - name: Commit repaired Explore hero assets
+        run: |
+          git config user.name "Texas Defined Data Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add public/images/explore src/data/explore-hero-map.ts scripts/data/explore-hero-report.json
+          if git diff --cached --quiet; then
+            echo "No Explore hero repairs to commit."
+            exit 0
+          fi
+          git commit -m "fix: complete Explore destination hero coverage [skip ci]"
+          git pull --rebase origin main
+          git push
