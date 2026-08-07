@@ -1,0 +1,68 @@
+import culturalRootsHero from "@/assets/generated/texas-town-cultural-roots.svg";
+
+import type { Article, ArticleBlock } from "../types";
+
+const p = (text: string): ArticleBlock => ({ type: "paragraph", text });
+const h = (text: string): ArticleBlock => ({ type: "heading", text });
+const list = (...items: string[]): ArticleBlock => ({ type: "list", items });
+
+export const texasTownCulturalRootsArticle: Article = {
+  id: "evergreen-texas-town-cultural-roots",
+  brandId: "texasdefined",
+  slug: "texas-towns-german-czech-mexican-roots",
+  title: "Why So Many Texas Towns Have German, Czech and Mexican Roots",
+  dek: "Texas towns carry layers of migration in their churches, dance halls, bakeries, plazas, festivals and family names. German, Czech, Mexican and Tejano traditions did not sit outside Texas culture—they helped build it.",
+  category: "texas-history",
+  hero: { src: culturalRootsHero, alt: "Texas streetscape blending Central European storefronts, a dance hall and Mexican-inspired plaza architecture", width: 1600, height: 1067 },
+  authorId: "a-marisol",
+  publishedAt: "2026-08-07",
+  readingMinutes: 11,
+  tags: ["texas history", "german texas", "czech texas", "mexican texas", "tejano culture", "texas towns", "immigration"],
+  featured: true,
+  internalLinks: [
+    { href: "/texas-history", label: "Texas History", description: "More stories about the people and traditions that shaped the state." },
+    { href: "/article/kolache-or-klobasnek-texas-story", label: "Kolache or klobasnek?", description: "Follow one Czech-Texas tradition from community bakeries into everyday Texas life." },
+    { href: "/explore/small-towns", label: "Explore Texas small towns", description: "Find communities where older cultural layers are still visible." },
+    { href: "/article/texas-regions-explained", label: "Texas regions explained", description: "See how geography and settlement patterns created different versions of Texas." },
+  ],
+  relatedCollections: [], relatedDestinations: [],
+  body: [
+    p("Texas culture is often described as if it came from one source: cattle, ranches and an Anglo frontier. Drive through the state slowly enough and a more interesting picture appears. Church steeples rise above towns with German names. Czech bakeries sell pastries beside barbecue joints. Spanish plazas and missions predate the Republic. Tejano music, ranch vocabulary, food and family traditions run through South and Central Texas so deeply that separating them from 'Texas culture' stops making sense."),
+    p("The state was built through overlapping migrations. German, Czech, Mexican and Tejano communities are only part of that story, but they left especially visible marks on towns, foodways, architecture, farming, music and language."),
+    h("Mexican Texas came first"),
+    p("Long before Texas joined the United States, the region was part of New Spain and then Mexico. Spanish-speaking communities, missions, ranches and trade routes already existed across parts of the state. Tejano families participated in the political, economic and military history of Texas from the beginning."),
+    p("That matters because Mexican influence in Texas is not simply a later wave of immigration layered onto an otherwise finished culture. It is foundational. Ranching vocabulary, cattle traditions, food, place names and settlement patterns all carry that history."),
+    h("Ranch culture is a shared borderlands tradition"),
+    p("The cowboy image became one of the most powerful symbols of Texas, but the skills behind it developed in a borderlands world shaped heavily by Mexican vaqueros. Roping, horsemanship, cattle handling and much of the vocabulary of ranch work moved across cultures."),
+    p("Words such as rodeo, lariat, remuda and chaparral reflect Spanish-language roots. So do foods, tools and methods that became so ordinary in Texas that people often forget where they came from."),
+    h("German communities transformed Central Texas"),
+    p("Large-scale German immigration to Texas accelerated in the nineteenth century. Settlers established communities across Central Texas and the Hill Country, creating towns whose architecture, churches, clubs, farms and family names still show that heritage."),
+    p("Fredericksburg and New Braunfels are the best-known examples, but the influence extends through many smaller communities. German-speaking Texans formed singing societies, shooting clubs, churches and social organizations while adapting to a landscape very different from the places they had left."),
+    h("The dance hall became a Texas institution"),
+    p("Community halls provided places for music, dancing, meetings and celebrations. Over time, some became deeply associated with Texas country music even though their roots were tied to German and Czech social life."),
+    p("That is a recurring pattern in Texas culture: an immigrant community builds something for itself, neighboring communities join in, and a generation later the tradition is described simply as Texan."),
+    h("Czech Texans built farming communities and food traditions"),
+    p("Czech and Moravian immigrants settled heavily in parts of Central and East-Central Texas during the nineteenth and early twentieth centuries. Many built agricultural communities connected by churches, fraternal organizations, newspapers and social halls."),
+    p("Food became one of the most durable public expressions of that heritage. Kolaches are now sold across Texas far beyond Czech communities, although what many Texans casually call a kolache may actually be a klobasnek when savory sausage filling is involved."),
+    p("The survival of those foods is not accidental. Bakeries, church picnics, family recipes and community festivals kept the tradition visible even as later generations shifted toward English and moved into larger cities."),
+    h("Churches often reveal the migration map"),
+    p("In many small towns, the church cemetery tells the story as clearly as the courthouse. German surnames cluster in one community, Czech names in another, Spanish names in settlements with much older roots. Denominations and church architecture can reflect those histories too."),
+    p("The famous painted churches of Central Texas are one example of communities bringing European religious aesthetics into a new landscape and recreating a sense of beauty and belonging with the materials available to them."),
+    h("Food is where the cultures overlap most visibly"),
+    list("German and Czech sausage-making traditions became part of the broader Texas barbecue landscape.", "Mexican and Tejano cooking made tortillas, barbacoa, tamales, chiles and ranch-style dishes inseparable from Texas food.", "Community bakeries turned Central European pastries into road-trip staples.", "Border cooking mixed ingredients, techniques and tastes across generations rather than respecting modern category labels.", "Festival food preserved old recipes while adapting them to Texas ingredients and appetites."),
+    h("Town names preserve stories people no longer notice"),
+    p("Some Texas place names advertise their origins immediately. Others have become so familiar that their linguistic roots disappear into the map. German, Czech, Spanish and Indigenous names sit beside names honoring Anglo settlers, railroad officials and politicians."),
+    p("Reading a Texas map this way turns geography into a migration record. Names tell you who arrived, who already lived there, which language held power at a particular moment and what communities wanted to remember."),
+    h("Festivals became a way to keep identity visible"),
+    p("As younger generations moved away from farming communities and English became dominant, festivals helped preserve public identity. Oktoberfests, Czech heritage celebrations, fiestas, rodeos, church picnics and music events kept food, dance, clothing and music in circulation."),
+    p("Some festivals are highly commercial today, but even commercialized traditions can point back to real community history. The useful question is not whether every modern celebration is historically pure. It is what older network of people, churches, clubs, families and businesses made the tradition possible."),
+    h("Texas culture did not replace these traditions—it absorbed them"),
+    p("That may be the most important point. German Texans did not stop being German-descended when sausage became Texas barbecue. Czech pastries did not become less Czech because gas stations began selling them. Tejano traditions did not become less foundational because outsiders later labeled them Tex-Mex or regional."),
+    p("Texas culture grew by absorbing, remixing and normalizing the traditions of the people who lived here. The result is a state where a Saturday can include a Czech pastry for breakfast, brisket with German meat-market roots for lunch, conjunto music in the afternoon and a rodeo built on vaquero traditions at night."),
+    h("How to see the history when you visit a town"),
+    list("Look at church names, cemeteries and historic markers.", "Notice whether the town has an old dance hall, social hall or fraternal building.", "Read the names on long-running bakeries, butcher shops and family businesses.", "Look for street plans built around plazas, courthouses, missions or railroad depots.", "Check the annual festival calendar; community identity often survives there long after language use changes.", "Pay attention to food that locals treat as ordinary. Everyday food often preserves migration history better than monuments do."),
+    h("The most Texan thing about Texas may be the mixture"),
+    p("Texas is too large and too historically layered to have one authentic culture. The Hill Country, the border, the Piney Woods and the Gulf Coast inherited different mixtures of people and traditions."),
+    p("German, Czech, Mexican and Tejano communities did not merely contribute colorful side notes to a finished Texas identity. They helped create the food, towns, music, ranching traditions and social life that later generations came to recognize as Texas itself."),
+  ],
+};
