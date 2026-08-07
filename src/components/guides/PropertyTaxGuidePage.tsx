@@ -47,12 +47,43 @@ export function PropertyTaxGuidePage({ eyebrow, title, intro, sections, official
     return output;
   };
 
-  return <Container className="py-16 sm:py-24"><article className="mx-auto max-w-4xl">
-    {canonicalPath && <nav aria-label="Breadcrumb" className="mb-6 text-sm text-muted-foreground"><Link to="/">Home</Link><span aria-hidden="true"> / </span><Link to="/decide/property-taxes">Property taxes</Link><span aria-hidden="true"> / </span><span aria-current="page">{title}</span></nav>}
-    <p className="eyebrow text-primary">{eyebrow}</p><h1 className="mt-3 font-display text-4xl leading-tight sm:text-6xl">{title}</h1>
-    <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">{linkedText(intro, 3)}</p>
-    <p className="mt-4 text-sm text-muted-foreground">Reviewed {reviewedAt}. Start here, then confirm the current details with the responsible office.</p>
-    <div className="mt-12 space-y-12">{sections.map((section) => <section key={section.title} className="border-t border-border pt-8"><h2 className="font-display text-3xl">{section.title}</h2><div className="mt-4 space-y-4 text-base leading-7 text-muted-foreground">{section.paragraphs.map((paragraph) => <p key={paragraph}>{linkedText(paragraph)}</p>)}</div>{section.steps && <ol className="mt-6 space-y-3">{section.steps.map((step) => { stepNumber += 1; return <li id={`${stepPrefix}${stepNumber}`} key={step} className="flex gap-4 rounded-md border border-border p-4"><strong className="text-primary">{stepNumber}</strong><span>{linkedText(step, 1)}</span></li>; })}</ol>}</section>)}</div>
-    <section className="mt-12 rounded-md bg-muted p-6"><h2 className="font-display text-2xl">What to do next</h2><div className="mt-4 flex flex-wrap gap-4 text-sm font-medium"><Link to="/decide/property-taxes" className="underline">Estimate your property taxes</Link><Link to="/learn/appraisal-districts" className="underline">Find your appraisal district</Link><Link to="/do/homestead-exemption" className="underline">Check the homestead exemption</Link><Link to="/do/property-tax-protest" className="underline">Prepare a protest</Link><a href={officialUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 underline">{officialLabel}<ExternalLink className="h-4 w-4" /></a></div></section>
-  </article></Container>;
+  return <>
+    <section className="border-b border-border bg-surface">
+      <Container className="py-16 sm:py-24">
+        {canonicalPath && <nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.14em] text-muted-foreground"><Link to="/">Front page</Link><span aria-hidden> · </span><Link to="/decide/property-taxes">Property taxes</Link></nav>}
+        <p className="eyebrow mt-8 text-primary">{eyebrow}</p>
+        <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">{title}</h1>
+        <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">{linkedText(intro, 3)}</p>
+        <p className="mt-6 border-t border-border pt-4 text-[0.72rem] uppercase tracking-[0.12em] text-muted-foreground">Reviewed {reviewedAt} · Confirm current details with the responsible office</p>
+      </Container>
+    </section>
+
+    <Container className="py-14 sm:py-20">
+      <article className="mx-auto max-w-4xl">
+        <div className="border-t-2 border-foreground">
+          {sections.map((section, sectionIndex) => <section key={section.title} className="border-b border-border py-10">
+            <div className="grid gap-5 sm:grid-cols-[4rem_1fr]">
+              <p className="eyebrow text-primary">{String(sectionIndex + 1).padStart(2, '0')}</p>
+              <div>
+                <h2 className="font-display text-3xl leading-tight sm:text-4xl">{section.title}</h2>
+                <div className="mt-5 space-y-5 text-base leading-8 text-muted-foreground">{section.paragraphs.map((paragraph) => <p key={paragraph}>{linkedText(paragraph)}</p>)}</div>
+                {section.steps && <ol className="mt-7 divide-y divide-border border-y border-border">{section.steps.map((step) => { stepNumber += 1; return <li id={`${stepPrefix}${stepNumber}`} key={step} className="grid gap-3 py-4 sm:grid-cols-[2.5rem_1fr]"><strong className="font-display text-xl text-primary">{stepNumber}</strong><span className="text-sm leading-7 text-foreground/90">{linkedText(step, 1)}</span></li>; })}</ol>}
+              </div>
+            </div>
+          </section>)}
+        </div>
+
+        <section className="mt-12 border-t-2 border-foreground pt-7">
+          <p className="eyebrow text-primary">Continue the research</p>
+          <div className="mt-5 grid border-t border-border sm:grid-cols-2">
+            <Link to="/decide/property-taxes" className="border-b border-border py-5 sm:border-r sm:pr-6"><strong className="font-display text-2xl hover:text-primary">Estimate your property taxes</strong></Link>
+            <Link to="/learn/appraisal-districts" className="border-b border-border py-5 sm:pl-6"><strong className="font-display text-2xl hover:text-primary">Find your appraisal district</strong></Link>
+            <Link to="/do/homestead-exemption" className="border-b border-border py-5 sm:border-r sm:pr-6"><strong className="font-display text-2xl hover:text-primary">Homestead exemption</strong></Link>
+            <Link to="/do/property-tax-protest" className="border-b border-border py-5 sm:pl-6"><strong className="font-display text-2xl hover:text-primary">Prepare a protest</strong></Link>
+          </div>
+          <a href={officialUrl} target="_blank" rel="noreferrer" className="mt-6 inline-flex items-center gap-2 border-b border-primary pb-1 text-sm font-semibold text-primary">{officialLabel}<ExternalLink className="h-4 w-4" /></a>
+        </section>
+      </article>
+    </Container>
+  </>;
 }
