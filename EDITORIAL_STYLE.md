@@ -98,6 +98,23 @@ Avoid:
 - Open dataset
 - Continue
 
+## Internal linking is required for every new article
+
+Every newly published editorial article must include useful internal links to other Texas Defined content. An article is not publish-ready until this has been checked.
+
+Requirements:
+
+- Include at least 2 contextually relevant internal links whenever suitable destinations exist on the site.
+- Prefer 3–5 internal links for normal long-form evergreen articles when the links genuinely help the reader.
+- Link to a mix of related articles and useful site destinations such as Explore pages, city or county pages, guides, tools, calculators, event pages, Home & Garden, History, Moving Here or other relevant sections.
+- Use descriptive anchor text that tells the reader what they will find. Do not use generic anchor text such as “click here.”
+- Place links naturally inside the story where the related subject is discussed rather than collecting unrelated links at the bottom merely to satisfy the rule.
+- Do not link a phrase to a page that does not directly help explain or extend that phrase.
+- When adding a new article to an existing topic cluster, also consider whether one or more older related articles should be updated to link back to the new article.
+- Never create or guess a URL. Verify that the internal route exists before publishing the link.
+
+The goal is to help readers continue exploring Texas Defined while strengthening clear relationships among related stories, guides, destinations and tools.
+
 ## Filters
 
 Filters should sound conversational.
@@ -182,3 +199,5 @@ Before publishing, ask:
 3. Does the reader know what happens after clicking?
 4. Is any technical language serving the reader—or merely describing the system?
 5. Could this sentence appear in a good regional magazine without feeling out of place?
+6. Does the article contain useful, verified internal links to related Texas Defined content?
+7. Should any older related story be updated to link back to this new article?
