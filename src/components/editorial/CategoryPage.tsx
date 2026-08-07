@@ -17,14 +17,7 @@ const TOP_LEVEL_DEPARTMENTS = new Set<CategorySlug>([
   "texas-history",
 ]);
 
-/** Shared presentation for reader-facing category pages. */
-export function CategoryPage({
-  category,
-  eyebrow,
-  title,
-  intro,
-  image,
-}: {
+export function CategoryPage({ category, eyebrow, title, intro, image }: {
   category: CategorySlug;
   eyebrow: string;
   title: string;
@@ -43,16 +36,11 @@ export function CategoryPage({
 
   return (
     <>
-      <Container className="pt-8">
-        <nav aria-label="Breadcrumb" className="text-xs text-muted-foreground">
+      <Container className="pt-10 sm:pt-12">
+        <nav aria-label="Breadcrumb" className="text-[0.72rem] font-medium uppercase tracking-[0.12em] text-muted-foreground">
           <ol className="flex flex-wrap items-center gap-2">
-            <li><Link to="/" className="hover:text-foreground">Front page</Link></li>
-            {belongsToExplore && (
-              <>
-                <li aria-hidden="true">/</li>
-                <li><Link to="/explore" className="hover:text-foreground">Explore</Link></li>
-              </>
-            )}
+            <li><Link to="/" className="transition-colors hover:text-foreground">Front page</Link></li>
+            {belongsToExplore && <><li aria-hidden="true">/</li><li><Link to="/explore" className="transition-colors hover:text-foreground">Explore</Link></li></>}
             <li aria-hidden="true">/</li>
             <li aria-current="page" className="text-foreground">{title}</li>
           </ol>
@@ -60,34 +48,30 @@ export function CategoryPage({
       </Container>
 
       {image ? (
-        <section className="relative isolate mt-4 overflow-hidden bg-ink text-ink-foreground">
-          <img
-            src={image.src}
-            alt={image.alt}
-            width={image.width}
-            height={image.height}
-            className="absolute inset-0 size-full object-cover opacity-55"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/25" />
-          <Container className="relative py-14 sm:py-20">
+        <section className="relative isolate mt-5 overflow-hidden bg-ink text-ink-foreground">
+          <img src={image.src} alt={image.alt} width={image.width} height={image.height} className="absolute inset-0 size-full object-cover opacity-52" />
+          <div className="absolute inset-0 bg-gradient-to-r from-ink/90 via-ink/68 to-ink/28" />
+          <Container className="relative flex min-h-[430px] flex-col justify-end py-14 sm:min-h-[500px] sm:py-20">
             <p className="eyebrow text-ink-foreground/75">{eyebrow}</p>
-            <h1 className="mt-3 max-w-3xl font-display text-4xl leading-tight sm:text-6xl">{title}</h1>
-            <p className="mt-5 max-w-2xl text-base leading-relaxed text-ink-foreground/85">{intro}</p>
+            <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">{title}</h1>
+            <p className="mt-6 max-w-2xl text-[1.05rem] leading-8 text-ink-foreground/82">{intro}</p>
           </Container>
         </section>
       ) : (
-        <Container className="pb-4 pt-12 sm:pt-16">
-          <p className="eyebrow text-primary">{eyebrow}</p>
-          <h1 className="mt-3 max-w-3xl font-display text-4xl leading-tight sm:text-6xl">{title}</h1>
-          <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground">{intro}</p>
+        <Container className="pb-8 pt-14 sm:pt-20">
+          <div className="max-w-4xl border-b border-border pb-10 sm:pb-12">
+            <p className="eyebrow text-primary">{eyebrow}</p>
+            <h1 className="mt-4 font-display text-5xl leading-[0.98] sm:text-7xl">{title}</h1>
+            <p className="mt-6 max-w-2xl text-[1.05rem] leading-8 text-muted-foreground">{intro}</p>
+          </div>
         </Container>
       )}
 
       {lead && (
         <Section>
           <Container>
-            <SectionHeader eyebrow="Start here" title="The story we’d read first" />
-            <div className="mt-8 max-w-4xl"><ArticleCard article={lead} size="feature" /></div>
+            <SectionHeader eyebrow="Featured story" title="This month’s selection" description="A closer look at one story from this section, selected by Texas Defined." />
+            <div className="mt-10 max-w-5xl"><ArticleCard article={lead} size="feature" /></div>
           </Container>
         </Section>
       )}
@@ -95,10 +79,7 @@ export function CategoryPage({
       {destinations.length > 0 && (
         <Section tone="surface">
           <Container>
-            <SectionHeader
-              eyebrow="Explore the places"
-              title={`${destinations.length.toLocaleString("en-US")} ${title.toLowerCase()} destinations to explore`}
-            />
+            <SectionHeader eyebrow="The guide" title={`${title} places worth knowing`} description={`${destinations.length.toLocaleString("en-US")} destinations from across Texas, selected for this section.`} />
             <DestinationCollectionGrid destinations={destinations} regionLabel={regionName} />
           </Container>
         </Section>
@@ -107,19 +88,15 @@ export function CategoryPage({
       {others.length > 0 && (
         <Section>
           <Container>
-            <SectionHeader eyebrow="Keep reading" title="More stories for the road" />
-            <ul className="mt-10 grid gap-12 md:grid-cols-2 lg:grid-cols-3">
-              {others.map((article) => (
-                <li key={article.id}><ArticleCard article={article} /></li>
-              ))}
+            <SectionHeader eyebrow="More from this section" title="Stories, notes and dispatches" />
+            <ul className="mt-10 grid gap-x-8 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
+              {others.map((article) => <li key={article.id}><ArticleCard article={article} /></li>)}
             </ul>
           </Container>
         </Section>
       )}
 
-      {belongsToExplore && (
-        <ExploreDiscovery currentCategory={category} categories={categories} regions={regions} />
-      )}
+      {belongsToExplore && <ExploreDiscovery currentCategory={category} categories={categories} regions={regions} />}
     </>
   );
 }
