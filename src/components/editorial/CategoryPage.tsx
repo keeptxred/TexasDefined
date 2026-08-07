@@ -69,7 +69,7 @@ export function CategoryPage({
             className="absolute inset-0 size-full object-cover opacity-55"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/25" />
-          <Container className="relative py-20 sm:py-28">
+          <Container className="relative py-14 sm:py-20">
             <p className="eyebrow text-ink-foreground/75">{eyebrow}</p>
             <h1 className="mt-3 max-w-3xl font-display text-4xl leading-tight sm:text-6xl">{title}</h1>
             <p className="mt-5 max-w-2xl text-base leading-relaxed text-ink-foreground/85">{intro}</p>
@@ -87,7 +87,7 @@ export function CategoryPage({
         <Section>
           <Container>
             <SectionHeader eyebrow="Start here" title="The story we’d read first" />
-            <div className="mt-10"><ArticleCard article={lead} size="feature" /></div>
+            <div className="mt-8 max-w-4xl"><ArticleCard article={lead} size="feature" /></div>
           </Container>
         </Section>
       )}
