@@ -4,6 +4,7 @@ import { fetchPublishedTexasEvents } from "./events-remote";
 import { fetchCoreExploreDestination, fetchCoreExploreDestinations } from "./explore-core-remote";
 import { supplementalExploreCategories } from "./explore-categories";
 import { reconcileDestinationHeroes } from "./explore-hero-reconciliation";
+import { applyExploreHeroAsset, applyExploreHeroAssets } from "./explore-heroes";
 import { fetchExploreDestination, fetchExploreDestinations } from "./explore-remote";
 import { legacyExploreDestinations } from "./fixtures/legacy-explore";
 import { legacyLakeDestinations } from "./fixtures/legacy-lakes";
@@ -46,8 +47,12 @@ function preservedFor(query: Omit<DestinationQuery, "brandId">): Destination[] {
   return query.limit ? rows.slice(0, query.limit) : rows;
 }
 
+function applyResolvedHero(destination: Destination) {
+  return applyExploreHeroAsset(applyStateParkHeroAsset(destination));
+}
+
 function reconcileExploreCatalog(destinations: Destination[]) {
-  return reconcileDestinationHeroes(applyStateParkHeroAssets(destinations));
+  return reconcileDestinationHeroes(applyExploreHeroAssets(applyStateParkHeroAssets(destinations)));
 }
 
 export const destinationsQuery = (params: Omit<DestinationQuery, "brandId"> = {}) => queryOptions({
@@ -91,22 +96,22 @@ export const destinationQuery = (slug: Slug) => queryOptions({
   queryFn: async () => {
     try {
       const enriched = await fetchExploreDestination(slug);
-      if (enriched) return applyStateParkHeroAsset(enriched);
+      if (enriched) return applyResolvedHero(enriched);
     } catch (error) {
       console.error("Explore destination enrichment unavailable; retrying core remote record", error);
     }
 
     try {
       const core = await fetchCoreExploreDestination(slug);
-      if (core) return applyStateParkHeroAsset(core);
+      if (core) return applyResolvedHero(core);
     } catch (error) {
       console.error("Core Explore remote destination unavailable; retrying preserved catalog", error);
     }
 
     const preserved = preservedExploreDestinations.find((destination) => destination.slug === slug);
-    if (preserved) return applyStateParkHeroAsset(preserved);
+    if (preserved) return applyResolvedHero(preserved);
     const local = await platform.destinations.getBySlug(scope, slug);
-    return local ? applyStateParkHeroAsset(local) : local;
+    return local ? applyResolvedHero(local) : local;
   },
 });
 
