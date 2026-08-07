@@ -1,0 +1,242 @@
+{
+  "generatedAt": "2026-08-07T18:12:36.402Z",
+  "targeted": 20,
+  "freeUse": 11,
+  "generated": 9,
+  "remainingPublishedSvgOrPlaceholderRefs": [
+    {
+      "file": "src/data/explore-hero-reconciliation.ts",
+      "line": "export const DESTINATION_PHOTO_PLACEHOLDER = \"/images/texasdefined-destination-placeholder.svg\";"
+    },
+    {
+      "file": "src/data/explore-remote.ts",
+      "line": "export const DESTINATION_FALLBACK_IMAGE = \"/images/texasdefined-destination-placeholder.svg\";"
+    },
+    {
+      "file": "src/data/state-park-heroes.ts",
+      "line": "const DESTINATION_PLACEHOLDER = \"/images/texasdefined-destination-placeholder.svg\";"
+    }
+  ],
+  "images": [
+    {
+      "key": "texas-barbecue-styles-unique",
+      "query": "Texas barbecue brisket smokehouse",
+      "jpeg": "src/assets/generated/texas-barbecue-styles-unique.jpg",
+      "source": "free-use",
+      "credit": "Glencliff Media · CC BY-SA 4.0 · Wikimedia Commons",
+      "sourceTitle": "File:Texas smoked meats from Belton restaurant.jpg",
+      "references": [
+        "src/data/fixtures/chat-article-hero-overrides.ts"
+      ]
+    },
+    {
+      "key": "texas-home-maintenance-calendar-unique",
+      "query": "Texas house exterior residential",
+      "jpeg": "src/assets/generated/texas-home-maintenance-calendar-unique.jpg",
+      "source": "free-use",
+      "credit": "Jim Evans · CC BY-SA 4.0 · Wikimedia Commons",
+      "sourceTitle": "File:Texas Governor Ross Sterling Mansion.jpg",
+      "references": [
+        "src/data/fixtures/chat-article-hero-overrides.ts"
+      ]
+    },
+    {
+      "key": "texas-native-plants-yard-unique",
+      "query": "Texas native plants garden landscape",
+      "jpeg": "src/assets/generated/texas-native-plants-yard-unique.jpg",
+      "source": "free-use",
+      "credit": "Carlquist, Sherwin John, 1930-2021 · CC BY 4.0 · Wikimedia Commons",
+      "sourceTitle": "File:(Epipactis thunbergii close–up at Nikko Botanical Garden, Japan) - DPLA - 5e4cde2054b37d32ecf85ddc6d1c99cb.jpg",
+      "references": [
+        "src/data/fixtures/chat-article-hero-overrides.ts"
+      ]
+    },
+    {
+      "key": "texas-regions-explained-unique",
+      "query": "Texas landscape geography",
+      "jpeg": "src/assets/generated/texas-regions-explained-unique.jpg",
+      "source": "generated",
+      "credit": "Generated representative image · Texas Defined",
+      "sourceTitle": "",
+      "references": [
+        "src/data/fixtures/chat-article-hero-overrides.ts"
+      ]
+    },
+    {
+      "key": "why-texas-has-254-counties-unique",
+      "query": "Texas courthouse county",
+      "jpeg": "src/assets/generated/why-texas-has-254-counties-unique.jpg",
+      "source": "free-use",
+      "credit": "Larry D. Moore · CC BY 4.0 · Wikimedia Commons",
+      "sourceTitle": "File:Williamson county courthouse 2008.jpg",
+      "references": [
+        "src/data/fixtures/chat-article-hero-overrides.ts"
+      ]
+    },
+    {
+      "key": "texas-electricity-plan",
+      "query": "Texas power lines electricity",
+      "jpeg": "src/assets/generated/texas-electricity-plan.jpg",
+      "source": "free-use",
+      "credit": "Jim Olive · Public domain · Wikimedia Commons",
+      "sourceTitle": "File:POWER LINES AT THE P.H. ROBINSON GENERATING PLANT - NARA - 543926.jpg",
+      "references": [
+        "src/data/fixtures/choose-electricity-plan-texas.ts"
+      ]
+    },
+    {
+      "key": "high-school-football-hero",
+      "query": "Texas high school football stadium Friday night",
+      "jpeg": "src/assets/high-school-football-hero.jpg",
+      "source": "free-use",
+      "credit": "Zorin09 · CC BY 3.0 · Wikimedia Commons",
+      "sourceTitle": "File:Ratliff stadium.JPG",
+      "references": [
+        "src/data/fixtures/high-school-football-newcomers.ts"
+      ]
+    },
+    {
+      "key": "kolache-klobasnek-hero",
+      "query": "Texas Czech kolache klobasnek bakery",
+      "jpeg": "src/assets/kolache-klobasnek-hero.jpg",
+      "source": "generated",
+      "credit": "Generated representative image · Texas Defined",
+      "sourceTitle": "",
+      "references": [
+        "src/data/fixtures/kolache-or-klobasnek.ts"
+      ]
+    },
+    {
+      "key": "texas-special-districts",
+      "query": "Texas municipal water district infrastructure",
+      "jpeg": "src/assets/generated/texas-special-districts.jpg",
+      "source": "generated",
+      "credit": "Generated representative image · Texas Defined",
+      "sourceTitle": "",
+      "references": [
+        "src/data/fixtures/muds-pids-hoas-special-districts.ts"
+      ]
+    },
+    {
+      "key": "ordering-bbq-hero",
+      "query": "Texas barbecue counter brisket tray",
+      "jpeg": "src/assets/ordering-bbq-hero.jpg",
+      "source": "generated",
+      "credit": "Generated representative image · Texas Defined",
+      "sourceTitle": "",
+      "references": [
+        "src/data/fixtures/ordering-texas-barbecue.ts"
+      ]
+    },
+    {
+      "key": "texas-freeze-prep",
+      "query": "Texas winter freeze house",
+      "jpeg": "src/assets/generated/texas-freeze-prep.jpg",
+      "source": "generated",
+      "credit": "Generated representative image · Texas Defined",
+      "sourceTitle": "",
+      "references": [
+        "src/data/fixtures/prepare-texas-house-freeze.ts"
+      ]
+    },
+    {
+      "key": "rodeo-101-hero",
+      "query": "Texas rodeo arena cowboy",
+      "jpeg": "src/assets/rodeo-101-hero.jpg",
+      "source": "generated",
+      "credit": "Generated representative image · Texas Defined",
+      "sourceTitle": "",
+      "references": [
+        "src/data/fixtures/rodeo-101.ts"
+      ]
+    },
+    {
+      "key": "six-flags-hero",
+      "query": "Six Flags Over Texas Arlington amusement park",
+      "jpeg": "src/assets/six-flags-hero.jpg",
+      "source": "free-use",
+      "credit": "BrandonR · CC BY-SA 3.0 · Wikimedia Commons",
+      "sourceTitle": "File:Observationtower sfot.jpg",
+      "references": [
+        "src/data/fixtures/six-flags-over-texas-meaning.ts"
+      ]
+    },
+    {
+      "key": "texas-courthouse-square",
+      "query": "Texas courthouse square historic",
+      "jpeg": "src/assets/generated/texas-courthouse-square.jpg",
+      "source": "free-use",
+      "credit": "Larry D. Moore · CC BY 4.0 · Wikimedia Commons",
+      "sourceTitle": "File:Caldwell courthouse 2005.jpg",
+      "references": [
+        "src/data/fixtures/texas-courthouses-town-square.ts"
+      ]
+    },
+    {
+      "key": "texas-foundation-clay-drought",
+      "query": "Texas drought cracked clay soil house",
+      "jpeg": "src/assets/generated/texas-foundation-clay-drought.jpg",
+      "source": "generated",
+      "credit": "Generated representative image · Texas Defined",
+      "sourceTitle": "",
+      "references": [
+        "src/data/fixtures/texas-foundation-care-clay-drought.ts"
+      ]
+    },
+    {
+      "key": "hill-country-identity",
+      "query": "Texas Hill Country landscape",
+      "jpeg": "src/assets/generated/hill-country-identity.jpg",
+      "source": "free-use",
+      "credit": "John Eliot Jenkins · Public domain · Wikimedia Commons",
+      "sourceTitle": "File:John Eliot Jenkins - , sight approx 21.jpg",
+      "references": [
+        "src/data/fixtures/texas-hill-country-what-makes-it.ts"
+      ]
+    },
+    {
+      "key": "texas-hurricane-prep",
+      "query": "Texas Gulf Coast hurricane storm",
+      "jpeg": "src/assets/generated/texas-hurricane-prep.jpg",
+      "source": "free-use",
+      "credit": "Patsy Lynch · Public domain · Wikimedia Commons",
+      "sourceTitle": "File:FEMA - 37859 - Line of cars leaving Beaumont before the arrival of Hurricane Gustav.jpg",
+      "references": [
+        "src/data/fixtures/texas-hurricane-preparation-guide.ts"
+      ]
+    },
+    {
+      "key": "texas-roofs-hail-wind-heat",
+      "query": "Texas roof hail storm house",
+      "jpeg": "src/assets/generated/texas-roofs-hail-wind-heat.jpg",
+      "source": "generated",
+      "credit": "Generated representative image · Texas Defined",
+      "sourceTitle": "",
+      "references": [
+        "src/data/fixtures/texas-roofs-hail-wind-heat.ts"
+      ]
+    },
+    {
+      "key": "texas-school-districts",
+      "query": "Texas public school building",
+      "jpeg": "src/assets/generated/texas-school-districts.jpg",
+      "source": "free-use",
+      "credit": "Unknown author Unknown author · Public domain · Wikimedia Commons",
+      "sourceTitle": "File:Public School (20106826).jpg",
+      "references": [
+        "src/data/fixtures/texas-school-districts-explained.ts"
+      ]
+    },
+    {
+      "key": "texas-town-cultural-roots",
+      "query": "Texas small town main street historic",
+      "jpeg": "src/assets/generated/texas-town-cultural-roots.jpg",
+      "source": "generated",
+      "credit": "Generated representative image · Texas Defined",
+      "sourceTitle": "",
+      "references": [
+        "src/data/fixtures/texas-town-cultural-roots.ts"
+      ]
+    }
+  ]
+}

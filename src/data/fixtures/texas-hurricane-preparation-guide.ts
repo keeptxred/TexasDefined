@@ -1,4 +1,4 @@
-import hurricaneHero from "@/assets/generated/texas-hurricane-prep.svg";
+import hurricaneHero from "@/assets/generated/texas-hurricane-prep.jpg";
 
 import type { Article, ArticleBlock } from "../types";
 

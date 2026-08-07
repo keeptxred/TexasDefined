@@ -1,4 +1,4 @@
-import courthouseHero from "@/assets/generated/texas-courthouse-square.svg";
+import courthouseHero from "@/assets/generated/texas-courthouse-square.jpg";
 
 import type { Article, ArticleBlock } from "../types";
 

@@ -1,4 +1,4 @@
-import sixFlagsHero from "@/assets/six-flags-hero.svg";
+import sixFlagsHero from "@/assets/six-flags-hero.jpg";
 
 import type { Article, ArticleBlock } from "../types";
 

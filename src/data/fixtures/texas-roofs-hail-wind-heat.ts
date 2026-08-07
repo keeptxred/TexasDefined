@@ -1,4 +1,4 @@
-import roofHero from "@/assets/generated/texas-roofs-hail-wind-heat.svg";
+import roofHero from "@/assets/generated/texas-roofs-hail-wind-heat.jpg";
 
 import type { Article, ArticleBlock } from "../types";
 

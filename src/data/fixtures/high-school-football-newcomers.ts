@@ -1,4 +1,4 @@
-import footballHero from "@/assets/high-school-football-hero.svg";
+import footballHero from "@/assets/high-school-football-hero.jpg";
 import type { Article, ArticleBlock } from "../types";
 const p=(text:string):ArticleBlock=>({type:"paragraph",text});
 const h=(text:string):ArticleBlock=>({type:"heading",text});

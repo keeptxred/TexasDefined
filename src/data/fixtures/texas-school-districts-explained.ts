@@ -1,4 +1,4 @@
-import schoolDistrictsHero from "@/assets/generated/texas-school-districts.svg";
+import schoolDistrictsHero from "@/assets/generated/texas-school-districts.jpg";
 
 import type { Article, ArticleBlock } from "../types";
 

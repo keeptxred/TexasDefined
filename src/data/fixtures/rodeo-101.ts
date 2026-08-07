@@ -1,4 +1,4 @@
-import rodeoHero from "@/assets/rodeo-101-hero.svg";
+import rodeoHero from "@/assets/rodeo-101-hero.jpg";
 import type { Article, ArticleBlock } from "../types";
 const p=(text:string):ArticleBlock=>({type:"paragraph",text});
 const h=(text:string):ArticleBlock=>({type:"heading",text});

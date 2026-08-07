@@ -1,4 +1,4 @@
-import orderingBbqHero from "@/assets/ordering-bbq-hero.svg";
+import orderingBbqHero from "@/assets/ordering-bbq-hero.jpg";
 
 import type { Article, ArticleBlock } from "../types";
 const p=(text:string):ArticleBlock=>({type:"paragraph",text});

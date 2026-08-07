@@ -1,4 +1,4 @@
-import foundationHero from "@/assets/generated/texas-foundation-clay-drought.svg";
+import foundationHero from "@/assets/generated/texas-foundation-clay-drought.jpg";
 
 import type { Article, ArticleBlock } from "../types";
 

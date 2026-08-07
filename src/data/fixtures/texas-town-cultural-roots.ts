@@ -1,4 +1,4 @@
-import culturalRootsHero from "@/assets/generated/texas-town-cultural-roots.svg";
+import culturalRootsHero from "@/assets/generated/texas-town-cultural-roots.jpg";
 
 import type { Article, ArticleBlock } from "../types";
 

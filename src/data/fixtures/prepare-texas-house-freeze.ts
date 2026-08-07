@@ -1,4 +1,4 @@
-import freezeHero from "@/assets/generated/texas-freeze-prep.svg";
+import freezeHero from "@/assets/generated/texas-freeze-prep.jpg";
 
 import type { Article, ArticleBlock } from "../types";
 

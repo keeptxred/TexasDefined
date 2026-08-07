@@ -1,4 +1,4 @@
-import electricityHero from "@/assets/generated/texas-electricity-plan.svg";
+import electricityHero from "@/assets/generated/texas-electricity-plan.jpg";
 
 import type { Article, ArticleBlock } from "../types";
 

@@ -1,4 +1,4 @@
-import hillCountryHero from "@/assets/generated/hill-country-identity.svg";
+import hillCountryHero from "@/assets/generated/hill-country-identity.jpg";
 
 import type { Article, ArticleBlock } from "../types";
 

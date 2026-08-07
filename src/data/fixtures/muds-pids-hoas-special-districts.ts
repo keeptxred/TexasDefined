@@ -1,4 +1,4 @@
-import specialDistrictsHero from "@/assets/generated/texas-special-districts.svg";
+import specialDistrictsHero from "@/assets/generated/texas-special-districts.jpg";
 
 import type { Article, ArticleBlock } from "../types";
 
