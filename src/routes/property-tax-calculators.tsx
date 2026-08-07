@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { useMemo, useState } from 'react';
+import { useMemo, useState, type ReactNode } from 'react';
 
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { Container } from '@/components/layout/Container';
@@ -135,6 +135,6 @@ function PropertyTaxCalculatorToolkit() {
   </main>;
 }
 
-function ToolSection({ eyebrow, title, copy, children }: { eyebrow: string; title: string; copy?: string; children: React.ReactNode }) {
+function ToolSection({ eyebrow, title, copy, children }: { eyebrow: string; title: string; copy?: string; children: ReactNode }) {
   return <section className="grid gap-8 py-10 lg:grid-cols-[15rem_1fr]"><div><p className="eyebrow text-primary">{eyebrow}</p><h2 className="mt-2 font-display text-3xl leading-tight">{title}</h2>{copy ? <p className="mt-3 text-sm leading-6 text-muted-foreground">{copy}</p> : null}</div><div className="space-y-6">{children}</div></section>;
 }
