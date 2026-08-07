@@ -14,6 +14,7 @@ import { guideHref } from "../guide-links";
 import type { SearchDocument } from "../types";
 import { migratedEditorialArticles } from "./migrated-editorial";
 import { texasBarbecueStylesArticle } from "./texas-barbecue-styles";
+import { texasHomeMaintenanceCalendarArticle } from "./texas-home-maintenance-calendar";
 import { texasNativePlantsYardArticle } from "./texas-native-plants-yard";
 import { texasRegionsExplainedArticle } from "./texas-regions-explained";
 import { whyTexasHas254CountiesArticle } from "./why-texas-has-254-counties";
@@ -35,6 +36,7 @@ import {
  */
 
 const editorialArticles = [
+  texasHomeMaintenanceCalendarArticle,
   texasRegionsExplainedArticle,
   whyTexasHas254CountiesArticle,
   texasNativePlantsYardArticle,
