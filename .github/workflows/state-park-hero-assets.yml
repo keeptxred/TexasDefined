@@ -19,6 +19,8 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    env:
+      LOVABLE_API_KEY: ${{ secrets.LOVABLE_API_KEY }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -30,10 +32,18 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Resolve and download park-specific JPEGs
+      - name: Ensure JPEG conversion support
+        run: |
+          if ! command -v convert >/dev/null 2>&1; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq imagemagick
+          fi
+
+      - name: Resolve and generate park-specific JPEGs
         run: node scripts/data/sync-state-park-hero-assets.mjs
 
       - name: Commit generated hero assets
+        if: always()
         run: |
           git config user.name "Texas Defined Data Bot"
           git config user.email "actions@users.noreply.github.com"
@@ -43,4 +53,5 @@ jobs:
             exit 0
           fi
           git commit -m "chore: attach park-specific state park hero JPEGs [skip ci]"
+          git pull --rebase origin main
           git push
