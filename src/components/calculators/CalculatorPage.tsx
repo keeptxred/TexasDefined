@@ -2,39 +2,40 @@ import type { ReactNode } from 'react';
 import { Link } from '@tanstack/react-router';
 import { Container } from '@/components/layout/Container';
 
-export function CalculatorPage({
-  eyebrow,
-  title,
-  description,
-  children,
-}: {
-  eyebrow: string;
-  title: string;
-  description: string;
-  children: ReactNode;
-}) {
+export function CalculatorPage({ eyebrow, title, description, children }: { eyebrow: string; title: string; description: string; children: ReactNode }) {
   return (
-    <Container className="py-16 sm:py-24">
-      <article className="mx-auto max-w-5xl">
-        <nav aria-label="Breadcrumb" className="mb-8 text-sm text-muted-foreground">
-          <ol className="flex flex-wrap items-center gap-2">
-            <li><Link to="/" className="hover:text-foreground">Home</Link></li>
-            <li aria-hidden="true">/</li>
-            <li><Link to="/decide/financial-tools" className="hover:text-foreground">Money Made Clearer</Link></li>
-            <li aria-hidden="true">/</li>
-            <li aria-current="page" className="text-foreground">{title}</li>
-          </ol>
-        </nav>
-        <p className="eyebrow text-primary">{eyebrow}</p>
-        <h1 className="mt-3 font-display text-4xl sm:text-6xl">{title}</h1>
-        <p className="mt-5 max-w-3xl text-lg leading-8 text-muted-foreground">{description}</p>
-        {children}
-        <div className="mt-10 flex flex-wrap gap-4 text-sm font-medium">
-          <Link to="/decide/financial-tools" className="underline">See all the calculators</Link>
-          <Link to="/moving-to-texas" className="underline">Plan your move</Link>
-          <Link to="/browse/cities" className="underline">Find a city</Link>
-        </div>
-      </article>
-    </Container>
+    <>
+      <section className="border-b border-border bg-surface">
+        <Container className="py-14 sm:py-20">
+          <nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.14em] text-muted-foreground">
+            <ol className="flex flex-wrap items-center gap-2">
+              <li><Link to="/" className="hover:text-foreground">Front page</Link></li>
+              <li aria-hidden>·</li>
+              <li><Link to="/decide/financial-tools" className="hover:text-foreground">Money & home</Link></li>
+              <li aria-hidden>·</li>
+              <li aria-current="page" className="text-foreground">Calculator</li>
+            </ol>
+          </nav>
+          <p className="eyebrow mt-8 text-primary">{eyebrow}</p>
+          <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">{title}</h1>
+          <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">{description}</p>
+        </Container>
+      </section>
+
+      <Container className="py-12 sm:py-16">
+        <article className="mx-auto max-w-5xl">
+          <div className="border-t-2 border-foreground pt-8">{children}</div>
+          <nav aria-label="More planning tools" className="mt-14 border-y border-border py-6">
+            <p className="eyebrow text-primary">Keep planning</p>
+            <div className="mt-4 flex flex-wrap gap-x-7 gap-y-3">
+              <Link to="/decide/financial-tools" className="eyebrow border-b border-primary pb-1 text-primary">All calculators →</Link>
+              <Link to="/moving-to-texas" className="eyebrow border-b border-primary pb-1 text-primary">Moving to Texas →</Link>
+              <Link to="/browse/cities" className="eyebrow border-b border-primary pb-1 text-primary">City directory →</Link>
+            </div>
+          </nav>
+          <p className="mt-6 max-w-3xl text-xs leading-6 text-muted-foreground">Use calculator results as planning estimates, not quotes or official determinations. Confirm rates, taxes, insurance, eligibility and property details with the appropriate provider or agency.</p>
+        </article>
+      </Container>
+    </>
   );
 }
