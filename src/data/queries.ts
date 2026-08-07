@@ -26,58 +26,59 @@ export const destinationsQuery = (params: Omit<DestinationQuery, "brandId"> = {}
   queryKey: ["destinations", scope.brandId, params],
   queryFn: async () => {
     const options = { featured: params.featured, category: params.category, limit: params.limit };
-    let enrichedFailed = false;
+
+    // The enriched catalog is preferred, but an empty result is not proof that
+    // the category is empty. During migrations/enrichment some valid public
+    // Explore records may only be available through the core catalog.
     try {
       const enriched = await fetchExploreDestinations(options);
       if (enriched.length) return enriched;
       if (params.featured) {
         const catalog = await fetchExploreDestinations({ category: params.category, limit: 5000 });
-        return featuredFallback(catalog, params.limit ?? 6);
+        if (catalog.length) return featuredFallback(catalog, params.limit ?? 6);
       }
-      return [];
     } catch (error) {
-      enrichedFailed = true;
       console.error("Explore enrichment unavailable; retrying core remote catalog", error);
     }
 
-    let coreFailed = false;
+    // Always try the broader core catalog when the enriched path is empty or
+    // unavailable. This prevents populated Explore categories from rendering
+    // as empty simply because enrichment rows have not caught up yet.
     try {
       const core = await fetchCoreExploreDestinations(options);
       if (core.length) return core;
       if (params.featured) {
         const catalog = await fetchCoreExploreDestinations({ category: params.category, limit: 5000 });
-        return featuredFallback(catalog, params.limit ?? 6);
+        if (catalog.length) return featuredFallback(catalog, params.limit ?? 6);
       }
-      return [];
     } catch (error) {
-      coreFailed = true;
-      console.error("Core Explore remote catalog unavailable", error);
+      console.error("Core Explore remote catalog unavailable; retrying local fallback", error);
     }
 
-    if (enrichedFailed && coreFailed) return platform.destinations.list({ ...scope, ...params });
-    return [];
+    // The fixture catalog is intentionally last, but it is better than a blank
+    // category when remote data is temporarily unavailable or mid-migration.
+    return platform.destinations.list({ ...scope, ...params });
   },
 });
 
 export const destinationQuery = (slug: Slug) => queryOptions({
   queryKey: ["destination", scope.brandId, slug],
   queryFn: async () => {
-    let enrichedFailed = false;
-    try { return await fetchExploreDestination(slug); }
-    catch (error) {
-      enrichedFailed = true;
+    try {
+      const enriched = await fetchExploreDestination(slug);
+      if (enriched) return enriched;
+    } catch (error) {
       console.error("Explore destination enrichment unavailable; retrying core remote record", error);
     }
 
-    let coreFailed = false;
-    try { return await fetchCoreExploreDestination(slug); }
-    catch (error) {
-      coreFailed = true;
-      console.error("Core Explore remote destination unavailable", error);
+    try {
+      const core = await fetchCoreExploreDestination(slug);
+      if (core) return core;
+    } catch (error) {
+      console.error("Core Explore remote destination unavailable; retrying local fallback", error);
     }
 
-    if (enrichedFailed && coreFailed) return platform.destinations.getBySlug(scope, slug);
-    return null;
+    return platform.destinations.getBySlug(scope, slug);
   },
 });
 
@@ -144,8 +145,8 @@ export const searchDocumentsQuery = () => queryOptions({
     const base = await platform.search.documents(scope);
     let destinations = [] as Awaited<ReturnType<typeof fetchExploreDestinations>>;
     try { destinations = await fetchExploreDestinations({ limit: 5000 }); }
-    catch (error) {
-      console.error("Enriched destination search index unavailable; retrying core remote catalog", error);
+    catch (error) { console.error("Enriched destination search index unavailable; retrying core remote catalog", error); }
+    if (!destinations.length) {
       try { destinations = await fetchCoreExploreDestinations({ limit: 5000 }); }
       catch (coreError) { console.error("Core remote destination search index unavailable; retaining fixture search documents", coreError); }
     }
