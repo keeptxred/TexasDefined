@@ -9,6 +9,7 @@ import { legacyLakeDestinations } from "./fixtures/legacy-lakes";
 import { platform, scope } from "./index";
 import type { ArticleQuery, DestinationQuery } from "./repositories";
 import { fetchAssignedShopProducts } from "./shop-products-remote";
+import { ensureStateParkHero, ensureUniqueStateParkHeroes } from "./state-park-heroes";
 import type { Destination, SearchDocument, Slug } from "./types";
 
 export const articlesQuery = (params: Omit<ArticleQuery, "brandId"> = {}) => queryOptions({ queryKey: ["articles", scope.brandId, params], queryFn: () => platform.articles.list({ ...scope, ...params }) });
@@ -75,7 +76,7 @@ export const destinationsQuery = (params: Omit<DestinationQuery, "brandId"> = {}
 
     const local = await platform.destinations.list({ ...scope, ...params });
     const preserved = preservedFor(params);
-    const merged = mergeDestinations(enriched, core, preserved, local);
+    const merged = ensureUniqueStateParkHeroes(mergeDestinations(enriched, core, preserved, local));
 
     if (params.featured) return featuredFallback(merged, params.limit ?? 6);
     return params.limit ? merged.slice(0, params.limit) : merged;
@@ -87,21 +88,22 @@ export const destinationQuery = (slug: Slug) => queryOptions({
   queryFn: async () => {
     try {
       const enriched = await fetchExploreDestination(slug);
-      if (enriched) return enriched;
+      if (enriched) return ensureStateParkHero(enriched);
     } catch (error) {
       console.error("Explore destination enrichment unavailable; retrying core remote record", error);
     }
 
     try {
       const core = await fetchCoreExploreDestination(slug);
-      if (core) return core;
+      if (core) return ensureStateParkHero(core);
     } catch (error) {
       console.error("Core Explore remote destination unavailable; retrying preserved catalog", error);
     }
 
     const preserved = preservedExploreDestinations.find((destination) => destination.slug === slug);
-    if (preserved) return preserved;
-    return platform.destinations.getBySlug(scope, slug);
+    if (preserved) return ensureStateParkHero(preserved);
+    const local = await platform.destinations.getBySlug(scope, slug);
+    return local ? ensureStateParkHero(local) : local;
   },
 });
 
@@ -172,7 +174,7 @@ export const searchDocumentsQuery = () => queryOptions({
     catch (error) { console.error("Enriched destination search index unavailable; merging core and preserved catalogs", error); }
     try { core = await fetchCoreExploreDestinations({ limit: 5000 }); }
     catch (coreError) { console.error("Core remote destination search index unavailable; retaining preserved destinations", coreError); }
-    const destinations = mergeDestinations(enriched, core, preservedExploreDestinations);
+    const destinations = ensureUniqueStateParkHeroes(mergeDestinations(enriched, core, preservedExploreDestinations));
     if (!destinations.length) return base;
     return [...base.filter((document) => document.kind !== "destination"), ...destinations.map(destinationSearchDocument)];
   },
