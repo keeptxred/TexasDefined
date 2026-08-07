@@ -2,6 +2,7 @@ import { queryOptions } from "@tanstack/react-query";
 
 import { fetchPublishedTexasEvents } from "./events-remote";
 import { filterCurrentlyVisitableDestinations } from "./destination-availability";
+import { filterSeoReadyDestinations } from "./destination-audit";
 import { applyAllCuratedDestination, applyAllCuratedDestinations } from "./destination-curation-all";
 import { improveDestinationCatalog, improveDestinationQuality } from "./destination-quality";
 import { fetchCoreExploreDestination, fetchCoreExploreDestinations } from "./explore-core-remote";
@@ -64,13 +65,12 @@ function applyResolvedHero(destination: Destination) {
 }
 
 function reconcileExploreCatalog(destinations: Destination[]) {
-  return filterCurrentlyVisitableDestinations(
-    improveDestinationCatalog(
-      applyAllCuratedDestinations(
-        reconcileDestinationHeroes(applyExploreHeroAssets(applyStateParkHeroAssets(destinations))),
-      ),
+  const improved = improveDestinationCatalog(
+    applyAllCuratedDestinations(
+      reconcileDestinationHeroes(applyExploreHeroAssets(applyStateParkHeroAssets(destinations))),
     ),
   );
+  return filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved));
 }
 
 export const destinationsQuery = (params: Omit<DestinationQuery, "brandId"> = {}) => queryOptions({
