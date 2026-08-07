@@ -13,6 +13,13 @@ import { supplementalExploreCategories } from "../explore-categories";
 import { guideHref } from "../guide-links";
 import type { SearchDocument } from "../types";
 import { brewsterCountyBigBendArticle } from "./brewster-county-big-bend";
+import {
+  texasBarbecueStylesArticle,
+  texasHomeMaintenanceCalendarArticle,
+  texasNativePlantsYardArticle,
+  texasRegionsExplainedArticle,
+  whyTexasHas254CountiesArticle,
+} from "./chat-article-hero-overrides";
 import { newestEvergreenArticles } from "./newest-evergreen";
 import { highSchoolFootballNewcomersArticle } from "./high-school-football-newcomers";
 import { kolacheOrKlobasnekArticle } from "./kolache-or-klobasnek";
@@ -20,11 +27,6 @@ import { migratedEditorialArticles } from "./migrated-editorial";
 import { orderingTexasBarbecueArticle } from "./ordering-texas-barbecue";
 import { rodeo101Article } from "./rodeo-101";
 import { sixFlagsOverTexasMeaningArticle } from "./six-flags-over-texas-meaning";
-import { texasBarbecueStylesArticle } from "./texas-barbecue-styles";
-import { texasHomeMaintenanceCalendarArticle } from "./texas-home-maintenance-calendar";
-import { texasNativePlantsYardArticle } from "./texas-native-plants-yard";
-import { texasRegionsExplainedArticle } from "./texas-regions-explained";
-import { whyTexasHas254CountiesArticle } from "./why-texas-has-254-counties";
 import {
   articles,
   authors,
