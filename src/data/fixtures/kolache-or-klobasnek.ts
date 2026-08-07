@@ -1,4 +1,4 @@
-import kolacheHero from "@/assets/kolache-klobasnek-hero.jpg";
+import kolacheHero from "@/assets/kolache-klobasnek-hero-photo.jpg";
 import type { Article, ArticleBlock } from "../types";
 const p=(text:string):ArticleBlock=>({type:"paragraph",text});
 const h=(text:string):ArticleBlock=>({type:"heading",text});
@@ -8,7 +8,7 @@ export const kolacheOrKlobasnekArticle: Article = {
   id:"evergreen-kolache-klobasnek", brandId:"texasdefined", slug:"kolache-or-klobasnek-texas-story",
   title:"Kolache or Klobasnek? The Texas Story Behind Both",
   dek:"Fruit-filled kolaches and sausage-filled klobasneks share Czech roots, but they are not the same pastry. Texas made room for both—and blurred the names along the way.",
-  category:"food-bbq", hero:{src:kolacheHero,alt:"Illustrated sweet kolaches and a sausage-filled klobasnek on a bakery counter",width:1600,height:900},
+  category:"food-bbq", hero:{src:kolacheHero,alt:"Fruit and cheese kolaches beside sausage-filled klobasniky on a Texas bakery tray",width:1600,height:900},
   authorId:"a-marisol", publishedAt:"2026-08-07", readingMinutes:9,
   tags:["kolache","klobasnek","czech texas","texas food","west texas","czech heritage"], featured:true,
   internalLinks:[

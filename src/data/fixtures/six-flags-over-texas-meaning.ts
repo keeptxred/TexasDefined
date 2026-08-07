@@ -1,4 +1,4 @@
-import sixFlagsHero from "@/assets/six-flags-hero.jpg";
+import sixFlagsHero from "@/assets/six-flags-hero-photo.jpg";
 
 import type { Article, ArticleBlock } from "../types";
 
@@ -10,7 +10,7 @@ export const sixFlagsOverTexasMeaningArticle: Article = {
   id:"evergreen-six-flags-over-texas-meaning", brandId:"texasdefined", slug:"six-flags-over-texas-meaning",
   title:"What the Six Flags Over Texas Actually Mean",
   dek:"The six flags are more than a theme-park name. They trace the governments that claimed Texas across centuries—and explain why the phrase still carries so much weight here.",
-  category:"texas-history", hero:{src:sixFlagsHero,alt:"A Texas history illustration with six flags above a historic skyline",width:1600,height:900},
+  category:"texas-history", hero:{src:sixFlagsHero,alt:"The Texas State Capitol in Austin with flags flying on poles out front",width:1600,height:900},
   authorId:"a-marisol", publishedAt:"2026-08-07", readingMinutes:10,
   tags:["six flags over texas","texas history","texas flags","republic of texas","texas identity"], featured:true,
   internalLinks:[
