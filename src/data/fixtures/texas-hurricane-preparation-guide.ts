@@ -1,0 +1,65 @@
+import hurricaneHero from "@/assets/generated/texas-hurricane-prep.svg";
+
+import type { Article, ArticleBlock } from "../types";
+
+const p = (text: string): ArticleBlock => ({ type: "paragraph", text });
+const h = (text: string): ArticleBlock => ({ type: "heading", text });
+const list = (...items: string[]): ArticleBlock => ({ type: "list", items });
+
+export const texasHurricanePreparationArticle: Article = {
+  id: "evergreen-texas-hurricane-preparation",
+  brandId: "texasdefined",
+  slug: "texas-hurricane-preparation-homeowners-renters",
+  title: "A Texas Hurricane Preparation Guide for Homeowners and Renters",
+  dek: "Hurricane preparation is easier before the Gulf starts getting busy. Build a practical Texas plan for evacuation, power loss, flooding, pets, medications, insurance records and the first days after a storm.",
+  category: "home-garden",
+  hero: { src: hurricaneHero, alt: "Texas Gulf Coast home prepared for hurricane wind and rain with emergency supplies", width: 1600, height: 1067 },
+  authorId: "a-marisol",
+  publishedAt: "2026-08-07",
+  readingMinutes: 12,
+  tags: ["texas hurricane", "hurricane preparation", "gulf coast", "emergency kit", "evacuation", "home preparedness"],
+  featured: true,
+  internalLinks: [
+    { href: "/explore/region/gulf-coast", label: "Explore the Gulf Coast", description: "Know the places, communities and coastline that shape storm preparation." },
+    { href: "/home-garden", label: "Home & Garden", description: "More practical guidance for living in a Texas home." },
+    { href: "/article/texas-homeowners-insurance-guide", label: "Texas homeowners insurance", description: "Understand coverage, deductibles and the records worth keeping before a loss." },
+    { href: "/article/texas-home-maintenance-calendar", label: "Texas home maintenance calendar", description: "Build storm-season preparation into your regular home routine." },
+  ],
+  relatedCollections: [], relatedDestinations: [],
+  body: [
+    p("The worst time to invent a hurricane plan is when the forecast cone has moved over your county and every gas station, grocery aisle and hardware store is full. Texas hurricane preparation works best when the decisions that take time—insurance records, evacuation routes, prescriptions, pet plans and home maintenance—are handled long before a named storm becomes personal."),
+    p("A useful plan also separates three different hazards that people often collapse into one word: wind, storm surge and inland flooding. Your response to each may be different. A home far from the coast can avoid storm surge and still lose power for days or flood from intense rainfall."),
+    h("Start with the evacuation decision before there is a storm"),
+    p("Know whether your home is in an evacuation zone and learn the routes local officials use. If you would leave, decide where you would actually go. A plan that says 'drive north' is not enough when hundreds of thousands of other people have the same idea."),
+    p("Think through relatives, hotels, pet-friendly lodging and backup destinations. Keep a paper map in the vehicle because mobile service and navigation apps can become unreliable when networks are overloaded."),
+    h("Storm surge is different from ordinary flooding"),
+    p("Storm surge is seawater pushed inland by a storm. It can move with tremendous force and can reach places that are not normally near the water. If officials order an evacuation for surge risk, protecting the house is secondary to leaving the area."),
+    p("Rainfall flooding is different. It can happen well inland, sometimes after the center of a storm has weakened. Roads that were passable earlier can become dangerous later. Never treat standing floodwater as a routine driving obstacle."),
+    h("Build a power-outage plan, not just an emergency kit"),
+    list("Keep flashlights and headlamps where you can reach them in the dark.", "Store battery packs and charging cables together and charge them before severe weather.", "Know how long essential medications can safely remain outside refrigeration, if applicable.", "Have a way to receive weather information without relying on home internet.", "Plan for safe food storage and know when refrigerated or frozen food should be discarded.", "If anyone depends on powered medical equipment, make a backup-power and relocation plan well in advance."),
+    p("A generator can be useful, but it also creates carbon-monoxide risk. Portable generators belong outdoors, far from windows, doors and garages, and they must never be used inside a house, garage or enclosed patio."),
+    h("Water deserves its own plan"),
+    p("Municipal water systems are often resilient, but storms can create boil notices, pressure problems and local disruptions. Store drinking water before the rush begins, especially for households with infants, older adults, pets or medical needs."),
+    p("Do not forget sanitation. A power outage can affect lift stations, wells or septic systems differently depending on the property. Know how your home handles wastewater before the weather turns bad."),
+    h("Protect the house from the outside in"),
+    list("Clear gutters and drains so heavy rain has somewhere to go.", "Bring in patio furniture, grills, toys, planters and anything else that can become airborne.", "Trim obviously dead or dangerous limbs before storm season rather than when a storm is approaching.", "Know how storm panels, shutters or other opening protection are installed if your home uses them.", "Photograph the exterior and each room before the storm for an insurance record.", "Move valuable documents, electronics and sentimental items above known flood-prone levels when practical."),
+    h("Renters need a plan too"),
+    p("A landlord is responsible for the building, not for replacing a renter's belongings after every kind of loss. Renters insurance can cover personal property under the terms of the policy, and the lease may contain instructions about storm preparation, balcony items, parking or evacuation."),
+    p("Renters should know who to contact if the property is damaged and where they would stay if the unit becomes uninhabitable. Save the lease, insurance policy and property-management contact information somewhere accessible away from the apartment."),
+    h("Pets turn a vague evacuation plan into a specific one"),
+    p("Carriers, leashes, food, medications, vaccination records and identification should be ready before hurricane season. Not every shelter or hotel accepts every animal, so pet owners need to know their options before they are driving in an evacuation line."),
+    h("Keep the documents that make recovery easier"),
+    list("Insurance policy declarations and claim phone numbers.", "A home inventory with photos or video.", "Vehicle titles, identification and important account contacts.", "Medical and prescription information.", "Receipts for major home improvements and expensive personal property.", "Digital copies stored somewhere that does not depend on the home computer surviving."),
+    h("Fuel early, not dramatically"),
+    p("The goal is not to hoard fuel. It is to avoid starting hurricane preparation with an empty tank. During the season, keeping vehicles reasonably fueled gives a household more options if conditions change quickly."),
+    p("If you store gasoline for approved equipment, use proper containers and safe storage practices. Never improvise storage in unsuitable containers or keep fuel inside occupied living space."),
+    h("The day before impact is for execution, not invention"),
+    p("Once a serious threat is close, follow official local guidance. Finish the steps already planned: charge devices, set refrigerator and freezer temperatures appropriately, secure outdoor items, move vehicles if flooding is a concern and leave if evacuation is ordered."),
+    p("Text messages may go through when voice calls do not. Choose one out-of-area family contact so everyone knows who will collect updates if local networks become difficult."),
+    h("After the storm, the hazards change"),
+    list("Avoid downed power lines and assume they are energized.", "Do not enter floodwater around electrical equipment.", "Use generators only in safe outdoor locations.", "Photograph damage before major cleanup when it is safe to do so.", "Watch for damaged trees, unstable structures, gas leaks and contaminated water.", "Keep receipts for storm-related expenses that may be relevant to an insurance claim."),
+    h("A good hurricane plan is mostly ordinary preparation"),
+    p("The useful work is not dramatic. It is knowing where to go, keeping records, maintaining the house, protecting medications, planning for pets and making sure the household can function for a while without normal utilities."),
+    p("Texas hurricane season will always bring uncertainty. A written plan cannot control the forecast, but it can remove a remarkable number of bad decisions from the hours when the forecast matters most."),
+  ],
+};
