@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 
+import caddoLake from "@/assets/caddo-lake.jpg";
 import { isDestinationPhotoPlaceholder } from "@/data/explore-hero-reconciliation";
 import type { Destination } from "@/data/types";
 import { cn } from "@/lib/utils";
@@ -30,7 +31,18 @@ function DestinationImage({ destination, eager, overlay }: { destination: Destin
     ? "aspect-[3/4] w-full object-cover transition-transform duration-700 group-hover:scale-105"
     : "aspect-[3/2] w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]";
 
-  if (isDestinationPhotoPlaceholder(destination.hero.src)) {
+  // Caddo Lake has a verified bundled photo. Resolve it at the rendering layer so
+  // upstream remote/catalog placeholder state can never suppress the real image.
+  const hero = destination.slug === "caddo-lake"
+    ? {
+        src: caddoLake,
+        alt: "Bald cypress trees draped in Spanish moss on Caddo Lake at dawn",
+        width: 1600,
+        height: 1067,
+      }
+    : destination.hero;
+
+  if (isDestinationPhotoPlaceholder(hero.src)) {
     return (
       <div
         role="img"
@@ -48,10 +60,10 @@ function DestinationImage({ destination, eager, overlay }: { destination: Destin
 
   return (
     <img
-      src={destination.hero.src}
-      alt={destination.hero.alt || `${destination.name}, Texas`}
-      width={destination.hero.width || 1600}
-      height={destination.hero.height || 1067}
+      src={hero.src}
+      alt={hero.alt || `${destination.name}, Texas`}
+      width={hero.width || 1600}
+      height={hero.height || 1067}
       loading={eager ? "eager" : "lazy"}
       decoding="async"
       className={imageClass}
