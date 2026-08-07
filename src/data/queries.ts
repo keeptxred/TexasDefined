@@ -159,7 +159,10 @@ export const categoriesQuery = () => queryOptions({
   queryFn: async () => {
     const categories = await platform.taxonomy.categories(scope);
     const merged = new Map(categories.map((category) => [category.slug, category]));
-    for (const category of supplementalExploreCategories) if (!merged.has(category.slug)) merged.set(category.slug, category);
+    for (const category of supplementalExploreCategories) {
+      const existing = merged.get(category.slug);
+      merged.set(category.slug, existing ? { ...existing, ...category } : category);
+    }
     return [...merged.values()];
   },
 });
