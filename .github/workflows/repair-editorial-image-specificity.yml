@@ -1,0 +1,40 @@
+name: Repair editorial image specificity
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/data/repair-editorial-image-specificity.mjs"
+      - ".github/workflows/repair-editorial-image-specificity.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Ensure JPEG conversion support
+        run: |
+          if ! command -v convert >/dev/null 2>&1; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq imagemagick
+          fi
+      - name: Replace weak matches with verified Texas images
+        run: node scripts/data/repair-editorial-image-specificity.mjs
+      - name: Commit verified image repairs
+        run: |
+          git config user.name "Texas Defined Data Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add src/assets scripts/data/missing-site-image-report.json
+          git commit -m "fix: use verified Texas-specific editorial images [skip ci]" || exit 0
+          git pull --rebase origin main
+          git push
