@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-07T16:37:15.153Z",
+  "generatedAt": "2026-08-07T16:52:14.481Z",
   "totalParks": 99,
   "retainedUniqueExisting": [],
   "downloaded": [
@@ -76,7 +76,7 @@
     {
       "slug": "cleburne-state-park",
       "name": "Cleburne State Park",
-      "sourceTitle": "File:Cleburne State Park October 2020 03 (Cedar Lake).jpg"
+      "sourceTitle": "File:Cleburne State Park October 2020 01 (Cedar Lake).jpg"
     },
     {
       "slug": "colorado-bend-state-park",
@@ -414,92 +414,94 @@
       "sourceTitle": "File:Wyler Aerial Tramway.jpg"
     }
   ],
+  "aiGenerated": [],
   "unresolved": [
     {
       "slug": "albert-bessie-kronkosky-state-natural-area",
       "name": "Albert & Bessie Kronkosky State Natural Area",
-      "reason": "no exact freely licensed JPEG found"
+      "reason": "no exact free photo; LOVABLE_API_KEY unavailable"
     },
     {
       "slug": "barton-warnock-environmental-educational-center-state-park",
       "name": "Barton Warnock Environmental Educational Center State Park",
-      "reason": "no exact freely licensed JPEG found"
+      "reason": "no exact free photo; LOVABLE_API_KEY unavailable"
     },
     {
       "slug": "caprock-canyons-trailway-estelline-terminal-state-park",
       "name": "Caprock Canyons Trailway - Estelline Terminal State Park",
-      "reason": "no exact freely licensed JPEG found"
+      "reason": "no exact free photo; LOVABLE_API_KEY unavailable"
     },
     {
       "slug": "chinati-mountains-state-natural-area",
       "name": "Chinati Mountains State Natural Area",
-      "reason": "no exact freely licensed JPEG found"
+      "reason": "no exact free photo; LOVABLE_API_KEY unavailable"
     },
     {
       "slug": "choke-canyon-north-shore-unit-state-park",
       "name": "Choke Canyon - North Shore Unit State Park",
-      "reason": "no exact freely licensed JPEG found"
+      "reason": "no exact free photo; LOVABLE_API_KEY unavailable"
     },
     {
       "slug": "choke-canyon-south-shore-unit-state-park",
       "name": "Choke Canyon - South Shore Unit State Park",
-      "reason": "no exact freely licensed JPEG found"
+      "reason": "no exact free photo; LOVABLE_API_KEY unavailable"
     },
     {
       "slug": "cooper-lake-doctors-creek-unit-state-park",
       "name": "Cooper Lake - Doctors Creek Unit State Park",
-      "reason": "no exact freely licensed JPEG found"
+      "reason": "no exact free photo; LOVABLE_API_KEY unavailable"
     },
     {
       "slug": "cooper-lake-johns-creek-unit-state-park",
       "name": "Cooper Lake - Johns Creek Unit State Park",
-      "reason": "no exact freely licensed JPEG found"
+      "reason": "no exact free photo; LOVABLE_API_KEY unavailable"
     },
     {
       "slug": "devils-river-big-satan-unit-state-natural-area",
       "name": "Devils River - Big Satan Unit State Natural Area",
-      "reason": "no exact freely licensed JPEG found"
+      "reason": "no exact free photo; LOVABLE_API_KEY unavailable"
     },
     {
       "slug": "hill-country-louise-merrick-unit-state-natural-area",
       "name": "Hill Country - Louise Merrick Unit State Natural Area",
-      "reason": "no exact freely licensed JPEG found"
+      "reason": "no exact free photo; LOVABLE_API_KEY unavailable"
     },
     {
       "slug": "lake-mineral-wells-trailway-garner-th-state-park",
       "name": "Lake Mineral Wells Trailway - Garner TH State Park",
-      "reason": "no exact freely licensed JPEG found"
+      "reason": "no exact free photo; LOVABLE_API_KEY unavailable"
     },
     {
       "slug": "lake-somerville-trailway-newman-bottom-th-state-park",
       "name": "Lake Somerville Trailway - Newman Bottom TH State Park",
-      "reason": "no exact freely licensed JPEG found"
+      "reason": "no exact free photo; LOVABLE_API_KEY unavailable"
     },
     {
       "slug": "palo-pinto-mountains-state-park",
       "name": "Palo Pinto Mountains State Park",
-      "reason": "no exact freely licensed JPEG found"
+      "reason": "no exact free photo; LOVABLE_API_KEY unavailable"
     },
     {
       "slug": "powderhorn-state-park",
       "name": "Powderhorn State Park",
-      "reason": "no exact freely licensed JPEG found"
+      "reason": "no exact free photo; LOVABLE_API_KEY unavailable"
     },
     {
       "slug": "ray-roberts-lake-isle-du-bois-unit-state-park",
       "name": "Ray Roberts Lake - Isle du Bois Unit State Park",
-      "reason": "no exact freely licensed JPEG found"
+      "reason": "no exact free photo; LOVABLE_API_KEY unavailable"
     },
     {
       "slug": "ray-roberts-lake-johnson-branch-unit-state-park",
       "name": "Ray Roberts Lake - Johnson Branch Unit State Park",
-      "reason": "no exact freely licensed JPEG found"
+      "reason": "no exact free photo; LOVABLE_API_KEY unavailable"
     },
     {
       "slug": "ray-roberts-lake-jordon-unit-state-park",
       "name": "Ray Roberts Lake - Jordon Unit State Park",
-      "reason": "no exact freely licensed JPEG found"
+      "reason": "no exact free photo; LOVABLE_API_KEY unavailable"
     }
   ],
-  "rejectedDuplicateExisting": []
+  "rejectedDuplicateExisting": [],
+  "aiAvailable": false
 }
