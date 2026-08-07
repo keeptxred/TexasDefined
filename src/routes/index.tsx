@@ -13,7 +13,6 @@ import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import {
   articlesQuery,
-  collectionsQuery,
   destinationsQuery,
   eventsQuery,
   guidesQuery,
