@@ -18,6 +18,13 @@ export const supplementalExploreCategories: Category[] = [
     name: "Caverns & Caves",
     eyebrow: "Below ground",
     description: "Show caves, wild caverns and limestone rooms hidden beneath the Texas landscape.",
+    image: {
+      src: "/images/explore/caverns/longhorn-cavern-state-park.jpg",
+      alt: "Underground limestone formations inside Longhorn Cavern State Park in Texas",
+      width: 1600,
+      height: 1200,
+      credit: "Billy Hathorn · CC BY 3.0 · Wikimedia Commons",
+    },
   },
   {
     slug: "beaches-coast",
