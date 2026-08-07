@@ -13,10 +13,8 @@ export const Route = createFileRoute('/texas-data/$datasetSlug')({
   },
   head: ({ loaderData }) => {
     if (!loaderData) return {};
-
     const canonicalPath = `/texas-data/${loaderData.slug}`;
     const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
-
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
@@ -24,68 +22,49 @@ export const Route = createFileRoute('/texas-data/$datasetSlug')({
         description: loaderData.description,
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
-      scripts: [
-        jsonLd({
-          '@context': 'https://schema.org',
-          '@graph': [
-            {
-              '@type': 'Dataset',
-              '@id': `${pageUrl}#dataset`,
-              name: loaderData.title,
-              description: loaderData.description,
-              url: pageUrl,
-              dateModified: loaderData.updated,
-              temporalCoverage: String(loaderData.year),
-              keywords: [loaderData.category, 'Texas data', 'TexasDefined'],
-              creator: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#organization` },
-              publisher: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#organization` },
-              isIncludedIn: { '@id': `${absoluteUrl(texasDefinedBrand, '/texas-data')}#page` },
-              isBasedOn: loaderData.sourceUrl,
-              measurementTechnique: loaderData.methodology,
-              variableMeasured: loaderData.rows.map((row) => ({
-                '@type': 'PropertyValue',
-                name: row.label,
-                value: row.value,
-                unitText: loaderData.unit,
-                ...(row.note ? { description: row.note } : {}),
-              })),
-            },
-            {
-              '@type': 'BreadcrumbList',
-              '@id': `${pageUrl}#breadcrumb`,
-              itemListElement: [
-                {
-                  '@type': 'ListItem',
-                  position: 1,
-                  name: 'Front page',
-                  item: absoluteUrl(texasDefinedBrand, '/'),
-                },
-                {
-                  '@type': 'ListItem',
-                  position: 2,
-                  name: 'Texas Facts',
-                  item: absoluteUrl(texasDefinedBrand, '/texas-data'),
-                },
-                {
-                  '@type': 'ListItem',
-                  position: 3,
-                  name: loaderData.title,
-                  item: pageUrl,
-                },
-              ],
-            },
-          ],
-        }),
-      ],
+      scripts: [jsonLd({
+        '@context': 'https://schema.org',
+        '@graph': [
+          {
+            '@type': 'Dataset',
+            '@id': `${pageUrl}#dataset`,
+            name: loaderData.title,
+            description: loaderData.description,
+            url: pageUrl,
+            dateModified: loaderData.updated,
+            temporalCoverage: String(loaderData.year),
+            keywords: [loaderData.category, 'Texas data', 'TexasDefined'],
+            creator: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#organization` },
+            publisher: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#organization` },
+            isIncludedIn: { '@id': `${absoluteUrl(texasDefinedBrand, '/texas-data')}#page` },
+            isBasedOn: loaderData.sourceUrl,
+            measurementTechnique: loaderData.methodology,
+            variableMeasured: loaderData.rows.map((row) => ({
+              '@type': 'PropertyValue',
+              name: row.label,
+              value: row.value,
+              unitText: loaderData.unit,
+              ...(row.note ? { description: row.note } : {}),
+            })),
+          },
+          {
+            '@type': 'BreadcrumbList',
+            '@id': `${pageUrl}#breadcrumb`,
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: 'Front page', item: absoluteUrl(texasDefinedBrand, '/') },
+              { '@type': 'ListItem', position: 2, name: 'Texas Facts', item: absoluteUrl(texasDefinedBrand, '/texas-data') },
+              { '@type': 'ListItem', position: 3, name: loaderData.title, item: pageUrl },
+            ],
+          },
+        ],
+      })],
     };
   },
   notFoundComponent: () => (
     <Container className="py-24">
-      <p className="eyebrow text-primary">Texas by the numbers</p>
-      <h1 className="mt-3 font-display text-3xl">We could not find those numbers</h1>
-      <p className="mt-3 text-sm text-muted-foreground">
-        <Link to="/texas-data" className="text-primary underline">See the Texas facts and comparisons that are available.</Link>
-      </p>
+      <p className="eyebrow text-primary">The Data Desk</p>
+      <h1 className="mt-3 font-display text-4xl">We could not find that data brief</h1>
+      <p className="mt-4 text-sm text-muted-foreground"><Link to="/texas-data" className="font-semibold underline underline-offset-4">Return to Texas Facts and Figures.</Link></p>
     </Container>
   ),
   component: Page,
@@ -94,54 +73,68 @@ export const Route = createFileRoute('/texas-data/$datasetSlug')({
 function Page() {
   const dataset = Route.useLoaderData();
   return (
-    <Container className="py-16 sm:py-24">
-      <main className="mx-auto max-w-5xl">
-        <p className="eyebrow text-primary">Texas by the numbers · {dataset.year}</p>
-        <h1 className="mt-3 font-display text-4xl sm:text-6xl">{dataset.title}</h1>
-        <p className="mt-5 max-w-3xl text-lg leading-8 text-muted-foreground">{dataset.description}</p>
-        <div className="mt-10 overflow-hidden rounded-lg border border-border">
-          <table className="w-full text-left text-sm">
-            <thead className="bg-muted">
-              <tr>
-                <th className="p-4">What we looked at</th>
-                <th className="p-4">What we found</th>
-                <th className="hidden p-4 sm:table-cell">Good to know</th>
-              </tr>
-            </thead>
-            <tbody>
+    <main>
+      <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
+        <article className="mx-auto max-w-6xl">
+          <nav aria-label="Breadcrumb" className="border-b border-border pb-4 text-xs uppercase tracking-[0.14em] text-muted-foreground">
+            <Link to="/" className="hover:text-foreground">Front page</Link>
+            <span aria-hidden="true" className="mx-2">/</span>
+            <Link to="/texas-data" className="hover:text-foreground">The Data Desk</Link>
+          </nav>
+
+          <header className="grid gap-8 border-b border-border py-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end">
+            <div>
+              <p className="eyebrow text-primary">The Data Desk · {dataset.year}</p>
+              <h1 className="mt-3 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">{dataset.title}</h1>
+              <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground sm:text-xl">{dataset.description}</p>
+            </div>
+            <dl className="border-l border-border pl-6 text-sm">
+              <div className="border-b border-border py-3"><dt className="text-[0.68rem] uppercase tracking-[0.16em] text-muted-foreground">Source</dt><dd className="mt-1 font-medium">{dataset.sourceName}</dd></div>
+              <div className="border-b border-border py-3"><dt className="text-[0.68rem] uppercase tracking-[0.16em] text-muted-foreground">Reviewed</dt><dd className="mt-1 font-medium">{formatCheckedDate(dataset.updated)}</dd></div>
+              <div className="py-3"><dt className="text-[0.68rem] uppercase tracking-[0.16em] text-muted-foreground">Coverage</dt><dd className="mt-1 font-medium">{dataset.year}</dd></div>
+            </dl>
+          </header>
+
+          <section className="py-10" aria-labelledby="findings-heading">
+            <div className="border-b border-border pb-4">
+              <p className="eyebrow text-primary">Key findings</p>
+              <h2 id="findings-heading" className="mt-2 font-display text-4xl">What the numbers show</h2>
+            </div>
+            <div className="divide-y divide-border border-b border-border">
               {dataset.rows.map((row) => (
-                <tr key={row.label} className="border-t border-border">
-                  <td className="p-4 font-medium">{row.label}</td>
-                  <td className="p-4">{formatDatasetValue(row.value, dataset.unit)}</td>
-                  <td className="hidden p-4 text-muted-foreground sm:table-cell">{row.note ?? '—'}</td>
-                </tr>
+                <div key={row.label} className="grid gap-2 py-5 sm:grid-cols-[minmax(0,1.2fr)_minmax(10rem,.7fr)_minmax(0,1.5fr)] sm:gap-6">
+                  <h3 className="font-display text-xl">{row.label}</h3>
+                  <p className="font-display text-2xl font-semibold text-primary">{formatDatasetValue(row.value, dataset.unit)}</p>
+                  <p className="text-sm leading-6 text-muted-foreground">{row.note ?? 'No additional note.'}</p>
+                </div>
               ))}
-            </tbody>
-          </table>
-        </div>
-        <section className="mt-8 rounded-lg bg-muted p-6 text-sm leading-6 text-muted-foreground">
-          <h2 className="font-display text-xl text-foreground">Where the numbers come from</h2>
-          <p className="mt-2">{dataset.methodology}</p>
-          <p className="mt-3">
-            Details reviewed {formatCheckedDate(dataset.updated)}. <a className="underline" href={dataset.sourceUrl} target="_blank" rel="noreferrer">See the original numbers from {dataset.sourceName}.</a>
-          </p>
-        </section>
-        <div className="mt-8 flex flex-wrap gap-4 text-sm font-medium">
-          <Link to="/texas-data" className="underline">See more Texas facts</Link>
-          <Link to="/learn/property-taxes" className="underline">Understand property taxes</Link>
-          <Link to="/browse/counties" className="underline">Find your county</Link>
-        </div>
-      </main>
-    </Container>
+            </div>
+          </section>
+
+          <section className="grid gap-8 border-y border-border py-8 lg:grid-cols-[14rem_1fr]">
+            <div>
+              <p className="eyebrow text-primary">Source notes</p>
+              <h2 className="mt-2 font-display text-3xl">How to read this brief</h2>
+            </div>
+            <div className="max-w-3xl text-sm leading-7 text-muted-foreground">
+              <p>{dataset.methodology}</p>
+              <p className="mt-4">Details reviewed {formatCheckedDate(dataset.updated)}. <a className="font-semibold text-foreground underline decoration-primary/50 underline-offset-4" href={dataset.sourceUrl} target="_blank" rel="noreferrer">View the original source from {dataset.sourceName} ↗</a></p>
+            </div>
+          </section>
+
+          <footer className="flex flex-wrap gap-x-7 gap-y-3 py-7 text-sm font-semibold">
+            <Link to="/texas-data" className="underline underline-offset-4">More Texas data</Link>
+            <Link to="/learn/property-taxes" className="underline underline-offset-4">Property-tax guide</Link>
+            <Link to="/browse/counties" className="underline underline-offset-4">County directory</Link>
+          </footer>
+        </article>
+      </Container>
+    </main>
   );
 }
 
 function formatCheckedDate(value: string) {
   const date = new Date(`${value}T12:00:00`);
   if (Number.isNaN(date.getTime())) return value;
-  return new Intl.DateTimeFormat('en-US', {
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric',
-  }).format(date);
+  return new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year: 'numeric' }).format(date);
 }
