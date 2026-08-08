@@ -26,6 +26,7 @@ import { highSchoolFootballNewcomersArticle } from "./high-school-football-newco
 import { kolacheOrKlobasnekArticle } from "./kolache-or-klobasnek";
 import { migratedEditorialArticles } from "./migrated-editorial";
 import { orderingTexasBarbecueArticle } from "./ordering-texas-barbecue";
+import { presidioCountyMarfaBorderlandsArticle } from "./presidio-county-marfa-borderlands";
 import { rodeo101Article } from "./rodeo-101";
 import { sixFlagsOverTexasMeaningArticle } from "./six-flags-over-texas-meaning";
 import {
@@ -47,6 +48,7 @@ import {
 
 const editorialArticles = [
   ...exploreFeatureArticles,
+  presidioCountyMarfaBorderlandsArticle,
   brewsterCountyBigBendArticle,
   ...newestEvergreenArticles,
   rodeo101Article,
