@@ -15,8 +15,8 @@ export function ShopTheStory({ collectionSlug }: { collectionSlug: string }) {
 
   return (
     <aside className="my-12 border-y border-border bg-secondary/60 px-5 py-8 sm:px-8">
-      <p className="eyebrow text-primary">The editor’s selection</p>
-      <h3 className="mt-2 font-display text-2xl">Selected from this story</h3>
+      <p className="eyebrow text-primary">From the story</p>
+      <h3 className="mt-2 font-display text-2xl">Things that caught our eye</h3>
       <p className="mt-1 text-sm text-muted-foreground">{collection.data.tagline}</p>
       <ul className="mt-6 grid gap-6 sm:grid-cols-3">
         {(products.data ?? []).map((product) => (
@@ -42,7 +42,7 @@ export function ShopTheStory({ collectionSlug }: { collectionSlug: string }) {
         params={{ collection: collectionSlug }}
         className="eyebrow group mt-6 inline-flex items-center gap-2 border-b border-primary pb-1 text-primary"
       >
-        View the collection
+        Shop these picks
         <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">→</span>
       </Link>
     </aside>
