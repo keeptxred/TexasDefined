@@ -24,7 +24,6 @@ const travelGuides = [
   { to: "/explore/lakes-rivers", label: "Texas Lakes & Rivers Guide", body: "Plan swimming, fishing, paddling, boating and lakeside weekends with the practical details in one place.", note: "Lakes, rivers and swimming holes across the state." },
   { to: "/explore/outdoors", label: "Texas Camping Guide", body: "Compare state-park, lakeside, primitive and RV camping with practical seasonal advice.", note: "A field guide to camping across Texas." },
   { to: "/explore/road-trips", label: "Texas Scenic Drives", body: "Build Hill Country, Big Bend, Panhandle, Piney Woods and Gulf Coast routes worth taking slowly.", note: "Roads, stops and detours worth the mileage." },
-  { to: "/explore/road-trips", label: "Texas Wildflower Seasons", body: "Use a month-by-month approach to bluebonnets and other blooms with flexible spring road-trip planning.", note: "A seasonal guide to timing the blooms." },
   { to: "/explore/caverns", label: "Texas Caverns & Caves", body: "Find show caves, guided cavern tours and nearby park pairings before you make the drive.", note: "Underground Texas, mapped out." },
   { to: "/explore/small-towns", label: "Texas Small-Town Trips", body: "Plan courthouse-square, dance-hall, historic-district and local-food weekends around the town itself.", note: "Small towns worth making the destination." },
   { to: "/explore/historic-sites", label: "Texas Historic Places", body: "Browse forts, missions, battlefields, museums, historic districts and cultural landmarks.", note: "Where the past still shapes the present." },
