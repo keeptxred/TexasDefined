@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
-import { Container } from '@/components/layout/Container';
 import { texasDefinedBrand } from '@/brand/texasdefined';
+import { DepartmentHero } from '@/components/editorial/DepartmentHero';
+import { Container } from '@/components/layout/Container';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
 const description = 'A simple starting point for the questions that come with moving, buying, owning a home and finding your way around the state.';
@@ -108,25 +109,15 @@ export const Route = createFileRoute('/texas-resources')({
 function Page() {
   return (
     <>
-      <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
-        <nav aria-label="Breadcrumb" className="border-b border-border pb-4 text-xs uppercase tracking-[0.14em] text-muted-foreground">
-          <Link to="/" className="hover:text-foreground">Front page</Link>
-          <span aria-hidden="true" className="mx-2">/</span>
-          <span aria-current="page" className="text-foreground">Start Here</span>
-        </nav>
+      <DepartmentHero current="Start Here" eyebrow="The Texas Guidebook" title="Good answers for everyday Texas life" description={description} />
 
-        <header className="grid gap-8 border-b border-border py-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end">
-          <div>
-            <p className="eyebrow text-primary">The Texas Guidebook</p>
-            <h1 className="mt-3 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">Good answers for everyday Texas life</h1>
-            <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground sm:text-xl">{description}</p>
-          </div>
-          <p className="border-l border-border pl-6 text-sm leading-6 text-muted-foreground">
-            Start with the question in front of you. These guides connect practical explanations with the official offices and records that matter when details need verification.
-          </p>
-        </header>
+      <Container className="py-12 sm:py-16">
+        <aside className="max-w-3xl border-y border-border py-5 text-sm leading-7 text-muted-foreground">
+          <p className="eyebrow text-primary">How to use this page</p>
+          <p className="mt-3">Start with the question in front of you. These guides connect practical explanations with the official offices and records that matter when details need verification.</p>
+        </aside>
 
-        <div className="divide-y divide-border">
+        <div className="mt-8 divide-y divide-border">
           {groups.map((group, groupIndex) => (
             <section key={group.title} className="grid gap-7 py-10 lg:grid-cols-[15rem_1fr]">
               <div>
