@@ -17,7 +17,7 @@ const steps = [
 
 export const Route = createFileRoute('/do/homestead-exemption')({
   head: () => ({
-    meta: buildMeta(texasDefinedBrand, { canonicalPath, title: 'Texas Homestead Exemption', description }),
+    meta: buildMeta(texasDefinedBrand, { canonicalPath, title: 'How to File Your Homestead Exemption', description }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
     scripts: [jsonLd({
       '@context': 'https://schema.org',
@@ -41,9 +41,9 @@ export const Route = createFileRoute('/do/homestead-exemption')({
           '@type': 'BreadcrumbList',
           '@id': `${pageUrl}#breadcrumbs`,
           itemListElement: [
-            { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
-            { '@type': 'ListItem', position: 2, name: 'Property taxes', item: `${siteUrl}/decide/property-taxes` },
-            { '@type': 'ListItem', position: 3, name: 'Homestead exemption', item: pageUrl },
+            { '@type': 'ListItem', position: 1, name: 'Front page', item: `${siteUrl}/` },
+            { '@type': 'ListItem', position: 2, name: 'Property Taxes', item: `${siteUrl}/decide/property-taxes` },
+            { '@type': 'ListItem', position: 3, name: 'File Your Homestead Exemption', item: pageUrl },
           ],
         },
       ],
