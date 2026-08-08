@@ -40,7 +40,9 @@ for (const forbidden of ['KeepTXRed', 'Keep TX Red', '/news/homestead', '/tools/
 }
 
 for (const feature of [
-  'const editorialArticles = [...articles, ...migratedEditorialArticles]',
+  'const editorialArticles = [',
+  '...articles,',
+  '...migratedEditorialArticles,',
   'byBrand(editorialArticles, query.brandId)',
   'href: `/article/${a.slug}`',
 ]) {
@@ -62,8 +64,8 @@ for (const feature of [
   'homeArticles.slice(0, 9)',
   'movingArticles.slice(0, 9)',
   'ArticleCard article={article}',
-  "actionTo=\"/explore/real-estate\"",
-  "actionTo=\"/moving-to-texas\"",
+  'actionTo="/real-estate"',
+  'actionTo="/moving-to-texas"',
 ]) {
   if (!living.includes(feature)) errors.push(`Living hub migration exposure missing: ${feature}`);
 }
@@ -82,4 +84,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Seventeen lifestyle articles, Living hub exposure, repository search, sitemap sourcing and legacy redirects passed migration validation.');
+console.log('Seventeen lifestyle articles, Texas Life exposure, repository search, sitemap sourcing and legacy redirects passed migration validation.');
