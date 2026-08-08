@@ -140,6 +140,7 @@ function ArticlePage() {
           <li><Link to="/" className="hover:text-foreground">Front page</Link></li><li aria-hidden="true">·</li>
           <li><Link to={department.path} className="hover:text-foreground">{department.name}</Link></li>
           {department.usesExploreCategory && <><li aria-hidden="true">·</li><li><Link to="/explore/$category" params={{ category: article.category }} className="hover:text-foreground">{categoryName}</Link></li></>}
+          <li aria-hidden="true">·</li><li aria-current="page" className="max-w-full truncate text-foreground">{article.title}</li>
         </ol>
       </nav>
     </Container>
