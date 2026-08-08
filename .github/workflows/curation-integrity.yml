@@ -1,0 +1,44 @@
+name: Destination Curation Integrity
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "src/data/destination-curation*.ts"
+      - "src/data/destination-availability.ts"
+      - "src/data/state-park-hero-map.ts"
+      - "src/data/explore-hero-map.ts"
+      - "scripts/data/audit-trip-planner-destinations.mjs"
+  pull_request:
+    branches: [main]
+    paths:
+      - "src/data/destination-curation*.ts"
+      - "src/data/destination-availability.ts"
+      - "src/data/state-park-hero-map.ts"
+      - "src/data/explore-hero-map.ts"
+      - "scripts/data/audit-trip-planner-destinations.mjs"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: texasdefined-curation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  integrity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Validate destination curation integrity
+        run: node scripts/data/audit-trip-planner-destinations.mjs --integrity
