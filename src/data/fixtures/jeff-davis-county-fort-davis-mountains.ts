@@ -26,6 +26,7 @@ export const jeffDavisCountyFortDavisMountainsArticle: Article = {
   tags: ["Jeff Davis County", "Fort Davis", "Davis Mountains", "McDonald Observatory", "Valentine", "Buffalo Soldiers", "Texas counties", "West Texas", "Texas history"],
   featured: false,
   internalLinks: [
+    { href: "/article/culberson-county-van-horn-guadalupe-mountains-texas", label: "Explore neighboring Culberson County", description: "Continue north toward Van Horn, Guadalupe Peak and the Salt Basin." },
     { href: "/article/presidio-county-marfa-borderlands-texas", label: "Explore neighboring Presidio County", description: "Continue south and west through Marfa, Fort Leaton and the Rio Grande borderlands." },
     { href: "/article/brewster-county-big-bend-texas", label: "Explore neighboring Brewster County", description: "Continue into Alpine, Terlingua and Big Bend National Park." },
     { href: "/browse/counties", label: "Browse all 254 Texas counties", description: "Explore Texas one county at a time." },
@@ -95,7 +96,7 @@ export const jeffDavisCountyFortDavisMountainsArticle: Article = {
 
     h("Why Jeff Davis County belongs on a Texas map in your head"),
     p("Jeff Davis County is useful because it overturns several Texas clichés at once. It is mountain country in a state often imagined as flat. It is a frontier-history destination where the story includes Buffalo Soldiers and Indigenous travel routes, not merely wagon trains. It is ranch country that also supports internationally important astronomy. And it is a place where conserving darkness has become as important as conserving land."),
-    p("It also connects naturally to neighboring Presidio and Brewster counties. Drive south toward Marfa and the borderlands story deepens. Continue toward Alpine and Big Bend and the mountains open into desert basins, canyons and the Rio Grande. Together, the three counties make a strong argument for exploring Far West Texas as a connected region rather than a checklist of isolated attractions."),
+    p("It also connects naturally to neighboring Presidio, Brewster and Culberson counties. Drive south toward Marfa and the borderlands story deepens. Continue toward Alpine and Big Bend and the mountains open into desert basins, canyons and the Rio Grande. Head north toward Van Horn and Guadalupe Peak and the mountain story continues into Texas' highest country."),
     p("For a county with fewer than two thousand people at the last census, Jeff Davis County carries an extraordinary amount of Texas: military history, ranching, New Deal architecture, railroad lore, mountain ecology, scientific discovery and one of the darkest night skies most Texans will ever see."),
   ],
 };
