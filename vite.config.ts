@@ -15,4 +15,17 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  vite: {
+    // Keep React's runtime dependencies pre-bundled from server start instead of
+    // discovering/re-optimizing them after the preview is already loading.
+    // This avoids stale /node_modules/.vite/deps/* ?v= hashes after dev restarts.
+    optimizeDeps: {
+      include: [
+        "react",
+        "react-dom",
+        "react/jsx-runtime",
+        "react/jsx-dev-runtime",
+      ],
+    },
+  },
 });
