@@ -24,6 +24,9 @@ const groups: ReadonlyArray<ResourceGroup> = [
     links: [
       ['Money Made Clearer', '/decide/financial-tools'],
       ['Understand property taxes', '/learn/property-taxes'],
+      ['Property-tax guide library', '/property-tax-guides'],
+      ['Property-tax calculator toolkit', '/property-tax-calculators'],
+      ['County property-tax guides', '/property-tax/counties'],
       ['File a homestead exemption', '/do/homestead-exemption'],
       ['Protest your appraisal', '/do/property-tax-protest'],
       ['First-time homebuyer help', '/texas-first-time-homebuyer-programs'],
