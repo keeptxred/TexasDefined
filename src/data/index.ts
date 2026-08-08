@@ -57,6 +57,23 @@ const MOVING_ARTICLE_HEROES: Partial<Record<string, Article["hero"]>> = {
   },
 };
 
+const EDITORIAL_HERO_OVERRIDES: Partial<Record<string, Article["hero"]>> = {
+  "muds-pids-hoas-special-districts-texas": {
+    src: "https://images.unsplash.com/photo-1671410304582-1c2fb1390fbf?auto=format&fit=crop&w=1600&h=900&q=82",
+    alt: "Aerial view of a Houston-area suburban neighborhood with homes, streets and shared infrastructure",
+    width: 1600,
+    height: 900,
+    credit: "Jose Losada · Unsplash",
+  },
+  "prepare-texas-house-freeze": {
+    src: "https://images.unsplash.com/photo-1767623876527-16d31a21c329?auto=format&fit=crop&w=1600&h=900&q=82",
+    alt: "A snow-covered home and yard during freezing winter weather",
+    width: 1600,
+    height: 900,
+    credit: "Kyan Tijhuis · Unsplash",
+  },
+};
+
 const wordsInBlock = (block: ArticleBlock) => {
   if (block.type === "shop") return 0;
   const text = block.type === "list" ? block.items.join(" ") : block.text;
@@ -76,7 +93,7 @@ const normalizeArticle = (article: Article): Article => {
 
   const hero = source.slug === TEXAS_UNDERGROUND_SLUG
     ? TEXAS_UNDERGROUND_HERO
-    : MOVING_ARTICLE_HEROES[source.slug] ?? source.hero;
+    : EDITORIAL_HERO_OVERRIDES[source.slug] ?? MOVING_ARTICLE_HEROES[source.slug] ?? source.hero;
 
   return {
     ...source,
