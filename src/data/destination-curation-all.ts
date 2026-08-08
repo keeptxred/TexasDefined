@@ -24,6 +24,7 @@ import { applyCuratedDestinationBatch23 } from "./destination-curation-batch23";
 import { applyCuratedDestinationBatch24 } from "./destination-curation-batch24";
 import { applyCuratedDestinationBatch25 } from "./destination-curation-batch25";
 import { applyCuratedDestinationBatch26 } from "./destination-curation-batch26";
+import { applyCuratedDestinationBatch27 } from "./destination-curation-batch27";
 import type { Destination } from "./types";
 
 const CURATION_SLUG_ALIASES: Record<string, string> = {
@@ -66,6 +67,9 @@ const CURATION_SLUG_ALIASES: Record<string, string> = {
   "seminole-canyon-state-park-state-historic-site": "seminole-canyon-state-park-and-historic-site",
   "sheldon-lake-state-park-environmental-learning-center": "sheldon-lake-state-park",
   "washington-on-the-brazos": "washington-on-the-brazos-state-historic-site",
+  "world-birding-center-bentsen-rio-grande-valley-state-park": "bentsen-rio-grande-valley-state-park",
+  "world-birding-center-estero-llano-grande-state-park": "estero-llano-grande-state-park",
+  "world-birding-center-resaca-de-la-palma-state-park": "resaca-de-la-palma-state-park",
 };
 
 const CURATORS: Array<(destination: Destination) => Destination> = [
@@ -95,6 +99,7 @@ const CURATORS: Array<(destination: Destination) => Destination> = [
   applyCuratedDestinationBatch24,
   applyCuratedDestinationBatch25,
   applyCuratedDestinationBatch26,
+  applyCuratedDestinationBatch27,
 ];
 
 function runCurators(destination: Destination): Destination {
