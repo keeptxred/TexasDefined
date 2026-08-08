@@ -12,11 +12,11 @@ for (const feature of [
   'destination.nearestTown',
   'destination.county',
   'checkedLabel(destination.sourceCheckedAt)',
-  'Best time:',
+  'Best season:',
   'cardHighlights(destination)',
   'destination.highlights',
   'aria-label={`${destination.name} highlights`}',
-  'Plan a visit',
+  'Explore this place',
 ]) {
   if (!card.includes(feature)) errors.push(`Destination card enrichment feature missing: ${feature}`);
 }
