@@ -34,5 +34,5 @@ export const Route = createFileRoute("/home-garden")({
     ]);
     return { articles, destinations };
   },
-  component: () => <CategoryPage category="home-garden" eyebrow="Home & Garden" title="A Texas home, without the costume" intro={description} image={{ src: bluebonnets, alt: imageAlt, width: 1600, height: 1067 }} />,
+  component: () => <CategoryPage category="home-garden" eyebrow="Home & Garden" title="A distinctly Texas way of living at home" intro={description} image={{ src: bluebonnets, alt: imageAlt, width: 1600, height: 1067 }} />,
 });
