@@ -17,6 +17,13 @@ const curated: Record<string, Partial<Destination>> = {
     officialUrl: "https://thc.texas.gov/historic-sites/port-isabel-lighthouse",
     sourceCheckedAt: "2026-08-07",
     address: "421 E. Queen Isabella Blvd, Port Isabel, TX 78578",
+    hero: {
+      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Port_Isabel,_Texas_Lighthouse.jpg?width=1600",
+      alt: "The historic white brick Port Isabel Lighthouse on the lower Texas coast",
+      width: 1600,
+      height: 1200,
+      credit: "Billy D. Wagner · CC BY-SA 4.0 · Wikimedia Commons",
+    },
   },
 };
 
