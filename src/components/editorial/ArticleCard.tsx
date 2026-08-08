@@ -11,7 +11,7 @@ const SECTION_LABELS: Record<string, string> = {
   "texas-history": "Then & Now",
   "food-bbq": "The Texas Table",
   outdoors: "Wild Texas",
-  "real-estate": "Homes & Land",
+  "real-estate": "Homes and Land",
   sports: "The Texas Game",
   "lakes-rivers": "Lakes & Rivers",
   "state-parks": "State Parks",
