@@ -26,6 +26,7 @@ export const hudspethCountySierraBlancaSaltFlatsArticle: Article = {
   tags: ["Hudspeth County", "Sierra Blanca", "Fort Hancock", "Dell City", "Salt Flats", "Sierra Diablo", "Texas counties", "West Texas", "Texas history"],
   featured: false,
   internalLinks: [
+    { href: "/article/el-paso-county-pass-missions-borderlands-texas", label: "Explore neighboring El Paso County", description: "Continue west into the Franklin Mountains, Mission Trail and El Paso borderlands." },
     { href: "/article/culberson-county-van-horn-guadalupe-mountains-texas", label: "Explore neighboring Culberson County", description: "Continue east toward Van Horn, Guadalupe Peak and the Guadalupe Mountains." },
     { href: "/article/jeff-davis-county-fort-davis-mountains-texas", label: "Explore Jeff Davis County", description: "Follow the mountain story south toward Fort Davis and McDonald Observatory." },
     { href: "/browse/counties", label: "Browse all 254 Texas counties", description: "Explore Texas one county at a time." },
