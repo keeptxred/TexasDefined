@@ -174,8 +174,8 @@ if (process.argv.includes("--integrity") && integrityIssues) {
   process.exitCode = 1;
 } else if (
   process.argv.includes("--strict") &&
-  (stateParkCoverage.remaining.length || exploreCoverage.remaining.length || integrityIssues)
+  (preservedCoverage.remaining.length || stateParkCoverage.remaining.length || exploreCoverage.remaining.length || integrityIssues)
 ) {
-  console.error(`\n${stateParkCoverage.remaining.length} active mapped state-park destinations and ${exploreCoverage.remaining.length} active mapped Explore destinations still need hand curation; ${duplicateCurations.length} duplicate destination curation records; ${brokenAliasTargets.length} aliases point to missing curation targets; ${activeEmptyCurationFiles.length} empty modules are active in the resolver; ${aliasShadowedCurations.length} curation records are keyed by alias-source slugs and can never execute; ${inactiveCurationFiles.length} orphan curation modules exist outside the active resolver.`);
+  console.error(`\n${preservedCoverage.remaining.length} active preserved Trip Planner destinations, ${stateParkCoverage.remaining.length} active mapped state-park destinations and ${exploreCoverage.remaining.length} active mapped Explore destinations still need hand curation; ${duplicateCurations.length} duplicate destination curation records; ${brokenAliasTargets.length} aliases point to missing curation targets; ${activeEmptyCurationFiles.length} empty modules are active in the resolver; ${aliasShadowedCurations.length} curation records are keyed by alias-source slugs and can never execute; ${inactiveCurationFiles.length} orphan curation modules exist outside the active resolver.`);
   process.exitCode = 1;
 }
