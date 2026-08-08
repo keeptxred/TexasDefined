@@ -19,7 +19,7 @@ const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 export const Route = createFileRoute("/")({
   loader: async ({ context }) => {
     const [featured, latest, destinations, roadTrips, regions, guides, events] = await Promise.all([
-      context.queryClient.ensureQueryData(articlesQuery({ featured: true, limit: 5 })), context.queryClient.ensureQueryData(articlesQuery({ limit: 12 })), context.queryClient.ensureQueryData(destinationsQuery({})), context.queryClient.ensureQueryData(destinationsQuery({ category: "road-trips" })), context.queryClient.ensureQueryData(regionsQuery()), context.queryClient.ensureQueryData(guidesQuery()), context.queryClient.ensureQueryData(eventsQuery({ limit: 4 })),
+      context.queryClient.ensureQueryData(articlesQuery({ featured: true, limit: 5 })), context.queryClient.ensureQueryData(articlesQuery({ limit: 16 })), context.queryClient.ensureQueryData(destinationsQuery({})), context.queryClient.ensureQueryData(destinationsQuery({ category: "road-trips" })), context.queryClient.ensureQueryData(regionsQuery()), context.queryClient.ensureQueryData(guidesQuery()), context.queryClient.ensureQueryData(eventsQuery({ limit: 4 })),
     ]);
     return { featured, latest, destinations, roadTrips, regions, guides, events };
   },
@@ -43,7 +43,7 @@ export const Route = createFileRoute("/")({
 function HomePage() {
   const brand = useBrand();
   const { data: featured } = useSuspenseQuery(articlesQuery({ featured: true, limit: 5 }));
-  const { data: latest } = useSuspenseQuery(articlesQuery({ limit: 12 }));
+  const { data: latest } = useSuspenseQuery(articlesQuery({ limit: 16 }));
   const { data: destinations } = useSuspenseQuery(destinationsQuery({}));
   const { data: roadTrips } = useSuspenseQuery(destinationsQuery({ category: "road-trips" }));
   const { data: regions } = useSuspenseQuery(regionsQuery());
@@ -51,6 +51,8 @@ function HomePage() {
   const { data: events } = useSuspenseQuery(eventsQuery({ limit: 4 }));
   const hero = featured[0];
   const editorPicks = featured.slice(1, 4);
+  const featuredArticleIds = new Set(featured.map((article) => article.id));
+  const uniqueLatest = latest.filter((article) => !featuredArticleIds.has(article.id));
   const explicitlyFeatured = destinations.filter((item) => item.featured);
   const featuredDestinations = (explicitlyFeatured.length ? explicitlyFeatured : destinations).slice(0, 4);
   const featuredIds = new Set(featuredDestinations.map((item) => item.id));
@@ -66,6 +68,6 @@ function HomePage() {
     {worthTheDrive && <Section tone="surface"><Container><div className="grid items-center gap-10 lg:grid-cols-[1.2fr_0.8fr]"><img src={worthTheDrive.hero.src} alt={worthTheDrive.hero.alt} width={worthTheDrive.hero.width} height={worthTheDrive.hero.height} loading="lazy" decoding="async" className="aspect-[16/10] w-full object-cover" /><div><p className="eyebrow text-primary">The road-trip file</p><h2 className="mt-3 font-display text-4xl leading-tight sm:text-5xl">{worthTheDrive.name}</h2><p className="mt-5 text-base leading-7 text-muted-foreground">{worthTheDrive.summary}</p><Link to="/destination/$slug" params={{ slug: worthTheDrive.slug }} className="eyebrow mt-7 inline-block border-b-2 border-primary pb-1 text-primary">Open the field guide</Link></div></div></Container></Section>}
     {hiddenGems.length > 0 && <Section><Container><SectionHeader eyebrow="Beyond the usual" title="Take the long way" description="Quieter corners, overlooked stops and places that reward leaving the obvious route." /><ul className="mt-10 grid gap-8 md:grid-cols-[1.15fr_0.85fr]"><li className="md:row-span-2"><DestinationCard destination={hiddenGems[0]} tone="overlay" regionLabel={regionName(hiddenGems[0].region)} /></li>{hiddenGems.slice(1).map((destination) => <li key={destination.id}><DestinationCard destination={destination} regionLabel={regionName(destination.region)} /></li>)}</ul></Container></Section>}
     {brand.features.guides && guides.length > 0 && <Section tone="surface"><Container><SectionHeader eyebrow="Texas Life" title="The practical side of living here" description="Homes, moving, money and useful answers for making Texas home." actionLabel="Browse the guidebook" actionTo="/guides" /><ul className="mt-10 grid gap-6 md:grid-cols-3">{guides.slice(0, 3).map((guide) => <li key={guide.id}><GuideCard guide={guide} /></li>)}</ul></Container></Section>}
-    <Section><Container><SectionHeader eyebrow="Latest" title="New from Texas Defined" description="The newest stories, destinations and guides from across the state." /><ul className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">{latest.slice(0, 8).map((article) => <li key={article.id}><ArticleCard article={article} size="compact" /></li>)}</ul></Container></Section>
+    {uniqueLatest.length > 0 && <Section><Container><SectionHeader eyebrow="Latest" title="New from Texas Defined" description="The newest stories, destinations and guides from across the state." /><ul className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">{uniqueLatest.slice(0, 8).map((article) => <li key={article.id}><ArticleCard article={article} size="compact" /></li>)}</ul></Container></Section>}
   </>;
 }
