@@ -20,7 +20,7 @@ function CheckoutReturnPage() {
   }, [session_id]);
 
   return (
-    <main>
+    <>
       <Container className="pb-20 pt-14 sm:pb-28 sm:pt-20">
         <section className="mx-auto max-w-4xl border-y border-border py-14 text-center sm:py-20">
           <p className="eyebrow text-primary">Texas Defined Shop</p>
@@ -34,6 +34,6 @@ function CheckoutReturnPage() {
           </div>
         </section>
       </Container>
-    </main>
+    </>
   );
 }
