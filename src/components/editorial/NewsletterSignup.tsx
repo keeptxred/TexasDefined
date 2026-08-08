@@ -43,7 +43,7 @@ export function NewsletterSignup() {
         {done ? (
           <p className="font-display text-2xl text-primary" role="status">{copy.newsletterSuccess}</p>
         ) : signupUrl ? (
-          <form onSubmit={onSubmit} className="flex border-b-2 border-foreground" noValidate>
+          <form onSubmit={onSubmit} className="flex border-b-2 border-foreground transition-colors focus-within:border-primary" noValidate>
             <div className="flex-1">
               <label htmlFor="newsletter-email" className="sr-only">Email address for the Texas Defined Letter</label>
               <input id="newsletter-email" type="email" value={email} onChange={(event) => { setEmail(event.target.value); if (error) setError(null); }} placeholder={copy.newsletterPlaceholder} aria-invalid={Boolean(error)} aria-describedby={error ? "newsletter-error" : undefined} className="h-14 w-full bg-transparent px-0 text-base outline-none placeholder:text-muted-foreground/70" disabled={submitting} />
