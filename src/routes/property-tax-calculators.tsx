@@ -1,7 +1,22 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
-import { useMemo, useState, type ReactNode } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 import { texasDefinedBrand } from '@/brand/texasdefined';
+import {
+  CalculatorActions,
+  CalculatorCountyLink,
+  CalculatorResult,
+  CalculatorSection,
+  ComparisonBars,
+  CountySelector,
+  CurrencyInput,
+  PercentageInput,
+  ResultGrid,
+  formatMoney,
+  useCalculatorPersistence,
+  useUrlStateDefaults,
+  type CalculatorState,
+} from '@/components/property/PropertyCalculatorFramework';
 import { Container } from '@/components/layout/Container';
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
@@ -30,29 +45,75 @@ export const Route = createFileRoute('/property-tax-calculators')({
   component: PropertyTaxCalculatorToolkit,
 });
 
-const money = (value: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(Number.isFinite(value) ? value : 0);
 const tax = (value: number, rate: number) => Math.max(0, value) * Math.max(0, rate) / 100;
 
-function NumberField({ label, value, onChange, step = 1000 }: { label: string; value: number; onChange: (value: number) => void; step?: number }) {
-  return <label className="block border-t border-border pt-4 text-sm font-semibold"><span>{label}</span><input className="mt-2 w-full border-0 border-b border-border bg-transparent px-0 py-3 text-lg outline-none transition-colors focus:border-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary" type="number" min="0" step={step} value={value} onChange={(event) => onChange(Number(event.target.value) || 0)} /></label>;
-}
+const DEFAULTS = {
+  homeValue: 400000,
+  rate: 2.2,
+  exemption: 140000,
+  proposedValue: 450000,
+  targetValue: 410000,
+  insurance: 3600,
+  veteranExemption: 12000,
+  countyRateA: 2.1,
+  countyRateB: 2.6,
+  marketLandValue: 500000,
+  productivityValue: 70000,
+  county: '',
+} satisfies CalculatorState;
 
-function Result({ label, value }: { label: string; value: string }) {
-  return <div className="border-t border-border py-4" role="status" aria-live="polite" aria-atomic="true"><span className="text-xs uppercase tracking-[0.14em] text-muted-foreground">{label}</span><strong className="mt-1 block font-display text-3xl text-primary">{value}</strong></div>;
-}
+type ToolkitState = typeof DEFAULTS;
 
 function PropertyTaxCalculatorToolkit() {
-  const [homeValue, setHomeValue] = useState(400000);
-  const [rate, setRate] = useState(2.2);
-  const [exemption, setExemption] = useState(140000);
-  const [proposedValue, setProposedValue] = useState(450000);
-  const [targetValue, setTargetValue] = useState(410000);
-  const [insurance, setInsurance] = useState(3600);
-  const [veteranExemption, setVeteranExemption] = useState(12000);
-  const [countyRateA, setCountyRateA] = useState(2.1);
-  const [countyRateB, setCountyRateB] = useState(2.6);
-  const [marketLandValue, setMarketLandValue] = useState(500000);
-  const [productivityValue, setProductivityValue] = useState(70000);
+  const initial = useUrlStateDefaults(DEFAULTS);
+  const [homeValue, setHomeValue] = useState(Number(initial.homeValue));
+  const [rate, setRate] = useState(Number(initial.rate));
+  const [exemption, setExemption] = useState(Number(initial.exemption));
+  const [proposedValue, setProposedValue] = useState(Number(initial.proposedValue));
+  const [targetValue, setTargetValue] = useState(Number(initial.targetValue));
+  const [insurance, setInsurance] = useState(Number(initial.insurance));
+  const [veteranExemption, setVeteranExemption] = useState(Number(initial.veteranExemption));
+  const [countyRateA, setCountyRateA] = useState(Number(initial.countyRateA));
+  const [countyRateB, setCountyRateB] = useState(Number(initial.countyRateB));
+  const [marketLandValue, setMarketLandValue] = useState(Number(initial.marketLandValue));
+  const [productivityValue, setProductivityValue] = useState(Number(initial.productivityValue));
+  const [county, setCounty] = useState(String(initial.county));
+
+  const state = useMemo<ToolkitState>(() => ({
+    homeValue,
+    rate,
+    exemption,
+    proposedValue,
+    targetValue,
+    insurance,
+    veteranExemption,
+    countyRateA,
+    countyRateB,
+    marketLandValue,
+    productivityValue,
+    county,
+  }), [homeValue, rate, exemption, proposedValue, targetValue, insurance, veteranExemption, countyRateA, countyRateB, marketLandValue, productivityValue, county]);
+
+  const restoreState = useCallback((next: ToolkitState) => {
+    setHomeValue(Number(next.homeValue));
+    setRate(Number(next.rate));
+    setExemption(Number(next.exemption));
+    setProposedValue(Number(next.proposedValue));
+    setTargetValue(Number(next.targetValue));
+    setInsurance(Number(next.insurance));
+    setVeteranExemption(Number(next.veteranExemption));
+    setCountyRateA(Number(next.countyRateA));
+    setCountyRateB(Number(next.countyRateB));
+    setMarketLandValue(Number(next.marketLandValue));
+    setProductivityValue(Number(next.productivityValue));
+    setCounty(String(next.county));
+  }, []);
+
+  const persistence = useCalculatorPersistence({
+    storageKey: 'texasdefined:property-tax-calculator-toolkit',
+    state,
+    onRestore: restoreState,
+  });
 
   const taxable = Math.max(0, homeValue - exemption);
   const homesteadSavings = tax(Math.min(homeValue, exemption), rate);
@@ -65,15 +126,15 @@ function PropertyTaxCalculatorToolkit() {
   const agDifference = tax(Math.max(0, marketLandValue - productivityValue), rate);
 
   const summaries = useMemo(() => [
-    ['Estimated annual tax', money(annualTax)],
-    ['Estimated monthly tax escrow', money(annualTax / 12)],
-    ['Tax and insurance escrow', money(monthlyEscrow)],
+    ['Estimated annual tax', formatMoney(annualTax)],
+    ['Estimated monthly tax escrow', formatMoney(annualTax / 12)],
+    ['Tax and insurance escrow', formatMoney(monthlyEscrow)],
   ], [annualTax, monthlyEscrow]);
 
   return <>
     <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
       <article className="mx-auto max-w-6xl">
-        <nav aria-label="Breadcrumb" className="border-b border-border pb-4 text-xs uppercase tracking-[0.14em] text-muted-foreground"><Link to="/">Front page</Link><span aria-hidden="true" className="mx-2">/</span><Link to="/decide/financial-tools">Money & Property</Link><span aria-hidden="true" className="mx-2">/</span><span aria-current="page" className="text-foreground">Property-tax calculator toolkit</span></nav>
+        <nav aria-label="Breadcrumb" className="border-b border-border pb-4 text-xs uppercase tracking-[0.14em] text-muted-foreground"><Link to="/">Front page</Link><span aria-hidden="true" className="mx-2">/</span><Link to="/property">Property</Link><span aria-hidden="true" className="mx-2">/</span><span aria-current="page" className="text-foreground">Property-tax calculator toolkit</span></nav>
         <header className="grid gap-8 border-b border-border py-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end">
           <div>
             <p className="eyebrow text-primary">Property Taxes</p>
@@ -85,57 +146,59 @@ function PropertyTaxCalculatorToolkit() {
 
         <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
           <div><p className="eyebrow text-primary">Core assumptions</p><h2 className="mt-2 font-display text-3xl">Set the baseline</h2></div>
-          <div>
+          <div className="space-y-7">
             <div className="grid gap-5 md:grid-cols-4">
-              <NumberField label="Property value" value={homeValue} onChange={setHomeValue} />
-              <NumberField label="Combined tax rate (%)" value={rate} onChange={setRate} step={0.01} />
-              <NumberField label="Total exemptions" value={exemption} onChange={setExemption} />
-              <NumberField label="Annual insurance" value={insurance} onChange={setInsurance} />
+              <CurrencyInput label="Property value" value={homeValue} onChange={setHomeValue} />
+              <PercentageInput label="Combined tax rate" value={rate} onChange={setRate} step={0.01} />
+              <CurrencyInput label="Total exemptions" value={exemption} onChange={setExemption} />
+              <CurrencyInput label="Annual insurance" value={insurance} onChange={setInsurance} />
             </div>
-            <div className="mt-8 grid gap-x-6 md:grid-cols-3">{summaries.map(([label, value]) => <Result key={label} label={label} value={value} />)}</div>
+            <div className="grid gap-5 md:grid-cols-2">
+              <CountySelector value={county} onChange={setCounty} />
+              <div className="border-t border-border pt-4"><p className="text-sm font-semibold">County guide</p><div className="mt-4"><CalculatorCountyLink countySlug={county} /></div></div>
+            </div>
+            <ResultGrid>{summaries.map(([label, value]) => <CalculatorResult key={label} label={label} value={value} />)}</ResultGrid>
+            <CalculatorActions onSave={persistence.save} onRestore={persistence.restore} onShare={persistence.share} onPrint={persistence.print} status={persistence.status} />
           </div>
         </section>
 
         <div className="divide-y divide-border">
-          <ToolSection eyebrow="Exemptions" title="Homestead savings estimator" copy="Compares the entered exemption amount with the same value taxed without that exemption.">
-            <Result label="Estimated annual savings" value={money(homesteadSavings)} />
-          </ToolSection>
+          <CalculatorSection eyebrow="Exemptions" title="Homestead savings estimator" copy="Compares the entered exemption amount with the same value taxed without that exemption.">
+            <CalculatorResult label="Estimated annual savings" value={formatMoney(homesteadSavings)} />
+          </CalculatorSection>
 
-          <ToolSection eyebrow="Appraisal" title="Protest savings estimator">
-            <div className="grid gap-5 sm:grid-cols-2"><NumberField label="Proposed value" value={proposedValue} onChange={setProposedValue} /><NumberField label="Target value" value={targetValue} onChange={setTargetValue} /></div>
-            <Result label="Estimated annual savings if reduced" value={money(protestSavings)} />
-          </ToolSection>
+          <CalculatorSection eyebrow="Appraisal" title="Protest savings estimator">
+            <div className="grid gap-5 sm:grid-cols-2"><CurrencyInput label="Proposed value" value={proposedValue} onChange={setProposedValue} /><CurrencyInput label="Target value" value={targetValue} onChange={setTargetValue} /></div>
+            <CalculatorResult label="Estimated annual savings if reduced" value={formatMoney(protestSavings)} />
+          </CalculatorSection>
 
-          <ToolSection eyebrow="Monthly planning" title="Escrow estimator" copy="Combines the estimated annual property tax with the insurance amount entered above.">
-            <Result label="Estimated monthly escrow" value={money(monthlyEscrow)} />
-          </ToolSection>
+          <CalculatorSection eyebrow="Monthly planning" title="Escrow estimator" copy="Combines the estimated annual property tax with the insurance amount entered above.">
+            <CalculatorResult label="Estimated monthly escrow" value={formatMoney(monthlyEscrow)} />
+          </CalculatorSection>
 
-          <ToolSection eyebrow="Age 65+" title="Senior exemption scenario" copy="Enter the total exemption amount that applies to the property and taxing units in the core assumptions. The result shows the estimated tax under that scenario.">
-            <Result label="Estimated annual tax under entered exemptions" value={money(annualTax)} />
-          </ToolSection>
+          <CalculatorSection eyebrow="Age 65+" title="Senior exemption scenario" copy="Enter the total exemption amount that applies to the property and taxing units in the core assumptions. The result shows the estimated tax under that scenario.">
+            <CalculatorResult label="Estimated annual tax under entered exemptions" value={formatMoney(annualTax)} />
+          </CalculatorSection>
 
-          <ToolSection eyebrow="Veterans" title="Disabled-veteran exemption estimator">
-            <NumberField label="Veteran exemption amount" value={veteranExemption} onChange={setVeteranExemption} />
-            <Result label="Estimated annual savings" value={money(veteranSavings)} />
-          </ToolSection>
+          <CalculatorSection eyebrow="Veterans" title="Disabled-veteran exemption estimator">
+            <CurrencyInput label="Veteran exemption amount" value={veteranExemption} onChange={setVeteranExemption} />
+            <CalculatorResult label="Estimated annual savings" value={formatMoney(veteranSavings)} />
+          </CalculatorSection>
 
-          <ToolSection eyebrow="Compare places" title="County rate comparison">
-            <div className="grid gap-5 sm:grid-cols-2"><NumberField label="Location A rate (%)" value={countyRateA} onChange={setCountyRateA} step={0.01} /><NumberField label="Location B rate (%)" value={countyRateB} onChange={setCountyRateB} step={0.01} /></div>
-            <div className="grid gap-x-6 sm:grid-cols-2"><Result label="Location A annual tax" value={money(countyA)} /><Result label="Location B annual tax" value={money(countyB)} /></div>
-          </ToolSection>
+          <CalculatorSection eyebrow="Compare places" title="County rate comparison">
+            <div className="grid gap-5 sm:grid-cols-2"><PercentageInput label="Location A rate" value={countyRateA} onChange={setCountyRateA} step={0.01} /><PercentageInput label="Location B rate" value={countyRateB} onChange={setCountyRateB} step={0.01} /></div>
+            <ResultGrid><CalculatorResult label="Location A annual tax" value={formatMoney(countyA)} /><CalculatorResult label="Location B annual tax" value={formatMoney(countyB)} /></ResultGrid>
+            <ComparisonBars items={[{ label: 'Location A', value: countyA }, { label: 'Location B', value: countyB }]} />
+          </CalculatorSection>
 
-          <ToolSection eyebrow="Land" title="Agricultural valuation scenario" copy="This illustrates the tax difference between market-value taxation and an entered productivity value. Qualification and rollback or additional taxes require official review.">
-            <div className="grid gap-5 sm:grid-cols-2"><NumberField label="Market land value" value={marketLandValue} onChange={setMarketLandValue} /><NumberField label="Productivity value" value={productivityValue} onChange={setProductivityValue} /></div>
-            <Result label="Illustrative annual tax difference" value={money(agDifference)} />
-          </ToolSection>
+          <CalculatorSection eyebrow="Land" title="Agricultural valuation scenario" copy="This illustrates the tax difference between market-value taxation and an entered productivity value. Qualification and rollback or additional taxes require official review.">
+            <div className="grid gap-5 sm:grid-cols-2"><CurrencyInput label="Market land value" value={marketLandValue} onChange={setMarketLandValue} /><CurrencyInput label="Productivity value" value={productivityValue} onChange={setProductivityValue} /></div>
+            <CalculatorResult label="Illustrative annual tax difference" value={formatMoney(agDifference)} />
+          </CalculatorSection>
         </div>
 
         <p className="border-t border-border pt-6 text-sm leading-6 text-muted-foreground">Confirm every input with the appraisal district, taxing units, collecting office and mortgage servicer before relying on an estimate.</p>
       </article>
     </Container>
   </>;
-}
-
-function ToolSection({ eyebrow, title, copy, children }: { eyebrow: string; title: string; copy?: string; children: ReactNode }) {
-  return <section className="grid gap-8 py-10 lg:grid-cols-[15rem_1fr]"><div><p className="eyebrow text-primary">{eyebrow}</p><h2 className="mt-2 font-display text-3xl leading-tight">{title}</h2>{copy ? <p className="mt-3 text-sm leading-6 text-muted-foreground">{copy}</p> : null}</div><div className="space-y-6">{children}</div></section>;
 }
