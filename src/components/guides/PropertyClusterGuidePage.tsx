@@ -1,4 +1,4 @@
-import { Link } from '@tanstack/react-router';
+import { Link, useLocation } from '@tanstack/react-router';
 import { ExternalLink } from 'lucide-react';
 import { Container } from '@/components/layout/Container';
 
@@ -11,21 +11,28 @@ export type PropertyGuideSection = {
 
 export type PropertyGuideFaq = { question: string; answer: string };
 
-const GUIDE_LINK_LABELS: Record<string, string> = {
-  '/learn/property-taxes': 'Complete property-tax guide',
-  '/decide/property-taxes': 'Property-tax estimator',
-  '/learn/appraisal-districts': 'Appraisal districts',
-  '/do/homestead-exemption': 'Homestead exemption',
-  '/do/property-tax-protest': 'Property-tax protest',
-  '/learn/agricultural-valuation': 'Agricultural valuation',
-  '/learn/wildlife-management-valuation': 'Wildlife-management valuation',
-  '/learn/disabled-veteran-property-tax-benefits': 'Disabled-veteran property-tax benefits',
-  '/learn/over-65-property-tax-guide': 'Age-65 property-tax guide',
-  '/learn/mud-taxes-explained': 'MUD taxes explained',
-  '/learn/property-tax-deadlines': 'Property-tax deadlines',
-  '/learn/property-tax-appeals-arbitration': 'Appeals and arbitration',
-  '/learn/homebuyer-property-tax-checklist': 'Homebuyer property-tax checklist',
-};
+type PropertyGuideLink = { to: string; label: string; description: string };
+
+const PROPERTY_GUIDES: PropertyGuideLink[] = [
+  { to: '/learn/property-taxes', label: 'Property taxes', description: 'The complete Texas property-tax system.' },
+  { to: '/learn/appraisal-districts', label: 'Appraisal districts', description: 'Values, records and local appraisal offices.' },
+  { to: '/do/homestead-exemption', label: 'Homestead exemption', description: 'Eligibility, filing and appraisal limits.' },
+  { to: '/do/property-tax-protest', label: 'Property-tax protest', description: 'Evidence, deadlines and ARB hearings.' },
+  { to: '/learn/property-tax-deadlines', label: 'Deadlines', description: 'The dates that control notices, protests and payments.' },
+  { to: '/learn/property-tax-appeals-arbitration', label: 'Appeals & arbitration', description: 'Options after an ARB decision.' },
+  { to: '/learn/agricultural-valuation', label: 'Agricultural valuation', description: 'Productivity appraisal for qualifying land.' },
+  { to: '/learn/wildlife-management-valuation', label: 'Wildlife management', description: 'Keeping qualifying land in special appraisal.' },
+  { to: '/learn/disabled-veteran-property-tax-benefits', label: 'Disabled-veteran benefits', description: 'Texas property-tax relief for qualifying veterans.' },
+  { to: '/learn/over-65-property-tax-guide', label: 'Age-65 guide', description: 'Exemptions, ceilings, installments and deferrals.' },
+  { to: '/learn/mud-taxes-explained', label: 'MUD taxes', description: 'How utility-district taxes affect a property.' },
+  { to: '/learn/homebuyer-property-tax-checklist', label: 'Homebuyer checklist', description: 'Estimate the post-purchase tax picture before closing.' },
+] as const;
+
+const GUIDE_LINK_LABELS: Record<string, string> = Object.fromEntries(PROPERTY_GUIDES.map((guide) => [guide.to, guide.label]));
+GUIDE_LINK_LABELS['/decide/property-taxes'] = 'Property-tax estimator';
+GUIDE_LINK_LABELS['/property-tax-calculators'] = 'Property-tax calculator toolkit';
+GUIDE_LINK_LABELS['/property-tax/counties'] = 'County property-tax guides';
+GUIDE_LINK_LABELS['/property'] = 'Property hub';
 
 function guideLinkLabel(path: string) {
   if (GUIDE_LINK_LABELS[path]) return GUIDE_LINK_LABELS[path];
@@ -33,18 +40,53 @@ function guideLinkLabel(path: string) {
   return last.replaceAll('-', ' ').replace(/\b\w/g, (character) => character.toUpperCase());
 }
 
+function PropertySectionNavigation() {
+  return (
+    <nav aria-label="Property section" className="border-b border-border bg-background">
+      <Container className="flex gap-1 overflow-x-auto py-2 text-sm">
+        <Link to="/property" className="whitespace-nowrap rounded-sm px-3 py-2 font-semibold text-muted-foreground hover:bg-surface hover:text-primary" activeProps={{ className: 'bg-surface text-primary' }}>Property home</Link>
+        <Link to="/property-tax-guides" className="whitespace-nowrap rounded-sm px-3 py-2 font-semibold text-muted-foreground hover:bg-surface hover:text-primary" activeProps={{ className: 'bg-surface text-primary' }}>Guides</Link>
+        <Link to="/property-tax/counties" className="whitespace-nowrap rounded-sm px-3 py-2 font-semibold text-muted-foreground hover:bg-surface hover:text-primary" activeProps={{ className: 'bg-surface text-primary' }}>Counties</Link>
+        <Link to="/property-tax-calculators" className="whitespace-nowrap rounded-sm px-3 py-2 font-semibold text-muted-foreground hover:bg-surface hover:text-primary" activeProps={{ className: 'bg-surface text-primary' }}>Calculators</Link>
+      </Container>
+    </nav>
+  );
+}
+
+function PreviousNextGuides({ pathname }: { pathname: string }) {
+  const currentIndex = PROPERTY_GUIDES.findIndex((guide) => guide.to === pathname);
+  if (currentIndex < 0) return null;
+  const previous = PROPERTY_GUIDES[currentIndex - 1];
+  const next = PROPERTY_GUIDES[currentIndex + 1];
+  if (!previous && !next) return null;
+
+  return (
+    <nav aria-label="Previous and next property guides" className="mt-14 grid gap-4 border-t border-border pt-8 sm:grid-cols-2">
+      <div>
+        {previous ? <Link to={previous.to} className="group block rounded-md border border-border p-5 transition-colors hover:border-primary/50"><span className="eyebrow text-muted-foreground">Previous guide</span><strong className="mt-2 block font-display text-xl group-hover:text-primary">← {previous.label}</strong><p className="mt-2 text-sm leading-6 text-muted-foreground">{previous.description}</p></Link> : null}
+      </div>
+      <div>
+        {next ? <Link to={next.to} className="group block rounded-md border border-border p-5 text-left transition-colors hover:border-primary/50 sm:text-right"><span className="eyebrow text-muted-foreground">Next guide</span><strong className="mt-2 block font-display text-xl group-hover:text-primary">{next.label} →</strong><p className="mt-2 text-sm leading-6 text-muted-foreground">{next.description}</p></Link> : null}
+      </div>
+    </nav>
+  );
+}
+
 export function PropertyClusterGuidePage({ eyebrow, title, intro, sections, faqs, officialUrl, officialLabel }: { eyebrow: string; title: string; intro: string; sections: PropertyGuideSection[]; faqs: PropertyGuideFaq[]; officialUrl: string; officialLabel: string }) {
+  const location = useLocation();
+
   return (
     <article>
+      <PropertySectionNavigation />
       <section className="border-b border-border bg-surface">
         <Container className="py-16 sm:py-24">
           <nav aria-label="Breadcrumb" className="text-[0.72rem] font-medium uppercase tracking-[0.12em] text-muted-foreground">
             <ol className="flex flex-wrap items-center gap-2">
               <li><Link to="/" className="hover:text-foreground">Front page</Link></li>
               <li aria-hidden="true">/</li>
-              <li><Link to="/decide/financial-tools" className="hover:text-foreground">Money & Property</Link></li>
+              <li><Link to="/property" className="hover:text-foreground">Property</Link></li>
               <li aria-hidden="true">/</li>
-              <li aria-current="page" className="text-foreground">Property-tax guides</li>
+              <li aria-current="page" className="text-foreground">{title}</li>
             </ol>
           </nav>
           <div className="mt-10 border-t border-border pt-8">
@@ -64,6 +106,14 @@ export function PropertyClusterGuidePage({ eyebrow, title, intro, sections, faqs
               {sections.map((section) => <a key={section.id} href={`#${section.id}`} className="block py-3 text-muted-foreground transition-colors hover:text-primary">{section.title}</a>)}
               <a href="#faq" className="block py-3 text-muted-foreground transition-colors hover:text-primary">Questions & answers</a>
             </nav>
+            <div className="mt-7 border-t border-border pt-5">
+              <p className="eyebrow text-muted-foreground">Property tools</p>
+              <nav className="mt-3 grid gap-2 text-sm">
+                <Link to="/decide/property-taxes" className="text-muted-foreground hover:text-primary">Tax estimator</Link>
+                <Link to="/property-tax-calculators" className="text-muted-foreground hover:text-primary">Calculator toolkit</Link>
+                <Link to="/property-tax/counties" className="text-muted-foreground hover:text-primary">County guides</Link>
+              </nav>
+            </div>
           </aside>
 
           <div className="max-w-3xl">
@@ -90,7 +140,7 @@ export function PropertyClusterGuidePage({ eyebrow, title, intro, sections, faqs
             </section>
 
             <section className="mt-14 border-t border-border pt-8">
-              <p className="eyebrow text-primary">Continue the research</p>
+              <p className="eyebrow text-primary">Related property guides</p>
               <div className="mt-5 grid border-t border-border sm:grid-cols-2">
                 <Link to="/learn/property-taxes" className="group border-b border-border py-5 sm:border-r sm:pr-6"><strong className="font-display text-2xl group-hover:text-primary">Complete property-tax guide</strong></Link>
                 <Link to="/decide/property-taxes" className="group border-b border-border py-5 sm:pl-6"><strong className="font-display text-2xl group-hover:text-primary">Property-tax calculator</strong></Link>
@@ -98,6 +148,8 @@ export function PropertyClusterGuidePage({ eyebrow, title, intro, sections, faqs
                 <Link to="/do/property-tax-protest" className="group border-b border-border py-5 sm:pl-6"><strong className="font-display text-2xl group-hover:text-primary">Property-tax protest</strong></Link>
               </div>
             </section>
+
+            <PreviousNextGuides pathname={location.pathname} />
           </div>
         </div>
       </Container>
