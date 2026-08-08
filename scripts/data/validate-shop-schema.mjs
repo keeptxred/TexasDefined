@@ -19,10 +19,10 @@ const landingRequired = [
   '"@type": "CollectionPage"',
   '"@type": "BreadcrumbList"',
   '"@type": "ItemList"',
-  'mainEntity: { "@id": `${absoluteUrl(texasDefinedBrand, "/shop")}#products` }',
+  'mainEntity: { "@id": productListId }',
   'numberOfItems: loaderData.products.length',
   'image: shopFlatlay',
-  'imageAlt: "A curated flat lay of Texas-made goods"',
+  'imageAlt: "Texas-inspired goods arranged on a tabletop"',
   'id={productAnchor(product.id)}',
   'absoluteUrl(texasDefinedBrand, product.image.src)',
 ];
