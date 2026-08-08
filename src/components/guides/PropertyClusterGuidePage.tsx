@@ -11,6 +11,28 @@ export type PropertyGuideSection = {
 
 export type PropertyGuideFaq = { question: string; answer: string };
 
+const GUIDE_LINK_LABELS: Record<string, string> = {
+  '/learn/property-taxes': 'Complete property-tax guide',
+  '/decide/property-taxes': 'Property-tax estimator',
+  '/learn/appraisal-districts': 'Appraisal districts',
+  '/do/homestead-exemption': 'Homestead exemption',
+  '/do/property-tax-protest': 'Property-tax protest',
+  '/learn/agricultural-valuation': 'Agricultural valuation',
+  '/learn/wildlife-management-valuation': 'Wildlife-management valuation',
+  '/learn/disabled-veteran-property-tax-benefits': 'Disabled-veteran property-tax benefits',
+  '/learn/over-65-property-tax-guide': 'Age-65 property-tax guide',
+  '/learn/mud-taxes-explained': 'MUD taxes explained',
+  '/learn/property-tax-deadlines': 'Property-tax deadlines',
+  '/learn/property-tax-appeals-arbitration': 'Appeals and arbitration',
+  '/learn/homebuyer-property-tax-checklist': 'Homebuyer property-tax checklist',
+};
+
+function guideLinkLabel(path: string) {
+  if (GUIDE_LINK_LABELS[path]) return GUIDE_LINK_LABELS[path];
+  const last = path.split('/').filter(Boolean).at(-1) ?? path;
+  return last.replaceAll('-', ' ').replace(/\b\w/g, (character) => character.toUpperCase());
+}
+
 export function PropertyClusterGuidePage({ eyebrow, title, intro, sections, faqs, officialUrl, officialLabel }: { eyebrow: string; title: string; intro: string; sections: PropertyGuideSection[]; faqs: PropertyGuideFaq[]; officialUrl: string; officialLabel: string }) {
   return (
     <article>
@@ -39,7 +61,7 @@ export function PropertyClusterGuidePage({ eyebrow, title, intro, sections, faqs
                 <p className="eyebrow text-primary">{String(index + 1).padStart(2, '0')}</p>
                 <h2 className="mt-3 font-display text-4xl leading-tight text-foreground">{section.title}</h2>
                 <div className="mt-5 space-y-5 text-base leading-8 text-muted-foreground">{section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
-                {section.bullets?.length ? <ul className="mt-6 divide-y divide-border border-y border-border text-sm leading-7 text-muted-foreground">{section.bullets.map((item) => <li key={item} className="py-3">{item}</li>)}</ul> : null}
+                {section.bullets?.length ? <ul className="mt-6 divide-y divide-border border-y border-border text-sm leading-7 text-muted-foreground">{section.bullets.map((item) => <li key={item} className="py-3">{item.startsWith('/') ? <Link to={item} className="group flex items-center justify-between gap-4 font-semibold text-foreground transition-colors hover:text-primary"><span>{guideLinkLabel(item)}</span><span aria-hidden="true" className="text-primary">→</span></Link> : item}</li>)}</ul> : null}
               </section>
             ))}
 
