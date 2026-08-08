@@ -3,6 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { ArticleCard } from "@/components/editorial/ArticleCard";
+import { DepartmentHero } from "@/components/editorial/DepartmentHero";
 import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
@@ -48,14 +49,7 @@ function ExplorePage() {
   const exploreCategories = categories.filter((category) => (EXPLORE_CATEGORIES as readonly string[]).includes(category.slug));
 
   return <>
-    <Container className="pb-10 pt-16 sm:pt-24">
-      <nav aria-label="Breadcrumb" className="text-xs uppercase tracking-[0.1em] text-muted-foreground"><ol className="flex items-center gap-2"><li><Link to="/" className="hover:text-foreground">Front page</Link></li><li aria-hidden="true">/</li><li aria-current="page" className="text-foreground">Explore</li></ol></nav>
-      <div className="mt-10 max-w-4xl border-t border-border pt-8">
-        <p className="eyebrow text-primary">The Texas guide</p>
-        <h1 className="mt-3 max-w-3xl font-display text-5xl font-semibold leading-[0.98] tracking-[-0.025em] sm:text-7xl">Explore Texas, one good road at a time</h1>
-        <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">{description}</p>
-      </div>
-    </Container>
+    <DepartmentHero current="Explore" eyebrow="The Texas guide" title="Explore Texas, one good road at a time" description={description} />
 
     <Section>
       <Container>
