@@ -12,6 +12,13 @@ const KIND_LABEL: Record<Guide["kind"], string> = {
   checklist: "Checklist",
 };
 
+const KIND_ACTION: Record<Guide["kind"], string> = {
+  article: "Read guide",
+  calculator: "Open calculator",
+  dataset: "Open reference",
+  checklist: "Open checklist",
+};
+
 function topicLabel(topic: string) {
   return topic.replaceAll("-", " ").replace(/\b\w/g, (letter) => letter.toUpperCase());
 }
@@ -31,7 +38,7 @@ export function GuideCard({ guide }: { guide: Guide }) {
       <h3 className="mt-4 font-display text-2xl leading-tight">{guide.title}</h3>
       <p className="mt-3 flex-1 text-sm leading-6 text-muted-foreground">{guide.summary}</p>
       {contract && <div className="mt-5 border-t border-border pt-4 text-sm leading-6 text-muted-foreground"><p>Bring the basic numbers and use the result as a practical starting point.</p>{!available && <p className="mt-3">{brand.copy.comingSoonBody}</p>}</div>}
-      {href && <span className="eyebrow mt-6 inline-flex items-center gap-2 text-primary">Open guide <span aria-hidden>→</span></span>}
+      {href && <span className="eyebrow mt-6 inline-flex items-center gap-2 text-primary">{KIND_ACTION[guide.kind]} <span aria-hidden>→</span></span>}
     </article>
   );
 
