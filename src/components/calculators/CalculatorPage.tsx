@@ -11,7 +11,7 @@ export function CalculatorPage({ eyebrow, title, description, children }: { eyeb
             <ol className="flex flex-wrap items-center gap-2">
               <li><Link to="/" className="hover:text-foreground">Front page</Link></li>
               <li aria-hidden>·</li>
-              <li><Link to="/decide/financial-tools" className="hover:text-foreground">Money & home</Link></li>
+              <li><Link to="/decide/financial-tools" className="hover:text-foreground">Money & Property</Link></li>
               <li aria-hidden>·</li>
               <li aria-current="page" className="text-foreground">Calculator</li>
             </ol>
