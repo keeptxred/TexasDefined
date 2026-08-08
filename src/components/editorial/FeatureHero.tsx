@@ -18,11 +18,21 @@ interface FeatureHeroProps {
 const CATEGORY_LABELS: Record<string, string> = {
   "moving-to-texas": "Moving Here",
   "home-garden": "Front Porch",
-  "real-estate": "Homes and Land",
+  "real-estate": "Homes & Land",
   "texas-history": "Then & Now",
   "food-bbq": "The Texas Table",
   outdoors: "Wild Texas",
   sports: "The Texas Game",
+  "lakes-rivers": "Lakes & Rivers",
+  "state-parks": "State Parks",
+  "national-parks": "National Parks",
+  "road-trips": "Road Trips",
+  "small-towns": "Small Towns",
+  "beaches-coast": "Beaches & Coast",
+  caverns: "Caverns & Caves",
+  "major-springs": "Springs & Swimming",
+  "historic-sites": "Historic Sites",
+  guides: "The Texas Guidebook",
 };
 
 function editorialLabel(value: string) {
