@@ -18,7 +18,7 @@ const steps = [
 
 export const Route = createFileRoute('/do/property-tax-protest')({
   head: () => ({
-    meta: buildMeta(texasDefinedBrand, { canonicalPath, title: 'Texas Property Tax Protest', description }),
+    meta: buildMeta(texasDefinedBrand, { canonicalPath, title: 'How to Protest Your Property Appraisal', description }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
     scripts: [jsonLd({
       '@context': 'https://schema.org',
@@ -27,7 +27,7 @@ export const Route = createFileRoute('/do/property-tax-protest')({
           '@type': 'HowTo',
           '@id': `${pageUrl}#howto`,
           url: pageUrl,
-          name: 'How to prepare a Texas property tax protest',
+          name: 'How to prepare a Texas property appraisal protest',
           description,
           isPartOf: { '@id': `${siteUrl}/#website` },
           step: steps.map((text, index) => ({
@@ -42,9 +42,9 @@ export const Route = createFileRoute('/do/property-tax-protest')({
           '@type': 'BreadcrumbList',
           '@id': `${pageUrl}#breadcrumbs`,
           itemListElement: [
-            { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
-            { '@type': 'ListItem', position: 2, name: 'Property taxes', item: `${siteUrl}/decide/property-taxes` },
-            { '@type': 'ListItem', position: 3, name: 'Protest your appraisal', item: pageUrl },
+            { '@type': 'ListItem', position: 1, name: 'Front page', item: `${siteUrl}/` },
+            { '@type': 'ListItem', position: 2, name: 'Property Taxes', item: `${siteUrl}/decide/property-taxes` },
+            { '@type': 'ListItem', position: 3, name: 'Protest Your Appraisal', item: pageUrl },
           ],
         },
       ],
