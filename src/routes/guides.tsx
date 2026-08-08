@@ -2,6 +2,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
+import { DepartmentHero } from "@/components/editorial/DepartmentHero";
 import { GuideCard } from "@/components/editorial/GuideCard";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
@@ -59,11 +60,7 @@ function GuidesPage() {
   const { data: guides } = useSuspenseQuery(guidesQuery());
   const topics = [...new Set(guides.map((guide) => guide.topic))];
   return <>
-    <Container className="pb-10 pt-20 sm:pt-28">
-      <p className="eyebrow text-primary">The Texas Guidebook</p>
-      <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">Travel well. Live well. Know Texas better.</h1>
-      <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">{description}</p>
-    </Container>
+    <DepartmentHero current="Guides" eyebrow="The Texas Guidebook" title="Travel well. Live well. Know Texas better." description={description} />
     <Section tone="surface"><Container><SectionHeader eyebrow="Travel guides" title="Where to go and how to make the most of it" description="Parks, water, camping, roads, caverns, small towns and historic places—edited into useful starting points." /><ul className="mt-10 divide-y divide-border border-y border-border md:grid md:grid-cols-2 md:divide-y-0 lg:grid-cols-4">{travelGuides.map((guide, index) => <li key={`${guide.label}-${guide.to}`} id={guideAnchor(index)} className="border-border py-6 md:border-b md:p-6 lg:border-r lg:last:border-r-0"><Link to="/explore/$category" params={{ category: guide.to.replace("/explore/", "") }} className="group block h-full"><p className="eyebrow text-muted-foreground">Guide {String(index + 1).padStart(2, "0")}</p><h2 className="mt-3 font-display text-2xl leading-tight group-hover:text-primary">{guide.label}</h2><p className="mt-3 text-sm leading-6 text-muted-foreground">{guide.body}</p><p className="mt-4 text-xs leading-5 text-muted-foreground">{guide.note}</p><span className="eyebrow mt-6 inline-block border-b border-primary pb-1 text-primary">Read the guide</span></Link></li>)}</ul></Container></Section>
     <Section><Container><SectionHeader eyebrow="Living here" title="Practical guides for making Texas home" /><ul className="mt-10 grid gap-x-8 gap-y-0 md:grid-cols-2 lg:grid-cols-4">{practicalGuides.map((guide, index) => <li key={guide.to} id={guideAnchor(travelGuides.length + index)} className="border-t border-border py-6"><Link to={guide.to} className="group block"><h2 className="font-display text-2xl leading-tight group-hover:text-primary">{guide.label}</h2><p className="mt-3 text-sm leading-6 text-muted-foreground">{guide.body}</p><span className="eyebrow mt-5 inline-block text-primary">Read the guide →</span></Link></li>)}</ul></Container></Section>
     {topics.map((topic, index) => {
