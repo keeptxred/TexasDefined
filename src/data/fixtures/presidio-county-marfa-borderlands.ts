@@ -26,6 +26,7 @@ export const presidioCountyMarfaBorderlandsArticle: Article = {
   tags: ["Presidio County", "Marfa", "Presidio", "Fort Leaton", "Texas counties", "Big Bend", "West Texas", "Texas history"],
   featured: false,
   internalLinks: [
+    { href: "/article/jeff-davis-county-fort-davis-mountains-texas", label: "Explore neighboring Jeff Davis County", description: "Head north into Fort Davis, the Davis Mountains and McDonald Observatory." },
     { href: "/article/brewster-county-big-bend-texas", label: "Explore neighboring Brewster County", description: "Continue east into Alpine, Terlingua and Big Bend National Park." },
     { href: "/browse/counties", label: "Browse all 254 Texas counties", description: "Explore Texas one county at a time." },
     { href: "/article/why-texas-has-254-counties", label: "Why Texas has 254 counties", description: "How distance and local government shaped the Texas county map." },
