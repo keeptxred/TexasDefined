@@ -11,6 +11,14 @@ import { search, type SearchHit } from "@/domain/search/engine";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const searchSchema = z.object({ q: z.string().optional() });
+const startingPoints = [
+  { to: "/explore", label: "Explore Texas", copy: "Parks, water, road trips, small towns and places worth making the drive for." },
+  { to: "/events", label: "Texas Events", copy: "Rodeos, festivals, fairs, live music and things happening around the state." },
+  { to: "/guides", label: "The Guidebook", copy: "Travel guides and practical help for living, moving and owning a home here." },
+  { to: "/decide/financial-tools", label: "Money & Property", copy: "Calculators and plain-English guides for housing costs and household decisions." },
+  { to: "/browse/cities", label: "Find a City", copy: "Browse Texas cities by name, county and region." },
+  { to: "/browse/counties", label: "Find Your County", copy: "Start with one of all 254 counties and continue to useful local information." },
+] as const;
 
 export const Route = createFileRoute("/search")({
   validateSearch: searchSchema,
@@ -45,8 +53,9 @@ function SearchPage() {
     </section>
 
     <Container className="min-h-[42vh] py-12 sm:py-16">
-      {searchIsLoading && <p className="text-sm text-muted-foreground">Searching Texas Defined…</p>}
-      {query && !searchIsLoading && results.length > 0 && <div className="flex items-end justify-between gap-4 border-b border-border pb-4"><div><p className="eyebrow text-primary">Results</p><h2 className="mt-2 font-display text-3xl">For “{query}”</h2></div><p className="text-sm text-muted-foreground">{results.length} result{results.length === 1 ? "" : "s"}</p></div>}
+      {!query && <section aria-labelledby="search-start-heading"><div className="border-b border-border pb-5"><p className="eyebrow text-primary">Start here</p><h2 id="search-start-heading" className="mt-2 font-display text-3xl sm:text-4xl">A few useful ways into Texas Defined</h2></div><ul className="grid sm:grid-cols-2 lg:grid-cols-3">{startingPoints.map((item, index) => <li key={item.to} className={`border-b border-border py-7 sm:px-6 ${index % 3 !== 0 ? "lg:border-l" : ""}`}><Link to={item.to} className="group block h-full"><h3 className="font-display text-2xl leading-tight transition-colors group-hover:text-primary">{item.label}</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">{item.copy}</p><span className="eyebrow mt-5 inline-block border-b border-primary pb-1 text-primary">Open →</span></Link></li>)}</ul></section>}
+      {searchIsLoading && <p className="text-sm text-muted-foreground" role="status">Searching Texas Defined…</p>}
+      {query && !searchIsLoading && results.length > 0 && <div className="flex items-end justify-between gap-4 border-b border-border pb-4"><div><p className="eyebrow text-primary">Results</p><h2 className="mt-2 font-display text-3xl">For “{query}”</h2></div><p className="text-sm text-muted-foreground" role="status">{results.length} result{results.length === 1 ? "" : "s"}</p></div>}
       {query && !searchIsLoading && results.length === 0 && <div className="max-w-xl border-t border-border pt-6"><p className="eyebrow text-primary">No results</p><h2 className="mt-3 font-display text-3xl">Nothing matched “{query}.”</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">Try a nearby town, a broader subject or the name of a landmark.</p></div>}
       {destinationSearchUnavailable && query && <p className="mt-4 max-w-xl text-xs leading-6 text-muted-foreground">Some destination records were temporarily unavailable, so this result set may be shorter than usual.</p>}
       <ul className="mt-2 max-w-3xl divide-y divide-border">
