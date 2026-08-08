@@ -6,6 +6,7 @@ import bbqBrisket from "@/assets/bbq-brisket.jpg";
 import wildlife from "@/assets/wildlife.jpg";
 import blueHole from "@/assets/blue-hole.jpg";
 import bigBend from "@/assets/big-bend.jpg";
+import highSchoolFootball from "@/assets/high-school-football-hero.jpg";
 
 import type { BrandConfig } from "./types";
 
@@ -91,7 +92,7 @@ export const texasDefinedBrand: BrandConfig = {
         { label: "Moving Here", to: "/moving-to-texas", description: "What to know before the boxes arrive", image: { src: roadTrip, alt: "A Texas highway stretching toward the horizon" } },
         { label: "Home & Garden", to: "/home-garden", description: "Texas homes, yards, seasons and practical projects", image: { src: blueHole, alt: "A shaded Texas Hill Country landscape" } },
         { label: "History", to: "/texas-history", description: "The people, places and moments that shaped the state", image: { src: smallTown, alt: "A historic Texas courthouse square" } },
-        { label: "Sports", to: "/sports", description: "Teams, traditions and the games Texans follow", image: { src: wildlife, alt: "A wide Texas landscape under an open sky" } },
+        { label: "Sports", to: "/sports", description: "Teams, traditions and the games Texans follow", image: { src: highSchoolFootball, alt: "Texas high school football under stadium lights" } },
       ],
     },
     { label: "Events", to: "/events" },
