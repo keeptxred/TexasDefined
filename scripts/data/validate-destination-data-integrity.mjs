@@ -41,7 +41,7 @@ for (const feature of [
   'Conditions, closures, fees and availability can change',
   'aria-labelledby="plan-your-visit"',
   '{ title: "Things to do", items: activities }',
-  '{ title: "Facilities", items: facilities }',
+  '{ title: "What you’ll find", items: facilities }',
   '{ title: "Don’t miss", items: otherHighlights }',
   '{ title: "Good to know", items: practicalTips }',
   'groups.map((group, index)',
