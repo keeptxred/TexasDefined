@@ -27,7 +27,7 @@ const defaultSocialImageAlt = "Texas Hill Country landscape at golden hour";
 function NotFoundComponent() {
   return (
     <>
-      <title>Page not found | TexasDefined</title>
+      <title>Page not found | Texas Defined</title>
       <meta name="robots" content="noindex, nofollow" />
       <div className="bg-background px-4 py-20 sm:py-28">
         <section className="mx-auto max-w-4xl border-y border-border py-14 text-center sm:py-20">
@@ -50,7 +50,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   useEffect(() => { reportLovableError(error, { boundary: "tanstack_root_error_component" }); }, [error]);
   return (
     <>
-      <title>Page unavailable | TexasDefined</title>
+      <title>Page unavailable | Texas Defined</title>
       <meta name="robots" content="noindex, nofollow" />
       <div className="bg-background px-4 py-20 sm:py-28">
         <section className="mx-auto max-w-4xl border-y border-border py-14 text-center sm:py-20">
