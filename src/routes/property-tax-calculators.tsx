@@ -34,11 +34,11 @@ const money = (value: number) => new Intl.NumberFormat('en-US', { style: 'curren
 const tax = (value: number, rate: number) => Math.max(0, value) * Math.max(0, rate) / 100;
 
 function NumberField({ label, value, onChange, step = 1000 }: { label: string; value: number; onChange: (value: number) => void; step?: number }) {
-  return <label className="block border-t border-border pt-4 text-sm font-semibold"><span>{label}</span><input className="mt-2 w-full border-0 border-b border-border bg-transparent px-0 py-3 text-lg outline-none focus:border-primary" type="number" min="0" step={step} value={value} onChange={(event) => onChange(Number(event.target.value) || 0)} /></label>;
+  return <label className="block border-t border-border pt-4 text-sm font-semibold"><span>{label}</span><input className="mt-2 w-full border-0 border-b border-border bg-transparent px-0 py-3 text-lg outline-none transition-colors focus:border-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary" type="number" min="0" step={step} value={value} onChange={(event) => onChange(Number(event.target.value) || 0)} /></label>;
 }
 
 function Result({ label, value }: { label: string; value: string }) {
-  return <div className="border-t border-border py-4"><span className="text-xs uppercase tracking-[0.14em] text-muted-foreground">{label}</span><strong className="mt-1 block font-display text-3xl text-primary">{value}</strong></div>;
+  return <div className="border-t border-border py-4" role="status" aria-live="polite" aria-atomic="true"><span className="text-xs uppercase tracking-[0.14em] text-muted-foreground">{label}</span><strong className="mt-1 block font-display text-3xl text-primary">{value}</strong></div>;
 }
 
 function PropertyTaxCalculatorToolkit() {
