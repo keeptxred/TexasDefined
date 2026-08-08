@@ -12,15 +12,26 @@ jobs:
   maintain:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      GOVERNANCE_RETENTION_DAYS: '180'
+      GOVERNANCE_AGGREGATE_DAYS: '30'
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Report unconfigured governance maintenance
+        if: env.SUPABASE_URL == '' || env.SUPABASE_SERVICE_ROLE_KEY == ''
+        run: echo "Governance maintenance skipped because the required Supabase repository secrets are not configured."
+
+      - name: Check out repository
+        if: env.SUPABASE_URL != '' && env.SUPABASE_SERVICE_ROLE_KEY != ''
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        if: env.SUPABASE_URL != '' && env.SUPABASE_SERVICE_ROLE_KEY != ''
+        uses: actions/setup-node@v4
         with:
           node-version: 22
+
       - name: Refresh summaries and prune old events
-        env:
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
-          GOVERNANCE_RETENTION_DAYS: '180'
-          GOVERNANCE_AGGREGATE_DAYS: '30'
+        if: env.SUPABASE_URL != '' && env.SUPABASE_SERVICE_ROLE_KEY != ''
         run: node scripts/data/maintain-governance-events.mjs
