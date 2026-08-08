@@ -87,7 +87,7 @@ export const texasDefinedBrand: BrandConfig = {
       to: "/texas-living",
       description: "Homes, history, sports and the practical side of making a life in Texas",
       children: [
-        { label: "Living Here", to: "/texas-living", description: "Everyday Texas life, useful answers and local know-how", image: { src: smallTown, alt: "A Texas town square and streetscape" } },
+        { label: "Homes & Land", to: "/real-estate", description: "Buying, owning, financing and finding your place in Texas", image: { src: smallTown, alt: "A Texas neighborhood and streetscape" } },
         { label: "Moving Here", to: "/moving-to-texas", description: "What to know before the boxes arrive", image: { src: roadTrip, alt: "A Texas highway stretching toward the horizon" } },
         { label: "Home & Garden", to: "/home-garden", description: "Texas homes, yards, seasons and practical projects", image: { src: blueHole, alt: "A shaded Texas Hill Country landscape" } },
         { label: "History", to: "/texas-history", description: "The people, places and moments that shaped the state", image: { src: smallTown, alt: "A historic Texas courthouse square" } },
@@ -116,12 +116,12 @@ export const texasDefinedBrand: BrandConfig = {
     {
       title: "Texas Life",
       items: [
-        { label: "Sports", to: "/sports" },
-        { label: "History", to: "/texas-history" },
+        { label: "Homes & Land", to: "/real-estate" },
         { label: "Moving Here", to: "/moving-to-texas" },
         { label: "Home & Garden", to: "/home-garden" },
-        { label: "Living Here", to: "/texas-living" },
-        { label: "Homes & Land", to: "/real-estate" },
+        { label: "History", to: "/texas-history" },
+        { label: "Sports", to: "/sports" },
+        { label: "Texas Life Guide", to: "/texas-living" },
       ],
     },
     {
