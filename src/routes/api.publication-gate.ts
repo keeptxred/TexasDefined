@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 import {
+  classifyStoryOwnership,
   decideCrossSiteContent,
   enforcePublicationDecision,
   type ContentCandidate,
@@ -22,19 +23,33 @@ export const Route = createFileRoute('/api/publication-gate')({
     if (!SITES.has(input.sourceSite as PlatformSite)) return json({ error: 'Unknown source site.' }, 400);
     if (input.targetSite && input.targetSite !== 'TexasDefined') return json({ error: 'This endpoint only evaluates publication to TexasDefined.' }, 400);
     if (typeof input.sourceCanonicalUrl !== 'string' || !isHttps(input.sourceCanonicalUrl)) return json({ error: 'sourceCanonicalUrl must be HTTPS.' }, 400);
+
+    const title = typeof input.title === 'string' ? input.title.slice(0, 500) : 'Untitled preview';
+    const description = typeof input.description === 'string' ? input.description.slice(0, 5000) : undefined;
+    const category = typeof input.category === 'string' ? input.category.slice(0, 200) : undefined;
+    const source = typeof input.source === 'string' ? input.source.slice(0, 300) : undefined;
+    const storyRoute = classifyStoryOwnership({
+      title,
+      description,
+      category,
+      source,
+      fallbackDomain: input.domain as ContentDomain,
+    });
+
     const candidate: ContentCandidate = {
       id: typeof input.id === 'string' ? input.id.slice(0, 200) : 'publication-preview',
-      title: typeof input.title === 'string' ? input.title.slice(0, 500) : 'Untitled preview',
-      domain: input.domain as ContentDomain,
+      title,
+      domain: storyRoute.domain,
       sourceSite: input.sourceSite as PlatformSite,
       targetSite: 'TexasDefined',
       sourceCanonicalUrl: input.sourceCanonicalUrl,
       ...(typeof input.proposedUrl === 'string' && isHttps(input.proposedUrl) ? { proposedUrl: input.proposedUrl } : {}),
       ...(typeof input.contentFingerprint === 'string' ? { contentFingerprint: input.contentFingerprint.slice(0, 160) } : {}),
       ...(typeof input.sourceFingerprint === 'string' ? { sourceFingerprint: input.sourceFingerprint.slice(0, 160) } : {}),
-      ...(isPurpose(input.derivativePurpose) ? { derivativePurpose: input.derivativePurpose } : {}),
+      ...(isPurpose(input.derivativePurpose) || storyRoute.derivativePurpose ? { derivativePurpose: isPurpose(input.derivativePurpose) ? input.derivativePurpose : storyRoute.derivativePurpose } : {}),
     };
     const decision = decideCrossSiteContent(candidate);
+    decision.reasons.unshift(...storyRoute.reasons.map((reason) => `Story routing: ${reason}`));
     const override = normalizeOverride(input.override);
     const gate = enforcePublicationDecision(candidate, decision, override);
     const governanceEventIds = recordGovernanceDecision({
@@ -44,7 +59,7 @@ export const Route = createFileRoute('/api/publication-gate')({
       override,
       writer: 'api/publication-gate',
     });
-    return json({ mode: 'enforcement-preview', targetSite: 'TexasDefined', candidate, decision, gate, governanceEventIds }, gate.publishable ? 200 : 409);
+    return json({ mode: 'story-level-enforcement-preview', targetSite: 'TexasDefined', storyRoute, candidate, decision, gate, governanceEventIds }, gate.publishable ? 200 : 409);
   } } },
 });
 
