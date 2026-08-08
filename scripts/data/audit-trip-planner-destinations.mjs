@@ -28,8 +28,11 @@ const curationFileNames = curationFiles();
 const curated = new Set();
 const curationOwners = new Map();
 const curationSlugsByFile = new Map();
+const curationSourceByFile = new Map();
 for (const file of curationFileNames) {
-  const slugs = quotedObjectKeys(read(path.join("src", "data", file)));
+  const source = read(path.join("src", "data", file));
+  const slugs = quotedObjectKeys(source);
+  curationSourceByFile.set(file, source);
   curationSlugsByFile.set(file, slugs);
   for (const slug of slugs) {
     curated.add(slug);
@@ -41,9 +44,24 @@ for (const file of curationFileNames) {
 const duplicateCurations = [...curationOwners.entries()]
   .filter(([, files]) => files.length > 1)
   .map(([slug, files]) => ({ slug, files }));
-const duplicateOnlyCurationFiles = [...curationSlugsByFile.entries()]
+
+// A slug appearing in more than one curation layer is not automatically redundant.
+// Later layers may intentionally add a hero, coordinates, source metadata or updated
+// planning guidance while preserving fields from an earlier layer. These reports are
+// therefore diagnostic only and must never be treated as a safe-to-delete list.
+const layeredDuplicateFiles = [...curationSlugsByFile.entries()]
   .filter(([, slugs]) => slugs.length > 0 && slugs.every((slug) => (curationOwners.get(slug)?.length ?? 0) > 1))
-  .map(([file, slugs]) => ({ file, slugCount: slugs.length }));
+  .map(([file, slugs]) => {
+    const source = curationSourceByFile.get(file) ?? "";
+    return {
+      file,
+      slugCount: slugs.length,
+      containsHeroOverrides: /\bhero\s*:\s*\{/.test(source),
+      containsCoordinates: /\bcoordinates\s*:\s*\{/.test(source),
+      containsSourceCheckedAt: /\bsourceCheckedAt\s*:/.test(source),
+      note: "Layered duplicate; inspect field-level contributions before consolidation.",
+    };
+  });
 const emptyCurationFiles = [...curationSlugsByFile.entries()]
   .filter(([, slugs]) => slugs.length === 0)
   .map(([file]) => file);
@@ -92,7 +110,7 @@ const result = {
   curatedSlugs: curated.size,
   aliases: aliases.size,
   duplicateCurationSlugs: duplicateCurations.length,
-  duplicateOnlyCurationFiles: duplicateOnlyCurationFiles.length,
+  layeredDuplicateFiles: layeredDuplicateFiles.length,
   emptyCurationFiles: emptyCurationFiles.length,
   brokenAliasTargets: brokenAliasTargets.length,
   unavailableDestinations: unavailable.size,
@@ -107,7 +125,7 @@ const result = {
   curatedExploreHeroSlugs: exploreCoverage.covered.length,
   remainingExploreHeroSlugs: exploreCoverage.remaining.length,
   excludedExploreHeroSlugs: exploreCoverage.excluded.length,
-  duplicateOnlyFiles: duplicateOnlyCurationFiles,
+  layeredFiles: layeredDuplicateFiles,
   emptyFiles: emptyCurationFiles,
   duplicateCurations,
   brokenAliases: brokenAliasTargets,
