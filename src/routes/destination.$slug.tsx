@@ -8,7 +8,7 @@ import { DestinationVisitPlanner } from "@/components/editorial/DestinationVisit
 import { MapPreview } from "@/components/editorial/MapPreview";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
-import { isCurrentlyVisitableDestination } from "@/data/destination-availability";
+import { isPrimaryTripPlannerDestination } from "@/data/destination-availability";
 import { auditDestination } from "@/data/destination-audit";
 import { buildDestinationRelationshipGroups } from "@/data/destination-relationships";
 import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
@@ -51,7 +51,7 @@ export const Route = createFileRoute("/destination/$slug")({
     if (!loaderData) return { meta: [{ title: "Unavailable" }, { name: "robots", content: "noindex, nofollow" }] };
     const { destination, categories, relationshipGroups } = loaderData;
     const audit = auditDestination(destination);
-    const indexable = audit.readyForIndexing && isCurrentlyVisitableDestination(destination);
+    const indexable = audit.readyForIndexing && isPrimaryTripPlannerDestination(destination);
     const hasUsableHero = !audit.issues.some((issue) => issue.code === "hero-placeholder");
     const canonicalPath = `/destination/${params.slug}`;
     const url = `${siteUrl}${canonicalPath}`;
