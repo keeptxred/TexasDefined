@@ -32,11 +32,11 @@ function Page() {
   }, [value, exemptions, rate]);
   const money = (amount: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(amount);
 
-  return <main>
+  return <>
     <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
       <article className="mx-auto max-w-6xl">
         <nav aria-label="Breadcrumb" className="border-b border-border pb-4 text-xs uppercase tracking-[0.14em] text-muted-foreground">
-          <Link to="/">Front page</Link><span aria-hidden="true" className="mx-2">/</span><Link to="/decide/financial-tools">Money Made Clearer</Link><span aria-hidden="true" className="mx-2">/</span><span className="text-foreground">Property taxes</span>
+          <Link to="/">Front page</Link><span aria-hidden="true" className="mx-2">/</span><Link to="/decide/financial-tools">Money & Property</Link><span aria-hidden="true" className="mx-2">/</span><span aria-current="page" className="text-foreground">Property taxes</span>
         </nav>
 
         <header className="grid gap-8 border-b border-border py-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end">
@@ -83,7 +83,7 @@ function Page() {
         </section>
       </article>
     </Container>
-  </main>;
+  </>;
 }
 
 function Field({ label, value, step, onChange }: { label: string; value: number; step: string; onChange: (value: number) => void }) {
