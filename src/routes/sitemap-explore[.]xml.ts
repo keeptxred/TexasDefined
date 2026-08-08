@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
+import { isCanonicalDestinationSlug } from "@/data/destination-curation-all";
 import { supplementalExploreCategories } from "@/data/explore-categories";
 import { fetchCoreExploreDestinations } from "@/data/explore-core-remote";
 import { categories, destinations as fixtureDestinations, regions } from "@/data/fixtures/texas";
@@ -64,7 +65,9 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           ...regions.map((region) => `${BASE_URL}/explore/region/${region.id}`),
           ...EXPLORE_REGION_SLUGS.map((regionSlug) => `${BASE_URL}/explore/region/${regionSlug}`),
         ];
-        const destinationEntries = [...new Map(destinations.filter((item) => item.slug).map((item) => [item.slug, item])).values()]
+        const destinationEntries = [...new Map(destinations
+          .filter((item) => item.slug && isCanonicalDestinationSlug(item.slug))
+          .map((item) => [item.slug, item])).values()]
           .map((item) => entry(`${BASE_URL}/destination/${item.slug}`, item.sourceCheckedAt));
         const entries = [...[...new Set(staticUrls)].map((url) => entry(url)), ...destinationEntries].join("\n");
         const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${entries}\n</urlset>`;
