@@ -16,7 +16,7 @@ export function DestinationVisitPlanner({ destination }: Props) {
   const practicalTips = unique([
     destination.bestSeason ? `Best time to go: ${destination.bestSeason}.` : "",
     destination.entryNote,
-    destination.reservationUrl ? "Check reservation availability before making the drive." : "",
+    destination.reservationUrl ? "Check reservations before making the drive." : "",
     destination.accessibilityNotes ? `Accessibility: ${destination.accessibilityNotes}` : "",
     destination.directions ? `Getting there: ${destination.directions}` : "",
   ]);
@@ -25,7 +25,7 @@ export function DestinationVisitPlanner({ destination }: Props) {
 
   const groups = [
     { title: "Things to do", items: activities },
-    { title: "Facilities", items: facilities },
+    { title: "What you’ll find", items: facilities },
     { title: "Don’t miss", items: otherHighlights },
     { title: "Good to know", items: practicalTips },
   ].filter((group) => group.items.length > 0);
@@ -34,7 +34,7 @@ export function DestinationVisitPlanner({ destination }: Props) {
     <section aria-labelledby="plan-your-visit" className="border-t border-border pt-8">
       <p className="eyebrow text-primary">Field notes</p>
       <h2 id="plan-your-visit" className="mt-3 font-display text-3xl">What to know before you go</h2>
-      <p className="mt-4 max-w-2xl text-sm leading-7 text-muted-foreground">Conditions, closures, fees and availability can change. Use these notes to plan, then confirm the latest details with the official source before making the drive.</p>
+      <p className="mt-4 max-w-2xl text-sm leading-7 text-muted-foreground">Conditions, closures, fees and availability can change. Use these notes to plan, then confirm the latest details with the official site before making the drive.</p>
       <div className="mt-8 grid border-y border-border sm:grid-cols-2">
         {groups.map((group, index) => (
           <div key={group.title} className={`py-6 ${index % 2 === 0 ? "sm:border-r sm:pr-8" : "sm:pl-8"} ${index < groups.length - 2 ? "border-b border-border" : ""}`}>
