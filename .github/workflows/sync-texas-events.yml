@@ -5,7 +5,7 @@ on:
     branches: [main]
     paths:
       - ".github/workflows/sync-texas-events.yml"
-      - "scripts/events/sync-texas-events.mjs"
+      - "scripts/events/sync-texas-events-safe.mjs"
       - "src/data/events-generated.ts"
       - "src/data/events-remote.ts"
   schedule:
@@ -35,7 +35,7 @@ jobs:
           node-version: "22"
 
       - name: Sync authoritative Texas events
-        run: node scripts/events/sync-texas-events.mjs
+        run: node scripts/events/sync-texas-events-safe.mjs
 
       - name: Commit refreshed event catalog
         run: |
