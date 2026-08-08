@@ -38,6 +38,9 @@ jobs:
       - name: Validate production data and migrated features
         run: npm run data:validate
 
+      - name: Validate Trip Planner curation integrity
+        run: node scripts/data/audit-trip-planner-destinations.mjs --integrity
+
       - name: Validate Phase 3 entity maintenance
         run: node scripts/data/validate-entity-maintenance.mjs
 
