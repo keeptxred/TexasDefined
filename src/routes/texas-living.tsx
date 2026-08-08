@@ -2,6 +2,7 @@ import { createFileRoute, Link } from '@tanstack/react-router';
 
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { ArticleCard } from '@/components/editorial/ArticleCard';
+import { DepartmentHero } from '@/components/editorial/DepartmentHero';
 import { Section, SectionHeader } from '@/components/editorial/SectionHeader';
 import { Container } from '@/components/layout/Container';
 import { articlesQuery } from '@/data/queries';
@@ -49,22 +50,15 @@ export const Route = createFileRoute('/texas-living')({
 function TexasLivingPage() {
   const { homeArticles, movingArticles } = Route.useLoaderData();
   return <>
-    <Container className="pb-10 pt-14 sm:pt-20">
-      <div className="mx-auto max-w-6xl">
-        <nav aria-label="Breadcrumb" className="text-[0.72rem] font-medium uppercase tracking-[0.12em] text-muted-foreground"><ol className="flex items-center gap-2"><li><Link to="/" className="hover:text-foreground">Front page</Link></li><li aria-hidden="true">/</li><li aria-current="page" className="text-foreground">Texas Life</li></ol></nav>
-        <div className="mt-9 max-w-5xl border-b border-border pb-12">
-          <p className="eyebrow text-primary">Texas Life</p>
-          <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">Home, history and everyday life across Texas</h1>
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">{description}</p>
-        </div>
-        <div className="mt-12 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
-          {sections.map(([title, to, copy], index) => <Link key={to} to={to} className="group border-t border-border pt-5">
-            <span className="eyebrow text-muted-foreground">{String(index + 1).padStart(2, '0')}</span>
-            <h2 className="mt-3 font-display text-3xl leading-tight transition-colors group-hover:text-primary">{title}</h2>
-            <p className="mt-3 text-sm leading-6 text-muted-foreground">{copy}</p>
-            <span className="eyebrow mt-5 inline-block border-b border-primary pb-1 text-primary">Open section →</span>
-          </Link>)}
-        </div>
+    <DepartmentHero current="Texas Life" eyebrow="Texas Life" title="Home, history and everyday life across Texas" description={description} />
+    <Container className="py-12 sm:py-16">
+      <div className="grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+        {sections.map(([title, to, copy], index) => <Link key={to} to={to} className="group border-t border-border pt-5">
+          <span className="eyebrow text-muted-foreground">{String(index + 1).padStart(2, '0')}</span>
+          <h2 className="mt-3 font-display text-3xl leading-tight transition-colors group-hover:text-primary">{title}</h2>
+          <p className="mt-3 text-sm leading-6 text-muted-foreground">{copy}</p>
+          <span className="eyebrow mt-5 inline-block border-b border-primary pb-1 text-primary">Open section →</span>
+        </Link>)}
       </div>
     </Container>
 
