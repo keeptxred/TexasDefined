@@ -12,15 +12,6 @@ const curated: Record<string, Partial<Destination>> = {
       credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons",
     },
   },
-  "sheldon-lake-state-park-environmental-learning-center": {
-    hero: {
-      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Tower_Sheldon_Lake_SP_Harris_Co_Texas_2024.jpg?width=1600",
-      alt: "John Jacob Observation Tower above the wetlands and prairie at Sheldon Lake State Park",
-      width: 1600,
-      height: 1067,
-      credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons",
-    },
-  },
   "brazos-bend-state-park": {
     summary: "Wetlands, coastal prairie and bottomland forest southwest of Houston, best known for close-but-safe alligator viewing, prolific birdlife and miles of flat trails around Elm and 40-Acre lakes.",
     nearestTown: "Needville",
