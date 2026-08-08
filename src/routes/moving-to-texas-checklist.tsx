@@ -23,7 +23,7 @@ export const Route = createFileRoute('/moving-to-texas-checklist')({
     scripts: [jsonLd({ '@context': 'https://schema.org', '@graph': [
       { '@type': 'WebPage', '@id': `${pageUrl}#page`, url: pageUrl, name: 'A Smoother First Month in Texas', description, isPartOf: { '@id': `${siteUrl}/#website` }, mainEntity: { '@id': `${pageUrl}#howto` }, breadcrumb: { '@id': `${pageUrl}#breadcrumbs` } },
       { '@type': 'HowTo', '@id': `${pageUrl}#howto`, name: 'A moving checklist for your first month in Texas', description, step: howToSections },
-      { '@type': 'BreadcrumbList', '@id': `${pageUrl}#breadcrumbs`, itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` }, { '@type': 'ListItem', position: 2, name: 'Moving to Texas', item: `${siteUrl}/moving-to-texas` }, { '@type': 'ListItem', position: 3, name: 'Moving Checklist', item: pageUrl }] },
+      { '@type': 'BreadcrumbList', '@id': `${pageUrl}#breadcrumbs`, itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Front page', item: `${siteUrl}/` }, { '@type': 'ListItem', position: 2, name: 'Moving Here', item: `${siteUrl}/moving-to-texas` }, { '@type': 'ListItem', position: 3, name: 'First Month Checklist', item: pageUrl }] },
     ] })],
   }),
   component: Page,
@@ -33,8 +33,8 @@ function Page() {
   return <>
     <section className="border-b border-border bg-surface">
       <Container className="py-16 sm:py-24">
-        <nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.14em] text-muted-foreground"><ol className="flex items-center gap-2"><li><Link to="/" className="hover:text-foreground">Front page</Link></li><li aria-hidden>·</li><li><Link to="/moving-to-texas" className="hover:text-foreground">Moving to Texas</Link></li><li aria-hidden>·</li><li aria-current="page" className="text-foreground">Checklist</li></ol></nav>
-        <p className="eyebrow mt-8 text-primary">The relocation checklist</p>
+        <nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.14em] text-muted-foreground"><ol className="flex items-center gap-2"><li><Link to="/" className="hover:text-foreground">Front page</Link></li><li aria-hidden>·</li><li><Link to="/moving-to-texas" className="hover:text-foreground">Moving Here</Link></li><li aria-hidden>·</li><li aria-current="page" className="text-foreground">First Month Checklist</li></ol></nav>
+        <p className="eyebrow mt-8 text-primary">The moving checklist</p>
         <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">A smoother first month in Texas</h1>
         <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">{description}</p>
       </Container>
@@ -42,7 +42,7 @@ function Page() {
 
     <Container className="py-14 sm:py-20">
       <article className="mx-auto max-w-4xl">
-        <p className="max-w-2xl text-base leading-8 text-muted-foreground">Work through the list in order, or use the sections as a reference for the stage of the move you are in now.</p>
+        <p className="max-w-2xl text-base leading-8 text-muted-foreground">Work through the list in order, or jump to the part that matches where you are in the move.</p>
         <div className="mt-12 border-t-2 border-foreground">
           {groups.map((group, groupIndex) => (
             <section key={group.title} className="grid gap-6 border-b border-border py-9 sm:grid-cols-[9rem_1fr]">
