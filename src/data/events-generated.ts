@@ -1,3 +1,4 @@
+import { events as curatedTexasEvents } from "./fixtures/texas";
 import { generatedTexasEvents } from "./generated/texas-events";
 import type { TexasEvent, TexasRegion } from "./types";
 
@@ -30,13 +31,10 @@ function category(value: string): TexasEvent["category"] {
   return "seasonal";
 }
 
-export function getGeneratedTexasEvents(limit = 24): TexasEvent[] {
-  const today = new Date().toISOString().slice(0, 10);
+function generatedRows(): TexasEvent[] {
   const rows = generatedTexasEvents as readonly GeneratedEventRow[];
   return rows
-    .filter((row) => row.status === "published" && (row.endDate || row.startDate) >= today)
-    .sort((left, right) => left.startDate.localeCompare(right.startDate) || right.editorialScore - left.editorialScore || right.confidenceScore - left.confidenceScore)
-    .slice(0, Math.max(1, limit))
+    .filter((row) => row.status === "published")
     .map((row) => ({
       id: row.id,
       brandId: "texasdefined",
@@ -53,4 +51,23 @@ export function getGeneratedTexasEvents(limit = 24): TexasEvent[] {
       sourceName: row.sourceName,
       sourceCheckedAt: row.sourceCheckedAt,
     }));
+}
+
+export function getGeneratedTexasEvents(limit = 24): TexasEvent[] {
+  const today = new Date().toISOString().slice(0, 10);
+  const merged = new Map<string, TexasEvent>();
+
+  for (const event of curatedTexasEvents) {
+    if ((event.endDate || event.startDate) < today) continue;
+    merged.set(`${event.name.toLowerCase()}:${event.startDate}`, event);
+  }
+
+  for (const event of generatedRows()) {
+    if ((event.endDate || event.startDate) < today) continue;
+    merged.set(`${event.name.toLowerCase()}:${event.startDate}`, event);
+  }
+
+  return [...merged.values()]
+    .sort((left, right) => left.startDate.localeCompare(right.startDate) || left.name.localeCompare(right.name))
+    .slice(0, Math.max(1, limit));
 }
