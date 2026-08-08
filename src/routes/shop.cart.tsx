@@ -80,7 +80,7 @@ function CartPage() {
             <p className="eyebrow text-primary">Order summary</p>
             <div className="mt-5 flex justify-between border-y border-border py-5 text-lg font-semibold"><span>Subtotal</span><span>{money(cart.subtotal)}</span></div>
             <p className="mt-3 text-xs leading-6 text-muted-foreground">Shipping and taxes are calculated at checkout.</p>
-            {error ? <p className="mt-4 text-sm text-destructive">{error}</p> : null}
+            {error ? <p className="mt-4 text-sm text-destructive" role="alert">{error}</p> : null}
             <button type="button" onClick={checkout} disabled={working} className="mt-6 w-full bg-foreground px-5 py-3 text-sm font-semibold uppercase tracking-[0.08em] text-background disabled:opacity-60">{working ? "Opening checkout…" : "Secure checkout"}</button>
             <p className="mt-4 text-xs leading-6 text-muted-foreground">Orders are printed and shipped by our U.S. production partner. Secure payment at checkout.</p>
           </aside>
