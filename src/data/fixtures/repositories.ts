@@ -13,6 +13,7 @@ import { supplementalExploreCategories } from "../explore-categories";
 import { guideHref } from "../guide-links";
 import type { Article, ArticleBlock, SearchDocument } from "../types";
 import { brewsterCountyBigBendArticle } from "./brewster-county-big-bend";
+import { culbersonCountyVanHornGuadalupeMountainsArticle } from "./culberson-county-van-horn-guadalupe-mountains";
 import {
   texasBarbecueStylesArticle,
   texasHomeMaintenanceCalendarArticle,
@@ -49,6 +50,7 @@ import {
 
 const editorialArticles = [
   ...exploreFeatureArticles,
+  culbersonCountyVanHornGuadalupeMountainsArticle,
   jeffDavisCountyFortDavisMountainsArticle,
   presidioCountyMarfaBorderlandsArticle,
   brewsterCountyBigBendArticle,
