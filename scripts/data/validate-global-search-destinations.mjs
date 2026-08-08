@@ -20,6 +20,7 @@ for (const feature of [
   'const base = await platform.search.documents(scope)',
   'fetchExploreDestinations({ limit: 5000 })',
   'fetchCoreExploreDestinations({ limit: 5000 })',
+  'mergeDestinations(enriched, core, preservedExploreDestinations)',
   'if (!destinations.length) return base',
   'base.filter((document) => document.kind !== "destination")',
   'destinations.map(destinationSearchDocument)',
@@ -30,10 +31,10 @@ for (const feature of [
 if (queries.includes('href: `/explore/${destination.category}/${destination.slug}`')) {
   errors.push('Global destination search documents must link to canonical /destination/:slug routes.');
 }
-if (!queries.includes('Enriched destination search index unavailable; retrying core remote catalog')) {
+if (!queries.includes('Enriched destination search index unavailable; merging core and preserved catalogs')) {
   errors.push('Enriched destination search fallback logging is missing.');
 }
-if (!queries.includes('Core remote destination search index unavailable; retaining fixture search documents')) {
+if (!queries.includes('Core remote destination search index unavailable; retaining preserved destinations')) {
   errors.push('Core destination search fallback logging is missing.');
 }
 
@@ -43,4 +44,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Global search destination enrichment, canonical URLs, keyword deduplication, replacement semantics, and outage fallbacks passed validation.');
+console.log('Global search destination enrichment, canonical URLs, keyword deduplication, replacement semantics, and preserved-catalog outage fallbacks passed validation.');
