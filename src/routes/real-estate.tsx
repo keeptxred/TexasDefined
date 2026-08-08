@@ -8,7 +8,7 @@ import { articlesQuery, destinationsQuery, regionsQuery } from "@/data/queries";
 import type { Article, Destination } from "@/data/types";
 import { buildEditorialCollectionHead, buildMeta, canonicalLink } from "@/lib/seo";
 
-const description = "Ranchettes, bungalows, lake lots and city lofts — what homes cost, where people are moving and what to know before you put down roots.";
+const description = "Ranchettes, bungalows, lake lots and city lofts — what homes cost, where people are moving and what to know before you buy, build or own property in Texas.";
 const imageAlt = "Evening light across rolling Texas Hill Country";
 
 export const Route = createFileRoute("/real-estate")({
@@ -34,5 +34,5 @@ export const Route = createFileRoute("/real-estate")({
     ]);
     return { articles, destinations };
   },
-  component: () => <CategoryPage category="real-estate" eyebrow="Homes & Land" title="What it means to put down roots in Texas" intro={description} image={{ src: heroHillCountry, alt: imageAlt, width: 1600, height: 1067 }} />,
+  component: () => <CategoryPage category="real-estate" eyebrow="Homes & Land" title="Homes, land and ownership across Texas" intro={description} image={{ src: heroHillCountry, alt: imageAlt, width: 1600, height: 1067 }} />,
 });
