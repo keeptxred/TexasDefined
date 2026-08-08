@@ -53,7 +53,7 @@ export const Route = createFileRoute('/texas-sales-tax-explained')({
 
 function Page() {
   return (
-    <main>
+    <>
       <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
         <article className="mx-auto max-w-6xl">
           <nav aria-label="Breadcrumb" className="border-b border-border pb-4 text-xs uppercase tracking-[0.14em] text-muted-foreground">
@@ -61,7 +61,7 @@ function Page() {
           </nav>
 
           <header className="grid gap-8 border-b border-border py-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end">
-            <div><p className="eyebrow text-primary">Good to know</p><h1 className="mt-3 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">How Texas sales tax works</h1><p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground sm:text-xl">{description}</p></div>
+            <div><p className="eyebrow text-primary">Money & Property</p><h1 className="mt-3 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">How Texas sales tax works</h1><p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground sm:text-xl">{description}</p></div>
             <p className="border-l border-border pl-6 text-sm leading-6 text-muted-foreground">The statewide rate is only part of the picture. City, county, transit and special-district taxes can change the final amount.</p>
           </header>
 
@@ -83,7 +83,7 @@ function Page() {
           </section>
         </article>
       </Container>
-    </main>
+    </>
   );
 }
 
