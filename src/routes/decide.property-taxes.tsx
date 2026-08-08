@@ -36,7 +36,7 @@ function Page() {
     <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
       <article className="mx-auto max-w-6xl">
         <nav aria-label="Breadcrumb" className="border-b border-border pb-4 text-xs uppercase tracking-[0.14em] text-muted-foreground">
-          <Link to="/">Front page</Link><span aria-hidden="true" className="mx-2">/</span><Link to="/decide/financial-tools">Money & Property</Link><span aria-hidden="true" className="mx-2">/</span><span aria-current="page" className="text-foreground">Property taxes</span>
+          <Link to="/">Front page</Link><span aria-hidden="true" className="mx-2">/</span><Link to="/decide/financial-tools">Money Made Clearer</Link><span aria-hidden="true" className="mx-2">/</span><span aria-current="page" className="text-foreground">Property taxes</span>
         </nav>
 
         <header className="grid gap-8 border-b border-border py-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end">
@@ -69,8 +69,8 @@ function Page() {
         </section>
 
         <aside className="grid gap-6 border-y border-border py-7 lg:grid-cols-[12rem_1fr]">
-          <strong className="font-display text-2xl">A planning number, not a bill</strong>
-          <p className="text-sm leading-6 text-muted-foreground">The official bill calculates taxing units separately. Check the exact property, exemptions, adopted rates, MUDs and other special districts before making a housing or financial decision.</p>
+          <strong className="font-display text-2xl">A starting point, not a bill</strong>
+          <p className="text-sm leading-6 text-muted-foreground">The official bill calculates taxing units separately. Check the exact property, exemptions, adopted rates, municipal utility districts (MUDs) and other special districts before making a housing or financial decision.</p>
         </aside>
 
         <section className="grid gap-8 py-10 lg:grid-cols-[15rem_1fr]">
