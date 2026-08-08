@@ -23,6 +23,7 @@ import {
 import { exploreFeatureArticles } from "./explore-feature-articles";
 import { newestEvergreenArticles } from "./newest-evergreen";
 import { highSchoolFootballNewcomersArticle } from "./high-school-football-newcomers";
+import { jeffDavisCountyFortDavisMountainsArticle } from "./jeff-davis-county-fort-davis-mountains";
 import { kolacheOrKlobasnekArticle } from "./kolache-or-klobasnek";
 import { migratedEditorialArticles } from "./migrated-editorial";
 import { orderingTexasBarbecueArticle } from "./ordering-texas-barbecue";
@@ -48,6 +49,7 @@ import {
 
 const editorialArticles = [
   ...exploreFeatureArticles,
+  jeffDavisCountyFortDavisMountainsArticle,
   presidioCountyMarfaBorderlandsArticle,
   brewsterCountyBigBendArticle,
   ...newestEvergreenArticles,
