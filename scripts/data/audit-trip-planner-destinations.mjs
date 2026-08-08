@@ -82,6 +82,13 @@ const brokenAliasTargets = [...aliases.entries()]
   .filter(([, target]) => !curated.has(target))
   .map(([slug, target]) => ({ slug, target }));
 
+// Alias source slugs are normalized to their target before any curator runs. A curation
+// record keyed by an alias source can therefore never execute and should be merged into
+// the canonical target or retired. Report these separately from ordinary duplicates.
+const aliasShadowedCurations = [...aliases.entries()]
+  .filter(([slug]) => curated.has(slug))
+  .map(([slug, target]) => ({ slug, target, files: curationOwners.get(slug) ?? [] }));
+
 const availabilitySource = read("src/data/destination-availability.ts");
 const unavailable = stringSetFromBlock(availabilitySource, "UNAVAILABLE_DESTINATION_SLUGS");
 const nonPrimary = stringSetFromBlock(availabilitySource, "NON_PRIMARY_TRIP_PLANNER_SLUGS");
@@ -120,6 +127,7 @@ const result = {
   aliases: aliases.size,
   duplicateCurationSlugs: duplicateCurations.length,
   layeredDuplicateFiles: layeredDuplicateFiles.length,
+  aliasShadowedCurationSlugs: aliasShadowedCurations.length,
   emptyCurationFiles: emptyCurationFiles.length,
   activeEmptyCurationFiles: activeEmptyCurationFiles.length,
   brokenAliasTargets: brokenAliasTargets.length,
@@ -141,6 +149,7 @@ const result = {
   layeredFiles: layeredDuplicateFiles,
   emptyFiles: emptyCurationFiles,
   duplicateCurations,
+  aliasShadowedCurations,
   brokenAliases: brokenAliasTargets,
   remainingStateParks: stateParkCoverage.remaining,
   remainingExploreHeroes: exploreCoverage.remaining,
