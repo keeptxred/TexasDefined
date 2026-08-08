@@ -32,6 +32,14 @@ const travelGuides = [
 const allFeaturedGuides = [...travelGuides, ...practicalGuides];
 const guideAnchor = (index: number) => `guide-${index + 1}`;
 const guidesUrl = absoluteUrl(texasDefinedBrand, "/guides");
+const TOPIC_LABELS: Record<string, { eyebrow: string; title: string }> = {
+  moving: { eyebrow: "Moving Here", title: "More for the move" },
+  housing: { eyebrow: "Homes & Land", title: "More on home and property" },
+  "property-taxes": { eyebrow: "Property Taxes", title: "More on Texas property taxes" },
+  money: { eyebrow: "Money & Property", title: "More financial tools and explainers" },
+  utilities: { eyebrow: "Everyday Costs", title: "More on utilities and monthly costs" },
+  travel: { eyebrow: "Travel", title: "More ways to explore Texas" },
+};
 const editorialLabel = (value: string) => value.replaceAll("-", " ").replace(/\b\w/g, (letter) => letter.toUpperCase());
 
 export const Route = createFileRoute("/guides")({
@@ -58,7 +66,10 @@ function GuidesPage() {
       <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">{description}</p>
     </Container>
     <Section tone="surface"><Container><SectionHeader eyebrow="Travel guides" title="Where to go and how to make the most of it" description="Parks, water, camping, roads, caverns, small towns and historic places—edited into useful starting points." /><ul className="mt-10 divide-y divide-border border-y border-border md:grid md:grid-cols-2 md:divide-y-0 lg:grid-cols-4">{travelGuides.map((guide, index) => <li key={`${guide.label}-${guide.to}`} id={guideAnchor(index)} className="border-border py-6 md:border-b md:p-6 lg:border-r lg:last:border-r-0"><Link to="/explore/$category" params={{ category: guide.to.replace("/explore/", "") }} className="group block h-full"><p className="eyebrow text-muted-foreground">Guide {String(index + 1).padStart(2, "0")}</p><h2 className="mt-3 font-display text-2xl leading-tight group-hover:text-primary">{guide.label}</h2><p className="mt-3 text-sm leading-6 text-muted-foreground">{guide.body}</p><p className="mt-4 text-xs leading-5 text-muted-foreground">{guide.note}</p><span className="eyebrow mt-6 inline-block border-b border-primary pb-1 text-primary">Read the guide</span></Link></li>)}</ul></Container></Section>
-    <Section><Container><SectionHeader eyebrow="Living here" title="Practical guides for making Texas home" /><ul className="mt-10 grid gap-x-8 gap-y-0 md:grid-cols-2 lg:grid-cols-4">{practicalGuides.map((guide, index) => <li key={guide.to} id={guideAnchor(travelGuides.length + index)} className="border-t border-border py-6"><Link to={guide.to} className="group block"><h2 className="font-display text-2xl leading-tight group-hover:text-primary">{guide.label}</h2><p className="mt-3 text-sm leading-6 text-muted-foreground">{guide.body}</p><span className="eyebrow mt-5 inline-block text-primary">Open guide →</span></Link></li>)}</ul></Container></Section>
-    {topics.map((topic, index) => <Section key={topic} tone={index % 2 === 0 ? "surface" : "default"}><Container><SectionHeader eyebrow={editorialLabel(topic)} title={`More on ${topic.replaceAll("-", " ").toLowerCase()}`} /><ul className="mt-10 grid gap-8 md:grid-cols-2 lg:grid-cols-3">{guides.filter((guide) => guide.topic === topic).map((guide) => <li key={guide.id}><GuideCard guide={guide} /></li>)}</ul></Container></Section>)}
+    <Section><Container><SectionHeader eyebrow="Living here" title="Practical guides for making Texas home" /><ul className="mt-10 grid gap-x-8 gap-y-0 md:grid-cols-2 lg:grid-cols-4">{practicalGuides.map((guide, index) => <li key={guide.to} id={guideAnchor(travelGuides.length + index)} className="border-t border-border py-6"><Link to={guide.to} className="group block"><h2 className="font-display text-2xl leading-tight group-hover:text-primary">{guide.label}</h2><p className="mt-3 text-sm leading-6 text-muted-foreground">{guide.body}</p><span className="eyebrow mt-5 inline-block text-primary">Read the guide →</span></Link></li>)}</ul></Container></Section>
+    {topics.map((topic, index) => {
+      const topicCopy = TOPIC_LABELS[topic] ?? { eyebrow: editorialLabel(topic), title: `More on ${topic.replaceAll("-", " ").toLowerCase()}` };
+      return <Section key={topic} tone={index % 2 === 0 ? "surface" : "default"}><Container><SectionHeader eyebrow={topicCopy.eyebrow} title={topicCopy.title} /><ul className="mt-10 grid gap-8 md:grid-cols-2 lg:grid-cols-3">{guides.filter((guide) => guide.topic === topic).map((guide) => <li key={guide.id}><GuideCard guide={guide} /></li>)}</ul></Container></Section>;
+    })}
   </>;
 }
