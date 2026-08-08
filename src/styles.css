@@ -108,3 +108,14 @@
 @keyframes slow-zoom { from { transform: scale(1.06); } to { transform: scale(1); } }
 @utility animate-rise { animation: rise-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
 @utility animate-slow-zoom { animation: slow-zoom 14s ease-out both; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+  }
+  .animate-rise,
+  .animate-slow-zoom {
+    animation: none !important;
+    transform: none !important;
+  }
+}
