@@ -2,9 +2,14 @@ import { useBrand } from "@/brand/context";
 import type { TexasEvent } from "@/data/types";
 import { formatDateRange } from "@/domain/utils/format";
 
-function categoryLabel(category: string) {
-  return category.replaceAll("-", " ").replace(/\b\w/g, (letter) => letter.toUpperCase());
-}
+const EVENT_LABELS: Record<TexasEvent["category"], string> = {
+  music: "Live Music",
+  food: "Food & Drink",
+  rodeo: "Rodeo",
+  seasonal: "Seasonal",
+  sport: "Sports",
+  culture: "Arts & Culture",
+};
 
 export function EventCard({ event, regionLabel }: { event: TexasEvent; regionLabel?: string | undefined }) {
   const brand = useBrand();
@@ -12,7 +17,7 @@ export function EventCard({ event, regionLabel }: { event: TexasEvent; regionLab
   return (
     <article className="grid gap-4 border-t border-border py-7 sm:grid-cols-[9rem_1fr] sm:gap-7">
       <div>
-        <p className="eyebrow text-primary">{categoryLabel(event.category)}</p>
+        <p className="eyebrow text-primary">{EVENT_LABELS[event.category]}</p>
         <p className="mt-2 text-sm leading-6 text-muted-foreground">{formatDateRange(event.startDate, event.endDate, brand.identity.locale)}</p>
         <p className="mt-1 text-xs uppercase tracking-[0.1em] text-muted-foreground">{event.city}{regionLabel ? ` · ${regionLabel}` : ""}</p>
       </div>
