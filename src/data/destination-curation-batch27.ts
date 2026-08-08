@@ -15,6 +15,7 @@ const curated: Record<string, Partial<Destination>> = {
     ],
     managingAuthority: "Texas Historical Commission",
     officialUrl: "https://thc.texas.gov/historic-sites/port-isabel-lighthouse",
+    sourceCheckedAt: "2026-08-07",
     address: "421 E. Queen Isabella Blvd, Port Isabel, TX 78578",
   },
 };
