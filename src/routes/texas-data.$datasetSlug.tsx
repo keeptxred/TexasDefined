@@ -73,13 +73,15 @@ export const Route = createFileRoute('/texas-data/$datasetSlug')({
 function Page() {
   const dataset = Route.useLoaderData();
   return (
-    <main>
+    <>
       <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
         <article className="mx-auto max-w-6xl">
           <nav aria-label="Breadcrumb" className="border-b border-border pb-4 text-xs uppercase tracking-[0.14em] text-muted-foreground">
             <Link to="/" className="hover:text-foreground">Front page</Link>
             <span aria-hidden="true" className="mx-2">/</span>
             <Link to="/texas-data" className="hover:text-foreground">The Data Desk</Link>
+            <span aria-hidden="true" className="mx-2">/</span>
+            <span aria-current="page" className="text-foreground">{dataset.title}</span>
           </nav>
 
           <header className="grid gap-8 border-b border-border py-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end">
@@ -129,7 +131,7 @@ function Page() {
           </footer>
         </article>
       </Container>
-    </main>
+    </>
   );
 }
 
