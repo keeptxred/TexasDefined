@@ -11,7 +11,7 @@ export const Route = createFileRoute('/learn/property-taxes')({
   head: () => ({
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath,
-      title: 'Texas Property Taxes Explained',
+      title: 'Property Taxes Without the Guesswork',
       description,
     }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
@@ -25,7 +25,7 @@ function Page() {
       canonicalPath={canonicalPath}
       reviewedAt="August 6, 2026"
       eyebrow="Homeowner basics"
-      title="Texas property taxes explained"
+      title="Property taxes without the guesswork"
       intro="Property taxes are local taxes based on the value of property. They help pay for schools, roads, public safety and other community services. This guide begins with the essentials: what the tax is, why it matters, who pays it and which local office handles each part of the process."
       officialUrl="https://comptroller.texas.gov/taxes/property-tax/"
       officialLabel="See the Texas Comptroller’s property-tax guidance"
@@ -145,8 +145,8 @@ function Page() {
 
     <Container className="pb-16 sm:pb-24">
       <section className="mx-auto max-w-4xl rounded-md border border-border p-6">
-        <p className="eyebrow text-primary">Official sources used for this section</p>
-        <h2 className="mt-2 font-display text-2xl">Verify the rule with the responsible authority</h2>
+        <p className="eyebrow text-primary">Where we check the details</p>
+        <h2 className="mt-2 font-display text-2xl">Check the rule at the source</h2>
         <div className="mt-4 grid gap-3 text-sm">
           <a className="font-medium text-primary underline" href="https://comptroller.texas.gov/taxes/property-tax/basics.php" target="_blank" rel="noreferrer noopener">Texas Comptroller: Property Tax System Basics</a>
           <a className="font-medium text-primary underline" href="https://comptroller.texas.gov/taxes/property-tax/county-directory/" target="_blank" rel="noreferrer noopener">Texas Comptroller: Local Appraisal District and Tax Office Directory</a>
@@ -161,7 +161,7 @@ function Page() {
       <section className="mx-auto max-w-4xl rounded-md border border-border p-6">
         <p className="eyebrow text-primary">What to do next</p>
         <h2 className="mt-2 font-display text-2xl">Understand the values on your notice</h2>
-        <p className="mt-3 text-muted-foreground">The next phase explains market value, appraised value, assessed value and taxable value—four numbers that are related but not interchangeable.</p>
+        <p className="mt-3 text-muted-foreground">Next, look at market value, appraised value, assessed value and taxable value—four numbers that are related but not interchangeable.</p>
         <Link to="/decide/property-taxes" className="mt-4 inline-block font-medium text-primary underline">Estimate your property taxes</Link>
       </section>
     </Container>
