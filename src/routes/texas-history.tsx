@@ -19,8 +19,8 @@ export const Route = createFileRoute("/texas-history")({
     description,
     image: enchantedRock,
     imageAlt,
-    breadcrumbParentName: "The Magazine",
-    breadcrumbParentPath: "/",
+    breadcrumbParentName: "Texas Life",
+    breadcrumbParentPath: "/texas-living",
     items: [
       ...loaderData.articles.map((article) => ({ type: "Article" as const, name: article.title, url: `/article/${article.slug}`, image: article.hero.src, description: article.dek })),
       ...loaderData.destinations.map((destination) => ({ type: "TouristAttraction" as const, name: destination.name, url: `/destination/${destination.slug}`, image: destination.hero.src, description: destination.summary })),
