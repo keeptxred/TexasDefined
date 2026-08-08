@@ -8,7 +8,7 @@ import { articlesQuery, destinationsQuery, regionsQuery } from "@/data/queries";
 import type { Article, Destination } from "@/data/types";
 import { buildEditorialCollectionHead, buildMeta, canonicalLink } from "@/lib/seo";
 
-const description = "Native plants that survive August, porches made for evening and rooms that feel at home here without dressing up like a ranch.";
+const description = "Native plants that survive August, porches made for evening and rooms designed for Texas heat, light and everyday living.";
 const imageAlt = "Bluebonnets running to a fence line in spring";
 
 export const Route = createFileRoute("/home-garden")({
