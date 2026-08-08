@@ -11,7 +11,7 @@ const description = 'Useful Texas facts, local finders and practical guidance ga
 const nextStops = [
   ['Find your county', '/browse/counties', 'Explore all 254 counties and find trusted local information for each one.'],
   ['Find a city', '/browse/cities', 'Get to know major cities, regional centers and communities across the state.'],
-  ['Places worth exploring', '/explore', 'Find parks, lakes, caverns, road trips and memorable corners of Texas.'],
+  ['Explore Texas', '/explore', 'Find parks, lakes, caverns, road trips and memorable corners of Texas.'],
   ['Property-tax help', '/decide/property-taxes', 'Estimate a property-tax bill and understand the numbers behind it.'],
   ['Money & Property', '/decide/financial-tools', 'Compare household costs, homeownership expenses and moving decisions.'],
   ['Texas resources', '/texas-resources', 'Find official contacts, local information and practical guides.'],
@@ -59,7 +59,7 @@ export const Route = createFileRoute('/texas-data')({
               '@id': `${pageUrl}#breadcrumb`,
               itemListElement: [
                 { '@type': 'ListItem', position: 1, name: 'Front page', item: absoluteUrl(texasDefinedBrand, '/') },
-                { '@type': 'ListItem', position: 2, name: 'Texas Facts and Figures', item: pageUrl },
+                { '@type': 'ListItem', position: 2, name: 'Texas Data', item: pageUrl },
               ],
             },
           ],
