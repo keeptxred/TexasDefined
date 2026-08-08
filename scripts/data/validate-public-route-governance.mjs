@@ -27,6 +27,7 @@ const nestedAdminChildPaths = new Set([
   '/entity-maintenance',
   '/entity-import-review',
 ]);
+const nestedShopChildPaths = new Set(['/cart', '/checkout-return']);
 
 const normalize = (value) => value === '/' ? value : value.replace(/\/$/, '');
 const registeredStaticPublicPaths = new Set(
@@ -37,12 +38,15 @@ const registeredStaticPublicPaths = new Set(
     .filter((routePath) => !routePath.startsWith('/api/'))
     .filter((routePath) => !routePath.startsWith('/admin'))
     .filter((routePath) => !nestedAdminChildPaths.has(routePath))
+    .filter((routePath) => !nestedShopChildPaths.has(routePath))
     .filter((routePath) => !routePath.endsWith('.xml'))
     .filter((routePath) => !routePath.endsWith('.txt')),
 );
 registeredStaticPublicPaths.add('/');
 registeredStaticPublicPaths.add('/explore');
 registeredStaticPublicPaths.add('/shop');
+registeredStaticPublicPaths.add('/shop/cart');
+registeredStaticPublicPaths.add('/shop/checkout-return');
 
 for (const routePath of registeredStaticPublicPaths) {
   if (!classified.has(routePath)) failures.push(`Registered static public route is unclassified: ${routePath}.`);
