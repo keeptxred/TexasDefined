@@ -1,6 +1,7 @@
 import type { Destination } from "./types";
 
 const TPWD = "Texas Parks and Wildlife Department";
+const CHECKED = "2026-08-07";
 const curated: Record<string, Partial<Destination>> = {
   "choke-canyon-state-park": {
     summary: "A South Texas reservoir park between San Antonio and Corpus Christi with excellent fishing, birding and brush-country wildlife across the full-service Calliham Unit and day-use South Shore Unit.",
@@ -15,6 +16,7 @@ const curated: Record<string, Partial<Destination>> = {
     ],
     managingAuthority: TPWD,
     officialUrl: "https://tpwd.texas.gov/state-parks/choke-canyon",
+    sourceCheckedAt: CHECKED,
   },
   "cooper-lake-state-park": {
     summary: "A Northeast Texas lake park 90 minutes from Dallas with two active units—Doctors Creek on the north shore and South Sulphur on the south—offering fishing, swimming, trails, camping and cabins around Jim Chapman Lake.",
@@ -29,6 +31,7 @@ const curated: Record<string, Partial<Destination>> = {
     ],
     managingAuthority: TPWD,
     officialUrl: "https://tpwd.texas.gov/state-parks/cooper-lake",
+    sourceCheckedAt: CHECKED,
   },
   "devils-river-state-natural-area": {
     summary: "A remote, exceptionally clear spring-fed river natural area in Southwest Texas with two reservation-only units—Del Norte and Dan A. Hughes—protecting rugged limestone canyon country and primitive backcountry access.",
@@ -43,6 +46,7 @@ const curated: Record<string, Partial<Destination>> = {
     ],
     managingAuthority: TPWD,
     officialUrl: "https://tpwd.texas.gov/state-parks/devils-river/",
+    sourceCheckedAt: CHECKED,
   },
   "chinati-mountains-state-natural-area": {
     summary: "A nearly 39,000-acre Trans-Pecos natural area protecting volcanic peaks, steep canyons and desert-to-oak-woodland habitat west of Presidio; the property remains closed while TPWD develops public access.",
@@ -58,6 +62,7 @@ const curated: Record<string, Partial<Destination>> = {
     ],
     managingAuthority: TPWD,
     officialUrl: "https://tpwd.texas.gov/state-parks/chinati-mountains/",
+    sourceCheckedAt: CHECKED,
   },
 };
 
