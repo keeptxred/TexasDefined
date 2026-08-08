@@ -11,6 +11,7 @@ export function ProductCard({ product, className }: { product: Product; classNam
   const brand = useBrand();
   const collection = product.collectionSlugs[0];
   const { saved, toggle } = useSavedProduct(product.id);
+  const actionLabel = product.productUrl ? "View item" : collection ? "View collection" : null;
 
   const content = (
     <>
@@ -27,7 +28,7 @@ export function ProductCard({ product, className }: { product: Product; classNam
           <p className="shrink-0 text-sm font-semibold text-foreground">{formatPrice(product.priceCents, product.currency, brand.identity.locale)}</p>
         </div>
         <p className="mt-3 line-clamp-3 text-sm leading-6 text-muted-foreground">{product.blurb}</p>
-        <span className="eyebrow mt-5 inline-flex items-center gap-2 text-primary">View item <span aria-hidden>→</span></span>
+        {actionLabel ? <span className="eyebrow mt-5 inline-flex items-center gap-2 text-primary">{actionLabel} <span aria-hidden>→</span></span> : null}
       </div>
     </>
   );
@@ -37,7 +38,7 @@ export function ProductCard({ product, className }: { product: Product; classNam
       <button type="button" onClick={toggle} aria-pressed={saved} aria-label={saved ? `Remove ${product.name} from your saved picks` : `Save ${product.name} for later`} title={saved ? "Remove from saved picks" : "Save for later"} className="absolute right-3 top-3 z-10 rounded-full bg-background/92 p-2 text-foreground/70 transition-all hover:text-primary lg:opacity-0 lg:focus-visible:opacity-100 lg:group-hover:opacity-100">
         <Heart className={cn("size-4", saved && "fill-primary text-primary")} aria-hidden />
       </button>
-      {product.productUrl ? <Link to="/shop/product/$productId" params={{ productId: product.id }} className="block" aria-label={`View ${product.name}`}>{content}</Link> : collection ? <Link to="/shop/$collection" params={{ collection }} className="block">{content}</Link> : content}
+      {product.productUrl ? <Link to="/shop/product/$productId" params={{ productId: product.id }} className="block" aria-label={`View ${product.name}`}>{content}</Link> : collection ? <Link to="/shop/$collection" params={{ collection }} className="block" aria-label={`View the ${collection.replaceAll("-", " ")} collection`}>{content}</Link> : content}
     </article>
   );
 }
