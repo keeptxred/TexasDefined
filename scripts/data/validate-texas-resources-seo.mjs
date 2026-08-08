@@ -3,6 +3,7 @@ import path from 'node:path';
 
 const root = process.cwd();
 const route = fs.readFileSync(path.join(root, 'src/routes/texas-resources.tsx'), 'utf8');
+const departmentHero = fs.readFileSync(path.join(root, 'src/components/editorial/DepartmentHero.tsx'), 'utf8');
 const errors = [];
 
 for (const feature of [
@@ -12,7 +13,8 @@ for (const feature of [
   'numberOfItems: itemListElement.length',
   "isPartOf: { '@id': `${siteUrl}/#website` }",
   'groups.flatMap((group) => group.links)',
-  'aria-label="Breadcrumb"',
+  '<DepartmentHero',
+  'current="Start Here"',
   "['Texas Life', '/texas-living']",
   "'/sports'",
   "'/texas-history'",
@@ -23,10 +25,18 @@ for (const feature of [
   if (!route.includes(feature)) errors.push(`Texas resources SEO or discovery feature missing: ${feature}.`);
 }
 
+for (const feature of [
+  'aria-label="Breadcrumb"',
+  '<Link to="/"',
+  'aria-current="page"',
+]) {
+  if (!departmentHero.includes(feature)) errors.push(`Shared Start Here breadcrumb feature missing: ${feature}.`);
+}
+
 if (errors.length) {
   console.error('Texas resources SEO validation failed:');
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
 
-console.log('Texas resources CollectionPage, ItemList, breadcrumbs, and public-hub discovery links are protected.');
+console.log('Texas resources CollectionPage, ItemList, shared breadcrumb, and public-hub discovery links are protected.');
