@@ -11,13 +11,13 @@ const description = 'Homes, history, sports, moving and the practical details of
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const pageUrl = `${siteUrl}/texas-living`;
 const sections = [
-  ['Explore Texas', '/explore', 'Parks, lakes, small towns, road trips and places worth making time for.'],
-  ['Texas Sports', '/sports', 'The games, rivalries and rituals that are part of life here.'],
-  ['Texas History', '/texas-history', 'The people, places and turning points that still shape the state.'],
+  ['Explore', '/explore', 'Parks, lakes, small towns, road trips and places worth making time for.'],
+  ['Sports', '/sports', 'The games, rivalries and rituals that are part of life here.'],
+  ['History', '/texas-history', 'The people, places and turning points that still shape the state.'],
   ['Home & Garden', '/home-garden', 'Texas homes, yards, seasons and the practical projects that come with them.'],
   ['Moving Here', '/moving-to-texas', 'Compare places, understand the costs and arrive with fewer surprises.'],
   ['Homes & Land', '/real-estate', 'Home buying, ownership, mortgages, insurance, equity and land.'],
-  ['Practical Guides', '/guides', 'Useful answers for the decisions and details that come with living in Texas.'],
+  ['Guides', '/guides', 'Useful answers for the decisions and details that come with living in Texas.'],
   ['Money & Property', '/decide/financial-tools', 'Calculators and explainers for housing, paychecks, utilities, insurance and property taxes.'],
 ] as const;
 
