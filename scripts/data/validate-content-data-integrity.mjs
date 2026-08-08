@@ -25,7 +25,8 @@ for (const feature of [
   'if (remoteFailed && destinations.length === 0)',
   'status: 503',
   '"Retry-After": "300"',
-  'new Map(destinations.filter((item) => item.slug)',
+  'isCanonicalDestinationSlug',
+  '.filter((item) => item.slug && isCanonicalDestinationSlug(item.slug))',
 ]) {
   if (!exploreSitemap.includes(feature)) errors.push(`Explore sitemap fallback feature missing: ${feature}.`);
 }
@@ -36,4 +37,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Event freshness and Explore sitemap fallback validation passed.');
+console.log('Event freshness and canonical Explore sitemap fallback validation passed.');
