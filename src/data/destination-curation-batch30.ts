@@ -1,5 +1,8 @@
 import type { Destination } from "./types";
 
+// Compatibility layer retained for the Village Creek photography override.
+// Big Bend and Guadalupe Mountains hero photography now lives with their
+// authoritative destination profiles in batch 44.
 const curated: Record<string, Partial<Destination>> = {
   "village-creek-state-park": {
     hero: {
@@ -8,24 +11,6 @@ const curated: Record<string, Partial<Destination>> = {
       width: 1600,
       height: 900,
       credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons",
-    },
-  },
-  "big-bend-national-park": {
-    hero: {
-      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Gfp-texas-big-bend-national-park-out-of-santa-elena-canyon.jpg?width=1600",
-      alt: "The Rio Grande emerging from Santa Elena Canyon with the Chisos Mountains beyond in Big Bend National Park",
-      width: 1600,
-      height: 1052,
-      credit: "Yinan Chen · Public Domain · Wikimedia Commons",
-    },
-  },
-  "guadalupe-mountains-national-park": {
-    hero: {
-      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Guadalupe_mountains_national_park.jpg?width=1600",
-      alt: "Guadalupe Mountains National Park rising above the Chihuahuan Desert in West Texas",
-      width: 1600,
-      height: 1067,
-      credit: "Public Domain · Wikimedia Commons",
     },
   },
 };
