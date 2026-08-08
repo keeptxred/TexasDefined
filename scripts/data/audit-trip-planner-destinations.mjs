@@ -39,6 +39,11 @@ function objectBlock(source, slug) {
   return next ? source.slice(start, start + startMatch[0].length + next.index) : source.slice(start);
 }
 
+function heroDimensions(source) {
+  return [...source.matchAll(/"([a-z0-9][a-z0-9-]*)"\s*:\s*\{[^\n]*?width:\s*(\d+),\s*height:\s*(\d+)/g)]
+    .map((match) => ({ slug: match[1], width: Number(match[2]), height: Number(match[3]) }));
+}
+
 const curationFileNames = curationFiles();
 const curated = new Set();
 const curationOwners = new Map();
@@ -128,19 +133,23 @@ function hasCuratedHeroOverride(slug) {
   });
 }
 
+function shallowHeroes(source) {
+  return heroDimensions(source)
+    .filter(({ slug, width, height }) => !excludedFromPlanner(slug) && width > 0 && height / width < 0.45)
+    .map(({ slug, width, height }) => ({ slug, width, height, hasCuratedHeroOverride: hasCuratedHeroOverride(slug) }));
+}
+
 const stateParkHeroSource = read("src/data/state-park-hero-map.ts");
 const stateParkImageSlugs = quotedObjectKeys(stateParkHeroSource);
 const stateParkCoverage = activeCoverage(stateParkImageSlugs);
-const stateParkHeroDimensions = [...stateParkHeroSource.matchAll(/"([a-z0-9][a-z0-9-]*)"\s*:\s*\{[^\n]*?width:\s*(\d+),\s*height:\s*(\d+)/g)]
-  .map((match) => ({ slug: match[1], width: Number(match[2]), height: Number(match[3]) }));
-const shallowStateParkHeroes = stateParkHeroDimensions
-  .filter(({ slug, width, height }) => !excludedFromPlanner(slug) && width > 0 && height / width < 0.45)
-  .map(({ slug, width, height }) => ({ slug, width, height, hasCuratedHeroOverride: hasCuratedHeroOverride(slug) }));
+const shallowStateParkHeroes = shallowHeroes(stateParkHeroSource);
 const unresolvedShallowStateParkHeroes = shallowStateParkHeroes.filter((hero) => !hero.hasCuratedHeroOverride);
 
 const exploreHeroSource = read("src/data/explore-hero-map.ts");
 const exploreHeroSlugs = quotedObjectKeys(exploreHeroSource);
 const exploreCoverage = activeCoverage(exploreHeroSlugs);
+const shallowExploreHeroes = shallowHeroes(exploreHeroSource);
+const unresolvedShallowExploreHeroes = shallowExploreHeroes.filter((hero) => !hero.hasCuratedHeroOverride);
 
 const preservedCatalogSlugs = [
   ...recordSlugs(read("src/data/fixtures/legacy-explore.ts")),
@@ -179,6 +188,8 @@ const result = {
   curatedExploreHeroSlugs: exploreCoverage.covered.length,
   remainingExploreHeroSlugs: exploreCoverage.remaining.length,
   excludedExploreHeroSlugs: exploreCoverage.excluded.length,
+  shallowExploreHeroes: shallowExploreHeroes.length,
+  unresolvedShallowExploreHeroes: unresolvedShallowExploreHeroes.length,
   activeFiles: [...activeCurationFiles].sort((a, b) => a.localeCompare(b, undefined, { numeric: true })),
   inactiveFiles: inactiveCurationFiles,
   activeEmptyFiles: activeEmptyCurationFiles,
@@ -187,8 +198,10 @@ const result = {
   duplicateCurations,
   aliasShadowedCurations,
   brokenAliases: brokenAliasTargets,
-  shallowHeroes: shallowStateParkHeroes,
-  unresolvedShallowHeroes: unresolvedShallowStateParkHeroes,
+  shallowStateParkHeroDetails: shallowStateParkHeroes,
+  unresolvedShallowStateParkHeroDetails: unresolvedShallowStateParkHeroes,
+  shallowExploreHeroDetails: shallowExploreHeroes,
+  unresolvedShallowExploreHeroDetails: unresolvedShallowExploreHeroes,
   remainingPreservedCatalog: preservedCoverage.remaining,
   remainingStateParks: stateParkCoverage.remaining,
   remainingExploreHeroes: exploreCoverage.remaining,
@@ -196,14 +209,15 @@ const result = {
 
 console.log(JSON.stringify(result, null, 2));
 
-const integrityIssues = duplicateCurations.length || brokenAliasTargets.length || activeEmptyCurationFiles.length || aliasShadowedCurations.length || inactiveCurationFiles.length || unresolvedShallowStateParkHeroes.length;
+const shallowHeroIssues = unresolvedShallowStateParkHeroes.length + unresolvedShallowExploreHeroes.length;
+const integrityIssues = duplicateCurations.length || brokenAliasTargets.length || activeEmptyCurationFiles.length || aliasShadowedCurations.length || inactiveCurationFiles.length || shallowHeroIssues;
 if (process.argv.includes("--integrity") && integrityIssues) {
-  console.error(`\n${duplicateCurations.length} duplicate destination curation records; ${brokenAliasTargets.length} destination aliases point to missing curation targets; ${activeEmptyCurationFiles.length} empty modules are active in the resolver; ${aliasShadowedCurations.length} curation records are keyed by alias-source slugs and can never execute; ${inactiveCurationFiles.length} orphan curation modules exist outside the active resolver; ${unresolvedShallowStateParkHeroes.length} active state-park heroes are too shallow for destination presentation and lack a curated replacement.`);
+  console.error(`\n${duplicateCurations.length} duplicate destination curation records; ${brokenAliasTargets.length} destination aliases point to missing curation targets; ${activeEmptyCurationFiles.length} empty modules are active in the resolver; ${aliasShadowedCurations.length} curation records are keyed by alias-source slugs and can never execute; ${inactiveCurationFiles.length} orphan curation modules exist outside the active resolver; ${unresolvedShallowStateParkHeroes.length} active state-park heroes and ${unresolvedShallowExploreHeroes.length} active Explore heroes are too shallow for destination presentation and lack curated replacements.`);
   process.exitCode = 1;
 } else if (
   process.argv.includes("--strict") &&
   (preservedCoverage.remaining.length || stateParkCoverage.remaining.length || exploreCoverage.remaining.length || integrityIssues)
 ) {
-  console.error(`\n${preservedCoverage.remaining.length} active preserved Trip Planner destinations, ${stateParkCoverage.remaining.length} active mapped state-park destinations and ${exploreCoverage.remaining.length} active mapped Explore destinations still need hand curation; ${duplicateCurations.length} duplicate destination curation records; ${brokenAliasTargets.length} aliases point to missing curation targets; ${activeEmptyCurationFiles.length} empty modules are active in the resolver; ${aliasShadowedCurations.length} curation records are keyed by alias-source slugs and can never execute; ${inactiveCurationFiles.length} orphan curation modules exist outside the active resolver; ${unresolvedShallowStateParkHeroes.length} shallow state-park heroes still lack curated replacements.`);
+  console.error(`\n${preservedCoverage.remaining.length} active preserved Trip Planner destinations, ${stateParkCoverage.remaining.length} active mapped state-park destinations and ${exploreCoverage.remaining.length} active mapped Explore destinations still need hand curation; ${duplicateCurations.length} duplicate destination curation records; ${brokenAliasTargets.length} aliases point to missing curation targets; ${activeEmptyCurationFiles.length} empty modules are active in the resolver; ${aliasShadowedCurations.length} curation records are keyed by alias-source slugs and can never execute; ${inactiveCurationFiles.length} orphan curation modules exist outside the active resolver; ${unresolvedShallowStateParkHeroes.length} shallow state-park heroes and ${unresolvedShallowExploreHeroes.length} shallow Explore heroes still lack curated replacements.`);
   process.exitCode = 1;
 }
