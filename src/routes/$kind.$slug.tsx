@@ -63,7 +63,7 @@ function EntityPage() {
     ],
   };
 
-  return <main>
+  return <>
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
     <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
       <article className="mx-auto max-w-6xl">
@@ -72,7 +72,7 @@ function EntityPage() {
           <span aria-hidden="true" className="mx-2">/</span>
           <a href="/explore" className="hover:text-foreground">Explore</a>
           <span aria-hidden="true" className="mx-2">/</span>
-          <span className="text-foreground">{readerLabel(entity.kind)}</span>
+          <span aria-current="page" className="text-foreground">{entity.name}</span>
         </nav>
 
         <header className="grid gap-8 border-b border-border py-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end">
@@ -122,7 +122,7 @@ function EntityPage() {
         </section> : null}
       </article>
     </Container>
-  </main>;
+  </>;
 }
 
 function Fact({ label, value }: { label: string; value?: string }) {
