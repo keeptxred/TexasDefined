@@ -53,13 +53,18 @@ for (const feature of [
 
 for (const feature of [
   'const PAGE_SIZE = 24',
-  'destinations.slice(0, visibleCount)',
-  'const remaining = Math.max(0, destinations.length - visibleCount)',
-  'onClick={() => setVisibleCount((count) => Math.min(count + PAGE_SIZE, destinations.length))}',
+  'const filtered = useMemo',
+  'const visible = filtered.slice(0, visibleCount)',
+  'const remaining = Math.max(0, filtered.length - visible.length)',
+  'onClick={() => setVisibleCount((count) => Math.min(count + PAGE_SIZE, filtered.length))}',
   'remaining > 0',
   'visible.length.toLocaleString("en-US")',
-  'destinations.length.toLocaleString("en-US")',
+  'filtered.length.toLocaleString("en-US")',
   '<DestinationCard',
+  'value={query}',
+  'value={region}',
+  'value={activity}',
+  'value={sort}',
 ]) {
   if (!collectionGrid.includes(feature)) errors.push(`Destination collection rendering feature missing: ${feature}.`);
 }
@@ -126,4 +131,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Explore categories, classification, progressive collections, taxonomy, navigation, sitemap, related links, regions, structured data, and breadcrumbs passed validation.');
+console.log('Explore categories, classification, filterable collections, taxonomy, navigation, sitemap, related links, regions, structured data, and breadcrumbs passed validation.');
