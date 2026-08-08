@@ -7,16 +7,16 @@ import { getCalculator } from "@/domain/calculators/registry";
 
 const KIND_LABEL: Record<Guide["kind"], string> = {
   article: "Guide",
-  calculator: "Calculator",
-  dataset: "Reference",
+  calculator: "Quick estimate",
+  dataset: "Good to know",
   checklist: "Checklist",
 };
 
 const KIND_ACTION: Record<Guide["kind"], string> = {
-  article: "Read guide",
-  calculator: "Open calculator",
-  dataset: "Open reference",
-  checklist: "Open checklist",
+  article: "Read the guide",
+  calculator: "Try the calculator",
+  dataset: "See the details",
+  checklist: "Use the checklist",
 };
 
 function topicLabel(topic: string) {
