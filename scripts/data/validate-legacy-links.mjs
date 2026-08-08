@@ -24,8 +24,9 @@ const FORBIDDEN = [
   { label: "legacy Lovable preview", pattern: /texas-common-core\.lovable\.app/gi },
 ];
 
-// These paths intentionally describe cross-site ownership, shared contracts, or
-// private governance tooling. They are not consumer-facing legacy-brand leaks.
+// These paths intentionally describe cross-site ownership, shared contracts,
+// server-side commerce bridges, or private governance tooling. They are not
+// consumer-facing legacy-brand leaks.
 const ALLOWED_PREFIXES = [
   "src/shared/platform-core/",
   "src/components/admin/",
@@ -35,9 +36,11 @@ const ALLOWED_PREFIXES = [
 
 const ALLOWED_FILES = new Set([
   "src/brand/types.ts",
+  "src/data/shop-products-remote.ts",
   "src/data/texas-data-sources.ts",
   "src/data/types.ts",
   "src/domain/validation/schemas.ts",
+  "src/routes/api/public/store-products.ts",
   "src/routes/llms[.]txt.ts",
   "src/routes/texas-data.tsx",
   "src/routes/texas-resources.tsx",
