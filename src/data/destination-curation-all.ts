@@ -1,6 +1,5 @@
 import { applyCuratedDestination } from "./destination-curation";
 import { applyCuratedDestinationBatch2 } from "./destination-curation-batch2";
-import { applyCuratedDestinationBatch3 } from "./destination-curation-batch3";
 import { applyCuratedDestinationBatch4 } from "./destination-curation-batch4";
 import { applyCuratedDestinationBatch5 } from "./destination-curation-batch5";
 import { applyCuratedDestinationBatch6 } from "./destination-curation-batch6";
@@ -26,18 +25,10 @@ import { applyCuratedDestinationBatch25 } from "./destination-curation-batch25";
 import { applyCuratedDestinationBatch26 } from "./destination-curation-batch26";
 import { applyCuratedDestinationBatch27 } from "./destination-curation-batch27";
 import { applyCuratedDestinationBatch28 } from "./destination-curation-batch28";
-import { applyCuratedDestinationBatch29 } from "./destination-curation-batch29";
-import { applyCuratedDestinationBatch30 } from "./destination-curation-batch30";
-import { applyCuratedDestinationBatch31 } from "./destination-curation-batch31";
-import { applyCuratedDestinationBatch32 } from "./destination-curation-batch32";
 import { applyCuratedDestinationBatch33 } from "./destination-curation-batch33";
 import { applyCuratedDestinationBatch34 } from "./destination-curation-batch34";
 import { applyCuratedDestinationBatch35 } from "./destination-curation-batch35";
-import { applyCuratedDestinationBatch36 } from "./destination-curation-batch36";
-import { applyCuratedDestinationBatch37 } from "./destination-curation-batch37";
 import { applyCuratedDestinationBatch38 } from "./destination-curation-batch38";
-import { applyCuratedDestinationBatch39 } from "./destination-curation-batch39";
-import { applyCuratedDestinationBatch40 } from "./destination-curation-batch40";
 import { applyCuratedDestinationBatch41 } from "./destination-curation-batch41";
 import { applyCuratedDestinationBatch42 } from "./destination-curation-batch42";
 import { applyCuratedDestinationBatch43 } from "./destination-curation-batch43";
@@ -47,8 +38,6 @@ import { applyCuratedDestinationBatch46 } from "./destination-curation-batch46";
 import { applyCuratedDestinationBatch47 } from "./destination-curation-batch47";
 import { applyCuratedDestinationBatch48 } from "./destination-curation-batch48";
 import { applyCuratedDestinationBatch49 } from "./destination-curation-batch49";
-import { applyCuratedDestinationBatch50 } from "./destination-curation-batch50";
-import { applyCuratedDestinationBatch51 } from "./destination-curation-batch51";
 import { applyCuratedDestinationBatch52 } from "./destination-curation-batch52";
 import type { Destination } from "./types";
 
@@ -100,7 +89,6 @@ const CURATION_SLUG_ALIASES: Record<string, string> = {
 const CURATORS: Array<(destination: Destination) => Destination> = [
   applyCuratedDestination,
   applyCuratedDestinationBatch2,
-  applyCuratedDestinationBatch3,
   applyCuratedDestinationBatch4,
   applyCuratedDestinationBatch5,
   applyCuratedDestinationBatch6,
@@ -126,18 +114,10 @@ const CURATORS: Array<(destination: Destination) => Destination> = [
   applyCuratedDestinationBatch26,
   applyCuratedDestinationBatch27,
   applyCuratedDestinationBatch28,
-  applyCuratedDestinationBatch29,
-  applyCuratedDestinationBatch30,
-  applyCuratedDestinationBatch31,
-  applyCuratedDestinationBatch32,
   applyCuratedDestinationBatch33,
   applyCuratedDestinationBatch34,
   applyCuratedDestinationBatch35,
-  applyCuratedDestinationBatch36,
-  applyCuratedDestinationBatch37,
   applyCuratedDestinationBatch38,
-  applyCuratedDestinationBatch39,
-  applyCuratedDestinationBatch40,
   applyCuratedDestinationBatch41,
   applyCuratedDestinationBatch42,
   applyCuratedDestinationBatch43,
@@ -147,8 +127,6 @@ const CURATORS: Array<(destination: Destination) => Destination> = [
   applyCuratedDestinationBatch47,
   applyCuratedDestinationBatch48,
   applyCuratedDestinationBatch49,
-  applyCuratedDestinationBatch50,
-  applyCuratedDestinationBatch51,
   applyCuratedDestinationBatch52,
 ];
 
