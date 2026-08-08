@@ -67,6 +67,13 @@ const emptyCurationFiles = [...curationSlugsByFile.entries()]
   .map(([file]) => file);
 
 const aliasesSource = read("src/data/destination-curation-all.ts");
+const activeCurationFiles = new Set(
+  [...aliasesSource.matchAll(/from\s+"\.\/(destination-curation(?:-batch\d+)?)"/g)]
+    .map((match) => `${match[1]}.ts`),
+);
+const inactiveCurationFiles = curationFileNames.filter((file) => !activeCurationFiles.has(file));
+const activeEmptyCurationFiles = emptyCurationFiles.filter((file) => activeCurationFiles.has(file));
+
 const aliases = new Map(
   [...aliasesSource.matchAll(/"([a-z0-9][a-z0-9-]*)"\s*:\s*"([a-z0-9][a-z0-9-]*)"/g)]
     .map((match) => [match[1], match[2]]),
@@ -107,11 +114,14 @@ const exploreCoverage = activeCoverage(exploreHeroSlugs);
 
 const result = {
   curationFiles: curationFileNames.length,
+  activeCurationFiles: activeCurationFiles.size,
+  inactiveCompatibilityFiles: inactiveCurationFiles.length,
   curatedSlugs: curated.size,
   aliases: aliases.size,
   duplicateCurationSlugs: duplicateCurations.length,
   layeredDuplicateFiles: layeredDuplicateFiles.length,
   emptyCurationFiles: emptyCurationFiles.length,
+  activeEmptyCurationFiles: activeEmptyCurationFiles.length,
   brokenAliasTargets: brokenAliasTargets.length,
   unavailableDestinations: unavailable.size,
   nonPrimaryTripPlannerDestinations: nonPrimary.size,
@@ -125,6 +135,9 @@ const result = {
   curatedExploreHeroSlugs: exploreCoverage.covered.length,
   remainingExploreHeroSlugs: exploreCoverage.remaining.length,
   excludedExploreHeroSlugs: exploreCoverage.excluded.length,
+  activeFiles: [...activeCurationFiles].sort((a, b) => a.localeCompare(b, undefined, { numeric: true })),
+  inactiveFiles: inactiveCurationFiles,
+  activeEmptyFiles: activeEmptyCurationFiles,
   layeredFiles: layeredDuplicateFiles,
   emptyFiles: emptyCurationFiles,
   duplicateCurations,
@@ -135,13 +148,13 @@ const result = {
 
 console.log(JSON.stringify(result, null, 2));
 
-if (process.argv.includes("--integrity") && brokenAliasTargets.length) {
-  console.error(`\n${brokenAliasTargets.length} destination aliases point to missing curation targets.`);
+if (process.argv.includes("--integrity") && (brokenAliasTargets.length || activeEmptyCurationFiles.length)) {
+  console.error(`\n${brokenAliasTargets.length} destination aliases point to missing curation targets; ${activeEmptyCurationFiles.length} empty compatibility modules are still active in the resolver.`);
   process.exitCode = 1;
 } else if (
   process.argv.includes("--strict") &&
-  (stateParkCoverage.remaining.length || exploreCoverage.remaining.length || brokenAliasTargets.length)
+  (stateParkCoverage.remaining.length || exploreCoverage.remaining.length || brokenAliasTargets.length || activeEmptyCurationFiles.length)
 ) {
-  console.error(`\n${stateParkCoverage.remaining.length} active mapped state-park destinations and ${exploreCoverage.remaining.length} active mapped Explore destinations still need hand curation; ${brokenAliasTargets.length} aliases point to missing curation targets.`);
+  console.error(`\n${stateParkCoverage.remaining.length} active mapped state-park destinations and ${exploreCoverage.remaining.length} active mapped Explore destinations still need hand curation; ${brokenAliasTargets.length} aliases point to missing curation targets; ${activeEmptyCurationFiles.length} empty compatibility modules are still active in the resolver.`);
   process.exitCode = 1;
 }
