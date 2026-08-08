@@ -58,7 +58,9 @@ for (const feature of ['absoluteUrl(texasDefinedBrand, destination.hero.src)','B
 for (const feature of ['canonicalPath','ItemList','"@type": "Event"','eventStatus','eventAttendanceMode']) if (!eventsRoute.includes(feature)) errors.push(`Event answer feature missing: ${feature}.`);
 for (const feature of ['"@type": "AboutPage"','BreadcrumbList','about: { "@id"','isPartOf: { "@id"']) if (!aboutRoute.includes(feature)) errors.push(`About page SEO feature missing: ${feature}.`);
 for (const feature of ['canonicalPath: "/"']) if (!homeRoute.includes(feature)) errors.push(`Homepage SEO feature missing: ${feature}.`);
-if (homeRoute.includes('"@type": "Organization"') || homeRoute.includes('"@type": "WebSite"')) errors.push('Homepage duplicates the global Organization or WebSite entity graph.');
+const duplicatesGlobalOrganization = homeRoute.includes('"@type": "Organization", "@id": `${siteUrl}/#organization`');
+const duplicatesGlobalWebsite = homeRoute.includes('"@type": "WebSite", "@id": `${siteUrl}/#website`');
+if (duplicatesGlobalOrganization || duplicatesGlobalWebsite) errors.push('Homepage duplicates the global Organization or WebSite entity graph.');
 for (const feature of ['AutoEntityLinks','entities?: TexasEntityRecord[]','linked = new Set']) if (!articleBody.includes(feature)) errors.push(`Article entity-link rendering missing: ${feature}.`);
 for (const feature of ["createFileRoute('/api/ai/entities')",'@context','about: toJsonLd','mentions: related','access-control-allow-origin']) if (!aiApi.includes(feature)) errors.push(`AI retrieval feature missing: ${feature}.`);
 for (const feature of ["createFileRoute('/api/knowledge-graph')",'Math.min(Math.max(Math.trunc(requestedLimit), 1), 100)','cache-control']) if (!graphApi.includes(feature)) errors.push(`Knowledge graph API feature missing: ${feature}.`);
