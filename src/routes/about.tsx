@@ -26,6 +26,13 @@ const PRINCIPLES = [
   { title: "Be useful without being dull", body: "A practical guide can still be a good read. We aim for clear answers, warm writing and enough detail to help readers make a plan with confidence." },
 ];
 
+const DATA_NOTES = [
+  { title: "The Texas Defined Letter", body: "When newsletter signup is available and you subscribe, the signup form sends your email address together with the Texas Defined brand identifier to the configured newsletter service so your subscription can be recorded." },
+  { title: "Browser storage and site analytics", body: "Texas Defined uses browser storage for features such as saved shop picks and a randomly generated analytics session identifier. Site analytics can record page paths, searches, resource interactions and visits to official external resources. If an analytics endpoint is configured, queued events may be sent to that service; otherwise they remain in the browser queue." },
+  { title: "Shop checkout and fulfillment", body: "When you choose checkout, the site sends the selected product, variant and quantity information to the configured commerce service. Payment is completed through the checkout provider, and purchased items are prepared by the print-production partner. Shipping charges and taxes are shown or calculated during checkout." },
+  { title: "Guides, calculators and official decisions", body: "Texas Defined articles, guides, data briefs and calculators are provided for general information and planning. Rates, eligibility, deadlines, closures, prices and other time-sensitive details can change. When a decision depends on an official rule or record, use the linked agency, provider or responsible local office as the final source." },
+];
+
 function AboutPage() {
   return <>
     <section className="border-b border-border bg-surface">
@@ -51,6 +58,20 @@ function AboutPage() {
         <ol className="mt-10 grid gap-x-10 gap-y-10 sm:grid-cols-2">
           {PRINCIPLES.map((principle, index) => <li key={principle.title} className="border-t border-border pt-5"><p className="eyebrow text-muted-foreground">0{index + 1}</p><h2 className="mt-3 font-display text-2xl">{principle.title}</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">{principle.body}</p></li>)}
         </ol>
+      </Container>
+    </Section>
+
+    <Section>
+      <Container>
+        <div id="privacy-terms" className="scroll-mt-28 border-t-2 border-foreground pt-8">
+          <SectionHeader eyebrow="Privacy & site terms" title="What the site handles — and what to verify elsewhere" description="A plain-English summary of the data and services used by Texas Defined. We keep this section focused on how the site actually works rather than legal boilerplate." />
+          <div className="mt-10 grid gap-x-10 gap-y-10 sm:grid-cols-2">
+            {DATA_NOTES.map((note) => <section key={note.title} className="border-t border-border pt-5"><h2 className="font-display text-2xl leading-tight">{note.title}</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">{note.body}</p></section>)}
+          </div>
+          <div className="mt-10 max-w-3xl border-t border-border pt-6 text-sm leading-7 text-muted-foreground">
+            <p>By using the site, you are responsible for confirming information that affects purchases, travel, taxes, property, eligibility or other decisions with the appropriate official or service provider. Texas Defined may update this disclosure as site features and service providers change.</p>
+          </div>
+        </div>
       </Container>
     </Section>
   </>;
