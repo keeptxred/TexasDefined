@@ -32,6 +32,7 @@ import { applyCuratedDestinationBatch31 } from "./destination-curation-batch31";
 import { applyCuratedDestinationBatch32 } from "./destination-curation-batch32";
 import { applyCuratedDestinationBatch33 } from "./destination-curation-batch33";
 import { applyCuratedDestinationBatch34 } from "./destination-curation-batch34";
+import { applyCuratedDestinationBatch35 } from "./destination-curation-batch35";
 import type { Destination } from "./types";
 
 const CURATION_SLUG_ALIASES: Record<string, string> = {
@@ -80,40 +81,13 @@ const CURATION_SLUG_ALIASES: Record<string, string> = {
 };
 
 const CURATORS: Array<(destination: Destination) => Destination> = [
-  applyCuratedDestination,
-  applyCuratedDestinationBatch2,
-  applyCuratedDestinationBatch3,
-  applyCuratedDestinationBatch4,
-  applyCuratedDestinationBatch5,
-  applyCuratedDestinationBatch6,
-  applyCuratedDestinationBatch7,
-  applyCuratedDestinationBatch8,
-  applyCuratedDestinationBatch9,
-  applyCuratedDestinationBatch10,
-  applyCuratedDestinationBatch11,
-  applyCuratedDestinationBatch12,
-  applyCuratedDestinationBatch13,
-  applyCuratedDestinationBatch14,
-  applyCuratedDestinationBatch15,
-  applyCuratedDestinationBatch16,
-  applyCuratedDestinationBatch17,
-  applyCuratedDestinationBatch18,
-  applyCuratedDestinationBatch19,
-  applyCuratedDestinationBatch20,
-  applyCuratedDestinationBatch21,
-  applyCuratedDestinationBatch22,
-  applyCuratedDestinationBatch23,
-  applyCuratedDestinationBatch24,
-  applyCuratedDestinationBatch25,
-  applyCuratedDestinationBatch26,
-  applyCuratedDestinationBatch27,
-  applyCuratedDestinationBatch28,
-  applyCuratedDestinationBatch29,
-  applyCuratedDestinationBatch30,
-  applyCuratedDestinationBatch31,
-  applyCuratedDestinationBatch32,
-  applyCuratedDestinationBatch33,
-  applyCuratedDestinationBatch34,
+  applyCuratedDestination, applyCuratedDestinationBatch2, applyCuratedDestinationBatch3, applyCuratedDestinationBatch4, applyCuratedDestinationBatch5,
+  applyCuratedDestinationBatch6, applyCuratedDestinationBatch7, applyCuratedDestinationBatch8, applyCuratedDestinationBatch9, applyCuratedDestinationBatch10,
+  applyCuratedDestinationBatch11, applyCuratedDestinationBatch12, applyCuratedDestinationBatch13, applyCuratedDestinationBatch14, applyCuratedDestinationBatch15,
+  applyCuratedDestinationBatch16, applyCuratedDestinationBatch17, applyCuratedDestinationBatch18, applyCuratedDestinationBatch19, applyCuratedDestinationBatch20,
+  applyCuratedDestinationBatch21, applyCuratedDestinationBatch22, applyCuratedDestinationBatch23, applyCuratedDestinationBatch24, applyCuratedDestinationBatch25,
+  applyCuratedDestinationBatch26, applyCuratedDestinationBatch27, applyCuratedDestinationBatch28, applyCuratedDestinationBatch29, applyCuratedDestinationBatch30,
+  applyCuratedDestinationBatch31, applyCuratedDestinationBatch32, applyCuratedDestinationBatch33, applyCuratedDestinationBatch34, applyCuratedDestinationBatch35,
 ];
 
 function runCurators(destination: Destination): Destination { return CURATORS.reduce((current, curate) => curate(current), destination); }
