@@ -4,7 +4,7 @@ import { PropertyClusterGuidePage } from '@/components/guides/PropertyClusterGui
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
 const canonicalPath = '/property-tax-guides';
-const description = 'A directory of TexasDefined guides for property taxes, exemptions, appraisal districts, protests, land valuation, veterans, seniors, MUDs and homebuyers.';
+const description = 'A directory of Texas Defined guides for property taxes, exemptions, appraisal districts, protests, land valuation, veterans, seniors, MUDs and homebuyers.';
 
 export const Route = createFileRoute('/property-tax-guides')({
   head: () => ({
@@ -12,14 +12,14 @@ export const Route = createFileRoute('/property-tax-guides')({
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
   }),
   component: () => <PropertyClusterGuidePage
-    eyebrow="Texas Home & Property"
+    eyebrow="Property Taxes"
     title="Texas property-tax guide library"
     intro={description}
     officialUrl="https://comptroller.texas.gov/taxes/property-tax/"
     officialLabel="Texas Comptroller Property Tax Assistance"
     faqs={[
       { question: 'Where should I start?', answer: 'Start with the complete Texas property-tax guide, then use the specialized guide matching your exemption, protest, land or homebuying question.' },
-      { question: 'Are these official decisions?', answer: 'No. TexasDefined provides educational guidance; appraisal districts, taxing units, tax offices, ARBs and courts make official decisions.' },
+      { question: 'Are these official decisions?', answer: 'No. Texas Defined provides educational guidance; appraisal districts, taxing units, tax offices, ARBs and courts make official decisions.' },
     ]}
     sections={[
       { id: 'core', title: 'Core homeowner guides', paragraphs: ['Use the complete property-tax guide, calculator, appraisal-district guide, homestead guide and protest guide as the foundation for understanding the system.'], bullets: ['/learn/property-taxes', '/decide/property-taxes', '/learn/appraisal-districts', '/do/homestead-exemption', '/do/property-tax-protest'] },
