@@ -149,14 +149,14 @@ const result = {
 
 console.log(JSON.stringify(result, null, 2));
 
-const integrityIssues = brokenAliasTargets.length || activeEmptyCurationFiles.length || aliasShadowedCurations.length;
+const integrityIssues = duplicateCurations.length || brokenAliasTargets.length || activeEmptyCurationFiles.length || aliasShadowedCurations.length;
 if (process.argv.includes("--integrity") && integrityIssues) {
-  console.error(`\n${brokenAliasTargets.length} destination aliases point to missing curation targets; ${activeEmptyCurationFiles.length} empty compatibility modules are still active in the resolver; ${aliasShadowedCurations.length} curation records are keyed by alias-source slugs and can never execute.`);
+  console.error(`\n${duplicateCurations.length} duplicate destination curation records; ${brokenAliasTargets.length} destination aliases point to missing curation targets; ${activeEmptyCurationFiles.length} empty compatibility modules are still active in the resolver; ${aliasShadowedCurations.length} curation records are keyed by alias-source slugs and can never execute.`);
   process.exitCode = 1;
 } else if (
   process.argv.includes("--strict") &&
   (stateParkCoverage.remaining.length || exploreCoverage.remaining.length || integrityIssues)
 ) {
-  console.error(`\n${stateParkCoverage.remaining.length} active mapped state-park destinations and ${exploreCoverage.remaining.length} active mapped Explore destinations still need hand curation; ${brokenAliasTargets.length} aliases point to missing curation targets; ${activeEmptyCurationFiles.length} empty compatibility modules are still active in the resolver; ${aliasShadowedCurations.length} curation records are keyed by alias-source slugs and can never execute.`);
+  console.error(`\n${stateParkCoverage.remaining.length} active mapped state-park destinations and ${exploreCoverage.remaining.length} active mapped Explore destinations still need hand curation; ${duplicateCurations.length} duplicate destination curation records; ${brokenAliasTargets.length} aliases point to missing curation targets; ${activeEmptyCurationFiles.length} empty compatibility modules are still active in the resolver; ${aliasShadowedCurations.length} curation records are keyed by alias-source slugs and can never execute.`);
   process.exitCode = 1;
 }
