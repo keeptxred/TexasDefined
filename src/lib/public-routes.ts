@@ -12,9 +12,20 @@ export const INDEXABLE_STATIC_PATHS = [
   "/texas-living",
   "/texas-resources",
   "/texas-data",
+  "/property-tax-guides",
+  "/property-tax-calculators",
+  "/property-tax/counties",
   "/learn/property-taxes",
   "/learn/property-tax-payments",
   "/learn/appraisal-districts",
+  "/learn/agricultural-valuation",
+  "/learn/wildlife-management-valuation",
+  "/learn/disabled-veteran-property-tax-benefits",
+  "/learn/over-65-property-tax-guide",
+  "/learn/mud-taxes-explained",
+  "/learn/property-tax-deadlines",
+  "/learn/property-tax-appeals-arbitration",
+  "/learn/homebuyer-property-tax-checklist",
   "/decide/property-taxes",
   "/decide/financial-tools",
   "/do/homestead-exemption",
@@ -65,7 +76,12 @@ export const REDIRECT_ONLY_PATHS = [
   "/explore/spring-conservation-and-education",
 ] as const;
 
-export const NON_INDEXABLE_PUBLIC_PATHS = ["/search", "/explore/search"] as const;
+export const NON_INDEXABLE_PUBLIC_PATHS = [
+  "/search",
+  "/explore/search",
+  "/shop/cart",
+  "/shop/checkout-return",
+] as const;
 
 export function isIndexablePublicPath(path: string) {
   return !path.startsWith("/admin")
