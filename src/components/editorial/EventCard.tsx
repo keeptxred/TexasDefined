@@ -24,6 +24,7 @@ export function EventCard({ event, regionLabel }: { event: TexasEvent; regionLab
       <div>
         <h3 className="font-display text-2xl leading-tight">{event.name}</h3>
         <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground">{event.blurb}</p>
+        {event.officialUrl && <a href={event.officialUrl} target="_blank" rel="noreferrer noopener" className="eyebrow mt-5 inline-flex border-b border-primary pb-1 text-primary">Event details ↗</a>}
       </div>
     </article>
   );
