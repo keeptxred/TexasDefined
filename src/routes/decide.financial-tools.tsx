@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
-import { Container } from '@/components/layout/Container';
 import { texasDefinedBrand } from '@/brand/texasdefined';
+import { DepartmentHero } from '@/components/editorial/DepartmentHero';
+import { Container } from '@/components/layout/Container';
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 const description = 'Clear, practical ways to work through housing costs, paychecks, utilities, insurance, moving expenses and the other numbers that shape life here.';
@@ -51,13 +52,7 @@ export const Route = createFileRoute('/decide/financial-tools')({
 
 function Page() {
   return <>
-    <section className="border-b border-border bg-surface">
-      <Container className="py-16 sm:py-24">
-        <p className="eyebrow text-primary">Money & Property</p>
-        <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">Plan the numbers behind life in Texas.</h1>
-        <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">{description}</p>
-      </Container>
-    </section>
+    <DepartmentHero current="Money & Property" eyebrow="Money & Property" title="Plan the numbers behind life in Texas." description={description} tone="surface" />
 
     <Container className="py-14 sm:py-20">
       <div className="flex flex-wrap items-end justify-between gap-4 border-b border-border pb-5">
