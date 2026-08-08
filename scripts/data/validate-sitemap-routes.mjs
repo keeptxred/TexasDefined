@@ -108,9 +108,9 @@ for (const category of nonExploreCategories) {
 }
 
 for (const feature of [
-  'destinations as fixtureDestinations',
-  'fixtureDestinations.filter((destination) => destination.region === region.id)',
-  'if (matchingDestinations.length) destinations = matchingDestinations',
+  'destinationsQuery({ limit: 5000 })',
+  'catalog.filter((destination) => destination.region === region.id)',
+  'RegionalDestinationGrid',
   '"@type": "CollectionPage"',
   '"@type": "ItemList"',
   '"@type": "BreadcrumbList"',
@@ -122,8 +122,11 @@ for (const feature of [
   if (!regionRoute.includes(feature)) failures.push(`Indexed Explore region quality feature missing: ${feature}`);
 }
 
+if (regionRoute.includes('fixtureDestinations')) {
+  failures.push('Indexed Explore region pages must not bypass the resilient shared destination query layer.');
+}
 if (regionRoute.includes('The shared destination catalog is temporarily unavailable')) {
-  failures.push('Indexed Explore region pages must use fixture fallback instead of rendering an empty outage page.');
+  failures.push('Indexed Explore region pages must render the resilient catalog rather than an empty outage page.');
 }
 
 if (failures.length) {
