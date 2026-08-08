@@ -38,11 +38,11 @@ const hubUrl = absoluteUrl(texasDefinedBrand, '/decide/financial-tools');
 
 export const Route = createFileRoute('/decide/financial-tools')({
   head: () => ({
-    meta: buildMeta(texasDefinedBrand, { canonicalPath: '/decide/financial-tools', title: 'Money Made Clearer', description }),
+    meta: buildMeta(texasDefinedBrand, { canonicalPath: '/decide/financial-tools', title: 'Money & Property', description }),
     links: [canonicalLink(texasDefinedBrand, '/decide/financial-tools')],
     scripts: [jsonLd({ '@context': 'https://schema.org', '@graph': [
-      { '@type': 'CollectionPage', '@id': `${hubUrl}#page`, url: hubUrl, name: 'Money Made Clearer', description, isPartOf: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#website` }, mainEntity: { '@id': `${hubUrl}#tools` } },
-      { '@type': 'BreadcrumbList', '@id': `${hubUrl}#breadcrumb`, itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Front page', item: absoluteUrl(texasDefinedBrand, '/') }, { '@type': 'ListItem', position: 2, name: 'Money Made Clearer', item: hubUrl }] },
+      { '@type': 'CollectionPage', '@id': `${hubUrl}#page`, url: hubUrl, name: 'Money & Property', description, isPartOf: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#website` }, mainEntity: { '@id': `${hubUrl}#tools` } },
+      { '@type': 'BreadcrumbList', '@id': `${hubUrl}#breadcrumb`, itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Front page', item: absoluteUrl(texasDefinedBrand, '/') }, { '@type': 'ListItem', position: 2, name: 'Money & Property', item: hubUrl }] },
       { '@type': 'ItemList', '@id': `${hubUrl}#tools`, name: 'Calculators and guides for everyday money decisions', numberOfItems: sections.length, itemListElement: sections.map(([name, path, itemDescription], index) => ({ '@type': 'ListItem', position: index + 1, url: absoluteUrl(texasDefinedBrand, path), item: { '@type': 'WebPage', name, description: itemDescription, url: absoluteUrl(texasDefinedBrand, path) } })) },
     ] })],
   }),
@@ -53,7 +53,7 @@ function Page() {
   return <>
     <section className="border-b border-border bg-surface">
       <Container className="py-16 sm:py-24">
-        <p className="eyebrow text-primary">Money Made Clearer</p>
+        <p className="eyebrow text-primary">Money & Property</p>
         <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">Plan the numbers behind life in Texas.</h1>
         <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">{description}</p>
       </Container>
