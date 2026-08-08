@@ -16,17 +16,24 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    env:
+      TEXASDEFINED_SUPABASE_URL: ${{ secrets.TEXASDEFINED_SUPABASE_URL }}
+      TEXASDEFINED_SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.TEXASDEFINED_SUPABASE_SERVICE_ROLE_KEY }}
     steps:
+      - name: Report unconfigured event sync
+        if: env.TEXASDEFINED_SUPABASE_URL == '' || env.TEXASDEFINED_SUPABASE_SERVICE_ROLE_KEY == ''
+        run: echo "Texas event sync skipped because the required Supabase repository secrets are not configured."
+
       - name: Check out repository
+        if: env.TEXASDEFINED_SUPABASE_URL != '' && env.TEXASDEFINED_SUPABASE_SERVICE_ROLE_KEY != ''
         uses: actions/checkout@v4
 
       - name: Set up Node
+        if: env.TEXASDEFINED_SUPABASE_URL != '' && env.TEXASDEFINED_SUPABASE_SERVICE_ROLE_KEY != ''
         uses: actions/setup-node@v4
         with:
           node-version: "22"
 
       - name: Sync authoritative Texas events
-        env:
-          TEXASDEFINED_SUPABASE_URL: ${{ secrets.TEXASDEFINED_SUPABASE_URL }}
-          TEXASDEFINED_SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.TEXASDEFINED_SUPABASE_SERVICE_ROLE_KEY }}
+        if: env.TEXASDEFINED_SUPABASE_URL != '' && env.TEXASDEFINED_SUPABASE_SERVICE_ROLE_KEY != ''
         run: node scripts/events/sync-texas-events.mjs
