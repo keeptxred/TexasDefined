@@ -31,9 +31,10 @@ export const Route = createFileRoute('/property-tax/counties')({
 
 function CountyPropertyTaxDirectory() {
   return (
-    <main>
+    <>
       <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
-        <header className="grid gap-8 border-b border-border pb-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end">
+        <nav aria-label="Breadcrumb" className="border-b border-border pb-4 text-xs uppercase tracking-[0.14em] text-muted-foreground"><Link to="/">Front page</Link><span aria-hidden="true" className="mx-2">/</span><Link to="/decide/financial-tools">Money & Property</Link><span aria-hidden="true" className="mx-2">/</span><span aria-current="page" className="text-foreground">County property-tax guides</span></nav>
+        <header className="grid gap-8 border-b border-border py-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end">
           <div>
             <p className="eyebrow text-primary">All 254 counties</p>
             <h1 className="mt-3 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">Texas county property-tax guides</h1>
@@ -57,6 +58,6 @@ function CountyPropertyTaxDirectory() {
           </ul>
         </section>
       </Container>
-    </main>
+    </>
   );
 }
