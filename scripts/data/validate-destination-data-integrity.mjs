@@ -4,6 +4,9 @@ import path from 'node:path';
 const root = process.cwd();
 const destinationRoute = fs.readFileSync(path.join(root, 'src/routes/destination.$slug.tsx'), 'utf8');
 const destinationPlanner = fs.readFileSync(path.join(root, 'src/components/editorial/DestinationVisitPlanner.tsx'), 'utf8');
+const destinationAudit = fs.readFileSync(path.join(root, 'src/data/destination-audit.ts'), 'utf8');
+const destinationQuality = fs.readFileSync(path.join(root, 'src/data/destination-quality.ts'), 'utf8');
+const queries = fs.readFileSync(path.join(root, 'src/data/queries.ts'), 'utf8');
 const articleRoute = fs.readFileSync(path.join(root, 'src/routes/article.$slug.tsx'), 'utf8');
 const map = fs.readFileSync(path.join(root, 'src/components/editorial/MapPreview.tsx'), 'utf8');
 const remote = fs.readFileSync(path.join(root, 'src/data/explore-remote.ts'), 'utf8');
@@ -21,8 +24,47 @@ for (const feature of [
   'breadcrumb: { "@id": `${url}#breadcrumbs` }',
   '"@id": `${url}#primaryimage`',
   'categories.find((category) => category.slug === destination.category)?.name',
+  'const audit = auditDestination(destination)',
+  'const indexable = audit.readyForIndexing && isPrimaryTripPlannerDestination(destination)',
+  '{ name: "robots", content: "noindex, follow" }',
 ]) {
   if (!destinationRoute.includes(feature)) errors.push(`Destination integrity feature missing: ${feature}.`);
+}
+
+for (const feature of [
+  'const GENERATED_COPY_MARKERS = [',
+  'function containsGeneratedFallbackCopy(summary: string, bodyText: string)',
+  'code: "generic-fallback-copy"',
+  'severity: "error"',
+  'must be hand-curated before indexing',
+  'readyForIndexing: errors === 0 && score >= 76',
+]) {
+  if (!destinationAudit.includes(feature)) errors.push(`Destination indexing quality gate missing: ${feature}.`);
+}
+
+for (const marker of [
+  ' is a texas destination',
+  'those details make it easier to decide whether this stop fits a quick outing',
+  'works best as part of a trip built around the surrounding region',
+  'use the official visitor-information link on this page for the latest details',
+]) {
+  if (!destinationAudit.includes(marker)) errors.push(`Destination fallback-copy audit marker missing: ${marker}.`);
+}
+
+for (const sourceMarker of [
+  'is a Texas destination',
+  'Those details make it easier to decide whether this stop fits a quick outing',
+  'works best as part of a trip built around the surrounding region',
+  'Use the official visitor-information link on this page for the latest details',
+]) {
+  if (!destinationQuality.includes(sourceMarker)) errors.push(`Destination quality fallback source marker changed without updating the indexing audit: ${sourceMarker}.`);
+}
+
+for (const feature of [
+  'filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved))',
+  'const destinations = reconcileExploreCatalog',
+]) {
+  if (!queries.includes(feature)) errors.push(`Destination catalog quality filter missing: ${feature}.`);
 }
 
 for (const feature of [
@@ -98,4 +140,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Article and destination data, visit-planner, relationship, breadcrumb, and entity graph integrity validation passed.');
+console.log('Article and destination data, indexing quality gate, visit-planner, relationship, breadcrumb, and entity graph integrity validation passed.');
