@@ -103,7 +103,10 @@ const result = {
 
 console.log(JSON.stringify(result, null, 2));
 
-if (
+if (process.argv.includes("--integrity") && brokenAliasTargets.length) {
+  console.error(`\n${brokenAliasTargets.length} destination aliases point to missing curation targets.`);
+  process.exitCode = 1;
+} else if (
   process.argv.includes("--strict") &&
   (stateParkCoverage.remaining.length || exploreCoverage.remaining.length || brokenAliasTargets.length)
 ) {
