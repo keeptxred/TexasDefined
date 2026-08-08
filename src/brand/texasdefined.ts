@@ -137,5 +137,8 @@ export const texasDefinedBrand: BrandConfig = {
       ],
     },
   ],
-  legal: [{ label: "Search", to: "/search" }],
+  legal: [
+    { label: "Privacy & Site Terms", to: "/about#privacy-terms" },
+    { label: "Search", to: "/search" },
+  ],
 };
