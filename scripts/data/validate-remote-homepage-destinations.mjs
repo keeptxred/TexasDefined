@@ -11,14 +11,15 @@ for (const feature of [
   'if (params.featured)',
   'fetchExploreDestinations({ category: params.category, limit: 5000 })',
   'fetchCoreExploreDestinations({ category: params.category, limit: 5000 })',
-  'if (enrichedFailed && coreFailed) return platform.destinations.list',
-  'if (enrichedFailed && coreFailed) return platform.destinations.getBySlug',
-  'return null;',
+  'const local = await platform.destinations.list({ ...scope, ...params })',
+  'const preserved = preservedFor(params)',
+  'mergeDestinations(enriched, core, preserved, local)',
+  'const preserved = preservedExploreDestinations.find((destination) => destination.slug === slug)',
+  'const local = await platform.destinations.getBySlug(scope, slug)',
+  'return local ? applyResolvedHero(local) : local',
 ]) {
   if (!queries.includes(feature)) errors.push(`Remote destination fallback feature missing: ${feature}`);
 }
-
-if (!queries.includes('return [];')) errors.push('Healthy remote queries with no matches must return an empty list instead of fixtures.');
 
 for (const feature of [
   'const homepageDestinations = destinations.some((item) => item.featured)',
@@ -45,4 +46,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Remote-backed homepage picks and true-outage-only destination fixture validation passed.');
+console.log('Remote-backed homepage picks, preserved/local catalog resilience, and destination detail fallbacks passed.');
