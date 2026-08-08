@@ -28,6 +28,7 @@ import { applyCuratedDestinationBatch27 } from "./destination-curation-batch27";
 import { applyCuratedDestinationBatch28 } from "./destination-curation-batch28";
 import { applyCuratedDestinationBatch29 } from "./destination-curation-batch29";
 import { applyCuratedDestinationBatch30 } from "./destination-curation-batch30";
+import { applyCuratedDestinationBatch31 } from "./destination-curation-batch31";
 import type { Destination } from "./types";
 
 const CURATION_SLUG_ALIASES: Record<string, string> = {
@@ -106,6 +107,7 @@ const CURATORS: Array<(destination: Destination) => Destination> = [
   applyCuratedDestinationBatch28,
   applyCuratedDestinationBatch29,
   applyCuratedDestinationBatch30,
+  applyCuratedDestinationBatch31,
 ];
 
 function runCurators(destination: Destination): Destination {
