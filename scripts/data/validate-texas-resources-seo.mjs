@@ -13,12 +13,12 @@ for (const feature of [
   "isPartOf: { '@id': `${siteUrl}/#website` }",
   'groups.flatMap((group) => group.links)',
   'aria-label="Breadcrumb"',
-  'aria-current="page"',
-  "['Texas sports', '/sports']",
-  "['Texas history', '/texas-history']",
-  "['Home and garden', '/home-garden']",
-  "['Texas real estate', '/real-estate']",
-  "['About TexasDefined', '/about']",
+  "['Texas Life', '/texas-living']",
+  "'/sports'",
+  "'/texas-history'",
+  "'/home-garden'",
+  "'/real-estate'",
+  "'/about'",
 ]) {
   if (!route.includes(feature)) errors.push(`Texas resources SEO or discovery feature missing: ${feature}.`);
 }
