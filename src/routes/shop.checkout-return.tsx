@@ -60,8 +60,8 @@ function CheckoutReturnPage() {
             {state === "checking"
               ? "We’re checking the payment status with our checkout provider."
               : paid
-                ? "Your payment is confirmed. A confirmation will be sent to the email address used during checkout, and your items will be prepared by our print partner."
-                : "We did not receive a verified paid checkout session. Your bag has not been cleared. If you completed payment, check for your checkout confirmation before trying again."}
+                ? "Your payment is confirmed. Your order can now move into fulfillment with our print partner."
+                : "We did not receive a verified paid checkout session. Your bag has not been cleared. Check the payment status with your checkout provider before trying again."}
           </p>
           <div className="mx-auto mt-10 flex max-w-md flex-col border-t border-border sm:flex-row sm:justify-center">
             <Link to={paid ? "/shop" : "/shop/cart"} className="border-b border-border px-6 py-4 text-sm font-semibold sm:border-b-0 sm:border-r">{paid ? "Continue shopping →" : "Return to your bag →"}</Link>
