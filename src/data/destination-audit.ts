@@ -16,6 +16,12 @@ export type DestinationAuditResult = {
 
 const GENERIC_BEST_SEASON = "check current conditions before visiting";
 const GENERIC_ENTRY = "confirm current hours, fees, reservations, and access with the official source";
+const GENERATED_COPY_MARKERS = [
+  " is a texas destination",
+  "those details make it easier to decide whether this stop fits a quick outing",
+  "works best as part of a trip built around the surrounding region",
+  "use the official visitor-information link on this page for the latest details",
+];
 
 function validCoordinates(destination: Destination) {
   const { lat, lng } = destination.coordinates;
@@ -24,6 +30,11 @@ function validCoordinates(destination: Destination) {
 
 function usefulUrl(value?: string) {
   return Boolean(value && /^https?:\/\//i.test(value));
+}
+
+function containsGeneratedFallbackCopy(summary: string, bodyText: string) {
+  const combined = `${summary} ${bodyText}`.toLowerCase();
+  return GENERATED_COPY_MARKERS.some((marker) => combined.includes(marker));
 }
 
 export function auditDestination(destination: Destination): DestinationAuditResult {
@@ -42,6 +53,9 @@ export function auditDestination(destination: Destination): DestinationAuditResu
   }
   if (destination.body.length < 3 || bodyText.length < 450 || uniqueBody.size < 3) {
     issues.push({ code: "body-thin", severity: "error", message: "Destination needs at least three genuinely substantive, non-duplicate editorial paragraphs." });
+  }
+  if (containsGeneratedFallbackCopy(summary, bodyText)) {
+    issues.push({ code: "generic-fallback-copy", severity: "error", message: "Destination still depends on generated fallback boilerplate and must be hand-curated before indexing." });
   }
   if (destination.highlights.filter(Boolean).length < 3) {
     issues.push({ code: "highlights-thin", severity: "warning", message: "Destination needs at least three useful visit highlights." });
