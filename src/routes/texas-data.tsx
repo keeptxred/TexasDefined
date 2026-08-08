@@ -12,7 +12,7 @@ const nextStops = [
   ['Find a city', '/browse/cities', 'Get to know major cities, regional centers and communities across the state.'],
   ['Places worth exploring', '/explore', 'Find parks, lakes, caverns, road trips and memorable corners of Texas.'],
   ['Property-tax help', '/decide/property-taxes', 'Estimate a property-tax bill and understand the numbers behind it.'],
-  ['Money Made Clearer', '/decide/financial-tools', 'Compare household costs, homeownership expenses and moving decisions.'],
+  ['Money & Property', '/decide/financial-tools', 'Compare household costs, homeownership expenses and moving decisions.'],
   ['Texas resources', '/texas-resources', 'Find official contacts, local information and practical guides.'],
 ] as const;
 
@@ -71,7 +71,7 @@ export const Route = createFileRoute('/texas-data')({
 
 function Page() {
   return (
-    <main>
+    <>
       <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
         <header className="grid gap-8 border-b border-border pb-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end">
           <div>
@@ -128,6 +128,6 @@ function Page() {
           Texas Defined uses public information as a starting point for understanding the state. For official decisions, deadlines or eligibility, follow the source links to the responsible agency.
         </aside>
       </Container>
-    </main>
+    </>
   );
 }
