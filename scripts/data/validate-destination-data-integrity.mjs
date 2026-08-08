@@ -40,10 +40,12 @@ for (const feature of [
   'if (!activities.length && !facilities.length && !otherHighlights.length && !practicalTips.length) return null',
   'Conditions, closures, fees and availability can change',
   'aria-labelledby="plan-your-visit"',
-  'activities.map',
-  'facilities.map',
-  'otherHighlights.map',
-  'practicalTips.map',
+  '{ title: "Things to do", items: activities }',
+  '{ title: "Facilities", items: facilities }',
+  '{ title: "Don’t miss", items: otherHighlights }',
+  '{ title: "Good to know", items: practicalTips }',
+  'groups.map((group, index)',
+  'group.items.map((item)',
 ]) {
   if (!destinationPlanner.includes(feature)) errors.push(`Destination visit-planner integrity feature missing: ${feature}.`);
 }
