@@ -64,13 +64,13 @@ export const Route = createFileRoute("/browse/cities")({
                 {
                   "@type": "ListItem",
                   position: 1,
-                  name: "Home",
+                  name: "Front page",
                   item: absoluteUrl(texasDefinedBrand, "/"),
                 },
                 {
                   "@type": "ListItem",
                   position: 2,
-                  name: "Find a City",
+                  name: "Cities",
                   item: pageUrl,
                 },
               ],
