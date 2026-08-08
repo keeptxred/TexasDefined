@@ -13,6 +13,11 @@ function quotedObjectKeys(source) {
   return [...source.matchAll(/^\s*"([a-z0-9][a-z0-9-]*)"\s*:\s*\{/gm)].map((match) => match[1]);
 }
 
+function recordSlugs(source) {
+  const block = source.match(/const records\s*=\s*`([\s\S]*?)`\s*\.trim\(\)\.split/)?.[1] ?? "";
+  return block.split("\n").map((line) => line.trim()).filter(Boolean).map((line) => line.split("|")[0]).filter((slug) => /^[a-z0-9][a-z0-9-]*$/.test(slug));
+}
+
 function curationFiles() {
   return fs.readdirSync(dataDir)
     .filter((name) => /^destination-curation(?:-batch\d+)?\.ts$/.test(name))
@@ -94,12 +99,14 @@ function covered(slug) {
 }
 
 function activeCoverage(slugs) {
-  const active = slugs.filter((slug) => !excludedFromPlanner(slug));
+  const unique = [...new Set(slugs)];
+  const active = unique.filter((slug) => !excludedFromPlanner(slug));
   return {
+    all: unique,
     active,
     covered: active.filter(covered),
     remaining: active.filter((slug) => !covered(slug)),
-    excluded: slugs.filter(excludedFromPlanner),
+    excluded: unique.filter(excludedFromPlanner),
   };
 }
 
@@ -110,6 +117,12 @@ const stateParkCoverage = activeCoverage(stateParkImageSlugs);
 const exploreHeroSource = read("src/data/explore-hero-map.ts");
 const exploreHeroSlugs = quotedObjectKeys(exploreHeroSource);
 const exploreCoverage = activeCoverage(exploreHeroSlugs);
+
+const preservedCatalogSlugs = [
+  ...recordSlugs(read("src/data/fixtures/legacy-explore.ts")),
+  ...recordSlugs(read("src/data/fixtures/legacy-lakes.ts")),
+];
+const preservedCoverage = activeCoverage(preservedCatalogSlugs);
 
 const result = {
   curationFiles: curationFileNames.length,
@@ -125,6 +138,11 @@ const result = {
   brokenAliasTargets: brokenAliasTargets.length,
   unavailableDestinations: unavailable.size,
   nonPrimaryTripPlannerDestinations: nonPrimary.size,
+  preservedCatalogSlugs: preservedCoverage.all.length,
+  activePreservedCatalogSlugs: preservedCoverage.active.length,
+  curatedPreservedCatalogSlugs: preservedCoverage.covered.length,
+  remainingPreservedCatalogSlugs: preservedCoverage.remaining.length,
+  excludedPreservedCatalogSlugs: preservedCoverage.excluded.length,
   stateParkHeroSlugs: stateParkImageSlugs.length,
   activeStateParkHeroSlugs: stateParkCoverage.active.length,
   curatedStateParkHeroSlugs: stateParkCoverage.covered.length,
@@ -143,6 +161,7 @@ const result = {
   duplicateCurations,
   aliasShadowedCurations,
   brokenAliases: brokenAliasTargets,
+  remainingPreservedCatalog: preservedCoverage.remaining,
   remainingStateParks: stateParkCoverage.remaining,
   remainingExploreHeroes: exploreCoverage.remaining,
 };
