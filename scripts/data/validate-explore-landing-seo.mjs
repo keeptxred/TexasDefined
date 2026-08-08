@@ -9,13 +9,13 @@ for (const feature of [
   '"@type": "CollectionPage"',
   '"@type": "ItemList"',
   '"@type": "BreadcrumbList"',
-  'type: "WebPage" as const',
-  'type: "TouristAttraction" as const',
-  'type: "Article" as const',
+  '"@type": "WebPage" as const',
+  '"@type": "TouristAttraction"',
+  '"@type": "Article" as const',
   'const regions = loaderData?.regions ?? []',
   '...regions.map((region)',
   '`${siteUrl}/explore/region/${region.id}`',
-  'name: "Texas categories, regions, places and stories"',
+  'name: "Places, regions and stories worth knowing"',
   'numberOfItems: itemListElement.length',
   'isPartOf: { "@id": `${siteUrl}/#website` }',
   'return { categories, regions, destinations, articles }',
@@ -24,7 +24,8 @@ for (const feature of [
   'aria-current="page"',
   '"major-springs"',
   '"national-parks"',
-  'Choose a spring, national park, cavern, beach',
+  'Where do you want to go next?',
+  'organized for browsing, not endless scrolling',
 ]) {
   if (!route.includes(feature)) errors.push(`Explore landing SEO feature missing: ${feature}.`);
 }
