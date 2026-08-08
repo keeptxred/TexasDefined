@@ -74,7 +74,7 @@ export function PropertyTaxGuidePage({ eyebrow, title, intro, sections, official
         </div>
 
         <section className="mt-12 border-t-2 border-foreground pt-7">
-          <p className="eyebrow text-primary">Continue the research</p>
+          <p className="eyebrow text-primary">Where to go next</p>
           <div className="mt-5 grid border-t border-border sm:grid-cols-2">
             <Link to="/decide/property-taxes" className="border-b border-border py-5 sm:border-r sm:pr-6"><strong className="font-display text-2xl hover:text-primary">Estimate your property taxes</strong></Link>
             <Link to="/learn/appraisal-districts" className="border-b border-border py-5 sm:pl-6"><strong className="font-display text-2xl hover:text-primary">Find your appraisal district</strong></Link>
