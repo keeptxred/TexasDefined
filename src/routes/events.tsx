@@ -9,6 +9,7 @@ import { EventCard } from "@/components/editorial/EventCard";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import { eventsQuery, regionsQuery } from "@/data/queries";
+import type { TexasEvent } from "@/data/types";
 import { formatDateRange } from "@/domain/utils/format";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 import { cn } from "@/lib/utils";
@@ -17,7 +18,14 @@ const description = "Rodeos, wildflower weekends, barbecue throwdowns, dance hal
 const canonicalPath = "/events";
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const pageUrl = `${siteUrl}${canonicalPath}`;
-const editorialLabel = (value: string) => value.replaceAll("-", " ").replace(/\b\w/g, (character) => character.toUpperCase());
+const EVENT_LABELS: Record<TexasEvent["category"], string> = {
+  music: "Live Music",
+  food: "Food & Drink",
+  rodeo: "Rodeo",
+  seasonal: "Seasonal",
+  sport: "Sports",
+  culture: "Arts & Culture",
+};
 
 export const Route = createFileRoute("/events")({
   loader: async ({ context }) => {
@@ -59,14 +67,14 @@ function EventsPage() {
         <p className="eyebrow mt-10 text-ink-foreground/75">The Texas Calendar</p>
         <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">What’s happening across Texas</h1>
         <p className="mt-6 max-w-2xl text-lg leading-8 text-ink-foreground/82">{description}</p>
-        {featured && <div id={featured.id} className="mt-10 max-w-2xl border-t border-ink-foreground/30 pt-6"><p className="eyebrow text-ink-foreground/65">Featured event · {editorialLabel(featured.category)}</p><h2 className="mt-3 font-display text-4xl leading-tight">{featured.name}</h2><p className="mt-3 text-sm leading-7 text-ink-foreground/82">{featured.blurb}</p><p className="mt-4 text-sm text-ink-foreground/65">{formatDateRange(featured.startDate, featured.endDate, brand.identity.locale)} · {featured.city}{regionName(featured.region) ? ` · ${regionName(featured.region)}` : ""}</p></div>}
+        {featured && <div id={featured.id} className="mt-10 max-w-2xl border-t border-ink-foreground/30 pt-6"><p className="eyebrow text-ink-foreground/65">Featured event · {EVENT_LABELS[featured.category]}</p><h2 className="mt-3 font-display text-4xl leading-tight">{featured.name}</h2><p className="mt-3 text-sm leading-7 text-ink-foreground/82">{featured.blurb}</p><p className="mt-4 text-sm text-ink-foreground/65">{formatDateRange(featured.startDate, featured.endDate, brand.identity.locale)} · {featured.city}{regionName(featured.region) ? ` · ${regionName(featured.region)}` : ""}</p>{featured.officialUrl && <a href={featured.officialUrl} target="_blank" rel="noreferrer noopener" className="eyebrow mt-5 inline-flex border-b border-ink-foreground/70 pb-1 text-ink-foreground">Event details ↗</a>}</div>}
       </Container>
     </section>
 
     <Section><Container>
-      <SectionHeader eyebrow="Browse the calendar" title="Find something worth the trip" description="Filter by the kind of event you want and the part of Texas you want to explore." />
+      <SectionHeader eyebrow="Browse the calendar" title="Find something worth the trip" description="Filter by event type and region to see what’s happening across the state." />
       <div className="mt-8 space-y-4 border-y border-border py-6">
-        <FilterRow label="Event type" options={categories.map((value) => ({ value, label: value === "all" ? "All events" : editorialLabel(value) }))} active={category} onChange={setCategory} />
+        <FilterRow label="Event type" options={categories.map((value) => ({ value, label: value === "all" ? "All events" : EVENT_LABELS[value as TexasEvent["category"]] }))} active={category} onChange={setCategory} />
         <FilterRow label="Region" options={[{ value: "all", label: "All Texas" }, ...regions.map((item) => ({ value: item.id, label: item.name }))]} active={region} onChange={setRegion} />
       </div>
       <div className="mt-12 grid gap-12 lg:grid-cols-[1.65fr_0.85fr]">
