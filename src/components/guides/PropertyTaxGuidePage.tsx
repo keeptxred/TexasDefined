@@ -50,7 +50,7 @@ export function PropertyTaxGuidePage({ eyebrow, title, intro, sections, official
   return <>
     <section className="border-b border-border bg-surface">
       <Container className="py-16 sm:py-24">
-        {canonicalPath && <nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.14em] text-muted-foreground"><Link to="/">Front page</Link><span aria-hidden> · </span><Link to="/decide/property-taxes">Property taxes</Link></nav>}
+        {canonicalPath && <nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.14em] text-muted-foreground"><Link to="/">Front page</Link><span aria-hidden> · </span><Link to="/decide/property-taxes">Property taxes</Link><span aria-hidden> · </span><span aria-current="page" className="text-foreground">{title}</span></nav>}
         <p className="eyebrow mt-8 text-primary">{eyebrow}</p>
         <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">{title}</h1>
         <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">{linkedText(intro, 3)}</p>
