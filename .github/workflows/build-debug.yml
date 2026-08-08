@@ -1,11 +1,14 @@
 name: Production Build Debug
 
+# Diagnostic workflow only. The main Validate TexasDefined workflow already
+# installs dependencies, validates the repository, and performs a production
+# build on pushes and pull requests. Keep this workflow available for manual
+# troubleshooting without doubling Actions usage on every commit.
 on:
-  push:
-    branches:
-      - main
-      - lovable-sync-1785817407
   workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   build:
