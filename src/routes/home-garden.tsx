@@ -19,7 +19,7 @@ export const Route = createFileRoute("/home-garden")({
     description,
     image: bluebonnets,
     imageAlt,
-    breadcrumbParentName: "Living Here",
+    breadcrumbParentName: "Texas Life",
     breadcrumbParentPath: "/texas-living",
     items: [
       ...loaderData.articles.map((article) => ({ type: "Article" as const, name: article.title, url: `/article/${article.slug}`, image: article.hero.src, description: article.dek })),
