@@ -36,7 +36,7 @@ const groups: ReadonlyArray<ResourceGroup> = [
       ['Explore', '/explore'],
       ['Find your county', '/browse/counties'],
       ['Find a city', '/browse/cities'],
-      ['Living Here', '/texas-living'],
+      ['Texas Life', '/texas-living'],
     ],
   },
   {
