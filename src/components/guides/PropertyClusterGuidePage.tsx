@@ -38,10 +38,21 @@ export function PropertyClusterGuidePage({ eyebrow, title, intro, sections, faqs
     <article>
       <section className="border-b border-border bg-surface">
         <Container className="py-16 sm:py-24">
-          <p className="eyebrow text-primary">{eyebrow}</p>
-          <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] text-foreground sm:text-7xl">{title}</h1>
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">{intro}</p>
-          <div className="mt-7 flex flex-wrap gap-x-6 gap-y-2 border-t border-border pt-4 text-[0.72rem] uppercase tracking-[0.12em] text-muted-foreground"><span>Based on official Texas sources</span><span>Reviewed August 6, 2026</span></div>
+          <nav aria-label="Breadcrumb" className="text-[0.72rem] font-medium uppercase tracking-[0.12em] text-muted-foreground">
+            <ol className="flex flex-wrap items-center gap-2">
+              <li><Link to="/" className="hover:text-foreground">Front page</Link></li>
+              <li aria-hidden="true">/</li>
+              <li><Link to="/decide/financial-tools" className="hover:text-foreground">Money & Property</Link></li>
+              <li aria-hidden="true">/</li>
+              <li aria-current="page" className="text-foreground">Property-tax guides</li>
+            </ol>
+          </nav>
+          <div className="mt-10 border-t border-border pt-8">
+            <p className="eyebrow text-primary">{eyebrow}</p>
+            <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] text-foreground sm:text-7xl">{title}</h1>
+            <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">{intro}</p>
+            <div className="mt-7 flex flex-wrap gap-x-6 gap-y-2 border-t border-border pt-4 text-[0.72rem] uppercase tracking-[0.12em] text-muted-foreground"><span>Based on official Texas sources</span><span>Reviewed August 6, 2026</span></div>
+          </div>
         </Container>
       </section>
 
