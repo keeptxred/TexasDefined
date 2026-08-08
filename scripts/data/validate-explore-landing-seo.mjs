@@ -3,6 +3,7 @@ import path from 'node:path';
 
 const root = process.cwd();
 const route = fs.readFileSync(path.join(root, 'src/routes/explore.index.tsx'), 'utf8');
+const departmentHero = fs.readFileSync(path.join(root, 'src/components/editorial/DepartmentHero.tsx'), 'utf8');
 const errors = [];
 
 for (const feature of [
@@ -20,8 +21,8 @@ for (const feature of [
   'isPartOf: { "@id": `${siteUrl}/#website` }',
   'return { categories, regions, destinations, articles }',
   'to="/explore/region/$region"',
-  'aria-label="Breadcrumb"',
-  'aria-current="page"',
+  '<DepartmentHero',
+  'current="Explore"',
   '"major-springs"',
   '"national-parks"',
   'The guide by subject',
@@ -31,10 +32,18 @@ for (const feature of [
   if (!route.includes(feature)) errors.push(`Explore landing SEO feature missing: ${feature}.`);
 }
 
+for (const feature of [
+  'aria-label="Breadcrumb"',
+  '<Link to="/"',
+  'aria-current="page"',
+]) {
+  if (!departmentHero.includes(feature)) errors.push(`Shared department breadcrumb feature missing: ${feature}.`);
+}
+
 if (errors.length) {
   console.error('Explore landing SEO validation failed:');
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
 
-console.log('Explore landing CollectionPage, category-region-place-story ItemList, breadcrumb, and visible regional navigation validation passed.');
+console.log('Explore landing CollectionPage, category-region-place-story ItemList, shared breadcrumb, and visible regional navigation validation passed.');
