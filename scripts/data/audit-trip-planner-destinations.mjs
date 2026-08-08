@@ -24,10 +24,14 @@ function stringSetFromBlock(source, constantName) {
   return new Set([...block.matchAll(/"([a-z0-9][a-z0-9-]*)"/g)].map((match) => match[1]));
 }
 
+const curationFileNames = curationFiles();
 const curated = new Set();
 const curationOwners = new Map();
-for (const file of curationFiles()) {
-  for (const slug of quotedObjectKeys(read(path.join("src", "data", file)))) {
+const curationSlugsByFile = new Map();
+for (const file of curationFileNames) {
+  const slugs = quotedObjectKeys(read(path.join("src", "data", file)));
+  curationSlugsByFile.set(file, slugs);
+  for (const slug of slugs) {
     curated.add(slug);
     const owners = curationOwners.get(slug) ?? [];
     owners.push(file);
@@ -37,6 +41,12 @@ for (const file of curationFiles()) {
 const duplicateCurations = [...curationOwners.entries()]
   .filter(([, files]) => files.length > 1)
   .map(([slug, files]) => ({ slug, files }));
+const duplicateOnlyCurationFiles = [...curationSlugsByFile.entries()]
+  .filter(([, slugs]) => slugs.length > 0 && slugs.every((slug) => (curationOwners.get(slug)?.length ?? 0) > 1))
+  .map(([file, slugs]) => ({ file, slugCount: slugs.length }));
+const emptyCurationFiles = [...curationSlugsByFile.entries()]
+  .filter(([, slugs]) => slugs.length === 0)
+  .map(([file]) => file);
 
 const aliasesSource = read("src/data/destination-curation-all.ts");
 const aliases = new Map(
@@ -78,10 +88,12 @@ const exploreHeroSlugs = quotedObjectKeys(exploreHeroSource);
 const exploreCoverage = activeCoverage(exploreHeroSlugs);
 
 const result = {
-  curationFiles: curationFiles().length,
+  curationFiles: curationFileNames.length,
   curatedSlugs: curated.size,
   aliases: aliases.size,
   duplicateCurationSlugs: duplicateCurations.length,
+  duplicateOnlyCurationFiles: duplicateOnlyCurationFiles.length,
+  emptyCurationFiles: emptyCurationFiles.length,
   brokenAliasTargets: brokenAliasTargets.length,
   unavailableDestinations: unavailable.size,
   nonPrimaryTripPlannerDestinations: nonPrimary.size,
@@ -95,6 +107,8 @@ const result = {
   curatedExploreHeroSlugs: exploreCoverage.covered.length,
   remainingExploreHeroSlugs: exploreCoverage.remaining.length,
   excludedExploreHeroSlugs: exploreCoverage.excluded.length,
+  duplicateOnlyFiles: duplicateOnlyCurationFiles,
+  emptyFiles: emptyCurationFiles,
   duplicateCurations,
   brokenAliases: brokenAliasTargets,
   remainingStateParks: stateParkCoverage.remaining,
