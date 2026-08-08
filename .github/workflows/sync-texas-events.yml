@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: texas-events-sync
@@ -16,24 +16,28 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    env:
-      TEXASDEFINED_SUPABASE_URL: ${{ secrets.TEXASDEFINED_SUPABASE_URL }}
-      TEXASDEFINED_SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.TEXASDEFINED_SUPABASE_SERVICE_ROLE_KEY }}
     steps:
-      - name: Report unconfigured event sync
-        if: env.TEXASDEFINED_SUPABASE_URL == '' || env.TEXASDEFINED_SUPABASE_SERVICE_ROLE_KEY == ''
-        run: echo "Texas event sync skipped because the required Supabase repository secrets are not configured."
-
       - name: Check out repository
-        if: env.TEXASDEFINED_SUPABASE_URL != '' && env.TEXASDEFINED_SUPABASE_SERVICE_ROLE_KEY != ''
         uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Set up Node
-        if: env.TEXASDEFINED_SUPABASE_URL != '' && env.TEXASDEFINED_SUPABASE_SERVICE_ROLE_KEY != ''
         uses: actions/setup-node@v4
         with:
           node-version: "22"
 
       - name: Sync authoritative Texas events
-        if: env.TEXASDEFINED_SUPABASE_URL != '' && env.TEXASDEFINED_SUPABASE_SERVICE_ROLE_KEY != ''
         run: node scripts/events/sync-texas-events.mjs
+
+      - name: Commit refreshed event catalog
+        run: |
+          if git diff --quiet -- src/data/generated/texas-events.ts; then
+            echo "Texas events catalog is already current."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/data/generated/texas-events.ts
+          git commit -m "data: refresh Texas events catalog"
+          git push origin HEAD:main
