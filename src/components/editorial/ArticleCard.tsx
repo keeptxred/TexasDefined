@@ -19,7 +19,7 @@ const editorialLabel = (value: string) => SECTION_LABELS[value.toLowerCase()] ??
 
 export function ArticleCard({ article, size = "default", eager = false, className }: { article: Article; size?: "compact" | "default" | "feature"; eager?: boolean; className?: string; }) {
   const brand = useBrand();
-  const sectionLabel = editorialLabel(article.tags[0] ?? article.category);
+  const sectionLabel = editorialLabel(article.category || article.tags[0] || "Story");
 
   return (
     <article className={cn("group flex flex-col", className)}>
