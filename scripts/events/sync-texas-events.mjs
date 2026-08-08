@@ -1,13 +1,10 @@
 #!/usr/bin/env node
 
-const SUPABASE_URL = String(process.env.TEXASDEFINED_SUPABASE_URL || process.env.SUPABASE_URL || "").replace(/\/$/, "");
-const SERVICE_KEY = String(process.env.TEXASDEFINED_SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY || "");
-const DRY_RUN = process.argv.includes("--dry-run");
+import { mkdir, writeFile } from "node:fs/promises";
+import { dirname, resolve } from "node:path";
 
-if (!SUPABASE_URL || !SERVICE_KEY) {
-  console.error("Missing TEXASDEFINED_SUPABASE_URL or TEXASDEFINED_SUPABASE_SERVICE_ROLE_KEY");
-  process.exit(1);
-}
+const DRY_RUN = process.argv.includes("--dry-run");
+const OUTPUT_PATH = resolve("src/data/generated/texas-events.ts");
 
 const SOURCES = [
   {
@@ -36,6 +33,7 @@ function stripHtml(value) {
     .replace(/&amp;/g, "&")
     .replace(/&quot;/g, '"')
     .replace(/&#39;/g, "'")
+    .replace(/&nbsp;/g, " ")
     .replace(/\s+/g, " ")
     .trim();
 }
@@ -65,11 +63,17 @@ function categoryFromText(value) {
   return "seasonal";
 }
 
-function editorialBlurb(name, venue, sourceText) {
-  const clean = stripHtml(sourceText).replace(new RegExp(`^${name}\\s*`, "i"), "");
-  if (clean.length >= 45) return clean.slice(0, 210).replace(/\s+\S*$/, "").replace(/[,:;\-\s]+$/, "") + ".";
-  if (venue) return `${name} brings visitors to ${venue} for a distinctly Texas day out.`;
-  return `${name} is an upcoming Texas event worth putting on the calendar.`;
+function editorialBlurb(name, category, venue, city) {
+  const place = venue && venue !== city ? `${venue} in ${city}` : city || venue || "Texas";
+  const templates = {
+    rodeo: `${name} brings rodeo, livestock traditions and a full Texas crowd to ${place}.`,
+    music: `${name} puts live music and a strong sense of place on the calendar in ${place}.`,
+    food: `${name} is the kind of Texas gathering built around food, local tradition and a reason to make the drive to ${place}.`,
+    sport: `${name} gives visitors a reason to get outside and join the action in ${place}.`,
+    culture: `${name} celebrates Texas history, art and local culture in ${place}.`,
+    seasonal: `${name} is a timely Texas outing worth planning around in ${place}.`,
+  };
+  return templates[category] || templates.seasonal;
 }
 
 function parseTpwd(html) {
@@ -82,41 +86,55 @@ function parseTpwd(html) {
     const tail = stripHtml(match[3]);
     const dateMatch = match[0].match(/(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\s+\d{1,2}(?:,\s+\d{4})?/i);
     if (!name || !dateMatch) continue;
-    const parsed = new Date(`${dateMatch[0]} ${new Date().getFullYear()}`);
+    const hasYear = /20\d{2}/.test(dateMatch[0]);
+    const parsed = new Date(hasYear ? dateMatch[0] : `${dateMatch[0]}, ${new Date().getFullYear()}`);
     if (Number.isNaN(parsed.getTime())) continue;
-    if (parsed < new Date(Date.now() - 86400000 * 2)) parsed.setFullYear(parsed.getFullYear() + 1);
+    if (!hasYear && parsed < new Date(Date.now() - 86400000 * 2)) parsed.setFullYear(parsed.getFullYear() + 1);
     const venue = tail.split(/(?<=[.!?])\s/)[0]?.slice(0, 120) || "Texas state park";
+    const city = venue.replace(/State Park|State Natural Area|Historic Site/gi, "").trim() || "Texas";
     const startDate = parsed.toISOString().slice(0, 10);
+    const category = categoryFromText(`${name} ${tail}`);
+    const editorialScore = /festival|fair|rodeo|concert|star|paddle|bird|history|tour/i.test(`${name} ${tail}`) ? 84 : 68;
     rows.push({
-      source_key: "tpwd-calendar",
-      source_event_id: href,
-      source_url: href,
-      source_name: "Texas Parks and Wildlife Department",
-      source_checked_at: new Date().toISOString(),
-      name,
+      id: `tpwd:${slugify(name)}:${startDate}`,
+      brandId: "texasdefined",
       slug: `${slugify(name)}-${startDate}`,
-      blurb: editorialBlurb(name, venue, tail),
-      city: venue.replace(/State Park|State Natural Area|Historic Site/gi, "").trim() || "Texas",
+      name,
+      blurb: editorialBlurb(name, category, venue, city),
+      city,
       region: regionFromPlace(venue),
+      startDate,
+      category,
       venue,
-      start_date: startDate,
-      end_date: null,
-      category: categoryFromText(`${name} ${tail}`),
-      official_url: href,
-      confidence_score: 94,
-      editorial_score: /festival|fair|rodeo|concert|star|paddle|bird|history|tour/i.test(`${name} ${tail}`) ? 84 : 68,
-      auto_publish: true,
+      officialUrl: href,
+      sourceName: "Texas Parks and Wildlife Department",
+      sourceCheckedAt: new Date().toISOString(),
+      confidenceScore: 94,
+      editorialScore,
       status: "published",
-      raw_payload: { excerpt: tail.slice(0, 500) },
+      autoPublish: true,
     });
   }
   return rows;
 }
 
 async function fetchText(url) {
-  const response = await fetch(url, { headers: { "user-agent": "TexasDefined event calendar (+https://texasdefined.com)" } });
-  if (!response.ok) throw new Error(`${url} returned ${response.status}`);
-  return response.text();
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 15000);
+  try {
+    const response = await fetch(url, {
+      signal: controller.signal,
+      headers: { "user-agent": "TexasDefined event calendar (+https://texasdefined.com)" },
+    });
+    if (!response.ok) throw new Error(`${url} returned ${response.status}`);
+    return response.text();
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+function dateCandidates(text) {
+  return [...text.matchAll(/(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2}(?:\s*[–-]\s*\d{1,2})?,?\s+20\d{2}/gi)].map((item) => item[0]);
 }
 
 async function annualAnchorRows() {
@@ -124,35 +142,35 @@ async function annualAnchorRows() {
   for (const [key, name, city, region, category, url, score] of ANNUAL_EVENTS) {
     try {
       const html = await fetchText(url);
-      const text = stripHtml(html).slice(0, 12000);
-      const dateMatches = [...text.matchAll(/(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2}(?:\s*[–-]\s*\d{1,2})?,?\s+20\d{2}/gi)];
-      const candidate = dateMatches.map((item) => item[0]).find((item) => new Date(item.replace(/–/g, "-")).getTime() >= Date.now() - 86400000 * 7);
+      const text = stripHtml(html).slice(0, 30000);
+      const candidate = dateCandidates(text).find((item) => {
+        const first = item.split(/[–-]/)[0].trim();
+        const date = new Date(first);
+        return !Number.isNaN(date.getTime()) && date.getTime() >= Date.now() - 86400000 * 7;
+      });
       if (!candidate) continue;
       const firstDate = candidate.split(/[–-]/)[0].trim();
       const parsed = new Date(firstDate);
       if (Number.isNaN(parsed.getTime())) continue;
       const startDate = parsed.toISOString().slice(0, 10);
       rows.push({
-        source_key: `official-${key}`,
-        source_event_id: `${key}-${startDate}`,
-        source_url: url,
-        source_name: name,
-        source_checked_at: new Date().toISOString(),
-        name,
+        id: `official:${key}:${startDate}`,
+        brandId: "texasdefined",
         slug: `${key}-${startDate}`,
-        blurb: editorialBlurb(name, city, text.slice(Math.max(0, text.toLowerCase().indexOf(name.toLowerCase())), 800)),
+        name,
+        blurb: editorialBlurb(name, category, city, city),
         city,
         region,
-        venue: city,
-        start_date: startDate,
-        end_date: null,
+        startDate,
         category,
-        official_url: url,
-        confidence_score: score,
-        editorial_score: score,
-        auto_publish: score >= 90,
+        venue: city,
+        officialUrl: url,
+        sourceName: name,
+        sourceCheckedAt: new Date().toISOString(),
+        confidenceScore: score,
+        editorialScore: score,
         status: score >= 90 ? "published" : "pending",
-        raw_payload: { detected_date: candidate },
+        autoPublish: score >= 90,
       });
     } catch (error) {
       console.warn(`Annual source ${name} skipped: ${error.message}`);
@@ -164,35 +182,26 @@ async function annualAnchorRows() {
 function dedupe(rows) {
   const map = new Map();
   for (const row of rows) {
-    const key = `${slugify(row.name)}:${row.start_date}:${slugify(row.city)}`;
+    const key = `${slugify(row.name)}:${row.startDate}:${slugify(row.city)}`;
     const current = map.get(key);
-    if (!current || row.confidence_score + row.editorial_score > current.confidence_score + current.editorial_score) map.set(key, row);
+    if (!current || row.confidenceScore + row.editorialScore > current.confidenceScore + current.editorialScore) map.set(key, row);
   }
   return [...map.values()];
 }
 
-async function upsert(rows) {
+function sortRows(rows) {
+  return [...rows].sort((a, b) => a.startDate.localeCompare(b.startDate) || b.editorialScore - a.editorialScore || b.confidenceScore - a.confidenceScore);
+}
+
+async function writeGeneratedCatalog(rows) {
+  const header = `// AUTO-GENERATED by scripts/events/sync-texas-events.mjs.\n// Do not hand-edit; the scheduled Sync Texas Events workflow refreshes this file.\n\n`;
+  const body = `export const generatedTexasEvents = ${JSON.stringify(rows, null, 2)} as const;\n`;
   if (DRY_RUN) {
-    console.log(JSON.stringify(rows, null, 2));
+    console.log(body);
     return;
   }
-  const response = await fetch(`${SUPABASE_URL}/rest/v1/texas_events?on_conflict=source_key,source_event_id`, {
-    method: "POST",
-    headers: {
-      apikey: SERVICE_KEY,
-      Authorization: `Bearer ${SERVICE_KEY}`,
-      "Content-Type": "application/json",
-      Prefer: "resolution=merge-duplicates,return=minimal",
-    },
-    body: JSON.stringify(rows),
-  });
-  if (!response.ok) throw new Error(`Event upsert failed ${response.status}: ${await response.text()}`);
-
-  await fetch(`${SUPABASE_URL}/rest/v1/rpc/expire_texas_events`, {
-    method: "POST",
-    headers: { apikey: SERVICE_KEY, Authorization: `Bearer ${SERVICE_KEY}`, "Content-Type": "application/json" },
-    body: "{}",
-  });
+  await mkdir(dirname(OUTPUT_PATH), { recursive: true });
+  await writeFile(OUTPUT_PATH, header + body, "utf8");
 }
 
 const collected = [];
@@ -205,6 +214,12 @@ for (const source of SOURCES) {
   }
 }
 collected.push(...await annualAnchorRows());
-const rows = dedupe(collected).filter((row) => row.start_date && row.official_url && row.blurb);
-await upsert(rows);
-console.log(`Texas events sync complete: ${rows.length} authoritative events processed.`);
+
+const rows = sortRows(dedupe(collected).filter((row) => row.startDate && row.officialUrl && row.blurb));
+if (!rows.length) {
+  console.warn("Texas events sync found no usable events; existing generated catalog was left unchanged.");
+  process.exit(0);
+}
+
+await writeGeneratedCatalog(rows);
+console.log(`Texas events sync complete: ${rows.length} authoritative events written to ${OUTPUT_PATH}.`);
