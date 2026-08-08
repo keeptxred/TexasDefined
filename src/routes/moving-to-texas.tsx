@@ -34,5 +34,5 @@ export const Route = createFileRoute("/moving-to-texas")({
     ]);
     return { articles, destinations };
   },
-  component: () => <CategoryPage category="moving-to-texas" eyebrow="The relocation guide" title="Moving to Texas, with your eyes open" intro={description} image={{ src: roadTrip, alt: imageAlt, width: 1600, height: 1067 }} />,
+  component: () => <CategoryPage category="moving-to-texas" eyebrow="The relocation guide" title="What to know before you move to Texas" intro={description} image={{ src: roadTrip, alt: imageAlt, width: 1600, height: 1067 }} />,
 });
