@@ -27,7 +27,7 @@ export const Route = createFileRoute('/property-tax/county/$county')({
           {
             '@type': 'BreadcrumbList', '@id': `${pageUrl}#breadcrumb`, itemListElement: [
               { '@type': 'ListItem', position: 1, name: 'Home', item: absoluteUrl(texasDefinedBrand, '/') },
-              { '@type': 'ListItem', position: 2, name: 'Texas counties', item: absoluteUrl(texasDefinedBrand, '/browse/counties') },
+              { '@type': 'ListItem', position: 2, name: 'County property-tax guides', item: absoluteUrl(texasDefinedBrand, '/property-tax/counties') },
               { '@type': 'ListItem', position: 3, name: county.name, item: pageUrl },
             ],
           },
@@ -68,11 +68,11 @@ const steps = [
 function CountyPropertyTaxPage() {
   const { county } = Route.useLoaderData();
   return (
-    <main>
+    <>
       <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
         <article className="mx-auto max-w-6xl">
           <nav aria-label="Breadcrumb" className="border-b border-border pb-4 text-xs uppercase tracking-[0.14em] text-muted-foreground">
-            <Link to="/">Front page</Link><span aria-hidden="true" className="mx-2">/</span><Link to="/browse/counties">County directory</Link><span aria-hidden="true" className="mx-2">/</span><span className="text-foreground">{county.name}</span>
+            <Link to="/">Front page</Link><span aria-hidden="true" className="mx-2">/</span><Link to="/property-tax/counties">County property-tax guides</Link><span aria-hidden="true" className="mx-2">/</span><span aria-current="page" className="text-foreground">{county.name}</span>
           </nav>
 
           <header className="grid gap-8 border-b border-border py-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end">
@@ -117,6 +117,6 @@ function CountyPropertyTaxPage() {
           </section>
         </article>
       </Container>
-    </main>
+    </>
   );
 }
