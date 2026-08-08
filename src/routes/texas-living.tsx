@@ -50,7 +50,7 @@ function TexasLivingPage() {
   const { homeArticles, movingArticles } = Route.useLoaderData();
   return <>
     <Container className="pb-10 pt-14 sm:pt-20">
-      <main className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-6xl">
         <nav aria-label="Breadcrumb" className="text-[0.72rem] font-medium uppercase tracking-[0.12em] text-muted-foreground"><ol className="flex items-center gap-2"><li><Link to="/" className="hover:text-foreground">Front page</Link></li><li aria-hidden="true">/</li><li aria-current="page" className="text-foreground">Texas Life</li></ol></nav>
         <div className="mt-9 max-w-5xl border-b border-border pb-12">
           <p className="eyebrow text-primary">Texas Life</p>
@@ -65,7 +65,7 @@ function TexasLivingPage() {
             <span className="eyebrow mt-5 inline-block border-b border-primary pb-1 text-primary">Open section →</span>
           </Link>)}
         </div>
-      </main>
+      </div>
     </Container>
 
     {homeArticles.length > 0 && <Section tone="surface"><Container><SectionHeader eyebrow="Homes & ownership" title="The practical side of putting down roots" description="Mortgages, closing costs, insurance, equity, utilities and the true cost of owning a home in Texas." actionLabel="See all home guides" actionTo="/real-estate" /><ul className="mt-10 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">{homeArticles.slice(0, 9).map((article) => <li key={article.id}><ArticleCard article={article} size="compact" /></li>)}</ul></Container></Section>}
