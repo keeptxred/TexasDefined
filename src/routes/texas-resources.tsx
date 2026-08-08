@@ -22,7 +22,7 @@ const groups: ReadonlyArray<ResourceGroup> = [
   {
     title: 'Money and homeownership',
     links: [
-      ['Money Made Clearer', '/decide/financial-tools'],
+      ['Money & Property', '/decide/financial-tools'],
       ['Understand property taxes', '/learn/property-taxes'],
       ['Property-tax guide library', '/property-tax-guides'],
       ['Property-tax calculator toolkit', '/property-tax-calculators'],
@@ -45,10 +45,10 @@ const groups: ReadonlyArray<ResourceGroup> = [
   {
     title: 'Stories and everyday Texas',
     links: [
-      ['The Texas Game', '/sports'],
-      ['Then & Now', '/texas-history'],
+      ['Sports', '/sports'],
+      ['History', '/texas-history'],
       ['Home & Garden', '/home-garden'],
-      ['Homes and Land', '/real-estate'],
+      ['Homes & Land', '/real-estate'],
       ['About Texas Defined', '/about'],
     ],
   },
@@ -107,12 +107,12 @@ export const Route = createFileRoute('/texas-resources')({
 
 function Page() {
   return (
-    <main>
+    <>
       <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
         <nav aria-label="Breadcrumb" className="border-b border-border pb-4 text-xs uppercase tracking-[0.14em] text-muted-foreground">
           <Link to="/" className="hover:text-foreground">Front page</Link>
           <span aria-hidden="true" className="mx-2">/</span>
-          <span className="text-foreground">Start Here</span>
+          <span aria-current="page" className="text-foreground">Start Here</span>
         </nav>
 
         <header className="grid gap-8 border-b border-border py-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end">
@@ -149,6 +149,6 @@ function Page() {
           Looking for a place rather than a practical guide? <Link to="/explore" className="font-semibold text-foreground underline decoration-primary/50 underline-offset-4">Open the Texas travel guide.</Link>
         </footer>
       </Container>
-    </main>
+    </>
   );
 }
