@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
+import { DepartmentHero } from "@/components/editorial/DepartmentHero";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
@@ -13,7 +14,7 @@ export const Route = createFileRoute("/about")({
     links: [canonicalLink(texasDefinedBrand, "/about")],
     scripts: [jsonLd({ "@context": "https://schema.org", "@graph": [
       { "@type": "AboutPage", "@id": `${absoluteUrl(texasDefinedBrand, "/about")}#page`, url: absoluteUrl(texasDefinedBrand, "/about"), name: "About Texas Defined", description, isPartOf: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#website` }, about: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#organization` } },
-      { "@type": "BreadcrumbList", "@id": `${absoluteUrl(texasDefinedBrand, "/about")}#breadcrumb`, itemListElement: [{ "@type": "ListItem", position: 1, name: "Front page", item: absoluteUrl(texasDefinedBrand, "/") }, { "@type": "ListItem", position: 2, name: "About Texas Defined", item: absoluteUrl(texasDefinedBrand, "/about") }] },
+      { "@type": "BreadcrumbList", "@id": `${absoluteUrl(texasDefinedBrand, "/about")}#breadcrumb`, itemListElement: [{ "@type": "ListItem", position: 1, name: "Front page", item: absoluteUrl(texasDefinedBrand, "/") }, { "@type": "ListItem", position: 2, name: "About", item: absoluteUrl(texasDefinedBrand, "/about") }] },
     ] })],
   }),
   component: AboutPage,
@@ -35,13 +36,7 @@ const DATA_NOTES = [
 
 function AboutPage() {
   return <>
-    <section className="border-b border-border bg-surface">
-      <Container className="py-20 sm:py-28">
-        <p className="eyebrow text-primary">About the magazine</p>
-        <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">Texas is bigger than a list of places.</h1>
-        <p className="mt-7 max-w-2xl text-lg leading-8 text-muted-foreground">{description}</p>
-      </Container>
-    </section>
+    <DepartmentHero current="About" eyebrow="About the magazine" title="Texas is bigger than a list of places." description={description} tone="surface" />
 
     <Section>
       <Container>
