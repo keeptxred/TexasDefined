@@ -13,6 +13,16 @@ const SECTION_LABELS: Record<string, string> = {
   outdoors: "Wild Texas",
   "real-estate": "Putting Down Roots",
   sports: "The Texas Game",
+  "lakes-rivers": "Lakes & Rivers",
+  "state-parks": "State Parks",
+  "national-parks": "National Parks",
+  "road-trips": "Road Trips",
+  "small-towns": "Small Towns",
+  "beaches-coast": "Beaches & Coast",
+  caverns: "Caverns & Caves",
+  "major-springs": "Springs & Swimming",
+  "historic-sites": "Historic Sites",
+  guides: "The Texas Guidebook",
 };
 
 const editorialLabel = (value: string) => SECTION_LABELS[value.toLowerCase()] ?? value.replaceAll("-", " ").replace(/\b\w/g, (character) => character.toUpperCase());
