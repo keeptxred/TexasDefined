@@ -24,8 +24,9 @@ for (const feature of [
   'aria-current="page"',
   '"major-springs"',
   '"national-parks"',
-  'Where do you want to go next?',
-  'organized for browsing, not endless scrolling',
+  'The guide by subject',
+  'Find your way into Texas',
+  'A few places to start',
 ]) {
   if (!route.includes(feature)) errors.push(`Explore landing SEO feature missing: ${feature}.`);
 }
