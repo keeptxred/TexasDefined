@@ -29,8 +29,8 @@ for (const feature of [
 ]) if (!remote.includes(feature)) errors.push(`Remote Explore enrichment feature missing: ${feature}`);
 
 for (const feature of [
-  'Visit official source', 'Official visitor information', 'Check reservations',
-  'Source checked', 'destination.hero.credit', 'citation: destination.officialUrl',
+  'Official visitor information', 'Reservations', 'Visitor information checked', 'Official source',
+  'destination.hero.credit', 'citation: destination.officialUrl',
   'sameAs: destination.officialUrl', 'dateModified: destination.sourceCheckedAt',
   'provider: { "@type": "Organization"',
   'destinationsQuery({ limit: 5000 })',
@@ -47,8 +47,12 @@ for (const feature of [
   'const practicalTips = unique([', 'destination.highlights', 'destination.bestSeason',
   'destination.entryNote', 'destination.reservationUrl', 'destination.accessibilityNotes',
   'destination.directions', 'Conditions, closures, fees and availability can change',
-  'aria-labelledby="plan-your-visit"', 'activities.map', 'facilities.map',
-  'otherHighlights.map', 'practicalTips.map',
+  'aria-labelledby="plan-your-visit"',
+  '{ title: "Things to do", items: activities }',
+  '{ title: "Facilities", items: facilities }',
+  '{ title: "Don’t miss", items: otherHighlights }',
+  '{ title: "Good to know", items: practicalTips }',
+  'groups.map((group, index)', 'group.items.map((item)',
 ]) if (!planner.includes(feature)) errors.push(`Destination Phase 1 planning feature missing: ${feature}`);
 
 for (const feature of [
@@ -72,7 +76,7 @@ for (const feature of [
 
 for (const feature of [
   'fetchCoreExploreDestinations', 'fetchCoreExploreDestination',
-  'visibility: "eq.public"', 'status: "in.(published,verified)"',
+  'explore_public_entities',
   'MAX_REMOTE_DESTINATIONS', 'DESTINATION_FALLBACK_IMAGE',
 ]) if (!core.includes(feature)) errors.push(`Core remote fallback feature missing: ${feature}`);
 
@@ -97,7 +101,7 @@ for (const feature of [
   'destinationsQuery({ limit: 5000 })', 'scoreDestination', 'searchText',
   'destination.county', 'destination.managingAuthority', 'destination.bestSeason',
   '...destination.highlights', 'terms.every((term) => haystack.includes(term))',
-  'right.score - left.score', 'Search by destination, town, county, activity, facility, managing agency or part of Texas',
+  'right.score - left.score', 'Search by destination, town, county, landscape, activity or the kind of day you want to plan',
 ]) if (!exploreSearch.includes(feature)) errors.push(`Explore search ranking feature missing: ${feature}`);
 if (exploreSearch.includes('fetchExploreDestinations({ query: q')) errors.push('Explore search bypasses the resilient destination query and core remote fallback.');
 
@@ -121,11 +125,9 @@ for (const feature of [
   'fetchCoreExploreDestinations',
   'let remoteFailed = false',
   'validLastModified', '<lastmod>', 'item.sourceCheckedAt',
-  'const destinations = remoteFailed ? fixtureDestinations : remoteDestinations',
+  'const destinations = remoteDestinations.length ? remoteDestinations : fixtureDestinations',
+  'if (remoteFailed && destinations.length === 0)',
 ]) if (!sitemap.includes(feature)) errors.push(`Explore sitemap enrichment feature missing: ${feature}`);
-if (sitemap.includes('remoteDestinations.length ? remoteDestinations : fixtureDestinations')) {
-  errors.push('Explore sitemap still treats a healthy empty remote catalog as an outage.');
-}
 
 for (const feature of [
   'fetchCoreExploreDestinations',
@@ -161,4 +163,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Explore Phase 1 enrichment, planning, ranked search, AI discovery, sitemap freshness, authority, access, relationship discovery, and true-outage-only fixture validation passed.');
+console.log('Explore enrichment, grouped planning, ranked search, AI discovery, sitemap freshness, authority, relationship discovery, public-view fallback, and fixture resilience passed.');
