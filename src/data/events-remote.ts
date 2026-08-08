@@ -1,3 +1,4 @@
+import { getGeneratedTexasEvents } from "./events-generated";
 import type { TexasEvent, TexasRegion } from "./types";
 
 const supabaseUrl = String(import.meta.env.VITE_TEXASDEFINED_SUPABASE_URL || import.meta.env.VITE_SUPABASE_URL || "").replace(/\/$/, "");
@@ -52,7 +53,10 @@ function mapRow(row: Record<string, unknown>): TexasEvent {
 }
 
 export async function fetchPublishedTexasEvents(limit = 24): Promise<TexasEvent[]> {
-  if (!supabaseUrl || !supabaseKey) throw new Error("Texas events catalog is not configured");
+  const generated = getGeneratedTexasEvents(limit);
+  if (generated.length) return generated;
+
+  if (!supabaseUrl || !supabaseKey) return [];
   const today = new Date().toISOString().slice(0, 10);
   const params = new URLSearchParams({
     select: "id,source_event_id,source_url,source_name,source_checked_at,name,slug,blurb,city,region,venue,start_date,end_date,category,official_url",
