@@ -60,7 +60,7 @@ export const Route = createFileRoute("/browse/counties")({
                 {
                   "@type": "ListItem",
                   position: 1,
-                  name: "Home",
+                  name: "Front page",
                   item: absoluteUrl(texasDefinedBrand, "/"),
                 },
                 {
