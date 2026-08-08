@@ -13,59 +13,68 @@ const description = "Texas-inspired apparel, gifts and everyday goods selected f
 const productAnchor = (id: string) => `product-${id}`;
 
 export const Route = createFileRoute("/shop/")({
-  head: ({ loaderData }: { loaderData?: { products: Product[] } }) => ({
-    meta: buildMeta(texasDefinedBrand, {
-      canonicalPath: "/shop",
-      title: "The Texas Defined Shop",
-      description,
-      image: shopFlatlay,
-      imageAlt: "Texas-inspired goods arranged on a tabletop",
-    }),
-    links: [canonicalLink(texasDefinedBrand, "/shop")],
-    scripts: loaderData
-      ? [
-          jsonLd({
-            "@context": "https://schema.org",
-            "@graph": [
-              {
-                "@type": "CollectionPage",
-                "@id": `${absoluteUrl(texasDefinedBrand, "/shop")}#page`,
-                url: absoluteUrl(texasDefinedBrand, "/shop"),
-                name: "The Texas Defined Shop",
-                description,
-                isPartOf: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#website` },
-                mainEntity: { "@id": `${absoluteUrl(texasDefinedBrand, "/shop")}#products` },
-              },
-              {
-                "@type": "ItemList",
-                "@id": `${absoluteUrl(texasDefinedBrand, "/shop")}#products`,
-                name: "Texas Defined products",
-                numberOfItems: loaderData.products.length,
-                itemListElement: loaderData.products.map((product, index) => ({
-                  "@type": "ListItem",
-                  position: index + 1,
-                  url: product.productUrl || `${absoluteUrl(texasDefinedBrand, "/shop")}#${productAnchor(product.id)}`,
-                  item: {
-                    "@type": "Product",
-                    name: product.name,
-                    description: product.blurb,
-                    image: product.image.src,
-                    brand: { "@type": "Brand", name: product.maker },
-                    offers: {
-                      "@type": "Offer",
-                      priceCurrency: product.currency,
-                      price: (product.priceCents / 100).toFixed(2),
-                      availability: "https://schema.org/InStock",
-                      url: product.productUrl || absoluteUrl(texasDefinedBrand, "/shop"),
+  head: ({ loaderData }: { loaderData?: { products: Product[] } }) => {
+    const shopUrl = absoluteUrl(texasDefinedBrand, "/shop");
+    const productListId = `${shopUrl}#products`;
+    const breadcrumbId = `${shopUrl}#breadcrumb`;
+
+    return {
+      meta: buildMeta(texasDefinedBrand, {
+        canonicalPath: "/shop",
+        title: "The Texas Defined Shop",
+        description,
+        image: shopFlatlay,
+        imageAlt: "Texas-inspired goods arranged on a tabletop",
+      }),
+      links: [canonicalLink(texasDefinedBrand, "/shop")],
+      scripts: loaderData
+        ? [
+            jsonLd({
+              "@context": "https://schema.org",
+              "@graph": [
+                {
+                  "@type": "CollectionPage",
+                  "@id": `${shopUrl}#page`,
+                  url: shopUrl,
+                  name: "The Texas Defined Shop",
+                  description,
+                  isPartOf: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#website` },
+                  breadcrumb: { "@id": breadcrumbId },
+                  mainEntity: { "@id": productListId },
+                },
+                {
+                  "@type": "BreadcrumbList",
+                  "@id": breadcrumbId,
+                  itemListElement: [
+                    { "@type": "ListItem", position: 1, name: "Front page", item: absoluteUrl(texasDefinedBrand, "/") },
+                    { "@type": "ListItem", position: 2, name: "Shop", item: shopUrl },
+                  ],
+                },
+                {
+                  "@type": "ItemList",
+                  "@id": productListId,
+                  name: "Texas Defined products",
+                  numberOfItems: loaderData.products.length,
+                  itemListElement: loaderData.products.map((product, index) => ({
+                    "@type": "ListItem",
+                    position: index + 1,
+                    url: product.productUrl || `${shopUrl}#${productAnchor(product.id)}`,
+                    item: {
+                      "@type": "Product",
+                      "@id": `${shopUrl}#${productAnchor(product.id)}`,
+                      name: product.name,
+                      description: product.blurb,
+                      image: absoluteUrl(texasDefinedBrand, product.image.src),
+                      brand: { "@type": "Brand", name: product.maker },
                     },
-                  },
-                })),
-              },
-            ],
-          }),
-        ]
-      : [],
-  }),
+                  })),
+                },
+              ],
+            }),
+          ]
+        : [],
+    };
+  },
   loader: async ({ context }): Promise<{ products: Product[] }> => {
     const products = await context.queryClient.ensureQueryData(productsQuery({}));
     return { products };
