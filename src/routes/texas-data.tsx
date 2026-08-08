@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 
 import { texasDefinedBrand } from '@/brand/texasdefined';
+import { DepartmentHero } from '@/components/editorial/DepartmentHero';
 import { Container } from '@/components/layout/Container';
 import { TEXAS_DATASETS } from '@/data/texas-data-center';
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
@@ -72,17 +73,13 @@ export const Route = createFileRoute('/texas-data')({
 function Page() {
   return (
     <>
-      <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
-        <header className="grid gap-8 border-b border-border pb-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end">
-          <div>
-            <p className="eyebrow text-primary">Texas at a glance</p>
-            <h1 className="mt-3 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">The numbers behind everyday Texas</h1>
-            <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground sm:text-xl">{description}</p>
-          </div>
-          <div className="border-l border-border pl-6 text-sm leading-6 text-muted-foreground">
-            Public data is most useful when it has context. Each dataset includes source notes, review dates and a path back to the original information.
-          </div>
-        </header>
+      <DepartmentHero current="Texas Data" eyebrow="Texas at a glance" title="The numbers behind everyday Texas" description={description} />
+
+      <Container className="py-12 sm:py-16">
+        <aside className="max-w-3xl border-y border-border py-5 text-sm leading-7 text-muted-foreground">
+          <p className="eyebrow text-primary">About the data</p>
+          <p className="mt-3">Public data is most useful when it has context. Each dataset includes source notes, review dates and a path back to the original information.</p>
+        </aside>
 
         <section className="py-12" aria-labelledby="figures-heading">
           <div className="border-b border-border pb-4">
