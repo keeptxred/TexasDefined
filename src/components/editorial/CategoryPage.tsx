@@ -81,7 +81,7 @@ export function CategoryPage({ category, eyebrow, title, intro, image }: {
       {destinations.length > 0 && (
         <Section tone="surface">
           <Container>
-            <SectionHeader eyebrow="The guide" title={`${title} places worth knowing`} description={`${destinations.length.toLocaleString("en-US")} destinations from across Texas, selected for this section.`} />
+            <SectionHeader eyebrow="The field guide" title={`${title}, mapped`} description={`${destinations.length.toLocaleString("en-US")} places in the Texas Defined guide, with the details you need to choose where to go next.`} />
             <DestinationCollectionGrid destinations={destinations} regionLabel={regionName} />
           </Container>
         </Section>
