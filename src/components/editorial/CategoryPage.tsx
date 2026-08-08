@@ -9,7 +9,7 @@ import { Container } from "@/components/layout/Container";
 import { articlesQuery, categoriesQuery, destinationsQuery, regionsQuery } from "@/data/queries";
 import type { CategorySlug, ImageRef } from "@/data/types";
 
-const TOP_LEVEL_DEPARTMENTS = new Set<CategorySlug>([
+const TEXAS_LIFE_DEPARTMENTS = new Set<CategorySlug>([
   "sports",
   "moving-to-texas",
   "real-estate",
@@ -32,7 +32,8 @@ export function CategoryPage({ category, eyebrow, title, intro, image }: {
   const regionName = (id: string) => regions.find((region) => region.id === id)?.name;
   const lead = articles[0];
   const others = lead ? articles.slice(1) : articles;
-  const belongsToExplore = !TOP_LEVEL_DEPARTMENTS.has(category);
+  const belongsToTexasLife = TEXAS_LIFE_DEPARTMENTS.has(category);
+  const belongsToExplore = !belongsToTexasLife;
 
   return (
     <>
@@ -41,6 +42,7 @@ export function CategoryPage({ category, eyebrow, title, intro, image }: {
           <ol className="flex flex-wrap items-center gap-2">
             <li><Link to="/" className="transition-colors hover:text-foreground">Front page</Link></li>
             {belongsToExplore && <><li aria-hidden="true">/</li><li><Link to="/explore" className="transition-colors hover:text-foreground">Explore</Link></li></>}
+            {belongsToTexasLife && <><li aria-hidden="true">/</li><li><Link to="/texas-living" className="transition-colors hover:text-foreground">Texas Life</Link></li></>}
             <li aria-hidden="true">/</li>
             <li aria-current="page" className="text-foreground">{title}</li>
           </ol>
