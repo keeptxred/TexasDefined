@@ -44,7 +44,7 @@ function SearchPage() {
         <p className="eyebrow text-primary">Search the magazine</p>
         <h1 className="mt-4 max-w-3xl font-display text-5xl leading-[0.98] sm:text-7xl">Find a place, story or useful answer.</h1>
         <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">Search Texas Defined by town, landmark, subject, guide, event or something you simply want to know more about.</p>
-        <form className="mt-9 flex max-w-2xl border-b-2 border-foreground" onSubmit={(event) => { event.preventDefault(); const value = new FormData(event.currentTarget).get("q"); void navigate({ search: { q: String(value ?? "") } }); }}>
+        <form className="mt-9 flex max-w-2xl border-b-2 border-foreground transition-colors focus-within:border-primary" onSubmit={(event) => { event.preventDefault(); const value = new FormData(event.currentTarget).get("q"); void navigate({ search: { q: String(value ?? "") } }); }}>
           <label htmlFor="q" className="sr-only">Search Texas Defined</label>
           <input key={query} id="q" name="q" defaultValue={query} placeholder="Caddo Lake, Marfa, brisket, property taxes…" className="w-full bg-transparent px-0 py-4 text-base outline-none placeholder:text-muted-foreground/70" />
           <button type="submit" className="eyebrow shrink-0 px-2 py-4 text-primary">Search →</button>
