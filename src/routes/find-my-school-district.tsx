@@ -54,7 +54,7 @@ export const Route = createFileRoute('/find-my-school-district')({
 
 function Page() {
   return (
-    <main>
+    <>
       <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
         <article className="mx-auto max-w-6xl">
           <nav aria-label="Breadcrumb" className="border-b border-border pb-4 text-xs uppercase tracking-[0.14em] text-muted-foreground">
@@ -90,6 +90,6 @@ function Page() {
           <aside className="py-6 text-sm leading-6 text-muted-foreground">Before you sign a lease or contract, confirm the address directly with the district. The district has the final word on campus assignments and boundary changes.</aside>
         </article>
       </Container>
-    </main>
+    </>
   );
 }
