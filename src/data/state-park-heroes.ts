@@ -1,5 +1,6 @@
+import { exploreHeroMap } from "./explore-hero-map";
 import { stateParkHeroMap } from "./state-park-hero-map";
-import type { Destination } from "./types";
+import type { Destination, ImageRef } from "./types";
 
 const PLACEHOLDER_MARKERS = [
   "texasdefined-destination-placeholder",
@@ -9,8 +10,25 @@ const PLACEHOLDER_MARKERS = [
 
 const DESTINATION_PLACEHOLDER = "/images/texasdefined-destination-placeholder.svg";
 
+/** Equivalent imported records may use a state-park category even when the
+ * exact, licensed photo was resolved by the broader Explore image pipeline.
+ * These aliases only connect records for the same physical destination/unit.
+ */
+const STATE_PARK_HERO_ALIASES: Record<string, string> = {
+  "ray-roberts-lake-isle-du-bois-unit-state-park": "ray-roberts-lake-isle-du-bois-unit",
+  "ray-roberts-lake-johnson-branch-unit-state-park": "ray-roberts-lake-johnson-branch-unit",
+  "sheldon-lake-state-park-environmental-learning-center": "sheldon-lake-state-park",
+};
+
 function isPlaceholder(src: string): boolean {
   return !src || PLACEHOLDER_MARKERS.some((marker) => src.includes(marker));
+}
+
+function mappedHero(slug: string): ImageRef | undefined {
+  const direct = stateParkHeroMap[slug];
+  if (direct) return direct;
+  const alias = STATE_PARK_HERO_ALIASES[slug];
+  return alias ? exploreHeroMap[alias] ?? stateParkHeroMap[alias] : undefined;
 }
 
 export function isDedicatedStateParkJpeg(src: string): boolean {
@@ -25,7 +43,8 @@ export function isDedicatedStateParkJpeg(src: string): boolean {
  * Editorial trust rules:
  *  - a unique existing park-specific JPEG remains preferred;
  *  - duplicate existing hero URLs are rejected for every park sharing them;
- *  - missing/duplicate heroes are replaced only by that park slug's static map;
+ *  - missing/duplicate heroes are replaced only by an exact destination map
+ *    or a verified alias for the same physical destination/unit;
  *  - if no dedicated image exists yet, the neutral placeholder remains.
  */
 export function applyStateParkHeroAssets(destinations: Destination[]): Destination[] {
@@ -46,7 +65,7 @@ export function applyStateParkHeroAssets(destinations: Destination[]): Destinati
 
     if (existingIsUnique) return destination;
 
-    const mapped = stateParkHeroMap[destination.slug];
+    const mapped = mappedHero(destination.slug);
     if (mapped) return { ...destination, hero: mapped };
 
     return {
@@ -64,7 +83,7 @@ export function applyStateParkHeroAssets(destinations: Destination[]): Destinati
 export function applyStateParkHeroAsset(destination: Destination): Destination {
   if (destination.category !== "state-parks") return destination;
   if (isDedicatedStateParkJpeg(destination.hero.src)) return destination;
-  const mapped = stateParkHeroMap[destination.slug];
+  const mapped = mappedHero(destination.slug);
   return mapped ? { ...destination, hero: mapped } : destination;
 }
 
