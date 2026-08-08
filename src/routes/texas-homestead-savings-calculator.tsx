@@ -24,16 +24,23 @@ const canonicalPath = '/texas-homestead-savings-calculator';
 const description = 'Estimate how a Texas residence homestead exemption can change annual property taxes and monthly tax escrow using separate school-district and other local tax rates.';
 const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
 
-const DEFAULTS = {
+interface HomesteadState extends CalculatorState {
+  homeValue: number;
+  schoolRate: number;
+  otherRate: number;
+  schoolExemption: number;
+  otherExemption: number;
+  county: string;
+}
+
+const DEFAULTS: HomesteadState = {
   homeValue: 400000,
   schoolRate: 1.0,
   otherRate: 1.2,
   schoolExemption: 140000,
   otherExemption: 0,
   county: '',
-} satisfies CalculatorState;
-
-type HomesteadState = typeof DEFAULTS;
+};
 
 export const Route = createFileRoute('/texas-homestead-savings-calculator')({
   head: () => ({
@@ -78,16 +85,20 @@ function HomesteadSavingsCalculator() {
   const initial = useUrlStateDefaults(DEFAULTS);
   const [state, setState] = useState<HomesteadState>(initial);
 
-  const update = useCallback(<K extends keyof HomesteadState>(key: K, value: HomesteadState[K]) => {
+  const updateNumber = useCallback((key: 'homeValue' | 'schoolRate' | 'otherRate' | 'schoolExemption' | 'otherExemption', value: number) => {
     setState((current) => ({ ...current, [key]: value }));
   }, []);
 
+  const updateCounty = useCallback((county: string) => {
+    setState((current) => ({ ...current, county }));
+  }, []);
+
   const results = useMemo(() => {
-    const value = Math.max(0, Number(state.homeValue));
-    const schoolRate = Math.max(0, Number(state.schoolRate));
-    const otherRate = Math.max(0, Number(state.otherRate));
-    const schoolExemption = Math.min(value, Math.max(0, Number(state.schoolExemption)));
-    const otherExemption = Math.min(value, Math.max(0, Number(state.otherExemption)));
+    const value = Math.max(0, state.homeValue);
+    const schoolRate = Math.max(0, state.schoolRate);
+    const otherRate = Math.max(0, state.otherRate);
+    const schoolExemption = Math.min(value, Math.max(0, state.schoolExemption));
+    const otherExemption = Math.min(value, Math.max(0, state.otherExemption));
 
     const beforeSchool = tax(value, schoolRate);
     const beforeOther = tax(value, otherRate);
@@ -136,14 +147,14 @@ function HomesteadSavingsCalculator() {
 
         <CalculatorSection eyebrow="Inputs" title="Enter the property and tax rates" copy="Use the appraisal record and adopted rates for the exact property. Local optional exemptions can differ by taxing unit.">
           <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            <CurrencyInput label="Home value" value={Number(state.homeValue)} onChange={(value) => update('homeValue', value)} />
-            <PercentageInput label="School-district tax rate" value={Number(state.schoolRate)} onChange={(value) => update('schoolRate', value)} step={0.001} />
-            <PercentageInput label="Other local tax rates combined" value={Number(state.otherRate)} onChange={(value) => update('otherRate', value)} step={0.001} />
-            <CurrencyInput label="School homestead exemption" value={Number(state.schoolExemption)} onChange={(value) => update('schoolExemption', value)} />
-            <CurrencyInput label="Other local exemptions" value={Number(state.otherExemption)} onChange={(value) => update('otherExemption', value)} />
-            <CountySelector value={String(state.county)} onChange={(value) => update('county', value)} />
+            <CurrencyInput label="Home value" value={state.homeValue} onChange={(value) => updateNumber('homeValue', value)} />
+            <PercentageInput label="School-district tax rate" value={state.schoolRate} onChange={(value) => updateNumber('schoolRate', value)} step={0.001} />
+            <PercentageInput label="Other local tax rates combined" value={state.otherRate} onChange={(value) => updateNumber('otherRate', value)} step={0.001} />
+            <CurrencyInput label="School homestead exemption" value={state.schoolExemption} onChange={(value) => updateNumber('schoolExemption', value)} />
+            <CurrencyInput label="Other local exemptions" value={state.otherExemption} onChange={(value) => updateNumber('otherExemption', value)} />
+            <CountySelector value={state.county} onChange={updateCounty} />
           </div>
-          <CalculatorCountyLink countySlug={String(state.county)} />
+          <CalculatorCountyLink countySlug={state.county} />
         </CalculatorSection>
 
         <section className="border-y border-border py-10">
@@ -174,7 +185,10 @@ function HomesteadSavingsCalculator() {
           <Link to="/learn/property-taxes" className="border-b border-border pb-5"><span className="eyebrow text-primary">How it fits together</span><strong className="mt-2 block font-display text-2xl">Texas property-tax guide →</strong></Link>
         </section>
 
-        <p className="mt-8 text-sm leading-6 text-muted-foreground">This is a planning estimate, not a tax bill or eligibility determination. Confirm exemptions with the appraisal district and rates with the taxing units serving the property.</p>
+        <section className="mt-8 border-t border-border pt-6 text-sm leading-6 text-muted-foreground">
+          <p>This is a planning estimate, not a tax bill or eligibility determination. Confirm exemptions with the appraisal district and rates with the taxing units serving the property.</p>
+          <a className="mt-3 inline-block font-semibold text-primary underline decoration-primary/50 underline-offset-4" href="https://comptroller.texas.gov/taxes/property-tax/exemptions/" target="_blank" rel="noreferrer noopener">Texas Comptroller residence-homestead exemption guidance ↗</a>
+        </section>
       </article>
     </Container>
   );
