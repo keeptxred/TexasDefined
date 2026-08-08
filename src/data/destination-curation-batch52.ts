@@ -1,6 +1,20 @@
 import type { Destination } from "./types";
 
 const curated: Record<string, Partial<Destination>> = {
+  "fort-richardson-state-park-state-historic-site": {
+    summary: "A preserved frontier Army post in Jacksboro where restored nineteenth-century military buildings share a park with camping, trails and access to the Lost Creek Reservoir State Trailway.",
+    nearestTown: "Jacksboro",
+    bestSeason: "Fall through spring for history walks and trail use",
+    entryNote: "Historic-building access and interpretive programs can follow set schedules. Check current TPWD hours and site notices before visiting.",
+    highlights: ["Restored Fort Richardson military buildings", "Frontier Army history", "Lost Creek Reservoir State Trailway", "Camping and creekside recreation"],
+    body: [
+      "Fort Richardson preserves one of the clearest physical records of the U.S. Army's post-Civil War presence on the Texas frontier. Restored stone buildings turn the site into more than a roadside marker and make the military landscape understandable at human scale.",
+      "The surrounding state park extends the visit beyond the historic post with camping, trails and access to the Lost Creek Reservoir State Trailway for hiking and cycling.",
+      "Check current building and program schedules before arrival so the historical portion of the site is accessible when you plan to explore it."
+    ],
+    managingAuthority: "Texas Parks and Wildlife Department",
+    officialUrl: "https://tpwd.texas.gov/state-parks/fort-richardson",
+  },
   "hancock-springs-park": {
     summary: "A historic spring-fed city park in Lampasas built around one of Texas' oldest continuously used public swimming pools, with cool artesian water, mature pecan shade and easy access to downtown.",
     nearestTown: "Lampasas",
