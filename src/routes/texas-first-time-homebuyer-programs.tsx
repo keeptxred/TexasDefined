@@ -41,7 +41,7 @@ export const Route = createFileRoute('/texas-first-time-homebuyer-programs')({
           '@type': 'BreadcrumbList', '@id': `${pageUrl}#breadcrumbs`,
           itemListElement: [
             { '@type': 'ListItem', position: 1, name: 'Front page', item: `${siteUrl}/` },
-            { '@type': 'ListItem', position: 2, name: 'Living Here', item: `${siteUrl}/texas-living` },
+            { '@type': 'ListItem', position: 2, name: 'Texas Life', item: `${siteUrl}/texas-living` },
             { '@type': 'ListItem', position: 3, name: 'Buying Your First Home', item: pageUrl },
           ],
         },
@@ -57,7 +57,7 @@ function Page() {
       <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
         <article className="mx-auto max-w-6xl">
           <nav aria-label="Breadcrumb" className="border-b border-border pb-4 text-xs uppercase tracking-[0.14em] text-muted-foreground">
-            <Link to="/">Front page</Link><span aria-hidden="true" className="mx-2">/</span><Link to="/texas-living">Living Here</Link><span aria-hidden="true" className="mx-2">/</span><span className="text-foreground">First home</span>
+            <Link to="/">Front page</Link><span aria-hidden="true" className="mx-2">/</span><Link to="/texas-living">Texas Life</Link><span aria-hidden="true" className="mx-2">/</span><span aria-current="page" className="text-foreground">First home</span>
           </nav>
 
           <header className="grid gap-8 border-b border-border py-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end">
