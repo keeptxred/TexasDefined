@@ -15,14 +15,14 @@ import { absoluteUrl, buildMeta, canonicalLink, schemaTypeForEntityKind } from "
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
-type ArticleDepartment = { name: string; path: string };
+type ArticleDepartment = { name: string; path: string; usesExploreCategory: boolean };
 
 function articleDepartment(category: string): ArticleDepartment {
   const livingHere = new Set(["moving-to-texas", "home-garden", "real-estate", "property-taxes"]);
-  if (livingHere.has(category)) return { name: "Texas Life", path: "/texas-living" };
-  if (category === "sports") return { name: "Texas Life", path: "/sports" };
-  if (category === "texas-history" || category === "history") return { name: "Texas Life", path: "/texas-history" };
-  return { name: "Explore", path: "/explore" };
+  if (livingHere.has(category)) return { name: "Texas Life", path: "/texas-living", usesExploreCategory: false };
+  if (category === "sports") return { name: "Sports", path: "/sports", usesExploreCategory: false };
+  if (category === "texas-history" || category === "history") return { name: "History", path: "/texas-history", usesExploreCategory: false };
+  return { name: "Explore", path: "/explore", usesExploreCategory: true };
 }
 
 export const Route = createFileRoute("/article/$slug")({
@@ -89,15 +89,16 @@ export const Route = createFileRoute("/article/$slug")({
       publisher: { "@id": `${siteUrl}/#organization` },
       mentions: mentions.map((entity) => ({ "@type": schemaTypeForEntityKind(entity.kind), name: entity.name, url: `${siteUrl}${canonicalEntityPath(entity)}` })),
     };
+    const breadcrumbItems = [
+      { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
+      { "@type": "ListItem", position: 2, name: department.name, item: `${siteUrl}${department.path}` },
+      ...(department.usesExploreCategory ? [{ "@type": "ListItem", position: 3, name: categoryName, item: `${siteUrl}/explore/${article.category}` }] : []),
+      { "@type": "ListItem", position: department.usesExploreCategory ? 4 : 3, name: article.title, item: articleUrl },
+    ];
     const breadcrumbSchema = {
       "@type": "BreadcrumbList",
       "@id": `${articleUrl}#breadcrumbs`,
-      itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
-        { "@type": "ListItem", position: 2, name: department.name, item: `${siteUrl}${department.path}` },
-        { "@type": "ListItem", position: 3, name: categoryName, item: `${siteUrl}/explore/${article.category}` },
-        { "@type": "ListItem", position: 4, name: article.title, item: articleUrl },
-      ],
+      itemListElement: breadcrumbItems,
     };
     const schemaGraph = [webPageSchema, ...(authorSchema ? [authorSchema] : []), articleSchema, breadcrumbSchema];
 
@@ -137,8 +138,8 @@ function ArticlePage() {
       <nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.14em] text-muted-foreground">
         <ol className="flex flex-wrap items-center gap-2">
           <li><Link to="/" className="hover:text-foreground">Front page</Link></li><li aria-hidden="true">·</li>
-          <li><Link to={department.path} className="hover:text-foreground">{department.name}</Link></li><li aria-hidden="true">·</li>
-          <li><Link to="/explore/$category" params={{ category: article.category }} className="hover:text-foreground">{categoryName}</Link></li>
+          <li><Link to={department.path} className="hover:text-foreground">{department.name}</Link></li>
+          {department.usesExploreCategory && <><li aria-hidden="true">·</li><li><Link to="/explore/$category" params={{ category: article.category }} className="hover:text-foreground">{categoryName}</Link></li></>}
         </ol>
       </nav>
     </Container>
