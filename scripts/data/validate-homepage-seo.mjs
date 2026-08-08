@@ -21,7 +21,9 @@ for (const feature of [
   if (!route.includes(feature)) errors.push(`Homepage SEO feature missing: ${feature}.`);
 }
 
-if (route.includes('"@type": "Organization"') || route.includes('"@type": "WebSite"')) {
+const duplicatesGlobalOrganization = route.includes('"@type": "Organization", "@id": `${siteUrl}/#organization`');
+const duplicatesGlobalWebsite = route.includes('"@type": "WebSite", "@id": `${siteUrl}/#website`');
+if (duplicatesGlobalOrganization || duplicatesGlobalWebsite) {
   errors.push('Homepage duplicates the global Organization or WebSite entities.');
 }
 
