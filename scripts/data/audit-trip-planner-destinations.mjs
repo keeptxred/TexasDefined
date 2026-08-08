@@ -45,10 +45,6 @@ const duplicateCurations = [...curationOwners.entries()]
   .filter(([, files]) => files.length > 1)
   .map(([slug, files]) => ({ slug, files }));
 
-// A slug appearing in more than one curation layer is not automatically redundant.
-// Later layers may intentionally add a hero, coordinates, source metadata or updated
-// planning guidance while preserving fields from an earlier layer. These reports are
-// therefore diagnostic only and must never be treated as a safe-to-delete list.
 const layeredDuplicateFiles = [...curationSlugsByFile.entries()]
   .filter(([, slugs]) => slugs.length > 0 && slugs.every((slug) => (curationOwners.get(slug)?.length ?? 0) > 1))
   .map(([file, slugs]) => {
@@ -81,10 +77,6 @@ const aliases = new Map(
 const brokenAliasTargets = [...aliases.entries()]
   .filter(([, target]) => !curated.has(target))
   .map(([slug, target]) => ({ slug, target }));
-
-// Alias source slugs are normalized to their target before any curator runs. A curation
-// record keyed by an alias source can therefore never execute and should be merged into
-// the canonical target or retired. Report these separately from ordinary duplicates.
 const aliasShadowedCurations = [...aliases.entries()]
   .filter(([slug]) => curated.has(slug))
   .map(([slug, target]) => ({ slug, target, files: curationOwners.get(slug) ?? [] }));
@@ -157,13 +149,14 @@ const result = {
 
 console.log(JSON.stringify(result, null, 2));
 
-if (process.argv.includes("--integrity") && (brokenAliasTargets.length || activeEmptyCurationFiles.length)) {
-  console.error(`\n${brokenAliasTargets.length} destination aliases point to missing curation targets; ${activeEmptyCurationFiles.length} empty compatibility modules are still active in the resolver.`);
+const integrityIssues = brokenAliasTargets.length || activeEmptyCurationFiles.length || aliasShadowedCurations.length;
+if (process.argv.includes("--integrity") && integrityIssues) {
+  console.error(`\n${brokenAliasTargets.length} destination aliases point to missing curation targets; ${activeEmptyCurationFiles.length} empty compatibility modules are still active in the resolver; ${aliasShadowedCurations.length} curation records are keyed by alias-source slugs and can never execute.`);
   process.exitCode = 1;
 } else if (
   process.argv.includes("--strict") &&
-  (stateParkCoverage.remaining.length || exploreCoverage.remaining.length || brokenAliasTargets.length || activeEmptyCurationFiles.length)
+  (stateParkCoverage.remaining.length || exploreCoverage.remaining.length || integrityIssues)
 ) {
-  console.error(`\n${stateParkCoverage.remaining.length} active mapped state-park destinations and ${exploreCoverage.remaining.length} active mapped Explore destinations still need hand curation; ${brokenAliasTargets.length} aliases point to missing curation targets; ${activeEmptyCurationFiles.length} empty compatibility modules are still active in the resolver.`);
+  console.error(`\n${stateParkCoverage.remaining.length} active mapped state-park destinations and ${exploreCoverage.remaining.length} active mapped Explore destinations still need hand curation; ${brokenAliasTargets.length} aliases point to missing curation targets; ${activeEmptyCurationFiles.length} empty compatibility modules are still active in the resolver; ${aliasShadowedCurations.length} curation records are keyed by alias-source slugs and can never execute.`);
   process.exitCode = 1;
 }
