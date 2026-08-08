@@ -104,7 +104,8 @@ for (const feature of [
 for (const feature of [
   'supplementalExploreCategories',
   '...categories.map((category)',
-  '...destinations.filter((destination) => destination.slug)',
+  '.filter((destination) => destination.slug)',
+  '.map((destination) => ({ path: `/destination/${destination.slug}`',
 ]) {
   if (!sitemap.includes(feature)) errors.push(`Explore sitemap feature missing: ${feature}.`);
 }
