@@ -3,6 +3,7 @@ import path from 'node:path';
 
 const root = process.cwd();
 const route = fs.readFileSync(path.join(root, 'src/routes/texas-living.tsx'), 'utf8');
+const departmentHero = fs.readFileSync(path.join(root, 'src/components/editorial/DepartmentHero.tsx'), 'utf8');
 const errors = [];
 
 for (const feature of [
@@ -15,15 +16,22 @@ for (const feature of [
   'articles.map((article, index)',
   'itemListElement: [...topicItems, ...articleItems]',
   'breadcrumb: { \'@id\': `${pageUrl}#breadcrumbs` }',
-  'aria-label="Breadcrumb"',
-  'aria-current="page"',
+  '<DepartmentHero',
+  'current="Texas Life"',
+  'eyebrow="Texas Life"',
   "title: 'Texas Life'",
   "name: 'Texas Life'",
   "name: 'Texas Life departments and guides'",
-  '>Texas Life</li>',
-  '<p className="eyebrow text-primary">Texas Life</p>',
 ]) {
   if (!route.includes(feature)) errors.push(`Texas Life SEO or naming feature missing: ${feature}.`);
+}
+
+for (const feature of [
+  'aria-label="Breadcrumb"',
+  '<Link to="/"',
+  'aria-current="page"',
+]) {
+  if (!departmentHero.includes(feature)) errors.push(`Shared Texas Life breadcrumb feature missing: ${feature}.`);
 }
 
 for (const staleLabel of [
@@ -44,4 +52,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Texas Life metadata, CollectionPage, mixed ItemList, visible breadcrumb, and JSON-LD naming are aligned.');
+console.log('Texas Life metadata, CollectionPage, mixed ItemList, shared visible breadcrumb, and JSON-LD naming are aligned.');
