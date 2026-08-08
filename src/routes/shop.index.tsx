@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 
 import shopFlatlay from "@/assets/shop-flatlay.jpg";
 import { texasDefinedBrand } from "@/brand/texasdefined";
@@ -97,7 +97,14 @@ function ShopPage() {
         />
         <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/75 to-ink/30" />
         <Container className="relative py-24 sm:py-32">
-          <p className="eyebrow text-ink-foreground/75">The Texas Defined Shop</p>
+          <nav aria-label="Breadcrumb" className="text-[0.72rem] font-medium uppercase tracking-[0.12em] text-ink-foreground/65">
+            <ol className="flex items-center gap-2">
+              <li><Link to="/" className="hover:text-ink-foreground">Front page</Link></li>
+              <li aria-hidden="true">/</li>
+              <li aria-current="page">Shop</li>
+            </ol>
+          </nav>
+          <p className="eyebrow mt-10 text-ink-foreground/75">The Texas Defined Shop</p>
           <h1 className="mt-4 max-w-3xl font-display text-5xl leading-[0.98] sm:text-7xl">
             Texas style, thoughtfully selected.
           </h1>
