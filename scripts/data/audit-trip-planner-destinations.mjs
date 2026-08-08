@@ -29,6 +29,16 @@ function stringSetFromBlock(source, constantName) {
   return new Set([...block.matchAll(/"([a-z0-9][a-z0-9-]*)"/g)].map((match) => match[1]));
 }
 
+function objectBlock(source, slug) {
+  const startPattern = new RegExp(`^\\s*"${slug}"\\s*:\\s*\\{`, "m");
+  const startMatch = startPattern.exec(source);
+  if (!startMatch) return "";
+  const start = startMatch.index;
+  const tail = source.slice(start + startMatch[0].length);
+  const next = /^\s*"[a-z0-9][a-z0-9-]*"\s*:\s*\{/m.exec(tail);
+  return next ? source.slice(start, start + startMatch[0].length + next.index) : source.slice(start);
+}
+
 const curationFileNames = curationFiles();
 const curated = new Set();
 const curationOwners = new Map();
@@ -110,9 +120,23 @@ function activeCoverage(slugs) {
   };
 }
 
+function hasCuratedHeroOverride(slug) {
+  const canonicalSlug = aliases.get(slug) ?? slug;
+  return (curationOwners.get(canonicalSlug) ?? []).some((file) => {
+    const source = curationSourceByFile.get(file) ?? "";
+    return /\bhero\s*:\s*\{/.test(objectBlock(source, canonicalSlug));
+  });
+}
+
 const stateParkHeroSource = read("src/data/state-park-hero-map.ts");
 const stateParkImageSlugs = quotedObjectKeys(stateParkHeroSource);
 const stateParkCoverage = activeCoverage(stateParkImageSlugs);
+const stateParkHeroDimensions = [...stateParkHeroSource.matchAll(/"([a-z0-9][a-z0-9-]*)"\s*:\s*\{[^\n]*?width:\s*(\d+),\s*height:\s*(\d+)/g)]
+  .map((match) => ({ slug: match[1], width: Number(match[2]), height: Number(match[3]) }));
+const shallowStateParkHeroes = stateParkHeroDimensions
+  .filter(({ slug, width, height }) => !excludedFromPlanner(slug) && width > 0 && height / width < 0.45)
+  .map(({ slug, width, height }) => ({ slug, width, height, hasCuratedHeroOverride: hasCuratedHeroOverride(slug) }));
+const unresolvedShallowStateParkHeroes = shallowStateParkHeroes.filter((hero) => !hero.hasCuratedHeroOverride);
 
 const exploreHeroSource = read("src/data/explore-hero-map.ts");
 const exploreHeroSlugs = quotedObjectKeys(exploreHeroSource);
@@ -148,6 +172,8 @@ const result = {
   curatedStateParkHeroSlugs: stateParkCoverage.covered.length,
   remainingStateParkHeroSlugs: stateParkCoverage.remaining.length,
   excludedStateParkHeroSlugs: stateParkCoverage.excluded.length,
+  shallowStateParkHeroes: shallowStateParkHeroes.length,
+  unresolvedShallowStateParkHeroes: unresolvedShallowStateParkHeroes.length,
   exploreHeroSlugs: exploreHeroSlugs.length,
   activeExploreHeroSlugs: exploreCoverage.active.length,
   curatedExploreHeroSlugs: exploreCoverage.covered.length,
@@ -161,6 +187,8 @@ const result = {
   duplicateCurations,
   aliasShadowedCurations,
   brokenAliases: brokenAliasTargets,
+  shallowHeroes: shallowStateParkHeroes,
+  unresolvedShallowHeroes: unresolvedShallowStateParkHeroes,
   remainingPreservedCatalog: preservedCoverage.remaining,
   remainingStateParks: stateParkCoverage.remaining,
   remainingExploreHeroes: exploreCoverage.remaining,
@@ -168,14 +196,14 @@ const result = {
 
 console.log(JSON.stringify(result, null, 2));
 
-const integrityIssues = duplicateCurations.length || brokenAliasTargets.length || activeEmptyCurationFiles.length || aliasShadowedCurations.length || inactiveCurationFiles.length;
+const integrityIssues = duplicateCurations.length || brokenAliasTargets.length || activeEmptyCurationFiles.length || aliasShadowedCurations.length || inactiveCurationFiles.length || unresolvedShallowStateParkHeroes.length;
 if (process.argv.includes("--integrity") && integrityIssues) {
-  console.error(`\n${duplicateCurations.length} duplicate destination curation records; ${brokenAliasTargets.length} destination aliases point to missing curation targets; ${activeEmptyCurationFiles.length} empty modules are active in the resolver; ${aliasShadowedCurations.length} curation records are keyed by alias-source slugs and can never execute; ${inactiveCurationFiles.length} orphan curation modules exist outside the active resolver.`);
+  console.error(`\n${duplicateCurations.length} duplicate destination curation records; ${brokenAliasTargets.length} destination aliases point to missing curation targets; ${activeEmptyCurationFiles.length} empty modules are active in the resolver; ${aliasShadowedCurations.length} curation records are keyed by alias-source slugs and can never execute; ${inactiveCurationFiles.length} orphan curation modules exist outside the active resolver; ${unresolvedShallowStateParkHeroes.length} active state-park heroes are too shallow for destination presentation and lack a curated replacement.`);
   process.exitCode = 1;
 } else if (
   process.argv.includes("--strict") &&
   (preservedCoverage.remaining.length || stateParkCoverage.remaining.length || exploreCoverage.remaining.length || integrityIssues)
 ) {
-  console.error(`\n${preservedCoverage.remaining.length} active preserved Trip Planner destinations, ${stateParkCoverage.remaining.length} active mapped state-park destinations and ${exploreCoverage.remaining.length} active mapped Explore destinations still need hand curation; ${duplicateCurations.length} duplicate destination curation records; ${brokenAliasTargets.length} aliases point to missing curation targets; ${activeEmptyCurationFiles.length} empty modules are active in the resolver; ${aliasShadowedCurations.length} curation records are keyed by alias-source slugs and can never execute; ${inactiveCurationFiles.length} orphan curation modules exist outside the active resolver.`);
+  console.error(`\n${preservedCoverage.remaining.length} active preserved Trip Planner destinations, ${stateParkCoverage.remaining.length} active mapped state-park destinations and ${exploreCoverage.remaining.length} active mapped Explore destinations still need hand curation; ${duplicateCurations.length} duplicate destination curation records; ${brokenAliasTargets.length} aliases point to missing curation targets; ${activeEmptyCurationFiles.length} empty modules are active in the resolver; ${aliasShadowedCurations.length} curation records are keyed by alias-source slugs and can never execute; ${inactiveCurationFiles.length} orphan curation modules exist outside the active resolver; ${unresolvedShallowStateParkHeroes.length} shallow state-park heroes still lack curated replacements.`);
   process.exitCode = 1;
 }
