@@ -134,9 +134,17 @@ function runCurators(destination: Destination): Destination {
   return CURATORS.reduce((current, curate) => curate(current), destination);
 }
 
+export function canonicalDestinationSlug(slug: string): string {
+  return CURATION_SLUG_ALIASES[slug] ?? slug;
+}
+
+export function isCanonicalDestinationSlug(slug: string): boolean {
+  return canonicalDestinationSlug(slug) === slug;
+}
+
 export function applyAllCuratedDestination(destination: Destination): Destination {
   const originalSlug = destination.slug;
-  const curationSlug = CURATION_SLUG_ALIASES[originalSlug] ?? originalSlug;
+  const curationSlug = canonicalDestinationSlug(originalSlug);
   const candidate = curationSlug === originalSlug ? destination : { ...destination, slug: curationSlug };
   const curated = runCurators(candidate);
   return curationSlug === originalSlug ? curated : { ...curated, slug: originalSlug };
