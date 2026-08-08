@@ -24,6 +24,7 @@ import {
 import { exploreFeatureArticles } from "./explore-feature-articles";
 import { newestEvergreenArticles } from "./newest-evergreen";
 import { highSchoolFootballNewcomersArticle } from "./high-school-football-newcomers";
+import { hudspethCountySierraBlancaSaltFlatsArticle } from "./hudspeth-county-sierra-blanca-salt-flats";
 import { jeffDavisCountyFortDavisMountainsArticle } from "./jeff-davis-county-fort-davis-mountains";
 import { kolacheOrKlobasnekArticle } from "./kolache-or-klobasnek";
 import { migratedEditorialArticles } from "./migrated-editorial";
@@ -50,6 +51,7 @@ import {
 
 const editorialArticles = [
   ...exploreFeatureArticles,
+  hudspethCountySierraBlancaSaltFlatsArticle,
   culbersonCountyVanHornGuadalupeMountainsArticle,
   jeffDavisCountyFortDavisMountainsArticle,
   presidioCountyMarfaBorderlandsArticle,
