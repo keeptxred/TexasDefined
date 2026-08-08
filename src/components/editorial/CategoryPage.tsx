@@ -17,6 +17,20 @@ const TEXAS_LIFE_DEPARTMENTS = new Set<CategorySlug>([
   "texas-history",
 ]);
 
+function CategoryBreadcrumb({ belongsToExplore, belongsToTexasLife, current, inverse = false }: { belongsToExplore: boolean; belongsToTexasLife: boolean; current: string; inverse?: boolean }) {
+  return (
+    <nav aria-label="Breadcrumb" className={`text-[0.72rem] font-medium uppercase tracking-[0.12em] ${inverse ? "text-ink-foreground/65" : "text-muted-foreground"}`}>
+      <ol className="flex flex-wrap items-center gap-2">
+        <li><Link to="/" className={inverse ? "transition-colors hover:text-ink-foreground" : "transition-colors hover:text-foreground"}>Front page</Link></li>
+        {belongsToExplore && <><li aria-hidden="true">/</li><li><Link to="/explore" className={inverse ? "transition-colors hover:text-ink-foreground" : "transition-colors hover:text-foreground"}>Explore</Link></li></>}
+        {belongsToTexasLife && <><li aria-hidden="true">/</li><li><Link to="/texas-living" className={inverse ? "transition-colors hover:text-ink-foreground" : "transition-colors hover:text-foreground"}>Texas Life</Link></li></>}
+        <li aria-hidden="true">/</li>
+        <li aria-current="page" className={inverse ? "text-ink-foreground" : "text-foreground"}>{current}</li>
+      </ol>
+    </nav>
+  );
+}
+
 export function CategoryPage({ category, eyebrow, title, intro, image }: {
   category: CategorySlug;
   eyebrow: string;
@@ -37,36 +51,28 @@ export function CategoryPage({ category, eyebrow, title, intro, image }: {
 
   return (
     <>
-      <Container className="pt-10 sm:pt-12">
-        <nav aria-label="Breadcrumb" className="text-[0.72rem] font-medium uppercase tracking-[0.12em] text-muted-foreground">
-          <ol className="flex flex-wrap items-center gap-2">
-            <li><Link to="/" className="transition-colors hover:text-foreground">Front page</Link></li>
-            {belongsToExplore && <><li aria-hidden="true">/</li><li><Link to="/explore" className="transition-colors hover:text-foreground">Explore</Link></li></>}
-            {belongsToTexasLife && <><li aria-hidden="true">/</li><li><Link to="/texas-living" className="transition-colors hover:text-foreground">Texas Life</Link></li></>}
-            <li aria-hidden="true">/</li>
-            <li aria-current="page" className="text-foreground">{title}</li>
-          </ol>
-        </nav>
-      </Container>
-
       {image ? (
-        <section className="relative isolate mt-5 overflow-hidden bg-ink text-ink-foreground">
+        <section className="relative isolate overflow-hidden bg-ink text-ink-foreground">
           <img src={image.src} alt={image.alt} width={image.width} height={image.height} className="absolute inset-0 size-full object-cover opacity-52" />
           <div className="absolute inset-0 bg-gradient-to-r from-ink/90 via-ink/68 to-ink/28" />
-          <Container className="relative flex min-h-[430px] flex-col justify-end py-14 sm:min-h-[500px] sm:py-20">
-            <p className="eyebrow text-ink-foreground/75">{eyebrow}</p>
+          <Container className="relative flex min-h-[480px] flex-col justify-end py-14 sm:min-h-[540px] sm:py-20">
+            <CategoryBreadcrumb belongsToExplore={belongsToExplore} belongsToTexasLife={belongsToTexasLife} current={eyebrow} inverse />
+            <p className="eyebrow mt-10 text-ink-foreground/75">{eyebrow}</p>
             <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">{title}</h1>
             <p className="mt-6 max-w-2xl text-[1.05rem] leading-8 text-ink-foreground/82">{intro}</p>
           </Container>
         </section>
       ) : (
-        <Container className="pb-8 pt-14 sm:pt-20">
-          <div className="max-w-4xl border-b border-border pb-10 sm:pb-12">
-            <p className="eyebrow text-primary">{eyebrow}</p>
-            <h1 className="mt-4 font-display text-5xl leading-[0.98] sm:text-7xl">{title}</h1>
-            <p className="mt-6 max-w-2xl text-[1.05rem] leading-8 text-muted-foreground">{intro}</p>
-          </div>
-        </Container>
+        <section className="border-b border-border">
+          <Container className="pb-12 pt-16 sm:pb-14 sm:pt-24">
+            <CategoryBreadcrumb belongsToExplore={belongsToExplore} belongsToTexasLife={belongsToTexasLife} current={eyebrow} />
+            <div className="mt-10 max-w-5xl border-t border-border pt-8">
+              <p className="eyebrow text-primary">{eyebrow}</p>
+              <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">{title}</h1>
+              <p className="mt-6 max-w-2xl text-[1.05rem] leading-8 text-muted-foreground">{intro}</p>
+            </div>
+          </Container>
+        </section>
       )}
 
       {lead && (
@@ -81,7 +87,7 @@ export function CategoryPage({ category, eyebrow, title, intro, image }: {
       {destinations.length > 0 && (
         <Section tone="surface">
           <Container>
-            <SectionHeader eyebrow="The field guide" title={`${title}, mapped`} description={`${destinations.length.toLocaleString("en-US")} places in the Texas Defined guide, with the details you need to choose where to go next.`} />
+            <SectionHeader eyebrow="The field guide" title={`${eyebrow}, mapped`} description={`${destinations.length.toLocaleString("en-US")} places in the Texas Defined guide, with the details you need to choose where to go next.`} />
             <DestinationCollectionGrid destinations={destinations} regionLabel={regionName} />
           </Container>
         </Section>
