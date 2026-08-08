@@ -14,6 +14,7 @@ import { guideHref } from "../guide-links";
 import type { Article, ArticleBlock, SearchDocument } from "../types";
 import { brewsterCountyBigBendArticle } from "./brewster-county-big-bend";
 import { culbersonCountyVanHornGuadalupeMountainsArticle } from "./culberson-county-van-horn-guadalupe-mountains";
+import { elPasoCountyPassMissionsBorderlandsArticle } from "./el-paso-county-pass-missions-borderlands";
 import {
   texasBarbecueStylesArticle,
   texasHomeMaintenanceCalendarArticle,
@@ -51,6 +52,7 @@ import {
 
 const editorialArticles = [
   ...exploreFeatureArticles,
+  elPasoCountyPassMissionsBorderlandsArticle,
   hudspethCountySierraBlancaSaltFlatsArticle,
   culbersonCountyVanHornGuadalupeMountainsArticle,
   jeffDavisCountyFortDavisMountainsArticle,
