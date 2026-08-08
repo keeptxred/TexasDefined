@@ -31,6 +31,7 @@ import { applyCuratedDestinationBatch30 } from "./destination-curation-batch30";
 import { applyCuratedDestinationBatch31 } from "./destination-curation-batch31";
 import { applyCuratedDestinationBatch32 } from "./destination-curation-batch32";
 import { applyCuratedDestinationBatch33 } from "./destination-curation-batch33";
+import { applyCuratedDestinationBatch34 } from "./destination-curation-batch34";
 import type { Destination } from "./types";
 
 const CURATION_SLUG_ALIASES: Record<string, string> = {
@@ -112,20 +113,9 @@ const CURATORS: Array<(destination: Destination) => Destination> = [
   applyCuratedDestinationBatch31,
   applyCuratedDestinationBatch32,
   applyCuratedDestinationBatch33,
+  applyCuratedDestinationBatch34,
 ];
 
-function runCurators(destination: Destination): Destination {
-  return CURATORS.reduce((current, curate) => curate(current), destination);
-}
-
-export function applyAllCuratedDestination(destination: Destination): Destination {
-  const originalSlug = destination.slug;
-  const curationSlug = CURATION_SLUG_ALIASES[originalSlug] ?? originalSlug;
-  const candidate = curationSlug === originalSlug ? destination : { ...destination, slug: curationSlug };
-  const curated = runCurators(candidate);
-  return curationSlug === originalSlug ? curated : { ...curated, slug: originalSlug };
-}
-
-export function applyAllCuratedDestinations(destinations: Destination[]): Destination[] {
-  return destinations.map(applyAllCuratedDestination);
-}
+function runCurators(destination: Destination): Destination { return CURATORS.reduce((current, curate) => curate(current), destination); }
+export function applyAllCuratedDestination(destination: Destination): Destination { const originalSlug = destination.slug; const curationSlug = CURATION_SLUG_ALIASES[originalSlug] ?? originalSlug; const candidate = curationSlug === originalSlug ? destination : { ...destination, slug: curationSlug }; const curated = runCurators(candidate); return curationSlug === originalSlug ? curated : { ...curated, slug: originalSlug }; }
+export function applyAllCuratedDestinations(destinations: Destination[]): Destination[] { return destinations.map(applyAllCuratedDestination); }
