@@ -25,15 +25,27 @@ function stringSetFromBlock(source, constantName) {
 }
 
 const curated = new Set();
+const curationOwners = new Map();
 for (const file of curationFiles()) {
-  for (const slug of quotedObjectKeys(read(path.join("src", "data", file)))) curated.add(slug);
+  for (const slug of quotedObjectKeys(read(path.join("src", "data", file)))) {
+    curated.add(slug);
+    const owners = curationOwners.get(slug) ?? [];
+    owners.push(file);
+    curationOwners.set(slug, owners);
+  }
 }
+const duplicateCurations = [...curationOwners.entries()]
+  .filter(([, files]) => files.length > 1)
+  .map(([slug, files]) => ({ slug, files }));
 
 const aliasesSource = read("src/data/destination-curation-all.ts");
 const aliases = new Map(
   [...aliasesSource.matchAll(/"([a-z0-9][a-z0-9-]*)"\s*:\s*"([a-z0-9][a-z0-9-]*)"/g)]
     .map((match) => [match[1], match[2]]),
 );
+const brokenAliasTargets = [...aliases.entries()]
+  .filter(([, target]) => !curated.has(target))
+  .map(([slug, target]) => ({ slug, target }));
 
 const availabilitySource = read("src/data/destination-availability.ts");
 const unavailable = stringSetFromBlock(availabilitySource, "UNAVAILABLE_DESTINATION_SLUGS");
@@ -69,6 +81,8 @@ const result = {
   curationFiles: curationFiles().length,
   curatedSlugs: curated.size,
   aliases: aliases.size,
+  duplicateCurationSlugs: duplicateCurations.length,
+  brokenAliasTargets: brokenAliasTargets.length,
   unavailableDestinations: unavailable.size,
   nonPrimaryTripPlannerDestinations: nonPrimary.size,
   stateParkHeroSlugs: stateParkImageSlugs.length,
@@ -81,13 +95,18 @@ const result = {
   curatedExploreHeroSlugs: exploreCoverage.covered.length,
   remainingExploreHeroSlugs: exploreCoverage.remaining.length,
   excludedExploreHeroSlugs: exploreCoverage.excluded.length,
+  duplicateCurations,
+  brokenAliases: brokenAliasTargets,
   remainingStateParks: stateParkCoverage.remaining,
   remainingExploreHeroes: exploreCoverage.remaining,
 };
 
 console.log(JSON.stringify(result, null, 2));
 
-if (process.argv.includes("--strict") && (stateParkCoverage.remaining.length || exploreCoverage.remaining.length)) {
-  console.error(`\n${stateParkCoverage.remaining.length} active mapped state-park destinations and ${exploreCoverage.remaining.length} active mapped Explore destinations still need hand curation.`);
+if (
+  process.argv.includes("--strict") &&
+  (stateParkCoverage.remaining.length || exploreCoverage.remaining.length || brokenAliasTargets.length)
+) {
+  console.error(`\n${stateParkCoverage.remaining.length} active mapped state-park destinations and ${exploreCoverage.remaining.length} active mapped Explore destinations still need hand curation; ${brokenAliasTargets.length} aliases point to missing curation targets.`);
   process.exitCode = 1;
 }
