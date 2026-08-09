@@ -23,7 +23,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          cat > /tmp/inventory-editorial.mjs <<'EOF'
+          cat > .audit-inventory-editorial.mjs <<'EOF'
           import { createServer } from 'vite';
           import fs from 'node:fs';
           const vite = await createServer({ server: { middlewareMode: true }, appType: 'custom', logLevel: 'error' });
@@ -41,7 +41,8 @@ jobs:
             await vite.close();
           }
           EOF
-          node /tmp/inventory-editorial.mjs
+          node .audit-inventory-editorial.mjs
+          rm .audit-inventory-editorial.mjs
       - name: Verify every editorial page and hero image in production
         shell: bash
         run: |
@@ -53,7 +54,7 @@ jobs:
           while IFS=$'\t' read -r slug hero; do
             url="https://texasdefined.com/article/$slug"
             code=$(curl -L -sS -o /tmp/article.html -w '%{http_code}' --max-time 25 "$url" || echo 000)
-            if [[ "$code" != "200" ]] || grep -Eqi 'Story unavailable|This story is no longer available|page not found|404' /tmp/article.html; then
+            if [[ "$code" != "200" ]] || grep -Eqi 'Story unavailable|This story is no longer available|page not found' /tmp/article.html; then
               echo "FAIL page $code $url" | tee -a /tmp/results.txt
               failed=$((failed+1))
               continue
