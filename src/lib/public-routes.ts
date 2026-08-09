@@ -83,9 +83,27 @@ export const NON_INDEXABLE_PUBLIC_PATHS = [
   "/shop/checkout-return",
 ] as const;
 
+const NON_INDEXABLE_PREFIXES = ["/admin", "/api/"] as const;
+
+/**
+ * Normalize an internal pathname before it is considered for canonical or
+ * sitemap publication. Query strings, fragments, protocol-relative URLs and
+ * malformed paths are deliberately rejected rather than normalized into a
+ * crawlable URL.
+ */
+export function normalizePublicPath(path: string) {
+  const value = path.trim();
+  if (!value || !value.startsWith("/") || value.startsWith("//")) return null;
+  if (value.includes("?") || value.includes("#") || /[\u0000-\u001F\u007F]/.test(value)) return null;
+  if (value === "/") return value;
+  return value.replace(/\/{2,}/g, "/").replace(/\/+$/, "");
+}
+
 export function isIndexablePublicPath(path: string) {
-  return !path.startsWith("/admin")
-    && !path.startsWith("/api/")
-    && !(REDIRECT_ONLY_PATHS as readonly string[]).includes(path)
-    && !(NON_INDEXABLE_PUBLIC_PATHS as readonly string[]).includes(path);
+  const normalized = normalizePublicPath(path);
+  if (!normalized) return false;
+
+  return !NON_INDEXABLE_PREFIXES.some((prefix) => normalized === prefix.replace(/\/$/, "") || normalized.startsWith(prefix))
+    && !(REDIRECT_ONLY_PATHS as readonly string[]).includes(normalized)
+    && !(NON_INDEXABLE_PUBLIC_PATHS as readonly string[]).includes(normalized);
 }
