@@ -41,8 +41,10 @@ export function CalculatorPage({ eyebrow, title, description, children }: { eyeb
             <p className="eyebrow text-primary">Keep planning</p>
             <div className="mt-4 flex flex-wrap gap-x-7 gap-y-3">
               <Link to="/decide/financial-tools" className="eyebrow border-b border-primary pb-1 text-primary">All calculators →</Link>
+              <Link to="/property" className="eyebrow border-b border-primary pb-1 text-primary">Texas property guide →</Link>
+              <Link to="/browse/counties" className="eyebrow border-b border-primary pb-1 text-primary">County property guides →</Link>
               <Link to="/moving-to-texas" className="eyebrow border-b border-primary pb-1 text-primary">Moving to Texas →</Link>
-              <Link to="/browse/cities" className="eyebrow border-b border-primary pb-1 text-primary">City directory →</Link>
+              <Link to="/browse/cities" className="eyebrow border-b border-primary pb-1 text-primary">Texas city directory →</Link>
             </div>
           </nav>
           <p className="mt-6 max-w-3xl text-xs leading-6 text-muted-foreground">Use calculator results as planning estimates, not quotes or official determinations. Confirm rates, taxes, insurance, eligibility and property details with the appropriate provider or agency.</p>
