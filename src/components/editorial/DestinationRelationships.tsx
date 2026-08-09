@@ -12,7 +12,7 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
   return <>
     <Section tone="surface">
       <Container>
-        <SectionHeader eyebrow="Build the trip" title="Places that pair well with this stop" description="Nearby places, worthwhile detours and a few combinations that make sense in the same day or weekend." />
+        <SectionHeader eyebrow="Build the trip" title="Places that pair well with this stop" description="Nearby places, worthwhile detours and combinations for adding water, history, outdoors or a full weekend around this destination." />
         <nav aria-label="Ways to continue the trip" className="mt-8 flex flex-wrap gap-x-6 gap-y-3 border-t border-border pt-5">
           {groups.map((group) => <a key={group.id} href={`#relationship-${group.id}`} className="eyebrow text-muted-foreground transition-colors hover:text-primary">{group.title} · {group.destinations.length}</a>)}
         </nav>
@@ -31,10 +31,11 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
     <Section tone="ink">
       <Container>
         <p className="eyebrow text-ink-foreground/60">Continue exploring</p>
-        <div className="mt-6 grid border-t border-ink-foreground/20 sm:grid-cols-2 lg:grid-cols-4">
-          <Link to="/explore/$category" params={{ category: destination.category }} className="border-b border-ink-foreground/20 py-6 sm:border-r sm:px-6 sm:first:pl-0 lg:border-b-0"><strong className="font-display text-2xl">More like this</strong><span className="mt-2 block text-sm leading-6 text-ink-foreground/65">More places across Texas with the same kind of appeal.</span></Link>
-          <Link to="/explore/region/$region" params={{ region: destination.region }} className="border-b border-ink-foreground/20 py-6 sm:px-6 lg:border-b-0 lg:border-r"><strong className="font-display text-2xl">Explore the region</strong><span className="mt-2 block text-sm leading-6 text-ink-foreground/65">See what else belongs on the route.</span></Link>
-          <Link to="/events" className="border-b border-ink-foreground/20 py-6 sm:border-r sm:px-6 lg:border-b-0"><strong className="font-display text-2xl">Check the calendar</strong><span className="mt-2 block text-sm leading-6 text-ink-foreground/65">Add festivals, fairs and seasonal events.</span></Link>
+        <div className="mt-6 grid border-t border-ink-foreground/20 sm:grid-cols-2 lg:grid-cols-5">
+          <Link to="/explore/trip-planner" search={{ destination: destination.slug }} className="border-b border-ink-foreground/20 py-6 sm:border-r sm:px-6 sm:first:pl-0 lg:border-b-0"><strong className="font-display text-2xl">Build the weekend</strong><span className="mt-2 block text-sm leading-6 text-ink-foreground/65">Start a Texas itinerary with {destination.name} already on the route.</span></Link>
+          <Link to="/explore/$category" params={{ category: destination.category }} className="border-b border-ink-foreground/20 py-6 sm:px-6 lg:border-b-0 lg:border-r"><strong className="font-display text-2xl">More like this</strong><span className="mt-2 block text-sm leading-6 text-ink-foreground/65">More places across Texas with the same kind of appeal.</span></Link>
+          <Link to="/explore/region/$region" params={{ region: destination.region }} className="border-b border-ink-foreground/20 py-6 sm:border-r sm:px-6 lg:border-b-0"><strong className="font-display text-2xl">Explore the region</strong><span className="mt-2 block text-sm leading-6 text-ink-foreground/65">See what else belongs on the route.</span></Link>
+          <Link to="/events" className="border-b border-ink-foreground/20 py-6 sm:px-6 lg:border-b-0 lg:border-r"><strong className="font-display text-2xl">Check the calendar</strong><span className="mt-2 block text-sm leading-6 text-ink-foreground/65">Add festivals, fairs and seasonal events.</span></Link>
           <Link to="/search" search={{ q: destination.nearestTown }} className="py-6 sm:px-6 sm:last:pr-0"><strong className="font-display text-2xl">Look nearby</strong><span className="mt-2 block text-sm leading-6 text-ink-foreground/65">Find stories and places tied to {destination.nearestTown}.</span></Link>
         </div>
       </Container>
