@@ -1,11 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 
+import { texasDefinedBrand } from "@/brand/texasdefined";
 import { supplementalExploreCategories } from "@/data/explore-categories";
 import { fetchCoreExploreDestinations } from "@/data/explore-core-remote";
 import { categories, destinations as fixtureDestinations, regions } from "@/data/fixtures/texas";
 import { fetchExploreDestinations } from "@/data/explore-remote";
+import { isIndexablePublicPath, normalizePublicPath } from "@/lib/public-routes";
 
-const BASE_URL = "https://texasdefined.com";
+const BASE_URL = `https://${texasDefinedBrand.identity.domain}`;
 const EXPLORE_CATEGORY_SLUGS = new Set([
   "lakes-rivers", "major-springs", "state-parks", "national-parks", "caverns",
   "beaches-coast", "historic-sites", "road-trips", "small-towns", "food-bbq", "outdoors",
@@ -24,9 +26,11 @@ function validLastModified(value?: string): string | undefined {
   return Number.isNaN(date.getTime()) ? undefined : date.toISOString().slice(0, 10);
 }
 
-function entry(url: string, lastModified?: string): string {
+function entry(path: string, lastModified?: string): string | null {
+  const normalized = normalizePublicPath(path);
+  if (!normalized || !isIndexablePublicPath(normalized)) return null;
   const lastmod = validLastModified(lastModified);
-  return `  <url>\n    <loc>${escapeXml(url)}</loc>${lastmod ? `\n    <lastmod>${lastmod}</lastmod>` : ""}\n  </url>`;
+  return `  <url>\n    <loc>${escapeXml(`${BASE_URL}${normalized}`)}</loc>${lastmod ? `\n    <lastmod>${lastmod}</lastmod>` : ""}\n  </url>`;
 }
 
 export const Route = createFileRoute("/sitemap-explore.xml")({
@@ -55,21 +59,31 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           });
         }
 
-        const categorySlugs = [...categories, ...supplementalExploreCategories]
+        const categorySlugs = [...new Set([...categories, ...supplementalExploreCategories]
           .map((category) => category.slug)
-          .filter((slug) => EXPLORE_CATEGORY_SLUGS.has(slug));
-        const staticUrls = [
-          `${BASE_URL}/explore`,
-          ...categorySlugs.map((slug) => `${BASE_URL}/explore/${slug}`),
-          ...regions.map((region) => `${BASE_URL}/explore/region/${region.id}`),
-          ...EXPLORE_REGION_SLUGS.map((regionSlug) => `${BASE_URL}/explore/region/${regionSlug}`),
+          .filter((slug) => EXPLORE_CATEGORY_SLUGS.has(slug)))];
+        const regionSlugs = [...new Set([
+          ...regions.map((region) => region.id),
+          ...EXPLORE_REGION_SLUGS,
+        ])];
+        const staticPaths = [
+          "/explore",
+          ...categorySlugs.map((slug) => `/explore/${slug}`),
+          ...regionSlugs.map((regionSlug) => `/explore/region/${regionSlug}`),
         ];
         const destinationEntries = [...new Map(destinations.filter((item) => item.slug).map((item) => [item.slug, item])).values()]
-          .map((item) => entry(`${BASE_URL}/destination/${item.slug}`, item.sourceCheckedAt));
-        const entries = [...[...new Set(staticUrls)].map((url) => entry(url)), ...destinationEntries].join("\n");
+          .map((item) => entry(`/destination/${item.slug}`, item.sourceCheckedAt))
+          .filter((item): item is string => Boolean(item));
+        const staticEntries = [...new Set(staticPaths)]
+          .map((path) => entry(path))
+          .filter((item): item is string => Boolean(item));
+        const entries = [...staticEntries, ...destinationEntries].join("\n");
         const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${entries}\n</urlset>`;
         return new Response(xml, {
-          headers: { "Content-Type": "application/xml; charset=utf-8", "Cache-Control": "public, max-age=300, s-maxage=3600" },
+          headers: {
+            "Content-Type": "application/xml; charset=utf-8",
+            "Cache-Control": "public, max-age=300, s-maxage=3600, stale-while-revalidate=86400",
+          },
         });
       },
     },
