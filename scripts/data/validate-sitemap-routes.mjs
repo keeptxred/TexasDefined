@@ -11,7 +11,7 @@ const redirects = [
   '/texas-property-tax-increase-calculator',
   '/texas-property-tax-protest-guide',
 ];
-const nonIndexableRoutes = ['/search', '/explore/search'];
+const nonIndexableRoutes = ['/search', '/explore/search', '/shop/cart', '/shop/checkout-return'];
 const legacyExploreRedirects = [
   ['src/routes/explore.lake.$slug.tsx', '/explore/lake/', '/destination/'],
   ['src/routes/explore.river.$slug.tsx', '/explore/river/', '/destination/'],
@@ -55,14 +55,29 @@ for (const path of nonIndexableRoutes) {
   if (indexableSection.includes(`"${path}"`)) failures.push(`Noindex route remains in INDEXABLE_STATIC_PATHS: ${path}`);
   if (!registry.includes(`"${path}"`)) failures.push(`Noindex route is not governed explicitly: ${path}`);
   if (sitemap.includes(`"${path}"`)) failures.push(`Primary sitemap source must not publish noindex route ${path}.`);
-  if (exploreSitemap.includes(`${path}`)) failures.push(`Explore sitemap source must not publish noindex route ${path}.`);
+  if (exploreSitemap.includes(`"${path}"`)) failures.push(`Explore sitemap source must not publish noindex route ${path}.`);
 }
 
-if (!registry.includes('REDIRECT_ONLY_PATHS')) failures.push('Redirect-only route registry is missing.');
-if (!registry.includes('NON_INDEXABLE_PUBLIC_PATHS')) failures.push('Non-indexable public route registry is missing.');
-if (!registry.includes('(REDIRECT_ONLY_PATHS as readonly string[]).includes(path)')) failures.push('isIndexablePublicPath does not reject redirect-only paths.');
-if (!registry.includes('(NON_INDEXABLE_PUBLIC_PATHS as readonly string[]).includes(path)')) failures.push('isIndexablePublicPath does not reject noindex public paths.');
-if (!sitemap.includes('isIndexablePublicPath(path)')) failures.push('Sitemap does not filter entries through the public-path policy.');
+for (const feature of [
+  'REDIRECT_ONLY_PATHS',
+  'NON_INDEXABLE_PUBLIC_PATHS',
+  'normalizePublicPath',
+  'value.startsWith("//")',
+  'value.includes("?")',
+  'value.includes("#")',
+  'NON_INDEXABLE_PREFIXES',
+]) {
+  if (!registry.includes(feature)) failures.push(`Public crawl policy missing: ${feature}`);
+}
+if (!sitemap.includes('isIndexablePublicPath(entry.path)')) failures.push('Primary sitemap does not filter entries through the public-path policy.');
+if (!sitemap.includes('normalizePublicPath(entry.path)')) failures.push('Primary sitemap does not normalize/reject malformed paths.');
+if (!exploreSitemap.includes('isIndexablePublicPath(normalized)')) failures.push('Explore sitemap does not filter entries through the public-path policy.');
+if (!exploreSitemap.includes('normalizePublicPath(path)')) failures.push('Explore sitemap does not normalize/reject malformed paths.');
+if (!sitemap.includes('Promise.allSettled')) failures.push('Primary sitemap must convert upstream failures into an explicit retryable response.');
+if (!sitemap.includes('status: 503') || !sitemap.includes('"retry-after": "300"')) failures.push('Primary sitemap must return retryable 503 semantics on core data failure.');
+if (!sitemap.includes('remoteDestinations.length ? remoteDestinations : fixtureDestinations')) failures.push('Primary sitemap must fall back when the remote destination catalog is empty.');
+if (!sitemap.includes('stale-while-revalidate=86400')) failures.push('Primary sitemap cache policy must preserve a stale response while revalidating.');
+if (!exploreSitemap.includes('stale-while-revalidate=86400')) failures.push('Explore sitemap cache policy must preserve a stale response while revalidating.');
 
 for (const [filename, legacyPrefix, targetPrefix] of legacyExploreRedirects) {
   const source = fs.readFileSync(filename, 'utf8');
@@ -88,17 +103,17 @@ for (const feature of [
   'EXPLORE_CATEGORY_SLUGS',
   '.filter((slug) => EXPLORE_CATEGORY_SLUGS.has(slug))',
   'categorySlugs.map((slug)',
-  '`${BASE_URL}/explore/${slug}`',
-  'regions.map((region)',
-  '`${BASE_URL}/explore/region/${region.id}`',
-  '[...new Set(staticUrls)]',
+  '`/explore/${slug}`',
+  'regionSlugs.map((regionSlug)',
+  '`/explore/region/${regionSlug}`',
+  '[...new Set(staticPaths)]',
   'new Map(destinations.filter((item) => item.slug)',
 ]) {
   if (!exploreSitemap.includes(feature)) failures.push(`Explore sitemap coverage missing: ${feature}`);
 }
 
 for (const region of regionIds) {
-  if (!exploreSitemap.includes('regions.map((region)')) failures.push(`Explore sitemap does not generate regional URL: ${region}`);
+  if (!exploreSitemap.includes(`"${region}"`)) failures.push(`Explore sitemap region registry missing: ${region}`);
 }
 
 for (const category of nonExploreCategories) {
@@ -135,4 +150,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Sitemap, migrated guide aliases, indexed regional collection quality, Explore-only category, noindex-route, redirect-route, and legacy destination validation passed.');
+console.log('Sitemap reliability, malformed-path rejection, migrated guide aliases, indexed regional collection quality, Explore-only category, noindex-route, redirect-route, and legacy destination validation passed.');
