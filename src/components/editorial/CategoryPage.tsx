@@ -5,6 +5,7 @@ import { AnswerSummary } from "@/components/content/AnswerSummary";
 import { ArticleCard } from "@/components/editorial/ArticleCard";
 import { DestinationCollectionGrid } from "@/components/editorial/DestinationCollectionGrid";
 import { ExploreDiscovery } from "@/components/editorial/ExploreDiscovery";
+import { TexasLifeDiscovery } from "@/components/editorial/TexasLifeDiscovery";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import { articlesQuery, categoriesQuery, destinationsQuery, regionsQuery } from "@/data/queries";
@@ -133,6 +134,7 @@ export function CategoryPage({ category, eyebrow, title, intro, image }: {
       )}
 
       {belongsToExplore && <ExploreDiscovery currentCategory={category} categories={categories} regions={regions} />}
+      {belongsToTexasLife && <TexasLifeDiscovery currentCategory={category} />}
     </>
   );
 }
