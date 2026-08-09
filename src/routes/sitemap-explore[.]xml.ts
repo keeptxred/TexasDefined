@@ -68,6 +68,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         ])];
         const staticPaths = [
           "/explore",
+          "/explore/trip-planner",
           ...categorySlugs.map((slug) => `/explore/${slug}`),
           ...regionSlugs.map((regionSlug) => `/explore/region/${regionSlug}`),
         ];
