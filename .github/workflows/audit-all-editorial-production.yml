@@ -1,0 +1,94 @@
+name: Audit all TexasDefined editorial production routes
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/audit-all-editorial-production.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit-editorial:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - name: Inventory every current editorial article from the actual repository
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat > .audit-inventory-editorial.mjs <<'EOF'
+          import { createServer } from 'vite';
+          import fs from 'node:fs';
+          const vite = await createServer({ server: { middlewareMode: true }, appType: 'custom', logLevel: 'error' });
+          try {
+            const mod = await vite.ssrLoadModule('/src/data/index.ts');
+            const rows = await mod.platform.articles.list(mod.scope);
+            const unique = [...new Map(rows.map((row) => [row.slug, row])).values()]
+              .sort((a, b) => a.slug.localeCompare(b.slug));
+            if (!unique.length) throw new Error('Editorial repository returned zero articles');
+            fs.writeFileSync('/tmp/articles.json', JSON.stringify(unique.map((row) => ({ slug: row.slug, title: row.title })), null, 2));
+            fs.writeFileSync('/tmp/slugs.txt', unique.map((row) => row.slug).join('\n') + '\n');
+            console.log(`TexasDefined editorial inventory: ${unique.length} unique articles`);
+            for (const row of unique) console.log(`${row.slug}\t${row.title}`);
+          } finally {
+            await vite.close();
+          }
+          EOF
+          node .audit-inventory-editorial.mjs
+          rm .audit-inventory-editorial.mjs
+      - name: Verify every editorial page and rendered hero image in production
+        shell: bash
+        run: |
+          set -euo pipefail
+          passed=0
+          failed=0
+          : > /tmp/results.txt
+          while IFS= read -r slug; do
+            url="https://texasdefined.com/article/$slug"
+            code=$(curl -L -sS -o /tmp/article.html -w '%{http_code}' --max-time 25 "$url" || echo 000)
+            if [[ "$code" != "200" ]] || grep -Eqi 'Story unavailable|This story is no longer available|page not found' /tmp/article.html; then
+              echo "FAIL page $code $url" | tee -a /tmp/results.txt
+              failed=$((failed+1))
+              continue
+            fi
+            image=$(python3 - <<'PY'
+          import re
+          from pathlib import Path
+          html = Path('/tmp/article.html').read_text(errors='ignore')
+          patterns = [
+              r'<meta[^>]+property=["\x27]og:image["\x27][^>]+content=["\x27]([^"\x27]+)',
+              r'<meta[^>]+content=["\x27]([^"\x27]+)["\x27][^>]+property=["\x27]og:image["\x27]',
+          ]
+          for pattern in patterns:
+              match = re.search(pattern, html, re.I)
+              if match:
+                  print(match.group(1))
+                  break
+          PY
+          )
+            if [[ -z "$image" ]]; then
+              echo "FAIL image-metadata $url" | tee -a /tmp/results.txt
+              failed=$((failed+1))
+              continue
+            fi
+            if [[ "$image" == /* ]]; then image="https://texasdefined.com$image"; fi
+            image_code=$(curl -L -sS -o /dev/null -w '%{http_code}' --max-time 25 "$image" || echo 000)
+            if [[ "$image_code" != "200" ]]; then
+              echo "FAIL image $image_code $image ($url)" | tee -a /tmp/results.txt
+              failed=$((failed+1))
+              continue
+            fi
+            echo "PASS page=200 image=200 $url" | tee -a /tmp/results.txt
+            passed=$((passed+1))
+          done < /tmp/slugs.txt
+          echo "Passed: $passed"
+          echo "Failed: $failed"
+          cat /tmp/results.txt
+          [[ "$failed" -eq 0 ]]
