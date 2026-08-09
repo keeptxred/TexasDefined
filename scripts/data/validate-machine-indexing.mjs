@@ -18,6 +18,8 @@ for (const file of files) {
 
 const llmsSource = fs.readFileSync(path.join(root, 'src/routes/llms[.]txt.ts'), 'utf8');
 const robotsSource = fs.readFileSync(path.join(root, 'public/robots.txt'), 'utf8');
+const rootRouteSource = fs.readFileSync(path.join(root, 'src/routes/__root.tsx'), 'utf8');
+const articleRouteSource = fs.readFileSync(path.join(root, 'src/routes/article.$slug.tsx'), 'utf8');
 const requiredDiscoveryTargets = [
   '/api/knowledge-graph',
   '/api/ai/entities',
@@ -67,10 +69,47 @@ if (!llmsSource.includes('calculator outputs as illustrative planning estimates'
   errors.push('llms.txt must preserve calculator retrieval guidance.');
 }
 
+for (const feature of [
+  '"@type": "Organization"',
+  '"@id": `${siteUrl}/#organization`',
+  'alternateName: "TexasDefined"',
+  '"@type": "ImageObject"',
+  '"@id": `${siteUrl}/#logo`',
+  'knowsAbout:',
+  '"@type": "WebSite"',
+  'inLanguage: texasDefinedBrand.identity.locale',
+  'publisher: { "@id": `${siteUrl}/#organization` }',
+  '"@type": "EntryPoint"',
+  'urlTemplate: `${siteUrl}/search?q={search_term_string}`',
+]) {
+  if (!rootRouteSource.includes(feature)) errors.push(`Root structured data contract missing: ${feature}`);
+}
+
+for (const feature of [
+  '"@type": "Article"',
+  '"@type": "WebPage"',
+  '"@type": "BreadcrumbList"',
+  'representativeOfPage: true',
+  'contentUrl: imageUrl',
+  'wordCount: wordCount(fullText)',
+  'thumbnailUrl: imageUrl',
+  'inLanguage: texasDefinedBrand.identity.locale',
+  'affiliation: { "@id": `${siteUrl}/#organization` }',
+  'publisher: { "@id": `${siteUrl}/#organization` }',
+  'about: mentions.slice(0, 8)',
+  'mentions: mentions.map',
+]) {
+  if (!articleRouteSource.includes(feature)) errors.push(`Article structured data contract missing: ${feature}`);
+}
+
+if (articleRouteSource.includes('dateModified: article.publishedAt')) {
+  errors.push('Article schema must not fabricate dateModified from datePublished.');
+}
+
 if (errors.length) {
   console.error('TexasDefined machine-indexing validation failed:');
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
 
-console.log('TexasDefined machine endpoints, robots policy, category and regional AI discovery guidance are protected.');
+console.log('TexasDefined machine endpoints, robots policy, AI discovery guidance, and core Organization/WebSite/Article schema contracts are protected.');
