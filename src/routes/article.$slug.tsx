@@ -25,6 +25,14 @@ function articleDepartment(category: string): ArticleDepartment {
   return { name: "Explore", path: "/explore", usesExploreCategory: true };
 }
 
+function articleText(article: { title: string; dek: string; body: Array<{ type: string; text?: string; items?: string[] }> }) {
+  return [article.title, article.dek, ...article.body.flatMap((block) => block.type === "list" ? block.items ?? [] : block.text ? [block.text] : [])].join(" ");
+}
+
+function wordCount(value: string) {
+  return value.trim().split(/\s+/).filter(Boolean).length;
+}
+
 export const Route = createFileRoute("/article/$slug")({
   loader: async ({ context, params }) => {
     const article = await context.queryClient.ensureQueryData(articleQuery(params.slug));
@@ -45,7 +53,8 @@ export const Route = createFileRoute("/article/$slug")({
     const imageUrl = absoluteUrl(texasDefinedBrand, article.hero.src);
     const author = authors.find((item) => item.id === article.authorId);
     const authorId = author ? `${articleUrl}#author-${author.id}` : `${siteUrl}/#organization`;
-    const text = [article.title, article.dek, ...article.body.flatMap((block) => block.type === "list" ? block.items : "text" in block ? [block.text] : [])].join(" ").toLowerCase();
+    const fullText = articleText(article);
+    const text = fullText.toLowerCase();
     const mentions = graph.filter((entity) => [entity.name, ...entity.aliases].some((label) => {
       if (label.length < 4) return false;
       const escaped = label.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -54,6 +63,17 @@ export const Route = createFileRoute("/article/$slug")({
     const categoryName = categories.find((category) => category.slug === article.category)?.name
       ?? article.category.replace(/-/g, " ");
     const department = articleDepartment(article.category);
+    const imageSchema = {
+      "@type": "ImageObject",
+      "@id": `${articleUrl}#primaryimage`,
+      url: imageUrl,
+      contentUrl: imageUrl,
+      caption: article.hero.alt,
+      width: article.hero.width,
+      height: article.hero.height,
+      representativeOfPage: true,
+      ...(article.hero.credit ? { creditText: article.hero.credit } : {}),
+    };
 
     const webPageSchema = {
       "@type": "WebPage",
@@ -61,10 +81,12 @@ export const Route = createFileRoute("/article/$slug")({
       url: articleUrl,
       name: article.title,
       description: article.dek,
+      inLanguage: texasDefinedBrand.identity.locale,
       isPartOf: { "@id": `${siteUrl}/#website` },
       primaryImageOfPage: { "@id": `${articleUrl}#primaryimage` },
       mainEntity: { "@id": `${articleUrl}#article` },
       breadcrumb: { "@id": `${articleUrl}#breadcrumbs` },
+      datePublished: article.publishedAt,
     };
     const authorSchema = author ? {
       "@type": "Person",
@@ -72,6 +94,7 @@ export const Route = createFileRoute("/article/$slug")({
       name: author.name,
       jobTitle: author.role,
       description: author.bio,
+      affiliation: { "@id": `${siteUrl}/#organization` },
     } : null;
     const articleSchema = {
       "@type": "Article",
@@ -80,14 +103,18 @@ export const Route = createFileRoute("/article/$slug")({
       mainEntityOfPage: { "@id": articleUrl },
       headline: article.title,
       description: article.dek,
-      image: [{ "@type": "ImageObject", "@id": `${articleUrl}#primaryimage`, url: imageUrl, caption: article.hero.alt, width: article.hero.width, height: article.hero.height }],
+      inLanguage: texasDefinedBrand.identity.locale,
+      image: [{ "@id": `${articleUrl}#primaryimage` }],
+      thumbnailUrl: imageUrl,
       datePublished: article.publishedAt,
       articleSection: categoryName,
       keywords: article.tags,
+      wordCount: wordCount(fullText),
       isAccessibleForFree: true,
       author: { "@id": authorId },
       publisher: { "@id": `${siteUrl}/#organization` },
-      mentions: mentions.map((entity) => ({ "@type": schemaTypeForEntityKind(entity.kind), name: entity.name, url: `${siteUrl}${canonicalEntityPath(entity)}` })),
+      about: mentions.slice(0, 8).map((entity) => ({ "@id": `${siteUrl}${canonicalEntityPath(entity)}#entity` })),
+      mentions: mentions.map((entity) => ({ "@type": schemaTypeForEntityKind(entity.kind), "@id": `${siteUrl}${canonicalEntityPath(entity)}#entity`, name: entity.name, url: `${siteUrl}${canonicalEntityPath(entity)}` })),
     };
     const breadcrumbItems = [
       { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
@@ -100,7 +127,7 @@ export const Route = createFileRoute("/article/$slug")({
       "@id": `${articleUrl}#breadcrumbs`,
       itemListElement: breadcrumbItems,
     };
-    const schemaGraph = [webPageSchema, ...(authorSchema ? [authorSchema] : []), articleSchema, breadcrumbSchema];
+    const schemaGraph = [webPageSchema, imageSchema, ...(authorSchema ? [authorSchema] : []), articleSchema, breadcrumbSchema];
 
     return {
       meta: buildMeta(texasDefinedBrand, {
@@ -110,6 +137,8 @@ export const Route = createFileRoute("/article/$slug")({
         canonicalPath,
         image: article.hero.src,
         imageAlt: article.hero.alt,
+        imageWidth: article.hero.width,
+        imageHeight: article.hero.height,
         publishedTime: article.publishedAt,
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
