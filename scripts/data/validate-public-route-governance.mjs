@@ -81,13 +81,31 @@ const hasRouteLiteral = (source, routePath) =>
   [`"${routePath}"`, `'${routePath}'`, `\`${routePath}\``].some((literal) => source.includes(literal));
 
 for (const routePath of indexable) {
-  if (routePath === '/') continue;
-  const inboundFiles = [...sourceByFile.entries()]
-    .filter(([, source]) => hasRouteLiteral(source, routePath))
-    .filter(([, source]) => !source.includes(`createFileRoute('${routePath}')`))
-    .filter(([, source]) => !source.includes(`createFileRoute("${routePath}")`))
-    .map(([file]) => file);
-  if (!inboundFiles.length) failures.push(`Indexable static route has no discoverable internal-link reference: ${routePath}.`);
+  if (routePath !== '/') {
+    const inboundFiles = [...sourceByFile.entries()]
+      .filter(([, source]) => hasRouteLiteral(source, routePath))
+      .filter(([, source]) => !source.includes(`createFileRoute('${routePath}')`))
+      .filter(([, source]) => !source.includes(`createFileRoute("${routePath}")`))
+      .map(([file]) => file);
+    if (!inboundFiles.length) failures.push(`Indexable static route has no discoverable internal-link reference: ${routePath}.`);
+  }
+
+  const routeEntry = [...sourceByFile.entries()].find(([, source]) =>
+    source.includes(`createFileRoute('${routePath}')`) || source.includes(`createFileRoute("${routePath}")`),
+  );
+  if (!routeEntry) {
+    failures.push(`Indexable static route has no route source for metadata validation: ${routePath}.`);
+    continue;
+  }
+
+  const [routeFile, routeSource] = routeEntry;
+  if (!routeSource.includes('head:')) failures.push(`Indexable route is missing a head definition: ${routePath} (${routeFile}).`);
+  if (!routeSource.includes('canonicalPath')) failures.push(`Indexable route is missing canonical metadata: ${routePath} (${routeFile}).`);
+  if (!/\btitle\s*:/.test(routeSource)) failures.push(`Indexable route is missing a search title: ${routePath} (${routeFile}).`);
+  if (!/\bdescription\b/.test(routeSource)) failures.push(`Indexable route is missing a meta description: ${routePath} (${routeFile}).`);
+  if (/robots\s*:\s*["']noindex/i.test(routeSource) || /content=["'][^"']*noindex/i.test(routeSource)) {
+    failures.push(`Indexable route contains a noindex directive: ${routePath} (${routeFile}).`);
+  }
 }
 
 if (failures.length) {
@@ -96,4 +114,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Public-route governance passed for ${registeredStaticPublicPaths.size} registered static routes and ${indexable.length} indexable routes.`);
+console.log(`Public-route governance and metadata validation passed for ${registeredStaticPublicPaths.size} registered static routes and ${indexable.length} indexable routes.`);
