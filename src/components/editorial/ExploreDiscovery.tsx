@@ -14,8 +14,17 @@ export function ExploreDiscovery({ currentCategory, categories, regions }: { cur
       <Container>
         <SectionHeader eyebrow="Elsewhere in the guide" title="See Texas another way" description="Change the landscape, the kind of place or the part of the state and keep going." />
 
-        <nav aria-label="More ways to explore Texas" className="mt-8 border-y border-border py-5">
-          <ul className="flex flex-wrap gap-x-6 gap-y-3">
+        <nav aria-label="Explore planning shortcuts" className="mt-8 border-y border-border py-5">
+          <ul className="flex flex-wrap gap-x-7 gap-y-3">
+            <li><Link to="/explore/trip-planner" className="eyebrow text-primary transition-colors hover:text-foreground">Build a Texas trip</Link></li>
+            <li><Link to="/browse/cities" className="eyebrow text-muted-foreground transition-colors hover:text-primary">Browse Texas cities</Link></li>
+            <li><Link to="/events" className="eyebrow text-muted-foreground transition-colors hover:text-primary">See Texas events</Link></li>
+          </ul>
+        </nav>
+
+        <nav aria-label="More ways to explore Texas" className="mt-10">
+          <p className="eyebrow text-primary">By place and experience</p>
+          <ul className="mt-5 flex flex-wrap gap-x-6 gap-y-3">
             {relatedCategories.map((item) => <li key={item.slug}><Link to="/explore/$category" params={{ category: item.slug }} className="eyebrow text-muted-foreground transition-colors hover:text-primary">{item.name}</Link></li>)}
           </ul>
         </nav>
