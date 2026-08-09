@@ -22,6 +22,11 @@ const COMPLEMENTARY_CATEGORIES: Partial<Record<CategorySlug, CategorySlug[]>> = 
   outdoors: ["state-parks", "lakes-rivers", "major-springs", "small-towns"],
 };
 
+const WATER_CATEGORIES = new Set<CategorySlug>(["lakes-rivers", "major-springs", "beaches-coast"]);
+const HISTORY_CATEGORIES = new Set<CategorySlug>(["historic-sites", "small-towns", "road-trips"]);
+const OUTDOOR_CATEGORIES = new Set<CategorySlug>(["state-parks", "national-parks", "outdoors", "caverns"]);
+const WEEKEND_CATEGORIES = new Set<CategorySlug>(["small-towns", "food-bbq", "road-trips", "historic-sites", "state-parks", "lakes-rivers"]);
+
 function validCoordinates(destination: Destination) {
   const { lat, lng } = destination.coordinates;
   return Number.isFinite(lat) && Number.isFinite(lng) && !(lat === 0 && lng === 0);
@@ -83,6 +88,11 @@ export function buildDestinationRelationshipGroups(
     6,
   ));
 
+  const nearbyWater = take(nearest(destination, others.filter((item) => WATER_CATEGORIES.has(item.category)), 6), 4);
+  const nearbyHistory = take(nearest(destination, others.filter((item) => HISTORY_CATEGORIES.has(item.category)), 6), 4);
+  const nearbyOutdoors = take(nearest(destination, others.filter((item) => OUTDOOR_CATEGORIES.has(item.category)), 6), 4);
+  const weekendPairings = take(nearest(destination, others.filter((item) => WEEKEND_CATEGORIES.has(item.category)), 8), 6);
+
   const similar = take([
     ...nearest(destination, others.filter((item) => item.category === destination.category), 8),
     ...others.filter((item) => item.category === destination.category && item.region === destination.region),
@@ -111,6 +121,34 @@ export function buildDestinationRelationshipGroups(
       title: "Pair this stop with something different",
       description: "Nearby parks, water, towns, history and outdoor places that complement this destination.",
       destinations: nearbyComplementary,
+    },
+    {
+      id: "nearby-water",
+      eyebrow: "Add some water",
+      title: "Nearby water stops",
+      description: "Lakes, rivers, springs and coastal places that can fit into the same trip.",
+      destinations: nearbyWater,
+    },
+    {
+      id: "history-nearby",
+      eyebrow: "Add some Texas context",
+      title: "Historic stops nearby",
+      description: "Historic sites, small towns and road-trip stops that add context to the route.",
+      destinations: nearbyHistory,
+    },
+    {
+      id: "outdoors-nearby",
+      eyebrow: "Keep the day outside",
+      title: "More outdoors nearby",
+      description: "Parks, caverns and outdoor destinations that pair naturally with this stop.",
+      destinations: nearbyOutdoors,
+    },
+    {
+      id: "weekend",
+      eyebrow: "Make a weekend of it",
+      title: "Build a full weekend",
+      description: "A mix of towns, food, history, parks and water that can turn one stop into a fuller itinerary.",
+      destinations: weekendPairings,
     },
     {
       id: "similar",
