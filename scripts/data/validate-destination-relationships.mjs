@@ -28,8 +28,20 @@ requireFeatures(engine, [
   'Math.atan2',
   'miles <= 75',
   'COMPLEMENTARY_CATEGORIES',
+  'WATER_CATEGORIES',
+  'HISTORY_CATEGORIES',
+  'OUTDOOR_CATEGORIES',
+  'WEEKEND_CATEGORIES',
   'sameTown',
   'nearbyComplementary',
+  'nearbyWater',
+  'nearbyHistory',
+  'nearbyOutdoors',
+  'weekendPairings',
+  'id: "nearby-water"',
+  'id: "history-nearby"',
+  'id: "outdoors-nearby"',
+  'id: "weekend"',
   'similar',
   'regional',
   'const used = new Set<string>()',
@@ -48,6 +60,9 @@ requireFeatures(component, [
   'distanceMiles(destination, item)',
   'Math.max(1, Math.round(miles)).toLocaleString("en-US")',
   'miles away',
+  'to="/explore/trip-planner"',
+  'search={{ destination: destination.slug }}',
+  'Build the weekend',
   'to="/explore/$category"',
   'to="/explore/region/$region"',
   'to="/events"',
@@ -65,4 +80,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Destination proximity, town, complementary-category, similarity, regional, deduplication, crawlable UI, internal-link exits, and ItemList relationships passed validation.');
+console.log('Destination proximity, trip-intent water/history/outdoors/weekend groups, town, complementary-category, similarity, regional, deduplication, crawlable UI, planner exits, and ItemList relationships passed validation.');
