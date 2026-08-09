@@ -1,5 +1,3 @@
-import bigBend from "@/assets/big-bend.jpg";
-
 import type { Article, ArticleBlock } from "../types";
 
 const p = (text: string): ArticleBlock => ({ type: "paragraph", text });
@@ -15,8 +13,8 @@ export const reevesCountyPecosBalmorheaArticle: Article = {
   category: "texas-history",
   region: "big-bend",
   hero: {
-    src: bigBend,
-    alt: "Far West Texas desert and mountain landscape representing Reeves County",
+    src: "/images/explore/major-springs/balmorhea-state-park.jpg",
+    alt: "Spring-fed water and historic structures at Balmorhea State Park in Reeves County, Texas",
     width: 1600,
     height: 1067,
   },
