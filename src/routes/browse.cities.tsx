@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
+import { AnswerSummary } from "@/components/content/AnswerSummary";
 import { cityAnchor, TexasPlaceDirectory } from "@/components/directories/TexasPlaceDirectory";
 import { TEXAS_CITIES } from "@/data/texas-places";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
@@ -14,7 +15,7 @@ export const Route = createFileRoute("/browse/cities")({
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath: "/browse/cities",
-        title: "Find a City",
+        title: "Texas City Directory",
         description,
       }),
       links: [canonicalLink(texasDefinedBrand, "/browse/cities")],
@@ -26,7 +27,7 @@ export const Route = createFileRoute("/browse/cities")({
               "@type": "CollectionPage",
               "@id": `${pageUrl}#page`,
               url: pageUrl,
-              name: "Find a City",
+              name: "Texas City Directory",
               description,
               isPartOf: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#website` },
               publisher: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#organization` },
@@ -80,5 +81,21 @@ export const Route = createFileRoute("/browse/cities")({
       ],
     };
   },
-  component: () => <TexasPlaceDirectory mode="cities" />,
+  component: CitiesDirectoryPage,
 });
+
+function CitiesDirectoryPage() {
+  return <>
+    <AnswerSummary
+      eyebrow="Texas cities"
+      title="How to use the Texas city directory"
+      items={[
+        { question: "What is this directory?", answer: `A searchable starting point for ${TEXAS_CITIES.length.toLocaleString("en-US")} Texas cities in the current Texas Defined reference set.` },
+        { question: "What can I find for a city?", answer: "Use the directory to connect a city with its county and Texas region, then continue into local stories, moving guidance and nearby places where coverage is available." },
+        { question: "Can I use this to compare places to live?", answer: "Yes. Start here to identify cities, then use the moving and financial tools for cost-of-living, salary, housing and relocation planning." },
+        { question: "Is this an official government directory?", answer: "No. Texas Defined is an independent reference and editorial guide; verify official boundaries, services and records with the relevant city or county agency." },
+      ]}
+    />
+    <TexasPlaceDirectory mode="cities" />
+  </>;
+}
