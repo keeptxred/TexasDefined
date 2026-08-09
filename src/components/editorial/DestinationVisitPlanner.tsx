@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { AnswerSummary } from "@/components/content/AnswerSummary";
 import type { Destination } from "@/data/types";
 
@@ -57,6 +58,15 @@ export function DestinationVisitPlanner({ destination }: Props) {
             </div>
           ))}
         </div>
+        <nav aria-label={`Continue planning from ${destination.name}`} className="mt-8 border-t border-border pt-6">
+          <p className="eyebrow text-primary">Keep exploring</p>
+          <div className="mt-4 flex flex-wrap gap-x-7 gap-y-3">
+            <Link to="/explore/$category" params={{ category: destination.category }} className="eyebrow border-b border-primary pb-1 text-primary">More {destination.category.replace(/-/g, " ")} →</Link>
+            <a href={`/explore/trip-planner?destination=${encodeURIComponent(destination.slug)}`} className="eyebrow border-b border-primary pb-1 text-primary">Build a trip from here →</a>
+            <Link to="/explore" className="eyebrow border-b border-primary pb-1 text-primary">Explore Texas guide →</Link>
+            <Link to="/browse/cities" className="eyebrow border-b border-primary pb-1 text-primary">Texas city directory →</Link>
+          </div>
+        </nav>
       </section>
     </>
   );
