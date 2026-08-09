@@ -55,13 +55,28 @@ export function TexasPlaceDirectory({ mode }: { mode: "counties" | "cities" }) {
                     <p className="eyebrow text-primary">{city.region}</p>
                     <h3 className="mt-3 font-display text-3xl leading-tight">{city.name}</h3>
                     <p className="mt-3 text-sm leading-7 text-muted-foreground">{city.county} County · Local stories, living costs, moving guidance and nearby places.</p>
-                    <Link className="eyebrow mt-5 inline-block border-b border-primary pb-1 text-primary" to="/search" search={{ q: city.name }}>Explore {city.name} →</Link>
+                    <div className="mt-5 flex flex-wrap gap-x-5 gap-y-3">
+                      <Link className="eyebrow border-b border-primary pb-1 text-primary" to="/search" search={{ q: city.name }}>Explore {city.name} →</Link>
+                      <Link className="eyebrow border-b border-primary pb-1 text-primary" to="/texas-salary-comparison-by-city">Compare salary →</Link>
+                      <Link className="eyebrow border-b border-primary pb-1 text-primary" to="/texas-cost-of-living-calculator">Compare costs →</Link>
+                    </div>
                   </li>
                 ))}
           </ul>
         ) : (
           <div className="border-b border-border py-12"><p className="font-display text-3xl">No {searchLabel} matched that search.</p><p className="mt-3 text-sm text-muted-foreground">Check the spelling or try a nearby place.</p></div>
         )}
+
+        <nav aria-label={`${current} planning pathways`} className="mt-14 border-y border-border py-6">
+          <p className="eyebrow text-primary">Keep planning</p>
+          <div className="mt-4 flex flex-wrap gap-x-7 gap-y-3">
+            <Link to="/moving-to-texas" className="eyebrow border-b border-primary pb-1 text-primary">Moving to Texas →</Link>
+            <Link to="/property" className="eyebrow border-b border-primary pb-1 text-primary">Property & taxes →</Link>
+            <Link to="/decide/financial-tools" className="eyebrow border-b border-primary pb-1 text-primary">Money & property tools →</Link>
+            <Link to="/texas-utility-cost-calculator" className="eyebrow border-b border-primary pb-1 text-primary">Utility costs →</Link>
+            <Link to="/texas-homeownership-cost-calculator" className="eyebrow border-b border-primary pb-1 text-primary">Homeownership costs →</Link>
+          </div>
+        </nav>
       </Container>
     </>
   );
