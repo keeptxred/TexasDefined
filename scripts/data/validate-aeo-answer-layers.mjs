@@ -19,6 +19,13 @@ const requiredFiles = {
     'Is the result official?',
     'What should I do with the result?',
   ],
+  'src/components/editorial/DestinationVisitPlanner.tsx': [
+    'AnswerSummary',
+    'What is ${destination.name}?',
+    'When is the best time to go?',
+    'What should I know before arriving?',
+    'Where is it?',
+  ],
   'src/routes/browse.cities.tsx': [
     'AnswerSummary',
     'How to use the Texas city directory',
@@ -49,4 +56,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('AEO answer-first layers are present on category, calculator, city and county surfaces.');
+console.log('AEO answer-first layers are present on category, calculator, destination, city and county surfaces.');
