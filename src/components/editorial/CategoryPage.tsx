@@ -6,6 +6,7 @@ import { ArticleCard } from "@/components/editorial/ArticleCard";
 import { DestinationCollectionGrid } from "@/components/editorial/DestinationCollectionGrid";
 import { ExploreDiscovery } from "@/components/editorial/ExploreDiscovery";
 import { ExploreTopicPaths } from "@/components/editorial/ExploreTopicPaths";
+import { LivingAuthorityPaths } from "@/components/editorial/LivingAuthorityPaths";
 import { TexasLifeDiscovery } from "@/components/editorial/TexasLifeDiscovery";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
@@ -104,6 +105,8 @@ export function CategoryPage({ category, eyebrow, title, intro, image }: {
         title={`What to know about ${eyebrow}`}
         items={answerItems}
       />
+
+      <LivingAuthorityPaths currentCategory={category} />
 
       {lead && (
         <Section>
