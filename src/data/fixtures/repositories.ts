@@ -31,6 +31,7 @@ import { kolacheOrKlobasnekArticle } from "./kolache-or-klobasnek";
 import { migratedEditorialArticles } from "./migrated-editorial";
 import { orderingTexasBarbecueArticle } from "./ordering-texas-barbecue";
 import { presidioCountyMarfaBorderlandsArticle } from "./presidio-county-marfa-borderlands";
+import { reevesCountyPecosBalmorheaArticle } from "./reeves-county-pecos-balmorhea";
 import { rodeo101Article } from "./rodeo-101";
 import { sixFlagsOverTexasMeaningArticle } from "./six-flags-over-texas-meaning";
 import {
@@ -52,6 +53,7 @@ import {
 
 const editorialArticles = [
   ...exploreFeatureArticles,
+  reevesCountyPecosBalmorheaArticle,
   elPasoCountyPassMissionsBorderlandsArticle,
   hudspethCountySierraBlancaSaltFlatsArticle,
   culbersonCountyVanHornGuadalupeMountainsArticle,
