@@ -6,6 +6,7 @@ on:
     branches: [main]
     paths:
       - "scripts/data/sync-state-park-hero-assets.mjs"
+      - "scripts/data/cloudflare-workers-ai-shim.mjs"
       - ".github/workflows/state-park-hero-assets.yml"
 
 permissions:
@@ -20,7 +21,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
-      LOVABLE_API_KEY: ${{ secrets.LOVABLE_API_KEY }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      NODE_OPTIONS: --import=./scripts/data/cloudflare-workers-ai-shim.mjs
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
