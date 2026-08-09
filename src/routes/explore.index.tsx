@@ -5,6 +5,7 @@ import { texasDefinedBrand } from "@/brand/texasdefined";
 import { ArticleCard } from "@/components/editorial/ArticleCard";
 import { DepartmentHero } from "@/components/editorial/DepartmentHero";
 import { DestinationCard } from "@/components/editorial/DestinationCard";
+import { ExploreIntentPaths } from "@/components/editorial/ExploreIntentPaths";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import { articlesQuery, categoriesQuery, destinationsQuery, regionsQuery } from "@/data/queries";
@@ -50,6 +51,8 @@ function ExplorePage() {
 
   return <>
     <DepartmentHero current="Explore" eyebrow="The Texas guide" title="Explore Texas, one good road at a time" description={description} />
+
+    <ExploreIntentPaths />
 
     <Section>
       <Container>
