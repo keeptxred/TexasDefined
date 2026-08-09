@@ -58,6 +58,24 @@ const MOVING_ARTICLE_HEROES: Partial<Record<string, Article["hero"]>> = {
 };
 
 const EDITORIAL_HERO_OVERRIDES: Partial<Record<string, Article["hero"]>> = {
+  "presidio-county-marfa-borderlands-texas": {
+    src: "/images/explore/historic-sites/fort-leaton-state-historic-site.jpg",
+    alt: "Fort Leaton State Historic Site in Presidio County near the Rio Grande borderlands",
+    width: 1600,
+    height: 1067,
+  },
+  "jeff-davis-county-fort-davis-mountains-texas": {
+    src: "/images/explore/historic-sites/fort-davis-national-historic-site.jpg",
+    alt: "Fort Davis National Historic Site beneath the Davis Mountains in Jeff Davis County",
+    width: 1600,
+    height: 1067,
+  },
+  "culberson-county-van-horn-guadalupe-mountains-texas": {
+    src: "/images/explore/national-parks/guadalupe-mountains-national-park.jpg",
+    alt: "Guadalupe Mountains National Park in Culberson County, home of Guadalupe Peak",
+    width: 1600,
+    height: 1067,
+  },
   "muds-pids-hoas-special-districts-texas": {
     src: "https://images.unsplash.com/photo-1671410304582-1c2fb1390fbf?auto=format&fit=crop&w=1600&h=900&q=82",
     alt: "Aerial view of a Houston-area suburban neighborhood with homes, streets and shared infrastructure",
