@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { Link } from '@tanstack/react-router';
+import { AnswerSummary } from '@/components/content/AnswerSummary';
 import { Container } from '@/components/layout/Container';
 
 export function CalculatorPage({ eyebrow, title, description, children }: { eyebrow: string; title: string; description: string; children: ReactNode }) {
@@ -21,6 +22,17 @@ export function CalculatorPage({ eyebrow, title, description, children }: { eyeb
           <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">{description}</p>
         </Container>
       </section>
+
+      <AnswerSummary
+        eyebrow="Quick answer"
+        title={`What this ${title.toLowerCase()} does`}
+        items={[
+          { question: "What does this calculator estimate?", answer: description },
+          { question: "Who is it for?", answer: "Texans comparing costs, planning a move, evaluating a home purchase or trying to understand a household money decision before talking with a provider or agency." },
+          { question: "Is the result official?", answer: "No. Results are planning estimates based on the values you enter and should be checked against current rates, taxes, insurance, eligibility rules and property details." },
+          { question: "What should I do with the result?", answer: "Use it to compare scenarios and identify the assumptions that matter most, then confirm the final numbers with the appropriate lender, insurer, tax office, provider or agency." },
+        ]}
+      />
 
       <Container className="py-12 sm:py-16">
         <article className="mx-auto max-w-5xl">
