@@ -7,6 +7,9 @@ export interface PageSeo {
   description: string;
   image?: string;
   imageAlt?: string;
+  imageWidth?: number;
+  imageHeight?: number;
+  imageType?: string;
   type?: "website" | "article";
   canonicalPath?: string;
   robots?: string;
@@ -30,6 +33,12 @@ interface EditorialCollectionSeo extends PageSeo {
   items: EditorialCollectionItem[];
 }
 
+const DEFAULT_INDEX_ROBOTS = "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
+
+function cleanMetaText(value: string) {
+  return value.replace(/\s+/g, " ").trim();
+}
+
 export function absoluteUrl(brand: BrandConfig, value: string) {
   if (/^https?:\/\//i.test(value)) return value;
   const path = value.startsWith("/") ? value : `/${value}`;
@@ -37,27 +46,37 @@ export function absoluteUrl(brand: BrandConfig, value: string) {
 }
 
 export function buildMeta(brand: BrandConfig, page: PageSeo) {
-  const fullTitle = brand.seo.titleTemplate.replace("%s", page.title);
+  const pageTitle = cleanMetaText(page.title);
+  const description = cleanMetaText(page.description);
+  const fullTitle = cleanMetaText(brand.seo.titleTemplate.replace("%s", pageTitle));
   const canonicalUrl = page.canonicalPath ? absoluteUrl(brand, page.canonicalPath) : undefined;
   const imageUrl = page.image ? absoluteUrl(brand, page.image) : undefined;
+  const robots = page.robots ?? (page.canonicalPath ? DEFAULT_INDEX_ROBOTS : undefined);
   const meta: Array<Record<string, string>> = [
     { title: fullTitle },
-    { name: "description", content: page.description },
+    { name: "description", content: description },
     { property: "og:title", content: fullTitle },
-    { property: "og:description", content: page.description },
+    { property: "og:description", content: description },
     { property: "og:type", content: page.type ?? "website" },
     { property: "og:site_name", content: brand.identity.name },
     { property: "og:locale", content: brand.identity.locale.replace("-", "_") },
-    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:card", content: imageUrl ? "summary_large_image" : "summary" },
     { name: "twitter:title", content: fullTitle },
-    { name: "twitter:description", content: page.description },
+    { name: "twitter:description", content: description },
   ];
   if (canonicalUrl) meta.push({ property: "og:url", content: canonicalUrl });
   if (imageUrl) {
-    meta.push({ property: "og:image", content: imageUrl }, { name: "twitter:image", content: imageUrl });
-    if (page.imageAlt) meta.push({ property: "og:image:alt", content: page.imageAlt }, { name: "twitter:image:alt", content: page.imageAlt });
+    meta.push(
+      { property: "og:image", content: imageUrl },
+      { property: "og:image:secure_url", content: imageUrl },
+      { name: "twitter:image", content: imageUrl },
+    );
+    if (page.imageAlt) meta.push({ property: "og:image:alt", content: cleanMetaText(page.imageAlt) }, { name: "twitter:image:alt", content: cleanMetaText(page.imageAlt) });
+    if (page.imageWidth) meta.push({ property: "og:image:width", content: String(page.imageWidth) });
+    if (page.imageHeight) meta.push({ property: "og:image:height", content: String(page.imageHeight) });
+    if (page.imageType) meta.push({ property: "og:image:type", content: page.imageType });
   }
-  if (page.robots) meta.push({ name: "robots", content: page.robots });
+  if (robots) meta.push({ name: "robots", content: robots }, { name: "googlebot", content: robots });
   if (page.publishedTime) meta.push({ property: "article:published_time", content: page.publishedTime });
   if (page.modifiedTime) meta.push({ property: "article:modified_time", content: page.modifiedTime });
   if (brand.seo.twitterSite) meta.push({ name: "twitter:site", content: brand.seo.twitterSite });
