@@ -7,6 +7,8 @@ const registry = read('src/lib/public-routes.ts');
 const exploreDiscovery = read('src/components/editorial/ExploreDiscovery.tsx');
 const texasLifeDiscovery = read('src/components/editorial/TexasLifeDiscovery.tsx');
 const categoryPage = read('src/components/editorial/CategoryPage.tsx');
+const calculatorPage = read('src/components/calculators/CalculatorPage.tsx');
+const destinationPlanner = read('src/components/editorial/DestinationVisitPlanner.tsx');
 const exploreSitemap = read('src/routes/sitemap-explore[.]xml.ts');
 
 for (const path of ['/property', '/explore/trip-planner']) {
@@ -22,6 +24,14 @@ for (const target of ['/property', '/decide/financial-tools', '/browse/cities', 
   if (!texasLifeDiscovery.includes(`to: "${target}"`)) failures.push(`Texas Life discovery must link to ${target}.`);
 }
 
+for (const target of ['/decide/financial-tools', '/property', '/browse/counties', '/moving-to-texas', '/browse/cities']) {
+  if (!calculatorPage.includes(`to="${target}"`)) failures.push(`Calculator pages must link to ${target}.`);
+}
+
+for (const token of ['to="/explore/$category"', '/explore/trip-planner?destination=', 'to="/explore"', 'to="/browse/cities"']) {
+  if (!destinationPlanner.includes(token)) failures.push(`Destination planning pathways are missing ${token}.`);
+}
+
 if (!categoryPage.includes('TexasLifeDiscovery')) failures.push('Texas Life category pages must render TexasLifeDiscovery.');
 if (!categoryPage.includes('belongsToTexasLife && <TexasLifeDiscovery')) failures.push('TexasLifeDiscovery must be limited to Texas Life category surfaces.');
 if (!exploreSitemap.includes('"/explore/trip-planner"')) failures.push('Explore sitemap must publish the Trip Planner.');
@@ -32,4 +42,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Internal-link discovery pathways, hub promotion and Explore sitemap coverage are protected.');
+console.log('Internal-link discovery pathways, hub promotion, calculator/destination cross-links and Explore sitemap coverage are protected.');
