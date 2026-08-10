@@ -30,6 +30,7 @@ import { jeffDavisCountyFortDavisMountainsArticle } from "./jeff-davis-county-fo
 import { kolacheOrKlobasnekArticle } from "./kolache-or-klobasnek";
 import { migratedEditorialArticles } from "./migrated-editorial";
 import { orderingTexasBarbecueArticle } from "./ordering-texas-barbecue";
+import { pecosCountyFortStocktonComancheSpringsArticle } from "./pecos-county-fort-stockton-comanche-springs";
 import { presidioCountyMarfaBorderlandsArticle } from "./presidio-county-marfa-borderlands";
 import { reevesCountyPecosBalmorheaArticle } from "./reeves-county-pecos-balmorhea";
 import { rodeo101Article } from "./rodeo-101";
@@ -53,6 +54,7 @@ import {
 
 const editorialArticles = [
   ...exploreFeatureArticles,
+  pecosCountyFortStocktonComancheSpringsArticle,
   reevesCountyPecosBalmorheaArticle,
   elPasoCountyPassMissionsBorderlandsArticle,
   hudspethCountySierraBlancaSaltFlatsArticle,
