@@ -4,6 +4,7 @@ import { caddoLakeCypressMorningArticle } from "./fixtures/caddo-lake-cypress-mo
 import { ectorCountyOdessaOilStonehengeArticle } from "./fixtures/ector-county-odessa-oil-stonehenge";
 import { fixturePlatform } from "./fixtures/repositories";
 import { randallCountyCanyonPaloDuroArticle } from "./fixtures/randall-county-canyon-palo-duro";
+import { tomGreenCountySanAngeloConchoArticle } from "./fixtures/tom-green-county-san-angelo-concho";
 import { wardCountyMonahansSandhillsArticle } from "./fixtures/ward-county-monahans-sandhills";
 import { winklerCountyKermitWinkOilArticle } from "./fixtures/winkler-county-kermit-wink-oil";
 import type { PlatformRepositories } from "./repositories";
@@ -150,6 +151,13 @@ const ARTICLE_INTERNAL_LINK_ADDITIONS: Partial<Record<string, NonNullable<Articl
       description: "Explore Canyon, Palo Duro and the edge of the High Plains in the Texas Panhandle.",
     },
   ],
+  "randall-county-canyon-palo-duro-texas": [
+    {
+      href: "/article/tom-green-county-san-angelo-concho-texas",
+      label: "Continue south to Tom Green County",
+      description: "Explore San Angelo, Fort Concho and the river country at the West Texas crossroads.",
+    },
+  ],
 };
 
 const wordsInBlock = (block: ArticleBlock) => {
@@ -191,14 +199,16 @@ const articleRepository = {
   async list(query: Parameters<typeof fixturePlatform.articles.list>[0]) {
     const rows = await fixturePlatform.articles.list(query);
     if (query.brandId !== "texasdefined") return rows.map(normalizeArticle);
-    const includeRandall =
-      (!query.category || query.category === randallCountyCanyonPaloDuroArticle.category) &&
-      (!query.tag || randallCountyCanyonPaloDuroArticle.tags.includes(query.tag)) &&
-      (query.featured === undefined || Boolean(randallCountyCanyonPaloDuroArticle.featured) === query.featured) &&
-      query.excludeSlug !== randallCountyCanyonPaloDuroArticle.slug;
-    const merged = includeRandall && !rows.some((article) => article.slug === randallCountyCanyonPaloDuroArticle.slug)
-      ? [randallCountyCanyonPaloDuroArticle, ...rows]
-      : rows;
+
+    const directArticles = [tomGreenCountySanAngeloConchoArticle, randallCountyCanyonPaloDuroArticle];
+    const eligibleDirect = directArticles.filter((article) =>
+      (!query.category || query.category === article.category) &&
+      (!query.tag || article.tags.includes(query.tag)) &&
+      (query.featured === undefined || Boolean(article.featured) === query.featured) &&
+      query.excludeSlug !== article.slug &&
+      !rows.some((row) => row.slug === article.slug)
+    );
+    const merged = [...eligibleDirect, ...rows];
     const limited = query.limit ? merged.slice(0, query.limit) : merged;
     return limited.map(normalizeArticle);
   },
@@ -215,6 +225,9 @@ const articleRepository = {
       }
       if (slug === randallCountyCanyonPaloDuroArticle.slug) {
         return normalizeArticle(randallCountyCanyonPaloDuroArticle);
+      }
+      if (slug === tomGreenCountySanAngeloConchoArticle.slug) {
+        return normalizeArticle(tomGreenCountySanAngeloConchoArticle);
       }
       if (slug === wardCountyMonahansSandhillsArticle.slug) {
         return normalizeArticle(wardCountyMonahansSandhillsArticle);
