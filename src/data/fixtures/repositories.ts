@@ -15,6 +15,7 @@ import { guideHref } from "../guide-links";
 import type { Article, ArticleBlock, SearchDocument } from "../types";
 import { brewsterCountyBigBendArticle } from "./brewster-county-big-bend";
 import { culbersonCountyVanHornGuadalupeMountainsArticle } from "./culberson-county-van-horn-guadalupe-mountains";
+import { ectorCountyOdessaOilStonehengeArticle } from "./ector-county-odessa-oil-stonehenge";
 import { elPasoCountyPassMissionsBorderlandsArticle } from "./el-paso-county-pass-missions-borderlands";
 import {
   texasBarbecueStylesArticle,
@@ -55,6 +56,7 @@ import {
 
 const editorialArticles = [
   ...exploreFeatureArticles,
+  ectorCountyOdessaOilStonehengeArticle,
   wardCountyMonahansSandhillsArticle,
   pecosCountyFortStocktonComancheSpringsArticle,
   reevesCountyPecosBalmorheaArticle,
