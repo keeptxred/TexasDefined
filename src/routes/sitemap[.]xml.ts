@@ -5,6 +5,8 @@ import { platform, scope } from "@/data";
 import { supplementalExploreCategories } from "@/data/explore-categories";
 import { fetchCoreExploreDestinations } from "@/data/explore-core-remote";
 import { fetchExploreDestinations } from "@/data/explore-remote";
+import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
+import { canonicalEntityPath, isIndexableEntityPage } from "@/data/knowledge-graph/relationships";
 import { COUNTY_PROPERTY_RECORDS } from "@/data/property/county-property-data";
 import { isCountyPropertyIndexReady } from "@/data/property/county-property-schema";
 import { TEXAS_DATASETS } from "@/data/texas-data-center";
@@ -25,6 +27,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           platform.taxonomy.categories(scope),
           platform.taxonomy.regions(scope),
           platform.taxonomy.authors(scope),
+          loadTexasKnowledgeGraph(),
         ]);
 
         const failures = coreResults.filter((result) => result.status === "rejected");
@@ -40,13 +43,14 @@ export const Route = createFileRoute("/sitemap.xml")({
           });
         }
 
-        const [articlesResult, fixtureDestinationsResult, collectionsResult, categoriesResult, regionsResult, authorsResult] = coreResults;
+        const [articlesResult, fixtureDestinationsResult, collectionsResult, categoriesResult, regionsResult, authorsResult, graphResult] = coreResults;
         const articles = articlesResult.status === "fulfilled" ? articlesResult.value : [];
         const fixtureDestinations = fixtureDestinationsResult.status === "fulfilled" ? fixtureDestinationsResult.value : [];
         const collections = collectionsResult.status === "fulfilled" ? collectionsResult.value : [];
         const baseCategories = categoriesResult.status === "fulfilled" ? categoriesResult.value : [];
         const regions = regionsResult.status === "fulfilled" ? regionsResult.value : [];
         const authors = authorsResult.status === "fulfilled" ? authorsResult.value : [];
+        const graph = graphResult.status === "fulfilled" ? graphResult.value : [];
 
         const categoryMap = new Map(baseCategories.map((category) => [category.slug, category]));
         for (const category of supplementalExploreCategories) {
@@ -68,6 +72,7 @@ export const Route = createFileRoute("/sitemap.xml")({
 
         const destinations = remoteDestinations.length ? remoteDestinations : fixtureDestinations;
         const countyPages = COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady);
+        const entityPages = graph.filter(isIndexableEntityPage);
         const entries: SitemapEntry[] = [
           ...INDEXABLE_STATIC_PATHS.map((path) => ({ path })),
           ...categories.map((category) => ({ path: `/explore/${category.slug}` })),
@@ -79,6 +84,7 @@ export const Route = createFileRoute("/sitemap.xml")({
             .filter((destination) => destination.slug)
             .map((destination) => ({ path: `/destination/${destination.slug}`, lastmod: toDate(destination.sourceCheckedAt) })),
           ...countyPages.map((county) => ({ path: `/property-tax/county/${county.slug}`, lastmod: toDate(county.lastVerifiedAt ?? undefined) })),
+          ...entityPages.map((entity) => ({ path: canonicalEntityPath(entity), lastmod: toDate(entity.sourceCheckedAt) })),
           ...TEXAS_DATASETS.map((dataset) => ({
             path: `/texas-data/${dataset.slug}`,
             lastmod: toDate(dataset.updated),
