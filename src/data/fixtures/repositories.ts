@@ -35,6 +35,7 @@ import { presidioCountyMarfaBorderlandsArticle } from "./presidio-county-marfa-b
 import { reevesCountyPecosBalmorheaArticle } from "./reeves-county-pecos-balmorhea";
 import { rodeo101Article } from "./rodeo-101";
 import { sixFlagsOverTexasMeaningArticle } from "./six-flags-over-texas-meaning";
+import { wardCountyMonahansSandhillsArticle } from "./ward-county-monahans-sandhills";
 import {
   articles,
   authors,
@@ -54,6 +55,7 @@ import {
 
 const editorialArticles = [
   ...exploreFeatureArticles,
+  wardCountyMonahansSandhillsArticle,
   pecosCountyFortStocktonComancheSpringsArticle,
   reevesCountyPecosBalmorheaArticle,
   elPasoCountyPassMissionsBorderlandsArticle,
