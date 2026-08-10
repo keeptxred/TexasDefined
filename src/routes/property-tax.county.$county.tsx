@@ -3,6 +3,7 @@ import { createFileRoute, notFound, redirect } from '@tanstack/react-router';
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { CountyPropertyTaxTemplate } from '@/components/property/CountyPropertyTaxTemplate';
 import { getCountyPropertyRecordBySlug } from '@/data/property/county-property-data';
+import { isCountyPropertyIndexReady } from '@/data/property/county-property-schema';
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 export const Route = createFileRoute('/property-tax/county/$county')({
@@ -29,12 +30,14 @@ export const Route = createFileRoute('/property-tax/county/$county')({
     const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
     const siteUrl = absoluteUrl(texasDefinedBrand, '/');
     const description = `${county.name} property-tax guide covering appraisal records, exemptions, protests, payments, taxing units and official local resources.`;
+    const indexReady = isCountyPropertyIndexReady(county);
 
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
         title: `${county.name} Property Tax Guide`,
         description,
+        robots: indexReady ? undefined : 'noindex, follow',
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
       scripts: [jsonLd({
@@ -56,7 +59,7 @@ export const Route = createFileRoute('/property-tax/county/$county')({
             headline: `${county.name} Property Tax Guide`,
             description,
             url: pageUrl,
-            dateModified: '2026-08-08',
+            ...(county.lastVerifiedAt ? { dateModified: county.lastVerifiedAt } : {}),
             isPartOf: { '@id': `${pageUrl}#page` },
             about: { '@id': `${pageUrl}#county` },
           },
