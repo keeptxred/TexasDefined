@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { platform, scope } from "@/data";
+import { countySlugForLegacyArticleSlug } from "@/data/county-editorial";
 import { supplementalExploreCategories } from "@/data/explore-categories";
 import { fetchCoreExploreDestinations } from "@/data/explore-core-remote";
 import { fetchExploreDestinations } from "@/data/explore-remote";
@@ -81,7 +82,9 @@ export const Route = createFileRoute("/sitemap.xml")({
           ...regions.map((region) => ({ path: `/explore/region/${region.id}` })),
           ...collections.map((collection) => ({ path: `/shop/${collection.slug}` })),
           ...authors.map((author) => ({ path: `/authors/${author.id}` })),
-          ...articles.map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(article.publishedAt) })),
+          ...articles
+            .filter((article) => !countySlugForLegacyArticleSlug(article.slug))
+            .map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(article.publishedAt) })),
           ...destinations
             .filter((destination) => destination.slug)
             .map((destination) => ({ path: `/destination/${destination.slug}`, lastmod: toDate(destination.sourceCheckedAt) })),
