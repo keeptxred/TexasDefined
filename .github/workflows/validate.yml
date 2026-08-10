@@ -41,6 +41,9 @@ jobs:
       - name: Install dependencies
         run: npm ci --no-audit --no-fund
 
+      - name: Validate SEO and AEO contracts
+        run: npm run seo:validate
+
       - name: Validate production data and migrated features
         run: npm run data:validate
 
