@@ -17,6 +17,8 @@ for (const file of files) {
 }
 
 const llmsSource = fs.readFileSync(path.join(root, 'src/routes/llms[.]txt.ts'), 'utf8');
+const graphApiSource = fs.readFileSync(path.join(root, 'src/routes/api.knowledge-graph.ts'), 'utf8');
+const aiApiSource = fs.readFileSync(path.join(root, 'src/routes/api.ai.entities.ts'), 'utf8');
 const robotsSource = fs.readFileSync(path.join(root, 'public/robots.txt'), 'utf8');
 const rootRouteSource = fs.readFileSync(path.join(root, 'src/routes/__root.tsx'), 'utf8');
 const articleRouteSource = fs.readFileSync(path.join(root, 'src/routes/article.$slug.tsx'), 'utf8');
@@ -57,16 +59,47 @@ for (const target of requiredDiscoveryTargets) {
   }
 }
 
+for (const feature of [
+  'Publisher entity: https://texasdefined.com/#organization',
+  'Canonical contributor profiles use https://texasdefined.com/authors/{author-id}',
+  'sourceConfidence',
+  'reviewDueAt',
+  'Missing fields are omitted rather than inferred',
+  'calculator outputs as illustrative planning estimates',
+]) {
+  if (!llmsSource.includes(feature)) errors.push(`llms.txt machine guidance missing: ${feature}`);
+}
+
+for (const feature of [
+  'canonicalEntityId:',
+  'verification: {',
+  'confidence: entity.sourceConfidence',
+  'checkedAt: entity.sourceCheckedAt ?? null',
+  'reviewDueAt: entity.reviewDueAt ?? null',
+  'officialSourceUrl: entity.officialUrl ?? null',
+  'publisher: `${siteUrl}/#organization`',
+]) {
+  if (!graphApiSource.includes(feature)) errors.push(`Knowledge graph provenance contract missing: ${feature}`);
+}
+
+for (const feature of [
+  'publisher: { \'@id\': organizationId }',
+  'additionalProperty: provenanceProperties(entity)',
+  "name: 'sourceConfidence'",
+  "name: 'sourceCheckedAt'",
+  "name: 'reviewDueAt'",
+  'subjectOf: { \'@type\': \'Dataset\'',
+  "url: `${siteUrl}${canonicalEntityPath(item)}`",
+]) {
+  if (!aiApiSource.includes(feature)) errors.push(`AI entity provenance contract missing: ${feature}`);
+}
+
 const adminBlocks = robotsSource.match(/^Disallow: \/admin$/gm) ?? [];
 if (adminBlocks.length !== 5) {
   errors.push('robots.txt must block the admin root for every declared crawler group.');
 }
 for (const sitemap of ['https://texasdefined.com/sitemap.xml', 'https://texasdefined.com/sitemap-explore.xml']) {
   if (!robotsSource.includes(`Sitemap: ${sitemap}`)) errors.push(`robots.txt must advertise ${sitemap}.`);
-}
-
-if (!llmsSource.includes('calculator outputs as illustrative planning estimates')) {
-  errors.push('llms.txt must preserve calculator retrieval guidance.');
 }
 
 for (const feature of [
@@ -112,4 +145,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('TexasDefined machine endpoints, robots policy, AI discovery guidance, and core Organization/WebSite/Article schema contracts are protected.');
+console.log('TexasDefined machine endpoints, provenance, canonical identity, robots policy, AI discovery guidance, and core Organization/WebSite/Article schema contracts are protected.');
