@@ -80,6 +80,13 @@ const editorialArticles = [
 ];
 
 const COUNTY_HERO_OVERRIDES: Partial<Record<string, Article["hero"]>> = {
+  "ward-county-monahans-sandhills-texas": {
+    src: "https://upload.wikimedia.org/wikipedia/commons/1/11/Monahans_Sandhills_at_Sunrise.jpg",
+    alt: "Sunrise over the dunes at Monahans Sandhills State Park in Ward County, Texas",
+    width: 2048,
+    height: 1360,
+    credit: "Wing-Chi Poon · CC BY-SA 3.0 · Wikimedia Commons",
+  },
   "brewster-county-big-bend-texas": {
     src: "/images/explore/national-parks/big-bend-national-park.jpg",
     alt: "Big Bend National Park in Brewster County, Texas",
@@ -124,6 +131,16 @@ const COUNTY_HERO_OVERRIDES: Partial<Record<string, Article["hero"]>> = {
   },
 };
 
+const COUNTY_INTERNAL_LINK_ADDITIONS: Partial<Record<string, NonNullable<Article["internalLinks"]>>> = {
+  "reeves-county-pecos-balmorhea-texas": [
+    {
+      href: "/article/ward-county-monahans-sandhills-texas",
+      label: "Explore neighboring Ward County",
+      description: "Continue north toward Monahans Sandhills and the Permian Basin's oil-road country.",
+    },
+  ],
+};
+
 const byBrand = <T extends { brandId: string }>(rows: T[], brandId: string) =>
   rows.filter((row) => row.brandId === brandId);
 
@@ -143,9 +160,16 @@ const wordsInBlock = (block: ArticleBlock) => {
 
 const normalizeArticle = (article: Article): Article => {
   const wordCount = article.body.reduce((total, block) => total + wordsInBlock(block), 0);
+  const additions = COUNTY_INTERNAL_LINK_ADDITIONS[article.slug] ?? [];
+  const existingInternalLinks = article.internalLinks ?? [];
+  const internalLinks = [
+    ...existingInternalLinks,
+    ...additions.filter((addition) => !existingInternalLinks.some((link) => link.href === addition.href)),
+  ];
   return {
     ...article,
     hero: COUNTY_HERO_OVERRIDES[article.slug] ?? article.hero,
+    internalLinks,
     readingMinutes: Math.max(1, Math.ceil(wordCount / 220)),
   };
 };
