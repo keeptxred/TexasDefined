@@ -127,7 +127,7 @@ for (const feature of [
   'wordCount: wordCount(fullText)',
   'thumbnailUrl: imageUrl',
   'inLanguage: texasDefinedBrand.identity.locale',
-  'affiliation: { "@id": `${siteUrl}/#organization` }',
+  'parentOrganization: { "@id": `${siteUrl}/#organization` }',
   'publisher: { "@id": `${siteUrl}/#organization` }',
   'about: mentions.slice(0, 8)',
   'mentions: mentions.map',
