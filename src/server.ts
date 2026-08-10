@@ -7,6 +7,21 @@ type ServerEntry = {
   fetch: (request: Request, env: unknown, ctx: unknown) => Promise<Response> | Response;
 };
 
+const LEGACY_COUNTY_ARTICLE_REDIRECTS: Record<string, string> = {
+  "/article/brewster-county-big-bend-texas": "/county/brewster",
+  "/article/presidio-county-marfa-borderlands-texas": "/county/presidio",
+  "/article/jeff-davis-county-fort-davis-mountains-texas": "/county/jeff-davis",
+  "/article/culberson-county-van-horn-guadalupe-mountains-texas": "/county/culberson",
+  "/article/hudspeth-county-sierra-blanca-salt-flats-texas": "/county/hudspeth",
+  "/article/el-paso-county-missions-rio-grande-texas": "/county/el-paso",
+  "/article/el-paso-county-pass-missions-borderlands-texas": "/county/el-paso",
+  "/article/reeves-county-pecos-balmorhea-texas": "/county/reeves",
+  "/article/pecos-county-fort-stockton-comanche-springs-texas": "/county/pecos",
+  "/article/ward-county-monahans-sandhills-texas": "/county/ward",
+  "/article/winkler-county-kermit-wink-oil-texas": "/county/winkler",
+  "/article/andrews-county-andrews-oil-shafter-lake-texas": "/county/andrews",
+};
+
 let serverEntryPromise: Promise<ServerEntry> | undefined;
 
 async function getServerEntry(): Promise<ServerEntry> {
@@ -16,6 +31,22 @@ async function getServerEntry(): Promise<ServerEntry> {
     );
   }
   return serverEntryPromise;
+}
+
+function legacyCountyRedirect(request: Request) {
+  if (request.method !== "GET" && request.method !== "HEAD") return null;
+  const url = new URL(request.url);
+  const target = LEGACY_COUNTY_ARTICLE_REDIRECTS[url.pathname];
+  if (!target) return null;
+  const destination = new URL(target, url.origin);
+  destination.search = url.search;
+  return new Response(null, {
+    status: 301,
+    headers: {
+      location: destination.toString(),
+      "cache-control": "public, max-age=3600",
+    },
+  });
 }
 
 // h3 swallows in-handler throws into a normal 500 Response with body
@@ -46,6 +77,9 @@ function isH3SwallowedErrorBody(body: string): boolean {
 
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
+    const redirect = legacyCountyRedirect(request);
+    if (redirect) return redirect;
+
     try {
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
