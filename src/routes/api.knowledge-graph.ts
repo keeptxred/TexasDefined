@@ -8,6 +8,7 @@ import {
 import type { TexasEntityKind, TexasEntityRecord } from '@/data/knowledge-graph';
 import { canonicalEntityPath } from '@/data/knowledge-graph/relationships';
 
+const siteUrl = 'https://texasdefined.com';
 const PUBLIC_HEADERS = {
   'cache-control': 'public, max-age=300, stale-while-revalidate=3600',
   'access-control-allow-origin': '*',
@@ -25,11 +26,20 @@ const PUBLIC_FIELDS = (entity: TexasEntityRecord) => ({
   region: entity.region,
   coordinates: entity.coordinates,
   officialUrl: entity.officialUrl,
-  canonicalUrl: `https://texasdefined.com${canonicalEntityPath(entity)}`,
+  canonicalUrl: `${siteUrl}${canonicalEntityPath(entity)}`,
+  canonicalEntityId: `${siteUrl}${canonicalEntityPath(entity)}#entity`,
   sourceId: entity.sourceId,
   sourceConfidence: entity.sourceConfidence,
   sourceCheckedAt: entity.sourceCheckedAt,
   reviewDueAt: entity.reviewDueAt,
+  verification: {
+    status: entity.status,
+    sourceId: entity.sourceId,
+    confidence: entity.sourceConfidence,
+    checkedAt: entity.sourceCheckedAt ?? null,
+    reviewDueAt: entity.reviewDueAt ?? null,
+    officialSourceUrl: entity.officialUrl ?? null,
+  },
   status: entity.status,
   relationships: entity.relationships,
   tags: entity.tags,
@@ -55,6 +65,8 @@ export const Route = createFileRoute('/api/knowledge-graph')({
           const entity = await findCompleteTexasEntity(id);
           if (!entity) return json({ error: 'Entity not found' }, { status: 404, cacheControl: 'no-store' });
           return json({
+            canonicalDomain: siteUrl,
+            publisher: `${siteUrl}/#organization`,
             entity: PUBLIC_FIELDS(entity),
             neighbors: includeRelationships
               ? graphNeighbors(entity.id).map((item) => ({
@@ -80,6 +92,8 @@ export const Route = createFileRoute('/api/knowledge-graph')({
         }, {});
 
         return json({
+          canonicalDomain: siteUrl,
+          publisher: `${siteUrl}/#organization`,
           total: entities.length,
           countsByKind,
           entities: entities.slice(0, limit).map(PUBLIC_FIELDS),
