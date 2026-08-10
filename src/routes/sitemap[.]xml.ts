@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { platform, scope } from "@/data";
+import { isLegacyCountySeriesArticle } from "@/data/county-series";
 import { supplementalExploreCategories } from "@/data/explore-categories";
 import { fetchCoreExploreDestinations } from "@/data/explore-core-remote";
 import { fetchExploreDestinations } from "@/data/explore-remote";
@@ -81,7 +82,9 @@ export const Route = createFileRoute("/sitemap.xml")({
           ...regions.map((region) => ({ path: `/explore/region/${region.id}` })),
           ...collections.map((collection) => ({ path: `/shop/${collection.slug}` })),
           ...authors.map((author) => ({ path: `/authors/${author.id}` })),
-          ...articles.map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(article.publishedAt) })),
+          ...articles
+            .filter((article) => !isLegacyCountySeriesArticle(article.slug))
+            .map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(article.publishedAt) })),
           ...destinations
             .filter((destination) => destination.slug)
             .map((destination) => ({ path: `/destination/${destination.slug}`, lastmod: toDate(destination.sourceCheckedAt) })),
@@ -123,5 +126,5 @@ function toDate(value?: string) {
 }
 
 function escapeXml(value: string) {
-  return value.replace(/[&<>"']/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&apos;" })[character] ?? character);
+  return value.replace(/[&<>"']/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '\"': "&quot;", "'": "&apos;" })[character] ?? character);
 }
