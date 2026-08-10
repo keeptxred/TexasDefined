@@ -45,6 +45,35 @@ for (const feature of [
 }
 
 for (const feature of [
+  'const entityCounty = countyContext(entity)',
+  'const sameCounty = Boolean(entityCounty && candidateCounty && entityCounty === candidateCounty)',
+  "score += 120; reasons.push('direct relationship')",
+  "score += 70; reasons.push('same county')",
+  'const miles = distanceMiles(entity, candidate)',
+  "miles <= 25",
+  "miles <= 75",
+  "miles <= 150",
+  "score += 18;",
+  'sharedTags.length * 6',
+  "entity.kind === candidate.kind && (sameCounty || miles != null",
+  'LOCAL_GOVERNMENT_KINDS.has(entity.kind) && !sameCounty && !directlyRelated && !incomingRelated',
+  'score = 0;',
+  'proximityTieBreak(entity, a.entity, b.entity)',
+  'function countyContext(entity: TexasEntityRecord)',
+  "relationship.targetId.startsWith('county:')",
+  'function distanceMiles(a: TexasEntityRecord, b: TexasEntityRecord)',
+]) {
+  if (!entityRelationships.includes(feature)) errors.push(`Related-entity ranking contract missing: ${feature}`);
+}
+
+for (const forbiddenRanking of [
+  'if (entity.kind === candidate.kind) score += 3',
+  "if (entity.kind === candidate.kind) { score += 3",
+]) {
+  if (entityRelationships.includes(forbiddenRanking)) errors.push(`Alphabetical same-kind fallback must not return: ${forbiddenRanking}`);
+}
+
+for (const feature of [
   'isIndexableEntityPage(loaderData.entity)',
   "robots: indexable ? undefined : 'noindex, follow, max-image-preview:large'",
   'pageDescription(loaderData.entity)',
@@ -145,4 +174,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('County and generated entity quality gates, authoritative county and local-office enrichment, kind-aware presentation, source specificity, noindex behavior, and qualified sitemap publication passed validation.');
+console.log('County and generated entity quality gates, authoritative county and local-office enrichment, geographic/semantic related ranking, kind-aware presentation, source specificity, noindex behavior, and qualified sitemap publication passed validation.');
