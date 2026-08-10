@@ -6,17 +6,39 @@ const articleRoute = fs.readFileSync('src/routes/article.$slug.tsx', 'utf8');
 const articleBody = fs.readFileSync('src/components/editorial/ArticleBody.tsx', 'utf8');
 const sitemap = fs.readFileSync('src/routes/sitemap[.]xml.ts', 'utf8');
 const about = fs.readFileSync('src/routes/about.tsx', 'utf8');
+const desks = fs.readFileSync('src/data/editorial-desks.ts', 'utf8');
 
 for (const feature of [
   'createFileRoute("/authors/$author")',
   '"@type": "ProfilePage"',
-  '"@type": "Person"',
-  'worksFor: { "@id": `${siteUrl}/#organization` }',
+  '"@type": "Organization"',
+  'parentOrganization: { "@id": `${siteUrl}/#organization` }',
   'articles.filter((article) => article.authorId === author.id)',
-  'Stories by ${author.name}',
+  'Stories from ${author.name}',
   'ArticleCard article={article}',
 ]) {
-  if (!authorRoute.includes(feature)) failures.push(`Author profile contract missing: ${feature}`);
+  if (!authorRoute.includes(feature)) failures.push(`Editorial desk profile contract missing: ${feature}`);
+}
+
+for (const forbidden of [
+  '"@type": "Person"',
+  'worksFor: { "@id": `${siteUrl}/#organization` }',
+  'affiliation: { "@id": `${siteUrl}/#organization` }',
+]) {
+  if (authorRoute.includes(forbidden)) failures.push(`Editorial desk page must not present a desk as a person: ${forbidden}`);
+}
+
+for (const feature of [
+  'Texas Defined Editorial Desk',
+  'Texas Defined Food & Culture Desk',
+  'Texas Defined Travel & Outdoors Desk',
+  'DEFAULT_EDITORIAL_DESK_ID',
+]) {
+  if (!desks.includes(feature)) failures.push(`Institutional byline registry missing: ${feature}`);
+}
+
+for (const forbiddenName of ['Hollis Rains', 'Marisol Vega', 'Dell Whitaker']) {
+  if (desks.includes(forbiddenName)) failures.push(`Fictional contributor must not be present in the live desk registry: ${forbiddenName}`);
 }
 
 for (const feature of [
@@ -26,26 +48,21 @@ for (const feature of [
   if (!articleBody.includes(feature)) failures.push(`Byline profile link missing: ${feature}`);
 }
 
-for (const feature of [
-  'const authorUrl = author ? `${siteUrl}/authors/${author.id}` : null',
-  'const authorId = authorUrl ? `${authorUrl}#person`',
-  'url: authorUrl',
-  'worksFor: { "@id": `${siteUrl}/#organization` }',
-]) {
-  if (!articleRoute.includes(feature)) failures.push(`Article canonical author identity missing: ${feature}`);
-}
-
-if (!sitemap.includes('platform.taxonomy.authors(scope)')) failures.push('Primary sitemap must load authors.');
-if (!sitemap.includes('...authors.map((author) => ({ path: `/authors/${author.id}` }))')) failures.push('Primary sitemap must publish author profiles.');
+if (!sitemap.includes('platform.taxonomy.authors(scope)')) failures.push('Primary sitemap must load editorial bylines.');
+if (!sitemap.includes('...authors.map((author) => ({ path: `/authors/${author.id}` }))')) failures.push('Primary sitemap must publish editorial desk profiles.');
 
 for (const signal of ['Named bylines', 'Sources and official records', 'Corrections and updates', 'Clear separation of guidance']) {
   if (!about.includes(signal)) failures.push(`About-page editorial accountability signal missing: ${signal}.`);
 }
 
+if (articleRoute.includes('"@type": "Person"')) {
+  failures.push('Article schema still presents institutional bylines as Person; convert it to Organization before remediation is complete.');
+}
+
 if (failures.length) {
-  console.error('Author E-E-A-T validation failed:');
+  console.error('Editorial byline integrity validation failed:');
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log('Canonical author profiles, byline identity, article schema, sitemap discovery and editorial accountability signals are protected.');
+console.log('Institutional editorial desks, byline identity, sitemap discovery and editorial accountability signals are protected.');
