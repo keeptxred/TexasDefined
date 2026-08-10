@@ -1,6 +1,7 @@
 import type { BrandId } from "@/brand/types";
 
 import { caddoLakeCypressMorningArticle } from "./fixtures/caddo-lake-cypress-morning";
+import { ectorCountyOdessaOilStonehengeArticle } from "./fixtures/ector-county-odessa-oil-stonehenge";
 import { fixturePlatform } from "./fixtures/repositories";
 import { wardCountyMonahansSandhillsArticle } from "./fixtures/ward-county-monahans-sandhills";
 import { winklerCountyKermitWinkOilArticle } from "./fixtures/winkler-county-kermit-wink-oil";
@@ -128,6 +129,18 @@ const ARTICLE_INTERNAL_LINK_ADDITIONS: Partial<Record<string, NonNullable<Articl
       label: "Explore neighboring Winkler County",
       description: "Continue north into Kermit, Wink and the Hendrick Field oil-boom story.",
     },
+    {
+      href: "/article/ector-county-odessa-oil-stonehenge-texas",
+      label: "Continue into Ector County",
+      description: "Explore Odessa, the Permian Basin, Stonehenge and the meteor-crater landscape.",
+    },
+  ],
+  "winkler-county-kermit-wink-oil-texas": [
+    {
+      href: "/article/ector-county-odessa-oil-stonehenge-texas",
+      label: "Continue east into Ector County",
+      description: "Follow the Permian Basin into Odessa, Stonehenge and the meteor-crater story.",
+    },
   ],
 };
 
@@ -178,6 +191,9 @@ const articleRepository = {
     if (scope.brandId === "texasdefined") {
       if (slug === caddoLakeCypressMorningArticle.slug) {
         return normalizeArticle(caddoLakeCypressMorningArticle);
+      }
+      if (slug === ectorCountyOdessaOilStonehengeArticle.slug) {
+        return normalizeArticle(ectorCountyOdessaOilStonehengeArticle);
       }
       if (slug === wardCountyMonahansSandhillsArticle.slug) {
         return normalizeArticle(wardCountyMonahansSandhillsArticle);
