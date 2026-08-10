@@ -9,6 +9,7 @@ import type {
   SearchRepository,
   TaxonomyRepository,
 } from "../repositories";
+import { editorialDeskById, editorialDesks } from "../editorial-desks";
 import { supplementalExploreCategories } from "../explore-categories";
 import { guideHref } from "../guide-links";
 import type { Article, ArticleBlock, SearchDocument } from "../types";
@@ -38,7 +39,6 @@ import { sixFlagsOverTexasMeaningArticle } from "./six-flags-over-texas-meaning"
 import { wardCountyMonahansSandhillsArticle } from "./ward-county-monahans-sandhills";
 import {
   articles,
-  authors,
   categories,
   collections,
   destinations,
@@ -256,10 +256,10 @@ export const fixtureTaxonomy: TaxonomyRepository = {
     return regions;
   },
   async authors() {
-    return authors;
+    return editorialDesks;
   },
   async getAuthor(_scope, id) {
-    return authors.find((a) => a.id === id) ?? null;
+    return editorialDeskById(id);
   },
 };
 
