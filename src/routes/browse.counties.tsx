@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { AnswerSummary } from "@/components/content/AnswerSummary";
@@ -6,6 +6,7 @@ import {
   countyPropertyAnchor,
   TexasCountyPropertyDirectory,
 } from "@/components/directories/TexasCountyPropertyDirectory";
+import { Container } from "@/components/layout/Container";
 import { TEXAS_COUNTIES } from "@/data/texas-places";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
@@ -92,6 +93,11 @@ function CountyDirectoryPage() {
         { question: "Where should homeowners start?", answer: "Find your county first, then use the related property-tax guides, exemption resources and calculators to understand the questions you need to verify locally." },
       ]}
     />
+    <Container className="pb-8">
+      <div className="border-y border-border py-5 text-sm">
+        Looking for the full county profiles rather than property-tax pages? <Link to="/county" className="font-semibold text-primary underline underline-offset-4">Browse all 254 Texas county guides →</Link>
+      </div>
+    </Container>
     <TexasCountyPropertyDirectory />
   </>;
 }
