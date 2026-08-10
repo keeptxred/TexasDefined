@@ -111,21 +111,21 @@ export const categories: Category[] = [
 export const authors: Author[] = [
   {
     id: "a-hollis",
-    name: "Hollis Rains",
-    role: "Editor at large",
-    bio: "Fifth-generation Texan. Writes about water, weather and the places between exits.",
+    name: "Texas Defined Editorial Desk",
+    role: "Editorial desk",
+    bio: "Texas Defined editors produce and review statewide features, explainers and service journalism using published sources and official records.",
   },
   {
     id: "a-marisol",
-    name: "Marisol Vega",
-    role: "Food editor",
-    bio: "Grew up behind a tortilla counter in San Antonio. Covers barbecue, borderlands cooking and the coast.",
+    name: "Texas Defined Food & Culture Desk",
+    role: "Food & culture desk",
+    bio: "Texas Defined's Food & Culture Desk covers barbecue, regional food traditions, festivals and the people and places that shape Texas culture.",
   },
   {
     id: "a-dell",
-    name: "Dell Whitaker",
-    role: "Contributing writer",
-    bio: "Former parks interpreter in the Panhandle. Now drives farm roads and writes down what he finds.",
+    name: "Texas Defined Travel & Outdoors Desk",
+    role: "Travel & outdoors desk",
+    bio: "Texas Defined's Travel & Outdoors Desk covers parks, road trips, small towns, public lands and practical ways to explore Texas.",
   },
 ];
 
