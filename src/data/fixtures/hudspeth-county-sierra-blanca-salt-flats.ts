@@ -26,7 +26,7 @@ export const hudspethCountySierraBlancaSaltFlatsArticle: Article = {
   tags: ["Hudspeth County", "Sierra Blanca", "Fort Hancock", "Dell City", "Salt Flats", "Sierra Diablo", "Texas counties", "West Texas", "Texas history"],
   featured: false,
   internalLinks: [
-    { href: "/article/el-paso-county-pass-missions-borderlands-texas", label: "Explore neighboring El Paso County", description: "Continue west into the Franklin Mountains, Mission Trail and El Paso borderlands." },
+    { href: "/article/el-paso-county-missions-rio-grande-texas", label: "Explore neighboring El Paso County", description: "Continue west into the Franklin Mountains, Mission Trail and El Paso borderlands." },
     { href: "/article/culberson-county-van-horn-guadalupe-mountains-texas", label: "Explore neighboring Culberson County", description: "Continue east toward Van Horn, Guadalupe Peak and the Guadalupe Mountains." },
     { href: "/article/jeff-davis-county-fort-davis-mountains-texas", label: "Explore Jeff Davis County", description: "Follow the mountain story south toward Fort Davis and McDonald Observatory." },
     { href: "/browse/counties", label: "Browse all 254 Texas counties", description: "Explore Texas one county at a time." },
@@ -57,7 +57,7 @@ export const hudspethCountySierraBlancaSaltFlatsArticle: Article = {
 
     h("Water explains the communities along the Rio Grande"),
     p("Southern Hudspeth County follows the international boundary with Chihuahua. Communities such as Fort Hancock, Acala and Esperanza grew in a landscape where the Rio Grande and irrigation made agriculture possible."),
-    p("That river corridor is culturally and economically connected to a much broader borderlands region. Families, farms, livestock and trade existed across what became an international line, and the county's modern population remains strongly Hispanic and Latino. Census estimates for 2020-2024 report that roughly two-thirds of residents identify as Hispanic or Latino and that a language other than English is spoken at home by a majority of residents."),
+    p("That river corridor is culturally and economically connected to a much broader borderlands region. Families, farms, livestock and trade existed across what became an international line, and the county's modern population remains strongly Hispanic and Latino."),
     p("The border is therefore not simply the county's southern edge. It is one of the forces that made Hudspeth County what it is."),
 
     h("Dell City proves that desert agriculture can look unexpected"),
@@ -67,22 +67,7 @@ export const hudspethCountySierraBlancaSaltFlatsArticle: Article = {
 
     h("The Sierra Diablo carries one of Texas' great wildlife comeback stories"),
     p("Along the Hudspeth-Culberson county line rises the Sierra Diablo. Texas Parks and Wildlife acquired the Sierra Diablo Wildlife Management Area in 1945 as a sanctuary for the last remaining desert bighorn sheep in Texas."),
-    p("The rugged mountain habitat became a foundation for decades of bighorn restoration work. TPWD now describes the area as supporting the state's largest free-ranging population. Access is restricted in part because the habitat remains important to conservation."),
-    p("The bighorn story changes the way the county's mountains look. They are not empty ridges between towns; they are habitat, research ground and part of a long attempt to restore a native animal that had nearly disappeared from Texas."),
-
-    h("Buffalo Soldier history reaches into this county too"),
-    p("Hudspeth County's military history includes one of the starkest episodes associated with the Buffalo Soldiers. In 1880, after years of conflict involving Apache groups, soldiers of the Black Tenth U.S. Cavalry were killed near what became known as Indian Hot Springs."),
-    p("The event occurred during a much larger and violent struggle in which Apache people resisted military campaigns across the Trans-Pecos and northern Mexico. It is important not to flatten that history into a simple frontier adventure: the same landscape was home, refuge, military corridor and contested territory depending on who was moving through it."),
-    p("That layered history connects Hudspeth County directly to neighboring Jeff Davis County, where Buffalo Soldiers also served at Fort Davis."),
-
-    h("Sierra Blanca once had a time-zone problem worthy of Texas folklore"),
-    p("One of Sierra Blanca's stranger historical quirks involved clocks. The Handbook of Texas records that after Hudspeth and El Paso counties were placed in Mountain Time, parts of local life continued operating on Central Time. At different points the courthouse, schools, railroads, post office and bars did not all agree on which clock should govern the day."),
-    p("Stories from the mid-twentieth century describe residents navigating the split with a practicality that feels almost inevitable in a railroad town sitting near the edge of Texas' time-zone boundary. It is exactly the sort of local detail that never appears on a highway exit sign but makes a county memorable."),
-
-    h("The landscape changes more than the word desert suggests"),
-    p("Hudspeth County lies in the Trans-Pecos and Chihuahuan Desert, but that does not mean one flat landscape repeated for thousands of square miles. Mountains rise above basins, the Rio Grande cuts along the south, irrigated fields appear around farming communities, and isolated ranges create cooler and more sheltered habitats."),
-    p("The county's elevations run from roughly 3,200 feet to about 7,500 feet. The Sierra Blanca range itself rises abruptly north of the county seat, while the Hueco, Quitman and Sierra Diablo ranges help divide the broad basins."),
-    p("This is Basin and Range country: long valleys separated by isolated mountain systems. The pattern makes a drive feel deceptively simple until a ridge appears out of the desert floor and changes the entire horizon."),
+    p("The rugged mountain habitat became a foundation for decades of bighorn restoration work. The bighorn story changes the way the county's mountains look. They are not empty ridges between towns; they are habitat, research ground and part of a long attempt to restore a native animal that had nearly disappeared from Texas."),
 
     h("A few Hudspeth County facts worth remembering"),
     list(
@@ -94,7 +79,6 @@ export const hudspethCountySierraBlancaSaltFlatsArticle: Article = {
       "Historic salt flats near the Guadalupe Mountains supplied Indigenous, Spanish, Mexican and Mexican American communities and later became central to the El Paso Salt War.",
       "The Sierra Diablo Wildlife Management Area was acquired in 1945 to protect Texas' remaining desert bighorn sheep and remains important to restoration work.",
       "Fort Hancock and other communities along the Rio Grande reflect the county's agricultural and borderlands history, while Dell City anchors an irrigated farming area in the north.",
-      "Sierra Blanca historically juggled Mountain and Central Time conventions, creating one of Far West Texas' better pieces of local clock folklore.",
     ),
 
     h("Why Hudspeth County belongs in the Far West Texas story"),
