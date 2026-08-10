@@ -1,4 +1,5 @@
 import type { Article, ArticleBlock, CategorySlug, TexasRegion } from "./types";
+import { DEFAULT_EDITORIAL_DESK_ID } from "./editorial-desks";
 
 const supabaseUrl = String(import.meta.env.VITE_TEXASDEFINED_SUPABASE_URL || import.meta.env.VITE_SUPABASE_URL || "").replace(/\/$/, "");
 const supabaseKey = String(import.meta.env.VITE_TEXASDEFINED_SUPABASE_ANON_KEY || import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || "");
@@ -54,7 +55,7 @@ function mapRow(row: Record<string, unknown>): Article | null {
     category: category(row.category),
     ...(mappedRegion ? { region: mappedRegion } : {}),
     hero: { src: heroUrl, alt: text(row.hero_alt) || title, width: 1600, height: 900 },
-    authorId: text(row.author_id) || "a-hollis",
+    authorId: text(row.author_id) || DEFAULT_EDITORIAL_DESK_ID,
     publishedAt: text(row.published_at) || new Date().toISOString(),
     readingMinutes: Math.max(1, Math.ceil(JSON.stringify(blocks).split(/\s+/).length / 220)),
     tags: strings(row.tags),
