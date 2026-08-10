@@ -3,6 +3,7 @@ import type { BrandId } from "@/brand/types";
 import { caddoLakeCypressMorningArticle } from "./fixtures/caddo-lake-cypress-morning";
 import { fixturePlatform } from "./fixtures/repositories";
 import { wardCountyMonahansSandhillsArticle } from "./fixtures/ward-county-monahans-sandhills";
+import { winklerCountyKermitWinkOilArticle } from "./fixtures/winkler-county-kermit-wink-oil";
 import type { PlatformRepositories } from "./repositories";
 import type { Article, ArticleBlock } from "./types";
 
@@ -120,6 +121,16 @@ const EDITORIAL_HERO_OVERRIDES: Partial<Record<string, Article["hero"]>> = {
   },
 };
 
+const ARTICLE_INTERNAL_LINK_ADDITIONS: Partial<Record<string, NonNullable<Article["internalLinks"]>>> = {
+  "ward-county-monahans-sandhills-texas": [
+    {
+      href: "/article/winkler-county-kermit-wink-oil-texas",
+      label: "Explore neighboring Winkler County",
+      description: "Continue north into Kermit, Wink and the Hendrick Field oil-boom story.",
+    },
+  ],
+};
+
 const wordsInBlock = (block: ArticleBlock) => {
   if (block.type === "shop") return 0;
   const text = block.type === "list" ? block.items.join(" ") : block.text;
@@ -140,10 +151,17 @@ const normalizeArticle = (article: Article): Article => {
   const hero = source.slug === TEXAS_UNDERGROUND_SLUG
     ? TEXAS_UNDERGROUND_HERO
     : EDITORIAL_HERO_OVERRIDES[source.slug] ?? MOVING_ARTICLE_HEROES[source.slug] ?? source.hero;
+  const existingInternalLinks = source.internalLinks ?? [];
+  const additions = ARTICLE_INTERNAL_LINK_ADDITIONS[source.slug] ?? [];
+  const internalLinks = [
+    ...existingInternalLinks,
+    ...additions.filter((addition) => !existingInternalLinks.some((link) => link.href === addition.href)),
+  ];
 
   return {
     ...source,
     hero,
+    internalLinks,
     readingMinutes: computedReadingMinutes(source),
   };
 };
@@ -163,6 +181,9 @@ const articleRepository = {
       }
       if (slug === wardCountyMonahansSandhillsArticle.slug) {
         return normalizeArticle(wardCountyMonahansSandhillsArticle);
+      }
+      if (slug === winklerCountyKermitWinkOilArticle.slug) {
+        return normalizeArticle(winklerCountyKermitWinkOilArticle);
       }
     }
 
