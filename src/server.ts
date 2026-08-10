@@ -1,5 +1,6 @@
 import "./lib/error-capture";
 
+import { countySlugForLegacyArticle } from "./data/county-series";
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
 
@@ -16,6 +17,16 @@ async function getServerEntry(): Promise<ServerEntry> {
     );
   }
   return serverEntryPromise;
+}
+
+function legacyCountyRedirect(request: Request) {
+  const url = new URL(request.url);
+  const match = url.pathname.match(/^\/article\/([^/]+)\/?$/);
+  if (!match) return null;
+  const countySlug = countySlugForLegacyArticle(decodeURIComponent(match[1]));
+  if (!countySlug) return null;
+  url.pathname = `/county/${countySlug}`;
+  return Response.redirect(url.toString(), 301);
 }
 
 // h3 swallows in-handler throws into a normal 500 Response with body
@@ -47,6 +58,8 @@ function isH3SwallowedErrorBody(body: string): boolean {
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
+      const redirect = legacyCountyRedirect(request);
+      if (redirect) return redirect;
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
       return await normalizeCatastrophicSsrResponse(response);
