@@ -7,6 +7,8 @@ const entityRelationships = fs.readFileSync('src/data/knowledge-graph/relationsh
 const entityRoute = fs.readFileSync('src/routes/$kind.$slug.tsx', 'utf8');
 const entityIndex = fs.readFileSync('src/data/knowledge-graph/index.ts', 'utf8');
 const countyProfile = fs.readFileSync('src/data/county-profile.ts', 'utf8');
+const localGovernmentProfile = fs.readFileSync('src/data/local-government-profile.ts', 'utf8');
+const dataSources = fs.readFileSync('src/data/texas-data-sources.ts', 'utf8');
 const sitemap = fs.readFileSync('src/routes/sitemap[.]xml.ts', 'utf8');
 
 for (const feature of [
@@ -71,10 +73,14 @@ for (const forbiddenCopy of [
 for (const feature of [
   'loadCountyProfile(entity.slug, entity.name)',
   'countyProfileDescription(entity.name, profile)',
-  "if (entity.kind !== 'county') return entity",
+  'loadLocalGovernmentProfile(entity.slug, entity.name)',
+  'enrichLocalOfficeEntity(entity)',
+  "entity.kind === 'appraisal-district' || entity.kind === 'tax-office'",
+  'localOfficeDescription(countyName, entity.kind, office)',
+  'officialUrl: localGovernment.countyWebsiteUrl ?? entity.officialUrl',
   'coordinates,',
 ]) {
-  if (!entityIndex.includes(feature)) errors.push(`County entity enrichment missing: ${feature}`);
+  if (!entityIndex.includes(feature)) errors.push(`County/local-office entity enrichment missing: ${feature}`);
 }
 
 for (const feature of [
@@ -91,6 +97,33 @@ for (const feature of [
   'countyProfileDescription',
 ]) {
   if (!countyProfile.includes(feature)) errors.push(`County profile data contract missing: ${feature}`);
+}
+
+for (const feature of [
+  'https://comptroller.texas.gov/taxes/property-tax/county-directory/',
+  'https://www.county.org',
+  'fetchCountyWebsite',
+  'findComptrollerCountyUrl',
+  'fetchComptrollerDirectory',
+  "parseOfficeSection(page, 'Appraisal District', 'Tax Assessor/Collector')",
+  "parseOfficeSection(page, 'Tax Assessor/Collector')",
+  'websiteUrl',
+  'phone',
+  'email',
+  'address',
+  'lastUpdated',
+  'localOfficeDescription',
+]) {
+  if (!localGovernmentProfile.includes(feature)) errors.push(`Local-government verification contract missing: ${feature}`);
+}
+
+for (const feature of [
+  "authority:'Texas Association of Counties'",
+  "url:'https://www.county.org/county-information-map'",
+  "id:'comptroller-appraisal-districts'",
+  "id:'txdmv-tax-offices'",
+]) {
+  if (!dataSources.includes(feature)) errors.push(`Authoritative local-government source contract missing: ${feature}`);
 }
 
 for (const feature of [
@@ -112,4 +145,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('County and generated entity quality gates, kind-aware presentation, authoritative county profile enrichment, source specificity, noindex behavior, and qualified sitemap publication passed validation.');
+console.log('County and generated entity quality gates, authoritative county and local-office enrichment, kind-aware presentation, source specificity, noindex behavior, and qualified sitemap publication passed validation.');

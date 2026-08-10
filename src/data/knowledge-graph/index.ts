@@ -1,5 +1,6 @@
 import { TEXAS_ENTITY_REGISTRY, findTexasEntity, relationshipsFor, validateTexasEntityRegistry } from '../texas-entity-registry';
 import { countyProfileDescription, loadCountyProfile } from '../county-profile';
+import { loadLocalGovernmentProfile, localOfficeDescription } from '../local-government-profile';
 import { fetchExploreGraphEntities, hasRemoteExploreGraph } from './explore-adapter';
 import type { TexasEntityKind, TexasEntityRecord } from './types';
 
@@ -69,16 +70,24 @@ export async function findCompleteTexasEntity(value: string): Promise<TexasEntit
   const normalized = value.trim().toLowerCase();
   if (!normalized) return undefined;
   const staticMatch = findTexasEntity(value);
-  if (staticMatch) return enrichCountyEntity(staticMatch);
+  if (staticMatch) return enrichGovernmentEntity(staticMatch);
   const remote = await fetchExploreGraphEntities({ query: value, limit: 50 });
   const match = remote.find((entity) => entity.id.toLowerCase() === normalized || entity.slug.toLowerCase() === normalized || entity.name.toLowerCase() === normalized || entity.aliases.some((alias) => alias.toLowerCase() === normalized));
-  return match ? enrichCountyEntity(match) : undefined;
+  return match ? enrichGovernmentEntity(match) : undefined;
+}
+
+async function enrichGovernmentEntity(entity: TexasEntityRecord): Promise<TexasEntityRecord> {
+  if (entity.kind === 'county') return enrichCountyEntity(entity);
+  if (entity.kind === 'appraisal-district' || entity.kind === 'tax-office') return enrichLocalOfficeEntity(entity);
+  return entity;
 }
 
 async function enrichCountyEntity(entity: TexasEntityRecord): Promise<TexasEntityRecord> {
-  if (entity.kind !== 'county') return entity;
   try {
-    const profile = await loadCountyProfile(entity.slug, entity.name);
+    const [profile, localGovernment] = await Promise.all([
+      loadCountyProfile(entity.slug, entity.name),
+      loadLocalGovernmentProfile(entity.slug, entity.name),
+    ]);
     const coordinates = profile.latitude != null && profile.longitude != null
       ? { latitude: profile.latitude, longitude: profile.longitude }
       : entity.coordinates;
@@ -86,11 +95,54 @@ async function enrichCountyEntity(entity: TexasEntityRecord): Promise<TexasEntit
       ...entity,
       description: countyProfileDescription(entity.name, profile),
       coordinates,
+      officialUrl: localGovernment.countyWebsiteUrl ?? entity.officialUrl,
+      sourceCheckedAt: localGovernment.countyWebsiteUrl ? new Date().toISOString().slice(0, 10) : entity.sourceCheckedAt,
+      tags: [...new Set([...(entity.tags ?? []), 'county-government', 'county-reference'])],
     };
   } catch (error) {
-    console.error(`County profile enrichment unavailable for ${entity.slug}`, error);
+    console.error(`County government enrichment unavailable for ${entity.slug}`, error);
+    try {
+      const profile = await loadCountyProfile(entity.slug, entity.name);
+      return {
+        ...entity,
+        description: countyProfileDescription(entity.name, profile),
+        coordinates: profile.latitude != null && profile.longitude != null
+          ? { latitude: profile.latitude, longitude: profile.longitude }
+          : entity.coordinates,
+      };
+    } catch {
+      return entity;
+    }
+  }
+}
+
+async function enrichLocalOfficeEntity(entity: TexasEntityRecord): Promise<TexasEntityRecord> {
+  if (!entity.countySlug) return entity;
+  const county = TEXAS_ENTITY_REGISTRY.find((candidate) => candidate.kind === 'county' && candidate.slug === entity.countySlug);
+  const countyName = county?.name ?? `${titleSlug(entity.countySlug)} County`;
+  try {
+    const profile = await loadLocalGovernmentProfile(entity.countySlug, countyName);
+    const office = entity.kind === 'appraisal-district' ? profile.appraisalDistrict : profile.taxOffice;
+    if (!office.websiteUrl && !office.phone && !office.address && !office.email) return entity;
+    return {
+      ...entity,
+      description: localOfficeDescription(countyName, entity.kind, office),
+      officialUrl: office.websiteUrl ?? entity.officialUrl,
+      sourceCheckedAt: office.lastUpdated ?? new Date().toISOString().slice(0, 10),
+      tags: [...new Set([
+        ...(entity.tags ?? []),
+        entity.kind === 'appraisal-district' ? 'property-appraisal' : 'county-tax-services',
+        'property-tax',
+      ])],
+    };
+  } catch (error) {
+    console.error(`Local government office enrichment unavailable for ${entity.id}`, error);
     return entity;
   }
+}
+
+function titleSlug(value: string) {
+  return value.replaceAll('-', ' ').replace(/\b\w/g, (character) => character.toUpperCase());
 }
 
 export function graphNeighbors(entityId: string) {
