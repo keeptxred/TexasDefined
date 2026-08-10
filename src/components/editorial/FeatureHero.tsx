@@ -61,7 +61,7 @@ export function FeatureHero({ eyebrow, title, dek, image, to, params, meta, vari
           </div>
 
           <div className="relative isolate min-h-[420px] w-full sm:min-h-[520px] lg:min-h-0">
-            <img src={image.src} alt={image.alt} width={image.width} height={image.height} fetchPriority="high" decoding="async" className="animate-slow-zoom absolute inset-0 size-full object-cover" />
+            <img src={image.src} alt={image.alt} width={image.width} height={image.height} sizes="(min-width: 1024px) 58vw, 100vw" loading="eager" fetchPriority="high" decoding="async" className="animate-slow-zoom absolute inset-0 size-full object-cover" />
             <div className="pointer-events-none absolute inset-y-0 left-0 z-10 hidden w-24 bg-gradient-to-r from-background/65 to-transparent lg:block" />
           </div>
         </div>
@@ -71,7 +71,7 @@ export function FeatureHero({ eyebrow, title, dek, image, to, params, meta, vari
 
   return (
     <section className="relative isolate overflow-hidden bg-ink text-ink-foreground">
-      <img src={image.src} alt={image.alt} width={image.width} height={image.height} fetchPriority="high" decoding="async" className="animate-slow-zoom absolute inset-0 size-full object-cover opacity-70" />
+      <img src={image.src} alt={image.alt} width={image.width} height={image.height} sizes="100vw" loading="eager" fetchPriority="high" decoding="async" className="animate-slow-zoom absolute inset-0 size-full object-cover opacity-70" />
       <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/60 to-ink/20" />
       <div className="relative mx-auto flex min-h-[76vh] w-full max-w-6xl flex-col justify-end px-5 pb-16 pt-28 sm:px-8 sm:pb-24">
         <p className="eyebrow animate-rise text-ink-foreground/80">{editorialLabel(eyebrow)}</p>
