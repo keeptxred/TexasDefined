@@ -8,8 +8,10 @@ import { mudsPidsHoasSpecialDistrictsArticle } from "./muds-pids-hoas-special-di
 import { texasSchoolDistrictsExplainedArticle } from "./texas-school-districts-explained";
 import { chooseElectricityPlanTexasArticle } from "./choose-electricity-plan-texas";
 import { texasHillCountryWhatMakesItArticle } from "./texas-hill-country-what-makes-it";
+import { winklerCountyKermitWinkOilArticle } from "./winkler-county-kermit-wink-oil";
 
 export const newestEvergreenArticles = [
+  winklerCountyKermitWinkOilArticle,
   texasTownCulturalRootsArticle,
   texasCourthousesTownSquareArticle,
   texasHurricanePreparationArticle,
