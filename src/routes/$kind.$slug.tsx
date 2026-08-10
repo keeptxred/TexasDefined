@@ -3,10 +3,17 @@ import { texasDefinedBrand } from '@/brand/texasdefined';
 import { Container } from '@/components/layout/Container';
 import { AutoEntityLinks } from '@/components/content/AutoEntityLinks';
 import { findCompleteTexasEntity, loadTexasKnowledgeGraph } from '@/data/knowledge-graph';
-import { canonicalEntityPath, isIndexableEntityPage, rankRelatedEntities } from '@/data/knowledge-graph/relationships';
+import {
+  canonicalEntityPath,
+  isIndexableEntityPage,
+  rankRelatedEntities,
+  type RankedRelatedEntity,
+} from '@/data/knowledge-graph/relationships';
+import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
 const siteUrl = 'https://texasdefined.com';
+const localGovernmentKinds = new Set(['county', 'appraisal-district', 'tax-office', 'county-clerk', 'dps-office']);
 
 export const Route = createFileRoute('/$kind/$slug')({
   loader: async ({ params }) => {
@@ -18,7 +25,7 @@ export const Route = createFileRoute('/$kind/$slug')({
   head: ({ loaderData }) => {
     if (!loaderData) return {};
     const canonicalPath = canonicalEntityPath(loaderData.entity);
-    const description = loaderData.entity.description ?? `What to know about ${loaderData.entity.name}, where it is, and what is nearby.`;
+    const description = pageDescription(loaderData.entity);
     const indexable = isIndexableEntityPage(loaderData.entity);
     return {
       meta: buildMeta(texasDefinedBrand, {
@@ -35,10 +42,12 @@ export const Route = createFileRoute('/$kind/$slug')({
 
 function EntityPage() {
   const { entity, related } = Route.useLoaderData();
-  const relatedEntities = related.map((item) => item.entity);
-  const description = entity.description ?? `A closer look at ${entity.name}, where to find it, and what else is worth seeing nearby.`;
+  const visibleRelated = relatedForDisplay(entity, related);
+  const relatedEntities = visibleRelated.map((item) => item.entity);
+  const description = pageDescription(entity);
   const canonicalPath = canonicalEntityPath(entity);
   const canonicalUrl = `${siteUrl}${canonicalPath}`;
+  const incomplete = !entity.description;
   const jsonLd = {
     '@context': 'https://schema.org',
     '@graph': [
@@ -58,7 +67,7 @@ function EntityPage() {
         '@id': `${canonicalUrl}#breadcrumb`,
         itemListElement: [
           { '@type': 'ListItem', position: 1, name: 'Front page', item: `${siteUrl}/` },
-          { '@type': 'ListItem', position: 2, name: 'Explore', item: `${siteUrl}/explore` },
+          { '@type': 'ListItem', position: 2, name: breadcrumbSection(entity.kind), item: `${siteUrl}/explore` },
           { '@type': 'ListItem', position: 3, name: entity.name, item: canonicalUrl },
         ],
       },
@@ -72,7 +81,7 @@ function EntityPage() {
         <nav aria-label="Breadcrumb" className="border-b border-border pb-4 text-xs uppercase tracking-[0.14em] text-muted-foreground">
           <a href="/" className="hover:text-foreground">Front page</a>
           <span aria-hidden="true" className="mx-2">/</span>
-          <a href="/explore" className="hover:text-foreground">Explore</a>
+          <a href="/explore" className="hover:text-foreground">{breadcrumbSection(entity.kind)}</a>
           <span aria-hidden="true" className="mx-2">/</span>
           <span aria-current="page" className="text-foreground">{entity.name}</span>
         </nav>
@@ -86,39 +95,50 @@ function EntityPage() {
             </p>
           </div>
           <dl className="border-y border-border py-4 text-sm lg:border-y-0 lg:border-l lg:py-0 lg:pl-6">
-            <Fact label="County" value={entity.countySlug ? `${title(entity.countySlug)} County` : undefined} />
+            <Fact label={entity.kind === 'county' ? 'Guide type' : 'County'} value={entity.kind === 'county' ? 'Texas county reference' : entity.countySlug ? `${title(entity.countySlug)} County` : undefined} />
             <Fact label="Part of Texas" value={entity.region ? title(entity.region) : undefined} />
+            <Fact label="Source status" value={sourceStatus(entity)} />
             {entity.sourceCheckedAt && <Fact label="Details reviewed" value={formatCheckedDate(entity.sourceCheckedAt)} />}
           </dl>
         </header>
 
+        {incomplete ? <section className="grid gap-6 border-b border-border py-8 lg:grid-cols-[14rem_1fr]">
+          <div>
+            <p className="eyebrow text-primary">Guide status</p>
+            <h2 className="mt-2 font-display text-3xl">{statusHeading(entity.kind)}</h2>
+          </div>
+          <div className="max-w-2xl">
+            <p className="text-base leading-7 text-muted-foreground">{statusMessage(entity)}</p>
+          </div>
+        </section> : null}
+
         <div className="flex flex-wrap gap-x-7 gap-y-3 border-b border-border py-5 text-sm font-semibold">
-          {entity.officialUrl && <a className="underline decoration-primary/50 underline-offset-4 hover:text-primary" href={entity.officialUrl} target="_blank" rel="noreferrer">Official information ↗</a>}
+          {entity.officialUrl && <a className="underline decoration-primary/50 underline-offset-4 hover:text-primary" href={entity.officialUrl} target="_blank" rel="noreferrer">{officialLinkLabel(entity.kind)} ↗</a>}
           {entity.coordinates && <a className="underline decoration-primary/50 underline-offset-4 hover:text-primary" href={`https://www.google.com/maps/search/?api=1&query=${entity.coordinates.latitude},${entity.coordinates.longitude}`} target="_blank" rel="noreferrer">Open in maps ↗</a>}
         </div>
 
         {entity.tags?.length ? <section className="grid gap-6 border-b border-border py-10 lg:grid-cols-[14rem_1fr]">
           <div>
-            <p className="eyebrow text-primary">Field notes</p>
-            <h2 className="mt-2 font-display text-3xl">Why it belongs in the guide</h2>
+            <p className="eyebrow text-primary">{notesEyebrow(entity.kind)}</p>
+            <h2 className="mt-2 font-display text-3xl">{notesHeading(entity.kind)}</h2>
           </div>
           <ul className="grid gap-x-8 sm:grid-cols-2">
             {entity.tags.map((tag) => <li key={tag} className="border-t border-border py-3 text-sm font-medium">{title(tag)}</li>)}
           </ul>
         </section> : null}
 
-        {related.length ? <section className="py-12">
+        {visibleRelated.length ? <section className="py-12">
           <div className="flex items-end justify-between gap-6 border-b border-border pb-4">
             <div>
-              <p className="eyebrow text-primary">Continue exploring</p>
-              <h2 className="mt-2 font-display text-4xl">Nearby and related</h2>
+              <p className="eyebrow text-primary">{relatedEyebrow(entity.kind)}</p>
+              <h2 className="mt-2 font-display text-4xl">{relatedHeading(entity.kind)}</h2>
             </div>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3">
-            {related.map(({ entity: candidate }, index) => <a key={candidate.id} href={canonicalEntityPath(candidate)} className={`group py-6 sm:px-5 ${index % 3 !== 0 ? 'lg:border-l lg:border-border' : ''} border-b border-border`}>
+            {visibleRelated.map(({ entity: candidate }, index) => <a key={candidate.id} href={canonicalEntityPath(candidate)} className={`group py-6 sm:px-5 ${index % 3 !== 0 ? 'lg:border-l lg:border-border' : ''} border-b border-border`}>
               <span className="eyebrow text-primary">{readerLabel(candidate.kind)}</span>
               <strong className="mt-2 block font-display text-2xl leading-tight group-hover:text-primary">{candidate.name}</strong>
-              <small className="mt-3 block text-sm leading-6 text-muted-foreground">Open the field guide →</small>
+              <small className="mt-3 block text-sm leading-6 text-muted-foreground">{relatedActionLabel(candidate.kind)} →</small>
             </a>)}
           </div>
         </section> : null}
@@ -126,6 +146,74 @@ function EntityPage() {
     </Container>
   </>;
 }
+
+function relatedForDisplay(entity: TexasEntityRecord, related: RankedRelatedEntity[]) {
+  if (!localGovernmentKinds.has(entity.kind)) return related;
+  const explicitTargets = new Set(entity.relationships.map((relationship) => relationship.targetId));
+  return related.filter(({ entity: candidate }) =>
+    explicitTargets.has(candidate.id)
+    || candidate.relationships.some((relationship) => relationship.targetId === entity.id)
+    || Boolean(entity.countySlug && (candidate.countySlug === entity.countySlug || (candidate.kind === 'county' && candidate.slug === entity.countySlug)))
+    || (entity.kind === 'county' && (candidate.countySlug === entity.slug || explicitTargets.has(candidate.id))),
+  ).slice(0, 6);
+}
+
+function pageDescription(entity: TexasEntityRecord) {
+  if (entity.description) return entity.description;
+  if (entity.kind === 'county') return `${entity.name} reference page from Texas Defined. We are expanding this county guide with verified local and state sources before publishing a full editorial guide.`;
+  if (entity.kind === 'appraisal-district') return `${entity.name} property appraisal reference from Texas Defined. Office details and service links are published only as they are verified against authoritative sources.`;
+  if (entity.kind === 'tax-office') return `${entity.name} county tax office reference from Texas Defined. Taxpayer and vehicle-service details are published only after source verification.`;
+  if (entity.kind === 'county-clerk') return `${entity.name} county clerk reference from Texas Defined. Public-service details are added after they are checked against authoritative local sources.`;
+  if (entity.kind === 'dps-office') return `${entity.name} public-service reference from Texas Defined. Location and service information is added only after it is verified.`;
+  return `${entity.name} is part of the Texas Defined reference guide. We are adding verified details before expanding this page into a full guide.`;
+}
+
+function statusHeading(kind: string) {
+  if (kind === 'county') return 'This county guide is being expanded';
+  if (kind === 'appraisal-district') return 'Office details are being verified';
+  if (kind === 'tax-office') return 'Service details are being verified';
+  if (localGovernmentKinds.has(kind)) return 'Public-service details are being verified';
+  return 'This guide is being expanded';
+}
+
+function statusMessage(entity: TexasEntityRecord) {
+  if (entity.kind === 'county') return `Texas Defined has the reference record for ${entity.name}, but the full editorial county guide is not finished yet. We are adding county-specific geography, communities, history, places to know, and verified local resources rather than filling the page with generic copy.`;
+  if (entity.kind === 'appraisal-district') return `This is a reference page for ${entity.name}, not a finished editorial guide. We are verifying the district's official contact and property-appraisal resources before presenting them as authoritative.`;
+  if (entity.kind === 'tax-office') return `This is a reference page for ${entity.name}. We are verifying official taxpayer, registration, and local service information before presenting a complete service guide.`;
+  if (localGovernmentKinds.has(entity.kind)) return `This public-service reference is intentionally limited while Texas Defined verifies the official local information. Unverified details are not presented as complete.`;
+  return `Texas Defined is still building this reference from verified sources. We would rather show a clearly incomplete guide than pad the page with generic information.`;
+}
+
+function sourceStatus(entity: TexasEntityRecord) {
+  if (entity.status === 'pending-source-verification') return 'Verification in progress';
+  if (entity.sourceConfidence === 'official') return 'Official source checked';
+  if (entity.sourceConfidence === 'high') return 'High-confidence source';
+  return 'Reference source';
+}
+
+function officialLinkLabel(kind: string) {
+  if (kind === 'county') return 'County information';
+  if (kind === 'appraisal-district') return 'Official appraisal district';
+  if (kind === 'tax-office') return 'Official tax office';
+  if (kind === 'county-clerk') return 'Official county clerk';
+  if (kind === 'dps-office') return 'Official DPS information';
+  return 'Official information';
+}
+
+function notesEyebrow(kind: string) { return localGovernmentKinds.has(kind) ? 'Reference notes' : 'Field notes'; }
+function notesHeading(kind: string) {
+  if (kind === 'county') return 'What defines this county';
+  if (localGovernmentKinds.has(kind)) return 'What this office handles';
+  return 'Why it belongs in the guide';
+}
+function relatedEyebrow(kind: string) { return localGovernmentKinds.has(kind) ? 'Useful connections' : 'Continue exploring'; }
+function relatedHeading(kind: string) {
+  if (kind === 'county') return 'County services and places';
+  if (localGovernmentKinds.has(kind)) return 'Related county resources';
+  return 'Nearby and related';
+}
+function relatedActionLabel(kind: string) { return localGovernmentKinds.has(kind) ? 'Open reference page' : 'Open the field guide'; }
+function breadcrumbSection(kind: string) { return localGovernmentKinds.has(kind) ? 'Texas reference' : 'Explore'; }
 
 function Fact({ label, value }: { label: string; value?: string }) {
   return value ? <div className="border-b border-border py-3 last:border-b-0 lg:first:pt-0 lg:last:pb-0"><dt className="text-[0.68rem] uppercase tracking-[0.16em] text-muted-foreground">{label}</dt><dd className="mt-1 font-medium">{value}</dd></div> : null;
@@ -138,6 +226,7 @@ function formatCheckedDate(value: string) {
 function readerLabel(kind: string) {
   const labels: Record<string, string> = {
     county: 'County Guide', city: 'City Guide', region: 'Around the State', 'metro-area': 'City Life',
+    'appraisal-district': 'Property Appraisal', 'tax-office': 'County Tax Office', 'county-clerk': 'County Clerk', 'dps-office': 'DPS Office',
     museum: 'Museum Guide', 'historic-site': 'Then & Now', mission: 'Texas History', battlefield: 'Texas History',
     attraction: 'Worth the Drive', fair: 'Texas Calendar', rodeo: 'Texas Calendar', festival: 'Texas Calendar',
     'holiday-event': 'Seasonal Guide', 'sporting-event': 'The Texas Game',

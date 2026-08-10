@@ -43,8 +43,27 @@ for (const feature of [
 for (const feature of [
   'isIndexableEntityPage(loaderData.entity)',
   "robots: indexable ? undefined : 'noindex, follow, max-image-preview:large'",
+  'pageDescription(loaderData.entity)',
+  'relatedForDisplay(entity, related)',
+  'statusHeading(entity.kind)',
+  'statusMessage(entity)',
+  'sourceStatus(entity)',
+  'officialLinkLabel(entity.kind)',
+  'relatedHeading(entity.kind)',
+  "'appraisal-district': 'Property Appraisal'",
+  "'tax-office': 'County Tax Office'",
+  'This county guide is being expanded',
+  'Office details are being verified',
+  'Service details are being verified',
 ]) {
   if (!entityRoute.includes(feature)) errors.push(`Generic entity route quality contract missing: ${feature}`);
+}
+
+for (const forbiddenCopy of [
+  'A closer look at ${entity.name}, where to find it, and what else is worth seeing nearby.',
+  'What to know about ${loaderData.entity.name}, where it is, and what is nearby.',
+]) {
+  if (entityRoute.includes(forbiddenCopy)) errors.push(`Generic placeholder copy must not return: ${forbiddenCopy}`);
 }
 
 for (const feature of [
@@ -66,4 +85,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('County and generated entity quality gates, source specificity, noindex behavior, and qualified sitemap publication passed validation.');
+console.log('County and generated entity quality gates, kind-aware presentation, truthful incomplete-state copy, source specificity, noindex behavior, and qualified sitemap publication passed validation.');
