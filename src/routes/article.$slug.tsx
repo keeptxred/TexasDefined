@@ -56,7 +56,7 @@ export const Route = createFileRoute("/article/$slug")({
     const imageUrl = absoluteUrl(texasDefinedBrand, article.hero.src);
     const author = authors.find((item) => item.id === article.authorId);
     const authorUrl = author ? `${siteUrl}/authors/${author.id}` : null;
-    const authorId = authorUrl ? `${authorUrl}#person` : `${siteUrl}/#organization`;
+    const authorId = authorUrl ? `${authorUrl}#desk` : `${siteUrl}/#organization`;
     const fullText = articleText(article);
     const text = fullText.toLowerCase();
     const mentions = graph.filter((entity) => [entity.name, ...entity.aliases].some((label) => {
@@ -97,14 +97,12 @@ export const Route = createFileRoute("/article/$slug")({
       datePublished: article.publishedAt,
     };
     const authorSchema = author && authorUrl ? {
-      "@type": "Person",
+      "@type": "Organization",
       "@id": authorId,
       name: author.name,
-      jobTitle: author.role,
       description: author.bio,
       url: authorUrl,
-      affiliation: { "@id": `${siteUrl}/#organization` },
-      worksFor: { "@id": `${siteUrl}/#organization` },
+      parentOrganization: { "@id": `${siteUrl}/#organization` },
     } : null;
     const articleSchema = {
       "@type": "Article",
