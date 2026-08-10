@@ -38,7 +38,7 @@ function DestinationImage({ destination, eager, overlay }: { destination: Destin
     </div>;
   }
 
-  return <img src={hero.src} alt={hero.alt || `${destination.name}, Texas`} width={hero.width || 1600} height={hero.height || 1067} loading={eager ? "eager" : "lazy"} decoding="async" className={imageClass} />;
+  return <img src={hero.src} alt={hero.alt || `${destination.name}, Texas`} width={hero.width || 1600} height={hero.height || 1067} sizes={overlay ? "(min-width: 1024px) 32vw, (min-width: 640px) 48vw, 100vw" : "(min-width: 1024px) 30vw, (min-width: 640px) 48vw, 100vw"} loading={eager ? "eager" : "lazy"} fetchPriority={eager ? "high" : "auto"} decoding="async" className={imageClass} />;
 }
 
 export function DestinationCard({ destination, regionLabel, tone = "light", eager = false, className }: { destination: Destination; regionLabel?: string; tone?: "light" | "overlay"; eager?: boolean; className?: string }) {
