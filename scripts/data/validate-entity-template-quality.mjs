@@ -3,6 +3,8 @@ import fs from 'node:fs';
 const errors = [];
 const schema = fs.readFileSync('src/data/property/county-property-schema.ts', 'utf8');
 const countyRoute = fs.readFileSync('src/routes/property-tax.county.$county.tsx', 'utf8');
+const entityRelationships = fs.readFileSync('src/data/knowledge-graph/relationships.ts', 'utf8');
+const entityRoute = fs.readFileSync('src/routes/$kind.$slug.tsx', 'utf8');
 const sitemap = fs.readFileSync('src/routes/sitemap[.]xml.ts', 'utf8');
 
 for (const feature of [
@@ -22,14 +24,30 @@ for (const feature of [
 }
 
 for (const feature of [
-  'COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady)',
-  '`/property-tax/county/${county.slug}`',
+  'export function isIndexableEntityPage',
+  "['active', 'seasonal'].includes(entity.status)",
+  'entity.description.trim().length < 80',
+  '!entity.officialUrl || !entity.sourceCheckedAt',
+  "['official', 'high'].includes(entity.sourceConfidence)",
+  'contextSignals >= 2',
 ]) {
-  if (!sitemap.includes(feature)) errors.push(`Sitemap county-quality contract missing: ${feature}`);
+  if (!entityRelationships.includes(feature)) errors.push(`Generic entity quality gate missing: ${feature}`);
 }
 
-if (sitemap.includes('loadTexasKnowledgeGraph()') || sitemap.includes('canonicalEntityPath(entity)')) {
-  errors.push('Primary sitemap must not publish generic knowledge-graph entity URLs without a guaranteed page template.');
+for (const feature of [
+  'isIndexableEntityPage(loaderData.entity)',
+  "robots: indexable ? undefined : 'noindex, follow, max-image-preview:large'",
+]) {
+  if (!entityRoute.includes(feature)) errors.push(`Generic entity route quality contract missing: ${feature}`);
+}
+
+for (const feature of [
+  'COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady)',
+  '`/property-tax/county/${county.slug}`',
+  'graph.filter(isIndexableEntityPage)',
+  'canonicalEntityPath(entity)',
+]) {
+  if (!sitemap.includes(feature)) errors.push(`Sitemap quality contract missing: ${feature}`);
 }
 
 if (countyRoute.includes("dateModified: '2026-08-08'")) {
@@ -42,4 +60,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Thin county pages, verified county sitemap publication, truthful freshness, and generic entity URL suppression passed validation.');
+console.log('County and generic entity quality gates, truthful freshness, noindex behavior, and qualified sitemap publication passed validation.');
