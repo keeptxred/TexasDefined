@@ -3,6 +3,7 @@ import type { BrandId } from "@/brand/types";
 import { caddoLakeCypressMorningArticle } from "./fixtures/caddo-lake-cypress-morning";
 import { ectorCountyOdessaOilStonehengeArticle } from "./fixtures/ector-county-odessa-oil-stonehenge";
 import { fixturePlatform } from "./fixtures/repositories";
+import { randallCountyCanyonPaloDuroArticle } from "./fixtures/randall-county-canyon-palo-duro";
 import { wardCountyMonahansSandhillsArticle } from "./fixtures/ward-county-monahans-sandhills";
 import { winklerCountyKermitWinkOilArticle } from "./fixtures/winkler-county-kermit-wink-oil";
 import type { PlatformRepositories } from "./repositories";
@@ -142,6 +143,13 @@ const ARTICLE_INTERNAL_LINK_ADDITIONS: Partial<Record<string, NonNullable<Articl
       description: "Follow the Permian Basin into Odessa, Stonehenge and the meteor-crater story.",
     },
   ],
+  "ector-county-odessa-oil-stonehenge-texas": [
+    {
+      href: "/article/randall-county-canyon-palo-duro-texas",
+      label: "Head north to Randall County",
+      description: "Explore Canyon, Palo Duro and the edge of the High Plains in the Texas Panhandle.",
+    },
+  ],
 };
 
 const wordsInBlock = (block: ArticleBlock) => {
@@ -182,7 +190,17 @@ const normalizeArticle = (article: Article): Article => {
 const articleRepository = {
   async list(query: Parameters<typeof fixturePlatform.articles.list>[0]) {
     const rows = await fixturePlatform.articles.list(query);
-    return rows.map(normalizeArticle);
+    if (query.brandId !== "texasdefined") return rows.map(normalizeArticle);
+    const includeRandall =
+      (!query.category || query.category === randallCountyCanyonPaloDuroArticle.category) &&
+      (!query.tag || randallCountyCanyonPaloDuroArticle.tags.includes(query.tag)) &&
+      (query.featured === undefined || Boolean(randallCountyCanyonPaloDuroArticle.featured) === query.featured) &&
+      query.excludeSlug !== randallCountyCanyonPaloDuroArticle.slug;
+    const merged = includeRandall && !rows.some((article) => article.slug === randallCountyCanyonPaloDuroArticle.slug)
+      ? [randallCountyCanyonPaloDuroArticle, ...rows]
+      : rows;
+    const limited = query.limit ? merged.slice(0, query.limit) : merged;
+    return limited.map(normalizeArticle);
   },
   async getBySlug(
     scope: Parameters<typeof fixturePlatform.articles.getBySlug>[0],
@@ -194,6 +212,9 @@ const articleRepository = {
       }
       if (slug === ectorCountyOdessaOilStonehengeArticle.slug) {
         return normalizeArticle(ectorCountyOdessaOilStonehengeArticle);
+      }
+      if (slug === randallCountyCanyonPaloDuroArticle.slug) {
+        return normalizeArticle(randallCountyCanyonPaloDuroArticle);
       }
       if (slug === wardCountyMonahansSandhillsArticle.slug) {
         return normalizeArticle(wardCountyMonahansSandhillsArticle);
