@@ -1,5 +1,3 @@
-import bigBend from "@/assets/big-bend.jpg";
-
 import type { Article, ArticleBlock } from "../types";
 
 const p = (text: string): ArticleBlock => ({ type: "paragraph", text });
@@ -15,10 +13,11 @@ export const elPasoCountyPassMissionsBorderlandsArticle: Article = {
   category: "texas-history",
   region: "big-bend",
   hero: {
-    src: bigBend,
-    alt: "Rugged mountain and desert landscape in Far West Texas near El Paso County",
+    src: "/images/explore/historic-sites/chamizal-national-memorial.jpg",
+    alt: "Chamizal National Memorial in El Paso County, Texas",
     width: 1600,
-    height: 1067,
+    height: 2134,
+    credit: "GoneBefore · CC BY-SA 4.0 · Wikimedia Commons",
   },
   authorId: "a-marisol",
   publishedAt: "2026-08-08",
