@@ -16,6 +16,9 @@ import type { Article, ArticleBlock } from "./types";
  */
 
 const TEXAS_UNDERGROUND_SLUG = "texas-caverns-caves-first-timers-guide";
+const ARTICLE_SLUG_ALIASES: Partial<Record<string, string>> = {
+  "el-paso-county-pass-missions-borderlands-texas": "el-paso-county-missions-rio-grande-texas",
+};
 const TEXAS_UNDERGROUND_HERO = {
   src: "/images/explore/caverns/longhorn-cavern-state-park.jpg",
   alt: "Underground limestone formations inside Longhorn Cavern State Park in Texas",
@@ -133,7 +136,8 @@ const articleRepository = {
       return normalizeArticle(caddoLakeCypressMorningArticle);
     }
 
-    const row = await fixturePlatform.articles.getBySlug(scope, slug);
+    const resolvedSlug = ARTICLE_SLUG_ALIASES[slug] ?? slug;
+    const row = await fixturePlatform.articles.getBySlug(scope, resolvedSlug);
     return row ? normalizeArticle(row) : null;
   },
 };
