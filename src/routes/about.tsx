@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { DepartmentHero } from "@/components/editorial/DepartmentHero";
@@ -25,6 +25,13 @@ const PRINCIPLES = [
   { title: "Keep Texas life at the center", body: "We cover the everyday experience of Texas — its landscapes, food, homes, history, communities and traditions — without forcing every subject into the same frame." },
   { title: "Name the people and places", body: "Specific details make a story useful. We tell you the town, the route, the season, the local business or the original source behind the information whenever we can." },
   { title: "Be useful without being dull", body: "A practical guide can still be a good read. We aim for clear answers, warm writing and enough detail to help readers make a plan with confidence." },
+];
+
+const ACCOUNTABILITY = [
+  { title: "Named bylines", body: "Editorial stories carry a named byline when a contributor is responsible for the work. The byline links to a contributor profile with the writer’s role, biography and published archive." },
+  { title: "Sources and official records", body: "For facts that can change — including park access, government records, taxes, deadlines, fees and public data — Texas Defined favors the responsible agency, official record or original source and points readers there when practical." },
+  { title: "Corrections and updates", body: "When we identify a material factual error, we correct the published information rather than preserving a known mistake. Time-sensitive details should still be confirmed with the responsible agency or provider before a decision." },
+  { title: "Clear separation of guidance", body: "Our calculators, planning tools and explainers are informational. They are not official determinations, professional advice, quotes or guarantees, and we say so where those distinctions matter." },
 ];
 
 const DATA_NOTES = [
@@ -57,6 +64,16 @@ function AboutPage() {
     </Section>
 
     <Section>
+      <Container>
+        <SectionHeader eyebrow="Editorial accountability" title="How we identify, source and correct our work" description="Trust signals should be visible to readers, not hidden in markup." />
+        <div className="mt-10 grid gap-x-10 gap-y-10 sm:grid-cols-2">
+          {ACCOUNTABILITY.map((item) => <section key={item.title} className="border-t border-border pt-5"><h2 className="font-display text-2xl leading-tight">{item.title}</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">{item.body}</p></section>)}
+        </div>
+        <p className="mt-10 max-w-3xl border-t border-border pt-6 text-sm leading-7 text-muted-foreground">Contributor profiles are reached from article bylines and contain that writer’s published archive. Start with any story in <Link to="/explore" className="border-b border-primary text-primary">Explore Texas</Link> or <Link to="/texas-living" className="border-b border-primary text-primary">Texas Life</Link> to follow a byline to its canonical profile.</p>
+      </Container>
+    </Section>
+
+    <Section tone="surface">
       <Container>
         <div id="privacy-terms" className="scroll-mt-28 border-t-2 border-foreground pt-8">
           <SectionHeader eyebrow="Privacy & site terms" title="What the site handles — and what to verify elsewhere" description="A plain-English summary of the data and services used by Texas Defined. We keep this section focused on how the site actually works rather than legal boilerplate." />
