@@ -30,40 +30,15 @@ const nestedAdminChildPaths = new Set([
 const nestedShopChildPaths = new Set(['/cart', '/checkout-return']);
 
 const normalize = (value) => value === '/' ? value : value.replace(/\/$/, '');
-const registeredStaticPublicPaths = new Set(
-  [...routeTree.matchAll(/\bpath:\s*'([^']+)'/g)]
-    .map((match) => normalize(match[1]))
-    .filter((routePath) => routePath.startsWith('/'))
-    .filter((routePath) => !routePath.includes('$'))
-    .filter((routePath) => !routePath.startsWith('/api/'))
-    .filter((routePath) => !routePath.startsWith('/admin'))
-    .filter((routePath) => !nestedAdminChildPaths.has(routePath))
-    .filter((routePath) => !nestedShopChildPaths.has(routePath))
-    .filter((routePath) => !routePath.endsWith('.xml'))
-    .filter((routePath) => !routePath.endsWith('.txt')),
-);
-registeredStaticPublicPaths.add('/');
-registeredStaticPublicPaths.add('/explore');
-registeredStaticPublicPaths.add('/shop');
-registeredStaticPublicPaths.add('/shop/cart');
-registeredStaticPublicPaths.add('/shop/checkout-return');
-
-for (const routePath of registeredStaticPublicPaths) {
-  if (!classified.has(routePath)) failures.push(`Registered static public route is unclassified: ${routePath}.`);
-}
-
-for (const routePath of classified) {
-  if (!registeredStaticPublicPaths.has(routePath)) failures.push(`Governed public route is missing from the generated route tree: ${routePath}.`);
-}
-
-for (const routePath of indexable) {
-  if (redirects.includes(routePath)) failures.push(`Route is both indexable and redirect-only: ${routePath}.`);
-  if (nonIndexable.includes(routePath)) failures.push(`Route is both indexable and non-indexable: ${routePath}.`);
-}
-
-for (const routePath of redirects) {
-  if (nonIndexable.includes(routePath)) failures.push(`Route is both redirect-only and non-indexable: ${routePath}.`);
-}
+const shouldCountPublicRoute = (routePath) =>
+  routePath.startsWith('/')
+  && !routePath.includes('$')
+  && !routePath.startsWith('/api/')
+  && !routePath.startsWith('/admin')
+  && !nestedAdminChildPaths.has(routePath)
+  && !nestedShopChildPaths.has(routePath)
+  && !routePath.endsWith('.xml')
+  && !routePath.endsWith('.txt');
 
 const sourceRoots = ['src/routes', 'src/components', 'src/data'];
 const sourceFiles = [];
@@ -77,6 +52,46 @@ const collect = (directory) => {
 for (const root of sourceRoots) collect(root);
 
 const sourceByFile = new Map(sourceFiles.map((file) => [file, fs.readFileSync(file, 'utf8')]));
+const sourceRouteEntries = [...sourceByFile.entries()].flatMap(([file, source]) =>
+  [...source.matchAll(/createFileRoute\(["']([^"']+)["']\)/g)].map((match) => ({
+    file,
+    source,
+    rawPath: match[1],
+    path: normalize(match[1]),
+  })),
+);
+
+const registeredStaticPublicPaths = new Set(
+  [...routeTree.matchAll(/\bpath:\s*'([^']+)'/g)]
+    .map((match) => normalize(match[1]))
+    .filter(shouldCountPublicRoute),
+);
+for (const entry of sourceRouteEntries) {
+  if (shouldCountPublicRoute(entry.path)) registeredStaticPublicPaths.add(entry.path);
+}
+registeredStaticPublicPaths.add('/');
+registeredStaticPublicPaths.add('/explore');
+registeredStaticPublicPaths.add('/shop');
+registeredStaticPublicPaths.add('/shop/cart');
+registeredStaticPublicPaths.add('/shop/checkout-return');
+
+for (const routePath of registeredStaticPublicPaths) {
+  if (!classified.has(routePath)) failures.push(`Registered static public route is unclassified: ${routePath}.`);
+}
+
+for (const routePath of classified) {
+  if (!registeredStaticPublicPaths.has(routePath)) failures.push(`Governed public route is missing from the generated route tree or route sources: ${routePath}.`);
+}
+
+for (const routePath of indexable) {
+  if (redirects.includes(routePath)) failures.push(`Route is both indexable and redirect-only: ${routePath}.`);
+  if (nonIndexable.includes(routePath)) failures.push(`Route is both indexable and non-indexable: ${routePath}.`);
+}
+
+for (const routePath of redirects) {
+  if (nonIndexable.includes(routePath)) failures.push(`Route is both redirect-only and non-indexable: ${routePath}.`);
+}
+
 const hasRouteLiteral = (source, routePath) =>
   [`"${routePath}"`, `'${routePath}'`, `\`${routePath}\``].some((literal) => source.includes(literal));
 
@@ -90,15 +105,14 @@ for (const routePath of indexable) {
     if (!inboundFiles.length) failures.push(`Indexable static route has no discoverable internal-link reference: ${routePath}.`);
   }
 
-  const routeEntry = [...sourceByFile.entries()].find(([, source]) =>
-    source.includes(`createFileRoute('${routePath}')`) || source.includes(`createFileRoute("${routePath}")`),
-  );
+  const routeCandidates = sourceRouteEntries.filter((entry) => entry.path === routePath);
+  const routeEntry = routeCandidates.find((entry) => entry.source.includes('head:')) ?? routeCandidates[0];
   if (!routeEntry) {
     failures.push(`Indexable static route has no route source for metadata validation: ${routePath}.`);
     continue;
   }
 
-  const [routeFile, routeSource] = routeEntry;
+  const { file: routeFile, source: routeSource } = routeEntry;
   if (!routeSource.includes('head:')) failures.push(`Indexable route is missing a head definition: ${routePath} (${routeFile}).`);
   if (!routeSource.includes('canonicalPath')) failures.push(`Indexable route is missing canonical metadata: ${routePath} (${routeFile}).`);
   if (!/\btitle\s*:/.test(routeSource)) failures.push(`Indexable route is missing a search title: ${routePath} (${routeFile}).`);
