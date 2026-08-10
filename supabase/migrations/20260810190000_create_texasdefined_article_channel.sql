@@ -1,6 +1,10 @@
 -- Shared-backend article channel for stories routed to TexasDefined.
 -- Discovery stays in texas_news_feed; publication requires a completed original
 -- TexasDefined article payload and is never inferred from a raw source blurb.
+--
+-- IMPORTANT: author_id values map to institutional Texas Defined editorial desks.
+-- They are not fictional human contributor identities. The legacy-compatible
+-- default ID a-hollis resolves to the Texas Defined Editorial Desk in app data.
 
 ALTER TABLE public.texas_news_feed
   ADD COLUMN IF NOT EXISTS texasdefined_slug text;
