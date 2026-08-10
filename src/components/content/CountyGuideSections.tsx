@@ -1,3 +1,5 @@
+import { ArticleBody } from '@/components/editorial/ArticleBody';
+import { getCountySeriesArticle } from '@/data/county-series';
 import type { CountyProfile } from '@/data/county-profile';
 import type { LocalGovernmentProfile } from '@/data/local-government-profile';
 import { canonicalEntityPath, type RankedRelatedEntity } from '@/data/knowledge-graph/relationships';
@@ -14,7 +16,9 @@ export function CountyGuideSections({
   localGovernment: LocalGovernmentProfile;
   related: RankedRelatedEntity[];
 }) {
+  const countySeriesArticle = getCountySeriesArticle(entity.slug);
   const nearby = related.filter(({ entity: candidate }) => !['appraisal-district', 'tax-office', 'county-clerk', 'dps-office'].includes(candidate.kind)).slice(0, 6);
+  const relatedEntities = related.map(({ entity: candidate }) => candidate);
   const serviceLinks = [
     localGovernment.appraisalDistrict.websiteUrl ? { label: 'Appraisal district', href: localGovernment.appraisalDistrict.websiteUrl } : null,
     localGovernment.taxOffice.websiteUrl ? { label: 'County tax office', href: localGovernment.taxOffice.websiteUrl } : null,
@@ -41,6 +45,37 @@ export function CountyGuideSections({
         </dl>
       </div>
     </section>
+
+    {countySeriesArticle ? <section className="border-b border-border py-12" aria-labelledby="county-feature-heading">
+      <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">
+        <div>
+          <p className="eyebrow text-primary">County feature</p>
+          <h2 id="county-feature-heading" className="mt-2 font-display text-4xl">The story of {entity.name}</h2>
+        </div>
+        <div className="min-w-0">
+          <figure className="overflow-hidden bg-muted">
+            <img
+              src={countySeriesArticle.hero.src}
+              alt={countySeriesArticle.hero.alt}
+              width={countySeriesArticle.hero.width}
+              height={countySeriesArticle.hero.height}
+              loading="eager"
+              decoding="async"
+              className="aspect-[16/9] w-full object-cover"
+            />
+            {countySeriesArticle.hero.credit ? <figcaption className="border-t border-border px-4 py-3 text-xs text-muted-foreground">Photography: {countySeriesArticle.hero.credit}</figcaption> : null}
+          </figure>
+          <div className="mt-8 max-w-3xl">
+            <h3 className="font-display text-4xl leading-tight sm:text-5xl">{countySeriesArticle.title}</h3>
+            <p className="mt-4 text-lg leading-8 text-muted-foreground">{countySeriesArticle.dek}</p>
+            <p className="mt-3 text-xs uppercase tracking-[0.12em] text-muted-foreground">Published {formatDate(countySeriesArticle.publishedAt)} · {countySeriesArticle.readingMinutes} min read</p>
+          </div>
+          <div className="mt-10 max-w-3xl">
+            <ArticleBody blocks={countySeriesArticle.body} entities={relatedEntities} />
+          </div>
+        </div>
+      </div>
+    </section> : null}
 
     {hasGeography ? <section className="border-b border-border py-12">
       <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">
@@ -78,7 +113,7 @@ export function CountyGuideSections({
           <h2 className="mt-2 font-display text-4xl">How to use this guide</h2>
         </div>
         <div className="max-w-3xl space-y-4 text-base leading-7 text-muted-foreground">
-          <p>This page combines county-level geography and population data with verified local-government sources. Texas Defined keeps editorial discovery separate from official county services so readers can tell which information comes from public records and which links lead to local offices.</p>
+          <p>This page combines county-level geography and population data, verified local-government sources and Texas Defined's long-form county reporting. Structured public-record information remains separate from the editorial profile so readers can distinguish official facts and service links from magazine-style context.</p>
           <p>Population and geography figures come from the U.S. Census Bureau, while the county-seat reference comes from the Texas State Library. Local office links are checked against statewide county and property-tax directories.</p>
         </div>
       </div>
@@ -133,4 +168,9 @@ function CountyFact({ label, value }: { label: string; value: string }) {
 
 function title(value: string) {
   return value.replaceAll('-', ' ').replace(/\b\w/g, (character) => character.toUpperCase());
+}
+
+function formatDate(value: string) {
+  const date = new Date(`${value}T00:00:00`);
+  return Number.isNaN(date.getTime()) ? value : date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 }
