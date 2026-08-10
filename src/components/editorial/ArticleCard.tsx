@@ -27,6 +27,12 @@ const SECTION_LABELS: Record<string, string> = {
 
 const editorialLabel = (value: string) => SECTION_LABELS[value.toLowerCase()] ?? value.replaceAll("-", " ").replace(/\b\w/g, (character) => character.toUpperCase());
 
+function cardSizes(size: "compact" | "default" | "feature") {
+  if (size === "compact") return "(min-width: 1024px) 30vw, (min-width: 640px) 48vw, 100vw";
+  if (size === "feature") return "(min-width: 1024px) 58vw, 100vw";
+  return "(min-width: 1024px) 45vw, (min-width: 640px) 48vw, 100vw";
+}
+
 export function ArticleCard({ article, size = "default", eager = false, className }: { article: Article; size?: "compact" | "default" | "feature"; eager?: boolean; className?: string; }) {
   const brand = useBrand();
   const sectionLabel = editorialLabel(article.category || article.tags[0] || "Story");
@@ -34,7 +40,7 @@ export function ArticleCard({ article, size = "default", eager = false, classNam
   return (
     <article className={cn("group flex flex-col", className)}>
       <Link to="/article/$slug" params={{ slug: article.slug }} className="block overflow-hidden bg-muted" tabIndex={-1} aria-hidden>
-        <img src={article.hero.src} alt={article.hero.alt} width={article.hero.width} height={article.hero.height} loading={eager ? "eager" : "lazy"} decoding="async" className={cn("w-full object-cover transition-transform duration-700 group-hover:scale-[1.025]", size === "compact" && "aspect-[4/3]", size === "default" && "aspect-[3/2]", size === "feature" && "aspect-[16/10]")} />
+        <img src={article.hero.src} alt={article.hero.alt} width={article.hero.width} height={article.hero.height} sizes={cardSizes(size)} loading={eager ? "eager" : "lazy"} fetchPriority={eager ? "high" : "auto"} decoding="async" className={cn("w-full object-cover transition-transform duration-700 group-hover:scale-[1.025]", size === "compact" && "aspect-[4/3]", size === "default" && "aspect-[3/2]", size === "feature" && "aspect-[16/10]")} />
       </Link>
       <div className={cn("flex flex-1 flex-col", size === "compact" ? "pt-4" : "pt-5")}>
         <p className="eyebrow text-primary">{sectionLabel}</p>
