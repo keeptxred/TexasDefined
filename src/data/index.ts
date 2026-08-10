@@ -2,6 +2,7 @@ import type { BrandId } from "@/brand/types";
 
 import { caddoLakeCypressMorningArticle } from "./fixtures/caddo-lake-cypress-morning";
 import { fixturePlatform } from "./fixtures/repositories";
+import { wardCountyMonahansSandhillsArticle } from "./fixtures/ward-county-monahans-sandhills";
 import type { PlatformRepositories } from "./repositories";
 import type { Article, ArticleBlock } from "./types";
 
@@ -156,8 +157,13 @@ const articleRepository = {
     scope: Parameters<typeof fixturePlatform.articles.getBySlug>[0],
     slug: Parameters<typeof fixturePlatform.articles.getBySlug>[1],
   ) {
-    if (slug === caddoLakeCypressMorningArticle.slug && scope.brandId === "texasdefined") {
-      return normalizeArticle(caddoLakeCypressMorningArticle);
+    if (scope.brandId === "texasdefined") {
+      if (slug === caddoLakeCypressMorningArticle.slug) {
+        return normalizeArticle(caddoLakeCypressMorningArticle);
+      }
+      if (slug === wardCountyMonahansSandhillsArticle.slug) {
+        return normalizeArticle(wardCountyMonahansSandhillsArticle);
+      }
     }
 
     const resolvedSlug = ARTICLE_SLUG_ALIASES[slug] ?? slug;
