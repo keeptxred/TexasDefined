@@ -5,8 +5,18 @@ const TSL_COUNTY_SEATS_URL = 'https://www.tsl.texas.gov/ref/abouttx/countyseats.
 const CENSUS_POPULATION_API = 'https://api.census.gov/data/2020/dec/pl';
 const CENSUS_GEOINFO_API = 'https://api.census.gov/data/2020/geoinfo';
 
+export type CountySeatPlace = {
+  name: string;
+  displayName: string;
+  entityType: 'place';
+  role: 'county-seat';
+  state: 'Texas';
+  sourceUrl: string;
+};
+
 export type CountyProfile = {
   countySeat?: string;
+  countySeatPlace?: CountySeatPlace;
   population2020?: number;
   landAreaSquareMiles?: number;
   waterAreaSquareMiles?: number;
@@ -56,13 +66,16 @@ async function fetchCountyProfile(slug: string, countyName: string): Promise<Cou
     countyGeographyPromise,
   ]);
 
-  const countySeat = seatsResult.status === 'fulfilled' ? seatsResult.value.get(normalizeCountyKey(baseName)) : undefined;
+  const countySeatName = seatsResult.status === 'fulfilled' ? seatsResult.value.get(normalizeCountyKey(baseName)) : undefined;
+  const countySeatPlace = countySeatName ? toCountySeatPlace(countySeatName) : undefined;
+  const countySeat = countySeatPlace?.displayName;
   const population2020 = populationsResult.status === 'fulfilled' && countyCode ? populationsResult.value.get(countyCode) : undefined;
   const geography = geographyResult.status === 'fulfilled' && countyCode ? geographyResult.value.get(countyCode) ?? {} : {};
-  const majorCommunities = Array.from(new Set([countySeat, ...knownCommunities].filter((value): value is string => Boolean(value))));
+  const majorCommunities = Array.from(new Set([countySeatName, ...knownCommunities].filter((value): value is string => Boolean(value))));
 
   return {
     countySeat,
+    countySeatPlace,
     population2020,
     landAreaSquareMiles: geography.landAreaSquareMiles,
     waterAreaSquareMiles: geography.waterAreaSquareMiles,
@@ -70,6 +83,17 @@ async function fetchCountyProfile(slug: string, countyName: string): Promise<Cou
     longitude: geography.longitude,
     majorCommunities,
     sourceUrls: [TSL_COUNTY_SEATS_URL, CENSUS_POPULATION_API, CENSUS_GEOINFO_API],
+  };
+}
+
+function toCountySeatPlace(name: string): CountySeatPlace {
+  return {
+    name,
+    displayName: `${name}, Texas`,
+    entityType: 'place',
+    role: 'county-seat',
+    state: 'Texas',
+    sourceUrl: TSL_COUNTY_SEATS_URL,
   };
 }
 
