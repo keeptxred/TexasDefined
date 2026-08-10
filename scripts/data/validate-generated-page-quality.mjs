@@ -72,6 +72,26 @@ requireAll('statewide county enrichment', countyProfile, [
   'fetchCountySeats', 'fetchCountyPopulations', 'fetchCountyGeographies',
   'for=county:*&in=state:48', 'countyProfileDescription',
 ]);
+
+// County-seat semantics: the source column is a place name. Never infer a person/politician from
+// a one-word value such as Gail, Benjamin, or Claude, and never truncate multi-word seats.
+requireAll('county-seat place semantics', countyProfile, [
+  'export type CountySeatPlace',
+  "entityType: 'place'",
+  "role: 'county-seat'",
+  "state: 'Texas'",
+  'displayName: `${name}, Texas`',
+  'const countySeatName =',
+  'const countySeatPlace = countySeatName ? toCountySeatPlace(countySeatName) : undefined',
+  'const seat = cells[1].trim()',
+]);
+forbidAll('county-seat person inference', countyProfile, [
+  'seat.split(',
+  'countySeat.split(',
+  "entityType: 'person'",
+  "entityType: 'politician'",
+]);
+
 requireAll('local government enrichment', localGovernment, [
   'https://comptroller.texas.gov/taxes/property-tax/county-directory/',
   'https://www.county.org', 'fetchCountyWebsite', 'findComptrollerCountyUrl',
@@ -115,4 +135,4 @@ if (errors.length) {
   process.exit(1);
 }
 for (const warning of warnings) console.warn(`- ${warning}`);
-console.log('Generated-page quality validator passed: inventory, source authority, content richness, indexability, sitemap qualification, local-office promotion, property-page gating, and related-content relevance are protected.');
+console.log('Generated-page quality validator passed: inventory, source authority, county-seat place semantics, content richness, indexability, sitemap qualification, local-office promotion, property-page gating, and related-content relevance are protected.');
