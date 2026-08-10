@@ -97,11 +97,11 @@ const EDITORIAL_HERO_OVERRIDES: Partial<Record<string, Article["hero"]>> = {
     credit: "Texas Historical Commission · Texas Time Travel",
   },
   "el-paso-county-missions-rio-grande-texas": {
-    src: "/images/state-parks/franklin-mountains-state-park.jpg",
-    alt: "Franklin Mountains State Park rising above El Paso County, Texas",
+    src: "/images/explore/historic-sites/chamizal-national-memorial.jpg",
+    alt: "Chamizal National Memorial in El Paso County, Texas",
     width: 1600,
-    height: 1067,
-    credit: "Urban Versis 32 · CC BY-SA 4.0 · Wikimedia Commons",
+    height: 2134,
+    credit: "GoneBefore · CC BY-SA 4.0 · Wikimedia Commons",
   },
   "muds-pids-hoas-special-districts-texas": {
     src: "https://images.unsplash.com/photo-1671410304582-1c2fb1390fbf?auto=format&fit=crop&w=1600&h=900&q=82",
