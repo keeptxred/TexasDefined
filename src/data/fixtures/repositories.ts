@@ -13,6 +13,7 @@ import { editorialDeskById, editorialDesks } from "../editorial-desks";
 import { supplementalExploreCategories } from "../explore-categories";
 import { guideHref } from "../guide-links";
 import type { Article, ArticleBlock, SearchDocument } from "../types";
+import { andrewsCountyAndrewsOilShafterLakeArticle } from "./andrews-county-andrews-oil-shafter-lake";
 import { brewsterCountyBigBendArticle } from "./brewster-county-big-bend";
 import { culbersonCountyVanHornGuadalupeMountainsArticle } from "./culberson-county-van-horn-guadalupe-mountains";
 import { ectorCountyOdessaOilStonehengeArticle } from "./ector-county-odessa-oil-stonehenge";
@@ -56,6 +57,7 @@ import {
 
 const editorialArticles = [
   ...exploreFeatureArticles,
+  andrewsCountyAndrewsOilShafterLakeArticle,
   ectorCountyOdessaOilStonehengeArticle,
   wardCountyMonahansSandhillsArticle,
   pecosCountyFortStocktonComancheSpringsArticle,
