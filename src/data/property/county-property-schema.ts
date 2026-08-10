@@ -89,6 +89,26 @@ export function createEmptyCountyPropertyRecord(county: TexasCounty): CountyProp
   };
 }
 
+/**
+ * County pages are only search-indexable after local property-tax sources have
+ * been verified. A generic county directory URL plus Census FIPS data is not
+ * enough to justify a standalone search result.
+ */
+export function isCountyPropertyIndexReady(record: CountyPropertyRecord) {
+  const localPropertySources = [
+    record.links.appraisalDistrictUrl,
+    record.appraisalDistrict.websiteUrl,
+    record.links.propertySearchUrl,
+    record.links.taxOfficeUrl,
+    record.taxOffice.websiteUrl,
+    record.links.paymentUrl,
+    record.links.protestUrl,
+    record.links.exemptionUrl,
+  ].filter(Boolean);
+
+  return Boolean(record.lastVerifiedAt) && localPropertySources.length >= 2;
+}
+
 export function validateCountyPropertyRecord(record: CountyPropertyRecord) {
   const errors: string[] = [];
 
