@@ -9,7 +9,7 @@ const list = (...items: string[]): ArticleBlock => ({ type: "list", items });
 export const elPasoCountyPassMissionsBorderlandsArticle: Article = {
   id: "county-el-paso-pass-missions-borderlands",
   brandId: "texasdefined",
-  slug: "el-paso-county-pass-missions-borderlands-texas",
+  slug: "el-paso-county-missions-rio-grande-texas",
   title: "El Paso County: The Pass, the Missions and a Texas Story Written on Both Sides of the Rio Grande",
   dek: "El Paso County is where Texas narrows into a mountain pass and opens into one of the oldest, most layered borderlands in the state — home to Ysleta del Sur, historic missions, Fort Bliss, the Franklin Mountains and a city shaped as much by Mexico as by Texas.",
   category: "texas-history",
@@ -70,17 +70,13 @@ export const elPasoCountyPassMissionsBorderlandsArticle: Article = {
 
     h("The Franklin Mountains make this one of Texas' strangest big-city landscapes"),
     p("The Franklin Mountains run directly through El Paso, splitting the urban area and rising abruptly from the desert floor. Unlike many metropolitan mountain backdrops, the range is not merely something on the horizon; it physically shapes neighborhoods, roads and the city's geography."),
-    p("Franklin Mountains State Park protects a large portion of that range and gives residents unusual access to hiking, mountain biking, rock climbing and desert views without leaving the metro area. The park is often described as one of the largest urban parks in the nation contained entirely within a city's limits."),
+    p("Franklin Mountains State Park protects a large portion of that range and gives residents unusual access to hiking, mountain biking, rock climbing and desert views without leaving the metro area."),
     p("From high points in the range, the county's central fact becomes visible at once: one urban landscape extends across an international boundary, while mountains and desert frame both sides."),
 
     h("Agriculture survived because the valley could be irrigated"),
     p("The lower El Paso Valley has supported farming for centuries because river water could be directed onto otherwise arid land. Indigenous farmers, Spanish missions, Mexican settlements and later commercial growers all depended on irrigation."),
     p("Modern El Paso County agriculture has included cotton, pecans, vegetables and other crops suited to irrigated desert farming. The green ribbon of the valley can feel startling beside surrounding desert and mountains."),
     p("That contrast also links El Paso County directly to neighboring Hudspeth County, where Rio Grande communities such as Fort Hancock developed through the same basic relationship between water, agriculture and border geography."),
-
-    h("Food may be the fastest way to understand the borderlands"),
-    p("El Paso's food culture refuses tidy categories. Mexican traditions from Chihuahua meet Texas ingredients, American diner culture, border bakery traditions and generations of family restaurants. Dishes and techniques move across the bridges as naturally as language and family ties."),
-    p("That is why arguments over whether something is 'Tex-Mex' or simply Mexican can feel especially inadequate here. El Paso County did not invent its food from two cultures meeting at a line. The line was drawn through a region where cultures were already meeting."),
 
     h("A few El Paso County facts worth remembering"),
     list(
