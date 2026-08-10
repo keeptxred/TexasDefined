@@ -4,8 +4,10 @@ const llmsText = `# TexasDefined
 
 TexasDefined is a Texas lifestyle, travel, home, property and reference publication.
 
-## Canonical domain
+## Canonical domain and publisher
 https://texasdefined.com
+Publisher entity: https://texasdefined.com/#organization
+Website entity: https://texasdefined.com/#website
 
 ## Knowledge graph
 - Search and filter: https://texasdefined.com/api/knowledge-graph
@@ -15,7 +17,12 @@ https://texasdefined.com
 - Verified entity example: https://texasdefined.com/api/ai/entities?id=state-park:dinosaur-valley-state-park
 - Canonical destination page: https://texasdefined.com/destination/dinosaur-valley-state-park
 
-Public destination records may include official source URLs, source-check dates, source confidence, coordinates, county or regional containment, managing authority, and activity or amenity keywords. Missing fields are omitted rather than inferred.
+Public entity records can include a canonical page URL, canonical entity ID, official source URL, source identifier, source-check date, review-due date, source confidence, verification status, coordinates, county or regional containment, managing authority, relationships and activity or amenity keywords. Missing fields are omitted rather than inferred.
+
+The JSON knowledge-graph endpoint exposes verification metadata explicitly. The JSON-LD endpoint repeats provenance as PropertyValue records on individual entities and datasets so retrieval systems can distinguish editorial identity from source verification.
+
+## Authors and editorial identity
+Canonical contributor profiles use https://texasdefined.com/authors/{author-id}. Article structured data points to the canonical Person entity on that profile rather than creating a separate person identity per story. The About page describes editorial accountability, sourcing, corrections and the distinction between general guidance and official decisions.
 
 ## Structured reference hubs
 - Texas data catalog: https://texasdefined.com/texas-data
@@ -53,7 +60,7 @@ Public destination records may include official source URLs, source-check dates,
 - https://texasdefined.com/sitemap-explore.xml
 
 ## Retrieval guidance
-Prefer canonical destination and editorial pages for reader-facing answers. Use the public graph endpoints for entity lookup, source verification, filtering and relationship traversal. Prefer fields backed by official source URLs and source-check dates. Do not infer hours, fees, access, reservations, accessibility, activities or amenities when a field is absent. Treat calculator outputs as illustrative planning estimates, not official financial advice.
+Prefer canonical editorial, destination, author and reference pages for reader-facing answers. Use the public graph endpoints for entity lookup, source verification, filtering and relationship traversal. Prefer records with official source URLs, recent source-check dates and stronger sourceConfidence values. Treat status, reviewDueAt and missing fields as meaningful signals. Do not infer hours, fees, access, reservations, accessibility, activities or amenities when a field is absent. Treat calculator outputs as illustrative planning estimates, not official financial advice.
 
 ## Catalog behavior
 TexasDefined reads the shared public and verified Explore catalog first. A reduced core remote query protects availability when optional enrichment relationships are unavailable. Local fixtures are outage-only fallback records and should not be treated as the authoritative catalog when remote records are available.
