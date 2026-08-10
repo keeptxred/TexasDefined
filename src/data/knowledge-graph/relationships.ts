@@ -27,16 +27,49 @@ export function canonicalEntityPath(entity: Pick<TexasEntityRecord, 'kind' | 'sl
   return `/${entity.kind}/${entity.slug}`;
 }
 
+const LOCAL_GOVERNMENT_KINDS = new Set([
+  'county',
+  'appraisal-district',
+  'tax-office',
+  'county-clerk',
+  'dps-office',
+]);
+
+const NON_SPECIFIC_OFFICIAL_URLS = new Set([
+  'https://www.texas.gov/texas-county-websites.html',
+]);
+
+function hasEntitySpecificOfficialUrl(entity: TexasEntityRecord) {
+  if (!entity.officialUrl) return false;
+  try {
+    const url = new URL(entity.officialUrl);
+    if (url.protocol !== 'https:') return false;
+    return !NON_SPECIFIC_OFFICIAL_URLS.has(url.href);
+  } catch {
+    return false;
+  }
+}
+
 /**
  * Search-index quality gate for generic knowledge-graph entity pages.
- * A record must be active/seasonal, source-backed, recently reviewable, and
- * contain enough entity-specific information to avoid publishing thin pages.
+ * Generated pages are intentionally noindex until the underlying record is
+ * substantively written, source-verified, and specific enough to stand alone
+ * as a useful search result.
  */
 export function isIndexableEntityPage(entity: TexasEntityRecord) {
   if (!['active', 'seasonal'].includes(entity.status)) return false;
-  if (!entity.description || entity.description.trim().length < 80) return false;
-  if (!entity.officialUrl || !entity.sourceCheckedAt) return false;
+
+  const description = entity.description?.trim() ?? '';
+  if (description.length < 180) return false;
+
+  if (!entity.sourceCheckedAt) return false;
+  if (!hasEntitySpecificOfficialUrl(entity)) return false;
   if (!['official', 'high'].includes(entity.sourceConfidence)) return false;
+
+  if (LOCAL_GOVERNMENT_KINDS.has(entity.kind)) {
+    if (entity.sourceConfidence !== 'official') return false;
+    if (entity.status !== 'active') return false;
+  }
 
   const contextSignals = [
     Boolean(entity.coordinates),
@@ -46,5 +79,5 @@ export function isIndexableEntityPage(entity: TexasEntityRecord) {
     Boolean(entity.relationships.length),
   ].filter(Boolean).length;
 
-  return contextSignals >= 2;
+  return contextSignals >= 3;
 }
