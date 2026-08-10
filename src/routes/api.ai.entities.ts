@@ -4,6 +4,7 @@ import { canonicalEntityPath, rankRelatedEntities } from '@/data/knowledge-graph
 
 const siteUrl = 'https://texasdefined.com';
 const organizationId = `${siteUrl}/#organization`;
+const websiteId = `${siteUrl}/#website`;
 const apiUrl = `${siteUrl}/api/ai/entities`;
 const publicHeaders = {
   'cache-control': 'public, max-age=300, stale-while-revalidate=3600',
@@ -27,6 +28,7 @@ export const Route = createFileRoute('/api/ai/entities')({
         '@id': `${siteUrl}${canonicalEntityPath(item)}#entity`,
         name: item.name,
         type: item.kind,
+        url: `${siteUrl}${canonicalEntityPath(item)}`,
         reasons,
       }));
       return json({
@@ -36,13 +38,15 @@ export const Route = createFileRoute('/api/ai/entities')({
         name: `TexasDefined entity record: ${entity.name}`,
         url: `${apiUrl}?id=${encodeURIComponent(entity.id)}`,
         creator: { '@id': organizationId },
-        isPartOf: { '@id': `${siteUrl}/#website` },
+        publisher: { '@id': organizationId },
+        isPartOf: { '@id': websiteId },
         about: toJsonLd(entity),
         mentions: related,
         source: entity.officialUrl,
         dateModified: entity.sourceCheckedAt,
         keywords: entity.tags,
         measurementTechnique: entity.sourceConfidence,
+        additionalProperty: provenanceProperties(entity),
       });
     }
 
@@ -53,21 +57,34 @@ export const Route = createFileRoute('/api/ai/entities')({
       '@id': `${apiUrl}#results`,
       name: q ? `TexasDefined entity search: ${q}` : 'TexasDefined knowledge graph',
       url: url.toString(),
-      isPartOf: { '@id': `${siteUrl}/#website` },
+      isPartOf: { '@id': websiteId },
       numberOfItems: entities.length,
       itemListElement: entities.map((entity, index) => ({ '@type': 'ListItem', position: index + 1, item: toJsonLd(entity) })),
     });
   } } },
 });
 
+function provenanceProperties(entity: TexasEntityRecord) {
+  return [
+    { '@type': 'PropertyValue', name: 'entityId', value: entity.id },
+    { '@type': 'PropertyValue', name: 'entityKind', value: entity.kind },
+    { '@type': 'PropertyValue', name: 'status', value: entity.status },
+    { '@type': 'PropertyValue', name: 'sourceId', value: entity.sourceId },
+    { '@type': 'PropertyValue', name: 'sourceConfidence', value: entity.sourceConfidence },
+    ...(entity.sourceCheckedAt ? [{ '@type': 'PropertyValue', name: 'sourceCheckedAt', value: entity.sourceCheckedAt }] : []),
+    ...(entity.reviewDueAt ? [{ '@type': 'PropertyValue', name: 'reviewDueAt', value: entity.reviewDueAt }] : []),
+  ];
+}
+
 function toJsonLd(entity: TexasEntityRecord) {
+  const canonicalUrl = `${siteUrl}${canonicalEntityPath(entity)}`;
   return {
     '@type': schemaType(entity.kind),
-    '@id': `${siteUrl}${canonicalEntityPath(entity)}#entity`,
+    '@id': `${canonicalUrl}#entity`,
     name: entity.name,
     alternateName: entity.aliases.length ? entity.aliases : undefined,
     description: entity.description,
-    url: `${siteUrl}${canonicalEntityPath(entity)}`,
+    url: canonicalUrl,
     sameAs: entity.officialUrl ? [entity.officialUrl] : undefined,
     geo: entity.coordinates ? { '@type': 'GeoCoordinates', latitude: entity.coordinates.latitude, longitude: entity.coordinates.longitude } : undefined,
     containedInPlace: entity.countySlug
@@ -78,6 +95,8 @@ function toJsonLd(entity: TexasEntityRecord) {
     keywords: entity.tags?.length ? entity.tags : undefined,
     dateModified: entity.sourceCheckedAt,
     additionalType: entity.kind,
+    additionalProperty: provenanceProperties(entity),
+    subjectOf: { '@type': 'Dataset', '@id': `${apiUrl}?id=${encodeURIComponent(entity.id)}#dataset` },
   };
 }
 
