@@ -58,7 +58,12 @@ export async function loadTexasKnowledgeGraph(options: { query?: string; limit?:
       tags: [...new Set([...(existing.tags ?? []), ...(entity.tags ?? [])])],
     } : entity);
   }
-  return [...merged.values()];
+
+  const graph = [...merged.values()];
+  const countyEntries = graph.filter((entity) => entity.kind === 'county');
+  const enrichedCounties = await Promise.all(countyEntries.map(enrichCountyGeographyEntity));
+  const enrichedById = new Map(enrichedCounties.map((entity) => [entity.id, entity]));
+  return graph.map((entity) => enrichedById.get(entity.id) ?? entity);
 }
 
 export async function searchCompleteTexasKnowledgeGraph(query: string, limit = 25): Promise<TexasEntityRecord[]> {
@@ -82,37 +87,35 @@ async function enrichGovernmentEntity(entity: TexasEntityRecord): Promise<TexasE
   return entity;
 }
 
-async function enrichCountyEntity(entity: TexasEntityRecord): Promise<TexasEntityRecord> {
+async function enrichCountyGeographyEntity(entity: TexasEntityRecord): Promise<TexasEntityRecord> {
   try {
-    const [profile, localGovernment] = await Promise.all([
-      loadCountyProfile(entity.slug, entity.name),
-      loadLocalGovernmentProfile(entity.slug, entity.name),
-    ]);
-    const coordinates = profile.latitude != null && profile.longitude != null
-      ? { latitude: profile.latitude, longitude: profile.longitude }
-      : entity.coordinates;
+    const profile = await loadCountyProfile(entity.slug, entity.name);
     return {
       ...entity,
       description: countyProfileDescription(entity.name, profile),
-      coordinates,
-      officialUrl: localGovernment.countyWebsiteUrl ?? entity.officialUrl,
-      sourceCheckedAt: localGovernment.countyWebsiteUrl ? new Date().toISOString().slice(0, 10) : entity.sourceCheckedAt,
-      tags: [...new Set([...(entity.tags ?? []), 'county-government', 'county-reference'])],
+      coordinates: profile.latitude != null && profile.longitude != null
+        ? { latitude: profile.latitude, longitude: profile.longitude }
+        : entity.coordinates,
+      tags: [...new Set([...(entity.tags ?? []), 'county-reference'])],
+    };
+  } catch {
+    return entity;
+  }
+}
+
+async function enrichCountyEntity(entity: TexasEntityRecord): Promise<TexasEntityRecord> {
+  const geographic = await enrichCountyGeographyEntity(entity);
+  try {
+    const localGovernment = await loadLocalGovernmentProfile(entity.slug, entity.name);
+    return {
+      ...geographic,
+      officialUrl: localGovernment.countyWebsiteUrl ?? geographic.officialUrl,
+      sourceCheckedAt: localGovernment.countyWebsiteUrl ? new Date().toISOString().slice(0, 10) : geographic.sourceCheckedAt,
+      tags: [...new Set([...(geographic.tags ?? []), 'county-government', 'county-reference'])],
     };
   } catch (error) {
     console.error(`County government enrichment unavailable for ${entity.slug}`, error);
-    try {
-      const profile = await loadCountyProfile(entity.slug, entity.name);
-      return {
-        ...entity,
-        description: countyProfileDescription(entity.name, profile),
-        coordinates: profile.latitude != null && profile.longitude != null
-          ? { latitude: profile.latitude, longitude: profile.longitude }
-          : entity.coordinates,
-      };
-    } catch {
-      return entity;
-    }
+    return geographic;
   }
 }
 
@@ -124,11 +127,18 @@ async function enrichLocalOfficeEntity(entity: TexasEntityRecord): Promise<Texas
     const profile = await loadLocalGovernmentProfile(entity.countySlug, countyName);
     const office = entity.kind === 'appraisal-district' ? profile.appraisalDistrict : profile.taxOffice;
     if (!office.websiteUrl && !office.phone && !office.address && !office.email) return entity;
+
+    const description = localOfficeDescription(countyName, entity.kind, office);
+    const hasVerifiedWebsite = Boolean(office.websiteUrl);
+    const hasUsefulContact = Boolean(office.phone || office.address || office.email);
+    const readyForPublication = hasVerifiedWebsite && hasUsefulContact && description.length >= 180;
+
     return {
       ...entity,
-      description: localOfficeDescription(countyName, entity.kind, office),
+      description,
       officialUrl: office.websiteUrl ?? entity.officialUrl,
       sourceCheckedAt: office.lastUpdated ?? new Date().toISOString().slice(0, 10),
+      status: readyForPublication ? 'active' : entity.status,
       tags: [...new Set([
         ...(entity.tags ?? []),
         entity.kind === 'appraisal-district' ? 'property-appraisal' : 'county-tax-services',
