@@ -1,7 +1,9 @@
 import { createFileRoute, notFound } from '@tanstack/react-router';
 import { texasDefinedBrand } from '@/brand/texasdefined';
-import { Container } from '@/components/layout/Container';
 import { AutoEntityLinks } from '@/components/content/AutoEntityLinks';
+import { CountyGuideSections } from '@/components/content/CountyGuideSections';
+import { Container } from '@/components/layout/Container';
+import { loadCountyProfile } from '@/data/county-profile';
 import { findCompleteTexasEntity, loadTexasKnowledgeGraph } from '@/data/knowledge-graph';
 import {
   canonicalEntityPath,
@@ -10,6 +12,7 @@ import {
   type RankedRelatedEntity,
 } from '@/data/knowledge-graph/relationships';
 import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
+import { loadLocalGovernmentProfile } from '@/data/local-government-profile';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
 const siteUrl = 'https://texasdefined.com';
@@ -20,7 +23,13 @@ export const Route = createFileRoute('/$kind/$slug')({
     const graph = await loadTexasKnowledgeGraph();
     const entity = await findCompleteTexasEntity(`${params.kind}:${params.slug}`) ?? await findCompleteTexasEntity(params.slug);
     if (!entity || entity.kind !== params.kind) throw notFound();
-    return { entity, related: rankRelatedEntities(entity, graph, 12) };
+    const related = rankRelatedEntities(entity, graph, 12);
+    if (entity.kind !== 'county') return { entity, related, countyProfile: null, localGovernment: null };
+    const [countyProfile, localGovernment] = await Promise.all([
+      loadCountyProfile(entity.slug, entity.name),
+      loadLocalGovernmentProfile(entity.slug, entity.name),
+    ]);
+    return { entity, related, countyProfile, localGovernment };
   },
   head: ({ loaderData }) => {
     if (!loaderData) return {};
@@ -41,7 +50,7 @@ export const Route = createFileRoute('/$kind/$slug')({
 });
 
 function EntityPage() {
-  const { entity, related } = Route.useLoaderData();
+  const { entity, related, countyProfile, localGovernment } = Route.useLoaderData();
   const visibleRelated = relatedForDisplay(entity, related);
   const relatedEntities = visibleRelated.map((item) => item.entity);
   const description = pageDescription(entity);
@@ -61,6 +70,13 @@ function EntityPage() {
         sameAs: entity.officialUrl ? [entity.officialUrl] : undefined,
         geo: entity.coordinates ? { '@type': 'GeoCoordinates', latitude: entity.coordinates.latitude, longitude: entity.coordinates.longitude } : undefined,
         containedInPlace: entity.countySlug ? { '@type': 'AdministrativeArea', name: `${title(entity.countySlug)} County` } : entity.region ? { '@type': 'Place', name: title(entity.region) } : undefined,
+        ...(entity.kind === 'county' && countyProfile ? {
+          additionalProperty: [
+            countyProfile.countySeat ? { '@type': 'PropertyValue', name: 'County seat', value: countyProfile.countySeat } : undefined,
+            countyProfile.population2020 != null ? { '@type': 'PropertyValue', name: '2020 Census population', value: countyProfile.population2020 } : undefined,
+            countyProfile.landAreaSquareMiles != null ? { '@type': 'PropertyValue', name: 'Land area (square miles)', value: Math.round(countyProfile.landAreaSquareMiles) } : undefined,
+          ].filter(Boolean),
+        } : {}),
       },
       {
         '@type': 'BreadcrumbList',
@@ -95,7 +111,8 @@ function EntityPage() {
             </p>
           </div>
           <dl className="border-y border-border py-4 text-sm lg:border-y-0 lg:border-l lg:py-0 lg:pl-6">
-            <Fact label={entity.kind === 'county' ? 'Guide type' : 'County'} value={entity.kind === 'county' ? 'Texas county reference' : entity.countySlug ? `${title(entity.countySlug)} County` : undefined} />
+            <Fact label={entity.kind === 'county' ? 'Guide type' : 'County'} value={entity.kind === 'county' ? 'Texas county guide' : entity.countySlug ? `${title(entity.countySlug)} County` : undefined} />
+            {entity.kind === 'county' && countyProfile?.countySeat && <Fact label="County seat" value={countyProfile.countySeat} />}
             <Fact label="Part of Texas" value={entity.region ? title(entity.region) : undefined} />
             <Fact label="Source status" value={sourceStatus(entity)} />
             {entity.sourceCheckedAt && <Fact label="Details reviewed" value={formatCheckedDate(entity.sourceCheckedAt)} />}
@@ -117,7 +134,9 @@ function EntityPage() {
           {entity.coordinates && <a className="underline decoration-primary/50 underline-offset-4 hover:text-primary" href={`https://www.google.com/maps/search/?api=1&query=${entity.coordinates.latitude},${entity.coordinates.longitude}`} target="_blank" rel="noreferrer">Open in maps ↗</a>}
         </div>
 
-        {entity.tags?.length ? <section className="grid gap-6 border-b border-border py-10 lg:grid-cols-[14rem_1fr]">
+        {entity.kind === 'county' && countyProfile && localGovernment ? <CountyGuideSections entity={entity} profile={countyProfile} localGovernment={localGovernment} related={related} /> : null}
+
+        {entity.kind !== 'county' && entity.tags?.length ? <section className="grid gap-6 border-b border-border py-10 lg:grid-cols-[14rem_1fr]">
           <div>
             <p className="eyebrow text-primary">{notesEyebrow(entity.kind)}</p>
             <h2 className="mt-2 font-display text-3xl">{notesHeading(entity.kind)}</h2>
@@ -127,7 +146,7 @@ function EntityPage() {
           </ul>
         </section> : null}
 
-        {visibleRelated.length ? <section className="py-12">
+        {entity.kind !== 'county' && visibleRelated.length ? <section className="py-12">
           <div className="flex items-end justify-between gap-6 border-b border-border pb-4">
             <div>
               <p className="eyebrow text-primary">{relatedEyebrow(entity.kind)}</p>
@@ -160,7 +179,7 @@ function relatedForDisplay(entity: TexasEntityRecord, related: RankedRelatedEnti
 
 function pageDescription(entity: TexasEntityRecord) {
   if (entity.description) return entity.description;
-  if (entity.kind === 'county') return `${entity.name} reference page from Texas Defined. We are expanding this county guide with verified local and state sources before publishing a full editorial guide.`;
+  if (entity.kind === 'county') return `${entity.name} county guide from Texas Defined, combining verified geography, communities, Census facts and official local resources.`;
   if (entity.kind === 'appraisal-district') return `${entity.name} property appraisal reference from Texas Defined. Office details and service links are published only as they are verified against authoritative sources.`;
   if (entity.kind === 'tax-office') return `${entity.name} county tax office reference from Texas Defined. Taxpayer and vehicle-service details are published only after source verification.`;
   if (entity.kind === 'county-clerk') return `${entity.name} county clerk reference from Texas Defined. Public-service details are added after they are checked against authoritative local sources.`;
@@ -169,7 +188,7 @@ function pageDescription(entity: TexasEntityRecord) {
 }
 
 function statusHeading(kind: string) {
-  if (kind === 'county') return 'This county guide is being expanded';
+  if (kind === 'county') return 'Verified county guide';
   if (kind === 'appraisal-district') return 'Office details are being verified';
   if (kind === 'tax-office') return 'Service details are being verified';
   if (localGovernmentKinds.has(kind)) return 'Public-service details are being verified';
@@ -177,7 +196,7 @@ function statusHeading(kind: string) {
 }
 
 function statusMessage(entity: TexasEntityRecord) {
-  if (entity.kind === 'county') return `Texas Defined has the reference record for ${entity.name}, but the full editorial county guide is not finished yet. We are adding county-specific geography, communities, history, places to know, and verified local resources rather than filling the page with generic copy.`;
+  if (entity.kind === 'county') return `${entity.name} is built from verified state, federal and county sources. Sections only appear when supporting data is available, so missing facts are omitted rather than filled with generic copy.`;
   if (entity.kind === 'appraisal-district') return `This is a reference page for ${entity.name}, not a finished editorial guide. We are verifying the district's official contact and property-appraisal resources before presenting them as authoritative.`;
   if (entity.kind === 'tax-office') return `This is a reference page for ${entity.name}. We are verifying official taxpayer, registration, and local service information before presenting a complete service guide.`;
   if (localGovernmentKinds.has(entity.kind)) return `This public-service reference is intentionally limited while Texas Defined verifies the official local information. Unverified details are not presented as complete.`;
@@ -192,7 +211,7 @@ function sourceStatus(entity: TexasEntityRecord) {
 }
 
 function officialLinkLabel(kind: string) {
-  if (kind === 'county') return 'County information';
+  if (kind === 'county') return 'Official county website';
   if (kind === 'appraisal-district') return 'Official appraisal district';
   if (kind === 'tax-office') return 'Official tax office';
   if (kind === 'county-clerk') return 'Official county clerk';
