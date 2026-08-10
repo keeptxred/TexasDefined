@@ -75,6 +75,11 @@ function reconcileExploreCatalog(destinations: Destination[]) {
 
 export const destinationsQuery = (params: Omit<DestinationQuery, "brandId"> = {}) => queryOptions({
   queryKey: ["destinations", scope.brandId, params],
+  staleTime: 10 * 60 * 1000,
+  gcTime: 30 * 60 * 1000,
+  refetchOnWindowFocus: false,
+  refetchOnMount: false,
+  refetchOnReconnect: false,
   queryFn: async () => {
     const options = { featured: params.featured, category: params.category, limit: params.limit };
     let enriched: Destination[] = [];
@@ -103,6 +108,11 @@ export const destinationsQuery = (params: Omit<DestinationQuery, "brandId"> = {}
 
 export const destinationQuery = (slug: Slug) => queryOptions({
   queryKey: ["destination", scope.brandId, slug],
+  staleTime: 10 * 60 * 1000,
+  gcTime: 30 * 60 * 1000,
+  refetchOnWindowFocus: false,
+  refetchOnMount: false,
+  refetchOnReconnect: false,
   queryFn: async () => {
     try { const enriched = await fetchExploreDestination(slug); if (enriched) return applyResolvedHero(enriched); }
     catch (error) { console.error("Explore destination enrichment unavailable; retrying core remote record", error); }
