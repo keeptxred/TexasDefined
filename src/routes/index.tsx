@@ -15,11 +15,13 @@ import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 
 const description = "Stories, places and practical advice for making the most of life in Texas — from two-lane roads and swimming holes to barbecue, homes and small-town weekends.";
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
+const HOMEPAGE_DESTINATION_LIMIT = 24;
+const HOMEPAGE_ROAD_TRIP_LIMIT = 8;
 
 export const Route = createFileRoute("/")({
   loader: async ({ context }) => {
     const [featured, latest, destinations, roadTrips, regions, guides, events] = await Promise.all([
-      context.queryClient.ensureQueryData(articlesQuery({ featured: true, limit: 5 })), context.queryClient.ensureQueryData(articlesQuery({ limit: 16 })), context.queryClient.ensureQueryData(destinationsQuery({})), context.queryClient.ensureQueryData(destinationsQuery({ category: "road-trips" })), context.queryClient.ensureQueryData(regionsQuery()), context.queryClient.ensureQueryData(guidesQuery()), context.queryClient.ensureQueryData(eventsQuery({ limit: 4 })),
+      context.queryClient.ensureQueryData(articlesQuery({ featured: true, limit: 5 })), context.queryClient.ensureQueryData(articlesQuery({ limit: 16 })), context.queryClient.ensureQueryData(destinationsQuery({ limit: HOMEPAGE_DESTINATION_LIMIT })), context.queryClient.ensureQueryData(destinationsQuery({ category: "road-trips", limit: HOMEPAGE_ROAD_TRIP_LIMIT })), context.queryClient.ensureQueryData(regionsQuery()), context.queryClient.ensureQueryData(guidesQuery()), context.queryClient.ensureQueryData(eventsQuery({ limit: 4 })),
     ]);
     return { featured, latest, destinations, roadTrips, regions, guides, events };
   },
@@ -44,8 +46,8 @@ function HomePage() {
   const brand = useBrand();
   const { data: featured } = useSuspenseQuery(articlesQuery({ featured: true, limit: 5 }));
   const { data: latest } = useSuspenseQuery(articlesQuery({ limit: 16 }));
-  const { data: destinations } = useSuspenseQuery(destinationsQuery({}));
-  const { data: roadTrips } = useSuspenseQuery(destinationsQuery({ category: "road-trips" }));
+  const { data: destinations } = useSuspenseQuery(destinationsQuery({ limit: HOMEPAGE_DESTINATION_LIMIT }));
+  const { data: roadTrips } = useSuspenseQuery(destinationsQuery({ category: "road-trips", limit: HOMEPAGE_ROAD_TRIP_LIMIT }));
   const { data: regions } = useSuspenseQuery(regionsQuery());
   const { data: guides } = useSuspenseQuery(guidesQuery());
   const { data: events } = useSuspenseQuery(eventsQuery({ limit: 4 }));
