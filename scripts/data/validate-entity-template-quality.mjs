@@ -26,10 +26,16 @@ for (const feature of [
 for (const feature of [
   'export function isIndexableEntityPage',
   "['active', 'seasonal'].includes(entity.status)",
-  'entity.description.trim().length < 80',
-  '!entity.officialUrl || !entity.sourceCheckedAt',
+  'description.length < 180',
+  '!entity.sourceCheckedAt',
   "['official', 'high'].includes(entity.sourceConfidence)",
-  'contextSignals >= 2',
+  'hasEntitySpecificOfficialUrl(entity)',
+  'NON_SPECIFIC_OFFICIAL_URLS',
+  "'https://www.texas.gov/texas-county-websites.html'",
+  'LOCAL_GOVERNMENT_KINDS.has(entity.kind)',
+  "entity.sourceConfidence !== 'official'",
+  "entity.status !== 'active'",
+  'contextSignals >= 3',
 ]) {
   if (!entityRelationships.includes(feature)) errors.push(`Generic entity quality gate missing: ${feature}`);
 }
@@ -60,4 +66,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('County and generic entity quality gates, truthful freshness, noindex behavior, and qualified sitemap publication passed validation.');
+console.log('County and generated entity quality gates, source specificity, noindex behavior, and qualified sitemap publication passed validation.');
