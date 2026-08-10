@@ -4,16 +4,18 @@ import { createFileRoute, notFound, Link } from "@tanstack/react-router";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { ArticleBody, Byline } from "@/components/editorial/ArticleBody";
 import { ArticleCard } from "@/components/editorial/ArticleCard";
+import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import { articleInternalLinks } from "@/data/article-internal-links";
-import { articleQuery, articlesQuery, authorsQuery, categoriesQuery } from "@/data/queries";
+import { articleQuery, articlesQuery, authorsQuery, categoriesQuery, destinationsQuery } from "@/data/queries";
 import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
 import { canonicalEntityPath } from "@/data/knowledge-graph/relationships";
 import { formatDate, formatReadingTime } from "@/domain/utils/format";
 import { absoluteUrl, buildMeta, canonicalLink, schemaTypeForEntityKind } from "@/lib/seo";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
+const DISCOVER_MIN_IMAGE_WIDTH = 1200;
 
 type ArticleDepartment = { name: string; path: string; usesExploreCategory: boolean };
 
@@ -37,17 +39,18 @@ export const Route = createFileRoute("/article/$slug")({
   loader: async ({ context, params }) => {
     const article = await context.queryClient.ensureQueryData(articleQuery(params.slug));
     if (!article) throw notFound();
-    const [authors, categories, , graph] = await Promise.all([
+    const [authors, categories, , destinations, graph] = await Promise.all([
       context.queryClient.ensureQueryData(authorsQuery()),
       context.queryClient.ensureQueryData(categoriesQuery()),
       context.queryClient.ensureQueryData(articlesQuery({ category: article.category, limit: 4 })),
+      context.queryClient.ensureQueryData(destinationsQuery({ limit: 5000 })),
       loadTexasKnowledgeGraph(),
     ]);
-    return { article, authors, categories, graph };
+    return { article, authors, categories, destinations, graph };
   },
   head: ({ loaderData, params }) => {
     if (!loaderData) return { meta: [{ title: "Unavailable" }, { name: "robots", content: "noindex, nofollow" }] };
-    const { article, authors, categories, graph } = loaderData;
+    const { article, authors, categories, destinations, graph } = loaderData;
     const canonicalPath = `/article/${params.slug}`;
     const articleUrl = `${siteUrl}${canonicalPath}`;
     const imageUrl = absoluteUrl(texasDefinedBrand, article.hero.src);
@@ -63,6 +66,10 @@ export const Route = createFileRoute("/article/$slug")({
     const categoryName = categories.find((category) => category.slug === article.category)?.name
       ?? article.category.replace(/-/g, " ");
     const department = articleDepartment(article.category);
+    const relatedDestinations = article.relatedDestinations
+      .map((slug) => destinations.find((destination) => destination.slug === slug))
+      .filter((destination): destination is NonNullable<typeof destination> => Boolean(destination))
+      .slice(0, 8);
     const imageSchema = {
       "@type": "ImageObject",
       "@id": `${articleUrl}#primaryimage`,
@@ -108,6 +115,7 @@ export const Route = createFileRoute("/article/$slug")({
       thumbnailUrl: imageUrl,
       datePublished: article.publishedAt,
       articleSection: categoryName,
+      genre: department.name,
       keywords: article.tags,
       wordCount: wordCount(fullText),
       isAccessibleForFree: true,
@@ -115,6 +123,14 @@ export const Route = createFileRoute("/article/$slug")({
       publisher: { "@id": `${siteUrl}/#organization` },
       about: mentions.slice(0, 8).map((entity) => ({ "@id": `${siteUrl}${canonicalEntityPath(entity)}#entity` })),
       mentions: mentions.map((entity) => ({ "@type": schemaTypeForEntityKind(entity.kind), "@id": `${siteUrl}${canonicalEntityPath(entity)}#entity`, name: entity.name, url: `${siteUrl}${canonicalEntityPath(entity)}` })),
+      ...(relatedDestinations.length ? {
+        hasPart: relatedDestinations.map((destination) => ({
+          "@type": "TouristAttraction",
+          "@id": `${siteUrl}/destination/${destination.slug}#attraction`,
+          name: destination.name,
+          url: `${siteUrl}/destination/${destination.slug}`,
+        })),
+      } : {}),
     };
     const breadcrumbItems = [
       { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
@@ -141,7 +157,10 @@ export const Route = createFileRoute("/article/$slug")({
         imageHeight: article.hero.height,
         publishedTime: article.publishedAt,
       }),
-      links: [canonicalLink(texasDefinedBrand, canonicalPath)],
+      links: [
+        canonicalLink(texasDefinedBrand, canonicalPath),
+        ...(article.hero.width >= DISCOVER_MIN_IMAGE_WIDTH ? [{ rel: "preload", as: "image", href: article.hero.src, fetchPriority: "high" as const }] : []),
+      ],
       scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": schemaGraph }) }],
     };
   },
@@ -151,7 +170,7 @@ export const Route = createFileRoute("/article/$slug")({
 
 function ArticlePage() {
   const { slug } = Route.useParams();
-  const { graph, categories } = Route.useLoaderData();
+  const { graph, categories, destinations } = Route.useLoaderData();
   const { data: article } = useSuspenseQuery(articleQuery(slug));
   const { data: authors } = useSuspenseQuery(authorsQuery());
   const { data: related } = useSuspenseQuery(articlesQuery(article ? { category: article.category, limit: 4 } : { limit: 4 }));
@@ -161,6 +180,10 @@ function ArticlePage() {
     ?? article.category.replace(/-/g, " ");
   const department = articleDepartment(article.category);
   const internalLinks = article.internalLinks ?? articleInternalLinks[article.slug] ?? [];
+  const relatedDestinations = article.relatedDestinations
+    .map((destinationSlug) => destinations.find((destination) => destination.slug === destinationSlug))
+    .filter((destination): destination is NonNullable<typeof destination> => Boolean(destination))
+    .slice(0, 6);
 
   return <article>
     <Container className="pt-10 sm:pt-14">
@@ -189,6 +212,7 @@ function ArticlePage() {
       </aside>}
       {article.tags.length > 0 && <div className="mt-10 border-t border-border pt-5"><p className="eyebrow text-muted-foreground">Filed under</p><ul className="mt-3 flex flex-wrap gap-x-5 gap-y-2">{article.tags.map((tag) => <li key={tag} className="text-sm text-foreground/75">{tag}</li>)}</ul></div>}
     </Container>
-    <Section tone="surface"><Container><SectionHeader eyebrow="From the magazine" title="More stories to read next" /><ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">{related.filter((item) => item.id !== article.id).slice(0, 3).map((item) => <li key={item.id}><ArticleCard article={item} size="compact" /></li>)}</ul></Container></Section>
+    {relatedDestinations.length > 0 && <Section><Container><SectionHeader eyebrow="Plan the trip" title="Places connected to this story" description="Destinations explicitly tied to this article in the Texas Defined guide." /><ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">{relatedDestinations.map((destination) => <li key={destination.id}><DestinationCard destination={destination} /></li>)}</ul></Container></Section>}
+    <Section tone="surface"><Container><SectionHeader eyebrow="From the magazine" title="More stories to read next" /><ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">{related.filter((item) => item.id !== article.id).slice(0, 3).map((item) => <li key={item.id}><ArticleCard article={item} size="compact" /></li>)}</ul><nav aria-label="Continue through this section" className="mt-10 border-t border-border pt-6"><div className="flex flex-wrap gap-x-7 gap-y-3"><Link to={department.path} className="eyebrow border-b border-primary pb-1 text-primary">More from {department.name} →</Link>{department.usesExploreCategory && <Link to="/explore/$category" params={{ category: article.category }} className="eyebrow border-b border-primary pb-1 text-primary">Browse {categoryName} →</Link>}</div></nav></Container></Section>
   </article>;
 }
