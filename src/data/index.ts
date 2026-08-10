@@ -62,11 +62,11 @@ const MOVING_ARTICLE_HEROES: Partial<Record<string, Article["hero"]>> = {
 
 const EDITORIAL_HERO_OVERRIDES: Partial<Record<string, Article["hero"]>> = {
   "brewster-county-big-bend-texas": {
-    src: "/images/explore/national-parks/big-bend-national-park.jpg",
-    alt: "Big Bend National Park in Brewster County, Texas",
+    src: "https://images.unsplash.com/photo-1701989664249-00bfd734f083?auto=format&fit=crop&w=1600&h=900&q=82",
+    alt: "Big Bend National Park mountain landscape in Brewster County, Texas",
     width: 1600,
-    height: 2133,
-    credit: "Betty Alex (U.S. National Park Service) · Public domain · Wikimedia Commons",
+    height: 900,
+    credit: "Sara Cottle · Unsplash",
   },
   "presidio-county-marfa-borderlands-texas": {
     src: "/images/explore/historic-sites/fort-leaton-state-historic-site.jpg",
@@ -83,18 +83,18 @@ const EDITORIAL_HERO_OVERRIDES: Partial<Record<string, Article["hero"]>> = {
     credit: "National Park Service Digital Image Archives · Public domain · Wikimedia Commons",
   },
   "culberson-county-van-horn-guadalupe-mountains-texas": {
-    src: "/images/explore/national-parks/guadalupe-mountains-national-park.jpg",
-    alt: "Guadalupe Mountains National Park in Culberson County, home of Guadalupe Peak",
+    src: "https://images.unsplash.com/photo-1775940488701-70b93dd22023?auto=format&fit=crop&w=1600&h=900&q=82",
+    alt: "Road through the Chihuahuan Desert toward the Guadalupe Mountains in Culberson County, Texas",
     width: 1600,
-    height: 1053,
-    credit: "NPS photo · Public domain · Wikimedia Commons",
+    height: 900,
+    credit: "Jake Kling · Unsplash",
   },
   "hudspeth-county-sierra-blanca-salt-flats-texas": {
-    src: "https://texas-time-travel.imgix.net/images/A-Regional-Photos/Mountain/Mountain_Hudspeth-County-Courthouse.jpeg?auto=compress%2Cformat&fit=max&h=1080&q=80&w=1920",
+    src: "https://upload.wikimedia.org/wikipedia/commons/f/fb/Hudspeth_county_courthouse_2009.jpg",
     alt: "Hudspeth County Courthouse in Sierra Blanca, Texas",
-    width: 1920,
-    height: 1080,
-    credit: "Texas Historical Commission · Texas Time Travel",
+    width: 2284,
+    height: 1295,
+    credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons",
   },
   "el-paso-county-missions-rio-grande-texas": {
     src: "/images/explore/historic-sites/chamizal-national-memorial.jpg",
