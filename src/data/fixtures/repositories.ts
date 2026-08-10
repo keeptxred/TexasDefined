@@ -77,6 +77,51 @@ const editorialArticles = [
   ...migratedEditorialArticles,
 ];
 
+const COUNTY_HERO_OVERRIDES: Partial<Record<string, Article["hero"]>> = {
+  "brewster-county-big-bend-texas": {
+    src: "/images/explore/national-parks/big-bend-national-park.jpg",
+    alt: "Big Bend National Park in Brewster County, Texas",
+    width: 1600,
+    height: 2133,
+    credit: "Betty Alex (U.S. National Park Service) · Public domain · Wikimedia Commons",
+  },
+  "presidio-county-marfa-borderlands-texas": {
+    src: "/images/explore/historic-sites/fort-leaton-state-historic-site.jpg",
+    alt: "Fort Leaton State Historic Site in Presidio County near the Rio Grande borderlands",
+    width: 1600,
+    height: 1068,
+    credit: "Carol M. Highsmith · Public domain · Wikimedia Commons",
+  },
+  "jeff-davis-county-fort-davis-mountains-texas": {
+    src: "/images/explore/historic-sites/fort-davis-national-historic-site.jpg",
+    alt: "Fort Davis National Historic Site beneath the Davis Mountains in Jeff Davis County",
+    width: 1600,
+    height: 1067,
+    credit: "National Park Service Digital Image Archives · Public domain · Wikimedia Commons",
+  },
+  "culberson-county-van-horn-guadalupe-mountains-texas": {
+    src: "/images/explore/national-parks/guadalupe-mountains-national-park.jpg",
+    alt: "Guadalupe Mountains National Park in Culberson County, home of Guadalupe Peak",
+    width: 1600,
+    height: 1053,
+    credit: "NPS photo · Public domain · Wikimedia Commons",
+  },
+  "hudspeth-county-sierra-blanca-salt-flats-texas": {
+    src: "https://texas-time-travel.imgix.net/images/A-Regional-Photos/Mountain/Mountain_Hudspeth-County-Courthouse.jpeg?auto=compress%2Cformat&fit=max&h=1080&q=80&w=1920",
+    alt: "Hudspeth County Courthouse in Sierra Blanca, Texas",
+    width: 1920,
+    height: 1080,
+    credit: "Texas Historical Commission · Texas Time Travel",
+  },
+  "el-paso-county-missions-rio-grande-texas": {
+    src: "/images/explore/historic-sites/chamizal-national-memorial.jpg",
+    alt: "Chamizal National Memorial in El Paso County, Texas",
+    width: 1600,
+    height: 2134,
+    credit: "GoneBefore · CC BY-SA 4.0 · Wikimedia Commons",
+  },
+};
+
 const byBrand = <T extends { brandId: string }>(rows: T[], brandId: string) =>
   rows.filter((row) => row.brandId === brandId);
 
@@ -98,6 +143,7 @@ const normalizeArticle = (article: Article): Article => {
   const wordCount = article.body.reduce((total, block) => total + wordsInBlock(block), 0);
   return {
     ...article,
+    hero: COUNTY_HERO_OVERRIDES[article.slug] ?? article.hero,
     readingMinutes: Math.max(1, Math.ceil(wordCount / 220)),
   };
 };
