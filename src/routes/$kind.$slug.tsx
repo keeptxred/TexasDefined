@@ -3,7 +3,7 @@ import { texasDefinedBrand } from '@/brand/texasdefined';
 import { Container } from '@/components/layout/Container';
 import { AutoEntityLinks } from '@/components/content/AutoEntityLinks';
 import { findCompleteTexasEntity, loadTexasKnowledgeGraph } from '@/data/knowledge-graph';
-import { canonicalEntityPath, rankRelatedEntities } from '@/data/knowledge-graph/relationships';
+import { canonicalEntityPath, isIndexableEntityPage, rankRelatedEntities } from '@/data/knowledge-graph/relationships';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
 const siteUrl = 'https://texasdefined.com';
@@ -19,11 +19,13 @@ export const Route = createFileRoute('/$kind/$slug')({
     if (!loaderData) return {};
     const canonicalPath = canonicalEntityPath(loaderData.entity);
     const description = loaderData.entity.description ?? `What to know about ${loaderData.entity.name}, where it is, and what is nearby.`;
+    const indexable = isIndexableEntityPage(loaderData.entity);
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
         title: loaderData.entity.name,
         description,
+        robots: indexable ? undefined : 'noindex, follow, max-image-preview:large',
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
     };
