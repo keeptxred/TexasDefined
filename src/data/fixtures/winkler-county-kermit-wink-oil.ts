@@ -13,10 +13,10 @@ export const winklerCountyKermitWinkOilArticle: Article = {
   category: "texas-history",
   region: "big-bend",
   hero: {
-    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/County_courthouse_for_Winkler_County%2C_near_the_New_Mexico_line_in_far-west_Texas_LCCN2014630676.jpg/2560px-County_courthouse_for_Winkler_County%2C_near_the_New_Mexico_line_in_far-west_Texas_LCCN2014630676.jpg",
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/County_courthouse_for_Winkler_County,_near_the_New_Mexico_line_in_far-west_Texas_LCCN2014630676.jpg?width=1600",
     alt: "Winkler County Courthouse in Kermit, Texas, photographed in 2014",
-    width: 2560,
-    height: 1709,
+    width: 1600,
+    height: 1068,
     credit: "Carol M. Highsmith · Library of Congress · Public domain · Wikimedia Commons",
   },
   authorId: "a-hollis",
