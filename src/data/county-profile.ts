@@ -16,7 +16,17 @@ export type CountyProfile = {
   sourceUrls: string[];
 };
 
+type CountyGeography = {
+  landAreaSquareMiles?: number;
+  waterAreaSquareMiles?: number;
+  latitude?: number;
+  longitude?: number;
+};
+
 const cache = new Map<string, Promise<CountyProfile>>();
+let countySeatsPromise: Promise<Map<string, string>> | undefined;
+let countyPopulationPromise: Promise<Map<string, number>> | undefined;
+let countyGeographyPromise: Promise<Map<string, CountyGeography>> | undefined;
 
 export function loadCountyProfile(slug: string, countyName: string) {
   const cached = cache.get(slug);
@@ -36,15 +46,19 @@ async function fetchCountyProfile(slug: string, countyName: string): Promise<Cou
     .map((city) => city.name)
     .sort((a, b) => a.localeCompare(b));
 
-  const [seatResult, populationResult, geographyResult] = await Promise.allSettled([
-    fetchCountySeat(baseName),
-    countyCode ? fetchPopulation(countyCode) : Promise.resolve(undefined),
-    countyCode ? fetchGeography(countyCode) : Promise.resolve({}),
+  countySeatsPromise ??= fetchCountySeats();
+  countyPopulationPromise ??= fetchCountyPopulations();
+  countyGeographyPromise ??= fetchCountyGeographies();
+
+  const [seatsResult, populationsResult, geographyResult] = await Promise.allSettled([
+    countySeatsPromise,
+    countyPopulationPromise,
+    countyGeographyPromise,
   ]);
 
-  const countySeat = seatResult.status === 'fulfilled' ? seatResult.value : undefined;
-  const population2020 = populationResult.status === 'fulfilled' ? populationResult.value : undefined;
-  const geography = geographyResult.status === 'fulfilled' ? geographyResult.value : {};
+  const countySeat = seatsResult.status === 'fulfilled' ? seatsResult.value.get(normalizeCountyKey(baseName)) : undefined;
+  const population2020 = populationsResult.status === 'fulfilled' && countyCode ? populationsResult.value.get(countyCode) : undefined;
+  const geography = geographyResult.status === 'fulfilled' && countyCode ? geographyResult.value.get(countyCode) ?? {} : {};
   const majorCommunities = Array.from(new Set([countySeat, ...knownCommunities].filter((value): value is string => Boolean(value))));
 
   return {
@@ -59,49 +73,69 @@ async function fetchCountyProfile(slug: string, countyName: string): Promise<Cou
   };
 }
 
-async function fetchCountySeat(countyName: string) {
+async function fetchCountySeats() {
   const response = await fetch(TSL_COUNTY_SEATS_URL, { headers: { accept: 'text/html' } });
-  if (!response.ok) return undefined;
+  if (!response.ok) return new Map<string, string>();
   const html = await response.text();
-  const escaped = countyName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  const row = new RegExp(`<tr[^>]*>\\s*<td[^>]*>\\s*${escaped}\\s*</td>\\s*<td[^>]*>\\s*([^<]+)`, 'i').exec(html);
-  if (row?.[1]) return decodeEntities(row[1].trim());
-
-  const textPattern = new RegExp(`>${escaped}<[^>]*>\\s*</td>\\s*<td[^>]*>\\s*([^<]+)`, 'i').exec(html);
-  return textPattern?.[1] ? decodeEntities(textPattern[1].trim()) : undefined;
+  const result = new Map<string, string>();
+  for (const row of html.matchAll(/<tr[^>]*>([\s\S]*?)<\/tr>/gi)) {
+    const cells = [...row[1].matchAll(/<td[^>]*>([\s\S]*?)<\/td>/gi)].map((match) => stripHtml(match[1]));
+    if (cells.length < 2) continue;
+    const county = cells[0].replace(/ County$/i, '').trim();
+    const seat = cells[1].trim();
+    if (county && seat) result.set(normalizeCountyKey(county), seat);
+  }
+  return result;
 }
 
-async function fetchPopulation(countyCode: string) {
-  const url = `${CENSUS_POPULATION_API}?get=NAME,P1_001N&for=county:${countyCode}&in=state:48`;
+async function fetchCountyPopulations() {
+  const url = `${CENSUS_POPULATION_API}?get=NAME,P1_001N&for=county:*&in=state:48`;
   const response = await fetch(url, { headers: { accept: 'application/json' } });
-  if (!response.ok) return undefined;
+  if (!response.ok) return new Map<string, number>();
   const rows = await response.json() as string[][];
-  const value = Number(rows?.[1]?.[1]);
-  return Number.isFinite(value) ? value : undefined;
+  const result = new Map<string, number>();
+  for (const row of rows.slice(1)) {
+    const value = Number(row[1]);
+    const countyCode = row[3];
+    if (countyCode && Number.isFinite(value)) result.set(countyCode, value);
+  }
+  return result;
 }
 
-async function fetchGeography(countyCode: string) {
-  const url = `${CENSUS_GEOINFO_API}?get=NAME,AREALAND,AREAWATR,INTPTLAT,INTPTLON&for=county:${countyCode}&in=state:48`;
+async function fetchCountyGeographies() {
+  const url = `${CENSUS_GEOINFO_API}?get=NAME,AREALAND,AREAWATR,INTPTLAT,INTPTLON&for=county:*&in=state:48`;
   const response = await fetch(url, { headers: { accept: 'application/json' } });
-  if (!response.ok) return {};
+  if (!response.ok) return new Map<string, CountyGeography>();
   const rows = await response.json() as string[][];
-  const row = rows?.[1];
-  if (!row) return {};
   const squareMetersPerSquareMile = 2_589_988.110336;
-  const land = Number(row[1]);
-  const water = Number(row[2]);
-  const latitude = Number(row[3]);
-  const longitude = Number(row[4]);
-  return {
-    landAreaSquareMiles: Number.isFinite(land) ? land / squareMetersPerSquareMile : undefined,
-    waterAreaSquareMiles: Number.isFinite(water) ? water / squareMetersPerSquareMile : undefined,
-    latitude: Number.isFinite(latitude) ? latitude : undefined,
-    longitude: Number.isFinite(longitude) ? longitude : undefined,
-  };
+  const result = new Map<string, CountyGeography>();
+  for (const row of rows.slice(1)) {
+    const countyCode = row[6];
+    if (!countyCode) continue;
+    const land = Number(row[1]);
+    const water = Number(row[2]);
+    const latitude = Number(row[3]);
+    const longitude = Number(row[4]);
+    result.set(countyCode, {
+      landAreaSquareMiles: Number.isFinite(land) ? land / squareMetersPerSquareMile : undefined,
+      waterAreaSquareMiles: Number.isFinite(water) ? water / squareMetersPerSquareMile : undefined,
+      latitude: Number.isFinite(latitude) ? latitude : undefined,
+      longitude: Number.isFinite(longitude) ? longitude : undefined,
+    });
+  }
+  return result;
+}
+
+function normalizeCountyKey(value: string) {
+  return value.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+}
+
+function stripHtml(value: string) {
+  return decodeEntities(value.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim());
 }
 
 function decodeEntities(value: string) {
-  return value.replace(/&amp;/g, '&').replace(/&#0*39;|&apos;/g, "'").replace(/&quot;/g, '"');
+  return value.replace(/&amp;/g, '&').replace(/&#0*39;|&apos;/g, "'").replace(/&quot;/g, '"').replace(/&nbsp;/g, ' ');
 }
 
 export function countyProfileDescription(countyName: string, profile: CountyProfile) {
