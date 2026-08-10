@@ -26,3 +26,25 @@ export function rankRelatedEntities(entity: TexasEntityRecord, graph: TexasEntit
 export function canonicalEntityPath(entity: Pick<TexasEntityRecord, 'kind' | 'slug'>) {
   return `/${entity.kind}/${entity.slug}`;
 }
+
+/**
+ * Search-index quality gate for generic knowledge-graph entity pages.
+ * A record must be active/seasonal, source-backed, recently reviewable, and
+ * contain enough entity-specific information to avoid publishing thin pages.
+ */
+export function isIndexableEntityPage(entity: TexasEntityRecord) {
+  if (!['active', 'seasonal'].includes(entity.status)) return false;
+  if (!entity.description || entity.description.trim().length < 80) return false;
+  if (!entity.officialUrl || !entity.sourceCheckedAt) return false;
+  if (!['official', 'high'].includes(entity.sourceConfidence)) return false;
+
+  const contextSignals = [
+    Boolean(entity.coordinates),
+    Boolean(entity.countySlug),
+    Boolean(entity.region),
+    Boolean(entity.tags?.length && entity.tags.length >= 2),
+    Boolean(entity.relationships.length),
+  ].filter(Boolean).length;
+
+  return contextSignals >= 2;
+}
