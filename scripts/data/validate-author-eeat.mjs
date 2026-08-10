@@ -7,6 +7,7 @@ const articleBody = fs.readFileSync('src/components/editorial/ArticleBody.tsx', 
 const sitemap = fs.readFileSync('src/routes/sitemap[.]xml.ts', 'utf8');
 const about = fs.readFileSync('src/routes/about.tsx', 'utf8');
 const desks = fs.readFileSync('src/data/editorial-desks.ts', 'utf8');
+const legacyFixture = fs.readFileSync('src/data/fixtures/texas.ts', 'utf8');
 
 for (const feature of [
   'createFileRoute("/authors/$author")',
@@ -39,6 +40,15 @@ for (const feature of [
 
 for (const forbiddenName of ['Hollis Rains', 'Marisol Vega', 'Dell Whitaker']) {
   if (desks.includes(forbiddenName)) failures.push(`Fictional contributor must not be present in the live desk registry: ${forbiddenName}`);
+  if (legacyFixture.includes(forbiddenName)) failures.push(`Fictional contributor must not remain in legacy fixture data: ${forbiddenName}`);
+}
+
+for (const requiredDeskName of [
+  'Texas Defined Editorial Desk',
+  'Texas Defined Food & Culture Desk',
+  'Texas Defined Travel & Outdoors Desk',
+]) {
+  if (!legacyFixture.includes(requiredDeskName)) failures.push(`Legacy fixture must resolve legacy byline IDs to an institutional desk: ${requiredDeskName}`);
 }
 
 for (const feature of [
@@ -65,4 +75,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Institutional editorial desks, byline identity, sitemap discovery and editorial accountability signals are protected.');
+console.log('Institutional editorial desks, byline identity, legacy fixture safety, sitemap discovery and editorial accountability signals are protected.');
