@@ -1,4 +1,5 @@
 import { TEXAS_ENTITY_REGISTRY, findTexasEntity, relationshipsFor, validateTexasEntityRegistry } from '../texas-entity-registry';
+import { countyProfileDescription, loadCountyProfile } from '../county-profile';
 import { fetchExploreGraphEntities, hasRemoteExploreGraph } from './explore-adapter';
 import type { TexasEntityKind, TexasEntityRecord } from './types';
 
@@ -68,9 +69,28 @@ export async function findCompleteTexasEntity(value: string): Promise<TexasEntit
   const normalized = value.trim().toLowerCase();
   if (!normalized) return undefined;
   const staticMatch = findTexasEntity(value);
-  if (staticMatch) return staticMatch;
+  if (staticMatch) return enrichCountyEntity(staticMatch);
   const remote = await fetchExploreGraphEntities({ query: value, limit: 50 });
-  return remote.find((entity) => entity.id.toLowerCase() === normalized || entity.slug.toLowerCase() === normalized || entity.name.toLowerCase() === normalized || entity.aliases.some((alias) => alias.toLowerCase() === normalized));
+  const match = remote.find((entity) => entity.id.toLowerCase() === normalized || entity.slug.toLowerCase() === normalized || entity.name.toLowerCase() === normalized || entity.aliases.some((alias) => alias.toLowerCase() === normalized));
+  return match ? enrichCountyEntity(match) : undefined;
+}
+
+async function enrichCountyEntity(entity: TexasEntityRecord): Promise<TexasEntityRecord> {
+  if (entity.kind !== 'county') return entity;
+  try {
+    const profile = await loadCountyProfile(entity.slug, entity.name);
+    const coordinates = profile.latitude != null && profile.longitude != null
+      ? { latitude: profile.latitude, longitude: profile.longitude }
+      : entity.coordinates;
+    return {
+      ...entity,
+      description: countyProfileDescription(entity.name, profile),
+      coordinates,
+    };
+  } catch (error) {
+    console.error(`County profile enrichment unavailable for ${entity.slug}`, error);
+    return entity;
+  }
 }
 
 export function graphNeighbors(entityId: string) {
