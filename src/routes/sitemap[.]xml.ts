@@ -24,6 +24,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           platform.collections.list(scope),
           platform.taxonomy.categories(scope),
           platform.taxonomy.regions(scope),
+          platform.taxonomy.authors(scope),
           loadTexasKnowledgeGraph(),
         ]);
 
@@ -40,12 +41,13 @@ export const Route = createFileRoute("/sitemap.xml")({
           });
         }
 
-        const [articlesResult, fixtureDestinationsResult, collectionsResult, categoriesResult, regionsResult, graphResult] = coreResults;
+        const [articlesResult, fixtureDestinationsResult, collectionsResult, categoriesResult, regionsResult, authorsResult, graphResult] = coreResults;
         const articles = articlesResult.status === "fulfilled" ? articlesResult.value : [];
         const fixtureDestinations = fixtureDestinationsResult.status === "fulfilled" ? fixtureDestinationsResult.value : [];
         const collections = collectionsResult.status === "fulfilled" ? collectionsResult.value : [];
         const baseCategories = categoriesResult.status === "fulfilled" ? categoriesResult.value : [];
         const regions = regionsResult.status === "fulfilled" ? regionsResult.value : [];
+        const authors = authorsResult.status === "fulfilled" ? authorsResult.value : [];
         const graph = graphResult.status === "fulfilled" ? graphResult.value : [];
 
         const categoryMap = new Map(baseCategories.map((category) => [category.slug, category]));
@@ -72,6 +74,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           ...categories.map((category) => ({ path: `/explore/${category.slug}` })),
           ...regions.map((region) => ({ path: `/explore/region/${region.id}` })),
           ...collections.map((collection) => ({ path: `/shop/${collection.slug}` })),
+          ...authors.map((author) => ({ path: `/authors/${author.id}` })),
           ...articles.map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(article.publishedAt) })),
           ...destinations
             .filter((destination) => destination.slug)
