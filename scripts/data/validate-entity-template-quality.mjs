@@ -5,6 +5,8 @@ const schema = fs.readFileSync('src/data/property/county-property-schema.ts', 'u
 const countyRoute = fs.readFileSync('src/routes/property-tax.county.$county.tsx', 'utf8');
 const entityRelationships = fs.readFileSync('src/data/knowledge-graph/relationships.ts', 'utf8');
 const entityRoute = fs.readFileSync('src/routes/$kind.$slug.tsx', 'utf8');
+const entityIndex = fs.readFileSync('src/data/knowledge-graph/index.ts', 'utf8');
+const countyProfile = fs.readFileSync('src/data/county-profile.ts', 'utf8');
 const sitemap = fs.readFileSync('src/routes/sitemap[.]xml.ts', 'utf8');
 
 for (const feature of [
@@ -67,6 +69,31 @@ for (const forbiddenCopy of [
 }
 
 for (const feature of [
+  'loadCountyProfile(entity.slug, entity.name)',
+  'countyProfileDescription(entity.name, profile)',
+  "if (entity.kind !== 'county') return entity",
+  'coordinates,',
+]) {
+  if (!entityIndex.includes(feature)) errors.push(`County entity enrichment missing: ${feature}`);
+}
+
+for (const feature of [
+  'https://www.tsl.texas.gov/ref/abouttx/countyseats.html',
+  'https://api.census.gov/data/2020/dec/pl',
+  'https://api.census.gov/data/2020/geoinfo',
+  'fetchCountySeat',
+  'fetchPopulation',
+  'fetchGeography',
+  'countySeat',
+  'population2020',
+  'landAreaSquareMiles',
+  'majorCommunities',
+  'countyProfileDescription',
+]) {
+  if (!countyProfile.includes(feature)) errors.push(`County profile data contract missing: ${feature}`);
+}
+
+for (const feature of [
   'COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady)',
   '`/property-tax/county/${county.slug}`',
   'graph.filter(isIndexableEntityPage)',
@@ -85,4 +112,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('County and generated entity quality gates, kind-aware presentation, truthful incomplete-state copy, source specificity, noindex behavior, and qualified sitemap publication passed validation.');
+console.log('County and generated entity quality gates, kind-aware presentation, authoritative county profile enrichment, source specificity, noindex behavior, and qualified sitemap publication passed validation.');
