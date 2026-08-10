@@ -1,5 +1,6 @@
 import type { BrandId } from "@/brand/types";
 
+import { andrewsCountyAndrewsOilShafterLakeArticle } from "./fixtures/andrews-county-andrews-oil-shafter-lake";
 import { caddoLakeCypressMorningArticle } from "./fixtures/caddo-lake-cypress-morning";
 import { ectorCountyOdessaOilStonehengeArticle } from "./fixtures/ector-county-odessa-oil-stonehenge";
 import { fixturePlatform } from "./fixtures/repositories";
@@ -217,6 +218,9 @@ const articleRepository = {
     slug: Parameters<typeof fixturePlatform.articles.getBySlug>[1],
   ) {
     if (scope.brandId === "texasdefined") {
+      if (slug === andrewsCountyAndrewsOilShafterLakeArticle.slug) {
+        return normalizeArticle(andrewsCountyAndrewsOilShafterLakeArticle);
+      }
       if (slug === caddoLakeCypressMorningArticle.slug) {
         return normalizeArticle(caddoLakeCypressMorningArticle);
       }
