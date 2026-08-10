@@ -75,7 +75,9 @@ if (!exploreSitemap.includes('isIndexablePublicPath(normalized)')) failures.push
 if (!exploreSitemap.includes('normalizePublicPath(path)')) failures.push('Explore sitemap does not normalize/reject malformed paths.');
 if (!sitemap.includes('Promise.allSettled')) failures.push('Primary sitemap must convert upstream failures into an explicit retryable response.');
 if (!sitemap.includes('status: 503') || !sitemap.includes('"retry-after": "300"')) failures.push('Primary sitemap must return retryable 503 semantics on core data failure.');
-if (!sitemap.includes('remoteDestinations.length ? remoteDestinations : fixtureDestinations')) failures.push('Primary sitemap must fall back when the remote destination catalog is empty.');
+if (!sitemap.includes('let remoteFailed = false')) failures.push('Primary sitemap must track actual remote failure separately from an empty result.');
+if (!sitemap.includes('const destinations = remoteFailed ? fixtureDestinations : remoteDestinations')) failures.push('Primary sitemap must use fixtures only after an actual remote outage.');
+if (sitemap.includes('remoteDestinations.length ? remoteDestinations : fixtureDestinations')) failures.push('Primary sitemap must not treat a healthy empty remote catalog as an outage.');
 if (!sitemap.includes('stale-while-revalidate=86400')) failures.push('Primary sitemap cache policy must preserve a stale response while revalidating.');
 if (!exploreSitemap.includes('stale-while-revalidate=86400')) failures.push('Explore sitemap cache policy must preserve a stale response while revalidating.');
 

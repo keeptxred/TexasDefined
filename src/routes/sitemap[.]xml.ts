@@ -59,6 +59,7 @@ export const Route = createFileRoute("/sitemap.xml")({
         const categories = [...categoryMap.values()];
 
         let remoteDestinations = [] as Awaited<ReturnType<typeof fetchExploreDestinations>>;
+        let remoteFailed = false;
         try {
           remoteDestinations = await fetchExploreDestinations({ limit: 5000 });
         } catch (error) {
@@ -66,11 +67,12 @@ export const Route = createFileRoute("/sitemap.xml")({
           try {
             remoteDestinations = await fetchCoreExploreDestinations({ limit: 5000 });
           } catch (coreError) {
+            remoteFailed = true;
             console.error("Primary sitemap core remote catalog unavailable; using outage fixtures", coreError);
           }
         }
 
-        const destinations = remoteDestinations.length ? remoteDestinations : fixtureDestinations;
+        const destinations = remoteFailed ? fixtureDestinations : remoteDestinations;
         const countyPages = COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady);
         const entityPages = graph.filter(isIndexableEntityPage);
         const entries: SitemapEntry[] = [

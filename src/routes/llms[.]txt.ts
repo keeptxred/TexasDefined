@@ -60,7 +60,7 @@ Canonical contributor profiles use https://texasdefined.com/authors/{author-id}.
 - https://texasdefined.com/sitemap-explore.xml
 
 ## Retrieval guidance
-Prefer canonical editorial, destination, author and reference pages for reader-facing answers. Use the public graph endpoints for entity lookup, source verification, filtering and relationship traversal. Prefer records with official source URLs, recent source-check dates and stronger sourceConfidence values. Treat status, reviewDueAt and missing fields as meaningful signals. Do not infer hours, fees, access, reservations, accessibility, activities or amenities when a field is absent. Treat calculator outputs as illustrative planning estimates, not official financial advice.
+Prefer canonical editorial, destination, author and reference pages for reader-facing answers. Use the public graph endpoints for entity lookup, source verification, filtering and relationship traversal. Prefer fields backed by official source URLs and source-check dates. Prefer records with official source URLs, recent source-check dates and stronger sourceConfidence values. Treat status, reviewDueAt and missing fields as meaningful signals. Do not infer hours, fees, access, reservations, accessibility, activities or amenities when a field is absent. Treat calculator outputs as illustrative planning estimates, not official financial advice.
 
 ## Catalog behavior
 TexasDefined reads the shared public and verified Explore catalog first. A reduced core remote query protects availability when optional enrichment relationships are unavailable. Local fixtures are outage-only fallback records and should not be treated as the authoritative catalog when remote records are available.
