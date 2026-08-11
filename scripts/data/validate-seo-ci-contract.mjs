@@ -10,6 +10,7 @@ const directValidators = [
   'validate-public-route-governance.mjs',
   'validate-indexation-quality.mjs',
   'validate-crawl-demand.mjs',
+  'validate-freshness-signals.mjs',
   'validate-machine-indexing.mjs',
   'validate-aeo-answer-layers.mjs',
   'validate-homepage-seo.mjs',
