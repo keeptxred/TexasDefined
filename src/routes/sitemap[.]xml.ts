@@ -3,17 +3,12 @@ import { createFileRoute } from "@tanstack/react-router";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { platform, scope } from "@/data";
 import { isLegacyCountySeriesArticle } from "@/data/county-series";
-import { isPrimaryTripPlannerDestination } from "@/data/destination-availability";
-import { auditDestination } from "@/data/destination-audit";
-import { supplementalExploreCategories } from "@/data/explore-categories";
-import { fetchCoreExploreDestinations } from "@/data/explore-core-remote";
-import { fetchExploreDestinations } from "@/data/explore-remote";
 import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
 import { canonicalEntityPath, isIndexableEntityPage } from "@/data/knowledge-graph/relationships";
 import { COUNTY_PROPERTY_RECORDS } from "@/data/property/county-property-data";
 import { isCountyPropertyIndexReady } from "@/data/property/county-property-schema";
 import { TEXAS_DATASETS } from "@/data/texas-data-center";
-import { INDEXABLE_STATIC_PATHS, isIndexablePublicPath, normalizePublicPath } from "@/lib/public-routes";
+import { INDEXABLE_STATIC_PATHS, isExploreSitemapOwnedPath, isIndexablePublicPath, normalizePublicPath } from "@/lib/public-routes";
 
 const origin = `https://${texasDefinedBrand.identity.domain}`;
 
@@ -25,10 +20,7 @@ export const Route = createFileRoute("/sitemap.xml")({
       GET: async () => {
         const coreResults = await Promise.allSettled([
           platform.articles.list(scope),
-          platform.destinations.list(scope),
           platform.collections.list(scope),
-          platform.taxonomy.categories(scope),
-          platform.taxonomy.regions(scope),
           platform.taxonomy.authors(scope),
           loadTexasKnowledgeGraph(),
         ]);
@@ -46,54 +38,24 @@ export const Route = createFileRoute("/sitemap.xml")({
           });
         }
 
-        const [articlesResult, fixtureDestinationsResult, collectionsResult, categoriesResult, regionsResult, authorsResult, graphResult] = coreResults;
+        const [articlesResult, collectionsResult, authorsResult, graphResult] = coreResults;
         const articles = articlesResult.status === "fulfilled" ? articlesResult.value : [];
-        const fixtureDestinations = fixtureDestinationsResult.status === "fulfilled" ? fixtureDestinationsResult.value : [];
         const collections = collectionsResult.status === "fulfilled" ? collectionsResult.value : [];
-        const baseCategories = categoriesResult.status === "fulfilled" ? categoriesResult.value : [];
-        const regions = regionsResult.status === "fulfilled" ? regionsResult.value : [];
         const authors = authorsResult.status === "fulfilled" ? authorsResult.value : [];
         const graph = graphResult.status === "fulfilled" ? graphResult.value : [];
 
-        const categoryMap = new Map(baseCategories.map((category) => [category.slug, category]));
-        for (const category of supplementalExploreCategories) {
-          if (!categoryMap.has(category.slug)) categoryMap.set(category.slug, category);
-        }
-        const categories = [...categoryMap.values()];
-
-        let remoteDestinations = [] as Awaited<ReturnType<typeof fetchExploreDestinations>>;
-        let remoteFailed = false;
-        try {
-          remoteDestinations = await fetchExploreDestinations({ limit: 5000 });
-        } catch (error) {
-          console.error("Primary sitemap enrichment unavailable; retrying core remote catalog", error);
-          try {
-            remoteDestinations = await fetchCoreExploreDestinations({ limit: 5000 });
-          } catch (coreError) {
-            remoteFailed = true;
-            console.error("Primary sitemap core remote catalog unavailable; using outage fixtures", coreError);
-          }
-        }
-
-        const destinations = remoteFailed ? fixtureDestinations : remoteDestinations;
-        const indexableDestinations = destinations.filter((destination) => destination.slug).filter((destination) => {
-          if (!isPrimaryTripPlannerDestination(destination)) return false;
-          return auditDestination(destination).readyForIndexing;
-        });
         const countyPages = COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady);
         const entityPages = graph.filter(isIndexableEntityPage);
         const entries: SitemapEntry[] = [
-          ...INDEXABLE_STATIC_PATHS.map((path) => ({ path })),
+          ...INDEXABLE_STATIC_PATHS
+            .filter((path) => !isExploreSitemapOwnedPath(path))
+            .map((path) => ({ path })),
           ...(articles.length ? [{ path: "/news" }] : []),
-          ...categories.map((category) => ({ path: `/explore/${category.slug}` })),
-          ...regions.map((region) => ({ path: `/explore/region/${region.id}` })),
           ...collections.map((collection) => ({ path: `/shop/${collection.slug}` })),
           ...authors.map((author) => ({ path: `/authors/${author.id}` })),
           ...articles
             .filter((article) => !isLegacyCountySeriesArticle(article.slug))
             .map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(article.publishedAt) })),
-          ...indexableDestinations
-            .map((destination) => ({ path: `/destination/${destination.slug}`, lastmod: toDate(destination.sourceCheckedAt) })),
           ...countyPages.map((county) => ({ path: `/property-tax/county/${county.slug}`, lastmod: toDate(county.lastVerifiedAt ?? undefined) })),
           ...entityPages.map((entity) => ({ path: canonicalEntityPath(entity), lastmod: toDate(entity.sourceCheckedAt) })),
           ...TEXAS_DATASETS.map((dataset) => ({
