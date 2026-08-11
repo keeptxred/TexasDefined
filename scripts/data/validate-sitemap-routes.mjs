@@ -62,6 +62,7 @@ for (const feature of [
   'REDIRECT_ONLY_PATHS',
   'NON_INDEXABLE_PUBLIC_PATHS',
   'normalizePublicPath',
+  'isExploreSitemapOwnedPath',
   'value.startsWith("//")',
   'value.includes("?")',
   'value.includes("#")',
@@ -71,13 +72,21 @@ for (const feature of [
 }
 if (!sitemap.includes('isIndexablePublicPath(entry.path)')) failures.push('Primary sitemap does not filter entries through the public-path policy.');
 if (!sitemap.includes('normalizePublicPath(entry.path)')) failures.push('Primary sitemap does not normalize/reject malformed paths.');
+if (!sitemap.includes('.filter((path) => !isExploreSitemapOwnedPath(path))')) failures.push('Primary sitemap must exclude Explore-owned static paths.');
 if (!exploreSitemap.includes('isIndexablePublicPath(normalized)')) failures.push('Explore sitemap does not filter entries through the public-path policy.');
+if (!exploreSitemap.includes('isExploreSitemapOwnedPath(normalized)')) failures.push('Explore sitemap must reject paths outside its owned namespace.');
 if (!exploreSitemap.includes('normalizePublicPath(path)')) failures.push('Explore sitemap does not normalize/reject malformed paths.');
 if (!sitemap.includes('Promise.allSettled')) failures.push('Primary sitemap must convert upstream failures into an explicit retryable response.');
 if (!sitemap.includes('status: 503') || !sitemap.includes('"retry-after": "300"')) failures.push('Primary sitemap must return retryable 503 semantics on core data failure.');
-if (!sitemap.includes('let remoteFailed = false')) failures.push('Primary sitemap must track actual remote failure separately from an empty result.');
-if (!sitemap.includes('const destinations = remoteFailed ? fixtureDestinations : remoteDestinations')) failures.push('Primary sitemap must use fixtures only after an actual remote outage.');
-if (sitemap.includes('remoteDestinations.length ? remoteDestinations : fixtureDestinations')) failures.push('Primary sitemap must not treat a healthy empty remote catalog as an outage.');
+if (!exploreSitemap.includes('let remoteFailed = false')) failures.push('Explore sitemap must track actual remote failure separately from an empty result.');
+if (!exploreSitemap.includes('const destinations = remoteFailed ? fixtureDestinations : remoteDestinations')) failures.push('Explore sitemap must use fixtures only after an actual remote outage.');
+if (exploreSitemap.includes('remoteDestinations.length ? remoteDestinations : fixtureDestinations')) failures.push('Explore sitemap must not treat a healthy empty remote catalog as an outage.');
+if (!exploreSitemap.includes('isPrimaryTripPlannerDestination(destination)') || !exploreSitemap.includes('auditDestination(destination).readyForIndexing')) {
+  failures.push('Explore sitemap must publish only primary, quality-approved destinations.');
+}
+for (const lowValueDependency of ['fetchExploreDestinations', 'fetchCoreExploreDestinations', 'supplementalExploreCategories', 'platform.destinations.list', 'platform.taxonomy.categories', 'platform.taxonomy.regions']) {
+  if (sitemap.includes(lowValueDependency)) failures.push(`Primary sitemap must not load Explore-only dependency: ${lowValueDependency}.`);
+}
 if (!sitemap.includes('stale-while-revalidate=86400')) failures.push('Primary sitemap cache policy must preserve a stale response while revalidating.');
 if (!exploreSitemap.includes('stale-while-revalidate=86400')) failures.push('Explore sitemap cache policy must preserve a stale response while revalidating.');
 
@@ -152,4 +161,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Sitemap reliability, malformed-path rejection, migrated guide aliases, indexed regional collection quality, Explore-only category, noindex-route, redirect-route, and legacy destination validation passed.');
+console.log('Sitemap ownership, crawl-demand partitioning, quality gates, reliability, malformed-path rejection, migrated aliases, regional quality, and noindex/redirect policy validation passed.');
