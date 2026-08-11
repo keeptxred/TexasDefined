@@ -16,7 +16,7 @@ export function TexasPlaceDirectory({ mode }: { mode: "counties" | "cities" }) {
   const title = mode === "counties" ? "The Texas county directory" : "The Texas city directory";
   const intro = mode === "counties"
     ? "Find a county, then continue to local property-tax guides, official offices and public records."
-    : "Find a city, then continue to local stories, moving guidance and nearby places worth knowing.";
+    : "Find a Texas city, open its reference page, then continue to county context, local stories, moving guidance and planning tools.";
   const searchLabel = mode === "counties" ? "county" : "city";
   const current = mode === "counties" ? "Counties" : "Cities";
 
@@ -53,10 +53,10 @@ export function TexasPlaceDirectory({ mode }: { mode: "counties" | "cities" }) {
               : results.cities.map((city, index) => (
                   <li id={cityAnchor(city.slug)} key={city.slug} className={`border-b border-border py-7 sm:px-6 ${index % 3 === 0 ? "lg:pl-0" : ""} ${index % 3 !== 2 ? "lg:border-r" : ""}`}>
                     <p className="eyebrow text-primary">{city.region}</p>
-                    <h3 className="mt-3 font-display text-3xl leading-tight">{city.name}</h3>
-                    <p className="mt-3 text-sm leading-7 text-muted-foreground">{city.county} County · Local stories, living costs, moving guidance and nearby places.</p>
+                    <h3 className="mt-3 font-display text-3xl leading-tight">{city.name}, Texas</h3>
+                    <p className="mt-3 text-sm leading-7 text-muted-foreground">{city.name} is in {city.county} County · Open the city reference for county context, local information and related planning resources.</p>
                     <div className="mt-5 flex flex-wrap gap-x-5 gap-y-3">
-                      <Link className="eyebrow border-b border-primary pb-1 text-primary" to="/search" search={{ q: city.name }}>Explore {city.name} →</Link>
+                      <Link className="eyebrow border-b border-primary pb-1 text-primary" to="/$kind/$slug" params={{ kind: 'city', slug: city.slug }}>Explore {city.name}, Texas →</Link>
                       <Link className="eyebrow border-b border-primary pb-1 text-primary" to="/texas-salary-comparison-by-city">Compare salary →</Link>
                       <Link className="eyebrow border-b border-primary pb-1 text-primary" to="/texas-cost-of-living-calculator">Compare costs →</Link>
                     </div>
