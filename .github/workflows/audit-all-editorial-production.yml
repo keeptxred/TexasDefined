@@ -4,6 +4,8 @@ on:
   pull_request:
     paths:
       - '.github/workflows/audit-all-editorial-production.yml'
+      - 'src/components/content/CountyGuideSections.tsx'
+      - 'src/data/county-profile.ts'
       - 'src/data/county-series.ts'
       - 'src/data/index.ts'
       - 'src/data/fixtures/*county*.ts'
@@ -13,6 +15,8 @@ on:
       - main
     paths:
       - '.github/workflows/audit-all-editorial-production.yml'
+      - 'src/components/content/CountyGuideSections.tsx'
+      - 'src/data/county-profile.ts'
       - 'src/data/county-series.ts'
       - 'src/data/index.ts'
       - 'src/data/fixtures/*county*.ts'
@@ -149,7 +153,7 @@ jobs:
           node .audit-county-inventory.mjs
           rm .audit-county-inventory.mjs
 
-      - name: Require every canonical county page, structured layer, hero image, and legacy redirect to be live
+      - name: Require every canonical county page, numeric facts, editorial layer, hero image, and legacy redirect to be live
         shell: bash
         run: |
           set -euo pipefail
@@ -185,6 +189,13 @@ jobs:
               echo "WAIT structured-layer $url"
               return 1
             fi
+
+            for numeric_label in '2020 population' 'Land area' 'Water area'; do
+              if ! grep -Fqi "$numeric_label" "$html"; then
+                echo "WAIT numeric-fact label=$numeric_label $url"
+                return 1
+              fi
+            done
 
             image=$(python3 - "$html" <<'PY'
           import re
@@ -231,7 +242,7 @@ jobs:
               return 1
             fi
 
-            echo "PASS page=200 structured=present editorial=present image=200 mime=$image_type redirect=301 $url" | tee -a /tmp/results.txt
+            echo "PASS page=200 structured=present population=present land=present water=present editorial=present image=200 mime=$image_type redirect=301 $url" | tee -a /tmp/results.txt
             return 0
           }
 
@@ -245,7 +256,7 @@ jobs:
             done < /tmp/pending.tsv
 
             if [[ ! -s /tmp/next-pending.tsv ]]; then
-              echo "All registered canonical county pages are live in production with both data layers, raster hero MIME, and 301 legacy redirects."
+              echo "All registered canonical county pages are live in production with county numeric facts, both data layers, raster hero MIME, and 301 legacy redirects."
               cat /tmp/results.txt
               exit 0
             fi
