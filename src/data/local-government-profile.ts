@@ -148,9 +148,9 @@ export function localOfficeDescription(countyName: string, kind: 'appraisal-dist
   if (office.email) details.push(`email ${office.email}`);
   const sourceNote = office.lastUpdated ? `The Texas Comptroller directory lists this information as updated ${office.lastUpdated}.` : 'The contact information is checked against the Texas Comptroller local property-tax directory.';
   if (kind === 'appraisal-district') {
-    return `${base} Central Appraisal District handles local property appraisal matters for ${countyName}, including property values, exemptions, agricultural appraisal, protests and appraisal records. ${details.join('; ')}. ${sourceNote}`;
+    return `${base} County Appraisal District, also commonly searched as ${base} CAD or ${base} Central Appraisal District, is the local property appraisal authority for ${countyName}. Use the district for property search and appraisal records, appraised values, homestead and other exemptions, agricultural appraisal, and property-tax protests. ${details.join('; ')}. ${sourceNote}`;
   }
-  return `${countyName} Tax Office is the county tax assessor-collector reference for local tax-payment information and county tax services. County tax offices also commonly handle vehicle title and registration services in partnership with TxDMV. ${details.join('; ')}. ${sourceNote}`;
+  return `${countyName} Tax Office is the county tax assessor-collector reference for property-tax bills, tax-payment information and county tax services. Residents commonly use the office to find payment options, due-date information and local tax records; county tax offices also commonly handle vehicle title and registration services in partnership with TxDMV. ${details.join('; ')}. ${sourceNote}`;
 }
 
 async function fetchText(url: string) {
