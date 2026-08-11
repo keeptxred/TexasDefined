@@ -2,8 +2,8 @@ import { TEXAS_CITIES } from '@/data/texas-places';
 import { getCountyPropertyRecordBySlug } from '@/data/property/county-property-data';
 
 const TSL_COUNTY_SEATS_URL = 'https://www.tsl.texas.gov/ref/abouttx/countyseats.html';
-const CENSUS_POPULATION_API = 'https://api.census.gov/data/2020/dec/pl';
-const CENSUS_GEOINFO_API = 'https://api.census.gov/data/2020/geoinfo';
+const CENSUS_TIGERWEB_COUNTIES_URL = 'https://tigerweb.geo.census.gov/arcgis/rest/services/Census2020/State_County/MapServer/1/query';
+const CENSUS_TIGERWEB_SOURCE_URL = 'https://tigerweb.geo.census.gov/arcgis/rest/services/Census2020/State_County/MapServer/1';
 
 export type CountySeatPlace = {
   name: string;
@@ -26,17 +26,28 @@ export type CountyProfile = {
   sourceUrls: string[];
 };
 
-type CountyGeography = {
+type CountyCensusFacts = {
+  population2020?: number;
   landAreaSquareMiles?: number;
   waterAreaSquareMiles?: number;
   latitude?: number;
   longitude?: number;
 };
 
+type TigerwebCountyFeature = {
+  attributes?: {
+    COUNTY?: string | number;
+    POP100?: string | number;
+    AREALAND?: string | number;
+    AREAWATER?: string | number;
+    INTPTLAT?: string | number;
+    INTPTLON?: string | number;
+  };
+};
+
 const cache = new Map<string, Promise<CountyProfile>>();
 let countySeatsPromise: Promise<Map<string, string>> | undefined;
-let countyPopulationPromise: Promise<Map<string, number>> | undefined;
-let countyGeographyPromise: Promise<Map<string, CountyGeography>> | undefined;
+let countyCensusFactsPromise: Promise<Map<string, CountyCensusFacts>> | undefined;
 
 export function loadCountyProfile(slug: string, countyName: string) {
   const cached = cache.get(slug);
@@ -57,32 +68,29 @@ async function fetchCountyProfile(slug: string, countyName: string): Promise<Cou
     .sort((a, b) => a.localeCompare(b));
 
   countySeatsPromise ??= fetchCountySeats();
-  countyPopulationPromise ??= fetchCountyPopulations();
-  countyGeographyPromise ??= fetchCountyGeographies();
+  countyCensusFactsPromise ??= fetchCountyCensusFacts();
 
-  const [seatsResult, populationsResult, geographyResult] = await Promise.allSettled([
+  const [seatsResult, censusFactsResult] = await Promise.allSettled([
     countySeatsPromise,
-    countyPopulationPromise,
-    countyGeographyPromise,
+    countyCensusFactsPromise,
   ]);
 
   const countySeatName = seatsResult.status === 'fulfilled' ? seatsResult.value.get(normalizeCountyKey(baseName)) : undefined;
   const countySeatPlace = countySeatName ? toCountySeatPlace(countySeatName) : undefined;
   const countySeat = countySeatPlace?.displayName;
-  const population2020 = populationsResult.status === 'fulfilled' && countyCode ? populationsResult.value.get(countyCode) : undefined;
-  const geography = geographyResult.status === 'fulfilled' && countyCode ? geographyResult.value.get(countyCode) ?? {} : {};
+  const censusFacts = censusFactsResult.status === 'fulfilled' && countyCode ? censusFactsResult.value.get(countyCode) ?? {} : {};
   const majorCommunities = Array.from(new Set([countySeatName, ...knownCommunities].filter((value): value is string => Boolean(value))));
 
   return {
     countySeat,
     countySeatPlace,
-    population2020,
-    landAreaSquareMiles: geography.landAreaSquareMiles,
-    waterAreaSquareMiles: geography.waterAreaSquareMiles,
-    latitude: geography.latitude,
-    longitude: geography.longitude,
+    population2020: censusFacts.population2020,
+    landAreaSquareMiles: censusFacts.landAreaSquareMiles,
+    waterAreaSquareMiles: censusFacts.waterAreaSquareMiles,
+    latitude: censusFacts.latitude,
+    longitude: censusFacts.longitude,
     majorCommunities,
-    sourceUrls: [TSL_COUNTY_SEATS_URL, CENSUS_POPULATION_API, CENSUS_GEOINFO_API],
+    sourceUrls: [TSL_COUNTY_SEATS_URL, CENSUS_TIGERWEB_SOURCE_URL],
   };
 }
 
@@ -112,42 +120,45 @@ async function fetchCountySeats() {
   return result;
 }
 
-async function fetchCountyPopulations() {
-  const url = `${CENSUS_POPULATION_API}?get=NAME,P1_001N&for=county:*&in=state:48`;
+async function fetchCountyCensusFacts() {
+  const url = new URL(CENSUS_TIGERWEB_COUNTIES_URL);
+  url.searchParams.set('where', "STATE='48'");
+  url.searchParams.set('outFields', 'COUNTY,POP100,AREALAND,AREAWATER,INTPTLAT,INTPTLON');
+  url.searchParams.set('returnGeometry', 'false');
+  url.searchParams.set('f', 'json');
+
   const response = await fetch(url, { headers: { accept: 'application/json' } });
-  if (!response.ok) return new Map<string, number>();
-  const rows = await response.json() as string[][];
-  const result = new Map<string, number>();
-  for (const row of rows.slice(1)) {
-    const value = Number(row[1]);
-    const countyCode = row[3];
-    if (countyCode && Number.isFinite(value)) result.set(countyCode, value);
+  if (!response.ok) return new Map<string, CountyCensusFacts>();
+
+  const payload = await response.json() as { features?: TigerwebCountyFeature[] };
+  const squareMetersPerSquareMile = 2_589_988.110336;
+  const result = new Map<string, CountyCensusFacts>();
+
+  for (const feature of payload.features ?? []) {
+    const attributes = feature.attributes;
+    if (!attributes?.COUNTY) continue;
+    const countyCode = String(attributes.COUNTY).padStart(3, '0');
+    const population = finiteNumber(attributes.POP100);
+    const land = finiteNumber(attributes.AREALAND);
+    const water = finiteNumber(attributes.AREAWATER);
+    const latitude = finiteNumber(attributes.INTPTLAT);
+    const longitude = finiteNumber(attributes.INTPTLON);
+
+    result.set(countyCode, {
+      population2020: population,
+      landAreaSquareMiles: land != null ? land / squareMetersPerSquareMile : undefined,
+      waterAreaSquareMiles: water != null ? water / squareMetersPerSquareMile : undefined,
+      latitude,
+      longitude,
+    });
   }
+
   return result;
 }
 
-async function fetchCountyGeographies() {
-  const url = `${CENSUS_GEOINFO_API}?get=NAME,AREALAND,AREAWATR,INTPTLAT,INTPTLON&for=county:*&in=state:48`;
-  const response = await fetch(url, { headers: { accept: 'application/json' } });
-  if (!response.ok) return new Map<string, CountyGeography>();
-  const rows = await response.json() as string[][];
-  const squareMetersPerSquareMile = 2_589_988.110336;
-  const result = new Map<string, CountyGeography>();
-  for (const row of rows.slice(1)) {
-    const countyCode = row[6];
-    if (!countyCode) continue;
-    const land = Number(row[1]);
-    const water = Number(row[2]);
-    const latitude = Number(row[3]);
-    const longitude = Number(row[4]);
-    result.set(countyCode, {
-      landAreaSquareMiles: Number.isFinite(land) ? land / squareMetersPerSquareMile : undefined,
-      waterAreaSquareMiles: Number.isFinite(water) ? water / squareMetersPerSquareMile : undefined,
-      latitude: Number.isFinite(latitude) ? latitude : undefined,
-      longitude: Number.isFinite(longitude) ? longitude : undefined,
-    });
-  }
-  return result;
+function finiteNumber(value: string | number | undefined) {
+  const parsed = Number(value);
+  return Number.isFinite(parsed) ? parsed : undefined;
 }
 
 function normalizeCountyKey(value: string) {
