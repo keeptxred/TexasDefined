@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { AnswerSummary } from "@/components/content/AnswerSummary";
-import { TexasPlaceDirectory } from "@/components/directories/TexasPlaceDirectory";
+import { cityAnchor, TexasPlaceDirectory } from "@/components/directories/TexasPlaceDirectory";
 import { TEXAS_CITIES } from "@/data/texas-places";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
@@ -45,7 +45,7 @@ export const Route = createFileRoute("/browse/cities")({
                 return {
                   "@type": "ListItem",
                   position: index + 1,
-                  url: cityUrl,
+                  url: `${pageUrl}#${cityAnchor(city.slug)}`,
                   item: {
                     "@type": "City",
                     "@id": `${cityUrl}#entity`,
