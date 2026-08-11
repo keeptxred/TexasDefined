@@ -3,6 +3,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { platform, scope } from "@/data";
 import { isLegacyCountySeriesArticle } from "@/data/county-series";
+import { isPrimaryTripPlannerDestination } from "@/data/destination-availability";
+import { auditDestination } from "@/data/destination-audit";
 import { supplementalExploreCategories } from "@/data/explore-categories";
 import { fetchCoreExploreDestinations } from "@/data/explore-core-remote";
 import { fetchExploreDestinations } from "@/data/explore-remote";
@@ -74,6 +76,10 @@ export const Route = createFileRoute("/sitemap.xml")({
         }
 
         const destinations = remoteFailed ? fixtureDestinations : remoteDestinations;
+        const indexableDestinations = destinations.filter((destination) => {
+          if (!destination.slug || !isPrimaryTripPlannerDestination(destination)) return false;
+          return auditDestination(destination).readyForIndexing;
+        });
         const countyPages = COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady);
         const entityPages = graph.filter(isIndexableEntityPage);
         const entries: SitemapEntry[] = [
@@ -85,8 +91,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           ...articles
             .filter((article) => !isLegacyCountySeriesArticle(article.slug))
             .map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(article.publishedAt) })),
-          ...destinations
-            .filter((destination) => destination.slug)
+          ...indexableDestinations
             .map((destination) => ({ path: `/destination/${destination.slug}`, lastmod: toDate(destination.sourceCheckedAt) })),
           ...countyPages.map((county) => ({ path: `/property-tax/county/${county.slug}`, lastmod: toDate(county.lastVerifiedAt ?? undefined) })),
           ...entityPages.map((entity) => ({ path: canonicalEntityPath(entity), lastmod: toDate(entity.sourceCheckedAt) })),
