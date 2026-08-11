@@ -6,6 +6,7 @@ import { ectorCountyOdessaOilStonehengeArticle } from "@/data/fixtures/ector-cou
 import { elPasoCountyPassMissionsBorderlandsArticle } from "@/data/fixtures/el-paso-county-pass-missions-borderlands";
 import { hudspethCountySierraBlancaSaltFlatsArticle } from "@/data/fixtures/hudspeth-county-sierra-blanca-salt-flats";
 import { jeffDavisCountyFortDavisMountainsArticle } from "@/data/fixtures/jeff-davis-county-fort-davis-mountains";
+import { midlandCountyRailroadOilHighPlainsArticle } from "@/data/fixtures/midland-county-railroad-oil-high-plains";
 import { pecosCountyFortStocktonComancheSpringsArticle } from "@/data/fixtures/pecos-county-fort-stockton-comanche-springs";
 import { presidioCountyMarfaBorderlandsArticle } from "@/data/fixtures/presidio-county-marfa-borderlands";
 import { randallCountyCanyonPaloDuroArticle } from "@/data/fixtures/randall-county-canyon-palo-duro";
@@ -34,6 +35,7 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   { countySlug: "ector", article: ectorCountyOdessaOilStonehengeArticle },
   { countySlug: "randall", article: randallCountyCanyonPaloDuroArticle },
   { countySlug: "tom-green", article: tomGreenCountySanAngeloConchoArticle },
+  { countySlug: "midland", article: midlandCountyRailroadOilHighPlainsArticle },
 ];
 
 const byCountySlug = new Map(COUNTY_SERIES_PROFILES.map((profile) => [profile.countySlug, profile.article]));
