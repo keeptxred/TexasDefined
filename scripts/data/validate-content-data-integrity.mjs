@@ -21,13 +21,18 @@ for (const feature of [
   'fetchCoreExploreDestinations({ limit: 5000 })',
   'let remoteFailed = false',
   'remoteFailed = true',
-  'remoteDestinations.length ? remoteDestinations : fixtureDestinations',
+  'const destinations = remoteFailed ? fixtureDestinations : remoteDestinations',
   'if (remoteFailed && destinations.length === 0)',
   'status: 503',
   '"Retry-After": "300"',
   'new Map(destinations.filter((item) => item.slug)',
+  'isPrimaryTripPlannerDestination(destination)',
+  'auditDestination(destination).readyForIndexing',
 ]) {
-  if (!exploreSitemap.includes(feature)) errors.push(`Explore sitemap fallback feature missing: ${feature}.`);
+  if (!exploreSitemap.includes(feature)) errors.push(`Explore sitemap fallback or quality feature missing: ${feature}.`);
+}
+if (exploreSitemap.includes('remoteDestinations.length ? remoteDestinations : fixtureDestinations')) {
+  errors.push('Explore sitemap must not treat a healthy empty remote catalog as an outage.');
 }
 
 if (errors.length) {
@@ -36,4 +41,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Event freshness and Explore sitemap fallback validation passed.');
+console.log('Event freshness and Explore sitemap outage-only fallback plus quality-gate validation passed.');
