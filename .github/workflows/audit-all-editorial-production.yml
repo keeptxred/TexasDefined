@@ -149,7 +149,7 @@ jobs:
           node .audit-county-inventory.mjs
           rm .audit-county-inventory.mjs
 
-      - name: Require every canonical county page and hero image to be live
+      - name: Require every canonical county page, structured layer, hero image, and legacy redirect to be live
         shell: bash
         run: |
           set -euo pipefail
@@ -161,8 +161,9 @@ jobs:
             local legacy_slug="$2"
             local title="$3"
             local url="https://texasdefined.com/county/$county_slug"
+            local legacy_url="https://texasdefined.com/article/$legacy_slug"
             local html="/tmp/county-${county_slug}.html"
-            local code image image_code
+            local code image image_result image_code image_type redirect_result redirect_code redirect_url
 
             code=$(curl -L -sS -o "$html" -w '%{http_code}' --max-time 25 "$url" || echo 000)
             if [[ "$code" != "200" ]]; then
@@ -176,11 +177,13 @@ jobs:
             fi
 
             if ! grep -Fqi "$title" "$html"; then
-              county_name=$(printf '%s' "$title" | sed 's/:.*//')
-              if ! grep -Fqi "$county_name" "$html"; then
-                echo "WAIT expected-content legacy=$legacy_slug $url"
-                return 1
-              fi
+              echo "WAIT editorial-layer title=$title $url"
+              return 1
+            fi
+
+            if ! grep -Fqi 'The county in numbers' "$html"; then
+              echo "WAIT structured-layer $url"
+              return 1
             fi
 
             image=$(python3 - "$html" <<'PY'
@@ -210,13 +213,25 @@ jobs:
               image="https://texasdefined.com$image"
             fi
 
-            image_code=$(curl -L -sS -o /dev/null -w '%{http_code}' --max-time 25 "$image" || echo 000)
+            image_result=$(curl -L -sS -o /dev/null -w '%{http_code}\t%{content_type}' --max-time 25 "$image" || printf '000\t')
+            IFS=$'\t' read -r image_code image_type <<< "$image_result"
             if [[ "$image_code" != "200" ]]; then
               echo "WAIT image=$image_code $image ($url)"
               return 1
             fi
+            if [[ ! "$image_type" =~ ^image/(jpeg|png|webp)(\;.*)?$ ]]; then
+              echo "WAIT image-mime=$image_type $image ($url)"
+              return 1
+            fi
 
-            echo "PASS page=200 image=200 $url" | tee -a /tmp/results.txt
+            redirect_result=$(curl -sS -o /dev/null -w '%{http_code}\t%{redirect_url}' --max-time 25 "$legacy_url" || printf '000\t')
+            IFS=$'\t' read -r redirect_code redirect_url <<< "$redirect_result"
+            if [[ "$redirect_code" != "301" || "$redirect_url" != "$url" ]]; then
+              echo "WAIT legacy-redirect=$redirect_code target=$redirect_url expected=$url ($legacy_url)"
+              return 1
+            fi
+
+            echo "PASS page=200 structured=present editorial=present image=200 mime=$image_type redirect=301 $url" | tee -a /tmp/results.txt
             return 0
           }
 
@@ -230,7 +245,7 @@ jobs:
             done < /tmp/pending.tsv
 
             if [[ ! -s /tmp/next-pending.tsv ]]; then
-              echo "All registered canonical county pages are live in production."
+              echo "All registered canonical county pages are live in production with both data layers, raster hero MIME, and 301 legacy redirects."
               cat /tmp/results.txt
               exit 0
             fi
@@ -241,6 +256,6 @@ jobs:
             if [[ "$attempt" -lt 12 ]]; then sleep 30; fi
           done
 
-          echo "County production verification failed. These canonical county pages are not live with expected content and working hero images:"
+          echo "County production verification failed. These canonical county pages are not live with all required publication gates:"
           cut -f1 /tmp/pending.tsv
           exit 1
