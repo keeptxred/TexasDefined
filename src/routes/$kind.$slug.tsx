@@ -17,6 +17,7 @@ import { buildMeta, canonicalLink } from '@/lib/seo';
 
 const siteUrl = 'https://texasdefined.com';
 const localGovernmentKinds = new Set(['county', 'appraisal-district', 'tax-office', 'county-clerk', 'dps-office']);
+const referenceKinds = new Set([...localGovernmentKinds, 'agency']);
 
 export const Route = createFileRoute('/$kind/$slug')({
   loader: async ({ params }) => {
@@ -34,12 +35,12 @@ export const Route = createFileRoute('/$kind/$slug')({
   head: ({ loaderData }) => {
     if (!loaderData) return {};
     const canonicalPath = canonicalEntityPath(loaderData.entity);
-    const description = pageDescription(loaderData.entity);
+    const description = searchSnippetDescription(loaderData.entity);
     const indexable = isIndexableEntityPage(loaderData.entity);
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
-        title: loaderData.entity.name,
+        title: searchIntentTitle(loaderData.entity),
         description,
         robots: indexable ? undefined : 'noindex, follow, max-image-preview:large',
       }),
@@ -177,6 +178,29 @@ function relatedForDisplay(entity: TexasEntityRecord, related: RankedRelatedEnti
   ).slice(0, 6);
 }
 
+function searchIntentTitle(entity: TexasEntityRecord) {
+  if (entity.kind === 'appraisal-district' && entity.countySlug) return `${title(entity.countySlug)} County Appraisal District`;
+  if (entity.kind === 'tax-office' && entity.countySlug) return `${title(entity.countySlug)} County Tax Office`;
+  if (entity.kind === 'agency') return `${entity.name}: Services`;
+  return entity.name;
+}
+
+function searchSnippetDescription(entity: TexasEntityRecord) {
+  if (entity.kind === 'agency') {
+    const topics = entity.tags?.slice(0, 3).join(', ');
+    const topicCopy = topics ? `Find information on ${topics}` : 'See what the agency handles';
+    const officialCopy = entity.officialUrl ? ' and a verified link to its official Texas website' : '';
+    return `${entity.name}: ${topicCopy}${officialCopy}. Independent Texas Defined reference.`;
+  }
+  if (entity.kind === 'appraisal-district' && entity.countySlug) {
+    const countyName = `${title(entity.countySlug)} County`;
+    const officialCopy = entity.officialUrl ? ', plus a verified link to the official district website' : '';
+    if (entity.description) return `Find ${countyName} Appraisal District information for property search, appraisal records, exemptions and protests, with verified office details${officialCopy}. Independent Texas Defined reference.`;
+    return `${countyName} Appraisal District reference from Texas Defined. Office and property-appraisal details are published as authoritative sources are verified.`;
+  }
+  return pageDescription(entity);
+}
+
 function pageDescription(entity: TexasEntityRecord) {
   if (entity.description) return entity.description;
   if (entity.kind === 'county') return `${entity.name} county guide from Texas Defined, combining verified geography, communities, Census facts and official local resources.`;
@@ -212,6 +236,7 @@ function sourceStatus(entity: TexasEntityRecord) {
 
 function officialLinkLabel(kind: string) {
   if (kind === 'county') return 'Official county website';
+  if (kind === 'agency') return 'Official agency website';
   if (kind === 'appraisal-district') return 'Official appraisal district';
   if (kind === 'tax-office') return 'Official tax office';
   if (kind === 'county-clerk') return 'Official county clerk';
@@ -219,20 +244,22 @@ function officialLinkLabel(kind: string) {
   return 'Official information';
 }
 
-function notesEyebrow(kind: string) { return localGovernmentKinds.has(kind) ? 'Reference notes' : 'Field notes'; }
+function notesEyebrow(kind: string) { return referenceKinds.has(kind) ? 'Reference notes' : 'Field notes'; }
 function notesHeading(kind: string) {
   if (kind === 'county') return 'What defines this county';
+  if (kind === 'agency') return 'What this agency handles';
   if (localGovernmentKinds.has(kind)) return 'What this office handles';
   return 'Why it belongs in the guide';
 }
-function relatedEyebrow(kind: string) { return localGovernmentKinds.has(kind) ? 'Useful connections' : 'Continue exploring'; }
+function relatedEyebrow(kind: string) { return referenceKinds.has(kind) ? 'Useful connections' : 'Continue exploring'; }
 function relatedHeading(kind: string) {
   if (kind === 'county') return 'County services and places';
+  if (kind === 'agency') return 'Related Texas resources';
   if (localGovernmentKinds.has(kind)) return 'Related county resources';
   return 'Nearby and related';
 }
-function relatedActionLabel(kind: string) { return localGovernmentKinds.has(kind) ? 'Open reference page' : 'Open the field guide'; }
-function breadcrumbSection(kind: string) { return localGovernmentKinds.has(kind) ? 'Texas reference' : 'Explore'; }
+function relatedActionLabel(kind: string) { return referenceKinds.has(kind) ? 'Open reference page' : 'Open the field guide'; }
+function breadcrumbSection(kind: string) { return referenceKinds.has(kind) ? 'Texas reference' : 'Explore'; }
 
 function Fact({ label, value }: { label: string; value?: string }) {
   return value ? <div className="border-b border-border py-3 last:border-b-0 lg:first:pt-0 lg:last:pb-0"><dt className="text-[0.68rem] uppercase tracking-[0.16em] text-muted-foreground">{label}</dt><dd className="mt-1 font-medium">{value}</dd></div> : null;
@@ -245,6 +272,7 @@ function formatCheckedDate(value: string) {
 function readerLabel(kind: string) {
   const labels: Record<string, string> = {
     county: 'County Guide', city: 'City Guide', region: 'Around the State', 'metro-area': 'City Life',
+    agency: 'Texas State Agency',
     'appraisal-district': 'Property Appraisal', 'tax-office': 'County Tax Office', 'county-clerk': 'County Clerk', 'dps-office': 'DPS Office',
     museum: 'Museum Guide', 'historic-site': 'Then & Now', mission: 'Texas History', battlefield: 'Texas History',
     attraction: 'Worth the Drive', fair: 'Texas Calendar', rodeo: 'Texas Calendar', festival: 'Texas Calendar',
@@ -253,6 +281,7 @@ function readerLabel(kind: string) {
   return labels[kind] ?? title(kind);
 }
 function schemaType(kind: string) {
+  if (kind === 'agency') return 'GovernmentOrganization';
   if (kind === 'city') return 'City';
   if (['county','region','metro-area'].includes(kind)) return 'AdministrativeArea';
   if (kind === 'museum') return 'Museum';
