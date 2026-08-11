@@ -24,6 +24,7 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   { countySlug: "midland", articleSlug: "midland-county-railroad-oil-high-plains-texas", loadArticle: () => import("@/data/fixtures/midland-county-railroad-oil-high-plains").then((module) => module.midlandCountyRailroadOilHighPlainsArticle) },
   { countySlug: "galveston", articleSlug: "galveston-county-island-port-juneteenth-texas", loadArticle: () => import("@/data/fixtures/galveston-county-island-port-juneteenth").then((module) => module.galvestonCountyIslandPortJuneteenthArticle) },
   { countySlug: "gillespie", articleSlug: "gillespie-county-fredericksburg-stonewall-hill-country-texas", loadArticle: () => import("@/data/fixtures/gillespie-county-fredericksburg-stonewall-hill-country").then((module) => module.gillespieCountyFredericksburgStonewallHillCountryArticle) },
+  { countySlug: "bexar", articleSlug: "bexar-county-san-antonio-missions-river-texas", loadArticle: () => import("@/data/fixtures/bexar-county-san-antonio-missions-river").then((module) => module.bexarCountySanAntonioMissionsRiverArticle) },
 ];
 
 const byCountySlug = new Map(COUNTY_SERIES_PROFILES.map((profile) => [profile.countySlug, profile]));
