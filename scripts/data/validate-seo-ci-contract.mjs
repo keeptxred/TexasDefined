@@ -24,6 +24,7 @@ const directValidators = [
   'validate-content-duplication.mjs',
   'validate-sitemap-routes.mjs',
   'validate-internal-link-discovery.mjs',
+  'validate-search-intent-ctr.mjs',
 ];
 
 const delegatedValidators = [
