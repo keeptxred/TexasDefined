@@ -5,6 +5,7 @@ import { culbersonCountyVanHornGuadalupeMountainsArticle } from "@/data/fixtures
 import { ectorCountyOdessaOilStonehengeArticle } from "@/data/fixtures/ector-county-odessa-oil-stonehenge";
 import { elPasoCountyPassMissionsBorderlandsArticle } from "@/data/fixtures/el-paso-county-pass-missions-borderlands";
 import { galvestonCountyIslandPortJuneteenthArticle } from "@/data/fixtures/galveston-county-island-port-juneteenth";
+import { gillespieCountyFredericksburgStonewallHillCountryArticle } from "@/data/fixtures/gillespie-county-fredericksburg-stonewall-hill-country";
 import { hudspethCountySierraBlancaSaltFlatsArticle } from "@/data/fixtures/hudspeth-county-sierra-blanca-salt-flats";
 import { jeffDavisCountyFortDavisMountainsArticle } from "@/data/fixtures/jeff-davis-county-fort-davis-mountains";
 import { midlandCountyRailroadOilHighPlainsArticle } from "@/data/fixtures/midland-county-railroad-oil-high-plains";
@@ -38,6 +39,7 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   { countySlug: "tom-green", article: tomGreenCountySanAngeloConchoArticle },
   { countySlug: "midland", article: midlandCountyRailroadOilHighPlainsArticle },
   { countySlug: "galveston", article: galvestonCountyIslandPortJuneteenthArticle },
+  { countySlug: "gillespie", article: gillespieCountyFredericksburgStonewallHillCountryArticle },
 ];
 
 const byCountySlug = new Map(COUNTY_SERIES_PROFILES.map((profile) => [profile.countySlug, profile.article]));
