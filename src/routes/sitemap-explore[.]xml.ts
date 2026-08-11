@@ -1,11 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
+import { isPrimaryTripPlannerDestination } from "@/data/destination-availability";
+import { auditDestination } from "@/data/destination-audit";
 import { supplementalExploreCategories } from "@/data/explore-categories";
 import { fetchCoreExploreDestinations } from "@/data/explore-core-remote";
 import { categories, destinations as fixtureDestinations, regions } from "@/data/fixtures/texas";
 import { fetchExploreDestinations } from "@/data/explore-remote";
-import { isIndexablePublicPath, normalizePublicPath } from "@/lib/public-routes";
+import { isExploreSitemapOwnedPath, isIndexablePublicPath, normalizePublicPath } from "@/lib/public-routes";
 
 const BASE_URL = `https://${texasDefinedBrand.identity.domain}`;
 const EXPLORE_CATEGORY_SLUGS = new Set([
@@ -28,7 +30,7 @@ function validLastModified(value?: string): string | undefined {
 
 function entry(path: string, lastModified?: string): string | null {
   const normalized = normalizePublicPath(path);
-  if (!normalized || !isIndexablePublicPath(normalized)) return null;
+  if (!normalized || !isExploreSitemapOwnedPath(normalized) || !isIndexablePublicPath(normalized)) return null;
   const lastmod = validLastModified(lastModified);
   return `  <url>\n    <loc>${escapeXml(`${BASE_URL}${normalized}`)}</loc>${lastmod ? `\n    <lastmod>${lastmod}</lastmod>` : ""}\n  </url>`;
 }
@@ -51,7 +53,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           }
         }
 
-        const destinations = remoteDestinations.length ? remoteDestinations : fixtureDestinations;
+        const destinations = remoteFailed ? fixtureDestinations : remoteDestinations;
         if (remoteFailed && destinations.length === 0) {
           return new Response("Explore catalog temporarily unavailable", {
             status: 503,
@@ -72,7 +74,9 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           ...categorySlugs.map((slug) => `/explore/${slug}`),
           ...regionSlugs.map((regionSlug) => `/explore/region/${regionSlug}`),
         ];
-        const destinationEntries = [...new Map(destinations.filter((item) => item.slug).map((item) => [item.slug, item])).values()]
+        const indexableDestinations = [...new Map(destinations.filter((item) => item.slug).map((item) => [item.slug, item])).values()]
+          .filter((destination) => isPrimaryTripPlannerDestination(destination) && auditDestination(destination).readyForIndexing);
+        const destinationEntries = indexableDestinations
           .map((item) => entry(`/destination/${item.slug}`, item.sourceCheckedAt))
           .filter((item): item is string => Boolean(item));
         const staticEntries = [...new Set(staticPaths)]
