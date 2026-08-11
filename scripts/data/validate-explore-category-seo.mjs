@@ -18,7 +18,7 @@ const fixtures = fs.readFileSync(path.join(root, 'src/data/fixtures/texas.ts'), 
 const supplemental = fs.readFileSync(path.join(root, 'src/data/explore-categories.ts'), 'utf8');
 const queries = fs.readFileSync(path.join(root, 'src/data/queries.ts'), 'utf8');
 const remote = fs.readFileSync(path.join(root, 'src/data/explore-remote.ts'), 'utf8');
-const sitemap = fs.readFileSync(path.join(root, 'src/routes/sitemap[.]xml.ts'), 'utf8');
+const sitemap = fs.readFileSync(path.join(root, 'src/routes/sitemap-explore[.]xml.ts'), 'utf8');
 const brand = fs.readFileSync(path.join(root, 'src/brand/texasdefined.ts'), 'utf8');
 const errors = [];
 
@@ -103,9 +103,11 @@ for (const feature of [
 
 for (const feature of [
   'supplementalExploreCategories',
-  '...categories.map((category)',
-  '.filter((destination) => destination.slug)',
-  '.map((destination) => ({ path: `/destination/${destination.slug}`',
+  'categorySlugs.map((slug)',
+  'new Map(destinations.filter((item) => item.slug)',
+  'isPrimaryTripPlannerDestination(destination)',
+  'auditDestination(destination).readyForIndexing',
+  '.map((item) => entry(`/destination/${item.slug}`',
 ]) {
   if (!sitemap.includes(feature)) errors.push(`Explore sitemap feature missing: ${feature}.`);
 }
@@ -132,4 +134,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Explore categories, classification, filterable collections, taxonomy, navigation, sitemap, related links, regions, structured data, and breadcrumbs passed validation.');
+console.log('Explore categories, classification, filterable collections, taxonomy, navigation, dedicated quality-gated sitemap, related links, regions, structured data, and breadcrumbs passed validation.');
