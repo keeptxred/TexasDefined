@@ -76,10 +76,12 @@ export const Route = createFileRoute("/sitemap.xml")({
         }
 
         const destinations = remoteFailed ? fixtureDestinations : remoteDestinations;
-        const indexableDestinations = destinations.filter((destination) => {
-          if (!destination.slug || !isPrimaryTripPlannerDestination(destination)) return false;
-          return auditDestination(destination).readyForIndexing;
-        });
+        const indexableDestinations = destinations
+          .filter((destination) => destination.slug)
+          .filter((destination) => {
+            if (!isPrimaryTripPlannerDestination(destination)) return false;
+            return auditDestination(destination).readyForIndexing;
+          });
         const countyPages = COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady);
         const entityPages = graph.filter(isIndexableEntityPage);
         const entries: SitemapEntry[] = [
