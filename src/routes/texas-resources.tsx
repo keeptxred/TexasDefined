@@ -4,7 +4,7 @@ import { DepartmentHero } from '@/components/editorial/DepartmentHero';
 import { Container } from '@/components/layout/Container';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
-const description = 'A simple starting point for the questions that come with moving, buying, owning a home and finding your way around the state.';
+const description = 'A practical starting point for moving, buying, owning a home, finding Texas state agencies and navigating everyday life across the state.';
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const pageUrl = `${siteUrl}/texas-resources`;
 
@@ -32,6 +32,21 @@ const groups: ReadonlyArray<ResourceGroup> = [
       ['Protest your appraisal', '/do/property-tax-protest'],
       ['First-time homebuyer help', '/texas-first-time-homebuyer-programs'],
       ['How sales tax works', '/texas-sales-tax-explained'],
+    ],
+  },
+  {
+    title: 'Texas state agencies and services',
+    links: [
+      ['Texas Secretary of State', '/agency/texas-secretary-of-state'],
+      ['Texas Comptroller', '/agency/texas-comptroller'],
+      ['Texas Department of Insurance', '/agency/texas-department-insurance'],
+      ['Texas Department of Motor Vehicles', '/agency/texas-dmv'],
+      ['Texas Commission on Environmental Quality', '/agency/texas-commission-environmental-quality'],
+      ['Texas Education Agency', '/agency/texas-education-agency'],
+      ['Texas Health and Human Services', '/agency/texas-health-human-services'],
+      ['Texas Parks and Wildlife', '/agency/texas-parks-wildlife'],
+      ['Texas Department of Public Safety', '/agency/texas-dps'],
+      ['Public Utility Commission of Texas', '/agency/public-utility-commission'],
     ],
   },
   {
@@ -78,7 +93,7 @@ const structuredData = {
     {
       '@type': 'ItemList',
       '@id': `${pageUrl}#resources`,
-      name: 'Practical guides for living here',
+      name: 'Practical guides and Texas state agency references',
       numberOfItems: itemListElement.length,
       itemListElement,
     },
@@ -97,7 +112,7 @@ export const Route = createFileRoute('/texas-resources')({
   head: () => ({
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath: '/texas-resources',
-      title: 'Start Here',
+      title: 'Texas Resources & State Agencies | Start Here',
       description,
     }),
     links: [canonicalLink(texasDefinedBrand, '/texas-resources')],
@@ -114,7 +129,7 @@ function Page() {
       <Container className="py-12 sm:py-16">
         <aside className="max-w-3xl border-y border-border py-5 text-sm leading-7 text-muted-foreground">
           <p className="eyebrow text-primary">How to use this page</p>
-          <p className="mt-3">Start with the question in front of you. These guides connect practical explanations with the official offices and records that matter when details need verification.</p>
+          <p className="mt-3">Start with the question in front of you. These guides connect practical explanations with Texas Defined reference pages for the state agencies, official offices and records that matter when details need verification.</p>
         </aside>
 
         <div className="mt-8 divide-y divide-border">
