@@ -16,7 +16,6 @@ import { BrandProvider } from "@/brand/context";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { installTexasDefinedAnalytics } from "@/platform/analytics";
 import { absoluteUrl } from "@/lib/seo";
 import { ShopCartProvider } from "@/lib/shop-cart";
 
@@ -153,7 +152,20 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-  useEffect(() => installTexasDefinedAnalytics(), []);
+  useEffect(() => {
+    let active = true;
+    let cleanup: (() => void) | undefined;
+
+    void import("@/platform/analytics").then(({ installTexasDefinedAnalytics }) => {
+      if (active) cleanup = installTexasDefinedAnalytics();
+    });
+
+    return () => {
+      active = false;
+      cleanup?.();
+    };
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <BrandProvider brand={texasDefinedBrand}>
