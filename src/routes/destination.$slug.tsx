@@ -2,6 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { AutoEntityLinks } from "@/components/content/AutoEntityLinks";
+import { AnswerSummary } from "@/components/content/AnswerSummary";
 import { ArticleCard } from "@/components/editorial/ArticleCard";
 import { DestinationRelationships } from "@/components/editorial/DestinationRelationships";
 import { DestinationVisitPlanner } from "@/components/editorial/DestinationVisitPlanner";
@@ -31,6 +32,14 @@ function checkedDate(value?: string) {
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return "";
   return date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+}
+
+function destinationSeoTitle(name: string, categoryName: string) {
+  const category = categoryName.toLowerCase();
+  if (category.includes("state park") || category.includes("natural area")) return `${name} | Texas State Park Guide`;
+  if (category.includes("lake") || category.includes("river")) return `${name} | Texas Lake & River Guide`;
+  if (category.includes("historic")) return `${name} | Texas Historic Site Guide`;
+  return `${name} | Texas Travel Guide`;
 }
 
 export const Route = createFileRoute("/destination/$slug")({
@@ -65,7 +74,7 @@ export const Route = createFileRoute("/destination/$slug")({
     const breadcrumbSchema = { "@type": "BreadcrumbList", "@id": `${url}#breadcrumbs`, itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` }, { "@type": "ListItem", position: 2, name: "Explore", item: `${siteUrl}/explore` }, { "@type": "ListItem", position: 3, name: categoryName, item: `${siteUrl}/explore/${destination.category}` }, { "@type": "ListItem", position: 4, name: destination.name, item: url }] };
     return {
       meta: [
-        ...buildMeta(texasDefinedBrand, { title: destination.name, description: destination.summary, canonicalPath, ...(hasUsableHero ? { image: destination.hero.src, imageAlt: destination.hero.alt } : {}) }),
+        ...buildMeta(texasDefinedBrand, { title: destinationSeoTitle(destination.name, categoryName), description: destination.summary, canonicalPath, ...(hasUsableHero ? { image: destination.hero.src, imageAlt: destination.hero.alt } : {}) }),
         ...(!indexable ? [{ name: "robots", content: "noindex, follow" }] : []),
       ],
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
@@ -87,6 +96,7 @@ function DestinationPage() {
   const limit = (requested: number) => Math.max(0, Math.min(requested, surfacePolicy.blockBudget, remainingLinks));
   const spend = (requested: number) => { const value = limit(requested); remainingLinks -= value; return value; };
   const verifiedLabel = checkedDate(destination.sourceCheckedAt);
+  const countySlug = destination.county?.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
   return <>
     <Container className="pt-10 sm:pt-14"><nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.14em] text-muted-foreground"><ol className="flex flex-wrap items-center gap-2"><li><Link to="/" className="hover:text-foreground">Front page</Link></li><li aria-hidden>·</li><li><Link to="/explore" className="hover:text-foreground">Explore</Link></li><li aria-hidden>·</li><li><Link to="/explore/$category" params={{ category: destination.category }} className="hover:text-foreground">{categoryName}</Link></li></ol></nav></Container>
@@ -102,6 +112,17 @@ function DestinationPage() {
       </Container>
     </section>
 
+    <AnswerSummary
+      eyebrow="Plan the visit"
+      title={`${destination.name} at a glance`}
+      items={[
+        { question: `Where is ${destination.name}?`, answer: `${destination.name} is near ${destination.nearestTown}, Texas${destination.county ? `, in ${destination.county} County` : ""}.` },
+        { question: `When is the best time to visit ${destination.name}?`, answer: destination.bestSeason },
+        { question: `Do I need to plan ahead for ${destination.name}?`, answer: destination.entryNote },
+        ...(destination.managingAuthority ? [{ question: `Who manages ${destination.name}?`, answer: destination.managingAuthority }] : []),
+      ]}
+    />
+
     <Container className="grid gap-14 py-16 lg:grid-cols-[minmax(0,1.65fr)_minmax(260px,.75fr)] lg:py-20">
       <div className="max-w-[44rem]">
         <section aria-labelledby="why-go" className="border-t border-border pt-8">
@@ -115,7 +136,7 @@ function DestinationPage() {
           <dl className="mt-8 grid border-y border-border sm:grid-cols-2">
             <div className="border-b border-border py-5 sm:border-r sm:pr-6"><dt className="eyebrow text-muted-foreground">Nearest town</dt><dd className="mt-2 text-base">Near <AutoEntityLinks text={destination.nearestTown} entities={graph} maxLinks={spend(1)} policy={destinationPolicy} />, Texas</dd></div>
             <div className="border-b border-border py-5 sm:pl-6"><dt className="eyebrow text-muted-foreground">Best season</dt><dd className="mt-2 text-base">{destination.bestSeason}</dd></div>
-            {destination.county && <div className="border-b border-border py-5 sm:border-r sm:pr-6"><dt className="eyebrow text-muted-foreground">County</dt><dd className="mt-2 text-base">{destination.county} County</dd></div>}
+            {destination.county && <div className="border-b border-border py-5 sm:border-r sm:pr-6"><dt className="eyebrow text-muted-foreground">County</dt><dd className="mt-2 text-base">{countySlug ? <Link to="/$kind/$slug" params={{ kind: "county", slug: countySlug }} className="underline decoration-primary/40 underline-offset-4 hover:text-primary">{destination.county} County</Link> : `${destination.county} County`}</dd></div>}
             {destination.address && <div className="border-b border-border py-5 sm:pl-6"><dt className="eyebrow text-muted-foreground">Address</dt><dd className="mt-2 text-base">{destination.address}</dd></div>}
             <div className="py-5 sm:col-span-2"><dt className="eyebrow text-muted-foreground">Entry & reservations</dt><dd className="mt-2 text-base leading-7">{destination.entryNote}</dd></div>
             {destination.accessibilityNotes && <div className="border-t border-border py-5 sm:col-span-2"><dt className="eyebrow text-muted-foreground">Accessibility</dt><dd className="mt-2 text-base leading-7">{destination.accessibilityNotes}</dd></div>}
@@ -134,6 +155,6 @@ function DestinationPage() {
     </Container>
 
     <DestinationRelationships destination={destination} groups={relationshipGroups} regionName={region?.name} />
-    {relatedArticles.length > 0 && <Section tone="surface"><Container><SectionHeader eyebrow="From the magazine" title="More stories from this part of Texas" /><ul className="mt-10 grid gap-8 sm:grid-cols-3">{relatedArticles.map((article) => <li key={article.id}><ArticleCard article={article} size="compact" /></li>)}</ul></Container></Section>}
+    {relatedArticles.length > 0 && <Section><SectionHeader eyebrow="Read next" title={`More from ${categoryName}`} /><div className="mt-8 grid gap-6 lg:grid-cols-3">{relatedArticles.map((article) => <ArticleCard key={article.id} article={article} />)}</div></Section>}
   </>;
 }
