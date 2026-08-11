@@ -29,11 +29,13 @@ for (const path of ['/tax-calculator', '/texas-financial-tools', '/texas-propert
   if (always.includes(`"${path}"`) || conditional.includes(`"${path}"`)) failures.push(`${path} must not be indexable.`);
 }
 
-for (const feature of ['isIndexableEntityPage', 'robots: indexable ? undefined : "noindex, follow"']) {
-  if (!entityRoute.includes(feature)) failures.push(`Generic entity indexation gate missing: ${feature}`);
+if (!entityRoute.includes('isIndexableEntityPage')) failures.push('Generic entity indexation gate missing: isIndexableEntityPage.');
+if (!entityRoute.includes('robots: indexable ? undefined :') || !entityRoute.includes('noindex, follow')) {
+  failures.push('Generic entity pages must emit a noindex directive when the quality gate fails.');
 }
-for (const feature of ['isCountyPropertyIndexReady', 'robots: indexReady ? undefined : "noindex, follow"']) {
-  if (!countyRoute.includes(feature)) failures.push(`County indexation gate missing: ${feature}`);
+if (!countyRoute.includes('isCountyPropertyIndexReady')) failures.push('County indexation gate missing: isCountyPropertyIndexReady.');
+if (!countyRoute.includes('robots: indexReady ? undefined :') || !countyRoute.includes('noindex, follow')) {
+  failures.push('County pages must emit a noindex directive when the quality gate fails.');
 }
 for (const feature of ['graph.filter(isIndexableEntityPage)', 'COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady)']) {
   if (!sitemap.includes(feature)) failures.push(`Primary sitemap quality gate missing: ${feature}`);
