@@ -8,6 +8,8 @@ const errors = [];
 const directValidators = [
   'validate-generated-page-quality.mjs',
   'validate-public-route-governance.mjs',
+  'validate-indexation-quality.mjs',
+  'validate-crawl-demand.mjs',
   'validate-machine-indexing.mjs',
   'validate-aeo-answer-layers.mjs',
   'validate-homepage-seo.mjs',
