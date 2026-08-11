@@ -110,7 +110,7 @@ async function enrichCountyEntity(entity: TexasEntityRecord): Promise<TexasEntit
     return {
       ...geographic,
       officialUrl: localGovernment.countyWebsiteUrl ?? geographic.officialUrl,
-      sourceCheckedAt: localGovernment.countyWebsiteUrl ? new Date().toISOString().slice(0, 10) : geographic.sourceCheckedAt,
+      sourceCheckedAt: geographic.sourceCheckedAt,
       tags: [...new Set([...(geographic.tags ?? []), 'county-government', 'county-reference'])],
     };
   } catch (error) {
@@ -137,7 +137,7 @@ async function enrichLocalOfficeEntity(entity: TexasEntityRecord): Promise<Texas
       ...entity,
       description,
       officialUrl: office.websiteUrl ?? entity.officialUrl,
-      sourceCheckedAt: office.lastUpdated ?? new Date().toISOString().slice(0, 10),
+      sourceCheckedAt: office.lastUpdated ?? entity.sourceCheckedAt,
       status: readyForPublication ? 'active' : entity.status,
       tags: [...new Set([
         ...(entity.tags ?? []),
