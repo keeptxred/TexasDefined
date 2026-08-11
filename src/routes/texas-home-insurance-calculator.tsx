@@ -34,7 +34,7 @@ export const Route = createFileRoute('/texas-home-insurance-calculator')({
   head: () =>
     buildCalculatorHead(texasDefinedBrand, {
       canonicalPath: '/texas-home-insurance-calculator',
-      title: 'Texas Homeowners Insurance Calculator | Estimate Home Insurance Cost',
+      title: 'Texas Homeowners Insurance Estimate Calculator',
       description,
       featureList: [
         'Estimate homeowners insurance without personal information',
@@ -50,7 +50,7 @@ function HomeInsuranceCalculatorPage() {
   return (
     <CalculatorPage
       eyebrow="Texas homeowners insurance estimator"
-      title="Texas homeowners insurance calculator"
+      title="Texas homeowners insurance estimate calculator"
       description={description}
     >
       <HomeInsuranceCalculator />
