@@ -5,17 +5,7 @@ import type { LocalGovernmentProfile } from '@/data/local-government-profile';
 import { canonicalEntityPath, type RankedRelatedEntity } from '@/data/knowledge-graph/relationships';
 import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
 
-export function CountyGuideSections({
-  entity,
-  profile,
-  localGovernment,
-  related,
-}: {
-  entity: TexasEntityRecord;
-  profile: CountyProfile;
-  localGovernment: LocalGovernmentProfile;
-  related: RankedRelatedEntity[];
-}) {
+export function CountyGuideSections({ entity, profile, localGovernment, related }: { entity: TexasEntityRecord; profile: CountyProfile; localGovernment: LocalGovernmentProfile; related: RankedRelatedEntity[] }) {
   const countySeriesArticle = getCountySeriesArticle(entity.slug);
   const nearby = related.filter(({ entity: candidate }) => !['appraisal-district', 'tax-office', 'county-clerk', 'dps-office'].includes(candidate.kind)).slice(0, 6);
   const relatedEntities = related.map(({ entity: candidate }) => candidate);
@@ -27,51 +17,20 @@ export function CountyGuideSections({
     localGovernment.countyWebsiteUrl ? { label: 'County government', href: localGovernment.countyWebsiteUrl } : null,
     localGovernment.comptrollerCountyUrl ? { label: 'Texas Comptroller county directory', href: localGovernment.comptrollerCountyUrl } : null,
   ].filter((item): item is { label: string; href: string } => Boolean(item));
-
   const hasGeography = profile.landAreaSquareMiles != null || profile.waterAreaSquareMiles != null || entity.coordinates;
   const hasCommunities = profile.countySeat || profile.majorCommunities.length > 0;
   const hasServices = serviceLinks.length > 0 || localGovernment.appraisalDistrict.phone || localGovernment.taxOffice.phone;
 
   return <>
-    <section className="border-b border-border py-12">
-      <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">
-        <div>
-          <p className="eyebrow text-primary">At a glance</p>
-          <h2 className="mt-2 font-display text-4xl">The county in numbers</h2>
-        </div>
-        <dl className="grid gap-x-8 sm:grid-cols-2 lg:grid-cols-4">
-          {profile.countySeat && <CountyFact label="County seat" value={profile.countySeat} />}
-          {profile.population2020 != null && <CountyFact label="2020 population" value={profile.population2020.toLocaleString('en-US')} />}
-          {profile.landAreaSquareMiles != null && <CountyFact label="Land area" value={`${Math.round(profile.landAreaSquareMiles).toLocaleString('en-US')} sq. mi.`} />}
-          {profile.waterAreaSquareMiles != null && <CountyFact label="Water area" value={`${Math.round(profile.waterAreaSquareMiles).toLocaleString('en-US')} sq. mi.`} />}
-        </dl>
-      </div>
-    </section>
+    <section className="border-b border-border py-12"><div className="grid gap-8 lg:grid-cols-[14rem_1fr]"><div><p className="eyebrow text-primary">At a glance</p><h2 className="mt-2 font-display text-4xl">The county in numbers</h2></div><dl className="grid gap-x-8 sm:grid-cols-2 lg:grid-cols-4">{profile.countySeat && <CountyFact label="County seat" value={profile.countySeat} />}{profile.population2020 != null && <CountyFact label="2020 population" value={profile.population2020.toLocaleString('en-US')} />}{profile.landAreaSquareMiles != null && <CountyFact label="Land area" value={`${Math.round(profile.landAreaSquareMiles).toLocaleString('en-US')} sq. mi.`} />}{profile.waterAreaSquareMiles != null && <CountyFact label="Water area" value={`${Math.round(profile.waterAreaSquareMiles).toLocaleString('en-US')} sq. mi.`} />}</dl></div></section>
 
-    {countySeriesArticle ? <section className="border-b border-border py-12" aria-labelledby="county-feature-heading">
-      <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">
-        <div>
-          <p className="eyebrow text-primary">County feature</p>
-          <h2 id="county-feature-heading" className="mt-2 font-display text-4xl">The story of {entity.name}</h2>
-        </div>
-        <div className="min-w-0">
-          <figure className="overflow-hidden bg-muted">
-            <img src={countySeriesArticle.hero.src} alt={countySeriesArticle.hero.alt} width={countySeriesArticle.hero.width} height={countySeriesArticle.hero.height} loading="eager" decoding="async" className="aspect-[16/9] w-full object-cover" />
-            {countySeriesArticle.hero.credit ? <figcaption className="border-t border-border px-4 py-3 text-xs text-muted-foreground">Photography: {countySeriesArticle.hero.credit}</figcaption> : null}
-          </figure>
-          <div className="mt-8 max-w-3xl">
-            <h3 className="font-display text-4xl leading-tight sm:text-5xl">{countySeriesArticle.title}</h3>
-            <p className="mt-4 text-lg leading-8 text-muted-foreground">{countySeriesArticle.dek}</p>
-            <p className="mt-3 text-xs uppercase tracking-[0.12em] text-muted-foreground">Published {formatDate(countySeriesArticle.publishedAt)} · {countySeriesArticle.readingMinutes} min read</p>
-          </div>
-          <div className="mt-10 max-w-3xl"><ArticleBody blocks={countySeriesArticle.body} entities={relatedEntities} /></div>
-        </div>
-      </div>
-    </section> : null}
+    {countySeriesArticle ? <section className="border-b border-border py-12" aria-labelledby="county-feature-heading"><div className="grid gap-8 lg:grid-cols-[14rem_1fr]"><div><p className="eyebrow text-primary">County feature</p><h2 id="county-feature-heading" className="mt-2 font-display text-4xl">The story of {entity.name}</h2></div><div className="min-w-0"><figure className="overflow-hidden bg-muted"><img src={countySeriesArticle.hero.src} alt={countySeriesArticle.hero.alt} width={countySeriesArticle.hero.width} height={countySeriesArticle.hero.height} loading="eager" decoding="async" className="aspect-[16/9] w-full object-cover" />{countySeriesArticle.hero.credit ? <figcaption className="border-t border-border px-4 py-3 text-xs text-muted-foreground">Photography: {countySeriesArticle.hero.credit}</figcaption> : null}</figure><div className="mt-8 max-w-3xl"><h3 className="font-display text-4xl leading-tight sm:text-5xl">{countySeriesArticle.title}</h3><p className="mt-4 text-lg leading-8 text-muted-foreground">{countySeriesArticle.dek}</p><p className="mt-3 text-xs uppercase tracking-[0.12em] text-muted-foreground">Published {formatDate(countySeriesArticle.publishedAt)} · {countySeriesArticle.readingMinutes} min read</p></div><div className="mt-10 max-w-3xl"><ArticleBody blocks={countySeriesArticle.body} entities={relatedEntities} /></div></div></div></section> : null}
 
     {hasGeography ? <section className="border-b border-border py-12"><div className="grid gap-8 lg:grid-cols-[14rem_1fr]"><div><p className="eyebrow text-primary">Where it is</p><h2 className="mt-2 font-display text-4xl">A sense of place</h2></div><div className="max-w-3xl space-y-4 text-base leading-7 text-muted-foreground">{profile.landAreaSquareMiles != null && <p>{entity.name} spans about {Math.round(profile.landAreaSquareMiles).toLocaleString('en-US')} square miles of land{profile.waterAreaSquareMiles != null ? ` and about ${Math.round(profile.waterAreaSquareMiles).toLocaleString('en-US')} square miles of water` : ''}.</p>}{entity.coordinates && <p>The county reference point is near {entity.coordinates.latitude.toFixed(3)}° N, {Math.abs(entity.coordinates.longitude).toFixed(3)}° W. Use the map link above for geographic context rather than a mailing address.</p>}{entity.region && <p>Texas Defined groups this county within the {title(entity.region)} part of the state for browsing and regional discovery.</p>}</div></div></section> : null}
 
-    {hasCommunities ? <section className="border-b border-border py-12"><div className="grid gap-8 lg:grid-cols-[14rem_1fr]"><div><p className="eyebrow text-primary">County seat & communities</p><h2 className="mt-2 font-display text-4xl">Places on the map</h2></div><div>{profile.countySeat && <p className="max-w-3xl text-base leading-7 text-muted-foreground"><strong className="text-foreground">{profile.countySeat}</strong> is the county seat.</p>}{profile.majorCommunities.length ? <ul className="mt-6 grid gap-x-8 sm:grid-cols-2 lg:grid-cols-3">{profile.majorCommunities.map((community) => <li key={community} className="border-t border-border py-3 text-sm font-medium">{community}</li>)}</ul> : null}</div></div></section> : null}
+    {hasCommunities ? <section className="border-b border-border py-12"><div className="grid gap-8 lg:grid-cols-[14rem_1fr]"><div><p className="eyebrow text-primary">County seat & communities</p><h2 className="mt-2 font-display text-4xl">Places on the map</h2></div><div>{profile.countySeat && <p className="max-w-3xl text-base leading-7 text-muted-foreground"><strong className="text-foreground">{profile.countySeat}</strong> is the county seat of {entity.name}.</p>}{profile.majorCommunities.length ? <ul className="mt-6 grid gap-x-8 sm:grid-cols-2 lg:grid-cols-3">{profile.majorCommunities.map((community) => <li key={community} className="border-t border-border py-3 text-sm font-medium">{community}</li>)}</ul> : null}</div></div></section> : null}
+
+    <section className="border-b border-border py-12"><div className="grid gap-8 lg:grid-cols-[14rem_1fr]"><div><p className="eyebrow text-primary">County questions</p><h2 className="mt-2 font-display text-4xl">Quick answers about {entity.name}</h2></div><div className="max-w-3xl divide-y divide-border border-y border-border"><CountyAnswer question={`What is the county seat of ${entity.name}?`} answer={profile.countySeat ? `${profile.countySeat} is the county seat of ${entity.name}.` : `The county-seat reference for ${entity.name} is being verified against Texas State Library records.`} />{profile.population2020 != null ? <CountyAnswer question={`How many people live in ${entity.name}?`} answer={`The 2020 U.S. Census counted ${profile.population2020.toLocaleString('en-US')} residents in ${entity.name}.`} /> : null}{profile.majorCommunities.length ? <CountyAnswer question={`What cities and communities are in ${entity.name}?`} answer={`${entity.name} includes communities such as ${profile.majorCommunities.slice(0, 6).join(', ')}${profile.majorCommunities.length > 6 ? ', and others' : ''}. City limits, mailing addresses and county boundaries do not always match, so verify an exact address when county jurisdiction matters.`} /> : null}<CountyAnswer question={`Where do I look up property taxes in ${entity.name}?`} answer={`Start with the ${entity.name} property-tax guide for the local workflow. The appraisal district handles property records, values, exemptions and protests; the tax office or another collecting office handles bills and payments.`} links={[{ href: `/property-tax/county/${entity.slug}`, label: `${entity.name} property-tax guide` }, ...(appraisalDistrictEntity ? [{ href: canonicalEntityPath(appraisalDistrictEntity), label: appraisalDistrictEntity.name }] : []), ...(taxOfficeEntity ? [{ href: canonicalEntityPath(taxOfficeEntity), label: taxOfficeEntity.name }] : [])]} /><CountyAnswer question={`How do I find official ${entity.name} government information?`} answer={`Use the verified local resources on this page for county government, appraisal and tax-office information. Texas Defined separates official service links from editorial county context so the source of each type of information is clear.`} /></div></div></section>
 
     <section className="border-b border-border py-12"><div className="grid gap-8 lg:grid-cols-[14rem_1fr]"><div><p className="eyebrow text-primary">What to know</p><h2 className="mt-2 font-display text-4xl">How to use this guide</h2></div><div className="max-w-3xl space-y-4 text-base leading-7 text-muted-foreground"><p>This page combines county-level geography and population data, verified local-government sources and Texas Defined's long-form county reporting. Structured public-record information remains separate from the editorial profile so readers can distinguish official facts and service links from magazine-style context.</p><p>Population and geography figures come from the U.S. Census Bureau, while the county-seat reference comes from the Texas State Library. Local office links are checked against statewide county and property-tax directories.</p></div></div></section>
 
@@ -83,6 +42,7 @@ export function CountyGuideSections({
   </>;
 }
 
+function CountyAnswer({ question, answer, links = [] }: { question: string; answer: string; links?: { href: string; label: string }[] }) { return <details className="py-5"><summary className="cursor-pointer font-display text-xl">{question}</summary><p className="mt-3 text-sm leading-7 text-muted-foreground">{answer}</p>{links.length ? <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">{links.map((link) => <a key={link.href} href={link.href} className="underline decoration-primary/40 underline-offset-4 hover:text-primary">{link.label}</a>)}</div> : null}</details>; }
 function CountyFact({ label, value }: { label: string; value: string }) { return <div className="border-t border-border py-4"><dt className="text-[0.68rem] uppercase tracking-[0.16em] text-muted-foreground">{label}</dt><dd className="mt-2 font-display text-2xl">{value}</dd></div>; }
 function title(value: string) { return value.replaceAll('-', ' ').replace(/\b\w/g, (character) => character.toUpperCase()); }
 function formatDate(value: string) { const date = new Date(`${value}T00:00:00`); return Number.isNaN(date.getTime()) ? value : date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }); }
