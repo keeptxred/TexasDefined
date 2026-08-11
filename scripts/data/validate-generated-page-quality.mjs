@@ -67,10 +67,21 @@ forbidAll('generic placeholder copy', entityRoute, [
 ]);
 
 // Source contract: county/local-office facts must remain backed by authoritative enrichment.
+// TIGERweb is used instead of the Census Data API because the latter now requires an API key.
 requireAll('statewide county enrichment', countyProfile, [
-  'countySeatsPromise', 'countyPopulationPromise', 'countyGeographyPromise',
-  'fetchCountySeats', 'fetchCountyPopulations', 'fetchCountyGeographies',
-  'for=county:*&in=state:48', 'countyProfileDescription',
+  'countySeatsPromise', 'countyCensusFactsPromise',
+  'fetchCountySeats', 'fetchCountyCensusFacts',
+  'Census2020/State_County/MapServer/1/query',
+  "url.searchParams.set('where', \"STATE='48'\")",
+  "url.searchParams.set('outFields', 'COUNTY,POP100,AREALAND,AREAWATER,INTPTLAT,INTPTLON')",
+  'population2020: censusFacts.population2020',
+  'landAreaSquareMiles: censusFacts.landAreaSquareMiles',
+  'waterAreaSquareMiles: censusFacts.waterAreaSquareMiles',
+  'countyProfileDescription',
+]);
+forbidAll('retired Census Data API dependency', countyProfile, [
+  'api.census.gov/data/2020/dec/pl',
+  'api.census.gov/data/2020/geoinfo',
 ]);
 
 // County-seat semantics: the source column is a place name. Never infer a person/politician from
