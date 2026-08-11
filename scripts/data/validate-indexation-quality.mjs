@@ -2,6 +2,7 @@ import fs from 'node:fs';
 
 const registry = fs.readFileSync('src/lib/public-routes.ts', 'utf8');
 const sitemap = fs.readFileSync('src/routes/sitemap[.]xml.ts', 'utf8');
+const exploreSitemap = fs.readFileSync('src/routes/sitemap-explore[.]xml.ts', 'utf8');
 const news = fs.readFileSync('src/routes/news.tsx', 'utf8');
 const entityRoute = fs.readFileSync('src/routes/$kind.$slug.tsx', 'utf8');
 const countyRoute = fs.readFileSync('src/routes/property-tax.county.$county.tsx', 'utf8');
@@ -34,8 +35,17 @@ for (const feature of ['isIndexableEntityPage', 'robots: indexable ? undefined :
 for (const feature of ['isCountyPropertyIndexReady', 'robots: indexReady ? undefined : "noindex, follow"']) {
   if (!countyRoute.includes(feature)) failures.push(`County indexation gate missing: ${feature}`);
 }
-for (const feature of ['graph.filter(isIndexableEntityPage)', 'COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady)', 'auditDestination(destination).readyForIndexing']) {
-  if (!sitemap.includes(feature)) failures.push(`Sitemap quality gate missing: ${feature}`);
+for (const feature of ['graph.filter(isIndexableEntityPage)', 'COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady)']) {
+  if (!sitemap.includes(feature)) failures.push(`Primary sitemap quality gate missing: ${feature}`);
+}
+for (const feature of ['isPrimaryTripPlannerDestination(destination)', 'auditDestination(destination).readyForIndexing']) {
+  if (!exploreSitemap.includes(feature)) failures.push(`Explore sitemap destination quality gate missing: ${feature}`);
+}
+if (!sitemap.includes('.filter((path) => !isExploreSitemapOwnedPath(path))')) {
+  failures.push('Primary sitemap must exclude Explore-owned static paths.');
+}
+if (!exploreSitemap.includes('!isExploreSitemapOwnedPath(normalized)')) {
+  failures.push('Explore sitemap must reject paths outside its owned crawl namespace.');
 }
 
 if (failures.length) {
@@ -43,4 +53,4 @@ if (failures.length) {
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
-console.log('Indexation quality validation passed: conditional hubs, noindex utilities, redirects, and generated-page sitemap gates are aligned.');
+console.log('Indexation quality validation passed: conditional hubs, noindex utilities, redirects, generated-page quality gates, and sitemap ownership are aligned.');
