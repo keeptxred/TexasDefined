@@ -25,6 +25,16 @@ export function buildCalculatorHead(
         '@context': 'https://schema.org',
         '@graph': [
           {
+            '@type': 'WebPage',
+            '@id': `${pageUrl}#page`,
+            url: pageUrl,
+            name: options.title,
+            description: options.description,
+            isPartOf: { '@id': `${siteUrl}/#website` },
+            mainEntity: { '@id': `${pageUrl}#application` },
+            breadcrumb: { '@id': `${pageUrl}#breadcrumb` },
+          },
+          {
             '@type': 'WebApplication',
             '@id': `${pageUrl}#application`,
             name: options.title,
@@ -34,7 +44,8 @@ export function buildCalculatorHead(
             operatingSystem: 'Any',
             browserRequirements: 'Requires JavaScript',
             featureList: options.featureList,
-            isPartOf: { '@id': `${siteUrl}/#website` },
+            isPartOf: { '@id': `${pageUrl}#page` },
+            mainEntityOfPage: { '@id': `${pageUrl}#page` },
           },
           {
             '@type': 'BreadcrumbList',
