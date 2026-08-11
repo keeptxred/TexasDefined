@@ -51,18 +51,22 @@ for (const feature of [
 
 for (const feature of [
   'countySeatsPromise',
-  'countyPopulationPromise',
-  'countyGeographyPromise',
+  'countyCensusFactsPromise',
   'fetchCountySeats',
-  'fetchCountyPopulations',
-  'fetchCountyGeographies',
-  'for=county:*&in=state:48',
-  'population2020',
-  'landAreaSquareMiles',
+  'fetchCountyCensusFacts',
+  'Census2020/State_County/MapServer/1/query',
+  "url.searchParams.set('where', \"STATE='48'\")",
+  "url.searchParams.set('outFields', 'COUNTY,POP100,AREALAND,AREAWATER,INTPTLAT,INTPTLON')",
+  'population2020: censusFacts.population2020',
+  'landAreaSquareMiles: censusFacts.landAreaSquareMiles',
+  'waterAreaSquareMiles: censusFacts.waterAreaSquareMiles',
   'majorCommunities',
   'countyProfileDescription',
 ]) {
   if (!countyProfile.includes(feature)) errors.push(`Statewide county profile remediation missing: ${feature}`);
+}
+for (const forbiddenLegacyCensusSource of ['api.census.gov/data/2020/dec/pl','api.census.gov/data/2020/geoinfo']) {
+  if (countyProfile.includes(forbiddenLegacyCensusSource)) errors.push(`Retired Census Data API dependency must not return: ${forbiddenLegacyCensusSource}`);
 }
 for (const forbiddenPerCountyFetch of ['fetchCountySeat(baseName)','fetchPopulation(countyCode)','fetchGeography(countyCode)']) {
   if (countyProfile.includes(forbiddenPerCountyFetch)) errors.push(`Per-county source fanout must not return: ${forbiddenPerCountyFetch}`);
