@@ -58,3 +58,6 @@ jobs:
 
       - name: Build production application
         run: npm run build
+
+      - name: Validate client performance budget
+        run: npm run performance:validate
