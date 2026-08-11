@@ -4,6 +4,8 @@ on:
   pull_request:
     paths:
       - '.github/workflows/audit-all-editorial-production.yml'
+      - 'src/data/county-series.ts'
+      - 'src/data/index.ts'
       - 'src/data/fixtures/*county*.ts'
       - 'src/data/fixtures/repositories.ts'
   push:
@@ -11,6 +13,8 @@ on:
       - main
     paths:
       - '.github/workflows/audit-all-editorial-production.yml'
+      - 'src/data/county-series.ts'
+      - 'src/data/index.ts'
       - 'src/data/fixtures/*county*.ts'
       - 'src/data/fixtures/repositories.ts'
   workflow_dispatch:
@@ -24,7 +28,7 @@ concurrency:
 
 jobs:
   validate-county-source:
-    name: Validate county article source
+    name: Validate county series registry
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -33,7 +37,7 @@ jobs:
           node-version: '22'
           cache: npm
       - run: npm ci
-      - name: Inventory registered county articles
+      - name: Inventory registered county profiles
         shell: bash
         run: |
           set -euo pipefail
@@ -48,29 +52,43 @@ jobs:
           });
 
           try {
-            const mod = await vite.ssrLoadModule('/src/data/index.ts');
-            const rows = await mod.platform.articles.list(mod.scope);
-            const counties = rows
-              .filter((row) => row.id?.startsWith('county-') || row.tags?.includes('Texas counties'))
-              .sort((a, b) => a.slug.localeCompare(b.slug));
+            const mod = await vite.ssrLoadModule('/src/data/county-series.ts');
+            const profiles = [...mod.COUNTY_SERIES_PROFILES]
+              .sort((a, b) => a.countySlug.localeCompare(b.countySlug));
 
-            if (!counties.length) throw new Error('County article inventory returned zero articles');
+            if (!profiles.length) throw new Error('County series registry returned zero profiles');
 
-            const slugs = counties.map((row) => row.slug);
-            if (new Set(slugs).size !== slugs.length) throw new Error('Duplicate county article slug detected');
+            const countySlugs = profiles.map((profile) => profile.countySlug);
+            if (new Set(countySlugs).size !== countySlugs.length) {
+              throw new Error('Duplicate canonical countySlug detected in COUNTY_SERIES_PROFILES');
+            }
 
-            for (const row of counties) {
-              if (!row.slug || !row.title || !row.hero?.src) {
-                throw new Error(`County article is missing required publication metadata: ${row.id ?? 'unknown'}`);
+            const articleSlugs = profiles.map((profile) => profile.article.slug);
+            if (new Set(articleSlugs).size !== articleSlugs.length) {
+              throw new Error('Duplicate legacy county article slug detected in COUNTY_SERIES_PROFILES');
+            }
+
+            for (const profile of profiles) {
+              const row = profile.article;
+              if (!profile.countySlug || !row?.slug || !row?.title || !row?.hero?.src) {
+                throw new Error(`County profile is missing required publication metadata: ${profile.countySlug || row?.id || 'unknown'}`);
               }
-              if (!row.slug.includes('-county-') && !row.slug.startsWith('county-')) {
-                throw new Error(`County article slug does not identify a county: ${row.slug}`);
+              if (!row.id?.startsWith('county-')) {
+                throw new Error(`County article id must start with county-: ${row.id ?? 'missing'} (${profile.countySlug})`);
+              }
+              if (!row.tags?.includes('Texas counties')) {
+                throw new Error(`County article must include the Texas counties tag: ${row.slug}`);
               }
             }
 
-            fs.writeFileSync('/tmp/county-slugs.txt', slugs.join('\n') + '\n');
-            console.log(`Registered county articles: ${counties.length}`);
-            for (const row of counties) console.log(`${row.slug}\t${row.title}`);
+            fs.writeFileSync(
+              '/tmp/county-profiles.tsv',
+              profiles.map(({ countySlug, article }) => `${countySlug}\t${article.slug}\t${article.title}`).join('\n') + '\n',
+            );
+            console.log(`Registered county profiles: ${profiles.length}`);
+            for (const { countySlug, article } of profiles) {
+              console.log(`${countySlug}\t/county/${countySlug}\t${article.slug}\t${article.title}`);
+            }
           } finally {
             await vite.close();
           }
@@ -79,7 +97,7 @@ jobs:
           rm .audit-county-inventory.mjs
 
   verify-county-production:
-    name: Verify county articles on texasdefined.com
+    name: Verify canonical county pages on texasdefined.com
     if: github.event_name != 'pull_request'
     needs: validate-county-source
     runs-on: ubuntu-latest
@@ -91,7 +109,7 @@ jobs:
           node-version: '22'
           cache: npm
       - run: npm ci
-      - name: Build county production inventory
+      - name: Build canonical county production inventory
         shell: bash
         run: |
           set -euo pipefail
@@ -106,13 +124,14 @@ jobs:
           });
 
           try {
-            const mod = await vite.ssrLoadModule('/src/data/index.ts');
-            const rows = await mod.platform.articles.list(mod.scope);
-            const counties = rows
-              .filter((row) => row.id?.startsWith('county-') || row.tags?.includes('Texas counties'))
-              .sort((a, b) => a.slug.localeCompare(b.slug));
-            if (!counties.length) throw new Error('County article inventory returned zero articles');
-            fs.writeFileSync('/tmp/county-slugs.txt', counties.map((row) => row.slug).join('\n') + '\n');
+            const mod = await vite.ssrLoadModule('/src/data/county-series.ts');
+            const profiles = [...mod.COUNTY_SERIES_PROFILES]
+              .sort((a, b) => a.countySlug.localeCompare(b.countySlug));
+            if (!profiles.length) throw new Error('County series registry returned zero profiles');
+            fs.writeFileSync(
+              '/tmp/county-profiles.tsv',
+              profiles.map(({ countySlug, article }) => `${countySlug}\t${article.slug}\t${article.title}`).join('\n') + '\n',
+            );
           } finally {
             await vite.close();
           }
@@ -120,17 +139,19 @@ jobs:
           node .audit-county-inventory.mjs
           rm .audit-county-inventory.mjs
 
-      - name: Require every county article and hero image to be live in production
+      - name: Require every canonical county page and hero image to be live
         shell: bash
         run: |
           set -euo pipefail
-          cp /tmp/county-slugs.txt /tmp/pending.txt
+          cp /tmp/county-profiles.tsv /tmp/pending.tsv
           : > /tmp/results.txt
 
-          verify_slug() {
-            local slug="$1"
-            local url="https://texasdefined.com/article/$slug"
-            local html="/tmp/article-${slug}.html"
+          verify_profile() {
+            local county_slug="$1"
+            local legacy_slug="$2"
+            local title="$3"
+            local url="https://texasdefined.com/county/$county_slug"
+            local html="/tmp/county-${county_slug}.html"
             local code image image_code
 
             code=$(curl -L -sS -o "$html" -w '%{http_code}' --max-time 25 "$url" || echo 000)
@@ -139,9 +160,17 @@ jobs:
               return 1
             fi
 
-            if grep -Eqi 'Story unavailable|This story is no longer available|page not found|404[^0-9].*not found' "$html"; then
+            if grep -Eqi 'Story unavailable|This story is no longer available|page not found|404[^0-9].*not found|County unavailable' "$html"; then
               echo "WAIT fallback-page $url"
               return 1
+            fi
+
+            if ! grep -Fqi "$title" "$html"; then
+              county_name=$(printf '%s' "$title" | sed 's/:.*//')
+              if ! grep -Fqi "$county_name" "$html"; then
+                echo "WAIT expected-content legacy=$legacy_slug $url"
+                return 1
+              fi
             fi
 
             image=$(python3 - "$html" <<'PY'
@@ -182,26 +211,26 @@ jobs:
           }
 
           for attempt in $(seq 1 12); do
-            : > /tmp/next-pending.txt
-            while IFS= read -r slug; do
-              [[ -z "$slug" ]] && continue
-              if ! verify_slug "$slug"; then
-                echo "$slug" >> /tmp/next-pending.txt
+            : > /tmp/next-pending.tsv
+            while IFS=$'\t' read -r county_slug legacy_slug title; do
+              [[ -z "$county_slug" ]] && continue
+              if ! verify_profile "$county_slug" "$legacy_slug" "$title"; then
+                printf '%s\t%s\t%s\n' "$county_slug" "$legacy_slug" "$title" >> /tmp/next-pending.tsv
               fi
-            done < /tmp/pending.txt
+            done < /tmp/pending.tsv
 
-            if [[ ! -s /tmp/next-pending.txt ]]; then
-              echo "All registered county articles are live in production."
+            if [[ ! -s /tmp/next-pending.tsv ]]; then
+              echo "All registered canonical county pages are live in production."
               cat /tmp/results.txt
               exit 0
             fi
 
-            mv /tmp/next-pending.txt /tmp/pending.txt
-            echo "Production is not ready for $(wc -l < /tmp/pending.txt) county article(s); attempt $attempt/12."
-            cat /tmp/pending.txt
+            mv /tmp/next-pending.tsv /tmp/pending.tsv
+            echo "Production is not ready for $(wc -l < /tmp/pending.tsv) county profile(s); attempt $attempt/12."
+            cut -f1 /tmp/pending.tsv
             if [[ "$attempt" -lt 12 ]]; then sleep 30; fi
           done
 
-          echo "County production verification failed. These registered county articles are not live with working hero images:"
-          cat /tmp/pending.txt
+          echo "County production verification failed. These canonical county pages are not live with expected content and working hero images:"
+          cut -f1 /tmp/pending.tsv
           exit 1
