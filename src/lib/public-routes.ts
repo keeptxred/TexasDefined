@@ -4,7 +4,6 @@ export const INDEXABLE_STATIC_PATHS = [
   "/explore/trip-planner",
   "/sports",
   "/events",
-  "/news",
   "/texas-history",
   "/moving-to-texas",
   "/moving-to-texas-checklist",
@@ -67,6 +66,12 @@ export const INDEXABLE_STATIC_PATHS = [
   "/texas-salary-comparison-by-city",
   "/texas-sales-tax-explained",
   "/texas-utility-cost-calculator",
+] as const;
+
+// Public routes whose indexability depends on live content at request time.
+// These must never be published unconditionally by a sitemap.
+export const CONDITIONAL_INDEXABLE_PUBLIC_PATHS = [
+  "/news",
 ] as const;
 
 export const REDIRECT_ONLY_PATHS = [
