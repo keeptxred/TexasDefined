@@ -1,5 +1,6 @@
 import type { BrandId } from "@/brand/types";
 
+import { countySlugForLegacyArticle, isLegacyCountySeriesArticle } from "./county-series";
 import { andrewsCountyAndrewsOilShafterLakeArticle } from "./fixtures/andrews-county-andrews-oil-shafter-lake";
 import { caddoLakeCypressMorningArticle } from "./fixtures/caddo-lake-cypress-morning";
 import { ectorCountyOdessaOilStonehengeArticle } from "./fixtures/ector-county-odessa-oil-stonehenge";
@@ -9,7 +10,7 @@ import { tomGreenCountySanAngeloConchoArticle } from "./fixtures/tom-green-count
 import { wardCountyMonahansSandhillsArticle } from "./fixtures/ward-county-monahans-sandhills";
 import { winklerCountyKermitWinkOilArticle } from "./fixtures/winkler-county-kermit-wink-oil";
 import type { PlatformRepositories } from "./repositories";
-import type { Article, ArticleBlock } from "./types";
+import type { Article, ArticleBlock, SearchDocument } from "./types";
 
 /**
  * The single binding point between the app and its data source.
@@ -172,6 +173,16 @@ const computedReadingMinutes = (article: Article) => {
   return Math.max(1, Math.ceil(wordCount / 220));
 };
 
+const canonicalizeCountyHref = (href: string) => {
+  const match = href.match(/^\/article\/([^?#/]+)([?#].*)?$/);
+  if (!match) return href;
+  const countySlug = countySlugForLegacyArticle(match[1]);
+  return countySlug ? `/county/${countySlug}${match[2] ?? ""}` : href;
+};
+
+const canonicalizeInternalLinks = (links: NonNullable<Article["internalLinks"]>) =>
+  links.map((link) => ({ ...link, href: canonicalizeCountyHref(link.href) }));
+
 const normalizeArticle = (article: Article): Article => {
   const source =
     article.slug === caddoLakeCypressMorningArticle.slug
@@ -183,10 +194,10 @@ const normalizeArticle = (article: Article): Article => {
     : EDITORIAL_HERO_OVERRIDES[source.slug] ?? MOVING_ARTICLE_HEROES[source.slug] ?? source.hero;
   const existingInternalLinks = source.internalLinks ?? [];
   const additions = ARTICLE_INTERNAL_LINK_ADDITIONS[source.slug] ?? [];
-  const internalLinks = [
+  const internalLinks = canonicalizeInternalLinks([
     ...existingInternalLinks,
     ...additions.filter((addition) => !existingInternalLinks.some((link) => link.href === addition.href)),
-  ];
+  ]);
 
   return {
     ...source,
@@ -198,11 +209,12 @@ const normalizeArticle = (article: Article): Article => {
 
 const articleRepository = {
   async list(query: Parameters<typeof fixturePlatform.articles.list>[0]) {
-    const rows = await fixturePlatform.articles.list(query);
+    const rows = (await fixturePlatform.articles.list(query)).filter((article) => !isLegacyCountySeriesArticle(article.slug));
     if (query.brandId !== "texasdefined") return rows.map(normalizeArticle);
 
     const directArticles = [tomGreenCountySanAngeloConchoArticle, randallCountyCanyonPaloDuroArticle];
     const eligibleDirect = directArticles.filter((article) =>
+      !isLegacyCountySeriesArticle(article.slug) &&
       (!query.category || query.category === article.category) &&
       (!query.tag || article.tags.includes(query.tag)) &&
       (query.featured === undefined || Boolean(article.featured) === query.featured) &&
@@ -247,9 +259,21 @@ const articleRepository = {
   },
 };
 
+const searchRepository = {
+  async documents(searchScope: Parameters<typeof fixturePlatform.search.documents>[0]) {
+    const documents = await fixturePlatform.search.documents(searchScope);
+    const rewritten = documents.map((document): SearchDocument => {
+      if (document.kind !== "article") return document;
+      return { ...document, href: canonicalizeCountyHref(document.href) };
+    });
+    return [...new Map(rewritten.map((document) => [document.href, document])).values()];
+  },
+};
+
 export const platform: PlatformRepositories = {
   ...fixturePlatform,
   articles: articleRepository,
+  search: searchRepository,
 };
 
 /** Brand scope used by every repository query in this app. */
