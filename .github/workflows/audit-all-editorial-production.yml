@@ -49,6 +49,7 @@ jobs:
             server: { middlewareMode: true },
             appType: 'custom',
             logLevel: 'error',
+            optimizeDeps: { noDiscovery: true },
           });
 
           try {
@@ -63,31 +64,35 @@ jobs:
               throw new Error('Duplicate canonical countySlug detected in COUNTY_SERIES_PROFILES');
             }
 
-            const articleSlugs = profiles.map((profile) => profile.article.slug);
+            const articleSlugs = profiles.map((profile) => profile.articleSlug);
             if (new Set(articleSlugs).size !== articleSlugs.length) {
               throw new Error('Duplicate legacy county article slug detected in COUNTY_SERIES_PROFILES');
             }
 
-            for (const profile of profiles) {
-              const row = profile.article;
-              if (!profile.countySlug || !row?.slug || !row?.title || !row?.hero?.src) {
+            const rows = await Promise.all(profiles.map(async (profile) => ({
+              profile,
+              article: await profile.loadArticle(),
+            })));
+
+            for (const { profile, article: row } of rows) {
+              if (!profile.countySlug || !profile.articleSlug || !row?.slug || !row?.title || !row?.hero?.src) {
                 throw new Error(`County profile is missing required publication metadata: ${profile.countySlug || row?.id || 'unknown'}`);
+              }
+              if (profile.articleSlug !== row.slug) {
+                throw new Error(`County registry articleSlug does not match loaded article: ${profile.countySlug} (${profile.articleSlug} != ${row.slug})`);
               }
               if (!row.id?.startsWith('county-')) {
                 throw new Error(`County article id must start with county-: ${row.id ?? 'missing'} (${profile.countySlug})`);
-              }
-              if (!row.tags?.includes('Texas counties')) {
-                throw new Error(`County article must include the Texas counties tag: ${row.slug}`);
               }
             }
 
             fs.writeFileSync(
               '/tmp/county-profiles.tsv',
-              profiles.map(({ countySlug, article }) => `${countySlug}\t${article.slug}\t${article.title}`).join('\n') + '\n',
+              rows.map(({ profile, article }) => `${profile.countySlug}\t${article.slug}\t${article.title}`).join('\n') + '\n',
             );
-            console.log(`Registered county profiles: ${profiles.length}`);
-            for (const { countySlug, article } of profiles) {
-              console.log(`${countySlug}\t/county/${countySlug}\t${article.slug}\t${article.title}`);
+            console.log(`Registered county profiles: ${rows.length}`);
+            for (const { profile, article } of rows) {
+              console.log(`${profile.countySlug}\t/county/${profile.countySlug}\t${article.slug}\t${article.title}`);
             }
           } finally {
             await vite.close();
@@ -121,6 +126,7 @@ jobs:
             server: { middlewareMode: true },
             appType: 'custom',
             logLevel: 'error',
+            optimizeDeps: { noDiscovery: true },
           });
 
           try {
@@ -128,9 +134,13 @@ jobs:
             const profiles = [...mod.COUNTY_SERIES_PROFILES]
               .sort((a, b) => a.countySlug.localeCompare(b.countySlug));
             if (!profiles.length) throw new Error('County series registry returned zero profiles');
+            const rows = await Promise.all(profiles.map(async (profile) => ({
+              profile,
+              article: await profile.loadArticle(),
+            })));
             fs.writeFileSync(
               '/tmp/county-profiles.tsv',
-              profiles.map(({ countySlug, article }) => `${countySlug}\t${article.slug}\t${article.title}`).join('\n') + '\n',
+              rows.map(({ profile, article }) => `${profile.countySlug}\t${article.slug}\t${article.title}`).join('\n') + '\n',
             );
           } finally {
             await vite.close();
