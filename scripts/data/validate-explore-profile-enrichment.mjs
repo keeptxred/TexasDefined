@@ -125,24 +125,25 @@ for (const feature of [
   'fetchCoreExploreDestinations',
   'let remoteFailed = false',
   'validLastModified', '<lastmod>', 'item.sourceCheckedAt',
-  'const destinations = remoteDestinations.length ? remoteDestinations : fixtureDestinations',
+  'const destinations = remoteFailed ? fixtureDestinations : remoteDestinations',
   'if (remoteFailed && destinations.length === 0)',
-]) if (!sitemap.includes(feature)) errors.push(`Explore sitemap enrichment feature missing: ${feature}`);
+  'isPrimaryTripPlannerDestination(destination)',
+  'auditDestination(destination).readyForIndexing',
+]) if (!sitemap.includes(feature)) errors.push(`Explore sitemap enrichment or quality feature missing: ${feature}`);
+if (sitemap.includes('remoteDestinations.length ? remoteDestinations : fixtureDestinations')) {
+  errors.push('Explore sitemap still treats a healthy empty remote catalog as an outage.');
+}
 
 for (const feature of [
+  'isExploreSitemapOwnedPath',
+  '.filter((path) => !isExploreSitemapOwnedPath(path))',
+]) if (!primarySitemap.includes(feature)) errors.push(`Primary sitemap crawl partition feature missing: ${feature}`);
+for (const forbiddenFeature of [
+  'fetchExploreDestinations',
   'fetchCoreExploreDestinations',
-  'let remoteFailed = false',
   'Primary sitemap enrichment unavailable; retrying core remote catalog',
-  'Primary sitemap core remote catalog unavailable; using outage fixtures',
   'lastmod: toDate(destination.sourceCheckedAt)',
-  'const destinations = remoteFailed ? fixtureDestinations : remoteDestinations',
-]) if (!primarySitemap.includes(feature)) errors.push(`Primary sitemap remote freshness feature missing: ${feature}`);
-if (primarySitemap.includes('remoteDestinations.length ? remoteDestinations : fixtureDestinations')) {
-  errors.push('Primary sitemap still treats a healthy empty remote catalog as an outage.');
-}
-if (primarySitemap.includes('if (!remoteDestinations.length)')) {
-  errors.push('Primary sitemap must retry the core adapter only after enrichment failure, not after a healthy empty response.');
-}
+]) if (primarySitemap.includes(forbiddenFeature)) errors.push(`Primary sitemap must not own Explore destination work: ${forbiddenFeature}`);
 
 const enrichedListIndex = queries.indexOf('fetchExploreDestinations(options)');
 const coreListIndex = queries.indexOf('fetchCoreExploreDestinations(options)');
@@ -163,4 +164,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Explore enrichment, grouped planning, ranked search, AI discovery, sitemap freshness, authority, relationship discovery, public-view fallback, and fixture resilience passed.');
+console.log('Explore enrichment, grouped planning, ranked search, AI discovery, quality-gated sitemap freshness, authority, relationship discovery, public-view fallback, and fixture resilience passed.');
