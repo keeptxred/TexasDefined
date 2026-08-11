@@ -10,6 +10,22 @@ const LOCAL_GOVERNMENT_KINDS = new Set([
   'dps-office',
 ]);
 
+/**
+ * These generic knowledge-graph entity kinds are mirrors of richer destination
+ * guides sourced from the Explore catalog. Publishing both URL families as
+ * indexable pages creates duplicate search intent (for example
+ * /state-park/enchanted-rock-state-natural-area and
+ * /destination/enchanted-rock-state-natural-area).
+ *
+ * Keep the generic route available for compatibility, but consolidate search
+ * signals, internal links and sitemap references on the richer destination URL.
+ */
+const DESTINATION_MIRROR_KINDS = new Set([
+  'state-park',
+  'attraction',
+  'historic-site',
+]);
+
 export function rankRelatedEntities(entity: TexasEntityRecord, graph: TexasEntityRecord[], limit = 12): RankedRelatedEntity[] {
   const explicit = new Set(entity.relationships.map((relationship) => relationship.targetId));
   const entityCounty = countyContext(entity);
@@ -99,6 +115,7 @@ function proximityTieBreak(origin: TexasEntityRecord, a: TexasEntityRecord, b: T
 }
 
 export function canonicalEntityPath(entity: Pick<TexasEntityRecord, 'kind' | 'slug'>) {
+  if (DESTINATION_MIRROR_KINDS.has(entity.kind)) return `/destination/${entity.slug}`;
   return `/${entity.kind}/${entity.slug}`;
 }
 
@@ -124,6 +141,11 @@ function hasEntitySpecificOfficialUrl(entity: TexasEntityRecord) {
  * as a useful search result.
  */
 export function isIndexableEntityPage(entity: TexasEntityRecord) {
+  // Destination mirrors are deliberately consolidated on /destination/:slug.
+  // Their compatibility routes remain crawlable with a canonical pointing at
+  // the richer guide, but must not compete as separate indexable pages.
+  if (DESTINATION_MIRROR_KINDS.has(entity.kind)) return false;
+
   if (!['active', 'seasonal'].includes(entity.status)) return false;
 
   const description = entity.description?.trim() ?? '';
