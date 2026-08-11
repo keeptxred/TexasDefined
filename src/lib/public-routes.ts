@@ -115,6 +115,19 @@ export function normalizePublicPath(path: string) {
   return value.replace(/\/{2,}/g, "/").replace(/\/+$/, "");
 }
 
+/**
+ * Explore owns its own sitemap so destination-heavy crawl demand is isolated
+ * from the general site sitemap. Keeping these namespaces disjoint prevents
+ * Google and other crawlers from receiving the same discovery signal twice.
+ */
+export function isExploreSitemapOwnedPath(path: string) {
+  const normalized = normalizePublicPath(path);
+  if (!normalized) return false;
+  return normalized === "/explore"
+    || normalized.startsWith("/explore/")
+    || normalized.startsWith("/destination/");
+}
+
 export function isIndexablePublicPath(path: string) {
   const normalized = normalizePublicPath(path);
   if (!normalized) return false;
