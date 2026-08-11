@@ -84,6 +84,7 @@ export const Route = createFileRoute("/sitemap.xml")({
         const entityPages = graph.filter(isIndexableEntityPage);
         const entries: SitemapEntry[] = [
           ...INDEXABLE_STATIC_PATHS.map((path) => ({ path })),
+          ...(articles.length ? [{ path: "/news" }] : []),
           ...categories.map((category) => ({ path: `/explore/${category.slug}` })),
           ...regions.map((region) => ({ path: `/explore/region/${region.id}` })),
           ...collections.map((collection) => ({ path: `/shop/${collection.slug}` })),
