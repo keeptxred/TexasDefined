@@ -73,7 +73,7 @@ for (const feature of ['https://comptroller.texas.gov/taxes/property-tax/county-
 for (const feature of ["authority:'Texas Association of Counties'","url:'https://www.county.org/county-information-map'","id:'comptroller-appraisal-districts'","id:'txdmv-tax-offices'"]) {
   if (!dataSources.includes(feature)) errors.push(`Authoritative local-government source contract missing: ${feature}`);
 }
-for (const feature of ['COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady)','`/property-tax/county/${county.slug}`','graph.filter(isIndexableEntityPage)','canonicalEntityPath(entity)']) {
+for (const feature of ['COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady)','`/property-tax/county/${county.slug}`','graph.filter(isIndexableEntityPage)','canonicalEntityPath(entity)','isPrimaryTripPlannerDestination','auditDestination','const indexableDestinations = destinations.filter','auditDestination(destination).readyForIndexing']) {
   if (!sitemap.includes(feature)) errors.push(`Sitemap quality contract missing: ${feature}`);
 }
 if (countyRoute.includes("dateModified: '2026-08-08'")) errors.push('County pages must not use a hard-coded modified date.');
@@ -83,4 +83,4 @@ if (errors.length) {
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
-console.log('County and generated entity quality gates, statewide batch remediation, governed office promotion, authoritative enrichment, geographic/semantic ranking, rich county-guide sections, source specificity, noindex behavior, and qualified sitemap publication passed validation.');
+console.log('County, destination and generated entity quality gates, statewide batch remediation, governed office promotion, authoritative enrichment, geographic/semantic ranking, rich county-guide sections, source specificity, noindex behavior, and qualified sitemap publication passed validation.');
