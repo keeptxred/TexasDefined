@@ -1,52 +1,42 @@
 import type { Article } from "@/data/types";
-import { andrewsCountyAndrewsOilShafterLakeArticle } from "@/data/fixtures/andrews-county-andrews-oil-shafter-lake";
-import { brewsterCountyBigBendArticle } from "@/data/fixtures/brewster-county-big-bend";
-import { culbersonCountyVanHornGuadalupeMountainsArticle } from "@/data/fixtures/culberson-county-van-horn-guadalupe-mountains";
-import { ectorCountyOdessaOilStonehengeArticle } from "@/data/fixtures/ector-county-odessa-oil-stonehenge";
-import { elPasoCountyPassMissionsBorderlandsArticle } from "@/data/fixtures/el-paso-county-pass-missions-borderlands";
-import { galvestonCountyIslandPortJuneteenthArticle } from "@/data/fixtures/galveston-county-island-port-juneteenth";
-import { gillespieCountyFredericksburgStonewallHillCountryArticle } from "@/data/fixtures/gillespie-county-fredericksburg-stonewall-hill-country";
-import { hudspethCountySierraBlancaSaltFlatsArticle } from "@/data/fixtures/hudspeth-county-sierra-blanca-salt-flats";
-import { jeffDavisCountyFortDavisMountainsArticle } from "@/data/fixtures/jeff-davis-county-fort-davis-mountains";
-import { midlandCountyRailroadOilHighPlainsArticle } from "@/data/fixtures/midland-county-railroad-oil-high-plains";
-import { pecosCountyFortStocktonComancheSpringsArticle } from "@/data/fixtures/pecos-county-fort-stockton-comanche-springs";
-import { presidioCountyMarfaBorderlandsArticle } from "@/data/fixtures/presidio-county-marfa-borderlands";
-import { randallCountyCanyonPaloDuroArticle } from "@/data/fixtures/randall-county-canyon-palo-duro";
-import { reevesCountyPecosBalmorheaArticle } from "@/data/fixtures/reeves-county-pecos-balmorhea";
-import { tomGreenCountySanAngeloConchoArticle } from "@/data/fixtures/tom-green-county-san-angelo-concho";
-import { wardCountyMonahansSandhillsArticle } from "@/data/fixtures/ward-county-monahans-sandhills";
-import { winklerCountyKermitWinkOilArticle } from "@/data/fixtures/winkler-county-kermit-wink-oil";
 
 export type CountySeriesProfile = {
   countySlug: string;
-  article: Article;
+  articleSlug: string;
+  loadArticle: () => Promise<Article>;
 };
 
 export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
-  { countySlug: "brewster", article: brewsterCountyBigBendArticle },
-  { countySlug: "presidio", article: presidioCountyMarfaBorderlandsArticle },
-  { countySlug: "jeff-davis", article: jeffDavisCountyFortDavisMountainsArticle },
-  { countySlug: "culberson", article: culbersonCountyVanHornGuadalupeMountainsArticle },
-  { countySlug: "hudspeth", article: hudspethCountySierraBlancaSaltFlatsArticle },
-  { countySlug: "el-paso", article: elPasoCountyPassMissionsBorderlandsArticle },
-  { countySlug: "reeves", article: reevesCountyPecosBalmorheaArticle },
-  { countySlug: "pecos", article: pecosCountyFortStocktonComancheSpringsArticle },
-  { countySlug: "ward", article: wardCountyMonahansSandhillsArticle },
-  { countySlug: "winkler", article: winklerCountyKermitWinkOilArticle },
-  { countySlug: "andrews", article: andrewsCountyAndrewsOilShafterLakeArticle },
-  { countySlug: "ector", article: ectorCountyOdessaOilStonehengeArticle },
-  { countySlug: "randall", article: randallCountyCanyonPaloDuroArticle },
-  { countySlug: "tom-green", article: tomGreenCountySanAngeloConchoArticle },
-  { countySlug: "midland", article: midlandCountyRailroadOilHighPlainsArticle },
-  { countySlug: "galveston", article: galvestonCountyIslandPortJuneteenthArticle },
-  { countySlug: "gillespie", article: gillespieCountyFredericksburgStonewallHillCountryArticle },
+  { countySlug: "brewster", articleSlug: "brewster-county-big-bend-texas", loadArticle: () => import("@/data/fixtures/brewster-county-big-bend").then((module) => module.brewsterCountyBigBendArticle) },
+  { countySlug: "presidio", articleSlug: "presidio-county-marfa-borderlands-texas", loadArticle: () => import("@/data/fixtures/presidio-county-marfa-borderlands").then((module) => module.presidioCountyMarfaBorderlandsArticle) },
+  { countySlug: "jeff-davis", articleSlug: "jeff-davis-county-fort-davis-mountains-texas", loadArticle: () => import("@/data/fixtures/jeff-davis-county-fort-davis-mountains").then((module) => module.jeffDavisCountyFortDavisMountainsArticle) },
+  { countySlug: "culberson", articleSlug: "culberson-county-van-horn-guadalupe-mountains-texas", loadArticle: () => import("@/data/fixtures/culberson-county-van-horn-guadalupe-mountains").then((module) => module.culbersonCountyVanHornGuadalupeMountainsArticle) },
+  { countySlug: "hudspeth", articleSlug: "hudspeth-county-sierra-blanca-salt-flats-texas", loadArticle: () => import("@/data/fixtures/hudspeth-county-sierra-blanca-salt-flats").then((module) => module.hudspethCountySierraBlancaSaltFlatsArticle) },
+  { countySlug: "el-paso", articleSlug: "el-paso-county-missions-rio-grande-texas", loadArticle: () => import("@/data/fixtures/el-paso-county-pass-missions-borderlands").then((module) => module.elPasoCountyPassMissionsBorderlandsArticle) },
+  { countySlug: "reeves", articleSlug: "reeves-county-pecos-balmorhea-texas", loadArticle: () => import("@/data/fixtures/reeves-county-pecos-balmorhea").then((module) => module.reevesCountyPecosBalmorheaArticle) },
+  { countySlug: "pecos", articleSlug: "pecos-county-fort-stockton-comanche-springs-texas", loadArticle: () => import("@/data/fixtures/pecos-county-fort-stockton-comanche-springs").then((module) => module.pecosCountyFortStocktonComancheSpringsArticle) },
+  { countySlug: "ward", articleSlug: "ward-county-monahans-sandhills-texas", loadArticle: () => import("@/data/fixtures/ward-county-monahans-sandhills").then((module) => module.wardCountyMonahansSandhillsArticle) },
+  { countySlug: "winkler", articleSlug: "winkler-county-kermit-wink-oil-texas", loadArticle: () => import("@/data/fixtures/winkler-county-kermit-wink-oil").then((module) => module.winklerCountyKermitWinkOilArticle) },
+  { countySlug: "andrews", articleSlug: "andrews-county-andrews-oil-shafter-lake-texas", loadArticle: () => import("@/data/fixtures/andrews-county-andrews-oil-shafter-lake").then((module) => module.andrewsCountyAndrewsOilShafterLakeArticle) },
+  { countySlug: "ector", articleSlug: "ector-county-odessa-oil-stonehenge-texas", loadArticle: () => import("@/data/fixtures/ector-county-odessa-oil-stonehenge").then((module) => module.ectorCountyOdessaOilStonehengeArticle) },
+  { countySlug: "randall", articleSlug: "randall-county-canyon-palo-duro-texas", loadArticle: () => import("@/data/fixtures/randall-county-canyon-palo-duro").then((module) => module.randallCountyCanyonPaloDuroArticle) },
+  { countySlug: "tom-green", articleSlug: "tom-green-county-san-angelo-concho-texas", loadArticle: () => import("@/data/fixtures/tom-green-county-san-angelo-concho").then((module) => module.tomGreenCountySanAngeloConchoArticle) },
+  { countySlug: "midland", articleSlug: "midland-county-railroad-oil-high-plains-texas", loadArticle: () => import("@/data/fixtures/midland-county-railroad-oil-high-plains").then((module) => module.midlandCountyRailroadOilHighPlainsArticle) },
+  { countySlug: "galveston", articleSlug: "galveston-county-island-port-juneteenth-texas", loadArticle: () => import("@/data/fixtures/galveston-county-island-port-juneteenth").then((module) => module.galvestonCountyIslandPortJuneteenthArticle) },
+  { countySlug: "gillespie", articleSlug: "gillespie-county-fredericksburg-stonewall-hill-country-texas", loadArticle: () => import("@/data/fixtures/gillespie-county-fredericksburg-stonewall-hill-country").then((module) => module.gillespieCountyFredericksburgStonewallHillCountryArticle) },
 ];
 
-const byCountySlug = new Map(COUNTY_SERIES_PROFILES.map((profile) => [profile.countySlug, profile.article]));
-const legacyArticleToCounty = new Map(COUNTY_SERIES_PROFILES.map((profile) => [profile.article.slug, profile.countySlug]));
+const byCountySlug = new Map(COUNTY_SERIES_PROFILES.map((profile) => [profile.countySlug, profile]));
+const legacyArticleToCounty = new Map(COUNTY_SERIES_PROFILES.map((profile) => [profile.articleSlug, profile.countySlug]));
+const articlePromiseCache = new Map<string, Promise<Article | null>>();
 
-export function getCountySeriesArticle(countySlug: string) {
-  return byCountySlug.get(countySlug) ?? null;
+export function loadCountySeriesArticle(countySlug: string): Promise<Article | null> {
+  const cached = articlePromiseCache.get(countySlug);
+  if (cached) return cached;
+  const profile = byCountySlug.get(countySlug);
+  const promise = profile ? profile.loadArticle() : Promise.resolve(null);
+  articlePromiseCache.set(countySlug, promise);
+  return promise;
 }
 
 export function countySlugForLegacyArticle(articleSlug: string) {
