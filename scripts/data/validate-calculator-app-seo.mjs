@@ -25,7 +25,12 @@ const routes = [
 const failures = [];
 
 for (const feature of [
+  "'@type': 'WebPage'",
+  "'@id': `${pageUrl}#page`",
+  "mainEntity: { '@id': `${pageUrl}#application` }",
+  "breadcrumb: { '@id': `${pageUrl}#breadcrumb` }",
   "'@type': 'WebApplication'",
+  "mainEntityOfPage: { '@id': `${pageUrl}#page` }",
   "applicationCategory: 'FinanceApplication'",
   "operatingSystem: 'Any'",
   "browserRequirements: 'Requires JavaScript'",
@@ -56,4 +61,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Calculator WebApplication and breadcrumb validation passed.');
+console.log('Calculator WebPage, WebApplication, canonical relationship, and breadcrumb validation passed.');
