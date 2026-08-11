@@ -52,6 +52,7 @@ export const Route = createFileRoute('/property-tax/county/$county')({
             isPartOf: { '@id': `${siteUrl}#website` },
             about: { '@id': `${pageUrl}#county` },
             mainEntity: { '@id': `${pageUrl}#article` },
+            breadcrumb: { '@id': `${pageUrl}#breadcrumb` },
           },
           {
             '@type': 'Article',
@@ -61,6 +62,7 @@ export const Route = createFileRoute('/property-tax/county/$county')({
             url: pageUrl,
             ...(county.lastVerifiedAt ? { dateModified: county.lastVerifiedAt } : {}),
             isPartOf: { '@id': `${pageUrl}#page` },
+            mainEntityOfPage: { '@id': `${pageUrl}#page` },
             about: { '@id': `${pageUrl}#county` },
           },
           {
