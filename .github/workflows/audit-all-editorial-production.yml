@@ -1,16 +1,30 @@
-name: Audit all TexasDefined editorial production routes
+name: County production verification
 
 on:
   pull_request:
     paths:
       - '.github/workflows/audit-all-editorial-production.yml'
+      - 'src/data/fixtures/*county*.ts'
+      - 'src/data/fixtures/repositories.ts'
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/audit-all-editorial-production.yml'
+      - 'src/data/fixtures/*county*.ts'
+      - 'src/data/fixtures/repositories.ts'
   workflow_dispatch:
 
 permissions:
   contents: read
 
+concurrency:
+  group: county-production-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  audit-editorial:
+  validate-county-source:
+    name: Validate county article source
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -19,49 +33,123 @@ jobs:
           node-version: '22'
           cache: npm
       - run: npm ci
-      - name: Inventory every current editorial article from the actual repository
+      - name: Inventory registered county articles
         shell: bash
         run: |
           set -euo pipefail
-          cat > .audit-inventory-editorial.mjs <<'EOF'
+          cat > .audit-county-inventory.mjs <<'EOF'
           import { createServer } from 'vite';
           import fs from 'node:fs';
-          const vite = await createServer({ server: { middlewareMode: true }, appType: 'custom', logLevel: 'error' });
+
+          const vite = await createServer({
+            server: { middlewareMode: true },
+            appType: 'custom',
+            logLevel: 'error',
+          });
+
           try {
             const mod = await vite.ssrLoadModule('/src/data/index.ts');
             const rows = await mod.platform.articles.list(mod.scope);
-            const unique = [...new Map(rows.map((row) => [row.slug, row])).values()]
+            const counties = rows
+              .filter((row) => row.id?.startsWith('county-') || row.tags?.includes('Texas counties'))
               .sort((a, b) => a.slug.localeCompare(b.slug));
-            if (!unique.length) throw new Error('Editorial repository returned zero articles');
-            fs.writeFileSync('/tmp/articles.json', JSON.stringify(unique.map((row) => ({ slug: row.slug, title: row.title })), null, 2));
-            fs.writeFileSync('/tmp/slugs.txt', unique.map((row) => row.slug).join('\n') + '\n');
-            console.log(`TexasDefined editorial inventory: ${unique.length} unique articles`);
-            for (const row of unique) console.log(`${row.slug}\t${row.title}`);
+
+            if (!counties.length) throw new Error('County article inventory returned zero articles');
+
+            const slugs = counties.map((row) => row.slug);
+            if (new Set(slugs).size !== slugs.length) throw new Error('Duplicate county article slug detected');
+
+            for (const row of counties) {
+              if (!row.slug || !row.title || !row.hero?.src) {
+                throw new Error(`County article is missing required publication metadata: ${row.id ?? 'unknown'}`);
+              }
+              if (!row.slug.includes('-county-') && !row.slug.startsWith('county-')) {
+                throw new Error(`County article slug does not identify a county: ${row.slug}`);
+              }
+            }
+
+            fs.writeFileSync('/tmp/county-slugs.txt', slugs.join('\n') + '\n');
+            console.log(`Registered county articles: ${counties.length}`);
+            for (const row of counties) console.log(`${row.slug}\t${row.title}`);
           } finally {
             await vite.close();
           }
           EOF
-          node .audit-inventory-editorial.mjs
-          rm .audit-inventory-editorial.mjs
-      - name: Verify every editorial page and rendered hero image in production
+          node .audit-county-inventory.mjs
+          rm .audit-county-inventory.mjs
+
+  verify-county-production:
+    name: Verify county articles on texasdefined.com
+    if: github.event_name != 'pull_request'
+    needs: validate-county-source
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - name: Build county production inventory
         shell: bash
         run: |
           set -euo pipefail
-          passed=0
-          failed=0
+          cat > .audit-county-inventory.mjs <<'EOF'
+          import { createServer } from 'vite';
+          import fs from 'node:fs';
+
+          const vite = await createServer({
+            server: { middlewareMode: true },
+            appType: 'custom',
+            logLevel: 'error',
+          });
+
+          try {
+            const mod = await vite.ssrLoadModule('/src/data/index.ts');
+            const rows = await mod.platform.articles.list(mod.scope);
+            const counties = rows
+              .filter((row) => row.id?.startsWith('county-') || row.tags?.includes('Texas counties'))
+              .sort((a, b) => a.slug.localeCompare(b.slug));
+            if (!counties.length) throw new Error('County article inventory returned zero articles');
+            fs.writeFileSync('/tmp/county-slugs.txt', counties.map((row) => row.slug).join('\n') + '\n');
+          } finally {
+            await vite.close();
+          }
+          EOF
+          node .audit-county-inventory.mjs
+          rm .audit-county-inventory.mjs
+
+      - name: Require every county article and hero image to be live in production
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp /tmp/county-slugs.txt /tmp/pending.txt
           : > /tmp/results.txt
-          while IFS= read -r slug; do
-            url="https://texasdefined.com/article/$slug"
-            code=$(curl -L -sS -o /tmp/article.html -w '%{http_code}' --max-time 25 "$url" || echo 000)
-            if [[ "$code" != "200" ]] || grep -Eqi 'Story unavailable|This story is no longer available|page not found' /tmp/article.html; then
-              echo "FAIL page $code $url" | tee -a /tmp/results.txt
-              failed=$((failed+1))
-              continue
+
+          verify_slug() {
+            local slug="$1"
+            local url="https://texasdefined.com/article/$slug"
+            local html="/tmp/article-${slug}.html"
+            local code image image_code
+
+            code=$(curl -L -sS -o "$html" -w '%{http_code}' --max-time 25 "$url" || echo 000)
+            if [[ "$code" != "200" ]]; then
+              echo "WAIT page=$code $url"
+              return 1
             fi
-            image=$(python3 - <<'PY'
+
+            if grep -Eqi 'Story unavailable|This story is no longer available|page not found|404[^0-9].*not found' "$html"; then
+              echo "WAIT fallback-page $url"
+              return 1
+            fi
+
+            image=$(python3 - "$html" <<'PY'
           import re
+          import sys
           from pathlib import Path
-          html = Path('/tmp/article.html').read_text(errors='ignore')
+
+          html = Path(sys.argv[1]).read_text(errors='ignore')
           patterns = [
               r'<meta[^>]+property=["\x27]og:image["\x27][^>]+content=["\x27]([^"\x27]+)',
               r'<meta[^>]+content=["\x27]([^"\x27]+)["\x27][^>]+property=["\x27]og:image["\x27]',
@@ -73,22 +161,47 @@ jobs:
                   break
           PY
           )
+
             if [[ -z "$image" ]]; then
-              echo "FAIL image-metadata $url" | tee -a /tmp/results.txt
-              failed=$((failed+1))
-              continue
+              echo "WAIT image-metadata $url"
+              return 1
             fi
-            if [[ "$image" == /* ]]; then image="https://texasdefined.com$image"; fi
+
+            if [[ "$image" == /* ]]; then
+              image="https://texasdefined.com$image"
+            fi
+
             image_code=$(curl -L -sS -o /dev/null -w '%{http_code}' --max-time 25 "$image" || echo 000)
             if [[ "$image_code" != "200" ]]; then
-              echo "FAIL image $image_code $image ($url)" | tee -a /tmp/results.txt
-              failed=$((failed+1))
-              continue
+              echo "WAIT image=$image_code $image ($url)"
+              return 1
             fi
+
             echo "PASS page=200 image=200 $url" | tee -a /tmp/results.txt
-            passed=$((passed+1))
-          done < /tmp/slugs.txt
-          echo "Passed: $passed"
-          echo "Failed: $failed"
-          cat /tmp/results.txt
-          [[ "$failed" -eq 0 ]]
+            return 0
+          }
+
+          for attempt in $(seq 1 12); do
+            : > /tmp/next-pending.txt
+            while IFS= read -r slug; do
+              [[ -z "$slug" ]] && continue
+              if ! verify_slug "$slug"; then
+                echo "$slug" >> /tmp/next-pending.txt
+              fi
+            done < /tmp/pending.txt
+
+            if [[ ! -s /tmp/next-pending.txt ]]; then
+              echo "All registered county articles are live in production."
+              cat /tmp/results.txt
+              exit 0
+            fi
+
+            mv /tmp/next-pending.txt /tmp/pending.txt
+            echo "Production is not ready for $(wc -l < /tmp/pending.txt) county article(s); attempt $attempt/12."
+            cat /tmp/pending.txt
+            if [[ "$attempt" -lt 12 ]]; then sleep 30; fi
+          done
+
+          echo "County production verification failed. These registered county articles are not live with working hero images:"
+          cat /tmp/pending.txt
+          exit 1
