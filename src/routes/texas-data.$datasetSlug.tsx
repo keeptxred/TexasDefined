@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from '@tanstack/react-router';
 
 import { texasDefinedBrand } from '@/brand/texasdefined';
+import { CitationTrustPanel } from '@/components/authority/CitationTrustPanel';
 import { Container } from '@/components/layout/Container';
 import { formatDatasetValue, getTexasDataset } from '@/data/texas-data-center';
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
@@ -92,7 +93,7 @@ function Page() {
             </div>
             <dl className="border-l border-border pl-6 text-sm">
               <div className="border-b border-border py-3"><dt className="text-[0.68rem] uppercase tracking-[0.16em] text-muted-foreground">Source</dt><dd className="mt-1 font-medium">{dataset.sourceName}</dd></div>
-              <div className="border-b border-border py-3"><dt className="text-[0.68rem] uppercase tracking-[0.16em] text-muted-foreground">Reviewed</dt><dd className="mt-1 font-medium">{formatCheckedDate(dataset.updated)}</dd></div>
+              <div className="border-b border-border py-3"><dt className="text-[0.68rem] uppercase tracking-[0.16em] text-muted-foreground">Last verified</dt><dd className="mt-1 font-medium">{formatCheckedDate(dataset.updated)}</dd></div>
               <div className="py-3"><dt className="text-[0.68rem] uppercase tracking-[0.16em] text-muted-foreground">Coverage</dt><dd className="mt-1 font-medium">{dataset.year}</dd></div>
             </dl>
           </header>
@@ -113,16 +114,17 @@ function Page() {
             </div>
           </section>
 
-          <section className="grid gap-8 border-y border-border py-8 lg:grid-cols-[14rem_1fr]">
-            <div>
-              <p className="eyebrow text-primary">Source notes</p>
-              <h2 className="mt-2 font-display text-3xl">How to read this brief</h2>
-            </div>
-            <div className="max-w-3xl text-sm leading-7 text-muted-foreground">
-              <p>{dataset.methodology}</p>
-              <p className="mt-4">Details reviewed {formatCheckedDate(dataset.updated)}. <a className="font-semibold text-foreground underline decoration-primary/50 underline-offset-4" href={dataset.sourceUrl} target="_blank" rel="noreferrer">View the original source from {dataset.sourceName} ↗</a></p>
-            </div>
-          </section>
+          <CitationTrustPanel
+            className="mt-2"
+            sources={[{
+              name: dataset.sourceName,
+              url: dataset.sourceUrl,
+              note: `Authoritative source for the ${dataset.year} coverage shown in this brief.`,
+            }]}
+            methodology={dataset.methodology}
+            lastVerified={formatCheckedDate(dataset.updated)}
+            title="Sources, methodology and verification"
+          />
 
           <footer className="flex flex-wrap gap-x-7 gap-y-3 py-7 text-sm font-semibold">
             <Link to="/texas-data" className="underline underline-offset-4">More Texas data</Link>

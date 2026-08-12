@@ -1,6 +1,8 @@
 import { createFileRoute, notFound, redirect } from '@tanstack/react-router';
 
 import { texasDefinedBrand } from '@/brand/texasdefined';
+import { CitationTrustPanel } from '@/components/authority/CitationTrustPanel';
+import { Container } from '@/components/layout/Container';
 import { CountyPropertyTaxTemplate } from '@/components/property/CountyPropertyTaxTemplate';
 import { getCountyPropertyRecordBySlug } from '@/data/property/county-property-data';
 import { isCountyPropertyIndexReady } from '@/data/property/county-property-schema';
@@ -95,5 +97,37 @@ export const Route = createFileRoute('/property-tax/county/$county')({
 
 function CountyPropertyTaxPage() {
   const { county } = Route.useLoaderData();
-  return <CountyPropertyTaxTemplate county={county} />;
+  const sources = county.sourceUrls.map((url) => ({
+    name: sourceName(url),
+    url,
+    note: 'Official or authoritative source used to verify this county property-tax record.',
+  }));
+
+  return (
+    <>
+      <CountyPropertyTaxTemplate county={county} />
+      <Container className="pb-12 sm:pb-16">
+        <CitationTrustPanel
+          sources={sources}
+          methodology="TexasDefined combines verified county, appraisal-district and tax-office records into one county reference. Property-specific values, exemptions, jurisdictions and deadlines must still be confirmed against the official parcel record and local notices; this page does not infer missing local facts."
+          lastVerified={county.lastVerifiedAt ? formatVerifiedDate(county.lastVerifiedAt) : 'Verification pending; this page remains outside the searchable citation-ready set until local sources are verified.'}
+          title="Sources, methodology and verification"
+        />
+      </Container>
+    </>
+  );
+}
+
+function sourceName(url: string) {
+  try {
+    return new URL(url).hostname.replace(/^www\./, '');
+  } catch {
+    return 'Official source';
+  }
+}
+
+function formatVerifiedDate(value: string) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return value;
+  return new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year: 'numeric' }).format(date);
 }
