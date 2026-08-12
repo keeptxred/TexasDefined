@@ -75,6 +75,7 @@ export const INDEXABLE_STATIC_PATHS = [
 // These must never be published unconditionally by a sitemap.
 export const CONDITIONAL_INDEXABLE_PUBLIC_PATHS = [
   "/news",
+  "/texas-data/county-growth",
 ] as const;
 
 export const REDIRECT_ONLY_PATHS = [
@@ -104,12 +105,6 @@ export const NON_INDEXABLE_PUBLIC_PATHS = [
 
 const NON_INDEXABLE_PREFIXES = ["/admin", "/api/"] as const;
 
-/**
- * Normalize an internal pathname before it is considered for canonical or
- * sitemap publication. Query strings, fragments, protocol-relative URLs and
- * malformed paths are deliberately rejected rather than normalized into a
- * crawlable URL.
- */
 export function normalizePublicPath(path: string) {
   const value = path.trim();
   if (!value || !value.startsWith("/") || value.startsWith("//")) return null;
@@ -118,11 +113,6 @@ export function normalizePublicPath(path: string) {
   return value.replace(/\/{2,}/g, "/").replace(/\/+$/, "");
 }
 
-/**
- * Explore owns its own sitemap so destination-heavy crawl demand is isolated
- * from the general site sitemap. Keeping these namespaces disjoint prevents
- * Google and other crawlers from receiving the same discovery signal twice.
- */
 export function isExploreSitemapOwnedPath(path: string) {
   const normalized = normalizePublicPath(path);
   if (!normalized) return false;
