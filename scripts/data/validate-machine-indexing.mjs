@@ -98,6 +98,21 @@ const adminBlocks = robotsSource.match(/^Disallow: \/admin$/gm) ?? [];
 if (adminBlocks.length !== 5) {
   errors.push('robots.txt must block the admin root for every declared crawler group.');
 }
+
+for (const crawler of [
+  'Googlebot',
+  'Googlebot-Image',
+  'OAI-SearchBot',
+  'ChatGPT-User',
+  'PerplexityBot',
+  'Perplexity-User',
+  'Google-Extended',
+]) {
+  if (!robotsSource.includes(`User-agent: ${crawler}`)) {
+    errors.push(`robots.txt must explicitly allow discovery crawler ${crawler}.`);
+  }
+}
+
 for (const sitemap of ['https://texasdefined.com/sitemap.xml', 'https://texasdefined.com/sitemap-explore.xml']) {
   if (!robotsSource.includes(`Sitemap: ${sitemap}`)) errors.push(`robots.txt must advertise ${sitemap}.`);
 }
