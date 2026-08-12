@@ -15,6 +15,18 @@ export type TexasCountyComparisonRow = {
   officialDirectoryUrl: string;
 };
 
+export type CountyMetricRank = {
+  rank: number;
+  comparedCount: number;
+};
+
+export type TexasCountyStatewideContext = {
+  population: CountyMetricRank | null;
+  landArea: CountyMetricRank | null;
+  density: CountyMetricRank | null;
+  waterShare: CountyMetricRank | null;
+};
+
 let comparisonPromise: Promise<TexasCountyComparisonRow[]> | undefined;
 
 export function loadTexasCountyComparison() {
@@ -40,22 +52,46 @@ export function loadTexasCountyComparison() {
 }
 
 export function populationRankedCounties(rows: TexasCountyComparisonRow[], limit = 20) {
-  return rows
-    .filter((row) => row.population2020 != null)
-    .sort((a, b) => (b.population2020 ?? 0) - (a.population2020 ?? 0))
-    .slice(0, limit);
+  return ranked(rows, 'population2020').slice(0, limit);
 }
 
 export function densityRankedCounties(rows: TexasCountyComparisonRow[], limit = 20) {
-  return rows
-    .filter((row) => row.populationDensityPerSquareMile != null)
-    .sort((a, b) => (b.populationDensityPerSquareMile ?? 0) - (a.populationDensityPerSquareMile ?? 0))
-    .slice(0, limit);
+  return ranked(rows, 'populationDensityPerSquareMile').slice(0, limit);
 }
 
 export function waterShareRankedCounties(rows: TexasCountyComparisonRow[], limit = 20) {
+  return ranked(rows, 'waterSharePercent').slice(0, limit);
+}
+
+export function buildCountyStatewideContext(rows: TexasCountyComparisonRow[], slug: string): TexasCountyStatewideContext {
+  return {
+    population: metricRank(rows, slug, 'population2020'),
+    landArea: metricRank(rows, slug, 'landAreaSquareMiles'),
+    density: metricRank(rows, slug, 'populationDensityPerSquareMile'),
+    waterShare: metricRank(rows, slug, 'waterSharePercent'),
+  };
+}
+
+function metricRank(
+  rows: TexasCountyComparisonRow[],
+  slug: string,
+  key: 'population2020' | 'landAreaSquareMiles' | 'populationDensityPerSquareMile' | 'waterSharePercent',
+): CountyMetricRank | null {
+  const ordered = ranked(rows, key);
+  const index = ordered.findIndex((row) => row.slug === slug);
+  if (index < 0) return null;
+  return { rank: index + 1, comparedCount: ordered.length };
+}
+
+function ranked(
+  rows: TexasCountyComparisonRow[],
+  key: 'population2020' | 'landAreaSquareMiles' | 'populationDensityPerSquareMile' | 'waterSharePercent',
+) {
   return rows
-    .filter((row) => row.waterSharePercent != null)
-    .sort((a, b) => (b.waterSharePercent ?? 0) - (a.waterSharePercent ?? 0))
-    .slice(0, limit);
+    .filter((row) => row[key] != null)
+    .slice()
+    .sort((a, b) => {
+      const difference = Number(b[key]) - Number(a[key]);
+      return difference || a.name.localeCompare(b.name);
+    });
 }
