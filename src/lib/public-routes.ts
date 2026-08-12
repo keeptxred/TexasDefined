@@ -101,6 +101,8 @@ export const NON_INDEXABLE_PUBLIC_PATHS = [
   "/explore/search",
   "/shop/cart",
   "/shop/checkout-return",
+  "/texas-data/county-growth.csv",
+  "/texas-data/city-county-relationships.csv",
 ] as const;
 
 const NON_INDEXABLE_PREFIXES = ["/admin", "/api/"] as const;
