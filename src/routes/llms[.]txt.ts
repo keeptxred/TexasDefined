@@ -28,6 +28,7 @@ Canonical contributor profiles use https://texasdefined.com/authors/{author-id}.
 - Human citation guide: https://texasdefined.com/citation-guide
 - Machine-readable citation index: https://texasdefined.com/citation-magnets.json
 - Texas data catalog: https://texasdefined.com/texas-data
+- Texas county population growth, 2020–2025: https://texasdefined.com/texas-data/county-growth
 - City-to-county relationship dataset: https://texasdefined.com/texas-data/city-county-relationships
 - Texas county comparison: https://texasdefined.com/browse/counties
 - County property-tax comparison: https://texasdefined.com/property-tax/counties
