@@ -1,7 +1,7 @@
 import { CitationTrustPanel } from '@/components/authority/CitationTrustPanel';
 import type { Destination } from '@/data/types';
 
-export type ExploreComparisonKind = 'state-parks' | 'lakes-rivers' | 'small-towns' | 'road-trips';
+export type ExploreComparisonKind = 'state-parks' | 'lakes-rivers' | 'small-towns' | 'road-trips' | 'attractions';
 
 const ACTIVITY_SIGNALS = [
   ['Hiking', ['hiking', 'trail']],
@@ -39,6 +39,12 @@ const COPY: Record<ExploreComparisonKind, { title: string; description: string; 
     methodology: 'Texas Defined compares only destinations returned by the canonical road-trips category. The matrix uses maintained route/destination fields and official links where available; it does not calculate live drive times or infer road conditions.',
     trustTitle: 'Road-trip comparison sources and methodology',
   },
+  attractions: {
+    title: 'Compare destinations in the Texas Defined attractions catalog',
+    description: 'Compare maintained Texas destination records across categories by region, nearby town, season guidance, highlights, planning notes and official source. This is the Texas Defined destination catalog, not a claim to list every attraction in Texas.',
+    methodology: 'The attractions comparison uses the same SEO-ready, currently visitable destination catalog that powers Texas Defined Explore. It does not invent popularity scores, ratings or completeness claims; each row keeps its maintained category and official source metadata where available.',
+    trustTitle: 'Attractions comparison sources and methodology',
+  },
 };
 
 function sourceDate(destinations: Destination[]) {
@@ -67,6 +73,7 @@ function officialSources(destinations: Destination[]) {
 export function ExploreDestinationComparison({ destinations, kind }: { destinations: Destination[]; kind: ExploreComparisonKind }) {
   if (!destinations.length) return null;
   const isParks = kind === 'state-parks';
+  const showCategory = kind === 'attractions';
   const copy = COPY[kind];
   const sorted = [...destinations].sort((a, b) => a.name.localeCompare(b.name));
 
@@ -78,10 +85,11 @@ export function ExploreDestinationComparison({ destinations, kind }: { destinati
         <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">{copy.description}</p>
 
         <div className="mt-7 overflow-x-auto border-y border-border">
-          <table className="w-full min-w-[980px] text-left text-sm">
+          <table className="w-full min-w-[1040px] text-left text-sm">
             <thead>
               <tr className="border-b border-border bg-background text-[0.68rem] uppercase tracking-[0.12em] text-muted-foreground">
                 <th className="px-4 py-3">Destination</th>
+                {showCategory ? <th className="px-4 py-3">Category</th> : null}
                 <th className="px-4 py-3">Region / nearest town</th>
                 <th className="px-4 py-3">Best-season note</th>
                 <th className="px-4 py-3">{isParks ? 'Activity signals' : 'Recorded highlights'}</th>
@@ -96,6 +104,7 @@ export function ExploreDestinationComparison({ destinations, kind }: { destinati
                 return (
                   <tr key={destination.slug}>
                     <td className="px-4 py-4 align-top"><a href={`/destination/${destination.slug}`} className="font-display text-lg font-semibold hover:text-primary">{destination.name}</a>{destination.county ? <span className="mt-1 block text-xs text-muted-foreground">{destination.county} County</span> : null}</td>
+                    {showCategory ? <td className="px-4 py-4 align-top capitalize">{destination.category.replace(/-/g, ' ')}</td> : null}
                     <td className="px-4 py-4 align-top"><span className="font-semibold capitalize">{destination.region.replace(/-/g, ' ')}</span><span className="mt-1 block text-muted-foreground">Near {destination.nearestTown}</span></td>
                     <td className="px-4 py-4 align-top text-muted-foreground">{destination.bestSeason || 'Verify current conditions'}</td>
                     <td className="px-4 py-4 align-top"><div className="flex max-w-sm flex-wrap gap-1.5">{shownSignals.map((item) => <span key={item} className="rounded-full border px-2 py-1 text-xs font-semibold">{item}</span>)}{shownSignals.length === 0 ? <span className="text-muted-foreground">No structured highlight signal</span> : null}</div></td>
