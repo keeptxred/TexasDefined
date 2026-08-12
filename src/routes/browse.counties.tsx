@@ -79,12 +79,12 @@ function CountyDirectoryPage() {
   return <>
     <AnswerSummary
       eyebrow="Texas counties"
-      title="How to use the Texas county comparison"
+      title="How to use the county property-tax directory"
       items={[
         { question: "How many counties are covered?", answer: `All ${TEXAS_COUNTIES.length.toLocaleString("en-US")} Texas counties are represented in the comparison and directory.` },
         { question: "What can I compare?", answer: "Use county seat, 2020 Census population, land area and referenced communities for statewide orientation, then open the county guide for local context." },
         { question: "Does a county average determine property taxes?", answer: "No. Property taxes depend on the exact property, taxable value and every taxing unit serving that address. Use the linked county property-tax guide as a starting point, then verify the parcel locally." },
-        { question: "Are these official county statistics?", answer: "Texas Defined organizes Texas State Library and U.S. Census Bureau data. Official local records remain the source of truth for current county services, property accounts and tax information." },
+        { question: "Are Texas Defined tax figures official?", answer: "No. Texas Defined organizes Texas State Library and U.S. Census Bureau data and explains public tax information, but official local records remain the source of truth for current county services, property accounts, appraisal values, tax bills and deadlines." },
       ]}
     />
     <Container className="pb-8">
