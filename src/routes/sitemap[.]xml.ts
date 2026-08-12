@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { platform, scope } from "@/data";
+import { loadTexasCountyGrowth } from "@/data/census-county-growth";
 import { isLegacyCountySeriesArticle } from "@/data/county-series";
 import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
 import { canonicalEntityPath, isIndexableEntityPage } from "@/data/knowledge-graph/relationships";
@@ -43,6 +44,7 @@ export const Route = createFileRoute("/sitemap.xml")({
         const collections = collectionsResult.status === "fulfilled" ? collectionsResult.value : [];
         const authors = authorsResult.status === "fulfilled" ? authorsResult.value : [];
         const graph = graphResult.status === "fulfilled" ? graphResult.value : [];
+        const countyGrowth = await loadTexasCountyGrowth();
 
         const countyPages = COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady);
         const entityPages = graph.filter(isIndexableEntityPage);
@@ -51,6 +53,7 @@ export const Route = createFileRoute("/sitemap.xml")({
             .filter((path) => !isExploreSitemapOwnedPath(path))
             .map((path) => ({ path })),
           ...(articles.length ? [{ path: "/news" }] : []),
+          ...(countyGrowth.available ? [{ path: "/texas-data/county-growth", lastmod: "2026-03-17" }] : []),
           ...collections.map((collection) => ({ path: `/shop/${collection.slug}` })),
           ...authors.map((author) => ({ path: `/authors/${author.id}` })),
           ...articles
