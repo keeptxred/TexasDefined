@@ -5,6 +5,7 @@
   "asOf": "2026-08-11",
   "purpose": "Machine-readable index of maintained TexasDefined reference resources intended for factual retrieval, comparison and citation.",
   "resources": [
+    { "url": "https://texasdefined.com/citation-guide", "type": "citation-policy", "topic": "TexasDefined citation guidance", "title": "How to Cite TexasDefined References & Data", "trust": ["canonical-url-guidance", "official-source-precedence", "provenance"] },
     { "url": "https://texasdefined.com/texas-data", "type": "data-catalog", "topic": "Texas data", "title": "Texas Facts and Figures", "trust": ["sources", "methodology", "freshness"] },
     { "url": "https://texasdefined.com/texas-data/city-county-relationships", "type": "dataset", "topic": "Texas cities and counties", "title": "Texas City-to-County Relationship Dataset", "trust": ["sources", "methodology", "scope-caveat"] },
     { "url": "https://texasdefined.com/browse/counties", "type": "comparison-directory", "topic": "Texas counties", "title": "Texas Counties Comparison & Property-Tax Directory", "trust": ["sources", "methodology", "scope-caveat"] },
