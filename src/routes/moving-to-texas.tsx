@@ -22,6 +22,10 @@ type MovingToTexasLoaderData = {
   counties: TexasCountyComparisonRow[];
 };
 
+function editorialCollectionPayload(articles: Article[], destinations: Destination[]) {
+  return { articles, destinations };
+}
+
 export const Route = createFileRoute("/moving-to-texas")({
   head: ({ loaderData }: { loaderData?: MovingToTexasLoaderData }) => loaderData ? buildEditorialCollectionHead(texasDefinedBrand, {
     canonicalPath: "/moving-to-texas",
@@ -44,9 +48,10 @@ export const Route = createFileRoute("/moving-to-texas")({
       context.queryClient.ensureQueryData(articlesQuery({ category: "moving-to-texas" })),
       context.queryClient.ensureQueryData(destinationsQuery({ category: "moving-to-texas" })),
       loadTexasCountyComparison(),
-      context.queryClient.ensureQueryData(regionsQuery()),
     ]);
-    return { articles, destinations, counties };
+    await context.queryClient.ensureQueryData(regionsQuery());
+    const editorial = editorialCollectionPayload(articles, destinations);
+    return { ...editorial, counties };
   },
   component: MovingToTexasPage,
 });
