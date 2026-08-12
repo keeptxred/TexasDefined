@@ -1,9 +1,11 @@
+import { lazy, Suspense } from "react";
 import { Link } from "@tanstack/react-router";
 
 import { useBrand } from "@/brand/context";
-import { CitationCollectionTrustRouter } from "@/components/authority/CitationCollectionTrustRouter";
 import { NewsletterSignup } from "@/components/editorial/NewsletterSignup";
 import { Container } from "./Container";
+
+const CitationCollectionTrustRouter = lazy(() => import("@/components/authority/CitationCollectionTrustRouter"));
 
 export function Footer() {
   const brand = useBrand();
@@ -11,7 +13,7 @@ export function Footer() {
 
   return (
     <>
-      <CitationCollectionTrustRouter />
+      <Suspense fallback={null}><CitationCollectionTrustRouter /></Suspense>
       <footer className="mt-20 border-t border-border bg-surface text-surface-foreground sm:mt-24">
         {brand.features.newsletter && (
           <div className="border-b border-border/70">
