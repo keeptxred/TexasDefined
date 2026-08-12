@@ -1,6 +1,8 @@
 import { CitationTrustPanel } from '@/components/authority/CitationTrustPanel';
 import type { Destination } from '@/data/types';
 
+export type ExploreComparisonKind = 'state-parks' | 'lakes-rivers' | 'small-towns' | 'road-trips';
+
 const ACTIVITY_SIGNALS = [
   ['Hiking', ['hiking', 'trail']],
   ['Camping', ['camping', 'campground']],
@@ -11,6 +13,33 @@ const ACTIVITY_SIGNALS = [
   ['Biking', ['biking', 'bike', 'mountain biking']],
   ['Birding / wildlife', ['birding', 'wildlife', 'bird']],
 ] as const;
+
+const COPY: Record<ExploreComparisonKind, { title: string; description: string; methodology: string; trustTitle: string }> = {
+  'state-parks': {
+    title: 'Compare Texas state parks by region, season and activity signals',
+    description: 'This table compares the destination records already maintained by Texas Defined. Activity marks are text signals from each record’s verified highlights and summary; they are not a promise that an amenity is open today.',
+    methodology: 'Texas Defined compares only destinations returned by the canonical state-parks category. Activity labels are deterministic keyword signals from each destination’s maintained summary, highlights, entry note and body; they do not substitute for a live TPWD amenity or closure check.',
+    trustTitle: 'State-park comparison sources and methodology',
+  },
+  'lakes-rivers': {
+    title: 'Compare Texas lakes and river destinations',
+    description: 'Use the destination records to compare region, nearest town, season guidance, planning notes and recorded highlights. Always verify water conditions, access, fees and closures with the linked managing authority before a trip.',
+    methodology: 'Texas Defined compares only destinations returned by the canonical lakes-and-rivers category. Fields are taken directly from maintained destination records, while current access, water conditions, fees and closures remain delegated to the linked managing authority.',
+    trustTitle: 'Lake and river comparison sources and methodology',
+  },
+  'small-towns': {
+    title: 'Compare Texas small-town destinations',
+    description: 'Use the maintained destination records to compare region, nearby city or town, season guidance, highlights and practical planning notes. This is a trip-planning comparison, not a ranking of quality of life or a claim that every Texas small town is included.',
+    methodology: 'Texas Defined compares only destinations returned by the canonical small-towns category. The table presents maintained editorial and source-backed destination fields and does not convert them into an unsupported best-town score.',
+    trustTitle: 'Small-town comparison sources and methodology',
+  },
+  'road-trips': {
+    title: 'Compare Texas road-trip destinations and routes',
+    description: 'Compare the maintained road-trip records by region, starting-area context, season guidance, highlights and planning notes. Drive time, road closures and current conditions must be checked before departure.',
+    methodology: 'Texas Defined compares only destinations returned by the canonical road-trips category. The matrix uses maintained route/destination fields and official links where available; it does not calculate live drive times or infer road conditions.',
+    trustTitle: 'Road-trip comparison sources and methodology',
+  },
+};
 
 function sourceDate(destinations: Destination[]) {
   const values = destinations.map((destination) => destination.sourceCheckedAt).filter((value): value is string => Boolean(value)).sort();
@@ -35,23 +64,18 @@ function officialSources(destinations: Destination[]) {
   }).slice(0, 12);
 }
 
-export function ExploreDestinationComparison({ destinations, kind }: { destinations: Destination[]; kind: 'state-parks' | 'lakes-rivers' }) {
+export function ExploreDestinationComparison({ destinations, kind }: { destinations: Destination[]; kind: ExploreComparisonKind }) {
   if (!destinations.length) return null;
   const isParks = kind === 'state-parks';
+  const copy = COPY[kind];
   const sorted = [...destinations].sort((a, b) => a.name.localeCompare(b.name));
 
   return (
     <section className="border-t border-border bg-surface" aria-labelledby={`${kind}-comparison-heading`}>
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <p className="eyebrow text-primary">Comparison guide</p>
-        <h2 id={`${kind}-comparison-heading`} className="mt-2 font-display text-4xl">
-          {isParks ? 'Compare Texas state parks by region, season and activity signals' : 'Compare Texas lakes and river destinations'}
-        </h2>
-        <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">
-          {isParks
-            ? 'This table compares the destination records already maintained by Texas Defined. Activity marks are text signals from each record’s verified highlights and summary; they are not a promise that an amenity is open today.'
-            : 'Use the destination records to compare region, nearest town, season guidance, planning notes and recorded highlights. Always verify water conditions, access, fees and closures with the linked managing authority before a trip.'}
-        </p>
+        <h2 id={`${kind}-comparison-heading`} className="mt-2 font-display text-4xl">{copy.title}</h2>
+        <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">{copy.description}</p>
 
         <div className="mt-7 overflow-x-auto border-y border-border">
           <table className="w-full min-w-[980px] text-left text-sm">
@@ -68,12 +92,13 @@ export function ExploreDestinationComparison({ destinations, kind }: { destinati
             <tbody className="divide-y divide-border">
               {sorted.map((destination) => {
                 const activitySignals = signals(destination);
+                const shownSignals = isParks ? activitySignals : destination.highlights.slice(0, 8);
                 return (
                   <tr key={destination.slug}>
                     <td className="px-4 py-4 align-top"><a href={`/destination/${destination.slug}`} className="font-display text-lg font-semibold hover:text-primary">{destination.name}</a>{destination.county ? <span className="mt-1 block text-xs text-muted-foreground">{destination.county} County</span> : null}</td>
-                    <td className="px-4 py-4 align-top"><span className="font-semibold">{destination.region.replace(/-/g, ' ')}</span><span className="mt-1 block text-muted-foreground">Near {destination.nearestTown}</span></td>
+                    <td className="px-4 py-4 align-top"><span className="font-semibold capitalize">{destination.region.replace(/-/g, ' ')}</span><span className="mt-1 block text-muted-foreground">Near {destination.nearestTown}</span></td>
                     <td className="px-4 py-4 align-top text-muted-foreground">{destination.bestSeason || 'Verify current conditions'}</td>
-                    <td className="px-4 py-4 align-top"><div className="flex max-w-sm flex-wrap gap-1.5">{(isParks ? activitySignals : destination.highlights.slice(0, 8)).map((item) => <span key={item} className="rounded-full border px-2 py-1 text-xs font-semibold">{item}</span>)}{(isParks ? activitySignals : destination.highlights).length === 0 ? <span className="text-muted-foreground">No structured highlight signal</span> : null}</div></td>
+                    <td className="px-4 py-4 align-top"><div className="flex max-w-sm flex-wrap gap-1.5">{shownSignals.map((item) => <span key={item} className="rounded-full border px-2 py-1 text-xs font-semibold">{item}</span>)}{shownSignals.length === 0 ? <span className="text-muted-foreground">No structured highlight signal</span> : null}</div></td>
                     <td className="max-w-sm px-4 py-4 align-top text-muted-foreground">{destination.entryNote}</td>
                     <td className="px-4 py-4 align-top">{destination.officialUrl ? <a href={destination.officialUrl} target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline underline-offset-4">Official source ↗</a> : <span className="text-muted-foreground">Official link pending</span>}{destination.sourceCheckedAt ? <span className="mt-1 block text-xs text-muted-foreground">Checked {destination.sourceCheckedAt}</span> : null}</td>
                   </tr>
@@ -88,9 +113,9 @@ export function ExploreDestinationComparison({ destinations, kind }: { destinati
         <CitationTrustPanel
           className="mt-10"
           sources={officialSources(sorted)}
-          methodology={isParks ? 'Texas Defined compares only destinations returned by the canonical state-parks category. Activity labels are deterministic keyword signals from each destination’s maintained summary, highlights, entry note and body; they do not substitute for a live TPWD amenity or closure check.' : 'Texas Defined compares only destinations returned by the canonical lakes-and-rivers category. Fields are taken directly from maintained destination records, while current access, water conditions, fees and closures remain delegated to the linked managing authority.'}
+          methodology={copy.methodology}
           lastVerified={sourceDate(sorted)}
-          title={isParks ? 'State-park comparison sources and methodology' : 'Lake and river comparison sources and methodology'}
+          title={copy.trustTitle}
         />
       </div>
     </section>
