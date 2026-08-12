@@ -8,6 +8,9 @@ export type TexasCountyComparisonRow = {
   countySeat: string | null;
   population2020: number | null;
   landAreaSquareMiles: number | null;
+  waterAreaSquareMiles: number | null;
+  populationDensityPerSquareMile: number | null;
+  waterSharePercent: number | null;
   majorCommunities: string[];
   officialDirectoryUrl: string;
 };
@@ -25,6 +28,9 @@ export function loadTexasCountyComparison() {
         countySeat: profile.countySeat ?? null,
         population2020: profile.population2020 ?? null,
         landAreaSquareMiles: profile.landAreaSquareMiles ?? null,
+        waterAreaSquareMiles: profile.waterAreaSquareMiles ?? null,
+        populationDensityPerSquareMile: profile.populationDensityPerSquareMile ?? null,
+        waterSharePercent: profile.waterSharePercent ?? null,
         majorCommunities: profile.majorCommunities,
         officialDirectoryUrl: county.officialDirectoryUrl,
       } satisfies TexasCountyComparisonRow;
@@ -37,5 +43,19 @@ export function populationRankedCounties(rows: TexasCountyComparisonRow[], limit
   return rows
     .filter((row) => row.population2020 != null)
     .sort((a, b) => (b.population2020 ?? 0) - (a.population2020 ?? 0))
+    .slice(0, limit);
+}
+
+export function densityRankedCounties(rows: TexasCountyComparisonRow[], limit = 20) {
+  return rows
+    .filter((row) => row.populationDensityPerSquareMile != null)
+    .sort((a, b) => (b.populationDensityPerSquareMile ?? 0) - (a.populationDensityPerSquareMile ?? 0))
+    .slice(0, limit);
+}
+
+export function waterShareRankedCounties(rows: TexasCountyComparisonRow[], limit = 20) {
+  return rows
+    .filter((row) => row.waterSharePercent != null)
+    .sort((a, b) => (b.waterSharePercent ?? 0) - (a.waterSharePercent ?? 0))
     .slice(0, limit);
 }
