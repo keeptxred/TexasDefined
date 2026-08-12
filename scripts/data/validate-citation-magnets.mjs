@@ -8,6 +8,8 @@ const publicRoutes = await read('src/lib/public-routes.ts');
 const exploreSitemap = await read('src/routes/sitemap-explore[.]xml.ts');
 const mainSitemap = await read('src/routes/sitemap[.]xml.ts');
 const trustPanel = await read('src/components/authority/CitationTrustPanel.tsx');
+const footer = await read('src/components/layout/Footer.tsx');
+const citationGuide = await read('src/routes/citation-guide.tsx');
 const exploreHub = await read('src/routes/explore.index.tsx');
 const dataHub = await read('src/routes/texas-data.tsx');
 const countyRoute = await read('src/routes/browse.counties.tsx');
@@ -23,7 +25,7 @@ const expect = (condition, message) => { if (!condition) errors.push(message); }
 
 expect(manifest.schemaVersion === 1, 'citation-magnets.json must use schemaVersion 1');
 expect(manifest.canonicalDomain === 'https://texasdefined.com', 'citation manifest canonicalDomain must be TexasDefined');
-expect(Array.isArray(manifest.resources) && manifest.resources.length >= 15, 'citation manifest must retain at least 15 maintained resources');
+expect(Array.isArray(manifest.resources) && manifest.resources.length >= 18, 'citation manifest must retain at least 18 maintained resources');
 
 const urls = manifest.resources.map((resource) => resource.url);
 expect(new Set(urls).size === urls.length, 'citation manifest URLs must be unique');
@@ -37,6 +39,7 @@ for (const resource of manifest.resources) {
 }
 
 const requiredManifestUrls = [
+  'https://texasdefined.com/citation-guide',
   'https://texasdefined.com/texas-data/city-county-relationships',
   'https://texasdefined.com/browse/counties',
   'https://texasdefined.com/property-tax/counties',
@@ -55,6 +58,13 @@ for (const label of ['Sources', 'Methodology', 'Last verified']) {
   expect(trustPanel.includes(`>${label}<`), `CitationTrustPanel must retain visible ${label} label`);
 }
 
+expect(publicRoutes.includes('"/citation-guide"'), 'citation guide must remain governed as an indexable static path');
+expect(footer.includes('to="/citation-guide"'), 'site footer must link the citation guide');
+expect(citationGuide.includes("createFileRoute('/citation-guide')"), 'citation guide route must remain canonical');
+expect(citationGuide.includes('Use the canonical page'), 'citation guide must explain canonical URL use');
+expect(citationGuide.includes('Keep the original source attached'), 'citation guide must preserve official-source precedence');
+expect(citationGuide.includes('/citation-magnets.json'), 'citation guide must link machine-readable citation manifest');
+expect(citationGuide.includes('/llms.txt'), 'citation guide must link llms retrieval guidance');
 expect(publicRoutes.includes('"/explore/attractions-comparison"'), 'attractions comparison must remain governed as an indexable static path');
 expect(publicRoutes.includes('"/texas-data/city-county-relationships"'), 'city-county dataset must remain governed as an indexable static path');
 expect(exploreSitemap.includes('"/explore/attractions-comparison"'), 'Explore sitemap must include attractions comparison');
@@ -82,4 +92,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Citation magnet validation passed for ${manifest.resources.length} TexasDefined resources.`);
+console.log(`Citation magnet validation passed for ${manifest.resources.length} TexasDefined resources, including the public citation policy.`);
