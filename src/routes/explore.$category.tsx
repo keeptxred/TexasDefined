@@ -3,13 +3,14 @@ import { createFileRoute, Link, notFound, redirect } from "@tanstack/react-route
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { CategoryPage } from "@/components/editorial/CategoryPage";
-import { ExploreDestinationComparison } from "@/components/explore/ExploreDestinationComparison";
+import { ExploreDestinationComparison, type ExploreComparisonKind } from "@/components/explore/ExploreDestinationComparison";
 import { Container } from "@/components/layout/Container";
 import { articlesQuery, categoriesQuery, destinationQuery, destinationsQuery } from "@/data/queries";
 import type { CategorySlug, Destination } from "@/data/types";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
+const COMPARISON_CATEGORIES = new Set<ExploreComparisonKind>(['state-parks', 'lakes-rivers', 'small-towns', 'road-trips']);
 
 function validCoordinates(destination: Destination) {
   const { lat, lng } = destination.coordinates;
@@ -165,7 +166,9 @@ function ExploreCategoryPage() {
   const { data: categories } = useSuspenseQuery(categoriesQuery());
   const match = categories.find((item) => item.slug === category);
   if (!match) return <CategoryNotFound />;
-  const comparisonKind = match.slug === 'state-parks' || match.slug === 'lakes-rivers' ? match.slug : null;
+  const comparisonKind = COMPARISON_CATEGORIES.has(match.slug as ExploreComparisonKind)
+    ? match.slug as ExploreComparisonKind
+    : null;
 
   return (
     <>
