@@ -6,6 +6,10 @@ const countyRoute = fs.readFileSync('src/routes/property-tax.county.$county.tsx'
 const entityRelationships = fs.readFileSync('src/data/knowledge-graph/relationships.ts', 'utf8');
 const entityRoute = fs.readFileSync('src/routes/$kind.$slug.tsx', 'utf8');
 const countyGuide = fs.readFileSync('src/components/content/CountyGuideSections.tsx', 'utf8');
+const countyIdentity = fs.readFileSync('src/components/content/CountyIdentitySection.tsx', 'utf8');
+const countyStatewide = fs.readFileSync('src/components/content/CountyStatewideContextSection.tsx', 'utf8');
+const countyComparison = fs.readFileSync('src/data/county-comparison.ts', 'utf8');
+const countyComparisonTable = fs.readFileSync('src/components/counties/TexasCountyComparisonTable.tsx', 'utf8');
 const entityIndex = fs.readFileSync('src/data/knowledge-graph/index.ts', 'utf8');
 const countyProfile = fs.readFileSync('src/data/county-profile.ts', 'utf8');
 const localGovernmentProfile = fs.readFileSync('src/data/local-government-profile.ts', 'utf8');
@@ -31,8 +35,20 @@ for (const forbiddenRanking of ['if (entity.kind === candidate.kind) score += 3'
 for (const feature of ['isIndexableEntityPage(loaderData.entity)',"robots: indexable ? undefined : 'noindex, follow, max-image-preview:large'",'loadCountyProfile(entity.slug, entity.name)','loadLocalGovernmentProfile(entity.slug, entity.name)','<CountyGuideSections entity={entity} profile={countyProfile} localGovernment={localGovernment} related={related} />',"entity.kind !== 'county' && entity.tags?.length","entity.kind !== 'county' && visibleRelated.length",'2020 Census population','Official county website']) {
   if (!entityRoute.includes(feature)) errors.push(`Rich county route contract missing: ${feature}`);
 }
-for (const feature of ['At a glance','The county in numbers','Where it is','A sense of place','County seat & communities','Places on the map','What to know','How to use this guide','Property & county services','Official local resources','Nearby places','Keep exploring','profile.population2020','profile.landAreaSquareMiles','profile.majorCommunities','localGovernment.appraisalDistrict','localGovernment.taxOffice','localGovernment.countyWebsiteUrl']) {
+for (const feature of ['At a glance','The county in numbers','Where it is','A sense of place','County seat & communities','Places on the map','What to know','How to use this guide','Property & county services','Official local resources','Nearby places','Keep exploring','profile.population2020','profile.landAreaSquareMiles','profile.majorCommunities','localGovernment.appraisalDistrict','localGovernment.taxOffice','localGovernment.countyWebsiteUrl','CountyIdentitySection','profile.populationDensityPerSquareMile','profile.waterSharePercent','How densely populated is']) {
   if (!countyGuide.includes(feature)) errors.push(`County guide section missing: ${feature}`);
+}
+for (const feature of ['Verified county profile','What the data says about','populationDensityPerSquareMile','waterSharePercent','Dividing those two Census figures','structured place directory','not a claim that the list contains every incorporated place','CountyStatewideContextSection','countySlug(countyName)']) {
+  if (!countyIdentity.includes(feature)) errors.push(`County identity uniqueness contract missing: ${feature}`);
+}
+for (const feature of ['Statewide context','Where {countyName} sits in the county data','buildCountyStatewideContext','loadTexasCountyComparison','of {fact.comparedCount} counties with source data','missing source values are excluded rather than estimated']) {
+  if (!countyStatewide.includes(feature)) errors.push(`County statewide context missing: ${feature}`);
+}
+for (const feature of ['populationDensityPerSquareMile','waterSharePercent','buildCountyStatewideContext','metricRank','landAreaSquareMiles','difference || a.name.localeCompare(b.name)']) {
+  if (!countyComparison.includes(feature)) errors.push(`County comparison uniqueness contract missing: ${feature}`);
+}
+for (const feature of ['Density','Water share','row.populationDensityPerSquareMile','row.waterSharePercent','derived values shown for comparison']) {
+  if (!countyComparisonTable.includes(feature)) errors.push(`County comparison table uniqueness contract missing: ${feature}`);
 }
 for (const forbiddenCopy of ['A closer look at ${entity.name}, where to find it, and what else is worth seeing nearby.','What to know about ${loaderData.entity.name}, where it is, and what is nearby.','This county guide is being expanded']) {
   if (entityRoute.includes(forbiddenCopy)) errors.push(`Generic placeholder copy must not return: ${forbiddenCopy}`);
@@ -60,6 +76,12 @@ for (const feature of [
   'population2020: censusFacts.population2020',
   'landAreaSquareMiles: censusFacts.landAreaSquareMiles',
   'waterAreaSquareMiles: censusFacts.waterAreaSquareMiles',
+  'populationDensityPerSquareMile',
+  'waterSharePercent',
+  'density(censusFacts.population2020, censusFacts.landAreaSquareMiles)',
+  'waterShare(censusFacts.landAreaSquareMiles, censusFacts.waterAreaSquareMiles)',
+  'roughly ${formatDensity(densityValue)} residents per square mile',
+  'Broader community coverage is added only when a place-to-county relationship is present',
   'majorCommunities',
   'countyProfileDescription',
 ]) {
@@ -70,6 +92,9 @@ for (const forbiddenLegacyCensusSource of ['api.census.gov/data/2020/dec/pl','ap
 }
 for (const forbiddenPerCountyFetch of ['fetchCountySeat(baseName)','fetchPopulation(countyCode)','fetchGeography(countyCode)']) {
   if (countyProfile.includes(forbiddenPerCountyFetch)) errors.push(`Per-county source fanout must not return: ${forbiddenPerCountyFetch}`);
+}
+if (countyProfile.includes('will expand as additional local sources are verified')) {
+  errors.push('County descriptions must not fall back to the old repeated expansion sentence.');
 }
 
 for (const feature of ['https://comptroller.texas.gov/taxes/property-tax/county-directory/','https://www.county.org','fetchCountyWebsite','findComptrollerCountyUrl','fetchComptrollerDirectory',"parseOfficeSection(page, 'Appraisal District', 'Tax Assessor/Collector')","parseOfficeSection(page, 'Tax Assessor/Collector')",'websiteUrl','phone','email','address','lastUpdated','localOfficeDescription']) {
@@ -91,4 +116,4 @@ if (errors.length) {
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
-console.log('County, destination and generated entity quality gates, statewide batch remediation, governed office promotion, authoritative enrichment, geographic/semantic ranking, rich county-guide sections, source specificity, noindex behavior, and partitioned qualified sitemap publication passed validation.');
+console.log('County, destination and generated entity quality gates, statewide batch remediation, county uniqueness signals and ranks, governed office promotion, authoritative enrichment, geographic/semantic ranking, rich county-guide sections, source specificity, noindex behavior, and partitioned qualified sitemap publication passed validation.');

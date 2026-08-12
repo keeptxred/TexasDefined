@@ -20,6 +20,8 @@ export type CountyProfile = {
   population2020?: number;
   landAreaSquareMiles?: number;
   waterAreaSquareMiles?: number;
+  populationDensityPerSquareMile?: number;
+  waterSharePercent?: number;
   latitude?: number;
   longitude?: number;
   majorCommunities: string[];
@@ -80,6 +82,8 @@ async function fetchCountyProfile(slug: string, countyName: string): Promise<Cou
   const countySeat = countySeatPlace?.displayName;
   const censusFacts = censusFactsResult.status === 'fulfilled' && countyCode ? censusFactsResult.value.get(countyCode) ?? {} : {};
   const majorCommunities = Array.from(new Set([countySeatName, ...knownCommunities].filter((value): value is string => Boolean(value))));
+  const populationDensityPerSquareMile = density(censusFacts.population2020, censusFacts.landAreaSquareMiles);
+  const waterSharePercent = waterShare(censusFacts.landAreaSquareMiles, censusFacts.waterAreaSquareMiles);
 
   return {
     countySeat,
@@ -87,6 +91,8 @@ async function fetchCountyProfile(slug: string, countyName: string): Promise<Cou
     population2020: censusFacts.population2020,
     landAreaSquareMiles: censusFacts.landAreaSquareMiles,
     waterAreaSquareMiles: censusFacts.waterAreaSquareMiles,
+    populationDensityPerSquareMile,
+    waterSharePercent,
     latitude: censusFacts.latitude,
     longitude: censusFacts.longitude,
     majorCommunities,
@@ -161,6 +167,18 @@ function finiteNumber(value: string | number | undefined) {
   return Number.isFinite(parsed) ? parsed : undefined;
 }
 
+function density(population: number | undefined, landAreaSquareMiles: number | undefined) {
+  if (population == null || landAreaSquareMiles == null || landAreaSquareMiles <= 0) return undefined;
+  return population / landAreaSquareMiles;
+}
+
+function waterShare(landAreaSquareMiles: number | undefined, waterAreaSquareMiles: number | undefined) {
+  if (landAreaSquareMiles == null || waterAreaSquareMiles == null) return undefined;
+  const totalArea = landAreaSquareMiles + waterAreaSquareMiles;
+  if (totalArea <= 0) return undefined;
+  return (waterAreaSquareMiles / totalArea) * 100;
+}
+
 function normalizeCountyKey(value: string) {
   return value.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
 }
@@ -174,11 +192,42 @@ function decodeEntities(value: string) {
 }
 
 export function countyProfileDescription(countyName: string, profile: CountyProfile) {
-  const facts: string[] = [];
-  if (profile.countySeat) facts.push(`Its county seat is ${profile.countySeat}`);
-  if (profile.population2020) facts.push(`the 2020 Census counted ${profile.population2020.toLocaleString('en-US')} residents`);
-  if (profile.landAreaSquareMiles) facts.push(`it covers about ${Math.round(profile.landAreaSquareMiles).toLocaleString('en-US')} square miles of land`);
-  if (profile.majorCommunities.length > 1) facts.push(`communities in this reference include ${profile.majorCommunities.slice(0, 4).join(', ')}`);
-  const detail = facts.length ? `${facts.join('; ')}.` : 'Texas Defined is assembling verified county-level facts from state and federal sources.';
-  return `${countyName} is one of Texas's 254 counties. ${detail} This county reference uses Texas State Library and U.S. Census Bureau data and will expand as additional local sources are verified.`;
+  const population = profile.population2020;
+  const landArea = profile.landAreaSquareMiles;
+  const densityValue = profile.populationDensityPerSquareMile;
+  const waterShareValue = profile.waterSharePercent;
+  const communityNames = profile.majorCommunities.filter((community) => `${community}, Texas` !== profile.countySeat);
+  const sentences = [`${countyName} is one of Texas's 254 counties.`];
+
+  if (waterShareValue != null && waterShareValue >= 10 && landArea != null && profile.waterAreaSquareMiles != null) {
+    sentences.push(`Census geography records about ${Math.round(landArea).toLocaleString('en-US')} square miles of land and ${Math.round(profile.waterAreaSquareMiles).toLocaleString('en-US')} square miles of water, with water accounting for about ${waterShareValue.toFixed(1)}% of the mapped land-and-water area.`);
+    if (population != null) sentences.push(`The 2020 Census counted ${population.toLocaleString('en-US')} residents.`);
+  } else if (population != null && landArea != null && densityValue != null) {
+    sentences.push(`The 2020 Census counted ${population.toLocaleString('en-US')} residents across about ${Math.round(landArea).toLocaleString('en-US')} square miles of land, or roughly ${formatDensity(densityValue)} residents per square mile.`);
+  } else if (population != null) {
+    sentences.push(`The 2020 Census counted ${population.toLocaleString('en-US')} residents.`);
+  } else if (landArea != null) {
+    sentences.push(`Census geography records about ${Math.round(landArea).toLocaleString('en-US')} square miles of land.`);
+  }
+
+  if (profile.countySeat) sentences.push(`${profile.countySeat} is the verified county seat.`);
+
+  if (communityNames.length >= 3) {
+    sentences.push(`Texas Defined's structured place directory also connects this county reference to ${communityNames.slice(0, 4).join(', ')}${communityNames.length > 4 ? ', and additional listed communities' : ''}.`);
+  } else if (communityNames.length === 2) {
+    sentences.push(`The structured place directory also connects this county reference to ${communityNames[0]} and ${communityNames[1]}.`);
+  } else if (communityNames.length === 1) {
+    sentences.push(`The structured place directory also connects this county reference to ${communityNames[0]}.`);
+  } else {
+    sentences.push('Broader community coverage is added only when a place-to-county relationship is present in the structured Texas Defined directory.');
+  }
+
+  sentences.push('County-seat information is checked against the Texas State Library; population and geography figures come from the U.S. Census Bureau.');
+  return sentences.join(' ');
+}
+
+function formatDensity(value: number) {
+  if (value >= 100) return Math.round(value).toLocaleString('en-US');
+  if (value >= 10) return value.toFixed(1);
+  return value.toFixed(2);
 }
