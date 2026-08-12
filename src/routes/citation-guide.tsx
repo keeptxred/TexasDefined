@@ -1,0 +1,132 @@
+import { createFileRoute, Link } from '@tanstack/react-router';
+
+import { texasDefinedBrand } from '@/brand/texasdefined';
+import { DepartmentHero } from '@/components/editorial/DepartmentHero';
+import { Container } from '@/components/layout/Container';
+import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
+
+const canonicalPath = '/citation-guide';
+const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
+const description = 'How to cite TexasDefined county, property-tax, data and travel reference pages, including canonical URLs, source precedence, date context and machine-readable resources.';
+
+const GROUPS = [
+  {
+    title: 'Texas data & counties',
+    description: 'County comparisons, city-to-county relationships and the Texas data catalog.',
+    links: [
+      ['Texas facts and figures', '/texas-data'],
+      ['Texas county comparison', '/browse/counties'],
+      ['City-to-county relationships', '/texas-data/city-county-relationships'],
+    ],
+  },
+  {
+    title: 'Property-tax references',
+    description: 'Statewide explanations, county comparisons, appraisal districts, deadlines and action guides.',
+    links: [
+      ['How Texas property taxes work', '/learn/property-taxes'],
+      ['Property tax by county', '/property-tax/counties'],
+      ['Appraisal district directory', '/learn/appraisal-districts'],
+      ['Property-tax protest guide', '/do/property-tax-protest'],
+    ],
+  },
+  {
+    title: 'Explore & relocation',
+    description: 'Maintained comparison layers for moving, parks, water destinations, small towns, road trips and attractions.',
+    links: [
+      ['Moving to Texas', '/moving-to-texas'],
+      ['Texas state parks', '/explore/state-parks'],
+      ['Texas lakes and rivers', '/explore/lakes-rivers'],
+      ['Texas attractions comparison', '/explore/attractions-comparison'],
+    ],
+  },
+] as const;
+
+export const Route = createFileRoute('/citation-guide')({
+  head: () => ({
+    meta: buildMeta(texasDefinedBrand, {
+      canonicalPath,
+      title: 'How to Cite TexasDefined References & Data',
+      description,
+    }),
+    links: [canonicalLink(texasDefinedBrand, canonicalPath)],
+    scripts: [jsonLd({
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'CollectionPage',
+          '@id': `${pageUrl}#page`,
+          url: pageUrl,
+          name: 'How to Cite TexasDefined References & Data',
+          description,
+          isPartOf: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#website` },
+          publisher: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#organization` },
+        },
+        {
+          '@type': 'BreadcrumbList',
+          '@id': `${pageUrl}#breadcrumb`,
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Front page', item: absoluteUrl(texasDefinedBrand, '/') },
+            { '@type': 'ListItem', position: 2, name: 'Citation guide', item: pageUrl },
+          ],
+        },
+      ],
+    })],
+  }),
+  component: CitationGuidePage,
+});
+
+function CitationGuidePage() {
+  return <>
+    <DepartmentHero
+      current="Citation Guide"
+      eyebrow="Research & attribution"
+      title="How to cite Texas Defined references"
+      description={description}
+      tone="surface"
+    />
+    <Container className="py-12 sm:py-16">
+      <section className="grid gap-5 md:grid-cols-3" aria-labelledby="citation-rules-heading">
+        <h2 id="citation-rules-heading" className="sr-only">Citation rules</h2>
+        <Rule title="Use the canonical page" body="Cite the clean TexasDefined canonical URL rather than a search, filter, preview or tracking URL." />
+        <Rule title="Keep the original source attached" body="When a claim comes from a government record, agency, park authority or public dataset, cite that controlling source alongside TexasDefined when the distinction matters." />
+        <Rule title="Preserve date and scope" body="Include the page's source-check, verification or data-as-of context when facts can change. Keep any visible completeness or planning caveat with the cited result." />
+      </section>
+
+      <section className="mt-12 border-y border-border py-8" aria-labelledby="format-heading">
+        <p className="eyebrow text-primary">Suggested format</p>
+        <h2 id="format-heading" className="mt-2 font-display text-3xl">A simple web citation</h2>
+        <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground"><strong className="text-foreground">Texas Defined, “Page title,” canonical page URL, verification or modification date when shown, accessed on your research date.</strong> For deadlines, eligibility, legal requirements, official boundaries, closures, fees or current government records, include the linked official source as the controlling authority.</p>
+      </section>
+
+      <section className="mt-12" aria-labelledby="reference-families-heading">
+        <p className="eyebrow text-primary">Maintained resources</p>
+        <h2 id="reference-families-heading" className="mt-2 font-display text-4xl">Reference families built for research</h2>
+        <div className="mt-7 grid gap-5 lg:grid-cols-3">
+          {GROUPS.map((group) => <article key={group.title} className="border border-border p-6">
+            <h3 className="font-display text-2xl">{group.title}</h3>
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">{group.description}</p>
+            <ul className="mt-5 space-y-3 text-sm font-semibold">
+              {group.links.map(([label, href]) => <li key={href}><a href={href} className="border-b border-primary text-primary">{label} →</a></li>)}
+            </ul>
+          </article>)}
+        </div>
+      </section>
+
+      <section className="mt-12 border-y border-border py-8" aria-labelledby="machine-heading">
+        <p className="eyebrow text-primary">Machine-readable discovery</p>
+        <h2 id="machine-heading" className="mt-2 font-display text-3xl">Citation index and retrieval guidance</h2>
+        <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">The citation manifest lists maintained canonical factual-reference targets and trust attributes. The llms.txt route describes TexasDefined's entity graph, retrieval rules and preferred reference resources. These are discovery aids; the human-readable page and its linked official sources remain the evidence layer.</p>
+        <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
+          <a href="/citation-magnets.json" className="border-b border-primary text-primary">citation-magnets.json</a>
+          <a href="/llms.txt" className="border-b border-primary text-primary">llms.txt</a>
+          <Link to="/about" className="border-b border-primary text-primary">Editorial accountability</Link>
+          <Link to="/texas-data" className="border-b border-primary text-primary">Texas data catalog</Link>
+        </div>
+      </section>
+    </Container>
+  </>;
+}
+
+function Rule({ title, body }: { title: string; body: string }) {
+  return <article className="border-t border-border pt-5"><h3 className="font-display text-2xl">{title}</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">{body}</p></article>;
+}
