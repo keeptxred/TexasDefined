@@ -49,12 +49,17 @@ export const Route = createFileRoute("/browse/counties")({
               itemListElement: TEXAS_COUNTIES.map((county, index) => ({
                 "@type": "ListItem",
                 position: index + 1,
-                url: absoluteUrl(texasDefinedBrand, `/county/${county.slug}`),
+                url: absoluteUrl(texasDefinedBrand, `/property-tax/county/${county.slug}`),
                 item: {
-                  "@type": "AdministrativeArea",
-                  name: county.name,
-                  identifier: county.code,
-                  sameAs: county.officialDirectoryUrl,
+                  "@type": "WebPage",
+                  name: `${county.name} property-tax guide`,
+                  url: absoluteUrl(texasDefinedBrand, `/property-tax/county/${county.slug}`),
+                  about: {
+                    "@type": "AdministrativeArea",
+                    name: county.name,
+                    identifier: county.code,
+                    sameAs: county.officialDirectoryUrl,
+                  },
                 },
               })),
             },
