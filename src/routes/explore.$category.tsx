@@ -3,6 +3,7 @@ import { createFileRoute, Link, notFound, redirect } from "@tanstack/react-route
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { CategoryPage } from "@/components/editorial/CategoryPage";
+import { ExploreDestinationComparison } from "@/components/explore/ExploreDestinationComparison";
 import { Container } from "@/components/layout/Container";
 import { articlesQuery, categoriesQuery, destinationQuery, destinationsQuery } from "@/data/queries";
 import type { CategorySlug, Destination } from "@/data/types";
@@ -160,17 +161,22 @@ function CategoryNotFound() {
 
 function ExploreCategoryPage() {
   const { category } = Route.useParams();
+  const { destinations } = Route.useLoaderData();
   const { data: categories } = useSuspenseQuery(categoriesQuery());
   const match = categories.find((item) => item.slug === category);
   if (!match) return <CategoryNotFound />;
+  const comparisonKind = match.slug === 'state-parks' || match.slug === 'lakes-rivers' ? match.slug : null;
 
   return (
-    <CategoryPage
-      category={match.slug as CategorySlug}
-      eyebrow={match.eyebrow}
-      title={match.name}
-      intro={match.description}
-      image={match.image}
-    />
+    <>
+      <CategoryPage
+        category={match.slug as CategorySlug}
+        eyebrow={match.eyebrow}
+        title={match.name}
+        intro={match.description}
+        image={match.image}
+      />
+      {comparisonKind ? <ExploreDestinationComparison destinations={destinations} kind={comparisonKind} /> : null}
+    </>
   );
 }
