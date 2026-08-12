@@ -53,6 +53,7 @@ function ExplorePage() {
     <DepartmentHero current="Explore" eyebrow="The Texas guide" title="Explore Texas, one good road at a time" description={description} />
 
     <ExploreIntentPaths />
+    <Container className="pb-4 pt-8"><Link to="/explore/attractions-comparison" className="group flex items-center justify-between gap-5 border-y border-border py-5"><div><p className="eyebrow text-primary">Structured comparison</p><h2 className="mt-1 font-display text-2xl group-hover:text-primary">Compare the Texas Defined attractions catalog</h2><p className="mt-2 text-sm leading-6 text-muted-foreground">See destinations across categories by region, nearby town, season guidance, highlights, planning notes and official source.</p></div><span className="shrink-0 font-semibold text-primary">Compare →</span></Link></Container>
 
     <Section>
       <Container>
