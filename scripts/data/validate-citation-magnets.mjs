@@ -14,6 +14,7 @@ const citationGuide = await read('src/routes/citation-guide.tsx');
 const exploreHub = await read('src/routes/explore.index.tsx');
 const dataHub = await read('src/routes/texas-data.tsx');
 const countyGrowth = await read('src/routes/texas-data.county-growth.tsx');
+const countyGrowthContent = await read('src/components/data/CountyGrowthContent.tsx');
 const countyGrowthData = await read('src/data/census-county-growth.ts');
 const countyRoute = await read('src/routes/browse.counties.tsx');
 const propertyTaxCounties = await read('src/routes/property-tax.counties.tsx');
@@ -79,7 +80,9 @@ expect(mainSitemap.includes('countyGrowth.available'), 'main sitemap must publis
 expect(dataHub.includes('/texas-data/county-growth'), 'Texas Data hub must link county growth');
 expect(countyGrowth.includes("createFileRoute('/texas-data/county-growth')"), 'county growth route must remain canonical');
 expect(countyGrowth.includes("loaderData?.available ? 'index, follow, max-image-preview:large' : 'noindex, follow'"), 'county growth route must fail closed on source outage');
-expect(countyGrowth.includes('CitationTrustPanel'), 'county growth route must expose visible source/methodology/verification context');
+expect(countyGrowth.includes("lazy(() => import('@/components/data/CountyGrowthContent'))"), 'county growth UI must remain manually split from the main client bundle');
+expect(countyGrowth.includes("await import('@/data/census-county-growth')"), 'county growth source parser must remain dynamically imported by the route loader');
+expect(countyGrowthContent.includes('CitationTrustPanel'), 'county growth content must expose visible source/methodology/verification context');
 for (const token of ['co-est2025-alldata.csv', "cells[index.STATE] !== '48'", 'ESTIMATESBASE2020', 'POPESTIMATE2025', 'rows.length >= 250']) expect(countyGrowthData.includes(token), `county growth source contract missing: ${token}`);
 
 expect(footer.includes('to="/citation-guide"'), 'site footer must link the citation guide');
@@ -104,7 +107,7 @@ const extractionContracts = [
   [homestead, 'School homestead exemption history', 'homestead comparison answer block'],
   [attractions, 'ItemList', 'attractions machine-readable list'],
   [cityCounty, "'@type': 'Dataset'", 'city-county Dataset schema'],
-  [countyGrowth, 'Fastest percentage growth', 'county growth comparison layer'],
+  [countyGrowthContent, 'Fastest percentage growth', 'county growth comparison layer'],
 ];
 for (const [source, token, label] of extractionContracts) expect(source.includes(token), `citation extraction contract missing: ${label}`);
 
