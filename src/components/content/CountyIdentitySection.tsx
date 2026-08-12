@@ -1,3 +1,4 @@
+import { CountyStatewideContextSection } from '@/components/content/CountyStatewideContextSection';
 import type { CountyProfile } from '@/data/county-profile';
 
 export function CountyIdentitySection({ countyName, region, profile }: { countyName: string; region?: string; profile: CountyProfile }) {
@@ -46,10 +47,20 @@ export function CountyIdentitySection({ countyName, region, profile }: { countyN
           ) : (
             <p>Texas Defined does not add an unsourced list of local communities. Additional places appear here only when the structured place directory contains a verified county relationship.</p>
           )}
+
+          <CountyStatewideContextSection countyName={countyName} countySlug={countySlug(countyName)} />
         </div>
       </div>
     </section>
   );
+}
+
+function countySlug(countyName: string) {
+  return countyName
+    .replace(/ County$/, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
 }
 
 function formatDensity(value: number) {
