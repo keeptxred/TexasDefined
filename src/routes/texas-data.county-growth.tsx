@@ -31,6 +31,11 @@ export const Route = createFileRoute('/texas-data/county-growth')({
       creator: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#organization` },
       isBasedOn: loaderData.sourceFileUrl,
       variableMeasured: ['2020 population estimates base', '2025 population estimate', 'population change', 'population change percent'],
+      distribution: {
+        '@type': 'DataDownload',
+        encodingFormat: 'text/csv',
+        contentUrl: absoluteUrl(texasDefinedBrand, '/texas-data/county-growth.csv'),
+      },
     })] : [],
   }),
   component: Page,
