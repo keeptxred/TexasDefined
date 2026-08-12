@@ -40,6 +40,7 @@ const delegatedValidators = [
   'validate-knowledge-graph-platform.mjs', 'validate-internal-linking.mjs',
   'validate-internal-link-policy-release.mjs', 'validate-internal-link-golden-corpus.mjs',
   'validate-knowledge-graph-behavior.mjs', 'validate-citation-magnets.mjs',
+  'validate-citation-downloads.mjs',
 ];
 
 const protectedValidators = [...directValidators, ...delegatedValidators];
@@ -80,4 +81,4 @@ for (const validator of delegatedValidators) {
   }
 }
 
-console.log(`SEO CI contract passed with ${protectedValidators.length} protected remediation validators (${directValidators.length} direct, ${delegatedValidators.length} delegated), including the permanent generated-page quality gate and citation-magnet discovery gate.`);
+console.log(`SEO CI contract passed with ${protectedValidators.length} protected remediation validators (${directValidators.length} direct, ${delegatedValidators.length} delegated), including the permanent generated-page quality gate, citation-magnet discovery gate and machine-readable citation download gate.`);
