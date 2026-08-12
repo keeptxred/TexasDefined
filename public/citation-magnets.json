@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "site": "TexasDefined",
+  "canonicalDomain": "https://texasdefined.com",
+  "asOf": "2026-08-11",
+  "purpose": "Machine-readable index of maintained TexasDefined reference resources intended for factual retrieval, comparison and citation.",
+  "resources": [
+    { "url": "https://texasdefined.com/texas-data", "type": "data-catalog", "topic": "Texas data", "title": "Texas Facts and Figures", "trust": ["sources", "methodology", "freshness"] },
+    { "url": "https://texasdefined.com/texas-data/city-county-relationships", "type": "dataset", "topic": "Texas cities and counties", "title": "Texas City-to-County Relationship Dataset", "trust": ["sources", "methodology", "scope-caveat"] },
+    { "url": "https://texasdefined.com/browse/counties", "type": "comparison-directory", "topic": "Texas counties", "title": "Texas Counties Comparison & Property-Tax Directory", "trust": ["sources", "methodology", "scope-caveat"] },
+    { "url": "https://texasdefined.com/property-tax/counties", "type": "comparison-directory", "topic": "Texas property taxes", "title": "Texas Property Tax by County", "trust": ["sources", "methodology", "freshness"] },
+    { "url": "https://texasdefined.com/learn/property-taxes", "type": "evergreen-reference", "topic": "Texas property taxes", "title": "How Texas Property Taxes Work", "trust": ["official-sources", "answer-layer"] },
+    { "url": "https://texasdefined.com/learn/appraisal-districts", "type": "directory-reference", "topic": "Texas appraisal districts", "title": "Texas Appraisal District Directory & Property Record Guide", "trust": ["official-source", "methodology", "freshness"] },
+    { "url": "https://texasdefined.com/do/property-tax-protest", "type": "how-to-reference", "topic": "Texas property-tax protests", "title": "Texas Property Tax Protest & Deadline Guide", "trust": ["official-sources", "methodology", "freshness"] },
+    { "url": "https://texasdefined.com/learn/property-tax-deadlines", "type": "calendar-reference", "topic": "Texas property-tax deadlines", "title": "Texas Property Tax Deadlines", "trust": ["official-sources", "methodology", "freshness"] },
+    { "url": "https://texasdefined.com/do/homestead-exemption", "type": "how-to-comparison", "topic": "Texas homestead exemptions", "title": "Texas Homestead Exemption Guide & History", "trust": ["official-sources", "dataset", "methodology"] },
+    { "url": "https://texasdefined.com/moving-to-texas", "type": "relocation-comparison", "topic": "Moving to Texas", "title": "Moving to Texas: County Comparison, Cities & What to Know", "trust": ["sources", "methodology", "scope-caveat"] },
+    { "url": "https://texasdefined.com/explore/state-parks", "type": "travel-comparison", "topic": "Texas state parks", "title": "Texas State Parks", "trust": ["official-sources", "activity-signal-caveat", "freshness"] },
+    { "url": "https://texasdefined.com/explore/lakes-rivers", "type": "travel-comparison", "topic": "Texas lakes and rivers", "title": "Texas Lakes and Rivers", "trust": ["official-sources", "planning-caveat", "freshness"] },
+    { "url": "https://texasdefined.com/explore/small-towns", "type": "travel-comparison", "topic": "Texas small towns", "title": "Texas Small Towns", "trust": ["official-sources", "scope-caveat"] },
+    { "url": "https://texasdefined.com/explore/road-trips", "type": "travel-comparison", "topic": "Texas road trips", "title": "Texas Road Trips", "trust": ["official-sources", "live-condition-caveat"] },
+    { "url": "https://texasdefined.com/explore/attractions-comparison", "type": "catalog-comparison", "topic": "Texas attractions", "title": "Texas Attractions Comparison", "trust": ["official-sources", "scope-caveat", "methodology"] },
+    { "url": "https://texasdefined.com/find-my-dmv", "type": "lookup-tool", "topic": "Texas DMV services", "title": "Find My DMV", "trust": ["official-source", "lookup-caveat"] },
+    { "url": "https://texasdefined.com/find-my-school-district", "type": "lookup-tool", "topic": "Texas school districts", "title": "Find My School District", "trust": ["official-source", "boundary-caveat"] }
+  ]
+}
