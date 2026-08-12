@@ -60,7 +60,7 @@ expect(publicRoutes.includes('"/texas-data/city-county-relationships"'), 'city-c
 expect(exploreSitemap.includes('"/explore/attractions-comparison"'), 'Explore sitemap must include attractions comparison');
 expect(mainSitemap.includes('INDEXABLE_STATIC_PATHS'), 'main sitemap must remain driven by governed static paths');
 expect(exploreHub.includes('to="/explore/attractions-comparison"'), 'Explore hub must link the attractions comparison');
-expect(dataHub.includes('"/texas-data/city-county-relationships"'), 'Texas Data hub must link the city-county dataset');
+expect(dataHub.includes('/texas-data/city-county-relationships'), 'Texas Data hub must link the city-county dataset');
 
 const extractionContracts = [
   [countyRoute, 'How to use the county property-tax directory', 'county directory direct-answer layer'],
