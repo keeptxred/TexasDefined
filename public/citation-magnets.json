@@ -7,6 +7,7 @@
   "resources": [
     { "url": "https://texasdefined.com/citation-guide", "type": "citation-policy", "topic": "TexasDefined citation guidance", "title": "How to Cite TexasDefined References & Data", "trust": ["canonical-url-guidance", "official-source-precedence", "provenance"] },
     { "url": "https://texasdefined.com/texas-data", "type": "data-catalog", "topic": "Texas data", "title": "Texas Facts and Figures", "trust": ["sources", "methodology", "freshness"] },
+    { "url": "https://texasdefined.com/texas-data/county-growth", "type": "dataset-comparison", "topic": "Texas county population growth", "title": "Texas County Population Growth — 2020 to 2025", "trust": ["census-vintage-2025", "methodology", "conditional-indexing"] },
     { "url": "https://texasdefined.com/texas-data/city-county-relationships", "type": "dataset", "topic": "Texas cities and counties", "title": "Texas City-to-County Relationship Dataset", "trust": ["sources", "methodology", "scope-caveat"] },
     { "url": "https://texasdefined.com/browse/counties", "type": "comparison-directory", "topic": "Texas counties", "title": "Texas Counties Comparison & Property-Tax Directory", "trust": ["sources", "methodology", "scope-caveat"] },
     { "url": "https://texasdefined.com/property-tax/counties", "type": "comparison-directory", "topic": "Texas property taxes", "title": "Texas Property Tax by County", "trust": ["sources", "methodology", "freshness"] },
