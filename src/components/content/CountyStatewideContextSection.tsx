@@ -15,28 +15,22 @@ export function CountyStatewideContextSection({ countyName, countySlug }: { coun
   if (!facts.length) return null;
 
   return (
-    <section className="border-b border-border py-12" aria-labelledby="county-statewide-context-heading">
-      <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">
-        <div>
-          <p className="eyebrow text-primary">Statewide context</p>
-          <h2 id="county-statewide-context-heading" className="mt-2 font-display text-4xl">Where {countyName} sits in the county data</h2>
-        </div>
-        <div>
-          <p className="max-w-3xl text-base leading-7 text-muted-foreground">
-            These ranks use the same Texas State Library and U.S. Census county dataset as the statewide comparison. A rank is shown only when that metric is available for the county and the comparison set; missing source values are excluded rather than estimated.
-          </p>
-          <dl className="mt-6 grid gap-x-8 sm:grid-cols-2 lg:grid-cols-4">
-            {facts.map((fact) => (
-              <div key={fact.label} className="border-t border-border py-4">
-                <dt className="text-[0.68rem] uppercase tracking-[0.16em] text-muted-foreground">{fact.label}</dt>
-                <dd className="mt-2 font-display text-2xl">#{fact.rank}</dd>
-                <dd className="mt-1 text-xs text-muted-foreground">of {fact.comparedCount} counties with source data</dd>
-              </div>
-            ))}
-          </dl>
-          <a href="/browse/counties" className="mt-6 inline-block text-sm font-semibold text-primary underline decoration-primary/40 underline-offset-4">Compare all Texas counties →</a>
-        </div>
-      </div>
-    </section>
+    <div className="mt-8 border-t border-border pt-7" aria-labelledby="county-statewide-context-heading">
+      <p className="eyebrow text-primary">Statewide context</p>
+      <h3 id="county-statewide-context-heading" className="mt-2 font-display text-3xl">Where {countyName} sits in the county data</h3>
+      <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">
+        These ranks use the same Texas State Library and U.S. Census county dataset as the statewide comparison. A rank is shown only when that metric is available for the county and the comparison set; missing source values are excluded rather than estimated.
+      </p>
+      <dl className="mt-6 grid gap-x-8 sm:grid-cols-2 lg:grid-cols-4">
+        {facts.map((fact) => (
+          <div key={fact.label} className="border-t border-border py-4">
+            <dt className="text-[0.68rem] uppercase tracking-[0.16em] text-muted-foreground">{fact.label}</dt>
+            <dd className="mt-2 font-display text-2xl">#{fact.rank}</dd>
+            <dd className="mt-1 text-xs text-muted-foreground">of {fact.comparedCount} counties with source data</dd>
+          </div>
+        ))}
+      </dl>
+      <a href="/browse/counties" className="mt-4 inline-block text-sm font-semibold text-primary underline decoration-primary/40 underline-offset-4">Compare all Texas counties →</a>
+    </div>
   );
 }
