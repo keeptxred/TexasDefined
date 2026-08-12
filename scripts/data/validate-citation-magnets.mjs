@@ -13,6 +13,9 @@ const footer = await read('src/components/layout/Footer.tsx');
 const citationGuide = await read('src/routes/citation-guide.tsx');
 const exploreHub = await read('src/routes/explore.index.tsx');
 const dataHub = await read('src/routes/texas-data.tsx');
+const countyGrowth = await read('src/routes/texas-data.county-growth.tsx');
+const countyGrowthContent = await read('src/components/data/CountyGrowthContent.tsx');
+const countyGrowthData = await read('src/data/census-county-growth.ts');
 const countyRoute = await read('src/routes/browse.counties.tsx');
 const propertyTaxCounties = await read('src/routes/property-tax.counties.tsx');
 const appraisalDistricts = await read('src/routes/learn.appraisal-districts.tsx');
@@ -26,7 +29,7 @@ const expect = (condition, message) => { if (!condition) errors.push(message); }
 
 expect(manifest.schemaVersion === 1, 'citation-magnets.json must use schemaVersion 1');
 expect(manifest.canonicalDomain === 'https://texasdefined.com', 'citation manifest canonicalDomain must be TexasDefined');
-expect(Array.isArray(manifest.resources) && manifest.resources.length >= 18, 'citation manifest must retain at least 18 maintained resources');
+expect(Array.isArray(manifest.resources) && manifest.resources.length >= 19, 'citation manifest must retain at least 19 maintained resources');
 
 const urls = manifest.resources.map((resource) => resource.url);
 expect(new Set(urls).size === urls.length, 'citation manifest URLs must be unique');
@@ -42,6 +45,7 @@ for (const resource of manifest.resources) {
 const requiredManifestUrls = [
   'https://texasdefined.com/citation-guide',
   'https://texasdefined.com/texas-data',
+  'https://texasdefined.com/texas-data/county-growth',
   'https://texasdefined.com/texas-data/city-county-relationships',
   'https://texasdefined.com/browse/counties',
   'https://texasdefined.com/property-tax/counties',
@@ -59,18 +63,28 @@ const requiredManifestUrls = [
 ];
 for (const url of requiredManifestUrls) expect(urls.includes(url), `required citation target missing from manifest: ${url}`);
 
-for (const label of ['Sources', 'Methodology', 'Last verified']) {
-  expect(trustPanel.includes(`>${label}<`), `CitationTrustPanel must retain visible ${label} label`);
-}
+for (const label of ['Sources', 'Methodology', 'Last verified']) expect(trustPanel.includes(`>${label}<`), `CitationTrustPanel must retain visible ${label} label`);
 
 const collectionTrustPaths = ['/citation-guide', '/texas-data', '/learn/property-taxes', '/find-my-dmv', '/find-my-school-district'];
 for (const path of collectionTrustPaths) {
   expect(collectionTrust.includes(`'${path}'`), `collection trust router must cover ${path}`);
   expect(urls.includes(`https://texasdefined.com${path}`), `collection trust path must remain promoted in citation manifest: ${path}`);
 }
-expect(footer.includes('<CitationCollectionTrustRouter />'), 'site footer must render collection trust coverage');
+expect(footer.includes('CitationCollectionTrustRouter'), 'site footer must render collection trust coverage');
 
 expect(publicRoutes.includes('"/citation-guide"'), 'citation guide must remain governed as an indexable static path');
+expect(publicRoutes.includes('"/texas-data/county-growth"'), 'county growth must remain governed as a conditional public path');
+expect(!publicRoutes.split('CONDITIONAL_INDEXABLE_PUBLIC_PATHS')[0].includes('"/texas-data/county-growth"'), 'county growth must not be unconditionally indexable');
+expect(mainSitemap.includes('loadTexasCountyGrowth'), 'main sitemap must evaluate county-growth source readiness');
+expect(mainSitemap.includes('countyGrowth.available'), 'main sitemap must publish county growth only when source data is ready');
+expect(dataHub.includes('/texas-data/county-growth'), 'Texas Data hub must link county growth');
+expect(countyGrowth.includes("createFileRoute('/texas-data/county-growth')"), 'county growth route must remain canonical');
+expect(countyGrowth.includes("loaderData?.available ? 'index, follow, max-image-preview:large' : 'noindex, follow'"), 'county growth route must fail closed on source outage');
+expect(countyGrowth.includes("lazy(() => import('@/components/data/CountyGrowthContent'))"), 'county growth UI must remain manually split from the main client bundle');
+expect(countyGrowth.includes("await import('@/data/census-county-growth')"), 'county growth source parser must remain dynamically imported by the route loader');
+expect(countyGrowthContent.includes('CitationTrustPanel'), 'county growth content must expose visible source/methodology/verification context');
+for (const token of ['co-est2025-alldata.csv', "cells[index.STATE] !== '48'", 'ESTIMATESBASE2020', 'POPESTIMATE2025', 'rows.length >= 250']) expect(countyGrowthData.includes(token), `county growth source contract missing: ${token}`);
+
 expect(footer.includes('to="/citation-guide"'), 'site footer must link the citation guide');
 expect(citationGuide.includes("createFileRoute('/citation-guide')"), 'citation guide route must remain canonical');
 expect(citationGuide.includes('Use the canonical page'), 'citation guide must explain canonical URL use');
@@ -93,10 +107,11 @@ const extractionContracts = [
   [homestead, 'School homestead exemption history', 'homestead comparison answer block'],
   [attractions, 'ItemList', 'attractions machine-readable list'],
   [cityCounty, "'@type': 'Dataset'", 'city-county Dataset schema'],
+  [countyGrowthContent, 'Fastest percentage growth', 'county growth comparison layer'],
 ];
 for (const [source, token, label] of extractionContracts) expect(source.includes(token), `citation extraction contract missing: ${label}`);
 
-expect(!manifest.resources.some((resource) => /growth|cost\/property/.test(resource.url)), 'deferred county growth/cost rankings must not be promoted without source data');
+expect(!manifest.resources.some((resource) => /cost\/property/.test(resource.url)), 'county housing/cost ranking must not be promoted until its official source is maintainable');
 
 if (errors.length) {
   console.error('Citation magnet validation failed:');
@@ -104,4 +119,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Citation magnet validation passed for ${manifest.resources.length} TexasDefined resources with collection-level trust coverage.`);
+console.log(`Citation magnet validation passed for ${manifest.resources.length} TexasDefined resources, including Census Vintage 2025 county growth.`);
