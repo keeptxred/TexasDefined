@@ -94,7 +94,7 @@ function CitiesDirectoryPage() {
   return <>
     <AnswerSummary
       eyebrow="Texas cities"
-      title="Find Texas cities by county and region"
+      title="How to use the Texas city directory"
       items={[
         { question: "What is this directory?", answer: `A searchable starting point for ${TEXAS_CITIES.length.toLocaleString("en-US")} Texas cities in the current Texas Defined reference set, with direct links to city reference pages.` },
         { question: "How can I find what county a Texas city is in?", answer: "Each city entry identifies its Texas county and region. Open the city reference page for additional local context and related resources." },
