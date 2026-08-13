@@ -3,6 +3,7 @@ import { DEFAULT_EDITORIAL_DESK_ID } from "./editorial-desks";
 
 const supabaseUrl = String(import.meta.env.VITE_TEXASDEFINED_SUPABASE_URL || import.meta.env.VITE_SUPABASE_URL || "").replace(/\/$/, "");
 const supabaseKey = String(import.meta.env.VITE_TEXASDEFINED_SUPABASE_ANON_KEY || import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || "");
+const ARTICLE_SELECT = "id,slug,title,dek,category,region,hero_url,hero_alt,hero_credit,author_id,published_at,tags,body_json,related_collections,related_destinations,source_name,source_url";
 
 function headers(): HeadersInit {
   return { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}`, Accept: "application/json" };
@@ -78,7 +79,7 @@ async function request(params: URLSearchParams): Promise<Article[]> {
 
 export async function fetchPublishedTexasDefinedArticles(options: { category?: string; limit?: number } = {}): Promise<Article[]> {
   const params = new URLSearchParams({
-    select: "id,slug,title,dek,category,region,hero_url,hero_alt,hero_credit,author_id,published_at,tags,body_json,related_collections,related_destinations,source_name,source_url",
+    select: ARTICLE_SELECT,
     status: "eq.published",
     order: "published_at.desc",
     limit: String(Math.max(1, Math.min(options.limit ?? 100, 200))),
@@ -89,7 +90,7 @@ export async function fetchPublishedTexasDefinedArticles(options: { category?: s
 
 export async function fetchPublishedTexasDefinedArticle(slug: string): Promise<Article | null> {
   const params = new URLSearchParams({
-    select: "id,slug,title,dek,category,region,hero_url,hero_alt,hero_credit,author_id,published_at,tags,body_json,related_collections,related_destinations,source_name,source_url",
+    select: ARTICLE_SELECT,
     status: "eq.published",
     slug: `eq.${slug}`,
     limit: "1",
