@@ -44,7 +44,7 @@ for (const required of [
 for (const required of [
   'title: "Texas Cities & Towns Directory | Browse by County & Region"',
   'Browse Texas cities and towns by county and region',
-  'title="Find Texas cities by county and region"',
+  'title="How to use the Texas city directory"',
 ]) {
   if (!citiesRoute.includes(required)) failures.push(`Texas cities directory CTR contract missing: ${required}`);
 }
