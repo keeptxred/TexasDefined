@@ -160,6 +160,20 @@ jobs:
           cp /tmp/county-profiles.tsv /tmp/pending.tsv
           : > /tmp/results.txt
 
+          html_contains_text() {
+            local html_file="$1"
+            local expected="$2"
+            python3 - "$html_file" "$expected" <<'PY'
+          import html
+          import sys
+          from pathlib import Path
+
+          document = html.unescape(Path(sys.argv[1]).read_text(errors='ignore'))
+          expected = sys.argv[2]
+          raise SystemExit(0 if expected.casefold() in document.casefold() else 1)
+          PY
+          }
+
           verify_profile() {
             local county_slug="$1"
             local legacy_slug="$2"
@@ -180,7 +194,7 @@ jobs:
               return 1
             fi
 
-            if ! grep -Fqi "$title" "$html"; then
+            if ! html_contains_text "$html" "$title"; then
               echo "WAIT editorial-layer title=$title $url"
               return 1
             fi
