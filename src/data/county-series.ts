@@ -33,7 +33,6 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
 ];
 
 const byCountySlug = new Map(COUNTY_SERIES_PROFILES.map((profile) => [profile.countySlug, profile]));
-const legacyArticleToCounty = new Map(COUNTY_SERIES_PROFILES.map((profile) => [profile.articleSlug, profile.countySlug]));
 const articlePromiseCache = new Map<string, Promise<Article | null>>();
 
 export function loadCountySeriesArticle(countySlug: string): Promise<Article | null> {
@@ -46,9 +45,9 @@ export function loadCountySeriesArticle(countySlug: string): Promise<Article | n
 }
 
 export function countySlugForLegacyArticle(articleSlug: string) {
-  return legacyArticleToCounty.get(articleSlug) ?? null;
+  return COUNTY_SERIES_PROFILES.find((profile) => profile.articleSlug === articleSlug)?.countySlug ?? null;
 }
 
 export function isLegacyCountySeriesArticle(articleSlug: string) {
-  return legacyArticleToCounty.has(articleSlug);
+  return countySlugForLegacyArticle(articleSlug) !== null;
 }
