@@ -1,3 +1,4 @@
+import { texasRiversExplainedArticle } from "./texas-rivers-explained";
 import { texasTownCulturalRootsArticle } from "./texas-town-cultural-roots";
 import { texasCourthousesTownSquareArticle } from "./texas-courthouses-town-square";
 import { texasHurricanePreparationArticle } from "./texas-hurricane-preparation-guide";
@@ -11,6 +12,7 @@ import { texasHillCountryWhatMakesItArticle } from "./texas-hill-country-what-ma
 import { winklerCountyKermitWinkOilArticle } from "./winkler-county-kermit-wink-oil";
 
 export const newestEvergreenArticles = [
+  texasRiversExplainedArticle,
   winklerCountyKermitWinkOilArticle,
   texasTownCulturalRootsArticle,
   texasCourthousesTownSquareArticle,
