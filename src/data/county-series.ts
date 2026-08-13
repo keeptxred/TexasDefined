@@ -32,16 +32,8 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   { countySlug: "brazoria", articleSlug: "brazoria-county-brazos-gulf-angleton-texas", loadArticle: () => import("@/data/fixtures/brazoria-county-brazos-gulf-angleton").then((module) => module.brazoriaCountyBrazosGulfAngletonArticle) },
 ];
 
-const byCountySlug = new Map(COUNTY_SERIES_PROFILES.map((profile) => [profile.countySlug, profile]));
-const articlePromiseCache = new Map<string, Promise<Article | null>>();
-
 export function loadCountySeriesArticle(countySlug: string): Promise<Article | null> {
-  const cached = articlePromiseCache.get(countySlug);
-  if (cached) return cached;
-  const profile = byCountySlug.get(countySlug);
-  const promise = profile ? profile.loadArticle() : Promise.resolve(null);
-  articlePromiseCache.set(countySlug, promise);
-  return promise;
+  return COUNTY_SERIES_PROFILES.find((profile) => profile.countySlug === countySlug)?.loadArticle() ?? Promise.resolve(null);
 }
 
 export function countySlugForLegacyArticle(articleSlug: string) {
