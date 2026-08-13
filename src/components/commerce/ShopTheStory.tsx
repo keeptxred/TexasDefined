@@ -26,6 +26,7 @@ export function ShopTheStory({ collectionSlug }: { collectionSlug: string }) {
               alt={product.image.alt}
               width={product.image.width}
               height={product.image.height}
+              sizes="(min-width: 640px) 30vw, 100vw"
               loading="lazy"
               decoding="async"
               className="aspect-square w-full object-cover"
@@ -40,7 +41,7 @@ export function ShopTheStory({ collectionSlug }: { collectionSlug: string }) {
       <Link
         to="/shop/$collection"
         params={{ collection: collectionSlug }}
-        className="eyebrow group mt-6 inline-flex items-center gap-2 border-b border-primary pb-1 text-primary"
+        className="eyebrow group mt-6 inline-flex min-h-11 items-center gap-2 border-b border-primary pb-1 text-primary"
       >
         Shop these picks
         <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">→</span>
