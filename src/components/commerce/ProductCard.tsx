@@ -16,7 +16,7 @@ export function ProductCard({ product, className }: { product: Product; classNam
   const content = (
     <>
       <div className="relative overflow-hidden bg-muted">
-        <img src={product.image.src} alt={product.image.alt} width={product.image.width} height={product.image.height} loading="lazy" decoding="async" className="aspect-[4/5] w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
+        <img src={product.image.src} alt={product.image.alt} width={product.image.width} height={product.image.height} sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" loading="lazy" decoding="async" className="aspect-[4/5] w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
         {product.madeInTexas ? <span className="eyebrow absolute left-3 top-3 bg-background/92 px-2.5 py-1.5 text-foreground">Made in Texas</span> : null}
       </div>
       <div className="border-t border-border pt-4">
@@ -35,7 +35,7 @@ export function ProductCard({ product, className }: { product: Product; classNam
 
   return (
     <article className={cn("group relative", className)}>
-      <button type="button" onClick={toggle} aria-pressed={saved} aria-label={saved ? `Remove ${product.name} from your saved picks` : `Save ${product.name} for later`} title={saved ? "Remove from saved picks" : "Save for later"} className="absolute right-3 top-3 z-10 rounded-full bg-background/92 p-2 text-foreground/70 transition-all hover:text-primary lg:opacity-0 lg:focus-visible:opacity-100 lg:group-hover:opacity-100">
+      <button type="button" onClick={toggle} aria-pressed={saved} aria-label={saved ? `Remove ${product.name} from your saved picks` : `Save ${product.name} for later`} title={saved ? "Remove from saved picks" : "Save for later"} className="absolute right-3 top-3 z-10 inline-flex min-h-11 min-w-11 items-center justify-center rounded-full bg-background/92 p-2 text-foreground/70 transition-all hover:text-primary lg:opacity-0 lg:focus-visible:opacity-100 lg:group-hover:opacity-100">
         <Heart className={cn("size-4", saved && "fill-primary text-primary")} aria-hidden />
       </button>
       {product.productUrl ? <Link to="/shop/product/$productId" params={{ productId: product.id }} className="block" aria-label={`View ${product.name}`}>{content}</Link> : collection ? <Link to="/shop/$collection" params={{ collection }} className="block" aria-label={`View the ${collection.replaceAll("-", " ")} collection`}>{content}</Link> : content}

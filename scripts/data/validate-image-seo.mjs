@@ -1,13 +1,23 @@
 import fs from 'node:fs';
 
+const read = (path) => fs.readFileSync(path, 'utf8');
 const errors = [];
-const types = fs.readFileSync('src/data/types.ts', 'utf8');
-const articleCard = fs.readFileSync('src/components/editorial/ArticleCard.tsx', 'utf8');
-const destinationCard = fs.readFileSync('src/components/editorial/DestinationCard.tsx', 'utf8');
-const featureHero = fs.readFileSync('src/components/editorial/FeatureHero.tsx', 'utf8');
-const articleRoute = fs.readFileSync('src/routes/article.$slug.tsx', 'utf8');
-const destinationRoute = fs.readFileSync('src/routes/destination.$slug.tsx', 'utf8');
-const duplicateGuard = fs.readFileSync('scripts/data/validate-editorial-image-duplicates.mjs', 'utf8');
+const types = read('src/data/types.ts');
+const articleCard = read('src/components/editorial/ArticleCard.tsx');
+const destinationCard = read('src/components/editorial/DestinationCard.tsx');
+const featureHero = read('src/components/editorial/FeatureHero.tsx');
+const articleRoute = read('src/routes/article.$slug.tsx');
+const destinationRoute = read('src/routes/destination.$slug.tsx');
+const duplicateGuard = read('scripts/data/validate-editorial-image-duplicates.mjs');
+const header = read('src/components/layout/Header.tsx');
+const rootRoute = read('src/routes/__root.tsx');
+const button = read('src/components/ui/button.tsx');
+const input = read('src/components/ui/input.tsx');
+const select = read('src/components/ui/select.tsx');
+const styles = read('src/styles.css');
+const productCard = read('src/components/commerce/ProductCard.tsx');
+const shopTheStory = read('src/components/commerce/ShopTheStory.tsx');
+const collectionStrip = read('src/components/commerce/CollectionStrip.tsx');
 
 for (const field of ['src: string', 'alt: string', 'width: number', 'height: number']) {
   if (!types.includes(field)) errors.push(`ImageRef must require ${field}.`);
@@ -16,11 +26,9 @@ for (const field of ['src: string', 'alt: string', 'width: number', 'height: num
 for (const [name, source] of [['ArticleCard', articleCard], ['DestinationCard', destinationCard]]) {
   if (!source.includes('loading={eager ? "eager" : "lazy"}')) errors.push(`${name} must lazy-load non-priority images.`);
   if (!source.includes('fetchPriority={eager ? "high" : "auto"}')) errors.push(`${name} must raise fetch priority only for eager images.`);
-  if (!source.includes('sizes=')) errors.push(`${name} must provide responsive image sizes.`);
-  if (!source.includes('width=')) errors.push(`${name} must render explicit image width.`);
-  if (!source.includes('height=')) errors.push(`${name} must render explicit image height.`);
-  if (!source.includes('alt=')) errors.push(`${name} must render image alt text.`);
-  if (!source.includes('decoding="async"')) errors.push(`${name} must use async image decoding.`);
+  for (const feature of ['sizes=', 'width=', 'height=', 'alt=', 'decoding="async"']) {
+    if (!source.includes(feature)) errors.push(`${name} image contract missing: ${feature}`);
+  }
 }
 
 for (const feature of ['loading="eager"', 'fetchPriority="high"', 'sizes="100vw"', 'sizes="(min-width: 1024px) 58vw, 100vw"', 'width={image.width}', 'height={image.height}', 'alt={image.alt}']) {
@@ -33,21 +41,31 @@ for (const [name, source] of [['Article route', articleRoute], ['Destination rou
   }
 }
 
+for (const [name, source] of [['ProductCard', productCard], ['ShopTheStory', shopTheStory], ['CollectionStrip', collectionStrip], ['Header navigation imagery', header]]) {
+  for (const feature of ['sizes=', 'width=', 'height=', 'alt=', 'loading="lazy"', 'decoding="async"']) {
+    if (!source.includes(feature)) errors.push(`${name} responsive image contract missing: ${feature}`);
+  }
+}
+
 for (const feature of ['duplicate hero image group', 'Every editorial article must have its own hero image']) {
   if (!duplicateGuard.includes(feature)) errors.push(`Editorial image uniqueness protection missing: ${feature}`);
 }
+if (!articleRoute.includes('DISCOVER_MIN_IMAGE_WIDTH = 1200')) errors.push('Article route must preserve the 1200px Discover image threshold.');
+if (!articleRoute.includes('max-image-preview:large') && !read('src/lib/seo.ts').includes('max-image-preview:large')) errors.push('Indexed pages must allow large image previews.');
 
-if (!articleRoute.includes('DISCOVER_MIN_IMAGE_WIDTH = 1200')) {
-  errors.push('Article route must preserve the 1200px Discover image threshold.');
-}
-if (!articleRoute.includes('max-image-preview:large') && !fs.readFileSync('src/lib/seo.ts', 'utf8').includes('max-image-preview:large')) {
-  errors.push('Indexed pages must allow large image previews.');
-}
+if (!header.includes('href="#main"') || !rootRoute.includes('<main id="main"')) errors.push('Global skip-to-content navigation must target the main landmark.');
+if (!header.includes('min-h-11 min-w-11')) errors.push('Header icon controls must preserve 44px touch targets.');
+if (!button.includes('icon: "h-11 w-11"')) errors.push('Shared icon buttons must preserve a 44px touch target.');
+if (!input.includes('h-11 w-full')) errors.push('Shared text inputs must preserve a 44px control height.');
+if (!select.includes('h-11 w-full')) errors.push('Shared select triggers must preserve a 44px control height.');
+if (!styles.includes(':focus-visible')) errors.push('Global focus-visible styling must remain enabled.');
+if (!styles.includes('@media (prefers-reduced-motion: reduce)')) errors.push('Reduced-motion support must remain enabled.');
+if (!productCard.includes('min-h-11 min-w-11')) errors.push('Product save control must preserve a 44px touch target.');
 
 if (errors.length) {
-  console.error('TexasDefined image SEO validation failed:');
+  console.error('TexasDefined image performance and accessibility validation failed:');
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
 
-console.log('Image SEO validation passed: descriptive alt/dimensions, responsive sizing, loading priority, Discover eligibility, and editorial hero uniqueness are protected.');
+console.log('Image SEO, responsive sizing, touch targets, focus handling, reduced motion, and hero uniqueness are protected.');
