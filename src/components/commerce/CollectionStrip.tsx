@@ -14,6 +14,7 @@ export function CollectionStrip({ collections }: { collections: Collection[] }) 
                 alt={collection.image.alt}
                 width={collection.image.width}
                 height={collection.image.height}
+                sizes="(min-width: 768px) 33vw, 100vw"
                 loading="lazy"
                 decoding="async"
                 className="aspect-[4/5] w-full object-cover transition-transform duration-700 group-hover:scale-105"
@@ -22,7 +23,7 @@ export function CollectionStrip({ collections }: { collections: Collection[] }) 
             <p className="eyebrow mt-4 text-primary">Our picks</p>
             <h3 className="mt-2 font-display text-2xl">{collection.name}</h3>
             <p className="mt-1 text-sm text-muted-foreground">{collection.tagline}</p>
-            <span className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-primary">
+            <span className="mt-4 inline-flex min-h-11 items-center gap-2 text-sm font-medium text-primary">
               See the collection
               <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">
                 →
