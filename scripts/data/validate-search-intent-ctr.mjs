@@ -1,17 +1,22 @@
 import fs from 'node:fs';
 
 const insuranceRoute = fs.readFileSync('src/routes/texas-home-insurance-calculator.tsx', 'utf8');
+const costOfLivingRoute = fs.readFileSync('src/routes/texas-cost-of-living-calculator.tsx', 'utf8');
+const citiesRoute = fs.readFileSync('src/routes/browse.cities.tsx', 'utf8');
+const countyPropertyTaxRoute = fs.readFileSync('src/routes/property-tax.county.$county.tsx', 'utf8');
 const calculators = fs.readFileSync('src/components/calculators/TexasPlanningCalculators.tsx', 'utf8');
 const entityRoute = fs.readFileSync('src/routes/$kind.$slug.tsx', 'utf8');
 const entityRegistry = fs.readFileSync('src/data/texas-entity-registry.ts', 'utf8');
 const knowledgeGraph = fs.readFileSync('src/data/knowledge-graph/index.ts', 'utf8');
 const localGovernment = fs.readFileSync('src/data/local-government-profile.ts', 'utf8');
+const serverRoute = fs.readFileSync('src/server.ts', 'utf8');
+const countySeries = fs.readFileSync('src/data/county-series.ts', 'utf8');
 const failures = [];
 
 for (const required of [
-  "title: 'Texas Homeowners Insurance Estimate Calculator'",
-  'title="Texas homeowners insurance estimate calculator"',
-  'without entering personal information',
+  "title: 'Texas Homeowners Insurance Calculator | No Personal Info'",
+  'title="Texas homeowners insurance calculator without personal information"',
+  'Use this Texas homeowners insurance calculator without personal information.',
   'does not require your name, email address, phone number, or street address',
   'The result is a planning estimate only.',
 ]) {
@@ -25,6 +30,31 @@ for (const prohibited of ['label="Name"', 'label="Email"', 'label="Phone"', 'lab
 }
 for (const required of ['Replacement cost', 'Estimated base rate', 'Wind/flood additions', 'Deductible/discount credit']) {
   if (!insuranceCalculator.includes(required)) failures.push(`Home insurance planning input missing: ${required}`);
+}
+
+for (const required of [
+  "title: 'Texas Cost of Living Calculator | Moving Budget Estimator'",
+  'title="Texas cost of living calculator"',
+  'compare your current household spending with a possible budget elsewhere in Texas',
+  'move, job change, or housing decision',
+]) {
+  if (!costOfLivingRoute.includes(required)) failures.push(`Cost-of-living search intent contract missing: ${required}`);
+}
+
+for (const required of [
+  'title: "Texas Cities & Towns Directory | Browse by County & Region"',
+  'Browse Texas cities and towns by county and region',
+  'title="Find Texas cities by county and region"',
+]) {
+  if (!citiesRoute.includes(required)) failures.push(`Texas cities directory CTR contract missing: ${required}`);
+}
+
+for (const required of [
+  'const title = `${county.name} Property Tax | Appraisal, Exemptions & Protests`;',
+  'property tax guide with appraisal-district resources, exemptions, protest information, payment details, taxing units and official local links',
+  'headline: title',
+]) {
+  if (!countyPropertyTaxRoute.includes(required)) failures.push(`County property-tax CTR contract missing: ${required}`);
 }
 
 for (const required of [
@@ -74,10 +104,21 @@ for (const required of [
   if (!localGovernment.includes(required)) failures.push(`Appraisal-district intent/source contract missing: ${required}`);
 }
 
+for (const required of [
+  'const countySlug = countySlugForLegacyArticle(decodeURIComponent(match[1]));',
+  'url.pathname = `/county/${countySlug}`;',
+  'return Response.redirect(url.toString(), 301);',
+]) {
+  if (!serverRoute.includes(required)) failures.push(`Legacy county URL consolidation missing: ${required}`);
+}
+if (!countySeries.includes('profile("brewster", "brewster-county-big-bend-texas"')) {
+  failures.push('Brewster legacy article must remain mapped to the canonical /county/brewster guide.');
+}
+
 if (failures.length) {
   console.error('Search-intent and SERP CTR validation failed:');
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log('Search-intent and SERP CTR validation passed: insurance estimates, appraisal-district queries, agency snippets, independent framing, and publication-quality gates are protected.');
+console.log('Search-intent and SERP CTR validation passed: impression-bearing calculators, city discovery, county property-tax pages, legacy county redirects, appraisal-district queries, agency snippets, independent framing, and publication-quality gates are protected.');
