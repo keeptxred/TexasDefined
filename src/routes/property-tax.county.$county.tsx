@@ -31,13 +31,14 @@ export const Route = createFileRoute('/property-tax/county/$county')({
     const canonicalPath = `/property-tax/county/${county.slug}`;
     const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
     const siteUrl = absoluteUrl(texasDefinedBrand, '/');
-    const description = `${county.name} property-tax guide covering appraisal records, exemptions, protests, payments, taxing units and official local resources.`;
+    const title = `${county.name} Property Tax | Appraisal, Exemptions & Protests`;
+    const description = `${county.name} property tax guide with appraisal-district resources, exemptions, protest information, payment details, taxing units and official local links.`;
     const indexReady = isCountyPropertyIndexReady(county);
 
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
-        title: `${county.name} Property Tax Guide`,
+        title,
         description,
         robots: indexReady ? undefined : 'noindex, follow',
       }),
@@ -49,7 +50,7 @@ export const Route = createFileRoute('/property-tax/county/$county')({
             '@type': 'WebPage',
             '@id': `${pageUrl}#page`,
             url: pageUrl,
-            name: `${county.name} Property Tax Guide`,
+            name: title,
             description,
             isPartOf: { '@id': `${siteUrl}#website` },
             about: { '@id': `${pageUrl}#county` },
@@ -59,7 +60,7 @@ export const Route = createFileRoute('/property-tax/county/$county')({
           {
             '@type': 'Article',
             '@id': `${pageUrl}#article`,
-            headline: `${county.name} Property Tax Guide`,
+            headline: title,
             description,
             url: pageUrl,
             ...(county.lastVerifiedAt ? { dateModified: county.lastVerifiedAt } : {}),

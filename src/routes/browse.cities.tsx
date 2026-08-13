@@ -7,7 +7,7 @@ import { TEXAS_CITIES } from "@/data/texas-places";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const description =
-  "Browse Texas cities and towns by name, county and region, then open city reference pages for local context, moving guidance and planning tools.";
+  "Browse Texas cities and towns by county and region, then open city guides for local context, official resources, cost-of-living research and moving tools.";
 
 export const Route = createFileRoute("/browse/cities")({
   head: () => {
@@ -16,7 +16,7 @@ export const Route = createFileRoute("/browse/cities")({
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath: "/browse/cities",
-        title: "Texas Cities and Towns Directory | Find a Texas City",
+        title: "Texas Cities & Towns Directory | Browse by County & Region",
         description,
       }),
       links: [canonicalLink(texasDefinedBrand, "/browse/cities")],
