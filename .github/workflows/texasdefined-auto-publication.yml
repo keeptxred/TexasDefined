@@ -1,0 +1,58 @@
+name: TexasDefined article publication readiness
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Dry-run inspects the eligible queue; publish also requires repository activation and exact confirmation.
+        required: true
+        default: dry-run
+        type: choice
+        options:
+          - dry-run
+          - publish
+      confirmation:
+        description: For publish mode only, enter PUBLISH_TEXASDEFINED.
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: texasdefined-article-publication
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Validate inactive publication controls
+        run: node scripts/data/validate-texasdefined-auto-publication.mjs
+
+  run:
+    needs: validate
+    runs-on: ubuntu-latest
+    environment: texasdefined-publication
+    env:
+      KEEP_TX_RED_SUPABASE_URL: https://ftkznprjljkhymknvhye.supabase.co
+      KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      TEXASDEFINED_AUTO_PUBLISH_ENABLED: ${{ vars.TEXASDEFINED_AUTO_PUBLISH_ENABLED }}
+      TEXASDEFINED_PUBLISH_CONFIRMATION: ${{ inputs.confirmation }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Inspect eligible queue without publishing
+        if: inputs.mode == 'dry-run'
+        run: node scripts/news/texasdefined-auto-publisher.mjs --limit=3
+      - name: Publish one approved eligible article
+        if: inputs.mode == 'publish'
+        run: node scripts/news/texasdefined-auto-publisher.mjs --publish --limit=1
