@@ -28,6 +28,7 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   { countySlug: "travis", articleSlug: "travis-county-austin-capitol-springs-hill-country-texas", loadArticle: () => import("@/data/fixtures/travis-county-austin-capitol-springs-hill-country").then((module) => module.travisCountyAustinCapitolSpringsHillCountryArticle) },
   { countySlug: "harris", articleSlug: "harris-county-houston-bayous-port-space-texas", loadArticle: () => import("@/data/fixtures/harris-county-houston-bayous-port-space").then((module) => module.harrisCountyHoustonBayousPortSpaceArticle) },
   { countySlug: "fort-bend", articleSlug: "fort-bend-county-brazos-richmond-sugar-land-texas", loadArticle: () => import("@/data/fixtures/fort-bend-county-brazos-richmond-sugar-land").then((module) => module.fortBendCountyBrazosRichmondSugarLandArticle) },
+  { countySlug: "montgomery", articleSlug: "montgomery-county-conroe-lake-piney-woods-texas", loadArticle: () => import("@/data/fixtures/montgomery-county-conroe-lake-piney-woods").then((module) => module.montgomeryCountyConroeLakePineyWoodsArticle) },
 ];
 
 const byCountySlug = new Map(COUNTY_SERIES_PROFILES.map((profile) => [profile.countySlug, profile]));
