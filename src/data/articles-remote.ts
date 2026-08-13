@@ -3,6 +3,7 @@ import { DEFAULT_EDITORIAL_DESK_ID } from "./editorial-desks";
 
 const supabaseUrl = String(import.meta.env.VITE_TEXASDEFINED_SUPABASE_URL || import.meta.env.VITE_SUPABASE_URL || "").replace(/\/$/, "");
 const supabaseKey = String(import.meta.env.VITE_TEXASDEFINED_SUPABASE_ANON_KEY || import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || "");
+const ARTICLE_SELECT = "id,slug,title,dek,category,region,hero_url,hero_alt,hero_credit,author_id,published_at,tags,body_json,related_collections,related_destinations,source_name,source_url";
 
 function headers(): HeadersInit {
   return { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}`, Accept: "application/json" };
@@ -54,7 +55,7 @@ function mapRow(row: Record<string, unknown>): Article | null {
     dek: text(row.dek),
     category: category(row.category),
     ...(mappedRegion ? { region: mappedRegion } : {}),
-    hero: { src: heroUrl, alt: text(row.hero_alt) || title, width: 1600, height: 900 },
+    hero: { src: heroUrl, alt: text(row.hero_alt) || title, width: 1600, height: 900, credit: text(row.hero_credit) || undefined },
     authorId: text(row.author_id) || DEFAULT_EDITORIAL_DESK_ID,
     publishedAt: text(row.published_at) || new Date().toISOString(),
     readingMinutes: Math.max(1, Math.ceil(JSON.stringify(blocks).split(/\s+/).length / 220)),
@@ -62,6 +63,8 @@ function mapRow(row: Record<string, unknown>): Article | null {
     body: blocks,
     relatedCollections: strings(row.related_collections),
     relatedDestinations: strings(row.related_destinations),
+    sourceName: text(row.source_name) || undefined,
+    sourceUrl: text(row.source_url) || undefined,
   };
 }
 
@@ -76,7 +79,7 @@ async function request(params: URLSearchParams): Promise<Article[]> {
 
 export async function fetchPublishedTexasDefinedArticles(options: { category?: string; limit?: number } = {}): Promise<Article[]> {
   const params = new URLSearchParams({
-    select: "id,slug,title,dek,category,region,hero_url,hero_alt,author_id,published_at,tags,body_json,related_collections,related_destinations",
+    select: ARTICLE_SELECT,
     status: "eq.published",
     order: "published_at.desc",
     limit: String(Math.max(1, Math.min(options.limit ?? 100, 200))),
@@ -87,7 +90,7 @@ export async function fetchPublishedTexasDefinedArticles(options: { category?: s
 
 export async function fetchPublishedTexasDefinedArticle(slug: string): Promise<Article | null> {
   const params = new URLSearchParams({
-    select: "id,slug,title,dek,category,region,hero_url,hero_alt,author_id,published_at,tags,body_json,related_collections,related_destinations",
+    select: ARTICLE_SELECT,
     status: "eq.published",
     slug: `eq.${slug}`,
     limit: "1",
