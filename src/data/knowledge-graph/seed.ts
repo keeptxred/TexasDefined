@@ -1,4 +1,5 @@
 import type { TexasEntityRecord } from './types';
+import { MAJOR_TEXAS_SPORTS_VENUES } from './major-sports-venues';
 
 const checkedAt = '2026-08-04';
 const official = (record: Omit<TexasEntityRecord, 'sourceConfidence' | 'sourceCheckedAt'>): TexasEntityRecord => ({
@@ -40,7 +41,7 @@ export const TEXAS_EVENT_ENTITIES: TexasEntityRecord[] = [
   official({id:'rodeo:houston-livestock-show-and-rodeo',kind:'rodeo',name:'Houston Livestock Show and Rodeo',slug:'houston-livestock-show-and-rodeo',aliases:['RodeoHouston'],countySlug:'harris',region:'gulf-coast',officialUrl:'https://www.rodeohouston.com/',sourceId:'official-event-sites',status:'seasonal',relationships:[{type:'held-at',targetId:'sports-venue:nrg-stadium'},{type:'located-in-city',targetId:'city:houston'}],tags:['rodeo','livestock','concerts']}),
   official({id:'festival:wurstfest',kind:'festival',name:'Wurstfest',slug:'wurstfest',aliases:[],countySlug:'comal',region:'hill-country',officialUrl:'https://wurstfest.com/',sourceId:'official-event-sites',status:'seasonal',relationships:[{type:'located-in-city',targetId:'city:new-braunfels'}],tags:['festival','german-heritage','food']}),
   official({id:'fairground:fair-park',kind:'fairground',name:'Fair Park',slug:'fair-park',aliases:[],countySlug:'dallas',region:'north-texas',coordinates:{latitude:32.7795,longitude:-96.7641},officialUrl:'https://www.fairparkdallas.com/',sourceId:'official-destination-sites',status:'active',relationships:[{type:'located-in-city',targetId:'city:dallas'}],tags:['fairground','historic-site']}),
-  official({id:'sports-venue:nrg-stadium',kind:'sports-venue',name:'NRG Stadium',slug:'nrg-stadium',aliases:[],countySlug:'harris',region:'gulf-coast',coordinates:{latitude:29.6847,longitude:-95.4107},officialUrl:'https://www.nrgpark.com/',sourceId:'official-destination-sites',status:'active',relationships:[{type:'located-in-city',targetId:'city:houston'}],tags:['stadium','sports','events']}),
+  {id:'sports-venue:nrg-stadium',kind:'sports-venue',name:'Reliant Stadium',slug:'reliant-stadium',aliases:['NRG Stadium','Houston Stadium'],description:'Reliant Stadium in Houston is one of Texas\'s largest sports and event destinations, serving as the home of the Houston Texans and the signature stadium for RODEOHOUSTON while also hosting international soccer, concerts and other major events. Its scale and event calendar make it a major Gulf Coast travel draw.',countySlug:'harris',region:'gulf-coast',coordinates:{latitude:29.6847,longitude:-95.4107},officialUrl:'https://www.houstontexans.com/stadium/a-z-guide',sourceId:'official-destination-sites',sourceConfidence:'official',sourceCheckedAt:'2026-08-13',status:'active',relationships:[{type:'located-in-city',targetId:'city:houston'},{type:'located-in-county',targetId:'county:harris'}],tags:['stadium','sports','events','professional','football','nfl','rodeo','major-tourist-draw']},
 ];
 
 export const CURATED_KNOWLEDGE_GRAPH_SEED = [
@@ -48,4 +49,5 @@ export const CURATED_KNOWLEDGE_GRAPH_SEED = [
   ...TEXAS_NATURE_ENTITIES,
   ...TEXAS_TOURISM_ENTITIES,
   ...TEXAS_EVENT_ENTITIES,
+  ...MAJOR_TEXAS_SPORTS_VENUES,
 ];
