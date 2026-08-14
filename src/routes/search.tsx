@@ -13,6 +13,7 @@ import { buildMeta, canonicalLink } from "@/lib/seo";
 const searchSchema = z.object({ q: z.string().optional() });
 const startingPoints = [
   { to: "/explore", label: "Explore Texas", copy: "Parks, water, road trips, small towns and places worth making the drive for." },
+  { to: "/sports-venues", label: "Sports Venues", copy: "Stadiums, arenas, ballparks, racetracks and sports destinations by market and sport." },
   { to: "/events", label: "Texas Events", copy: "Rodeos, festivals, fairs, live music and things happening around the state." },
   { to: "/guides", label: "The Guidebook", copy: "Travel guides and practical help for living, moving and owning a home here." },
   { to: "/decide/financial-tools", label: "Money & Property", copy: "Calculators and plain-English guides for housing costs and household decisions." },
@@ -22,7 +23,7 @@ const startingPoints = [
 
 export const Route = createFileRoute("/search")({
   validateSearch: searchSchema,
-  head: () => ({ meta: buildMeta(texasDefinedBrand, { title: "Search Texas Defined", description: "Find stories, places, guides, events and shop picks from across Texas.", canonicalPath: "/search", robots: "noindex, follow" }), links: [canonicalLink(texasDefinedBrand, "/search")] }),
+  head: () => ({ meta: buildMeta(texasDefinedBrand, { title: "Search Texas Defined", description: "Find stories, places, sports venues, guides, events and shop picks from across Texas.", canonicalPath: "/search", robots: "noindex, follow" }), links: [canonicalLink(texasDefinedBrand, "/search")] }),
   loader: async ({ context }) => { await context.queryClient.ensureQueryData(searchDocumentsQuery()); },
   component: SearchPage,
 });
@@ -43,10 +44,10 @@ function SearchPage() {
       <Container className="py-16 sm:py-24">
         <p className="eyebrow text-primary">Search the magazine</p>
         <h1 className="mt-4 max-w-3xl font-display text-5xl leading-[0.98] sm:text-7xl">Find a place, story or useful answer.</h1>
-        <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">Search Texas Defined by town, landmark, subject, guide, event or something you simply want to know more about.</p>
+        <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">Search Texas Defined by town, landmark, stadium, subject, guide, event or something you simply want to know more about.</p>
         <form className="mt-9 flex max-w-2xl border-b-2 border-foreground transition-colors focus-within:border-primary" onSubmit={(event) => { event.preventDefault(); const value = new FormData(event.currentTarget).get("q"); void navigate({ search: { q: String(value ?? "") } }); }}>
           <label htmlFor="q" className="sr-only">Search Texas Defined</label>
-          <input key={query} id="q" name="q" defaultValue={query} placeholder="Caddo Lake, Marfa, brisket, property taxes…" className="w-full bg-transparent px-0 py-4 text-base outline-none placeholder:text-muted-foreground/70" />
+          <input key={query} id="q" name="q" defaultValue={query} placeholder="Caddo Lake, Kyle Field, Marfa, property taxes…" className="w-full bg-transparent px-0 py-4 text-base outline-none placeholder:text-muted-foreground/70" />
           <button type="submit" className="eyebrow shrink-0 px-2 py-4 text-primary">Search →</button>
         </form>
       </Container>
@@ -67,7 +68,7 @@ function SearchPage() {
       </section>}
       {searchIsLoading && <p className="text-sm text-muted-foreground" role="status">Searching Texas Defined…</p>}
       {query && !searchIsLoading && results.length > 0 && <div className="flex items-end justify-between gap-4 border-b border-border pb-4"><div><p className="eyebrow text-primary">Results</p><h2 className="mt-2 font-display text-3xl">For “{query}”</h2></div><p className="text-sm text-muted-foreground" role="status">{results.length} result{results.length === 1 ? "" : "s"}</p></div>}
-      {query && !searchIsLoading && results.length === 0 && <div className="max-w-xl border-t border-border pt-6"><p className="eyebrow text-primary">No results</p><h2 className="mt-3 font-display text-3xl">Nothing matched “{query}.”</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">Try a nearby town, a broader subject or the name of a landmark.</p></div>}
+      {query && !searchIsLoading && results.length === 0 && <div className="max-w-xl border-t border-border pt-6"><p className="eyebrow text-primary">No results</p><h2 className="mt-3 font-display text-3xl">Nothing matched “{query}.”</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">Try a nearby town, a broader subject or the name of a landmark or sports venue.</p></div>}
       {destinationSearchUnavailable && query && <p className="mt-4 max-w-xl text-xs leading-6 text-muted-foreground">Some destination records were temporarily unavailable, so this result set may be shorter than usual.</p>}
       <ul className="mt-2 max-w-3xl divide-y divide-border">
         {results.map((result) => <li key={`${result.document.kind}-${result.document.id}`} className="py-7"><p className="eyebrow text-primary">{kindLabel(result.document.kind)}</p><Link to={result.document.href} className="mt-2 block font-display text-2xl leading-tight transition-colors hover:text-primary">{result.document.title}</Link><p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground">{result.document.summary}</p></li>)}
@@ -77,6 +78,6 @@ function SearchPage() {
 }
 
 function kindLabel(kind: string) {
-  const labels: Record<string, string> = { article: "Story", destination: "Destination", event: "Calendar", guide: "Guide", calculator: "Calculator", product: "Shop", collection: "Collection", city: "City guide", county: "County guide" };
+  const labels: Record<string, string> = { article: "Story", destination: "Destination", event: "Calendar", guide: "Guide", calculator: "Calculator", product: "Shop", collection: "Collection", city: "City guide", county: "County guide", "sports-venue": "Sports venue", "sports-collection": "Sports collection" };
   return labels[kind.toLowerCase()] ?? kind.replaceAll("-", " ").replace(/\b\w/g, (letter) => letter.toUpperCase());
 }
