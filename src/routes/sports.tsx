@@ -3,7 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { CategoryPage } from "@/components/editorial/CategoryPage";
 import { Container } from "@/components/layout/Container";
-import { articlesQuery, destinationsQuery, regionsQuery } from "@/data/queries";
+import { articlesQuery, destinationsQuery } from "@/data/queries";
 import type { Article, Destination } from "@/data/types";
 import { buildEditorialCollectionHead, buildMeta, canonicalLink } from "@/lib/seo";
 
@@ -21,14 +21,15 @@ export const Route = createFileRoute("/sports")({
     items: [
       ...loaderData.articles.map((article) => ({ type: "Article" as const, name: article.title, url: `/article/${article.slug}`, image: article.hero.src, description: article.dek })),
       ...loaderData.destinations.map((destination) => ({ type: "TouristAttraction" as const, name: destination.name, url: `/destination/${destination.slug}`, image: destination.hero.src, description: destination.summary })),
-      { type: "TouristAttraction" as const, name: "NRG Stadium", url: "/sports-venue/nrg-stadium", description: "NRG Stadium reference guide for Houston sports, rodeo and major-event planning." },
+      { type: "TouristAttraction" as const, name: "Reliant Stadium", url: "/sports-venue/reliant-stadium", description: "Houston stadium guide for Texans football, RODEOHOUSTON and major-event travel planning." },
+      { type: "TouristAttraction" as const, name: "Circuit of The Americas", url: "/sports-venue/circuit-of-the-americas", description: "Austin motorsports destination guide for major race weekends and visitor planning." },
+      { type: "TouristAttraction" as const, name: "AT&T Stadium", url: "/sports-venue/att-stadium", description: "Arlington stadium guide for Dallas Cowboys games and major national events." },
     ],
   }) : ({ meta: buildMeta(texasDefinedBrand, { title: seoTitle, description, canonicalPath: "/sports" }), links: [canonicalLink(texasDefinedBrand, "/sports")] }),
   loader: async ({ context }): Promise<{ articles: Article[]; destinations: Destination[] }> => {
     const [articles, destinations] = await Promise.all([
       context.queryClient.ensureQueryData(articlesQuery({ category: "sports" })),
       context.queryClient.ensureQueryData(destinationsQuery({ category: "sports" })),
-      context.queryClient.ensureQueryData(regionsQuery()),
     ]);
     return { articles, destinations };
   },
@@ -43,13 +44,25 @@ function SportsPage() {
         <div className="grid gap-8 lg:grid-cols-[15rem_1fr]">
           <div>
             <p className="eyebrow text-primary">Texas venues</p>
-            <h2 className="mt-2 font-display text-3xl leading-tight">Stadiums and event grounds</h2>
+            <h2 className="mt-2 font-display text-3xl leading-tight">Stadiums, arenas and racetracks</h2>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">Browse the statewide venue guide for professional sports, college traditions, motorsports, horse racing, rodeo and regional ballparks.</p>
+            <Link to="/sports-venues" className="mt-5 inline-block text-sm font-semibold text-primary">Browse all Texas sports venues →</Link>
           </div>
-          <div className="grid gap-5 md:grid-cols-2">
-            <Link to="/sports-venue/$slug" params={{ slug: "nrg-stadium" }} className="group border-t border-border py-5">
-              <strong className="block font-display text-2xl group-hover:text-primary">NRG Stadium, Houston</strong>
-              <span className="mt-2 block text-sm leading-6 text-muted-foreground">Reference guide for the Houston stadium, major sports and event context, and official venue information.</span>
-              <span className="mt-3 block text-sm font-semibold text-primary">Open NRG Stadium guide →</span>
+          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+            <Link to="/sports-venue/$slug" params={{ slug: "reliant-stadium" }} className="group border-t border-border py-5">
+              <strong className="block font-display text-2xl group-hover:text-primary">Reliant Stadium, Houston</strong>
+              <span className="mt-2 block text-sm leading-6 text-muted-foreground">Texans football, RODEOHOUSTON and one of the state's largest major-event venues.</span>
+              <span className="mt-3 block text-sm font-semibold text-primary">Open Reliant Stadium guide →</span>
+            </Link>
+            <Link to="/sports-venue/$slug" params={{ slug: "circuit-of-the-americas" }} className="group border-t border-border py-5">
+              <strong className="block font-display text-2xl group-hover:text-primary">Circuit of The Americas, Austin</strong>
+              <span className="mt-2 block text-sm leading-6 text-muted-foreground">Texas's flagship international motorsports destination and a major race-weekend tourism draw.</span>
+              <span className="mt-3 block text-sm font-semibold text-primary">Open COTA guide →</span>
+            </Link>
+            <Link to="/sports-venue/$slug" params={{ slug: "att-stadium" }} className="group border-t border-border py-5">
+              <strong className="block font-display text-2xl group-hover:text-primary">AT&T Stadium, Arlington</strong>
+              <span className="mt-2 block text-sm leading-6 text-muted-foreground">Dallas Cowboys football, stadium tours and major national and international events.</span>
+              <span className="mt-3 block text-sm font-semibold text-primary">Open AT&T Stadium guide →</span>
             </Link>
             <Link to="/rodeo/$slug" params={{ slug: "houston-livestock-show-and-rodeo" }} className="group border-t border-border py-5">
               <strong className="block font-display text-2xl group-hover:text-primary">Houston Livestock Show and Rodeo</strong>
