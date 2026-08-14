@@ -8,8 +8,6 @@ import {
   LAKE_CONROE_SLUG,
   LAKE_CONROE_VERIFIED_AT,
   lakeConroeCanonicalPath,
-  lakeConroeOverview,
-  lakeConroeSources,
 } from "@/data/fishing/lake-conroe-prototype";
 import { fishingGuidesQuery, fishingLakeQuery, fishingReportsQuery } from "@/data/fishing/queries";
 import { buildMeta, canonicalLink } from "@/lib/seo";
@@ -30,6 +28,7 @@ export const Route = createFileRoute("/fishing/lakes/$slug")({
   },
   head: ({ loaderData }) => {
     if (!loaderData) return { meta: [{ title: "Fishing lake unavailable" }, { name: "robots", content: "noindex, nofollow" }] };
+    const { overview, sources } = loaderData.pageData;
     const canonicalPath = lakeConroeCanonicalPath();
     const url = `${siteUrl}${canonicalPath}`;
     const webPageSchema = {
@@ -37,26 +36,26 @@ export const Route = createFileRoute("/fishing/lakes/$slug")({
       "@id": url,
       url,
       name: "Lake Conroe Fishing Guide",
-      description: lakeConroeOverview.summary,
+      description: overview.summary,
       isPartOf: { "@id": `${siteUrl}/#website` },
       mainEntity: { "@id": `${url}#reservoir` },
       breadcrumb: { "@id": `${url}#breadcrumbs` },
       dateModified: LAKE_CONROE_VERIFIED_AT,
-      citation: [lakeConroeSources.tpwdLake.url, lakeConroeSources.twdb.url, lakeConroeSources.sjra.url],
+      citation: [sources.tpwdLake.url, sources.twdb.url, sources.sjra.url],
     };
     const reservoirSchema = {
       "@type": "Reservoir",
       "@id": `${url}#reservoir`,
       url,
-      name: lakeConroeOverview.name,
-      description: lakeConroeOverview.summary,
+      name: overview.name,
+      description: overview.summary,
       containedInPlace: { "@type": "State", name: "Texas" },
-      sameAs: [lakeConroeSources.tpwdLake.url, lakeConroeSources.twdb.url, lakeConroeSources.sjra.url],
+      sameAs: [sources.tpwdLake.url, sources.twdb.url, sources.sjra.url],
       additionalProperty: [
-        { "@type": "PropertyValue", name: "Surface area", value: `${lakeConroeOverview.surfaceAcres} acres` },
-        { "@type": "PropertyValue", name: "Impounded", value: lakeConroeOverview.impoundedYear },
-        { "@type": "PropertyValue", name: "River basin", value: lakeConroeOverview.riverBasin },
-        { "@type": "PropertyValue", name: "Counties", value: lakeConroeOverview.counties.join(", ") },
+        { "@type": "PropertyValue", name: "Surface area", value: `${overview.surfaceAcres} acres` },
+        { "@type": "PropertyValue", name: "Impounded", value: overview.impoundedYear },
+        { "@type": "PropertyValue", name: "River basin", value: overview.riverBasin },
+        { "@type": "PropertyValue", name: "Counties", value: overview.counties.join(", ") },
       ],
     };
     const breadcrumbSchema = {
