@@ -5,10 +5,10 @@ export type TexasCountyHousingCostRow = {
   fips: string;
   countyName: string;
   countySlug: string;
-  medianHouseholdIncome: number;
-  medianHomeValue: number;
-  medianGrossRent: number;
-  medianMonthlyOwnerCosts: number;
+  medianHouseholdIncome: number | null;
+  medianHomeValue: number | null;
+  medianGrossRent: number | null;
+  medianMonthlyOwnerCosts: number | null;
 };
 
 export type TexasCountyHousingCostDataset = {
@@ -24,10 +24,10 @@ export type TexasCountyHousingCostDataset = {
 export function loadTexasCountyHousingCosts(): TexasCountyHousingCostDataset {
   const rows = (snapshot.rows as Array<{
     fips: string;
-    medianHouseholdIncome: number;
-    medianHomeValue: number;
-    medianGrossRent: number;
-    medianMonthlyOwnerCosts: number;
+    medianHouseholdIncome: number | null;
+    medianHomeValue: number | null;
+    medianGrossRent: number | null;
+    medianMonthlyOwnerCosts: number | null;
   }>).flatMap((row) => {
     const county = getCountyPropertyRecordByFips(row.fips);
     if (!county) return [];
@@ -36,7 +36,7 @@ export function loadTexasCountyHousingCosts(): TexasCountyHousingCostDataset {
 
   return {
     rows,
-    available: rows.length >= 250,
+    available: rows.length === 254,
     release: snapshot.release,
     year: snapshot.year,
     generatedAt: snapshot.generatedAt,
