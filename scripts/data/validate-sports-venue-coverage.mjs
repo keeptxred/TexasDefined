@@ -4,7 +4,7 @@ import path from 'node:path';
 const root = process.cwd();
 const read = (file) => fs.readFile(path.join(root, file), 'utf8');
 
-const [major, tier2, seed, directory, guide, galaxyGuide, enrichment, enrichmentBatch2, enrichmentBatch3, enrichmentBatch4Racing, enrichmentAll, currentCorrections] = await Promise.all([
+const [major, tier2, seed, directory, guide, galaxyGuide, enrichment, enrichmentBatch2, enrichmentBatch3, enrichmentBatch4Racing, enrichmentBatch5, enrichmentAll, currentCorrections] = await Promise.all([
   read('src/data/knowledge-graph/major-sports-venues.ts'),
   read('src/data/knowledge-graph/sports-venues-tier2.ts'),
   read('src/data/knowledge-graph/seed.ts'),
@@ -15,6 +15,7 @@ const [major, tier2, seed, directory, guide, galaxyGuide, enrichment, enrichment
   read('src/data/sports-venue-enrichment-batch2.ts'),
   read('src/data/sports-venue-enrichment-batch3.ts'),
   read('src/data/sports-venue-enrichment-batch4-racing.ts'),
+  read('src/data/sports-venue-enrichment-batch5.ts'),
   read('src/data/sports-venue-enrichment-all.ts'),
   read('src/data/knowledge-graph/current-entity-corrections.ts'),
 ]);
@@ -30,7 +31,8 @@ const enrichmentCount = countEnrichmentProfiles(enrichment);
 const enrichmentBatch2Count = countEnrichmentProfiles(enrichmentBatch2);
 const enrichmentBatch3Count = countEnrichmentProfiles(enrichmentBatch3);
 const enrichmentBatch4RacingCount = countEnrichmentProfiles(enrichmentBatch4Racing);
-const totalEnrichmentCount = enrichmentCount + enrichmentBatch2Count + enrichmentBatch3Count + enrichmentBatch4RacingCount;
+const enrichmentBatch5Count = countEnrichmentProfiles(enrichmentBatch5);
+const totalEnrichmentCount = enrichmentCount + enrichmentBatch2Count + enrichmentBatch3Count + enrichmentBatch4RacingCount + enrichmentBatch5Count;
 
 assert(majorCount >= 50, `Expected at least 50 major sports venue seeds; found ${majorCount}.`);
 assert(tier2Count === 29, `Expected 29 second-tier sports-tourism seeds; found ${tier2Count}.`);
@@ -38,7 +40,8 @@ assert(enrichmentCount >= 9, `Expected at least 9 first-batch deeply enriched ve
 assert(enrichmentBatch2Count >= 11, `Expected at least 11 second-batch deeply enriched venue profiles; found ${enrichmentBatch2Count}.`);
 assert(enrichmentBatch3Count >= 10, `Expected at least 10 third-batch deeply enriched venue profiles; found ${enrichmentBatch3Count}.`);
 assert(enrichmentBatch4RacingCount >= 7, `Expected at least 7 deep racing venue profiles; found ${enrichmentBatch4RacingCount}.`);
-assert(totalEnrichmentCount >= 37, `Expected at least 37 deeply enriched venue profiles; found ${totalEnrichmentCount}.`);
+assert(enrichmentBatch5Count >= 10, `Expected at least 10 fifth-batch major venue profiles; found ${enrichmentBatch5Count}.`);
+assert(totalEnrichmentCount >= 47, `Expected at least 47 deeply enriched venue profiles; found ${totalEnrichmentCount}.`);
 assert(seed.includes("import { MAJOR_TEXAS_SPORTS_VENUES } from './major-sports-venues';"), 'Major sports venues are not imported into the knowledge graph seed.');
 assert(seed.includes("import { TEXAS_SPORTS_VENUE_TIER2_ENTITIES } from './sports-venues-tier2';"), 'Second-tier sports venues are not imported into the knowledge graph seed.');
 assert(seed.includes('...MAJOR_TEXAS_SPORTS_VENUES'), 'Major sports venues are not spread into the curated knowledge graph.');
@@ -124,14 +127,20 @@ const racingBatchAnchors = [
 ];
 for (const slug of racingBatchAnchors) assert(enrichmentBatch4Racing.includes(`'${slug}': {`), `Missing deep racing venue enrichment: ${slug}.`);
 
-for (const source of [enrichment, enrichmentBatch2, enrichmentBatch3, enrichmentBatch4Racing]) {
+const fifthBatchAnchors = [
+  'toyota-stadium-frisco', 'ford-center-at-the-star', 'college-park-center', 'heb-center-at-cedar-park', 'dell-diamond',
+  'foster-pavilion', 'reed-arena', 'gerald-j-ford-stadium', 'fertitta-center', 'tdecu-stadium',
+];
+for (const slug of fifthBatchAnchors) assert(enrichmentBatch5.includes(`'${slug}': {`), `Missing fifth-batch major venue enrichment: ${slug}.`);
+
+for (const source of [enrichment, enrichmentBatch2, enrichmentBatch3, enrichmentBatch4Racing, enrichmentBatch5]) {
   for (const marker of ['primaryEvents:', 'parking:', 'arrival:', 'stayAndEat:', 'nearby:', 'planningLinks:', 'imageBrief:', 'verifiedAt,']) {
     assert(source.includes(marker), `Sports venue enrichment is missing required field: ${marker}.`);
   }
 }
 
 assert(enrichment.includes('sportsVenueMapUrl'), 'Sports venue enrichment is missing the map fallback helper.');
-assert(enrichmentAll.includes('getSportsVenueEnrichmentBatch4Racing(lookupSlug)'), 'Combined sports venue enrichment does not merge the racing batch.');
+assert(enrichmentAll.includes('getSportsVenueEnrichmentBatch5(lookupSlug)'), 'Combined sports venue enrichment does not merge the fifth batch.');
 assert(currentCorrections.includes("name: 'Galaxy Stadium'"), 'Current venue corrections must rename the Texas Tech football venue to Galaxy Stadium.');
 assert(currentCorrections.includes("'Jones AT&T Stadium'"), 'Galaxy Stadium correction must preserve the former venue name as an alias.');
 assert(currentCorrections.includes("'Galaxy Stadium'"), 'Galaxy Stadium correction must preserve the current venue name as a searchable alias.');
