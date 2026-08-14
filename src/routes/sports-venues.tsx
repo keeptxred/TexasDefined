@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/react-router';
 
 import { Container } from '@/components/layout/Container';
 import { loadTexasKnowledgeGraph } from '@/data/knowledge-graph';
+import { applyCurrentEntityCorrections } from '@/data/knowledge-graph/current-entity-corrections';
 import { canonicalEntityPath, isIndexableEntityPage } from '@/data/knowledge-graph/relationships';
 import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
 import { getSportsVenueEnrichmentAll } from '@/data/sports-venue-enrichment-all';
@@ -15,6 +16,7 @@ export const Route = createFileRoute('/sports-venues')({
     const graph = await loadTexasKnowledgeGraph();
     return graph
       .filter((entity) => entity.kind === 'sports-venue' && isIndexableEntityPage(entity))
+      .map(applyCurrentEntityCorrections)
       .sort((a, b) => a.name.localeCompare(b.name));
   },
   head: () => ({
