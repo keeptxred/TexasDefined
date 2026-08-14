@@ -12,13 +12,13 @@ export type InternalLinkSurfacePolicy = {
   excludedKinds: TexasEntityKind[];
 };
 
-export const INTERNAL_LINK_POLICY_VERSION = '2.0.0';
-export const INTERNAL_LINK_POLICY_REVIEWED_AT = '2026-08-04';
+export const INTERNAL_LINK_POLICY_VERSION = '2.1.0';
+export const INTERNAL_LINK_POLICY_REVIEWED_AT = '2026-08-14';
 
 export const INTERNAL_LINK_POLICIES: Record<InternalLinkSurfacePolicy['id'], InternalLinkSurfacePolicy> = {
   article: {
     id: 'article', topic: 'travel', pageBudget: 14, blockBudget: 4, minimumScore: 9, ambiguityMargin: 3,
-    preferredKinds: ['state-park','national-park','national-forest','lake','river','beach','cavern','museum','historic-site','attraction','scenic-drive','city','festival','rodeo','fair'],
+    preferredKinds: ['state-park','national-park','national-forest','lake','river','beach','cavern','museum','historic-site','attraction','scenic-drive','city','festival','rodeo','fair','sports-venue'],
     excludedKinds: ['utility','tax-office','appraisal-district','county-clerk','dps-office'],
   },
   destination: {
