@@ -1,0 +1,106 @@
+type SportsVenueQuickAnswersProps = {
+  venueName: string;
+  canonicalUrl: string;
+  city?: string;
+  countyName?: string;
+  capacity?: string;
+  primaryEvents?: readonly string[];
+  verifiedAt?: string;
+};
+
+type QuickAnswer = {
+  question: string;
+  answer: string;
+};
+
+export function SportsVenueQuickAnswers({
+  venueName,
+  canonicalUrl,
+  city,
+  countyName,
+  capacity,
+  primaryEvents = [],
+  verifiedAt,
+}: SportsVenueQuickAnswersProps) {
+  const answers = buildAnswers({ venueName, city, countyName, capacity, primaryEvents, verifiedAt });
+  if (!answers.length) return null;
+
+  const faqJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    '@id': `${canonicalUrl}#quick-answers`,
+    mainEntity: answers.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: { '@type': 'Answer', text: item.answer },
+    })),
+  };
+
+  return <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]" aria-labelledby="venue-quick-answers-heading">
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+    <div>
+      <p className="eyebrow text-primary">Quick answers</p>
+      <h2 id="venue-quick-answers-heading" className="mt-2 font-display text-3xl leading-tight">Planning a visit to {venueName}</h2>
+      <p className="mt-3 text-sm leading-6 text-muted-foreground">Answer-first trip details from the verified venue record. Use the official links farther down the guide for information that can change by event.</p>
+    </div>
+    <div className="grid gap-x-8 md:grid-cols-2">
+      {answers.map((item) => <article key={item.question} className="border-t border-border py-5">
+        <h3 className="font-display text-2xl leading-tight">{item.question}</h3>
+        <p className="mt-3 text-sm leading-7 text-muted-foreground">{item.answer}</p>
+      </article>)}
+    </div>
+  </section>;
+}
+
+function buildAnswers({ venueName, city, countyName, capacity, primaryEvents, verifiedAt }: Omit<SportsVenueQuickAnswersProps, 'canonicalUrl'>): QuickAnswer[] {
+  const answers: QuickAnswer[] = [];
+  const location = [city, countyName].filter(Boolean).join(', ');
+
+  if (location) {
+    answers.push({
+      question: `Where is ${venueName}?`,
+      answer: `${venueName} is in ${location}, Texas. The venue guide below includes access context and an external maps link for trip planning.`,
+    });
+  }
+
+  if (primaryEvents.length) {
+    answers.push({
+      question: `What sports or events take place at ${venueName}?`,
+      answer: `The verified venue profile currently highlights ${formatList(primaryEvents.slice(0, 3))}. Event calendars change, so confirm the date and event on the official venue or organizer site before traveling.`,
+    });
+  }
+
+  if (capacity) {
+    answers.push({
+      question: `What is the capacity of ${venueName}?`,
+      answer: `The verified venue record lists a capacity of ${capacity}. Configurations can vary for concerts, tournaments and other special events.`,
+    });
+  }
+
+  answers.push({
+    question: `Where should I check parking and arrival information for ${venueName}?`,
+    answer: `Use the venue-specific parking and arrival sections in this guide as planning context, then follow the official planning links for the current event-day parking map, gate times, entry rules and other details that can change.`,
+  });
+
+  if (verifiedAt) {
+    answers.push({
+      question: `How current is this ${venueName} visitor guide?`,
+      answer: `TexasDefined reviewed the venue-specific source record on ${formatDate(verifiedAt)}. Because schedules and event-day rules can change after review, the guide points travelers back to official sources for final confirmation.`,
+    });
+  }
+
+  return answers.slice(0, 5);
+}
+
+function formatList(items: readonly string[]) {
+  if (!items.length) return 'the events listed in the guide';
+  if (items.length === 1) return items[0];
+  if (items.length === 2) return `${items[0]} and ${items[1]}`;
+  return `${items.slice(0, -1).join(', ')}, and ${items.at(-1)}`;
+}
+
+function formatDate(value: string) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return value;
+  return new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' }).format(date);
+}
