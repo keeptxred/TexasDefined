@@ -7,7 +7,7 @@ const httpsUrlSchema = z.string().url().refine((value) => value.startsWith('http
 const optionalIsoSchema = z.string().datetime().nullable().optional();
 
 export const getActiveSportsSponsorPlacement = createServerFn({ method: 'POST' })
-  .validator(z.object({ surfacePath: surfacePathSchema }))
+  .inputValidator(z.object({ surfacePath: surfacePathSchema }))
   .handler(async ({ data }) => {
     try {
       const { loadActiveSportsSponsorPlacement } = await import('@/data/sports-sponsorship.server');
@@ -19,7 +19,7 @@ export const getActiveSportsSponsorPlacement = createServerFn({ method: 'POST' }
   });
 
 export const trackSportsSponsorMetric = createServerFn({ method: 'POST' })
-  .validator(z.object({
+  .inputValidator(z.object({
     placementId: z.string().uuid(),
     event: z.enum(['impression', 'click']),
   }))
@@ -29,14 +29,14 @@ export const trackSportsSponsorMetric = createServerFn({ method: 'POST' })
   });
 
 export const getSportsSponsorAdminDashboard = createServerFn({ method: 'POST' })
-  .validator(z.object({ accessKey: accessKeySchema }))
+  .inputValidator(z.object({ accessKey: accessKeySchema }))
   .handler(async ({ data }) => {
     const { loadSportsSponsorAdminDashboard } = await import('@/data/sports-sponsorship.server');
     return loadSportsSponsorAdminDashboard(data.accessKey);
   });
 
 export const createSportsSponsorProspect = createServerFn({ method: 'POST' })
-  .validator(z.object({
+  .inputValidator(z.object({
     accessKey: accessKeySchema,
     companyName: z.string().trim().min(2).max(180),
     website: httpsUrlSchema,
@@ -50,7 +50,7 @@ export const createSportsSponsorProspect = createServerFn({ method: 'POST' })
   });
 
 export const updateSportsSponsorStatus = createServerFn({ method: 'POST' })
-  .validator(z.object({
+  .inputValidator(z.object({
     accessKey: accessKeySchema,
     sponsorId: z.string().uuid(),
     status: z.enum(['prospect', 'approved', 'inactive']),
@@ -71,7 +71,7 @@ const placementContentSchema = z.object({
 });
 
 export const createSportsSponsorPlacementDraft = createServerFn({ method: 'POST' })
-  .validator(placementContentSchema.extend({
+  .inputValidator(placementContentSchema.extend({
     accessKey: accessKeySchema,
     sponsorId: z.string().uuid(),
   }))
@@ -81,7 +81,7 @@ export const createSportsSponsorPlacementDraft = createServerFn({ method: 'POST'
   });
 
 export const reviseSportsSponsorPlacementDraft = createServerFn({ method: 'POST' })
-  .validator(placementContentSchema.extend({
+  .inputValidator(placementContentSchema.extend({
     accessKey: accessKeySchema,
     placementId: z.string().uuid(),
   }))
@@ -91,7 +91,7 @@ export const reviseSportsSponsorPlacementDraft = createServerFn({ method: 'POST'
   });
 
 export const updateSportsSponsorPlacementStatus = createServerFn({ method: 'POST' })
-  .validator(z.object({
+  .inputValidator(z.object({
     accessKey: accessKeySchema,
     placementId: z.string().uuid(),
     status: z.enum(['draft', 'approved', 'paused', 'ended']),
