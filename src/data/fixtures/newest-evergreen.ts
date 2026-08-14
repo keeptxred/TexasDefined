@@ -8,7 +8,6 @@ import { prepareTexasHouseFreezeArticle } from "./prepare-texas-house-freeze";
 import { mudsPidsHoasSpecialDistrictsArticle } from "./muds-pids-hoas-special-districts";
 import { texasSchoolDistrictsExplainedArticle } from "./texas-school-districts-explained";
 import { chooseElectricityPlanTexasArticle } from "./choose-electricity-plan-texas";
-import { texasHillCountryWhatMakesItArticle } from "./texas-hill-country-what-makes-it";
 import { winklerCountyKermitWinkOilArticle } from "./winkler-county-kermit-wink-oil";
 
 const addSourceLinks = (article: Article, links: NonNullable<Article["internalLinks"]>): Article => {
@@ -45,5 +44,4 @@ export const newestEvergreenArticles = [
     { href: "https://www.powertochoose.org/", label: "Power to Choose", description: "Official Texas resource for comparing retail electricity offers in eligible areas." },
     { href: "https://www.puc.texas.gov/consumer/electricity/", label: "Public Utility Commission electricity information", description: "Official consumer guidance on electric service, utilities and retail providers." },
   ]),
-  texasHillCountryWhatMakesItArticle,
 ];
