@@ -1,4 +1,5 @@
 import type { SearchDocument } from "@/data/types";
+import { FISHING_GUIDES_DIRECTORY_PATH, fishingGuideCanonicalPath } from "./guide-routing";
 import { fishingFoundationAnchor } from "./slugs";
 
 export async function buildFishingSearchDocuments(): Promise<SearchDocument[]> {
@@ -6,7 +7,7 @@ export async function buildFishingSearchDocuments(): Promise<SearchDocument[]> {
   const [lakes, species, guides, reports, businesses, lakeSpecies] = await Promise.all([
     fishingPlatform.lakes.list({ ...fishingScope, status: "published", limit: 5000 }),
     fishingPlatform.species.list({ ...fishingScope, status: "published", limit: 5000 }),
-    fishingPlatform.guides.list({ ...fishingScope, status: "published", limit: 5000 }),
+    fishingPlatform.guides.list({ ...fishingScope, status: "published", verifiedListing: true, limit: 5000 }),
     fishingPlatform.reports.list({ ...fishingScope, status: "published", limit: 5000 }),
     fishingPlatform.businesses.list({ ...fishingScope, status: "published", limit: 5000 }),
     fishingPlatform.lakeSpecies.list(fishingScope),
@@ -41,6 +42,15 @@ export async function buildFishingSearchDocuments(): Promise<SearchDocument[]> {
       keywords: ["Texas fishing lakes", "Texas lake fishing", "Lake Conroe", "Lake Fork", "Sam Rayburn Reservoir", "Lake Livingston", "Lake Texoma", "compare fishing lakes"],
       href: "/fishing/lakes",
     },
+    {
+      id: "fishing-directory:texas-fishing-guides",
+      brandId: "texasdefined",
+      kind: "guide",
+      title: "Texas Fishing Guide Directory",
+      summary: "Browse Texas fishing guides only after their listings and lake and target-species relationships are verified.",
+      keywords: ["Texas fishing guides", "fishing guide directory", "verified fishing guides", "lake fishing guides"],
+      href: FISHING_GUIDES_DIRECTORY_PATH,
+    },
     ...lakes.map((lake): SearchDocument => ({
       id: `fishing-lake:${lake.id}`,
       brandId: lake.brandId,
@@ -64,9 +74,9 @@ export async function buildFishingSearchDocuments(): Promise<SearchDocument[]> {
       brandId: guide.brandId,
       kind: "fishing-guide",
       title: guide.businessName,
-      summary: guide.bio ?? `Fishing guide serving ${guide.lakeIds.map((lakeId) => lakeById.get(lakeId)?.name).filter(Boolean).join(", ")}.`,
+      summary: guide.bio ?? `Verified fishing guide serving ${guide.lakeIds.map((lakeId) => lakeById.get(lakeId)?.name).filter(Boolean).join(", ")}.`,
       keywords: [guide.businessName, guide.guideName, ...guide.lakeIds.map((lakeId) => lakeById.get(lakeId)?.name), ...guide.speciesIds.map((speciesId) => speciesById.get(speciesId)?.commonName)].filter((value): value is string => Boolean(value)),
-      href: `/fishing#guide-${guide.slug}`,
+      href: fishingGuideCanonicalPath(guide.slug),
     })),
     ...reports.map((report): SearchDocument => ({
       id: `fishing-report:${report.id}`,

@@ -1,4 +1,5 @@
 import { fishingPlatform, fishingScope } from "./index";
+import { fishingGuideCanonicalPath } from "./guide-routing";
 import { fishingFoundationAnchor } from "./slugs";
 
 export type FishingInternalLinkKind = "lake" | "species" | "guide" | "report" | "business";
@@ -20,7 +21,7 @@ export async function buildFishingInternalLinkEntities(): Promise<FishingInterna
   const [lakes, species, guides, reports, businesses] = await Promise.all([
     fishingPlatform.lakes.list({ ...fishingScope, status: "published", limit: 5000 }),
     fishingPlatform.species.list({ ...fishingScope, status: "published", limit: 5000 }),
-    fishingPlatform.guides.list({ ...fishingScope, status: "published", limit: 5000 }),
+    fishingPlatform.guides.list({ ...fishingScope, status: "published", verifiedListing: true, limit: 5000 }),
     fishingPlatform.reports.list({ ...fishingScope, status: "published", limit: 5000 }),
     fishingPlatform.businesses.list({ ...fishingScope, status: "published", limit: 5000 }),
   ]);
@@ -47,7 +48,7 @@ export async function buildFishingInternalLinkEntities(): Promise<FishingInterna
       kind: "guide" as const,
       name: guide.businessName,
       aliases: normalizeTerms([guide.guideName]),
-      href: `/fishing#guide-${guide.slug}`,
+      href: fishingGuideCanonicalPath(guide.slug),
       keywords: normalizeTerms(guide.serviceRegions ?? []),
     })),
     ...reports.map((report) => ({

@@ -6,6 +6,7 @@ import { getTexasCountyHousingCosts } from "@/data/acs-county-housing-costs.func
 import { fetchPublishedTexasDefinedArticles } from "@/data/articles-remote";
 import { loadTexasCountyGrowth } from "@/data/census-county-growth";
 import { isLegacyCountySeriesArticle } from "@/data/county-series";
+import { loadFishingGuideSitemapEntriesServer } from "@/data/fishing/guide-sitemap.server";
 import { FISHING_SITEMAP_ENTRIES } from "@/data/fishing/sitemap";
 import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
 import { canonicalEntityPath, isIndexableEntityPage } from "@/data/knowledge-graph/relationships";
@@ -29,6 +30,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           loadTexasKnowledgeGraph(),
           fetchPublishedTexasDefinedArticles({ limit: 200 }),
           getTexasCountyHousingCosts(),
+          loadFishingGuideSitemapEntriesServer(),
         ]);
 
         const failures = coreResults.filter((result) => result.status === "rejected");
@@ -44,13 +46,14 @@ export const Route = createFileRoute("/sitemap.xml")({
           });
         }
 
-        const [articlesResult, collectionsResult, authorsResult, graphResult, remoteArticlesResult, countyHousingResult] = coreResults;
+        const [articlesResult, collectionsResult, authorsResult, graphResult, remoteArticlesResult, countyHousingResult, fishingGuideSitemapResult] = coreResults;
         const articles = articlesResult.status === "fulfilled" ? articlesResult.value : [];
         const collections = collectionsResult.status === "fulfilled" ? collectionsResult.value : [];
         const authors = authorsResult.status === "fulfilled" ? authorsResult.value : [];
         const graph = graphResult.status === "fulfilled" ? graphResult.value : [];
         const remoteArticles = remoteArticlesResult.status === "fulfilled" ? remoteArticlesResult.value : [];
         const countyHousingCosts = countyHousingResult.status === "fulfilled" ? countyHousingResult.value : null;
+        const fishingGuideSitemapEntries = fishingGuideSitemapResult.status === "fulfilled" ? fishingGuideSitemapResult.value : [];
         const countyGrowth = await loadTexasCountyGrowth();
 
         const countyPages = COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady);
@@ -60,6 +63,7 @@ export const Route = createFileRoute("/sitemap.xml")({
             .filter((path) => !isExploreSitemapOwnedPath(path))
             .map((path) => ({ path })),
           ...FISHING_SITEMAP_ENTRIES,
+          ...fishingGuideSitemapEntries,
           ...(articles.length ? [{ path: "/news" }] : []),
           ...remoteArticles.map((article) => ({ path: `/news/${article.slug}`, lastmod: toDate(article.publishedAt) })),
           ...(countyGrowth.available ? [{ path: "/texas-data/county-growth", lastmod: "2026-03-17" }] : []),

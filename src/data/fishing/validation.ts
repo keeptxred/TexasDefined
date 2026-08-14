@@ -95,9 +95,19 @@ export function validateFishingCatalog(catalog: FishingCatalog) {
   }
 
   for (const guide of catalog.guides) {
+    if (!guide.businessName.trim()) issues.push({ code: "guide-business-name", entityId: guide.id, message: "Fishing guide businessName is required." });
+    if (guide.verifiedListing && !isFishingRecordVerified(guide)) issues.push({ code: "guide-verification-evidence", entityId: guide.id, message: "Verified guide listings require verifiedAt and checked sources." });
     for (const lakeId of guide.lakeIds) if (!lakeIds.has(lakeId)) issues.push({ code: "guide-lake", entityId: guide.id, message: `Unknown lake id: ${lakeId}` });
     for (const speciesId of guide.speciesIds) if (!speciesIds.has(speciesId)) issues.push({ code: "guide-species", entityId: guide.id, message: `Unknown species id: ${speciesId}` });
     for (const techniqueId of guide.techniqueIds ?? []) if (!techniqueIds.has(techniqueId)) issues.push({ code: "guide-technique", entityId: guide.id, message: `Unknown technique id: ${techniqueId}` });
+    if (guide.verifiedListing) {
+      const relatedLakeIds = new Set(catalog.guideLakes.filter((relation) => relation.guideId === guide.id).map((relation) => relation.lakeId));
+      const relatedSpeciesIds = new Set(catalog.guideSpecies.filter((relation) => relation.guideId === guide.id).map((relation) => relation.speciesId));
+      for (const lakeId of guide.lakeIds) if (!relatedLakeIds.has(lakeId)) issues.push({ code: "verified-guide-lake-relationship", entityId: guide.id, message: `Verified guide lake must have a guide-to-lake relationship: ${lakeId}` });
+      for (const speciesId of guide.speciesIds) if (!relatedSpeciesIds.has(speciesId)) issues.push({ code: "verified-guide-species-relationship", entityId: guide.id, message: `Verified guide species must have a guide-to-species relationship: ${speciesId}` });
+      for (const lakeId of relatedLakeIds) if (!guide.lakeIds.includes(lakeId)) issues.push({ code: "verified-guide-lake-mismatch", entityId: guide.id, message: `Guide-to-lake relationship is missing from guide lakeIds: ${lakeId}` });
+      for (const speciesId of relatedSpeciesIds) if (!guide.speciesIds.includes(speciesId)) issues.push({ code: "verified-guide-species-mismatch", entityId: guide.id, message: `Guide-to-species relationship is missing from guide speciesIds: ${speciesId}` });
+    }
   }
 
   for (const relation of catalog.guideLakes) {
@@ -123,6 +133,7 @@ export function validateFishingCatalog(catalog: FishingCatalog) {
 
   for (const placement of catalog.placements) {
     if (!advertiserIds.has(placement.advertiserId)) issues.push({ code: "placement-advertiser", entityId: placement.id, message: `Unknown advertiser id: ${placement.advertiserId}` });
+    if (placement.disclosure !== "sponsored") issues.push({ code: "placement-disclosure", entityId: placement.id, message: "Fishing placements must be disclosed as sponsored." });
     for (const lakeId of placement.lakeIds ?? []) if (!lakeIds.has(lakeId)) issues.push({ code: "placement-lake", entityId: placement.id, message: `Unknown lake id: ${lakeId}` });
     for (const speciesId of placement.speciesIds ?? []) if (!speciesIds.has(speciesId)) issues.push({ code: "placement-species", entityId: placement.id, message: `Unknown species id: ${speciesId}` });
   }

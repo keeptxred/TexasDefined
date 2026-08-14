@@ -12,6 +12,8 @@ import type {
   FishingPublicationStatus,
   FishingReport,
   FishingTechnique,
+  GuideLakeRelationship,
+  GuideSpeciesRelationship,
   LakeSpeciesProfile,
   LakeTechniqueProfile,
   TackleShop,
@@ -50,6 +52,7 @@ export interface FishingGuideQuery extends FishingScope {
   speciesId?: string;
   region?: TexasRegion;
   featured?: boolean;
+  verifiedListing?: boolean;
   limit?: number;
 }
 
@@ -106,6 +109,12 @@ export interface FishingRepositories {
   guides: {
     list(query: FishingGuideQuery): Promise<FishingGuide[]>;
     getBySlug(scope: FishingScope, slug: string): Promise<FishingGuide | null>;
+  };
+  guideLakes: {
+    list(scope: FishingScope & { guideId?: string; lakeId?: string }): Promise<GuideLakeRelationship[]>;
+  };
+  guideSpecies: {
+    list(scope: FishingScope & { guideId?: string; speciesId?: string }): Promise<GuideSpeciesRelationship[]>;
   };
   reports: {
     list(query: FishingReportQuery): Promise<FishingReport[]>;
@@ -213,10 +222,23 @@ export function createFixtureFishingRepositories(catalog: FishingCatalog): Fishi
         if (query.speciesId) rows = rows.filter((row) => row.speciesIds.includes(query.speciesId!));
         if (query.region) rows = rows.filter((row) => row.serviceRegions?.includes(query.region!));
         if (query.featured !== undefined) rows = rows.filter((row) => Boolean(row.featured) === query.featured);
+        if (query.verifiedListing !== undefined) rows = rows.filter((row) => row.verifiedListing === query.verifiedListing);
         return limitRows(rows, query.limit);
       },
       async getBySlug(scope, slug) {
         return catalog.guides.find((row) => row.brandId === scope.brandId && row.slug === slug) ?? null;
+      },
+    },
+    guideLakes: {
+      async list(query) {
+        const guideIds = new Set(catalog.guides.filter((row) => row.brandId === query.brandId).map((row) => row.id));
+        return catalog.guideLakes.filter((row) => guideIds.has(row.guideId) && (!query.guideId || row.guideId === query.guideId) && (!query.lakeId || row.lakeId === query.lakeId));
+      },
+    },
+    guideSpecies: {
+      async list(query) {
+        const guideIds = new Set(catalog.guides.filter((row) => row.brandId === query.brandId).map((row) => row.id));
+        return catalog.guideSpecies.filter((row) => guideIds.has(row.guideId) && (!query.guideId || row.guideId === query.guideId) && (!query.speciesId || row.speciesId === query.speciesId));
       },
     },
     reports: {
