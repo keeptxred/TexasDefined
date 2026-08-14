@@ -15,6 +15,7 @@ const requiredFiles = [
   "src/data/fishing/index.ts",
   "src/data/fishing/queries.ts",
   "src/data/fishing/search.ts",
+  "src/data/fishing/internal-links.ts",
   "src/routes/fishing.tsx",
 ];
 requiredFiles.forEach(requireFile);
@@ -25,6 +26,7 @@ if (!failures.length) {
   const repositories = read("src/data/fishing/repositories.ts");
   const queries = read("src/data/fishing/queries.ts");
   const search = read("src/data/fishing/search.ts");
+  const internalLinks = read("src/data/fishing/internal-links.ts");
   const route = read("src/routes/fishing.tsx");
   const publicRoutes = read("src/lib/public-routes.ts");
   const globalQueries = read("src/data/queries.ts");
@@ -56,6 +58,7 @@ if (!failures.length) {
   if (!repositories.includes("createFixtureFishingRepositories")) failures.push("Fixture repository binding is missing.");
   if (!queries.includes("fishingLakesQuery") || !queries.includes("fishingReportsQuery") || !queries.includes("fishingPlacementsQuery")) failures.push("Fishing query surface is incomplete.");
   if (!search.includes("buildFishingSearchDocuments")) failures.push("Fishing search-document builder is missing.");
+  if (!internalLinks.includes("buildFishingInternalLinkEntities") || !internalLinks.includes("findFishingInternalLinkEntities")) failures.push("Fishing internal-link entity definitions are incomplete.");
   if (!globalQueries.includes("buildFishingSearchDocuments")) failures.push("Global search does not merge fishing documents.");
   if (!coreTypes.includes('"fishing-lake"') || !coreTypes.includes('"fish-species"')) failures.push("Core SearchDocument kinds do not include fishing entities.");
   if (!publicRoutes.match(/["']\/fishing["']/)) failures.push("/fishing is not registered as a governed public route.");
@@ -80,4 +83,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Fishing platform validation passed: domain model, foundation lakes, relationship types, search integration, crawl registration and source contracts are present.");
+console.log("Fishing platform validation passed: domain model, foundation lakes, relationship types, search/internal-link integration, crawl registration and source contracts are present.");

@@ -9,6 +9,7 @@ import { createFixtureFishingRepositories } from "./repositories";
 export const fishingPlatform = createFixtureFishingRepositories(fixtureFishingCatalog);
 export const fishingScope = { brandId: "texasdefined" } as const;
 
+export * from "./internal-links";
 export * from "./repositories";
 export * from "./slugs";
 export * from "./types";
