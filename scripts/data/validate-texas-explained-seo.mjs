@@ -185,13 +185,21 @@ for (const marker of [
 for (const marker of [
   'const texasExplainedPillarPosition = texasExplainedPillarOrder.findIndex',
   'const isTexasExplainedPillar = texasExplainedPillarPosition >= 0;',
+  'const previousTexasExplainedSlug = texasExplainedPillarPosition > 0',
+  'const nextTexasExplainedSlug = texasExplainedPillarPosition >= 0 && texasExplainedPillarPosition < texasExplainedPillarOrder.length - 1',
   'aria-label="Texas Explained series"',
   'Texas Explained · Guide {texasExplainedPillarPosition + 1} of {texasExplainedPillarOrder.length}',
   'Part of our 10-guide series on the systems, landscapes and people that explain how Texas works.',
+  'aria-label="Texas Explained guide navigation"',
+  'params={{ slug: previousTexasExplainedSlug }}',
+  '← Guide {texasExplainedPillarPosition} of {texasExplainedPillarOrder.length}',
+  'All 10 guides',
+  'params={{ slug: nextTexasExplainedSlug }}',
+  'Guide {texasExplainedPillarPosition + 2} of {texasExplainedPillarOrder.length} →',
   'to="/texas-explained"',
   'See all 10 guides →',
 ]) {
-  if (!articleRoute.includes(marker)) errors.push(`Texas Explained visible article-series orientation missing: ${marker}.`);
+  if (!articleRoute.includes(marker)) errors.push(`Texas Explained visible article-series orientation/navigation missing: ${marker}.`);
 }
 
 for (const slug of pillars) {
@@ -292,4 +300,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Texas Explained collection, synchronized Guide N of 10 ordering, exact ten-pillar Article → CollectionPage schema membership, visible article-series orientation, sitemap ownership, Start Here discovery, reciprocal collection backlinks, pillar-to-pillar topic clusters, bidirectional five-page supporting authority ring, five-question AEO quick-answer layer, broad-intent site-search vocabulary, homepage promotion, persistent footer navigation, site-search indexing and zero-query search discovery are protected.');
+console.log('Texas Explained collection, synchronized Guide N of 10 ordering with previous/next navigation, exact ten-pillar Article → CollectionPage schema membership, visible article-series orientation, sitemap ownership, Start Here discovery, reciprocal collection backlinks, pillar-to-pillar topic clusters, bidirectional five-page supporting authority ring, five-question AEO quick-answer layer, broad-intent site-search vocabulary, homepage promotion, persistent footer navigation, site-search indexing and zero-query search discovery are protected.');
