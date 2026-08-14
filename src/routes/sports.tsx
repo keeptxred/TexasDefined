@@ -24,6 +24,7 @@ export const Route = createFileRoute("/sports")({
       { type: "TouristAttraction" as const, name: "Reliant Stadium", url: "/sports-venue/reliant-stadium", description: "Houston stadium guide for Texans football, RODEOHOUSTON and major-event travel planning." },
       { type: "TouristAttraction" as const, name: "Circuit of The Americas", url: "/sports-venue/circuit-of-the-americas", description: "Austin motorsports destination guide for major race weekends and visitor planning." },
       { type: "TouristAttraction" as const, name: "AT&T Stadium", url: "/sports-venue/att-stadium", description: "Arlington stadium guide for Dallas Cowboys games and major national events." },
+      { type: "TouristAttraction" as const, name: "Galaxy Stadium", url: "/sports-venue/jones-att-stadium", description: "Lubbock visitor guide for Texas Tech football at the venue formerly known as Jones AT&T Stadium." },
     ],
   }) : ({ meta: buildMeta(texasDefinedBrand, { title: seoTitle, description, canonicalPath: "/sports" }), links: [canonicalLink(texasDefinedBrand, "/sports")] }),
   loader: async ({ context }): Promise<{ articles: Article[]; destinations: Destination[] }> => {
@@ -64,6 +65,11 @@ function SportsPage() {
               <span className="mt-2 block text-sm leading-6 text-muted-foreground">Dallas Cowboys football, stadium tours and major national and international events.</span>
               <span className="mt-3 block text-sm font-semibold text-primary">Open AT&T Stadium guide →</span>
             </Link>
+            <a href="/sports-venue/jones-att-stadium" className="group border-t border-border py-5">
+              <strong className="block font-display text-2xl group-hover:text-primary">Galaxy Stadium, Lubbock</strong>
+              <span className="mt-2 block text-sm leading-6 text-muted-foreground">Texas Tech football and West Texas game-day travel at the stadium formerly known as Jones AT&T Stadium.</span>
+              <span className="mt-3 block text-sm font-semibold text-primary">Open Galaxy Stadium guide →</span>
+            </a>
             <Link to="/rodeo/$slug" params={{ slug: "houston-livestock-show-and-rodeo" }} className="group border-t border-border py-5">
               <strong className="block font-display text-2xl group-hover:text-primary">Houston Livestock Show and Rodeo</strong>
               <span className="mt-2 block text-sm leading-6 text-muted-foreground">Follow the event relationship from the venue to one of the biggest recurring sports-and-culture events in Texas.</span>
