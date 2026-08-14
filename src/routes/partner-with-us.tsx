@@ -10,7 +10,23 @@ import { buildMeta, canonicalLink } from '@/lib/seo';
 const canonicalPath = '/partner-with-us';
 const description = 'Partner with Texas Defined on useful, clearly disclosed Texas home, moving, travel, sports-travel and local-service resources while preserving editorial independence.';
 
+type PartnerSearch = {
+  partnershipType?: 'sports-travel';
+  sourcePath: string;
+};
+
+function sanitizePartnerSource(value: unknown) {
+  if (typeof value !== 'string') return canonicalPath;
+  if (value === '/sports-venues') return value;
+  if (/^\/sports-venue\/[a-z0-9-]+$/.test(value)) return value;
+  return canonicalPath;
+}
+
 export const Route = createFileRoute('/partner-with-us')({
+  validateSearch: (search: Record<string, unknown>): PartnerSearch => ({
+    partnershipType: search.type === 'sports-travel' ? 'sports-travel' : undefined,
+    sourcePath: sanitizePartnerSource(search.source),
+  }),
   head: () => ({
     meta: buildMeta(texasDefinedBrand, { canonicalPath, title: 'Partner With Texas Defined', description }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
@@ -30,6 +46,7 @@ const partnershipOptions = [
 ] as const;
 
 function PartnerWithUsPage() {
+  const search = Route.useSearch();
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -46,7 +63,7 @@ function PartnerWithUsPage() {
         website: String(form.get('website') || ''),
         partnershipType: String(form.get('partnershipType') || 'other') as typeof partnershipOptions[number][0],
         message: String(form.get('message') || ''),
-        sourcePath: canonicalPath,
+        sourcePath: search.sourcePath,
         addressLine2: String(form.get('addressLine2') || ''),
       } });
       event.currentTarget.reset();
@@ -89,6 +106,7 @@ function PartnerWithUsPage() {
           <h2 id="partnership-form-heading" className="mt-3 font-display text-4xl">Tell us about your organization</h2>
           <p className="mt-4 text-sm leading-7 text-muted-foreground">This form is for business and sponsorship inquiries. Submissions are stored privately for Texas Defined to review.</p>
 
+          {search.partnershipType === 'sports-travel' ? <p className="mt-4 border-l-2 border-primary pl-4 text-sm leading-6 text-muted-foreground">Sports-travel partnership is preselected because you arrived from a Texas Defined sports venue resource.</p> : null}
           {status === 'sent' ? <div className="mt-7 border-y border-border py-6" role="status"><p className="font-semibold">Inquiry received.</p><p className="mt-2 text-sm leading-6 text-muted-foreground">Thank you. Texas Defined can review the details you submitted and follow up using the email address provided.</p></div> : null}
 
           <form onSubmit={submit} className="mt-8 grid gap-5" noValidate>
@@ -101,7 +119,7 @@ function PartnerWithUsPage() {
               <Field label="Website" name="website" type="url" autoComplete="url" placeholder="https://" />
             </div>
             <label className="grid gap-2 text-sm font-semibold" htmlFor="partnershipType">Partnership type
-              <select id="partnershipType" name="partnershipType" className="min-h-11 border border-border bg-background px-3 py-2 font-normal text-foreground" defaultValue="other" required>
+              <select key={search.partnershipType ?? 'other'} id="partnershipType" name="partnershipType" className="min-h-11 border border-border bg-background px-3 py-2 font-normal text-foreground" defaultValue={search.partnershipType ?? 'other'} required>
                 {partnershipOptions.map(([value, label]) => <option key={value} value={value}>{label}</option>)}
               </select>
             </label>
