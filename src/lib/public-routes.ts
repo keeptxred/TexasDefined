@@ -71,11 +71,12 @@ export const INDEXABLE_STATIC_PATHS = [
   "/texas-utility-cost-calculator",
 ] as const;
 
-// Public routes whose indexability depends on live content at request time.
+// Public routes whose indexability depends on live or refreshed content at request time.
 // These must never be published unconditionally by a sitemap.
 export const CONDITIONAL_INDEXABLE_PUBLIC_PATHS = [
   "/news",
   "/texas-data/county-growth",
+  "/texas-data/county-housing-costs",
 ] as const;
 
 export const REDIRECT_ONLY_PATHS = [
@@ -102,6 +103,7 @@ export const NON_INDEXABLE_PUBLIC_PATHS = [
   "/shop/cart",
   "/shop/checkout-return",
   "/texas-data/county-growth.csv",
+  "/texas-data/county-housing-costs.csv",
   "/texas-data/city-county-relationships.csv",
 ] as const;
 
