@@ -15,7 +15,7 @@ const partnerInquirySchema = z.object({
 });
 
 export const submitPartnerInquiry = createServerFn({ method: 'POST' })
-  .inputValidator(partnerInquirySchema)
+  .validator(partnerInquirySchema)
   .handler(async ({ data }) => {
     // Quietly accept honeypot submissions so bots do not learn the filter.
     if (data.addressLine2.trim()) return { ok: true };
