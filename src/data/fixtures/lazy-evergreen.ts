@@ -7,6 +7,7 @@ import specialDistrictsHero from "@/assets/generated/texas-special-districts.jpg
 
 import type { Article } from "../types";
 import { texasLakesReservoirsExplainedStub } from "./texas-lakes-reservoirs-explained-stub";
+import { texasWildflowersGuideStub } from "./texas-wildflowers-guide-stub";
 
 const texasFarmToMarketRoadsExplainedStub: Article = {
   id: "evergreen-texas-farm-to-market-roads-explained",
@@ -186,6 +187,7 @@ const mudsPidsHoasSpecialDistrictsStub: Article = {
 
 export const lazyEvergreenArticleStubs: Article[] = [
   texasFarmToMarketRoadsExplainedStub,
+  texasWildflowersGuideStub,
   texasRiversExplainedStub,
   texasLakesReservoirsExplainedStub,
   texasHillCountryStub,
@@ -215,6 +217,11 @@ export async function loadLazyEvergreenArticle(brandId: string, slug: string): P
   if (slug === texasFarmToMarketRoadsExplainedStub.slug) {
     const { texasFarmToMarketRoadsExplainedArticle } = await import("./texas-farm-to-market-roads-explained");
     return texasFarmToMarketRoadsExplainedArticle;
+  }
+
+  if (slug === texasWildflowersGuideStub.slug) {
+    const { texasWildflowersGuideArticle } = await import("./texas-wildflowers-guide");
+    return texasWildflowersGuideArticle;
   }
 
   if (slug === texasRiversExplainedStub.slug) {
