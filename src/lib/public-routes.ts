@@ -5,6 +5,8 @@ export const INDEXABLE_STATIC_PATHS = [
   "/explore/attractions-comparison",
   "/fishing",
   "/fishing/lakes",
+  "/fishing/plan",
+  "/fishing/compare",
   "/fishing/species",
   "/fishing/species/largemouth-bass",
   "/fishing/guides",
