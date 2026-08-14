@@ -8,11 +8,41 @@ import {
   isIndexableEntityPage,
   rankRelatedEntities,
 } from '@/data/knowledge-graph/relationships';
-import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
+import type { TexasEntityKind, TexasEntityRecord } from '@/data/knowledge-graph/types';
 import { getSportsVenueEnrichmentAll, sportsVenueMapUrl } from '@/data/sports-venue-enrichment-all';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
 const siteUrl = 'https://texasdefined.com';
+
+const visitorKindPriority: Partial<Record<TexasEntityKind, number>> = {
+  attraction: 0,
+  museum: 1,
+  'historic-site': 2,
+  'state-park': 3,
+  'national-park': 4,
+  mission: 5,
+  battlefield: 6,
+  cavern: 7,
+  beach: 8,
+  'scenic-drive': 9,
+  lake: 10,
+  river: 11,
+  fairground: 12,
+  university: 13,
+  city: 14,
+};
+
+function countyVisitorPlaces(venue: TexasEntityRecord, graph: TexasEntityRecord[]) {
+  if (!venue.countySlug) return [];
+  return graph
+    .filter((candidate) => candidate.id !== venue.id
+      && candidate.countySlug === venue.countySlug
+      && visitorKindPriority[candidate.kind] !== undefined
+      && isIndexableEntityPage(candidate))
+    .sort((left, right) => (visitorKindPriority[left.kind] ?? 99) - (visitorKindPriority[right.kind] ?? 99)
+      || left.name.localeCompare(right.name))
+    .slice(0, 6);
+}
 
 export const Route = createFileRoute('/sports-venue/$slug')({
   loader: async ({ params }) => {
@@ -22,6 +52,7 @@ export const Route = createFileRoute('/sports-venue/$slug')({
     return {
       entity,
       related: rankRelatedEntities(entity, graph, 16),
+      visitorPlaces: countyVisitorPlaces(entity, graph),
     };
   },
   head: ({ loaderData }) => {
@@ -43,14 +74,13 @@ export const Route = createFileRoute('/sports-venue/$slug')({
 });
 
 function SportsVenuePage() {
-  const { entity, related } = Route.useLoaderData();
+  const { entity, related, visitorPlaces } = Route.useLoaderData();
   const tags = new Set(entity.tags ?? []);
   const profile = venueProfile(tags);
   const enrichment = getSportsVenueEnrichmentAll(entity.slug);
   const canonicalPath = canonicalEntityPath(entity);
   const canonicalUrl = `${siteUrl}${canonicalPath}`;
   const relatedVenues = related.filter(({ entity: candidate }) => candidate.kind === 'sports-venue').slice(0, 6);
-  const nearbyPlaces = related.filter(({ entity: candidate }) => candidate.kind !== 'sports-venue').slice(0, 6);
   const countyName = entity.countySlug ? `${title(entity.countySlug)} County` : undefined;
   const regionName = entity.region ? title(entity.region) : undefined;
   const mapUrl = entity.coordinates
@@ -190,6 +220,13 @@ function SportsVenuePage() {
           </ul>
         </section> : null}
 
+        {visitorPlaces.length ? <RelatedGrid
+          eyebrow={countyName ? `More to do in ${countyName}` : 'Build the weekend'}
+          title="Visitor places to pair with the event"
+          description="These are editorial TexasDefined visitor resources in the same county as the venue. Same-county does not necessarily mean walkable or immediately adjacent, and this list is not a sponsored placement."
+          items={visitorPlaces}
+        /> : null}
+
         <aside className="grid gap-7 border-b border-border py-10 lg:grid-cols-[1fr_auto] lg:items-center" aria-labelledby="venue-partnership-heading">
           <div>
             <p className="eyebrow text-primary">Local business partnerships</p>
@@ -200,19 +237,17 @@ function SportsVenuePage() {
         </aside>
 
         {relatedVenues.length ? <RelatedGrid eyebrow="Keep exploring" title="Related Texas sports venues" items={relatedVenues.map(({ entity: item }) => item)} /> : null}
-        {nearbyPlaces.length ? <RelatedGrid eyebrow="Build the weekend" title="Nearby and related Texas places" items={nearbyPlaces.map(({ entity: item }) => item)} /> : null}
       </article>
     </Container>
   </>;
 }
 
-function RelatedGrid({ eyebrow, title: heading, items }: { eyebrow: string; title: string; items: TexasEntityRecord[] }) {
+function RelatedGrid({ eyebrow, title: heading, description, items }: { eyebrow: string; title: string; description?: string; items: TexasEntityRecord[] }) {
   return <section className="border-b border-border py-12 last:border-b-0">
-    <div className="flex items-end justify-between gap-6 border-b border-border pb-4">
-      <div>
-        <p className="eyebrow text-primary">{eyebrow}</p>
-        <h2 className="mt-2 font-display text-4xl">{heading}</h2>
-      </div>
+    <div className="border-b border-border pb-4">
+      <p className="eyebrow text-primary">{eyebrow}</p>
+      <h2 className="mt-2 font-display text-4xl">{heading}</h2>
+      {description ? <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">{description}</p> : null}
     </div>
     <div className="grid sm:grid-cols-2 lg:grid-cols-3">
       {items.map((item, index) => <a key={item.id} href={canonicalEntityPath(item)} className={`group border-b border-border py-6 sm:px-5 ${index % 3 !== 0 ? 'lg:border-l lg:border-border' : ''}`}>
