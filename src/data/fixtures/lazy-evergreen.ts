@@ -1,3 +1,5 @@
+import hillCountryHero from "@/assets/generated/hill-country-identity.jpg";
+
 import type { Article } from "../types";
 
 const texasRiversExplainedStub: Article = {
@@ -35,7 +37,34 @@ const texasRiversExplainedStub: Article = {
   relatedDestinations: ["guadalupe-river-state-park", "devils-river-state-natural-area", "south-llano-river-state-park"],
 };
 
-export const lazyEvergreenArticleStubs: Article[] = [texasRiversExplainedStub];
+const texasHillCountryStub: Article = {
+  id: "evergreen-texas-hill-country-what-makes-it",
+  brandId: "texasdefined",
+  slug: "texas-hill-country-what-makes-it",
+  title: "What Makes the Texas Hill Country the Hill Country?",
+  dek: "It is more than rolling scenery. Limestone, spring-fed rivers, live oaks, ranch roads, small towns and a distinctive mix of cultures all help define the part of Texas people simply call the Hill Country.",
+  category: "guides",
+  region: "hill-country",
+  hero: {
+    src: hillCountryHero,
+    alt: "Texas Hill Country limestone hills, river, live oaks and wildflowers at sunset",
+    width: 1600,
+    height: 900,
+  },
+  authorId: "a-marisol",
+  publishedAt: "2026-08-07",
+  readingMinutes: 10,
+  tags: ["texas hill country", "hill country", "central texas", "texas geography", "fredericksburg", "texas travel"],
+  featured: true,
+  body: [],
+  relatedCollections: [],
+  relatedDestinations: [],
+};
+
+export const lazyEvergreenArticleStubs: Article[] = [
+  texasRiversExplainedStub,
+  texasHillCountryStub,
+];
 
 const texasRiversSourceLinks: NonNullable<Article["internalLinks"]> = [
   {
@@ -51,18 +80,27 @@ const texasRiversSourceLinks: NonNullable<Article["internalLinks"]> = [
 ];
 
 export async function loadLazyEvergreenArticle(brandId: string, slug: string): Promise<Article | null> {
-  if (brandId !== "texasdefined" || slug !== texasRiversExplainedStub.slug) return null;
+  if (brandId !== "texasdefined") return null;
 
-  const { texasRiversExplainedArticle } = await import("./texas-rivers-explained");
-  const existingLinks = texasRiversExplainedArticle.internalLinks ?? [];
+  if (slug === texasRiversExplainedStub.slug) {
+    const { texasRiversExplainedArticle } = await import("./texas-rivers-explained");
+    const existingLinks = texasRiversExplainedArticle.internalLinks ?? [];
 
-  return {
-    ...texasRiversExplainedArticle,
-    internalLinks: [
-      ...existingLinks,
-      ...texasRiversSourceLinks.filter(
-        (link) => !existingLinks.some((existing) => existing.href === link.href),
-      ),
-    ],
-  };
+    return {
+      ...texasRiversExplainedArticle,
+      internalLinks: [
+        ...existingLinks,
+        ...texasRiversSourceLinks.filter(
+          (link) => !existingLinks.some((existing) => existing.href === link.href),
+        ),
+      ],
+    };
+  }
+
+  if (slug === texasHillCountryStub.slug) {
+    const { texasHillCountryWhatMakesItArticle } = await import("./texas-hill-country-what-makes-it");
+    return texasHillCountryWhatMakesItArticle;
+  }
+
+  return null;
 }
