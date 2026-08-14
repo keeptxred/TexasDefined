@@ -11,6 +11,7 @@ const internalLinks = read('src/data/article-internal-links.ts');
 const homepage = read('src/routes/index.tsx');
 const brand = read('src/brand/texasdefined.ts');
 const queries = read('src/data/queries.ts');
+const searchRoute = read('src/routes/search.tsx');
 const errors = [];
 
 const pillars = [
@@ -91,10 +92,19 @@ for (const marker of [
   if (!queries.includes(marker)) errors.push(`Texas Explained search-discovery contract missing: ${marker}.`);
 }
 
+for (const marker of [
+  'to="/texas-explained"',
+  'Want the why behind Texas?',
+  'Read all 10 guides →',
+  'rivers, reservoirs, roads, towns, plants, wildlife, homes, land and migration patterns',
+]) {
+  if (!searchRoute.includes(marker)) errors.push(`Texas Explained zero-query search discovery contract missing: ${marker}.`);
+}
+
 if (errors.length) {
   console.error('Texas Explained validation failed:');
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
 
-console.log('Texas Explained collection, ten-pillar membership, sitemap ownership, Start Here discovery, reciprocal article links, homepage promotion, persistent footer navigation and site-search discovery are protected.');
+console.log('Texas Explained collection, ten-pillar membership, sitemap ownership, Start Here discovery, reciprocal article links, homepage promotion, persistent footer navigation, site-search indexing and zero-query search discovery are protected.');
