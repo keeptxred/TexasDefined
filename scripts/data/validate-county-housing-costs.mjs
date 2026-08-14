@@ -31,7 +31,7 @@ for (const token of [
 for (const token of [
   "createFileRoute('/texas-data/county-housing-costs.csv')",
   "'x-robots-tag': 'noindex, follow'",
-  "status: 503",
+  'status: 503',
   'median_home_value',
   'median_gross_rent',
   'median_monthly_owner_costs',
@@ -50,12 +50,11 @@ for (const token of [
 
 for (const token of [
   'https://www2.census.gov/programs-surveys/acs/summary_file/',
-  'acsdt5y${YEAR}-b19013.dat',
-  'B19013_E001',
-  'B25064_E001',
-  'B25077_E001',
-  'B25088_E001',
-  "^0500000US48\\d{3}$",
+  "{ table: 'b19013', variable: 'B19013_E001'",
+  "{ table: 'b25064', variable: 'B25064_E001'",
+  "{ table: 'b25077', variable: 'B25077_E001'",
+  "{ table: 'b25088', variable: 'B25088_E001'",
+  '0500000US48',
   'fips.length < 250',
 ]) {
   if (!generator.includes(token)) errors.push(`ACS snapshot generator missing ${token}`);
@@ -69,7 +68,7 @@ for (const token of [
   'pull-requests: write',
   'node scripts/data/refresh-county-housing-costs.mjs',
   'Expected at least 250 Texas county rows',
-  "gh pr create",
+  'gh pr create',
 ]) {
   if (!refreshWorkflow.includes(token)) errors.push(`ACS refresh workflow missing ${token}`);
 }
