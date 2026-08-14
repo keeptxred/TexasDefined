@@ -1,4 +1,4 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
@@ -39,7 +39,6 @@ export const Route = createFileRoute("/fishing/plan")({
 function FishingTripPlannerPage() {
   const data = Route.useLoaderData();
   const search = Route.useSearch();
-  const navigate = useNavigate({ from: FISHING_TRIP_PLANNER_PATH });
   const selectedSpecies = data.species.find((fish) => fish.slug === search.species);
   const filtered = data.rows
     .filter((row) => !search.region || row.lake.region === search.region)
@@ -47,17 +46,16 @@ function FishingTripPlannerPage() {
     .map((row) => ({ ...row, fit: selectedSpecies ? scoreTarget(row.targets.find((target) => target.species?.id === selectedSpecies.id)?.relation.quality) : 0 }))
     .sort((a, b) => b.fit - a.fit || a.lake.name.localeCompare(b.lake.name));
 
-  const setSearch = (patch: PlannerSearch) => navigate({ search: (previous) => ({ ...previous, ...patch }), replace: true });
-
   return <>
     <Container className="pt-8 sm:pt-10"><nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.14em] text-muted-foreground"><ol className="flex flex-wrap items-center gap-2"><li><Link to="/">Front page</Link></li><li aria-hidden>·</li><li><Link to="/fishing">Fishing</Link></li><li aria-hidden>·</li><li aria-current="page">Trip planner</li></ol></nav></Container>
     <header className="mt-5 border-y border-border bg-ink text-ink-foreground"><Container className="py-14 sm:py-20"><p className="eyebrow text-ink-foreground/65">Texas Defined Fishing</p><h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">Build a Texas fishing trip around the fish, not the hype.</h1><p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/80">Choose a target species and region. The planner narrows only complete, source-backed lake guides and shows current-report context separately from durable fishery information.</p><div className="mt-8 flex flex-wrap gap-5 text-sm"><a href={FISHING_LAKE_COMPARE_PATH} className="border-b border-ink-foreground pb-1 font-semibold">Compare lakes side by side →</a><Link to="/fishing/reports" className="border-b border-ink-foreground/50 pb-1 text-ink-foreground/75">Fishing reports →</Link></div></Container></header>
 
     <Container className="py-12 sm:py-16">
-      <section className="grid gap-6 border-b border-border pb-10 md:grid-cols-2" aria-label="Trip planner filters">
-        <label className="text-sm"><span className="eyebrow text-muted-foreground">Target species</span><select value={search.species ?? ""} onChange={(event) => setSearch({ species: event.target.value || undefined })} className="mt-2 w-full border border-border bg-background px-3 py-3"><option value="">Any verified target</option>{data.species.map((fish) => <option key={fish.id} value={fish.slug}>{fish.commonName}</option>)}</select></label>
-        <label className="text-sm"><span className="eyebrow text-muted-foreground">Region</span><select value={search.region ?? ""} onChange={(event) => setSearch({ region: event.target.value || undefined })} className="mt-2 w-full border border-border bg-background px-3 py-3"><option value="">Any region</option>{data.regions.map((region) => <option key={region} value={region}>{titleCase(region)}</option>)}</select></label>
-      </section>
+      <form method="get" action={FISHING_TRIP_PLANNER_PATH} className="grid gap-6 border-b border-border pb-10 md:grid-cols-[1fr_1fr_auto] md:items-end" aria-label="Trip planner filters">
+        <label className="text-sm"><span className="eyebrow text-muted-foreground">Target species</span><select name="species" defaultValue={search.species ?? ""} className="mt-2 w-full border border-border bg-background px-3 py-3"><option value="">Any verified target</option>{data.species.map((fish) => <option key={fish.id} value={fish.slug}>{fish.commonName}</option>)}</select></label>
+        <label className="text-sm"><span className="eyebrow text-muted-foreground">Region</span><select name="region" defaultValue={search.region ?? ""} className="mt-2 w-full border border-border bg-background px-3 py-3"><option value="">Any region</option>{data.regions.map((region) => <option key={region} value={region}>{titleCase(region)}</option>)}</select></label>
+        <button type="submit" className="border border-primary px-5 py-3 text-sm font-semibold text-primary">Update trip options</button>
+      </form>
 
       <section className="py-10" aria-labelledby="planner-results"><div className="flex flex-wrap items-end justify-between gap-5"><div><p className="eyebrow text-primary">Planner results</p><h2 id="planner-results" className="mt-2 font-display text-4xl">{filtered.length} lake{filtered.length === 1 ? "" : "s"} match the verified filters</h2></div><p className="max-w-xl text-xs leading-5 text-muted-foreground">{data.policy.ranking}</p></div>
         <div className="mt-6 grid gap-x-8 lg:grid-cols-2">{filtered.map((row) => {
