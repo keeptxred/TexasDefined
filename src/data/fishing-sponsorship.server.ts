@@ -20,6 +20,8 @@ import { supabaseAdmin } from '@/integrations/supabase/client.server';
 export const FISHING_SPONSOR_OUTREACH_HOLD = true;
 export const FISHING_SPONSOR_OUTREACH_HOLD_REASON =
   'Fishing sponsorship delivery is on hold until TexasDefined has enough real fishing traffic and approved partners to support credible commercial placements.';
+export const FISHING_SPONSOR_EDITORIAL_POLICY =
+  'Paid placement never changes planner ordering, fishery ratings, access facts, guide verification or editorial recommendations.';
 
 function assertLaunchReady() {
   if (FISHING_SPONSOR_OUTREACH_HOLD) throw new Error(FISHING_SPONSOR_OUTREACH_HOLD_REASON);
