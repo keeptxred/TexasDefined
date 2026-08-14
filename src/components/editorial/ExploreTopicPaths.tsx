@@ -11,7 +11,7 @@ const TOPIC_PATHS: Partial<Record<CategorySlug, TopicLink[]>> = {
   "lakes-rivers": [
     { to: "/explore/major-springs", label: "Springs & swimming", description: "Pair rivers and lakes with clear spring-fed water and swimming holes." },
     { to: "/explore/state-parks", label: "State parks", description: "Find shoreline parks, paddling access, camping and trails near the water." },
-    { to: "/explore/outdoors", label: "Wildlife & outdoors", description: "Follow the water into birding, fishing, wetlands and wildlife habitat." },
+    { to: "/fishing", label: "Texas fishing", description: "Go deeper lake by lake with target species, techniques, reports and local fishing resources." },
   ],
   "major-springs": [
     { to: "/explore/lakes-rivers", label: "Lakes & rivers", description: "See the larger waterways connected to Texas springs and swimming country." },
