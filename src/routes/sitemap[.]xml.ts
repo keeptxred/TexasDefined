@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { platform, scope } from "@/data";
-import { loadTexasCountyHousingCosts } from "@/data/acs-county-housing-costs";
+import { getTexasCountyHousingCosts } from "@/data/acs-county-housing-costs.functions";
 import { fetchPublishedTexasDefinedArticles } from "@/data/articles-remote";
 import { loadTexasCountyGrowth } from "@/data/census-county-growth";
 import { isLegacyCountySeriesArticle } from "@/data/county-series";
@@ -27,6 +27,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           platform.taxonomy.authors(scope),
           loadTexasKnowledgeGraph(),
           fetchPublishedTexasDefinedArticles({ limit: 200 }),
+          getTexasCountyHousingCosts(),
         ]);
 
         const failures = coreResults.filter((result) => result.status === "rejected");
@@ -42,14 +43,14 @@ export const Route = createFileRoute("/sitemap.xml")({
           });
         }
 
-        const [articlesResult, collectionsResult, authorsResult, graphResult, remoteArticlesResult] = coreResults;
+        const [articlesResult, collectionsResult, authorsResult, graphResult, remoteArticlesResult, countyHousingResult] = coreResults;
         const articles = articlesResult.status === "fulfilled" ? articlesResult.value : [];
         const collections = collectionsResult.status === "fulfilled" ? collectionsResult.value : [];
         const authors = authorsResult.status === "fulfilled" ? authorsResult.value : [];
         const graph = graphResult.status === "fulfilled" ? graphResult.value : [];
         const remoteArticles = remoteArticlesResult.status === "fulfilled" ? remoteArticlesResult.value : [];
+        const countyHousingCosts = countyHousingResult.status === "fulfilled" ? countyHousingResult.value : null;
         const countyGrowth = await loadTexasCountyGrowth();
-        const countyHousingCosts = loadTexasCountyHousingCosts();
 
         const countyPages = COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady);
         const entityPages = graph.filter(isIndexableEntityPage);
@@ -60,7 +61,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           ...(articles.length ? [{ path: "/news" }] : []),
           ...remoteArticles.map((article) => ({ path: `/news/${article.slug}`, lastmod: toDate(article.publishedAt) })),
           ...(countyGrowth.available ? [{ path: "/texas-data/county-growth", lastmod: "2026-03-17" }] : []),
-          ...(countyHousingCosts.available ? [{ path: "/texas-data/county-housing-costs", lastmod: toDate(countyHousingCosts.generatedAt ?? undefined) }] : []),
+          ...(countyHousingCosts?.available ? [{ path: "/texas-data/county-housing-costs", lastmod: toDate(countyHousingCosts.generatedAt ?? undefined) }] : []),
           ...collections.map((collection) => ({ path: `/shop/${collection.slug}` })),
           ...authors.map((author) => ({ path: `/authors/${author.id}` })),
           ...articles
