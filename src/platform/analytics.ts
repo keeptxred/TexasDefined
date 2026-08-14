@@ -11,6 +11,7 @@ export type TexasDefinedOutcomeEvent =
   | 'journey_completed'
   | 'official_resource_visited'
   | 'next_step_selected'
+  | 'partner_referral_clicked'
   | 'search_submitted'
   | 'assistant_submitted'
   | 'resource_saved'
@@ -135,6 +136,25 @@ export function installTexasDefinedAnalytics() {
   const click = (event: MouseEvent) => {
     const anchor = (event.target as Element | null)?.closest('a[href]') as HTMLAnchorElement | null;
     if (!anchor) return;
+
+    const commercialPartner = anchor.dataset.commercialPartner;
+    if (commercialPartner) {
+      trackTexasDefinedOutcome('partner_referral_clicked', {
+        resourceId: commercialPartner,
+        destination: anchor.href,
+      });
+      return;
+    }
+
+    const funnelStep = anchor.dataset.funnelStep;
+    if (funnelStep) {
+      trackTexasDefinedOutcome('next_step_selected', {
+        stepId: funnelStep,
+        destination: new URL(anchor.href, window.location.origin).pathname,
+      });
+      return;
+    }
+
     const entityId = anchor.dataset.entityId;
     if (entityId) {
       recordInternalLinkExposure(entityId, 'click');
