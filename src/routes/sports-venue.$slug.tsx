@@ -190,6 +190,15 @@ function SportsVenuePage() {
           </ul>
         </section> : null}
 
+        <aside className="grid gap-7 border-b border-border py-10 lg:grid-cols-[1fr_auto] lg:items-center" aria-labelledby="venue-partnership-heading">
+          <div>
+            <p className="eyebrow text-primary">Local business partnerships</p>
+            <h2 id="venue-partnership-heading" className="mt-2 font-display text-3xl">Serve visitors coming to {entity.name}?</h2>
+            <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Hotels, restaurants, attractions, transportation providers and other local visitor businesses can ask Texas Defined about clearly disclosed sponsorship opportunities around useful sports-travel resources. Paid relationships do not change editorial rankings, factual conclusions or which venues we cover.</p>
+          </div>
+          <a href="/partner-with-us#partnership-form-heading" className="inline-flex min-h-11 items-center justify-center border border-primary px-5 py-3 text-sm font-semibold text-primary hover:bg-primary hover:text-primary-foreground">Ask about local partnership options →</a>
+        </aside>
+
         {relatedVenues.length ? <RelatedGrid eyebrow="Keep exploring" title="Related Texas sports venues" items={relatedVenues.map(({ entity: item }) => item)} /> : null}
         {nearbyPlaces.length ? <RelatedGrid eyebrow="Build the weekend" title="Nearby and related Texas places" items={nearbyPlaces.map(({ entity: item }) => item)} /> : null}
       </article>
