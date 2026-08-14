@@ -9,6 +9,7 @@ const pathways: Array<{ category?: CategorySlug; to: string; label: string; desc
   { category: "real-estate", to: "/real-estate", label: "Homes & Land", description: "Buying, financing and owning a home in Texas." },
   { category: "home-garden", to: "/home-garden", label: "Home & Garden", description: "Texas homes, yards, seasons and practical projects." },
   { category: "texas-history", to: "/texas-history", label: "Texas History", description: "People, places and events that shaped the state." },
+  { to: "/texas-symbols", label: "Official Texas Symbols", description: "The bird, flower, foods, wildlife and other symbols Texas made official." },
   { category: "sports", to: "/sports", label: "Texas Sports", description: "Teams, traditions and the games Texans follow." },
   { to: "/property", label: "Property & Taxes", description: "Property taxes, exemptions, county guides and homeowner tools." },
   { to: "/decide/financial-tools", label: "Money & Property Tools", description: "Calculators for housing, moving, taxes and household planning." },
