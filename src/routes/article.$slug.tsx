@@ -16,6 +16,18 @@ import { absoluteUrl, buildMeta, canonicalLink, schemaTypeForEntityKind } from "
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const DISCOVER_MIN_IMAGE_WIDTH = 1200;
+const texasExplainedPillarSlugs = new Set([
+  "texas-rivers-explained",
+  "texas-lakes-reservoirs-explained",
+  "texas-farm-to-market-roads-explained",
+  "texas-courthouses-town-square",
+  "texas-wildflowers-guide",
+  "texas-trees-guide",
+  "texas-home-architecture-regions",
+  "buying-land-in-texas-guide",
+  "texas-wildlife-guide",
+  "texas-cultural-regions-explained",
+]);
 
 type ArticleDepartment = { name: string; path: string; usesExploreCategory: boolean };
 
@@ -122,6 +134,14 @@ export const Route = createFileRoute("/article/$slug")({
       isAccessibleForFree: true,
       author: { "@id": authorId },
       publisher: { "@id": `${siteUrl}/#organization` },
+      ...(texasExplainedPillarSlugs.has(article.slug) ? {
+        isPartOf: {
+          "@type": "CollectionPage",
+          "@id": `${siteUrl}/texas-explained#collection`,
+          name: "Texas Explained",
+          url: `${siteUrl}/texas-explained`,
+        },
+      } : {}),
       about: mentions.slice(0, 8).map((entity) => ({ "@id": `${siteUrl}${canonicalEntityPath(entity)}#entity` })),
       mentions: mentions.map((entity) => ({ "@type": schemaTypeForEntityKind(entity.kind), "@id": `${siteUrl}${canonicalEntityPath(entity)}#entity`, name: entity.name, url: `${siteUrl}${canonicalEntityPath(entity)}` })),
       ...(relatedDestinations.length ? {
