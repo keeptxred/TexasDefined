@@ -53,6 +53,11 @@ const checks = [
     script: 'scripts/data/validate-county-housing-costs.mjs',
   },
   {
+    id: 'partner-inquiry',
+    label: 'Partnership inquiry privacy and server-boundary controls',
+    script: 'scripts/data/validate-partner-inquiry.mjs',
+  },
+  {
     id: 'destination-data',
     label: 'Destination and place data integrity',
     script: 'scripts/data/validate-destination-data-integrity.mjs',
