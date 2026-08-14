@@ -3,7 +3,7 @@ const CANONICAL_FISHING_SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 export type FishingRouteKind = "lake" | "species" | "guide" | "report";
 
 const routeBase: Record<FishingRouteKind, string> = {
-  lake: "/fishing/lake",
+  lake: "/fishing/lakes",
   species: "/fishing/species",
   guide: "/fishing/guide",
   report: "/fishing/report",
@@ -33,10 +33,12 @@ export function canonicalFishingPath(kind: FishingRouteKind, slug: string) {
 }
 
 /**
- * During the foundation release, entity search results land on anchors on the
- * statewide fishing page. Dedicated entity routes replace these anchors as
- * each template ships, without changing the entity slugs themselves.
+ * Foundation entities still land on statewide anchors until a dedicated page
+ * ships. Lake Conroe is the first complete lake destination, so its search and
+ * internal-link identity now resolves to the permanent canonical route.
  */
 export function fishingFoundationAnchor(kind: "lake" | "species", slug: string) {
-  return `/fishing#${kind}-${assertCanonicalFishingSlug(slug)}`;
+  const canonicalSlug = assertCanonicalFishingSlug(slug);
+  if (kind === "lake" && canonicalSlug === "lake-conroe") return canonicalFishingPath("lake", canonicalSlug);
+  return `/fishing#${kind}-${canonicalSlug}`;
 }

@@ -59,7 +59,7 @@ function FishingPage() {
           <div className="max-w-3xl">
             <p className="eyebrow text-primary">Foundation lakes</p>
             <h2 id="pilot-lakes" className="mt-3 font-display text-4xl sm:text-5xl">The first five lakes in the statewide fishing catalog</h2>
-            <p className="mt-4 text-base leading-7 text-muted-foreground">These records establish the data model that every future Texas lake will use. Dedicated fishing lake pages will layer reports, guides, access, businesses and deeper seasonal strategy onto the same verified record.</p>
+            <p className="mt-4 text-base leading-7 text-muted-foreground">These records establish the data model that every future Texas lake will use. Lake Conroe is now the first complete destination; the remaining foundation lakes will move from summaries to the same full template as later batches ship.</p>
           </div>
 
           <div className="mt-9 grid gap-x-8 border-t border-border lg:grid-cols-2">
@@ -69,12 +69,13 @@ function FishingPage() {
                 .map((relation) => ({ relation, species: speciesById.get(relation.speciesId) }))
                 .filter((row) => Boolean(row.species))
                 .slice(0, 6);
+              const hasCompleteGuide = lake.slug === "lake-conroe";
               return (
                 <article id={`lake-${lake.slug}`} key={lake.id} className="scroll-mt-28 border-b border-border py-8">
                   <div className="flex flex-wrap items-start justify-between gap-4">
                     <div>
                       <p className="eyebrow text-primary">{lake.region.replaceAll("-", " ")}</p>
-                      <h3 className="mt-2 font-display text-3xl">{lake.name}</h3>
+                      <h3 className="mt-2 font-display text-3xl">{hasCompleteGuide ? <Link to="/fishing/lakes/lake-conroe" className="hover:text-primary">{lake.name}</Link> : lake.name}</h3>
                     </div>
                     {lake.surfaceAcres && <p className="text-sm text-muted-foreground">{lake.surfaceAcres.toLocaleString("en-US")} acres</p>}
                   </div>
@@ -86,7 +87,10 @@ function FishingPage() {
                     {lake.controllingAuthorities.length > 0 && <div><dt className="eyebrow text-muted-foreground">Controlling authority</dt><dd className="mt-1">{lake.controllingAuthorities.join(", ")}</dd></div>}
                   </dl>
                   {targets.length > 0 && <div className="mt-6"><p className="eyebrow text-muted-foreground">Fishing targets</p><ul className="mt-3 flex flex-wrap gap-2">{targets.map(({ relation, species }) => <li key={relation.id} className="border border-border px-3 py-1.5 text-xs">{species?.commonName} · {relation.quality}</li>)}</ul></div>}
-                  {lake.sources[0] && <a href={lake.sources[0].url} target="_blank" rel="noreferrer noopener" className="eyebrow mt-6 inline-block border-b border-primary pb-1 text-primary">Official fisheries source →</a>}
+                  <div className="mt-6 flex flex-wrap gap-5">
+                    {hasCompleteGuide && <Link to="/fishing/lakes/lake-conroe" className="eyebrow inline-block border-b border-primary pb-1 text-primary">Complete fishing guide →</Link>}
+                    {lake.sources[0] && <a href={lake.sources[0].url} target="_blank" rel="noreferrer noopener" className="eyebrow inline-block border-b border-primary pb-1 text-primary">Official fisheries source →</a>}
+                  </div>
                 </article>
               );
             })}
