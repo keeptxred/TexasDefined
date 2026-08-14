@@ -4,7 +4,7 @@ import path from 'node:path';
 const root = process.cwd();
 const read = (file) => fs.readFile(path.join(root, file), 'utf8');
 
-const [major, tier2, seed, directory, guide, enrichment, enrichmentBatch2, enrichmentAll] = await Promise.all([
+const [major, tier2, seed, directory, guide, enrichment, enrichmentBatch2, enrichmentBatch3, enrichmentAll, currentCorrections] = await Promise.all([
   read('src/data/knowledge-graph/major-sports-venues.ts'),
   read('src/data/knowledge-graph/sports-venues-tier2.ts'),
   read('src/data/knowledge-graph/seed.ts'),
@@ -12,7 +12,9 @@ const [major, tier2, seed, directory, guide, enrichment, enrichmentBatch2, enric
   read('src/routes/sports-venue.$slug.tsx'),
   read('src/data/sports-venue-enrichment.ts'),
   read('src/data/sports-venue-enrichment-batch2.ts'),
+  read('src/data/sports-venue-enrichment-batch3.ts'),
   read('src/data/sports-venue-enrichment-all.ts'),
+  read('src/data/knowledge-graph/current-entity-corrections.ts'),
 ]);
 
 const errors = [];
@@ -24,13 +26,15 @@ const majorCount = countSeedRows(major);
 const tier2Count = countSeedRows(tier2);
 const enrichmentCount = countEnrichmentProfiles(enrichment);
 const enrichmentBatch2Count = countEnrichmentProfiles(enrichmentBatch2);
-const totalEnrichmentCount = enrichmentCount + enrichmentBatch2Count;
+const enrichmentBatch3Count = countEnrichmentProfiles(enrichmentBatch3);
+const totalEnrichmentCount = enrichmentCount + enrichmentBatch2Count + enrichmentBatch3Count;
 
 assert(majorCount >= 50, `Expected at least 50 major sports venue seeds; found ${majorCount}.`);
 assert(tier2Count === 29, `Expected 29 second-tier sports-tourism seeds; found ${tier2Count}.`);
 assert(enrichmentCount >= 9, `Expected at least 9 first-batch deeply enriched venue profiles; found ${enrichmentCount}.`);
 assert(enrichmentBatch2Count >= 11, `Expected at least 11 second-batch deeply enriched venue profiles; found ${enrichmentBatch2Count}.`);
-assert(totalEnrichmentCount >= 20, `Expected at least 20 deeply enriched venue profiles; found ${totalEnrichmentCount}.`);
+assert(enrichmentBatch3Count >= 10, `Expected at least 10 third-batch deeply enriched venue profiles; found ${enrichmentBatch3Count}.`);
+assert(totalEnrichmentCount >= 30, `Expected at least 30 deeply enriched venue profiles; found ${totalEnrichmentCount}.`);
 assert(seed.includes("import { MAJOR_TEXAS_SPORTS_VENUES } from './major-sports-venues';"), 'Major sports venues are not imported into the knowledge graph seed.');
 assert(seed.includes("import { TEXAS_SPORTS_VENUE_TIER2_ENTITIES } from './sports-venues-tier2';"), 'Second-tier sports venues are not imported into the knowledge graph seed.');
 assert(seed.includes('...MAJOR_TEXAS_SPORTS_VENUES'), 'Major sports venues are not spread into the curated knowledge graph.');
@@ -122,7 +126,23 @@ for (const slug of secondBatchAnchors) {
   assert(enrichmentBatch2.includes(`'${slug}': {`), `Missing second-batch priority venue enrichment: ${slug}.`);
 }
 
-for (const source of [enrichment, enrichmentBatch2]) {
+const thirdBatchAnchors = [
+  'american-airlines-center',
+  'toyota-center-houston',
+  'moody-center',
+  'alamodome',
+  'amon-g-carter-stadium',
+  'jones-att-stadium',
+  'q2-stadium',
+  'shell-energy-stadium',
+  'mclane-stadium',
+  'dickies-arena',
+];
+for (const slug of thirdBatchAnchors) {
+  assert(enrichmentBatch3.includes(`'${slug}': {`), `Missing third-batch priority venue enrichment: ${slug}.`);
+}
+
+for (const source of [enrichment, enrichmentBatch2, enrichmentBatch3]) {
   for (const marker of [
     'primaryEvents:',
     'parking:',
@@ -138,7 +158,10 @@ for (const source of [enrichment, enrichmentBatch2]) {
 }
 
 assert(enrichment.includes('sportsVenueMapUrl'), 'Sports venue enrichment is missing the map fallback helper.');
-assert(enrichmentAll.includes('getSportsVenueEnrichment(slug) ?? getSportsVenueEnrichmentBatch2(slug)'), 'Combined sports venue enrichment does not merge both batches.');
+assert(enrichmentAll.includes('getSportsVenueEnrichmentBatch3(slug)'), 'Combined sports venue enrichment does not merge the third batch.');
+assert(currentCorrections.includes("name: 'Galaxy Stadium'"), 'Current venue corrections must rename the Texas Tech football venue to Galaxy Stadium.');
+assert(currentCorrections.includes("slug: 'galaxy-stadium'"), 'Current venue corrections must establish the Galaxy Stadium canonical slug.');
+assert(currentCorrections.includes("'Jones AT&T Stadium'"), 'Galaxy Stadium correction must preserve the former venue name as an alias.');
 assert(tier2.includes("sourceConfidence: 'official'"), 'Second-tier venue seeds must remain official-source records.');
 assert(tier2.includes("sourceCheckedAt: checkedAt"), 'Second-tier venue seeds must retain source review dates.');
 assert(tier2.includes("status: 'active'"), 'Second-tier venue seeds must remain explicitly active.');
