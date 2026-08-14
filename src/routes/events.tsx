@@ -9,6 +9,7 @@ import { EventCard } from "@/components/editorial/EventCard";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import { eventsQuery, regionsQuery } from "@/data/queries";
+import { resolveSportsVenueEventLink } from "@/data/sports-venue-event-links";
 import type { TexasEvent } from "@/data/types";
 import { formatDateRange } from "@/domain/utils/format";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
@@ -35,7 +36,12 @@ export const Route = createFileRoute("/events")({
   head: ({ loaderData }) => {
     const regions = loaderData?.regions ?? [];
     const regionName = (id: string) => regions.find((item) => item.id === id)?.name;
-    const eventItems = (loaderData?.events ?? []).slice(0, 50).map((event, index) => ({ "@type": "ListItem", position: index + 1, item: { "@type": "Event", "@id": `${pageUrl}#${event.id}`, name: event.name, description: event.blurb, startDate: event.startDate, endDate: event.endDate, eventStatus: "https://schema.org/EventScheduled", eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode", url: `${pageUrl}#${event.id}`, location: { "@type": "Place", name: [event.city, regionName(event.region), "Texas"].filter(Boolean).join(", "), address: { "@type": "PostalAddress", addressLocality: event.city, addressRegion: "TX", addressCountry: "US" } } } }));
+    const eventItems = (loaderData?.events ?? []).slice(0, 50).map((event, index) => {
+      const venueGuide = resolveSportsVenueEventLink(event.venue);
+      const defaultLocation = { "@type": "Place", name: [event.city, regionName(event.region), "Texas"].filter(Boolean).join(", "), address: { "@type": "PostalAddress", addressLocality: event.city, addressRegion: "TX", addressCountry: "US" } };
+      const location = venueGuide ? { ...defaultLocation, name: event.venue, url: `${siteUrl}${venueGuide.href}` } : defaultLocation;
+      return { "@type": "ListItem", position: index + 1, item: { "@type": "Event", "@id": `${pageUrl}#${event.id}`, name: event.name, description: event.blurb, startDate: event.startDate, endDate: event.endDate, eventStatus: "https://schema.org/EventScheduled", eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode", url: `${pageUrl}#${event.id}`, location } };
+    });
     const graph = [
       { "@type": "CollectionPage", "@id": `${pageUrl}#page`, url: pageUrl, name: "Texas Events", description, image: { "@type": "ImageObject", url: absoluteUrl(texasDefinedBrand, bluebonnets), caption: "Bluebonnets running to a fence line in a Texas spring field", width: 1600, height: 1067 }, isPartOf: { "@id": `${siteUrl}/#website` }, mainEntity: { "@id": `${pageUrl}#events` }, breadcrumb: { "@id": `${pageUrl}#breadcrumbs` } },
       { "@type": "ItemList", "@id": `${pageUrl}#events`, name: "Texas events calendar", url: pageUrl, numberOfItems: eventItems.length, itemListElement: eventItems },
@@ -55,6 +61,7 @@ function EventsPage() {
   const regionName = (id: string) => regions.find((item) => item.id === id)?.name;
   const categories = ["all", ...new Set(events.map((event) => event.category))];
   const featured = events[0];
+  const featuredVenueGuide = resolveSportsVenueEventLink(featured?.venue);
   const rest = events.slice(1);
   const filtered = rest.filter((event) => (category === "all" || event.category === category) && (region === "all" || event.region === region));
 
@@ -67,7 +74,7 @@ function EventsPage() {
         <p className="eyebrow mt-10 text-ink-foreground/75">The Texas Calendar</p>
         <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">What’s happening across Texas</h1>
         <p className="mt-6 max-w-2xl text-lg leading-8 text-ink-foreground/82">{description}</p>
-        {featured && <div id={featured.id} className="mt-10 max-w-2xl border-t border-ink-foreground/30 pt-6"><p className="eyebrow text-ink-foreground/65">Featured event · {EVENT_LABELS[featured.category]}</p><h2 className="mt-3 font-display text-4xl leading-tight">{featured.name}</h2><p className="mt-3 text-sm leading-7 text-ink-foreground/82">{featured.blurb}</p><p className="mt-4 text-sm text-ink-foreground/65">{formatDateRange(featured.startDate, featured.endDate, brand.identity.locale)} · {featured.city}{regionName(featured.region) ? ` · ${regionName(featured.region)}` : ""}</p>{featured.officialUrl && <a href={featured.officialUrl} target="_blank" rel="noreferrer noopener" className="eyebrow mt-5 inline-flex border-b border-ink-foreground/70 pb-1 text-ink-foreground">Event details ↗</a>}</div>}
+        {featured && <div id={featured.id} className="mt-10 max-w-2xl border-t border-ink-foreground/30 pt-6"><p className="eyebrow text-ink-foreground/65">Featured event · {EVENT_LABELS[featured.category]}</p><h2 className="mt-3 font-display text-4xl leading-tight">{featured.name}</h2><p className="mt-3 text-sm leading-7 text-ink-foreground/82">{featured.blurb}</p><p className="mt-4 text-sm text-ink-foreground/65">{formatDateRange(featured.startDate, featured.endDate, brand.identity.locale)} · {featured.city}{regionName(featured.region) ? ` · ${regionName(featured.region)}` : ""}</p>{featuredVenueGuide && <p className="mt-3 text-sm text-ink-foreground/72">Venue: <a href={featuredVenueGuide.href} className="border-b border-ink-foreground/70 text-ink-foreground">{featuredVenueGuide.venueName} guide →</a></p>}<div className="flex flex-wrap gap-5">{featured.officialUrl && <a href={featured.officialUrl} target="_blank" rel="noreferrer noopener" className="eyebrow mt-5 inline-flex border-b border-ink-foreground/70 pb-1 text-ink-foreground">Event details ↗</a>}{featuredVenueGuide && <a href={featuredVenueGuide.href} className="eyebrow mt-5 inline-flex border-b border-ink-foreground/70 pb-1 text-ink-foreground">Plan the venue →</a>}</div></div>}
       </Container>
     </section>
 
