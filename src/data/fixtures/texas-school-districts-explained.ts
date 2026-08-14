@@ -25,6 +25,8 @@ export const texasSchoolDistrictsExplainedArticle: Article = {
     { href: "/browse/cities", label: "Browse Texas cities", description: "Explore places without assuming city and school boundaries match." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "See another layer of local geography that can cross city and district lines." },
     { href: "/texas-living", label: "Living Here", description: "Understand the systems behind everyday Texas life." },
+    { href: "https://tea.texas.gov/texas-schools/general-information/askted", label: "Texas Education Agency district directory", description: "Official directory information for Texas school districts and education service regions." },
+    { href: "https://tea.texas.gov/", label: "Texas Education Agency", description: "Official statewide public-school information, accountability resources and district guidance." },
   ],
   relatedCollections: [],
   relatedDestinations: [],
