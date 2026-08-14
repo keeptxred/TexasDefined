@@ -119,7 +119,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
             },
             image: { "@id": `${siteUrl}/#logo` },
             sameAs: texasDefinedBrand.identity.social.map((profile) => profile.href),
-            knowsAbout: ["Texas travel", "Texas destinations", "Texas lifestyle", "Texas homes", "Texas property", "Texas history", "Texas events"],
+            knowsAbout: ["Texas travel", "Texas destinations", "Texas lifestyle", "Texas homes", "Texas property", "Texas history", "Texas events", "Texas sports", "Texas sports venues"],
           },
           {
             "@type": "WebSite",
