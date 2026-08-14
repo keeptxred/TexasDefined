@@ -9,13 +9,12 @@ import {
   LAKE_CONROE_VERIFIED_AT,
   isLakeConroeSection,
   lakeConroeCanonicalPath,
-  lakeConroeOverview,
   lakeConroeSectionMeta,
-  lakeConroeSources,
 } from "@/data/fishing/lake-conroe-prototype";
 import { fishingGuidesQuery, fishingLakeQuery, fishingReportsQuery } from "@/data/fishing/queries";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
+type LakeConroeSources = Awaited<ReturnType<typeof getLakeConroePageData>>["sources"];
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
 export const Route = createFileRoute("/fishing/lakes/$slug/$section")({
@@ -32,7 +31,7 @@ export const Route = createFileRoute("/fishing/lakes/$slug/$section")({
   },
   head: ({ loaderData }) => {
     if (!loaderData) return { meta: [{ title: "Fishing guide unavailable" }, { name: "robots", content: "noindex, nofollow" }] };
-    const { section } = loaderData;
+    const { section, pageData } = loaderData;
     const page = lakeConroeSectionMeta[section];
     const canonicalPath = lakeConroeCanonicalPath(section);
     const url = `${siteUrl}${canonicalPath}`;
@@ -47,7 +46,7 @@ export const Route = createFileRoute("/fishing/lakes/$slug/$section")({
       about: { "@id": `${overviewUrl}#reservoir` },
       breadcrumb: { "@id": `${url}#breadcrumbs` },
       dateModified: LAKE_CONROE_VERIFIED_AT,
-      citation: sectionCitations(section),
+      citation: sectionCitations(section, pageData.sources),
     };
     const breadcrumbSchema = {
       "@type": "BreadcrumbList",
@@ -55,7 +54,7 @@ export const Route = createFileRoute("/fishing/lakes/$slug/$section")({
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
         { "@type": "ListItem", position: 2, name: "Fishing", item: `${siteUrl}/fishing` },
-        { "@type": "ListItem", position: 3, name: lakeConroeOverview.name, item: overviewUrl },
+        { "@type": "ListItem", position: 3, name: pageData.overview.name, item: overviewUrl },
         { "@type": "ListItem", position: 4, name: page.label, item: url },
       ],
     };
@@ -74,12 +73,12 @@ function LakeConroeSectionRoute() {
   return <LakeConroeGuide section={section} reports={reports} guides={guides} pageData={pageData} />;
 }
 
-function sectionCitations(section: keyof typeof lakeConroeSectionMeta) {
-  if (section === "access") return [lakeConroeSources.tpwdAccess.url, lakeConroeSources.usfsCagle.url, lakeConroeSources.usfsScottsRidge.url, lakeConroeSources.usfsStubblefield.url];
-  if (section === "regulations") return [lakeConroeSources.tpwdRegulations.url, lakeConroeSources.tpwdLake.url];
-  if (section === "boating") return [lakeConroeSources.tpwdLake.url, lakeConroeSources.liveLevel.url, lakeConroeSources.sjra.url];
-  if (section === "camping") return [lakeConroeSources.usfsCagle.url, lakeConroeSources.usfsScottsRidge.url, lakeConroeSources.usfsStubblefield.url];
-  if (section === "reports") return [lakeConroeSources.tpwdReport.url, lakeConroeSources.tpwdLake.url];
-  if (section === "fish") return [lakeConroeSources.tpwdLake.url, lakeConroeSources.tpwdHabitat.url];
-  return [lakeConroeSources.tpwdLake.url, lakeConroeSources.twdb.url];
+function sectionCitations(section: keyof typeof lakeConroeSectionMeta, sources: LakeConroeSources) {
+  if (section === "access") return [sources.tpwdAccess.url, sources.usfsCagle.url, sources.usfsScottsRidge.url, sources.usfsStubblefield.url];
+  if (section === "regulations") return [sources.tpwdRegulations.url, sources.tpwdLake.url];
+  if (section === "boating") return [sources.tpwdLake.url, sources.liveLevel.url, sources.sjra.url];
+  if (section === "camping") return [sources.usfsCagle.url, sources.usfsScottsRidge.url, sources.usfsStubblefield.url];
+  if (section === "reports") return [sources.tpwdReport.url, sources.tpwdLake.url];
+  if (section === "fish") return [sources.tpwdLake.url, sources.tpwdHabitat.url];
+  return [sources.tpwdLake.url, sources.twdb.url];
 }
