@@ -20,6 +20,8 @@ for (const token of [
   'Source',
   'Methodology',
   'Last verified',
+  "const formatEstimate = (value: number | null) => value === null ? 'Not available'",
+  'Census-suppressed estimates remain explicitly unavailable',
   'medianHomeValue',
   'medianGrossRent',
   'medianMonthlyOwnerCosts',
@@ -36,12 +38,14 @@ for (const token of [
   'median_gross_rent',
   'median_monthly_owner_costs',
   'median_household_income',
+  "return value === null ? '' : String(value);",
 ]) {
   if (!csvRoute.includes(token)) errors.push(`County housing/cost CSV contract missing ${token}`);
 }
 
 for (const token of [
-  'rows.length >= 250',
+  'available: rows.length === 254',
+  'number | null',
   'getCountyPropertyRecordByFips',
   'snapshot.sourcePage',
 ]) {
@@ -54,8 +58,10 @@ for (const token of [
   "{ table: 'b25064', variable: 'B25064_E001'",
   "{ table: 'b25077', variable: 'B25077_E001'",
   "{ table: 'b25088', variable: 'B25088_E001'",
-  '0500000US48',
-  'fips.length < 250',
+  'const TEXAS_COUNTY_COUNT = 254;',
+  'value === null',
+  'estimate = Number.isFinite(numeric) && numeric >= 0 ? numeric : null',
+  'values.size !== TEXAS_COUNTY_COUNT',
 ]) {
   if (!generator.includes(token)) errors.push(`ACS snapshot generator missing ${token}`);
 }
@@ -67,7 +73,8 @@ for (const token of [
   "'scripts/data/refresh-county-housing-costs.mjs'",
   'pull-requests: write',
   'node scripts/data/refresh-county-housing-costs.mjs',
-  'Expected at least 250 Texas county rows',
+  'Expected all 254 Texas county rows',
+  'Census-suppressed/unavailable estimate cells preserved as null',
   'gh pr create',
 ]) {
   if (!refreshWorkflow.includes(token)) errors.push(`ACS refresh workflow missing ${token}`);
@@ -82,12 +89,14 @@ if (!hub.includes("['County housing costs', '/texas-data/county-housing-costs'")
 
 if (!Number.isInteger(snapshot.rowCount) || snapshot.rowCount !== snapshot.rows.length) errors.push('ACS snapshot rowCount must match rows length.');
 if (snapshot.rows.length > 0) {
-  if (snapshot.rows.length < 250) errors.push(`Published ACS snapshot must have at least 250 counties; found ${snapshot.rows.length}.`);
+  if (snapshot.rows.length !== 254) errors.push(`Published ACS snapshot must contain all 254 counties; found ${snapshot.rows.length}.`);
   if (new Set(snapshot.rows.map((row) => row.fips)).size !== snapshot.rows.length) errors.push('ACS snapshot contains duplicate county FIPS codes.');
   for (const row of snapshot.rows) {
     if (!/^48\d{3}$/.test(String(row.fips))) errors.push(`Invalid Texas county FIPS ${row.fips}`);
     for (const key of ['medianHouseholdIncome','medianHomeValue','medianGrossRent','medianMonthlyOwnerCosts']) {
-      if (!Number.isFinite(row[key]) || row[key] < 0) errors.push(`Invalid ${key} for ${row.fips}`);
+      if (!(key in row)) errors.push(`Missing ${key} field for ${row.fips}`);
+      const value = row[key];
+      if (value !== null && (!Number.isFinite(value) || value < 0)) errors.push(`Invalid ${key} for ${row.fips}`);
     }
   }
 }
@@ -98,4 +107,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`County housing/cost pipeline validation passed (${snapshot.rows.length || 0} snapshot rows; fail-closed until near-complete official Census data is present).`);
+console.log(`County housing/cost pipeline validation passed (${snapshot.rows.length || 0} snapshot rows; all 254 source county rows required, with Census suppression preserved as null).`);
