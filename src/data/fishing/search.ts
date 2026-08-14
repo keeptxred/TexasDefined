@@ -1,13 +1,22 @@
 import type { SearchDocument } from "@/data/types";
-import { FISHING_GUIDES_DIRECTORY_PATH, fishingGuideCanonicalPath } from "./guide-routing";
-import { FISHING_ACCESS_DIRECTORY_PATH, FISHING_SERVICES_DIRECTORY_PATH, fishingAccessCanonicalPath, fishingServiceCanonicalPath } from "./local-routing";
-import { FISHING_LAKE_COMPARE_PATH, FISHING_TRIP_PLANNER_PATH } from "./planner-routing";
-import { FISHING_REPORTS_DIRECTORY_PATH, fishingReportCanonicalPath } from "./report-routing";
-import { fishingFoundationAnchor } from "./slugs";
-import { isFishingRecordVerified } from "./validation";
 
 export async function buildFishingSearchDocuments(): Promise<SearchDocument[]> {
-  const { fishingPlatform, fishingScope } = await import("./index");
+  const [platformModule, guideRouting, localRouting, plannerRouting, reportRouting, slugs, validation] = await Promise.all([
+    import("./index"),
+    import("./guide-routing"),
+    import("./local-routing"),
+    import("./planner-routing"),
+    import("./report-routing"),
+    import("./slugs"),
+    import("./validation"),
+  ]);
+  const { fishingPlatform, fishingScope } = platformModule;
+  const { FISHING_GUIDES_DIRECTORY_PATH, fishingGuideCanonicalPath } = guideRouting;
+  const { FISHING_ACCESS_DIRECTORY_PATH, FISHING_SERVICES_DIRECTORY_PATH, fishingAccessCanonicalPath, fishingServiceCanonicalPath } = localRouting;
+  const { FISHING_LAKE_COMPARE_PATH, FISHING_TRIP_PLANNER_PATH } = plannerRouting;
+  const { FISHING_REPORTS_DIRECTORY_PATH, fishingReportCanonicalPath } = reportRouting;
+  const { fishingFoundationAnchor } = slugs;
+  const { isFishingRecordVerified } = validation;
   const [lakes, species, guides, reports, accessPointsRaw, tackleShopsRaw, businessesRaw, lakeSpecies] = await Promise.all([
     fishingPlatform.lakes.list({ ...fishingScope, status: "published", limit: 5000 }),
     fishingPlatform.species.list({ ...fishingScope, status: "published", limit: 5000 }),
