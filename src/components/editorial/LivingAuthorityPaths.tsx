@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
+import { EvergreenNextSteps } from "@/components/monetization/EvergreenNextSteps";
 import type { CategorySlug } from "@/data/types";
 
 const pathways = [
@@ -21,28 +22,31 @@ export function LivingAuthorityPaths({ currentCategory }: { currentCategory: Cat
   if (currentCategory !== "moving-to-texas" && currentCategory !== "real-estate") return null;
 
   return (
-    <Section>
-      <Container>
-        <SectionHeader
-          eyebrow={currentCategory === "moving-to-texas" ? "Plan the move" : "Plan the ownership costs"}
-          title={currentCategory === "moving-to-texas" ? "Put the practical Texas numbers next to the place" : "Put the full cost of a Texas home in context"}
-          description={currentCategory === "moving-to-texas"
-            ? "City choice, salary, utilities, housing, insurance, moving expenses and property taxes all shape what a move really costs."
-            : "A home price is only one number. Compare financing, taxes, insurance, utilities, maintenance and the local county context together."}
-        />
-        <nav aria-label="Texas moving and property planning paths" className="mt-8">
-          <ul className="grid border-t border-border sm:grid-cols-2 lg:grid-cols-5">
-            {pathways.map((item, index) => (
-              <li key={item.to} className={`${index % 5 !== 4 ? "lg:border-r" : ""} border-b border-border sm:px-6 sm:first:pl-0`}>
-                <Link to={item.to} className="group block py-6">
-                  <span className="font-display text-xl leading-tight transition-colors group-hover:text-primary">{item.label}</span>
-                  <span className="mt-2 block text-sm leading-6 text-muted-foreground">{item.description}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </Container>
-    </Section>
+    <>
+      <Section>
+        <Container>
+          <SectionHeader
+            eyebrow={currentCategory === "moving-to-texas" ? "Plan the move" : "Plan the ownership costs"}
+            title={currentCategory === "moving-to-texas" ? "Put the practical Texas numbers next to the place" : "Put the full cost of a Texas home in context"}
+            description={currentCategory === "moving-to-texas"
+              ? "City choice, salary, utilities, housing, insurance, moving expenses and property taxes all shape what a move really costs."
+              : "A home price is only one number. Compare financing, taxes, insurance, utilities, maintenance and the local county context together."}
+          />
+          <nav aria-label="Texas moving and property planning paths" className="mt-8">
+            <ul className="grid border-t border-border sm:grid-cols-2 lg:grid-cols-5">
+              {pathways.map((item, index) => (
+                <li key={item.to} className={`${index % 5 !== 4 ? "lg:border-r" : ""} border-b border-border sm:px-6 sm:first:pl-0`}>
+                  <Link to={item.to} className="group block py-6">
+                    <span className="font-display text-xl leading-tight transition-colors group-hover:text-primary">{item.label}</span>
+                    <span className="mt-2 block text-sm leading-6 text-muted-foreground">{item.description}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </Container>
+      </Section>
+      <EvergreenNextSteps category={currentCategory} />
+    </>
   );
 }
