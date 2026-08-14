@@ -14,6 +14,7 @@ const directValidators = [
   'validate-machine-indexing.mjs',
   'validate-aeo-answer-layers.mjs',
   'validate-homepage-seo.mjs',
+  'validate-texas-explained-seo.mjs',
   'validate-explore-category-seo.mjs',
   'validate-explore-region-seo.mjs',
   'validate-explore-topical-authority.mjs',
@@ -58,7 +59,15 @@ for (const validator of directValidators) {
   if (!seoScript.includes(validator)) errors.push(`seo:validate does not run ${validator}`);
 }
 
-if (!workflow.includes('npm run seo:validate')) errors.push('Validate workflow must run npm run seo:validate as a dedicated CI gate.');
+const workflowRunsMonolithicSeoGate = workflow.includes('npm run seo:validate');
+const missingNamedWorkflowValidators = directValidators.filter((validator) => !workflow.includes(`node scripts/data/${validator}`));
+const workflowRunsNamedSeoGates = missingNamedWorkflowValidators.length === 0;
+if (!workflowRunsMonolithicSeoGate && !workflowRunsNamedSeoGates) {
+  errors.push(`Validate workflow must run npm run seo:validate or preserve every named direct SEO validator. Missing named gates: ${missingNamedWorkflowValidators.join(', ') || 'none'}.`);
+}
+if (!workflow.includes('Validate SEO CI contract') || !workflow.includes('node scripts/data/validate-seo-ci-contract.mjs')) {
+  errors.push('Validate workflow must retain the SEO CI contract as its own named gate when validators are split for diagnostics.');
+}
 if (!workflow.includes('Build production application')) errors.push('Validate workflow must retain the production build gate.');
 if (!workflow.includes('cancel-in-progress: true')) errors.push('Validate workflow should cancel superseded runs to reduce wasted CI minutes.');
 
@@ -81,4 +90,4 @@ for (const validator of delegatedValidators) {
   }
 }
 
-console.log(`SEO CI contract passed with ${protectedValidators.length} protected remediation validators (${directValidators.length} direct, ${delegatedValidators.length} delegated), including the permanent generated-page quality gate, citation-magnet discovery gate and machine-readable citation download gate.`);
+console.log(`SEO CI contract passed with ${protectedValidators.length} protected remediation validators (${directValidators.length} direct, ${delegatedValidators.length} delegated). The workflow may use one monolithic SEO gate or stricter named direct gates, while preserving generated-page quality, citation discovery and machine-readable citation-download protections.`);
