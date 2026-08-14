@@ -1,8 +1,8 @@
 import type { SearchDocument } from "@/data/types";
-import { fishingPlatform, fishingScope } from "./index";
 import { fishingFoundationAnchor } from "./slugs";
 
 export async function buildFishingSearchDocuments(): Promise<SearchDocument[]> {
+  const { fishingPlatform, fishingScope } = await import("./index");
   const [lakes, species, guides, reports, businesses, lakeSpecies] = await Promise.all([
     fishingPlatform.lakes.list({ ...fishingScope, status: "published", limit: 5000 }),
     fishingPlatform.species.list({ ...fishingScope, status: "published", limit: 5000 }),
