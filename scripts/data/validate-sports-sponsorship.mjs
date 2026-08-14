@@ -4,7 +4,7 @@ import path from 'node:path';
 const root = process.cwd();
 const read = (file) => fs.readFile(path.join(root, file), 'utf8');
 
-const [schemaMigration, deliveryMigration, server, functions, component, directory, guide, galaxy, admin, adminNav] = await Promise.all([
+const [schemaMigration, deliveryMigration, server, functions, component, directory, guide, galaxy, admin, adminNav, partnerPage, salesPlaybook] = await Promise.all([
   read('supabase/migrations/20260814041151_create_governed_sports_sponsorship.sql'),
   read('supabase/migrations/20260814041302_govern_sports_sponsor_delivery.sql'),
   read('src/data/sports-sponsorship.server.ts'),
@@ -15,6 +15,8 @@ const [schemaMigration, deliveryMigration, server, functions, component, directo
   read('src/routes/sports-venue.jones-att-stadium.tsx'),
   read('src/routes/admin.sports-sponsors.tsx'),
   read('src/routes/admin.tsx'),
+  read('src/routes/partner-with-us.tsx'),
+  read('docs/SPORTS_SPONSORSHIP_SALES_PLAYBOOK.md'),
 ]);
 
 const errors = [];
@@ -134,10 +136,39 @@ assert(!admin.includes("from('texasdefined_sports"), 'Sports sponsorship admin r
 assert(!admin.includes('loader:'), 'Sports sponsorship admin route must not SSR-load commercial records before key validation.');
 assert(adminNav.includes('to="/admin/sports-sponsors"'), 'TexasDefined Operations navigation must link to the gated sports sponsorship console.');
 
+for (const marker of [
+  'Founding sports rates',
+  '$49/month',
+  '$149/month',
+  '$299/month',
+  '$499/month',
+  "not guaranteed-impression or guaranteed-booking packages",
+  'does not sell editorial rankings, favorable reviews or factual conclusions',
+  'One approved sponsored placement may run on a sports surface at a time',
+]) assert(partnerPage.includes(marker), `Partner page is missing a founding-rate or commercial-integrity marker: ${marker}.`);
+
+for (const marker of [
+  'TexasDefined Sports Sponsorship Sales Playbook',
+  'Single Venue',
+  '$49/month',
+  'Metro Sports Pack',
+  '$149/month',
+  'Texas Sports Network',
+  '$299/month',
+  'Founding Statewide Partner',
+  '$499/month',
+  'Initial prospect markets',
+  'Outreach email: first contact',
+  'Outreach email: follow-up 1',
+  'Outreach email: follow-up 2',
+  'No guaranteed impression, click, booking, revenue, ranking, or editorial outcome',
+  'A sponsor may buy a disclosed placement. A sponsor may not buy:',
+]) assert(salesPlaybook.includes(marker), `Sports sales playbook is missing launch-sales governance marker: ${marker}.`);
+
 if (errors.length) {
   console.error('Sports sponsorship validation failed:');
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
 
-console.log('Sports sponsorship validated: explicit two-stage approval, one approved placement per surface, fail-closed public delivery, sponsored disclosure, privacy-light aggregate metrics and key-gated operator controls are protected.');
+console.log('Sports sponsorship validated: explicit two-stage approval, one approved placement per surface, fail-closed public delivery, sponsored disclosure, privacy-light aggregate metrics, key-gated operator controls and founding launch-sales terms are protected.');
