@@ -153,6 +153,16 @@ for (const marker of [
   if (!articleSchemaBlock.includes(marker)) errors.push(`Texas Explained Article → CollectionPage schema contract missing: ${marker}.`);
 }
 
+for (const marker of [
+  'const isTexasExplainedPillar = texasExplainedPillarSlugs.has(article.slug);',
+  'aria-label="Texas Explained series"',
+  'Part of our 10-guide series on the systems, landscapes and people that explain how Texas works.',
+  'to="/texas-explained"',
+  'See all 10 guides →',
+]) {
+  if (!articleRoute.includes(marker)) errors.push(`Texas Explained visible article-series cue missing: ${marker}.`);
+}
+
 for (const slug of pillars) {
   if (!route.includes(`"${slug}"`)) errors.push(`Texas Explained collection is missing pillar slug: ${slug}.`);
   if (!internalLinks.includes(`"${slug}"`)) errors.push(`Texas Explained reciprocal linking is missing pillar key: ${slug}.`);
@@ -239,4 +249,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Texas Explained collection, exact ten-pillar Article → CollectionPage schema membership, sitemap ownership, Start Here discovery, reciprocal collection backlinks, pillar-to-pillar topic clusters, five-page supporting authority ring, five-question AEO quick-answer layer, homepage promotion, persistent footer navigation, site-search indexing and zero-query search discovery are protected.');
+console.log('Texas Explained collection, exact ten-pillar Article → CollectionPage schema membership, visible ten-pillar article-series cue, sitemap ownership, Start Here discovery, reciprocal collection backlinks, pillar-to-pillar topic clusters, five-page supporting authority ring, five-question AEO quick-answer layer, homepage promotion, persistent footer navigation, site-search indexing and zero-query search discovery are protected.');
