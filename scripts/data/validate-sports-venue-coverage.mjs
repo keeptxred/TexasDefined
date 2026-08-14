@@ -4,12 +4,13 @@ import path from 'node:path';
 const root = process.cwd();
 const read = (file) => fs.readFile(path.join(root, file), 'utf8');
 
-const [major, tier2, seed, directory, guide, enrichment, enrichmentBatch2, enrichmentBatch3, enrichmentAll, currentCorrections] = await Promise.all([
+const [major, tier2, seed, directory, guide, galaxyGuide, enrichment, enrichmentBatch2, enrichmentBatch3, enrichmentAll, currentCorrections] = await Promise.all([
   read('src/data/knowledge-graph/major-sports-venues.ts'),
   read('src/data/knowledge-graph/sports-venues-tier2.ts'),
   read('src/data/knowledge-graph/seed.ts'),
   read('src/routes/sports-venues.tsx'),
   read('src/routes/sports-venue.$slug.tsx'),
+  read('src/routes/sports-venue.jones-att-stadium.tsx'),
   read('src/data/sports-venue-enrichment.ts'),
   read('src/data/sports-venue-enrichment-batch2.ts'),
   read('src/data/sports-venue-enrichment-batch3.ts'),
@@ -70,6 +71,7 @@ for (const marker of [
   "key: 'regional'",
   'getSportsVenueEnrichmentAll',
   'Verified trip details',
+  'applyCurrentEntityCorrections',
 ]) {
   assert(directory.includes(marker), `Sports venue directory is missing category or enrichment marker ${marker}.`);
 }
@@ -105,9 +107,7 @@ const firstBatchAnchors = [
   'memorial-park-golf-course',
   'waco-surf',
 ];
-for (const slug of firstBatchAnchors) {
-  assert(enrichment.includes(`'${slug}': {`), `Missing first-batch priority venue enrichment: ${slug}.`);
-}
+for (const slug of firstBatchAnchors) assert(enrichment.includes(`'${slug}': {`), `Missing first-batch priority venue enrichment: ${slug}.`);
 
 const secondBatchAnchors = [
   'eagle-stadium-allen',
@@ -122,9 +122,7 @@ const secondBatchAnchors = [
   'olsen-field-blue-bell-park',
   'frost-bank-center',
 ];
-for (const slug of secondBatchAnchors) {
-  assert(enrichmentBatch2.includes(`'${slug}': {`), `Missing second-batch priority venue enrichment: ${slug}.`);
-}
+for (const slug of secondBatchAnchors) assert(enrichmentBatch2.includes(`'${slug}': {`), `Missing second-batch priority venue enrichment: ${slug}.`);
 
 const thirdBatchAnchors = [
   'american-airlines-center',
@@ -138,30 +136,23 @@ const thirdBatchAnchors = [
   'mclane-stadium',
   'dickies-arena',
 ];
-for (const slug of thirdBatchAnchors) {
-  assert(enrichmentBatch3.includes(`'${slug}': {`), `Missing third-batch priority venue enrichment: ${slug}.`);
-}
+for (const slug of thirdBatchAnchors) assert(enrichmentBatch3.includes(`'${slug}': {`), `Missing third-batch priority venue enrichment: ${slug}.`);
 
 for (const source of [enrichment, enrichmentBatch2, enrichmentBatch3]) {
-  for (const marker of [
-    'primaryEvents:',
-    'parking:',
-    'arrival:',
-    'stayAndEat:',
-    'nearby:',
-    'planningLinks:',
-    'imageBrief:',
-    'verifiedAt,',
-  ]) {
+  for (const marker of ['primaryEvents:', 'parking:', 'arrival:', 'stayAndEat:', 'nearby:', 'planningLinks:', 'imageBrief:', 'verifiedAt,']) {
     assert(source.includes(marker), `Sports venue enrichment is missing required field: ${marker}.`);
   }
 }
 
 assert(enrichment.includes('sportsVenueMapUrl'), 'Sports venue enrichment is missing the map fallback helper.');
-assert(enrichmentAll.includes('getSportsVenueEnrichmentBatch3(slug)'), 'Combined sports venue enrichment does not merge the third batch.');
+assert(enrichmentAll.includes('getSportsVenueEnrichmentBatch3(lookupSlug)'), 'Combined sports venue enrichment does not merge the third batch.');
 assert(currentCorrections.includes("name: 'Galaxy Stadium'"), 'Current venue corrections must rename the Texas Tech football venue to Galaxy Stadium.');
-assert(currentCorrections.includes("slug: 'galaxy-stadium'"), 'Current venue corrections must establish the Galaxy Stadium canonical slug.');
 assert(currentCorrections.includes("'Jones AT&T Stadium'"), 'Galaxy Stadium correction must preserve the former venue name as an alias.');
+assert(currentCorrections.includes("'Galaxy Stadium'"), 'Galaxy Stadium correction must preserve the current venue name as a searchable alias.');
+assert(!currentCorrections.includes("slug: 'galaxy-stadium'"), 'Galaxy Stadium correction must keep the established route stable until a repository-wide redirect migration is implemented.');
+assert(galaxyGuide.includes("createFileRoute('/sports-venue/jones-att-stadium')"), 'Galaxy Stadium must have a static route override at the established Texas Tech venue URL.');
+assert(galaxyGuide.includes("venueName = 'Galaxy Stadium'"), 'Galaxy Stadium static route must display the current venue name.');
+assert(galaxyGuide.includes("Former name"), 'Galaxy Stadium guide must explain its former venue name.');
 assert(tier2.includes("sourceConfidence: 'official'"), 'Second-tier venue seeds must remain official-source records.');
 assert(tier2.includes("sourceCheckedAt: checkedAt"), 'Second-tier venue seeds must retain source review dates.');
 assert(tier2.includes("status: 'active'"), 'Second-tier venue seeds must remain explicitly active.');
@@ -173,4 +164,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Sports venue coverage validated: ${majorCount} major seeds + ${tier2Count} second-tier seeds, ${totalEnrichmentCount} deep visitor profiles, dedicated directory and visitor guide present.`);
+console.log(`Sports venue coverage validated: ${majorCount} major seeds + ${tier2Count} second-tier seeds, ${totalEnrichmentCount} deep visitor profiles, current-name corrections and dedicated visitor guides present.`);
