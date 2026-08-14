@@ -54,7 +54,9 @@ jobs:
         run: node scripts/data/validate-entity-maintenance.mjs
 
       - name: Validate sports venue coverage
-        run: node scripts/data/validate-sports-venue-coverage.mjs
+        run: |
+          node scripts/data/validate-sports-venue-coverage.mjs
+          node scripts/data/validate-sports-venue-deep-completeness.mjs
 
       - name: Validate shared platform core integration
         run: node scripts/data/validate-shared-platform-core.mjs
