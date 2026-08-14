@@ -38,7 +38,7 @@ for (const token of [
 for (const token of [
   'createFileRoute("/fishing/regulations")',
   "Texas fishing rules without stale rule tables.",
-  "does not replace the current Outdoor Annual",
+  "do not replace the current Outdoor Annual",
   "does not freeze the rule text",
   "License eligibility, fees, endorsements, bag limits, length limits",
   'target="_blank"',
