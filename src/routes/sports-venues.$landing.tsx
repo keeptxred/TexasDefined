@@ -10,6 +10,7 @@ import {
   matchesSportsVenueLanding,
   SPORTS_VENUE_LANDINGS,
   sportsVenueLanding,
+  type SportsVenueLanding,
 } from '@/data/sports-venue-landings';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
@@ -57,10 +58,20 @@ function SportsVenueLandingPage() {
     .filter((date): date is string => Boolean(date))
     .sort()
     .at(-1);
+  const quickAnswers = buildQuickAnswers(landing, venues, lastReviewed);
 
   const jsonLd = {
     '@context': 'https://schema.org',
     '@graph': [
+      {
+        '@type': 'CollectionPage',
+        '@id': `${siteUrl}${canonicalPath}#page`,
+        url: `${siteUrl}${canonicalPath}`,
+        name: landing.title,
+        description: landing.description,
+        isPartOf: { '@id': `${siteUrl}/#website` },
+        mainEntity: { '@id': `${siteUrl}${canonicalPath}#venues` },
+      },
       {
         '@type': 'ItemList',
         '@id': `${siteUrl}${canonicalPath}#venues`,
@@ -72,6 +83,15 @@ function SportsVenueLandingPage() {
           position: index + 1,
           name: venue.name,
           url: `${siteUrl}${canonicalEntityPath(venue)}`,
+        })),
+      },
+      {
+        '@type': 'FAQPage',
+        '@id': `${siteUrl}${canonicalPath}#quick-answers`,
+        mainEntity: quickAnswers.map((item) => ({
+          '@type': 'Question',
+          name: item.question,
+          acceptedAnswer: { '@type': 'Answer', text: item.answer },
         })),
       },
       {
@@ -115,6 +135,20 @@ function SportsVenueLandingPage() {
           </dl>
           {lastReviewed ? <p className="mt-5 text-xs leading-5 text-muted-foreground">Venue source records on this page were reviewed through {formatDate(lastReviewed)}. Event schedules, parking rules and operating details can change; use the official links inside each venue guide before traveling.</p> : null}
         </header>
+
+        <section className="grid gap-8 border-b border-border py-12 lg:grid-cols-[15rem_1fr]" aria-labelledby="quick-answers-heading">
+          <div>
+            <p className="eyebrow text-primary">Quick answers</p>
+            <h2 id="quick-answers-heading" className="mt-2 font-display text-3xl leading-tight">What travelers ask first</h2>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">Short answers drawn from the same verified venue inventory used by this guide.</p>
+          </div>
+          <div className="grid gap-x-8 md:grid-cols-2">
+            {quickAnswers.map((item) => <article key={item.question} className="border-t border-border py-5">
+              <h3 className="font-display text-2xl leading-tight">{item.question}</h3>
+              <p className="mt-3 text-sm leading-7 text-muted-foreground">{item.answer}</p>
+            </article>)}
+          </div>
+        </section>
 
         <section className="grid gap-8 border-b border-border py-12 lg:grid-cols-[15rem_1fr]">
           <div>
@@ -164,6 +198,41 @@ function SportsVenueLandingPage() {
       </main>
     </Container>
   </>;
+}
+
+function buildQuickAnswers(landing: SportsVenueLanding, venues: TexasEntityRecord[], lastReviewed?: string) {
+  const examples = venues.slice(0, 5).map((venue) => venue.name);
+  const exampleSentence = formatList(examples);
+  const scope = landing.kind === 'market' ? landing.title.replace(/^.*?\b(stadiums|arenas|sports venues)\b/i, '').trim() : landing.title;
+  const sourceAnswer = lastReviewed
+    ? `TexasDefined currently includes ${venues.length} matching venue guide${venues.length === 1 ? '' : 's'} here. Source records for this collection were reviewed through ${formatDate(lastReviewed)}; event schedules and operating details should still be confirmed on the official venue links before travel.`
+    : `TexasDefined currently includes ${venues.length} matching venue guide${venues.length === 1 ? '' : 's'} here. Each venue page links to an official source for details that can change before an event.`;
+
+  return [
+    {
+      question: landing.kind === 'market' ? `What major sports venues are covered in this ${landing.eyebrow.replace(/ sports travel$/i, '')} guide?` : `Which venues are included in this ${landing.title.toLowerCase()} guide?`,
+      answer: `This TexasDefined collection currently covers ${venues.length} verified venue guide${venues.length === 1 ? '' : 's'}, including ${exampleSentence}. Open any venue below for its visitor-planning page and official source links.`,
+    },
+    {
+      question: `How many venue guides are in this ${scope || 'sports'} collection?`,
+      answer: sourceAnswer,
+    },
+    {
+      question: 'Where can I find parking, arrival and official event information?',
+      answer: 'Open the individual venue guide. TexasDefined separates durable trip-planning context from details that can change and links to official venue planning sources for current parking, entry and event information.',
+    },
+    {
+      question: 'Can I use this page to compare venues for a Texas sports trip?',
+      answer: `Yes. The directory keeps the matching venues in one crawlable collection, while each venue page adds its county, region, venue type and visitor guidance. Use the market and sport links farther down the page to move between related Texas sports-trip ideas.`,
+    },
+  ];
+}
+
+function formatList(items: string[]) {
+  if (!items.length) return 'the venues listed below';
+  if (items.length === 1) return items[0];
+  if (items.length === 2) return `${items[0]} and ${items[1]}`;
+  return `${items.slice(0, -1).join(', ')}, and ${items.at(-1)}`;
 }
 
 function LandingLinks({ eyebrow, title, items }: { eyebrow: string; title: string; items: readonly { slug: string; title: string }[] }) {
