@@ -4,7 +4,7 @@ import { Container } from '@/components/layout/Container';
 import { loadTexasKnowledgeGraph } from '@/data/knowledge-graph';
 import { canonicalEntityPath, isIndexableEntityPage } from '@/data/knowledge-graph/relationships';
 import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
-import { getSportsVenueEnrichment } from '@/data/sports-venue-enrichment';
+import { getSportsVenueEnrichmentAll } from '@/data/sports-venue-enrichment-all';
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
@@ -36,7 +36,7 @@ function SportsVenuesPage() {
   const professional = venues.filter((venue) => venue.tags?.includes('professional')).length;
   const golf = venues.filter((venue) => venue.tags?.includes('golf')).length;
   const highSchool = venues.filter((venue) => venue.tags?.includes('high-school')).length;
-  const deepGuides = venues.filter((venue) => Boolean(getSportsVenueEnrichment(venue.slug))).length;
+  const deepGuides = venues.filter((venue) => Boolean(getSportsVenueEnrichmentAll(venue.slug))).length;
 
   return <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
     <main className="mx-auto max-w-6xl">
@@ -64,7 +64,7 @@ function SportsVenuesPage() {
           </div>
           <div className="grid gap-x-7 sm:grid-cols-2 xl:grid-cols-3">
             {group.venues.map((venue) => {
-              const enriched = Boolean(getSportsVenueEnrichment(venue.slug));
+              const enriched = Boolean(getSportsVenueEnrichmentAll(venue.slug));
               return <a key={venue.id} href={canonicalEntityPath(venue)} className="group border-t border-border py-5">
                 <span className="eyebrow text-primary">{venueLabel(venue)}</span>
                 <strong className="mt-2 block font-display text-2xl leading-tight group-hover:text-primary">{venue.name}</strong>
@@ -110,7 +110,7 @@ function groupVenues(venues: TexasEntityRecord[]) {
   }
 
   const prioritizeDeepGuides = (items: TexasEntityRecord[]) => items.sort((a, b) => {
-    const enrichmentDelta = Number(Boolean(getSportsVenueEnrichment(b.slug))) - Number(Boolean(getSportsVenueEnrichment(a.slug)));
+    const enrichmentDelta = Number(Boolean(getSportsVenueEnrichmentAll(b.slug))) - Number(Boolean(getSportsVenueEnrichmentAll(a.slug)));
     return enrichmentDelta || a.name.localeCompare(b.name);
   });
 
