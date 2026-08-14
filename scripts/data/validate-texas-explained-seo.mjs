@@ -140,6 +140,25 @@ if (!articleRoute.includes('const texasExplainedPillarSlugs = new Set<string>(te
 }
 
 for (const marker of [
+  'aria-label="Texas Explained sections"',
+  'Jump to',
+  'href="#quick-answers"',
+  'href="#land-and-water"',
+  'href="#built-texas"',
+  'href="#people-and-place"',
+  'href="#go-deeper"',
+  'id="quick-answers"',
+  'id: "land-and-water"',
+  'id: "built-texas"',
+  'id: "people-and-place"',
+  'id={section.id}',
+  'id="go-deeper"',
+  'scroll-mt-28',
+]) {
+  if (!route.includes(marker)) errors.push(`Texas Explained jump-navigation contract missing: ${marker}.`);
+}
+
+for (const marker of [
   'const quickAnswers = [',
   'Quick answers',
   'Five Texas questions, answered before you dive deeper',
@@ -300,4 +319,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Texas Explained collection, synchronized Guide N of 10 ordering with previous/next navigation, exact ten-pillar Article → CollectionPage schema membership, visible article-series orientation, sitemap ownership, Start Here discovery, reciprocal collection backlinks, pillar-to-pillar topic clusters, bidirectional five-page supporting authority ring, five-question AEO quick-answer layer, broad-intent site-search vocabulary, homepage promotion, persistent footer navigation, site-search indexing and zero-query search discovery are protected.');
+console.log('Texas Explained collection, protected in-page jump navigation, synchronized Guide N of 10 ordering with previous/next navigation, exact ten-pillar Article → CollectionPage schema membership, visible article-series orientation, sitemap ownership, Start Here discovery, reciprocal collection backlinks, pillar-to-pillar topic clusters, bidirectional five-page supporting authority ring, five-question AEO quick-answer layer, broad-intent site-search vocabulary, homepage promotion, persistent footer navigation, site-search indexing and zero-query search discovery are protected.');
