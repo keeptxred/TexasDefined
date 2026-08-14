@@ -10,6 +10,7 @@ import {
   rankRelatedEntities,
 } from '@/data/knowledge-graph/relationships';
 import type { TexasEntityKind, TexasEntityRecord } from '@/data/knowledge-graph/types';
+import { sportsVenueLandingLinksForVenue } from '@/data/sports-venue-landings';
 import { getActiveSportsSponsorPlacement } from '@/data/sports-sponsorship.functions';
 import { getSportsVenueEnrichmentAll, sportsVenueMapUrl } from '@/data/sports-venue-enrichment-all';
 import { buildMeta, canonicalLink } from '@/lib/seo';
@@ -85,6 +86,7 @@ function SportsVenuePage() {
   const canonicalPath = canonicalEntityPath(entity);
   const canonicalUrl = `${siteUrl}${canonicalPath}`;
   const relatedVenues = related.filter(({ entity: candidate }) => candidate.kind === 'sports-venue').slice(0, 6);
+  const landingLinks = sportsVenueLandingLinksForVenue(entity);
   const countyName = entity.countySlug ? `${title(entity.countySlug)} County` : undefined;
   const regionName = entity.region ? title(entity.region) : undefined;
   const mapUrl = entity.coordinates
@@ -224,6 +226,21 @@ function SportsVenuePage() {
           <ul className="grid gap-x-8 sm:grid-cols-2 lg:grid-cols-3">
             {entity.tags.filter((tag) => !['sports-venue', 'major-tourist-draw', 'regional-tourist-draw'].includes(tag)).map((tag) => <li key={tag} className="border-t border-border py-3 text-sm font-medium">{title(tag)}</li>)}
           </ul>
+        </section> : null}
+
+        {landingLinks.length ? <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]" aria-labelledby="venue-collections-heading">
+          <div>
+            <p className="eyebrow text-primary">Explore the collection</p>
+            <h2 id="venue-collections-heading" className="mt-2 font-display text-3xl leading-tight">More venues like {entity.name}</h2>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">Move from this venue into its matching Texas sports market and sport-specific directories.</p>
+          </div>
+          <div className="grid gap-x-7 sm:grid-cols-2 lg:grid-cols-3">
+            {landingLinks.map((landing) => <a key={landing.slug} href={`/sports-venues/${landing.slug}`} className="group border-t border-border py-5">
+              <span className="eyebrow text-primary">{landing.kind === 'market' ? 'Sports market' : 'Sports collection'}</span>
+              <strong className="mt-2 block font-display text-2xl leading-tight group-hover:text-primary">{landing.title}</strong>
+              <span className="mt-3 block text-sm font-semibold text-primary">Browse collection →</span>
+            </a>)}
+          </div>
         </section> : null}
 
         {visitorPlaces.length ? <RelatedGrid
