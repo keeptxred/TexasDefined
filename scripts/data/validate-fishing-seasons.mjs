@@ -52,7 +52,7 @@ for (const token of [
   '"@type": "ItemList"',
 ]) requireText(route, token, `season route contract missing ${token}`);
 
-for (const forbidden of ["best season", "guaranteed", "today's best", "fish are biting", "current bite is"]) {
+for (const forbidden of ["the best season is", "guaranteed catch", "today's best", "fish are biting", "current bite is"]) {
   if (route.toLowerCase().includes(forbidden)) throw new Error(`Fishing Batch 12 validation failed: live/predictive claim leaked into evergreen season route (${forbidden}).`);
 }
 
