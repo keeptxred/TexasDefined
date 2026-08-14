@@ -3,14 +3,14 @@ import { createFileRoute, Link } from '@tanstack/react-router';
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { DepartmentHero } from '@/components/editorial/DepartmentHero';
 import { Container } from '@/components/layout/Container';
-import { loadTexasCountyHousingCosts } from '@/data/acs-county-housing-costs';
+import { getTexasCountyHousingCosts } from '@/data/acs-county-housing-costs.functions';
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 const canonicalPath = '/texas-data/county-housing-costs';
 const description = 'Compare Texas counties using official 2020–2024 American Community Survey 5-year estimates for median home value, gross rent, monthly owner costs and household income.';
 
 export const Route = createFileRoute('/texas-data/county-housing-costs')({
-  loader: () => loadTexasCountyHousingCosts(),
+  loader: () => getTexasCountyHousingCosts(),
   head: ({ loaderData }) => {
     const modified = loaderData?.generatedAt?.slice(0, 10) || '2026-01-29';
     return {
