@@ -70,6 +70,15 @@ function SportsVenuesPage() {
           </div>
         </div>
       </section>)}
+
+      <aside className="mt-12 grid gap-7 border-y border-border py-8 lg:grid-cols-[1fr_auto] lg:items-center" aria-labelledby="sports-partnership-heading">
+        <div>
+          <p className="eyebrow text-primary">Business partnerships</p>
+          <h2 id="sports-partnership-heading" className="mt-2 font-display text-3xl">Serve travelers coming to Texas sports destinations?</h2>
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Texas Defined is building useful visitor guides around stadiums, race tracks, golf destinations and tournament venues. Hotels, restaurants, attractions, transportation providers and other local visitor businesses can ask about clearly disclosed sponsorship opportunities. Paid relationships do not change editorial rankings or factual recommendations.</p>
+        </div>
+        <a href="/partner-with-us" className="inline-flex min-h-11 items-center justify-center border border-primary px-5 py-3 text-sm font-semibold text-primary hover:bg-primary hover:text-primary-foreground">Explore partnership options →</a>
+      </aside>
     </main>
   </Container>;
 }
