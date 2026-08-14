@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 import { Link } from "@tanstack/react-router";
 
 import { useBrand } from "@/brand/context";
+import ContextualOfficialSources from "@/components/authority/ContextualOfficialSources";
 import { NewsletterSignup } from "@/components/editorial/NewsletterSignup";
 import { Container } from "./Container";
 
@@ -14,7 +15,8 @@ export function Footer() {
   return (
     <>
       <Suspense fallback={null}><CitationCollectionTrustRouter /></Suspense>
-      <footer className="mt-20 border-t border-border bg-surface text-surface-foreground sm:mt-24">
+      <ContextualOfficialSources />
+      <footer className="border-t border-border bg-surface text-surface-foreground">
         {brand.features.newsletter && (
           <div className="border-b border-border/70">
             <Container className="py-16 sm:py-20">
