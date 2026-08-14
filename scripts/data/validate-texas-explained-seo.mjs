@@ -27,6 +27,59 @@ const pillars = [
   'texas-cultural-regions-explained',
 ];
 
+const clusterExpectations = {
+  'texas-rivers-explained': [
+    '/article/texas-lakes-reservoirs-explained',
+    '/article/texas-regions-explained',
+    '/article/texas-wildlife-guide',
+  ],
+  'texas-lakes-reservoirs-explained': [
+    '/article/texas-rivers-explained',
+    '/article/texas-wildlife-guide',
+    '/article/buying-land-in-texas-guide',
+  ],
+  'texas-farm-to-market-roads-explained': [
+    '/article/texas-courthouses-town-square',
+    '/article/why-texas-has-254-counties',
+    '/article/texas-cultural-regions-explained',
+  ],
+  'texas-courthouses-town-square': [
+    '/article/why-texas-has-254-counties',
+    '/article/texas-farm-to-market-roads-explained',
+    '/article/texas-home-architecture-regions',
+  ],
+  'texas-wildflowers-guide': [
+    '/article/texas-trees-guide',
+    '/article/texas-wildlife-guide',
+    '/article/best-native-plants-texas-yard',
+  ],
+  'texas-trees-guide': [
+    '/article/texas-regions-explained',
+    '/article/best-native-plants-texas-yard',
+    '/article/texas-wildflowers-guide',
+  ],
+  'texas-home-architecture-regions': [
+    '/article/buying-land-in-texas-guide',
+    '/article/texas-cultural-regions-explained',
+    '/article/texas-regions-explained',
+  ],
+  'buying-land-in-texas-guide': [
+    '/article/texas-regions-explained',
+    '/article/texas-home-architecture-regions',
+    '/article/muds-pids-hoas-special-districts-texas',
+  ],
+  'texas-wildlife-guide': [
+    '/article/texas-trees-guide',
+    '/article/texas-wildflowers-guide',
+    '/article/texas-regions-explained',
+  ],
+  'texas-cultural-regions-explained': [
+    '/article/texas-regions-explained',
+    '/article/texas-towns-german-czech-mexican-roots',
+    '/article/texas-home-architecture-regions',
+  ],
+};
+
 for (const marker of [
   'createFileRoute("/texas-explained")',
   'buildEditorialCollectionHead',
@@ -47,6 +100,21 @@ for (const marker of [
 for (const slug of pillars) {
   if (!route.includes(`"${slug}"`)) errors.push(`Texas Explained collection is missing pillar slug: ${slug}.`);
   if (!internalLinks.includes(`"${slug}"`)) errors.push(`Texas Explained reciprocal linking is missing pillar key: ${slug}.`);
+
+  const startMarker = `  "${slug}": [`;
+  const start = internalLinks.indexOf(startMarker);
+  const end = start >= 0 ? internalLinks.indexOf('\n  ],', start) : -1;
+  const block = start >= 0 && end > start ? internalLinks.slice(start, end) : '';
+
+  if (!block.includes('texasExplainedLink')) {
+    errors.push(`Texas Explained pillar must keep its collection backlink: ${slug}.`);
+  }
+
+  for (const href of clusterExpectations[slug] ?? []) {
+    if (!block.includes(`href: "${href}"`)) {
+      errors.push(`Texas Explained pillar cluster is missing ${href} from ${slug}.`);
+    }
+  }
 }
 
 if (!publicRoutes.includes('"/texas-explained"')) {
@@ -107,4 +175,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Texas Explained collection, ten-pillar membership, sitemap ownership, Start Here discovery, reciprocal article links, homepage promotion, persistent footer navigation, site-search indexing and zero-query search discovery are protected.');
+console.log('Texas Explained collection, ten-pillar membership, sitemap ownership, Start Here discovery, reciprocal collection backlinks, pillar-to-pillar topic clusters, homepage promotion, persistent footer navigation, site-search indexing and zero-query search discovery are protected.');
