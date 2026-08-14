@@ -42,7 +42,9 @@ const declaredRedirects = redirectPaths.filter((path) => redirectSection.include
 
 for (const path of declaredRedirects) {
   const token = path.slice(1).replaceAll('/', '.');
-  const candidates = files.filter((file) => relative(routesDir, file).replace(/\.(tsx?|jsx?)$/, '') === token);
+  const candidates = files.filter((file) => relative(routesDir, file)
+    .replace(/\.(tsx?|jsx?)$/, '')
+    .replaceAll('[.]', '.') === token);
   if (!candidates.length) {
     errors.push(`Redirect-only path ${path} has no route file.`);
     continue;
