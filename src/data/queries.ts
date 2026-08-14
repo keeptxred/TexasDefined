@@ -143,9 +143,14 @@ function destinationSearchDocument(destination: Destination): SearchDocument {
 export const searchDocumentsQuery = () => queryOptions({
   queryKey: ["search-documents", scope.brandId],
   queryFn: async () => {
-    const platformBase = await platform.search.documents(scope);
+    const base = await platform.search.documents(scope);
     const fishingDocuments = await buildFishingSearchDocuments();
-    const base = [...new Map([...platformBase, ...fishingDocuments].map((document) => [document.href, document])).values()];
+    const knownHrefs = new Set(base.map((document) => document.href));
+    for (const document of fishingDocuments) {
+      if (knownHrefs.has(document.href)) continue;
+      base.push(document);
+      knownHrefs.add(document.href);
+    }
     let enriched: Destination[] = [];
     let core: Destination[] = [];
     try { enriched = await fetchExploreDestinations({ limit: 5000 }); }
