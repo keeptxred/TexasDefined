@@ -25,7 +25,7 @@ const [heroRoute, sharedComponent, allLookup, ...enrichmentSources] = await Prom
 const errors = [];
 const assert = (condition, message) => { if (!condition) errors.push(message); };
 
-const imageBriefCount = enrichmentSources.reduce((sum, source) => sum + (source.match(/\bimageBrief\s*:/g)?.length ?? 0), 0);
+const imageBriefCount = enrichmentSources.reduce((sum, source) => sum + (source.match(/\bimageBrief\s*:\s*['"`]/g)?.length ?? 0), 0);
 assert(imageBriefCount === 84, `Expected 84 venue-specific image briefs; found ${imageBriefCount}.`);
 assert(allLookup.includes("lookupSlug = slug === 'galaxy-stadium' ? 'jones-att-stadium' : slug"), 'Galaxy/Jones image lookup alias must remain governed.');
 
@@ -57,6 +57,9 @@ for (const marker of [
   'width={1600}',
   'height={900}',
   'fetchPriority="high"',
+  "'@type': 'ImageObject'",
+  'representativeOfPage: true',
+  'contentUrl: absoluteHeroUrl',
   'Venue logos, sponsor marks and third-party photography are intentionally not reproduced.',
 ]) assert(sharedComponent.includes(marker), `Shared sports venue component is missing image marker: ${marker}`);
 
@@ -68,4 +71,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Sports venue imagery validated: ${imageBriefCount} venue briefs, owned SVG rendering, shared hero delivery, Galaxy naming and no third-party image hotlinks are protected.`);
+console.log(`Sports venue imagery validated: ${imageBriefCount} venue briefs, owned SVG rendering, shared hero delivery, structured ImageObject metadata, Galaxy naming and no third-party image hotlinks are protected.`);
