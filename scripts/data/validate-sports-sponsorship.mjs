@@ -108,7 +108,11 @@ for (const [name, source, surfaceMarker] of [
   assert(source.includes(surfaceMarker), `${name} does not request sponsorship for its exact surface.`);
   assert(source.includes('sponsorPlacement ?'), `${name} must render nothing when there is no approved placement.`);
 }
-assert(!guide.includes('sponsorPlacement') || !guide.includes('jsonLd') || guide.indexOf('sponsorPlacement') > guide.indexOf('jsonLd'), 'Sponsor content must not be injected into editorial structured data.');
+const jsonLdStart = guide.indexOf('const jsonLd = {');
+const jsonLdEnd = guide.indexOf('  return <>', jsonLdStart);
+const jsonLdSection = jsonLdStart >= 0 && jsonLdEnd > jsonLdStart ? guide.slice(jsonLdStart, jsonLdEnd) : '';
+assert(jsonLdSection.length > 0, 'Sports venue JSON-LD block could not be isolated for sponsorship separation validation.');
+assert(!jsonLdSection.includes('sponsorPlacement'), 'Sponsor content must not be injected into editorial structured data.');
 
 for (const marker of [
   "createFileRoute('/admin/sports-sponsors')",
