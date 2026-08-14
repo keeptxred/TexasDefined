@@ -1,4 +1,8 @@
-import type { OfficialSource } from '@/components/editorial/OfficialSourcePanel';
+type OfficialSource = {
+  label: string;
+  href: string;
+  description?: string;
+};
 
 export const articleOfficialSources: Record<string, readonly OfficialSource[]> = {
   'how-to-choose-electricity-plan-texas': [
