@@ -96,6 +96,11 @@ function internalLinkBlock(slug) {
   return start >= 0 && end > start ? internalLinks.slice(start, end) : '';
 }
 
+function extractQuotedArray(source, pattern) {
+  const match = source.match(pattern);
+  return match ? [...match[1].matchAll(/["']([^"']+)["']/g)].map((entry) => entry[1]) : null;
+}
+
 for (const marker of [
   'createFileRoute("/texas-explained")',
   'buildEditorialCollectionHead',
@@ -111,6 +116,27 @@ for (const marker of [
   'to="/texas-resources"',
 ]) {
   if (!route.includes(marker)) errors.push(`Texas Explained route contract missing: ${marker}.`);
+}
+
+const hubPillarOrder = extractQuotedArray(route, /const pillarSlugs = \[([\s\S]*?)\] as const;/);
+const articlePillarOrder = extractQuotedArray(articleRoute, /const texasExplainedPillarOrder = \[([\s\S]*?)\] as const;/);
+if (!hubPillarOrder) {
+  errors.push('Texas Explained hub pillar order is missing.');
+}
+if (!articlePillarOrder) {
+  errors.push('Texas Explained article guide order is missing.');
+}
+if (hubPillarOrder && JSON.stringify(hubPillarOrder) !== JSON.stringify(pillars)) {
+  errors.push(`Texas Explained hub pillar order must match the canonical ten-guide order. Found: ${hubPillarOrder.join(', ')}`);
+}
+if (articlePillarOrder && JSON.stringify(articlePillarOrder) !== JSON.stringify(pillars)) {
+  errors.push(`Texas Explained article guide order must match the canonical ten-guide order. Found: ${articlePillarOrder.join(', ')}`);
+}
+if (hubPillarOrder && articlePillarOrder && JSON.stringify(hubPillarOrder) !== JSON.stringify(articlePillarOrder)) {
+  errors.push('Texas Explained hub order and article Guide N of 10 order have drifted apart.');
+}
+if (!articleRoute.includes('const texasExplainedPillarSlugs = new Set<string>(texasExplainedPillarOrder);')) {
+  errors.push('Texas Explained schema membership must derive from the canonical article guide order.');
 }
 
 for (const marker of [
@@ -140,17 +166,6 @@ for (const marker of [
   if (!route.includes(marker)) errors.push(`Texas Explained outward support-ring discovery missing: ${marker}.`);
 }
 
-const schemaSetMatch = articleRoute.match(/const texasExplainedPillarSlugs = new Set\(\[([\s\S]*?)\]\);/);
-if (!schemaSetMatch) {
-  errors.push('Texas Explained article schema membership set is missing.');
-} else {
-  const schemaPillars = [...schemaSetMatch[1].matchAll(/"([^"]+)"/g)].map((match) => match[1]).sort();
-  const expectedPillars = [...pillars].sort();
-  if (JSON.stringify(schemaPillars) !== JSON.stringify(expectedPillars)) {
-    errors.push(`Texas Explained article schema membership must contain exactly the ten pillars. Found: ${schemaPillars.join(', ')}`);
-  }
-}
-
 const articleSchemaStart = articleRoute.indexOf('const articleSchema = {');
 const articleSchemaEnd = articleSchemaStart >= 0 ? articleRoute.indexOf('const breadcrumbItems = [', articleSchemaStart) : -1;
 const articleSchemaBlock = articleSchemaStart >= 0 && articleSchemaEnd > articleSchemaStart
@@ -168,13 +183,15 @@ for (const marker of [
 }
 
 for (const marker of [
-  'const isTexasExplainedPillar = texasExplainedPillarSlugs.has(article.slug);',
+  'const texasExplainedPillarPosition = texasExplainedPillarOrder.findIndex',
+  'const isTexasExplainedPillar = texasExplainedPillarPosition >= 0;',
   'aria-label="Texas Explained series"',
+  'Texas Explained · Guide {texasExplainedPillarPosition + 1} of {texasExplainedPillarOrder.length}',
   'Part of our 10-guide series on the systems, landscapes and people that explain how Texas works.',
   'to="/texas-explained"',
   'See all 10 guides →',
 ]) {
-  if (!articleRoute.includes(marker)) errors.push(`Texas Explained visible article-series cue missing: ${marker}.`);
+  if (!articleRoute.includes(marker)) errors.push(`Texas Explained visible article-series orientation missing: ${marker}.`);
 }
 
 for (const slug of pillars) {
@@ -275,4 +292,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Texas Explained collection, exact ten-pillar Article → CollectionPage schema membership, visible ten-pillar article-series cue, sitemap ownership, Start Here discovery, reciprocal collection backlinks, pillar-to-pillar topic clusters, bidirectional five-page supporting authority ring, five-question AEO quick-answer layer, broad-intent site-search vocabulary, homepage promotion, persistent footer navigation, site-search indexing and zero-query search discovery are protected.');
+console.log('Texas Explained collection, synchronized Guide N of 10 ordering, exact ten-pillar Article → CollectionPage schema membership, visible article-series orientation, sitemap ownership, Start Here discovery, reciprocal collection backlinks, pillar-to-pillar topic clusters, bidirectional five-page supporting authority ring, five-question AEO quick-answer layer, broad-intent site-search vocabulary, homepage promotion, persistent footer navigation, site-search indexing and zero-query search discovery are protected.');
