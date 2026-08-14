@@ -4,11 +4,7 @@ import { texasDefinedBrand } from "@/brand/texasdefined";
 import { LakeConroeGuide } from "@/components/fishing/LakeConroeGuide";
 import { Container } from "@/components/layout/Container";
 import { getLakeConroePageData } from "@/data/fishing/lake-conroe-page-data.functions";
-import {
-  LAKE_CONROE_SLUG,
-  LAKE_CONROE_VERIFIED_AT,
-  lakeConroeCanonicalPath,
-} from "@/data/fishing/lake-conroe-prototype";
+import { LAKE_CONROE_SLUG, lakeConroeCanonicalPath } from "@/data/fishing/lake-conroe-routing";
 import { fishingGuidesQuery, fishingLakeQuery, fishingReportsQuery } from "@/data/fishing/queries";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
@@ -28,51 +24,23 @@ export const Route = createFileRoute("/fishing/lakes/$slug")({
   },
   head: ({ loaderData }) => {
     if (!loaderData) return { meta: [{ title: "Fishing lake unavailable" }, { name: "robots", content: "noindex, nofollow" }] };
-    const { overview, sources } = loaderData.pageData;
+    const { overview, sources, verifiedAt } = loaderData.pageData;
     const canonicalPath = lakeConroeCanonicalPath();
     const url = `${siteUrl}${canonicalPath}`;
-    const webPageSchema = {
-      "@type": "WebPage",
-      "@id": url,
-      url,
-      name: "Lake Conroe Fishing Guide",
-      description: overview.summary,
-      isPartOf: { "@id": `${siteUrl}/#website` },
-      mainEntity: { "@id": `${url}#reservoir` },
-      breadcrumb: { "@id": `${url}#breadcrumbs` },
-      dateModified: LAKE_CONROE_VERIFIED_AT,
-      citation: [sources.tpwdLake.url, sources.twdb.url, sources.sjra.url],
-    };
-    const reservoirSchema = {
-      "@type": "Reservoir",
-      "@id": `${url}#reservoir`,
-      url,
-      name: overview.name,
-      description: overview.summary,
-      containedInPlace: { "@type": "State", name: "Texas" },
-      sameAs: [sources.tpwdLake.url, sources.twdb.url, sources.sjra.url],
-      additionalProperty: [
-        { "@type": "PropertyValue", name: "Surface area", value: `${overview.surfaceAcres} acres` },
-        { "@type": "PropertyValue", name: "Impounded", value: overview.impoundedYear },
-        { "@type": "PropertyValue", name: "River basin", value: overview.riverBasin },
-        { "@type": "PropertyValue", name: "Counties", value: overview.counties.join(", ") },
-      ],
-    };
-    const breadcrumbSchema = {
-      "@type": "BreadcrumbList",
-      "@id": `${url}#breadcrumbs`,
-      itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
-        { "@type": "ListItem", position: 2, name: "Fishing", item: `${siteUrl}/fishing` },
-        { "@type": "ListItem", position: 3, name: "Lake Conroe", item: url },
-      ],
-    };
+    const webPageSchema = { "@type": "WebPage", "@id": url, url, name: "Lake Conroe Fishing Guide", description: overview.summary, isPartOf: { "@id": `${siteUrl}/#website` }, mainEntity: { "@id": `${url}#reservoir` }, breadcrumb: { "@id": `${url}#breadcrumbs` }, dateModified: verifiedAt, citation: [sources.tpwdLake.url, sources.twdb.url, sources.sjra.url] };
+    const reservoirSchema = { "@type": "Reservoir", "@id": `${url}#reservoir`, url, name: overview.name, description: overview.summary, containedInPlace: { "@type": "State", name: "Texas" }, sameAs: [sources.tpwdLake.url, sources.twdb.url, sources.sjra.url], additionalProperty: [
+      { "@type": "PropertyValue", name: "Surface area", value: `${overview.surfaceAcres} acres` },
+      { "@type": "PropertyValue", name: "Impounded", value: overview.impoundedYear },
+      { "@type": "PropertyValue", name: "River basin", value: overview.riverBasin },
+      { "@type": "PropertyValue", name: "Counties", value: overview.counties.join(", ") },
+    ] };
+    const breadcrumbSchema = { "@type": "BreadcrumbList", "@id": `${url}#breadcrumbs`, itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
+      { "@type": "ListItem", position: 2, name: "Fishing", item: `${siteUrl}/fishing` },
+      { "@type": "ListItem", position: 3, name: "Lake Conroe", item: url },
+    ] };
     return {
-      meta: buildMeta(texasDefinedBrand, {
-        title: "Lake Conroe Fishing Guide — Fish, Ramps, Rules & Reports",
-        description: "Plan fishing Lake Conroe with verified lake facts, fish species, seasonal tactics, boat ramps, boating notes, regulations, camping, reports and guide listings.",
-        canonicalPath,
-      }),
+      meta: buildMeta(texasDefinedBrand, { title: "Lake Conroe Fishing Guide — Fish, Ramps, Rules & Reports", description: "Plan fishing Lake Conroe with verified lake facts, fish species, seasonal tactics, boat ramps, boating notes, regulations, camping, reports and guide listings.", canonicalPath }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
       scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": [webPageSchema, reservoirSchema, breadcrumbSchema] }) }],
     };
@@ -81,7 +49,4 @@ export const Route = createFileRoute("/fishing/lakes/$slug")({
   component: LakeConroeOverviewRoute,
 });
 
-function LakeConroeOverviewRoute() {
-  const { reports, guides, pageData } = Route.useLoaderData();
-  return <LakeConroeGuide reports={reports} guides={guides} pageData={pageData} />;
-}
+function LakeConroeOverviewRoute() { const { reports, guides, pageData } = Route.useLoaderData(); return <LakeConroeGuide reports={reports} guides={guides} pageData={pageData} />; }
