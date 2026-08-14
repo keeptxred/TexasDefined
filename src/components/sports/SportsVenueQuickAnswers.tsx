@@ -25,6 +25,7 @@ export function SportsVenueQuickAnswers({
   const answers = buildAnswers({ venueName, city, countyName, capacity, primaryEvents, verifiedAt });
   const slug = canonicalUrl.split('/sports-venue/')[1]?.split(/[?#]/)[0];
   const heroSrc = slug ? `/api/sports-venue-hero?slug=${encodeURIComponent(slug)}` : undefined;
+  const absoluteHeroUrl = heroSrc ? new URL(heroSrc, canonicalUrl).toString() : undefined;
   if (!answers.length) return null;
 
   const faqJsonLd = {
@@ -37,9 +38,22 @@ export function SportsVenueQuickAnswers({
       acceptedAnswer: { '@type': 'Answer', text: item.answer },
     })),
   };
+  const imageJsonLd = absoluteHeroUrl ? {
+    '@context': 'https://schema.org',
+    '@type': 'ImageObject',
+    '@id': `${canonicalUrl}#venue-hero`,
+    contentUrl: absoluteHeroUrl,
+    url: absoluteHeroUrl,
+    caption: `${venueName} — original TexasDefined sports venue illustration`,
+    width: 1600,
+    height: 900,
+    representativeOfPage: true,
+    isPartOf: { '@id': canonicalUrl },
+  } : undefined;
 
   return <>
     {heroSrc ? <figure className="border-b border-border py-8 sm:py-10">
+      {imageJsonLd ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(imageJsonLd) }} /> : null}
       <div className="overflow-hidden border border-border bg-muted/30">
         <img
           src={heroSrc}
