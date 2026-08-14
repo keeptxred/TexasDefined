@@ -20,6 +20,7 @@ const llmsSource = fs.readFileSync(path.join(root, 'src/routes/llms[.]txt.ts'), 
 const graphApiSource = fs.readFileSync(path.join(root, 'src/routes/api.knowledge-graph.ts'), 'utf8');
 const aiApiSource = fs.readFileSync(path.join(root, 'src/routes/api.ai.entities.ts'), 'utf8');
 const citationMagnetsSource = fs.readFileSync(path.join(root, 'public/citation-magnets.json'), 'utf8');
+const citationGuideSource = fs.readFileSync(path.join(root, 'src/routes/citation-guide.tsx'), 'utf8');
 const robotsSource = fs.readFileSync(path.join(root, 'public/robots.txt'), 'utf8');
 const rootRouteSource = fs.readFileSync(path.join(root, 'src/routes/__root.tsx'), 'utf8');
 const articleRouteSource = fs.readFileSync(path.join(root, 'src/routes/article.$slug.tsx'), 'utf8');
@@ -140,6 +141,20 @@ if (citationIndex) {
   }
 }
 
+for (const feature of [
+  'travel and sports reference pages',
+  "title: 'Sports & game-day travel'",
+  "['Texas sports venues', '/sports-venues']",
+  "['Dallas–Fort Worth sports venues', '/sports-venues/dallas-fort-worth']",
+  "['Texas football stadiums', '/sports-venues/football']",
+  "['Texas motorsports venues', '/sports-venues/motorsports']",
+  'venue, event organizer or public dataset',
+  'event schedules, ticketing, parking, gate times or venue-entry rules',
+  '<Link to="/sports-venues"',
+]) {
+  if (!citationGuideSource.includes(feature)) errors.push(`Human citation guide is missing sports source-precedence/discovery contract: ${feature}`);
+}
+
 const adminBlocks = robotsSource.match(/^Disallow: \/admin$/gm) ?? [];
 if (adminBlocks.length !== 5) {
   errors.push('robots.txt must block the admin root for every declared crawler group.');
@@ -170,6 +185,8 @@ for (const feature of [
   '"@type": "ImageObject"',
   '"@id": `${siteUrl}/#logo`',
   'knowsAbout:',
+  '"Texas sports"',
+  '"Texas sports venues"',
   '"@type": "WebSite"',
   'inLanguage: texasDefinedBrand.identity.locale',
   'publisher: { "@id": `${siteUrl}/#organization` }',
@@ -206,4 +223,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('TexasDefined machine endpoints, provenance, current sports identity/schema, citation resources, robots policy, AI discovery guidance, and core Organization/WebSite/Article schema contracts are protected.');
+console.log('TexasDefined machine endpoints, provenance, current sports identity/schema, human and machine citation resources, robots policy, AI discovery guidance, and core Organization/WebSite/Article schema contracts are protected.');
