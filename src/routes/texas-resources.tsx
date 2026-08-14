@@ -61,6 +61,7 @@ const groups: ReadonlyArray<ResourceGroup> = [
   {
     title: 'Stories and everyday Texas',
     links: [
+      ['Texas Explained', '/texas-explained'],
       ['Sports', '/sports'],
       ['History', '/texas-history'],
       ['Home & Garden', '/home-garden'],
