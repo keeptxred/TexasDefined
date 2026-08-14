@@ -66,4 +66,6 @@ requireText(links, "fishing-planner:trip", "internal-link planner target missing
 requireText(links, "fishing-planner:compare", "internal-link comparison target missing");
 requireText(pkg.scripts["fishing:validate"], "validate-fishing-planner-platform.mjs", "Batch 9 validator is not wired into npm run fishing:validate");
 
+await import("./validate-fishing-monetization.mjs");
+
 console.log("Fishing Batch 9 planner/comparison validation passed.");
