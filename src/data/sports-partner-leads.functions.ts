@@ -5,14 +5,14 @@ const accessKeySchema = z.string().min(20).max(200);
 const statusSchema = z.enum(['new', 'reviewing', 'contacted', 'closed']);
 
 export const getSportsPartnerLeadDashboard = createServerFn({ method: 'POST' })
-  .validator(z.object({ accessKey: accessKeySchema }))
+  .inputValidator(z.object({ accessKey: accessKeySchema }))
   .handler(async ({ data }) => {
     const { loadSportsPartnerLeadDashboard } = await import('@/data/sports-partner-leads.server');
     return loadSportsPartnerLeadDashboard(data.accessKey);
   });
 
 export const setSportsPartnerLeadStatus = createServerFn({ method: 'POST' })
-  .validator(z.object({
+  .inputValidator(z.object({
     accessKey: accessKeySchema,
     leadId: z.string().uuid(),
     status: statusSchema,
