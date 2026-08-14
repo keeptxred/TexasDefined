@@ -27,6 +27,7 @@ import {
 } from "./chat-article-hero-overrides";
 import { exploreFeatureArticles } from "./explore-feature-articles";
 import { newestEvergreenArticles } from "./newest-evergreen";
+import { lazyEvergreenArticleStubs, loadLazyEvergreenArticle } from "./lazy-evergreen";
 import { highSchoolFootballNewcomersArticle } from "./high-school-football-newcomers";
 import { hudspethCountySierraBlancaSaltFlatsArticle } from "./hudspeth-county-sierra-blanca-salt-flats";
 import { jeffDavisCountyFortDavisMountainsArticle } from "./jeff-davis-county-fort-davis-mountains";
@@ -68,6 +69,7 @@ const editorialArticles = [
   jeffDavisCountyFortDavisMountainsArticle,
   presidioCountyMarfaBorderlandsArticle,
   brewsterCountyBigBendArticle,
+  ...lazyEvergreenArticleStubs,
   ...newestEvergreenArticles,
   rodeo101Article,
   highSchoolFootballNewcomersArticle,
@@ -174,7 +176,9 @@ const normalizeArticle = (article: Article): Article => {
     ...article,
     hero: COUNTY_HERO_OVERRIDES[article.slug] ?? article.hero,
     internalLinks,
-    readingMinutes: Math.max(1, Math.ceil(wordCount / 220)),
+    readingMinutes: wordCount > 0
+      ? Math.max(1, Math.ceil(wordCount / 220))
+      : article.readingMinutes,
   };
 };
 
@@ -192,6 +196,9 @@ export const fixtureArticles: ArticleRepository = {
     return take(rows, query.limit).map(normalizeArticle);
   },
   async getBySlug(scope, slug) {
+    const lazyArticle = await loadLazyEvergreenArticle(scope.brandId, slug);
+    if (lazyArticle) return normalizeArticle(lazyArticle);
+
     const article = byBrand(editorialArticles, scope.brandId).find((a) => a.slug === slug) ?? null;
     return article ? normalizeArticle(article) : null;
   },
