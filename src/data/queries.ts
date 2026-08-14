@@ -146,8 +146,8 @@ const staticSearchDocuments: SearchDocument[] = [
     brandId: "texasdefined",
     kind: "collection",
     title: "Texas Explained: 10 Guides to How the State Works",
-    summary: "Ten connected guides to the water, roads, towns, landscapes, wildlife, homes, land and migration patterns behind everyday Texas.",
-    keywords: ["Texas Explained", "how Texas works", "Texas rivers", "Texas lakes", "farm-to-market roads", "Texas courthouse squares", "Texas wildflowers", "Texas trees", "Texas wildlife", "Texas homes", "buying land in Texas", "Texas cultural regions"],
+    summary: "Ten connected guides to why Texas works the way it does: rivers, reservoirs, roads, counties and towns, plants and wildlife, homes and land, regions, culture and migration.",
+    keywords: ["Texas Explained", "why Texas", "how Texas works", "Texas geography", "Texas regions", "Texas counties", "Texas nature", "Texas infrastructure", "Texas culture", "Texas settlement", "Texas rivers", "Texas lakes", "farm-to-market roads", "Texas courthouse squares", "Texas wildflowers", "Texas trees", "Texas wildlife", "Texas homes", "buying land in Texas", "Texas cultural regions"],
     href: "/texas-explained",
   },
 ];
