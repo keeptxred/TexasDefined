@@ -111,7 +111,7 @@ if (!failures.length) {
     if (!prototype.includes(`export const ${dataSignal}`)) failures.push(`Lake Conroe prototype data is incomplete: ${dataSignal}`);
   }
   if (!prototype.includes('surfaceAcres: 20118') || !prototype.includes('impoundedYear: 1973') || !prototype.includes('"Montgomery", "Walker"')) failures.push("Lake Conroe identity facts are incomplete.");
-  if (!prototype.includes("maximumDepthNote") || !prototype.includes("do not invent one")) failures.push("Lake Conroe maximum-depth uncertainty is not handled explicitly.");
+  if (!prototype.includes("maximumDepthNote") || !prototype.includes("does not invent one")) failures.push("Lake Conroe maximum-depth uncertainty is not handled explicitly.");
   if (!lakeUi.includes("No TexasDefined current report is published") || !lakeUi.includes("No Lake Conroe guide has cleared the verified-listing gate yet")) failures.push("Lake Conroe report/guide empty states are not protected against fabricated freshness or listings.");
   if (!lakeUi.includes("Sponsorship policy") || !lakeUi.includes("must be labeled as sponsored")) failures.push("Lake Conroe sponsorship disclosure policy is missing.");
 
