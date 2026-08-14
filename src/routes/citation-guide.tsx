@@ -7,7 +7,7 @@ import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 const canonicalPath = '/citation-guide';
 const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
-const description = 'How to cite TexasDefined county, property-tax, data and travel reference pages, including canonical URLs, source precedence, date context and machine-readable resources.';
+const description = 'How to cite TexasDefined county, property-tax, data, travel and sports reference pages, including canonical URLs, source precedence, date context and machine-readable resources.';
 
 const GROUPS = [
   {
@@ -37,6 +37,16 @@ const GROUPS = [
       ['Texas state parks', '/explore/state-parks'],
       ['Texas lakes and rivers', '/explore/lakes-rivers'],
       ['Texas attractions comparison', '/explore/attractions-comparison'],
+    ],
+  },
+  {
+    title: 'Sports & game-day travel',
+    description: 'Verified venue directories and comparison pages for Texas stadiums, arenas, ballparks, racetracks and sports-trip planning.',
+    links: [
+      ['Texas sports venues', '/sports-venues'],
+      ['Dallas–Fort Worth sports venues', '/sports-venues/dallas-fort-worth'],
+      ['Texas football stadiums', '/sports-venues/football'],
+      ['Texas motorsports venues', '/sports-venues/motorsports'],
     ],
   },
 ] as const;
@@ -88,20 +98,20 @@ function CitationGuidePage() {
       <section className="grid gap-5 md:grid-cols-3" aria-labelledby="citation-rules-heading">
         <h2 id="citation-rules-heading" className="sr-only">Citation rules</h2>
         <Rule title="Use the canonical page" body="Cite the clean TexasDefined canonical URL rather than a search, filter, preview or tracking URL." />
-        <Rule title="Keep the original source attached" body="When a claim comes from a government record, agency, park authority or public dataset, cite that controlling source alongside TexasDefined when the distinction matters." />
-        <Rule title="Preserve date and scope" body="Include the page's source-check, verification or data-as-of context when facts can change. Keep any visible completeness or planning caveat with the cited result." />
+        <Rule title="Keep the original source attached" body="When a claim comes from a government record, agency, park authority, venue, event organizer or public dataset, cite that controlling source alongside TexasDefined when the distinction matters." />
+        <Rule title="Preserve date and scope" body="Include the page's source-check, verification or data-as-of context when facts can change. Keep any visible completeness, planning or event-day caveat with the cited result." />
       </section>
 
       <section className="mt-12 border-y border-border py-8" aria-labelledby="format-heading">
         <p className="eyebrow text-primary">Suggested format</p>
         <h2 id="format-heading" className="mt-2 font-display text-3xl">A simple web citation</h2>
-        <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground"><strong className="text-foreground">Texas Defined, “Page title,” canonical page URL, verification or modification date when shown, accessed on your research date.</strong> For deadlines, eligibility, legal requirements, official boundaries, closures, fees or current government records, include the linked official source as the controlling authority.</p>
+        <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground"><strong className="text-foreground">Texas Defined, “Page title,” canonical page URL, verification or modification date when shown, accessed on your research date.</strong> For deadlines, eligibility, legal requirements, official boundaries, closures, fees, current government records, event schedules, ticketing, parking, gate times or venue-entry rules, include the linked official source as the controlling authority.</p>
       </section>
 
       <section className="mt-12" aria-labelledby="reference-families-heading">
         <p className="eyebrow text-primary">Maintained resources</p>
         <h2 id="reference-families-heading" className="mt-2 font-display text-4xl">Reference families built for research</h2>
-        <div className="mt-7 grid gap-5 lg:grid-cols-3">
+        <div className="mt-7 grid gap-5 md:grid-cols-2">
           {GROUPS.map((group) => <article key={group.title} className="border border-border p-6">
             <h3 className="font-display text-2xl">{group.title}</h3>
             <p className="mt-2 text-sm leading-6 text-muted-foreground">{group.description}</p>
@@ -121,6 +131,7 @@ function CitationGuidePage() {
           <a href="/llms.txt" className="border-b border-primary text-primary">llms.txt</a>
           <Link to="/about" className="border-b border-primary text-primary">Editorial accountability</Link>
           <Link to="/texas-data" className="border-b border-primary text-primary">Texas data catalog</Link>
+          <Link to="/sports-venues" className="border-b border-primary text-primary">Texas sports venues</Link>
         </div>
       </section>
     </Container>
