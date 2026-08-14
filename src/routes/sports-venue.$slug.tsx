@@ -3,6 +3,7 @@ import { createFileRoute, notFound } from '@tanstack/react-router';
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { Container } from '@/components/layout/Container';
 import { SponsoredSportsPlacement } from '@/components/sports/SponsoredSportsPlacement';
+import { SportsVenueQuickAnswers } from '@/components/sports/SportsVenueQuickAnswers';
 import { findCompleteTexasEntity, loadTexasKnowledgeGraph } from '@/data/knowledge-graph';
 import {
   canonicalEntityPath,
@@ -171,6 +172,16 @@ function SportsVenuePage() {
         </div>
 
         {sponsorPlacement ? <div className="border-b border-border py-8"><SponsoredSportsPlacement placement={sponsorPlacement} /></div> : null}
+
+        <SportsVenueQuickAnswers
+          venueName={entity.name}
+          canonicalUrl={canonicalUrl}
+          city={enrichment?.city}
+          countyName={countyName}
+          capacity={enrichment?.capacity}
+          primaryEvents={enrichment?.primaryEvents}
+          verifiedAt={enrichment?.verifiedAt ?? entity.sourceCheckedAt}
+        />
 
         <section className="grid gap-8 border-b border-border py-12 lg:grid-cols-[15rem_1fr]">
           <div>
