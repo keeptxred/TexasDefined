@@ -4,20 +4,24 @@ import path from 'node:path';
 const root = process.cwd();
 const read = (file) => fs.readFile(path.join(root, file), 'utf8');
 
-const [landings, landingPaths, route, indexComponent, quickAnswers, countySports, directory, sports, genericVenue, galaxyVenue, entityRoute, homepage, guidebook, llms, publicRoutes, majorVenues, tier2Venues] = await Promise.all([
+const [landings, landingPaths, route, indexComponent, quickAnswers, countySports, sportsSearch, directory, sports, genericVenue, galaxyVenue, entityRoute, searchRoute, homepage, guidebook, queries, types, llms, publicRoutes, majorVenues, tier2Venues] = await Promise.all([
   read('src/data/sports-venue-landings.ts'),
   read('src/data/sports-venue-landing-paths.ts'),
   read('src/routes/sports-venues.$landing.tsx'),
   read('src/components/sports/SportsVenueLandingIndex.tsx'),
   read('src/components/sports/SportsVenueQuickAnswers.tsx'),
   read('src/components/sports/CountySportsDestinations.tsx'),
+  read('src/data/sports-venue-search.ts'),
   read('src/routes/sports-venues.tsx'),
   read('src/routes/sports.tsx'),
   read('src/routes/sports-venue.$slug.tsx'),
   read('src/routes/sports-venue.jones-att-stadium.tsx'),
   read('src/routes/$kind.$slug.tsx'),
+  read('src/routes/search.tsx'),
   read('src/routes/index.tsx'),
   read('src/routes/guides.tsx'),
+  read('src/data/queries.ts'),
+  read('src/data/types.ts'),
   read('src/routes/llms[.]txt.ts'),
   read('src/lib/public-routes.ts'),
   read('src/data/knowledge-graph/major-sports-venues.ts'),
@@ -122,6 +126,46 @@ for (const marker of [
   'All Texas sports venues',
 ]) assert(countySports.includes(marker), `County sports discovery component is missing editorial/discovery marker: ${marker}.`);
 assert(!countySports.includes('sports-venue-enrichment-all'), 'County sports discovery must not import the heavy sports enrichment payload.');
+
+for (const marker of [
+  'MAJOR_TEXAS_SPORTS_VENUES',
+  'TEXAS_SPORTS_VENUE_TIER2_ENTITIES',
+  'applyCurrentEntityCorrections',
+  'SPORTS_VENUE_LANDINGS',
+  'const reliantDocument',
+  "'NRG Stadium'",
+  'const venueMap = new Map(',
+  "kind: 'sports-venue'",
+  "kind: 'sports-collection'",
+  'href: `/sports-venue/${venue.slug}`',
+  'href: `/sports-venues/${landing.slug}`',
+  "href: '/sports-venues'",
+  "href: '/sports'",
+]) assert(sportsSearch.includes(marker), `Sports search index is missing verified venue/collection marker: ${marker}.`);
+assert(!sportsSearch.includes('TEXAS_ENTITY_REGISTRY'), 'Sports search index must not import the full statewide entity registry.');
+assert(!sportsSearch.includes('entitiesByKind'), 'Sports search index must stay on the direct sports seed path rather than the full knowledge graph helper.');
+assert(!sportsSearch.includes('loadTexasKnowledgeGraph'), 'Sports search index must not load the remote/full knowledge graph.');
+
+for (const marker of [
+  'await import("./sports-venue-search")',
+  'buildSportsVenueSearchDocuments()',
+  'const sportsDocuments =',
+  'base.push(document)',
+]) assert(queries.includes(marker), `Shared search query is missing lazy sports index marker: ${marker}.`);
+assert(!queries.includes('import { buildSportsVenueSearchDocuments'), 'Shared queries must not statically import the sports venue search index.');
+
+for (const marker of [
+  '"sports-venue"',
+  '"sports-collection"',
+]) assert(types.includes(marker), `SearchDocumentKind is missing sports search kind: ${marker}.`);
+
+for (const marker of [
+  '{ to: "/sports-venues", label: "Sports Venues"',
+  'Caddo Lake, Kyle Field, Marfa, property taxes…',
+  'town, landmark, stadium, subject, guide, event',
+  '"sports-venue": "Sports venue"',
+  '"sports-collection": "Sports collection"',
+]) assert(searchRoute.includes(marker), `Site search UI is missing sports discovery marker: ${marker}.`);
 
 for (const marker of [
   "import { CountySportsDestinations } from '@/components/sports/CountySportsDestinations'",
@@ -233,4 +277,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Sports venue landings validated: ${expectedLandings.length} indexable market/theme pages, venue guides, relevant county guides and site-wide discovery surfaces are answer-first, bidirectionally linked, structured and source-safe.`);
+console.log(`Sports venue landings validated: ${expectedLandings.length} indexable market/theme pages, venue guides, county guides, site-wide discovery surfaces and lazy site search are answer-first, bidirectionally linked, structured and source-safe.`);
