@@ -17,6 +17,7 @@ export const INDEXABLE_STATIC_PATHS = [
   "/guides",
   "/texas-living",
   "/texas-resources",
+  "/texas-explained",
   "/texas-data",
   "/texas-data/city-county-relationships",
   "/county",
