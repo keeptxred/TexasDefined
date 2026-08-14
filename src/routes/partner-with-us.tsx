@@ -45,6 +45,29 @@ const partnershipOptions = [
   ['other', 'Other'],
 ] as const;
 
+const sportsLaunchPackages = [
+  {
+    name: 'Single Venue',
+    price: '$49/month',
+    detail: 'One TexasDefined sports-venue guide. Best for a restaurant, independent hotel, parking, tour or transportation business serving one venue.',
+  },
+  {
+    name: 'Metro Sports Pack',
+    price: '$149/month',
+    detail: 'Up to five sports-venue guides in one metro or market. Best for hotels, restaurant groups, attractions and transportation companies.',
+  },
+  {
+    name: 'Texas Sports Network',
+    price: '$299/month',
+    detail: 'The statewide sports directory plus up to ten venue guides for a Texas business serving multiple sports markets.',
+  },
+  {
+    name: 'Founding Statewide Partner',
+    price: '$499/month',
+    detail: 'The statewide sports directory plus up to twenty venue guides for a genuinely statewide travel or visitor-services brand.',
+  },
+] as const;
+
 function PartnerWithUsPage() {
   const search = Route.useSearch();
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
@@ -98,6 +121,22 @@ function PartnerWithUsPage() {
               <li>Hotels, restaurants, attractions, transportation and visitor services near major sports destinations</li>
               <li>Clearly disclosed sponsorships of useful evergreen resources</li>
             </ul>
+          </div>
+
+          <div className="mt-8">
+            <p className="eyebrow text-primary">Founding sports rates</p>
+            <h3 className="mt-2 font-display text-3xl">Launch with one useful placement</h3>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">These introductory rates are designed for TexasDefined's launch stage. They are sponsorship fees, not guaranteed-impression or guaranteed-booking packages. Every placement remains separately disclosed from editorial content and is subject to surface availability and approval.</p>
+            <div className="mt-5 grid gap-4">
+              {sportsLaunchPackages.map((item) => <article key={item.name} className="border-t border-border pt-4">
+                <div className="flex flex-wrap items-baseline justify-between gap-2">
+                  <h4 className="font-display text-2xl">{item.name}</h4>
+                  <p className="text-sm font-bold text-primary">{item.price}</p>
+                </div>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">{item.detail}</p>
+              </article>)}
+            </div>
+            <p className="mt-5 text-xs leading-6 text-muted-foreground">Launch packages are month-to-month unless otherwise agreed. TexasDefined does not sell editorial rankings, favorable reviews or factual conclusions. One approved sponsored placement may run on a sports surface at a time.</p>
           </div>
         </section>
 
