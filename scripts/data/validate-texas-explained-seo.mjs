@@ -112,6 +112,19 @@ for (const marker of [
   if (!route.includes(marker)) errors.push(`Texas Explained route contract missing: ${marker}.`);
 }
 
+for (const marker of [
+  'const quickAnswers = [',
+  'Quick answers',
+  'Five Texas questions, answered before you dive deeper',
+  'Why are most Texas lakes man-made?',
+  'What is a farm-to-market road?',
+  'Why do so many Texas towns have courthouse squares?',
+  'Why does Texas feel so different from one region to another?',
+  'Why do Texas homes and land decisions depend so much on location?',
+]) {
+  if (!route.includes(marker)) errors.push(`Texas Explained quick-answer layer missing: ${marker}.`);
+}
+
 for (const slug of pillars) {
   if (!route.includes(`"${slug}"`)) errors.push(`Texas Explained collection is missing pillar slug: ${slug}.`);
   if (!internalLinks.includes(`"${slug}"`)) errors.push(`Texas Explained reciprocal linking is missing pillar key: ${slug}.`);
@@ -198,4 +211,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Texas Explained collection, ten-pillar membership, sitemap ownership, Start Here discovery, reciprocal collection backlinks, pillar-to-pillar topic clusters, five-page supporting authority ring, homepage promotion, persistent footer navigation, site-search indexing and zero-query search discovery are protected.');
+console.log('Texas Explained collection, ten-pillar membership, sitemap ownership, Start Here discovery, reciprocal collection backlinks, pillar-to-pillar topic clusters, five-page supporting authority ring, five-question AEO quick-answer layer, homepage promotion, persistent footer navigation, site-search indexing and zero-query search discovery are protected.');
