@@ -8,8 +8,10 @@ import {
   lakeConroeOverview,
   lakeConroeRegulations,
   lakeConroeReportSnapshot,
+  lakeConroeSectionMeta,
   lakeConroeSources,
 } from "./lake-conroe-prototype";
+import { LAKE_CONROE_SECTION_SLUGS, LAKE_CONROE_VERIFIED_AT } from "./lake-conroe-routing";
 
 const lakeConroePageCopy = {
   heroEyebrow: "Texas Defined Fishing · Piney Woods",
@@ -100,6 +102,8 @@ const lakeConroePageCopy = {
 
 export function loadLakeConroePageDataServer() {
   return {
+    verifiedAt: LAKE_CONROE_VERIFIED_AT,
+    sections: LAKE_CONROE_SECTION_SLUGS.map((slug) => ({ slug, ...lakeConroeSectionMeta[slug] })),
     overview: lakeConroeOverview,
     habitat: lakeConroeHabitat,
     boatingNotes: lakeConroeBoatingNotes,
