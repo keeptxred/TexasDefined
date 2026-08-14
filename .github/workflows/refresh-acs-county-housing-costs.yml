@@ -4,6 +4,10 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '41 11 6 * *'
+  pull_request:
+    paths:
+      - '.github/workflows/refresh-acs-county-housing-costs.yml'
+      - 'scripts/data/refresh-county-housing-costs.mjs'
   push:
     branches:
       - main
@@ -16,7 +20,7 @@ permissions:
   pull-requests: write
 
 concurrency:
-  group: refresh-acs-county-housing-costs
+  group: refresh-acs-county-housing-costs-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
@@ -27,6 +31,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          ref: ${{ github.event_name == 'pull_request' && github.head_ref || github.ref_name }}
       - uses: actions/setup-node@v4
         with:
           node-version: 24
@@ -45,7 +50,20 @@ jobs:
           }
           console.log(`Validated ${data.rows.length} Texas county rows.`);
           NODE
-      - name: Open refresh pull request when data changed
+      - name: Commit bootstrap snapshot into source PR
+        if: github.event_name == 'pull_request'
+        run: |
+          if git diff --quiet -- src/data/acs-county-housing-costs.snapshot.json; then
+            echo 'ACS snapshot is already current in this pull request.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add src/data/acs-county-housing-costs.snapshot.json
+          git commit -m 'Refresh ACS county housing cost snapshot'
+          git push origin "HEAD:${GITHUB_HEAD_REF}"
+      - name: Open refresh pull request when scheduled data changed
+        if: github.event_name != 'pull_request'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
