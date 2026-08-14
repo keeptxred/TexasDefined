@@ -1,0 +1,215 @@
+import type { Article, ArticleBlock } from "../types";
+
+const p = (text: string): ArticleBlock => ({ type: "paragraph", text });
+const h = (text: string): ArticleBlock => ({ type: "heading", text });
+const list = (...items: string[]): ArticleBlock => ({ type: "list", items });
+
+export const texasWildlifeGuideArticle: Article = {
+  id: "evergreen-texas-wildlife-guide",
+  brandId: "texasdefined",
+  slug: "texas-wildlife-guide",
+  title: "Texas Wildlife: A Field Guide to the Animals Texans Actually Encounter",
+  dek: "Texas wildlife is not just what appears on a park brochure. It is deer beside subdivision roads, armadillos digging through lawns, coyotes crossing greenbelts, bats leaving bridges, feral hogs rooting pastures, snakes under brush and—depending on the region—alligators, javelinas, bobcats and much more.",
+  category: "outdoors",
+  hero: {
+    src: "https://images.unsplash.com/photo-1684701293219-61487e5cc3a1?auto=format&fit=crop&w=1600&q=82",
+    alt: "A white-tailed deer standing in tall grass at Brazos Bend, Texas",
+    width: 1600,
+    height: 1067,
+    credit: "Luke Scarpino · Unsplash",
+  },
+  authorId: "a-marisol",
+  publishedAt: "2026-08-13",
+  readingMinutes: 18,
+  tags: [
+    "texas wildlife",
+    "texas animals",
+    "white tailed deer",
+    "armadillos",
+    "coyotes",
+    "bobcats",
+    "feral hogs",
+    "texas snakes",
+    "alligators",
+    "javelinas",
+    "texas bats",
+  ],
+  featured: true,
+  sourceName: "Texas Parks and Wildlife Department",
+  sourceUrl: "https://tpwd.texas.gov/huntwild/wild/species/",
+  internalLinks: [
+    {
+      href: "/explore/outdoors",
+      label: "Explore Texas outdoors",
+      description: "Find outdoor destinations, wildlife experiences and nature-focused Texas trips.",
+    },
+    {
+      href: "/explore/national-wildlife-refuges",
+      label: "Texas national wildlife refuges",
+      description: "Find federally protected wildlife areas across the state and plan a visit around habitat and migration.",
+    },
+    {
+      href: "/explore/wildlife-management-areas",
+      label: "Texas wildlife management areas",
+      description: "Explore state-managed wildlife lands and the habitats they protect.",
+    },
+    {
+      href: "/article/best-native-plants-texas-yard",
+      label: "The best native plants for a Texas yard",
+      description: "Build habitat at home with plants suited to Texas soils, climate and native wildlife.",
+    },
+    {
+      href: "/article/texas-trees-guide",
+      label: "Texas trees explained",
+      description: "Learn the trees and woodland habitats that shape where many Texas animals live.",
+    },
+  ],
+  relatedCollections: [],
+  relatedDestinations: [],
+  body: [
+    p("You do not have to drive to a remote ranch to encounter Texas wildlife. In much of the state, the most memorable sightings happen beside a neighborhood road, under a porch light, along a creek trail, at the edge of a stock tank or on the shoulder of a farm-to-market road at dusk."),
+    p("That is the useful way to understand Texas animals: not as a checklist of every species recorded inside the state line, but as a set of neighbors whose presence changes with habitat, region, season and the hour of the day."),
+    p("A Houston-area resident may regularly see white-tailed deer, raccoons, armadillos, coyotes, herons and alligators within the same county. A West Texan can share country with javelinas, jackrabbits, mule deer, black bears and mountain lions. In the Hill Country, deer and bats can become so familiar that visitors forget how unusual the combination is. South Texas adds dense brush-country species that occur nowhere else in the United States in the same way."),
+    p("This guide focuses on animals Texans and visitors are realistically likely to encounter, the places those encounters tend to happen and the basic behavior that helps people respond without turning every sighting into either a petting opportunity or a crisis."),
+
+    h("The first rule: wildlife that looks comfortable around people is not automatically tame"),
+    p("Texas Parks and Wildlife Department guidance repeats the same principle across species: feeding wildlife changes behavior. An animal that learns to associate houses, parks, parking lots or people with food can lose the caution that normally keeps encounters brief."),
+    p("That is why the simplest wildlife-safety habits are also the most effective. Keep pet food indoors, secure garbage, clean spilled bird seed, give animals room to leave, keep pets under control and resist the urge to make a close photograph into an even closer one."),
+    p("Most ordinary sightings do not require intervention. The animal is usually doing exactly what wild animals do—moving between food, water, shelter and territory. The best response is often to observe from a distance and let it continue."),
+
+    h("White-tailed deer: the animal many Texans see most often"),
+    p("White-tailed deer are distributed broadly across Texas and have adapted extraordinarily well to the edges people create between woodland, pasture, parks and development. In some communities, seeing deer beside the road at dawn feels less like wildlife watching than part of the morning commute."),
+    p("Their familiarity creates two practical issues. First, deer are large enough to make vehicle collisions serious, especially around dawn, dusk and roads bordered by brush. Second, feeding can concentrate animals and make them increasingly comfortable around homes and landscaping."),
+    p("A doe standing beside a trail is usually not an invitation to approach. Give deer space, especially during the fawning season and around bucks during the fall breeding period. A deer that chooses to move away is solving the encounter exactly the way you want."),
+
+    h("Armadillos: noisy, harmless-looking and surprisingly good at excavation"),
+    p("The nine-banded armadillo is one of the easiest Texas mammals to recognize and one of the easiest to hear before you see. An armadillo foraging through leaves can sound much larger than it is."),
+    p("TPWD says nine-banded armadillos occur through most of Texas except the western Trans-Pecos. They favor ground they can dig, and their appetite for insects and grubs explains the small cone-shaped holes that sometimes appear across lawns, flower beds and soft soil."),
+    p("The armor encourages people to treat armadillos like oversized garden ornaments. Do not handle them. Wild mammals should be left alone, and TPWD specifically advises precautions around armadillos because they can carry the bacterium associated with Hansen's disease."),
+    p("The roadside connection is unfortunately real too: armadillos are frequent vehicle casualties. Their tendency to jump when startled does not pair well with a moving car."),
+
+    h("Raccoons, opossums and skunks: the night shift around Texas homes"),
+    p("Turn on a backyard camera after midnight and the ordinary Texas mammal community becomes obvious. Raccoons investigate containers and structures with remarkable persistence. Virginia opossums move slowly through yards, woodland edges and drainage corridors. Striped skunks spend much of their active time searching for insects and other food after dark."),
+    p("These species succeed around people because our neighborhoods accidentally reproduce good wildlife habitat: water, ornamental fruit, bird seed, pet food, decks, sheds, crawl spaces, attics, wood piles and trash."),
+    p("The best nuisance-wildlife strategy begins before an animal moves in. Close structural openings after confirming no animal is trapped inside, do not leave pet food outside overnight, secure trash and remove repeated food rewards."),
+    p("An opossum passing through is not automatically a problem. A raccoon repeatedly entering an attic is. A skunk under a shed deserves a different response from a skunk simply crossing a yard. Focus on the behavior and the conflict, not just the species name."),
+
+    h("Coyotes: common, adaptable and often closer than people realize"),
+    p("Coyotes live in rural Texas, but they also live inside metropolitan landscapes. Greenbelts, bayous, rail corridors, drainage systems, golf courses, parks and undeveloped tracts can connect habitat through a city."),
+    p("TPWD describes coyotes as naturally wary of humans but warns that feeding and repeated food rewards can make them more comfortable around people. The department's urban-coyote guidance emphasizes keeping pet food and water inside, securing garbage, cleaning up fallen fruit and spilled bird seed, and supervising pets—especially small pets and animals outside at night."),
+    p("Seeing a coyote trot across an open field in daylight does not by itself prove that the animal is sick or aggressive. The more useful question is how it behaves around people. A wild coyote that notices you and continues away is very different from one that repeatedly approaches people, pets or houses looking for food."),
+    p("Do not feed one for a photograph. A coyote that stays wild is safer for everyone, including the coyote."),
+
+    h("Bobcats: statewide, secretive and more common than their sightings suggest"),
+    p("Bobcats occur throughout Texas. Their short tail, long legs, spotted or mottled coat and compact wildcat profile distinguish them from mountain lions, which are much larger and carry a long tail."),
+    p("TPWD describes bobcats as reclusive and largely nocturnal, but they may move before sunset or after sunrise. They use thickets, rocky cover and other protected places and feed heavily on rabbits, rodents and other small animals."),
+    p("That means a quick bobcat crossing at the edge of a subdivision, ranch road or creek corridor is plausible almost anywhere in Texas. The animal usually disappears before the observer gets much more than a few seconds to process what they saw."),
+    p("A bobcat sighting should be enjoyed from a distance. Do not corner it or try to draw it closer."),
+
+    h("Feral hogs—or wild pigs—are not javelinas"),
+    p("Texas has two pig-shaped animals that newcomers regularly confuse."),
+    p("Wild pigs are descendants of domestic swine and introduced Eurasian wild boar ancestry. They are large, highly adaptable and widespread across Texas, with especially substantial populations through East, Central and South Texas. TPWD documents their expansion across nearly the entire state and the ecological and property damage caused by rooting, wallowing and feeding."),
+    p("Javelinas are native collared peccaries, not pigs. They are generally much smaller, with grizzled dark coats, a pale collar and only a small, inconspicuous tail. In Texas, javelinas are associated most strongly with South Texas brush country, the Trans-Pecos and parts of the Edwards Plateau."),
+    p("The distinction matters because their behavior, legal status and natural history differ. For an observer, the safest field rule is simpler: do not crowd either animal, and never get between adults and young."),
+
+    h("Javelinas: a South and West Texas animal with a bigger reputation than body"),
+    p("A family group of javelinas moving through cactus and brush is one of the signature wildlife encounters of arid and semi-arid Texas."),
+    p("They feed heavily on vegetation such as prickly pear, mesquite beans and other desert or brush-country plants. TPWD notes that their eyesight is not especially strong and that they have an undeserved reputation for ferocity. That combination can explain why a javelina sometimes appears to remain close rather than immediately recognizing a person and running."),
+    p("Treat the animal's space as the deciding factor. Back away rather than testing how close it will allow you to stand, and keep dogs restrained. A surprised wild animal with defensive teeth does not need to be aggressive by nature to create a bad encounter."),
+
+    h("Bats: one of Texas's biggest wildlife spectacles is overhead"),
+    p("Texas has an unusually visible relationship with bats because enormous colonies can live under bridges, in caves and in other large roosts near cities and highways."),
+    p("Mexican free-tailed bats—also called Brazilian free-tailed bats—are the species behind many of the famous mass emergences. TPWD describes them as the most common bat across Texas. In much of the state they arrive from Mexico beginning in late winter and early spring, establish maternity colonies, raise pups through summer and begin migrating south after autumn cold fronts."),
+    p("That seasonal pattern is why late summer can produce especially dramatic evening emergences: young bats have joined the flying population."),
+    p("Watching a colony leave a bridge is very different from finding a single bat on the ground or inside a room. Never handle a bat with bare hands. Give grounded or strangely behaving wildlife space and use appropriate animal-control, public-health or wildlife guidance when human or pet contact may have occurred."),
+
+    h("Snakes: common enough to respect, diverse enough not to guess from one trick"),
+    p("Texas has tremendous snake diversity, and most Texas snakes are not dangerous to people. TPWD groups the potentially dangerous native snakes into four familiar categories: rattlesnakes, copperheads, cottonmouths and coral snakes."),
+    p("The department's most useful advice is behavioral rather than photographic: snakes generally do not pursue people. Bites are most likely when a snake is surprised, cornered or handled."),
+    p("Look before placing hands or feet into brush, wood piles, rock crevices, tall grass and the far side of logs. Wear appropriate footwear in snake habitat. If you see a snake, stop long enough to locate it and give it an escape route."),
+    p("Do not rely on a single folk rule about head shape, pupils or color to decide whether an unfamiliar snake is safe to pick up. The simplest reliable field practice is not to handle snakes you cannot confidently identify."),
+
+    h("Alligators: ordinary wildlife in the right part of Texas"),
+    p("An alligator sighting can sound exotic to a Texan who lives hundreds of miles from the coast, but in suitable East and South Texas waters alligators are part of the native landscape."),
+    p("TPWD describes them historically in rivers, creeks and backwater wetlands of East and South Texas and notes that people increasingly share habitat with them as development reaches wetland edges."),
+    p("The basic rules are straightforward: stay well back, never feed an alligator, keep pets away from the water's edge, use designated swimming areas and be especially cautious around dusk and dawn. TPWD recommends at least 30 feet of distance in state-park settings."),
+    p("A basking alligator is often simply regulating its body temperature. An alligator that approaches people, repeatedly follows boats or has clearly lost its normal wariness deserves more attention and should be reported through the appropriate local or TPWD channel rather than confronted."),
+
+    h("Rabbits, squirrels and the wildlife people stop noticing"),
+    p("Some of the most widespread Texas wildlife becomes almost invisible through familiarity. Eastern cottontails, desert cottontails, jackrabbits, fox squirrels, gray squirrels and ground squirrels occupy different combinations of neighborhoods, farms, parks, deserts and woodlands."),
+    p("They are also part of the explanation for the animals higher in the food web. Rabbits and rodents are major prey for coyotes, bobcats, foxes, hawks, owls and many snakes. A landscape with abundant small mammals naturally attracts predators."),
+    p("That is useful context when a bobcat suddenly appears beside a greenbelt or a hawk spends several mornings on the same utility pole. Wildlife distribution is often less mysterious when you look at the food underneath it."),
+
+    h("Roadrunners, turkeys, hawks and herons: Texas wildlife is not only mammals"),
+    p("Birds are often the most visible wild animals in Texas because their habitats overlap roads, yards, reservoirs and parks."),
+    p("Greater roadrunners are strongly associated with dry and brushy country but occur across broad portions of the state. Wild turkeys can appear in ranch country, river bottoms and open woodland. Hawks and owls follow prey into suburbs. Herons and egrets turn drainage ponds, bayous and stock tanks into feeding grounds."),
+    p("Texas also lies on major migration pathways, so the birds visible in one place can change dramatically between seasons. A backyard, refuge or wetland that seems ordinary in midsummer may become a completely different wildlife site during spring or fall migration."),
+
+    h("Mountain lions: real Texas animals, but not ordinary sightings"),
+    p("Mountain lions belong in a Texas wildlife guide because they live here. They do not belong in the same probability category as deer, raccoons or coyotes."),
+    p("TPWD describes mountain lions as relatively uncommon and secretive. Their strongest Texas distribution is the Trans-Pecos, South Texas brushlands and portions of the western Hill Country, although individual animals can travel long distances and occasionally appear well outside those core areas."),
+    p("A mountain lion is a large, tawny, unspotted cat with a very long tail. A bobcat is smaller and short-tailed. That tail distinction eliminates many mistaken reports."),
+    p("If you are in established mountain-lion country, learn TPWD's current encounter guidance before hiking or camping with children or pets. Do not approach a lion for a better photograph, and report sightings when TPWD requests information for monitoring."),
+
+    h("Black bears: returning to parts of Texas, still highly regional"),
+    p("Black bears have naturally recolonized parts of West Texas after disappearing from much of their former Texas range. TPWD says the state's resident breeding population is concentrated in the Trans-Pecos and parts of Val Verde and Crockett counties, while individual bears can wander much farther."),
+    p("That explains seemingly surprising confirmed bears elsewhere without turning every dark animal in the brush into evidence of a local bear population."),
+    p("Black bears are a protected species in Texas. In bear country, food storage and attractant control matter: a bear that receives a food reward around people can become a recurring conflict animal."),
+
+    h("Ocelots: real, endangered and extraordinarily unlikely for most Texans to see"),
+    p("The ocelot is the clearest example of why a wildlife guide needs a difference between 'lives in Texas' and 'you are likely to encounter it.'"),
+    p("Ocelots survive in extremely limited South Texas brush habitat, particularly in and around the Lower Rio Grande Valley. TPWD lists the species as endangered at both the state and federal level. Its dense thornscrub habitat and nocturnal behavior make genuine sightings rare even inside its remaining range."),
+    p("If you are fortunate enough to see an ocelot, give it space, record the location safely and report the observation to the appropriate wildlife authorities. The sighting is conservation information, not an invitation to follow the animal into cover."),
+
+    h("What you are most likely to see by region"),
+    p("Texas wildlife changes with the same geography that changes the trees, soils and weather. These are broad encounter patterns, not hard boundaries."),
+    list(
+      "Piney Woods and East Texas: white-tailed deer, raccoons, opossums, armadillos, squirrels, rabbits, coyotes, bobcats, feral hogs, snakes, wetland turtles and alligators in suitable waters.",
+      "Gulf Coast and coastal prairies: deer, coyotes, raccoons, opossums, skunks, armadillos, feral hogs, alligators, waterbirds, snakes and abundant migratory bird life.",
+      "Hill Country and Edwards Plateau: white-tailed deer, armadillos, foxes, coyotes, bobcats, bats, rabbits, porcupines in parts of the region, snakes and—far less commonly—mountain lions; javelinas occur toward drier portions.",
+      "Prairies and Lakes / North-Central Texas: deer, coyotes, bobcats, raccoons, opossums, skunks, armadillos, rabbits, squirrels, roadrunners, snakes and feral hogs.",
+      "South Texas brush country: white-tailed deer, javelinas, feral hogs, coyotes, bobcats, roadrunners, jackrabbits, armadillos, snakes and, in specialized habitat, rare ocelots.",
+      "Trans-Pecos and far West Texas: mule deer and white-tailed deer depending on habitat, javelinas, jackrabbits, foxes, coyotes, bobcats, roadrunners, reptiles, black bears and mountain lions—with many species concentrated around mountain, canyon or water habitats.",
+      "Panhandle and High Plains: mule deer and white-tailed deer by area, pronghorn in western grasslands, coyotes, bobcats, jackrabbits, prairie dogs, badgers, porcupines, rattlesnakes and grassland birds.",
+    ),
+
+    h("The clock matters almost as much as the map"),
+    p("A place can contain far more wildlife than a noon visit suggests. Many mammals avoid the hottest, busiest part of the day and move around dawn, dusk or at night."),
+    p("Early morning is often best for deer and birds. Dusk brings bats, deer and many predators into motion. Night cameras reveal raccoons, opossums, skunks, foxes and other animals that were present all along but invisible while people were outside."),
+    p("Season changes behavior too. Bat colonies build through summer. Deer behavior shifts during the rut. Young animals appear in spring and summer. Reptile activity changes with temperature. Drought can concentrate wildlife around water and bring animals into more visible contact with people."),
+
+    h("How to make a Texas yard better for wildlife without creating a nuisance"),
+    p("The best wildlife yard is not a feeding station. It is habitat."),
+    p("Native trees, shrubs, grasses and flowering plants can provide cover, nectar, seeds, fruit and insects while keeping animals on a more natural diet. A layered planting with canopy, understory and ground-level cover supports more species than an exposed lawn."),
+    list(
+      "Use plants native to your part of Texas rather than treating the whole state as one planting zone.",
+      "Provide clean, shallow water appropriate for birds and small wildlife, and maintain it so it does not become a health problem.",
+      "Reduce unnecessary pesticide use that removes the insects birds, bats and other wildlife depend on.",
+      "Keep intentional habitat separate from doors, children's play areas and places where dense cover would create a conflict.",
+      "Do not put food on the ground for raccoons, deer, coyotes or other mammals.",
+    ),
+    p("A yard can support wildlife while still maintaining boundaries. In fact, those boundaries are what make coexistence sustainable."),
+
+    h("What to do when wildlife becomes a problem"),
+    p("Start by identifying the attractant or access point. Food, water, shelter and repeated easy entry explain a large share of urban and suburban wildlife conflicts."),
+    list(
+      "Remove pet food and secure garbage before assuming an animal needs to be trapped.",
+      "Close attic, crawl-space and shed access only after confirming animals and dependent young are not trapped inside.",
+      "Keep brush, debris and wood piles managed near the house if snakes or rodents are a recurring concern.",
+      "Supervise pets where coyotes, alligators or other predators are present.",
+      "Use species-specific TPWD or local animal-control guidance instead of improvising with poisons, traps or relocation.",
+      "For injured or genuinely orphaned wildlife, contact a permitted wildlife rehabilitator rather than attempting to raise the animal yourself.",
+    ),
+    p("The goal is not to remove wildlife from Texas neighborhoods. That is neither realistic nor desirable. The goal is to keep wild animals from learning behaviors that create repeated conflict."),
+
+    h("A field-guide habit that makes every Texas trip better"),
+    p("When you see an unfamiliar animal, notice the details before reaching for a name: size, tail length, body shape, coat pattern, movement, habitat, time of day and what the animal was doing."),
+    p("Those observations are more useful than a blurry zoomed photograph alone. A long tail separates a mountain lion from a bobcat. A javelina's compact build and pale collar distinguish it from most wild pigs. A snake's habitat and range can eliminate species that do not occur in that part of Texas."),
+    p("Use a reputable field guide or official species reference after the encounter. Identification gets easier quickly when you learn the handful of animals common to your own region."),
+
+    h("Texas wildlife is one of the best ways to understand the state"),
+    p("The animal community changes when the landscape changes. Alligators tell you that East Texas and the Gulf Coast are wetland country. Javelinas belong to thornscrub, cactus and dry woodland. Giant bat colonies reveal limestone caves and urban bridges as habitat. Deer thrive on the edge between cover and open ground. Black bears and mountain lions remind you how mountainous and genuinely wild parts of West Texas remain."),
+    p("Once you start noticing those connections, wildlife stops being a list of Texas animals and becomes another map of Texas itself."),
+    p("And that is the point of this guide: know what is normal where you are, respect the species that need more distance, and leave every animal wild enough that the next encounter can remain uneventful."),
+  ],
+};
