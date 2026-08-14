@@ -1,5 +1,6 @@
 import { fishingPlatform, fishingScope } from "./index";
 import { fishingGuideCanonicalPath } from "./guide-routing";
+import { fishingReportCanonicalPath } from "./report-routing";
 import { fishingFoundationAnchor } from "./slugs";
 
 export type FishingInternalLinkKind = "lake" | "species" | "guide" | "report" | "business";
@@ -56,7 +57,7 @@ export async function buildFishingInternalLinkEntities(): Promise<FishingInterna
       kind: "report" as const,
       name: report.title,
       aliases: [],
-      href: `/fishing#report-${report.slug}`,
+      href: fishingReportCanonicalPath(report.slug),
       keywords: ["fishing report"],
     })),
     ...businesses.map((business) => ({
