@@ -77,5 +77,6 @@ if (failures.length) {
 }
 
 await import("./validate-fishing-species-platform.mjs");
+await import("./validate-fishing-showcase-lakes.mjs");
 
-console.log("Fishing platform validation passed: foundation contracts, the complete Lake Conroe prototype, and Batch 4 statewide species platform are protected with canonical routing, source-backed content, guide/report integrity, sponsorship disclosure, structured data, search/internal links, sitemap governance and client bundle boundaries.");
+console.log("Fishing platform validation passed: foundation contracts, Lake Conroe, Batch 4 species depth, and Batch 5 five-lake showcase routing/content are protected with source-backed data, guide/report integrity, sponsorship separation, structured data, sitemap governance and client bundle boundaries.");
