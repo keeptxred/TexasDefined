@@ -6,6 +6,7 @@ import { NewsletterSignup } from "@/components/editorial/NewsletterSignup";
 import { Container } from "./Container";
 
 const CitationCollectionTrustRouter = lazy(() => import("@/components/authority/CitationCollectionTrustRouter"));
+const ContextualOfficialSources = lazy(() => import("@/components/authority/ContextualOfficialSources"));
 
 export function Footer() {
   const brand = useBrand();
@@ -14,7 +15,8 @@ export function Footer() {
   return (
     <>
       <Suspense fallback={null}><CitationCollectionTrustRouter /></Suspense>
-      <footer className="mt-20 border-t border-border bg-surface text-surface-foreground sm:mt-24">
+      <Suspense fallback={<div className="h-20 sm:h-24" aria-hidden="true" />}><ContextualOfficialSources /></Suspense>
+      <footer className="border-t border-border bg-surface text-surface-foreground">
         {brand.features.newsletter && (
           <div className="border-b border-border/70">
             <Container className="py-16 sm:py-20">
