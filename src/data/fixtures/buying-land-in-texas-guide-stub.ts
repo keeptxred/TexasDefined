@@ -1,0 +1,37 @@
+import type { Article } from "../types";
+
+export const buyingLandInTexasGuideStub: Article = {
+  id: "evergreen-buying-land-in-texas-guide",
+  brandId: "texasdefined",
+  slug: "buying-land-in-texas-guide",
+  title: "Buying Land in Texas: The Things City Homebuyers Don't Know",
+  dek: "Acreage can look simple from the road and become complicated the moment you ask about legal access, water, septic, utilities, minerals, restrictions, floodplain and taxes. This is the Texas due-diligence guide to read before you fall in love with the view.",
+  category: "real-estate",
+  hero: {
+    src: "https://images.unsplash.com/photo-1662166980304-8c927b110066?auto=format&fit=crop&w=1600&q=82",
+    alt: "A fenced rural property with a dirt road crossing open Texas land",
+    width: 1600,
+    height: 1067,
+    credit: "Erin Decker · Unsplash",
+  },
+  authorId: "a-marisol",
+  publishedAt: "2026-08-13",
+  readingMinutes: 16,
+  tags: [
+    "buying land in texas",
+    "texas land",
+    "texas acreage",
+    "rural property",
+    "texas real estate",
+    "mineral rights",
+    "agricultural valuation",
+    "water wells",
+    "septic systems",
+  ],
+  featured: true,
+  sourceName: "Texas Real Estate Commission",
+  sourceUrl: "https://www.trec.texas.gov/forms/unimproved-property-contract-0",
+  body: [],
+  relatedCollections: [],
+  relatedDestinations: [],
+};
