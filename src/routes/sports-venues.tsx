@@ -7,7 +7,7 @@ import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
-const description = 'Browse major Texas stadiums, arenas, racetracks, ballparks, rodeo grounds and other sports destinations, including professional, college, motorsports and regional visitor draws.';
+const description = 'Browse major Texas stadiums, arenas, racetracks, golf courses, ballparks, high-school football landmarks, rodeo grounds and tournament complexes, including professional, college, motorsports and regional visitor draws.';
 
 export const Route = createFileRoute('/sports-venues')({
   loader: async () => {
@@ -18,7 +18,7 @@ export const Route = createFileRoute('/sports-venues')({
   },
   head: () => ({
     meta: buildMeta(texasDefinedBrand, {
-      title: 'Texas Stadiums, Arenas, Racetracks & Sports Venues',
+      title: 'Texas Stadiums, Arenas, Racetracks, Golf & Sports Venues',
       description,
       canonicalPath: '/sports-venues',
     }),
@@ -33,18 +33,22 @@ function SportsVenuesPage() {
   const motorsports = venues.filter((venue) => venue.tags?.includes('motorsports')).length;
   const college = venues.filter((venue) => venue.tags?.includes('college')).length;
   const professional = venues.filter((venue) => venue.tags?.includes('professional')).length;
+  const golf = venues.filter((venue) => venue.tags?.includes('golf')).length;
+  const highSchool = venues.filter((venue) => venue.tags?.includes('high-school')).length;
 
   return <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
     <main className="mx-auto max-w-6xl">
       <header className="border-b border-border pb-10">
         <p className="eyebrow text-primary">Texas Sports Destinations</p>
-        <h1 className="mt-3 max-w-5xl font-display text-5xl leading-[0.98] sm:text-7xl">Stadiums, arenas, racetracks and ballparks worth traveling for</h1>
+        <h1 className="mt-3 max-w-5xl font-display text-5xl leading-[0.98] sm:text-7xl">Stadiums, arenas, racetracks and sports destinations worth traveling for</h1>
         <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground sm:text-xl">{description}</p>
-        <dl className="mt-8 grid gap-4 sm:grid-cols-4">
+        <dl className="mt-8 grid gap-4 sm:grid-cols-3 lg:grid-cols-6">
           <Stat label="Venue guides" value={venues.length} />
           <Stat label="Professional" value={professional} />
           <Stat label="College" value={college} />
           <Stat label="Motorsports" value={motorsports} />
+          <Stat label="Golf" value={golf} />
+          <Stat label="High school" value={highSchool} />
         </dl>
       </header>
 
@@ -82,12 +86,16 @@ function groupVenues(venues: TexasEntityRecord[]) {
     western: [] as TexasEntityRecord[],
     professional: [] as TexasEntityRecord[],
     college: [] as TexasEntityRecord[],
+    golf: [] as TexasEntityRecord[],
+    highSchool: [] as TexasEntityRecord[],
     regional: [] as TexasEntityRecord[],
   };
 
   for (const venue of venues) {
     const tags = new Set(venue.tags ?? []);
     if (tags.has('motorsports') || tags.has('horse-racing')) buckets.motorsports.push(venue);
+    else if (tags.has('golf')) buckets.golf.push(venue);
+    else if (tags.has('high-school')) buckets.highSchool.push(venue);
     else if (tags.has('rodeo') || tags.has('equestrian') || tags.has('western-sports')) buckets.western.push(venue);
     else if (tags.has('professional')) buckets.professional.push(venue);
     else if (tags.has('college')) buckets.college.push(venue);
@@ -96,10 +104,12 @@ function groupVenues(venues: TexasEntityRecord[]) {
 
   return [
     { key: 'professional', eyebrow: 'Big league Texas', title: 'Professional stadiums and major arenas', description: 'NFL, MLB, NBA, NHL, MLS, WNBA and major multi-use venues that anchor sports trips and event weekends.', venues: buckets.professional },
-    { key: 'college', eyebrow: 'College traditions', title: 'College stadiums and arenas', description: 'The major football and basketball venues where Texas college traditions become destination events.', venues: buckets.college },
-    { key: 'motorsports', eyebrow: 'Racing Texas', title: 'Motorsports and racing destinations', description: 'Formula racing, stock cars, drag racing and live horse-racing venues that draw visitors from well beyond their home cities.', venues: buckets.motorsports },
-    { key: 'western', eyebrow: 'Western sports', title: 'Rodeo and equestrian venues', description: 'Historic rodeo grounds and large equestrian complexes where Western sports are part of the Texas visitor experience.', venues: buckets.western },
-    { key: 'regional', eyebrow: 'Regional favorites', title: 'Ballparks and regional sports venues', description: 'Minor-league ballparks and other venues that can anchor family trips, weekend getaways and local sports tourism.', venues: buckets.regional },
+    { key: 'college', eyebrow: 'College traditions', title: 'College stadiums, arenas and ballparks', description: 'Major football, basketball, baseball and aquatic venues where Texas college traditions become destination events.', venues: buckets.college },
+    { key: 'high-school', eyebrow: 'Friday night lights', title: 'Texas high-school football landmarks', description: 'Large and culturally significant district stadiums that draw visiting families, playoff crowds and fans who treat Texas high-school football as part of the trip.', venues: buckets.highSchool },
+    { key: 'motorsports', eyebrow: 'Racing Texas', title: 'Motorsports and racing destinations', description: 'Formula racing, stock cars, drag racing, road courses, track days and live horse-racing venues that draw visitors from well beyond their home cities.', venues: buckets.motorsports },
+    { key: 'golf', eyebrow: 'Championship golf', title: 'Tournament and destination golf venues', description: 'Courses associated with major championships, PGA TOUR and LPGA events, resort golf and spectator weekends worth planning a Texas trip around.', venues: buckets.golf },
+    { key: 'western', eyebrow: 'Western sports', title: 'Rodeo and equestrian venues', description: 'Historic rodeo grounds and large equestrian complexes where Western sports, livestock shows and championship events are part of the Texas visitor experience.', venues: buckets.western },
+    { key: 'regional', eyebrow: 'More sports trips', title: 'Tournament complexes and distinctive sports destinations', description: 'Minor-league ballparks, shooting sports, surf parks, youth tournament centers and other venues that can anchor family trips, competition weekends and specialized sports travel.', venues: buckets.regional },
   ].filter((group) => group.venues.length > 0);
 }
 
@@ -107,10 +117,16 @@ function venueLabel(venue: TexasEntityRecord) {
   const tags = new Set(venue.tags ?? []);
   if (tags.has('motorsports')) return 'Motorsports';
   if (tags.has('horse-racing')) return 'Horse racing';
+  if (tags.has('golf')) return 'Golf destination';
+  if (tags.has('high-school')) return 'High-school football';
   if (tags.has('rodeo') || tags.has('equestrian') || tags.has('western-sports')) return 'Western sports';
   if (tags.has('professional')) return 'Professional venue';
+  if (tags.has('college-baseball')) return 'College baseball';
   if (tags.has('college')) return 'College venue';
   if (tags.has('minor-league')) return 'Minor league';
+  if (tags.has('shooting-sports')) return 'Shooting sports';
+  if (tags.has('action-sports')) return 'Action sports';
+  if (tags.has('tournament-complex')) return 'Tournament complex';
   return 'Sports venue';
 }
 
