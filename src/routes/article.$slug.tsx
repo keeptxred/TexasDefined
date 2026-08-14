@@ -203,6 +203,12 @@ function ArticlePage() {
   const department = articleDepartment(article.category);
   const texasExplainedPillarPosition = texasExplainedPillarOrder.findIndex((pillarSlug) => pillarSlug === article.slug);
   const isTexasExplainedPillar = texasExplainedPillarPosition >= 0;
+  const previousTexasExplainedSlug = texasExplainedPillarPosition > 0
+    ? texasExplainedPillarOrder[texasExplainedPillarPosition - 1]
+    : null;
+  const nextTexasExplainedSlug = texasExplainedPillarPosition >= 0 && texasExplainedPillarPosition < texasExplainedPillarOrder.length - 1
+    ? texasExplainedPillarOrder[texasExplainedPillarPosition + 1]
+    : null;
   const embeddedInternalLinks = article.internalLinks ?? [];
   const supplementalInternalLinks = articleInternalLinks[article.slug] ?? [];
   const internalLinks = [
@@ -233,6 +239,11 @@ function ArticlePage() {
       {isTexasExplainedPillar && <aside className="mt-8 border-l-2 border-primary pl-5" aria-label="Texas Explained series">
         <p className="eyebrow text-primary">Texas Explained · Guide {texasExplainedPillarPosition + 1} of {texasExplainedPillarOrder.length}</p>
         <p className="mt-2 text-sm leading-7 text-muted-foreground">Part of our 10-guide series on the systems, landscapes and people that explain how Texas works. <Link to="/texas-explained" className="border-b border-primary text-foreground transition-colors hover:text-primary">See all 10 guides →</Link></p>
+        <nav aria-label="Texas Explained guide navigation" className="mt-5 grid grid-cols-[1fr_auto_1fr] items-center gap-3 border-t border-border pt-4 text-xs font-semibold uppercase tracking-[0.12em]">
+          <div>{previousTexasExplainedSlug ? <Link to="/article/$slug" params={{ slug: previousTexasExplainedSlug }} className="text-foreground transition-colors hover:text-primary">← Guide {texasExplainedPillarPosition} of {texasExplainedPillarOrder.length}</Link> : null}</div>
+          <Link to="/texas-explained" className="text-center text-primary">All 10 guides</Link>
+          <div className="text-right">{nextTexasExplainedSlug ? <Link to="/article/$slug" params={{ slug: nextTexasExplainedSlug }} className="text-foreground transition-colors hover:text-primary">Guide {texasExplainedPillarPosition + 2} of {texasExplainedPillarOrder.length} →</Link> : null}</div>
+        </nav>
       </aside>}
       <div className="mt-10"><ArticleBody blocks={article.body} entities={graph} /></div>
       {article.hero.credit && <p className="mt-10 text-xs text-muted-foreground">Photography: {article.hero.credit}</p>}
