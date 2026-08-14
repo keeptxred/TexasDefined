@@ -2,11 +2,11 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
-import { fishSpeciesQuery, fishingLakesQuery, lakeSpeciesProfilesQuery } from "@/data/fishing/queries";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 export const Route = createFileRoute("/fishing")({
   loader: async ({ context }) => {
+    const { fishSpeciesQuery, fishingLakesQuery, lakeSpeciesProfilesQuery } = await import("@/data/fishing/queries");
     const [lakes, species, lakeSpecies] = await Promise.all([
       context.queryClient.ensureQueryData(fishingLakesQuery({ featured: true, limit: 12 })),
       context.queryClient.ensureQueryData(fishSpeciesQuery({ limit: 50 })),
