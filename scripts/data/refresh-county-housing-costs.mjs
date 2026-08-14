@@ -62,7 +62,9 @@ async function loadTable({ table, variable, field }) {
       header = cells.map((cell) => cell.replace(/^\uFEFF/, '').trim());
       geoIndex = header.indexOf('GEO_ID');
       valueIndex = header.indexOf(variable);
-      if (geoIndex < 0 || valueIndex < 0) throw new Error(`${table} missing GEO_ID or ${variable}`);
+      if (geoIndex < 0 || valueIndex < 0) {
+        throw new Error(`${table} missing GEO_ID or ${variable}; first row has ${header.length} fields: ${header.slice(0, 12).join(' | ')}`);
+      }
       return;
     }
     const geoId = String(cells[geoIndex] || '');
