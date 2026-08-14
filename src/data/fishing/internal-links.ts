@@ -1,4 +1,3 @@
-import { fishingPlatform, fishingScope } from "./index";
 import { fishingGuideCanonicalPath } from "./guide-routing";
 import { fishingAccessCanonicalPath, fishingServiceCanonicalPath } from "./local-routing";
 import { FISHING_LAKE_COMPARE_PATH, FISHING_TRIP_PLANNER_PATH } from "./planner-routing";
@@ -22,6 +21,9 @@ function normalizeTerms(values: Array<string | undefined>) {
 }
 
 export async function buildFishingInternalLinkEntities(): Promise<FishingInternalLinkEntity[]> {
+  // Keep the repository/data graph out of the client entry bundle. This builder is
+  // already asynchronous, so load the platform only when discovery entities are built.
+  const { fishingPlatform, fishingScope } = await import("./index");
   const [lakes, species, guides, reports, accessRaw, tackleRaw, businessesRaw] = await Promise.all([
     fishingPlatform.lakes.list({ ...fishingScope, status: "published", limit: 5000 }),
     fishingPlatform.species.list({ ...fishingScope, status: "published", limit: 5000 }),
