@@ -7,14 +7,195 @@ const texasExplainedLink: ArticleInternalLink = {
 };
 
 export const articleInternalLinks: Record<string, ArticleInternalLink[]> = {
-  "texas-rivers-explained": [texasExplainedLink],
-  "texas-lakes-reservoirs-explained": [texasExplainedLink],
-  "texas-farm-to-market-roads-explained": [texasExplainedLink],
-  "texas-courthouses-town-square": [texasExplainedLink],
-  "texas-wildflowers-guide": [texasExplainedLink],
-  "buying-land-in-texas-guide": [texasExplainedLink],
-  "texas-wildlife-guide": [texasExplainedLink],
-  "texas-cultural-regions-explained": [texasExplainedLink],
+  "texas-rivers-explained": [
+    texasExplainedLink,
+    {
+      href: "/article/texas-lakes-reservoirs-explained",
+      label: "Why almost all Texas lakes are man-made",
+      description: "Follow the river system into the reservoirs Texas built for water supply, flood control, power and recreation.",
+    },
+    {
+      href: "/article/texas-regions-explained",
+      label: "Texas regions explained",
+      description: "See how rainfall, elevation and drainage help separate East Texas, the Hill Country, the Plains, the coast and West Texas.",
+    },
+    {
+      href: "/article/texas-wildlife-guide",
+      label: "Texas wildlife by region",
+      description: "Connect river corridors and watersheds with the deer, birds, bats, alligators and other wildlife Texans actually encounter.",
+    },
+    {
+      href: "/article/texas-wildflowers-guide",
+      label: "Texas wildflowers through the seasons",
+      description: "See how rainfall, soils and geography shape the roadside and prairie blooms that change across the state.",
+    },
+  ],
+  "texas-lakes-reservoirs-explained": [
+    texasExplainedLink,
+    {
+      href: "/article/texas-rivers-explained",
+      label: "The rivers that built Texas",
+      description: "Start upstream with the major river basins that feed reservoirs, cities, farms, bays and ecosystems across Texas.",
+    },
+    {
+      href: "/article/texas-wildlife-guide",
+      label: "Texas wildlife: what lives around the water",
+      description: "Move from reservoirs to the animals found along shorelines, wetlands, river corridors and the regions around them.",
+    },
+    {
+      href: "/article/texas-regions-explained",
+      label: "How Texas geography changes the water story",
+      description: "Compare humid East Texas, limestone country, the High Plains, the coast and the arid Trans-Pecos through one statewide map.",
+    },
+    {
+      href: "/article/buying-land-in-texas-guide",
+      label: "Buying land in Texas",
+      description: "Turn the water question practical with due diligence on wells, floodplain, access, septic, utilities, restrictions and rural property.",
+    },
+  ],
+  "texas-farm-to-market-roads-explained": [
+    texasExplainedLink,
+    {
+      href: "/article/texas-courthouses-town-square",
+      label: "Why Texas towns grew around courthouse squares",
+      description: "Follow the rural road network into the county seats and town centers that organized local government and commerce.",
+    },
+    {
+      href: "/article/why-texas-has-254-counties",
+      label: "Why Texas has 254 counties",
+      description: "See why local government had to stay geographically close in a state this large—and why so many roads lead to county seats.",
+    },
+    {
+      href: "/article/texas-cultural-regions-explained",
+      label: "How migration created different Texases",
+      description: "See how settlement routes, farming districts, ranch country and later transportation networks reinforced different regional cultures.",
+    },
+    {
+      href: "/article/texas-regions-explained",
+      label: "Texas regions explained",
+      description: "Put FM and RM roads back onto the landscapes they cross, from Blackland Prairie farm country to the Hill Country and West Texas.",
+    },
+  ],
+  "texas-courthouses-town-square": [
+    texasExplainedLink,
+    {
+      href: "/article/why-texas-has-254-counties",
+      label: "Why Texas has 254 counties",
+      description: "Understand why county government became so geographically dense and why the county seat mattered so much to everyday Texans.",
+    },
+    {
+      href: "/article/texas-farm-to-market-roads-explained",
+      label: "Farm-to-market roads explained",
+      description: "See how the state road network tied farms, ranches and smaller communities back to market towns and county seats.",
+    },
+    {
+      href: "/article/texas-home-architecture-regions",
+      label: "Why Texas buildings look different across the state",
+      description: "Move from civic architecture to the climate, materials and settlement traditions that shaped ordinary Texas homes.",
+    },
+    {
+      href: "/article/texas-cultural-regions-explained",
+      label: "The cultural regions of Texas",
+      description: "Layer migration, language, religion, farming, ranching and industry onto the town patterns visible around courthouse squares.",
+    },
+  ],
+  "texas-wildflowers-guide": [
+    texasExplainedLink,
+    {
+      href: "/article/texas-trees-guide",
+      label: "Texas trees explained",
+      description: "Pair the seasonal bloom calendar with the live oaks, pecans, mesquite, junipers and pines that define each region.",
+    },
+    {
+      href: "/article/texas-wildlife-guide",
+      label: "Texas wildlife: a practical field guide",
+      description: "Connect native plant communities with the animals Texans encounter in neighborhoods, parks, ranch country and wild landscapes.",
+    },
+    {
+      href: "/article/best-native-plants-texas-yard",
+      label: "Best native plants for a Texas yard",
+      description: "Turn statewide wildflower knowledge into practical choices for a yard that fits Texas heat, rainfall and local soils.",
+    },
+    {
+      href: "/article/texas-regions-explained",
+      label: "Texas regions explained",
+      description: "See why the wildflower calendar and species mix change so sharply from the Piney Woods to the Plains, coast and desert.",
+    },
+  ],
+  "buying-land-in-texas-guide": [
+    texasExplainedLink,
+    {
+      href: "/article/texas-regions-explained",
+      label: "Know the Texas region before the parcel",
+      description: "Start with rainfall, soils, terrain and regional geography before narrowing rural-property due diligence to one tract.",
+    },
+    {
+      href: "/article/texas-home-architecture-regions",
+      label: "Why Texas homes look different across the state",
+      description: "See how climate, local materials, foundations and settlement history affect what eventually gets built on Texas land.",
+    },
+    {
+      href: "/article/muds-pids-hoas-special-districts-texas",
+      label: "MUDs, PIDs, HOAs and special districts explained",
+      description: "Compare acreage due diligence with the overlapping local entities and assessments that can shape suburban Texas property.",
+    },
+    {
+      href: "/article/texas-lakes-reservoirs-explained",
+      label: "Understand the state's reservoir system",
+      description: "Put wells, surface water and floodplain questions into the larger system Texas built to store and move water.",
+    },
+  ],
+  "texas-wildlife-guide": [
+    texasExplainedLink,
+    {
+      href: "/article/texas-trees-guide",
+      label: "Read the habitat by its trees",
+      description: "Use pines, live oaks, junipers, pecans and mesquite as clues to the habitats and regions where different Texas wildlife appears.",
+    },
+    {
+      href: "/article/texas-wildflowers-guide",
+      label: "Texas wildflowers through the seasons",
+      description: "Pair animal encounters with the changing plant communities, rainfall and flowering seasons around them.",
+    },
+    {
+      href: "/article/texas-regions-explained",
+      label: "Texas regions explained",
+      description: "Understand why alligators, black bears, javelinas, prairie wildlife and desert species occupy very different parts of one state.",
+    },
+    {
+      href: "/explore/outdoors",
+      label: "Explore Texas outdoors",
+      description: "Find parks and landscapes where wildlife can be observed responsibly in the habitats described in this guide.",
+    },
+  ],
+  "texas-cultural-regions-explained": [
+    texasExplainedLink,
+    {
+      href: "/article/texas-regions-explained",
+      label: "Start with the physical regions of Texas",
+      description: "Put settlement and migration onto the underlying map of forests, prairies, coast, limestone country, plains and desert.",
+    },
+    {
+      href: "/article/texas-towns-german-czech-mexican-roots",
+      label: "Texas towns with German, Czech and Mexican roots",
+      description: "Zoom from statewide cultural regions into individual communities where settlement history remains especially visible.",
+    },
+    {
+      href: "/article/texas-home-architecture-regions",
+      label: "How migration shows up in Texas homes",
+      description: "See cultural history expressed through building forms, materials, porches, masonry, ranch houses and regional residential traditions.",
+    },
+    {
+      href: "/article/texas-courthouses-town-square",
+      label: "The Texas courthouse square",
+      description: "See how settlement, county government, commerce and architecture gave many Texas communities a recognizable civic center.",
+    },
+    {
+      href: "/article/texas-barbecue-styles-explained",
+      label: "Texas barbecue styles explained",
+      description: "Follow migration and regional history into one of the clearest surviving maps of Texas food traditions.",
+    },
+  ],
   "texas-barbecue-styles-explained": [
     {
       href: "/explore/food-bbq",
@@ -115,6 +296,16 @@ export const articleInternalLinks: Record<string, ArticleInternalLink[]> = {
       href: "/article/texas-cultural-regions-explained",
       label: "How migration created different Texases",
       description: "Connect regional house forms to the Indigenous, Tejano, Southern, African American, European immigrant and modern migration histories behind them.",
+    },
+    {
+      href: "/article/texas-regions-explained",
+      label: "Texas regions explained",
+      description: "Connect residential design to the rainfall, soils, temperature, wind and landscapes that change across the state.",
+    },
+    {
+      href: "/article/texas-courthouses-town-square",
+      label: "The Texas courthouse square",
+      description: "Compare everyday residential architecture with the civic buildings and town plans that anchored many county seats.",
     },
   ],
   "texas-foundation-care-clay-soil-drought": [
