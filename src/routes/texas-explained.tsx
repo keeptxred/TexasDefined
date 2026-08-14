@@ -57,6 +57,34 @@ const quickAnswers = [
   },
 ] as const;
 
+const supportingExplainers = [
+  {
+    to: "/article/texas-regions-explained",
+    title: "Texas regions explained",
+    description: "Start with the physical map—forests, prairies, coast, limestone country, plains and desert—underneath many of the patterns in the core guides.",
+  },
+  {
+    to: "/article/why-texas-has-254-counties",
+    title: "Why Texas has 254 counties",
+    description: "See why Texas built such a dense local-government map and how county seats became organizing points for roads, records and civic life.",
+  },
+  {
+    to: "/article/texas-hill-country-what-makes-it",
+    title: "What makes the Hill Country the Hill Country?",
+    description: "Zoom into one region where limestone, rivers, live oak, juniper, ranch roads and settlement history visibly reinforce one another.",
+  },
+  {
+    to: "/article/best-native-plants-texas-yard",
+    title: "Best native plants for a Texas yard",
+    description: "Turn statewide knowledge about Texas plants, rainfall and regions into practical choices for a home landscape.",
+  },
+  {
+    to: "/article/texas-barbecue-styles-explained",
+    title: "Texas barbecue styles explained",
+    description: "Follow migration, ranching, community traditions and regional identity into one of the state's most recognizable cultural maps.",
+  },
+] as const;
+
 const sections = [
   {
     eyebrow: "Land and water",
@@ -204,6 +232,25 @@ function TexasExplainedPage() {
             );
           })}
         </div>
+
+        <section className="mt-16 border-t border-border pt-10" aria-labelledby="texas-explained-go-deeper">
+          <header className="max-w-3xl">
+            <p className="eyebrow text-primary">Go deeper</p>
+            <h2 id="texas-explained-go-deeper" className="mt-2 font-display text-3xl leading-tight sm:text-4xl">Five supporting explainers</h2>
+            <p className="mt-4 text-base leading-7 text-muted-foreground">These sit outside the core 10-guide series, but each extends one of its central ideas into a more specific Texas landscape, system or tradition.</p>
+          </header>
+          <ul className="mt-8 grid border-t border-border md:grid-cols-2">
+            {supportingExplainers.map((item, index) => (
+              <li key={item.to} className={`border-b border-border py-7 md:px-6 ${index % 2 === 1 ? "md:border-l" : ""}`}>
+                <Link to={item.to} className="group block h-full">
+                  <h3 className="font-display text-2xl leading-tight transition-colors group-hover:text-primary">{item.title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-muted-foreground">{item.description}</p>
+                  <span className="eyebrow mt-5 inline-block border-b border-primary pb-1 text-primary">Read the explainer →</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
 
         {articles.length < pillarSlugs.length ? (
           <p className="mt-12 border-t border-border pt-6 text-sm leading-6 text-muted-foreground">
