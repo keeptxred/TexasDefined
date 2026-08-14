@@ -6,6 +6,7 @@ import freezeHero from "@/assets/generated/texas-freeze-prep.jpg";
 import specialDistrictsHero from "@/assets/generated/texas-special-districts.jpg";
 
 import type { Article } from "../types";
+import { buyingLandInTexasGuideStub } from "./buying-land-in-texas-guide-stub";
 import { texasHomeArchitectureRegionsStub } from "./texas-home-architecture-regions-stub";
 import {
   chooseElectricityPlanTexasStub,
@@ -194,6 +195,7 @@ const mudsPidsHoasSpecialDistrictsStub: Article = {
 };
 
 export const lazyEvergreenArticleStubs: Article[] = [
+  buyingLandInTexasGuideStub,
   texasFarmToMarketRoadsExplainedStub,
   texasWildflowersGuideStub,
   texasTreesGuideStub,
@@ -236,8 +238,41 @@ const texasRiversSourceLinks: NonNullable<Article["internalLinks"]> = [
   },
 ];
 
+const buyingLandOfficialLinks: NonNullable<Article["internalLinks"]> = [
+  {
+    href: "https://www.tceq.texas.gov/permitting/ossf/ossfhomeowners.html",
+    label: "Texas septic-system guidance",
+    description: "TCEQ homeowner guidance for OSSF site evaluation, permitting and local authorities.",
+  },
+  {
+    href: "https://www3.twdb.texas.gov/apps/waterdatainteractive/groundwaterdataviewer",
+    label: "Texas groundwater and well records",
+    description: "TWDB's official viewer for groundwater data, well reports, aquifers, depths and water levels.",
+  },
+  {
+    href: "https://comptroller.texas.gov/taxes/property-tax/ag-timber/",
+    label: "Texas agricultural special appraisal",
+    description: "Official Comptroller guidance on agricultural, timber and wildlife-management productivity appraisal.",
+  },
+  {
+    href: "https://www.rrc.texas.gov/resource-center/research/gis-viewer/",
+    label: "Railroad Commission public GIS viewer",
+    description: "Screen Texas land for mapped wells, pipelines, surveys and other energy-related features.",
+  },
+  {
+    href: "https://www.txdot.gov/manuals/mnt/use/uses_of_right_of_way_long_term/access_driveways-i1001099.html",
+    label: "TxDOT state-highway driveway access",
+    description: "Official guidance for new or modified access driveways on the Texas state highway system.",
+  },
+];
+
 export async function loadLazyEvergreenArticle(brandId: string, slug: string): Promise<Article | null> {
   if (brandId !== "texasdefined") return null;
+
+  if (slug === buyingLandInTexasGuideStub.slug) {
+    const { buyingLandInTexasGuideArticle } = await import("./buying-land-in-texas-guide");
+    return addSourceLinks(buyingLandInTexasGuideArticle, buyingLandOfficialLinks);
+  }
 
   if (slug === texasFarmToMarketRoadsExplainedStub.slug) {
     const { texasFarmToMarketRoadsExplainedArticle } = await import("./texas-farm-to-market-roads-explained");
@@ -317,7 +352,7 @@ export async function loadLazyEvergreenArticle(brandId: string, slug: string): P
   }
 
   if (slug === texasFoundationCareStub.slug) {
-    const { texasFoundationCareArticle } = await import("./texas-foundation-care-clay-drought");
+    const { texasFoundationCareArticle } = await import("./texas-foundation-care-clay-soil-drought");
     return texasFoundationCareArticle;
   }
 
