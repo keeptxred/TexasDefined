@@ -1,12 +1,12 @@
 import { createFileRoute } from '@tanstack/react-router';
 
-import { loadTexasCountyHousingCosts } from '@/data/acs-county-housing-costs';
+import { getTexasCountyHousingCosts } from '@/data/acs-county-housing-costs.functions';
 
 export const Route = createFileRoute('/texas-data/county-housing-costs.csv')({
   server: {
     handlers: {
-      GET: () => {
-        const data = loadTexasCountyHousingCosts();
+      GET: async () => {
+        const data = await getTexasCountyHousingCosts();
         if (!data.available) {
           return new Response('Official Census county housing/cost snapshot is not ready.\n', {
             status: 503,
