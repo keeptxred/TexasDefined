@@ -126,6 +126,20 @@ for (const marker of [
   if (!route.includes(marker)) errors.push(`Texas Explained quick-answer layer missing: ${marker}.`);
 }
 
+for (const marker of [
+  'const supportingExplainers = [',
+  'Go deeper',
+  'Five supporting explainers',
+  'These sit outside the core 10-guide series',
+  '/article/texas-regions-explained',
+  '/article/why-texas-has-254-counties',
+  '/article/texas-hill-country-what-makes-it',
+  '/article/best-native-plants-texas-yard',
+  '/article/texas-barbecue-styles-explained',
+]) {
+  if (!route.includes(marker)) errors.push(`Texas Explained outward support-ring discovery missing: ${marker}.`);
+}
+
 const schemaSetMatch = articleRoute.match(/const texasExplainedPillarSlugs = new Set\(\[([\s\S]*?)\]\);/);
 if (!schemaSetMatch) {
   errors.push('Texas Explained article schema membership set is missing.');
@@ -189,6 +203,9 @@ for (const slug of supportRing) {
   if (!block.includes('texasExplainedLink')) {
     errors.push(`Texas Explained support page must link back to the collection: ${slug}.`);
   }
+  if (!route.includes(`/article/${slug}`)) {
+    errors.push(`Texas Explained hub must link outward to support page: ${slug}.`);
+  }
 }
 
 if (!publicRoutes.includes('"/texas-explained"')) {
@@ -249,4 +266,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Texas Explained collection, exact ten-pillar Article → CollectionPage schema membership, visible ten-pillar article-series cue, sitemap ownership, Start Here discovery, reciprocal collection backlinks, pillar-to-pillar topic clusters, five-page supporting authority ring, five-question AEO quick-answer layer, homepage promotion, persistent footer navigation, site-search indexing and zero-query search discovery are protected.');
+console.log('Texas Explained collection, exact ten-pillar Article → CollectionPage schema membership, visible ten-pillar article-series cue, sitemap ownership, Start Here discovery, reciprocal collection backlinks, pillar-to-pillar topic clusters, bidirectional five-page supporting authority ring, five-question AEO quick-answer layer, homepage promotion, persistent footer navigation, site-search indexing and zero-query search discovery are protected.');
