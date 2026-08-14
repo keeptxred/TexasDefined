@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import { search } from '../../src/domain/search/engine.ts';
 
 const insuranceRoute = fs.readFileSync('src/routes/texas-home-insurance-calculator.tsx', 'utf8');
 const costOfLivingRoute = fs.readFileSync('src/routes/texas-cost-of-living-calculator.tsx', 'utf8');
@@ -12,6 +13,7 @@ const knowledgeGraph = fs.readFileSync('src/data/knowledge-graph/index.ts', 'utf
 const localGovernment = fs.readFileSync('src/data/local-government-profile.ts', 'utf8');
 const serverRoute = fs.readFileSync('src/server.ts', 'utf8');
 const countySeries = fs.readFileSync('src/data/county-series.ts', 'utf8');
+const queriesSource = fs.readFileSync('src/data/queries.ts', 'utf8');
 const failures = [];
 
 for (const required of [
@@ -125,10 +127,42 @@ if (!countySeries.includes('profile("brewster", "brewster-county-big-bend-texas"
   failures.push('Brewster legacy article must remain mapped to the canonical /county/brewster guide.');
 }
 
+const texasExplainedBlock = queriesSource.match(/id: "collection:texas-explained",[\s\S]*?href: "\/texas-explained",\n  },/)?.[0] ?? '';
+const texasExplainedTitle = texasExplainedBlock.match(/title: "([^"]+)"/)?.[1] ?? '';
+const texasExplainedSummary = texasExplainedBlock.match(/summary: "([^"]+)"/)?.[1] ?? '';
+const texasExplainedKeywordsSource = texasExplainedBlock.match(/keywords: \[([^\]]+)\]/)?.[1] ?? '';
+const texasExplainedKeywords = [...texasExplainedKeywordsSource.matchAll(/"([^"]+)"/g)].map((match) => match[1]);
+const texasExplainedDocument = {
+  id: 'collection:texas-explained',
+  brandId: 'texasdefined',
+  kind: 'collection',
+  title: texasExplainedTitle,
+  summary: texasExplainedSummary,
+  keywords: texasExplainedKeywords,
+  href: '/texas-explained',
+};
+
+if (!texasExplainedTitle || !texasExplainedSummary || texasExplainedKeywords.length < 10) {
+  failures.push('Texas Explained production search document could not be parsed for behavioral scoring.');
+} else {
+  for (const [term, minimumScore] of [
+    ['why Texas', 12],
+    ['Texas regions', 12],
+    ['Texas counties', 12],
+    ['Texas wildlife', 12],
+    ['buying land', 8],
+  ]) {
+    const hit = search([texasExplainedDocument], { term, brandId: 'texasdefined', limit: 1 })[0];
+    if (!hit || hit.document.href !== '/texas-explained' || hit.score < minimumScore) {
+      failures.push(`Texas Explained search scoring is too weak for “${term}”: expected >= ${minimumScore}, got ${hit?.score ?? 0}.`);
+    }
+  }
+}
+
 if (failures.length) {
   console.error('Search-intent and SERP CTR validation failed:');
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log('Search-intent and SERP CTR validation passed: impression-bearing calculators, disabled-veteran guidance, city discovery, county property-tax pages, legacy county redirects, appraisal-district queries, agency snippets, independent framing, and publication-quality gates are protected.');
+console.log('Search-intent and SERP CTR validation passed: impression-bearing calculators, disabled-veteran guidance, city discovery, county property-tax pages, legacy county redirects, appraisal-district queries, agency snippets, Texas Explained behavioral search scoring, independent framing, and publication-quality gates are protected.');
