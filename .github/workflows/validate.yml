@@ -59,24 +59,53 @@ jobs:
       - name: Validate machine indexing
         run: node scripts/data/validate-machine-indexing.mjs
 
-      - name: Validate remaining SEO and AEO contracts
-        run: |
-          node scripts/data/validate-aeo-answer-layers.mjs
-          node scripts/data/validate-homepage-seo.mjs
-          node scripts/data/validate-texas-explained-seo.mjs
-          node scripts/data/validate-explore-category-seo.mjs
-          node scripts/data/validate-explore-region-seo.mjs
-          node scripts/data/validate-explore-topical-authority.mjs
-          node scripts/data/validate-article-discover-seo.mjs
-          node scripts/data/validate-author-eeat.mjs
-          node scripts/data/validate-entity-template-quality.mjs
-          node scripts/data/validate-image-seo.mjs
-          node scripts/data/validate-search-rendering-performance.mjs
-          node scripts/data/validate-content-duplication.mjs
-          node scripts/data/validate-sitemap-routes.mjs
-          node scripts/data/validate-internal-link-discovery.mjs
-          node scripts/data/validate-search-intent-ctr.mjs
-          node scripts/data/validate-seo-ci-contract.mjs
+      - name: Validate AEO answer layers
+        run: node scripts/data/validate-aeo-answer-layers.mjs
+
+      - name: Validate homepage SEO
+        run: node scripts/data/validate-homepage-seo.mjs
+
+      - name: Validate Texas Explained SEO
+        run: node scripts/data/validate-texas-explained-seo.mjs
+
+      - name: Validate Explore category SEO
+        run: node scripts/data/validate-explore-category-seo.mjs
+
+      - name: Validate Explore region SEO
+        run: node scripts/data/validate-explore-region-seo.mjs
+
+      - name: Validate Explore topical authority
+        run: node scripts/data/validate-explore-topical-authority.mjs
+
+      - name: Validate article discovery SEO
+        run: node scripts/data/validate-article-discover-seo.mjs
+
+      - name: Validate author EEAT
+        run: node scripts/data/validate-author-eeat.mjs
+
+      - name: Validate entity template quality
+        run: node scripts/data/validate-entity-template-quality.mjs
+
+      - name: Validate image SEO
+        run: node scripts/data/validate-image-seo.mjs
+
+      - name: Validate search rendering performance
+        run: node scripts/data/validate-search-rendering-performance.mjs
+
+      - name: Validate content duplication
+        run: node scripts/data/validate-content-duplication.mjs
+
+      - name: Validate sitemap routes
+        run: node scripts/data/validate-sitemap-routes.mjs
+
+      - name: Validate internal-link discovery
+        run: node scripts/data/validate-internal-link-discovery.mjs
+
+      - name: Validate search-intent CTR
+        run: node scripts/data/validate-search-intent-ctr.mjs
+
+      - name: Validate SEO CI contract
+        run: node scripts/data/validate-seo-ci-contract.mjs
 
       - name: Validate production data and migrated features
         run: npm run data:validate
