@@ -51,6 +51,11 @@ export const articleInternalLinks: Record<string, ArticleInternalLink[]> = {
       label: "Why Texas homes look different across the state",
       description: "See how climate, local materials and migration turned each Texas region into a different residential landscape.",
     },
+    {
+      href: "/article/buying-land-in-texas-guide",
+      label: "Buying land in Texas",
+      description: "Turn regional geography into a practical due-diligence checklist for access, water, septic, minerals, floodplain and taxes.",
+    },
   ],
   "texas-trees-guide": [
     {
@@ -79,6 +84,13 @@ export const articleInternalLinks: Record<string, ArticleInternalLink[]> = {
       description: "Find parks and landscapes where the state's major tree communities are easy to see in person.",
     },
   ],
+  "texas-home-architecture-regions": [
+    {
+      href: "/article/buying-land-in-texas-guide",
+      label: "Buying land before you build",
+      description: "Check access, water, septic, utilities, minerals, restrictions, floodplain and taxes before choosing the future house site.",
+    },
+  ],
   "texas-foundation-care-clay-soil-drought": [
     {
       href: "/article/texas-home-architecture-regions",
@@ -98,6 +110,13 @@ export const articleInternalLinks: Record<string, ArticleInternalLink[]> = {
       href: "/article/texas-home-architecture-regions",
       label: "Understand the Texas house by region",
       description: "Learn why different Texas homes inherit different maintenance needs from climate, construction and local materials.",
+    },
+  ],
+  "muds-pids-hoas-special-districts-texas": [
+    {
+      href: "/article/buying-land-in-texas-guide",
+      label: "What changes when you buy acreage",
+      description: "Compare subdivision-focused due diligence with the access, water, septic, mineral and land-use questions that matter on rural Texas property.",
     },
   ],
 };
