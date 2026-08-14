@@ -197,6 +197,7 @@ export const articleInternalLinks: Record<string, ArticleInternalLink[]> = {
     },
   ],
   "texas-barbecue-styles-explained": [
+    texasExplainedLink,
     {
       href: "/explore/food-bbq",
       label: "Explore Texas food & barbecue",
@@ -214,6 +215,7 @@ export const articleInternalLinks: Record<string, ArticleInternalLink[]> = {
     },
   ],
   "best-native-plants-texas-yard": [
+    texasExplainedLink,
     {
       href: "/home-garden",
       label: "More from Home & Garden",
@@ -236,6 +238,7 @@ export const articleInternalLinks: Record<string, ArticleInternalLink[]> = {
     },
   ],
   "texas-regions-explained": [
+    texasExplainedLink,
     {
       href: "/article/texas-trees-guide",
       label: "Read Texas by its trees",
@@ -255,6 +258,42 @@ export const articleInternalLinks: Record<string, ArticleInternalLink[]> = {
       href: "/article/texas-cultural-regions-explained",
       label: "The cultural regions of Texas",
       description: "Layer migration, settlement, language, food, religion, ranching and industry onto the physical map of Texas.",
+    },
+  ],
+  "why-texas-has-254-counties": [
+    texasExplainedLink,
+    {
+      href: "/article/texas-courthouses-town-square",
+      label: "Why the courthouse square mattered",
+      description: "Follow the county map into the civic centers where local government, records, commerce and community life came together.",
+    },
+    {
+      href: "/article/texas-farm-to-market-roads-explained",
+      label: "How rural Texas roads fit the county map",
+      description: "See how the state highway system connected farms and ranches with county seats, markets and larger transportation networks.",
+    },
+    {
+      href: "/article/texas-cultural-regions-explained",
+      label: "How settlement created different Texases",
+      description: "Layer migration and regional culture onto the dense county structure that still organizes much of Texas government.",
+    },
+  ],
+  "texas-hill-country-what-makes-it": [
+    texasExplainedLink,
+    {
+      href: "/article/texas-rivers-explained",
+      label: "The rivers that shape the Hill Country",
+      description: "Connect limestone terrain and spring-fed landscapes to the wider river basins that drain central Texas.",
+    },
+    {
+      href: "/article/texas-trees-guide",
+      label: "Live oak, juniper and the Texas tree map",
+      description: "See why the Hill Country's familiar tree communities look different from East Texas pine country, the Plains and the desert west.",
+    },
+    {
+      href: "/article/texas-cultural-regions-explained",
+      label: "The cultural regions layered onto the landscape",
+      description: "Trace how migration, ranching and settlement history turned a physical region into a cultural one too.",
     },
   ],
   "texas-trees-guide": [
