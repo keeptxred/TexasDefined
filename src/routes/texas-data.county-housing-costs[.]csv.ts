@@ -25,10 +25,10 @@ export const Route = createFileRoute('/texas-data/county-housing-costs.csv')({
           ...data.rows.map((row) => [
             row.fips,
             csv(row.countyName),
-            row.medianHomeValue,
-            row.medianGrossRent,
-            row.medianMonthlyOwnerCosts,
-            row.medianHouseholdIncome,
+            csvEstimate(row.medianHomeValue),
+            csvEstimate(row.medianGrossRent),
+            csvEstimate(row.medianMonthlyOwnerCosts),
+            csvEstimate(row.medianHouseholdIncome),
           ].join(',')),
         ].join('\n');
 
@@ -47,4 +47,8 @@ export const Route = createFileRoute('/texas-data/county-housing-costs.csv')({
 
 function csv(value: string) {
   return `"${value.replaceAll('"', '""')}"`;
+}
+
+function csvEstimate(value: number | null) {
+  return value === null ? '' : String(value);
 }
