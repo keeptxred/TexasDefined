@@ -58,6 +58,7 @@ jobs:
           node scripts/data/validate-sports-venue-coverage.mjs
           node scripts/data/validate-sports-venue-deep-completeness.mjs
           node scripts/data/validate-sports-venue-landings.mjs
+          node scripts/data/validate-sports-venue-comparison.mjs
           node scripts/data/validate-sports-partner-operations.mjs
           node scripts/data/validate-sports-sponsorship.mjs
 
