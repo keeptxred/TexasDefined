@@ -57,8 +57,9 @@ assert(quickAnswers.includes('SportsTrafficTracker'), 'All venue guides must inh
 for (const marker of [
   "createFileRoute('/admin/sports-traffic')",
   'noindex,nofollow,noarchive',
-  '3000',
-  '300',
+  'monthlyPageviewTarget',
+  'venuePageviewTarget',
+  'minimumVenuesAtTarget',
   'Traffic readiness does not remove it automatically',
   'No venue-guide views have been recorded',
   'does not store visitor IDs, cookies, email addresses, IP addresses or user-agent strings',
