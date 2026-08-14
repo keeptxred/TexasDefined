@@ -33,12 +33,15 @@ export function canonicalFishingPath(kind: FishingRouteKind, slug: string) {
 }
 
 /**
- * Foundation entities still land on statewide anchors until a dedicated page
- * ships. Lake Conroe is the first complete lake destination, so its search and
- * internal-link identity now resolves to the permanent canonical route.
+ * Foundation entities resolve to their deepest published destination. Lake
+ * Conroe and largemouth bass have complete guides; other lake/species records
+ * remain crawlable anchors on their canonical directory until their dedicated
+ * page reaches the same quality gate.
  */
 export function fishingFoundationAnchor(kind: "lake" | "species", slug: string) {
   const canonicalSlug = assertCanonicalFishingSlug(slug);
   if (kind === "lake" && canonicalSlug === "lake-conroe") return canonicalFishingPath("lake", canonicalSlug);
-  return `/fishing#${kind}-${canonicalSlug}`;
+  if (kind === "species" && canonicalSlug === "largemouth-bass") return canonicalFishingPath("species", canonicalSlug);
+  if (kind === "species") return `/fishing/species#species-${canonicalSlug}`;
+  return `/fishing#lake-${canonicalSlug}`;
 }
