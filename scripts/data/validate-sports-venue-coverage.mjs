@@ -106,9 +106,12 @@ for (const marker of [
   'Official planning links',
   'sportsVenueMapUrl',
   'getSportsVenueEnrichmentAll',
+  'Local business partnerships',
+  '/partner-with-us#partnership-form-heading',
+  'Paid relationships do not change editorial rankings, factual conclusions or which venues we cover',
   '/sports-venues',
 ]) {
-  assert(guide.includes(marker), `Dedicated sports venue guide is missing required marker: ${marker}.`);
+  assert(guide.includes(marker), `Dedicated sports venue guide is missing required visitor or partnership marker: ${marker}.`);
 }
 
 for (const getter of [
@@ -156,4 +159,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Sports venue coverage contracts validated: ${majorCount} major seeds + ${tier2Count} second-tier rows, core Reliant record, lightweight static directory, statewide category anchors, dedicated visitor template, sports-travel partnership funnel, current-name correction and all enrichment batches are wired. Exact seeded-to-deep-profile completeness is enforced separately.`);
+console.log(`Sports venue coverage contracts validated: ${majorCount} major seeds + ${tier2Count} second-tier rows, core Reliant record, lightweight static directory, statewide category anchors, dedicated visitor template, venue-level sports-travel partnership funnel, current-name correction and all enrichment batches are wired. Exact seeded-to-deep-profile completeness is enforced separately.`);
