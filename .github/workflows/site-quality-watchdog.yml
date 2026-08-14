@@ -4,6 +4,7 @@ on:
   schedule:
     - cron: '37 12 * * *'
   workflow_dispatch:
+  # Audit changes that can affect public content quality immediately on PRs.
   pull_request:
     paths:
       - '.github/workflows/site-quality-watchdog.yml'
@@ -15,6 +16,7 @@ on:
       - 'src/components/editorial/**'
       - 'src/components/directories/**'
       - 'src/lib/public-routes.ts'
+  # Repeat the same audit after those changes reach production main.
   push:
     branches:
       - main
