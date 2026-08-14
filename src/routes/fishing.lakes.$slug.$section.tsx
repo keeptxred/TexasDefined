@@ -5,7 +5,6 @@ import { LakeConroeGuide } from "@/components/fishing/LakeConroeGuide";
 import { Container } from "@/components/layout/Container";
 import { getLakeConroePageData } from "@/data/fishing/lake-conroe-page-data.functions";
 import { LAKE_CONROE_SLUG, isLakeConroeSection, lakeConroeCanonicalPath, type LakeConroeSection } from "@/data/fishing/lake-conroe-routing";
-import { fishingGuidesQuery, fishingLakeQuery, fishingReportsQuery } from "@/data/fishing/queries";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 type LakeConroeSources = Awaited<ReturnType<typeof getLakeConroePageData>>["sources"];
@@ -14,6 +13,7 @@ const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 export const Route = createFileRoute("/fishing/lakes/$slug/$section")({
   loader: async ({ context, params }) => {
     if (params.slug !== LAKE_CONROE_SLUG || !isLakeConroeSection(params.section)) throw notFound();
+    const { fishingGuidesQuery, fishingLakeQuery, fishingReportsQuery } = await import("@/data/fishing/queries");
     const lake = await context.queryClient.ensureQueryData(fishingLakeQuery(params.slug));
     if (!lake) throw notFound();
     const [reports, guides, pageData] = await Promise.all([
