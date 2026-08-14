@@ -2,6 +2,7 @@ import { createFileRoute, notFound } from '@tanstack/react-router';
 
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { Container } from '@/components/layout/Container';
+import { SponsoredSportsPlacement } from '@/components/sports/SponsoredSportsPlacement';
 import { findCompleteTexasEntity, loadTexasKnowledgeGraph } from '@/data/knowledge-graph';
 import {
   canonicalEntityPath,
@@ -9,6 +10,7 @@ import {
   rankRelatedEntities,
 } from '@/data/knowledge-graph/relationships';
 import type { TexasEntityKind, TexasEntityRecord } from '@/data/knowledge-graph/types';
+import { getActiveSportsSponsorPlacement } from '@/data/sports-sponsorship.functions';
 import { getSportsVenueEnrichmentAll, sportsVenueMapUrl } from '@/data/sports-venue-enrichment-all';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
@@ -49,10 +51,12 @@ export const Route = createFileRoute('/sports-venue/$slug')({
     const graph = await loadTexasKnowledgeGraph();
     const entity = await findCompleteTexasEntity(params.slug);
     if (!entity || entity.kind !== 'sports-venue') throw notFound();
+    const canonicalPath = canonicalEntityPath(entity);
     return {
       entity,
       related: rankRelatedEntities(entity, graph, 16),
       visitorPlaces: countyVisitorPlaces(entity, graph),
+      sponsorPlacement: await getActiveSportsSponsorPlacement({ data: { surfacePath: canonicalPath } }),
     };
   },
   head: ({ loaderData }) => {
@@ -74,7 +78,7 @@ export const Route = createFileRoute('/sports-venue/$slug')({
 });
 
 function SportsVenuePage() {
-  const { entity, related, visitorPlaces } = Route.useLoaderData();
+  const { entity, related, visitorPlaces, sponsorPlacement } = Route.useLoaderData();
   const tags = new Set(entity.tags ?? []);
   const profile = venueProfile(tags);
   const enrichment = getSportsVenueEnrichmentAll(entity.slug);
@@ -163,6 +167,8 @@ function SportsVenuePage() {
           {entity.countySlug && <a className="underline decoration-primary/50 underline-offset-4 hover:text-primary" href={`/county/${entity.countySlug}`}>Explore {countyName} →</a>}
           <a className="underline decoration-primary/50 underline-offset-4 hover:text-primary" href="/sports-venues">All Texas sports venues →</a>
         </div>
+
+        {sponsorPlacement ? <div className="border-b border-border py-8"><SponsoredSportsPlacement placement={sponsorPlacement} /></div> : null}
 
         <section className="grid gap-8 border-b border-border py-12 lg:grid-cols-[15rem_1fr]">
           <div>
