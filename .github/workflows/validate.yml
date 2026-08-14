@@ -104,6 +104,12 @@ jobs:
       - name: Validate search-intent CTR
         run: node scripts/data/validate-search-intent-ctr.mjs
 
+      - name: Validate citation magnets
+        run: node scripts/data/validate-citation-magnets.mjs
+
+      - name: Validate citation downloads
+        run: node scripts/data/validate-citation-downloads.mjs
+
       - name: Validate SEO CI contract
         run: node scripts/data/validate-seo-ci-contract.mjs
 
