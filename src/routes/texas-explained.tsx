@@ -87,6 +87,7 @@ const supportingExplainers = [
 
 const sections = [
   {
+    id: "land-and-water",
     eyebrow: "Land and water",
     title: "The natural systems underneath Texas",
     description: "Rivers, reservoirs, plants, trees and wildlife explain why different parts of Texas look, feel and function so differently.",
@@ -99,6 +100,7 @@ const sections = [
     ],
   },
   {
+    id: "built-texas",
     eyebrow: "Built Texas",
     title: "The systems Texans created on top of the landscape",
     description: "Road designations, courthouse squares, regional architecture and rural land ownership reveal how settlement, government and growth shaped everyday Texas.",
@@ -110,6 +112,7 @@ const sections = [
     ],
   },
   {
+    id: "people-and-place",
     eyebrow: "People and place",
     title: "Why Texas became several cultures inside one state",
     description: "Migration and settlement patterns created regional identities that still show up in language, food, architecture, towns and traditions.",
@@ -191,7 +194,18 @@ function TexasExplainedPage() {
           </aside>
         </section>
 
-        <section className="mt-12" aria-labelledby="texas-explained-quick-answers">
+        <nav aria-label="Texas Explained sections" className="border-b border-border py-6">
+          <p className="eyebrow text-muted-foreground">Jump to</p>
+          <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">
+            <a href="#quick-answers" className="border-b border-transparent pb-1 transition-colors hover:border-primary hover:text-primary">Quick answers</a>
+            <a href="#land-and-water" className="border-b border-transparent pb-1 transition-colors hover:border-primary hover:text-primary">Land &amp; water</a>
+            <a href="#built-texas" className="border-b border-transparent pb-1 transition-colors hover:border-primary hover:text-primary">Built Texas</a>
+            <a href="#people-and-place" className="border-b border-transparent pb-1 transition-colors hover:border-primary hover:text-primary">People &amp; place</a>
+            <a href="#go-deeper" className="border-b border-transparent pb-1 transition-colors hover:border-primary hover:text-primary">Go deeper</a>
+          </div>
+        </nav>
+
+        <section id="quick-answers" className="mt-12 scroll-mt-28" aria-labelledby="texas-explained-quick-answers">
           <header className="max-w-3xl">
             <p className="eyebrow text-primary">Quick answers</p>
             <h2 id="texas-explained-quick-answers" className="mt-2 font-display text-3xl leading-tight sm:text-4xl">Five Texas questions, answered before you dive deeper</h2>
@@ -214,7 +228,7 @@ function TexasExplainedPage() {
             if (!sectionArticles.length) return null;
 
             return (
-              <section key={section.title}>
+              <section key={section.id} id={section.id} className="scroll-mt-28">
                 <header className="grid gap-4 border-b border-border pb-6 lg:grid-cols-[18rem_1fr] lg:items-end">
                   <div>
                     <p className="eyebrow text-primary">{section.eyebrow}</p>
@@ -233,7 +247,7 @@ function TexasExplainedPage() {
           })}
         </div>
 
-        <section className="mt-16 border-t border-border pt-10" aria-labelledby="texas-explained-go-deeper">
+        <section id="go-deeper" className="mt-16 scroll-mt-28 border-t border-border pt-10" aria-labelledby="texas-explained-go-deeper">
           <header className="max-w-3xl">
             <p className="eyebrow text-primary">Go deeper</p>
             <h2 id="texas-explained-go-deeper" className="mt-2 font-display text-3xl leading-tight sm:text-4xl">Five supporting explainers</h2>
