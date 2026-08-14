@@ -67,7 +67,7 @@ if (!failures.length) {
 
   // Sponsorship is disclosed and isolated from editorial ordering.
   if (!directoryServer.includes("editorialOrder") || !directoryServer.includes("businessName.localeCompare") || !directoryServer.includes("sponsoredPlacements")) failures.push("Editorial ordering and sponsored placement separation missing.");
-  if (!directoryUi.includes("Sponsorship never changes this order") && !directoryUi.includes("sponsorship never changes this order")) failures.push("Directory editorial independence disclosure missing.");
+  if (!directoryServer.includes("Sponsorship never changes this order") || !directoryUi.includes("cannot buy a higher editorial rank or recommendation")) failures.push("Directory editorial independence disclosure missing.");
   for (const source of [directoryUi, profileUi]) {
     if (!source.includes("Sponsored placement") || !source.includes('rel="noopener sponsored"')) failures.push("Sponsored guide placement disclosure/link attributes missing.");
   }
