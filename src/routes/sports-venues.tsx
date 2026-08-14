@@ -3,6 +3,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { Container } from '@/components/layout/Container';
 import { SponsoredSportsPlacement } from '@/components/sports/SponsoredSportsPlacement';
+import { SportsVenueLandingIndex } from '@/components/sports/SportsVenueLandingIndex';
 import { entitiesByKind } from '@/data/knowledge-graph';
 import { applyCurrentEntityCorrections } from '@/data/knowledge-graph/current-entity-corrections';
 import { canonicalEntityPath, isIndexableEntityPage } from '@/data/knowledge-graph/relationships';
@@ -56,6 +57,8 @@ function SportsVenuesPage() {
           <Stat label="High school" value={highSchool} />
         </dl>
       </header>
+
+      <SportsVenueLandingIndex />
 
       {sponsorPlacement ? <div className="py-8"><SponsoredSportsPlacement placement={sponsorPlacement} /></div> : null}
 
