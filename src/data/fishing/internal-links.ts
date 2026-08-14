@@ -1,4 +1,4 @@
-export type FishingInternalLinkKind = "lake" | "species" | "guide" | "report" | "access" | "business" | "planner";
+export type FishingInternalLinkKind = "lake" | "species" | "guide" | "report" | "access" | "business" | "planner" | "reference";
 
 export interface FishingInternalLinkEntity {
   id: string;
@@ -15,11 +15,12 @@ function normalizeTerms(values: Array<string | undefined>) {
 
 export async function buildFishingInternalLinkEntities(): Promise<FishingInternalLinkEntity[]> {
   // Keep the repository and route-helper graph out of the client entry bundle.
-  const [platformModule, guideRouting, localRouting, plannerRouting, reportRouting, slugs, validation] = await Promise.all([
+  const [platformModule, guideRouting, localRouting, plannerRouting, regulationsRouting, reportRouting, slugs, validation] = await Promise.all([
     import("./index"),
     import("./guide-routing"),
     import("./local-routing"),
     import("./planner-routing"),
+    import("./regulations-routing"),
     import("./report-routing"),
     import("./slugs"),
     import("./validation"),
@@ -28,6 +29,7 @@ export async function buildFishingInternalLinkEntities(): Promise<FishingInterna
   const { fishingGuideCanonicalPath } = guideRouting;
   const { fishingAccessCanonicalPath, fishingServiceCanonicalPath } = localRouting;
   const { FISHING_LAKE_COMPARE_PATH, FISHING_TRIP_PLANNER_PATH } = plannerRouting;
+  const { FISHING_REGULATIONS_PATH } = regulationsRouting;
   const { fishingReportCanonicalPath } = reportRouting;
   const { fishingFoundationAnchor } = slugs;
   const { isFishingRecordVerified } = validation;
@@ -46,6 +48,7 @@ export async function buildFishingInternalLinkEntities(): Promise<FishingInterna
   const entities: FishingInternalLinkEntity[] = [
     { id: "fishing-planner:trip", kind: "planner", name: "Texas Fishing Trip Planner", aliases: ["fishing trip planner", "plan a fishing trip"], href: FISHING_TRIP_PLANNER_PATH, keywords: ["species", "region", "choose a lake"] },
     { id: "fishing-planner:compare", kind: "planner", name: "Compare Texas Fishing Lakes", aliases: ["fishing lake comparison", "compare fishing lakes"], href: FISHING_LAKE_COMPARE_PATH, keywords: ["lake comparison", "choose a lake"] },
+    { id: "fishing-reference:regulations", kind: "reference", name: "Texas Fishing Regulations & Licenses", aliases: ["Texas fishing regulations", "Texas fishing license", "Texas Outdoor Annual", "fishing rules"], href: FISHING_REGULATIONS_PATH, keywords: ["TPWD", "bag limits", "length limits", "special lake rules", "legal fishing methods"] },
     ...lakes.map((lake) => ({ id: `fishing-lake:${lake.id}`, kind: "lake" as const, name: lake.name, aliases: normalizeTerms(lake.aliases ?? []), href: fishingFoundationAnchor("lake", lake.slug), keywords: normalizeTerms([...lake.counties.map((county) => `${county} County`), ...lake.nearestCities, lake.riverBasin, lake.primaryWaterway]) })),
     ...species.map((row) => ({ id: `fish-species:${row.id}`, kind: "species" as const, name: row.commonName, aliases: normalizeTerms([...(row.aliases ?? []), row.scientificName]), href: fishingFoundationAnchor("species", row.slug), keywords: normalizeTerms([row.waterClass, row.taxonKind, "Texas fishing"]) })),
     ...guides.map((guide) => ({ id: `fishing-guide:${guide.id}`, kind: "guide" as const, name: guide.businessName, aliases: normalizeTerms([guide.guideName]), href: fishingGuideCanonicalPath(guide.slug), keywords: normalizeTerms(guide.serviceRegions ?? []) })),
