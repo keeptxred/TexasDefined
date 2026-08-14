@@ -37,7 +37,7 @@ if (!failures.length) {
   for (const slug of ["lake-conroe", "lake-fork", "sam-rayburn-reservoir", "lake-livingston", "lake-texoma"]) if (!fixtures.includes(`slug: "${slug}"`)) failures.push(`Foundation lake missing: ${slug}`);
   if (!fixtures.includes("assertValidFishingCatalog")) failures.push("Fishing fixture runtime validation missing.");
   if (!globalQueries.includes("buildFishingSearchDocuments")) failures.push("Global fishing search integration missing.");
-  if (!slugs.includes('lake: "/fishing/lakes"') || !slugs.includes('canonicalSlug === "lake-conroe"')) failures.push("Canonical fishing-lake routing is incomplete.");
+  if (!slugs.includes('lake: "/fishing/lakes"') || !slugs.includes('isCompleteFishingLakeSlug(canonicalSlug)')) failures.push("Canonical fishing-lake routing is incomplete.");
   if (!fishingRoute.includes('to="/fishing/lakes/lake-conroe"')) failures.push("/fishing does not discover Lake Conroe.");
 
   for (const value of ["LAKE_CONROE_SLUG", "LAKE_CONROE_VERIFIED_AT", "LAKE_CONROE_SECTION_SLUGS", "lakeConroeCanonicalPath", "isLakeConroeSection"]) if (!routing.includes(value)) failures.push(`Lake Conroe routing contract missing: ${value}`);
