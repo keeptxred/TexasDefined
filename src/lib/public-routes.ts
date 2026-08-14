@@ -3,6 +3,7 @@ export const INDEXABLE_STATIC_PATHS = [
   "/explore",
   "/explore/trip-planner",
   "/explore/attractions-comparison",
+  "/fishing",
   "/sports",
   "/events",
   "/texas-history",

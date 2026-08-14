@@ -83,6 +83,7 @@ export const texasDefinedBrand: BrandConfig = {
         { label: "Outdoors & Wildlife", to: "/explore/outdoors", description: "Wild places, native wildlife and big Texas skies", image: { src: wildlife, alt: "White-tailed deer in Texas brush country" } },
       ],
     },
+    { label: "Fishing", to: "/fishing", description: "Texas lakes, fish species, techniques, guides and fishing reports" },
     {
       label: "Texas Life",
       to: "/texas-living",
@@ -107,6 +108,7 @@ export const texasDefinedBrand: BrandConfig = {
       items: [
         { label: "Trip Planner", to: "/explore/trip-planner" },
         { label: "Lakes & Rivers", to: "/explore/lakes-rivers" },
+        { label: "Fishing", to: "/fishing" },
         { label: "State Parks", to: "/explore/state-parks" },
         { label: "National Parks", to: "/explore/national-parks" },
         { label: "Road Trips", to: "/explore/road-trips" },

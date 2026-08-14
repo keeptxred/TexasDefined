@@ -10,6 +10,7 @@ import { supplementalExploreCategories } from "./explore-categories";
 import { isDestinationPhotoPlaceholder, reconcileDestinationHeroes } from "./explore-hero-reconciliation";
 import { applyExploreHeroAsset, applyExploreHeroAssets } from "./explore-heroes";
 import { fetchExploreDestination, fetchExploreDestinations } from "./explore-remote";
+import { buildFishingSearchDocuments } from "./fishing/search";
 import { legacyExploreDestinations } from "./fixtures/legacy-explore";
 import { legacyLakeDestinations } from "./fixtures/legacy-lakes";
 import { platform, scope } from "./index";
@@ -139,4 +140,23 @@ function destinationSearchDocument(destination: Destination): SearchDocument {
   return { id: `destination:${destination.slug}`, brandId: "texasdefined", kind: "destination", title: destination.name, summary: destination.summary, keywords: [...new Set(keywords)], href: `/destination/${destination.slug}` };
 }
 
-export const searchDocumentsQuery = () => queryOptions({ queryKey: ["search-documents", scope.brandId], queryFn: async () => { const base = await platform.search.documents(scope); let enriched: Destination[] = []; let core: Destination[] = []; try { enriched = await fetchExploreDestinations({ limit: 5000 }); } catch (error) { console.error("Enriched destination search index unavailable; merging core and preserved catalogs", error); } try { core = await fetchCoreExploreDestinations({ limit: 5000 }); } catch (coreError) { console.error("Core remote destination search index unavailable; retaining preserved destinations", coreError); } const destinations = reconcileExploreCatalog(mergeDestinations(enriched, core, preservedExploreDestinations)); if (!destinations.length) return base; return [...base.filter((document) => document.kind !== "destination"), ...destinations.map(destinationSearchDocument)]; } });
+export const searchDocumentsQuery = () => queryOptions({
+  queryKey: ["search-documents", scope.brandId],
+  queryFn: async () => {
+    const base = await platform.search.documents(scope);
+    const fishingDocuments = await buildFishingSearchDocuments();
+    let enriched: Destination[] = [];
+    let core: Destination[] = [];
+    try { enriched = await fetchExploreDestinations({ limit: 5000 }); }
+    catch (error) { console.error("Enriched destination search index unavailable; merging core and preserved catalogs", error); }
+    try { core = await fetchCoreExploreDestinations({ limit: 5000 }); }
+    catch (coreError) { console.error("Core remote destination search index unavailable; retaining preserved destinations", coreError); }
+    const destinations = reconcileExploreCatalog(mergeDestinations(enriched, core, preservedExploreDestinations));
+    const documents = [
+      ...base.filter((document) => document.kind !== "destination"),
+      ...destinations.map(destinationSearchDocument),
+      ...fishingDocuments,
+    ];
+    return [...new Map(documents.map((document) => [document.href, document])).values()];
+  },
+});
