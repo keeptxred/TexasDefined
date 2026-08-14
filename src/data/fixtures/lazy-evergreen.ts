@@ -1,6 +1,7 @@
 import hillCountryHero from "@/assets/generated/hill-country-identity.jpg";
 
 import type { Article } from "../types";
+import { texasLakesReservoirsExplainedStub } from "./texas-lakes-reservoirs-explained-stub";
 
 const texasRiversExplainedStub: Article = {
   id: "evergreen-texas-rivers-explained",
@@ -63,6 +64,7 @@ const texasHillCountryStub: Article = {
 
 export const lazyEvergreenArticleStubs: Article[] = [
   texasRiversExplainedStub,
+  texasLakesReservoirsExplainedStub,
   texasHillCountryStub,
 ];
 
@@ -95,6 +97,11 @@ export async function loadLazyEvergreenArticle(brandId: string, slug: string): P
         ),
       ],
     };
+  }
+
+  if (slug === texasLakesReservoirsExplainedStub.slug) {
+    const { texasLakesReservoirsExplainedArticle } = await import("./texas-lakes-reservoirs-explained");
+    return texasLakesReservoirsExplainedArticle;
   }
 
   if (slug === texasHillCountryStub.slug) {
