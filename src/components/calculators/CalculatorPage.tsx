@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import { Link } from '@tanstack/react-router';
 import { AnswerSummary } from '@/components/content/AnswerSummary';
 import { Container } from '@/components/layout/Container';
+import { EvergreenNextSteps } from '@/components/monetization/EvergreenNextSteps';
 
 export function CalculatorPage({ eyebrow, title, description, children }: { eyebrow: string; title: string; description: string; children: ReactNode }) {
   return (
@@ -50,6 +51,8 @@ export function CalculatorPage({ eyebrow, title, description, children }: { eyeb
           <p className="mt-6 max-w-3xl text-xs leading-6 text-muted-foreground">Use calculator results as planning estimates, not quotes or official determinations. Confirm rates, taxes, insurance, eligibility and property details with the appropriate provider or agency.</p>
         </article>
       </Container>
+
+      <EvergreenNextSteps title={title} />
     </>
   );
 }
