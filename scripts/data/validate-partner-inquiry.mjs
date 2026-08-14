@@ -29,7 +29,7 @@ for (const token of [
 
 for (const token of [
   "createServerFn({ method: 'POST' })",
-  '.validator(partnerInquirySchema)',
+  '.inputValidator(partnerInquirySchema)',
   "z.string().trim().email().max(320)",
   "if (data.addressLine2.trim()) return { ok: true }",
   'await savePartnerInquiry',
@@ -59,4 +59,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Partner inquiry validation passed: public form, server boundary, editorial-independence copy, private RLS storage and service-role-only database access are protected.');
+console.log('Partner inquiry validation passed: public form, TanStack input validation, server boundary, editorial-independence copy, private RLS storage and service-role-only database access are protected.');
