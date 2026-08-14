@@ -1,3 +1,5 @@
+import { SportsTrafficTracker } from '@/components/sports/SportsTrafficTracker';
+
 type SportsVenueQuickAnswersProps = {
   venueName: string;
   canonicalUrl: string;
@@ -24,6 +26,7 @@ export function SportsVenueQuickAnswers({
 }: SportsVenueQuickAnswersProps) {
   const answers = buildAnswers({ venueName, city, countyName, capacity, primaryEvents, verifiedAt });
   const slug = canonicalUrl.split('/sports-venue/')[1]?.split(/[?#]/)[0];
+  const surfacePath = slug ? `/sports-venue/${slug}` : undefined;
   const heroSrc = slug ? `/api/sports-venue-hero?slug=${encodeURIComponent(slug)}` : undefined;
   const absoluteHeroUrl = heroSrc ? new URL(heroSrc, canonicalUrl).toString() : undefined;
   if (!answers.length) return null;
@@ -52,6 +55,7 @@ export function SportsVenueQuickAnswers({
   } : undefined;
 
   return <>
+    {surfacePath ? <SportsTrafficTracker surfacePath={surfacePath} /> : null}
     {heroSrc ? <figure className="border-b border-border py-8 sm:py-10">
       {imageJsonLd ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(imageJsonLd) }} /> : null}
       <div className="overflow-hidden border border-border bg-muted/30">
