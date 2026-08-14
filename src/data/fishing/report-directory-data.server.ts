@@ -1,23 +1,25 @@
 import { fishingPlatform, fishingScope } from "./index";
 import { fishingReportCanonicalPath, fishingReportFreshness, FISHING_REPORTS_VERIFIED_AT } from "./report-routing";
-import { isFishingRecordVerified } from "./validation";
+import { isPublicFishingReportValid } from "./report-validation";
 
 export async function loadFishingReportDirectoryDataServer() {
-  const [reports, lakes, species, guides, advertisers, placements] = await Promise.all([
+  const [reports, lakes, species, guides, lakeSpecies, advertisers, placements] = await Promise.all([
     fishingPlatform.reports.list({ ...fishingScope, status: "published", limit: 5000 }),
     fishingPlatform.lakes.list({ ...fishingScope, status: "published", limit: 5000 }),
     fishingPlatform.species.list({ ...fishingScope, status: "published", limit: 5000 }),
     fishingPlatform.guides.list({ ...fishingScope, status: "published", verifiedListing: true, limit: 5000 }),
+    fishingPlatform.lakeSpecies.list(fishingScope),
     fishingPlatform.advertisers.list({ ...fishingScope, status: "published" }),
     fishingPlatform.placements.list({ ...fishingScope, status: "published", limit: 5000 }),
   ]);
+  const validationContext = { lakes, species, guides, lakeSpecies };
   const lakeById = new Map(lakes.map((row) => [row.id, row]));
   const speciesById = new Map(species.map((row) => [row.id, row]));
   const guideById = new Map(guides.filter((guide) => guide.contributorApproved).map((guide) => [guide.id, guide]));
   const advertiserById = new Map(advertisers.map((row) => [row.id, row]));
 
   const editorialReports = reports
-    .filter(isFishingRecordVerified)
+    .filter((report) => isPublicFishingReportValid(report, validationContext))
     .map((report) => ({
       report,
       href: fishingReportCanonicalPath(report.slug),
@@ -26,7 +28,6 @@ export async function loadFishingReportDirectoryDataServer() {
       species: report.speciesUpdates.map((update) => speciesById.get(update.speciesId)).filter(Boolean),
       contributorGuide: report.contributorGuideId ? guideById.get(report.contributorGuideId) : undefined,
     }))
-    .filter((entry) => Boolean(entry.lake) && entry.species.length === entry.report.speciesUpdates.length)
     .sort((left, right) => right.report.publishedAt.localeCompare(left.report.publishedAt) || left.report.slug.localeCompare(right.report.slug));
 
   const usedLakeIds = new Set(editorialReports.map((entry) => entry.report.lakeId));
