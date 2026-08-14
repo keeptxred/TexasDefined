@@ -5,6 +5,7 @@ const root = process.cwd();
 const read = (file) => fs.readFileSync(path.join(root, file), 'utf8');
 
 const route = read('src/routes/texas-explained.tsx');
+const articleRoute = read('src/routes/article.$slug.tsx');
 const publicRoutes = read('src/lib/public-routes.ts');
 const resources = read('src/routes/texas-resources.tsx');
 const internalLinks = read('src/data/article-internal-links.ts');
@@ -125,6 +126,33 @@ for (const marker of [
   if (!route.includes(marker)) errors.push(`Texas Explained quick-answer layer missing: ${marker}.`);
 }
 
+const schemaSetMatch = articleRoute.match(/const texasExplainedPillarSlugs = new Set\(\[([\s\S]*?)\]\);/);
+if (!schemaSetMatch) {
+  errors.push('Texas Explained article schema membership set is missing.');
+} else {
+  const schemaPillars = [...schemaSetMatch[1].matchAll(/"([^"]+)"/g)].map((match) => match[1]).sort();
+  const expectedPillars = [...pillars].sort();
+  if (JSON.stringify(schemaPillars) !== JSON.stringify(expectedPillars)) {
+    errors.push(`Texas Explained article schema membership must contain exactly the ten pillars. Found: ${schemaPillars.join(', ')}`);
+  }
+}
+
+const articleSchemaStart = articleRoute.indexOf('const articleSchema = {');
+const articleSchemaEnd = articleSchemaStart >= 0 ? articleRoute.indexOf('const breadcrumbItems = [', articleSchemaStart) : -1;
+const articleSchemaBlock = articleSchemaStart >= 0 && articleSchemaEnd > articleSchemaStart
+  ? articleRoute.slice(articleSchemaStart, articleSchemaEnd)
+  : '';
+for (const marker of [
+  'texasExplainedPillarSlugs.has(article.slug)',
+  'isPartOf:',
+  '"@type": "CollectionPage"',
+  '/texas-explained#collection',
+  'name: "Texas Explained"',
+  '/texas-explained`',
+]) {
+  if (!articleSchemaBlock.includes(marker)) errors.push(`Texas Explained Article → CollectionPage schema contract missing: ${marker}.`);
+}
+
 for (const slug of pillars) {
   if (!route.includes(`"${slug}"`)) errors.push(`Texas Explained collection is missing pillar slug: ${slug}.`);
   if (!internalLinks.includes(`"${slug}"`)) errors.push(`Texas Explained reciprocal linking is missing pillar key: ${slug}.`);
@@ -211,4 +239,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Texas Explained collection, ten-pillar membership, sitemap ownership, Start Here discovery, reciprocal collection backlinks, pillar-to-pillar topic clusters, five-page supporting authority ring, five-question AEO quick-answer layer, homepage promotion, persistent footer navigation, site-search indexing and zero-query search discovery are protected.');
+console.log('Texas Explained collection, exact ten-pillar Article → CollectionPage schema membership, sitemap ownership, Start Here discovery, reciprocal collection backlinks, pillar-to-pillar topic clusters, five-page supporting authority ring, five-question AEO quick-answer layer, homepage promotion, persistent footer navigation, site-search indexing and zero-query search discovery are protected.');
