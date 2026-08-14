@@ -114,6 +114,19 @@ function GalaxyStadiumPage() {
           </div>
         </section>
 
+        <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]" aria-labelledby="galaxy-collections-heading">
+          <div>
+            <p className="eyebrow text-primary">Explore the collection</p>
+            <h2 id="galaxy-collections-heading" className="mt-2 font-display text-3xl leading-tight">More Texas Tech and football venue guides</h2>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">Continue from Galaxy Stadium into the matching Lubbock, football and college-sports collections.</p>
+          </div>
+          <div className="grid gap-x-7 sm:grid-cols-2 lg:grid-cols-3">
+            <CollectionLink href="/sports-venues/lubbock" eyebrow="Sports market" title="Lubbock and Texas Tech sports venues" />
+            <CollectionLink href="/sports-venues/football" eyebrow="Sports collection" title="Texas football stadiums" />
+            <CollectionLink href="/sports-venues/college-sports" eyebrow="Sports collection" title="Texas college sports venues" />
+          </div>
+        </section>
+
         <aside className="grid gap-7 border-b border-border py-10 lg:grid-cols-[1fr_auto] lg:items-center" aria-labelledby="galaxy-partnership-heading">
           <div>
             <p className="eyebrow text-primary">Local business partnerships</p>
@@ -125,6 +138,14 @@ function GalaxyStadiumPage() {
       </article>
     </Container>
   </>;
+}
+
+function CollectionLink({ href, eyebrow, title }: { href: string; eyebrow: string; title: string }) {
+  return <a href={href} className="group border-t border-border py-5">
+    <span className="eyebrow text-primary">{eyebrow}</span>
+    <strong className="mt-2 block font-display text-2xl leading-tight group-hover:text-primary">{title}</strong>
+    <span className="mt-3 block text-sm font-semibold text-primary">Browse collection →</span>
+  </a>;
 }
 
 function GuideCard({ title, body }: { title: string; body: string }) {
