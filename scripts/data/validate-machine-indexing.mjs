@@ -19,6 +19,7 @@ for (const file of files) {
 const llmsSource = fs.readFileSync(path.join(root, 'src/routes/llms[.]txt.ts'), 'utf8');
 const graphApiSource = fs.readFileSync(path.join(root, 'src/routes/api.knowledge-graph.ts'), 'utf8');
 const aiApiSource = fs.readFileSync(path.join(root, 'src/routes/api.ai.entities.ts'), 'utf8');
+const citationMagnetsSource = fs.readFileSync(path.join(root, 'public/citation-magnets.json'), 'utf8');
 const robotsSource = fs.readFileSync(path.join(root, 'public/robots.txt'), 'utf8');
 const rootRouteSource = fs.readFileSync(path.join(root, 'src/routes/__root.tsx'), 'utf8');
 const articleRouteSource = fs.readFileSync(path.join(root, 'src/routes/article.$slug.tsx'), 'utf8');
@@ -49,6 +50,12 @@ const requiredDiscoveryTargets = [
   '/explore/region/piney-woods',
   '/explore/region/prairies-lakes',
   '/explore/region/south-texas',
+  '/sports',
+  '/sports-venues',
+  '/sports-venues/dallas-fort-worth',
+  '/sports-venues/houston',
+  '/sports-venues/football',
+  '/sports-venues/motorsports',
   '/sitemap.xml',
   '/sitemap-explore.xml',
 ];
@@ -66,6 +73,7 @@ for (const feature of [
   'reviewDueAt',
   'Missing fields are omitted rather than inferred',
   'calculator outputs as illustrative planning estimates',
+  'official venue or event sources as controlling for current schedules, parking, ticketing, gate times and entry policies',
 ]) {
   if (!llmsSource.includes(feature)) errors.push(`llms.txt machine guidance missing: ${feature}`);
 }
@@ -90,8 +98,46 @@ for (const feature of [
   "name: 'reviewDueAt'",
   'subjectOf: { \'@type\': \'Dataset\'',
   "url: `${siteUrl}${canonicalEntityPath(item)}`",
+  "import { applyCurrentEntityCorrections } from '@/data/knowledge-graph/current-entity-corrections'",
+  '(await loadTexasKnowledgeGraph()).map(applyCurrentEntityCorrections)',
+  'applyCurrentEntityCorrections(resolved)',
+  'searchCorrectedGraph(graph, q, limit)',
+  "if (kind === 'sports-venue') return 'SportsActivityLocation'",
+  'entity.aliases.some((alias) => alias.toLowerCase() === normalized)',
 ]) {
-  if (!aiApiSource.includes(feature)) errors.push(`AI entity provenance contract missing: ${feature}`);
+  if (!aiApiSource.includes(feature)) errors.push(`AI entity provenance/current-sports contract missing: ${feature}`);
+}
+
+if (aiApiSource.includes('searchCompleteTexasKnowledgeGraph')) {
+  errors.push('AI entity search must score the corrected graph so current venue names and aliases such as Galaxy Stadium remain searchable.');
+}
+
+let citationIndex;
+try {
+  citationIndex = JSON.parse(citationMagnetsSource);
+} catch (error) {
+  errors.push(`citation-magnets.json must remain valid JSON: ${error instanceof Error ? error.message : String(error)}`);
+}
+
+if (citationIndex) {
+  if (citationIndex.asOf !== '2026-08-14') errors.push('citation-magnets.json sports expansion must carry the current 2026-08-14 asOf date.');
+  const citationUrls = new Set((citationIndex.resources ?? []).map((resource) => resource.url));
+  for (const url of [
+    'https://texasdefined.com/sports-venues',
+    'https://texasdefined.com/sports-venues/dallas-fort-worth',
+    'https://texasdefined.com/sports-venues/houston',
+    'https://texasdefined.com/sports-venues/football',
+    'https://texasdefined.com/sports-venues/motorsports',
+    'https://texasdefined.com/sports-venues/high-school-football',
+  ]) {
+    if (!citationUrls.has(url)) errors.push(`Machine-readable citation index is missing sports resource ${url}.`);
+  }
+  const sportsResources = (citationIndex.resources ?? []).filter((resource) => resource.url.includes('/sports-venues'));
+  for (const resource of sportsResources) {
+    for (const trustMarker of ['official-sources', 'answer-layer', 'event-day-caveat']) {
+      if (!resource.trust?.includes(trustMarker)) errors.push(`${resource.url} citation resource is missing ${trustMarker} trust guidance.`);
+    }
+  }
 }
 
 const adminBlocks = robotsSource.match(/^Disallow: \/admin$/gm) ?? [];
@@ -160,4 +206,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('TexasDefined machine endpoints, provenance, canonical identity, robots policy, AI discovery guidance, and core Organization/WebSite/Article schema contracts are protected.');
+console.log('TexasDefined machine endpoints, provenance, current sports identity/schema, citation resources, robots policy, AI discovery guidance, and core Organization/WebSite/Article schema contracts are protected.');
