@@ -1,9 +1,1793 @@
 {
   "release": "2020–2024 ACS 5-Year Estimates",
   "year": 2024,
-  "generatedAt": null,
+  "generatedAt": "2026-08-14T02:19:58.385Z",
   "sourcePage": "https://www.census.gov/programs-surveys/acs/data/summary-file.2024.html",
-  "sourceFiles": {},
-  "rowCount": 0,
-  "rows": []
+  "sourceFiles": {
+    "medianHouseholdIncome": "https://www2.census.gov/programs-surveys/acs/summary_file/2024/table-based-SF/data/5YRData/acsdt5y2024-b19013.dat",
+    "medianGrossRent": "https://www2.census.gov/programs-surveys/acs/summary_file/2024/table-based-SF/data/5YRData/acsdt5y2024-b25064.dat",
+    "medianHomeValue": "https://www2.census.gov/programs-surveys/acs/summary_file/2024/table-based-SF/data/5YRData/acsdt5y2024-b25077.dat",
+    "medianMonthlyOwnerCosts": "https://www2.census.gov/programs-surveys/acs/summary_file/2024/table-based-SF/data/5YRData/acsdt5y2024-b25088.dat"
+  },
+  "rowCount": 254,
+  "rows": [
+    {
+      "fips": "48001",
+      "medianHouseholdIncome": 62068,
+      "medianGrossRent": 1041,
+      "medianHomeValue": 185300,
+      "medianMonthlyOwnerCosts": 825
+    },
+    {
+      "fips": "48003",
+      "medianHouseholdIncome": 72242,
+      "medianGrossRent": 1305,
+      "medianHomeValue": 195700,
+      "medianMonthlyOwnerCosts": 1023
+    },
+    {
+      "fips": "48005",
+      "medianHouseholdIncome": 60960,
+      "medianGrossRent": 1076,
+      "medianHomeValue": 163500,
+      "medianMonthlyOwnerCosts": 862
+    },
+    {
+      "fips": "48007",
+      "medianHouseholdIncome": 69466,
+      "medianGrossRent": 1128,
+      "medianHomeValue": 265400,
+      "medianMonthlyOwnerCosts": 1004
+    },
+    {
+      "fips": "48009",
+      "medianHouseholdIncome": 72159,
+      "medianGrossRent": 770,
+      "medianHomeValue": 189100,
+      "medianMonthlyOwnerCosts": 948
+    },
+    {
+      "fips": "48011",
+      "medianHouseholdIncome": 72750,
+      "medianGrossRent": 1021,
+      "medianHomeValue": 171500,
+      "medianMonthlyOwnerCosts": 810
+    },
+    {
+      "fips": "48013",
+      "medianHouseholdIncome": 70770,
+      "medianGrossRent": 1061,
+      "medianHomeValue": 174800,
+      "medianMonthlyOwnerCosts": 867
+    },
+    {
+      "fips": "48015",
+      "medianHouseholdIncome": 75789,
+      "medianGrossRent": 1137,
+      "medianHomeValue": 296900,
+      "medianMonthlyOwnerCosts": 1089
+    },
+    {
+      "fips": "48017",
+      "medianHouseholdIncome": 61420,
+      "medianGrossRent": 931,
+      "medianHomeValue": 105300,
+      "medianMonthlyOwnerCosts": 598
+    },
+    {
+      "fips": "48019",
+      "medianHouseholdIncome": 75813,
+      "medianGrossRent": 1149,
+      "medianHomeValue": 278400,
+      "medianMonthlyOwnerCosts": 908
+    },
+    {
+      "fips": "48021",
+      "medianHouseholdIncome": 86226,
+      "medianGrossRent": 1410,
+      "medianHomeValue": 314800,
+      "medianMonthlyOwnerCosts": 1233
+    },
+    {
+      "fips": "48023",
+      "medianHouseholdIncome": 45370,
+      "medianGrossRent": 581,
+      "medianHomeValue": 103100,
+      "medianMonthlyOwnerCosts": 678
+    },
+    {
+      "fips": "48025",
+      "medianHouseholdIncome": 57673,
+      "medianGrossRent": 1065,
+      "medianHomeValue": 111300,
+      "medianMonthlyOwnerCosts": 637
+    },
+    {
+      "fips": "48027",
+      "medianHouseholdIncome": 68865,
+      "medianGrossRent": 1224,
+      "medianHomeValue": 241000,
+      "medianMonthlyOwnerCosts": 1315
+    },
+    {
+      "fips": "48029",
+      "medianHouseholdIncome": 72341,
+      "medianGrossRent": 1354,
+      "medianHomeValue": 262200,
+      "medianMonthlyOwnerCosts": 1403
+    },
+    {
+      "fips": "48031",
+      "medianHouseholdIncome": 92425,
+      "medianGrossRent": 1017,
+      "medianHomeValue": 483500,
+      "medianMonthlyOwnerCosts": 1368
+    },
+    {
+      "fips": "48033",
+      "medianHouseholdIncome": 65625,
+      "medianGrossRent": null,
+      "medianHomeValue": 108900,
+      "medianMonthlyOwnerCosts": 508
+    },
+    {
+      "fips": "48035",
+      "medianHouseholdIncome": 68914,
+      "medianGrossRent": 928,
+      "medianHomeValue": 200900,
+      "medianMonthlyOwnerCosts": 760
+    },
+    {
+      "fips": "48037",
+      "medianHouseholdIncome": 59803,
+      "medianGrossRent": 988,
+      "medianHomeValue": 173000,
+      "medianMonthlyOwnerCosts": 873
+    },
+    {
+      "fips": "48039",
+      "medianHouseholdIncome": 97993,
+      "medianGrossRent": 1454,
+      "medianHomeValue": 301600,
+      "medianMonthlyOwnerCosts": 1680
+    },
+    {
+      "fips": "48041",
+      "medianHouseholdIncome": 58553,
+      "medianGrossRent": 1193,
+      "medianHomeValue": 296000,
+      "medianMonthlyOwnerCosts": 1411
+    },
+    {
+      "fips": "48043",
+      "medianHouseholdIncome": 56212,
+      "medianGrossRent": 839,
+      "medianHomeValue": 227000,
+      "medianMonthlyOwnerCosts": 1015
+    },
+    {
+      "fips": "48045",
+      "medianHouseholdIncome": 45417,
+      "medianGrossRent": 631,
+      "medianHomeValue": 90300,
+      "medianMonthlyOwnerCosts": 459
+    },
+    {
+      "fips": "48047",
+      "medianHouseholdIncome": 47764,
+      "medianGrossRent": 719,
+      "medianHomeValue": 81000,
+      "medianMonthlyOwnerCosts": 435
+    },
+    {
+      "fips": "48049",
+      "medianHouseholdIncome": 57470,
+      "medianGrossRent": 919,
+      "medianHomeValue": 158900,
+      "medianMonthlyOwnerCosts": 847
+    },
+    {
+      "fips": "48051",
+      "medianHouseholdIncome": 70000,
+      "medianGrossRent": 1063,
+      "medianHomeValue": 191000,
+      "medianMonthlyOwnerCosts": 739
+    },
+    {
+      "fips": "48053",
+      "medianHouseholdIncome": 78732,
+      "medianGrossRent": 1319,
+      "medianHomeValue": 344000,
+      "medianMonthlyOwnerCosts": 1156
+    },
+    {
+      "fips": "48055",
+      "medianHouseholdIncome": 69758,
+      "medianGrossRent": 1173,
+      "medianHomeValue": 240500,
+      "medianMonthlyOwnerCosts": 998
+    },
+    {
+      "fips": "48057",
+      "medianHouseholdIncome": 79959,
+      "medianGrossRent": 891,
+      "medianHomeValue": 171200,
+      "medianMonthlyOwnerCosts": 883
+    },
+    {
+      "fips": "48059",
+      "medianHouseholdIncome": 72436,
+      "medianGrossRent": 817,
+      "medianHomeValue": 145500,
+      "medianMonthlyOwnerCosts": 797
+    },
+    {
+      "fips": "48061",
+      "medianHouseholdIncome": 52601,
+      "medianGrossRent": 912,
+      "medianHomeValue": 136500,
+      "medianMonthlyOwnerCosts": 729
+    },
+    {
+      "fips": "48063",
+      "medianHouseholdIncome": 58843,
+      "medianGrossRent": 801,
+      "medianHomeValue": 173100,
+      "medianMonthlyOwnerCosts": 797
+    },
+    {
+      "fips": "48065",
+      "medianHouseholdIncome": 85231,
+      "medianGrossRent": 956,
+      "medianHomeValue": 143000,
+      "medianMonthlyOwnerCosts": 822
+    },
+    {
+      "fips": "48067",
+      "medianHouseholdIncome": 53813,
+      "medianGrossRent": 852,
+      "medianHomeValue": 146400,
+      "medianMonthlyOwnerCosts": 650
+    },
+    {
+      "fips": "48069",
+      "medianHouseholdIncome": 56776,
+      "medianGrossRent": 896,
+      "medianHomeValue": 95000,
+      "medianMonthlyOwnerCosts": 492
+    },
+    {
+      "fips": "48071",
+      "medianHouseholdIncome": 109804,
+      "medianGrossRent": 1609,
+      "medianHomeValue": 329500,
+      "medianMonthlyOwnerCosts": 1647
+    },
+    {
+      "fips": "48073",
+      "medianHouseholdIncome": 61261,
+      "medianGrossRent": 933,
+      "medianHomeValue": 169300,
+      "medianMonthlyOwnerCosts": 759
+    },
+    {
+      "fips": "48075",
+      "medianHouseholdIncome": 58654,
+      "medianGrossRent": 913,
+      "medianHomeValue": 125400,
+      "medianMonthlyOwnerCosts": 627
+    },
+    {
+      "fips": "48077",
+      "medianHouseholdIncome": 80114,
+      "medianGrossRent": 811,
+      "medianHomeValue": 171500,
+      "medianMonthlyOwnerCosts": 915
+    },
+    {
+      "fips": "48079",
+      "medianHouseholdIncome": 45313,
+      "medianGrossRent": 697,
+      "medianHomeValue": 53200,
+      "medianMonthlyOwnerCosts": 470
+    },
+    {
+      "fips": "48081",
+      "medianHouseholdIncome": 43333,
+      "medianGrossRent": 729,
+      "medianHomeValue": 117900,
+      "medianMonthlyOwnerCosts": 629
+    },
+    {
+      "fips": "48083",
+      "medianHouseholdIncome": 49159,
+      "medianGrossRent": 653,
+      "medianHomeValue": 92500,
+      "medianMonthlyOwnerCosts": 673
+    },
+    {
+      "fips": "48085",
+      "medianHouseholdIncome": 121600,
+      "medianGrossRent": 1859,
+      "medianHomeValue": 475600,
+      "medianMonthlyOwnerCosts": 2298
+    },
+    {
+      "fips": "48087",
+      "medianHouseholdIncome": 61280,
+      "medianGrossRent": 714,
+      "medianHomeValue": 104000,
+      "medianMonthlyOwnerCosts": 648
+    },
+    {
+      "fips": "48089",
+      "medianHouseholdIncome": 66377,
+      "medianGrossRent": 926,
+      "medianHomeValue": 209800,
+      "medianMonthlyOwnerCosts": 838
+    },
+    {
+      "fips": "48091",
+      "medianHouseholdIncome": 101889,
+      "medianGrossRent": 1603,
+      "medianHomeValue": 427200,
+      "medianMonthlyOwnerCosts": 1713
+    },
+    {
+      "fips": "48093",
+      "medianHouseholdIncome": 59635,
+      "medianGrossRent": 855,
+      "medianHomeValue": 155600,
+      "medianMonthlyOwnerCosts": 725
+    },
+    {
+      "fips": "48095",
+      "medianHouseholdIncome": 65795,
+      "medianGrossRent": 733,
+      "medianHomeValue": 107400,
+      "medianMonthlyOwnerCosts": 600
+    },
+    {
+      "fips": "48097",
+      "medianHouseholdIncome": 73932,
+      "medianGrossRent": 1047,
+      "medianHomeValue": 240400,
+      "medianMonthlyOwnerCosts": 1024
+    },
+    {
+      "fips": "48099",
+      "medianHouseholdIncome": 71301,
+      "medianGrossRent": 1186,
+      "medianHomeValue": 195300,
+      "medianMonthlyOwnerCosts": 1097
+    },
+    {
+      "fips": "48101",
+      "medianHouseholdIncome": 59063,
+      "medianGrossRent": 264,
+      "medianHomeValue": 59300,
+      "medianMonthlyOwnerCosts": 542
+    },
+    {
+      "fips": "48103",
+      "medianHouseholdIncome": 62212,
+      "medianGrossRent": 882,
+      "medianHomeValue": 129400,
+      "medianMonthlyOwnerCosts": 583
+    },
+    {
+      "fips": "48105",
+      "medianHouseholdIncome": 81022,
+      "medianGrossRent": 558,
+      "medianHomeValue": null,
+      "medianMonthlyOwnerCosts": 365
+    },
+    {
+      "fips": "48107",
+      "medianHouseholdIncome": 52188,
+      "medianGrossRent": 684,
+      "medianHomeValue": 80900,
+      "medianMonthlyOwnerCosts": 595
+    },
+    {
+      "fips": "48109",
+      "medianHouseholdIncome": 58777,
+      "medianGrossRent": 1043,
+      "medianHomeValue": 79300,
+      "medianMonthlyOwnerCosts": 447
+    },
+    {
+      "fips": "48111",
+      "medianHouseholdIncome": 71500,
+      "medianGrossRent": 1081,
+      "medianHomeValue": 151400,
+      "medianMonthlyOwnerCosts": 665
+    },
+    {
+      "fips": "48113",
+      "medianHouseholdIncome": 76547,
+      "medianGrossRent": 1565,
+      "medianHomeValue": 303000,
+      "medianMonthlyOwnerCosts": 1536
+    },
+    {
+      "fips": "48115",
+      "medianHouseholdIncome": 54360,
+      "medianGrossRent": 777,
+      "medianHomeValue": 103400,
+      "medianMonthlyOwnerCosts": 626
+    },
+    {
+      "fips": "48117",
+      "medianHouseholdIncome": 60799,
+      "medianGrossRent": 926,
+      "medianHomeValue": 121300,
+      "medianMonthlyOwnerCosts": 646
+    },
+    {
+      "fips": "48119",
+      "medianHouseholdIncome": 66575,
+      "medianGrossRent": 945,
+      "medianHomeValue": 164300,
+      "medianMonthlyOwnerCosts": 927
+    },
+    {
+      "fips": "48121",
+      "medianHouseholdIncome": 111498,
+      "medianGrossRent": 1728,
+      "medianHomeValue": 437200,
+      "medianMonthlyOwnerCosts": 2208
+    },
+    {
+      "fips": "48123",
+      "medianHouseholdIncome": 63730,
+      "medianGrossRent": 921,
+      "medianHomeValue": 170900,
+      "medianMonthlyOwnerCosts": 730
+    },
+    {
+      "fips": "48125",
+      "medianHouseholdIncome": 49335,
+      "medianGrossRent": 758,
+      "medianHomeValue": 65300,
+      "medianMonthlyOwnerCosts": 530
+    },
+    {
+      "fips": "48127",
+      "medianHouseholdIncome": 38808,
+      "medianGrossRent": 823,
+      "medianHomeValue": 85500,
+      "medianMonthlyOwnerCosts": 566
+    },
+    {
+      "fips": "48129",
+      "medianHouseholdIncome": 58750,
+      "medianGrossRent": 780,
+      "medianHomeValue": 96400,
+      "medianMonthlyOwnerCosts": 534
+    },
+    {
+      "fips": "48131",
+      "medianHouseholdIncome": 49038,
+      "medianGrossRent": 741,
+      "medianHomeValue": 89400,
+      "medianMonthlyOwnerCosts": 607
+    },
+    {
+      "fips": "48133",
+      "medianHouseholdIncome": 53549,
+      "medianGrossRent": 866,
+      "medianHomeValue": 134800,
+      "medianMonthlyOwnerCosts": 739
+    },
+    {
+      "fips": "48135",
+      "medianHouseholdIncome": 71536,
+      "medianGrossRent": 1259,
+      "medianHomeValue": 200200,
+      "medianMonthlyOwnerCosts": 984
+    },
+    {
+      "fips": "48137",
+      "medianHouseholdIncome": 40313,
+      "medianGrossRent": 713,
+      "medianHomeValue": null,
+      "medianMonthlyOwnerCosts": 554
+    },
+    {
+      "fips": "48139",
+      "medianHouseholdIncome": 99595,
+      "medianGrossRent": 1594,
+      "medianHomeValue": 348600,
+      "medianMonthlyOwnerCosts": 1720
+    },
+    {
+      "fips": "48141",
+      "medianHouseholdIncome": 59806,
+      "medianGrossRent": 1079,
+      "medianHomeValue": 180400,
+      "medianMonthlyOwnerCosts": 1023
+    },
+    {
+      "fips": "48143",
+      "medianHouseholdIncome": 65115,
+      "medianGrossRent": 1146,
+      "medianHomeValue": 269100,
+      "medianMonthlyOwnerCosts": 1025
+    },
+    {
+      "fips": "48145",
+      "medianHouseholdIncome": 57247,
+      "medianGrossRent": 731,
+      "medianHomeValue": 110900,
+      "medianMonthlyOwnerCosts": 643
+    },
+    {
+      "fips": "48147",
+      "medianHouseholdIncome": 72295,
+      "medianGrossRent": 1035,
+      "medianHomeValue": 233700,
+      "medianMonthlyOwnerCosts": 979
+    },
+    {
+      "fips": "48149",
+      "medianHouseholdIncome": 75854,
+      "medianGrossRent": 988,
+      "medianHomeValue": 293900,
+      "medianMonthlyOwnerCosts": 785
+    },
+    {
+      "fips": "48151",
+      "medianHouseholdIncome": 65533,
+      "medianGrossRent": 601,
+      "medianHomeValue": 78600,
+      "medianMonthlyOwnerCosts": 593
+    },
+    {
+      "fips": "48153",
+      "medianHouseholdIncome": 58462,
+      "medianGrossRent": 676,
+      "medianHomeValue": 89600,
+      "medianMonthlyOwnerCosts": 590
+    },
+    {
+      "fips": "48155",
+      "medianHouseholdIncome": 61563,
+      "medianGrossRent": 572,
+      "medianHomeValue": 70700,
+      "medianMonthlyOwnerCosts": 540
+    },
+    {
+      "fips": "48157",
+      "medianHouseholdIncome": 114041,
+      "medianGrossRent": 1807,
+      "medianHomeValue": 374500,
+      "medianMonthlyOwnerCosts": 2012
+    },
+    {
+      "fips": "48159",
+      "medianHouseholdIncome": 72360,
+      "medianGrossRent": 936,
+      "medianHomeValue": 226300,
+      "medianMonthlyOwnerCosts": 1060
+    },
+    {
+      "fips": "48161",
+      "medianHouseholdIncome": 59960,
+      "medianGrossRent": 853,
+      "medianHomeValue": 168000,
+      "medianMonthlyOwnerCosts": 745
+    },
+    {
+      "fips": "48163",
+      "medianHouseholdIncome": 66010,
+      "medianGrossRent": 1016,
+      "medianHomeValue": 107700,
+      "medianMonthlyOwnerCosts": 724
+    },
+    {
+      "fips": "48165",
+      "medianHouseholdIncome": 74132,
+      "medianGrossRent": 789,
+      "medianHomeValue": 200700,
+      "medianMonthlyOwnerCosts": 880
+    },
+    {
+      "fips": "48167",
+      "medianHouseholdIncome": 86105,
+      "medianGrossRent": 1404,
+      "medianHomeValue": 314600,
+      "medianMonthlyOwnerCosts": 1595
+    },
+    {
+      "fips": "48169",
+      "medianHouseholdIncome": 46314,
+      "medianGrossRent": 838,
+      "medianHomeValue": 77800,
+      "medianMonthlyOwnerCosts": 505
+    },
+    {
+      "fips": "48171",
+      "medianHouseholdIncome": 76162,
+      "medianGrossRent": 1340,
+      "medianHomeValue": 460700,
+      "medianMonthlyOwnerCosts": 1142
+    },
+    {
+      "fips": "48173",
+      "medianHouseholdIncome": 101250,
+      "medianGrossRent": 648,
+      "medianHomeValue": 245200,
+      "medianMonthlyOwnerCosts": 779
+    },
+    {
+      "fips": "48175",
+      "medianHouseholdIncome": 59359,
+      "medianGrossRent": 754,
+      "medianHomeValue": 192500,
+      "medianMonthlyOwnerCosts": 707
+    },
+    {
+      "fips": "48177",
+      "medianHouseholdIncome": 58672,
+      "medianGrossRent": 840,
+      "medianHomeValue": 159100,
+      "medianMonthlyOwnerCosts": 688
+    },
+    {
+      "fips": "48179",
+      "medianHouseholdIncome": 59614,
+      "medianGrossRent": 933,
+      "medianHomeValue": 102900,
+      "medianMonthlyOwnerCosts": 747
+    },
+    {
+      "fips": "48181",
+      "medianHouseholdIncome": 72182,
+      "medianGrossRent": 1310,
+      "medianHomeValue": 248400,
+      "medianMonthlyOwnerCosts": 1156
+    },
+    {
+      "fips": "48183",
+      "medianHouseholdIncome": 66550,
+      "medianGrossRent": 1102,
+      "medianHomeValue": 203400,
+      "medianMonthlyOwnerCosts": 979
+    },
+    {
+      "fips": "48185",
+      "medianHouseholdIncome": 69803,
+      "medianGrossRent": 1069,
+      "medianHomeValue": 237400,
+      "medianMonthlyOwnerCosts": 832
+    },
+    {
+      "fips": "48187",
+      "medianHouseholdIncome": 92375,
+      "medianGrossRent": 1517,
+      "medianHomeValue": 304400,
+      "medianMonthlyOwnerCosts": 1481
+    },
+    {
+      "fips": "48189",
+      "medianHouseholdIncome": 51897,
+      "medianGrossRent": 836,
+      "medianHomeValue": 116500,
+      "medianMonthlyOwnerCosts": 640
+    },
+    {
+      "fips": "48191",
+      "medianHouseholdIncome": 48459,
+      "medianGrossRent": 529,
+      "medianHomeValue": 86100,
+      "medianMonthlyOwnerCosts": 561
+    },
+    {
+      "fips": "48193",
+      "medianHouseholdIncome": 58219,
+      "medianGrossRent": 885,
+      "medianHomeValue": 147700,
+      "medianMonthlyOwnerCosts": 743
+    },
+    {
+      "fips": "48195",
+      "medianHouseholdIncome": 69441,
+      "medianGrossRent": 939,
+      "medianHomeValue": 124800,
+      "medianMonthlyOwnerCosts": 778
+    },
+    {
+      "fips": "48197",
+      "medianHouseholdIncome": 63333,
+      "medianGrossRent": 684,
+      "medianHomeValue": 81900,
+      "medianMonthlyOwnerCosts": 725
+    },
+    {
+      "fips": "48199",
+      "medianHouseholdIncome": 75808,
+      "medianGrossRent": 1049,
+      "medianHomeValue": 205700,
+      "medianMonthlyOwnerCosts": 950
+    },
+    {
+      "fips": "48201",
+      "medianHouseholdIncome": 74983,
+      "medianGrossRent": 1401,
+      "medianHomeValue": 276600,
+      "medianMonthlyOwnerCosts": 1535
+    },
+    {
+      "fips": "48203",
+      "medianHouseholdIncome": 66103,
+      "medianGrossRent": 974,
+      "medianHomeValue": 180400,
+      "medianMonthlyOwnerCosts": 873
+    },
+    {
+      "fips": "48205",
+      "medianHouseholdIncome": 75841,
+      "medianGrossRent": 1028,
+      "medianHomeValue": 262500,
+      "medianMonthlyOwnerCosts": 1077
+    },
+    {
+      "fips": "48207",
+      "medianHouseholdIncome": 60653,
+      "medianGrossRent": 782,
+      "medianHomeValue": 98700,
+      "medianMonthlyOwnerCosts": 648
+    },
+    {
+      "fips": "48209",
+      "medianHouseholdIncome": 89097,
+      "medianGrossRent": 1495,
+      "medianHomeValue": 399800,
+      "medianMonthlyOwnerCosts": 1841
+    },
+    {
+      "fips": "48211",
+      "medianHouseholdIncome": 61563,
+      "medianGrossRent": 836,
+      "medianHomeValue": 205700,
+      "medianMonthlyOwnerCosts": 762
+    },
+    {
+      "fips": "48213",
+      "medianHouseholdIncome": 65179,
+      "medianGrossRent": 1048,
+      "medianHomeValue": 211300,
+      "medianMonthlyOwnerCosts": 890
+    },
+    {
+      "fips": "48215",
+      "medianHouseholdIncome": 54338,
+      "medianGrossRent": 957,
+      "medianHomeValue": 140900,
+      "medianMonthlyOwnerCosts": 712
+    },
+    {
+      "fips": "48217",
+      "medianHouseholdIncome": 64591,
+      "medianGrossRent": 946,
+      "medianHomeValue": 179200,
+      "medianMonthlyOwnerCosts": 818
+    },
+    {
+      "fips": "48219",
+      "medianHouseholdIncome": 63140,
+      "medianGrossRent": 850,
+      "medianHomeValue": 127000,
+      "medianMonthlyOwnerCosts": 722
+    },
+    {
+      "fips": "48221",
+      "medianHouseholdIncome": 88160,
+      "medianGrossRent": 1428,
+      "medianHomeValue": 306400,
+      "medianMonthlyOwnerCosts": 1313
+    },
+    {
+      "fips": "48223",
+      "medianHouseholdIncome": 70888,
+      "medianGrossRent": 1109,
+      "medianHomeValue": 221100,
+      "medianMonthlyOwnerCosts": 851
+    },
+    {
+      "fips": "48225",
+      "medianHouseholdIncome": 56531,
+      "medianGrossRent": 887,
+      "medianHomeValue": 164900,
+      "medianMonthlyOwnerCosts": 792
+    },
+    {
+      "fips": "48227",
+      "medianHouseholdIncome": 69649,
+      "medianGrossRent": 1034,
+      "medianHomeValue": 155600,
+      "medianMonthlyOwnerCosts": 805
+    },
+    {
+      "fips": "48229",
+      "medianHouseholdIncome": 48600,
+      "medianGrossRent": 705,
+      "medianHomeValue": 64000,
+      "medianMonthlyOwnerCosts": 475
+    },
+    {
+      "fips": "48231",
+      "medianHouseholdIncome": 71938,
+      "medianGrossRent": 1222,
+      "medianHomeValue": 241700,
+      "medianMonthlyOwnerCosts": 1157
+    },
+    {
+      "fips": "48233",
+      "medianHouseholdIncome": 67228,
+      "medianGrossRent": 932,
+      "medianHomeValue": 119100,
+      "medianMonthlyOwnerCosts": 706
+    },
+    {
+      "fips": "48235",
+      "medianHouseholdIncome": 70357,
+      "medianGrossRent": 1950,
+      "medianHomeValue": 204400,
+      "medianMonthlyOwnerCosts": 793
+    },
+    {
+      "fips": "48237",
+      "medianHouseholdIncome": 68079,
+      "medianGrossRent": 960,
+      "medianHomeValue": 251200,
+      "medianMonthlyOwnerCosts": 786
+    },
+    {
+      "fips": "48239",
+      "medianHouseholdIncome": 65414,
+      "medianGrossRent": 1065,
+      "medianHomeValue": 203900,
+      "medianMonthlyOwnerCosts": 867
+    },
+    {
+      "fips": "48241",
+      "medianHouseholdIncome": 56723,
+      "medianGrossRent": 848,
+      "medianHomeValue": 136400,
+      "medianMonthlyOwnerCosts": 628
+    },
+    {
+      "fips": "48243",
+      "medianHouseholdIncome": 59286,
+      "medianGrossRent": 1241,
+      "medianHomeValue": 226200,
+      "medianMonthlyOwnerCosts": 518
+    },
+    {
+      "fips": "48245",
+      "medianHouseholdIncome": 60026,
+      "medianGrossRent": 1117,
+      "medianHomeValue": 169500,
+      "medianMonthlyOwnerCosts": 921
+    },
+    {
+      "fips": "48247",
+      "medianHouseholdIncome": 42211,
+      "medianGrossRent": 824,
+      "medianHomeValue": 129400,
+      "medianMonthlyOwnerCosts": 515
+    },
+    {
+      "fips": "48249",
+      "medianHouseholdIncome": 51896,
+      "medianGrossRent": 938,
+      "medianHomeValue": 123600,
+      "medianMonthlyOwnerCosts": 766
+    },
+    {
+      "fips": "48251",
+      "medianHouseholdIncome": 84859,
+      "medianGrossRent": 1398,
+      "medianHomeValue": 285900,
+      "medianMonthlyOwnerCosts": 1392
+    },
+    {
+      "fips": "48253",
+      "medianHouseholdIncome": 59464,
+      "medianGrossRent": 866,
+      "medianHomeValue": 96500,
+      "medianMonthlyOwnerCosts": 765
+    },
+    {
+      "fips": "48255",
+      "medianHouseholdIncome": 60214,
+      "medianGrossRent": 957,
+      "medianHomeValue": 149000,
+      "medianMonthlyOwnerCosts": 696
+    },
+    {
+      "fips": "48257",
+      "medianHouseholdIncome": 89485,
+      "medianGrossRent": 1554,
+      "medianHomeValue": 320900,
+      "medianMonthlyOwnerCosts": 1712
+    },
+    {
+      "fips": "48259",
+      "medianHouseholdIncome": 114962,
+      "medianGrossRent": 1606,
+      "medianHomeValue": 512700,
+      "medianMonthlyOwnerCosts": 1767
+    },
+    {
+      "fips": "48261",
+      "medianHouseholdIncome": 38882,
+      "medianGrossRent": null,
+      "medianHomeValue": null,
+      "medianMonthlyOwnerCosts": 361
+    },
+    {
+      "fips": "48263",
+      "medianHouseholdIncome": 72889,
+      "medianGrossRent": 675,
+      "medianHomeValue": 122200,
+      "medianMonthlyOwnerCosts": 651
+    },
+    {
+      "fips": "48265",
+      "medianHouseholdIncome": 69395,
+      "medianGrossRent": 1109,
+      "medianHomeValue": 321200,
+      "medianMonthlyOwnerCosts": 890
+    },
+    {
+      "fips": "48267",
+      "medianHouseholdIncome": 69455,
+      "medianGrossRent": 790,
+      "medianHomeValue": 201300,
+      "medianMonthlyOwnerCosts": 916
+    },
+    {
+      "fips": "48269",
+      "medianHouseholdIncome": 46645,
+      "medianGrossRent": null,
+      "medianHomeValue": 52100,
+      "medianMonthlyOwnerCosts": 486
+    },
+    {
+      "fips": "48271",
+      "medianHouseholdIncome": 70000,
+      "medianGrossRent": 1272,
+      "medianHomeValue": 82000,
+      "medianMonthlyOwnerCosts": 516
+    },
+    {
+      "fips": "48273",
+      "medianHouseholdIncome": 61292,
+      "medianGrossRent": 1043,
+      "medianHomeValue": 161300,
+      "medianMonthlyOwnerCosts": 888
+    },
+    {
+      "fips": "48275",
+      "medianHouseholdIncome": 56667,
+      "medianGrossRent": 521,
+      "medianHomeValue": 77300,
+      "medianMonthlyOwnerCosts": 642
+    },
+    {
+      "fips": "48277",
+      "medianHouseholdIncome": 61880,
+      "medianGrossRent": 949,
+      "medianHomeValue": 200700,
+      "medianMonthlyOwnerCosts": 823
+    },
+    {
+      "fips": "48279",
+      "medianHouseholdIncome": 60760,
+      "medianGrossRent": 968,
+      "medianHomeValue": 82400,
+      "medianMonthlyOwnerCosts": 599
+    },
+    {
+      "fips": "48281",
+      "medianHouseholdIncome": 81736,
+      "medianGrossRent": 1059,
+      "medianHomeValue": 250400,
+      "medianMonthlyOwnerCosts": 1070
+    },
+    {
+      "fips": "48283",
+      "medianHouseholdIncome": 57716,
+      "medianGrossRent": 819,
+      "medianHomeValue": 97800,
+      "medianMonthlyOwnerCosts": 635
+    },
+    {
+      "fips": "48285",
+      "medianHouseholdIncome": 63240,
+      "medianGrossRent": 910,
+      "medianHomeValue": 228300,
+      "medianMonthlyOwnerCosts": 707
+    },
+    {
+      "fips": "48287",
+      "medianHouseholdIncome": 76371,
+      "medianGrossRent": 1067,
+      "medianHomeValue": 267800,
+      "medianMonthlyOwnerCosts": 909
+    },
+    {
+      "fips": "48289",
+      "medianHouseholdIncome": 61449,
+      "medianGrossRent": 907,
+      "medianHomeValue": 186400,
+      "medianMonthlyOwnerCosts": 698
+    },
+    {
+      "fips": "48291",
+      "medianHouseholdIncome": 68703,
+      "medianGrossRent": 1044,
+      "medianHomeValue": 181700,
+      "medianMonthlyOwnerCosts": 1006
+    },
+    {
+      "fips": "48293",
+      "medianHouseholdIncome": 60573,
+      "medianGrossRent": 905,
+      "medianHomeValue": 164200,
+      "medianMonthlyOwnerCosts": 748
+    },
+    {
+      "fips": "48295",
+      "medianHouseholdIncome": 72560,
+      "medianGrossRent": 876,
+      "medianHomeValue": 124300,
+      "medianMonthlyOwnerCosts": 779
+    },
+    {
+      "fips": "48297",
+      "medianHouseholdIncome": 57150,
+      "medianGrossRent": 924,
+      "medianHomeValue": 159200,
+      "medianMonthlyOwnerCosts": 625
+    },
+    {
+      "fips": "48299",
+      "medianHouseholdIncome": 67530,
+      "medianGrossRent": 998,
+      "medianHomeValue": 356500,
+      "medianMonthlyOwnerCosts": 1045
+    },
+    {
+      "fips": "48301",
+      "medianHouseholdIncome": 51250,
+      "medianGrossRent": null,
+      "medianHomeValue": null,
+      "medianMonthlyOwnerCosts": null
+    },
+    {
+      "fips": "48303",
+      "medianHouseholdIncome": 64155,
+      "medianGrossRent": 1178,
+      "medianHomeValue": 214100,
+      "medianMonthlyOwnerCosts": 1265
+    },
+    {
+      "fips": "48305",
+      "medianHouseholdIncome": 73679,
+      "medianGrossRent": 927,
+      "medianHomeValue": 147300,
+      "medianMonthlyOwnerCosts": 854
+    },
+    {
+      "fips": "48307",
+      "medianHouseholdIncome": 54043,
+      "medianGrossRent": 806,
+      "medianHomeValue": 150500,
+      "medianMonthlyOwnerCosts": 758
+    },
+    {
+      "fips": "48309",
+      "medianHouseholdIncome": 66643,
+      "medianGrossRent": 1173,
+      "medianHomeValue": 243600,
+      "medianMonthlyOwnerCosts": 1178
+    },
+    {
+      "fips": "48311",
+      "medianHouseholdIncome": 43875,
+      "medianGrossRent": 758,
+      "medianHomeValue": 97100,
+      "medianMonthlyOwnerCosts": 466
+    },
+    {
+      "fips": "48313",
+      "medianHouseholdIncome": 74596,
+      "medianGrossRent": 851,
+      "medianHomeValue": 176200,
+      "medianMonthlyOwnerCosts": 846
+    },
+    {
+      "fips": "48315",
+      "medianHouseholdIncome": 49672,
+      "medianGrossRent": 911,
+      "medianHomeValue": 101500,
+      "medianMonthlyOwnerCosts": 467
+    },
+    {
+      "fips": "48317",
+      "medianHouseholdIncome": 93734,
+      "medianGrossRent": 971,
+      "medianHomeValue": 174800,
+      "medianMonthlyOwnerCosts": 843
+    },
+    {
+      "fips": "48319",
+      "medianHouseholdIncome": 74180,
+      "medianGrossRent": 800,
+      "medianHomeValue": 293600,
+      "medianMonthlyOwnerCosts": 847
+    },
+    {
+      "fips": "48321",
+      "medianHouseholdIncome": 58628,
+      "medianGrossRent": 999,
+      "medianHomeValue": 172900,
+      "medianMonthlyOwnerCosts": 769
+    },
+    {
+      "fips": "48323",
+      "medianHouseholdIncome": 49568,
+      "medianGrossRent": 859,
+      "medianHomeValue": 158700,
+      "medianMonthlyOwnerCosts": 697
+    },
+    {
+      "fips": "48325",
+      "medianHouseholdIncome": 78074,
+      "medianGrossRent": 1196,
+      "medianHomeValue": 239600,
+      "medianMonthlyOwnerCosts": 1047
+    },
+    {
+      "fips": "48327",
+      "medianHouseholdIncome": 53043,
+      "medianGrossRent": 729,
+      "medianHomeValue": 108500,
+      "medianMonthlyOwnerCosts": 770
+    },
+    {
+      "fips": "48329",
+      "medianHouseholdIncome": 92874,
+      "medianGrossRent": 1407,
+      "medianHomeValue": 312700,
+      "medianMonthlyOwnerCosts": 1496
+    },
+    {
+      "fips": "48331",
+      "medianHouseholdIncome": 66141,
+      "medianGrossRent": 984,
+      "medianHomeValue": 189800,
+      "medianMonthlyOwnerCosts": 800
+    },
+    {
+      "fips": "48333",
+      "medianHouseholdIncome": 67620,
+      "medianGrossRent": 708,
+      "medianHomeValue": 223700,
+      "medianMonthlyOwnerCosts": 730
+    },
+    {
+      "fips": "48335",
+      "medianHouseholdIncome": 60550,
+      "medianGrossRent": 524,
+      "medianHomeValue": 85800,
+      "medianMonthlyOwnerCosts": 581
+    },
+    {
+      "fips": "48337",
+      "medianHouseholdIncome": 64545,
+      "medianGrossRent": 1008,
+      "medianHomeValue": 206400,
+      "medianMonthlyOwnerCosts": 836
+    },
+    {
+      "fips": "48339",
+      "medianHouseholdIncome": 97701,
+      "medianGrossRent": 1532,
+      "medianHomeValue": 346200,
+      "medianMonthlyOwnerCosts": 1723
+    },
+    {
+      "fips": "48341",
+      "medianHouseholdIncome": 61762,
+      "medianGrossRent": 939,
+      "medianHomeValue": 152600,
+      "medianMonthlyOwnerCosts": 809
+    },
+    {
+      "fips": "48343",
+      "medianHouseholdIncome": 58645,
+      "medianGrossRent": 859,
+      "medianHomeValue": 120400,
+      "medianMonthlyOwnerCosts": 566
+    },
+    {
+      "fips": "48345",
+      "medianHouseholdIncome": 61154,
+      "medianGrossRent": 675,
+      "medianHomeValue": 88000,
+      "medianMonthlyOwnerCosts": 588
+    },
+    {
+      "fips": "48347",
+      "medianHouseholdIncome": 53555,
+      "medianGrossRent": 965,
+      "medianHomeValue": 169200,
+      "medianMonthlyOwnerCosts": 753
+    },
+    {
+      "fips": "48349",
+      "medianHouseholdIncome": 63111,
+      "medianGrossRent": 1076,
+      "medianHomeValue": 172600,
+      "medianMonthlyOwnerCosts": 922
+    },
+    {
+      "fips": "48351",
+      "medianHouseholdIncome": 42618,
+      "medianGrossRent": 1001,
+      "medianHomeValue": 103100,
+      "medianMonthlyOwnerCosts": 539
+    },
+    {
+      "fips": "48353",
+      "medianHouseholdIncome": 50747,
+      "medianGrossRent": 913,
+      "medianHomeValue": 96300,
+      "medianMonthlyOwnerCosts": 692
+    },
+    {
+      "fips": "48355",
+      "medianHouseholdIncome": 66897,
+      "medianGrossRent": 1283,
+      "medianHomeValue": 208800,
+      "medianMonthlyOwnerCosts": 1208
+    },
+    {
+      "fips": "48357",
+      "medianHouseholdIncome": 70183,
+      "medianGrossRent": 891,
+      "medianHomeValue": 134400,
+      "medianMonthlyOwnerCosts": 758
+    },
+    {
+      "fips": "48359",
+      "medianHouseholdIncome": 79900,
+      "medianGrossRent": 1111,
+      "medianHomeValue": 162800,
+      "medianMonthlyOwnerCosts": 912
+    },
+    {
+      "fips": "48361",
+      "medianHouseholdIncome": 72104,
+      "medianGrossRent": 1100,
+      "medianHomeValue": 173400,
+      "medianMonthlyOwnerCosts": 967
+    },
+    {
+      "fips": "48363",
+      "medianHouseholdIncome": 67674,
+      "medianGrossRent": 1093,
+      "medianHomeValue": 198000,
+      "medianMonthlyOwnerCosts": 950
+    },
+    {
+      "fips": "48365",
+      "medianHouseholdIncome": 64894,
+      "medianGrossRent": 834,
+      "medianHomeValue": 158100,
+      "medianMonthlyOwnerCosts": 657
+    },
+    {
+      "fips": "48367",
+      "medianHouseholdIncome": 104443,
+      "medianGrossRent": 1500,
+      "medianHomeValue": 375900,
+      "medianMonthlyOwnerCosts": 1730
+    },
+    {
+      "fips": "48369",
+      "medianHouseholdIncome": 69735,
+      "medianGrossRent": 1081,
+      "medianHomeValue": 146700,
+      "medianMonthlyOwnerCosts": 785
+    },
+    {
+      "fips": "48371",
+      "medianHouseholdIncome": 72750,
+      "medianGrossRent": 918,
+      "medianHomeValue": 165700,
+      "medianMonthlyOwnerCosts": 766
+    },
+    {
+      "fips": "48373",
+      "medianHouseholdIncome": 62259,
+      "medianGrossRent": 987,
+      "medianHomeValue": 184800,
+      "medianMonthlyOwnerCosts": 699
+    },
+    {
+      "fips": "48375",
+      "medianHouseholdIncome": 53249,
+      "medianGrossRent": 1022,
+      "medianHomeValue": 147300,
+      "medianMonthlyOwnerCosts": 893
+    },
+    {
+      "fips": "48377",
+      "medianHouseholdIncome": 43802,
+      "medianGrossRent": 448,
+      "medianHomeValue": 121300,
+      "medianMonthlyOwnerCosts": 517
+    },
+    {
+      "fips": "48379",
+      "medianHouseholdIncome": 65413,
+      "medianGrossRent": 989,
+      "medianHomeValue": 241100,
+      "medianMonthlyOwnerCosts": 950
+    },
+    {
+      "fips": "48381",
+      "medianHouseholdIncome": 83864,
+      "medianGrossRent": 1170,
+      "medianHomeValue": 238800,
+      "medianMonthlyOwnerCosts": 1327
+    },
+    {
+      "fips": "48383",
+      "medianHouseholdIncome": 57813,
+      "medianGrossRent": 746,
+      "medianHomeValue": 171500,
+      "medianMonthlyOwnerCosts": 636
+    },
+    {
+      "fips": "48385",
+      "medianHouseholdIncome": 39605,
+      "medianGrossRent": 1188,
+      "medianHomeValue": 112500,
+      "medianMonthlyOwnerCosts": 460
+    },
+    {
+      "fips": "48387",
+      "medianHouseholdIncome": 48491,
+      "medianGrossRent": 1044,
+      "medianHomeValue": 121500,
+      "medianMonthlyOwnerCosts": 599
+    },
+    {
+      "fips": "48389",
+      "medianHouseholdIncome": 64297,
+      "medianGrossRent": 981,
+      "medianHomeValue": 118000,
+      "medianMonthlyOwnerCosts": 600
+    },
+    {
+      "fips": "48391",
+      "medianHouseholdIncome": 60181,
+      "medianGrossRent": 795,
+      "medianHomeValue": 99000,
+      "medianMonthlyOwnerCosts": 675
+    },
+    {
+      "fips": "48393",
+      "medianHouseholdIncome": 67868,
+      "medianGrossRent": 859,
+      "medianHomeValue": 161500,
+      "medianMonthlyOwnerCosts": 733
+    },
+    {
+      "fips": "48395",
+      "medianHouseholdIncome": 72236,
+      "medianGrossRent": 779,
+      "medianHomeValue": 185900,
+      "medianMonthlyOwnerCosts": 721
+    },
+    {
+      "fips": "48397",
+      "medianHouseholdIncome": 127981,
+      "medianGrossRent": 1992,
+      "medianHomeValue": 415500,
+      "medianMonthlyOwnerCosts": 2175
+    },
+    {
+      "fips": "48399",
+      "medianHouseholdIncome": 62632,
+      "medianGrossRent": 847,
+      "medianHomeValue": 109300,
+      "medianMonthlyOwnerCosts": 679
+    },
+    {
+      "fips": "48401",
+      "medianHouseholdIncome": 68658,
+      "medianGrossRent": 1015,
+      "medianHomeValue": 171300,
+      "medianMonthlyOwnerCosts": 761
+    },
+    {
+      "fips": "48403",
+      "medianHouseholdIncome": 66585,
+      "medianGrossRent": 844,
+      "medianHomeValue": 153100,
+      "medianMonthlyOwnerCosts": 583
+    },
+    {
+      "fips": "48405",
+      "medianHouseholdIncome": 50408,
+      "medianGrossRent": 591,
+      "medianHomeValue": 99900,
+      "medianMonthlyOwnerCosts": 500
+    },
+    {
+      "fips": "48407",
+      "medianHouseholdIncome": 65364,
+      "medianGrossRent": 1060,
+      "medianHomeValue": 209300,
+      "medianMonthlyOwnerCosts": 916
+    },
+    {
+      "fips": "48409",
+      "medianHouseholdIncome": 69704,
+      "medianGrossRent": 1291,
+      "medianHomeValue": 192400,
+      "medianMonthlyOwnerCosts": 998
+    },
+    {
+      "fips": "48411",
+      "medianHouseholdIncome": 55819,
+      "medianGrossRent": 958,
+      "medianHomeValue": 168700,
+      "medianMonthlyOwnerCosts": 543
+    },
+    {
+      "fips": "48413",
+      "medianHouseholdIncome": 86694,
+      "medianGrossRent": 660,
+      "medianHomeValue": 122700,
+      "medianMonthlyOwnerCosts": 842
+    },
+    {
+      "fips": "48415",
+      "medianHouseholdIncome": 60039,
+      "medianGrossRent": 1020,
+      "medianHomeValue": 113800,
+      "medianMonthlyOwnerCosts": 862
+    },
+    {
+      "fips": "48417",
+      "medianHouseholdIncome": 73047,
+      "medianGrossRent": 718,
+      "medianHomeValue": 174800,
+      "medianMonthlyOwnerCosts": 908
+    },
+    {
+      "fips": "48419",
+      "medianHouseholdIncome": 49776,
+      "medianGrossRent": 781,
+      "medianHomeValue": 101500,
+      "medianMonthlyOwnerCosts": 589
+    },
+    {
+      "fips": "48421",
+      "medianHouseholdIncome": 61250,
+      "medianGrossRent": 835,
+      "medianHomeValue": 146900,
+      "medianMonthlyOwnerCosts": 878
+    },
+    {
+      "fips": "48423",
+      "medianHouseholdIncome": 74192,
+      "medianGrossRent": 1238,
+      "medianHomeValue": 240700,
+      "medianMonthlyOwnerCosts": 1157
+    },
+    {
+      "fips": "48425",
+      "medianHouseholdIncome": 79825,
+      "medianGrossRent": 773,
+      "medianHomeValue": 289500,
+      "medianMonthlyOwnerCosts": 901
+    },
+    {
+      "fips": "48427",
+      "medianHouseholdIncome": 37639,
+      "medianGrossRent": 726,
+      "medianHomeValue": 95100,
+      "medianMonthlyOwnerCosts": 442
+    },
+    {
+      "fips": "48429",
+      "medianHouseholdIncome": 58008,
+      "medianGrossRent": 846,
+      "medianHomeValue": 110200,
+      "medianMonthlyOwnerCosts": 723
+    },
+    {
+      "fips": "48431",
+      "medianHouseholdIncome": 64954,
+      "medianGrossRent": 952,
+      "medianHomeValue": 147000,
+      "medianMonthlyOwnerCosts": 1034
+    },
+    {
+      "fips": "48433",
+      "medianHouseholdIncome": 56875,
+      "medianGrossRent": 613,
+      "medianHomeValue": 48600,
+      "medianMonthlyOwnerCosts": 642
+    },
+    {
+      "fips": "48435",
+      "medianHouseholdIncome": 78906,
+      "medianGrossRent": 772,
+      "medianHomeValue": 155700,
+      "medianMonthlyOwnerCosts": 846
+    },
+    {
+      "fips": "48437",
+      "medianHouseholdIncome": 36165,
+      "medianGrossRent": 783,
+      "medianHomeValue": 86300,
+      "medianMonthlyOwnerCosts": 587
+    },
+    {
+      "fips": "48439",
+      "medianHouseholdIncome": 84207,
+      "medianGrossRent": 1547,
+      "medianHomeValue": 323900,
+      "medianMonthlyOwnerCosts": 1693
+    },
+    {
+      "fips": "48441",
+      "medianHouseholdIncome": 67139,
+      "medianGrossRent": 1159,
+      "medianHomeValue": 198600,
+      "medianMonthlyOwnerCosts": 1182
+    },
+    {
+      "fips": "48443",
+      "medianHouseholdIncome": 44886,
+      "medianGrossRent": null,
+      "medianHomeValue": 137500,
+      "medianMonthlyOwnerCosts": 585
+    },
+    {
+      "fips": "48445",
+      "medianHouseholdIncome": 44100,
+      "medianGrossRent": 817,
+      "medianHomeValue": 105400,
+      "medianMonthlyOwnerCosts": 679
+    },
+    {
+      "fips": "48447",
+      "medianHouseholdIncome": 59216,
+      "medianGrossRent": 878,
+      "medianHomeValue": 89500,
+      "medianMonthlyOwnerCosts": 565
+    },
+    {
+      "fips": "48449",
+      "medianHouseholdIncome": 58425,
+      "medianGrossRent": 907,
+      "medianHomeValue": 174000,
+      "medianMonthlyOwnerCosts": 902
+    },
+    {
+      "fips": "48451",
+      "medianHouseholdIncome": 68370,
+      "medianGrossRent": 1154,
+      "medianHomeValue": 197000,
+      "medianMonthlyOwnerCosts": 1045
+    },
+    {
+      "fips": "48453",
+      "medianHouseholdIncome": 99611,
+      "medianGrossRent": 1744,
+      "medianHomeValue": 523000,
+      "medianMonthlyOwnerCosts": 2100
+    },
+    {
+      "fips": "48455",
+      "medianHouseholdIncome": 52018,
+      "medianGrossRent": 856,
+      "medianHomeValue": 119500,
+      "medianMonthlyOwnerCosts": 641
+    },
+    {
+      "fips": "48457",
+      "medianHouseholdIncome": 55396,
+      "medianGrossRent": 1049,
+      "medianHomeValue": 157300,
+      "medianMonthlyOwnerCosts": 674
+    },
+    {
+      "fips": "48459",
+      "medianHouseholdIncome": 66208,
+      "medianGrossRent": 995,
+      "medianHomeValue": 167800,
+      "medianMonthlyOwnerCosts": 853
+    },
+    {
+      "fips": "48461",
+      "medianHouseholdIncome": 49167,
+      "medianGrossRent": 720,
+      "medianHomeValue": 109000,
+      "medianMonthlyOwnerCosts": 654
+    },
+    {
+      "fips": "48463",
+      "medianHouseholdIncome": 53801,
+      "medianGrossRent": 981,
+      "medianHomeValue": 150800,
+      "medianMonthlyOwnerCosts": 681
+    },
+    {
+      "fips": "48465",
+      "medianHouseholdIncome": 66100,
+      "medianGrossRent": 994,
+      "medianHomeValue": 164600,
+      "medianMonthlyOwnerCosts": 931
+    },
+    {
+      "fips": "48467",
+      "medianHouseholdIncome": 69475,
+      "medianGrossRent": 1066,
+      "medianHomeValue": 222100,
+      "medianMonthlyOwnerCosts": 967
+    },
+    {
+      "fips": "48469",
+      "medianHouseholdIncome": 70896,
+      "medianGrossRent": 1157,
+      "medianHomeValue": 209900,
+      "medianMonthlyOwnerCosts": 951
+    },
+    {
+      "fips": "48471",
+      "medianHouseholdIncome": 52324,
+      "medianGrossRent": 1031,
+      "medianHomeValue": 226900,
+      "medianMonthlyOwnerCosts": 974
+    },
+    {
+      "fips": "48473",
+      "medianHouseholdIncome": 80397,
+      "medianGrossRent": 1169,
+      "medianHomeValue": 318700,
+      "medianMonthlyOwnerCosts": 1306
+    },
+    {
+      "fips": "48475",
+      "medianHouseholdIncome": 65952,
+      "medianGrossRent": 1118,
+      "medianHomeValue": 150700,
+      "medianMonthlyOwnerCosts": 590
+    },
+    {
+      "fips": "48477",
+      "medianHouseholdIncome": 77825,
+      "medianGrossRent": 1165,
+      "medianHomeValue": 288100,
+      "medianMonthlyOwnerCosts": 972
+    },
+    {
+      "fips": "48479",
+      "medianHouseholdIncome": 63058,
+      "medianGrossRent": 1027,
+      "medianHomeValue": 189900,
+      "medianMonthlyOwnerCosts": 1105
+    },
+    {
+      "fips": "48481",
+      "medianHouseholdIncome": 66924,
+      "medianGrossRent": 1046,
+      "medianHomeValue": 189900,
+      "medianMonthlyOwnerCosts": 972
+    },
+    {
+      "fips": "48483",
+      "medianHouseholdIncome": 60167,
+      "medianGrossRent": 970,
+      "medianHomeValue": 106100,
+      "medianMonthlyOwnerCosts": 629
+    },
+    {
+      "fips": "48485",
+      "medianHouseholdIncome": 63524,
+      "medianGrossRent": 1006,
+      "medianHomeValue": 153700,
+      "medianMonthlyOwnerCosts": 992
+    },
+    {
+      "fips": "48487",
+      "medianHouseholdIncome": 54102,
+      "medianGrossRent": 932,
+      "medianHomeValue": 89400,
+      "medianMonthlyOwnerCosts": 823
+    },
+    {
+      "fips": "48489",
+      "medianHouseholdIncome": 54180,
+      "medianGrossRent": 809,
+      "medianHomeValue": 73600,
+      "medianMonthlyOwnerCosts": 532
+    },
+    {
+      "fips": "48491",
+      "medianHouseholdIncome": 111340,
+      "medianGrossRent": 1796,
+      "medianHomeValue": 447000,
+      "medianMonthlyOwnerCosts": 2035
+    },
+    {
+      "fips": "48493",
+      "medianHouseholdIncome": 94565,
+      "medianGrossRent": 1069,
+      "medianHomeValue": 321300,
+      "medianMonthlyOwnerCosts": 1313
+    },
+    {
+      "fips": "48495",
+      "medianHouseholdIncome": 86900,
+      "medianGrossRent": 1037,
+      "medianHomeValue": 148200,
+      "medianMonthlyOwnerCosts": 594
+    },
+    {
+      "fips": "48497",
+      "medianHouseholdIncome": 93421,
+      "medianGrossRent": 1299,
+      "medianHomeValue": 304900,
+      "medianMonthlyOwnerCosts": 1352
+    },
+    {
+      "fips": "48499",
+      "medianHouseholdIncome": 60300,
+      "medianGrossRent": 862,
+      "medianHomeValue": 216500,
+      "medianMonthlyOwnerCosts": 777
+    },
+    {
+      "fips": "48501",
+      "medianHouseholdIncome": 84925,
+      "medianGrossRent": 973,
+      "medianHomeValue": 182600,
+      "medianMonthlyOwnerCosts": 716
+    },
+    {
+      "fips": "48503",
+      "medianHouseholdIncome": 68010,
+      "medianGrossRent": 862,
+      "medianHomeValue": 175800,
+      "medianMonthlyOwnerCosts": 866
+    },
+    {
+      "fips": "48505",
+      "medianHouseholdIncome": 39239,
+      "medianGrossRent": 617,
+      "medianHomeValue": 97100,
+      "medianMonthlyOwnerCosts": 519
+    },
+    {
+      "fips": "48507",
+      "medianHouseholdIncome": 36749,
+      "medianGrossRent": 548,
+      "medianHomeValue": 98800,
+      "medianMonthlyOwnerCosts": 653
+    }
+  ]
 }
