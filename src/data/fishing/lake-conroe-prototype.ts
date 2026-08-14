@@ -73,7 +73,7 @@ export const lakeConroeSources = {
   },
   tpwdRegulations: {
     label: "Texas Parks & Wildlife Department — Lake Conroe regulations",
-    url: "https://tpwd.texas.gov/fishboat/fish/recreational/lakes/conroe/regulations.phtml",
+    url: "https://tpwd.texas.gov/fishboat/fish/action/fishregs2.php?water=0192",
   },
   tpwdReport: {
     label: "Texas Parks & Wildlife Department — current fishing report",
@@ -92,20 +92,20 @@ export const lakeConroeSources = {
     url: "https://www.waterdatafortexas.org/reservoirs/individual/conroe",
   },
   sjra: {
-    label: "San Jacinto River Authority — Lake Conroe",
-    url: "https://www.sjra.net/lake-conroe/",
+    label: "San Jacinto River Authority — Lake Conroe history and facts",
+    url: "https://www.sjra.net/lakeconroe/history/",
   },
   usfsCagle: {
-    label: "U.S. Forest Service — Cagle Recreation Area",
-    url: "https://www.fs.usda.gov/r08/texas/recreation/cagle-recreation-area",
+    label: "Recreation.gov / U.S. Forest Service — Cagle Recreation Area",
+    url: "https://www.recreation.gov/camping/campgrounds/234004",
   },
   usfsScottsRidge: {
-    label: "U.S. Forest Service — Scott's Ridge",
-    url: "https://www.fs.usda.gov/r08/texas/recreation/scotts-ridge",
+    label: "U.S. Forest Service — Scott's Ridge Boat Ramp",
+    url: "https://www.fs.usda.gov/r08/texas/recreation/scotts-ridge-boat-ramp-936-344-6205",
   },
   usfsStubblefield: {
-    label: "U.S. Forest Service — Stubblefield Recreation Area",
-    url: "https://www.fs.usda.gov/r08/texas/recreation/stubblefield-recreation-area",
+    label: "Recreation.gov / U.S. Forest Service — Stubblefield Lake",
+    url: "https://www.recreation.gov/camping/campgrounds/10158882",
   },
 } as const;
 
