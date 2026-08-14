@@ -61,12 +61,15 @@ for (const marker of [
   "key: 'golf'",
   "key: 'western'",
   "key: 'regional'",
-  'getSportsVenueEnrichmentAll',
+  "entitiesByKind('sports-venue')",
+  'Every curated venue guide includes verified trip details',
   'Verified trip details',
   'applyCurrentEntityCorrections',
 ]) {
-  assert(directory.includes(marker), `Sports venue directory is missing category or enrichment marker ${marker}.`);
+  assert(directory.includes(marker), `Sports venue directory is missing category, static-inventory, or visitor-detail marker ${marker}.`);
 }
+assert(!directory.includes('getSportsVenueEnrichmentAll'), 'Sports venue directory must not load the full enrichment payload merely to render badges or sorting.');
+assert(!directory.includes('loadTexasKnowledgeGraph'), 'Sports venue directory must use the governed static sports inventory rather than the remote-capable graph loader.');
 
 for (const marker of [
   "createFileRoute('/sports-venue/$slug')",
@@ -121,4 +124,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Sports venue coverage contracts validated: ${majorCount} major seeds + ${tier2Count} second-tier rows, core Reliant record, statewide category anchors, dedicated visitor template, current-name correction and all enrichment batches are wired. Exact seeded-to-deep-profile completeness is enforced separately.`);
+console.log(`Sports venue coverage contracts validated: ${majorCount} major seeds + ${tier2Count} second-tier rows, core Reliant record, lightweight static directory, statewide category anchors, dedicated visitor template, current-name correction and all enrichment batches are wired. Exact seeded-to-deep-profile completeness is enforced separately.`);
