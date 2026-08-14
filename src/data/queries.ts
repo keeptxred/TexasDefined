@@ -140,12 +140,29 @@ function destinationSearchDocument(destination: Destination): SearchDocument {
   return { id: `destination:${destination.slug}`, brandId: "texasdefined", kind: "destination", title: destination.name, summary: destination.summary, keywords: [...new Set(keywords)], href: `/destination/${destination.slug}` };
 }
 
+const staticSearchDocuments: SearchDocument[] = [
+  {
+    id: "collection:texas-explained",
+    brandId: "texasdefined",
+    kind: "collection",
+    title: "Texas Explained: 10 Guides to How the State Works",
+    summary: "Ten connected guides to the water, roads, towns, landscapes, wildlife, homes, land and migration patterns behind everyday Texas.",
+    keywords: ["Texas Explained", "how Texas works", "Texas rivers", "Texas lakes", "farm-to-market roads", "Texas courthouse squares", "Texas wildflowers", "Texas trees", "Texas wildlife", "Texas homes", "buying land in Texas", "Texas cultural regions"],
+    href: "/texas-explained",
+  },
+];
+
 export const searchDocumentsQuery = () => queryOptions({
   queryKey: ["search-documents", scope.brandId],
   queryFn: async () => {
     const base = await platform.search.documents(scope);
-    const fishingDocuments = await buildFishingSearchDocuments();
     const knownHrefs = new Set(base.map((document) => document.href));
+    for (const document of staticSearchDocuments) {
+      if (knownHrefs.has(document.href)) continue;
+      base.push(document);
+      knownHrefs.add(document.href);
+    }
+    const fishingDocuments = await buildFishingSearchDocuments();
     for (const document of fishingDocuments) {
       if (knownHrefs.has(document.href)) continue;
       base.push(document);

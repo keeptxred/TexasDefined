@@ -2,19 +2,24 @@ import { createFileRoute } from '@tanstack/react-router';
 
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { Container } from '@/components/layout/Container';
+import { SponsoredSportsPlacement } from '@/components/sports/SponsoredSportsPlacement';
 import { entitiesByKind } from '@/data/knowledge-graph';
 import { applyCurrentEntityCorrections } from '@/data/knowledge-graph/current-entity-corrections';
 import { canonicalEntityPath, isIndexableEntityPage } from '@/data/knowledge-graph/relationships';
 import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
+import { getActiveSportsSponsorPlacement } from '@/data/sports-sponsorship.functions';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
 const description = 'Browse major Texas stadiums, arenas, racetracks, golf courses, ballparks, high-school football landmarks, rodeo grounds and tournament complexes, including professional, college, motorsports and regional visitor draws.';
 
 export const Route = createFileRoute('/sports-venues')({
-  loader: () => entitiesByKind('sports-venue')
-    .filter(isIndexableEntityPage)
-    .map(applyCurrentEntityCorrections)
-    .sort((a, b) => a.name.localeCompare(b.name)),
+  loader: async () => ({
+    venues: entitiesByKind('sports-venue')
+      .filter(isIndexableEntityPage)
+      .map(applyCurrentEntityCorrections)
+      .sort((a, b) => a.name.localeCompare(b.name)),
+    sponsorPlacement: await getActiveSportsSponsorPlacement({ data: { surfacePath: '/sports-venues' } }),
+  }),
   head: () => ({
     meta: buildMeta(texasDefinedBrand, {
       title: 'Texas Stadiums, Arenas, Racetracks, Golf & Sports Venues',
@@ -27,7 +32,7 @@ export const Route = createFileRoute('/sports-venues')({
 });
 
 function SportsVenuesPage() {
-  const venues = Route.useLoaderData();
+  const { venues, sponsorPlacement } = Route.useLoaderData();
   const groups = groupVenues(venues);
   const motorsports = venues.filter((venue) => venue.tags?.includes('motorsports')).length;
   const college = venues.filter((venue) => venue.tags?.includes('college')).length;
@@ -51,6 +56,8 @@ function SportsVenuesPage() {
           <Stat label="High school" value={highSchool} />
         </dl>
       </header>
+
+      {sponsorPlacement ? <div className="py-8"><SponsoredSportsPlacement placement={sponsorPlacement} /></div> : null}
 
       {groups.map((group) => <section key={group.key} className="border-b border-border py-12 last:border-b-0">
         <div className="grid gap-8 lg:grid-cols-[16rem_1fr]">

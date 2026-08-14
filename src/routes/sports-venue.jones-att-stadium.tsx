@@ -2,6 +2,8 @@ import { createFileRoute } from '@tanstack/react-router';
 
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { Container } from '@/components/layout/Container';
+import { SponsoredSportsPlacement } from '@/components/sports/SponsoredSportsPlacement';
+import { getActiveSportsSponsorPlacement } from '@/data/sports-sponsorship.functions';
 import { getSportsVenueEnrichmentAll, sportsVenueMapUrl } from '@/data/sports-venue-enrichment-all';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
@@ -10,6 +12,9 @@ const venueName = 'Galaxy Stadium';
 const description = 'Galaxy Stadium in Lubbock is the home of Texas Tech Red Raiders football and one of West Texas’s major college-sports destinations. The stadium adopted the Galaxy name beginning with the 2026 football season while retaining the history and game-day traditions generations of Red Raider fans know from Jones AT&T Stadium.';
 
 export const Route = createFileRoute('/sports-venue/jones-att-stadium')({
+  loader: async () => ({
+    sponsorPlacement: await getActiveSportsSponsorPlacement({ data: { surfacePath: canonicalPath } }),
+  }),
   head: () => ({
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath,
@@ -22,6 +27,7 @@ export const Route = createFileRoute('/sports-venue/jones-att-stadium')({
 });
 
 function GalaxyStadiumPage() {
+  const { sponsorPlacement } = Route.useLoaderData();
   const enrichment = getSportsVenueEnrichmentAll('jones-att-stadium');
   const mapUrl = sportsVenueMapUrl(venueName, 'lubbock');
   const jsonLd = {
@@ -73,6 +79,8 @@ function GalaxyStadiumPage() {
           <a className="underline decoration-primary/50 underline-offset-4 hover:text-primary" href="/sports-venues">All Texas sports venues →</a>
         </div>
 
+        {sponsorPlacement ? <div className="border-b border-border py-8"><SponsoredSportsPlacement placement={sponsorPlacement} /></div> : null}
+
         {enrichment ? <section className="border-b border-border py-12">
           <div className="grid gap-8 lg:grid-cols-[15rem_1fr]">
             <div>
@@ -96,7 +104,7 @@ function GalaxyStadiumPage() {
           </div>
         </section> : null}
 
-        <section className="grid gap-8 py-12 lg:grid-cols-[15rem_1fr]">
+        <section className="grid gap-8 border-b border-border py-12 lg:grid-cols-[15rem_1fr]">
           <div>
             <p className="eyebrow text-primary">Name change</p>
             <h2 className="mt-2 font-display text-3xl">Jones history, Galaxy era</h2>
@@ -105,6 +113,15 @@ function GalaxyStadiumPage() {
             <p>Texas Tech announced the Galaxy Stadium name for the 2026 football season under a 15-year naming-rights agreement. Texas Defined keeps the established venue URL stable so older bookmarks and inbound links continue to reach the current guide.</p>
           </div>
         </section>
+
+        <aside className="grid gap-7 border-b border-border py-10 lg:grid-cols-[1fr_auto] lg:items-center" aria-labelledby="galaxy-partnership-heading">
+          <div>
+            <p className="eyebrow text-primary">Local business partnerships</p>
+            <h2 id="galaxy-partnership-heading" className="mt-2 font-display text-3xl">Serve visitors coming to Galaxy Stadium?</h2>
+            <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Local visitor businesses can ask about clearly disclosed sports-travel sponsorships. Paid relationships do not change Texas Defined’s editorial conclusions, factual coverage or venue ranking.</p>
+          </div>
+          <a href={`/partner-with-us?type=sports-travel&source=${encodeURIComponent(canonicalPath)}#partnership-form-heading`} className="inline-flex min-h-11 items-center justify-center border border-primary px-5 py-3 text-sm font-semibold text-primary hover:bg-primary hover:text-primary-foreground">Ask about local partnership options →</a>
+        </aside>
       </article>
     </Container>
   </>;

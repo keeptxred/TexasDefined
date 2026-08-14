@@ -23,7 +23,7 @@ function constantTimeEqual(left: string, right: string) {
   return difference === 0;
 }
 
-async function assertSportsPartnerAccess(accessKey: string) {
+export async function assertSportsPartnerAccess(accessKey: string) {
   const client = supabaseAdmin as any;
   const { data, error } = await client
     .from('texasdefined_admin_access_keys')
