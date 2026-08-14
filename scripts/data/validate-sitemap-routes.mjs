@@ -24,7 +24,7 @@ const migratedGuideRedirects = [
   ['src/routes/explore.texas-lakes-guide.tsx', '/explore/texas-lakes-guide', '/explore/lakes-rivers'],
   ['src/routes/explore.texas-camping-guide.tsx', '/explore/texas-camping-guide', '/explore/outdoors'],
   ['src/routes/explore.texas-scenic-drives.tsx', '/explore/texas-scenic-drives', '/explore/road-trips'],
-  ['src/routes/explore.texas-wildflower-seasons.tsx', '/explore/texas-wildflower-seasons', '/explore/road-trips'],
+  ['src/routes/explore.texas-wildflower-seasons.tsx', '/explore/texas-wildflower-seasons', '/article/texas-wildflowers-guide'],
   ['src/routes/explore.national-wildlife-refuges.tsx', '/explore/national-wildlife-refuges', '/explore/outdoors'],
   ['src/routes/explore.wildlife-management-areas.tsx', '/explore/wildlife-management-areas', '/explore/outdoors'],
   ['src/routes/explore.lighthouses.tsx', '/explore/lighthouses', '/explore/beaches-coast'],
