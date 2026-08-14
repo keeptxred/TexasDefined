@@ -6,6 +6,7 @@ import { getTexasCountyHousingCosts } from "@/data/acs-county-housing-costs.func
 import { fetchPublishedTexasDefinedArticles } from "@/data/articles-remote";
 import { loadTexasCountyGrowth } from "@/data/census-county-growth";
 import { isLegacyCountySeriesArticle } from "@/data/county-series";
+import { FISHING_SITEMAP_ENTRIES } from "@/data/fishing/sitemap";
 import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
 import { canonicalEntityPath, isIndexableEntityPage } from "@/data/knowledge-graph/relationships";
 import { COUNTY_PROPERTY_RECORDS } from "@/data/property/county-property-data";
@@ -58,6 +59,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           ...INDEXABLE_STATIC_PATHS
             .filter((path) => !isExploreSitemapOwnedPath(path))
             .map((path) => ({ path })),
+          ...FISHING_SITEMAP_ENTRIES,
           ...(articles.length ? [{ path: "/news" }] : []),
           ...remoteArticles.map((article) => ({ path: `/news/${article.slug}`, lastmod: toDate(article.publishedAt) })),
           ...(countyGrowth.available ? [{ path: "/texas-data/county-growth", lastmod: "2026-03-17" }] : []),

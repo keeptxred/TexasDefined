@@ -16,7 +16,14 @@ const requiredFiles = [
   "src/data/fishing/queries.ts",
   "src/data/fishing/search.ts",
   "src/data/fishing/internal-links.ts",
+  "src/data/fishing/lake-conroe-prototype.ts",
+  "src/data/fishing/sitemap.ts",
+  "src/components/fishing/LakeConroeGuide.tsx",
   "src/routes/fishing.tsx",
+  "src/routes/fishing.lakes.$slug.tsx",
+  "src/routes/fishing.lakes.$slug.$section.tsx",
+  "src/routes/fishing.lake.lake-conroe.tsx",
+  "src/routes/lakes.lake-conroe[.]html.tsx",
 ];
 requiredFiles.forEach(requireFile);
 
@@ -27,7 +34,16 @@ if (!failures.length) {
   const queries = read("src/data/fishing/queries.ts");
   const search = read("src/data/fishing/search.ts");
   const internalLinks = read("src/data/fishing/internal-links.ts");
+  const slugs = read("src/data/fishing/slugs.ts");
+  const prototype = read("src/data/fishing/lake-conroe-prototype.ts");
+  const fishingSitemap = read("src/data/fishing/sitemap.ts");
+  const primarySitemap = read("src/routes/sitemap[.]xml.ts");
+  const lakeUi = read("src/components/fishing/LakeConroeGuide.tsx");
   const route = read("src/routes/fishing.tsx");
+  const lakeRoute = read("src/routes/fishing.lakes.$slug.tsx");
+  const lakeSectionRoute = read("src/routes/fishing.lakes.$slug.$section.tsx");
+  const legacyFishingRedirect = read("src/routes/fishing.lake.lake-conroe.tsx");
+  const legacyHtmlRedirect = read("src/routes/lakes.lake-conroe[.]html.tsx");
   const publicRoutes = read("src/lib/public-routes.ts");
   const globalQueries = read("src/data/queries.ts");
   const coreTypes = read("src/data/types.ts");
@@ -66,12 +82,51 @@ if (!failures.length) {
   if (!route.includes('canonicalPath: "/fishing"')) failures.push("/fishing canonical metadata is missing.");
   if (!route.includes("Texas Parks & Wildlife Department")) failures.push("/fishing page is missing its source/freshness disclosure.");
 
+  const indexableStaticSection = publicRoutes.split("export const REDIRECT_ONLY_PATHS")[0];
+  if (indexableStaticSection.includes('"/fishing/lakes/lake-conroe"')) {
+    failures.push("Dynamic Lake Conroe URLs must not be misclassified as static public routes.");
+  }
+  if (!fishingSitemap.includes("FISHING_SITEMAP_ENTRIES") || !fishingSitemap.includes("LAKE_CONROE_SECTION_SLUGS") || !fishingSitemap.includes("LAKE_CONROE_VERIFIED_AT")) {
+    failures.push("Lake Conroe dynamic sitemap entries are incomplete or lack source-backed lastmod.");
+  }
+  if (!primarySitemap.includes('FISHING_SITEMAP_ENTRIES') || !primarySitemap.includes('...FISHING_SITEMAP_ENTRIES')) {
+    failures.push("Primary sitemap does not publish the Lake Conroe dynamic route family.");
+  }
+
+  if (!slugs.includes('lake: "/fishing/lakes"')) failures.push("Lake canonical slug helper still points at the legacy singular route.");
+  if (!slugs.includes('canonicalSlug === "lake-conroe"')) failures.push("Lake Conroe search/internal-link identity is not promoted to its dedicated route.");
+  if (!route.includes('to="/fishing/lakes/lake-conroe"')) failures.push("Statewide fishing page does not discover the complete Lake Conroe guide.");
+  if (!lakeRoute.includes('createFileRoute("/fishing/lakes/$slug")')) failures.push("Canonical fishing lake route template is missing.");
+  if (!lakeSectionRoute.includes('createFileRoute("/fishing/lakes/$slug/$section")')) failures.push("Canonical fishing lake section route template is missing.");
+  if (!lakeRoute.includes('"@type": "Reservoir"') || !lakeRoute.includes('"@type": "BreadcrumbList"')) failures.push("Lake Conroe overview is missing Reservoir/Breadcrumb structured data.");
+  if (!lakeRoute.includes("dateModified: LAKE_CONROE_VERIFIED_AT") || !lakeSectionRoute.includes("dateModified: LAKE_CONROE_VERIFIED_AT")) failures.push("Lake Conroe routes do not expose source-backed freshness.");
+
+  for (const section of ["fish", "access", "boating", "regulations", "camping", "nearby", "reports", "guides"]) {
+    if (!prototype.includes(`"${section}"`)) failures.push(`Lake Conroe section registry is missing: ${section}`);
+  }
+  for (const sourceSignal of ["tpwdLake", "tpwdAccess", "tpwdRegulations", "tpwdReport", "twdb", "liveLevel", "sjra", "usfsCagle", "usfsScottsRidge", "usfsStubblefield"]) {
+    if (!prototype.includes(`${sourceSignal}:`)) failures.push(`Lake Conroe verified source is missing: ${sourceSignal}`);
+  }
+  for (const dataSignal of ["lakeConroeFish", "lakeConroeAccess", "lakeConroeRegulations", "lakeConroeBoatingNotes", "lakeConroeCamping", "lakeConroeNearby", "lakeConroeReportSnapshot"]) {
+    if (!prototype.includes(`export const ${dataSignal}`)) failures.push(`Lake Conroe prototype data is incomplete: ${dataSignal}`);
+  }
+  if (!prototype.includes('surfaceAcres: 20118') || !prototype.includes('impoundedYear: 1973') || !prototype.includes('"Montgomery", "Walker"')) failures.push("Lake Conroe identity facts are incomplete.");
+  if (!prototype.includes("maximumDepthNote") || !prototype.includes("do not invent one")) failures.push("Lake Conroe maximum-depth uncertainty is not handled explicitly.");
+  if (!lakeUi.includes("No TexasDefined current report is published") || !lakeUi.includes("No Lake Conroe guide has cleared the verified-listing gate yet")) failures.push("Lake Conroe report/guide empty states are not protected against fabricated freshness or listings.");
+  if (!lakeUi.includes("Sponsorship policy") || !lakeUi.includes("must be labeled as sponsored")) failures.push("Lake Conroe sponsorship disclosure policy is missing.");
+
+  for (const [legacyPath, source] of [["/fishing/lake/lake-conroe", legacyFishingRedirect], ["/lakes/lake-conroe.html", legacyHtmlRedirect]]) {
+    if (!publicRoutes.includes(`"${legacyPath}"`)) failures.push(`Legacy Lake Conroe path is not governed as redirect-only: ${legacyPath}`);
+    if (!source.includes('href: "/fishing/lakes/lake-conroe"') || !source.includes("statusCode: 301")) failures.push(`Legacy Lake Conroe route does not permanently redirect: ${legacyPath}`);
+  }
+
   const nonCanonicalFixtureSlugs = [...fixtures.matchAll(/slug:\s*"([^"]+)"/g)]
     .map((match) => match[1])
     .filter((slug) => !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug));
   if (nonCanonicalFixtureSlugs.length) failures.push(`Noncanonical fixture slugs: ${nonCanonicalFixtureSlugs.join(", ")}`);
 
-  const insecureFishingSources = [...fixtures.matchAll(/url:\s*"([^"]+)"/g)]
+  const sourceFiles = `${fixtures}\n${prototype}`;
+  const insecureFishingSources = [...sourceFiles.matchAll(/url:\s*"([^"]+)"/g)]
     .map((match) => match[1])
     .filter((url) => !url.startsWith("https://"));
   if (insecureFishingSources.length) failures.push(`Fishing sources must use https: ${insecureFishingSources.join(", ")}`);
@@ -83,4 +138,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Fishing platform validation passed: domain model, foundation lakes, relationship types, search/internal-link integration, crawl registration and source contracts are present.");
+console.log("Fishing platform validation passed: foundation contracts plus the complete Lake Conroe prototype, dynamic sitemap publication, canonical route family, verified-source UX, redirect policy, report freshness and guide verification gates are protected.");
