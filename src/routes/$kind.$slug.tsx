@@ -3,6 +3,7 @@ import { texasDefinedBrand } from '@/brand/texasdefined';
 import { AutoEntityLinks } from '@/components/content/AutoEntityLinks';
 import { CountyGuideSections } from '@/components/content/CountyGuideSections';
 import { Container } from '@/components/layout/Container';
+import { CountySportsDestinations } from '@/components/sports/CountySportsDestinations';
 import { loadCountyProfile } from '@/data/county-profile';
 import { findCompleteTexasEntity, loadTexasKnowledgeGraph } from '@/data/knowledge-graph';
 import {
@@ -25,12 +26,17 @@ export const Route = createFileRoute('/$kind/$slug')({
     const entity = await findCompleteTexasEntity(`${params.kind}:${params.slug}`) ?? await findCompleteTexasEntity(params.slug);
     if (!entity || entity.kind !== params.kind) throw notFound();
     const related = rankRelatedEntities(entity, graph, 12);
-    if (entity.kind !== 'county') return { entity, related, countyProfile: null, localGovernment: null };
+    const countySportsVenues = entity.kind === 'county'
+      ? graph
+        .filter((candidate) => candidate.kind === 'sports-venue' && candidate.countySlug === entity.slug && isIndexableEntityPage(candidate))
+        .sort((left, right) => sportsVenuePriority(left) - sportsVenuePriority(right) || left.name.localeCompare(right.name))
+      : [];
+    if (entity.kind !== 'county') return { entity, related, countyProfile: null, localGovernment: null, countySportsVenues };
     const [countyProfile, localGovernment] = await Promise.all([
       loadCountyProfile(entity.slug, entity.name),
       loadLocalGovernmentProfile(entity.slug, entity.name),
     ]);
-    return { entity, related, countyProfile, localGovernment };
+    return { entity, related, countyProfile, localGovernment, countySportsVenues };
   },
   head: ({ loaderData }) => {
     if (!loaderData) return {};
@@ -51,7 +57,7 @@ export const Route = createFileRoute('/$kind/$slug')({
 });
 
 function EntityPage() {
-  const { entity, related, countyProfile, localGovernment } = Route.useLoaderData();
+  const { entity, related, countyProfile, localGovernment, countySportsVenues } = Route.useLoaderData();
   const visibleRelated = relatedForDisplay(entity, related);
   const relatedEntities = visibleRelated.map((item) => item.entity);
   const description = pageDescription(entity);
@@ -136,6 +142,7 @@ function EntityPage() {
         </div>
 
         {entity.kind === 'county' && countyProfile && localGovernment ? <CountyGuideSections entity={entity} profile={countyProfile} localGovernment={localGovernment} related={related} /> : null}
+        {entity.kind === 'county' ? <CountySportsDestinations county={entity} venues={countySportsVenues} /> : null}
 
         {entity.kind !== 'county' && entity.tags?.length ? <section className="grid gap-6 border-b border-border py-10 lg:grid-cols-[14rem_1fr]">
           <div>
@@ -176,6 +183,17 @@ function relatedForDisplay(entity: TexasEntityRecord, related: RankedRelatedEnti
     || Boolean(entity.countySlug && (candidate.countySlug === entity.countySlug || (candidate.kind === 'county' && candidate.slug === entity.countySlug)))
     || (entity.kind === 'county' && (candidate.countySlug === entity.slug || explicitTargets.has(candidate.id))),
   ).slice(0, 6);
+}
+
+function sportsVenuePriority(entity: TexasEntityRecord) {
+  const tags = new Set(entity.tags ?? []);
+  if (tags.has('professional')) return 0;
+  if (tags.has('major-tourist-draw')) return 1;
+  if (tags.has('college')) return 2;
+  if (tags.has('motorsports')) return 3;
+  if (tags.has('golf')) return 4;
+  if (tags.has('high-school')) return 5;
+  return 6;
 }
 
 function searchIntentTitle(entity: TexasEntityRecord) {
