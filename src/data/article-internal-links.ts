@@ -1,6 +1,20 @@
 import type { ArticleInternalLink } from "./types";
 
+const texasExplainedLink: ArticleInternalLink = {
+  href: "/texas-explained",
+  label: "Explore the full Texas Explained collection",
+  description: "Connect this guide with the rivers, roads, towns, landscapes, wildlife, homes, land and cultural patterns that explain how Texas fits together.",
+};
+
 export const articleInternalLinks: Record<string, ArticleInternalLink[]> = {
+  "texas-rivers-explained": [texasExplainedLink],
+  "texas-lakes-reservoirs-explained": [texasExplainedLink],
+  "texas-farm-to-market-roads-explained": [texasExplainedLink],
+  "texas-courthouses-town-square": [texasExplainedLink],
+  "texas-wildflowers-guide": [texasExplainedLink],
+  "buying-land-in-texas-guide": [texasExplainedLink],
+  "texas-wildlife-guide": [texasExplainedLink],
+  "texas-cultural-regions-explained": [texasExplainedLink],
   "texas-barbecue-styles-explained": [
     {
       href: "/explore/food-bbq",
@@ -63,6 +77,7 @@ export const articleInternalLinks: Record<string, ArticleInternalLink[]> = {
     },
   ],
   "texas-trees-guide": [
+    texasExplainedLink,
     {
       href: "/article/texas-regions-explained",
       label: "Texas regions explained",
@@ -90,6 +105,7 @@ export const articleInternalLinks: Record<string, ArticleInternalLink[]> = {
     },
   ],
   "texas-home-architecture-regions": [
+    texasExplainedLink,
     {
       href: "/article/buying-land-in-texas-guide",
       label: "Buying land before you build",
