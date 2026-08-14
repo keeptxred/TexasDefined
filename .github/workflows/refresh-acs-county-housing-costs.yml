@@ -37,18 +37,26 @@ jobs:
           node-version: 24
       - name: Generate compact official Census snapshot
         run: node scripts/data/refresh-county-housing-costs.mjs
-      - name: Validate near-complete snapshot
+      - name: Validate complete Texas county snapshot
         run: |
           node - <<'NODE'
           const fs = require('fs');
           const data = JSON.parse(fs.readFileSync('src/data/acs-county-housing-costs.snapshot.json', 'utf8'));
-          if (!Array.isArray(data.rows) || data.rows.length < 250) throw new Error(`Expected at least 250 Texas county rows; found ${data.rows?.length ?? 0}`);
+          if (!Array.isArray(data.rows) || data.rows.length !== 254) throw new Error(`Expected all 254 Texas county rows; found ${data.rows?.length ?? 0}`);
+          const fips = new Set();
+          let suppressed = 0;
           for (const row of data.rows) {
-            for (const key of ['fips','medianHouseholdIncome','medianHomeValue','medianGrossRent','medianMonthlyOwnerCosts']) {
-              if (row[key] == null) throw new Error(`Missing ${key} for ${row.fips || 'unknown county'}`);
+            if (!/^48\d{3}$/.test(String(row.fips))) throw new Error(`Invalid Texas county FIPS ${row.fips}`);
+            if (fips.has(row.fips)) throw new Error(`Duplicate county FIPS ${row.fips}`);
+            fips.add(row.fips);
+            for (const key of ['medianHouseholdIncome','medianHomeValue','medianGrossRent','medianMonthlyOwnerCosts']) {
+              if (!(key in row)) throw new Error(`Missing ${key} field for ${row.fips}`);
+              const value = row[key];
+              if (value === null) { suppressed += 1; continue; }
+              if (!Number.isFinite(value) || value < 0) throw new Error(`Invalid ${key} for ${row.fips}: ${value}`);
             }
           }
-          console.log(`Validated ${data.rows.length} Texas county rows.`);
+          console.log(`Validated all ${data.rows.length} Texas county rows; ${suppressed} Census-suppressed/unavailable estimate cells preserved as null.`);
           NODE
       - name: Commit bootstrap snapshot into source PR
         if: github.event_name == 'pull_request'
