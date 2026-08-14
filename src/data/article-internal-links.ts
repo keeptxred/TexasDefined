@@ -25,9 +25,9 @@ export const articleInternalLinks: Record<string, ArticleInternalLink[]> = {
       description: "Practical ideas for living well with Texas heat, weather, yards and homes.",
     },
     {
-      href: "/explore/texas-wildflower-seasons",
-      label: "Texas wildflower seasons",
-      description: "See when bluebonnets and other wildflowers typically show up across different parts of Texas.",
+      href: "/article/texas-wildflowers-guide",
+      label: "Texas wildflowers: what blooms, where and when",
+      description: "Follow the statewide wildflower calendar from bluebonnet season through summer prairie color and fall blooms.",
     },
     {
       href: "/explore",
