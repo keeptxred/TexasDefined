@@ -72,6 +72,15 @@ export function buildSportsVenueSearchDocuments(): SearchDocument[] {
       href: '/sports-venues',
     },
     {
+      id: 'sports-collection:texas-sports-venue-comparison',
+      brandId: 'texasdefined',
+      kind: 'sports-collection',
+      title: 'Compare Texas Sports Venues',
+      summary: 'Compare 84 verified Texas sports venue guides by location, venue type, capacity and opening information where those fields are available.',
+      keywords: ['compare Texas sports venues', 'Texas stadium comparison', 'Texas arena comparison', 'stadium capacity', 'sports venue capacity', 'Texas stadiums by location', 'Texas sports venue data'],
+      href: '/sports-venues/compare',
+    },
+    {
       id: 'sports-collection:texas-sports',
       brandId: 'texasdefined',
       kind: 'sports-collection',
