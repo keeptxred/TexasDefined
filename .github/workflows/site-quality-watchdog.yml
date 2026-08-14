@@ -9,6 +9,12 @@ on:
       - '.github/workflows/site-quality-watchdog.yml'
       - 'scripts/data/run-site-quality-watch.mjs'
       - 'scripts/data/validate-*.mjs'
+      - 'src/routes/**'
+      - 'src/data/**'
+      - 'src/components/content/**'
+      - 'src/components/editorial/**'
+      - 'src/components/directories/**'
+      - 'src/lib/public-routes.ts'
   push:
     branches:
       - main
@@ -16,6 +22,12 @@ on:
       - '.github/workflows/site-quality-watchdog.yml'
       - 'scripts/data/run-site-quality-watch.mjs'
       - 'scripts/data/validate-*.mjs'
+      - 'src/routes/**'
+      - 'src/data/**'
+      - 'src/components/content/**'
+      - 'src/components/editorial/**'
+      - 'src/components/directories/**'
+      - 'src/lib/public-routes.ts'
 
 permissions:
   contents: read
