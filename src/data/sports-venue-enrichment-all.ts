@@ -5,6 +5,8 @@ import { getSportsVenueEnrichmentBatch4Racing } from './sports-venue-enrichment-
 import { getSportsVenueEnrichmentBatch5 } from './sports-venue-enrichment-batch5';
 import { getSportsVenueEnrichmentBatch6 } from './sports-venue-enrichment-batch6';
 import { getSportsVenueEnrichmentBatch7MajorCompletion } from './sports-venue-enrichment-batch7-major-completion';
+import { getSportsVenueEnrichmentBatch8ACompletion } from './sports-venue-enrichment-batch8a-completion';
+import { getSportsVenueEnrichmentBatch8BCompletion } from './sports-venue-enrichment-batch8b-completion';
 
 export { sportsVenueMapUrl };
 
@@ -16,5 +18,7 @@ export function getSportsVenueEnrichmentAll(slug: string) {
     ?? getSportsVenueEnrichmentBatch4Racing(lookupSlug)
     ?? getSportsVenueEnrichmentBatch5(lookupSlug)
     ?? getSportsVenueEnrichmentBatch6(lookupSlug)
-    ?? getSportsVenueEnrichmentBatch7MajorCompletion(lookupSlug);
+    ?? getSportsVenueEnrichmentBatch7MajorCompletion(lookupSlug)
+    ?? getSportsVenueEnrichmentBatch8ACompletion(lookupSlug)
+    ?? getSportsVenueEnrichmentBatch8BCompletion(lookupSlug);
 }
