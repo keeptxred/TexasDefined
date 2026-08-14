@@ -3,6 +3,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { Container } from '@/components/layout/Container';
 import { SponsoredSportsPlacement } from '@/components/sports/SponsoredSportsPlacement';
+import { SportsVenueQuickAnswers } from '@/components/sports/SportsVenueQuickAnswers';
 import { getActiveSportsSponsorPlacement } from '@/data/sports-sponsorship.functions';
 import { getSportsVenueEnrichmentAll, sportsVenueMapUrl } from '@/data/sports-venue-enrichment-all';
 import { buildMeta, canonicalLink } from '@/lib/seo';
@@ -30,13 +31,14 @@ function GalaxyStadiumPage() {
   const { sponsorPlacement } = Route.useLoaderData();
   const enrichment = getSportsVenueEnrichmentAll('jones-att-stadium');
   const mapUrl = sportsVenueMapUrl(venueName, 'lubbock');
+  const canonicalUrl = `https://texasdefined.com${canonicalPath}`;
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'StadiumOrArena',
     name: venueName,
     alternateName: ['Jones AT&T Stadium', 'Jones Stadium'],
     description,
-    url: `https://texasdefined.com${canonicalPath}`,
+    url: canonicalUrl,
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'Lubbock',
@@ -80,6 +82,16 @@ function GalaxyStadiumPage() {
         </div>
 
         {sponsorPlacement ? <div className="border-b border-border py-8"><SponsoredSportsPlacement placement={sponsorPlacement} /></div> : null}
+
+        <SportsVenueQuickAnswers
+          venueName={venueName}
+          canonicalUrl={canonicalUrl}
+          city="Lubbock"
+          countyName="Lubbock County"
+          capacity={enrichment?.capacity}
+          primaryEvents={enrichment?.primaryEvents}
+          verifiedAt={enrichment?.verifiedAt}
+        />
 
         {enrichment ? <section className="border-b border-border py-12">
           <div className="grid gap-8 lg:grid-cols-[15rem_1fr]">
