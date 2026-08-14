@@ -75,4 +75,7 @@ if (failures.length) {
   failures.forEach((failure) => console.error(`- ${failure}`));
   process.exit(1);
 }
-console.log("Fishing platform validation passed: foundation contracts and the complete Lake Conroe prototype, canonical routing, dynamic sitemap, verified-source UX, redirect/freshness protections, guide/report integrity, prototype-free server hydration, and lazy fishing-query client boundaries are protected.");
+
+await import("./validate-fishing-species-platform.mjs");
+
+console.log("Fishing platform validation passed: foundation contracts, the complete Lake Conroe prototype, and Batch 4 statewide species platform are protected with canonical routing, source-backed content, guide/report integrity, sponsorship disclosure, structured data, search/internal links, sitemap governance and client bundle boundaries.");
