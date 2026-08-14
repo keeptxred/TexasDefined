@@ -27,7 +27,9 @@ const [major, tier2, seed, enrichmentAll, ...enrichmentSources] = await Promise.
 const errors = [];
 const assert = (condition, message) => { if (!condition) errors.push(message); };
 
-const rowSlugs = (source) => [...source.matchAll(/^\s{2}\['[^']+', '([^']+)'/gm)].map((match) => match[1]);
+// Venue names may be single- or double-quoted (for example Children's Health Stadium).
+// Slugs remain single-quoted in both seed datasets.
+const rowSlugs = (source) => [...source.matchAll(/^\s{2}\[(?:'[^']*'|"[^"]*"), '([^']+)'/gm)].map((match) => match[1]);
 const coreSportsVenueSlugs = [...seed.matchAll(/^\s*\{id:'sports-venue:[^']+',kind:'sports-venue',name:'[^']+',slug:'([^']+)'/gm)].map((match) => match[1]);
 const seededSlugs = [...new Set([...rowSlugs(major), ...rowSlugs(tier2), ...coreSportsVenueSlugs])].sort();
 
@@ -69,6 +71,7 @@ assert(coreSportsVenueSlugs.includes('reliant-stadium'), 'Core Reliant Stadium s
 assert(profileSet.has('reliant-stadium'), 'Reliant Stadium is missing its deep visitor profile.');
 assert(profileSet.has('lupton-stadium'), 'Tier-2 major tourist draw Lupton Stadium is missing its deep visitor profile.');
 assert(profileSet.has('jamail-texas-swimming-center'), 'Tier-2 major tourist draw Jamail Texas Swimming Center is missing its deep visitor profile.');
+assert(profileSet.has('childrens-health-stadium-prosper'), 'Double-quoted seed rows must remain covered by deep-completeness governance.');
 assert(enrichmentAll.includes('getSportsVenueEnrichmentBatch8ACompletion(lookupSlug)'), 'Combined enrichment lookup does not include batch 8A completion profiles.');
 assert(enrichmentAll.includes('getSportsVenueEnrichmentBatch8BCompletion(lookupSlug)'), 'Combined enrichment lookup does not include batch 8B completion profiles.');
 
