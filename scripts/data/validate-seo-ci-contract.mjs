@@ -80,11 +80,13 @@ if (errors.length) {
 for (const validator of delegatedValidators) {
   const result = spawnSync(process.execPath, [`scripts/data/${validator}`], { stdio: 'inherit', env: process.env });
   if (result.error) {
+    console.error(`::error file=scripts/data/${validator},title=SEO delegated validator could not start::${validator} could not start inside validate-seo-ci-contract.`);
     console.error(`SEO delegated validator could not start: ${validator}`);
     console.error(result.error);
     process.exit(1);
   }
   if (result.status !== 0) {
+    console.error(`::error file=scripts/data/${validator},title=SEO delegated validator failed::${validator} failed inside validate-seo-ci-contract with exit code ${result.status ?? 1}.`);
     console.error(`SEO delegated validator failed: ${validator}`);
     process.exit(result.status ?? 1);
   }
