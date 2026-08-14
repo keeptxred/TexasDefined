@@ -36,6 +36,7 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   profile("fort-bend", "fort-bend-county-brazos-richmond-sugar-land-texas", () => import("@/data/fixtures/fort-bend-county-brazos-richmond-sugar-land").then((module) => module.fortBendCountyBrazosRichmondSugarLandArticle)),
   profile("montgomery", "montgomery-county-conroe-lake-piney-woods-texas", () => import("@/data/fixtures/montgomery-county-conroe-lake-piney-woods").then((module) => module.montgomeryCountyConroeLakePineyWoodsArticle)),
   profile("brazoria", "brazoria-county-brazos-gulf-angleton-texas", () => import("@/data/fixtures/brazoria-county-brazos-gulf-angleton").then((module) => module.brazoriaCountyBrazosGulfAngletonArticle)),
+  profile("dallas", "dallas-county-dallas-trinity-old-red-texas", () => import("@/data/fixtures/dallas-county-dallas-trinity-old-red").then((module) => module.dallasCountyDallasTrinityOldRedArticle)),
 ];
 
 export function loadCountySeriesArticle(countySlug: string): Promise<Article | null> {
