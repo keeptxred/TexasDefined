@@ -6,6 +6,7 @@ import freezeHero from "@/assets/generated/texas-freeze-prep.jpg";
 import specialDistrictsHero from "@/assets/generated/texas-special-districts.jpg";
 
 import type { Article } from "../types";
+import { texasHomeArchitectureRegionsStub } from "./texas-home-architecture-regions-stub";
 import { texasLakesReservoirsExplainedStub } from "./texas-lakes-reservoirs-explained-stub";
 import { texasTreesGuideStub } from "./texas-trees-guide-stub";
 import { texasWildflowersGuideStub } from "./texas-wildflowers-guide-stub";
@@ -190,6 +191,7 @@ export const lazyEvergreenArticleStubs: Article[] = [
   texasFarmToMarketRoadsExplainedStub,
   texasWildflowersGuideStub,
   texasTreesGuideStub,
+  texasHomeArchitectureRegionsStub,
   texasRiversExplainedStub,
   texasLakesReservoirsExplainedStub,
   texasHillCountryStub,
@@ -229,6 +231,11 @@ export async function loadLazyEvergreenArticle(brandId: string, slug: string): P
   if (slug === texasTreesGuideStub.slug) {
     const { texasTreesGuideArticle } = await import("./texas-trees-guide");
     return texasTreesGuideArticle;
+  }
+
+  if (slug === texasHomeArchitectureRegionsStub.slug) {
+    const { texasHomeArchitectureRegionsArticle } = await import("./texas-home-architecture-regions");
+    return texasHomeArchitectureRegionsArticle;
   }
 
   if (slug === texasRiversExplainedStub.slug) {
