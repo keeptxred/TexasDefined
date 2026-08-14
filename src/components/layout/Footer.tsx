@@ -48,6 +48,7 @@ export function Footer() {
           <Container className="flex flex-col gap-4 py-6 text-xs tracking-wide text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
             <p>© {year} {brand.identity.wordmark}</p>
             <div className="flex flex-wrap gap-x-5 gap-y-2">
+              <Link to="/partner-with-us" className="transition-colors hover:text-primary">Partner With Us</Link>
               <Link to="/citation-guide" className="transition-colors hover:text-primary">Citation Guide</Link>
               {brand.legal.map((item) => item.to.includes("#") ? <a key={item.to} href={item.to} className="transition-colors hover:text-primary">{item.label}</a> : <Link key={item.to} to={item.to} className="transition-colors hover:text-primary">{item.label}</Link>)}
               {brand.identity.social.map((item) => <a key={item.href} href={item.href} rel="noreferrer noopener" target="_blank" aria-label={`Follow Texas Defined on ${item.label}`} className="transition-colors hover:text-primary">{item.label}</a>)}
