@@ -18,6 +18,24 @@ const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const HOMEPAGE_DESTINATION_LIMIT = 24;
 const HOMEPAGE_ROAD_TRIP_LIMIT = 8;
 
+const texasExplainedPicks = [
+  {
+    title: "The Rivers That Built Texas",
+    description: "Follow the waterways that shaped borders, settlement, cities, farming and the Texas landscape.",
+    to: "/article/texas-rivers-explained",
+  },
+  {
+    title: "Farm-to-Market Roads Explained",
+    description: "Understand the state highway designations that connected rural Texas—and why many are no longer rural at all.",
+    to: "/article/texas-farm-to-market-roads-explained",
+  },
+  {
+    title: "The Cultural Regions of Texas",
+    description: "See how migration and settlement created distinct regional identities inside one enormous state.",
+    to: "/article/texas-cultural-regions-explained",
+  },
+] as const;
+
 export const Route = createFileRoute("/")({
   loader: async ({ context }) => {
     const [featured, latest, destinations, roadTrips, regions, guides, events] = await Promise.all([
@@ -66,6 +84,7 @@ function HomePage() {
     {hero && <FeatureHero variant="split" eyebrow="This month's feature" title={hero.title} dek={hero.dek} image={hero.hero} to="/article/$slug" params={{ slug: hero.slug }} meta={formatReadingTime(hero.readingMinutes)} />}
     {featuredDestinations.length > 0 && <Section><Container><SectionHeader eyebrow="Editor's picks" title="Places to put on your list" description="A considered mix of landscapes, towns and stops that show a different side of the state." actionLabel="Explore the full guide" actionTo="/explore" /><ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">{featuredDestinations.map((destination) => <li key={destination.id}><DestinationCard destination={destination} tone="overlay" regionLabel={regionName(destination.region)} /></li>)}</ul></Container></Section>}
     {editorPicks.length > 0 && <Section tone="surface"><Container><SectionHeader eyebrow="From the editors" title="More stories from this issue" description="People, places and ideas that reveal something memorable about Texas." /><div className="mt-10 grid gap-8 lg:grid-cols-[1.45fr_1fr]"><ArticleCard article={editorPicks[0]} size="feature" /><div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-1">{editorPicks.slice(1).map((article) => <ArticleCard key={article.id} article={article} size="compact" />)}</div></div></Container></Section>}
+    <Section><Container><SectionHeader eyebrow="Texas Explained" title="Why Texas works the way it does" description="Ten connected guides to the water, roads, towns, landscapes, wildlife, homes, land and migration patterns behind everyday Texas." actionLabel="Read all 10 guides" actionTo="/texas-explained" /><ul className="mt-10 grid gap-0 border-y border-border md:grid-cols-3 md:divide-x md:divide-border">{texasExplainedPicks.map((pick, index) => <li key={pick.to} className={index > 0 ? "border-t border-border md:border-t-0" : undefined}><Link to={pick.to} className="group block h-full px-1 py-7 md:px-6"><p className="eyebrow text-primary">Guide {String(index + 1).padStart(2, "0")}</p><h3 className="mt-3 font-display text-2xl leading-tight transition-colors group-hover:text-primary">{pick.title}</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{pick.description}</p><span className="eyebrow mt-5 inline-block text-primary">Read the guide →</span></Link></li>)}</ul></Container></Section>
     {brand.features.events && events.length > 0 && <Section><Container><SectionHeader eyebrow="On the calendar" title="What’s happening around Texas" description="Fairs, festivals, rodeos and local events worth putting on the calendar." actionLabel="See all events" actionTo="/events" /><div className="mt-8 grid gap-x-12 md:grid-cols-2">{events.map((event) => <EventCard key={event.id} event={event} regionLabel={regionName(event.region)} />)}</div></Container></Section>}
     {worthTheDrive && <Section tone="surface"><Container><div className="grid items-center gap-10 lg:grid-cols-[1.2fr_0.8fr]"><img src={worthTheDrive.hero.src} alt={worthTheDrive.hero.alt} width={worthTheDrive.hero.width} height={worthTheDrive.hero.height} loading="lazy" decoding="async" className="aspect-[16/10] w-full object-cover" /><div><p className="eyebrow text-primary">Worth the drive</p><h2 className="mt-3 font-display text-4xl leading-tight sm:text-5xl">{worthTheDrive.name}</h2><p className="mt-5 text-base leading-7 text-muted-foreground">{worthTheDrive.summary}</p><Link to="/destination/$slug" params={{ slug: worthTheDrive.slug }} className="eyebrow mt-7 inline-block border-b-2 border-primary pb-1 text-primary">Plan the trip</Link></div></div></Container></Section>}
     {hiddenGems.length > 0 && <Section><Container><SectionHeader eyebrow="Beyond the usual" title="Take the long way" description="Quieter corners, overlooked stops and places that reward leaving the obvious route." /><ul className="mt-10 grid gap-8 md:grid-cols-[1.15fr_0.85fr]"><li className="md:row-span-2"><DestinationCard destination={hiddenGems[0]} tone="overlay" regionLabel={regionName(hiddenGems[0].region)} /></li>{hiddenGems.slice(1).map((destination) => <li key={destination.id}><DestinationCard destination={destination} regionLabel={regionName(destination.region)} /></li>)}</ul></Container></Section>}
