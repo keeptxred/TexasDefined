@@ -4,6 +4,7 @@ import { Container } from '@/components/layout/Container';
 import { loadTexasKnowledgeGraph } from '@/data/knowledge-graph';
 import { canonicalEntityPath, isIndexableEntityPage } from '@/data/knowledge-graph/relationships';
 import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
+import { getSportsVenueEnrichment } from '@/data/sports-venue-enrichment';
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
@@ -35,6 +36,7 @@ function SportsVenuesPage() {
   const professional = venues.filter((venue) => venue.tags?.includes('professional')).length;
   const golf = venues.filter((venue) => venue.tags?.includes('golf')).length;
   const highSchool = venues.filter((venue) => venue.tags?.includes('high-school')).length;
+  const deepGuides = venues.filter((venue) => Boolean(getSportsVenueEnrichment(venue.slug))).length;
 
   return <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
     <main className="mx-auto max-w-6xl">
@@ -42,6 +44,7 @@ function SportsVenuesPage() {
         <p className="eyebrow text-primary">Texas Sports Destinations</p>
         <h1 className="mt-3 max-w-5xl font-display text-5xl leading-[0.98] sm:text-7xl">Stadiums, arenas, racetracks and sports destinations worth traveling for</h1>
         <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground sm:text-xl">{description}</p>
+        <p className="mt-4 max-w-3xl text-sm leading-6 text-muted-foreground">Deep visitor guides add verified parking, arrival, history and trip-planning detail to {deepGuides} priority destinations. Those guides are surfaced first inside each sports category.</p>
         <dl className="mt-8 grid gap-4 sm:grid-cols-3 lg:grid-cols-6">
           <Stat label="Venue guides" value={venues.length} />
           <Stat label="Professional" value={professional} />
@@ -60,12 +63,16 @@ function SportsVenuesPage() {
             <p className="mt-3 text-sm leading-6 text-muted-foreground">{group.description}</p>
           </div>
           <div className="grid gap-x-7 sm:grid-cols-2 xl:grid-cols-3">
-            {group.venues.map((venue) => <a key={venue.id} href={canonicalEntityPath(venue)} className="group border-t border-border py-5">
-              <span className="eyebrow text-primary">{venueLabel(venue)}</span>
-              <strong className="mt-2 block font-display text-2xl leading-tight group-hover:text-primary">{venue.name}</strong>
-              <span className="mt-2 block text-sm leading-6 text-muted-foreground">{venueLocation(venue)}</span>
-              <span className="mt-3 block text-sm font-semibold text-primary">Open venue guide →</span>
-            </a>)}
+            {group.venues.map((venue) => {
+              const enriched = Boolean(getSportsVenueEnrichment(venue.slug));
+              return <a key={venue.id} href={canonicalEntityPath(venue)} className="group border-t border-border py-5">
+                <span className="eyebrow text-primary">{venueLabel(venue)}</span>
+                <strong className="mt-2 block font-display text-2xl leading-tight group-hover:text-primary">{venue.name}</strong>
+                <span className="mt-2 block text-sm leading-6 text-muted-foreground">{venueLocation(venue)}</span>
+                {enriched && <span className="mt-3 inline-block border border-primary/30 px-2 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-primary">Verified trip details</span>}
+                <span className="mt-3 block text-sm font-semibold text-primary">Open venue guide →</span>
+              </a>;
+            })}
           </div>
         </div>
       </section>)}
@@ -102,14 +109,19 @@ function groupVenues(venues: TexasEntityRecord[]) {
     else buckets.regional.push(venue);
   }
 
+  const prioritizeDeepGuides = (items: TexasEntityRecord[]) => items.sort((a, b) => {
+    const enrichmentDelta = Number(Boolean(getSportsVenueEnrichment(b.slug))) - Number(Boolean(getSportsVenueEnrichment(a.slug)));
+    return enrichmentDelta || a.name.localeCompare(b.name);
+  });
+
   return [
-    { key: 'professional', eyebrow: 'Big league Texas', title: 'Professional stadiums and major arenas', description: 'NFL, MLB, NBA, NHL, MLS, WNBA and major multi-use venues that anchor sports trips and event weekends.', venues: buckets.professional },
-    { key: 'college', eyebrow: 'College traditions', title: 'College stadiums, arenas and ballparks', description: 'Major football, basketball, baseball and aquatic venues where Texas college traditions become destination events.', venues: buckets.college },
-    { key: 'high-school', eyebrow: 'Friday night lights', title: 'Texas high-school football landmarks', description: 'Large and culturally significant district stadiums that draw visiting families, playoff crowds and fans who treat Texas high-school football as part of the trip.', venues: buckets.highSchool },
-    { key: 'motorsports', eyebrow: 'Racing Texas', title: 'Motorsports and racing destinations', description: 'Formula racing, stock cars, drag racing, road courses, track days and live horse-racing venues that draw visitors from well beyond their home cities.', venues: buckets.motorsports },
-    { key: 'golf', eyebrow: 'Championship golf', title: 'Tournament and destination golf venues', description: 'Courses associated with major championships, PGA TOUR and LPGA events, resort golf and spectator weekends worth planning a Texas trip around.', venues: buckets.golf },
-    { key: 'western', eyebrow: 'Western sports', title: 'Rodeo and equestrian venues', description: 'Historic rodeo grounds and large equestrian complexes where Western sports, livestock shows and championship events are part of the Texas visitor experience.', venues: buckets.western },
-    { key: 'regional', eyebrow: 'More sports trips', title: 'Tournament complexes and distinctive sports destinations', description: 'Minor-league ballparks, shooting sports, surf parks, youth tournament centers and other venues that can anchor family trips, competition weekends and specialized sports travel.', venues: buckets.regional },
+    { key: 'professional', eyebrow: 'Big league Texas', title: 'Professional stadiums and major arenas', description: 'NFL, MLB, NBA, NHL, MLS, WNBA and major multi-use venues that anchor sports trips and event weekends.', venues: prioritizeDeepGuides(buckets.professional) },
+    { key: 'college', eyebrow: 'College traditions', title: 'College stadiums, arenas and ballparks', description: 'Major football, basketball, baseball and aquatic venues where Texas college traditions become destination events.', venues: prioritizeDeepGuides(buckets.college) },
+    { key: 'high-school', eyebrow: 'Friday night lights', title: 'Texas high-school football landmarks', description: 'Large and culturally significant district stadiums that draw visiting families, playoff crowds and fans who treat Texas high-school football as part of the trip.', venues: prioritizeDeepGuides(buckets.highSchool) },
+    { key: 'motorsports', eyebrow: 'Racing Texas', title: 'Motorsports and racing destinations', description: 'Formula racing, stock cars, drag racing, road courses, track days and live horse-racing venues that draw visitors from well beyond their home cities.', venues: prioritizeDeepGuides(buckets.motorsports) },
+    { key: 'golf', eyebrow: 'Championship golf', title: 'Tournament and destination golf venues', description: 'Courses associated with major championships, PGA TOUR and LPGA events, resort golf and spectator weekends worth planning a Texas trip around.', venues: prioritizeDeepGuides(buckets.golf) },
+    { key: 'western', eyebrow: 'Western sports', title: 'Rodeo and equestrian venues', description: 'Historic rodeo grounds and large equestrian complexes where Western sports, livestock shows and championship events are part of the Texas visitor experience.', venues: prioritizeDeepGuides(buckets.western) },
+    { key: 'regional', eyebrow: 'More sports trips', title: 'Tournament complexes and distinctive sports destinations', description: 'Minor-league ballparks, shooting sports, surf parks, youth tournament centers and other venues that can anchor family trips, competition weekends and specialized sports travel.', venues: prioritizeDeepGuides(buckets.regional) },
   ].filter((group) => group.venues.length > 0);
 }
 
