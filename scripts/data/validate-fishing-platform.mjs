@@ -17,6 +17,7 @@ const requiredFiles = [
   "src/data/fishing/search.ts",
   "src/data/fishing/internal-links.ts",
   "src/data/fishing/lake-conroe-prototype.ts",
+  "src/data/fishing/sitemap.ts",
   "src/components/fishing/LakeConroeGuide.tsx",
   "src/routes/fishing.tsx",
   "src/routes/fishing.lakes.$slug.tsx",
@@ -35,6 +36,8 @@ if (!failures.length) {
   const internalLinks = read("src/data/fishing/internal-links.ts");
   const slugs = read("src/data/fishing/slugs.ts");
   const prototype = read("src/data/fishing/lake-conroe-prototype.ts");
+  const fishingSitemap = read("src/data/fishing/sitemap.ts");
+  const primarySitemap = read("src/routes/sitemap[.]xml.ts");
   const lakeUi = read("src/components/fishing/LakeConroeGuide.tsx");
   const route = read("src/routes/fishing.tsx");
   const lakeRoute = read("src/routes/fishing.lakes.$slug.tsx");
@@ -79,19 +82,15 @@ if (!failures.length) {
   if (!route.includes('canonicalPath: "/fishing"')) failures.push("/fishing canonical metadata is missing.");
   if (!route.includes("Texas Parks & Wildlife Department")) failures.push("/fishing page is missing its source/freshness disclosure.");
 
-  const lakeConroePaths = [
-    "/fishing/lakes/lake-conroe",
-    "/fishing/lakes/lake-conroe/fish",
-    "/fishing/lakes/lake-conroe/access",
-    "/fishing/lakes/lake-conroe/boating",
-    "/fishing/lakes/lake-conroe/regulations",
-    "/fishing/lakes/lake-conroe/camping",
-    "/fishing/lakes/lake-conroe/nearby",
-    "/fishing/lakes/lake-conroe/reports",
-    "/fishing/lakes/lake-conroe/guides",
-  ];
-  for (const path of lakeConroePaths) {
-    if (!publicRoutes.includes(`"${path}"`)) failures.push(`Lake Conroe route is missing from crawl governance: ${path}`);
+  const indexableStaticSection = publicRoutes.split("export const REDIRECT_ONLY_PATHS")[0];
+  if (indexableStaticSection.includes('"/fishing/lakes/lake-conroe"')) {
+    failures.push("Dynamic Lake Conroe URLs must not be misclassified as static public routes.");
+  }
+  if (!fishingSitemap.includes("FISHING_SITEMAP_ENTRIES") || !fishingSitemap.includes("LAKE_CONROE_SECTION_SLUGS") || !fishingSitemap.includes("LAKE_CONROE_VERIFIED_AT")) {
+    failures.push("Lake Conroe dynamic sitemap entries are incomplete or lack source-backed lastmod.");
+  }
+  if (!primarySitemap.includes('FISHING_SITEMAP_ENTRIES') || !primarySitemap.includes('...FISHING_SITEMAP_ENTRIES')) {
+    failures.push("Primary sitemap does not publish the Lake Conroe dynamic route family.");
   }
 
   if (!slugs.includes('lake: "/fishing/lakes"')) failures.push("Lake canonical slug helper still points at the legacy singular route.");
@@ -102,6 +101,9 @@ if (!failures.length) {
   if (!lakeRoute.includes('"@type": "Reservoir"') || !lakeRoute.includes('"@type": "BreadcrumbList"')) failures.push("Lake Conroe overview is missing Reservoir/Breadcrumb structured data.");
   if (!lakeRoute.includes("dateModified: LAKE_CONROE_VERIFIED_AT") || !lakeSectionRoute.includes("dateModified: LAKE_CONROE_VERIFIED_AT")) failures.push("Lake Conroe routes do not expose source-backed freshness.");
 
+  for (const section of ["fish", "access", "boating", "regulations", "camping", "nearby", "reports", "guides"]) {
+    if (!prototype.includes(`"${section}"`)) failures.push(`Lake Conroe section registry is missing: ${section}`);
+  }
   for (const sourceSignal of ["tpwdLake", "tpwdAccess", "tpwdRegulations", "tpwdReport", "twdb", "liveLevel", "sjra", "usfsCagle", "usfsScottsRidge", "usfsStubblefield"]) {
     if (!prototype.includes(`${sourceSignal}:`)) failures.push(`Lake Conroe verified source is missing: ${sourceSignal}`);
   }
@@ -136,4 +138,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Fishing platform validation passed: foundation contracts plus the complete Lake Conroe prototype, canonical route family, verified-source UX, redirect policy, report freshness and guide verification gates are protected.");
+console.log("Fishing platform validation passed: foundation contracts plus the complete Lake Conroe prototype, dynamic sitemap publication, canonical route family, verified-source UX, redirect policy, report freshness and guide verification gates are protected.");
