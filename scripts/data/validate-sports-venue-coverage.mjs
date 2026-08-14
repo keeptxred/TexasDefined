@@ -4,13 +4,15 @@ import path from 'node:path';
 const root = process.cwd();
 const read = (file) => fs.readFile(path.join(root, file), 'utf8');
 
-const [major, tier2, seed, directory, guide, enrichment] = await Promise.all([
+const [major, tier2, seed, directory, guide, enrichment, enrichmentBatch2, enrichmentAll] = await Promise.all([
   read('src/data/knowledge-graph/major-sports-venues.ts'),
   read('src/data/knowledge-graph/sports-venues-tier2.ts'),
   read('src/data/knowledge-graph/seed.ts'),
   read('src/routes/sports-venues.tsx'),
   read('src/routes/sports-venue.$slug.tsx'),
   read('src/data/sports-venue-enrichment.ts'),
+  read('src/data/sports-venue-enrichment-batch2.ts'),
+  read('src/data/sports-venue-enrichment-all.ts'),
 ]);
 
 const errors = [];
@@ -21,10 +23,14 @@ const countEnrichmentProfiles = (source) => [...source.matchAll(/^\s{2}'[^']+': 
 const majorCount = countSeedRows(major);
 const tier2Count = countSeedRows(tier2);
 const enrichmentCount = countEnrichmentProfiles(enrichment);
+const enrichmentBatch2Count = countEnrichmentProfiles(enrichmentBatch2);
+const totalEnrichmentCount = enrichmentCount + enrichmentBatch2Count;
 
 assert(majorCount >= 50, `Expected at least 50 major sports venue seeds; found ${majorCount}.`);
 assert(tier2Count === 29, `Expected 29 second-tier sports-tourism seeds; found ${tier2Count}.`);
-assert(enrichmentCount >= 9, `Expected at least 9 deeply enriched venue profiles; found ${enrichmentCount}.`);
+assert(enrichmentCount >= 9, `Expected at least 9 first-batch deeply enriched venue profiles; found ${enrichmentCount}.`);
+assert(enrichmentBatch2Count >= 11, `Expected at least 11 second-batch deeply enriched venue profiles; found ${enrichmentBatch2Count}.`);
+assert(totalEnrichmentCount >= 20, `Expected at least 20 deeply enriched venue profiles; found ${totalEnrichmentCount}.`);
 assert(seed.includes("import { MAJOR_TEXAS_SPORTS_VENUES } from './major-sports-venues';"), 'Major sports venues are not imported into the knowledge graph seed.');
 assert(seed.includes("import { TEXAS_SPORTS_VENUE_TIER2_ENTITIES } from './sports-venues-tier2';"), 'Second-tier sports venues are not imported into the knowledge graph seed.');
 assert(seed.includes('...MAJOR_TEXAS_SPORTS_VENUES'), 'Major sports venues are not spread into the curated knowledge graph.');
@@ -58,8 +64,10 @@ for (const marker of [
   "key: 'golf'",
   "key: 'western'",
   "key: 'regional'",
+  'getSportsVenueEnrichmentAll',
+  'Verified trip details',
 ]) {
-  assert(directory.includes(marker), `Sports venue directory is missing category marker ${marker}.`);
+  assert(directory.includes(marker), `Sports venue directory is missing category or enrichment marker ${marker}.`);
 }
 
 for (const marker of [
@@ -76,12 +84,13 @@ for (const marker of [
   'Primary sports and events',
   'Official planning links',
   'sportsVenueMapUrl',
+  'getSportsVenueEnrichmentAll',
   '/sports-venues',
 ]) {
   assert(guide.includes(marker), `Dedicated sports venue guide is missing required marker: ${marker}.`);
 }
 
-const enrichedAnchors = [
+const firstBatchAnchors = [
   'att-stadium',
   'texas-motor-speedway',
   'circuit-of-the-americas',
@@ -92,24 +101,44 @@ const enrichedAnchors = [
   'memorial-park-golf-course',
   'waco-surf',
 ];
-for (const slug of enrichedAnchors) {
-  assert(enrichment.includes(`'${slug}': {`), `Missing priority venue enrichment: ${slug}.`);
+for (const slug of firstBatchAnchors) {
+  assert(enrichment.includes(`'${slug}': {`), `Missing first-batch priority venue enrichment: ${slug}.`);
 }
 
-for (const marker of [
-  'primaryEvents:',
-  'parking:',
-  'arrival:',
-  'stayAndEat:',
-  'nearby:',
-  'planningLinks:',
-  'imageBrief:',
-  'verifiedAt,',
-  'sportsVenueMapUrl',
-]) {
-  assert(enrichment.includes(marker), `Sports venue enrichment is missing required field or helper: ${marker}.`);
+const secondBatchAnchors = [
+  'eagle-stadium-allen',
+  'national-shooting-complex',
+  'round-rock-sports-center',
+  'round-rock-multipurpose-complex',
+  'colonial-country-club',
+  'tpc-san-antonio',
+  'globe-life-field',
+  'daikin-park',
+  'darrell-k-royal-texas-memorial-stadium',
+  'olsen-field-blue-bell-park',
+  'frost-bank-center',
+];
+for (const slug of secondBatchAnchors) {
+  assert(enrichmentBatch2.includes(`'${slug}': {`), `Missing second-batch priority venue enrichment: ${slug}.`);
 }
 
+for (const source of [enrichment, enrichmentBatch2]) {
+  for (const marker of [
+    'primaryEvents:',
+    'parking:',
+    'arrival:',
+    'stayAndEat:',
+    'nearby:',
+    'planningLinks:',
+    'imageBrief:',
+    'verifiedAt,',
+  ]) {
+    assert(source.includes(marker), `Sports venue enrichment is missing required field: ${marker}.`);
+  }
+}
+
+assert(enrichment.includes('sportsVenueMapUrl'), 'Sports venue enrichment is missing the map fallback helper.');
+assert(enrichmentAll.includes('getSportsVenueEnrichment(slug) ?? getSportsVenueEnrichmentBatch2(slug)'), 'Combined sports venue enrichment does not merge both batches.');
 assert(tier2.includes("sourceConfidence: 'official'"), 'Second-tier venue seeds must remain official-source records.');
 assert(tier2.includes("sourceCheckedAt: checkedAt"), 'Second-tier venue seeds must retain source review dates.');
 assert(tier2.includes("status: 'active'"), 'Second-tier venue seeds must remain explicitly active.');
@@ -121,4 +150,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Sports venue coverage validated: ${majorCount} major seeds + ${tier2Count} second-tier seeds, ${enrichmentCount} deep visitor profiles, dedicated directory and visitor guide present.`);
+console.log(`Sports venue coverage validated: ${majorCount} major seeds + ${tier2Count} second-tier seeds, ${totalEnrichmentCount} deep visitor profiles, dedicated directory and visitor guide present.`);
