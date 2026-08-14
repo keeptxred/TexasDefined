@@ -87,6 +87,25 @@ for (const token of ['loadTexasCountyHousingCosts', 'countyHousingCosts.availabl
 }
 if (!hub.includes("['County housing costs', '/texas-data/county-housing-costs'")) errors.push('Texas Data hub must link to county housing costs.');
 
+if (snapshot.release !== '2020–2024 ACS 5-Year Estimates' || snapshot.year !== 2024) {
+  errors.push(`ACS snapshot release metadata is unexpected: ${snapshot.release || 'missing'} / ${snapshot.year || 'missing year'}`);
+}
+if (!String(snapshot.sourcePage || '').startsWith('https://www.census.gov/')) {
+  errors.push('ACS snapshot source page must remain on census.gov.');
+}
+const expectedSourceSuffixes = {
+  medianHouseholdIncome: 'acsdt5y2024-b19013.dat',
+  medianGrossRent: 'acsdt5y2024-b25064.dat',
+  medianHomeValue: 'acsdt5y2024-b25077.dat',
+  medianMonthlyOwnerCosts: 'acsdt5y2024-b25088.dat',
+};
+for (const [field, suffix] of Object.entries(expectedSourceSuffixes)) {
+  const sourceUrl = snapshot.sourceFiles?.[field];
+  if (!String(sourceUrl || '').startsWith('https://www2.census.gov/') || !String(sourceUrl).endsWith(suffix)) {
+    errors.push(`ACS snapshot provenance is invalid for ${field}: ${sourceUrl || 'missing'}`);
+  }
+}
+if (!snapshot.generatedAt || Number.isNaN(Date.parse(snapshot.generatedAt))) errors.push('ACS snapshot generatedAt must be a valid timestamp.');
 if (!Number.isInteger(snapshot.rowCount) || snapshot.rowCount !== snapshot.rows.length) errors.push('ACS snapshot rowCount must match rows length.');
 if (snapshot.rows.length > 0) {
   if (snapshot.rows.length !== 254) errors.push(`Published ACS snapshot must contain all 254 counties; found ${snapshot.rows.length}.`);
@@ -107,4 +126,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`County housing/cost pipeline validation passed (${snapshot.rows.length || 0} snapshot rows; all 254 source county rows required, with Census suppression preserved as null).`);
+console.log(`County housing/cost pipeline validation passed (${snapshot.rows.length || 0} snapshot rows; official 2024 ACS provenance locked, all 254 source county rows required, Census suppression preserved as null).`);
