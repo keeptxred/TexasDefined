@@ -3,6 +3,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { LakeConroeGuide } from "@/components/fishing/LakeConroeGuide";
 import { Container } from "@/components/layout/Container";
+import { getLakeConroePageData } from "@/data/fishing/lake-conroe-page-data.functions";
 import {
   LAKE_CONROE_SLUG,
   LAKE_CONROE_VERIFIED_AT,
@@ -20,11 +21,12 @@ export const Route = createFileRoute("/fishing/lakes/$slug")({
     if (params.slug !== LAKE_CONROE_SLUG) throw notFound();
     const lake = await context.queryClient.ensureQueryData(fishingLakeQuery(params.slug));
     if (!lake) throw notFound();
-    const [reports, guides] = await Promise.all([
+    const [reports, guides, pageData] = await Promise.all([
       context.queryClient.ensureQueryData(fishingReportsQuery({ lakeId: lake.id, limit: 20 })),
       context.queryClient.ensureQueryData(fishingGuidesQuery({ lakeId: lake.id, limit: 50 })),
+      getLakeConroePageData(),
     ]);
-    return { lake, reports, guides };
+    return { lake, reports, guides, pageData };
   },
   head: ({ loaderData }) => {
     if (!loaderData) return { meta: [{ title: "Fishing lake unavailable" }, { name: "robots", content: "noindex, nofollow" }] };
@@ -81,6 +83,6 @@ export const Route = createFileRoute("/fishing/lakes/$slug")({
 });
 
 function LakeConroeOverviewRoute() {
-  const { reports, guides } = Route.useLoaderData();
-  return <LakeConroeGuide reports={reports} guides={guides} />;
+  const { reports, guides, pageData } = Route.useLoaderData();
+  return <LakeConroeGuide reports={reports} guides={guides} pageData={pageData} />;
 }
