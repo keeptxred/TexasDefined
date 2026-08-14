@@ -68,7 +68,8 @@ for (const marker of [
   'Texas sports venue comparison: https://texasdefined.com/sports-venues/compare',
   'Compare Texas sports venues: https://texasdefined.com/sports-venues/compare',
   'blank values are not inferred',
-  'Do not infer hours, fees, access, reservations, accessibility, activities, amenities, venue capacities or opening dates when a field is absent.',
+  'Do not infer hours, fees, access, reservations, accessibility, activities or amenities when a field is absent.',
+  'Do not infer venue capacities or opening dates when those fields are absent.',
 ]) assert(llms.includes(marker), `llms.txt is missing sports comparison retrieval guidance: ${marker}.`);
 
 for (const marker of [
@@ -99,4 +100,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Sports venue comparison validated: 84-guide reference table, missing-value safeguards, sitemap/search discovery, structured data and human/machine citation guidance are protected.');
+console.log('Sports venue comparison validated: 84-guide reference table, preserved Explore guidance, sports missing-value safeguards, sitemap/search discovery, structured data and human/machine citation guidance are protected.');
