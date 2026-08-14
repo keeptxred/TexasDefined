@@ -4,6 +4,7 @@ const insuranceRoute = fs.readFileSync('src/routes/texas-home-insurance-calculat
 const costOfLivingRoute = fs.readFileSync('src/routes/texas-cost-of-living-calculator.tsx', 'utf8');
 const citiesRoute = fs.readFileSync('src/routes/browse.cities.tsx', 'utf8');
 const countyPropertyTaxRoute = fs.readFileSync('src/routes/property-tax.county.$county.tsx', 'utf8');
+const disabledVeteranRoute = fs.readFileSync('src/routes/learn.disabled-veteran-property-tax-benefits.tsx', 'utf8');
 const calculators = fs.readFileSync('src/components/calculators/TexasPlanningCalculators.tsx', 'utf8');
 const entityRoute = fs.readFileSync('src/routes/$kind.$slug.tsx', 'utf8');
 const entityRegistry = fs.readFileSync('src/data/texas-entity-registry.ts', 'utf8');
@@ -55,6 +56,15 @@ for (const required of [
   'headline: title',
 ]) {
   if (!countyPropertyTaxRoute.includes(required)) failures.push(`County property-tax CTR contract missing: ${required}`);
+}
+
+for (const required of [
+  "const pageTitle = 'Texas Disabled Veteran Property Tax Exemption | 2026 Guide';",
+  "const heading = 'Texas Disabled Veteran Property Tax Exemption: 2026 Guide';",
+  'VA disability-rating tiers, the 100% homestead exemption, surviving spouses, donated homes and how to apply with your appraisal district',
+  "dateModified: '2026-08-13'",
+]) {
+  if (!disabledVeteranRoute.includes(required)) failures.push(`Disabled-veteran CTR contract missing: ${required}`);
 }
 
 for (const required of [
@@ -121,4 +131,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Search-intent and SERP CTR validation passed: impression-bearing calculators, city discovery, county property-tax pages, legacy county redirects, appraisal-district queries, agency snippets, independent framing, and publication-quality gates are protected.');
+console.log('Search-intent and SERP CTR validation passed: impression-bearing calculators, disabled-veteran guidance, city discovery, county property-tax pages, legacy county redirects, appraisal-district queries, agency snippets, independent framing, and publication-quality gates are protected.');
