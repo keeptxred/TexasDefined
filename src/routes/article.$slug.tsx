@@ -16,7 +16,7 @@ import { absoluteUrl, buildMeta, canonicalLink, schemaTypeForEntityKind } from "
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const DISCOVER_MIN_IMAGE_WIDTH = 1200;
-const texasExplainedPillarSlugs = new Set([
+const texasExplainedPillarOrder = [
   "texas-rivers-explained",
   "texas-lakes-reservoirs-explained",
   "texas-farm-to-market-roads-explained",
@@ -27,7 +27,8 @@ const texasExplainedPillarSlugs = new Set([
   "buying-land-in-texas-guide",
   "texas-wildlife-guide",
   "texas-cultural-regions-explained",
-]);
+] as const;
+const texasExplainedPillarSlugs = new Set<string>(texasExplainedPillarOrder);
 
 type ArticleDepartment = { name: string; path: string; usesExploreCategory: boolean };
 
@@ -200,7 +201,8 @@ function ArticlePage() {
   const categoryName = categories.find((category) => category.slug === article.category)?.name
     ?? article.category.replace(/-/g, " ");
   const department = articleDepartment(article.category);
-  const isTexasExplainedPillar = texasExplainedPillarSlugs.has(article.slug);
+  const texasExplainedPillarPosition = texasExplainedPillarOrder.findIndex((pillarSlug) => pillarSlug === article.slug);
+  const isTexasExplainedPillar = texasExplainedPillarPosition >= 0;
   const embeddedInternalLinks = article.internalLinks ?? [];
   const supplementalInternalLinks = articleInternalLinks[article.slug] ?? [];
   const internalLinks = [
@@ -229,7 +231,7 @@ function ArticlePage() {
     <Container className="max-w-3xl py-12 sm:py-16">
       <Byline author={author} meta={`${formatDate(article.publishedAt)} · ${formatReadingTime(article.readingMinutes)}`} />
       {isTexasExplainedPillar && <aside className="mt-8 border-l-2 border-primary pl-5" aria-label="Texas Explained series">
-        <p className="eyebrow text-primary">Texas Explained</p>
+        <p className="eyebrow text-primary">Texas Explained · Guide {texasExplainedPillarPosition + 1} of {texasExplainedPillarOrder.length}</p>
         <p className="mt-2 text-sm leading-7 text-muted-foreground">Part of our 10-guide series on the systems, landscapes and people that explain how Texas works. <Link to="/texas-explained" className="border-b border-primary text-foreground transition-colors hover:text-primary">See all 10 guides →</Link></p>
       </aside>}
       <div className="mt-10"><ArticleBody blocks={article.body} entities={graph} /></div>
