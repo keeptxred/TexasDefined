@@ -54,6 +54,10 @@ if (!failures.length) {
   if (!ui.includes("lake-conroe-routing") || !ui.includes("pageData.sections") || !ui.includes("pageData.copy")) failures.push("Lake Conroe client routing/server hydration contract missing.");
   if (overviewRoute.includes("lake-conroe-prototype") || sectionRoute.includes("lake-conroe-prototype")) failures.push("Lake Conroe client routes must not import the prototype catalog.");
   if (!overviewRoute.includes("getLakeConroePageData()") || !sectionRoute.includes("getLakeConroePageData()")) failures.push("Lake Conroe routes do not hydrate server page data.");
+  for (const [label, routeSource] of [["overview", overviewRoute], ["section", sectionRoute]]) {
+    if (!routeSource.includes('await import("@/data/fishing/queries")')) failures.push(`Lake Conroe ${label} route must lazy-load fishing queries to protect the main client bundle.`);
+    if (/^import\s+\{[^\n]*fishing(?:Guides|Lake|Reports)Query[^\n]*\}\s+from\s+"@\/data\/fishing\/queries";/m.test(routeSource)) failures.push(`Lake Conroe ${label} route must not statically import fishing queries.`);
+  }
   if (!overviewRoute.includes('"@type": "Reservoir"') || !overviewRoute.includes('"@type": "BreadcrumbList"') || !sectionRoute.includes('"@type": "BreadcrumbList"')) failures.push("Lake Conroe structured data incomplete.");
   if (!overviewRoute.includes("dateModified: verifiedAt") || !sectionRoute.includes("dateModified: pageData.verifiedAt")) failures.push("Lake Conroe freshness metadata is not source-backed.");
 
@@ -71,4 +75,4 @@ if (failures.length) {
   failures.forEach((failure) => console.error(`- ${failure}`));
   process.exit(1);
 }
-console.log("Fishing platform validation passed: foundation contracts and the complete Lake Conroe prototype, canonical routing, dynamic sitemap, verified-source UX, redirect/freshness protections, guide/report integrity, and prototype-free server-hydrated client boundary are protected.");
+console.log("Fishing platform validation passed: foundation contracts and the complete Lake Conroe prototype, canonical routing, dynamic sitemap, verified-source UX, redirect/freshness protections, guide/report integrity, prototype-free server hydration, and lazy fishing-query client boundaries are protected.");
