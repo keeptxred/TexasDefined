@@ -168,6 +168,13 @@ export const searchDocumentsQuery = () => queryOptions({
       base.push(document);
       knownHrefs.add(document.href);
     }
+    const { buildSportsVenueSearchDocuments } = await import("./sports-venue-search");
+    const sportsDocuments = buildSportsVenueSearchDocuments();
+    for (const document of sportsDocuments) {
+      if (knownHrefs.has(document.href)) continue;
+      base.push(document);
+      knownHrefs.add(document.href);
+    }
     let enriched: Destination[] = [];
     let core: Destination[] = [];
     try { enriched = await fetchExploreDestinations({ limit: 5000 }); }
