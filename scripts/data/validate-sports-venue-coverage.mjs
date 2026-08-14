@@ -4,7 +4,20 @@ import path from 'node:path';
 const root = process.cwd();
 const read = (file) => fs.readFile(path.join(root, file), 'utf8');
 
-const [major, tier2, seed, directory, guide, galaxyGuide, enrichmentAll, currentCorrections] = await Promise.all([
+const [
+  major,
+  tier2,
+  seed,
+  directory,
+  guide,
+  galaxyGuide,
+  enrichmentAll,
+  currentCorrections,
+  partnerRoute,
+  partnerFunctions,
+  partnerServer,
+  partnerMigration,
+] = await Promise.all([
   read('src/data/knowledge-graph/major-sports-venues.ts'),
   read('src/data/knowledge-graph/sports-venues-tier2.ts'),
   read('src/data/knowledge-graph/seed.ts'),
@@ -13,6 +26,10 @@ const [major, tier2, seed, directory, guide, galaxyGuide, enrichmentAll, current
   read('src/routes/sports-venue.jones-att-stadium.tsx'),
   read('src/data/sports-venue-enrichment-all.ts'),
   read('src/data/knowledge-graph/current-entity-corrections.ts'),
+  read('src/routes/partner-with-us.tsx'),
+  read('src/data/partner-inquiry.functions.ts'),
+  read('src/data/partner-inquiry.server.ts'),
+  read('supabase/migrations/20260814034617_allow_sports_travel_partner_inquiries.sql'),
 ]);
 
 const errors = [];
@@ -64,9 +81,12 @@ for (const marker of [
   "entitiesByKind('sports-venue')",
   'Every curated venue guide includes verified trip details',
   'Verified trip details',
+  'Business partnerships',
+  '/partner-with-us',
+  'Paid relationships do not change editorial rankings or factual recommendations',
   'applyCurrentEntityCorrections',
 ]) {
-  assert(directory.includes(marker), `Sports venue directory is missing category, static-inventory, or visitor-detail marker ${marker}.`);
+  assert(directory.includes(marker), `Sports venue directory is missing category, static-inventory, visitor-detail, or partnership marker ${marker}.`);
 }
 assert(!directory.includes('getSportsVenueEnrichmentAll'), 'Sports venue directory must not load the full enrichment payload merely to render badges or sorting.');
 assert(!directory.includes('loadTexasKnowledgeGraph'), 'Sports venue directory must use the governed static sports inventory rather than the remote-capable graph loader.');
@@ -105,6 +125,18 @@ for (const getter of [
   assert(enrichmentAll.includes(getter), `Combined sports venue enrichment lookup is missing ${getter}.`);
 }
 
+for (const [sourceName, source] of [
+  ['partner page', partnerRoute],
+  ['partner server function', partnerFunctions],
+  ['partner storage type', partnerServer],
+  ['partner database migration', partnerMigration],
+]) {
+  assert(source.includes('sports-travel'), `Sports-travel partnership type is missing from ${sourceName}.`);
+}
+assert(partnerRoute.includes('Sports travel / local visitor business'), 'Partner form must expose a human-readable sports-travel option.');
+assert(partnerRoute.includes('Paid relationships do not buy editorial coverage, favorable rankings or changes to factual conclusions.'), 'Partner page must preserve the editorial-independence disclosure.');
+assert(partnerMigration.includes('texasdefined_partner_inquiries_partnership_type_check'), 'Sports-travel database migration must update the partner inquiry type constraint.');
+
 assert(currentCorrections.includes("name: 'Galaxy Stadium'"), 'Current venue corrections must rename the Texas Tech football venue to Galaxy Stadium.');
 assert(currentCorrections.includes("'Jones AT&T Stadium'"), 'Galaxy Stadium correction must preserve the former venue name as an alias.');
 assert(currentCorrections.includes("'Galaxy Stadium'"), 'Galaxy Stadium correction must preserve the current venue name as a searchable alias.');
@@ -124,4 +156,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Sports venue coverage contracts validated: ${majorCount} major seeds + ${tier2Count} second-tier rows, core Reliant record, lightweight static directory, statewide category anchors, dedicated visitor template, current-name correction and all enrichment batches are wired. Exact seeded-to-deep-profile completeness is enforced separately.`);
+console.log(`Sports venue coverage contracts validated: ${majorCount} major seeds + ${tier2Count} second-tier rows, core Reliant record, lightweight static directory, statewide category anchors, dedicated visitor template, sports-travel partnership funnel, current-name correction and all enrichment batches are wired. Exact seeded-to-deep-profile completeness is enforced separately.`);
