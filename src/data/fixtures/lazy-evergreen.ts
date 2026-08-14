@@ -8,6 +8,31 @@ import specialDistrictsHero from "@/assets/generated/texas-special-districts.jpg
 import type { Article } from "../types";
 import { texasLakesReservoirsExplainedStub } from "./texas-lakes-reservoirs-explained-stub";
 
+const texasFarmToMarketRoadsExplainedStub: Article = {
+  id: "evergreen-texas-farm-to-market-roads-explained",
+  brandId: "texasdefined",
+  slug: "texas-farm-to-market-roads-explained",
+  title: "Farm-to-Market Roads: The Texas Highway System Most People Don't Understand",
+  dek: "Those black-and-white FM shields are more than country-road decoration. They belong to a statewide highway system built to connect rural Texas to schools, towns and markets—and they still shape how the state feels from behind the wheel.",
+  category: "road-trips",
+  hero: {
+    src: "https://images.unsplash.com/photo-1494783367193-149034c05e8f?auto=format&fit=crop&w=1600&q=82",
+    alt: "A two-lane rural highway crossing open Texas countryside",
+    width: 1600,
+    height: 1067,
+  },
+  authorId: "a-marisol",
+  publishedAt: "2026-08-13",
+  readingMinutes: 11,
+  tags: ["farm to market roads", "FM roads", "ranch to market roads", "texas highways", "texas road trips", "TxDOT", "rural texas", "texas transportation"],
+  featured: true,
+  sourceName: "Texas Department of Transportation",
+  sourceUrl: "https://www.txdot.gov/projects/planning/highway-designations.html",
+  body: [],
+  relatedCollections: [],
+  relatedDestinations: [],
+};
+
 const texasRiversExplainedStub: Article = {
   id: "evergreen-texas-rivers-explained",
   brandId: "texasdefined",
@@ -158,6 +183,7 @@ const mudsPidsHoasSpecialDistrictsStub: Article = {
 };
 
 export const lazyEvergreenArticleStubs: Article[] = [
+  texasFarmToMarketRoadsExplainedStub,
   texasRiversExplainedStub,
   texasLakesReservoirsExplainedStub,
   texasHillCountryStub,
@@ -183,6 +209,11 @@ const texasRiversSourceLinks: NonNullable<Article["internalLinks"]> = [
 
 export async function loadLazyEvergreenArticle(brandId: string, slug: string): Promise<Article | null> {
   if (brandId !== "texasdefined") return null;
+
+  if (slug === texasFarmToMarketRoadsExplainedStub.slug) {
+    const { texasFarmToMarketRoadsExplainedArticle } = await import("./texas-farm-to-market-roads-explained");
+    return texasFarmToMarketRoadsExplainedArticle;
+  }
 
   if (slug === texasRiversExplainedStub.slug) {
     const { texasRiversExplainedArticle } = await import("./texas-rivers-explained");
