@@ -122,12 +122,13 @@ jobs:
       - name: Validate Phase 3 entity maintenance
         run: node scripts/data/validate-entity-maintenance.mjs
 
-      - name: Validate sports venue, imagery, traffic, discovery, partner and sponsorship operations
+      - name: Validate sports venue, imagery, traffic, event links, discovery, partner and sponsorship operations
         run: |
           node scripts/data/validate-sports-venue-coverage.mjs
           node scripts/data/validate-sports-venue-deep-completeness.mjs
           node scripts/data/validate-sports-venue-images.mjs
           node scripts/data/validate-sports-traffic-readiness.mjs
+          node scripts/data/validate-event-sports-venue-links.mjs
           node scripts/data/validate-sports-venue-landings.mjs
           node scripts/data/validate-sports-venue-comparison.mjs
           node scripts/data/validate-sports-partner-operations.mjs
