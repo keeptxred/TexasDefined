@@ -18,16 +18,10 @@ import { brewsterCountyBigBendArticle } from "./brewster-county-big-bend";
 import { culbersonCountyVanHornGuadalupeMountainsArticle } from "./culberson-county-van-horn-guadalupe-mountains";
 import { ectorCountyOdessaOilStonehengeArticle } from "./ector-county-odessa-oil-stonehenge";
 import { elPasoCountyPassMissionsBorderlandsArticle } from "./el-paso-county-pass-missions-borderlands";
-import {
-  texasBarbecueStylesArticle,
-  texasHomeMaintenanceCalendarArticle,
-  texasNativePlantsYardArticle,
-  texasRegionsExplainedArticle,
-  whyTexasHas254CountiesArticle,
-} from "./chat-article-hero-overrides";
 import { exploreFeatureArticles } from "./explore-feature-articles";
 import { newestEvergreenArticles } from "./newest-evergreen";
 import { lazyEvergreenArticleStubs, loadLazyEvergreenArticle } from "./lazy-evergreen";
+import { coreEvergreenArticleStubs, loadCoreEvergreenArticle } from "./lazy-core-evergreen";
 import { highSchoolFootballNewcomersArticle } from "./high-school-football-newcomers";
 import { hudspethCountySierraBlancaSaltFlatsArticle } from "./hudspeth-county-sierra-blanca-salt-flats";
 import { jeffDavisCountyFortDavisMountainsArticle } from "./jeff-davis-county-fort-davis-mountains";
@@ -69,6 +63,7 @@ const editorialArticles = [
   jeffDavisCountyFortDavisMountainsArticle,
   presidioCountyMarfaBorderlandsArticle,
   brewsterCountyBigBendArticle,
+  ...coreEvergreenArticleStubs,
   ...lazyEvergreenArticleStubs,
   ...newestEvergreenArticles,
   rodeo101Article,
@@ -76,11 +71,6 @@ const editorialArticles = [
   kolacheOrKlobasnekArticle,
   orderingTexasBarbecueArticle,
   sixFlagsOverTexasMeaningArticle,
-  texasHomeMaintenanceCalendarArticle,
-  texasRegionsExplainedArticle,
-  whyTexasHas254CountiesArticle,
-  texasNativePlantsYardArticle,
-  texasBarbecueStylesArticle,
   ...articles,
   ...migratedEditorialArticles,
 ];
@@ -196,6 +186,9 @@ export const fixtureArticles: ArticleRepository = {
     return take(rows, query.limit).map(normalizeArticle);
   },
   async getBySlug(scope, slug) {
+    const coreEvergreenArticle = await loadCoreEvergreenArticle(scope.brandId, slug);
+    if (coreEvergreenArticle) return normalizeArticle(coreEvergreenArticle);
+
     const lazyArticle = await loadLazyEvergreenArticle(scope.brandId, slug);
     if (lazyArticle) return normalizeArticle(lazyArticle);
 
