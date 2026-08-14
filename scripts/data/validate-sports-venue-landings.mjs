@@ -4,11 +4,12 @@ import path from 'node:path';
 const root = process.cwd();
 const read = (file) => fs.readFile(path.join(root, file), 'utf8');
 
-const [landings, landingPaths, route, indexComponent, directory, sports, genericVenue, galaxyVenue, publicRoutes, majorVenues, tier2Venues] = await Promise.all([
+const [landings, landingPaths, route, indexComponent, quickAnswers, directory, sports, genericVenue, galaxyVenue, publicRoutes, majorVenues, tier2Venues] = await Promise.all([
   read('src/data/sports-venue-landings.ts'),
   read('src/data/sports-venue-landing-paths.ts'),
   read('src/routes/sports-venues.$landing.tsx'),
   read('src/components/sports/SportsVenueLandingIndex.tsx'),
+  read('src/components/sports/SportsVenueQuickAnswers.tsx'),
   read('src/routes/sports-venues.tsx'),
   read('src/routes/sports.tsx'),
   read('src/routes/sports-venue.$slug.tsx'),
@@ -91,6 +92,19 @@ for (const marker of [
   'href={`/sports-venues/${item.slug}`}',
 ]) assert(indexComponent.includes(marker), `Sports venue landing index is missing navigation marker: ${marker}.`);
 
+for (const marker of [
+  'SportsVenueQuickAnswers',
+  "'@type': 'FAQPage'",
+  "'@type': 'Question'",
+  "'@type': 'Answer'",
+  'Planning a visit to {venueName}',
+  'Where is ${venueName}?',
+  'What sports or events take place at ${venueName}?',
+  'Where should I check parking and arrival information for ${venueName}?',
+  'How current is this ${venueName} visitor guide?',
+  'official links farther down the guide',
+]) assert(quickAnswers.includes(marker), `Sports venue quick-answer component is missing AEO/source-safety marker: ${marker}.`);
+
 assert(directory.includes('SportsVenueLandingIndex'), 'The statewide sports venue directory must link to market/theme landing pages.');
 assert(sports.includes('SportsVenueLandingIndex'), 'The main Texas Sports page must link to market/theme landing pages.');
 
@@ -106,21 +120,29 @@ for (const marker of [
 ]) assert(landings.includes(marker), `Sports venue landing taxonomy is missing marker: ${marker}.`);
 
 for (const marker of [
+  "import { SportsVenueQuickAnswers } from '@/components/sports/SportsVenueQuickAnswers'",
   "import { sportsVenueLandingLinksForVenue } from '@/data/sports-venue-landings'",
   'const landingLinks = sportsVenueLandingLinksForVenue(entity);',
+  '<SportsVenueQuickAnswers',
+  'primaryEvents={enrichment?.primaryEvents}',
+  'verifiedAt={enrichment?.verifiedAt ?? entity.sourceCheckedAt}',
   'Explore the collection',
   'More venues like {entity.name}',
   'href={`/sports-venues/${landing.slug}`}',
   'Browse collection →',
-]) assert(genericVenue.includes(marker), `Generic sports venue guide is missing bidirectional discovery marker: ${marker}.`);
+]) assert(genericVenue.includes(marker), `Generic sports venue guide is missing answer-first or bidirectional discovery marker: ${marker}.`);
 
 for (const marker of [
+  "import { SportsVenueQuickAnswers } from '@/components/sports/SportsVenueQuickAnswers'",
+  '<SportsVenueQuickAnswers',
+  'venueName={venueName}',
+  'verifiedAt={enrichment?.verifiedAt}',
   'Explore the collection',
   '/sports-venues/lubbock',
   '/sports-venues/football',
   '/sports-venues/college-sports',
   'Browse collection →',
-]) assert(galaxyVenue.includes(marker), `Galaxy Stadium exception is missing sports collection discovery marker: ${marker}.`);
+]) assert(galaxyVenue.includes(marker), `Galaxy Stadium exception is missing answer-first or sports collection discovery marker: ${marker}.`);
 
 const venueSources = `${majorVenues}\n${tier2Venues}`;
 const representativeVenueByLanding = {
@@ -153,4 +175,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Sports venue landings validated: ${expectedLandings.length} indexable market/theme pages are sitemap-owned, answer-first, bidirectionally linked, structured and kept off the heavy enrichment path.`);
+console.log(`Sports venue landings validated: ${expectedLandings.length} indexable market/theme pages and venue guides are sitemap-owned, answer-first, bidirectionally linked, structured and source-safe.`);
