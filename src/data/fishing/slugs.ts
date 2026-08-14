@@ -12,8 +12,15 @@ const routeBase: Record<FishingRouteKind, string> = {
 export const COMPLETE_FISHING_LAKE_SLUGS = ["lake-conroe", "lake-fork", "sam-rayburn-reservoir", "lake-livingston", "lake-texoma"] as const;
 export type CompleteFishingLakeSlug = (typeof COMPLETE_FISHING_LAKE_SLUGS)[number];
 
+export const COMPLETE_FISHING_SPECIES_SLUGS = ["largemouth-bass"] as const;
+export type CompleteFishingSpeciesSlug = (typeof COMPLETE_FISHING_SPECIES_SLUGS)[number];
+
 export function isCompleteFishingLakeSlug(value: string): value is CompleteFishingLakeSlug {
   return (COMPLETE_FISHING_LAKE_SLUGS as readonly string[]).includes(value);
+}
+
+export function isCompleteFishingSpeciesSlug(value: string): value is CompleteFishingSpeciesSlug {
+  return (COMPLETE_FISHING_SPECIES_SLUGS as readonly string[]).includes(value);
 }
 
 export function normalizeFishingSlug(value: string) {
@@ -27,9 +34,8 @@ export function canonicalFishingPath(kind: FishingRouteKind, slug: string) { ret
 /** Complete entities resolve to detail pages; unpublished-depth entities remain directory anchors. */
 export function fishingFoundationAnchor(kind: "lake" | "species", slug: string) {
   const canonicalSlug = assertCanonicalFishingSlug(slug);
-  if (kind === "lake" && canonicalSlug === "lake-conroe") return canonicalFishingPath("lake", canonicalSlug);
   if (kind === "lake" && isCompleteFishingLakeSlug(canonicalSlug)) return canonicalFishingPath("lake", canonicalSlug);
-  if (kind === "species" && canonicalSlug === "largemouth-bass") return canonicalFishingPath("species", canonicalSlug);
+  if (kind === "species" && isCompleteFishingSpeciesSlug(canonicalSlug)) return canonicalFishingPath("species", canonicalSlug);
   if (kind === "species") return `/fishing/species#species-${canonicalSlug}`;
   return `/fishing#lake-${canonicalSlug}`;
 }
