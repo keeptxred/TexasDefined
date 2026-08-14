@@ -60,9 +60,9 @@ function safePartnerUrl(value: string) {
 
 export function inferEvergreenFunnel({ category, title }: { category?: string; title?: string }): EvergreenFunnelKind | null {
   const normalizedCategory = (category ?? "").toLowerCase();
-  if (["moving-to-texas"].includes(normalizedCategory)) return "moving";
+  if (normalizedCategory === "moving-to-texas") return "moving";
   if (["real-estate", "property-taxes", "home-garden"].includes(normalizedCategory)) return "home";
-  if (["road-trips", "small-towns", "state-parks", "national-parks", "lakes-rivers", "beaches-coast", "outdoors", "food-bbq", "events"].includes(normalizedCategory)) return "travel";
+  if (["road-trips", "small-towns", "state-parks", "national-parks", "lakes-rivers", "beaches-coast", "outdoors", "food-bbq", "events", "major-springs", "caverns", "historic-sites"].includes(normalizedCategory)) return "travel";
 
   const normalizedTitle = (title ?? "").toLowerCase();
   if (/moving|cost of living|salary|utility/.test(normalizedTitle)) return "moving";
@@ -74,9 +74,10 @@ export function EvergreenNextSteps({ category, title }: { category?: string; tit
   const kind = inferEvergreenFunnel({ category, title });
   if (!kind) return null;
 
-  const partners = partnerDefinitions[kind]
-    .map((partner) => ({ ...partner, href: safePartnerUrl(partnerUrls[partner.id]) }))
-    .filter((partner): partner is typeof partner & { href: string } => Boolean(partner.href));
+  const partners = partnerDefinitions[kind].flatMap((partner) => {
+    const href = safePartnerUrl(partnerUrls[partner.id]);
+    return href ? [{ ...partner, href }] : [];
+  });
 
   const heading = kind === "home"
     ? "Turn the estimate into a real-world comparison"
