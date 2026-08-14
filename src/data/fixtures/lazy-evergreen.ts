@@ -6,6 +6,13 @@ import freezeHero from "@/assets/generated/texas-freeze-prep.jpg";
 import specialDistrictsHero from "@/assets/generated/texas-special-districts.jpg";
 
 import type { Article } from "../types";
+import { texasHomeArchitectureRegionsStub } from "./texas-home-architecture-regions-stub";
+import {
+  chooseElectricityPlanTexasStub,
+  texasHurricanePreparationStub,
+  texasRoofsHailWindHeatStub,
+  texasSchoolDistrictsExplainedStub,
+} from "./lazy-practical-evergreen-stubs";
 import { texasLakesReservoirsExplainedStub } from "./texas-lakes-reservoirs-explained-stub";
 import { texasTreesGuideStub } from "./texas-trees-guide-stub";
 import { texasWildflowersGuideStub } from "./texas-wildflowers-guide-stub";
@@ -190,6 +197,11 @@ export const lazyEvergreenArticleStubs: Article[] = [
   texasFarmToMarketRoadsExplainedStub,
   texasWildflowersGuideStub,
   texasTreesGuideStub,
+  texasHomeArchitectureRegionsStub,
+  texasHurricanePreparationStub,
+  texasRoofsHailWindHeatStub,
+  texasSchoolDistrictsExplainedStub,
+  chooseElectricityPlanTexasStub,
   texasRiversExplainedStub,
   texasLakesReservoirsExplainedStub,
   texasHillCountryStub,
@@ -199,6 +211,17 @@ export const lazyEvergreenArticleStubs: Article[] = [
   prepareTexasHouseFreezeStub,
   mudsPidsHoasSpecialDistrictsStub,
 ];
+
+const addSourceLinks = (article: Article, links: NonNullable<Article["internalLinks"]>): Article => {
+  const existing = article.internalLinks ?? [];
+  return {
+    ...article,
+    internalLinks: [
+      ...existing,
+      ...links.filter((link) => !existing.some((item) => item.href === link.href)),
+    ],
+  };
+};
 
 const texasRiversSourceLinks: NonNullable<Article["internalLinks"]> = [
   {
@@ -231,19 +254,46 @@ export async function loadLazyEvergreenArticle(brandId: string, slug: string): P
     return texasTreesGuideArticle;
   }
 
+  if (slug === texasHomeArchitectureRegionsStub.slug) {
+    const { texasHomeArchitectureRegionsArticle } = await import("./texas-home-architecture-regions");
+    return texasHomeArchitectureRegionsArticle;
+  }
+
+  if (slug === texasHurricanePreparationStub.slug) {
+    const { texasHurricanePreparationArticle } = await import("./texas-hurricane-preparation-guide");
+    return addSourceLinks(texasHurricanePreparationArticle, [
+      { href: "https://tdem.texas.gov/prepare", label: "Texas emergency preparedness", description: "Official preparedness guidance, evacuation resources and emergency planning information." },
+      { href: "https://www.texasready.gov/", label: "TexasReady", description: "State preparedness guidance for plans, kits, alerts and evacuation routes." },
+    ]);
+  }
+
+  if (slug === texasRoofsHailWindHeatStub.slug) {
+    const { texasRoofsHailWindHeatArticle } = await import("./texas-roofs-hail-wind-heat");
+    return addSourceLinks(texasRoofsHailWindHeatArticle, [
+      { href: "https://www.tdi.texas.gov/tips/replacing-your-roof.html", label: "Texas Department of Insurance roof guidance", description: "Official guidance on roof coverage, wind and hail deductibles, claims and replacement." },
+      { href: "https://www.tdi.texas.gov/tips/after-hail-or-windstorms.html", label: "Texas hail and windstorm claim guidance", description: "Official Texas consumer guidance for documenting damage and handling storm claims." },
+    ]);
+  }
+
+  if (slug === texasSchoolDistrictsExplainedStub.slug) {
+    const { texasSchoolDistrictsExplainedArticle } = await import("./texas-school-districts-explained");
+    return addSourceLinks(texasSchoolDistrictsExplainedArticle, [
+      { href: "https://tea.texas.gov/families-and-students/school-district-locator/school-district-locator", label: "Texas Education Agency school district locator", description: "Official state map and district-boundary information for Texas addresses." },
+      { href: "https://tea.texas.gov/glossary/askted", label: "AskTED Texas Education Directory", description: "Official school, district, county and regional education directory information." },
+    ]);
+  }
+
+  if (slug === chooseElectricityPlanTexasStub.slug) {
+    const { chooseElectricityPlanTexasArticle } = await import("./choose-electricity-plan-texas");
+    return addSourceLinks(chooseElectricityPlanTexasArticle, [
+      { href: "https://www.powertochoose.org/", label: "Power to Choose", description: "Official Texas resource for comparing retail electricity offers in eligible areas." },
+      { href: "https://www.puc.texas.gov/consumer/electricity/", label: "Public Utility Commission electricity information", description: "Official consumer guidance on electric service, utilities and retail providers." },
+    ]);
+  }
+
   if (slug === texasRiversExplainedStub.slug) {
     const { texasRiversExplainedArticle } = await import("./texas-rivers-explained");
-    const existingLinks = texasRiversExplainedArticle.internalLinks ?? [];
-
-    return {
-      ...texasRiversExplainedArticle,
-      internalLinks: [
-        ...existingLinks,
-        ...texasRiversSourceLinks.filter(
-          (link) => !existingLinks.some((existing) => existing.href === link.href),
-        ),
-      ],
-    };
+    return addSourceLinks(texasRiversExplainedArticle, texasRiversSourceLinks);
   }
 
   if (slug === texasLakesReservoirsExplainedStub.slug) {

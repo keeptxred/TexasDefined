@@ -1,10 +1,12 @@
 name: TexasDefined article publication readiness
 
 on:
+  schedule:
+    - cron: '17 13 * * *'
   workflow_dispatch:
     inputs:
       mode:
-        description: Dry-run inspects the eligible queue; publish also requires repository activation and exact confirmation.
+        description: Dry-run inspects the eligible queue; publish requires exact confirmation.
         required: true
         default: dry-run
         type: choice
@@ -12,9 +14,16 @@ on:
           - dry-run
           - publish
       confirmation:
-        description: For publish mode only, enter PUBLISH_TEXASDEFINED.
+        description: For manual publish mode only, enter PUBLISH_TEXASDEFINED.
         required: false
         type: string
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/texasdefined-auto-publication.yml'
+      - 'scripts/news/texasdefined-auto-publisher.mjs'
+      - 'scripts/data/validate-texasdefined-auto-publication.mjs'
 
 permissions:
   contents: read
@@ -31,7 +40,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-      - name: Validate inactive publication controls
+      - name: Validate publication controls
         run: node scripts/data/validate-texasdefined-auto-publication.mjs
 
   run:
@@ -43,16 +52,31 @@ jobs:
       KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY }}
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-      TEXASDEFINED_AUTO_PUBLISH_ENABLED: ${{ vars.TEXASDEFINED_AUTO_PUBLISH_ENABLED }}
-      TEXASDEFINED_PUBLISH_CONFIRMATION: ${{ inputs.confirmation }}
+      TEXASDEFINED_AUTO_PUBLISH_ENABLED: 'true'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 24
+      - name: Verify publication secrets are present
+        shell: bash
+        run: |
+          test -n "$KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY" || { echo 'Missing KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY'; exit 1; }
+          test -n "$CLOUDFLARE_ACCOUNT_ID" || { echo 'Missing CLOUDFLARE_ACCOUNT_ID'; exit 1; }
+          test -n "$CLOUDFLARE_API_TOKEN" || { echo 'Missing CLOUDFLARE_API_TOKEN'; exit 1; }
+      - name: Smoke-test eligible queue after publisher changes
+        if: github.event_name == 'push'
+        run: node scripts/news/texasdefined-auto-publisher.mjs --limit=1
       - name: Inspect eligible queue without publishing
-        if: inputs.mode == 'dry-run'
+        if: github.event_name == 'workflow_dispatch' && inputs.mode == 'dry-run'
         run: node scripts/news/texasdefined-auto-publisher.mjs --limit=3
-      - name: Publish one approved eligible article
-        if: inputs.mode == 'publish'
+      - name: Publish one approved eligible article manually
+        if: github.event_name == 'workflow_dispatch' && inputs.mode == 'publish'
+        env:
+          TEXASDEFINED_PUBLISH_CONFIRMATION: ${{ inputs.confirmation }}
+        run: node scripts/news/texasdefined-auto-publisher.mjs --publish --limit=1
+      - name: Publish one approved eligible article on schedule
+        if: github.event_name == 'schedule'
+        env:
+          TEXASDEFINED_PUBLISH_CONFIRMATION: PUBLISH_TEXASDEFINED
         run: node scripts/news/texasdefined-auto-publisher.mjs --publish --limit=1

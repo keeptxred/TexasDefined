@@ -1,0 +1,36 @@
+import type { Article } from "../types";
+
+export const texasHomeArchitectureRegionsStub: Article = {
+  id: "evergreen-texas-home-architecture-regions",
+  brandId: "texasdefined",
+  slug: "texas-home-architecture-regions",
+  title: "Why Texas Homes Look Different Across the State",
+  dek: "A limestone house in the Hill Country, a raised cottage near the Gulf, an East Texas bungalow and a West Texas stucco home are all recognizably Texan for different reasons. Climate, local materials, migration and changing technology built the state's residential landscape one region at a time.",
+  category: "home-garden",
+  hero: {
+    src: "https://images.unsplash.com/photo-1758915576261-8da237f62126?auto=format&fit=crop&w=1600&q=82",
+    alt: "A historic stone Texas house with a broad shaded porch in Fort Davis",
+    width: 1600,
+    height: 1067,
+    credit: "Dennis Lamberth · Unsplash",
+  },
+  authorId: "a-marisol",
+  publishedAt: "2026-08-13",
+  readingMinutes: 14,
+  tags: [
+    "texas architecture",
+    "texas homes",
+    "texas house styles",
+    "hill country homes",
+    "ranch houses",
+    "dogtrot houses",
+    "adobe homes",
+    "texas real estate",
+  ],
+  featured: true,
+  sourceName: "Texas Historical Commission",
+  sourceUrl: "https://atlas.thc.texas.gov/About/AtlasData?subpage=TexasHistoricSitesInventoryResidentialProperty-NRSURVRP",
+  body: [],
+  relatedCollections: [],
+  relatedDestinations: ["fort-davis-national-historic-site"],
+};

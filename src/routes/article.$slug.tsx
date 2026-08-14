@@ -180,7 +180,14 @@ function ArticlePage() {
   const categoryName = categories.find((category) => category.slug === article.category)?.name
     ?? article.category.replace(/-/g, " ");
   const department = articleDepartment(article.category);
-  const internalLinks = article.internalLinks ?? articleInternalLinks[article.slug] ?? [];
+  const embeddedInternalLinks = article.internalLinks ?? [];
+  const supplementalInternalLinks = articleInternalLinks[article.slug] ?? [];
+  const internalLinks = [
+    ...embeddedInternalLinks,
+    ...supplementalInternalLinks.filter(
+      (link) => !embeddedInternalLinks.some((existing) => existing.href === link.href),
+    ),
+  ];
   const relatedDestinations = article.relatedDestinations
     .map((destinationSlug) => destinations.find((destination) => destination.slug === destinationSlug))
     .filter((destination): destination is NonNullable<typeof destination> => Boolean(destination))

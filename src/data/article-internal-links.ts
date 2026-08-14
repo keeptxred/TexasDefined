@@ -46,6 +46,11 @@ export const articleInternalLinks: Record<string, ArticleInternalLink[]> = {
       label: "Read Texas by its trees",
       description: "See how pine, live oak, pecan, mesquite, juniper and other tree communities track the state's changing geography.",
     },
+    {
+      href: "/article/texas-home-architecture-regions",
+      label: "Why Texas homes look different across the state",
+      description: "See how climate, local materials and migration turned each Texas region into a different residential landscape.",
+    },
   ],
   "texas-trees-guide": [
     {
@@ -72,6 +77,27 @@ export const articleInternalLinks: Record<string, ArticleInternalLink[]> = {
       href: "/explore/outdoors",
       label: "Explore Texas outdoors",
       description: "Find parks and landscapes where the state's major tree communities are easy to see in person.",
+    },
+  ],
+  "texas-foundation-care-clay-soil-drought": [
+    {
+      href: "/article/texas-home-architecture-regions",
+      label: "Why Texas homes look different across the state",
+      description: "Put foundation design into the larger regional story of Texas soils, materials, climate and building traditions.",
+    },
+  ],
+  "texas-roofs-hail-wind-heat": [
+    {
+      href: "/article/texas-home-architecture-regions",
+      label: "How Texas climate shaped the house",
+      description: "See how roofs, porches, wall materials and house forms change from the coast to the Hill Country and West Texas.",
+    },
+  ],
+  "texas-home-maintenance-calendar": [
+    {
+      href: "/article/texas-home-architecture-regions",
+      label: "Understand the Texas house by region",
+      description: "Learn why different Texas homes inherit different maintenance needs from climate, construction and local materials.",
     },
   ],
 };

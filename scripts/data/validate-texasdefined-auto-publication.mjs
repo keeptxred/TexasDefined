@@ -8,10 +8,28 @@ const sitemap = fs.readFileSync('src/routes/sitemap[.]xml.ts', 'utf8');
 const route = fs.readFileSync('src/routes/news.$slug.tsx', 'utf8');
 const errors = [];
 
-for (const token of ['workflow_dispatch:', 'mode:', 'dry-run', 'publish', 'TEXASDEFINED_AUTO_PUBLISH_ENABLED', 'PUBLISH_TEXASDEFINED']) {
+for (const token of [
+  'workflow_dispatch:',
+  'schedule:',
+  "cron: '17 13 * * *'",
+  'push:',
+  "'scripts/news/texasdefined-auto-publisher.mjs'",
+  'mode:',
+  'dry-run',
+  'publish',
+  "TEXASDEFINED_AUTO_PUBLISH_ENABLED: 'true'",
+  'Verify publication secrets are present',
+  'Missing KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY',
+  'Missing CLOUDFLARE_ACCOUNT_ID',
+  'Missing CLOUDFLARE_API_TOKEN',
+  "github.event_name == 'push'",
+  'node scripts/news/texasdefined-auto-publisher.mjs --limit=1',
+  'PUBLISH_TEXASDEFINED',
+  "github.event_name == 'schedule'",
+  '--publish --limit=1',
+]) {
   if (!workflow.includes(token)) errors.push(`Workflow is missing ${token}`);
 }
-if (/^\s*schedule:/m.test(workflow)) errors.push('Auto-publication schedule must remain disabled until activation is approved.');
 for (const token of ['ready_for_rewrite IS TRUE', 'classification_confidence', 'texas_relevance_score', 'source_reputation_score', 'security_invoker', 'publish_texasdefined_queue_item_v2', 'FROM anon, authenticated', "TO service_role"]) {
   if (!migration.includes(token)) errors.push(`Migration is missing ${token}`);
 }
@@ -28,4 +46,4 @@ if (errors.length) {
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
-console.log('TexasDefined auto-publication is guarded, source-gated, image-gated, and disabled by default.');
+console.log('TexasDefined auto-publication is source-gated, image-gated, limited to one article per scheduled run, active daily, and smoke-tested safely after publisher changes.');
