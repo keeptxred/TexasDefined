@@ -13,6 +13,7 @@ export const rodeo101Article: Article = {
   tags:["texas rodeo","bull riding","barrel racing","bronc riding","texas culture","rodeo guide"], featured:true,
   internalLinks:[
     {href:"/sports",label:"Explore Texas sports",description:"More on the competitions and traditions that draw a Texas crowd."},
+    {href:"/sports-venues/rodeo-western",label:"Plan a trip to a Texas rodeo or Western-sports venue",description:"Browse verified rodeo grounds, equestrian complexes and Western-sports destinations with visitor-focused venue guides."},
     {href:"/events",label:"Find Texas events",description:"Look for rodeos, fairs and festivals happening around the state."},
     {href:"/article/texas-regions-explained",label:"Texas regions explained",description:"See the landscapes and ranching country behind the culture."},
     {href:"/explore",label:"Explore Texas",description:"Build a trip around the places and traditions that define the state."}
