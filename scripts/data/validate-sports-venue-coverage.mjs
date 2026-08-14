@@ -82,11 +82,11 @@ for (const marker of [
   'Every curated venue guide includes verified trip details',
   'Verified trip details',
   'Business partnerships',
-  '/partner-with-us',
+  'type=sports-travel&source=%2Fsports-venues',
   'Paid relationships do not change editorial rankings or factual recommendations',
   'applyCurrentEntityCorrections',
 ]) {
-  assert(directory.includes(marker), `Sports venue directory is missing category, static-inventory, visitor-detail, or partnership marker ${marker}.`);
+  assert(directory.includes(marker), `Sports venue directory is missing category, static-inventory, visitor-detail, partnership, or attribution marker ${marker}.`);
 }
 assert(!directory.includes('getSportsVenueEnrichmentAll'), 'Sports venue directory must not load the full enrichment payload merely to render badges or sorting.');
 assert(!directory.includes('loadTexasKnowledgeGraph'), 'Sports venue directory must use the governed static sports inventory rather than the remote-capable graph loader.');
@@ -107,11 +107,11 @@ for (const marker of [
   'sportsVenueMapUrl',
   'getSportsVenueEnrichmentAll',
   'Local business partnerships',
-  '/partner-with-us#partnership-form-heading',
+  'type=sports-travel&source=${encodeURIComponent(canonicalPath)}',
   'Paid relationships do not change editorial rankings, factual conclusions or which venues we cover',
   '/sports-venues',
 ]) {
-  assert(guide.includes(marker), `Dedicated sports venue guide is missing required visitor or partnership marker: ${marker}.`);
+  assert(guide.includes(marker), `Dedicated sports venue guide is missing required visitor, partnership, or attribution marker: ${marker}.`);
 }
 
 for (const getter of [
@@ -136,6 +136,19 @@ for (const [sourceName, source] of [
 ]) {
   assert(source.includes('sports-travel'), `Sports-travel partnership type is missing from ${sourceName}.`);
 }
+for (const marker of [
+  'validateSearch:',
+  'sanitizePartnerSource',
+  "value === '/sports-venues'",
+  '/^\\/sports-venue\\/[a-z0-9-]+$/',
+  'Route.useSearch()',
+  'sourcePath: search.sourcePath',
+  "search.partnershipType === 'sports-travel'",
+  "defaultValue={search.partnershipType ?? 'other'}",
+]) {
+  assert(partnerRoute.includes(marker), `Partner page is missing safe sports lead-attribution marker: ${marker}.`);
+}
+assert(partnerFunctions.includes("regex(/^\\/(?:partner-with-us|sports-venues|sports-venue\\/[a-z0-9-]+)$/)"), 'Partner server function must independently restrict source attribution to supported internal paths.');
 assert(partnerRoute.includes('Sports travel / local visitor business'), 'Partner form must expose a human-readable sports-travel option.');
 assert(partnerRoute.includes('Paid relationships do not buy editorial coverage, favorable rankings or changes to factual conclusions.'), 'Partner page must preserve the editorial-independence disclosure.');
 assert(partnerMigration.includes('texasdefined_partner_inquiries_partnership_type_check'), 'Sports-travel database migration must update the partner inquiry type constraint.');
@@ -159,4 +172,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Sports venue coverage contracts validated: ${majorCount} major seeds + ${tier2Count} second-tier rows, core Reliant record, lightweight static directory, statewide category anchors, dedicated visitor template, venue-level sports-travel partnership funnel, current-name correction and all enrichment batches are wired. Exact seeded-to-deep-profile completeness is enforced separately.`);
+console.log(`Sports venue coverage contracts validated: ${majorCount} major seeds + ${tier2Count} second-tier rows, core Reliant record, lightweight static directory, statewide category anchors, dedicated visitor template, venue-level sports-travel partnership funnel with safe source attribution, current-name correction and all enrichment batches are wired. Exact seeded-to-deep-profile completeness is enforced separately.`);
