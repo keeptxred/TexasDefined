@@ -2,7 +2,9 @@ import fs from 'node:fs';
 
 const route = fs.readFileSync('src/routes/texas-data.county-housing-costs.tsx', 'utf8');
 const csvRoute = fs.readFileSync('src/routes/texas-data.county-housing-costs[.]csv.ts', 'utf8');
-const loader = fs.readFileSync('src/data/acs-county-housing-costs.ts', 'utf8');
+const types = fs.readFileSync('src/data/acs-county-housing-costs.ts', 'utf8');
+const functions = fs.readFileSync('src/data/acs-county-housing-costs.functions.ts', 'utf8');
+const serverLoader = fs.readFileSync('src/data/acs-county-housing-costs.server.ts', 'utf8');
 const generator = fs.readFileSync('scripts/data/refresh-county-housing-costs.mjs', 'utf8');
 const refreshWorkflow = fs.readFileSync('.github/workflows/refresh-acs-county-housing-costs.yml', 'utf8');
 const publicRoutes = fs.readFileSync('src/lib/public-routes.ts', 'utf8');
@@ -13,6 +15,7 @@ const errors = [];
 
 for (const token of [
   "createFileRoute('/texas-data/county-housing-costs')",
+  "getTexasCountyHousingCosts",
   "title: 'Texas County Housing Costs | Home Values, Rent & Income'",
   "loaderData?.available ? 'index, follow, max-image-preview:large' : 'noindex, follow'",
   "'@type': 'Dataset'",
@@ -32,6 +35,7 @@ for (const token of [
 
 for (const token of [
   "createFileRoute('/texas-data/county-housing-costs.csv')",
+  'await getTexasCountyHousingCosts()',
   "'x-robots-tag': 'noindex, follow'",
   'status: 503',
   'median_home_value',
@@ -43,14 +47,27 @@ for (const token of [
   if (!csvRoute.includes(token)) errors.push(`County housing/cost CSV contract missing ${token}`);
 }
 
+for (const token of ['TexasCountyHousingCostRow', 'TexasCountyHousingCostDataset', 'number | null']) {
+  if (!types.includes(token)) errors.push(`Client-safe ACS types missing ${token}`);
+}
+if (types.includes('snapshot.json') || types.includes('county-property-data')) {
+  errors.push('Client-safe ACS types file must not import the snapshot or county registry.');
+}
 for (const token of [
+  "import snapshot from '@/data/acs-county-housing-costs.snapshot.json'",
   'available: rows.length === 254',
-  'number | null',
   'getCountyPropertyRecordByFips',
   'snapshot.sourcePage',
 ]) {
-  if (!loader.includes(token)) errors.push(`County housing/cost loader missing ${token}`);
+  if (!serverLoader.includes(token)) errors.push(`Server-only ACS loader missing ${token}`);
 }
+for (const token of [
+  "createServerFn({ method: 'GET' })",
+  'loadTexasCountyHousingCostsServer',
+]) {
+  if (!functions.includes(token)) errors.push(`ACS server function missing ${token}`);
+}
+if (functions.includes('snapshot.json')) errors.push('ACS server function wrapper must not import snapshot data directly.');
 
 for (const token of [
   'https://www2.census.gov/programs-surveys/acs/summary_file/',
@@ -59,9 +76,9 @@ for (const token of [
   "{ table: 'b25077', variable: 'B25077_E001'",
   "{ table: 'b25088', variable: 'B25088_E001'",
   'const TEXAS_COUNTY_COUNT = 254;',
-  'value === null',
   'estimate = Number.isFinite(numeric) && numeric >= 0 ? numeric : null',
   'values.size !== TEXAS_COUNTY_COUNT',
+  'const dataChanged = JSON.stringify(stablePayload) !== JSON.stringify(existingStablePayload);',
 ]) {
   if (!generator.includes(token)) errors.push(`ACS snapshot generator missing ${token}`);
 }
@@ -82,7 +99,7 @@ for (const token of [
 
 if (!publicRoutes.includes('"/texas-data/county-housing-costs"')) errors.push('Conditional county housing/cost public path is missing.');
 if (!publicRoutes.includes('"/texas-data/county-housing-costs.csv"')) errors.push('Noindex county housing/cost CSV path is missing.');
-for (const token of ['loadTexasCountyHousingCosts', 'countyHousingCosts.available', '"/texas-data/county-housing-costs"']) {
+for (const token of ['getTexasCountyHousingCosts', 'countyHousingCosts?.available', '"/texas-data/county-housing-costs"']) {
   if (!sitemap.includes(token)) errors.push(`Sitemap conditional housing/cost contract missing ${token}`);
 }
 if (!hub.includes("['County housing costs', '/texas-data/county-housing-costs'")) errors.push('Texas Data hub must link to county housing costs.');
@@ -126,4 +143,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`County housing/cost pipeline validation passed (${snapshot.rows.length || 0} snapshot rows; official 2024 ACS provenance locked, all 254 source county rows required, Census suppression preserved as null).`);
+console.log(`County housing/cost pipeline validation passed (${snapshot.rows.length || 0} snapshot rows; official 2024 ACS provenance locked, server-only bundle boundary protected, all 254 source county rows required, Census suppression preserved as null).`);
