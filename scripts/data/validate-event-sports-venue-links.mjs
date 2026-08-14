@@ -16,13 +16,18 @@ for (const marker of [
   "TEXAS_SPORTS_VENUE_TIER2_ENTITIES",
   "applyCurrentEntityCorrections",
   "venue.aliases",
+  "normalize('NFKD')",
   "targets.length === 1",
   "EXACT_VENUE_INDEX.get(key)",
 ]) assert(resolver.includes(marker), `Event venue resolver missing verified exact-match marker: ${marker}`);
 
+// Guard concrete fuzzy/sub-string/geographic mechanisms rather than prose words in
+// comments. This keeps the validator from failing merely because the resolver's
+// documentation says that fuzzy matching is intentionally prohibited.
 for (const forbidden of [
   '.includes(key)',
   '.includes(venue)',
+  '.indexOf(',
   '.startsWith(',
   '.endsWith(',
   'levenshtein(',
@@ -31,7 +36,7 @@ for (const forbidden of [
   'coordinates',
   'countySlug',
   'event.city',
-]) assert(!resolver.toLowerCase().includes(forbidden.toLowerCase()), `Event venue resolver must not use fuzzy/geographic matching: ${forbidden}`);
+]) assert(!resolver.toLowerCase().includes(forbidden.toLowerCase()), `Event venue resolver must not use fuzzy/geographic matching mechanism: ${forbidden}`);
 
 for (const broad of ["add('Houston'", "add('Dallas'", "add('Austin'", "add('San Antonio'", "add('Stadium'", "add('Arena'"]) {
   assert(!resolver.includes(broad), `Broad place/type term must never be registered as an event venue alias: ${broad}`);
