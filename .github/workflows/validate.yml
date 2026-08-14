@@ -53,11 +53,12 @@ jobs:
       - name: Validate Phase 3 entity maintenance
         run: node scripts/data/validate-entity-maintenance.mjs
 
-      - name: Validate sports venue and partner operations
+      - name: Validate sports venue, partner and sponsorship operations
         run: |
           node scripts/data/validate-sports-venue-coverage.mjs
           node scripts/data/validate-sports-venue-deep-completeness.mjs
           node scripts/data/validate-sports-partner-operations.mjs
+          node scripts/data/validate-sports-sponsorship.mjs
 
       - name: Validate shared platform core integration
         run: node scripts/data/validate-shared-platform-core.mjs
