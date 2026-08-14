@@ -9,7 +9,7 @@ import {
   rankRelatedEntities,
 } from '@/data/knowledge-graph/relationships';
 import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
-import { getSportsVenueEnrichment, sportsVenueMapUrl } from '@/data/sports-venue-enrichment';
+import { getSportsVenueEnrichmentAll, sportsVenueMapUrl } from '@/data/sports-venue-enrichment-all';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
 const siteUrl = 'https://texasdefined.com';
@@ -46,7 +46,7 @@ function SportsVenuePage() {
   const { entity, related } = Route.useLoaderData();
   const tags = new Set(entity.tags ?? []);
   const profile = venueProfile(tags);
-  const enrichment = getSportsVenueEnrichment(entity.slug);
+  const enrichment = getSportsVenueEnrichmentAll(entity.slug);
   const canonicalPath = canonicalEntityPath(entity);
   const canonicalUrl = `${siteUrl}${canonicalPath}`;
   const relatedVenues = related.filter(({ entity: candidate }) => candidate.kind === 'sports-venue').slice(0, 6);
