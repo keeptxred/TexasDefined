@@ -98,7 +98,7 @@ function CitationGuidePage() {
     <Container className="py-12 sm:py-16">
       <section className="grid gap-5 md:grid-cols-3" aria-labelledby="citation-rules-heading">
         <h2 id="citation-rules-heading" className="sr-only">Citation rules</h2>
-        <Rule title="Use the canonical page" body="Cite the clean TexasDefined canonical URL rather than a search, filter, preview or tracking URL." />
+        <Rule title="Use the canonical page" body="Cite the clean TexasDefined canonical URL rather than a search, filter, preview, tracking or download URL unless the downloadable file itself is the object of the citation." />
         <Rule title="Keep the original source attached" body="When a claim comes from a government record, agency, park authority, venue, event organizer or public dataset, cite that controlling source alongside TexasDefined when the distinction matters." />
         <Rule title="Preserve date and scope" body="Include the page's source-check, verification or data-as-of context when facts can change. Keep any visible completeness, planning or event-day caveat with the cited result." />
       </section>
@@ -107,6 +107,7 @@ function CitationGuidePage() {
         <p className="eyebrow text-primary">Suggested format</p>
         <h2 id="format-heading" className="mt-2 font-display text-3xl">A simple web citation</h2>
         <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground"><strong className="text-foreground">Texas Defined, “Page title,” canonical page URL, verification or modification date when shown, accessed on your research date.</strong> For deadlines, eligibility, legal requirements, official boundaries, closures, fees, current government records, event schedules, ticketing, parking, gate times or venue-entry rules, include the linked official source as the controlling authority.</p>
+        <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">When a reference page offers a CSV distribution, use the canonical HTML page for context, methodology and caveats; use the CSV when you need the machine-readable rows themselves.</p>
       </section>
 
       <section className="mt-12" aria-labelledby="reference-families-heading">
@@ -134,6 +135,7 @@ function CitationGuidePage() {
           <Link to="/texas-data" className="border-b border-primary text-primary">Texas data catalog</Link>
           <Link to="/sports-venues" className="border-b border-primary text-primary">Texas sports venues</Link>
           <Link to="/sports-venues/compare" className="border-b border-primary text-primary">Compare sports venues</Link>
+          <a href="/sports-venues/compare.csv" className="border-b border-primary text-primary">Sports venue comparison CSV</a>
         </div>
       </section>
     </Container>
