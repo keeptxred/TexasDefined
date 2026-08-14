@@ -1,10 +1,3 @@
-import { fishingGuideCanonicalPath } from "./guide-routing";
-import { fishingAccessCanonicalPath, fishingServiceCanonicalPath } from "./local-routing";
-import { FISHING_LAKE_COMPARE_PATH, FISHING_TRIP_PLANNER_PATH } from "./planner-routing";
-import { fishingReportCanonicalPath } from "./report-routing";
-import { fishingFoundationAnchor } from "./slugs";
-import { isFishingRecordVerified } from "./validation";
-
 export type FishingInternalLinkKind = "lake" | "species" | "guide" | "report" | "access" | "business" | "planner";
 
 export interface FishingInternalLinkEntity {
@@ -21,9 +14,23 @@ function normalizeTerms(values: Array<string | undefined>) {
 }
 
 export async function buildFishingInternalLinkEntities(): Promise<FishingInternalLinkEntity[]> {
-  // Keep the repository/data graph out of the client entry bundle. This builder is
-  // already asynchronous, so load the platform only when discovery entities are built.
-  const { fishingPlatform, fishingScope } = await import("./index");
+  // Keep the repository and route-helper graph out of the client entry bundle.
+  const [platformModule, guideRouting, localRouting, plannerRouting, reportRouting, slugs, validation] = await Promise.all([
+    import("./index"),
+    import("./guide-routing"),
+    import("./local-routing"),
+    import("./planner-routing"),
+    import("./report-routing"),
+    import("./slugs"),
+    import("./validation"),
+  ]);
+  const { fishingPlatform, fishingScope } = platformModule;
+  const { fishingGuideCanonicalPath } = guideRouting;
+  const { fishingAccessCanonicalPath, fishingServiceCanonicalPath } = localRouting;
+  const { FISHING_LAKE_COMPARE_PATH, FISHING_TRIP_PLANNER_PATH } = plannerRouting;
+  const { fishingReportCanonicalPath } = reportRouting;
+  const { fishingFoundationAnchor } = slugs;
+  const { isFishingRecordVerified } = validation;
   const [lakes, species, guides, reports, accessRaw, tackleRaw, businessesRaw] = await Promise.all([
     fishingPlatform.lakes.list({ ...fishingScope, status: "published", limit: 5000 }),
     fishingPlatform.species.list({ ...fishingScope, status: "published", limit: 5000 }),
