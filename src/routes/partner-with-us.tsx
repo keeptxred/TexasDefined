@@ -8,7 +8,7 @@ import { submitPartnerInquiry } from '@/data/partner-inquiry.functions';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
 const canonicalPath = '/partner-with-us';
-const description = 'Partner with Texas Defined on useful, clearly disclosed Texas home, moving, travel and local-service resources while preserving editorial independence.';
+const description = 'Partner with Texas Defined on useful, clearly disclosed Texas home, moving, travel, sports-travel and local-service resources while preserving editorial independence.';
 
 export const Route = createFileRoute('/partner-with-us')({
   head: () => ({
@@ -24,6 +24,7 @@ const partnershipOptions = [
   ['real-estate', 'Real estate'],
   ['moving', 'Moving services'],
   ['travel', 'Travel / tourism'],
+  ['sports-travel', 'Sports travel / local visitor business'],
   ['sponsorship', 'Sponsorship'],
   ['other', 'Other'],
 ] as const;
@@ -65,7 +66,7 @@ function PartnerWithUsPage() {
           <p className="eyebrow text-primary">Partnership standards</p>
           <h2 id="partnership-standards-heading" className="mt-3 font-display text-4xl">A fit for the reader comes first</h2>
           <div className="mt-6 space-y-5 text-sm leading-7 text-muted-foreground">
-            <p>Texas Defined builds practical resources around Texas homes, property, moving, travel and local life. We are open to commercial relationships when they add a useful next step for readers.</p>
+            <p>Texas Defined builds practical resources around Texas homes, property, moving, travel, sports destinations and local life. We are open to commercial relationships when they add a useful next step for readers.</p>
             <p>Paid relationships do not buy editorial coverage, favorable rankings or changes to factual conclusions. Commercial links are labeled and use appropriate sponsored-link attributes.</p>
             <p>We are especially interested in partners that serve Texans directly and can support statewide or clearly defined local audiences.</p>
           </div>
@@ -77,6 +78,7 @@ function PartnerWithUsPage() {
               <li>Real estate and relocation</li>
               <li>Moving services</li>
               <li>Texas travel and tourism</li>
+              <li>Hotels, restaurants, attractions, transportation and visitor services near major sports destinations</li>
               <li>Clearly disclosed sponsorships of useful evergreen resources</li>
             </ul>
           </div>
