@@ -15,6 +15,7 @@ import { canonicalEntityPath, isIndexableEntityPage } from "@/data/knowledge-gra
 import { COUNTY_PROPERTY_RECORDS } from "@/data/property/county-property-data";
 import { isCountyPropertyIndexReady } from "@/data/property/county-property-schema";
 import { TEXAS_DATASETS } from "@/data/texas-data-center";
+import { featuredTexasSymbols } from "@/data/texas-symbols";
 import { INDEXABLE_STATIC_PATHS, isExploreSitemapOwnedPath, isIndexablePublicPath, normalizePublicPath } from "@/lib/public-routes";
 
 const origin = `https://${texasDefinedBrand.identity.domain}`;
@@ -47,6 +48,7 @@ export const Route = createFileRoute("/sitemap.xml")({
         const entityPages = graph.filter(isIndexableEntityPage);
         const entries: SitemapEntry[] = [
           ...INDEXABLE_STATIC_PATHS.filter((path) => !isExploreSitemapOwnedPath(path)).map((path) => ({ path })), ...FISHING_SITEMAP_ENTRIES, ...fishingGuideSitemapEntries, ...fishingReportSitemapEntries, ...fishingLocalSitemapEntries,
+          ...featuredTexasSymbols.map((symbol) => ({ path: `/texas-symbols/${symbol.slug}` })),
           ...(articles.length ? [{ path: "/news" }] : []),
           ...remoteArticles.map((article) => ({ path: `/news/${article.slug}`, lastmod: toDate(article.publishedAt) })),
           ...(countyGrowth.available ? [{ path: "/texas-data/county-growth", lastmod: "2026-03-17" }] : []),
