@@ -4,7 +4,7 @@ import path from 'node:path';
 const root = process.cwd();
 const read = (file) => fs.readFile(path.join(root, file), 'utf8');
 
-const [landings, landingPaths, route, indexComponent, quickAnswers, countySports, directory, sports, genericVenue, galaxyVenue, entityRoute, publicRoutes, majorVenues, tier2Venues] = await Promise.all([
+const [landings, landingPaths, route, indexComponent, quickAnswers, countySports, directory, sports, genericVenue, galaxyVenue, entityRoute, homepage, guidebook, llms, publicRoutes, majorVenues, tier2Venues] = await Promise.all([
   read('src/data/sports-venue-landings.ts'),
   read('src/data/sports-venue-landing-paths.ts'),
   read('src/routes/sports-venues.$landing.tsx'),
@@ -16,6 +16,9 @@ const [landings, landingPaths, route, indexComponent, quickAnswers, countySports
   read('src/routes/sports-venue.$slug.tsx'),
   read('src/routes/sports-venue.jones-att-stadium.tsx'),
   read('src/routes/$kind.$slug.tsx'),
+  read('src/routes/index.tsx'),
+  read('src/routes/guides.tsx'),
+  read('src/routes/llms[.]txt.ts'),
   read('src/lib/public-routes.ts'),
   read('src/data/knowledge-graph/major-sports-venues.ts'),
   read('src/data/knowledge-graph/sports-venues-tier2.ts'),
@@ -129,6 +132,37 @@ for (const marker of [
   '<CountySportsDestinations county={entity} venues={countySportsVenues} />',
 ]) assert(entityRoute.includes(marker), `County entity route is missing sports-venue graph integration marker: ${marker}.`);
 
+for (const marker of [
+  'const sportsTravelPicks = [',
+  'Texas sports travel',
+  'Make game day part of the trip',
+  'actionTo="/sports-venues"',
+  'to: "/sports-venues/dallas-fort-worth"',
+  'to: "/sports-venues/football"',
+  'to: "/sports-venues/motorsports"',
+  'Open the guide →',
+]) assert(homepage.includes(marker), `Homepage is missing sports authority-flow marker: ${marker}.`);
+assert(!homepage.includes('sports-venue-enrichment-all'), 'Homepage sports promotion must not import the heavy sports venue enrichment payload.');
+
+for (const marker of [
+  'Texas Sports Venue Guide',
+  'to: "/sports-venues"',
+  'stadiums, arenas, ballparks, racetracks, college venues and other sports destinations',
+  'Verified venue guides for planning game days and sports weekends.',
+  '<Link to={guide.to}',
+]) assert(guidebook.includes(marker), `Guidebook is missing sports travel discovery marker: ${marker}.`);
+assert(!guidebook.includes('sports-venue-enrichment-all'), 'Guidebook sports promotion must not import the heavy sports venue enrichment payload.');
+
+for (const marker of [
+  '## Sports travel',
+  'Texas sports venue directory: https://texasdefined.com/sports-venues',
+  'https://texasdefined.com/sports-venues/dallas-fort-worth',
+  'https://texasdefined.com/sports-venues/houston',
+  'https://texasdefined.com/sports-venues/football',
+  'https://texasdefined.com/sports-venues/motorsports',
+  'treat official venue or event sources as controlling for current schedules, parking, ticketing, gate times and entry policies',
+]) assert(llms.includes(marker), `llms.txt is missing sports retrieval/citation guidance marker: ${marker}.`);
+
 assert(directory.includes('SportsVenueLandingIndex'), 'The statewide sports venue directory must link to market/theme landing pages.');
 assert(sports.includes('SportsVenueLandingIndex'), 'The main Texas Sports page must link to market/theme landing pages.');
 
@@ -199,4 +233,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Sports venue landings validated: ${expectedLandings.length} indexable market/theme pages, venue guides and relevant county guides are answer-first, bidirectionally linked, structured and source-safe.`);
+console.log(`Sports venue landings validated: ${expectedLandings.length} indexable market/theme pages, venue guides, relevant county guides and site-wide discovery surfaces are answer-first, bidirectionally linked, structured and source-safe.`);
