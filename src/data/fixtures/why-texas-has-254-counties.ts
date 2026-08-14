@@ -38,6 +38,11 @@ export const whyTexasHas254CountiesArticle: Article = {
       description: "Find every county in Texas and start with the places, towns and local information tied to it.",
     },
     {
+      href: "/article/texas-courthouses-town-square",
+      label: "Why Texas towns grew around courthouse squares",
+      description: "See how county government, commerce and architecture turned the courthouse into the center of many Texas towns.",
+    },
+    {
       href: "/texas-history",
       label: "Keep exploring Texas history",
       description: "More stories about how the state became the place it is now.",
