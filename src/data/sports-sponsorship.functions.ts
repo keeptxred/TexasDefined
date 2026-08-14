@@ -9,8 +9,13 @@ const optionalIsoSchema = z.string().datetime().nullable().optional();
 export const getActiveSportsSponsorPlacement = createServerFn({ method: 'POST' })
   .validator(z.object({ surfacePath: surfacePathSchema }))
   .handler(async ({ data }) => {
-    const { loadActiveSportsSponsorPlacement } = await import('@/data/sports-sponsorship.server');
-    return loadActiveSportsSponsorPlacement(data.surfacePath);
+    try {
+      const { loadActiveSportsSponsorPlacement } = await import('@/data/sports-sponsorship.server');
+      return await loadActiveSportsSponsorPlacement(data.surfacePath);
+    } catch (error) {
+      console.error('Sports sponsor lookup failed closed; rendering editorial page without sponsorship.', error);
+      return null;
+    }
   });
 
 export const trackSportsSponsorMetric = createServerFn({ method: 'POST' })
