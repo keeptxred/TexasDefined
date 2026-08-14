@@ -2,11 +2,11 @@ import { lazy, Suspense } from "react";
 import { Link } from "@tanstack/react-router";
 
 import { useBrand } from "@/brand/context";
-import ContextualOfficialSources from "@/components/authority/ContextualOfficialSources";
 import { NewsletterSignup } from "@/components/editorial/NewsletterSignup";
 import { Container } from "./Container";
 
 const CitationCollectionTrustRouter = lazy(() => import("@/components/authority/CitationCollectionTrustRouter"));
+const ContextualOfficialSources = lazy(() => import("@/components/authority/ContextualOfficialSources"));
 
 export function Footer() {
   const brand = useBrand();
@@ -15,7 +15,7 @@ export function Footer() {
   return (
     <>
       <Suspense fallback={null}><CitationCollectionTrustRouter /></Suspense>
-      <ContextualOfficialSources />
+      <Suspense fallback={<div className="h-20 sm:h-24" aria-hidden="true" />}><ContextualOfficialSources /></Suspense>
       <footer className="border-t border-border bg-surface text-surface-foreground">
         {brand.features.newsletter && (
           <div className="border-b border-border/70">
