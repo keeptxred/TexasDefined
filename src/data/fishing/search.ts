@@ -1,13 +1,14 @@
 import type { SearchDocument } from "@/data/types";
 
 export async function buildFishingSearchDocuments(): Promise<SearchDocument[]> {
-  const [platformModule, guideRouting, localRouting, plannerRouting, regulationsRouting, reportRouting, slugs, validation] = await Promise.all([
+  const [platformModule, guideRouting, localRouting, plannerRouting, regulationsRouting, reportRouting, seasonRouting, slugs, validation] = await Promise.all([
     import("./index"),
     import("./guide-routing"),
     import("./local-routing"),
     import("./planner-routing"),
     import("./regulations-routing"),
     import("./report-routing"),
+    import("./season-routing"),
     import("./slugs"),
     import("./validation"),
   ]);
@@ -17,6 +18,7 @@ export async function buildFishingSearchDocuments(): Promise<SearchDocument[]> {
   const { FISHING_LAKE_COMPARE_PATH, FISHING_TRIP_PLANNER_PATH } = plannerRouting;
   const { FISHING_REGULATIONS_PATH } = regulationsRouting;
   const { FISHING_REPORTS_DIRECTORY_PATH, fishingReportCanonicalPath } = reportRouting;
+  const { FISHING_SEASONS_PATH } = seasonRouting;
   const { fishingFoundationAnchor } = slugs;
   const { isFishingRecordVerified } = validation;
   const [lakes, species, guides, reports, accessPointsRaw, tackleShopsRaw, businessesRaw, lakeSpecies] = await Promise.all([
@@ -47,6 +49,7 @@ export async function buildFishingSearchDocuments(): Promise<SearchDocument[]> {
     { id: "fishing-directory:texas-fishing-lakes", brandId: "texasdefined", kind: "guide", title: "Texas Fishing Lakes", summary: "Compare the five complete TexasDefined fishing-lake guides by region, size, location and verified fishery strengths before opening the full lake guide.", keywords: ["Texas fishing lakes", "Texas lake fishing", "Lake Conroe", "Lake Fork", "Sam Rayburn Reservoir", "Lake Livingston", "Lake Texoma", "compare fishing lakes"], href: "/fishing/lakes" },
     { id: "fishing-directory:texas-fishing-trip-planner", brandId: "texasdefined", kind: "guide", title: "Texas Fishing Trip Planner", summary: "Choose a target species and Texas region, then narrow complete lake guides using verified fishery relationships and freshness-controlled report context.", keywords: ["Texas fishing trip planner", "plan fishing trip", "best lake for species", "Texas fishing by region", "fishing vacation planner"], href: FISHING_TRIP_PLANNER_PATH },
     { id: "fishing-directory:texas-fishing-lake-compare", brandId: "texasdefined", kind: "guide", title: "Compare Texas Fishing Lakes", summary: "Compare up to three complete Texas fishing lake guides by durable lake facts, fishery strengths, current reports and verified local coverage without paid ranking.", keywords: ["compare Texas fishing lakes", "lake comparison", "Texas lake fishing comparison", "fishing lake chooser"], href: FISHING_LAKE_COMPARE_PATH },
+    { id: "fishing-directory:texas-fishing-seasons", brandId: "texasdefined", kind: "guide", title: "Texas Fishing Seasons", summary: "Explore source-backed spring, summer, fall, winter and year-round fishing patterns across complete TexasDefined lake guides, with matching species and techniques kept separate from live conditions.", keywords: ["Texas fishing seasons", "spring fishing Texas", "summer fishing Texas", "fall fishing Texas", "winter fishing Texas", "when to fish Texas", "seasonal fishing patterns"], href: FISHING_SEASONS_PATH },
     { id: "fishing-directory:texas-fishing-regulations", brandId: "texasdefined", kind: "guide", title: "Texas Fishing Regulations & Licenses", summary: "A source-first Texas fishing rules checklist that points anglers to current TPWD licenses, harvest limits, waterbody exceptions, legal methods and invasive-species rules without freezing volatile legal details.", keywords: ["Texas fishing regulations", "Texas fishing license", "fishing bag limits", "fishing length limits", "Texas Outdoor Annual", "TPWD fishing rules"], href: FISHING_REGULATIONS_PATH },
     { id: "fishing-directory:texas-fishing-guides", brandId: "texasdefined", kind: "guide", title: "Texas Fishing Guide Directory", summary: "Browse Texas fishing guides only after their listings and lake and target-species relationships are verified.", keywords: ["Texas fishing guides", "fishing guide directory", "verified fishing guides", "lake fishing guides"], href: FISHING_GUIDES_DIRECTORY_PATH },
     { id: "fishing-directory:texas-fishing-reports", brandId: "texasdefined", kind: "guide", title: "Texas Fishing Reports", summary: "Browse source-backed Texas fishing reports with explicit publication dates and freshness labels so old conditions are never presented as today's bite.", keywords: ["Texas fishing reports", "lake fishing report", "current fishing conditions", "verified fishing reports"], href: FISHING_REPORTS_DIRECTORY_PATH },
