@@ -78,6 +78,18 @@ for (const marker of [
 ]) assert(server.includes(marker), `Sports sponsorship server module is missing approval, delivery, or admin marker: ${marker}.`);
 
 for (const marker of [
+  'export const SPORTS_SPONSOR_OUTREACH_HOLD = true',
+  'SPORTS_SPONSOR_OUTREACH_HOLD_REASON',
+  'assertSponsorLaunchReady()',
+  'if (SPORTS_SPONSOR_OUTREACH_HOLD) return null',
+  "if (status === 'approved') assertSponsorLaunchReady();",
+  'sufficient real sports-page traffic',
+]) assert(server.includes(marker), `Sports sponsorship server module is missing traffic-gated outreach hold marker: ${marker}.`);
+
+const approvalHoldCount = (server.match(/if \(status === 'approved'\) assertSponsorLaunchReady\(\);/g) ?? []).length;
+assert(approvalHoldCount === 2, `Traffic gate must block both sponsor approval and placement approval; found ${approvalHoldCount} approval holds.`);
+
+for (const marker of [
   'getActiveSportsSponsorPlacement',
   'trackSportsSponsorMetric',
   'getSportsSponsorAdminDashboard',
@@ -171,4 +183,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Sports sponsorship validated: explicit two-stage approval, one approved placement per surface, fail-closed public delivery, sponsored disclosure, privacy-light aggregate metrics, key-gated operator controls and founding launch-sales terms are protected.');
+console.log('Sports sponsorship validated: traffic-gated outreach hold, explicit two-stage approval, one approved placement per surface, fail-closed public delivery, sponsored disclosure, privacy-light aggregate metrics, key-gated operator controls and founding launch-sales terms are protected.');
