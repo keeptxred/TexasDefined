@@ -52,7 +52,7 @@ export function SportsVenueQuickAnswers({
   </section>;
 }
 
-function buildAnswers({ venueName, city, countyName, capacity, primaryEvents, verifiedAt }: Omit<SportsVenueQuickAnswersProps, 'canonicalUrl'>): QuickAnswer[] {
+function buildAnswers({ venueName, city, countyName, capacity, primaryEvents = [], verifiedAt }: Omit<SportsVenueQuickAnswersProps, 'canonicalUrl'>): QuickAnswer[] {
   const answers: QuickAnswer[] = [];
   const location = [city, countyName].filter(Boolean).join(', ');
 
