@@ -27,6 +27,14 @@ const pillars = [
   'texas-cultural-regions-explained',
 ];
 
+const supportRing = [
+  'texas-regions-explained',
+  'why-texas-has-254-counties',
+  'texas-hill-country-what-makes-it',
+  'best-native-plants-texas-yard',
+  'texas-barbecue-styles-explained',
+];
+
 const clusterExpectations = {
   'texas-rivers-explained': [
     '/article/texas-lakes-reservoirs-explained',
@@ -80,6 +88,13 @@ const clusterExpectations = {
   ],
 };
 
+function internalLinkBlock(slug) {
+  const startMarker = `  "${slug}": [`;
+  const start = internalLinks.indexOf(startMarker);
+  const end = start >= 0 ? internalLinks.indexOf('\n  ],', start) : -1;
+  return start >= 0 && end > start ? internalLinks.slice(start, end) : '';
+}
+
 for (const marker of [
   'createFileRoute("/texas-explained")',
   'buildEditorialCollectionHead',
@@ -101,10 +116,7 @@ for (const slug of pillars) {
   if (!route.includes(`"${slug}"`)) errors.push(`Texas Explained collection is missing pillar slug: ${slug}.`);
   if (!internalLinks.includes(`"${slug}"`)) errors.push(`Texas Explained reciprocal linking is missing pillar key: ${slug}.`);
 
-  const startMarker = `  "${slug}": [`;
-  const start = internalLinks.indexOf(startMarker);
-  const end = start >= 0 ? internalLinks.indexOf('\n  ],', start) : -1;
-  const block = start >= 0 && end > start ? internalLinks.slice(start, end) : '';
+  const block = internalLinkBlock(slug);
 
   if (!block.includes('texasExplainedLink')) {
     errors.push(`Texas Explained pillar must keep its collection backlink: ${slug}.`);
@@ -114,6 +126,17 @@ for (const slug of pillars) {
     if (!block.includes(`href: "${href}"`)) {
       errors.push(`Texas Explained pillar cluster is missing ${href} from ${slug}.`);
     }
+  }
+}
+
+for (const slug of supportRing) {
+  const block = internalLinkBlock(slug);
+  if (!block) {
+    errors.push(`Texas Explained support ring is missing related-reading block: ${slug}.`);
+    continue;
+  }
+  if (!block.includes('texasExplainedLink')) {
+    errors.push(`Texas Explained support page must link back to the collection: ${slug}.`);
   }
 }
 
@@ -175,4 +198,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Texas Explained collection, ten-pillar membership, sitemap ownership, Start Here discovery, reciprocal collection backlinks, pillar-to-pillar topic clusters, homepage promotion, persistent footer navigation, site-search indexing and zero-query search discovery are protected.');
+console.log('Texas Explained collection, ten-pillar membership, sitemap ownership, Start Here discovery, reciprocal collection backlinks, pillar-to-pillar topic clusters, five-page supporting authority ring, homepage promotion, persistent footer navigation, site-search indexing and zero-query search discovery are protected.');
