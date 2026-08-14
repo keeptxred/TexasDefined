@@ -56,6 +56,11 @@ export const articleInternalLinks: Record<string, ArticleInternalLink[]> = {
       label: "Buying land in Texas",
       description: "Turn regional geography into a practical due-diligence checklist for access, water, septic, minerals, floodplain and taxes.",
     },
+    {
+      href: "/article/texas-cultural-regions-explained",
+      label: "The cultural regions of Texas",
+      description: "Layer migration, settlement, language, food, religion, ranching and industry onto the physical map of Texas.",
+    },
   ],
   "texas-trees-guide": [
     {
@@ -89,6 +94,11 @@ export const articleInternalLinks: Record<string, ArticleInternalLink[]> = {
       href: "/article/buying-land-in-texas-guide",
       label: "Buying land before you build",
       description: "Check access, water, septic, utilities, minerals, restrictions, floodplain and taxes before choosing the future house site.",
+    },
+    {
+      href: "/article/texas-cultural-regions-explained",
+      label: "How migration created different Texases",
+      description: "Connect regional house forms to the Indigenous, Tejano, Southern, African American, European immigrant and modern migration histories behind them.",
     },
   ],
   "texas-foundation-care-clay-soil-drought": [
