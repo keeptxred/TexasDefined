@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { findCompleteTexasEntity, loadTexasKnowledgeGraph, searchCompleteTexasKnowledgeGraph, type TexasEntityRecord } from '@/data/knowledge-graph';
+import { findCompleteTexasEntity, loadTexasKnowledgeGraph, type TexasEntityRecord } from '@/data/knowledge-graph';
+import { applyCurrentEntityCorrections } from '@/data/knowledge-graph/current-entity-corrections';
 import { canonicalEntityPath, rankRelatedEntities } from '@/data/knowledge-graph/relationships';
 
 const siteUrl = 'https://texasdefined.com';
@@ -19,10 +20,11 @@ export const Route = createFileRoute('/api/ai/entities')({
     const q = url.searchParams.get('q')?.trim() ?? '';
     const requestedLimit = Number(url.searchParams.get('limit') ?? 20);
     const limit = Number.isFinite(requestedLimit) ? Math.min(50, Math.max(1, Math.trunc(requestedLimit))) : 20;
-    const graph = await loadTexasKnowledgeGraph();
+    const graph = (await loadTexasKnowledgeGraph()).map(applyCurrentEntityCorrections);
 
     if (id) {
-      const entity = await findCompleteTexasEntity(id);
+      const resolved = await findCompleteTexasEntity(id);
+      const entity = resolved ? applyCurrentEntityCorrections(resolved) : undefined;
       if (!entity) return json({ error: 'Entity not found' }, { status: 404, cacheControl: 'no-store' });
       const related = rankRelatedEntities(entity, graph, 12).map(({ entity: item, reasons }) => ({
         '@id': `${siteUrl}${canonicalEntityPath(item)}#entity`,
@@ -50,7 +52,7 @@ export const Route = createFileRoute('/api/ai/entities')({
       });
     }
 
-    const entities = q ? await searchCompleteTexasKnowledgeGraph(q, limit) : graph.slice(0, limit);
+    const entities = q ? searchCorrectedGraph(graph, q, limit) : graph.slice(0, limit);
     return json({
       '@context': 'https://schema.org',
       '@type': 'ItemList',
@@ -63,6 +65,27 @@ export const Route = createFileRoute('/api/ai/entities')({
     });
   } } },
 });
+
+function searchCorrectedGraph(graph: TexasEntityRecord[], query: string, limit: number) {
+  const normalized = query.trim().toLowerCase();
+  const tokens = normalized.split(/\s+/).filter(Boolean);
+  if (!tokens.length) return [];
+  return graph
+    .map((entity) => {
+      const haystack = [entity.name, entity.slug, ...entity.aliases, entity.kind, entity.countySlug, entity.region, ...(entity.tags ?? [])]
+        .filter(Boolean)
+        .join(' ')
+        .toLowerCase();
+      const score = tokens.reduce((total, token) => total + (haystack.includes(token) ? 1 : 0), 0)
+        + (entity.name.toLowerCase() === normalized ? 5 : 0)
+        + (entity.aliases.some((alias) => alias.toLowerCase() === normalized) ? 4 : 0);
+      return { entity, score };
+    })
+    .filter(({ score }) => score > 0)
+    .sort((left, right) => right.score - left.score || left.entity.name.localeCompare(right.entity.name))
+    .slice(0, limit)
+    .map(({ entity }) => entity);
+}
 
 function provenanceProperties(entity: TexasEntityRecord) {
   return [
@@ -103,6 +126,7 @@ function toJsonLd(entity: TexasEntityRecord) {
 function schemaType(kind: string) {
   if (['county','city','region','metro-area'].includes(kind)) return 'AdministrativeArea';
   if (['fair','rodeo','festival','holiday-event','sporting-event'].includes(kind)) return 'Event';
+  if (kind === 'sports-venue') return 'SportsActivityLocation';
   if (['museum','historic-site','mission','battlefield','attraction'].includes(kind)) return 'TouristAttraction';
   return 'Place';
 }
