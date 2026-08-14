@@ -8,6 +8,7 @@ export const INDEXABLE_STATIC_PATHS = [
   "/fishing/species",
   "/fishing/species/largemouth-bass",
   "/fishing/guides",
+  "/fishing/reports",
   "/sports",
   "/sports-venues",
   "/sports-venues/compare",
@@ -98,8 +99,6 @@ export const INDEXABLE_STATIC_PATHS = [
   "/texas-utility-cost-calculator",
 ] as const;
 
-// Public routes whose indexability depends on live or refreshed content at request time.
-// These must never be published unconditionally by a sitemap.
 export const CONDITIONAL_INDEXABLE_PUBLIC_PATHS = [
   "/news",
   "/texas-data/county-growth",
