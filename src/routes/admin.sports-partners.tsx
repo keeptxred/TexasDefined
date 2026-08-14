@@ -6,6 +6,7 @@ import {
   getSportsPartnerLeadDashboard,
   setSportsPartnerLeadStatus,
 } from '@/data/sports-partner-leads.functions';
+import { promoteSportsPartnerLeadToSponsor } from '@/data/sports-partner-promotion.functions';
 import type {
   SportsPartnerLeadDashboard,
   SportsPartnerLeadStatus,
@@ -29,11 +30,14 @@ function SportsPartnerLeadsPage() {
   const [dashboard, setDashboard] = useState<SportsPartnerLeadDashboard | null>(null);
   const [loading, setLoading] = useState(false);
   const [updatingLeadId, setUpdatingLeadId] = useState<string | null>(null);
+  const [promotingLeadId, setPromotingLeadId] = useState<string | null>(null);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
   async function unlock(key: string) {
     setLoading(true);
     setError('');
+    setSuccess('');
     try {
       const result = await getSportsPartnerLeadDashboard({ data: { accessKey: key } });
       setDashboard(result);
@@ -66,6 +70,7 @@ function SportsPartnerLeadsPage() {
     const key = sessionStorage.getItem(SESSION_KEY) || accessKey;
     setUpdatingLeadId(leadId);
     setError('');
+    setSuccess('');
     try {
       await setSportsPartnerLeadStatus({ data: { accessKey: key, leadId, status } });
       const refreshed = await getSportsPartnerLeadDashboard({ data: { accessKey: key } });
@@ -78,11 +83,31 @@ function SportsPartnerLeadsPage() {
     }
   }
 
+  async function promoteLead(leadId: string) {
+    if (!dashboard) return;
+    const key = sessionStorage.getItem(SESSION_KEY) || accessKey;
+    setPromotingLeadId(leadId);
+    setError('');
+    setSuccess('');
+    try {
+      const result = await promoteSportsPartnerLeadToSponsor({ data: { accessKey: key, leadId } });
+      const refreshed = await getSportsPartnerLeadDashboard({ data: { accessKey: key } });
+      setDashboard(refreshed);
+      setSuccess(`${result.companyName} was promoted to a sponsor prospect. Review and approve it in Sports Sponsorships before creating any live placement.`);
+    } catch (cause) {
+      console.error('Sports partner lead promotion failed', cause);
+      setError(cause instanceof Error ? cause.message : 'The lead could not be promoted to a sponsor prospect.');
+    } finally {
+      setPromotingLeadId(null);
+    }
+  }
+
   function lock() {
     sessionStorage.removeItem(SESSION_KEY);
     setAccessKey('');
     setDashboard(null);
     setError('');
+    setSuccess('');
   }
 
   return <Container className="py-12 sm:py-16">
@@ -92,7 +117,7 @@ function SportsPartnerLeadsPage() {
         <div className="mt-3 flex flex-wrap items-end justify-between gap-5">
           <div>
             <h1 className="font-display text-4xl sm:text-6xl">Sports Partner Leads</h1>
-            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Review sports-travel partnership inquiries, see which venue guide generated each lead and move opportunities through the existing new → reviewing → contacted → closed workflow.</p>
+            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Review sports-travel partnership inquiries, see which venue guide generated each lead and move opportunities through the existing new → reviewing → contacted → closed workflow. Qualified leads with an HTTPS business website can be promoted directly into the sponsor prospect registry.</p>
           </div>
           {dashboard ? <button type="button" onClick={lock} className="min-h-11 border border-border px-4 py-2 text-sm font-semibold hover:border-primary hover:text-primary">Lock dashboard</button> : null}
         </div>
@@ -109,16 +134,27 @@ function SportsPartnerLeadsPage() {
           <button type="submit" disabled={loading} className="min-h-11 justify-self-start bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground disabled:opacity-60">{loading ? 'Unlocking…' : 'Unlock lead dashboard'}</button>
         </form>
         {error ? <p className="mt-4 text-sm font-semibold text-destructive" role="alert">{error}</p> : null}
-      </section> : <LeadDashboard dashboard={dashboard} updatingLeadId={updatingLeadId} onStatusChange={updateStatus} error={error} />}
+      </section> : <LeadDashboard
+        dashboard={dashboard}
+        updatingLeadId={updatingLeadId}
+        promotingLeadId={promotingLeadId}
+        onStatusChange={updateStatus}
+        onPromote={promoteLead}
+        error={error}
+        success={success}
+      />}
     </main>
   </Container>;
 }
 
-function LeadDashboard({ dashboard, updatingLeadId, onStatusChange, error }: {
+function LeadDashboard({ dashboard, updatingLeadId, promotingLeadId, onStatusChange, onPromote, error, success }: {
   dashboard: SportsPartnerLeadDashboard;
   updatingLeadId: string | null;
+  promotingLeadId: string | null;
   onStatusChange: (leadId: string, status: SportsPartnerLeadStatus) => Promise<void>;
+  onPromote: (leadId: string) => Promise<void>;
   error: string;
+  success: string;
 }) {
   const venueAttributed = useMemo(() => dashboard.leads.filter((lead) => lead.sourcePath.startsWith('/sports-venue/')).length, [dashboard.leads]);
 
@@ -134,6 +170,7 @@ function LeadDashboard({ dashboard, updatingLeadId, onStatusChange, error }: {
 
     {dashboard.truncated ? <p className="mt-5 border-l-2 border-primary pl-4 text-sm text-muted-foreground">Showing the latest {dashboard.limit} sports-travel inquiries. Older leads remain in Supabase.</p> : null}
     {error ? <p className="mt-5 text-sm font-semibold text-destructive" role="alert">{error}</p> : null}
+    {success ? <p className="mt-5 border-l-2 border-primary pl-4 text-sm font-semibold text-foreground" role="status">{success}</p> : null}
 
     <section className="mt-10 grid gap-8 lg:grid-cols-[17rem_1fr]">
       <aside>
@@ -163,15 +200,16 @@ function LeadDashboard({ dashboard, updatingLeadId, onStatusChange, error }: {
               {lead.website ? <a className="mt-2 inline-block text-sm font-semibold text-primary hover:underline" href={lead.website} target="_blank" rel="noreferrer">Open company website ↗</a> : null}
             </div>
             <label className="grid gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground" htmlFor={`status-${lead.id}`}>Status
-              <select id={`status-${lead.id}`} value={lead.status} disabled={updatingLeadId === lead.id} onChange={(event) => void onStatusChange(lead.id, event.target.value as SportsPartnerLeadStatus)} className="min-h-10 border border-border bg-background px-3 py-2 text-sm font-normal normal-case tracking-normal text-foreground disabled:opacity-60">
+              <select id={`status-${lead.id}`} value={lead.status} disabled={updatingLeadId === lead.id || promotingLeadId === lead.id} onChange={(event) => void onStatusChange(lead.id, event.target.value as SportsPartnerLeadStatus)} className="min-h-10 border border-border bg-background px-3 py-2 text-sm font-normal normal-case tracking-normal text-foreground disabled:opacity-60">
                 {statuses.map((status) => <option key={status} value={status}>{statusLabel(status)}</option>)}
               </select>
             </label>
           </div>
           <p className="mt-5 whitespace-pre-wrap text-sm leading-7 text-foreground">{lead.message}</p>
-          <div className="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-xs text-muted-foreground">
+          <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs text-muted-foreground">
             <span>Received {formatDateTime(lead.createdAt)}</span>
             {sourceHref(lead.sourcePath) ? <a className="font-semibold text-primary hover:underline" href={sourceHref(lead.sourcePath)!}>{sourceLabel(lead.sourcePath)} →</a> : <span>{sourceLabel(lead.sourcePath)}</span>}
+            {lead.website ? <button type="button" disabled={promotingLeadId === lead.id || updatingLeadId === lead.id} onClick={() => void onPromote(lead.id)} className="min-h-10 border border-primary px-3 py-2 font-semibold text-primary hover:bg-primary hover:text-primary-foreground disabled:opacity-60">{promotingLeadId === lead.id ? 'Promoting…' : 'Promote to sponsor prospect →'}</button> : <span className="font-medium">Website required before sponsor promotion</span>}
           </div>
         </article>)}</div> : <p className="py-8 text-sm text-muted-foreground">No sports-travel partnership inquiries have been submitted yet.</p>}
       </div>
