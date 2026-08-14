@@ -143,8 +143,9 @@ function destinationSearchDocument(destination: Destination): SearchDocument {
 export const searchDocumentsQuery = () => queryOptions({
   queryKey: ["search-documents", scope.brandId],
   queryFn: async () => {
-    const base = await platform.search.documents(scope);
+    const platformBase = await platform.search.documents(scope);
     const fishingDocuments = await buildFishingSearchDocuments();
+    const base = [...new Map([...platformBase, ...fishingDocuments].map((document) => [document.href, document])).values()];
     let enriched: Destination[] = [];
     let core: Destination[] = [];
     try { enriched = await fetchExploreDestinations({ limit: 5000 }); }
@@ -152,10 +153,10 @@ export const searchDocumentsQuery = () => queryOptions({
     try { core = await fetchCoreExploreDestinations({ limit: 5000 }); }
     catch (coreError) { console.error("Core remote destination search index unavailable; retaining preserved destinations", coreError); }
     const destinations = reconcileExploreCatalog(mergeDestinations(enriched, core, preservedExploreDestinations));
+    if (!destinations.length) return base;
     const documents = [
       ...base.filter((document) => document.kind !== "destination"),
       ...destinations.map(destinationSearchDocument),
-      ...fishingDocuments,
     ];
     return [...new Map(documents.map((document) => [document.href, document])).values()];
   },
