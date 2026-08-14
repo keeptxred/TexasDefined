@@ -16,7 +16,7 @@ export const Route = createFileRoute("/fishing/species/largemouth-bass")({
     const species = loaderData?.species;
     const profile = loaderData?.profile;
     const webPage = { "@type": "WebPage", "@id": url, url, name: "Largemouth Bass Fishing in Texas", description: profile?.overview, isPartOf: { "@id": `${siteUrl}/#website` }, mainEntity: { "@id": `${url}#species` }, breadcrumb: { "@id": `${url}#breadcrumbs` }, dateModified: profile?.verifiedAt, citation: profile?.sources.map((source) => source.url) };
-    const speciesEntity = { "@type": "Thing", "@id": `${url}#species`, name: species?.commonName ?? "Largemouth bass", alternateName: species?.aliases, description: species?.summary, sameAs: profile?.sources[0]?.url, additionalType: "https://www.wikidata.org/wiki/Q182046" };
+    const speciesEntity = { "@type": "Thing", "@id": `${url}#species`, name: species?.commonName ?? "Largemouth bass", alternateName: species?.aliases, description: species?.summary, sameAs: profile?.sources[0]?.url };
     const breadcrumb = { "@type": "BreadcrumbList", "@id": `${url}#breadcrumbs`, itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
       { "@type": "ListItem", position: 2, name: "Fishing", item: `${siteUrl}/fishing` },
