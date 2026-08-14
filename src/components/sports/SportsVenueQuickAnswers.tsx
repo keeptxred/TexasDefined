@@ -23,6 +23,8 @@ export function SportsVenueQuickAnswers({
   verifiedAt,
 }: SportsVenueQuickAnswersProps) {
   const answers = buildAnswers({ venueName, city, countyName, capacity, primaryEvents, verifiedAt });
+  const slug = canonicalUrl.split('/sports-venue/')[1]?.split(/[?#]/)[0];
+  const heroSrc = slug ? `/api/sports-venue-hero?slug=${encodeURIComponent(slug)}` : undefined;
   if (!answers.length) return null;
 
   const faqJsonLd = {
@@ -36,20 +38,38 @@ export function SportsVenueQuickAnswers({
     })),
   };
 
-  return <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]" aria-labelledby="venue-quick-answers-heading">
-    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
-    <div>
-      <p className="eyebrow text-primary">Quick answers</p>
-      <h2 id="venue-quick-answers-heading" className="mt-2 font-display text-3xl leading-tight">Planning a visit to {venueName}</h2>
-      <p className="mt-3 text-sm leading-6 text-muted-foreground">Answer-first trip details from the verified venue record. Use the official links farther down the guide for information that can change by event.</p>
-    </div>
-    <div className="grid gap-x-8 md:grid-cols-2">
-      {answers.map((item) => <article key={item.question} className="border-t border-border py-5">
-        <h3 className="font-display text-2xl leading-tight">{item.question}</h3>
-        <p className="mt-3 text-sm leading-7 text-muted-foreground">{item.answer}</p>
-      </article>)}
-    </div>
-  </section>;
+  return <>
+    {heroSrc ? <figure className="border-b border-border py-8 sm:py-10">
+      <div className="overflow-hidden border border-border bg-muted/30">
+        <img
+          src={heroSrc}
+          alt={`${venueName} — original TexasDefined sports venue illustration`}
+          width={1600}
+          height={900}
+          loading="eager"
+          decoding="async"
+          fetchPriority="high"
+          className="aspect-[16/9] w-full object-cover"
+        />
+      </div>
+      <figcaption className="mt-3 text-xs leading-5 text-muted-foreground">Original TexasDefined editorial illustration. Venue logos, sponsor marks and third-party photography are intentionally not reproduced.</figcaption>
+    </figure> : null}
+
+    <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]" aria-labelledby="venue-quick-answers-heading">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+      <div>
+        <p className="eyebrow text-primary">Quick answers</p>
+        <h2 id="venue-quick-answers-heading" className="mt-2 font-display text-3xl leading-tight">Planning a visit to {venueName}</h2>
+        <p className="mt-3 text-sm leading-6 text-muted-foreground">Answer-first trip details from the verified venue record. Use the official links farther down the guide for information that can change by event.</p>
+      </div>
+      <div className="grid gap-x-8 md:grid-cols-2">
+        {answers.map((item) => <article key={item.question} className="border-t border-border py-5">
+          <h3 className="font-display text-2xl leading-tight">{item.question}</h3>
+          <p className="mt-3 text-sm leading-7 text-muted-foreground">{item.answer}</p>
+        </article>)}
+      </div>
+    </section>
+  </>;
 }
 
 function buildAnswers({ venueName, city, countyName, capacity, primaryEvents = [], verifiedAt }: Omit<SportsVenueQuickAnswersProps, 'canonicalUrl'>): QuickAnswer[] {
