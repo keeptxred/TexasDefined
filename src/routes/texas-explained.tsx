@@ -169,6 +169,7 @@ export const Route = createFileRoute("/texas-explained")({
 function TexasExplainedPage() {
   const { articles } = Route.useLoaderData();
   const bySlug = new Map(articles.map((article) => [article.slug, article]));
+  const pillarPosition = new Map<string, number>(pillarSlugs.map((slug, index) => [slug, index + 1]));
 
   return (
     <>
@@ -239,7 +240,10 @@ function TexasExplainedPage() {
 
                 <div className="mt-8 grid gap-x-8 gap-y-12 md:grid-cols-2">
                   {sectionArticles.map((article, index) => (
-                    <ArticleCard key={article.slug} article={article} size={index === 0 && sectionArticles.length > 2 ? "default" : "compact"} eager={section === sections[0] && index === 0} />
+                    <div key={article.slug}>
+                      <p className="eyebrow mb-3 text-muted-foreground">Guide {pillarPosition.get(article.slug)} of {pillarSlugs.length}</p>
+                      <ArticleCard article={article} size={index === 0 && sectionArticles.length > 2 ? "default" : "compact"} eager={section === sections[0] && index === 0} />
+                    </div>
                   ))}
                 </div>
               </section>
