@@ -10,7 +10,7 @@ const partnerInquirySchema = z.object({
   website: z.string().trim().max(500),
   partnershipType: z.enum(['insurance', 'mortgage', 'real-estate', 'moving', 'travel', 'sports-travel', 'sponsorship', 'other']),
   message: z.string().trim().min(20).max(5000),
-  sourcePath: z.string().trim().max(500).default('/partner-with-us'),
+  sourcePath: z.string().trim().max(500).regex(/^\/(?:partner-with-us|sports-venues|sports-venue\/[a-z0-9-]+)$/).default('/partner-with-us'),
   addressLine2: z.string().max(200).default(''),
 });
 
