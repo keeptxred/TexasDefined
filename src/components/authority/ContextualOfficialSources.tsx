@@ -111,7 +111,7 @@ function sourceSetFor(pathname: string): SourceSet | null {
 export default function ContextualOfficialSources() {
   const { pathname } = useLocation();
   const sourceSet = sourceSetFor(pathname);
-  if (!sourceSet) return null;
+  if (!sourceSet) return <div className="h-20 sm:h-24" aria-hidden="true" />;
 
   return (
     <aside className="mt-20 border-y border-border bg-background sm:mt-24" aria-label={sourceSet.title}>
