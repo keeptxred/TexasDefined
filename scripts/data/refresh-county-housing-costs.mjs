@@ -6,6 +6,7 @@ const RELEASE = '2020–2024 ACS 5-Year Estimates';
 const BASE = `https://www2.census.gov/programs-surveys/acs/summary_file/${YEAR}/table-based-SF/data/5YRData`;
 const SOURCE_PAGE = `https://www.census.gov/programs-surveys/acs/data/summary-file.${YEAR}.html`;
 const OUTPUT = path.resolve('src/data/acs-county-housing-costs.snapshot.json');
+const TEXAS_COUNTY_COUNT = 254;
 
 const TABLES = [
   { table: 'b19013', variable: 'B19013_E001', field: 'medianHouseholdIncome' },
@@ -57,10 +58,14 @@ async function loadTable({ table, variable, field }) {
     const geoId = String(cells[geoIndex] || '');
     if (!/^0500000US48\d{3}$/.test(geoId)) return;
     const numeric = Number(cells[valueIndex]);
-    if (!Number.isFinite(numeric) || numeric < 0) return;
-    values.set(geoId.slice(-5), numeric);
+    const estimate = Number.isFinite(numeric) && numeric >= 0 ? numeric : null;
+    values.set(geoId.slice(-5), estimate);
   });
-  if (values.size < 250) throw new Error(`${table} produced only ${values.size} Texas county rows`);
+  if (values.size !== TEXAS_COUNTY_COUNT) {
+    throw new Error(`${table} source coverage expected ${TEXAS_COUNTY_COUNT} Texas counties; found ${values.size}`);
+  }
+  const suppressed = [...values.values()].filter((value) => value === null).length;
+  console.log(`${table}: ${values.size} Texas county rows; ${suppressed} suppressed/unavailable estimate(s).`);
   return { field, url, values };
 }
 
@@ -68,11 +73,13 @@ const tables = [];
 for (const spec of TABLES) tables.push(await loadTable(spec));
 
 const fips = [...tables[0].values.keys()].filter((code) => tables.every((table) => table.values.has(code))).sort();
-if (fips.length < 250) throw new Error(`Only ${fips.length} counties have all required ACS measures`);
+if (fips.length !== TEXAS_COUNTY_COUNT) {
+  throw new Error(`Expected ${TEXAS_COUNTY_COUNT} counties across all required ACS tables; found ${fips.length}`);
+}
 
 const rows = fips.map((code) => Object.fromEntries([
   ['fips', code],
-  ...tables.map((table) => [table.field, table.values.get(code)]),
+  ...tables.map((table) => [table.field, table.values.get(code) ?? null]),
 ]));
 
 const snapshot = {
