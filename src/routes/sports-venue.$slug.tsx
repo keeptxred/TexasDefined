@@ -9,6 +9,7 @@ import {
   rankRelatedEntities,
 } from '@/data/knowledge-graph/relationships';
 import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
+import { getSportsVenueEnrichment, sportsVenueMapUrl } from '@/data/sports-venue-enrichment';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
 const siteUrl = 'https://texasdefined.com';
@@ -45,12 +46,16 @@ function SportsVenuePage() {
   const { entity, related } = Route.useLoaderData();
   const tags = new Set(entity.tags ?? []);
   const profile = venueProfile(tags);
+  const enrichment = getSportsVenueEnrichment(entity.slug);
   const canonicalPath = canonicalEntityPath(entity);
   const canonicalUrl = `${siteUrl}${canonicalPath}`;
   const relatedVenues = related.filter(({ entity: candidate }) => candidate.kind === 'sports-venue').slice(0, 6);
   const nearbyPlaces = related.filter(({ entity: candidate }) => candidate.kind !== 'sports-venue').slice(0, 6);
   const countyName = entity.countySlug ? `${title(entity.countySlug)} County` : undefined;
   const regionName = entity.region ? title(entity.region) : undefined;
+  const mapUrl = entity.coordinates
+    ? `https://www.google.com/maps/search/?api=1&query=${entity.coordinates.latitude},${entity.coordinates.longitude}`
+    : sportsVenueMapUrl(entity.name, entity.countySlug);
   const jsonLd = {
     '@context': 'https://schema.org',
     '@graph': [
@@ -66,6 +71,12 @@ function SportsVenuePage() {
           '@type': 'GeoCoordinates',
           latitude: entity.coordinates.latitude,
           longitude: entity.coordinates.longitude,
+        } : undefined,
+        address: enrichment?.city ? {
+          '@type': 'PostalAddress',
+          addressLocality: enrichment.city,
+          addressRegion: 'TX',
+          addressCountry: 'US',
         } : undefined,
         containedInPlace: countyName ? { '@type': 'AdministrativeArea', name: countyName } : regionName ? { '@type': 'Place', name: regionName } : undefined,
         additionalType: profile.schemaType,
@@ -106,16 +117,19 @@ function SportsVenuePage() {
           </div>
           <dl className="border-y border-border py-4 text-sm lg:border-y-0 lg:border-l lg:py-0 lg:pl-6">
             <Fact label="Venue type" value={profile.label} />
+            <Fact label="City" value={enrichment?.city} />
             <Fact label="County" value={countyName} />
+            <Fact label="Capacity" value={enrichment?.capacity} />
+            <Fact label="Opened" value={enrichment?.opened} />
             <Fact label="Texas region" value={regionName} />
             <Fact label="Source" value={entity.sourceConfidence === 'official' ? 'Official venue source checked' : 'Verified reference source'} />
-            {entity.sourceCheckedAt && <Fact label="Reviewed" value={formatCheckedDate(entity.sourceCheckedAt)} />}
+            {entity.sourceCheckedAt && <Fact label="Reviewed" value={formatCheckedDate(enrichment?.verifiedAt ?? entity.sourceCheckedAt)} />}
           </dl>
         </header>
 
         <div className="flex flex-wrap gap-x-7 gap-y-3 border-b border-border py-5 text-sm font-semibold">
           {entity.officialUrl && <a className="underline decoration-primary/50 underline-offset-4 hover:text-primary" href={entity.officialUrl} target="_blank" rel="noreferrer">Official venue information ↗</a>}
-          {entity.coordinates && <a className="underline decoration-primary/50 underline-offset-4 hover:text-primary" href={`https://www.google.com/maps/search/?api=1&query=${entity.coordinates.latitude},${entity.coordinates.longitude}`} target="_blank" rel="noreferrer">Open in maps ↗</a>}
+          <a className="underline decoration-primary/50 underline-offset-4 hover:text-primary" href={mapUrl} target="_blank" rel="noreferrer">Open in maps ↗</a>
           {entity.countySlug && <a className="underline decoration-primary/50 underline-offset-4 hover:text-primary" href={`/county/${entity.countySlug}`}>Explore {countyName} →</a>}
           <a className="underline decoration-primary/50 underline-offset-4 hover:text-primary" href="/sports-venues">All Texas sports venues →</a>
         </div>
@@ -131,6 +145,40 @@ function SportsVenuePage() {
             <GuideCard title="Before you go" body={profile.beforeYouGo} />
           </div>
         </section>
+
+        {enrichment ? <section className="border-b border-border py-12">
+          <div className="grid gap-8 lg:grid-cols-[15rem_1fr]">
+            <div>
+              <p className="eyebrow text-primary">Verified visitor details</p>
+              <h2 className="mt-2 font-display text-3xl leading-tight">What to know before event day</h2>
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">Venue-specific details reviewed against official sources on {formatCheckedDate(enrichment.verifiedAt)}.</p>
+            </div>
+            <div>
+              <div className="grid gap-8 md:grid-cols-2">
+                {enrichment.history && <GuideCard title="Venue story" body={enrichment.history} />}
+                <GuideCard title="Parking and access" body={enrichment.parking} />
+                <GuideCard title="Arrival strategy" body={enrichment.arrival} />
+                <GuideCard title="Stay and eat" body={enrichment.stayAndEat} />
+                <GuideCard title="Build the weekend" body={enrichment.nearby} />
+              </div>
+
+              <div className="mt-10 grid gap-8 md:grid-cols-2">
+                <div className="border-t border-border pt-4">
+                  <h3 className="font-display text-2xl">Primary sports and events</h3>
+                  <ul className="mt-3 space-y-2 text-sm leading-6 text-muted-foreground">
+                    {enrichment.primaryEvents.map((event) => <li key={event}>• {event}</li>)}
+                  </ul>
+                </div>
+                <div className="border-t border-border pt-4">
+                  <h3 className="font-display text-2xl">Official planning links</h3>
+                  <ul className="mt-3 space-y-2 text-sm font-semibold">
+                    {enrichment.planningLinks.map((link) => <li key={link.url}><a className="underline decoration-primary/50 underline-offset-4 hover:text-primary" href={link.url} target="_blank" rel="noreferrer">{link.label} ↗</a></li>)}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section> : null}
 
         {entity.tags?.length ? <section className="grid gap-6 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
           <div>
