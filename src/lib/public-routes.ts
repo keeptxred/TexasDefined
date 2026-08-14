@@ -41,6 +41,7 @@ export const INDEXABLE_STATIC_PATHS = [
   "/find-my-school-district",
   "/shop",
   "/about",
+  "/partner-with-us",
   "/citation-guide",
   "/texas-agricultural-valuation-calculator",
   "/texas-budget-planner",
