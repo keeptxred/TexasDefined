@@ -34,7 +34,42 @@ const POLICY_2_0_0_SNAPSHOT: Record<InternalLinkSurfacePolicy['id'], InternalLin
   },
 };
 
+const POLICY_2_1_0_SNAPSHOT: Record<InternalLinkSurfacePolicy['id'], InternalLinkSurfacePolicy> = {
+  article: {
+    id: 'article', topic: 'travel', pageBudget: 14, blockBudget: 4, minimumScore: 9, ambiguityMargin: 3,
+    preferredKinds: ['state-park','national-park','national-forest','lake','river','beach','cavern','museum','historic-site','attraction','scenic-drive','city','festival','rodeo','fair','sports-venue'],
+    excludedKinds: ['utility','tax-office','appraisal-district','county-clerk','dps-office'],
+  },
+  destination: {
+    id: 'destination', topic: 'travel', pageBudget: 12, blockBudget: 4, minimumScore: 9, ambiguityMargin: 3,
+    preferredKinds: ['city','county','region','state-park','national-park','lake','river','museum','historic-site','festival','attraction'],
+    excludedKinds: ['utility','tax-office','appraisal-district','county-clerk','dps-office'],
+  },
+  'property-tax-guide': {
+    id: 'property-tax-guide', topic: 'property-tax', pageBudget: 12, blockBudget: 2, minimumScore: 9, ambiguityMargin: 3,
+    preferredKinds: ['county','city','appraisal-district','tax-office','agency','school-district'],
+    excludedKinds: ['utility'],
+  },
+  'entity-page': {
+    id: 'entity-page', topic: 'general', pageBudget: 8, blockBudget: 3, minimumScore: 8, ambiguityMargin: 3,
+    preferredKinds: ['city','county','region','state-park','national-park','lake','river','museum','historic-site','festival','attraction'],
+    excludedKinds: ['utility'],
+  },
+};
+
 export const INTERNAL_LINK_POLICY_HISTORY: InternalLinkPolicyRelease[] = [
+  {
+    version: '2.1.0',
+    reviewedAt: '2026-08-14',
+    changeType: 'minor',
+    fingerprint: 'fnv1a-174e941d',
+    summary: 'Expanded contextual editorial authority into verified sports-venue guides.',
+    changes: [
+      'Added sports-venue as a preferred entity kind for article internal linking.',
+      'Kept the existing article page and block link budgets unchanged so venue links remain contextual rather than promotional.',
+    ],
+    snapshot: POLICY_2_1_0_SNAPSHOT,
+  },
   {
     version: '2.0.0',
     reviewedAt: '2026-08-04',
@@ -92,8 +127,8 @@ export function validateInternalLinkPolicyHistory() {
   }
 
   const current = currentInternalLinkPolicyRelease();
-  if (current && current.version === '2.0.0' && internalLinkPolicyFingerprint() !== current.fingerprint) {
-    errors.push('Current governed policies differ from release 2.0.0; create a new release instead of mutating history.');
+  if (current && internalLinkPolicyFingerprint() !== current.fingerprint) {
+    errors.push(`Current governed policies differ from release ${current.version}; create a new release instead of mutating history.`);
   }
 
   return { valid: errors.length === 0, errors, releases: INTERNAL_LINK_POLICY_HISTORY.length };
