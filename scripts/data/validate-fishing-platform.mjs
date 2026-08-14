@@ -87,15 +87,9 @@ if (!failures.length) {
   if (!route.includes("Texas Parks & Wildlife Department")) failures.push("/fishing page is missing its source/freshness disclosure.");
 
   const indexableStaticSection = publicRoutes.split("export const REDIRECT_ONLY_PATHS")[0];
-  if (indexableStaticSection.includes('"/fishing/lakes/lake-conroe"')) {
-    failures.push("Dynamic Lake Conroe URLs must not be misclassified as static public routes.");
-  }
-  if (!fishingSitemap.includes("FISHING_SITEMAP_ENTRIES") || !fishingSitemap.includes("LAKE_CONROE_SECTION_SLUGS") || !fishingSitemap.includes("LAKE_CONROE_VERIFIED_AT")) {
-    failures.push("Lake Conroe dynamic sitemap entries are incomplete or lack source-backed lastmod.");
-  }
-  if (!primarySitemap.includes('FISHING_SITEMAP_ENTRIES') || !primarySitemap.includes('...FISHING_SITEMAP_ENTRIES')) {
-    failures.push("Primary sitemap does not publish the Lake Conroe dynamic route family.");
-  }
+  if (indexableStaticSection.includes('"/fishing/lakes/lake-conroe"')) failures.push("Dynamic Lake Conroe URLs must not be misclassified as static public routes.");
+  if (!fishingSitemap.includes("FISHING_SITEMAP_ENTRIES") || !fishingSitemap.includes("LAKE_CONROE_SECTION_SLUGS") || !fishingSitemap.includes("LAKE_CONROE_VERIFIED_AT")) failures.push("Lake Conroe dynamic sitemap entries are incomplete or lack source-backed lastmod.");
+  if (!primarySitemap.includes('FISHING_SITEMAP_ENTRIES') || !primarySitemap.includes('...FISHING_SITEMAP_ENTRIES')) failures.push("Primary sitemap does not publish the Lake Conroe dynamic route family.");
 
   if (!slugs.includes('lake: "/fishing/lakes"')) failures.push("Lake canonical slug helper still points at the legacy singular route.");
   if (!slugs.includes('canonicalSlug === "lake-conroe"')) failures.push("Lake Conroe search/internal-link identity is not promoted to its dedicated route.");
@@ -116,10 +110,13 @@ if (!failures.length) {
   }
   if (!prototype.includes('surfaceAcres: 20118') || !prototype.includes('impoundedYear: 1973') || !prototype.includes('"Montgomery", "Walker"')) failures.push("Lake Conroe identity facts are incomplete.");
   if (!prototype.includes("maximumDepthNote") || !prototype.includes("does not invent one")) failures.push("Lake Conroe maximum-depth uncertainty is not handled explicitly.");
-  if (!lakeUi.includes("No TexasDefined current report is published") || !lakeUi.includes("No Lake Conroe guide has cleared the verified-listing gate yet")) failures.push("Lake Conroe report/guide empty states are not protected against fabricated freshness or listings.");
-  if (!lakeUi.includes("Sponsorship policy") || !lakeUi.includes("must be labeled as sponsored")) failures.push("Lake Conroe sponsorship disclosure policy is missing.");
 
-  for (const serverField of ["overview", "habitat", "boatingNotes", "reportSnapshot", "sources", "fish", "access", "regulations", "camping", "nearby"]) {
+  for (const safetyCopy of ["No TexasDefined current report is published", "No Lake Conroe guide has cleared the verified-listing gate yet", "Sponsorship policy", "must be labeled as sponsored"]) {
+    if (!pageDataServer.includes(safetyCopy)) failures.push(`Lake Conroe protected safety/editorial copy is missing: ${safetyCopy}`);
+    if (lakeUi.includes(safetyCopy)) failures.push(`Lake Conroe protected copy should be server-hydrated, not duplicated in client JS: ${safetyCopy}`);
+  }
+
+  for (const serverField of ["overview", "habitat", "boatingNotes", "reportSnapshot", "sources", "fish", "access", "regulations", "camping", "nearby", "copy"]) {
     if (!pageDataServer.includes(`${serverField}:`)) failures.push(`Lake Conroe server payload is missing: ${serverField}`);
   }
   if (!pageDataFunctions.includes("createServerFn") || !pageDataFunctions.includes("loadLakeConroePageDataServer")) failures.push("Lake Conroe page payload is not protected by a server-function boundary.");
@@ -127,6 +124,7 @@ if (!failures.length) {
     const importBlock = lakeUi.split('from "@/data/fishing/lake-conroe-prototype"')[0];
     if (importBlock.includes(forbiddenClientImport)) failures.push(`Lake Conroe client UI statically imports bulky payload: ${forbiddenClientImport}`);
   }
+  if (!lakeUi.includes("pageData.copy")) failures.push("Lake Conroe client UI is not consuming server-hydrated editorial copy.");
   if (!lakeRoute.includes("getLakeConroePageData()") || !lakeSectionRoute.includes("getLakeConroePageData()")) failures.push("Lake Conroe routes do not hydrate the server-side page payload.");
   if (lakeRoute.includes("lakeConroeOverview") || lakeRoute.includes("lakeConroeSources") || lakeSectionRoute.includes("lakeConroeOverview") || lakeSectionRoute.includes("lakeConroeSources")) failures.push("Lake Conroe route metadata statically imports bulky page payload.");
 
@@ -153,4 +151,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Fishing platform validation passed: foundation contracts plus the complete Lake Conroe prototype, dynamic sitemap publication, canonical route family, verified-source UX, redirect policy, report freshness, guide verification gates and server-side payload performance boundary are protected.");
+console.log("Fishing platform validation passed: foundation contracts plus the complete Lake Conroe prototype, dynamic sitemap publication, canonical route family, verified-source UX, redirect policy, report freshness, guide verification gates and server-side payload/copy performance boundary are protected.");
