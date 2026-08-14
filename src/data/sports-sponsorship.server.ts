@@ -10,6 +10,25 @@ import type {
   SportsSponsorStatus,
 } from '@/data/sports-sponsorship.types';
 
+/**
+ * Commercial launch is intentionally held until TexasDefined has enough real
+ * sports traffic to support credible sponsor outreach. While this is true:
+ * - prospects can still be researched/stored internally;
+ * - sponsors cannot be approved;
+ * - placements cannot be approved;
+ * - no sponsored placement can render publicly.
+ *
+ * Changing this flag is a deliberate launch decision, not an operational
+ * shortcut. Traffic evidence should be reviewed before it is changed.
+ */
+export const SPORTS_SPONSOR_OUTREACH_HOLD = true;
+export const SPORTS_SPONSOR_OUTREACH_HOLD_REASON =
+  'Sports sponsorship outreach is on hold until TexasDefined has sufficient real sports-page traffic to support credible sponsor conversations.';
+
+function assertSponsorLaunchReady() {
+  if (SPORTS_SPONSOR_OUTREACH_HOLD) throw new Error(SPORTS_SPONSOR_OUTREACH_HOLD_REASON);
+}
+
 function assertHttpsUrl(value: string, label: string) {
   const parsed = new URL(value);
   if (parsed.protocol !== 'https:') throw new Error(`${label} must use https.`);
@@ -49,6 +68,8 @@ function toPublicPlacement(row: Record<string, unknown>): PublicSportsSponsorPla
 }
 
 export async function loadActiveSportsSponsorPlacement(surfacePath: string): Promise<PublicSportsSponsorPlacement | null> {
+  if (SPORTS_SPONSOR_OUTREACH_HOLD) return null;
+
   const client = supabaseAdmin as any;
   const now = new Date().toISOString();
   const { data, error } = await client
@@ -156,6 +177,8 @@ export async function createSportsSponsor(accessKey: string, input: {
 
 export async function setSportsSponsorStatus(accessKey: string, sponsorId: string, status: SportsSponsorStatus) {
   await assertSportsPartnerAccess(accessKey);
+  if (status === 'approved') assertSponsorLaunchReady();
+
   const client = supabaseAdmin as any;
   const { data, error } = await client.from('texasdefined_sports_sponsors')
     .update({ status, updated_at: new Date().toISOString() })
@@ -238,6 +261,8 @@ export async function setSportsSponsorPlacementStatus(
   status: SportsSponsorPlacementStatus,
 ) {
   await assertSportsPartnerAccess(accessKey);
+  if (status === 'approved') assertSponsorLaunchReady();
+
   const client = supabaseAdmin as any;
   const { data: existing, error: existingError } = await client
     .from('texasdefined_sports_sponsor_placements')
