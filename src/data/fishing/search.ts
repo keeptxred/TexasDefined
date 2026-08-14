@@ -1,5 +1,6 @@
 import type { SearchDocument } from "@/data/types";
 import { FISHING_GUIDES_DIRECTORY_PATH, fishingGuideCanonicalPath } from "./guide-routing";
+import { FISHING_REPORTS_DIRECTORY_PATH, fishingReportCanonicalPath } from "./report-routing";
 import { fishingFoundationAnchor } from "./slugs";
 
 export async function buildFishingSearchDocuments(): Promise<SearchDocument[]> {
@@ -51,6 +52,15 @@ export async function buildFishingSearchDocuments(): Promise<SearchDocument[]> {
       keywords: ["Texas fishing guides", "fishing guide directory", "verified fishing guides", "lake fishing guides"],
       href: FISHING_GUIDES_DIRECTORY_PATH,
     },
+    {
+      id: "fishing-directory:texas-fishing-reports",
+      brandId: "texasdefined",
+      kind: "guide",
+      title: "Texas Fishing Reports",
+      summary: "Browse source-backed Texas fishing reports with explicit publication dates and freshness labels so old conditions are never presented as today's bite.",
+      keywords: ["Texas fishing reports", "lake fishing report", "current fishing conditions", "verified fishing reports"],
+      href: FISHING_REPORTS_DIRECTORY_PATH,
+    },
     ...lakes.map((lake): SearchDocument => ({
       id: `fishing-lake:${lake.id}`,
       brandId: lake.brandId,
@@ -85,7 +95,7 @@ export async function buildFishingSearchDocuments(): Promise<SearchDocument[]> {
       title: report.title,
       summary: report.summary,
       keywords: [lakeById.get(report.lakeId)?.name, "fishing report", ...report.speciesUpdates.map((update) => speciesById.get(update.speciesId)?.commonName)].filter((value): value is string => Boolean(value)),
-      href: `/fishing#report-${report.slug}`,
+      href: fishingReportCanonicalPath(report.slug),
     })),
     ...businesses.map((business): SearchDocument => ({
       id: `fishing-business:${business.id}`,
