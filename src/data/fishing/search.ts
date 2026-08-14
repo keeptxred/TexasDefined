@@ -23,6 +23,24 @@ export async function buildFishingSearchDocuments(): Promise<SearchDocument[]> {
   }
 
   const documents: SearchDocument[] = [
+    {
+      id: "fishing-directory:texas-fishing",
+      brandId: "texasdefined",
+      kind: "guide",
+      title: "Texas Fishing Guide",
+      summary: "Statewide TexasDefined fishing hub connecting complete lake guides, fish species, seasonal patterns, access, reports and verified local fishing infrastructure.",
+      keywords: ["Texas fishing", "Texas fishing guide", "Texas lakes", "Texas fish species", "fishing reports", "fishing guides"],
+      href: "/fishing",
+    },
+    {
+      id: "fishing-directory:texas-fishing-lakes",
+      brandId: "texasdefined",
+      kind: "guide",
+      title: "Texas Fishing Lakes",
+      summary: "Compare the five complete TexasDefined fishing-lake guides by region, size, location and verified fishery strengths before opening the full lake guide.",
+      keywords: ["Texas fishing lakes", "Texas lake fishing", "Lake Conroe", "Lake Fork", "Sam Rayburn Reservoir", "Lake Livingston", "Lake Texoma", "compare fishing lakes"],
+      href: "/fishing/lakes",
+    },
     ...lakes.map((lake): SearchDocument => ({
       id: `fishing-lake:${lake.id}`,
       brandId: lake.brandId,
