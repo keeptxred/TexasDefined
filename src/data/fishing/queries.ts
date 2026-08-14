@@ -65,7 +65,7 @@ export const lakeTechniqueProfilesQuery = (params: { lakeId?: string; techniqueI
 export const fishingGuidesQuery = (params: PublicQuery<FishingGuideQuery> = {}) => queryOptions({
   queryKey: ["fishing", "guides", fishingScope.brandId, params],
   staleTime: 15 * 60 * 1000,
-  queryFn: () => fishingPlatform.guides.list({ ...fishingScope, ...published, ...params }),
+  queryFn: () => fishingPlatform.guides.list({ ...fishingScope, ...published, ...params, verifiedListing: true }),
 });
 
 export const fishingGuideQuery = (slug: string) => queryOptions({
@@ -73,8 +73,20 @@ export const fishingGuideQuery = (slug: string) => queryOptions({
   staleTime: 15 * 60 * 1000,
   queryFn: async () => {
     const row = await fishingPlatform.guides.getBySlug(fishingScope, slug);
-    return row?.status === "published" ? row : null;
+    return row?.status === "published" && row.verifiedListing ? row : null;
   },
+});
+
+export const fishingGuideLakesQuery = (params: { guideId?: string; lakeId?: string } = {}) => queryOptions({
+  queryKey: ["fishing", "guide-lakes", fishingScope.brandId, params],
+  staleTime: 30 * 60 * 1000,
+  queryFn: () => fishingPlatform.guideLakes.list({ ...fishingScope, ...params }),
+});
+
+export const fishingGuideSpeciesQuery = (params: { guideId?: string; speciesId?: string } = {}) => queryOptions({
+  queryKey: ["fishing", "guide-species", fishingScope.brandId, params],
+  staleTime: 30 * 60 * 1000,
+  queryFn: () => fishingPlatform.guideSpecies.list({ ...fishingScope, ...params }),
 });
 
 export const fishingReportsQuery = (params: PublicQuery<FishingReportQuery> = {}) => queryOptions({
