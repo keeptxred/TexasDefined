@@ -4,6 +4,8 @@ export const INDEXABLE_STATIC_PATHS = [
   "/explore/trip-planner",
   "/explore/attractions-comparison",
   "/fishing",
+  "/fishing/species",
+  "/fishing/species/largemouth-bass",
   "/sports",
   "/sports-venues",
   "/sports-venue/jones-att-stadium",

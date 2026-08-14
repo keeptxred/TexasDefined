@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
+import { fishingFoundationAnchor } from "@/data/fishing/slugs";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 export const Route = createFileRoute("/fishing")({
@@ -101,8 +102,9 @@ function FishingPage() {
           <p className="eyebrow text-primary">Fish the state by species</p>
           <h2 id="species-heading" className="mt-3 font-display text-4xl">One species can connect dozens of Texas lakes.</h2>
           <p className="mt-4 max-w-3xl text-base leading-7 text-muted-foreground">Species records are independent from lake records, which means Texas Defined can build statewide bass, crappie, catfish and striped-bass guides without duplicating the underlying lake information.</p>
+          <Link to="/fishing/species" className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Browse the statewide fish-species directory →</Link>
           <div className="mt-8 grid border-t border-border sm:grid-cols-2 lg:grid-cols-3">
-            {species.map((row) => <article id={`species-${row.slug}`} key={row.id} className="scroll-mt-28 border-b border-border py-6 sm:px-5 sm:first:pl-0"><p className="eyebrow text-primary">{row.taxonKind === "group" ? "Fishing group" : "Fish species"}</p><h3 className="mt-2 font-display text-2xl">{row.commonName}</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{row.summary}</p></article>)}
+            {species.map((row) => <article id={`species-${row.slug}`} key={row.id} className="scroll-mt-28 border-b border-border py-6 sm:px-5 sm:first:pl-0"><p className="eyebrow text-primary">{row.taxonKind === "group" ? "Fishing group" : "Fish species"}</p><h3 className="mt-2 font-display text-2xl"><a href={fishingFoundationAnchor("species", row.slug)} className="hover:text-primary">{row.commonName}</a></h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{row.summary}</p></article>)}
           </div>
         </section>
 
