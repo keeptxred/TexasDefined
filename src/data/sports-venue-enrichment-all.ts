@@ -5,7 +5,8 @@ import { getSportsVenueEnrichmentBatch3 } from './sports-venue-enrichment-batch3
 export { sportsVenueMapUrl };
 
 export function getSportsVenueEnrichmentAll(slug: string) {
-  return getSportsVenueEnrichment(slug)
-    ?? getSportsVenueEnrichmentBatch2(slug)
-    ?? getSportsVenueEnrichmentBatch3(slug);
+  const lookupSlug = slug === 'galaxy-stadium' ? 'jones-att-stadium' : slug;
+  return getSportsVenueEnrichment(lookupSlug)
+    ?? getSportsVenueEnrichmentBatch2(lookupSlug)
+    ?? getSportsVenueEnrichmentBatch3(lookupSlug);
 }
