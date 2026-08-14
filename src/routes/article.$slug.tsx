@@ -200,6 +200,7 @@ function ArticlePage() {
   const categoryName = categories.find((category) => category.slug === article.category)?.name
     ?? article.category.replace(/-/g, " ");
   const department = articleDepartment(article.category);
+  const isTexasExplainedPillar = texasExplainedPillarSlugs.has(article.slug);
   const embeddedInternalLinks = article.internalLinks ?? [];
   const supplementalInternalLinks = articleInternalLinks[article.slug] ?? [];
   const internalLinks = [
@@ -227,6 +228,10 @@ function ArticlePage() {
     <section className="relative isolate mt-5 overflow-hidden bg-ink text-ink-foreground"><img src={article.hero.src} alt={article.hero.alt} width={article.hero.width} height={article.hero.height} fetchPriority="high" decoding="async" className="absolute inset-0 size-full object-cover opacity-60" /><div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/25" /><Container className="relative flex min-h-[62vh] flex-col justify-end pb-14 pt-36 sm:pb-16"><p className="eyebrow text-ink-foreground/80">{categoryName}</p><h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">{article.title}</h1><p className="mt-6 max-w-2xl text-lg leading-8 text-ink-foreground/86">{article.dek}</p></Container></section>
     <Container className="max-w-3xl py-12 sm:py-16">
       <Byline author={author} meta={`${formatDate(article.publishedAt)} · ${formatReadingTime(article.readingMinutes)}`} />
+      {isTexasExplainedPillar && <aside className="mt-8 border-l-2 border-primary pl-5" aria-label="Texas Explained series">
+        <p className="eyebrow text-primary">Texas Explained</p>
+        <p className="mt-2 text-sm leading-7 text-muted-foreground">Part of our 10-guide series on the systems, landscapes and people that explain how Texas works. <Link to="/texas-explained" className="border-b border-primary text-foreground transition-colors hover:text-primary">See all 10 guides →</Link></p>
+      </aside>}
       <div className="mt-10"><ArticleBody blocks={article.body} entities={graph} /></div>
       {article.hero.credit && <p className="mt-10 text-xs text-muted-foreground">Photography: {article.hero.credit}</p>}
       {internalLinks.length > 0 && <aside className="mt-14 border-y border-border py-8" aria-label="Related reading">
