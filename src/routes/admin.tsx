@@ -16,6 +16,7 @@ function AdminLayout() {
         <Link to="/admin/sports-partners" className="text-muted-foreground hover:text-primary">Sports partner leads</Link>
         <Link to="/admin/sports-sponsors" className="text-muted-foreground hover:text-primary">Sports sponsorships</Link>
         <Link to="/admin/sports-traffic" className="text-muted-foreground hover:text-primary">Sports traffic readiness</Link>
+        <Link to="/admin/fishing-sponsors" className="text-muted-foreground hover:text-primary">Fishing sponsorships</Link>
       </div>
     </nav>
     <Outlet />
