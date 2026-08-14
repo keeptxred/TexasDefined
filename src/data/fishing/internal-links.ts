@@ -1,9 +1,11 @@
 import { fishingPlatform, fishingScope } from "./index";
 import { fishingGuideCanonicalPath } from "./guide-routing";
+import { fishingAccessCanonicalPath, fishingServiceCanonicalPath } from "./local-routing";
 import { fishingReportCanonicalPath } from "./report-routing";
 import { fishingFoundationAnchor } from "./slugs";
+import { isFishingRecordVerified } from "./validation";
 
-export type FishingInternalLinkKind = "lake" | "species" | "guide" | "report" | "business";
+export type FishingInternalLinkKind = "lake" | "species" | "guide" | "report" | "access" | "business";
 
 export interface FishingInternalLinkEntity {
   id: string;
@@ -19,57 +21,27 @@ function normalizeTerms(values: Array<string | undefined>) {
 }
 
 export async function buildFishingInternalLinkEntities(): Promise<FishingInternalLinkEntity[]> {
-  const [lakes, species, guides, reports, businesses] = await Promise.all([
+  const [lakes, species, guides, reports, accessRaw, tackleRaw, businessesRaw] = await Promise.all([
     fishingPlatform.lakes.list({ ...fishingScope, status: "published", limit: 5000 }),
     fishingPlatform.species.list({ ...fishingScope, status: "published", limit: 5000 }),
     fishingPlatform.guides.list({ ...fishingScope, status: "published", verifiedListing: true, limit: 5000 }),
     fishingPlatform.reports.list({ ...fishingScope, status: "published", limit: 5000 }),
+    fishingPlatform.accessPoints.list({ ...fishingScope, status: "published", limit: 5000 }),
+    fishingPlatform.tackleShops.list({ ...fishingScope, status: "published", limit: 5000 }),
     fishingPlatform.businesses.list({ ...fishingScope, status: "published", limit: 5000 }),
   ]);
-
+  const access = accessRaw.filter(isFishingRecordVerified);
+  const tackleShops = tackleRaw.filter(isFishingRecordVerified);
+  const businesses = businessesRaw.filter(isFishingRecordVerified);
   const entities: FishingInternalLinkEntity[] = [
-    ...lakes.map((lake) => ({
-      id: `fishing-lake:${lake.id}`,
-      kind: "lake" as const,
-      name: lake.name,
-      aliases: normalizeTerms(lake.aliases ?? []),
-      href: fishingFoundationAnchor("lake", lake.slug),
-      keywords: normalizeTerms([...lake.counties.map((county) => `${county} County`), ...lake.nearestCities, lake.riverBasin, lake.primaryWaterway]),
-    })),
-    ...species.map((row) => ({
-      id: `fish-species:${row.id}`,
-      kind: "species" as const,
-      name: row.commonName,
-      aliases: normalizeTerms([...(row.aliases ?? []), row.scientificName]),
-      href: fishingFoundationAnchor("species", row.slug),
-      keywords: normalizeTerms([row.waterClass, row.taxonKind, "Texas fishing"]),
-    })),
-    ...guides.map((guide) => ({
-      id: `fishing-guide:${guide.id}`,
-      kind: "guide" as const,
-      name: guide.businessName,
-      aliases: normalizeTerms([guide.guideName]),
-      href: fishingGuideCanonicalPath(guide.slug),
-      keywords: normalizeTerms(guide.serviceRegions ?? []),
-    })),
-    ...reports.map((report) => ({
-      id: `fishing-report:${report.id}`,
-      kind: "report" as const,
-      name: report.title,
-      aliases: [],
-      href: fishingReportCanonicalPath(report.slug),
-      keywords: ["fishing report"],
-    })),
-    ...businesses.map((business) => ({
-      id: `fishing-business:${business.id}`,
-      kind: "business" as const,
-      name: business.name,
-      aliases: [],
-      href: `/fishing#business-${business.slug}`,
-      keywords: normalizeTerms([business.category, business.city, business.county]),
-    })),
+    ...lakes.map((lake) => ({ id: `fishing-lake:${lake.id}`, kind: "lake" as const, name: lake.name, aliases: normalizeTerms(lake.aliases ?? []), href: fishingFoundationAnchor("lake", lake.slug), keywords: normalizeTerms([...lake.counties.map((county) => `${county} County`), ...lake.nearestCities, lake.riverBasin, lake.primaryWaterway]) })),
+    ...species.map((row) => ({ id: `fish-species:${row.id}`, kind: "species" as const, name: row.commonName, aliases: normalizeTerms([...(row.aliases ?? []), row.scientificName]), href: fishingFoundationAnchor("species", row.slug), keywords: normalizeTerms([row.waterClass, row.taxonKind, "Texas fishing"]) })),
+    ...guides.map((guide) => ({ id: `fishing-guide:${guide.id}`, kind: "guide" as const, name: guide.businessName, aliases: normalizeTerms([guide.guideName]), href: fishingGuideCanonicalPath(guide.slug), keywords: normalizeTerms(guide.serviceRegions ?? []) })),
+    ...reports.map((report) => ({ id: `fishing-report:${report.id}`, kind: "report" as const, name: report.title, aliases: [], href: fishingReportCanonicalPath(report.slug), keywords: ["fishing report"] })),
+    ...access.map((point) => ({ id: `fishing-access:${point.id}`, kind: "access" as const, name: point.name, aliases: [], href: fishingAccessCanonicalPath(point.slug), keywords: normalizeTerms([point.kind, point.city, point.county]) })),
+    ...tackleShops.map((shop) => ({ id: `fishing-tackle:${shop.id}`, kind: "business" as const, name: shop.name, aliases: [], href: fishingServiceCanonicalPath(shop.slug), keywords: normalizeTerms(["tackle shop", shop.city, shop.county]) })),
+    ...businesses.map((business) => ({ id: `fishing-business:${business.id}`, kind: "business" as const, name: business.name, aliases: [], href: fishingServiceCanonicalPath(business.slug), keywords: normalizeTerms([business.category, business.city, business.county]) })),
   ];
-
   return [...new Map(entities.map((entity) => [entity.id, entity])).values()];
 }
 

@@ -9,6 +9,8 @@ export const INDEXABLE_STATIC_PATHS = [
   "/fishing/species/largemouth-bass",
   "/fishing/guides",
   "/fishing/reports",
+  "/fishing/access",
+  "/fishing/services",
   "/sports",
   "/sports-venues",
   "/sports-venues/compare",
@@ -157,7 +159,6 @@ export function isExploreSitemapOwnedPath(path: string) {
 export function isIndexablePublicPath(path: string) {
   const normalized = normalizePublicPath(path);
   if (!normalized) return false;
-
   return !NON_INDEXABLE_PREFIXES.some((prefix) => normalized === prefix.replace(/\/$/, "") || normalized.startsWith(prefix))
     && !(REDIRECT_ONLY_PATHS as readonly string[]).includes(normalized)
     && !(NON_INDEXABLE_PUBLIC_PATHS as readonly string[]).includes(normalized);

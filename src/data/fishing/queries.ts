@@ -10,6 +10,7 @@ import type {
   FishingReportQuery,
   FishingTechniqueQuery,
 } from "./repositories";
+import { isFishingRecordVerified } from "./validation";
 
 type PublicQuery<T extends { brandId: unknown; status?: unknown }> = Omit<T, "brandId" | "status">;
 const published = { status: "published" as const };
@@ -107,19 +108,19 @@ export const fishingReportQuery = (slug: string) => queryOptions({
 export const fishingAccessPointsQuery = (params: PublicQuery<FishingLocalQuery> = {}) => queryOptions({
   queryKey: ["fishing", "access", fishingScope.brandId, params],
   staleTime: 30 * 60 * 1000,
-  queryFn: () => fishingPlatform.accessPoints.list({ ...fishingScope, ...published, ...params }),
+  queryFn: async () => (await fishingPlatform.accessPoints.list({ ...fishingScope, ...published, ...params })).filter(isFishingRecordVerified),
 });
 
 export const fishingTackleShopsQuery = (params: PublicQuery<FishingLocalQuery> = {}) => queryOptions({
   queryKey: ["fishing", "tackle-shops", fishingScope.brandId, params],
   staleTime: 30 * 60 * 1000,
-  queryFn: () => fishingPlatform.tackleShops.list({ ...fishingScope, ...published, ...params }),
+  queryFn: async () => (await fishingPlatform.tackleShops.list({ ...fishingScope, ...published, ...params })).filter(isFishingRecordVerified),
 });
 
 export const fishingBusinessesQuery = (params: PublicQuery<FishingLocalQuery> = {}) => queryOptions({
   queryKey: ["fishing", "businesses", fishingScope.brandId, params],
   staleTime: 30 * 60 * 1000,
-  queryFn: () => fishingPlatform.businesses.list({ ...fishingScope, ...published, ...params }),
+  queryFn: async () => (await fishingPlatform.businesses.list({ ...fishingScope, ...published, ...params })).filter(isFishingRecordVerified),
 });
 
 export const fishingPlacementsQuery = (params: PublicQuery<FishingPlacementQuery> = {}) => queryOptions({
