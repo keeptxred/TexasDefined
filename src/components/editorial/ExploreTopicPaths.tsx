@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
+import { EvergreenNextSteps } from "@/components/monetization/EvergreenNextSteps";
 import type { CategorySlug } from "@/data/types";
 
 type TopicLink = { to: string; label: string; description: string };
@@ -69,22 +70,25 @@ export function ExploreTopicPaths({ category }: { category: CategorySlug }) {
   if (!links.length) return null;
 
   return (
-    <Section>
-      <Container>
-        <SectionHeader
-          eyebrow="Build the bigger picture"
-          title="Keep exploring this part of Texas"
-          description="The strongest Texas trips usually cross categories. These nearby topics add context, places and practical next steps."
-        />
-        <nav aria-label="Related Texas guide topics" className="mt-8 grid border-t border-border md:grid-cols-3">
-          {links.map((item, index) => (
-            <Link key={item.to} to={item.to} className={`group border-b border-border py-6 md:px-6 ${index < links.length - 1 ? "md:border-r" : ""} md:first:pl-0 md:last:pr-0`}>
-              <strong className="font-display text-2xl transition-colors group-hover:text-primary">{item.label}</strong>
-              <span className="mt-2 block text-sm leading-6 text-muted-foreground">{item.description}</span>
-            </Link>
-          ))}
-        </nav>
-      </Container>
-    </Section>
+    <>
+      <Section>
+        <Container>
+          <SectionHeader
+            eyebrow="Build the bigger picture"
+            title="Keep exploring this part of Texas"
+            description="The strongest Texas trips usually cross categories. These nearby topics add context, places and practical next steps."
+          />
+          <nav aria-label="Related Texas guide topics" className="mt-8 grid border-t border-border md:grid-cols-3">
+            {links.map((item, index) => (
+              <Link key={item.to} to={item.to} className={`group border-b border-border py-6 md:px-6 ${index < links.length - 1 ? "md:border-r" : ""} md:first:pl-0 md:last:pr-0`}>
+                <strong className="font-display text-2xl transition-colors group-hover:text-primary">{item.label}</strong>
+                <span className="mt-2 block text-sm leading-6 text-muted-foreground">{item.description}</span>
+              </Link>
+            ))}
+          </nav>
+        </Container>
+      </Section>
+      <EvergreenNextSteps category={category} />
+    </>
   );
 }
