@@ -44,6 +44,7 @@ const GROUPS = [
     description: 'Verified venue directories and comparison pages for Texas stadiums, arenas, ballparks, racetracks and sports-trip planning.',
     links: [
       ['Texas sports venues', '/sports-venues'],
+      ['Compare Texas sports venues', '/sports-venues/compare'],
       ['Dallas–Fort Worth sports venues', '/sports-venues/dallas-fort-worth'],
       ['Texas football stadiums', '/sports-venues/football'],
       ['Texas motorsports venues', '/sports-venues/motorsports'],
@@ -132,6 +133,7 @@ function CitationGuidePage() {
           <Link to="/about" className="border-b border-primary text-primary">Editorial accountability</Link>
           <Link to="/texas-data" className="border-b border-primary text-primary">Texas data catalog</Link>
           <Link to="/sports-venues" className="border-b border-primary text-primary">Texas sports venues</Link>
+          <Link to="/sports-venues/compare" className="border-b border-primary text-primary">Compare sports venues</Link>
         </div>
       </section>
     </Container>
