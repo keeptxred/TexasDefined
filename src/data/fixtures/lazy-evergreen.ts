@@ -17,6 +17,7 @@ import {
 import { texasLakesReservoirsExplainedStub } from "./texas-lakes-reservoirs-explained-stub";
 import { texasTreesGuideStub } from "./texas-trees-guide-stub";
 import { texasWildflowersGuideStub } from "./texas-wildflowers-guide-stub";
+import { texasWildlifeGuideStub } from "./texas-wildlife-guide-stub";
 
 const texasFarmToMarketRoadsExplainedStub: Article = {
   id: "evergreen-texas-farm-to-market-roads-explained",
@@ -199,6 +200,7 @@ export const lazyEvergreenArticleStubs: Article[] = [
   texasFarmToMarketRoadsExplainedStub,
   texasWildflowersGuideStub,
   texasTreesGuideStub,
+  texasWildlifeGuideStub,
   texasHomeArchitectureRegionsStub,
   texasHurricanePreparationStub,
   texasRoofsHailWindHeatStub,
@@ -266,6 +268,40 @@ const buyingLandOfficialLinks: NonNullable<Article["internalLinks"]> = [
   },
 ];
 
+const texasWildlifeOfficialLinks: NonNullable<Article["internalLinks"]> = [
+  {
+    href: "https://tpwd.texas.gov/huntwild/wild/species/",
+    label: "Texas wildlife fact sheets",
+    description: "Official TPWD species profiles for mammals, reptiles, birds and other Texas wildlife.",
+  },
+  {
+    href: "https://tpwd.texas.gov/wildlife/wildlife-diversity/urban-wildlife-program/",
+    label: "TPWD Urban Wildlife Program",
+    description: "Official guidance for wildlife in Texas cities and fast-growing metropolitan areas.",
+  },
+  {
+    href: "https://tpwd.texas.gov/education/resources/texas-junior-naturalists/be-nature-safe/venomous-snake-safety",
+    label: "Texas venomous snake safety",
+    description: "TPWD identification, prevention and encounter guidance for potentially dangerous Texas snakes.",
+  },
+  {
+    href: "https://tpwd.texas.gov/state-parks/park-information/safety/alligator-safety/alligator-safety",
+    label: "Texas alligator safety",
+    description: "TPWD guidance for safely sharing parks and waterways with American alligators.",
+  },
+  {
+    href: "https://tpwd.texas.gov/huntwild/wild/species/bats/bat-watching-sites/index.phtml",
+    label: "Texas bat-watching sites",
+    description: "TPWD's statewide guide to bat species, seasonal behavior and public viewing sites.",
+  },
+];
+
+const wildlifeReciprocalLink: NonNullable<Article["internalLinks"]>[number] = {
+  href: "/article/texas-wildlife-guide",
+  label: "Texas wildlife field guide",
+  description: "Meet the deer, armadillos, coyotes, bats, snakes, hogs and other animals Texans actually encounter.",
+};
+
 export async function loadLazyEvergreenArticle(brandId: string, slug: string): Promise<Article | null> {
   if (brandId !== "texasdefined") return null;
 
@@ -281,12 +317,17 @@ export async function loadLazyEvergreenArticle(brandId: string, slug: string): P
 
   if (slug === texasWildflowersGuideStub.slug) {
     const { texasWildflowersGuideArticle } = await import("./texas-wildflowers-guide");
-    return texasWildflowersGuideArticle;
+    return addSourceLinks(texasWildflowersGuideArticle, [wildlifeReciprocalLink]);
   }
 
   if (slug === texasTreesGuideStub.slug) {
     const { texasTreesGuideArticle } = await import("./texas-trees-guide");
-    return texasTreesGuideArticle;
+    return addSourceLinks(texasTreesGuideArticle, [wildlifeReciprocalLink]);
+  }
+
+  if (slug === texasWildlifeGuideStub.slug) {
+    const { texasWildlifeGuideArticle } = await import("./texas-wildlife-guide");
+    return addSourceLinks(texasWildlifeGuideArticle, texasWildlifeOfficialLinks);
   }
 
   if (slug === texasHomeArchitectureRegionsStub.slug) {
