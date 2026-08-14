@@ -106,13 +106,21 @@ for (const marker of [
   'Official planning links',
   'sportsVenueMapUrl',
   'getSportsVenueEnrichmentAll',
+  'visitorKindPriority',
+  'countyVisitorPlaces',
+  'candidate.countySlug === venue.countySlug',
+  'isIndexableEntityPage(candidate)',
+  'Visitor places to pair with the event',
+  'Same-county does not necessarily mean walkable or immediately adjacent',
+  'this list is not a sponsored placement',
   'Local business partnerships',
   'type=sports-travel&source=${encodeURIComponent(canonicalPath)}',
   'Paid relationships do not change editorial rankings, factual conclusions or which venues we cover',
   '/sports-venues',
 ]) {
-  assert(guide.includes(marker), `Dedicated sports venue guide is missing required visitor, partnership, or attribution marker: ${marker}.`);
+  assert(guide.includes(marker), `Dedicated sports venue guide is missing required visitor, partnership, attribution, or county-trip marker: ${marker}.`);
 }
+assert(!guide.includes('const nearbyPlaces = related.filter'), 'Sports venue guide must not describe generic related entities as nearby when the seed lacks reliable distance data.');
 
 for (const getter of [
   'getSportsVenueEnrichment(lookupSlug)',
@@ -172,4 +180,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Sports venue coverage contracts validated: ${majorCount} major seeds + ${tier2Count} second-tier rows, core Reliant record, lightweight static directory, statewide category anchors, dedicated visitor template, venue-level sports-travel partnership funnel with safe source attribution, current-name correction and all enrichment batches are wired. Exact seeded-to-deep-profile completeness is enforced separately.`);
+console.log(`Sports venue coverage contracts validated: ${majorCount} major seeds + ${tier2Count} second-tier rows, core Reliant record, lightweight static directory, statewide category anchors, dedicated visitor template, county-level editorial trip ideas, venue-level sports-travel partnership funnel with safe source attribution, current-name correction and all enrichment batches are wired. Exact seeded-to-deep-profile completeness is enforced separately.`);
