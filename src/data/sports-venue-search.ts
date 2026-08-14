@@ -1,0 +1,86 @@
+import { MAJOR_TEXAS_SPORTS_VENUES } from './knowledge-graph/major-sports-venues';
+import { applyCurrentEntityCorrections } from './knowledge-graph/current-entity-corrections';
+import { TEXAS_SPORTS_VENUE_TIER2_ENTITIES } from './knowledge-graph/sports-venues-tier2';
+import { SPORTS_VENUE_LANDINGS } from './sports-venue-landings';
+import type { SearchDocument } from './types';
+
+const reliantDocument: SearchDocument = {
+  id: 'sports-venue:reliant-stadium',
+  brandId: 'texasdefined',
+  kind: 'sports-venue',
+  title: 'Reliant Stadium',
+  summary: 'Reliant Stadium in Houston is a major Texas sports and event destination for Houston Texans football, RODEOHOUSTON, soccer, concerts and other large events.',
+  keywords: ['Reliant Stadium', 'NRG Stadium', 'Houston Stadium', 'Houston Texans', 'RODEOHOUSTON', 'Houston football', 'Harris County', 'NFL', 'rodeo', 'sports venue'],
+  href: '/sports-venue/reliant-stadium',
+};
+
+export function buildSportsVenueSearchDocuments(): SearchDocument[] {
+  const venueMap = new Map(
+    [...MAJOR_TEXAS_SPORTS_VENUES, ...TEXAS_SPORTS_VENUE_TIER2_ENTITIES]
+      .map(applyCurrentEntityCorrections)
+      .map((venue) => [venue.slug, venue] as const),
+  );
+
+  const venueDocuments: SearchDocument[] = [...venueMap.values()].map((venue) => ({
+    id: venue.id,
+    brandId: 'texasdefined',
+    kind: 'sports-venue',
+    title: venue.name,
+    summary: venue.description ?? `${venue.name} Texas sports venue guide.`,
+    keywords: [...new Set([
+      venue.name,
+      ...venue.aliases,
+      venue.countySlug,
+      venue.region,
+      ...(venue.tags ?? []),
+      'Texas sports venue',
+      'sports travel',
+      'game day',
+    ].filter((value): value is string => Boolean(value)))],
+    href: `/sports-venue/${venue.slug}`,
+  }));
+
+  if (!venueMap.has('reliant-stadium')) venueDocuments.push(reliantDocument);
+
+  const landingDocuments: SearchDocument[] = SPORTS_VENUE_LANDINGS.map((landing) => ({
+    id: `sports-collection:${landing.slug}`,
+    brandId: 'texasdefined',
+    kind: 'sports-collection',
+    title: landing.title,
+    summary: landing.description,
+    keywords: [...new Set([
+      landing.title,
+      landing.seoTitle,
+      landing.eyebrow,
+      landing.slug.replaceAll('-', ' '),
+      landing.kind === 'market' ? 'Texas sports market' : 'Texas sports venues by sport',
+      ...(landing.counties ?? []),
+      ...(landing.tagsAny ?? []),
+      ...(landing.tagsAll ?? []),
+    ])],
+    href: `/sports-venues/${landing.slug}`,
+  }));
+
+  const hubDocuments: SearchDocument[] = [
+    {
+      id: 'sports-collection:texas-sports-venues',
+      brandId: 'texasdefined',
+      kind: 'sports-collection',
+      title: 'Texas Sports Venues',
+      summary: 'Statewide TexasDefined directory of verified stadiums, arenas, ballparks, racetracks, college venues, golf destinations, Western-sports grounds and tournament complexes.',
+      keywords: ['Texas sports venues', 'Texas stadiums', 'Texas arenas', 'Texas ballparks', 'Texas racetracks', 'sports travel', 'game day guides'],
+      href: '/sports-venues',
+    },
+    {
+      id: 'sports-collection:texas-sports',
+      brandId: 'texasdefined',
+      kind: 'sports-collection',
+      title: 'Texas Sports',
+      summary: 'TexasDefined sports guide to teams, traditions, venues, football, baseball, basketball, motorsports and sports travel across the state.',
+      keywords: ['Texas sports', 'Texas football', 'Texas baseball', 'Texas basketball', 'Texas motorsports', 'Texas sports travel'],
+      href: '/sports',
+    },
+  ];
+
+  return [...hubDocuments, ...landingDocuments, ...venueDocuments];
+}
