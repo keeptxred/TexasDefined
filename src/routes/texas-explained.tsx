@@ -24,6 +24,39 @@ const pillarSlugs = [
   "texas-cultural-regions-explained",
 ] as const;
 
+const quickAnswers = [
+  {
+    question: "Why are most Texas lakes man-made?",
+    answer: "Texas has long river systems but relatively few large natural inland lakes. Reservoir construction became a practical way to store water, reduce flood risk, support cities and farms, and create dependable surface-water supplies.",
+    to: "/article/texas-lakes-reservoirs-explained",
+    label: "Read the reservoir guide",
+  },
+  {
+    question: "What is a farm-to-market road?",
+    answer: "FM is a Texas state-highway designation, not a generic name for any rural road. The system was built to connect farms, ranches and smaller communities with markets and larger highways, and many FM roads now run through developed suburbs and cities.",
+    to: "/article/texas-farm-to-market-roads-explained",
+    label: "Understand FM roads",
+  },
+  {
+    question: "Why do so many Texas towns have courthouse squares?",
+    answer: "County seats concentrated government, records, courts and commerce in one place. In many communities, the courthouse became the civic anchor and the surrounding square became the town's most important public and commercial space.",
+    to: "/article/texas-courthouses-town-square",
+    label: "Explore courthouse squares",
+  },
+  {
+    question: "Why does Texas feel so different from one region to another?",
+    answer: "Rainfall, soils, elevation, rivers and plant communities change dramatically across the state. Migration and settlement then layered different languages, foods, architecture, industries and traditions onto those different landscapes.",
+    to: "/article/texas-cultural-regions-explained",
+    label: "See the cultural regions",
+  },
+  {
+    question: "Why do Texas homes and land decisions depend so much on location?",
+    answer: "Clay soils, drought, heat, wind, flood exposure, water access, septic needs, utilities and local development patterns vary by region. A house or parcel that makes sense in one part of Texas can require very different due diligence somewhere else.",
+    to: "/article/buying-land-in-texas-guide",
+    label: "Read the land-buying guide",
+  },
+] as const;
+
 const sections = [
   {
     eyebrow: "Land and water",
@@ -130,7 +163,24 @@ function TexasExplainedPage() {
           </aside>
         </section>
 
-        <div className="mt-12 space-y-16">
+        <section className="mt-12" aria-labelledby="texas-explained-quick-answers">
+          <header className="max-w-3xl">
+            <p className="eyebrow text-primary">Quick answers</p>
+            <h2 id="texas-explained-quick-answers" className="mt-2 font-display text-3xl leading-tight sm:text-4xl">Five Texas questions, answered before you dive deeper</h2>
+            <p className="mt-4 text-base leading-7 text-muted-foreground">Each answer is the short version. The linked guide explains the history, geography and practical details behind it.</p>
+          </header>
+          <dl className="mt-8 grid border-t border-border md:grid-cols-2">
+            {quickAnswers.map((item, index) => (
+              <div key={item.question} className={`border-b border-border py-7 md:px-6 ${index % 2 === 1 ? "md:border-l" : ""}`}>
+                <dt className="font-display text-2xl leading-tight">{item.question}</dt>
+                <dd className="mt-3 text-sm leading-7 text-muted-foreground">{item.answer}</dd>
+                <Link to={item.to} className="eyebrow mt-5 inline-block border-b border-primary pb-1 text-primary">{item.label} →</Link>
+              </div>
+            ))}
+          </dl>
+        </section>
+
+        <div className="mt-16 space-y-16">
           {sections.map((section) => {
             const sectionArticles = section.slugs.map((slug) => bySlug.get(slug)).filter((article): article is Article => Boolean(article));
             if (!sectionArticles.length) return null;
