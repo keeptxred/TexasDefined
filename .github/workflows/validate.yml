@@ -41,8 +41,42 @@ jobs:
       - name: Install dependencies
         run: npm ci --no-audit --no-fund
 
-      - name: Validate SEO and AEO contracts
-        run: npm run seo:validate
+      - name: Validate generated page quality
+        run: node scripts/data/validate-generated-page-quality.mjs
+
+      - name: Validate public route governance
+        run: node scripts/data/validate-public-route-governance.mjs
+
+      - name: Validate indexation quality
+        run: node scripts/data/validate-indexation-quality.mjs
+
+      - name: Validate crawl demand
+        run: node scripts/data/validate-crawl-demand.mjs
+
+      - name: Validate freshness signals
+        run: node scripts/data/validate-freshness-signals.mjs
+
+      - name: Validate machine indexing
+        run: node scripts/data/validate-machine-indexing.mjs
+
+      - name: Validate remaining SEO and AEO contracts
+        run: |
+          node scripts/data/validate-aeo-answer-layers.mjs
+          node scripts/data/validate-homepage-seo.mjs
+          node scripts/data/validate-texas-explained-seo.mjs
+          node scripts/data/validate-explore-category-seo.mjs
+          node scripts/data/validate-explore-region-seo.mjs
+          node scripts/data/validate-explore-topical-authority.mjs
+          node scripts/data/validate-article-discover-seo.mjs
+          node scripts/data/validate-author-eeat.mjs
+          node scripts/data/validate-entity-template-quality.mjs
+          node scripts/data/validate-image-seo.mjs
+          node scripts/data/validate-search-rendering-performance.mjs
+          node scripts/data/validate-content-duplication.mjs
+          node scripts/data/validate-sitemap-routes.mjs
+          node scripts/data/validate-internal-link-discovery.mjs
+          node scripts/data/validate-search-intent-ctr.mjs
+          node scripts/data/validate-seo-ci-contract.mjs
 
       - name: Validate production data and migrated features
         run: npm run data:validate
