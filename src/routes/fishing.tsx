@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
@@ -31,7 +31,17 @@ function FishingPage() {
 
   return (
     <>
-      <section className="border-b border-border bg-ink text-ink-foreground">
+      <Container className="pt-8 sm:pt-10">
+        <nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.14em] text-muted-foreground">
+          <ol className="flex flex-wrap items-center gap-2">
+            <li><Link to="/" className="hover:text-foreground">Front page</Link></li>
+            <li aria-hidden>·</li>
+            <li aria-current="page">Fishing</li>
+          </ol>
+        </nav>
+      </Container>
+
+      <section className="mt-5 border-b border-border bg-ink text-ink-foreground">
         <Container className="py-16 sm:py-24">
           <p className="eyebrow text-ink-foreground/70">Texas Defined Fishing</p>
           <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.96] sm:text-7xl">Fishing Texas, lake by lake.</h1>
