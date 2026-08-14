@@ -42,6 +42,7 @@ export const Route = createFileRoute('/texas-data/county-housing-costs')({
 });
 
 const currency = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+const formatEstimate = (value: number | null) => value === null ? 'Not available' : currency.format(value);
 
 function Page() {
   const data = Route.useLoaderData();
@@ -55,13 +56,13 @@ function Page() {
         <section className="border-y border-border py-8" aria-live="polite">
           <p className="eyebrow text-primary">Source refresh in progress</p>
           <h2 className="mt-3 font-display text-3xl">The official Census snapshot is being prepared</h2>
-          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">This page stays out of search results until the maintained snapshot contains near-complete Texas county coverage. Texas Defined does not publish partial county rankings as if they were complete.</p>
+          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">This page stays out of search results until the maintained snapshot contains all 254 Texas counties. Texas Defined does not publish partial county rankings as if they were complete.</p>
         </section>
       ) : (
         <>
           <section className="grid gap-6 border-y border-border py-7 md:grid-cols-3" aria-label="Dataset notes">
             <div><p className="eyebrow text-primary">Source</p><p className="mt-2 text-sm leading-6">U.S. Census Bureau · {data.release}</p></div>
-            <div><p className="eyebrow text-primary">Methodology</p><p className="mt-2 text-sm leading-6">Four ACS Detailed Tables are joined by county FIPS. Values are medians, not quotes, offers or forecasts.</p></div>
+            <div><p className="eyebrow text-primary">Methodology</p><p className="mt-2 text-sm leading-6">Four ACS Detailed Tables are joined by county FIPS. Census-suppressed estimates remain explicitly unavailable rather than being replaced with zero or another source.</p></div>
             <div><p className="eyebrow text-primary">Last verified</p><p className="mt-2 text-sm leading-6">{verified} · {rows.length} Texas counties</p></div>
           </section>
 
@@ -74,13 +75,13 @@ function Page() {
               <table className="w-full min-w-[780px] border-collapse text-left text-sm">
                 <caption className="sr-only">Texas county median home value, rent, monthly owner costs and household income from the 2020–2024 ACS 5-year estimates.</caption>
                 <thead><tr className="border-b border-border text-xs uppercase tracking-wide text-muted-foreground"><th scope="col" className="py-4 pr-4">County</th><th scope="col" className="px-4 py-4 text-right">Home value</th><th scope="col" className="px-4 py-4 text-right">Gross rent</th><th scope="col" className="px-4 py-4 text-right">Owner costs</th><th scope="col" className="pl-4 py-4 text-right">Household income</th></tr></thead>
-                <tbody>{rows.map((row) => <tr key={row.fips} className="border-b border-border/70"><th scope="row" className="py-4 pr-4 font-medium"><Link to="/county/$slug" params={{ slug: row.countySlug }} className="hover:text-primary">{row.countyName}</Link></th><td className="px-4 py-4 text-right tabular-nums">{currency.format(row.medianHomeValue)}</td><td className="px-4 py-4 text-right tabular-nums">{currency.format(row.medianGrossRent)}</td><td className="px-4 py-4 text-right tabular-nums">{currency.format(row.medianMonthlyOwnerCosts)}</td><td className="pl-4 py-4 text-right tabular-nums">{currency.format(row.medianHouseholdIncome)}</td></tr>)}</tbody>
+                <tbody>{rows.map((row) => <tr key={row.fips} className="border-b border-border/70"><th scope="row" className="py-4 pr-4 font-medium"><Link to="/county/$slug" params={{ slug: row.countySlug }} className="hover:text-primary">{row.countyName}</Link></th><td className="px-4 py-4 text-right tabular-nums">{formatEstimate(row.medianHomeValue)}</td><td className="px-4 py-4 text-right tabular-nums">{formatEstimate(row.medianGrossRent)}</td><td className="px-4 py-4 text-right tabular-nums">{formatEstimate(row.medianMonthlyOwnerCosts)}</td><td className="pl-4 py-4 text-right tabular-nums">{formatEstimate(row.medianHouseholdIncome)}</td></tr>)}</tbody>
               </table>
             </div>
           </section>
 
           <aside className="border-y border-border py-6 text-sm leading-7 text-muted-foreground">
-            <p><strong className="text-foreground">What these numbers mean:</strong> ACS medians summarize survey estimates for each county. Median selected monthly owner costs include the owner-cost components captured by Census and should not be treated as a mortgage quote. Gross rent is not the same as asking rent for a currently available unit. Use the county pages and current local sources for decisions about a specific property.</p>
+            <p><strong className="text-foreground">What these numbers mean:</strong> ACS medians summarize survey estimates for each county. “Not available” means Census did not publish a usable nonnegative estimate for that county/table; Texas Defined does not infer or substitute a value. Median selected monthly owner costs include the owner-cost components captured by Census and should not be treated as a mortgage quote. Gross rent is not the same as asking rent for a currently available unit.</p>
             <p className="mt-3"><a href={data.sourcePage} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Open the official Census ACS Summary File source</a>.</p>
           </aside>
         </>
