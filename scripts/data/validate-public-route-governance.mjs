@@ -25,6 +25,12 @@ const nestedAdminChildPaths = new Set([
 const nestedShopChildPaths = new Set(['/cart', '/checkout-return']);
 const normalize = (value) => value === '/' ? value : value.replace(/\/$/, '');
 const shouldCountPublicRoute = (routePath) => routePath.startsWith('/') && !routePath.includes('$') && !routePath.startsWith('/api/') && !routePath.startsWith('/admin') && !nestedAdminChildPaths.has(routePath) && !nestedShopChildPaths.has(routePath) && !routePath.endsWith('.xml') && !routePath.endsWith('.txt');
+const routePatternMatches = (concretePath, routePattern) => {
+  const concreteSegments = normalize(concretePath).split('/').filter(Boolean);
+  const patternSegments = normalize(routePattern).split('/').filter(Boolean);
+  if (concreteSegments.length !== patternSegments.length) return false;
+  return patternSegments.every((segment, index) => segment.startsWith('$') ? concreteSegments[index].length > 0 : segment === concreteSegments[index]);
+};
 const sourceRoots = ['src/routes', 'src/components', 'src/data'];
 const sourceFiles = [];
 const collect = (directory) => { for (const entry of fs.readdirSync(directory, { withFileTypes: true })) { const fullPath = path.join(directory, entry.name); if (entry.isDirectory()) collect(fullPath); else if (/\.(?:ts|tsx)$/.test(entry.name)) sourceFiles.push(fullPath); } };
@@ -35,7 +41,10 @@ const registeredStaticPublicPaths = new Set([...routeTree.matchAll(/\bpath:\s*'(
 for (const entry of sourceRouteEntries) if (shouldCountPublicRoute(entry.path)) registeredStaticPublicPaths.add(entry.path);
 for (const path of ['/', '/explore', '/shop', '/shop/cart', '/shop/checkout-return']) registeredStaticPublicPaths.add(path);
 for (const routePath of registeredStaticPublicPaths) if (!classified.has(routePath)) failures.push(`Registered static public route is unclassified: ${routePath}.`);
-for (const routePath of classified) if (!registeredStaticPublicPaths.has(routePath)) failures.push(`Governed public route is missing from the generated route tree or route sources: ${routePath}.`);
+for (const routePath of classified) {
+  const backedByDynamicRoute = sourceRouteEntries.some((entry) => entry.path.includes('$') && routePatternMatches(routePath, entry.path));
+  if (!registeredStaticPublicPaths.has(routePath) && !backedByDynamicRoute) failures.push(`Governed public route is missing from the generated route tree or route sources: ${routePath}.`);
+}
 for (const routePath of indexable) {
   if (conditional.includes(routePath)) failures.push(`Route is both always-indexable and conditional: ${routePath}.`);
   if (redirects.includes(routePath)) failures.push(`Route is both indexable and redirect-only: ${routePath}.`);
@@ -51,7 +60,10 @@ for (const routePath of [...indexable, ...conditional]) {
     const inboundFiles = [...sourceByFile.entries()].filter(([, source]) => hasRouteLiteral(source, routePath)).filter(([, source]) => !source.includes(`createFileRoute('${routePath}')`)).filter(([, source]) => !source.includes(`createFileRoute("${routePath}")`)).map(([file]) => file);
     if (!inboundFiles.length) failures.push(`Indexable public route has no discoverable internal-link reference: ${routePath}.`);
   }
-  const routeEntry = sourceRouteEntries.find((entry) => entry.path === routePath && entry.source.includes('head:')) ?? sourceRouteEntries.find((entry) => entry.path === routePath);
+  const exactRouteEntry = sourceRouteEntries.find((entry) => entry.path === routePath && entry.source.includes('head:')) ?? sourceRouteEntries.find((entry) => entry.path === routePath);
+  const dynamicRouteEntry = sourceRouteEntries.find((entry) => entry.path.includes('$') && routePatternMatches(routePath, entry.path) && entry.source.includes('head:'))
+    ?? sourceRouteEntries.find((entry) => entry.path.includes('$') && routePatternMatches(routePath, entry.path));
+  const routeEntry = exactRouteEntry ?? dynamicRouteEntry;
   if (!routeEntry) { failures.push(`Indexable public route has no route source for metadata validation: ${routePath}.`); continue; }
   const { file: routeFile, source: routeSource } = routeEntry;
   if (!routeSource.includes('head:')) failures.push(`Indexable route is missing a head definition: ${routePath} (${routeFile}).`);
