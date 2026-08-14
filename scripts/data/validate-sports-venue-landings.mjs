@@ -4,13 +4,15 @@ import path from 'node:path';
 const root = process.cwd();
 const read = (file) => fs.readFile(path.join(root, file), 'utf8');
 
-const [landings, landingPaths, route, indexComponent, directory, sports, publicRoutes, majorVenues, tier2Venues] = await Promise.all([
+const [landings, landingPaths, route, indexComponent, directory, sports, genericVenue, galaxyVenue, publicRoutes, majorVenues, tier2Venues] = await Promise.all([
   read('src/data/sports-venue-landings.ts'),
   read('src/data/sports-venue-landing-paths.ts'),
   read('src/routes/sports-venues.$landing.tsx'),
   read('src/components/sports/SportsVenueLandingIndex.tsx'),
   read('src/routes/sports-venues.tsx'),
   read('src/routes/sports.tsx'),
+  read('src/routes/sports-venue.$slug.tsx'),
+  read('src/routes/sports-venue.jones-att-stadium.tsx'),
   read('src/lib/public-routes.ts'),
   read('src/data/knowledge-graph/major-sports-venues.ts'),
   read('src/data/knowledge-graph/sports-venues-tier2.ts'),
@@ -103,6 +105,23 @@ for (const marker of [
   'sportsVenueLandingLinksForVenue',
 ]) assert(landings.includes(marker), `Sports venue landing taxonomy is missing marker: ${marker}.`);
 
+for (const marker of [
+  "import { sportsVenueLandingLinksForVenue } from '@/data/sports-venue-landings'",
+  'const landingLinks = sportsVenueLandingLinksForVenue(entity);',
+  'Explore the collection',
+  'More venues like {entity.name}',
+  'href={`/sports-venues/${landing.slug}`}',
+  'Browse collection →',
+]) assert(genericVenue.includes(marker), `Generic sports venue guide is missing bidirectional discovery marker: ${marker}.`);
+
+for (const marker of [
+  'Explore the collection',
+  '/sports-venues/lubbock',
+  '/sports-venues/football',
+  '/sports-venues/college-sports',
+  'Browse collection →',
+]) assert(galaxyVenue.includes(marker), `Galaxy Stadium exception is missing sports collection discovery marker: ${marker}.`);
+
 const venueSources = `${majorVenues}\n${tier2Venues}`;
 const representativeVenueByLanding = {
   'dallas-fort-worth': 'att-stadium',
@@ -134,4 +153,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Sports venue landings validated: ${expectedLandings.length} indexable market/theme pages are sitemap-owned, internally linked, answer-first, structured and kept off the heavy enrichment path.`);
+console.log(`Sports venue landings validated: ${expectedLandings.length} indexable market/theme pages are sitemap-owned, answer-first, bidirectionally linked, structured and kept off the heavy enrichment path.`);
