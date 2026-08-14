@@ -57,7 +57,7 @@ if (!failures.length) {
     if (!routing.includes(signal)) failures.push(`Species routing contract missing: ${signal}`);
   }
   if (!routing.includes('"largemouth-bass"')) failures.push("Largemouth bass is not registered as the complete species prototype.");
-  if (!slugs.includes('canonicalSlug === "largemouth-bass"') || !slugs.includes('/fishing/species#species-')) failures.push("Species canonical/detail-versus-directory anchor policy is broken.");
+  if (!slugs.includes('isCompleteFishingSpeciesSlug(canonicalSlug)') || !slugs.includes('/fishing/species#species-')) failures.push("Species canonical/detail-versus-directory anchor policy is broken.");
   if (!fishingRoute.includes('to="/fishing/species"') || !fishingRoute.includes('fishingFoundationAnchor("species", row.slug)')) failures.push("Fishing hub does not discover the species directory and canonical species targets.");
   if (!search.includes('fishingFoundationAnchor("species", row.slug)')) failures.push("Global fishing search does not use canonical species targets.");
   if (!internalLinks.includes('fishingFoundationAnchor("species", row.slug)')) failures.push("Fishing internal linking does not use canonical species targets.");
