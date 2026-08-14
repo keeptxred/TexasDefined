@@ -81,16 +81,42 @@ const rows = fips.map((code) => Object.fromEntries([
   ['fips', code],
   ...tables.map((table) => [table.field, table.values.get(code) ?? null]),
 ]));
+const sourceFiles = Object.fromEntries(tables.map((table) => [table.field, table.url]));
+
+let existing = null;
+try {
+  existing = JSON.parse(await fs.readFile(OUTPUT, 'utf8'));
+} catch {
+  // First bootstrap has no prior snapshot to preserve.
+}
+
+const stablePayload = {
+  release: RELEASE,
+  year: YEAR,
+  sourcePage: SOURCE_PAGE,
+  sourceFiles,
+  rowCount: rows.length,
+  rows,
+};
+const existingStablePayload = existing ? {
+  release: existing.release,
+  year: existing.year,
+  sourcePage: existing.sourcePage,
+  sourceFiles: existing.sourceFiles,
+  rowCount: existing.rowCount,
+  rows: existing.rows,
+} : null;
+const dataChanged = JSON.stringify(stablePayload) !== JSON.stringify(existingStablePayload);
 
 const snapshot = {
   release: RELEASE,
   year: YEAR,
-  generatedAt: new Date().toISOString(),
+  generatedAt: dataChanged || !existing?.generatedAt ? new Date().toISOString() : existing.generatedAt,
   sourcePage: SOURCE_PAGE,
-  sourceFiles: Object.fromEntries(tables.map((table) => [table.field, table.url])),
+  sourceFiles,
   rowCount: rows.length,
   rows,
 };
 
 await fs.writeFile(OUTPUT, `${JSON.stringify(snapshot, null, 2)}\n`, 'utf8');
-console.log(`Wrote ${rows.length} Texas county housing/cost rows to ${OUTPUT}`);
+console.log(`${dataChanged ? 'Refreshed' : 'Verified unchanged'} ${rows.length} Texas county housing/cost rows in ${OUTPUT}`);
