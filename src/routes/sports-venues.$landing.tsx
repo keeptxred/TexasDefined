@@ -203,18 +203,18 @@ function SportsVenueLandingPage() {
 function buildQuickAnswers(landing: SportsVenueLanding, venues: TexasEntityRecord[], lastReviewed?: string) {
   const examples = venues.slice(0, 5).map((venue) => venue.name);
   const exampleSentence = formatList(examples);
-  const scope = landing.kind === 'market' ? landing.title.replace(/^.*?\b(stadiums|arenas|sports venues)\b/i, '').trim() : landing.title;
+  const answerLabel = landing.eyebrow.replace(/ sports travel$/i, '').trim();
   const sourceAnswer = lastReviewed
     ? `TexasDefined currently includes ${venues.length} matching venue guide${venues.length === 1 ? '' : 's'} here. Source records for this collection were reviewed through ${formatDate(lastReviewed)}; event schedules and operating details should still be confirmed on the official venue links before travel.`
     : `TexasDefined currently includes ${venues.length} matching venue guide${venues.length === 1 ? '' : 's'} here. Each venue page links to an official source for details that can change before an event.`;
 
   return [
     {
-      question: landing.kind === 'market' ? `What major sports venues are covered in this ${landing.eyebrow.replace(/ sports travel$/i, '')} guide?` : `Which venues are included in this ${landing.title.toLowerCase()} guide?`,
+      question: `What major sports venues are covered in this ${answerLabel} guide?`,
       answer: `This TexasDefined collection currently covers ${venues.length} verified venue guide${venues.length === 1 ? '' : 's'}, including ${exampleSentence}. Open any venue below for its visitor-planning page and official source links.`,
     },
     {
-      question: `How many venue guides are in this ${scope || 'sports'} collection?`,
+      question: `How many venue guides are in the ${answerLabel} collection?`,
       answer: sourceAnswer,
     },
     {
@@ -223,7 +223,7 @@ function buildQuickAnswers(landing: SportsVenueLanding, venues: TexasEntityRecor
     },
     {
       question: 'Can I use this page to compare venues for a Texas sports trip?',
-      answer: `Yes. The directory keeps the matching venues in one crawlable collection, while each venue page adds its county, region, venue type and visitor guidance. Use the market and sport links farther down the page to move between related Texas sports-trip ideas.`,
+      answer: 'Yes. The directory keeps the matching venues in one crawlable collection, while each venue page adds its county, region, venue type and visitor guidance. Use the market and sport links farther down the page to move between related Texas sports-trip ideas.',
     },
   ];
 }
