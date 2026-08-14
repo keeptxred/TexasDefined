@@ -5,13 +5,8 @@ import type { getLakeConroePageData } from "@/data/fishing/lake-conroe-page-data
 import {
   LAKE_CONROE_SECTION_SLUGS,
   LAKE_CONROE_VERIFIED_AT,
-  lakeConroeBoatingNotes,
   lakeConroeCanonicalPath,
-  lakeConroeHabitat,
-  lakeConroeOverview,
-  lakeConroeReportSnapshot,
   lakeConroeSectionMeta,
-  lakeConroeSources,
   newestPublishedReport,
   verifiedGuides,
   type LakeConroeSection,
@@ -19,10 +14,11 @@ import {
 import type { FishingGuide, FishingReport } from "@/data/fishing/types";
 
 type LakeConroePageData = Awaited<ReturnType<typeof getLakeConroePageData>>;
+type LakeConroeSourceKey = keyof LakeConroePageData["sources"];
 
 export function LakeConroeGuide({ section, reports, guides, pageData }: { section?: LakeConroeSection; reports: FishingReport[]; guides: FishingGuide[]; pageData: LakeConroePageData }) {
   const title = section ? lakeConroeSectionMeta[section].title : "Lake Conroe Fishing Guide";
-  const description = section ? lakeConroeSectionMeta[section].description : lakeConroeOverview.summary;
+  const description = section ? lakeConroeSectionMeta[section].description : pageData.overview.summary;
 
   return (
     <>
@@ -44,8 +40,8 @@ export function LakeConroeGuide({ section, reports, guides, pageData }: { sectio
           <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">{title}</h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/80">{description}</p>
           <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-xs uppercase tracking-[0.12em] text-ink-foreground/60">
-            <span>Montgomery + Walker counties</span>
-            <span>20,118 acres</span>
+            <span>{pageData.overview.counties.join(" + ")} counties</span>
+            <span>{pageData.overview.surfaceAcres.toLocaleString("en-US")} acres</span>
             <span>Verified {formatDate(LAKE_CONROE_VERIFIED_AT)}</span>
           </div>
         </Container>
@@ -66,20 +62,21 @@ export function LakeConroeGuide({ section, reports, guides, pageData }: { sectio
         {!section && <Overview pageData={pageData} />}
         {section === "fish" && <Fish pageData={pageData} />}
         {section === "access" && <Access pageData={pageData} />}
-        {section === "boating" && <Boating />}
+        {section === "boating" && <Boating pageData={pageData} />}
         {section === "regulations" && <Regulations pageData={pageData} />}
         {section === "camping" && <Camping pageData={pageData} />}
         {section === "nearby" && <Nearby pageData={pageData} />}
-        {section === "reports" && <Reports reports={reports} />}
+        {section === "reports" && <Reports reports={reports} pageData={pageData} />}
         {section === "guides" && <Guides guides={guides} />}
 
-        <SourceFooter section={section} />
+        <SourceFooter section={section} pageData={pageData} />
       </Container>
     </>
   );
 }
 
 function Overview({ pageData }: { pageData: LakeConroePageData }) {
+  const overview = pageData.overview;
   return (
     <div className="space-y-16">
       <section className="grid gap-10 lg:grid-cols-[1.25fr_0.75fr]">
@@ -88,17 +85,17 @@ function Overview({ pageData }: { pageData: LakeConroePageData }) {
           <h2 className="mt-3 font-display text-4xl sm:text-5xl">A fishing lake with two very different personalities.</h2>
           <p className="mt-5 max-w-3xl text-base leading-8 text-muted-foreground">The developed lower lake is built around open water, bulkheads, docks and marinas. Farther north, the reservoir reaches into Sam Houston National Forest and the old river channel becomes more timber-oriented. That difference matters for both fishing strategy and boat navigation.</p>
           <div className="mt-8 grid gap-5 border-t border-border pt-6 sm:grid-cols-2 lg:grid-cols-3">
-            <Fact label="Surface area" value={`${lakeConroeOverview.surfaceAcres.toLocaleString("en-US")} acres`} />
-            <Fact label="Impounded" value={String(lakeConroeOverview.impoundedYear)} />
-            <Fact label="Counties" value={lakeConroeOverview.counties.join(" + ")} />
-            <Fact label="Waterway" value={lakeConroeOverview.waterway} />
-            <Fact label="Conservation pool" value={`${lakeConroeOverview.conservationPoolFeetMsl} ft msl`} />
-            <Fact label="Normal fluctuation" value={lakeConroeOverview.normalFluctuation} />
-            <Fact label="Average depth" value={`${lakeConroeOverview.averageDepthFeet} ft (SJRA)`} />
-            <Fact label="Shoreline" value={`About ${lakeConroeOverview.shorelineMilesApprox} miles (SJRA)`} />
-            <Fact label="Nearest communities" value={lakeConroeOverview.nearestCommunities.join(", ")} />
+            <Fact label="Surface area" value={`${overview.surfaceAcres.toLocaleString("en-US")} acres`} />
+            <Fact label="Impounded" value={String(overview.impoundedYear)} />
+            <Fact label="Counties" value={overview.counties.join(" + ")} />
+            <Fact label="Waterway" value={overview.waterway} />
+            <Fact label="Conservation pool" value={`${overview.conservationPoolFeetMsl} ft msl`} />
+            <Fact label="Normal fluctuation" value={overview.normalFluctuation} />
+            <Fact label="Average depth" value={`${overview.averageDepthFeet} ft (SJRA)`} />
+            <Fact label="Shoreline" value={`About ${overview.shorelineMilesApprox} miles (SJRA)`} />
+            <Fact label="Nearest communities" value={overview.nearestCommunities.join(", ")} />
           </div>
-          <p className="mt-5 text-xs leading-6 text-muted-foreground"><strong className="text-foreground">Maximum depth:</strong> {lakeConroeOverview.maximumDepthNote}</p>
+          <p className="mt-5 text-xs leading-6 text-muted-foreground"><strong className="text-foreground">Maximum depth:</strong> {overview.maximumDepthNote}</p>
         </div>
 
         <aside className="border-t-2 border-foreground pt-5">
@@ -106,8 +103,8 @@ function Overview({ pageData }: { pageData: LakeConroePageData }) {
           <div className="mt-4 aspect-[4/3] overflow-hidden border border-border bg-muted">
             <iframe title="Map of Lake Conroe, Texas" src="https://www.google.com/maps?q=Lake%20Conroe%20Texas&output=embed" loading="lazy" referrerPolicy="no-referrer-when-downgrade" className="h-full w-full" />
           </div>
-          <a href={lakeConroeOverview.mapUrl} target="_blank" rel="noreferrer noopener" className="eyebrow mt-4 inline-block border-b border-primary pb-1 text-primary">Open Lake Conroe map →</a>
-          <a href={lakeConroeSources.liveLevel.url} target="_blank" rel="noreferrer noopener" className="eyebrow ml-5 mt-4 inline-block border-b border-primary pb-1 text-primary">Live lake level →</a>
+          <a href={overview.mapUrl} target="_blank" rel="noreferrer noopener" className="eyebrow mt-4 inline-block border-b border-primary pb-1 text-primary">Open Lake Conroe map →</a>
+          <a href={pageData.sources.liveLevel.url} target="_blank" rel="noreferrer noopener" className="eyebrow ml-5 mt-4 inline-block border-b border-primary pb-1 text-primary">Live lake level →</a>
         </aside>
       </section>
 
@@ -115,7 +112,7 @@ function Overview({ pageData }: { pageData: LakeConroePageData }) {
         <p className="eyebrow text-primary">Cover & structure</p>
         <h2 className="mt-3 font-display text-4xl">What the water looks like to a fish.</h2>
         <div className="mt-7 grid gap-5 sm:grid-cols-2">
-          {lakeConroeHabitat.map((item) => <p key={item} className="border-t border-border pt-5 text-sm leading-7 text-muted-foreground">{item}</p>)}
+          {pageData.habitat.map((item) => <p key={item} className="border-t border-border pt-5 text-sm leading-7 text-muted-foreground">{item}</p>)}
         </div>
       </section>
 
@@ -166,7 +163,7 @@ function Access({ pageData }: { pageData: LakeConroePageData }) {
       <p className="mt-5 max-w-3xl text-base leading-8 text-muted-foreground">TPWD's access inventory mixes federal, state and private facilities. Fees and operating status can change, so each listing keeps the managing source visible instead of pretending the directory is real-time.</p>
       <div className="mt-9 grid gap-x-8 border-t border-border md:grid-cols-2">
         {pageData.access.map((item) => {
-          const source = lakeConroeSources[item.source];
+          const source = pageData.sources[item.source as LakeConroeSourceKey];
           return <article key={item.name} className="border-b border-border py-7"><p className="eyebrow text-primary">{item.operator}</p><h3 className="mt-2 font-display text-2xl">{item.name}</h3><dl className="mt-4 space-y-2 text-sm leading-6"><div><dt className="inline text-muted-foreground">Launch: </dt><dd className="inline">{item.launch}</dd></div><div><dt className="inline text-muted-foreground">Fee: </dt><dd className="inline">{item.fee}</dd></div><div><dt className="inline text-muted-foreground">Availability: </dt><dd className="inline">{item.availability}</dd></div></dl><a href={source.url} target="_blank" rel="noreferrer noopener" className="eyebrow mt-5 inline-block border-b border-primary pb-1 text-primary">Verify with source →</a></article>;
         })}
       </div>
@@ -174,13 +171,13 @@ function Access({ pageData }: { pageData: LakeConroePageData }) {
   );
 }
 
-function Boating() {
+function Boating({ pageData }: { pageData: LakeConroePageData }) {
   return (
     <section>
       <p className="eyebrow text-primary">Before you launch</p>
       <h2 className="mt-3 max-w-4xl font-display text-4xl sm:text-5xl">Lake level, timber and clean-drain-dry all matter here.</h2>
-      <div className="mt-8 grid gap-5 sm:grid-cols-2">{lakeConroeBoatingNotes.map((item) => <p key={item} className="border-t border-border pt-5 text-sm leading-7 text-muted-foreground">{item}</p>)}</div>
-      <div className="mt-10 flex flex-wrap gap-5"><a href={lakeConroeSources.liveLevel.url} target="_blank" rel="noreferrer noopener" className="eyebrow border-b border-primary pb-1 text-primary">Check live lake level →</a><Link to={lakeConroeCanonicalPath("access")} className="eyebrow border-b border-primary pb-1 text-primary">Compare boat ramps →</Link></div>
+      <div className="mt-8 grid gap-5 sm:grid-cols-2">{pageData.boatingNotes.map((item) => <p key={item} className="border-t border-border pt-5 text-sm leading-7 text-muted-foreground">{item}</p>)}</div>
+      <div className="mt-10 flex flex-wrap gap-5"><a href={pageData.sources.liveLevel.url} target="_blank" rel="noreferrer noopener" className="eyebrow border-b border-primary pb-1 text-primary">Check live lake level →</a><Link to={lakeConroeCanonicalPath("access")} className="eyebrow border-b border-primary pb-1 text-primary">Compare boat ramps →</Link></div>
     </section>
   );
 }
@@ -193,7 +190,7 @@ function Regulations({ pageData }: { pageData: LakeConroePageData }) {
       <p className="mt-5 max-w-3xl text-base leading-8 text-muted-foreground">The limits below were checked against TPWD on {formatDate(LAKE_CONROE_VERIFIED_AT)}. Regulations can change. Confirm the official Lake Conroe page before fishing.</p>
       <div className="mt-9 border-t border-border">{pageData.regulations.map((row) => <div key={row.species} className="grid gap-2 border-b border-border py-5 sm:grid-cols-[0.35fr_0.65fr]"><h3 className="font-display text-xl">{row.species}</h3><p className="text-sm leading-6 text-muted-foreground">{row.limit}</p></div>)}</div>
       <div className="mt-8 border-l-2 border-primary pl-5"><p className="text-sm leading-7"><strong>Grass carp:</strong> TPWD lists a Triploid Grass Carp Permit for Lake Conroe. Any grass carp caught must be returned to the water immediately and unharmed.</p></div>
-      <a href={lakeConroeSources.tpwdRegulations.url} target="_blank" rel="noreferrer noopener" className="eyebrow mt-7 inline-block border-b border-primary pb-1 text-primary">Open official Lake Conroe regulations →</a>
+      <a href={pageData.sources.tpwdRegulations.url} target="_blank" rel="noreferrer noopener" className="eyebrow mt-7 inline-block border-b border-primary pb-1 text-primary">Open official Lake Conroe regulations →</a>
     </section>
   );
 }
@@ -204,7 +201,7 @@ function Camping({ pageData }: { pageData: LakeConroePageData }) {
       <p className="eyebrow text-primary">Stay near the lake</p>
       <h2 className="mt-3 max-w-4xl font-display text-4xl sm:text-5xl">Start with the public-land options we can verify.</h2>
       <p className="mt-5 max-w-3xl text-base leading-8 text-muted-foreground">Rather than presenting a generic hotel list, this prototype begins with official national-forest recreation areas tied directly to Lake Conroe.</p>
-      <div className="mt-9 grid gap-6 lg:grid-cols-3">{pageData.camping.map((item) => { const source = lakeConroeSources[item.source]; return <article key={item.name} className="border-t-2 border-foreground pt-5"><p className="eyebrow text-primary">{item.type}</p><h3 className="mt-2 font-display text-2xl">{item.name}</h3><p className="mt-4 text-sm leading-7 text-muted-foreground">{item.summary}</p><a href={source.url} target="_blank" rel="noreferrer noopener" className="eyebrow mt-5 inline-block border-b border-primary pb-1 text-primary">Check official details →</a></article>; })}</div>
+      <div className="mt-9 grid gap-6 lg:grid-cols-3">{pageData.camping.map((item) => { const source = pageData.sources[item.source as LakeConroeSourceKey]; return <article key={item.name} className="border-t-2 border-foreground pt-5"><p className="eyebrow text-primary">{item.type}</p><h3 className="mt-2 font-display text-2xl">{item.name}</h3><p className="mt-4 text-sm leading-7 text-muted-foreground">{item.summary}</p><a href={source.url} target="_blank" rel="noreferrer noopener" className="eyebrow mt-5 inline-block border-b border-primary pb-1 text-primary">Check official details →</a></article>; })}</div>
     </section>
   );
 }
@@ -219,14 +216,14 @@ function Nearby({ pageData }: { pageData: LakeConroePageData }) {
   );
 }
 
-function Reports({ reports }: { reports: FishingReport[] }) {
+function Reports({ reports, pageData }: { reports: FishingReport[]; pageData: LakeConroePageData }) {
   const report = newestPublishedReport(reports);
   return (
     <section>
       <p className="eyebrow text-primary">Freshness first</p>
       <h2 className="mt-3 max-w-4xl font-display text-4xl sm:text-5xl">A fishing report is useful only when its date and source are obvious.</h2>
-      {report ? <article className="mt-8 border-t-2 border-foreground pt-6"><p className="eyebrow text-primary">Published {formatDate(report.publishedAt)}</p><h3 className="mt-2 font-display text-3xl">{report.title}</h3><p className="mt-4 max-w-3xl text-base leading-8 text-muted-foreground">{report.summary}</p></article> : <div className="mt-8 max-w-3xl border-l-2 border-primary pl-6"><h3 className="font-display text-2xl">No TexasDefined current report is published.</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">{lakeConroeReportSnapshot.summary}</p></div>}
-      <a href={lakeConroeSources.tpwdReport.url} target="_blank" rel="noreferrer noopener" className="eyebrow mt-7 inline-block border-b border-primary pb-1 text-primary">Check TPWD's report page →</a>
+      {report ? <article className="mt-8 border-t-2 border-foreground pt-6"><p className="eyebrow text-primary">Published {formatDate(report.publishedAt)}</p><h3 className="mt-2 font-display text-3xl">{report.title}</h3><p className="mt-4 max-w-3xl text-base leading-8 text-muted-foreground">{report.summary}</p></article> : <div className="mt-8 max-w-3xl border-l-2 border-primary pl-6"><h3 className="font-display text-2xl">No TexasDefined current report is published.</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">{pageData.reportSnapshot.summary}</p></div>}
+      <a href={pageData.sources.tpwdReport.url} target="_blank" rel="noreferrer noopener" className="eyebrow mt-7 inline-block border-b border-primary pb-1 text-primary">Check TPWD's report page →</a>
       <div className="mt-12 border-t border-border pt-7"><h3 className="font-display text-2xl">What a TexasDefined report must show</h3><div className="mt-5 grid gap-4 text-sm leading-7 text-muted-foreground sm:grid-cols-2 lg:grid-cols-4"><p>Publication and expiration dates.</p><p>Contributor attribution.</p><p>Species-specific activity and depth guidance.</p><p>Water conditions only when a source actually supplied them.</p></div></div>
     </section>
   );
@@ -244,19 +241,19 @@ function Guides({ guides }: { guides: FishingGuide[] }) {
   );
 }
 
-function SourceFooter({ section }: { section?: LakeConroeSection }) {
+function SourceFooter({ section, pageData }: { section?: LakeConroeSection; pageData: LakeConroePageData }) {
   const keys = sectionSources(section);
   return (
     <section className="mt-16 border-t border-border pt-8" aria-labelledby="lake-conroe-sources">
       <p className="eyebrow text-primary">Source transparency</p>
       <h2 id="lake-conroe-sources" className="mt-2 font-display text-2xl">Verified {formatDate(LAKE_CONROE_VERIFIED_AT)}</h2>
       <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Official facts are kept separate from live conditions. Water levels, ramp availability, closures, regulations and fishing activity can change after this verification date.</p>
-      <ul className="mt-5 flex flex-wrap gap-x-6 gap-y-3">{keys.map((key) => { const source = lakeConroeSources[key]; return <li key={key}><a href={source.url} target="_blank" rel="noreferrer noopener" className="text-sm font-medium underline decoration-border underline-offset-4 hover:decoration-primary">{source.label}</a></li>; })}</ul>
+      <ul className="mt-5 flex flex-wrap gap-x-6 gap-y-3">{keys.map((key) => { const source = pageData.sources[key]; return <li key={key}><a href={source.url} target="_blank" rel="noreferrer noopener" className="text-sm font-medium underline decoration-border underline-offset-4 hover:decoration-primary">{source.label}</a></li>; })}</ul>
     </section>
   );
 }
 
-function sectionSources(section?: LakeConroeSection): Array<keyof typeof lakeConroeSources> {
+function sectionSources(section?: LakeConroeSection): LakeConroeSourceKey[] {
   if (section === "access") return ["tpwdAccess", "usfsCagle", "usfsScottsRidge", "usfsStubblefield"];
   if (section === "regulations") return ["tpwdRegulations", "tpwdLake"];
   if (section === "boating") return ["tpwdLake", "liveLevel", "sjra"];
