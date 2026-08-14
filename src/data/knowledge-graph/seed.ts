@@ -1,5 +1,6 @@
 import type { TexasEntityRecord } from './types';
 import { MAJOR_TEXAS_SPORTS_VENUES } from './major-sports-venues';
+import { TEXAS_SPORTS_VENUE_TIER2_ENTITIES } from './sports-venues-tier2';
 
 const checkedAt = '2026-08-04';
 const official = (record: Omit<TexasEntityRecord, 'sourceConfidence' | 'sourceCheckedAt'>): TexasEntityRecord => ({
@@ -50,4 +51,5 @@ export const CURATED_KNOWLEDGE_GRAPH_SEED = [
   ...TEXAS_TOURISM_ENTITIES,
   ...TEXAS_EVENT_ENTITIES,
   ...MAJOR_TEXAS_SPORTS_VENUES,
+  ...TEXAS_SPORTS_VENUE_TIER2_ENTITIES,
 ];
