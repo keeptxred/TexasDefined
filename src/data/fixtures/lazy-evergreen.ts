@@ -352,7 +352,7 @@ export async function loadLazyEvergreenArticle(brandId: string, slug: string): P
   }
 
   if (slug === texasFoundationCareStub.slug) {
-    const { texasFoundationCareArticle } = await import("./texas-foundation-care-clay-soil-drought");
+    const { texasFoundationCareArticle } = await import("./texas-foundation-care-clay-drought");
     return texasFoundationCareArticle;
   }
 
