@@ -8,7 +8,7 @@ const partnerInquirySchema = z.object({
   email: z.string().trim().email().max(320),
   company: z.string().trim().min(2).max(180),
   website: z.string().trim().max(500),
-  partnershipType: z.enum(['insurance', 'mortgage', 'real-estate', 'moving', 'travel', 'sponsorship', 'other']),
+  partnershipType: z.enum(['insurance', 'mortgage', 'real-estate', 'moving', 'travel', 'sports-travel', 'sponsorship', 'other']),
   message: z.string().trim().min(20).max(5000),
   sourcePath: z.string().trim().max(500).default('/partner-with-us'),
   addressLine2: z.string().max(200).default(''),
