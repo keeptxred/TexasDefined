@@ -7,6 +7,7 @@ import specialDistrictsHero from "@/assets/generated/texas-special-districts.jpg
 
 import type { Article } from "../types";
 import { buyingLandInTexasGuideStub } from "./buying-land-in-texas-guide-stub";
+import { texasCulturalRegionsExplainedStub } from "./texas-cultural-regions-explained-stub";
 import { texasHomeArchitectureRegionsStub } from "./texas-home-architecture-regions-stub";
 import {
   chooseElectricityPlanTexasStub,
@@ -201,6 +202,7 @@ export const lazyEvergreenArticleStubs: Article[] = [
   texasWildflowersGuideStub,
   texasTreesGuideStub,
   texasWildlifeGuideStub,
+  texasCulturalRegionsExplainedStub,
   texasHomeArchitectureRegionsStub,
   texasHurricanePreparationStub,
   texasRoofsHailWindHeatStub,
@@ -296,10 +298,44 @@ const texasWildlifeOfficialLinks: NonNullable<Article["internalLinks"]> = [
   },
 ];
 
+const texasCulturalRegionsOfficialLinks: NonNullable<Article["internalLinks"]> = [
+  {
+    href: "https://thc.texas.gov/travel/historic-road-trips",
+    label: "Texas Historical Commission historic road trips",
+    description: "Explore official heritage routes connecting Indigenous, immigrant, frontier and community history across Texas.",
+  },
+  {
+    href: "https://thc.texas.gov/preserve/preservation-programs/historical-markers",
+    label: "Texas historical markers and thematic maps",
+    description: "Use THC markers and thematic maps to trace cultural communities, events and settlement patterns across the state.",
+  },
+  {
+    href: "https://thc.texas.gov/news-releases/discover-african-american-history-across-texas-free-travel-guide",
+    label: "African American history across Texas",
+    description: "THC's current statewide guide to freedom colonies, churches, schools, historic districts and other African American heritage sites.",
+  },
+  {
+    href: "https://tpwd.texas.gov/state-parks/parks/things-to-do/history-culture/frontier-life/",
+    label: "Immigration and settlement on the Texas frontier",
+    description: "TPWD's statewide overview of immigration, settlement, ranching and frontier history at Texas state parks.",
+  },
+  {
+    href: "https://thc.texas.gov/blog/discover-asia-houston",
+    label: "Asian Texas and modern Houston migration",
+    description: "THC's history of Asian immigration and community formation in Houston, including Vietnamese settlement after 1975.",
+  },
+];
+
 const wildlifeReciprocalLink: NonNullable<Article["internalLinks"]>[number] = {
   href: "/article/texas-wildlife-guide",
   label: "Texas wildlife field guide",
   description: "Meet the deer, armadillos, coyotes, bats, snakes, hogs and other animals Texans actually encounter.",
+};
+
+const culturalRegionsReciprocalLink: NonNullable<Article["internalLinks"]>[number] = {
+  href: "/article/texas-cultural-regions-explained",
+  label: "The cultural regions of Texas",
+  description: "See how Indigenous homelands, migration, slavery and freedom, ranching, railroads, oil and global immigration created different Texases.",
 };
 
 export async function loadLazyEvergreenArticle(brandId: string, slug: string): Promise<Article | null> {
@@ -328,6 +364,11 @@ export async function loadLazyEvergreenArticle(brandId: string, slug: string): P
   if (slug === texasWildlifeGuideStub.slug) {
     const { texasWildlifeGuideArticle } = await import("./texas-wildlife-guide");
     return addSourceLinks(texasWildlifeGuideArticle, texasWildlifeOfficialLinks);
+  }
+
+  if (slug === texasCulturalRegionsExplainedStub.slug) {
+    const { texasCulturalRegionsExplainedArticle } = await import("./texas-cultural-regions-explained");
+    return addSourceLinks(texasCulturalRegionsExplainedArticle, texasCulturalRegionsOfficialLinks);
   }
 
   if (slug === texasHomeArchitectureRegionsStub.slug) {
@@ -384,7 +425,7 @@ export async function loadLazyEvergreenArticle(brandId: string, slug: string): P
 
   if (slug === texasTownCulturalRootsStub.slug) {
     const { texasTownCulturalRootsArticle } = await import("./texas-town-cultural-roots");
-    return texasTownCulturalRootsArticle;
+    return addSourceLinks(texasTownCulturalRootsArticle, [culturalRegionsReciprocalLink]);
   }
 
   if (slug === texasCourthousesTownSquareStub.slug) {
