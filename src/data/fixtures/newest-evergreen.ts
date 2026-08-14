@@ -1,5 +1,4 @@
 import type { Article } from "../types";
-import { texasRiversExplainedArticle } from "./texas-rivers-explained";
 import { texasTownCulturalRootsArticle } from "./texas-town-cultural-roots";
 import { texasCourthousesTownSquareArticle } from "./texas-courthouses-town-square";
 import { texasHurricanePreparationArticle } from "./texas-hurricane-preparation-guide";
@@ -24,10 +23,6 @@ const addSourceLinks = (article: Article, links: NonNullable<Article["internalLi
 };
 
 export const newestEvergreenArticles = [
-  addSourceLinks(texasRiversExplainedArticle, [
-    { href: "https://www.twdb.texas.gov/surfacewater/rivers/", label: "Texas Water Development Board river basins", description: "Official Texas river-basin and reservoir reference information." },
-    { href: "https://www.twdb.texas.gov/surfacewater/conditions/index.asp", label: "Texas water conditions and data", description: "Current and historical surface-water data from the Texas Water Development Board." },
-  ]),
   winklerCountyKermitWinkOilArticle,
   texasTownCulturalRootsArticle,
   texasCourthousesTownSquareArticle,
