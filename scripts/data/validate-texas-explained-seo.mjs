@@ -245,10 +245,19 @@ for (const marker of [
   'id: "collection:texas-explained"',
   'kind: "collection"',
   'title: "Texas Explained: 10 Guides to How the State Works"',
+  'summary: "Ten connected guides to why Texas works the way it does:',
+  '"why Texas"',
+  '"Texas geography"',
+  '"Texas regions"',
+  '"Texas counties"',
+  '"Texas nature"',
+  '"Texas infrastructure"',
+  '"Texas culture"',
+  '"Texas settlement"',
   'href: "/texas-explained"',
   'for (const document of staticSearchDocuments)',
 ]) {
-  if (!queries.includes(marker)) errors.push(`Texas Explained search-discovery contract missing: ${marker}.`);
+  if (!queries.includes(marker)) errors.push(`Texas Explained search-discovery and broad-intent contract missing: ${marker}.`);
 }
 
 for (const marker of [
@@ -266,4 +275,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Texas Explained collection, exact ten-pillar Article → CollectionPage schema membership, visible ten-pillar article-series cue, sitemap ownership, Start Here discovery, reciprocal collection backlinks, pillar-to-pillar topic clusters, bidirectional five-page supporting authority ring, five-question AEO quick-answer layer, homepage promotion, persistent footer navigation, site-search indexing and zero-query search discovery are protected.');
+console.log('Texas Explained collection, exact ten-pillar Article → CollectionPage schema membership, visible ten-pillar article-series cue, sitemap ownership, Start Here discovery, reciprocal collection backlinks, pillar-to-pillar topic clusters, bidirectional five-page supporting authority ring, five-question AEO quick-answer layer, broad-intent site-search vocabulary, homepage promotion, persistent footer navigation, site-search indexing and zero-query search discovery are protected.');
