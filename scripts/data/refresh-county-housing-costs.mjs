@@ -14,25 +14,12 @@ const TABLES = [
   { table: 'b25088', variable: 'B25088_E001', field: 'medianMonthlyOwnerCosts' },
 ];
 
-function parseCsvLine(line) {
-  const cells = [];
-  let value = '';
-  let quoted = false;
-  for (let i = 0; i < line.length; i += 1) {
-    const char = line[i];
-    if (char === '"') {
-      if (quoted && line[i + 1] === '"') { value += '"'; i += 1; }
-      else quoted = !quoted;
-    } else if (char === ',' && !quoted) {
-      cells.push(value); value = '';
-    } else value += char;
-  }
-  cells.push(value);
-  return cells;
+function parseDataLine(line) {
+  return line.split('|');
 }
 
 async function readLines(url, onLine) {
-  const response = await fetch(url, { headers: { accept: 'text/plain,text/csv' } });
+  const response = await fetch(url, { headers: { accept: 'text/plain' } });
   if (!response.ok || !response.body) throw new Error(`Census download failed: ${response.status} ${url}`);
   const decoder = new TextDecoder();
   let buffer = '';
@@ -57,7 +44,7 @@ async function loadTable({ table, variable, field }) {
   let valueIndex = -1;
   await readLines(url, (line) => {
     if (!line) return;
-    const cells = parseCsvLine(line);
+    const cells = parseDataLine(line);
     if (!header) {
       header = cells.map((cell) => cell.replace(/^\uFEFF/, '').trim());
       geoIndex = header.indexOf('GEO_ID');
