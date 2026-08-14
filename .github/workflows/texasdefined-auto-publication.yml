@@ -17,6 +17,13 @@ on:
         description: For manual publish mode only, enter PUBLISH_TEXASDEFINED.
         required: false
         type: string
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/texasdefined-auto-publication.yml'
+      - 'scripts/news/texasdefined-auto-publisher.mjs'
+      - 'scripts/data/validate-texasdefined-auto-publication.mjs'
 
 permissions:
   contents: read
@@ -51,6 +58,15 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
+      - name: Verify publication secrets are present
+        shell: bash
+        run: |
+          test -n "$KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY" || { echo 'Missing KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY'; exit 1; }
+          test -n "$CLOUDFLARE_ACCOUNT_ID" || { echo 'Missing CLOUDFLARE_ACCOUNT_ID'; exit 1; }
+          test -n "$CLOUDFLARE_API_TOKEN" || { echo 'Missing CLOUDFLARE_API_TOKEN'; exit 1; }
+      - name: Smoke-test eligible queue after publisher changes
+        if: github.event_name == 'push'
+        run: node scripts/news/texasdefined-auto-publisher.mjs --limit=1
       - name: Inspect eligible queue without publishing
         if: github.event_name == 'workflow_dispatch' && inputs.mode == 'dry-run'
         run: node scripts/news/texasdefined-auto-publisher.mjs --limit=3
