@@ -50,7 +50,8 @@ requireFeatures(engine, [
 ], 'Destination relationship engine');
 
 requireFeatures(component, [
-  'if (!groups.length) return null',
+  'groups.length ? <>',
+  'TexasExplainedContextLinks surface="destination"',
   'aria-label="Ways to continue the trip"',
   'groups.map((group)',
   'href={`#relationship-${group.id}`}',
@@ -70,6 +71,10 @@ requireFeatures(component, [
   'search={{ q: destination.nearestTown }}',
 ], 'Destination relationship UI');
 
+if (component.includes('if (!groups.length) return null')) {
+  errors.push('Destination relationship UI must preserve Texas Explained fallback discovery when no relationship groups are available.');
+}
+
 if (route.includes('destinationsQuery({ category: destination.category, limit: 16 })')) {
   errors.push('Destination route regressed to the former same-category-only relationship query.');
 }
@@ -80,4 +85,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Destination proximity, trip-intent water/history/outdoors/weekend groups, town, complementary-category, similarity, regional, deduplication, crawlable UI, planner exits, and ItemList relationships passed validation.');
+console.log('Destination proximity, trip-intent water/history/outdoors/weekend groups, Texas Explained fallback discovery, town, complementary-category, similarity, regional, deduplication, crawlable UI, planner exits, and ItemList relationships passed validation.');
