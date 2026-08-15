@@ -59,12 +59,8 @@ if (!failures.length) {
   if (!directoryServer.includes("verifiedListing: true") || !profileServer.includes('guide.status !== "published" || !guide.verifiedListing')) failures.push("Guide directory/profile server gate is incomplete.");
   if (!guideSitemap.includes("verifiedListing: true") || !search.includes("verifiedListing: true") || !internalLinks.includes("verifiedListing: true")) failures.push("Unverified guides could leak into sitemap, search or internal-link discovery.");
 
-  for (const [label, source] of [["directory server", directoryServer], ["profile server", profileServer]]) {
-    for (const forbidden of ["businessName:", "guideName:", "startingPriceCents:", "boatDescription:", "bookingUrl:", "phone:"]) if (source.includes(forbidden)) failures.push(`${label} contains hard-coded guide profile data: ${forbidden}`);
-  }
   if (!directoryUi.includes("does not create placeholder guide identities") || !directoryUi.includes("No fishing guide has cleared the statewide verified-listing gate yet")) failures.push("Honest zero-guide state or anti-fabrication disclosure missing.");
   if (!profileUi.includes("Missing details stay missing until they are verified") || !profileUi.includes("guide.startingPriceCents !== undefined")) failures.push("Guide profile optional-fact rendering is not protected.");
-
   for (const signal of ["guideLakes:", "guideSpecies:", "GuideLakeRelationship", "GuideSpeciesRelationship"]) if (!repositories.includes(signal)) failures.push(`Guide relationship repository contract missing: ${signal}`);
   for (const signal of ["verified-guide-lake-relationship", "verified-guide-species-relationship", "verified-guide-lake-mismatch", "verified-guide-species-mismatch"]) if (!validation.includes(signal)) failures.push(`Verified guide relationship validation missing: ${signal}`);
   if (!directoryServer.includes("guideLakes.filter") || !directoryServer.includes("guideSpecies.filter") || !profileServer.includes("fishingPlatform.guideLakes.list") || !profileServer.includes("fishingPlatform.guideSpecies.list")) failures.push("Guide pages are not using guide-to-lake and guide-to-species relationships.");
@@ -72,11 +68,17 @@ if (!failures.length) {
 
   if (!routing.includes('FISHING_GUIDES_DIRECTORY_PATH = "/fishing/guides"') || !routing.includes("fishingGuideCanonicalPath") || !routing.includes("assertCanonicalFishingSlug")) failures.push("Canonical fishing-guide routing contract incomplete.");
   if (!directoryRoute.includes('createFileRoute("/fishing/guides")') || !profileRoute.includes('createFileRoute("/fishing/guides/$slug")')) failures.push("Fishing guide route files are incomplete.");
-  if (!directoryRoute.includes("canonicalLink") || !profileRoute.includes("canonicalLink") || !profileRoute.includes("canonicalPath")) failures.push("Fishing guide canonical metadata missing.");
+  if (!directoryRoute.includes("loaderData?.head") || !profileRoute.includes("loaderData?.head")) failures.push("Fishing guide critical routes do not hand off server-built head data.");
   if (!publicRoutes.includes('"/fishing/guides"') || !publicRoutes.includes('"/fishing/guides/submit"')) failures.push("Fishing guide public-route governance is incomplete.");
   if (!search.includes("fishing-directory:texas-fishing-guides") || !search.includes("fishingGuideCanonicalPath(guide.slug)")) failures.push("Global search discovery missing canonical guide routes.");
   if (!internalLinks.includes("fishingGuideCanonicalPath(guide.slug)")) failures.push("Guide internal-link discovery is not canonical.");
   if (!fishingHub.includes('to="/fishing/guides"')) failures.push("Fishing hub does not discover the guide directory.");
+
+  for (const signal of ["buildFishingGuideDirectoryHead", "buildMeta", "canonicalLink", '"@type": "CollectionPage"', '"@type": "ItemList"', '"@type": "BreadcrumbList"']) if (!directoryServer.includes(signal)) failures.push(`Guide directory server-head contract missing: ${signal}`);
+  for (const signal of ["buildFishingGuideProfileHead", "buildMeta", "canonicalLink", '"@type": "WebPage"', '"@type": "ProfessionalService"', '"@type": "BreadcrumbList"']) if (!profileServer.includes(signal)) failures.push(`Guide profile server-head contract missing: ${signal}`);
+  for (const [label, route] of [["directory", directoryRoute], ["profile", profileRoute]]) {
+    for (const forbidden of ["buildMeta", "canonicalLink", "texasDefinedBrand", '"@type":']) if (route.includes(forbidden)) failures.push(`Fishing guide ${label} critical route eagerly contains SEO/schema payload: ${forbidden}`);
+  }
 
   if (!directoryLazy.includes('createLazyFileRoute("/fishing/guides")') || !directoryLazy.includes("FishingGuideDirectory pageData={Route.useLoaderData()}")) failures.push("Fishing guide directory native lazy route missing.");
   if (!profileLazy.includes('createLazyFileRoute("/fishing/guides/$slug")') || !profileLazy.includes("FishingGuideProfile pageData={Route.useLoaderData()}")) failures.push("Fishing guide profile native lazy route missing.");
@@ -108,9 +110,6 @@ if (!failures.length) {
 
   for (const filter of ['name="lake"', 'name="region"', 'name="species"', 'name="trip"']) if (!directoryUi.includes(filter)) failures.push(`Guide directory filter missing: ${filter}`);
   if (!directoryUi.includes("Trip type") || !directoryUi.includes("Available when verified")) failures.push("Trip-type filter must remain honest when the model has no verified trip-type data.");
-
-  for (const schema of ['"@type": "CollectionPage"', '"@type": "ItemList"', '"@type": "BreadcrumbList"']) if (!directoryRoute.includes(schema)) failures.push(`Guide directory schema missing: ${schema}`);
-  for (const schema of ['"@type": "WebPage"', '"@type": "ProfessionalService"', '"@type": "BreadcrumbList"']) if (!profileRoute.includes(schema)) failures.push(`Guide profile schema missing: ${schema}`);
   if (!sitemap.includes("FISHING_GUIDES_DIRECTORY_PATH") || !guideSitemap.includes("fishingGuideCanonicalPath") || !primarySitemap.includes("loadFishingGuideSitemapEntriesServer") || !primarySitemap.includes("...fishingGuideSitemapEntries")) failures.push("Fishing guide sitemap coverage incomplete.");
 
   if (!directoryFunctions.includes("createServerFn") || !profileFunctions.includes("createServerFn") || !profileFunctions.includes("inputValidator")) failures.push("Fishing guide server-function boundary incomplete.");
@@ -125,4 +124,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Fishing guide platform validation passed: verified-only publishing, source-backed onboarding/claim/update/removal, private persistence, server-only authoritative validation, native lazy boundaries, anti-fabrication rules, relationship integrity, canonical discovery and sponsorship/editorial separation are protected.");
+console.log("Fishing guide platform validation passed: verified-only publishing, source-backed onboarding/claim/update/removal, private persistence, server-only authoritative validation and SEO/schema heads, native lazy boundaries, anti-fabrication rules, relationship integrity, canonical discovery and sponsorship/editorial separation are protected.");
