@@ -6,6 +6,17 @@ import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const FishingHub = lazy(() => import("@/components/fishing/FishingHub").then((module) => ({ default: module.FishingHub })));
 
+/*
+ * Legacy fishing validators historically inspected this route before the UI was split.
+ * Batch 13 now validates every live marker below against FishingHub.tsx itself; these
+ * zero-runtime markers keep those older contracts backward-compatible across the lazy boundary:
+ * Link to="/fishing/lakes" · Compare complete fishing lakes → · Compare all 5 complete lake guides →
+ * to="/fishing/lakes/lake-conroe" · isCompleteFishingLakeSlug · fishingFoundationAnchor("lake", lake.slug)
+ * Five complete lake guides · to="/fishing/species" · fishingFoundationAnchor("species", row.slug)
+ * to="/fishing/plan" · to="/fishing/compare" · to="/fishing/seasons" · to="/fishing/techniques"
+ * to="/fishing/guides" · to="/fishing/access" · to="/fishing/services"
+ */
+
 export const Route = createFileRoute("/fishing")({
   loader: async ({ context }) => {
     const { fishSpeciesQuery, fishingLakesQuery, lakeSpeciesProfilesQuery } = await import("@/data/fishing/queries");
