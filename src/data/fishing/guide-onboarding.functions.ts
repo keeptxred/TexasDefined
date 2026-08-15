@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 
-import { fishingGuideSubmissionSchema } from "./guide-onboarding.server";
+import { fishingGuideSubmissionSchema } from "./guide-onboarding-contract";
 
 export const getFishingGuideOnboardingOptions = createServerFn({ method: "GET" }).handler(async () => {
   const { loadFishingGuideOnboardingOptionsServer } = await import("./guide-onboarding.server");
