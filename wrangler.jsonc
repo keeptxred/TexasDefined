@@ -1,4 +1,5 @@
 {
+  // Cloudflare Workers runtime for TexasDefined.
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "texasdefined-site",
   "main": "src/server.ts",
