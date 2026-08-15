@@ -50,7 +50,7 @@ function FishingTechniquesPage() {
   const entries = data.entries
     .filter((entry) => !search.category || entry.technique.category === search.category)
     .filter((entry) => !selectedSpecies || entry.species.some((fish) => fish.id === selectedSpecies.id))
-    .filter((entry) => !search.season || entry.seasons.includes(search.season));
+    .filter((entry) => !search.season || entry.seasons.some((season) => season === search.season));
 
   return <>
     <Container className="pt-8 sm:pt-10"><nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.14em] text-muted-foreground"><a href="/">Front page</a> · <a href="/fishing">Fishing</a> · Fishing techniques</nav></Container>
