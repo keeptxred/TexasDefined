@@ -1,0 +1,87 @@
+name: Diagnose Cloudflare token
+
+on:
+  push:
+    branches: [diag/cloudflare-token-status]
+    paths:
+      - ".github/workflows/diagnose-cloudflare-token.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    environment: texasdefined-publication
+    env:
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_DEPLOY_API_TOKEN: ${{ secrets.CLOUDFLARE_DEPLOY_API_TOKEN }}
+    steps:
+      - name: Diagnose configured Cloudflare credentials
+        shell: bash
+        run: |
+          set -u
+          api='https://api.cloudflare.com/client/v4'
+          workdir="$(mktemp -d)"
+          trap 'rm -rf "$workdir"' EXIT
+
+          echo "Account ID configured: $([ -n "${CLOUDFLARE_ACCOUNT_ID:-}" ] && echo yes || echo no)"
+          echo "Deploy-specific token configured: $([ -n "${CLOUDFLARE_DEPLOY_API_TOKEN:-}" ] && echo yes || echo no)"
+          echo "General API token configured: $([ -n "${CLOUDFLARE_API_TOKEN:-}" ] && echo yes || echo no)"
+
+          diagnose_token() {
+            local label="$1"
+            local token="$2"
+            if [ -z "$token" ]; then
+              echo "$label: not configured"
+              return 0
+            fi
+
+            local user_file="$workdir/${label}-user.json"
+            local account_file="$workdir/${label}-account.json"
+            local workers_file="$workdir/${label}-workers.json"
+            local user_http account_http workers_http
+
+            user_http="$(curl --silent --show-error -o "$user_file" -w '%{http_code}' \
+              -H "Authorization: Bearer $token" "$api/user/tokens/verify" || true)"
+            account_http="$(curl --silent --show-error -o "$account_file" -w '%{http_code}' \
+              -H "Authorization: Bearer $token" "$api/accounts/$CLOUDFLARE_ACCOUNT_ID/tokens/verify" || true)"
+            workers_http="$(curl --silent --show-error -o "$workers_file" -w '%{http_code}' \
+              -H "Authorization: Bearer $token" "$api/accounts/$CLOUDFLARE_ACCOUNT_ID/workers/scripts" || true)"
+
+            python3 - "$label" "$user_http" "$user_file" "$account_http" "$account_file" "$workers_http" "$workers_file" <<'PY'
+          import json, sys
+
+          label, user_http, user_path, account_http, account_path, workers_http, workers_path = sys.argv[1:]
+
+          def load(path):
+              try:
+                  with open(path, encoding='utf-8') as f:
+                      return json.load(f)
+              except Exception:
+                  return {}
+
+          def verify_summary(http, data):
+              result = data.get('result') or {}
+              status = result.get('status')
+              errors = data.get('errors') or []
+              if data.get('success') is True and status:
+                  return f"HTTP {http}, status={status}"
+              if errors:
+                  safe = [{'code': e.get('code'), 'message': e.get('message')} for e in errors]
+                  return f"HTTP {http}, errors={safe}"
+              return f"HTTP {http}, success={data.get('success')}"
+
+          user = load(user_path)
+          account = load(account_path)
+          workers = load(workers_path)
+          print(f"{label} user-token verification: {verify_summary(user_http, user)}")
+          print(f"{label} account-token verification: {verify_summary(account_http, account)}")
+          worker_errors = [{'code': e.get('code'), 'message': e.get('message')} for e in (workers.get('errors') or [])]
+          print(f"{label} Workers Scripts access: HTTP {workers_http}, success={workers.get('success')}, errors={worker_errors}")
+          PY
+          }
+
+          diagnose_token "CLOUDFLARE_DEPLOY_API_TOKEN" "${CLOUDFLARE_DEPLOY_API_TOKEN:-}"
+          diagnose_token "CLOUDFLARE_API_TOKEN" "${CLOUDFLARE_API_TOKEN:-}"
