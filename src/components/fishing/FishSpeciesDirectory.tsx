@@ -25,9 +25,9 @@ export function FishSpeciesDirectory({ pageData }: { pageData: DirectoryData }) 
         <Container className="py-16 sm:py-24">
           <p className="eyebrow text-ink-foreground/70">Texas fish species</p>
           <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.96] sm:text-7xl">Fish Texas by species.</h1>
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/82">Start with the fish, then move to the completed lake guides where TexasDefined has a verified lake-to-species relationship. Standalone species guides publish only when they have enough statewide depth to stand on their own.</p>
+          <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/82">Start with the fish, then move to completed lake guides where TexasDefined has a verified lake-to-species relationship. Standalone profiles publish only when both the species record and complete-lake coverage clear the sourcing gate.</p>
           <div className="mt-8 flex flex-wrap gap-5 text-sm">
-            <Link to="/fishing/species/largemouth-bass" className="border-b border-ink-foreground pb-1 font-semibold text-ink-foreground">Open the largemouth bass guide →</Link>
+            <Link to="/fishing/species/largemouth-bass" className="border-b border-ink-foreground pb-1 font-semibold text-ink-foreground">Open the flagship largemouth guide →</Link>
             <Link to="/fishing/lakes" className="border-b border-ink-foreground/50 pb-1 text-ink-foreground/75">Compare complete fishing lakes →</Link>
             <Link to="/fishing" className="border-b border-ink-foreground/50 pb-1 text-ink-foreground/75">Back to all Texas fishing →</Link>
           </div>
@@ -45,7 +45,7 @@ export function FishSpeciesDirectory({ pageData }: { pageData: DirectoryData }) 
           <div><p className="eyebrow text-primary">Directory policy</p><h2 id="species-directory-policy" className="mt-2 font-display text-3xl">Broad catalog, selective standalone guides</h2></div>
           <div className="grid gap-x-8 md:grid-cols-2">
             <Answer question="How many fish records are published here?" answer={`TexasDefined currently has ${pageData.totalSpecies} published freshwater fish species or practical fishing groups in this directory.`} />
-            <Answer question="How many have full standalone guides?" answer={`Only ${pageData.completeSpeciesGuides} currently clears the complete statewide-guide standard: largemouth bass. Other records stay in the directory rather than becoming thin pages.`} />
+            <Answer question="How many have standalone guides?" answer={`${pageData.completeSpeciesGuides} records currently clear the complete-guide gate. Cards marked “Full guide” open a standalone profile; the flagship largemouth page retains additional editorial depth.`} />
             <Answer question="How are fish connected to lakes?" answer={`A species card links only to the ${pageData.completeLakeGuides} completed lake guides where the fishing catalog contains a verified lake-to-species relationship.`} />
             <Answer question="Are these links live fishing reports?" answer="No. Lake-to-species relationships describe durable fishery context. Current bite, regulations, stocking, levels and access can change and should be confirmed with current official sources." />
           </div>
@@ -90,8 +90,8 @@ export function FishSpeciesDirectory({ pageData }: { pageData: DirectoryData }) 
 
         <section className="mt-16 border-t border-border pt-8">
           <p className="eyebrow text-primary">How this grows</p>
-          <h2 className="mt-3 font-display text-3xl">One reusable species template, then statewide depth.</h2>
-          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Largemouth bass is the first complete species page. The same model is ready for Guadalupe bass, smallmouth, crappie, catfish, striped bass, alligator gar, sunfish and seasonal trout once each has enough verified statewide depth, without creating thin lake-by-species pages just for search volume.</p>
+          <h2 className="mt-3 font-display text-3xl">Verified relationships first; standalone pages second.</h2>
+          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Batch 14 expands standalone coverage only for records already supported by verified relationships on complete fishing-lake guides. Other species remain useful directory records until the source-backed lake dataset is deep enough to support a real page, rather than a thin page created only for search volume.</p>
           <p className="mt-6 text-xs leading-6 text-muted-foreground">Species catalog sources checked {formatDate(pageData.verifiedAt)}. Regulations, stockings and waterbody conditions can change; always confirm current TPWD information before fishing.</p>
         </section>
       </Container>
