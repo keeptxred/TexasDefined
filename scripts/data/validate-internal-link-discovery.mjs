@@ -9,6 +9,10 @@ const texasLifeDiscovery = read('src/components/editorial/TexasLifeDiscovery.tsx
 const categoryPage = read('src/components/editorial/CategoryPage.tsx');
 const calculatorPage = read('src/components/calculators/CalculatorPage.tsx');
 const destinationPlanner = read('src/components/editorial/DestinationVisitPlanner.tsx');
+const destinationRelationships = read('src/components/editorial/DestinationRelationships.tsx');
+const texasExplainedContext = read('src/components/editorial/TexasExplainedContextLinks.tsx');
+const fishingHub = read('src/components/fishing/FishingHub.tsx');
+const sportsQuickAnswers = read('src/components/sports/SportsVenueQuickAnswers.tsx');
 const countyIdentity = read('src/components/content/CountyIdentitySection.tsx');
 const guidesPage = read('src/routes/guides.tsx');
 const exploreSitemap = read('src/routes/sitemap-explore[.]xml.ts');
@@ -61,6 +65,27 @@ for (const marker of [
   if (!guidesPage.includes(marker)) failures.push(`Guidebook → Texas Explained discovery contract is missing ${marker}.`);
 }
 
+for (const marker of [
+  'type TexasExplainedSurface = "destination" | "fishing" | "sports"',
+  'surface="destination"',
+  'surface="fishing"',
+  'surface="sports"',
+  '/article/texas-lakes-reservoirs-explained',
+  '/article/texas-rivers-explained',
+  '/article/texas-wildlife-guide',
+  '/article/texas-cultural-regions-explained',
+  '/article/texas-farm-to-market-roads-explained',
+  '/article/texas-courthouses-town-square',
+  'Explore all 10 Texas Explained guides →',
+]) {
+  const combined = `${texasExplainedContext}\n${destinationRelationships}\n${fishingHub}\n${sportsQuickAnswers}`;
+  if (!combined.includes(marker)) failures.push(`Remaining-surface Texas Explained discovery contract is missing ${marker}.`);
+}
+
+if (!destinationRelationships.includes('TexasExplainedContextLinks surface="destination"')) failures.push('Destination pages must render contextual Texas Explained links.');
+if (!fishingHub.includes('TexasExplainedContextLinks surface="fishing"')) failures.push('Fishing hub must render contextual Texas Explained links.');
+if (!sportsQuickAnswers.includes('TexasExplainedContextLinks surface="sports"')) failures.push('Sports venue pages must render contextual Texas Explained links.');
+
 if (!categoryPage.includes('TexasLifeDiscovery')) failures.push('Texas Life category pages must render TexasLifeDiscovery.');
 if (!categoryPage.includes('belongsToTexasLife && <TexasLifeDiscovery')) failures.push('TexasLifeDiscovery must be limited to Texas Life category surfaces.');
 if (!exploreSitemap.includes('"/explore/trip-planner"')) failures.push('Explore sitemap must publish the Trip Planner.');
@@ -71,4 +96,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Internal-link discovery pathways, Texas Explained links from Texas Life, county profiles and the Guidebook, calculator/destination cross-links and Explore sitemap coverage are protected.');
+console.log('Internal-link discovery pathways, Texas Explained links from Texas Life, county profiles, Guidebook, destination pages, fishing and sports venues, calculator/destination cross-links and Explore sitemap coverage are protected.');
