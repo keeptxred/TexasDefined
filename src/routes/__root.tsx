@@ -7,17 +7,17 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { lazy, Suspense, useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import heroHillCountry from "@/assets/hero-hill-country.jpg";
-import { reportLovableError } from "../lib/lovable-error-reporting";
 import { BrandProvider } from "@/brand/context";
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
 import { absoluteUrl } from "@/lib/seo";
 import { ShopCartProvider } from "@/lib/shop-cart";
+
+const Header = lazy(() => import("@/components/layout/Header").then((module) => ({ default: module.Header })));
+const Footer = lazy(() => import("@/components/layout/Footer").then((module) => ({ default: module.Footer })));
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const defaultSocialImage = absoluteUrl(texasDefinedBrand, heroHillCountry);
@@ -46,7 +46,11 @@ function NotFoundComponent() {
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
   const router = useRouter();
-  useEffect(() => { reportLovableError(error, { boundary: "tanstack_root_error_component" }); }, [error]);
+  useEffect(() => {
+    void import("../lib/lovable-error-reporting").then(({ reportLovableError }) => {
+      reportLovableError(error, { boundary: "tanstack_root_error_component" });
+    });
+  }, [error]);
   return (
     <>
       <title>Page unavailable | Texas Defined</title>
@@ -171,9 +175,9 @@ function RootComponent() {
       <BrandProvider brand={texasDefinedBrand}>
         <ShopCartProvider>
           <div className="flex min-h-screen flex-col bg-background">
-            <Header />
+            <Suspense fallback={<div className="h-[4.5rem] border-b border-border bg-background lg:h-[7rem]" aria-hidden="true" />}><Header /></Suspense>
             <main id="main" className="flex-1"><Outlet /></main>
-            <Footer />
+            <Suspense fallback={<div className="h-40 border-t border-border bg-surface" aria-hidden="true" />}><Footer /></Suspense>
           </div>
         </ShopCartProvider>
       </BrandProvider>
