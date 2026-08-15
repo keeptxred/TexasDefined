@@ -1,0 +1,53 @@
+name: Cloudflare migration lockfile
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: [main]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: cloudflare-migration-lockfile-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  regenerate:
+    if: github.head_ref == 'migrate-texasdefined-cloudflare' && github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+      - name: Regenerate npm lockfile from public npm registry
+        shell: bash
+        env:
+          NPM_CONFIG_REGISTRY: https://registry.npmjs.org
+        run: |
+          set -euo pipefail
+          rm -f package-lock.json
+          npm install --package-lock-only --ignore-scripts --no-audit --no-fund
+          if grep -Eqi 'lovable\.dev|@lovable\.dev' package-lock.json; then
+            echo 'Lovable reference remained in package-lock.json.' >&2
+            grep -Ein 'lovable\.dev|@lovable\.dev' package-lock.json | head -20 >&2 || true
+            exit 1
+          fi
+      - name: Commit regenerated lockfile
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add package-lock.json
+          if git diff --cached --quiet; then
+            echo 'Lockfile already current.'
+            exit 0
+          fi
+          git commit -m 'Regenerate npm lockfile for Cloudflare'
+          git push origin HEAD:${{ github.event.pull_request.head.ref }}
