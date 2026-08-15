@@ -145,6 +145,7 @@ export const REDIRECT_ONLY_PATHS = [
 export const NON_INDEXABLE_PUBLIC_PATHS = [
   "/search",
   "/explore/search",
+  "/fishing/guides/submit",
   "/shop/cart",
   "/shop/checkout-return",
   "/sports-venues/compare.csv",
