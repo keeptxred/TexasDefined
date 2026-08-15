@@ -1,11 +1,8 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
-import { lazy, Suspense } from "react";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { getFishingGuideProfileData } from "@/data/fishing/guide-profile-data.functions";
 import { buildMeta, canonicalLink } from "@/lib/seo";
-
-const FishingGuideProfile = lazy(() => import("@/components/fishing/FishingGuideProfile").then((module) => ({ default: module.FishingGuideProfile })));
 
 export const Route = createFileRoute("/fishing/guides/$slug")({
   loader: async ({ params }) => {
@@ -34,10 +31,5 @@ export const Route = createFileRoute("/fishing/guides/$slug")({
       ]) }],
     };
   },
-  component: FishingGuideProfileRoute,
   notFoundComponent: () => <div className="mx-auto max-w-3xl px-6 py-20"><h1 className="font-display text-4xl">Verified fishing guide not found</h1><p className="mt-4 text-muted-foreground">TexasDefined only publishes fishing-guide profile routes after the listing has passed the verification gate.</p><a href="/fishing/guides" className="mt-6 inline-block border-b border-primary pb-1 font-semibold text-primary">Browse verified fishing guides →</a></div>,
 });
-
-function FishingGuideProfileRoute() {
-  return <Suspense fallback={<div className="min-h-[32rem]" aria-hidden="true" />}><FishingGuideProfile pageData={Route.useLoaderData()} /></Suspense>;
-}
