@@ -6,7 +6,9 @@ const required = [
   "src/data/fishing/season-data.server.ts",
   "src/data/fishing/season-data.functions.ts",
   "src/routes/fishing.seasons.tsx",
+  "src/components/fishing/FishingSeasonDirectory.tsx",
   "src/routes/fishing.tsx",
+  "src/components/fishing/FishingHub.tsx",
   "src/data/fishing/sitemap.ts",
   "src/data/fishing/search.ts",
   "src/data/fishing/internal-links.ts",
@@ -19,13 +21,14 @@ const routing = read(required[0]);
 const server = read(required[1]);
 const functions = read(required[2]);
 const route = read(required[3]);
-const hub = read(required[4]);
-const sitemap = read(required[5]);
-const search = read(required[6]);
-const links = read(required[7]);
-const publicRoutes = read(required[8]);
-const pkg = JSON.parse(read(required[9]));
-
+const component = read(required[4]);
+const hubRoute = read(required[5]);
+const hubComponent = read(required[6]);
+const sitemap = read(required[7]);
+const search = read(required[8]);
+const links = read(required[9]);
+const publicRoutes = read(required[10]);
+const pkg = JSON.parse(read(required[11]));
 const requireText = (text, token, label) => { if (!text.includes(token)) throw new Error(`Fishing Batch 12 validation failed: ${label}`); };
 
 requireText(routing, 'FISHING_SEASONS_PATH = "/fishing/seasons"', "canonical seasons path missing");
@@ -39,6 +42,14 @@ requireText(functions, "loadFishingSeasonDataServer", "server function does not 
 
 for (const token of [
   'createFileRoute("/fishing/seasons")',
+  'lazy(() => import("@/components/fishing/FishingSeasonDirectory")',
+  "FishingSeasonDirectory data={Route.useLoaderData()} search={Route.useSearch()}",
+  '"@type": "FAQPage"',
+  '"@type": "BreadcrumbList"',
+  '"@type": "ItemList"',
+]) requireText(route, token, `season route contract missing ${token}`);
+
+for (const token of [
   "patterns, not promises",
   "Seasonal guidance is not today's bite",
   "year-round",
@@ -47,20 +58,18 @@ for (const token of [
   'method="get"',
   'name="season"',
   'name="species"',
-  '"@type": "FAQPage"',
-  '"@type": "BreadcrumbList"',
-  '"@type": "ItemList"',
-]) requireText(route, token, `season route contract missing ${token}`);
+]) requireText(component, token, `season UI contract missing ${token}`);
 
 for (const forbidden of ["the best season is", "guaranteed catch", "today's best", "fish are biting", "current bite is"]) {
-  if (route.toLowerCase().includes(forbidden)) throw new Error(`Fishing Batch 12 validation failed: live/predictive claim leaked into evergreen season route (${forbidden}).`);
+  if (`${route}\n${component}`.toLowerCase().includes(forbidden)) throw new Error(`Fishing Batch 12 validation failed: live/predictive claim leaked into evergreen season route (${forbidden}).`);
 }
 
-requireText(hub, 'to="/fishing/seasons"', "statewide fishing hub does not expose seasons engine");
+requireText(hubRoute, 'lazy(() => import("@/components/fishing/FishingHub")', "statewide fishing hub lazy boundary missing");
+requireText(hubComponent, 'to="/fishing/seasons"', "statewide fishing hub does not expose seasons engine");
 requireText(sitemap, "FISHING_SEASONS_PATH", "seasons sitemap entry missing");
 requireText(search, "fishing-directory:texas-fishing-seasons", "seasons global-search document missing");
 requireText(links, "fishing-reference:seasons", "seasons internal-link entity missing");
 requireText(publicRoutes, '"/fishing/seasons"', "public route governance missing seasons engine");
 requireText(pkg.scripts["fishing:validate"], "validate-fishing-seasons.mjs", "Batch 12 validator is not wired into fishing:validate");
 
-console.log("Fishing Batch 12 seasons validation passed: source-backed seasonal patterns, complete-lake scope, year-round semantics, technique relationships, anti-live-condition safeguards, editorial ordering, schemas and discovery governance are protected.");
+console.log("Fishing Batch 12 seasons validation passed: source-backed seasonal patterns, complete-lake scope, lazy UI boundary, year-round semantics, technique relationships, anti-live-condition safeguards, editorial ordering, schemas and discovery governance are protected.");
