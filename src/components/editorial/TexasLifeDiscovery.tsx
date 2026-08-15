@@ -5,6 +5,7 @@ import { Container } from "@/components/layout/Container";
 import type { CategorySlug } from "@/data/types";
 
 const pathways: Array<{ category?: CategorySlug; to: string; label: string; description: string }> = [
+  { to: "/texas-explained", label: "Texas Explained", description: "Ten connected guides to the land, roads, towns, wildlife, homes and cultures that make Texas work." },
   { category: "moving-to-texas", to: "/moving-to-texas", label: "Moving to Texas", description: "Relocation, cost-of-living and settling-in guidance." },
   { category: "real-estate", to: "/real-estate", label: "Homes & Land", description: "Buying, financing and owning a home in Texas." },
   { category: "home-garden", to: "/home-garden", label: "Home & Garden", description: "Texas homes, yards, seasons and practical projects." },
