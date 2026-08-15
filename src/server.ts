@@ -19,6 +19,15 @@ async function getServerEntry(): Promise<ServerEntry> {
   return serverEntryPromise;
 }
 
+function canonicalHostRedirect(request: Request) {
+  const url = new URL(request.url);
+  if (url.hostname.toLowerCase() !== "www.texasdefined.com") return null;
+  url.protocol = "https:";
+  url.hostname = "texasdefined.com";
+  url.port = "";
+  return Response.redirect(url.toString(), 301);
+}
+
 function legacyCountyRedirect(request: Request) {
   const url = new URL(request.url);
   const match = url.pathname.match(/^\/article\/([^/]+)\/?$/);
@@ -58,6 +67,8 @@ function isH3SwallowedErrorBody(body: string): boolean {
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
+      const canonicalRedirect = canonicalHostRedirect(request);
+      if (canonicalRedirect) return canonicalRedirect;
       const redirect = legacyCountyRedirect(request);
       if (redirect) return redirect;
       const handler = await getServerEntry();

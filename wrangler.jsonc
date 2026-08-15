@@ -1,0 +1,12 @@
+{
+  // Cloudflare Workers runtime for TexasDefined.
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "texasdefined-site",
+  "main": "src/server.ts",
+  "compatibility_date": "2026-08-14",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  "observability": {
+    "enabled": true
+  }
+}

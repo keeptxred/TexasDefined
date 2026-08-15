@@ -1,0 +1,316 @@
+name: TexasDefined Cloudflare domain cutover
+
+on:
+  workflow_dispatch:
+    inputs:
+      hostname:
+        description: TexasDefined hostname to attach
+        required: true
+        type: choice
+        options:
+          - texasdefined.com
+          - www.texasdefined.com
+        default: texasdefined.com
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: texasdefined-cloudflare-domain-cutover-${{ github.event_name == 'pull_request' && github.head_ref || inputs.hostname }}
+  cancel-in-progress: false
+
+jobs:
+  cutover:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      github.head_ref == 'run-td-cloudflare-cutover-apex' ||
+      github.head_ref == 'run-td-cloudflare-cutover-www'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment: texasdefined-publication
+    env:
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_DEPLOY_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}
+      WORKER_NAME: texasdefined-site
+      ZONE_NAME: texasdefined.com
+      REQUESTED_HOSTNAME: ${{ github.event_name == 'pull_request' && (github.head_ref == 'run-td-cloudflare-cutover-www' && 'www.texasdefined.com' || 'texasdefined.com') || inputs.hostname }}
+    steps:
+      - name: Preflight Worker, permissions, DNS and perform rollback-safe cutover
+        shell: bash
+        run: |
+          set -euo pipefail
+          api='https://api.cloudflare.com/client/v4'
+          workdir="$(mktemp -d)"
+          trap 'rm -rf "$workdir"' EXIT
+
+          [[ -n "${CLOUDFLARE_ACCOUNT_ID:-}" ]] || { echo '::error title=Missing Cloudflare account ID::DNS was not touched.'; exit 1; }
+          [[ -n "${CLOUDFLARE_API_TOKEN:-}" ]] || { echo '::error title=Missing Cloudflare API token::DNS was not touched.'; exit 1; }
+          case "$REQUESTED_HOSTNAME" in
+            texasdefined.com|www.texasdefined.com) ;;
+            *) echo "::error title=Invalid cutover hostname::$REQUESTED_HOSTNAME is not allowed."; exit 1 ;;
+          esac
+
+          token_header="Authorization: Bearer $CLOUDFLARE_API_TOKEN"
+
+          workers_file="$workdir/workers.json"
+          workers_http="$(curl --silent --show-error -o "$workers_file" -w '%{http_code}' \
+            -H "$token_header" "$api/accounts/$CLOUDFLARE_ACCOUNT_ID/workers/scripts")"
+          if [[ "$workers_http" -ge 400 ]]; then
+            echo "::error title=Workers Scripts Edit required::Cloudflare returned HTTP $workers_http. DNS was not touched."
+            cat "$workers_file" >&2 || true
+            exit 1
+          fi
+          if ! python3 - "$workers_file" "$WORKER_NAME" <<'PY'
+          import json, sys
+          data = json.load(open(sys.argv[1], encoding='utf-8'))
+          worker = sys.argv[2]
+          if data.get('success') is not True:
+              raise SystemExit(1)
+          names = {str(item.get('id') or item.get('name') or '') for item in (data.get('result') or [])}
+          if worker not in names:
+              raise SystemExit(f"Production Worker {worker!r} is not present; deploy it before DNS cutover.")
+          print(f"Production Worker {worker} exists.")
+          PY
+          then
+            echo '::error title=Production Worker missing::Deploy texasdefined-site and verify workers.dev before DNS cutover.'
+            exit 1
+          fi
+
+          subdomain_file="$workdir/subdomain.json"
+          subdomain_http="$(curl --silent --show-error -o "$subdomain_file" -w '%{http_code}' \
+            -H "$token_header" "$api/accounts/$CLOUDFLARE_ACCOUNT_ID/workers/subdomain")"
+          if [[ "$subdomain_http" -ge 400 ]]; then
+            echo "::error title=Unable to resolve workers.dev subdomain::HTTP $subdomain_http. DNS was not touched."
+            exit 1
+          fi
+          account_subdomain="$(python3 - "$subdomain_file" <<'PY'
+          import json, sys
+          data = json.load(open(sys.argv[1], encoding='utf-8'))
+          print((data.get('result') or {}).get('subdomain') or '')
+          PY
+          )"
+          [[ -n "$account_subdomain" ]] || { echo '::error title=workers.dev unavailable::Account subdomain is empty. DNS was not touched.'; exit 1; }
+          preview_url="https://$WORKER_NAME.$account_subdomain.workers.dev"
+
+          for path in / /robots.txt /sitemap.xml /fishing /guides /county/travis; do
+            curl --retry 10 --retry-delay 3 --retry-all-errors --max-time 45 -fsSL "$preview_url$path" -o "$workdir/preview"
+            [[ -s "$workdir/preview" ]] || { echo "::error title=Worker preview failed::$path returned an empty response. DNS was not touched."; exit 1; }
+          done
+          echo "Production Worker preview passed: $preview_url"
+
+          zone_file="$workdir/zone.json"
+          zone_http="$(curl --silent --show-error -o "$zone_file" -w '%{http_code}' \
+            -H "$token_header" --get --data-urlencode "name=$ZONE_NAME" \
+            --data-urlencode "account.id=$CLOUDFLARE_ACCOUNT_ID" "$api/zones")"
+          if [[ "$zone_http" -ge 400 ]]; then
+            echo "::error title=Zone Read required::Cloudflare returned HTTP $zone_http while resolving texasdefined.com. DNS was not touched."
+            cat "$zone_file" >&2 || true
+            exit 1
+          fi
+          zone_id="$(python3 - "$zone_file" <<'PY'
+          import json, os, sys
+          data = json.load(open(sys.argv[1], encoding='utf-8'))
+          matches = [z for z in (data.get('result') or []) if z.get('name') == os.environ['ZONE_NAME'] and (z.get('account') or {}).get('id') == os.environ['CLOUDFLARE_ACCOUNT_ID'] and z.get('status') == 'active']
+          print(matches[0]['id'] if len(matches) == 1 else '')
+          PY
+          )"
+          [[ -n "$zone_id" ]] || { echo '::error title=TexasDefined Cloudflare zone unavailable::Expected exactly one active texasdefined.com zone. DNS was not touched.'; exit 1; }
+
+          records_file="$workdir/records.json"
+          records_http="$(curl --silent --show-error -o "$records_file" -w '%{http_code}' \
+            -H "$token_header" --get --data-urlencode "name=$REQUESTED_HOSTNAME" --data-urlencode 'per_page=100' \
+            "$api/zones/$zone_id/dns_records")"
+          if [[ "$records_http" -ge 400 ]]; then
+            echo "::error title=DNS Edit required::Cloudflare returned HTTP $records_http while reading $REQUESTED_HOSTNAME. DNS was not touched."
+            cat "$records_file" >&2 || true
+            exit 1
+          fi
+
+          domains_file="$workdir/domains.json"
+          domains_http="$(curl --silent --show-error -o "$domains_file" -w '%{http_code}' \
+            -H "$token_header" --get --data-urlencode "hostname=$REQUESTED_HOSTNAME" \
+            "$api/accounts/$CLOUDFLARE_ACCOUNT_ID/workers/domains")"
+          if [[ "$domains_http" -ge 400 ]]; then
+            echo "::error title=Workers Scripts Edit required::Cloudflare returned HTTP $domains_http while reading Worker Custom Domains. DNS was not touched."
+            cat "$domains_file" >&2 || true
+            exit 1
+          fi
+
+          existing_service="$(python3 - "$domains_file" <<'PY'
+          import json, os, sys
+          data = json.load(open(sys.argv[1], encoding='utf-8'))
+          host = os.environ['REQUESTED_HOSTNAME'].lower()
+          matches = [d for d in (data.get('result') or []) if str(d.get('hostname') or '').lower() == host]
+          if len(matches) > 1:
+              raise SystemExit(f"Multiple Worker domains found for {host}")
+          print((matches[0].get('service') or '') if matches else '')
+          PY
+          )"
+
+          verify_live() {
+            local ok='false'
+            for attempt in $(seq 1 60); do
+              if [[ "$REQUESTED_HOSTNAME" == 'www.texasdefined.com' ]]; then
+                headers="$workdir/headers"
+                set +e
+                curl --connect-timeout 8 --max-time 15 --silent --show-error --max-redirs 0 -D "$headers" -o /dev/null "https://$REQUESTED_HOSTNAME/"
+                curl_status=$?
+                set -e
+                if [[ "$curl_status" -eq 0 ]] && python3 - "$headers" <<'PY'
+          import sys
+          text = open(sys.argv[1], encoding='utf-8', errors='replace').read().replace('\r','')
+          blocks = [b for b in text.split('\n\n') if b.strip()]
+          block = blocks[-1] if blocks else text
+          lines = block.splitlines()
+          status = int(lines[0].split()[1]) if lines and len(lines[0].split()) > 1 and lines[0].split()[1].isdigit() else 0
+          location = ''
+          for line in lines[1:]:
+              if line.lower().startswith('location:'):
+                  location = line.split(':',1)[1].strip()
+                  break
+          raise SystemExit(0 if status in (301, 308) and location.startswith('https://texasdefined.com/') else 1)
+          PY
+                then
+                  ok='true'; break
+                fi
+              else
+                set +e
+                curl --connect-timeout 8 --max-time 15 --fail --silent --show-error -o "$workdir/live" "https://$REQUESTED_HOSTNAME/"
+                curl_status=$?
+                set -e
+                if [[ "$curl_status" -eq 0 && -s "$workdir/live" ]]; then
+                  ok='true'; break
+                fi
+              fi
+              sleep 5
+            done
+            [[ "$ok" == 'true' ]] || return 1
+            if [[ "$REQUESTED_HOSTNAME" == 'texasdefined.com' ]]; then
+              curl --retry 8 --retry-delay 3 --retry-all-errors --fail --silent --show-error -o /dev/null "https://$REQUESTED_HOSTNAME/robots.txt"
+              curl --retry 8 --retry-delay 3 --retry-all-errors --fail --silent --show-error -o /dev/null "https://$REQUESTED_HOSTNAME/sitemap.xml"
+            fi
+          }
+
+          if [[ -n "$existing_service" ]]; then
+            if [[ "$existing_service" != "$WORKER_NAME" ]]; then
+              echo "::error title=Unexpected Worker Custom Domain::$REQUESTED_HOSTNAME is already attached to '$existing_service', not '$WORKER_NAME'. DNS was not touched."
+              exit 1
+            fi
+            echo "$REQUESTED_HOSTNAME is already attached to $WORKER_NAME; verifying live behavior."
+            verify_live || { echo '::error title=Existing Worker domain unhealthy::Live verification failed. DNS was not touched.'; exit 1; }
+            echo "$REQUESTED_HOSTNAME is already healthy on Cloudflare Workers."
+            exit 0
+          fi
+
+          backup="$workdir/dns-backup.json"
+          conflict_count="$(python3 - "$records_file" "$backup" <<'PY'
+          import json, os, sys
+          data = json.load(open(sys.argv[1], encoding='utf-8'))
+          if data.get('success') is not True:
+              raise SystemExit(f"DNS lookup failed: {data.get('errors')!r}")
+          host = os.environ['REQUESTED_HOSTNAME'].rstrip('.').lower()
+          records = []
+          for r in data.get('result') or []:
+              if str(r.get('name') or '').rstrip('.').lower() == host and r.get('type') in {'A','AAAA','CNAME'}:
+                  records.append({
+                      'id': r.get('id'), 'type': r.get('type'), 'name': r.get('name'),
+                      'content': r.get('content'), 'ttl': r.get('ttl',1), 'proxied': r.get('proxied'),
+                      'comment': r.get('comment'), 'tags': r.get('tags') or [],
+                  })
+          json.dump(records, open(sys.argv[2], 'w', encoding='utf-8'))
+          print(len(records))
+          PY
+          )"
+          if [[ "$conflict_count" -gt 1 ]]; then
+            echo "::error title=Multiple web DNS records::Found $conflict_count A/AAAA/CNAME records for $REQUESTED_HOSTNAME. Refusing automated deletion. DNS was not touched."
+            exit 1
+          fi
+
+          restore_dns() {
+            [[ "$conflict_count" -eq 1 ]] || return 0
+            payload="$(python3 - "$backup" <<'PY'
+          import json, sys
+          r = json.load(open(sys.argv[1], encoding='utf-8'))[0]
+          keys = ('type','name','content','ttl','proxied','comment','tags')
+          print(json.dumps({k:r.get(k) for k in keys if r.get(k) is not None}, separators=(',',':')))
+          PY
+            )"
+            restore_file="$workdir/restore.json"
+            restore_http="$(curl --silent --show-error -o "$restore_file" -w '%{http_code}' \
+              -X POST -H "$token_header" -H 'Content-Type: application/json' --data "$payload" \
+              "$api/zones/$zone_id/dns_records")"
+            [[ "$restore_http" -lt 400 ]] || { echo "::error title=DNS rollback failed::HTTP $restore_http while restoring $REQUESTED_HOSTNAME."; cat "$restore_file" >&2 || true; return 1; }
+            echo "Previous $REQUESTED_HOSTNAME web DNS record restored."
+          }
+
+          if [[ "$conflict_count" -eq 1 ]]; then
+            record_id="$(python3 - "$backup" <<'PY'
+          import json, sys
+          r = json.load(open(sys.argv[1], encoding='utf-8'))[0]
+          print(r['id'])
+          print(f"Backed up {r['type']} {r['name']} -> {r['content']}", file=sys.stderr)
+          PY
+            )"
+            delete_file="$workdir/delete.json"
+            delete_http="$(curl --silent --show-error -o "$delete_file" -w '%{http_code}' \
+              -X DELETE -H "$token_header" "$api/zones/$zone_id/dns_records/$record_id")"
+            if [[ "$delete_http" -ge 400 ]]; then
+              echo "::error title=DNS Edit required::Deletion failed with HTTP $delete_http. No DNS record was changed."
+              cat "$delete_file" >&2 || true
+              exit 1
+            fi
+            echo "Old $REQUESTED_HOSTNAME web record removed; attaching Worker immediately."
+          else
+            echo "No conflicting A/AAAA/CNAME record exists for $REQUESTED_HOSTNAME."
+          fi
+
+          domain_payload="$(python3 - <<'PY'
+          import json, os
+          print(json.dumps({'hostname':os.environ['REQUESTED_HOSTNAME'],'service':os.environ['WORKER_NAME'],'zone_name':os.environ['ZONE_NAME']}))
+          PY
+          )"
+          attach_file="$workdir/attach.json"
+          set +e
+          attach_http="$(curl --silent --show-error -o "$attach_file" -w '%{http_code}' \
+            -X PUT -H "$token_header" -H 'Content-Type: application/json' --data "$domain_payload" \
+            "$api/accounts/$CLOUDFLARE_ACCOUNT_ID/workers/domains")"
+          attach_curl=$?
+          set -e
+          domain_id=""
+          if [[ "$attach_curl" -eq 0 && "$attach_http" -lt 400 ]]; then
+            domain_id="$(python3 - "$attach_file" <<'PY'
+          import json, os, sys
+          data = json.load(open(sys.argv[1], encoding='utf-8'))
+          result = data.get('result') or {}
+          ok = data.get('success') is True and result.get('hostname') == os.environ['REQUESTED_HOSTNAME'] and result.get('service') == os.environ['WORKER_NAME']
+          print((result.get('id') or '') if ok else '')
+          PY
+            )"
+          fi
+          if [[ -z "$domain_id" ]]; then
+            echo "Worker Custom Domain attach failed for $REQUESTED_HOSTNAME; restoring previous DNS."
+            cat "$attach_file" >&2 || true
+            restore_dns
+            exit 1
+          fi
+
+          echo "Attached $REQUESTED_HOSTNAME to $WORKER_NAME; waiting for live verification."
+          if verify_live; then
+            echo "$REQUESTED_HOSTNAME cutover passed live verification."
+            exit 0
+          fi
+
+          echo "Live verification failed; detaching Worker Custom Domain and restoring previous DNS."
+          detach_file="$workdir/detach.json"
+          detach_http="$(curl --silent --show-error -o "$detach_file" -w '%{http_code}' \
+            -X DELETE -H "$token_header" "$api/accounts/$CLOUDFLARE_ACCOUNT_ID/workers/domains/$domain_id")"
+          if [[ "$detach_http" -ge 400 ]]; then
+            echo "::error title=Automatic Worker rollback failed::HTTP $detach_http while detaching $REQUESTED_HOSTNAME."
+            cat "$detach_file" >&2 || true
+          fi
+          restore_dns
+          echo "::error title=TexasDefined cutover rolled back::$REQUESTED_HOSTNAME did not become healthy within the provisioning window."
+          exit 1

@@ -1,3 +1,9 @@
+# TexasDefined.com — Legacy Lovable Phase 1 Plan
+
+This document is preserved for historical reference only. TexasDefined no longer uses Lovable as its build/runtime target.
+
+---
+
 # TexasDefined.com — Phase 1 Foundation
 
 A premium Texas lifestyle publication. Frontend-only build: no Lovable Cloud, no Supabase, no migrations, no contact with the KeepTXRed database. All data comes from typed local fixtures behind repository interfaces, so the backend can be swapped in later without touching any component.
@@ -77,7 +83,6 @@ Every reusable component is written as if a second brand already exists. No comp
 
 `src/brand/texasdefined.ts` is the only file that supplies concrete values; adding `keeptxred.ts` beside it is the entire brand-onboarding cost. Any component that cannot be rendered correctly with a different `BrandConfig` is treated as a bug in this phase.
 
-
 ## Shop foundation
 
 Shop routes and product/collection types are built and browsable from fixtures. No cart, checkout, or payment. Editorial-to-commerce linking is built in from day one: articles carry `relatedCollections`, and a `ShopTheStory` component renders inline in article bodies.
@@ -113,4 +118,3 @@ Any feature with a plausible shared future is built once, in the right abstracti
 - **Utilities**: formatting, slugs, geo, dates, and URL helpers go into `domain/utils/` and are written without brand assumptions.
 
 The rule of thumb: if KeepTXRed could reasonably need it, it is designed as shared from the first commit. TexasDefined-specific behavior is achieved through configuration and composition, not by forking code.
-

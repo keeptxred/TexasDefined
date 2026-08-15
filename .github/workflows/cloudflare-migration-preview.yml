@@ -1,0 +1,83 @@
+name: Cloudflare migration preview
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: texasdefined-cloudflare-migration-preview
+  cancel-in-progress: true
+
+jobs:
+  deploy-preview:
+    if: github.head_ref == 'migrate-texasdefined-cloudflare'
+    runs-on: ubuntu-latest
+    environment: texasdefined-publication
+    env:
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_DEPLOY_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}
+      PREVIEW_WORKER_NAME: texasdefined-site-migration-preview
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - name: Verify Cloudflare deploy credentials and Workers access
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -n "$CLOUDFLARE_ACCOUNT_ID" || { echo 'Missing CLOUDFLARE_ACCOUNT_ID'; exit 1; }
+          test -n "$CLOUDFLARE_API_TOKEN" || { echo 'Missing Cloudflare deploy token'; exit 1; }
+          token_json="$(curl --fail-with-body --silent --show-error \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            "https://api.cloudflare.com/client/v4/user/tokens/verify")"
+          workers_json="$(curl --fail-with-body --silent --show-error \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/workers/scripts")"
+          python3 - "$token_json" "$workers_json" <<'PY'
+          import json
+          import sys
+
+          token = json.loads(sys.argv[1])
+          workers = json.loads(sys.argv[2])
+          if token.get("success") is not True or (token.get("result") or {}).get("status") != "active":
+              raise SystemExit(f"Cloudflare deploy token is not active: {token.get('errors')!r}")
+          if workers.get("success") is not True:
+              raise SystemExit(f"Cloudflare deploy token lacks Workers Scripts access: {workers.get('errors')!r}")
+          print(f"Cloudflare deploy token active; {len(workers.get('result') or [])} Worker script(s) visible.")
+          PY
+      - name: Install dependencies
+        run: npm ci
+      - name: Validate application
+        run: npm run validate
+      - name: Deploy isolated Cloudflare Worker preview
+        id: deploy
+        shell: bash
+        run: |
+          set -euo pipefail
+          npx wrangler deploy --name "$PREVIEW_WORKER_NAME" 2>&1 | tee /tmp/wrangler-deploy.log
+          PREVIEW_URL="$(grep -Eo 'https://[^[:space:]]+\.workers\.dev' /tmp/wrangler-deploy.log | tail -1 | sed 's/[[:punct:]]$//' || true)"
+          if [ -z "$PREVIEW_URL" ]; then
+            echo 'Unable to resolve workers.dev preview URL from Wrangler output.' >&2
+            cat /tmp/wrangler-deploy.log >&2
+            exit 1
+          fi
+          echo "url=$PREVIEW_URL" >> "$GITHUB_OUTPUT"
+          echo "Preview URL: $PREVIEW_URL"
+      - name: Smoke-test Cloudflare preview
+        shell: bash
+        env:
+          PREVIEW_URL: ${{ steps.deploy.outputs.url }}
+        run: |
+          set -euo pipefail
+          for path in / /robots.txt /sitemap.xml /fishing /guides /county/travis; do
+            echo "Checking ${PREVIEW_URL}${path}"
+            curl --retry 5 --retry-all-errors --retry-delay 3 --max-time 45 -fsSL "${PREVIEW_URL}${path}" -o /tmp/response
+            test -s /tmp/response || { echo "Empty response for $path" >&2; exit 1; }
+          done
+          echo 'TexasDefined Cloudflare preview smoke tests passed.'
