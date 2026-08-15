@@ -19,7 +19,7 @@ export const fishingGuideSubmissionSchema = z.object({
   startingPrice: z.string().trim().max(80).default(""),
   sourceUrls: z.string().trim().min(8).max(3000),
   notes: z.string().trim().max(3000).default(""),
-  authorized: z.literal(true),
+  authorized: z.boolean().refine((value) => value, "Authorization is required."),
   addressLine2: z.string().max(200).default(""),
 });
 
