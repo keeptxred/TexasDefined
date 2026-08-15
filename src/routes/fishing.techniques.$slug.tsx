@@ -1,13 +1,10 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
-import { lazy, Suspense } from "react";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { getFishingTechniqueProfileData } from "@/data/fishing/technique-data.functions";
 import { fishingFoundationAnchor } from "@/data/fishing/slugs";
 import { FISHING_TECHNIQUES_DIRECTORY_PATH } from "@/data/fishing/technique-routing";
 import { buildMeta, canonicalLink } from "@/lib/seo";
-
-const FishingTechniqueProfile = lazy(() => import("@/components/fishing/FishingTechniqueProfile").then((module) => ({ default: module.FishingTechniqueProfile })));
 
 export const Route = createFileRoute("/fishing/techniques/$slug")({
   loader: async ({ params }) => {
@@ -36,14 +33,5 @@ export const Route = createFileRoute("/fishing/techniques/$slug")({
     };
     return { meta: buildMeta(texasDefinedBrand, { title: `${technique.name} Fishing in Texas — Lakes, Species & Seasons`, description, canonicalPath }), links: [canonicalLink(texasDefinedBrand, canonicalPath)], scripts: [{ type: "application/ld+json", children: JSON.stringify(jsonLd) }] };
   },
-  component: FishingTechniqueProfilePage,
   notFoundComponent: () => <div className="mx-auto max-w-3xl px-6 py-20"><h1 className="font-display text-4xl">Verified fishing technique not found</h1><p className="mt-4 text-muted-foreground">TexasDefined only publishes technique profiles after the method has a verified application on at least one complete fishing-lake guide.</p><a href={FISHING_TECHNIQUES_DIRECTORY_PATH} className="mt-6 inline-block border-b border-primary pb-1 font-semibold text-primary">Browse fishing techniques →</a></div>,
 });
-
-function FishingTechniqueProfilePage() {
-  return (
-    <Suspense fallback={<div className="min-h-[32rem]" aria-hidden="true" />}>
-      <FishingTechniqueProfile data={Route.useLoaderData()} />
-    </Suspense>
-  );
-}
