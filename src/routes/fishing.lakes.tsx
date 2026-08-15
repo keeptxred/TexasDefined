@@ -9,7 +9,7 @@ const FishingLakesDirectory = lazy(() => import("@/components/fishing/FishingLak
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const canonicalPath = "/fishing/lakes";
 const canonicalUrl = `${siteUrl}${canonicalPath}`;
-const description = "Compare the five complete TexasDefined fishing-lake guides by region, size, counties, nearby cities and verified fishery strengths, then open each lake for fish, access, boating, rules, reports and guide planning.";
+const description = "Compare ten complete TexasDefined fishing-lake guides across Texas by region, size, counties, nearby cities and verified fishery strengths, then open each lake for fish, access, boating, rules, reports and guide planning.";
 
 export const Route = createFileRoute("/fishing/lakes")({
   loader: async ({ context }) => {
@@ -56,7 +56,7 @@ export const Route = createFileRoute("/fishing/lakes")({
         ] },
       ],
     };
-    return { meta: buildMeta(texasDefinedBrand, { title: "Texas Fishing Lakes — Compare 5 Complete Lake Guides", description, canonicalPath }), links: [canonicalLink(texasDefinedBrand, canonicalPath)], scripts: [{ type: "application/ld+json", children: JSON.stringify(jsonLd) }] };
+    return { meta: buildMeta(texasDefinedBrand, { title: "Texas Fishing Lakes — Compare 10 Complete Lake Guides", description, canonicalPath }), links: [canonicalLink(texasDefinedBrand, canonicalPath)], scripts: [{ type: "application/ld+json", children: JSON.stringify(jsonLd) }] };
   },
   component: FishingLakesPage,
 });
@@ -72,7 +72,7 @@ function FishingLakesPage() {
 
 function buildQuickAnswers(count: number) {
   return [
-    { question: "How many complete Texas fishing lake guides are here?", answer: `TexasDefined currently publishes ${count} complete fishing-lake guides in this directory: Lake Conroe, Lake Fork, Sam Rayburn Reservoir, Lake Livingston and Lake Texoma.` },
+    { question: "How many complete Texas fishing lake guides are here?", answer: `TexasDefined currently publishes ${count} complete fishing-lake guides in this directory. The collection spans East Texas, North and Central Texas, the Hill Country, South Texas and the Rio Grande border region.` },
     { question: "Are these ranked as the best fishing lakes in Texas?", answer: "No. This directory compares completed, source-backed TexasDefined guides. It does not claim a universal best-lake ranking, and the collection will expand as more lake profiles clear the same verification standard." },
     { question: "Can I compare what fish each lake is known for?", answer: "Yes. Each lake card shows the strongest verified lake-to-species relationships currently in the fishing catalog, while the full lake guide explains seasonal patterns and techniques without presenting them as a live fishing report." },
     { question: "Where should I check current regulations and lake conditions?", answer: "Open the individual lake guide and follow its official source links. TexasDefined keeps current regulations, water levels, access restrictions and fishing reports separate from durable lake facts because those details can change." },
