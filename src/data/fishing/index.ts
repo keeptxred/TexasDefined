@@ -1,4 +1,5 @@
 import { fixtureFishingCatalog } from "./fixtures";
+import { expandedFishingLakes, expandedLakeSpeciesProfiles, expandedLakeTechniqueProfiles } from "./lake-expansion-fixtures";
 import { createFixtureFishingRepositories } from "./repositories";
 import { texasFreshwaterFishSpecies } from "./species-catalog";
 import { assertValidFishingCatalog } from "./validation";
@@ -8,12 +9,15 @@ import { assertValidFishingCatalog } from "./validation";
  * a validated fixture catalog; a Supabase-backed implementation can replace
  * this object later without changing routes or components.
  *
- * Batch 4 extends the foundation catalog with the statewide freshwater species
- * registry while preserving the existing lake/species relationship ids.
+ * The catalog combines the statewide freshwater species registry with verified
+ * complete-lake expansions while preserving the same repository boundary.
  */
 const fishingCatalog = assertValidFishingCatalog({
   ...fixtureFishingCatalog,
+  lakes: [...fixtureFishingCatalog.lakes, ...expandedFishingLakes],
   species: texasFreshwaterFishSpecies,
+  lakeSpecies: [...fixtureFishingCatalog.lakeSpecies, ...expandedLakeSpeciesProfiles],
+  lakeTechniques: [...fixtureFishingCatalog.lakeTechniques, ...expandedLakeTechniqueProfiles],
 });
 
 export const fishingPlatform = createFixtureFishingRepositories(fishingCatalog);
