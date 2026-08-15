@@ -9,12 +9,20 @@ const required = [
   "src/data/fishing/guide-profile-data.server.ts",
   "src/data/fishing/guide-profile-data.functions.ts",
   "src/data/fishing/guide-sitemap.server.ts",
+  "src/data/fishing/guide-onboarding-contract.ts",
+  "src/data/fishing/guide-onboarding.server.ts",
+  "src/data/fishing/guide-onboarding.functions.ts",
   "src/components/fishing/FishingGuideDirectory.tsx",
   "src/components/fishing/FishingGuideProfile.tsx",
+  "src/components/fishing/FishingGuideOnboardingForm.tsx",
   "src/routes/fishing.guides.tsx",
+  "src/routes/fishing.guides.lazy.tsx",
   "src/routes/fishing.guides.$slug.tsx",
+  "src/routes/fishing.guides.$slug.lazy.tsx",
+  "src/routes/fishing.guides.submit.tsx",
+  "src/routes/fishing.guides.submit.lazy.tsx",
 ];
-for (const file of required) if (!fs.existsSync(file)) failures.push(`Missing Batch 6 fishing-guide file: ${file}`);
+for (const file of required) if (!fs.existsSync(file)) failures.push(`Missing fishing-guide platform file: ${file}`);
 
 if (!failures.length) {
   const repositories = read("src/data/fishing/repositories.ts");
@@ -24,10 +32,18 @@ if (!failures.length) {
   const directoryFunctions = read("src/data/fishing/guide-directory-data.functions.ts");
   const profileServer = read("src/data/fishing/guide-profile-data.server.ts");
   const profileFunctions = read("src/data/fishing/guide-profile-data.functions.ts");
+  const onboardingContract = read("src/data/fishing/guide-onboarding-contract.ts");
+  const onboardingServer = read("src/data/fishing/guide-onboarding.server.ts");
+  const onboardingFunctions = read("src/data/fishing/guide-onboarding.functions.ts");
   const directoryUi = read("src/components/fishing/FishingGuideDirectory.tsx");
   const profileUi = read("src/components/fishing/FishingGuideProfile.tsx");
+  const onboardingUi = read("src/components/fishing/FishingGuideOnboardingForm.tsx");
   const directoryRoute = read("src/routes/fishing.guides.tsx");
+  const directoryLazy = read("src/routes/fishing.guides.lazy.tsx");
   const profileRoute = read("src/routes/fishing.guides.$slug.tsx");
+  const profileLazy = read("src/routes/fishing.guides.$slug.lazy.tsx");
+  const submitRoute = read("src/routes/fishing.guides.submit.tsx");
+  const submitLazy = read("src/routes/fishing.guides.submit.lazy.tsx");
   const routing = read("src/data/fishing/guide-routing.ts");
   const search = read("src/data/fishing/search.ts");
   const internalLinks = read("src/data/fishing/internal-links.ts");
@@ -36,6 +52,7 @@ if (!failures.length) {
   const primarySitemap = read("src/routes/sitemap[.]xml.ts");
   const publicRoutes = read("src/lib/public-routes.ts");
   const fishingHub = read("src/routes/fishing.tsx");
+  const partnerServer = read("src/data/partner-inquiry.server.ts");
 
   // Verified-listing enforcement is intentionally redundant across repository, public query, server and sitemap surfaces.
   if (!repositories.includes("verifiedListing?: boolean") || !repositories.includes("row.verifiedListing === query.verifiedListing")) failures.push("Fishing guide repository cannot enforce verified listings.");
@@ -65,6 +82,12 @@ if (!failures.length) {
   if (!internalLinks.includes("fishingGuideCanonicalPath(guide.slug)")) failures.push("Guide internal-link discovery is not canonical.");
   if (!fishingHub.includes('to="/fishing/guides"')) failures.push("Fishing hub does not discover the guide directory.");
 
+  // Native lazy boundaries keep guide UIs out of the startup route graph.
+  if (!directoryLazy.includes('createLazyFileRoute("/fishing/guides")') || !directoryLazy.includes("FishingGuideDirectory pageData={Route.useLoaderData()}")) failures.push("Fishing guide directory native lazy route missing.");
+  if (!profileLazy.includes('createLazyFileRoute("/fishing/guides/$slug")') || !profileLazy.includes("FishingGuideProfile pageData={Route.useLoaderData()}")) failures.push("Fishing guide profile native lazy route missing.");
+  if (directoryRoute.includes('from "@/components/fishing/FishingGuideDirectory"') || /\bcomponent\s*:/.test(directoryRoute)) failures.push("Fishing guide directory UI leaked into critical route.");
+  if (profileRoute.includes('from "@/components/fishing/FishingGuideProfile"') || /\bcomponent\s*:/.test(profileRoute)) failures.push("Fishing guide profile UI leaked into critical route.");
+
   // Sponsorship is disclosed and isolated from editorial ordering.
   if (!directoryServer.includes("editorialOrder") || !directoryServer.includes("businessName.localeCompare") || !directoryServer.includes("sponsoredPlacements")) failures.push("Editorial ordering and sponsored placement separation missing.");
   if (!directoryServer.includes("Sponsorship never changes this order") || !directoryUi.includes("cannot buy a higher editorial rank or recommendation")) failures.push("Directory editorial independence disclosure missing.");
@@ -74,8 +97,26 @@ if (!failures.length) {
   if (!profileUi.includes("Sponsorship cannot change this profile’s editorial treatment")) failures.push("Guide profile editorial-independence disclosure missing.");
   if (!validation.includes('placement.disclosure !== "sponsored"')) failures.push("Runtime fishing placement disclosure validation missing.");
 
-  // Submission/claim/update and filter behavior.
-  for (const phrase of ["Submit, claim or update a listing", "new submission", "claim of an existing profile", "update"]) if (!directoryUi.includes(phrase)) failures.push(`Guide recruitment process missing: ${phrase}`);
+  // Dedicated listing submission/claim/update/removal workflow.
+  for (const intent of ["new-listing", "claim-listing", "update-listing", "remove-listing"]) if (!onboardingContract.includes(`"${intent}"`)) failures.push(`Guide onboarding intent missing: ${intent}`);
+  for (const field of ["businessName", "guideName", "website", "bookingUrl", "lakeSlugs", "speciesSlugs", "sourceUrls", "authorized"]) if (!onboardingContract.includes(`${field}:`)) failures.push(`Guide onboarding validation field missing: ${field}`);
+  if (!onboardingContract.includes("Authorization is required")) failures.push("Guide submitter authorization gate missing.");
+  if (!onboardingServer.includes("isCompleteFishingLakeSlug") || !onboardingServer.includes("unknownLakes") || !onboardingServer.includes("unknownSpecies")) failures.push("Guide onboarding does not verify submitted relationship IDs against published fishing data.");
+  if (!onboardingServer.includes("parseSourceUrls") || !onboardingServer.includes("Verification sources") || !onboardingServer.includes("submitted, not verified")) failures.push("Guide onboarding source and unverified-commercial-fact safeguards missing.");
+  if (!onboardingServer.includes('partnership_type: "other"') || !onboardingServer.includes('source_path: "/fishing/guides/submit"') || !onboardingServer.includes("savePartnerInquiry")) failures.push("Guide submissions are not stored privately through the existing inquiry persistence path.");
+  if (!partnerServer.includes("texasdefined_partner_inquiries")) failures.push("Guide onboarding persistence target is not the private partner-inquiry table.");
+  if (!onboardingFunctions.includes("createServerFn") || !onboardingFunctions.includes("inputValidator(fishingGuideSubmissionSchema)") || !onboardingFunctions.includes('import("./guide-onboarding.server")')) failures.push("Guide onboarding server-function boundary is incomplete.");
+  if (onboardingFunctions.includes('from "./guide-onboarding.server"')) failures.push("Guide onboarding functions statically import server-only persistence code.");
+  if (!submitRoute.includes('createFileRoute("/fishing/guides/submit")') || !submitRoute.includes('content: "noindex, follow"')) failures.push("Guide onboarding route/noindex policy missing.");
+  if (!submitLazy.includes('createLazyFileRoute("/fishing/guides/submit")') || !submitLazy.includes("FishingGuideOnboardingForm pageData={Route.useLoaderData()}")) failures.push("Guide onboarding form is not native-lazy loaded.");
+  if (submitRoute.includes("FishingGuideOnboardingForm") || /\bcomponent\s*:/.test(submitRoute)) failures.push("Guide onboarding UI leaked into critical route.");
+  for (const phrase of ["Submission does not publish a listing", "A free verified listing and paid sponsorship are separate", "does not automatically publish", "source URLs", "Sponsorship is a separate commercial workflow"]) {
+    if (!`${onboardingServer}\n${onboardingUi}`.includes(phrase)) failures.push(`Guide onboarding integrity disclosure missing: ${phrase}`);
+  }
+  if (!directoryUi.includes('to="/fishing/guides/submit"') || !directoryUi.includes("Open the fishing-guide verification form")) failures.push("Guide directory does not discover the dedicated verification workflow.");
+  if (!directoryUi.includes('to="/partner-with-us"') || !directoryUi.includes("Ask about a sponsored fishing-guide placement")) failures.push("Fishing sponsorship inquiry must remain separate from free listing verification.");
+
+  // Filters remain honest when no verified data supports a dimension.
   for (const filter of ['name="lake"', 'name="region"', 'name="species"', 'name="trip"']) if (!directoryUi.includes(filter)) failures.push(`Guide directory filter missing: ${filter}`);
   if (!directoryUi.includes("Trip type") || !directoryUi.includes("Available when verified")) failures.push("Trip-type filter must remain honest when the model has no verified trip-type data.");
 
@@ -86,15 +127,15 @@ if (!failures.length) {
 
   // Server/client boundaries: fixture/repository data stays behind page-data/server-function contracts.
   if (!directoryFunctions.includes("createServerFn") || !profileFunctions.includes("createServerFn") || !profileFunctions.includes("inputValidator")) failures.push("Fishing guide server-function boundary incomplete.");
-  for (const [label, source] of [["directory UI", directoryUi], ["profile UI", profileUi], ["directory route", directoryRoute], ["profile route", profileRoute]]) {
+  for (const [label, source] of [["directory UI", directoryUi], ["profile UI", profileUi], ["onboarding UI", onboardingUi], ["directory route", directoryRoute], ["profile route", profileRoute], ["submit route", submitRoute]]) {
     if (source.includes('from "@/data/fishing/index"') || source.includes("fixtures") || source.includes("repositories")) failures.push(`${label} crosses the fishing data client/server boundary.`);
   }
 }
 
 if (failures.length) {
-  console.error("Fishing Batch 6 guide platform validation failed:");
+  console.error("Fishing guide platform validation failed:");
   failures.forEach((failure) => console.error(`- ${failure}`));
   process.exit(1);
 }
 
-console.log("Fishing Batch 6 guide validation passed: verified-only directory/profile publishing, anti-fabrication rules, relationship integrity, canonical discovery, sponsorship/editorial separation, structured data, sitemap coverage and client/server boundaries are protected.");
+console.log("Fishing guide platform validation passed: verified-only publishing, source-backed onboarding/claim/update/removal, private persistence, native lazy boundaries, anti-fabrication rules, relationship integrity, canonical discovery and sponsorship/editorial separation are protected.");
