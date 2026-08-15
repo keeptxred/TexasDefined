@@ -1,5 +1,5 @@
 import { fishingPlatform, fishingScope } from "./index";
-import { fishingFoundationAnchor, isCompleteFishingLakeSlug } from "./slugs";
+import { isCompleteFishingLakeSlug } from "./slugs";
 import {
   FISHING_TECHNIQUES_VERIFIED_AT,
   PUBLISHED_FISHING_TECHNIQUE_SLUGS,
@@ -75,14 +75,6 @@ export async function loadFishingTechniqueDirectoryServer() {
 export async function loadFishingTechniqueProfileServer(slug: string) {
   const directory = await loadFishingTechniqueDirectoryServer();
   return directory.entries.find((entry) => entry.technique.slug === slug) ?? null;
-}
-
-export function fishingTechniqueLakeHref(slug: string) {
-  return fishingFoundationAnchor("lake", slug);
-}
-
-export function fishingTechniqueSpeciesHref(slug: string) {
-  return fishingFoundationAnchor("species", slug);
 }
 
 export type FishingTechniqueDirectoryData = Awaited<ReturnType<typeof loadFishingTechniqueDirectoryServer>>;
