@@ -54,78 +54,65 @@ if (!failures.length) {
   const fishingHub = read("src/routes/fishing.tsx");
   const partnerServer = read("src/data/partner-inquiry.server.ts");
 
-  // Verified-listing enforcement is intentionally redundant across repository, public query, server and sitemap surfaces.
   if (!repositories.includes("verifiedListing?: boolean") || !repositories.includes("row.verifiedListing === query.verifiedListing")) failures.push("Fishing guide repository cannot enforce verified listings.");
   if (!queries.includes("verifiedListing: true") || !queries.includes('row?.status === "published" && row.verifiedListing')) failures.push("Public guide queries do not enforce verified-only listings.");
   if (!directoryServer.includes("verifiedListing: true") || !profileServer.includes('guide.status !== "published" || !guide.verifiedListing')) failures.push("Guide directory/profile server gate is incomplete.");
   if (!guideSitemap.includes("verifiedListing: true") || !search.includes("verifiedListing: true") || !internalLinks.includes("verifiedListing: true")) failures.push("Unverified guides could leak into sitemap, search or internal-link discovery.");
 
-  // No guide identities or commercial facts may be fabricated inside page-data infrastructure.
   for (const [label, source] of [["directory server", directoryServer], ["profile server", profileServer]]) {
     for (const forbidden of ["businessName:", "guideName:", "startingPriceCents:", "boatDescription:", "bookingUrl:", "phone:"]) if (source.includes(forbidden)) failures.push(`${label} contains hard-coded guide profile data: ${forbidden}`);
   }
   if (!directoryUi.includes("does not create placeholder guide identities") || !directoryUi.includes("No fishing guide has cleared the statewide verified-listing gate yet")) failures.push("Honest zero-guide state or anti-fabrication disclosure missing.");
   if (!profileUi.includes("Missing details stay missing until they are verified") || !profileUi.includes("guide.startingPriceCents !== undefined")) failures.push("Guide profile optional-fact rendering is not protected.");
 
-  // Relationship integrity must be first-class, source-backed and bidirectionally consistent for verified guides.
   for (const signal of ["guideLakes:", "guideSpecies:", "GuideLakeRelationship", "GuideSpeciesRelationship"]) if (!repositories.includes(signal)) failures.push(`Guide relationship repository contract missing: ${signal}`);
   for (const signal of ["verified-guide-lake-relationship", "verified-guide-species-relationship", "verified-guide-lake-mismatch", "verified-guide-species-mismatch"]) if (!validation.includes(signal)) failures.push(`Verified guide relationship validation missing: ${signal}`);
   if (!directoryServer.includes("guideLakes.filter") || !directoryServer.includes("guideSpecies.filter") || !profileServer.includes("fishingPlatform.guideLakes.list") || !profileServer.includes("fishingPlatform.guideSpecies.list")) failures.push("Guide pages are not using guide-to-lake and guide-to-species relationships.");
   if (!directoryUi.includes('fishingFoundationAnchor("lake"') || !directoryUi.includes('fishingFoundationAnchor("species"') || !profileUi.includes('fishingFoundationAnchor("lake"') || !profileUi.includes('fishingFoundationAnchor("species"')) failures.push("Guide listings are not connected to canonical lake/species pages.");
 
-  // Canonical routes, crawl governance and search discovery.
   if (!routing.includes('FISHING_GUIDES_DIRECTORY_PATH = "/fishing/guides"') || !routing.includes("fishingGuideCanonicalPath") || !routing.includes("assertCanonicalFishingSlug")) failures.push("Canonical fishing-guide routing contract incomplete.");
   if (!directoryRoute.includes('createFileRoute("/fishing/guides")') || !profileRoute.includes('createFileRoute("/fishing/guides/$slug")')) failures.push("Fishing guide route files are incomplete.");
   if (!directoryRoute.includes("canonicalLink") || !profileRoute.includes("canonicalLink") || !profileRoute.includes("canonicalPath")) failures.push("Fishing guide canonical metadata missing.");
-  if (!publicRoutes.includes('"/fishing/guides"')) failures.push("Fishing guide directory missing public-route governance.");
+  if (!publicRoutes.includes('"/fishing/guides"') || !publicRoutes.includes('"/fishing/guides/submit"')) failures.push("Fishing guide public-route governance is incomplete.");
   if (!search.includes("fishing-directory:texas-fishing-guides") || !search.includes("fishingGuideCanonicalPath(guide.slug)")) failures.push("Global search discovery missing canonical guide routes.");
   if (!internalLinks.includes("fishingGuideCanonicalPath(guide.slug)")) failures.push("Guide internal-link discovery is not canonical.");
   if (!fishingHub.includes('to="/fishing/guides"')) failures.push("Fishing hub does not discover the guide directory.");
 
-  // Native lazy boundaries keep guide UIs out of the startup route graph.
   if (!directoryLazy.includes('createLazyFileRoute("/fishing/guides")') || !directoryLazy.includes("FishingGuideDirectory pageData={Route.useLoaderData()}")) failures.push("Fishing guide directory native lazy route missing.");
   if (!profileLazy.includes('createLazyFileRoute("/fishing/guides/$slug")') || !profileLazy.includes("FishingGuideProfile pageData={Route.useLoaderData()}")) failures.push("Fishing guide profile native lazy route missing.");
   if (directoryRoute.includes('from "@/components/fishing/FishingGuideDirectory"') || /\bcomponent\s*:/.test(directoryRoute)) failures.push("Fishing guide directory UI leaked into critical route.");
   if (profileRoute.includes('from "@/components/fishing/FishingGuideProfile"') || /\bcomponent\s*:/.test(profileRoute)) failures.push("Fishing guide profile UI leaked into critical route.");
 
-  // Sponsorship is disclosed and isolated from editorial ordering.
   if (!directoryServer.includes("editorialOrder") || !directoryServer.includes("businessName.localeCompare") || !directoryServer.includes("sponsoredPlacements")) failures.push("Editorial ordering and sponsored placement separation missing.");
   if (!directoryServer.includes("Sponsorship never changes this order") || !directoryUi.includes("cannot buy a higher editorial rank or recommendation")) failures.push("Directory editorial independence disclosure missing.");
-  for (const source of [directoryUi, profileUi]) {
-    if (!source.includes("Sponsored placement") || !source.includes('rel="noopener sponsored"')) failures.push("Sponsored guide placement disclosure/link attributes missing.");
-  }
+  for (const source of [directoryUi, profileUi]) if (!source.includes("Sponsored placement") || !source.includes('rel="noopener sponsored"')) failures.push("Sponsored guide placement disclosure/link attributes missing.");
   if (!profileUi.includes("Sponsorship cannot change this profile’s editorial treatment")) failures.push("Guide profile editorial-independence disclosure missing.");
   if (!validation.includes('placement.disclosure !== "sponsored"')) failures.push("Runtime fishing placement disclosure validation missing.");
 
-  // Dedicated listing submission/claim/update/removal workflow.
   for (const intent of ["new-listing", "claim-listing", "update-listing", "remove-listing"]) if (!onboardingContract.includes(`"${intent}"`)) failures.push(`Guide onboarding intent missing: ${intent}`);
   for (const field of ["businessName", "guideName", "website", "bookingUrl", "lakeSlugs", "speciesSlugs", "sourceUrls", "authorized"]) if (!onboardingContract.includes(`${field}:`)) failures.push(`Guide onboarding validation field missing: ${field}`);
   if (!onboardingContract.includes("Authorization is required")) failures.push("Guide submitter authorization gate missing.");
+  if (!onboardingServer.includes("fishingGuideSubmissionSchema.parse(input)")) failures.push("Authoritative Zod guide-submission validation must remain server-side.");
   if (!onboardingServer.includes("isCompleteFishingLakeSlug") || !onboardingServer.includes("unknownLakes") || !onboardingServer.includes("unknownSpecies")) failures.push("Guide onboarding does not verify submitted relationship IDs against published fishing data.");
   if (!onboardingServer.includes("parseSourceUrls") || !onboardingServer.includes("Verification sources") || !onboardingServer.includes("submitted, not verified")) failures.push("Guide onboarding source and unverified-commercial-fact safeguards missing.");
   if (!onboardingServer.includes('partnership_type: "other"') || !onboardingServer.includes('source_path: "/fishing/guides/submit"') || !onboardingServer.includes("savePartnerInquiry")) failures.push("Guide submissions are not stored privately through the existing inquiry persistence path.");
   if (!partnerServer.includes("texasdefined_partner_inquiries")) failures.push("Guide onboarding persistence target is not the private partner-inquiry table.");
-  if (!onboardingFunctions.includes("createServerFn") || !onboardingFunctions.includes("inputValidator(fishingGuideSubmissionSchema)") || !onboardingFunctions.includes('import("./guide-onboarding.server")')) failures.push("Guide onboarding server-function boundary is incomplete.");
-  if (onboardingFunctions.includes('from "./guide-onboarding.server"')) failures.push("Guide onboarding functions statically import server-only persistence code.");
+  if (!onboardingFunctions.includes("createServerFn") || !onboardingFunctions.includes("inputValidator(acceptFishingGuideSubmissionInput)") || !onboardingFunctions.includes('import("./guide-onboarding.server")')) failures.push("Guide onboarding server-function boundary is incomplete.");
+  if (onboardingFunctions.includes("guide-onboarding-contract") || onboardingFunctions.includes("zod") || onboardingFunctions.includes('from "./guide-onboarding.server"')) failures.push("Guide onboarding client-facing functions must not statically import Zod or server-only persistence code.");
   if (!submitRoute.includes('createFileRoute("/fishing/guides/submit")') || !submitRoute.includes('content: "noindex, follow"')) failures.push("Guide onboarding route/noindex policy missing.");
   if (!submitLazy.includes('createLazyFileRoute("/fishing/guides/submit")') || !submitLazy.includes("FishingGuideOnboardingForm pageData={Route.useLoaderData()}")) failures.push("Guide onboarding form is not native-lazy loaded.");
   if (submitRoute.includes("FishingGuideOnboardingForm") || /\bcomponent\s*:/.test(submitRoute)) failures.push("Guide onboarding UI leaked into critical route.");
-  for (const phrase of ["Submission does not publish a listing", "A free verified listing and paid sponsorship are separate", "does not automatically publish", "source URLs", "Sponsorship is a separate commercial workflow"]) {
-    if (!`${onboardingServer}\n${onboardingUi}`.includes(phrase)) failures.push(`Guide onboarding integrity disclosure missing: ${phrase}`);
-  }
+  for (const phrase of ["Submission does not publish a listing", "A free verified listing and paid sponsorship are separate", "does not automatically publish", "source URLs", "Sponsorship is a separate commercial workflow"]) if (!`${onboardingServer}\n${onboardingUi}`.includes(phrase)) failures.push(`Guide onboarding integrity disclosure missing: ${phrase}`);
   if (!directoryUi.includes('to="/fishing/guides/submit"') || !directoryUi.includes("Open the fishing-guide verification form")) failures.push("Guide directory does not discover the dedicated verification workflow.");
   if (!directoryUi.includes('to="/partner-with-us"') || !directoryUi.includes("Ask about a sponsored fishing-guide placement")) failures.push("Fishing sponsorship inquiry must remain separate from free listing verification.");
 
-  // Filters remain honest when no verified data supports a dimension.
   for (const filter of ['name="lake"', 'name="region"', 'name="species"', 'name="trip"']) if (!directoryUi.includes(filter)) failures.push(`Guide directory filter missing: ${filter}`);
   if (!directoryUi.includes("Trip type") || !directoryUi.includes("Available when verified")) failures.push("Trip-type filter must remain honest when the model has no verified trip-type data.");
 
-  // Structured data and sitemap coverage include directory now and verified profiles dynamically.
   for (const schema of ['"@type": "CollectionPage"', '"@type": "ItemList"', '"@type": "BreadcrumbList"']) if (!directoryRoute.includes(schema)) failures.push(`Guide directory schema missing: ${schema}`);
   for (const schema of ['"@type": "WebPage"', '"@type": "ProfessionalService"', '"@type": "BreadcrumbList"']) if (!profileRoute.includes(schema)) failures.push(`Guide profile schema missing: ${schema}`);
   if (!sitemap.includes("FISHING_GUIDES_DIRECTORY_PATH") || !guideSitemap.includes("fishingGuideCanonicalPath") || !primarySitemap.includes("loadFishingGuideSitemapEntriesServer") || !primarySitemap.includes("...fishingGuideSitemapEntries")) failures.push("Fishing guide sitemap coverage incomplete.");
 
-  // Server/client boundaries: fixture/repository data stays behind page-data/server-function contracts.
   if (!directoryFunctions.includes("createServerFn") || !profileFunctions.includes("createServerFn") || !profileFunctions.includes("inputValidator")) failures.push("Fishing guide server-function boundary incomplete.");
   for (const [label, source] of [["directory UI", directoryUi], ["profile UI", profileUi], ["onboarding UI", onboardingUi], ["directory route", directoryRoute], ["profile route", profileRoute], ["submit route", submitRoute]]) {
     if (source.includes('from "@/data/fishing/index"') || source.includes("fixtures") || source.includes("repositories")) failures.push(`${label} crosses the fishing data client/server boundary.`);
@@ -138,4 +125,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Fishing guide platform validation passed: verified-only publishing, source-backed onboarding/claim/update/removal, private persistence, native lazy boundaries, anti-fabrication rules, relationship integrity, canonical discovery and sponsorship/editorial separation are protected.");
+console.log("Fishing guide platform validation passed: verified-only publishing, source-backed onboarding/claim/update/removal, private persistence, server-only authoritative validation, native lazy boundaries, anti-fabrication rules, relationship integrity, canonical discovery and sponsorship/editorial separation are protected.");
