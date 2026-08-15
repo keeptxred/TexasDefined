@@ -45,11 +45,13 @@ requireText(files.server, "not a live bite report", "live-condition separation m
 requireText(files.functions, "loadFishingTechniqueDirectoryServer", "directory server boundary missing");
 requireText(files.functions, "loadFishingTechniqueProfileServer", "profile server boundary missing");
 
-for (const token of ['createFileRoute("/fishing/techniques")','"@type": "CollectionPage"','"@type": "ItemList"','"@type": "FAQPage"','"@type": "BreadcrumbList"']) requireText(files.directoryRoute, token, `directory critical route contract missing ${token}`);
+for (const token of ["buildFishingTechniqueDirectoryHead",'"@type": "CollectionPage"','"@type": "ItemList"','"@type": "FAQPage"','"@type": "BreadcrumbList"']) requireText(files.server, token, `directory server-side head contract missing ${token}`);
+for (const token of ['createFileRoute("/fishing/techniques")','head: ({ loaderData }) => loaderData?.head ?? {}']) requireText(files.directoryRoute, token, `directory critical route contract missing ${token}`);
 for (const token of ['createLazyFileRoute("/fishing/techniques")','FishingTechniqueDirectory data={Route.useLoaderData()} search={Route.useSearch()}']) requireText(files.directoryLazy, token, `directory native lazy route missing ${token}`);
 for (const token of ["No generic tackle encyclopedia",'method="get"','name="category"','name="species"','name="season"',"fresh fishing reports","current regulations"]) requireText(files.directoryComponent, token, `directory UI contract missing ${token}`);
 
-for (const token of ['createFileRoute("/fishing/techniques/$slug")',"throw notFound()",'content: "noindex, nofollow"','"@type": "WebPage"','"@type": "ItemList"','"@type": "BreadcrumbList"',"citation:"]) requireText(files.profileRoute, token, `profile critical route contract missing ${token}`);
+for (const token of ["buildFishingTechniqueProfileHead",'"@type": "WebPage"','"@type": "ItemList"','"@type": "BreadcrumbList"',"citation:"]) requireText(files.server, token, `profile server-side head contract missing ${token}`);
+for (const token of ['createFileRoute("/fishing/techniques/$slug")',"throw notFound()",'content: "noindex, nofollow"','head: ({ loaderData }) => loaderData?.head']) requireText(files.profileRoute, token, `profile critical route contract missing ${token}`);
 for (const token of ['createLazyFileRoute("/fishing/techniques/$slug")','FishingTechniqueProfile data={Route.useLoaderData()}']) requireText(files.profileLazy, token, `profile native lazy route missing ${token}`);
 for (const token of ["Verified lake applications, not a universal ranking","not today's answer","does not claim",'target="_blank"','rel="noopener noreferrer"']) requireText(files.profileComponent, token, `profile UI contract missing ${token}`);
 
@@ -59,7 +61,12 @@ for (const [routeName, routeText, componentPath] of [
 ]) {
   if (routeText.includes(componentPath) || /\bcomponent\s*:/.test(routeText)) throw new Error(`Fishing Batch 13 validation failed: ${routeName} page component leaked back into its critical route module.`);
 }
-if (files.profileRoute.includes('from "@/data/fishing/technique-data.server"') || files.directoryRoute.includes('from "@/data/fishing/technique-data.server"')) throw new Error("Fishing Batch 13 validation failed: critical client route imports technique server module directly.");
+for (const routeText of [files.directoryRoute, files.profileRoute]) {
+  if (routeText.includes('from "@/data/fishing/technique-data.server"')) throw new Error("Fishing Batch 13 validation failed: critical client route imports technique server module directly.");
+  for (const eagerHeadToken of ["buildMeta", "canonicalLink", "texasDefinedBrand", '"@type":']) {
+    if (routeText.includes(eagerHeadToken)) throw new Error(`Fishing Batch 13 validation failed: eager SEO/schema payload leaked into critical technique route (${eagerHeadToken}).`);
+  }
+}
 for (const forbidden of ["guaranteed catch","today's best technique","affiliate pick","sponsored ranking","buy this lure"]) if (`${files.directoryRoute}\n${files.profileRoute}\n${files.directoryComponent}\n${files.profileComponent}`.toLowerCase().includes(forbidden)) throw new Error(`Fishing Batch 13 validation failed: unsupported technique claim leaked (${forbidden}).`);
 
 requireText(files.hubRoute, 'lazy(() => import("@/components/fishing/FishingHub")', "statewide hub UI split missing");
@@ -74,4 +81,4 @@ requireText(files.links, "fishing-technique:", "internal-link profile entities m
 requireText(files.publicRoutes, '"/fishing/techniques"', "public-route directory governance missing");
 requireText(pkg.scripts["fishing:validate"], "validate-fishing-techniques.mjs", "Batch 13 validator not wired into fishing:validate");
 
-console.log("Fishing Batch 13 techniques validation passed: nine verified source-backed profiles, native TanStack lazy file routes, complete-lake gates, live-condition separation, commercial neutrality, schemas and discovery governance are protected.");
+console.log("Fishing Batch 13 techniques validation passed: nine verified source-backed profiles, native TanStack lazy file routes, server-side SEO head payloads, complete-lake gates, live-condition separation, commercial neutrality, schemas and discovery governance are protected.");
