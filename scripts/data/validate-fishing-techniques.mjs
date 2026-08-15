@@ -7,6 +7,8 @@ const required = [
   "src/data/fishing/technique-data.functions.ts",
   "src/routes/fishing.techniques.tsx",
   "src/routes/fishing.techniques.$slug.tsx",
+  "src/components/fishing/FishingTechniqueDirectory.tsx",
+  "src/components/fishing/FishingTechniqueProfile.tsx",
   "src/routes/fishing.tsx",
   "src/data/fishing/fixtures.ts",
   "src/data/fishing/sitemap.ts",
@@ -22,13 +24,15 @@ const server = read(required[1]);
 const functions = read(required[2]);
 const directoryRoute = read(required[3]);
 const profileRoute = read(required[4]);
-const hub = read(required[5]);
-const fixtures = read(required[6]);
-const sitemap = read(required[7]);
-const search = read(required[8]);
-const links = read(required[9]);
-const publicRoutes = read(required[10]);
-const pkg = JSON.parse(read(required[11]));
+const directoryComponent = read(required[5]);
+const profileComponent = read(required[6]);
+const hub = read(required[7]);
+const fixtures = read(required[8]);
+const sitemap = read(required[9]);
+const search = read(required[10]);
+const links = read(required[11]);
+const publicRoutes = read(required[12]);
+const pkg = JSON.parse(read(required[13]));
 const requireText = (text, token, label) => { if (!text.includes(token)) throw new Error(`Fishing Batch 13 validation failed: ${label}`); };
 
 const techniqueSlugs = [
@@ -45,9 +49,11 @@ const techniqueSlugs = [
 
 requireText(routing, 'FISHING_TECHNIQUES_DIRECTORY_PATH = "/fishing/techniques"', "canonical technique directory path missing");
 requireText(routing, "PUBLISHED_FISHING_TECHNIQUE_SLUGS", "published technique allowlist missing");
+requireText(routing, "PUBLISHED_FISHING_TECHNIQUE_PATHS", "explicit dynamic-profile crawl discovery paths missing");
 requireText(routing, "fishingTechniqueCanonicalPath", "canonical technique profile path helper missing");
 for (const slug of techniqueSlugs) {
   requireText(routing, `"${slug}"`, `published technique slug missing ${slug}`);
+  requireText(routing, `"/fishing/techniques/${slug}"`, `crawl-discovery path missing ${slug}`);
   requireText(fixtures, `technique("${slug}"`, `published technique ${slug} has no typed fixture record`);
   requireText(publicRoutes, `"/fishing/techniques/${slug}"`, `public route governance missing ${slug}`);
 }
@@ -62,18 +68,23 @@ requireText(functions, "loadFishingTechniqueProfileServer", "profile server func
 
 for (const token of [
   'createFileRoute("/fishing/techniques")',
+  '"@type": "CollectionPage"',
+  '"@type": "ItemList"',
+  '"@type": "FAQPage"',
+  '"@type": "BreadcrumbList"',
+  'lazy(() => import("@/components/fishing/FishingTechniqueDirectory")',
+  "FishingTechniqueDirectory data={Route.useLoaderData()} search={Route.useSearch()}",
+]) requireText(directoryRoute, token, `technique directory route contract missing ${token}`);
+
+for (const token of [
   "No generic tackle encyclopedia",
   'method="get"',
   'name="category"',
   'name="species"',
   'name="season"',
-  '"@type": "CollectionPage"',
-  '"@type": "ItemList"',
-  '"@type": "FAQPage"',
-  '"@type": "BreadcrumbList"',
   "fresh fishing reports",
   "current regulations",
-]) requireText(directoryRoute, token, `technique directory contract missing ${token}`);
+]) requireText(directoryComponent, token, `technique directory UI contract missing ${token}`);
 
 for (const token of [
   'createFileRoute("/fishing/techniques/$slug")',
@@ -83,18 +94,23 @@ for (const token of [
   '"@type": "ItemList"',
   '"@type": "BreadcrumbList"',
   "citation:",
+  'lazy(() => import("@/components/fishing/FishingTechniqueProfile")',
+  "FishingTechniqueProfile data={Route.useLoaderData()}",
+]) requireText(profileRoute, token, `technique profile route contract missing ${token}`);
+
+for (const token of [
   "Verified lake applications, not a universal ranking",
   "not today's answer",
   "does not claim",
   'target="_blank"',
   'rel="noopener noreferrer"',
-]) requireText(profileRoute, token, `technique profile contract missing ${token}`);
+]) requireText(profileComponent, token, `technique profile UI contract missing ${token}`);
 
-if (profileRoute.includes('from "@/data/fishing/technique-data.server"')) {
+if (profileRoute.includes('from "@/data/fishing/technique-data.server"') || directoryRoute.includes('from "@/data/fishing/technique-data.server"')) {
   throw new Error("Fishing Batch 13 validation failed: client route imports the technique server module directly.");
 }
 for (const forbidden of ["guaranteed catch", "today's best technique", "affiliate pick", "sponsored ranking", "buy this lure"]) {
-  if (`${directoryRoute}\n${profileRoute}`.toLowerCase().includes(forbidden)) throw new Error(`Fishing Batch 13 validation failed: unsupported technique claim leaked into public routes (${forbidden}).`);
+  if (`${directoryRoute}\n${profileRoute}\n${directoryComponent}\n${profileComponent}`.toLowerCase().includes(forbidden)) throw new Error(`Fishing Batch 13 validation failed: unsupported technique claim leaked into public routes (${forbidden}).`);
 }
 
 requireText(hub, 'to="/fishing/techniques"', "statewide fishing hub does not expose technique directory");
@@ -109,4 +125,4 @@ requireText(links, "fishing-technique:", "technique profile internal-link entiti
 requireText(publicRoutes, '"/fishing/techniques"', "public route governance missing technique directory");
 requireText(pkg.scripts["fishing:validate"], "validate-fishing-techniques.mjs", "Batch 13 validator is not wired into fishing:validate");
 
-console.log("Fishing Batch 13 techniques validation passed: verified complete-lake relationships, nine source-backed technique profiles, anti-thin-content gates, live-condition separation, commercial neutrality, schemas and discovery governance are protected.");
+console.log("Fishing Batch 13 techniques validation passed: verified complete-lake relationships, nine source-backed technique profiles, lazy UI boundaries, anti-thin-content gates, live-condition separation, commercial neutrality, schemas and discovery governance are protected.");
