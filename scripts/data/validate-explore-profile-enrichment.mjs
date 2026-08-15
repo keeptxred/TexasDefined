@@ -56,11 +56,12 @@ for (const feature of [
 ]) if (!planner.includes(feature)) errors.push(`Destination Phase 1 planning feature missing: ${feature}`);
 
 for (const feature of [
-  'if (!groups.length) return null', 'groups.map((group)',
+  'groups.length ? <>', 'TexasExplainedContextLinks surface="destination"', 'groups.map((group)',
   'href={`#relationship-${group.id}`}', 'id={`relationship-${group.id}`}',
   'group.destinations.map', 'to="/explore/$category"', 'to="/explore/region/$region"',
   'to="/events"', 'to="/search"',
 ]) if (!relationships.includes(feature)) errors.push(`Destination relationship discovery feature missing: ${feature}`);
+if (relationships.includes('if (!groups.length) return null')) errors.push('Destination relationship discovery must keep the Texas Explained fallback when no relationship groups are available.');
 
 for (const feature of [
   'miles <= 75', 'COMPLEMENTARY_CATEGORIES', 'sameTown', 'nearbyComplementary',
@@ -164,4 +165,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Explore enrichment, grouped planning, ranked search, AI discovery, quality-gated sitemap freshness, authority, relationship discovery, public-view fallback, and fixture resilience passed.');
+console.log('Explore enrichment, grouped planning, ranked search, AI discovery, quality-gated sitemap freshness, authority, relationship discovery with Texas Explained fallback, public-view fallback, and fixture resilience passed.');
