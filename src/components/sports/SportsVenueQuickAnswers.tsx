@@ -1,3 +1,4 @@
+import { TexasExplainedContextLinks } from '@/components/editorial/TexasExplainedContextLinks';
 import { SportsTrafficTracker } from '@/components/sports/SportsTrafficTracker';
 
 type SportsVenueQuickAnswersProps = {
@@ -87,6 +88,8 @@ export function SportsVenueQuickAnswers({
         </article>)}
       </div>
     </section>
+
+    <TexasExplainedContextLinks surface="sports" />
   </>;
 }
 
