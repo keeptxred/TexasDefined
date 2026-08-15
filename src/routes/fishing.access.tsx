@@ -1,10 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { lazy, Suspense } from "react";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { FishingAccessDirectory } from "@/components/fishing/FishingAccessDirectory";
 import { getFishingAccessDirectoryData } from "@/data/fishing/access-directory-data.functions";
 import { FISHING_ACCESS_DIRECTORY_PATH } from "@/data/fishing/local-routing";
 import { buildMeta, canonicalLink } from "@/lib/seo";
+
+const FishingAccessDirectory = lazy(() => import("@/components/fishing/FishingAccessDirectory").then((module) => ({ default: module.FishingAccessDirectory })));
 
 export const Route = createFileRoute("/fishing/access")({
   validateSearch: (search: Record<string, unknown>) => ({
@@ -28,5 +30,9 @@ export const Route = createFileRoute("/fishing/access")({
       ]) }],
     };
   },
-  component: () => <FishingAccessDirectory pageData={Route.useLoaderData()} search={Route.useSearch()} />,
+  component: FishingAccessRoute,
 });
+
+function FishingAccessRoute() {
+  return <Suspense fallback={<div className="min-h-[32rem]" aria-hidden="true" />}><FishingAccessDirectory pageData={Route.useLoaderData()} search={Route.useSearch()} /></Suspense>;
+}
