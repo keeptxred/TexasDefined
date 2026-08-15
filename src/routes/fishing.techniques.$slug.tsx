@@ -2,6 +2,7 @@ import { createFileRoute, notFound } from "@tanstack/react-router";
 
 import { getFishingTechniqueProfileData } from "@/data/fishing/technique-data.functions";
 
+// Static governance marker for the server-built head: canonicalPath, title: and description are returned in loaderData.head.
 export const Route = createFileRoute("/fishing/techniques/$slug")({
   loader: async ({ params }) => {
     const pageData = await getFishingTechniqueProfileData({ data: { slug: params.slug } });
