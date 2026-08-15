@@ -1,9 +1,11 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
+import { lazy, Suspense } from "react";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { FishingGuideProfile } from "@/components/fishing/FishingGuideProfile";
 import { getFishingGuideProfileData } from "@/data/fishing/guide-profile-data.functions";
 import { buildMeta, canonicalLink } from "@/lib/seo";
+
+const FishingGuideProfile = lazy(() => import("@/components/fishing/FishingGuideProfile").then((module) => ({ default: module.FishingGuideProfile })));
 
 export const Route = createFileRoute("/fishing/guides/$slug")({
   loader: async ({ params }) => {
@@ -37,5 +39,5 @@ export const Route = createFileRoute("/fishing/guides/$slug")({
 });
 
 function FishingGuideProfileRoute() {
-  return <FishingGuideProfile pageData={Route.useLoaderData()} />;
+  return <Suspense fallback={<div className="min-h-[32rem]" aria-hidden="true" />}><FishingGuideProfile pageData={Route.useLoaderData()} /></Suspense>;
 }

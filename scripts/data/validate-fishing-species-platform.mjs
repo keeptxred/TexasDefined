@@ -12,8 +12,10 @@ const required = [
   "src/data/fishing/largemouth-bass-page-data.functions.ts",
   "src/components/fishing/FishSpeciesDirectory.tsx",
   "src/components/fishing/FishSpeciesGuide.tsx",
+  "src/components/fishing/FishingHub.tsx",
   "src/routes/fishing.species.tsx",
   "src/routes/fishing.species.largemouth-bass.tsx",
+  "src/routes/fishing.tsx",
 ];
 for (const file of required) if (!fs.existsSync(file)) failures.push(`Missing Batch 4 fishing species file: ${file}`);
 
@@ -30,6 +32,7 @@ if (!failures.length) {
   const bassFunctions = read("src/data/fishing/largemouth-bass-page-data.functions.ts");
   const directoryUi = read("src/components/fishing/FishSpeciesDirectory.tsx");
   const bassUi = read("src/components/fishing/FishSpeciesGuide.tsx");
+  const hubUi = read("src/components/fishing/FishingHub.tsx");
   const directoryRoute = read("src/routes/fishing.species.tsx");
   const bassRoute = read("src/routes/fishing.species.largemouth-bass.tsx");
   const fishingRoute = read("src/routes/fishing.tsx");
@@ -58,7 +61,8 @@ if (!failures.length) {
   }
   if (!routing.includes('"largemouth-bass"')) failures.push("Largemouth bass is not registered as the complete species prototype.");
   if (!slugs.includes('isCompleteFishingSpeciesSlug(canonicalSlug)') || !slugs.includes('/fishing/species#species-')) failures.push("Species canonical/detail-versus-directory anchor policy is broken.");
-  if (!fishingRoute.includes('to="/fishing/species"') || !fishingRoute.includes('fishingFoundationAnchor("species", row.slug)')) failures.push("Fishing hub does not discover the species directory and canonical species targets.");
+  if (!fishingRoute.includes('lazy(() => import("@/components/fishing/FishingHub")')) failures.push("Fishing hub lazy boundary is missing.");
+  if (!hubUi.includes('to="/fishing/species"') || !hubUi.includes('fishingFoundationAnchor("species", row.slug)')) failures.push("Fishing hub does not discover the species directory and canonical species targets.");
   if (!search.includes('fishingFoundationAnchor("species", row.slug)')) failures.push("Global fishing search does not use canonical species targets.");
   if (!internalLinks.includes('fishingFoundationAnchor("species", row.slug)')) failures.push("Fishing internal linking does not use canonical species targets.");
 
@@ -83,7 +87,9 @@ if (!failures.length) {
   if (!bassUi.includes("Sponsored placement") || !bassUi.includes("noopener sponsored")) failures.push("Species sponsorship disclosure/link contract missing.");
 
   if (!directoryRoute.includes('createFileRoute("/fishing/species")') || !directoryRoute.includes('"@type": "CollectionPage"') || !directoryRoute.includes('"@type": "ItemList"') || !directoryRoute.includes('"@type": "BreadcrumbList"')) failures.push("Species directory route/schema incomplete.");
+  if (!directoryRoute.includes('lazy(() => import("@/components/fishing/FishSpeciesDirectory")') || !directoryRoute.includes("FishSpeciesDirectory pageData={Route.useLoaderData()}")) failures.push("Species directory UI is not protected by the manual lazy boundary.");
   if (!bassRoute.includes('createFileRoute("/fishing/species/largemouth-bass")') || !bassRoute.includes('"@type": "WebPage"') || !bassRoute.includes('"@type": "BreadcrumbList"') || !bassRoute.includes("dateModified: profile?.verifiedAt")) failures.push("Largemouth route/schema/freshness metadata incomplete.");
+  if (!bassRoute.includes('lazy(() => import("@/components/fishing/FishSpeciesGuide")') || !bassRoute.includes("FishSpeciesGuide pageData={Route.useLoaderData()}")) failures.push("Largemouth guide UI is not protected by the manual lazy boundary.");
   if (bassRoute.includes("wikidata.org")) failures.push("Unverified third-party identity URL must not be emitted in largemouth structured data.");
 
   if (!sitemap.includes("FISHING_SPECIES_DIRECTORY_PATH") || !sitemap.includes('fishingSpeciesCanonicalPath("largemouth-bass")')) failures.push("Species directory/largemouth sitemap publication incomplete.");
@@ -100,4 +106,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Fishing species platform validation passed: statewide taxonomy, canonical directory/detail routing, source-backed largemouth guidance, editorial lake rankings, verified-guide gating, sponsorship disclosure, search/internal links, structured data and sitemap governance are protected.");
+console.log("Fishing species platform validation passed: statewide taxonomy, canonical directory/detail routing, lazy UI boundaries, source-backed largemouth guidance, editorial lake rankings, verified-guide gating, sponsorship disclosure, search/internal links, structured data and sitemap governance are protected.");

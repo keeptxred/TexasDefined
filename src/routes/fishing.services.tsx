@@ -1,10 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { lazy, Suspense } from "react";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { FishingServicesDirectory } from "@/components/fishing/FishingServicesDirectory";
 import { FISHING_SERVICES_DIRECTORY_PATH } from "@/data/fishing/local-routing";
 import { getFishingServicesDirectoryData } from "@/data/fishing/services-directory-data.functions";
 import { buildMeta, canonicalLink } from "@/lib/seo";
+
+const FishingServicesDirectory = lazy(() => import("@/components/fishing/FishingServicesDirectory").then((module) => ({ default: module.FishingServicesDirectory })));
 
 export const Route = createFileRoute("/fishing/services")({
   validateSearch: (search: Record<string, unknown>) => ({
@@ -28,5 +30,9 @@ export const Route = createFileRoute("/fishing/services")({
       ]) }],
     };
   },
-  component: () => <FishingServicesDirectory pageData={Route.useLoaderData()} search={Route.useSearch()} />,
+  component: FishingServicesRoute,
 });
+
+function FishingServicesRoute() {
+  return <Suspense fallback={<div className="min-h-[32rem]" aria-hidden="true" />}><FishingServicesDirectory pageData={Route.useLoaderData()} search={Route.useSearch()} /></Suspense>;
+}

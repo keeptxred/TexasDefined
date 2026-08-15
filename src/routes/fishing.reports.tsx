@@ -1,11 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { lazy, Suspense } from "react";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { FishingReportDirectory } from "@/components/fishing/FishingReportDirectory";
 import { getFishingReportDirectoryData } from "@/data/fishing/report-directory-data.functions";
 import { FISHING_REPORTS_DIRECTORY_PATH } from "@/data/fishing/report-routing";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
+const FishingReportDirectory = lazy(() => import("@/components/fishing/FishingReportDirectory").then((module) => ({ default: module.FishingReportDirectory })));
 const description = "Browse source-backed Texas fishing reports with explicit publication dates, freshness labels, lake and target-species filters, and no fabricated current-condition claims.";
 const clean = (value: unknown) => typeof value === "string" && /^[a-z0-9-]{1,120}$/.test(value) ? value : undefined;
 
@@ -21,5 +22,9 @@ export const Route = createFileRoute("/fishing/reports")({
       { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: origin }, { "@type": "ListItem", position: 2, name: "Fishing", item: `${origin}/fishing` }, { "@type": "ListItem", position: 3, name: "Fishing reports", item: `${origin}${FISHING_REPORTS_DIRECTORY_PATH}` }] },
     ]) } ] };
   },
-  component: () => <FishingReportDirectory pageData={Route.useLoaderData()} search={Route.useSearch()} />,
+  component: FishingReportsRoute,
 });
+
+function FishingReportsRoute() {
+  return <Suspense fallback={<div className="min-h-[32rem]" aria-hidden="true" />}><FishingReportDirectory pageData={Route.useLoaderData()} search={Route.useSearch()} /></Suspense>;
+}
