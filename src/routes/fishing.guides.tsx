@@ -1,11 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { lazy, Suspense } from "react";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { FishingGuideDirectory } from "@/components/fishing/FishingGuideDirectory";
 import { getFishingGuideDirectoryData } from "@/data/fishing/guide-directory-data.functions";
 import { FISHING_GUIDES_DIRECTORY_PATH } from "@/data/fishing/guide-routing";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
+const FishingGuideDirectory = lazy(() => import("@/components/fishing/FishingGuideDirectory").then((module) => ({ default: module.FishingGuideDirectory })));
 const description = "Browse Texas fishing guides only after their listings and service relationships are verified, with lake, region and target-species filters activated from real data.";
 
 function cleanFilter(value: unknown) {
@@ -36,5 +37,5 @@ export const Route = createFileRoute("/fishing/guides")({
 });
 
 function FishingGuideDirectoryRoute() {
-  return <FishingGuideDirectory pageData={Route.useLoaderData()} search={Route.useSearch()} />;
+  return <Suspense fallback={<div className="min-h-[32rem]" aria-hidden="true" />}><FishingGuideDirectory pageData={Route.useLoaderData()} search={Route.useSearch()} /></Suspense>;
 }
