@@ -1,12 +1,16 @@
 import fs from 'node:fs';
 
 const dataPath = 'src/data/texas-symbols.ts';
+const serverPath = 'src/data/texas-symbols.server.ts';
+const functionsPath = 'src/data/texas-symbols.functions.ts';
 const hubPath = 'src/routes/texas-symbols.lazy.tsx';
 const profilePath = 'src/routes/texas-symbols.$slug.lazy.tsx';
 const routePath = 'src/routes/texas-symbols.tsx';
 const profileRoutePath = 'src/routes/texas-symbols.$slug.tsx';
 
 const data = fs.readFileSync(dataPath, 'utf8');
+const server = fs.readFileSync(serverPath, 'utf8');
+const functions = fs.readFileSync(functionsPath, 'utf8');
 const hub = fs.readFileSync(hubPath, 'utf8');
 const profile = fs.readFileSync(profilePath, 'utf8');
 const route = fs.readFileSync(routePath, 'utf8');
@@ -55,13 +59,17 @@ assert(historical.some((entry) => entry.slug === 'pastries'), 'expired state-pas
 const requiredCoreSlugs = ['bird', 'flower', 'motto', 'large-mammal', 'small-mammal', 'fish', 'insect', 'dish', 'tree'];
 for (const slug of requiredCoreSlugs) assert(slugs.has(slug), `core Texas symbol missing: ${slug}`);
 
-assert(route.includes('currentTexasSymbols') && route.includes('featuredTexasSymbols') && route.includes('historicalTexasSymbols'), 'hub loader must keep current, featured, and historical datasets separate');
+assert(functions.includes('getTexasSymbolsDirectoryData') && functions.includes('loadTexasSymbolsDirectoryDataServer'), 'hub server function must delegate to the server-side directory loader');
+assert(server.includes('currentTexasSymbols') && server.includes('featuredTexasSymbols') && server.includes('historicalTexasSymbols'), 'server directory loader must keep current, featured, and historical datasets separate');
+assert(route.includes('getTexasSymbolsDirectoryData'), 'hub route must load the server-backed Texas Symbols directory');
+assert(route.includes('currentTexasSymbols') && route.includes('featuredTexasSymbols'), 'hub structured data must derive from the current and featured symbol collections');
 assert(hub.includes('Every current designation in the source list'), 'hub must retain the complete current-designation directory');
 assert(hub.includes('Verify with {sourceName}'), 'hub must expose the authoritative source link');
 assert(hub.includes('historicalTexasSymbols'), 'hub must visibly handle historical designations');
 assert(hub.includes('to="/texas-symbols/$slug"'), 'hub must link enriched symbols to profile routes');
 
-assert(profileRoute.includes('getTexasSymbolProfile') || profileRoute.includes('getTexasSymbol'), 'profile route must resolve symbol data server-side');
+assert(functions.includes('getTexasSymbolProfileData') && functions.includes('loadTexasSymbolProfileDataServer'), 'profile server function must delegate to the server-side profile loader');
+assert(profileRoute.includes('getTexasSymbolProfileData'), 'profile route must resolve symbol data server-side');
 assert(profile.includes('Designation at a glance'), 'profile must expose designation facts');
 assert(profile.includes('Legislative citation'), 'profile must show the legislative citation');
 assert(profile.includes('Verify the designation'), 'profile must link back to the authoritative source');
