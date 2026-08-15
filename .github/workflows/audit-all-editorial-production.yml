@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - '.github/workflows/audit-all-editorial-production.yml'
+      - 'scripts/data/inventory-county-series.mjs'
       - 'src/components/content/CountyGuideSections.tsx'
       - 'src/data/county-profile.ts'
       - 'src/data/county-series.ts'
@@ -15,6 +16,7 @@ on:
       - main
     paths:
       - '.github/workflows/audit-all-editorial-production.yml'
+      - 'scripts/data/inventory-county-series.mjs'
       - 'src/components/content/CountyGuideSections.tsx'
       - 'src/data/county-profile.ts'
       - 'src/data/county-series.ts'
@@ -42,68 +44,7 @@ jobs:
           cache: npm
       - run: npm ci
       - name: Inventory registered county profiles
-        shell: bash
-        run: |
-          set -euo pipefail
-          cat > .audit-county-inventory.mjs <<'EOF'
-          import { createServer } from 'vite';
-          import fs from 'node:fs';
-
-          const vite = await createServer({
-            server: { middlewareMode: true },
-            appType: 'custom',
-            logLevel: 'error',
-            optimizeDeps: { noDiscovery: true },
-          });
-
-          try {
-            const mod = await vite.ssrLoadModule('/src/data/county-series.ts');
-            const profiles = [...mod.COUNTY_SERIES_PROFILES]
-              .sort((a, b) => a.countySlug.localeCompare(b.countySlug));
-
-            if (!profiles.length) throw new Error('County series registry returned zero profiles');
-
-            const countySlugs = profiles.map((profile) => profile.countySlug);
-            if (new Set(countySlugs).size !== countySlugs.length) {
-              throw new Error('Duplicate canonical countySlug detected in COUNTY_SERIES_PROFILES');
-            }
-
-            const articleSlugs = profiles.map((profile) => profile.articleSlug);
-            if (new Set(articleSlugs).size !== articleSlugs.length) {
-              throw new Error('Duplicate legacy county article slug detected in COUNTY_SERIES_PROFILES');
-            }
-
-            const rows = await Promise.all(profiles.map(async (profile) => ({
-              profile,
-              article: await profile.loadArticle(),
-            })));
-
-            for (const { profile, article: row } of rows) {
-              if (!profile.countySlug || !profile.articleSlug || !row?.slug || !row?.title || !row?.hero?.src) {
-                throw new Error(`County profile is missing required publication metadata: ${profile.countySlug || row?.id || 'unknown'}`);
-              }
-              if (profile.articleSlug !== row.slug) {
-                throw new Error(`County registry articleSlug does not match loaded article: ${profile.countySlug} (${profile.articleSlug} != ${row.slug})`);
-              }
-              if (!row.id?.startsWith('county-')) {
-                throw new Error(`County article id must start with county-: ${row.id ?? 'missing'} (${profile.countySlug})`);
-              }
-            }
-
-            fs.writeFileSync(
-              '/tmp/county-profiles.tsv',
-              rows.map(({ profile, article }) => `${profile.countySlug}\t${article.slug}\t${article.title}`).join('\n') + '\n',
-            );
-            console.log(`Registered county profiles: ${rows.length}`);
-            for (const { profile, article } of rows) {
-              console.log(`${profile.countySlug}\t/county/${profile.countySlug}\t${article.slug}\t${article.title}`);
-            }
-          } finally {
-            await vite.close();
-          }
-          EOF
-          node .audit-county-inventory.mjs
-          rm .audit-county-inventory.mjs
+        run: node scripts/data/inventory-county-series.mjs /tmp/county-profiles.tsv
 
   verify-county-production:
     name: Verify canonical county pages on texasdefined.com
@@ -119,39 +60,7 @@ jobs:
           cache: npm
       - run: npm ci
       - name: Build canonical county production inventory
-        shell: bash
-        run: |
-          set -euo pipefail
-          cat > .audit-county-inventory.mjs <<'EOF'
-          import { createServer } from 'vite';
-          import fs from 'node:fs';
-
-          const vite = await createServer({
-            server: { middlewareMode: true },
-            appType: 'custom',
-            logLevel: 'error',
-            optimizeDeps: { noDiscovery: true },
-          });
-
-          try {
-            const mod = await vite.ssrLoadModule('/src/data/county-series.ts');
-            const profiles = [...mod.COUNTY_SERIES_PROFILES]
-              .sort((a, b) => a.countySlug.localeCompare(b.countySlug));
-            if (!profiles.length) throw new Error('County series registry returned zero profiles');
-            const rows = await Promise.all(profiles.map(async (profile) => ({
-              profile,
-              article: await profile.loadArticle(),
-            })));
-            fs.writeFileSync(
-              '/tmp/county-profiles.tsv',
-              rows.map(({ profile, article }) => `${profile.countySlug}\t${article.slug}\t${article.title}`).join('\n') + '\n',
-            );
-          } finally {
-            await vite.close();
-          }
-          EOF
-          node .audit-county-inventory.mjs
-          rm .audit-county-inventory.mjs
+        run: node scripts/data/inventory-county-series.mjs /tmp/county-profiles.tsv
 
       - name: Require every canonical county page, numeric facts, editorial layer, hero image, and legacy redirect to be live
         shell: bash
@@ -233,7 +142,6 @@ jobs:
               echo "WAIT image-metadata $url"
               return 1
             fi
-
             if [[ "$image" == /* ]]; then
               image="https://texasdefined.com$image"
             fi
