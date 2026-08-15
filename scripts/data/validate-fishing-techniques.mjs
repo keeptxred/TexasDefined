@@ -70,7 +70,7 @@ for (const routeText of [files.directoryRoute, files.profileRoute]) {
 for (const forbidden of ["guaranteed catch","today's best technique","affiliate pick","sponsored ranking","buy this lure"]) if (`${files.directoryRoute}\n${files.profileRoute}\n${files.directoryComponent}\n${files.profileComponent}`.toLowerCase().includes(forbidden)) throw new Error(`Fishing Batch 13 validation failed: unsupported technique claim leaked (${forbidden}).`);
 
 requireText(files.hubRoute, 'lazy(() => import("@/components/fishing/FishingHub")', "statewide hub UI split missing");
-for (const token of ['to="/fishing/techniques"','to="/fishing/seasons"','to="/fishing/lakes"','to="/fishing/guides"','to="/fishing/access"','to="/fishing/services"','fishingFoundationAnchor("lake", lake.slug)','fishingFoundationAnchor("species", row.slug)',"Five complete lake guides"]) requireText(files.hubComponent, token, `live fishing hub discovery contract missing ${token}`);
+for (const token of ['to="/fishing/techniques"','to="/fishing/seasons"','to="/fishing/lakes"','to="/fishing/guides"','to="/fishing/access"','to="/fishing/services"','fishingFoundationAnchor("lake", lake.slug)','fishingFoundationAnchor("species", row.slug)',"Ten complete lake guides now span more of Texas."]) requireText(files.hubComponent, token, `live fishing hub discovery contract missing ${token}`);
 requireText(files.sitemap, "FISHING_TECHNIQUES_DIRECTORY_PATH", "technique sitemap directory entry missing");
 requireText(files.sitemap, "PUBLISHED_FISHING_TECHNIQUE_SLUGS", "technique sitemap profile expansion missing");
 requireText(files.search, "fishing-directory:texas-fishing-techniques", "global-search directory document missing");
