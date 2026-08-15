@@ -41,7 +41,8 @@ jobs:
             local user_file="$workdir/${label}-user.json"
             local account_file="$workdir/${label}-account.json"
             local workers_file="$workdir/${label}-workers.json"
-            local user_http account_http workers_http
+            local details_file="$workdir/${label}-details.json"
+            local user_http account_http workers_http details_http token_id
 
             user_http="$(curl --silent --show-error -o "$user_file" -w '%{http_code}' \
               -H "Authorization: Bearer $token" "$api/user/tokens/verify" || true)"
@@ -50,10 +51,28 @@ jobs:
             workers_http="$(curl --silent --show-error -o "$workers_file" -w '%{http_code}' \
               -H "Authorization: Bearer $token" "$api/accounts/$CLOUDFLARE_ACCOUNT_ID/workers/scripts" || true)"
 
-            python3 - "$label" "$user_http" "$user_file" "$account_http" "$account_file" "$workers_http" "$workers_file" <<'PY'
+            token_id="$(python3 - "$user_file" <<'PY'
+          import json, sys
+          try:
+              data = json.load(open(sys.argv[1], encoding='utf-8'))
+              print((data.get('result') or {}).get('id') or '')
+          except Exception:
+              print('')
+          PY
+            )"
+            details_http='not-run'
+            if [ -n "$token_id" ]; then
+              details_http="$(curl --silent --show-error -o "$details_file" -w '%{http_code}' \
+                -H "Authorization: Bearer $token" "$api/user/tokens/$token_id" || true)"
+            else
+              printf '{}' > "$details_file"
+            fi
+
+            python3 - "$label" "$CLOUDFLARE_ACCOUNT_ID" "$user_http" "$user_file" "$account_http" "$account_file" "$workers_http" "$workers_file" "$details_http" "$details_file" <<'PY'
           import json, sys
 
-          label, user_http, user_path, account_http, account_path, workers_http, workers_path = sys.argv[1:]
+          (label, account_id, user_http, user_path, account_http, account_path,
+           workers_http, workers_path, details_http, details_path) = sys.argv[1:]
 
           def load(path):
               try:
@@ -76,10 +95,29 @@ jobs:
           user = load(user_path)
           account = load(account_path)
           workers = load(workers_path)
+          details = load(details_path)
           print(f"{label} user-token verification: {verify_summary(user_http, user)}")
           print(f"{label} account-token verification: {verify_summary(account_http, account)}")
           worker_errors = [{'code': e.get('code'), 'message': e.get('message')} for e in (workers.get('errors') or [])]
           print(f"{label} Workers Scripts access: HTTP {workers_http}, success={workers.get('success')}, errors={worker_errors}")
+
+          if details_http != 'not-run':
+              detail_errors = [{'code': e.get('code'), 'message': e.get('message')} for e in (details.get('errors') or [])]
+              print(f"{label} token-policy introspection: HTTP {details_http}, success={details.get('success')}, errors={detail_errors}")
+              if details.get('success') is True:
+                  result = details.get('result') or {}
+                  policies = result.get('policies') or []
+                  names = sorted({
+                      str(group.get('name'))
+                      for policy in policies
+                      for group in (policy.get('permission_groups') or [])
+                      if group.get('name')
+                  })
+                  resources_blob = json.dumps([p.get('resources') or {} for p in policies], sort_keys=True)
+                  all_accounts = 'com.cloudflare.api.account.*' in resources_blob
+                  configured_account = account_id in resources_blob
+                  print(f"{label} permission groups: {names}")
+                  print(f"{label} resource scope covers configured account: {configured_account or all_accounts}")
           PY
           }
 
