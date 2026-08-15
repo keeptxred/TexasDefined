@@ -1,11 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { lazy, Suspense } from "react";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { FishSpeciesGuide } from "@/components/fishing/FishSpeciesGuide";
 import { getLargemouthBassPageData } from "@/data/fishing/largemouth-bass-page-data.functions";
 import { fishingSpeciesCanonicalPath } from "@/data/fishing/species-routing";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
+const FishSpeciesGuide = lazy(() => import("@/components/fishing/FishSpeciesGuide").then((module) => ({ default: module.FishSpeciesGuide })));
 const canonicalPath = fishingSpeciesCanonicalPath("largemouth-bass");
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
@@ -33,5 +34,9 @@ export const Route = createFileRoute("/fishing/species/largemouth-bass")({
 });
 
 function LargemouthBassRoute() {
-  return <FishSpeciesGuide pageData={Route.useLoaderData()} />;
+  return (
+    <Suspense fallback={<div className="min-h-[32rem]" aria-hidden="true" />}>
+      <FishSpeciesGuide pageData={Route.useLoaderData()} />
+    </Suspense>
+  );
 }
