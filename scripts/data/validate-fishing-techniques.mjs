@@ -53,7 +53,12 @@ for (const token of ['createFileRoute("/fishing/techniques/$slug")',"throw notFo
 for (const token of ['createLazyFileRoute("/fishing/techniques/$slug")','FishingTechniqueProfile data={Route.useLoaderData()}']) requireText(files.profileLazy, token, `profile native lazy route missing ${token}`);
 for (const token of ["Verified lake applications, not a universal ranking","not today's answer","does not claim",'target="_blank"','rel="noopener noreferrer"']) requireText(files.profileComponent, token, `profile UI contract missing ${token}`);
 
-if (files.directoryRoute.includes("FishingTechniqueDirectory") || files.profileRoute.includes("FishingTechniqueProfile")) throw new Error("Fishing Batch 13 validation failed: technique page components leaked back into critical route modules.");
+for (const [routeName, routeText, componentPath] of [
+  ["directory", files.directoryRoute, "@/components/fishing/FishingTechniqueDirectory"],
+  ["profile", files.profileRoute, "@/components/fishing/FishingTechniqueProfile"],
+]) {
+  if (routeText.includes(componentPath) || /\bcomponent\s*:/.test(routeText)) throw new Error(`Fishing Batch 13 validation failed: ${routeName} page component leaked back into its critical route module.`);
+}
 if (files.profileRoute.includes('from "@/data/fishing/technique-data.server"') || files.directoryRoute.includes('from "@/data/fishing/technique-data.server"')) throw new Error("Fishing Batch 13 validation failed: critical client route imports technique server module directly.");
 for (const forbidden of ["guaranteed catch","today's best technique","affiliate pick","sponsored ranking","buy this lure"]) if (`${files.directoryRoute}\n${files.profileRoute}\n${files.directoryComponent}\n${files.profileComponent}`.toLowerCase().includes(forbidden)) throw new Error(`Fishing Batch 13 validation failed: unsupported technique claim leaked (${forbidden}).`);
 
