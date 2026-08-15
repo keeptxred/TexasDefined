@@ -12,7 +12,7 @@ export const SHOWCASE_LAKE_SECTION_SLUGS = ["fish", "access", "boating", "regula
 export type ShowcaseLakeSection = (typeof SHOWCASE_LAKE_SECTION_SLUGS)[number];
 
 export function isShowcaseLakeSlug(value: string): value is PublishedShowcaseLakeSlug {
-  return [...SHOWCASE_LAKE_SLUGS, ...EXPANDED_SHOWCASE_LAKE_SLUGS].includes(value as never);
+  return ([...SHOWCASE_LAKE_SLUGS, ...EXPANDED_SHOWCASE_LAKE_SLUGS] as readonly string[]).includes(value);
 }
 
 export function isShowcaseLakeSection(value: string): value is ShowcaseLakeSection {
