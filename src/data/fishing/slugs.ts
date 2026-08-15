@@ -12,7 +12,17 @@ const routeBase: Record<FishingRouteKind, string> = {
 export const COMPLETE_FISHING_LAKE_SLUGS = ["lake-conroe", "lake-fork", "sam-rayburn-reservoir", "lake-livingston", "lake-texoma"] as const;
 export type CompleteFishingLakeSlug = (typeof COMPLETE_FISHING_LAKE_SLUGS)[number];
 
-export const COMPLETE_FISHING_SPECIES_SLUGS = ["largemouth-bass"] as const;
+export const COMPLETE_FISHING_SPECIES_SLUGS = [
+  "largemouth-bass",
+  "smallmouth-bass",
+  "crappie",
+  "catfish",
+  "blue-catfish",
+  "channel-catfish",
+  "white-bass",
+  "striped-bass",
+  "hybrid-striped-bass",
+] as const;
 export type CompleteFishingSpeciesSlug = (typeof COMPLETE_FISHING_SPECIES_SLUGS)[number];
 
 export function isCompleteFishingLakeSlug(value: string): value is CompleteFishingLakeSlug {
