@@ -1,0 +1,45 @@
+name: Validate Texas Symbols
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "src/data/texas-symbols.ts"
+      - "src/data/texas-symbols.server.ts"
+      - "src/data/texas-symbols.functions.ts"
+      - "src/routes/texas-symbols.tsx"
+      - "src/routes/texas-symbols.lazy.tsx"
+      - "src/routes/texas-symbols.$slug.tsx"
+      - "src/routes/texas-symbols.$slug.lazy.tsx"
+      - "scripts/data/validate-texas-symbols.mjs"
+      - ".github/workflows/validate-texas-symbols.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "src/data/texas-symbols.ts"
+      - "src/data/texas-symbols.server.ts"
+      - "src/data/texas-symbols.functions.ts"
+      - "src/routes/texas-symbols.tsx"
+      - "src/routes/texas-symbols.lazy.tsx"
+      - "src/routes/texas-symbols.$slug.tsx"
+      - "src/routes/texas-symbols.$slug.lazy.tsx"
+      - "scripts/data/validate-texas-symbols.mjs"
+      - ".github/workflows/validate-texas-symbols.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate Official Texas Symbols platform
+        run: node scripts/data/validate-texas-symbols.mjs
