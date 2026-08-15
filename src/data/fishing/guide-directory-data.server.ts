@@ -1,7 +1,28 @@
+import { texasDefinedBrand } from "@/brand/texasdefined";
+import { buildMeta, canonicalLink } from "@/lib/seo";
+
 import { fishingPlatform, fishingScope } from "./index";
-import { FISHING_GUIDES_VERIFIED_AT, fishingGuideCanonicalPath } from "./guide-routing";
+import { FISHING_GUIDES_DIRECTORY_PATH, FISHING_GUIDES_VERIFIED_AT, fishingGuideCanonicalPath } from "./guide-routing";
 
 const SPONSORED_GUIDE_KINDS = ["featured-guide", "regional-guide", "statewide-advertiser"] as const;
+const description = "Browse Texas fishing guides only after their listings and service relationships are verified, with lake, region and target-species filters activated from real data.";
+
+function buildFishingGuideDirectoryHead(guides: Array<{ guide: { businessName: string }; href: string }>) {
+  const origin = `https://${texasDefinedBrand.identity.domain}`;
+  return {
+    meta: buildMeta(texasDefinedBrand, { title: "Texas Fishing Guide Directory — Verified Guides", description, canonicalPath: FISHING_GUIDES_DIRECTORY_PATH }),
+    links: [canonicalLink(texasDefinedBrand, FISHING_GUIDES_DIRECTORY_PATH)],
+    scripts: [{ type: "application/ld+json", children: JSON.stringify([
+      { "@context": "https://schema.org", "@type": "CollectionPage", name: "Texas Fishing Guide Directory", description, url: `${origin}${FISHING_GUIDES_DIRECTORY_PATH}`, dateModified: FISHING_GUIDES_VERIFIED_AT },
+      { "@context": "https://schema.org", "@type": "ItemList", name: "Verified Texas fishing guides", numberOfItems: guides.length, itemListElement: guides.map((entry, index) => ({ "@type": "ListItem", position: index + 1, name: entry.guide.businessName, url: `${origin}${entry.href}` })) },
+      { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: origin },
+        { "@type": "ListItem", position: 2, name: "Fishing", item: `${origin}/fishing` },
+        { "@type": "ListItem", position: 3, name: "Fishing guides", item: `${origin}${FISHING_GUIDES_DIRECTORY_PATH}` },
+      ] },
+    ]) }],
+  };
+}
 
 export async function loadFishingGuideDirectoryDataServer() {
   const [guides, guideLakes, guideSpecies, lakes, species, advertisers, placements] = await Promise.all([
@@ -51,6 +72,7 @@ export async function loadFishingGuideDirectoryDataServer() {
       tripTypes: [] as string[],
     },
     sponsoredPlacements,
+    head: buildFishingGuideDirectoryHead(editorialGuides),
   };
 }
 
