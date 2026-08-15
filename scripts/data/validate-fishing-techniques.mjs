@@ -1,38 +1,40 @@
 import fs from "node:fs";
 
 const read = (path) => fs.readFileSync(path, "utf8");
-const required = [
-  "src/data/fishing/technique-routing.ts",
-  "src/data/fishing/technique-data.server.ts",
-  "src/data/fishing/technique-data.functions.ts",
-  "src/routes/fishing.techniques.tsx",
-  "src/routes/fishing.techniques.$slug.tsx",
-  "src/components/fishing/FishingTechniqueDirectory.tsx",
-  "src/components/fishing/FishingTechniqueProfile.tsx",
-  "src/routes/fishing.tsx",
-  "src/data/fishing/fixtures.ts",
-  "src/data/fishing/sitemap.ts",
-  "src/data/fishing/search.ts",
-  "src/data/fishing/internal-links.ts",
-  "src/lib/public-routes.ts",
-  "package.json",
-];
-for (const path of required) if (!fs.existsSync(path)) throw new Error(`Fishing Batch 13 missing required file: ${path}`);
+const paths = {
+  routing: "src/data/fishing/technique-routing.ts",
+  server: "src/data/fishing/technique-data.server.ts",
+  functions: "src/data/fishing/technique-data.functions.ts",
+  directoryRoute: "src/routes/fishing.techniques.tsx",
+  profileRoute: "src/routes/fishing.techniques.$slug.tsx",
+  directoryComponent: "src/components/fishing/FishingTechniqueDirectory.tsx",
+  profileComponent: "src/components/fishing/FishingTechniqueProfile.tsx",
+  hubRoute: "src/routes/fishing.tsx",
+  hubComponent: "src/components/fishing/FishingHub.tsx",
+  fixtures: "src/data/fishing/fixtures.ts",
+  sitemap: "src/data/fishing/sitemap.ts",
+  search: "src/data/fishing/search.ts",
+  links: "src/data/fishing/internal-links.ts",
+  publicRoutes: "src/lib/public-routes.ts",
+  package: "package.json",
+};
+for (const path of Object.values(paths)) if (!fs.existsSync(path)) throw new Error(`Fishing Batch 13 missing required file: ${path}`);
 
-const routing = read(required[0]);
-const server = read(required[1]);
-const functions = read(required[2]);
-const directoryRoute = read(required[3]);
-const profileRoute = read(required[4]);
-const directoryComponent = read(required[5]);
-const profileComponent = read(required[6]);
-const hub = read(required[7]);
-const fixtures = read(required[8]);
-const sitemap = read(required[9]);
-const search = read(required[10]);
-const links = read(required[11]);
-const publicRoutes = read(required[12]);
-const pkg = JSON.parse(read(required[13]));
+const routing = read(paths.routing);
+const server = read(paths.server);
+const functions = read(paths.functions);
+const directoryRoute = read(paths.directoryRoute);
+const profileRoute = read(paths.profileRoute);
+const directoryComponent = read(paths.directoryComponent);
+const profileComponent = read(paths.profileComponent);
+const hubRoute = read(paths.hubRoute);
+const hubComponent = read(paths.hubComponent);
+const fixtures = read(paths.fixtures);
+const sitemap = read(paths.sitemap);
+const search = read(paths.search);
+const links = read(paths.links);
+const publicRoutes = read(paths.publicRoutes);
+const pkg = JSON.parse(read(paths.package));
 const requireText = (text, token, label) => { if (!text.includes(token)) throw new Error(`Fishing Batch 13 validation failed: ${label}`); };
 
 const techniqueSlugs = [
@@ -113,7 +115,29 @@ for (const forbidden of ["guaranteed catch", "today's best technique", "affiliat
   if (`${directoryRoute}\n${profileRoute}\n${directoryComponent}\n${profileComponent}`.toLowerCase().includes(forbidden)) throw new Error(`Fishing Batch 13 validation failed: unsupported technique claim leaked into public routes (${forbidden}).`);
 }
 
-requireText(hub, 'to="/fishing/techniques"', "statewide fishing hub does not expose technique directory");
+// The statewide hub is manually split because route registration is intentionally not globally auto-split.
+// Preserve all pre-Batch-13 discovery contracts against the live lazy component, not compatibility comments.
+requireText(hubRoute, 'lazy(() => import("@/components/fishing/FishingHub")', "statewide fishing hub must keep its UI out of startup main");
+requireText(hubRoute, "FishingHub lakes={lakes} species={species} lakeSpecies={lakeSpecies}", "statewide fishing hub lazy component is not hydrated from its existing loader");
+for (const token of [
+  'Link to="/fishing/lakes"',
+  'to="/fishing/lakes/lake-conroe"',
+  'to="/fishing/species"',
+  'to="/fishing/plan"',
+  'to="/fishing/compare"',
+  'to="/fishing/seasons"',
+  'to="/fishing/techniques"',
+  'to="/fishing/guides"',
+  'to="/fishing/access"',
+  'to="/fishing/services"',
+  'fishingFoundationAnchor("lake", lake.slug)',
+  'fishingFoundationAnchor("species", row.slug)',
+  "isCompleteFishingLakeSlug",
+  "Five complete lake guides",
+  "Compare complete fishing lakes →",
+  "Compare all 5 complete lake guides →",
+]) requireText(hubComponent, token, `live statewide fishing hub discovery contract missing ${token}`);
+
 requireText(sitemap, "FISHING_TECHNIQUES_DIRECTORY_PATH", "technique sitemap directory entry missing");
 requireText(sitemap, "PUBLISHED_FISHING_TECHNIQUE_SLUGS", "technique sitemap profile expansion missing");
 requireText(search, "fishing-directory:texas-fishing-techniques", "technique global-search directory document missing");
@@ -125,4 +149,4 @@ requireText(links, "fishing-technique:", "technique profile internal-link entiti
 requireText(publicRoutes, '"/fishing/techniques"', "public route governance missing technique directory");
 requireText(pkg.scripts["fishing:validate"], "validate-fishing-techniques.mjs", "Batch 13 validator is not wired into fishing:validate");
 
-console.log("Fishing Batch 13 techniques validation passed: verified complete-lake relationships, nine source-backed technique profiles, lazy UI boundaries, anti-thin-content gates, live-condition separation, commercial neutrality, schemas and discovery governance are protected.");
+console.log("Fishing Batch 13 techniques validation passed: verified complete-lake relationships, nine source-backed technique profiles, lazy route/hub UI boundaries, anti-thin-content gates, live-condition separation, commercial neutrality, schemas and discovery governance are protected.");
