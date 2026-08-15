@@ -55,7 +55,7 @@ for (const slug of techniqueSlugs) {
 requireText(server, "isCompleteFishingLakeSlug", "technique publication must be restricted to complete lake guides");
 requireText(server, "Boolean(profile.verifiedAt) && profile.sources.length > 0", "lake-technique relationships must be verified and sourced");
 requireText(server, "!technique.verifiedAt || !technique.sources.length", "technique records must be verified and sourced before publication");
-requireText(server, "Sponsorship", "commercial/editorial separation policy missing");
+requireText(server, "sponsorship", "commercial/editorial separation policy missing");
 requireText(server, "not a live bite report", "live-condition separation policy missing");
 requireText(functions, "loadFishingTechniqueDirectoryServer", "directory server function does not isolate technique loading");
 requireText(functions, "loadFishingTechniqueProfileServer", "profile server function does not isolate technique loading");
