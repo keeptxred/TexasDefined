@@ -146,3 +146,33 @@ jobs:
             test -s /tmp/response || { echo "Empty response for $path" >&2; exit 1; }
           done
           echo "TexasDefined deployment for $TARGET_SHA passed all workers.dev smoke tests."
+      - name: Verify live TexasDefined custom domains
+        shell: bash
+        run: |
+          set -euo pipefail
+          for path in / /robots.txt /sitemap.xml /fishing /guides /county/travis /texas-symbols; do
+            echo "Checking https://texasdefined.com${path}"
+            curl --retry 10 --retry-all-errors --retry-delay 3 --max-time 45 -fsSL "https://texasdefined.com${path}" -o /tmp/live-response
+            test -s /tmp/live-response || { echo "Empty live response for $path" >&2; exit 1; }
+          done
+
+          headers="$(mktemp)"
+          trap 'rm -f "$headers"' EXIT
+          curl --connect-timeout 10 --max-time 30 --silent --show-error --max-redirs 0 -D "$headers" -o /dev/null https://www.texasdefined.com/
+          python3 - "$headers" <<'PY'
+          import sys
+          text = open(sys.argv[1], encoding='utf-8', errors='replace').read().replace('\r', '')
+          blocks = [block for block in text.split('\n\n') if block.strip()]
+          block = blocks[-1] if blocks else text
+          lines = block.splitlines()
+          status = int(lines[0].split()[1]) if lines and len(lines[0].split()) > 1 and lines[0].split()[1].isdigit() else 0
+          location = ''
+          for line in lines[1:]:
+              if line.lower().startswith('location:'):
+                  location = line.split(':', 1)[1].strip()
+                  break
+          if status not in (301, 308) or not location.startswith('https://texasdefined.com/'):
+              raise SystemExit(f'www redirect verification failed: status={status} location={location!r}')
+          print(f'www redirect verified: {status} -> {location}')
+          PY
+          echo "TexasDefined live custom-domain smoke tests passed."
