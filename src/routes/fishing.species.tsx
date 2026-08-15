@@ -1,12 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { lazy, Suspense } from "react";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { FishSpeciesDirectory } from "@/components/fishing/FishSpeciesDirectory";
 import { fishingFoundationAnchor } from "@/data/fishing/slugs";
 import { getFishSpeciesDirectoryData } from "@/data/fishing/species-directory-data.functions";
 import { FISHING_SPECIES_DIRECTORY_PATH } from "@/data/fishing/species-routing";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
+const FishSpeciesDirectory = lazy(() => import("@/components/fishing/FishSpeciesDirectory").then((module) => ({ default: module.FishSpeciesDirectory })));
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
 export const Route = createFileRoute("/fishing/species")({
@@ -37,5 +38,9 @@ export const Route = createFileRoute("/fishing/species")({
 });
 
 function FishSpeciesDirectoryRoute() {
-  return <FishSpeciesDirectory pageData={Route.useLoaderData()} />;
+  return (
+    <Suspense fallback={<div className="min-h-[32rem]" aria-hidden="true" />}>
+      <FishSpeciesDirectory pageData={Route.useLoaderData()} />
+    </Suspense>
+  );
 }
