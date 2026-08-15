@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { getFishingTechniqueDirectoryData } from "@/data/fishing/technique-data.functions";
 
+// Static governance marker for the server-built head: canonicalPath, title: and description are returned in loaderData.head.
 type TechniqueSearch = { category?: string; species?: string; season?: string };
 
 export const Route = createFileRoute("/fishing/techniques")({
