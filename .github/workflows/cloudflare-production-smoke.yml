@@ -1,0 +1,118 @@
+name: Cloudflare production smoke
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/cloudflare-production-smoke.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment: texasdefined-publication
+    env:
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+    steps:
+      - name: Verify Cloudflare account, Workers, DNS and AI access
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -n "$CLOUDFLARE_ACCOUNT_ID" || { echo 'Missing CLOUDFLARE_ACCOUNT_ID'; exit 1; }
+          test -n "$CLOUDFLARE_API_TOKEN" || { echo 'Missing CLOUDFLARE_API_TOKEN'; exit 1; }
+          api='https://api.cloudflare.com/client/v4'
+          auth="Authorization: Bearer $CLOUDFLARE_API_TOKEN"
+          workdir="$(mktemp -d)"
+          trap 'rm -rf "$workdir"' EXIT
+
+          curl --fail-with-body --silent --show-error -H "$auth" \
+            "$api/accounts/$CLOUDFLARE_ACCOUNT_ID/workers/scripts" -o "$workdir/workers.json"
+          python3 - "$workdir/workers.json" <<'PY'
+          import json, sys
+          data=json.load(open(sys.argv[1], encoding='utf-8'))
+          names={str(x.get('id') or x.get('name') or '') for x in (data.get('result') or [])}
+          assert data.get('success') is True and 'texasdefined-site' in names, 'texasdefined-site Worker not found'
+          print('Workers Scripts access verified.')
+          PY
+
+          curl --fail-with-body --silent --show-error -H "$auth" --get \
+            --data-urlencode 'name=texasdefined.com' \
+            --data-urlencode "account.id=$CLOUDFLARE_ACCOUNT_ID" \
+            "$api/zones" -o "$workdir/zones.json"
+          zone_id="$(python3 - "$workdir/zones.json" <<'PY'
+          import json, os, sys
+          data=json.load(open(sys.argv[1], encoding='utf-8'))
+          zones=[z for z in (data.get('result') or []) if z.get('name')=='texasdefined.com' and z.get('status')=='active']
+          assert data.get('success') is True and len(zones)==1, f'Expected one active texasdefined.com zone, got {len(zones)}'
+          print(zones[0]['id'])
+          PY
+          )"
+
+          curl --fail-with-body --silent --show-error -H "$auth" --get \
+            --data-urlencode 'per_page=100' \
+            "$api/zones/$zone_id/dns_records" -o "$workdir/dns.json"
+          python3 - "$workdir/dns.json" <<'PY'
+          import json, sys
+          data=json.load(open(sys.argv[1], encoding='utf-8'))
+          assert data.get('success') is True, 'DNS records lookup failed'
+          print(f"DNS access verified; {len(data.get('result') or [])} records visible.")
+          PY
+
+          curl --fail-with-body --silent --show-error -H "$auth" --get \
+            "$api/accounts/$CLOUDFLARE_ACCOUNT_ID/workers/domains" -o "$workdir/domains.json"
+          python3 - "$workdir/domains.json" <<'PY'
+          import json, sys
+          data=json.load(open(sys.argv[1], encoding='utf-8'))
+          domains={str(x.get('hostname') or '').lower(): str(x.get('service') or '') for x in (data.get('result') or [])}
+          assert data.get('success') is True
+          assert domains.get('texasdefined.com')=='texasdefined-site', domains
+          assert domains.get('www.texasdefined.com')=='texasdefined-site', domains
+          print('Both TexasDefined Worker custom domains are attached to texasdefined-site.')
+          PY
+
+          curl --fail-with-body --silent --show-error \
+            -H "$auth" -H 'Content-Type: application/json' \
+            --data '{"prompt":"A simple documentary-style Texas landscape, no text","steps":4,"seed":20260815}' \
+            "$api/accounts/$CLOUDFLARE_ACCOUNT_ID/ai/run/@cf/black-forest-labs/flux-1-schnell" \
+            -o "$workdir/ai.json"
+          python3 - "$workdir/ai.json" <<'PY'
+          import json, sys
+          data=json.load(open(sys.argv[1], encoding='utf-8'))
+          image=(data.get('result') or {}).get('image') or data.get('image')
+          assert data.get('success') is True and isinstance(image, str) and len(image)>100, 'Workers AI image response missing image data'
+          print('Workers AI image generation access verified.')
+          PY
+
+      - name: Verify TexasDefined TLS, live routes and www redirect
+        shell: bash
+        run: |
+          set -euo pipefail
+          for path in / /robots.txt /sitemap.xml /fishing /guides /county/travis /texas-symbols; do
+            echo "Checking https://texasdefined.com${path}"
+            curl --retry 10 --retry-all-errors --retry-delay 3 --max-time 45 -fsSL "https://texasdefined.com${path}" -o /tmp/live
+            test -s /tmp/live || { echo "Empty response for $path" >&2; exit 1; }
+          done
+
+          headers="$(mktemp)"
+          trap 'rm -f "$headers"' EXIT
+          curl --connect-timeout 10 --max-time 30 --silent --show-error --max-redirs 0 -D "$headers" -o /dev/null https://www.texasdefined.com/
+          python3 - "$headers" <<'PY'
+          import sys
+          text=open(sys.argv[1], encoding='utf-8', errors='replace').read().replace('\r','')
+          blocks=[b for b in text.split('\n\n') if b.strip()]
+          block=blocks[-1] if blocks else text
+          lines=block.splitlines()
+          status=int(lines[0].split()[1]) if lines and len(lines[0].split())>1 and lines[0].split()[1].isdigit() else 0
+          location=''
+          for line in lines[1:]:
+              if line.lower().startswith('location:'):
+                  location=line.split(':',1)[1].strip(); break
+          assert status in (301,308) and location.startswith('https://texasdefined.com/'), (status, location)
+          print(f'www redirect verified: {status} -> {location}')
+          PY
+          echo 'Cloudflare production smoke test passed.'
