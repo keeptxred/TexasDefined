@@ -15,6 +15,20 @@ export const PUBLISHED_FISHING_TECHNIQUE_SLUGS = [
   "cut-bait",
 ] as const;
 
+// Explicit crawl-discovery paths mirror the server-rendered directory links.
+// Keeping the concrete URLs here lets route governance verify every dynamic profile has an inbound public reference.
+export const PUBLISHED_FISHING_TECHNIQUE_PATHS = [
+  "/fishing/techniques/soft-plastics",
+  "/fishing/techniques/crankbaits",
+  "/fishing/techniques/spinnerbaits",
+  "/fishing/techniques/topwater",
+  "/fishing/techniques/trolling",
+  "/fishing/techniques/vertical-jigging",
+  "/fishing/techniques/jigs-and-minnows",
+  "/fishing/techniques/live-bait",
+  "/fishing/techniques/cut-bait",
+] as const;
+
 export const FISHING_TECHNIQUE_CATEGORIES = [
   "casting",
   "trolling",
