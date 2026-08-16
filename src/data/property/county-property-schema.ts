@@ -70,6 +70,8 @@ export const EMPTY_COUNTY_SPECIAL_DISTRICTS: CountySpecialDistrictPresence = {
   otherSpecialDistricts: null,
 };
 
+const COUNTY_PROPERTY_VERIFICATION_MAX_AGE_DAYS = 400;
+
 export function createEmptyCountyPropertyRecord(county: TexasCounty): CountyPropertyRecord {
   return {
     ...county,
@@ -89,12 +91,20 @@ export function createEmptyCountyPropertyRecord(county: TexasCounty): CountyProp
   };
 }
 
+function hasFreshCountyPropertyVerification(value: string | null) {
+  if (!value) return false;
+  const checkedAt = Date.parse(value);
+  if (Number.isNaN(checkedAt)) return false;
+  const ageMs = Date.now() - checkedAt;
+  if (ageMs < 0) return false;
+  return ageMs <= COUNTY_PROPERTY_VERIFICATION_MAX_AGE_DAYS * 24 * 60 * 60 * 1000;
+}
+
 /**
  * County pages are only search-indexable after local property-tax sources have
- * been verified. A generic county directory URL plus Census FIPS data is not
- * enough to justify a standalone search result. Duplicate references to the
- * same office website count once, so two genuinely distinct local sources are
- * required before publication.
+ * been verified recently. A generic county directory URL plus Census FIPS data
+ * is not enough to justify a standalone search result. Two distinct local
+ * property-tax sources are required so repeated fields cannot satisfy the gate.
  */
 export function isCountyPropertyIndexReady(record: CountyPropertyRecord) {
   const localPropertySources = new Set([
@@ -108,7 +118,7 @@ export function isCountyPropertyIndexReady(record: CountyPropertyRecord) {
     record.links.exemptionUrl,
   ].filter((value): value is string => Boolean(value)));
 
-  return Boolean(record.lastVerifiedAt) && localPropertySources.size >= 2;
+  return hasFreshCountyPropertyVerification(record.lastVerifiedAt) && localPropertySources.size >= 2;
 }
 
 export function validateCountyPropertyRecord(record: CountyPropertyRecord) {
