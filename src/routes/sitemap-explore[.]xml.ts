@@ -100,16 +100,9 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           }
         }
 
-        const bothRemoteSourcesUnavailable = enrichedFailed && coreFailed;
-        const rawDestinations = bothRemoteSourcesUnavailable
-          ? fixtureDestinations
-          : mergeDestinationSources(coreDestinations, enrichedDestinations);
-        if (rawDestinations.length === 0) {
-          return new Response("Explore catalog temporarily unavailable", {
-            status: 503,
-            headers: { "Content-Type": "text/plain; charset=utf-8", "Retry-After": "300", "Cache-Control": "no-store" },
-          });
-        }
+        const remoteDestinations = mergeDestinationSources(coreDestinations, enrichedDestinations);
+        const useFixtureFallback = (enrichedFailed && coreFailed) || remoteDestinations.length === 0;
+        const rawDestinations = useFixtureFallback ? fixtureDestinations : remoteDestinations;
         const destinations = resolveDestinationCatalog(rawDestinations);
 
         const categorySlugs = [...new Set([...categories, ...supplementalExploreCategories]
