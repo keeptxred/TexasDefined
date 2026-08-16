@@ -70,6 +70,8 @@ function parseCountyPage(html, sourceUrl) {
   if (!appraisal.websiteUrl || !taxOffice.websiteUrl) return null;
   if (!isFreshSourceDate(appraisal.lastUpdated) || !isFreshSourceDate(taxOffice.lastUpdated)) return null;
 
+  const appraisalUpdated = appraisal.lastUpdated;
+  const taxUpdated = taxOffice.lastUpdated;
   const { lastUpdated: _appraisalUpdated, ...appraisalContact } = appraisal;
   const { lastUpdated: _taxUpdated, ...taxOfficeContact } = taxOffice;
   return {
@@ -78,6 +80,10 @@ function parseCountyPage(html, sourceUrl) {
     links: {
       appraisalDistrictUrl: appraisal.websiteUrl,
       taxOfficeUrl: taxOffice.websiteUrl,
+    },
+    sourceUpdatedAt: {
+      appraisalDistrict: appraisalUpdated,
+      taxOffice: taxUpdated,
     },
     lastVerifiedAt: sourceChecked,
     sourceUrls: [sourceUrl, appraisal.websiteUrl, taxOffice.websiteUrl],
@@ -163,6 +169,7 @@ function renderSnapshot(records) {
     '  appraisalDistrict: Partial<CountyOfficeContact>;',
     '  taxOffice: Partial<CountyOfficeContact>;',
     '  links: Partial<CountyPropertyLinks>;',
+    '  sourceUpdatedAt: { appraisalDistrict: string; taxOffice: string };',
     '  lastVerifiedAt: string;',
     '  sourceUrls: string[];',
     '};',
