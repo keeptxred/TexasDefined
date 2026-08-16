@@ -19,6 +19,7 @@ import {
 import { texasExplainedSupportStubs2 } from "./texas-explained-support-stubs-2";
 import { texasExplainedRiverProfileStubs } from "./texas-explained-river-profile-stubs";
 import { texasExplainedReservoirProfileStubs } from "./texas-explained-reservoir-profile-stubs";
+import { texasExplainedRoadSystemStubs } from "./texas-explained-road-system-stubs";
 import { texasHomeArchitectureRegionsStub } from "./texas-home-architecture-regions-stub";
 import {
   chooseElectricityPlanTexasStub,
@@ -124,7 +125,7 @@ export const lazyEvergreenArticleStubs: Article[] = [
   texasRoofsHailWindHeatStub, texasSchoolDistrictsExplainedStub, chooseElectricityPlanTexasStub, texasRiversExplainedStub,
   texasLakesReservoirsExplainedStub, texasHillCountryStub, texasTownCulturalRootsStub, texasCourthousesTownSquareStub,
   texasFoundationCareStub, prepareTexasHouseFreezeStub, mudsPidsHoasSpecialDistrictsStub,
-  ...texasExplainedSupportStubs, ...texasExplainedSupportStubs2, ...texasExplainedRiverProfileStubs, ...texasExplainedReservoirProfileStubs,
+  ...texasExplainedSupportStubs, ...texasExplainedSupportStubs2, ...texasExplainedRiverProfileStubs, ...texasExplainedReservoirProfileStubs, ...texasExplainedRoadSystemStubs,
 ];
 
 const addSourceLinks = (article: Article, links: NonNullable<Article["internalLinks"]>): Article => {
@@ -208,6 +209,12 @@ export async function loadLazyEvergreenArticle(brandId: string, slug: string): P
   if (texasExplainedReservoirProfileStubs.some((article) => article.slug === slug)) {
     const reservoirModule = await import("./texas-explained-reservoir-profiles");
     const article = reservoirModule.texasExplainedReservoirProfileArticles.find((candidate) => candidate.slug === slug);
+    return article ?? null;
+  }
+
+  if (texasExplainedRoadSystemStubs.some((article) => article.slug === slug)) {
+    const roadModule = await import("./texas-explained-road-systems");
+    const article = roadModule.texasExplainedRoadSystemArticles.find((candidate) => candidate.slug === slug);
     return article ?? null;
   }
 

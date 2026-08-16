@@ -45,8 +45,8 @@ for (const marker of [
   '...reservoirProfileSlugs',
   'reservoirProfiles: orderedArticles(catalog, reservoirProfileSlugs)',
   '<DepthGrid articles={reservoirProfiles} label="Reservoir water systems" />',
-  '10 core guides · 20 deeper explainers',
-  'Twenty focused explainers behind the core guides',
+  '10 core guides · 25 deeper explainers',
+  'Twenty-five focused explainers behind the core guides',
 ]) if (!hub.includes(marker)) errors.push(`Reservoir hub contract missing: ${marker}`);
 
 const paragraphCount = (block) => (block.match(/p\("/g) || []).length;

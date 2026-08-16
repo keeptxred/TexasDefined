@@ -43,8 +43,8 @@ for (const marker of [
   '...riverProfileSlugs',
   'riverProfiles: orderedArticles(catalog, riverProfileSlugs)',
   '<DepthGrid articles={riverProfiles} label="Major river profiles" />',
-  '10 core guides · 20 deeper explainers',
-  'Twenty focused explainers behind the core guides',
+  '10 core guides · 25 deeper explainers',
+  'Twenty-five focused explainers behind the core guides',
 ]) if (!hub.includes(marker)) errors.push(`River profile hub contract missing: ${marker}`);
 
 for (const marker of [

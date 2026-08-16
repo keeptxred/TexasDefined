@@ -49,6 +49,11 @@ const texasExplainedSupportOrder = [
   "lake-whitney-water-system-guide",
   "possum-kingdom-water-system-guide",
   "toledo-bend-water-system-guide",
+  "texas-ranch-to-market-roads-explained",
+  "texas-loops-spurs-explained",
+  "texas-business-routes-explained",
+  "texas-park-recreational-roads-explained",
+  "texas-historic-memorial-highways-explained",
 ] as const;
 const texasExplainedPillarSlugs = new Set<string>(texasExplainedPillarOrder);
 const texasExplainedSupportSlugs = new Set<string>(texasExplainedSupportOrder);
