@@ -107,6 +107,9 @@ jobs:
       - name: Validate image SEO
         run: node scripts/data/validate-image-seo.mjs
 
+      - name: Validate editorial hero uniqueness site-wide
+        run: node scripts/data/validate-editorial-image-duplicates.mjs --all
+
       - name: Validate search rendering performance
         run: node scripts/data/validate-search-rendering-performance.mjs
 
