@@ -28,7 +28,21 @@ const texasExplainedPillarOrder = [
   "texas-wildlife-guide",
   "texas-cultural-regions-explained",
 ] as const;
+const texasExplainedSupportOrder = [
+  "texas-river-basins-guide",
+  "texas-highway-designations-explained",
+  "texas-courthouse-architecture-guide",
+  "texas-ecoregions-habitats-guide",
+  "texas-settlement-patterns-explained",
+  "texas-aquifers-springs-explained",
+  "texas-prairies-grasslands-guide",
+  "texas-main-street-downtowns-guide",
+  "texas-railroads-town-growth-explained",
+  "texas-rural-wells-water-guide",
+] as const;
 const texasExplainedPillarSlugs = new Set<string>(texasExplainedPillarOrder);
+const texasExplainedSupportSlugs = new Set<string>(texasExplainedSupportOrder);
+const texasExplainedCollectionSlugs = new Set<string>([...texasExplainedPillarOrder, ...texasExplainedSupportOrder]);
 
 type ArticleDepartment = { name: string; path: string; usesExploreCategory: boolean };
 
@@ -80,6 +94,7 @@ export const Route = createFileRoute("/article/$slug")({
     const categoryName = categories.find((category) => category.slug === article.category)?.name
       ?? article.category.replace(/-/g, " ");
     const department = articleDepartment(article.category);
+    const isTexasExplainedCollectionArticle = texasExplainedCollectionSlugs.has(article.slug);
     const relatedDestinations = article.relatedDestinations
       .map((slug) => destinations.find((destination) => destination.slug === slug))
       .filter((destination): destination is NonNullable<typeof destination> => Boolean(destination))
@@ -136,7 +151,7 @@ export const Route = createFileRoute("/article/$slug")({
       isAccessibleForFree: true,
       author: { "@id": authorId },
       publisher: { "@id": `${siteUrl}/#organization` },
-      ...(texasExplainedPillarSlugs.has(article.slug) ? {
+      ...((texasExplainedPillarSlugs.has(article.slug) || texasExplainedSupportSlugs.has(article.slug)) ? {
         isPartOf: {
           "@type": "CollectionPage",
           "@id": `${siteUrl}/texas-explained#collection`,
@@ -155,12 +170,18 @@ export const Route = createFileRoute("/article/$slug")({
         })),
       } : {}),
     };
-    const breadcrumbItems = [
-      { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
-      { "@type": "ListItem", position: 2, name: department.name, item: `${siteUrl}${department.path}` },
-      ...(department.usesExploreCategory ? [{ "@type": "ListItem", position: 3, name: categoryName, item: `${siteUrl}/explore/${article.category}` }] : []),
-      { "@type": "ListItem", position: department.usesExploreCategory ? 4 : 3, name: article.title, item: articleUrl },
-    ];
+    const breadcrumbItems = isTexasExplainedCollectionArticle
+      ? [
+          { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
+          { "@type": "ListItem", position: 2, name: "Texas Explained", item: `${siteUrl}/texas-explained` },
+          { "@type": "ListItem", position: 3, name: article.title, item: articleUrl },
+        ]
+      : [
+          { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
+          { "@type": "ListItem", position: 2, name: department.name, item: `${siteUrl}${department.path}` },
+          ...(department.usesExploreCategory ? [{ "@type": "ListItem", position: 3, name: categoryName, item: `${siteUrl}/explore/${article.category}` }] : []),
+          { "@type": "ListItem", position: department.usesExploreCategory ? 4 : 3, name: article.title, item: articleUrl },
+        ];
     const breadcrumbSchema = {
       "@type": "BreadcrumbList",
       "@id": `${articleUrl}#breadcrumbs`,
@@ -204,6 +225,8 @@ function ArticlePage() {
   const department = articleDepartment(article.category);
   const texasExplainedPillarPosition = texasExplainedPillarOrder.findIndex((pillarSlug) => pillarSlug === article.slug);
   const isTexasExplainedPillar = texasExplainedPillarPosition >= 0;
+  const isTexasExplainedSupport = texasExplainedSupportSlugs.has(article.slug);
+  const isTexasExplainedCollectionArticle = isTexasExplainedPillar || isTexasExplainedSupport;
   const texasExplainedQuickAnswer = isTexasExplainedPillar ? article.dek.trim() : null;
   const previousTexasExplainedSlug = texasExplainedPillarPosition > 0
     ? texasExplainedPillarOrder[texasExplainedPillarPosition - 1]
@@ -225,40 +248,56 @@ function ArticlePage() {
     .slice(0, 6);
 
   return <article>
-    <Container className="pt-10 sm:pt-14">
+    <Container className="pt-8 sm:pt-12">
       <nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.14em] text-muted-foreground">
         <ol className="flex flex-wrap items-center gap-2">
-          <li><Link to="/" className="hover:text-foreground">Front page</Link></li><li aria-hidden="true">·</li>
-          <li><Link to={department.path} className="hover:text-foreground">{department.name}</Link></li>
-          {department.usesExploreCategory && <><li aria-hidden="true">·</li><li><Link to="/explore/$category" params={{ category: article.category }} className="hover:text-foreground">{categoryName}</Link></li></>}
-          <li aria-hidden="true">·</li><li aria-current="page" className="max-w-full truncate text-foreground">{article.title}</li>
+          <li><Link to="/" className="py-1 hover:text-foreground">Front page</Link></li><li aria-hidden="true">·</li>
+          {isTexasExplainedCollectionArticle ? <>
+            <li><Link to="/texas-explained" className="py-1 hover:text-foreground">Texas Explained</Link></li>
+          </> : <>
+            <li><Link to={department.path} className="py-1 hover:text-foreground">{department.name}</Link></li>
+            {department.usesExploreCategory && <><li aria-hidden="true">·</li><li><Link to="/explore/$category" params={{ category: article.category }} className="py-1 hover:text-foreground">{categoryName}</Link></li></>}
+          </>}
+          <li aria-hidden="true">·</li><li aria-current="page" className="max-w-full truncate py-1 text-foreground">{article.title}</li>
         </ol>
       </nav>
     </Container>
-    <section className="relative isolate mt-5 overflow-hidden bg-ink text-ink-foreground"><img src={article.hero.src} alt={article.hero.alt} width={article.hero.width} height={article.hero.height} fetchPriority="high" decoding="async" className="absolute inset-0 size-full object-cover opacity-60" /><div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/25" /><Container className="relative flex min-h-[62vh] flex-col justify-end pb-14 pt-36 sm:pb-16"><p className="eyebrow text-ink-foreground/80">{categoryName}</p><h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">{article.title}</h1><p className="mt-6 max-w-2xl text-lg leading-8 text-ink-foreground/86">{article.dek}</p></Container></section>
-    <Container className="max-w-3xl py-12 sm:py-16">
+    <section className="relative isolate mt-4 overflow-hidden bg-ink text-ink-foreground">
+      <img src={article.hero.src} alt={article.hero.alt} width={article.hero.width} height={article.hero.height} fetchPriority="high" decoding="async" className="absolute inset-0 size-full object-cover opacity-60" />
+      <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/25" />
+      <Container className="relative flex min-h-[52vh] flex-col justify-end pb-10 pt-28 sm:min-h-[62vh] sm:pb-16 sm:pt-36">
+        <p className="eyebrow text-ink-foreground/80">{isTexasExplainedCollectionArticle ? "Texas Explained" : categoryName}</p>
+        <h1 className="mt-4 max-w-4xl font-display text-4xl leading-[1] sm:text-6xl lg:text-7xl">{article.title}</h1>
+        {!isTexasExplainedPillar && <p className="mt-5 max-w-2xl text-base leading-7 text-ink-foreground/86 sm:mt-6 sm:text-lg sm:leading-8">{article.dek}</p>}
+      </Container>
+    </section>
+    <Container className="max-w-3xl py-10 sm:py-16">
       <Byline author={author} meta={`${formatDate(article.publishedAt)} · ${formatReadingTime(article.readingMinutes)}`} />
       {isTexasExplainedPillar && <aside className="mt-8 border-l-2 border-primary pl-5" aria-label="Texas Explained series">
         <p className="eyebrow text-primary">Texas Explained · Guide {texasExplainedPillarPosition + 1} of {texasExplainedPillarOrder.length}</p>
-        <p className="mt-2 text-sm leading-7 text-muted-foreground">Part of our 10-guide series on the systems, landscapes and people that explain how Texas works. <Link to="/texas-explained" className="border-b border-primary text-foreground transition-colors hover:text-primary">See all 10 guides →</Link></p>
-        <nav aria-label="Texas Explained guide navigation" className="mt-5 grid grid-cols-[1fr_auto_1fr] items-center gap-3 border-t border-border pt-4 text-xs font-semibold uppercase tracking-[0.12em]">
-          <div>{previousTexasExplainedSlug ? <Link to="/article/$slug" params={{ slug: previousTexasExplainedSlug }} className="text-foreground transition-colors hover:text-primary">← Guide {texasExplainedPillarPosition} of {texasExplainedPillarOrder.length}</Link> : null}</div>
-          <Link to="/texas-explained" className="text-center text-primary">All 10 guides</Link>
-          <div className="text-right">{nextTexasExplainedSlug ? <Link to="/article/$slug" params={{ slug: nextTexasExplainedSlug }} className="text-foreground transition-colors hover:text-primary">Guide {texasExplainedPillarPosition + 2} of {texasExplainedPillarOrder.length} →</Link> : null}</div>
+        <p className="mt-2 text-sm leading-7 text-muted-foreground">Part of our 10-guide series on the systems, landscapes and people that explain how Texas works. <Link to="/texas-explained" className="border-b border-primary py-1 text-foreground transition-colors hover:text-primary">See all 10 guides →</Link></p>
+        <nav aria-label="Texas Explained guide navigation" className="mt-5 grid grid-cols-2 gap-3 border-t border-border pt-4 text-xs font-semibold uppercase tracking-[0.12em] sm:grid-cols-[1fr_auto_1fr] sm:items-center">
+          <Link to="/texas-explained" className="col-span-2 text-center text-primary sm:col-span-1 sm:col-start-2 sm:row-start-1">All 10 guides</Link>
+          <div className="sm:col-start-1 sm:row-start-1">{previousTexasExplainedSlug ? <Link to="/article/$slug" params={{ slug: previousTexasExplainedSlug }} className="inline-block py-2 text-foreground transition-colors hover:text-primary">← Guide {texasExplainedPillarPosition} of {texasExplainedPillarOrder.length}</Link> : null}</div>
+          <div className="text-right sm:col-start-3 sm:row-start-1">{nextTexasExplainedSlug ? <Link to="/article/$slug" params={{ slug: nextTexasExplainedSlug }} className="inline-block py-2 text-foreground transition-colors hover:text-primary">Guide {texasExplainedPillarPosition + 2} of {texasExplainedPillarOrder.length} →</Link> : null}</div>
         </nav>
+      </aside>}
+      {isTexasExplainedSupport && <aside className="mt-8 border-l-2 border-primary pl-5" aria-label="Texas Explained supporting explainer">
+        <p className="eyebrow text-primary">Texas Explained · Supporting explainer</p>
+        <p className="mt-2 text-sm leading-7 text-muted-foreground">This focused guide extends one of the collection's core topics. <Link to="/texas-explained" className="border-b border-primary py-1 text-foreground transition-colors hover:text-primary">Browse the full Texas Explained collection →</Link></p>
       </aside>}
       {texasExplainedQuickAnswer && <section className="mt-8 rounded-sm border border-border bg-surface p-6 sm:p-7" aria-labelledby="texas-explained-quick-answer">
         <p className="eyebrow text-primary">Quick answer</p>
         <h2 id="texas-explained-quick-answer" className="mt-3 font-display text-2xl">The short version</h2>
         <p className="mt-3 text-base leading-8 text-foreground/85">{texasExplainedQuickAnswer}</p>
-        <a href="#guide-body" className="mt-4 inline-block text-sm font-semibold text-primary underline-offset-4 hover:underline">Read the full guide ↓</a>
+        <a href="#guide-body" className="mt-4 inline-block py-1 text-sm font-semibold text-primary underline-offset-4 hover:underline">Read the full guide ↓</a>
       </section>}
       <div id={isTexasExplainedPillar ? "guide-body" : undefined} className="mt-10 scroll-mt-28"><ArticleBody blocks={article.body} entities={graph} /></div>
       {article.hero.credit && <p className="mt-10 text-xs text-muted-foreground">Photography: {article.hero.credit}</p>}
       {internalLinks.length > 0 && <aside className="mt-14 border-y border-border py-8" aria-label="Related reading">
         <p className="eyebrow text-primary">Related reading</p>
         <ul className="mt-5 divide-y divide-border">{internalLinks.map((item) => <li key={item.href} className="py-4 first:pt-0 last:pb-0">
-          <a href={item.href} className="group block">
+          <a href={item.href} className="group block py-1">
             <span className="font-display text-xl group-hover:text-primary">{item.label}</span>
             {item.description && <span className="mt-1 block text-sm leading-7 text-muted-foreground">{item.description}</span>}
           </a>
@@ -267,6 +306,6 @@ function ArticlePage() {
       {article.tags.length > 0 && <div className="mt-10 border-t border-border pt-5"><p className="eyebrow text-muted-foreground">Filed under</p><ul className="mt-3 flex flex-wrap gap-x-5 gap-y-2">{article.tags.map((tag) => <li key={tag} className="text-sm text-foreground/75">{tag}</li>)}</ul></div>}
     </Container>
     {relatedDestinations.length > 0 && <Section><Container><SectionHeader eyebrow="Plan the trip" title="Places connected to this story" description="Destinations explicitly tied to this article in the Texas Defined guide." /><ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">{relatedDestinations.map((destination) => <li key={destination.id}><DestinationCard destination={destination} /></li>)}</ul></Container></Section>}
-    <Section tone="surface"><Container><SectionHeader eyebrow="From the magazine" title="More stories to read next" /><ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">{related.filter((item) => item.id !== article.id).slice(0, 3).map((item) => <li key={item.id}><ArticleCard article={item} size="compact" /></li>)}</ul><nav aria-label="Continue through this section" className="mt-10 border-t border-border pt-6"><div className="flex flex-wrap gap-x-7 gap-y-3"><Link to={department.path} className="eyebrow border-b border-primary pb-1 text-primary">More from {department.name} →</Link>{department.usesExploreCategory && <Link to="/explore/$category" params={{ category: article.category }} className="eyebrow border-b border-primary pb-1 text-primary">Browse {categoryName} →</Link>}</div></nav></Container></Section>
+    <Section tone="surface"><Container><SectionHeader eyebrow="From the magazine" title="More stories to read next" /><ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">{related.filter((item) => item.id !== article.id).slice(0, 3).map((item) => <li key={item.id}><ArticleCard article={item} size="compact" /></li>)}</ul><nav aria-label="Continue through this section" className="mt-10 border-t border-border pt-6"><div className="flex flex-wrap gap-x-7 gap-y-3"><Link to={department.path} className="eyebrow border-b border-primary py-1 text-primary">More from {department.name} →</Link>{department.usesExploreCategory && <Link to="/explore/$category" params={{ category: article.category }} className="eyebrow border-b border-primary py-1 text-primary">Browse {categoryName} →</Link>}</div></nav></Container></Section>
   </article>;
 }
