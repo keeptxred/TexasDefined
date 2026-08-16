@@ -1,4 +1,4 @@
-name: Deploy TexasDefined to Cloudflare after validation
+name: Publish TexasDefined
 
 on:
   workflow_run:
