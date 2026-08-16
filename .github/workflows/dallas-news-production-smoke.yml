@@ -51,43 +51,43 @@ jobs:
           }
 
           story='/news/2026-08-10-canyon-lake-full-capacity-recovery'
-          expected='https://texasdefined.com/news/2026-08-10-canyon-lake-full-capacity-recovery'
-          story_ready=false
+          routed_news_ready=false
           for attempt in $(seq 1 30); do
-            if curl --max-time 45 -fsSL "https://texasdefined.com${story}" -o /tmp/story.html; then
-              if grep -Fq 'Canyon Lake' /tmp/story.html && EXPECTED="$expected" python3 <<'PY'
-          import os, re, sys
-          html=open('/tmp/story.html', encoding='utf-8', errors='replace').read()
-          canonicals=re.findall(r'<link[^>]+rel=["\']canonical["\'][^>]+href=["\']([^"\']+)', html, re.I)
-          expected=os.environ['EXPECTED']
-          if canonicals == [expected]:
-              print(f'Routed Canyon Lake canonical verified: {canonicals[0]}')
+            story_status="$(curl --max-time 45 -sS -o /tmp/story.html -w '%{http_code}' "https://texasdefined.com${story}" || true)"
+            news_status="$(curl --max-time 45 -sS -o /tmp/news.html -w '%{http_code}' 'https://texasdefined.com/news' || true)"
+            if [ "$story_status" = "200" ] && [ "$news_status" = "200" ] && grep -Fq 'Canyon Lake' /tmp/story.html; then
+              if python3 <<'PY'
+          import re, sys
+
+          def canonicals(path):
+              html=open(path, encoding='utf-8', errors='replace').read()
+              return re.findall(r'<link[^>]+rel=["\']canonical["\'][^>]+href=["\']([^"\']+)', html, re.I)
+
+          story_expected='https://texasdefined.com/news/2026-08-10-canyon-lake-full-capacity-recovery'
+          news_expected='https://texasdefined.com/news'
+          story=canonicals('/tmp/story.html')
+          news=canonicals('/tmp/news.html')
+          if story == [story_expected] and news == [news_expected]:
+              print(f'Routed story canonical verified: {story[0]}')
+              print(f'News index canonical verified: {news[0]}')
               sys.exit(0)
-          print(f'Production has not reached the single-canonical revision yet; got {canonicals!r}')
+          print(f'Production deployment incomplete: story canonicals={story!r}; news canonicals={news!r}')
           sys.exit(1)
           PY
               then
-                story_ready=true
+                routed_news_ready=true
                 break
               fi
+            else
+              echo "Production route status/content not ready: story=$story_status news=$news_status"
             fi
-            echo "Routed-news deployment has not caught up yet (attempt $attempt/30); retrying."
+            echo "Routed-news deployment has not fully caught up yet (attempt $attempt/30); retrying."
             sleep 10
           done
 
-          test "$story_ready" = true || {
-            echo 'Production did not expose the corrected single canonical for the Canyon Lake story within the deployment-aware retry window.' >&2
+          test "$routed_news_ready" = true || {
+            echo 'Production did not expose both corrected routed-news canonicals within the deployment-aware retry window.' >&2
             exit 1
           }
-
-          fetch /news /tmp/news.html
-          python3 <<'PY'
-          import re
-          html=open('/tmp/news.html', encoding='utf-8', errors='replace').read()
-          canonicals=re.findall(r'<link[^>]+rel=["\']canonical["\'][^>]+href=["\']([^"\']+)', html, re.I)
-          expected='https://texasdefined.com/news'
-          assert canonicals == [expected], f'Expected exactly one news-index canonical {expected!r}; got {canonicals!r}'
-          print('News index canonical verified.')
-          PY
 
           echo 'Focused Dallas/news production smoke passed.'
