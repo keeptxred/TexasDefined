@@ -26,7 +26,6 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-
           test -n "$CLOUDFLARE_ACCOUNT_ID" || { echo 'Missing CLOUDFLARE_ACCOUNT_ID'; exit 1; }
           test -n "$CLOUDFLARE_API_TOKEN" || { echo 'Missing CLOUDFLARE_API_TOKEN'; exit 1; }
 
@@ -40,33 +39,20 @@ jobs:
             --data-urlencode "account.id=$CLOUDFLARE_ACCOUNT_ID" \
             "$api/zones" -o "$workdir/zones.json"
 
-          zone_id="$(python3 - "$workdir/zones.json" <<'PY'
-          import json, sys
-          data = json.load(open(sys.argv[1], encoding='utf-8'))
-          zones = [z for z in (data.get('result') or []) if z.get('name') == 'texasdefined.com' and z.get('status') == 'active']
-          assert data.get('success') is True and len(zones) == 1, f'Expected one active texasdefined.com zone, got {len(zones)}'
-          print(zones[0]['id'])
-          PY
-          )"
+          zone_count="$(jq '[.result[] | select(.name == "texasdefined.com" and .status == "active")] | length' "$workdir/zones.json")"
+          test "$zone_count" = '1' || { echo "Expected one active texasdefined.com zone, got $zone_count"; exit 1; }
+          zone_id="$(jq -r '.result[] | select(.name == "texasdefined.com" and .status == "active") | .id' "$workdir/zones.json")"
 
           curl --fail-with-body --silent --show-error -H "$auth" \
             "$api/zones/$zone_id/settings" -o "$workdir/settings.json"
 
-          crawler_state="$(python3 - "$workdir/settings.json" <<'PY'
-          import json, sys
-          data = json.load(open(sys.argv[1], encoding='utf-8'))
-          assert data.get('success') is True, 'Cloudflare zone settings lookup failed'
-          matches = [item for item in (data.get('result') or []) if item.get('id') == 'crawler_hints']
-          if len(matches) != 1:
-              raise SystemExit('Cloudflare API did not expose a crawler_hints zone setting for texasdefined.com')
-          setting = matches[0]
-          if setting.get('editable') is False and setting.get('value') != 'on':
-              raise SystemExit('Crawler Hints is present but is not editable for this zone/token')
-          print(setting.get('value') or '')
-          PY
-          )"
+          setting_count="$(jq '[.result[] | select(.id == "crawler_hints")] | length' "$workdir/settings.json")"
+          test "$setting_count" = '1' || { echo 'Cloudflare API did not expose a crawler_hints zone setting for texasdefined.com'; exit 1; }
+          crawler_state="$(jq -r '.result[] | select(.id == "crawler_hints") | .value' "$workdir/settings.json")"
+          crawler_editable="$(jq -r '.result[] | select(.id == "crawler_hints") | .editable' "$workdir/settings.json")"
 
           if [ "$crawler_state" != 'on' ]; then
+            test "$crawler_editable" != 'false' || { echo 'Crawler Hints is present but not editable for this zone/token'; exit 1; }
             curl --fail-with-body --silent --show-error \
               -X PATCH \
               -H "$auth" \
@@ -74,30 +60,18 @@ jobs:
               --data '{"value":"on"}' \
               "$api/zones/$zone_id/settings/crawler_hints" \
               -o "$workdir/crawler-hints-update.json"
-
-            python3 - "$workdir/crawler-hints-update.json" <<'PY'
-          import json, sys
-          data = json.load(open(sys.argv[1], encoding='utf-8'))
-          assert data.get('success') is True, data.get('errors') or 'Crawler Hints update failed'
-          result = data.get('result') or {}
-          assert result.get('id') == 'crawler_hints' and result.get('value') == 'on', result
-          print('Cloudflare Crawler Hints enabled.')
-          PY
+            test "$(jq -r '.success' "$workdir/crawler-hints-update.json")" = 'true'
+            echo 'Cloudflare Crawler Hints enabled.'
           else
             echo 'Cloudflare Crawler Hints already enabled.'
           fi
 
           curl --fail-with-body --silent --show-error -H "$auth" \
             "$api/zones/$zone_id/settings/crawler_hints" -o "$workdir/crawler-hints.json"
-
-          python3 - "$workdir/crawler-hints.json" <<'PY'
-          import json, sys
-          data = json.load(open(sys.argv[1], encoding='utf-8'))
-          assert data.get('success') is True, data.get('errors') or 'Crawler Hints verification failed'
-          result = data.get('result') or {}
-          assert result.get('id') == 'crawler_hints' and result.get('value') == 'on', result
-          print('Crawler Hints state verified: on.')
-          PY
+          test "$(jq -r '.success' "$workdir/crawler-hints.json")" = 'true'
+          test "$(jq -r '.result.id' "$workdir/crawler-hints.json")" = 'crawler_hints'
+          test "$(jq -r '.result.value' "$workdir/crawler-hints.json")" = 'on'
+          echo 'Crawler Hints state verified: on.'
 
       - name: Verify Bing crawl and sitemap discovery on production
         shell: bash
@@ -108,7 +82,6 @@ jobs:
 
           curl --fail-with-body --silent --show-error --location \
             https://texasdefined.com/robots.txt -o "$workdir/robots.txt"
-
           grep -Fq 'User-agent: Bingbot' "$workdir/robots.txt"
           grep -Fq 'Sitemap: https://texasdefined.com/sitemap.xml' "$workdir/robots.txt"
           grep -Fq 'Sitemap: https://texasdefined.com/sitemap-explore.xml' "$workdir/robots.txt"
