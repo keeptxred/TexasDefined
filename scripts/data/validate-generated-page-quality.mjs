@@ -114,7 +114,7 @@ forbidAll('per-county source fanout', countyProfile, [
 
 // Property-tax county pages get the same fail-closed treatment.
 requireAll('property county gate', propertySchema, [
-  'isCountyPropertyIndexReady', 'record.lastVerifiedAt', 'localPropertySources.length >= 2',
+  'isCountyPropertyIndexReady', 'record.lastVerifiedAt', 'const localPropertySources = new Set([', 'localPropertySources.size >= 2',
 ]);
 requireAll('property county route', propertyRoute, [
   'isCountyPropertyIndexReady(county)',
