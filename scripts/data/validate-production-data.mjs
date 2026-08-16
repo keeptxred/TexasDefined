@@ -75,7 +75,12 @@ if (!sitemap.includes('loadTexasKnowledgeGraph') || !sitemap.includes('canonical
 for (const feature of ['INDEXABLE_STATIC_PATHS','isIndexablePublicPath']) if (!sitemap.includes(feature)) errors.push(`Central sitemap registry integration missing: ${feature}.`);
 for (const feature of ['INDEXABLE_STATIC_PATHS','NON_INDEXABLE_PUBLIC_PATHS','isIndexablePublicPath']) if (!publicRoutes.includes(feature)) errors.push(`Public-route registry feature missing: ${feature}.`);
 if (exploreSitemap.includes('`${BASE_URL}/explore/search`')) errors.push('Noindex Explore search is still submitted in the Explore sitemap.');
-for (const feature of ['status: 503','Retry-After','no-store']) if (!exploreSitemap.includes(feature)) errors.push(`Explore sitemap failure protection missing: ${feature}.`);
+for (const feature of [
+  'const useFixtureFallback = (enrichedFailed && coreFailed) || remoteDestinations.length === 0',
+  'const rawDestinations = useFixtureFallback ? fixtureDestinations : remoteDestinations',
+  'isPrimaryTripPlannerDestination(destination)',
+  'auditDestination(destination).readyForIndexing',
+]) if (!exploreSitemap.includes(feature)) errors.push(`Explore sitemap resilient quality protection missing: ${feature}.`);
 if (!entityRegistry.includes('TEXAS_ENTITY_REGISTRY') || !entityRegistry.includes('sourceConfidence')) errors.push('Production entity registry is incomplete.');
 
 const routeDirectory = path.join(root, 'src/routes');
