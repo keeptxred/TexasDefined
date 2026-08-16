@@ -17,6 +17,7 @@ import {
   texasSettlementPatternsGuideStub,
 } from "./texas-explained-support-stubs";
 import { texasExplainedSupportStubs2 } from "./texas-explained-support-stubs-2";
+import { texasExplainedRiverProfileStubs } from "./texas-explained-river-profile-stubs";
 import { texasHomeArchitectureRegionsStub } from "./texas-home-architecture-regions-stub";
 import {
   chooseElectricityPlanTexasStub,
@@ -122,7 +123,7 @@ export const lazyEvergreenArticleStubs: Article[] = [
   texasRoofsHailWindHeatStub, texasSchoolDistrictsExplainedStub, chooseElectricityPlanTexasStub, texasRiversExplainedStub,
   texasLakesReservoirsExplainedStub, texasHillCountryStub, texasTownCulturalRootsStub, texasCourthousesTownSquareStub,
   texasFoundationCareStub, prepareTexasHouseFreezeStub, mudsPidsHoasSpecialDistrictsStub,
-  ...texasExplainedSupportStubs, ...texasExplainedSupportStubs2,
+  ...texasExplainedSupportStubs, ...texasExplainedSupportStubs2, ...texasExplainedRiverProfileStubs,
 ];
 
 const addSourceLinks = (article: Article, links: NonNullable<Article["internalLinks"]>): Article => {
@@ -194,6 +195,12 @@ export async function loadLazyEvergreenArticle(brandId: string, slug: string): P
   if (texasExplainedSupportStubs2.some((article) => article.slug === slug)) {
     const supportModule = await import("./texas-explained-support-articles-2");
     const article = Object.values(supportModule).find((candidate) => candidate.slug === slug);
+    return article ?? null;
+  }
+
+  if (texasExplainedRiverProfileStubs.some((article) => article.slug === slug)) {
+    const riverModule = await import("./texas-explained-river-profiles");
+    const article = riverModule.texasExplainedRiverProfileArticles.find((candidate) => candidate.slug === slug);
     return article ?? null;
   }
 
