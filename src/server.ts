@@ -8,6 +8,9 @@ type ServerEntry = {
   fetch: (request: Request, env: unknown, ctx: unknown) => Promise<Response> | Response;
 };
 
+const BING_VERIFICATION_META =
+  '<meta name="msvalidate.01" content="74E5E79AEC351CF6D2577A6FC6A125DF" />';
+
 let serverEntryPromise: Promise<ServerEntry> | undefined;
 
 async function getServerEntry(): Promise<ServerEntry> {
@@ -36,6 +39,27 @@ function legacyCountyRedirect(request: Request) {
   if (!countySlug) return null;
   url.pathname = `/county/${countySlug}`;
   return Response.redirect(url.toString(), 301);
+}
+
+async function addBingVerificationMeta(request: Request, response: Response): Promise<Response> {
+  const url = new URL(request.url);
+  if (request.method !== "GET" || url.pathname !== "/") return response;
+  const contentType = response.headers.get("content-type") ?? "";
+  if (!contentType.includes("text/html")) return response;
+
+  const body = await response.text();
+  if (body.includes('name="msvalidate.01"')) {
+    return new Response(body, response);
+  }
+
+  const html = body.replace("</head>", `${BING_VERIFICATION_META}</head>`);
+  const headers = new Headers(response.headers);
+  headers.delete("content-length");
+  return new Response(html, {
+    status: response.status,
+    statusText: response.statusText,
+    headers,
+  });
 }
 
 // h3 swallows in-handler throws into a normal 500 Response with body
@@ -73,7 +97,8 @@ export default {
       if (redirect) return redirect;
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
-      return await normalizeCatastrophicSsrResponse(response);
+      const normalizedResponse = await normalizeCatastrophicSsrResponse(response);
+      return await addBingVerificationMeta(request, normalizedResponse);
     } catch (error) {
       console.error(error);
       return new Response(renderErrorPage(), {
