@@ -8,6 +8,11 @@ const checks = [
     script: 'scripts/data/validate-generated-page-quality.mjs',
   },
   {
+    id: 'county-property',
+    label: 'Verified county property-tax source freshness and crawl policy',
+    script: 'scripts/data/validate-county-property-enrichment.mjs',
+  },
+  {
     id: 'content-integrity',
     label: 'Required content fields and data integrity',
     script: 'scripts/data/validate-content-data-integrity.mjs',
@@ -21,6 +26,11 @@ const checks = [
     id: 'freshness',
     label: 'Freshness and stale-statistic signals',
     script: 'scripts/data/validate-freshness-signals.mjs',
+  },
+  {
+    id: 'crawl-demand',
+    label: 'Crawl-demand and sitemap namespace discipline',
+    script: 'scripts/data/validate-crawl-demand.mjs',
   },
   {
     id: 'internal-discovery',
