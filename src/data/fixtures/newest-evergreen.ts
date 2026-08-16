@@ -1,5 +1,5 @@
 import { articleInternalLinks } from "../article-internal-links";
-import { winklerCountyKermitWinkOilArticle } from "./winkler-county-kermit-wink-oil";
+import { winklerCountyArticleStub } from "./lazy-county-series";
 
 // Texas Explained support bodies formerly registered here via ...texasExplainedSupportArticles
 // now live behind lazyEvergreenArticleStubs/loadLazyEvergreenArticle; this file only owns lightweight pillar topology.
@@ -60,5 +60,5 @@ for (const [slug, additions] of Object.entries(supportLinksByPillar)) {
 }
 
 export const newestEvergreenArticles = [
-  winklerCountyKermitWinkOilArticle,
+  winklerCountyArticleStub,
 ];
