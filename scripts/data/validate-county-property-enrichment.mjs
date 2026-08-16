@@ -5,6 +5,7 @@ const snapshot = fs.readFileSync(snapshotPath, 'utf8');
 const dataset = fs.readFileSync('src/data/property/county-property-data.ts', 'utf8');
 const schema = fs.readFileSync('src/data/property/county-property-schema.ts', 'utf8');
 const sync = fs.readFileSync('scripts/data/sync-county-property-data.mjs', 'utf8');
+const refreshWorkflow = fs.readFileSync('.github/workflows/sync-county-property-data.yml', 'utf8');
 const failures = [];
 
 for (const feature of [
@@ -56,6 +57,24 @@ for (const feature of [
   if (!sync.includes(feature)) failures.push(`County property sync safety contract missing ${feature}`);
 }
 
+for (const feature of [
+  'workflow_dispatch:',
+  'schedule:',
+  "cron: '37 11 * * 1'",
+  'permissions:',
+  'contents: write',
+  'pull-requests: write',
+  'node scripts/data/sync-county-property-data.mjs',
+  'node scripts/data/validate-county-property-enrichment.mjs',
+  'git checkout -b "$branch"',
+  'gh pr create',
+  "--base main",
+]) {
+  if (!refreshWorkflow.includes(feature)) failures.push(`County property refresh workflow missing safety feature ${feature}`);
+}
+if (/git\s+push\s+origin\s+main(?:\s|$)/m.test(refreshWorkflow)) failures.push('County property refresh workflow must never push generated source changes directly to main.');
+if (/gh\s+pr\s+merge/m.test(refreshWorkflow)) failures.push('County property refresh workflow must not auto-merge externally refreshed data.');
+
 if (/lastVerifiedAt:\s*['"]?\s*['"]?\s*,/.test(snapshot)) failures.push('Snapshot contains an empty verification date.');
 if (/websiteUrl:\s*['"]http:\/\//.test(snapshot)) failures.push('Snapshot contains an insecure office website URL.');
 
@@ -82,4 +101,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`County property enrichment validation passed: ${recordSlugs.length} verified county records are source-backed, freshness-gated, and merged behind the existing indexability gate.`);
+console.log(`County property enrichment validation passed: ${recordSlugs.length} verified county records are source-backed, freshness-gated, merged behind the indexability gate, and refreshed only through a reviewable PR workflow.`);
