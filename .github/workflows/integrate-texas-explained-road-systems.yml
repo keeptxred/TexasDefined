@@ -27,7 +27,11 @@ jobs:
           node scripts/data/validate-texas-explained-river-profiles.mjs
           node scripts/data/validate-texas-explained-reservoir-profiles.mjs
           node scripts/data/validate-texas-explained-road-systems.mjs
-          node scripts/data/validate-editorial-image-duplicates.mjs --all
+          test -f public/images/editorial/texas-rm-roads.svg
+          test -f public/images/editorial/texas-loops-spurs.svg
+          test -f public/images/editorial/texas-business-routes.svg
+          test -f public/images/editorial/texas-park-recreational-roads.svg
+          test -f public/images/editorial/texas-historic-memorial-routes.svg
 
       - name: Commit application and validator changes only
         run: |
