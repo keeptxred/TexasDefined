@@ -19,7 +19,7 @@ for (const feature of [
 
 const seededSlugs = ['angelina', 'bee', 'burleson', 'collingsworth', 'cottle', 'fisher', 'hays', 'hidalgo', 'kendall', 'leon', 'lubbock', 'terrell'];
 for (const slug of seededSlugs) {
-  if (!new RegExp(`(?:^|\\n)\\s*${slug}:\\s*\\{`).test(snapshot) && !snapshot.includes(`"${slug}":`)) {
+  if (!new RegExp(`(?:^|\\n)  ${slug}:\\s*\\{`).test(snapshot) && !snapshot.includes(`\n  "${slug}":`)) {
     failures.push(`Verified priority county missing from snapshot: ${slug}`);
   }
 }
@@ -82,9 +82,9 @@ if (/gh\s+pr\s+merge/m.test(refreshWorkflow)) failures.push('County property ref
 if (/lastVerifiedAt:\s*['"]?\s*['"]?\s*,/.test(snapshot)) failures.push('Snapshot contains an empty verification date.');
 if (/websiteUrl:\s*['"]http:\/\//.test(snapshot)) failures.push('Snapshot contains an insecure office website URL.');
 
-const recordMatches = [...snapshot.matchAll(/(?:^|\n)\s*(?:"([a-z0-9-]+)"|([a-z0-9-]+)):\s*\{/g)];
+const recordMatches = [...snapshot.matchAll(/^  (?:(?:"([a-z0-9-]+)")|([a-z0-9-]+)):\s*\{/gm)];
 const recordSlugs = recordMatches.map((match) => match[1] || match[2]).filter(Boolean);
-if (new Set(recordSlugs).size !== recordSlugs.length) failures.push('Snapshot contains duplicate county slugs.');
+if (new Set(recordSlugs).size !== recordSlugs.length) failures.push('Snapshot contains duplicate top-level county slugs.');
 if (recordSlugs.length < seededSlugs.length) failures.push(`Snapshot contains only ${recordSlugs.length} county records; expected at least ${seededSlugs.length}.`);
 
 const comptrollerPages = [...snapshot.matchAll(/https:\/\/comptroller\.texas\.gov\/taxes\/property-tax\/county-directory\/([a-z0-9-]+)\.php/g)].map((match) => match[1]);
