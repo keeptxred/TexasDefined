@@ -11,9 +11,13 @@ const failures = [];
 for (const marker of [
   'const audit = auditDestination(destination)',
   'const indexable = audit.readyForIndexing && isPrimaryTripPlannerDestination(destination)',
-  '{ name: "robots", content: "noindex, follow" }',
+  'robots: indexable ? undefined : "noindex, follow"',
 ]) {
   if (!route.includes(marker)) failures.push(`Destination route indexing contract missing: ${marker}`);
+}
+
+if (route.includes('...(!indexable ? [{ name: "robots", content: "noindex, follow" }] : [])')) {
+  failures.push('Destination route must not append a second robots meta after buildMeta; pass robots into buildMeta so index/noindex signals cannot conflict.');
 }
 
 for (const marker of [
@@ -64,4 +68,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Destination indexing policy passed: route metadata, Explore sitemap, query publication, primary-destination consolidation, substantive-copy, hero and coordinate gates remain aligned.');
+console.log('Destination indexing policy passed: route metadata emits one consistent robots policy, Explore sitemap and query publication use the same primary/readiness gates, and substantive-copy, hero and coordinate protections remain aligned.');
