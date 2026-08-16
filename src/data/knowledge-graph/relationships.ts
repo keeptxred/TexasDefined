@@ -147,12 +147,10 @@ export function isIndexableEntityPage(entity: TexasEntityRecord) {
   if (DESTINATION_MIRROR_KINDS.has(entity.kind)) return false;
 
   if (!['active', 'seasonal'].includes(entity.status)) return false;
-
-  const description = entity.description?.trim() ?? '';
-  if (description.length < 180) return false;
-
   if (!entity.sourceCheckedAt) return false;
   if (!['official', 'high'].includes(entity.sourceConfidence)) return false;
+
+  const description = entity.description?.trim() ?? '';
 
   // County guides are enriched with Texas State Library county-seat data and
   // Census geography before this gate runs. Their static seed intentionally
@@ -162,12 +160,26 @@ export function isIndexableEntityPage(entity: TexasEntityRecord) {
   // qualify without that website only when its authoritative enrichment is
   // present and the record has the expected county relationships.
   if (entity.kind === 'county') {
-    return entity.sourceConfidence === 'official'
+    return description.length >= 180
+      && entity.sourceConfidence === 'official'
       && entity.status === 'active'
       && Boolean(entity.coordinates)
       && entity.relationships.length >= 2;
   }
 
+  // Statewide agencies do not naturally have county, region, or coordinate
+  // signals. Their authority comes from an entity-specific official state URL,
+  // a source-checked description, and a useful service/topic taxonomy. Requiring
+  // geographic context here incorrectly excludes strong agency reference pages.
+  if (entity.kind === 'agency') {
+    return description.length >= 150
+      && hasEntitySpecificOfficialUrl(entity)
+      && entity.sourceConfidence === 'official'
+      && entity.status === 'active'
+      && Boolean(entity.tags?.length && entity.tags.length >= 3);
+  }
+
+  if (description.length < 180) return false;
   if (!hasEntitySpecificOfficialUrl(entity)) return false;
 
   if (LOCAL_GOVERNMENT_KINDS.has(entity.kind)) {
