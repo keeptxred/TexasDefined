@@ -152,8 +152,23 @@ export function isIndexableEntityPage(entity: TexasEntityRecord) {
   if (description.length < 180) return false;
 
   if (!entity.sourceCheckedAt) return false;
-  if (!hasEntitySpecificOfficialUrl(entity)) return false;
   if (!['official', 'high'].includes(entity.sourceConfidence)) return false;
+
+  // County guides are enriched with Texas State Library county-seat data and
+  // Census geography before this gate runs. Their static seed intentionally
+  // points at Texas.gov's statewide county directory, so requiring an
+  // entity-specific county website here makes sitemap eligibility depend on a
+  // separate runtime scrape that the sitemap does not perform. A county may
+  // qualify without that website only when its authoritative enrichment is
+  // present and the record has the expected county relationships.
+  if (entity.kind === 'county') {
+    return entity.sourceConfidence === 'official'
+      && entity.status === 'active'
+      && Boolean(entity.coordinates)
+      && entity.relationships.length >= 2;
+  }
+
+  if (!hasEntitySpecificOfficialUrl(entity)) return false;
 
   if (LOCAL_GOVERNMENT_KINDS.has(entity.kind)) {
     if (entity.sourceConfidence !== 'official') return false;
