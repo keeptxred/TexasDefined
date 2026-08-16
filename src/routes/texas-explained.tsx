@@ -9,7 +9,7 @@ import type { Article } from "@/data/types";
 import { buildEditorialCollectionHead, buildMeta, canonicalLink } from "@/lib/seo";
 
 const canonicalPath = "/texas-explained";
-const description = "Ten deeply reported Texas Defined guides explaining the water, roads, towns, landscapes, wildlife, homes, land and migration patterns that make Texas work the way it does.";
+const description = "Ten deeply reported Texas Defined guides, plus ten focused supporting explainers, connecting the water, roads, towns, landscapes, wildlife, homes, land and migration patterns that make Texas work the way it does.";
 
 const pillarSlugs = [
   "texas-rivers-explained",
@@ -23,6 +23,24 @@ const pillarSlugs = [
   "texas-wildlife-guide",
   "texas-cultural-regions-explained",
 ] as const;
+
+const childSupportSlugs = [
+  "texas-river-basins-guide",
+  "texas-highway-designations-explained",
+  "texas-courthouse-architecture-guide",
+  "texas-ecoregions-habitats-guide",
+  "texas-settlement-patterns-explained",
+] as const;
+
+const depthSlugs = [
+  "texas-aquifers-springs-explained",
+  "texas-prairies-grasslands-guide",
+  "texas-main-street-downtowns-guide",
+  "texas-railroads-town-growth-explained",
+  "texas-rural-wells-water-guide",
+] as const;
+
+const collectionSlugs = [...pillarSlugs, ...childSupportSlugs, ...depthSlugs] as const;
 
 const quickAnswers = [
   {
@@ -57,7 +75,7 @@ const quickAnswers = [
   },
 ] as const;
 
-const supportingExplainers = [
+const relatedPrimers = [
   {
     to: "/article/texas-regions-explained",
     title: "Texas regions explained",
@@ -120,13 +138,17 @@ const sections = [
   },
 ] as const;
 
-function orderedPillars(catalog: Article[]) {
+function orderedArticles(catalog: Article[], slugs: readonly string[]) {
   const bySlug = new Map(catalog.map((article) => [article.slug, article]));
-  return pillarSlugs.map((slug) => bySlug.get(slug)).filter((article): article is Article => Boolean(article));
+  return slugs.map((slug) => bySlug.get(slug)).filter((article): article is Article => Boolean(article));
+}
+
+function orderedPillars(catalog: Article[]) {
+  return orderedArticles(catalog, pillarSlugs);
 }
 
 export const Route = createFileRoute("/texas-explained")({
-  head: ({ loaderData }: { loaderData?: { articles: Article[] } }) => {
+  head: ({ loaderData }: { loaderData?: { articles: Article[]; pillars: Article[]; supportArticles: Article[]; depthArticles: Article[] } }) => {
     if (!loaderData?.articles.length) {
       return {
         meta: buildMeta(texasDefinedBrand, {
@@ -138,7 +160,7 @@ export const Route = createFileRoute("/texas-explained")({
       };
     }
 
-    const hero = loaderData.articles[0]?.hero;
+    const hero = loaderData.pillars[0]?.hero ?? loaderData.articles[0]?.hero;
     return buildEditorialCollectionHead(texasDefinedBrand, {
       canonicalPath,
       title: "Texas Explained: 10 Guides to How the State Works",
@@ -159,16 +181,37 @@ export const Route = createFileRoute("/texas-explained")({
       })),
     });
   },
-  loader: async ({ context }): Promise<{ articles: Article[] }> => {
+  loader: async ({ context }): Promise<{ articles: Article[]; pillars: Article[]; supportArticles: Article[]; depthArticles: Article[] }> => {
     const catalog = await context.queryClient.ensureQueryData(articlesQuery());
-    return { articles: orderedPillars(catalog) };
+    return {
+      articles: orderedArticles(catalog, collectionSlugs),
+      pillars: orderedPillars(catalog),
+      supportArticles: orderedArticles(catalog, childSupportSlugs),
+      depthArticles: orderedArticles(catalog, depthSlugs),
+    };
   },
   component: TexasExplainedPage,
 });
 
+function DepthGrid({ articles, label }: { articles: Article[]; label: string }) {
+  if (!articles.length) return null;
+  return (
+    <div className="mt-8">
+      <p className="eyebrow mb-5 text-muted-foreground">{label}</p>
+      <ul className="grid gap-x-8 gap-y-10 md:grid-cols-2">
+        {articles.map((article) => (
+          <li key={article.slug} className="border-t border-border pt-5">
+            <ArticleCard article={article} size="compact" />
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 function TexasExplainedPage() {
-  const { articles } = Route.useLoaderData();
-  const bySlug = new Map(articles.map((article) => [article.slug, article]));
+  const { pillars, supportArticles, depthArticles } = Route.useLoaderData();
+  const bySlug = new Map(pillars.map((article) => [article.slug, article]));
   const pillarPosition = new Map<string, number>(pillarSlugs.map((slug, index) => [slug, index + 1]));
 
   return (
@@ -190,19 +233,19 @@ function TexasExplainedPage() {
             </p>
           </div>
           <aside className="border-l-2 border-primary pl-5 text-sm leading-7 text-muted-foreground">
-            <p className="font-semibold text-foreground">10 evergreen guides</p>
-            <p className="mt-2">Built for readers who want the “why” behind familiar Texas places, systems and patterns—not just a list of facts.</p>
+            <p className="font-semibold text-foreground">10 core guides · 10 deeper explainers</p>
+            <p className="mt-2">Start with a core guide, then follow the focused supporting pieces when you want the next layer of detail.</p>
           </aside>
         </section>
 
         <nav aria-label="Texas Explained sections" className="border-b border-border py-6">
           <p className="eyebrow text-muted-foreground">Jump to</p>
-          <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">
-            <a href="#quick-answers" className="border-b border-transparent pb-1 transition-colors hover:border-primary hover:text-primary">Quick answers</a>
-            <a href="#land-and-water" className="border-b border-transparent pb-1 transition-colors hover:border-primary hover:text-primary">Land &amp; water</a>
-            <a href="#built-texas" className="border-b border-transparent pb-1 transition-colors hover:border-primary hover:text-primary">Built Texas</a>
-            <a href="#people-and-place" className="border-b border-transparent pb-1 transition-colors hover:border-primary hover:text-primary">People &amp; place</a>
-            <a href="#go-deeper" className="border-b border-transparent pb-1 transition-colors hover:border-primary hover:text-primary">Go deeper</a>
+          <div className="mt-3 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
+            <a href="#quick-answers" className="border-b border-transparent py-1 transition-colors hover:border-primary hover:text-primary">Quick answers</a>
+            <a href="#land-and-water" className="border-b border-transparent py-1 transition-colors hover:border-primary hover:text-primary">Land &amp; water</a>
+            <a href="#built-texas" className="border-b border-transparent py-1 transition-colors hover:border-primary hover:text-primary">Built Texas</a>
+            <a href="#people-and-place" className="border-b border-transparent py-1 transition-colors hover:border-primary hover:text-primary">People &amp; place</a>
+            <a href="#go-deeper" className="border-b border-transparent py-1 transition-colors hover:border-primary hover:text-primary">Go deeper</a>
           </div>
         </nav>
 
@@ -217,7 +260,7 @@ function TexasExplainedPage() {
               <div key={item.question} className={`border-b border-border py-7 md:px-6 ${index % 2 === 1 ? "md:border-l" : ""}`}>
                 <dt className="font-display text-2xl leading-tight">{item.question}</dt>
                 <dd className="mt-3 text-sm leading-7 text-muted-foreground">{item.answer}</dd>
-                <Link to={item.to} className="eyebrow mt-5 inline-block border-b border-primary pb-1 text-primary">{item.label} →</Link>
+                <Link to={item.to} className="eyebrow mt-5 inline-block border-b border-primary py-1 text-primary">{item.label} →</Link>
               </div>
             ))}
           </dl>
@@ -254,25 +297,35 @@ function TexasExplainedPage() {
         <section id="go-deeper" className="mt-16 scroll-mt-28 border-t border-border pt-10" aria-labelledby="texas-explained-go-deeper">
           <header className="max-w-3xl">
             <p className="eyebrow text-primary">Go deeper</p>
-            <h2 id="texas-explained-go-deeper" className="mt-2 font-display text-3xl leading-tight sm:text-4xl">Five supporting explainers</h2>
-            <p className="mt-4 text-base leading-7 text-muted-foreground">These sit outside the core 10-guide series, but each extends one of its central ideas into a more specific Texas landscape, system or tradition.</p>
+            <h2 id="texas-explained-go-deeper" className="mt-2 font-display text-3xl leading-tight sm:text-4xl">Ten focused explainers behind the core guides</h2>
+            <p className="mt-4 text-base leading-7 text-muted-foreground">The first layer breaks broad pillars into specific systems. The second layer follows those systems into aquifers, prairies, downtowns, railroads and rural water decisions.</p>
+          </header>
+          <DepthGrid articles={supportArticles} label="Supporting explainers" />
+          <DepthGrid articles={depthArticles} label="Deeper guides" />
+        </section>
+
+        <section className="mt-16 border-t border-border pt-10" aria-labelledby="texas-explained-related-primers">
+          <header className="max-w-3xl">
+            <p className="eyebrow text-primary">Related primers</p>
+            <h2 id="texas-explained-related-primers" className="mt-2 font-display text-3xl leading-tight sm:text-4xl">Five useful ways into the collection</h2>
+            <p className="mt-4 text-base leading-7 text-muted-foreground">These broader Texas Defined stories connect naturally to the series, but they are not part of the 20-article Texas Explained core-and-depth collection.</p>
           </header>
           <ul className="mt-8 grid border-t border-border md:grid-cols-2">
-            {supportingExplainers.map((item, index) => (
+            {relatedPrimers.map((item, index) => (
               <li key={item.to} className={`border-b border-border py-7 md:px-6 ${index % 2 === 1 ? "md:border-l" : ""}`}>
-                <Link to={item.to} className="group block h-full">
+                <Link to={item.to} className="group block h-full py-1">
                   <h3 className="font-display text-2xl leading-tight transition-colors group-hover:text-primary">{item.title}</h3>
                   <p className="mt-3 text-sm leading-7 text-muted-foreground">{item.description}</p>
-                  <span className="eyebrow mt-5 inline-block border-b border-primary pb-1 text-primary">Read the explainer →</span>
+                  <span className="eyebrow mt-5 inline-block border-b border-primary py-1 text-primary">Read the primer →</span>
                 </Link>
               </li>
             ))}
           </ul>
         </section>
 
-        {articles.length < pillarSlugs.length ? (
+        {pillars.length < pillarSlugs.length ? (
           <p className="mt-12 border-t border-border pt-6 text-sm leading-6 text-muted-foreground">
-            This collection is showing {articles.length} of {pillarSlugs.length} guides while the remaining editorial record is refreshed.
+            This collection is showing {pillars.length} of {pillarSlugs.length} core guides while the remaining editorial record is refreshed.
           </p>
         ) : null}
 
