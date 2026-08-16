@@ -38,6 +38,7 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   profile("brazoria", "brazoria-county-brazos-gulf-angleton-texas", () => import("@/data/fixtures/brazoria-county-brazos-gulf-angleton").then((module) => module.brazoriaCountyBrazosGulfAngletonArticle)),
   profile("dallas", "dallas-county-dallas-trinity-old-red-texas", () => import("@/data/fixtures/dallas-county-dallas-trinity-old-red").then((module) => module.dallasCountyDallasTrinityOldRedArticle)),
   profile("tarrant", "tarrant-county-fort-worth-trinity-western-heritage-texas", () => import("@/data/fixtures/tarrant-county-fort-worth-trinity-western-heritage").then((module) => module.tarrantCountyFortWorthTrinityWesternHeritageArticle)),
+  profile("collin", "collin-county-mckinney-prairie-growth-texas", () => import("@/data/fixtures/collin-county-mckinney-prairie-growth").then((module) => module.collinCountyMcKinneyPrairieGrowthArticle)),
 ];
 
 export function loadCountySeriesArticle(countySlug: string): Promise<Article | null> {
