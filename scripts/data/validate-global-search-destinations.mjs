@@ -23,8 +23,9 @@ for (const feature of [
   'fetchCoreExploreDestinations({ limit: 5000 })',
   'mergeDestinations(enriched, core, preservedExploreDestinations)',
   'const destinations = reconcileExploreCatalog(',
-  'if (!destinations.length) return base',
-  'base.filter((document) => document.kind !== "destination")',
+  'const nonDestinationDocuments = base.filter((document) => document.kind !== "destination")',
+  'if (!destinations.length) return nonDestinationDocuments',
+  '...nonDestinationDocuments',
   'destinations.map(destinationSearchDocument)',
 ]) {
   if (!queries.includes(feature)) errors.push(`Global destination search feature missing: ${feature}.`);
@@ -47,6 +48,9 @@ if (!queries.includes('Enriched destination search index unavailable; merging co
 if (!queries.includes('Core remote destination search index unavailable; retaining preserved destinations')) {
   errors.push('Core destination search fallback logging is missing.');
 }
+if (queries.includes('if (!destinations.length) return base')) {
+  errors.push('Empty resolved destination catalogs must not fall back to raw fixture destination search documents.');
+}
 if (searchRoute.includes('fetchExploreDestinations')) {
   errors.push('Global search route must not append a raw destination feed that bypasses the resolved SEO-readiness pipeline.');
 }
@@ -60,4 +64,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Global search destinations are resolved and SEO-ready before indexing, use canonical URLs and deduplicated keywords, retain core/preserved outage fallbacks, and cannot be bypassed by a raw route-level destination feed.');
+console.log('Global search destinations are resolved and SEO-ready before publication, use canonical URLs and deduplicated keywords, retain core/preserved source fallbacks, fail closed when no destination is ready, and cannot be bypassed by a raw route-level destination feed.');
