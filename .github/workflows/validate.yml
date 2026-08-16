@@ -44,6 +44,9 @@ jobs:
       - name: Validate generated page quality
         run: node scripts/data/validate-generated-page-quality.mjs
 
+      - name: Validate county property enrichment
+        run: node scripts/data/validate-county-property-enrichment.mjs
+
       - name: Validate public route governance
         run: node scripts/data/validate-public-route-governance.mjs
 
