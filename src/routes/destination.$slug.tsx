@@ -73,10 +73,13 @@ export const Route = createFileRoute("/destination/$slug")({
     const relatedSchema = { "@type": "ItemList", "@id": `${url}#related-places`, name: `Places related to ${destination.name}`, numberOfItems: relatedPlaces.length, itemListElement: relatedPlaces.map((item, index) => ({ "@type": "ListItem", position: index + 1, item: { "@type": "TouristAttraction", name: item.name, description: item.summary, url: `${siteUrl}/destination/${item.slug}`, image: absoluteUrl(texasDefinedBrand, item.hero.src) } })) };
     const breadcrumbSchema = { "@type": "BreadcrumbList", "@id": `${url}#breadcrumbs`, itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` }, { "@type": "ListItem", position: 2, name: "Explore", item: `${siteUrl}/explore` }, { "@type": "ListItem", position: 3, name: categoryName, item: `${siteUrl}/explore/${destination.category}` }, { "@type": "ListItem", position: 4, name: destination.name, item: url }] };
     return {
-      meta: [
-        ...buildMeta(texasDefinedBrand, { title: destinationSeoTitle(destination.name, categoryName), description: destination.summary, canonicalPath, ...(hasUsableHero ? { image: destination.hero.src, imageAlt: destination.hero.alt } : {}) }),
-        ...(!indexable ? [{ name: "robots", content: "noindex, follow" }] : []),
-      ],
+      meta: buildMeta(texasDefinedBrand, {
+        title: destinationSeoTitle(destination.name, categoryName),
+        description: destination.summary,
+        canonicalPath,
+        robots: indexable ? undefined : "noindex, follow",
+        ...(hasUsableHero ? { image: destination.hero.src, imageAlt: destination.hero.alt } : {}),
+      }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
       scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": [webPageSchema, attractionSchema, ...(relatedPlaces.length > 0 ? [relatedSchema] : []), breadcrumbSchema] }) }],
     };
