@@ -31,7 +31,16 @@ export function rankRelatedEntities(entity: TexasEntityRecord, graph: TexasEntit
   const entityCounty = countyContext(entity);
 
   return graph
-    .filter((candidate) => candidate.id !== entity.id && candidate.status !== 'retired')
+    .filter((candidate) => {
+      if (candidate.id === entity.id || candidate.status === 'retired') return false;
+      // Do not manufacture internal crawl demand for appraisal-district, tax-office,
+      // county-clerk, or DPS-office placeholders. These records become related-link
+      // candidates only after they independently satisfy the same publication gate
+      // used by route metadata and sitemap generation. County pages can still expose
+      // verified external office links from their local-government profile.
+      if (LOCAL_GOVERNMENT_KINDS.has(candidate.kind) && candidate.kind !== 'county' && !isIndexableEntityPage(candidate)) return false;
+      return true;
+    })
     .map((candidate) => {
       let score = 0;
       const reasons: string[] = [];
