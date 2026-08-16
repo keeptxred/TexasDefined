@@ -123,16 +123,23 @@ for (const feature of [
 if (llms.includes('id=lake:caddo-lake')) errors.push('AI discovery guidance still uses the fixture-era Caddo Lake entity example.');
 
 for (const feature of [
-  'fetchCoreExploreDestinations',
-  'let remoteFailed = false',
+  'fetchExploreDestinations({ limit: 5000 })',
+  'fetchCoreExploreDestinations({ limit: 5000 })',
+  'let enrichedFailed = false',
+  'let coreFailed = false',
+  'const bothRemoteSourcesUnavailable = enrichedFailed && coreFailed',
+  'mergeDestinationSources(coreDestinations, enrichedDestinations)',
+  '? fixtureDestinations',
+  'const destinations = resolveDestinationCatalog(rawDestinations)',
   'validLastModified', '<lastmod>', 'item.sourceCheckedAt',
-  'const destinations = remoteFailed ? fixtureDestinations : remoteDestinations',
-  'if (remoteFailed && destinations.length === 0)',
   'isPrimaryTripPlannerDestination(destination)',
   'auditDestination(destination).readyForIndexing',
 ]) if (!sitemap.includes(feature)) errors.push(`Explore sitemap enrichment or quality feature missing: ${feature}`);
 if (sitemap.includes('remoteDestinations.length ? remoteDestinations : fixtureDestinations')) {
   errors.push('Explore sitemap still treats a healthy empty remote catalog as an outage.');
+}
+if (sitemap.includes('const destinations = remoteFailed ? fixtureDestinations : remoteDestinations')) {
+  errors.push('Explore sitemap still uses the obsolete single-source outage fallback.');
 }
 
 for (const feature of [
@@ -165,4 +172,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Explore enrichment, grouped planning, ranked search, AI discovery, quality-gated sitemap freshness, authority, relationship discovery with Texas Explained fallback, public-view fallback, and fixture resilience passed.');
+console.log('Explore enrichment, grouped planning, ranked search, AI discovery, merged-source quality-gated sitemap freshness, authority, relationship discovery with Texas Explained fallback, public-view fallback, and fixture resilience passed.');
