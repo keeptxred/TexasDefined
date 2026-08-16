@@ -15,8 +15,8 @@ export function TexasPlaceDirectory({ mode }: { mode: "counties" | "cities" }) {
   const items = mode === "counties" ? results.counties : results.cities;
   const title = mode === "counties" ? "The Texas county directory" : "The Texas city directory";
   const intro = mode === "counties"
-    ? "Find a county, then continue to local property-tax guides, official offices and public records."
-    : "Find a Texas city, open its reference page, then continue to county context, local stories, moving guidance and planning tools.";
+    ? "Find a county, then continue to verified local property-tax guides, official offices and public records."
+    : "Find a Texas city by county and region, then continue to statewide moving, salary and cost-of-living tools while local city records are independently verified.";
   const searchLabel = mode === "counties" ? "county" : "city";
   const current = mode === "counties" ? "Counties" : "Cities";
 
@@ -41,11 +41,11 @@ export function TexasPlaceDirectory({ mode }: { mode: "counties" | "cities" }) {
             {mode === "counties"
               ? results.counties.map((county, index) => (
                   <li id={countyAnchor(county.slug)} key={county.code} className={`border-b border-border py-7 sm:px-6 ${index % 3 === 0 ? "lg:pl-0" : ""} ${index % 3 !== 2 ? "lg:border-r" : ""}`}>
-                    <p className="eyebrow text-primary">County guide</p>
+                    <p className="eyebrow text-primary">County reference</p>
                     <h3 className="mt-3 font-display text-3xl leading-tight">{county.name}</h3>
-                    <p className="mt-3 text-sm leading-7 text-muted-foreground">Property taxes, appraisal records, exemptions, protests, local offices and payment research for {county.name}.</p>
+                    <p className="mt-3 text-sm leading-7 text-muted-foreground">County context and official references for {county.name}.</p>
                     <div className="mt-5 flex flex-col items-start gap-3 text-sm">
-                      <Link className="eyebrow border-b border-primary pb-1 text-primary" to="/property-tax/county/$county" params={{ county: county.slug }}>Open county guide →</Link>
+                      <Link className="eyebrow border-b border-primary pb-1 text-primary" to="/$kind/$slug" params={{ kind: "county", slug: county.slug }}>Open county reference →</Link>
                       <a className="inline-flex items-center gap-2 text-xs text-muted-foreground underline underline-offset-4" href={county.officialDirectoryUrl} target="_blank" rel="noreferrer noopener">Official county directory <ExternalLink className="h-3.5 w-3.5" aria-hidden /></a>
                     </div>
                   </li>
@@ -54,9 +54,9 @@ export function TexasPlaceDirectory({ mode }: { mode: "counties" | "cities" }) {
                   <li id={cityAnchor(city.slug)} key={city.slug} className={`border-b border-border py-7 sm:px-6 ${index % 3 === 0 ? "lg:pl-0" : ""} ${index % 3 !== 2 ? "lg:border-r" : ""}`}>
                     <p className="eyebrow text-primary">{city.region}</p>
                     <h3 className="mt-3 font-display text-3xl leading-tight">{city.name}, Texas</h3>
-                    <p className="mt-3 text-sm leading-7 text-muted-foreground">{city.name} is in {city.county} County · Open the city reference for county context, local information and related planning resources.</p>
+                    <p className="mt-3 text-sm leading-7 text-muted-foreground">{city.name} is in {city.county} County. City detail pages are published only after local source verification; use the statewide planning tools below in the meantime.</p>
                     <div className="mt-5 flex flex-wrap gap-x-5 gap-y-3">
-                      <Link className="eyebrow border-b border-primary pb-1 text-primary" to="/$kind/$slug" params={{ kind: 'city', slug: city.slug }}>Explore {city.name}, Texas →</Link>
+                      <Link className="eyebrow border-b border-primary pb-1 text-primary" to="/browse/counties">Find county context →</Link>
                       <Link className="eyebrow border-b border-primary pb-1 text-primary" to="/texas-salary-comparison-by-city">Compare salary →</Link>
                       <Link className="eyebrow border-b border-primary pb-1 text-primary" to="/texas-cost-of-living-calculator">Compare costs →</Link>
                     </div>
