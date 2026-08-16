@@ -149,7 +149,7 @@ jobs:
           assert len(all_slugs)==35 and len(set(all_slugs))==35
 
           def get(path):
-              req=urllib.request.Request(origin+path, headers={'User-Agent':'TexasDefinedProductionSmoke/2.0'})
+              req=urllib.request.Request(origin+path, headers={'User-Agent':'TexasDefinedProductionSmoke/2.1'})
               with urllib.request.urlopen(req, timeout=45) as response:
                   assert response.status == 200, (path, response.status)
                   return response.read().decode('utf-8', errors='replace')
@@ -160,11 +160,18 @@ jobs:
           def canonical_values(html):
               return re.findall(r'<link[^>]+rel=["\']canonical["\'][^>]+href=["\']([^"\']+)', html, re.I)
 
-          for path in ['/', '/fishing', '/guides', '/county/travis', '/texas-symbols', '/texas-explained', '/property-tax/counties']:
-              html=get(path)
+          pages={path:get(path) for path in ['/', '/fishing', '/guides', '/county/travis', '/texas-symbols', '/texas-explained', '/texas-resources', '/property-tax/counties']}
+          for path, html in pages.items():
               assert html.strip(), f'Empty production HTML: {path}'
 
-          directory=get('/property-tax/counties')
+          resources=pages['/texas-resources']
+          assert 'Good answers for everyday Texas life' in resources, 'Start Here production content missing'
+          assert not any('noindex' in value for value in robots_values(resources)), 'Start Here unexpectedly noindex'
+          assert canonical_values(resources)==[origin+'/texas-resources'], f'Start Here canonical mismatch: {canonical_values(resources)}'
+          assert '/texas-resources' in pages['/'], 'Homepage does not directly link to Start Here'
+          print('Production Start Here homepage discovery, canonical and indexability verified.')
+
+          directory=pages['/property-tax/counties']
           lubbock=get('/property-tax/county/lubbock')
           harris=get('/property-tax/county/harris')
           lubbock_appraisal=get('/appraisal-district/lubbock-appraisal-district')
@@ -180,7 +187,7 @@ jobs:
           assert 'Harris' in harris_tax and any('noindex' in value for value in robots_values(harris_tax))
           print('Production property-tax and local-office index/noindex behavior verified for Lubbock and Harris.')
 
-          hub=get('/texas-explained')
+          hub=pages['/texas-explained']
           assert '10 core guides · 25 deeper explainers' in hub, 'Texas Explained 35-article collection summary missing'
           assert 'Twenty-five focused explainers behind the core guides' in hub, 'Texas Explained depth heading missing'
           for slug in all_slugs:
@@ -202,7 +209,7 @@ jobs:
               assert f'/article/{slug}' in road_parent, f'FM-road pillar missing road-system link: {slug}'
           print('Production Texas Explained 35-article hub, canonical/indexability and reciprocal topology verified.')
 
-          required={origin+'/texas-explained', origin+'/property-tax/county/lubbock', origin+'/appraisal-district/lubbock-appraisal-district', origin+'/tax-office/lubbock-tax-office'}
+          required={origin+'/texas-explained', origin+'/texas-resources', origin+'/property-tax/county/lubbock', origin+'/appraisal-district/lubbock-appraisal-district', origin+'/tax-office/lubbock-tax-office'}
           required.update(origin+f'/article/{slug}' for slug in all_slugs)
           forbidden={origin+'/property-tax/county/harris', origin+'/appraisal-district/harris-appraisal-district', origin+'/tax-office/harris-tax-office'}
           seen=set(); queue=[origin+'/sitemap.xml']; visited=set()
@@ -210,7 +217,7 @@ jobs:
               url=queue.pop(0)
               if url in visited: continue
               visited.add(url)
-              req=urllib.request.Request(url, headers={'User-Agent':'TexasDefinedProductionSmoke/2.0'})
+              req=urllib.request.Request(url, headers={'User-Agent':'TexasDefinedProductionSmoke/2.1'})
               with urllib.request.urlopen(req, timeout=45) as response: payload=response.read()
               root=ET.fromstring(payload)
               local=root.tag.rsplit('}',1)[-1]
