@@ -12,6 +12,7 @@ import { applyExploreHeroAssets } from "@/data/explore-heroes";
 import { categories, destinations as fixtureDestinations, regions } from "@/data/fixtures/texas";
 import { fetchExploreDestinations } from "@/data/explore-remote";
 import { applyStateParkHeroAssets } from "@/data/state-park-heroes";
+import type { Destination } from "@/data/types";
 import { isExploreSitemapOwnedPath, isIndexablePublicPath, normalizePublicPath } from "@/lib/public-routes";
 
 const BASE_URL = `https://${texasDefinedBrand.identity.domain}`;
@@ -40,7 +41,29 @@ function entry(path: string, lastModified?: string): string | null {
   return `  <url>\n    <loc>${escapeXml(`${BASE_URL}${normalized}`)}</loc>${lastmod ? `\n    <lastmod>${lastmod}</lastmod>` : ""}\n  </url>`;
 }
 
-function resolveDestinationCatalog(destinations: typeof fixtureDestinations) {
+function mergeDestinationSources(...groups: Destination[][]): Destination[] {
+  const merged = new Map<string, Destination>();
+  for (const group of groups) {
+    for (const destination of group) {
+      if (!destination.slug) continue;
+      const existing = merged.get(destination.slug);
+      if (!existing) {
+        merged.set(destination.slug, destination);
+        continue;
+      }
+      merged.set(destination.slug, {
+        ...existing,
+        ...destination,
+        hero: destination.hero ?? existing.hero,
+        highlights: destination.highlights?.length ? destination.highlights : existing.highlights,
+        body: destination.body?.length ? destination.body : existing.body,
+      });
+    }
+  }
+  return [...merged.values()];
+}
+
+function resolveDestinationCatalog(destinations: Destination[]) {
   return improveDestinationCatalog(
     applyAllCuratedDestinations(
       reconcileDestinationHeroes(
@@ -56,22 +79,29 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
   server: {
     handlers: {
       GET: async () => {
-        let remoteDestinations: Awaited<ReturnType<typeof fetchExploreDestinations>> = [];
-        let remoteFailed = false;
+        let enrichedDestinations: Awaited<ReturnType<typeof fetchExploreDestinations>> = [];
+        let coreDestinations: Awaited<ReturnType<typeof fetchCoreExploreDestinations>> = [];
+        let enrichedFailed = false;
+        let coreFailed = false;
+
         try {
-          remoteDestinations = await fetchExploreDestinations({ limit: 5000 });
+          enrichedDestinations = await fetchExploreDestinations({ limit: 5000 });
         } catch (error) {
-          console.error("Explore sitemap enrichment unavailable; retrying core remote catalog", error);
-          try {
-            remoteDestinations = await fetchCoreExploreDestinations({ limit: 5000 });
-          } catch (coreError) {
-            remoteFailed = true;
-            console.error("Core Explore sitemap catalog unavailable; using outage fixtures", coreError);
-          }
+          enrichedFailed = true;
+          console.error("Explore sitemap enriched catalog unavailable", error);
+        }
+        try {
+          coreDestinations = await fetchCoreExploreDestinations({ limit: 5000 });
+        } catch (error) {
+          coreFailed = true;
+          console.error("Explore sitemap core catalog unavailable", error);
         }
 
-        const rawDestinations = remoteFailed ? fixtureDestinations : remoteDestinations;
-        if (remoteFailed && rawDestinations.length === 0) {
+        const bothRemoteSourcesUnavailable = enrichedFailed && coreFailed;
+        const rawDestinations = bothRemoteSourcesUnavailable
+          ? fixtureDestinations
+          : mergeDestinationSources(coreDestinations, enrichedDestinations);
+        if (rawDestinations.length === 0) {
           return new Response("Explore catalog temporarily unavailable", {
             status: 503,
             headers: { "Content-Type": "text/plain; charset=utf-8", "Retry-After": "300", "Cache-Control": "no-store" },
