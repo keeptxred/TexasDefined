@@ -7,7 +7,17 @@ const stubs = read('src/data/fixtures/texas-explained-support-stubs-2.ts');
 const articles = read('src/data/fixtures/texas-explained-support-articles-2.ts');
 const lazy = read('src/data/fixtures/lazy-evergreen.ts');
 const topology = read('src/data/fixtures/newest-evergreen.ts');
+const hub = read('src/routes/texas-explained.tsx');
+const articleRoute = read('src/routes/article.$slug.tsx');
 const errors = [];
+
+const firstLayerChildren = [
+  'texas-river-basins-guide',
+  'texas-highway-designations-explained',
+  'texas-courthouse-architecture-guide',
+  'texas-ecoregions-habitats-guide',
+  'texas-settlement-patterns-explained',
+];
 
 const children = [
   'texas-aquifers-springs-explained',
@@ -31,6 +41,11 @@ for (const slug of children) {
   if (!topology.includes(`/article/${slug}`)) errors.push(`No core pillar links to Texas Explained depth article: ${slug}`);
 }
 
+for (const slug of [...firstLayerChildren, ...children]) {
+  if (!hub.includes(`"${slug}"`)) errors.push(`Texas Explained hub must surface depth article: ${slug}`);
+  if (!articleRoute.includes(`"${slug}"`)) errors.push(`Texas Explained shared article context must recognize depth article: ${slug}`);
+}
+
 for (const source of expectedSources) {
   if (!articles.includes(`sourceName: "${source}"`) && !stubs.includes(`sourceName: "${source}"`)) {
     errors.push(`Missing authoritative source family in Texas Explained depth batch: ${source}`);
@@ -43,6 +58,36 @@ for (const marker of [
   'await import("./texas-explained-support-articles-2")',
 ]) {
   if (!lazy.includes(marker)) errors.push(`Texas Explained depth lazy-registration contract missing: ${marker}`);
+}
+
+for (const marker of [
+  'const childSupportSlugs = [',
+  'const depthSlugs = [',
+  'const collectionSlugs = [...pillarSlugs, ...childSupportSlugs, ...depthSlugs]',
+  'supportArticles: orderedArticles(catalog, childSupportSlugs)',
+  'depthArticles: orderedArticles(catalog, depthSlugs)',
+  '<DepthGrid articles={supportArticles} label="Supporting explainers" />',
+  '<DepthGrid articles={depthArticles} label="Deeper guides" />',
+  '10 core guides · 10 deeper explainers',
+  'Ten focused explainers behind the core guides',
+]) {
+  if (!hub.includes(marker)) errors.push(`Texas Explained 20-article hub discovery contract missing: ${marker}`);
+}
+
+for (const marker of [
+  'const texasExplainedSupportOrder = [',
+  'const texasExplainedSupportSlugs = new Set<string>(texasExplainedSupportOrder)',
+  'const texasExplainedCollectionSlugs = new Set<string>',
+  'const isTexasExplainedCollectionArticle = isTexasExplainedPillar || isTexasExplainedSupport',
+  'to="/texas-explained"',
+  'Texas Explained · Supporting explainer',
+  'aria-label="Texas Explained supporting explainer"',
+  'grid grid-cols-2 gap-3',
+  'sm:grid-cols-[1fr_auto_1fr]',
+  'min-h-[52vh]',
+  '!isTexasExplainedPillar && <p',
+]) {
+  if (!articleRoute.includes(marker)) errors.push(`Texas Explained shared article UX contract missing: ${marker}`);
 }
 
 const pillarDepth = {
@@ -72,4 +117,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Texas Explained depth validation passed: five additional source-backed child articles, lazy registration, reciprocal collection discovery and two-layer support coverage across all 10 pillars are protected.');
+console.log('Texas Explained depth validation passed: ten source-backed support/depth articles are hub-visible, lazy registered, collection-oriented on article pages, mobile-safe, and retain two-layer support coverage across all 10 pillars.');
