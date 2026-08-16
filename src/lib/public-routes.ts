@@ -124,6 +124,9 @@ export const CONDITIONAL_INDEXABLE_PUBLIC_PATHS = [
 
 export const REDIRECT_ONLY_PATHS = [
   "/tools",
+  "/mortgage-calculator",
+  "/calculators/texas-home-affordability",
+  "/calculators/texas-property-tax",
   "/tax-calculator",
   "/texas-financial-tools",
   "/texas-property-tax-increase-calculator",
