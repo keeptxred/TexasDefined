@@ -170,18 +170,16 @@ export const Route = createFileRoute("/article/$slug")({
         })),
       } : {}),
     };
-    const breadcrumbItems = isTexasExplainedCollectionArticle
-      ? [
-          { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
-          { "@type": "ListItem", position: 2, name: "Texas Explained", item: `${siteUrl}/texas-explained` },
-          { "@type": "ListItem", position: 3, name: article.title, item: articleUrl },
-        ]
-      : [
-          { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
-          { "@type": "ListItem", position: 2, name: department.name, item: `${siteUrl}${department.path}` },
-          ...(department.usesExploreCategory ? [{ "@type": "ListItem", position: 3, name: categoryName, item: `${siteUrl}/explore/${article.category}` }] : []),
-          { "@type": "ListItem", position: department.usesExploreCategory ? 4 : 3, name: article.title, item: articleUrl },
-        ];
+    const breadcrumbItems = [
+      { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
+      ...(isTexasExplainedCollectionArticle
+        ? [{ "@type": "ListItem", position: 2, name: "Texas Explained", item: `${siteUrl}/texas-explained` }]
+        : [
+            { "@type": "ListItem", position: 2, name: department.name, item: `${siteUrl}${department.path}` },
+            ...(department.usesExploreCategory ? [{ "@type": "ListItem", position: 3, name: categoryName, item: `${siteUrl}/explore/${article.category}` }] : []),
+          ]),
+      { "@type": "ListItem", position: isTexasExplainedCollectionArticle ? 3 : department.usesExploreCategory ? 4 : 3, name: article.title, item: articleUrl },
+    ];
     const breadcrumbSchema = {
       "@type": "BreadcrumbList",
       "@id": `${articleUrl}#breadcrumbs`,
