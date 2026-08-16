@@ -5,6 +5,7 @@ const snapshot = fs.readFileSync(snapshotPath, 'utf8');
 const dataset = fs.readFileSync('src/data/property/county-property-data.ts', 'utf8');
 const schema = fs.readFileSync('src/data/property/county-property-schema.ts', 'utf8');
 const sync = fs.readFileSync('scripts/data/sync-county-property-data.mjs', 'utf8');
+const directoryRoute = fs.readFileSync('src/routes/property-tax.counties.tsx', 'utf8');
 const refreshWorkflow = fs.readFileSync('.github/workflows/sync-county-property-data.yml', 'utf8');
 const validateWorkflow = fs.readFileSync('.github/workflows/validate.yml', 'utf8');
 const failures = [];
@@ -66,6 +67,22 @@ for (const feature of [
 }
 
 for (const feature of [
+  'const verifiedPropertyCounties = COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady)',
+  'const verifiedPropertySlugs = new Set(verifiedPropertyCounties.map((county) => county.slug))',
+  'numberOfItems: verifiedPropertyCounties.length',
+  'itemListElement: verifiedPropertyCounties.map',
+  'verifiedPropertySlugs.has(county.slug)',
+  'to="/county/$slug"',
+  'Verified county property-tax guides',
+  'Counties without a verified local property-tax guide link to their substantive county reference page',
+]) {
+  if (!directoryRoute.includes(feature)) failures.push(`County property directory crawl-demand protection missing ${feature}`);
+}
+if (directoryRoute.includes('numberOfItems: TEXAS_COUNTIES.length')) failures.push('County property directory must not advertise all 254 placeholder property-tax pages in ItemList schema.');
+if (directoryRoute.includes('itemListElement: TEXAS_COUNTIES.map')) failures.push('County property directory must not emit URL-bearing schema for all 254 placeholder property-tax pages.');
+if (/TEXAS_COUNTIES\.map\([\s\S]{0,500}to="\/property-tax\/county\/\$county"/.test(directoryRoute)) failures.push('County property directory must not unconditionally link every Texas county to a property-tax placeholder.');
+
+for (const feature of [
   'workflow_dispatch:',
   'schedule:',
   "cron: '37 11 * * 1'",
@@ -116,4 +133,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`County property enrichment validation passed: ${recordSlugs.length} verified county records are source-backed, freshness-gated, stale-source-withdrawal protected, merged behind the indexability gate, and protected by both main CI and a reviewable refresh PR workflow.`);
+console.log(`County property enrichment validation passed: ${recordSlugs.length} verified county records are source-backed, freshness-gated, stale-source-withdrawal protected, directory crawl-demand filtered, merged behind the indexability gate, and protected by both main CI and a reviewable refresh PR workflow.`);
