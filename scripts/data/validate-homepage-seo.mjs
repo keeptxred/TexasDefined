@@ -17,6 +17,9 @@ for (const feature of [
   'absoluteUrl(texasDefinedBrand, destination.hero.src)',
   'isPartOf: { "@id": `${siteUrl}/#website` }',
   'about: { "@id": `${siteUrl}/#organization` }',
+  'to="/texas-resources"',
+  'Texas Resources &amp; State Agencies',
+  'Open Start Here →',
 ]) {
   if (!route.includes(feature)) errors.push(`Homepage SEO feature missing: ${feature}.`);
 }
@@ -33,4 +36,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Homepage WebPage and curated ItemList validation passed.');
+console.log('Homepage WebPage, curated ItemList and Start Here discovery validation passed.');
