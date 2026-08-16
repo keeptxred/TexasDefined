@@ -1,3 +1,4 @@
+# Permanent production verification; touching this workflow triggers a one-time post-migration smoke run.
 name: Cloudflare production smoke
 
 on:
