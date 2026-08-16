@@ -83,6 +83,9 @@ jobs:
       - name: Validate Texas Explained reservoir profiles
         run: node scripts/data/validate-texas-explained-reservoir-profiles.mjs
 
+      - name: Validate Texas Explained road systems
+        run: node scripts/data/validate-texas-explained-road-systems.mjs
+
       - name: Validate Explore category SEO
         run: node scripts/data/validate-explore-category-seo.mjs
 
