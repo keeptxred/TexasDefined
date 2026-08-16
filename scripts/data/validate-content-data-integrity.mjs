@@ -19,8 +19,10 @@ for (const feature of [
   'destinations as fixtureDestinations',
   'fetchExploreDestinations({ limit: 5000 })',
   'fetchCoreExploreDestinations({ limit: 5000 })',
-  'let enrichedFailed = false',
-  'let coreFailed = false',
+  'const remoteConfigured = hasExploreRemoteData()',
+  'let enrichedFailed = !remoteConfigured',
+  'let coreFailed = !remoteConfigured',
+  'if (remoteConfigured)',
   'const bothRemoteSourcesUnavailable = enrichedFailed && coreFailed',
   '? fixtureDestinations',
   ': mergeDestinationSources(coreDestinations, enrichedDestinations)',
@@ -47,4 +49,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Event freshness and Explore sitemap dual-source outage fallback, resolved-catalog and quality-gate validation passed.');
+console.log('Event freshness and Explore sitemap remote-configuration-aware dual-source outage fallback, resolved-catalog and quality-gate validation passed.');
