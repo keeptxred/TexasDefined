@@ -21,8 +21,8 @@ for (const feature of [
   'fetchExploreDestinations({ limit: 5000 })',
   'fetchCoreExploreDestinations({ limit: 5000 })',
   'reconcileExploreCatalog(mergeDestinations(enriched, core, preservedExploreDestinations))',
-  'const baseWithoutDestinations = base.filter((document) => document.kind !== "destination")',
-  'if (!destinations.length) return baseWithoutDestinations',
+  'const nonDestinationDocuments = base.filter((document) => document.kind !== "destination")',
+  'if (!destinations.length) return nonDestinationDocuments',
   'destinations.map(destinationSearchDocument)',
 ]) {
   if (!queries.includes(feature)) errors.push(`Gated destination search-index feature missing: ${feature}`);
