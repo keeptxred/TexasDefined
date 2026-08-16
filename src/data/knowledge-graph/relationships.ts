@@ -18,7 +18,9 @@ const LOCAL_GOVERNMENT_KINDS = new Set([
  * /destination/enchanted-rock-state-natural-area).
  *
  * Keep the generic route available for compatibility, but consolidate search
- * signals, internal links and sitemap references on the richer destination URL.
+ * signals and sitemap references on the richer destination URL. The generic
+ * related-entity layer does not promote these mirrors; destination pages have
+ * their own curated relationship system backed by the destination catalog.
  */
 const DESTINATION_MIRROR_KINDS = new Set([
   'state-park',
@@ -33,12 +35,13 @@ export function rankRelatedEntities(entity: TexasEntityRecord, graph: TexasEntit
   return graph
     .filter((candidate) => {
       if (candidate.id === entity.id || candidate.status === 'retired') return false;
-      // Do not manufacture internal crawl demand for appraisal-district, tax-office,
-      // county-clerk, or DPS-office placeholders. These records become related-link
-      // candidates only after they independently satisfy the same publication gate
-      // used by route metadata and sitemap generation. County pages can still expose
-      // verified external office links from their local-government profile.
-      if (LOCAL_GOVERNMENT_KINDS.has(candidate.kind) && candidate.kind !== 'county' && !isIndexableEntityPage(candidate)) return false;
+      // Generic related links must use the same publication gate as route
+      // metadata and sitemap generation. This prevents thin regions, rivers,
+      // cities, local-office placeholders and other unfinished entities from
+      // manufacturing crawl demand merely because a relationship exists.
+      // Destination mirrors are deliberately excluded here too; their richer
+      // /destination pages are related through the destination catalog instead.
+      if (!isIndexableEntityPage(candidate)) return false;
       return true;
     })
     .map((candidate) => {
