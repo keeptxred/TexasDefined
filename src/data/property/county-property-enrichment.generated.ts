@@ -93,11 +93,11 @@ export const COUNTY_PROPERTY_ENRICHMENT: Record<string, CountyPropertyEnrichment
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/lubbock.php', 'https://www.lubbockcad.org', 'https://www.lubbockcounty.gov'],
   },
   sabine: {
-    appraisalDistrict: { name: 'Tina Ford', websiteUrl: 'https://www.southwestdatasolution.com', phone: '409-787-2777', address: '1920 Worth St., Hemphill, TX 75948-9998', email: 'sabinecad@windstream.net' },
+    appraisalDistrict: { name: 'Tina Ford', websiteUrl: 'https://www.southwestdatasolution.com/webindex.aspx?dbkey=SABINECAD', phone: '409-787-2777', address: '1920 Worth St., Hemphill, TX 75948-9998', email: 'sabinecad@windstream.net' },
     taxOffice: { name: 'Martha M. Stone', websiteUrl: 'https://www.co.sabine.tx.us', phone: '409-787-2257', address: '213 Market St., Hemphill, TX 75948', email: 'martha.stone@co.sabine.tx.us' },
-    links: { appraisalDistrictUrl: 'https://www.southwestdatasolution.com', taxOfficeUrl: 'https://www.co.sabine.tx.us' },
+    links: { appraisalDistrictUrl: 'https://www.southwestdatasolution.com/webindex.aspx?dbkey=SABINECAD', taxOfficeUrl: 'https://www.co.sabine.tx.us' },
     lastVerifiedAt: '2026-08-16',
-    sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/sabine.php', 'https://www.southwestdatasolution.com', 'https://www.co.sabine.tx.us'],
+    sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/sabine.php', 'https://www.southwestdatasolution.com/webindex.aspx?dbkey=SABINECAD', 'https://www.co.sabine.tx.us'],
   },
   smith: {
     appraisalDistrict: { name: 'Carol McNeil', websiteUrl: 'https://www.smithcad.org', phone: '903-510-8600', address: '245 S. S.E. Loop 323, Tyler, TX 75702-6456', email: 'chiefappraiser@scad.org' },
