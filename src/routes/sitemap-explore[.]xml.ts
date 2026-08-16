@@ -3,10 +3,15 @@ import { createFileRoute } from "@tanstack/react-router";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { isPrimaryTripPlannerDestination } from "@/data/destination-availability";
 import { auditDestination } from "@/data/destination-audit";
+import { applyAllCuratedDestinations } from "@/data/destination-curation-all";
+import { improveDestinationCatalog } from "@/data/destination-quality";
 import { supplementalExploreCategories } from "@/data/explore-categories";
 import { fetchCoreExploreDestinations } from "@/data/explore-core-remote";
+import { reconcileDestinationHeroes } from "@/data/explore-hero-reconciliation";
+import { applyExploreHeroAssets } from "@/data/explore-heroes";
 import { categories, destinations as fixtureDestinations, regions } from "@/data/fixtures/texas";
 import { fetchExploreDestinations } from "@/data/explore-remote";
+import { applyStateParkHeroAssets } from "@/data/state-park-heroes";
 import { isExploreSitemapOwnedPath, isIndexablePublicPath, normalizePublicPath } from "@/lib/public-routes";
 
 const BASE_URL = `https://${texasDefinedBrand.identity.domain}`;
@@ -35,6 +40,18 @@ function entry(path: string, lastModified?: string): string | null {
   return `  <url>\n    <loc>${escapeXml(`${BASE_URL}${normalized}`)}</loc>${lastmod ? `\n    <lastmod>${lastmod}</lastmod>` : ""}\n  </url>`;
 }
 
+function resolveDestinationCatalog(destinations: typeof fixtureDestinations) {
+  return improveDestinationCatalog(
+    applyAllCuratedDestinations(
+      reconcileDestinationHeroes(
+        applyExploreHeroAssets(
+          applyStateParkHeroAssets(destinations),
+        ),
+      ),
+    ),
+  );
+}
+
 export const Route = createFileRoute("/sitemap-explore.xml")({
   server: {
     handlers: {
@@ -53,13 +70,14 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           }
         }
 
-        const destinations = remoteFailed ? fixtureDestinations : remoteDestinations;
-        if (remoteFailed && destinations.length === 0) {
+        const rawDestinations = remoteFailed ? fixtureDestinations : remoteDestinations;
+        if (remoteFailed && rawDestinations.length === 0) {
           return new Response("Explore catalog temporarily unavailable", {
             status: 503,
             headers: { "Content-Type": "text/plain; charset=utf-8", "Retry-After": "300", "Cache-Control": "no-store" },
           });
         }
+        const destinations = resolveDestinationCatalog(rawDestinations);
 
         const categorySlugs = [...new Set([...categories, ...supplementalExploreCategories]
           .map((category) => category.slug)
