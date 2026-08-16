@@ -19,7 +19,7 @@ import { lazyEvergreenArticleStubs, loadLazyEvergreenArticle } from "./lazy-ever
 import { standaloneEvergreenStubs, loadStandaloneEvergreenArticle } from "./lazy-standalone-evergreen";
 import { countySeriesArticleStubs, loadCountySeriesArticleBySlug } from "./lazy-county-series";
 import { coreEvergreenArticleStubs, loadCoreEvergreenArticle } from "./lazy-core-evergreen";
-import { migratedEditorialArticles } from "./migrated-editorial";
+import { migratedEditorialArticleStubs, loadMigratedEditorialArticle } from "./lazy-migrated-editorial";
 import {
   articles,
   categories,
@@ -44,7 +44,7 @@ const editorialArticles = [
   ...standaloneEvergreenStubs,
   ...newestEvergreenArticles,
   ...articles,
-  ...migratedEditorialArticles,
+  ...migratedEditorialArticleStubs,
 ];
 
 const COUNTY_HERO_OVERRIDES: Partial<Record<string, Article["hero"]>> = {
@@ -169,6 +169,9 @@ export const fixtureArticles: ArticleRepository = {
 
     const countySeriesArticle = await loadCountySeriesArticleBySlug(scope.brandId, slug);
     if (countySeriesArticle) return normalizeArticle(countySeriesArticle);
+
+    const migratedArticle = await loadMigratedEditorialArticle(scope.brandId, slug);
+    if (migratedArticle) return normalizeArticle(migratedArticle);
 
     const article = byBrand(editorialArticles, scope.brandId).find((a) => a.slug === slug) ?? null;
     return article ? normalizeArticle(article) : null;
