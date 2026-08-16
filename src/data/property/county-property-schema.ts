@@ -27,6 +27,11 @@ export type CountySpecialDistrictPresence = {
   otherSpecialDistricts: boolean | null;
 };
 
+export type CountyPropertySourceDates = {
+  appraisalDistrict: string | null;
+  taxOffice: string | null;
+};
+
 export type CountyPropertyProfile = {
   /** Five-digit Census county FIPS code. Never substitute the legacy TexasCounty.code value. */
   fips: string | null;
@@ -37,6 +42,7 @@ export type CountyPropertyProfile = {
   taxOffice: CountyOfficeContact;
   links: CountyPropertyLinks;
   specialDistricts: CountySpecialDistrictPresence;
+  sourceUpdatedAt: CountyPropertySourceDates;
   lastVerifiedAt: string | null;
   sourceUrls: string[];
 };
@@ -86,6 +92,7 @@ export function createEmptyCountyPropertyRecord(county: TexasCounty): CountyProp
       countyWebsiteUrl: county.officialDirectoryUrl,
     },
     specialDistricts: { ...EMPTY_COUNTY_SPECIAL_DISTRICTS },
+    sourceUpdatedAt: { appraisalDistrict: null, taxOffice: null },
     lastVerifiedAt: null,
     sourceUrls: [county.officialDirectoryUrl],
   };
@@ -132,8 +139,12 @@ export function validateCountyPropertyRecord(record: CountyPropertyRecord) {
   if (record.population !== null && (!Number.isInteger(record.population) || record.population < 0)) {
     errors.push('Population must be a non-negative integer when present.');
   }
-  if (record.lastVerifiedAt !== null && Number.isNaN(Date.parse(record.lastVerifiedAt))) {
-    errors.push('lastVerifiedAt must be an ISO-compatible date when present.');
+  for (const [label, value] of [
+    ['lastVerifiedAt', record.lastVerifiedAt],
+    ['sourceUpdatedAt.appraisalDistrict', record.sourceUpdatedAt.appraisalDistrict],
+    ['sourceUpdatedAt.taxOffice', record.sourceUpdatedAt.taxOffice],
+  ] as const) {
+    if (value !== null && Number.isNaN(Date.parse(value))) errors.push(`${label} must be an ISO-compatible date when present.`);
   }
 
   const urls = [
