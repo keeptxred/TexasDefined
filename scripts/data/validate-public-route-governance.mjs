@@ -54,6 +54,11 @@ for (const routePath of conditional) {
   if (redirects.includes(routePath) || nonIndexable.includes(routePath)) failures.push(`Conditional route has conflicting crawl classification: ${routePath}.`);
 }
 for (const routePath of redirects) if (nonIndexable.includes(routePath)) failures.push(`Route is both redirect-only and non-indexable: ${routePath}.`);
+const toolsRoute = sourceByFile.get('src/routes/tools.tsx') ?? '';
+if (!redirects.includes('/tools')) failures.push('Legacy /tools route must remain redirect-only.');
+if (!toolsRoute.includes("createFileRoute('/tools')") && !toolsRoute.includes('createFileRoute("/tools")')) failures.push('Legacy /tools redirect route source is missing.');
+if (!toolsRoute.includes('/decide/financial-tools')) failures.push('Legacy /tools must redirect to /decide/financial-tools.');
+if (!toolsRoute.includes('statusCode: 301')) failures.push('Legacy /tools redirect must remain permanent (301).');
 const hasRouteLiteral = (source, routePath) => [`"${routePath}"`, `'${routePath}'`, `\`${routePath}\``].some((literal) => source.includes(literal));
 for (const routePath of [...indexable, ...conditional]) {
   if (routePath !== '/') {
