@@ -1,5 +1,4 @@
 import { articleInternalLinks } from "../article-internal-links";
-import { texasExplainedSupportArticles } from "./texas-explained-support-articles";
 import { winklerCountyKermitWinkOilArticle } from "./winkler-county-kermit-wink-oil";
 
 const supportLinksByPillar: Record<string, Array<{ href: string; label: string; description: string }>> = {
@@ -47,6 +46,5 @@ for (const [slug, additions] of Object.entries(supportLinksByPillar)) {
 }
 
 export const newestEvergreenArticles = [
-  ...texasExplainedSupportArticles,
   winklerCountyKermitWinkOilArticle,
 ];
