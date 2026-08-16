@@ -4,6 +4,10 @@ const registry = fs.readFileSync('src/lib/public-routes.ts', 'utf8');
 const primary = fs.readFileSync('src/routes/sitemap[.]xml.ts', 'utf8');
 const explore = fs.readFileSync('src/routes/sitemap-explore[.]xml.ts', 'utf8');
 const robots = fs.readFileSync('public/robots.txt', 'utf8');
+const cityDirectory = fs.readFileSync('src/routes/browse.cities.tsx', 'utf8');
+const placeDirectory = fs.readFileSync('src/components/directories/TexasPlaceDirectory.tsx', 'utf8');
+const countyDirectory = fs.readFileSync('src/routes/browse.counties.tsx', 'utf8');
+const countyPropertyDirectory = fs.readFileSync('src/components/directories/TexasCountyPropertyDirectory.tsx', 'utf8');
 const failures = [];
 
 for (const sitemap of [
@@ -60,6 +64,46 @@ for (const generalOnlyTemplate of ['`/article/${', '`/authors/${', '`/shop/${', 
   if (explore.includes(generalOnlyTemplate)) failures.push(`Explore sitemap must not construct general-site URL template ${generalOnlyTemplate}.`);
 }
 
+// City records in the static registry are pending source verification. The city
+// directory may describe and anchor them, but it must not manufacture crawl
+// demand for /city/* detail pages before those entities pass the publication gate.
+for (const forbidden of [
+  'absoluteUrl(texasDefinedBrand, `/city/${city.slug}`)',
+  'to="/$kind/$slug" params={{ kind: \'city\'',
+]) {
+  const source = forbidden.startsWith('absoluteUrl') ? cityDirectory : placeDirectory;
+  if (source.includes(forbidden)) failures.push(`Unverified city directory must not advertise city detail URL pattern: ${forbidden}`);
+}
+if (!cityDirectory.includes('url: `${pageUrl}#${cityAnchor(city.slug)}`')) {
+  failures.push('City ItemList entries must remain anchored to the verified directory surface rather than unverified city detail URLs.');
+}
+
+// County property child pages are intentionally fail-closed. Browse/counties
+// and the searchable county property directory must only link/schema verified
+// children and send the rest to substantive county references.
+for (const marker of [
+  'const verifiedPropertyCounties = COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady)',
+  'numberOfItems: verifiedPropertyCounties.length',
+  'itemListElement: verifiedPropertyCounties.map',
+  '<TexasCountyPropertyDirectory verifiedPropertySlugs={verifiedPropertySlugs} />',
+]) {
+  if (!countyDirectory.includes(marker)) failures.push(`County directory verification-aware crawl contract missing: ${marker}`);
+}
+for (const marker of [
+  'verifiedPropertySlugs',
+  'const hasVerifiedPropertyGuide = verified.has(county.slug)',
+  'Open verified property guide',
+  'Open county reference',
+]) {
+  if (!countyPropertyDirectory.includes(marker)) failures.push(`County property directory verification-aware link contract missing: ${marker}`);
+}
+if (countyDirectory.includes('itemListElement: TEXAS_COUNTIES.map')) {
+  failures.push('Browse/counties must not schema-advertise all 254 property-tax child pages.');
+}
+if (countyPropertyDirectory.includes('counties.map((county, index) => (') && countyPropertyDirectory.includes('to="/property-tax/county/$county" params={{ county: county.slug }}>Open the guide')) {
+  failures.push('County property directory must not unconditionally link every county to a property-tax child page.');
+}
+
 if (!primary.includes('stale-while-revalidate=86400')) failures.push('Primary sitemap must retain stale-while-revalidate protection.');
 if (!explore.includes('stale-while-revalidate=86400')) failures.push('Explore sitemap must retain stale-while-revalidate protection.');
 
@@ -69,4 +113,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Crawl-demand validation passed: sitemap namespaces are partitioned, Explore destinations are merged, resolved and quality-gated, and robots advertises each sitemap once.');
+console.log('Crawl-demand validation passed: sitemap namespaces are partitioned, Explore destinations are merged/resolved/quality-gated, unverified city detail URLs are not promoted, county property children are verification-filtered, and robots advertises each sitemap once.');
