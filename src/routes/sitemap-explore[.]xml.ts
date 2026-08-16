@@ -10,7 +10,7 @@ import { fetchCoreExploreDestinations } from "@/data/explore-core-remote";
 import { reconcileDestinationHeroes } from "@/data/explore-hero-reconciliation";
 import { applyExploreHeroAssets } from "@/data/explore-heroes";
 import { categories, destinations as fixtureDestinations, regions } from "@/data/fixtures/texas";
-import { fetchExploreDestinations } from "@/data/explore-remote";
+import { fetchExploreDestinations, hasExploreRemoteData } from "@/data/explore-remote";
 import { applyStateParkHeroAssets } from "@/data/state-park-heroes";
 import type { Destination } from "@/data/types";
 import { isExploreSitemapOwnedPath, isIndexablePublicPath, normalizePublicPath } from "@/lib/public-routes";
@@ -81,20 +81,23 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
       GET: async () => {
         let enrichedDestinations: Awaited<ReturnType<typeof fetchExploreDestinations>> = [];
         let coreDestinations: Awaited<ReturnType<typeof fetchCoreExploreDestinations>> = [];
-        let enrichedFailed = false;
-        let coreFailed = false;
+        const remoteConfigured = hasExploreRemoteData();
+        let enrichedFailed = !remoteConfigured;
+        let coreFailed = !remoteConfigured;
 
-        try {
-          enrichedDestinations = await fetchExploreDestinations({ limit: 5000 });
-        } catch (error) {
-          enrichedFailed = true;
-          console.error("Explore sitemap enriched catalog unavailable", error);
-        }
-        try {
-          coreDestinations = await fetchCoreExploreDestinations({ limit: 5000 });
-        } catch (error) {
-          coreFailed = true;
-          console.error("Explore sitemap core catalog unavailable", error);
+        if (remoteConfigured) {
+          try {
+            enrichedDestinations = await fetchExploreDestinations({ limit: 5000 });
+          } catch (error) {
+            enrichedFailed = true;
+            console.error("Explore sitemap enriched catalog unavailable", error);
+          }
+          try {
+            coreDestinations = await fetchCoreExploreDestinations({ limit: 5000 });
+          } catch (error) {
+            coreFailed = true;
+            console.error("Explore sitemap core catalog unavailable", error);
+          }
         }
 
         const bothRemoteSourcesUnavailable = enrichedFailed && coreFailed;
