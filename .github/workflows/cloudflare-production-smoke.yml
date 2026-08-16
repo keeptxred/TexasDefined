@@ -78,7 +78,7 @@ jobs:
 
           curl --fail-with-body --silent --show-error \
             -H "$auth" -H 'Content-Type: application/json' \
-            --data '{"prompt":"A simple documentary-style Texas landscape, no text","steps":4,"seed":20260815}' \
+            --data '{"prompt":"A simple documentary-style Texas landscape, no text"}' \
             "$api/accounts/$CLOUDFLARE_ACCOUNT_ID/ai/run/@cf/black-forest-labs/flux-1-schnell" \
             -o "$workdir/ai.json"
           python3 - "$workdir/ai.json" <<'PY'
