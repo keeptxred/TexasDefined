@@ -132,6 +132,7 @@ export const texasDefinedBrand: BrandConfig = {
     {
       title: "Read & Use",
       items: [
+        { label: "Start Here", to: "/texas-resources" },
         { label: "Texas Explained", to: "/texas-explained" },
         { label: "Events", to: "/events" },
         { label: "Guides", to: "/guides" },
