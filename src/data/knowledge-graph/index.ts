@@ -1,6 +1,8 @@
 import { TEXAS_ENTITY_REGISTRY, findTexasEntity, relationshipsFor, validateTexasEntityRegistry } from '../texas-entity-registry';
 import { countyProfileDescription, loadCountyProfile } from '../county-profile';
 import { loadLocalGovernmentProfile, localOfficeDescription } from '../local-government-profile';
+import { getCountyPropertyRecordBySlug } from '../property/county-property-data';
+import { isCountyPropertyIndexReady } from '../property/county-property-schema';
 import { fetchExploreGraphEntities, hasRemoteExploreGraph } from './explore-adapter';
 import type { TexasEntityKind, TexasEntityRecord } from './types';
 
@@ -63,6 +65,16 @@ export async function loadTexasKnowledgeGraph(options: { query?: string; limit?:
   const countyEntries = graph.filter((entity) => entity.kind === 'county');
   const enrichedCounties = await Promise.all(countyEntries.map(enrichCountyGeographyEntity));
   const enrichedById = new Map(enrichedCounties.map((entity) => [entity.id, entity]));
+
+  // Local-office sitemap eligibility must use the same checked-in verified data
+  // as the public property-tax pages. Do not make sitemap publication depend on
+  // live request-time scraping of 508 office pages.
+  for (const entity of graph) {
+    if (entity.kind !== 'appraisal-district' && entity.kind !== 'tax-office') continue;
+    const enriched = enrichLocalOfficeEntityFromSnapshot(entity);
+    if (enriched !== entity) enrichedById.set(entity.id, enriched);
+  }
+
   return graph.map((entity) => enrichedById.get(entity.id) ?? entity);
 }
 
@@ -119,7 +131,43 @@ async function enrichCountyEntity(entity: TexasEntityRecord): Promise<TexasEntit
   }
 }
 
+function enrichLocalOfficeEntityFromSnapshot(entity: TexasEntityRecord): TexasEntityRecord {
+  if (!entity.countySlug || (entity.kind !== 'appraisal-district' && entity.kind !== 'tax-office')) return entity;
+  const record = getCountyPropertyRecordBySlug(entity.countySlug);
+  if (!record || !isCountyPropertyIndexReady(record) || !record.lastVerifiedAt) return entity;
+
+  const countyName = record.name;
+  const office = entity.kind === 'appraisal-district' ? record.appraisalDistrict : record.taxOffice;
+  if (!office.websiteUrl || (!office.phone && !office.address && !office.email)) return entity;
+
+  const profile = {
+    name: office.name ?? undefined,
+    websiteUrl: office.websiteUrl ?? undefined,
+    phone: office.phone ?? undefined,
+    address: office.address ?? undefined,
+    email: office.email ?? undefined,
+    lastUpdated: record.lastVerifiedAt,
+  };
+  const description = localOfficeDescription(countyName, entity.kind, profile);
+  if (description.length < 180) return entity;
+
+  return {
+    ...entity,
+    description,
+    officialUrl: office.websiteUrl,
+    sourceCheckedAt: record.lastVerifiedAt,
+    status: 'active',
+    tags: [...new Set([
+      ...(entity.tags ?? []),
+      entity.kind === 'appraisal-district' ? 'property-appraisal' : 'county-tax-services',
+      'property-tax',
+    ])],
+  };
+}
+
 async function enrichLocalOfficeEntity(entity: TexasEntityRecord): Promise<TexasEntityRecord> {
+  const snapshot = enrichLocalOfficeEntityFromSnapshot(entity);
+  if (snapshot !== entity) return snapshot;
   if (!entity.countySlug) return entity;
   const county = TEXAS_ENTITY_REGISTRY.find((candidate) => candidate.kind === 'county' && candidate.slug === entity.countySlug);
   const countyName = county?.name ?? `${titleSlug(entity.countySlug)} County`;
