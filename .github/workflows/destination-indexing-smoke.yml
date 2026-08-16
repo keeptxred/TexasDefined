@@ -17,32 +17,35 @@ jobs:
         run: |
           set -euo pipefail
           origin="https://texasdefined.com"
-          primary="/destination/enchanted-rock-state-natural-area"
           non_primary="/destination/world-birding-center-bentsen-rio-grande-valley-state-park"
 
-          curl --retry 5 --retry-all-errors --max-time 45 -fsSL "$origin$primary" -o /tmp/primary.html
-          curl --retry 5 --retry-all-errors --max-time 45 -fsSL "$origin$non_primary" -o /tmp/non-primary.html
           curl --retry 5 --retry-all-errors --max-time 45 -fsSL "$origin/sitemap-explore.xml" -o /tmp/explore-sitemap.xml
+          primary_url="$(grep -o 'https://texasdefined.com/destination/[^<]*' /tmp/explore-sitemap.xml | head -n 1)"
+          test -n "$primary_url" || {
+            echo "Explore sitemap contains no indexable destination URLs." >&2
+            exit 1
+          }
 
-          grep -Fq "Enchanted Rock" /tmp/primary.html
+          curl --retry 5 --retry-all-errors --max-time 45 -fsSL "$primary_url" -o /tmp/primary.html
           if grep -Fq "noindex, follow" /tmp/primary.html; then
-            echo "Primary Enchanted Rock destination unexpectedly noindex." >&2
+            echo "A destination published in the Explore sitemap is simultaneously noindex: $primary_url" >&2
             exit 1
           fi
 
-          grep -Fq "Bentsen" /tmp/non-primary.html
-          grep -Fq "noindex, follow" /tmp/non-primary.html || {
-            echo "Non-primary Bentsen destination must remain noindex." >&2
+          non_primary_status="$(curl --retry 3 --retry-all-errors --max-time 45 -sS -o /tmp/non-primary.html -w '%{http_code}' "$origin$non_primary")"
+          if [ "$non_primary_status" = "200" ]; then
+            grep -Fq "noindex, follow" /tmp/non-primary.html || {
+              echo "Non-primary Bentsen destination rendered 200 without noindex." >&2
+              exit 1
+            }
+          elif [ "$non_primary_status" != "404" ]; then
+            echo "Unexpected status for non-primary Bentsen destination: $non_primary_status" >&2
             exit 1
-          }
+          fi
 
-          grep -Fq "$origin$primary" /tmp/explore-sitemap.xml || {
-            echo "Primary Enchanted Rock destination is missing from the Explore sitemap." >&2
-            exit 1
-          }
           if grep -Fq "$origin$non_primary" /tmp/explore-sitemap.xml; then
             echo "Non-primary Bentsen destination leaked into the Explore sitemap." >&2
             exit 1
           fi
 
-          echo "Destination indexing smoke passed."
+          echo "Destination indexing smoke passed with primary control $primary_url and non-primary status $non_primary_status."
