@@ -3,7 +3,8 @@ import fs from 'node:fs';
 const registry = fs.readFileSync('src/lib/public-routes.ts', 'utf8');
 const sitemap = fs.readFileSync('src/routes/sitemap[.]xml.ts', 'utf8');
 const exploreSitemap = fs.readFileSync('src/routes/sitemap-explore[.]xml.ts', 'utf8');
-const news = fs.readFileSync('src/routes/news.tsx', 'utf8');
+const newsIndex = fs.readFileSync('src/routes/news.index.tsx', 'utf8');
+const newsLayout = fs.readFileSync('src/routes/news.tsx', 'utf8');
 const entityRoute = fs.readFileSync('src/routes/$kind.$slug.tsx', 'utf8');
 const countyRoute = fs.readFileSync('src/routes/property-tax.county.$county.tsx', 'utf8');
 const failures = [];
@@ -16,7 +17,9 @@ const redirects = section('REDIRECT_ONLY_PATHS');
 
 if (always.includes('"/news"')) failures.push('/news must not be unconditionally indexable.');
 if (!conditional.includes('"/news"')) failures.push('/news must be registered as conditionally indexable.');
-if (!news.includes('robots: hasStories ? undefined : "noindex, follow"')) failures.push('/news must noindex its empty state.');
+if (!newsIndex.includes('robots: hasStories ? undefined : "noindex, follow"')) failures.push('/news must noindex its empty state.');
+if (!newsIndex.includes('canonicalLink(texasDefinedBrand, "/news")')) failures.push('/news index must own its canonical metadata.');
+if (newsLayout.includes('canonicalLink(') || newsLayout.includes('canonicalPath:')) failures.push('/news layout must remain canonical-free so story routes emit exactly one canonical.');
 if (!sitemap.includes('...(articles.length ? [{ path: "/news" }] : [])')) failures.push('Primary sitemap must publish /news only when live articles exist.');
 
 for (const path of ['/search', '/explore/search', '/shop/cart', '/shop/checkout-return']) {
