@@ -9,10 +9,6 @@ on:
 permissions:
   contents: write
 
-concurrency:
-  group: texas-explained-reservoir-integration
-  cancel-in-progress: false
-
 jobs:
   integrate:
     runs-on: ubuntu-latest
@@ -23,209 +19,20 @@ jobs:
           fetch-depth: 2
 
       - name: Apply asserted reservoir integration patches
-        run: |
-          python3 <<'PY'
-          from pathlib import Path
+        run: python3 scripts/data/integrate-texas-explained-reservoirs.py
 
-          def replace_once(path, old, new):
-              p = Path(path)
-              text = p.read_text()
-              count = text.count(old)
-              if count != 1:
-                  raise SystemExit(f"{path}: expected exactly one anchor, found {count}: {old[:100]!r}")
-              p.write_text(text.replace(old, new, 1))
-
-          # Lazy registration: lightweight stubs stay eager; full bodies hydrate only on article detail requests.
-          replace_once(
-              'src/data/fixtures/lazy-evergreen.ts',
-              'import { texasExplainedRiverProfileStubs } from "./texas-explained-river-profile-stubs";\n',
-              'import { texasExplainedRiverProfileStubs } from "./texas-explained-river-profile-stubs";\nimport { texasExplainedReservoirProfileStubs } from "./texas-explained-reservoir-profile-stubs";\n',
-          )
-          replace_once(
-              'src/data/fixtures/lazy-evergreen.ts',
-              '  ...texasExplainedSupportStubs, ...texasExplainedSupportStubs2, ...texasExplainedRiverProfileStubs,\n',
-              '  ...texasExplainedSupportStubs, ...texasExplainedSupportStubs2, ...texasExplainedRiverProfileStubs, ...texasExplainedReservoirProfileStubs,\n',
-          )
-          replace_once(
-              'src/data/fixtures/lazy-evergreen.ts',
-              '''  if (texasExplainedRiverProfileStubs.some((article) => article.slug === slug)) {\n    const riverModule = await import("./texas-explained-river-profiles");\n    const article = riverModule.texasExplainedRiverProfileArticles.find((candidate) => candidate.slug === slug);\n    return article ?? null;\n  }\n\n  return null;''',
-              '''  if (texasExplainedRiverProfileStubs.some((article) => article.slug === slug)) {\n    const riverModule = await import("./texas-explained-river-profiles");\n    const article = riverModule.texasExplainedRiverProfileArticles.find((candidate) => candidate.slug === slug);\n    return article ?? null;\n  }\n\n  if (texasExplainedReservoirProfileStubs.some((article) => article.slug === slug)) {\n    const reservoirModule = await import("./texas-explained-reservoir-profiles");\n    const article = reservoirModule.texasExplainedReservoirProfileArticles.find((candidate) => candidate.slug === slug);\n    return article ?? null;\n  }\n\n  return null;''',
-          )
-
-          # Reciprocal parent-to-child discovery from the statewide reservoir pillar.
-          replace_once(
-              'src/data/fixtures/newest-evergreen.ts',
-              '''  "texas-lakes-reservoirs-explained": [\n    { href: "/article/texas-river-basins-guide", label: "See the basin behind the reservoir", description: "Understand the upstream watershed that feeds each reservoir and the downstream system it belongs to." },\n    { href: "/article/texas-aquifers-springs-explained", label: "See the groundwater beneath the water map", description: "Compare visible reservoirs with aquifers, recharge and spring-fed surface water." },\n  ],''',
-              '''  "texas-lakes-reservoirs-explained": [\n    { href: "/article/texas-river-basins-guide", label: "See the basin behind the reservoir", description: "Understand the upstream watershed that feeds each reservoir and the downstream system it belongs to." },\n    { href: "/article/texas-aquifers-springs-explained", label: "See the groundwater beneath the water map", description: "Compare visible reservoirs with aquifers, recharge and spring-fed surface water." },\n    { href: "/article/lake-buchanan-water-system-guide", label: "Lake Buchanan as a water system", description: "See how upper Colorado River storage anchors the Highland Lakes system." },\n    { href: "/article/lake-travis-water-system-guide", label: "Lake Travis as a water system", description: "Understand flood-control space, water storage and Mansfield Dam upstream from Austin." },\n    { href: "/article/lake-whitney-water-system-guide", label: "Lake Whitney as a water system", description: "See how one federal Brazos reservoir combines flood control, supply, hydropower and recreation." },\n    { href: "/article/possum-kingdom-water-system-guide", label: "Possum Kingdom as a water system", description: "Trace one of the Brazos basin's early multipurpose reservoir projects." },\n    { href: "/article/toledo-bend-water-system-guide", label: "Toledo Bend as a two-state water system", description: "See how Texas and Louisiana share a huge Sabine River reservoir for water and power." },\n  ],''',
-          )
-
-          # Expand the collection hub from 25 to 30 articles.
-          replace_once(
-              'src/routes/texas-explained.tsx',
-              'const description = "Ten deeply reported Texas Defined guides, plus fifteen focused supporting explainers and river profiles, connecting the water, roads, towns, landscapes, wildlife, homes, land and migration patterns that make Texas work the way it does.";',
-              'const description = "Ten deeply reported Texas Defined guides, plus twenty focused supporting explainers, river profiles and reservoir profiles, connecting the water, roads, towns, landscapes, wildlife, homes, land and migration patterns that make Texas work the way it does.";',
-          )
-          replace_once(
-              'src/routes/texas-explained.tsx',
-              '''const riverProfileSlugs = [\n  "texas-brazos-river-guide",\n  "texas-colorado-river-guide",\n  "texas-guadalupe-river-guide",\n  "texas-trinity-river-guide",\n  "texas-rio-grande-river-guide",\n] as const;\n\nconst collectionSlugs = [...pillarSlugs, ...childSupportSlugs, ...depthSlugs, ...riverProfileSlugs] as const;''',
-              '''const riverProfileSlugs = [\n  "texas-brazos-river-guide",\n  "texas-colorado-river-guide",\n  "texas-guadalupe-river-guide",\n  "texas-trinity-river-guide",\n  "texas-rio-grande-river-guide",\n] as const;\n\nconst reservoirProfileSlugs = [\n  "lake-buchanan-water-system-guide",\n  "lake-travis-water-system-guide",\n  "lake-whitney-water-system-guide",\n  "possum-kingdom-water-system-guide",\n  "toledo-bend-water-system-guide",\n] as const;\n\nconst collectionSlugs = [...pillarSlugs, ...childSupportSlugs, ...depthSlugs, ...riverProfileSlugs, ...reservoirProfileSlugs] as const;''',
-          )
-          replace_once(
-              'src/routes/texas-explained.tsx',
-              'type LoaderData = { articles: Article[]; pillars: Article[]; supportArticles: Article[]; depthArticles: Article[]; riverProfiles: Article[] };',
-              'type LoaderData = { articles: Article[]; pillars: Article[]; supportArticles: Article[]; depthArticles: Article[]; riverProfiles: Article[]; reservoirProfiles: Article[] };',
-          )
-          replace_once(
-              'src/routes/texas-explained.tsx',
-              '      riverProfiles: orderedArticles(catalog, riverProfileSlugs),\n',
-              '      riverProfiles: orderedArticles(catalog, riverProfileSlugs),\n      reservoirProfiles: orderedArticles(catalog, reservoirProfileSlugs),\n',
-          )
-          replace_once(
-              'src/routes/texas-explained.tsx',
-              '  const { pillars, supportArticles, depthArticles, riverProfiles } = Route.useLoaderData();',
-              '  const { pillars, supportArticles, depthArticles, riverProfiles, reservoirProfiles } = Route.useLoaderData();',
-          )
-          replace_once(
-              'src/routes/texas-explained.tsx',
-              '<aside className="border-l-2 border-primary pl-5 text-sm leading-7 text-muted-foreground"><p className="font-semibold text-foreground">10 core guides · 15 deeper explainers</p><p className="mt-2">Start with a core guide, then follow supporting explainers, deeper guides and river profiles when you want the next layer of detail.</p></aside>',
-              '<aside className="border-l-2 border-primary pl-5 text-sm leading-7 text-muted-foreground"><p className="font-semibold text-foreground">10 core guides · 20 deeper explainers</p><p className="mt-2">Start with a core guide, then follow supporting explainers, deeper guides, river profiles and reservoir water-system profiles when you want the next layer of detail.</p></aside>',
-          )
-          replace_once(
-              'src/routes/texas-explained.tsx',
-              '<section id="go-deeper" className="mt-16 scroll-mt-28 border-t border-border pt-10" aria-labelledby="texas-explained-go-deeper"><header className="max-w-3xl"><p className="eyebrow text-primary">Go deeper</p><h2 id="texas-explained-go-deeper" className="mt-2 font-display text-3xl leading-tight sm:text-4xl">Fifteen focused explainers behind the core guides</h2><p className="mt-4 text-base leading-7 text-muted-foreground">The first two layers break broad pillars into systems such as basins, aquifers, prairies, downtowns and railroads. The river profiles then apply that framework to five major Texas river systems.</p></header><DepthGrid articles={supportArticles} label="Supporting explainers" /><DepthGrid articles={depthArticles} label="Deeper guides" /><DepthGrid articles={riverProfiles} label="Major river profiles" /></section>',
-              '<section id="go-deeper" className="mt-16 scroll-mt-28 border-t border-border pt-10" aria-labelledby="texas-explained-go-deeper"><header className="max-w-3xl"><p className="eyebrow text-primary">Go deeper</p><h2 id="texas-explained-go-deeper" className="mt-2 font-display text-3xl leading-tight sm:text-4xl">Twenty focused explainers behind the core guides</h2><p className="mt-4 text-base leading-7 text-muted-foreground">The first two layers break broad pillars into systems such as basins, aquifers, prairies, downtowns and railroads. River profiles apply that framework to five major waterways, while reservoir profiles show how engineered storage changes those river systems.</p></header><DepthGrid articles={supportArticles} label="Supporting explainers" /><DepthGrid articles={depthArticles} label="Deeper guides" /><DepthGrid articles={riverProfiles} label="Major river profiles" /><DepthGrid articles={reservoirProfiles} label="Reservoir water systems" /></section>',
-          )
-          replace_once(
-              'src/routes/texas-explained.tsx',
-              'they are not part of the 25-article core-and-depth collection.',
-              'they are not part of the 30-article core-and-depth collection.',
-          )
-
-          # Shared article route: all ten profile pages inherit Texas Explained breadcrumbs/schema/context.
-          replace_once(
-              'src/routes/article.$slug.tsx',
-              '  "texas-rural-wells-water-guide",\n] as const;',
-              '  "texas-rural-wells-water-guide",\n  "texas-brazos-river-guide",\n  "texas-colorado-river-guide",\n  "texas-guadalupe-river-guide",\n  "texas-trinity-river-guide",\n  "texas-rio-grande-river-guide",\n  "lake-buchanan-water-system-guide",\n  "lake-travis-water-system-guide",\n  "lake-whitney-water-system-guide",\n  "possum-kingdom-water-system-guide",\n  "toledo-bend-water-system-guide",\n] as const;',
-          )
-
-          # Existing depth validator now protects the 30-article hub while retaining its original two-layer checks.
-          replace_once(
-              'scripts/data/validate-texas-explained-depth.mjs',
-              "  'const riverProfileSlugs = [',\n  'const collectionSlugs = [...pillarSlugs, ...childSupportSlugs, ...depthSlugs, ...riverProfileSlugs]',",
-              "  'const riverProfileSlugs = [',\n  'const reservoirProfileSlugs = [',\n  'const collectionSlugs = [...pillarSlugs, ...childSupportSlugs, ...depthSlugs, ...riverProfileSlugs, ...reservoirProfileSlugs]',",
-          )
-          replace_once(
-              'scripts/data/validate-texas-explained-depth.mjs',
-              "  'riverProfiles: orderedArticles(catalog, riverProfileSlugs)',",
-              "  'riverProfiles: orderedArticles(catalog, riverProfileSlugs)',\n  'reservoirProfiles: orderedArticles(catalog, reservoirProfileSlugs)',",
-          )
-          replace_once(
-              'scripts/data/validate-texas-explained-depth.mjs',
-              "  '<DepthGrid articles={riverProfiles} label=\"Major river profiles\" />',\n  '10 core guides · 15 deeper explainers',\n  'Fifteen focused explainers behind the core guides',",
-              "  '<DepthGrid articles={riverProfiles} label=\"Major river profiles\" />',\n  '<DepthGrid articles={reservoirProfiles} label=\"Reservoir water systems\" />',\n  '10 core guides · 20 deeper explainers',\n  'Twenty focused explainers behind the core guides',",
-          )
-          replace_once(
-              'scripts/data/validate-texas-explained-depth.mjs',
-              'Texas Explained 25-article hub discovery contract missing:',
-              'Texas Explained 30-article hub discovery contract missing:',
-          )
-          replace_once(
-              'scripts/data/validate-texas-explained-depth.mjs',
-              'while the hub expands to a 25-article collection with five additional river profiles.',
-              'while the hub expands to a 30-article collection with five river and five reservoir profiles.',
-          )
-
-          validator = r'''import fs from 'node:fs';
-
-const read = (path) => fs.readFileSync(path, 'utf8');
-const stubs = read('src/data/fixtures/texas-explained-reservoir-profile-stubs.ts');
-const articles = read('src/data/fixtures/texas-explained-reservoir-profiles.ts');
-const lazy = read('src/data/fixtures/lazy-evergreen.ts');
-const hub = read('src/routes/texas-explained.tsx');
-const topology = read('src/data/fixtures/newest-evergreen.ts');
-const articleRoute = read('src/routes/article.$slug.tsx');
-const errors = [];
-
-const profiles = [
-  ['lake-buchanan-water-system-guide', 'https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/buchanan/'],
-  ['lake-travis-water-system-guide', 'https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/travis/index.asp'],
-  ['lake-whitney-water-system-guide', 'https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/whitney/index.asp'],
-  ['possum-kingdom-water-system-guide', 'https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/possum_kingdom/index.asp'],
-  ['toledo-bend-water-system-guide', 'https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/toledo_bend/index.asp'],
-];
-
-for (const marker of [
-  'const reservoirsLink = { href: "/article/texas-lakes-reservoirs-explained"',
-  'const basinsLink = { href: "/article/texas-river-basins-guide"',
-  'const collectionLink = { href: "/texas-explained"',
-]) if (!articles.includes(marker)) errors.push(`Shared reservoir navigation contract missing: ${marker}`);
-
-for (const [slug, sourceUrl] of profiles) {
-  if (!stubs.includes(`"${slug}"`)) errors.push(`Missing reservoir profile stub: ${slug}`);
-  if (!articles.includes(`slug: "${slug}"`)) errors.push(`Missing full reservoir profile: ${slug}`);
-  if (!articles.includes(sourceUrl)) errors.push(`Missing TWDB reservoir source URL: ${slug}`);
-  if (!hub.includes(`"${slug}"`)) errors.push(`Texas Explained hub must surface reservoir profile: ${slug}`);
-  if (!topology.includes(`/article/${slug}`)) errors.push(`Reservoir pillar must link to profile: ${slug}`);
-  if (!articleRoute.includes(`"${slug}"`)) errors.push(`Shared article route must recognize reservoir profile: ${slug}`);
-}
-
-for (const marker of [
-  'import { texasExplainedReservoirProfileStubs }',
-  '...texasExplainedReservoirProfileStubs',
-  'texasExplainedReservoirProfileStubs.some((article) => article.slug === slug)',
-  'await import("./texas-explained-reservoir-profiles")',
-  'texasExplainedReservoirProfileArticles.find',
-]) if (!lazy.includes(marker)) errors.push(`Reservoir lazy-registration contract missing: ${marker}`);
-
-for (const marker of [
-  'const reservoirProfileSlugs = [',
-  '...reservoirProfileSlugs',
-  'reservoirProfiles: orderedArticles(catalog, reservoirProfileSlugs)',
-  '<DepthGrid articles={reservoirProfiles} label="Reservoir water systems" />',
-  '10 core guides · 20 deeper explainers',
-  'Twenty focused explainers behind the core guides',
-]) if (!hub.includes(marker)) errors.push(`Reservoir hub contract missing: ${marker}`);
-
-const paragraphCount = (block) => (block.match(/p\("/g) || []).length;
-for (const [slug] of profiles) {
-  const start = articles.indexOf(`slug: "${slug}"`);
-  const next = start >= 0 ? articles.indexOf('\nexport const ', start + 1) : -1;
-  const block = start >= 0 ? articles.slice(start, next > start ? next : articles.length) : '';
-  if (paragraphCount(block) < 7) errors.push(`Reservoir profile is too shallow (${paragraphCount(block)} paragraphs): ${slug}`);
-  for (const link of ['reservoirsLink', 'basinsLink', 'collectionLink']) {
-    if (!block.includes(link)) errors.push(`Reservoir profile ${slug} must use ${link}`);
-  }
-}
-
-if (errors.length) {
-  console.error('Texas Explained reservoir profile validation failed:');
-  errors.forEach((error) => console.error(`- ${error}`));
-  process.exit(1);
-}
-console.log('Texas Explained reservoir batch passed: five TWDB-backed water-system profiles are lazy-loaded, hub-visible, reciprocal with the reservoir pillar, collection-aware and substantive.');
-'''
-          Path('scripts/data/validate-texas-explained-reservoir-profiles.mjs').write_text(validator)
-
-          replace_once(
-              '.github/workflows/validate.yml',
-              '      - name: Validate Texas Explained river profiles\n        run: node scripts/data/validate-texas-explained-river-profiles.mjs\n',
-              '      - name: Validate Texas Explained river profiles\n        run: node scripts/data/validate-texas-explained-river-profiles.mjs\n\n      - name: Validate Texas Explained reservoir profiles\n        run: node scripts/data/validate-texas-explained-reservoir-profiles.mjs\n',
-          )
-          PY
-
-      - name: Verify focused Texas Explained contracts before commit
+      - name: Verify focused Texas Explained contracts
         run: |
           node scripts/data/validate-texas-explained-depth.mjs
           node scripts/data/validate-texas-explained-river-profiles.mjs
           node scripts/data/validate-texas-explained-reservoir-profiles.mjs
 
       - name: Commit integrated reservoir layer
-        env:
-          WORKFLOW_PATH: .github/workflows/integrate-texas-explained-reservoirs.yml
         run: |
-          rm "$WORKFLOW_PATH"
+          rm .github/workflows/integrate-texas-explained-reservoirs.yml
+          rm scripts/data/integrate-texas-explained-reservoirs.py
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add src/data/fixtures/lazy-evergreen.ts src/data/fixtures/newest-evergreen.ts src/routes/texas-explained.tsx 'src/routes/article.$slug.tsx' scripts/data/validate-texas-explained-depth.mjs scripts/data/validate-texas-explained-reservoir-profiles.mjs .github/workflows/validate.yml "$WORKFLOW_PATH"
+          git add -A
           git commit -m "Integrate Texas Explained reservoir water systems"
           git push origin HEAD:main
