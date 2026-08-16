@@ -21,18 +21,14 @@ import { elPasoCountyPassMissionsBorderlandsArticle } from "./el-paso-county-pas
 import { exploreFeatureArticles } from "./explore-feature-articles";
 import { newestEvergreenArticles } from "./newest-evergreen";
 import { lazyEvergreenArticleStubs, loadLazyEvergreenArticle } from "./lazy-evergreen";
+import { standaloneEvergreenStubs, loadStandaloneEvergreenArticle } from "./lazy-standalone-evergreen";
 import { coreEvergreenArticleStubs, loadCoreEvergreenArticle } from "./lazy-core-evergreen";
-import { highSchoolFootballNewcomersArticle } from "./high-school-football-newcomers";
 import { hudspethCountySierraBlancaSaltFlatsArticle } from "./hudspeth-county-sierra-blanca-salt-flats";
 import { jeffDavisCountyFortDavisMountainsArticle } from "./jeff-davis-county-fort-davis-mountains";
-import { kolacheOrKlobasnekArticle } from "./kolache-or-klobasnek";
 import { migratedEditorialArticles } from "./migrated-editorial";
-import { orderingTexasBarbecueArticle } from "./ordering-texas-barbecue";
 import { pecosCountyFortStocktonComancheSpringsArticle } from "./pecos-county-fort-stockton-comanche-springs";
 import { presidioCountyMarfaBorderlandsArticle } from "./presidio-county-marfa-borderlands";
 import { reevesCountyPecosBalmorheaArticle } from "./reeves-county-pecos-balmorhea";
-import { rodeo101Article } from "./rodeo-101";
-import { sixFlagsOverTexasMeaningArticle } from "./six-flags-over-texas-meaning";
 import { wardCountyMonahansSandhillsArticle } from "./ward-county-monahans-sandhills";
 import {
   articles,
@@ -65,12 +61,8 @@ const editorialArticles = [
   brewsterCountyBigBendArticle,
   ...coreEvergreenArticleStubs,
   ...lazyEvergreenArticleStubs,
+  ...standaloneEvergreenStubs,
   ...newestEvergreenArticles,
-  rodeo101Article,
-  highSchoolFootballNewcomersArticle,
-  kolacheOrKlobasnekArticle,
-  orderingTexasBarbecueArticle,
-  sixFlagsOverTexasMeaningArticle,
   ...articles,
   ...migratedEditorialArticles,
 ];
@@ -191,6 +183,9 @@ export const fixtureArticles: ArticleRepository = {
 
     const lazyArticle = await loadLazyEvergreenArticle(scope.brandId, slug);
     if (lazyArticle) return normalizeArticle(lazyArticle);
+
+    const standaloneArticle = await loadStandaloneEvergreenArticle(scope.brandId, slug);
+    if (standaloneArticle) return normalizeArticle(standaloneArticle);
 
     const article = byBrand(editorialArticles, scope.brandId).find((a) => a.slug === slug) ?? null;
     return article ? normalizeArticle(article) : null;
