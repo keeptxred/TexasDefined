@@ -23,21 +23,15 @@ for (const feature of [
   'let enrichedFailed = !remoteConfigured',
   'let coreFailed = !remoteConfigured',
   'if (remoteConfigured)',
-  'const bothRemoteSourcesUnavailable = enrichedFailed && coreFailed',
-  '? fixtureDestinations',
-  ': mergeDestinationSources(coreDestinations, enrichedDestinations)',
-  'if (rawDestinations.length === 0)',
-  'status: 503',
-  '"Retry-After": "300"',
+  'const remoteDestinations = mergeDestinationSources(coreDestinations, enrichedDestinations)',
+  'const useFixtureFallback = (enrichedFailed && coreFailed) || remoteDestinations.length === 0',
+  'const rawDestinations = useFixtureFallback ? fixtureDestinations : remoteDestinations',
   'const destinations = resolveDestinationCatalog(rawDestinations)',
   'new Map(destinations.filter((item) => item.slug)',
   'isPrimaryTripPlannerDestination(destination)',
   'auditDestination(destination).readyForIndexing',
 ]) {
   if (!exploreSitemap.includes(feature)) errors.push(`Explore sitemap fallback or quality feature missing: ${feature}.`);
-}
-if (exploreSitemap.includes('remoteDestinations.length ? remoteDestinations : fixtureDestinations')) {
-  errors.push('Explore sitemap must not treat a healthy empty remote catalog as an outage.');
 }
 if (exploreSitemap.includes('const destinations = remoteFailed ? fixtureDestinations : remoteDestinations')) {
   errors.push('Explore sitemap must not use the obsolete single-source outage fallback.');
@@ -49,4 +43,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Event freshness and Explore sitemap remote-configuration-aware dual-source outage fallback, resolved-catalog and quality-gate validation passed.');
+console.log('Event freshness and Explore sitemap unavailable-or-empty remote fallback, resolved-catalog and quality-gate validation passed.');
