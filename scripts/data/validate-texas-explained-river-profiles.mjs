@@ -16,11 +16,16 @@ const profiles = [
   ['texas-rio-grande-river-guide', 'https://www.twdb.texas.gov/surfacewater/rivers/river_basins/riogrande/'],
 ];
 
+for (const marker of [
+  'const riversLink = { href: "/article/texas-rivers-explained"',
+  'const basinsLink = { href: "/article/texas-river-basins-guide"',
+  'const collectionLink = { href: "/texas-explained"',
+]) if (!articles.includes(marker)) errors.push(`Shared river profile navigation contract missing: ${marker}`);
+
 for (const [slug, sourceUrl] of profiles) {
   if (!stubs.includes(`"${slug}"`)) errors.push(`Missing river profile stub: ${slug}`);
   if (!articles.includes(`slug: "${slug}"`)) errors.push(`Missing full river profile: ${slug}`);
   if (!articles.includes(sourceUrl)) errors.push(`Missing TWDB source URL for ${slug}`);
-  if (!articles.includes('href: "/texas-explained"')) errors.push(`River profiles must retain collection backlink: ${slug}`);
   if (!hub.includes(`"${slug}"`)) errors.push(`Texas Explained hub must surface river profile: ${slug}`);
   if (!topology.includes(`/article/${slug}`)) errors.push(`Texas rivers pillar must link to river profile: ${slug}`);
 }
@@ -56,8 +61,8 @@ for (const [slug] of profiles) {
   const next = start >= 0 ? articles.indexOf('\nexport const ', start + 1) : -1;
   const block = start >= 0 ? articles.slice(start, next > start ? next : articles.length) : '';
   if (paragraphCount(block) < 7) errors.push(`River profile is too shallow (${paragraphCount(block)} paragraphs): ${slug}`);
-  if (!block.includes('/article/texas-rivers-explained') || !block.includes('/article/texas-river-basins-guide')) {
-    errors.push(`River profile must link back to statewide rivers and basin guides: ${slug}`);
+  if (!block.includes('riversLink') || !block.includes('basinsLink') || !block.includes('collectionLink')) {
+    errors.push(`River profile must use statewide rivers, basin and collection backlinks: ${slug}`);
   }
 }
 
