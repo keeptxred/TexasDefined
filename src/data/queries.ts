@@ -182,9 +182,10 @@ export const searchDocumentsQuery = () => queryOptions({
     try { core = await fetchCoreExploreDestinations({ limit: 5000 }); }
     catch (coreError) { console.error("Core remote destination search index unavailable; retaining preserved destinations", coreError); }
     const destinations = reconcileExploreCatalog(mergeDestinations(enriched, core, preservedExploreDestinations));
-    if (!destinations.length) return base;
+    const nonDestinationDocuments = base.filter((document) => document.kind !== "destination");
+    if (!destinations.length) return nonDestinationDocuments;
     const documents = [
-      ...base.filter((document) => document.kind !== "destination"),
+      ...nonDestinationDocuments,
       ...destinations.map(destinationSearchDocument),
     ];
     return [...new Map(documents.map((document) => [document.href, document])).values()];
