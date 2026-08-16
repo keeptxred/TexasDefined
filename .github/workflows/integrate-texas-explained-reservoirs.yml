@@ -29,13 +29,13 @@ jobs:
           node scripts/data/validate-texas-explained-river-profiles.mjs
           node scripts/data/validate-texas-explained-reservoir-profiles.mjs
 
-      - name: Commit integrated reservoir layer
+      - name: Commit application and validator changes only
         run: |
-          rm .github/workflows/integrate-texas-explained-reservoirs.yml
+          git checkout -- .github/workflows/validate.yml
           rm scripts/data/integrate-texas-explained-reservoirs.py
           rm scripts/data/patch-river-validator-for-reservoirs.py
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
+          git add src/data/fixtures/lazy-evergreen.ts src/data/fixtures/newest-evergreen.ts src/routes/texas-explained.tsx 'src/routes/article.$slug.tsx' scripts/data/validate-texas-explained-depth.mjs scripts/data/validate-texas-explained-river-profiles.mjs scripts/data/validate-texas-explained-reservoir-profiles.mjs scripts/data/integrate-texas-explained-reservoirs.py scripts/data/patch-river-validator-for-reservoirs.py
           git commit -m "Integrate Texas Explained reservoir water systems"
           git push origin HEAD:main
