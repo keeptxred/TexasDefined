@@ -123,6 +123,7 @@ export const CONDITIONAL_INDEXABLE_PUBLIC_PATHS = [
 ] as const;
 
 export const REDIRECT_ONLY_PATHS = [
+  "/tools",
   "/tax-calculator",
   "/texas-financial-tools",
   "/texas-property-tax-increase-calculator",
