@@ -79,8 +79,10 @@ if (!exploreSitemap.includes('normalizePublicPath(path)')) failures.push('Explor
 if (!sitemap.includes('Promise.allSettled')) failures.push('Primary sitemap must convert upstream failures into an explicit retryable response.');
 if (!sitemap.includes('status: 503') || !sitemap.includes('"retry-after": "300"')) failures.push('Primary sitemap must return retryable 503 semantics on core data failure.');
 for (const feature of [
-  'let enrichedFailed = false',
-  'let coreFailed = false',
+  'const remoteConfigured = hasExploreRemoteData()',
+  'let enrichedFailed = !remoteConfigured',
+  'let coreFailed = !remoteConfigured',
+  'if (remoteConfigured)',
   'const bothRemoteSourcesUnavailable = enrichedFailed && coreFailed',
   'mergeDestinationSources(coreDestinations, enrichedDestinations)',
   '? fixtureDestinations',
@@ -170,4 +172,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Sitemap ownership, crawl-demand partitioning, dual-source Explore reliability, resolved quality gates, malformed-path rejection, migrated aliases, regional quality, and noindex/redirect policy validation passed.');
+console.log('Sitemap ownership, crawl-demand partitioning, remote-configuration-aware dual-source Explore reliability, resolved quality gates, malformed-path rejection, migrated aliases, regional quality, and noindex/redirect policy validation passed.');
