@@ -48,14 +48,12 @@ for (const feature of [
   'isExploreSitemapOwnedPath(normalized)',
   'isPrimaryTripPlannerDestination(destination)',
   'auditDestination(destination).readyForIndexing',
-  'mergeDestinationSources(coreDestinations, enrichedDestinations)',
-  'const bothRemoteSourcesUnavailable = enrichedFailed && coreFailed',
+  'const remoteDestinations = mergeDestinationSources(coreDestinations, enrichedDestinations)',
+  'const useFixtureFallback = (enrichedFailed && coreFailed) || remoteDestinations.length === 0',
+  'const rawDestinations = useFixtureFallback ? fixtureDestinations : remoteDestinations',
   'const destinations = resolveDestinationCatalog(rawDestinations)',
 ]) {
   if (!explore.includes(feature)) failures.push(`Explore sitemap crawl-quality contract missing: ${feature}`);
-}
-if (explore.includes('remoteDestinations.length ? remoteDestinations : fixtureDestinations')) {
-  failures.push('Explore sitemap must not republish fixtures merely because a healthy remote catalog is empty.');
 }
 if (explore.includes('const destinations = remoteFailed ? fixtureDestinations : remoteDestinations')) {
   failures.push('Explore sitemap must not use the obsolete single-source outage fallback.');
@@ -64,9 +62,6 @@ for (const generalOnlyTemplate of ['`/article/${', '`/authors/${', '`/shop/${', 
   if (explore.includes(generalOnlyTemplate)) failures.push(`Explore sitemap must not construct general-site URL template ${generalOnlyTemplate}.`);
 }
 
-// City records in the static registry are pending source verification. The city
-// directory may describe and anchor them, but it must not manufacture crawl
-// demand for /city/* detail pages before those entities pass the publication gate.
 for (const forbidden of [
   'absoluteUrl(texasDefinedBrand, `/city/${city.slug}`)',
   'to="/$kind/$slug" params={{ kind: \'city\'',
@@ -78,9 +73,6 @@ if (!cityDirectory.includes('url: `${pageUrl}#${cityAnchor(city.slug)}`')) {
   failures.push('City ItemList entries must remain anchored to the verified directory surface rather than unverified city detail URLs.');
 }
 
-// County property child pages are intentionally fail-closed. Browse/counties
-// and the searchable county property directory must only link/schema verified
-// children and send the rest to substantive county references.
 for (const marker of [
   'const verifiedPropertyCounties = COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady)',
   'numberOfItems: verifiedPropertyCounties.length',
@@ -113,4 +105,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Crawl-demand validation passed: sitemap namespaces are partitioned, Explore destinations are merged/resolved/quality-gated, unverified city detail URLs are not promoted, county property children are verification-filtered, and robots advertises each sitemap once.');
+console.log('Crawl-demand validation passed: sitemap namespaces are partitioned, Explore destinations use quality-gated unavailable-or-empty remote fallback, unverified city detail URLs are not promoted, county property children are verification-filtered, and robots advertises each sitemap once.');
