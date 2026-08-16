@@ -75,7 +75,7 @@ const quickAnswers = [
   },
 ] as const;
 
-const relatedPrimers = [
+const supportingExplainers = [
   {
     to: "/article/texas-regions-explained",
     title: "Texas regions explained",
@@ -307,11 +307,11 @@ function TexasExplainedPage() {
         <section className="mt-16 border-t border-border pt-10" aria-labelledby="texas-explained-related-primers">
           <header className="max-w-3xl">
             <p className="eyebrow text-primary">Related primers</p>
-            <h2 id="texas-explained-related-primers" className="mt-2 font-display text-3xl leading-tight sm:text-4xl">Five useful ways into the collection</h2>
-            <p className="mt-4 text-base leading-7 text-muted-foreground">These broader Texas Defined stories connect naturally to the series, but they are not part of the 20-article Texas Explained core-and-depth collection.</p>
+            <h2 id="texas-explained-related-primers" className="mt-2 font-display text-3xl leading-tight sm:text-4xl">Five supporting explainers and related primers</h2>
+            <p className="mt-4 text-base leading-7 text-muted-foreground">These sit outside the core 10-guide series. They connect naturally to Texas Explained, but they are not part of the 20-article core-and-depth collection.</p>
           </header>
           <ul className="mt-8 grid border-t border-border md:grid-cols-2">
-            {relatedPrimers.map((item, index) => (
+            {supportingExplainers.map((item, index) => (
               <li key={item.to} className={`border-b border-border py-7 md:px-6 ${index % 2 === 1 ? "md:border-l" : ""}`}>
                 <Link to={item.to} className="group block h-full py-1">
                   <h3 className="font-display text-2xl leading-tight transition-colors group-hover:text-primary">{item.title}</h3>
