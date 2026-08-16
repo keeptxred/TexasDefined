@@ -129,17 +129,14 @@ for (const feature of [
   'let enrichedFailed = !remoteConfigured',
   'let coreFailed = !remoteConfigured',
   'if (remoteConfigured)',
-  'const bothRemoteSourcesUnavailable = enrichedFailed && coreFailed',
-  'mergeDestinationSources(coreDestinations, enrichedDestinations)',
-  '? fixtureDestinations',
+  'const remoteDestinations = mergeDestinationSources(coreDestinations, enrichedDestinations)',
+  'const useFixtureFallback = (enrichedFailed && coreFailed) || remoteDestinations.length === 0',
+  'const rawDestinations = useFixtureFallback ? fixtureDestinations : remoteDestinations',
   'const destinations = resolveDestinationCatalog(rawDestinations)',
   'validLastModified', '<lastmod>', 'item.sourceCheckedAt',
   'isPrimaryTripPlannerDestination(destination)',
   'auditDestination(destination).readyForIndexing',
 ]) if (!sitemap.includes(feature)) errors.push(`Explore sitemap enrichment or quality feature missing: ${feature}`);
-if (sitemap.includes('remoteDestinations.length ? remoteDestinations : fixtureDestinations')) {
-  errors.push('Explore sitemap still treats a healthy empty remote catalog as an outage.');
-}
 if (sitemap.includes('const destinations = remoteFailed ? fixtureDestinations : remoteDestinations')) {
   errors.push('Explore sitemap still uses the obsolete single-source outage fallback.');
 }
@@ -174,4 +171,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Explore enrichment, grouped planning, ranked search, AI discovery, remote-configuration-aware merged-source quality-gated sitemap freshness, authority, relationship discovery with Texas Explained fallback, public-view fallback, and fixture resilience passed.');
+console.log('Explore enrichment, grouped planning, ranked search, AI discovery, unavailable-or-empty remote fallback with quality-gated sitemap freshness, authority, relationship discovery with Texas Explained fallback, public-view fallback, and fixture resilience passed.');
