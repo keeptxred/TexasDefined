@@ -77,6 +77,8 @@ for (const feature of [
   'numberOfItems: verifiedPropertyCounties.length',
   'itemListElement: verifiedPropertyCounties.map',
   'verifiedPropertySlugs.has(county.slug)',
+  '? <Link to="/property-tax/county/$county"',
+  ': <Link to="/county/$slug"',
   'to="/county/$slug"',
   'Verified county property-tax guides',
   'Counties without a verified local property-tax guide link to their substantive county reference page',
@@ -85,7 +87,7 @@ for (const feature of [
 }
 if (directoryRoute.includes('numberOfItems: TEXAS_COUNTIES.length')) failures.push('County property directory must not advertise all 254 placeholder property-tax pages in ItemList schema.');
 if (directoryRoute.includes('itemListElement: TEXAS_COUNTIES.map')) failures.push('County property directory must not emit URL-bearing schema for all 254 placeholder property-tax pages.');
-if (/TEXAS_COUNTIES\.map\([\s\S]{0,500}to="\/property-tax\/county\/\$county"/.test(directoryRoute)) failures.push('County property directory must not unconditionally link every Texas county to a property-tax placeholder.');
+if (directoryRoute.includes('{TEXAS_COUNTIES.map((county) => <Link to="/property-tax/county/$county"')) failures.push('County property directory must not unconditionally link every Texas county to a property-tax placeholder.');
 
 for (const feature of [
   'workflow_dispatch:',
