@@ -146,6 +146,7 @@ export const NON_INDEXABLE_PUBLIC_PATHS = [
   "/search",
   "/explore/search",
   "/fishing/guides/submit",
+  "/fishing/reports/submit",
   "/shop/cart",
   "/shop/checkout-return",
   "/sports-venues/compare.csv",
