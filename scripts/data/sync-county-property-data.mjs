@@ -5,6 +5,7 @@ const DIRECTORY_URL = 'https://comptroller.texas.gov/taxes/property-tax/county-d
 const OUTPUT = path.join(process.cwd(), 'src', 'data', 'property', 'county-property-enrichment.generated.ts');
 const USER_AGENT = 'TexasDefined county property verifier/1.0';
 const CONCURRENCY = 8;
+const SOURCE_MAX_AGE_DAYS = 730;
 
 const directoryHtml = await fetchText(DIRECTORY_URL);
 const counties = parseCountyDirectory(directoryHtml);
@@ -20,10 +21,10 @@ for (let index = 0; index < selected.length; index += CONCURRENCY) {
   const batchResults = await Promise.all(batch.map(async (county) => {
     try {
       const html = await fetchText(county.url);
-      return { county, enrichment: parseCountyPage(html, county.url) };
+      return { county, fetched: true, enrichment: parseCountyPage(html, county.url) };
     } catch (error) {
       console.error(`Unable to sync ${county.slug}:`, error instanceof Error ? error.message : String(error));
-      return { county, enrichment: null };
+      return { county, fetched: false, enrichment: null };
     }
   }));
   results.push(...batchResults);
@@ -35,13 +36,16 @@ try {
   merged = parseExistingSnapshot(existing);
 } catch {}
 
-for (const { county, enrichment } of results) {
+for (const { county, fetched, enrichment } of results) {
   if (enrichment) merged[county.slug] = enrichment;
+  else if (fetched) delete merged[county.slug];
 }
 
 const ordered = Object.fromEntries(Object.entries(merged).sort(([a], [b]) => a.localeCompare(b)));
 await fs.writeFile(OUTPUT, renderSnapshot(ordered));
-console.log(`County property snapshot now contains ${Object.keys(ordered).length} verified counties; refreshed ${results.filter((item) => item.enrichment).length}.`);
+const refreshed = results.filter((item) => item.enrichment).length;
+const withdrawn = results.filter((item) => item.fetched && !item.enrichment).length;
+console.log(`County property snapshot now contains ${Object.keys(ordered).length} verified counties; refreshed ${refreshed}; withheld or withdrew ${withdrawn} because required office data was missing or stale.`);
 
 function parseCountyDirectory(html) {
   const items = [];
@@ -64,10 +68,13 @@ function parseCountyPage(html, sourceUrl) {
   const sourceChecked = new Date().toISOString().slice(0, 10);
 
   if (!appraisal.websiteUrl || !taxOffice.websiteUrl) return null;
+  if (!isFreshSourceDate(appraisal.lastUpdated) || !isFreshSourceDate(taxOffice.lastUpdated)) return null;
 
+  const { lastUpdated: _appraisalUpdated, ...appraisalContact } = appraisal;
+  const { lastUpdated: _taxUpdated, ...taxOfficeContact } = taxOffice;
   return {
-    appraisalDistrict: appraisal,
-    taxOffice,
+    appraisalDistrict: appraisalContact,
+    taxOffice: taxOfficeContact,
     links: {
       appraisalDistrictUrl: appraisal.websiteUrl,
       taxOfficeUrl: taxOffice.websiteUrl,
@@ -90,6 +97,7 @@ function parseOfficeSection(html, heading, nextHeading) {
   const emailHref = /href=["']mailto:([^"']+)["']/i.exec(section)?.[1];
   const emailText = /Email:\s*(?:<[^>]+>\s*)*([^<\r\n]+)/i.exec(section)?.[1];
   const phone = textAfterLabel(section, 'Phone');
+  const lastUpdated = normalizeSourceDate(textAfterLabel(section, 'Last Updated'));
   const personLabel = heading === 'Appraisal District' ? 'Chief Appraiser' : 'Tax Assessor-Collector';
   const name = textAfterHeading(section, personLabel) ?? textAfterLabel(section, personLabel);
   const address = extractStreetAddress(section);
@@ -99,7 +107,24 @@ function parseOfficeSection(html, heading, nextHeading) {
     phone: cleanText(phone),
     address,
     email: cleanText(emailHref ? decodeEntities(emailHref) : emailText),
+    lastUpdated,
   });
+}
+
+function isFreshSourceDate(value) {
+  if (!value) return false;
+  const timestamp = Date.parse(value);
+  if (Number.isNaN(timestamp)) return false;
+  const ageMs = Date.now() - timestamp;
+  if (ageMs < 0) return false;
+  return ageMs <= SOURCE_MAX_AGE_DAYS * 24 * 60 * 60 * 1000;
+}
+
+function normalizeSourceDate(value) {
+  const cleaned = cleanText(value);
+  if (!cleaned) return undefined;
+  const date = new Date(cleaned);
+  return Number.isNaN(date.getTime()) ? undefined : date.toISOString().slice(0, 10);
 }
 
 function textAfterLabel(section, label) {
