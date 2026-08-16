@@ -21,6 +21,10 @@ if (route.includes('...(!indexable ? [{ name: "robots", content: "noindex, follo
 }
 
 for (const marker of [
+  'function mergeDestinationSources',
+  'mergeDestinationSources(coreDestinations, enrichedDestinations)',
+  'const bothRemoteSourcesUnavailable = enrichedFailed && coreFailed',
+  '? fixtureDestinations',
   'function resolveDestinationCatalog',
   'applyStateParkHeroAssets(destinations)',
   'applyExploreHeroAssets(',
@@ -70,7 +74,7 @@ if (sitemap.includes('.filter(isPrimaryTripPlannerDestination)')) {
   failures.push('Explore sitemap must not publish primary destinations without also applying auditDestination readiness.');
 }
 if (sitemap.includes('const destinations = remoteFailed ? fixtureDestinations : remoteDestinations;')) {
-  failures.push('Explore sitemap must not audit raw remote destination records before curation, hero reconciliation and quality improvement.');
+  failures.push('Explore sitemap must not audit raw remote destination records before source merging, curation, hero reconciliation and quality improvement.');
 }
 
 if (failures.length) {
@@ -79,4 +83,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Destination indexing policy passed: route metadata emits one consistent robots policy, Explore sitemap resolves curation/heroes/quality before indexing, query publication uses the same resolution concepts, duplicate units stay consolidated, and substantive-copy/hero/coordinate gates remain aligned.');
+console.log('Destination indexing policy passed: route metadata emits one consistent robots policy; Explore sitemap merges remote sources, resolves curation/heroes/quality before indexing, and falls back only during full remote outage; query publication uses the same resolution concepts; duplicate units stay consolidated; substantive-copy/hero/coordinate gates remain aligned.');
