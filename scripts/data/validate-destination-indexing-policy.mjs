@@ -21,10 +21,17 @@ if (route.includes('...(!indexable ? [{ name: "robots", content: "noindex, follo
 }
 
 for (const marker of [
+  'function resolveDestinationCatalog',
+  'applyStateParkHeroAssets(destinations)',
+  'applyExploreHeroAssets(',
+  'reconcileDestinationHeroes(',
+  'applyAllCuratedDestinations(',
+  'improveDestinationCatalog(',
+  'const destinations = resolveDestinationCatalog(rawDestinations)',
   '.filter((destination) => isPrimaryTripPlannerDestination(destination) && auditDestination(destination).readyForIndexing)',
   'entry(`/destination/${item.slug}`',
 ]) {
-  if (!sitemap.includes(marker)) failures.push(`Explore sitemap indexing contract missing: ${marker}`);
+  if (!sitemap.includes(marker)) failures.push(`Explore sitemap resolved-catalog/indexing contract missing: ${marker}`);
 }
 
 for (const marker of [
@@ -51,8 +58,9 @@ for (const marker of [
 for (const marker of [
   'filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved))',
   'const destinations = reconcileExploreCatalog',
+  'reconcileDestinationHeroes(applyExploreHeroAssets(applyStateParkHeroAssets(destinations)))',
 ]) {
-  if (!queries.includes(marker)) failures.push(`Destination query publication filter missing: ${marker}`);
+  if (!queries.includes(marker)) failures.push(`Destination query publication/resolution contract missing: ${marker}`);
 }
 
 if (route.includes('const indexable = isPrimaryTripPlannerDestination(destination);')) {
@@ -61,6 +69,9 @@ if (route.includes('const indexable = isPrimaryTripPlannerDestination(destinatio
 if (sitemap.includes('.filter(isPrimaryTripPlannerDestination)')) {
   failures.push('Explore sitemap must not publish primary destinations without also applying auditDestination readiness.');
 }
+if (sitemap.includes('const destinations = remoteFailed ? fixtureDestinations : remoteDestinations;')) {
+  failures.push('Explore sitemap must not audit raw remote destination records before curation, hero reconciliation and quality improvement.');
+}
 
 if (failures.length) {
   console.error('Destination indexing policy validation failed:');
@@ -68,4 +79,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Destination indexing policy passed: route metadata emits one consistent robots policy, Explore sitemap and query publication use the same primary/readiness gates, and substantive-copy, hero and coordinate protections remain aligned.');
+console.log('Destination indexing policy passed: route metadata emits one consistent robots policy, Explore sitemap resolves curation/heroes/quality before indexing, query publication uses the same resolution concepts, duplicate units stay consolidated, and substantive-copy/hero/coordinate gates remain aligned.');
