@@ -9,8 +9,6 @@ on:
       - '.github/workflows/bing-indexnow.yml'
       - 'public/0c2b08423ce5be707dd931f57239acf1.txt'
       - 'scripts/seo/submit-indexnow.mjs'
-      - 'src/routes/sitemap[.]xml.ts'
-      - 'src/routes/sitemap-explore[.]xml.ts'
 
 permissions:
   contents: read
