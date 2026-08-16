@@ -98,8 +98,12 @@ jobs:
             /robots.txt \
             /sitemap.xml \
             /fishing \
+            /fishing/guides \
             /guides \
             /county/travis \
+            /county/dallas \
+            /news \
+            /news/2026-08-10-canyon-lake-full-capacity-recovery \
             /texas-symbols \
             /texas-explained \
             /article/texas-aquifers-springs-explained \
@@ -111,6 +115,24 @@ jobs:
             curl --retry 10 --retry-all-errors --retry-delay 3 --max-time 45 -fsSL "https://texasdefined.com${path}" -o /tmp/live
             test -s /tmp/live || { echo "Empty response for $path" >&2; exit 1; }
           done
+
+          curl --retry 5 --retry-all-errors --retry-delay 2 --max-time 45 -fsSL \
+            https://texasdefined.com/county/dallas -o /tmp/dallas.html
+          grep -Fq 'Dallas County' /tmp/dallas.html || {
+            echo 'Dallas County production route does not render Dallas County content.' >&2
+            exit 1
+          }
+          grep -Fq 'https://texasdefined.com/county/dallas' /tmp/dallas.html || {
+            echo 'Dallas County production route is missing its canonical URL.' >&2
+            exit 1
+          }
+
+          curl --retry 5 --retry-all-errors --retry-delay 2 --max-time 45 -fsSL \
+            https://texasdefined.com/news/2026-08-10-canyon-lake-full-capacity-recovery -o /tmp/routed-news.html
+          grep -Fq 'https://texasdefined.com/news/2026-08-10-canyon-lake-full-capacity-recovery' /tmp/routed-news.html || {
+            echo 'Routed TexasDefined story is missing its canonical URL.' >&2
+            exit 1
+          }
 
           curl --retry 5 --retry-all-errors --retry-delay 2 --max-time 45 -fsSL \
             https://texasdefined.com/robots.txt -o /tmp/robots.txt
