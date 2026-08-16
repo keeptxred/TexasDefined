@@ -20,8 +20,8 @@ import { standaloneEvergreenStubs, loadStandaloneEvergreenArticle } from "./lazy
 import { countySeriesArticleStubs, loadCountySeriesArticleBySlug } from "./lazy-county-series";
 import { coreEvergreenArticleStubs, loadCoreEvergreenArticle } from "./lazy-core-evergreen";
 import { migratedEditorialArticleStubs, loadMigratedEditorialArticle } from "./lazy-migrated-editorial";
+import { texasCoreArticleStubs, loadTexasCoreArticle } from "./lazy-texas-core-articles";
 import {
-  articles,
   categories,
   collections,
   destinations,
@@ -43,7 +43,7 @@ const editorialArticles = [
   ...lazyEvergreenArticleStubs,
   ...standaloneEvergreenStubs,
   ...newestEvergreenArticles,
-  ...articles,
+  ...texasCoreArticleStubs,
   ...migratedEditorialArticleStubs,
 ];
 
@@ -175,6 +175,9 @@ export const fixtureArticles: ArticleRepository = {
 
     const exploreFeatureArticle = await loadExploreFeatureArticle(scope.brandId, slug);
     if (exploreFeatureArticle) return normalizeArticle(exploreFeatureArticle);
+
+    const texasCoreArticle = await loadTexasCoreArticle(scope.brandId, slug);
+    if (texasCoreArticle) return normalizeArticle(texasCoreArticle);
 
     const article = byBrand(editorialArticles, scope.brandId).find((a) => a.slug === slug) ?? null;
     return article ? normalizeArticle(article) : null;
