@@ -50,9 +50,15 @@ jobs:
           done
           test "$deployed" = 'true' || { echo 'Road-system articles did not deploy within retry window.' >&2; exit 1; }
 
+          for path in "${paths[@]}"; do
+            code="$(curl --max-time 45 -sS -o /dev/null -w '%{http_code}' "$origin$path" || true)"
+            echo "$path -> ${code:-000}"
+          done
+
           python3 <<'PY'
           import re
           import urllib.request
+          import urllib.error
           import xml.etree.ElementTree as ET
 
           origin='https://texasdefined.com'
@@ -73,9 +79,12 @@ jobs:
 
           def get(path):
               req=urllib.request.Request(origin+path, headers={'User-Agent':'TexasDefinedRoadSystemSmoke/1.0'})
-              with urllib.request.urlopen(req, timeout=45) as response:
-                  assert response.status == 200, (path, response.status)
-                  return response.read().decode('utf-8', errors='replace')
+              try:
+                  with urllib.request.urlopen(req, timeout=45) as response:
+                      assert response.status == 200, (path, response.status)
+                      return response.read().decode('utf-8', errors='replace')
+              except urllib.error.HTTPError as exc:
+                  raise AssertionError(f'{path} returned HTTP {exc.code}') from exc
 
           def robots(html):
               return [m.group(1).lower() for m in re.finditer(r'<meta[^>]+name=["\']robots["\'][^>]+content=["\']([^"\']+)', html, re.I)]
