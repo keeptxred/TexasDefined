@@ -10,11 +10,15 @@ import {
 } from "@/components/directories/TexasCountyPropertyDirectory";
 import { Container } from "@/components/layout/Container";
 import { loadTexasCountyComparison } from "@/data/county-comparison";
+import { COUNTY_PROPERTY_RECORDS } from "@/data/property/county-property-data";
+import { isCountyPropertyIndexReady } from "@/data/property/county-property-schema";
 import { TEXAS_COUNTIES } from "@/data/texas-places";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const description =
-  "Compare all 254 Texas counties by county seat, Census population, land area and communities, then continue to county property-tax guides and official local resources.";
+  "Compare all 254 Texas counties by county seat, Census population, land area and communities, then continue to verified county property-tax guides and official local resources.";
+const verifiedPropertyCounties = COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady);
+const verifiedPropertySlugs = verifiedPropertyCounties.map((county) => county.slug);
 
 export const Route = createFileRoute("/browse/counties")({
   loader: () => loadTexasCountyComparison(),
@@ -44,9 +48,9 @@ export const Route = createFileRoute("/browse/counties")({
             {
               "@type": "ItemList",
               "@id": `${pageUrl}#counties`,
-              name: "Texas county comparison and property-tax guides",
-              numberOfItems: TEXAS_COUNTIES.length,
-              itemListElement: TEXAS_COUNTIES.map((county, index) => ({
+              name: "Verified Texas county property-tax guides",
+              numberOfItems: verifiedPropertyCounties.length,
+              itemListElement: verifiedPropertyCounties.map((county, index) => ({
                 "@type": "ListItem",
                 position: index + 1,
                 url: absoluteUrl(texasDefinedBrand, `/property-tax/county/${county.slug}`),
@@ -87,8 +91,8 @@ function CountyDirectoryPage() {
       title="How to use the county property-tax directory"
       items={[
         { question: "How many counties are covered?", answer: `All ${TEXAS_COUNTIES.length.toLocaleString("en-US")} Texas counties are represented in the comparison and directory.` },
-        { question: "What can I compare?", answer: "Use county seat, 2020 Census population, land area and referenced communities for statewide orientation, then open the county guide for local context." },
-        { question: "Does a county average determine property taxes?", answer: "No. Property taxes depend on the exact property, taxable value and every taxing unit serving that address. Use the linked county property-tax guide as a starting point, then verify the parcel locally." },
+        { question: "What can I compare?", answer: "Use county seat, 2020 Census population, land area and referenced communities for statewide orientation. Verified local property-tax guides open directly; other counties continue to the substantive county reference until local sources are current." },
+        { question: "Does a county average determine property taxes?", answer: "No. Property taxes depend on the exact property, taxable value and every taxing unit serving that address. Use a verified county property-tax guide as a starting point, then verify the parcel locally." },
         { question: "Are Texas Defined tax figures official?", answer: "No. Texas Defined organizes Texas State Library and U.S. Census Bureau data and explains public tax information, but official local records remain the source of truth for current county services, property accounts, appraisal values, tax bills and deadlines." },
       ]}
     />
@@ -102,12 +106,12 @@ function CountyDirectoryPage() {
           { name: 'Texas State Library and Archives Commission county-seat reference', url: 'https://www.tsl.texas.gov/ref/abouttx/countyseats.html' },
           { name: 'U.S. Census Bureau TIGERweb county data', url: 'https://tigerweb.geo.census.gov/arcgis/rest/services/Census2020/State_County/MapServer/1' },
         ]}
-        methodology="Texas Defined matches all 254 county records to Texas county FIPS identifiers, then uses the state county-seat reference and Census county dataset for county seat, 2020 population and land area. Missing upstream values are shown as pending rather than inferred."
+        methodology="Texas Defined matches all 254 county records to Texas county FIPS identifiers, then uses the state county-seat reference and Census county dataset for county seat, 2020 population and land area. Missing upstream values are shown as pending rather than inferred. Local property-tax child pages are promoted only after the separate local-source verification gate passes."
         lastVerified="Source data is fetched from the cited state and federal references when the comparison loads; individual local-service details are verified separately on county and property pages."
         title="County comparison sources and methodology"
       />
     </Container>
-    <TexasCountyPropertyDirectory />
+    <TexasCountyPropertyDirectory verifiedPropertySlugs={verifiedPropertySlugs} />
   </>;
 }
 
