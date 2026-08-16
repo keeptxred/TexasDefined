@@ -13,23 +13,19 @@ import { editorialDeskById, editorialDesks } from "../editorial-desks";
 import { supplementalExploreCategories } from "../explore-categories";
 import { guideHref } from "../guide-links";
 import type { Article, ArticleBlock, SearchDocument } from "../types";
-import { andrewsCountyAndrewsOilShafterLakeArticle } from "./andrews-county-andrews-oil-shafter-lake";
 import { brewsterCountyBigBendArticle } from "./brewster-county-big-bend";
 import { culbersonCountyVanHornGuadalupeMountainsArticle } from "./culberson-county-van-horn-guadalupe-mountains";
-import { ectorCountyOdessaOilStonehengeArticle } from "./ector-county-odessa-oil-stonehenge";
 import { elPasoCountyPassMissionsBorderlandsArticle } from "./el-paso-county-pass-missions-borderlands";
 import { exploreFeatureArticles } from "./explore-feature-articles";
 import { newestEvergreenArticles } from "./newest-evergreen";
 import { lazyEvergreenArticleStubs, loadLazyEvergreenArticle } from "./lazy-evergreen";
 import { standaloneEvergreenStubs, loadStandaloneEvergreenArticle } from "./lazy-standalone-evergreen";
+import { countySeriesArticleStubs, loadCountySeriesArticleBySlug } from "./lazy-county-series";
 import { coreEvergreenArticleStubs, loadCoreEvergreenArticle } from "./lazy-core-evergreen";
 import { hudspethCountySierraBlancaSaltFlatsArticle } from "./hudspeth-county-sierra-blanca-salt-flats";
 import { jeffDavisCountyFortDavisMountainsArticle } from "./jeff-davis-county-fort-davis-mountains";
 import { migratedEditorialArticles } from "./migrated-editorial";
-import { pecosCountyFortStocktonComancheSpringsArticle } from "./pecos-county-fort-stockton-comanche-springs";
 import { presidioCountyMarfaBorderlandsArticle } from "./presidio-county-marfa-borderlands";
-import { reevesCountyPecosBalmorheaArticle } from "./reeves-county-pecos-balmorhea";
-import { wardCountyMonahansSandhillsArticle } from "./ward-county-monahans-sandhills";
 import {
   articles,
   categories,
@@ -48,11 +44,7 @@ import {
 
 const editorialArticles = [
   ...exploreFeatureArticles,
-  andrewsCountyAndrewsOilShafterLakeArticle,
-  ectorCountyOdessaOilStonehengeArticle,
-  wardCountyMonahansSandhillsArticle,
-  pecosCountyFortStocktonComancheSpringsArticle,
-  reevesCountyPecosBalmorheaArticle,
+  ...countySeriesArticleStubs,
   elPasoCountyPassMissionsBorderlandsArticle,
   hudspethCountySierraBlancaSaltFlatsArticle,
   culbersonCountyVanHornGuadalupeMountainsArticle,
@@ -186,6 +178,9 @@ export const fixtureArticles: ArticleRepository = {
 
     const standaloneArticle = await loadStandaloneEvergreenArticle(scope.brandId, slug);
     if (standaloneArticle) return normalizeArticle(standaloneArticle);
+
+    const countySeriesArticle = await loadCountySeriesArticleBySlug(scope.brandId, slug);
+    if (countySeriesArticle) return normalizeArticle(countySeriesArticle);
 
     const article = byBrand(editorialArticles, scope.brandId).find((a) => a.slug === slug) ?? null;
     return article ? normalizeArticle(article) : null;
