@@ -3,10 +3,28 @@ name: Destination indexing smoke
 on:
   push:
     branches: [main]
+    paths:
+      - '.github/workflows/destination-indexing-smoke.yml'
+      - 'src/routes/destination.$slug.tsx'
+      - 'src/routes/sitemap-explore[.]xml.ts'
+      - 'src/data/destination-audit.ts'
+      - 'src/data/destination-availability.ts'
+      - 'src/data/destination-curation-all.ts'
+      - 'src/data/destination-quality.ts'
+      - 'src/data/explore-core-remote.ts'
+      - 'src/data/explore-remote.ts'
+      - 'src/data/explore-hero-reconciliation.ts'
+      - 'src/data/explore-heroes.ts'
+      - 'src/data/state-park-heroes.ts'
+      - 'src/data/fixtures/texas.ts'
   workflow_dispatch:
 
 permissions:
   contents: read
+
+concurrency:
+  group: destination-indexing-smoke-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   smoke:
