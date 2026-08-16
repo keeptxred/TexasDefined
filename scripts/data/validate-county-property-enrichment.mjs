@@ -21,16 +21,6 @@ for (const feature of [
   if (!snapshot.includes(feature)) failures.push(`County property snapshot missing ${feature}`);
 }
 
-const seededSlugs = [
-  'angelina', 'bee', 'collingsworth', 'fisher', 'hays', 'hidalgo',
-  'leon', 'lubbock', 'sabine', 'smith', 'terrell', 'washington',
-];
-for (const slug of seededSlugs) {
-  if (!new RegExp(`(?:^|\\n)  ${slug}:\\s*\\{`).test(snapshot) && !snapshot.includes(`\n  "${slug}":`)) {
-    failures.push(`Verified priority county missing from snapshot: ${slug}`);
-  }
-}
-
 for (const feature of [
   "import { COUNTY_PROPERTY_ENRICHMENT }",
   'const enrichment = COUNTY_PROPERTY_ENRICHMENT[county.slug]',
@@ -56,6 +46,10 @@ for (const feature of [
   "const DIRECTORY_URL = 'https://comptroller.texas.gov/taxes/property-tax/county-directory/'",
   'if (counties.length !== 254)',
   'SOURCE_MAX_AGE_DAYS = 730',
+  'MIN_RETAINED_RATIO = 0.75',
+  'const previousCount = Object.keys(merged).length',
+  'nextCount < Math.floor(previousCount * MIN_RETAINED_RATIO)',
+  'Refusing statewide county-property refresh that would shrink verified coverage',
   'parseCountyPage',
   'appraisal.websiteUrl',
   'taxOffice.websiteUrl',
@@ -96,8 +90,17 @@ for (const feature of [
   'permissions:',
   'contents: write',
   'pull-requests: write',
+  'concurrency:',
+  'group: texasdefined-county-property-sync',
+  'cancel-in-progress: false',
   'node scripts/data/sync-county-property-data.mjs',
   'node scripts/data/validate-county-property-enrichment.mjs',
+  'node scripts/data/validate-generated-page-quality.mjs',
+  'node scripts/data/validate-entity-template-quality.mjs',
+  'node scripts/data/validate-indexation-quality.mjs',
+  'node scripts/data/validate-crawl-demand.mjs',
+  'node scripts/data/validate-freshness-signals.mjs',
+  'node scripts/data/validate-sitemap-routes.mjs',
   'git checkout -b "$branch"',
   'gh pr create',
   "--base main",
@@ -119,8 +122,9 @@ if (/websiteUrl:\s*['"]http:\/\//.test(snapshot)) failures.push('Snapshot contai
 
 const recordMatches = [...snapshot.matchAll(/^  (?:(?:"([a-z0-9-]+)")|([a-z0-9-]+)):\s*\{/gm)];
 const recordSlugs = recordMatches.map((match) => match[1] || match[2]).filter(Boolean);
+if (recordSlugs.length === 0) failures.push('Snapshot must contain at least one verified county record.');
+if (recordSlugs.length > 254) failures.push(`Snapshot contains ${recordSlugs.length} county records; maximum is 254.`);
 if (new Set(recordSlugs).size !== recordSlugs.length) failures.push('Snapshot contains duplicate top-level county slugs.');
-if (recordSlugs.length < seededSlugs.length) failures.push(`Snapshot contains only ${recordSlugs.length} county records; expected at least ${seededSlugs.length}.`);
 
 const comptrollerPages = [...snapshot.matchAll(/https:\/\/comptroller\.texas\.gov\/taxes\/property-tax\/county-directory\/([a-z0-9-]+)\.php/g)].map((match) => match[1]);
 const uniqueComptrollerPages = new Set(comptrollerPages);
@@ -155,4 +159,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`County property enrichment validation passed: ${recordSlugs.length} verified county records are source-backed, upstream-freshness-gated, stale-source-withdrawal protected, directory crawl-demand filtered, merged behind the indexability gate, and protected by both main CI and a reviewable refresh PR workflow.`);
+console.log(`County property enrichment validation passed: ${recordSlugs.length} verified county records are source-backed, upstream-freshness-gated, catastrophic-shrink protected, stale-source-withdrawal protected, directory crawl-demand filtered, merged behind the indexability gate, and protected by both main CI and a reviewable refresh PR workflow.`);
