@@ -102,6 +102,9 @@ jobs:
             /county/travis \
             /texas-symbols \
             /texas-explained \
+            /property-tax/counties \
+            /property-tax/county/lubbock \
+            /property-tax/county/harris \
             /article/texas-aquifers-springs-explained \
             /article/texas-prairies-grasslands-guide \
             /article/texas-main-street-downtowns-guide \
@@ -120,16 +123,44 @@ jobs:
           }
 
           python3 <<'PY'
+          import re
+          import urllib.request
+
+          def get(path):
+              req=urllib.request.Request('https://texasdefined.com'+path, headers={'User-Agent':'TexasDefinedProductionSmoke/1.0'})
+              with urllib.request.urlopen(req, timeout=45) as response:
+                  return response.read().decode('utf-8', errors='replace')
+
+          def robots_values(html):
+              return [m.group(1).lower() for m in re.finditer(r'<meta[^>]+name=["\']robots["\'][^>]+content=["\']([^"\']+)', html, re.I)]
+
+          directory=get('/property-tax/counties')
+          lubbock=get('/property-tax/county/lubbock')
+          harris=get('/property-tax/county/harris')
+          assert 'Texas property tax by county' in directory, 'Property-tax directory title/content missing in production HTML'
+          assert not any('noindex' in value for value in robots_values(directory)), 'Property-tax directory unexpectedly noindex'
+          assert 'Lubbock County' in lubbock, 'Verified Lubbock property-tax guide content missing'
+          assert not any('noindex' in value for value in robots_values(lubbock)), 'Verified Lubbock property-tax guide unexpectedly noindex'
+          assert 'Harris County' in harris, 'Unverified Harris property-tax route did not render expected county content'
+          assert any('noindex' in value for value in robots_values(harris)), 'Unverified Harris property-tax guide must remain noindex'
+          print('Production property-tax index/noindex behavior verified for directory, Lubbock and Harris.')
+          PY
+
+          python3 <<'PY'
           import urllib.request
           import xml.etree.ElementTree as ET
 
           required = {
               'https://texasdefined.com/texas-explained',
+              'https://texasdefined.com/property-tax/county/lubbock',
               'https://texasdefined.com/article/texas-aquifers-springs-explained',
               'https://texasdefined.com/article/texas-prairies-grasslands-guide',
               'https://texasdefined.com/article/texas-main-street-downtowns-guide',
               'https://texasdefined.com/article/texas-railroads-town-growth-explained',
               'https://texasdefined.com/article/texas-rural-wells-water-guide',
+          }
+          forbidden = {
+              'https://texasdefined.com/property-tax/county/harris',
           }
           seen = set()
           queue = ['https://texasdefined.com/sitemap.xml']
@@ -150,8 +181,10 @@ jobs:
               else:
                   seen.update(locs)
           missing = sorted(required - seen)
-          assert not missing, f'Missing Texas Explained URLs from production sitemap graph: {missing}'
-          print(f'Production sitemap discovery verified for {len(required)} Texas Explained URLs across {len(visited)} sitemap document(s).')
+          leaked = sorted(forbidden & seen)
+          assert not missing, f'Missing required URLs from production sitemap graph: {missing}'
+          assert not leaked, f'Unverified property-tax URLs leaked into production sitemap graph: {leaked}'
+          print(f'Production sitemap discovery verified for {len(required)} required URLs and {len(forbidden)} intentionally excluded URL across {len(visited)} sitemap document(s).')
           PY
 
           headers="$(mktemp)"
