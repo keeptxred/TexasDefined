@@ -8,6 +8,7 @@ const exploreDiscovery = read('src/components/editorial/ExploreDiscovery.tsx');
 const texasLifeDiscovery = read('src/components/editorial/TexasLifeDiscovery.tsx');
 const categoryPage = read('src/components/editorial/CategoryPage.tsx');
 const calculatorPage = read('src/components/calculators/CalculatorPage.tsx');
+const financialToolsHub = read('src/routes/decide.financial-tools.tsx');
 const destinationPlanner = read('src/components/editorial/DestinationVisitPlanner.tsx');
 const destinationRelationships = read('src/components/editorial/DestinationRelationships.tsx');
 const texasExplainedContext = read('src/components/editorial/TexasExplainedContextLinks.tsx');
@@ -32,6 +33,23 @@ for (const target of ['/property', '/decide/financial-tools', '/browse/cities', 
 
 for (const target of ['/decide/financial-tools', '/property', '/browse/counties', '/moving-to-texas', '/browse/cities']) {
   if (!calculatorPage.includes(`to="${target}"`)) failures.push(`Calculator pages must link to ${target}.`);
+}
+
+for (const target of [
+  '/texas-mortgage-calculator',
+  '/texas-home-affordability-calculator',
+  '/texas-down-payment-calculator',
+  '/texas-closing-cost-calculator',
+  '/texas-mortgage-payoff-calculator',
+  '/texas-salary-calculator',
+  '/texas-utility-cost-calculator',
+]) {
+  if (!financialToolsHub.includes(`'${target}'`) && !financialToolsHub.includes(`"${target}"`)) {
+    failures.push(`Financial-tools hub must keep an inbound discovery link to ${target}.`);
+  }
+}
+for (const marker of ["'@type': 'ItemList'", 'itemListElement: sections.map', 'numberOfItems: sections.length']) {
+  if (!financialToolsHub.includes(marker)) failures.push(`Financial-tools hub structured discovery contract is missing ${marker}.`);
 }
 
 for (const token of ['to="/explore/$category"', '/explore/trip-planner?destination=', 'to="/explore"', 'to="/browse/cities"']) {
@@ -96,4 +114,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Internal-link discovery pathways, Texas Explained links from Texas Life, county profiles, Guidebook, destination pages, fishing and sports venues, calculator/destination cross-links and Explore sitemap coverage are protected.');
+console.log('Internal-link discovery pathways, Texas Explained links from Texas Life, county profiles, Guidebook, destination pages, fishing and sports venues, calculator hub inbound/outbound discovery, structured calculator collection links and Explore sitemap coverage are protected.');
