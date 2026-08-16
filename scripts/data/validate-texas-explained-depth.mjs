@@ -63,15 +63,18 @@ for (const marker of [
 for (const marker of [
   'const childSupportSlugs = [',
   'const depthSlugs = [',
-  'const collectionSlugs = [...pillarSlugs, ...childSupportSlugs, ...depthSlugs]',
+  'const riverProfileSlugs = [',
+  'const collectionSlugs = [...pillarSlugs, ...childSupportSlugs, ...depthSlugs, ...riverProfileSlugs]',
   'supportArticles: orderedArticles(catalog, childSupportSlugs)',
   'depthArticles: orderedArticles(catalog, depthSlugs)',
+  'riverProfiles: orderedArticles(catalog, riverProfileSlugs)',
   '<DepthGrid articles={supportArticles} label="Supporting explainers" />',
   '<DepthGrid articles={depthArticles} label="Deeper guides" />',
-  '10 core guides · 10 deeper explainers',
-  'Ten focused explainers behind the core guides',
+  '<DepthGrid articles={riverProfiles} label="Major river profiles" />',
+  '10 core guides · 15 deeper explainers',
+  'Fifteen focused explainers behind the core guides',
 ]) {
-  if (!hub.includes(marker)) errors.push(`Texas Explained 20-article hub discovery contract missing: ${marker}`);
+  if (!hub.includes(marker)) errors.push(`Texas Explained 25-article hub discovery contract missing: ${marker}`);
 }
 
 for (const marker of [
@@ -117,4 +120,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Texas Explained depth validation passed: ten source-backed support/depth articles are hub-visible, lazy registered, collection-oriented on article pages, mobile-safe, and retain two-layer support coverage across all 10 pillars.');
+console.log('Texas Explained depth validation passed: ten source-backed support/depth articles remain hub-visible, lazy registered, collection-oriented and mobile-safe while the hub expands to a 25-article collection with five additional river profiles.');
