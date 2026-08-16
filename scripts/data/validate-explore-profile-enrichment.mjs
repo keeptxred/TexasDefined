@@ -125,8 +125,10 @@ if (llms.includes('id=lake:caddo-lake')) errors.push('AI discovery guidance stil
 for (const feature of [
   'fetchExploreDestinations({ limit: 5000 })',
   'fetchCoreExploreDestinations({ limit: 5000 })',
-  'let enrichedFailed = false',
-  'let coreFailed = false',
+  'const remoteConfigured = hasExploreRemoteData()',
+  'let enrichedFailed = !remoteConfigured',
+  'let coreFailed = !remoteConfigured',
+  'if (remoteConfigured)',
   'const bothRemoteSourcesUnavailable = enrichedFailed && coreFailed',
   'mergeDestinationSources(coreDestinations, enrichedDestinations)',
   '? fixtureDestinations',
@@ -172,4 +174,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Explore enrichment, grouped planning, ranked search, AI discovery, merged-source quality-gated sitemap freshness, authority, relationship discovery with Texas Explained fallback, public-view fallback, and fixture resilience passed.');
+console.log('Explore enrichment, grouped planning, ranked search, AI discovery, remote-configuration-aware merged-source quality-gated sitemap freshness, authority, relationship discovery with Texas Explained fallback, public-view fallback, and fixture resilience passed.');
