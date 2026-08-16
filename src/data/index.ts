@@ -2,8 +2,6 @@ import type { BrandId } from "@/brand/types";
 
 import { countySlugForLegacyArticle, isLegacyCountySeriesArticle } from "./county-series";
 import { fixturePlatform } from "./fixtures/repositories";
-import { randallCountyCanyonPaloDuroArticle } from "./fixtures/randall-county-canyon-palo-duro";
-import { tomGreenCountySanAngeloConchoArticle } from "./fixtures/tom-green-county-san-angelo-concho";
 import type { PlatformRepositories } from "./repositories";
 import type { Article, ArticleBlock, SearchDocument } from "./types";
 
@@ -18,6 +16,8 @@ import type { Article, ArticleBlock, SearchDocument } from "./types";
  */
 
 const TEXAS_UNDERGROUND_SLUG = "texas-caverns-caves-first-timers-guide";
+const RANDALL_COUNTY_ARTICLE_SLUG = "randall-county-canyon-palo-duro-texas";
+const TOM_GREEN_COUNTY_ARTICLE_SLUG = "tom-green-county-san-angelo-concho-texas";
 const ARTICLE_SLUG_ALIASES: Partial<Record<string, string>> = {
   "el-paso-county-pass-missions-borderlands-texas": "el-paso-county-missions-rio-grande-texas",
 };
@@ -197,12 +197,20 @@ const normalizeArticle = (article: Article): Article => {
   };
 };
 
+const loadDirectTexasDefinedArticles = async () => {
+  const [tomGreenModule, randallModule] = await Promise.all([
+    import("./fixtures/tom-green-county-san-angelo-concho"),
+    import("./fixtures/randall-county-canyon-palo-duro"),
+  ]);
+  return [tomGreenModule.tomGreenCountySanAngeloConchoArticle, randallModule.randallCountyCanyonPaloDuroArticle];
+};
+
 const articleRepository = {
   async list(query: Parameters<typeof fixturePlatform.articles.list>[0]) {
     const rows = (await fixturePlatform.articles.list(query)).filter((article) => !isLegacyCountySeriesArticle(article.slug));
     if (query.brandId !== "texasdefined") return rows.map(normalizeArticle);
 
-    const directArticles = [tomGreenCountySanAngeloConchoArticle, randallCountyCanyonPaloDuroArticle];
+    const directArticles = await loadDirectTexasDefinedArticles();
     const eligibleDirect = directArticles.filter((article) =>
       !isLegacyCountySeriesArticle(article.slug) &&
       (!query.category || query.category === article.category) &&
@@ -224,10 +232,12 @@ const articleRepository = {
         const { caddoLakeCypressMorningArticle } = await import("./fixtures/caddo-lake-cypress-morning");
         return normalizeArticle(caddoLakeCypressMorningArticle);
       }
-      if (slug === randallCountyCanyonPaloDuroArticle.slug) {
+      if (slug === RANDALL_COUNTY_ARTICLE_SLUG) {
+        const { randallCountyCanyonPaloDuroArticle } = await import("./fixtures/randall-county-canyon-palo-duro");
         return normalizeArticle(randallCountyCanyonPaloDuroArticle);
       }
-      if (slug === tomGreenCountySanAngeloConchoArticle.slug) {
+      if (slug === TOM_GREEN_COUNTY_ARTICLE_SLUG) {
+        const { tomGreenCountySanAngeloConchoArticle } = await import("./fixtures/tom-green-county-san-angelo-concho");
         return normalizeArticle(tomGreenCountySanAngeloConchoArticle);
       }
     }
