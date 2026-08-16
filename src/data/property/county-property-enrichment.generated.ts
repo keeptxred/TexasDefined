@@ -92,11 +92,32 @@ export const COUNTY_PROPERTY_ENRICHMENT: Record<string, CountyPropertyEnrichment
     lastVerifiedAt: '2026-08-16',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/lubbock.php', 'https://www.lubbockcad.org', 'https://www.lubbockcounty.gov'],
   },
+  sabine: {
+    appraisalDistrict: { name: 'Tina Ford', websiteUrl: 'https://www.southwestdatasolution.com', phone: '409-787-2777', address: '1920 Worth St., Hemphill, TX 75948-9998', email: 'sabinecad@windstream.net' },
+    taxOffice: { name: 'Martha M. Stone', websiteUrl: 'https://www.co.sabine.tx.us', phone: '409-787-2257', address: '213 Market St., Hemphill, TX 75948', email: 'martha.stone@co.sabine.tx.us' },
+    links: { appraisalDistrictUrl: 'https://www.southwestdatasolution.com', taxOfficeUrl: 'https://www.co.sabine.tx.us' },
+    lastVerifiedAt: '2026-08-16',
+    sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/sabine.php', 'https://www.southwestdatasolution.com', 'https://www.co.sabine.tx.us'],
+  },
+  smith: {
+    appraisalDistrict: { name: 'Carol McNeil', websiteUrl: 'https://www.smithcad.org', phone: '903-510-8600', address: '245 S. S.E. Loop 323, Tyler, TX 75702-6456', email: 'chiefappraiser@scad.org' },
+    taxOffice: { name: 'Gary B. Barber', websiteUrl: 'https://www.smith-county.com', phone: '903-590-2920', address: '1517 W. Front St., Tyler, TX 75702-7822', email: 'taxoffice@smith-county.com' },
+    links: { appraisalDistrictUrl: 'https://www.smithcad.org', taxOfficeUrl: 'https://www.smith-county.com' },
+    lastVerifiedAt: '2026-08-16',
+    sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/smith.php', 'https://www.smithcad.org', 'https://www.smith-county.com'],
+  },
   terrell: {
     appraisalDistrict: { name: 'Blain Chriesman', websiteUrl: 'https://www.terrellcad.org', phone: '432-345-2251', address: '302 N. 2nd St., Sanderson, TX 79848', email: 'tcad@terrell.esc18.net' },
     taxOffice: { name: 'Thad Cleveland', websiteUrl: 'https://www.co.terrell.tx.us', phone: '432-345-2499', address: '105 E. Hackberry St., Sanderson, TX 79848', email: 'thad.cleveland@co.terrell.tx.us' },
     links: { appraisalDistrictUrl: 'https://www.terrellcad.org', taxOfficeUrl: 'https://www.co.terrell.tx.us' },
     lastVerifiedAt: '2026-08-16',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/terrell.php', 'https://www.terrellcad.org', 'https://www.co.terrell.tx.us'],
+  },
+  washington: {
+    appraisalDistrict: { name: 'Dyann White', websiteUrl: 'https://www.washingtoncad.org', phone: '979-277-3740', address: '1301 Niebuhr St., Brenham, TX 77833-5031', email: 'wcad@brenhamk-12.net' },
+    taxOffice: { name: 'Cheryl Gaskamp', websiteUrl: 'https://www.co.washington.tx.us', phone: '979-277-6200', address: '100 E. Main St., Suite 100, Brenham, TX 77833-3701', email: 'cgaskamp@washingtoncountytx.gov' },
+    links: { appraisalDistrictUrl: 'https://www.washingtoncad.org', taxOfficeUrl: 'https://www.co.washington.tx.us' },
+    lastVerifiedAt: '2026-08-16',
+    sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/washington.php', 'https://www.washingtoncad.org', 'https://www.co.washington.tx.us'],
   },
 };
