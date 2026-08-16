@@ -26,9 +26,13 @@ for (const feature of [
   'categories.find((category) => category.slug === destination.category)?.name',
   'const audit = auditDestination(destination)',
   'const indexable = audit.readyForIndexing && isPrimaryTripPlannerDestination(destination)',
-  '{ name: "robots", content: "noindex, follow" }',
+  'robots: indexable ? undefined : "noindex, follow"',
 ]) {
   if (!destinationRoute.includes(feature)) errors.push(`Destination integrity feature missing: ${feature}.`);
+}
+
+if (destinationRoute.includes('...(!indexable ? [{ name: "robots", content: "noindex, follow" }] : [])')) {
+  errors.push('Destination metadata must not emit conflicting default-index and appended-noindex robots directives.');
 }
 
 for (const feature of [
@@ -141,4 +145,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Article and destination data, indexing quality gate, visit-planner, relationship, breadcrumb, and entity graph integrity validation passed.');
+console.log('Article and destination data, single robots policy, indexing quality gate, visit-planner, relationship, breadcrumb, and entity graph integrity validation passed.');
