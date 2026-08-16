@@ -6,6 +6,7 @@ const OUTPUT = path.join(process.cwd(), 'src', 'data', 'property', 'county-prope
 const USER_AGENT = 'TexasDefined county property verifier/1.0';
 const CONCURRENCY = 8;
 const SOURCE_MAX_AGE_DAYS = 730;
+const MIN_RETAINED_RATIO = 0.75;
 
 const directoryHtml = await fetchText(DIRECTORY_URL);
 const counties = parseCountyDirectory(directoryHtml);
@@ -35,6 +36,7 @@ try {
   const existing = await fs.readFile(OUTPUT, 'utf8');
   merged = parseExistingSnapshot(existing);
 } catch {}
+const previousCount = Object.keys(merged).length;
 
 for (const { county, fetched, enrichment } of results) {
   if (enrichment) merged[county.slug] = enrichment;
@@ -42,10 +44,15 @@ for (const { county, fetched, enrichment } of results) {
 }
 
 const ordered = Object.fromEntries(Object.entries(merged).sort(([a], [b]) => a.localeCompare(b)));
+const nextCount = Object.keys(ordered).length;
+if (!requested && previousCount >= 4 && nextCount < Math.floor(previousCount * MIN_RETAINED_RATIO)) {
+  throw new Error(`Refusing statewide county-property refresh that would shrink verified coverage from ${previousCount} to ${nextCount}. This likely indicates an upstream markup/parser failure; investigate before accepting a large withdrawal.`);
+}
+
 await fs.writeFile(OUTPUT, renderSnapshot(ordered));
 const refreshed = results.filter((item) => item.enrichment).length;
 const withdrawn = results.filter((item) => item.fetched && !item.enrichment).length;
-console.log(`County property snapshot now contains ${Object.keys(ordered).length} verified counties; refreshed ${refreshed}; withheld or withdrew ${withdrawn} because required office data was missing or stale.`);
+console.log(`County property snapshot now contains ${nextCount} verified counties; refreshed ${refreshed}; withheld or withdrew ${withdrawn} because required office data was missing or stale.`);
 
 function parseCountyDirectory(html) {
   const items = [];
