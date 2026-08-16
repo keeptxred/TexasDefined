@@ -1,0 +1,122 @@
+name: Texas Explained reservoir profile smoke
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'src/data/fixtures/texas-explained-reservoir-profile-stubs.ts'
+      - 'src/data/fixtures/texas-explained-reservoir-profiles.ts'
+      - 'src/data/fixtures/lazy-evergreen.ts'
+      - 'src/data/fixtures/newest-evergreen.ts'
+      - 'src/routes/texas-explained.tsx'
+      - '.github/workflows/texas-explained-reservoir-profile-smoke.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: texas-explained-reservoir-profile-smoke
+  cancel-in-progress: true
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Verify reservoir profiles after deployment
+        shell: bash
+        run: |
+          set -euo pipefail
+          origin='https://texasdefined.com'
+          paths=(
+            '/article/lake-buchanan-water-system-guide'
+            '/article/lake-travis-water-system-guide'
+            '/article/lake-whitney-water-system-guide'
+            '/article/possum-kingdom-water-system-guide'
+            '/article/toledo-bend-water-system-guide'
+          )
+
+          deployed='false'
+          for attempt in $(seq 1 30); do
+            status="$(curl --max-time 45 -sS -o /tmp/buchanan.html -w '%{http_code}' "$origin${paths[0]}" || true)"
+            if [ "$status" = '200' ] && grep -Fq 'Lake Buchanan Explained' /tmp/buchanan.html; then
+              deployed='true'
+              echo "Reservoir-profile deployment detected on attempt $attempt."
+              break
+            fi
+            echo "Reservoir profiles not deployed yet (attempt $attempt/30; status ${status:-000})."
+            sleep 10
+          done
+          test "$deployed" = 'true' || { echo 'Reservoir profiles did not deploy within retry window.' >&2; exit 1; }
+
+          python3 <<'PY'
+          import re
+          import urllib.request
+          import xml.etree.ElementTree as ET
+
+          origin='https://texasdefined.com'
+          paths=[
+              '/article/lake-buchanan-water-system-guide',
+              '/article/lake-travis-water-system-guide',
+              '/article/lake-whitney-water-system-guide',
+              '/article/possum-kingdom-water-system-guide',
+              '/article/toledo-bend-water-system-guide',
+          ]
+
+          def get(path):
+              req=urllib.request.Request(origin+path, headers={'User-Agent':'TexasDefinedReservoirProfileSmoke/1.0'})
+              with urllib.request.urlopen(req, timeout=45) as response:
+                  assert response.status == 200, (path, response.status)
+                  return response.read().decode('utf-8', errors='replace')
+
+          def robots(html):
+              return [m.group(1).lower() for m in re.finditer(r'<meta[^>]+name=["\']robots["\'][^>]+content=["\']([^"\']+)', html, re.I)]
+
+          def canonicals(html):
+              return re.findall(r'<link[^>]+rel=["\']canonical["\'][^>]+href=["\']([^"\']+)', html, re.I)
+
+          expected_titles={
+              paths[0]:'Lake Buchanan Explained',
+              paths[1]:'Lake Travis Explained',
+              paths[2]:'Lake Whitney Explained',
+              paths[3]:'Possum Kingdom Lake Explained',
+              paths[4]:'Toledo Bend Explained',
+          }
+          for path in paths:
+              html=get(path)
+              assert expected_titles[path] in html, f'Expected reservoir-profile title missing: {path}'
+              assert not any('noindex' in value for value in robots(html)), f'Reservoir profile unexpectedly noindex: {path}'
+              expected=origin+path
+              assert canonicals(html) == [expected], f'Canonical mismatch for {path}: {canonicals(html)}'
+              assert '/article/texas-lakes-reservoirs-explained' in html, f'Reservoir-pillar backlink missing: {path}'
+              assert '/article/texas-river-basins-guide' in html, f'Basin-guide backlink missing: {path}'
+              assert '/texas-explained' in html, f'Collection backlink missing: {path}'
+
+          hub=get('/texas-explained')
+          assert 'Reservoir water systems' in hub, 'Reservoir water-system section missing from Texas Explained hub'
+          for path in paths:
+              assert path in hub, f'Reservoir profile missing from Texas Explained hub: {path}'
+
+          seen=set()
+          queue=[origin+'/sitemap.xml']
+          visited=set()
+          while queue and len(visited) < 50:
+              url=queue.pop(0)
+              if url in visited:
+                  continue
+              visited.add(url)
+              req=urllib.request.Request(url, headers={'User-Agent':'TexasDefinedReservoirProfileSmoke/1.0'})
+              with urllib.request.urlopen(req, timeout=45) as response:
+                  payload=response.read()
+              root=ET.fromstring(payload)
+              local=root.tag.rsplit('}',1)[-1]
+              locs=[el.text.strip() for el in root.iter() if el.tag.rsplit('}',1)[-1]=='loc' and el.text]
+              if local == 'sitemapindex':
+                  queue.extend(locs)
+              else:
+                  seen.update(locs)
+          missing=[origin+path for path in paths if origin+path not in seen]
+          assert not missing, f'Reservoir profiles missing from sitemap graph: {missing}'
+          print(f'Five Texas Explained reservoir profiles verified live across routes, canonicals, hub discovery and {len(visited)} sitemap document(s).')
+          PY
