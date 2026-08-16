@@ -47,6 +47,9 @@ jobs:
       - name: Validate county property enrichment
         run: node scripts/data/validate-county-property-enrichment.mjs
 
+      - name: Validate destination indexing policy
+        run: node scripts/data/validate-destination-indexing-policy.mjs
+
       - name: Validate public route governance
         run: node scripts/data/validate-public-route-governance.mjs
 
