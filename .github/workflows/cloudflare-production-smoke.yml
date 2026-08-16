@@ -1,4 +1,4 @@
-# Permanent production verification; touching this workflow triggers a one-time post-migration smoke run.
+# Permanent production verification for Cloudflare, indexing policy, and the complete Texas Explained collection.
 name: Cloudflare production smoke
 
 on:
@@ -89,41 +89,10 @@ jobs:
           print('Workers AI image generation access verified.')
           PY
 
-      - name: Verify TexasDefined TLS, live routes, crawler discovery and www redirect
+      - name: Verify TexasDefined live indexing and complete Texas Explained collection
         shell: bash
         run: |
           set -euo pipefail
-          for path in \
-            / \
-            /robots.txt \
-            /sitemap.xml \
-            /fishing \
-            /guides \
-            /county/travis \
-            /texas-symbols \
-            /texas-explained \
-            /property-tax/counties \
-            /property-tax/county/lubbock \
-            /property-tax/county/harris \
-            /appraisal-district/lubbock-appraisal-district \
-            /tax-office/lubbock-tax-office \
-            /appraisal-district/harris-appraisal-district \
-            /tax-office/harris-tax-office \
-            /article/texas-river-basins-guide \
-            /article/texas-highway-designations-explained \
-            /article/texas-courthouse-architecture-guide \
-            /article/texas-ecoregions-habitats-guide \
-            /article/texas-settlement-patterns-explained \
-            /article/texas-aquifers-springs-explained \
-            /article/texas-prairies-grasslands-guide \
-            /article/texas-main-street-downtowns-guide \
-            /article/texas-railroads-town-growth-explained \
-            /article/texas-rural-wells-water-guide; do
-            echo "Checking https://texasdefined.com${path}"
-            curl --retry 10 --retry-all-errors --retry-delay 3 --max-time 45 -fsSL "https://texasdefined.com${path}" -o /tmp/live
-            test -s /tmp/live || { echo "Empty response for $path" >&2; exit 1; }
-          done
-
           curl --retry 5 --retry-all-errors --retry-delay 2 --max-time 45 -fsSL \
             https://texasdefined.com/robots.txt -o /tmp/robots.txt
           grep -Fq 'Sitemap: https://texasdefined.com/sitemap.xml' /tmp/robots.txt || {
@@ -134,10 +103,55 @@ jobs:
           python3 <<'PY'
           import re
           import urllib.request
+          import xml.etree.ElementTree as ET
+
+          origin='https://texasdefined.com'
+          core=[
+              'texas-rivers-explained',
+              'texas-lakes-reservoirs-explained',
+              'texas-farm-to-market-roads-explained',
+              'texas-courthouses-town-square',
+              'texas-wildflowers-guide',
+              'texas-trees-guide',
+              'texas-home-architecture-regions',
+              'buying-land-in-texas-guide',
+              'texas-wildlife-guide',
+              'texas-cultural-regions-explained',
+          ]
+          support=[
+              'texas-river-basins-guide',
+              'texas-highway-designations-explained',
+              'texas-courthouse-architecture-guide',
+              'texas-ecoregions-habitats-guide',
+              'texas-settlement-patterns-explained',
+              'texas-aquifers-springs-explained',
+              'texas-prairies-grasslands-guide',
+              'texas-main-street-downtowns-guide',
+              'texas-railroads-town-growth-explained',
+              'texas-rural-wells-water-guide',
+              'texas-brazos-river-guide',
+              'texas-colorado-river-guide',
+              'texas-guadalupe-river-guide',
+              'texas-trinity-river-guide',
+              'texas-rio-grande-river-guide',
+              'lake-buchanan-water-system-guide',
+              'lake-travis-water-system-guide',
+              'lake-whitney-water-system-guide',
+              'possum-kingdom-water-system-guide',
+              'toledo-bend-water-system-guide',
+              'texas-ranch-to-market-roads-explained',
+              'texas-loops-spurs-explained',
+              'texas-business-routes-explained',
+              'texas-park-recreational-roads-explained',
+              'texas-historic-memorial-highways-explained',
+          ]
+          all_slugs=core+support
+          assert len(all_slugs)==35 and len(set(all_slugs))==35
 
           def get(path):
-              req=urllib.request.Request('https://texasdefined.com'+path, headers={'User-Agent':'TexasDefinedProductionSmoke/1.0'})
+              req=urllib.request.Request(origin+path, headers={'User-Agent':'TexasDefinedProductionSmoke/2.0'})
               with urllib.request.urlopen(req, timeout=45) as response:
+                  assert response.status == 200, (path, response.status)
                   return response.read().decode('utf-8', errors='replace')
 
           def robots_values(html):
@@ -146,6 +160,10 @@ jobs:
           def canonical_values(html):
               return re.findall(r'<link[^>]+rel=["\']canonical["\'][^>]+href=["\']([^"\']+)', html, re.I)
 
+          for path in ['/', '/fishing', '/guides', '/county/travis', '/texas-symbols', '/texas-explained', '/property-tax/counties']:
+              html=get(path)
+              assert html.strip(), f'Empty production HTML: {path}'
+
           directory=get('/property-tax/counties')
           lubbock=get('/property-tax/county/lubbock')
           harris=get('/property-tax/county/harris')
@@ -153,99 +171,56 @@ jobs:
           lubbock_tax=get('/tax-office/lubbock-tax-office')
           harris_appraisal=get('/appraisal-district/harris-appraisal-district')
           harris_tax=get('/tax-office/harris-tax-office')
-          assert 'Texas property tax by county' in directory, 'Property-tax directory title/content missing in production HTML'
-          assert not any('noindex' in value for value in robots_values(directory)), 'Property-tax directory unexpectedly noindex'
-          assert 'Lubbock County' in lubbock, 'Verified Lubbock property-tax guide content missing'
-          assert not any('noindex' in value for value in robots_values(lubbock)), 'Verified Lubbock property-tax guide unexpectedly noindex'
-          assert 'Harris County' in harris, 'Unverified Harris property-tax route did not render expected county content'
-          assert any('noindex' in value for value in robots_values(harris)), 'Unverified Harris property-tax guide must remain noindex'
-          assert 'Lubbock' in lubbock_appraisal and not any('noindex' in value for value in robots_values(lubbock_appraisal)), 'Verified Lubbock appraisal district must be indexable'
-          assert 'Lubbock' in lubbock_tax and not any('noindex' in value for value in robots_values(lubbock_tax)), 'Verified Lubbock tax office must be indexable'
-          assert 'Harris' in harris_appraisal and any('noindex' in value for value in robots_values(harris_appraisal)), 'Unverified Harris appraisal district must remain noindex'
-          assert 'Harris' in harris_tax and any('noindex' in value for value in robots_values(harris_tax)), 'Unverified Harris tax office must remain noindex'
+          assert 'Texas property tax by county' in directory and not any('noindex' in value for value in robots_values(directory))
+          assert 'Lubbock County' in lubbock and not any('noindex' in value for value in robots_values(lubbock))
+          assert 'Harris County' in harris and any('noindex' in value for value in robots_values(harris))
+          assert 'Lubbock' in lubbock_appraisal and not any('noindex' in value for value in robots_values(lubbock_appraisal))
+          assert 'Lubbock' in lubbock_tax and not any('noindex' in value for value in robots_values(lubbock_tax))
+          assert 'Harris' in harris_appraisal and any('noindex' in value for value in robots_values(harris_appraisal))
+          assert 'Harris' in harris_tax and any('noindex' in value for value in robots_values(harris_tax))
           print('Production property-tax and local-office index/noindex behavior verified for Lubbock and Harris.')
 
           hub=get('/texas-explained')
-          pillar=get('/article/texas-rivers-explained')
-          support=get('/article/texas-river-basins-guide')
-          depth=get('/article/texas-aquifers-springs-explained')
-          for href in [
-              '/article/texas-river-basins-guide',
-              '/article/texas-highway-designations-explained',
-              '/article/texas-courthouse-architecture-guide',
-              '/article/texas-ecoregions-habitats-guide',
-              '/article/texas-settlement-patterns-explained',
-              '/article/texas-aquifers-springs-explained',
-              '/article/texas-prairies-grasslands-guide',
-              '/article/texas-main-street-downtowns-guide',
-              '/article/texas-railroads-town-growth-explained',
-              '/article/texas-rural-wells-water-guide',
-          ]:
-              assert href in hub, f'Texas Explained hub is missing direct discovery link: {href}'
-          assert 'Ten focused explainers behind the core guides' in hub, 'Texas Explained hub depth section is missing'
-          assert 'Quick answer' in pillar and 'Texas Explained · Guide' in pillar, 'Texas Explained pillar orientation/Quick Answer missing'
-          assert 'Texas Explained · Supporting explainer' in support, 'Texas Explained first-layer support orientation missing'
-          assert 'Texas Explained · Supporting explainer' in depth, 'Texas Explained depth orientation missing'
-          for path, html in [
-              ('/article/texas-rivers-explained', pillar),
-              ('/article/texas-river-basins-guide', support),
-              ('/article/texas-aquifers-springs-explained', depth),
-          ]:
+          assert '10 core guides · 25 deeper explainers' in hub, 'Texas Explained 35-article collection summary missing'
+          assert 'Twenty-five focused explainers behind the core guides' in hub, 'Texas Explained depth heading missing'
+          for slug in all_slugs:
+              path=f'/article/{slug}'
+              assert path in hub, f'Texas Explained hub missing direct discovery link: {path}'
+              html=get(path)
               assert not any('noindex' in value for value in robots_values(html)), f'{path} unexpectedly noindex'
-              canonicals=canonical_values(html)
-              expected='https://texasdefined.com'+path
-              assert canonicals == [expected], f'{path} canonical mismatch: {canonicals}'
-          print('Production Texas Explained 20-article hub discovery, collection orientation, indexability and canonical behavior verified.')
-          PY
+              assert canonical_values(html)==[origin+path], f'{path} canonical mismatch: {canonical_values(html)}'
+              assert '/texas-explained' in html, f'{path} missing collection backlink'
 
-          python3 <<'PY'
-          import urllib.request
-          import xml.etree.ElementTree as ET
+          river_parent=get('/article/texas-rivers-explained')
+          reservoir_parent=get('/article/texas-lakes-reservoirs-explained')
+          road_parent=get('/article/texas-farm-to-market-roads-explained')
+          for slug in support[10:15]:
+              assert f'/article/{slug}' in river_parent, f'River pillar missing profile link: {slug}'
+          for slug in support[15:20]:
+              assert f'/article/{slug}' in reservoir_parent, f'Reservoir pillar missing profile link: {slug}'
+          for slug in support[20:25]:
+              assert f'/article/{slug}' in road_parent, f'FM-road pillar missing road-system link: {slug}'
+          print('Production Texas Explained 35-article hub, canonical/indexability and reciprocal topology verified.')
 
-          required = {
-              'https://texasdefined.com/texas-explained',
-              'https://texasdefined.com/property-tax/county/lubbock',
-              'https://texasdefined.com/appraisal-district/lubbock-appraisal-district',
-              'https://texasdefined.com/tax-office/lubbock-tax-office',
-              'https://texasdefined.com/article/texas-river-basins-guide',
-              'https://texasdefined.com/article/texas-highway-designations-explained',
-              'https://texasdefined.com/article/texas-courthouse-architecture-guide',
-              'https://texasdefined.com/article/texas-ecoregions-habitats-guide',
-              'https://texasdefined.com/article/texas-settlement-patterns-explained',
-              'https://texasdefined.com/article/texas-aquifers-springs-explained',
-              'https://texasdefined.com/article/texas-prairies-grasslands-guide',
-              'https://texasdefined.com/article/texas-main-street-downtowns-guide',
-              'https://texasdefined.com/article/texas-railroads-town-growth-explained',
-              'https://texasdefined.com/article/texas-rural-wells-water-guide',
-          }
-          forbidden = {
-              'https://texasdefined.com/property-tax/county/harris',
-              'https://texasdefined.com/appraisal-district/harris-appraisal-district',
-              'https://texasdefined.com/tax-office/harris-tax-office',
-          }
-          seen = set()
-          queue = ['https://texasdefined.com/sitemap.xml']
-          visited = set()
-          while queue and len(visited) < 50:
-              url = queue.pop(0)
-              if url in visited:
-                  continue
+          required={origin+'/texas-explained', origin+'/property-tax/county/lubbock', origin+'/appraisal-district/lubbock-appraisal-district', origin+'/tax-office/lubbock-tax-office'}
+          required.update(origin+f'/article/{slug}' for slug in all_slugs)
+          forbidden={origin+'/property-tax/county/harris', origin+'/appraisal-district/harris-appraisal-district', origin+'/tax-office/harris-tax-office'}
+          seen=set(); queue=[origin+'/sitemap.xml']; visited=set()
+          while queue and len(visited)<50:
+              url=queue.pop(0)
+              if url in visited: continue
               visited.add(url)
-              req = urllib.request.Request(url, headers={'User-Agent':'TexasDefinedProductionSmoke/1.0'})
-              with urllib.request.urlopen(req, timeout=45) as response:
-                  payload = response.read()
-              root = ET.fromstring(payload)
-              local = root.tag.rsplit('}', 1)[-1]
-              locs = [el.text.strip() for el in root.iter() if el.tag.rsplit('}', 1)[-1] == 'loc' and el.text]
-              if local == 'sitemapindex':
-                  queue.extend(locs)
-              else:
-                  seen.update(locs)
-          missing = sorted(required - seen)
-          leaked = sorted(forbidden & seen)
+              req=urllib.request.Request(url, headers={'User-Agent':'TexasDefinedProductionSmoke/2.0'})
+              with urllib.request.urlopen(req, timeout=45) as response: payload=response.read()
+              root=ET.fromstring(payload)
+              local=root.tag.rsplit('}',1)[-1]
+              locs=[el.text.strip() for el in root.iter() if el.tag.rsplit('}',1)[-1]=='loc' and el.text]
+              if local=='sitemapindex': queue.extend(locs)
+              else: seen.update(locs)
+          missing=sorted(required-seen); leaked=sorted(forbidden & seen)
           assert not missing, f'Missing required URLs from production sitemap graph: {missing}'
-          assert not leaked, f'Unverified property-tax/local-office URLs leaked into production sitemap graph: {leaked}'
-          print(f'Production sitemap discovery verified for {len(required)} required URLs and {len(forbidden)} intentionally excluded URLs across {len(visited)} sitemap document(s).')
+          assert not leaked, f'Unverified property/local-office URLs leaked into sitemap graph: {leaked}'
+          print(f'Production sitemap verified for {len(required)} required URLs and {len(forbidden)} intentional exclusions across {len(visited)} sitemap document(s).')
           PY
 
           headers="$(mktemp)"
