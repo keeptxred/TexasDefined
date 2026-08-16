@@ -5,7 +5,7 @@ import { texasDefinedBrand } from "@/brand/texasdefined";
 import { ArticleBody } from "@/components/editorial/ArticleBody";
 import { Container } from "@/components/layout/Container";
 import { fetchPublishedTexasDefinedArticle } from "@/data/articles-remote";
-import { migratedEditorialSlugs } from "@/data/fixtures/migrated-editorial";
+import { migratedEditorialSlugs } from "@/data/fixtures/lazy-migrated-editorial";
 import { formatDate, formatReadingTime } from "@/domain/utils/format";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
