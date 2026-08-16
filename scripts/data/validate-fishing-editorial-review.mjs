@@ -12,7 +12,7 @@ const required = [
   'src/data/fishing/report-onboarding.server.ts',
   'src/data/fishing/report-validation.ts',
   'src/data/fishing/validation.ts',
-  'package.json',
+  'scripts/data/validate-fishing-report-platform.mjs',
 ];
 for (const file of required) if (!fs.existsSync(file)) failures.push(`Missing Batch 18 fishing editorial-review file: ${file}`);
 
@@ -25,7 +25,7 @@ if (!failures.length) {
   const reportOnboarding = read('src/data/fishing/report-onboarding.server.ts');
   const reportValidation = read('src/data/fishing/report-validation.ts');
   const fishingValidation = read('src/data/fishing/validation.ts');
-  const pkg = JSON.parse(read('package.json'));
+  const reportPlatformValidator = read('scripts/data/validate-fishing-report-platform.mjs');
 
   for (const marker of [
     "const GUIDE_SOURCE_PATH = '/fishing/guides/submit'",
@@ -51,7 +51,7 @@ if (!failures.length) {
   if (!reportOnboarding.includes('source_path: "/fishing/reports/submit"')) failures.push('Report onboarding source path no longer matches the editorial review queue.');
   if (!reportValidation.includes('guide.contributorApproved') || !reportValidation.includes('isFishingRecordVerified(report)')) failures.push('Public fishing report contributor/publication validation must remain independent of queue status.');
   if (!fishingValidation.includes('verified-guide') && !read('scripts/data/validate-fishing-guide-platform.mjs').includes('verifiedListing')) failures.push('Public guide verification gate must remain independent of queue status.');
-  if (!pkg.scripts?.['fishing:validate']?.includes('validate-fishing-editorial-review.mjs')) failures.push('Batch 18 validator is not wired into npm run fishing:validate.');
+  if (!reportPlatformValidator.includes("await import('./validate-fishing-editorial-review.mjs')")) failures.push('Batch 18 validator is not wired through the fishing report validation chain.');
 }
 
 if (failures.length) {
