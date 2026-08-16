@@ -1,0 +1,42 @@
+name: Fix Texas Explained duplicate heroes
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/fix-texas-explained-duplicate-heroes.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  remediate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Apply unique hero remediation
+        run: python3 scripts/data/fix-texas-explained-duplicate-heroes.py
+
+      - name: Prove site-wide editorial hero uniqueness
+        run: node scripts/data/validate-editorial-image-duplicates.mjs --all
+
+      - name: Verify Texas Explained contracts
+        run: |
+          node scripts/data/validate-texas-explained-seo.mjs
+          node scripts/data/validate-texas-explained-depth.mjs
+          node scripts/data/validate-texas-explained-river-profiles.mjs
+          node scripts/data/validate-texas-explained-reservoir-profiles.mjs
+          node scripts/data/validate-texas-explained-road-systems.mjs
+
+      - name: Commit remediated heroes
+        run: |
+          rm scripts/data/fix-texas-explained-duplicate-heroes.py
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/images/editorial src/data/fixtures/texas-explained-support-stubs.ts src/data/fixtures/texas-explained-support-articles.ts src/data/fixtures/texas-explained-support-stubs-2.ts src/data/fixtures/texas-explained-support-articles-2.ts src/data/fixtures/texas-explained-river-profile-stubs.ts src/data/fixtures/texas-explained-river-profiles.ts scripts/data/fix-texas-explained-duplicate-heroes.py
+          git commit -m "Give Texas Explained articles unique editorial heroes"
+          git push origin HEAD:main
