@@ -2,6 +2,8 @@ import fs from 'node:fs';
 
 const migrated = fs.readFileSync('src/data/fixtures/migrated-editorial.ts', 'utf8');
 const lazyMigrated = fs.readFileSync('src/data/fixtures/lazy-migrated-editorial.ts', 'utf8');
+const lazyCore = fs.readFileSync('src/data/fixtures/lazy-texas-core-articles.ts', 'utf8');
+const coreBodies = fs.readFileSync('src/data/fixtures/texas-core-articles.ts', 'utf8');
 const repositories = fs.readFileSync('src/data/fixtures/repositories.ts', 'utf8');
 const redirectRoute = fs.readFileSync('src/routes/news.$slug.tsx', 'utf8');
 const living = fs.readFileSync('src/routes/texas-living.tsx', 'utf8');
@@ -47,8 +49,9 @@ for (const forbidden of ['KeepTXRed', 'Keep TX Red', '/news/homestead', '/tools/
 
 for (const feature of [
   'const editorialArticles = [',
-  '...articles,',
+  '...texasCoreArticleStubs,',
   '...migratedEditorialArticleStubs,',
+  'loadTexasCoreArticle(scope.brandId, slug)',
   'loadMigratedEditorialArticle(scope.brandId, slug)',
   'byBrand(editorialArticles, query.brandId)',
   'href: `/article/${a.slug}`',
@@ -64,8 +67,27 @@ for (const feature of [
   if (!lazyMigrated.includes(feature)) errors.push(`Lazy migrated editorial wiring missing: ${feature}`);
 }
 
+for (const feature of [
+  'await import("./texas-core-articles")',
+  'texasCoreArticleStubs',
+  'loadTexasCoreArticle',
+]) {
+  if (!lazyCore.includes(feature)) errors.push(`Lazy core fixture wiring missing: ${feature}`);
+}
+
+const coreBodySlugs = [...coreBodies.matchAll(/slug: "([^"]+)"/g)].map((match) => match[1]);
+const coreStubSlugs = [...lazyCore.matchAll(/slug: "([^"]+)"/g)].map((match) => match[1]);
+if (coreBodySlugs.length !== 10 || new Set(coreBodySlugs).size !== 10) errors.push('Expected 10 unique lazy core fixture article bodies.');
+if (coreStubSlugs.length !== 10 || new Set(coreStubSlugs).size !== 10) errors.push('Expected 10 unique lazy core fixture article stubs.');
+for (const slug of coreBodySlugs) {
+  if (!coreStubSlugs.includes(slug)) errors.push(`Core fixture article stub missing: ${slug}`);
+}
+
 if (repositories.includes('from "./migrated-editorial"')) {
   errors.push('Central article repository must not eagerly import migrated editorial bodies.');
+}
+if (repositories.includes('  articles,') || repositories.includes('...articles,')) {
+  errors.push('Central article repository must not eagerly import the full texas.ts article array.');
 }
 if (redirectRoute.includes('@/data/fixtures/migrated-editorial"')) {
   errors.push('Legacy news redirect must use lightweight migrated editorial slugs.');
@@ -107,4 +129,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Seventeen lifestyle article bodies and lightweight catalog stubs, lazy detail loading, Texas Life exposure, repository search, sitemap sourcing and legacy redirects passed migration validation.');
+console.log('Seventeen migrated lifestyle articles and ten core fixture articles retain lightweight catalogs, lazy detail loading, Texas Life exposure, repository search, sitemap sourcing and legacy redirects.');
