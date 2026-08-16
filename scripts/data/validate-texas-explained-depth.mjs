@@ -64,17 +64,20 @@ for (const marker of [
   'const childSupportSlugs = [',
   'const depthSlugs = [',
   'const riverProfileSlugs = [',
-  'const collectionSlugs = [...pillarSlugs, ...childSupportSlugs, ...depthSlugs, ...riverProfileSlugs]',
+  'const reservoirProfileSlugs = [',
+  'const collectionSlugs = [...pillarSlugs, ...childSupportSlugs, ...depthSlugs, ...riverProfileSlugs, ...reservoirProfileSlugs]',
   'supportArticles: orderedArticles(catalog, childSupportSlugs)',
   'depthArticles: orderedArticles(catalog, depthSlugs)',
   'riverProfiles: orderedArticles(catalog, riverProfileSlugs)',
+  'reservoirProfiles: orderedArticles(catalog, reservoirProfileSlugs)',
   '<DepthGrid articles={supportArticles} label="Supporting explainers" />',
   '<DepthGrid articles={depthArticles} label="Deeper guides" />',
   '<DepthGrid articles={riverProfiles} label="Major river profiles" />',
-  '10 core guides · 15 deeper explainers',
-  'Fifteen focused explainers behind the core guides',
+  '<DepthGrid articles={reservoirProfiles} label="Reservoir water systems" />',
+  '10 core guides · 20 deeper explainers',
+  'Twenty focused explainers behind the core guides',
 ]) {
-  if (!hub.includes(marker)) errors.push(`Texas Explained 25-article hub discovery contract missing: ${marker}`);
+  if (!hub.includes(marker)) errors.push(`Texas Explained 30-article hub discovery contract missing: ${marker}`);
 }
 
 for (const marker of [
@@ -120,4 +123,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Texas Explained depth validation passed: ten source-backed support/depth articles remain hub-visible, lazy registered, collection-oriented and mobile-safe while the hub expands to a 25-article collection with five additional river profiles.');
+console.log('Texas Explained depth validation passed: ten source-backed support/depth articles remain hub-visible, lazy registered, collection-oriented and mobile-safe while the hub expands to a 30-article collection with five river and five reservoir profiles.');

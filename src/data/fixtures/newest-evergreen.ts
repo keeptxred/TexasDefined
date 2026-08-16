@@ -16,6 +16,11 @@ const supportLinksByPillar: Record<string, Array<{ href: string; label: string; 
   "texas-lakes-reservoirs-explained": [
     { href: "/article/texas-river-basins-guide", label: "See the basin behind the reservoir", description: "Understand the upstream watershed that feeds each reservoir and the downstream system it belongs to." },
     { href: "/article/texas-aquifers-springs-explained", label: "See the groundwater beneath the water map", description: "Compare visible reservoirs with aquifers, recharge and spring-fed surface water." },
+    { href: "/article/lake-buchanan-water-system-guide", label: "Lake Buchanan as a water system", description: "See how upper Colorado River storage anchors the Highland Lakes system." },
+    { href: "/article/lake-travis-water-system-guide", label: "Lake Travis as a water system", description: "Understand flood-control space, water storage and Mansfield Dam upstream from Austin." },
+    { href: "/article/lake-whitney-water-system-guide", label: "Lake Whitney as a water system", description: "See how one federal Brazos reservoir combines flood control, supply, hydropower and recreation." },
+    { href: "/article/possum-kingdom-water-system-guide", label: "Possum Kingdom as a water system", description: "Trace one of the Brazos basin's early multipurpose reservoir projects." },
+    { href: "/article/toledo-bend-water-system-guide", label: "Toledo Bend as a two-state water system", description: "See how Texas and Louisiana share a huge Sabine River reservoir for water and power." },
   ],
   "texas-farm-to-market-roads-explained": [
     { href: "/article/texas-highway-designations-explained", label: "Texas highway designations explained", description: "Decode FM, RM, SH, Loop, Spur, business routes, Park Roads and the rest of the state highway alphabet." },

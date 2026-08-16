@@ -39,6 +39,16 @@ const texasExplainedSupportOrder = [
   "texas-main-street-downtowns-guide",
   "texas-railroads-town-growth-explained",
   "texas-rural-wells-water-guide",
+  "texas-brazos-river-guide",
+  "texas-colorado-river-guide",
+  "texas-guadalupe-river-guide",
+  "texas-trinity-river-guide",
+  "texas-rio-grande-river-guide",
+  "lake-buchanan-water-system-guide",
+  "lake-travis-water-system-guide",
+  "lake-whitney-water-system-guide",
+  "possum-kingdom-water-system-guide",
+  "toledo-bend-water-system-guide",
 ] as const;
 const texasExplainedPillarSlugs = new Set<string>(texasExplainedPillarOrder);
 const texasExplainedSupportSlugs = new Set<string>(texasExplainedSupportOrder);
