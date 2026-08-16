@@ -7,6 +7,11 @@ const supportLinksByPillar: Record<string, Array<{ href: string; label: string; 
   "texas-rivers-explained": [
     { href: "/article/texas-river-basins-guide", label: "Texas river basins explained", description: "Go from individual rivers to the watersheds that connect tributaries, reservoirs, cities and the Gulf." },
     { href: "/article/texas-aquifers-springs-explained", label: "Texas aquifers and springs", description: "Add the groundwater systems and springs that feed many Texas rivers and communities." },
+    { href: "/article/texas-brazos-river-guide", label: "The Brazos River explained", description: "Follow Texas' highest-average-flow river from its upper-basin water pressures to the Gulf." },
+    { href: "/article/texas-colorado-river-guide", label: "The Texas Colorado River explained", description: "Connect West Texas, Hill Country tributaries, Austin and the Highland Lakes inside one basin." },
+    { href: "/article/texas-guadalupe-river-guide", label: "The Guadalupe River explained", description: "See how springs, aquifers, Canyon Lake and Hill Country growth interact in one river system." },
+    { href: "/article/texas-trinity-river-guide", label: "The Trinity River explained", description: "Read the river-and-reservoir network behind Dallas-Fort Worth and downstream water demand." },
+    { href: "/article/texas-rio-grande-river-guide", label: "The Rio Grande explained", description: "Trace Texas' largest basin through interstate, international and arid-region water constraints." },
   ],
   "texas-lakes-reservoirs-explained": [
     { href: "/article/texas-river-basins-guide", label: "See the basin behind the reservoir", description: "Understand the upstream watershed that feeds each reservoir and the downstream system it belongs to." },
