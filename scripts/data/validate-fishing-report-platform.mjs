@@ -61,3 +61,4 @@ if (!failures.length) {
 }
 if (failures.length) { console.error("Fishing report platform validation failed:"); failures.forEach((failure) => console.error(`- ${failure}`)); process.exit(1); }
 console.log("Fishing report platform validation passed: source-backed publication, contributor intake, private persistence, anti-fabrication, freshness/expiry, lake/species integrity, sponsorship independence, native lazy routing and client/server boundaries are protected.");
+await import('./validate-fishing-editorial-review.mjs');
