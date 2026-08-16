@@ -19,12 +19,15 @@ for (const feature of [
   'destinations as fixtureDestinations',
   'fetchExploreDestinations({ limit: 5000 })',
   'fetchCoreExploreDestinations({ limit: 5000 })',
-  'let remoteFailed = false',
-  'remoteFailed = true',
-  'const destinations = remoteFailed ? fixtureDestinations : remoteDestinations',
-  'if (remoteFailed && destinations.length === 0)',
+  'let enrichedFailed = false',
+  'let coreFailed = false',
+  'const bothRemoteSourcesUnavailable = enrichedFailed && coreFailed',
+  '? fixtureDestinations',
+  ': mergeDestinationSources(coreDestinations, enrichedDestinations)',
+  'if (rawDestinations.length === 0)',
   'status: 503',
   '"Retry-After": "300"',
+  'const destinations = resolveDestinationCatalog(rawDestinations)',
   'new Map(destinations.filter((item) => item.slug)',
   'isPrimaryTripPlannerDestination(destination)',
   'auditDestination(destination).readyForIndexing',
@@ -34,6 +37,9 @@ for (const feature of [
 if (exploreSitemap.includes('remoteDestinations.length ? remoteDestinations : fixtureDestinations')) {
   errors.push('Explore sitemap must not treat a healthy empty remote catalog as an outage.');
 }
+if (exploreSitemap.includes('const destinations = remoteFailed ? fixtureDestinations : remoteDestinations')) {
+  errors.push('Explore sitemap must not use the obsolete single-source outage fallback.');
+}
 
 if (errors.length) {
   console.error('Content data integrity validation failed:');
@@ -41,4 +47,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Event freshness and Explore sitemap outage-only fallback plus quality-gate validation passed.');
+console.log('Event freshness and Explore sitemap dual-source outage fallback, resolved-catalog and quality-gate validation passed.');
