@@ -18,6 +18,7 @@
     "destinations:audit:strict": "node scripts/data/audit-trip-planner-destinations.mjs --strict",
     "data:validate:editorial-images": "node scripts/data/validate-editorial-image-duplicates.mjs",
     "generated-pages:validate": "node scripts/data/validate-generated-page-quality.mjs",
+    "county-property:validate": "node scripts/data/validate-county-property-enrichment.mjs",
     "performance:validate": "node scripts/data/validate-client-bundle-budget.mjs",
     "fishing:validate": "node scripts/data/validate-fishing-platform.mjs && node scripts/data/validate-fishing-showcase-lakes.mjs && node scripts/data/validate-fishing-lakes-directory.mjs && node scripts/data/validate-fishing-guide-platform.mjs && node scripts/data/validate-fishing-report-platform.mjs && node scripts/data/validate-fishing-local-platform.mjs && node scripts/data/validate-fishing-planner-platform.mjs && node scripts/data/validate-fishing-regulations.mjs && node scripts/data/validate-fishing-seasons.mjs && node scripts/data/validate-fishing-techniques.mjs && node scripts/data/validate-fishing-species-depth.mjs && node scripts/data/validate-fishing-lake-expansion.mjs",
     "seo:validate": "node scripts/data/validate-generated-page-quality.mjs && node scripts/data/validate-public-route-governance.mjs && node scripts/data/validate-indexation-quality.mjs && node scripts/data/validate-crawl-demand.mjs && node scripts/data/validate-freshness-signals.mjs && node scripts/data/validate-machine-indexing.mjs && node scripts/data/validate-aeo-answer-layers.mjs && node scripts/data/validate-homepage-seo.mjs && node scripts/data/validate-texas-explained-seo.mjs && node scripts/data/validate-explore-category-seo.mjs && node scripts/data/validate-explore-region-seo.mjs && node scripts/data/validate-explore-topical-authority.mjs && node scripts/data/validate-article-discover-seo.mjs && node scripts/data/validate-author-eeat.mjs && node scripts/data/validate-entity-template-quality.mjs && node scripts/data/validate-image-seo.mjs && node scripts/data/validate-search-rendering-performance.mjs && node scripts/data/validate-content-duplication.mjs && node scripts/data/validate-sitemap-routes.mjs && node scripts/data/validate-internal-link-discovery.mjs && node scripts/data/validate-search-intent-ctr.mjs && node scripts/data/validate-seo-ci-contract.mjs",
@@ -28,7 +29,7 @@
     "entities:import:write": "node scripts/data/import-authoritative-entities.mjs --write",
     "entities:import:census": "node scripts/data/import-authoritative-entities.mjs --source=census",
     "entities:import:parks": "node scripts/data/import-authoritative-entities.mjs --source=tpwd",
-    "validate": "npm run seo:validate && npm run data:validate && npm run build && npm run performance:validate",
+    "validate": "npm run county-property:validate && npm run seo:validate && npm run data:validate && npm run build && npm run performance:validate",
     "explore:verify:database": "bash scripts/explore/migrate-postgres.sh"
   },
   "dependencies": {
@@ -80,7 +81,7 @@
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "^4.2.1",
-    "tw-animate-css": "^1.3.4",
+    "tw-animate-css": "^3.4.0",
     "vaul": "^1.1.2",
     "zod": "^3.24.2"
   },
@@ -93,7 +94,7 @@
     "@vitejs/plugin-react": "^5.2.0",
     "eslint": "^9.32.0",
     "eslint-config-prettier": "^10.1.1",
-    "eslint-plugin-prettier": "^5.2.6",
+    "eslint-plugin-prettier": "^5.5.4",
     "eslint-plugin-react-hooks": "5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^15.15.0",
