@@ -17,7 +17,14 @@ const dataSources = fs.readFileSync('src/data/texas-data-sources.ts', 'utf8');
 const sitemap = fs.readFileSync('src/routes/sitemap[.]xml.ts', 'utf8');
 const exploreSitemap = fs.readFileSync('src/routes/sitemap-explore[.]xml.ts', 'utf8');
 
-for (const feature of ['isCountyPropertyIndexReady','record.lastVerifiedAt','localPropertySources.length >= 2']) {
+for (const feature of [
+  'isCountyPropertyIndexReady',
+  'record.lastVerifiedAt',
+  'COUNTY_PROPERTY_VERIFICATION_MAX_AGE_DAYS',
+  'hasFreshCountyPropertyVerification',
+  'new Set([',
+  'localPropertySources.size >= 2',
+]) {
   if (!schema.includes(feature)) errors.push(`County quality gate missing: ${feature}`);
 }
 for (const feature of ['isCountyPropertyIndexReady(county)',"robots: indexReady ? undefined : 'noindex, follow'","...(county.lastVerifiedAt ? { dateModified: county.lastVerifiedAt } : {})"]) {
@@ -35,7 +42,7 @@ for (const forbiddenRanking of ['if (entity.kind === candidate.kind) score += 3'
 for (const feature of ['isIndexableEntityPage(loaderData.entity)',"robots: indexable ? undefined : 'noindex, follow, max-image-preview:large'",'loadCountyProfile(entity.slug, entity.name)','loadLocalGovernmentProfile(entity.slug, entity.name)','<CountyGuideSections entity={entity} profile={countyProfile} localGovernment={localGovernment} related={related} />',"entity.kind !== 'county' && entity.tags?.length","entity.kind !== 'county' && visibleRelated.length",'2020 Census population','Official county website']) {
   if (!entityRoute.includes(feature)) errors.push(`Rich county route contract missing: ${feature}`);
 }
-for (const feature of ['At a glance','The county in numbers','Where it is','A sense of place','County seat & communities','Places on the map','What to know','How to use this guide','Property & county services','Official local resources','Nearby places','Keep exploring','profile.population2020','profile.landAreaSquareMiles','profile.majorCommunities','localGovernment.appraisalDistrict','localGovernment.taxOffice','localGovernment.countyWebsiteUrl','CountyIdentitySection','profile.populationDensityPerSquareMile','profile.waterSharePercent','How densely populated is']) {
+for (const feature of ['At a glance','The county in numbers','Where it is','A sense of place','County seat & communities','Places on the map','What to know','How to use this guide','Property & county services','Official local resources','Nearby places','Keep exploring','profile.population2020','profile.landAreaSquareMiles','profile.majorCommunities','localGovernment.appraisalDistrict','localGovernment.taxOffice','localGovernment.countyWebsiteUrl','CountyIdentitySection','profile.populationDensityPerSquareMile','profile.waterSharePercent','How densely populated is','propertyTaxPath','getCountyPropertyRecordBySlug','isCountyPropertyIndexReady']) {
   if (!countyGuide.includes(feature)) errors.push(`County guide section missing: ${feature}`);
 }
 for (const feature of ['Verified county profile','What the data says about','populationDensityPerSquareMile','waterSharePercent','Dividing those two Census figures','structured place directory','not a claim that the list contains every incorporated place','CountyStatewideContextSection','countySlug(countyName)']) {
@@ -58,6 +65,10 @@ for (const feature of [
   'const countyEntries = graph.filter((entity) => entity.kind === \'county\')',
   'Promise.all(countyEntries.map(enrichCountyGeographyEntity))',
   'async function enrichCountyGeographyEntity',
+  'enrichLocalOfficeEntityFromSnapshot',
+  'getCountyPropertyRecordBySlug',
+  'isCountyPropertyIndexReady',
+  "status: 'active'",
   'const readyForPublication = hasVerifiedWebsite && hasUsefulContact && description.length >= 180',
   "status: readyForPublication ? 'active' : entity.status",
   'loadLocalGovernmentProfile(entity.countySlug, countyName)',
@@ -116,4 +127,4 @@ if (errors.length) {
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
-console.log('County, destination and generated entity quality gates, statewide batch remediation, county uniqueness signals and ranks, governed office promotion, authoritative enrichment, geographic/semantic ranking, rich county-guide sections, source specificity, noindex behavior, and partitioned qualified sitemap publication passed validation.');
+console.log('County, destination and generated entity quality gates, statewide batch remediation, county uniqueness signals and ranks, snapshot-backed office promotion, authoritative enrichment, geographic/semantic ranking, rich county-guide sections, source specificity, noindex behavior, and partitioned qualified sitemap publication passed validation.');
