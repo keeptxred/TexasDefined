@@ -197,8 +197,9 @@ for (const marker of [
   '/texas-explained#collection',
   'name: "Texas Explained"',
   '/texas-explained`',
+  'abstract: article.dek',
 ]) {
-  if (!articleSchemaBlock.includes(marker)) errors.push(`Texas Explained Article → CollectionPage schema contract missing: ${marker}.`);
+  if (!articleSchemaBlock.includes(marker)) errors.push(`Texas Explained Article → CollectionPage/schema contract missing: ${marker}.`);
 }
 
 for (const marker of [
@@ -219,6 +220,21 @@ for (const marker of [
   'See all 10 guides →',
 ]) {
   if (!articleRoute.includes(marker)) errors.push(`Texas Explained visible article-series orientation/navigation missing: ${marker}.`);
+}
+
+for (const marker of [
+  'const texasExplainedQuickAnswer = isTexasExplainedPillar ? article.dek.trim() : null;',
+  'aria-labelledby="texas-explained-quick-answer"',
+  'Quick answer',
+  'id="texas-explained-quick-answer"',
+  'The short version',
+  '{texasExplainedQuickAnswer}',
+  'href="#guide-body"',
+  'Read the full guide ↓',
+  'id={isTexasExplainedPillar ? "guide-body" : undefined}',
+  'scroll-mt-28',
+]) {
+  if (!articleRoute.includes(marker)) errors.push(`Texas Explained per-pillar answer-first/AEO layer missing: ${marker}.`);
 }
 
 for (const slug of pillars) {
@@ -319,4 +335,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Texas Explained collection, protected in-page jump navigation, synchronized Guide N of 10 ordering with previous/next navigation, exact ten-pillar Article → CollectionPage schema membership, visible article-series orientation, sitemap ownership, Start Here discovery, reciprocal collection backlinks, pillar-to-pillar topic clusters, bidirectional five-page supporting authority ring, five-question AEO quick-answer layer, broad-intent site-search vocabulary, homepage promotion, persistent footer navigation, site-search indexing and zero-query search discovery are protected.');
+console.log('Texas Explained collection, protected in-page jump navigation, synchronized Guide N of 10 ordering with previous/next navigation, exact ten-pillar Article → CollectionPage schema membership, visible article-series orientation, per-pillar answer-first quick-answer layer with Article abstract semantics, sitemap ownership, Start Here discovery, reciprocal collection backlinks, pillar-to-pillar topic clusters, bidirectional five-page supporting authority ring, five-question hub AEO quick-answer layer, broad-intent site-search vocabulary, homepage promotion, persistent footer navigation, site-search indexing and zero-query search discovery are protected.');
