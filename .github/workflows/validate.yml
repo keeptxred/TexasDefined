@@ -80,6 +80,9 @@ jobs:
       - name: Validate Texas Explained river profiles
         run: node scripts/data/validate-texas-explained-river-profiles.mjs
 
+      - name: Validate Texas Explained reservoir profiles
+        run: node scripts/data/validate-texas-explained-reservoir-profiles.mjs
+
       - name: Validate Explore category SEO
         run: node scripts/data/validate-explore-category-seo.mjs
 
