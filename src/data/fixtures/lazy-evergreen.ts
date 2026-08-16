@@ -8,6 +8,14 @@ import specialDistrictsHero from "@/assets/generated/texas-special-districts.jpg
 import type { Article } from "../types";
 import { buyingLandInTexasGuideStub } from "./buying-land-in-texas-guide-stub";
 import { texasCulturalRegionsExplainedStub } from "./texas-cultural-regions-explained-stub";
+import {
+  texasCourthouseArchitectureGuideStub,
+  texasEcoregionsHabitatsGuideStub,
+  texasExplainedSupportStubs,
+  texasHighwayDesignationsGuideStub,
+  texasRiverBasinsGuideStub,
+  texasSettlementPatternsGuideStub,
+} from "./texas-explained-support-stubs";
 import { texasHomeArchitectureRegionsStub } from "./texas-home-architecture-regions-stub";
 import {
   chooseElectricityPlanTexasStub,
@@ -216,6 +224,7 @@ export const lazyEvergreenArticleStubs: Article[] = [
   texasFoundationCareStub,
   prepareTexasHouseFreezeStub,
   mudsPidsHoasSpecialDistrictsStub,
+  ...texasExplainedSupportStubs,
 ];
 
 const addSourceLinks = (article: Article, links: NonNullable<Article["internalLinks"]>): Article => {
@@ -446,6 +455,31 @@ export async function loadLazyEvergreenArticle(brandId: string, slug: string): P
   if (slug === mudsPidsHoasSpecialDistrictsStub.slug) {
     const { mudsPidsHoasSpecialDistrictsArticle } = await import("./muds-pids-hoas-special-districts");
     return mudsPidsHoasSpecialDistrictsArticle;
+  }
+
+  if (slug === texasRiverBasinsGuideStub.slug) {
+    const { texasRiverBasinsGuideArticle } = await import("./texas-explained-support-articles");
+    return texasRiverBasinsGuideArticle;
+  }
+
+  if (slug === texasHighwayDesignationsGuideStub.slug) {
+    const { texasHighwayDesignationsGuideArticle } = await import("./texas-explained-support-articles");
+    return texasHighwayDesignationsGuideArticle;
+  }
+
+  if (slug === texasCourthouseArchitectureGuideStub.slug) {
+    const { texasCourthouseArchitectureGuideArticle } = await import("./texas-explained-support-articles");
+    return texasCourthouseArchitectureGuideArticle;
+  }
+
+  if (slug === texasEcoregionsHabitatsGuideStub.slug) {
+    const { texasEcoregionsHabitatsGuideArticle } = await import("./texas-explained-support-articles");
+    return texasEcoregionsHabitatsGuideArticle;
+  }
+
+  if (slug === texasSettlementPatternsGuideStub.slug) {
+    const { texasSettlementPatternsGuideArticle } = await import("./texas-explained-support-articles");
+    return texasSettlementPatternsGuideArticle;
   }
 
   return null;
