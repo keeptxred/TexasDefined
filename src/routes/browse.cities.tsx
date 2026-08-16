@@ -7,7 +7,7 @@ import { TEXAS_CITIES } from "@/data/texas-places";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const description =
-  "Browse Texas cities and towns by county and region, then open city guides for local context, official resources, cost-of-living research and moving tools.";
+  "Browse Texas cities and towns by county and region, then continue to moving, cost-of-living, salary and county-reference tools while city detail records are independently source-verified.";
 
 export const Route = createFileRoute("/browse/cities")({
   head: () => {
@@ -40,29 +40,24 @@ export const Route = createFileRoute("/browse/cities")({
               "@id": `${pageUrl}#cities`,
               name: "Texas cities",
               numberOfItems: TEXAS_CITIES.length,
-              itemListElement: TEXAS_CITIES.map((city, index) => {
-                const cityUrl = absoluteUrl(texasDefinedBrand, `/city/${city.slug}`);
-                return {
-                  "@type": "ListItem",
-                  position: index + 1,
-                  url: `${pageUrl}#${cityAnchor(city.slug)}`,
-                  item: {
-                    "@type": "City",
-                    "@id": `${cityUrl}#entity`,
-                    url: cityUrl,
-                    name: `${city.name}, Texas`,
-                    containedInPlace: {
-                      "@type": "AdministrativeArea",
-                      name: `${city.county} County, Texas`,
-                    },
-                    additionalProperty: {
-                      "@type": "PropertyValue",
-                      name: "Texas region",
-                      value: city.region,
-                    },
+              itemListElement: TEXAS_CITIES.map((city, index) => ({
+                "@type": "ListItem",
+                position: index + 1,
+                url: `${pageUrl}#${cityAnchor(city.slug)}`,
+                item: {
+                  "@type": "City",
+                  name: `${city.name}, Texas`,
+                  containedInPlace: {
+                    "@type": "AdministrativeArea",
+                    name: `${city.county} County, Texas`,
                   },
-                };
-              }),
+                  additionalProperty: {
+                    "@type": "PropertyValue",
+                    name: "Texas region",
+                    value: city.region,
+                  },
+                },
+              })),
             },
             {
               "@type": "BreadcrumbList",
@@ -96,9 +91,9 @@ function CitiesDirectoryPage() {
       eyebrow="Texas cities"
       title="How to use the Texas city directory"
       items={[
-        { question: "What is this directory?", answer: `A searchable starting point for ${TEXAS_CITIES.length.toLocaleString("en-US")} Texas cities in the current Texas Defined reference set, with direct links to city reference pages.` },
-        { question: "How can I find what county a Texas city is in?", answer: "Each city entry identifies its Texas county and region. Open the city reference page for additional local context and related resources." },
-        { question: "Can I use this to compare places to live?", answer: "Yes. Start with a city, then use the moving and financial tools for cost-of-living, salary, housing, utilities and relocation planning." },
+        { question: "What is this directory?", answer: `A searchable starting point for ${TEXAS_CITIES.length.toLocaleString("en-US")} Texas cities in the current Texas Defined reference set, organized by county and region.` },
+        { question: "How can I find what county a Texas city is in?", answer: "Each city entry identifies its Texas county and region. Use the county directory and planning tools for additional local context while city detail records are independently source-verified." },
+        { question: "Can I use this to compare places to live?", answer: "Yes. Start with a city name, then use the moving and financial tools for cost-of-living, salary, housing, utilities and relocation planning." },
         { question: "Is this an official government directory?", answer: "No. Texas Defined is an independent reference and editorial guide; verify official boundaries, services and records with the relevant city or county agency." },
       ]}
     />
