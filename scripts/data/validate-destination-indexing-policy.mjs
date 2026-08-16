@@ -22,13 +22,13 @@ if (route.includes('...(!indexable ? [{ name: "robots", content: "noindex, follo
 
 for (const marker of [
   'function mergeDestinationSources',
-  'mergeDestinationSources(coreDestinations, enrichedDestinations)',
+  'const remoteDestinations = mergeDestinationSources(coreDestinations, enrichedDestinations)',
   'const remoteConfigured = hasExploreRemoteData()',
   'let enrichedFailed = !remoteConfigured',
   'let coreFailed = !remoteConfigured',
   'if (remoteConfigured)',
-  'const bothRemoteSourcesUnavailable = enrichedFailed && coreFailed',
-  '? fixtureDestinations',
+  'const useFixtureFallback = (enrichedFailed && coreFailed) || remoteDestinations.length === 0',
+  'const rawDestinations = useFixtureFallback ? fixtureDestinations : remoteDestinations',
   'function resolveDestinationCatalog',
   'applyStateParkHeroAssets(destinations)',
   'applyExploreHeroAssets(',
@@ -87,4 +87,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Destination indexing policy passed: route metadata emits one consistent robots policy; Explore sitemap distinguishes unconfigured remote data from configured-empty catalogs, merges remote sources, resolves curation/heroes/quality before indexing, and falls back only when remote data is unavailable; query publication uses the same resolution concepts; duplicate units stay consolidated; substantive-copy/hero/coordinate gates remain aligned.');
+console.log('Destination indexing policy passed: route metadata emits one consistent robots policy; Explore sitemap merges remote sources, falls back to curated fixtures when remote data is unavailable or empty, resolves curation/heroes/quality before indexing, and preserves the same primary/readiness gate; query publication uses the same resolution concepts; duplicate units stay consolidated; substantive-copy/hero/coordinate gates remain aligned.');
