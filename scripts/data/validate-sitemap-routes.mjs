@@ -83,15 +83,13 @@ for (const feature of [
   'let enrichedFailed = !remoteConfigured',
   'let coreFailed = !remoteConfigured',
   'if (remoteConfigured)',
-  'const bothRemoteSourcesUnavailable = enrichedFailed && coreFailed',
-  'mergeDestinationSources(coreDestinations, enrichedDestinations)',
-  '? fixtureDestinations',
-  'if (rawDestinations.length === 0)',
+  'const remoteDestinations = mergeDestinationSources(coreDestinations, enrichedDestinations)',
+  'const useFixtureFallback = (enrichedFailed && coreFailed) || remoteDestinations.length === 0',
+  'const rawDestinations = useFixtureFallback ? fixtureDestinations : remoteDestinations',
 ]) {
   if (!exploreSitemap.includes(feature)) failures.push(`Explore sitemap dual-source reliability contract missing: ${feature}`);
 }
 if (exploreSitemap.includes('const destinations = remoteFailed ? fixtureDestinations : remoteDestinations')) failures.push('Explore sitemap must not use the obsolete single-source outage fallback.');
-if (exploreSitemap.includes('remoteDestinations.length ? remoteDestinations : fixtureDestinations')) failures.push('Explore sitemap must not treat a healthy empty remote catalog as an outage.');
 if (!exploreSitemap.includes('isPrimaryTripPlannerDestination(destination)') || !exploreSitemap.includes('auditDestination(destination).readyForIndexing')) {
   failures.push('Explore sitemap must publish only primary, quality-approved destinations.');
 }
@@ -172,4 +170,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Sitemap ownership, crawl-demand partitioning, remote-configuration-aware dual-source Explore reliability, resolved quality gates, malformed-path rejection, migrated aliases, regional quality, and noindex/redirect policy validation passed.');
+console.log('Sitemap ownership, crawl-demand partitioning, remote-unavailable-or-empty Explore fallback, resolved quality gates, malformed-path rejection, migrated aliases, regional quality, and noindex/redirect policy validation passed.');
