@@ -36,9 +36,10 @@ requireSymbols(regression, [
   'maximumBrokenRelationships', 'maximumMissingCanonicalPaths',
 ], 'graph regression engine');
 requireSymbols(linking, [
-  'scoreEntityAuthority', 'authorityScores', 'authorityBoosted',
-  'authority-boost:', 'Math.min(4',
-], 'authority ranking integration');
+  'isIndexableEntityPage', 'const publishableEntities = entities.filter(isIndexableEntityPage)',
+  'for (const entity of publishableEntities)', 'scoreEntityAuthority(publishableEntities)',
+  'authorityScores', 'authorityBoosted', 'authority-boost:', 'Math.min(4',
+], 'authority ranking and publication-gated internal-link integration');
 for (const benchmark of ['Caddo Lake', 'state parks near Austin', 'property taxes in Travis County', 'best caverns in Texas']) {
   if (!behavior.includes(benchmark)) errors.push(`AI retrieval benchmark missing: ${benchmark}`);
 }
@@ -47,7 +48,7 @@ requireSymbols(api, ["createFileRoute('/api/knowledge-graph-behavior')", 'auditK
 requireSymbols(page, ["createFileRoute('/admin/knowledge-graph-behavior')", 'KnowledgeGraphBehavior', 'loadTexasKnowledgeGraph', 'noindex,nofollow', '/admin/platform-health'], 'behavior admin page');
 
 if (errors.length) fail();
-console.log('Knowledge-graph simulation, authority ranking, canonical paths, completeness, full graph regressions, and AI retrieval benchmarks are protected.');
+console.log('Knowledge-graph simulation, publication-gated automatic linking, authority ranking, canonical paths, completeness, full graph regressions, and AI retrieval benchmarks are protected.');
 
 function requireSymbols(source, symbols, area) {
   for (const symbol of symbols) if (!source.includes(symbol)) errors.push(`${area} feature missing: ${symbol}`);
