@@ -1,0 +1,70 @@
+name: Dallas and routed news production smoke
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/dallas-news-production-smoke.yml'
+      - 'src/**'
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Verify Dallas, fishing guides and routed news in production
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          fetch() {
+            local path="$1"
+            local output="$2"
+            echo "Checking https://texasdefined.com${path}"
+            curl --retry 8 --retry-all-errors --retry-delay 3 --max-time 45 -fsSL \
+              "https://texasdefined.com${path}" -o "$output"
+            test -s "$output" || { echo "Empty response for $path" >&2; exit 1; }
+          }
+
+          fetch /county/dallas /tmp/dallas.html
+          grep -Fq 'Dallas County' /tmp/dallas.html || {
+            echo 'Dallas County production route does not render Dallas County content.' >&2
+            exit 1
+          }
+          grep -Fq 'https://texasdefined.com/county/dallas' /tmp/dallas.html || {
+            echo 'Dallas County production route is missing its canonical URL.' >&2
+            exit 1
+          }
+
+          fetch /fishing/guides /tmp/fishing-guides.html
+          grep -Eiq '(Fishing Guides|fishing guides|guide directory)' /tmp/fishing-guides.html || {
+            echo 'Fishing guide directory did not render recognizable guide content.' >&2
+            exit 1
+          }
+
+          fetch /news /tmp/news.html
+          grep -Fq 'https://texasdefined.com/news' /tmp/news.html || {
+            echo 'TexasDefined news index is missing its canonical URL.' >&2
+            exit 1
+          }
+
+          story='/news/2026-08-10-canyon-lake-full-capacity-recovery'
+          fetch "$story" /tmp/story.html
+          grep -Fq 'Canyon Lake' /tmp/story.html || {
+            echo 'Routed Canyon Lake story did not render expected article content.' >&2
+            exit 1
+          }
+          python3 <<'PY'
+          import re
+          html=open('/tmp/story.html', encoding='utf-8', errors='replace').read()
+          canonicals=re.findall(r'<link[^>]+rel=["\']canonical["\'][^>]+href=["\']([^"\']+)', html, re.I)
+          expected='https://texasdefined.com/news/2026-08-10-canyon-lake-full-capacity-recovery'
+          assert canonicals == [expected], f'Expected exactly one story canonical {expected!r}; got {canonicals!r}'
+          print('Routed Canyon Lake canonical verified.')
+          PY
+
+          echo 'Focused Dallas/news production smoke passed.'
