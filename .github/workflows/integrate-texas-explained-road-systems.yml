@@ -1,0 +1,39 @@
+name: Integrate Texas Explained road systems
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/integrate-texas-explained-road-systems.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  integrate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Apply asserted road-system integration patches
+        run: python3 scripts/data/integrate-texas-explained-road-systems.py
+
+      - name: Verify focused Texas Explained contracts
+        run: |
+          node scripts/data/validate-texas-explained-depth.mjs
+          node scripts/data/validate-texas-explained-river-profiles.mjs
+          node scripts/data/validate-texas-explained-reservoir-profiles.mjs
+          node scripts/data/validate-texas-explained-road-systems.mjs
+          node scripts/data/validate-editorial-image-duplicates.mjs --all
+
+      - name: Commit application and validator changes only
+        run: |
+          rm scripts/data/integrate-texas-explained-road-systems.py
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/data/fixtures/texas-explained-road-systems.ts src/data/fixtures/lazy-evergreen.ts src/data/fixtures/newest-evergreen.ts src/routes/texas-explained.tsx 'src/routes/article.$slug.tsx' scripts/data/validate-texas-explained-depth.mjs scripts/data/validate-texas-explained-river-profiles.mjs scripts/data/validate-texas-explained-reservoir-profiles.mjs scripts/data/validate-texas-explained-road-systems.mjs scripts/data/integrate-texas-explained-road-systems.py
+          git commit -m "Integrate Texas Explained road systems"
+          git push origin HEAD:main
