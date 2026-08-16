@@ -103,6 +103,11 @@ function CountyPropertyTaxPage() {
     url,
     note: 'Official or authoritative source used to verify this county property-tax record.',
   }));
+  const upstreamFreshness = [
+    county.sourceUpdatedAt.appraisalDistrict ? `Appraisal-district record updated ${formatVerifiedDate(county.sourceUpdatedAt.appraisalDistrict)}` : null,
+    county.sourceUpdatedAt.taxOffice ? `tax-office record updated ${formatVerifiedDate(county.sourceUpdatedAt.taxOffice)}` : null,
+  ].filter((value): value is string => Boolean(value)).join('; ');
+  const methodology = `TexasDefined combines verified county, appraisal-district and tax-office records into one county reference. ${upstreamFreshness ? `The Texas Comptroller directory reports: ${upstreamFreshness}. ` : ''}Property-specific values, exemptions, jurisdictions and deadlines must still be confirmed against the official parcel record and local notices; this page does not infer missing local facts.`;
 
   return (
     <>
@@ -110,7 +115,7 @@ function CountyPropertyTaxPage() {
       <Container className="pb-12 sm:pb-16">
         <CitationTrustPanel
           sources={sources}
-          methodology="TexasDefined combines verified county, appraisal-district and tax-office records into one county reference. Property-specific values, exemptions, jurisdictions and deadlines must still be confirmed against the official parcel record and local notices; this page does not infer missing local facts."
+          methodology={methodology}
           lastVerified={county.lastVerifiedAt ? formatVerifiedDate(county.lastVerifiedAt) : 'Verification pending; this page remains outside the searchable citation-ready set until local sources are verified.'}
           title="Sources, methodology and verification"
         />
