@@ -39,6 +39,19 @@ requireAll('entity publication gate', relationships, [
   'hasEntitySpecificOfficialUrl(entity)',
   'contextSignals >= 3',
 ]);
+requireAll('county publication gate', relationships, [
+  "entity.kind === 'county'",
+  'description.length >= 180',
+  "entity.sourceConfidence === 'official'",
+  'Boolean(entity.coordinates)',
+  'entity.relationships.length >= 2',
+]);
+requireAll('agency publication gate', relationships, [
+  "entity.kind === 'agency'",
+  'description.length >= 150',
+  'hasEntitySpecificOfficialUrl(entity)',
+  'Boolean(entity.tags?.length && entity.tags.length >= 3)',
+]);
 requireAll('local-office publication gate', relationships, [
   'LOCAL_GOVERNMENT_KINDS.has(entity.kind)',
   "entity.sourceConfidence !== 'official'",
@@ -114,7 +127,11 @@ forbidAll('per-county source fanout', countyProfile, [
 
 // Property-tax county pages get the same fail-closed treatment.
 requireAll('property county gate', propertySchema, [
-  'isCountyPropertyIndexReady', 'record.lastVerifiedAt', 'const localPropertySources = new Set([', 'localPropertySources.size >= 2',
+  'isCountyPropertyIndexReady',
+  'COUNTY_PROPERTY_VERIFICATION_MAX_AGE_DAYS',
+  'hasFreshCountyPropertyVerification',
+  'new Set([',
+  'localPropertySources.size >= 2',
 ]);
 requireAll('property county route', propertyRoute, [
   'isCountyPropertyIndexReady(county)',
@@ -134,6 +151,7 @@ requireAll('relationship relevance', relationships, [
   'const miles = distanceMiles(entity, candidate)',
   'sharedTags.length * 6',
   'proximityTieBreak(entity, a.entity, b.entity)',
+  'isIndexableEntityPage(candidate)',
 ]);
 forbidAll('relationship filler', relationships, [
   'if (entity.kind === candidate.kind) score += 3',
