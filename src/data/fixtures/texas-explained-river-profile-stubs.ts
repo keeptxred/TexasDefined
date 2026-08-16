@@ -49,7 +49,7 @@ export const texasGuadalupeRiverGuideStub = riverStub(
   "texas-guadalupe-river-guide",
   "The Guadalupe River Explained: Springs, Canyon Lake and a Hill Country River",
   "The Guadalupe begins in the Hill Country, receives important spring-fed tributaries and flows toward San Antonio Bay. Its basin makes the groundwater-surface-water connection unusually easy to see.",
-  { src: "/images/explore/lakes-rivers/guadalupe-river-state-park.jpg", alt: "Clear Guadalupe River flowing beneath mature cypress trees", width: 1600, height: 1115 },
+  { src: "/images/editorial/texas-guadalupe-river.svg", alt: "Clear Guadalupe River flowing beneath mature cypress trees", width: 1600, height: 1115 },
   "https://www.twdb.texas.gov/surfacewater/rivers/river_basins/guadalupe/index.asp",
   ["Guadalupe River", "Guadalupe River basin", "Canyon Lake", "Texas Hill Country", "Texas springs", "TWDB"],
 );
@@ -58,7 +58,7 @@ export const texasTrinityRiverGuideStub = riverStub(
   "texas-trinity-river-guide",
   "The Trinity River Explained: The River System Behind Dallas-Fort Worth",
   "The Trinity River basin is entirely inside Texas and sits beneath much of Dallas-Fort Worth's water story. Its forks, reservoirs and downstream exports connect a major metro area with the Gulf Coast.",
-  { src: "/images/explore/lakes-rivers/ray-roberts-lake-isle-du-bois-unit.jpg", alt: "Reservoir shoreline and open water in the upper Trinity River basin", width: 1600, height: 1067 },
+  { src: "/images/editorial/texas-trinity-river.svg", alt: "Reservoir shoreline and open water in the upper Trinity River basin", width: 1600, height: 1067 },
   "https://www.twdb.texas.gov/surfacewater/rivers/river_basins/trinity/index.asp",
   ["Trinity River", "Trinity River basin", "Dallas Fort Worth water", "Texas rivers", "Texas reservoirs", "TWDB"],
 );

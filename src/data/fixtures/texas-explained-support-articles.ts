@@ -12,7 +12,7 @@ export const texasRiverBasinsGuideArticle: Article = {
   dek: "Texas water makes more sense when you stop thinking only about individual rivers and start thinking in basins: the large drainage systems that connect rain, tributaries, reservoirs, cities, farms and the Gulf.",
   category: "lakes-rivers",
   hero: {
-    src: "/images/explore/lakes-rivers/guadalupe-river-state-park.jpg",
+    src: "/images/editorial/texas-river-basins.svg",
     alt: "Guadalupe River flowing through a wooded Texas river corridor",
     width: 1600,
     height: 1115,
@@ -77,7 +77,7 @@ export const texasHighwayDesignationsGuideArticle: Article = {
   dek: "Texas road shields look like alphabet soup until you know the system. FM, RM, SH, Loop, Spur, Park Road and business routes each describe a different place in the state highway network.",
   category: "road-trips",
   hero: {
-    src: "https://images.unsplash.com/photo-1494783367193-149034c05e8f?auto=format&fit=crop&w=1600&q=82",
+    src: "/images/editorial/texas-highway-designations.svg",
     alt: "Two-lane Texas highway crossing open rural country",
     width: 1600,
     height: 1067,
@@ -148,7 +148,7 @@ export const texasCourthouseArchitectureGuideArticle: Article = {
   dek: "Texas courthouses share a civic purpose but not a single look. Their towers, domes, stone, brick and symmetry reflect different eras, budgets, architects and ideas about what public buildings should say about a county.",
   category: "texas-history",
   hero: {
-    src: "/images/explore/historic-sites/fort-davis-national-historic-site.jpg",
+    src: "/images/editorial/texas-courthouse-architecture.svg",
     alt: "Historic civic architecture in a Texas county-seat setting",
     width: 1600,
     height: 1067,
@@ -214,7 +214,7 @@ export const texasEcoregionsHabitatsGuideArticle: Article = {
   dek: "Pine forest, coastal marsh, blackland prairie, limestone plateau, High Plains and desert can all exist in one state because Texas sits at the meeting point of major climates, elevations, soils and habitat systems.",
   category: "outdoors",
   hero: {
-    src: "/images/explore/national-parks/big-bend-national-park.jpg",
+    src: "/images/editorial/texas-ecoregions-habitats.svg",
     alt: "A broad Texas landscape showing the state's dramatic regional variety",
     width: 1600,
     height: 2133,
