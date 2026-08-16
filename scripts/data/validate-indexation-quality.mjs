@@ -3,7 +3,9 @@ import fs from 'node:fs';
 const registry = fs.readFileSync('src/lib/public-routes.ts', 'utf8');
 const sitemap = fs.readFileSync('src/routes/sitemap[.]xml.ts', 'utf8');
 const exploreSitemap = fs.readFileSync('src/routes/sitemap-explore[.]xml.ts', 'utf8');
-const news = fs.readFileSync('src/routes/news.tsx', 'utf8');
+const newsLayout = fs.readFileSync('src/routes/news.tsx', 'utf8');
+const newsIndex = fs.readFileSync('src/routes/news.index.tsx', 'utf8');
+const newsStory = fs.readFileSync('src/routes/news.$slug.tsx', 'utf8');
 const entityRoute = fs.readFileSync('src/routes/$kind.$slug.tsx', 'utf8');
 const countyRoute = fs.readFileSync('src/routes/property-tax.county.$county.tsx', 'utf8');
 const failures = [];
@@ -16,7 +18,11 @@ const redirects = section('REDIRECT_ONLY_PATHS');
 
 if (always.includes('"/news"')) failures.push('/news must not be unconditionally indexable.');
 if (!conditional.includes('"/news"')) failures.push('/news must be registered as conditionally indexable.');
-if (!news.includes('robots: hasStories ? undefined : "noindex, follow"')) failures.push('/news must noindex its empty state.');
+if (!newsIndex.includes('robots: hasStories ? undefined : "noindex, follow"')) failures.push('/news index must noindex its empty state.');
+if (!newsIndex.includes('canonicalPath: "/news"') || !newsIndex.includes('canonicalLink(texasDefinedBrand, "/news")')) failures.push('/news exact index route must own the /news canonical.');
+if (newsLayout.includes('canonicalPath') || newsLayout.includes('canonicalLink(') || newsLayout.includes('head:')) failures.push('/news parent layout must remain canonical-neutral so story children cannot inherit a second canonical.');
+if (!newsLayout.includes('Outlet')) failures.push('/news parent route must render its exact index or story child through Outlet.');
+if (!newsStory.includes('const canonicalPath = `/news/${params.slug}`') || !newsStory.includes('links: [canonicalLink(texasDefinedBrand, canonicalPath)]')) failures.push('Routed news stories must own a self-canonical.');
 if (!sitemap.includes('...(articles.length ? [{ path: "/news" }] : [])')) failures.push('Primary sitemap must publish /news only when live articles exist.');
 
 for (const path of ['/search', '/explore/search', '/shop/cart', '/shop/checkout-return']) {
@@ -55,4 +61,4 @@ if (failures.length) {
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
-console.log('Indexation quality validation passed: conditional hubs, noindex utilities, redirects, generated-page quality gates, and sitemap ownership are aligned.');
+console.log('Indexation quality validation passed: conditional hubs, routed-news canonical isolation, noindex utilities, redirects, generated-page quality gates, and sitemap ownership are aligned.');
