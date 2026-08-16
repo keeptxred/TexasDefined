@@ -1,4 +1,4 @@
-name: Bing crawler hints
+name: Bing IndexNow
 
 on:
   workflow_dispatch:
@@ -7,6 +7,9 @@ on:
       - main
     paths:
       - .github/workflows/bing-crawler-hints.yml
+      - public/0c2b08423ce5be707dd931f57239acf1.txt
+      - src/routes/sitemap[.]xml.ts
+      - src/routes/sitemap-explore[.]xml.ts
 
 permissions:
   contents: read
@@ -15,45 +18,121 @@ jobs:
   configure:
     runs-on: ubuntu-latest
     environment: texasdefined-publication
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
-      - name: Enable Cloudflare Crawler Hints
-        shell: bash
+      - name: Check out TexasDefined
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build TexasDefined
+        run: npm run build
+
+      - name: Deploy IndexNow key to Cloudflare
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-        run: |
-          set -euo pipefail
-          test -n "$CLOUDFLARE_ACCOUNT_ID"
-          test -n "$CLOUDFLARE_API_TOKEN"
-          api='https://api.cloudflare.com/client/v4'
-          auth="Authorization: Bearer $CLOUDFLARE_API_TOKEN"
-          zones="$(curl --fail-with-body --silent --show-error -H "$auth" --get --data-urlencode 'name=texasdefined.com' --data-urlencode "account.id=$CLOUDFLARE_ACCOUNT_ID" "$api/zones")"
-          zone_id="$(printf '%s' "$zones" | jq -r '.result[] | select(.name == "texasdefined.com" and .status == "active") | .id' | head -n1)"
-          test -n "$zone_id"
-          settings="$(curl --fail-with-body --silent --show-error -H "$auth" "$api/zones/$zone_id/settings")"
-          state="$(printf '%s' "$settings" | jq -r '.result[] | select(.id == "crawler_hints") | .value' | head -n1)"
-          editable="$(printf '%s' "$settings" | jq -r '.result[] | select(.id == "crawler_hints") | .editable' | head -n1)"
-          test -n "$state" || { echo 'crawler_hints is not exposed by the Cloudflare zone-settings API'; exit 2; }
-          if [ "$state" != 'on' ]; then
-            test "$editable" != 'false'
-            curl --fail-with-body --silent --show-error -X PATCH -H "$auth" -H 'Content-Type: application/json' --data '{"value":"on"}' "$api/zones/$zone_id/settings/crawler_hints" >/dev/null
-          fi
-          verify="$(curl --fail-with-body --silent --show-error -H "$auth" "$api/zones/$zone_id/settings/crawler_hints")"
-          test "$(printf '%s' "$verify" | jq -r '.result.value')" = 'on'
-          echo 'Cloudflare Crawler Hints is ON for texasdefined.com.'
+        run: npx wrangler deploy
 
-      - name: Verify Bingbot and sitemaps
+      - name: Verify Bing discovery and IndexNow ownership
         shell: bash
         run: |
           set -euo pipefail
-          robots="$(curl --fail-with-body --silent --show-error --location https://texasdefined.com/robots.txt)"
-          printf '%s' "$robots" | grep -Fq 'User-agent: Bingbot'
-          printf '%s' "$robots" | grep -Fq 'Sitemap: https://texasdefined.com/sitemap.xml'
-          printf '%s' "$robots" | grep -Fq 'Sitemap: https://texasdefined.com/sitemap-explore.xml'
+          origin='https://texasdefined.com'
+          key='0c2b08423ce5be707dd931f57239acf1'
+          workdir="$(mktemp -d)"
+          trap 'rm -rf "$workdir"' EXIT
+
+          curl --retry 5 --retry-all-errors --retry-delay 2 --max-time 45 -fsSL \
+            "$origin/robots.txt" -o "$workdir/robots.txt"
+          grep -Fq 'User-agent: Bingbot' "$workdir/robots.txt"
+          grep -Fq 'Sitemap: https://texasdefined.com/sitemap.xml' "$workdir/robots.txt"
+          grep -Fq 'Sitemap: https://texasdefined.com/sitemap-explore.xml' "$workdir/robots.txt"
+
+          curl --retry 5 --retry-all-errors --retry-delay 2 --max-time 45 -fsSL \
+            "$origin/$key.txt" -o "$workdir/key.txt"
+          test "$(tr -d '\r\n' < "$workdir/key.txt")" = "$key"
+
           for sitemap in sitemap.xml sitemap-explore.xml; do
-            body="$(curl --fail-with-body --silent --show-error --location "https://texasdefined.com/$sitemap")"
-            printf '%s' "$body" | grep -Fq '<urlset'
-            printf '%s' "$body" | grep -Fq '<loc>https://texasdefined.com/'
+            curl --retry 5 --retry-all-errors --retry-delay 2 --max-time 45 -fsSL \
+              "$origin/$sitemap" -o "$workdir/$sitemap"
+            grep -Fq '<urlset' "$workdir/$sitemap"
+            grep -Fq '<loc>https://texasdefined.com/' "$workdir/$sitemap"
           done
-          echo 'Bingbot access and both TexasDefined sitemaps are live.'
+
+          echo 'Bingbot access, both sitemaps, and the IndexNow ownership key are live.'
+
+      - name: Submit current canonical URLs to IndexNow
+        shell: bash
+        run: |
+          set -euo pipefail
+          origin='https://texasdefined.com'
+          key='0c2b08423ce5be707dd931f57239acf1'
+          workdir="$(mktemp -d)"
+          trap 'rm -rf "$workdir"' EXIT
+
+          curl --retry 5 --retry-all-errors --retry-delay 2 --max-time 45 -fsSL \
+            "$origin/sitemap.xml" -o "$workdir/sitemap.xml"
+          curl --retry 5 --retry-all-errors --retry-delay 2 --max-time 45 -fsSL \
+            "$origin/sitemap-explore.xml" -o "$workdir/sitemap-explore.xml"
+
+          python3 - "$workdir" "$origin" "$key" <<'PY'
+          import json
+          import pathlib
+          import sys
+          import xml.etree.ElementTree as ET
+          from urllib.parse import urlparse
+
+          workdir = pathlib.Path(sys.argv[1])
+          origin = sys.argv[2]
+          key = sys.argv[3]
+          urls = set()
+          for filename in ('sitemap.xml', 'sitemap-explore.xml'):
+              root = ET.parse(workdir / filename).getroot()
+              for element in root.iter():
+                  if element.tag.rsplit('}', 1)[-1] == 'loc' and element.text:
+                      url = element.text.strip()
+                      parsed = urlparse(url)
+                      if parsed.scheme == 'https' and parsed.netloc == 'texasdefined.com':
+                          urls.add(url)
+
+          if not urls:
+              raise SystemExit('No canonical TexasDefined URLs found in the live sitemaps.')
+          if len(urls) > 10000:
+              raise SystemExit(f'IndexNow batch exceeds 10,000 URLs: {len(urls)}')
+
+          payload = {
+              'host': 'texasdefined.com',
+              'key': key,
+              'keyLocation': f'{origin}/{key}.txt',
+              'urlList': sorted(urls),
+          }
+          (workdir / 'indexnow.json').write_text(json.dumps(payload), encoding='utf-8')
+          print(f'Prepared {len(urls)} canonical URLs for IndexNow.')
+          PY
+
+          status="$(curl --silent --show-error \
+            -o "$workdir/indexnow-response.txt" \
+            -w '%{http_code}' \
+            -X POST \
+            -H 'Content-Type: application/json; charset=utf-8' \
+            --data-binary "@$workdir/indexnow.json" \
+            https://api.indexnow.org/indexnow)"
+
+          case "$status" in
+            200|202)
+              echo "IndexNow accepted the TexasDefined URL batch with HTTP $status."
+              ;;
+            *)
+              echo "IndexNow submission failed with HTTP $status."
+              cat "$workdir/indexnow-response.txt"
+              exit 1
+              ;;
+          esac
