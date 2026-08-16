@@ -6,6 +6,7 @@ const dataset = fs.readFileSync('src/data/property/county-property-data.ts', 'ut
 const schema = fs.readFileSync('src/data/property/county-property-schema.ts', 'utf8');
 const sync = fs.readFileSync('scripts/data/sync-county-property-data.mjs', 'utf8');
 const refreshWorkflow = fs.readFileSync('.github/workflows/sync-county-property-data.yml', 'utf8');
+const validateWorkflow = fs.readFileSync('.github/workflows/validate.yml', 'utf8');
 const failures = [];
 
 for (const feature of [
@@ -17,7 +18,10 @@ for (const feature of [
   if (!snapshot.includes(feature)) failures.push(`County property snapshot missing ${feature}`);
 }
 
-const seededSlugs = ['angelina', 'bee', 'burleson', 'collingsworth', 'cottle', 'fisher', 'hays', 'hidalgo', 'kendall', 'leon', 'lubbock', 'terrell'];
+const seededSlugs = [
+  'angelina', 'bee', 'burleson', 'collingsworth', 'cottle', 'fisher', 'hays', 'hidalgo',
+  'kendall', 'leon', 'lubbock', 'sabine', 'smith', 'terrell', 'washington',
+];
 for (const slug of seededSlugs) {
   if (!new RegExp(`(?:^|\\n)  ${slug}:\\s*\\{`).test(snapshot) && !snapshot.includes(`\n  "${slug}":`)) {
     failures.push(`Verified priority county missing from snapshot: ${slug}`);
@@ -79,6 +83,13 @@ for (const feature of [
 if (/git\s+push\s+origin\s+main(?:\s|$)/m.test(refreshWorkflow)) failures.push('County property refresh workflow must never push generated source changes directly to main.');
 if (/gh\s+pr\s+merge/m.test(refreshWorkflow)) failures.push('County property refresh workflow must not auto-merge externally refreshed data.');
 
+for (const feature of [
+  'Validate county property enrichment',
+  'node scripts/data/validate-county-property-enrichment.mjs',
+]) {
+  if (!validateWorkflow.includes(feature)) failures.push(`Main validation workflow must permanently run county property enrichment protection: ${feature}`);
+}
+
 if (/lastVerifiedAt:\s*['"]?\s*['"]?\s*,/.test(snapshot)) failures.push('Snapshot contains an empty verification date.');
 if (/websiteUrl:\s*['"]http:\/\//.test(snapshot)) failures.push('Snapshot contains an insecure office website URL.');
 
@@ -105,4 +116,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`County property enrichment validation passed: ${recordSlugs.length} verified county records are source-backed, freshness-gated, stale-source-withdrawal protected, merged behind the indexability gate, and refreshed only through a reviewable PR workflow.`);
+console.log(`County property enrichment validation passed: ${recordSlugs.length} verified county records are source-backed, freshness-gated, stale-source-withdrawal protected, merged behind the indexability gate, and protected by both main CI and a reviewable refresh PR workflow.`);
