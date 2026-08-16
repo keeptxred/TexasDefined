@@ -13,7 +13,7 @@ import { editorialDeskById, editorialDesks } from "../editorial-desks";
 import { supplementalExploreCategories } from "../explore-categories";
 import { guideHref } from "../guide-links";
 import type { Article, ArticleBlock, SearchDocument } from "../types";
-import { exploreFeatureArticles } from "./explore-feature-articles";
+import { exploreFeatureArticleStubs, loadExploreFeatureArticle } from "./lazy-explore-feature-articles";
 import { newestEvergreenArticles } from "./newest-evergreen";
 import { lazyEvergreenArticleStubs, loadLazyEvergreenArticle } from "./lazy-evergreen";
 import { standaloneEvergreenStubs, loadStandaloneEvergreenArticle } from "./lazy-standalone-evergreen";
@@ -37,7 +37,7 @@ import {
  */
 
 const editorialArticles = [
-  ...exploreFeatureArticles,
+  ...exploreFeatureArticleStubs,
   ...countySeriesArticleStubs,
   ...coreEvergreenArticleStubs,
   ...lazyEvergreenArticleStubs,
@@ -172,6 +172,9 @@ export const fixtureArticles: ArticleRepository = {
 
     const migratedArticle = await loadMigratedEditorialArticle(scope.brandId, slug);
     if (migratedArticle) return normalizeArticle(migratedArticle);
+
+    const exploreFeatureArticle = await loadExploreFeatureArticle(scope.brandId, slug);
+    if (exploreFeatureArticle) return normalizeArticle(exploreFeatureArticle);
 
     const article = byBrand(editorialArticles, scope.brandId).find((a) => a.slug === slug) ?? null;
     return article ? normalizeArticle(article) : null;
