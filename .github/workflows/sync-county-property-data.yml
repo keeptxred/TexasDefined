@@ -1,0 +1,95 @@
+name: Refresh county property data
+
+on:
+  workflow_dispatch:
+    inputs:
+      county:
+        description: Optional single county slug to refresh; leave blank for all 254 counties
+        required: false
+        type: string
+  schedule:
+    - cron: '37 11 * * 1'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: texasdefined-county-property-sync
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Refresh verified Comptroller snapshot
+        shell: bash
+        env:
+          REQUESTED_COUNTY: ${{ inputs.county }}
+        run: |
+          set -euo pipefail
+          if [ -n "${REQUESTED_COUNTY:-}" ]; then
+            node scripts/data/sync-county-property-data.mjs --county="$REQUESTED_COUNTY"
+          else
+            node scripts/data/sync-county-property-data.mjs
+          fi
+
+      - name: Validate generated snapshot
+        run: |
+          node scripts/data/validate-county-property-enrichment.mjs
+          node scripts/data/validate-generated-page-quality.mjs
+          node scripts/data/validate-indexation-quality.mjs
+          node scripts/data/validate-sitemap-routes.mjs
+
+      - name: Detect changes
+        id: changes
+        shell: bash
+        run: |
+          if git diff --quiet -- src/data/property/county-property-enrichment.generated.ts; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "County property snapshot is already current."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "County property snapshot changed."
+          fi
+
+      - name: Create refresh branch
+        if: steps.changes.outputs.changed == 'true'
+        id: branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          branch="automation/county-property-refresh-${GITHUB_RUN_ID}"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git checkout -b "$branch"
+          git add src/data/property/county-property-enrichment.generated.ts
+          git commit -m 'Refresh verified county property data'
+          git push origin "$branch"
+          echo "name=$branch" >> "$GITHUB_OUTPUT"
+
+      - name: Open reviewable pull request
+        if: steps.changes.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ steps.branch.outputs.name }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh pr create \
+            --base main \
+            --head "$BRANCH" \
+            --title 'Refresh verified Texas county property-tax data' \
+            --body $'Automated refresh from the Texas Comptroller Local Property Appraisal and Tax Information county directory.\n\nThe generated snapshot is source-backed and remains behind the existing freshness, unique-source, sitemap, and noindex quality gates. Full repository validation will run on this pull request before merge.'
