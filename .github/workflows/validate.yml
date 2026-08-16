@@ -68,6 +68,9 @@ jobs:
       - name: Validate Texas Explained SEO
         run: node scripts/data/validate-texas-explained-seo.mjs
 
+      - name: Validate Texas Explained depth
+        run: node scripts/data/validate-texas-explained-depth.mjs
+
       - name: Validate Explore category SEO
         run: node scripts/data/validate-explore-category-seo.mjs
 
