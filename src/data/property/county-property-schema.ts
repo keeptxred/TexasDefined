@@ -92,10 +92,12 @@ export function createEmptyCountyPropertyRecord(county: TexasCounty): CountyProp
 /**
  * County pages are only search-indexable after local property-tax sources have
  * been verified. A generic county directory URL plus Census FIPS data is not
- * enough to justify a standalone search result.
+ * enough to justify a standalone search result. Duplicate references to the
+ * same office website count once, so two genuinely distinct local sources are
+ * required before publication.
  */
 export function isCountyPropertyIndexReady(record: CountyPropertyRecord) {
-  const localPropertySources = [
+  const localPropertySources = new Set([
     record.links.appraisalDistrictUrl,
     record.appraisalDistrict.websiteUrl,
     record.links.propertySearchUrl,
@@ -104,9 +106,9 @@ export function isCountyPropertyIndexReady(record: CountyPropertyRecord) {
     record.links.paymentUrl,
     record.links.protestUrl,
     record.links.exemptionUrl,
-  ].filter(Boolean);
+  ].filter((value): value is string => Boolean(value)));
 
-  return Boolean(record.lastVerifiedAt) && localPropertySources.length >= 2;
+  return Boolean(record.lastVerifiedAt) && localPropertySources.size >= 2;
 }
 
 export function validateCountyPropertyRecord(record: CountyPropertyRecord) {
