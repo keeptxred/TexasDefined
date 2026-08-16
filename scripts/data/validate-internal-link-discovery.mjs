@@ -4,6 +4,7 @@ const failures = [];
 const read = (file) => fs.readFileSync(file, 'utf8');
 
 const registry = read('src/lib/public-routes.ts');
+const brand = read('src/brand/texasdefined.ts');
 const exploreDiscovery = read('src/components/editorial/ExploreDiscovery.tsx');
 const texasLifeDiscovery = read('src/components/editorial/TexasLifeDiscovery.tsx');
 const categoryPage = read('src/components/editorial/CategoryPage.tsx');
@@ -21,6 +22,10 @@ const exploreSitemap = read('src/routes/sitemap-explore[.]xml.ts');
 for (const path of ['/property', '/explore/trip-planner']) {
   const indexableSection = registry.split('export const REDIRECT_ONLY_PATHS')[0];
   if (!indexableSection.includes(`"${path}"`)) failures.push(`${path} must remain an indexable static route.`);
+}
+
+if (!brand.includes('{ label: "Start Here", to: "/texas-resources" }')) {
+  failures.push('Global footer must keep a sitewide Start Here link to /texas-resources.');
 }
 
 for (const target of ['/explore/trip-planner', '/browse/cities', '/events']) {
@@ -114,4 +119,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Internal-link discovery pathways, Texas Explained links from Texas Life, county profiles, Guidebook, destination pages, fishing and sports venues, calculator hub inbound/outbound discovery, structured calculator collection links and Explore sitemap coverage are protected.');
+console.log('Internal-link discovery pathways, sitewide Start Here resources link, Texas Explained links from Texas Life, county profiles, Guidebook, destination pages, fishing and sports venues, calculator hub inbound/outbound discovery, structured calculator collection links and Explore sitemap coverage are protected.');
