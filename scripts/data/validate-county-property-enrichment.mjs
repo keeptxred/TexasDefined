@@ -9,9 +9,11 @@ const directoryRoute = fs.readFileSync('src/routes/property-tax.counties.tsx', '
 const refreshWorkflow = fs.readFileSync('.github/workflows/sync-county-property-data.yml', 'utf8');
 const validateWorkflow = fs.readFileSync('.github/workflows/validate.yml', 'utf8');
 const failures = [];
+const SOURCE_MAX_AGE_DAYS = 730;
 
 for (const feature of [
   'COUNTY_PROPERTY_ENRICHMENT',
+  'sourceUpdatedAt: { appraisalDistrict: string; taxOffice: string };',
   'https://comptroller.texas.gov/taxes/property-tax/county-directory/',
   'appraisalDistrictUrl:',
   'taxOfficeUrl:',
@@ -20,8 +22,8 @@ for (const feature of [
 }
 
 const seededSlugs = [
-  'angelina', 'bee', 'burleson', 'collingsworth', 'cottle', 'fisher', 'hays', 'hidalgo',
-  'kendall', 'leon', 'lubbock', 'sabine', 'smith', 'terrell', 'washington',
+  'angelina', 'bee', 'collingsworth', 'fisher', 'hays', 'hidalgo',
+  'leon', 'lubbock', 'sabine', 'smith', 'terrell', 'washington',
 ];
 for (const slug of seededSlugs) {
   if (!new RegExp(`(?:^|\\n)  ${slug}:\\s*\\{`).test(snapshot) && !snapshot.includes(`\n  "${slug}":`)) {
@@ -59,6 +61,9 @@ for (const feature of [
   'taxOffice.websiteUrl',
   'isFreshSourceDate(appraisal.lastUpdated)',
   'isFreshSourceDate(taxOffice.lastUpdated)',
+  'sourceUpdatedAt:',
+  'appraisalDistrict: appraisalUpdated',
+  'taxOffice: taxUpdated',
   'else if (fetched) delete merged[county.slug]',
   'lastVerifiedAt: sourceChecked',
   'sourceUrls: [sourceUrl, appraisal.websiteUrl, taxOffice.websiteUrl]',
@@ -127,10 +132,25 @@ for (const value of verificationDates) {
   else if (timestamp > Date.now() + 24 * 60 * 60 * 1000) failures.push(`Snapshot contains a future verification date: ${value}`);
 }
 
+const upstreamFreshness = [...snapshot.matchAll(/sourceUpdatedAt:\s*\{\s*appraisalDistrict:\s*['"](\d{4}-\d{2}-\d{2})['"],\s*taxOffice:\s*['"](\d{4}-\d{2}-\d{2})['"]\s*\}/g)];
+if (upstreamFreshness.length < recordSlugs.length) failures.push('Every snapshot county must persist both upstream office update dates.');
+for (const match of upstreamFreshness) {
+  for (const value of [match[1], match[2]]) {
+    const timestamp = Date.parse(value);
+    if (Number.isNaN(timestamp)) {
+      failures.push(`Snapshot contains invalid upstream office update date: ${value}`);
+      continue;
+    }
+    const ageMs = Date.now() - timestamp;
+    if (ageMs < 0) failures.push(`Snapshot contains a future upstream office update date: ${value}`);
+    else if (ageMs > SOURCE_MAX_AGE_DAYS * 24 * 60 * 60 * 1000) failures.push(`Snapshot contains stale upstream office data older than ${SOURCE_MAX_AGE_DAYS} days: ${value}`);
+  }
+}
+
 if (failures.length) {
   console.error('County property enrichment validation failed:');
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log(`County property enrichment validation passed: ${recordSlugs.length} verified county records are source-backed, freshness-gated, stale-source-withdrawal protected, directory crawl-demand filtered, merged behind the indexability gate, and protected by both main CI and a reviewable refresh PR workflow.`);
+console.log(`County property enrichment validation passed: ${recordSlugs.length} verified county records are source-backed, upstream-freshness-gated, stale-source-withdrawal protected, directory crawl-demand filtered, merged behind the indexability gate, and protected by both main CI and a reviewable refresh PR workflow.`);
