@@ -13,19 +13,13 @@ import { editorialDeskById, editorialDesks } from "../editorial-desks";
 import { supplementalExploreCategories } from "../explore-categories";
 import { guideHref } from "../guide-links";
 import type { Article, ArticleBlock, SearchDocument } from "../types";
-import { brewsterCountyBigBendArticle } from "./brewster-county-big-bend";
-import { culbersonCountyVanHornGuadalupeMountainsArticle } from "./culberson-county-van-horn-guadalupe-mountains";
-import { elPasoCountyPassMissionsBorderlandsArticle } from "./el-paso-county-pass-missions-borderlands";
 import { exploreFeatureArticles } from "./explore-feature-articles";
 import { newestEvergreenArticles } from "./newest-evergreen";
 import { lazyEvergreenArticleStubs, loadLazyEvergreenArticle } from "./lazy-evergreen";
 import { standaloneEvergreenStubs, loadStandaloneEvergreenArticle } from "./lazy-standalone-evergreen";
 import { countySeriesArticleStubs, loadCountySeriesArticleBySlug } from "./lazy-county-series";
 import { coreEvergreenArticleStubs, loadCoreEvergreenArticle } from "./lazy-core-evergreen";
-import { hudspethCountySierraBlancaSaltFlatsArticle } from "./hudspeth-county-sierra-blanca-salt-flats";
-import { jeffDavisCountyFortDavisMountainsArticle } from "./jeff-davis-county-fort-davis-mountains";
 import { migratedEditorialArticles } from "./migrated-editorial";
-import { presidioCountyMarfaBorderlandsArticle } from "./presidio-county-marfa-borderlands";
 import {
   articles,
   categories,
@@ -45,12 +39,6 @@ import {
 const editorialArticles = [
   ...exploreFeatureArticles,
   ...countySeriesArticleStubs,
-  elPasoCountyPassMissionsBorderlandsArticle,
-  hudspethCountySierraBlancaSaltFlatsArticle,
-  culbersonCountyVanHornGuadalupeMountainsArticle,
-  jeffDavisCountyFortDavisMountainsArticle,
-  presidioCountyMarfaBorderlandsArticle,
-  brewsterCountyBigBendArticle,
   ...coreEvergreenArticleStubs,
   ...lazyEvergreenArticleStubs,
   ...standaloneEvergreenStubs,
