@@ -1,5 +1,5 @@
 import type { TexasEntityKind, TexasEntityRecord } from '@/data/knowledge-graph';
-import { canonicalEntityPath } from '@/data/knowledge-graph/relationships';
+import { canonicalEntityPath, isIndexableEntityPage } from '@/data/knowledge-graph/relationships';
 import { scoreEntityAuthority } from '@/platform/knowledge-graph-behavior';
 
 export type InternalLinkTopic = 'travel' | 'property-tax' | 'government' | 'history' | 'events' | 'general';
@@ -75,11 +75,12 @@ export function resolveInternalEntityLinks(text: string, entities: TexasEntityRe
   const policy = { ...DEFAULT_POLICY, ...input };
   const existing = new Set(policy.existingHrefs);
   const used = new Set([...policy.linkedEntityIds, ...policy.excludedEntityIds]);
-  const authorityScores = new Map(scoreEntityAuthority(entities).map((item) => [item.entityId, item.score]));
+  const publishableEntities = entities.filter(isIndexableEntityPage);
+  const authorityScores = new Map(scoreEntityAuthority(publishableEntities).map((item) => [item.entityId, item.score]));
   const diagnostics: InternalLinkDiagnostics = { candidates: 0, accepted: 0, disambiguated: 0, exposureBalanced: 0, authorityBoosted: 0, rejectedExisting: 0, rejectedOverlap: 0, rejectedExcluded: 0, rejectedAmbiguous: 0, rejectedLowQuality: 0 };
   const candidatesBySpan = new Map<string, Candidate[]>();
 
-  for (const entity of entities) {
+  for (const entity of publishableEntities) {
     if (used.has(entity.id) || policy.excludedKinds.includes(entity.kind)) { diagnostics.rejectedExcluded += 1; continue; }
     for (const rawLabel of [entity.name, ...entity.aliases]) {
       const label = rawLabel.trim();
