@@ -29,26 +29,12 @@ export const COUNTY_PROPERTY_ENRICHMENT: Record<string, CountyPropertyEnrichment
     lastVerifiedAt: '2026-08-16',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/bee.php', 'https://www.beecad.org', 'https://www.co.bee.tx.us'],
   },
-  burleson: {
-    appraisalDistrict: { name: 'Tonya Barnes', websiteUrl: 'https://www.burlesonappraisal.com', phone: '979-567-2318', address: '111 E. Fawn St., Caldwell, TX 77836-9998', email: 'public@burlesonappraisal.com' },
-    taxOffice: { name: 'Jessica Lucero', websiteUrl: 'https://www.co.burleson.tx.us', phone: '979-567-2326', address: '100 W. Buck St., Suite 202, Caldwell, TX 77836-1762', email: 'jlucero@burlesoncounty.org' },
-    links: { appraisalDistrictUrl: 'https://www.burlesonappraisal.com', taxOfficeUrl: 'https://www.co.burleson.tx.us' },
-    lastVerifiedAt: '2026-08-16',
-    sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/burleson.php', 'https://www.burlesonappraisal.com', 'https://www.co.burleson.tx.us'],
-  },
   collingsworth: {
     appraisalDistrict: { name: 'Brittany Jameson', websiteUrl: 'https://www.collingsworthcad.org', phone: '806-447-5172', address: '800 West Ave., Rm. 1, Wellington, TX 79095-3037', email: 'bjameson@collingsworthcad.org' },
     taxOffice: { name: 'Sharon Sherwood', websiteUrl: 'https://www.co.collingsworth.tx.us', phone: '806-447-5606', address: '800 West Ave., Box 2, Wellington, TX 79095-3037', email: 'sharon.chism@co.collingsworth.tx.us' },
     links: { appraisalDistrictUrl: 'https://www.collingsworthcad.org', taxOfficeUrl: 'https://www.co.collingsworth.tx.us' },
     lastVerifiedAt: '2026-08-16',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/collingsworth.php', 'https://www.collingsworthcad.org', 'https://www.co.collingsworth.tx.us'],
-  },
-  cottle: {
-    appraisalDistrict: { name: 'Kayla Box', websiteUrl: 'https://www.cottlecad.org', phone: '806-492-3345', address: '815 9th St., Room 104, Paducah, TX 79248-0587', email: 'kbox@cottlecad.org' },
-    taxOffice: { name: 'Kayla Box', websiteUrl: 'https://www.co.cottle.tx.us', phone: '806-492-3345', address: '815 9th St., Paducah, TX 79248-0586', email: 'cottletac@co.cottle.tx.us' },
-    links: { appraisalDistrictUrl: 'https://www.cottlecad.org', taxOfficeUrl: 'https://www.co.cottle.tx.us' },
-    lastVerifiedAt: '2026-08-16',
-    sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/cottle.php', 'https://www.cottlecad.org', 'https://www.co.cottle.tx.us'],
   },
   fisher: {
     appraisalDistrict: { name: 'Gary Zeitler, Interim', websiteUrl: 'https://www.fishercad.org', phone: '325-776-2733', address: '107 E. North 1st St., Roby, TX 79543-2301', email: 'hbufkin@fishercad.org' },
@@ -70,13 +56,6 @@ export const COUNTY_PROPERTY_ENRICHMENT: Record<string, CountyPropertyEnrichment
     links: { appraisalDistrictUrl: 'https://www.hidalgoad.org', taxOfficeUrl: 'https://www.hidalgocounty.us' },
     lastVerifiedAt: '2026-08-16',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/hidalgo.php', 'https://www.hidalgoad.org', 'https://www.hidalgocounty.us'],
-  },
-  kendall: {
-    appraisalDistrict: { name: 'Nelia Zapata', websiteUrl: 'https://www.kendallad.org', phone: '830-249-8012', address: '118 Market Ave., Boerne, TX 78006-3004', email: 'requestinfo@kendallad.org' },
-    taxOffice: { name: 'James Hudson', websiteUrl: 'https://www.co.kendall.tx.us', phone: '830-249-9343', address: '201 E. San Antonio St., Suite 105, Boerne, TX 78006-2013', email: 'james.hudsontac@co.kendall.tx.us' },
-    links: { appraisalDistrictUrl: 'https://www.kendallad.org', taxOfficeUrl: 'https://www.co.kendall.tx.us' },
-    lastVerifiedAt: '2026-08-16',
-    sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/kendall.php', 'https://www.kendallad.org', 'https://www.co.kendall.tx.us'],
   },
   leon: {
     appraisalDistrict: { name: 'Marcus Williams', websiteUrl: 'https://www.leoncad.org', phone: '903-536-2252', address: '141 W. Saint Marys St., Centerville, TX 75833-3456', email: 'leoncentralappraisal@gmail.com' },
