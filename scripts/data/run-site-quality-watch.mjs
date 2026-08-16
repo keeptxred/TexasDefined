@@ -13,6 +13,11 @@ const checks = [
     script: 'scripts/data/validate-county-property-enrichment.mjs',
   },
   {
+    id: 'destination-indexing',
+    label: 'Primary destination indexing and duplicate-unit consolidation',
+    script: 'scripts/data/validate-destination-indexing-policy.mjs',
+  },
+  {
     id: 'content-integrity',
     label: 'Required content fields and data integrity',
     script: 'scripts/data/validate-content-data-integrity.mjs',
