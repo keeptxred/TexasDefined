@@ -78,8 +78,17 @@ if (!exploreSitemap.includes('isExploreSitemapOwnedPath(normalized)')) failures.
 if (!exploreSitemap.includes('normalizePublicPath(path)')) failures.push('Explore sitemap does not normalize/reject malformed paths.');
 if (!sitemap.includes('Promise.allSettled')) failures.push('Primary sitemap must convert upstream failures into an explicit retryable response.');
 if (!sitemap.includes('status: 503') || !sitemap.includes('"retry-after": "300"')) failures.push('Primary sitemap must return retryable 503 semantics on core data failure.');
-if (!exploreSitemap.includes('let remoteFailed = false')) failures.push('Explore sitemap must track actual remote failure separately from an empty result.');
-if (!exploreSitemap.includes('const destinations = remoteFailed ? fixtureDestinations : remoteDestinations')) failures.push('Explore sitemap must use fixtures only after an actual remote outage.');
+for (const feature of [
+  'let enrichedFailed = false',
+  'let coreFailed = false',
+  'const bothRemoteSourcesUnavailable = enrichedFailed && coreFailed',
+  'mergeDestinationSources(coreDestinations, enrichedDestinations)',
+  '? fixtureDestinations',
+  'if (rawDestinations.length === 0)',
+]) {
+  if (!exploreSitemap.includes(feature)) failures.push(`Explore sitemap dual-source reliability contract missing: ${feature}`);
+}
+if (exploreSitemap.includes('const destinations = remoteFailed ? fixtureDestinations : remoteDestinations')) failures.push('Explore sitemap must not use the obsolete single-source outage fallback.');
 if (exploreSitemap.includes('remoteDestinations.length ? remoteDestinations : fixtureDestinations')) failures.push('Explore sitemap must not treat a healthy empty remote catalog as an outage.');
 if (!exploreSitemap.includes('isPrimaryTripPlannerDestination(destination)') || !exploreSitemap.includes('auditDestination(destination).readyForIndexing')) {
   failures.push('Explore sitemap must publish only primary, quality-approved destinations.');
@@ -161,4 +170,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Sitemap ownership, crawl-demand partitioning, quality gates, reliability, malformed-path rejection, migrated aliases, regional quality, and noindex/redirect policy validation passed.');
+console.log('Sitemap ownership, crawl-demand partitioning, dual-source Explore reliability, resolved quality gates, malformed-path rejection, migrated aliases, regional quality, and noindex/redirect policy validation passed.');
