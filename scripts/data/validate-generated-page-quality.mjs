@@ -58,8 +58,17 @@ requireAll('local-office publication gate', relationships, [
   "entity.status !== 'active'",
 ]);
 requireAll('office promotion gate', entityIndex, [
+  'enrichLocalOfficeEntityFromSnapshot',
+  'getCountyPropertyRecordBySlug',
+  'isCountyPropertyIndexReady',
+  "status: 'active'",
   'const readyForPublication = hasVerifiedWebsite && hasUsefulContact && description.length >= 180',
   "status: readyForPublication ? 'active' : entity.status",
+]);
+requireAll('sitemap office enrichment', entityIndex, [
+  "entity.kind !== 'appraisal-district' && entity.kind !== 'tax-office'",
+  'const enriched = enrichLocalOfficeEntityFromSnapshot(entity)',
+  'enrichedById.set(entity.id, enriched)',
 ]);
 
 // Render contract: thin generic templates may not silently return.
@@ -164,4 +173,4 @@ if (errors.length) {
   process.exit(1);
 }
 for (const warning of warnings) console.warn(`- ${warning}`);
-console.log('Generated-page quality validator passed: inventory, source authority, county-seat place semantics, content richness, indexability, sitemap qualification, local-office promotion, property-page gating, and related-content relevance are protected.');
+console.log('Generated-page quality validator passed: inventory, source authority, county-seat place semantics, content richness, indexability, sitemap qualification, snapshot-backed local-office promotion, property-page gating, and related-content relevance are protected.');
