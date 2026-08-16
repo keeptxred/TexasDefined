@@ -54,11 +54,21 @@ for (const routePath of conditional) {
   if (redirects.includes(routePath) || nonIndexable.includes(routePath)) failures.push(`Conditional route has conflicting crawl classification: ${routePath}.`);
 }
 for (const routePath of redirects) if (nonIndexable.includes(routePath)) failures.push(`Route is both redirect-only and non-indexable: ${routePath}.`);
-const toolsRoute = sourceByFile.get('src/routes/tools.tsx') ?? '';
-if (!redirects.includes('/tools')) failures.push('Legacy /tools route must remain redirect-only.');
-if (!toolsRoute.includes("createFileRoute('/tools')") && !toolsRoute.includes('createFileRoute("/tools")')) failures.push('Legacy /tools redirect route source is missing.');
-if (!toolsRoute.includes('/decide/financial-tools')) failures.push('Legacy /tools must redirect to /decide/financial-tools.');
-if (!toolsRoute.includes('statusCode: 301')) failures.push('Legacy /tools redirect must remain permanent (301).');
+
+const redirectContracts = [
+  ['/tools', 'src/routes/tools.tsx', '/decide/financial-tools'],
+  ['/mortgage-calculator', 'src/routes/mortgage-calculator.tsx', '/texas-mortgage-calculator'],
+  ['/calculators/texas-home-affordability', 'src/routes/calculators.texas-home-affordability.tsx', '/texas-home-affordability-calculator'],
+  ['/calculators/texas-property-tax', 'src/routes/calculators.texas-property-tax.tsx', '/property-tax-calculators'],
+];
+for (const [legacyPath, routeFile, targetPath] of redirectContracts) {
+  const source = sourceByFile.get(routeFile) ?? '';
+  if (!redirects.includes(legacyPath)) failures.push(`Legacy ${legacyPath} route must remain redirect-only.`);
+  if (!source.includes(`createFileRoute('${legacyPath}')`) && !source.includes(`createFileRoute("${legacyPath}")`)) failures.push(`Legacy redirect route source is missing: ${legacyPath} (${routeFile}).`);
+  if (!source.includes(targetPath)) failures.push(`Legacy ${legacyPath} must redirect to ${targetPath}.`);
+  if (!source.includes('statusCode: 301')) failures.push(`Legacy ${legacyPath} redirect must remain permanent (301).`);
+}
+
 const hasRouteLiteral = (source, routePath) => [`"${routePath}"`, `'${routePath}'`, `\`${routePath}\``].some((literal) => source.includes(literal));
 for (const routePath of [...indexable, ...conditional]) {
   if (routePath !== '/') {
