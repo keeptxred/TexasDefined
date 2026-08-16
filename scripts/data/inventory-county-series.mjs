@@ -29,6 +29,21 @@ const readStringField = (source, field) => {
   return match?.[1] ?? null;
 };
 
+const readHeroSource = (source, heroBlock) => {
+  const stringSrc = readStringField(heroBlock, 'src');
+  if (stringSrc) return stringSrc;
+
+  const identifierMatch = heroBlock.match(/\bsrc\s*:\s*([A-Za-z_$][A-Za-z0-9_$]*)\s*[,\n]/);
+  if (!identifierMatch) return null;
+
+  const identifier = identifierMatch[1];
+  const importPattern = new RegExp(`import\\s+${identifier}\\s+from\\s+["']([^"']+)["']`);
+  const importMatch = source.match(importPattern);
+  if (!importMatch) return null;
+
+  return importMatch[1];
+};
+
 const rows = profiles
   .sort((a, b) => a.countySlug.localeCompare(b.countySlug))
   .map((profile) => {
@@ -43,7 +58,7 @@ const rows = profiles
     const slug = readStringField(source, 'slug');
     const title = readStringField(source, 'title');
     const heroBlock = source.match(/\bhero\s*:\s*\{([\s\S]*?)\n\s*\}/)?.[1] ?? '';
-    const heroSrc = readStringField(heroBlock, 'src');
+    const heroSrc = readHeroSource(source, heroBlock);
 
     if (!id || !slug || !title || !heroSrc) {
       throw new Error(`County profile is missing required publication metadata: ${profile.countySlug}`);
