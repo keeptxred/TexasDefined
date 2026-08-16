@@ -1,14 +1,9 @@
 import type { BrandId } from "@/brand/types";
 
 import { countySlugForLegacyArticle, isLegacyCountySeriesArticle } from "./county-series";
-import { andrewsCountyAndrewsOilShafterLakeArticle } from "./fixtures/andrews-county-andrews-oil-shafter-lake";
-import { caddoLakeCypressMorningArticle } from "./fixtures/caddo-lake-cypress-morning";
-import { ectorCountyOdessaOilStonehengeArticle } from "./fixtures/ector-county-odessa-oil-stonehenge";
 import { fixturePlatform } from "./fixtures/repositories";
 import { randallCountyCanyonPaloDuroArticle } from "./fixtures/randall-county-canyon-palo-duro";
 import { tomGreenCountySanAngeloConchoArticle } from "./fixtures/tom-green-county-san-angelo-concho";
-import { wardCountyMonahansSandhillsArticle } from "./fixtures/ward-county-monahans-sandhills";
-import { winklerCountyKermitWinkOilArticle } from "./fixtures/winkler-county-kermit-wink-oil";
 import type { PlatformRepositories } from "./repositories";
 import type { Article, ArticleBlock, SearchDocument } from "./types";
 
@@ -184,26 +179,21 @@ const canonicalizeInternalLinks = (links: NonNullable<Article["internalLinks"]>)
   links.map((link) => ({ ...link, href: canonicalizeCountyHref(link.href) }));
 
 const normalizeArticle = (article: Article): Article => {
-  const source =
-    article.slug === caddoLakeCypressMorningArticle.slug
-      ? caddoLakeCypressMorningArticle
-      : article;
-
-  const hero = source.slug === TEXAS_UNDERGROUND_SLUG
+  const hero = article.slug === TEXAS_UNDERGROUND_SLUG
     ? TEXAS_UNDERGROUND_HERO
-    : EDITORIAL_HERO_OVERRIDES[source.slug] ?? MOVING_ARTICLE_HEROES[source.slug] ?? source.hero;
-  const existingInternalLinks = source.internalLinks ?? [];
-  const additions = ARTICLE_INTERNAL_LINK_ADDITIONS[source.slug] ?? [];
+    : EDITORIAL_HERO_OVERRIDES[article.slug] ?? MOVING_ARTICLE_HEROES[article.slug] ?? article.hero;
+  const existingInternalLinks = article.internalLinks ?? [];
+  const additions = ARTICLE_INTERNAL_LINK_ADDITIONS[article.slug] ?? [];
   const internalLinks = canonicalizeInternalLinks([
     ...existingInternalLinks,
     ...additions.filter((addition) => !existingInternalLinks.some((link) => link.href === addition.href)),
   ]);
 
   return {
-    ...source,
+    ...article,
     hero,
     internalLinks,
-    readingMinutes: computedReadingMinutes(source),
+    readingMinutes: computedReadingMinutes(article),
   };
 };
 
@@ -230,26 +220,15 @@ const articleRepository = {
     slug: Parameters<typeof fixturePlatform.articles.getBySlug>[1],
   ) {
     if (scope.brandId === "texasdefined") {
-      if (slug === andrewsCountyAndrewsOilShafterLakeArticle.slug) {
-        return normalizeArticle(andrewsCountyAndrewsOilShafterLakeArticle);
-      }
-      if (slug === caddoLakeCypressMorningArticle.slug) {
+      if (slug === "caddo-lake-cypress-morning") {
+        const { caddoLakeCypressMorningArticle } = await import("./fixtures/caddo-lake-cypress-morning");
         return normalizeArticle(caddoLakeCypressMorningArticle);
-      }
-      if (slug === ectorCountyOdessaOilStonehengeArticle.slug) {
-        return normalizeArticle(ectorCountyOdessaOilStonehengeArticle);
       }
       if (slug === randallCountyCanyonPaloDuroArticle.slug) {
         return normalizeArticle(randallCountyCanyonPaloDuroArticle);
       }
       if (slug === tomGreenCountySanAngeloConchoArticle.slug) {
         return normalizeArticle(tomGreenCountySanAngeloConchoArticle);
-      }
-      if (slug === wardCountyMonahansSandhillsArticle.slug) {
-        return normalizeArticle(wardCountyMonahansSandhillsArticle);
-      }
-      if (slug === winklerCountyKermitWinkOilArticle.slug) {
-        return normalizeArticle(winklerCountyKermitWinkOilArticle);
       }
     }
 
