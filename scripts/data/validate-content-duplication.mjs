@@ -55,13 +55,17 @@ for (const path of declaredRedirects) {
   if (source.includes('canonicalPath:')) errors.push(`${path} must not publish a competing canonical.`);
 }
 
-const newsSource = await readFile(join(root, 'src/routes/news.tsx'), 'utf8');
+const newsIndexSource = await readFile(join(root, 'src/routes/news.index.tsx'), 'utf8');
+const newsLayoutSource = await readFile(join(root, 'src/routes/news.tsx'), 'utf8');
 for (const feature of [
   'loader: async ({ context }) => context.queryClient.ensureQueryData(newsQuery)',
   'robots: hasStories ? undefined : "noindex, follow"',
   'useSuspenseQuery(newsQuery)',
 ]) {
-  if (!newsSource.includes(feature)) errors.push(`News thin-content protection missing: ${feature}`);
+  if (!newsIndexSource.includes(feature)) errors.push(`News thin-content protection missing from exact index route: ${feature}`);
+}
+if (newsLayoutSource.includes('canonicalPath:') || newsLayoutSource.includes('canonicalLink(')) {
+  errors.push('News parent layout must not own a canonical that can duplicate routed-story canonicals.');
 }
 
 const legacyValidator = await readFile(join(root, 'scripts/data/validate-legacy-links.mjs'), 'utf8');
