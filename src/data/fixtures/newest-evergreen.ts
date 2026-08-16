@@ -1,6 +1,8 @@
 import { articleInternalLinks } from "../article-internal-links";
 import { winklerCountyKermitWinkOilArticle } from "./winkler-county-kermit-wink-oil";
 
+// Texas Explained support bodies formerly registered here via ...texasExplainedSupportArticles
+// now live behind lazyEvergreenArticleStubs/loadLazyEvergreenArticle; this file only owns pillar topology.
 const supportLinksByPillar: Record<string, Array<{ href: string; label: string; description: string }>> = {
   "texas-rivers-explained": [
     { href: "/article/texas-river-basins-guide", label: "Texas river basins explained", description: "Go from individual rivers to the watersheds that connect tributaries, reservoirs, cities and the Gulf." },
