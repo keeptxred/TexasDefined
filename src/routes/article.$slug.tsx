@@ -124,6 +124,7 @@ export const Route = createFileRoute("/article/$slug")({
       mainEntityOfPage: { "@id": articleUrl },
       headline: article.title,
       description: article.dek,
+      abstract: article.dek,
       inLanguage: texasDefinedBrand.identity.locale,
       image: [{ "@id": `${articleUrl}#primaryimage` }],
       thumbnailUrl: imageUrl,
@@ -203,6 +204,7 @@ function ArticlePage() {
   const department = articleDepartment(article.category);
   const texasExplainedPillarPosition = texasExplainedPillarOrder.findIndex((pillarSlug) => pillarSlug === article.slug);
   const isTexasExplainedPillar = texasExplainedPillarPosition >= 0;
+  const texasExplainedQuickAnswer = isTexasExplainedPillar ? article.dek.trim() : null;
   const previousTexasExplainedSlug = texasExplainedPillarPosition > 0
     ? texasExplainedPillarOrder[texasExplainedPillarPosition - 1]
     : null;
@@ -245,7 +247,13 @@ function ArticlePage() {
           <div className="text-right">{nextTexasExplainedSlug ? <Link to="/article/$slug" params={{ slug: nextTexasExplainedSlug }} className="text-foreground transition-colors hover:text-primary">Guide {texasExplainedPillarPosition + 2} of {texasExplainedPillarOrder.length} →</Link> : null}</div>
         </nav>
       </aside>}
-      <div className="mt-10"><ArticleBody blocks={article.body} entities={graph} /></div>
+      {texasExplainedQuickAnswer && <section className="mt-8 rounded-sm border border-border bg-surface p-6 sm:p-7" aria-labelledby="texas-explained-quick-answer">
+        <p className="eyebrow text-primary">Quick answer</p>
+        <h2 id="texas-explained-quick-answer" className="mt-3 font-display text-2xl">The short version</h2>
+        <p className="mt-3 text-base leading-8 text-foreground/85">{texasExplainedQuickAnswer}</p>
+        <a href="#guide-body" className="mt-4 inline-block text-sm font-semibold text-primary underline-offset-4 hover:underline">Read the full guide ↓</a>
+      </section>}
+      <div id={isTexasExplainedPillar ? "guide-body" : undefined} className="mt-10 scroll-mt-28"><ArticleBody blocks={article.body} entities={graph} /></div>
       {article.hero.credit && <p className="mt-10 text-xs text-muted-foreground">Photography: {article.hero.credit}</p>}
       {internalLinks.length > 0 && <aside className="mt-14 border-y border-border py-8" aria-label="Related reading">
         <p className="eyebrow text-primary">Related reading</p>
