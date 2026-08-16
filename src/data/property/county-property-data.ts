@@ -37,6 +37,9 @@ function buildCountyPropertyRecord(county: (typeof TEXAS_COUNTIES)[number], inde
     appraisalDistrict: enrichment ? { ...base.appraisalDistrict, ...enrichment.appraisalDistrict } : base.appraisalDistrict,
     taxOffice: enrichment ? { ...base.taxOffice, ...enrichment.taxOffice } : base.taxOffice,
     links: enrichment ? { ...base.links, ...enrichment.links } : base.links,
+    sourceUpdatedAt: enrichment
+      ? { appraisalDistrict: enrichment.sourceUpdatedAt.appraisalDistrict, taxOffice: enrichment.sourceUpdatedAt.taxOffice }
+      : base.sourceUpdatedAt,
     lastVerifiedAt: enrichment?.lastVerifiedAt ?? null,
     sourceUrls: Array.from(new Set([
       county.officialDirectoryUrl,
