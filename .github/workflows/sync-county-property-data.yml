@@ -46,11 +46,14 @@ jobs:
             node scripts/data/sync-county-property-data.mjs
           fi
 
-      - name: Validate generated snapshot
+      - name: Validate generated snapshot and crawl policy
         run: |
           node scripts/data/validate-county-property-enrichment.mjs
           node scripts/data/validate-generated-page-quality.mjs
+          node scripts/data/validate-entity-template-quality.mjs
           node scripts/data/validate-indexation-quality.mjs
+          node scripts/data/validate-crawl-demand.mjs
+          node scripts/data/validate-freshness-signals.mjs
           node scripts/data/validate-sitemap-routes.mjs
 
       - name: Detect changes
@@ -92,4 +95,4 @@ jobs:
             --base main \
             --head "$BRANCH" \
             --title 'Refresh verified Texas county property-tax data' \
-            --body $'Automated refresh from the Texas Comptroller Local Property Appraisal and Tax Information county directory.\n\nThe generated snapshot is source-backed and remains behind the existing freshness, unique-source, sitemap, and noindex quality gates. Full repository validation will run on this pull request before merge.'
+            --body $'Automated refresh from the Texas Comptroller Local Property Appraisal and Tax Information county directory.\n\nThe generated snapshot is source-backed and remains behind the existing freshness, unique-source, sitemap, crawl-demand, and noindex quality gates. Full repository validation will run on this pull request before merge.'
