@@ -19,7 +19,9 @@ jobs:
           fetch-depth: 2
 
       - name: Apply asserted reservoir integration patches
-        run: python3 scripts/data/integrate-texas-explained-reservoirs.py
+        run: |
+          python3 scripts/data/integrate-texas-explained-reservoirs.py
+          python3 scripts/data/patch-river-validator-for-reservoirs.py
 
       - name: Verify focused Texas Explained contracts
         run: |
@@ -31,6 +33,7 @@ jobs:
         run: |
           rm .github/workflows/integrate-texas-explained-reservoirs.yml
           rm scripts/data/integrate-texas-explained-reservoirs.py
+          rm scripts/data/patch-river-validator-for-reservoirs.py
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
