@@ -44,12 +44,17 @@ for (const feature of [
   'isExploreSitemapOwnedPath(normalized)',
   'isPrimaryTripPlannerDestination(destination)',
   'auditDestination(destination).readyForIndexing',
-  'const destinations = remoteFailed ? fixtureDestinations : remoteDestinations',
+  'mergeDestinationSources(coreDestinations, enrichedDestinations)',
+  'const bothRemoteSourcesUnavailable = enrichedFailed && coreFailed',
+  'const destinations = resolveDestinationCatalog(rawDestinations)',
 ]) {
   if (!explore.includes(feature)) failures.push(`Explore sitemap crawl-quality contract missing: ${feature}`);
 }
 if (explore.includes('remoteDestinations.length ? remoteDestinations : fixtureDestinations')) {
   failures.push('Explore sitemap must not republish fixtures merely because a healthy remote catalog is empty.');
+}
+if (explore.includes('const destinations = remoteFailed ? fixtureDestinations : remoteDestinations')) {
+  failures.push('Explore sitemap must not use the obsolete single-source outage fallback.');
 }
 for (const generalOnlyTemplate of ['`/article/${', '`/authors/${', '`/shop/${', '`/property-tax/county/${']) {
   if (explore.includes(generalOnlyTemplate)) failures.push(`Explore sitemap must not construct general-site URL template ${generalOnlyTemplate}.`);
@@ -64,4 +69,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Crawl-demand validation passed: sitemap namespaces are partitioned, Explore destinations are quality-gated, and robots advertises each sitemap once.');
+console.log('Crawl-demand validation passed: sitemap namespaces are partitioned, Explore destinations are merged, resolved and quality-gated, and robots advertises each sitemap once.');
