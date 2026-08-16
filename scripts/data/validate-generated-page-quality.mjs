@@ -22,14 +22,12 @@ function forbidAll(label, text, needles) {
   for (const needle of needles) if (text.includes(needle)) errors.push(`${label}: forbidden regression returned: ${needle}`);
 }
 
-// Inventory contract: the generated families that caused the thin-page incident must stay complete.
 requireAll('registry inventory', registry, [
   'TEXAS_COUNTY_ENTITIES.length!==254',
   'TEXAS_LOCAL_OFFICE_ENTITIES.length!==508',
   "status:'pending-source-verification'",
 ]);
 
-// Publication contract: a generated page is not indexable merely because a route exists.
 requireAll('entity publication gate', relationships, [
   'export function isIndexableEntityPage',
   "['active', 'seasonal'].includes(entity.status)",
@@ -71,11 +69,18 @@ requireAll('sitemap office enrichment', entityIndex, [
   'enrichedById.set(entity.id, enriched)',
 ]);
 
-// Render contract: thin generic templates may not silently return.
 requireAll('county guide richness', countyGuide, [
   'At a glance', 'The county in numbers', 'Where it is', 'A sense of place',
   'County seat & communities', 'Places on the map', 'What to know',
   'Property & county services', 'Official local resources', 'Nearby places', 'Keep exploring',
+]);
+requireAll('county property link gate', countyGuide, [
+  'getCountyPropertyRecordBySlug',
+  'isCountyPropertyIndexReady',
+  'const propertyGuideReady = Boolean(propertyRecord && isCountyPropertyIndexReady(propertyRecord))',
+  "const propertyGuideHref = propertyGuideReady ? `/property-tax/county/${entity.slug}` : '/property-tax/counties'",
+  'href={propertyGuideHref}',
+  'local source verification is still incomplete',
 ]);
 requireAll('entity route index control', entityRoute, [
   'isIndexableEntityPage(loaderData.entity)',
@@ -87,9 +92,11 @@ forbidAll('generic placeholder copy', entityRoute, [
   'What to know about ${loaderData.entity.name}, where it is, and what is nearby.',
   'This county guide is being expanded',
 ]);
+forbidAll('unconditional county property child links', countyGuide, [
+  'links={[{ href: `/property-tax/county/${entity.slug}`',
+  '<a href={`/property-tax/county/${entity.slug}`',
+]);
 
-// Source contract: county/local-office facts must remain backed by authoritative enrichment.
-// TIGERweb is used instead of the Census Data API because the latter now requires an API key.
 requireAll('statewide county enrichment', countyProfile, [
   'countySeatsPromise', 'countyCensusFactsPromise',
   'fetchCountySeats', 'fetchCountyCensusFacts',
@@ -106,8 +113,6 @@ forbidAll('retired Census Data API dependency', countyProfile, [
   'api.census.gov/data/2020/geoinfo',
 ]);
 
-// County-seat semantics: the source column is a place name. Never infer a person/politician from
-// a one-word value such as Gail, Benjamin, or Claude, and never truncate multi-word seats.
 requireAll('county-seat place semantics', countyProfile, [
   'export type CountySeatPlace',
   "entityType: 'place'",
@@ -134,7 +139,6 @@ forbidAll('per-county source fanout', countyProfile, [
   'fetchCountySeat(baseName)', 'fetchPopulation(countyCode)', 'fetchGeography(countyCode)',
 ]);
 
-// Property-tax county pages get the same fail-closed treatment.
 requireAll('property county gate', propertySchema, [
   'isCountyPropertyIndexReady',
   'COUNTY_PROPERTY_VERIFICATION_MAX_AGE_DAYS',
@@ -147,14 +151,12 @@ requireAll('property county route', propertyRoute, [
   "robots: indexReady ? undefined : 'noindex, follow'",
 ]);
 
-// Discovery contract: only qualified generated pages belong in XML sitemaps.
 requireAll('sitemap qualification', sitemap, [
   'COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady)',
   'graph.filter(isIndexableEntityPage)',
   'canonicalEntityPath(entity)',
 ]);
 
-// Related-content contract: don't recreate alphabetical same-kind filler links.
 requireAll('relationship relevance', relationships, [
   'const sameCounty = Boolean(entityCounty && candidateCounty && entityCounty === candidateCounty)',
   'const miles = distanceMiles(entity, candidate)',
@@ -173,4 +175,4 @@ if (errors.length) {
   process.exit(1);
 }
 for (const warning of warnings) console.warn(`- ${warning}`);
-console.log('Generated-page quality validator passed: inventory, source authority, county-seat place semantics, content richness, indexability, sitemap qualification, snapshot-backed local-office promotion, property-page gating, and related-content relevance are protected.');
+console.log('Generated-page quality validator passed: inventory, source authority, county-seat place semantics, content richness, indexability, sitemap qualification, snapshot-backed local-office promotion, property-page gating, county crawl-demand filtering, and related-content relevance are protected.');
