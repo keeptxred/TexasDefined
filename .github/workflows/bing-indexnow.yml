@@ -9,6 +9,7 @@ on:
       - '.github/workflows/bing-indexnow.yml'
       - 'public/0c2b08423ce5be707dd931f57239acf1.txt'
       - 'scripts/seo/submit-indexnow.mjs'
+      - 'src/server.ts'
 
 permissions:
   contents: read
@@ -39,6 +40,12 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: npx wrangler deploy
+
+      - name: Verify Bing Webmaster meta tag is live
+        run: |
+          set -euo pipefail
+          html="$(curl --fail --silent --show-error --retry 5 --retry-delay 2 https://texasdefined.com/)"
+          printf '%s' "$html" | grep -F '<meta name="msvalidate.01" content="74E5E79AEC351CF6D2577A6FC6A125DF" />'
 
       - name: Submit live URLs to IndexNow
         run: node scripts/seo/submit-indexnow.mjs
