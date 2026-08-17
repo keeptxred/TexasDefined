@@ -22,7 +22,7 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   profile("reeves", "reeves-county-pecos-balmorhea-texas", () => import("@/data/fixtures/reeves-county-pecos-balmorhea").then((module) => module.reevesCountyPecosBalmorheaArticle)),
   profile("pecos", "pecos-county-fort-stockton-comanche-springs-texas", () => import("@/data/fixtures/pecos-county-fort-stockton-comanche-springs").then((module) => module.pecosCountyFortStocktonComancheSpringsArticle)),
   profile("ward", "ward-county-monahans-sandhills-texas", () => import("@/data/fixtures/ward-county-monahans-sandhills").then((module) => module.wardCountyMonahansSandhillsArticle)),
-  profile("winkler", "winkler-county-kermit-wink-oil-texas", () => import("@/data/fixtures/winkler-county-kermit-wink-oil").then((module) => module.winklerCountyKermitWinkOilArticle)),
+  profile("winkler", "winkler-county-kermit-wink-oil-texas", () => import("@/data/fixtures/winkler-county-kermit-wink-oil").then((module) => module.winklerCountyKermitWinklerOilArticle)),
   profile("andrews", "andrews-county-andrews-oil-shafter-lake-texas", () => import("@/data/fixtures/andrews-county-andrews-oil-shafter-lake").then((module) => module.andrewsCountyAndrewsOilShafterLakeArticle)),
   profile("ector", "ector-county-odessa-oil-stonehenge-texas", () => import("@/data/fixtures/ector-county-odessa-oil-stonehenge").then((module) => module.ectorCountyOdessaOilStonehengeArticle)),
   profile("randall", "randall-county-canyon-palo-duro-texas", () => import("@/data/fixtures/randall-county-canyon-palo-duro").then((module) => module.randallCountyCanyonPaloDuroArticle)),
@@ -35,7 +35,7 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   profile("harris", "harris-county-houston-bayous-port-space-texas", () => import("@/data/fixtures/harris-county-houston-bayous-port-space").then((module) => module.harrisCountyHoustonBayousPortSpaceArticle)),
   profile("fort-bend", "fort-bend-county-brazos-richmond-sugar-land-texas", () => import("@/data/fixtures/fort-bend-county-brazos-richmond-sugar-land").then((module) => module.fortBendCountyBrazosRichmondSugarLandArticle)),
   profile("montgomery", "montgomery-county-conroe-lake-piney-woods-texas", () => import("@/data/fixtures/montgomery-county-conroe-lake-piney-woods").then((module) => module.montgomeryCountyConroeLakePineyWoodsArticle)),
-  profile("brazoria", "brazoria-county-brazos-gulf-angleton-texas", () => import("@/data/fixtures/brazoria-county-brazos-gulf-angleton").then((module) => module.brazoriaCountyBrazosGulfAngletonArticle)),
+  profile("brazoria", "brazoria-county-brazos-gulf-angleton-texas", () => import("@/data/fixtures/brazoria-county-brazos-gulf-angleton").then((module) => module.brazoriaCountyBrazosBrazosGulfAngletonArticle)),
   profile("dallas", "dallas-county-dallas-trinity-old-red-texas", () => import("@/data/fixtures/dallas-county-dallas-trinity-old-red").then((module) => module.dallasCountyDallasTrinityOldRedArticle)),
   profile("tarrant", "tarrant-county-fort-worth-trinity-western-heritage-texas", () => import("@/data/fixtures/tarrant-county-fort-worth-trinity-western-heritage").then((module) => module.tarrantCountyFortWorthTrinityWesternHeritageArticle)),
   profile("collin", "collin-county-mckinney-prairie-growth-texas", () => import("@/data/fixtures/collin-county-mckinney-prairie-growth").then((module) => module.collinCountyMcKinneyPrairieGrowthArticle)),
@@ -46,6 +46,7 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   profile("bell", "bell-county-belton-temple-fort-hood-lakes-texas", () => import("@/data/fixtures/bell-county-belton-temple-fort-hood-lakes").then((module) => module.bellCountyBeltonTempleFortHoodLakesArticle)),
   profile("mclennan", "mclennan-county-waco-brazos-baylor-mammoths-texas", () => import("@/data/fixtures/mclennan-county-waco-brazos-baylor-mammoths").then((module) => module.mclennanCountyWacoBrazosBaylorMammothsArticle)),
   profile("brazos", "brazos-county-bryan-college-station-aggieland-rivers-texas", () => import("@/data/fixtures/brazos-county-bryan-college-station-aggieland-rivers").then((module) => module.brazosCountyBryanCollegeStationAggielandRiversArticle)),
+  profile("bastrop", "bastrop-county-lost-pines-colorado-river-history-texas", () => import("@/data/fixtures/bastrop-county-lost-pines-colorado-river-history").then((module) => module.bastropCountyLostPinesColoradoRiverHistoryArticle)),
 ];
 
 const articlePromiseCache = new Map<string, Promise<Article | null>>();
