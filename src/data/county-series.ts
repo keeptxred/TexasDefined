@@ -42,6 +42,7 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   profile("denton", "denton-county-denton-lakes-universities-growth-texas", () => import("@/data/fixtures/denton-county-denton-lakes-universities-growth").then((module) => module.dentonCountyDentonLakesUniversitiesGrowthArticle)),
   profile("williamson", "williamson-county-georgetown-round-rock-san-gabriel-texas", () => import("@/data/fixtures/williamson-county-georgetown-round-rock-san-gabriel").then((module) => module.williamsonCountyGeorgetownRoundRockSanGabrielArticle)),
   profile("hays", "hays-county-san-marcos-blanco-hill-country-texas", () => import("@/data/fixtures/hays-county-san-marcos-blanco-hill-country").then((module) => module.haysCountySanMarcosBlancoHillCountryArticle)),
+  profile("comal", "comal-county-new-braunfels-canyon-lake-guadalupe-texas", () => import("@/data/fixtures/comal-county-new-braunfels-canyon-lake-guadalupe").then((module) => module.comalCountyNewBraunfelsCanyonLakeGuadalupeArticle)),
 ];
 
 const articlePromiseCache = new Map<string, Promise<Article | null>>();
