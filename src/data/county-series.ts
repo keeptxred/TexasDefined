@@ -22,7 +22,7 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   profile("reeves", "reeves-county-pecos-balmorhea-texas", () => import("@/data/fixtures/reeves-county-pecos-balmorhea").then((module) => module.reevesCountyPecosBalmorheaArticle)),
   profile("pecos", "pecos-county-fort-stockton-comanche-springs-texas", () => import("@/data/fixtures/pecos-county-fort-stockton-comanche-springs").then((module) => module.pecosCountyFortStocktonComancheSpringsArticle)),
   profile("ward", "ward-county-monahans-sandhills-texas", () => import("@/data/fixtures/ward-county-monahans-sandhills").then((module) => module.wardCountyMonahansSandhillsArticle)),
-  profile("winkler", "winkler-county-kermit-wink-oil-texas", () => import("@/data/fixtures/winkler-county-kermit-wink-oil").then((module) => module.winklerCountyKermitWinkOilShafterLakeArticle)),
+  profile("winkler", "winkler-county-kermit-wink-oil-texas", () => import("@/data/fixtures/winkler-county-kermit-wink-oil").then((module) => module.winklerCountyKermitWinkOilArticle)),
   profile("andrews", "andrews-county-andrews-oil-shafter-lake-texas", () => import("@/data/fixtures/andrews-county-andrews-oil-shafter-lake").then((module) => module.andrewsCountyAndrewsOilShafterLakeArticle)),
   profile("ector", "ector-county-odessa-oil-stonehenge-texas", () => import("@/data/fixtures/ector-county-odessa-oil-stonehenge").then((module) => module.ectorCountyOdessaOilStonehengeArticle)),
   profile("randall", "randall-county-canyon-palo-duro-texas", () => import("@/data/fixtures/randall-county-canyon-palo-duro").then((module) => module.randallCountyCanyonPaloDuroArticle)),
