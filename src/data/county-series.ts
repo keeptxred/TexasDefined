@@ -41,8 +41,20 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   profile("collin", "collin-county-mckinney-prairie-growth-texas", () => import("@/data/fixtures/collin-county-mckinney-prairie-growth").then((module) => module.collinCountyMcKinneyPrairieGrowthArticle)),
 ];
 
+const articlePromiseCache = new Map<string, Promise<Article | null>>();
+
+export function hasCountySeriesProfile(countySlug: string) {
+  return COUNTY_SERIES_PROFILES.some((item) => item.countySlug === countySlug);
+}
+
 export function loadCountySeriesArticle(countySlug: string): Promise<Article | null> {
-  return COUNTY_SERIES_PROFILES.find((item) => item.countySlug === countySlug)?.loadArticle() ?? Promise.resolve(null);
+  const cached = articlePromiseCache.get(countySlug);
+  if (cached) return cached;
+
+  const countyProfile = COUNTY_SERIES_PROFILES.find((item) => item.countySlug === countySlug);
+  const promise = countyProfile?.loadArticle() ?? Promise.resolve(null);
+  articlePromiseCache.set(countySlug, promise);
+  return promise;
 }
 
 export function countySlugForLegacyArticle(articleSlug: string) {
