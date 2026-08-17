@@ -47,6 +47,7 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   profile("mclennan", "mclennan-county-waco-brazos-baylor-mammoths-texas", () => import("@/data/fixtures/mclennan-county-waco-brazos-baylor-mammoths").then((module) => module.mclennanCountyWacoBrazosBaylorMammothsArticle)),
   profile("brazos", "brazos-county-bryan-college-station-aggieland-rivers-texas", () => import("@/data/fixtures/brazos-county-bryan-college-station-aggieland-rivers").then((module) => module.brazosCountyBryanCollegeStationAggielandRiversArticle)),
   profile("bastrop", "bastrop-county-lost-pines-colorado-river-history-texas", () => import("@/data/fixtures/bastrop-county-lost-pines-colorado-river-history").then((module) => module.bastropCountyLostPinesColoradoRiverHistoryArticle)),
+  profile("lee", "lee-county-giddings-serbin-wendish-heritage-texas", () => import("@/data/fixtures/lee-county-giddings-serbin-wendish-heritage").then((module) => module.leeCountyGiddingsSerbinWendishHeritageArticle)),
 ];
 
 const articlePromiseCache = new Map<string, Promise<Article | null>>();
