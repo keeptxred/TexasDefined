@@ -52,6 +52,7 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   profile("washington", "washington-county-brenham-washington-brazos-independence-texas", () => import("@/data/fixtures/washington-county-brenham-washington-brazos-independence").then((module) => module.washingtonCountyBrenhamWashingtonBrazosIndependenceArticle)),
   profile("austin", "austin-county-bellville-san-felipe-sealy-brazos-texas", () => import("@/data/fixtures/austin-county-bellville-san-felipe-sealy-brazos").then((module) => module.austinCountyBellvilleSanFelipeSealyBrazosArticle)),
   profile("colorado", "colorado-county-columbus-weimar-eagle-lake-prairie-texas", () => import("@/data/fixtures/colorado-county-columbus-weimar-eagle-lake-prairie").then((module) => module.coloradoCountyColumbusWeimarEagleLakePrairieArticle)),
+  profile("wharton", "wharton-county-wharton-el-campo-colorado-river-prairie-texas", () => import("@/data/fixtures/wharton-county-wharton-el-campo-colorado-river-prairie").then((module) => module.whartonCountyWhartonElCampoColoradoRiverPrairieArticle)),
 ];
 
 const articlePromiseCache = new Map<string, Promise<Article | null>>();
