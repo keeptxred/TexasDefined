@@ -51,6 +51,7 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   profile("fayette", "fayette-county-la-grange-painted-churches-colorado-river-texas", () => import("@/data/fixtures/fayette-county-la-grange-painted-churches-colorado-river").then((module) => module.fayetteCountyLaGrangePaintedChurchesColoradoRiverArticle)),
   profile("washington", "washington-county-brenham-washington-brazos-independence-texas", () => import("@/data/fixtures/washington-county-brenham-washington-brazos-independence").then((module) => module.washingtonCountyBrenhamWashingtonBrazosIndependenceArticle)),
   profile("austin", "austin-county-bellville-san-felipe-sealy-brazos-texas", () => import("@/data/fixtures/austin-county-bellville-san-felipe-sealy-brazos").then((module) => module.austinCountyBellvilleSanFelipeSealyBrazosArticle)),
+  profile("colorado", "colorado-county-columbus-weimar-eagle-lake-prairie-texas", () => import("@/data/fixtures/colorado-county-columbus-weimar-eagle-lake-prairie").then((module) => module.coloradoCountyColumbusWeimarEagleLakePrairieArticle)),
 ];
 
 const articlePromiseCache = new Map<string, Promise<Article | null>>();
