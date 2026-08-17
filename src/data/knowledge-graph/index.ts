@@ -1,5 +1,6 @@
 import { TEXAS_ENTITY_REGISTRY, findTexasEntity, relationshipsFor, validateTexasEntityRegistry } from '../texas-entity-registry';
 import { countyProfileDescription, loadCountyProfile } from '../county-profile';
+import { hasCountySeriesProfile } from '../county-series';
 import { loadLocalGovernmentProfile, localOfficeDescription } from '../local-government-profile';
 import { getCountyPropertyRecordBySlug } from '../property/county-property-data';
 import { isCountyPropertyIndexReady } from '../property/county-property-schema';
@@ -102,13 +103,22 @@ async function enrichGovernmentEntity(entity: TexasEntityRecord): Promise<TexasE
 async function enrichCountyGeographyEntity(entity: TexasEntityRecord): Promise<TexasEntityRecord> {
   try {
     const profile = await loadCountyProfile(entity.slug, entity.name);
+    const editorialComplete = hasCountySeriesProfile(entity.slug);
     return {
       ...entity,
-      description: countyProfileDescription(entity.name, profile),
+      // A generated Census/geography reference description is not the same as
+      // a completed TexasDefined county-series editorial profile. Keep the
+      // description empty for unfinished counties so SSR and hydration agree
+      // on the existing in-progress state used by the county route.
+      description: editorialComplete ? countyProfileDescription(entity.name, profile) : undefined,
       coordinates: profile.latitude != null && profile.longitude != null
         ? { latitude: profile.latitude, longitude: profile.longitude }
         : entity.coordinates,
-      tags: [...new Set([...(entity.tags ?? []), 'county-reference'])],
+      tags: [...new Set([
+        ...(entity.tags ?? []),
+        'county-reference',
+        editorialComplete ? 'county-series-complete' : 'county-guide-in-progress',
+      ])],
     };
   } catch {
     return entity;
