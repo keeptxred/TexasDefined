@@ -49,6 +49,7 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   profile("bastrop", "bastrop-county-lost-pines-colorado-river-history-texas", () => import("@/data/fixtures/bastrop-county-lost-pines-colorado-river-history").then((module) => module.bastropCountyLostPinesColoradoRiverHistoryArticle)),
   profile("lee", "lee-county-giddings-serbin-wendish-heritage-texas", () => import("@/data/fixtures/lee-county-giddings-serbin-wendish-heritage").then((module) => module.leeCountyGiddingsSerbinWendishHeritageArticle)),
   profile("fayette", "fayette-county-la-grange-painted-churches-colorado-river-texas", () => import("@/data/fixtures/fayette-county-la-grange-painted-churches-colorado-river").then((module) => module.fayetteCountyLaGrangePaintedChurchesColoradoRiverArticle)),
+  profile("washington", "washington-county-brenham-washington-brazos-independence-texas", () => import("@/data/fixtures/washington-county-brenham-washington-brazos-independence").then((module) => module.washingtonCountyBrenhamWashingtonBrazosIndependenceArticle)),
 ];
 
 const articlePromiseCache = new Map<string, Promise<Article | null>>();
