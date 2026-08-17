@@ -24,7 +24,7 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   profile("ward", "ward-county-monahans-sandhills-texas", () => import("@/data/fixtures/ward-county-monahans-sandhills").then((module) => module.wardCountyMonahansSandhillsArticle)),
   profile("winkler", "winkler-county-kermit-wink-oil-texas", () => import("@/data/fixtures/winkler-county-kermit-wink-oil").then((module) => module.winklerCountyKermitWinkOilArticle)),
   profile("andrews", "andrews-county-andrews-oil-shafter-lake-texas", () => import("@/data/fixtures/andrews-county-andrews-oil-shafter-lake").then((module) => module.andrewsCountyAndrewsOilShafterLakeArticle)),
-  profile("ector", "ector-county-odessa-oil-stonehenge-texas", () => import("@/data/fixtures/ector-county-odessa-oil-stonehenge").then((module) => module.ectorCountyOdessaOilStonehengeArticle)),
+  profile("ector", "ector-county-odessa-oil-stonehenge-texas", () => import("@/data/fixtures/ector-county-odessa-oil-stonehenge").then((module) => module.ectorCountyOdessaOilShafterLakeArticle)),
   profile("randall", "randall-county-canyon-palo-duro-texas", () => import("@/data/fixtures/randall-county-canyon-palo-duro").then((module) => module.randallCountyCanyonPaloDuroArticle)),
   profile("tom-green", "tom-green-county-san-angelo-concho-texas", () => import("@/data/fixtures/tom-green-county-san-angelo-concho").then((module) => module.tomGreenCountySanAngeloConchoArticle)),
   profile("midland", "midland-county-railroad-oil-high-plains-texas", () => import("@/data/fixtures/midland-county-railroad-oil-high-plains").then((module) => module.midlandCountyRailroadOilHighPlainsArticle)),
@@ -44,6 +44,7 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   profile("hays", "hays-county-san-marcos-blanco-hill-country-texas", () => import("@/data/fixtures/hays-county-san-marcos-blanco-hill-country").then((module) => module.haysCountySanMarcosBlancoHillCountryArticle)),
   profile("comal", "comal-county-new-braunfels-canyon-lake-guadalupe-texas", () => import("@/data/fixtures/comal-county-new-braunfels-canyon-lake-guadalupe").then((module) => module.comalCountyNewBraunfelsCanyonLakeGuadalupeArticle)),
   profile("bell", "bell-county-belton-temple-fort-hood-lakes-texas", () => import("@/data/fixtures/bell-county-belton-temple-fort-hood-lakes").then((module) => module.bellCountyBeltonTempleFortHoodLakesArticle)),
+  profile("mclennan", "mclennan-county-waco-brazos-baylor-mammoths-texas", () => import("@/data/fixtures/mclennan-county-waco-brazos-baylor-mammoths").then((module) => module.mclennanCountyWacoBrazosBaylorMammothsArticle)),
 ];
 
 const articlePromiseCache = new Map<string, Promise<Article | null>>();
