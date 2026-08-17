@@ -43,6 +43,7 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   profile("williamson", "williamson-county-georgetown-round-rock-san-gabriel-texas", () => import("@/data/fixtures/williamson-county-georgetown-round-rock-san-gabriel").then((module) => module.williamsonCountyGeorgetownRoundRockSanGabrielArticle)),
   profile("hays", "hays-county-san-marcos-blanco-hill-country-texas", () => import("@/data/fixtures/hays-county-san-marcos-blanco-hill-country").then((module) => module.haysCountySanMarcosBlancoHillCountryArticle)),
   profile("comal", "comal-county-new-braunfels-canyon-lake-guadalupe-texas", () => import("@/data/fixtures/comal-county-new-braunfels-canyon-lake-guadalupe").then((module) => module.comalCountyNewBraunfelsCanyonLakeGuadalupeArticle)),
+  profile("bell", "bell-county-belton-temple-fort-hood-lakes-texas", () => import("@/data/fixtures/bell-county-belton-temple-fort-hood-lakes").then((module) => module.bellCountyBeltonTempleFortHoodLakesArticle)),
 ];
 
 const articlePromiseCache = new Map<string, Promise<Article | null>>();
