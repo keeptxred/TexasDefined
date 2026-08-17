@@ -128,8 +128,10 @@ function EntityPage() {
 
         {incomplete ? <section className="grid gap-6 border-b border-border py-8 lg:grid-cols-[14rem_1fr]">
           <div>
-            <p className="eyebrow text-primary">Guide status</p>
-            <h2 className="mt-2 font-display text-3xl">{statusHeading(entity.kind)}</h2>
+            {entity.kind === 'county'
+              ? <span className="inline-flex rounded-full border border-primary/30 bg-primary/5 px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-primary">County Guide In Progress</span>
+              : <p className="eyebrow text-primary">Guide status</p>}
+            <h2 className="mt-3 font-display text-3xl">{statusHeading(entity)}</h2>
           </div>
           <div className="max-w-2xl">
             <p className="text-base leading-7 text-muted-foreground">{statusMessage(entity)}</p>
@@ -229,20 +231,24 @@ function pageDescription(entity: TexasEntityRecord) {
   return `${entity.name} is part of the Texas Defined reference guide. We are adding verified details before expanding this page into a full guide.`;
 }
 
-function statusHeading(kind: string) {
-  if (kind === 'county') return 'Verified county guide';
-  if (kind === 'appraisal-district') return 'Office details are being verified';
-  if (kind === 'tax-office') return 'Service details are being verified';
-  if (localGovernmentKinds.has(kind)) return 'Public-service details are being verified';
+function statusHeading(entity: TexasEntityRecord) {
+  if (entity.kind === 'county') return `We're Building Out ${countyDisplayName(entity.name)}`;
+  if (entity.kind === 'appraisal-district') return 'Office details are being verified';
+  if (entity.kind === 'tax-office') return 'Service details are being verified';
+  if (localGovernmentKinds.has(entity.kind)) return 'Public-service details are being verified';
   return 'This guide is being expanded';
 }
 
 function statusMessage(entity: TexasEntityRecord) {
-  if (entity.kind === 'county') return `${entity.name} is built from verified state, federal and county sources. Sections only appear when supporting data is available, so missing facts are omitted rather than filled with generic copy.`;
+  if (entity.kind === 'county') return `TexasDefined is creating a detailed guide for every county in Texas, and ${countyDisplayName(entity.name)} is on our list. We’re currently researching and adding local history, communities, landmarks, things to do, government resources, and other useful county information. In the meantime, the verified county information below is already available. Check back soon as we continue building out all 254 Texas counties.`;
   if (entity.kind === 'appraisal-district') return `This is a reference page for ${entity.name}, not a finished editorial guide. We are verifying the district's official contact and property-appraisal resources before presenting them as authoritative.`;
   if (entity.kind === 'tax-office') return `This is a reference page for ${entity.name}. We are verifying official taxpayer, registration, and local service information before presenting a complete service guide.`;
   if (localGovernmentKinds.has(entity.kind)) return `This public-service reference is intentionally limited while Texas Defined verifies the official local information. Unverified details are not presented as complete.`;
   return `Texas Defined is still building this reference from verified sources. We would rather show a clearly incomplete guide than pad the page with generic information.`;
+}
+
+function countyDisplayName(value: string) {
+  return / County$/i.test(value) ? value : `${value} County`;
 }
 
 function sourceStatus(entity: TexasEntityRecord) {
