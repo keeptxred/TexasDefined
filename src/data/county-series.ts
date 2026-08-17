@@ -22,7 +22,7 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   profile("reeves", "reeves-county-pecos-balmorhea-texas", () => import("@/data/fixtures/reeves-county-pecos-balmorhea").then((module) => module.reevesCountyPecosBalmorheaArticle)),
   profile("pecos", "pecos-county-fort-stockton-comanche-springs-texas", () => import("@/data/fixtures/pecos-county-fort-stockton-comanche-springs").then((module) => module.pecosCountyFortStocktonComancheSpringsArticle)),
   profile("ward", "ward-county-monahans-sandhills-texas", () => import("@/data/fixtures/ward-county-monahans-sandhills").then((module) => module.wardCountyMonahansSandhillsArticle)),
-  profile("winkler", "winkler-county-kermit-wink-oil-texas", () => import("@/data/fixtures/winkler-county-kermit-wink-oil").then((module) => module.winklerCountyKermitWinkOilArticle)),
+  profile("winkler", "winkler-county-kermit-wink-oil-texas", () => import("@/data/fixtures/winkler-county-kermit-wink-oil").then((module) => module.winklerCountyKermitWinkOilShafterLakeArticle)),
   profile("andrews", "andrews-county-andrews-oil-shafter-lake-texas", () => import("@/data/fixtures/andrews-county-andrews-oil-shafter-lake").then((module) => module.andrewsCountyAndrewsOilShafterLakeArticle)),
   profile("ector", "ector-county-odessa-oil-stonehenge-texas", () => import("@/data/fixtures/ector-county-odessa-oil-stonehenge").then((module) => module.ectorCountyOdessaOilStonehengeArticle)),
   profile("randall", "randall-county-canyon-palo-duro-texas", () => import("@/data/fixtures/randall-county-canyon-palo-duro").then((module) => module.randallCountyCanyonPaloDuroArticle)),
@@ -40,6 +40,7 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   profile("tarrant", "tarrant-county-fort-worth-trinity-western-heritage-texas", () => import("@/data/fixtures/tarrant-county-fort-worth-trinity-western-heritage").then((module) => module.tarrantCountyFortWorthTrinityWesternHeritageArticle)),
   profile("collin", "collin-county-mckinney-prairie-growth-texas", () => import("@/data/fixtures/collin-county-mckinney-prairie-growth").then((module) => module.collinCountyMcKinneyPrairieGrowthArticle)),
   profile("denton", "denton-county-denton-lakes-universities-growth-texas", () => import("@/data/fixtures/denton-county-denton-lakes-universities-growth").then((module) => module.dentonCountyDentonLakesUniversitiesGrowthArticle)),
+  profile("williamson", "williamson-county-georgetown-round-rock-san-gabriel-texas", () => import("@/data/fixtures/williamson-county-georgetown-round-rock-san-gabriel").then((module) => module.williamsonCountyGeorgetownRoundRockSanGabrielArticle)),
 ];
 
 const articlePromiseCache = new Map<string, Promise<Article | null>>();
