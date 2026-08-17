@@ -45,6 +45,7 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   profile("comal", "comal-county-new-braunfels-canyon-lake-guadalupe-texas", () => import("@/data/fixtures/comal-county-new-braunfels-canyon-lake-guadalupe").then((module) => module.comalCountyNewBraunfelsCanyonLakeGuadalupeArticle)),
   profile("bell", "bell-county-belton-temple-fort-hood-lakes-texas", () => import("@/data/fixtures/bell-county-belton-temple-fort-hood-lakes").then((module) => module.bellCountyBeltonTempleFortHoodLakesArticle)),
   profile("mclennan", "mclennan-county-waco-brazos-baylor-mammoths-texas", () => import("@/data/fixtures/mclennan-county-waco-brazos-baylor-mammoths").then((module) => module.mclennanCountyWacoBrazosBaylorMammothsArticle)),
+  profile("brazos", "brazos-county-bryan-college-station-aggieland-rivers-texas", () => import("@/data/fixtures/brazos-county-bryan-college-station-aggieland-rivers").then((module) => module.brazosCountyBryanCollegeStationAggielandRiversArticle)),
 ];
 
 const articlePromiseCache = new Map<string, Promise<Article | null>>();
