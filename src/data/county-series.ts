@@ -28,7 +28,7 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   profile("randall", "randall-county-canyon-palo-duro-texas", () => import("@/data/fixtures/randall-county-canyon-palo-duro").then((module) => module.randallCountyCanyonPaloDuroArticle)),
   profile("tom-green", "tom-green-county-san-angelo-concho-texas", () => import("@/data/fixtures/tom-green-county-san-angelo-concho").then((module) => module.tomGreenCountySanAngeloConchoArticle)),
   profile("midland", "midland-county-railroad-oil-high-plains-texas", () => import("@/data/fixtures/midland-county-railroad-oil-high-plains").then((module) => module.midlandCountyRailroadOilHighPlainsArticle)),
-  profile("galveston", "galveston-county-island-port-juneteenth-texas", () => import("@/data/fixtures/galveston-county-island-port-juneteenth").then((module) => module.galvestonCountyIslandPortJuneteenthArticle)),
+  profile("galveston", "galveston-county-island-port-juneteenth-texas", () => import("@/data/fixtures/galveston-county-island-port-juneteenth").then((module) => module.galvestonCountyGalvestonIslandPortJuneteenthArticle)),
   profile("gillespie", "gillespie-county-fredericksburg-stonewall-hill-country-texas", () => import("@/data/fixtures/gillespie-county-fredericksburg-stonewall-hill-country").then((module) => module.gillespieCountyFredericksburgStonewallHillCountryArticle)),
   profile("bexar", "bexar-county-san-antonio-missions-river-texas", () => import("@/data/fixtures/bexar-county-san-antonio-missions-river").then((module) => module.bexarCountySanAntonioMissionsRiverArticle)),
   profile("travis", "travis-county-austin-capitol-springs-hill-country-texas", () => import("@/data/fixtures/travis-county-austin-capitol-springs-hill-country").then((module) => module.travisCountyAustinCapitolSpringsHillCountryArticle)),
@@ -50,6 +50,7 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   profile("lee", "lee-county-giddings-serbin-wendish-heritage-texas", () => import("@/data/fixtures/lee-county-giddings-serbin-wendish-heritage").then((module) => module.leeCountyGiddingsSerbinWendishHeritageArticle)),
   profile("fayette", "fayette-county-la-grange-painted-churches-colorado-river-texas", () => import("@/data/fixtures/fayette-county-la-grange-painted-churches-colorado-river").then((module) => module.fayetteCountyLaGrangePaintedChurchesColoradoRiverArticle)),
   profile("washington", "washington-county-brenham-washington-brazos-independence-texas", () => import("@/data/fixtures/washington-county-brenham-washington-brazos-independence").then((module) => module.washingtonCountyBrenhamWashingtonBrazosIndependenceArticle)),
+  profile("austin", "austin-county-bellville-san-felipe-sealy-brazos-texas", () => import("@/data/fixtures/austin-county-bellville-san-felipe-sealy-brazos").then((module) => module.austinCountyBellvilleSanFelipeSealyBrazosArticle)),
 ];
 
 const articlePromiseCache = new Map<string, Promise<Article | null>>();
