@@ -4,6 +4,7 @@ const listSource = fs.readFileSync('src/data/top-texas-attractions.ts', 'utf8');
 const authoritySource = fs.readFileSync('src/data/destination-authority-top-attractions.ts', 'utf8');
 const supplementalSource = fs.readFileSync('src/data/top-attraction-authority-sources.ts', 'utf8');
 const authorityResolverSource = fs.readFileSync('src/data/top-attraction-authority-resolver.ts', 'utf8');
+const referenceDataSource = fs.readFileSync('src/data/top-attraction-reference-data.ts', 'utf8');
 const timelineSource = fs.readFileSync('src/data/destination-timelines-top-attractions.ts', 'utf8');
 const roadTripDataSource = fs.readFileSync('src/data/top-attraction-road-trips.ts', 'utf8');
 const componentSource = fs.readFileSync('src/components/editorial/DestinationAuthorityGuide.tsx', 'utf8');
@@ -18,6 +19,7 @@ const methodologySource = fs.readFileSync('src/routes/explore.top-attractions.me
 const roadTripRouteSource = fs.readFileSync('src/routes/explore.top-attractions.road-trips.tsx', 'utf8');
 const checklistSource = fs.readFileSync('src/routes/top-25-texas-attractions-checklist[.]txt.ts', 'utf8');
 const csvSource = fs.readFileSync('src/routes/top-25-texas-attractions[.]csv.ts', 'utf8');
+const jsonSource = fs.readFileSync('src/routes/top-25-texas-attractions[.]json.ts', 'utf8');
 const publicRoutesSource = fs.readFileSync('src/lib/public-routes.ts', 'utf8');
 const exploreSitemapSource = fs.readFileSync('src/routes/sitemap-explore[.]xml.ts', 'utf8');
 const citationManifest = fs.readFileSync('public/citation-magnets.json', 'utf8');
@@ -66,6 +68,16 @@ for (const feature of ['topAttractionSupplementalSources', 'SUPPLEMENTAL_SOURCES
 }
 for (const feature of ['resolveTopAttractionAuthority', 'topAttractionSupplementalSources', 'dedupeSources']) {
   if (!authorityResolverSource.includes(feature)) failures.push(`Authority resolver contract missing ${feature}.`);
+}
+for (const feature of [
+  'TOP_ATTRACTION_REFERENCE_ROWS',
+  'TOP_ATTRACTIONS_METHODOLOGY_URL',
+  'TOP_ATTRACTIONS_COLLECTION_URL',
+  'resolveTopAttractionAuthority',
+  'roadTripsBySlug',
+  'authoritySources',
+]) {
+  if (!referenceDataSource.includes(feature)) failures.push(`Canonical Top 25 reference-data contract missing ${feature}.`);
 }
 
 const itineraryCalls = (authoritySource.match(/\bitinerary\(/g) ?? []).length - 1;
@@ -133,16 +145,19 @@ for (const feature of ['resolveTopAttractionAuthority', 'authorityCitations', 'c
 }
 
 for (const feature of [
-  'applyTopAttractionAuthority',
+  'resolveTopAttractionAuthority',
   'assessment.recommendedVisit',
   'assessment.physicalEffort',
-  'assessment.weatherExposure',
   'assessment.planningLevel',
+  'sourceCount',
   'Download comparison CSV',
+  'Download reference JSON',
   'Top-25 road trips',
   'Methodology',
   '"@type": "Dataset"',
+  'variableMeasured',
   '/top-25-texas-attractions.csv',
+  '/top-25-texas-attractions.json',
 ]) {
   if (!hubSource.includes(feature)) failures.push(`Top 25 hub authority layer missing ${feature}.`);
 }
@@ -154,10 +169,14 @@ for (const feature of [
   'Collection balance',
   'Rank order:',
   'Official sources control changing visitor facts',
+  'Controlling visitor source',
+  'Supporting public or institutional authority',
+  'Review sites are not authority evidence',
   'No invented experience',
   'Missing beats guessing',
   'Shared comparison scale',
   '/top-25-texas-attractions.csv',
+  '/top-25-texas-attractions.json',
 ]) {
   if (!methodologySource.includes(feature)) failures.push(`Top 25 methodology page missing ${feature}.`);
 }
@@ -178,6 +197,7 @@ for (const feature of ['TOP_TEXAS_ATTRACTIONS', 'content-disposition', 'citation
 
 for (const feature of [
   "createFileRoute('/top-25-texas-attractions.csv')",
+  'TOP_ATTRACTION_REFERENCE_ROWS',
   'recommended_visit',
   'physical_effort',
   'weather_exposure',
@@ -186,10 +206,28 @@ for (const feature of [
   'first_time_texas_value',
   'source_checked_at',
   'official_url',
+  'authority_source_count',
+  'authority_source_urls',
+  'road_trip_names',
+  'methodology_url',
   "'x-robots-tag': 'noindex, follow'",
   'content-disposition',
 ]) {
   if (!csvSource.includes(feature)) failures.push(`Top 25 CSV contract missing ${feature}.`);
+}
+
+for (const feature of [
+  "createFileRoute('/top-25-texas-attractions.json')",
+  'TOP_ATTRACTION_REFERENCE_ROWS',
+  'schemaVersion: 1',
+  'canonicalCollection',
+  'methodology',
+  'authoritySources',
+  'roadTrips',
+  "'x-robots-tag': 'noindex, follow'",
+  'content-disposition',
+]) {
+  if (!jsonSource.includes(feature)) failures.push(`Top 25 JSON contract missing ${feature}.`);
 }
 
 for (const path of ['/explore/top-attractions', '/explore/top-attractions/methodology', '/explore/top-attractions/road-trips']) {
@@ -199,7 +237,10 @@ for (const path of ['/explore/top-attractions', '/explore/top-attractions/method
   const absolute = `https://texasdefined.com${path}`;
   if (!citationManifest.includes(absolute) || !llmsSource.includes(absolute)) failures.push(`Citation/retrieval surfaces missing ${absolute}.`);
 }
-if (!publicRoutesSource.includes('"/top-25-texas-attractions.csv"')) failures.push('Top 25 CSV is not governed as a public noindex route.');
+for (const path of ['/top-25-texas-attractions.csv', '/top-25-texas-attractions.json']) {
+  if (!publicRoutesSource.includes(`"${path}"`)) failures.push(`Top 25 data distribution is not governed as a public noindex route: ${path}.`);
+  if (!llmsSource.includes(`https://texasdefined.com${path}`)) failures.push(`llms retrieval guidance missing Top 25 distribution: ${path}.`);
+}
 
 for (const source of [collectionLinksSource, categoryRouteSource, regionRouteSource]) {
   if (!source.includes('TopAttractionCollectionLinks')) failures.push('Top 25 inbound-link cluster is missing from a category/region discovery surface.');
@@ -214,4 +255,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Top 25 attraction authority validation passed: 25 authority records, ${authorityUrls.length} supplemental authority URLs, 75 itineraries, 24 sourced timeline events, seven complete road-trip clusters, methodology, comparison CSV, category/region inbound links, multi-source JSON-LD, trust panels and citation discovery are wired.`);
+console.log(`Top 25 attraction authority validation passed: 25 authority records, ${authorityUrls.length} supplemental authority URLs, 75 itineraries, 24 sourced timeline events, seven complete road-trip clusters, canonical CSV/JSON data distributions, methodology, category/region inbound links, multi-source JSON-LD, trust panels and citation discovery are wired.`);
