@@ -79,6 +79,8 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
   server: {
     handlers: {
       GET: async () => {
+        const { loadPaintedChurchSitemapDataServer } = await import("@/data/painted-churches.server");
+        const paintedChurches = loadPaintedChurchSitemapDataServer();
         let enrichedDestinations: Awaited<ReturnType<typeof fetchExploreDestinations>> = [];
         let coreDestinations: Awaited<ReturnType<typeof fetchCoreExploreDestinations>> = [];
         const remoteConfigured = hasExploreRemoteData();
@@ -115,6 +117,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         const staticPaths = [
           "/explore",
           "/explore/trip-planner",
+          "/explore/painted-churches",
           "/explore/attractions-comparison",
           "/explore/top-attractions",
           "/explore/top-attractions/methodology",
@@ -127,10 +130,13 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         const destinationEntries = indexableDestinations
           .map((item) => entry(`/destination/${item.slug}`, item.sourceCheckedAt))
           .filter((item): item is string => Boolean(item));
+        const paintedChurchEntries = paintedChurches
+          .map((church) => entry(`/explore/painted-churches/${church.slug}`, church.sourceCheckedAt))
+          .filter((item): item is string => Boolean(item));
         const staticEntries = [...new Set(staticPaths)]
           .map((path) => entry(path))
           .filter((item): item is string => Boolean(item));
-        const entries = [...staticEntries, ...destinationEntries].join("\n");
+        const entries = [...staticEntries, ...destinationEntries, ...paintedChurchEntries].join("\n");
         const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${entries}\n</urlset>`;
         return new Response(xml, {
           headers: {

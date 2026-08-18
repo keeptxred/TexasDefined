@@ -2,21 +2,21 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
-import { paintedChurchBySlug, paintedChurches } from "@/data/painted-churches";
+import { getPaintedChurchProfileData } from "@/data/painted-churches.functions";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
 export const Route = createFileRoute("/explore/painted-churches/$slug")({
-  loader: ({ params }) => {
-    const church = paintedChurchBySlug(params.slug);
-    if (!church) throw notFound();
-    return { church };
+  loader: async ({ params }) => {
+    const pageData = await getPaintedChurchProfileData({ data: { slug: params.slug } });
+    if (!pageData) throw notFound();
+    return pageData;
   },
-  head: ({ loaderData, params }) => {
+  head: ({ loaderData }) => {
     if (!loaderData) return { meta: [{ title: "Painted church unavailable" }, { name: "robots", content: "noindex, nofollow" }] };
     const { church } = loaderData;
-    const canonicalPath = `/explore/painted-churches/${params.slug}`;
+    const canonicalPath = `/explore/painted-churches/${church.slug}`;
     const url = `${siteUrl}${canonicalPath}`;
     const churchSchema = {
       "@type": "Church",
@@ -64,19 +64,8 @@ export const Route = createFileRoute("/explore/painted-churches/$slug")({
 });
 
 function PaintedChurchDetail() {
-  const { church } = Route.useLoaderData();
+  const { church, related } = Route.useLoaderData();
   const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(church.address ?? `${church.name}, ${church.city}, Texas`)}`;
-  const related = paintedChurches
-    .filter((candidate) => candidate.slug !== church.slug)
-    .sort((a, b) => {
-      const aCluster = church.schulenburgCluster && a.schulenburgCluster ? 0 : 1;
-      const bCluster = church.schulenburgCluster && b.schulenburgCluster ? 0 : 1;
-      if (aCluster !== bCluster) return aCluster - bCluster;
-      if (a.county === church.county && b.county !== church.county) return -1;
-      if (b.county === church.county && a.county !== church.county) return 1;
-      return a.city.localeCompare(b.city);
-    })
-    .slice(0, 3);
 
   return (
     <main>

@@ -2,34 +2,55 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
-import {
-  nationalRegisterDecorativeInteriorChurches,
-  paintedChurches,
-  paintedChurchSources,
-  schulenburgCoreRoute,
-  schulenburgPaintedChurches,
-} from "@/data/painted-churches";
+import { getPaintedChurchesDirectoryData } from "@/data/painted-churches.functions";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const canonicalPath = "/explore/painted-churches";
-
-export const Route = createFileRoute("/explore/painted-churches")({
-  head: () => ({
-    meta: buildMeta(texasDefinedBrand, {
-      canonicalPath,
-      title: "Painted Churches of Texas | Route & Historic Church Guide",
-      description:
-        "Plan a Texas painted-church drive with the Schulenburg route, verified historic church pages, visitor notes, National Register context and rights-cleared photography.",
-    }),
-    links: [canonicalLink(texasDefinedBrand, canonicalPath)],
-  }),
-  component: PaintedChurchesPage,
-});
-
 const coreDirectionsUrl =
   "https://www.google.com/maps/dir/?api=1&origin=Schulenburg%2C%20TX&destination=St.%20Mary%27s%20Church%20of%20the%20Assumption%2C%20Praha%2C%20TX&waypoints=Saints%20Cyril%20and%20Methodius%20Catholic%20Church%2C%20Dubina%2C%20TX%7CSt.%20John%20the%20Baptist%20Catholic%20Church%2C%20Ammannsville%2C%20TX%7CNativity%20of%20Mary%2C%20Blessed%20Virgin%20Catholic%20Church%2C%20High%20Hill%2C%20TX";
 
+export const Route = createFileRoute("/explore/painted-churches")({
+  loader: () => getPaintedChurchesDirectoryData(),
+  head: ({ loaderData }) => {
+    const origin = `https://${texasDefinedBrand.identity.domain}`;
+    const churches = loaderData?.paintedChurches ?? [];
+    return {
+      meta: buildMeta(texasDefinedBrand, {
+        canonicalPath,
+        title: "Painted Churches of Texas | Route & Historic Church Guide",
+        description:
+          "Plan a Texas painted-church drive with the Schulenburg route, verified historic church pages, visitor notes, National Register context and rights-cleared photography.",
+      }),
+      links: [canonicalLink(texasDefinedBrand, canonicalPath)],
+      scripts: [{
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          name: "Painted Churches of Texas",
+          numberOfItems: churches.length,
+          itemListElement: churches.map((church, index) => ({
+            "@type": "ListItem",
+            position: index + 1,
+            name: church.name,
+            url: `${origin}/explore/painted-churches/${church.slug}`,
+          })),
+        }),
+      }],
+    };
+  },
+  component: PaintedChurchesPage,
+});
+
 function PaintedChurchesPage() {
+  const {
+    paintedChurches,
+    nationalRegisterCount,
+    schulenburgPaintedChurches,
+    schulenburgCoreRoute,
+    paintedChurchSources,
+  } = Route.useLoaderData();
+
   return (
     <main>
       <section className="border-b border-border bg-ink text-ink-foreground">
@@ -67,7 +88,7 @@ function PaintedChurchesPage() {
               <p className="eyebrow text-primary">Start here</p>
               <h2 id="schulenburg-route" className="mt-3 font-display text-4xl sm:text-5xl">The four-church Schulenburg route</h2>
               <p className="mt-5 max-w-3xl text-base leading-8 text-muted-foreground">
-                For a first trip, use Schulenburg as the base and run the core sequence through Dubina, Ammannsville, High Hill and Praha. It keeps the day focused while leaving time to actually step inside rather than turning the route into a windshield tour.
+                For a first trip, use Schulenburg as the base and follow the core circuit. It keeps the day focused while leaving time to step inside rather than turning the route into a windshield tour.
               </p>
             </div>
             <div className="border-l border-border pl-6">
@@ -102,7 +123,7 @@ function PaintedChurchesPage() {
           <div className="border-l border-border pl-6">
             <p className="eyebrow text-muted-foreground">Local six-church cluster</p>
             <p className="mt-3 text-3xl font-display">{schulenburgPaintedChurches.length} churches</p>
-            <p className="mt-3 text-sm leading-6 text-muted-foreground">Ammannsville, Dubina, High Hill, Praha, Moravia and St. John are the six communities identified by the Schulenburg Chamber.</p>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">The Schulenburg Chamber identifies six communities in its local painted-church touring cluster.</p>
             <a href={paintedChurchSources.schulenburgChamber} target="_blank" rel="noreferrer" className="mt-4 inline-block border-b border-primary pb-1 text-sm text-primary">Check current tour information</a>
           </div>
         </section>
@@ -114,7 +135,7 @@ function PaintedChurchesPage() {
               <h2 id="all-churches" className="mt-3 font-display text-4xl sm:text-5xl">Explore the full Texas collection</h2>
             </div>
             <p className="max-w-xl text-sm leading-6 text-muted-foreground">
-              {nationalRegisterDecorativeInteriorChurches.length} entries below belong to the Texas Historical Commission’s formal “Churches with Decorative Interior Painting” National Register multiple-property listing. The remaining guides are separately documented painted-church destinations.
+              {nationalRegisterCount} entries below belong to the Texas Historical Commission’s formal “Churches with Decorative Interior Painting” National Register multiple-property listing. The remaining guides are separately documented painted-church destinations.
             </p>
           </div>
 
@@ -156,10 +177,10 @@ function PaintedChurchesPage() {
           <h2 id="what-counts" className="mt-3 font-display text-4xl">There is no single modern list that every source uses.</h2>
           <div className="mt-6 max-w-4xl space-y-5 text-base leading-8 text-muted-foreground">
             <p>
-              Texas heritage sources use “Painted Churches” as a travel and cultural label, while the National Register uses the narrower historic grouping “Churches with Decorative Interior Painting.” Texas Time Travel describes 15 painted churches statewide, and Austin PBS documents a broader tradition of more than 20. Texas Defined therefore labels the formal National Register group separately instead of pretending every commonly mentioned church has the same designation.
+              Texas heritage sources use “Painted Churches” as a travel and cultural label, while the National Register uses the narrower historic grouping “Churches with Decorative Interior Painting.” Texas Time Travel describes 15 painted churches statewide, and Austin PBS documents a broader tradition of more than 20. Texas Defined labels the formal National Register group separately instead of pretending every commonly mentioned church has the same designation.
             </p>
             <p>
-              That distinction is why this guide includes places such as Dubina, Serbin and Panna Maria while still showing exactly which churches belong to the THC National Register multiple-property listing.
+              This lets the guide include other well-documented painted-church destinations while still showing exactly which churches belong to the THC National Register multiple-property listing.
             </p>
           </div>
           <div className="mt-7 flex flex-wrap gap-x-6 gap-y-3 text-sm">

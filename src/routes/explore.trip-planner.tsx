@@ -238,6 +238,20 @@ function TripPlanner() {
         </Container>
       </section>
 
+      <Container className="py-10 sm:py-12 print:hidden">
+        <section aria-labelledby="painted-churches-planner" className="grid gap-8 border-t-2 border-foreground pt-8 lg:grid-cols-[minmax(0,1fr)_280px]">
+          <div>
+            <p className="eyebrow text-primary">Curated heritage route</p>
+            <h2 id="painted-churches-planner" className="mt-3 font-display text-4xl sm:text-5xl">Painted Churches of Texas</h2>
+            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Use the Schulenburg four-church loop for a focused first day, then expand to Moravia, St. John or the wider statewide historic collection. Each church guide includes its designation, visitor notes and image credits.</p>
+          </div>
+          <div className="border-l border-border pl-6">
+            <p className="eyebrow text-muted-foreground">18 verified guides</p>
+            <Link to="/explore/painted-churches" className="mt-4 inline-block border-b border-primary pb-1 text-sm font-medium text-primary">Explore the painted churches</Link>
+          </div>
+        </section>
+      </Container>
+
       <Container className="py-14 sm:py-18">
         <div className="grid gap-12 lg:grid-cols-[330px_minmax(0,1fr)] lg:gap-16">
           <form onSubmit={submit} className="space-y-6 border-t-2 border-foreground pt-6 print:hidden">
