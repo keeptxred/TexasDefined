@@ -40,12 +40,21 @@ import { applyCuratedDestinationBatch48 } from "./destination-curation-batch48";
 import { applyCuratedDestinationBatch49 } from "./destination-curation-batch49";
 import { applyCuratedDestinationBatch52 } from "./destination-curation-batch52";
 import { topAttractionExpansionDestinations } from "./destination-curation-top-attractions-fallbacks";
-import { applyCuratedTopAttractions } from "./destination-curation-top-attractions";
+import { applyCuratedTopAttractions, topAttractionDestinations } from "./destination-curation-top-attractions";
 import { applyCuratedTopAttractionsBatch2 } from "./destination-curation-top-attractions-batch2";
 import { applyCuratedTopAttractionsBatch3 } from "./destination-curation-top-attractions-batch3";
 import { applyCuratedTopAttractionsBatch4 } from "./destination-curation-top-attractions-batch4";
 import { applyCuratedTopAttractionsBatch5 } from "./destination-curation-top-attractions-batch5";
 import type { Destination } from "./types";
+
+// `queries.ts` imports this module before it snapshots the preserved destination
+// catalog. Extend the shared Top 25 array here so both direct destination lookups
+// and list/Trip Planner queries retain every attraction during remote outages.
+for (const destination of topAttractionExpansionDestinations) {
+  if (!topAttractionDestinations.some((existing) => existing.slug === destination.slug)) {
+    topAttractionDestinations.push(destination);
+  }
+}
 
 const CURATION_SLUG_ALIASES: Record<string, string> = {
   "barton-warnock-environmental-educational-center-state-park": "barton-warnock-visitor-center",
