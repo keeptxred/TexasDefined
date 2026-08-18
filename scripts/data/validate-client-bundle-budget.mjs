@@ -45,8 +45,20 @@ async function main() {
   }
 
   const mainFile = mainCandidates[0];
-  const mainBytes = (await stat(path.join(assetsDir, mainFile))).size;
+  const mainPath = path.join(assetsDir, mainFile);
+  const mainBytes = (await stat(mainPath)).size;
   if (mainBytes > MAX_MAIN_BYTES) {
+    const source = await readFile(mainPath, 'utf8');
+    const probes = [
+      'Mike Fisher',
+      'Wikimedia Commons',
+      'Schulenburg painted-church cluster',
+      'Painted Churches of Texas',
+      'high-hill-nativity-of-mary',
+      'painted-churches.server',
+      'painted-churches.functions',
+    ];
+    console.error(`Painted-church bundle probes: ${probes.map((probe) => `${probe}=${source.includes(probe)}`).join(', ')}`);
     throw new Error(`Main client bundle ${mainFile} is ${mainBytes.toLocaleString()} bytes; budget is ${MAX_MAIN_BYTES.toLocaleString()} bytes (stable baseline ${STABLE_MAIN_BASELINE_BYTES.toLocaleString()} bytes).`);
   }
 
