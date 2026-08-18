@@ -35,7 +35,7 @@ import {
  * single edit in `src/data/index.ts` — no component changes.
  */
 
-const baseEditorialArticles = [
+const editorialArticles = [
   ...exploreFeatureArticleStubs,
   ...coreEvergreenArticleStubs,
   ...lazyEvergreenArticleStubs,
@@ -53,7 +53,7 @@ const loadCountySeriesArticleStubs = () => {
 };
 
 const loadEditorialArticles = async () => [
-  ...baseEditorialArticles,
+  ...editorialArticles,
   ...(await loadCountySeriesArticleStubs()),
 ];
 
@@ -160,7 +160,11 @@ const currentEvents = <T extends { startDate: string; endDate?: string }>(rows: 
 
 export const fixtureArticles: ArticleRepository = {
   async list(query) {
-    let rows = newestFirst(byBrand(await loadEditorialArticles(), query.brandId));
+    const countySeriesArticles = await loadCountySeriesArticleStubs();
+    let rows = newestFirst([
+      ...byBrand(editorialArticles, query.brandId),
+      ...byBrand(countySeriesArticles, query.brandId),
+    ]);
     if (query.category) rows = rows.filter((a) => a.category === query.category);
     if (query.tag) rows = rows.filter((a) => a.tags.includes(query.tag!));
     if (query.featured !== undefined) rows = rows.filter((a) => Boolean(a.featured) === query.featured);
@@ -267,8 +271,9 @@ export const fixtureTaxonomy: TaxonomyRepository = {
 
 export const fixtureSearch: SearchRepository = {
   async documents(scope) {
+    const allEditorialArticles = await loadEditorialArticles();
     const docs: SearchDocument[] = [
-      ...byBrand(await loadEditorialArticles(), scope.brandId).map((a) => ({
+      ...byBrand(allEditorialArticles, scope.brandId).map((a) => ({
         id: a.id,
         brandId: a.brandId,
         kind: "article" as const,
