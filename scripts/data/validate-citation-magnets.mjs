@@ -67,7 +67,7 @@ for (const url of requiredManifestUrls) expect(urls.includes(url), `required cit
 
 for (const label of ['Sources', 'Methodology', 'Last verified']) expect(trustPanel.includes(`>${label}<`), `CitationTrustPanel must retain visible ${label} label`);
 
-const collectionTrustPaths = ['/citation-guide', '/texas-data', '/learn/property-taxes', '/find-my-dmv', '/find-my-school-district'];
+const collectionTrustPaths = ['/citation-guide', '/texas-data', '/explore/top-attractions', '/learn/property-taxes', '/find-my-dmv', '/find-my-school-district'];
 for (const path of collectionTrustPaths) {
   expect(collectionTrust.includes(`'${path}'`), `collection trust router must cover ${path}`);
   expect(urls.includes(`https://texasdefined.com${path}`), `collection trust path must remain promoted in citation manifest: ${path}`);
