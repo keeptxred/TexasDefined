@@ -1,68 +1,65 @@
-import { createFileRoute, notFound } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
+const paintedChurchTitles: Record<string, string> = {
+  "high-hill-nativity-of-mary": "St. Mary’s at High Hill",
+  "ammannsville-st-john-the-baptist": "St. John the Baptist at Ammannsville",
+  "praha-st-marys-assumption": "St. Mary’s at Praha",
+  "dubina-saints-cyril-methodius": "Saints Cyril and Methodius at Dubina",
+  "moravia-ascension-of-our-lord": "Ascension of Our Lord at Moravia",
+  "st-john-texas-st-john-the-baptist": "St. John the Baptist at St. John",
+  "wallis-guardian-angel": "Guardian Angel at Wallis",
+  "wesley-brethren-church": "Wesley Brethren Church",
+  "amarillo-first-baptist-church": "Historic First Baptist at Amarillo",
+  "umbarger-st-marys-catholic-church": "St. Mary’s at Umbarger",
+  "paris-first-united-methodist-church": "First United Methodist at Paris",
+  "lindsay-st-peters-catholic-church": "St. Peter’s at Lindsay",
+  "fredericksburg-st-marys-catholic-church": "St. Mary’s at Fredericksburg",
+  "sweet-home-queen-of-peace": "Queen of Peace at Sweet Home",
+  "st-marys-immaculate-conception-lavaca": "Immaculate Conception at St. Mary’s",
+  "shiner-saints-cyril-methodius": "Saints Cyril and Methodius at Shiner",
+  "serbin-st-paul-lutheran-church": "St. Paul at Serbin",
+  "panna-maria-immaculate-conception": "Immaculate Conception at Panna Maria",
+};
 
 export const Route = createFileRoute("/explore/painted-churches/$slug")({
-  loader: async ({ params }) => {
-    const { paintedChurchBySlug, paintedChurches } = await import("@/data/painted-churches");
-    const church = paintedChurchBySlug(params.slug);
-    if (!church) throw notFound();
+  head: ({ params }) => {
+    const shortName = paintedChurchTitles[params.slug];
+    if (!shortName) {
+      return { meta: [{ title: "Painted church unavailable" }, { name: "robots", content: "noindex, nofollow" }] };
+    }
 
-    const related = paintedChurches
-      .filter((candidate) => candidate.slug !== church.slug)
-      .sort((a, b) => {
-        const aCluster = church.schulenburgCluster && a.schulenburgCluster ? 0 : 1;
-        const bCluster = church.schulenburgCluster && b.schulenburgCluster ? 0 : 1;
-        if (aCluster !== bCluster) return aCluster - bCluster;
-        if (a.county === church.county && b.county !== church.county) return -1;
-        if (b.county === church.county && a.county !== church.county) return 1;
-        return a.city.localeCompare(b.city);
-      })
-      .slice(0, 3);
-
-    return { church, related };
-  },
-  head: ({ loaderData }) => {
-    if (!loaderData) return { meta: [{ title: "Painted church unavailable" }, { name: "robots", content: "noindex, nofollow" }] };
-    const { church } = loaderData;
-    const canonicalPath = `/explore/painted-churches/${church.slug}`;
+    const canonicalPath = `/explore/painted-churches/${params.slug}`;
     const url = `${siteUrl}${canonicalPath}`;
-    const churchSchema = {
-      "@type": "Church",
-      "@id": `${url}#church`,
-      name: church.name,
-      description: church.summary,
-      url,
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: church.city,
-        addressRegion: "TX",
-        addressCountry: "US",
-        ...(church.address ? { streetAddress: church.address } : {}),
-      },
-      ...(church.image ? { image: church.image.src } : {}),
-    };
-    const breadcrumbSchema = {
-      "@type": "BreadcrumbList",
-      "@id": `${url}#breadcrumbs`,
-      itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
-        { "@type": "ListItem", position: 2, name: "Explore", item: `${siteUrl}/explore` },
-        { "@type": "ListItem", position: 3, name: "Painted Churches", item: `${siteUrl}/explore/painted-churches` },
-        { "@type": "ListItem", position: 4, name: church.shortName, item: url },
-      ],
-    };
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
-        title: `${church.shortName} | Texas Painted Church Guide`,
-        description: `${church.summary} Location, designation, visitor planning, sources and photography for ${church.shortName}.`,
+        title: `${shortName} | Texas Painted Church Guide`,
+        description: `Visitor guide to ${shortName}, with historic designation context, trip-planning guidance, primary sources and verified image rights where available.`,
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
-      scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": [churchSchema, breadcrumbSchema] }) }],
+      scripts: [{
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            { "@type": "Church", "@id": `${url}#church`, name: shortName, url },
+            {
+              "@type": "BreadcrumbList",
+              "@id": `${url}#breadcrumbs`,
+              itemListElement: [
+                { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
+                { "@type": "ListItem", position: 2, name: "Explore", item: `${siteUrl}/explore` },
+                { "@type": "ListItem", position: 3, name: "Painted Churches", item: `${siteUrl}/explore/painted-churches` },
+                { "@type": "ListItem", position: 4, name: shortName, item: url },
+              ],
+            },
+          ],
+        }),
+      }],
     };
   },
   notFoundComponent: () => (
