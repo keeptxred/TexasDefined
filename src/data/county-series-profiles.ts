@@ -60,4 +60,5 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   profile("kleberg", "kleberg-county-kingsville-king-ranch-padre-island-texas", () => import("@/data/fixtures/kleberg-county-kingsville-king-ranch-padre-island-texas").then((module) => module.klebergCountyKingsvilleKingRanchPadreIslandArticle)),
   profile("kenedy", "kenedy-county-sarita-ranches-padre-island-wild-horse-desert-texas", () => import("@/data/fixtures/kenedy-county-sarita-ranches-padre-island-wild-horse-desert").then((module) => module.kenedyCountySaritaRanchesPadreIslandWildHorseDesertArticle)),
   profile("willacy", "willacy-county-raymondville-port-mansfield-laguna-madre-texas", () => import("@/data/fixtures/willacy-county-raymondville-port-mansfield-laguna-madre").then((module) => module.willacyCountyRaymondvillePortMansfieldLagunaMadreArticle)),
+  profile("cameron", "cameron-county-brownsville-harlingen-south-padre-rio-grande-texas", () => import("@/data/fixtures/cameron-county-brownsville-harlingen-south-padre-rio-grande").then((module) => module.cameronCountyBrownsvilleHarlingenSouthPadreRioGrandeArticle)),
 ];
