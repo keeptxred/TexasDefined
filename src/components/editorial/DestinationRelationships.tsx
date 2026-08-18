@@ -5,6 +5,7 @@ import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { TexasExplainedContextLinks } from "@/components/editorial/TexasExplainedContextLinks";
 import { Container } from "@/components/layout/Container";
 import { distanceMiles, type DestinationRelationshipGroup } from "@/data/destination-relationships";
+import { topTexasAttractionRank } from "@/data/top-texas-attractions";
 import type { Destination, DestinationAreaGuide, DestinationAreaItem } from "@/data/types";
 
 const AREA_GROUPS: Array<{
@@ -59,6 +60,8 @@ function DestinationAreaGuideSection({ destination }: { destination: Destination
 }
 
 export function DestinationRelationships({ destination, groups, regionName }: { destination: Destination; groups: DestinationRelationshipGroup[]; regionName?: string }) {
+  const topAttractionRank = topTexasAttractionRank(destination.slug);
+
   return <>
     <DestinationAreaGuideSection destination={destination} />
 
@@ -87,7 +90,8 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
     <Section tone="ink">
       <Container>
         <p className="eyebrow text-ink-foreground/60">Continue exploring</p>
-        <div className="mt-6 grid border-t border-ink-foreground/20 sm:grid-cols-2 lg:grid-cols-5">
+        <div className={`mt-6 grid border-t border-ink-foreground/20 sm:grid-cols-2 ${topAttractionRank ? "lg:grid-cols-6" : "lg:grid-cols-5"}`}>
+          {topAttractionRank && <Link to="/explore/top-attractions" className="border-b border-ink-foreground/20 py-6 sm:border-r sm:px-6 sm:first:pl-0 lg:border-b-0"><strong className="font-display text-2xl">Top 25 · #{topAttractionRank}</strong><span className="mt-2 block text-sm leading-6 text-ink-foreground/65">See all 25 Texas attractions in the ranked collection.</span></Link>}
           <Link to="/explore/trip-planner" search={{ destination: destination.slug }} className="border-b border-ink-foreground/20 py-6 sm:border-r sm:px-6 sm:first:pl-0 lg:border-b-0"><strong className="font-display text-2xl">Build the weekend</strong><span className="mt-2 block text-sm leading-6 text-ink-foreground/65">Start a Texas itinerary with {destination.name} already on the route.</span></Link>
           <Link to="/explore/$category" params={{ category: destination.category }} className="border-b border-ink-foreground/20 py-6 sm:px-6 lg:border-b-0 lg:border-r"><strong className="font-display text-2xl">More like this</strong><span className="mt-2 block text-sm leading-6 text-ink-foreground/65">More places across Texas with the same kind of appeal.</span></Link>
           <Link to="/explore/region/$region" params={{ region: destination.region }} className="border-b border-ink-foreground/20 py-6 sm:border-r sm:px-6 lg:border-b-0"><strong className="font-display text-2xl">Explore the region</strong><span className="mt-2 block text-sm leading-6 text-ink-foreground/65">See what else belongs on the route.</span></Link>
