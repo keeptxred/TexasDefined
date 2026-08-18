@@ -24,8 +24,9 @@ const INTENT_GROUPS = [
   },
   {
     title: "History routes",
-    body: "Pair missions, museums, battlefields and old towns into a route that explains the place as you go.",
+    body: "Pair missions, painted churches, museums, battlefields and old towns into a route that explains the place as you go.",
     links: [
+      { to: "/explore/painted-churches", label: "Painted Churches of Texas" },
       { to: "/explore/historic-sites", label: "Historic sites" },
       { to: "/explore/small-towns", label: "Small towns" },
       { to: "/explore/road-trips", label: "Road trips" },
