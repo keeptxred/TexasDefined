@@ -14,7 +14,7 @@ import { auditDestination } from "@/data/destination-audit";
 import { buildDestinationRelationshipGroups } from "@/data/destination-relationships";
 import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
 import { articlesQuery, categoriesQuery, destinationQuery, destinationsQuery, regionsQuery } from "@/data/queries";
-import { resolveTopAttractionAuthority } from "@/data/top-attraction-authority-resolver";
+import { isTopTexasAttraction } from "@/data/top-texas-attractions";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 import { INTERNAL_LINK_POLICIES, policyForSurface } from "@/platform/internal-link-policies";
 
@@ -45,8 +45,12 @@ function destinationSeoTitle(name: string, categoryName: string) {
 
 export const Route = createFileRoute("/destination/$slug")({
   loader: async ({ context, params }) => {
-    const destination = await context.queryClient.ensureQueryData(destinationQuery(params.slug));
+    let destination = await context.queryClient.ensureQueryData(destinationQuery(params.slug));
     if (!destination) throw notFound();
+    if (isTopTexasAttraction(destination.slug)) {
+      const { resolveTopAttractionAuthority } = await import("@/data/top-attraction-authority-resolver");
+      destination = resolveTopAttractionAuthority(destination);
+    }
     const [graph, categories, catalog, regions, relatedArticles] = await Promise.all([
       loadTexasKnowledgeGraph(),
       context.queryClient.ensureQueryData(categoriesQuery()),
@@ -60,8 +64,7 @@ export const Route = createFileRoute("/destination/$slug")({
   head: ({ loaderData, params }) => {
     if (!loaderData) return { meta: [{ title: "Unavailable" }, { name: "robots", content: "noindex, nofollow" }] };
     const { destination, categories, relationshipGroups } = loaderData;
-    const authorityDestination = resolveTopAttractionAuthority(destination);
-    const authorityGuide = authorityDestination.authorityGuide;
+    const authorityGuide = destination.authorityGuide;
     const authorityCitations = authorityGuide?.sources.map((source) => source.url).filter(validExternalUrl) ?? [];
     const audit = auditDestination(destination);
     const indexable = audit.readyForIndexing && isPrimaryTripPlannerDestination(destination);
