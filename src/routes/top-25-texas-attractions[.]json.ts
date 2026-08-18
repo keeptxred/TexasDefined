@@ -1,15 +1,14 @@
 import { createFileRoute } from '@tanstack/react-router';
 
-import {
-  TOP_ATTRACTION_REFERENCE_ROWS,
-  TOP_ATTRACTIONS_COLLECTION_URL,
-  TOP_ATTRACTIONS_METHODOLOGY_URL,
-} from '@/data/top-attraction-reference-data';
-
 export const Route = createFileRoute('/top-25-texas-attractions.json')({
   server: {
     handlers: {
       GET: async () => {
+        const {
+          TOP_ATTRACTION_REFERENCE_ROWS,
+          TOP_ATTRACTIONS_COLLECTION_URL,
+          TOP_ATTRACTIONS_METHODOLOGY_URL,
+        } = await import('@/data/top-attraction-reference-data');
         const payload = {
           schemaVersion: 1,
           publisher: 'Texas Defined',
