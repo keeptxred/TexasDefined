@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "site": "TexasDefined",
   "canonicalDomain": "https://texasdefined.com",
-  "asOf": "2026-08-18",
+  "asOf": "2026-08-14",
   "purpose": "Machine-readable index of maintained TexasDefined reference resources intended for factual retrieval, comparison and citation.",
   "resources": [
     { "url": "https://texasdefined.com/citation-guide", "type": "citation-policy", "topic": "TexasDefined citation guidance", "title": "How to Cite TexasDefined References & Data", "trust": ["canonical-url-guidance", "official-source-precedence", "provenance"] },
