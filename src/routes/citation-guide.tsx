@@ -110,7 +110,18 @@ function CitationGuidePage() {
         <p className="eyebrow text-primary">Suggested format</p>
         <h2 id="format-heading" className="mt-2 font-display text-3xl">A simple web citation</h2>
         <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground"><strong className="text-foreground">Texas Defined, “Page title,” canonical page URL, verification or modification date when shown, accessed on your research date.</strong> For deadlines, eligibility, legal requirements, official boundaries, closures, fees, current government records, event schedules, ticketing, parking, gate times or venue-entry rules, include the linked official source as the controlling authority.</p>
-        <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">When a reference page offers a CSV or checklist distribution, use the canonical HTML page for context, methodology and caveats; use the downloadable file when you need the machine-readable or printable distribution itself.</p>
+        <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">When a reference page offers a CSV, JSON or checklist distribution, use the canonical HTML page for context, methodology and caveats; use the downloadable file when you need the machine-readable or printable distribution itself.</p>
+      </section>
+
+      <section className="mt-12 border-y border-border py-8" aria-labelledby="top25-source-heading">
+        <p className="eyebrow text-primary">Top-25 source hierarchy</p>
+        <h2 id="top25-source-heading" className="mt-2 font-display text-3xl">Cite current operations differently from supporting context</h2>
+        <div className="mt-6 grid gap-6 md:grid-cols-3">
+          <Rule title="Controlling visitor source" body="For current admission, reservations, hours, closures, accessibility, permits and operating rules, use the attraction operator or responsible public agency identified as the controlling source on the destination guide." />
+          <Rule title="Supporting authority source" body="Government agencies, universities, UNESCO, preservation bodies, conservation programs and accountable institutional sources can support history, science, designation or other durable context, but they do not override the operator's current instructions." />
+          <Rule title="TexasDefined synthesis" body="Visit length, effort, exposure, planning level, family fit, first-time value, itineraries and road-trip structures are labeled TexasDefined editorial assessments. Cite the methodology page when those fields are material to your use." />
+        </div>
+        <p className="mt-6 max-w-4xl text-sm leading-7 text-muted-foreground">User-review platforms and generic travel blogs are not evidence in the Top-25 authority layer. The downloadable datasets carry source URLs so a researcher can inspect the provenance behind each row.</p>
       </section>
 
       <section className="mt-12" aria-labelledby="reference-families-heading">
@@ -140,6 +151,7 @@ function CitationGuidePage() {
           <Link to="/explore/top-attractions/methodology" className="border-b border-primary text-primary">Top 25 methodology</Link>
           <Link to="/explore/top-attractions/road-trips" className="border-b border-primary text-primary">Top 25 road trips</Link>
           <a href="/top-25-texas-attractions.csv" className="border-b border-primary text-primary">Top 25 comparison CSV</a>
+          <a href="/top-25-texas-attractions.json" className="border-b border-primary text-primary">Top 25 reference JSON</a>
           <a href="/top-25-texas-attractions-checklist.txt" className="border-b border-primary text-primary">Top 25 checklist</a>
           <Link to="/sports-venues" className="border-b border-primary text-primary">Texas sports venues</Link>
           <Link to="/sports-venues/compare" className="border-b border-primary text-primary">Compare sports venues</Link>
