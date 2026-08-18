@@ -7,6 +7,7 @@ export type CountySeriesProfile = {
   loadArticle: () => Promise<Article>;
 };
 
+// Preserve link equity from retired county-series article slugs by mapping them to canonical /county routes.
 const LEGACY_ARTICLE_TO_COUNTY = new Map<string, string>([
   ["brewster-county-big-bend-texas", "brewster"],
   ["presidio-county-marfa-borderlands-texas", "presidio"],
