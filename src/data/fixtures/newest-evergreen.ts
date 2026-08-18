@@ -1,5 +1,5 @@
 import { articleInternalLinks } from "../article-internal-links";
-import { winklerCountyArticleStub } from "./lazy-county-series";
+import { winklerCountyArticleStub } from "./winkler-county-article-stub";
 
 // Texas Explained support bodies formerly registered here via ...texasExplainedSupportArticles
 // now live behind lazyEvergreenArticleStubs/loadLazyEvergreenArticle; this file only owns lightweight pillar topology.
