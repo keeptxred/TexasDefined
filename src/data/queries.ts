@@ -4,6 +4,7 @@ import { fetchPublishedTexasEvents } from "./events-remote";
 import { filterCurrentlyVisitableDestinations } from "./destination-availability";
 import { filterSeoReadyDestinations } from "./destination-audit";
 import { applyAllCuratedDestination, applyAllCuratedDestinations } from "./destination-curation-all";
+import { topAttractionDestinations } from "./destination-curation-top-attractions";
 import { improveDestinationCatalog, improveDestinationQuality } from "./destination-quality";
 import { fetchCoreExploreDestination, fetchCoreExploreDestinations } from "./explore-core-remote";
 import { supplementalExploreCategories } from "./explore-categories";
@@ -50,7 +51,7 @@ function mergeDestinations(...groups: Destination[][]): Destination[] {
   return [...merged.values()];
 }
 
-const preservedExploreDestinations = mergeDestinations(legacyExploreDestinations, legacyLakeDestinations);
+const preservedExploreDestinations = mergeDestinations(topAttractionDestinations, legacyExploreDestinations, legacyLakeDestinations);
 
 function preservedFor(query: Omit<DestinationQuery, "brandId">): Destination[] {
   let rows = preservedExploreDestinations;
