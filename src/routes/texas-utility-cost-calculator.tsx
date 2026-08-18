@@ -38,8 +38,12 @@ export const Route = createFileRoute('/texas-utility-cost-calculator')({
 
       <section className="mt-10 border-t border-border pt-9">
         <p className="eyebrow text-primary">Related Texas planning tools</p>
-        <div className="mt-5 grid gap-4 sm:grid-cols-2">
-          <Link to="/article/how-to-choose-electricity-plan-texas" className="border border-border p-5 hover:border-primary/50">
+        <div className="mt-5 grid gap-4 md:grid-cols-3">
+          <Link to="/article/$slug" params={{ slug: 'texas-utility-costs-guide' }} className="border border-border p-5 hover:border-primary/50">
+            <strong className="font-display text-xl">How to estimate Texas utility costs</strong>
+            <span className="mt-2 block text-sm leading-6 text-muted-foreground">Build an address-specific utility budget and understand why one statewide average is rarely enough.</span>
+          </Link>
+          <Link to="/article/$slug" params={{ slug: 'how-to-choose-electricity-plan-texas' }} className="border border-border p-5 hover:border-primary/50">
             <strong className="font-display text-xl">How to choose a Texas electricity plan</strong>
             <span className="mt-2 block text-sm leading-6 text-muted-foreground">Understand plan structure before estimating electricity costs.</span>
           </Link>
