@@ -195,9 +195,89 @@ const ammannsville: PaintedChurchProfile = {
   ],
 };
 
+const praha: PaintedChurchProfile = {
+  slug: "praha-st-marys-assumption",
+  quickAnswer:
+    "St. Mary’s Church of the Assumption at Praha is a 1895 Gothic Revival stone church built by a Czech Catholic community whose parish roots reach back to the 1860s. Architect O. Kramer designed the present building, constructed largely with locally quarried stone and parish labor. Swiss-born artist Gottfried Flury transformed the wooden vaults with lush blue, green and turquoise decorative painting; Father Louis Netardus later added religious artwork, and local artist Gene A. Mikulik spent decades restoring and embellishing the interior.",
+  foundedYear: 1865,
+  builtYear: 1895,
+  architecture: "Gothic Revival",
+  architect: "O. Kramer",
+  artists: ["Gottfried Flury", "Rev. Louis Netardus", "Gene A. Mikulik"],
+  heritage: "Czech Catholic settlement; one of the earliest predominantly Czech Catholic parishes in Texas",
+  facts: [
+    { label: "First Mass", value: "Christmas Eve 1865" },
+    { label: "Early parish church", value: "Small stone chapel followed by a larger wooden church in 1866–1867" },
+    { label: "Present church", value: "Built in 1895 with hand-cut locally quarried stone" },
+    { label: "Architect", value: "O. Kramer" },
+    { label: "Principal decorator", value: "Swiss-born artist Gottfried Flury" },
+    { label: "Later artist-priest", value: "Rev. Louis Netardus" },
+    { label: "Later restoration", value: "Gene A. Mikulik worked on statues, altars, gilding and paintings" },
+    { label: "National Register", value: "Listed June 21, 1983; reference 83003138" },
+  ],
+  history: [
+    {
+      heading: "A Czech Catholic parish on the Texas frontier",
+      paragraphs: [
+        "Czech Catholic families began settling the area in the 1850s. Visiting priests served the community before Father Joseph Bittkowski celebrated Mass at midnight on Christmas Eve 1865 and became the parish’s first resident priest. The early congregation first worshiped in a small stone chapel, then built a larger wooden church nearer the growing settlement that became Praha.",
+        "The Texas Historical Commission describes the early Praha congregation as the first predominantly Czech Catholic church in Texas. As immigration increased and the parish outgrew its earlier buildings, members undertook the far larger stone church that stands today.",
+      ],
+    },
+    {
+      heading: "The 1895 stone church",
+      paragraphs: [
+        "The current Gothic Revival building was erected in 1895 to plans credited to O. Kramer. Parishioners supplied substantial labor, and hand-cut locally quarried stone gave the church a durable monumentality unusual for such a rural settlement.",
+        "Its tall steeple, pointed Gothic forms and heavy stone construction announce the church from the surrounding countryside. Inside, however, the architecture becomes a setting for an even more ambitious decorative program spread across the wooden vaults, altars and devotional imagery.",
+      ],
+    },
+  ],
+  paintings: [
+    {
+      heading: "Gottfried Flury’s painted paradise",
+      paragraphs: [
+        "Swiss-born artist Gottfried Flury painted much of the interior. His ceiling treatment uses vivid turquoise, emerald green and blue foliage to turn the wooden vaults into an idealized garden-like environment. The imagery is less about imitating masonry than about covering the church with an exuberant natural and devotional world.",
+        "The Texas Historical Commission describes the vaulted wooden ceilings as fresco-like and compares their visual ambition to European sacred interiors. Flury mixed his own paints and developed distinctive working methods, giving Praha a decorative character unlike the rose palette of Ammannsville or the illusionistic Gothic structure at High Hill.",
+      ],
+    },
+    {
+      heading: "Father Netardus adds saints and devotional painting",
+      paragraphs: [
+        "After becoming pastor in 1901, Rev. Louis Netardus added to the church’s visual program. A rare period photograph documented him with a life-size painting of Saints Cyril and Methodius, major figures in Slavic Christian tradition and especially resonant for a Czech congregation.",
+      ],
+    },
+    {
+      heading: "Our Lady of Victory and the memory of war",
+      paragraphs: [
+        "Local artist Gene A. Mikulik later cared for the church’s decorative fabric for decades, restoring statuary, renewing paint and gold leaf on the altars, and creating new work. His painting Our Lady of Victory shows the Virgin Mary above parish soldiers who died in World War II, linking the painted-church tradition to the community’s twentieth-century losses and memory.",
+      ],
+    },
+  ],
+  preservation: [
+    {
+      heading: "Layers of artists rather than a single frozen moment",
+      paragraphs: [
+        "Praha’s interior is significant precisely because it records several generations of artistic work. Flury established the major decorative scheme, Father Netardus added religious paintings, and Gene Mikulik later restored and embellished the church. The result is a living interior shaped by continued parish stewardship rather than a single one-time decoration campaign.",
+        "The church entered the National Register in 1983 as part of the statewide Churches with Decorative Interior Painting group and is recognized for statewide significance in art, architecture and religion.",
+      ],
+    },
+  ],
+  visitorNotes: [
+    "Praha remains an active Catholic church; worship, funerals, weddings and parish events take priority over tourism.",
+    "Current Schulenburg Chamber guidance says the churches are generally available Monday through Saturday, with Praha normally closing at 3 p.m. on Saturdays; confirm before traveling.",
+    "Visitors should not enter the altar area or choir loft, touch paintings or statuary, or bring food, drink or pets inside.",
+  ],
+  sources: [
+    { label: "Texas Historical Commission National Register record", url: "https://atlas.thc.texas.gov/Details?atlasnumber=2083003138" },
+    { label: "Texas Historical Commission historical marker", url: "https://atlas.thc.texas.gov/Details/5507018361" },
+    { label: "Austin PBS Painted Churches project", url: "https://austinpbs.org/paintedchurches/praha" },
+    { label: "Schulenburg Chamber Painted Churches", url: "https://schulenburgchamber.org/painted-churches/" },
+  ],
+};
+
 export const paintedChurchProfiles: Record<string, PaintedChurchProfile> = {
   [highHill.slug]: highHill,
   [ammannsville.slug]: ammannsville,
+  [praha.slug]: praha,
 };
 
 export function paintedChurchProfileBySlug(slug: string) {
