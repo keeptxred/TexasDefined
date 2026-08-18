@@ -7,7 +7,10 @@ on:
     paths:
       - '.github/workflows/destination-indexing-smoke.yml'
       - 'src/routes/destination.*'
+      - 'src/routes/explore.top-attractions.tsx'
       - 'src/routes/sitemap-explore*'
+      - 'src/components/editorial/DestinationRelationships.tsx'
+      - 'src/data/top-texas-attractions.ts'
       - 'src/data/destination-audit.ts'
       - 'src/data/destination-availability.ts'
       - 'src/data/destination-curation-all.ts'
@@ -38,17 +41,18 @@ jobs:
           set -euo pipefail
           origin="https://texasdefined.com"
           non_primary="/destination/world-birding-center-bentsen-rio-grande-valley-state-park"
+          top_attractions="/explore/top-attractions"
           primary_url=""
 
           for attempt in $(seq 1 30); do
             status="$(curl --max-time 45 -sS -o /tmp/explore-sitemap.xml -w '%{http_code}' "$origin/sitemap-explore.xml" || true)"
             if [ "$status" = "200" ]; then
               primary_url="$(grep -o -m1 'https://texasdefined.com/destination/[^<]*' /tmp/explore-sitemap.xml || true)"
-              if [ -n "$primary_url" ]; then
-                echo "Explore sitemap is healthy and exposes a destination on attempt $attempt."
+              if [ -n "$primary_url" ] && grep -Fq "$origin$top_attractions" /tmp/explore-sitemap.xml; then
+                echo "Explore sitemap is healthy, exposes a destination and includes the Top 25 collection on attempt $attempt."
                 break
               fi
-              echo "Explore sitemap returned 200 but has no indexable destination URL yet (attempt $attempt/30)."
+              echo "Explore sitemap returned 200 but the destination/Top 25 release is not fully visible yet (attempt $attempt/30)."
             else
               echo "Explore sitemap returned HTTP ${status:-000}; deployment has not reached the healthy revision yet (attempt $attempt/30)."
             fi
@@ -59,10 +63,33 @@ jobs:
             echo "Explore sitemap did not expose an indexable destination within the deployment-aware retry window." >&2
             exit 1
           }
+          grep -Fq "$origin$top_attractions" /tmp/explore-sitemap.xml || {
+            echo "Top 25 attractions collection is missing from the Explore sitemap." >&2
+            exit 1
+          }
 
           curl --retry 3 --retry-connrefused --max-time 45 -fsSL "$primary_url" -o /tmp/primary.html
           if grep -Fq "noindex, follow" /tmp/primary.html; then
             echo "A destination published in the Explore sitemap is simultaneously noindex: $primary_url" >&2
+            exit 1
+          fi
+
+          curl --retry 3 --retry-connrefused --max-time 45 -fsSL "$origin$top_attractions" -o /tmp/top-attractions.html
+          if grep -Fq "noindex" /tmp/top-attractions.html; then
+            echo "Top 25 attractions collection rendered with a noindex directive." >&2
+            exit 1
+          fi
+          grep -Fq "/destination/the-alamo" /tmp/top-attractions.html || {
+            echo "Top 25 collection is missing The Alamo destination link." >&2
+            exit 1
+          }
+          grep -Fq "/destination/gruene-historic-district" /tmp/top-attractions.html || {
+            echo "Top 25 collection is missing Gruene Historic District destination link." >&2
+            exit 1
+          }
+          unique_top_links="$(grep -o '/destination/[a-z0-9-]*' /tmp/top-attractions.html | sort -u | wc -l | tr -d ' ')"
+          if [ "$unique_top_links" -lt 25 ]; then
+            echo "Top 25 collection exposed only $unique_top_links unique destination links; expected at least 25." >&2
             exit 1
           fi
 
@@ -82,4 +109,4 @@ jobs:
             exit 1
           fi
 
-          echo "Destination indexing smoke passed with primary control $primary_url and non-primary status $non_primary_status."
+          echo "Destination indexing smoke passed with Top 25 collection, primary control $primary_url and non-primary status $non_primary_status."
