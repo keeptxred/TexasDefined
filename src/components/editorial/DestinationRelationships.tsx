@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 
+import { DestinationAuthorityGuide } from "@/components/editorial/DestinationAuthorityGuide";
 import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { TexasExplainedContextLinks } from "@/components/editorial/TexasExplainedContextLinks";
@@ -63,6 +64,7 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
   const topAttractionRank = topTexasAttractionRank(destination.slug);
 
   return <>
+    <DestinationAuthorityGuide destination={destination} />
     <DestinationAreaGuideSection destination={destination} />
 
     {groups.length ? <>
