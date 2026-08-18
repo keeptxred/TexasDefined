@@ -1,13 +1,39 @@
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
+import { paintedChurchBySlug, paintedChurches } from "@/data/painted-churches";
 
 export const Route = createLazyFileRoute("/explore/painted-churches/$slug")({
   component: PaintedChurchDetail,
 });
 
 function PaintedChurchDetail() {
-  const { church, related } = Route.useLoaderData();
+  const { slug } = Route.useParams();
+  const church = paintedChurchBySlug(slug);
+
+  if (!church) {
+    return (
+      <main>
+        <Container className="py-24">
+          <p className="eyebrow text-primary">Painted Churches of Texas</p>
+          <h1 className="mt-3 font-display text-4xl">That church guide isn’t available.</h1>
+          <p className="mt-4 text-muted-foreground"><Link to="/explore/painted-churches" className="border-b border-primary text-primary">Return to the painted churches guide.</Link></p>
+        </Container>
+      </main>
+    );
+  }
+
+  const related = paintedChurches
+    .filter((candidate) => candidate.slug !== church.slug)
+    .sort((a, b) => {
+      const aCluster = church.schulenburgCluster && a.schulenburgCluster ? 0 : 1;
+      const bCluster = church.schulenburgCluster && b.schulenburgCluster ? 0 : 1;
+      if (aCluster !== bCluster) return aCluster - bCluster;
+      if (a.county === church.county && b.county !== church.county) return -1;
+      if (b.county === church.county && a.county !== church.county) return 1;
+      return a.city.localeCompare(b.city);
+    })
+    .slice(0, 3);
   const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(church.address ?? `${church.name}, ${church.city}, Texas`)}`;
 
   return (
