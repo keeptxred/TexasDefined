@@ -12,6 +12,7 @@ const collectionTrust = await read('src/components/authority/CitationCollectionT
 const footer = await read('src/components/layout/Footer.tsx');
 const citationGuide = await read('src/routes/citation-guide.tsx');
 const exploreHub = await read('src/routes/explore.index.tsx');
+const topAttractions = await read('src/routes/explore.top-attractions.tsx');
 const dataHub = await read('src/routes/texas-data.tsx');
 const countyGrowth = await read('src/routes/texas-data.county-growth.tsx');
 const countyGrowthContent = await read('src/components/data/CountyGrowthContent.tsx');
@@ -29,7 +30,7 @@ const expect = (condition, message) => { if (!condition) errors.push(message); }
 
 expect(manifest.schemaVersion === 1, 'citation-magnets.json must use schemaVersion 1');
 expect(manifest.canonicalDomain === 'https://texasdefined.com', 'citation manifest canonicalDomain must be TexasDefined');
-expect(Array.isArray(manifest.resources) && manifest.resources.length >= 19, 'citation manifest must retain at least 19 maintained resources');
+expect(Array.isArray(manifest.resources) && manifest.resources.length >= 20, 'citation manifest must retain at least 20 maintained resources');
 
 const urls = manifest.resources.map((resource) => resource.url);
 expect(new Set(urls).size === urls.length, 'citation manifest URLs must be unique');
@@ -58,6 +59,7 @@ const requiredManifestUrls = [
   'https://texasdefined.com/explore/small-towns',
   'https://texasdefined.com/explore/road-trips',
   'https://texasdefined.com/explore/attractions-comparison',
+  'https://texasdefined.com/explore/top-attractions',
   'https://texasdefined.com/find-my-dmv',
   'https://texasdefined.com/find-my-school-district',
 ];
@@ -92,10 +94,13 @@ expect(citationGuide.includes('Keep the original source attached'), 'citation gu
 expect(citationGuide.includes('/citation-magnets.json'), 'citation guide must link machine-readable citation manifest');
 expect(citationGuide.includes('/llms.txt'), 'citation guide must link llms retrieval guidance');
 expect(publicRoutes.includes('"/explore/attractions-comparison"'), 'attractions comparison must remain governed as an indexable static path');
+expect(publicRoutes.includes('"/explore/top-attractions"'), 'Top 25 attractions must remain governed as an indexable static path');
 expect(publicRoutes.includes('"/texas-data/city-county-relationships"'), 'city-county dataset must remain governed as an indexable static path');
 expect(exploreSitemap.includes('"/explore/attractions-comparison"'), 'Explore sitemap must include attractions comparison');
+expect(exploreSitemap.includes('"/explore/top-attractions"'), 'Explore sitemap must include the Top 25 attractions reference collection');
 expect(mainSitemap.includes('INDEXABLE_STATIC_PATHS'), 'main sitemap must remain driven by governed static paths');
 expect(exploreHub.includes('to="/explore/attractions-comparison"'), 'Explore hub must link the attractions comparison');
+expect(exploreHub.includes('to="/explore/top-attractions"'), 'Explore hub must link the Top 25 attractions reference collection');
 expect(dataHub.includes('/texas-data/city-county-relationships'), 'Texas Data hub must link the city-county dataset');
 
 const extractionContracts = [
@@ -106,6 +111,8 @@ const extractionContracts = [
   [protest, 'Start with the deadline', 'protest deadline direct answer'],
   [homestead, 'School homestead exemption history', 'homestead comparison answer block'],
   [attractions, 'ItemList', 'attractions machine-readable list'],
+  [topAttractions, 'How this list is researched', 'Top 25 authority methodology layer'],
+  [topAttractions, 'applyTopAttractionAuthority', 'Top 25 comparison assessment layer'],
   [cityCounty, "'@type': 'Dataset'", 'city-county Dataset schema'],
   [countyGrowthContent, 'Fastest percentage growth', 'county growth comparison layer'],
 ];
@@ -119,4 +126,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Citation magnet validation passed for ${manifest.resources.length} TexasDefined resources, including Census Vintage 2025 county growth.`);
+console.log(`Citation magnet validation passed for ${manifest.resources.length} TexasDefined resources, including Top 25 attractions and Census Vintage 2025 county growth.`);
