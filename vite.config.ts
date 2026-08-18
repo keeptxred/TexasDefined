@@ -18,6 +18,9 @@ export default defineConfig({
     tailwindcss(),
     viteReact(),
   ],
+  build: {
+    sourcemap: true,
+  },
   optimizeDeps: {
     include: [
       "react",
