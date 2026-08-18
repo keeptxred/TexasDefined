@@ -31,12 +31,13 @@ const GROUPS = [
   },
   {
     title: 'Explore & relocation',
-    description: 'Maintained comparison layers for moving, parks, water destinations, small towns, road trips and attractions.',
+    description: 'Maintained comparison and authority layers for moving, parks, water destinations, small towns, road trips and attractions.',
     links: [
       ['Moving to Texas', '/moving-to-texas'],
       ['Texas state parks', '/explore/state-parks'],
       ['Texas lakes and rivers', '/explore/lakes-rivers'],
       ['Texas attractions comparison', '/explore/attractions-comparison'],
+      ['Top 25 Texas attractions', '/explore/top-attractions'],
     ],
   },
   {
@@ -107,7 +108,7 @@ function CitationGuidePage() {
         <p className="eyebrow text-primary">Suggested format</p>
         <h2 id="format-heading" className="mt-2 font-display text-3xl">A simple web citation</h2>
         <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground"><strong className="text-foreground">Texas Defined, “Page title,” canonical page URL, verification or modification date when shown, accessed on your research date.</strong> For deadlines, eligibility, legal requirements, official boundaries, closures, fees, current government records, event schedules, ticketing, parking, gate times or venue-entry rules, include the linked official source as the controlling authority.</p>
-        <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">When a reference page offers a CSV distribution, use the canonical HTML page for context, methodology and caveats; use the CSV when you need the machine-readable rows themselves.</p>
+        <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">When a reference page offers a CSV or checklist distribution, use the canonical HTML page for context, methodology and caveats; use the downloadable file when you need the machine-readable or printable distribution itself.</p>
       </section>
 
       <section className="mt-12" aria-labelledby="reference-families-heading">
@@ -133,6 +134,8 @@ function CitationGuidePage() {
           <a href="/llms.txt" className="border-b border-primary text-primary">llms.txt</a>
           <Link to="/about" className="border-b border-primary text-primary">Editorial accountability</Link>
           <Link to="/texas-data" className="border-b border-primary text-primary">Texas data catalog</Link>
+          <Link to="/explore/top-attractions" className="border-b border-primary text-primary">Top 25 Texas attractions</Link>
+          <a href="/top-25-texas-attractions-checklist.txt" className="border-b border-primary text-primary">Top 25 checklist</a>
           <Link to="/sports-venues" className="border-b border-primary text-primary">Texas sports venues</Link>
           <Link to="/sports-venues/compare" className="border-b border-primary text-primary">Compare sports venues</Link>
           <a href="/sports-venues/compare.csv" className="border-b border-primary text-primary">Sports venue comparison CSV</a>
