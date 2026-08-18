@@ -71,6 +71,7 @@ const LEGACY_ARTICLE_TO_COUNTY = new Map<string, string>([
   ["val-verde-county-del-rio-amistad-devils-river-lower-pecos-texas", "val-verde"],
   ["edwards-county-rocksprings-devils-sinkhole-nueces-plateau-texas", "edwards"],
   ["real-county-leakey-camp-wood-frio-nueces-canyons-texas", "real"],
+  ["uvalde-county-uvalde-garner-frio-fort-inge-texas", "uvalde"],
 ]);
 
 const COUNTY_SLUGS = new Set(LEGACY_ARTICLE_TO_COUNTY.values());
