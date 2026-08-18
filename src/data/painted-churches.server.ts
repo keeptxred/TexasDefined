@@ -5,7 +5,7 @@ import {
   paintedChurchSources,
   schulenburgCoreRoute,
   schulenburgPaintedChurches,
-} from "./painted-churches";
+} from "./painted-churches.catalog.server";
 
 export function loadPaintedChurchesDirectoryDataServer() {
   return {
