@@ -1,13 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 
-import { topAttractionExpansionDestinations } from '@/data/destination-curation-top-attractions-fallbacks';
-import { topAttractionDestinations } from '@/data/destination-curation-top-attractions';
-import { resolveTopAttractionAuthority } from '@/data/top-attraction-authority-resolver';
-import { TOP_TEXAS_ATTRACTIONS } from '@/data/top-texas-attractions';
-import type { Destination } from '@/data/types';
+import { TOP_ATTRACTION_REFERENCE_ROWS } from '@/data/top-attraction-reference-data';
 
-const siteUrl = 'https://texasdefined.com';
-const methodologyUrl = `${siteUrl}/explore/top-attractions/methodology`;
 const headers = [
   'rank',
   'attraction_name',
@@ -26,11 +20,9 @@ const headers = [
   'official_url',
   'authority_source_count',
   'authority_source_urls',
+  'road_trip_names',
   'methodology_url',
 ] as const;
-
-const catalog = [...topAttractionDestinations, ...topAttractionExpansionDestinations];
-const bySlug = new Map<string, Destination>(catalog.map((destination) => [destination.slug, destination]));
 
 export const Route = createFileRoute('/top-25-texas-attractions.csv')({
   server: {
@@ -38,33 +30,27 @@ export const Route = createFileRoute('/top-25-texas-attractions.csv')({
       GET: async () => {
         const lines = [
           headers.join(','),
-          ...TOP_TEXAS_ATTRACTIONS.flatMap((entry) => {
-            const base = bySlug.get(entry.slug);
-            if (!base) return [];
-            const destination = resolveTopAttractionAuthority(base);
-            const assessment = destination.authorityGuide?.assessment;
-            const sources = destination.authorityGuide?.sources ?? [];
-            return [[
-              String(entry.rank),
-              destination.name,
-              `${siteUrl}/destination/${destination.slug}`,
-              destination.nearestTown,
-              destination.county ?? '',
-              destination.region,
-              destination.category,
-              assessment?.recommendedVisit ?? '',
-              assessment?.physicalEffort ?? '',
-              assessment?.weatherExposure ?? '',
-              assessment?.planningLevel ?? '',
-              assessment?.familyFit ?? '',
-              assessment?.firstTimeValue ?? '',
-              destination.sourceCheckedAt ?? '',
-              destination.officialUrl ?? '',
-              String(sources.length),
-              sources.map((source) => source.url).join('; '),
-              methodologyUrl,
-            ].map(csvCell).join(',')];
-          }),
+          ...TOP_ATTRACTION_REFERENCE_ROWS.map((row) => [
+            String(row.rank),
+            row.name,
+            row.canonicalUrl,
+            row.nearestTown,
+            row.county ?? '',
+            row.region,
+            row.category,
+            row.recommendedVisit,
+            row.physicalEffort,
+            row.weatherExposure,
+            row.advancePlanning,
+            row.familyFit,
+            row.firstTimeTexasValue,
+            row.sourceCheckedAt ?? '',
+            row.officialUrl ?? '',
+            String(row.authoritySources.length),
+            row.authoritySources.map((source) => source.url).join('; '),
+            row.roadTrips.map((trip) => trip.name).join('; '),
+            row.methodologyUrl,
+          ].map(csvCell).join(',')),
         ];
 
         return new Response(`${lines.join('\n')}\n`, {
