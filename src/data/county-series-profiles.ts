@@ -59,4 +59,5 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   profile("nueces", "nueces-county-corpus-christi-bay-islands-coastal-bend-texas", () => import("@/data/fixtures/nueces-county-corpus-christi-bay-islands-coastal-bend").then((module) => module.nuecesCountyCorpusChristiBayIslandsCoastalBendArticle)),
   profile("kleberg", "kleberg-county-kingsville-king-ranch-padre-island-texas", () => import("@/data/fixtures/kleberg-county-kingsville-king-ranch-padre-island-texas").then((module) => module.klebergCountyKingsvilleKingRanchPadreIslandArticle)),
   profile("kenedy", "kenedy-county-sarita-ranches-padre-island-wild-horse-desert-texas", () => import("@/data/fixtures/kenedy-county-sarita-ranches-padre-island-wild-horse-desert").then((module) => module.kenedyCountySaritaRanchesPadreIslandWildHorseDesertArticle)),
+  profile("willacy", "willacy-county-raymondville-port-mansfield-laguna-madre-texas", () => import("@/data/fixtures/willacy-county-raymondville-port-mansfield-laguna-madre").then((module) => module.willacyCountyRaymondvillePortMansfieldLagunaMadreArticle)),
 ];
