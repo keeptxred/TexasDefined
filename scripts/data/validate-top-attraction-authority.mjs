@@ -81,7 +81,7 @@ for (const slug of timelineSlugs) {
   if (!timelineSource.includes(`"${slug}": [`)) failures.push(`Missing sourced history timeline for ${slug}.`);
 }
 const timelineEvents = (timelineSource.match(/sourceUrl:/g) ?? []).length;
-if (timelineEvents !== 24) failures.push(`Top attraction history timelines have ${timelineEvents} sourced events; expected 24.`);
+if (timelineEvents !== 25) failures.push(`Top attraction history timelines have ${timelineEvents} sourced events; expected 25.`);
 for (const feature of ['topAttractionTimeline', 'sourceLabel', 'sourceUrl']) {
   if (!timelineSource.includes(feature)) failures.push(`Timeline data contract missing ${feature}.`);
 }
@@ -212,4 +212,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Top 25 attraction authority validation passed: 25 authority records, ${authorityUrls.length} supplemental authority URLs, 75 itineraries, 24 sourced timeline events, seven complete road-trip clusters, canonical CSV/JSON data distributions, methodology, category/region inbound links, multi-source JSON-LD, lazy authority/methodology/road-trip UI, dynamic data loading, trust panels and citation discovery are wired.`);
+console.log(`Top 25 attraction authority validation passed: 25 authority records, ${authorityUrls.length} supplemental authority URLs, 75 itineraries, 25 sourced timeline events, seven complete road-trip clusters, canonical CSV/JSON data distributions, methodology, category/region inbound links, multi-source JSON-LD, lazy authority/methodology/road-trip UI, dynamic data loading, trust panels and citation discovery are wired.`);
