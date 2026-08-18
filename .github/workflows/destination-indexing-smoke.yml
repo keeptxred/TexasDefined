@@ -8,7 +8,7 @@ on:
       - '.github/workflows/destination-indexing-smoke.yml'
       - 'src/routes/destination.*'
       - 'src/routes/explore.top-attractions.tsx'
-      - 'src/routes/top-25-texas-attractions-checklist[.]txt.ts'
+      - 'src/routes/top-25-texas-attractions-checklist*'
       - 'src/routes/sitemap-explore*'
       - 'src/components/editorial/DestinationRelationships.tsx'
       - 'src/components/editorial/DestinationAuthorityGuide.tsx'
