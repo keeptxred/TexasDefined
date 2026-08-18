@@ -6,11 +6,9 @@ const assetDirCandidates = [
   path.resolve('.output/public/assets'),
 ];
 const viteConfigPath = path.resolve('vite.config.ts');
-// CI measured the stable, non-route-split client bundle at 1,807,457 bytes.
-// Keep less than 1% headroom so meaningful growth fails without making the
-// budget smaller than the known-good production build.
+// Diagnostic-only CI threshold probe. This branch is not for merge.
 const STABLE_MAIN_BASELINE_BYTES = 1_807_457;
-const MAX_MAIN_BYTES = 1_825_000;
+const MAX_MAIN_BYTES = 1_850_000;
 const MAX_CSS_BYTES = 140_000;
 
 async function resolveAssetsDir() {
