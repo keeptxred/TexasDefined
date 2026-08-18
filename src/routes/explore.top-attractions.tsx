@@ -10,7 +10,6 @@ import type { Destination } from "@/data/types";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const canonicalPath = "/explore/top-attractions";
-const title = "Top 25 Texas Attractions | Texas Defined";
 const description = "Twenty-five landmark Texas experiences, from the Alamo and River Walk to Big Bend, the Gulf Coast, museums, caverns, gardens and historic districts — with practical trip-planning guides for each stop.";
 
 function rankDestinations(destinations: Destination[]) {
@@ -30,7 +29,7 @@ export const Route = createFileRoute("/explore/top-attractions")({
     const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
     const attractions = loaderData ?? [];
     return {
-      meta: buildMeta(texasDefinedBrand, { canonicalPath, title, description }),
+      meta: buildMeta(texasDefinedBrand, { canonicalPath, title: "Top 25 Texas Attractions | Texas Defined", description }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
       scripts: [jsonLd({
         "@context": "https://schema.org",
