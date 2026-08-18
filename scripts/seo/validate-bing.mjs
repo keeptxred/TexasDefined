@@ -28,6 +28,10 @@ function requirePattern(source, pattern, message) {
   if (!pattern.test(source)) errors.push(message);
 }
 
+function hasQuotedAssignment(source, variable, value) {
+  return source.includes(`const ${variable} = '${value}'`) || source.includes(`const ${variable} = "${value}"`);
+}
+
 const robots = read('public/robots.txt');
 const server = read('src/server.ts');
 const indexNowScript = read('scripts/seo/submit-indexnow.mjs');
@@ -73,16 +77,12 @@ if (keyFile.trim() !== indexNowKey) {
   errors.push('The public IndexNow key file must contain exactly the configured key.');
 }
 
-requirePattern(
-  indexNowScript,
-  new RegExp(`const origin = ['"]${canonicalOrigin.replaceAll('.', '\\.') }['"]`),
-  'IndexNow submitter must use the canonical TexasDefined origin.',
-);
-requirePattern(
-  indexNowScript,
-  new RegExp(`const key = ['"]${indexNowKey}['"]`),
-  'IndexNow submitter must use the published ownership key.',
-);
+if (!hasQuotedAssignment(indexNowScript, 'origin', canonicalOrigin)) {
+  errors.push('IndexNow submitter must use the canonical TexasDefined origin.');
+}
+if (!hasQuotedAssignment(indexNowScript, 'key', indexNowKey)) {
+  errors.push('IndexNow submitter must use the published ownership key.');
+}
 for (const expected of [
   'https://api.indexnow.org/indexnow',
   '/sitemap.xml',
