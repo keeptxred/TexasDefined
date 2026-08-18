@@ -64,6 +64,7 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   profile("san-patricio", "san-patricio-county-sinton-irish-colony-coastal-prairie-texas", () => import("@/data/fixtures/san-patricio-county-sinton-irish-colony-coastal-prairie").then((module) => module.sanPatricioCountySintonIrishColonyCoastalPrairieArticle)),
   profile("nueces", "nueces-county-corpus-christi-bay-islands-coastal-bend-texas", () => import("@/data/fixtures/nueces-county-corpus-christi-bay-islands-coastal-bend").then((module) => module.nuecesCountyCorpusChristiBayIslandsCoastalBendArticle)),
   profile("kleberg", "kleberg-county-kingsville-king-ranch-padre-island-texas", () => import("@/data/fixtures/kleberg-county-kingsville-king-ranch-padre-island-texas").then((module) => module.klebergCountyKingsvilleKingRanchPadreIslandArticle)),
+  profile("kenedy", "kenedy-county-sarita-ranches-padre-island-wild-horse-desert-texas", () => import("@/data/fixtures/kenedy-county-sarita-ranches-padre-island-wild-horse-desert").then((module) => module.kenedyCountySaritaRanchesPadreIslandWildHorseDesertArticle)),
 ];
 
 const articlePromiseCache = new Map<string, Promise<Article | null>>();
