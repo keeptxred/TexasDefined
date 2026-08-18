@@ -6,26 +6,8 @@ import { buildMeta, canonicalLink } from "@/lib/seo";
 const canonicalPath = "/explore/painted-churches";
 
 export const Route = createFileRoute("/explore/painted-churches")({
-  loader: async () => {
-    const {
-      nationalRegisterDecorativeInteriorChurches,
-      paintedChurches,
-      paintedChurchSources,
-      schulenburgCoreRoute,
-      schulenburgPaintedChurches,
-    } = await import("@/data/painted-churches");
-
-    return {
-      paintedChurches,
-      nationalRegisterCount: nationalRegisterDecorativeInteriorChurches.length,
-      schulenburgPaintedChurches,
-      schulenburgCoreRoute,
-      paintedChurchSources,
-    };
-  },
-  head: ({ loaderData }) => {
+  head: () => {
     const origin = `https://${texasDefinedBrand.identity.domain}`;
-    const churches = loaderData?.paintedChurches ?? [];
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
@@ -38,15 +20,10 @@ export const Route = createFileRoute("/explore/painted-churches")({
         type: "application/ld+json",
         children: JSON.stringify({
           "@context": "https://schema.org",
-          "@type": "ItemList",
+          "@type": "CollectionPage",
           name: "Painted Churches of Texas",
-          numberOfItems: churches.length,
-          itemListElement: churches.map((church, index) => ({
-            "@type": "ListItem",
-            position: index + 1,
-            name: church.name,
-            url: `${origin}/explore/painted-churches/${church.slug}`,
-          })),
+          description: "A verified Texas travel guide to painted churches, including the Schulenburg route and statewide historic church destinations.",
+          url: `${origin}${canonicalPath}`,
         }),
       }],
     };
