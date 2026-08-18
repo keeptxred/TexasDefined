@@ -56,6 +56,7 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   profile("matagorda", "matagorda-county-bay-city-palacios-colorado-river-bays-texas", () => import("@/data/fixtures/matagorda-county-bay-city-palacios-colorado-river-bays").then((module) => module.matagordaCountyBayCityPalaciosColoradoRiverBaysArticle)),
   profile("jackson", "jackson-county-edna-ganado-lake-texana-lavaca-navidad-texas", () => import("@/data/fixtures/jackson-county-edna-ganado-lake-texana-lavaca-navidad").then((module) => module.jacksonCountyEdnaGanadoLakeTexanaLavacaNavidadArticle)),
   profile("lavaca", "lavaca-county-hallettsville-shiner-yoakum-rivers-texas", () => import("@/data/fixtures/lavaca-county-hallettsville-shiner-yoakum-rivers-texas").then((module) => module.lavacaCountyHallettsvilleShinerYoakumRiversTexasArticle)),
+  profile("calhoun", "calhoun-county-port-lavaca-indianola-seadrift-bays-texas", () => import("@/data/fixtures/calhoun-county-port-lavaca-indianola-seadrift-bays").then((module) => module.calhounCountyPortLavacaIndianolaSeadriftBaysArticle)),
 ];
 
 const articlePromiseCache = new Map<string, Promise<Article | null>>();
