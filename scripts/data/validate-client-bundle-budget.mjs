@@ -1,23 +1,17 @@
 import { readFile, readdir, stat } from 'node:fs/promises';
 import path from 'node:path';
 
-const assetDirCandidates = [
-  path.resolve('dist/client/assets'),
-  path.resolve('.output/public/assets'),
-];
+const assetDirCandidates = [path.resolve('dist/client/assets'), path.resolve('.output/public/assets')];
 const viteConfigPath = path.resolve('vite.config.ts');
 // Diagnostic-only CI threshold probe. This branch is not for merge.
 const STABLE_MAIN_BASELINE_BYTES = 1_807_457;
-const MAX_MAIN_BYTES = 2_100_000;
+const MAX_MAIN_BYTES = 1_850_000;
 const MAX_CSS_BYTES = 180_000;
 
 async function resolveAssetsDir() {
   for (const candidate of assetDirCandidates) {
-    try {
-      if ((await stat(candidate)).isDirectory()) return candidate;
-    } catch (error) {
-      if (error?.code !== 'ENOENT') throw error;
-    }
+    try { if ((await stat(candidate)).isDirectory()) return candidate; }
+    catch (error) { if (error?.code !== 'ENOENT') throw error; }
   }
   throw new Error(`Client assets directory not found. Expected Cloudflare Vite output at ${assetDirCandidates[0]} or legacy Nitro output at ${assetDirCandidates[1]}.`);
 }
@@ -41,7 +35,4 @@ async function main() {
   console.log(`Client performance budget passed using ${path.relative(process.cwd(), assetsDir)}: ${mainFile} ${(mainBytes / 1024).toFixed(1)} KiB <= ${(MAX_MAIN_BYTES / 1024).toFixed(1)} KiB (${headroomBytes.toLocaleString()} bytes headroom); ${cssFiles.length || 0} primary stylesheet(s) within budget; failed route-splitting experiment remains disabled.`);
 }
 
-main().catch((error) => {
-  console.error(error instanceof Error ? error.message : error);
-  process.exit(1);
-});
+main().catch((error) => { console.error(error instanceof Error ? error.message : error); process.exit(1); });
