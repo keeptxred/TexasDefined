@@ -65,6 +65,9 @@ jobs:
       - name: Validate machine indexing
         run: node scripts/data/validate-machine-indexing.mjs
 
+      - name: Validate Bing configuration
+        run: node scripts/seo/validate-bing.mjs
+
       - name: Validate AEO answer layers
         run: node scripts/data/validate-aeo-answer-layers.mjs
 
