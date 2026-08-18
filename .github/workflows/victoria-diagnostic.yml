@@ -1,0 +1,73 @@
+name: Victoria county diagnostic
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate-and-verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - name: Run normal TexasDefined validation and build
+        run: npm run validate
+      - name: Verify Victoria canonical production page
+        shell: bash
+        run: |
+          set -euo pipefail
+          url='https://texasdefined.com/county/victoria'
+          legacy='https://texasdefined.com/article/victoria-county-victoria-guadalupe-de-leon-crossroads-texas'
+          expected_title='Victoria County: Victoria, the Guadalupe River, De León and the Crossroads'
+          html=/tmp/victoria.html
+
+          for attempt in $(seq 1 12); do
+            code=$(curl -L -sS -o "$html" -w '%{http_code}' --max-time 25 "$url" || echo 000)
+            if [[ "$code" == 200 ]] && grep -Fqi "$expected_title" "$html" && grep -Fqi 'The county in numbers' "$html" && grep -Fqi '2020 population' "$html" && grep -Fqi 'Land area' "$html" && grep -Fqi 'Water area' "$html"; then
+              break
+            fi
+            echo "Victoria production page not fully ready; attempt $attempt/12 (HTTP $code)."
+            [[ "$attempt" -lt 12 ]] && sleep 30
+          done
+
+          test "$code" = 200
+          grep -Fqi "$expected_title" "$html"
+          grep -Fqi 'The county in numbers' "$html"
+          grep -Fqi '2020 population' "$html"
+          grep -Fqi 'Land area' "$html"
+          grep -Fqi 'Water area' "$html"
+
+          image=$(python3 - "$html" <<'PY'
+          import re, sys
+          from pathlib import Path
+          html=Path(sys.argv[1]).read_text(errors='ignore')
+          for pattern in [
+              r'<meta[^>]+property=["\x27]og:image["\x27][^>]+content=["\x27]([^"\x27]+)',
+              r'<meta[^>]+content=["\x27]([^"\x27]+)["\x27][^>]+property=["\x27]og:image["\x27]'
+          ]:
+              m=re.search(pattern, html, re.I)
+              if m:
+                  print(m.group(1)); break
+          PY
+          )
+          test -n "$image"
+          [[ "$image" == /* ]] && image="https://texasdefined.com$image"
+          image_result=$(curl -L -sS -o /dev/null -w '%{http_code}\t%{content_type}' --max-time 25 "$image")
+          IFS=$'\t' read -r image_code image_type <<< "$image_result"
+          test "$image_code" = 200
+          [[ "$image_type" =~ ^image/(jpeg|png|webp)(\;.*)?$ ]]
+
+          redirect_result=$(curl -sS -o /dev/null -w '%{http_code}\t%{redirect_url}' --max-time 25 "$legacy")
+          IFS=$'\t' read -r redirect_code redirect_url <<< "$redirect_result"
+          test "$redirect_code" = 301
+          test "$redirect_url" = "$url"
+
+          echo "VICTORIA PASS page=200 structured=present editorial=present image=200 mime=$image_type redirect=301 image=$image"
