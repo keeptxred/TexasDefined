@@ -17,7 +17,25 @@ export interface Author { id: string; name: string; role: string; bio: string; }
 export type ArticleBlock = { type: "paragraph"; text: string } | { type: "heading"; text: string } | { type: "quote"; text: string; attribution?: string } | { type: "list"; items: string[] } | { type: "shop"; collectionSlug: Slug };
 export interface ArticleInternalLink { href: string; label: string; description?: string; }
 export interface Article { id: string; brandId: BrandId; slug: Slug; title: string; dek: string; category: CategorySlug; region?: TexasRegion; hero: ImageRef; authorId: string; publishedAt: string; readingMinutes: number; tags: string[]; featured?: boolean; body: ArticleBlock[]; internalLinks?: ArticleInternalLink[]; relatedCollections: Slug[]; relatedDestinations: Slug[]; sourceName?: string; sourceUrl?: string; }
-export interface Destination { id: string; brandId: BrandId; slug: Slug; name: string; summary: string; category: CategorySlug; region: TexasRegion; nearestTown: string; coordinates: GeoPoint; hero: ImageRef; bestSeason: string; entryNote: string; highlights: string[]; body: string[]; managingAuthority?: string; officialUrl?: string; sourceCheckedAt?: string; reservationUrl?: string; county?: string; address?: string; directions?: string; accessibilityNotes?: string; featured?: boolean; }
+
+export interface DestinationAreaItem {
+  name: string;
+  description: string;
+  proximity?: string;
+  href?: string;
+}
+export type DestinationAreaItemList = [DestinationAreaItem, ...DestinationAreaItem[]];
+export interface DestinationAreaGuide {
+  intro: string;
+  nearbyAttractions: DestinationAreaItemList;
+  foodAndDrink: DestinationAreaItemList;
+  lodging: DestinationAreaItemList;
+  neighborhoods: DestinationAreaItemList;
+  familyStops: DestinationAreaItemList;
+  sideTrips: DestinationAreaItemList;
+}
+
+export interface Destination { id: string; brandId: BrandId; slug: Slug; name: string; summary: string; category: CategorySlug; region: TexasRegion; nearestTown: string; coordinates: GeoPoint; hero: ImageRef; bestSeason: string; entryNote: string; highlights: string[]; body: string[]; managingAuthority?: string; officialUrl?: string; sourceCheckedAt?: string; reservationUrl?: string; county?: string; address?: string; directions?: string; accessibilityNotes?: string; areaGuide?: DestinationAreaGuide; featured?: boolean; }
 
 export interface ProductVariant { id: number; title: string; price: number; image?: string | null; images?: string[]; color?: string; is_enabled?: boolean; }
 export interface Product { id: string; brandId: BrandId; slug: Slug; name: string; maker: string; priceCents: number; currency: "USD"; image: ImageRef; blurb: string; collectionSlugs: Slug[]; madeInTexas: boolean; productUrl?: string; colors?: string[]; variants?: ProductVariant[]; }
