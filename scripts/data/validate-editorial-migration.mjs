@@ -2,6 +2,7 @@ import fs from 'node:fs';
 
 const migrated = fs.readFileSync('src/data/fixtures/migrated-editorial.ts', 'utf8');
 const lazyMigrated = fs.readFileSync('src/data/fixtures/lazy-migrated-editorial.ts', 'utf8');
+const financeDepth = fs.readFileSync('src/data/fixtures/finance-evergreen-depth.ts', 'utf8');
 const lazyCore = fs.readFileSync('src/data/fixtures/lazy-texas-core-articles.ts', 'utf8');
 const coreBodies = fs.readFileSync('src/data/fixtures/texas-core-articles.ts', 'utf8');
 const repositories = fs.readFileSync('src/data/fixtures/repositories.ts', 'utf8');
@@ -35,6 +36,33 @@ for (const slug of expected) {
   if (!lazyMigrated.includes(`slug: "${slug}"`)) errors.push(`Migrated article catalog stub missing: ${slug}`);
 }
 
+const financeDepthSlugs = [
+  'texas-closing-costs-guide',
+  'texas-utility-costs-guide',
+  'salary-needed-to-buy-a-house-in-texas',
+];
+for (const slug of financeDepthSlugs) {
+  if (!financeDepth.includes(`slug: "${slug}"`)) errors.push(`Deeper finance evergreen body missing: ${slug}`);
+  if (!lazyMigrated.includes(`"${slug}"`)) errors.push(`Finance evergreen override slug missing from lazy loader: ${slug}`);
+}
+for (const feature of [
+  'financeDepthSlugSet',
+  'await import("./finance-evergreen-depth")',
+  'financeEvergreenDepthArticles.find((article) => article.slug === slug)',
+]) {
+  if (!lazyMigrated.includes(feature)) errors.push(`Finance evergreen lazy override wiring missing: ${feature}`);
+}
+for (const marker of [
+  'Closing costs and cash to close are not the same number',
+  'Use the Closing Disclosure as the final comparison',
+  'Use a full year when you can',
+  'Separate usage from the rate plan',
+  'Debt-to-income is a lender measure, not a household budget',
+  'Treat preapproval as a ceiling to evaluate, not a spending instruction',
+]) {
+  if (!financeDepth.includes(marker)) errors.push(`Finance evergreen depth marker missing: ${marker}`);
+}
+
 const slugMatches = [...migrated.matchAll(/slug: "([^"]+)"/g)].map((match) => match[1]);
 if (new Set(slugMatches).size !== slugMatches.length) errors.push('Migrated editorial body slugs must remain unique.');
 if (slugMatches.length !== expected.length) errors.push(`Expected ${expected.length} migrated article bodies, found ${slugMatches.length}.`);
@@ -44,7 +72,7 @@ if (new Set(stubSlugMatches).size !== stubSlugMatches.length) errors.push('Migra
 if (stubSlugMatches.length !== expected.length) errors.push(`Expected ${expected.length} migrated article stubs, found ${stubSlugMatches.length}.`);
 
 for (const forbidden of ['KeepTXRed', 'Keep TX Red', '/news/homestead', '/tools/']) {
-  if (migrated.includes(forbidden) || lazyMigrated.includes(forbidden)) errors.push(`Public migrated editorial contains legacy text or path: ${forbidden}`);
+  if (migrated.includes(forbidden) || lazyMigrated.includes(forbidden) || financeDepth.includes(forbidden)) errors.push(`Public migrated editorial contains legacy text or path: ${forbidden}`);
 }
 
 for (const feature of [
@@ -129,4 +157,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Seventeen migrated lifestyle articles and ten core fixture articles retain lightweight catalogs, lazy detail loading, Texas Life exposure, repository search, sitemap sourcing and legacy redirects.');
+console.log('Seventeen migrated lifestyle articles and ten core fixture articles retain lightweight catalogs, lazy detail loading, three protected deeper finance evergreen overrides, Texas Life exposure, repository search, sitemap sourcing and legacy redirects.');
