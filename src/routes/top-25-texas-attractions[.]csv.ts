@@ -1,7 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
 
-import { TOP_ATTRACTION_REFERENCE_ROWS } from '@/data/top-attraction-reference-data';
-
 const headers = [
   'rank',
   'attraction_name',
@@ -28,6 +26,7 @@ export const Route = createFileRoute('/top-25-texas-attractions.csv')({
   server: {
     handlers: {
       GET: async () => {
+        const { TOP_ATTRACTION_REFERENCE_ROWS } = await import('@/data/top-attraction-reference-data');
         const lines = [
           headers.join(','),
           ...TOP_ATTRACTION_REFERENCE_ROWS.map((row) => [
