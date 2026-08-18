@@ -38,6 +38,8 @@ const GROUPS = [
       ['Texas lakes and rivers', '/explore/lakes-rivers'],
       ['Texas attractions comparison', '/explore/attractions-comparison'],
       ['Top 25 Texas attractions', '/explore/top-attractions'],
+      ['Top 25 methodology', '/explore/top-attractions/methodology'],
+      ['Top 25 road trips', '/explore/top-attractions/road-trips'],
     ],
   },
   {
@@ -135,6 +137,9 @@ function CitationGuidePage() {
           <Link to="/about" className="border-b border-primary text-primary">Editorial accountability</Link>
           <Link to="/texas-data" className="border-b border-primary text-primary">Texas data catalog</Link>
           <Link to="/explore/top-attractions" className="border-b border-primary text-primary">Top 25 Texas attractions</Link>
+          <Link to="/explore/top-attractions/methodology" className="border-b border-primary text-primary">Top 25 methodology</Link>
+          <Link to="/explore/top-attractions/road-trips" className="border-b border-primary text-primary">Top 25 road trips</Link>
+          <a href="/top-25-texas-attractions.csv" className="border-b border-primary text-primary">Top 25 comparison CSV</a>
           <a href="/top-25-texas-attractions-checklist.txt" className="border-b border-primary text-primary">Top 25 checklist</a>
           <Link to="/sports-venues" className="border-b border-primary text-primary">Texas sports venues</Link>
           <Link to="/sports-venues/compare" className="border-b border-primary text-primary">Compare sports venues</Link>
