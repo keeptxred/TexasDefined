@@ -72,4 +72,5 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   profile("real", "real-county-leakey-camp-wood-frio-nueces-canyons-texas", () => import("@/data/fixtures/real-county-leakey-camp-wood-frio-nueces-canyons").then((module) => module.realCountyLeakeyCampWoodFrioNuecesCanyonsArticle)),
   profile("uvalde", "uvalde-county-uvalde-garner-frio-fort-inge-texas", () => import("@/data/fixtures/uvalde-county-uvalde-garner-frio-fort-inge").then((module) => module.uvaldeCountyUvaldeGarnerFrioFortIngeArticle)),
   profile("zavala", "zavala-county-crystal-city-winter-garden-nueces-texas", () => import("@/data/fixtures/zavala-county-crystal-city-winter-garden-nueces").then((module) => module.zavalaCountyCrystalCityWinterGardenNuecesArticle)),
+  profile("dimmit", "dimmit-county-carrizo-springs-winter-garden-nueces-texas", () => import("@/data/fixtures/dimmit-county-carrizo-springs-winter-garden-nueces").then((module) => module.dimmitCountyCarrizoSpringsWinterGardenNuecesArticle)),
 ];
