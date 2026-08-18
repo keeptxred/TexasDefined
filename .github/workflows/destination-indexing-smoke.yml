@@ -12,9 +12,12 @@ on:
       - 'src/routes/sitemap-explore*'
       - 'src/components/editorial/DestinationRelationships.tsx'
       - 'src/components/editorial/DestinationAuthorityGuide.tsx'
+      - 'src/components/editorial/TopAttractionCollectionLinks.tsx'
       - 'src/components/authority/CitationCollectionTrustRouter.tsx'
       - 'src/data/top-texas-attractions.ts'
       - 'src/data/top-attraction-road-trips.ts'
+      - 'src/data/top-attraction-authority-sources.ts'
+      - 'src/data/top-attraction-authority-resolver.ts'
       - 'src/data/destination-authority-top-attractions.ts'
       - 'src/data/destination-timelines-top-attractions.ts'
       - 'src/data/destination-audit.ts'
@@ -28,6 +31,8 @@ on:
       - 'src/data/explore-heroes.ts'
       - 'src/data/state-park-heroes.ts'
       - 'src/data/fixtures/texas.ts'
+      - 'src/routes/explore.$category.tsx'
+      - 'src/routes/explore.region.$region.tsx'
       - 'src/lib/public-routes.ts'
       - 'public/citation-magnets.json'
       - 'src/routes/llms[.]txt.ts'
@@ -127,12 +132,20 @@ jobs:
           done
 
           curl --retry 3 --retry-connrefused --max-time 45 -fsSL "$origin$authority_control" -o /tmp/authority-control.html
-          for marker in "Verified visitor information" "Editorial assessment" "Why it matters to Texas" "Three ways to visit" "Key dates" "Traveler questions, answered" "Sources & verification" "Review log"; do
+          for marker in "Verified visitor information" "Evidence layer" "Editorial assessment" "Why it matters to Texas" "Three ways to visit" "Key dates" "Traveler questions, answered" "Sources & verification" "Authority sources used" "Controlling visitor source" "Supporting authority source" "Review log"; do
             grep -Fq "$marker" /tmp/authority-control.html || {
               echo "Top 25 authority control is missing required rendered marker: $marker" >&2
               exit 1
             }
           done
+          grep -Fq "The Alamo — Mission Valero history" /tmp/authority-control.html || {
+            echo "Top 25 authority control is missing its supplemental Alamo history source." >&2
+            exit 1
+          }
+          grep -Fq "The Alamo — archaeology and preservation updates" /tmp/authority-control.html || {
+            echo "Top 25 authority control is missing its preservation source." >&2
+            exit 1
+          }
 
           curl --retry 3 --retry-connrefused --max-time 45 -fsSL "$origin$comparison_csv" -o /tmp/top25.csv
           grep -Fq "rank,attraction_name,canonical_url" /tmp/top25.csv || {
@@ -173,4 +186,4 @@ jobs:
             exit 1
           fi
 
-          echo "Destination indexing smoke passed with the Top 25 collection, methodology, road trips, authority layer, CSV, checklist, primary control $primary_url and non-primary status $non_primary_status."
+          echo "Destination indexing smoke passed with the Top 25 collection, methodology, road trips, multi-source authority layer, CSV, checklist, primary control $primary_url and non-primary status $non_primary_status."
