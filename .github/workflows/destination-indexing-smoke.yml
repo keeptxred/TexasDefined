@@ -8,9 +8,12 @@ on:
       - '.github/workflows/destination-indexing-smoke.yml'
       - 'src/routes/destination.*'
       - 'src/routes/explore.top-attractions.tsx'
+      - 'src/routes/top-25-texas-attractions-checklist[.]txt.ts'
       - 'src/routes/sitemap-explore*'
       - 'src/components/editorial/DestinationRelationships.tsx'
+      - 'src/components/editorial/DestinationAuthorityGuide.tsx'
       - 'src/data/top-texas-attractions.ts'
+      - 'src/data/destination-authority-top-attractions.ts'
       - 'src/data/destination-audit.ts'
       - 'src/data/destination-availability.ts'
       - 'src/data/destination-curation-all.ts'
@@ -42,6 +45,8 @@ jobs:
           origin="https://texasdefined.com"
           non_primary="/destination/world-birding-center-bentsen-rio-grande-valley-state-park"
           top_attractions="/explore/top-attractions"
+          authority_control="/destination/the-alamo"
+          checklist="/top-25-texas-attractions-checklist.txt"
           primary_url=""
 
           for attempt in $(seq 1 30); do
@@ -87,11 +92,37 @@ jobs:
             echo "Top 25 collection is missing Gruene Historic District destination link." >&2
             exit 1
           }
+          grep -Fq "How this list is researched" /tmp/top-attractions.html || {
+            echo "Top 25 collection is missing the research-methodology layer." >&2
+            exit 1
+          }
+          grep -Fq "Download Top 25 checklist" /tmp/top-attractions.html || {
+            echo "Top 25 collection is missing the downloadable checklist link." >&2
+            exit 1
+          }
           unique_top_links="$(grep -o '/destination/[a-z0-9-]*' /tmp/top-attractions.html | sort -u | wc -l | tr -d ' ')"
           if [ "$unique_top_links" -lt 25 ]; then
             echo "Top 25 collection exposed only $unique_top_links unique destination links; expected at least 25." >&2
             exit 1
           fi
+
+          curl --retry 3 --retry-connrefused --max-time 45 -fsSL "$origin$authority_control" -o /tmp/authority-control.html
+          for marker in "Verified visitor information" "Editorial assessment" "Why it matters to Texas" "Three ways to visit" "Traveler questions, answered" "Sources & verification" "Review log"; do
+            grep -Fq "$marker" /tmp/authority-control.html || {
+              echo "Top 25 authority control is missing required rendered marker: $marker" >&2
+              exit 1
+            }
+          done
+
+          curl --retry 3 --retry-connrefused --max-time 45 -fsSL "$origin$checklist" -o /tmp/top25-checklist.txt
+          grep -Fq "01. The Alamo" /tmp/top25-checklist.txt || {
+            echo "Top 25 checklist is missing The Alamo." >&2
+            exit 1
+          }
+          grep -Fq "25. Gruene Historic District" /tmp/top25-checklist.txt || {
+            echo "Top 25 checklist is missing Gruene Historic District." >&2
+            exit 1
+          }
 
           non_primary_status="$(curl --max-time 45 -sS -o /tmp/non-primary.html -w '%{http_code}' "$origin$non_primary" || true)"
           if [ "$non_primary_status" = "200" ]; then
@@ -109,4 +140,4 @@ jobs:
             exit 1
           fi
 
-          echo "Destination indexing smoke passed with Top 25 collection, primary control $primary_url and non-primary status $non_primary_status."
+          echo "Destination indexing smoke passed with Top 25 collection, authority layer, downloadable checklist, primary control $primary_url and non-primary status $non_primary_status."
