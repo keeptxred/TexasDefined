@@ -1,7 +1,6 @@
 import { Link } from "@tanstack/react-router";
 
 import { topAttractionTimeline } from "@/data/destination-timelines-top-attractions";
-import { resolveTopAttractionAuthority } from "@/data/top-attraction-authority-resolver";
 import type { Destination } from "@/data/types";
 import { Container } from "@/components/layout/Container";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
@@ -18,7 +17,7 @@ function sourceHref(index: number) {
 }
 
 export function DestinationAuthorityGuide({ destination }: { destination: Destination }) {
-  const authority = resolveTopAttractionAuthority(destination).authorityGuide;
+  const authority = destination.authorityGuide;
   if (!authority) return null;
 
   const timeline = topAttractionTimeline(destination.slug);
@@ -154,3 +153,5 @@ export function DestinationAuthorityGuide({ destination }: { destination: Destin
     </Section>
   </>;
 }
+
+export default DestinationAuthorityGuide;
