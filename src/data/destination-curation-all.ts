@@ -40,6 +40,7 @@ import { applyCuratedDestinationBatch48 } from "./destination-curation-batch48";
 import { applyCuratedDestinationBatch49 } from "./destination-curation-batch49";
 import { applyCuratedDestinationBatch52 } from "./destination-curation-batch52";
 import { applyCuratedTopAttractions } from "./destination-curation-top-attractions";
+import { applyCuratedTopAttractionsBatch2 } from "./destination-curation-top-attractions-batch2";
 import type { Destination } from "./types";
 
 const CURATION_SLUG_ALIASES: Record<string, string> = {
@@ -83,7 +84,7 @@ const CURATION_SLUG_ALIASES: Record<string, string> = {
   "sheldon-lake-state-park-environmental-learning-center": "sheldon-lake-state-park",
   "washington-on-the-brazos": "washington-on-the-brazos-state-historic-site",
   "world-birding-center-bentsen-rio-grande-valley-state-park": "bentsen-rio-grande-valley-state-park",
-  "world-birding-center-estero-llano-grande-state-park": "estero-llano-grande-state-park",
+  "world-birding-center-estero-llano-grande-state-park": "estero-llano-grande-valley-state-park",
   "world-birding-center-resaca-de-la-palma-state-park": "resaca-de-la-palma-state-park"
 };
 
@@ -130,6 +131,7 @@ const CURATORS: Array<(destination: Destination) => Destination> = [
   applyCuratedDestinationBatch49,
   applyCuratedDestinationBatch52,
   applyCuratedTopAttractions,
+  applyCuratedTopAttractionsBatch2,
 ];
 
 function runCurators(destination: Destination): Destination {
