@@ -11,7 +11,6 @@ import { reconcileDestinationHeroes } from "@/data/explore-hero-reconciliation";
 import { applyExploreHeroAssets } from "@/data/explore-heroes";
 import { categories, destinations as fixtureDestinations, regions } from "@/data/fixtures/texas";
 import { fetchExploreDestinations, hasExploreRemoteData } from "@/data/explore-remote";
-import { paintedChurches } from "@/data/painted-churches";
 import { applyStateParkHeroAssets } from "@/data/state-park-heroes";
 import type { Destination } from "@/data/types";
 import { isExploreSitemapOwnedPath, isIndexablePublicPath, normalizePublicPath } from "@/lib/public-routes";
@@ -80,6 +79,8 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
   server: {
     handlers: {
       GET: async () => {
+        const { loadPaintedChurchSitemapDataServer } = await import("@/data/painted-churches.server");
+        const paintedChurches = loadPaintedChurchSitemapDataServer();
         let enrichedDestinations: Awaited<ReturnType<typeof fetchExploreDestinations>> = [];
         let coreDestinations: Awaited<ReturnType<typeof fetchCoreExploreDestinations>> = [];
         const remoteConfigured = hasExploreRemoteData();
