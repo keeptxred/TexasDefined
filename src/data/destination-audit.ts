@@ -16,6 +16,7 @@ export type DestinationAuditResult = {
 
 const GENERIC_BEST_SEASON = "check current conditions before visiting";
 const GENERIC_ENTRY = "confirm current hours, fees, reservations, and access with the official source";
+const SOURCE_MAX_AGE_DAYS = 730;
 const GENERATED_COPY_MARKERS = [
   " is a texas destination",
   "those details make it easier to decide whether this stop fits a quick outing",
@@ -29,7 +30,15 @@ function validCoordinates(destination: Destination) {
 }
 
 function usefulUrl(value?: string) {
-  return Boolean(value && /^https?:\/\//i.test(value));
+  return Boolean(value && /^https:\/\//i.test(value));
+}
+
+function sourceReviewIsFresh(value?: string) {
+  if (!value) return false;
+  const timestamp = Date.parse(value);
+  if (!Number.isFinite(timestamp)) return false;
+  const ageMs = Date.now() - timestamp;
+  return ageMs >= 0 && ageMs <= SOURCE_MAX_AGE_DAYS * 24 * 60 * 60 * 1000;
 }
 
 function containsGeneratedFallbackCopy(summary: string, bodyText: string) {
@@ -73,7 +82,10 @@ export function auditDestination(destination: Destination): DestinationAuditResu
     issues.push({ code: "nearest-town", severity: "warning", message: "Destination lacks a useful nearest-town value." });
   }
   if (!usefulUrl(destination.officialUrl)) {
-    issues.push({ code: "official-source", severity: "warning", message: "Destination lacks an official visitor-information source." });
+    issues.push({ code: "official-source", severity: "error", message: "Destination needs a destination-specific HTTPS official visitor-information source before indexing." });
+  }
+  if (!sourceReviewIsFresh(destination.sourceCheckedAt)) {
+    issues.push({ code: "source-freshness", severity: "error", message: `Destination needs a valid official-source review date from the last ${SOURCE_MAX_AGE_DAYS} days before indexing.` });
   }
   if (!destination.bestSeason || destination.bestSeason.trim().toLowerCase() === GENERIC_BEST_SEASON) {
     issues.push({ code: "best-season", severity: "warning", message: "Destination still has generic seasonal guidance." });
