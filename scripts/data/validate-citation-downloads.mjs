@@ -9,6 +9,11 @@ const cityCountyCsv = await read('src/routes/texas-data.city-county-relationship
 const sportsRoute = await read('src/routes/sports-venues.compare.tsx');
 const sportsCsv = await read('src/routes/sports-venues.compare[.]csv.ts');
 const sportsData = await read('src/data/sports-venue-comparison.ts');
+const topRoute = await read('src/routes/explore.top-attractions.tsx');
+const topMethodology = await read('src/routes/explore.top-attractions.methodology.tsx');
+const topCsv = await read('src/routes/top-25-texas-attractions[.]csv.ts');
+const topJson = await read('src/routes/top-25-texas-attractions[.]json.ts');
+const topReferenceData = await read('src/data/top-attraction-reference-data.ts');
 
 const errors = [];
 const expect = (condition, message) => { if (!condition) errors.push(message); };
@@ -67,10 +72,61 @@ for (const token of [
   'canonicalPath: canonicalEntityPath(venue)',
 ]) expect(sportsData.includes(token), `sports venue comparison shared-data contract missing: ${token}`);
 
+for (const token of [
+  '"@type": "Dataset"',
+  '"@type": "DataDownload"',
+  'encodingFormat: "text/csv"',
+  'encodingFormat: "application/json"',
+  'contentUrl: csvUrl',
+  'contentUrl: jsonUrl',
+  'Download comparison CSV',
+  'Download reference JSON',
+  'variableMeasured',
+]) expect(topRoute.includes(token), `Top 25 Dataset distribution missing: ${token}`);
+
+for (const token of [
+  'TOP_ATTRACTION_REFERENCE_ROWS',
+  'TOP_ATTRACTIONS_METHODOLOGY_URL',
+  'authoritySources',
+  'roadTrips',
+  'sourceCheckedAt',
+]) expect(topReferenceData.includes(token), `Top 25 shared reference-data contract missing: ${token}`);
+
+for (const token of [
+  "createFileRoute('/top-25-texas-attractions.csv')",
+  "'content-type': 'text/csv; charset=utf-8'",
+  "'x-robots-tag': 'noindex, follow'",
+  "'content-disposition': 'attachment; filename=\"texasdefined-top-25-texas-attractions.csv\"'",
+  'TOP_ATTRACTION_REFERENCE_ROWS',
+  "'authority_source_count'",
+  "'authority_source_urls'",
+  "'road_trip_names'",
+  "'methodology_url'",
+]) expect(topCsv.includes(token), `Top 25 CSV contract missing: ${token}`);
+
+for (const token of [
+  "createFileRoute('/top-25-texas-attractions.json')",
+  "'content-type': 'application/json; charset=utf-8'",
+  "'x-robots-tag': 'noindex, follow'",
+  "'content-disposition': 'attachment; filename=\"texasdefined-top-25-texas-attractions.json\"'",
+  'TOP_ATTRACTION_REFERENCE_ROWS',
+  'schemaVersion: 1',
+  'authoritySources',
+  'roadTrips',
+  'canonicalCollection',
+  'methodology',
+]) expect(topJson.includes(token), `Top 25 JSON contract missing: ${token}`);
+
+for (const token of [
+  'Source URLs travel with the data',
+  '/top-25-texas-attractions.csv',
+  '/top-25-texas-attractions.json',
+]) expect(topMethodology.includes(token), `Top 25 methodology download contract missing: ${token}`);
+
 if (errors.length) {
   console.error('Citation dataset download validation failed:');
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
 
-console.log('Citation dataset download validation passed: growth, city-county and sports-venue comparison CSV distributions remain visible, noindex, source-aligned and machine-readable.');
+console.log('Citation dataset download validation passed: growth, city-county, sports-venue and Top-25 CSV/JSON distributions remain visible, noindex, source-aligned and machine-readable.');
