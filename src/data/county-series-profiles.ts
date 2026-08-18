@@ -76,4 +76,5 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   profile("la-salle", "la-salle-county-cotulla-nueces-winter-garden-brush-country-texas", () => import("@/data/fixtures/la-salle-county-cotulla-nueces-winter-garden-brush-country").then((module) => module.laSalleCountyCotullaNuecesWinterGardenBrushCountryArticle)),
   profile("mcmullen", "mcmullen-county-tilden-frio-nueces-ranch-country-texas", () => import("@/data/fixtures/mcmullen-county-tilden-frio-nueces-ranch-country").then((module) => module.mcMullenCountyTildenFrioNuecesRanchCountryArticle)),
   profile("brooks", "brooks-county-falfurrias-ranching-dairy-brush-country-texas", () => import("@/data/fixtures/brooks-county-falfurrias-ranching-dairy-brush-country").then((module) => module.brooksCountyFalfurriasRanchingDairyBrushCountryArticle)),
+  profile("jim-hogg", "jim-hogg-county-hebbronville-ranching-railroad-brush-country-texas", () => import("@/data/fixtures/jim-hogg-county-hebbronville-ranching-railroad-brush-country").then((module) => module.jimHoggCountyHebbronvilleRanchingRailroadBrushCountryArticle)),
 ];
