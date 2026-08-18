@@ -274,10 +274,89 @@ const praha: PaintedChurchProfile = {
   ],
 };
 
+const dubina: PaintedChurchProfile = {
+  slug: "dubina-saints-cyril-methodius",
+  quickAnswer:
+    "Saints Cyril and Methodius at Dubina is the painted church of Texas’s first settlement founded entirely by Czech-Moravian immigrants. The first parish church, built after the Civil War, was destroyed by the devastating 1909 hurricane. The replacement was designed by Leo M. J. Dielmann and reused the earlier church’s iron cross, made by freedman and blacksmith Tom Lee. Its sky-blue interior is covered with vines, oak leaves, angels and stencil work. The original decoration was whitewashed in the 1950s and painstakingly reconstructed by parishioners in the 1980s using surviving traces and recovered stencils.",
+  builtYear: 1912,
+  architecture: "Gothic Revival rural frame church",
+  architect: "Leo M. J. Dielmann",
+  artists: ["Original decorator unknown", "1980s community restoration led by Ed Janecka and Butch Koenig"],
+  heritage: "Czech-Moravian Catholic settlement founded in 1856",
+  facts: [
+    { label: "Community founded", value: "1856 by Moravian immigrant families" },
+    { label: "First church", value: "Built in 1877 after the Civil War" },
+    { label: "Historic cross", value: "Iron cross made by freedman and blacksmith Tom Lee" },
+    { label: "1909 hurricane", value: "Destroyed the earlier parish church" },
+    { label: "Replacement architect", value: "Leo M. J. Dielmann" },
+    { label: "Present church", value: "Rebuilt after the 1909 hurricane; completed in the early 1910s" },
+    { label: "Original decorator", value: "No surviving record identifies the painter" },
+    { label: "Major restoration", value: "Original designs uncovered and recreated by parishioners in the 1980s" },
+  ],
+  history: [
+    {
+      heading: "The first Czech-Moravian settlement in Texas",
+      paragraphs: [
+        "Dubina was founded in 1856 by families from Moravia who pushed inland after arriving in Texas. The community name comes from the Czech word connected with an oak grove, reflecting the landscape the settlers encountered. The Texas Historical Commission recognizes Dubina as the first Texas settlement founded entirely by Czech-Moravians.",
+        "The Catholic settlers built their first church in 1877. Its steeple carried an iron cross made by Tom Lee, a freedman and blacksmith whose work became one of the community’s most durable physical links to the nineteenth century.",
+      ],
+    },
+    {
+      heading: "Hurricane, rebuilding and Leo Dielmann",
+      paragraphs: [
+        "A major hurricane in July 1909 destroyed the earlier church along with many buildings across the region. The congregation raised money for a replacement and hired architect Leo M. J. Dielmann. The salvaged Tom Lee cross was placed back on the steeple, symbolically carrying a piece of the lost church into the new building.",
+        "Dubina’s rebuilt church is comparatively modest outside, but its interior follows the Painted Churches pattern of turning a rural frame sanctuary into a richly colored sacred environment.",
+      ],
+    },
+  ],
+  paintings: [
+    {
+      heading: "A sky-blue ceiling rooted in Dubina itself",
+      paragraphs: [
+        "The interior is organized around a bright sky-blue field covered with vines, oak leaves, angels and repeating ornamental motifs. The oak imagery has special local resonance because the community’s Czech name is tied to an oak grove. Stenciling gives the decorative program rhythm and repetition across the ceiling and wall surfaces.",
+      ],
+    },
+    {
+      heading: "An unknown original painter",
+      paragraphs: [
+        "Unlike High Hill, Ammannsville or Praha, no surviving documentary record has securely identified the original Dubina decorator. The church therefore tells a different preservation story: the designs themselves, rather than an artist’s name, became the evidence that allowed later generations to recover the interior.",
+      ],
+    },
+    {
+      heading: "Angels, vines and recreated details",
+      paragraphs: [
+        "When the paintings were restored, parishioners worked from surviving traces and rediscovered stencils. Where evidence was incomplete, the restoration team acknowledged using limited artistic judgment. One of the restored angels near the choir loft became a particularly personal example of the community’s role in returning color to the church.",
+      ],
+    },
+  ],
+  preservation: [
+    {
+      heading: "Whitewashed, rediscovered and restored",
+      paragraphs: [
+        "The decorative interior was covered with white paint in the 1950s. Faint original patterns remained visible beneath the newer surface in certain light, and by the 1980s local leaders including Judge Ed Janecka and Butch Koenig organized a community restoration.",
+        "Parishioners uncovered original designs and found some of the old stencils. Those surviving physical clues allowed the church’s vines, leaves, angels and patterned ceiling to return, making Dubina an unusually clear example of a painted interior rescued by local memory and hands-on preservation.",
+      ],
+    },
+  ],
+  visitorNotes: [
+    "Dubina remains an active Catholic church. Services and private parish events take priority over tourism.",
+    "The Schulenburg Chamber includes Dubina in the regional Painted Churches circuit and recommends confirming current access before making the drive.",
+    "Do not touch painted surfaces, statuary or devotional objects, and remain out of the altar area and choir loft unless specifically permitted.",
+  ],
+  sources: [
+    { label: "Austin PBS Painted Churches project", url: "https://austinpbs.org/paintedchurches/dubina" },
+    { label: "Texas Historical Commission — Finding Fayette County", url: "https://thc.texas.gov/blog/finding-fayette-county" },
+    { label: "Texas Historical Commission — Dubina historical marker", url: "https://atlas.thc.texas.gov/Details/5149001290" },
+    { label: "Austin PBS decorative painting techniques", url: "https://austinpbs.org/paintedchurches/decorative" },
+    { label: "Schulenburg Chamber Painted Churches", url: "https://schulenburgchamber.org/painted-churches/" },
+  ],
+};
+
 export const paintedChurchProfiles: Record<string, PaintedChurchProfile> = {
   [highHill.slug]: highHill,
   [ammannsville.slug]: ammannsville,
   [praha.slug]: praha,
+  [dubina.slug]: dubina,
 };
 
 export function paintedChurchProfileBySlug(slug: string) {
