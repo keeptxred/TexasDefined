@@ -75,6 +75,7 @@ const LEGACY_ARTICLE_TO_COUNTY = new Map<string, string>([
   ["zavala-county-crystal-city-winter-garden-nueces-texas", "zavala"],
   ["dimmit-county-carrizo-springs-winter-garden-nueces-texas", "dimmit"],
   ["la-salle-county-cotulla-nueces-winter-garden-brush-country-texas", "la-salle"],
+  ["mcmullen-county-tilden-frio-nueces-ranch-country-texas", "mcmullen"],
 ]);
 
 const COUNTY_SLUGS = new Set(LEGACY_ARTICLE_TO_COUNTY.values());
