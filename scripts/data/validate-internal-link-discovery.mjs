@@ -10,6 +10,8 @@ const texasLifeDiscovery = read('src/components/editorial/TexasLifeDiscovery.tsx
 const categoryPage = read('src/components/editorial/CategoryPage.tsx');
 const calculatorPage = read('src/components/calculators/CalculatorPage.tsx');
 const financialToolsHub = read('src/routes/decide.financial-tools.tsx');
+const closingCostPage = read('src/routes/texas-closing-cost-calculator.tsx');
+const affordabilityPage = read('src/routes/texas-home-affordability-calculator.tsx');
 const destinationPlanner = read('src/components/editorial/DestinationVisitPlanner.tsx');
 const destinationRelationships = read('src/components/editorial/DestinationRelationships.tsx');
 const texasExplainedContext = read('src/components/editorial/TexasExplainedContextLinks.tsx');
@@ -55,6 +57,31 @@ for (const target of [
 }
 for (const marker of ["'@type': 'ItemList'", 'itemListElement: sections.map', 'numberOfItems: sections.length']) {
   if (!financialToolsHub.includes(marker)) failures.push(`Financial-tools hub structured discovery contract is missing ${marker}.`);
+}
+
+for (const [label, source, markers] of [
+  ['Texas closing-cost calculator', closingCostPage, [
+    'Texas Closing Cost Calculator | Buyer & Seller Estimate',
+    'Separate the purchase price from the cash that changes hands at closing',
+    'Build the full transaction budget',
+    'Texas closing-cost calculator FAQ',
+    'to="/texas-down-payment-calculator"',
+    'to="/texas-mortgage-calculator"',
+    'to="/texas-home-affordability-calculator"',
+  ]],
+  ['Texas home-affordability calculator', affordabilityPage, [
+    'Texas Home Affordability Calculator | Estimate a Home-Price Range',
+    'Estimate the housing payment your budget would actually carry',
+    'Pressure-test the result',
+    'Texas home affordability calculator FAQ',
+    'to="/texas-mortgage-calculator"',
+    'to="/texas-down-payment-calculator"',
+    'to="/texas-closing-cost-calculator"',
+  ]],
+]) {
+  for (const marker of markers) {
+    if (!source.includes(marker)) failures.push(`${label} indexing-depth contract is missing ${marker}.`);
+  }
 }
 
 for (const token of ['to="/explore/$category"', '/explore/trip-planner?destination=', 'to="/explore"', 'to="/browse/cities"']) {
@@ -119,4 +146,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Internal-link discovery pathways, sitewide Start Here resources link, Texas Explained links from Texas Life, county profiles, Guidebook, destination pages, fishing and sports venues, calculator hub inbound/outbound discovery, structured calculator collection links and Explore sitemap coverage are protected.');
+console.log('Internal-link discovery pathways, sitewide Start Here resources link, Texas Explained links from Texas Life, county profiles, Guidebook, destination pages, fishing and sports venues, calculator hub inbound/outbound discovery, priority calculator indexing depth, structured calculator collection links and Explore sitemap coverage are protected.');
