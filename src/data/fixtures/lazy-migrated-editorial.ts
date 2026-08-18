@@ -44,9 +44,18 @@ export const migratedEditorialArticleStubs: Article[] = [
 
 export const migratedEditorialSlugs = migratedEditorialArticleStubs.map((article) => article.slug);
 const migratedSlugSet = new Set(migratedEditorialSlugs);
+const financeDepthSlugSet = new Set([
+  "texas-closing-costs-guide",
+  "texas-utility-costs-guide",
+  "salary-needed-to-buy-a-house-in-texas",
+]);
 
 export async function loadMigratedEditorialArticle(brandId: string, slug: string): Promise<Article | null> {
   if (brandId !== "texasdefined" || !migratedSlugSet.has(slug)) return null;
+  if (financeDepthSlugSet.has(slug)) {
+    const { financeEvergreenDepthArticles } = await import("./finance-evergreen-depth");
+    return financeEvergreenDepthArticles.find((article) => article.slug === slug) ?? null;
+  }
   const { migratedEditorialArticles } = await import("./migrated-editorial");
   return migratedEditorialArticles.find((article) => article.slug === slug) ?? null;
 }
