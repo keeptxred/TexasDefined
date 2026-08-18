@@ -116,6 +116,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           "/explore",
           "/explore/trip-planner",
           "/explore/attractions-comparison",
+          "/explore/top-attractions",
           ...categorySlugs.map((slug) => `/explore/${slug}`),
           ...regionSlugs.map((regionSlug) => `/explore/region/${regionSlug}`),
         ];
