@@ -79,9 +79,9 @@ export function DestinationAuthorityGuide({ destination }: { destination: Destin
           <section aria-labelledby={`${destination.slug}-texas-significance`}>
             <p className="eyebrow text-primary">Why it matters to Texas</p>
             <h2 id={`${destination.slug}-texas-significance`} className="mt-2 font-display text-4xl">More than a photo stop</h2>
-            <p className="mt-6 text-base leading-8 text-foreground/90">{authority.whyItMatters}{primarySource && <sup><a href={sourceHref(0)} className="ml-1 text-primary">[1]</a></sup>}</p>
+            <p className="mt-6 text-base leading-8 text-foreground/90">{authority.whyItMatters}</p>
             <div className="mt-7 border-t border-border pt-5 text-sm leading-6 text-muted-foreground">
-              <strong className="text-foreground">Research & review:</strong> TexasDefined Editorial. Operational details are checked against the linked official source; editorial assessments describe trip-planning value rather than a star rating. <Link to="/citation-guide" className="border-b border-primary text-primary">See our citation guidance.</Link>
+              <strong className="text-foreground">Research & review:</strong> <Link to="/authors/$author" params={{ author: "a-hollis" }} className="border-b border-primary text-primary">Texas Defined Editorial Desk</Link>. Operational details are checked against the linked official source; editorial assessments describe trip-planning value rather than a star rating. <Link to="/citation-guide" className="border-b border-primary text-primary">See our citation guidance.</Link>
             </div>
           </section>
 
