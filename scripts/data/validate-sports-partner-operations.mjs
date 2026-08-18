@@ -4,7 +4,7 @@ import path from 'node:path';
 const root = process.cwd();
 const read = (file) => fs.readFile(path.join(root, file), 'utf8');
 
-const [migration, promotionMigration, server, functions, promotionServer, promotionFunctions, route, adminLayout, partnerRoute, venueGuide, venueDirectory] = await Promise.all([
+const [migration, promotionMigration, server, functions, promotionServer, promotionFunctions, routeShell, routeLazy, adminLayout, partnerRoute, venueGuide, venueDirectory] = await Promise.all([
   read('supabase/migrations/20260814040011_create_texasdefined_admin_access_keys.sql'),
   read('supabase/migrations/20260814042306_link_sports_partner_leads_to_sponsors.sql'),
   read('src/data/sports-partner-leads.server.ts'),
@@ -12,11 +12,13 @@ const [migration, promotionMigration, server, functions, promotionServer, promot
   read('src/data/sports-partner-promotion.server.ts'),
   read('src/data/sports-partner-promotion.functions.ts'),
   read('src/routes/admin.sports-partners.tsx'),
+  read('src/routes/admin.sports-partners.lazy.tsx'),
   read('src/routes/admin.tsx'),
   read('src/routes/partner-with-us.tsx'),
   read('src/routes/sports-venue.$slug.tsx'),
   read('src/routes/sports-venues.tsx'),
 ]);
+const route = `${routeShell}\n${routeLazy}`;
 
 const errors = [];
 const assert = (condition, message) => { if (!condition) errors.push(message); };
@@ -113,6 +115,7 @@ for (const marker of [
 ]) {
   assert(route.includes(marker), `Sports partner admin route is missing privacy, promotion, or operator marker: ${marker}.`);
 }
+assert(routeLazy.includes("createLazyFileRoute('/admin/sports-partners')"), 'Sports partner admin implementation must remain behind a native lazy route boundary.');
 assert(!route.includes('supabaseAdmin'), 'Sports partner admin route must never import or reference the service-role Supabase client.');
 assert(!route.includes("from('texasdefined_partner_inquiries')"), 'Sports partner admin route must never query lead PII directly.');
 assert(!route.includes('loader:'), 'Sports partner admin route must not SSR-load lead PII before access-key validation.');
@@ -132,4 +135,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Sports partner operations validated: RLS-protected hashed admin key, server-only PII access, gated operator dashboard, venue-source attribution, status workflow and duplicate-safe lead-to-sponsor promotion are protected.');
+console.log('Sports partner operations validated: RLS-protected hashed admin key, server-only PII access, lazy gated operator dashboard, venue-source attribution, status workflow and duplicate-safe lead-to-sponsor promotion are protected.');
