@@ -78,4 +78,5 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   profile("brooks", "brooks-county-falfurrias-ranching-dairy-brush-country-texas", () => import("@/data/fixtures/brooks-county-falfurrias-ranching-dairy-brush-country").then((module) => module.brooksCountyFalfurriasRanchingDairyBrushCountryArticle)),
   profile("jim-hogg", "jim-hogg-county-hebbronville-ranching-railroad-brush-country-texas", () => import("@/data/fixtures/jim-hogg-county-hebbronville-ranching-railroad-brush-country").then((module) => module.jimHoggCountyHebbronvilleRanchingRailroadBrushCountryArticle)),
   profile("duval", "duval-county-san-diego-freer-benavides-brush-country-texas", () => import("@/data/fixtures/duval-county-san-diego-freer-benavides-brush-country").then((module) => module.duvalCountySanDiegoFreerBenavidesBrushCountryArticle)),
+  profile("jim-wells", "jim-wells-county-alice-ranching-oil-brush-country-texas", () => import("@/data/fixtures/jim-wells-county-alice-ranching-oil-brush-country").then((module) => module.jimWellsCountyAliceRanchingOilBrushCountryArticle)),
 ];
