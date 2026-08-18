@@ -1,6 +1,13 @@
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
+import {
+  nationalRegisterDecorativeInteriorChurches,
+  paintedChurches,
+  paintedChurchSources,
+  schulenburgCoreRoute,
+  schulenburgPaintedChurches,
+} from "@/data/painted-churches";
 
 const coreDirectionsUrl =
   "https://www.google.com/maps/dir/?api=1&origin=Schulenburg%2C%20TX&destination=St.%20Mary%27s%20Church%20of%20the%20Assumption%2C%20Praha%2C%20TX&waypoints=Saints%20Cyril%20and%20Methodius%20Catholic%20Church%2C%20Dubina%2C%20TX%7CSt.%20John%20the%20Baptist%20Catholic%20Church%2C%20Ammannsville%2C%20TX%7CNativity%20of%20Mary%2C%20Blessed%20Virgin%20Catholic%20Church%2C%20High%20Hill%2C%20TX";
@@ -10,13 +17,7 @@ export const Route = createLazyFileRoute("/explore/painted-churches")({
 });
 
 function PaintedChurchesPage() {
-  const {
-    paintedChurches,
-    nationalRegisterCount,
-    schulenburgPaintedChurches,
-    schulenburgCoreRoute,
-    paintedChurchSources,
-  } = Route.useLoaderData();
+  const nationalRegisterCount = nationalRegisterDecorativeInteriorChurches.length;
 
   return (
     <main>
