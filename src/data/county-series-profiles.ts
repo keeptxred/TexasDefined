@@ -67,4 +67,5 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   profile("webb", "webb-county-laredo-rio-grande-trade-borderlands-texas", () => import("@/data/fixtures/webb-county-laredo-rio-grande-trade-borderlands").then((module) => module.webbCountyLaredoRioGrandeTradeBorderlandsArticle)),
   profile("maverick", "maverick-county-eagle-pass-fort-duncan-rio-grande-texas", () => import("@/data/fixtures/maverick-county-eagle-pass-fort-duncan-rio-grande").then((module) => module.maverickCountyEaglePassFortDuncanRioGrandeArticle)),
   profile("kinney", "kinney-county-brackettville-fort-clark-las-moras-texas", () => import("@/data/fixtures/kinney-county-brackettville-fort-clark-las-moras-texas").then((module) => module.kinneyCountyBrackettvilleFortClarkLasMorasArticle)),
+  profile("val-verde", "val-verde-county-del-rio-amistad-devils-river-lower-pecos-texas", () => import("@/data/fixtures/val-verde-county-del-rio-amistad-devils-river-lower-pecos").then((module) => module.valVerdeCountyDelRioAmistadDevilsRiverLowerPecosArticle)),
 ];
