@@ -98,6 +98,9 @@ jobs:
       - name: Validate Explore topical authority
         run: node scripts/data/validate-explore-topical-authority.mjs
 
+      - name: Validate Top 25 attraction authority
+        run: node scripts/data/validate-top-attraction-authority.mjs
+
       - name: Validate article discovery SEO
         run: node scripts/data/validate-article-discover-seo.mjs
 
