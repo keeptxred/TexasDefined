@@ -5,6 +5,7 @@ import { CountyGuideSections } from '@/components/content/CountyGuideSections';
 import { Container } from '@/components/layout/Container';
 import { CountySportsDestinations } from '@/components/sports/CountySportsDestinations';
 import { loadCountyProfile } from '@/data/county-profile';
+import { loadCountySeriesArticle } from '@/data/county-series';
 import { findCompleteTexasEntity, loadTexasKnowledgeGraph } from '@/data/knowledge-graph';
 import {
   canonicalEntityPath,
@@ -31,23 +32,31 @@ export const Route = createFileRoute('/$kind/$slug')({
         .filter((candidate) => candidate.kind === 'sports-venue' && candidate.countySlug === entity.slug && isIndexableEntityPage(candidate))
         .sort((left, right) => sportsVenuePriority(left) - sportsVenuePriority(right) || left.name.localeCompare(right.name))
       : [];
-    if (entity.kind !== 'county') return { entity, related, countyProfile: null, localGovernment: null, countySportsVenues };
-    const [countyProfile, localGovernment] = await Promise.all([
+    if (entity.kind !== 'county') return { entity, related, countyProfile: null, localGovernment: null, countySeriesArticle: null, countySportsVenues };
+    const [countyProfile, localGovernment, countySeriesArticle] = await Promise.all([
       loadCountyProfile(entity.slug, entity.name),
       loadLocalGovernmentProfile(entity.slug, entity.name),
+      loadCountySeriesArticle(entity.slug),
     ]);
-    return { entity, related, countyProfile, localGovernment, countySportsVenues };
+    return { entity, related, countyProfile, localGovernment, countySeriesArticle, countySportsVenues };
   },
   head: ({ loaderData }) => {
     if (!loaderData) return {};
     const canonicalPath = canonicalEntityPath(loaderData.entity);
-    const description = searchSnippetDescription(loaderData.entity);
+    const countySeriesArticle = loaderData.countySeriesArticle;
+    const description = countySeriesArticle?.dek ?? searchSnippetDescription(loaderData.entity);
     const indexable = isIndexableEntityPage(loaderData.entity);
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
-        title: searchIntentTitle(loaderData.entity),
+        title: countySeriesArticle?.title ?? searchIntentTitle(loaderData.entity),
         description,
+        image: countySeriesArticle?.hero.src,
+        imageAlt: countySeriesArticle?.hero.alt,
+        imageWidth: countySeriesArticle?.hero.width,
+        imageHeight: countySeriesArticle?.hero.height,
+        type: countySeriesArticle ? 'article' : 'website',
+        publishedTime: countySeriesArticle?.publishedAt,
         robots: indexable ? undefined : 'noindex, follow, max-image-preview:large',
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
@@ -151,7 +160,7 @@ function EntityPage() {
             <p className="eyebrow text-primary">{notesEyebrow(entity.kind)}</p>
             <h2 className="mt-2 font-display text-3xl">{notesHeading(entity.kind)}</h2>
           </div>
-          <ul className="grid gap-x-8 sm:grid-cols-2">
+          <ul className="grid gap-x-8 sm:grid-cols-2 lg:grid-cols-3">
             {entity.tags.map((tag) => <li key={tag} className="border-t border-border py-3 text-sm font-medium">{title(tag)}</li>)}
           </ul>
         </section> : null}
