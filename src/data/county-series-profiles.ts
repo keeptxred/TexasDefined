@@ -31,7 +31,7 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   profile("montgomery", "montgomery-county-conroe-lake-piney-woods-texas", () => import("@/data/fixtures/montgomery-county-conroe-lake-piney-woods").then((module) => module.montgomeryCountyConroeLakePineyWoodsArticle)),
   profile("brazoria", "brazoria-county-brazos-gulf-angleton-texas", () => import("@/data/fixtures/brazoria-county-brazos-gulf-angleton").then((module) => module.brazoriaCountyBrazosGulfAngletonArticle)),
   profile("dallas", "dallas-county-dallas-trinity-old-red-texas", () => import("@/data/fixtures/dallas-county-dallas-trinity-old-red").then((module) => module.dallasCountyDallasTrinityOldRedArticle)),
-  profile("tarrant", "tarrant-county-fort-worth-trinity-western-heritage-texas", () => import("@/data/fixtures/tarrant-county-fort-worth-trinity-western-heritage").then((module) => module.tarrantCountyFortWorthTrinityWesternHeritageArticle)),
+  profile("tarrant", "tarrant-county-fort-worth-trinity-western-heritage-texas", () => import("@/data/fixtures/tarrant-county-fort-worth-trinity-western-heritage").then((module) => module.tarrantCountyFortWorthTrinityOldRedArticle)),
   profile("collin", "collin-county-mckinney-prairie-growth-texas", () => import("@/data/fixtures/collin-county-mckinney-prairie-growth").then((module) => module.collinCountyMcKinneyPrairieGrowthArticle)),
   profile("denton", "denton-county-denton-lakes-universities-growth-texas", () => import("@/data/fixtures/denton-county-denton-lakes-universities-growth").then((module) => module.dentonCountyDentonLakesUniversitiesGrowthArticle)),
   profile("williamson", "williamson-county-georgetown-round-rock-san-gabriel-texas", () => import("@/data/fixtures/williamson-county-georgetown-round-rock-san-gabriel").then((module) => module.williamsonCountyGeorgetownRoundRockSanGabrielArticle)),
@@ -77,4 +77,5 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   profile("mcmullen", "mcmullen-county-tilden-frio-nueces-ranch-country-texas", () => import("@/data/fixtures/mcmullen-county-tilden-frio-nueces-ranch-country").then((module) => module.mcMullenCountyTildenFrioNuecesRanchCountryArticle)),
   profile("brooks", "brooks-county-falfurrias-ranching-dairy-brush-country-texas", () => import("@/data/fixtures/brooks-county-falfurrias-ranching-dairy-brush-country").then((module) => module.brooksCountyFalfurriasRanchingDairyBrushCountryArticle)),
   profile("jim-hogg", "jim-hogg-county-hebbronville-ranching-railroad-brush-country-texas", () => import("@/data/fixtures/jim-hogg-county-hebbronville-ranching-railroad-brush-country").then((module) => module.jimHoggCountyHebbronvilleRanchingRailroadBrushCountryArticle)),
+  profile("duval", "duval-county-san-diego-freer-benavides-brush-country-texas", () => import("@/data/fixtures/duval-county-san-diego-freer-benavides-brush-country").then((module) => module.duvalCountySanDiegoFreerBenavidesBrushCountryArticle)),
 ];
