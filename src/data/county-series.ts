@@ -58,6 +58,7 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   profile("lavaca", "lavaca-county-hallettsville-shiner-yoakum-rivers-texas", () => import("@/data/fixtures/lavaca-county-hallettsville-shiner-yoakum-rivers-texas").then((module) => module.lavacaCountyHallettsvilleShinerYoakumRiversTexasArticle)),
   profile("calhoun", "calhoun-county-port-lavaca-indianola-seadrift-bays-texas", () => import("@/data/fixtures/calhoun-county-port-lavaca-indianola-seadrift-bays").then((module) => module.calhounCountyPortLavacaIndianolaSeadriftBaysArticle)),
   profile("victoria", "victoria-county-victoria-guadalupe-de-leon-crossroads-texas", () => import("@/data/fixtures/victoria-county-victoria-guadalupe-de-leon-crossroads").then((module) => module.victoriaCountyVictoriaGuadalupeDeLeonCrossroadsArticle)),
+  profile("goliad", "goliad-county-goliad-la-bahia-san-antonio-river-texas", () => import("@/data/fixtures/goliad-county-goliad-la-bahia-san-antonio-river-texas").then((module) => module.goliadCountyGoliadLaBahiaSanAntonioRiverArticle)),
 ];
 
 const articlePromiseCache = new Map<string, Promise<Article | null>>();
