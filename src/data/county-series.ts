@@ -7,77 +7,9 @@ export type CountySeriesProfile = {
   loadArticle: () => Promise<Article>;
 };
 
-const LEGACY_ARTICLE_TO_COUNTY = new Map<string, string>([
-  ["brewster-county-big-bend-texas", "brewster"],
-  ["presidio-county-marfa-borderlands-texas", "presidio"],
-  ["jeff-davis-county-fort-davis-mountains-texas", "jeff-davis"],
-  ["culberson-county-van-horn-guadalupe-mountains-texas", "culberson"],
-  ["hudspeth-county-sierra-blanca-salt-flats-texas", "hudspeth"],
-  ["el-paso-county-missions-rio-grande-texas", "el-paso"],
-  ["reeves-county-pecos-balmorhea-texas", "reeves"],
-  ["pecos-county-fort-stockton-comanche-springs-texas", "pecos"],
-  ["ward-county-monahans-sandhills-texas", "ward"],
-  ["winkler-county-kermit-wink-oil-texas", "winkler"],
-  ["andrews-county-andrews-oil-shafter-lake-texas", "andrews"],
-  ["ector-county-odessa-oil-stonehenge-texas", "ector"],
-  ["randall-county-canyon-palo-duro-texas", "randall"],
-  ["tom-green-county-san-angelo-concho-texas", "tom-green"],
-  ["midland-county-railroad-oil-high-plains-texas", "midland"],
-  ["galveston-county-island-port-juneteenth-texas", "galveston"],
-  ["gillespie-county-fredericksburg-stonewall-hill-country-texas", "gillespie"],
-  ["bexar-county-san-antonio-missions-river-texas", "bexar"],
-  ["travis-county-austin-capitol-springs-hill-country-texas", "travis"],
-  ["harris-county-houston-bayous-port-space-texas", "harris"],
-  ["fort-bend-county-brazos-richmond-sugar-land-texas", "fort-bend"],
-  ["montgomery-county-conroe-lake-piney-woods-texas", "montgomery"],
-  ["brazoria-county-brazos-gulf-angleton-texas", "brazoria"],
-  ["dallas-county-dallas-trinity-old-red-texas", "dallas"],
-  ["tarrant-county-fort-worth-trinity-western-heritage-texas", "tarrant"],
-  ["collin-county-mckinney-prairie-growth-texas", "collin"],
-  ["denton-county-denton-lakes-universities-growth-texas", "denton"],
-  ["williamson-county-georgetown-round-rock-san-gabriel-texas", "williamson"],
-  ["hays-county-san-marcos-blanco-hill-country-texas", "hays"],
-  ["comal-county-new-braunfels-canyon-lake-guadalupe-texas", "comal"],
-  ["bell-county-belton-temple-fort-hood-lakes-texas", "bell"],
-  ["mclennan-county-waco-brazos-baylor-mammoths-texas", "mclennan"],
-  ["brazos-county-bryan-college-station-aggieland-rivers-texas", "brazos"],
-  ["bastrop-county-lost-pines-colorado-river-history-texas", "bastrop"],
-  ["lee-county-giddings-serbin-wendish-heritage-texas", "lee"],
-  ["fayette-county-la-grange-painted-churches-colorado-river-texas", "fayette"],
-  ["washington-county-brenham-washington-brazos-independence-texas", "washington"],
-  ["austin-county-bellville-san-felipe-sealy-brazos-texas", "austin"],
-  ["colorado-county-columbus-weimar-eagle-lake-prairie-texas", "colorado"],
-  ["wharton-county-wharton-el-campo-colorado-river-prairie-texas", "wharton"],
-  ["matagorda-county-bay-city-palacios-colorado-river-bays-texas", "matagorda"],
-  ["jackson-county-edna-ganado-lake-texana-lavaca-navidad-texas", "jackson"],
-  ["lavaca-county-hallettsville-shiner-yoakum-rivers-texas", "lavaca"],
-  ["calhoun-county-port-lavaca-indianola-seadrift-bays-texas", "calhoun"],
-  ["victoria-county-victoria-guadalupe-de-leon-crossroads-texas", "victoria"],
-  ["goliad-county-goliad-la-bahia-san-antonio-river-texas", "goliad"],
-  ["refugio-county-refugio-mission-river-coastal-prairie-texas", "refugio"],
-  ["aransas-county-rockport-fulton-bays-coastal-heritage-texas", "aransas"],
-  ["san-patricio-county-sinton-irish-colony-coastal-prairie-texas", "san-patricio"],
-  ["nueces-county-corpus-christi-bay-islands-coastal-bend-texas", "nueces"],
-  ["kleberg-county-kingsville-king-ranch-padre-island-texas", "kleberg"],
-  ["kenedy-county-sarita-ranches-padre-island-wild-horse-desert-texas", "kenedy"],
-  ["willacy-county-raymondville-port-mansfield-laguna-madre-texas", "willacy"],
-  ["cameron-county-brownsville-harlingen-south-padre-rio-grande-texas", "cameron"],
-  ["hidalgo-county-edinburg-mcallen-mission-rio-grande-valley-texas", "hidalgo"],
-  ["starr-county-rio-grande-city-roma-fort-ringgold-borderlands-texas", "starr"],
-  ["zapata-county-zapata-san-ygnacio-falcon-rio-grande-texas", "zapata"],
-  ["webb-county-laredo-rio-grande-trade-borderlands-texas", "webb"],
-  ["maverick-county-eagle-pass-fort-duncan-rio-grande-texas", "maverick"],
-  ["kinney-county-brackettville-fort-clark-las-moras-texas", "kinney"],
-  ["val-verde-county-del-rio-amistad-devils-river-lower-pecos-texas", "val-verde"],
-  ["edwards-county-rocksprings-devils-sinkhole-nueces-plateau-texas", "edwards"],
-  ["real-county-leakey-camp-wood-frio-nueces-canyons-texas", "real"],
-  ["uvalde-county-uvalde-garner-frio-fort-inge-texas", "uvalde"],
-  ["zavala-county-crystal-city-winter-garden-nueces-texas", "zavala"],
-  ["dimmit-county-carrizo-springs-winter-garden-nueces-texas", "dimmit"],
-  ["la-salle-county-cotulla-nueces-winter-garden-brush-country-texas", "la-salle"],
-]);
-
-const COUNTY_SLUGS = new Set(LEGACY_ARTICLE_TO_COUNTY.values());
+const COUNTY_SLUGS = new Set(
+  "brewster|presidio|jeff-davis|culberson|hudspeth|el-paso|reeves|pecos|ward|winkler|andrews|ector|randall|tom-green|midland|galveston|gillespie|bexar|travis|harris|fort-bend|montgomery|brazoria|dallas|tarrant|collin|denton|williamson|hays|comal|bell|mclennan|brazos|bastrop|lee|fayette|washington|austin|colorado|wharton|matagorda|jackson|lavaca|calhoun|victoria|goliad|refugio|aransas|san-patricio|nueces|kleberg|kenedy|willacy|cameron|hidalgo|starr|zapata|webb|maverick|kinney|val-verde|edwards|real|uvalde|zavala|dimmit|la-salle".split("|"),
+);
 
 const loadCountySeriesArticleServerFn = createServerFn({ method: "GET" })
   .inputValidator((data: { countySlug: string }) => data)
@@ -95,9 +27,11 @@ export function loadCountySeriesArticle(countySlug: string): Promise<Article | n
 }
 
 export function countySlugForLegacyArticle(articleSlug: string) {
-  return LEGACY_ARTICLE_TO_COUNTY.get(articleSlug) ?? null;
+  const match = articleSlug.match(/^(.+?)-county-/);
+  const countySlug = match?.[1] ?? null;
+  return countySlug && COUNTY_SLUGS.has(countySlug) ? countySlug : null;
 }
 
 export function isLegacyCountySeriesArticle(articleSlug: string) {
-  return LEGACY_ARTICLE_TO_COUNTY.has(articleSlug);
+  return countySlugForLegacyArticle(articleSlug) !== null;
 }
