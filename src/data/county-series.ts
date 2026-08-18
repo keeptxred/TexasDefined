@@ -62,6 +62,7 @@ const LEGACY_ARTICLE_TO_COUNTY = new Map<string, string>([
   ["kenedy-county-sarita-ranches-padre-island-wild-horse-desert-texas", "kenedy"],
   ["willacy-county-raymondville-port-mansfield-laguna-madre-texas", "willacy"],
   ["cameron-county-brownsville-harlingen-south-padre-rio-grande-texas", "cameron"],
+  ["hidalgo-county-edinburg-mcallen-mission-rio-grande-valley-texas", "hidalgo"],
 ]);
 
 const COUNTY_SLUGS = new Set(LEGACY_ARTICLE_TO_COUNTY.values());
