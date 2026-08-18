@@ -5,7 +5,6 @@ import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import { destinationsQuery } from "@/data/queries";
-import { resolveTopAttractionAuthority } from "@/data/top-attraction-authority-resolver";
 import { TOP_TEXAS_ATTRACTIONS } from "@/data/top-texas-attractions";
 import type { Destination } from "@/data/types";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
@@ -13,18 +12,21 @@ import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 const canonicalPath = "/explore/top-attractions";
 const description = "Twenty-five landmark Texas experiences, from the Alamo and River Walk to Big Bend, the Gulf Coast, museums, caverns, gardens and historic districts — with practical trip-planning guides for each stop.";
 
-function rankDestinations(destinations: Destination[]) {
+function rankDestinations(destinations: Destination[], resolveAuthority: (destination: Destination) => Destination) {
   const bySlug = new Map(destinations.map((destination) => [destination.slug, destination]));
   return TOP_TEXAS_ATTRACTIONS.flatMap((entry) => {
     const destination = bySlug.get(entry.slug);
-    return destination ? [{ ...entry, destination: resolveTopAttractionAuthority(destination) }] : [];
+    return destination ? [{ ...entry, destination: resolveAuthority(destination) }] : [];
   });
 }
 
 export const Route = createFileRoute("/explore/top-attractions")({
   loader: async ({ context }) => {
-    const destinations = await context.queryClient.ensureQueryData(destinationsQuery({ limit: 5000 }));
-    return rankDestinations(destinations);
+    const [destinations, { resolveTopAttractionAuthority }] = await Promise.all([
+      context.queryClient.ensureQueryData(destinationsQuery({ limit: 5000 })),
+      import("@/data/top-attraction-authority-resolver"),
+    ]);
+    return rankDestinations(destinations, resolveTopAttractionAuthority);
   },
   head: ({ loaderData }) => {
     const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
