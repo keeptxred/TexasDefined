@@ -66,4 +66,5 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   profile("zapata", "zapata-county-zapata-san-ygnacio-falcon-rio-grande-texas", () => import("@/data/fixtures/zapata-county-zapata-san-ygnacio-falcon-rio-grande").then((module) => module.zapataCountyZapataSanYgnacioFalconRioGrandeArticle)),
   profile("webb", "webb-county-laredo-rio-grande-trade-borderlands-texas", () => import("@/data/fixtures/webb-county-laredo-rio-grande-trade-borderlands").then((module) => module.webbCountyLaredoRioGrandeTradeBorderlandsArticle)),
   profile("maverick", "maverick-county-eagle-pass-fort-duncan-rio-grande-texas", () => import("@/data/fixtures/maverick-county-eagle-pass-fort-duncan-rio-grande").then((module) => module.maverickCountyEaglePassFortDuncanRioGrandeArticle)),
+  profile("dimmit", "dimmit-county-carrizo-springs-winter-garden-nueces-brush-country-texas", () => import("@/data/fixtures/dimmit-county-carrizo-springs-winter-garden-nueces-brush-country").then((module) => module.dimmitCountyCarrizoSpringsWinterGardenNuecesBrushCountryArticle)),
 ];
