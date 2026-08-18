@@ -4,6 +4,7 @@ import { texasDefinedBrand } from "@/brand/texasdefined";
 import { RegionalDestinationGrid } from "@/components/editorial/RegionalDestinationGrid";
 import { RegionalHubSections } from "@/components/editorial/RegionalHubSections";
 import { SectionHeader } from "@/components/editorial/SectionHeader";
+import { TopAttractionCollectionLinks } from "@/components/editorial/TopAttractionCollectionLinks";
 import { Container } from "@/components/layout/Container";
 import { destinationsQuery, regionsQuery } from "@/data/queries";
 import type { Destination } from "@/data/types";
@@ -83,6 +84,7 @@ function RegionPage() {
     </section>
 
     <RegionalHubSections destinations={destinations} region={region} allRegions={regions} />
+    <TopAttractionCollectionLinks destinations={destinations} contextLabel={region.name} />
 
     <Container className="py-20 sm:py-24">
       <SectionHeader eyebrow="The full guide" title={`More places across ${region.name}`} description="Browse the complete regional collection, then open any destination for field notes, planning details and nearby stops." />
