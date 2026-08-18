@@ -4,6 +4,7 @@ import { texasDefinedBrand } from "@/brand/texasdefined";
 import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
+import { applyTopAttractionAuthority } from "@/data/destination-authority-top-attractions";
 import { destinationsQuery } from "@/data/queries";
 import { TOP_TEXAS_ATTRACTIONS } from "@/data/top-texas-attractions";
 import type { Destination } from "@/data/types";
@@ -16,7 +17,7 @@ function rankDestinations(destinations: Destination[]) {
   const bySlug = new Map(destinations.map((destination) => [destination.slug, destination]));
   return TOP_TEXAS_ATTRACTIONS.flatMap((entry) => {
     const destination = bySlug.get(entry.slug);
-    return destination ? [{ ...entry, destination }] : [];
+    return destination ? [{ ...entry, destination: applyTopAttractionAuthority(destination) }] : [];
   });
 }
 
@@ -81,25 +82,47 @@ function TopAttractionsPage() {
       <header className="py-10 sm:py-14">
         <p className="eyebrow text-primary">The Texas essential list</p>
         <h1 className="mt-3 max-w-5xl font-display text-5xl leading-[0.98] sm:text-7xl">25 Texas attractions worth building a trip around</h1>
-        <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">From missions and presidential history to desert national parks, Gulf beaches, caverns, gardens and big-city museums, these are 25 places that make a strong first map of Texas. Each guide includes practical visit planning and a full “what’s in the area” section so the attraction can become part of a larger trip.</p>
+        <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">From missions and presidential history to desert national parks, Gulf beaches, caverns, gardens and big-city museums, these are 25 places that make a strong first map of Texas. Each guide includes practical visit planning, primary-source verification, editorial trip assessments, three itinerary options and a full “what’s in the area” section.</p>
         <div className="mt-8 flex flex-wrap gap-3">
           <Link to="/explore/trip-planner" className="inline-flex items-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90">Build a Texas trip →</Link>
           <Link to="/explore/attractions-comparison" className="inline-flex items-center border border-border px-5 py-3 text-sm font-semibold transition-colors hover:border-primary hover:text-primary">Compare destinations →</Link>
+          <Link to="/citation-guide" className="inline-flex items-center border border-border px-5 py-3 text-sm font-semibold transition-colors hover:border-primary hover:text-primary">How TexasDefined cites sources →</Link>
         </div>
       </header>
     </Container>
 
+    <Section>
+      <Container>
+        <SectionHeader eyebrow="How this list is researched" title="Operational facts and editorial judgment are kept separate" description="Visitor logistics come from the attraction's official source and carry a review date. Visit length, effort, weather exposure, planning difficulty and first-time value are TexasDefined editorial assessments intended to help readers compare very different kinds of places without pretending they are star ratings." />
+        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="border-t-2 border-foreground pt-4"><p className="eyebrow text-primary">Primary-source check</p><p className="mt-2 text-sm leading-6 text-muted-foreground">Each guide links its controlling visitor source and records when operational guidance was reviewed.</p></div>
+          <div className="border-t-2 border-foreground pt-4"><p className="eyebrow text-primary">Trip assessment</p><p className="mt-2 text-sm leading-6 text-muted-foreground">TexasDefined compares visit time, effort, exposure and advance-planning needs using one shared scale.</p></div>
+          <div className="border-t-2 border-foreground pt-4"><p className="eyebrow text-primary">Three itineraries</p><p className="mt-2 text-sm leading-6 text-muted-foreground">Every attraction includes a short, medium and expanded way to use the stop in a real Texas trip.</p></div>
+          <div className="border-t-2 border-foreground pt-4"><p className="eyebrow text-primary">Review log</p><p className="mt-2 text-sm leading-6 text-muted-foreground">Changing operational details are separated from durable editorial context and pointed back to official sources.</p></div>
+        </div>
+      </Container>
+    </Section>
+
     <Section tone="surface">
       <Container>
-        <SectionHeader eyebrow="The full list" title="TexasDefined’s Top 25" description="Open any attraction for the full guide, nearby places, food and lodging areas, family stops, side trips, maps and a direct handoff to the Trip Planner." />
+        <SectionHeader eyebrow="The full list" title="TexasDefined’s Top 25" description="Open any attraction for the full guide, verified planning notes, nearby places, food and lodging areas, family stops, side trips, maps and a direct handoff to the Trip Planner." />
         <ol className="mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-          {attractions.map(({ rank, destination }) => <li key={destination.slug} className="relative">
-            <div className="mb-3 flex items-baseline gap-3 border-b border-border pb-3">
-              <span className="font-display text-4xl leading-none text-primary">{String(rank).padStart(2, "0")}</span>
-              <span className="eyebrow text-muted-foreground">Top Texas attraction</span>
-            </div>
-            <DestinationCard destination={destination} />
-          </li>)}
+          {attractions.map(({ rank, destination }) => {
+            const assessment = destination.authorityGuide?.assessment;
+            return <li key={destination.slug} className="relative">
+              <div className="mb-3 flex items-baseline gap-3 border-b border-border pb-3">
+                <span className="font-display text-4xl leading-none text-primary">{String(rank).padStart(2, "0")}</span>
+                <span className="eyebrow text-muted-foreground">Top Texas attraction</span>
+              </div>
+              <DestinationCard destination={destination} />
+              {assessment && <dl className="mt-4 grid grid-cols-2 gap-x-5 gap-y-3 border-y border-border py-4 text-xs">
+                <div><dt className="uppercase tracking-[0.1em] text-muted-foreground">Allow</dt><dd className="mt-1 font-medium leading-5">{assessment.recommendedVisit}</dd></div>
+                <div><dt className="uppercase tracking-[0.1em] text-muted-foreground">Effort</dt><dd className="mt-1 font-medium">{assessment.physicalEffort}</dd></div>
+                <div><dt className="uppercase tracking-[0.1em] text-muted-foreground">Exposure</dt><dd className="mt-1 font-medium">{assessment.weatherExposure}</dd></div>
+                <div><dt className="uppercase tracking-[0.1em] text-muted-foreground">Planning</dt><dd className="mt-1 font-medium">{assessment.planningLevel}</dd></div>
+              </dl>}
+            </li>;
+          })}
         </ol>
       </Container>
     </Section>
