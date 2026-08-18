@@ -3,6 +3,7 @@ import { createFileRoute, Link, notFound, redirect } from "@tanstack/react-route
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { CategoryPage } from "@/components/editorial/CategoryPage";
+import { TopAttractionCollectionLinks } from "@/components/editorial/TopAttractionCollectionLinks";
 import { ExploreDestinationComparison, type ExploreComparisonKind } from "@/components/explore/ExploreDestinationComparison";
 import { Container } from "@/components/layout/Container";
 import { articlesQuery, categoriesQuery, destinationQuery, destinationsQuery } from "@/data/queries";
@@ -179,6 +180,7 @@ function ExploreCategoryPage() {
         intro={match.description}
         image={match.image}
       />
+      <TopAttractionCollectionLinks destinations={destinations} contextLabel={match.name} />
       {comparisonKind ? <ExploreDestinationComparison destinations={destinations} kind={comparisonKind} /> : null}
     </>
   );
