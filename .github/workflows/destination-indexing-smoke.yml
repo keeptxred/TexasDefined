@@ -11,6 +11,7 @@ on:
       - 'src/data/destination-audit.ts'
       - 'src/data/destination-availability.ts'
       - 'src/data/destination-curation-all.ts'
+      - 'src/data/destination-curation-top-attractions.ts'
       - 'src/data/destination-quality.ts'
       - 'src/data/explore-core-remote.ts'
       - 'src/data/explore-remote.ts'
