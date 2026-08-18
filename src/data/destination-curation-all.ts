@@ -39,10 +39,12 @@ import { applyCuratedDestinationBatch47 } from "./destination-curation-batch47";
 import { applyCuratedDestinationBatch48 } from "./destination-curation-batch48";
 import { applyCuratedDestinationBatch49 } from "./destination-curation-batch49";
 import { applyCuratedDestinationBatch52 } from "./destination-curation-batch52";
+import { topAttractionExpansionDestinations } from "./destination-curation-top-attractions-fallbacks";
 import { applyCuratedTopAttractions } from "./destination-curation-top-attractions";
 import { applyCuratedTopAttractionsBatch2 } from "./destination-curation-top-attractions-batch2";
 import { applyCuratedTopAttractionsBatch3 } from "./destination-curation-top-attractions-batch3";
 import { applyCuratedTopAttractionsBatch4 } from "./destination-curation-top-attractions-batch4";
+import { applyCuratedTopAttractionsBatch5 } from "./destination-curation-top-attractions-batch5";
 import type { Destination } from "./types";
 
 const CURATION_SLUG_ALIASES: Record<string, string> = {
@@ -136,6 +138,7 @@ const CURATORS: Array<(destination: Destination) => Destination> = [
   applyCuratedTopAttractionsBatch2,
   applyCuratedTopAttractionsBatch3,
   applyCuratedTopAttractionsBatch4,
+  applyCuratedTopAttractionsBatch5,
 ];
 
 function runCurators(destination: Destination): Destination {
@@ -151,5 +154,10 @@ export function applyAllCuratedDestination(destination: Destination): Destinatio
 }
 
 export function applyAllCuratedDestinations(destinations: Destination[]): Destination[] {
-  return destinations.map(applyAllCuratedDestination);
+  const curated = destinations.map(applyAllCuratedDestination);
+  const seen = new Set(curated.map((destination) => destination.slug));
+  return [
+    ...curated,
+    ...topAttractionExpansionDestinations.filter((destination) => !seen.has(destination.slug)),
+  ];
 }
