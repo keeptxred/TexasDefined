@@ -10,4 +10,4 @@ Primary research references used for the Calhoun County editorial profile:
 
 Canonical county destination: `/county/calhoun`.
 
-The structured county reference layer remains separate from this editorial fixture and was not replaced or downgraded by the enrichment.
+The structured county reference layer remains separate from this editorial fixture and was not replaced or downgraded by the enrichment. County-page SEO now reads the registered county-series article during route loading so the canonical page uses the same county-specific editorial hero and description as the visible feature.
