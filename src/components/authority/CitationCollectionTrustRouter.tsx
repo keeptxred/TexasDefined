@@ -32,11 +32,31 @@ const TRUST_BY_PATH: Record<string, TrustConfig> = {
   '/explore/top-attractions': {
     title: 'Top 25 attraction research and verification',
     sources: [
+      { name: 'Top 25 methodology and source policy', url: 'https://texasdefined.com/explore/top-attractions/methodology' },
       { name: 'TexasDefined citation policy', url: 'https://texasdefined.com/citation-guide' },
       { name: 'Machine-readable citation index', url: 'https://texasdefined.com/citation-magnets.json' },
     ],
     methodology: 'The Top 25 collection uses each attraction’s linked official visitor source for current operational guidance and keeps those facts separate from TexasDefined editorial assessments of visit length, physical effort, weather exposure, advance-planning needs and trip value. Every child guide carries its own review date, sources and review log.',
-    lastVerified: 'Top 25 authority framework and collection coverage reviewed August 17, 2026. Current-day hours, prices, closures and reservations remain controlled by each attraction’s linked official source.',
+    lastVerified: 'Top 25 authority framework and collection coverage reviewed August 18, 2026. Current-day hours, prices, closures and reservations remain controlled by each attraction’s linked official source.',
+  },
+  '/explore/top-attractions/methodology': {
+    title: 'Top 25 methodology provenance',
+    sources: [
+      { name: 'Top 25 canonical collection', url: 'https://texasdefined.com/explore/top-attractions' },
+      { name: 'TexasDefined citation policy', url: 'https://texasdefined.com/citation-guide' },
+      { name: 'Texas Defined editorial accountability', url: 'https://texasdefined.com/about' },
+    ],
+    methodology: 'This page documents the editorial selection criteria, ranking policy, source precedence, comparison scales and correction rules used across the Top 25. It is the controlling methodology page for the collection rather than an attraction-specific operational source.',
+    lastVerified: 'Top 25 selection, sourcing and comparison methodology documented August 18, 2026.',
+  },
+  '/explore/top-attractions/road-trips': {
+    title: 'Top 25 road-trip methodology',
+    sources: [
+      { name: 'Top 25 canonical collection', url: 'https://texasdefined.com/explore/top-attractions' },
+      { name: 'Top 25 methodology and source policy', url: 'https://texasdefined.com/explore/top-attractions/methodology' },
+    ],
+    methodology: 'The seven route structures are TexasDefined editorial trip-planning synthesis built only from canonical Top-25 attraction guides. They are not live navigation instructions. Each attraction’s official source controls current hours, reservations, closures and operating restrictions.',
+    lastVerified: 'Top 25 route groupings and canonical stop links reviewed August 18, 2026.',
   },
   '/learn/property-taxes': {
     title: 'Texas property-tax explainer sources',
