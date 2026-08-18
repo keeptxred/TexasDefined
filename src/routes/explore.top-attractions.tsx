@@ -29,6 +29,8 @@ export const Route = createFileRoute("/explore/top-attractions")({
   head: ({ loaderData }) => {
     const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
     const attractions = loaderData ?? [];
+    const csvUrl = absoluteUrl(texasDefinedBrand, "/top-25-texas-attractions.csv");
+    const methodologyUrl = absoluteUrl(texasDefinedBrand, "/explore/top-attractions/methodology");
     return {
       meta: buildMeta(texasDefinedBrand, { canonicalPath, title: "Top 25 Texas Attractions | Texas Defined", description }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
@@ -42,6 +44,7 @@ export const Route = createFileRoute("/explore/top-attractions")({
             name: "Top 25 Texas Attractions",
             description,
             mainEntity: { "@id": `${pageUrl}#attractions` },
+            isBasedOn: methodologyUrl,
           },
           {
             "@type": "ItemList",
@@ -55,6 +58,21 @@ export const Route = createFileRoute("/explore/top-attractions")({
               name: destination.name,
               url: absoluteUrl(texasDefinedBrand, `/destination/${destination.slug}`),
             })),
+          },
+          {
+            "@type": "Dataset",
+            "@id": `${pageUrl}#comparison-dataset`,
+            name: "TexasDefined Top 25 Texas Attractions comparison dataset",
+            description: "Rank, location, region, category, visit-length assessment, physical effort, weather exposure, advance-planning level, family fit, first-time Texas value, source-check date and official visitor source for the Top 25 collection.",
+            creator: { "@type": "Organization", "@id": `${absoluteUrl(texasDefinedBrand, "/authors/a-hollis")}#desk`, name: "Texas Defined Editorial Desk" },
+            isBasedOn: methodologyUrl,
+            sameAs: pageUrl,
+            distribution: {
+              "@type": "DataDownload",
+              encodingFormat: "text/csv",
+              contentUrl: csvUrl,
+              name: "Top 25 Texas Attractions comparison CSV",
+            },
           },
           {
             "@type": "BreadcrumbList",
@@ -85,9 +103,12 @@ function TopAttractionsPage() {
         <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">From missions and presidential history to desert national parks, Gulf beaches, caverns, gardens and big-city museums, these are 25 places that make a strong first map of Texas. Each guide includes practical visit planning, primary-source verification, editorial trip assessments, three itinerary options and a full “what’s in the area” section.</p>
         <div className="mt-8 flex flex-wrap gap-3">
           <Link to="/explore/trip-planner" className="inline-flex items-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90">Build a Texas trip →</Link>
+          <Link to="/explore/top-attractions/road-trips" className="inline-flex items-center border border-border px-5 py-3 text-sm font-semibold transition-colors hover:border-primary hover:text-primary">Top-25 road trips →</Link>
           <Link to="/explore/attractions-comparison" className="inline-flex items-center border border-border px-5 py-3 text-sm font-semibold transition-colors hover:border-primary hover:text-primary">Compare destinations →</Link>
-          <a href="/top-25-texas-attractions-checklist.txt" className="inline-flex items-center border border-border px-5 py-3 text-sm font-semibold transition-colors hover:border-primary hover:text-primary">Download Top 25 checklist →</a>
-          <Link to="/citation-guide" className="inline-flex items-center border border-border px-5 py-3 text-sm font-semibold transition-colors hover:border-primary hover:text-primary">How TexasDefined cites sources →</Link>
+          <Link to="/explore/top-attractions/methodology" className="inline-flex items-center border border-border px-5 py-3 text-sm font-semibold transition-colors hover:border-primary hover:text-primary">Methodology →</Link>
+          <a href="/top-25-texas-attractions.csv" className="inline-flex items-center border border-border px-5 py-3 text-sm font-semibold transition-colors hover:border-primary hover:text-primary">Download comparison CSV →</a>
+          <a href="/top-25-texas-attractions-checklist.txt" className="inline-flex items-center border border-border px-5 py-3 text-sm font-semibold transition-colors hover:border-primary hover:text-primary">Download checklist →</a>
+          <Link to="/citation-guide" className="inline-flex items-center border border-border px-5 py-3 text-sm font-semibold transition-colors hover:border-primary hover:text-primary">Citation guidance →</Link>
         </div>
       </header>
     </Container>
@@ -101,6 +122,7 @@ function TopAttractionsPage() {
           <div className="border-t-2 border-foreground pt-4"><p className="eyebrow text-primary">Three itineraries</p><p className="mt-2 text-sm leading-6 text-muted-foreground">Every attraction includes a short, medium and expanded way to use the stop in a real Texas trip.</p></div>
           <div className="border-t-2 border-foreground pt-4"><p className="eyebrow text-primary">Review log</p><p className="mt-2 text-sm leading-6 text-muted-foreground">Changing operational details are separated from durable editorial context and pointed back to official sources.</p></div>
         </div>
+        <div className="mt-7 flex flex-wrap gap-5 text-sm font-semibold"><Link to="/explore/top-attractions/methodology" className="border-b border-primary text-primary">Read the full methodology →</Link><Link to="/explore/top-attractions/road-trips" className="border-b border-primary text-primary">See the seven route structures →</Link></div>
       </Container>
     </Section>
 
@@ -130,8 +152,9 @@ function TopAttractionsPage() {
 
     <Section>
       <Container>
-        <div className="grid gap-8 border-y border-border py-10 md:grid-cols-3">
+        <div className="grid gap-8 border-y border-border py-10 md:grid-cols-4">
           <div><p className="eyebrow text-primary">Turn the list into a route</p><h2 className="mt-2 font-display text-3xl">Start with one stop</h2><p className="mt-3 text-sm leading-6 text-muted-foreground">Every attraction page can seed the TexasDefined Trip Planner, which then scores other destinations around your starting point.</p></div>
+          <Link to="/explore/top-attractions/road-trips" className="group border-t border-border pt-5 md:border-l md:border-t-0 md:pl-8"><strong className="font-display text-2xl transition-colors group-hover:text-primary">Use a ready-made route</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Seven editorial road-trip structures combine the Top 25 into geographic Texas itineraries.</span><span className="eyebrow mt-4 inline-block text-primary">Open road trips →</span></Link>
           <Link to="/explore/trip-planner" className="group border-t border-border pt-5 md:border-l md:border-t-0 md:pl-8"><strong className="font-display text-2xl transition-colors group-hover:text-primary">Build an itinerary</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Choose your pace, interests and trip length, then start with a favorite attraction.</span><span className="eyebrow mt-4 inline-block text-primary">Open Trip Planner →</span></Link>
           <Link to="/explore/attractions-comparison" className="group border-t border-border pt-5 md:border-l md:border-t-0 md:pl-8"><strong className="font-display text-2xl transition-colors group-hover:text-primary">Compare the broader catalog</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Go beyond the Top 25 and compare TexasDefined destinations by region, season and planning notes.</span><span className="eyebrow mt-4 inline-block text-primary">Compare attractions →</span></Link>
         </div>
