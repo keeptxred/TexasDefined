@@ -4,7 +4,7 @@ import path from 'node:path';
 const root = process.cwd();
 const read = (file) => fs.readFile(path.join(root, file), 'utf8');
 
-const [schemaMigration, deliveryMigration, server, functions, component, directory, guide, galaxy, admin, adminNav, partnerPage, salesPlaybook] = await Promise.all([
+const [schemaMigration, deliveryMigration, server, functions, component, directory, guide, galaxy, adminShell, adminLazy, adminNav, partnerPage, salesPlaybook] = await Promise.all([
   read('supabase/migrations/20260814041151_create_governed_sports_sponsorship.sql'),
   read('supabase/migrations/20260814041302_govern_sports_sponsor_delivery.sql'),
   read('src/data/sports-sponsorship.server.ts'),
@@ -14,10 +14,12 @@ const [schemaMigration, deliveryMigration, server, functions, component, directo
   read('src/routes/sports-venue.$slug.tsx'),
   read('src/routes/sports-venue.jones-att-stadium.tsx'),
   read('src/routes/admin.sports-sponsors.tsx'),
+  read('src/routes/admin.sports-sponsors.lazy.tsx'),
   read('src/routes/admin.tsx'),
   read('src/routes/partner-with-us.tsx'),
   read('docs/SPORTS_SPONSORSHIP_SALES_PLAYBOOK.md'),
 ]);
+const admin = `${adminShell}\n${adminLazy}`;
 
 const errors = [];
 const assert = (condition, message) => { if (!condition) errors.push(message); };
@@ -143,6 +145,7 @@ for (const marker of [
   'Only one placement can be approved per sports surface at a time',
   'Any saved revision returns this placement to draft and requires explicit reapproval',
 ]) assert(admin.includes(marker), `Sports sponsorship admin console is missing security, approval, or reporting marker: ${marker}.`);
+assert(adminLazy.includes("createLazyFileRoute('/admin/sports-sponsors')"), 'Sports sponsorship admin implementation must remain behind a native lazy route boundary.');
 assert(!admin.includes('supabaseAdmin'), 'Sports sponsorship admin route must never reference the service-role Supabase client directly.');
 assert(!admin.includes("from('texasdefined_sports"), 'Sports sponsorship admin route must never query sponsorship tables directly.');
 assert(!admin.includes('loader:'), 'Sports sponsorship admin route must not SSR-load commercial records before key validation.');
@@ -183,4 +186,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Sports sponsorship validated: traffic-gated outreach hold, explicit two-stage approval, one approved placement per surface, fail-closed public delivery, sponsored disclosure, privacy-light aggregate metrics, key-gated operator controls and founding launch-sales terms are protected.');
+console.log('Sports sponsorship validated: traffic-gated outreach hold, explicit two-stage approval, one approved placement per surface, fail-closed public delivery, sponsored disclosure, privacy-light aggregate metrics, lazy key-gated operator controls and founding launch-sales terms are protected.');
