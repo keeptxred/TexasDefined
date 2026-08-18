@@ -62,4 +62,5 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   profile("willacy", "willacy-county-raymondville-port-mansfield-laguna-madre-texas", () => import("@/data/fixtures/willacy-county-raymondville-port-mansfield-laguna-madre").then((module) => module.willacyCountyRaymondvillePortMansfieldLagunaMadreArticle)),
   profile("cameron", "cameron-county-brownsville-harlingen-south-padre-rio-grande-texas", () => import("@/data/fixtures/cameron-county-brownsville-harlingen-south-padre-rio-grande").then((module) => module.cameronCountyBrownsvilleHarlingenSouthPadreRioGrandeArticle)),
   profile("hidalgo", "hidalgo-county-edinburg-mcallen-mission-rio-grande-valley-texas", () => import("@/data/fixtures/hidalgo-county-edinburg-mcallen-mission-rio-grande-valley").then((module) => module.hidalgoCountyEdinburgMcAllenMissionRioGrandeValleyArticle)),
+  profile("starr", "starr-county-rio-grande-city-roma-fort-ringgold-borderlands-texas", () => import("@/data/fixtures/starr-county-rio-grande-city-roma-fort-ringgold-borderlands").then((module) => module.starrCountyRioGrandeCityRomaFortRinggoldBorderlandsArticle)),
 ];
