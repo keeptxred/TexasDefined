@@ -86,6 +86,7 @@ function TopAttractionsPage() {
         <div className="mt-8 flex flex-wrap gap-3">
           <Link to="/explore/trip-planner" className="inline-flex items-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90">Build a Texas trip →</Link>
           <Link to="/explore/attractions-comparison" className="inline-flex items-center border border-border px-5 py-3 text-sm font-semibold transition-colors hover:border-primary hover:text-primary">Compare destinations →</Link>
+          <a href="/top-25-texas-attractions-checklist.txt" className="inline-flex items-center border border-border px-5 py-3 text-sm font-semibold transition-colors hover:border-primary hover:text-primary">Download Top 25 checklist →</a>
           <Link to="/citation-guide" className="inline-flex items-center border border-border px-5 py-3 text-sm font-semibold transition-colors hover:border-primary hover:text-primary">How TexasDefined cites sources →</Link>
         </div>
       </header>
