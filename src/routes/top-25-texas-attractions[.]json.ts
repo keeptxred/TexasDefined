@@ -17,6 +17,15 @@ export const Route = createFileRoute('/top-25-texas-attractions.json')({
           methodology: TOP_ATTRACTIONS_METHODOLOGY_URL,
           asOf: '2026-08-18',
           scope: 'TexasDefined editorial Top 25 attraction reference data. Controlling visitor sources govern current operations; planning assessments are TexasDefined editorial synthesis.',
+          fields: {
+            authoritySources: 'Ordered evidence list. The first source is the controlling visitor source when available; later sources provide supporting institutional context and do not override current operator guidance.',
+            roadTrips: 'TexasDefined editorial route memberships, not live driving directions or operating guidance.',
+            recommendedVisit: 'TexasDefined editorial estimate of useful visit duration.',
+            physicalEffort: 'TexasDefined editorial trip-planning assessment, not a medical accessibility rating.',
+            weatherExposure: 'TexasDefined editorial description of typical indoor/outdoor exposure.',
+            advancePlanning: 'TexasDefined editorial assessment of reservation, capacity, permit, distance and scheduling friction.',
+            sourceCheckedAt: 'Date the destination visitor-information layer was last reviewed.',
+          },
           count: TOP_ATTRACTION_REFERENCE_ROWS.length,
           attractions: TOP_ATTRACTION_REFERENCE_ROWS,
         };
