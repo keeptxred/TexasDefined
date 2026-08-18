@@ -62,7 +62,11 @@ function TexasClosingCostCalculatorPage() {
       <section className="mt-12 border-t border-border pt-10" aria-labelledby="closing-costs-plan-heading">
         <p className="eyebrow text-primary">Build the full transaction budget</p>
         <h2 id="closing-costs-plan-heading" className="mt-3 font-display text-3xl">Connect closing costs to the rest of the home-buying decision</h2>
-        <div className="mt-6 grid gap-4 md:grid-cols-3">
+        <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          <Link to="/article/$slug" params={{ slug: 'texas-closing-costs-guide' }} className="border border-border p-5 hover:border-primary">
+            <strong className="font-display text-xl">Texas closing-cost guide</strong>
+            <span className="mt-2 block text-sm leading-6 text-muted-foreground">Understand cash to close, lender charges, title services, prepaids and escrow deposits before interpreting the estimate.</span>
+          </Link>
           <Link to="/texas-down-payment-calculator" className="border border-border p-5 hover:border-primary">
             <strong className="font-display text-xl">Down payment calculator</strong>
             <span className="mt-2 block text-sm leading-6 text-muted-foreground">Add the down payment, expected closing costs and a cash reserve to estimate total cash needed.</span>
