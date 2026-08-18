@@ -84,7 +84,7 @@ const CURATION_SLUG_ALIASES: Record<string, string> = {
   "sheldon-lake-state-park-environmental-learning-center": "sheldon-lake-state-park",
   "washington-on-the-brazos": "washington-on-the-brazos-state-historic-site",
   "world-birding-center-bentsen-rio-grande-valley-state-park": "bentsen-rio-grande-valley-state-park",
-  "world-birding-center-estero-llano-grande-state-park": "estero-llano-grande-valley-state-park",
+  "world-birding-center-estero-llano-grande-state-park": "estero-llano-grande-state-park",
   "world-birding-center-resaca-de-la-palma-state-park": "resaca-de-la-palma-state-park"
 };
 
