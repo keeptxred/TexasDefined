@@ -1,6 +1,6 @@
+import { lazy, Suspense } from "react";
 import { Link } from "@tanstack/react-router";
 
-import { DestinationAuthorityGuide } from "@/components/editorial/DestinationAuthorityGuide";
 import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { TexasExplainedContextLinks } from "@/components/editorial/TexasExplainedContextLinks";
@@ -8,6 +8,8 @@ import { Container } from "@/components/layout/Container";
 import { distanceMiles, type DestinationRelationshipGroup } from "@/data/destination-relationships";
 import { topTexasAttractionRank } from "@/data/top-texas-attractions";
 import type { Destination, DestinationAreaGuide, DestinationAreaItem } from "@/data/types";
+
+const DestinationAuthorityGuide = lazy(() => import("@/components/editorial/DestinationAuthorityGuide"));
 
 const AREA_GROUPS: Array<{
   key: keyof Omit<DestinationAreaGuide, "intro">;
@@ -64,7 +66,7 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
   const topAttractionRank = topTexasAttractionRank(destination.slug);
 
   return <>
-    <DestinationAuthorityGuide destination={destination} />
+    {destination.authorityGuide ? <Suspense fallback={null}><DestinationAuthorityGuide destination={destination} /></Suspense> : null}
     <DestinationAreaGuideSection destination={destination} />
 
     {groups.length ? <>
