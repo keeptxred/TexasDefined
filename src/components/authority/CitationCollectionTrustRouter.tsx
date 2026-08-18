@@ -29,6 +29,15 @@ const TRUST_BY_PATH: Record<string, TrustConfig> = {
     methodology: 'The Texas Data hub is a catalog across multiple public datasets. Each dataset page controls its own source list, year, methodology and freshness; the hub does not create a synthetic catalog-wide verification date.',
     lastVerified: 'Catalog source hierarchy reviewed August 11, 2026. Dataset-specific source and modification dates control individual figures.',
   },
+  '/explore/top-attractions': {
+    title: 'Top 25 attraction research and verification',
+    sources: [
+      { name: 'TexasDefined citation policy', url: 'https://texasdefined.com/citation-guide' },
+      { name: 'Machine-readable citation index', url: 'https://texasdefined.com/citation-magnets.json' },
+    ],
+    methodology: 'The Top 25 collection uses each attraction’s linked official visitor source for current operational guidance and keeps those facts separate from TexasDefined editorial assessments of visit length, physical effort, weather exposure, advance-planning needs and trip value. Every child guide carries its own review date, sources and review log.',
+    lastVerified: 'Top 25 authority framework and collection coverage reviewed August 17, 2026. Current-day hours, prices, closures and reservations remain controlled by each attraction’s linked official source.',
+  },
   '/learn/property-taxes': {
     title: 'Texas property-tax explainer sources',
     sources: [
