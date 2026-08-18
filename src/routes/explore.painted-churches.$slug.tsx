@@ -1,13 +1,13 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { getPaintedChurchProfileData } from "@/data/painted-churches.functions";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
 export const Route = createFileRoute("/explore/painted-churches/$slug")({
   loader: async ({ params }) => {
+    const { getPaintedChurchProfileData } = await import("@/data/painted-churches.functions");
     const pageData = await getPaintedChurchProfileData({ data: { slug: params.slug } });
     if (!pageData) throw notFound();
     return pageData;
