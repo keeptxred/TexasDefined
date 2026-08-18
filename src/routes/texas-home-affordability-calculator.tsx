@@ -62,7 +62,11 @@ function TexasHomeAffordabilityCalculatorPage() {
       <section className="mt-12 border-t border-border pt-10" aria-labelledby="affordability-next-heading">
         <p className="eyebrow text-primary">Pressure-test the result</p>
         <h2 id="affordability-next-heading" className="mt-3 font-display text-3xl">Check the other numbers before you decide what is affordable</h2>
-        <div className="mt-6 grid gap-4 md:grid-cols-3">
+        <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          <Link to="/article/$slug" params={{ slug: 'salary-needed-to-buy-a-house-in-texas' }} className="border border-border p-5 hover:border-primary">
+            <strong className="font-display text-xl">Salary needed to buy a Texas house</strong>
+            <span className="mt-2 block text-sm leading-6 text-muted-foreground">Read the full affordability framework before treating one income or home-price number as a target.</span>
+          </Link>
           <Link to="/texas-mortgage-calculator" className="border border-border p-5 hover:border-primary">
             <strong className="font-display text-xl">Mortgage calculator</strong>
             <span className="mt-2 block text-sm leading-6 text-muted-foreground">Turn a purchase price into an estimated monthly payment with taxes and insurance.</span>
