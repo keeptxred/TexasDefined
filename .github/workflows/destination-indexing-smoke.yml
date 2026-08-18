@@ -18,6 +18,7 @@ on:
       - 'src/data/top-attraction-road-trips.ts'
       - 'src/data/top-attraction-authority-sources.ts'
       - 'src/data/top-attraction-authority-resolver.ts'
+      - 'src/data/top-attraction-reference-data.ts'
       - 'src/data/destination-authority-top-attractions.ts'
       - 'src/data/destination-timelines-top-attractions.ts'
       - 'src/data/destination-audit.ts'
@@ -61,6 +62,7 @@ jobs:
           authority_control="/destination/the-alamo"
           checklist="/top-25-texas-attractions-checklist.txt"
           comparison_csv="/top-25-texas-attractions.csv"
+          comparison_json="/top-25-texas-attractions.json"
           primary_url=""
 
           for attempt in $(seq 1 30); do
@@ -103,7 +105,7 @@ jobs:
             echo "Top 25 attractions collection rendered with a noindex directive." >&2
             exit 1
           fi
-          for marker in "/destination/the-alamo" "/destination/gruene-historic-district" "How this list is researched" "Download comparison CSV" "Top-25 road trips" "Methodology"; do
+          for marker in "/destination/the-alamo" "/destination/gruene-historic-district" "How this list is researched" "Source hierarchy" "Download comparison CSV" "Download reference JSON" "Top-25 road trips" "Methodology"; do
             grep -Fq "$marker" /tmp/top-attractions.html || {
               echo "Top 25 collection is missing required rendered marker: $marker" >&2
               exit 1
@@ -116,7 +118,7 @@ jobs:
           fi
 
           curl --retry 3 --retry-connrefused --max-time 45 -fsSL "$origin$methodology" -o /tmp/top25-methodology.html
-          for marker in "What qualifies for the collection" "Official sources control changing visitor facts" "No invented experience" "Shared comparison scale"; do
+          for marker in "What qualifies for the collection" "Official sources control changing visitor facts" "Controlling visitor source" "Supporting public or institutional authority" "Review sites are not authority evidence" "No invented experience" "Shared comparison scale" "Download JSON"; do
             grep -Fq "$marker" /tmp/top25-methodology.html || {
               echo "Top 25 methodology is missing required rendered marker: $marker" >&2
               exit 1
@@ -148,17 +150,25 @@ jobs:
           }
 
           curl --retry 3 --retry-connrefused --max-time 45 -fsSL "$origin$comparison_csv" -o /tmp/top25.csv
-          grep -Fq "rank,attraction_name,canonical_url" /tmp/top25.csv || {
-            echo "Top 25 CSV is missing its comparison header." >&2
-            exit 1
-          }
-          grep -Fq "The Alamo" /tmp/top25.csv || { echo "Top 25 CSV is missing The Alamo." >&2; exit 1; }
-          grep -Fq "Gruene Historic District" /tmp/top25.csv || { echo "Top 25 CSV is missing Gruene Historic District." >&2; exit 1; }
+          for marker in "rank,attraction_name,canonical_url" "authority_source_count" "authority_source_urls" "road_trip_names" "methodology_url" "The Alamo" "Gruene Historic District" "https://www.thealamo.org/remember/mission-valero"; do
+            grep -Fq "$marker" /tmp/top25.csv || {
+              echo "Top 25 CSV is missing required provenance marker: $marker" >&2
+              exit 1
+            }
+          done
           csv_lines="$(wc -l < /tmp/top25.csv | tr -d ' ')"
           if [ "$csv_lines" -ne 26 ]; then
             echo "Top 25 CSV has $csv_lines lines; expected 26 including the header." >&2
             exit 1
           fi
+
+          curl --retry 3 --retry-connrefused --max-time 45 -fsSL "$origin$comparison_json" -o /tmp/top25.json
+          for marker in '"schemaVersion": 1' '"count": 25' '"authoritySources"' '"roadTrips"' '"methodology"' '"name": "The Alamo"' '"name": "Gruene Historic District"' 'https://www.thealamo.org/remember/mission-valero'; do
+            grep -Fq "$marker" /tmp/top25.json || {
+              echo "Top 25 JSON is missing required provenance marker: $marker" >&2
+              exit 1
+            }
+          done
 
           curl --retry 3 --retry-connrefused --max-time 45 -fsSL "$origin$checklist" -o /tmp/top25-checklist.txt
           grep -Fq "01. The Alamo" /tmp/top25-checklist.txt || {
@@ -186,4 +196,4 @@ jobs:
             exit 1
           fi
 
-          echo "Destination indexing smoke passed with the Top 25 collection, methodology, road trips, multi-source authority layer, CSV, checklist, primary control $primary_url and non-primary status $non_primary_status."
+          echo "Destination indexing smoke passed with the Top 25 collection, methodology, road trips, multi-source authority layer, CSV, JSON, checklist, primary control $primary_url and non-primary status $non_primary_status."
