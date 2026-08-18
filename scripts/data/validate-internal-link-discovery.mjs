@@ -12,6 +12,8 @@ const calculatorPage = read('src/components/calculators/CalculatorPage.tsx');
 const financialToolsHub = read('src/routes/decide.financial-tools.tsx');
 const closingCostPage = read('src/routes/texas-closing-cost-calculator.tsx');
 const affordabilityPage = read('src/routes/texas-home-affordability-calculator.tsx');
+const utilityCostPage = read('src/routes/texas-utility-cost-calculator.tsx');
+const dataIndex = read('src/data/index.ts');
 const destinationPlanner = read('src/components/editorial/DestinationVisitPlanner.tsx');
 const destinationRelationships = read('src/components/editorial/DestinationRelationships.tsx');
 const texasExplainedContext = read('src/components/editorial/TexasExplainedContextLinks.tsx');
@@ -65,6 +67,7 @@ for (const [label, source, markers] of [
     'Separate the purchase price from the cash that changes hands at closing',
     'Build the full transaction budget',
     'Texas closing-cost calculator FAQ',
+    "slug: 'texas-closing-costs-guide'",
     'to="/texas-down-payment-calculator"',
     'to="/texas-mortgage-calculator"',
     'to="/texas-home-affordability-calculator"',
@@ -74,14 +77,37 @@ for (const [label, source, markers] of [
     'Estimate the housing payment your budget would actually carry',
     'Pressure-test the result',
     'Texas home affordability calculator FAQ',
+    "slug: 'salary-needed-to-buy-a-house-in-texas'",
     'to="/texas-mortgage-calculator"',
     'to="/texas-down-payment-calculator"',
     'to="/texas-closing-cost-calculator"',
+  ]],
+  ['Texas utility-cost calculator', utilityCostPage, [
+    'Texas Utility Cost Calculator | Estimate Electric, Gas & Water Bills',
+    'Estimate the bills beyond the mortgage',
+    "slug: 'texas-utility-costs-guide'",
+    "slug: 'how-to-choose-electricity-plan-texas'",
+    'to="/texas-homeownership-cost-calculator"',
   ]],
 ]) {
   for (const marker of markers) {
     if (!source.includes(marker)) failures.push(`${label} indexing-depth contract is missing ${marker}.`);
   }
+}
+
+for (const marker of [
+  '"texas-utility-costs-guide"',
+  'href: "/texas-utility-cost-calculator"',
+  '"texas-closing-costs-guide"',
+  'href: "/texas-closing-cost-calculator"',
+  '"texas-house-down-payment-guide"',
+  'href: "/texas-down-payment-calculator"',
+  '"salary-needed-to-buy-a-house-in-texas"',
+  'href: "/texas-home-affordability-calculator"',
+  '"true-cost-of-owning-a-home-in-texas"',
+  'href: "/texas-homeownership-cost-calculator"',
+]) {
+  if (!dataIndex.includes(marker)) failures.push(`Finance evergreen → calculator discovery contract is missing ${marker}.`);
 }
 
 for (const token of ['to="/explore/$category"', '/explore/trip-planner?destination=', 'to="/explore"', 'to="/browse/cities"']) {
@@ -146,4 +172,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Internal-link discovery pathways, sitewide Start Here resources link, Texas Explained links from Texas Life, county profiles, Guidebook, destination pages, fishing and sports venues, calculator hub inbound/outbound discovery, priority calculator indexing depth, structured calculator collection links and Explore sitemap coverage are protected.');
+console.log('Internal-link discovery pathways, sitewide Start Here resources link, Texas Explained links from Texas Life, county profiles, Guidebook, destination pages, fishing and sports venues, calculator hub inbound/outbound discovery, reciprocal finance evergreen/calculator clusters, priority calculator indexing depth, structured calculator collection links and Explore sitemap coverage are protected.');
