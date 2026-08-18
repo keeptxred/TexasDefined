@@ -3,11 +3,18 @@ import fs from 'node:fs';
 const listSource = fs.readFileSync('src/data/top-texas-attractions.ts', 'utf8');
 const authoritySource = fs.readFileSync('src/data/destination-authority-top-attractions.ts', 'utf8');
 const timelineSource = fs.readFileSync('src/data/destination-timelines-top-attractions.ts', 'utf8');
+const roadTripDataSource = fs.readFileSync('src/data/top-attraction-road-trips.ts', 'utf8');
 const componentSource = fs.readFileSync('src/components/editorial/DestinationAuthorityGuide.tsx', 'utf8');
 const relationshipSource = fs.readFileSync('src/components/editorial/DestinationRelationships.tsx', 'utf8');
+const trustRouterSource = fs.readFileSync('src/components/authority/CitationCollectionTrustRouter.tsx', 'utf8');
 const destinationRouteSource = fs.readFileSync('src/routes/destination.$slug.tsx', 'utf8');
 const hubSource = fs.readFileSync('src/routes/explore.top-attractions.tsx', 'utf8');
+const methodologySource = fs.readFileSync('src/routes/explore.top-attractions.methodology.tsx', 'utf8');
+const roadTripRouteSource = fs.readFileSync('src/routes/explore.top-attractions.road-trips.tsx', 'utf8');
 const checklistSource = fs.readFileSync('src/routes/top-25-texas-attractions-checklist[.]txt.ts', 'utf8');
+const csvSource = fs.readFileSync('src/routes/top-25-texas-attractions[.]csv.ts', 'utf8');
+const publicRoutesSource = fs.readFileSync('src/lib/public-routes.ts', 'utf8');
+const exploreSitemapSource = fs.readFileSync('src/routes/sitemap-explore[.]xml.ts', 'utf8');
 const citationManifest = fs.readFileSync('public/citation-magnets.json', 'utf8');
 const llmsSource = fs.readFileSync('src/routes/llms[.]txt.ts', 'utf8');
 
@@ -40,7 +47,7 @@ for (const feature of [
   if (!authoritySource.includes(feature)) failures.push(`Authority data contract missing ${feature}.`);
 }
 
-const itineraryCalls = (authoritySource.match(/\bitinerary\(/g) ?? []).length - 1; // subtract helper declaration
+const itineraryCalls = (authoritySource.match(/\bitinerary\(/g) ?? []).length - 1;
 if (itineraryCalls !== 75) failures.push(`Authority data has ${itineraryCalls} itinerary records; expected 75 (three per attraction).`);
 
 const timelineSlugs = [
@@ -60,6 +67,16 @@ const timelineEvents = (timelineSource.match(/sourceUrl:/g) ?? []).length;
 if (timelineEvents !== 24) failures.push(`Top attraction history timelines have ${timelineEvents} sourced events; expected 24.`);
 for (const feature of ['topAttractionTimeline', 'sourceLabel', 'sourceUrl']) {
   if (!timelineSource.includes(feature)) failures.push(`Timeline data contract missing ${feature}.`);
+}
+
+const routeCount = (roadTripDataSource.match(/\bid:\s*"[a-z0-9-]+"/g) ?? []).length;
+if (routeCount !== 7) failures.push(`Top 25 road-trip data has ${routeCount} routes; expected 7.`);
+for (const slug of slugs) {
+  const occurrences = (roadTripDataSource.match(new RegExp(`"${slug}"`, 'g')) ?? []).length;
+  if (occurrences !== 1) failures.push(`Road-trip collection must contain ${slug} exactly once; found ${occurrences}.`);
+}
+for (const feature of ['duration', 'summary', 'planningNote', 'TopAttractionRoadTrip']) {
+  if (!roadTripDataSource.includes(feature)) failures.push(`Road-trip data contract missing ${feature}.`);
 }
 
 for (const feature of [
@@ -88,17 +105,74 @@ for (const feature of ['applyTopAttractionAuthority', 'authorityCitations', 'cit
   if (!destinationRouteSource.includes(feature)) failures.push(`Destination structured authority layer missing ${feature}.`);
 }
 
-for (const feature of ['applyTopAttractionAuthority', 'assessment.recommendedVisit', 'assessment.physicalEffort', 'assessment.weatherExposure', 'assessment.planningLevel', 'Download Top 25 checklist']) {
-  if (!hubSource.includes(feature)) failures.push(`Top 25 hub comparison layer missing ${feature}.`);
+for (const feature of [
+  'applyTopAttractionAuthority',
+  'assessment.recommendedVisit',
+  'assessment.physicalEffort',
+  'assessment.weatherExposure',
+  'assessment.planningLevel',
+  'Download comparison CSV',
+  'Top-25 road trips',
+  'Methodology',
+  '"@type": "Dataset"',
+  '/top-25-texas-attractions.csv',
+]) {
+  if (!hubSource.includes(feature)) failures.push(`Top 25 hub authority layer missing ${feature}.`);
+}
+
+for (const feature of [
+  'Statewide significance',
+  'Distinctiveness',
+  'Trip-anchor value',
+  'Collection balance',
+  'Rank order:',
+  'Official sources control changing visitor facts',
+  'No invented experience',
+  'Missing beats guessing',
+  'Shared comparison scale',
+  '/top-25-texas-attractions.csv',
+]) {
+  if (!methodologySource.includes(feature)) failures.push(`Top 25 methodology page missing ${feature}.`);
+}
+
+for (const feature of [
+  'TOP_ATTRACTION_ROAD_TRIPS',
+  'TouristTrip',
+  'Planning logic',
+  'Start this route in Trip Planner',
+  '/explore/top-attractions/methodology',
+]) {
+  if (!roadTripRouteSource.includes(feature)) failures.push(`Top 25 road-trip route missing ${feature}.`);
 }
 
 for (const feature of ['TOP_TEXAS_ATTRACTIONS', 'content-disposition', 'citation-guide', 'explore/top-attractions']) {
   if (!checklistSource.includes(feature)) failures.push(`Top 25 checklist contract missing ${feature}.`);
 }
 
-for (const source of [citationManifest, llmsSource]) {
-  if (!source.includes('https://texasdefined.com/explore/top-attractions')) failures.push('Top 25 collection is missing from a citation/retrieval authority surface.');
+for (const feature of [
+  "createFileRoute('/top-25-texas-attractions.csv')",
+  'recommended_visit',
+  'physical_effort',
+  'weather_exposure',
+  'advance_planning',
+  'family_fit',
+  'first_time_texas_value',
+  'source_checked_at',
+  'official_url',
+  "'x-robots-tag': 'noindex, follow'",
+  'content-disposition',
+]) {
+  if (!csvSource.includes(feature)) failures.push(`Top 25 CSV contract missing ${feature}.`);
 }
+
+for (const path of ['/explore/top-attractions', '/explore/top-attractions/methodology', '/explore/top-attractions/road-trips']) {
+  if (!publicRoutesSource.includes(`"${path}"`)) failures.push(`Public-route governance missing ${path}.`);
+  if (!exploreSitemapSource.includes(`"${path}"`)) failures.push(`Explore sitemap missing ${path}.`);
+  if (!trustRouterSource.includes(`'${path}'`)) failures.push(`Visible trust router missing ${path}.`);
+  const absolute = `https://texasdefined.com${path}`;
+  if (!citationManifest.includes(absolute) || !llmsSource.includes(absolute)) failures.push(`Citation/retrieval surfaces missing ${absolute}.`);
+}
+if (!publicRoutesSource.includes('"/top-25-texas-attractions.csv"')) failures.push('Top 25 CSV is not governed as a public noindex route.');
 
 if (failures.length) {
   console.error('Top 25 attraction authority validation failed:');
@@ -106,4 +180,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Top 25 attraction authority validation passed: 25 authority records, 75 itineraries, 24 sourced timeline events, primary-source evidence, institutional author schema, review log, comparison fields, citation promotion and downloadable checklist are wired.');
+console.log('Top 25 attraction authority validation passed: 25 authority records, 75 itineraries, 24 sourced timeline events, seven complete road-trip clusters, methodology, comparison CSV, primary-source evidence, institutional author schema, trust panels and citation discovery are wired.');
