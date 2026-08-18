@@ -69,6 +69,7 @@ const LEGACY_ARTICLE_TO_COUNTY = new Map<string, string>([
   ["maverick-county-eagle-pass-fort-duncan-rio-grande-texas", "maverick"],
   ["kinney-county-brackettville-fort-clark-las-moras-texas", "kinney"],
   ["val-verde-county-del-rio-amistad-devils-river-lower-pecos-texas", "val-verde"],
+  ["edwards-county-rocksprings-devils-sinkhole-nueces-plateau-texas", "edwards"],
 ]);
 
 const COUNTY_SLUGS = new Set(LEGACY_ARTICLE_TO_COUNTY.values());
