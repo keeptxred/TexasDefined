@@ -60,6 +60,7 @@ const LEGACY_ARTICLE_TO_COUNTY = new Map<string, string>([
   ["nueces-county-corpus-christi-bay-islands-coastal-bend-texas", "nueces"],
   ["kleberg-county-kingsville-king-ranch-padre-island-texas", "kleberg"],
   ["kenedy-county-sarita-ranches-padre-island-wild-horse-desert-texas", "kenedy"],
+  ["willacy-county-raymondville-port-mansfield-laguna-madre-texas", "willacy"],
 ]);
 
 const COUNTY_SLUGS = new Set(LEGACY_ARTICLE_TO_COUNTY.values());
