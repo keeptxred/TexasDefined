@@ -1,13 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { getPaintedChurchesDirectoryData } from "@/data/painted-churches.functions";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const canonicalPath = "/explore/painted-churches";
 
 export const Route = createFileRoute("/explore/painted-churches")({
-  loader: () => getPaintedChurchesDirectoryData(),
+  loader: async () => {
+    const { getPaintedChurchesDirectoryData } = await import("@/data/painted-churches.functions");
+    return getPaintedChurchesDirectoryData();
+  },
   head: ({ loaderData }) => {
     const origin = `https://${texasDefinedBrand.identity.domain}`;
     const churches = loaderData?.paintedChurches ?? [];
