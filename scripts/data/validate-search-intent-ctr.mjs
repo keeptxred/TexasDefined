@@ -12,7 +12,7 @@ const entityRegistry = fs.readFileSync('src/data/texas-entity-registry.ts', 'utf
 const knowledgeGraph = fs.readFileSync('src/data/knowledge-graph/index.ts', 'utf8');
 const localGovernment = fs.readFileSync('src/data/local-government-profile.ts', 'utf8');
 const serverRoute = fs.readFileSync('src/server.ts', 'utf8');
-const countySeries = fs.readFileSync('src/data/county-series.ts', 'utf8');
+const countySeries = fs.readFileSync('src/data/county-series-profiles.ts', 'utf8');
 const queriesSource = fs.readFileSync('src/data/queries.ts', 'utf8');
 const failures = [];
 
