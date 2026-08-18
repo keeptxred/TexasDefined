@@ -73,4 +73,5 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   profile("uvalde", "uvalde-county-uvalde-garner-frio-fort-inge-texas", () => import("@/data/fixtures/uvalde-county-uvalde-garner-frio-fort-inge").then((module) => module.uvaldeCountyUvaldeGarnerFrioFortIngeArticle)),
   profile("zavala", "zavala-county-crystal-city-winter-garden-nueces-texas", () => import("@/data/fixtures/zavala-county-crystal-city-winter-garden-nueces").then((module) => module.zavalaCountyCrystalCityWinterGardenNuecesArticle)),
   profile("dimmit", "dimmit-county-carrizo-springs-winter-garden-nueces-texas", () => import("@/data/fixtures/dimmit-county-carrizo-springs-winter-garden-nueces").then((module) => module.dimmitCountyCarrizoSpringsWinterGardenNuecesArticle)),
+  profile("la-salle", "la-salle-county-cotulla-nueces-winter-garden-brush-country-texas", () => import("@/data/fixtures/la-salle-county-cotulla-nueces-winter-garden-brush-country").then((module) => module.laSalleCountyCotullaNuecesWinterGardenBrushCountryArticle)),
 ];
