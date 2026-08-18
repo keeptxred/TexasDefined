@@ -31,6 +31,22 @@ async function resolveAssetsDir() {
   );
 }
 
+async function printLargestMainSources(assetsDir, mainFile) {
+  const mapPath = path.join(assetsDir, `${mainFile}.map`);
+  try {
+    const map = JSON.parse(await readFile(mapPath, 'utf8'));
+    const rows = (map.sources ?? [])
+      .map((source, index) => ({ source, bytes: (map.sourcesContent?.[index] ?? '').length }))
+      .filter((row) => row.bytes > 0 && !row.source.includes('/node_modules/') && row.source.includes('/src/'))
+      .sort((a, b) => b.bytes - a.bytes)
+      .slice(0, 60);
+    console.log('Largest application sources present in main sourcemap:');
+    for (const row of rows) console.log(`${String(row.bytes).padStart(8)}  ${row.source}`);
+  } catch (error) {
+    console.log(`Bundle diagnostic sourcemap unavailable: ${error instanceof Error ? error.message : error}`);
+  }
+}
+
 async function main() {
   const viteConfig = await readFile(viteConfigPath, 'utf8');
   if (!/autoCodeSplitting\s*:\s*false/.test(viteConfig)) {
@@ -47,6 +63,7 @@ async function main() {
   const mainFile = mainCandidates[0];
   const mainBytes = (await stat(path.join(assetsDir, mainFile))).size;
   if (mainBytes > MAX_MAIN_BYTES) {
+    await printLargestMainSources(assetsDir, mainFile);
     throw new Error(`Main client bundle ${mainFile} is ${mainBytes.toLocaleString()} bytes; budget is ${MAX_MAIN_BYTES.toLocaleString()} bytes (stable baseline ${STABLE_MAIN_BASELINE_BYTES.toLocaleString()} bytes).`);
   }
 
