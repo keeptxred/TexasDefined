@@ -6,13 +6,13 @@ import { Container } from "@/components/layout/Container";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const canonicalPath = "/explore/top-attractions/methodology";
-const description = "How TexasDefined selects, ranks, researches, verifies and updates its Top 25 Texas Attractions collection, including source precedence and the editorial planning scales used across all 25 guides.";
+const description = "How TexasDefined selects, ranks, researches, verifies and updates its Top 25 Texas Attractions collection, including source precedence, supporting authority evidence and the editorial planning scales used across all 25 guides.";
 
 const criteria = [
   ["Statewide significance", "Does the place explain an important part of Texas history, culture, landscape, science, ecology or public life?"],
   ["Distinctiveness", "Does the attraction offer an experience that is unusually Texas-specific or nationally significant in its Texas setting?"],
   ["Trip-anchor value", "Can a traveler reasonably build a half-day, full day, weekend or regional itinerary around it?"],
-  ["Visitor usefulness", "Can TexasDefined provide durable planning information, an official source and enough surrounding context to make the guide genuinely useful?"],
+  ["Visitor usefulness", "Can TexasDefined provide durable planning information, a controlling official source and enough surrounding context to make the guide genuinely useful?"],
   ["Collection balance", "Does the full list represent multiple Texas regions and attraction types rather than simply repeating the state's largest cities?"],
 ] as const;
 
@@ -23,6 +23,12 @@ const scales = [
   ["Advance planning", "Low, moderate or high based on reservations, timed entry, permits, distance, capacity or other logistics that materially affect a normal visit."],
   ["Family fit", "Editorial guidance about the kind of family visit the attraction supports, without inventing age guarantees or replacing a parent's judgment."],
   ["First-time Texas value", "How useful the attraction is for a visitor trying to understand a major Texas story, landscape or city for the first time."],
+] as const;
+
+const sourceHierarchy = [
+  ["1. Controlling visitor source", "The attraction operator or responsible public agency controls current admission, reservations, closures, accessibility, permits, hours and other operational guidance."],
+  ["2. Supporting public or institutional authority", "Government agencies, universities, UNESCO, preservation bodies, conservation programs and the attraction's own history/science resources can support significance, history, geology, ecology, accessibility or institutional context."],
+  ["3. TexasDefined editorial synthesis", "TexasDefined combines verified facts with geography and trip context to produce planning assessments, itineraries, nearby-area guidance and route structures. Those fields are clearly labeled as editorial judgment."],
 ] as const;
 
 export const Route = createFileRoute("/explore/top-attractions/methodology")({
@@ -86,12 +92,17 @@ function TopAttractionsMethodologyPage() {
 
     <Section>
       <Container>
-        <SectionHeader eyebrow="Source policy" title="Official sources control changing visitor facts" description="TexasDefined separates durable editorial context from operational information that can change after publication." />
-        <div className="mt-10 grid gap-8 lg:grid-cols-2">
-          <article className="border-y border-border py-7"><h2 className="font-display text-3xl">Controlling sources</h2><p className="mt-4 text-sm leading-7 text-muted-foreground">For admission rules, reservations, closures, accessibility, permits, hours, event-day restrictions and current visitor operations, the attraction operator or responsible public agency is the controlling source. Each Top-25 guide exposes that source and a review date.</p></article>
+        <SectionHeader eyebrow="Source hierarchy" title="Official sources control changing visitor facts" description="TexasDefined keeps current operations, supporting evidence and editorial synthesis separate so readers can see which source should control which kind of claim." />
+        <ol className="mt-10 grid gap-7 lg:grid-cols-3">
+          {sourceHierarchy.map(([title, body]) => <li key={title} className="border-t-2 border-foreground pt-5"><h2 className="font-display text-3xl">{title}</h2><p className="mt-4 text-sm leading-7 text-muted-foreground">{body}</p></li>)}
+        </ol>
+        <div className="mt-12 grid gap-8 lg:grid-cols-2">
+          <article className="border-y border-border py-7"><h2 className="font-display text-3xl">Supporting sources do not override the operator</h2><p className="mt-4 text-sm leading-7 text-muted-foreground">A National Park Service history page, university research page, UNESCO designation, state historic record or conservation program can deepen the evidence behind a guide, but it does not replace the attraction operator's current visitor instructions. The guide labels the controlling source separately from supporting authority sources.</p></article>
+          <article className="border-y border-border py-7"><h2 className="font-display text-3xl">Review sites are not authority evidence</h2><p className="mt-4 text-sm leading-7 text-muted-foreground">User-review platforms, generic travel blogs and social popularity can be useful for discovering questions, but they are not used as evidence for the Top-25 authority layer. The source list favors operators, public agencies, universities, preservation bodies, official destination organizations and other accountable institutions.</p></article>
           <article className="border-y border-border py-7"><h2 className="font-display text-3xl">No invented experience</h2><p className="mt-4 text-sm leading-7 text-muted-foreground">TexasDefined does not label research-based planning judgment as first-hand experience. A page may synthesize official visitor information, geography and surrounding trip context without claiming that an editor personally visited unless that experience is actually documented.</p></article>
           <article className="border-y border-border py-7"><h2 className="font-display text-3xl">Missing beats guessing</h2><p className="mt-4 text-sm leading-7 text-muted-foreground">When a durable fact cannot be supported confidently, the guide should omit it or point the reader to the official source rather than inventing a price, schedule, policy, review score or operating detail.</p></article>
-          <article className="border-y border-border py-7"><h2 className="font-display text-3xl">Review dates are evidence</h2><p className="mt-4 text-sm leading-7 text-muted-foreground">The visible source-check date records when the visitor-information layer was reviewed. It does not guarantee that a changing condition remained unchanged afterward; current-day operations should always be reconfirmed with the linked source.</p></article>
+          <article className="border-y border-border py-7"><h2 className="font-display text-3xl">Review dates are evidence</h2><p className="mt-4 text-sm leading-7 text-muted-foreground">The visible source-check date records when the visitor-information layer was reviewed. It does not guarantee that a changing condition remained unchanged afterward; current-day operations should always be reconfirmed with the linked controlling source.</p></article>
+          <article className="border-y border-border py-7"><h2 className="font-display text-3xl">Source URLs travel with the data</h2><p className="mt-4 text-sm leading-7 text-muted-foreground">The downloadable CSV and JSON distributions expose the authority-source count and source URLs alongside the editorial comparison fields, so researchers can inspect the evidence behind a row rather than receiving a score without provenance.</p></article>
         </div>
       </Container>
     </Section>
@@ -108,8 +119,8 @@ function TopAttractionsMethodologyPage() {
     <Section>
       <Container>
         <div className="grid gap-10 lg:grid-cols-3">
-          <article><p className="eyebrow text-primary">Corrections</p><h2 className="mt-2 font-display text-3xl">Change the record when evidence changes</h2><p className="mt-4 text-sm leading-7 text-muted-foreground">If an official source changes a material visitor fact, the destination record, review note and source-check date should be updated together. TexasDefined's broader corrections and editorial-accountability policy is described on the About page.</p><Link to="/about" className="eyebrow mt-5 inline-block border-b border-primary pb-1 text-primary">Editorial accountability →</Link></article>
-          <article><p className="eyebrow text-primary">Machine-readable</p><h2 className="mt-2 font-display text-3xl">Use the comparison dataset</h2><p className="mt-4 text-sm leading-7 text-muted-foreground">A CSV distribution exposes the ranked list, planning fields, canonical URLs, official-source URLs and review dates. The human-readable Top-25 page remains the canonical editorial reference.</p><a href="/top-25-texas-attractions.csv" className="eyebrow mt-5 inline-block border-b border-primary pb-1 text-primary">Download CSV →</a></article>
+          <article><p className="eyebrow text-primary">Corrections</p><h2 className="mt-2 font-display text-3xl">Change the record when evidence changes</h2><p className="mt-4 text-sm leading-7 text-muted-foreground">If a controlling source changes a material visitor fact, the destination record, review note and source-check date should be updated together. TexasDefined's broader corrections and editorial-accountability policy is described on the About page.</p><Link to="/about" className="eyebrow mt-5 inline-block border-b border-primary pb-1 text-primary">Editorial accountability →</Link></article>
+          <article><p className="eyebrow text-primary">Machine-readable</p><h2 className="mt-2 font-display text-3xl">Use the comparison datasets</h2><p className="mt-4 text-sm leading-7 text-muted-foreground">CSV and JSON distributions expose the ranked list, planning fields, canonical URLs, review dates and multi-source evidence. The human-readable Top-25 page remains the canonical editorial reference.</p><div className="mt-5 flex flex-wrap gap-5"><a href="/top-25-texas-attractions.csv" className="eyebrow border-b border-primary pb-1 text-primary">Download CSV →</a><a href="/top-25-texas-attractions.json" className="eyebrow border-b border-primary pb-1 text-primary">Download JSON →</a></div></article>
           <article><p className="eyebrow text-primary">Trip synthesis</p><h2 className="mt-2 font-display text-3xl">See how the 25 combine</h2><p className="mt-4 text-sm leading-7 text-muted-foreground">The road-trip collection turns the ranked list into geographic route structures while keeping every attraction tied to its own verified guide.</p><Link to="/explore/top-attractions/road-trips" className="eyebrow mt-5 inline-block border-b border-primary pb-1 text-primary">Top-25 road trips →</Link></article>
         </div>
       </Container>
@@ -117,7 +128,7 @@ function TopAttractionsMethodologyPage() {
 
     <Section tone="ink">
       <Container>
-        <SectionHeader eyebrow="Citation" title="How to use this collection as a reference" description="Cite the canonical Top-25 page for the collection and individual destination pages for attraction-specific planning context. Preserve the visible review date and linked official-source caveat when the underlying fact can change." />
+        <SectionHeader eyebrow="Citation" title="How to use this collection as a reference" description="Cite the canonical Top-25 page for the collection and individual destination pages for attraction-specific planning context. Preserve the visible review date and controlling-source caveat when the underlying fact can change." />
         <div className="mt-7 flex flex-wrap gap-5 text-sm font-semibold"><Link to="/explore/top-attractions" className="border-b border-ink-foreground/50 text-ink-foreground">Top 25 collection →</Link><Link to="/citation-guide" className="border-b border-ink-foreground/50 text-ink-foreground">Citation guide →</Link><Link to="/authors/$author" params={{ author: "a-hollis" }} className="border-b border-ink-foreground/50 text-ink-foreground">Texas Defined Editorial Desk →</Link></div>
       </Container>
     </Section>
