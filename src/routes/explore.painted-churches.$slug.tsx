@@ -3,6 +3,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
 import { paintedChurchExtendedProfileBySlug } from "@/data/painted-church-profiles-extended";
+import { paintedChurchStatewideProfileBySlug } from "@/data/painted-church-profiles-statewide";
 import { paintedChurchProfileBySlug } from "@/data/painted-church-profiles";
 import { paintedChurchBySlug, paintedChurches } from "@/data/painted-churches";
 import { buildMeta, canonicalLink } from "@/lib/seo";
@@ -13,7 +14,10 @@ export const Route = createFileRoute("/explore/painted-churches/$slug")({
   loader: ({ params }) => {
     const church = paintedChurchBySlug(params.slug);
     if (!church) throw notFound();
-    const profile = paintedChurchProfileBySlug(params.slug) ?? paintedChurchExtendedProfileBySlug(params.slug);
+    const profile =
+      paintedChurchProfileBySlug(params.slug) ??
+      paintedChurchExtendedProfileBySlug(params.slug) ??
+      paintedChurchStatewideProfileBySlug(params.slug);
     return { church, profile };
   },
   head: ({ loaderData, params }) => {
@@ -145,7 +149,7 @@ function PaintedChurchDetail() {
                   {profile.architecture && <div className="border-b border-border py-5 sm:border-r sm:pr-6"><dt className="eyebrow text-muted-foreground">Architecture</dt><dd className="mt-2 text-base">{profile.architecture}</dd></div>}
                   {profile.architect && <div className="border-b border-border py-5 sm:pl-6"><dt className="eyebrow text-muted-foreground">Architect</dt><dd className="mt-2 text-base">{profile.architect}</dd></div>}
                   {profile.builder && <div className="border-b border-border py-5 sm:border-r sm:pr-6"><dt className="eyebrow text-muted-foreground">Builder</dt><dd className="mt-2 text-base">{profile.builder}</dd></div>}
-                  {profile.artists?.length && <div className="border-b border-border py-5 sm:pl-6"><dt className="eyebrow text-muted-foreground">Interior artists</dt><dd className="mt-2 text-base">{profile.artists.join(" and ")}</dd></div>}
+                  {profile.artists?.length ? <div className="border-b border-border py-5 sm:pl-6"><dt className="eyebrow text-muted-foreground">Interior artists</dt><dd className="mt-2 text-base">{profile.artists.join(" and ")}</dd></div> : null}
                   {profile.heritage && <div className="py-5 sm:col-span-2"><dt className="eyebrow text-muted-foreground">Cultural background</dt><dd className="mt-2 text-base leading-7">{profile.heritage}</dd></div>}
                 </dl>
                 <dl className="mt-8 grid gap-x-10 gap-y-6 sm:grid-cols-2">
