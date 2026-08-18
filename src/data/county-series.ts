@@ -67,6 +67,7 @@ const LEGACY_ARTICLE_TO_COUNTY = new Map<string, string>([
   ["zapata-county-zapata-san-ygnacio-falcon-rio-grande-texas", "zapata"],
   ["webb-county-laredo-rio-grande-trade-borderlands-texas", "webb"],
   ["maverick-county-eagle-pass-fort-duncan-rio-grande-texas", "maverick"],
+  ["kinney-county-brackettville-fort-clark-las-moras-texas", "kinney"],
 ]);
 
 const COUNTY_SLUGS = new Set(LEGACY_ARTICLE_TO_COUNTY.values());
