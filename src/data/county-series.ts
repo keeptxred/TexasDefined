@@ -65,6 +65,7 @@ const LEGACY_ARTICLE_TO_COUNTY = new Map<string, string>([
   ["hidalgo-county-edinburg-mcallen-mission-rio-grande-valley-texas", "hidalgo"],
   ["starr-county-rio-grande-city-roma-fort-ringgold-borderlands-texas", "starr"],
   ["zapata-county-zapata-san-ygnacio-falcon-rio-grande-texas", "zapata"],
+  ["webb-county-laredo-rio-grande-trade-borderlands-texas", "webb"],
 ]);
 
 const COUNTY_SLUGS = new Set(LEGACY_ARTICLE_TO_COUNTY.values());
