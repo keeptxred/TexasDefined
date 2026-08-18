@@ -20,7 +20,7 @@ export const valVerdeCountyDelRioAmistadDevilsRiverLowerPecosArticle: Article = 
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-18",
-  readingMinutes: 10,
+  readingMinutes: 7,
   tags: [
     "Val Verde County",
     "Del Rio",
@@ -45,43 +45,37 @@ export const valVerdeCountyDelRioAmistadDevilsRiverLowerPecosArticle: Article = 
   relatedCollections: [],
   relatedDestinations: [],
   body: [
-    p("Val Verde County is one of the places where Texas changes character in a matter of miles. Del Rio sits beside spring-fed San Felipe Creek near the Rio Grande, green enough to justify the county's Spanish name even though much of the surrounding landscape is dry limestone and thorn scrub. North and west of town, the county opens into enormous ranches, canyon-cut plateaus and river country. Amistad Reservoir spreads blue water through former desert canyons, while the Devils and Pecos rivers carve some of the state's most dramatic terrain."),
-    p("The county is vast and lightly settled outside Del Rio. U.S. 90 crosses it from the Kinney County line toward Comstock, the Pecos and Langtry, following a corridor used in different eras by Indigenous peoples, military patrols, ranchers, railroad crews and border communities. Water, distance and the international boundary explain much of Val Verde County's history."),
+    p("Val Verde County is where spring-fed Del Rio meets the dry limestone country of southwest Texas. North and west of town, ranches stretch toward Amistad Reservoir and the canyon-cut Devils and Pecos rivers. U.S. 90 crosses a landscape whose settlement has always depended on water, distance and the Rio Grande border."),
 
-    h("The Lower Pecos preserves thousands of years of history"),
-    p("Long before county lines existed, people lived in the limestone canyons of the Lower Pecos. Dry rock shelters preserved tools, plant-fiber artifacts, food remains and painted rock art that give archaeologists an unusually detailed record of life in the borderlands. Seminole Canyon State Park and Historic Site near Comstock protects major examples of this cultural landscape, including Fate Bell Shelter and its large pictographs."),
-    p("The canyon country also explains why western Val Verde County remains so sparsely populated. Steep drainages, thin soils and limited water made intensive settlement difficult, but those same conditions helped preserve archaeological sites and a sense of remoteness that survives along U.S. 90 today."),
+    h("The Lower Pecos holds one of Texas's deepest human records"),
+    p("People lived in the Lower Pecos canyons thousands of years before modern county lines. Dry rock shelters preserved tools, fiber artifacts, food remains and painted rock art. Seminole Canyon State Park and Historic Site near Comstock protects major examples, including Fate Bell Shelter, making western Val Verde County one of Texas's most important archaeological landscapes."),
 
     h("San Felipe Springs made Del Rio possible"),
-    p("Del Rio grew because San Felipe Springs provided dependable water in an arid region. After the Civil War, developers built canals to carry spring water to fields and orchards, allowing a permanent agricultural community to form beside San Felipe Creek. The spring-fed corridor still gives Del Rio clear water, mature trees and green space that sharply contrast with the dry plateau beyond town."),
-    p("Val Verde County was organized in 1885 from territory taken from neighboring counties, with Del Rio as county seat. The railroad had recently reached the area, ranching was expanding and the new county reduced the huge distances residents had to travel for courts, deeds, elections and taxes. The historic Val Verde County Courthouse remains one of Del Rio's principal civic landmarks."),
+    p("Del Rio grew around San Felipe Springs, whose dependable flow supported irrigation in an otherwise arid region. Canals carried spring water to fields and orchards after the Civil War, and San Felipe Creek still creates a green corridor through the city. Val Verde County was organized in 1885 with Del Rio as county seat after railroad and ranching growth made local government increasingly necessary."),
+    p("The historic Val Verde County Courthouse remains a civic anchor downtown. Its location reflects Del Rio's lasting role as the service center for a county covering thousands of square miles of ranch, river and canyon country."),
 
-    h("Railroads, ranches and Langtry shaped the frontier county"),
-    p("The Galveston, Harrisburg and San Antonio Railway reached the region in the early 1880s as part of the route linking San Antonio with El Paso. Rail service made it easier to ship cattle, sheep, goats, wool and supplies, reinforced Del Rio's role as the service center and created small stations across the western county. U.S. 90 later followed the same broad east-west transportation logic."),
-    p("Langtry became the most famous of those railroad communities through Roy Bean, the saloonkeeper and justice of the peace who cultivated the legend of the 'Law West of the Pecos.' The Jersey Lilly and the modern visitor center preserve that story, but Langtry also represents the practical problem that created it: railroads needed stations, water and workers even in extremely isolated country."),
+    h("Railroads, ranching and Langtry shaped the frontier era"),
+    p("The railroad reached the region in the early 1880s, linking Del Rio with San Antonio, El Paso and national markets. It strengthened ranching and created stations across the western county. Cattle, sheep and goats fit the rocky, dry landscape better than intensive farming, and ranches still dominate much of the open land."),
+    p("Langtry became famous through Roy Bean, the saloonkeeper and justice of the peace associated with the legend of the 'Law West of the Pecos.' The preserved Jersey Lilly and visitor center interpret that story, while the tiny community itself shows why railroads needed isolated stations and workers along this difficult route."),
 
-    h("The Pecos and Devils rivers cut through limestone country"),
-    p("The Pecos River enters the Rio Grande in southwestern Val Verde County after passing through a deep limestone canyon. Modern travelers cross it on the high U.S. 90 bridge, where overlooks reveal why the Pecos became such a powerful geographic boundary in Texas lore. The Devils River approaches from the north through rugged, spring-fed canyon country before entering Amistad Reservoir."),
-    p("The Devils is known for clear water, deep pools and difficult access. Its relative isolation has limited development, but it also makes groundwater, drought and recreation pressure important conservation issues. Both rivers show how scarce water can create the county's most dramatic landscapes."),
+    h("The Pecos, Devils and Rio Grande define the landscape"),
+    p("The Pecos River cuts through a deep limestone canyon before meeting the Rio Grande, and the U.S. 90 high bridge provides one of the county's most dramatic views. The spring-fed Devils River flows through rugged country from the north. Its clear pools and limited public access have made it one of Texas's best-known wild-river landscapes and a focus of groundwater and habitat conservation."),
 
-    h("Amistad transformed the border landscape"),
-    p("International Amistad Dam was built jointly by the United States and Mexico on the Rio Grande northwest of Del Rio. The reservoir flooded former river canyons and created a branching lake extending into the Rio Grande, Pecos and Devils systems. The project serves water-management purposes while also creating one of southwest Texas's major recreation destinations."),
-    p("The National Park Service manages the U.S. shoreline as Amistad National Recreation Area. Boating, paddling, fishing, camping and hiking draw visitors to blue water bordered by pale limestone and desert vegetation. The recreation area also protects cultural resources in a landscape with nearly five millennia of documented human history."),
+    h("Amistad transformed the border canyons"),
+    p("The United States and Mexico built International Amistad Dam on the Rio Grande northwest of Del Rio. The resulting reservoir flooded former river canyons and now reaches into the Rio Grande, Pecos and Devils systems. The National Park Service manages the U.S. shoreline as Amistad National Recreation Area, where boating, fishing, paddling, camping and archaeology share the same desert-water setting."),
+    p("Amistad is more than a recreation lake. It reshaped the county's geography while serving water-management and flood-control purposes, and its blue coves against pale limestone have become one of Val Verde County's defining modern landscapes."),
 
-    h("Del Rio remains a military and cross-border city"),
-    p("Laughlin Air Force Base east of Del Rio ties the county to the national military aviation system and remains one of the area's major institutions. Military families add a mobile population to a region otherwise shaped by long-established ranching and border communities, supporting housing, schools, retail and local services."),
-    p("Across the Rio Grande, Ciudad Acuña, Coahuila, forms the other half of a longstanding cross-border relationship. Family ties, trade, food, music and daily legal crossings connect the two cities. Del Rio's identity is distinctly Texan, but its history and economy make little sense without the northern Mexican communities immediately across the river."),
+    h("Del Rio is both a military city and a border city"),
+    p("Laughlin Air Force Base east of Del Rio is one of the county's major institutions and ties the region to national military aviation and pilot training. Across the Rio Grande, Ciudad Acuña, Coahuila, forms a longstanding cross-border counterpart. Family relationships, legal trade, food, music and daily movement connect the two cities even as the international boundary remains central to local life."),
 
-    h("Ranching still defines most of the open land"),
-    p("More than two-thirds of Val Verde County lies within the Edwards Plateau, while western and southern sections increasingly resemble Chihuahuan Desert and Tamaulipan borderlands. Much of the land is too rocky and dry for intensive farming, so cattle, sheep and goats historically fit the landscape better. Modern ranches may combine livestock with hunting, wildlife management, conservation and mineral income."),
-    p("Del Rio concentrates most county services, but smaller places such as Comstock and Langtry remain important gateways to the western ranch and canyon country. The county's economy also includes government, military activity, tourism, transportation and cross-border commerce. Val Verde Winery, established in the nineteenth century near Del Rio's irrigated spring country, is a striking reminder that dependable water can support intensive agriculture even within an overwhelmingly ranch-oriented county."),
+    h("Ranch country meets the Edwards Plateau and desert borderlands"),
+    p("Much of Val Verde County lies on the Edwards Plateau, but the western and southern landscape increasingly resembles the Chihuahuan Desert borderlands. Limestone mesas, arroyos, thorny shrubs, sotol and open ranch grasslands replace greener country farther east. Ranching remains important, often combined with hunting, wildlife management, conservation and mineral income."),
+    p("Del Rio concentrates most services, but Comstock and Langtry remain gateways to the western county. Val Verde Winery, established in the nineteenth century near the irrigated spring corridor, provides a striking counterpoint to the surrounding ranch economy and again shows how reliable water shaped local development."),
 
     h("How to explore Val Verde County"),
-    p("Start in Del Rio at the county courthouse and San Felipe Creek to understand why the city exists where it does. Then head northwest to Amistad for overlooks, shoreline recreation and views of the reservoir's limestone setting. The contrast between spring-fed Del Rio and the open plateau becomes obvious within a short drive."),
-    p("For a deeper look at the county, follow U.S. 90 west to Comstock and Seminole Canyon State Park, then continue to the Pecos River High Bridge. Travelers with more time can push farther toward Langtry. The distances are significant, but that is part of the experience: Val Verde County is best understood by seeing how much open country separates its communities and landmarks."),
+    p("Begin in Del Rio at the courthouse and San Felipe Creek, then drive northwest to Amistad for reservoir and canyon views. For the Lower Pecos story, follow U.S. 90 west to Comstock and Seminole Canyon State Park, continue to the Pecos River High Bridge, and, with enough time, push farther toward Langtry. The long distances are part of the experience and reveal how sparsely settled the county remains."),
 
     h("What defines Val Verde County"),
-    p("Val Verde County is defined by water in a dry landscape. San Felipe Springs created Del Rio; the Devils and Pecos rivers cut through limestone; the Rio Grande established an international boundary and cross-border community; and Amistad reshaped the canyons into a modern reservoir. Those waters connect thousands of years of Lower Pecos history with ranching, railroads, military aviation and present-day recreation."),
-    p("From the courthouse in Del Rio to the rock shelters of Seminole Canyon and the canyon rim above the Pecos, the county shows how landscape controls settlement. It is one of Texas's clearest examples of a place where geography is not background scenery but the central force shaping culture, economy and history."),
+    p("Val Verde County is defined by water in a dry landscape. San Felipe Springs created Del Rio; the Devils and Pecos rivers cut through limestone; the Rio Grande created an international border and cross-border community; and Amistad reshaped the canyons into a modern reservoir. Lower Pecos rock art, ranching, railroads, military aviation and border trade all occupy the same enormous geography, making the county one of Texas's clearest examples of landscape shaping history."),
   ],
 };
