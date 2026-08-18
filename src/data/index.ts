@@ -122,6 +122,76 @@ const EDITORIAL_HERO_OVERRIDES: Partial<Record<string, Article["hero"]>> = {
 };
 
 const ARTICLE_INTERNAL_LINK_ADDITIONS: Partial<Record<string, NonNullable<Article["internalLinks"]>>> = {
+  "texas-utility-costs-guide": [
+    {
+      href: "/texas-utility-cost-calculator",
+      label: "Estimate your Texas utility budget",
+      description: "Turn electricity, water, gas, internet and trash assumptions into a monthly and annual household estimate.",
+    },
+    {
+      href: "/article/how-to-choose-electricity-plan-texas",
+      label: "Compare Texas electricity plans",
+      description: "Understand plan structure, usage assumptions and Electricity Facts Labels before estimating power costs.",
+    },
+    {
+      href: "/texas-homeownership-cost-calculator",
+      label: "See the full cost of homeownership",
+      description: "Combine utilities with mortgage, taxes, insurance, maintenance and other recurring ownership costs.",
+    },
+  ],
+  "texas-closing-costs-guide": [
+    {
+      href: "/texas-closing-cost-calculator",
+      label: "Estimate Texas closing costs",
+      description: "Model buyer and seller transaction costs, credits and cash-to-close assumptions.",
+    },
+    {
+      href: "/texas-down-payment-calculator",
+      label: "Plan the down payment and cash reserve",
+      description: "Keep the down payment, expected closing costs and post-closing reserves in the same planning view.",
+    },
+    {
+      href: "/texas-mortgage-calculator",
+      label: "Estimate the monthly housing payment",
+      description: "Continue from one-time transaction costs to the recurring mortgage, tax and insurance estimate.",
+    },
+  ],
+  "texas-house-down-payment-guide": [
+    {
+      href: "/texas-down-payment-calculator",
+      label: "Run a down-payment scenario",
+      description: "Compare down payment, loan amount, closing costs and the cash reserve left after closing.",
+    },
+    {
+      href: "/texas-closing-cost-calculator",
+      label: "Estimate closing costs separately",
+      description: "See why the down payment is not the same thing as the total cash needed at closing.",
+    },
+  ],
+  "salary-needed-to-buy-a-house-in-texas": [
+    {
+      href: "/texas-home-affordability-calculator",
+      label: "Estimate a Texas home-price range",
+      description: "Use income, debts, down payment, taxes and insurance to test a household-specific affordability scenario.",
+    },
+    {
+      href: "/texas-mortgage-calculator",
+      label: "Turn a home price into a monthly payment",
+      description: "Estimate principal, interest, property taxes and homeowners insurance together.",
+    },
+  ],
+  "true-cost-of-owning-a-home-in-texas": [
+    {
+      href: "/texas-homeownership-cost-calculator",
+      label: "Build the full ownership budget",
+      description: "Combine mortgage, taxes, insurance, utilities, maintenance and other recurring home costs.",
+    },
+    {
+      href: "/texas-utility-cost-calculator",
+      label: "Estimate household utilities",
+      description: "Break out electricity, water, gas, internet and trash before folding them into the ownership budget.",
+    },
+  ],
   "ward-county-monahans-sandhills-texas": [
     {
       href: "/article/winkler-county-kermit-wink-oil-texas",
