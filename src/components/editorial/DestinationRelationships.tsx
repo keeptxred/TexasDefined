@@ -66,7 +66,7 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
   const topAttractionRank = topTexasAttractionRank(destination.slug);
 
   return <>
-    {destination.authorityGuide ? <Suspense fallback={null}><DestinationAuthorityGuide destination={destination} /></Suspense> : null}
+    {topAttractionRank ? <Suspense fallback={null}><DestinationAuthorityGuide destination={destination} /></Suspense> : null}
     <DestinationAreaGuideSection destination={destination} />
 
     {groups.length ? <>
