@@ -1,12 +1,13 @@
 import { createFileRoute } from '@tanstack/react-router';
 
-import { applyTopAttractionAuthority } from '@/data/destination-authority-top-attractions';
 import { topAttractionExpansionDestinations } from '@/data/destination-curation-top-attractions-fallbacks';
 import { topAttractionDestinations } from '@/data/destination-curation-top-attractions';
+import { resolveTopAttractionAuthority } from '@/data/top-attraction-authority-resolver';
 import { TOP_TEXAS_ATTRACTIONS } from '@/data/top-texas-attractions';
 import type { Destination } from '@/data/types';
 
 const siteUrl = 'https://texasdefined.com';
+const methodologyUrl = `${siteUrl}/explore/top-attractions/methodology`;
 const headers = [
   'rank',
   'attraction_name',
@@ -23,6 +24,9 @@ const headers = [
   'first_time_texas_value',
   'source_checked_at',
   'official_url',
+  'authority_source_count',
+  'authority_source_urls',
+  'methodology_url',
 ] as const;
 
 const catalog = [...topAttractionDestinations, ...topAttractionExpansionDestinations];
@@ -37,8 +41,9 @@ export const Route = createFileRoute('/top-25-texas-attractions.csv')({
           ...TOP_TEXAS_ATTRACTIONS.flatMap((entry) => {
             const base = bySlug.get(entry.slug);
             if (!base) return [];
-            const destination = applyTopAttractionAuthority(base);
+            const destination = resolveTopAttractionAuthority(base);
             const assessment = destination.authorityGuide?.assessment;
+            const sources = destination.authorityGuide?.sources ?? [];
             return [[
               String(entry.rank),
               destination.name,
@@ -55,6 +60,9 @@ export const Route = createFileRoute('/top-25-texas-attractions.csv')({
               assessment?.firstTimeValue ?? '',
               destination.sourceCheckedAt ?? '',
               destination.officialUrl ?? '',
+              String(sources.length),
+              sources.map((source) => source.url).join('; '),
+              methodologyUrl,
             ].map(csvCell).join(',')];
           }),
         ];
