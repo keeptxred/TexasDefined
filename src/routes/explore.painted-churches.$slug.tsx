@@ -2,6 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
+import { paintedChurchExtendedProfileBySlug } from "@/data/painted-church-profiles-extended";
 import { paintedChurchProfileBySlug } from "@/data/painted-church-profiles";
 import { paintedChurchBySlug, paintedChurches } from "@/data/painted-churches";
 import { buildMeta, canonicalLink } from "@/lib/seo";
@@ -12,7 +13,7 @@ export const Route = createFileRoute("/explore/painted-churches/$slug")({
   loader: ({ params }) => {
     const church = paintedChurchBySlug(params.slug);
     if (!church) throw notFound();
-    const profile = paintedChurchProfileBySlug(params.slug);
+    const profile = paintedChurchProfileBySlug(params.slug) ?? paintedChurchExtendedProfileBySlug(params.slug);
     return { church, profile };
   },
   head: ({ loaderData, params }) => {
