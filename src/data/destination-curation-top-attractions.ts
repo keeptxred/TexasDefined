@@ -1,15 +1,19 @@
-import type { Destination } from "./types";
+import type { Destination, DestinationAreaGuide } from "./types";
 
 /**
  * TexasDefined's Top 25 Texas Attractions collection is being curated one
  * destination at a time. Entries here are also checked-in destination fallbacks
  * so their guides and Trip Planner stops do not depend on the remote Explore
  * catalog being available.
+ *
+ * Every Top 25 attraction must include a complete area guide. The type below
+ * intentionally makes that field mandatory for this collection even though it
+ * remains optional for the broader destination catalog.
  */
 type TopAttractionContent = Omit<
   Destination,
-  "id" | "brandId" | "slug" | "name" | "category" | "region" | "coordinates"
->;
+  "id" | "brandId" | "slug" | "name" | "category" | "region" | "coordinates" | "areaGuide"
+> & { areaGuide: DestinationAreaGuide };
 
 const theAlamoContent: TopAttractionContent = {
   summary:
@@ -43,6 +47,119 @@ const theAlamoContent: TopAttractionContent = {
     "The Alamo is in the center of downtown San Antonio at Alamo Plaza, within walking distance of the River Walk and many downtown hotels. Use a downtown garage, rideshare or transit and check current pedestrian access before arrival because surrounding construction can change approaches to the site.",
   accessibilityNotes:
     "Wheelchairs, medically authorized mobility devices and strollers are permitted throughout the Alamo complex. Free sensory bags and weighted lap pads are available through the Welcome Center; check the official accessibility information for current services.",
+  areaGuide: {
+    intro:
+      "The Alamo sits in one of Texas's densest visitor districts, so a good itinerary should use the landmark as an anchor rather than a stand-alone stop. Most downtown additions are walkable; Pearl, Brackenridge Park and the mission corridor are better treated as short rides or longer trail extensions.",
+    nearbyAttractions: [
+      {
+        name: "San Antonio River Walk",
+        proximity: "2–5 minute walk",
+        description: "Drop from Alamo Plaza to the downtown river level for bridges, river cruises, restaurants and an easy walking route through the center of the city.",
+        href: "/destination/san-antonio-river-walk",
+      },
+      {
+        name: "La Villita Historic Arts Village",
+        proximity: "About a 10-minute walk",
+        description: "A compact historic village beside the river with galleries, shops, courtyards and one of the easiest ways to extend an Alamo visit without getting back in the car.",
+      },
+      {
+        name: "Hemisfair",
+        proximity: "About a 10–15-minute walk",
+        description: "Downtown public parks, play spaces and lawns occupy the former 1968 World's Fair grounds just south of the Alamo and convention-center district.",
+      },
+      {
+        name: "Historic Market Square",
+        proximity: "About a 20-minute walk or short ride",
+        description: "A colorful downtown market district for Mexican and Texan food, shopping, music and cultural events west of the central River Walk loop.",
+      },
+    ],
+    foodAndDrink: [
+      {
+        name: "Downtown River Walk",
+        proximity: "Steps away",
+        description: "The largest concentration of visitor-oriented restaurants is along the downtown river loop. It is convenient before or after the Alamo, especially when walking is the priority.",
+      },
+      {
+        name: "Southtown and South Alamo Street",
+        proximity: "About 1–2 miles south",
+        description: "A better fit for travelers who want neighborhood restaurants, patios and galleries beyond the busiest downtown tourism blocks.",
+      },
+      {
+        name: "Pearl",
+        proximity: "About 2 miles north",
+        description: "The former brewery district on Museum Reach combines restaurants, cafes, food-focused shopping and river access in a walkable destination of its own.",
+      },
+    ],
+    lodging: [
+      {
+        name: "Alamo Plaza and east Downtown",
+        proximity: "Closest option",
+        description: "Best for travelers who want the Alamo at the front door and easy access to the River Walk, convention center and downtown attractions on foot.",
+      },
+      {
+        name: "Downtown River Walk core",
+        proximity: "Roughly 5–10 minutes on foot",
+        description: "The broadest concentration of hotels and the most practical base for a car-light first visit to central San Antonio.",
+      },
+      {
+        name: "Pearl and Museum Reach",
+        proximity: "About 2 miles north",
+        description: "A quieter, dining-focused alternative with direct river access and an easy route back toward downtown along Museum Reach.",
+      },
+    ],
+    neighborhoods: [
+      {
+        name: "La Villita and Southtown",
+        proximity: "Immediately south of Downtown",
+        description: "Historic streets, galleries, restaurants and the King William area make this the most natural neighborhood extension from the Alamo and River Walk.",
+      },
+      {
+        name: "Market Square and the near West Side",
+        proximity: "West of the downtown core",
+        description: "A strong cultural counterpoint to Alamo Plaza, centered on Mexican-American food, markets, festivals and long-running downtown traditions.",
+      },
+      {
+        name: "Pearl and Tobin Hill",
+        proximity: "About 2 miles north",
+        description: "A former industrial district transformed into a riverfront food, shopping and public-space destination at the northern end of Museum Reach.",
+      },
+    ],
+    familyStops: [
+      {
+        name: "Yanaguana Garden at Hemisfair",
+        proximity: "About a 10–15-minute walk",
+        description: "An all-ages public play area with splash, climbing and adaptive play features that works especially well as a break after a history-heavy Alamo visit.",
+      },
+      {
+        name: "The DoSeum",
+        proximity: "About 3 miles north",
+        description: "A children's museum north of downtown that can turn an Alamo morning into a balanced family day when younger visitors need more hands-on activity.",
+      },
+      {
+        name: "Witte Museum and Brackenridge Park",
+        proximity: "About 3–4 miles north",
+        description: "Natural history, Texas exhibits and a major city park create an easy half-day family extension beyond the downtown core.",
+      },
+    ],
+    sideTrips: [
+      {
+        name: "San Antonio Missions National Historical Park",
+        proximity: "Roughly 3–9 miles south",
+        description: "Continue the mission story at Concepción, San José, San Juan and Espada. The Mission Reach trail follows the river and connects the mission corridor with downtown.",
+        href: "/destination/san-antonio-missions-national-historical-park",
+      },
+      {
+        name: "Brackenridge Park and Japanese Tea Garden",
+        proximity: "About 3 miles north",
+        description: "A green-space and garden detour that pairs well with the Witte Museum or a break from downtown pavement and crowds.",
+      },
+      {
+        name: "Natural Bridge Caverns",
+        proximity: "About 30 miles north",
+        description: "A larger half-day excursion for travelers who want to add an underground Hill Country experience to a San Antonio weekend.",
+      },
+    ],
+  },
   featured: true,
   hero: {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/The_Alamo_(facade).jpg?width=1600",
@@ -84,6 +201,119 @@ const sanAntonioRiverWalkContent: TopAttractionContent = {
     "The River Walk has many access points and no single street address. For a first downtown visit, enter near Alamo Plaza, Commerce Street, Market Street or the Shops at Rivercenter; the official visitor FAQ suggests 849 E. Commerce Street for GPS. Downtown is highly walkable, and transit or rideshare can avoid parking during busy events.",
   accessibilityNotes:
     "Accessible routes vary by section because the downtown River Walk changes elevation between street and river level. The official River Walk map collection includes a River Bend Accessibility Map and a North Path/Museum Reach Accessibility Map showing ramps and elevator access; review the current map for the section you plan to visit.",
+  areaGuide: {
+    intro:
+      "Because the River Walk passes through several distinct parts of San Antonio, the best nearby choices depend on which reach you are using. Downtown favors landmark-hopping on foot, Museum Reach favors museums and Pearl, and Mission Reach is the gateway to the city's Spanish colonial mission corridor.",
+    nearbyAttractions: [
+      {
+        name: "The Alamo",
+        proximity: "About a 5-minute walk from the downtown loop",
+        description: "The city's signature historic landmark is close enough to combine with the River Walk in the same morning or afternoon without moving the car.",
+        href: "/destination/the-alamo",
+      },
+      {
+        name: "La Villita Historic Arts Village",
+        proximity: "Directly beside the downtown River Walk",
+        description: "Historic buildings, galleries, shops and small courtyards create one of the easiest above-river detours from the central loop.",
+      },
+      {
+        name: "San Antonio Museum of Art",
+        proximity: "On Museum Reach",
+        description: "A major art museum housed in the former Lone Star Brewery complex, directly accessible from the northern river trail.",
+      },
+      {
+        name: "Hemisfair",
+        proximity: "A short walk from the downtown loop",
+        description: "Public parks and play spaces around the former World's Fair grounds add green space and family-friendly downtime near the convention-center end of the river.",
+      },
+    ],
+    foodAndDrink: [
+      {
+        name: "Downtown River Walk",
+        proximity: "On the river",
+        description: "The central loop has the greatest concentration of riverside restaurants and patios and is the simplest choice when convenience matters most.",
+      },
+      {
+        name: "Pearl",
+        proximity: "On Museum Reach, about 2 miles north of Downtown",
+        description: "One of San Antonio's strongest food districts, with restaurants, cafes, markets and culinary businesses concentrated around the former brewery complex.",
+      },
+      {
+        name: "Southtown and King William",
+        proximity: "Just south of the downtown loop",
+        description: "Neighborhood restaurants, bars, cafes and galleries make this a good alternative to the most tourist-heavy blocks along the central river.",
+      },
+    ],
+    lodging: [
+      {
+        name: "Downtown River Walk core",
+        proximity: "Direct access",
+        description: "The most convenient base for first-time visitors who want to walk to the Alamo, river cruises, downtown dining and major central attractions.",
+      },
+      {
+        name: "Alamo Plaza and east Downtown",
+        proximity: "About 5–10 minutes on foot",
+        description: "A practical alternative for travelers prioritizing The Alamo, Hemisfair and the eastern side of the downtown loop.",
+      },
+      {
+        name: "Pearl and Museum Reach",
+        proximity: "About 2 miles north",
+        description: "Best for travelers who want a quieter riverfront base with destination dining and direct access to the northern walking trail.",
+      },
+    ],
+    neighborhoods: [
+      {
+        name: "Downtown and La Villita",
+        proximity: "Central River Walk",
+        description: "The historic visitor core combines the river, Alamo Plaza, Main Plaza, theaters, civic landmarks and La Villita within a compact walking area.",
+      },
+      {
+        name: "Southtown and King William",
+        proximity: "South of Downtown",
+        description: "Historic homes, galleries, local restaurants and neighborhood streets create a more residential counterpoint to the downtown river loop.",
+      },
+      {
+        name: "Pearl and Tobin Hill",
+        proximity: "North along Museum Reach",
+        description: "Historic industrial architecture, public spaces, food and shopping make the northern river extension feel like a separate destination rather than merely a trail continuation.",
+      },
+    ],
+    familyStops: [
+      {
+        name: "Yanaguana Garden at Hemisfair",
+        proximity: "Short walk from the downtown River Walk",
+        description: "A free public play area with splash, climbing and adaptive play features that gives families an easy break from sightseeing.",
+      },
+      {
+        name: "The DoSeum",
+        proximity: "About 3 miles north of Downtown",
+        description: "A hands-on children's museum that pairs well with Museum Reach, Pearl or a north-side family itinerary.",
+      },
+      {
+        name: "Witte Museum and Brackenridge Park",
+        proximity: "About 3–4 miles north",
+        description: "A strong family combination of Texas natural history, science exhibits and outdoor park space beyond the river corridor.",
+      },
+    ],
+    sideTrips: [
+      {
+        name: "San Antonio Missions National Historical Park",
+        proximity: "Mission Reach, roughly 3–9 miles south of Downtown",
+        description: "The river trail links toward Concepción, San José, San Juan and Espada, letting travelers turn the River Walk into a much deeper history-and-outdoors itinerary.",
+        href: "/destination/san-antonio-missions-national-historical-park",
+      },
+      {
+        name: "Historic Market Square",
+        proximity: "About 1 mile west of the downtown loop",
+        description: "A three-block Mexican market district with food, shopping and festivals that is close enough for the same day but distinct from the riverfront experience.",
+      },
+      {
+        name: "Brackenridge Park and Japanese Tea Garden",
+        proximity: "About 3 miles north",
+        description: "A worthwhile green-space extension that works naturally with the Witte Museum or a longer north-side outing beyond Museum Reach.",
+      },
+    ],
+  },
   featured: true,
   hero: {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/The_San_Antontio_Riverwalk_at_night.jpg?width=1600",
