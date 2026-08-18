@@ -1,0 +1,69 @@
+import fs from 'node:fs';
+
+const listSource = fs.readFileSync('src/data/top-texas-attractions.ts', 'utf8');
+const authoritySource = fs.readFileSync('src/data/destination-authority-top-attractions.ts', 'utf8');
+const componentSource = fs.readFileSync('src/components/editorial/DestinationAuthorityGuide.tsx', 'utf8');
+const relationshipSource = fs.readFileSync('src/components/editorial/DestinationRelationships.tsx', 'utf8');
+const hubSource = fs.readFileSync('src/routes/explore.top-attractions.tsx', 'utf8');
+
+const slugs = [...listSource.matchAll(/\{ rank:\s*\d+, slug: "([^"]+)"/g)].map((match) => match[1]);
+const failures = [];
+
+if (slugs.length !== 25) failures.push(`Top attraction registry has ${slugs.length} slugs; expected 25.`);
+
+for (const slug of slugs) {
+  if (!authoritySource.includes(`"${slug}": {`)) failures.push(`Missing authority record for ${slug}.`);
+}
+
+const authorityKeys = [...authoritySource.matchAll(/^\s{2}"([a-z0-9-]+)": \{/gm)].map((match) => match[1]);
+const extraKeys = authorityKeys.filter((slug) => !slugs.includes(slug));
+if (extraKeys.length) failures.push(`Authority file has unregistered Top 25 keys: ${extraKeys.join(', ')}.`);
+if (authorityKeys.length !== 25) failures.push(`Authority file has ${authorityKeys.length} attraction records; expected 25.`);
+
+for (const feature of [
+  'whyItMatters',
+  'recommendedVisit',
+  'physicalEffort',
+  'weatherExposure',
+  'planningLevel',
+  'familyFit',
+  'firstTimeValue',
+  'itineraries',
+  'sources',
+  'applyTopAttractionAuthority',
+]) {
+  if (!authoritySource.includes(feature)) failures.push(`Authority data contract missing ${feature}.`);
+}
+
+const itineraryCalls = (authoritySource.match(/\bitinerary\(/g) ?? []).length - 1; // subtract helper declaration
+if (itineraryCalls !== 75) failures.push(`Authority data has ${itineraryCalls} itinerary records; expected 75 (three per attraction).`);
+
+for (const feature of [
+  'Verified visitor information',
+  'Editorial assessment',
+  'Why it matters to Texas',
+  'Three ways to visit',
+  'Traveler questions, answered',
+  'Sources & verification',
+  'Review log',
+  'TexasDefined Editorial',
+  '/citation-guide',
+]) {
+  if (!componentSource.includes(feature)) failures.push(`Authority component missing visible feature: ${feature}.`);
+}
+
+if (!relationshipSource.includes('<DestinationAuthorityGuide destination={destination} />')) {
+  failures.push('Destination pages do not render the authority guide component.');
+}
+
+for (const feature of ['applyTopAttractionAuthority', 'assessment.recommendedVisit', 'assessment.physicalEffort', 'assessment.weatherExposure', 'assessment.planningLevel']) {
+  if (!hubSource.includes(feature)) failures.push(`Top 25 hub comparison layer missing ${feature}.`);
+}
+
+if (failures.length) {
+  console.error('Top 25 attraction authority validation failed:');
+  for (const failure of failures) console.error(`- ${failure}`);
+  process.exit(1);
+}
+
+console.log('Top 25 attraction authority validation passed: 25 authority records, 75 itineraries, evidence UI, review log and comparison fields are wired.');
