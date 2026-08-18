@@ -61,6 +61,7 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   profile("goliad", "goliad-county-goliad-la-bahia-san-antonio-river-texas", () => import("@/data/fixtures/goliad-county-goliad-la-bahia-san-antonio-river-texas").then((module) => module.goliadCountyGoliadLaBahiaSanAntonioRiverArticle)),
   profile("refugio", "refugio-county-refugio-mission-river-coastal-prairie-texas", () => import("@/data/fixtures/refugio-county-refugio-mission-river-coastal-prairie").then((module) => module.refugioCountyRefugioMissionRiverCoastalPrairieArticle)),
   profile("aransas", "aransas-county-rockport-fulton-bays-coastal-heritage-texas", () => import("@/data/fixtures/aransas-county-rockport-fulton-bays-coastal-heritage").then((module) => module.aransasCountyRockportFultonBaysCoastalHeritageArticle)),
+  profile("san-patricio", "san-patricio-county-sinton-irish-colony-coastal-prairie-texas", () => import("@/data/fixtures/san-patricio-county-sinton-irish-colony-coastal-prairie").then((module) => module.sanPatricioCountySintonIrishColonyCoastalPrairieArticle)),
 ];
 
 const articlePromiseCache = new Map<string, Promise<Article | null>>();
