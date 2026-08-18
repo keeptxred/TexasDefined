@@ -11,6 +11,7 @@ const sportsCsv = await read('src/routes/sports-venues.compare[.]csv.ts');
 const sportsData = await read('src/data/sports-venue-comparison.ts');
 const topRoute = await read('src/routes/explore.top-attractions.tsx');
 const topMethodology = await read('src/routes/explore.top-attractions.methodology.tsx');
+const topMethodologyContent = await read('src/components/explore/TopAttractionsMethodologyContent.tsx');
 const topCsv = await read('src/routes/top-25-texas-attractions[.]csv.ts');
 const topJson = await read('src/routes/top-25-texas-attractions[.]json.ts');
 const topReferenceData = await read('src/data/top-attraction-reference-data.ts');
@@ -117,11 +118,12 @@ for (const token of [
   'methodology',
 ]) expect(topJson.includes(token), `Top 25 JSON contract missing: ${token}`);
 
+expect(topMethodology.includes('TopAttractionsMethodologyContent'), 'Top 25 methodology route must retain the split methodology content component');
 for (const token of [
   'Source URLs travel with the data',
   '/top-25-texas-attractions.csv',
   '/top-25-texas-attractions.json',
-]) expect(topMethodology.includes(token), `Top 25 methodology download contract missing: ${token}`);
+]) expect(topMethodologyContent.includes(token), `Top 25 methodology download contract missing: ${token}`);
 
 if (errors.length) {
   console.error('Citation dataset download validation failed:');
