@@ -14,6 +14,7 @@ const citationGuide = await read('src/routes/citation-guide.tsx');
 const exploreHub = await read('src/routes/explore.index.tsx');
 const topAttractions = await read('src/routes/explore.top-attractions.tsx');
 const topMethodology = await read('src/routes/explore.top-attractions.methodology.tsx');
+const topMethodologyContent = await read('src/components/explore/TopAttractionsMethodologyContent.tsx');
 const topRoadTrips = await read('src/routes/explore.top-attractions.road-trips.tsx');
 const topCsv = await read('src/routes/top-25-texas-attractions[.]csv.ts');
 const topJson = await read('src/routes/top-25-texas-attractions[.]json.ts');
@@ -126,6 +127,7 @@ expect(mainSitemap.includes('INDEXABLE_STATIC_PATHS'), 'main sitemap must remain
 expect(exploreHub.includes('to="/explore/attractions-comparison"'), 'Explore hub must link the attractions comparison');
 expect(exploreHub.includes('to="/explore/top-attractions"'), 'Explore hub must link the Top 25 attractions reference collection');
 expect(dataHub.includes('/texas-data/city-county-relationships'), 'Texas Data hub must link the city-county dataset');
+expect(topMethodology.includes('TopAttractionsMethodologyContent'), 'Top 25 methodology route must retain the split methodology component');
 
 const extractionContracts = [
   [countyRoute, 'How to use the county property-tax directory', 'county directory direct-answer layer'],
@@ -138,7 +140,7 @@ const extractionContracts = [
   [topAttractions, 'How this list is researched', 'Top 25 authority methodology layer'],
   [topAttractions, 'resolveTopAttractionAuthority', 'Top 25 multi-source assessment layer'],
   [topAttractions, 'variableMeasured', 'Top 25 Dataset variable definitions'],
-  [topMethodology, 'Review sites are not authority evidence', 'Top 25 source-selection policy'],
+  [topMethodologyContent, 'Review sites are not authority evidence', 'Top 25 source-selection policy'],
   [topRoadTrips, 'TouristTrip', 'Top 25 machine-readable road-trip collection'],
   [topCsv, 'authority_source_urls', 'Top 25 CSV source provenance'],
   [topJson, 'authoritySources', 'Top 25 JSON source provenance'],
