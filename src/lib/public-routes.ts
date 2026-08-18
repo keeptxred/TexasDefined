@@ -158,6 +158,7 @@ export const NON_INDEXABLE_PUBLIC_PATHS = [
   "/shop/checkout-return",
   "/sports-venues/compare.csv",
   "/top-25-texas-attractions.csv",
+  "/top-25-texas-attractions.json",
   "/texas-data/county-growth.csv",
   "/texas-data/county-housing-costs.csv",
   "/texas-data/city-county-relationships.csv",
