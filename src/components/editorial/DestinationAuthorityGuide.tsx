@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 
 import { applyTopAttractionAuthority } from "@/data/destination-authority-top-attractions";
+import { topAttractionTimeline } from "@/data/destination-timelines-top-attractions";
 import type { Destination } from "@/data/types";
 import { Container } from "@/components/layout/Container";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
@@ -20,6 +21,7 @@ export function DestinationAuthorityGuide({ destination }: { destination: Destin
   const authority = applyTopAttractionAuthority(destination).authorityGuide;
   if (!authority) return null;
 
+  const timeline = topAttractionTimeline(destination.slug);
   const primarySource = authority.sources[0];
   const nearby = destination.areaGuide?.nearbyAttractions[0];
   const sideTrip = destination.areaGuide?.sideTrips[0];
@@ -100,7 +102,21 @@ export function DestinationAuthorityGuide({ destination }: { destination: Destin
       </Container>
     </Section>
 
-    <Section tone="surface">
+    {timeline.length > 0 && <Section tone="surface">
+      <Container>
+        <SectionHeader eyebrow="Key dates" title={`${destination.name} in context`} description="A short chronology of dates that materially shaped this place. Each entry links to the source used for the date and historical context." />
+        <ol className="mt-10 grid gap-6 md:grid-cols-3">
+          {timeline.map((event) => <li key={`${event.date}-${event.title}`} className="border-t-2 border-foreground pt-5">
+            <p className="eyebrow text-primary">{event.date}</p>
+            <h3 className="mt-2 font-display text-2xl leading-tight">{event.title}</h3>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">{event.description}</p>
+            <a href={event.sourceUrl} target="_blank" rel="noreferrer noopener" className="eyebrow mt-4 inline-block border-b border-primary pb-1 text-primary">Source: {event.sourceLabel}</a>
+          </li>)}
+        </ol>
+      </Container>
+    </Section>}
+
+    <Section tone={timeline.length > 0 ? undefined : "surface"}>
       <Container>
         <div className="grid gap-12 lg:grid-cols-[1.2fr_.8fr]">
           <section aria-labelledby={`${destination.slug}-traveler-questions`}>
