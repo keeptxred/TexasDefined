@@ -17,7 +17,6 @@ import { exploreFeatureArticleStubs, loadExploreFeatureArticle } from "./lazy-ex
 import { newestEvergreenArticles } from "./newest-evergreen";
 import { lazyEvergreenArticleStubs, loadLazyEvergreenArticle } from "./lazy-evergreen";
 import { standaloneEvergreenStubs, loadStandaloneEvergreenArticle } from "./lazy-standalone-evergreen";
-import { countySeriesArticleStubs, loadCountySeriesArticleBySlug } from "./lazy-county-series";
 import { coreEvergreenArticleStubs, loadCoreEvergreenArticle } from "./lazy-core-evergreen";
 import { migratedEditorialArticleStubs, loadMigratedEditorialArticle } from "./lazy-migrated-editorial";
 import { texasCoreArticleStubs, loadTexasCoreArticle } from "./lazy-texas-core-articles";
@@ -36,15 +35,26 @@ import {
  * single edit in `src/data/index.ts` — no component changes.
  */
 
-const editorialArticles = [
+const baseEditorialArticles = [
   ...exploreFeatureArticleStubs,
-  ...countySeriesArticleStubs,
   ...coreEvergreenArticleStubs,
   ...lazyEvergreenArticleStubs,
   ...standaloneEvergreenStubs,
   ...newestEvergreenArticles,
   ...texasCoreArticleStubs,
   ...migratedEditorialArticleStubs,
+];
+
+let countySeriesArticleStubsPromise: Promise<Article[]> | null = null;
+const loadCountySeriesArticleStubs = () => {
+  countySeriesArticleStubsPromise ??= import("./lazy-county-series")
+    .then((module) => module.countySeriesArticleStubs);
+  return countySeriesArticleStubsPromise;
+};
+
+const loadEditorialArticles = async () => [
+  ...baseEditorialArticles,
+  ...(await loadCountySeriesArticleStubs()),
 ];
 
 const COUNTY_HERO_OVERRIDES: Partial<Record<string, Article["hero"]>> = {
@@ -150,7 +160,7 @@ const currentEvents = <T extends { startDate: string; endDate?: string }>(rows: 
 
 export const fixtureArticles: ArticleRepository = {
   async list(query) {
-    let rows = newestFirst(byBrand(editorialArticles, query.brandId));
+    let rows = newestFirst(byBrand(await loadEditorialArticles(), query.brandId));
     if (query.category) rows = rows.filter((a) => a.category === query.category);
     if (query.tag) rows = rows.filter((a) => a.tags.includes(query.tag!));
     if (query.featured !== undefined) rows = rows.filter((a) => Boolean(a.featured) === query.featured);
@@ -167,6 +177,7 @@ export const fixtureArticles: ArticleRepository = {
     const standaloneArticle = await loadStandaloneEvergreenArticle(scope.brandId, slug);
     if (standaloneArticle) return normalizeArticle(standaloneArticle);
 
+    const { loadCountySeriesArticleBySlug } = await import("./lazy-county-series");
     const countySeriesArticle = await loadCountySeriesArticleBySlug(scope.brandId, slug);
     if (countySeriesArticle) return normalizeArticle(countySeriesArticle);
 
@@ -179,7 +190,7 @@ export const fixtureArticles: ArticleRepository = {
     const texasCoreArticle = await loadTexasCoreArticle(scope.brandId, slug);
     if (texasCoreArticle) return normalizeArticle(texasCoreArticle);
 
-    const article = byBrand(editorialArticles, scope.brandId).find((a) => a.slug === slug) ?? null;
+    const article = byBrand(await loadEditorialArticles(), scope.brandId).find((a) => a.slug === slug) ?? null;
     return article ? normalizeArticle(article) : null;
   },
 };
@@ -257,7 +268,7 @@ export const fixtureTaxonomy: TaxonomyRepository = {
 export const fixtureSearch: SearchRepository = {
   async documents(scope) {
     const docs: SearchDocument[] = [
-      ...byBrand(editorialArticles, scope.brandId).map((a) => ({
+      ...byBrand(await loadEditorialArticles(), scope.brandId).map((a) => ({
         id: a.id,
         brandId: a.brandId,
         kind: "article" as const,
