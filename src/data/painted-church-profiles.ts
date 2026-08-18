@@ -117,8 +117,87 @@ const highHill: PaintedChurchProfile = {
   ],
 };
 
+const ammannsville: PaintedChurchProfile = {
+  slug: "ammannsville-st-john-the-baptist",
+  quickAnswer:
+    "St. John the Baptist at Ammannsville is the community’s third church and one of the best-known Painted Churches of Texas. The present building followed two disasters: a hurricane destroyed the first church in 1909 and fire destroyed the second in 1917. The replacement was designed by John F. Bujnoch, completed in 1918–1919, and decorated in 1919 by San Antonio painter Fred Donecker and his sons. Its pale rose interior, open nave, stenciling, infill, pounce work and faux-marble effects give the church its familiar nickname, the “pink church.”",
+  builtYear: 1919,
+  paintedYear: 1919,
+  architecture: "Gothic Revival / simplified rural Gothic",
+  architect: "John F. Bujnoch",
+  artists: ["Fred Donecker", "Donecker and Sons"],
+  heritage: "Czech Catholic community in rural Fayette County",
+  facts: [
+    { label: "First church lost", value: "Destroyed by hurricane in 1909" },
+    { label: "Second church lost", value: "Destroyed by fire in 1917" },
+    { label: "Present church", value: "Built 1918–1919 on the second church’s concrete footprint" },
+    { label: "Interior decoration", value: "Painted in 1919" },
+    { label: "Architect", value: "John F. Bujnoch" },
+    { label: "Decorative painter", value: "Fred Donecker and sons" },
+    { label: "National Register", value: "Listed June 21, 1983; reference 83003137" },
+    { label: "Recognition", value: "State significance in art, architecture and religion" },
+  ],
+  history: [
+    {
+      heading: "A church rebuilt twice after disaster",
+      paragraphs: [
+        "The present St. John the Baptist is the third church to serve Ammannsville. A hurricane destroyed the first building in 1909. The congregation then built a more elaborate second church associated with architect Leo M. J. Dielmann, but that building burned only eight years later in 1917.",
+        "Rather than abandon the site, parishioners rebuilt almost immediately. The third church rose on the concrete footprint of the second. Compared with its ornate predecessor, the replacement was deliberately simpler and more practical, reflecting both the congregation’s determination and the realities of rebuilding after repeated loss.",
+      ],
+    },
+    {
+      heading: "John Bujnoch’s open interior",
+      paragraphs: [
+        "Texas Historical Commission records identify John F. Bujnoch as architect and classify the church within the Gothic Revival tradition. Unlike the earlier building, the present church eliminated interior support columns, producing a more open, airy nave and leaving broad wall and ceiling surfaces for decorative painting.",
+      ],
+    },
+  ],
+  paintings: [
+    {
+      heading: "Why it is called the pink church",
+      paragraphs: [
+        "The interior is dominated by a pale rosy-pink color scheme that has made Ammannsville immediately recognizable on the Painted Churches route. The color creates a warm background for repeating ornamental bands, religious decoration, statuary and stained glass rather than the darker, highly architectural illusion used at High Hill.",
+      ],
+    },
+    {
+      heading: "Stenciling, infill and pounce work",
+      paragraphs: [
+        "The decorative program uses several techniques associated with professional church painters of the period. Stenciled patterns repeat along walls and ceiling areas; infill painting creates larger hand-filled motifs; pounce transfer allowed more complex designs to be laid out consistently before painting. Faux-marble treatment adds the appearance of costlier materials to selected architectural surfaces.",
+        "Austin PBS research attributes the surviving decorative scheme to Fred Donecker and his sons. Donecker’s authorship was identified through later scholarly comparison of technique and style with other documented church interiors in the region.",
+      ],
+    },
+    {
+      heading: "Religious imagery and restored devotional objects",
+      paragraphs: [
+        "The painted setting frames the church’s altars, statues, stained glass and devotional objects. Two angel figures used as holy-water holders at the entrance were later rediscovered in poor condition and restored by local artist Gene A. Mikulik, tying the preservation of the interior to generations of local care.",
+      ],
+    },
+  ],
+  preservation: [
+    {
+      heading: "From forgotten artist to documented interior",
+      paragraphs: [
+        "For years local tradition treated the decorator as an unknown itinerant painter. Research by decorative-painting scholar Buie Harwood compared Ammannsville with documented examples elsewhere and identified Fred Donecker as the artist. That research helped move the church from local legend into a better documented statewide decorative-arts context.",
+        "The church was listed in the National Register of Historic Places in 1983 as part of the Churches with Decorative Interior Painting multiple-property group, recognizing its importance in art, architecture and religion.",
+      ],
+    },
+  ],
+  visitorNotes: [
+    "The church remains an active Catholic parish, so worship and private parish events take priority over touring.",
+    "Current Schulenburg Chamber guidance places Ammannsville on the Painted Churches circuit and recommends confirming access before travel.",
+    "Visitors should treat the decorative surfaces, statuary, pews and devotional areas as active sacred-space furnishings rather than museum exhibits.",
+  ],
+  sources: [
+    { label: "Texas Historical Commission Atlas", url: "https://atlas.thc.texas.gov/Details?atlasnumber=2083003137" },
+    { label: "Austin PBS Painted Churches project", url: "https://austinpbs.org/paintedchurches/ammansville" },
+    { label: "Austin PBS decorative painting techniques", url: "https://austinpbs.org/paintedchurches/decorative" },
+    { label: "Schulenburg Chamber Painted Churches", url: "https://schulenburgchamber.org/painted-churches/" },
+  ],
+};
+
 export const paintedChurchProfiles: Record<string, PaintedChurchProfile> = {
   [highHill.slug]: highHill,
+  [ammannsville.slug]: ammannsville,
 };
 
 export function paintedChurchProfileBySlug(slug: string) {
