@@ -5,10 +5,63 @@ import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { TexasExplainedContextLinks } from "@/components/editorial/TexasExplainedContextLinks";
 import { Container } from "@/components/layout/Container";
 import { distanceMiles, type DestinationRelationshipGroup } from "@/data/destination-relationships";
-import type { Destination } from "@/data/types";
+import type { Destination, DestinationAreaGuide, DestinationAreaItem } from "@/data/types";
+
+const AREA_GROUPS: Array<{
+  key: keyof Omit<DestinationAreaGuide, "intro">;
+  eyebrow: string;
+  title: string;
+  description: string;
+}> = [
+  { key: "nearbyAttractions", eyebrow: "Nearby", title: "Attractions close by", description: "Easy additions that fit naturally around the main stop." },
+  { key: "foodAndDrink", eyebrow: "Eat nearby", title: "Where to eat and drink", description: "Dining districts and food areas worth building into the same outing." },
+  { key: "lodging", eyebrow: "Stay nearby", title: "Where to stay", description: "The most practical lodging areas for minimizing driving and maximizing time on the ground." },
+  { key: "neighborhoods", eyebrow: "Explore more", title: "Neighborhoods and districts", description: "Nearby parts of the city that add character, shopping, history or nightlife." },
+  { key: "familyStops", eyebrow: "With kids", title: "Family-friendly stops", description: "Good nearby additions when the itinerary includes younger travelers." },
+  { key: "sideTrips", eyebrow: "Go farther", title: "Worthwhile side trips", description: "Places that justify extending the visit beyond the immediate area." },
+];
+
+function AreaItemCard({ item }: { item: DestinationAreaItem }) {
+  const name = item.href
+    ? <a href={item.href} className="font-display text-2xl leading-tight underline decoration-primary/30 underline-offset-4 transition-colors hover:text-primary">{item.name}</a>
+    : <span className="font-display text-2xl leading-tight">{item.name}</span>;
+
+  return <li className="border-t border-border pt-5">
+    {item.proximity && <p className="eyebrow mb-2 text-primary">{item.proximity}</p>}
+    <h3>{name}</h3>
+    <p className="mt-3 text-sm leading-6 text-muted-foreground">{item.description}</p>
+  </li>;
+}
+
+function DestinationAreaGuideSection({ destination }: { destination: Destination }) {
+  const guide = destination.areaGuide;
+  if (!guide) return null;
+
+  return <Section>
+    <Container>
+      <SectionHeader
+        eyebrow="What's in the area"
+        title={`Build a fuller trip around ${destination.name}`}
+        description={guide.intro}
+      />
+      <div className="mt-12 grid gap-x-12 gap-y-14 lg:grid-cols-2">
+        {AREA_GROUPS.map((group) => <section key={group.key} aria-labelledby={`${destination.slug}-area-${group.key}`}>
+          <p className="eyebrow text-primary">{group.eyebrow}</p>
+          <h2 id={`${destination.slug}-area-${group.key}`} className="mt-2 font-display text-3xl">{group.title}</h2>
+          <p className="mt-3 max-w-xl text-sm leading-6 text-muted-foreground">{group.description}</p>
+          <ul className="mt-6 grid gap-6 sm:grid-cols-2">
+            {guide[group.key].map((item) => <AreaItemCard key={`${group.key}-${item.name}`} item={item} />)}
+          </ul>
+        </section>)}
+      </div>
+    </Container>
+  </Section>;
+}
 
 export function DestinationRelationships({ destination, groups, regionName }: { destination: Destination; groups: DestinationRelationshipGroup[]; regionName?: string }) {
   return <>
+    <DestinationAreaGuideSection destination={destination} />
+
     {groups.length ? <>
       <Section tone="surface">
         <Container>
