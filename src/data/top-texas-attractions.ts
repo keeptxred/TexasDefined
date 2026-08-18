@@ -26,6 +26,7 @@ export const TOP_TEXAS_ATTRACTIONS = [
   { rank: 25, slug: "gruene-historic-district", name: "Gruene Historic District" },
 ] as const;
 
+export type TopTexasAttractionSlug = typeof TOP_TEXAS_ATTRACTIONS[number]["slug"];
 export const TOP_TEXAS_ATTRACTION_SLUGS = TOP_TEXAS_ATTRACTIONS.map((item) => item.slug);
 const TOP_TEXAS_ATTRACTION_SLUG_SET = new Set<string>(TOP_TEXAS_ATTRACTION_SLUGS);
 
