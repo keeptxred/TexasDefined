@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-const registryPath = path.resolve('src/data/county-series.ts');
+const registryPath = path.resolve('src/data/county-series-profiles.ts');
 const outputPath = process.argv[2] || '/tmp/county-profiles.tsv';
 const registry = fs.readFileSync(registryPath, 'utf8');
 
