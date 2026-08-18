@@ -77,6 +77,7 @@ const LEGACY_ARTICLE_TO_COUNTY = new Map<string, string>([
   ["la-salle-county-cotulla-nueces-winter-garden-brush-country-texas", "la-salle"],
   ["mcmullen-county-tilden-frio-nueces-ranch-country-texas", "mcmullen"],
   ["brooks-county-falfurrias-ranching-dairy-brush-country-texas", "brooks"],
+  ["jim-hogg-county-hebbronville-ranching-railroad-brush-country-texas", "jim-hogg"],
 ]);
 
 const COUNTY_SLUGS = new Set(LEGACY_ARTICLE_TO_COUNTY.values());
