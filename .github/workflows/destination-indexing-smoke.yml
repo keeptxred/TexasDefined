@@ -7,13 +7,16 @@ on:
     paths:
       - '.github/workflows/destination-indexing-smoke.yml'
       - 'src/routes/destination.*'
-      - 'src/routes/explore.top-attractions.tsx'
-      - 'src/routes/top-25-texas-attractions-checklist*'
+      - 'src/routes/explore.top-attractions*'
+      - 'src/routes/top-25-texas-attractions*'
       - 'src/routes/sitemap-explore*'
       - 'src/components/editorial/DestinationRelationships.tsx'
       - 'src/components/editorial/DestinationAuthorityGuide.tsx'
+      - 'src/components/authority/CitationCollectionTrustRouter.tsx'
       - 'src/data/top-texas-attractions.ts'
+      - 'src/data/top-attraction-road-trips.ts'
       - 'src/data/destination-authority-top-attractions.ts'
+      - 'src/data/destination-timelines-top-attractions.ts'
       - 'src/data/destination-audit.ts'
       - 'src/data/destination-availability.ts'
       - 'src/data/destination-curation-all.ts'
@@ -25,6 +28,9 @@ on:
       - 'src/data/explore-heroes.ts'
       - 'src/data/state-park-heroes.ts'
       - 'src/data/fixtures/texas.ts'
+      - 'src/lib/public-routes.ts'
+      - 'public/citation-magnets.json'
+      - 'src/routes/llms[.]txt.ts'
   workflow_dispatch:
 
 permissions:
@@ -45,19 +51,25 @@ jobs:
           origin="https://texasdefined.com"
           non_primary="/destination/world-birding-center-bentsen-rio-grande-valley-state-park"
           top_attractions="/explore/top-attractions"
+          methodology="/explore/top-attractions/methodology"
+          road_trips="/explore/top-attractions/road-trips"
           authority_control="/destination/the-alamo"
           checklist="/top-25-texas-attractions-checklist.txt"
+          comparison_csv="/top-25-texas-attractions.csv"
           primary_url=""
 
           for attempt in $(seq 1 30); do
             status="$(curl --max-time 45 -sS -o /tmp/explore-sitemap.xml -w '%{http_code}' "$origin/sitemap-explore.xml" || true)"
             if [ "$status" = "200" ]; then
               primary_url="$(grep -o -m1 'https://texasdefined.com/destination/[^<]*' /tmp/explore-sitemap.xml || true)"
-              if [ -n "$primary_url" ] && grep -Fq "$origin$top_attractions" /tmp/explore-sitemap.xml; then
-                echo "Explore sitemap is healthy, exposes a destination and includes the Top 25 collection on attempt $attempt."
+              if [ -n "$primary_url" ] \
+                && grep -Fq "$origin$top_attractions" /tmp/explore-sitemap.xml \
+                && grep -Fq "$origin$methodology" /tmp/explore-sitemap.xml \
+                && grep -Fq "$origin$road_trips" /tmp/explore-sitemap.xml; then
+                echo "Explore sitemap is healthy and includes the full Top 25 authority cluster on attempt $attempt."
                 break
               fi
-              echo "Explore sitemap returned 200 but the destination/Top 25 release is not fully visible yet (attempt $attempt/30)."
+              echo "Explore sitemap returned 200 but the Top 25 authority release is not fully visible yet (attempt $attempt/30)."
             else
               echo "Explore sitemap returned HTTP ${status:-000}; deployment has not reached the healthy revision yet (attempt $attempt/30)."
             fi
@@ -68,10 +80,12 @@ jobs:
             echo "Explore sitemap did not expose an indexable destination within the deployment-aware retry window." >&2
             exit 1
           }
-          grep -Fq "$origin$top_attractions" /tmp/explore-sitemap.xml || {
-            echo "Top 25 attractions collection is missing from the Explore sitemap." >&2
-            exit 1
-          }
+          for path in "$top_attractions" "$methodology" "$road_trips"; do
+            grep -Fq "$origin$path" /tmp/explore-sitemap.xml || {
+              echo "Top 25 authority path missing from Explore sitemap: $path" >&2
+              exit 1
+            }
+          done
 
           curl --retry 3 --retry-connrefused --max-time 45 -fsSL "$primary_url" -o /tmp/primary.html
           if grep -Fq "noindex, follow" /tmp/primary.html; then
@@ -84,35 +98,54 @@ jobs:
             echo "Top 25 attractions collection rendered with a noindex directive." >&2
             exit 1
           fi
-          grep -Fq "/destination/the-alamo" /tmp/top-attractions.html || {
-            echo "Top 25 collection is missing The Alamo destination link." >&2
-            exit 1
-          }
-          grep -Fq "/destination/gruene-historic-district" /tmp/top-attractions.html || {
-            echo "Top 25 collection is missing Gruene Historic District destination link." >&2
-            exit 1
-          }
-          grep -Fq "How this list is researched" /tmp/top-attractions.html || {
-            echo "Top 25 collection is missing the research-methodology layer." >&2
-            exit 1
-          }
-          grep -Fq "Download Top 25 checklist" /tmp/top-attractions.html || {
-            echo "Top 25 collection is missing the downloadable checklist link." >&2
-            exit 1
-          }
+          for marker in "/destination/the-alamo" "/destination/gruene-historic-district" "How this list is researched" "Download comparison CSV" "Top-25 road trips" "Methodology"; do
+            grep -Fq "$marker" /tmp/top-attractions.html || {
+              echo "Top 25 collection is missing required rendered marker: $marker" >&2
+              exit 1
+            }
+          done
           unique_top_links="$(grep -o '/destination/[a-z0-9-]*' /tmp/top-attractions.html | sort -u | wc -l | tr -d ' ')"
           if [ "$unique_top_links" -lt 25 ]; then
             echo "Top 25 collection exposed only $unique_top_links unique destination links; expected at least 25." >&2
             exit 1
           fi
 
+          curl --retry 3 --retry-connrefused --max-time 45 -fsSL "$origin$methodology" -o /tmp/top25-methodology.html
+          for marker in "What qualifies for the collection" "Official sources control changing visitor facts" "No invented experience" "Shared comparison scale"; do
+            grep -Fq "$marker" /tmp/top25-methodology.html || {
+              echo "Top 25 methodology is missing required rendered marker: $marker" >&2
+              exit 1
+            }
+          done
+
+          curl --retry 3 --retry-connrefused --max-time 45 -fsSL "$origin$road_trips" -o /tmp/top25-road-trips.html
+          for marker in "Seven road trips" "San Antonio & Hill Country essentials" "West Texas national-park expedition" "South Texas coast extension"; do
+            grep -Fq "$marker" /tmp/top25-road-trips.html || {
+              echo "Top 25 road-trip collection is missing required rendered marker: $marker" >&2
+              exit 1
+            }
+          done
+
           curl --retry 3 --retry-connrefused --max-time 45 -fsSL "$origin$authority_control" -o /tmp/authority-control.html
-          for marker in "Verified visitor information" "Editorial assessment" "Why it matters to Texas" "Three ways to visit" "Traveler questions, answered" "Sources & verification" "Review log"; do
+          for marker in "Verified visitor information" "Editorial assessment" "Why it matters to Texas" "Three ways to visit" "Key dates" "Traveler questions, answered" "Sources & verification" "Review log"; do
             grep -Fq "$marker" /tmp/authority-control.html || {
               echo "Top 25 authority control is missing required rendered marker: $marker" >&2
               exit 1
             }
           done
+
+          curl --retry 3 --retry-connrefused --max-time 45 -fsSL "$origin$comparison_csv" -o /tmp/top25.csv
+          grep -Fq "rank,attraction_name,canonical_url" /tmp/top25.csv || {
+            echo "Top 25 CSV is missing its comparison header." >&2
+            exit 1
+          }
+          grep -Fq "The Alamo" /tmp/top25.csv || { echo "Top 25 CSV is missing The Alamo." >&2; exit 1; }
+          grep -Fq "Gruene Historic District" /tmp/top25.csv || { echo "Top 25 CSV is missing Gruene Historic District." >&2; exit 1; }
+          csv_lines="$(wc -l < /tmp/top25.csv | tr -d ' ')"
+          if [ "$csv_lines" -ne 26 ]; then
+            echo "Top 25 CSV has $csv_lines lines; expected 26 including the header." >&2
+            exit 1
+          fi
 
           curl --retry 3 --retry-connrefused --max-time 45 -fsSL "$origin$checklist" -o /tmp/top25-checklist.txt
           grep -Fq "01. The Alamo" /tmp/top25-checklist.txt || {
@@ -140,4 +173,4 @@ jobs:
             exit 1
           fi
 
-          echo "Destination indexing smoke passed with Top 25 collection, authority layer, downloadable checklist, primary control $primary_url and non-primary status $non_primary_status."
+          echo "Destination indexing smoke passed with the Top 25 collection, methodology, road trips, authority layer, CSV, checklist, primary control $primary_url and non-primary status $non_primary_status."
