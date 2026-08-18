@@ -2,12 +2,17 @@ import fs from 'node:fs';
 
 const listSource = fs.readFileSync('src/data/top-texas-attractions.ts', 'utf8');
 const authoritySource = fs.readFileSync('src/data/destination-authority-top-attractions.ts', 'utf8');
+const supplementalSource = fs.readFileSync('src/data/top-attraction-authority-sources.ts', 'utf8');
+const authorityResolverSource = fs.readFileSync('src/data/top-attraction-authority-resolver.ts', 'utf8');
 const timelineSource = fs.readFileSync('src/data/destination-timelines-top-attractions.ts', 'utf8');
 const roadTripDataSource = fs.readFileSync('src/data/top-attraction-road-trips.ts', 'utf8');
 const componentSource = fs.readFileSync('src/components/editorial/DestinationAuthorityGuide.tsx', 'utf8');
+const collectionLinksSource = fs.readFileSync('src/components/editorial/TopAttractionCollectionLinks.tsx', 'utf8');
 const relationshipSource = fs.readFileSync('src/components/editorial/DestinationRelationships.tsx', 'utf8');
 const trustRouterSource = fs.readFileSync('src/components/authority/CitationCollectionTrustRouter.tsx', 'utf8');
 const destinationRouteSource = fs.readFileSync('src/routes/destination.$slug.tsx', 'utf8');
+const categoryRouteSource = fs.readFileSync('src/routes/explore.$category.tsx', 'utf8');
+const regionRouteSource = fs.readFileSync('src/routes/explore.region.$region.tsx', 'utf8');
 const hubSource = fs.readFileSync('src/routes/explore.top-attractions.tsx', 'utf8');
 const methodologySource = fs.readFileSync('src/routes/explore.top-attractions.methodology.tsx', 'utf8');
 const roadTripRouteSource = fs.readFileSync('src/routes/explore.top-attractions.road-trips.tsx', 'utf8');
@@ -25,12 +30,22 @@ if (slugs.length !== 25) failures.push(`Top attraction registry has ${slugs.leng
 
 for (const slug of slugs) {
   if (!authoritySource.includes(`"${slug}": {`)) failures.push(`Missing authority record for ${slug}.`);
+  if (!supplementalSource.includes(`"${slug}": [`)) failures.push(`Missing supplemental authority sources for ${slug}.`);
 }
 
 const authorityKeys = [...authoritySource.matchAll(/^\s{2}"([a-z0-9-]+)": \{/gm)].map((match) => match[1]);
 const extraKeys = authorityKeys.filter((slug) => !slugs.includes(slug));
 if (extraKeys.length) failures.push(`Authority file has unregistered Top 25 keys: ${extraKeys.join(', ')}.`);
 if (authorityKeys.length !== 25) failures.push(`Authority file has ${authorityKeys.length} attraction records; expected 25.`);
+
+const supplementalKeys = [...supplementalSource.matchAll(/^\s{2}"([a-z0-9-]+)": \[/gm)].map((match) => match[1]);
+if (supplementalKeys.length !== 25) failures.push(`Supplemental authority registry has ${supplementalKeys.length} attraction records; expected 25.`);
+const authorityUrls = [...supplementalSource.matchAll(/url:\s*"([^"]+)"/g)].map((match) => match[1]);
+if (authorityUrls.length < 35) failures.push(`Supplemental authority registry exposes only ${authorityUrls.length} URLs; expected at least 35 across the Top 25.`);
+for (const url of authorityUrls) {
+  if (!url.startsWith('https://')) failures.push(`Supplemental authority source is not HTTPS: ${url}`);
+}
+if (new Set(authorityUrls).size !== authorityUrls.length) failures.push('Supplemental authority source URLs must be unique across the registry.');
 
 for (const feature of [
   'whyItMatters',
@@ -45,6 +60,12 @@ for (const feature of [
   'applyTopAttractionAuthority',
 ]) {
   if (!authoritySource.includes(feature)) failures.push(`Authority data contract missing ${feature}.`);
+}
+for (const feature of ['topAttractionSupplementalSources', 'SUPPLEMENTAL_SOURCES', 'DestinationAuthoritySource']) {
+  if (!supplementalSource.includes(feature)) failures.push(`Supplemental authority contract missing ${feature}.`);
+}
+for (const feature of ['resolveTopAttractionAuthority', 'topAttractionSupplementalSources', 'dedupeSources']) {
+  if (!authorityResolverSource.includes(feature)) failures.push(`Authority resolver contract missing ${feature}.`);
 }
 
 const itineraryCalls = (authoritySource.match(/\bitinerary\(/g) ?? []).length - 1;
@@ -81,6 +102,7 @@ for (const feature of ['duration', 'summary', 'planningNote', 'TopAttractionRoad
 
 for (const feature of [
   'Verified visitor information',
+  'Evidence layer',
   'Editorial assessment',
   'Why it matters to Texas',
   'Three ways to visit',
@@ -89,10 +111,15 @@ for (const feature of [
   'Source:',
   'Traveler questions, answered',
   'Sources & verification',
+  'Authority sources used',
+  'Controlling visitor source',
+  'Supporting authority source',
   'Review log',
   'Texas Defined Editorial Desk',
   'a-hollis',
+  '/explore/top-attractions/methodology',
   '/citation-guide',
+  'resolveTopAttractionAuthority',
 ]) {
   if (!componentSource.includes(feature)) failures.push(`Authority component missing visible feature: ${feature}.`);
 }
@@ -101,7 +128,7 @@ if (!relationshipSource.includes('<DestinationAuthorityGuide destination={destin
   failures.push('Destination pages do not render the authority guide component.');
 }
 
-for (const feature of ['applyTopAttractionAuthority', 'authorityCitations', 'citation: authorityCitations', 'Texas Defined Editorial Desk', '/authors/a-hollis']) {
+for (const feature of ['resolveTopAttractionAuthority', 'authorityCitations', 'citation: authorityCitations', 'Texas Defined Editorial Desk', '/authors/a-hollis', 'isBasedOn: `${siteUrl}/explore/top-attractions/methodology`']) {
   if (!destinationRouteSource.includes(feature)) failures.push(`Destination structured authority layer missing ${feature}.`);
 }
 
@@ -174,10 +201,17 @@ for (const path of ['/explore/top-attractions', '/explore/top-attractions/method
 }
 if (!publicRoutesSource.includes('"/top-25-texas-attractions.csv"')) failures.push('Top 25 CSV is not governed as a public noindex route.');
 
+for (const source of [collectionLinksSource, categoryRouteSource, regionRouteSource]) {
+  if (!source.includes('TopAttractionCollectionLinks')) failures.push('Top 25 inbound-link cluster is missing from a category/region discovery surface.');
+}
+for (const feature of ['/explore/top-attractions', '/explore/top-attractions/road-trips', '/explore/top-attractions/methodology']) {
+  if (!collectionLinksSource.includes(feature)) failures.push(`Top 25 collection-link component missing ${feature}.`);
+}
+
 if (failures.length) {
   console.error('Top 25 attraction authority validation failed:');
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log('Top 25 attraction authority validation passed: 25 authority records, 75 itineraries, 24 sourced timeline events, seven complete road-trip clusters, methodology, comparison CSV, primary-source evidence, institutional author schema, trust panels and citation discovery are wired.');
+console.log(`Top 25 attraction authority validation passed: 25 authority records, ${authorityUrls.length} supplemental authority URLs, 75 itineraries, 24 sourced timeline events, seven complete road-trip clusters, methodology, comparison CSV, category/region inbound links, multi-source JSON-LD, trust panels and citation discovery are wired.`);
