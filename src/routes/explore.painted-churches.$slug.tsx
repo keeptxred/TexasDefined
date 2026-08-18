@@ -2,6 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
+import { paintedChurchProfileBySlug } from "@/data/painted-church-profiles";
 import { paintedChurchBySlug, paintedChurches } from "@/data/painted-churches";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
@@ -11,18 +12,19 @@ export const Route = createFileRoute("/explore/painted-churches/$slug")({
   loader: ({ params }) => {
     const church = paintedChurchBySlug(params.slug);
     if (!church) throw notFound();
-    return { church };
+    const profile = paintedChurchProfileBySlug(params.slug);
+    return { church, profile };
   },
   head: ({ loaderData, params }) => {
     if (!loaderData) return { meta: [{ title: "Painted church unavailable" }, { name: "robots", content: "noindex, nofollow" }] };
-    const { church } = loaderData;
+    const { church, profile } = loaderData;
     const canonicalPath = `/explore/painted-churches/${params.slug}`;
     const url = `${siteUrl}${canonicalPath}`;
     const churchSchema = {
       "@type": "Church",
       "@id": `${url}#church`,
       name: church.name,
-      description: church.summary,
+      description: profile?.quickAnswer ?? church.summary,
       url,
       address: {
         "@type": "PostalAddress",
@@ -31,6 +33,7 @@ export const Route = createFileRoute("/explore/painted-churches/$slug")({
         addressCountry: "US",
         ...(church.address ? { streetAddress: church.address } : {}),
       },
+      ...(profile?.foundedYear ? { foundingDate: String(profile.foundedYear) } : {}),
       ...(church.image ? { image: church.image.src } : {}),
     };
     const breadcrumbSchema = {
@@ -46,8 +49,10 @@ export const Route = createFileRoute("/explore/painted-churches/$slug")({
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
-        title: `${church.shortName} | Texas Painted Church Guide`,
-        description: `${church.summary} Location, designation, visitor planning, sources and photography for ${church.shortName}.`,
+        title: `${church.shortName} | History, Architecture & Paintings`,
+        description: profile
+          ? `${church.shortName}: history, architecture, age, artists, interior paintings, preservation, location and visitor planning.`
+          : `${church.summary} Location, designation, visitor planning, sources and photography for ${church.shortName}.`,
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
       scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": [churchSchema, breadcrumbSchema] }) }],
@@ -64,7 +69,7 @@ export const Route = createFileRoute("/explore/painted-churches/$slug")({
 });
 
 function PaintedChurchDetail() {
-  const { church } = Route.useLoaderData();
+  const { church, profile } = Route.useLoaderData();
   const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(church.address ?? `${church.name}, ${church.city}, Texas`)}`;
   const related = paintedChurches
     .filter((candidate) => candidate.slug !== church.slug)
@@ -77,6 +82,7 @@ function PaintedChurchDetail() {
       return a.city.localeCompare(b.city);
     })
     .slice(0, 3);
+  const buildingAge = profile?.builtYear ? new Date().getFullYear() - profile.builtYear : undefined;
 
   return (
     <main>
@@ -121,7 +127,56 @@ function PaintedChurchDetail() {
 
       <Container className="grid gap-14 py-14 sm:py-18 lg:grid-cols-[minmax(0,1.45fr)_minmax(280px,.65fr)]">
         <div>
-          <section aria-labelledby="why-it-matters" className="border-t-2 border-foreground pt-8">
+          {profile && (
+            <>
+              <section aria-labelledby="quick-answer" className="border-t-2 border-foreground pt-8">
+                <p className="eyebrow text-primary">Quick answer</p>
+                <h2 id="quick-answer" className="mt-3 font-display text-4xl">What makes {church.shortName} special?</h2>
+                <p className="mt-6 max-w-3xl text-base leading-8 text-foreground/90">{profile.quickAnswer}</p>
+              </section>
+
+              <section aria-labelledby="at-a-glance" className="mt-14 border-t border-border pt-8">
+                <p className="eyebrow text-primary">At a glance</p>
+                <h2 id="at-a-glance" className="mt-3 font-display text-3xl">The church in facts</h2>
+                <dl className="mt-8 grid border-y border-border sm:grid-cols-2">
+                  {profile.builtYear && <div className="border-b border-border py-5 sm:border-r sm:pr-6"><dt className="eyebrow text-muted-foreground">Present church built</dt><dd className="mt-2 text-base">{profile.builtYear}{buildingAge !== undefined ? ` · about ${buildingAge} years old` : ""}</dd></div>}
+                  {profile.paintedYear && <div className="border-b border-border py-5 sm:pl-6"><dt className="eyebrow text-muted-foreground">Interior painted</dt><dd className="mt-2 text-base">{profile.paintedYear}</dd></div>}
+                  {profile.architecture && <div className="border-b border-border py-5 sm:border-r sm:pr-6"><dt className="eyebrow text-muted-foreground">Architecture</dt><dd className="mt-2 text-base">{profile.architecture}</dd></div>}
+                  {profile.architect && <div className="border-b border-border py-5 sm:pl-6"><dt className="eyebrow text-muted-foreground">Architect</dt><dd className="mt-2 text-base">{profile.architect}</dd></div>}
+                  {profile.builder && <div className="border-b border-border py-5 sm:border-r sm:pr-6"><dt className="eyebrow text-muted-foreground">Builder</dt><dd className="mt-2 text-base">{profile.builder}</dd></div>}
+                  {profile.artists?.length && <div className="border-b border-border py-5 sm:pl-6"><dt className="eyebrow text-muted-foreground">Interior artists</dt><dd className="mt-2 text-base">{profile.artists.join(" and ")}</dd></div>}
+                  {profile.heritage && <div className="py-5 sm:col-span-2"><dt className="eyebrow text-muted-foreground">Cultural background</dt><dd className="mt-2 text-base leading-7">{profile.heritage}</dd></div>}
+                </dl>
+                <dl className="mt-8 grid gap-x-10 gap-y-6 sm:grid-cols-2">
+                  {profile.facts.map((fact) => <div key={`${fact.label}-${fact.value}`}><dt className="eyebrow text-muted-foreground">{fact.label}</dt><dd className="mt-2 text-sm leading-6">{fact.value}</dd></div>)}
+                </dl>
+              </section>
+
+              <section aria-labelledby="history" className="mt-14 border-t border-border pt-8">
+                <p className="eyebrow text-primary">History</p>
+                <h2 id="history" className="mt-3 font-display text-4xl">How this church came to be</h2>
+                <div className="mt-8 space-y-10">
+                  {profile.history.map((section) => <section key={section.heading}><h3 className="font-display text-3xl">{section.heading}</h3><div className="mt-4 space-y-4">{section.paragraphs.map((paragraph) => <p key={paragraph} className="max-w-3xl text-base leading-8 text-muted-foreground">{paragraph}</p>)}</div></section>)}
+                </div>
+              </section>
+
+              <section aria-labelledby="paintings" className="mt-14 border-t border-border pt-8">
+                <p className="eyebrow text-primary">Inside the painted church</p>
+                <h2 id="paintings" className="mt-3 font-display text-4xl">What the paintings are actually showing</h2>
+                <div className="mt-8 space-y-10">
+                  {profile.paintings.map((section) => <section key={section.heading}><h3 className="font-display text-3xl">{section.heading}</h3><div className="mt-4 space-y-4">{section.paragraphs.map((paragraph) => <p key={paragraph} className="max-w-3xl text-base leading-8 text-muted-foreground">{paragraph}</p>)}</div></section>)}
+                </div>
+              </section>
+
+              {profile.preservation?.length ? <section aria-labelledby="preservation" className="mt-14 border-t border-border pt-8">
+                <p className="eyebrow text-primary">Preservation</p>
+                <h2 id="preservation" className="mt-3 font-display text-4xl">How the interior survived</h2>
+                <div className="mt-8 space-y-10">{profile.preservation.map((section) => <section key={section.heading}><h3 className="font-display text-3xl">{section.heading}</h3><div className="mt-4 space-y-4">{section.paragraphs.map((paragraph) => <p key={paragraph} className="max-w-3xl text-base leading-8 text-muted-foreground">{paragraph}</p>)}</div></section>)}</div>
+              </section> : null}
+            </>
+          )}
+
+          <section aria-labelledby="why-it-matters" className={`${profile ? "mt-14 border-t border-border" : "border-t-2 border-foreground"} pt-8`}>
             <p className="eyebrow text-primary">Why it matters</p>
             <h2 id="why-it-matters" className="mt-3 font-display text-4xl">Part of the painted-church story</h2>
             <p className="mt-6 max-w-3xl text-base leading-8 text-foreground/90">{church.significance}</p>
@@ -131,6 +186,7 @@ function PaintedChurchDetail() {
             <p className="eyebrow text-primary">Plan the visit</p>
             <h2 id="visit" className="mt-3 font-display text-3xl">What to know before you go</h2>
             <p className="mt-5 max-w-3xl text-base leading-8 text-muted-foreground">{church.visitNote}</p>
+            {profile?.visitorNotes?.length ? <ul className="mt-5 max-w-3xl list-disc space-y-2 pl-5 text-base leading-7 text-muted-foreground">{profile.visitorNotes.map((note) => <li key={note}>{note}</li>)}</ul> : null}
             <dl className="mt-8 grid border-y border-border sm:grid-cols-2">
               <div className="border-b border-border py-5 sm:border-r sm:pr-6"><dt className="eyebrow text-muted-foreground">Community</dt><dd className="mt-2 text-base">{church.city}, Texas</dd></div>
               <div className="border-b border-border py-5 sm:pl-6"><dt className="eyebrow text-muted-foreground">County</dt><dd className="mt-2 text-base">{church.county} County</dd></div>
@@ -144,6 +200,12 @@ function PaintedChurchDetail() {
               {church.secondarySourceUrl && <a href={church.secondarySourceUrl} target="_blank" rel="noreferrer" className="border-b border-primary text-primary">Visitor / supporting source</a>}
             </div>
           </section>
+
+          {profile?.sources?.length ? <section aria-labelledby="sources" className="mt-14 border-t border-border pt-8">
+            <p className="eyebrow text-primary">Sources</p>
+            <h2 id="sources" className="mt-3 font-display text-3xl">Where the history comes from</h2>
+            <ul className="mt-6 space-y-3 text-sm">{profile.sources.map((source) => <li key={source.url}><a href={source.url} target="_blank" rel="noreferrer" className="border-b border-primary text-primary">{source.label}</a></li>)}</ul>
+          </section> : null}
 
           <section aria-labelledby="respect" className="mt-14 border-t border-border pt-8">
             <p className="eyebrow text-primary">Visit respectfully</p>
