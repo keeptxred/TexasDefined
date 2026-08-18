@@ -4,6 +4,7 @@ const listSource = fs.readFileSync('src/data/top-texas-attractions.ts', 'utf8');
 const authoritySource = fs.readFileSync('src/data/destination-authority-top-attractions.ts', 'utf8');
 const componentSource = fs.readFileSync('src/components/editorial/DestinationAuthorityGuide.tsx', 'utf8');
 const relationshipSource = fs.readFileSync('src/components/editorial/DestinationRelationships.tsx', 'utf8');
+const destinationRouteSource = fs.readFileSync('src/routes/destination.$slug.tsx', 'utf8');
 const hubSource = fs.readFileSync('src/routes/explore.top-attractions.tsx', 'utf8');
 const checklistSource = fs.readFileSync('src/routes/top-25-texas-attractions-checklist[.]txt.ts', 'utf8');
 const citationManifest = fs.readFileSync('public/citation-magnets.json', 'utf8');
@@ -60,6 +61,10 @@ if (!relationshipSource.includes('<DestinationAuthorityGuide destination={destin
   failures.push('Destination pages do not render the authority guide component.');
 }
 
+for (const feature of ['applyTopAttractionAuthority', 'authorityCitations', 'citation: authorityCitations', 'Texas Defined Editorial Desk', '/authors/a-hollis']) {
+  if (!destinationRouteSource.includes(feature)) failures.push(`Destination structured authority layer missing ${feature}.`);
+}
+
 for (const feature of ['applyTopAttractionAuthority', 'assessment.recommendedVisit', 'assessment.physicalEffort', 'assessment.weatherExposure', 'assessment.planningLevel', 'Download Top 25 checklist']) {
   if (!hubSource.includes(feature)) failures.push(`Top 25 hub comparison layer missing ${feature}.`);
 }
@@ -78,4 +83,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Top 25 attraction authority validation passed: 25 authority records, 75 itineraries, primary-source evidence, editorial byline, review log, comparison fields, citation promotion and downloadable checklist are wired.');
+console.log('Top 25 attraction authority validation passed: 25 authority records, 75 itineraries, primary-source evidence, institutional author schema, review log, comparison fields, citation promotion and downloadable checklist are wired.');
