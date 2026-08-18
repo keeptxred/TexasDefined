@@ -1,0 +1,63 @@
+name: Calhoun live verification
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/calhoun-live-verification.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Verify Calhoun canonical page, structured layer, editorial layer, hero and legacy redirect
+        shell: bash
+        run: |
+          set -euo pipefail
+          url='https://texasdefined.com/county/calhoun'
+          legacy='https://texasdefined.com/article/calhoun-county-port-lavaca-indianola-seadrift-bays-texas'
+          title='Calhoun County: Port Lavaca, Indianola, Seadrift and the Bays'
+
+          for attempt in $(seq 1 12); do
+            html="$(mktemp)"
+            code=$(curl -L -sS -o "$html" -w '%{http_code}' --max-time 25 "$url" || echo 000)
+            if [[ "$code" == '200' ]] \
+              && grep -Fqi "$title" "$html" \
+              && grep -Fqi 'The county in numbers' "$html" \
+              && grep -Fqi '2020 population' "$html" \
+              && grep -Fqi 'Land area' "$html" \
+              && grep -Fqi 'Water area' "$html"; then
+              image=$(python3 - "$html" <<'PY'
+          import re, sys
+          text=open(sys.argv[1], errors='ignore').read()
+          for pattern in [
+              r'<meta[^>]+property=["\x27]og:image["\x27][^>]+content=["\x27]([^"\x27]+)',
+              r'<meta[^>]+content=["\x27]([^"\x27]+)["\x27][^>]+property=["\x27]og:image["\x27]',
+          ]:
+              m=re.search(pattern, text, re.I)
+              if m:
+                  print(m.group(1)); break
+          PY
+          )
+              [[ "$image" == /* ]] && image="https://texasdefined.com$image"
+              image_result=$(curl -L -sS -o /dev/null -w '%{http_code}\t%{content_type}' --max-time 25 "$image" || printf '000\t')
+              IFS=$'\t' read -r image_code image_type <<< "$image_result"
+              redirect_result=$(curl -sS -o /dev/null -w '%{http_code}\t%{redirect_url}' --max-time 25 "$legacy" || printf '000\t')
+              IFS=$'\t' read -r redirect_code redirect_url <<< "$redirect_result"
+              if [[ "$image_code" == '200' && "$image_type" =~ ^image/(jpeg|png|webp)(\;.*)?$ && "$redirect_code" == '301' && "$redirect_url" == "$url" ]]; then
+                echo "PASS page=200 structured=present editorial=present image=200 mime=$image_type redirect=301 target=$redirect_url hero=$image"
+                exit 0
+              fi
+              echo "WAIT attempt=$attempt image=$image_code mime=$image_type redirect=$redirect_code target=$redirect_url"
+            else
+              echo "WAIT attempt=$attempt page=$code editorial_or_structured_layer_not_ready"
+            fi
+            rm -f "$html"
+            [[ "$attempt" -lt 12 ]] && sleep 30
+          done
+
+          echo 'Calhoun production verification failed after retries.'
+          exit 1
