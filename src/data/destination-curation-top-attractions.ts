@@ -324,6 +324,159 @@ const sanAntonioRiverWalkContent: TopAttractionContent = {
   },
 };
 
+const spaceCenterHoustonContent: TopAttractionContent = {
+  summary:
+    "Houston's public gateway to NASA's Johnson Space Center, where historic spacecraft, the shuttle-era Independence Plaza, astronaut training stories, Mission Control access and a flight-certified Saturn V connect the history of human spaceflight with NASA's current work.",
+  nearestTown: "Houston",
+  bestSeason:
+    "Year-round; weekdays outside major school breaks are usually easiest for tram-tour availability, while hot or stormy days can affect outdoor NASA tours",
+  entryNote:
+    "General admission uses timed entry, and NASA Tram Tours have limited capacity. Historic Mission Control is a separate paid add-on and can sell out well ahead of busy dates. Tour routes can change because Johnson Space Center is an active NASA facility, so check current offerings before arrival.",
+  highlights: [
+    "NASA Tram Tours into working areas of Johnson Space Center",
+    "Historic Mission Control and the Apollo-era control room",
+    "Independence Plaza with shuttle replica Independence mounted on historic NASA 905",
+    "George W.S. Abbey Rocket Park and its flight-certified Saturn V hardware",
+    "Starship Gallery, flown spacecraft and exhibits connecting Apollo, shuttle, ISS and Artemis-era exploration",
+  ],
+  body: [
+    "Space Center Houston is not simply a museum with a NASA theme. It is the Official Visitor Center of NASA Johnson Space Center, the Houston complex that houses Mission Control and astronaut training and remains central to American human spaceflight. The nonprofit Manned Space Flight Education Foundation operates the visitor center, giving the public a way to move between preserved spaceflight history, large-scale artifacts and the work happening next door at an active federal research and operations campus.",
+    "Inside the main complex, a first visit should leave time for the Starship Gallery and Independence Plaza rather than treating the tram as the entire experience. Starship Gallery brings together flown spacecraft and major artifacts from different eras of exploration. Outside, Independence Plaza lets visitors enter the shuttle replica Independence mounted above NASA 905, the historic Boeing 747 shuttle carrier aircraft, creating one of the clearest ways to understand the scale and logistics of the shuttle program.",
+    "The NASA Tram Tours are what make the destination different from a conventional science museum. Space Center Houston describes them as the public route onto Johnson Space Center, with current options that can include astronaut-training facilities, the NASA campus, George W.S. Abbey Rocket Park and Historic Mission Control. Access is never completely static: the center is working government property, weather affects the open-air trams and NASA can reroute or close facilities when operations require it.",
+    "Rocket Park is worth prioritizing even for visitors who are already familiar with Apollo history. The Saturn V displayed there is one of only three remaining Saturn V rockets on public display and, according to Space Center Houston, the only one made entirely from flight-certified hardware. Historic Mission Control adds another layer, but it requires a separate ticket and frequently sells out during weekends, holidays and school breaks, making advance planning especially important for a history-focused visit.",
+    "A realistic first visit is closer to a full day than a quick museum stop. Timed general admission helps manage arrival, but the sequence of tram departures, live presentations and large exhibits can stretch the schedule. Arriving early provides more options for limited-capacity tram experiences, and families should build in indoor time between outdoor tours during Houston's hottest months or when thunderstorms are possible.",
+    "The surrounding Clear Lake and Bay Area Houston landscape makes Space Center Houston useful as the anchor for a larger southeast-Houston trip. Armand Bayou Nature Center adds coastal-prairie and wetland habitat, Kemah adds a waterfront amusement district on Galveston Bay, and the route south continues naturally toward Galveston. That combination lets a space-focused visit expand into aviation, nature, waterfront dining or a Gulf Coast weekend without repeatedly crossing central Houston.",
+  ],
+  managingAuthority: "Manned Space Flight Education Foundation (Space Center Houston)",
+  officialUrl: "https://spacecenter.org/visitor-information/",
+  sourceCheckedAt: "2026-08-17",
+  county: "Harris",
+  address: "1601 E NASA Parkway, Houston, TX 77058",
+  directions:
+    "Space Center Houston is in southeast Houston's Clear Lake area beside NASA Johnson Space Center, well outside Downtown. Driving is the simplest option for most visitors; allow extra time for Houston traffic and arrive early enough to preserve your tram-tour choices after timed admission.",
+  accessibilityNotes:
+    "The center's theaters, exhibits and Independence Plaza are wheelchair-accessible, NASA Tram Tour vehicles have ramps, and accessible parking is available near the entrance. Guest Services also offers sensory backpacks and other accessibility resources, with a quiet room available on request and advance arrangements available for services such as ASL interpretation.",
+  areaGuide: {
+    intro:
+      "Space Center Houston sits in the Clear Lake–Nassau Bay side of the Houston region, not near Downtown, so the strongest add-ons are around NASA Parkway, Clear Lake and Galveston Bay. A well-planned stay can combine space history with aviation, coastal nature, waterfront dining and a Gulf Coast side trip without a long drive back through central Houston.",
+    nearbyAttractions: [
+      {
+        name: "Armand Bayou Nature Center",
+        proximity: "About 6 miles north",
+        description: "Prairie, forest and wetland habitat with walking trails, wildlife viewing and guided paddling or pontoon experiences provides a sharp natural counterpoint to a day of spacecraft and engineering.",
+      },
+      {
+        name: "Kemah Boardwalk",
+        proximity: "About 7 miles east",
+        description: "A Galveston Bay waterfront entertainment district with rides, restaurants, shops and evening activity that works especially well after a daytime Space Center visit.",
+      },
+      {
+        name: "Lone Star Flight Museum",
+        proximity: "About 9 miles northwest",
+        description: "Historic aircraft and aviation-focused STEM exhibits make this the most natural museum pairing for visitors who want to extend the technology theme beyond spaceflight.",
+      },
+      {
+        name: "Clear Lake waterfront",
+        proximity: "A few miles east",
+        description: "Marinas, parks and bayou-to-bay scenery show the waterside character of the NASA area and give the itinerary a slower outdoor break between major attractions.",
+      },
+    ],
+    foodAndDrink: [
+      {
+        name: "NASA Parkway and Nassau Bay",
+        proximity: "Closest dining area",
+        description: "The easiest choice before or after Space Center Houston, with casual restaurants and services clustered along NASA Parkway near the visitor center and Clear Lake.",
+      },
+      {
+        name: "Webster and Bay Area Boulevard",
+        proximity: "About 4–6 miles west",
+        description: "A broad concentration of restaurants makes this practical for families or groups that want more choices without driving toward central Houston.",
+      },
+      {
+        name: "Kemah waterfront",
+        proximity: "About 7 miles east",
+        description: "Waterfront restaurants around the boardwalk and Clear Lake channel turn dinner into part of the sightseeing rather than simply a stop between attractions.",
+      },
+    ],
+    lodging: [
+      {
+        name: "NASA Parkway and Nassau Bay",
+        proximity: "Closest base",
+        description: "Best for visitors whose priority is an early Space Center Houston arrival and minimal driving around Johnson Space Center and Clear Lake.",
+      },
+      {
+        name: "Webster and Bay Area Boulevard",
+        proximity: "About 4–6 miles west",
+        description: "A practical concentration of hotels, restaurants and highway access for families combining Space Center Houston with other Houston-area stops.",
+      },
+      {
+        name: "Kemah and the Clear Lake waterfront",
+        proximity: "About 7 miles east",
+        description: "A better fit for a leisure-oriented weekend when waterfront atmosphere, restaurants and evening activity matter as much as proximity to NASA.",
+      },
+    ],
+    neighborhoods: [
+      {
+        name: "Nassau Bay",
+        proximity: "Across NASA Parkway",
+        description: "The small city immediately beside Johnson Space Center is the closest local base, with parks, waterfront access, lodging and restaurants tied closely to the NASA community.",
+      },
+      {
+        name: "Clear Lake",
+        proximity: "Surrounding area",
+        description: "Houston's southeastern lake-and-bay district is shaped by NASA, boating, marinas and residential waterfront development rather than the dense urban character of central Houston.",
+      },
+      {
+        name: "Seabrook and Kemah",
+        proximity: "About 6–8 miles east",
+        description: "These neighboring waterfront communities shift the trip toward Galveston Bay, with marinas, seafood, parks and the boardwalk district concentrated around the Clear Lake channel.",
+      },
+    ],
+    familyStops: [
+      {
+        name: "Kemah Boardwalk",
+        proximity: "About 7 miles east",
+        description: "Rides, midway attractions and waterfront activity make this an easy high-energy complement after a museum-heavy day with children.",
+      },
+      {
+        name: "Lone Star Flight Museum",
+        proximity: "About 9 miles northwest",
+        description: "Aircraft, simulators and STEM interpretation extend the aerospace theme while changing the pace from NASA's space-focused exhibits.",
+      },
+      {
+        name: "Armand Bayou Nature Center",
+        proximity: "About 6 miles north",
+        description: "Five miles of trails, wildlife habitat and outdoor programs give families a nature-focused half day when they need time outside after indoor exhibits.",
+      },
+    ],
+    sideTrips: [
+      {
+        name: "Galveston Island",
+        proximity: "Roughly 30–35 miles south",
+        description: "Beaches, historic districts and major attractions make Galveston the strongest overnight extension from the NASA–Clear Lake area and keep the trip focused on the Gulf Coast.",
+      },
+      {
+        name: "Moody Gardens",
+        proximity: "About 35 miles south",
+        description: "Galveston's aquarium, rainforest and discovery pyramids create a strong science-and-family pairing when Space Center Houston is part of a two-day Gulf Coast itinerary.",
+      },
+      {
+        name: "Houston Museum District",
+        proximity: "About 25 miles northwest",
+        description: "For a larger science-and-museum trip, central Houston adds the Museum of Natural Science, Houston Zoo and other institutions around Hermann Park, but plan the drive as a separate half day rather than a quick nearby stop.",
+      },
+    ],
+  },
+  featured: true,
+  hero: {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Space_Center_Houston_2025.08.jpg?width=1600",
+    alt: "Entrance to Space Center Houston with NASA branding and the Texas and United States flags",
+    width: 1600,
+    height: 1067,
+    credit: "Shujianyang · CC BY 4.0 · Wikimedia Commons",
+  },
+};
+
 export const topAttractionDestinations: Destination[] = [
   {
     id: "top-attraction-the-alamo",
@@ -345,11 +498,22 @@ export const topAttractionDestinations: Destination[] = [
     coordinates: { lat: 29.4241, lng: -98.4881 },
     ...sanAntonioRiverWalkContent,
   },
+  {
+    id: "top-attraction-space-center-houston",
+    brandId: "texasdefined",
+    slug: "space-center-houston",
+    name: "Space Center Houston",
+    category: "historic-sites",
+    region: "gulf-coast",
+    coordinates: { lat: 29.5519, lng: -95.0981 },
+    ...spaceCenterHoustonContent,
+  },
 ];
 
 const curated: Record<string, Partial<Destination>> = {
   "the-alamo": theAlamoContent,
   "san-antonio-river-walk": sanAntonioRiverWalkContent,
+  "space-center-houston": spaceCenterHoustonContent,
 };
 
 export function applyCuratedTopAttractions(destination: Destination): Destination {
