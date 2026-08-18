@@ -72,6 +72,7 @@ const LEGACY_ARTICLE_TO_COUNTY = new Map<string, string>([
   ["edwards-county-rocksprings-devils-sinkhole-nueces-plateau-texas", "edwards"],
   ["real-county-leakey-camp-wood-frio-nueces-canyons-texas", "real"],
   ["uvalde-county-uvalde-garner-frio-fort-inge-texas", "uvalde"],
+  ["zavala-county-crystal-city-winter-garden-nueces-texas", "zavala"],
 ]);
 
 const COUNTY_SLUGS = new Set(LEGACY_ARTICLE_TO_COUNTY.values());
