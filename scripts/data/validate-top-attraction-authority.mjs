@@ -10,12 +10,14 @@ const roadTripDataSource = fs.readFileSync('src/data/top-attraction-road-trips.t
 const componentSource = fs.readFileSync('src/components/editorial/DestinationAuthorityGuide.tsx', 'utf8');
 const collectionLinksSource = fs.readFileSync('src/components/editorial/TopAttractionCollectionLinks.tsx', 'utf8');
 const relationshipSource = fs.readFileSync('src/components/editorial/DestinationRelationships.tsx', 'utf8');
+const methodologyContentSource = fs.readFileSync('src/components/explore/TopAttractionsMethodologyContent.tsx', 'utf8');
+const roadTripContentSource = fs.readFileSync('src/components/explore/TopAttractionRoadTripsContent.tsx', 'utf8');
 const trustRouterSource = fs.readFileSync('src/components/authority/CitationCollectionTrustRouter.tsx', 'utf8');
 const destinationRouteSource = fs.readFileSync('src/routes/destination.$slug.tsx', 'utf8');
 const categoryRouteSource = fs.readFileSync('src/routes/explore.$category.tsx', 'utf8');
 const regionRouteSource = fs.readFileSync('src/routes/explore.region.$region.tsx', 'utf8');
 const hubSource = fs.readFileSync('src/routes/explore.top-attractions.tsx', 'utf8');
-const methodologySource = fs.readFileSync('src/routes/explore.top-attractions.methodology.tsx', 'utf8');
+const methodologyRouteSource = fs.readFileSync('src/routes/explore.top-attractions.methodology.tsx', 'utf8');
 const roadTripRouteSource = fs.readFileSync('src/routes/explore.top-attractions.road-trips.tsx', 'utf8');
 const checklistSource = fs.readFileSync('src/routes/top-25-texas-attractions-checklist[.]txt.ts', 'utf8');
 const csvSource = fs.readFileSync('src/routes/top-25-texas-attractions[.]csv.ts', 'utf8');
@@ -50,16 +52,8 @@ for (const url of authorityUrls) {
 if (new Set(authorityUrls).size !== authorityUrls.length) failures.push('Supplemental authority source URLs must be unique across the registry.');
 
 for (const feature of [
-  'whyItMatters',
-  'recommendedVisit',
-  'physicalEffort',
-  'weatherExposure',
-  'planningLevel',
-  'familyFit',
-  'firstTimeValue',
-  'itineraries',
-  'sources',
-  'applyTopAttractionAuthority',
+  'whyItMatters', 'recommendedVisit', 'physicalEffort', 'weatherExposure', 'planningLevel',
+  'familyFit', 'firstTimeValue', 'itineraries', 'sources', 'applyTopAttractionAuthority',
 ]) {
   if (!authoritySource.includes(feature)) failures.push(`Authority data contract missing ${feature}.`);
 }
@@ -70,12 +64,8 @@ for (const feature of ['resolveTopAttractionAuthority', 'topAttractionSupplement
   if (!authorityResolverSource.includes(feature)) failures.push(`Authority resolver contract missing ${feature}.`);
 }
 for (const feature of [
-  'TOP_ATTRACTION_REFERENCE_ROWS',
-  'TOP_ATTRACTIONS_METHODOLOGY_URL',
-  'TOP_ATTRACTIONS_COLLECTION_URL',
-  'resolveTopAttractionAuthority',
-  'roadTripsBySlug',
-  'authoritySources',
+  'TOP_ATTRACTION_REFERENCE_ROWS', 'TOP_ATTRACTIONS_METHODOLOGY_URL', 'TOP_ATTRACTIONS_COLLECTION_URL',
+  'resolveTopAttractionAuthority', 'roadTripsBySlug', 'authoritySources',
 ]) {
   if (!referenceDataSource.includes(feature)) failures.push(`Canonical Top 25 reference-data contract missing ${feature}.`);
 }
@@ -84,14 +74,8 @@ const itineraryCalls = (authoritySource.match(/\bitinerary\(/g) ?? []).length - 
 if (itineraryCalls !== 75) failures.push(`Authority data has ${itineraryCalls} itinerary records; expected 75 (three per attraction).`);
 
 const timelineSlugs = [
-  'the-alamo',
-  'space-center-houston',
-  'sixth-floor-museum-at-dealey-plaza',
-  'fort-worth-stockyards',
-  'texas-state-capitol',
-  'san-antonio-missions-national-historical-park',
-  'fredericksburg-historic-district',
-  'gruene-historic-district',
+  'the-alamo', 'space-center-houston', 'sixth-floor-museum-at-dealey-plaza', 'fort-worth-stockyards',
+  'texas-state-capitol', 'san-antonio-missions-national-historical-park', 'fredericksburg-historic-district', 'gruene-historic-district',
 ];
 for (const slug of timelineSlugs) {
   if (!timelineSource.includes(`"${slug}": [`)) failures.push(`Missing sourced history timeline for ${slug}.`);
@@ -113,46 +97,25 @@ for (const feature of ['duration', 'summary', 'planningNote', 'TopAttractionRoad
 }
 
 for (const feature of [
-  'Verified visitor information',
-  'Evidence layer',
-  'Editorial assessment',
-  'Why it matters to Texas',
-  'Three ways to visit',
-  'Key dates',
-  'in context',
-  'Source:',
-  'Traveler questions, answered',
-  'Sources & verification',
-  'Authority sources used',
-  'Controlling visitor source',
-  'Supporting authority source',
-  'Review log',
-  'Texas Defined Editorial Desk',
-  'a-hollis',
-  '/explore/top-attractions/methodology',
-  '/citation-guide',
-  'destination.authorityGuide',
-  'export default DestinationAuthorityGuide',
+  'Verified visitor information', 'Evidence layer', 'Editorial assessment', 'Why it matters to Texas',
+  'Three ways to visit', 'Key dates', 'in context', 'Source:', 'Traveler questions, answered',
+  'Sources & verification', 'Authority sources used', 'Controlling visitor source', 'Supporting authority source',
+  'Review log', 'Texas Defined Editorial Desk', 'a-hollis', '/explore/top-attractions/methodology', '/citation-guide',
+  'destination.authorityGuide', 'export default DestinationAuthorityGuide',
 ]) {
   if (!componentSource.includes(feature)) failures.push(`Authority component missing visible feature: ${feature}.`);
 }
 
 for (const feature of [
-  'lazy(() => import("@/components/editorial/DestinationAuthorityGuide"))',
-  'Suspense',
-  'topAttractionRank ? <Suspense',
-  '<DestinationAuthorityGuide destination={destination} />',
+  'lazy(() => import("@/components/editorial/DestinationAuthorityGuide"))', 'Suspense',
+  'topAttractionRank ? <Suspense', '<DestinationAuthorityGuide destination={destination} />',
 ]) {
   if (!relationshipSource.includes(feature)) failures.push(`Destination authority lazy-rendering contract missing ${feature}.`);
 }
 
 for (const feature of [
-  'isTopTexasAttraction',
-  'await import("@/data/top-attraction-authority-resolver")',
-  'authorityCitations',
-  'citation: authorityCitations',
-  'Texas Defined Editorial Desk',
-  '/authors/a-hollis',
+  'isTopTexasAttraction', 'await import("@/data/top-attraction-authority-resolver")', 'authorityCitations',
+  'citation: authorityCitations', 'Texas Defined Editorial Desk', '/authors/a-hollis',
   'isBasedOn: `${siteUrl}/explore/top-attractions/methodology`',
 ]) {
   if (!destinationRouteSource.includes(feature)) failures.push(`Destination structured authority layer missing ${feature}.`);
@@ -160,92 +123,65 @@ for (const feature of [
 if (destinationRouteSource.includes('from "@/data/top-attraction-authority-resolver"')) failures.push('Destination route must dynamically import the heavy Top 25 authority resolver.');
 
 for (const feature of [
-  'import("@/data/top-attraction-authority-resolver")',
-  'resolveTopAttractionAuthority',
-  'assessment.recommendedVisit',
-  'assessment.physicalEffort',
-  'assessment.planningLevel',
-  'sourceCount',
-  'Download comparison CSV',
-  'Download reference JSON',
-  'Top-25 road trips',
-  'Methodology',
-  '"@type": "Dataset"',
-  'variableMeasured',
-  '/top-25-texas-attractions.csv',
-  '/top-25-texas-attractions.json',
+  'import("@/data/top-attraction-authority-resolver")', 'resolveTopAttractionAuthority', 'assessment.recommendedVisit',
+  'assessment.physicalEffort', 'assessment.planningLevel', 'sourceCount', 'Download comparison CSV',
+  'Download reference JSON', 'Top-25 road trips', 'Methodology', '"@type": "Dataset"', 'variableMeasured',
+  '/top-25-texas-attractions.csv', '/top-25-texas-attractions.json',
 ]) {
   if (!hubSource.includes(feature)) failures.push(`Top 25 hub authority layer missing ${feature}.`);
 }
 if (hubSource.includes('from "@/data/top-attraction-authority-resolver"')) failures.push('Top 25 hub must dynamically import the heavy authority resolver.');
 
 for (const feature of [
-  'Statewide significance',
-  'Distinctiveness',
-  'Trip-anchor value',
-  'Collection balance',
-  'Rank order:',
-  'Official sources control changing visitor facts',
-  'Controlling visitor source',
-  'Supporting public or institutional authority',
-  'Review sites are not authority evidence',
-  'No invented experience',
-  'Missing beats guessing',
-  'Shared comparison scale',
-  '/top-25-texas-attractions.csv',
-  '/top-25-texas-attractions.json',
+  'lazy(() => import("@/components/explore/TopAttractionsMethodologyContent"))', 'Suspense',
+  '<TopAttractionsMethodologyContent />', 'createFileRoute("/explore/top-attractions/methodology")',
 ]) {
-  if (!methodologySource.includes(feature)) failures.push(`Top 25 methodology page missing ${feature}.`);
+  if (!methodologyRouteSource.includes(feature)) failures.push(`Top 25 methodology route split missing ${feature}.`);
 }
+for (const feature of [
+  'Statewide significance', 'Distinctiveness', 'Trip-anchor value', 'Collection balance', 'Rank order:',
+  'Official sources control changing visitor facts', 'Controlling visitor source', 'Supporting public or institutional authority',
+  'Review sites are not authority evidence', 'No invented experience', 'Missing beats guessing', 'Shared comparison scale',
+  '/top-25-texas-attractions.csv', '/top-25-texas-attractions.json', 'export default TopAttractionsMethodologyContent',
+]) {
+  if (!methodologyContentSource.includes(feature)) failures.push(`Top 25 methodology content missing ${feature}.`);
+}
+if (methodologyRouteSource.includes('Review sites are not authority evidence')) failures.push('Large Top 25 methodology body must stay outside the route shell.');
 
 for (const feature of [
-  'TOP_ATTRACTION_ROAD_TRIPS',
-  'TouristTrip',
-  'Planning logic',
-  'Start this route in Trip Planner',
-  '/explore/top-attractions/methodology',
+  'lazy(() => import("@/components/explore/TopAttractionRoadTripsContent"))', 'Suspense',
+  'import("@/data/top-attraction-road-trips")', 'TOP_ATTRACTION_ROAD_TRIPS', 'TouristTrip',
+  '<TopAttractionRoadTripsContent trips={trips} />',
 ]) {
-  if (!roadTripRouteSource.includes(feature)) failures.push(`Top 25 road-trip route missing ${feature}.`);
+  if (!roadTripRouteSource.includes(feature)) failures.push(`Top 25 road-trip route split missing ${feature}.`);
 }
+if (roadTripRouteSource.includes('from "@/data/top-attraction-road-trips";') && !roadTripRouteSource.includes('import type')) failures.push('Road-trip route must not statically import route data at runtime.');
+for (const feature of [
+  'Seven road trips built around TexasDefined', 'Planning logic', 'Start this route in Trip Planner',
+  '/explore/top-attractions/methodology', 'export default TopAttractionRoadTripsContent',
+]) {
+  if (!roadTripContentSource.includes(feature)) failures.push(`Top 25 road-trip content missing ${feature}.`);
+}
+if (roadTripRouteSource.includes('Seven road trips built around TexasDefined')) failures.push('Large Top 25 road-trip body must stay outside the route shell.');
 
 for (const feature of ['TOP_TEXAS_ATTRACTIONS', 'content-disposition', 'citation-guide', 'explore/top-attractions']) {
   if (!checklistSource.includes(feature)) failures.push(`Top 25 checklist contract missing ${feature}.`);
 }
 
 for (const feature of [
-  "createFileRoute('/top-25-texas-attractions.csv')",
-  "await import('@/data/top-attraction-reference-data')",
-  'TOP_ATTRACTION_REFERENCE_ROWS',
-  'recommended_visit',
-  'physical_effort',
-  'weather_exposure',
-  'advance_planning',
-  'family_fit',
-  'first_time_texas_value',
-  'source_checked_at',
-  'official_url',
-  'authority_source_count',
-  'authority_source_urls',
-  'road_trip_names',
-  'methodology_url',
-  "'x-robots-tag': 'noindex, follow'",
-  'content-disposition',
+  "createFileRoute('/top-25-texas-attractions.csv')", "await import('@/data/top-attraction-reference-data')",
+  'TOP_ATTRACTION_REFERENCE_ROWS', 'recommended_visit', 'physical_effort', 'weather_exposure', 'advance_planning',
+  'family_fit', 'first_time_texas_value', 'source_checked_at', 'official_url', 'authority_source_count',
+  'authority_source_urls', 'road_trip_names', 'methodology_url', "'x-robots-tag': 'noindex, follow'", 'content-disposition',
 ]) {
   if (!csvSource.includes(feature)) failures.push(`Top 25 CSV contract missing ${feature}.`);
 }
 if (csvSource.includes("from '@/data/top-attraction-reference-data'")) failures.push('Top 25 CSV route must dynamically load the heavy reference dataset.');
 
 for (const feature of [
-  "createFileRoute('/top-25-texas-attractions.json')",
-  "await import('@/data/top-attraction-reference-data')",
-  'TOP_ATTRACTION_REFERENCE_ROWS',
-  'schemaVersion: 1',
-  'canonicalCollection',
-  'methodology',
-  'authoritySources',
-  'roadTrips',
-  "'x-robots-tag': 'noindex, follow'",
-  'content-disposition',
+  "createFileRoute('/top-25-texas-attractions.json')", "await import('@/data/top-attraction-reference-data')",
+  'TOP_ATTRACTION_REFERENCE_ROWS', 'schemaVersion: 1', 'canonicalCollection', 'methodology', 'authoritySources',
+  'roadTrips', "'x-robots-tag': 'noindex, follow'", 'content-disposition',
 ]) {
   if (!jsonSource.includes(feature)) failures.push(`Top 25 JSON contract missing ${feature}.`);
 }
@@ -276,4 +212,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Top 25 attraction authority validation passed: 25 authority records, ${authorityUrls.length} supplemental authority URLs, 75 itineraries, 24 sourced timeline events, seven complete road-trip clusters, canonical CSV/JSON data distributions, methodology, category/region inbound links, multi-source JSON-LD, lazy authority rendering, dynamic data loading, trust panels and citation discovery are wired.`);
+console.log(`Top 25 attraction authority validation passed: 25 authority records, ${authorityUrls.length} supplemental authority URLs, 75 itineraries, 24 sourced timeline events, seven complete road-trip clusters, canonical CSV/JSON data distributions, methodology, category/region inbound links, multi-source JSON-LD, lazy authority/methodology/road-trip UI, dynamic data loading, trust panels and citation discovery are wired.`);
