@@ -53,7 +53,12 @@ function ExplorePage() {
     <DepartmentHero current="Explore" eyebrow="The Texas guide" title="Explore Texas, one good road at a time" description={description} />
 
     <ExploreIntentPaths />
-    <Container className="pb-4 pt-8"><Link to="/explore/attractions-comparison" className="group flex items-center justify-between gap-5 border-y border-border py-5"><div><p className="eyebrow text-primary">Structured comparison</p><h2 className="mt-1 font-display text-2xl group-hover:text-primary">Compare the Texas Defined attractions catalog</h2><p className="mt-2 text-sm leading-6 text-muted-foreground">See destinations across categories by region, nearby town, season guidance, highlights, planning notes and official source.</p></div><span className="shrink-0 font-semibold text-primary">Compare →</span></Link></Container>
+    <Container className="pb-4 pt-8">
+      <div className="grid border-y border-border md:grid-cols-2">
+        <Link to="/explore/top-attractions" className="group flex items-center justify-between gap-5 py-5 md:border-r md:pr-8"><div><p className="eyebrow text-primary">Texas essentials</p><h2 className="mt-1 font-display text-2xl group-hover:text-primary">Explore the Top 25 Texas attractions</h2><p className="mt-2 text-sm leading-6 text-muted-foreground">Start with 25 landmark experiences, each with a full visit guide, nearby stops and direct Trip Planner handoff.</p></div><span className="shrink-0 font-semibold text-primary">Top 25 →</span></Link>
+        <Link to="/explore/attractions-comparison" className="group flex items-center justify-between gap-5 border-t border-border py-5 md:border-t-0 md:pl-8"><div><p className="eyebrow text-primary">Structured comparison</p><h2 className="mt-1 font-display text-2xl group-hover:text-primary">Compare the Texas Defined attractions catalog</h2><p className="mt-2 text-sm leading-6 text-muted-foreground">See destinations across categories by region, nearby town, season guidance, highlights, planning notes and official source.</p></div><span className="shrink-0 font-semibold text-primary">Compare →</span></Link>
+      </div>
+    </Container>
 
     <Section>
       <Container>
