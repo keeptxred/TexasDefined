@@ -24,15 +24,21 @@ function requireText(source, text, message) {
   if (!source.includes(text)) errors.push(message);
 }
 
+function requirePattern(source, pattern, message) {
+  if (!pattern.test(source)) errors.push(message);
+}
+
 const robots = read('public/robots.txt');
 const server = read('src/server.ts');
 const indexNowScript = read('scripts/seo/submit-indexnow.mjs');
 const indexNowWorkflow = read('.github/workflows/bing-indexnow.yml');
 const keyFile = read(`public/${indexNowKey}.txt`);
 
-if (!/User-agent:\s*Bingbot[\s\S]*?Allow:\s*\//i.test(robots)) {
-  errors.push('robots.txt must explicitly allow Bingbot.');
-}
+requirePattern(
+  robots,
+  /User-agent:\s*Bingbot\s*[\r\n]+Allow:\s*\//i,
+  'robots.txt must explicitly allow Bingbot.',
+);
 for (const sitemap of sitemapUrls) {
   requireText(robots, `Sitemap: ${sitemap}`, `robots.txt must advertise ${sitemap}.`);
 }
@@ -42,33 +48,47 @@ requireText(
   `<meta name="msvalidate.01" content="${webmasterToken}" />`,
   'The production server must preserve the exact Bing Webmaster verification meta tag.',
 );
-requireText(
+requirePattern(
   server,
-  'ensureBingWebmasterVerification',
+  /async function addBingVerificationMeta\(/,
   'The production server must keep the Bing Webmaster HTML injection guard.',
 );
-requireText(
+requirePattern(
   server,
-  'url.pathname !== "/"',
-  'Bing Webmaster verification injection must remain scoped to the canonical homepage.',
+  /request\.method !== ["']GET["'] \|\| url\.pathname !== ["']\/["']/,
+  'Bing Webmaster verification injection must remain scoped to GET requests for the canonical homepage.',
 );
-requireText(
+requirePattern(
   server,
-  'content-type',
+  /contentType\.includes\(["']text\/html["']\)/,
   'Bing Webmaster verification injection must remain restricted to HTML responses.',
+);
+requirePattern(
+  server,
+  /return await addBingVerificationMeta\(request, normalizedResponse\)/,
+  'The server fetch pipeline must apply Bing verification to the normalized production response.',
 );
 
 if (keyFile.trim() !== indexNowKey) {
   errors.push('The public IndexNow key file must contain exactly the configured key.');
 }
 
+requirePattern(
+  indexNowScript,
+  new RegExp(`const origin = ['"]${canonicalOrigin.replaceAll('.', '\\.') }['"]`),
+  'IndexNow submitter must use the canonical TexasDefined origin.',
+);
+requirePattern(
+  indexNowScript,
+  new RegExp(`const key = ['"]${indexNowKey}['"]`),
+  'IndexNow submitter must use the published ownership key.',
+);
 for (const expected of [
-  `const origin = "${canonicalOrigin}"`,
-  `const key = "${indexNowKey}"`,
   'https://api.indexnow.org/indexnow',
   '/sitemap.xml',
   '/sitemap-explore.xml',
   '[200, 202]',
+  '10_000',
 ]) {
   requireText(indexNowScript, expected, `IndexNow submitter is missing required contract: ${expected}`);
 }
