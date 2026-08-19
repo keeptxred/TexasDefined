@@ -34,7 +34,18 @@ jobs:
       - name: Check Top 25 official and supporting sources
         id: sources
         continue-on-error: true
+        env:
+          TOP25_SOURCE_HEALTH_REPORT: artifacts/top25-source-health.json
         run: node scripts/data/check-top-attraction-source-health.mjs 2>&1 | tee /tmp/top25-sources.log
+
+      - name: Upload authority source-health snapshot
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: top25-authority-source-health-${{ github.run_id }}
+          path: artifacts/top25-source-health.json
+          if-no-files-found: warn
+          retention-days: 90
 
       - name: Publish authority health summary
         if: always()
@@ -44,6 +55,7 @@ jobs:
             echo
             echo "- Review freshness: ${{ steps.freshness.outcome }}"
             echo "- Source reachability: ${{ steps.sources.outcome }}"
+            echo "- Source snapshot artifact: top25-authority-source-health-${{ github.run_id }}"
             echo
             echo '### Freshness audit'
             echo '```text'
@@ -69,6 +81,7 @@ jobs:
               'The scheduled TexasDefined Top 25 authority audit found a freshness or source-health problem.',
               '',
               `Workflow run: ${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`,
+              `Source-health artifact: top25-authority-source-health-${context.runId}`,
               '',
               '### Review freshness',
               '```text',
