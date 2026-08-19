@@ -1,15 +1,12 @@
 import { filterCurrentlyVisitableDestinations } from "./destination-availability";
 import { filterSeoReadyDestinations } from "./destination-audit";
 import { applyAllCuratedDestination, applyAllCuratedDestinations } from "./destination-curation-all";
-import { topAttractionDestinations } from "./destination-curation-top-attractions";
+import { preservedExploreDestinations } from "./destination-preserved-catalog";
 import { improveDestinationCatalog, improveDestinationQuality } from "./destination-quality";
 import { fetchCoreExploreDestination, fetchCoreExploreDestinations } from "./explore-core-remote";
 import { isDestinationPhotoPlaceholder, reconcileDestinationHeroes } from "./explore-hero-reconciliation";
 import { applyExploreHeroAsset, applyExploreHeroAssets } from "./explore-heroes";
 import { fetchExploreDestination, fetchExploreDestinations } from "./explore-remote";
-import { legacyExploreDestinations } from "./fixtures/legacy-explore";
-import { legacyLakeDestinations } from "./fixtures/legacy-lakes";
-import { historicSiteDestinations } from "./historic-sites";
 import { platform, scope } from "./index";
 import { applyStateParkHeroAsset, applyStateParkHeroAssets } from "./state-park-heroes";
 import type { Destination, Slug } from "./types";
@@ -42,8 +39,6 @@ function mergeDestinations(...groups: Destination[][]): Destination[] {
   }
   return [...merged.values()];
 }
-
-const preservedExploreDestinations = mergeDestinations(topAttractionDestinations, legacyExploreDestinations, legacyLakeDestinations, historicSiteDestinations);
 
 function preservedFor(query: Omit<DestinationQuery, "brandId">): Destination[] {
   let rows = preservedExploreDestinations;
