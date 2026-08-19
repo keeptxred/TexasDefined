@@ -57,10 +57,14 @@ function ThingsUniqueToTexasPage() {
             <h2 className="mt-3 font-display text-4xl sm:text-5xl">Turn the list into stories and road trips</h2>
             <p className="mt-5 leading-7 text-muted-foreground">The strongest themes get full editorial treatment instead of hundreds of thin one-item pages. These guides connect culture to places, history and practical trip planning.</p>
           </div>
-          <div className="mt-10 grid gap-px overflow-hidden border border-border bg-border lg:grid-cols-3">
+          <div className="mt-10 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2 xl:grid-cols-3">
             <PillarLink to="/texas-food-trail" eyebrow="Food & road trips" title="The Texas Food Trail" text="Ten food traditions—from Central Texas barbecue and breakfast tacos to Czech bakeries, Gulf seafood and Hill Country produce—organized as a travel-ready guide." />
             <PillarLink to="/texas-roadside-oddities" eyebrow="Roadside Texas" title="Texas Roadside Oddities" text="Cadillac Ranch, giant boots, tiny towns, neon, courthouse squares and the logic behind building a better weird-Texas road trip." />
             <PillarLink to="/texas-slang-explained" eyebrow="Language & identity" title="Texas Slang Explained" text="Y'all, fixin' to, all hat no cattle, bilingual influence and why context matters more than stereotype lists." />
+            <PillarLink to="/texas-dance-halls-honky-tonks" eyebrow="Music & social life" title="Texas Dance Halls & Honky-Tonks" text="Two-step culture, historic halls, Western swing, honky-tonks and how to turn a live-music night into a cultural weekend." />
+            <PillarLink to="/texas-homecoming-mums" eyebrow="School traditions" title="Texas Homecoming Mums Explained" text="How a simple chrysanthemum corsage became an oversized wearable record of school spirit, activities, friends and local identity." />
+            <PillarLink to="/texas-natural-wonders-bucket-list" eyebrow="Outdoors & geography" title="Texas Natural Wonders Bucket List" text="Twelve landscapes—from Big Bend and Palo Duro to Caddo Lake, Padre Island and spring-fed West Texas—that show how varied the state really is." />
+            <PillarLink to="/german-czech-texas-towns" eyebrow="Immigration & heritage" title="German & Czech Texas Towns" text="Fredericksburg, New Braunfels, West, Schulenburg and the food, churches, dance halls and community traditions connecting them." />
           </div>
         </Container>
       </section>
