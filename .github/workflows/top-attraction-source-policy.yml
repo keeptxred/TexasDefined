@@ -9,7 +9,9 @@ on:
       - 'src/data/destination-curation-top-attractions-batch*.ts'
       - 'scripts/data/validate-top-attraction-source-policy.mjs'
       - 'scripts/data/validate-top-attraction-review-freshness.mjs'
+      - 'scripts/data/check-top-attraction-source-health.mjs'
       - '.github/workflows/top-attraction-source-policy.yml'
+      - '.github/workflows/top-attraction-source-health.yml'
   pull_request:
     branches: [main]
     paths:
@@ -18,7 +20,9 @@ on:
       - 'src/data/destination-curation-top-attractions-batch*.ts'
       - 'scripts/data/validate-top-attraction-source-policy.mjs'
       - 'scripts/data/validate-top-attraction-review-freshness.mjs'
+      - 'scripts/data/check-top-attraction-source-health.mjs'
       - '.github/workflows/top-attraction-source-policy.yml'
+      - '.github/workflows/top-attraction-source-health.yml'
   workflow_dispatch:
 
 permissions:
@@ -36,6 +40,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+
+      - name: Validate Top 25 monitor syntax
+        run: |
+          node --check scripts/data/validate-top-attraction-source-policy.mjs
+          node --check scripts/data/validate-top-attraction-review-freshness.mjs
+          node --check scripts/data/check-top-attraction-source-health.mjs
 
       - name: Validate Top 25 authority source policy
         run: node scripts/data/validate-top-attraction-source-policy.mjs
