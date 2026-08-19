@@ -40,6 +40,10 @@ for (const [name, routeSource] of [['schema route', categoryRoute], ['lazy route
   if (!routeSource.includes('texasIconCanonicalHref')) failures.push(`${name} must resolve canonical magazine links through texasIconCanonicalHref.`);
 }
 if (!categoryRoute.includes('...(href ? { url: `${origin}${href}` } : {})')) failures.push('Category JSON-LD must expose canonical URLs for linked magazine entries.');
+for (const token of ['isBasedOn: methodologyUrl', 'Texas Defined Editorial Desk', 'dateModified: "2026-08-19"']) {
+  if (!categoryRoute.includes(token)) failures.push(`Category CollectionPage schema must retain provenance token: ${token}.`);
+}
+if (!lazyRoute.includes('to="/things-unique-to-texas/methodology"')) failures.push('Every magazine chapter must visibly link the collection methodology.');
 
 if (!methodologyRoute.includes('createFileRoute("/things-unique-to-texas/methodology")')) failures.push('Magazine methodology route must remain canonical.');
 for (const token of ['Inclusion standard', 'Official fact versus Texas folklore', 'Cross-link policy', 'Changing information', 'Corrections and maintenance']) {
@@ -61,4 +65,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Things That Define Texas validation passed: ${ids.length} entries, ${categorySlugs.length} categories, ${hrefs.length} editorial links, ${canonicalIds.length} canonical destination cross-links, and methodology/provenance/trust contracts intact.`);
+console.log(`Things That Define Texas validation passed: ${ids.length} entries, ${categorySlugs.length} categories, ${hrefs.length} editorial links, ${canonicalIds.length} canonical destination cross-links, and methodology/provenance/trust contracts intact across the root collection and all chapters.`);
