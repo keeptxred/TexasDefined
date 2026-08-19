@@ -5,6 +5,7 @@ import { texasIconCanonicalHref } from "@/data/things-unique-to-texas-links";
 
 const FEATURED_GUIDES: Record<string, { href: string; label: string; description: string }[]> = {
   "food-drink": [
+    { href: "/texas-food-history", label: "Texas Food History", description: "Start with the parent guide connecting barbecue, chili, chicken-fried steak, breakfast tacos, immigrant foodways and Texas-born brands." },
     { href: "/texas-food-trail", label: "The Texas Food Trail", description: "Turn barbecue, Tex-Mex, Czech bakeries, Gulf seafood and regional specialties into a statewide food trip." },
     { href: "/texas-breakfast-taco-guide", label: "Texas Breakfast Tacos", description: "Learn the tortillas, fillings, salsa habits and ordering logic behind one of the state's most everyday foods." },
     { href: "/texas-chili-con-carne-history", label: "Texas Chili Con Carne", description: "Trace San Antonio Chili Queens, commercial chili powder and cookoff culture without turning folklore into fact." },
