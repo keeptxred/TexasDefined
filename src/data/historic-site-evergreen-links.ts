@@ -50,6 +50,19 @@ const routeGuides: RouteGuide[] = [
       href: "/article/presidential-texas-historic-homes",
     },
   },
+  {
+    slugs: new Set([
+      "levi-jordan-plantation",
+      "varner-hogg-plantation",
+      "first-capitol-of-texas",
+      "stephen-f-austin-memorial",
+    ]),
+    item: {
+      name: "Brazoria plantation history",
+      description: "Place this stop in the Lower Brazos story of slavery, emancipation, Reconstruction, changing labor systems and archaeological recovery.",
+      href: "/article/brazoria-plantations-slavery-emancipation-history",
+    },
+  },
 ];
 
 export function enrichHistoricSiteEvergreenLinks(destination: Destination): Destination {
