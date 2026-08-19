@@ -91,4 +91,10 @@ export const COUNTY_SERIES_PROFILES_CONTINUED: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/san-augustine-county-san-augustine-mission-dolores-el-camino-piney-woods-texas")
       .then((module) => module.sanAugustineCountySanAugustineMissionDoloresElCaminoPineyWoodsArticle),
   },
+  {
+    countySlug: "sabine",
+    articleSlug: "sabine-county-hemphill-toledo-bend-sabine-river-piney-woods-texas",
+    loadArticle: () => import("@/data/fixtures/sabine-county-hemphill-toledo-bend-sabine-river-piney-woods-texas")
+      .then((module) => module.sabineCountyHemphillToledoBendSabineRiverPineyWoodsArticle),
+  },
 ];
