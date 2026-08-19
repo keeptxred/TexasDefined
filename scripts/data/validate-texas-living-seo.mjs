@@ -28,7 +28,12 @@ for (const feature of [
   "name: 'Texas Life departments and guides'",
   "['Things That Define Texas', '/things-unique-to-texas'",
   "['/texas-food-trail', 'Texas Food Trail'",
+  "['/texas-breakfast-taco-guide', 'Texas Breakfast Tacos'",
+  "['/texas-chili-con-carne-history', 'Texas Chili Con Carne'",
+  "['/texas-chicken-fried-steak-guide', 'Texas Chicken-Fried Steak'",
   "['/texas-natural-wonders-bucket-list', 'Texas Natural Wonders'",
+  "['/texas-brand-origin-stories', 'Texas Brand Origin Stories'",
+  "['/dr-pepper-texas-history', 'Dr Pepper in Texas'",
 ]) {
   if (!route.includes(feature)) errors.push(`Texas Life SEO or naming feature missing: ${feature}.`);
 }
@@ -59,4 +64,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Texas Life metadata, CollectionPage, mixed department/culture/article ItemList, shared visible breadcrumb, and JSON-LD naming are aligned.');
+console.log('Texas Life metadata, CollectionPage, mixed department/culture/article ItemList, expanded culture-guide discovery, shared visible breadcrumb, and JSON-LD naming are aligned.');
