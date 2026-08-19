@@ -57,6 +57,21 @@ export const whyTexasHas254CountiesArticle: Article = {
       label: "Explore Texas by place",
       description: "Move from the map to parks, towns, rivers, regions and destinations across the state.",
     },
+    {
+      href: "https://www.texas.gov/local-government-resources/",
+      label: "Texas.gov local government resources",
+      description: "Official Texas portal confirming the state's 254 counties and linking residents to county and local-government services.",
+    },
+    {
+      href: "https://www.tsl.texas.gov/ref/abouttx/countyseats.html",
+      label: "Texas State Library county and county-seat list",
+      description: "Official state reference listing all Texas counties and their county seats.",
+    },
+    {
+      href: "https://comptroller.texas.gov/transparency/local/counties.php",
+      label: "Texas Comptroller county-government reference",
+      description: "Official state overview of county revenue, taxes, budgets and public services across Texas's 254 counties.",
+    },
   ],
   relatedCollections: [],
   relatedDestinations: [],
