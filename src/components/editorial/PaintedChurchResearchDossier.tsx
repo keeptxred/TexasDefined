@@ -1,3 +1,5 @@
+import { Link } from "@tanstack/react-router";
+
 import { PaintedChurchArchivalImageSources } from "@/components/editorial/PaintedChurchArchivalImageSources";
 import { PaintedChurchGallery } from "@/components/editorial/PaintedChurchGallery";
 import "@/data/painted-churches-expanded";
@@ -11,7 +13,6 @@ import { statewidePaintedChurchResearchBySlug } from "@/data/painted-church-rese
 export function PaintedChurchResearchDossier({ slug, schulenburgCluster }: { slug: string; schulenburgCluster?: boolean }) {
   const dossier = paintedChurchResearchBySlug(slug) ?? statewidePaintedChurchResearchBySlug(slug) ?? additionalPaintedChurchResearchBySlug(slug) ?? paintedChurchAdditionResearchBySlug(slug);
   const additionalProfile = additionalPaintedChurchProfileBySlug(slug) ?? paintedChurchAdditionProfileBySlug(slug);
-  if (!dossier && !schulenburgCluster) return null;
 
   return (
     <>
@@ -32,6 +33,17 @@ export function PaintedChurchResearchDossier({ slug, schulenburgCluster }: { slu
 
       <PaintedChurchGallery slug={slug} />
       <PaintedChurchArchivalImageSources slug={slug} />
+
+      <section aria-labelledby="editorial-standard" className="mt-14 border-l-2 border-primary bg-surface p-6 sm:p-8">
+        <p className="eyebrow text-primary">Editorial standard</p>
+        <h2 id="editorial-standard" className="mt-3 font-display text-3xl">Verified church, visible source trail.</h2>
+        <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Texas Defined separates formal National Register designation from the broader Painted Churches tradition, gives primary and official records precedence for hard facts, records meaningful source conflicts instead of hiding them, and checks image rights at the individual-item level before publication.</p>
+        <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm">
+          <Link to="/explore/painted-churches/methodology" className="border-b border-primary text-primary">Research methodology & corrections</Link>
+          <Link to="/explore/painted-churches/compare" className="border-b border-primary text-primary">Compare all verified churches</Link>
+          <Link to="/explore/painted-churches/how-many" className="border-b border-primary text-primary">Why Painted Church counts differ</Link>
+        </div>
+      </section>
 
       {dossier ? (
         <section aria-labelledby="research-dossier" className="mt-14 border-t border-border pt-8">
