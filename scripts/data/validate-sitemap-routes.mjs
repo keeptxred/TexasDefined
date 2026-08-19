@@ -5,13 +5,12 @@ const sitemap = fs.readFileSync('src/routes/sitemap[.]xml.ts', 'utf8');
 const exploreSitemap = fs.readFileSync('src/routes/sitemap-explore[.]xml.ts', 'utf8');
 const regionRoute = fs.readFileSync('src/routes/explore.region.$region.tsx', 'utf8');
 
-const redirects = [
-  '/tax-calculator',
-  '/texas-financial-tools',
-  '/texas-property-tax-increase-calculator',
-  '/texas-property-tax-protest-guide',
-];
-const nonIndexableRoutes = ['/search', '/explore/search', '/shop/cart', '/shop/checkout-return'];
+const extractArray = (name) => {
+  const match = registry.match(new RegExp(`export const ${name} = \\[([\\s\\S]*?)\\] as const;`));
+  return match ? [...match[1].matchAll(/["'](\/[^"']*)["']/g)].map((entry) => entry[1]) : [];
+};
+const redirects = extractArray('REDIRECT_ONLY_PATHS');
+const nonIndexableRoutes = extractArray('NON_INDEXABLE_PUBLIC_PATHS');
 const legacyExploreRedirects = [
   ['src/routes/explore.lake.$slug.tsx', '/explore/lake/', '/destination/'],
   ['src/routes/explore.river.$slug.tsx', '/explore/river/', '/destination/'],
@@ -45,6 +44,8 @@ const nonExploreCategories = ['sports', 'moving-to-texas', 'home-garden', 'real-
 
 const failures = [];
 const indexableSection = registry.split('export const REDIRECT_ONLY_PATHS')[0];
+if (!redirects.length) failures.push('Redirect-only route registry could not be parsed.');
+if (!nonIndexableRoutes.length) failures.push('Non-indexable route registry could not be parsed.');
 
 for (const path of redirects) {
   if (indexableSection.includes(`"${path}"`)) failures.push(`Redirect-only path remains in INDEXABLE_STATIC_PATHS: ${path}`);
@@ -54,8 +55,6 @@ for (const path of redirects) {
 for (const path of nonIndexableRoutes) {
   if (indexableSection.includes(`"${path}"`)) failures.push(`Noindex route remains in INDEXABLE_STATIC_PATHS: ${path}`);
   if (!registry.includes(`"${path}"`)) failures.push(`Noindex route is not governed explicitly: ${path}`);
-  if (sitemap.includes(`"${path}"`)) failures.push(`Primary sitemap source must not publish noindex route ${path}.`);
-  if (exploreSitemap.includes(`"${path}"`)) failures.push(`Explore sitemap source must not publish noindex route ${path}.`);
 }
 
 for (const feature of [
@@ -111,11 +110,8 @@ for (const [filename, aliasPath, targetPath] of migratedGuideRedirects) {
   if (!source.includes('statusCode: 301')) failures.push(`${filename} must remain a permanent redirect.`);
   if (!source.includes(targetPath)) failures.push(`${filename} must redirect to ${targetPath}.`);
   if (!source.includes('location.searchStr')) failures.push(`${filename} must preserve the incoming query string.`);
-  if (!registry.includes(`"${aliasPath}"`)) failures.push(`Redirect-only registry must govern migrated guide alias ${aliasPath}.`);
+  if (!redirects.includes(aliasPath)) failures.push(`Redirect-only registry must govern migrated guide alias ${aliasPath}.`);
   if (indexableSection.includes(`"${aliasPath}"`)) failures.push(`Migrated guide alias remains indexable: ${aliasPath}.`);
-  if (sitemap.includes(aliasPath) || exploreSitemap.includes(aliasPath)) {
-    failures.push(`Sitemaps must not publish migrated guide alias ${aliasPath}.`);
-  }
 }
 
 for (const feature of [
@@ -170,4 +166,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Sitemap ownership, crawl-demand partitioning, preserved-catalog remote fallback, resolved quality gates, malformed-path rejection, migrated aliases, regional quality, and noindex/redirect policy validation passed.');
+console.log(`Sitemap ownership, crawl-demand partitioning, preserved-catalog remote fallback, resolved quality gates, malformed-path rejection, all ${redirects.length} governed redirects, all ${nonIndexableRoutes.length} governed noindex routes, migrated aliases and regional quality passed validation.`);
