@@ -47,6 +47,10 @@ function ThingsUniqueToTexasPage() {
               </Link>
             ))}
           </div>
+          <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 border-t border-border pt-6 text-sm font-semibold">
+            <Link to="/things-unique-to-texas/landmarks" className="underline decoration-primary/40 underline-offset-4 hover:text-primary">Texas landmarks →</Link>
+            <Link to="/things-unique-to-texas/wildlife-landscape" className="underline decoration-primary/40 underline-offset-4 hover:text-primary">Wildlife & landscape →</Link>
+          </div>
         </Container>
       </section>
 
@@ -86,6 +90,7 @@ function ThingsUniqueToTexasPage() {
                 <RelatedLink to="/things-unique-to-texas/methodology" title="How this collection is maintained" text="See the inclusion rules, source precedence, cross-link policy and corrections approach behind the 250 entries." />
                 <a href="/things-that-define-texas.csv" className="group block py-5"><span className="font-semibold group-hover:text-primary">Download the 250-item CSV →</span><span className="mt-1 block text-sm leading-6 text-muted-foreground">Item numbers, chapter membership, descriptions and canonical deeper-guide relationships for analysis or reuse.</span></a>
                 <a href="/things-that-define-texas.json" className="group block py-5"><span className="font-semibold group-hover:text-primary">Download the reference JSON →</span><span className="mt-1 block text-sm leading-6 text-muted-foreground">The same 250 reference rows with field definitions and methodology metadata for machine use.</span></a>
+                <RelatedLink to="/texas-facts" title="100 Essential Texas Facts" text="A durable reference layer for Texas history, geography, culture, industry and civics." />
                 <RelatedLink to="/made-in-texas" title="Made in Texas" text="See which products are made or processed here and which brands have another kind of Texas connection." />
                 <RelatedLink to="/texas-symbols" title="Official Texas Symbols" text="See which icons are actually designated by the state." />
                 <RelatedLink to="/texas-explained" title="Texas Explained" text="Understand the geography, roads, towns, homes and systems behind the culture." />
