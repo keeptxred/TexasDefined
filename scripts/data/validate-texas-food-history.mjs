@@ -1,0 +1,62 @@
+import fs from 'node:fs';
+
+const route = fs.readFileSync('src/routes/texas-food-history.tsx', 'utf8');
+const publicRoutes = fs.readFileSync('src/lib/public-routes.ts', 'utf8');
+const rootHub = fs.readFileSync('src/routes/things-unique-to-texas.lazy.tsx', 'utf8');
+const categoryHub = fs.readFileSync('src/routes/things-unique-to-texas.$category.lazy.tsx', 'utf8');
+const texasLiving = fs.readFileSync('src/routes/texas-living.tsx', 'utf8');
+const smoke = fs.readFileSync('.github/workflows/things-unique-to-texas-production-smoke.yml', 'utf8');
+const llms = fs.readFileSync('src/routes/llms[.]txt.ts', 'utf8');
+const citationIndex = JSON.parse(fs.readFileSync('public/citation-magnets.json', 'utf8'));
+const failures = [];
+
+const canonicalPath = '/texas-food-history';
+const focusedGuides = [
+  '/article/texas-barbecue-styles-explained',
+  '/texas-chili-con-carne-history',
+  '/texas-chicken-fried-steak-guide',
+  '/texas-breakfast-taco-guide',
+  '/german-czech-texas-towns',
+  '/dr-pepper-texas-history',
+];
+
+for (const token of [
+  'const canonicalPath = "/texas-food-history"',
+  '"@type": "CollectionPage"',
+  '"@type": "ItemList"',
+  '"@type": "BreadcrumbList"',
+  'There is no single Texas cuisine',
+  'Separate history from folklore',
+]) {
+  if (!route.includes(token)) failures.push(`Texas Food History route missing contract token: ${token}.`);
+}
+
+for (const path of focusedGuides) {
+  if (!route.includes(`href: "${path}"`) && !route.includes(`to="${path}"`)) {
+    failures.push(`Texas Food History must link focused guide ${path}.`);
+  }
+}
+
+if (!publicRoutes.includes('"/texas-food-history"')) failures.push('Texas Food History must remain indexable in public route governance.');
+if (!rootHub.includes('to="/texas-food-history"')) failures.push('Things That Define Texas hub must visibly link Texas Food History.');
+if (!categoryHub.includes('href: "/texas-food-history"')) failures.push('Food & Drink chapter must feature Texas Food History.');
+if (!texasLiving.includes("['/texas-food-history', 'Texas Food History'")) failures.push('Texas Life must surface Texas Food History.');
+if (!smoke.includes("check_page '/texas-food-history' 'Texas food history'")) failures.push('Production smoke must verify Texas Food History.');
+if (!llms.includes('Texas food history: https://texasdefined.com/texas-food-history')) failures.push('llms.txt must expose Texas Food History.');
+
+const citationResource = citationIndex.resources?.find((resource) => resource.url === 'https://texasdefined.com/texas-food-history');
+if (!citationResource) failures.push('Citation index must include Texas Food History.');
+else {
+  if (citationResource.type !== 'culture-reference-hub') failures.push('Texas Food History citation-index type must remain culture-reference-hub.');
+  for (const marker of ['historical-context', 'source-notes', 'canonical-cross-links', 'folklore-distinction']) {
+    if (!citationResource.trust?.includes(marker)) failures.push(`Texas Food History citation index missing trust marker ${marker}.`);
+  }
+}
+
+if (failures.length) {
+  console.error('Texas Food History validation failed:');
+  for (const failure of failures) console.error(`- ${failure}`);
+  process.exit(1);
+}
+
+console.log(`Texas Food History validation passed: canonical hub, ${focusedGuides.length} focused guide links, sitemap governance, collection discovery, Texas Life discovery, production smoke, llms.txt and citation-index coverage intact.`);
