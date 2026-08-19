@@ -77,6 +77,19 @@ const routeGuides: RouteGuide[] = [
       href: "/article/texas-borderlands-historic-sites-guide",
     },
   },
+  {
+    slugs: new Set([
+      "eisenhower-birthplace",
+      "national-museum-pacific-war",
+      "iwo-jima-museum-monument",
+      "slaton-harvey-house",
+    ]),
+    item: {
+      name: "Texas and World War II",
+      description: "Connect leadership, the Pacific War, public memory and railroad-era mobility through four Texas historic sites tied to the global conflict.",
+      href: "/article/texas-world-war-ii-historic-sites-guide",
+    },
+  },
 ];
 
 export function enrichHistoricSiteEvergreenLinks(destination: Destination): Destination {
