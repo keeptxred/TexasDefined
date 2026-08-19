@@ -8,6 +8,9 @@ const FEATURED_GUIDES: Record<string, { href: string; label: string; description
     { href: "/texas-food-trail", label: "The Texas Food Trail", description: "Turn barbecue, Tex-Mex, Czech bakeries, Gulf seafood and regional specialties into a statewide food trip." },
     { href: "/german-czech-texas-towns", label: "German & Czech Texas towns", description: "Connect kolaches, sausage and beer traditions to the communities and institutions that kept them alive." },
   ],
+  "texas-brands": [
+    { href: "/texas-brand-origin-stories", label: "Texas Brand Origin Stories", description: "Trace H-E-B, Whataburger, Blue Bell, Shiner, Dickies and Buc-ee's back to the Texas places and routines that shaped them." },
+  ],
   "natural-wonders": [
     { href: "/texas-natural-wonders-bucket-list", label: "Texas Natural Wonders Bucket List", description: "Twelve landscapes that show the state's full range, from desert mountains to cypress swamp and barrier island." },
   ],

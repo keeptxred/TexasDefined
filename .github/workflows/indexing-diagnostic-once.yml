@@ -1,0 +1,63 @@
+name: Indexing diagnostic once
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/indexing-diagnostic-once.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: indexing-diagnostic-once-main
+  cancel-in-progress: true
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - name: Run diagnostics and always record result
+        shell: bash
+        run: |
+          set +e
+          report=/tmp/indexing-diagnostic.txt
+          validated_sha="$(git rev-parse HEAD)"
+          echo "Indexing diagnostic for $validated_sha" > "$report"
+          run_check() {
+            name="$1"; shift
+            echo "--- $name ---" >> "$report"
+            "$@" >> "$report" 2>&1
+            code=$?
+            echo "exit=$code" >> "$report"
+            return $code
+          }
+          overall=0
+          run_check npm-ci npm ci --no-audit --no-fund || overall=1
+          if [ "$overall" = 0 ]; then
+            run_check destination-policy node scripts/data/validate-destination-indexing-policy.mjs || overall=1
+            run_check entity-template node scripts/data/validate-entity-template-quality.mjs || overall=1
+            run_check finance-links node scripts/data/validate-internal-link-discovery.mjs || overall=1
+            run_check editorial-migration node scripts/data/validate-editorial-migration.mjs || overall=1
+            run_check build npm run build || overall=1
+            run_check performance npm run performance:validate || overall=1
+          fi
+          echo "overall=$overall" >> "$report"
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git pull --rebase origin main
+          cp "$report" .github/indexing-diagnostic-result.txt
+          git add .github/indexing-diagnostic-result.txt
+          git commit -m 'Record indexing diagnostic result' || true
+          git push origin HEAD:main
+          exit "$overall"

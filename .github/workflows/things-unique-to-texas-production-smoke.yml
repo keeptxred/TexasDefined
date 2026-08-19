@@ -59,6 +59,30 @@ jobs:
           check_page '/things-unique-to-texas/wildlife-landscape' 'Texas Wildlife, Plants & Geography'
           check_page '/things-unique-to-texas/slang-folklore' 'Texas Slang, Symbols & Folklore'
 
+      - name: Verify machine-readable reference distributions
+        shell: bash
+        run: |
+          set -euo pipefail
+          origin='https://texasdefined.com'
+          json_body="$(mktemp)"
+          json_headers="$(mktemp)"
+          csv_body="$(mktemp)"
+          csv_headers="$(mktemp)"
+          trap 'rm -f "$json_body" "$json_headers" "$csv_body" "$csv_headers"' EXIT
+
+          curl --fail-with-body --silent --show-error --location --max-time 30 \
+            -D "$json_headers" "${origin}/things-that-define-texas.json?verify=${GITHUB_RUN_ID}" -o "$json_body"
+          grep -Eqi '^x-robots-tag:[[:space:]]*noindex,[[:space:]]*follow' "$json_headers"
+          jq -e '.schemaVersion == 1 and .count == 250 and (.items | length) == 250 and .methodology == "https://texasdefined.com/things-unique-to-texas/methodology"' "$json_body" >/dev/null
+
+          curl --fail-with-body --silent --show-error --location --max-time 30 \
+            -D "$csv_headers" "${origin}/things-that-define-texas.csv?verify=${GITHUB_RUN_ID}" -o "$csv_body"
+          grep -Eqi '^x-robots-tag:[[:space:]]*noindex,[[:space:]]*follow' "$csv_headers"
+          test "$(wc -l < "$csv_body" | tr -d ' ')" -eq 251
+          head -n 1 "$csv_body" | grep -Fq 'deeper_guide'
+          head -n 1 "$csv_body" | grep -Fq 'methodology'
+          echo 'PASS machine-readable distributions: 250 JSON items and 250 CSV records.'
+
       - name: Publish smoke summary
         if: always()
         run: |
@@ -68,5 +92,6 @@ jobs:
             echo '- Canonical collection: https://texasdefined.com/things-unique-to-texas'
             echo '- Methodology: https://texasdefined.com/things-unique-to-texas/methodology'
             echo '- Chapter routes checked: 8'
-            echo '- Every route must return successfully, contain its expected identity text and avoid a noindex robots meta tag.'
+            echo '- Machine distributions: 250-row JSON and CSV packages'
+            echo '- HTML routes must be indexable; data downloads must return X-Robots-Tag: noindex, follow.'
           } >> "$GITHUB_STEP_SUMMARY"

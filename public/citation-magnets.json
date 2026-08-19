@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "site": "TexasDefined",
   "canonicalDomain": "https://texasdefined.com",
-  "asOf": "2026-08-18",
+  "asOf": "2026-08-19",
   "purpose": "Machine-readable index of maintained TexasDefined reference resources intended for factual retrieval, comparison and citation.",
   "resources": [
     { "url": "https://texasdefined.com/citation-guide", "type": "citation-policy", "topic": "TexasDefined citation guidance", "title": "How to Cite TexasDefined References & Data", "trust": ["canonical-url-guidance", "official-source-precedence", "provenance"] },
@@ -17,6 +17,17 @@
     { "url": "https://texasdefined.com/learn/property-tax-deadlines", "type": "calendar-reference", "topic": "Texas property-tax deadlines", "title": "Texas Property Tax Deadlines", "trust": ["official-sources", "methodology", "freshness"] },
     { "url": "https://texasdefined.com/do/homestead-exemption", "type": "how-to-comparison", "topic": "Texas homestead exemptions", "title": "Texas Homestead Exemption Guide & History", "trust": ["official-sources", "dataset", "methodology"] },
     { "url": "https://texasdefined.com/moving-to-texas", "type": "relocation-comparison", "topic": "Moving to Texas", "title": "Moving to Texas: County Comparison, Cities & What to Know", "trust": ["sources", "methodology", "scope-caveat"] },
+
+    { "url": "https://texasdefined.com/things-unique-to-texas", "type": "culture-reference-collection", "topic": "Things that define Texas", "title": "Things That Define Texas", "trust": ["250-item-curated-collection", "editorial-cross-links", "methodology", "origin-vs-adoption-distinction", "corrections-policy"] },
+    { "url": "https://texasdefined.com/things-unique-to-texas/methodology", "type": "culture-methodology", "topic": "Things That Define Texas methodology", "title": "Things That Define Texas Methodology", "trust": ["inclusion-rules", "source-precedence", "cross-link-policy", "corrections-policy", "thin-content-avoidance"] },
+    { "url": "https://texasdefined.com/texas-food-trail", "type": "culture-travel-reference", "topic": "Texas food traditions", "title": "The Texas Food Trail", "trust": ["regional-context", "editorial-route-logic", "canonical-cross-links", "planning-caveat"] },
+    { "url": "https://texasdefined.com/texas-roadside-oddities", "type": "culture-travel-reference", "topic": "Texas roadside oddities", "title": "Texas Roadside Oddities", "trust": ["editorial-route-logic", "canonical-cross-links", "planning-caveat"] },
+    { "url": "https://texasdefined.com/texas-slang-explained", "type": "culture-reference", "topic": "Texas slang", "title": "Texas Slang Explained", "trust": ["regional-context", "scope-caveat", "stereotype-avoidance"] },
+    { "url": "https://texasdefined.com/texas-dance-halls-honky-tonks", "type": "music-culture-reference", "topic": "Texas dance halls and honky-tonks", "title": "Texas Dance Halls & Honky-Tonks", "trust": ["historical-context", "event-calendar-caveat", "canonical-cross-links"] },
+    { "url": "https://texasdefined.com/texas-homecoming-mums", "type": "culture-reference", "topic": "Texas homecoming mums", "title": "Texas Homecoming Mums Explained", "trust": ["historical-context", "local-variation-caveat", "answer-layer"] },
+    { "url": "https://texasdefined.com/texas-natural-wonders-bucket-list", "type": "travel-reference", "topic": "Texas natural wonders", "title": "Texas Natural Wonders Bucket List", "trust": ["regional-context", "planning-caveat", "conservation-caveat", "canonical-cross-links"] },
+    { "url": "https://texasdefined.com/german-czech-texas-towns", "type": "heritage-travel-reference", "topic": "German and Czech Texas heritage", "title": "German & Czech Texas Towns", "trust": ["historical-context", "heritage-network", "canonical-cross-links", "planning-caveat"] },
+
     { "url": "https://texasdefined.com/explore/state-parks", "type": "travel-comparison", "topic": "Texas state parks", "title": "Texas State Parks", "trust": ["official-sources", "activity-signal-caveat", "freshness"] },
     { "url": "https://texasdefined.com/explore/lakes-rivers", "type": "travel-comparison", "topic": "Texas lakes and rivers", "title": "Texas Lakes and Rivers", "trust": ["official-sources", "planning-caveat", "freshness"] },
     { "url": "https://texasdefined.com/explore/small-towns", "type": "travel-comparison", "topic": "Texas small towns", "title": "Texas Small Towns", "trust": ["official-sources", "scope-caveat"] },
