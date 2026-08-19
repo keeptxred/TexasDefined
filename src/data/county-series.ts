@@ -83,6 +83,7 @@ const LEGACY_ARTICLE_TO_COUNTY = new Map<string, string>([
   ["live-oak-county-george-west-three-rivers-choke-canyon-texas", "live-oak"],
   ["atascosa-county-jourdanton-pleasanton-poteet-ranch-country-texas", "atascosa"],
   ["bee-county-beeville-railroads-ranching-coastal-bend-texas", "bee"],
+  ["frio-county-pearsall-dilley-frio-river-winter-garden-texas", "frio"],
 ]);
 
 const COUNTY_SLUGS = new Set(LEGACY_ARTICLE_TO_COUNTY.values());
