@@ -52,3 +52,55 @@ jobs:
         run: node scripts/data/validate-painted-church-search-intents.mjs
       - name: Validate Painted Churches interactive map and 24-church authority contract
         run: node scripts/data/validate-painted-church-map.mjs
+
+  deploy-production-verification:
+    needs: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment: texasdefined-publication
+    env:
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Build production bundle
+        run: npm run build
+      - name: Enforce existing client bundle budget
+        run: npm run performance:validate
+      - name: Deploy TexasDefined Worker
+        run: npx wrangler deploy
+      - name: Verify Painted Churches production routes
+        shell: bash
+        run: |
+          set -euo pipefail
+          atlas='https://texasdefined.com/explore/painted-churches/guides'
+          sample='https://texasdefined.com/explore/painted-churches/guides/st-michael-weimar'
+          sitemap='https://texasdefined.com/sitemap-explore.xml'
+
+          fetch_with_retry() {
+            local url="$1" out="$2"
+            for attempt in 1 2 3 4 5 6; do
+              if curl --fail-with-body --silent --show-error --location --max-time 30 "$url" -o "$out"; then
+                return 0
+              fi
+              sleep 5
+            done
+            return 1
+          }
+
+          workdir="$(mktemp -d)"
+          trap 'rm -rf "$workdir"' EXIT
+          fetch_with_retry "$atlas" "$workdir/atlas.html"
+          fetch_with_retry "$sample" "$workdir/sample.html"
+          fetch_with_retry "$sitemap" "$workdir/sitemap.xml"
+
+          grep -Fq 'Every major Painted Churches question has somewhere useful to land.' "$workdir/atlas.html"
+          grep -Fq 'St. Michael' "$workdir/sample.html"
+          grep -Fq '/explore/painted-churches/guides/st-michael-weimar' "$workdir/sitemap.xml"
+          echo 'Painted Churches atlas, representative guide, and Explore sitemap are live in production.'
