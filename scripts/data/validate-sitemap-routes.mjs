@@ -84,8 +84,8 @@ for (const feature of [
   'let coreFailed = !remoteConfigured',
   'if (remoteConfigured)',
   'const remoteDestinations = mergeDestinationSources(coreDestinations, enrichedDestinations)',
-  'const useFixtureFallback = (enrichedFailed && coreFailed) || remoteDestinations.length === 0',
-  'const rawDestinations = useFixtureFallback ? fixtureDestinations : remoteDestinations',
+  'const usePreservedFallback = (enrichedFailed && coreFailed) || remoteDestinations.length === 0',
+  'const rawDestinations = usePreservedFallback ? preservedExploreDestinations : remoteDestinations',
 ]) {
   if (!exploreSitemap.includes(feature)) failures.push(`Explore sitemap dual-source reliability contract missing: ${feature}`);
 }
