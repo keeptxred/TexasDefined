@@ -1,0 +1,63 @@
+name: One-time indexing remediation validation
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/indexing-remediation-validate-once.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: indexing-remediation-validate-once-main
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Validate destination indexing policy
+        run: node scripts/data/validate-destination-indexing-policy.mjs
+
+      - name: Validate finance internal discovery
+        run: node scripts/data/validate-internal-link-discovery.mjs
+
+      - name: Validate finance evergreen migration
+        run: node scripts/data/validate-editorial-migration.mjs
+
+      - name: Build production application
+        run: npm run build
+
+      - name: Validate client performance budget
+        run: npm run performance:validate
+
+      - name: Record passing source verification
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git pull --rebase origin main
+          printf '%s\n' "Indexing remediation source/build validation passed from workflow run ${GITHUB_RUN_ID}." > .github/indexing-remediation-validation-passed.txt
+          git add .github/indexing-remediation-validation-passed.txt
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Record indexing remediation source validation pass'
+          git push origin HEAD:main
