@@ -1,3 +1,4 @@
+import { CountyHistoricSites } from '@/components/content/CountyHistoricSites';
 import { CountyStatewideContextSection } from '@/components/content/CountyStatewideContextSection';
 import type { CountyProfile } from '@/data/county-profile';
 
@@ -75,6 +76,7 @@ export function CountyIdentitySection({ countyName, region, profile }: { countyN
             <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">{explainers.map((link) => <a key={link.href} href={link.href} className="underline decoration-primary/40 underline-offset-4 hover:text-primary">{link.label}</a>)}</div>
             <a href="/texas-explained" className="mt-3 inline-block text-sm font-semibold text-primary">Explore Texas Explained →</a>
           </div>
+          <CountyHistoricSites countyName={countyName} />
           <CountyStatewideContextSection countyName={countyName} countySlug={countySlug(countyName)} />
         </div>
       </div>
