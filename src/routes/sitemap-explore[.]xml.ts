@@ -10,6 +10,7 @@ import { fetchCoreExploreDestinations } from "@/data/explore-core-remote";
 import { reconcileDestinationHeroes } from "@/data/explore-hero-reconciliation";
 import { applyExploreHeroAssets } from "@/data/explore-heroes";
 import { categories, destinations as fixtureDestinations, regions } from "@/data/fixtures/texas";
+import { expandedPaintedChurches } from "@/data/painted-churches-expanded";
 import { fetchExploreDestinations, hasExploreRemoteData } from "@/data/explore-remote";
 import { applyStateParkHeroAssets } from "@/data/state-park-heroes";
 import type { Destination } from "@/data/types";
@@ -116,6 +117,8 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           "/explore",
           "/explore/trip-planner",
           "/explore/attractions-comparison",
+          "/explore/painted-churches",
+          "/explore/painted-churches-plan",
           "/explore/top-attractions",
           "/explore/top-attractions/methodology",
           "/explore/top-attractions/road-trips",
@@ -127,10 +130,13 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         const destinationEntries = indexableDestinations
           .map((item) => entry(`/destination/${item.slug}`, item.sourceCheckedAt))
           .filter((item): item is string => Boolean(item));
+        const paintedChurchEntries = expandedPaintedChurches
+          .map((church) => entry(`/explore/painted-churches/${church.slug}`, church.sourceCheckedAt))
+          .filter((item): item is string => Boolean(item));
         const staticEntries = [...new Set(staticPaths)]
           .map((path) => entry(path))
           .filter((item): item is string => Boolean(item));
-        const entries = [...staticEntries, ...destinationEntries].join("\n");
+        const entries = [...staticEntries, ...destinationEntries, ...paintedChurchEntries].join("\n");
         const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${entries}\n</urlset>`;
         return new Response(xml, {
           headers: {
