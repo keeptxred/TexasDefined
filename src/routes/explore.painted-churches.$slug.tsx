@@ -3,24 +3,29 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { PaintedChurchResearchDossier } from "@/components/editorial/PaintedChurchResearchDossier";
 import { Container } from "@/components/layout/Container";
+import { additionalPaintedChurchProfileBySlug } from "@/data/painted-church-profiles-additional";
+import { paintedChurchAdditionProfileBySlug } from "@/data/painted-church-profiles-additions";
 import { finalPaintedChurchProfileBySlug } from "@/data/painted-church-profiles-final";
 import { paintedChurchExtendedProfileBySlug } from "@/data/painted-church-profiles-extended";
 import { paintedChurchStatewideProfileBySlug } from "@/data/painted-church-profiles-statewide";
 import { paintedChurchProfileBySlug } from "@/data/painted-church-profiles";
-import { paintedChurchBySlug, paintedChurches } from "@/data/painted-churches";
+import { expandedPaintedChurchBySlug, expandedPaintedChurches } from "@/data/painted-churches-expanded";
+import { paintedChurchGalleryBySlug } from "@/data/painted-church-gallery";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
 export const Route = createFileRoute("/explore/painted-churches/$slug")({
   loader: ({ params }) => {
-    const church = paintedChurchBySlug(params.slug);
+    const church = expandedPaintedChurchBySlug(params.slug);
     if (!church) throw notFound();
     const profile =
       paintedChurchProfileBySlug(params.slug) ??
       paintedChurchExtendedProfileBySlug(params.slug) ??
       paintedChurchStatewideProfileBySlug(params.slug) ??
-      finalPaintedChurchProfileBySlug(params.slug);
+      finalPaintedChurchProfileBySlug(params.slug) ??
+      additionalPaintedChurchProfileBySlug(params.slug) ??
+      paintedChurchAdditionProfileBySlug(params.slug);
     return { church, profile };
   },
   head: ({ loaderData, params }) => {
@@ -78,8 +83,9 @@ export const Route = createFileRoute("/explore/painted-churches/$slug")({
 
 function PaintedChurchDetail() {
   const { church, profile } = Route.useLoaderData();
+  const gallery = paintedChurchGalleryBySlug(church.slug);
   const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(church.address ?? `${church.name}, ${church.city}, Texas`)}`;
-  const related = paintedChurches
+  const related = expandedPaintedChurches
     .filter((candidate) => candidate.slug !== church.slug)
     .sort((a, b) => {
       const aCluster = church.schulenburgCluster && a.schulenburgCluster ? 0 : 1;
@@ -123,6 +129,13 @@ function PaintedChurchDetail() {
               <img src={church.image.src} alt={church.image.alt} width={church.image.width} height={church.image.height} fetchPriority="high" decoding="async" className="aspect-[4/3] w-full object-cover" />
               <figcaption className="mt-3 text-xs leading-5 text-ink-foreground/60">
                 {church.image.credit} · {church.image.license} · <a href={church.image.sourceUrl} target="_blank" rel="noreferrer" className="border-b border-ink-foreground/40">source</a>
+              </figcaption>
+            </figure>
+          ) : gallery[0] ? (
+            <figure>
+              <img src={gallery[0].src} alt={gallery[0].alt} width={gallery[0].width} height={gallery[0].height} fetchPriority="high" decoding="async" className="aspect-[4/3] w-full object-cover" />
+              <figcaption className="mt-3 text-xs leading-5 text-ink-foreground/60">
+                {gallery[0].credit} · {gallery[0].license} · <a href={gallery[0].sourceUrl} target="_blank" rel="noreferrer" className="border-b border-ink-foreground/40">source</a>
               </figcaption>
             </figure>
           ) : (
@@ -183,6 +196,24 @@ function PaintedChurchDetail() {
               </section> : null}
             </>
           )}
+
+          {gallery.length ? (
+            <section aria-labelledby="photo-gallery" className="mt-14 border-t border-border pt-8">
+              <p className="eyebrow text-primary">Rights-verified photography</p>
+              <h2 id="photo-gallery" className="mt-3 font-display text-4xl">See the church in detail</h2>
+              <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Every image below is church-specific and includes its creator, reuse license and original source page.</p>
+              <div className="mt-8 grid gap-8 sm:grid-cols-2">
+                {gallery.map((image) => (
+                  <figure key={image.sourceUrl} className="border-t border-border pt-5">
+                    <img src={image.src} alt={image.alt} width={image.width} height={image.height} loading="lazy" decoding="async" className="aspect-[4/3] w-full object-cover" />
+                    <figcaption className="mt-3 text-xs leading-6 text-muted-foreground">
+                      {image.caption} <span className="block mt-1">{image.credit} · {image.license} · <a href={image.sourceUrl} target="_blank" rel="noreferrer" className="border-b border-primary text-primary">source & license</a></span>
+                    </figcaption>
+                  </figure>
+                ))}
+              </div>
+            </section>
+          ) : null}
 
           <PaintedChurchResearchDossier slug={church.slug} schulenburgCluster={church.schulenburgCluster} />
 
