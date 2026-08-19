@@ -9,12 +9,12 @@ const audit = read('src/data/destination-audit.ts');
 const availability = read('src/data/destination-availability.ts');
 const queries = read('src/data/queries.ts');
 const destinationRuntime = read('src/data/destination-query-runtime.ts');
+const preservedCatalog = read('src/data/destination-preserved-catalog.ts');
 const curationAll = read('src/data/destination-curation-all.ts');
 const waterCuration = read('src/data/destination-curation-batch45.ts');
 const museumCuration = read('src/data/destination-curation-batch49.ts');
 const batch52Curation = read('src/data/destination-curation-batch52.ts');
 const coreFallbacks = read('src/data/destination-curation-batch53.ts');
-const queryImplementation = `${queries}\n${destinationRuntime}`;
 const failures = [];
 
 for (const marker of [
@@ -49,13 +49,8 @@ for (const marker of [
   'let enrichedFailed = !remoteConfigured',
   'let coreFailed = !remoteConfigured',
   'if (remoteConfigured)',
-  'function preservedDestinationFallback()',
-  'fixtureDestinations,',
-  'topAttractionDestinations,',
-  'legacyExploreDestinations,',
-  'legacyLakeDestinations,',
   'const usePreservedFallback = (enrichedFailed && coreFailed) || remoteDestinations.length === 0',
-  'const rawDestinations = usePreservedFallback ? preservedDestinationFallback() : remoteDestinations',
+  'const rawDestinations = usePreservedFallback ? preservedExploreDestinations : remoteDestinations',
   'function resolveDestinationCatalog',
   'applyStateParkHeroAssets(destinations)',
   'applyExploreHeroAssets(',
@@ -68,12 +63,17 @@ for (const marker of [
 ]) {
   if (!sitemap.includes(marker)) failures.push(`Explore sitemap resolved-catalog/indexing contract missing: ${marker}`);
 }
-
+if (!sitemap.includes('import { preservedExploreDestinations } from "@/data/destination-preserved-catalog"')) {
+  failures.push('Explore sitemap must import the shared preserved destination catalog rather than rebuilding a narrower fallback locally.');
+}
 for (const obsolete of [
-  'const useFixtureFallback = (enrichedFailed && coreFailed) || remoteDestinations.length === 0',
-  'const rawDestinations = useFixtureFallback ? fixtureDestinations : remoteDestinations',
+  'preservedDestinationFallback()',
+  'fixtureDestinations,',
+  'topAttractionDestinations,',
+  'legacyExploreDestinations,',
+  'legacyLakeDestinations,',
 ]) {
-  if (sitemap.includes(obsolete)) failures.push(`Explore sitemap reverted to the narrow fixture-only fallback: ${obsolete}`);
+  if (sitemap.includes(obsolete)) failures.push(`Explore sitemap still carries duplicated preserved-catalog wiring: ${obsolete}`);
 }
 
 for (const marker of [
@@ -108,15 +108,25 @@ for (const marker of [
 }
 
 for (const marker of [
+  'import { preservedExploreDestinations } from "./destination-preserved-catalog"',
   'filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved))',
-  'return reconcileExploreCatalog(mergeDestinations(enriched, core, preservedExploreDestinations))',
-  'const preservedExploreDestinations = mergeDestinations(topAttractionDestinations, legacyExploreDestinations, legacyLakeDestinations)',
+  'reconcileExploreCatalog(mergeDestinations(enriched, core, preservedExploreDestinations))',
   'reconcileDestinationHeroes(applyExploreHeroAssets(applyStateParkHeroAssets(destinations)))',
 ]) {
-  if (!queryImplementation.includes(marker)) failures.push(`Destination query publication/resolution contract missing: ${marker}`);
+  if (!destinationRuntime.includes(marker)) failures.push(`Destination runtime publication/resolution contract missing: ${marker}`);
 }
 if (!queries.includes('await import("./destination-query-runtime")')) {
   failures.push('Destination queries must keep heavy resolution behind the dynamic runtime boundary.');
+}
+
+for (const marker of [
+  'topAttractionDestinations',
+  'legacyExploreDestinations',
+  'legacyLakeDestinations',
+  'historicSiteDestinations',
+  'export const preservedExploreDestinations = mergePreservedDestinations(',
+]) {
+  if (!preservedCatalog.includes(marker)) failures.push(`Shared preserved destination catalog missing source/contract: ${marker}`);
 }
 
 for (const marker of [
@@ -211,4 +221,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Destination indexing policy passed: route metadata emits one consistent robots policy; Explore sitemap and live destination queries share the preserved Top 25 + legacy Explore + legacy lake fallback sources before the same curation/readiness gate; duplicate units plus the legacy Enchanted Rock and Palo Duro slugs stay consolidated with permanent 301 redirects; substantive-copy, hero, coordinate and official-source gates remain aligned; recorded review dates must be fresh; and reviewed curation overlays remain tracked separately from guaranteed local routes.');
+console.log('Destination indexing policy passed: route metadata emits one consistent robots policy; live destination resolution/search and the Explore sitemap share one preserved catalog containing Top 25 attractions, legacy Explore destinations, legacy lakes and statewide historic sites before the same curation/readiness gate; duplicate units plus legacy Enchanted Rock and Palo Duro slugs stay consolidated with permanent 301 redirects; substantive-copy, hero, coordinate and official-source gates remain aligned; recorded review dates must be fresh; and reviewed curation overlays remain tracked separately from guaranteed local routes.');
