@@ -25,4 +25,10 @@ export const COUNTY_SERIES_PROFILES_CONTINUED: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/navarro-county-corsicana-oil-blackland-prairie-texas")
       .then((module) => module.navarroCountyCorsicanaOilBlacklandPrairieArticle),
   },
+  {
+    countySlug: "limestone",
+    articleSlug: "limestone-county-groesbeck-mexia-fort-parker-navasota-prairie-texas",
+    loadArticle: () => import("@/data/fixtures/limestone-county-groesbeck-mexia-fort-parker-navasota-prairie")
+      .then((module) => module.limestoneCountyGroesbeckMexiaFortParkerNavasotaPrairieArticle),
+  },
 ];
