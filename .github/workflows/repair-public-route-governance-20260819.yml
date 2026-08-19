@@ -1,0 +1,77 @@
+name: Repair public route governance drift
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/repair-public-route-governance-20260819.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out current main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 2
+
+      - name: Repair route classifications
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          path = Path('src/lib/public-routes.ts')
+          text = path.read_text()
+
+          indexable = '  "/texas-tall-tales-folklore",\n'
+          if indexable.strip() not in text:
+              anchor = '  "/texas-slang-explained",\n'
+              if anchor not in text:
+                  raise SystemExit('Indexable insertion anchor missing')
+              text = text.replace(anchor, anchor + indexable, 1)
+
+          redirects = [
+              '/historic-site/fanthorp-inn-state-historic-site',
+              '/historic-site/lipantitlan-state-historic-site',
+              '/historic-site/lyndon-b-johnson-state-park-state-historic-site',
+              '/historic-site/washington-on-the-brazos-state-historic-site',
+              '/state-park/atlanta-state-park',
+              '/state-park/eisenhower-state-park',
+              '/state-park/fort-boggy-state-park',
+              '/state-park/fort-parker-state-park',
+              '/state-park/lake-colorado-city-state-park',
+              '/state-park/south-llano-river-state-park',
+          ]
+          anchor = '  "/state-park/franklin-mountains-state-park",\n'
+          if anchor not in text:
+              raise SystemExit('Redirect insertion anchor missing')
+          additions = ''.join(f'  "{route}",\n' for route in redirects if f'  "{route}",\n' not in text)
+          if additions:
+              text = text.replace(anchor, additions + anchor, 1)
+
+          path.write_text(text)
+          PY
+
+      - name: Validate repaired route governance
+        run: node scripts/data/validate-public-route-governance.mjs
+
+      - name: Commit repair to current main
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet; then
+            echo 'Route governance already repaired.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add src/lib/public-routes.ts
+          git commit -m 'Repair public route governance classifications'
+          git pull --rebase origin main
+          git push origin HEAD:main
