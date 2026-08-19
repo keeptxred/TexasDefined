@@ -14,10 +14,13 @@ on:
       - 'src/routes/things-unique-to-texas.$category.lazy.tsx'
       - 'src/routes/things-that-define-texas[.]csv.ts'
       - 'src/routes/things-that-define-texas[.]json.ts'
+      - 'src/routes/citation-guide.tsx'
       - 'src/components/authority/CitationCollectionTrustRouter.tsx'
       - 'src/lib/public-routes.ts'
+      - 'public/citation-magnets.json'
       - 'scripts/data/validate-things-unique-to-texas.mjs'
       - 'scripts/data/validate-texas-icon-link-depth.mjs'
+      - 'scripts/data/validate-texas-culture-citation-index.mjs'
       - '.github/workflows/things-unique-to-texas-policy.yml'
       - '.github/workflows/things-unique-to-texas-production-smoke.yml'
   pull_request:
@@ -33,10 +36,13 @@ on:
       - 'src/routes/things-unique-to-texas.$category.lazy.tsx'
       - 'src/routes/things-that-define-texas[.]csv.ts'
       - 'src/routes/things-that-define-texas[.]json.ts'
+      - 'src/routes/citation-guide.tsx'
       - 'src/components/authority/CitationCollectionTrustRouter.tsx'
       - 'src/lib/public-routes.ts'
+      - 'public/citation-magnets.json'
       - 'scripts/data/validate-things-unique-to-texas.mjs'
       - 'scripts/data/validate-texas-icon-link-depth.mjs'
+      - 'scripts/data/validate-texas-culture-citation-index.mjs'
       - '.github/workflows/things-unique-to-texas-policy.yml'
       - '.github/workflows/things-unique-to-texas-production-smoke.yml'
   workflow_dispatch:
@@ -61,9 +67,13 @@ jobs:
         run: |
           node --check scripts/data/validate-things-unique-to-texas.mjs
           node --check scripts/data/validate-texas-icon-link-depth.mjs
+          node --check scripts/data/validate-texas-culture-citation-index.mjs
 
       - name: Validate magazine structure, authority and cross-links
         run: node scripts/data/validate-things-unique-to-texas.mjs
 
       - name: Validate exact deep-link coverage
         run: node scripts/data/validate-texas-icon-link-depth.mjs
+
+      - name: Validate culture citation discovery and human guidance
+        run: node scripts/data/validate-texas-culture-citation-index.mjs
