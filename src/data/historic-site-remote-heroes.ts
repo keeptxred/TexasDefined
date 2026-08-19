@@ -30,6 +30,11 @@ export const historicSiteRemoteHeroes: Record<string, ImageRef> = {
     alt: "Memorial obelisk at Fannin Battleground State Historic Site in Texas",
     width: 1200, height: 1600, credit: "Ernest Mettendorf · Public domain · Wikimedia Commons",
   },
+  "first-capitol-of-texas": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/First_Capitol_of_the_Republic_of_Texas_%283967003172%29.jpg",
+    alt: "Historic photograph of the First Capitol of the Republic of Texas in West Columbia",
+    width: 575, height: 725, credit: "F. E. Beach / DeGolyer Library, SMU · no known copyright restrictions · Wikimedia Commons",
+  },
   "fort-griffin": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/0011FortGriffinTxAdminBuilding.jpg",
     alt: "Ruins of the administration building at Fort Griffin State Historic Site in Texas",
@@ -95,6 +100,11 @@ export const historicSiteRemoteHeroes: Record<string, ImageRef> = {
     alt: "Admiral Nimitz Museum, part of the National Museum of the Pacific War in Fredericksburg, Texas",
     width: 1600, height: 1067, credit: "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons",
   },
+  "official-state-texas-longhorn-herd": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Part_of_the_State_of_Texas%27s_official_longhorn_herd%2C_kept_at_Fort_Griffin%2C_a_state_historic_site_in_Shackelford_County%2C_Texas_LCCN2015630038.tif?width=1600",
+    alt: "Part of the Official State of Texas Longhorn Herd at Fort Griffin State Historic Site",
+    width: 1600, height: 1068, credit: "Carol M. Highsmith / Library of Congress · Public domain · Wikimedia Commons",
+  },
   "old-socorro-mission": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Socorro_Mission%2C_Mission_Trail%2C_El_Paso%2C_Texas_%282b1d2a78-155d-451f-679e-7d70fee5ef0f%29.jpg",
     alt: "Socorro Mission on the Mission Trail in Socorro, Texas",
@@ -114,6 +124,11 @@ export const historicSiteRemoteHeroes: Record<string, ImageRef> = {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Presidio_Nuestra_Senora_de_Loreto_de_la_Bahia%2C_commonly_known_as_Presidio_La_Bahia%2C_Goliad%2C_Texas.jpg?width=1600",
     alt: "Presidio La Bahía in Goliad, Texas",
     width: 1600, height: 1195, credit: "Jkulick · CC BY-SA 4.0 · Wikimedia Commons",
+  },
+  "sabine-pass-battleground": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Richard_Dowling_Memorial_Sabine_Pass_TX.jpg?width=1600",
+    alt: "Richard Dowling Memorial at Sabine Pass Battleground State Historic Site in Texas",
+    width: 1600, height: 1200, credit: "Junglecat · CC BY-SA 4.0 · Wikimedia Commons",
   },
   "sam-bell-maxey-house": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/S._B._MAXEY_HOUSE.jpg?width=1600",
