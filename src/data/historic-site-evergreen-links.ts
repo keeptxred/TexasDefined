@@ -63,6 +63,20 @@ const routeGuides: RouteGuide[] = [
       href: "/article/brazoria-plantations-slavery-emancipation-history",
     },
   },
+  {
+    slugs: new Set([
+      "old-socorro-mission",
+      "magoffin-home",
+      "casa-navarro",
+      "lipantitlan",
+      "mission-dolores",
+    ]),
+    item: {
+      name: "Texas borderlands historic sites",
+      description: "Connect this place to Pueblo, Spanish, Mexican, Tejano, Indigenous and American histories across the Rio Grande, South Texas and East Texas borderlands.",
+      href: "/article/texas-borderlands-historic-sites-guide",
+    },
+  },
 ];
 
 export function enrichHistoricSiteEvergreenLinks(destination: Destination): Destination {
