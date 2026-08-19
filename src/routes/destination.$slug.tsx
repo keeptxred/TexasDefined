@@ -14,7 +14,6 @@ import { auditDestination } from "@/data/destination-audit";
 import { buildDestinationRelationshipGroups } from "@/data/destination-relationships";
 import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
 import { articlesQuery, categoriesQuery, destinationQuery, destinationsQuery, regionsQuery } from "@/data/queries";
-import { isTopTexasAttraction } from "@/data/top-texas-attractions";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 import { INTERNAL_LINK_POLICIES, policyForSurface } from "@/platform/internal-link-policies";
 
@@ -47,6 +46,7 @@ export const Route = createFileRoute("/destination/$slug")({
   loader: async ({ context, params }) => {
     let destination = await context.queryClient.ensureQueryData(destinationQuery(params.slug));
     if (!destination) throw notFound();
+    const { isTopTexasAttraction } = await import("@/data/top-texas-attractions");
     if (isTopTexasAttraction(destination.slug)) {
       const { resolveTopAttractionAuthority } = await import("@/data/top-attraction-authority-resolver");
       destination = resolveTopAttractionAuthority(destination);
