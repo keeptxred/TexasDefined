@@ -65,6 +65,8 @@ function ThingsUniqueToTexasPage() {
             <PillarLink to="/texas-homecoming-mums" eyebrow="School traditions" title="Texas Homecoming Mums Explained" text="How a simple chrysanthemum corsage became an oversized wearable record of school spirit, activities, friends and local identity." />
             <PillarLink to="/texas-natural-wonders-bucket-list" eyebrow="Outdoors & geography" title="Texas Natural Wonders Bucket List" text="Twelve landscapes—from Big Bend and Palo Duro to Caddo Lake, Padre Island and spring-fed West Texas—that show how varied the state really is." />
             <PillarLink to="/german-czech-texas-towns" eyebrow="Immigration & heritage" title="German & Czech Texas Towns" text="Fredericksburg, New Braunfels, West, Schulenburg and the food, churches, dance halls and community traditions connecting them." />
+            <PillarLink to="/texas-brand-origin-stories" eyebrow="Business & identity" title="Texas Brand Origin Stories" text="H-E-B, Whataburger, Blue Bell, Shiner, Dickies and Buc-ee's—where they started and how everyday Texas routines turned them into cultural shorthand." />
+            <PillarLink to="/made-in-texas" eyebrow="Industry & hometowns" title="Made, Built & Born in Texas" text="Products made or processed here are separated from brands that were founded, headquartered or operate major facilities in Texas—and connected back to their counties." />
           </div>
         </Container>
       </section>
@@ -75,13 +77,16 @@ function ThingsUniqueToTexasPage() {
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">Not a trivia dump</p>
               <h2 className="mt-3 font-display text-4xl sm:text-5xl">The list is a doorway into the rest of TexasDefined</h2>
-              <p className="mt-5 leading-7 text-muted-foreground">Where TexasDefined already has a strong guide—barbecue styles, state symbols, wildlife, wildflowers, cultural regions, courthouse squares, Painted Churches or farm-to-market roads—we point readers there instead of creating duplicate thin pages. Places worth visiting connect into Explore Texas so the list can become a trip, not just a scroll.</p>
+              <p className="mt-5 leading-7 text-muted-foreground">Where TexasDefined already has a strong guide—barbecue styles, state symbols, wildlife, wildflowers, cultural regions, courthouse squares, Painted Churches, Made in Texas or farm-to-market roads—we point readers there instead of creating duplicate thin pages. Places worth visiting connect into Explore Texas so the list can become a trip, not just a scroll.</p>
               <p className="mt-4 leading-7 text-muted-foreground">We also separate Texas origins from Texas adoption. Topo Chico, for example, is Mexican, but it has a real place in Texas drink culture. The Lone Star flag is deeply Texan, but it does not get a special exemption from U.S. flag protocol. That distinction is part of making this collection useful rather than repeating internet folklore.</p>
             </div>
             <aside className="border border-border bg-background p-7">
               <h2 className="font-display text-3xl">Go deeper</h2>
               <div className="mt-6 divide-y divide-border border-y border-border">
                 <RelatedLink to="/things-unique-to-texas/methodology" title="How this collection is maintained" text="See the inclusion rules, source precedence, cross-link policy and corrections approach behind the 250 entries." />
+                <a href="/things-that-define-texas.csv" className="group block py-5"><span className="font-semibold group-hover:text-primary">Download the 250-item CSV →</span><span className="mt-1 block text-sm leading-6 text-muted-foreground">Item numbers, chapter membership, descriptions and canonical deeper-guide relationships for analysis or reuse.</span></a>
+                <a href="/things-that-define-texas.json" className="group block py-5"><span className="font-semibold group-hover:text-primary">Download the reference JSON →</span><span className="mt-1 block text-sm leading-6 text-muted-foreground">The same 250 reference rows with field definitions and methodology metadata for machine use.</span></a>
+                <RelatedLink to="/made-in-texas" title="Made in Texas" text="See which products are made or processed here and which brands have another kind of Texas connection." />
                 <RelatedLink to="/texas-symbols" title="Official Texas Symbols" text="See which icons are actually designated by the state." />
                 <RelatedLink to="/texas-explained" title="Texas Explained" text="Understand the geography, roads, towns, homes and systems behind the culture." />
                 <RelatedLink to="/explore" title="Explore Texas" text="Turn natural wonders, landmarks and small-town stops into a trip." />
