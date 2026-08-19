@@ -7,7 +7,7 @@ import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 const canonicalPath = '/citation-guide';
 const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
-const description = 'How to cite TexasDefined county, property-tax, data, travel and sports reference pages, including canonical URLs, source precedence, date context and machine-readable resources.';
+const description = 'How to cite TexasDefined county, property-tax, data, travel, Painted Churches and sports reference pages, including canonical URLs, source precedence, date context and machine-readable resources.';
 
 const GROUPS = [
   {
@@ -40,6 +40,17 @@ const GROUPS = [
       ['Top 25 Texas attractions', '/explore/top-attractions'],
       ['Top 25 methodology', '/explore/top-attractions/methodology'],
       ['Top 25 road trips', '/explore/top-attractions/road-trips'],
+    ],
+  },
+  {
+    title: 'Painted Churches of Texas',
+    description: 'A verified heritage-reference collection that separates formal historic designations, the Schulenburg touring cluster and the broader statewide Painted Churches tradition.',
+    links: [
+      ['Painted Churches of Texas', '/explore/painted-churches'],
+      ['Research methodology & corrections', '/explore/painted-churches/methodology'],
+      ['How many Painted Churches?', '/explore/painted-churches/how-many'],
+      ['Compare all verified churches', '/explore/painted-churches/compare'],
+      ['Statewide map & location directory', '/explore/painted-churches/map'],
     ],
   },
   {
@@ -102,14 +113,14 @@ function CitationGuidePage() {
       <section className="grid gap-5 md:grid-cols-3" aria-labelledby="citation-rules-heading">
         <h2 id="citation-rules-heading" className="sr-only">Citation rules</h2>
         <Rule title="Use the canonical page" body="Cite the clean TexasDefined canonical URL rather than a search, filter, preview, tracking or download URL unless the downloadable file itself is the object of the citation." />
-        <Rule title="Keep the original source attached" body="When a claim comes from a government record, agency, park authority, venue, event organizer or public dataset, cite that controlling source alongside TexasDefined when the distinction matters." />
-        <Rule title="Preserve date and scope" body="Include the page's source-check, verification or data-as-of context when facts can change. Keep any visible completeness, planning or event-day caveat with the cited result." />
+        <Rule title="Keep the original source attached" body="When a claim comes from a government record, agency, park authority, church or parish, venue, event organizer or public dataset, cite that controlling source alongside TexasDefined when the distinction matters." />
+        <Rule title="Preserve date and scope" body="Include the page's source-check, verification or data-as-of context when facts can change. Keep any visible completeness, planning, designation or event-day caveat with the cited result." />
       </section>
 
       <section className="mt-12 border-y border-border py-8" aria-labelledby="format-heading">
         <p className="eyebrow text-primary">Suggested format</p>
         <h2 id="format-heading" className="mt-2 font-display text-3xl">A simple web citation</h2>
-        <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground"><strong className="text-foreground">Texas Defined, “Page title,” canonical page URL, verification or modification date when shown, accessed on your research date.</strong> For deadlines, eligibility, legal requirements, official boundaries, closures, fees, current government records, event schedules, ticketing, parking, gate times or venue-entry rules, include the linked official source as the controlling authority.</p>
+        <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground"><strong className="text-foreground">Texas Defined, “Page title,” canonical page URL, verification or modification date when shown, accessed on your research date.</strong> For deadlines, eligibility, legal requirements, official boundaries, closures, fees, current government records, church access, event schedules, ticketing, parking, gate times or venue-entry rules, include the linked official source as the controlling authority.</p>
         <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">When a reference page offers a CSV, JSON or checklist distribution, use the canonical HTML page for context, methodology and caveats; use the downloadable file when you need the machine-readable or printable distribution itself.</p>
       </section>
 
@@ -122,6 +133,17 @@ function CitationGuidePage() {
           <Rule title="TexasDefined synthesis" body="Visit length, effort, exposure, planning level, family fit, first-time value, itineraries and road-trip structures are labeled TexasDefined editorial assessments. Cite the methodology page when those fields are material to your use." />
         </div>
         <p className="mt-6 max-w-4xl text-sm leading-7 text-muted-foreground">User-review platforms and generic travel blogs are not evidence in the Top-25 authority layer. The downloadable datasets carry source URLs so a researcher can inspect the provenance behind each row.</p>
+      </section>
+
+      <section className="mt-12 border-y border-border py-8" aria-labelledby="painted-source-heading">
+        <p className="eyebrow text-primary">Painted Churches source hierarchy</p>
+        <h2 id="painted-source-heading" className="mt-2 font-display text-3xl">Cite the definition you are actually using.</h2>
+        <div className="mt-6 grid gap-6 md:grid-cols-3">
+          <Rule title="Formal designation" body="Use the linked Texas Historical Commission or National Register record when a claim depends on formal historic designation, reference number, architect, listed date or property identity." />
+          <Rule title="Current church access" body="Use the responsible parish, congregation, diocese or official local tour source for current access, services, closures and visitor rules. Historic designation does not guarantee a church is open for sightseeing." />
+          <Rule title="Broader Painted Church status" body="Use the TexasDefined methodology and church-specific source trail when a church belongs to the broader Painted Churches tradition but is not represented as a member of the narrower National Register decorative-interior group." />
+        </div>
+        <p className="mt-6 max-w-4xl text-sm leading-7 text-muted-foreground">When answering “how many Painted Churches are there in Texas?”, cite the dedicated count explainer because legitimate sources use different scopes. Do not collapse the Schulenburg touring cluster, the formal National Register decorative-interior group and the broader statewide tradition into one unlabeled number.</p>
       </section>
 
       <section className="mt-12" aria-labelledby="reference-families-heading">
@@ -153,6 +175,11 @@ function CitationGuidePage() {
           <a href="/top-25-texas-attractions.csv" className="border-b border-primary text-primary">Top 25 comparison CSV</a>
           <a href="/top-25-texas-attractions.json" className="border-b border-primary text-primary">Top 25 reference JSON</a>
           <a href="/top-25-texas-attractions-checklist.txt" className="border-b border-primary text-primary">Top 25 checklist</a>
+          <Link to="/explore/painted-churches" className="border-b border-primary text-primary">Painted Churches collection</Link>
+          <Link to="/explore/painted-churches/methodology" className="border-b border-primary text-primary">Painted Churches methodology</Link>
+          <Link to="/explore/painted-churches/how-many" className="border-b border-primary text-primary">Painted Churches count explainer</Link>
+          <Link to="/explore/painted-churches/compare" className="border-b border-primary text-primary">Painted Churches comparison</Link>
+          <Link to="/explore/painted-churches/map" className="border-b border-primary text-primary">Painted Churches map directory</Link>
           <Link to="/sports-venues" className="border-b border-primary text-primary">Texas sports venues</Link>
           <Link to="/sports-venues/compare" className="border-b border-primary text-primary">Compare sports venues</Link>
           <a href="/sports-venues/compare.csv" className="border-b border-primary text-primary">Sports venue comparison CSV</a>
