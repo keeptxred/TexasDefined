@@ -5,12 +5,26 @@ import type { Destination, ImageRef } from "./types";
  * license and attribution were verified before publication.
  */
 export const historicSiteRemoteHeroes: Record<string, ImageRef> = {
+  "caddo-mounds-state-historic-site": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Caddo_Mound_TX.jpg",
+    alt: "Caddo mound at Caddo Mounds State Historic Site near Alto, Texas",
+    width: 802,
+    height: 538,
+    credit: "N. Saum · CC BY-SA 3.0 · Wikimedia Commons",
+  },
   "eisenhower-birthplace": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/2022_03_26_Eisenhour_Birth_Place%2C_Denison%2C_TX_%2828%29.jpg?width=1600",
     alt: "Eisenhower Birthplace State Historic Site in Denison, Texas",
     width: 1600,
     height: 900,
     credit: "E's & D's Adventures in Life · CC BY 2.0 · Wikimedia Commons",
+  },
+  "fort-griffin": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/0011FortGriffinTxAdminBuilding.jpg",
+    alt: "Ruins of the administration building at Fort Griffin State Historic Site in Texas",
+    width: 1024,
+    height: 685,
+    credit: "Mark Fisher · CC BY-SA 3.0 · Wikimedia Commons",
   },
   "fort-mckavett": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Fort_McKavett%2C_Texas.jpg?width=1600",
@@ -32,6 +46,20 @@ export const historicSiteRemoteHeroes: Record<string, ImageRef> = {
     width: 1600,
     height: 1408,
     credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons",
+  },
+  "port-isabel-lighthouse": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Port_Isabel%2C_Texas_Lighthouse.jpg?width=1600",
+    alt: "Port Isabel Lighthouse in Port Isabel, Texas",
+    width: 1600,
+    height: 1200,
+    credit: "Billy D. Wagner · CC BY-SA 4.0 · Wikimedia Commons",
+  },
+  "presidio-la-bahia": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Presidio_Nuestra_Senora_de_Loreto_de_la_Bahia%2C_commonly_known_as_Presidio_La_Bahia%2C_Goliad%2C_Texas.jpg?width=1600",
+    alt: "Presidio La Bahía in Goliad, Texas",
+    width: 1600,
+    height: 1195,
+    credit: "Jkulick · CC BY-SA 4.0 · Wikimedia Commons",
   },
 };
 
