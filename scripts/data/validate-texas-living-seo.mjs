@@ -12,7 +12,11 @@ for (const feature of [
   "'@type': 'BreadcrumbList'",
   'numberOfItems: topicItems.length + articleItems.length',
   "isPartOf: { '@id': `${siteUrl}/#website` }",
+  'const sectionItems = sections.map(([name, path, copy])',
+  'const cultureItems = cultureGuides.map(([path, name, copy])',
+  'const topicItems = [...sectionItems, ...cultureItems].map',
   'sections.map(([title, to, copy], index)',
+  'cultureGuides.map(([to, title, copy])',
   'articles.map((article, index)',
   'itemListElement: [...topicItems, ...articleItems]',
   'breadcrumb: { \'@id\': `${pageUrl}#breadcrumbs` }',
@@ -22,6 +26,9 @@ for (const feature of [
   "title: 'Texas Life'",
   "name: 'Texas Life'",
   "name: 'Texas Life departments and guides'",
+  "['Things That Define Texas', '/things-unique-to-texas'",
+  "['/texas-food-trail', 'Texas Food Trail'",
+  "['/texas-natural-wonders-bucket-list', 'Texas Natural Wonders'",
 ]) {
   if (!route.includes(feature)) errors.push(`Texas Life SEO or naming feature missing: ${feature}.`);
 }
@@ -52,4 +59,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Texas Life metadata, CollectionPage, mixed ItemList, shared visible breadcrumb, and JSON-LD naming are aligned.');
+console.log('Texas Life metadata, CollectionPage, mixed department/culture/article ItemList, shared visible breadcrumb, and JSON-LD naming are aligned.');
