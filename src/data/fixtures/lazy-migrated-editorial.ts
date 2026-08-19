@@ -11,31 +11,12 @@ import roofHeroAsset from "@/assets/generated/texas-roofs-hail-wind-heat.jpg";
 
 import type { Article, ImageRef } from "../types";
 
-const image = (src: string, alt: string, credit?: string): ImageRef => ({
-  src,
-  alt,
-  width: 1600,
-  height: 1067,
-  ...(credit ? { credit } : {}),
-});
-
-const rentBuyHero = image(
-  "https://images.unsplash.com/photo-1758915576261-8da237f62126?auto=format&fit=crop&w=1600&q=82",
-  "A distinctive Texas house representing the choice between renting and buying",
-  "Dennis Lamberth · Unsplash",
-);
-const downPaymentHero = image(
-  "https://images.unsplash.com/photo-1662166980304-8c927b110066?auto=format&fit=crop&w=1600&q=82",
-  "A Texas property representing the purchase price and cash needed to buy a home",
-  "Erin Decker · Unsplash",
-);
+const image = (src: string, alt: string, credit?: string): ImageRef => ({ src, alt, width: 1600, height: 1067, ...(credit ? { credit } : {}) });
+const rentBuyHero = image("https://images.unsplash.com/photo-1758915576261-8da237f62126?auto=format&fit=crop&w=1600&q=82", "A distinctive Texas house representing the choice between renting and buying", "Dennis Lamberth · Unsplash");
+const downPaymentHero = image("https://images.unsplash.com/photo-1662166980304-8c927b110066?auto=format&fit=crop&w=1600&q=82", "A Texas property representing the purchase price and cash needed to buy a home", "Erin Decker · Unsplash");
 const trueCostHero = image(homeMaintenanceHeroAsset, "Texas home maintenance and recurring ownership costs");
 const refinanceHero = image(foundationHeroAsset, "A Texas house and foundation representing the value behind a refinance decision");
-const helocHero = image(
-  "https://images.unsplash.com/photo-1671410304582-1c2fb1390fbf?auto=format&fit=crop&w=1600&h=900&q=82",
-  "A Texas suburban neighborhood representing home equity and borrowing against a property",
-  "Jose Losada · Unsplash",
-);
+const helocHero = image("https://images.unsplash.com/photo-1671410304582-1c2fb1390fbf?auto=format&fit=crop&w=1600&h=900&q=82", "A Texas suburban neighborhood representing home equity and borrowing against a property", "Jose Losada · Unsplash");
 const mortgageHero = image(heroHillCountry, "Texas homes and neighborhoods representing the full monthly mortgage payment");
 const closingHero = image(closingHeroAsset, "A Texas courthouse and civic square representing the legal paperwork behind a home closing");
 const utilityHero = image(electricityHeroAsset, "A Texas home, power service and household utility costs");
@@ -46,22 +27,15 @@ const cultureHero = image(caddoLake, "A working Texas landscape shaped by water,
 const bbqHero = image(bbqBrisket, "Sliced Texas brisket on butcher paper beside a working barbecue pit");
 const cityHero = image(smallTown, "A Texas city and neighborhood seen in warm late-day light");
 
-const stub = (index: number, record: Omit<Article, "id" | "brandId" | "body" | "relatedCollections" | "relatedDestinations">): Article => ({
-  id: `migration-article-${index}`,
-  brandId: "texasdefined",
-  body: [],
-  relatedCollections: [],
-  relatedDestinations: [],
-  ...record,
-});
+const stub = (index: number, record: Omit<Article, "id" | "brandId" | "body" | "relatedCollections" | "relatedDestinations">): Article => ({ id: `migration-article-${index}`, brandId: "texasdefined", body: [], relatedCollections: [], relatedDestinations: [], ...record });
 
 export const migratedEditorialArticleStubs: Article[] = [
-  stub(1, { slug: "renting-vs-buying-in-texas", title: "Renting vs. Buying in Texas", dek: "A complete comparison of flexibility, equity, taxes, insurance, maintenance and the time it takes ownership costs to break even.", category: "real-estate", hero: rentBuyHero, authorId: "a-hollis", publishedAt: "2026-07-25", readingMinutes: 10, tags: ["renting", "home buying", "affordability", "moving to texas"] }),
+  stub(1, { slug: "renting-vs-buying-in-texas", title: "Renting vs. Buying in Texas", dek: "A complete comparison of flexibility, equity, taxes, insurance, maintenance and the time it takes ownership costs to break even.", category: "real-estate", hero: rentBuyHero, authorId: "a-hollis", publishedAt: "2026-07-25", readingMinutes: 11, tags: ["renting", "home buying", "affordability", "moving to texas"] }),
   stub(2, { slug: "texas-house-down-payment-guide", title: "How Much Down Payment Do You Need for a Texas House?", dek: "Why 20 percent is not a universal minimum, how loan programs differ and how to preserve enough cash for closing and repairs.", category: "real-estate", hero: downPaymentHero, authorId: "a-hollis", publishedAt: "2026-07-25", readingMinutes: 9, tags: ["down payment", "mortgage", "homebuyer", "closing costs"] }),
-  stub(3, { slug: "true-cost-of-owning-a-home-in-texas", title: "The True Cost of Owning a Home in Texas", dek: "Mortgage, taxes and insurance are only the beginning. Build a realistic budget for heat, roofs, foundations, pools, districts and repairs.", category: "real-estate", hero: trueCostHero, authorId: "a-hollis", publishedAt: "2026-07-25", readingMinutes: 11, tags: ["homeownership", "maintenance", "property taxes", "insurance"] }),
+  stub(3, { slug: "true-cost-of-owning-a-home-in-texas", title: "The True Cost of Owning a Home in Texas", dek: "Mortgage, taxes and insurance are only the beginning. Build a realistic budget for heat, roofs, foundations, pools, districts and repairs.", category: "real-estate", hero: trueCostHero, authorId: "a-hollis", publishedAt: "2026-07-25", readingMinutes: 12, tags: ["homeownership", "maintenance", "property taxes", "insurance"] }),
   stub(4, { slug: "should-you-refinance-texas-mortgage", title: "Should You Refinance a Texas Mortgage?", dek: "Calculate break-even, compare equal loan terms and avoid lowering the payment by quietly adding years to the debt.", category: "real-estate", hero: refinanceHero, authorId: "a-hollis", publishedAt: "2026-07-25", readingMinutes: 9, tags: ["refinance", "mortgage", "interest rates", "home equity"] }),
-  stub(5, { slug: "texas-home-equity-heloc-guide", title: "Texas Home Equity Loans and HELOCs", dek: "How the Texas 80 percent homestead limit works, how loans differ from revolving lines and what to compare before borrowing.", category: "real-estate", hero: helocHero, authorId: "a-hollis", publishedAt: "2026-07-25", readingMinutes: 10, tags: ["home equity", "heloc", "texas constitution", "borrowing"] }),
-  stub(6, { slug: "texas-mortgage-payment-guide", title: "What Is Included in a Texas Mortgage Payment?", dek: "Principal and interest are only the core. Add property taxes, insurance, mortgage insurance and HOA costs to see the real payment.", category: "real-estate", hero: mortgageHero, authorId: "a-hollis", publishedAt: "2026-07-25", readingMinutes: 8, tags: ["mortgage payment", "escrow", "property taxes", "home insurance"] }),
+  stub(5, { slug: "texas-home-equity-heloc-guide", title: "Texas Home Equity Loans and HELOCs", dek: "How Texas homestead equity limits work, how loans differ from revolving lines and what to compare before borrowing against a home.", category: "real-estate", hero: helocHero, authorId: "a-hollis", publishedAt: "2026-07-25", readingMinutes: 12, tags: ["home equity", "heloc", "texas constitution", "borrowing"] }),
+  stub(6, { slug: "texas-mortgage-payment-guide", title: "What Is Included in a Texas Mortgage Payment?", dek: "Principal and interest are only the core. Add property taxes, insurance, mortgage insurance and other housing costs to understand the real payment.", category: "real-estate", hero: mortgageHero, authorId: "a-hollis", publishedAt: "2026-07-25", readingMinutes: 10, tags: ["mortgage payment", "escrow", "property taxes", "home insurance"] }),
   stub(7, { slug: "texas-closing-costs-guide", title: "Texas Closing Costs and Cash to Close", dek: "Understand lender charges, title services, prepaids, escrow deposits and the final amount a buyer must bring to closing.", category: "real-estate", hero: closingHero, authorId: "a-hollis", publishedAt: "2026-07-25", readingMinutes: 8, tags: ["closing costs", "cash to close", "loan estimate", "homebuyer"] }),
   stub(8, { slug: "texas-utility-costs-guide", title: "How to Estimate Texas Utility Costs", dek: "Build an address-specific budget for electricity, water, wastewater, gas, internet, trash, pools and irrigation.", category: "moving-to-texas", hero: utilityHero, authorId: "a-hollis", publishedAt: "2026-07-25", readingMinutes: 8, tags: ["utilities", "electricity", "water", "moving"] }),
   stub(9, { slug: "texas-homeowners-insurance-guide", title: "Texas Homeowners Insurance: What Buyers Should Compare", dek: "Coverage, roof settlement, percentage deductibles, flood exclusions and coastal wind protection can matter more than the cheapest premium.", category: "real-estate", hero: insuranceHero, authorId: "a-hollis", publishedAt: "2026-07-25", readingMinutes: 9, tags: ["home insurance", "deductibles", "flood", "windstorm"] }),
@@ -77,49 +51,21 @@ export const migratedEditorialArticleStubs: Article[] = [
 
 export const migratedEditorialSlugs = migratedEditorialArticleStubs.map((article) => article.slug);
 const migratedSlugSet = new Set(migratedEditorialSlugs);
-const financeDepthSlugSet = new Set([
-  "texas-closing-costs-guide",
-  "texas-utility-costs-guide",
-  "salary-needed-to-buy-a-house-in-texas",
-]);
-const financeDepth2SlugSet = new Set([
-  "texas-house-down-payment-guide",
-  "should-you-refinance-texas-mortgage",
-  "texas-homeowners-insurance-guide",
-]);
-const relocationDepthSlugSet = new Set([
-  "moving-to-austin-guide",
-  "moving-to-dallas-fort-worth-guide",
-]);
-const relocationDepth2SlugSet = new Set([
-  "moving-to-houston-address-checklist",
-  "moving-to-san-antonio-guide",
-  "moving-to-el-paso-guide",
-]);
+const financeDepthSlugSet = new Set(["texas-closing-costs-guide", "texas-utility-costs-guide", "salary-needed-to-buy-a-house-in-texas"]);
+const financeDepth2SlugSet = new Set(["texas-house-down-payment-guide", "should-you-refinance-texas-mortgage", "texas-homeowners-insurance-guide"]);
+const financeDepth3SlugSet = new Set(["renting-vs-buying-in-texas", "true-cost-of-owning-a-home-in-texas", "texas-home-equity-heloc-guide", "texas-mortgage-payment-guide"]);
+const relocationDepthSlugSet = new Set(["moving-to-austin-guide", "moving-to-dallas-fort-worth-guide"]);
+const relocationDepth2SlugSet = new Set(["moving-to-houston-address-checklist", "moving-to-san-antonio-guide", "moving-to-el-paso-guide"]);
 const STOCK_TANK_DEPTH_SLUG = "live-2026-06-29-the-history-behind-the-texas-stock-tank-name-bxkvg7";
 
 export async function loadMigratedEditorialArticle(brandId: string, slug: string): Promise<Article | null> {
   if (brandId !== "texasdefined" || !migratedSlugSet.has(slug)) return null;
-  if (financeDepthSlugSet.has(slug)) {
-    const { financeEvergreenDepthArticles } = await import("./finance-evergreen-depth");
-    return financeEvergreenDepthArticles.find((article) => article.slug === slug) ?? null;
-  }
-  if (financeDepth2SlugSet.has(slug)) {
-    const { financeEvergreenDepth2Articles } = await import("./finance-evergreen-depth-2");
-    return financeEvergreenDepth2Articles.find((article) => article.slug === slug) ?? null;
-  }
-  if (relocationDepthSlugSet.has(slug)) {
-    const { relocationEvergreenDepthArticles } = await import("./relocation-evergreen-depth");
-    return relocationEvergreenDepthArticles.find((article) => article.slug === slug) ?? null;
-  }
-  if (relocationDepth2SlugSet.has(slug)) {
-    const { relocationEvergreenDepth2Articles } = await import("./relocation-evergreen-depth-2");
-    return relocationEvergreenDepth2Articles.find((article) => article.slug === slug) ?? null;
-  }
-  if (slug === STOCK_TANK_DEPTH_SLUG) {
-    const { stockTankNameDepthArticle } = await import("./stock-tank-name-depth");
-    return stockTankNameDepthArticle;
-  }
+  if (financeDepthSlugSet.has(slug)) { const { financeEvergreenDepthArticles } = await import("./finance-evergreen-depth"); return financeEvergreenDepthArticles.find((article) => article.slug === slug) ?? null; }
+  if (financeDepth2SlugSet.has(slug)) { const { financeEvergreenDepth2Articles } = await import("./finance-evergreen-depth-2"); return financeEvergreenDepth2Articles.find((article) => article.slug === slug) ?? null; }
+  if (financeDepth3SlugSet.has(slug)) { const { financeEvergreenDepth3Articles } = await import("./finance-evergreen-depth-3"); return financeEvergreenDepth3Articles.find((article) => article.slug === slug) ?? null; }
+  if (relocationDepthSlugSet.has(slug)) { const { relocationEvergreenDepthArticles } = await import("./relocation-evergreen-depth"); return relocationEvergreenDepthArticles.find((article) => article.slug === slug) ?? null; }
+  if (relocationDepth2SlugSet.has(slug)) { const { relocationEvergreenDepth2Articles } = await import("./relocation-evergreen-depth-2"); return relocationEvergreenDepth2Articles.find((article) => article.slug === slug) ?? null; }
+  if (slug === STOCK_TANK_DEPTH_SLUG) { const { stockTankNameDepthArticle } = await import("./stock-tank-name-depth"); return stockTankNameDepthArticle; }
   const { migratedEditorialArticles } = await import("./migrated-editorial");
   return migratedEditorialArticles.find((article) => article.slug === slug) ?? null;
 }
