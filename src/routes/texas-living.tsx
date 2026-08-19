@@ -25,6 +25,7 @@ const sections = [
 ] as const;
 
 const cultureGuides = [
+  ['/texas-food-history', 'Texas Food History', 'The parent guide connecting barbecue, chili, chicken-fried steak, breakfast tacos, immigrant foodways and Texas-born brands to the communities that shaped them.'],
   ['/texas-food-trail', 'Texas Food Trail', 'Barbecue, breakfast tacos, Czech bakeries, Gulf seafood and regional food traditions built into a statewide road-trip guide.'],
   ['/texas-breakfast-taco-guide', 'Texas Breakfast Tacos', 'Tortillas, eggs, beans, potatoes, barbacoa, carne guisada, migas and the salsa habits that shape an everyday Texas breakfast.'],
   ['/texas-chili-con-carne-history', 'Texas Chili Con Carne', 'San Antonio Chili Queens, commercial chili powder, Terlingua cookoff culture and the difference between food history and folklore.'],
