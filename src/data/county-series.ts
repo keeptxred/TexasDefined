@@ -112,6 +112,7 @@ const LEGACY_ARTICLE_TO_COUNTY = new Map<string, string>([
   ["johnson-county-cleburne-chisholm-trail-railroad-prairies-texas", "johnson"],
   ["hill-county-hillsboro-lake-whitney-cotton-prairies-texas", "hill"],
   ["ellis-county-waxahachie-ennis-blackland-prairie-texas", "ellis"],
+  ["navarro-county-corsicana-oil-blackland-prairie-texas", "navarro"],
 ]);
 
 const COUNTY_SLUGS = new Set(LEGACY_ARTICLE_TO_COUNTY.values());
