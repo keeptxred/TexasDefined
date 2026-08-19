@@ -1,0 +1,100 @@
+name: Made in Texas production smoke
+
+on:
+  workflow_run:
+    workflows: ['Deploy TexasDefined production']
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: made-in-texas-production-smoke
+  cancel-in-progress: true
+
+jobs:
+  smoke:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Verify Made in Texas and Texas Facts production routes
+        shell: bash
+        run: |
+          set -euo pipefail
+          origin='https://texasdefined.com'
+          cache_key="${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+
+          check_page() {
+            local path="$1"
+            local needle="$2"
+            local expected_canonical="$3"
+            local out
+            out="$(mktemp)"
+            for attempt in 1 2 3 4 5 6; do
+              if curl --fail-with-body --silent --show-error --location --max-time 30 \
+                "${origin}${path}?verify=${cache_key}-${attempt}" -o "$out"; then
+                if grep -Fqi "$needle" "$out" \
+                  && grep -Eqi "<link[^>]+rel=['\"]canonical['\"][^>]+href=['\"]${expected_canonical//\//\\/}['\"]" "$out" \
+                  && ! grep -Eqi '<meta[^>]+name=["'"']robots["'"'][^>]+content=["'"'][^"'"']*noindex' "$out"; then
+                  echo "PASS ${path}"
+                  rm -f "$out"
+                  return 0
+                fi
+              fi
+              sleep 5
+            done
+            echo "FAIL ${path}: expected indexable canonical page containing '${needle}'" >&2
+            sed -n '1,100p' "$out" >&2 || true
+            rm -f "$out"
+            return 1
+          }
+
+          check_page '/made-in-texas' 'Made, Built & Born in Texas' 'https://texasdefined.com/made-in-texas'
+          check_page '/texas-facts' '100 Essential Facts About Texas' 'https://texasdefined.com/texas-facts'
+
+          # Representative counties exercise food, vehicle, truck and hat production evidence.
+          check_page '/county/washington' 'Made, built & born here' 'https://texasdefined.com/county/washington'
+          check_page '/county/bexar' 'Made, built & born here' 'https://texasdefined.com/county/bexar'
+          check_page '/county/denton' 'Made, built & born here' 'https://texasdefined.com/county/denton'
+          check_page '/county/dallas' 'Made, built & born here' 'https://texasdefined.com/county/dallas'
+
+      - name: Verify zero-queue production rendering and sitemap discovery
+        shell: bash
+        run: |
+          set -euo pipefail
+          origin='https://texasdefined.com'
+          made="$(mktemp)"
+          sitemap="$(mktemp)"
+          trap 'rm -f "$made" "$sitemap"' EXIT
+
+          curl --retry 5 --retry-all-errors --retry-delay 2 --max-time 45 -fsSL \
+            "$origin/made-in-texas?verify=${GITHUB_RUN_ID}" -o "$made"
+          ! grep -Fq 'Texas production claim · source review queued' "$made" || {
+            echo 'Made in Texas production rendered an unresolved source-review queue.' >&2
+            exit 1
+          }
+          grep -Fq 'Verified source:' "$made" || grep -Fq 'Manufacturer source:' "$made" || {
+            echo 'Made in Texas production did not render evidence-source links.' >&2
+            exit 1
+          }
+
+          curl --retry 5 --retry-all-errors --retry-delay 2 --max-time 45 -fsSL \
+            "$origin/sitemap.xml?verify=${GITHUB_RUN_ID}" -o "$sitemap"
+          grep -Fq '<loc>https://texasdefined.com/made-in-texas</loc>' "$sitemap"
+          grep -Fq '<loc>https://texasdefined.com/texas-facts</loc>' "$sitemap"
+          echo 'PASS zero-queue evidence rendering and sitemap discovery.'
+
+      - name: Publish smoke summary
+        if: always()
+        run: |
+          {
+            echo '## Made in Texas production smoke'
+            echo
+            echo '- Statewide Made in Texas route: indexable + canonical'
+            echo '- 100 Essential Texas Facts route: indexable + canonical'
+            echo '- Representative county integration: Washington, Bexar, Denton and Dallas'
+            echo '- Made-in-Texas production must render no source-review queue'
+            echo '- Both statewide routes must remain discoverable in sitemap.xml'
+          } >> "$GITHUB_STEP_SUMMARY"
