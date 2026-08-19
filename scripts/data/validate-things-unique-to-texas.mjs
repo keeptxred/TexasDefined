@@ -13,7 +13,22 @@ const csvRoute = fs.readFileSync('src/routes/things-that-define-texas[.]csv.ts',
 const publicRoutes = fs.readFileSync('src/lib/public-routes.ts', 'utf8');
 const trustRouter = fs.readFileSync('src/components/authority/CitationCollectionTrustRouter.tsx', 'utf8');
 const productionSmoke = fs.readFileSync('.github/workflows/things-unique-to-texas-production-smoke.yml', 'utf8');
+const evergreenComponent = fs.readFileSync('src/components/editorial/TexasEvergreenGuide.tsx', 'utf8');
+const evergreenData = fs.readFileSync('src/data/texas-evergreen-guides.ts', 'utf8');
+const evergreenBatch2 = fs.readFileSync('src/data/texas-evergreen-guides-batch2.ts', 'utf8');
+const evergreenBatch3 = fs.readFileSync('src/data/texas-evergreen-guides-batch3.ts', 'utf8');
 const failures = [];
+
+const evergreenGuides = [
+  ['/texas-food-trail', 'src/routes/texas-food-trail.tsx', 'texas-food-trail'],
+  ['/texas-roadside-oddities', 'src/routes/texas-roadside-oddities.tsx', 'texas-roadside-oddities'],
+  ['/texas-slang-explained', 'src/routes/texas-slang-explained.tsx', 'texas-slang-explained'],
+  ['/texas-dance-halls-honky-tonks', 'src/routes/texas-dance-halls-honky-tonks.tsx', 'texas-dance-halls-honky-tonks'],
+  ['/texas-homecoming-mums', 'src/routes/texas-homecoming-mums.tsx', 'texas-homecoming-mums'],
+  ['/texas-natural-wonders-bucket-list', 'src/routes/texas-natural-wonders-bucket-list.tsx', 'texas-natural-wonders-bucket-list'],
+  ['/german-czech-texas-towns', 'src/routes/german-czech-texas-towns.tsx', 'german-czech-texas-towns'],
+  ['/texas-brand-origin-stories', 'src/routes/texas-brand-origin-stories.tsx', 'texas-brand-origin-stories'],
+];
 
 const ids = [...source.matchAll(/\bitem\((\d+),/g)].map((match) => Number(match[1]));
 const categorySlugs = [...source.matchAll(/^\s{4}slug:\s*"([a-z0-9-]+)",/gm)].map((match) => match[1]);
@@ -91,6 +106,22 @@ for (const path of ['/things-unique-to-texas', '/things-unique-to-texas/methodol
 }
 if (!trustRouter.includes('Collection structure, methodology and canonical-link policy reviewed August 19, 2026.')) failures.push('Magazine trust layer must retain an explicit collection review date.');
 
+for (const token of ['"@type": "Article"', '"@type": "WebPage"', '"@type": "ItemList"', '"@type": "BreadcrumbList"', 'publisher:', 'articleSection: "Things That Define Texas"']) {
+  if (!evergreenComponent.includes(token)) failures.push(`Shared evergreen guide schema must retain token: ${token}.`);
+}
+
+const allEvergreenData = `${evergreenData}\n${evergreenBatch2}\n${evergreenBatch3}`;
+for (const [path, routeFile, slug] of evergreenGuides) {
+  if (!fs.existsSync(routeFile)) failures.push(`Missing evergreen route file ${routeFile}.`);
+  const routeSource = fs.existsSync(routeFile) ? fs.readFileSync(routeFile, 'utf8') : '';
+  if (!routeSource.includes(`const canonicalPath = "${path}"`)) failures.push(`${routeFile} must retain canonical path ${path}.`);
+  if (!routeSource.includes('<TexasEvergreenGuide')) failures.push(`${routeFile} must render the shared TexasEvergreenGuide component.`);
+  if (!publicRoutes.includes(`"${path}"`)) failures.push(`Evergreen guide must remain indexable in public route governance: ${path}.`);
+  if (!rootLazy.includes(`to="${path}"`)) failures.push(`Things That Define Texas hub must visibly link evergreen guide ${path}.`);
+  if (!productionSmoke.includes(`check_page '${path}'`)) failures.push(`Production smoke must verify evergreen guide ${path}.`);
+  if (!allEvergreenData.includes(`slug: "${slug}"`)) failures.push(`Evergreen guide data missing slug ${slug}.`);
+}
+
 if (!productionSmoke.includes("workflows: ['Deploy TexasDefined production']")) failures.push('Magazine production smoke must remain chained to successful production deployments.');
 const smokePaths = [
   '/things-unique-to-texas',
@@ -110,4 +141,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Things That Define Texas validation passed: ${ids.length} entries, ${categorySlugs.length} categories, ${hrefs.length} editorial links, ${canonicalIds.length} canonical destination cross-links, two shared data distributions, methodology/provenance/trust contracts, and ${smokePaths.length} HTML production smoke routes intact.`);
+console.log(`Things That Define Texas validation passed: ${ids.length} entries, ${categorySlugs.length} categories, ${evergreenGuides.length} evergreen deep dives, ${hrefs.length} editorial links, ${canonicalIds.length} canonical destination cross-links, two shared data distributions, methodology/provenance/trust contracts, and ${smokePaths.length + evergreenGuides.length} HTML production smoke routes intact.`);
