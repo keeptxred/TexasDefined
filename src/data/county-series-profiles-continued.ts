@@ -139,4 +139,10 @@ export const COUNTY_SERIES_PROFILES_CONTINUED: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/upshur-county-gilmer-yamboree-piney-woods-texas")
       .then((module) => module.upshurCountyGilmerYamboreePineyWoodsArticle),
   },
+  {
+    countySlug: "harrison",
+    articleSlug: "harrison-county-marshall-caddo-lake-railroads-piney-woods-texas",
+    loadArticle: () => import("@/data/fixtures/harrison-county-marshall-caddo-lake-railroads-piney-woods-texas")
+      .then((module) => module.harrisonCountyMarshallCaddoLakeRailroadsPineyWoodsArticle),
+  },
 ];
