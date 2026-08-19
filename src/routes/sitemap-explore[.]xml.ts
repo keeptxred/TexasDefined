@@ -4,15 +4,13 @@ import { texasDefinedBrand } from "@/brand/texasdefined";
 import { isPrimaryTripPlannerDestination } from "@/data/destination-availability";
 import { auditDestination } from "@/data/destination-audit";
 import { applyAllCuratedDestinations } from "@/data/destination-curation-all";
-import { topAttractionDestinations } from "@/data/destination-curation-top-attractions";
+import { preservedExploreDestinations } from "@/data/destination-preserved-catalog";
 import { improveDestinationCatalog } from "@/data/destination-quality";
 import { supplementalExploreCategories } from "@/data/explore-categories";
 import { fetchCoreExploreDestinations } from "@/data/explore-core-remote";
 import { reconcileDestinationHeroes } from "@/data/explore-hero-reconciliation";
 import { applyExploreHeroAssets } from "@/data/explore-heroes";
-import { legacyExploreDestinations } from "@/data/fixtures/legacy-explore";
-import { legacyLakeDestinations } from "@/data/fixtures/legacy-lakes";
-import { categories, destinations as fixtureDestinations, regions } from "@/data/fixtures/texas";
+import { categories, regions } from "@/data/fixtures/texas";
 import { paintedChurchGlossary } from "@/data/painted-church-glossary";
 import { paintedChurchHeritage } from "@/data/painted-church-heritage";
 import { paintedChurchItineraries } from "@/data/painted-church-itineraries";
@@ -87,15 +85,6 @@ function resolveDestinationCatalog(destinations: Destination[]) {
   );
 }
 
-function preservedDestinationFallback(): Destination[] {
-  return mergeDestinationSources(
-    fixtureDestinations,
-    topAttractionDestinations,
-    legacyExploreDestinations,
-    legacyLakeDestinations,
-  );
-}
-
 export const Route = createFileRoute("/sitemap-explore.xml")({
   server: {
     handlers: {
@@ -123,7 +112,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
 
         const remoteDestinations = mergeDestinationSources(coreDestinations, enrichedDestinations);
         const usePreservedFallback = (enrichedFailed && coreFailed) || remoteDestinations.length === 0;
-        const rawDestinations = usePreservedFallback ? preservedDestinationFallback() : remoteDestinations;
+        const rawDestinations = usePreservedFallback ? preservedExploreDestinations : remoteDestinations;
         const destinations = resolveDestinationCatalog(rawDestinations);
 
         const categorySlugs = [...new Set([...categories, ...supplementalExploreCategories]
