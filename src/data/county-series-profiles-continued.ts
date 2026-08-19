@@ -79,4 +79,10 @@ export const COUNTY_SERIES_PROFILES_CONTINUED: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/angelina-county-lufkin-diboll-sam-rayburn-piney-woods-texas")
       .then((module) => module.angelinaCountyLufkinDibollSamRayburnPineyWoodsArticle),
   },
+  {
+    countySlug: "nacogdoches",
+    articleSlug: "nacogdoches-county-nacogdoches-caddo-el-camino-piney-woods-texas",
+    loadArticle: () => import("@/data/fixtures/nacogdoches-county-nacogdoches-caddo-el-camino-piney-woods-texas")
+      .then((module) => module.nacogdochesCountyNacogdochesCaddoElCaminoPineyWoodsArticle),
+  },
 ];
