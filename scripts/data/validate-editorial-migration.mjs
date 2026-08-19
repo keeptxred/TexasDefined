@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import path from 'node:path';
 
 const migrated = fs.readFileSync('src/data/fixtures/migrated-editorial.ts', 'utf8');
 const lazyMigrated = fs.readFileSync('src/data/fixtures/lazy-migrated-editorial.ts', 'utf8');
@@ -15,6 +16,23 @@ const expected = [
   'renting-vs-buying-in-texas','texas-house-down-payment-guide','true-cost-of-owning-a-home-in-texas','should-you-refinance-texas-mortgage','texas-home-equity-heloc-guide','texas-mortgage-payment-guide','texas-closing-costs-guide','texas-utility-costs-guide','texas-homeowners-insurance-guide','salary-needed-to-buy-a-house-in-texas','moving-to-houston-address-checklist','moving-to-dallas-fort-worth-guide','moving-to-san-antonio-guide','moving-to-austin-guide','moving-to-el-paso-guide','live-2026-06-29-the-history-behind-the-texas-stock-tank-name-bxkvg7','live-2026-07-07-texas-pitmasters-to-feature-in-new-food-network-competition-series-v3wglp',
 ];
 for (const slug of expected) { if (!migrated.includes(`slug: "${slug}"`)) errors.push(`Migrated article body missing: ${slug}`); if (!lazyMigrated.includes(`slug: "${slug}"`)) errors.push(`Migrated article catalog stub missing: ${slug}`); }
+
+const sourceFiles = [];
+const collectSource = (directory) => {
+  for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
+    const full = path.join(directory, entry.name);
+    if (entry.isDirectory()) collectSource(full);
+    else if (/\.(?:ts|tsx)$/.test(entry.name) && full !== path.join('src', 'routes', 'news.$slug.tsx')) sourceFiles.push(full);
+  }
+};
+collectSource('src');
+for (const file of sourceFiles) {
+  const source = fs.readFileSync(file, 'utf8');
+  for (const slug of expected) {
+    if (source.includes(`/news/${slug}`)) errors.push(`Internal source must link migrated article directly to /article/${slug}, not legacy /news/${slug}: ${file}`);
+  }
+}
+
 const financeDepthSlugs = ['texas-closing-costs-guide','texas-utility-costs-guide','salary-needed-to-buy-a-house-in-texas'];
 const financeDepthSet = lazyMigrated.match(/const financeDepthSlugSet = new Set\(\[([\s\S]*?)\n\]\);/)?.[1] ?? '';
 if (!financeDepthSet) errors.push('Could not parse financeDepthSlugSet.');
@@ -33,9 +51,7 @@ for (const marker of [
   'CFPB Closing Disclosure explainer',
   'Texas Power to Choose user guide',
   'HUD homebuying guidance',
-]) {
-  if (!financeDepth.includes(marker)) errors.push(`Finance evergreen primary-source authority marker missing: ${marker}`);
-}
+]) if (!financeDepth.includes(marker)) errors.push(`Finance evergreen primary-source authority marker missing: ${marker}`);
 for (const marker of [
   'import closingHeroAsset from "@/assets/generated/texas-courthouse-square.jpg"',
   'import electricityHeroAsset from "@/assets/generated/texas-electricity-plan.jpg"',
@@ -46,9 +62,7 @@ for (const marker of [
   '"migration-finance-depth-closing", closingHero',
   '"migration-finance-depth-utilities", utilityHero',
   '"migration-finance-depth-salary", salaryHero',
-]) {
-  if (!financeDepth.includes(marker)) errors.push(`Finance evergreen topic-specific hero contract missing: ${marker}`);
-}
+]) if (!financeDepth.includes(marker)) errors.push(`Finance evergreen topic-specific hero contract missing: ${marker}`);
 if (financeDepth.includes('import heroHillCountry from "@/assets/hero-hill-country.jpg"')) errors.push('Finance evergreen deep articles must not collapse back onto one generic Hill Country hero.');
 const slugMatches = [...migrated.matchAll(/slug: "([^"]+)"/g)].map((match) => match[1]);
 if (new Set(slugMatches).size !== slugMatches.length) errors.push('Migrated editorial body slugs must remain unique.');
@@ -73,4 +87,4 @@ for (const feature of ["articlesQuery({ category: 'real-estate' })","articlesQue
 if (!sitemap.includes('platform.articles.list(scope)')) errors.push('Primary sitemap no longer sources the complete article repository.');
 for (const category of ['real-estate','moving-to-texas','texas-history','food-bbq']) { if (!migrated.includes(`category: "${category}"`)) errors.push(`Expected migrated body category is empty: ${category}`); if (!lazyMigrated.includes(`category: "${category}"`)) errors.push(`Expected migrated catalog category is empty: ${category}`); }
 if (errors.length) { console.error('Editorial migration validation failed:'); for (const error of errors) console.error(`- ${error}`); process.exit(1); }
-console.log('Seventeen migrated lifestyle articles and ten core fixture articles retain lightweight catalogs, lazy detail loading, three protected deeper finance evergreen overrides with primary-source authority and topic-specific imagery, Texas Life exposure with curated photo enrichment, repository search, sitemap sourcing and legacy redirects.');
+console.log('Seventeen migrated lifestyle articles and ten core fixture articles retain lightweight catalogs, lazy detail loading, direct canonical /article linking instead of legacy /news aliases, three protected deeper finance evergreen overrides with primary-source authority and topic-specific imagery, Texas Life exposure with curated photo enrichment, repository search, sitemap sourcing and legacy redirects.');
