@@ -111,6 +111,7 @@ const LEGACY_ARTICLE_TO_COUNTY = new Map<string, string>([
   ["somervell-county-glen-rose-dinosaur-valley-paluxy-brazos-texas", "somervell"],
   ["johnson-county-cleburne-chisholm-trail-railroad-prairies-texas", "johnson"],
   ["hill-county-hillsboro-lake-whitney-cotton-prairies-texas", "hill"],
+  ["ellis-county-waxahachie-ennis-blackland-prairie-texas", "ellis"],
 ]);
 
 const COUNTY_SLUGS = new Set(LEGACY_ARTICLE_TO_COUNTY.values());
