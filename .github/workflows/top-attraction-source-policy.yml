@@ -5,13 +5,19 @@ on:
     branches: [main]
     paths:
       - 'src/data/top-attraction-authority-sources.ts'
+      - 'src/data/destination-curation-top-attractions.ts'
+      - 'src/data/destination-curation-top-attractions-batch*.ts'
       - 'scripts/data/validate-top-attraction-source-policy.mjs'
+      - 'scripts/data/validate-top-attraction-review-freshness.mjs'
       - '.github/workflows/top-attraction-source-policy.yml'
   pull_request:
     branches: [main]
     paths:
       - 'src/data/top-attraction-authority-sources.ts'
+      - 'src/data/destination-curation-top-attractions.ts'
+      - 'src/data/destination-curation-top-attractions-batch*.ts'
       - 'scripts/data/validate-top-attraction-source-policy.mjs'
+      - 'scripts/data/validate-top-attraction-review-freshness.mjs'
       - '.github/workflows/top-attraction-source-policy.yml'
   workflow_dispatch:
 
@@ -33,3 +39,6 @@ jobs:
 
       - name: Validate Top 25 authority source policy
         run: node scripts/data/validate-top-attraction-source-policy.mjs
+
+      - name: Validate Top 25 review freshness
+        run: node scripts/data/validate-top-attraction-review-freshness.mjs
