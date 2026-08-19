@@ -128,6 +128,30 @@ const gallery: Record<string, PaintedChurchGalleryImage[]> = {
       license: "CC BY-SA 3.0 / GFDL",
     },
   ],
+  "lindsay-st-peters-catholic-church": [
+    {
+      src: commons("Lindsay June 2017 1 (St. Peter's Catholic Church).jpg"),
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Lindsay_June_2017_1_(St._Peter%27s_Catholic_Church).jpg",
+      alt: "St. Peter's Catholic Church in Lindsay, Texas",
+      caption: "The Romanesque Revival St. Peter's at Lindsay, one of North Texas's entries in the decorative-interior National Register group.",
+      width: 4000,
+      height: 6000,
+      credit: "Michael Barera · Wikimedia Commons",
+      license: "CC BY-SA 4.0",
+    },
+  ],
+  "fredericksburg-st-marys-catholic-church": [
+    {
+      src: commons("St. Mary's Catholic Church (Fredericksburg, Texas).jpg"),
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:St._Mary%27s_Catholic_Church_(Fredericksburg,_Texas).jpg",
+      alt: "St. Mary's Catholic Church in Fredericksburg, Texas",
+      caption: "The 1906 Gothic Revival St. Mary's in Fredericksburg, linking the Hill Country's German Catholic heritage to the statewide Painted Churches tradition.",
+      width: 3888,
+      height: 2592,
+      credit: "Pisi.de · Wikimedia Commons",
+      license: "CC BY 3.0",
+    },
+  ],
   "shiner-saints-cyril-methodius": [
     {
       src: commons("Saints Cyril and Methodius Church.JPG"),
