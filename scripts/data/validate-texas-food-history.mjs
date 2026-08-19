@@ -86,6 +86,8 @@ const imageContracts = [
   ['src/routes/texas-chicken-fried-steak-guide.tsx', 'Chicken_fried_steak.jpg', 'Chicken-fried steak'],
   ['src/routes/texas-breakfast-taco-guide.tsx', 'BreakfastTaco.jpg', 'Egg and sausage breakfast taco'],
   ['src/routes/dr-pepper-texas-history.tsx', 'Cupola_Dr_Pepper_Museum_Waco_Texas_2024.jpg', 'Dr Pepper Museum'],
+  ['src/routes/texas-ranch-water-guide.tsx', 'Ranch_water.jpg', 'Ranch Water cocktail'],
+  ['src/routes/san-antonio-puffy-taco-history.tsx', 'Puffy_taco.jpg', 'Puffy taco served'],
 ];
 for (const [file, imageNeedle, altNeedle] of imageContracts) {
   const source = fs.readFileSync(file, 'utf8');
@@ -98,6 +100,8 @@ for (const token of [
   'Mr. Gray · CC0 · Wikimedia Commons',
   'Paxsimius · CC BY-SA 4.0 · Wikimedia Commons',
   'Larry D. Moore · CC BY 4.0 · Wikimedia Commons',
+  'BanjoZebra · CC BY 4.0 · Wikimedia Commons',
+  'y6y6y6 · CC BY 2.0 · Wikimedia Commons',
   'image.src.startsWith("http://") || image.src.startsWith("https://")',
   'sourceHref',
 ]) {
@@ -115,11 +119,12 @@ for (const [slug, routeFile] of [
 
 for (const token of [
   'austinmonthly.com/ranch-water',
-  'liquor.com/ranch-water-cocktail-recipe',
-  'visitsanantonio.com/in-the-news/post/cowboy-culture-and-history-in-san-antonio',
+  'washingtonpost.com/food/2021/07/27/ranch-water-recipe',
+  'visitsanantonio.com/in-the-news/post/the-ultimate-texas-hill-country-road-trip-includes-tree-houses-tubing-and-tacos',
   'news.utsa.edu/2020/08/everything-you-need-to-know-about-tacos-texas-and-tradition',
   'mesquite-news.com/big-red-and-barbacoa-headline-festival',
   'drpeppermuseum.com/virtual-tour',
+  'sanantonioreport.org/barbacoa-big-red-festival-only-in-sa',
 ]) {
   if (!evergreenComponent.includes(token)) failures.push(`New Food History source-note layer missing source token: ${token}.`);
 }
@@ -130,6 +135,7 @@ for (const path of ['/texas-ranch-water-guide','/san-antonio-puffy-taco-history'
   if (!rootHub.includes(`to="${path}"`)) failures.push(`Things That Define Texas hub must surface ${path}.`);
   if (!categoryHub.includes(`href: "${path}"`)) failures.push(`Food & Drink chapter must feature ${path}.`);
   if (!smoke.includes(`check_page '${path}'`)) failures.push(`Production smoke must verify ${path}.`);
+  if (!llms.includes(`https://texasdefined.com${path}`)) failures.push(`llms.txt must advertise ${path}.`);
 }
 if (!texasLiving.includes("['/texas-food-history', 'Texas Food History'")) failures.push('Texas Life must surface Texas Food History.');
 for (const path of ['/texas-ranch-water-guide','/san-antonio-puffy-taco-history','/barbacoa-big-red-san-antonio']) {
@@ -159,4 +165,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Texas Food History validation passed: canonical hub, ${focusedGuides.length} focused links, bidirectional parent-child schema, Food & BBQ discovery, sourced batch-5 guides, Dr Pepper museum handoff, licensed exact-subject hero coverage where verified, sitemap governance, smoke, llms.txt and citation-index coverage intact.`);
+console.log(`Texas Food History validation passed: canonical hub, ${focusedGuides.length} focused links, parent-child schema, Food & BBQ discovery, sourced batch-5 guides, Dr Pepper museum handoff, six exact-subject hero/social-image contracts, sitemap governance, smoke, llms.txt and citation-index coverage intact.`);
