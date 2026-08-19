@@ -5,6 +5,18 @@ const reference = fs.readFileSync('src/data/things-unique-to-texas-reference.ts'
 const route = fs.readFileSync('src/routes/things-unique-to-texas.tsx', 'utf8');
 const hub = fs.readFileSync('src/routes/things-unique-to-texas.lazy.tsx', 'utf8');
 const methodology = fs.readFileSync('src/routes/things-unique-to-texas.methodology.tsx', 'utf8');
+const promotedArticleTargets = [
+  ['src/data/fixtures/caddo-lake-cypress-morning.ts', 'slug: "caddo-lake-cypress-morning"', '/article/caddo-lake-cypress-morning'],
+  ['src/data/fixtures/texas-wildlife-guide-stub.ts', 'slug: "texas-wildlife-guide"', '/article/texas-wildlife-guide'],
+  ['src/data/fixtures/texas-trees-guide-stub.ts', 'slug: "texas-trees-guide"', '/article/texas-trees-guide'],
+  ['src/data/fixtures/galveston-county-island-port-juneteenth.ts', 'slug: "galveston-county-island-port-juneteenth-texas"', '/article/galveston-county-island-port-juneteenth-texas'],
+];
+const promotedRouteTargets = [
+  ['src/routes/texas-slang-explained.tsx', 'const canonicalPath = "/texas-slang-explained"', '/texas-slang-explained'],
+  ['src/routes/texas-dance-halls-honky-tonks.tsx', 'const canonicalPath = "/texas-dance-halls-honky-tonks"', '/texas-dance-halls-honky-tonks'],
+  ['src/routes/texas-breakfast-taco-guide.tsx', 'const canonicalPath = "/texas-breakfast-taco-guide"', '/texas-breakfast-taco-guide'],
+  ['src/routes/texas-chili-con-carne-history.tsx', 'const canonicalPath = "/texas-chili-con-carne-history"', '/texas-chili-con-carne-history'],
+];
 const failures = [];
 
 const canonicalBlock = source.match(/const CANONICAL_ICON_LINKS:[\s\S]*?= \{([\s\S]*?)\n\};/);
@@ -85,6 +97,16 @@ for (const [id, href] of requiredDeepDiveMappings) {
   if (actualDeepDiveMappings.get(id) !== href) failures.push(`Icon ${id} must retain exact deeper guide ${href}.`);
 }
 
+for (const [file, slugToken, href] of [...promotedArticleTargets, ...promotedRouteTargets]) {
+  if (!fs.existsSync(file)) {
+    failures.push(`Promoted Texas icon target file is missing for ${href}: ${file}.`);
+    continue;
+  }
+  const targetSource = fs.readFileSync(file, 'utf8');
+  if (!targetSource.includes(slugToken)) failures.push(`Promoted Texas icon target ${href} no longer resolves from ${file}; missing ${slugToken}.`);
+  if (!source.includes(`"${href}"`)) failures.push(`Promoted Texas icon target ${href} must remain referenced by the resolver registry.`);
+}
+
 for (const token of [
   'DEEP_DIVE_ICON_LINKS[entry.id] ?? entry.href ?? CANONICAL_ICON_LINKS[entry.id]',
   'TEXAS_ICON_CANONICAL_LINK_COUNT',
@@ -117,4 +139,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Texas icon link-depth validation passed: ${destinationLinks.length} exact destination mappings plus ${deepDiveLinks.length} purpose-built/editorial deep dives (${destinationLinks.length + deepDiveLinks.length} protected relationships) are retained, and the hub/methodology expose computed deeper-guide coverage.`);
+console.log(`Texas icon link-depth validation passed: ${destinationLinks.length} exact destination mappings plus ${deepDiveLinks.length} purpose-built/editorial deep dives (${destinationLinks.length + deepDiveLinks.length} protected relationships), with ${promotedArticleTargets.length + promotedRouteTargets.length} promoted authority targets verified on disk and hub/methodology coverage intact.`);
