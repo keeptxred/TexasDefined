@@ -8,8 +8,10 @@ on:
       - 'src/data/things-unique-to-texas-links.ts'
       - 'src/routes/things-unique-to-texas.tsx'
       - 'src/routes/things-unique-to-texas.lazy.tsx'
+      - 'src/routes/things-unique-to-texas.methodology.tsx'
       - 'src/routes/things-unique-to-texas.$category.tsx'
       - 'src/routes/things-unique-to-texas.$category.lazy.tsx'
+      - 'src/lib/public-routes.ts'
       - 'scripts/data/validate-things-unique-to-texas.mjs'
       - '.github/workflows/things-unique-to-texas-policy.yml'
   pull_request:
@@ -19,8 +21,10 @@ on:
       - 'src/data/things-unique-to-texas-links.ts'
       - 'src/routes/things-unique-to-texas.tsx'
       - 'src/routes/things-unique-to-texas.lazy.tsx'
+      - 'src/routes/things-unique-to-texas.methodology.tsx'
       - 'src/routes/things-unique-to-texas.$category.tsx'
       - 'src/routes/things-unique-to-texas.$category.lazy.tsx'
+      - 'src/lib/public-routes.ts'
       - 'scripts/data/validate-things-unique-to-texas.mjs'
       - '.github/workflows/things-unique-to-texas-policy.yml'
   workflow_dispatch:
@@ -44,5 +48,5 @@ jobs:
       - name: Syntax-check magazine validator
         run: node --check scripts/data/validate-things-unique-to-texas.mjs
 
-      - name: Validate magazine structure and cross-links
+      - name: Validate magazine structure, authority and cross-links
         run: node scripts/data/validate-things-unique-to-texas.mjs
