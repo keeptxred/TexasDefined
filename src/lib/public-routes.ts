@@ -85,6 +85,7 @@ export const INDEXABLE_STATIC_PATHS = [
   "/things-unique-to-texas/culture-music",
   "/things-unique-to-texas/wildlife-landscape",
   "/things-unique-to-texas/slang-folklore",
+  "/texas-food-history",
   "/texas-food-trail",
   "/texas-roadside-oddities",
   "/texas-slang-explained",
