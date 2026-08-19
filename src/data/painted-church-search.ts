@@ -1,3 +1,4 @@
+import { paintedChurchTechniques } from "./painted-church-techniques";
 import { expandedPaintedChurches } from "./painted-churches-expanded";
 import type { SearchDocument } from "./types";
 
@@ -10,8 +11,10 @@ const churchDocuments: SearchDocument[] = expandedPaintedChurches.map((church) =
     church.city,
     `${church.county} County`,
     church.denomination,
+    ...church.culturalHeritage,
+    ...church.techniques,
     church.schulenburgCluster ? "Schulenburg painted churches" : undefined,
-    church.nationalRegister?.multipleProperty ? "National Register decorative interior" : undefined,
+    church.classification === "formal-national-register-group" ? "National Register decorative interior" : undefined,
     church.recordedTexasHistoricLandmark ? "Recorded Texas Historic Landmark" : undefined,
   ].filter((value): value is string => Boolean(value));
 
@@ -25,6 +28,16 @@ const churchDocuments: SearchDocument[] = expandedPaintedChurches.map((church) =
     href: `/explore/painted-churches/${church.slug}`,
   };
 });
+
+const techniqueDocuments: SearchDocument[] = paintedChurchTechniques.map((technique) => ({
+  id: `painted-church-technique:${technique.slug}`,
+  brandId: "texasdefined",
+  kind: "guide",
+  title: `${technique.name} in Texas Painted Churches`,
+  summary: technique.answer,
+  keywords: [technique.name, technique.shortDefinition, "painted church techniques", "decorative painting Texas churches"],
+  href: `/explore/painted-churches/techniques/${technique.slug}`,
+}));
 
 const collectionDocuments: SearchDocument[] = [
   {
@@ -72,6 +85,24 @@ const collectionDocuments: SearchDocument[] = [
     keywords: ["painted churches sources", "painted churches research", "painted church methodology", "Texas church history sources"],
     href: "/explore/painted-churches/methodology",
   },
+  {
+    id: "painted-churches:census",
+    brandId: "texasdefined",
+    kind: "guide",
+    title: "Texas Painted Churches Master Census",
+    summary: "Verified churches, candidates under review and scope exclusions with explicit reasons and source trails.",
+    keywords: ["Texas painted churches census", "painted church candidates", "complete painted church list", "painted church exclusions"],
+    href: "/explore/painted-churches/census",
+  },
+  {
+    id: "painted-churches:techniques",
+    brandId: "texasdefined",
+    kind: "guide",
+    title: "Texas Painted Church Painting Techniques",
+    summary: "Authoritative guides to stenciling, infill, pouncing, freehand painting, marbling, graining, gilding, trompe-l’oeil, canvas-applied decoration and murals.",
+    keywords: ["painted church techniques", "decorative painting", "stenciling", "marbling", "pouncing", "trompe l'oeil churches"],
+    href: "/explore/painted-churches/techniques",
+  },
 ];
 
-export const paintedChurchSearchDocuments: SearchDocument[] = [...collectionDocuments, ...churchDocuments];
+export const paintedChurchSearchDocuments: SearchDocument[] = [...collectionDocuments, ...techniqueDocuments, ...churchDocuments];
