@@ -17,10 +17,11 @@ const authorityLinks = [
   ["Master census", "/explore/painted-churches/census"], ["Painting techniques", "/explore/painted-churches/techniques"],
   ["Symbols & iconography", "/explore/painted-churches/symbols"], ["Artists, architects & researchers", "/explore/painted-churches/people"],
   ["Heritage communities", "/explore/painted-churches/heritage"], ["Preservation & authenticity", "/explore/painted-churches/preservation"],
-  ["Knowledge graph", "/explore/painted-churches/knowledge-graph"], ["Harwood archive guide", "/explore/painted-churches/harwood-archive"],
-  ["How to read a Painted Church", "/explore/painted-churches/how-to-read"], ["Architecture glossary", "/explore/painted-churches/glossary"],
-  ["Statewide timeline", "/explore/painted-churches/timeline"], ["Routes & itineraries", "/explore/painted-churches/routes"],
-  ["Documentary & oral histories", "/explore/painted-churches/media"], ["Cite this collection", "/explore/painted-churches/cite"],
+  ["Then & now archive project", "/explore/painted-churches/then-and-now"], ["Knowledge graph", "/explore/painted-churches/knowledge-graph"],
+  ["Harwood archive guide", "/explore/painted-churches/harwood-archive"], ["How to read a Painted Church", "/explore/painted-churches/how-to-read"],
+  ["Architecture glossary", "/explore/painted-churches/glossary"], ["Statewide timeline", "/explore/painted-churches/timeline"],
+  ["Routes & itineraries", "/explore/painted-churches/routes"], ["Documentary & oral histories", "/explore/painted-churches/media"],
+  ["Cite this collection", "/explore/painted-churches/cite"],
 ] as const;
 
 const verifiedAdditions = [
@@ -30,6 +31,7 @@ const verifiedAdditions = [
   { name: "St. Stanislaus Catholic Church", place: "Bandera, Texas", result: "Verified as a living Painted Church tradition. The historic parish is an RTHL and the parish itself documents the artists, subjects and 2003–2008 modern painted campaign." },
   { name: "Sacred Heart Catholic Church", place: "Corpus Christi, Texas", result: "Verified and added from parish, diocesan, Texas A&M–Corpus Christi and SAH Archipedia evidence documenting Antonio E. Garcia's monumental 1940s true-fresco campaign." },
   { name: "St. Joseph Catholic Church", place: "San Antonio, Texas", result: "Verified and added from active-parish history, Portal to Texas History fresco photography and Harwood decorative-painting research." },
+  { name: "St. Stanislaus Kostka Catholic Church", place: "Anderson, Texas", result: "Verified and added from the parish's own record of restored original ceiling painting, historic altars and glass, and a separately dated 2014 altar mural." },
 ] as const;
 
 const researchQueue = [
@@ -44,7 +46,7 @@ export function PaintedChurchSourceLibrary() {
       <h2 id="source-library" className="mt-3 font-display text-4xl sm:text-5xl">How Texas Defined keeps expanding the record</h2>
       <p className="mt-5 max-w-4xl text-base leading-8 text-muted-foreground">Primary records lead: Texas Historical Commission, National Register documentation, parish archives and official church sources take precedence for dates, architects, artists, designations and access. Secondary sources and archives are used to discover candidates, interpret decorative work and locate photography, but every public addition receives a church-specific verification pass first.</p>
 
-      <div className="mt-10 border-l-2 border-primary bg-surface p-6 sm:p-8"><p className="eyebrow text-primary">Authority system</p><h3 className="mt-3 font-display text-3xl">Research the churches by entity, not just by destination.</h3><p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">The Painted Churches section now has canonical authority pages for techniques, symbols, people, cultural communities, preservation concepts and architecture terms, all joined by an evidence-backed knowledge graph.</p><div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm">{authorityLinks.map(([label, href]) => <Link key={href} to={href as any} className="border-b border-primary text-primary">{label}</Link>)}</div></div>
+      <div className="mt-10 border-l-2 border-primary bg-surface p-6 sm:p-8"><p className="eyebrow text-primary">Authority system</p><h3 className="mt-3 font-display text-3xl">Research the churches by entity, not just by destination.</h3><p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">The Painted Churches section now has canonical authority pages for techniques, symbols, people, cultural communities, preservation concepts, archival comparisons and architecture terms, all joined by an evidence-backed knowledge graph.</p><div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm">{authorityLinks.map(([label, href]) => <Link key={href} to={href as any} className="border-b border-primary text-primary">{label}</Link>)}</div></div>
 
       <div className="mt-9 grid gap-px border border-border bg-border md:grid-cols-2">{sourceLibrary.map((source) => <article key={source.label} className="bg-background p-6"><p className="eyebrow text-muted-foreground">{source.role}</p><h3 className="mt-2 font-display text-2xl leading-tight"><a href={source.url} target="_blank" rel="noreferrer" className="hover:text-primary">{source.label}</a></h3><p className="mt-3 text-sm leading-7 text-muted-foreground">{source.note}</p></article>)}</div>
 
