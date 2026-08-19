@@ -19,8 +19,11 @@ const deepDiveLinks = deepDiveBlock
 if (destinationLinks.length < 41) {
   failures.push(`Expected at least 41 exact destination mappings; found ${destinationLinks.length}.`);
 }
-if (deepDiveLinks.length < 6) {
-  failures.push(`Expected at least 6 purpose-built evergreen deep-dive mappings; found ${deepDiveLinks.length}.`);
+if (deepDiveLinks.length < 9) {
+  failures.push(`Expected at least 9 purpose-built evergreen deep-dive mappings; found ${deepDiveLinks.length}.`);
+}
+if (destinationLinks.length + deepDiveLinks.length < 50) {
+  failures.push(`Expected at least 50 total deeper-guide relationships; found ${destinationLinks.length + deepDiveLinks.length}.`);
 }
 
 const allIds = [...destinationLinks, ...deepDiveLinks].map((match) => Number(match[1]));
@@ -47,4 +50,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Texas icon link-depth validation passed: ${destinationLinks.length} exact destination mappings plus ${deepDiveLinks.length} purpose-built deep dives are protected.`);
+console.log(`Texas icon link-depth validation passed: ${destinationLinks.length} exact destination mappings plus ${deepDiveLinks.length} purpose-built deep dives (${destinationLinks.length + deepDiveLinks.length} total) are protected.`);
