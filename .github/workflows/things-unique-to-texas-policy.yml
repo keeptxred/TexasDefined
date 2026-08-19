@@ -15,6 +15,7 @@ on:
       - 'src/lib/public-routes.ts'
       - 'scripts/data/validate-things-unique-to-texas.mjs'
       - '.github/workflows/things-unique-to-texas-policy.yml'
+      - '.github/workflows/things-unique-to-texas-production-smoke.yml'
   pull_request:
     branches: [main]
     paths:
@@ -29,6 +30,7 @@ on:
       - 'src/lib/public-routes.ts'
       - 'scripts/data/validate-things-unique-to-texas.mjs'
       - '.github/workflows/things-unique-to-texas-policy.yml'
+      - '.github/workflows/things-unique-to-texas-production-smoke.yml'
   workflow_dispatch:
 
 permissions:
