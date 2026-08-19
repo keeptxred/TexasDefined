@@ -1,12 +1,14 @@
 import "@/data/painted-churches-expanded";
 import { additionalPaintedChurchProfileBySlug } from "@/data/painted-church-profiles-additional";
+import { paintedChurchAdditionProfileBySlug } from "@/data/painted-church-profiles-additions";
 import { additionalPaintedChurchResearchBySlug } from "@/data/painted-church-research-additional";
+import { paintedChurchAdditionResearchBySlug } from "@/data/painted-church-research-additions";
 import { paintedChurchResearchBySlug, schulenburgTourInfo } from "@/data/painted-church-research";
 import { statewidePaintedChurchResearchBySlug } from "@/data/painted-church-research-statewide";
 
 export function PaintedChurchResearchDossier({ slug, schulenburgCluster }: { slug: string; schulenburgCluster?: boolean }) {
-  const dossier = paintedChurchResearchBySlug(slug) ?? statewidePaintedChurchResearchBySlug(slug) ?? additionalPaintedChurchResearchBySlug(slug);
-  const additionalProfile = additionalPaintedChurchProfileBySlug(slug);
+  const dossier = paintedChurchResearchBySlug(slug) ?? statewidePaintedChurchResearchBySlug(slug) ?? additionalPaintedChurchResearchBySlug(slug) ?? paintedChurchAdditionResearchBySlug(slug);
+  const additionalProfile = additionalPaintedChurchProfileBySlug(slug) ?? paintedChurchAdditionProfileBySlug(slug);
   if (!dossier && !schulenburgCluster) return null;
 
   return (
