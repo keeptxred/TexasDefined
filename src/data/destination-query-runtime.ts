@@ -9,6 +9,7 @@ import { applyExploreHeroAsset, applyExploreHeroAssets } from "./explore-heroes"
 import { fetchExploreDestination, fetchExploreDestinations } from "./explore-remote";
 import { legacyExploreDestinations } from "./fixtures/legacy-explore";
 import { legacyLakeDestinations } from "./fixtures/legacy-lakes";
+import { historicSiteDestinations } from "./historic-sites";
 import { platform, scope } from "./index";
 import { applyStateParkHeroAsset, applyStateParkHeroAssets } from "./state-park-heroes";
 import type { Destination, Slug } from "./types";
@@ -42,7 +43,7 @@ function mergeDestinations(...groups: Destination[][]): Destination[] {
   return [...merged.values()];
 }
 
-const preservedExploreDestinations = mergeDestinations(topAttractionDestinations, legacyExploreDestinations, legacyLakeDestinations);
+const preservedExploreDestinations = mergeDestinations(topAttractionDestinations, legacyExploreDestinations, legacyLakeDestinations, historicSiteDestinations);
 
 function preservedFor(query: Omit<DestinationQuery, "brandId">): Destination[] {
   let rows = preservedExploreDestinations;
