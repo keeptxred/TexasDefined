@@ -18,6 +18,7 @@ const evergreenData = fs.readFileSync('src/data/texas-evergreen-guides.ts', 'utf
 const evergreenBatch2 = fs.readFileSync('src/data/texas-evergreen-guides-batch2.ts', 'utf8');
 const evergreenBatch3 = fs.readFileSync('src/data/texas-evergreen-guides-batch3.ts', 'utf8');
 const evergreenBatch4 = fs.readFileSync('src/data/texas-evergreen-guides-batch4.ts', 'utf8');
+const evergreenBatch5 = fs.readFileSync('src/data/texas-evergreen-guides-batch5.ts', 'utf8');
 const failures = [];
 
 const evergreenGuides = [
@@ -33,6 +34,9 @@ const evergreenGuides = [
   ['/texas-chicken-fried-steak-guide', 'src/routes/texas-chicken-fried-steak-guide.tsx', 'texas-chicken-fried-steak-guide'],
   ['/texas-breakfast-taco-guide', 'src/routes/texas-breakfast-taco-guide.tsx', 'texas-breakfast-taco-guide'],
   ['/dr-pepper-texas-history', 'src/routes/dr-pepper-texas-history.tsx', 'dr-pepper-texas-history'],
+  ['/texas-ranch-water-guide', 'src/routes/texas-ranch-water-guide.tsx', 'texas-ranch-water-guide'],
+  ['/san-antonio-puffy-taco-history', 'src/routes/san-antonio-puffy-taco-history.tsx', 'san-antonio-puffy-taco-history'],
+  ['/barbacoa-big-red-san-antonio', 'src/routes/barbacoa-big-red-san-antonio.tsx', 'barbacoa-big-red-san-antonio'],
 ];
 
 const ids = [...source.matchAll(/\bitem\((\d+),/g)].map((match) => Number(match[1]));
@@ -58,6 +62,9 @@ if (canonicalIds.length < 24) failures.push(`Expected at least 24 canonical dest
 if (new Set(canonicalIds).size !== canonicalIds.length) failures.push('Canonical cross-link IDs must be unique.');
 for (const id of canonicalIds) {
   if (!ids.includes(id)) failures.push(`Canonical cross-link refers to unknown magazine entry ID ${id}.`);
+}
+for (const [id, path] of [[14, '/san-antonio-puffy-taco-history'], [18, '/barbacoa-big-red-san-antonio'], [30, '/texas-ranch-water-guide']]) {
+  if (!linksSource.includes(`${id}: "${path}"`)) failures.push(`Magazine entry ${id} must retain deep-dive canonical link ${path}.`);
 }
 
 for (const [name, routeSource] of [['schema route', categoryRoute], ['lazy route', lazyRoute]]) {
@@ -122,8 +129,11 @@ for (const sourceUrl of [
 ]) {
   if (!evergreenComponent.includes(sourceUrl)) failures.push(`Evergreen source notes missing authoritative source ${sourceUrl}.`);
 }
+for (const slug of ['texas-ranch-water-guide', 'san-antonio-puffy-taco-history', 'barbacoa-big-red-san-antonio']) {
+  if (!evergreenComponent.includes(`"${slug}"`)) failures.push(`Shared Food History parent set missing batch 5 slug ${slug}.`);
+}
 
-const allEvergreenData = `${evergreenData}\n${evergreenBatch2}\n${evergreenBatch3}\n${evergreenBatch4}`;
+const allEvergreenData = `${evergreenData}\n${evergreenBatch2}\n${evergreenBatch3}\n${evergreenBatch4}\n${evergreenBatch5}`;
 for (const [path, routeFile, slug] of evergreenGuides) {
   if (!fs.existsSync(routeFile)) failures.push(`Missing evergreen route file ${routeFile}.`);
   const routeSource = fs.existsSync(routeFile) ? fs.readFileSync(routeFile, 'utf8') : '';
@@ -144,7 +154,7 @@ const smokePaths = [
 for (const path of smokePaths) {
   if (!productionSmoke.includes(`'${path}'`)) failures.push(`Magazine production smoke must verify ${path}.`);
 }
-for (const token of ['.count == 250', '(.items | length) == 250', 'wc -l', '251', 'x-robots-tag:', '/things-that-define-texas.json', '/things-that-define-texas.csv']) {
+for (const token of ['.count == 250', '(.items | length) == 250', 'wc -l', '251', 'x-robots-tag:', '/things-that-define-texas.json', '/things-that-define-texas.csv', 'test "$json_deep_links" -ge 50', 'test "$csv_deep_links" -ge 50']) {
   if (!productionSmoke.includes(token)) failures.push(`Magazine production smoke must retain distribution check token: ${token}.`);
 }
 
@@ -154,4 +164,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Things That Define Texas validation passed: ${ids.length} entries, ${categorySlugs.length} categories, ${evergreenGuides.length} evergreen deep dives, ${hrefs.length} editorial links, ${canonicalIds.length} canonical destination cross-links, source-note citations, two shared data distributions, methodology/provenance/trust contracts, and ${smokePaths.length + evergreenGuides.length} HTML production smoke routes intact.`);
+console.log(`Things That Define Texas validation passed: ${ids.length} entries, ${categorySlugs.length} categories, ${evergreenGuides.length} evergreen deep dives, ${hrefs.length} editorial links, ${canonicalIds.length} canonical destination cross-links, source-note citations, five evergreen data batches, two shared data distributions, methodology/provenance/trust contracts, and ${smokePaths.length + evergreenGuides.length} HTML production smoke routes intact.`);
