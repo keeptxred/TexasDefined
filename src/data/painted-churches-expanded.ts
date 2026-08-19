@@ -43,7 +43,7 @@ export const additionalVerifiedPaintedChurches: PaintedChurch[] = [
     address: "503 N Queen St., Palestine, TX 75801",
     denomination: "Roman Catholic",
     summary: "A historic Palestine church with a documented religious mural, stained glass and decorative sanctuary, supported by primary-source photographs in the Portal to Texas History and decorative-painting research archives.",
-    significance: "A strong broader-tradition Painted Church candidate supported by primary-source interior photographs and the Buie Harwood decorative-painting research archive. Texas Defined does not represent it as part of the THC 1983 decorative-interior multiple-property group.",
+    significance: "A strong broader-tradition Painted Church supported by primary-source interior photographs and the Buie Harwood decorative-painting research archive. Texas Defined does not represent it as part of the THC 1983 decorative-interior multiple-property group.",
     visitNote: "The parish states that the church is not open to the public outside scheduled Mass, Confession and Adoration times. Call or email the parish office ahead for a sightseeing visit.",
     sourceUrl: "https://shpalestine.org/visit",
     secondarySourceUrl: "https://texashistory.unt.edu/ark:/67531/metapth26520/",
@@ -67,10 +67,11 @@ export const additionalVerifiedPaintedChurches: PaintedChurch[] = [
   },
 ];
 
-export const expandedPaintedChurches: PaintedChurch[] = [
-  ...originalPaintedChurches,
-  ...additionalVerifiedPaintedChurches.filter((church) => !originalPaintedChurches.some((existing) => existing.slug === church.slug)),
-];
+for (const church of additionalVerifiedPaintedChurches) {
+  if (!originalPaintedChurches.some((existing) => existing.slug === church.slug)) originalPaintedChurches.push(church);
+}
+
+export const expandedPaintedChurches: PaintedChurch[] = originalPaintedChurches;
 
 export function expandedPaintedChurchBySlug(slug: string) {
   return expandedPaintedChurches.find((church) => church.slug === slug) ?? null;
