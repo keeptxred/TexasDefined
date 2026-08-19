@@ -7,7 +7,7 @@ export const Route = createLazyFileRoute("/things-unique-to-texas")({
 });
 
 function ThingsUniqueToTexasPage() {
-  const { categories, itemCount } = Route.useLoaderData();
+  const { categories, itemCount, deeperGuideCount } = Route.useLoaderData();
 
   return (
     <main>
@@ -22,7 +22,7 @@ function ThingsUniqueToTexasPage() {
           <div className="mt-10 grid max-w-3xl grid-cols-2 gap-px overflow-hidden border border-border bg-border sm:grid-cols-3">
             <Stat value={String(itemCount)} label="Texas icons" />
             <Stat value={String(categories.length)} label="Magazine chapters" />
-            <Stat value="1" label="Very big state" />
+            <Stat value={String(deeperGuideCount)} label="Deeper guide links" />
           </div>
         </Container>
       </section>
