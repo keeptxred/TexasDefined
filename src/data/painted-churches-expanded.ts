@@ -158,6 +158,21 @@ export const additionalVerifiedPaintedChurches: PaintedChurch[] = [
     sourceCheckedAt: CHECKED,
     recordedTexasHistoricLandmark: true,
   },
+  {
+    slug: "lacoste-our-lady-of-grace",
+    name: "Our Lady of Grace Catholic Church",
+    shortName: "Our Lady of Grace at LaCoste",
+    city: "La Coste",
+    county: "Medina",
+    address: "15825 Bexar St., La Coste, TX 78039",
+    denomination: "Roman Catholic",
+    summary: "A 1911 red-brick Gothic Catholic church in Medina County with a dedicated 21-slide decorative-painting research group in the Buie Harwood archive and a continuing active parish community.",
+    significance: "The active parish and Texas Historical Commission independently document the exact 1911 church, while the Buie Harwood archive contains 21 church-specific decorative-painting research slides from 1978. Texas Defined therefore includes LaCoste in the broader historic Painted Churches tradition while leaving authorship, technique and interior-integrity details unresolved until stronger primary evidence is found.",
+    visitNote: "Our Lady of Grace is an active parish. Use the official parish site for current Masses, office information and visitor contact, and verify sightseeing access before a special trip.",
+    sourceUrl: "https://olgtx.org/about-us",
+    secondarySourceUrl: "https://txarchives.org/utaaa/finding_aids/00136.xml",
+    sourceCheckedAt: CHECKED,
+  },
 ];
 
 const imageOverrides: Partial<Record<string, NonNullable<PaintedChurch["image"]>>> = {
@@ -218,6 +233,7 @@ const metadata: Record<string, Pick<CanonicalPaintedChurch, "interiorIntegrity" 
   "san-antonio-st-joseph-catholic-church": { interiorIntegrity: "restored-original-scheme", culturalHeritage: ["German Catholic"], techniques: ["freehand", "decorative-murals"] },
   "anderson-st-stanislaus-kostka": { interiorIntegrity: "restored-original-scheme", culturalHeritage: ["Polish Catholic"], techniques: ["freehand", "decorative-murals"] },
   "castroville-st-louis-catholic-church": { interiorIntegrity: "uncertain", culturalHeritage: ["Alsatian Catholic", "French-German frontier Catholic"], techniques: ["decorative-murals"] },
+  "lacoste-our-lady-of-grace": { interiorIntegrity: "uncertain", culturalHeritage: ["Medina County Catholic"], techniques: [] },
 };
 
 const combined = [
