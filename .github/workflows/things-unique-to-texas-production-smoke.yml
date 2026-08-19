@@ -76,6 +76,9 @@ jobs:
           check_page '/san-antonio-puffy-taco-history' 'San Antonio Puffy Tacos'
           check_page '/barbacoa-big-red-san-antonio' 'Barbacoa & Big Red'
           check_page '/article/kolache-or-klobasnek-texas-story' 'Kolache or Klobasnek?'
+          check_page '/article/caddo-lake-cypress-morning' 'Morning on Caddo'
+          check_page '/article/texas-wildlife-guide' 'Texas Wildlife'
+          check_page '/article/texas-trees-guide' 'Texas Trees Explained'
 
       - name: Verify machine-readable reference distributions
         shell: bash
@@ -114,7 +117,7 @@ jobs:
             echo '- Canonical collection: https://texasdefined.com/things-unique-to-texas'
             echo '- Methodology: https://texasdefined.com/things-unique-to-texas/methodology'
             echo '- Chapter routes checked: 8'
-            echo '- Topical/evergreen deep-dive routes checked: 17'
+            echo '- Topical/evergreen authority routes checked: 20'
             echo '- Machine distributions: 250-row JSON and CSV packages'
             echo '- Machine distributions must retain at least 83 deeper-guide relationships.'
             echo '- HTML routes must be indexable; data downloads must return X-Robots-Tag: noindex, follow.'
