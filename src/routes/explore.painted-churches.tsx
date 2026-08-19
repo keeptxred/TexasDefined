@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
+import { PaintedChurchSourceLibrary } from "@/components/editorial/PaintedChurchSourceLibrary";
 import { Container } from "@/components/layout/Container";
 import {
   nationalRegisterDecorativeInteriorChurches,
@@ -170,6 +171,8 @@ function PaintedChurchesPage() {
             <a href={paintedChurchSources.austinPbs} target="_blank" rel="noreferrer" className="border-b border-primary text-primary">Austin PBS painted churches</a>
           </div>
         </section>
+
+        <PaintedChurchSourceLibrary />
       </Container>
     </main>
   );
