@@ -10,6 +10,9 @@ const searchDocs = read('src/data/painted-church-search.ts');
 const gallery = read('src/components/editorial/PaintedChurchGallery.tsx');
 const dossier = read('src/components/editorial/PaintedChurchResearchDossier.tsx');
 const expanded = read('src/data/painted-churches-expanded.ts');
+const comparison = read('src/routes/explore.painted-churches.compare.tsx');
+const jsonDataset = read('src/routes/painted-churches[.]json.ts');
+const csvDataset = read('src/routes/painted-churches[.]csv.ts');
 const citationGuide = read('src/routes/citation-guide.tsx');
 const citationManifest = JSON.parse(read('public/citation-magnets.json'));
 const llms = read('src/routes/llms[.]txt.ts');
@@ -56,6 +59,16 @@ if (!gallery.includes('creditText')) failures.push('Painted Church image schema 
 if (!dossier.includes('Research methodology & corrections')) failures.push('Every Painted Church dossier must link to the methodology/corrections page.');
 if (!dossier.includes('Verified church, visible source trail.')) failures.push('Every Painted Church dossier must expose the editorial-standard authority panel.');
 
+if (!comparison.includes('"@type": "Dataset"')) failures.push('Painted Churches comparison must publish Dataset schema.');
+if (!comparison.includes('/painted-churches.csv') || !comparison.includes('/painted-churches.json')) failures.push('Painted Churches comparison must link both machine-readable distributions.');
+if (!jsonDataset.includes('primarySourceUrl') || !jsonDataset.includes('sourceCheckedAt')) failures.push('Painted Churches JSON must preserve provenance and source-check dates.');
+if (!jsonDataset.includes('X-Robots-Tag') || !jsonDataset.includes('noindex, follow')) failures.push('Painted Churches JSON must stay noindex/follow.');
+if (!csvDataset.includes('primary_source_url') || !csvDataset.includes('source_checked_at')) failures.push('Painted Churches CSV must preserve provenance and source-check dates.');
+if (!csvDataset.includes('X-Robots-Tag') || !csvDataset.includes('noindex, follow')) failures.push('Painted Churches CSV must stay noindex/follow.');
+for (const download of ['/painted-churches.csv', '/painted-churches.json']) {
+  if (!publicRoutes.includes(JSON.stringify(download))) failures.push(`Public-route governance must register machine-readable distribution ${download}.`);
+}
+
 const manifestUrls = new Set(citationManifest.resources.map((resource) => resource.url));
 for (const path of authorityPaths) {
   const url = `https://texasdefined.com${path}`;
@@ -79,4 +92,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Painted Churches hub, authority cluster, indexing policy, search discovery, image schema, citation manifest, llms guidance, trust panels and methodology links are protected.');
+console.log('Painted Churches hub, authority cluster, indexing policy, search discovery, image schema, citation manifest, llms guidance, trust panels, machine-readable datasets and methodology links are protected.');
