@@ -1,0 +1,146 @@
+export type PaintedChurchPersonRole = "architect" | "artist" | "decorator" | "restorer" | "researcher" | "clergy-artist";
+
+export type PaintedChurchPerson = {
+  slug: string;
+  name: string;
+  roles: PaintedChurchPersonRole[];
+  answer: string;
+  significance: string[];
+  churchSlugs: string[];
+  techniqueSlugs?: string[];
+  sourceLabel: string;
+  sourceUrl: string;
+};
+
+export const paintedChurchPeople: PaintedChurchPerson[] = [
+  {
+    slug: "leo-mj-dielmann",
+    name: "Leo M. J. Dielmann",
+    roles: ["architect"],
+    answer: "Leo M. J. Dielmann was a Texas architect whose Gothic Revival church designs created the architectural framework for some of the state's best-known Painted Churches, especially High Hill and Fredericksburg.",
+    significance: ["Austin PBS identifies Dielmann as architect of High Hill and Fredericksburg.", "At High Hill, painted illusion helped simulate Gothic vaulting that the building did not physically construct.", "His work links architecture and decorative painting rather than treating them as separate subjects."],
+    churchSlugs: ["high-hill-nativity-of-mary", "fredericksburg-st-marys-catholic-church"],
+    techniqueSlugs: ["trompe-loeil-architectural-illusion"],
+    sourceLabel: "Austin PBS — High Hill",
+    sourceUrl: "https://austinpbs.org/paintedchurches/highhill",
+  },
+  {
+    slug: "ferdinand-stockert",
+    name: "Ferdinand Stockert",
+    roles: ["artist", "decorator"],
+    answer: "Ferdinand Stockert was one of the decorators credited by Austin PBS with executing High Hill's 1912 interior painting together with Hermann Kern.",
+    significance: ["Austin PBS names Stockert and Kern as High Hill's interior artists.", "Their work includes canvas-applied painting and faux architectural effects.", "The High Hill campaign is central to understanding the relationship between decorative painting and Gothic Revival illusion."],
+    churchSlugs: ["high-hill-nativity-of-mary"],
+    techniqueSlugs: ["canvas-applied-decoration", "trompe-loeil-architectural-illusion", "stenciling"],
+    sourceLabel: "Austin PBS — High Hill",
+    sourceUrl: "https://austinpbs.org/paintedchurches/highhill",
+  },
+  {
+    slug: "hermann-kern",
+    name: "Hermann Kern",
+    roles: ["artist", "decorator"],
+    answer: "Hermann Kern was the decorator paired with Ferdinand Stockert in Austin PBS's attribution of the 1912 High Hill interior campaign.",
+    significance: ["Kern is directly named in Austin PBS's High Hill artist attribution.", "The work demonstrates painted Gothic illusion and applied-canvas decoration."],
+    churchSlugs: ["high-hill-nativity-of-mary"],
+    techniqueSlugs: ["canvas-applied-decoration", "trompe-loeil-architectural-illusion", "stenciling"],
+    sourceLabel: "Austin PBS — High Hill",
+    sourceUrl: "https://austinpbs.org/paintedchurches/highhill",
+  },
+  {
+    slug: "fred-donecker",
+    name: "Fred Donecker",
+    roles: ["artist", "decorator"],
+    answer: "Fred Donecker was a decorative painter whose family workshop is linked by Austin PBS and archival research to multiple Texas Painted Churches, including Ammannsville, Moravia, Sweet Home and Fredericksburg.",
+    significance: ["Austin PBS attributes Moravia's 1923 interior to Donecker and his sons.", "PBS research also connects Donecker to Ammannsville and Sweet Home.", "The Harwood archive contains dedicated Donecker-family research files."],
+    churchSlugs: ["ammannsville-st-john-the-baptist", "moravia-ascension-of-our-lord", "sweet-home-queen-of-peace", "fredericksburg-st-marys-catholic-church"],
+    techniqueSlugs: ["stenciling", "marbling", "graining", "freehand"],
+    sourceLabel: "Austin PBS — Painted Churches updates",
+    sourceUrl: "https://austinpbs.org/paintedchurches/filmupdates",
+  },
+  {
+    slug: "gottfried-flury",
+    name: "Gottfried Flury",
+    roles: ["artist", "decorator"],
+    answer: "Gottfried Flury is associated with the decorative painting of St. Mary's Church of the Assumption at Praha, one of the most elaborate interiors in the Schulenburg-area cluster.",
+    significance: ["Praha's decorative program is repeatedly attributed to Flury in Austin PBS Painted Churches research.", "His work is central to Praha's combination of murals, ornamental fields and illusionistic architecture."],
+    churchSlugs: ["praha-st-marys-assumption"],
+    techniqueSlugs: ["freehand", "stenciling", "trompe-loeil-architectural-illusion", "decorative-murals"],
+    sourceLabel: "Austin PBS — Praha",
+    sourceUrl: "https://austinpbs.org/paintedchurches/praha",
+  },
+  {
+    slug: "john-f-bujnoch",
+    name: "John F. Bujnoch",
+    roles: ["architect"],
+    answer: "John F. Bujnoch is identified in National Register metadata as an architect associated with St. John the Baptist Catholic Church at Ammannsville.",
+    significance: ["The National Register record associates Bujnoch with the present Ammannsville church.", "Texas Defined keeps architectural authorship distinct from later decorative-painting attribution."],
+    churchSlugs: ["ammannsville-st-john-the-baptist"],
+    sourceLabel: "National Park Service — NRIS 83003137",
+    sourceUrl: "https://npgallery.nps.gov/AssetDetail/NRIS/83003137",
+  },
+  {
+    slug: "bohuslav-laciak",
+    name: "Rev. Bohuslav Laciak",
+    roles: ["clergy-artist", "artist"],
+    answer: "Rev. Bohuslav Laciak was the Czech immigrant pastor and teacher who painted the Wesley Brethren Church interior in 1889. His death left the decorative program visibly incomplete.",
+    significance: ["Austin PBS identifies Laciak as the painter of Wesley's interior.", "The faux columns, brickwork and apse demonstrate deliberate trompe-l'oeil.", "The unfinished ceiling preserves evidence of the painting process itself."],
+    churchSlugs: ["wesley-brethren-church"],
+    techniqueSlugs: ["freehand", "trompe-loeil-architectural-illusion", "decorative-murals"],
+    sourceLabel: "Austin PBS — Wesley Brethren Church",
+    sourceUrl: "https://austinpbs.org/paintedchurches/wesley",
+  },
+  {
+    slug: "gene-mikulik",
+    name: "Gene Mikulik",
+    roles: ["restorer"],
+    answer: "Gene Mikulik is associated in Austin PBS Painted Churches research with restoration work at multiple historic painted interiors, including Praha and Ammannsville.",
+    significance: ["His work belongs to the preservation history of the churches rather than their original immigrant-era campaigns.", "Texas Defined separates restoration authorship from original decorative authorship."],
+    churchSlugs: ["praha-st-marys-assumption", "ammannsville-st-john-the-baptist"],
+    sourceLabel: "Austin PBS — Painted Churches church profiles",
+    sourceUrl: "https://austinpbs.org/paintedchurches/",
+  },
+  {
+    slug: "fridolin-fuchs",
+    name: "Fridolin Fuchs",
+    roles: ["artist", "decorator"],
+    answer: "Fridolin Fuchs is associated with the decorative interior history of St. Peter's Catholic Church at Lindsay in Texas Painted Churches research.",
+    significance: ["Lindsay's Romanesque church belongs to the formal National Register decorative-interior group.", "Artist attribution is kept separate from the National Register architecture record."],
+    churchSlugs: ["lindsay-st-peters-catholic-church"],
+    sourceLabel: "Austin PBS / Texas Painted Churches research",
+    sourceUrl: "https://austinpbs.org/paintedchurches/",
+  },
+  {
+    slug: "antoni-polaniak",
+    name: "Fr. Antoni Polaniak",
+    roles: ["clergy-artist", "artist"],
+    answer: "Fr. Antoni Polaniak designed and painted the modern interior and ceiling program at St. Stanislaus in Bandera during the church's 2003–2008 renovation.",
+    significance: ["The parish directly credits Polaniak with the interior design and ceiling painting.", "His ceiling includes the symbols of the four evangelists.", "The work demonstrates a modern living continuation of the Painted Churches tradition."],
+    churchSlugs: ["bandera-st-stanislaus-catholic-church"],
+    techniqueSlugs: ["freehand", "decorative-murals"],
+    sourceLabel: "St. Stanislaus Bandera — official church history",
+    sourceUrl: "https://www.ststanislausbandera.com/history-of-the-church.html",
+  },
+  {
+    slug: "cezary-eva-sienkiel",
+    name: "Cezary and Eva Sienkiel",
+    roles: ["artist"],
+    answer: "Cezary and Eva Sienkiel painted wall and presbyterium scenes at St. Stanislaus in Bandera during the modern restoration and decorative campaign.",
+    significance: ["The parish directly credits them with the Coronation of Mary, scenes from St. Stanislaus's life, the Ten Commandments and choir-loft angels.", "Their documented work provides unusually precise modern iconographic authorship."],
+    churchSlugs: ["bandera-st-stanislaus-catholic-church"],
+    techniqueSlugs: ["freehand", "decorative-murals"],
+    sourceLabel: "St. Stanislaus Bandera — official church history",
+    sourceUrl: "https://www.ststanislausbandera.com/history-of-the-church.html",
+  },
+  {
+    slug: "buie-harwood",
+    name: "Buie Harwood",
+    roles: ["researcher"],
+    answer: "Buie Harwood was a decorative-painting scholar whose field research, survey cards, photographs, slides and designation work form one of the most important archival sources for understanding Texas Painted Churches.",
+    significance: ["The UT archive preserves Harwood's Painted Churches survey cards, designation drafts and research correspondence.", "Her collection contains extensive church-specific slide documentation.", "Her research supported historic-designation work and later interpretation of Texas decorative painting."],
+    churchSlugs: ["serbin-st-paul-lutheran-church", "high-hill-nativity-of-mary", "shiner-saints-cyril-methodius", "praha-st-marys-assumption", "wallis-guardian-angel", "sweet-home-queen-of-peace", "moravia-ascension-of-our-lord", "wesley-brethren-church", "ammannsville-st-john-the-baptist", "palestine-sacred-heart-catholic-church"],
+    sourceLabel: "UT Architectural Archives — Buie Harwood and Anna Brightman collection",
+    sourceUrl: "https://txarchives.org/utaaa/finding_aids/00136.xml",
+  },
+];
+
+export const paintedChurchPersonBySlug = new Map(paintedChurchPeople.map((person) => [person.slug, person]));
