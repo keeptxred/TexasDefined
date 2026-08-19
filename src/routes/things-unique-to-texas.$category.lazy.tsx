@@ -8,6 +8,7 @@ export const Route = createLazyFileRoute("/things-unique-to-texas/$category")({
 
 function TexasIconCategoryPage() {
   const category = Route.useLoaderData();
+  const tripPlanningCategory = ["natural-wonders", "landmarks", "roadside-small-towns", "food-drink"].includes(category.slug);
 
   return (
     <main>
@@ -31,16 +32,14 @@ function TexasIconCategoryPage() {
             <div className="grid gap-4 sm:grid-cols-2">
               {category.items.map((entry) => {
                 const content = (
-                  <>
-                    <div className="flex items-start gap-4">
-                      <span className="mt-1 min-w-9 text-sm font-semibold tabular-nums text-primary">{entry.id}</span>
-                      <div>
-                        <h2 className="font-display text-2xl leading-tight">{entry.name}</h2>
-                        <p className="mt-3 text-sm leading-6 text-muted-foreground">{entry.note}</p>
-                        {entry.href && <p className="mt-4 text-sm font-semibold text-primary">Explore the deeper TexasDefined guide →</p>}
-                      </div>
+                  <div className="flex items-start gap-4">
+                    <span className="mt-1 min-w-9 text-sm font-semibold tabular-nums text-primary">{entry.id}</span>
+                    <div>
+                      <h2 className="font-display text-2xl leading-tight">{entry.name}</h2>
+                      <p className="mt-3 text-sm leading-6 text-muted-foreground">{entry.note}</p>
+                      {entry.href && <p className="mt-4 text-sm font-semibold text-primary">Explore the deeper TexasDefined guide →</p>}
                     </div>
-                  </>
+                  </div>
                 );
                 return entry.href ? (
                   <Link key={entry.id} to={entry.href} className="group border border-border bg-card p-6 transition-colors hover:border-primary/50 hover:bg-muted/30">{content}</Link>
@@ -60,6 +59,12 @@ function TexasIconCategoryPage() {
                     <span className="mt-1 block text-sm leading-6 text-muted-foreground">{link.description}</span>
                   </Link>
                 ))}
+                {tripPlanningCategory && (
+                  <Link to="/explore/trip-planner" className="group block py-5">
+                    <span className="font-semibold group-hover:text-primary">Build a trip from these Texas icons →</span>
+                    <span className="mt-1 block text-sm leading-6 text-muted-foreground">Turn food stops, natural wonders, landmarks and small-town detours into a Texas itinerary.</span>
+                  </Link>
+                )}
               </div>
               <Link to="/things-unique-to-texas" className="mt-6 inline-block text-sm font-semibold text-primary underline-offset-4 hover:underline">Back to all 250 Texas icons</Link>
             </aside>
