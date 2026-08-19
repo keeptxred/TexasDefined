@@ -4,6 +4,7 @@ const source = fs.readFileSync('src/data/things-unique-to-texas-links.ts', 'utf8
 const reference = fs.readFileSync('src/data/things-unique-to-texas-reference.ts', 'utf8');
 const route = fs.readFileSync('src/routes/things-unique-to-texas.tsx', 'utf8');
 const hub = fs.readFileSync('src/routes/things-unique-to-texas.lazy.tsx', 'utf8');
+const methodology = fs.readFileSync('src/routes/things-unique-to-texas.methodology.tsx', 'utf8');
 const failures = [];
 
 const canonicalBlock = source.match(/const CANONICAL_ICON_LINKS:[\s\S]*?= \{([\s\S]*?)\n\};/);
@@ -82,6 +83,14 @@ if (!route.includes('deeperGuideCount: TEXAS_ICON_DEEPER_GUIDE_COUNT')) failures
 if (!hub.includes('const { categories, itemCount, deeperGuideCount } = Route.useLoaderData();')) failures.push('Things That Define Texas hub must consume the computed deeper-guide count.');
 if (!hub.includes('<Stat value={String(deeperGuideCount)} label="Deeper guide links" />')) failures.push('Things That Define Texas hub must display deeper-guide coverage as a headline statistic.');
 if (hub.includes('label="Very big state"')) failures.push('Things That Define Texas hub must not replace its authority metric with the old novelty statistic.');
+for (const token of [
+  'import { TEXAS_ICON_DEEPER_GUIDE_COUNT } from "@/data/things-unique-to-texas-reference";',
+  'At the current source state, {TEXAS_ICON_DEEPER_GUIDE_COUNT} of the 250 records resolve to a deeper canonical TexasDefined guide.',
+  '<dt className="font-semibold">Deeper guide links</dt>',
+  '{TEXAS_ICON_DEEPER_GUIDE_COUNT} computed relationships',
+]) {
+  if (!methodology.includes(token)) failures.push(`Things That Define Texas methodology must expose computed deeper-guide coverage: ${token}`);
+}
 
 if (failures.length) {
   console.error('Texas icon link-depth validation failed:');
@@ -89,4 +98,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Texas icon link-depth validation passed: ${destinationLinks.length} exact destination mappings plus ${deepDiveLinks.length} purpose-built/editorial deep dives (${destinationLinks.length + deepDiveLinks.length} protected relationships) are retained, and the hub exposes its computed deeper-guide coverage.`);
+console.log(`Texas icon link-depth validation passed: ${destinationLinks.length} exact destination mappings plus ${deepDiveLinks.length} purpose-built/editorial deep dives (${destinationLinks.length + deepDiveLinks.length} protected relationships) are retained, and the hub/methodology expose computed deeper-guide coverage.`);
