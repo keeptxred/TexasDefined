@@ -6,7 +6,7 @@ import { Container } from "@/components/layout/Container";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const canonicalPath = "/texas-food-history";
-const description = "A TexasDefined guide to the history behind brisket, chili con carne, chicken-fried steak, breakfast tacos, Czech and German foodways, Dr Pepper and the regional cultures that shaped the Texas table.";
+const description = "A TexasDefined guide to the history behind brisket, chili con carne, chicken-fried steak, breakfast tacos, Czech and German foodways, Dr Pepper, Ranch Water, puffy tacos, barbacoa and the regional cultures that shaped the Texas table.";
 
 const guides = [
   { href: "/article/texas-barbecue-styles-explained", title: "Texas Barbecue Styles Explained", eyebrow: "Smoke & migration", copy: "Central Texas meat markets, East Texas traditions, South Texas barbacoa and the regional logic behind a statewide obsession." },
@@ -15,6 +15,9 @@ const guides = [
   { href: "/texas-breakfast-taco-guide", title: "Texas Breakfast Tacos", eyebrow: "Everyday foodways", copy: "Tortillas, eggs, beans, potatoes, barbacoa, carne guisada, migas and the local salsa habits that define the morning stop." },
   { href: "/german-czech-texas-towns", title: "German & Czech Texas Towns", eyebrow: "Immigration & food", copy: "Kolaches, klobasneks, sausage, beer, churches and dance halls connect Central European settlement to living Texas traditions." },
   { href: "/dr-pepper-texas-history", title: "Dr Pepper in Texas", eyebrow: "Waco brand history", copy: "The documented 1885 Waco soda-fountain origin and the path from a local drink to a nationally recognized Texas-born brand." },
+  { href: "/texas-ranch-water-guide", title: "Texas Ranch Water", eyebrow: "Cocktail folklore", copy: "Tequila, lime and sparkling mineral water—with a West Texas folk identity and a much more documentable modern Ranch 616 chapter." },
+  { href: "/san-antonio-puffy-taco-history", title: "San Antonio Puffy Tacos", eyebrow: "West Side food culture", copy: "Fresh corn masa, hot oil, Ray's Drive Inn and the San Antonio community context behind a regional Tex-Mex icon." },
+  { href: "/barbacoa-big-red-san-antonio", title: "Barbacoa & Big Red", eyebrow: "Sunday in San Antonio", copy: "An older weekend barbacoa tradition, a Waco-born red soda and the later pairing that became San Antonio cultural shorthand." },
 ] as const;
 
 export const Route = createFileRoute(canonicalPath)({
@@ -73,8 +76,8 @@ function TexasFoodHistoryPage() {
       </section>
 
       <section className="py-14">
-        <p className="eyebrow text-primary">Start with six stories</p>
-        <h2 className="mt-2 max-w-3xl font-display text-4xl sm:text-5xl">From plaza chili stands to the Waco soda fountain</h2>
+        <p className="eyebrow text-primary">Start with nine stories</p>
+        <h2 className="mt-2 max-w-3xl font-display text-4xl sm:text-5xl">From plaza chili stands to Sunday barbacoa and the Waco soda fountain</h2>
         <div className="mt-10 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2 lg:grid-cols-3">
           {guides.map((guide) => <Link key={guide.href} to={guide.href} className="group bg-background p-7">
             <span className="eyebrow text-primary">{guide.eyebrow}</span>
