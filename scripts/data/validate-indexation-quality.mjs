@@ -65,9 +65,11 @@ const migratedFinanceEvergreens = [
   'texas-utility-costs-guide',
   'salary-needed-to-buy-a-house-in-texas',
 ];
+const financeDepthBlock = lazyMigratedEditorial.match(/const financeDepthSlugSet = new Set\(\[([\s\S]*?)\n\]\);/)?.[1] ?? '';
+if (!financeDepthBlock) failures.push('Could not parse financeDepthSlugSet from lazy migrated editorial registry.');
 for (const slug of migratedFinanceEvergreens) {
   if (!lazyMigratedEditorial.includes(`slug: "${slug}"`)) failures.push(`Migrated finance evergreen is missing from the lazy article registry: ${slug}`);
-  if (!lazyMigratedEditorial.includes(`"${slug}"`)) failures.push(`Migrated finance evergreen is missing from the deep-content routing set: ${slug}`);
+  if (!financeDepthBlock.includes(`"${slug}"`)) failures.push(`Migrated finance evergreen is missing from financeDepthSlugSet: ${slug}`);
   if (!financeEvergreenDepth.includes(`slug: "${slug}"`)) failures.push(`Migrated finance evergreen deep article is missing: ${slug}`);
 }
 for (const marker of [
@@ -105,4 +107,4 @@ if (failures.length) {
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
-console.log('Indexation quality validation passed: conditional hubs, routed-news canonical isolation, loaded evergreen article canonicals/indexability and sitemap publication, migrated finance evergreen deep-content routing, noindex utilities, redirects, generated-page quality gates, and sitemap ownership are aligned.');
+console.log('Indexation quality validation passed: conditional hubs, routed-news canonical isolation, loaded evergreen article canonicals/indexability and sitemap publication, parsed migrated finance evergreen deep-content routing, noindex utilities, redirects, generated-page quality gates, and sitemap ownership are aligned.');
