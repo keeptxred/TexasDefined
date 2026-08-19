@@ -34,7 +34,7 @@ const guides: Record<string, DestinationAreaGuide> = {
     familyStops: [local("Pace the galleries", "The museum is extensive; split dense exhibit time with outdoor interpretation and a Main Street break.")],
     sideTrips: [link("Fort Martin Scott", "fort-martin-scott", "Compare two very different eras of military history within the same town.")],
   },
-  "official-state-texas-longhorn-herd": {
+  "official-texas-longhorn-herd": {
     intro: "Use the Official State of Texas Longhorn Herd to connect a living animal symbol with the cattle economy, ranching culture and frontier history that made the longhorn central to Texas identity.",
     nearbyAttractions: [link("Fort Griffin State Historic Site", "fort-griffin", "Connect the herd to the frontier fort, cattle-trail and ranching landscape around Albany.")],
     foodAndDrink: [local("Albany", "Use Albany as the practical food and services base for the Fort Griffin area.")],

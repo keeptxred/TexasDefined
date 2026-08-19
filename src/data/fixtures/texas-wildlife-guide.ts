@@ -44,12 +44,12 @@ export const texasWildlifeGuideArticle: Article = {
       description: "Find outdoor destinations, wildlife experiences and nature-focused Texas trips.",
     },
     {
-      href: "/explore/national-wildlife-refuges",
+      href: "/explore/outdoors",
       label: "Texas national wildlife refuges",
       description: "Find federally protected wildlife areas across the state and plan a visit around habitat and migration.",
     },
     {
-      href: "/explore/wildlife-management-areas",
+      href: "/explore/outdoors",
       label: "Texas wildlife management areas",
       description: "Explore state-managed wildlife lands and the habitats they protect.",
     },
