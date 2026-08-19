@@ -127,4 +127,10 @@ export const COUNTY_SERIES_PROFILES_CONTINUED: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/smith-county-tyler-roses-railroads-piney-woods-texas")
       .then((module) => module.smithCountyTylerRosesRailroadsPineyWoodsArticle),
   },
+  {
+    countySlug: "gregg",
+    articleSlug: "gregg-county-longview-kilgore-oil-railroads-piney-woods-texas",
+    loadArticle: () => import("@/data/fixtures/gregg-county-longview-kilgore-oil-railroads-piney-woods-texas")
+      .then((module) => module.greggCountyLongviewKilgoreOilRailroadsPineyWoodsArticle),
+  },
 ];
