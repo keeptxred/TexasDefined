@@ -4,6 +4,7 @@ import { PaintedChurchArchivalImageSources } from "@/components/editorial/Painte
 import { PaintedChurchGallery } from "@/components/editorial/PaintedChurchGallery";
 import { PaintedChurchKnowledgeLinks } from "@/components/editorial/PaintedChurchKnowledgeLinks";
 import { PaintedChurchRegisterEvidence } from "@/components/editorial/PaintedChurchRegisterEvidence";
+import { PaintedChurchThenAndNow } from "@/components/editorial/PaintedChurchThenAndNow";
 import { PaintedChurchVisitorStatus } from "@/components/editorial/PaintedChurchVisitorStatus";
 import { canonicalPaintedChurchProfileBySlug } from "@/data/painted-church-profile-index";
 import { schulenburgTourInfo } from "@/data/painted-church-research";
@@ -32,6 +33,7 @@ export function PaintedChurchResearchDossier({ slug, schulenburgCluster }: { slu
 
       <PaintedChurchGallery slug={slug} />
       <PaintedChurchArchivalImageSources slug={slug} />
+      <PaintedChurchThenAndNow slug={slug} />
       <PaintedChurchRegisterEvidence slug={slug} />
       <PaintedChurchKnowledgeLinks slug={slug} />
       <PaintedChurchVisitorStatus slug={slug} />
