@@ -34,9 +34,14 @@ for (const [label, filename, canonicalPath] of routes) {
     'loaderData.destinations.map',
     'type: "Article" as const',
     'type: "TouristAttraction" as const',
-    'return { articles, destinations }',
   ]) {
     if (!route.includes(feature)) errors.push(`${label} collection SEO feature missing: ${feature}.`);
+  }
+  // Validate the loader's semantic return shape instead of requiring object-
+  // shorthand syntax. Some collections intentionally merge multiple destination
+  // sources before assigning the destinations field.
+  if (!/return\s*\{\s*articles\s*,[\s\S]*?destinations(?:\s*:|\s*[},])/.test(route)) {
+    errors.push(`${label} collection SEO feature missing: loader return with articles and destinations.`);
   }
   // Department breadcrumb parent may vary per collection, but must be present and internal.
   if (!/breadcrumbParentName: "[^"]+"/.test(route) || !/breadcrumbParentPath: "\/[^"]*"/.test(route)) {
@@ -50,4 +55,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Standalone editorial CollectionPage, ItemList, image, and breadcrumb validation passed.');
+console.log('Standalone editorial CollectionPage, ItemList, image, breadcrumb and loader-shape validation passed.');
