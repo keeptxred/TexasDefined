@@ -34,13 +34,43 @@ export const additionalVerifiedPaintedChurches: PaintedChurch[] = [
     secondarySourceUrl: "https://www.travellerselixir.com/texas-painted-churches-road-trip/",
     sourceCheckedAt: CHECKED,
   },
+  {
+    slug: "palestine-sacred-heart-catholic-church",
+    name: "Sacred Heart Catholic Church",
+    shortName: "Sacred Heart at Palestine",
+    city: "Palestine",
+    county: "Anderson",
+    address: "503 N Queen St., Palestine, TX 75801",
+    denomination: "Roman Catholic",
+    summary: "A historic Palestine church with a documented religious mural, stained glass and decorative sanctuary, supported by primary-source photographs in the Portal to Texas History and decorative-painting research archives.",
+    significance: "A strong broader-tradition Painted Church candidate supported by primary-source interior photographs and the Buie Harwood decorative-painting research archive. Texas Defined does not represent it as part of the THC 1983 decorative-interior multiple-property group.",
+    visitNote: "The parish states that the church is not open to the public outside scheduled Mass, Confession and Adoration times. Call or email the parish office ahead for a sightseeing visit.",
+    sourceUrl: "https://shpalestine.org/visit",
+    secondarySourceUrl: "https://texashistory.unt.edu/ark:/67531/metapth26520/",
+    sourceCheckedAt: CHECKED,
+  },
+  {
+    slug: "bandera-st-stanislaus-catholic-church",
+    name: "St. Stanislaus Catholic Church",
+    shortName: "St. Stanislaus at Bandera",
+    city: "Bandera",
+    county: "Bandera",
+    address: "311 7th St., Bandera, TX 78003",
+    denomination: "Roman Catholic",
+    summary: "An 1876 native-limestone Polish Catholic church whose modern painted program includes evangelist symbols, Marian imagery, scenes from St. Stanislaus’s life and extensive re-marbleized devotional furnishings.",
+    significance: "A Recorded Texas Historic Landmark and one of Texas’s oldest Polish Catholic parishes. The parish itself documents a major painted-interior campaign completed in 2008, so Texas Defined includes it in the broader living Painted Churches tradition while distinguishing the modern decorative campaign from the 19th-century National Register group.",
+    visitNote: "This is an active parish. Check current Mass and parish schedules before visiting; worship and parish activities take priority over sightseeing.",
+    sourceUrl: "https://www.ststanislausbandera.com/history-of-the-church.html",
+    secondarySourceUrl: "https://atlas.thc.texas.gov/Details/5019005081",
+    sourceCheckedAt: CHECKED,
+    recordedTexasHistoricLandmark: true,
+  },
 ];
 
-for (const church of additionalVerifiedPaintedChurches) {
-  if (!originalPaintedChurches.some((existing) => existing.slug === church.slug)) originalPaintedChurches.push(church);
-}
-
-export const expandedPaintedChurches: PaintedChurch[] = originalPaintedChurches;
+export const expandedPaintedChurches: PaintedChurch[] = [
+  ...originalPaintedChurches,
+  ...additionalVerifiedPaintedChurches.filter((church) => !originalPaintedChurches.some((existing) => existing.slug === church.slug)),
+];
 
 export function expandedPaintedChurchBySlug(slug: string) {
   return expandedPaintedChurches.find((church) => church.slug === slug) ?? null;
