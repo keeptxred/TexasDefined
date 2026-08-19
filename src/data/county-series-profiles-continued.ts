@@ -109,4 +109,10 @@ export const COUNTY_SERIES_PROFILES_CONTINUED: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/panola-county-carthage-sabine-timber-music-piney-woods-texas")
       .then((module) => module.panolaCountyCarthageSabineTimberMusicPineyWoodsArticle),
   },
+  {
+    countySlug: "rusk",
+    articleSlug: "rusk-county-henderson-east-texas-oil-field-piney-woods-texas",
+    loadArticle: () => import("@/data/fixtures/rusk-county-henderson-east-texas-oil-field-piney-woods-texas")
+      .then((module) => module.ruskCountyHendersonEastTexasOilFieldPineyWoodsArticle),
+  },
 ];
