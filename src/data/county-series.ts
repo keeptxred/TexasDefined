@@ -110,6 +110,7 @@ const LEGACY_ARTICLE_TO_COUNTY = new Map<string, string>([
   ["hood-county-granbury-lake-brazos-acton-cross-timbers-texas", "hood"],
   ["somervell-county-glen-rose-dinosaur-valley-paluxy-brazos-texas", "somervell"],
   ["johnson-county-cleburne-chisholm-trail-railroad-prairies-texas", "johnson"],
+  ["hill-county-hillsboro-lake-whitney-cotton-prairies-texas", "hill"],
 ]);
 
 const COUNTY_SLUGS = new Set(LEGACY_ARTICLE_TO_COUNTY.values());
