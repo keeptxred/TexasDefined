@@ -20,6 +20,7 @@ export const chooseElectricityPlanTexasArticle: Article = {
   tags: ["texas electricity", "electricity plans", "moving to texas", "utilities", "electricity facts label", "texas power"],
   featured: true,
   internalLinks: [
+    { href: "/article/moving-to-texas-what-nobody-tells-you", label: "What nobody tells you about moving to Texas", description: "Put electricity shopping into the full relocation picture: housing costs, taxes, insurance, schools, utilities, commuting and local districts." },
     { href: "/article/texas-utility-costs-guide", label: "Estimate Texas utility costs", description: "Build a broader monthly utility budget before choosing a home or plan." },
     { href: "/moving-to-texas", label: "Moving to Texas", description: "Start with the practical things newcomers need to know." },
     { href: "/texas-living", label: "Living Here", description: "More guides to the systems that shape everyday life in Texas." },

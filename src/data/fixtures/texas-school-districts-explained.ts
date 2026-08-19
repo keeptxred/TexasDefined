@@ -20,6 +20,7 @@ export const texasSchoolDistrictsExplainedArticle: Article = {
   tags: ["what does isd stand for in texas", "texas school districts", "isd", "moving to texas", "texas schools", "school boundaries", "home buying"],
   featured: true,
   internalLinks: [
+    { href: "/article/moving-to-texas-what-nobody-tells-you", label: "What nobody tells you about moving to Texas", description: "Put school-district boundaries into the larger relocation picture: taxes, insurance, utilities, commuting, special districts and address-level due diligence." },
     { href: "/find-my-school-district", label: "Find your school district", description: "Start with the address instead of the city name." },
     { href: "/moving-to-texas", label: "Moving to Texas", description: "More practical guides for choosing where to live." },
     { href: "/browse/cities", label: "Browse Texas cities", description: "Explore places without assuming city and school boundaries match." },
