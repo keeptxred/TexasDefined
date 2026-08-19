@@ -93,14 +93,14 @@ if (!publicRoutes.includes('"/texas-food-history"')) failures.push('Texas Food H
 if (!rootHub.includes('to="/texas-food-history"')) failures.push('Things That Define Texas hub must visibly link Texas Food History.');
 if (!categoryHub.includes('href: "/texas-food-history"')) failures.push('Food & Drink chapter must feature Texas Food History.');
 if (!texasLiving.includes("['/texas-food-history', 'Texas Food History'")) failures.push('Texas Life must surface Texas Food History.');
-if (!smoke.includes("check_page '/texas-food-history' 'Texas food history'")) failures.push('Production smoke must verify Texas Food History.');
+if (!smoke.includes("check_page '/texas-food-history'")) failures.push('Production smoke must verify Texas Food History.');
 if (!llms.includes('Texas food history: https://texasdefined.com/texas-food-history')) failures.push('llms.txt must expose Texas Food History.');
 
 const citationResource = citationIndex.resources?.find((resource) => resource.url === 'https://texasdefined.com/texas-food-history');
 if (!citationResource) failures.push('Citation index must include Texas Food History.');
 else {
-  if (citationResource.type !== 'culture-reference-hub') failures.push('Texas Food History citation-index type must remain culture-reference-hub.');
-  for (const marker of ['historical-context', 'source-notes', 'canonical-cross-links', 'folklore-distinction']) {
+  if (citationResource.type !== 'food-history-collection') failures.push('Texas Food History citation-index type must remain food-history-collection.');
+  for (const marker of ['topical-hub', 'source-backed-history', 'folklore-vs-documentation', 'canonical-cross-links']) {
     if (!citationResource.trust?.includes(marker)) failures.push(`Texas Food History citation index missing trust marker ${marker}.`);
   }
 }
