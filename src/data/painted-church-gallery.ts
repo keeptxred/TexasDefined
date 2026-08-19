@@ -188,6 +188,18 @@ const gallery: Record<string, PaintedChurchGalleryImage[]> = {
       license: "CC BY-SA 3.0",
     },
   ],
+  "st-marys-immaculate-conception-lavaca": [
+    {
+      src: commons("Church of the Immaculate Conception of Blessed Virgin mary.JPG"),
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Church_of_the_Immaculate_Conception_of_Blessed_Virgin_mary.JPG",
+      alt: "Church of the Immaculate Conception of Blessed Virgin Mary in St. Mary's, Lavaca County, Texas",
+      caption: "The historic Immaculate Conception church at St. Mary's in Lavaca County, part of the 1983 decorative-interior National Register group.",
+      width: 3513,
+      height: 2627,
+      credit: "25or6to4 · Wikimedia Commons",
+      license: "CC BY-SA 3.0",
+    },
+  ],
   "panna-maria-immaculate-conception": [
     {
       src: commons("Immaculate conception catholic church 2009.jpg"),
