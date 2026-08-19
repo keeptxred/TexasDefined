@@ -97,6 +97,36 @@ export const additionalVerifiedPaintedChurches: PaintedChurch[] = [
     sourceCheckedAt: CHECKED,
     recordedTexasHistoricLandmark: true,
   },
+  {
+    slug: "corpus-christi-sacred-heart-catholic-church",
+    name: "Sacred Heart Catholic Church",
+    shortName: "Sacred Heart at Corpus Christi",
+    city: "Corpus Christi",
+    county: "Nueces",
+    address: "1322 Comanche St, Corpus Christi, TX 78401",
+    denomination: "Roman Catholic",
+    summary: "A South Texas Catholic church whose sanctuary is dominated by monumental true frescoes painted by Mexican American regionalist Antonio E. Garcia during the 1940s.",
+    significance: "The Diocese of Corpus Christi, Texas A&M University–Corpus Christi and SAH Archipedia independently document Antonio E. Garcia’s large-scale Sacred Heart frescoes and murals. Texas Defined includes the church in the broader historic Painted Churches tradition, not the formal 1983 decorative-interior multiple-property group.",
+    visitNote: "Sacred Heart is an active parish. Use the current parish site for Masses, calendar and contact information and verify sightseeing access before a special trip.",
+    sourceUrl: "https://www.sacredheartcorpus.org/",
+    secondarySourceUrl: "https://diocesecc.org/news/marker-at-sacred-heart-honors-life-of-catholic-artist",
+    sourceCheckedAt: CHECKED,
+  },
+  {
+    slug: "san-antonio-st-joseph-catholic-church",
+    name: "St. Joseph Catholic Church",
+    shortName: "St. Joseph Downtown San Antonio",
+    city: "San Antonio",
+    county: "Bexar",
+    address: "623 E. Commerce St, San Antonio, TX 78205",
+    denomination: "Roman Catholic",
+    summary: "A German Catholic Gothic church in downtown San Antonio with historic frescoes and painted religious scenes documented by archival photographs, parish history and the Buie Harwood decorative-painting archive.",
+    significance: "The active parish documents its German Catholic founding and Gothic building history; Portal to Texas History photographs identify frescoes on the ceiling and columns; Harwood’s archive includes a dedicated St. Joseph slide group. Texas Defined classifies it in the broader historic Painted Churches tradition rather than the formal THC multiple-property group.",
+    visitNote: "The parish welcomes visitors and publishes current Mass, adoration, confession and office information. Verify sightseeing conditions and respect liturgical activity before visiting.",
+    sourceUrl: "https://www.stjsa.org/our-parish",
+    secondarySourceUrl: "https://texashistory.unt.edu/ark:/67531/metapth460055/",
+    sourceCheckedAt: CHECKED,
+  },
 ];
 
 const imageOverrides: Partial<Record<string, NonNullable<PaintedChurch["image"]>>> = {
@@ -153,6 +183,8 @@ const metadata: Record<string, Pick<CanonicalPaintedChurch, "interiorIntegrity" 
   "corn-hill-holy-trinity-catholic-church": { interiorIntegrity: "uncertain", culturalHeritage: ["Czech Catholic", "Moravian Catholic"], techniques: ["decorative-murals"] },
   "palestine-sacred-heart-catholic-church": { interiorIntegrity: "restored-original-scheme", culturalHeritage: ["East Texas Catholic"], techniques: ["freehand", "decorative-murals"] },
   "bandera-st-stanislaus-catholic-church": { interiorIntegrity: "modern-decorative-campaign", culturalHeritage: ["Silesian Polish Catholic"], techniques: ["freehand", "marbling", "decorative-murals"] },
+  "corpus-christi-sacred-heart-catholic-church": { interiorIntegrity: "largely-original", culturalHeritage: ["Mexican American Catholic", "South Texas regionalist art"], techniques: ["freehand", "decorative-murals"] },
+  "san-antonio-st-joseph-catholic-church": { interiorIntegrity: "restored-original-scheme", culturalHeritage: ["German Catholic"], techniques: ["freehand", "decorative-murals"] },
 };
 
 const combined = [
