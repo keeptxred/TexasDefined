@@ -23,7 +23,19 @@ const sourceLibrary = [
     label: "Traveller’s Elixir",
     url: "https://www.travellerselixir.com/texas-painted-churches-road-trip/",
     role: "Expansion and road-trip lead",
-    note: "Its seven-stop route surfaced Plantersville and Corn Hill as candidates outside the original Texas Defined collection. Both have now been independently researched and added with their designation differences clearly labeled.",
+    note: "Its route surfaced Plantersville and Corn Hill as candidates outside the original Texas Defined collection. Both were independently researched before being added, with their designation differences clearly labeled.",
+  },
+  {
+    label: "Portal to Texas History",
+    url: "https://texashistory.unt.edu/search/?q=painted+churches+texas",
+    role: "Primary-source photographs and scans",
+    note: "Especially valuable for historic interior photographs, archival views and locally held collections. Item-level rights and reproduction statements are checked before images are republished.",
+  },
+  {
+    label: "Buie Harwood decorative-painting research archive",
+    url: "https://txarchives.org/utaaa/finding_aids/00136.xml",
+    role: "Scholarly candidate discovery",
+    note: "The archive documents decorative-painting field research at churches across Texas and helps identify strong candidates beyond the familiar Schulenburg circuit. It helped elevate Sacred Heart at Palestine from a travel lead to a research-backed addition.",
   },
   {
     label: "Texas Monthly / Anthony Head research",
@@ -42,7 +54,30 @@ const verifiedAdditions = [
   {
     name: "Holy Trinity Catholic Church",
     place: "Corn Hill, Texas",
-    result: "Verified and added as part of the broader Painted Churches tradition. Parish and Williamson County records document the 1889 founding, Moravian heritage, 1913 twin-spired church, continuing Czech Mass, and current parish identity. It is not represented as part of the THC decorative-interior National Register group.",
+    result: "Verified and added as part of the broader Painted Churches tradition. Parish and Williamson County records document the 1889 founding, Moravian heritage, 1913 twin-spired church and current parish identity. It is not represented as part of the THC decorative-interior National Register group.",
+  },
+  {
+    name: "Sacred Heart Catholic Church",
+    place: "Palestine, Texas",
+    result: "Verified and added from unusually strong evidence: Portal to Texas History photographs document the religious mural and decorated sanctuary, the Buie Harwood archive documents decorative-painting research at the church, and the parish publishes current visitor policy.",
+  },
+  {
+    name: "St. Stanislaus Catholic Church",
+    place: "Bandera, Texas",
+    result: "Verified and added as a living Painted Church tradition. The historic 1876 Polish parish church is an RTHL, while the parish itself documents the artists, subjects and 2003–2008 chronology of its modern painted interior. The modern campaign is clearly separated from the 19th-century THC group.",
+  },
+] as const;
+
+const researchQueue = [
+  {
+    name: "St. Mary’s Church",
+    place: "Ellinger / Hostyn Hill, Texas",
+    status: "Historic church history is verified, but the painted-interior evidence has not yet met the same church-specific primary-source standard used for public inclusion.",
+  },
+  {
+    name: "Sacred Heart Catholic Church",
+    place: "Rockne, Texas",
+    status: "The parish’s German-Catholic history and historic church are well documented, and a reusable exterior photograph has been located, but Painted Church classification still needs stronger interior evidence before publication.",
   },
 ] as const;
 
@@ -52,7 +87,7 @@ export function PaintedChurchSourceLibrary() {
       <p className="eyebrow text-primary">Research library</p>
       <h2 id="source-library" className="mt-3 font-display text-4xl sm:text-5xl">How Texas Defined keeps expanding the record</h2>
       <p className="mt-5 max-w-4xl text-base leading-8 text-muted-foreground">
-        Primary records still lead: Texas Historical Commission, National Register documentation, parish archives and official church sources take precedence for dates, architects, artists, designations and access. The sources below are retained as a second research layer for visual interpretation, visitor context, route planning, photography leads and clues to churches that may be missing from the formal historic-register group.
+        Primary records still lead: Texas Historical Commission, National Register documentation, parish archives and official church sources take precedence for dates, architects, artists, designations and access. Secondary sources and archival collections are used to discover candidates, interpret decorative work and locate photography, but every public addition receives a church-specific verification pass first.
       </p>
 
       <div className="mt-9 grid gap-px border border-border bg-border md:grid-cols-2">
@@ -69,9 +104,9 @@ export function PaintedChurchSourceLibrary() {
 
       <div className="mt-10 border-l-2 border-primary bg-surface p-6 sm:p-8">
         <p className="eyebrow text-primary">Expansion research completed</p>
-        <h3 className="mt-3 font-display text-3xl">The collection now includes 20 verified church profiles.</h3>
+        <h3 className="mt-3 font-display text-3xl">The collection now includes 22 verified church profiles.</h3>
         <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">
-          Secondary sources are used to discover candidates, but inclusion follows only after stronger records establish the church, its history and the basis for treating it as part of the Painted Churches tradition. Plantersville and Corn Hill have now cleared that review, with their different historic-designation status kept explicit.
+          Plantersville, Corn Hill, Palestine and Bandera were added only after stronger church-specific records established the basis for inclusion. Texas Defined keeps formal National Register membership, broader historic Painted Church status and later living decorative campaigns distinct rather than treating them as interchangeable labels.
         </p>
         <div className="mt-6 grid gap-6 sm:grid-cols-2">
           {verifiedAdditions.map((lead) => (
@@ -79,6 +114,20 @@ export function PaintedChurchSourceLibrary() {
               <h4 className="font-display text-2xl">{lead.name}</h4>
               <p className="eyebrow mt-2 text-muted-foreground">{lead.place}</p>
               <p className="mt-3 text-sm leading-7 text-muted-foreground">{lead.result}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="mt-10 border-t border-border pt-8">
+        <p className="eyebrow text-primary">Still under verification</p>
+        <h3 className="mt-3 font-display text-3xl">Candidates are not counted until the evidence is there.</h3>
+        <div className="mt-6 grid gap-6 sm:grid-cols-2">
+          {researchQueue.map((lead) => (
+            <div key={`${lead.name}-${lead.place}`} className="border-t border-border pt-4">
+              <h4 className="font-display text-2xl">{lead.name}</h4>
+              <p className="eyebrow mt-2 text-muted-foreground">{lead.place}</p>
+              <p className="mt-3 text-sm leading-7 text-muted-foreground">{lead.status}</p>
             </div>
           ))}
         </div>
