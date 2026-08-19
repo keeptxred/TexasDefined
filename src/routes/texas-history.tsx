@@ -18,6 +18,7 @@ const historicAuthorityGuides = [
   { slug: "texas-frontier-forts-road-trip", eyebrow: "Frontier Texas", title: "Texas frontier forts road trip", description: "Compare four Army posts to understand overland travel, military logistics, ranching and conflict across the western frontier." },
   { slug: "presidential-texas-historic-homes", eyebrow: "Public life", title: "Presidential Texas", description: "Use preserved homes to connect Eisenhower, the Bush family and Sam Rayburn to the Texas communities that shaped their public careers." },
   { slug: "brazoria-plantations-slavery-emancipation-history", eyebrow: "Labor · freedom · archaeology", title: "Slavery, emancipation and plantation Texas", description: "Read Levi Jordan and Varner-Hogg through enslaved labor, emancipation, Reconstruction, archaeology and the changing systems that followed." },
+  { slug: "texas-borderlands-historic-sites-guide", eyebrow: "Borderlands", title: "Texas borderlands historic sites", description: "Connect Pueblo, Spanish, Mexican, Tejano and Indigenous histories through missions, homes and landscapes from El Paso to South and East Texas." },
 ] as const;
 
 export const Route = createFileRoute("/texas-history")({
@@ -65,7 +66,7 @@ function TexasHistoryPage() {
     </Container>
     <Container className="pb-14 sm:pb-18">
       <section aria-labelledby="historic-authority-guides">
-        <div className="mb-6 max-w-3xl"><p className="eyebrow text-primary">Plan history by story</p><h2 id="historic-authority-guides" className="mt-2 font-display text-4xl">Four routes into the statewide collection</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">Start with a narrative, then move into the individual historic sites. These guides connect places that make more sense together than they do as isolated stops.</p></div>
+        <div className="mb-6 max-w-3xl"><p className="eyebrow text-primary">Plan history by story</p><h2 id="historic-authority-guides" className="mt-2 font-display text-4xl">Five routes into the statewide collection</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">Start with a narrative, then move into the individual historic sites. These guides connect places that make more sense together than they do as isolated stops.</p></div>
         <div className="grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2">{historicAuthorityGuides.map((guide) => <Link key={guide.slug} to="/article/$slug" params={{ slug: guide.slug }} className="group bg-background p-6 sm:p-7"><span className="eyebrow text-primary">{guide.eyebrow}</span><strong className="mt-2 block font-display text-2xl group-hover:text-primary">{guide.title}</strong><span className="mt-3 block text-sm leading-6 text-muted-foreground">{guide.description}</span><span className="mt-5 block text-sm font-semibold text-primary">Open history guide →</span></Link>)}</div>
       </section>
     </Container>
