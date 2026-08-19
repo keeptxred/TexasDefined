@@ -39,6 +39,12 @@ const cultureGuides = [
   ['/dr-pepper-texas-history', 'Dr Pepper in Texas', 'How an 1885 Waco soda-fountain drink became a nationally recognized brand while its birthplace remained part of the identity.'],
 ] as const;
 
+const financeGuides = [
+  ['/article/texas-utility-costs-guide', 'Estimate Texas utility costs', 'Build an address-specific budget for electricity, water, wastewater, gas, internet, trash, pools and irrigation.'],
+  ['/article/texas-closing-costs-guide', 'Understand closing costs and cash to close', 'Separate the down payment from lender charges, title services, prepaids, escrow deposits and the final cash needed at settlement.'],
+  ['/article/salary-needed-to-buy-a-house-in-texas', 'Work backward from a sustainable home payment', 'Use the complete housing payment, recurring debts, reserves and household budget instead of one statewide salary headline.'],
+] as const;
+
 const texasLivingPhotoOverrides: Partial<Record<string, Article['hero']>> = {
   'texas-homeowners-insurance-guide': {
     src: 'https://upload.wikimedia.org/wikipedia/commons/8/88/Gillette_House_%28Houston%2C_Texas%29.JPG',
@@ -115,7 +121,8 @@ export const Route = createFileRoute('/texas-living')({
     const articles = [...(loaderData?.homeArticles ?? []), ...(loaderData?.movingArticles ?? [])];
     const sectionItems = sections.map(([name, path, copy]) => ({ name, path, copy }));
     const cultureItems = cultureGuides.map(([path, name, copy]) => ({ name, path, copy }));
-    const topicItems = [...sectionItems, ...cultureItems].map(({ name, path, copy }, index) => ({ '@type': 'ListItem', position: index + 1, item: { '@type': 'WebPage', name, description: copy, url: `${siteUrl}${path}` } }));
+    const financeItems = financeGuides.map(([path, name, copy]) => ({ name, path, copy }));
+    const topicItems = [...sectionItems, ...cultureItems, ...financeItems].map(({ name, path, copy }, index) => ({ '@type': 'ListItem', position: index + 1, item: { '@type': 'WebPage', name, description: copy, url: `${siteUrl}${path}` } }));
     const articleItems = articles.map((article, index) => ({ '@type': 'ListItem', position: topicItems.length + index + 1, item: { '@type': 'Article', name: article.title, description: article.dek, url: `${siteUrl}/article/${article.slug}` } }));
     return {
       meta: buildMeta(texasDefinedBrand, { canonicalPath: '/texas-living', title: 'Texas Life', description }),
@@ -150,6 +157,19 @@ function TexasLivingPage() {
         <SectionHeader eyebrow="Signature Texas guides" title="Go deeper on the traditions that make the state feel different" description="These evergreen TexasDefined guides turn the 250-item Things That Define Texas collection into practical cultural, historical and travel-focused reading." actionLabel="See all 250 Texas icons" actionTo="/things-unique-to-texas" />
         <div className="mt-10 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
           {cultureGuides.map(([to, title, copy]) => <Link key={to} to={to} className="group bg-background p-6">
+            <h2 className="font-display text-2xl leading-tight transition-colors group-hover:text-primary">{title}</h2>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">{copy}</p>
+            <span className="eyebrow mt-5 inline-block text-primary">Read guide →</span>
+          </Link>)}
+        </div>
+      </Container>
+    </Section>
+
+    <Section>
+      <Container>
+        <SectionHeader eyebrow="Money decisions" title="Start with the costs that change the household budget" description="Three focused guides connect everyday Texas housing decisions with the calculators used to test the numbers." actionLabel="Open financial tools" actionTo="/decide/financial-tools" />
+        <div className="mt-10 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-3">
+          {financeGuides.map(([to, title, copy]) => <Link key={to} to={to} className="group bg-background p-6">
             <h2 className="font-display text-2xl leading-tight transition-colors group-hover:text-primary">{title}</h2>
             <p className="mt-3 text-sm leading-6 text-muted-foreground">{copy}</p>
             <span className="eyebrow mt-5 inline-block text-primary">Read guide →</span>
