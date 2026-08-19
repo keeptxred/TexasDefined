@@ -49,6 +49,9 @@ const DEEP_DIVE_ICON_LINKS: Readonly<Record<number, string>> = {
   224: "/texas-slang-explained",
   225: "/texas-symbols",
   231: "/texas-slang-explained",
+  233: "/texas-blue-norther-weather-guide",
+  234: "/texas-blue-norther-weather-guide",
+  235: "/texas-blue-norther-weather-guide",
   239: "/texas-slang-explained",
 };
 
