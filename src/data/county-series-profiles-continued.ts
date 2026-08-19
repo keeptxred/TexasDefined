@@ -73,4 +73,10 @@ export const COUNTY_SERIES_PROFILES_CONTINUED: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/houston-county-crockett-mission-tejas-piney-woods-texas")
       .then((module) => module.houstonCountyCrockettMissionTejasPineyWoodsArticle),
   },
+  {
+    countySlug: "angelina",
+    articleSlug: "angelina-county-lufkin-diboll-sam-rayburn-piney-woods-texas",
+    loadArticle: () => import("@/data/fixtures/angelina-county-lufkin-diboll-sam-rayburn-piney-woods-texas")
+      .then((module) => module.angelinaCountyLufkinDibollSamRayburnPineyWoodsArticle),
+  },
 ];
