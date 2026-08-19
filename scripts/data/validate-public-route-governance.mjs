@@ -61,6 +61,13 @@ for (const routePath of conditional) {
 }
 for (const routePath of redirects) if (nonIndexable.includes(routePath)) failures.push(`Route is both redirect-only and non-indexable: ${routePath}.`);
 
+const linkedRouteLiteral = (source, routePath) => [
+  `href="${routePath}"`, `href='${routePath}'`,
+  `to="${routePath}"`, `to='${routePath}'`,
+  `href: "${routePath}"`, `href: '${routePath}'`,
+  `to: "${routePath}"`, `to: '${routePath}'`,
+].some((literal) => source.includes(literal));
+
 for (const routePath of redirects) {
   const routeEntry = sourceRouteEntries.find((entry) => entry.path === routePath);
   if (!routeEntry) {
@@ -69,12 +76,9 @@ for (const routePath of redirects) {
   }
   if (!/\bredirect\s*\(/.test(routeEntry.source)) failures.push(`Redirect-only route does not call redirect(): ${routePath} (${routeEntry.file}).`);
   if (!routeEntry.source.includes('statusCode: 301')) failures.push(`Redirect-only route must use permanent status 301: ${routePath} (${routeEntry.file}).`);
-
-  const escaped = routePath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  const linkedLiteral = new RegExp(`(?:href|to)\\s*(?:=|:)\\s*["'\\\`]${escaped}(?:[?#][^"'\\\`]*)?["'\\\`]`);
   for (const [file, source] of sourceByFile.entries()) {
     if (file === routeEntry.file) continue;
-    if (linkedLiteral.test(source)) failures.push(`Normal site content links to redirect-only route ${routePath}: ${file}. Link directly to its canonical target instead.`);
+    if (linkedRouteLiteral(source, routePath)) failures.push(`Normal site content links to redirect-only route ${routePath}: ${file}. Link directly to its canonical target instead.`);
   }
 }
 
