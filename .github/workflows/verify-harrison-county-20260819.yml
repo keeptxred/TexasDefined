@@ -1,0 +1,121 @@
+name: Verify Harrison County production
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/verify-harrison-county-20260819.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment: texasdefined-publication
+    env:
+      TARGET_SHA: 0c465d46c069de6eebc64179517bac7b4e316def
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      HERO_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/HarrisonCountyCourthouse1_%281_of_1%29.jpg?width=1600
+    steps:
+      - name: Check out exact county commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.TARGET_SHA }}
+          fetch-depth: 2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Verify county source and canonical host policy
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f src/data/fixtures/harrison-county-marshall-caddo-lake-railroads-piney-woods-texas.ts
+          grep -Fq 'countySlug: "harrison"' src/data/county-series-profiles-continued.ts
+          grep -Fq '["harrison-county-marshall-caddo-lake-railroads-piney-woods-texas", "harrison"]' src/data/county-series.ts
+          if grep -n 'www\.texasdefined\.com' \
+            src/data/fixtures/harrison-county-marshall-caddo-lake-railroads-piney-woods-texas.ts \
+            src/data/county-series-profiles-continued.ts \
+            src/data/county-series.ts; then
+            echo 'Non-canonical www TexasDefined hostname found.' >&2
+            exit 1
+          fi
+
+      - name: Verify county hero source
+        shell: bash
+        run: |
+          set -euo pipefail
+          headers="$(mktemp)"
+          body="$(mktemp)"
+          trap 'rm -f "$headers" "$body"' EXIT
+          status="$(curl -L --retry 5 --retry-all-errors --retry-delay 2 --max-time 60 -sS -D "$headers" -o "$body" -w '%{http_code}' "$HERO_URL")"
+          test "$status" = '200' || { echo "Hero returned HTTP $status" >&2; exit 1; }
+          mime="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/{gsub(/\r/,""); split($0,a,": "); print a[2]}' "$headers" | tail -1 | cut -d';' -f1)"
+          case "$mime" in image/jpeg|image/png|image/webp) ;; *) echo "Unexpected hero MIME: $mime" >&2; exit 1;; esac
+          test "$(wc -c < "$body")" -gt 50000 || { echo 'Hero payload too small.' >&2; exit 1; }
+          echo "Hero source verified: HTTP $status $mime $(wc -c < "$body") bytes"
+
+      - name: Run normal repository validation
+        run: npm run validate
+
+      - name: Deploy exact validated revision
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -n "$CLOUDFLARE_ACCOUNT_ID"
+          test -n "$CLOUDFLARE_API_TOKEN"
+          npm run deploy
+
+      - name: Verify live Harrison County page, redirect, and hero
+        shell: bash
+        run: |
+          set -euo pipefail
+          origin='https://texasdefined.com'
+          county='/county/harrison'
+          legacy='/article/harrison-county-marshall-caddo-lake-railroads-piney-woods-texas'
+          expected_title='Harrison County: Marshall, Caddo Lake, Railroads and Deep East Texas History'
+
+          ok=0
+          for attempt in $(seq 1 12); do
+            body="$(mktemp)"
+            status="$(curl --retry 3 --retry-all-errors --retry-delay 2 --max-time 60 -sS -o "$body" -w '%{http_code}' "$origin$county")"
+            if [ "$status" = '200' ] \
+              && grep -Fq "$expected_title" "$body" \
+              && grep -Fqi 'Marshall' "$body" \
+              && grep -Fqi 'Harrison County' "$body"; then
+              ok=1
+              rm -f "$body"
+              break
+            fi
+            rm -f "$body"
+            sleep 5
+          done
+          test "$ok" = '1' || { echo 'Live Harrison county editorial layer did not appear.' >&2; exit 1; }
+
+          headers="$(mktemp)"
+          status="$(curl --max-redirs 0 -sS -D "$headers" -o /dev/null -w '%{http_code}' "$origin$legacy")"
+          location="$(awk 'BEGIN{IGNORECASE=1} /^location:/{gsub(/\r/,""); sub(/^location:[[:space:]]*/,""); print; exit}' "$headers")"
+          rm -f "$headers"
+          test "$status" = '301' || { echo "Legacy route expected 301, got $status" >&2; exit 1; }
+          [[ "$location" == *'/county/harrison'* ]] || { echo "Legacy redirect mismatch: $location" >&2; exit 1; }
+
+          headers="$(mktemp)"
+          image="$(mktemp)"
+          status="$(curl -L --retry 5 --retry-all-errors --retry-delay 2 --max-time 60 -sS -D "$headers" -o "$image" -w '%{http_code}' "$HERO_URL")"
+          mime="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/{gsub(/\r/,""); split($0,a,": "); print a[2]}' "$headers" | tail -1 | cut -d';' -f1)"
+          rm -f "$headers"
+          test "$status" = '200' || { echo "Live hero returned HTTP $status" >&2; rm -f "$image"; exit 1; }
+          case "$mime" in image/jpeg|image/png|image/webp) ;; *) echo "Live hero MIME invalid: $mime" >&2; rm -f "$image"; exit 1;; esac
+          test "$(wc -c < "$image")" -gt 50000 || { echo 'Live hero payload too small.' >&2; rm -f "$image"; exit 1; }
+          rm -f "$image"
+          echo 'Harrison County production verification passed.'
