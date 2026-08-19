@@ -38,6 +38,15 @@ Canonical contributor profiles use https://texasdefined.com/authors/{author-id}.
 - Property-tax deadlines: https://texasdefined.com/learn/property-tax-deadlines
 - Homestead exemption guide and history: https://texasdefined.com/do/homestead-exemption
 - Moving-to-Texas county comparison: https://texasdefined.com/moving-to-texas
+- Things That Define Texas: https://texasdefined.com/things-unique-to-texas
+- Things That Define Texas methodology: https://texasdefined.com/things-unique-to-texas/methodology
+- Texas food traditions: https://texasdefined.com/texas-food-trail
+- Texas roadside oddities: https://texasdefined.com/texas-roadside-oddities
+- Texas slang explained: https://texasdefined.com/texas-slang-explained
+- Texas dance halls and honky-tonks: https://texasdefined.com/texas-dance-halls-honky-tonks
+- Texas homecoming mums: https://texasdefined.com/texas-homecoming-mums
+- Texas natural wonders bucket list: https://texasdefined.com/texas-natural-wonders-bucket-list
+- German and Czech Texas towns: https://texasdefined.com/german-czech-texas-towns
 - Texas state-parks comparison: https://texasdefined.com/explore/state-parks
 - Texas lakes and rivers comparison: https://texasdefined.com/explore/lakes-rivers
 - Texas small-town comparison: https://texasdefined.com/explore/small-towns
