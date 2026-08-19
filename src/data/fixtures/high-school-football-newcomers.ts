@@ -16,7 +16,9 @@ export const highSchoolFootballNewcomersArticle: Article = {
     {href:"/sports-venues/high-school-football",label:"Explore landmark Texas high-school football stadiums",description:"Browse verified stadium guides tied to Friday night lights, playoff trips and regional football culture."},
     {href:"/explore/small-towns",label:"Explore Texas small towns",description:"See the communities where Friday night can still set the weekly rhythm."},
     {href:"/article/texas-regions-explained",label:"Texas regions explained",description:"Football culture changes with the places Texans call home."},
-    {href:"/events",label:"See what is happening around Texas",description:"Find events and reasons to get out this weekend."}
+    {href:"/events",label:"See what is happening around Texas",description:"Find events and reasons to get out this weekend."},
+    {href:"https://www.uiltexas.org/football/alignments",label:"UIL football alignments",description:"Official University Interscholastic League district and conference alignments for Texas high-school football."},
+    {href:"https://www.uiltexas.org/football/playoff-brackets",label:"UIL football playoff structure",description:"Official UIL playoff brackets, advancement rules and current conference information."}
   ], relatedCollections:[], relatedDestinations:[],
   body:[
     p("In much of Texas, Friday night is not merely when the high school football game happens. It is when the town gathers."),
