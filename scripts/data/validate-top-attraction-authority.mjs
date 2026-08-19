@@ -16,7 +16,9 @@ const trustRouterSource = fs.readFileSync('src/components/authority/CitationColl
 const destinationRouteSource = fs.readFileSync('src/routes/destination.$slug.tsx', 'utf8');
 const categoryRouteSource = fs.readFileSync('src/routes/explore.$category.tsx', 'utf8');
 const regionRouteSource = fs.readFileSync('src/routes/explore.region.$region.tsx', 'utf8');
-const hubSource = fs.readFileSync('src/routes/explore.top-attractions.tsx', 'utf8');
+const hubShellSource = fs.readFileSync('src/routes/explore.top-attractions.tsx', 'utf8');
+const hubLazySource = fs.readFileSync('src/routes/explore.top-attractions.lazy.tsx', 'utf8');
+const hubSource = `${hubShellSource}\n${hubLazySource}`;
 const methodologyRouteSource = fs.readFileSync('src/routes/explore.top-attractions.methodology.tsx', 'utf8');
 const roadTripRouteSource = fs.readFileSync('src/routes/explore.top-attractions.road-trips.tsx', 'utf8');
 const checklistSource = fs.readFileSync('src/routes/top-25-texas-attractions-checklist[.]txt.ts', 'utf8');
@@ -130,7 +132,9 @@ for (const feature of [
 ]) {
   if (!hubSource.includes(feature)) failures.push(`Top 25 hub authority layer missing ${feature}.`);
 }
-if (hubSource.includes('from "@/data/top-attraction-authority-resolver"')) failures.push('Top 25 hub must dynamically import the heavy authority resolver.');
+if (!hubLazySource.includes('createLazyFileRoute("/explore/top-attractions")')) failures.push('Top 25 hub UI must remain behind a native lazy route boundary.');
+if (hubShellSource.includes('from "@/data/top-texas-attractions"')) failures.push('Top 25 hub shell must dynamically load the attraction registry.');
+if (hubShellSource.includes('from "@/data/top-attraction-authority-resolver"')) failures.push('Top 25 hub must dynamically import the heavy authority resolver.');
 
 for (const feature of [
   'lazy(() => import("@/components/explore/TopAttractionsMethodologyContent"))', 'Suspense',
@@ -167,6 +171,7 @@ if (roadTripRouteSource.includes('Seven road trips built around TexasDefined')) 
 for (const feature of ['TOP_TEXAS_ATTRACTIONS', 'content-disposition', 'citation-guide', 'explore/top-attractions']) {
   if (!checklistSource.includes(feature)) failures.push(`Top 25 checklist contract missing ${feature}.`);
 }
+if (checklistSource.includes('from "@/data/top-texas-attractions"')) failures.push('Top 25 checklist route must dynamically load its registry inside the server handler.');
 
 for (const feature of [
   "createFileRoute('/top-25-texas-attractions.csv')", "await import('@/data/top-attraction-reference-data')",
@@ -212,4 +217,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Top 25 attraction authority validation passed: 25 authority records, ${authorityUrls.length} supplemental authority URLs, 75 itineraries, 25 sourced timeline events, seven complete road-trip clusters, canonical CSV/JSON data distributions, methodology, category/region inbound links, multi-source JSON-LD, lazy authority/methodology/road-trip UI, dynamic data loading, trust panels and citation discovery are wired.`);
+console.log(`Top 25 attraction authority validation passed: 25 authority records, ${authorityUrls.length} supplemental authority URLs, 75 itineraries, 25 sourced timeline events, seven complete road-trip clusters, canonical CSV/JSON data distributions, methodology, category/region inbound links, multi-source JSON-LD, lazy authority/methodology/road-trip/hub UI, dynamic data loading, trust panels and citation discovery are wired.`);
