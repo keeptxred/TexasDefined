@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - '.github/verification/painted-churches-pr148.txt'
+      - '.github/workflows/verify-painted-churches-production-once.yml'
 
 permissions:
   contents: read
@@ -35,12 +36,13 @@ jobs:
       - name: Verify Painted Churches production routes
         shell: bash
         run: |
-          set -euo pipefail
+          set -uo pipefail
           atlas='https://texasdefined.com/explore/painted-churches/guides'
           sample='https://texasdefined.com/explore/painted-churches/guides/st-michael-weimar'
           sitemap='https://texasdefined.com/sitemap-explore.xml'
           workdir="$(mktemp -d)"
           trap 'rm -rf "$workdir"' EXIT
+          failures=0
 
           fetch_with_retry() {
             local label="$1" url="$2" out="$3" headers="$4"
@@ -50,9 +52,11 @@ jobs:
               if curl --fail-with-body --silent --show-error --location --max-time 30 \
                 -D "$headers" \
                 -w "[$label] http=%{http_code} final=%{url_effective} bytes=%{size_download}\n" \
-                "${url}?verify=${GITHUB_SHA}-${GITHUB_RUN_ID}" -o "$out"; then
+                -H 'Cache-Control: no-cache' \
+                -H 'Pragma: no-cache' \
+                "${url}?verify=${GITHUB_SHA}-${GITHUB_RUN_ID}-${attempt}" -o "$out"; then
                 echo "[$label] response headers:"
-                grep -Ei '^(HTTP/|content-type:|cache-control:|cf-cache-status:|location:)' "$headers" || true
+                grep -Ei '^(HTTP/|content-type:|cache-control:|cf-cache-status:|age:|etag:|location:|server:)' "$headers" || true
                 return 0
               fi
               sleep 5
@@ -68,23 +72,50 @@ jobs:
               return 0
             fi
             echo "[$label] CONTENT_ASSERTION_FAILED: $needle"
-            echo "[$label] first 1200 bytes follow:"
-            head -c 1200 "$file" || true
+            echo "[$label] first 2000 bytes follow:"
+            head -c 2000 "$file" || true
             echo
-            echo "[$label] diagnostic title/canonical fragments:"
-            grep -Eo '<title>[^<]*|rel="canonical"[^>]*|<h1[^>]*>[^<]*' "$file" | head -20 || true
+            echo "[$label] diagnostic title/canonical/h1 fragments:"
+            grep -Eo '<title>[^<]*|rel="canonical"[^>]*|<h1[^>]*>[^<]*' "$file" | head -30 || true
+            echo "[$label] nearby Painted Churches / error fragments:"
+            grep -Eio '.{0,80}(painted churches|st\. michael|diocese of victoria|error|not found|unavailable).{0,120}' "$file" | head -30 || true
             return 1
           }
 
-          fetch_with_retry atlas "$atlas" "$workdir/atlas.html" "$workdir/atlas.headers"
-          assert_contains atlas "$workdir/atlas.html" 'Texas Painted Churches Search Guide'
-          assert_contains atlas "$workdir/atlas.html" 'Every major Painted Churches question has somewhere useful to land.'
+          verify_html_route() {
+            local label="$1" url="$2" out="$workdir/$1.html" headers="$workdir/$1.headers"
+            shift 2
+            if ! fetch_with_retry "$label" "$url" "$out" "$headers"; then
+              failures=$((failures + 1))
+              return
+            fi
+            local needle
+            for needle in "$@"; do
+              if ! assert_contains "$label" "$out" "$needle"; then
+                failures=$((failures + 1))
+              fi
+            done
+          }
 
-          fetch_with_retry sample "$sample" "$workdir/sample.html" "$workdir/sample.headers"
-          assert_contains sample "$workdir/sample.html" 'St. Michael Catholic Church in Weimar'
-          assert_contains sample "$workdir/sample.html" 'Diocese of Victoria'
+          verify_html_route atlas "$atlas" \
+            'Texas Painted Churches Search Guide' \
+            'Every major Painted Churches question has somewhere useful to land.'
 
-          fetch_with_retry sitemap "$sitemap" "$workdir/sitemap.xml" "$workdir/sitemap.headers"
-          assert_contains sitemap "$workdir/sitemap.xml" '/explore/painted-churches/guides/st-michael-weimar'
+          verify_html_route sample "$sample" \
+            'St. Michael Catholic Church in Weimar' \
+            'Diocese of Victoria'
+
+          if fetch_with_retry sitemap "$sitemap" "$workdir/sitemap.xml" "$workdir/sitemap.headers"; then
+            if ! assert_contains sitemap "$workdir/sitemap.xml" '/explore/painted-churches/guides/st-michael-weimar'; then
+              failures=$((failures + 1))
+            fi
+          else
+            failures=$((failures + 1))
+          fi
+
+          if (( failures > 0 )); then
+            echo "PRODUCTION_VERIFICATION_FAILED: $failures assertion/fetch failure(s)"
+            exit 1
+          fi
 
           echo 'Painted Churches atlas, representative guide, and Explore sitemap are live in production.'
