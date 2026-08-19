@@ -125,6 +125,7 @@ const LEGACY_ARTICLE_TO_COUNTY = new Map<string, string>([
   ["nacogdoches-county-nacogdoches-caddo-el-camino-piney-woods-texas", "nacogdoches"],
   ["san-augustine-county-san-augustine-mission-dolores-el-camino-piney-woods-texas", "san-augustine"],
   ["sabine-county-hemphill-toledo-bend-sabine-river-piney-woods-texas", "sabine"],
+  ["shelby-county-center-regulator-moderator-sabine-piney-woods-texas", "shelby"],
 ]);
 
 const COUNTY_SLUGS = new Set(LEGACY_ARTICLE_TO_COUNTY.values());
