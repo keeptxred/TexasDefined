@@ -5,8 +5,8 @@ const read = (path) => fs.readFileSync(path, "utf8");
 const exists = (path) => fs.existsSync(path);
 
 const dataPath = "src/data/painted-church-search-guides.ts";
-const hubPath = "src/routes/explore.painted-churches.guides.tsx";
-const detailPath = "src/routes/explore.painted-churches.guides.$slug.tsx";
+const hubPath = "src/routes/explore.painted-churches_.guides.tsx";
+const detailPath = "src/routes/explore.painted-churches_.guides_.$slug.tsx";
 const sitemapPath = "src/routes/sitemap-explore[.]xml.ts";
 
 for (const path of [dataPath, hubPath, detailPath, sitemapPath]) {
