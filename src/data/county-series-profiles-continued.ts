@@ -43,4 +43,10 @@ export const COUNTY_SERIES_PROFILES_CONTINUED: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/leon-county-centerville-buffalo-jewett-trinity-prairie")
       .then((module) => module.leonCountyCentervilleBuffaloJewettTrinityPrairieArticle),
   },
+  {
+    countySlug: "madison",
+    articleSlug: "madison-county-madisonville-midway-north-zulch-trinity-navasota-texas",
+    loadArticle: () => import("@/data/fixtures/madison-county-madisonville-midway-north-zulch-trinity-navasota")
+      .then((module) => module.madisonCountyMadisonvilleMidwayNorthZulchTrinityNavasotaArticle),
+  },
 ];
