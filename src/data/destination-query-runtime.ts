@@ -10,6 +10,7 @@ import { fetchExploreDestination, fetchExploreDestinations } from "./explore-rem
 import { enrichRemainingHistoricSiteAreaGuide } from "./historic-site-area-guides-extra";
 import { enrichHistoricSiteCatalog, enrichHistoricSiteDestination } from "./historic-site-enrichment";
 import { enrichHistoricSiteEvergreenLinks } from "./historic-site-evergreen-links";
+import { applyHistoricSiteFactCorrections } from "./historic-site-fact-corrections";
 import { enrichHistoricSiteRemoteHero } from "./historic-site-remote-heroes";
 import { platform, scope } from "./index";
 import { applyStateParkHeroAsset, applyStateParkHeroAssets } from "./state-park-heroes";
@@ -49,9 +50,11 @@ function preservedFor(query: Omit<DestinationQuery, "brandId">): Destination[] {
 }
 
 function finishHistoricSiteEnrichment(destination: Destination) {
-  return enrichHistoricSiteEvergreenLinks(
-    enrichHistoricSiteRemoteHero(
-      enrichRemainingHistoricSiteAreaGuide(enrichHistoricSiteDestination(destination)),
+  return applyHistoricSiteFactCorrections(
+    enrichHistoricSiteEvergreenLinks(
+      enrichHistoricSiteRemoteHero(
+        enrichRemainingHistoricSiteAreaGuide(enrichHistoricSiteDestination(destination)),
+      ),
     ),
   );
 }
@@ -65,7 +68,8 @@ function reconcileExploreCatalog(destinations: Destination[]) {
   const improved = enrichHistoricSiteCatalog(curated)
     .map(enrichRemainingHistoricSiteAreaGuide)
     .map(enrichHistoricSiteRemoteHero)
-    .map(enrichHistoricSiteEvergreenLinks);
+    .map(enrichHistoricSiteEvergreenLinks)
+    .map(applyHistoricSiteFactCorrections);
   return filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved));
 }
 
