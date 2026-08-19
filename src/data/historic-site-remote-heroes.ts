@@ -150,6 +150,11 @@ export const historicSiteRemoteHeroes: Record<string, ImageRef> = {
     alt: "Replica log cabin at San Felipe de Austin State Historic Site in Texas",
     width: 1600, height: 1067, credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons",
   },
+  "slaton-harvey-house": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Slaton_Harvey_House_2016.jpg?width=1600",
+    alt: "Detail of the Slaton Harvey House in Slaton, Texas",
+    width: 1600, height: 1195, credit: "Leaflet · CC0 · Wikimedia Commons",
+  },
   "star-of-the-republic-museum": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Star_of_the_Republic_Museum_entrance_IMG_9271.JPG?width=1600",
     alt: "Entrance to the Star of the Republic Museum at Washington-on-the-Brazos, Texas",
