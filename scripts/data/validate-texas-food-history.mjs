@@ -11,7 +11,6 @@ const llms = fs.readFileSync('src/routes/llms[.]txt.ts', 'utf8');
 const citationIndex = JSON.parse(fs.readFileSync('public/citation-magnets.json', 'utf8'));
 const failures = [];
 
-const canonicalPath = '/texas-food-history';
 const focusedGuides = [
   '/article/texas-barbecue-styles-explained',
   '/texas-chili-con-carne-history',
@@ -33,9 +32,7 @@ for (const token of [
 }
 
 for (const path of focusedGuides) {
-  if (!route.includes(`href: "${path}"`) && !route.includes(`to="${path}"`)) {
-    failures.push(`Texas Food History must link focused guide ${path}.`);
-  }
+  if (!route.includes(`href: "${path}"`) && !route.includes(`to="${path}"`)) failures.push(`Texas Food History must link focused guide ${path}.`);
 }
 
 for (const token of [
@@ -49,15 +46,31 @@ for (const token of [
   if (!evergreenComponent.includes(token)) failures.push(`Food-history child guides missing parent-cluster token: ${token}.`);
 }
 
-for (const slug of [
-  'texas-food-trail',
-  'texas-chili-con-carne-history',
-  'texas-chicken-fried-steak-guide',
-  'texas-breakfast-taco-guide',
-  'german-czech-texas-towns',
-  'dr-pepper-texas-history',
-]) {
+for (const slug of ['texas-food-trail','texas-chili-con-carne-history','texas-chicken-fried-steak-guide','texas-breakfast-taco-guide','german-czech-texas-towns','dr-pepper-texas-history']) {
   if (!evergreenComponent.includes(`"${slug}"`)) failures.push(`Food-history parent cluster missing child slug ${slug}.`);
+}
+
+const imageContracts = [
+  ['src/routes/texas-chili-con-carne-history.tsx', 'Pot_of_Chili_Con_Carne.jpg', 'Pot of chili con carne'],
+  ['src/routes/texas-chicken-fried-steak-guide.tsx', 'Chicken_fried_steak.jpg', 'Chicken-fried steak'],
+  ['src/routes/texas-breakfast-taco-guide.tsx', 'BreakfastTaco.jpg', 'Egg and sausage breakfast taco'],
+  ['src/routes/dr-pepper-texas-history.tsx', 'Cupola_Dr_Pepper_Museum_Waco_Texas_2024.jpg', 'Dr Pepper Museum'],
+];
+for (const [file, imageNeedle, altNeedle] of imageContracts) {
+  const source = fs.readFileSync(file, 'utf8');
+  if (!source.includes('image: heroImage')) failures.push(`${file} must publish its hero in social metadata.`);
+  if (!source.includes(imageNeedle)) failures.push(`${file} missing expected exact-subject hero ${imageNeedle}.`);
+  if (!source.includes(altNeedle)) failures.push(`${file} missing expected hero alt text.`);
+}
+for (const token of [
+  'Punkgobliner · CC BY-SA 4.0 · Wikimedia Commons',
+  'Mr. Gray · CC0 · Wikimedia Commons',
+  'Paxsimius · CC BY-SA 4.0 · Wikimedia Commons',
+  'Larry D. Moore · CC BY 4.0 · Wikimedia Commons',
+  'image.src.startsWith("http://") || image.src.startsWith("https://")',
+  'sourceHref',
+]) {
+  if (!evergreenComponent.includes(token)) failures.push(`Food-history image layer missing licensing/URL token: ${token}.`);
 }
 
 if (!publicRoutes.includes('"/texas-food-history"')) failures.push('Texas Food History must remain indexable in public route governance.');
@@ -82,4 +95,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Texas Food History validation passed: canonical hub, ${focusedGuides.length} focused guide links, bidirectional parent-child breadcrumbs/schema, sitemap governance, collection discovery, Texas Life discovery, production smoke, llms.txt and citation-index coverage intact.`);
+console.log(`Texas Food History validation passed: canonical hub, ${focusedGuides.length} focused links, bidirectional parent-child schema, licensed exact-subject heroes with social metadata, sitemap governance, discovery, smoke, llms.txt and citation-index coverage intact.`);
