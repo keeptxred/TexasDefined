@@ -4,6 +4,7 @@ import { PaintedChurchArchivalImageSources } from "@/components/editorial/Painte
 import { PaintedChurchGallery } from "@/components/editorial/PaintedChurchGallery";
 import { PaintedChurchKnowledgeLinks } from "@/components/editorial/PaintedChurchKnowledgeLinks";
 import { PaintedChurchRegisterEvidence } from "@/components/editorial/PaintedChurchRegisterEvidence";
+import { PaintedChurchVisitorStatus } from "@/components/editorial/PaintedChurchVisitorStatus";
 import { canonicalPaintedChurchProfileBySlug } from "@/data/painted-church-profile-index";
 import { schulenburgTourInfo } from "@/data/painted-church-research";
 import { canonicalPaintedChurchResearchBySlug } from "@/data/painted-church-research-index";
@@ -33,6 +34,7 @@ export function PaintedChurchResearchDossier({ slug, schulenburgCluster }: { slu
       <PaintedChurchArchivalImageSources slug={slug} />
       <PaintedChurchRegisterEvidence slug={slug} />
       <PaintedChurchKnowledgeLinks slug={slug} />
+      <PaintedChurchVisitorStatus slug={slug} />
 
       <section aria-labelledby="editorial-standard" className="mt-14 border-l-2 border-primary bg-surface p-6 sm:p-8">
         <p className="eyebrow text-primary">Editorial standard</p>
@@ -49,6 +51,7 @@ export function PaintedChurchResearchDossier({ slug, schulenburgCluster }: { slu
           <Link to="/explore/painted-churches/preservation" className="border-b border-primary text-primary">Preservation & authenticity</Link>
           <Link to="/explore/painted-churches/how-to-read" className="border-b border-primary text-primary">How to read a Painted Church</Link>
           <Link to="/explore/painted-churches/knowledge-graph" className="border-b border-primary text-primary">Knowledge graph</Link>
+          <Link to="/explore/painted-churches/routes" className="border-b border-primary text-primary">Routes & itineraries</Link>
         </div>
       </section>
 
