@@ -17,6 +17,14 @@ const foodHistoryGuideSlugs = new Set([
   "dr-pepper-texas-history",
 ]);
 
+const guideDestinationLinks: Partial<Record<string, { href: string; label: string; description: string }>> = {
+  "dr-pepper-texas-history": {
+    href: "/destination/dr-pepper-museum",
+    label: "Explore the Dr Pepper Museum",
+    description: "Turn the Waco origin story into a visit with TexasDefined's destination guide to the Dr Pepper Museum.",
+  },
+};
+
 type GuideImage = {
   src: string;
   alt: string;
@@ -93,6 +101,7 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
   const canonicalUrl = `${siteUrl}/${guide.slug}`;
   const image = guideImages[guide.slug];
   const sources = guideSources[guide.slug] ?? [];
+  const destinationLink = guideDestinationLinks[guide.slug];
   const isFoodHistoryChild = foodHistoryGuideSlugs.has(guide.slug);
   const imageUrl = image
     ? image.src.startsWith("http://") || image.src.startsWith("https://")
@@ -120,6 +129,7 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
         image: imageUrl,
         citation: sources.length ? sources.map((source) => source.href) : undefined,
         ...(isFoodHistoryChild ? { isPartOf: { "@type": "CollectionPage", "@id": `${siteUrl}/texas-food-history#page`, name: "Texas Food History", url: `${siteUrl}/texas-food-history` } } : {}),
+        ...(destinationLink ? { mentions: [{ "@type": "TouristAttraction", name: destinationLink.label.replace(/^Explore the /, ""), url: `${siteUrl}${destinationLink.href}` }] } : {}),
         about: guide.sections.map((section) => ({ "@type": "Thing", name: section.heading.replace(/^\d+\.\s*/, "") })),
       },
       {
@@ -172,7 +182,11 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
           <p className="eyebrow text-primary">{guide.eyebrow}</p>
           <h1 className="mt-3 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">{guide.title}</h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground sm:text-xl">{guide.dek}</p>
-          {isFoodHistoryChild ? <Link to="/texas-food-history" className="mt-6 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Explore the full Texas Food History collection →</Link> : null}
+          <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
+            {isFoodHistoryChild ? <Link to="/texas-food-history" className="border-b border-primary pb-1 text-primary">Explore the full Texas Food History collection →</Link> : null}
+            {destinationLink ? <Link to={destinationLink.href} className="border-b border-primary pb-1 text-primary">{destinationLink.label} →</Link> : null}
+          </div>
+          {destinationLink ? <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground">{destinationLink.description}</p> : null}
         </header>
 
         {image ? <figure className="border-b border-border py-8">
