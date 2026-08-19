@@ -84,8 +84,8 @@ for (const feature of [
   'let coreFailed = !remoteConfigured',
   'if (remoteConfigured)',
   'const remoteDestinations = mergeDestinationSources(coreDestinations, enrichedDestinations)',
-  'const useFixtureFallback = (enrichedFailed && coreFailed) || remoteDestinations.length === 0',
-  'const rawDestinations = useFixtureFallback ? fixtureDestinations : remoteDestinations',
+  'const usePreservedFallback = (enrichedFailed && coreFailed) || remoteDestinations.length === 0',
+  'const rawDestinations = usePreservedFallback ? preservedExploreDestinations : remoteDestinations',
 ]) {
   if (!exploreSitemap.includes(feature)) failures.push(`Explore sitemap dual-source reliability contract missing: ${feature}`);
 }
@@ -170,4 +170,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Sitemap ownership, crawl-demand partitioning, remote-unavailable-or-empty Explore fallback, resolved quality gates, malformed-path rejection, migrated aliases, regional quality, and noindex/redirect policy validation passed.');
+console.log('Sitemap ownership, crawl-demand partitioning, preserved-catalog remote fallback, resolved quality gates, malformed-path rejection, migrated aliases, regional quality, and noindex/redirect policy validation passed.');
