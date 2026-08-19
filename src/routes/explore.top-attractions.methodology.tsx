@@ -26,7 +26,7 @@ export const Route = createFileRoute("/explore/top-attractions/methodology")({
             isPartOf: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#website` },
             about: { "@id": `${absoluteUrl(texasDefinedBrand, "/explore/top-attractions")}#attractions` },
             author: { "@type": "Organization", "@id": `${absoluteUrl(texasDefinedBrand, "/authors/a-hollis")}#desk`, name: "Texas Defined Editorial Desk" },
-            dateModified: "2026-08-18",
+            dateModified: "2026-08-19",
           },
           {
             "@type": "BreadcrumbList",
