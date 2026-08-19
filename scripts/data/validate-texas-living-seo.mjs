@@ -12,7 +12,7 @@ for (const feature of [
   "'@type': 'BreadcrumbList'",
   'numberOfItems: topicItems.length + articleItems.length',
   "isPartOf: { '@id': `${siteUrl}/#website` }",
-  'sections.map(([name, path, copy], index)',
+  'sections.map(([title, to, copy], index)',
   'articles.map((article, index)',
   'itemListElement: [...topicItems, ...articleItems]',
   'breadcrumb: { \'@id\': `${pageUrl}#breadcrumbs` }',
