@@ -3,6 +3,31 @@ import { Link, createLazyFileRoute } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
 import { texasIconCanonicalHref } from "@/data/things-unique-to-texas-links";
 
+const FEATURED_GUIDES: Record<string, { href: string; label: string; description: string }[]> = {
+  "food-drink": [
+    { href: "/texas-food-trail", label: "The Texas Food Trail", description: "Turn barbecue, Tex-Mex, Czech bakeries, Gulf seafood and regional specialties into a statewide food trip." },
+    { href: "/german-czech-texas-towns", label: "German & Czech Texas towns", description: "Connect kolaches, sausage and beer traditions to the communities and institutions that kept them alive." },
+  ],
+  "natural-wonders": [
+    { href: "/texas-natural-wonders-bucket-list", label: "Texas Natural Wonders Bucket List", description: "Twelve landscapes that show the state's full range, from desert mountains to cypress swamp and barrier island." },
+  ],
+  "roadside-small-towns": [
+    { href: "/texas-roadside-oddities", label: "Texas Roadside Oddities", description: "Use giant, strange and unexpected stops as anchors for better Texas road trips." },
+    { href: "/german-czech-texas-towns", label: "German & Czech Texas towns", description: "Build a heritage route through historic Central Texas and Hill Country communities." },
+  ],
+  "culture-music": [
+    { href: "/texas-dance-halls-honky-tonks", label: "Texas Dance Halls & Honky-Tonks", description: "Historic halls, Western swing, two-step culture and the social side of Texas music." },
+    { href: "/texas-homecoming-mums", label: "Texas Homecoming Mums Explained", description: "How a simple flower became one of the state's most elaborate school traditions." },
+    { href: "/german-czech-texas-towns", label: "German & Czech Texas towns", description: "Food, churches, dance halls and festivals connect immigrant history to living Texas culture." },
+  ],
+  "slang-folklore": [
+    { href: "/texas-slang-explained", label: "Texas Slang Explained", description: "Y'all, fixin' to, ranch imagery, bilingual influence and the context behind familiar Texas sayings." },
+  ],
+  "landmarks": [
+    { href: "/german-czech-texas-towns", label: "German & Czech Texas towns", description: "Historic districts, churches and settlement landscapes connect architecture to immigrant history." },
+  ],
+};
+
 export const Route = createLazyFileRoute("/things-unique-to-texas/$category")({
   component: TexasIconCategoryPage,
 });
@@ -10,6 +35,7 @@ export const Route = createLazyFileRoute("/things-unique-to-texas/$category")({
 function TexasIconCategoryPage() {
   const category = Route.useLoaderData();
   const tripPlanningCategory = ["natural-wonders", "landmarks", "roadside-small-towns", "food-drink"].includes(category.slug);
+  const featuredGuides = FEATURED_GUIDES[category.slug] ?? [];
 
   return (
     <main>
@@ -55,6 +81,12 @@ function TexasIconCategoryPage() {
               <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">Related reading</p>
               <h2 className="mt-3 font-display text-3xl">Go beyond the list</h2>
               <div className="mt-6 divide-y divide-border border-y border-border">
+                {featuredGuides.map((link) => (
+                  <Link key={link.href} to={link.href} className="group block py-5">
+                    <span className="font-semibold group-hover:text-primary">{link.label} →</span>
+                    <span className="mt-1 block text-sm leading-6 text-muted-foreground">{link.description}</span>
+                  </Link>
+                ))}
                 {category.deepDives.map((link) => (
                   <Link key={link.href} to={link.href} className="group block py-5">
                     <span className="font-semibold group-hover:text-primary">{link.label} →</span>
