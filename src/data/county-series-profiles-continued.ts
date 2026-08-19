@@ -121,4 +121,10 @@ export const COUNTY_SERIES_PROFILES_CONTINUED: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/cherokee-county-rusk-jacksonville-caddo-mounds-piney-woods-texas")
       .then((module) => module.cherokeeCountyRuskJacksonvilleCaddoMoundsPineyWoodsArticle),
   },
+  {
+    countySlug: "smith",
+    articleSlug: "smith-county-tyler-roses-railroads-piney-woods-texas",
+    loadArticle: () => import("@/data/fixtures/smith-county-tyler-roses-railroads-piney-woods-texas")
+      .then((module) => module.smithCountyTylerRosesRailroadsPineyWoodsArticle),
+  },
 ];
