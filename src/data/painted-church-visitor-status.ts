@@ -100,6 +100,14 @@ export const paintedChurchVisitorStatuses: PaintedChurchVisitorStatus[] = [
     controllingSourceLabel: "St. Louis Catholic Church — Castroville",
     checkedAt: CHECKED,
   },
+  {
+    slug: "lacoste-our-lady-of-grace",
+    status: "verify-before-travel",
+    summary: "Our Lady of Grace is an active La Coste parish with current Mass and office information published online. Confirm sightseeing access before traveling specifically to study the decorative interior.",
+    controllingSourceUrl: "https://olgtx.org/",
+    controllingSourceLabel: "Our Lady of Grace Catholic Church — La Coste",
+    checkedAt: CHECKED,
+  },
 ];
 
 export const paintedChurchVisitorStatusBySlug = new Map(paintedChurchVisitorStatuses.map((item) => [item.slug, item]));
