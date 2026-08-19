@@ -129,6 +129,7 @@ const LEGACY_ARTICLE_TO_COUNTY = new Map<string, string>([
   ["panola-county-carthage-sabine-timber-music-piney-woods-texas", "panola"],
   ["rusk-county-henderson-east-texas-oil-field-piney-woods-texas", "rusk"],
   ["cherokee-county-rusk-jacksonville-caddo-mounds-piney-woods-texas", "cherokee"],
+  ["smith-county-tyler-roses-railroads-piney-woods-texas", "smith"],
 ]);
 
 const COUNTY_SLUGS = new Set(LEGACY_ARTICLE_TO_COUNTY.values());
