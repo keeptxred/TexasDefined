@@ -13,6 +13,8 @@ on:
       - 'src/components/editorial/DestinationRelationships.tsx'
       - 'src/components/editorial/DestinationAuthorityGuide.tsx'
       - 'src/components/editorial/TopAttractionCollectionLinks.tsx'
+      - 'src/components/explore/TopAttractionsMethodologyContent.tsx'
+      - 'src/components/explore/TopAttractionRoadTripsContent.tsx'
       - 'src/components/authority/CitationCollectionTrustRouter.tsx'
       - 'src/data/top-texas-attractions.ts'
       - 'src/data/top-attraction-road-trips.ts'
