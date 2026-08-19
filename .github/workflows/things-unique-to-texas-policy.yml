@@ -1,0 +1,48 @@
+name: Things That Define Texas policy
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/data/things-unique-to-texas.ts'
+      - 'src/data/things-unique-to-texas-links.ts'
+      - 'src/routes/things-unique-to-texas.tsx'
+      - 'src/routes/things-unique-to-texas.lazy.tsx'
+      - 'src/routes/things-unique-to-texas.$category.tsx'
+      - 'src/routes/things-unique-to-texas.$category.lazy.tsx'
+      - 'scripts/data/validate-things-unique-to-texas.mjs'
+      - '.github/workflows/things-unique-to-texas-policy.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'src/data/things-unique-to-texas.ts'
+      - 'src/data/things-unique-to-texas-links.ts'
+      - 'src/routes/things-unique-to-texas.tsx'
+      - 'src/routes/things-unique-to-texas.lazy.tsx'
+      - 'src/routes/things-unique-to-texas.$category.tsx'
+      - 'src/routes/things-unique-to-texas.$category.lazy.tsx'
+      - 'scripts/data/validate-things-unique-to-texas.mjs'
+      - '.github/workflows/things-unique-to-texas-policy.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Syntax-check magazine validator
+        run: node --check scripts/data/validate-things-unique-to-texas.mjs
+
+      - name: Validate magazine structure and cross-links
+        run: node scripts/data/validate-things-unique-to-texas.mjs
