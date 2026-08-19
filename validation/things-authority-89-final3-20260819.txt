@@ -1,0 +1,3 @@
+Validation-only marker for current main after route-governance alignment.
+
+This branch intentionally differs from main only by this marker so pull-request CI validates the 89-link Things That Define Texas authority baseline through citation downloads, production data, complete Trip Planner coverage, production build, and client performance budget.
