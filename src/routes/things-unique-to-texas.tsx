@@ -12,6 +12,8 @@ export const Route = createFileRoute("/things-unique-to-texas")({
     const origin = `https://${texasDefinedBrand.identity.domain}`;
     const categories = loaderData?.categories ?? [];
     const methodologyUrl = `${origin}/things-unique-to-texas/methodology`;
+    const csvUrl = `${origin}/things-that-define-texas.csv`;
+    const jsonUrl = `${origin}/things-that-define-texas.json`;
     return {
       meta: buildMeta(texasDefinedBrand, {
         title: "250 Things That Define Texas — Food, Places, Culture & Icons",
@@ -34,16 +36,35 @@ export const Route = createFileRoute("/things-unique-to-texas")({
               isBasedOn: methodologyUrl,
               author: { "@type": "Organization", name: "Texas Defined Editorial Desk", url: `${origin}/authors/a-hollis` },
               dateModified: "2026-08-19",
-              mainEntity: {
-                "@type": "ItemList",
-                numberOfItems: loaderData?.itemCount ?? TEXAS_ICON_ITEM_COUNT,
-                itemListElement: categories.map((category, index) => ({
-                  "@type": "ListItem",
-                  position: index + 1,
-                  name: category.title,
-                  url: `${origin}/things-unique-to-texas/${category.slug}`,
-                })),
-              },
+              mainEntity: { "@id": `${origin}/things-unique-to-texas#items` },
+              hasPart: { "@id": `${origin}/things-unique-to-texas#dataset` },
+            },
+            {
+              "@context": "https://schema.org",
+              "@type": "ItemList",
+              "@id": `${origin}/things-unique-to-texas#items`,
+              name: "250 Things That Define Texas chapters",
+              numberOfItems: loaderData?.itemCount ?? TEXAS_ICON_ITEM_COUNT,
+              itemListElement: categories.map((category, index) => ({
+                "@type": "ListItem",
+                position: index + 1,
+                name: category.title,
+                url: `${origin}/things-unique-to-texas/${category.slug}`,
+              })),
+            },
+            {
+              "@context": "https://schema.org",
+              "@type": "Dataset",
+              "@id": `${origin}/things-unique-to-texas#dataset`,
+              name: "Things That Define Texas reference dataset",
+              description: "The 250 numbered editorial entries, their chapter membership and canonical TexasDefined deeper-guide relationships.",
+              creator: { "@type": "Organization", name: "Texas Defined Editorial Desk", url: `${origin}/authors/a-hollis` },
+              isBasedOn: methodologyUrl,
+              variableMeasured: ["item id", "name", "description", "chapter", "deeper guide"],
+              distribution: [
+                { "@type": "DataDownload", encodingFormat: "text/csv", contentUrl: csvUrl, name: "Things That Define Texas CSV" },
+                { "@type": "DataDownload", encodingFormat: "application/json", contentUrl: jsonUrl, name: "Things That Define Texas JSON" },
+              ],
             },
             {
               "@context": "https://schema.org",
