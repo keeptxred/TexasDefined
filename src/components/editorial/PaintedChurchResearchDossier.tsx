@@ -2,17 +2,14 @@ import { Link } from "@tanstack/react-router";
 
 import { PaintedChurchArchivalImageSources } from "@/components/editorial/PaintedChurchArchivalImageSources";
 import { PaintedChurchGallery } from "@/components/editorial/PaintedChurchGallery";
-import "@/data/painted-churches-expanded";
-import { additionalPaintedChurchProfileBySlug } from "@/data/painted-church-profiles-additional";
-import { paintedChurchAdditionProfileBySlug } from "@/data/painted-church-profiles-additions";
-import { additionalPaintedChurchResearchBySlug } from "@/data/painted-church-research-additional";
-import { paintedChurchAdditionResearchBySlug } from "@/data/painted-church-research-additions";
-import { paintedChurchResearchBySlug, schulenburgTourInfo } from "@/data/painted-church-research";
-import { statewidePaintedChurchResearchBySlug } from "@/data/painted-church-research-statewide";
+import { PaintedChurchRegisterEvidence } from "@/components/editorial/PaintedChurchRegisterEvidence";
+import { canonicalPaintedChurchProfileBySlug } from "@/data/painted-church-profile-index";
+import { schulenburgTourInfo } from "@/data/painted-church-research";
+import { canonicalPaintedChurchResearchBySlug } from "@/data/painted-church-research-index";
 
 export function PaintedChurchResearchDossier({ slug, schulenburgCluster }: { slug: string; schulenburgCluster?: boolean }) {
-  const dossier = paintedChurchResearchBySlug(slug) ?? statewidePaintedChurchResearchBySlug(slug) ?? additionalPaintedChurchResearchBySlug(slug) ?? paintedChurchAdditionResearchBySlug(slug);
-  const additionalProfile = additionalPaintedChurchProfileBySlug(slug) ?? paintedChurchAdditionProfileBySlug(slug);
+  const dossier = canonicalPaintedChurchResearchBySlug(slug);
+  const additionalProfile = canonicalPaintedChurchProfileBySlug(slug);
 
   return (
     <>
@@ -33,6 +30,7 @@ export function PaintedChurchResearchDossier({ slug, schulenburgCluster }: { slu
 
       <PaintedChurchGallery slug={slug} />
       <PaintedChurchArchivalImageSources slug={slug} />
+      <PaintedChurchRegisterEvidence slug={slug} />
 
       <section aria-labelledby="editorial-standard" className="mt-14 border-l-2 border-primary bg-surface p-6 sm:p-8">
         <p className="eyebrow text-primary">Editorial standard</p>
@@ -42,6 +40,7 @@ export function PaintedChurchResearchDossier({ slug, schulenburgCluster }: { slu
           <Link to="/explore/painted-churches/methodology" className="border-b border-primary text-primary">Research methodology & corrections</Link>
           <Link to="/explore/painted-churches/compare" className="border-b border-primary text-primary">Compare all verified churches</Link>
           <Link to="/explore/painted-churches/how-many" className="border-b border-primary text-primary">Why Painted Church counts differ</Link>
+          <Link to="/explore/painted-churches/techniques" className="border-b border-primary text-primary">Decorative painting techniques</Link>
         </div>
       </section>
 
