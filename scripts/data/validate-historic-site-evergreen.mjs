@@ -34,6 +34,12 @@ const guides = [
     exportName: 'brazoriaPlantationsSlaveryEmancipationHistoryArticle',
     destinations: ['levi-jordan-plantation', 'varner-hogg-plantation', 'first-capitol-of-texas', 'stephen-f-austin-memorial'],
   },
+  {
+    slug: 'texas-borderlands-historic-sites-guide',
+    path: 'src/data/fixtures/texas-borderlands-historic-sites-guide.ts',
+    exportName: 'texasBorderlandsHistoricSitesGuideArticle',
+    destinations: ['old-socorro-mission', 'magoffin-home', 'casa-navarro', 'lipantitlan', 'mission-dolores'],
+  },
 ];
 
 const seedBlock = historicSites.match(/export const historicSiteSeeds:[\s\S]*?= \[([\s\S]*?)\n\];/);
@@ -85,7 +91,7 @@ for (const marker of ['standaloneEvergreenStubs', '...standaloneEvergreenStubs',
 for (const marker of ['platform.articles.list(scope)', 'articles.filter((article) => !isLegacyCountySeriesArticle(article.slug)).map((article) => ({ path: `/article/${article.slug}`']) {
   if (!sitemap.includes(marker)) failures.push(`Historic evergreen sitemap discovery contract missing: ${marker}.`);
 }
-for (const marker of ['historicAuthorityGuides', 'Plan history by story', 'Four routes into the statewide collection']) {
+for (const marker of ['historicAuthorityGuides', 'Plan history by story', 'Five routes into the statewide collection']) {
   if (!historyHub.includes(marker)) failures.push(`Texas History hub authority-guide presentation contract missing: ${marker}.`);
 }
 
