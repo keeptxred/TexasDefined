@@ -99,7 +99,7 @@ jobs:
           grep -Eqi '^x-robots-tag:[[:space:]]*noindex,[[:space:]]*follow' "$json_headers"
           jq -e '.schemaVersion == 1 and .count == 250 and (.items | length) == 250 and .methodology == "https://texasdefined.com/things-unique-to-texas/methodology"' "$json_body" >/dev/null
           json_deep_links="$(jq '[.items[] | select(.deeperGuide != null and .deeperGuide != "")] | length' "$json_body")"
-          test "$json_deep_links" -ge 89
+          test "$json_deep_links" -ge 91
 
           curl --fail-with-body --silent --show-error --location --max-time 30 \
             -D "$csv_headers" "${origin}/things-that-define-texas.csv?verify=${GITHUB_RUN_ID}" -o "$csv_body"
@@ -108,7 +108,7 @@ jobs:
           head -n 1 "$csv_body" | grep -Fq 'deeper_guide'
           head -n 1 "$csv_body" | grep -Fq 'methodology'
           csv_deep_links="$(awk -F',' 'NR > 1 && $6 != "" { count++ } END { print count + 0 }' "$csv_body")"
-          test "$csv_deep_links" -ge 89
+          test "$csv_deep_links" -ge 91
           echo "PASS machine-readable distributions: 250 JSON items, 250 CSV records, ${json_deep_links} JSON deep links and ${csv_deep_links} CSV deep links."
 
       - name: Publish smoke summary
@@ -122,6 +122,6 @@ jobs:
             echo '- Chapter routes checked: 8'
             echo '- Topical/evergreen authority routes checked: 23'
             echo '- Machine distributions: 250-row JSON and CSV packages'
-            echo '- Machine distributions must retain at least 89 deeper-guide relationships.'
+            echo '- Machine distributions must retain at least 91 deeper-guide relationships.'
             echo '- HTML routes must be indexable; data downloads must return X-Robots-Tag: noindex, follow.'
           } >> "$GITHUB_STEP_SUMMARY"
