@@ -1,0 +1,81 @@
+name: Verify Madison County production PR
+
+on:
+  pull_request:
+    paths:
+      - '.github/verification/madison-production-trigger.txt'
+
+permissions:
+  contents: read
+
+jobs:
+  validate-deploy-verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment: texasdefined-publication
+    env:
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Verify current Madison County source
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -Fq 'countySlug: "madison"' src/data/county-series-profiles-continued.ts
+          grep -Fq 'madison-county-madisonville-midway-north-zulch-trinity-navasota-texas' src/data/county-series.ts
+          grep -Fq 'Madison County: Madisonville, River Boundaries, Prairie and East Texas Crossroads' src/data/fixtures/madison-county-madisonville-midway-north-zulch-trinity-navasota.ts
+          ! grep -Fq 'www.texasdefined.com' src/data/county-series-profiles-continued.ts
+          ! grep -Fq 'www.texasdefined.com' src/data/county-series.ts
+          ! grep -Fq 'www.texasdefined.com' src/data/fixtures/madison-county-madisonville-midway-north-zulch-trinity-navasota.ts
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Run normal repository validation and build
+        run: npm run validate
+      - name: Deploy current TexasDefined Worker
+        run: npx wrangler deploy
+      - name: Verify live county route, redirect, and hero
+        shell: bash
+        run: |
+          set -euo pipefail
+          origin='https://texasdefined.com'
+          county='/county/madison'
+          legacy='/article/madison-county-madisonville-midway-north-zulch-trinity-navasota-texas'
+          hero='https://commons.wikimedia.org/wiki/Special:Redirect/file/Madison_County_Texas_Courthouse_2019.jpg?width=1600'
+          workdir="$(mktemp -d)"
+          trap 'rm -rf "$workdir"' EXIT
+
+          for attempt in 1 2 3 4 5 6 7 8 9 10; do
+            status="$(curl --silent --show-error --location --max-time 45 -o "$workdir/county.html" -w '%{http_code}' "$origin$county?verify=${GITHUB_SHA}-${GITHUB_RUN_ID}" || true)"
+            if [ "$status" = '200' ] \
+              && grep -Fq 'Madison County: Madisonville, River Boundaries, Prairie and East Texas Crossroads' "$workdir/county.html" \
+              && grep -Fq 'Madisonville' "$workdir/county.html" \
+              && grep -Fq 'Madison County' "$workdir/county.html"; then
+              break
+            fi
+            if [ "$attempt" = '10' ]; then
+              echo "Madison County page verification failed, HTTP $status" >&2
+              exit 1
+            fi
+            sleep 8
+          done
+
+          grep -Fq 'rel="canonical"' "$workdir/county.html"
+          grep -Fq 'https://texasdefined.com/county/madison' "$workdir/county.html"
+
+          headers="$workdir/legacy.headers"
+          legacy_status="$(curl --silent --show-error --max-redirs 0 -D "$headers" -o /dev/null -w '%{http_code}' "$origin$legacy?verify=${GITHUB_SHA}-${GITHUB_RUN_ID}" || true)"
+          location="$(awk 'BEGIN{IGNORECASE=1} /^location:/{sub(/\r$/,""); sub(/^location:[[:space:]]*/,""); print; exit}' "$headers")"
+          test "$legacy_status" = '301'
+          [[ "$location" == *'/county/madison'* ]]
+
+          hero_status="$(curl --silent --show-error --location --max-time 45 -D "$workdir/hero.headers" -o "$workdir/hero.bin" -w '%{http_code}' "$hero" || true)"
+          hero_type="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/{sub(/\r$/,""); sub(/^content-type:[[:space:]]*/,""); v=$0} END{print v}' "$workdir/hero.headers")"
+          test "$hero_status" = '200'
+          case "$hero_type" in image/jpeg*|image/png*|image/webp*) ;; *) exit 1;; esac
+          test "$(wc -c < "$workdir/hero.bin")" -gt 50000
+          echo "PASS county=$county legacy=$legacy_status hero=$hero_status mime=$hero_type"
