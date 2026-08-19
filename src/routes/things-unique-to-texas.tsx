@@ -2,12 +2,13 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { TEXAS_ICON_CATEGORIES, TEXAS_ICON_ITEM_COUNT } from "@/data/things-unique-to-texas";
+import { TEXAS_ICON_DEEPER_GUIDE_COUNT } from "@/data/things-unique-to-texas-reference";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const description = "Explore 250 foods, landscapes, landmarks, small-town oddities, traditions, wildlife, brands, sayings and stories that help define Texas.";
 
 export const Route = createFileRoute("/things-unique-to-texas")({
-  loader: () => ({ categories: TEXAS_ICON_CATEGORIES, itemCount: TEXAS_ICON_ITEM_COUNT }),
+  loader: () => ({ categories: TEXAS_ICON_CATEGORIES, itemCount: TEXAS_ICON_ITEM_COUNT, deeperGuideCount: TEXAS_ICON_DEEPER_GUIDE_COUNT }),
   head: ({ loaderData }) => {
     const origin = `https://${texasDefinedBrand.identity.domain}`;
     const categories = loaderData?.categories ?? [];
