@@ -80,4 +80,5 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   profile("duval", "duval-county-san-diego-freer-benavides-brush-country-texas", () => import("@/data/fixtures/duval-county-san-diego-freer-benavides-brush-country").then((module) => module.duvalCountySanDiegoFreerBenavidesBrushCountryArticle)),
   profile("jim-wells", "jim-wells-county-alice-ranching-oil-brush-country-texas", () => import("@/data/fixtures/jim-wells-county-alice-ranching-oil-brush-country").then((module) => module.jimWellsCountyAliceRanchingOilBrushCountryArticle)),
   profile("live-oak", "live-oak-county-george-west-three-rivers-choke-canyon-texas", () => import("@/data/fixtures/live-oak-county-george-west-three-rivers-choke-canyon").then((module) => module.liveOakCountyGeorgeWestThreeRiversChokeCanyonArticle)),
+  profile("atascosa", "atascosa-county-jourdanton-pleasanton-poteet-ranch-country-texas", () => import("@/data/fixtures/atascosa-county-jourdanton-pleasanton-poteet-ranch-country").then((module) => module.atascosaCountyJourdantonPleasantonPoteetRanchCountryArticle)),
 ];
