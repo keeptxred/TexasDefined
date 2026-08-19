@@ -100,6 +100,7 @@ const LEGACY_ARTICLE_TO_COUNTY = new Map<string, string>([
   ["san-saba-county-san-saba-pecans-rivers-hill-country-texas", "san-saba"],
   ["lampasas-county-lampasas-springs-rivers-central-texas", "lampasas"],
   ["mills-county-goldthwaite-colorado-river-ranch-country-texas", "mills"],
+  ["hamilton-county-hamilton-hico-rivers-ranch-country-texas", "hamilton"],
 ]);
 
 const COUNTY_SLUGS = new Set(LEGACY_ARTICLE_TO_COUNTY.values());
