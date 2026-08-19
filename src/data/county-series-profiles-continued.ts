@@ -13,4 +13,10 @@ export const COUNTY_SERIES_PROFILES_CONTINUED: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/hill-county-hillsboro-lake-whitney-cotton-prairies")
       .then((module) => module.hillCountyHillsboroLakeWhitneyCottonPrairiesArticle),
   },
+  {
+    countySlug: "ellis",
+    articleSlug: "ellis-county-waxahachie-ennis-blackland-prairie-texas",
+    loadArticle: () => import("@/data/fixtures/ellis-county-waxahachie-ennis-blackland-prairie-texas")
+      .then((module) => module.ellisCountyWaxahachieEnnisBlacklandPrairieArticle),
+  },
 ];
