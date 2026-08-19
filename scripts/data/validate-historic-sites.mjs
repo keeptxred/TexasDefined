@@ -5,6 +5,7 @@ const primary = fs.readFileSync('src/data/historic-site-enrichment.ts', 'utf8');
 const extra = fs.readFileSync('src/data/historic-site-area-guides-extra.ts', 'utf8');
 const remoteHeroes = fs.readFileSync('src/data/historic-site-remote-heroes.ts', 'utf8');
 const clusters = fs.readFileSync('src/data/historic-site-clusters.ts', 'utf8');
+const corrections = fs.readFileSync('src/data/historic-site-fact-corrections.ts', 'utf8');
 const runtime = fs.readFileSync('src/data/destination-query-runtime.ts', 'utf8');
 const preserved = fs.readFileSync('src/data/destination-preserved-catalog.ts', 'utf8');
 const history = fs.readFileSync('src/routes/texas-history.tsx', 'utf8');
@@ -46,10 +47,18 @@ for (const marker of [
   'enrichRemainingHistoricSiteAreaGuide',
   'enrichHistoricSiteRemoteHero',
   'enrichHistoricSiteEvergreenLinks',
+  'applyHistoricSiteFactCorrections',
   'enrichHistoricSiteCatalog(curated)\n    .map(enrichRemainingHistoricSiteAreaGuide)\n    .map(enrichHistoricSiteRemoteHero)\n    .map(enrichHistoricSiteEvergreenLinks)',
+  '.map(applyHistoricSiteFactCorrections)',
 ]) if (!runtime.includes(marker)) failures.push(`Historic-site runtime enrichment contract missing: ${marker}`);
 for (const marker of ['destinationsQuery({ category: "historic-sites" })','historicSiteClusters','/explore/$category']) if (!history.includes(marker)) failures.push(`Texas History historic-site discovery contract missing: ${marker}`);
 for (const marker of ["destinationsQuery({ category: 'historic-sites' })",'Historic places in this county','/explore/historic-sites','/texas-history']) if (!county.includes(marker)) failures.push(`County historic-site discovery contract missing: ${marker}`);
+
+for (const marker of [
+  'destination.slug === "lipantitlan"',
+  'county: "Nueces"',
+  'coordinates: { lat: 27.96445, lng: -97.81838 }',
+]) if (!corrections.includes(marker)) failures.push(`Lipantitlan source-backed fact correction missing: ${marker}`);
 
 const exactHeroAliases = ['barrington-living-history-farm','fanthorp-inn','kreische-brewery','monument-hill','san-jacinto-battleground','washington-on-the-brazos'];
 for (const slug of exactHeroAliases) {
@@ -112,4 +121,4 @@ for (const [slug, license] of verifiedRemoteHeroes) {
 if (!remoteHeroes.includes('enrichHistoricSiteRemoteHero')) failures.push('Verified historic remote heroes are not exposed through the runtime enrichment function.');
 
 if (failures.length) { console.error('Historic-sites validation failed:'); for (const failure of failures) console.error(`- ${failure}`); process.exit(1); }
-console.log(`Historic-sites validation passed: ${seedSlugs.length} statewide seeds, ${guideSlugs.size} destination-specific area guides, ${clusterIds.length} thematic clusters with valid seed links, ${exactHeroAliases.length + verifiedRemoteHeroes.length} exact verified hero mappings, every protected hero matches a real seed, shared preserved-catalog publication, four-stage runtime enrichment, Texas History discovery and county cross-links are protected.`);
+console.log(`Historic-sites validation passed: ${seedSlugs.length} statewide seeds, ${guideSlugs.size} destination-specific area guides, ${clusterIds.length} thematic clusters with valid seed links, ${exactHeroAliases.length + verifiedRemoteHeroes.length} exact verified hero mappings, every protected hero matches a real seed, Lipantitlan geography is source-corrected, shared preserved-catalog publication, runtime enrichment, Texas History discovery and county cross-links are protected.`);
