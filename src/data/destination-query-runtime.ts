@@ -64,13 +64,13 @@ function applyResolvedHero(destination: Destination) {
 }
 
 function reconcileExploreCatalog(destinations: Destination[]) {
-  const improved = improveDestinationCatalog(
+  const curated = improveDestinationCatalog(
     applyAllCuratedDestinations(
       reconcileDestinationHeroes(applyExploreHeroAssets(applyStateParkHeroAssets(destinations))),
     ),
   );
-  const historicEnriched = enrichHistoricSiteCatalog(improved).map(normalizeHistoricCounty);
-  return filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(historicEnriched));
+  const improved = enrichHistoricSiteCatalog(curated).map(normalizeHistoricCounty);
+  return filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved));
 }
 
 export async function listResolvedDestinations(params: Omit<DestinationQuery, "brandId"> = {}) {
