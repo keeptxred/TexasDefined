@@ -63,6 +63,9 @@ const supportLinksByPillar: Record<string, Array<{ href: string; label: string; 
     { href: "/article/texas-settlement-patterns-explained", label: "Texas settlement patterns explained", description: "Trace how water, farming, ranching, county seats, railroads and highways created the communities behind regional culture." },
     { href: "/article/texas-railroads-town-growth-explained", label: "Railroads and the growth of Texas towns", description: "See how transportation redirected migration, commerce and regional development." },
     { href: "/article/texas-main-street-downtowns-guide", label: "Historic downtowns as cultural records", description: "Read migration, commerce and civic identity in the surviving fabric of Texas Main Streets." },
+    { href: "/san-antonio-puffy-taco-history", label: "San Antonio puffy tacos", description: "See how one West Side food tradition became a citywide symbol through Mexican American and Tex-Mex culture." },
+    { href: "/barbacoa-big-red-san-antonio", label: "Barbacoa & Big Red in San Antonio", description: "Follow a Sunday family ritual where an older barbacoa tradition met a later Waco-born soda and became local shorthand." },
+    { href: "/texas-ranch-water-guide", label: "Texas Ranch Water", description: "Use the disputed cocktail origin story to see how regional folklore, Austin restaurant culture and Texas adoption overlap." },
   ],
   "texas-barbecue-styles-explained": [
     { href: "/texas-food-history", label: "Texas Food History", description: "Place barbecue inside the larger story of cattle, migration, border foodways, immigrant communities and Texas-born brands." },
