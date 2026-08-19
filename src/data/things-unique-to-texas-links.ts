@@ -27,8 +27,12 @@ const CANONICAL_ICON_LINKS: Readonly<Record<number, string>> = {
   94: "/destination/sixth-floor-museum-at-dealey-plaza",
   95: "/destination/san-antonio-missions-national-historical-park",
   96: "/destination/fort-worth-stockyards",
+  104: "/destination/washington-on-the-brazos-state-historic-site",
+  112: "/destination/uss-lexington",
   113: "/destination/moody-gardens",
+  117: "/destination/lyndon-b-johnson-national-historical-park",
   128: "/destination/cadillac-ranch",
+  132: "/destination/dr-pepper-museum",
   165: "/destination/palo-duro-canyon-state-park",
 };
 
