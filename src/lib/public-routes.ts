@@ -74,6 +74,7 @@ export const INDEXABLE_STATIC_PATHS = [
   "/sports-venue/jones-att-stadium",
   "/events",
   "/texas-history",
+  "/texas-capital-designations",
   "/texas-symbols",
   "/things-unique-to-texas",
   "/things-unique-to-texas/methodology",
