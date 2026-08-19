@@ -14,6 +14,7 @@ type CapitalDesignation = {
   context: string;
 };
 
+// Current listings below are backed by enacted/enrolled Texas Legislature Online resolutions.
 const currentDesignations: CapitalDesignation[] = [
   { place: "Bandera", title: "Cowboy Capital of Texas", legislature: "89th Legislature", resolution: "S.C.R. 3", designatedYear: 2025, sourceUrl: "https://capitol.texas.gov/tlodocs/89R/billtext/html/SC00003F.htm", context: "The Legislature tied the designation to Bandera's long-running cowboy, ranching, rodeo and Western heritage." },
   { place: "Galveston", title: "Mardi Gras Capital of Texas", legislature: "89th Legislature", resolution: "H.C.R. 50", designatedYear: 2025, sourceUrl: "https://capitol.texas.gov/tlodocs/89R/billtext/html/HC00050F.htm", context: "The resolution recognizes the island city's more than 150 years of Mardi Gras tradition and its distinctly Texas celebration." },
