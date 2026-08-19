@@ -25,11 +25,14 @@ const sections = [
 ] as const;
 
 const cultureGuides = [
-  ['/texas-food-history', 'Texas Food History', 'The parent guide connecting barbecue, chili, chicken-fried steak, breakfast tacos, immigrant foodways and Texas-born brands to the communities that shaped them.'],
+  ['/texas-food-history', 'Texas Food History', 'The parent guide connecting barbecue, chili, chicken-fried steak, breakfast tacos, Ranch Water, puffy tacos, barbacoa, immigrant foodways and Texas-born brands to the communities that shaped them.'],
   ['/texas-food-trail', 'Texas Food Trail', 'Barbecue, breakfast tacos, Czech bakeries, Gulf seafood and regional food traditions built into a statewide road-trip guide.'],
   ['/texas-breakfast-taco-guide', 'Texas Breakfast Tacos', 'Tortillas, eggs, beans, potatoes, barbacoa, carne guisada, migas and the salsa habits that shape an everyday Texas breakfast.'],
   ['/texas-chili-con-carne-history', 'Texas Chili Con Carne', 'San Antonio Chili Queens, commercial chili powder, Terlingua cookoff culture and the difference between food history and folklore.'],
   ['/texas-chicken-fried-steak-guide', 'Texas Chicken-Fried Steak', 'A disputed origin, regional breading styles, cream gravy and the texture that makes the classic Texas plate work.'],
+  ['/texas-ranch-water-guide', 'Texas Ranch Water', 'A simple tequila highball whose strong Texas identity is better documented than its exact first origin.'],
+  ['/san-antonio-puffy-taco-history', 'San Antonio Puffy Tacos', 'Fresh masa, hot oil and West Side food culture explain one of San Antonio’s most recognizable regional tacos.'],
+  ['/barbacoa-big-red-san-antonio', 'Barbacoa & Big Red', 'An older Sunday barbacoa tradition and a Waco-born soda became one of San Antonio’s strongest food-and-memory pairings.'],
   ['/texas-natural-wonders-bucket-list', 'Texas Natural Wonders', 'Twelve landscapes that show how Texas shifts from desert mountains and canyons to cypress swamp, springs and barrier islands.'],
   ['/texas-dance-halls-honky-tonks', 'Dance Halls & Honky-Tonks', 'Historic halls, Western swing, the two-step and the social spaces where Texas music is still experienced together.'],
   ['/german-czech-texas-towns', 'German & Czech Texas Towns', 'Food, churches, dance halls, festivals and historic communities across Central Texas and the Hill Country.'],
