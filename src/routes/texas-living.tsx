@@ -38,6 +38,7 @@ const cultureGuides = [
   ['/german-czech-texas-towns', 'German & Czech Texas Towns', 'Food, churches, dance halls, festivals and historic communities across Central Texas and the Hill Country.'],
   ['/texas-homecoming-mums', 'Texas Homecoming Mums', 'How a simple chrysanthemum became an enormous wearable tradition of school spirit and local identity.'],
   ['/texas-slang-explained', 'Texas Slang Explained', 'Y’all, fixin’ to, ranch imagery, bilingual influence and the context behind familiar Texas sayings.'],
+  ['/texas-blue-norther-weather-guide', 'Texas Blue Northers & Spring Storms', 'Texas weather language and storm-watching culture, separated from the meteorology and National Weather Service guidance that should control real safety decisions.'],
   ['/texas-roadside-oddities', 'Texas Roadside Oddities', 'Giant art, neon, tiny towns and strange stops that can turn a highway drive into a real Texas road trip.'],
   ['/texas-brand-origin-stories', 'Texas Brand Origin Stories', "H-E-B, Whataburger, Blue Bell, Shiner, Dickies and Buc-ee's—where they started and how Texas routines made them cultural shorthand."],
   ['/dr-pepper-texas-history', 'Dr Pepper in Texas', 'How an 1885 Waco soda-fountain drink became a nationally recognized brand while its birthplace remained part of the identity.'],
