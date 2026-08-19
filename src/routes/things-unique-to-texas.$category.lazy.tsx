@@ -6,10 +6,14 @@ import { texasIconCanonicalHref } from "@/data/things-unique-to-texas-links";
 const FEATURED_GUIDES: Record<string, { href: string; label: string; description: string }[]> = {
   "food-drink": [
     { href: "/texas-food-trail", label: "The Texas Food Trail", description: "Turn barbecue, Tex-Mex, Czech bakeries, Gulf seafood and regional specialties into a statewide food trip." },
+    { href: "/texas-breakfast-taco-guide", label: "Texas Breakfast Tacos", description: "Learn the tortillas, fillings, salsa habits and ordering logic behind one of the state's most everyday foods." },
+    { href: "/texas-chili-con-carne-history", label: "Texas Chili Con Carne", description: "Trace San Antonio Chili Queens, commercial chili powder and cookoff culture without turning folklore into fact." },
+    { href: "/texas-chicken-fried-steak-guide", label: "Texas Chicken-Fried Steak", description: "Understand the disputed origin, regional styles, cream gravy and texture that define the classic plate." },
     { href: "/german-czech-texas-towns", label: "German & Czech Texas towns", description: "Connect kolaches, sausage and beer traditions to the communities and institutions that kept them alive." },
   ],
   "texas-brands": [
     { href: "/texas-brand-origin-stories", label: "Texas Brand Origin Stories", description: "Trace H-E-B, Whataburger, Blue Bell, Shiner, Dickies and Buc-ee's back to the Texas places and routines that shaped them." },
+    { href: "/dr-pepper-texas-history", label: "Dr Pepper in Texas", description: "Follow the documented 1885 Waco origin from soda fountain to bottling, national recognition and hometown identity." },
   ],
   "natural-wonders": [
     { href: "/texas-natural-wonders-bucket-list", label: "Texas Natural Wonders Bucket List", description: "Twelve landscapes that show the state's full range, from desert mountains to cypress swamp and barrier island." },
