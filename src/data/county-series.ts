@@ -123,6 +123,7 @@ const LEGACY_ARTICLE_TO_COUNTY = new Map<string, string>([
   ["houston-county-crockett-mission-tejas-piney-woods-texas", "houston"],
   ["angelina-county-lufkin-diboll-sam-rayburn-piney-woods-texas", "angelina"],
   ["nacogdoches-county-nacogdoches-caddo-el-camino-piney-woods-texas", "nacogdoches"],
+  ["san-augustine-county-san-augustine-mission-dolores-el-camino-piney-woods-texas", "san-augustine"],
 ]);
 
 const COUNTY_SLUGS = new Set(LEGACY_ARTICLE_TO_COUNTY.values());
