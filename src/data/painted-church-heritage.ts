@@ -21,9 +21,9 @@ export const paintedChurchHeritage: PaintedChurchHeritage[] = [
   {
     slug: "german",
     name: "German Texas",
-    answer: "German immigrant communities helped shape Painted Church architecture and decoration across Central Texas and the Hill Country, especially at High Hill, Fredericksburg, Wallis and Plantersville.",
-    context: ["Fredericksburg's St. Mary's parish traces its roots to German immigrants arriving in 1846.", "High Hill combines German settlement history with Leo Dielmann's Gothic Revival architecture and a major decorative campaign.", "German Catholic communities often expressed cultural continuity through architecture, stained glass, language and interior ornament."],
-    churchSlugs: ["high-hill-nativity-of-mary", "fredericksburg-st-marys-catholic-church", "wallis-guardian-angel", "plantersville-st-marys-catholic-church", "ammannsville-st-john-the-baptist"],
+    answer: "German immigrant communities helped shape Painted Church architecture and decoration across Central Texas, the Hill Country and San Antonio, especially at High Hill, Fredericksburg, Wallis, Plantersville and St. Joseph.",
+    context: ["Fredericksburg's St. Mary's parish traces its roots to German immigrants arriving in 1846.", "High Hill combines German settlement history with Leo Dielmann's Gothic Revival architecture and a major decorative campaign.", "St. Joseph in San Antonio was organized by German Catholics seeking worship in their own language and preserves Gothic architecture, Bavarian glass and archival fresco evidence.", "German Catholic communities often expressed cultural continuity through architecture, stained glass, language and interior ornament."],
+    churchSlugs: ["high-hill-nativity-of-mary", "fredericksburg-st-marys-catholic-church", "wallis-guardian-angel", "plantersville-st-marys-catholic-church", "ammannsville-st-john-the-baptist", "san-antonio-st-joseph-catholic-church"],
     sourceLabel: "St. Mary's Catholic Church Fredericksburg — parish history",
     sourceUrl: "https://church.stmarysfbg.com/history",
   },
@@ -44,6 +44,15 @@ export const paintedChurchHeritage: PaintedChurchHeritage[] = [
     churchSlugs: ["panna-maria-immaculate-conception", "bandera-st-stanislaus-catholic-church"],
     sourceLabel: "Polish Heritage Center at Panna Maria",
     sourceUrl: "https://polishheritagecentertx.org/historic-panna-maria",
+  },
+  {
+    slug: "mexican-american-south-texas",
+    name: "Mexican American Sacred Art in South Texas",
+    answer: "Sacred Heart in Corpus Christi expands the Painted Churches story through Antonio E. Garcia, a Mexican American South Texas artist whose monumental 1940s frescoes connect Catholic devotional art with regional art history.",
+    context: ["Texas A&M University–Corpus Christi documents three true frescoes by Garcia painted between 1942 and 1948 at Sacred Heart.", "The Diocese of Corpus Christi documents Garcia as both a Catholic artist and a member of the Sacred Heart community.", "This story broadens the statewide Painted Churches framework beyond the Central European immigrant traditions that dominate the classic Schulenburg circuit."],
+    churchSlugs: ["corpus-christi-sacred-heart-catholic-church"],
+    sourceLabel: "Texas A&M University–Corpus Christi — Antonio E. Garcia",
+    sourceUrl: "https://www.tamucc.edu/education/departments/garcia-center/antonio-e-garcia.php",
   },
   {
     slug: "italian-pow-umbarger",
