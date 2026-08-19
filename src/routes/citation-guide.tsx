@@ -30,6 +30,17 @@ const GROUPS = [
     ],
   },
   {
+    title: 'Things That Define Texas',
+    description: 'A maintained 250-item cultural reference collection with explicit inclusion rules, exact deeper-guide relationships and shared CSV/JSON distributions.',
+    links: [
+      ['Things That Define Texas', '/things-unique-to-texas'],
+      ['Selection & cross-link methodology', '/things-unique-to-texas/methodology'],
+      ['Texas Food History', '/texas-food-history'],
+      ['Texas natural wonders', '/texas-natural-wonders-bucket-list'],
+      ['Texas dance halls & honky-tonks', '/texas-dance-halls-honky-tonks'],
+    ],
+  },
+  {
     title: 'Explore & relocation',
     description: 'Maintained comparison and authority layers for moving, parks, water destinations, small towns, road trips and attractions.',
     links: [
@@ -111,6 +122,16 @@ function CitationGuidePage() {
         <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">When a reference page offers a CSV, JSON or checklist distribution, use the canonical HTML page for context, methodology and caveats; use the downloadable file when you need the machine-readable or printable distribution itself.</p>
       </section>
 
+      <section className="mt-12 border-y border-border py-8" aria-labelledby="texas-culture-source-heading">
+        <p className="eyebrow text-primary">Things That Define Texas source hierarchy</p>
+        <h2 id="texas-culture-source-heading" className="mt-2 font-display text-3xl">Cite the collection for identity; cite the deeper guide for the claim.</h2>
+        <div className="mt-6 grid gap-6 md:grid-cols-3">
+          <Rule title="Collection & chapter identity" body="Use the canonical Things That Define Texas collection or chapter when citing the 250-item editorial set, chapter membership or TexasDefined's explanation of why an icon belongs in the collection." />
+          <Rule title="Deeper factual claims" body="When an entry resolves to a destination or evergreen deep dive, use that deeper guide—and its linked official or institutional sources—for the underlying history, visitor facts, cultural context or current operations." />
+          <Rule title="Data reuse" body="The CSV and JSON are generated from the same 250 editorial records and canonical-link resolver. Cite the human collection for context and methodology unless the machine-readable distribution itself is what you are analyzing or redistributing." />
+        </div>
+      </section>
+
       <section className="mt-12 border-y border-border py-8" aria-labelledby="top25-source-heading">
         <p className="eyebrow text-primary">Top-25 source hierarchy</p>
         <h2 id="top25-source-heading" className="mt-2 font-display text-3xl">Cite current operations differently from supporting context</h2>
@@ -149,6 +170,10 @@ function CitationGuidePage() {
           <a href="/citation-magnets.json" className="border-b border-primary text-primary">citation-magnets.json</a>
           <a href="/llms.txt" className="border-b border-primary text-primary">llms.txt</a>
           <Link to="/about" className="border-b border-primary text-primary">Editorial accountability</Link>
+          <Link to="/things-unique-to-texas" className="border-b border-primary text-primary">Things That Define Texas</Link>
+          <Link to="/things-unique-to-texas/methodology" className="border-b border-primary text-primary">Things methodology</Link>
+          <a href="/things-that-define-texas.csv" className="border-b border-primary text-primary">Things That Define Texas CSV</a>
+          <a href="/things-that-define-texas.json" className="border-b border-primary text-primary">Things That Define Texas JSON</a>
           <Link to="/explore/painted-churches" className="border-b border-primary text-primary">Painted Churches collection</Link>
           <Link to="/explore/painted-churches/census" className="border-b border-primary text-primary">Painted Churches census</Link>
           <Link to="/explore/painted-churches/then-and-now" className="border-b border-primary text-primary">Painted Churches Then & Now</Link>
