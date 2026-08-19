@@ -64,6 +64,14 @@ const supportLinksByPillar: Record<string, Array<{ href: string; label: string; 
     { href: "/article/texas-railroads-town-growth-explained", label: "Railroads and the growth of Texas towns", description: "See how transportation redirected migration, commerce and regional development." },
     { href: "/article/texas-main-street-downtowns-guide", label: "Historic downtowns as cultural records", description: "Read migration, commerce and civic identity in the surviving fabric of Texas Main Streets." },
   ],
+  "texas-barbecue-styles-explained": [
+    { href: "/texas-food-history", label: "Texas Food History", description: "Place barbecue inside the larger story of cattle, migration, border foodways, immigrant communities and Texas-born brands." },
+    { href: "/texas-food-trail", label: "The Texas Food Trail", description: "Turn regional barbecue styles into a broader road trip through the foods that define different parts of Texas." },
+  ],
+  "kolache-or-klobasnek-texas-story": [
+    { href: "/texas-food-history", label: "Texas Food History", description: "Connect Czech-Texan pastries with the wider history of migration, adaptation and regional food identity." },
+    { href: "/german-czech-texas-towns", label: "German & Czech Texas towns", description: "Follow the pastry tradition back to the communities, churches, dance halls and festivals that kept it visible." },
+  ],
 };
 
 for (const [slug, additions] of Object.entries(supportLinksByPillar)) {
