@@ -71,10 +71,23 @@ export const Route = createFileRoute("/explore/$category")({
     }
     const canonicalPath = `/explore/${params.category}`;
     const categoryUrl = `${siteUrl}${canonicalPath}`;
+    const featuredCollectionItems = params.category === "food-bbq"
+      ? [{
+          "@type": "ListItem",
+          position: 1,
+          item: {
+            "@type": "CollectionPage",
+            name: "Texas Food History",
+            description: "The history behind barbecue, chili, chicken-fried steak, breakfast tacos, Czech and German foodways and Dr Pepper.",
+            url: `${siteUrl}/texas-food-history`,
+          },
+        }]
+      : [];
     const itemListElement = [
+      ...featuredCollectionItems,
       ...loaderData.articles.map((article, index) => ({
         "@type": "ListItem",
-        position: index + 1,
+        position: featuredCollectionItems.length + index + 1,
         item: {
           "@type": "Article",
           name: article.title,
@@ -84,7 +97,7 @@ export const Route = createFileRoute("/explore/$category")({
       })),
       ...loaderData.destinations.map((destination, index) => ({
         "@type": "ListItem",
-        position: loaderData.articles.length + index + 1,
+        position: featuredCollectionItems.length + loaderData.articles.length + index + 1,
         item: destinationSchema(destination),
       })),
     ];
@@ -172,6 +185,7 @@ function ExploreCategoryPage() {
     ? match.slug as ExploreComparisonKind
     : null;
   const showPaintedChurches = PAINTED_CHURCH_CROSS_LINK_CATEGORIES.has(match.slug);
+  const showFoodHistory = match.slug === "food-bbq";
 
   return (
     <>
@@ -182,6 +196,22 @@ function ExploreCategoryPage() {
         intro={match.description}
         image={match.image}
       />
+      {showFoodHistory ? (
+        <Container className="pb-10 sm:pb-14">
+          <section className="grid gap-6 border-y border-border py-7 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
+            <div>
+              <p className="eyebrow text-primary">The stories behind the Texas table</p>
+              <h2 className="mt-2 font-display text-3xl">Texas Food History</h2>
+              <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
+                Go beyond restaurant lists with the history behind barbecue, San Antonio chili, chicken-fried steak, breakfast tacos, German and Czech foodways and Dr Pepper's Waco origin.
+              </p>
+            </div>
+            <Link to="/texas-food-history" className="eyebrow inline-block border-b border-primary pb-1 text-primary">
+              Explore Texas food history →
+            </Link>
+          </section>
+        </Container>
+      ) : null}
       {showPaintedChurches ? (
         <Container className="pb-10 sm:pb-14">
           <section className="grid gap-6 border-y border-border py-7 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
