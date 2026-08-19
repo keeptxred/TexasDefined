@@ -126,6 +126,11 @@ const guideSources: Partial<Record<string, { label: string; href: string; note: 
     { label: "Dr Pepper Museum — Big Red exhibit", href: "https://drpeppermuseum.com/virtual-tour/", note: "Documents Big Red as another Waco-created beverage and its earlier Sun Tang name." },
     { label: "San Antonio Report — Barbacoa & Big Red Festival", href: "https://sanantonioreport.org/barbacoa-big-red-festival-only-in-sa/", note: "Documents the pairing as a San Antonio family tradition and the festival's role in turning that recurring Sunday ritual into a public celebration." },
   ],
+  "texas-blue-norther-weather-guide": [
+    { label: "Handbook of Texas — Blue Norther", href: "https://www.tshaonline.org/handbook/entries/blue-norther", note: "Documents the Texas term and historical descriptions while distinguishing the name from the broader meteorological phenomenon." },
+    { label: "National Weather Service Amarillo — 50-degree temperature ranges", href: "https://www.weather.gov/ama/50ranges", note: "Documents major rapid temperature changes in the Texas Panhandle and provides meteorological context for sharp frontal passages." },
+    { label: "National Weather Service Houston/Galveston — Spring storm signals", href: "https://www.weather.gov/hgx/stormsignals_vol40", note: "Provides official severe-weather context and reinforces that current NWS forecasts and warnings—not folklore—should control safety decisions." },
+  ],
 };
 
 export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData }) {
