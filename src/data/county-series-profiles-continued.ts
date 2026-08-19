@@ -61,4 +61,10 @@ export const COUNTY_SERIES_PROFILES_CONTINUED: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/walker-county-huntsville-sam-houston-piney-woods-texas")
       .then((module) => module.walkerCountyHuntsvilleSamHoustonPineyWoodsArticle),
   },
+  {
+    countySlug: "trinity",
+    articleSlug: "trinity-county-groveton-lumber-trinity-river-piney-woods-texas",
+    loadArticle: () => import("@/data/fixtures/trinity-county-groveton-lumber-trinity-river-piney-woods")
+      .then((module) => module.trinityCountyGrovetonLumberTrinityRiverPineyWoodsArticle),
+  },
 ];
