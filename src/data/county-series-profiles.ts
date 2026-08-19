@@ -90,4 +90,5 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   profile("dewitt", "dewitt-county-cuero-yorktown-guadalupe-river-texas", () => import("@/data/fixtures/dewitt-county-cuero-yorktown-guadalupe-river-texas").then((module) => module.dewittCountyCueroYorktownGuadalupeRiverArticle)),
   profile("medina", "medina-county-hondo-castroville-medina-river-texas", () => import("@/data/fixtures/medina-county-hondo-castroville-medina-river").then((module) => module.medinaCountyHondoCastrovilleMedinaRiverArticle)),
   profile("bandera", "bandera-county-bandera-medina-river-cowboy-hill-country-texas", () => import("@/data/fixtures/bandera-county-bandera-medina-river-cowboy-hill-country").then((module) => module.banderaCountyBanderaMedinaRiverCowboyHillCountryArticle)),
+  profile("kendall", "kendall-county-boerne-comfort-guadalupe-hill-country-texas", () => import("@/data/fixtures/kendall-county-boerne-comfort-guadalupe-hill-country").then((module) => module.kendallCountyBoerneComfortGuadalupeHillCountryArticle)),
 ];
