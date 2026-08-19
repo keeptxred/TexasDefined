@@ -40,11 +40,6 @@ jobs:
           origin='https://texasdefined.com'
           destinations=(
             caddo-lake
-            possum-kingdom-lake
-            lake-travis
-            lake-conroe
-            toledo-bend-reservoir
-            guadalupe-river
             enchanted-rock
             palo-duro-canyon
             blue-hole-wimberley
