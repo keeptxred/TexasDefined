@@ -4,6 +4,7 @@ const failures = [];
 const citationPath = 'public/citation-magnets.json';
 const publicRoutesPath = 'src/lib/public-routes.ts';
 const hubPath = 'src/routes/things-unique-to-texas.lazy.tsx';
+const citationGuidePath = 'src/routes/citation-guide.tsx';
 
 let index;
 try {
@@ -14,6 +15,7 @@ try {
 
 const publicRoutes = fs.readFileSync(publicRoutesPath, 'utf8');
 const hub = fs.readFileSync(hubPath, 'utf8');
+const citationGuide = fs.readFileSync(citationGuidePath, 'utf8');
 
 const required = [
   ['https://texasdefined.com/things-unique-to-texas', 'culture-reference-collection'],
@@ -71,10 +73,22 @@ for (const path of [
   if (!hub.includes(`to="${path}"`)) failures.push(`Things That Define Texas hub must retain discovery link ${path}.`);
 }
 
+for (const token of [
+  "title: 'Things That Define Texas'",
+  "['Things That Define Texas', '/things-unique-to-texas']",
+  "['Selection & cross-link methodology', '/things-unique-to-texas/methodology']",
+  'Things That Define Texas source hierarchy',
+  'Cite the collection for identity; cite the deeper guide for the claim.',
+  'href="/things-that-define-texas.csv"',
+  'href="/things-that-define-texas.json"',
+]) {
+  if (!citationGuide.includes(token)) failures.push(`Citation guide must retain Things That Define Texas reference guidance: ${token}`);
+}
+
 if (failures.length) {
   console.error('Texas culture citation-index validation failed:');
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log(`Texas culture citation-index validation passed: ${required.length} canonical culture references retain machine-discovery, trust guidance, route governance and hub discovery.`);
+console.log(`Texas culture citation-index validation passed: ${required.length} canonical culture references retain machine discovery, trust guidance, route governance, hub discovery and human citation guidance.`);
