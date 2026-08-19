@@ -17,7 +17,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: indexing-remediation-production-smoke-main
@@ -28,6 +28,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
       - name: Verify destination provenance and finance depth live
         shell: bash
         run: |
@@ -108,3 +113,16 @@ jobs:
           done
 
           echo 'Indexing remediation production smoke passed.'
+
+      - name: Record passing live verification
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git pull --rebase origin main
+          printf '%s\n' 'Production indexing remediation smoke passed: destination provenance + finance depth verified live.' > .github/indexing-remediation-smoke-passed.txt
+          git add .github/indexing-remediation-smoke-passed.txt
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Record indexing remediation production smoke pass'
+          git push origin HEAD:main
