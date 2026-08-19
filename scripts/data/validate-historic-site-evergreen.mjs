@@ -3,6 +3,7 @@ import fs from 'node:fs';
 const lazy = fs.readFileSync('src/data/fixtures/lazy-standalone-evergreen.ts', 'utf8');
 const repositories = fs.readFileSync('src/data/fixtures/repositories.ts', 'utf8');
 const sitemap = fs.readFileSync('src/routes/sitemap[.]xml.ts', 'utf8');
+const historyHub = fs.readFileSync('src/routes/texas-history.tsx', 'utf8');
 const historicSites = fs.readFileSync('src/data/historic-sites.ts', 'utf8');
 const reciprocal = fs.readFileSync('src/data/historic-site-evergreen-links.ts', 'utf8');
 const runtime = fs.readFileSync('src/data/destination-query-runtime.ts', 'utf8');
@@ -65,6 +66,7 @@ for (const guide of guides) {
 
   const href = `/article/${guide.slug}`;
   if (!reciprocal.includes(`href: "${href}"`)) failures.push(`Historic destination reciprocal route guide link is missing: ${href}.`);
+  if (!historyHub.includes(`slug: "${guide.slug}"`)) failures.push(`Historic evergreen guide is not explicitly featured on the Texas History hub: ${guide.slug}.`);
 }
 
 const reciprocalSlugSets = [...reciprocal.matchAll(/slugs:\s*new Set\(\[([\s\S]*?)\]\)/g)]
@@ -83,6 +85,9 @@ for (const marker of ['standaloneEvergreenStubs', '...standaloneEvergreenStubs',
 for (const marker of ['platform.articles.list(scope)', 'articles.filter((article) => !isLegacyCountySeriesArticle(article.slug)).map((article) => ({ path: `/article/${article.slug}`']) {
   if (!sitemap.includes(marker)) failures.push(`Historic evergreen sitemap discovery contract missing: ${marker}.`);
 }
+for (const marker of ['historicAuthorityGuides', 'Plan history by story', 'Four routes into the statewide collection']) {
+  if (!historyHub.includes(marker)) failures.push(`Texas History hub authority-guide presentation contract missing: ${marker}.`);
+}
 
 if (failures.length) {
   console.error('Historic-site evergreen validation failed:');
@@ -90,4 +95,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Historic-site evergreen validation passed: ${guides.length} lazy-loaded Texas-history guides retain substantive depth, THC sourcing, verified destination links, reciprocal route-guide discovery, repository listing and canonical article-sitemap publication.`);
+console.log(`Historic-site evergreen validation passed: ${guides.length} lazy-loaded Texas-history guides retain substantive depth, THC sourcing, verified destination links, reciprocal route-guide discovery, explicit Texas History hub visibility, repository listing and canonical article-sitemap publication.`);
