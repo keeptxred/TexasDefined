@@ -1,0 +1,3 @@
+Validate current main after Texas Life SEO validator alignment and the latest concurrent Texas content additions.
+Current main base SHA: ecc673eebd6ceba4c689a2d6a6f29032c810a1ea
+Temporary validation marker only; do not merge.
