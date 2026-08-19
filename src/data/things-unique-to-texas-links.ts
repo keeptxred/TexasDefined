@@ -48,6 +48,7 @@ const CANONICAL_ICON_LINKS: Readonly<Record<number, string>> = {
   104: "/destination/washington-on-the-brazos-state-historic-site",
   105: "/destination/presidio-la-bahia",
   106: "/destination/goliad-state-park-and-historic-site",
+  109: "/destination/kimbell-art-museum",
   112: "/destination/uss-lexington",
   113: "/destination/moody-gardens",
   116: "/destination/eisenhower-birthplace",
@@ -55,6 +56,8 @@ const CANONICAL_ICON_LINKS: Readonly<Record<number, string>> = {
   123: "/destination/confederate-reunion-grounds",
   128: "/destination/cadillac-ranch",
   132: "/destination/dr-pepper-museum",
+  135: "/destination/luckenbach",
+  140: "/destination/blue-hole-regional-park",
   165: "/destination/palo-duro-canyon-state-park",
 };
 
