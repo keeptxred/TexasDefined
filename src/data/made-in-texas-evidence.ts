@@ -6,7 +6,7 @@ export interface MadeInTexasEvidence {
   checkedAt: string;
 }
 
-/** Manufacturer and first-party evidence for the highest-confidence production claims. */
+/** Manufacturer, producer and authoritative public evidence for high-confidence Texas production claims. */
 export const MADE_IN_TEXAS_EVIDENCE: MadeInTexasEvidence[] = [
   {
     entryName: 'Blue Bell Creameries',
@@ -209,6 +209,55 @@ export const MADE_IN_TEXAS_EVIDENCE: MadeInTexasEvidence[] = [
     claim: 'Waterloo Rods says its team builds high-quality fishing rods from its shop in Victoria, Texas.',
     sourceLabel: 'Waterloo Rods',
     sourceUrl: 'https://www.waterloorods.com/',
+    checkedAt: '2026-08-19',
+  },
+  {
+    entryName: 'Stetson hat production',
+    claim: 'Stetson identifies its Rawhide cowboy hat as handmade in Garland, Texas, supporting the Garland production relationship.',
+    sourceLabel: 'Stetson',
+    sourceUrl: 'https://stetson.com/products/rawhide-black',
+    checkedAt: '2026-08-19',
+  },
+  {
+    entryName: 'Llano Estacado Winery',
+    claim: 'Llano Estacado says every drop of its wine is made at its production facility in Lubbock, Texas.',
+    sourceLabel: 'Llano Estacado Winery',
+    sourceUrl: 'https://llanowine.com/about/',
+    checkedAt: '2026-08-19',
+  },
+  {
+    entryName: 'Adams Extract',
+    claim: 'Adams says its Gonzales, Texas facility supports the manufacturing and marketing of its extracts, colors, spices and seasonings.',
+    sourceLabel: 'Adams Extract',
+    sourceUrl: 'https://www.adams1888.com/OurStory.aspx',
+    checkedAt: '2026-08-19',
+  },
+  {
+    entryName: 'Dublin Bottling Works',
+    claim: 'Dublin Bottling Works says its historic bottling facility in Dublin, Texas continues bottling cane-sugar sodas.',
+    sourceLabel: 'Dublin Bottling Works',
+    sourceUrl: 'https://www.dublinbottlingworks.com/',
+    checkedAt: '2026-08-19',
+  },
+  {
+    entryName: 'Texas Rio Red grapefruit',
+    claim: 'The Texas Department of Agriculture identifies Texas Red grapefruit as a commercial crop produced in the Lower Rio Grande Valley.',
+    sourceLabel: 'Texas Department of Agriculture',
+    sourceUrl: 'https://texasagriculture.gov/Grants-Services/Marketing-and-International-Trade/International/Buyers-and-Consumers/Texas-Grapefruit',
+    checkedAt: '2026-08-19',
+  },
+  {
+    entryName: 'Anderson Bean Boot Company',
+    claim: 'Anderson Bean says its boots are handcrafted at its factory in Mercedes, Texas, from start to finish.',
+    sourceLabel: 'Anderson Bean Boot Company',
+    sourceUrl: 'https://andersonbean.com/about-us',
+    checkedAt: '2026-08-19',
+  },
+  {
+    entryName: 'Rios of Mercedes',
+    claim: 'Rios of Mercedes identifies its stock boots as handmade in Mercedes, Texas.',
+    sourceLabel: 'Rios of Mercedes',
+    sourceUrl: 'https://riosofmercedes.com/boots/stock-collection/r9002',
     checkedAt: '2026-08-19',
   },
 ];
