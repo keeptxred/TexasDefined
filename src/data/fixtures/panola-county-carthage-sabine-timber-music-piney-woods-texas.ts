@@ -12,7 +12,7 @@ export const panolaCountyCarthageSabineTimberMusicPineyWoodsArticle: Article = {
   category: "texas-history",
   region: "east-texas",
   hero: {
-    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Carhage_July_2017_08_%28Panola_County_Courthouse%29.jpg?width=1600",
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Carthage_July_2017_09_%28Panola_County_Courthouse%29.jpg?width=1600",
     alt: "Panola County Courthouse in Carthage, Texas",
     width: 6000,
     height: 4000,
