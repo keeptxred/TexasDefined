@@ -1,4 +1,5 @@
 import "@/data/painted-churches-expanded";
+import { paintedChurchImageSources } from "@/data/painted-church-image-sources";
 
 const sourceLibrary = [
   {
@@ -100,6 +101,29 @@ export function PaintedChurchSourceLibrary() {
             <p className="mt-3 text-sm leading-7 text-muted-foreground">{source.note}</p>
           </article>
         ))}
+      </div>
+
+      <div className="mt-10 border-t border-border pt-8">
+        <p className="eyebrow text-primary">Free-use image research</p>
+        <h3 className="mt-3 font-display text-3xl">Exact-subject archives first. Generic stock only as a labeled fallback.</h3>
+        <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">
+          Texas Defined prioritizes Wikimedia Commons, the Portal to Texas History and Library of Congress/HABS records because they are most likely to identify the actual church. PICRYL/GetArchive and license-filtered Flickr are secondary discovery channels. Unsplash, Pexels, Pixabay and other stock libraries are used only when they add useful illustrative context and never as if a generic church photograph depicts the named Painted Church.
+        </p>
+        <div className="mt-7 grid gap-px border border-border bg-border md:grid-cols-2">
+          {paintedChurchImageSources.map((source) => (
+            <article key={source.label} className="bg-background p-6">
+              <div className="flex items-center justify-between gap-4">
+                <p className="eyebrow text-muted-foreground">Priority {source.priority} · {source.tier.replace("-", " ")}</p>
+              </div>
+              <h4 className="mt-2 font-display text-2xl"><a href={source.url} target="_blank" rel="noreferrer" className="hover:text-primary">{source.label}</a></h4>
+              <p className="mt-3 text-sm leading-7 text-muted-foreground">{source.bestFor}</p>
+              <p className="mt-3 text-xs leading-6 text-muted-foreground"><strong className="text-foreground">Rights rule:</strong> {source.rightsRule}</p>
+            </article>
+          ))}
+        </div>
+        <p className="mt-5 max-w-4xl text-xs leading-6 text-muted-foreground">
+          Library of Congress HABS/HAER/HALS records are especially useful because many U.S.-Government-created images carry a “no known restrictions” rights advisory, but the individual LOC record still controls: copied-source material can have separate restrictions and is not assumed public domain merely because it appears in the collection.
+        </p>
       </div>
 
       <div className="mt-10 border-l-2 border-primary bg-surface p-6 sm:p-8">
