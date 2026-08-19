@@ -82,6 +82,8 @@ function ThingsUniqueToTexasPage() {
               <h2 className="font-display text-3xl">Go deeper</h2>
               <div className="mt-6 divide-y divide-border border-y border-border">
                 <RelatedLink to="/things-unique-to-texas/methodology" title="How this collection is maintained" text="See the inclusion rules, source precedence, cross-link policy and corrections approach behind the 250 entries." />
+                <a href="/things-that-define-texas.csv" className="group block py-5"><span className="font-semibold group-hover:text-primary">Download the 250-item CSV →</span><span className="mt-1 block text-sm leading-6 text-muted-foreground">Item numbers, chapter membership, descriptions and canonical deeper-guide relationships for analysis or reuse.</span></a>
+                <a href="/things-that-define-texas.json" className="group block py-5"><span className="font-semibold group-hover:text-primary">Download the reference JSON →</span><span className="mt-1 block text-sm leading-6 text-muted-foreground">The same 250 reference rows with field definitions and methodology metadata for machine use.</span></a>
                 <RelatedLink to="/texas-symbols" title="Official Texas Symbols" text="See which icons are actually designated by the state." />
                 <RelatedLink to="/texas-explained" title="Texas Explained" text="Understand the geography, roads, towns, homes and systems behind the culture." />
                 <RelatedLink to="/explore" title="Explore Texas" text="Turn natural wonders, landmarks and small-town stops into a trip." />
