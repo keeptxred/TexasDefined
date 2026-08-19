@@ -122,6 +122,7 @@ const LEGACY_ARTICLE_TO_COUNTY = new Map<string, string>([
   ["trinity-county-groveton-lumber-trinity-river-piney-woods-texas", "trinity"],
   ["houston-county-crockett-mission-tejas-piney-woods-texas", "houston"],
   ["angelina-county-lufkin-diboll-sam-rayburn-piney-woods-texas", "angelina"],
+  ["nacogdoches-county-nacogdoches-caddo-el-camino-piney-woods-texas", "nacogdoches"],
 ]);
 
 const COUNTY_SLUGS = new Set(LEGACY_ARTICLE_TO_COUNTY.values());
