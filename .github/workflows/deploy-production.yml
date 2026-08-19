@@ -43,6 +43,7 @@ jobs:
           node scripts/data/validate-machine-indexing.mjs
           node scripts/data/validate-things-unique-to-texas.mjs
           node scripts/data/validate-texas-icon-link-depth.mjs
+          node scripts/data/validate-texas-weather-authority.mjs
           node scripts/data/validate-texas-food-history.mjs
           node scripts/data/validate-texas-culture-citation-index.mjs
       - name: Build production bundle
