@@ -1,0 +1,3 @@
+Validation-only marker for the current Things That Define Texas authority baseline.
+
+This branch is intentionally identical to main except for this marker so pull-request CI validates the current 89-link authority contract, citation guidance, historic-site enrichment, search-intent contracts, production data, complete Trip Planner coverage, production build, and client performance budget.
