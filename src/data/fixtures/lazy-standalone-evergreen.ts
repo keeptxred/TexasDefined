@@ -91,6 +91,18 @@ const presidentialTexasHistoricHomesStub: Article = {
   body: [], relatedCollections: [], relatedDestinations: ["eisenhower-birthplace", "bush-family-home", "sam-rayburn-house", "casa-navarro"],
 };
 
+const brazoriaPlantationsSlaveryEmancipationHistoryStub: Article = {
+  id: "evergreen-brazoria-plantations-slavery-emancipation-history", brandId: "texasdefined", slug: "brazoria-plantations-slavery-emancipation-history",
+  title: "Brazoria County Plantation History: Slavery, Emancipation and Archaeology",
+  dek: "Levi Jordan and Varner-Hogg preserve two difficult, essential Texas landscapes where enslaved labor, emancipation, Reconstruction, sharecropping, ranching and archaeology can be read together.",
+  category: "texas-history",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Levi_Jordan_Plantation_State_Historic_Site.jpg", alt: "Levi Jordan Plantation State Historic Site in Brazoria County, Texas", width: 960, height: 720, credit: "Texas Historical Commission · CC BY 4.0 · Wikimedia Commons" },
+  authorId: "a-marisol", publishedAt: "2026-08-19", readingMinutes: 15,
+  tags: ["texas slavery history", "brazoria county history", "levi jordan plantation", "varner hogg plantation", "emancipation", "reconstruction", "texas archaeology"], featured: true,
+  sourceName: "Texas Historical Commission", sourceUrl: "https://thc.texas.gov/historic-sites",
+  body: [], relatedCollections: [], relatedDestinations: ["levi-jordan-plantation", "varner-hogg-plantation", "first-capitol-of-texas", "stephen-f-austin-memorial"],
+};
+
 export const standaloneEvergreenStubs: Article[] = [
   rodeo101Stub,
   highSchoolFootballNewcomersStub,
@@ -100,6 +112,7 @@ export const standaloneEvergreenStubs: Article[] = [
   texasRevolutionHistoricSitesRoadTripStub,
   texasFrontierFortsRoadTripStub,
   presidentialTexasHistoricHomesStub,
+  brazoriaPlantationsSlaveryEmancipationHistoryStub,
 ];
 
 export async function loadStandaloneEvergreenArticle(brandId: string, slug: string): Promise<Article | null> {
@@ -112,5 +125,6 @@ export async function loadStandaloneEvergreenArticle(brandId: string, slug: stri
   if (slug === texasRevolutionHistoricSitesRoadTripStub.slug) return import("./texas-revolution-historic-sites-road-trip").then((module) => module.texasRevolutionHistoricSitesRoadTripArticle);
   if (slug === texasFrontierFortsRoadTripStub.slug) return import("./texas-frontier-forts-road-trip").then((module) => module.texasFrontierFortsRoadTripArticle);
   if (slug === presidentialTexasHistoricHomesStub.slug) return import("./presidential-texas-historic-homes").then((module) => module.presidentialTexasHistoricHomesArticle);
+  if (slug === brazoriaPlantationsSlaveryEmancipationHistoryStub.slug) return import("./brazoria-plantations-slavery-emancipation-history").then((module) => module.brazoriaPlantationsSlaveryEmancipationHistoryArticle);
   return null;
 }
