@@ -37,6 +37,18 @@ const extraGallery: Record<string, PaintedChurchGalleryImage[]> = {
       license: "Public domain — released by author",
     },
   ],
+  "panna-maria-immaculate-conception": [
+    {
+      src: commons("Panna Maria - Immaculate Conception Church interior.jpg"),
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Panna_Maria_-_Immaculate_Conception_Church_interior.jpg",
+      alt: "Interior of Immaculate Conception Catholic Church in Panna Maria, Texas",
+      caption: "A 2019 interior view of Immaculate Conception at Panna Maria documents the sanctuary, painted surfaces and devotional furnishings of the historic Polish Catholic parish.",
+      width: 1600,
+      height: 1200,
+      credit: "Luxetowiec · Wikimedia Commons",
+      license: "CC BY-SA 4.0",
+    },
+  ],
 };
 
 export function extraPaintedChurchGalleryBySlug(slug: string) {
