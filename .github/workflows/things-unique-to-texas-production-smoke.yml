@@ -67,6 +67,10 @@ jobs:
           check_page '/texas-natural-wonders-bucket-list' 'Texas Natural Wonders Bucket List'
           check_page '/german-czech-texas-towns' 'German & Czech Texas Towns'
           check_page '/texas-brand-origin-stories' 'Texas Brand Origin Stories'
+          check_page '/texas-chili-con-carne-history' 'Texas Chili Con Carne'
+          check_page '/texas-chicken-fried-steak-guide' 'Texas Chicken-Fried Steak'
+          check_page '/texas-breakfast-taco-guide' 'Texas Breakfast Tacos'
+          check_page '/dr-pepper-texas-history' 'Dr Pepper in Texas'
 
       - name: Verify machine-readable reference distributions
         shell: bash
@@ -101,7 +105,7 @@ jobs:
             echo '- Canonical collection: https://texasdefined.com/things-unique-to-texas'
             echo '- Methodology: https://texasdefined.com/things-unique-to-texas/methodology'
             echo '- Chapter routes checked: 8'
-            echo '- Evergreen deep-dive routes checked: 8'
+            echo '- Evergreen deep-dive routes checked: 12'
             echo '- Machine distributions: 250-row JSON and CSV packages'
             echo '- HTML routes must be indexable; data downloads must return X-Robots-Tag: noindex, follow.'
           } >> "$GITHUB_STEP_SUMMARY"
