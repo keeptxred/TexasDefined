@@ -14,9 +14,11 @@ for (const feature of [
   "isPartOf: { '@id': `${siteUrl}/#website` }",
   'const sectionItems = sections.map(([name, path, copy])',
   'const cultureItems = cultureGuides.map(([path, name, copy])',
-  'const topicItems = [...sectionItems, ...cultureItems].map',
+  'const financeItems = financeGuides.map(([path, name, copy])',
+  'const topicItems = [...sectionItems, ...cultureItems, ...financeItems].map',
   'sections.map(([title, to, copy], index)',
   'cultureGuides.map(([to, title, copy])',
+  'financeGuides.map(([to, title, copy])',
   'articles.map((article, index)',
   'itemListElement: [...topicItems, ...articleItems]',
   'breadcrumb: { \'@id\': `${pageUrl}#breadcrumbs` }',
@@ -27,6 +29,7 @@ for (const feature of [
   "name: 'Texas Life'",
   "name: 'Texas Life departments and guides'",
   "['Things That Define Texas', '/things-unique-to-texas'",
+  "['/texas-food-history', 'Texas Food History'",
   "['/texas-food-trail', 'Texas Food Trail'",
   "['/texas-breakfast-taco-guide', 'Texas Breakfast Tacos'",
   "['/texas-chili-con-carne-history', 'Texas Chili Con Carne'",
@@ -34,6 +37,9 @@ for (const feature of [
   "['/texas-natural-wonders-bucket-list', 'Texas Natural Wonders'",
   "['/texas-brand-origin-stories', 'Texas Brand Origin Stories'",
   "['/dr-pepper-texas-history', 'Dr Pepper in Texas'",
+  "['/article/texas-utility-costs-guide', 'Estimate Texas utility costs'",
+  "['/article/texas-closing-costs-guide', 'Understand closing costs and cash to close'",
+  "['/article/salary-needed-to-buy-a-house-in-texas', 'Work backward from a sustainable home payment'",
 ]) {
   if (!route.includes(feature)) errors.push(`Texas Life SEO or naming feature missing: ${feature}.`);
 }
@@ -64,4 +70,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Texas Life metadata, CollectionPage, mixed department/culture/article ItemList, expanded culture-guide discovery, shared visible breadcrumb, and JSON-LD naming are aligned.');
+console.log('Texas Life metadata, CollectionPage, mixed department/culture/finance/article ItemList, expanded culture and finance discovery, shared visible breadcrumb, and JSON-LD naming are aligned.');
