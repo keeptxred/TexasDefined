@@ -26,47 +26,23 @@ const guideSlugs = new Set([...primaryGuideSlugs, ...extraGuideSlugs]);
 for (const slug of seedSlugs) if (!guideSlugs.has(slug)) failures.push(`Historic site is missing destination-specific area-guide coverage: ${slug}.`);
 for (const slug of guideSlugs) if (!seedSlugs.includes(slug)) failures.push(`Historic area-guide key does not match a statewide historic-site seed: ${slug}.`);
 
-for (const marker of [
-  'historicSiteDestinations',
-  'export const preservedExploreDestinations = mergePreservedDestinations(',
-]) if (!preserved.includes(marker)) failures.push(`Preserved historic-site catalog contract missing: ${marker}`);
+for (const marker of ['historicSiteDestinations', 'export const preservedExploreDestinations = mergePreservedDestinations(']) if (!preserved.includes(marker)) failures.push(`Preserved historic-site catalog contract missing: ${marker}`);
+for (const marker of ['enrichHistoricSiteCatalog','enrichHistoricSiteDestination','enrichRemainingHistoricSiteAreaGuide','enrichHistoricSiteRemoteHero','enrichHistoricSiteCatalog(curated).map(enrichRemainingHistoricSiteAreaGuide).map(enrichHistoricSiteRemoteHero)']) if (!runtime.includes(marker)) failures.push(`Historic-site runtime enrichment contract missing: ${marker}`);
+for (const marker of ['destinationsQuery({ category: "historic-sites" })','historicSiteClusters','/explore/$category']) if (!history.includes(marker)) failures.push(`Texas History historic-site discovery contract missing: ${marker}`);
+for (const marker of ["destinationsQuery({ category: 'historic-sites' })",'Historic places in this county','/explore/historic-sites','/texas-history']) if (!county.includes(marker)) failures.push(`County historic-site discovery contract missing: ${marker}`);
 
-for (const marker of [
-  'enrichHistoricSiteCatalog',
-  'enrichHistoricSiteDestination',
-  'enrichRemainingHistoricSiteAreaGuide',
-  'enrichHistoricSiteRemoteHero',
-  'enrichHistoricSiteCatalog(curated).map(enrichRemainingHistoricSiteAreaGuide).map(enrichHistoricSiteRemoteHero)',
-]) if (!runtime.includes(marker)) failures.push(`Historic-site runtime enrichment contract missing: ${marker}`);
-
-for (const marker of [
-  'destinationsQuery({ category: "historic-sites" })',
-  'historicSiteClusters',
-  '/explore/$category',
-]) if (!history.includes(marker)) failures.push(`Texas History historic-site discovery contract missing: ${marker}`);
-
-for (const marker of [
-  "destinationsQuery({ category: 'historic-sites' })",
-  'Historic places in this county',
-  '/explore/historic-sites',
-  '/texas-history',
-]) if (!county.includes(marker)) failures.push(`County historic-site discovery contract missing: ${marker}`);
-
-const exactHeroAliases = [
-  'barrington-living-history-farm',
-  'fanthorp-inn',
-  'kreische-brewery',
-  'monument-hill',
-  'san-jacinto-battleground',
-  'washington-on-the-brazos',
-];
+const exactHeroAliases = ['barrington-living-history-farm','fanthorp-inn','kreische-brewery','monument-hill','san-jacinto-battleground','washington-on-the-brazos'];
 for (const slug of exactHeroAliases) if (!primary.includes(`"${slug}"`)) failures.push(`Expected exact historic hero alias is missing: ${slug}.`);
 
 const verifiedRemoteHeroes = [
+  ['caddo-mounds-state-historic-site', 'CC BY-SA 3.0'],
   ['eisenhower-birthplace', 'CC BY 2.0'],
+  ['fort-griffin', 'CC BY-SA 3.0'],
   ['fort-mckavett', 'CC0'],
   ['french-legation', 'CC BY 4.0'],
   ['fulton-mansion', 'CC BY 4.0'],
+  ['port-isabel-lighthouse', 'CC BY-SA 4.0'],
+  ['presidio-la-bahia', 'CC BY-SA 4.0'],
 ];
 for (const [slug, license] of verifiedRemoteHeroes) {
   if (!remoteHeroes.includes(`"${slug}"`)) failures.push(`Verified historic remote hero is missing: ${slug}.`);
@@ -74,10 +50,5 @@ for (const [slug, license] of verifiedRemoteHeroes) {
 }
 if (!remoteHeroes.includes('enrichHistoricSiteRemoteHero')) failures.push('Verified historic remote heroes are not exposed through the runtime enrichment function.');
 
-if (failures.length) {
-  console.error('Historic-sites validation failed:');
-  for (const failure of failures) console.error(`- ${failure}`);
-  process.exit(1);
-}
-
+if (failures.length) { console.error('Historic-sites validation failed:'); for (const failure of failures) console.error(`- ${failure}`); process.exit(1); }
 console.log(`Historic-sites validation passed: ${seedSlugs.length} statewide seeds, ${guideSlugs.size} destination-specific area guides, ${exactHeroAliases.length + verifiedRemoteHeroes.length} exact verified hero mappings, shared preserved-catalog publication, Texas History discovery and county cross-links are protected.`);
