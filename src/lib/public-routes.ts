@@ -9,6 +9,8 @@ export const INDEXABLE_STATIC_PATHS = [
   "/explore/painted-churches/compare",
   "/explore/painted-churches/how-many",
   "/explore/painted-churches/methodology",
+  "/explore/painted-churches/census",
+  "/explore/painted-churches/techniques",
   "/explore/top-attractions",
   "/explore/top-attractions/methodology",
   "/explore/top-attractions/road-trips",
