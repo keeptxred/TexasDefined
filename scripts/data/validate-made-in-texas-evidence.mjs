@@ -35,7 +35,7 @@ const evidence = evidenceBlocks.map((block) => ({
 }));
 
 if (entries.size < 80) failures.push(`Made in Texas dataset unexpectedly shrank to ${entries.size} entries.`);
-if (evidence.length < 29) failures.push(`Expected at least 29 verified Made in Texas evidence records; found ${evidence.length}.`);
+if (evidence.length < 36) failures.push(`Expected at least 36 verified Made in Texas evidence records; found ${evidence.length}.`);
 
 const seenNames = new Set();
 const seenUrls = new Set();
@@ -82,12 +82,15 @@ for (const record of evidence) {
 
 if (!evidenceSource.includes('evidenceForMadeInTexasEntry')) failures.push('Evidence lookup helper must remain available to county and statewide UI.');
 
+const verifiedCount = evidence.length;
+const madeCount = [...entries.values()].filter((entry) => entry.relationship === 'made-or-processed').length;
+const queuedCount = madeCount - verifiedCount;
+if (queuedCount !== 0) failures.push(`Every made-or-processed entry must have authoritative evidence; ${queuedCount} entries remain unmatched.`);
+
 if (failures.length) {
   console.error('Made in Texas evidence validation failed:');
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-const verifiedCount = evidence.length;
-const queuedCount = [...entries.values()].filter((entry) => entry.relationship === 'made-or-processed').length - verifiedCount;
-console.log(`Made in Texas evidence validation passed: ${verifiedCount} first-party evidence records map only to made-or-processed entries; ${Math.max(0, queuedCount)} made-or-processed entries remain eligible for future source review.`);
+console.log(`Made in Texas evidence validation passed: ${verifiedCount} authoritative evidence records map only to made-or-processed entries; 0 made-or-processed entries remain eligible for source review.`);
