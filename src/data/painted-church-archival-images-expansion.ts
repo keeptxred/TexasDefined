@@ -2,6 +2,36 @@ import type { PaintedChurchArchivalImageReference } from "./painted-church-archi
 
 const expansionArchival: PaintedChurchArchivalImageReference[] = [
   {
+    slug: "dubina-saints-cyril-methodius",
+    label: "Dubina interior detail — Portal record metapth28467",
+    source: "The Portal to Texas History / Photographing Texas",
+    url: "https://texashistory.unt.edu/ark:/67531/metapth28467/",
+    subject: "Exact interior detail of Saints Cyril & Methodius Catholic Church in Dubina photographed by Dreanna L. Belden on October 7, 2006.",
+    credit: "Dreanna L. Belden",
+    rightsStatus: "item-review-required",
+    rightsNote: "The Portal identifies this as a primary-source church photograph. Texas Defined links the record and does not assume a blanket reuse license from collection membership.",
+  },
+  {
+    slug: "dubina-saints-cyril-methodius",
+    label: "Dubina interior detail — Portal record metapth28473",
+    source: "The Portal to Texas History / Photographing Texas",
+    url: "https://texashistory.unt.edu/ark:/67531/metapth28473/",
+    subject: "Second exact interior detail of Saints Cyril & Methodius Catholic Church in Dubina from the 2006 Photographing Texas series.",
+    credit: "Dreanna L. Belden",
+    rightsStatus: "item-review-required",
+    rightsNote: "Exact church-specific archival evidence; item-level permissions remain controlling for republication.",
+  },
+  {
+    slug: "dubina-saints-cyril-methodius",
+    label: "Dubina interior detail — Portal record metapth28471",
+    source: "The Portal to Texas History / Photographing Texas",
+    url: "https://texashistory.unt.edu/ark:/67531/metapth28471/",
+    subject: "Additional exact interior detail of Saints Cyril & Methodius Catholic Church in Dubina from the same documented 2006 survey.",
+    credit: "Dreanna L. Belden",
+    rightsStatus: "item-review-required",
+    rightsNote: "Linked as primary-source visual evidence; no republication occurs without item-level reuse confirmation.",
+  },
+  {
     slug: "san-antonio-st-joseph-catholic-church",
     label: "St. Joseph apse and frescoed interior",
     source: "The Portal to Texas History / San Antonio Conservation Society",
