@@ -53,6 +53,7 @@ export const Route = createFileRoute("/explore/top-attractions/road-trips")({
             description,
             isPartOf: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#website` },
             mainEntity: { "@id": `${pageUrl}#routes` },
+            dateModified: "2026-08-19",
           },
           {
             "@type": "ItemList",
