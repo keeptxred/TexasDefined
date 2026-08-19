@@ -80,6 +80,7 @@ const verifiedRemoteHeroes = [
   ['sam-bell-maxey-house', 'CC BY-SA 3.0'],
   ['sam-rayburn-house', 'CC BY 2.0'],
   ['san-felipe-de-austin', 'CC BY 4.0'],
+  ['slaton-harvey-house', 'CC0'],
   ['star-of-the-republic-museum', 'CC BY 4.0'],
   ['starr-family-home', 'CC BY 2.0'],
   ['stephen-f-austin-memorial', 'CC0'],
@@ -93,6 +94,7 @@ const remoteHeroSlugs = remoteHeroBlock ? [...remoteHeroBlock[1].matchAll(/^\s{2
 if (new Set(remoteHeroSlugs).size !== remoteHeroSlugs.length) failures.push('Verified historic remote-hero slugs must be unique.');
 for (const slug of remoteHeroSlugs) if (!seedSlugs.includes(slug)) failures.push(`Verified historic remote hero does not match a statewide historic-site seed: ${slug}.`);
 if (remoteHeroSlugs.length !== verifiedRemoteHeroes.length) failures.push(`Historic remote-hero registry/validator count mismatch: registry ${remoteHeroSlugs.length}, validator ${verifiedRemoteHeroes.length}.`);
+for (const slug of exactHeroAliases) if (remoteHeroSlugs.includes(slug)) failures.push(`Historic site has competing exact hero alias and remote hero mappings: ${slug}.`);
 
 for (const [slug, license] of verifiedRemoteHeroes) {
   if (!seedSlugs.includes(slug)) failures.push(`Protected historic remote hero does not match a statewide seed: ${slug}.`);
