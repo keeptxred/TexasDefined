@@ -49,8 +49,8 @@ for (const feature of [
   'isPrimaryTripPlannerDestination(destination)',
   'auditDestination(destination).readyForIndexing',
   'const remoteDestinations = mergeDestinationSources(coreDestinations, enrichedDestinations)',
-  'const useFixtureFallback = (enrichedFailed && coreFailed) || remoteDestinations.length === 0',
-  'const rawDestinations = useFixtureFallback ? fixtureDestinations : remoteDestinations',
+  'const usePreservedFallback = (enrichedFailed && coreFailed) || remoteDestinations.length === 0',
+  'const rawDestinations = usePreservedFallback ? preservedExploreDestinations : remoteDestinations',
   'const destinations = resolveDestinationCatalog(rawDestinations)',
 ]) {
   if (!explore.includes(feature)) failures.push(`Explore sitemap crawl-quality contract missing: ${feature}`);
@@ -105,4 +105,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Crawl-demand validation passed: sitemap namespaces are partitioned, Explore destinations use quality-gated unavailable-or-empty remote fallback, unverified city detail URLs are not promoted, county property children are verification-filtered, and robots advertises each sitemap once.');
+console.log('Crawl-demand validation passed: sitemap namespaces are partitioned, Explore destinations use quality-gated preserved-catalog fallback when remote sources are unavailable or empty, unverified city detail URLs are not promoted, county property children are verification-filtered, and robots advertises each sitemap once.');

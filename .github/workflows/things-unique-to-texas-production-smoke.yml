@@ -59,6 +59,15 @@ jobs:
           check_page '/things-unique-to-texas/wildlife-landscape' 'Texas Wildlife, Plants & Geography'
           check_page '/things-unique-to-texas/slang-folklore' 'Texas Slang, Symbols & Folklore'
 
+          check_page '/texas-food-trail' 'The Texas Food Trail'
+          check_page '/texas-roadside-oddities' 'Texas Roadside Oddities'
+          check_page '/texas-slang-explained' 'Texas Slang Explained'
+          check_page '/texas-dance-halls-honky-tonks' 'Texas Dance Halls & Honky-Tonks'
+          check_page '/texas-homecoming-mums' 'Texas Homecoming Mums Explained'
+          check_page '/texas-natural-wonders-bucket-list' 'Texas Natural Wonders Bucket List'
+          check_page '/german-czech-texas-towns' 'German & Czech Texas Towns'
+          check_page '/texas-brand-origin-stories' 'Texas Brand Origin Stories'
+
       - name: Verify machine-readable reference distributions
         shell: bash
         run: |
@@ -92,6 +101,7 @@ jobs:
             echo '- Canonical collection: https://texasdefined.com/things-unique-to-texas'
             echo '- Methodology: https://texasdefined.com/things-unique-to-texas/methodology'
             echo '- Chapter routes checked: 8'
+            echo '- Evergreen deep-dive routes checked: 8'
             echo '- Machine distributions: 250-row JSON and CSV packages'
             echo '- HTML routes must be indexable; data downloads must return X-Robots-Tag: noindex, follow.'
           } >> "$GITHUB_STEP_SUMMARY"

@@ -121,7 +121,7 @@ try {
 }
 
 if (citationIndex) {
-  if (citationIndex.asOf !== '2026-08-18') errors.push('citation-magnets.json must carry the current 2026-08-18 asOf date.');
+  if (citationIndex.asOf !== '2026-08-19') errors.push('citation-magnets.json must carry the current 2026-08-19 asOf date.');
   const citationUrls = new Set((citationIndex.resources ?? []).map((resource) => resource.url));
   for (const url of [
     'https://texasdefined.com/sports-venues',
@@ -132,6 +132,19 @@ if (citationIndex) {
     'https://texasdefined.com/sports-venues/high-school-football',
   ]) {
     if (!citationUrls.has(url)) errors.push(`Machine-readable citation index is missing sports resource ${url}.`);
+  }
+  for (const url of [
+    'https://texasdefined.com/things-unique-to-texas',
+    'https://texasdefined.com/things-unique-to-texas/methodology',
+    'https://texasdefined.com/texas-food-trail',
+    'https://texasdefined.com/texas-roadside-oddities',
+    'https://texasdefined.com/texas-slang-explained',
+    'https://texasdefined.com/texas-dance-halls-honky-tonks',
+    'https://texasdefined.com/texas-homecoming-mums',
+    'https://texasdefined.com/texas-natural-wonders-bucket-list',
+    'https://texasdefined.com/german-czech-texas-towns',
+  ]) {
+    if (!citationUrls.has(url)) errors.push(`Machine-readable citation index is missing Texas culture resource ${url}.`);
   }
   const sportsResources = (citationIndex.resources ?? []).filter((resource) => resource.url.includes('/sports-venues'));
   for (const resource of sportsResources) {

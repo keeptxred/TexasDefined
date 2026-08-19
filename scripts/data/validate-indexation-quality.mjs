@@ -6,6 +6,8 @@ const exploreSitemap = fs.readFileSync('src/routes/sitemap-explore[.]xml.ts', 'u
 const newsLayout = fs.readFileSync('src/routes/news.tsx', 'utf8');
 const newsIndex = fs.readFileSync('src/routes/news.index.tsx', 'utf8');
 const newsStory = fs.readFileSync('src/routes/news.$slug.tsx', 'utf8');
+const articleRoute = fs.readFileSync('src/routes/article.$slug.tsx', 'utf8');
+const lazyEvergreen = fs.readFileSync('src/data/fixtures/lazy-evergreen.ts', 'utf8');
 const entityRoute = fs.readFileSync('src/routes/$kind.$slug.tsx', 'utf8');
 const countyRoute = fs.readFileSync('src/routes/property-tax.county.$county.tsx', 'utf8');
 const failures = [];
@@ -35,6 +37,28 @@ for (const path of ['/tax-calculator', '/texas-financial-tools', '/texas-propert
   if (always.includes(`"${path}"`) || conditional.includes(`"${path}"`)) failures.push(`${path} must not be indexable.`);
 }
 
+for (const feature of [
+  'const canonicalPath = `/article/${params.slug}`',
+  'canonicalLink(texasDefinedBrand, canonicalPath)',
+  'title: article.title',
+  'description: article.dek',
+  'publishedTime: article.publishedAt',
+]) {
+  if (!articleRoute.includes(feature)) failures.push(`Evergreen article indexation contract missing: ${feature}`);
+}
+if (!articleRoute.includes('if (!loaderData) return { meta: [{ title: "Unavailable" }, { name: "robots", content: "noindex, nofollow" }] };')) {
+  failures.push('Article route must reserve noindex for the unavailable-loader state.');
+}
+const articleMetaBlock = articleRoute.match(/meta: buildMeta\(texasDefinedBrand, \{([\s\S]*?)\n\s*\}\),\n\s*links:/)?.[1] ?? '';
+if (!articleMetaBlock) failures.push('Could not parse normal article buildMeta block.');
+else if (/\brobots\s*:/.test(articleMetaBlock)) failures.push('Loaded evergreen articles must not emit a noindex robots override from the normal article metadata block.');
+if (!sitemap.includes('...articles.filter((article) => !isLegacyCountySeriesArticle(article.slug)).map((article) => ({ path: `/article/${article.slug}`')) {
+  failures.push('Primary sitemap must publish the normal non-legacy article catalog.');
+}
+for (const slug of ['muds-pids-hoas-special-districts-texas', 'texas-towns-german-czech-mexican-roots']) {
+  if (!lazyEvergreen.includes(`slug: "${slug}"`)) failures.push(`GSC evergreen indexing candidate is missing from the lazy article registry: ${slug}`);
+}
+
 if (!entityRoute.includes('isIndexableEntityPage')) failures.push('Generic entity indexation gate missing: isIndexableEntityPage.');
 if (!entityRoute.includes('robots: indexable ? undefined :') || !entityRoute.includes('noindex, follow')) {
   failures.push('Generic entity pages must emit a noindex directive when the quality gate fails.');
@@ -61,4 +85,4 @@ if (failures.length) {
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
-console.log('Indexation quality validation passed: conditional hubs, routed-news canonical isolation, noindex utilities, redirects, generated-page quality gates, and sitemap ownership are aligned.');
+console.log('Indexation quality validation passed: conditional hubs, routed-news canonical isolation, loaded evergreen article canonicals/indexability and sitemap publication, noindex utilities, redirects, generated-page quality gates, and sitemap ownership are aligned.');

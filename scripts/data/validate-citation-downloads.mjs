@@ -15,6 +15,12 @@ const topMethodologyContent = await read('src/components/explore/TopAttractionsM
 const topCsv = await read('src/routes/top-25-texas-attractions[.]csv.ts');
 const topJson = await read('src/routes/top-25-texas-attractions[.]json.ts');
 const topReferenceData = await read('src/data/top-attraction-reference-data.ts');
+const iconsRoute = await read('src/routes/things-unique-to-texas.tsx');
+const iconsContent = await read('src/routes/things-unique-to-texas.lazy.tsx');
+const iconsMethodology = await read('src/routes/things-unique-to-texas.methodology.tsx');
+const iconsCsv = await read('src/routes/things-that-define-texas[.]csv.ts');
+const iconsJson = await read('src/routes/things-that-define-texas[.]json.ts');
+const iconsReferenceData = await read('src/data/things-unique-to-texas-reference.ts');
 
 const errors = [];
 const expect = (condition, message) => { if (!condition) errors.push(message); };
@@ -84,7 +90,6 @@ for (const token of [
   'Download reference JSON',
   'variableMeasured',
 ]) expect(topRoute.includes(token), `Top 25 Dataset distribution missing: ${token}`);
-
 for (const token of [
   'TOP_ATTRACTION_REFERENCE_ROWS',
   'TOP_ATTRACTIONS_METHODOLOGY_URL',
@@ -92,7 +97,6 @@ for (const token of [
   'roadTrips',
   'sourceCheckedAt',
 ]) expect(topReferenceData.includes(token), `Top 25 shared reference-data contract missing: ${token}`);
-
 for (const token of [
   "createFileRoute('/top-25-texas-attractions.csv')",
   "'content-type': 'text/csv; charset=utf-8'",
@@ -104,7 +108,6 @@ for (const token of [
   "'road_trip_names'",
   "'methodology_url'",
 ]) expect(topCsv.includes(token), `Top 25 CSV contract missing: ${token}`);
-
 for (const token of [
   "createFileRoute('/top-25-texas-attractions.json')",
   "'content-type': 'application/json; charset=utf-8'",
@@ -117,7 +120,6 @@ for (const token of [
   'canonicalCollection',
   'methodology',
 ]) expect(topJson.includes(token), `Top 25 JSON contract missing: ${token}`);
-
 expect(topMethodology.includes('TopAttractionsMethodologyContent'), 'Top 25 methodology route must retain the split methodology content component');
 for (const token of [
   'Source URLs travel with the data',
@@ -125,10 +127,57 @@ for (const token of [
   '/top-25-texas-attractions.json',
 ]) expect(topMethodologyContent.includes(token), `Top 25 methodology download contract missing: ${token}`);
 
+for (const token of [
+  '"@type": "Dataset"',
+  '"@type": "DataDownload"',
+  'encodingFormat: "text/csv"',
+  'encodingFormat: "application/json"',
+  'contentUrl: csvUrl',
+  'contentUrl: jsonUrl',
+  'variableMeasured',
+]) expect(iconsRoute.includes(token), `Things That Define Texas Dataset distribution missing: ${token}`);
+for (const token of [
+  'TEXAS_ICON_REFERENCE_ROWS',
+  'TEXAS_ICONS_COLLECTION_URL',
+  'TEXAS_ICONS_METHODOLOGY_URL',
+  'TEXAS_ICON_CATEGORIES.flatMap',
+  'texasIconCanonicalHref(entry)',
+  'deeperGuide',
+]) expect(iconsReferenceData.includes(token), `Things That Define Texas shared reference-data contract missing: ${token}`);
+for (const token of [
+  "createFileRoute('/things-that-define-texas.csv')",
+  "'content-type': 'text/csv; charset=utf-8'",
+  "'x-robots-tag': 'noindex, follow'",
+  "'content-disposition': 'attachment; filename=\"texasdefined-things-that-define-texas.csv\"'",
+  'TEXAS_ICON_REFERENCE_ROWS',
+  "'deeper_guide'",
+  "'canonical_collection'",
+  "'methodology'",
+]) expect(iconsCsv.includes(token), `Things That Define Texas CSV contract missing: ${token}`);
+for (const token of [
+  "createFileRoute('/things-that-define-texas.json')",
+  "'content-type': 'application/json; charset=utf-8'",
+  "'x-robots-tag': 'noindex, follow'",
+  "'content-disposition': 'attachment; filename=\"texasdefined-things-that-define-texas.json\"'",
+  'TEXAS_ICON_REFERENCE_ROWS',
+  'schemaVersion: 1',
+  'canonicalCollection',
+  'methodology',
+  'count: TEXAS_ICON_REFERENCE_ROWS.length',
+  'items: TEXAS_ICON_REFERENCE_ROWS',
+]) expect(iconsJson.includes(token), `Things That Define Texas JSON contract missing: ${token}`);
+for (const token of [
+  '/things-that-define-texas.csv',
+  '/things-that-define-texas.json',
+]) {
+  expect(iconsContent.includes(`href=\"${token}\"`), `Things That Define Texas collection must expose ${token}`);
+  expect(iconsMethodology.includes(`href=\"${token}\"`), `Things That Define Texas methodology must expose ${token}`);
+}
+
 if (errors.length) {
   console.error('Citation dataset download validation failed:');
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
 
-console.log('Citation dataset download validation passed: growth, city-county, sports-venue and Top-25 CSV/JSON distributions remain visible, noindex, source-aligned and machine-readable.');
+console.log('Citation dataset download validation passed: growth, city-county, sports-venue, Top-25 and Things-That-Define-Texas CSV/JSON distributions remain visible, noindex, source-aligned and machine-readable.');
