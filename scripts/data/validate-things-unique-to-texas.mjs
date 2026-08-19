@@ -44,6 +44,8 @@ const additionalSmokePaths = [
   '/article/texas-wildlife-guide',
   '/article/texas-trees-guide',
   '/article/galveston-county-island-port-juneteenth-texas',
+  '/texas-blue-norther-weather-guide',
+  '/texas-symbols',
 ];
 
 const ids = [...source.matchAll(/\bitem\((\d+),/g)].map((match) => Number(match[1]));
@@ -63,9 +65,9 @@ for (const href of hrefs) {
   if (href.startsWith('//')) failures.push(`Protocol-relative magazine href is not allowed: ${href}`);
 }
 
-if (canonicalIds.length < 41) failures.push(`Expected at least 41 canonical destination cross-links; found ${canonicalIds.length}.`);
-if (deepDiveIds.length < 43) failures.push(`Expected at least 43 purpose-built/editorial deep-dive mappings; found ${deepDiveIds.length}.`);
-if (canonicalIds.length + deepDiveIds.length < 84) failures.push(`Expected at least 84 protected deeper-guide relationships; found ${canonicalIds.length + deepDiveIds.length}.`);
+if (canonicalIds.length < 42) failures.push(`Expected at least 42 canonical destination cross-links; found ${canonicalIds.length}.`);
+if (deepDiveIds.length < 47) failures.push(`Expected at least 47 purpose-built/editorial deep-dive mappings; found ${deepDiveIds.length}.`);
+if (canonicalIds.length + deepDiveIds.length < 89) failures.push(`Expected at least 89 protected deeper-guide relationships; found ${canonicalIds.length + deepDiveIds.length}.`);
 if (new Set([...canonicalIds, ...deepDiveIds]).size !== canonicalIds.length + deepDiveIds.length) failures.push('Canonical and deep-dive cross-link IDs must be unique across registries.');
 for (const id of [...canonicalIds, ...deepDiveIds]) if (!ids.includes(id)) failures.push(`Canonical/deep-dive cross-link refers to unknown magazine entry ID ${id}.`);
 for (const [id, path] of [
@@ -79,9 +81,14 @@ for (const [id, path] of [
   [200, '/article/texas-wildlife-guide'],
   [204, '/article/texas-trees-guide'],
   [222, '/texas-slang-explained'],
+  [225, '/texas-symbols'],
+  [233, '/texas-blue-norther-weather-guide'],
+  [234, '/texas-blue-norther-weather-guide'],
+  [235, '/texas-blue-norther-weather-guide'],
 ]) {
   if (!linksSource.includes(`${id}: "${path}"`)) failures.push(`Magazine entry ${id} must retain deep-dive canonical link ${path}.`);
 }
+if (!linksSource.includes('249: "/destination/the-alamo"')) failures.push('Magazine entry 249 must retain exact destination guide /destination/the-alamo.');
 
 for (const [name, routeSource] of [['schema route', categoryRoute], ['lazy route', lazyRoute]]) if (!routeSource.includes('texasIconCanonicalHref')) failures.push(`${name} must resolve canonical magazine links through texasIconCanonicalHref.`);
 if (!categoryRoute.includes('...(href ? { url: `${origin}${href}` } : {})')) failures.push('Category JSON-LD must expose canonical URLs for linked magazine entries.');
@@ -138,7 +145,7 @@ for (const path of additionalSmokePaths) if (!productionSmoke.includes(`check_pa
 if (!productionSmoke.includes("workflows: ['Deploy TexasDefined production']")) failures.push('Magazine production smoke must remain chained to successful production deployments.');
 const smokePaths = ['/things-unique-to-texas','/things-unique-to-texas/methodology',...categorySlugs.map((slug) => `/things-unique-to-texas/${slug}`)];
 for (const path of smokePaths) if (!productionSmoke.includes(`'${path}'`)) failures.push(`Magazine production smoke must verify ${path}.`);
-for (const token of ['.count == 250','(.items | length) == 250','wc -l','251','x-robots-tag:','/things-that-define-texas.json','/things-that-define-texas.csv','test "$json_deep_links" -ge 84','test "$csv_deep_links" -ge 84','Topical/evergreen authority routes checked: 21','at least 84 deeper-guide relationships']) if (!productionSmoke.includes(token)) failures.push(`Magazine production smoke must retain current authority/distribution token: ${token}.`);
+for (const token of ['.count == 250','(.items | length) == 250','wc -l','251','x-robots-tag:','/things-that-define-texas.json','/things-that-define-texas.csv','test "$json_deep_links" -ge 89','test "$csv_deep_links" -ge 89','Topical/evergreen authority routes checked: 23','at least 89 deeper-guide relationships']) if (!productionSmoke.includes(token)) failures.push(`Magazine production smoke must retain current authority/distribution token: ${token}.`);
 
 if (failures.length) {
   console.error('Things That Define Texas validation failed:');
