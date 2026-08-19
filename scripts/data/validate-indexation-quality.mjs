@@ -11,6 +11,7 @@ const lazyEvergreen = fs.readFileSync('src/data/fixtures/lazy-evergreen.ts', 'ut
 const specialDistricts = fs.readFileSync('src/data/fixtures/muds-pids-hoas-special-districts.ts', 'utf8');
 const lazyMigratedEditorial = fs.readFileSync('src/data/fixtures/lazy-migrated-editorial.ts', 'utf8');
 const financeEvergreenDepth = fs.readFileSync('src/data/fixtures/finance-evergreen-depth.ts', 'utf8');
+const financeEvergreenDepth2 = fs.readFileSync('src/data/fixtures/finance-evergreen-depth-2.ts', 'utf8');
 const entityRoute = fs.readFileSync('src/routes/$kind.$slug.tsx', 'utf8');
 const countyRoute = fs.readFileSync('src/routes/property-tax.county.$county.tsx', 'utf8');
 const failures = [];
@@ -75,6 +76,7 @@ for (const marker of [
 ]) {
   if (!specialDistricts.includes(marker)) failures.push(`Special-district evergreen authority/discovery contract missing: ${marker}`);
 }
+
 const migratedFinanceEvergreens = [
   'texas-closing-costs-guide',
   'texas-utility-costs-guide',
@@ -96,6 +98,41 @@ for (const marker of [
   if (!lazyMigratedEditorial.includes(marker)) failures.push(`Finance evergreen deep-loader contract missing: ${marker}`);
 }
 
+const migratedFinanceEvergreens2 = [
+  'texas-house-down-payment-guide',
+  'should-you-refinance-texas-mortgage',
+  'texas-homeowners-insurance-guide',
+];
+const financeDepth2Block = lazyMigratedEditorial.match(/const financeDepth2SlugSet = new Set\(\[([\s\S]*?)\n\]\);/)?.[1] ?? '';
+if (!financeDepth2Block) failures.push('Could not parse financeDepth2SlugSet from lazy migrated editorial registry.');
+for (const slug of migratedFinanceEvergreens2) {
+  if (!lazyMigratedEditorial.includes(`slug: "${slug}"`)) failures.push(`Second-batch finance evergreen is missing from the lazy article registry: ${slug}`);
+  if (!financeDepth2Block.includes(`"${slug}"`)) failures.push(`Second-batch finance evergreen is missing from financeDepth2SlugSet: ${slug}`);
+  if (!financeEvergreenDepth2.includes(`slug: "${slug}"`)) failures.push(`Second-batch finance evergreen deep article is missing: ${slug}`);
+}
+for (const marker of [
+  'const financeDepth2SlugSet = new Set([',
+  'if (financeDepth2SlugSet.has(slug))',
+  'await import("./finance-evergreen-depth-2")',
+  'financeEvergreenDepth2Articles.find((article) => article.slug === slug)',
+]) {
+  if (!lazyMigratedEditorial.includes(marker)) failures.push(`Second finance evergreen deep-loader contract missing: ${marker}`);
+}
+for (const marker of [
+  'https://www.hud.gov/buying/loans',
+  'https://www.va.gov/housing-assistance/home-loans/loan-types/purchase-loan/',
+  'https://welcomehome.tdhca.texas.gov/',
+  'https://www.consumerfinance.gov/consumer-tools/mortgages/answers/key-terms/',
+  'https://www.consumerfinance.gov/ask-cfpb/is-there-such-a-thing-as-a-no-cost-or-no-closing-loan-or-refinancing-en-141/',
+  'https://www.tdi.texas.gov/tips/replacing-your-roof.html',
+  'https://www.tdi.texas.gov/tips/deductibles.html',
+  'href: "/texas-down-payment-calculator"',
+  'href: "/texas-refinance-savings-calculator"',
+  'href: "/texas-home-insurance-calculator"',
+]) {
+  if (!financeEvergreenDepth2.includes(marker)) failures.push(`Second finance evergreen authority/discovery contract missing: ${marker}`);
+}
+
 if (!entityRoute.includes('isIndexableEntityPage')) failures.push('Generic entity indexation gate missing: isIndexableEntityPage.');
 if (!entityRoute.includes('robots: indexable ? undefined :') || !entityRoute.includes('noindex, follow')) failures.push('Generic entity pages must emit a noindex directive when the quality gate fails.');
 if (!countyRoute.includes('isCountyPropertyIndexReady')) failures.push('County indexation gate missing: isCountyPropertyIndexReady.');
@@ -110,4 +147,4 @@ if (failures.length) {
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
-console.log('Indexation quality validation passed: conditional hubs, routed-news canonical isolation, loaded evergreen article canonicals/indexability and sitemap publication, primary-source-backed special-district evergreen authority, parsed migrated finance evergreen deep-content routing, noindex utilities, redirects, generated-page quality gates, and sitemap ownership are aligned.');
+console.log('Indexation quality validation passed: conditional hubs, routed-news canonical isolation, loaded evergreen article canonicals/indexability and sitemap publication, primary-source-backed special-district evergreen authority, two parsed migrated finance deep-content batches with primary-source authority and reciprocal tools, noindex utilities, redirects, generated-page quality gates, and sitemap ownership are aligned.');
