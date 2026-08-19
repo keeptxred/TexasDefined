@@ -19,4 +19,10 @@ export const COUNTY_SERIES_PROFILES_CONTINUED: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/ellis-county-waxahachie-ennis-blackland-prairie-texas")
       .then((module) => module.ellisCountyWaxahachieEnnisBlacklandPrairieArticle),
   },
+  {
+    countySlug: "navarro",
+    articleSlug: "navarro-county-corsicana-oil-blackland-prairie-texas",
+    loadArticle: () => import("@/data/fixtures/navarro-county-corsicana-oil-blackland-prairie-texas")
+      .then((module) => module.navarroCountyCorsicanaOilBlacklandPrairieArticle),
+  },
 ];
