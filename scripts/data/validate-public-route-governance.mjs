@@ -16,9 +16,8 @@ const extractArray = (name) => {
 
 const indexable = extractArray('INDEXABLE_STATIC_PATHS');
 const conditional = extractArray('CONDITIONAL_INDEXABLE_PUBLIC_PATHS');
-const redirects = extractArray('REDIRECT_ONLY_PATHS');
+const explicitRedirects = extractArray('REDIRECT_ONLY_PATHS');
 const nonIndexable = extractArray('NON_INDEXABLE_PUBLIC_PATHS');
-const classified = new Set([...indexable, ...conditional, ...redirects, ...nonIndexable]);
 const nestedAdminChildPaths = new Set([
   '/platform-health', '/knowledge-graph-behavior', '/internal-link-tests', '/internal-link-rollback', '/governance-health', '/entity-maintenance', '/entity-import-review',
 ]);
@@ -42,6 +41,14 @@ const sourceRouteEntries = [...sourceByFile.entries()].flatMap(([file, source]) 
   if (canonicalPath && /createFileRoute\(canonicalPath\)/.test(source)) entries.push({ file, source, path: normalize(canonicalPath) });
   return entries;
 });
+
+const isVerifiedPermanentRedirectEntry = (entry) => shouldCountPublicRoute(entry.path)
+  && /\bredirect\s*\(/.test(entry.source)
+  && entry.source.includes('statusCode: 301');
+const derivedRedirects = sourceRouteEntries.filter(isVerifiedPermanentRedirectEntry).map((entry) => entry.path);
+const redirects = [...new Set([...explicitRedirects, ...derivedRedirects])];
+const classified = new Set([...indexable, ...conditional, ...redirects, ...nonIndexable]);
+
 const registeredStaticPublicPaths = new Set([...routeTree.matchAll(/\bpath:\s*'([^']+)'/g)].map((match) => normalize(match[1])).filter(shouldCountPublicRoute));
 for (const entry of sourceRouteEntries) if (shouldCountPublicRoute(entry.path)) registeredStaticPublicPaths.add(entry.path);
 for (const path of ['/', '/explore', '/shop', '/shop/cart', '/shop/checkout-return']) registeredStaticPublicPaths.add(path);
@@ -90,7 +97,7 @@ const redirectContracts = [
 ];
 for (const [legacyPath, routeFile, targetPath] of redirectContracts) {
   const source = sourceByFile.get(routeFile) ?? '';
-  if (!redirects.includes(legacyPath)) failures.push(`Legacy ${legacyPath} route must remain redirect-only.`);
+  if (!explicitRedirects.includes(legacyPath)) failures.push(`Legacy ${legacyPath} route must remain explicitly redirect-only.`);
   if (!source.includes(`createFileRoute('${legacyPath}')`) && !source.includes(`createFileRoute("${legacyPath}")`)) failures.push(`Legacy redirect route source is missing: ${legacyPath} (${routeFile}).`);
   if (!source.includes(targetPath)) failures.push(`Legacy ${legacyPath} must redirect to ${targetPath}.`);
   if (!source.includes('statusCode: 301')) failures.push(`Legacy ${legacyPath} redirect must remain permanent (301).`);
@@ -118,4 +125,4 @@ for (const routePath of [...indexable, ...conditional]) {
   if (conditional.includes(routePath) && !/noindex/i.test(routeSource)) failures.push(`Conditional route does not expose an explicit noindex state: ${routePath} (${routeFile}).`);
 }
 if (failures.length) { console.error('Public-route governance validation failed:'); for (const failure of failures) console.error(`- ${failure}`); process.exit(1); }
-console.log(`Public-route governance passed for ${registeredStaticPublicPaths.size} static routes, ${indexable.length} always-indexable routes, ${conditional.length} conditional routes, and ${redirects.length} permanent redirect-only routes; normal site content does not link back into redirect-only URLs.`);
+console.log(`Public-route governance passed for ${registeredStaticPublicPaths.size} static routes, ${indexable.length} always-indexable routes, ${conditional.length} conditional routes, and ${redirects.length} verified permanent redirect-only routes (${explicitRedirects.length} explicitly registered, ${derivedRedirects.length} source-derived before de-duplication); normal site content does not link back into redirect-only URLs.`);
