@@ -104,6 +104,9 @@ jobs:
       - name: Validate Top 25 attraction authority
         run: node scripts/data/validate-top-attraction-authority.mjs
 
+      - name: Validate Top 25 review freshness
+        run: node scripts/data/validate-top-attraction-review-freshness.mjs
+
       - name: Validate article discovery SEO
         run: node scripts/data/validate-article-discover-seo.mjs
 
