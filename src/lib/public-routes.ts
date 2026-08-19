@@ -22,6 +22,8 @@ export const INDEXABLE_STATIC_PATHS = [
   "/explore/painted-churches/timeline",
   "/explore/painted-churches/routes",
   "/explore/painted-churches/print-guide",
+  "/explore/painted-churches/media",
+  "/explore/painted-churches/cite",
   "/explore/top-attractions",
   "/explore/top-attractions/methodology",
   "/explore/top-attractions/road-trips",
