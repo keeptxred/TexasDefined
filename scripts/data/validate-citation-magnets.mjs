@@ -12,7 +12,9 @@ const collectionTrust = await read('src/components/authority/CitationCollectionT
 const footer = await read('src/components/layout/Footer.tsx');
 const citationGuide = await read('src/routes/citation-guide.tsx');
 const exploreHub = await read('src/routes/explore.index.tsx');
-const topAttractions = await read('src/routes/explore.top-attractions.tsx');
+const topAttractionsShell = await read('src/routes/explore.top-attractions.tsx');
+const topAttractionsLazy = await read('src/routes/explore.top-attractions.lazy.tsx');
+const topAttractions = `${topAttractionsShell}\n${topAttractionsLazy}`;
 const topMethodology = await read('src/routes/explore.top-attractions.methodology.tsx');
 const topMethodologyContent = await read('src/components/explore/TopAttractionsMethodologyContent.tsx');
 const topRoadTrips = await read('src/routes/explore.top-attractions.road-trips.tsx');
@@ -128,6 +130,7 @@ expect(exploreHub.includes('to="/explore/attractions-comparison"'), 'Explore hub
 expect(exploreHub.includes('to="/explore/top-attractions"'), 'Explore hub must link the Top 25 attractions reference collection');
 expect(dataHub.includes('/texas-data/city-county-relationships'), 'Texas Data hub must link the city-county dataset');
 expect(topMethodology.includes('TopAttractionsMethodologyContent'), 'Top 25 methodology route must retain the split methodology component');
+expect(topAttractionsLazy.includes('createLazyFileRoute("/explore/top-attractions")'), 'Top 25 citation-bearing hub UI must remain behind a native lazy route boundary');
 
 const extractionContracts = [
   [countyRoute, 'How to use the county property-tax directory', 'county directory direct-answer layer'],

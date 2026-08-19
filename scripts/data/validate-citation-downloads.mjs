@@ -9,7 +9,9 @@ const cityCountyCsv = await read('src/routes/texas-data.city-county-relationship
 const sportsRoute = await read('src/routes/sports-venues.compare.tsx');
 const sportsCsv = await read('src/routes/sports-venues.compare[.]csv.ts');
 const sportsData = await read('src/data/sports-venue-comparison.ts');
-const topRoute = await read('src/routes/explore.top-attractions.tsx');
+const topRouteShell = await read('src/routes/explore.top-attractions.tsx');
+const topRouteLazy = await read('src/routes/explore.top-attractions.lazy.tsx');
+const topRoute = `${topRouteShell}\n${topRouteLazy}`;
 const topMethodology = await read('src/routes/explore.top-attractions.methodology.tsx');
 const topMethodologyContent = await read('src/components/explore/TopAttractionsMethodologyContent.tsx');
 const topCsv = await read('src/routes/top-25-texas-attractions[.]csv.ts');
@@ -84,6 +86,7 @@ for (const token of [
   'Download reference JSON',
   'variableMeasured',
 ]) expect(topRoute.includes(token), `Top 25 Dataset distribution missing: ${token}`);
+expect(topRouteLazy.includes('createLazyFileRoute("/explore/top-attractions")'), 'Top 25 visible download controls must remain behind the native lazy hub boundary');
 
 for (const token of [
   'TOP_ATTRACTION_REFERENCE_ROWS',
