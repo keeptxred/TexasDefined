@@ -59,6 +59,7 @@ jobs:
           check_page '/things-unique-to-texas/wildlife-landscape' 'Texas Wildlife, Plants & Geography'
           check_page '/things-unique-to-texas/slang-folklore' 'Texas Slang, Symbols & Folklore'
 
+          check_page '/texas-food-history' 'Texas food history is migration, geography and everyday ritual'
           check_page '/texas-food-trail' 'The Texas Food Trail'
           check_page '/texas-roadside-oddities' 'Texas Roadside Oddities'
           check_page '/texas-slang-explained' 'Texas Slang Explained'
@@ -105,7 +106,7 @@ jobs:
             echo '- Canonical collection: https://texasdefined.com/things-unique-to-texas'
             echo '- Methodology: https://texasdefined.com/things-unique-to-texas/methodology'
             echo '- Chapter routes checked: 8'
-            echo '- Evergreen deep-dive routes checked: 12'
+            echo '- Topical/evergreen deep-dive routes checked: 13'
             echo '- Machine distributions: 250-row JSON and CSV packages'
             echo '- HTML routes must be indexable; data downloads must return X-Robots-Tag: noindex, follow.'
           } >> "$GITHUB_STEP_SUMMARY"
