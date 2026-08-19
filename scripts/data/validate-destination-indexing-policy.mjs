@@ -2,6 +2,8 @@ import fs from 'node:fs';
 
 const read = (path) => fs.readFileSync(path, 'utf8');
 const route = read('src/routes/destination.$slug.tsx');
+const paloDuroRedirect = read('src/routes/destination.palo-duro-canyon.tsx');
+const enchantedRockRedirect = read('src/routes/destination.enchanted-rock.tsx');
 const sitemap = read('src/routes/sitemap-explore[.]xml.ts');
 const audit = read('src/data/destination-audit.ts');
 const availability = read('src/data/destination-availability.ts');
@@ -25,6 +27,19 @@ for (const marker of [
 
 if (route.includes('...(!indexable ? [{ name: "robots", content: "noindex, follow" }] : [])')) {
   failures.push('Destination route must not append a second robots meta after buildMeta; pass robots into buildMeta so index/noindex signals cannot conflict.');
+}
+
+for (const [source, legacyPath, canonicalPath] of [
+  [paloDuroRedirect, '/destination/palo-duro-canyon', '/destination/palo-duro-canyon-state-park'],
+  [enchantedRockRedirect, '/destination/enchanted-rock', '/destination/enchanted-rock-state-natural-area'],
+]) {
+  for (const marker of [
+    `createFileRoute("${legacyPath}")`,
+    `href: \`${canonicalPath}\${location.searchStr || ""}\``,
+    'statusCode: 301',
+  ]) {
+    if (!source.includes(marker)) failures.push(`Legacy destination redirect contract missing for ${legacyPath}: ${marker}`);
+  }
 }
 
 for (const marker of [
@@ -183,4 +198,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Destination indexing policy passed: route metadata emits one consistent robots policy; Explore sitemap merges remote sources, falls back to curated fixtures when remote data is unavailable or empty, resolves curation/heroes/quality before indexing, and preserves the same primary/readiness gate; query publication uses the same resolution concepts behind a lazy runtime boundary; duplicate units plus the legacy Enchanted Rock and Palo Duro slugs stay consolidated; substantive-copy, hero, coordinate and official-source gates remain aligned; recorded review dates must be fresh; core fallback curation retains explicit current-source provenance; and reviewed water, museum, and batch 52 curation overlays are tracked separately from guaranteed local routes.');
+console.log('Destination indexing policy passed: route metadata emits one consistent robots policy; Explore sitemap merges remote sources, falls back to curated fixtures when remote data is unavailable or empty, resolves curation/heroes/quality before indexing, and preserves the same primary/readiness gate; query publication uses the same resolution concepts behind a lazy runtime boundary; duplicate units plus the legacy Enchanted Rock and Palo Duro slugs stay consolidated with permanent 301 redirects; substantive-copy, hero, coordinate and official-source gates remain aligned; recorded review dates must be fresh; core fallback curation retains explicit current-source provenance; and reviewed water, museum, and batch 52 curation overlays are tracked separately from guaranteed local routes.');
