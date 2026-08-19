@@ -6,6 +6,7 @@ import { DepartmentHero } from '@/components/editorial/DepartmentHero';
 import { Section, SectionHeader } from '@/components/editorial/SectionHeader';
 import { Container } from '@/components/layout/Container';
 import { articlesQuery } from '@/data/queries';
+import type { Article } from '@/data/types';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
 const description = 'Homes, history, sports, moving and the practical details of making a life in Texas — gathered into one magazine department.';
@@ -21,6 +22,70 @@ const sections = [
   ['Guides', '/guides', 'Useful answers for the decisions and details that come with living in Texas.'],
   ['Money & Property', '/decide/financial-tools', 'Calculators and explainers for housing, paychecks, utilities, insurance and property taxes.'],
 ] as const;
+
+const texasLivingPhotoOverrides: Partial<Record<string, Article['hero']>> = {
+  'texas-homeowners-insurance-guide': {
+    src: 'https://upload.wikimedia.org/wikipedia/commons/8/88/Gillette_House_%28Houston%2C_Texas%29.JPG',
+    alt: 'Front exterior of a Texas house in Houston for a homeowners insurance guide',
+    width: 1600,
+    height: 1200,
+    credit: 'Safety Cap · CC BY 3.0 · Wikimedia Commons',
+  },
+  'should-you-refinance-texas-mortgage': {
+    src: 'https://upload.wikimedia.org/wikipedia/commons/5/50/James_L_Autry_House_on_Courtlandt_Place_in_Houston%2C_Texas.jpg',
+    alt: 'Texas house in Houston representing the property behind a mortgage refinance decision',
+    width: 1600,
+    height: 1280,
+    credit: 'Wikimedia Commons · licensed photograph',
+  },
+  'texas-utility-costs-guide': {
+    src: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=1600&h=900&q=82',
+    alt: 'Residential house representing electricity, water, gas and other household utility costs',
+    width: 1600,
+    height: 900,
+    credit: 'Unsplash',
+  },
+  'moving-to-austin-guide': {
+    src: 'https://upload.wikimedia.org/wikipedia/commons/8/8f/Lady_Bird_Lake_in_Austin%2C_Texas.jpg',
+    alt: 'Austin skyline reflected in Lady Bird Lake',
+    width: 1600,
+    height: 1200,
+    credit: 'Rish0203 · CC0 · Wikimedia Commons',
+  },
+  'moving-to-san-antonio-guide': {
+    src: 'https://upload.wikimedia.org/wikipedia/commons/a/a3/River_walk_-_san_antonio.jpg',
+    alt: 'San Antonio River Walk with water, trees and pedestrian paths',
+    width: 1600,
+    height: 1200,
+    credit: 'Martious · CC BY-SA 3.0 · Wikimedia Commons',
+  },
+  'moving-to-dallas-fort-worth-guide': {
+    src: 'https://upload.wikimedia.org/wikipedia/commons/2/2e/Dallas_Texas_Skyline.jpg',
+    alt: 'Dallas skyline viewed across the Trinity River',
+    width: 1600,
+    height: 1067,
+    credit: 'Tony Webster · CC BY 2.0 · Wikimedia Commons',
+  },
+  'moving-to-houston-address-checklist': {
+    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Houston_texas_usa_skyline.jpg/1280px-Houston_texas_usa_skyline.jpg',
+    alt: 'Houston skyline in Texas',
+    width: 1280,
+    height: 1038,
+    credit: 'Leeannoneal · CC BY-SA 4.0 · Wikimedia Commons',
+  },
+  'moving-to-texas-what-nobody-tells-you': {
+    src: 'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1600&h=900&q=82',
+    alt: 'Open Texas road through a wide landscape representing a move across the state',
+    width: 1600,
+    height: 900,
+    credit: 'Unsplash',
+  },
+};
+
+const withTexasLivingPhoto = (article: Article): Article => ({
+  ...article,
+  hero: texasLivingPhotoOverrides[article.slug] ?? article.hero,
+});
 
 export const Route = createFileRoute('/texas-living')({
   loader: async ({ context }) => {
@@ -62,8 +127,8 @@ function TexasLivingPage() {
       </div>
     </Container>
 
-    {homeArticles.length > 0 && <Section tone="surface"><Container><SectionHeader eyebrow="Homes & ownership" title="What it costs to own a home in Texas" description="Mortgages, closing costs, insurance, equity, utilities and the true cost of owning a home in Texas." actionLabel="See all home guides" actionTo="/real-estate" /><ul className="mt-10 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">{homeArticles.slice(0, 9).map((article) => <li key={article.id}><ArticleCard article={article} size="compact" /></li>)}</ul></Container></Section>}
+    {homeArticles.length > 0 && <Section tone="surface"><Container><SectionHeader eyebrow="Homes & ownership" title="What it costs to own a home in Texas" description="Mortgages, closing costs, insurance, equity, utilities and the true cost of owning a home in Texas." actionLabel="See all home guides" actionTo="/real-estate" /><ul className="mt-10 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">{homeArticles.slice(0, 9).map((article) => <li key={article.id}><ArticleCard article={withTexasLivingPhoto(article)} size="compact" /></li>)}</ul></Container></Section>}
 
-    {movingArticles.length > 0 && <Section><Container><SectionHeader eyebrow="Moving here" title="What to know before you unpack" description="City-by-city help with commutes, schools, utilities, taxes, insurance and regional costs." actionLabel="See all moving guides" actionTo="/moving-to-texas" /><ul className="mt-10 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">{movingArticles.slice(0, 9).map((article) => <li key={article.id}><ArticleCard article={article} size="compact" /></li>)}</ul></Container></Section>}
+    {movingArticles.length > 0 && <Section><Container><SectionHeader eyebrow="Moving here" title="What to know before you unpack" description="City-by-city help with commutes, schools, utilities, taxes, insurance and regional costs." actionLabel="See all moving guides" actionTo="/moving-to-texas" /><ul className="mt-10 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">{movingArticles.slice(0, 9).map((article) => <li key={article.id}><ArticleCard article={withTexasLivingPhoto(article)} size="compact" /></li>)}</ul></Container></Section>}
   </>;
 }
