@@ -1,5 +1,6 @@
 import { paintedChurchGlossary } from "./painted-church-glossary";
 import { paintedChurchHeritage } from "./painted-church-heritage";
+import { paintedChurchItineraries } from "./painted-church-itineraries";
 import { paintedChurchPeople } from "./painted-church-people";
 import { paintedChurchPreservationTopics } from "./painted-church-preservation";
 import { paintedChurchSymbols } from "./painted-church-symbols";
@@ -24,11 +25,12 @@ const peopleDocuments: SearchDocument[] = paintedChurchPeople.map((item) => ({ i
 const heritageDocuments: SearchDocument[] = paintedChurchHeritage.map((item) => ({ id: `painted-church-heritage:${item.slug}`, brandId: "texasdefined", kind: "guide", title: `${item.name} & the Texas Painted Churches`, summary: item.answer, keywords: [item.name, "Texas immigration history", "painted church heritage"], href: `/explore/painted-churches/heritage/${item.slug}` }));
 const preservationDocuments: SearchDocument[] = paintedChurchPreservationTopics.map((item) => ({ id: `painted-church-preservation:${item.slug}`, brandId: "texasdefined", kind: "guide", title: `${item.name} | Texas Painted Churches`, summary: item.answer, keywords: [item.name, "painted church restoration", "painted church preservation"], href: `/explore/painted-churches/preservation/${item.slug}` }));
 const glossaryDocuments: SearchDocument[] = paintedChurchGlossary.map((item) => ({ id: `painted-church-glossary:${item.slug}`, brandId: "texasdefined", kind: "guide", title: `${item.name} | Painted Church Glossary`, summary: item.definition, keywords: [item.name, item.definition, "church architecture", "painted church glossary"], href: `/explore/painted-churches/glossary/${item.slug}` }));
+const itineraryDocuments: SearchDocument[] = paintedChurchItineraries.map((item) => ({ id: `painted-church-route:${item.slug}`, brandId: "texasdefined", kind: "guide", title: item.name, summary: item.summary, keywords: [item.theme, item.duration, "painted churches route", "painted churches itinerary", "Texas church road trip"], href: `/explore/painted-churches/routes/${item.slug}` }));
 
 const collectionDocuments: SearchDocument[] = [
   { id: "painted-churches:hub", brandId: "texasdefined", kind: "guide", title: "Painted Churches of Texas", summary: `The complete Texas Defined Painted Churches collection with ${expandedPaintedChurches.length} verified church profiles, routes, authority entities and source methodology.`, keywords: ["painted churches Texas", "Painted Churches of Texas", "Texas painted churches", "Schulenburg painted churches", "painted church tour"], href: "/explore/painted-churches" },
   { id: "painted-churches:map", brandId: "texasdefined", kind: "guide", title: "Texas Painted Churches Map & Statewide Directory", summary: "All verified Texas Painted Churches grouped by region with church-specific map links, counties, locations and full guides.", keywords: ["painted churches Texas map", "Texas painted church locations", "painted churches directory"], href: "/explore/painted-churches/map" },
-  { id: "painted-churches:compare", brandId: "texasdefined", kind: "guide", title: "Compare Texas Painted Churches", summary: "Compare classification, integrity, heritage, techniques, designation and church records side by side.", keywords: ["compare painted churches", "National Register painted churches", "Texas painted church list"], href: "/explore/painted-churches/compare" },
+  { id: "painted-churches:compare", brandId: "texasdefined", kind: "guide", title: "Compare Texas Painted Churches", summary: "Compare construction, painting dates, artists, classification, integrity, heritage, techniques, symbols and designation side by side.", keywords: ["compare painted churches", "National Register painted churches", "Texas painted church list"], href: "/explore/painted-churches/compare" },
   { id: "painted-churches:how-many", brandId: "texasdefined", kind: "guide", title: "How Many Painted Churches Are in Texas?", summary: "Why Painted Church counts differ between touring clusters, formal National Register listings and the broader statewide tradition.", keywords: ["how many painted churches in Texas", "number of painted churches Texas", "painted church count"], href: "/explore/painted-churches/how-many" },
   { id: "painted-churches:methodology", brandId: "texasdefined", kind: "guide", title: "Painted Churches Research Methodology & Corrections", summary: "Inclusion rules, source hierarchy, image licensing, update policy and treatment of conflicting historical records.", keywords: ["painted churches sources", "painted churches research", "painted church methodology"], href: "/explore/painted-churches/methodology" },
   { id: "painted-churches:census", brandId: "texasdefined", kind: "guide", title: "Texas Painted Churches Master Census", summary: "Verified churches, candidates under review and scope exclusions with explicit reasons and source trails.", keywords: ["Texas painted churches census", "painted church candidates", "complete painted church list"], href: "/explore/painted-churches/census" },
@@ -42,6 +44,8 @@ const collectionDocuments: SearchDocument[] = [
   { id: "painted-churches:how-to-read", brandId: "texasdefined", kind: "guide", title: "How to Read a Texas Painted Church", summary: "A seven-step field guide to architecture, illusion, techniques, symbols, authorship, preservation and immigrant context.", keywords: ["how to read painted church", "painted church field guide"], href: "/explore/painted-churches/how-to-read" },
   { id: "painted-churches:glossary", brandId: "texasdefined", kind: "guide", title: "Texas Painted Church Architecture Glossary", summary: "Architecture terms including nave, apse, sanctuary, reredos, transept, groin vault, lancet windows and Gothic Revival.", keywords: ["painted church glossary", "church architecture terms", "reredos", "nave", "apse"], href: "/explore/painted-churches/glossary" },
   { id: "painted-churches:timeline", brandId: "texasdefined", kind: "guide", title: "Texas Painted Churches Timeline", summary: "A statewide chronology of migration, construction, painting, disasters, restoration and designation.", keywords: ["painted churches timeline", "painted churches history Texas"], href: "/explore/painted-churches/timeline" },
+  { id: "painted-churches:routes", brandId: "texasdefined", kind: "guide", title: "Texas Painted Churches Routes & Itineraries", summary: "Eight first-trip, regional, heritage and statewide Painted Churches itineraries.", keywords: ["painted churches routes", "Schulenburg painted churches route", "painted churches itinerary"], href: "/explore/painted-churches/routes" },
+  { id: "painted-churches:print-guide", brandId: "texasdefined", kind: "guide", title: "Printable Texas Painted Churches Guide", summary: "Printer-friendly field guide with all verified churches, routes, addresses, classification, integrity and visitor-status dates.", keywords: ["printable painted churches guide", "painted churches checklist", "painted churches PDF"], href: "/explore/painted-churches/print-guide" },
 ];
 
 export const paintedChurchSearchDocuments: SearchDocument[] = [
@@ -52,5 +56,6 @@ export const paintedChurchSearchDocuments: SearchDocument[] = [
   ...heritageDocuments,
   ...preservationDocuments,
   ...glossaryDocuments,
+  ...itineraryDocuments,
   ...churchDocuments,
 ];
