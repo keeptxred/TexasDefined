@@ -13,6 +13,7 @@ const description = 'Homes, history, sports, moving and the practical details of
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const pageUrl = `${siteUrl}/texas-living`;
 const sections = [
+  ['Things That Define Texas', '/things-unique-to-texas', '250 foods, places, traditions, wildlife, sayings and icons that make Texas feel like Texas.'],
   ['Explore', '/explore', 'Parks, lakes, small towns, road trips and places worth making time for.'],
   ['Sports', '/sports', 'The games, rivalries and rituals that are part of life here.'],
   ['History', '/texas-history', 'The people, places and turning points that still shape the state.'],
