@@ -6,6 +6,8 @@ const sitemap = read('src/routes/sitemap-explore[.]xml.ts');
 const audit = read('src/data/destination-audit.ts');
 const availability = read('src/data/destination-availability.ts');
 const queries = read('src/data/queries.ts');
+const destinationRuntime = read('src/data/destination-query-runtime.ts');
+const queryImplementation = `${queries}\n${destinationRuntime}`;
 const failures = [];
 
 for (const marker of [
@@ -71,10 +73,13 @@ for (const marker of [
 
 for (const marker of [
   'filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved))',
-  'const destinations = reconcileExploreCatalog',
+  'return reconcileExploreCatalog(mergeDestinations(enriched, core, preservedExploreDestinations))',
   'reconcileDestinationHeroes(applyExploreHeroAssets(applyStateParkHeroAssets(destinations)))',
 ]) {
-  if (!queries.includes(marker)) failures.push(`Destination query publication/resolution contract missing: ${marker}`);
+  if (!queryImplementation.includes(marker)) failures.push(`Destination query publication/resolution contract missing: ${marker}`);
+}
+if (!queries.includes('await import("./destination-query-runtime")')) {
+  failures.push('Destination queries must keep heavy resolution behind the dynamic runtime boundary.');
 }
 
 if (route.includes('const indexable = isPrimaryTripPlannerDestination(destination);')) {
@@ -93,4 +98,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Destination indexing policy passed: route metadata emits one consistent robots policy; Explore sitemap merges remote sources, falls back to curated fixtures when remote data is unavailable or empty, resolves curation/heroes/quality before indexing, and preserves the same primary/readiness gate; query publication uses the same resolution concepts; duplicate units stay consolidated; substantive-copy, hero, coordinate, official-source and source-freshness gates remain aligned.');
+console.log('Destination indexing policy passed: route metadata emits one consistent robots policy; Explore sitemap merges remote sources, falls back to curated fixtures when remote data is unavailable or empty, resolves curation/heroes/quality before indexing, and preserves the same primary/readiness gate; query publication uses the same resolution concepts behind a lazy runtime boundary; duplicate units stay consolidated; substantive-copy, hero, coordinate, official-source and source-freshness gates remain aligned.');
