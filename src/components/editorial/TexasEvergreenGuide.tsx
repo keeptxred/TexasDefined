@@ -17,11 +17,40 @@ const foodHistoryGuideSlugs = new Set([
   "dr-pepper-texas-history",
 ]);
 
-const guideImages: Partial<Record<string, { src: string; alt: string; caption: string }>> = {
+type GuideImage = {
+  src: string;
+  alt: string;
+  caption: string;
+  credit?: string;
+  sourceHref?: string;
+};
+
+const guideImages: Partial<Record<string, GuideImage>> = {
   "texas-food-trail": {
     src: bbqBrisket,
     alt: "Sliced Texas barbecue brisket showing dark bark and a smoke ring",
     caption: "Barbecue is one chapter of the Texas food story, not the whole story.",
+  },
+  "texas-chili-con-carne-history": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Pot_of_Chili_Con_Carne.jpg?width=1600",
+    alt: "Pot of chili con carne representing the Texas bowl-of-red tradition",
+    caption: "Chili con carne became a Texas identity marker through San Antonio street-food history, commercial chili products and later cookoff culture.",
+    credit: "Punkgobliner · CC BY-SA 4.0 · Wikimedia Commons",
+    sourceHref: "https://commons.wikimedia.org/wiki/File:Pot_of_Chili_Con_Carne.jpg",
+  },
+  "texas-chicken-fried-steak-guide": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Chicken_fried_steak.jpg?width=1600",
+    alt: "Chicken-fried steak served as a classic breaded beef comfort-food plate",
+    caption: "Chicken-fried steak is firmly associated with Texas even though its exact origin remains disputed.",
+    credit: "Mr. Gray · CC0 · Wikimedia Commons",
+    sourceHref: "https://commons.wikimedia.org/wiki/File:Chicken_fried_steak.jpg",
+  },
+  "texas-breakfast-taco-guide": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/BreakfastTaco.jpg?width=1200",
+    alt: "Egg and sausage breakfast taco with salsa on a flour tortilla",
+    caption: "Breakfast tacos are everyday Texas food built around tortillas, fillings and the salsa habits of the local shop.",
+    credit: "Paxsimius · CC BY-SA 4.0 · Wikimedia Commons",
+    sourceHref: "https://commons.wikimedia.org/wiki/File:BreakfastTaco.jpg",
   },
   "texas-natural-wonders-bucket-list": {
     src: bigBend,
@@ -32,6 +61,13 @@ const guideImages: Partial<Record<string, { src: string; alt: string; caption: s
     src: kolacheKlobasnek,
     alt: "Texas Czech-style kolache and klobasnek pastries",
     caption: "Food is one of the most visible surviving links to Czech and German settlement, but the heritage also lives in churches, halls, festivals and town landscapes.",
+  },
+  "dr-pepper-texas-history": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Cupola_Dr_Pepper_Museum_Waco_Texas_2024.jpg?width=1600",
+    alt: "Cupola and upper exterior of the Dr Pepper Museum in Waco, Texas",
+    caption: "The Dr Pepper Museum preserves the Waco setting behind one of Texas's best-known brand-origin stories.",
+    credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons",
+    sourceHref: "https://commons.wikimedia.org/wiki/File:Cupola_Dr_Pepper_Museum_Waco_Texas_2024.jpg",
   },
 };
 
@@ -58,7 +94,11 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
   const image = guideImages[guide.slug];
   const sources = guideSources[guide.slug] ?? [];
   const isFoodHistoryChild = foodHistoryGuideSlugs.has(guide.slug);
-  const imageUrl = image ? `${siteUrl}${image.src.startsWith('/') ? image.src : `/${image.src}`}` : undefined;
+  const imageUrl = image
+    ? image.src.startsWith("http://") || image.src.startsWith("https://")
+      ? image.src
+      : `${siteUrl}${image.src.startsWith('/') ? image.src : `/${image.src}`}`
+    : undefined;
   const breadcrumbItems = [
     { "@type": "ListItem", position: 1, name: "Front page", item: `${siteUrl}/` },
     { "@type": "ListItem", position: 2, name: "Things That Define Texas", item: `${siteUrl}/things-unique-to-texas` },
@@ -137,7 +177,10 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
 
         {image ? <figure className="border-b border-border py-8">
           <img src={image.src} alt={image.alt} className="aspect-[16/9] w-full object-cover" loading="eager" fetchPriority="high" />
-          <figcaption className="mt-3 max-w-3xl text-xs leading-5 text-muted-foreground">{image.caption}</figcaption>
+          <figcaption className="mt-3 max-w-3xl text-xs leading-5 text-muted-foreground">
+            {image.caption}
+            {image.credit ? <>{" "}{image.sourceHref ? <a href={image.sourceHref} target="_blank" rel="noreferrer noopener" className="underline decoration-border underline-offset-2">{image.credit}</a> : image.credit}</> : null}
+          </figcaption>
         </figure> : null}
 
         <section className="border-b border-border py-8" aria-labelledby="quick-answer">
