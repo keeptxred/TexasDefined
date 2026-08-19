@@ -58,6 +58,7 @@ for (const slug of exactHeroAliases) {
 }
 
 const verifiedRemoteHeroes = [
+  ['acton-state-historic-site', 'CC BY-SA 2.0'],
   ['bush-family-home', 'CC BY-SA 3.0'],
   ['caddo-mounds-state-historic-site', 'CC BY-SA 3.0'],
   ['casa-navarro', 'CC BY-SA 3.0'],
