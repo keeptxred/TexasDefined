@@ -32,6 +32,7 @@ const cultureGuides = [
   ['/texas-homecoming-mums', 'Texas Homecoming Mums', 'How a simple chrysanthemum became an enormous wearable tradition of school spirit and local identity.'],
   ['/texas-slang-explained', 'Texas Slang Explained', 'Y’all, fixin’ to, ranch imagery, bilingual influence and the context behind familiar Texas sayings.'],
   ['/texas-roadside-oddities', 'Texas Roadside Oddities', 'Giant art, neon, tiny towns and strange stops that can turn a highway drive into a real Texas road trip.'],
+  ['/texas-brand-origin-stories', 'Texas Brand Origin Stories', "H-E-B, Whataburger, Blue Bell, Shiner, Dickies and Buc-ee's—where they started and how Texas routines made them cultural shorthand."],
 ] as const;
 
 const texasLivingPhotoOverrides: Partial<Record<string, Article['hero']>> = {
