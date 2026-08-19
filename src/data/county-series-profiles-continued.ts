@@ -85,4 +85,10 @@ export const COUNTY_SERIES_PROFILES_CONTINUED: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/nacogdoches-county-nacogdoches-caddo-el-camino-piney-woods-texas")
       .then((module) => module.nacogdochesCountyNacogdochesCaddoElCaminoPineyWoodsArticle),
   },
+  {
+    countySlug: "san-augustine",
+    articleSlug: "san-augustine-county-san-augustine-mission-dolores-el-camino-piney-woods-texas",
+    loadArticle: () => import("@/data/fixtures/san-augustine-county-san-augustine-mission-dolores-el-camino-piney-woods-texas")
+      .then((module) => module.sanAugustineCountySanAugustineMissionDoloresElCaminoPineyWoodsArticle),
+  },
 ];
