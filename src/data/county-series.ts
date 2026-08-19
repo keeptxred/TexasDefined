@@ -126,6 +126,7 @@ const LEGACY_ARTICLE_TO_COUNTY = new Map<string, string>([
   ["san-augustine-county-san-augustine-mission-dolores-el-camino-piney-woods-texas", "san-augustine"],
   ["sabine-county-hemphill-toledo-bend-sabine-river-piney-woods-texas", "sabine"],
   ["shelby-county-center-regulator-moderator-sabine-piney-woods-texas", "shelby"],
+  ["panola-county-carthage-sabine-timber-music-piney-woods-texas", "panola"],
 ]);
 
 const COUNTY_SLUGS = new Set(LEGACY_ARTICLE_TO_COUNTY.values());
