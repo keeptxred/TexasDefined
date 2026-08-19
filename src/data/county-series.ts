@@ -93,6 +93,7 @@ const LEGACY_ARTICLE_TO_COUNTY = new Map<string, string>([
   ["bandera-county-bandera-medina-river-cowboy-hill-country-texas", "bandera"],
   ["kendall-county-boerne-comfort-guadalupe-hill-country-texas", "kendall"],
   ["kerr-county-kerrville-guadalupe-hunt-hill-country-texas", "kerr"],
+  ["blanco-county-johnson-city-blanco-pedernales-hill-country-texas", "blanco"],
 ]);
 
 const COUNTY_SLUGS = new Set(LEGACY_ARTICLE_TO_COUNTY.values());
