@@ -43,28 +43,12 @@ export const paintedChurchCandidateCensus: PaintedChurchCensusEntry[] = [
     sourceUrls: ["https://txarchives.org/utaaa/finding_aids/00136.xml"],
   },
   {
-    slug: "san-antonio-st-joseph-catholic-church",
-    name: "St. Joseph Catholic Church",
-    city: "San Antonio",
-    status: "candidate",
-    reason: "Documented decorative-painting associations, including Stockert and Kern, make the church relevant; Texas Defined is withholding promotion until the surviving program and scope are verified from authoritative records.",
-    sourceUrls: ["https://austinpbs.org/paintedchurches/highhill", "https://txarchives.org/utaaa/finding_aids/00136.xml"],
-  },
-  {
     slug: "san-antonio-san-fernando-cathedral",
     name: "San Fernando Cathedral",
     city: "San Antonio",
     status: "candidate",
     reason: "The Harwood archive includes the cathedral in decorative-painting research, but a comprehensive Painted Churches census must verify which decoration survives and whether it belongs within this collection's scope.",
     sourceUrls: ["https://txarchives.org/utaaa/finding_aids/00136.xml"],
-  },
-  {
-    slug: "corpus-christi-sacred-heart-catholic-church",
-    name: "Sacred Heart Catholic Church",
-    city: "Corpus Christi",
-    status: "candidate",
-    reason: "Architectural-history sources document bright sanctuary murals by Antonio García. Current parish identity, surviving mural condition and the appropriate classification still require verification.",
-    sourceUrls: ["https://sah-archipedia.org/"],
   },
   {
     slug: "anderson-st-stanislaus-kostka",
