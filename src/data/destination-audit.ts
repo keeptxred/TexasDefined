@@ -33,8 +33,7 @@ function usefulUrl(value?: string) {
   return Boolean(value && /^https:\/\//i.test(value));
 }
 
-function sourceReviewIsFresh(value?: string) {
-  if (!value) return false;
+function sourceReviewIsFresh(value: string) {
   const timestamp = Date.parse(value);
   if (!Number.isFinite(timestamp)) return false;
   const ageMs = Date.now() - timestamp;
@@ -84,8 +83,10 @@ export function auditDestination(destination: Destination): DestinationAuditResu
   if (!usefulUrl(destination.officialUrl)) {
     issues.push({ code: "official-source", severity: "error", message: "Destination needs a destination-specific HTTPS official visitor-information source before indexing." });
   }
-  if (!sourceReviewIsFresh(destination.sourceCheckedAt)) {
-    issues.push({ code: "source-freshness", severity: "error", message: `Destination needs a valid official-source review date from the last ${SOURCE_MAX_AGE_DAYS} days before indexing.` });
+  if (!destination.sourceCheckedAt) {
+    issues.push({ code: "source-review-missing", severity: "warning", message: "Destination has an official source but does not yet record when that source was reviewed." });
+  } else if (!sourceReviewIsFresh(destination.sourceCheckedAt)) {
+    issues.push({ code: "source-freshness", severity: "error", message: `Destination source review is invalid or older than ${SOURCE_MAX_AGE_DAYS} days and must be rechecked before indexing.` });
   }
   if (!destination.bestSeason || destination.bestSeason.trim().toLowerCase() === GENERIC_BEST_SEASON) {
     issues.push({ code: "best-season", severity: "warning", message: "Destination still has generic seasonal guidance." });
