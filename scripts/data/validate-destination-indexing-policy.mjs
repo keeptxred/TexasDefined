@@ -7,6 +7,9 @@ const audit = read('src/data/destination-audit.ts');
 const availability = read('src/data/destination-availability.ts');
 const queries = read('src/data/queries.ts');
 const destinationRuntime = read('src/data/destination-query-runtime.ts');
+const curationAll = read('src/data/destination-curation-all.ts');
+const waterFallbacks = read('src/data/destination-curation-batch45.ts');
+const coreFallbacks = read('src/data/destination-curation-batch53.ts');
 const queryImplementation = `${queries}\n${destinationRuntime}`;
 const failures = [];
 
@@ -84,6 +87,46 @@ if (!queries.includes('await import("./destination-query-runtime")')) {
   failures.push('Destination queries must keep heavy resolution behind the dynamic runtime boundary.');
 }
 
+for (const marker of [
+  'import { applyCuratedDestinationBatch53 } from "./destination-curation-batch53"',
+  'applyCuratedDestinationBatch53,',
+]) {
+  if (!curationAll.includes(marker)) failures.push(`Verified fallback destination curation wiring missing: ${marker}`);
+}
+
+const verifiedFallbackSlugs = [
+  'caddo-lake',
+  'possums-kingdom-lake',
+  'lake-travis',
+  'lake-conroe',
+  'toledo-bend-reservoir',
+  'guadalupe-river',
+  'enchanted-rock',
+  'palo-duro-canyon',
+  'blue-hole-wimberley',
+  'big-bend-chisos-basin',
+  'gruene-historic-district',
+];
+for (const slug of verifiedFallbackSlugs) {
+  const source = waterFallbacks.includes(`"${slug}"`) ? waterFallbacks : coreFallbacks;
+  if (!source.includes(`"${slug}"`)) failures.push(`Verified fallback curation missing destination: ${slug}`);
+  if (!source.includes('const CHECKED')) failures.push(`Verified fallback curation is missing an explicit review-date constant for ${slug}.`);
+}
+for (const marker of [
+  'officialUrl:',
+  'sourceCheckedAt:CHECKED',
+]) {
+  if (!waterFallbacks.includes(marker)) failures.push(`Water fallback provenance contract missing: ${marker}`);
+}
+for (const marker of [
+  'officialUrl:',
+  'sourceCheckedAt: CHECKED',
+  'Big Bend National Park remains open',
+  'check the current NPS Chisos Basin access page',
+]) {
+  if (!coreFallbacks.includes(marker)) failures.push(`Core fallback provenance/current-conditions contract missing: ${marker}`);
+}
+
 if (route.includes('const indexable = isPrimaryTripPlannerDestination(destination);')) {
   failures.push('Destination route must not index a primary destination without passing the substantive readiness audit.');
 }
@@ -100,4 +143,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Destination indexing policy passed: route metadata emits one consistent robots policy; Explore sitemap merges remote sources, falls back to curated fixtures when remote data is unavailable or empty, resolves curation/heroes/quality before indexing, and preserves the same primary/readiness gate; query publication uses the same resolution concepts behind a lazy runtime boundary; duplicate units stay consolidated; substantive-copy, hero, coordinate and official-source gates remain aligned; recorded review dates must be fresh while older curated records without dates stay visibly flagged for explicit recheck.');
+console.log('Destination indexing policy passed: route metadata emits one consistent robots policy; Explore sitemap merges remote sources, falls back to curated fixtures when remote data is unavailable or empty, resolves curation/heroes/quality before indexing, and preserves the same primary/readiness gate; query publication uses the same resolution concepts behind a lazy runtime boundary; duplicate units stay consolidated; substantive-copy, hero, coordinate and official-source gates remain aligned; recorded review dates must be fresh; and the base fallback destination set retains explicit current-source provenance.');
