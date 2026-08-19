@@ -1,0 +1,55 @@
+name: Repair llms citation index once
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/repair-llms-citation-index-20260819.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out current main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 2
+      - name: Add missing maintained citation targets
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          path = Path('src/routes/llms[.]txt.ts')
+          text = path.read_text()
+          anchor = '- Texas food history: https://texasdefined.com/texas-food-history\n'
+          additions = (
+              '- Texas ranch water guide: https://texasdefined.com/texas-ranch-water-guide\n'
+              '- San Antonio puffy taco history: https://texasdefined.com/san-antonio-puffy-taco-history\n'
+              '- Barbacoa and Big Red in San Antonio: https://texasdefined.com/barbacoa-big-red-san-antonio\n'
+          )
+          if all(url in text for url in [
+              'https://texasdefined.com/texas-ranch-water-guide',
+              'https://texasdefined.com/san-antonio-puffy-taco-history',
+              'https://texasdefined.com/barbacoa-big-red-san-antonio',
+          ]):
+              raise SystemExit(0)
+          if anchor not in text:
+              raise SystemExit('llms citation insertion anchor not found')
+          text = text.replace(anchor, anchor + additions, 1)
+          path.write_text(text)
+          PY
+          if git diff --quiet; then
+            echo 'No repair required.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add 'src/routes/llms[.]txt.ts'
+          git commit -m 'Restore llms citation targets'
+          git push origin HEAD:main
+          echo "REPAIR_SHA=$(git rev-parse HEAD)"
