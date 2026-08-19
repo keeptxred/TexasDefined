@@ -84,4 +84,5 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   profile("bee", "bee-county-beeville-railroads-ranching-coastal-bend-texas", () => import("@/data/fixtures/bee-county-beeville-railroads-ranching-coastal-bend").then((module) => module.beeCountyBeevilleRailroadsRanchingCoastalBendArticle)),
   profile("frio", "frio-county-pearsall-dilley-frio-river-winter-garden-texas", () => import("@/data/fixtures/frio-county-pearsall-dilley-frio-river-winter-garden").then((module) => module.frioCountyPearsallDilleyFrioRiverWinterGardenArticle)),
   profile("karnes", "karnes-county-karnes-city-kenedy-panna-maria-san-antonio-river-texas", () => import("@/data/fixtures/karnes-county-karnes-city-kenedy-panna-maria-san-antonio-river").then((module) => module.karnesCountyKarnesCityKenedyPannaMariaSanAntonioRiverArticle)),
+  profile("wilson", "wilson-county-floresville-la-vernia-stockdale-san-antonio-river-texas", () => import("@/data/fixtures/wilson-county-floresville-la-vernia-stockdale-san-antonio-river").then((module) => module.wilsonCountyFloresvilleLaVerniaStockdaleSanAntonioRiverArticle)),
 ];
