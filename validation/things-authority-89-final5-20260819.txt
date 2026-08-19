@@ -1,0 +1,3 @@
+Validation-only marker after source-derived permanent-redirect governance hardening.
+
+This branch intentionally differs from main only by this marker so pull-request CI validates current main through the 89-link Things That Define Texas authority/citation contracts, citation downloads, production data, complete Trip Planner coverage, production build, and client performance budget.
