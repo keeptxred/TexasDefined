@@ -97,4 +97,5 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   profile("llano", "llano-county-llano-river-granite-highland-lakes-texas", () => import("@/data/fixtures/llano-county-llano-river-granite-highland-lakes").then((module) => module.llanoCountyLlanoRiverGraniteHighlandLakesArticle)),
   profile("mason", "mason-county-mason-fort-llano-river-hill-country-texas", () => import("@/data/fixtures/mason-county-mason-fort-llano-river-hill-country").then((module) => module.masonCountyMasonFortLlanoRiverHillCountryArticle)),
   profile("san-saba", "san-saba-county-san-saba-pecans-rivers-hill-country-texas", () => import("@/data/fixtures/san-saba-county-san-saba-pecans-rivers-hill-country").then((module) => module.sanSabaCountySanSabaPecansRiversHillCountryArticle)),
+  profile("lampasas", "lampasas-county-lampasas-springs-rivers-central-texas", () => import("@/data/fixtures/lampasas-county-lampasas-springs-rivers-central-texas").then((module) => module.lampasasCountyLampasasSpringsRiversCentralTexasArticle)),
 ];
