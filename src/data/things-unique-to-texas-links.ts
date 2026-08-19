@@ -1,9 +1,21 @@
 import type { TexasIconItem } from "./things-unique-to-texas";
 
 /**
- * Canonical TexasDefined guides for magazine entries whose editorial record
- * intentionally stays lightweight. Keep this mapping limited to direct,
- * high-confidence matches; an existing href on the editorial item always wins.
+ * Purpose-built evergreen guides take precedence over broad editorial links on
+ * the 250-item source record. This lets an icon graduate into a substantial
+ * canonical guide without rewriting or duplicating the original magazine data.
+ */
+const DEEP_DIVE_ICON_LINKS: Readonly<Record<number, string>> = {
+  2: "/texas-chicken-fried-steak-guide",
+  3: "/texas-chili-con-carne-history",
+  4: "/texas-breakfast-taco-guide",
+  7: "/dr-pepper-texas-history",
+};
+
+/**
+ * Canonical TexasDefined destination guides for magazine entries whose editorial
+ * record intentionally stays lightweight. Keep this mapping limited to direct,
+ * high-confidence matches.
  */
 const CANONICAL_ICON_LINKS: Readonly<Record<number, string>> = {
   56: "/destination/big-bend-national-park",
@@ -37,7 +49,7 @@ const CANONICAL_ICON_LINKS: Readonly<Record<number, string>> = {
 };
 
 export function texasIconCanonicalHref(entry: TexasIconItem): string | undefined {
-  return entry.href ?? CANONICAL_ICON_LINKS[entry.id];
+  return DEEP_DIVE_ICON_LINKS[entry.id] ?? entry.href ?? CANONICAL_ICON_LINKS[entry.id];
 }
 
-export const TEXAS_ICON_CANONICAL_LINK_COUNT = Object.keys(CANONICAL_ICON_LINKS).length;
+export const TEXAS_ICON_CANONICAL_LINK_COUNT = Object.keys(CANONICAL_ICON_LINKS).length + Object.keys(DEEP_DIVE_ICON_LINKS).length;
