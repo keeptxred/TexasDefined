@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 
 const route = fs.readFileSync('src/routes/texas-food-history.tsx', 'utf8');
+const evergreenComponent = fs.readFileSync('src/components/editorial/TexasEvergreenGuide.tsx', 'utf8');
 const publicRoutes = fs.readFileSync('src/lib/public-routes.ts', 'utf8');
 const rootHub = fs.readFileSync('src/routes/things-unique-to-texas.lazy.tsx', 'utf8');
 const categoryHub = fs.readFileSync('src/routes/things-unique-to-texas.$category.lazy.tsx', 'utf8');
@@ -37,6 +38,28 @@ for (const path of focusedGuides) {
   }
 }
 
+for (const token of [
+  'const foodHistoryGuideSlugs = new Set([',
+  'const isFoodHistoryChild = foodHistoryGuideSlugs.has(guide.slug)',
+  'name: "Texas Food History", item: `${siteUrl}/texas-food-history`',
+  'isPartOf: { "@type": "CollectionPage", "@id": `${siteUrl}/texas-food-history#page`',
+  '<Link to="/texas-food-history"',
+  'Explore the full Texas Food History collection',
+]) {
+  if (!evergreenComponent.includes(token)) failures.push(`Food-history child guides missing parent-cluster token: ${token}.`);
+}
+
+for (const slug of [
+  'texas-food-trail',
+  'texas-chili-con-carne-history',
+  'texas-chicken-fried-steak-guide',
+  'texas-breakfast-taco-guide',
+  'german-czech-texas-towns',
+  'dr-pepper-texas-history',
+]) {
+  if (!evergreenComponent.includes(`"${slug}"`)) failures.push(`Food-history parent cluster missing child slug ${slug}.`);
+}
+
 if (!publicRoutes.includes('"/texas-food-history"')) failures.push('Texas Food History must remain indexable in public route governance.');
 if (!rootHub.includes('to="/texas-food-history"')) failures.push('Things That Define Texas hub must visibly link Texas Food History.');
 if (!categoryHub.includes('href: "/texas-food-history"')) failures.push('Food & Drink chapter must feature Texas Food History.');
@@ -59,4 +82,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Texas Food History validation passed: canonical hub, ${focusedGuides.length} focused guide links, sitemap governance, collection discovery, Texas Life discovery, production smoke, llms.txt and citation-index coverage intact.`);
+console.log(`Texas Food History validation passed: canonical hub, ${focusedGuides.length} focused guide links, bidirectional parent-child breadcrumbs/schema, sitemap governance, collection discovery, Texas Life discovery, production smoke, llms.txt and citation-index coverage intact.`);
