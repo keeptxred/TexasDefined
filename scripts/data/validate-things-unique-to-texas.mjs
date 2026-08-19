@@ -8,6 +8,7 @@ const categoryRoute = fs.readFileSync('src/routes/things-unique-to-texas.$catego
 const lazyRoute = fs.readFileSync('src/routes/things-unique-to-texas.$category.lazy.tsx', 'utf8');
 const methodologyRoute = fs.readFileSync('src/routes/things-unique-to-texas.methodology.tsx', 'utf8');
 const publicRoutes = fs.readFileSync('src/lib/public-routes.ts', 'utf8');
+const trustRouter = fs.readFileSync('src/components/authority/CitationCollectionTrustRouter.tsx', 'utf8');
 const failures = [];
 
 const ids = [...source.matchAll(/\bitem\((\d+),/g)].map((match) => Number(match[1]));
@@ -49,6 +50,10 @@ if (!rootLazy.includes('to="/things-unique-to-texas/methodology"')) failures.pus
 if (!rootRoute.includes('isBasedOn: methodologyUrl')) failures.push('Magazine CollectionPage schema must identify the methodology as its basis.');
 if (!rootRoute.includes('dateModified: "2026-08-19"')) failures.push('Magazine collection schema must retain an explicit reviewed modification date.');
 if (!rootRoute.includes('Texas Defined Editorial Desk')) failures.push('Magazine collection schema must retain editorial authorship.');
+for (const path of ['/things-unique-to-texas', '/things-unique-to-texas/methodology']) {
+  if (!trustRouter.includes(`'${path}'`)) failures.push(`Collection trust router must cover ${path}.`);
+}
+if (!trustRouter.includes('Collection structure, methodology and canonical-link policy reviewed August 19, 2026.')) failures.push('Magazine trust layer must retain an explicit collection review date.');
 
 if (failures.length) {
   console.error('Things That Define Texas validation failed:');
@@ -56,4 +61,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Things That Define Texas validation passed: ${ids.length} entries, ${categorySlugs.length} categories, ${hrefs.length} editorial links, ${canonicalIds.length} canonical destination cross-links, and methodology/provenance contracts intact.`);
+console.log(`Things That Define Texas validation passed: ${ids.length} entries, ${categorySlugs.length} categories, ${hrefs.length} editorial links, ${canonicalIds.length} canonical destination cross-links, and methodology/provenance/trust contracts intact.`);
