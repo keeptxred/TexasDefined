@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: destination-canonical-smoke-main
@@ -88,16 +88,3 @@ jobs:
           done
 
           echo 'Destination canonical consolidation smoke passed.'
-
-      - name: Record one-time live verification
-        shell: bash
-        run: |
-          set -euo pipefail
-          git config user.name github-actions[bot]
-          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          checked_sha="$(git rev-parse HEAD)"
-          git pull --rebase origin main
-          printf '%s\n' "Destination canonical live smoke passed for ${checked_sha} from workflow run ${GITHUB_RUN_ID}." > .github/destination-canonical-smoke-passed.txt
-          git add .github/destination-canonical-smoke-passed.txt
-          git commit -m 'Record destination canonical smoke pass'
-          git push origin HEAD:main
