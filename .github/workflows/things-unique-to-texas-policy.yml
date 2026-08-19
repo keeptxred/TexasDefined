@@ -17,6 +17,7 @@ on:
       - 'src/components/authority/CitationCollectionTrustRouter.tsx'
       - 'src/lib/public-routes.ts'
       - 'scripts/data/validate-things-unique-to-texas.mjs'
+      - 'scripts/data/validate-texas-icon-link-depth.mjs'
       - '.github/workflows/things-unique-to-texas-policy.yml'
       - '.github/workflows/things-unique-to-texas-production-smoke.yml'
   pull_request:
@@ -35,6 +36,7 @@ on:
       - 'src/components/authority/CitationCollectionTrustRouter.tsx'
       - 'src/lib/public-routes.ts'
       - 'scripts/data/validate-things-unique-to-texas.mjs'
+      - 'scripts/data/validate-texas-icon-link-depth.mjs'
       - '.github/workflows/things-unique-to-texas-policy.yml'
       - '.github/workflows/things-unique-to-texas-production-smoke.yml'
   workflow_dispatch:
@@ -55,8 +57,13 @@ jobs:
         with:
           node-version: 22
 
-      - name: Syntax-check magazine validator
-        run: node --check scripts/data/validate-things-unique-to-texas.mjs
+      - name: Syntax-check magazine validators
+        run: |
+          node --check scripts/data/validate-things-unique-to-texas.mjs
+          node --check scripts/data/validate-texas-icon-link-depth.mjs
 
       - name: Validate magazine structure, authority and cross-links
         run: node scripts/data/validate-things-unique-to-texas.mjs
+
+      - name: Validate exact deep-link coverage
+        run: node scripts/data/validate-texas-icon-link-depth.mjs
