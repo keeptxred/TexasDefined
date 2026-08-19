@@ -24,6 +24,8 @@ export const Route = createFileRoute("/texas-history")({
     breadcrumbParentPath: "/texas-living",
     items: [
       { type: "WebPage" as const, name: "Painted Churches of Texas", url: "/explore/painted-churches", description: "A source-checked statewide collection connecting church history, immigrant communities, architecture, decorative arts and preservation." },
+      { type: "WebPage" as const, name: "German & Czech Texas Towns", url: "/german-czech-texas-towns", description: "A heritage guide connecting food, churches, dance halls and settlement history across Central Texas and the Hill Country." },
+      { type: "WebPage" as const, name: "Texas Dance Halls & Honky-Tonks", url: "/texas-dance-halls-honky-tonks", description: "A guide to the music, architecture and social traditions of Texas dance halls and honky-tonks." },
       ...loaderData.articles.map((article) => ({ type: "Article" as const, name: article.title, url: `/article/${article.slug}`, image: article.hero.src, description: article.dek })),
       ...loaderData.destinations.map((destination) => ({ type: "TouristAttraction" as const, name: destination.name, url: `/destination/${destination.slug}`, image: destination.hero.src, description: destination.summary })),
     ],
@@ -53,6 +55,25 @@ function TexasHistoryPage() {
           <Link to="/explore/painted-churches/timeline" className="border-b border-primary text-primary">Statewide timeline</Link>
           <Link to="/explore/painted-churches/people" className="border-b border-primary text-primary">Artists & architects</Link>
           <Link to="/explore/painted-churches/harwood-archive" className="border-b border-primary text-primary">Harwood archive guide</Link>
+        </div>
+      </section>
+
+      <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]" aria-labelledby="living-heritage-guides">
+        <div>
+          <p className="eyebrow text-primary">Living heritage</p>
+          <h2 id="living-heritage-guides" className="mt-2 font-display text-3xl">History you can still eat, hear and visit</h2>
+        </div>
+        <div className="grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2">
+          <Link to="/german-czech-texas-towns" className="group bg-background p-6">
+            <strong className="font-display text-2xl group-hover:text-primary">German & Czech Texas towns</strong>
+            <span className="mt-3 block text-sm leading-6 text-muted-foreground">Connect settlement history with bakeries, meat markets, churches, festivals, architecture and Central Texas communities.</span>
+            <span className="mt-5 block text-sm font-semibold text-primary">Open heritage guide →</span>
+          </Link>
+          <Link to="/texas-dance-halls-honky-tonks" className="group bg-background p-6">
+            <strong className="font-display text-2xl group-hover:text-primary">Texas dance halls & honky-tonks</strong>
+            <span className="mt-3 block text-sm leading-6 text-muted-foreground">See how community halls, Western swing, country music and the two-step preserve another layer of Texas social history.</span>
+            <span className="mt-5 block text-sm font-semibold text-primary">Open music-history guide →</span>
+          </Link>
         </div>
       </section>
     </Container>
