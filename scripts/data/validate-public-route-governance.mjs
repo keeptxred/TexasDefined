@@ -42,8 +42,9 @@ for (const entry of sourceRouteEntries) if (shouldCountPublicRoute(entry.path)) 
 for (const path of ['/', '/explore', '/shop', '/shop/cart', '/shop/checkout-return']) registeredStaticPublicPaths.add(path);
 for (const routePath of registeredStaticPublicPaths) if (!classified.has(routePath)) failures.push(`Registered static public route is unclassified: ${routePath}.`);
 for (const routePath of classified) {
+  const backedByExactSource = sourceRouteEntries.some((entry) => entry.path === routePath);
   const backedByDynamicRoute = sourceRouteEntries.some((entry) => entry.path.includes('$') && routePatternMatches(routePath, entry.path));
-  if (!registeredStaticPublicPaths.has(routePath) && !backedByDynamicRoute) failures.push(`Governed public route is missing from the generated route tree or route sources: ${routePath}.`);
+  if (!registeredStaticPublicPaths.has(routePath) && !backedByExactSource && !backedByDynamicRoute) failures.push(`Governed public route is missing from the generated route tree or route sources: ${routePath}.`);
 }
 for (const routePath of indexable) {
   if (conditional.includes(routePath)) failures.push(`Route is both always-indexable and conditional: ${routePath}.`);

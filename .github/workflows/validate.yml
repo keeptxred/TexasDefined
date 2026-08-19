@@ -53,6 +53,9 @@ jobs:
       - name: Validate public route governance
         run: node scripts/data/validate-public-route-governance.mjs
 
+      - name: Validate Painted Churches search-intent coverage
+        run: node scripts/data/validate-painted-church-search-intents.mjs
+
       - name: Validate indexation quality
         run: node scripts/data/validate-indexation-quality.mjs
 

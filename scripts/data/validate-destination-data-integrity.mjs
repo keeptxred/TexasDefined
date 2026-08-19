@@ -7,6 +7,8 @@ const destinationPlanner = fs.readFileSync(path.join(root, 'src/components/edito
 const destinationAudit = fs.readFileSync(path.join(root, 'src/data/destination-audit.ts'), 'utf8');
 const destinationQuality = fs.readFileSync(path.join(root, 'src/data/destination-quality.ts'), 'utf8');
 const queries = fs.readFileSync(path.join(root, 'src/data/queries.ts'), 'utf8');
+const destinationRuntime = fs.readFileSync(path.join(root, 'src/data/destination-query-runtime.ts'), 'utf8');
+const queryImplementation = `${queries}\n${destinationRuntime}`;
 const articleRoute = fs.readFileSync(path.join(root, 'src/routes/article.$slug.tsx'), 'utf8');
 const map = fs.readFileSync(path.join(root, 'src/components/editorial/MapPreview.tsx'), 'utf8');
 const remote = fs.readFileSync(path.join(root, 'src/data/explore-remote.ts'), 'utf8');
@@ -66,10 +68,11 @@ for (const sourceMarker of [
 
 for (const feature of [
   'filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved))',
-  'const destinations = reconcileExploreCatalog',
+  'function reconcileExploreCatalog',
 ]) {
-  if (!queries.includes(feature)) errors.push(`Destination catalog quality filter missing: ${feature}.`);
+  if (!queryImplementation.includes(feature)) errors.push(`Destination catalog quality filter missing: ${feature}.`);
 }
+if (!queries.includes('await import("./destination-query-runtime")')) errors.push('Destination query resolution must remain behind the dynamic runtime boundary.');
 
 for (const feature of [
   'function unique(values: string[])',
@@ -145,4 +148,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Article and destination data, single robots policy, indexing quality gate, visit-planner, relationship, breadcrumb, and entity graph integrity validation passed.');
+console.log('Article and destination data, single robots policy, indexing quality gate, lazy destination query resolution, visit-planner, relationship, breadcrumb, and entity graph integrity validation passed.');

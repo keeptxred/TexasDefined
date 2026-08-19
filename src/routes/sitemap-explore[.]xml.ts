@@ -15,6 +15,7 @@ import { paintedChurchHeritage } from "@/data/painted-church-heritage";
 import { paintedChurchItineraries } from "@/data/painted-church-itineraries";
 import { paintedChurchPeople } from "@/data/painted-church-people";
 import { paintedChurchPreservationTopics } from "@/data/painted-church-preservation";
+import { paintedChurchSearchGuides } from "@/data/painted-church-search-guides";
 import { paintedChurchSymbols } from "@/data/painted-church-symbols";
 import { paintedChurchTechniques } from "@/data/painted-church-techniques";
 import { expandedPaintedChurches } from "@/data/painted-churches-expanded";
@@ -142,6 +143,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           "/explore/painted-churches/glossary",
           "/explore/painted-churches/timeline",
           "/explore/painted-churches/routes",
+          "/explore/painted-churches/guides",
           "/explore/painted-churches/print-guide",
           "/explore/painted-churches/media",
           "/explore/painted-churches/cite",
@@ -167,6 +169,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         const preservationEntries = paintedChurchPreservationTopics.map((item) => entry(`/explore/painted-churches/preservation/${item.slug}`, "2026-08-18")).filter((item): item is string => Boolean(item));
         const glossaryEntries = paintedChurchGlossary.map((item) => entry(`/explore/painted-churches/glossary/${item.slug}`, "2026-08-18")).filter((item): item is string => Boolean(item));
         const itineraryEntries = paintedChurchItineraries.map((item) => entry(`/explore/painted-churches/routes/${item.slug}`, "2026-08-18")).filter((item): item is string => Boolean(item));
+        const searchGuideEntries = paintedChurchSearchGuides.map((item) => entry(`/explore/painted-churches/guides/${item.slug}`, "2026-08-18")).filter((item): item is string => Boolean(item));
         const staticEntries = [...new Set(staticPaths)].map((path) => entry(path)).filter((item): item is string => Boolean(item));
         const entries = [
           ...staticEntries,
@@ -179,6 +182,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           ...preservationEntries,
           ...glossaryEntries,
           ...itineraryEntries,
+          ...searchGuideEntries,
         ].join("\n");
         const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${entries}\n</urlset>`;
         return new Response(xml, {
