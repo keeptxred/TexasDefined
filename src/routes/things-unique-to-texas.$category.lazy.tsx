@@ -1,6 +1,7 @@
 import { Link, createLazyFileRoute } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
+import { texasIconCanonicalHref } from "@/data/things-unique-to-texas-links";
 
 export const Route = createLazyFileRoute("/things-unique-to-texas/$category")({
   component: TexasIconCategoryPage,
@@ -31,18 +32,19 @@ function TexasIconCategoryPage() {
           <div className="grid gap-6 lg:grid-cols-[1fr_320px] lg:items-start">
             <div className="grid gap-4 sm:grid-cols-2">
               {category.items.map((entry) => {
+                const href = texasIconCanonicalHref(entry);
                 const content = (
                   <div className="flex items-start gap-4">
                     <span className="mt-1 min-w-9 text-sm font-semibold tabular-nums text-primary">{entry.id}</span>
                     <div>
                       <h2 className="font-display text-2xl leading-tight">{entry.name}</h2>
                       <p className="mt-3 text-sm leading-6 text-muted-foreground">{entry.note}</p>
-                      {entry.href && <p className="mt-4 text-sm font-semibold text-primary">Explore the deeper TexasDefined guide →</p>}
+                      {href && <p className="mt-4 text-sm font-semibold text-primary">Explore the deeper TexasDefined guide →</p>}
                     </div>
                   </div>
                 );
-                return entry.href ? (
-                  <Link key={entry.id} to={entry.href} className="group border border-border bg-card p-6 transition-colors hover:border-primary/50 hover:bg-muted/30">{content}</Link>
+                return href ? (
+                  <Link key={entry.id} to={href} className="group border border-border bg-card p-6 transition-colors hover:border-primary/50 hover:bg-muted/30">{content}</Link>
                 ) : (
                   <article key={entry.id} className="border border-border bg-card p-6">{content}</article>
                 );
