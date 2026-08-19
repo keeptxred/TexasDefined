@@ -28,6 +28,7 @@ export const Route = createFileRoute("/explore/")({
     const articles = loaderData?.articles ?? [];
     const items = [
       ...categories.map((category) => ({ "@type": "WebPage" as const, name: category.name, description: category.description, url: `${siteUrl}/explore/${category.slug}`, image: category.image?.src ? absoluteUrl(texasDefinedBrand, category.image.src) : undefined })),
+      { "@type": "CollectionPage" as const, name: "Painted Churches of Texas", description: "Source-checked statewide reference collection with church guides, map, routes, history, artists, techniques and archival comparisons.", url: `${siteUrl}/explore/painted-churches` },
       ...regions.map((region) => ({ "@type": "WebPage" as const, name: `${region.name} Guide`, description: region.blurb, url: `${siteUrl}/explore/region/${region.id}` })),
       ...destinations.map(destinationSchema),
       ...articles.map((article) => ({ "@type": "Article" as const, name: article.title, description: article.dek, url: `${siteUrl}/article/${article.slug}`, image: absoluteUrl(texasDefinedBrand, article.hero.src) })),
@@ -35,7 +36,7 @@ export const Route = createFileRoute("/explore/")({
     const itemListElement = items.map((item, index) => ({ "@type": "ListItem", position: index + 1, item }));
     return { meta: buildMeta(texasDefinedBrand, { canonicalPath: "/explore", title: "Explore Texas", description }), links: [canonicalLink(texasDefinedBrand, "/explore")], scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": [{ "@type": "CollectionPage", "@id": `${pageUrl}#page`, url: pageUrl, name: "Explore Texas", description, isPartOf: { "@id": `${siteUrl}/#website` }, mainEntity: { "@id": `${pageUrl}#items` }, breadcrumb: { "@id": `${pageUrl}#breadcrumbs` } }, { "@type": "ItemList", "@id": `${pageUrl}#items`, name: "Places, regions and stories worth knowing", numberOfItems: itemListElement.length, itemListElement }, { "@type": "BreadcrumbList", "@id": `${pageUrl}#breadcrumbs`, itemListElement: [{ "@type": "ListItem", position: 1, name: "Front page", item: `${siteUrl}/` }, { "@type": "ListItem", position: 2, name: "Explore", item: pageUrl }] }] }) }] };
   },
-  loader: async ({ context }): Promise<{ categories: Category[]; regions: Region[]; destinations: Destination[]; articles: Article[] }> => {
+  loader: async ({ context }): Promise<{ articles: Article[]; destinations: Destination[]; categories: Category[]; regions: Region[] }> => {
     const [categories, regions, destinations, articles] = await Promise.all([context.queryClient.ensureQueryData(categoriesQuery()), context.queryClient.ensureQueryData(regionsQuery()), context.queryClient.ensureQueryData(destinationsQuery({ featured: true })), context.queryClient.ensureQueryData(articlesQuery({ limit: 6 }))]);
     return { categories, regions, destinations, articles };
   },
@@ -54,9 +55,10 @@ function ExplorePage() {
 
     <ExploreIntentPaths />
     <Container className="pb-4 pt-8">
-      <div className="grid border-y border-border md:grid-cols-2">
-        <Link to="/explore/top-attractions" className="group flex items-center justify-between gap-5 py-5 md:border-r md:pr-8"><div><p className="eyebrow text-primary">Texas essentials</p><h2 className="mt-1 font-display text-2xl group-hover:text-primary">Explore the Top 25 Texas attractions</h2><p className="mt-2 text-sm leading-6 text-muted-foreground">Start with 25 landmark experiences, each with a full visit guide, nearby stops and direct Trip Planner handoff.</p></div><span className="shrink-0 font-semibold text-primary">Top 25 →</span></Link>
-        <Link to="/explore/attractions-comparison" className="group flex items-center justify-between gap-5 border-t border-border py-5 md:border-t-0 md:pl-8"><div><p className="eyebrow text-primary">Structured comparison</p><h2 className="mt-1 font-display text-2xl group-hover:text-primary">Compare the Texas Defined attractions catalog</h2><p className="mt-2 text-sm leading-6 text-muted-foreground">See destinations across categories by region, nearby town, season guidance, highlights, planning notes and official source.</p></div><span className="shrink-0 font-semibold text-primary">Compare →</span></Link>
+      <div className="grid border-y border-border lg:grid-cols-3">
+        <Link to="/explore/top-attractions" className="group flex items-center justify-between gap-5 py-5 lg:border-r lg:pr-8"><div><p className="eyebrow text-primary">Texas essentials</p><h2 className="mt-1 font-display text-2xl group-hover:text-primary">Explore the Top 25 Texas attractions</h2><p className="mt-2 text-sm leading-6 text-muted-foreground">Start with 25 landmark experiences, each with a full visit guide, nearby stops and direct Trip Planner handoff.</p></div><span className="shrink-0 font-semibold text-primary">Top 25 →</span></Link>
+        <Link to="/explore/attractions-comparison" className="group flex items-center justify-between gap-5 border-t border-border py-5 lg:border-r lg:border-t-0 lg:px-8"><div><p className="eyebrow text-primary">Structured comparison</p><h2 className="mt-1 font-display text-2xl group-hover:text-primary">Compare the Texas Defined attractions catalog</h2><p className="mt-2 text-sm leading-6 text-muted-foreground">See destinations across categories by region, season guidance, highlights, planning notes and official source.</p></div><span className="shrink-0 font-semibold text-primary">Compare →</span></Link>
+        <Link to="/explore/painted-churches" className="group flex items-center justify-between gap-5 border-t border-border py-5 lg:border-t-0 lg:pl-8"><div><p className="eyebrow text-primary">Texas heritage reference</p><h2 className="mt-1 font-display text-2xl group-hover:text-primary">Research and visit the Painted Churches of Texas</h2><p className="mt-2 text-sm leading-6 text-muted-foreground">Use the statewide verified collection, interactive map, routes, artists, symbols, preservation records and then-and-now archive project.</p></div><span className="shrink-0 font-semibold text-primary">Churches →</span></Link>
       </div>
     </Container>
 
