@@ -4,6 +4,7 @@ const seeds = fs.readFileSync('src/data/historic-sites.ts', 'utf8');
 const primary = fs.readFileSync('src/data/historic-site-enrichment.ts', 'utf8');
 const extra = fs.readFileSync('src/data/historic-site-area-guides-extra.ts', 'utf8');
 const remoteHeroes = fs.readFileSync('src/data/historic-site-remote-heroes.ts', 'utf8');
+const clusters = fs.readFileSync('src/data/historic-site-clusters.ts', 'utf8');
 const runtime = fs.readFileSync('src/data/destination-query-runtime.ts', 'utf8');
 const preserved = fs.readFileSync('src/data/destination-preserved-catalog.ts', 'utf8');
 const history = fs.readFileSync('src/routes/texas-history.tsx', 'utf8');
@@ -25,6 +26,18 @@ const extraGuideSlugs = extraGuideBlock ? [...extraGuideBlock[1].matchAll(/^\s{2
 const guideSlugs = new Set([...primaryGuideSlugs, ...extraGuideSlugs]);
 for (const slug of seedSlugs) if (!guideSlugs.has(slug)) failures.push(`Historic site is missing destination-specific area-guide coverage: ${slug}.`);
 for (const slug of guideSlugs) if (!seedSlugs.includes(slug)) failures.push(`Historic area-guide key does not match a statewide historic-site seed: ${slug}.`);
+
+const clusterIds = [...clusters.matchAll(/\{ id: "([^"]+)"[\s\S]*?slugs: \[([^\]]+)\] \}/g)].map((match) => ({
+  id: match[1],
+  slugs: [...match[2].matchAll(/"([^"]+)"/g)].map((slugMatch) => slugMatch[1]),
+}));
+if (!clusterIds.length) failures.push('Could not parse historic-site thematic clusters.');
+if (new Set(clusterIds.map((cluster) => cluster.id)).size !== clusterIds.length) failures.push('Historic-site thematic cluster ids must be unique.');
+for (const cluster of clusterIds) {
+  if (!cluster.slugs.length) failures.push(`Historic-site thematic cluster is empty: ${cluster.id}.`);
+  if (new Set(cluster.slugs).size !== cluster.slugs.length) failures.push(`Historic-site thematic cluster repeats a destination: ${cluster.id}.`);
+  for (const slug of cluster.slugs) if (!seedSlugs.includes(slug)) failures.push(`Historic-site thematic cluster ${cluster.id} links a non-seed slug: ${slug}.`);
+}
 
 for (const marker of ['historicSiteDestinations', 'export const preservedExploreDestinations = mergePreservedDestinations(']) if (!preserved.includes(marker)) failures.push(`Preserved historic-site catalog contract missing: ${marker}`);
 for (const marker of ['enrichHistoricSiteCatalog','enrichHistoricSiteDestination','enrichRemainingHistoricSiteAreaGuide','enrichHistoricSiteRemoteHero','enrichHistoricSiteCatalog(curated).map(enrichRemainingHistoricSiteAreaGuide).map(enrichHistoricSiteRemoteHero)']) if (!runtime.includes(marker)) failures.push(`Historic-site runtime enrichment contract missing: ${marker}`);
@@ -89,4 +102,4 @@ for (const [slug, license] of verifiedRemoteHeroes) {
 if (!remoteHeroes.includes('enrichHistoricSiteRemoteHero')) failures.push('Verified historic remote heroes are not exposed through the runtime enrichment function.');
 
 if (failures.length) { console.error('Historic-sites validation failed:'); for (const failure of failures) console.error(`- ${failure}`); process.exit(1); }
-console.log(`Historic-sites validation passed: ${seedSlugs.length} statewide seeds, ${guideSlugs.size} destination-specific area guides, ${exactHeroAliases.length + verifiedRemoteHeroes.length} exact verified hero mappings, every protected hero matches a real seed, shared preserved-catalog publication, Texas History discovery and county cross-links are protected.`);
+console.log(`Historic-sites validation passed: ${seedSlugs.length} statewide seeds, ${guideSlugs.size} destination-specific area guides, ${clusterIds.length} thematic clusters with valid seed links, ${exactHeroAliases.length + verifiedRemoteHeroes.length} exact verified hero mappings, every protected hero matches a real seed, shared preserved-catalog publication, Texas History discovery and county cross-links are protected.`);
