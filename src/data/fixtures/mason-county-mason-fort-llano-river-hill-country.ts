@@ -16,7 +16,7 @@ export const masonCountyMasonFortLlanoRiverHillCountryArticle: Article = {
     alt: "Mason County Courthouse in Mason, Texas",
     width: 4608,
     height: 3072,
-    credit: "Aualliso · Wikimedia Commons · CC BY-SA 4.0",
+    credit: "25or6to4 · Wikimedia Commons · CC BY-SA 4.0",
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-19",
