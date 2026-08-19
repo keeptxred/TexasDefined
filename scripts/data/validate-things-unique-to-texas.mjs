@@ -38,7 +38,12 @@ const evergreenGuides = [
   ['/san-antonio-puffy-taco-history', 'src/routes/san-antonio-puffy-taco-history.tsx', 'san-antonio-puffy-taco-history'],
   ['/barbacoa-big-red-san-antonio', 'src/routes/barbacoa-big-red-san-antonio.tsx', 'barbacoa-big-red-san-antonio'],
 ];
-const additionalSmokePaths = ['/article/kolache-or-klobasnek-texas-story'];
+const additionalSmokePaths = [
+  '/article/kolache-or-klobasnek-texas-story',
+  '/article/caddo-lake-cypress-morning',
+  '/article/texas-wildlife-guide',
+  '/article/texas-trees-guide',
+];
 
 const ids = [...source.matchAll(/\bitem\((\d+),/g)].map((match) => Number(match[1]));
 const categorySlugs = [...source.matchAll(/^\s{4}slug:\s*"([a-z0-9-]+)",/gm)].map((match) => match[1]);
@@ -161,7 +166,7 @@ const smokePaths = [
 for (const path of smokePaths) {
   if (!productionSmoke.includes(`'${path}'`)) failures.push(`Magazine production smoke must verify ${path}.`);
 }
-for (const token of ['.count == 250', '(.items | length) == 250', 'wc -l', '251', 'x-robots-tag:', '/things-that-define-texas.json', '/things-that-define-texas.csv', 'test "$json_deep_links" -ge 81', 'test "$csv_deep_links" -ge 81', 'Topical/evergreen deep-dive routes checked: 17', 'at least 81 deeper-guide relationships']) {
+for (const token of ['.count == 250', '(.items | length) == 250', 'wc -l', '251', 'x-robots-tag:', '/things-that-define-texas.json', '/things-that-define-texas.csv', 'test "$json_deep_links" -ge 83', 'test "$csv_deep_links" -ge 83', 'Topical/evergreen authority routes checked: 20', 'at least 83 deeper-guide relationships']) {
   if (!productionSmoke.includes(token)) failures.push(`Magazine production smoke must retain current authority/distribution token: ${token}.`);
 }
 
@@ -171,4 +176,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Things That Define Texas validation passed: ${ids.length} entries, ${categorySlugs.length} categories, ${evergreenGuides.length} evergreen deep dives, ${canonicalIds.length} exact destination mappings, ${deepDiveIds.length} protected editorial/deep-dive mappings (${canonicalIds.length + deepDiveIds.length} total protected mapping relationships), five evergreen data batches, two shared data distributions, methodology/provenance/trust contracts, and ${smokePaths.length + evergreenGuides.length + additionalSmokePaths.length} HTML production smoke routes intact.`);
+console.log(`Things That Define Texas validation passed: ${ids.length} entries, ${categorySlugs.length} categories, ${evergreenGuides.length} evergreen deep dives, ${canonicalIds.length} exact destination mappings, ${deepDiveIds.length} protected editorial/deep-dive mappings (${canonicalIds.length + deepDiveIds.length} protected registry relationships; production distributions must retain at least 83 deeper-guide rows), five evergreen data batches, two shared data distributions, methodology/provenance/trust contracts, and ${smokePaths.length + evergreenGuides.length + additionalSmokePaths.length} HTML production smoke routes intact.`);
