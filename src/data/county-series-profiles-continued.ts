@@ -103,4 +103,10 @@ export const COUNTY_SERIES_PROFILES_CONTINUED: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/shelby-county-center-regulator-moderator-sabine-piney-woods-texas")
       .then((module) => module.shelbyCountyCenterRegulatorModeratorSabinePineyWoodsArticle),
   },
+  {
+    countySlug: "panola",
+    articleSlug: "panola-county-carthage-sabine-timber-music-piney-woods-texas",
+    loadArticle: () => import("@/data/fixtures/panola-county-carthage-sabine-timber-music-piney-woods-texas")
+      .then((module) => module.panolaCountyCarthageSabineTimberMusicPineyWoodsArticle),
+  },
 ];
