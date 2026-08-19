@@ -20,15 +20,9 @@ const deepDiveLinks = deepDiveBlock
   ? [...deepDiveBlock[1].matchAll(/^\s{2}(\d+):\s*"(\/[^"]+)",/gm)]
   : [];
 
-if (destinationLinks.length < 41) {
-  failures.push(`Expected at least 41 exact destination mappings; found ${destinationLinks.length}.`);
-}
-if (deepDiveLinks.length < 18) {
-  failures.push(`Expected at least 18 purpose-built/editorial deep-dive mappings; found ${deepDiveLinks.length}.`);
-}
-if (destinationLinks.length + deepDiveLinks.length < 59) {
-  failures.push(`Expected at least 59 protected deeper-guide relationships; found ${destinationLinks.length + deepDiveLinks.length}.`);
-}
+if (destinationLinks.length < 41) failures.push(`Expected at least 41 exact destination mappings; found ${destinationLinks.length}.`);
+if (deepDiveLinks.length < 40) failures.push(`Expected at least 40 purpose-built/editorial deep-dive mappings; found ${deepDiveLinks.length}.`);
+if (destinationLinks.length + deepDiveLinks.length < 81) failures.push(`Expected at least 81 protected deeper-guide relationships; found ${destinationLinks.length + deepDiveLinks.length}.`);
 
 const allIds = [...destinationLinks, ...deepDiveLinks].map((match) => Number(match[1]));
 if (new Set(allIds).size !== allIds.length) failures.push('Texas icon resolver IDs must be unique across destination and deep-dive registries.');
@@ -58,8 +52,30 @@ const requiredDeepDiveMappings = new Map([
   [42, '/texas-brand-origin-stories'],
   [44, '/texas-brand-origin-stories'],
   [45, '/texas-brand-origin-stories'],
+  [60, '/article/caddo-lake-cypress-morning'],
+  [166, '/texas-dance-halls-honky-tonks'],
+  [167, '/texas-dance-halls-honky-tonks'],
+  [174, '/texas-dance-halls-honky-tonks'],
   [180, '/texas-dance-halls-honky-tonks'],
   [190, '/texas-homecoming-mums'],
+  [191, '/texas-dance-halls-honky-tonks'],
+  [200, '/article/texas-wildlife-guide'],
+  [201, '/article/texas-wildlife-guide'],
+  [203, '/article/texas-wildlife-guide'],
+  [204, '/article/texas-trees-guide'],
+  [205, '/article/texas-trees-guide'],
+  [206, '/article/texas-trees-guide'],
+  [212, '/article/texas-wildlife-guide'],
+  [213, '/article/texas-wildlife-guide'],
+  [214, '/article/texas-wildlife-guide'],
+  [215, '/article/texas-wildlife-guide'],
+  [218, '/article/texas-trees-guide'],
+  [220, '/article/texas-wildlife-guide'],
+  [222, '/texas-slang-explained'],
+  [223, '/texas-slang-explained'],
+  [224, '/texas-slang-explained'],
+  [231, '/texas-slang-explained'],
+  [239, '/texas-slang-explained'],
 ]);
 const actualDeepDiveMappings = new Map(deepDiveLinks.map((match) => [Number(match[1]), match[2]]));
 for (const [id, href] of requiredDeepDiveMappings) {
