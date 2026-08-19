@@ -145,4 +145,10 @@ export const COUNTY_SERIES_PROFILES_CONTINUED: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/harrison-county-marshall-caddo-lake-railroads-piney-woods-texas")
       .then((module) => module.harrisonCountyMarshallCaddoLakeRailroadsPineyWoodsArticle),
   },
+  {
+    countySlug: "marion",
+    articleSlug: "marion-county-jefferson-caddo-lake-riverport-piney-woods-texas",
+    loadArticle: () => import("@/data/fixtures/marion-county-jefferson-caddo-lake-riverport-piney-woods-texas")
+      .then((module) => module.marionCountyJeffersonCaddoLakeRiverportPineyWoodsArticle),
+  },
 ];
