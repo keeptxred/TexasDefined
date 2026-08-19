@@ -52,6 +52,7 @@ Canonical contributor profiles use https://texasdefined.com/authors/{author-id}.
 - Dr Pepper Texas history: https://texasdefined.com/dr-pepper-texas-history
 - Texas roadside oddities: https://texasdefined.com/texas-roadside-oddities
 - Texas slang explained: https://texasdefined.com/texas-slang-explained
+- Texas Blue Northers, spring storms and weather folklore: https://texasdefined.com/texas-blue-norther-weather-guide
 - Texas dance halls and honky-tonks: https://texasdefined.com/texas-dance-halls-honky-tonks
 - Texas homecoming mums: https://texasdefined.com/texas-homecoming-mums
 - Texas natural wonders bucket list: https://texasdefined.com/texas-natural-wonders-bucket-list
