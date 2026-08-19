@@ -40,7 +40,8 @@ export const Route = createFileRoute("/texas-history")({
       context.queryClient.ensureQueryData(destinationsQuery({ category: "historic-sites" })),
       context.queryClient.ensureQueryData(regionsQuery()),
     ]);
-    return { articles, destinations: mergeDestinations(historyDestinations, historicSites) };
+    const destinations = mergeDestinations(historyDestinations, historicSites);
+    return { articles, destinations };
   },
   component: TexasHistoryPage,
 });
