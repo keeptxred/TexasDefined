@@ -86,6 +86,7 @@ results.sort((a, b) => a.url.localeCompare(b.url));
 const failures = results.filter((result) => !result.healthy);
 const restricted = results.filter((result) => result.restrictedButReachable);
 const redirected = results.filter((result) => result.healthy && result.finalUrl && result.finalUrl !== result.url);
+const checkedAt = new Date().toISOString();
 
 console.log(`# Top 25 authority source health`);
 console.log(`Checked: ${results.length}`);
@@ -105,6 +106,31 @@ for (const result of redirected) {
   console.log(`REDIRECT ${result.url} -> ${result.finalUrl}`);
 }
 
+const report = {
+  schemaVersion: 1,
+  checkedAt,
+  userAgent,
+  counts: {
+    checked: results.length,
+    healthyOrReachable: results.length - failures.length,
+    restrictedButReachable: restricted.length,
+    redirected: redirected.length,
+    failures: failures.length,
+  },
+  results: results.map((result) => ({
+    ...result,
+    sourceFiles: [...(urlToFiles.get(result.url) ?? [])].sort(),
+  })),
+};
+
+const reportPath = process.env.TOP25_SOURCE_HEALTH_REPORT;
+if (reportPath) {
+  const absoluteReportPath = path.resolve(ROOT, reportPath);
+  fs.mkdirSync(path.dirname(absoluteReportPath), { recursive: true });
+  fs.writeFileSync(absoluteReportPath, `${JSON.stringify(report, null, 2)}\n`);
+  console.log(`Source-health snapshot: ${path.relative(ROOT, absoluteReportPath)}`);
+}
+
 if (process.env.GITHUB_STEP_SUMMARY) {
   const rows = [
     '## Top 25 authority source health',
@@ -114,6 +140,7 @@ if (process.env.GITHUB_STEP_SUMMARY) {
     `- Restricted but reachable: **${restricted.length}**`,
     `- Redirected: **${redirected.length}**`,
     `- Failures: **${failures.length}**`,
+    `- Checked at: **${checkedAt}**`,
     '',
   ];
   if (failures.length) {
