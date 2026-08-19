@@ -12,6 +12,7 @@ import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const COMPARISON_CATEGORIES = new Set<ExploreComparisonKind>(['state-parks', 'lakes-rivers', 'small-towns', 'road-trips']);
+const PAINTED_CHURCH_CROSS_LINK_CATEGORIES = new Set(['historic-sites', 'road-trips', 'small-towns']);
 
 function validCoordinates(destination: Destination) {
   const { lat, lng } = destination.coordinates;
@@ -170,6 +171,7 @@ function ExploreCategoryPage() {
   const comparisonKind = COMPARISON_CATEGORIES.has(match.slug as ExploreComparisonKind)
     ? match.slug as ExploreComparisonKind
     : null;
+  const showPaintedChurches = PAINTED_CHURCH_CROSS_LINK_CATEGORIES.has(match.slug);
 
   return (
     <>
@@ -180,6 +182,22 @@ function ExploreCategoryPage() {
         intro={match.description}
         image={match.image}
       />
+      {showPaintedChurches ? (
+        <Container className="pb-10 sm:pb-14">
+          <section className="grid gap-6 border-y border-border py-7 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
+            <div>
+              <p className="eyebrow text-primary">Texas heritage route</p>
+              <h2 className="mt-2 font-display text-3xl">Painted Churches of Texas</h2>
+              <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
+                Explore 18 historic church guides with church-by-church history, architecture, interior paintings, preservation context, visitor guidance and a Schulenburg driving route.
+              </p>
+            </div>
+            <Link to="/explore/painted-churches" className="eyebrow inline-block border-b border-primary pb-1 text-primary">
+              Explore the painted churches →
+            </Link>
+          </section>
+        </Container>
+      ) : null}
       <TopAttractionCollectionLinks destinations={destinations} contextLabel={match.name} />
       {comparisonKind ? <ExploreDestinationComparison destinations={destinations} kind={comparisonKind} /> : null}
     </>
