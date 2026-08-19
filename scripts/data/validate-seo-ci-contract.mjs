@@ -17,6 +17,7 @@ const directValidators = [
   'validate-homepage-seo.mjs',
   'validate-texas-explained-seo.mjs',
   'validate-things-unique-to-texas.mjs',
+  'validate-texas-icon-link-depth.mjs',
   'validate-texas-food-history.mjs',
   'validate-texas-culture-citation-index.mjs',
   'validate-explore-category-seo.mjs',
@@ -51,6 +52,7 @@ const delegatedValidators = [
 const cultureDeployValidators = [
   'validate-machine-indexing.mjs',
   'validate-things-unique-to-texas.mjs',
+  'validate-texas-icon-link-depth.mjs',
   'validate-texas-food-history.mjs',
   'validate-texas-culture-citation-index.mjs',
 ];
@@ -118,4 +120,4 @@ for (const validator of delegatedValidators) {
   }
 }
 
-console.log(`SEO CI contract passed with ${protectedValidators.length} protected remediation validators (${directValidators.length} direct, ${delegatedValidators.length} delegated) plus ${cultureDeployValidators.length} culture-authority predeploy gates. The workflow may use one monolithic SEO gate or stricter named direct gates while preserving generated-page quality, citation discovery, GSC evergreen recovery, machine-readable citation-download protections and Texas culture deployment safety.`);
+console.log(`SEO CI contract passed with ${protectedValidators.length} protected remediation validators (${directValidators.length} direct, ${delegatedValidators.length} delegated) plus ${cultureDeployValidators.length} culture-authority predeploy gates. The workflow may use one monolithic SEO gate or stricter named direct gates while preserving the 59-link Texas icon-depth floor, generated-page quality, citation discovery, GSC evergreen recovery, machine-readable citation-download protections and Texas culture deployment safety.`);
