@@ -3,7 +3,6 @@ import { Link } from "@tanstack/react-router";
 import bbqBrisket from "@/assets/bbq-brisket.jpg";
 import bigBend from "@/assets/big-bend.jpg";
 import kolacheKlobasnek from "@/assets/kolache-klobasnek-hero-photo.jpg";
-import texasCourthouseSquare from "@/assets/generated/texas-courthouse-square.jpg";
 import { Container } from "@/components/layout/Container";
 import type { TexasEvergreenGuide as TexasEvergreenGuideData } from "@/data/texas-evergreen-guides";
 
@@ -24,11 +23,6 @@ const guideImages: Partial<Record<string, { src: string; alt: string; caption: s
     src: kolacheKlobasnek,
     alt: "Texas Czech-style kolache and klobasnek pastries",
     caption: "Food is one of the most visible surviving links to Czech and German settlement, but the heritage also lives in churches, halls, festivals and town landscapes.",
-  },
-  "texas-roadside-oddities": {
-    src: texasCourthouseSquare,
-    alt: "Historic Texas courthouse square and surrounding streetscape",
-    caption: "The best roadside trips mix oddities with the town squares, main streets and local places around them.",
   },
 };
 
