@@ -133,4 +133,10 @@ export const COUNTY_SERIES_PROFILES_CONTINUED: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/gregg-county-longview-kilgore-oil-railroads-piney-woods-texas")
       .then((module) => module.greggCountyLongviewKilgoreOilRailroadsPineyWoodsArticle),
   },
+  {
+    countySlug: "upshur",
+    articleSlug: "upshur-county-gilmer-yamboree-piney-woods-texas",
+    loadArticle: () => import("@/data/fixtures/upshur-county-gilmer-yamboree-piney-woods-texas")
+      .then((module) => module.upshurCountyGilmerYamboreePineyWoodsArticle),
+  },
 ];
