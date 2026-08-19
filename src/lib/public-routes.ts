@@ -92,6 +92,7 @@ export const INDEXABLE_STATIC_PATHS = [
   "/texas-homecoming-mums",
   "/texas-natural-wonders-bucket-list",
   "/german-czech-texas-towns",
+  "/texas-brand-origin-stories",
   "/moving-to-texas",
   "/moving-to-texas-checklist",
   "/home-garden",
