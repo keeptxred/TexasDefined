@@ -6,7 +6,7 @@ import { Container } from "@/components/layout/Container";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const canonicalPath = "/things-unique-to-texas/methodology";
-const description = "How TexasDefined selects, labels, cross-links and maintains the 250 Things That Define Texas collection, including source precedence, scope rules and corrections.";
+const description = "How TexasDefined selects, labels, cross-links and maintains the 250 Things That Define Texas collection, including source precedence, scope rules, data distributions and corrections.";
 
 export const Route = createFileRoute("/things-unique-to-texas/methodology")({
   head: () => {
@@ -90,9 +90,18 @@ function ThingsThatDefineTexasMethodology() {
               <p>When a magazine entry links to a researched destination, readers should use that destination's visible source and review information for present-day planning.</p>
             </MethodSection>
 
+            <MethodSection title="Data distributions">
+              <p>The downloadable CSV and JSON are generated from the same 250 editorial records and canonical-link resolver as the human-readable collection. They do not maintain a separate copy of the list. A row's <code>deeperGuide</code> field is present only when TexasDefined has a direct, high-confidence canonical page for that exact entry.</p>
+              <p>The collection page remains the canonical reader-facing citation target. Use the CSV for tabular analysis and the JSON when a machine-readable object format is more useful. Both downloads link back to this methodology and the canonical collection.</p>
+              <div className="flex flex-wrap gap-3 pt-2">
+                <a href="/things-that-define-texas.csv" className="border border-border px-4 py-2 text-sm font-semibold hover:border-primary hover:text-primary">Download CSV →</a>
+                <a href="/things-that-define-texas.json" className="border border-border px-4 py-2 text-sm font-semibold hover:border-primary hover:text-primary">Download JSON →</a>
+              </div>
+            </MethodSection>
+
             <MethodSection title="Corrections and maintenance">
               <p>Corrections should preserve the distinction between origin, adoption, official designation and cultural association. If a deeper TexasDefined page changes its canonical route, the magazine link map should be updated in the same change rather than leaving a stale internal link.</p>
-              <p>The collection is structurally validated for 250 unique numbered entries across eight chapters. TexasDefined also validates its canonical link resolver so linked cards and structured data continue pointing to the same destination.</p>
+              <p>The collection is structurally validated for 250 unique numbered entries across eight chapters. TexasDefined also validates its canonical link resolver, data distributions and production routes so linked cards, structured data and machine-readable downloads continue pointing to the same underlying collection.</p>
             </MethodSection>
           </div>
 
