@@ -29,6 +29,7 @@ const DEEP_DIVE_ICON_LINKS: Readonly<Record<number, string>> = {
   173: "/texas-chili-con-carne-history",
   174: "/texas-dance-halls-honky-tonks",
   180: "/texas-dance-halls-honky-tonks",
+  185: "/article/galveston-county-island-port-juneteenth-texas",
   190: "/texas-homecoming-mums",
   191: "/texas-dance-halls-honky-tonks",
   200: "/article/texas-wildlife-guide",
