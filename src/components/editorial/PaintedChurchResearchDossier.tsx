@@ -1,3 +1,4 @@
+import { PaintedChurchGallery } from "@/components/editorial/PaintedChurchGallery";
 import "@/data/painted-churches-expanded";
 import { additionalPaintedChurchProfileBySlug } from "@/data/painted-church-profiles-additional";
 import { paintedChurchAdditionProfileBySlug } from "@/data/painted-church-profiles-additions";
@@ -27,6 +28,8 @@ export function PaintedChurchResearchDossier({ slug, schulenburgCluster }: { slu
           </dl>
         </section>
       ) : null}
+
+      <PaintedChurchGallery slug={slug} />
 
       {dossier ? (
         <section aria-labelledby="research-dossier" className="mt-14 border-t border-border pt-8">
