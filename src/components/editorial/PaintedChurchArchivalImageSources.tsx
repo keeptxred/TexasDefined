@@ -1,7 +1,11 @@
 import { paintedChurchArchivalImagesBySlug } from "@/data/painted-church-archival-images";
+import { expansionPaintedChurchArchivalImagesBySlug } from "@/data/painted-church-archival-images-expansion";
 
 export function PaintedChurchArchivalImageSources({ slug }: { slug: string }) {
-  const references = paintedChurchArchivalImagesBySlug(slug);
+  const references = [...new Map([
+    ...paintedChurchArchivalImagesBySlug(slug),
+    ...expansionPaintedChurchArchivalImagesBySlug(slug),
+  ].map((item) => [item.url, item])).values()];
   if (!references.length) return null;
 
   return (
@@ -9,7 +13,7 @@ export function PaintedChurchArchivalImageSources({ slug }: { slug: string }) {
       <p className="eyebrow text-primary">Archival image sources</p>
       <h2 id="archival-image-sources" className="mt-3 font-display text-4xl">Historic views and research photographs</h2>
       <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">
-        These are exact church-specific records from archival or open-media collections. Texas Defined embeds an image only when the individual record supports reuse; otherwise we link the original item so the historical evidence is still available without overstating its license.
+        These are exact church-specific records from archival, official or open-media collections. Texas Defined embeds an image only when the individual record supports reuse; otherwise we link the original item so the historical evidence is still available without overstating its license.
       </p>
       <div className="mt-8 grid gap-5 sm:grid-cols-2">
         {references.map((reference) => (
