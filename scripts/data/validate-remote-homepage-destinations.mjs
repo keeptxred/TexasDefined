@@ -3,6 +3,7 @@ import path from 'node:path';
 
 const root = process.cwd();
 const queries = fs.readFileSync(path.join(root, 'src/data/queries.ts'), 'utf8');
+const destinationRuntime = fs.readFileSync(path.join(root, 'src/data/destination-query-runtime.ts'), 'utf8');
 const homepage = fs.readFileSync(path.join(root, 'src/routes/index.tsx'), 'utf8');
 const errors = [];
 
@@ -18,7 +19,10 @@ for (const feature of [
   'const local = await platform.destinations.getBySlug(scope, slug)',
   'return local ? applyResolvedHero(local) : local',
 ]) {
-  if (!queries.includes(feature)) errors.push(`Remote destination fallback feature missing: ${feature}`);
+  if (!destinationRuntime.includes(feature)) errors.push(`Remote destination fallback feature missing: ${feature}`);
+}
+if (!queries.includes('await import("./destination-query-runtime")')) {
+  errors.push('Homepage destination queries must keep heavy destination resolution behind the dynamic runtime boundary.');
 }
 
 for (const feature of [
@@ -46,4 +50,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Remote-backed homepage picks, preserved/local catalog resilience, and destination detail fallbacks passed.');
+console.log('Remote-backed homepage picks, preserved/local catalog resilience, lazy destination runtime, and destination detail fallbacks passed.');
