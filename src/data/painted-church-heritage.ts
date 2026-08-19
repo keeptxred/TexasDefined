@@ -28,6 +28,15 @@ export const paintedChurchHeritage: PaintedChurchHeritage[] = [
     sourceUrl: "https://church.stmarysfbg.com/history",
   },
   {
+    slug: "alsatian-castroville",
+    name: "Alsatian Catholic Castroville",
+    answer: "Castroville's St. Louis Catholic Church extends the Painted Churches story into the Alsatian colony founded by Henri Castro. The parish began in 1844, the present limestone church dates to 1870, and church-controlled imagery plus Harwood field research document its painted-interior tradition.",
+    context: ["St. Louis parish was founded eight days after Henri Castro founded Castroville in 1844.", "The Texas Historical Commission records the present 1870 limestone church as a Recorded Texas Historic Landmark and identifies the parish with Alsatian immigration.", "The active parish publishes historical interior imagery, while the Buie Harwood archive includes St. Louis in its decorative-painting field-research slides.", "Alsatian identity in Castroville should not be flattened into a generic German label; the colony reflects a French-German borderland culture with a distinct Texas history."],
+    churchSlugs: ["castroville-st-louis-catholic-church"],
+    sourceLabel: "St. Louis Catholic Church — Castroville parish history",
+    sourceUrl: "https://www.stlouiscastroville.com/copy-of-about-us",
+  },
+  {
     slug: "wendish",
     name: "Wendish Texas",
     answer: "The Wendish Painted Church story centers on Serbin, founded by a large Lutheran migration from Lusatia in the 1850s. St. Paul Lutheran Church is both a religious landmark and a surviving anchor of Texas Wendish identity.",
