@@ -65,6 +65,7 @@ const requiredDiscoveryTargets = [
   '/dr-pepper-texas-history',
   '/texas-roadside-oddities',
   '/texas-slang-explained',
+  '/texas-blue-norther-weather-guide',
   '/texas-dance-halls-honky-tonks',
   '/texas-homecoming-mums',
   '/texas-natural-wonders-bucket-list',
@@ -166,12 +167,17 @@ if (citationIndex) {
     'https://texasdefined.com/dr-pepper-texas-history',
     'https://texasdefined.com/texas-roadside-oddities',
     'https://texasdefined.com/texas-slang-explained',
+    'https://texasdefined.com/texas-blue-norther-weather-guide',
     'https://texasdefined.com/texas-dance-halls-honky-tonks',
     'https://texasdefined.com/texas-homecoming-mums',
     'https://texasdefined.com/texas-natural-wonders-bucket-list',
     'https://texasdefined.com/german-czech-texas-towns',
   ]) {
     if (!citationUrls.has(url)) errors.push(`Machine-readable citation index is missing Texas culture resource ${url}.`);
+  }
+  const weatherResource = (citationIndex.resources ?? []).find((resource) => resource.url === 'https://texasdefined.com/texas-blue-norther-weather-guide');
+  for (const marker of ['TSHA-terminology-source', 'NWS-meteorology-source', 'safety-first', 'folklore-vs-forecast-distinction']) {
+    if (!weatherResource?.trust?.includes(marker)) errors.push(`Texas weather citation resource is missing ${marker} trust guidance.`);
   }
   const sportsResources = (citationIndex.resources ?? []).filter((resource) => resource.url.includes('/sports-venues'));
   for (const resource of sportsResources) {
@@ -263,4 +269,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`TexasDefined machine endpoints, provenance, ${requiredDiscoveryTargets.length} llms.txt discovery targets, Texas culture citation resources, current sports identity/schema, robots policy, and core Organization/WebSite/Article schema contracts are protected.`);
+console.log(`TexasDefined machine endpoints, provenance, ${requiredDiscoveryTargets.length} llms.txt discovery targets, Texas culture citation resources including sourced weather-language guidance, current sports identity/schema, robots policy, and core Organization/WebSite/Article schema contracts are protected.`);
