@@ -5,6 +5,11 @@ import type { Destination, ImageRef } from "./types";
  * Wikimedia Commons license and attribution were verified before publication.
  */
 export const historicSiteRemoteHeroes: Record<string, ImageRef> = {
+  "acton-state-historic-site": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Acton_Cemetery_%E2%80%93_20190516_123629_%2847809742402%29.jpg?width=1600",
+    alt: "Acton Cemetery at Acton State Historic Site in Hood County, Texas",
+    width: 1600, height: 3291, credit: "Iridescenti · CC BY-SA 2.0 · Wikimedia Commons",
+  },
   "bush-family-home": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/George_W._Bush_Childhood_Home_in_Midland%2C_TX_Picture_1879.jpg?width=1600",
     alt: "Bush Family Home in Midland, Texas",
