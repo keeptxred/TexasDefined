@@ -11,6 +11,7 @@ export const Route = createFileRoute("/things-unique-to-texas")({
   head: ({ loaderData }) => {
     const origin = `https://${texasDefinedBrand.identity.domain}`;
     const categories = loaderData?.categories ?? [];
+    const methodologyUrl = `${origin}/things-unique-to-texas/methodology`;
     return {
       meta: buildMeta(texasDefinedBrand, {
         title: "250 Things That Define Texas — Food, Places, Culture & Icons",
@@ -25,10 +26,14 @@ export const Route = createFileRoute("/things-unique-to-texas")({
             {
               "@context": "https://schema.org",
               "@type": "CollectionPage",
+              "@id": `${origin}/things-unique-to-texas#collection`,
               name: "250 Things That Define Texas",
               description,
               url: `${origin}/things-unique-to-texas`,
               about: { "@type": "Place", name: "Texas" },
+              isBasedOn: methodologyUrl,
+              author: { "@type": "Organization", name: "Texas Defined Editorial Desk", url: `${origin}/authors/a-hollis` },
+              dateModified: "2026-08-19",
               mainEntity: {
                 "@type": "ItemList",
                 numberOfItems: loaderData?.itemCount ?? TEXAS_ICON_ITEM_COUNT,
