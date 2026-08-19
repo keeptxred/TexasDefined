@@ -59,6 +59,9 @@ function ThingsUniqueToTexasPage() {
           </div>
           <div className="mt-10 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2 xl:grid-cols-3">
             <PillarLink to="/texas-food-trail" eyebrow="Food & road trips" title="The Texas Food Trail" text="Ten food traditions—from Central Texas barbecue and breakfast tacos to Czech bakeries, Gulf seafood and Hill Country produce—organized as a travel-ready guide." />
+            <PillarLink to="/texas-chili-con-carne-history" eyebrow="Food history" title="Texas Chili Con Carne" text="San Antonio Chili Queens, commercial chili powder, Terlingua cookoff culture and why the bean argument is smaller than the history." />
+            <PillarLink to="/texas-chicken-fried-steak-guide" eyebrow="Texas comfort food" title="Texas Chicken-Fried Steak" text="The disputed origin, regional styles, cream gravy and what separates a balanced plate from an oversized stunt." />
+            <PillarLink to="/texas-breakfast-taco-guide" eyebrow="Everyday Texas food" title="Texas Breakfast Tacos" text="Tortillas, eggs, beans, potatoes, barbacoa, carne guisada, migas and the salsa habits that make local breakfast counters different." />
             <PillarLink to="/texas-roadside-oddities" eyebrow="Roadside Texas" title="Texas Roadside Oddities" text="Cadillac Ranch, giant boots, tiny towns, neon, courthouse squares and the logic behind building a better weird-Texas road trip." />
             <PillarLink to="/texas-slang-explained" eyebrow="Language & identity" title="Texas Slang Explained" text="Y'all, fixin' to, all hat no cattle, bilingual influence and why context matters more than stereotype lists." />
             <PillarLink to="/texas-dance-halls-honky-tonks" eyebrow="Music & social life" title="Texas Dance Halls & Honky-Tonks" text="Two-step culture, historic halls, Western swing, honky-tonks and how to turn a live-music night into a cultural weekend." />
@@ -66,6 +69,7 @@ function ThingsUniqueToTexasPage() {
             <PillarLink to="/texas-natural-wonders-bucket-list" eyebrow="Outdoors & geography" title="Texas Natural Wonders Bucket List" text="Twelve landscapes—from Big Bend and Palo Duro to Caddo Lake, Padre Island and spring-fed West Texas—that show how varied the state really is." />
             <PillarLink to="/german-czech-texas-towns" eyebrow="Immigration & heritage" title="German & Czech Texas Towns" text="Fredericksburg, New Braunfels, West, Schulenburg and the food, churches, dance halls and community traditions connecting them." />
             <PillarLink to="/texas-brand-origin-stories" eyebrow="Business & identity" title="Texas Brand Origin Stories" text="H-E-B, Whataburger, Blue Bell, Shiner, Dickies and Buc-ee's—where they started and how everyday Texas routines turned them into cultural shorthand." />
+            <PillarLink to="/dr-pepper-texas-history" eyebrow="Waco brand history" title="Dr Pepper in Texas" text="How an 1885 Waco soda-fountain drink moved into bottling, national recognition and a durable identity tied to its birthplace." />
           </div>
         </Container>
       </section>
