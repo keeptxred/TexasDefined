@@ -41,6 +41,10 @@ const verifiedRemoteHeroes = [
   ['fort-mckavett', 'CC0'],
   ['french-legation', 'CC BY 4.0'],
   ['fulton-mansion', 'CC BY 4.0'],
+  ['goodnight-ranch', 'CC BY-SA 4.0'],
+  ['landmark-inn', 'CC BY 4.0'],
+  ['magoffin-home', 'CC BY 4.0'],
+  ['old-socorro-mission', 'Public domain'],
   ['port-isabel-lighthouse', 'CC BY-SA 4.0'],
   ['presidio-la-bahia', 'CC BY-SA 4.0'],
 ];
