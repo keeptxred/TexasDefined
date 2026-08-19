@@ -67,4 +67,10 @@ export const COUNTY_SERIES_PROFILES_CONTINUED: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/trinity-county-groveton-lumber-trinity-river-piney-woods")
       .then((module) => module.trinityCountyGrovetonLumberTrinityRiverPineyWoodsArticle),
   },
+  {
+    countySlug: "houston",
+    articleSlug: "houston-county-crockett-mission-tejas-piney-woods-texas",
+    loadArticle: () => import("@/data/fixtures/houston-county-crockett-mission-tejas-piney-woods-texas")
+      .then((module) => module.houstonCountyCrockettMissionTejasPineyWoodsArticle),
+  },
 ];
