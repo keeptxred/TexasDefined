@@ -7,6 +7,7 @@ import { fetchCoreExploreDestination, fetchCoreExploreDestinations } from "./exp
 import { isDestinationPhotoPlaceholder, reconcileDestinationHeroes } from "./explore-hero-reconciliation";
 import { applyExploreHeroAsset, applyExploreHeroAssets } from "./explore-heroes";
 import { fetchExploreDestination, fetchExploreDestinations } from "./explore-remote";
+import { enrichHistoricSiteCatalog, enrichHistoricSiteDestination } from "./historic-site-enrichment";
 import { platform, scope } from "./index";
 import { applyStateParkHeroAsset, applyStateParkHeroAssets } from "./state-park-heroes";
 import type { Destination, Slug } from "./types";
@@ -48,8 +49,10 @@ function preservedFor(query: Omit<DestinationQuery, "brandId">): Destination[] {
 }
 
 function applyResolvedHero(destination: Destination) {
-  return improveDestinationQuality(
-    applyAllCuratedDestination(applyExploreHeroAsset(applyStateParkHeroAsset(destination))),
+  return enrichHistoricSiteDestination(
+    improveDestinationQuality(
+      applyAllCuratedDestination(applyExploreHeroAsset(applyStateParkHeroAsset(destination))),
+    ),
   );
 }
 
@@ -59,7 +62,8 @@ function reconcileExploreCatalog(destinations: Destination[]) {
       reconcileDestinationHeroes(applyExploreHeroAssets(applyStateParkHeroAssets(destinations))),
     ),
   );
-  return filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved));
+  const historicEnriched = enrichHistoricSiteCatalog(improved);
+  return filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(historicEnriched));
 }
 
 export async function listResolvedDestinations(params: Omit<DestinationQuery, "brandId"> = {}) {
