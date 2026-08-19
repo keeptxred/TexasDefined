@@ -15,6 +15,9 @@ const foodHistoryGuideSlugs = new Set([
   "texas-breakfast-taco-guide",
   "german-czech-texas-towns",
   "dr-pepper-texas-history",
+  "texas-ranch-water-guide",
+  "san-antonio-puffy-taco-history",
+  "barbacoa-big-red-san-antonio",
 ]);
 
 const guideDestinationLinks: Partial<Record<string, { href: string; label: string; description: string }>> = {
@@ -94,6 +97,20 @@ const guideSources: Partial<Record<string, { label: string; href: string; note: 
   ],
   "dr-pepper-texas-history": [
     { label: "Dr Pepper Museum — History", href: "https://drpeppermuseum.com/history/", note: "The museum's history documents the 1885 Waco origin, Morrison's Old Corner Drug Store and Charles Alderton's role." },
+  ],
+  "texas-ranch-water-guide": [
+    { label: "Austin Monthly — How the Ranch Water Was Born in Austin", href: "https://www.austinmonthly.com/ranch-water/", note: "Documents Ranch 616's late-1990s menu history and Kevin Williamson's account while identifying the drink as an Austin and Texas icon." },
+    { label: "Liquor.com — Ranch Water", href: "https://www.liquor.com/ranch-water-cocktail-recipe-5496343", note: "Summarizes the competing West Texas folklore and Ranch 616 naming claim, reinforcing that the exact first origin is not settled." },
+  ],
+  "san-antonio-puffy-taco-history": [
+    { label: "Visit San Antonio — Culinary and city history", href: "https://www.visitsanantonio.com/in-the-news/post/cowboy-culture-and-history-in-san-antonio/", note: "Identifies Ray's Drive Inn with the puffy taco's San Antonio origin story and describes the fried masa shell." },
+    { label: "UTSA — Tacos, Texas and tradition", href: "https://news.utsa.edu/2020/08/everything-you-need-to-know-about-tacos-texas-and-tradition/", note: "Places puffy tacos within San Antonio's broader taco culture and regional food-history conversation." },
+    { label: "Texas Standard — An Ode to the Puffy Taco", href: "https://texasstandard.org/stories/opinion-an-ode-to-the-puffy-taco/", note: "Documents Arturo Lopez and Ray's Drive Inn as central to the modern San Antonio puffy-taco story." },
+  ],
+  "barbacoa-big-red-san-antonio": [
+    { label: "Texas A&M University–San Antonio — Barbacoa and Big Red festival", href: "https://mesquite-news.com/big-red-and-barbacoa-headline-festival/", note: "Documents Sunday barbacoa family traditions and the established San Antonio pairing with Big Red." },
+    { label: "Dr Pepper Museum — Big Red exhibit", href: "https://drpeppermuseum.com/virtual-tour/", note: "Documents Big Red as another Waco-created beverage and its earlier Sun Tang name." },
+    { label: "Texas Tribune — Big Red in San Antonio", href: "https://www.texastribune.org/2025/08/02/big-red-san-antonio-red-dye-40/", note: "Documents the 1937 Waco origin and the soda's later cultural connection to San Antonio barbacoa." },
   ],
 };
 
