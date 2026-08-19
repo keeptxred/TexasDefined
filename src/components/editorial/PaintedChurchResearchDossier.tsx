@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 
 import { PaintedChurchArchivalImageSources } from "@/components/editorial/PaintedChurchArchivalImageSources";
 import { PaintedChurchGallery } from "@/components/editorial/PaintedChurchGallery";
+import { PaintedChurchKnowledgeLinks } from "@/components/editorial/PaintedChurchKnowledgeLinks";
 import { PaintedChurchRegisterEvidence } from "@/components/editorial/PaintedChurchRegisterEvidence";
 import { canonicalPaintedChurchProfileBySlug } from "@/data/painted-church-profile-index";
 import { schulenburgTourInfo } from "@/data/painted-church-research";
@@ -31,6 +32,7 @@ export function PaintedChurchResearchDossier({ slug, schulenburgCluster }: { slu
       <PaintedChurchGallery slug={slug} />
       <PaintedChurchArchivalImageSources slug={slug} />
       <PaintedChurchRegisterEvidence slug={slug} />
+      <PaintedChurchKnowledgeLinks slug={slug} />
 
       <section aria-labelledby="editorial-standard" className="mt-14 border-l-2 border-primary bg-surface p-6 sm:p-8">
         <p className="eyebrow text-primary">Editorial standard</p>
@@ -41,6 +43,12 @@ export function PaintedChurchResearchDossier({ slug, schulenburgCluster }: { slu
           <Link to="/explore/painted-churches/compare" className="border-b border-primary text-primary">Compare all verified churches</Link>
           <Link to="/explore/painted-churches/how-many" className="border-b border-primary text-primary">Why Painted Church counts differ</Link>
           <Link to="/explore/painted-churches/techniques" className="border-b border-primary text-primary">Decorative painting techniques</Link>
+          <Link to="/explore/painted-churches/symbols" className="border-b border-primary text-primary">Symbols & iconography</Link>
+          <Link to="/explore/painted-churches/people" className="border-b border-primary text-primary">Artists & architects</Link>
+          <Link to="/explore/painted-churches/heritage" className="border-b border-primary text-primary">Heritage communities</Link>
+          <Link to="/explore/painted-churches/preservation" className="border-b border-primary text-primary">Preservation & authenticity</Link>
+          <Link to="/explore/painted-churches/how-to-read" className="border-b border-primary text-primary">How to read a Painted Church</Link>
+          <Link to="/explore/painted-churches/knowledge-graph" className="border-b border-primary text-primary">Knowledge graph</Link>
         </div>
       </section>
 
