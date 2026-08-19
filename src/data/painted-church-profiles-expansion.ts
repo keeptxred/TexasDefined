@@ -52,6 +52,30 @@ const profiles: PaintedChurchProfile[] = [
       { label: "Buie Harwood and Anna Brightman archive", url: "https://txarchives.org/utaaa/finding_aids/00136.xml" },
     ],
   },
+  {
+    slug: "anderson-st-stanislaus-kostka",
+    quickAnswer: "St. Stanislaus Kostka Catholic Church in Anderson belongs in the broader Texas Painted Churches tradition because the parish itself documents an original ceiling painting that was later restored in the sacristy, a dedicated 2014 mural over the altar, historic carved altars and European stained glass inside its 1917 Romanesque church.",
+    foundedYear: 1873,
+    builtYear: 1917,
+    architecture: "Romanesque brick Catholic church",
+    heritage: "Polish Catholic settlement in Grimes County",
+    facts: [
+      { label: "Present church", value: "Completed in 1917 and dedicated August 6, 1918" },
+      { label: "Historic decorative evidence", value: "The parish documents restoration of the original ceiling painting in the sacristy" },
+      { label: "Later mural", value: "A mural over the altar was dedicated November 23, 2014" },
+      { label: "Historic furnishings", value: "Original carved altars and European-made stained-glass windows remain central interior features" },
+      { label: "Classification", value: "Broader historic Painted Churches tradition; not claimed as part of the formal 1983 National Register decorative-interior group" },
+    ],
+    history: [{ heading: "A Polish Catholic parish built over generations", paragraphs: ["St. Stanislaus grew from the Polish Catholic settlement of Grimes County. The current church was completed in 1917 after the earlier frame church became too small, and the parish's own history documents the building's altars, stained glass and long preservation chronology."] }],
+    paintings: [{ heading: "Historic paint and a later mural belong to different layers", paragraphs: ["The parish history records restoration of an original ceiling painting in the sacristy and separately records dedication of a mural over the altar in 2014. Texas Defined preserves that distinction so a modern mural is not misrepresented as original 1917 decoration."] }],
+    preservation: [{ heading: "Preservation is part of the evidence", paragraphs: ["The parish documents repeated interior work, including a 1993 interior renovation and later restoration of original Stations of the Cross, altars and the sacristy ceiling painting. Those records make Anderson useful for showing how historic and later decorative layers can coexist in one active church."] }],
+    visitorNotes: ["Use the active parish website for current Masses, events and visitor contact information before making a special sightseeing trip."],
+    sources: [
+      { label: "St. Stanislaus Kostka — official church history", url: "https://saintstans.org/church-history" },
+      { label: "St. Stanislaus Kostka — official parish", url: "https://saintstans.org/" },
+      { label: "St. Stanislaus Kostka — contact and location", url: "https://saintstans.org/contact-us-1" },
+    ],
+  },
 ];
 
 export function paintedChurchExpansionProfileBySlug(slug: string) {
