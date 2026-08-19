@@ -72,9 +72,11 @@ function PaintedChurchesPage() {
             </div>
             <div className="border-l border-border pl-6">
               <p className="eyebrow text-muted-foreground">Route tools</p>
+              <Link to="/explore/painted-churches-plan" className="mt-4 inline-block border-b border-primary pb-1 text-sm font-medium text-primary">Plan the Painted Churches route</Link>
+              <br />
               <a href={coreDirectionsUrl} target="_blank" rel="noreferrer" className="mt-4 inline-block border-b border-primary pb-1 text-sm font-medium text-primary">Open the core drive in Maps</a>
               <br />
-              <Link to="/explore/trip-planner" className="mt-4 inline-block border-b border-primary pb-1 text-sm font-medium text-primary">Open the Texas Trip Planner</Link>
+              <Link to="/explore/trip-planner" className="mt-4 inline-block border-b border-primary pb-1 text-sm font-medium text-primary">Open the general Texas Trip Planner</Link>
             </div>
           </div>
 
