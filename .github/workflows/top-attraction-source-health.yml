@@ -25,5 +25,8 @@ jobs:
         with:
           node-version: 22
 
+      - name: Validate Top 25 review freshness
+        run: node scripts/data/validate-top-attraction-review-freshness.mjs
+
       - name: Check Top 25 official and supporting sources
         run: node scripts/data/check-top-attraction-source-health.mjs
