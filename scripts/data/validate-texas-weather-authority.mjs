@@ -2,6 +2,7 @@ import fs from 'node:fs';
 
 const failures = [];
 const routePath = 'src/routes/texas-blue-norther-weather-guide.tsx';
+const componentPath = 'src/components/editorial/TexasEvergreenGuide.tsx';
 const dataPath = 'src/data/texas-evergreen-guides-batch6.ts';
 const linksPath = 'src/data/things-unique-to-texas-links.ts';
 const hubPath = 'src/routes/things-unique-to-texas.lazy.tsx';
@@ -10,13 +11,15 @@ const texasLifePath = 'src/routes/texas-living.tsx';
 const llmsPath = 'src/routes/llms[.]txt.ts';
 const publicRoutesPath = 'src/lib/public-routes.ts';
 const citationPath = 'public/citation-magnets.json';
+const citationGuidePath = 'src/routes/citation-guide.tsx';
 const smokePath = '.github/workflows/things-unique-to-texas-production-smoke.yml';
 
-for (const file of [routePath, dataPath, linksPath, hubPath, categoryPath, texasLifePath, llmsPath, publicRoutesPath, citationPath, smokePath]) {
+for (const file of [routePath, componentPath, dataPath, linksPath, hubPath, categoryPath, texasLifePath, llmsPath, publicRoutesPath, citationPath, citationGuidePath, smokePath]) {
   if (!fs.existsSync(file)) failures.push(`Missing Texas weather authority file: ${file}.`);
 }
 
 const route = fs.existsSync(routePath) ? fs.readFileSync(routePath, 'utf8') : '';
+const component = fs.existsSync(componentPath) ? fs.readFileSync(componentPath, 'utf8') : '';
 const data = fs.existsSync(dataPath) ? fs.readFileSync(dataPath, 'utf8') : '';
 const links = fs.existsSync(linksPath) ? fs.readFileSync(linksPath, 'utf8') : '';
 const hub = fs.existsSync(hubPath) ? fs.readFileSync(hubPath, 'utf8') : '';
@@ -24,18 +27,27 @@ const category = fs.existsSync(categoryPath) ? fs.readFileSync(categoryPath, 'ut
 const texasLife = fs.existsSync(texasLifePath) ? fs.readFileSync(texasLifePath, 'utf8') : '';
 const llms = fs.existsSync(llmsPath) ? fs.readFileSync(llmsPath, 'utf8') : '';
 const publicRoutes = fs.existsSync(publicRoutesPath) ? fs.readFileSync(publicRoutesPath, 'utf8') : '';
+const citationGuide = fs.existsSync(citationGuidePath) ? fs.readFileSync(citationGuidePath, 'utf8') : '';
 const smoke = fs.existsSync(smokePath) ? fs.readFileSync(smokePath, 'utf8') : '';
 
 for (const token of [
   'const canonicalPath = "/texas-blue-norther-weather-guide"',
   'Texas Blue Northers, Spring Storms & Weather Folklore',
   'Culture explains the language. Forecasts control the decision.',
-  'https://www.tshaonline.org/handbook/entries/blue-norther',
-  'https://www.weather.gov/ama/50ranges',
-  'https://www.weather.gov/hgx/stormsignals_vol40',
   'use current National Weather Service forecasts and warnings rather than folklore',
 ]) {
   if (!route.includes(token)) failures.push(`Texas weather route must retain: ${token}`);
+}
+
+for (const token of [
+  '"texas-blue-norther-weather-guide": [',
+  'https://www.tshaonline.org/handbook/entries/blue-norther',
+  'https://www.weather.gov/ama/50ranges',
+  'https://www.weather.gov/hgx/stormsignals_vol40',
+  'citation: sources.length ? sources.map((source) => source.href) : undefined',
+  'Source notes',
+]) {
+  if (!component.includes(token)) failures.push(`Shared evergreen weather source/citation layer must retain: ${token}`);
 }
 
 for (const token of [
@@ -56,6 +68,13 @@ if (!category.includes('{ href: "/texas-blue-norther-weather-guide", label: "Tex
 if (!texasLife.includes("['/texas-blue-norther-weather-guide', 'Texas Blue Northers & Spring Storms'")) failures.push('Texas Life must retain an inbound link to the Texas weather guide.');
 if (!llms.includes('https://texasdefined.com/texas-blue-norther-weather-guide')) failures.push('llms.txt must advertise the Texas weather guide.');
 if (!publicRoutes.includes('"/texas-blue-norther-weather-guide"')) failures.push('Texas weather guide must remain governed as an indexable public route.');
+for (const token of [
+  "['Texas Blue Northers & spring storms', '/texas-blue-norther-weather-guide']",
+  'Weather language vs. live weather',
+  'use current National Weather Service forecasts and warnings as the controlling authority',
+]) {
+  if (!citationGuide.includes(token)) failures.push(`Human weather citation guidance must retain: ${token}`);
+}
 
 let citation;
 try {
@@ -90,4 +109,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Texas weather authority validation passed: sourced weather-language guide, three icon mappings, Texas Life and machine discovery, citation trust and 89-link/23-route production smoke are protected.');
+console.log('Texas weather authority validation passed: sourced weather-language guide, JSON-LD citations, three icon mappings, Texas Life and machine discovery, human source precedence, citation trust and 89-link/23-route production smoke are protected.');
