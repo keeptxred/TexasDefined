@@ -1,4 +1,4 @@
-import type { ImageRef } from "./types";
+import type { Destination, ImageRef } from "./types";
 
 /**
  * Exact-subject historic-site photographs whose item-level Wikimedia Commons
@@ -34,3 +34,9 @@ export const historicSiteRemoteHeroes: Record<string, ImageRef> = {
     credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons",
   },
 };
+
+export function enrichHistoricSiteRemoteHero(destination: Destination): Destination {
+  if (destination.category !== "historic-sites") return destination;
+  const hero = historicSiteRemoteHeroes[destination.slug];
+  return hero ? { ...destination, hero } : destination;
+}
