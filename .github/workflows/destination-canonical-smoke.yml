@@ -1,0 +1,89 @@
+name: Destination canonical consolidation smoke
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/destination-canonical-smoke.yml'
+      - 'src/data/destination-availability.ts'
+      - 'src/routes/destination.enchanted-rock.tsx'
+      - 'src/routes/destination.palo-duro-canyon.tsx'
+      - 'src/routes/sitemap-explore[.]xml.ts'
+      - 'src/data/destination-query-runtime.ts'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: destination-canonical-smoke-main
+  cancel-in-progress: true
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Verify canonical destination consolidation live
+        shell: bash
+        run: |
+          set -euo pipefail
+          origin='https://texasdefined.com'
+          old_enchanted='/destination/enchanted-rock'
+          new_enchanted='/destination/enchanted-rock-state-natural-area'
+          old_palo='/destination/palo-duro-canyon'
+          new_palo='/destination/palo-duro-canyon-state-park'
+
+          ready=0
+          for attempt in $(seq 1 30); do
+            status="$(curl --max-time 45 -sS -o /tmp/sitemap-explore.xml -w '%{http_code}' "$origin/sitemap-explore.xml" || true)"
+            if [ "$status" = '200' ] \
+              && grep -Fq "$origin$new_enchanted" /tmp/sitemap-explore.xml \
+              && grep -Fq "$origin$new_palo" /tmp/sitemap-explore.xml; then
+              ready=1
+              echo "Canonical destination sitemap release visible on attempt $attempt."
+              break
+            fi
+            echo "Waiting for canonical destination release (attempt $attempt/30)."
+            sleep 10
+          done
+          test "$ready" = '1' || { echo 'Canonical destination release did not become visible.' >&2; exit 1; }
+
+          for legacy in "$old_enchanted" "$old_palo"; do
+            if grep -Fq "$origin$legacy" /tmp/sitemap-explore.xml; then
+              echo "Legacy duplicate leaked into Explore sitemap: $legacy" >&2
+              exit 1
+            fi
+          done
+
+          check_redirect() {
+            local legacy="$1"
+            local canonical="$2"
+            local headers
+            headers="$(curl --max-time 45 -sS -D - -o /dev/null "$origin$legacy")"
+            printf '%s' "$headers" | grep -Eq '^HTTP/[^ ]+ 301' || {
+              echo "Legacy destination did not return 301: $legacy" >&2
+              exit 1
+            }
+            printf '%s' "$headers" | tr -d '\r' | grep -Fqi "location: $canonical" || {
+              echo "Legacy destination did not redirect to expected canonical target: $legacy -> $canonical" >&2
+              exit 1
+            }
+          }
+
+          check_redirect "$old_enchanted" "$new_enchanted"
+          check_redirect "$old_palo" "$new_palo"
+
+          for canonical in "$new_enchanted" "$new_palo"; do
+            curl --retry 3 --retry-connrefused --max-time 45 -fsSL "$origin$canonical" -o /tmp/canonical.html
+            if grep -Fq 'noindex, follow' /tmp/canonical.html; then
+              echo "Canonical destination unexpectedly rendered noindex: $canonical" >&2
+              exit 1
+            fi
+            grep -Fq "<link rel=\"canonical\" href=\"$origin$canonical\"" /tmp/canonical.html || {
+              echo "Canonical destination missing self canonical: $canonical" >&2
+              exit 1
+            }
+          done
+
+          echo 'Destination canonical consolidation smoke passed.'
