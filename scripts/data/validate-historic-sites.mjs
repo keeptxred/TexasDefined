@@ -38,15 +38,21 @@ const verifiedRemoteHeroes = [
   ['caddo-mounds-state-historic-site', 'CC BY-SA 3.0'],
   ['eisenhower-birthplace', 'CC BY 2.0'],
   ['fort-griffin', 'CC BY-SA 3.0'],
+  ['fort-lancaster', 'Public domain'],
+  ['fort-martin-scott', 'CC BY 4.0'],
   ['fort-mckavett', 'CC0'],
   ['french-legation', 'CC BY 4.0'],
   ['fulton-mansion', 'CC BY 4.0'],
   ['goodnight-ranch', 'CC BY-SA 4.0'],
   ['landmark-inn', 'CC BY 4.0'],
   ['magoffin-home', 'CC BY 4.0'],
+  ['mission-dolores', 'CC BY-SA 4.0'],
   ['old-socorro-mission', 'Public domain'],
+  ['palmito-ranch-battlefield', 'CC BY-SA 3.0'],
   ['port-isabel-lighthouse', 'CC BY-SA 4.0'],
   ['presidio-la-bahia', 'CC BY-SA 4.0'],
+  ['sam-bell-maxey-house', 'CC BY-SA 3.0'],
+  ['zaragoza-birthplace', 'CC BY-SA 2.0'],
 ];
 for (const [slug, license] of verifiedRemoteHeroes) {
   if (!remoteHeroes.includes(`"${slug}"`)) failures.push(`Verified historic remote hero is missing: ${slug}.`);
