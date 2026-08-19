@@ -76,6 +76,7 @@ export const INDEXABLE_STATIC_PATHS = [
   "/texas-history",
   "/texas-symbols",
   "/things-unique-to-texas",
+  "/things-unique-to-texas/methodology",
   "/things-unique-to-texas/food-drink",
   "/things-unique-to-texas/texas-brands",
   "/things-unique-to-texas/natural-wonders",
