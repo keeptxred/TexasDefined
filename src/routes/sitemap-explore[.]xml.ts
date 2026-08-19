@@ -10,6 +10,11 @@ import { fetchCoreExploreDestinations } from "@/data/explore-core-remote";
 import { reconcileDestinationHeroes } from "@/data/explore-hero-reconciliation";
 import { applyExploreHeroAssets } from "@/data/explore-heroes";
 import { categories, destinations as fixtureDestinations, regions } from "@/data/fixtures/texas";
+import { paintedChurchGlossary } from "@/data/painted-church-glossary";
+import { paintedChurchHeritage } from "@/data/painted-church-heritage";
+import { paintedChurchPeople } from "@/data/painted-church-people";
+import { paintedChurchPreservationTopics } from "@/data/painted-church-preservation";
+import { paintedChurchSymbols } from "@/data/painted-church-symbols";
 import { paintedChurchTechniques } from "@/data/painted-church-techniques";
 import { expandedPaintedChurches } from "@/data/painted-churches-expanded";
 import { fetchExploreDestinations, hasExploreRemoteData } from "@/data/explore-remote";
@@ -126,6 +131,15 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           "/explore/painted-churches/methodology",
           "/explore/painted-churches/census",
           "/explore/painted-churches/techniques",
+          "/explore/painted-churches/symbols",
+          "/explore/painted-churches/people",
+          "/explore/painted-churches/heritage",
+          "/explore/painted-churches/preservation",
+          "/explore/painted-churches/knowledge-graph",
+          "/explore/painted-churches/harwood-archive",
+          "/explore/painted-churches/how-to-read",
+          "/explore/painted-churches/glossary",
+          "/explore/painted-churches/timeline",
           "/explore/top-attractions",
           "/explore/top-attractions/methodology",
           "/explore/top-attractions/road-trips",
@@ -141,12 +155,37 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           .map((church) => entry(`/explore/painted-churches/${church.slug}`, church.sourceCheckedAt))
           .filter((item): item is string => Boolean(item));
         const techniqueEntries = paintedChurchTechniques
-          .map((technique) => entry(`/explore/painted-churches/techniques/${technique.slug}`, "2026-08-18"))
+          .map((item) => entry(`/explore/painted-churches/techniques/${item.slug}`, "2026-08-18"))
+          .filter((item): item is string => Boolean(item));
+        const symbolEntries = paintedChurchSymbols
+          .map((item) => entry(`/explore/painted-churches/symbols/${item.slug}`, "2026-08-18"))
+          .filter((item): item is string => Boolean(item));
+        const peopleEntries = paintedChurchPeople
+          .map((item) => entry(`/explore/painted-churches/people/${item.slug}`, "2026-08-18"))
+          .filter((item): item is string => Boolean(item));
+        const heritageEntries = paintedChurchHeritage
+          .map((item) => entry(`/explore/painted-churches/heritage/${item.slug}`, "2026-08-18"))
+          .filter((item): item is string => Boolean(item));
+        const preservationEntries = paintedChurchPreservationTopics
+          .map((item) => entry(`/explore/painted-churches/preservation/${item.slug}`, "2026-08-18"))
+          .filter((item): item is string => Boolean(item));
+        const glossaryEntries = paintedChurchGlossary
+          .map((item) => entry(`/explore/painted-churches/glossary/${item.slug}`, "2026-08-18"))
           .filter((item): item is string => Boolean(item));
         const staticEntries = [...new Set(staticPaths)]
           .map((path) => entry(path))
           .filter((item): item is string => Boolean(item));
-        const entries = [...staticEntries, ...destinationEntries, ...paintedChurchEntries, ...techniqueEntries].join("\n");
+        const entries = [
+          ...staticEntries,
+          ...destinationEntries,
+          ...paintedChurchEntries,
+          ...techniqueEntries,
+          ...symbolEntries,
+          ...peopleEntries,
+          ...heritageEntries,
+          ...preservationEntries,
+          ...glossaryEntries,
+        ].join("\n");
         const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${entries}\n</urlset>`;
         return new Response(xml, {
           headers: {
