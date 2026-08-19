@@ -1,4 +1,5 @@
 import { CountyHistoricSites } from '@/components/content/CountyHistoricSites';
+import { CountyMadeBuiltBorn } from '@/components/content/CountyMadeBuiltBorn';
 import { CountyStatewideContextSection } from '@/components/content/CountyStatewideContextSection';
 import type { CountyProfile } from '@/data/county-profile';
 
@@ -48,39 +49,43 @@ export function CountyIdentitySection({ countyName, region, profile }: { countyN
   const seatName = profile.countySeatPlace?.name;
   const otherCommunities = profile.majorCommunities.filter((community) => community !== seatName);
   const hasIdentitySignal = density != null || waterShare != null || region || seatName || otherCommunities.length > 0;
+  const slug = countySlug(countyName);
   const explainers = region && regionalExplainers[region] ? regionalExplainers[region] : [
     { href: '/article/why-texas-has-254-counties', label: 'Why Texas has 254 counties' },
     { href: '/article/texas-cultural-regions-explained', label: 'Texas cultural regions explained' },
     { href: '/texas-explained', label: 'All 10 Texas Explained guides' },
   ];
 
-  if (!hasIdentitySignal) return null;
+  if (!hasIdentitySignal) return <CountyMadeBuiltBorn countySlug={slug} />;
 
   return (
-    <section className="border-b border-border py-12" aria-labelledby="county-identity-heading">
-      <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">
-        <div>
-          <p className="eyebrow text-primary">Verified county profile</p>
-          <h2 id="county-identity-heading" className="mt-2 font-display text-4xl">What the data says about {countyName}</h2>
-        </div>
-        <div className="max-w-3xl space-y-4 text-base leading-7 text-muted-foreground">
-          {population != null && landArea != null && density != null ? (
-            <p>The 2020 Census counted <strong className="text-foreground">{population.toLocaleString('en-US')}</strong> residents across about <strong className="text-foreground">{Math.round(landArea).toLocaleString('en-US')} square miles</strong> of land. Dividing those two Census figures gives roughly <strong className="text-foreground">{formatDensity(density)} residents per square mile</strong>.</p>
-          ) : null}
-          {waterShare != null && profile.waterAreaSquareMiles != null ? <p>Census geography also records about {Math.round(profile.waterAreaSquareMiles).toLocaleString('en-US')} square miles of water. Water represents approximately {waterShare.toFixed(1)}% of the county's mapped land-and-water area.</p> : null}
-          {seatName ? <p><strong className="text-foreground">{seatName}</strong> is the verified county seat{region ? `, and Texas Defined groups the county within ${title(region)} for regional browsing` : ''}.</p> : region ? <p>Texas Defined groups this county within {title(region)} for regional browsing.</p> : null}
-          {otherCommunities.length > 0 ? <p>Beyond the county seat, the current structured place directory links this county to {formatList(otherCommunities.slice(0, 5))}{otherCommunities.length > 5 ? ', among additional listed communities' : ''}. This is a directory relationship, not a claim that the list contains every incorporated place or settlement in the county.</p> : <p>Texas Defined does not add an unsourced list of local communities. Additional places appear here only when the structured place directory contains a verified county relationship.</p>}
-          <div className="border-t border-border pt-5">
-            <p className="eyebrow text-primary">Understand the bigger picture</p>
-            <p className="mt-2 text-sm leading-6">These Texas Explained guides add statewide context to the geography, settlement and infrastructure behind {countyName}.</p>
-            <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">{explainers.map((link) => <a key={link.href} href={link.href} className="underline decoration-primary/40 underline-offset-4 hover:text-primary">{link.label}</a>)}</div>
-            <a href="/texas-explained" className="mt-3 inline-block text-sm font-semibold text-primary">Explore Texas Explained →</a>
+    <>
+      <section className="border-b border-border py-12" aria-labelledby="county-identity-heading">
+        <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">
+          <div>
+            <p className="eyebrow text-primary">Verified county profile</p>
+            <h2 id="county-identity-heading" className="mt-2 font-display text-4xl">What the data says about {countyName}</h2>
           </div>
-          <CountyHistoricSites countyName={countyName} />
-          <CountyStatewideContextSection countyName={countyName} countySlug={countySlug(countyName)} />
+          <div className="max-w-3xl space-y-4 text-base leading-7 text-muted-foreground">
+            {population != null && landArea != null && density != null ? (
+              <p>The 2020 Census counted <strong className="text-foreground">{population.toLocaleString('en-US')}</strong> residents across about <strong className="text-foreground">{Math.round(landArea).toLocaleString('en-US')} square miles</strong> of land. Dividing those two Census figures gives roughly <strong className="text-foreground">{formatDensity(density)} residents per square mile</strong>.</p>
+            ) : null}
+            {waterShare != null && profile.waterAreaSquareMiles != null ? <p>Census geography also records about {Math.round(profile.waterAreaSquareMiles).toLocaleString('en-US')} square miles of water. Water represents approximately {waterShare.toFixed(1)}% of the county's mapped land-and-water area.</p> : null}
+            {seatName ? <p><strong className="text-foreground">{seatName}</strong> is the verified county seat{region ? `, and Texas Defined groups the county within ${title(region)} for regional browsing` : ''}.</p> : region ? <p>Texas Defined groups this county within {title(region)} for regional browsing.</p> : null}
+            {otherCommunities.length > 0 ? <p>Beyond the county seat, the current structured place directory links this county to {formatList(otherCommunities.slice(0, 5))}{otherCommunities.length > 5 ? ', among additional listed communities' : ''}. This is a directory relationship, not a claim that the list contains every incorporated place or settlement in the county.</p> : <p>Texas Defined does not add an unsourced list of local communities. Additional places appear here only when the structured place directory contains a verified county relationship.</p>}
+            <div className="border-t border-border pt-5">
+              <p className="eyebrow text-primary">Understand the bigger picture</p>
+              <p className="mt-2 text-sm leading-6">These Texas Explained guides add statewide context to the geography, settlement and infrastructure behind {countyName}.</p>
+              <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">{explainers.map((link) => <a key={link.href} href={link.href} className="underline decoration-primary/40 underline-offset-4 hover:text-primary">{link.label}</a>)}</div>
+              <a href="/texas-explained" className="mt-3 inline-block text-sm font-semibold text-primary">Explore Texas Explained →</a>
+            </div>
+            <CountyHistoricSites countyName={countyName} />
+            <CountyStatewideContextSection countyName={countyName} countySlug={slug} />
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+      <CountyMadeBuiltBorn countySlug={slug} />
+    </>
   );
 }
 
