@@ -17,6 +17,7 @@ const evergreenComponent = fs.readFileSync('src/components/editorial/TexasEvergr
 const evergreenData = fs.readFileSync('src/data/texas-evergreen-guides.ts', 'utf8');
 const evergreenBatch2 = fs.readFileSync('src/data/texas-evergreen-guides-batch2.ts', 'utf8');
 const evergreenBatch3 = fs.readFileSync('src/data/texas-evergreen-guides-batch3.ts', 'utf8');
+const evergreenBatch4 = fs.readFileSync('src/data/texas-evergreen-guides-batch4.ts', 'utf8');
 const failures = [];
 
 const evergreenGuides = [
@@ -28,6 +29,10 @@ const evergreenGuides = [
   ['/texas-natural-wonders-bucket-list', 'src/routes/texas-natural-wonders-bucket-list.tsx', 'texas-natural-wonders-bucket-list'],
   ['/german-czech-texas-towns', 'src/routes/german-czech-texas-towns.tsx', 'german-czech-texas-towns'],
   ['/texas-brand-origin-stories', 'src/routes/texas-brand-origin-stories.tsx', 'texas-brand-origin-stories'],
+  ['/texas-chili-con-carne-history', 'src/routes/texas-chili-con-carne-history.tsx', 'texas-chili-con-carne-history'],
+  ['/texas-chicken-fried-steak-guide', 'src/routes/texas-chicken-fried-steak-guide.tsx', 'texas-chicken-fried-steak-guide'],
+  ['/texas-breakfast-taco-guide', 'src/routes/texas-breakfast-taco-guide.tsx', 'texas-breakfast-taco-guide'],
+  ['/dr-pepper-texas-history', 'src/routes/dr-pepper-texas-history.tsx', 'dr-pepper-texas-history'],
 ];
 
 const ids = [...source.matchAll(/\bitem\((\d+),/g)].map((match) => Number(match[1]));
@@ -110,7 +115,7 @@ for (const token of ['"@type": "Article"', '"@type": "WebPage"', '"@type": "Item
   if (!evergreenComponent.includes(token)) failures.push(`Shared evergreen guide schema must retain token: ${token}.`);
 }
 
-const allEvergreenData = `${evergreenData}\n${evergreenBatch2}\n${evergreenBatch3}`;
+const allEvergreenData = `${evergreenData}\n${evergreenBatch2}\n${evergreenBatch3}\n${evergreenBatch4}`;
 for (const [path, routeFile, slug] of evergreenGuides) {
   if (!fs.existsSync(routeFile)) failures.push(`Missing evergreen route file ${routeFile}.`);
   const routeSource = fs.existsSync(routeFile) ? fs.readFileSync(routeFile, 'utf8') : '';
