@@ -7,6 +7,7 @@ import { fetchCoreExploreDestination, fetchCoreExploreDestinations } from "./exp
 import { isDestinationPhotoPlaceholder, reconcileDestinationHeroes } from "./explore-hero-reconciliation";
 import { applyExploreHeroAsset, applyExploreHeroAssets } from "./explore-heroes";
 import { fetchExploreDestination, fetchExploreDestinations } from "./explore-remote";
+import { enrichRemainingHistoricSiteAreaGuide } from "./historic-site-area-guides-extra";
 import { enrichHistoricSiteCatalog, enrichHistoricSiteDestination } from "./historic-site-enrichment";
 import { platform, scope } from "./index";
 import { applyStateParkHeroAsset, applyStateParkHeroAssets } from "./state-park-heroes";
@@ -45,13 +46,17 @@ function preservedFor(query: Omit<DestinationQuery, "brandId">): Destination[] {
   return query.limit ? rows.slice(0, query.limit) : rows;
 }
 
+function finishHistoricSiteEnrichment(destination: Destination) {
+  return enrichRemainingHistoricSiteAreaGuide(enrichHistoricSiteDestination(destination));
+}
+
 function applyResolvedHero(destination: Destination) {
-  return enrichHistoricSiteDestination(improveDestinationQuality(applyAllCuratedDestination(applyExploreHeroAsset(applyStateParkHeroAsset(destination)))));
+  return finishHistoricSiteEnrichment(improveDestinationQuality(applyAllCuratedDestination(applyExploreHeroAsset(applyStateParkHeroAsset(destination)))));
 }
 
 function reconcileExploreCatalog(destinations: Destination[]) {
   const curated = improveDestinationCatalog(applyAllCuratedDestinations(reconcileDestinationHeroes(applyExploreHeroAssets(applyStateParkHeroAssets(destinations)))));
-  const improved = enrichHistoricSiteCatalog(curated);
+  const improved = enrichHistoricSiteCatalog(curated).map(enrichRemainingHistoricSiteAreaGuide);
   return filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved));
 }
 
