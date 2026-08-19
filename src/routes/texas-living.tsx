@@ -26,6 +26,9 @@ const sections = [
 
 const cultureGuides = [
   ['/texas-food-trail', 'Texas Food Trail', 'Barbecue, breakfast tacos, Czech bakeries, Gulf seafood and regional food traditions built into a statewide road-trip guide.'],
+  ['/texas-breakfast-taco-guide', 'Texas Breakfast Tacos', 'Tortillas, eggs, beans, potatoes, barbacoa, carne guisada, migas and the salsa habits that shape an everyday Texas breakfast.'],
+  ['/texas-chili-con-carne-history', 'Texas Chili Con Carne', 'San Antonio Chili Queens, commercial chili powder, Terlingua cookoff culture and the difference between food history and folklore.'],
+  ['/texas-chicken-fried-steak-guide', 'Texas Chicken-Fried Steak', 'A disputed origin, regional breading styles, cream gravy and the texture that makes the classic Texas plate work.'],
   ['/texas-natural-wonders-bucket-list', 'Texas Natural Wonders', 'Twelve landscapes that show how Texas shifts from desert mountains and canyons to cypress swamp, springs and barrier islands.'],
   ['/texas-dance-halls-honky-tonks', 'Dance Halls & Honky-Tonks', 'Historic halls, Western swing, the two-step and the social spaces where Texas music is still experienced together.'],
   ['/german-czech-texas-towns', 'German & Czech Texas Towns', 'Food, churches, dance halls, festivals and historic communities across Central Texas and the Hill Country.'],
@@ -33,6 +36,7 @@ const cultureGuides = [
   ['/texas-slang-explained', 'Texas Slang Explained', 'Y’all, fixin’ to, ranch imagery, bilingual influence and the context behind familiar Texas sayings.'],
   ['/texas-roadside-oddities', 'Texas Roadside Oddities', 'Giant art, neon, tiny towns and strange stops that can turn a highway drive into a real Texas road trip.'],
   ['/texas-brand-origin-stories', 'Texas Brand Origin Stories', "H-E-B, Whataburger, Blue Bell, Shiner, Dickies and Buc-ee's—where they started and how Texas routines made them cultural shorthand."],
+  ['/dr-pepper-texas-history', 'Dr Pepper in Texas', 'How an 1885 Waco soda-fountain drink became a nationally recognized brand while its birthplace remained part of the identity.'],
 ] as const;
 
 const texasLivingPhotoOverrides: Partial<Record<string, Article['hero']>> = {
