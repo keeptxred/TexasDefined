@@ -7,6 +7,7 @@ const publicRoutes = fs.readFileSync('src/lib/public-routes.ts', 'utf8');
 const rootHub = fs.readFileSync('src/routes/things-unique-to-texas.lazy.tsx', 'utf8');
 const categoryHub = fs.readFileSync('src/routes/things-unique-to-texas.$category.lazy.tsx', 'utf8');
 const texasLiving = fs.readFileSync('src/routes/texas-living.tsx', 'utf8');
+const newestEvergreen = fs.readFileSync('src/data/fixtures/newest-evergreen.ts', 'utf8');
 const smoke = fs.readFileSync('.github/workflows/things-unique-to-texas-production-smoke.yml', 'utf8');
 const llms = fs.readFileSync('src/routes/llms[.]txt.ts', 'utf8');
 const citationIndex = JSON.parse(fs.readFileSync('public/citation-magnets.json', 'utf8'));
@@ -129,6 +130,11 @@ for (const token of [
   if (!evergreenComponent.includes(token)) failures.push(`New Food History source-note layer missing source token: ${token}.`);
 }
 
+for (const path of ['/san-antonio-puffy-taco-history','/barbacoa-big-red-san-antonio','/texas-ranch-water-guide']) {
+  if (!newestEvergreen.includes(`href: "${path}"`)) failures.push(`Texas cultural-regions pillar must retain inbound authority link ${path}.`);
+}
+if (!newestEvergreen.includes('"texas-cultural-regions-explained"')) failures.push('Cultural-regions pillar topology must remain present.');
+
 if (!publicRoutes.includes('"/texas-food-history"')) failures.push('Texas Food History must remain indexable in public route governance.');
 for (const path of ['/texas-ranch-water-guide','/san-antonio-puffy-taco-history','/barbacoa-big-red-san-antonio']) {
   if (!publicRoutes.includes(`"${path}"`)) failures.push(`${path} must remain indexable in public route governance.`);
@@ -165,4 +171,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Texas Food History validation passed: canonical hub, ${focusedGuides.length} focused links, parent-child schema, Food & BBQ discovery, sourced batch-5 guides, Dr Pepper museum handoff, six exact-subject hero/social-image contracts, sitemap governance, smoke, llms.txt and citation-index coverage intact.`);
+console.log(`Texas Food History validation passed: canonical hub, ${focusedGuides.length} focused links, parent-child schema, established-pillar inbound links, Food & BBQ discovery, sourced batch-5 guides, Dr Pepper museum handoff, six exact-subject hero/social-image contracts, sitemap governance, smoke, llms.txt and citation-index coverage intact.`);
