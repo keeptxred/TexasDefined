@@ -86,4 +86,5 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   profile("karnes", "karnes-county-karnes-city-kenedy-panna-maria-san-antonio-river-texas", () => import("@/data/fixtures/karnes-county-karnes-city-kenedy-panna-maria-san-antonio-river").then((module) => module.karnesCountyKarnesCityKenedyPannaMariaSanAntonioRiverArticle)),
   profile("wilson", "wilson-county-floresville-la-vernia-stockdale-san-antonio-river-texas", () => import("@/data/fixtures/wilson-county-floresville-la-vernia-stockdale-san-antonio-river").then((module) => module.wilsonCountyFloresvilleLaVerniaStockdaleSanAntonioRiverArticle)),
   profile("gonzales", "gonzales-county-gonzales-come-and-take-it-guadalupe-palmetto-texas", () => import("@/data/fixtures/gonzales-county-gonzales-come-and-take-it-guadalupe-palmetto").then((module) => module.gonzalesCountyGonzalesComeAndTakeItGuadalupePalmettoArticle)),
+  profile("guadalupe", "guadalupe-county-seguin-cibolo-guadalupe-river-texas", () => import("@/data/fixtures/guadalupe-county-seguin-cibolo-guadalupe-river").then((module) => module.guadalupeCountySeguinCiboloGuadalupeRiverArticle)),
 ];
