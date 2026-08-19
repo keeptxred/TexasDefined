@@ -36,10 +36,10 @@ for (const required of ['Replacement cost', 'Estimated base rate', 'Wind/flood a
 }
 
 for (const required of [
-  "title: 'Texas Cost of Living Calculator | Moving Budget Estimator'",
+  "title: 'Texas Cost of Living Calculator | Compare Household Budgets'",
   'title="Texas cost of living calculator"',
-  'compare your current household spending with a possible budget elsewhere in Texas',
-  'move, job change, or housing decision',
+  'Compare a current household budget with a possible Texas destination',
+  'move or job decision',
 ]) {
   if (!costOfLivingRoute.includes(required)) failures.push(`Cost-of-living search intent contract missing: ${required}`);
 }
