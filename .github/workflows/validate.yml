@@ -104,6 +104,9 @@ jobs:
       - name: Validate statewide historic sites
         run: node scripts/data/validate-historic-sites.mjs
 
+      - name: Validate historic-site evergreen guides
+        run: node scripts/data/validate-historic-site-evergreen.mjs
+
       - name: Validate Things That Define Texas authority
         run: node scripts/data/validate-things-unique-to-texas.mjs
 
