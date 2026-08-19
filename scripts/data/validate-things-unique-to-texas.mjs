@@ -38,11 +38,13 @@ const evergreenGuides = [
   ['/san-antonio-puffy-taco-history', 'src/routes/san-antonio-puffy-taco-history.tsx', 'san-antonio-puffy-taco-history'],
   ['/barbacoa-big-red-san-antonio', 'src/routes/barbacoa-big-red-san-antonio.tsx', 'barbacoa-big-red-san-antonio'],
 ];
+const additionalSmokePaths = ['/article/kolache-or-klobasnek-texas-story'];
 
 const ids = [...source.matchAll(/\bitem\((\d+),/g)].map((match) => Number(match[1]));
 const categorySlugs = [...source.matchAll(/^\s{4}slug:\s*"([a-z0-9-]+)",/gm)].map((match) => match[1]);
 const hrefs = [...source.matchAll(/\bhref:\s*"([^"]+)"/g)].map((match) => match[1]);
 const canonicalIds = [...linksSource.matchAll(/^\s{2}(\d+):\s*"\/destination\/[^"]+",/gm)].map((match) => Number(match[1]));
+const deepDiveIds = [...linksSource.matchAll(/^\s{2}(\d+):\s*"\/(?!destination\/)[^"]+",/gm)].map((match) => Number(match[1]));
 
 if (ids.length !== 250) failures.push(`Expected 250 magazine entries; found ${ids.length}.`);
 if (new Set(ids).size !== ids.length) failures.push('Magazine entry IDs must be unique.');
@@ -58,10 +60,12 @@ for (const href of hrefs) {
   if (href.startsWith('//')) failures.push(`Protocol-relative magazine href is not allowed: ${href}`);
 }
 
-if (canonicalIds.length < 24) failures.push(`Expected at least 24 canonical destination cross-links; found ${canonicalIds.length}.`);
-if (new Set(canonicalIds).size !== canonicalIds.length) failures.push('Canonical cross-link IDs must be unique.');
-for (const id of canonicalIds) {
-  if (!ids.includes(id)) failures.push(`Canonical cross-link refers to unknown magazine entry ID ${id}.`);
+if (canonicalIds.length < 41) failures.push(`Expected at least 41 canonical destination cross-links; found ${canonicalIds.length}.`);
+if (deepDiveIds.length < 18) failures.push(`Expected at least 18 purpose-built/editorial deep-dive mappings; found ${deepDiveIds.length}.`);
+if (canonicalIds.length + deepDiveIds.length < 59) failures.push(`Expected at least 59 protected deeper-guide relationships; found ${canonicalIds.length + deepDiveIds.length}.`);
+if (new Set([...canonicalIds, ...deepDiveIds]).size !== canonicalIds.length + deepDiveIds.length) failures.push('Canonical and deep-dive cross-link IDs must be unique across registries.');
+for (const id of [...canonicalIds, ...deepDiveIds]) {
+  if (!ids.includes(id)) failures.push(`Canonical/deep-dive cross-link refers to unknown magazine entry ID ${id}.`);
 }
 for (const [id, path] of [[14, '/san-antonio-puffy-taco-history'], [18, '/barbacoa-big-red-san-antonio'], [30, '/texas-ranch-water-guide']]) {
   if (!linksSource.includes(`${id}: "${path}"`)) failures.push(`Magazine entry ${id} must retain deep-dive canonical link ${path}.`);
@@ -144,6 +148,9 @@ for (const [path, routeFile, slug] of evergreenGuides) {
   if (!productionSmoke.includes(`check_page '${path}'`)) failures.push(`Production smoke must verify evergreen guide ${path}.`);
   if (!allEvergreenData.includes(`slug: "${slug}"`)) failures.push(`Evergreen guide data missing slug ${slug}.`);
 }
+for (const path of additionalSmokePaths) {
+  if (!productionSmoke.includes(`check_page '${path}'`)) failures.push(`Production smoke must verify established related evergreen ${path}.`);
+}
 
 if (!productionSmoke.includes("workflows: ['Deploy TexasDefined production']")) failures.push('Magazine production smoke must remain chained to successful production deployments.');
 const smokePaths = [
@@ -154,8 +161,8 @@ const smokePaths = [
 for (const path of smokePaths) {
   if (!productionSmoke.includes(`'${path}'`)) failures.push(`Magazine production smoke must verify ${path}.`);
 }
-for (const token of ['.count == 250', '(.items | length) == 250', 'wc -l', '251', 'x-robots-tag:', '/things-that-define-texas.json', '/things-that-define-texas.csv', 'test "$json_deep_links" -ge 50', 'test "$csv_deep_links" -ge 50']) {
-  if (!productionSmoke.includes(token)) failures.push(`Magazine production smoke must retain distribution check token: ${token}.`);
+for (const token of ['.count == 250', '(.items | length) == 250', 'wc -l', '251', 'x-robots-tag:', '/things-that-define-texas.json', '/things-that-define-texas.csv', 'test "$json_deep_links" -ge 59', 'test "$csv_deep_links" -ge 59', 'Topical/evergreen deep-dive routes checked: 17', 'at least 59 deeper-guide relationships']) {
+  if (!productionSmoke.includes(token)) failures.push(`Magazine production smoke must retain current authority/distribution token: ${token}.`);
 }
 
 if (failures.length) {
@@ -164,4 +171,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Things That Define Texas validation passed: ${ids.length} entries, ${categorySlugs.length} categories, ${evergreenGuides.length} evergreen deep dives, ${hrefs.length} editorial links, ${canonicalIds.length} canonical destination cross-links, source-note citations, five evergreen data batches, two shared data distributions, methodology/provenance/trust contracts, and ${smokePaths.length + evergreenGuides.length} HTML production smoke routes intact.`);
+console.log(`Things That Define Texas validation passed: ${ids.length} entries, ${categorySlugs.length} categories, ${evergreenGuides.length} evergreen deep dives, ${canonicalIds.length} exact destination mappings, ${deepDiveIds.length} protected editorial/deep-dive mappings (${canonicalIds.length + deepDiveIds.length} total deeper-guide relationships), five evergreen data batches, two shared data distributions, methodology/provenance/trust contracts, and ${smokePaths.length + evergreenGuides.length + additionalSmokePaths.length} HTML production smoke routes intact.`);
