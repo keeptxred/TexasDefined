@@ -26,9 +26,23 @@ const guideImages: Partial<Record<string, { src: string; alt: string; caption: s
   },
 };
 
+const guideSources: Partial<Record<string, { label: string; href: string; note: string }[]>> = {
+  "texas-chili-con-carne-history": [
+    { label: "Handbook of Texas — San Antonio", href: "https://www.tshaonline.org/handbook/entries/san-antonio-tx", note: "Documents the downtown Chili Queens and San Antonio's open-air chili-stand tradition." },
+    { label: "Handbook of Texas — Gebhardt Mexican Foods Company", href: "https://www.tshaonline.org/handbook/entries/gebhardt-mexican-foods-company", note: "Documents William Gebhardt's chili-powder business and its role in commercializing Texas chili products." },
+  ],
+  "texas-chicken-fried-steak-guide": [
+    { label: "Handbook of Texas — Chicken-Fried Steak", href: "https://www.tshaonline.org/handbook/entries/chicken-fried-steak", note: "Explains the disputed origin story and the Southern, German and regional Texas influences associated with the dish." },
+  ],
+  "dr-pepper-texas-history": [
+    { label: "Dr Pepper Museum — History", href: "https://drpeppermuseum.com/history/", note: "The museum's history documents the 1885 Waco origin, Morrison's Old Corner Drug Store and Charles Alderton's role." },
+  ],
+};
+
 export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData }) {
   const canonicalUrl = `${siteUrl}/${guide.slug}`;
   const image = guideImages[guide.slug];
+  const sources = guideSources[guide.slug] ?? [];
   const imageUrl = image ? `${siteUrl}${image.src.startsWith('/') ? image.src : `/${image.src}`}` : undefined;
   const jsonLd = {
     "@context": "https://schema.org",
@@ -43,6 +57,7 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
         publisher: { "@type": "Organization", name: "TexasDefined", url: siteUrl },
         articleSection: "Things That Define Texas",
         image: imageUrl,
+        citation: sources.length ? sources.map((source) => source.href) : undefined,
         about: guide.sections.map((section) => ({ "@type": "Thing", name: section.heading.replace(/^\d+\.\s*/, "") })),
       },
       {
@@ -125,6 +140,18 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
             </div>
           </section>)}
         </div>
+
+        {sources.length ? <section className="border-b border-border py-10" aria-labelledby="source-notes">
+          <p className="eyebrow text-primary">Source notes</p>
+          <h2 id="source-notes" className="mt-2 font-display text-3xl">Where the historical claims come from</h2>
+          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These sources support the historical framework above. Current visitor operations, menus, ownership and event details can change and should be checked with the relevant official organization.</p>
+          <ul className="mt-6 divide-y divide-border border-y border-border">
+            {sources.map((source) => <li key={source.href} className="py-4">
+              <a href={source.href} target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">{source.label} ↗</a>
+              <p className="mt-1 text-sm leading-6 text-muted-foreground">{source.note}</p>
+            </li>)}
+          </ul>
+        </section> : null}
 
         <section className="py-12" aria-labelledby="related-reading">
           <p className="eyebrow text-primary">Keep exploring</p>
