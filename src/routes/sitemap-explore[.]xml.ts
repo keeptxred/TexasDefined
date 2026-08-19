@@ -4,11 +4,14 @@ import { texasDefinedBrand } from "@/brand/texasdefined";
 import { isPrimaryTripPlannerDestination } from "@/data/destination-availability";
 import { auditDestination } from "@/data/destination-audit";
 import { applyAllCuratedDestinations } from "@/data/destination-curation-all";
+import { topAttractionDestinations } from "@/data/destination-curation-top-attractions";
 import { improveDestinationCatalog } from "@/data/destination-quality";
 import { supplementalExploreCategories } from "@/data/explore-categories";
 import { fetchCoreExploreDestinations } from "@/data/explore-core-remote";
 import { reconcileDestinationHeroes } from "@/data/explore-hero-reconciliation";
 import { applyExploreHeroAssets } from "@/data/explore-heroes";
+import { legacyExploreDestinations } from "@/data/fixtures/legacy-explore";
+import { legacyLakeDestinations } from "@/data/fixtures/legacy-lakes";
 import { categories, destinations as fixtureDestinations, regions } from "@/data/fixtures/texas";
 import { paintedChurchGlossary } from "@/data/painted-church-glossary";
 import { paintedChurchHeritage } from "@/data/painted-church-heritage";
@@ -84,6 +87,15 @@ function resolveDestinationCatalog(destinations: Destination[]) {
   );
 }
 
+function preservedDestinationFallback(): Destination[] {
+  return mergeDestinationSources(
+    fixtureDestinations,
+    topAttractionDestinations,
+    legacyExploreDestinations,
+    legacyLakeDestinations,
+  );
+}
+
 export const Route = createFileRoute("/sitemap-explore.xml")({
   server: {
     handlers: {
@@ -110,8 +122,8 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         }
 
         const remoteDestinations = mergeDestinationSources(coreDestinations, enrichedDestinations);
-        const useFixtureFallback = (enrichedFailed && coreFailed) || remoteDestinations.length === 0;
-        const rawDestinations = useFixtureFallback ? fixtureDestinations : remoteDestinations;
+        const usePreservedFallback = (enrichedFailed && coreFailed) || remoteDestinations.length === 0;
+        const rawDestinations = usePreservedFallback ? preservedDestinationFallback() : remoteDestinations;
         const destinations = resolveDestinationCatalog(rawDestinations);
 
         const categorySlugs = [...new Set([...categories, ...supplementalExploreCategories]
