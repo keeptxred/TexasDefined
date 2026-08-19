@@ -177,6 +177,8 @@ export const REDIRECT_ONLY_PATHS = [
   "/texas-property-tax-protest-guide",
   "/fishing/lake/lake-conroe",
   "/lakes/lake-conroe.html",
+  "/destination/enchanted-rock",
+  "/destination/palo-duro-canyon",
   "/explore/texas-state-parks-guide",
   "/explore/texas-lakes-guide",
   "/explore/texas-camping-guide",
