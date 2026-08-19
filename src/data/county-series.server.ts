@@ -7,6 +7,13 @@ export function loadCountySeriesArticleServer(countySlug: string): Promise<Artic
   const cached = articlePromiseCache.get(countySlug);
   if (cached) return cached;
 
+  if (countySlug === "johnson") {
+    const promise = import("@/data/fixtures/johnson-county-cleburne-chisholm-trail-railroad-prairies")
+      .then((module) => module.johnsonCountyCleburneChisholmTrailRailroadPrairiesArticle);
+    articlePromiseCache.set(countySlug, promise);
+    return promise;
+  }
+
   const countyProfile = COUNTY_SERIES_PROFILES.find((item) => item.countySlug === countySlug);
   const promise = countyProfile?.loadArticle() ?? Promise.resolve(null);
   articlePromiseCache.set(countySlug, promise);
