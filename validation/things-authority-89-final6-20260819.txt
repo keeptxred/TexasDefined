@@ -1,0 +1,3 @@
+Validation-only marker after structural redirect governance and Texas weather authority CI alignment.
+
+This branch intentionally differs from main only by this marker so pull-request CI validates current main through production data, complete Trip Planner coverage, production build, and client performance budget after all authority/citation gates.
