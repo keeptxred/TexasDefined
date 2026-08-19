@@ -118,6 +118,7 @@ const LEGACY_ARTICLE_TO_COUNTY = new Map<string, string>([
   ["leon-county-centerville-buffalo-jewett-trinity-prairie-texas", "leon"],
   ["madison-county-madisonville-midway-north-zulch-trinity-navasota-texas", "madison"],
   ["grimes-county-anderson-navasota-fanthorp-railroads-texas", "grimes"],
+  ["walker-county-huntsville-sam-houston-piney-woods-texas", "walker"],
 ]);
 
 const COUNTY_SLUGS = new Set(LEGACY_ARTICLE_TO_COUNTY.values());
