@@ -9,6 +9,7 @@ const queries = read('src/data/queries.ts');
 const destinationRuntime = read('src/data/destination-query-runtime.ts');
 const curationAll = read('src/data/destination-curation-all.ts');
 const waterCuration = read('src/data/destination-curation-batch45.ts');
+const museumCuration = read('src/data/destination-curation-batch49.ts');
 const coreFallbacks = read('src/data/destination-curation-batch53.ts');
 const queryImplementation = `${queries}\n${destinationRuntime}`;
 const failures = [];
@@ -120,6 +121,21 @@ for (const slug of reviewedWaterCurationSlugs) {
 for (const marker of ['const CHECKED', 'officialUrl:', 'sourceCheckedAt:CHECKED']) {
   if (!waterCuration.includes(marker)) failures.push(`Reviewed water curation provenance contract missing: ${marker}`);
 }
+
+const reviewedMuseumCurationSlugs = [
+  'kimbell-art-museum',
+  'museum-of-fine-arts-houston',
+  'dallas-museum-of-art',
+  'nasher-sculpture-center',
+  'menil-collection',
+  'rothko-chapel',
+];
+for (const slug of reviewedMuseumCurationSlugs) {
+  if (!museumCuration.includes(`"${slug}"`)) failures.push(`Reviewed museum curation missing destination key: ${slug}`);
+}
+for (const marker of ['const CHECKED', 'officialUrl:', 'sourceCheckedAt:CHECKED']) {
+  if (!museumCuration.includes(marker)) failures.push(`Reviewed museum curation provenance contract missing: ${marker}`);
+}
 for (const marker of [
   'officialUrl:',
   'sourceCheckedAt: CHECKED',
@@ -145,4 +161,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Destination indexing policy passed: route metadata emits one consistent robots policy; Explore sitemap merges remote sources, falls back to curated fixtures when remote data is unavailable or empty, resolves curation/heroes/quality before indexing, and preserves the same primary/readiness gate; query publication uses the same resolution concepts behind a lazy runtime boundary; duplicate units stay consolidated; substantive-copy, hero, coordinate and official-source gates remain aligned; recorded review dates must be fresh; live fallback destinations retain explicit current-source provenance; and reviewed water curation overlays are tracked separately from guaranteed local routes.');
+console.log('Destination indexing policy passed: route metadata emits one consistent robots policy; Explore sitemap merges remote sources, falls back to curated fixtures when remote data is unavailable or empty, resolves curation/heroes/quality before indexing, and preserves the same primary/readiness gate; query publication uses the same resolution concepts behind a lazy runtime boundary; duplicate units stay consolidated; substantive-copy, hero, coordinate and official-source gates remain aligned; recorded review dates must be fresh; live fallback destinations retain explicit current-source provenance; and reviewed water and museum curation overlays are tracked separately from guaranteed local routes.');
