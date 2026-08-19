@@ -35,6 +35,7 @@ for (const feature of [
   "['/texas-chili-con-carne-history', 'Texas Chili Con Carne'",
   "['/texas-chicken-fried-steak-guide', 'Texas Chicken-Fried Steak'",
   "['/texas-natural-wonders-bucket-list', 'Texas Natural Wonders'",
+  "['/texas-blue-norther-weather-guide', 'Texas Blue Northers & Spring Storms'",
   "['/texas-brand-origin-stories', 'Texas Brand Origin Stories'",
   "['/dr-pepper-texas-history', 'Dr Pepper in Texas'",
   "['/article/texas-utility-costs-guide', 'Estimate Texas utility costs'",
@@ -70,4 +71,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Texas Life metadata, CollectionPage, mixed department/culture/finance/article ItemList, expanded culture and finance discovery, shared visible breadcrumb, and JSON-LD naming are aligned.');
+console.log('Texas Life metadata, CollectionPage, mixed department/culture/finance/article ItemList, expanded culture including sourced Texas weather guidance, finance discovery, shared visible breadcrumb, and JSON-LD naming are aligned.');
