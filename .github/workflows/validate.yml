@@ -122,6 +122,9 @@ jobs:
       - name: Validate Texas culture citation index and human guidance
         run: node scripts/data/validate-texas-culture-citation-index.mjs
 
+      - name: Validate Texas weather authority
+        run: node scripts/data/validate-texas-weather-authority.mjs
+
       - name: Validate Top 25 attraction authority
         run: node scripts/data/validate-top-attraction-authority.mjs
 
