@@ -39,20 +39,52 @@ jobs:
           atlas='https://texasdefined.com/explore/painted-churches/guides'
           sample='https://texasdefined.com/explore/painted-churches/guides/st-michael-weimar'
           sitemap='https://texasdefined.com/sitemap-explore.xml'
-          fetch_with_retry() {
-            local url="$1" out="$2"
-            for attempt in 1 2 3 4 5 6; do
-              if curl --fail-with-body --silent --show-error --location --max-time 30 "$url" -o "$out"; then return 0; fi
-              sleep 5
-            done
-            return 1
-          }
           workdir="$(mktemp -d)"
           trap 'rm -rf "$workdir"' EXIT
-          fetch_with_retry "$atlas" "$workdir/atlas.html"
-          fetch_with_retry "$sample" "$workdir/sample.html"
-          fetch_with_retry "$sitemap" "$workdir/sitemap.xml"
-          grep -Fq 'Every major Painted Churches question has somewhere useful to land.' "$workdir/atlas.html"
-          grep -Fq 'St. Michael' "$workdir/sample.html"
-          grep -Fq '/explore/painted-churches/guides/st-michael-weimar' "$workdir/sitemap.xml"
+
+          fetch_with_retry() {
+            local label="$1" url="$2" out="$3" headers="$4"
+            local attempt
+            for attempt in 1 2 3 4 5 6; do
+              echo "[$label] fetch attempt $attempt: $url"
+              if curl --fail-with-body --silent --show-error --location --max-time 30 \
+                -D "$headers" \
+                -w "[$label] http=%{http_code} final=%{url_effective} bytes=%{size_download}\n" \
+                "${url}?verify=${GITHUB_SHA}-${GITHUB_RUN_ID}" -o "$out"; then
+                echo "[$label] response headers:"
+                grep -Ei '^(HTTP/|content-type:|cache-control:|cf-cache-status:|location:)' "$headers" || true
+                return 0
+              fi
+              sleep 5
+            done
+            echo "[$label] FETCH_FAILED"
+            return 1
+          }
+
+          assert_contains() {
+            local label="$1" file="$2" needle="$3"
+            if grep -Fq "$needle" "$file"; then
+              echo "[$label] CONTENT_OK: $needle"
+              return 0
+            fi
+            echo "[$label] CONTENT_ASSERTION_FAILED: $needle"
+            echo "[$label] first 1200 bytes follow:"
+            head -c 1200 "$file" || true
+            echo
+            echo "[$label] diagnostic title/canonical fragments:"
+            grep -Eo '<title>[^<]*|rel="canonical"[^>]*|<h1[^>]*>[^<]*' "$file" | head -20 || true
+            return 1
+          }
+
+          fetch_with_retry atlas "$atlas" "$workdir/atlas.html" "$workdir/atlas.headers"
+          assert_contains atlas "$workdir/atlas.html" 'Texas Painted Churches Search Guide'
+          assert_contains atlas "$workdir/atlas.html" 'Every major Painted Churches question has somewhere useful to land.'
+
+          fetch_with_retry sample "$sample" "$workdir/sample.html" "$workdir/sample.headers"
+          assert_contains sample "$workdir/sample.html" 'St. Michael Catholic Church in Weimar'
+          assert_contains sample "$workdir/sample.html" 'Diocese of Victoria'
+
+          fetch_with_retry sitemap "$sitemap" "$workdir/sitemap.xml" "$workdir/sitemap.headers"
+          assert_contains sitemap "$workdir/sitemap.xml" '/explore/painted-churches/guides/st-michael-weimar'
+
           echo 'Painted Churches atlas, representative guide, and Explore sitemap are live in production.'
