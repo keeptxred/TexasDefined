@@ -36,10 +36,11 @@ export const additionalVerifiedPaintedChurches: PaintedChurch[] = [
   },
 ];
 
-export const expandedPaintedChurches: PaintedChurch[] = [
-  ...originalPaintedChurches,
-  ...additionalVerifiedPaintedChurches,
-];
+for (const church of additionalVerifiedPaintedChurches) {
+  if (!originalPaintedChurches.some((existing) => existing.slug === church.slug)) originalPaintedChurches.push(church);
+}
+
+export const expandedPaintedChurches: PaintedChurch[] = originalPaintedChurches;
 
 export function expandedPaintedChurchBySlug(slug: string) {
   return expandedPaintedChurches.find((church) => church.slug === slug) ?? null;
