@@ -8,6 +8,7 @@ const description = 'Texas calculators and practical guides for mortgages, home 
 
 const sections = [
   ['Estimate your property taxes', '/decide/property-taxes', 'See an estimated taxable value and annual or monthly property-tax cost.', 'Property taxes'],
+  ['Understand MUDs, PIDs, HOAs and special districts', '/article/muds-pids-hoas-special-districts-texas', 'See how district taxes, assessments and private association dues can change the true carrying cost of a Texas home.', 'Property taxes'],
   ['Estimate a mortgage payment', '/texas-mortgage-calculator', 'Combine principal, interest, property taxes and insurance in one monthly estimate.', 'Home buying'],
   ['See what home may fit your budget', '/texas-home-affordability-calculator', 'Use income, debts and housing costs to explore a possible price range.', 'Home buying'],
   ['Understand salary and home affordability', '/article/salary-needed-to-buy-a-house-in-texas', 'Work backward from the complete housing payment, recurring debts, reserves and household budget before testing a price range.', 'Home buying'],
@@ -66,7 +67,6 @@ export const Route = createFileRoute('/decide/financial-tools')({
 function Page() {
   return <>
     <DepartmentHero current="Money & Property" eyebrow="Money & Property" title="Texas calculators for the numbers behind everyday life." description={description} tone="surface" />
-
     <Container className="py-14 sm:py-20">
       <section className="border-b border-border pb-10">
         <p className="eyebrow text-primary">Popular starting points</p>
@@ -79,7 +79,6 @@ function Page() {
           })}
         </div>
       </section>
-
       <div className="flex flex-wrap items-end justify-between gap-4 border-b border-border pb-5 pt-10">
         <div><p className="eyebrow text-primary">All tools & guides</p><h2 className="mt-2 font-display text-3xl">Calculators, guides and practical next steps</h2></div>
         <p className="text-sm text-muted-foreground">{sections.length} helpful starting points</p>
