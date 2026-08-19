@@ -58,6 +58,7 @@ function ThingsUniqueToTexasPage() {
             <p className="mt-5 leading-7 text-muted-foreground">The strongest themes get full editorial treatment instead of hundreds of thin one-item pages. These guides connect culture to places, history and practical trip planning.</p>
           </div>
           <div className="mt-10 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2 xl:grid-cols-3">
+            <PillarLink to="/texas-food-history" eyebrow="Food history hub" title="Texas Food History" text="The parent guide connecting barbecue, chili, chicken-fried steak, breakfast tacos, German and Czech foodways, Dr Pepper and the regional cultures behind the Texas table." />
             <PillarLink to="/texas-food-trail" eyebrow="Food & road trips" title="The Texas Food Trail" text="Ten food traditions—from Central Texas barbecue and breakfast tacos to Czech bakeries, Gulf seafood and Hill Country produce—organized as a travel-ready guide." />
             <PillarLink to="/texas-chili-con-carne-history" eyebrow="Food history" title="Texas Chili Con Carne" text="San Antonio Chili Queens, commercial chili powder, Terlingua cookoff culture and why the bean argument is smaller than the history." />
             <PillarLink to="/texas-chicken-fried-steak-guide" eyebrow="Texas comfort food" title="Texas Chicken-Fried Steak" text="The disputed origin, regional styles, cream gravy and what separates a balanced plate from an oversized stunt." />
