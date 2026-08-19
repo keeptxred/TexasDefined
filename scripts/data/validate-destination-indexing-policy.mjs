@@ -70,6 +70,7 @@ for (const marker of [
 
 for (const marker of [
   'NON_PRIMARY_TRIP_PLANNER_SLUGS',
+  'palo-duro-canyon',
   'world-birding-center-bentsen-rio-grande-valley-state-park',
   'cooper-lake-doctors-creek-unit-state-park',
   'ray-roberts-lake-jordon-unit-state-park',
@@ -96,16 +97,16 @@ for (const marker of [
   if (!curationAll.includes(marker)) failures.push(`Verified fallback destination curation wiring missing: ${marker}`);
 }
 
-const liveFallbackSlugs = [
+const coreFallbackSlugs = [
   'enchanted-rock',
   'palo-duro-canyon',
   'blue-hole-wimberley',
   'big-bend-chisos-basin',
   'gruene-historic-district',
 ];
-for (const slug of liveFallbackSlugs) {
-  if (!coreFallbacks.includes(`"${slug}"`)) failures.push(`Verified live fallback curation missing destination: ${slug}`);
-  if (!coreFallbacks.includes('const CHECKED')) failures.push(`Verified live fallback curation is missing an explicit review-date constant for ${slug}.`);
+for (const slug of coreFallbackSlugs) {
+  if (!coreFallbacks.includes(`"${slug}"`)) failures.push(`Verified core fallback curation missing destination: ${slug}`);
+  if (!coreFallbacks.includes('const CHECKED')) failures.push(`Verified core fallback curation is missing an explicit review-date constant for ${slug}.`);
 }
 
 const reviewedWaterCurationSlugs = [
@@ -181,4 +182,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Destination indexing policy passed: route metadata emits one consistent robots policy; Explore sitemap merges remote sources, falls back to curated fixtures when remote data is unavailable or empty, resolves curation/heroes/quality before indexing, and preserves the same primary/readiness gate; query publication uses the same resolution concepts behind a lazy runtime boundary; duplicate units stay consolidated; substantive-copy, hero, coordinate and official-source gates remain aligned; recorded review dates must be fresh; live fallback destinations retain explicit current-source provenance; and reviewed water, museum, and batch 52 curation overlays are tracked separately from guaranteed local routes.');
+console.log('Destination indexing policy passed: route metadata emits one consistent robots policy; Explore sitemap merges remote sources, falls back to curated fixtures when remote data is unavailable or empty, resolves curation/heroes/quality before indexing, and preserves the same primary/readiness gate; query publication uses the same resolution concepts behind a lazy runtime boundary; duplicate units and the legacy Palo Duro slug stay consolidated; substantive-copy, hero, coordinate and official-source gates remain aligned; recorded review dates must be fresh; core fallback curation retains explicit current-source provenance; and reviewed water, museum, and batch 52 curation overlays are tracked separately from guaranteed local routes.');
