@@ -1,12 +1,41 @@
 import { Link } from "@tanstack/react-router";
 
+import bbqBrisket from "@/assets/bbq-brisket.jpg";
+import bigBend from "@/assets/big-bend.jpg";
+import kolacheKlobasnek from "@/assets/kolache-klobasnek-hero-photo.jpg";
+import texasCourthouseSquare from "@/assets/generated/texas-courthouse-square.jpg";
 import { Container } from "@/components/layout/Container";
 import type { TexasEvergreenGuide as TexasEvergreenGuideData } from "@/data/texas-evergreen-guides";
 
 const siteUrl = "https://texasdefined.com";
 
+const guideImages: Partial<Record<string, { src: string; alt: string; caption: string }>> = {
+  "texas-food-trail": {
+    src: bbqBrisket,
+    alt: "Sliced Texas barbecue brisket showing dark bark and a smoke ring",
+    caption: "Barbecue is one chapter of the Texas food story, not the whole story.",
+  },
+  "texas-natural-wonders-bucket-list": {
+    src: bigBend,
+    alt: "Big Bend landscape with desert terrain and distant mountains",
+    caption: "Big Bend is one anchor in a natural-wonders list that stretches from desert mountains to cypress swamps and barrier islands.",
+  },
+  "german-czech-texas-towns": {
+    src: kolacheKlobasnek,
+    alt: "Texas Czech-style kolache and klobasnek pastries",
+    caption: "Food is one of the most visible surviving links to Czech and German settlement, but the heritage also lives in churches, halls, festivals and town landscapes.",
+  },
+  "texas-roadside-oddities": {
+    src: texasCourthouseSquare,
+    alt: "Historic Texas courthouse square and surrounding streetscape",
+    caption: "The best roadside trips mix oddities with the town squares, main streets and local places around them.",
+  },
+};
+
 export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData }) {
   const canonicalUrl = `${siteUrl}/${guide.slug}`;
+  const image = guideImages[guide.slug];
+  const imageUrl = image ? `${siteUrl}${image.src.startsWith('/') ? image.src : `/${image.src}`}` : undefined;
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -19,6 +48,7 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
         mainEntityOfPage: { "@id": `${canonicalUrl}#page` },
         publisher: { "@type": "Organization", name: "TexasDefined", url: siteUrl },
         articleSection: "Things That Define Texas",
+        image: imageUrl,
         about: guide.sections.map((section) => ({ "@type": "Thing", name: section.heading.replace(/^\d+\.\s*/, "") })),
       },
       {
@@ -27,6 +57,7 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
         url: canonicalUrl,
         name: guide.title,
         description: guide.dek,
+        primaryImageOfPage: imageUrl ? { "@type": "ImageObject", contentUrl: imageUrl } : undefined,
         isPartOf: { "@type": "WebSite", "@id": `${siteUrl}/#website`, name: "TexasDefined", url: siteUrl },
         breadcrumb: { "@id": `${canonicalUrl}#breadcrumb` },
         mainEntity: { "@id": `${canonicalUrl}#article` },
@@ -71,6 +102,11 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
           <h1 className="mt-3 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">{guide.title}</h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground sm:text-xl">{guide.dek}</p>
         </header>
+
+        {image ? <figure className="border-b border-border py-8">
+          <img src={image.src} alt={image.alt} className="aspect-[16/9] w-full object-cover" loading="eager" fetchPriority="high" />
+          <figcaption className="mt-3 max-w-3xl text-xs leading-5 text-muted-foreground">{image.caption}</figcaption>
+        </figure> : null}
 
         <section className="border-b border-border py-8" aria-labelledby="quick-answer">
           <p className="eyebrow text-primary">Quick answer</p>
