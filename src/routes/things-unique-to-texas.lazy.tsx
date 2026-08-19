@@ -65,6 +65,7 @@ function ThingsUniqueToTexasPage() {
             <PillarLink to="/texas-homecoming-mums" eyebrow="School traditions" title="Texas Homecoming Mums Explained" text="How a simple chrysanthemum corsage became an oversized wearable record of school spirit, activities, friends and local identity." />
             <PillarLink to="/texas-natural-wonders-bucket-list" eyebrow="Outdoors & geography" title="Texas Natural Wonders Bucket List" text="Twelve landscapes—from Big Bend and Palo Duro to Caddo Lake, Padre Island and spring-fed West Texas—that show how varied the state really is." />
             <PillarLink to="/german-czech-texas-towns" eyebrow="Immigration & heritage" title="German & Czech Texas Towns" text="Fredericksburg, New Braunfels, West, Schulenburg and the food, churches, dance halls and community traditions connecting them." />
+            <PillarLink to="/texas-brand-origin-stories" eyebrow="Business & identity" title="Texas Brand Origin Stories" text="H-E-B, Whataburger, Blue Bell, Shiner, Dickies and Buc-ee's—where they started and how everyday Texas routines turned them into cultural shorthand." />
           </div>
         </Container>
       </section>
