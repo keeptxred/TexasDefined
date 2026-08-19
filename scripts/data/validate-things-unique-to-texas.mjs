@@ -19,12 +19,14 @@ const evergreenBatch2 = fs.readFileSync('src/data/texas-evergreen-guides-batch2.
 const evergreenBatch3 = fs.readFileSync('src/data/texas-evergreen-guides-batch3.ts', 'utf8');
 const evergreenBatch4 = fs.readFileSync('src/data/texas-evergreen-guides-batch4.ts', 'utf8');
 const evergreenBatch5 = fs.readFileSync('src/data/texas-evergreen-guides-batch5.ts', 'utf8');
+const evergreenBatch6 = fs.readFileSync('src/data/texas-evergreen-guides-batch6.ts', 'utf8');
 const failures = [];
 
 const evergreenGuides = [
   ['/texas-food-trail', 'src/routes/texas-food-trail.tsx', 'texas-food-trail'],
   ['/texas-roadside-oddities', 'src/routes/texas-roadside-oddities.tsx', 'texas-roadside-oddities'],
   ['/texas-slang-explained', 'src/routes/texas-slang-explained.tsx', 'texas-slang-explained'],
+  ['/texas-blue-norther-weather-guide', 'src/routes/texas-blue-norther-weather-guide.tsx', 'texas-blue-norther-weather-guide'],
   ['/texas-dance-halls-honky-tonks', 'src/routes/texas-dance-halls-honky-tonks.tsx', 'texas-dance-halls-honky-tonks'],
   ['/texas-homecoming-mums', 'src/routes/texas-homecoming-mums.tsx', 'texas-homecoming-mums'],
   ['/texas-natural-wonders-bucket-list', 'src/routes/texas-natural-wonders-bucket-list.tsx', 'texas-natural-wonders-bucket-list'],
@@ -44,7 +46,6 @@ const additionalSmokePaths = [
   '/article/texas-wildlife-guide',
   '/article/texas-trees-guide',
   '/article/galveston-county-island-port-juneteenth-texas',
-  '/texas-blue-norther-weather-guide',
   '/texas-symbols',
 ];
 
@@ -129,7 +130,7 @@ for (const token of ['"@type": "Article"', '"@type": "WebPage"', '"@type": "Item
 for (const sourceUrl of ['https://www.tshaonline.org/handbook/entries/san-antonio-tx','https://www.tshaonline.org/handbook/entries/gebhardt-mexican-foods-company','https://www.tshaonline.org/handbook/entries/chicken-fried-steak','https://drpeppermuseum.com/history/']) if (!evergreenComponent.includes(sourceUrl)) failures.push(`Evergreen source notes missing authoritative source ${sourceUrl}.`);
 for (const slug of ['texas-ranch-water-guide', 'san-antonio-puffy-taco-history', 'barbacoa-big-red-san-antonio']) if (!evergreenComponent.includes(`"${slug}"`)) failures.push(`Shared Food History parent set missing batch 5 slug ${slug}.`);
 
-const allEvergreenData = `${evergreenData}\n${evergreenBatch2}\n${evergreenBatch3}\n${evergreenBatch4}\n${evergreenBatch5}`;
+const allEvergreenData = `${evergreenData}\n${evergreenBatch2}\n${evergreenBatch3}\n${evergreenBatch4}\n${evergreenBatch5}\n${evergreenBatch6}`;
 for (const [path, routeFile, slug] of evergreenGuides) {
   if (!fs.existsSync(routeFile)) failures.push(`Missing evergreen route file ${routeFile}.`);
   const routeSource = fs.existsSync(routeFile) ? fs.readFileSync(routeFile, 'utf8') : '';
@@ -153,4 +154,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Things That Define Texas validation passed: ${ids.length} entries, ${categorySlugs.length} categories, ${evergreenGuides.length} evergreen deep dives, ${canonicalIds.length} exact destination mappings, ${deepDiveIds.length} protected editorial/deep-dive mappings (${canonicalIds.length + deepDiveIds.length} protected relationships), five evergreen data batches, two shared data distributions, methodology/provenance/trust contracts, and ${smokePaths.length + evergreenGuides.length + additionalSmokePaths.length} HTML production smoke routes intact.`);
+console.log(`Things That Define Texas validation passed: ${ids.length} entries, ${categorySlugs.length} categories, ${evergreenGuides.length} evergreen deep dives, ${canonicalIds.length} exact destination mappings, ${deepDiveIds.length} protected editorial/deep-dive mappings (${canonicalIds.length + deepDiveIds.length} protected relationships), six evergreen data batches, two shared data distributions, methodology/provenance/trust contracts, and ${smokePaths.length + evergreenGuides.length + additionalSmokePaths.length} HTML production smoke routes intact.`);
