@@ -47,6 +47,28 @@ const dossiers: PaintedChurchResearchDossier[] = [
       { label: "Buie Harwood and Anna Brightman archive", url: "https://txarchives.org/utaaa/finding_aids/00136.xml", tier: "scholarly", use: "decorative-painting field-research evidence and eight-slide St. Joseph group" },
     ],
   },
+  {
+    slug: "anderson-st-stanislaus-kostka",
+    researchSummary: "St. Stanislaus Kostka at Anderson is now a verified broader-tradition Painted Church because the active parish itself documents both an original decorative layer and a later mural: the original ceiling painting in the sacristy was restored, while a mural over the altar was dedicated in 2014. The parish history also preserves the Polish immigrant context, the 1917 Romanesque church, carved altars and European stained glass.",
+    lookFor: [
+      { label: "Sacristy ceiling", detail: "The parish history explicitly says the original ceiling painting in the sacristy was restored, making this direct evidence of surviving historic decorative paint." },
+      { label: "Altar mural", detail: "A later mural over the altar was dedicated on November 23, 2014 and should be read as a modern layer rather than original 1917 decoration." },
+      { label: "Historic altars and glass", detail: "The parish documents original carved altars and European-made stained-glass windows, helping distinguish painted decoration from the church's other historic interior arts." },
+    ],
+    interpretation: [
+      { heading: "Why Anderson now clears the inclusion threshold", paragraphs: ["Earlier research treated Anderson as a candidate because the surviving decorative layers had not been classified precisely enough. The parish's own historical account resolves that problem by naming both the restored original ceiling painting and the later altar mural, allowing Texas Defined to classify the church without pretending all visible decoration belongs to one date."] },
+      { heading: "Historic and modern layers can coexist", paragraphs: ["Anderson is useful precisely because it is not a frozen one-period interior. Its documentary record shows original painted fabric, later renovation, restoration of historic features and a twenty-first-century mural. The page therefore separates preservation from new devotional art instead of flattening them together."] },
+    ],
+    communityContext: [
+      { heading: "Polish Catholic Grimes County", paragraphs: ["The parish history traces the Anderson Catholic community to Polish settlement after the Civil War and records repeated connections with Plantersville. That makes Anderson part of a broader Polish Catholic network in east-central Texas rather than an isolated decorated church."] },
+    ],
+    recordNotes: ["Texas Defined classifies Anderson as broader historic tradition, not formal National Register decorative-interior membership.", "The 2014 altar mural is explicitly labeled as a later addition; it is not used as evidence that the entire church retains an untouched 1917 paint campaign."],
+    sources: [
+      { label: "St. Stanislaus Kostka — official church history", url: "https://saintstans.org/church-history", tier: "official", use: "Polish parish history, 1917 building, original ceiling-painting restoration, altars, stained glass and 2014 altar mural" },
+      { label: "St. Stanislaus Kostka — official parish", url: "https://saintstans.org/", tier: "official", use: "current parish identity and visitor contact" },
+      { label: "St. Stanislaus Kostka — official contact page", url: "https://saintstans.org/contact-us-1", tier: "official", use: "current address and office contact" },
+    ],
+  },
 ];
 
 export function paintedChurchExpansionResearchBySlug(slug: string) {
