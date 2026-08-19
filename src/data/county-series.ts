@@ -85,6 +85,7 @@ const LEGACY_ARTICLE_TO_COUNTY = new Map<string, string>([
   ["bee-county-beeville-railroads-ranching-coastal-bend-texas", "bee"],
   ["frio-county-pearsall-dilley-frio-river-winter-garden-texas", "frio"],
   ["karnes-county-karnes-city-kenedy-panna-maria-san-antonio-river-texas", "karnes"],
+  ["wilson-county-floresville-la-vernia-stockdale-san-antonio-river-texas", "wilson"],
 ]);
 
 const COUNTY_SLUGS = new Set(LEGACY_ARTICLE_TO_COUNTY.values());
