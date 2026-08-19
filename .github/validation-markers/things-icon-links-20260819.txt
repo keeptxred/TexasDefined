@@ -1,0 +1,3 @@
+Validate current main after Things That Define Texas exact deep-link expansion.
+Expected minimum: 41 exact destination mappings plus 6 purpose-built deep dives.
+Baseline main SHA: e58b9b68b46634696f984542b87983224cdc2767
