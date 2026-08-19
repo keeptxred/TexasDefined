@@ -57,38 +57,45 @@ for (const [label, filename] of routes) {
 
 const deepCalculatorContracts = [
   ['Mortgage payoff', 'src/routes/texas-mortgage-payoff-calculator.tsx', [
-    'Texas Mortgage Payoff Calculator | Extra Payment Scenarios',
-    'Extra principal changes the balance that future interest uses',
-    'Pay extra, refinance, or keep the current schedule?',
-    'Texas mortgage payoff calculator FAQ',
-    'to="/texas-refinance-savings-calculator"',
-    'to="/article/should-you-refinance-texas-mortgage"',
-    'to="/texas-homeownership-cost-calculator"',
-    'https://www.consumerfinance.gov/ask-cfpb/how-does-paying-down-a-mortgage-work-en-1943/',
-    'https://www.consumerfinance.gov/ask-cfpb/what-is-a-payoff-amount-and-is-it-the-same-as-my-current-balance-en-205/',
-    'https://www.consumerfinance.gov/ask-cfpb/what-is-a-prepayment-penalty-en-1957/',
+    'Texas Mortgage Payoff Calculator | Extra Payment Scenarios', 'Extra principal changes the balance that future interest uses', 'Texas mortgage payoff calculator FAQ',
+    'to="/texas-refinance-savings-calculator"', 'to="/article/should-you-refinance-texas-mortgage"', 'to="/texas-homeownership-cost-calculator"',
+    'https://www.consumerfinance.gov/ask-cfpb/how-does-paying-down-a-mortgage-work-en-1943/', 'https://www.consumerfinance.gov/ask-cfpb/what-is-a-payoff-amount-and-is-it-the-same-as-my-current-balance-en-205/',
   ]],
   ['Down payment', 'src/routes/texas-down-payment-calculator.tsx', [
-    'Texas Down Payment Calculator | Cash Needed to Buy a Home',
-    'Keep the down payment, closing costs and reserves in one plan',
-    'Connect the cash requirement to the payment you can carry',
-    'Texas down payment calculator FAQ',
-    'to="/article/texas-house-down-payment-guide"',
-    'to="/texas-closing-cost-calculator"',
-    'to="/texas-home-affordability-calculator"',
-    'https://www.hud.gov/buying/loans',
-    'https://www.va.gov/housing-assistance/home-loans/loan-types/purchase-loan/',
-    'https://welcomehome.tdhca.texas.gov/',
+    'Texas Down Payment Calculator | Cash Needed to Buy a Home', 'Keep the down payment, closing costs and reserves in one plan', 'Texas down payment calculator FAQ',
+    'to="/article/texas-house-down-payment-guide"', 'to="/texas-closing-cost-calculator"', 'to="/texas-home-affordability-calculator"', 'https://welcomehome.tdhca.texas.gov/',
   ]],
   ['Homeownership cost', 'src/routes/texas-homeownership-cost-calculator.tsx', [
-    'Texas Homeownership Cost Calculator | Beyond the Mortgage',
-    'The mortgage payment is only one part of owning the house',
-    'Verify the biggest ownership-cost assumptions separately',
-    'Texas homeownership cost calculator FAQ',
-    'to="/texas-utility-cost-calculator"',
-    'to="/texas-home-insurance-calculator"',
-    'to="/article/true-cost-of-owning-a-home-in-texas"',
-    'to="/article/muds-pids-hoas-special-districts-texas"',
+    'Texas Homeownership Cost Calculator | Beyond the Mortgage', 'The mortgage payment is only one part of owning the house', 'Texas homeownership cost calculator FAQ',
+    'to="/texas-utility-cost-calculator"', 'to="/texas-home-insurance-calculator"', 'to="/article/true-cost-of-owning-a-home-in-texas"', 'to="/article/muds-pids-hoas-special-districts-texas"',
+  ]],
+  ['Refinance', 'src/routes/texas-refinance-savings-calculator.tsx', [
+    'Texas Refinance Calculator | Savings & Break-Even Estimate', 'Compare break-even and the repayment clock together', 'Texas refinance calculator FAQ',
+    'to="/article/should-you-refinance-texas-mortgage"', 'to="/texas-mortgage-payoff-calculator"', 'https://www.consumerfinance.gov/owning-a-home/compare/',
+  ]],
+  ['Home equity', 'src/routes/texas-home-equity-calculator.tsx', [
+    'Texas Home Equity Calculator | Estimate Equity & LTV', 'Treat home equity as an estimate, not an available credit line', 'Texas home equity calculator FAQ',
+    'to="/article/texas-home-equity-heloc-guide"', 'to="/texas-home-equity-growth-calculator"', 'to="/texas-mortgage-payoff-calculator"',
+  ]],
+  ['Home equity growth', 'src/routes/texas-home-equity-growth-calculator.tsx', [
+    'Texas Home Equity Growth Calculator | Future Scenarios', 'Future equity depends on two moving numbers', 'Texas home equity growth calculator FAQ',
+    'to="/texas-home-equity-calculator"', 'to="/texas-mortgage-payoff-calculator"', 'to="/article/texas-home-equity-heloc-guide"',
+  ]],
+  ['Moving cost', 'src/routes/texas-moving-cost-calculator.tsx', [
+    'Texas Moving Cost Calculator | Plan the Full Move Budget', 'The move costs more than transportation', 'Texas moving cost calculator FAQ',
+    'to="/moving-to-texas"', 'to="/moving-to-texas-checklist"', 'to="/texas-cost-of-living-calculator"',
+  ]],
+  ['Rent versus buy', 'src/routes/texas-rent-vs-buy-calculator.tsx', [
+    'Texas Rent vs Buy Calculator | Compare the Longer-Term Cost', 'Rent and mortgage are not the only two numbers', 'Texas rent vs buy calculator FAQ',
+    'to="/article/renting-vs-buying-in-texas"', 'to="/texas-homeownership-cost-calculator"', 'to="/texas-closing-cost-calculator"',
+  ]],
+  ['Budget planner', 'src/routes/texas-budget-planner.tsx', [
+    'Texas Budget Planner | Monthly Household Income & Expenses', 'A useful budget includes the bills that do not arrive every month', 'Texas household budget planner FAQ',
+    'to="/texas-salary-calculator"', 'to="/texas-utility-cost-calculator"', 'to="/texas-homeownership-cost-calculator"',
+  ]],
+  ['Salary comparison', 'src/routes/texas-salary-comparison-by-city.tsx', [
+    'Texas Salary Comparison by City | Cost-Adjusted Pay Estimate', 'A citywide index cannot see your housing or commute', 'Texas salary comparison FAQ',
+    'to="/texas-salary-calculator"', 'to="/texas-budget-planner"', 'to="/moving-to-texas"',
   ]],
 ];
 for (const [label, filename, markers] of deepCalculatorContracts) {
@@ -102,4 +109,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Calculator WebPage, WebApplication, canonical relationship, breadcrumb, and priority home-finance indexing-depth validation passed.');
+console.log('Calculator WebPage, WebApplication, canonical relationship, breadcrumb, and priority calculator indexing-depth validation passed.');
