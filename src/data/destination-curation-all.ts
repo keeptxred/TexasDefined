@@ -39,6 +39,7 @@ import { applyCuratedDestinationBatch47 } from "./destination-curation-batch47";
 import { applyCuratedDestinationBatch48 } from "./destination-curation-batch48";
 import { applyCuratedDestinationBatch49 } from "./destination-curation-batch49";
 import { applyCuratedDestinationBatch52 } from "./destination-curation-batch52";
+import { applyCuratedDestinationBatch53 } from "./destination-curation-batch53";
 import { topAttractionExpansionDestinations } from "./destination-curation-top-attractions-fallbacks";
 import { applyCuratedTopAttractions, topAttractionDestinations } from "./destination-curation-top-attractions";
 import { applyCuratedTopAttractionsBatch2 } from "./destination-curation-top-attractions-batch2";
@@ -143,6 +144,7 @@ const CURATORS: Array<(destination: Destination) => Destination> = [
   applyCuratedDestinationBatch48,
   applyCuratedDestinationBatch49,
   applyCuratedDestinationBatch52,
+  applyCuratedDestinationBatch53,
   applyCuratedTopAttractions,
   applyCuratedTopAttractionsBatch2,
   applyCuratedTopAttractionsBatch3,
