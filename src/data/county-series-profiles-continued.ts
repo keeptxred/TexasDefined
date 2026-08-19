@@ -115,4 +115,10 @@ export const COUNTY_SERIES_PROFILES_CONTINUED: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/rusk-county-henderson-east-texas-oil-field-piney-woods-texas")
       .then((module) => module.ruskCountyHendersonEastTexasOilFieldPineyWoodsArticle),
   },
+  {
+    countySlug: "cherokee",
+    articleSlug: "cherokee-county-rusk-jacksonville-caddo-mounds-piney-woods-texas",
+    loadArticle: () => import("@/data/fixtures/cherokee-county-rusk-jacksonville-caddo-mounds-piney-woods-texas")
+      .then((module) => module.cherokeeCountyRuskJacksonvilleCaddoMoundsPineyWoodsArticle),
+  },
 ];
