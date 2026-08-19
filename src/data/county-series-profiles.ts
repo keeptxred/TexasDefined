@@ -102,4 +102,5 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   profile("hamilton", "hamilton-county-hamilton-hico-rivers-ranch-country-texas", () => import("@/data/fixtures/hamilton-county-hamilton-hico-rivers-ranch-country").then((module) => module.hamiltonCountyHamiltonHicoRiversRanchCountryArticle)),
   profile("coryell", "coryell-county-gatesville-fort-cavazos-leon-river-central-texas", () => import("@/data/fixtures/coryell-county-gatesville-fort-cavazos-leon-river-central-texas").then((module) => module.coryellCountyGatesvilleFortCavazosLeonRiverCentralTexasArticle)),
   profile("bosque", "bosque-county-meridian-clifton-norwegian-heritage-bosque-river-texas", () => import("@/data/fixtures/bosque-county-meridian-clifton-norwegian-heritage-bosque-river").then((module) => module.bosqueCountyMeridianCliftonNorwegianHeritageBosqueRiverArticle)),
+  profile("erath", "erath-county-stephenville-dublin-tarleton-cross-timbers-texas", () => import("@/data/fixtures/erath-county-stephenville-dublin-tarleton-cross-timbers").then((module) => module.erathCountyStephenvilleDublinTarletonCrossTimbersArticle)),
 ];
