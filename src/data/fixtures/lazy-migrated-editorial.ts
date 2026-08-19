@@ -71,7 +71,7 @@ export const migratedEditorialArticleStubs: Article[] = [
   stub(13, { slug: "moving-to-san-antonio-guide", title: "Moving to San Antonio", dek: "How to compare Bexar-area commutes, city boundaries, school districts, CPS Energy, SAWS and fast-growing suburban corridors.", category: "moving-to-texas", region: "south-texas", hero: cityHero, authorId: "a-hollis", publishedAt: "2026-07-23", readingMinutes: 9, tags: ["san antonio", "relocation", "utilities", "commute"] }),
   stub(14, { slug: "moving-to-austin-guide", title: "Moving to Austin and Central Texas", dek: "Compare total monthly cost, city limits, utility territories, school districts and the real commute across Travis, Williamson and Hays counties.", category: "moving-to-texas", region: "hill-country", hero: movingHero, authorId: "a-hollis", publishedAt: "2026-07-23", readingMinutes: 11, tags: ["austin", "central texas", "relocation", "cost of living"] }),
   stub(15, { slug: "moving-to-el-paso-guide", title: "Moving to El Paso", dek: "Choose the right side of the mountain, plan vehicle registration and emissions, and budget for desert utilities and Fort Bliss access.", category: "moving-to-texas", region: "big-bend", hero: movingHero, authorId: "a-hollis", publishedAt: "2026-07-23", readingMinutes: 9, tags: ["el paso", "relocation", "fort bliss", "desert living"] }),
-  stub(16, { slug: "live-2026-06-29-the-history-behind-the-texas-stock-tank-name-bxkvg7", title: "Why Texans Call a Pond a Stock Tank", dek: "The ranching history behind a familiar Texas word, from livestock water to backyard pools and wildlife habitat.", category: "texas-history", hero: cultureHero, authorId: "a-hollis", publishedAt: "2026-06-29", readingMinutes: 6, tags: ["texas language", "ranching", "stock tank", "history"] }),
+  stub(16, { slug: "live-2026-06-29-the-history-behind-the-texas-stock-tank-name-bxkvg7", title: "Why Texans Call a Pond a Stock Tank", dek: "Why 'stock tank' became ordinary Texas ranch language for small man-made ponds built to water livestock—and why the term now gets used far beyond cattle country.", category: "texas-history", hero: cultureHero, authorId: "a-hollis", publishedAt: "2026-06-29", readingMinutes: 8, tags: ["texas language", "ranching", "stock tank", "history"] }),
   stub(17, { slug: "live-2026-07-07-texas-pitmasters-to-feature-in-new-food-network-competition-series-v3wglp", title: "Texas Pitmasters Bring Several Traditions to National Television", dek: "A Food Network competition puts Central Texas smoke, South Texas influence and live-fire cooking on the same stage.", category: "food-bbq", region: "south-texas", hero: bbqHero, authorId: "a-marisol", publishedAt: "2026-07-07", readingMinutes: 6, tags: ["barbecue", "pitmasters", "san antonio", "live fire"] }),
 ];
 
@@ -91,6 +91,7 @@ const relocationDepthSlugSet = new Set([
   "moving-to-austin-guide",
   "moving-to-dallas-fort-worth-guide",
 ]);
+const STOCK_TANK_DEPTH_SLUG = "live-2026-06-29-the-history-behind-the-texas-stock-tank-name-bxkvg7";
 
 export async function loadMigratedEditorialArticle(brandId: string, slug: string): Promise<Article | null> {
   if (brandId !== "texasdefined" || !migratedSlugSet.has(slug)) return null;
@@ -105,6 +106,10 @@ export async function loadMigratedEditorialArticle(brandId: string, slug: string
   if (relocationDepthSlugSet.has(slug)) {
     const { relocationEvergreenDepthArticles } = await import("./relocation-evergreen-depth");
     return relocationEvergreenDepthArticles.find((article) => article.slug === slug) ?? null;
+  }
+  if (slug === STOCK_TANK_DEPTH_SLUG) {
+    const { stockTankNameDepthArticle } = await import("./stock-tank-name-depth");
+    return stockTankNameDepthArticle;
   }
   const { migratedEditorialArticles } = await import("./migrated-editorial");
   return migratedEditorialArticles.find((article) => article.slug === slug) ?? null;
