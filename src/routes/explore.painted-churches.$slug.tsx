@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
+import { PaintedChurchResearchDossier } from "@/components/editorial/PaintedChurchResearchDossier";
 import { Container } from "@/components/layout/Container";
 import { finalPaintedChurchProfileBySlug } from "@/data/painted-church-profiles-final";
 import { paintedChurchExtendedProfileBySlug } from "@/data/painted-church-profiles-extended";
@@ -106,7 +107,7 @@ function PaintedChurchDetail() {
       </Container>
 
       <section className="mt-5 border-y border-border bg-ink text-ink-foreground">
-        <Container className="grid gap-10 py-12 sm:py-16 lg:grid-cols-[minmax(0,1fr)_minmax(340px,.72fr)] lg:items-center">
+        <Container className="grid gap-10 py-12 sm:py-16 lg:grid-cols-[minmax(0,1.2fr)_minmax(340px,.72fr)] lg:items-center">
           <div>
             <p className="eyebrow text-ink-foreground/65">{church.city} · {church.county} County</p>
             <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">{church.name}</h1>
@@ -182,6 +183,8 @@ function PaintedChurchDetail() {
               </section> : null}
             </>
           )}
+
+          <PaintedChurchResearchDossier slug={church.slug} schulenburgCluster={church.schulenburgCluster} />
 
           <section aria-labelledby="why-it-matters" className={`${profile ? "mt-14 border-t border-border" : "border-t-2 border-foreground"} pt-8`}>
             <p className="eyebrow text-primary">Why it matters</p>
