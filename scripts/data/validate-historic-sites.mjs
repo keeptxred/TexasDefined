@@ -40,7 +40,14 @@ for (const cluster of clusterIds) {
 }
 
 for (const marker of ['historicSiteDestinations', 'export const preservedExploreDestinations = mergePreservedDestinations(']) if (!preserved.includes(marker)) failures.push(`Preserved historic-site catalog contract missing: ${marker}`);
-for (const marker of ['enrichHistoricSiteCatalog','enrichHistoricSiteDestination','enrichRemainingHistoricSiteAreaGuide','enrichHistoricSiteRemoteHero','enrichHistoricSiteCatalog(curated).map(enrichRemainingHistoricSiteAreaGuide).map(enrichHistoricSiteRemoteHero)']) if (!runtime.includes(marker)) failures.push(`Historic-site runtime enrichment contract missing: ${marker}`);
+for (const marker of [
+  'enrichHistoricSiteCatalog',
+  'enrichHistoricSiteDestination',
+  'enrichRemainingHistoricSiteAreaGuide',
+  'enrichHistoricSiteRemoteHero',
+  'enrichHistoricSiteEvergreenLinks',
+  'enrichHistoricSiteCatalog(curated)\n    .map(enrichRemainingHistoricSiteAreaGuide)\n    .map(enrichHistoricSiteRemoteHero)\n    .map(enrichHistoricSiteEvergreenLinks)',
+]) if (!runtime.includes(marker)) failures.push(`Historic-site runtime enrichment contract missing: ${marker}`);
 for (const marker of ['destinationsQuery({ category: "historic-sites" })','historicSiteClusters','/explore/$category']) if (!history.includes(marker)) failures.push(`Texas History historic-site discovery contract missing: ${marker}`);
 for (const marker of ["destinationsQuery({ category: 'historic-sites' })",'Historic places in this county','/explore/historic-sites','/texas-history']) if (!county.includes(marker)) failures.push(`County historic-site discovery contract missing: ${marker}`);
 
@@ -104,4 +111,4 @@ for (const [slug, license] of verifiedRemoteHeroes) {
 if (!remoteHeroes.includes('enrichHistoricSiteRemoteHero')) failures.push('Verified historic remote heroes are not exposed through the runtime enrichment function.');
 
 if (failures.length) { console.error('Historic-sites validation failed:'); for (const failure of failures) console.error(`- ${failure}`); process.exit(1); }
-console.log(`Historic-sites validation passed: ${seedSlugs.length} statewide seeds, ${guideSlugs.size} destination-specific area guides, ${clusterIds.length} thematic clusters with valid seed links, ${exactHeroAliases.length + verifiedRemoteHeroes.length} exact verified hero mappings, every protected hero matches a real seed, shared preserved-catalog publication, Texas History discovery and county cross-links are protected.`);
+console.log(`Historic-sites validation passed: ${seedSlugs.length} statewide seeds, ${guideSlugs.size} destination-specific area guides, ${clusterIds.length} thematic clusters with valid seed links, ${exactHeroAliases.length + verifiedRemoteHeroes.length} exact verified hero mappings, every protected hero matches a real seed, shared preserved-catalog publication, four-stage runtime enrichment, Texas History discovery and county cross-links are protected.`);
