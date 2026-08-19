@@ -10,6 +10,7 @@ const texasLiving = fs.readFileSync('src/routes/texas-living.tsx', 'utf8');
 const smoke = fs.readFileSync('.github/workflows/things-unique-to-texas-production-smoke.yml', 'utf8');
 const llms = fs.readFileSync('src/routes/llms[.]txt.ts', 'utf8');
 const citationIndex = JSON.parse(fs.readFileSync('public/citation-magnets.json', 'utf8'));
+const batch5 = fs.readFileSync('src/data/texas-evergreen-guides-batch5.ts', 'utf8');
 const failures = [];
 
 const focusedGuides = [
@@ -19,6 +20,9 @@ const focusedGuides = [
   '/texas-breakfast-taco-guide',
   '/german-czech-texas-towns',
   '/dr-pepper-texas-history',
+  '/texas-ranch-water-guide',
+  '/san-antonio-puffy-taco-history',
+  '/barbacoa-big-red-san-antonio',
 ];
 
 for (const token of [
@@ -28,6 +32,7 @@ for (const token of [
   '"@type": "BreadcrumbList"',
   'There is no single Texas cuisine',
   'Separate history from folklore',
+  'Start with nine stories',
 ]) {
   if (!route.includes(token)) failures.push(`Texas Food History route missing contract token: ${token}.`);
 }
@@ -51,7 +56,17 @@ for (const token of [
   if (!evergreenComponent.includes(token)) failures.push(`Food-history child guides missing parent/travel token: ${token}.`);
 }
 
-for (const slug of ['texas-food-trail','texas-chili-con-carne-history','texas-chicken-fried-steak-guide','texas-breakfast-taco-guide','german-czech-texas-towns','dr-pepper-texas-history']) {
+for (const slug of [
+  'texas-food-trail',
+  'texas-chili-con-carne-history',
+  'texas-chicken-fried-steak-guide',
+  'texas-breakfast-taco-guide',
+  'german-czech-texas-towns',
+  'dr-pepper-texas-history',
+  'texas-ranch-water-guide',
+  'san-antonio-puffy-taco-history',
+  'barbacoa-big-red-san-antonio',
+]) {
   if (!evergreenComponent.includes(`"${slug}"`)) failures.push(`Food-history parent cluster missing child slug ${slug}.`);
 }
 
@@ -89,20 +104,53 @@ for (const token of [
   if (!evergreenComponent.includes(token)) failures.push(`Food-history image layer missing licensing/URL token: ${token}.`);
 }
 
+for (const [slug, routeFile] of [
+  ['texas-ranch-water-guide', 'src/routes/texas-ranch-water-guide.tsx'],
+  ['san-antonio-puffy-taco-history', 'src/routes/san-antonio-puffy-taco-history.tsx'],
+  ['barbacoa-big-red-san-antonio', 'src/routes/barbacoa-big-red-san-antonio.tsx'],
+]) {
+  if (!batch5.includes(`slug: "${slug}"`)) failures.push(`Batch 5 data missing ${slug}.`);
+  if (!fs.existsSync(routeFile)) failures.push(`Missing Food History child route ${routeFile}.`);
+}
+
+for (const token of [
+  'austinmonthly.com/ranch-water',
+  'liquor.com/ranch-water-cocktail-recipe',
+  'visitsanantonio.com/in-the-news/post/cowboy-culture-and-history-in-san-antonio',
+  'news.utsa.edu/2020/08/everything-you-need-to-know-about-tacos-texas-and-tradition',
+  'mesquite-news.com/big-red-and-barbacoa-headline-festival',
+  'drpeppermuseum.com/virtual-tour',
+]) {
+  if (!evergreenComponent.includes(token)) failures.push(`New Food History source-note layer missing source token: ${token}.`);
+}
+
 if (!publicRoutes.includes('"/texas-food-history"')) failures.push('Texas Food History must remain indexable in public route governance.');
-if (!rootHub.includes('to="/texas-food-history"')) failures.push('Things That Define Texas hub must visibly link Texas Food History.');
-if (!categoryHub.includes('href: "/texas-food-history"')) failures.push('Food & Drink chapter must feature Texas Food History.');
+for (const path of ['/texas-ranch-water-guide','/san-antonio-puffy-taco-history','/barbacoa-big-red-san-antonio']) {
+  if (!publicRoutes.includes(`"${path}"`)) failures.push(`${path} must remain indexable in public route governance.`);
+  if (!rootHub.includes(`to="${path}"`)) failures.push(`Things That Define Texas hub must surface ${path}.`);
+  if (!categoryHub.includes(`href: "${path}"`)) failures.push(`Food & Drink chapter must feature ${path}.`);
+  if (!smoke.includes(`check_page '${path}'`)) failures.push(`Production smoke must verify ${path}.`);
+}
 if (!texasLiving.includes("['/texas-food-history', 'Texas Food History'")) failures.push('Texas Life must surface Texas Food History.');
-if (!smoke.includes("check_page '/texas-food-history'")) failures.push('Production smoke must verify Texas Food History.');
+for (const path of ['/texas-ranch-water-guide','/san-antonio-puffy-taco-history','/barbacoa-big-red-san-antonio']) {
+  if (!texasLiving.includes(`['${path}'`)) failures.push(`Texas Life must surface ${path}.`);
+}
 if (!llms.includes('Texas food history: https://texasdefined.com/texas-food-history')) failures.push('llms.txt must expose Texas Food History.');
 
-const citationResource = citationIndex.resources?.find((resource) => resource.url === 'https://texasdefined.com/texas-food-history');
-if (!citationResource) failures.push('Citation index must include Texas Food History.');
-else {
-  if (citationResource.type !== 'food-history-collection') failures.push('Texas Food History citation-index type must remain food-history-collection.');
-  for (const marker of ['topical-hub', 'source-backed-history', 'folklore-vs-documentation', 'canonical-cross-links']) {
-    if (!citationResource.trust?.includes(marker)) failures.push(`Texas Food History citation index missing trust marker ${marker}.`);
+const citationContracts = [
+  ['https://texasdefined.com/texas-food-history', 'food-history-collection', ['topical-hub','source-backed-history','folklore-vs-documentation','canonical-cross-links']],
+  ['https://texasdefined.com/texas-ranch-water-guide', 'food-drink-history-reference', ['origin-dispute','source-notes']],
+  ['https://texasdefined.com/san-antonio-puffy-taco-history', 'food-history-reference', ['San-Antonio-context','source-notes']],
+  ['https://texasdefined.com/barbacoa-big-red-san-antonio', 'food-culture-reference', ['chronology-distinction','source-notes']],
+];
+for (const [url, type, trustMarkers] of citationContracts) {
+  const resource = citationIndex.resources?.find((item) => item.url === url);
+  if (!resource) {
+    failures.push(`Citation index must include ${url}.`);
+    continue;
   }
+  if (resource.type !== type) failures.push(`${url} citation-index type must remain ${type}.`);
+  for (const marker of trustMarkers) if (!resource.trust?.includes(marker)) failures.push(`${url} citation index missing trust marker ${marker}.`);
 }
 
 if (failures.length) {
@@ -111,4 +159,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Texas Food History validation passed: canonical hub, ${focusedGuides.length} focused links, bidirectional parent-child schema, Food & BBQ discovery, Dr Pepper museum handoff, licensed exact-subject heroes with social metadata, sitemap governance, smoke, llms.txt and citation-index coverage intact.`);
+console.log(`Texas Food History validation passed: canonical hub, ${focusedGuides.length} focused links, bidirectional parent-child schema, Food & BBQ discovery, sourced batch-5 guides, Dr Pepper museum handoff, licensed exact-subject hero coverage where verified, sitemap governance, smoke, llms.txt and citation-index coverage intact.`);
