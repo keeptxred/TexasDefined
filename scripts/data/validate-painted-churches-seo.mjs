@@ -10,6 +10,8 @@ const publicRoutes = read('src/lib/public-routes.ts');
 const searchDocs = read('src/data/painted-church-search.ts');
 const gallery = read('src/components/editorial/PaintedChurchGallery.tsx');
 const dossier = read('src/components/editorial/PaintedChurchResearchDossier.tsx');
+const thenAndNow = read('src/components/editorial/PaintedChurchThenAndNow.tsx');
+const thenAndNowRoute = read('src/routes/explore.painted-churches.then-and-now.tsx');
 const expanded = read('src/data/painted-churches-expanded.ts');
 const census = read('src/data/painted-church-census.ts');
 const registerEvidence = read('src/data/painted-church-register-evidence.ts');
@@ -56,7 +58,7 @@ const staticAuthorityPaths = [
   '/explore/painted-churches/preservation', '/explore/painted-churches/knowledge-graph', '/explore/painted-churches/harwood-archive',
   '/explore/painted-churches/how-to-read', '/explore/painted-churches/glossary', '/explore/painted-churches/timeline',
   '/explore/painted-churches/routes', '/explore/painted-churches/print-guide', '/explore/painted-churches/media',
-  '/explore/painted-churches/cite',
+  '/explore/painted-churches/cite', '/explore/painted-churches/then-and-now',
 ];
 
 const requiredFiles = [
@@ -69,8 +71,9 @@ const requiredFiles = [
   'src/routes/explore.painted-churches.glossary.$slug.tsx', 'src/routes/explore.painted-churches.timeline.tsx',
   'src/routes/explore.painted-churches.routes.tsx', 'src/routes/explore.painted-churches.routes.$slug.tsx',
   'src/routes/explore.painted-churches.print-guide.tsx', 'src/routes/explore.painted-churches.media.tsx',
-  'src/routes/explore.painted-churches.cite.tsx', 'src/routes/painted-churches-checklist[.]txt.ts',
-  'src/data/painted-church-research-expansion.ts',
+  'src/routes/explore.painted-churches.cite.tsx', 'src/routes/explore.painted-churches.then-and-now.tsx',
+  'src/components/editorial/PaintedChurchThenAndNow.tsx', 'src/routes/painted-churches-checklist[.]txt.ts',
+  'src/data/painted-church-research-expansion.ts', 'src/data/painted-church-archival-images-expansion.ts',
 ];
 for (const path of requiredFiles) if (!exists(path)) failures.push(`Missing Painted Churches authority file: ${path}`);
 
@@ -81,6 +84,7 @@ if (!hub.includes('Quick answer')) failures.push('Painted Churches hub must keep
 for (const path of staticAuthorityPaths) {
   if (!sitemap.includes(JSON.stringify(path))) failures.push(`Explore sitemap must include ${path}.`);
   if (!searchDocs.includes(JSON.stringify(path))) failures.push(`Global search must expose ${path}.`);
+  if (!publicRoutes.includes(JSON.stringify(path))) failures.push(`Public-route registry must include ${path}.`);
 }
 
 for (const token of ['classification:', 'interiorIntegrity:', 'culturalHeritage:', 'techniques:', 'modern-decorative-campaign', 'reconstructed-from-evidence']) {
@@ -89,9 +93,11 @@ for (const token of ['classification:', 'interiorIntegrity:', 'culturalHeritage:
 if (expanded.includes('originalPaintedChurches.push(') || expanded.includes('church.image = override')) failures.push('Canonical collection must not mutate the original church array or records.');
 for (const marker of [
   'plantersville-st-marys-catholic-church','corn-hill-holy-trinity-catholic-church','palestine-sacred-heart-catholic-church','bandera-st-stanislaus-catholic-church',
-  'corpus-christi-sacred-heart-catholic-church','san-antonio-st-joseph-catholic-church',
+  'corpus-christi-sacred-heart-catholic-church','san-antonio-st-joseph-catholic-church','anderson-st-stanislaus-kostka',
 ]) if (!expanded.includes(marker)) failures.push(`Expanded collection must retain ${marker}.`);
-if (census.includes('slug: "corpus-christi-sacred-heart-catholic-church"') || census.includes('slug: "san-antonio-st-joseph-catholic-church"')) failures.push('Promoted Corpus Christi and St. Joseph records must not remain in candidate census.');
+for (const promoted of ['corpus-christi-sacred-heart-catholic-church','san-antonio-st-joseph-catholic-church','anderson-st-stanislaus-kostka']) {
+  if (census.includes(`slug: "${promoted}"`)) failures.push(`Promoted church ${promoted} must not remain in candidate census.`);
+}
 if (!census.includes('status: "candidate"') || !census.includes('status: "excluded"')) failures.push('Master census must retain candidates and explicit exclusions.');
 if (!canonicalRecord.includes('Interior integrity') || !canonicalRecord.includes('Collection classification')) failures.push('Church pages must expose canonical classification and integrity.');
 
@@ -115,7 +121,7 @@ if (!peopleDetail.includes('"@type": "Person"')) failures.push('People authority
 
 const heritageCount = (heritage.match(/slug: "/g) ?? []).length;
 if (heritageCount < 6) failures.push(`Heritage authority layer must retain at least 6 contexts; found ${heritageCount}.`);
-if (!heritage.includes('mexican-american-south-texas')) failures.push('Heritage graph must retain Mexican American South Texas context.');
+if (!heritage.includes('mexican-american-south-texas') || !heritage.includes('anderson-st-stanislaus-kostka')) failures.push('Heritage graph must retain South Texas and Anderson Polish connections.');
 if (!heritageDetail.includes('about: heritage.churchSlugs')) failures.push('Heritage pages must link church entities in structured data.');
 
 const preservationCount = (preservation.match(/slug: "/g) ?? []).length;
@@ -131,7 +137,7 @@ if (!graphRoute.includes('"@type": "Dataset"')) failures.push('Knowledge graph p
 if (!dossier.includes('PaintedChurchKnowledgeLinks') || !knowledgeLinks.includes('Painted Churches knowledge graph')) failures.push('Every church dossier must expose reciprocal knowledge-graph links.');
 
 if (!researchIndex.includes('paintedChurchExpansionResearchBySlug')) failures.push('Canonical research resolver must include expansion dossiers.');
-for (const slug of ['corpus-christi-sacred-heart-catholic-church','san-antonio-st-joseph-catholic-church']) if (!expansionResearch.includes(`slug: "${slug}"`)) failures.push(`Expansion research missing ${slug}.`);
+for (const slug of ['corpus-christi-sacred-heart-catholic-church','san-antonio-st-joseph-catholic-church','anderson-st-stanislaus-kostka']) if (!expansionResearch.includes(`slug: "${slug}"`)) failures.push(`Expansion research missing ${slug}.`);
 
 if (!harwood.includes('1,066') || !harwood.includes('txarchives.org/utaaa/finding_aids/00136.xml')) failures.push('Harwood archive authority page must retain slide scale and UT finding-aid provenance.');
 if (!howToRead.includes('"@type": "HowTo"') || !howToRead.includes('Seven-step field method')) failures.push('How-to-read guide must retain HowTo schema and seven-step field method.');
@@ -143,8 +149,12 @@ if (!routeHub.includes('TouristTrip') || !routeDetail.includes('"@type": "Touris
 if (!sitemap.includes('paintedChurchItineraries') || !searchDocs.includes('itineraryDocuments')) failures.push('Itineraries must be emitted to sitemap and global search.');
 
 if (!visitorStatus.includes('verify-before-travel') || !visitorStatus.includes('checkedAt')) failures.push('Visitor-status data must fail closed and retain freshness dates.');
-for (const slug of ['corpus-christi-sacred-heart-catholic-church','san-antonio-st-joseph-catholic-church']) if (!visitorStatus.includes(`slug: "${slug}"`)) failures.push(`Visitor-status layer missing ${slug}.`);
+for (const slug of ['corpus-christi-sacred-heart-catholic-church','san-antonio-st-joseph-catholic-church','anderson-st-stanislaus-kostka']) if (!visitorStatus.includes(`slug: "${slug}"`)) failures.push(`Visitor-status layer missing ${slug}.`);
 if (!visitorPanel.includes('Visitor guidance checked') || !dossier.includes('PaintedChurchVisitorStatus')) failures.push('Every church must render dated visitor-status guidance.');
+
+if (!thenAndNow.includes('expansionPaintedChurchArchivalImagesBySlug') || !thenAndNow.includes('supplementalPaintedChurchGalleryBySlug')) failures.push('Then-and-now component must merge expansion archival records and all gallery layers.');
+if (!dossier.includes('PaintedChurchThenAndNow')) failures.push('Every church dossier must invoke the then-and-now comparison layer.');
+if (!thenAndNowRoute.includes('Historic evidence') || !thenAndNowRoute.includes('Rights-clearing queue') || !thenAndNowRoute.includes('ItemList')) failures.push('Then-and-now authority page must expose paired evidence, rights-clearing backlog and ItemList schema.');
 
 if (!printGuide.includes('window.print()') || !printGuide.includes('/painted-churches-checklist.txt')) failures.push('Printable guide must support browser Print/Save as PDF and checklist download.');
 if (!checklist.includes('X-Robots-Tag') || !checklist.includes('noindex, follow')) failures.push('Plain-text checklist must remain noindex/follow.');
@@ -163,7 +173,7 @@ for (const datasetName of ['paintedChurchTechniques','paintedChurchSymbols','pai
 for (const docName of ['techniqueDocuments','symbolDocuments','peopleDocuments','heritageDocuments','preservationDocuments','glossaryDocuments','itineraryDocuments']) {
   if (!searchDocs.includes(docName)) failures.push(`Global search must include ${docName}.`);
 }
-for (const path of ['/explore/painted-churches/media','/explore/painted-churches/cite']) {
+for (const path of ['/explore/painted-churches/media','/explore/painted-churches/cite','/explore/painted-churches/then-and-now']) {
   if (!sitemap.includes(JSON.stringify(path))) failures.push(`Sitemap must include ${path}.`);
   if (!searchDocs.includes(JSON.stringify(path))) failures.push(`Global search must include ${path}.`);
 }
@@ -177,4 +187,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Painted Churches authority validation protected the 24-church expansion plus techniques, symbols, people, heritage, preservation, knowledge graph, Harwood archive, education, itineraries, visitor freshness, print resources, media, citation guidance, datasets, search and sitemap.');
+console.log('Painted Churches authority validation protected the 25-church expansion plus techniques, symbols, people, heritage, preservation, knowledge graph, Harwood archive, education, itineraries, visitor freshness, archival then-and-now comparisons, print resources, media, citation guidance, datasets, search and sitemap.');
