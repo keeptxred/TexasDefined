@@ -6,12 +6,18 @@ import { Container } from "@/components/layout/Container";
 import { paintedChurchSearchDocuments } from "@/data/painted-church-search";
 import { searchDocumentsQuery } from "@/data/queries";
 import { search, type SearchHit } from "@/domain/search/engine";
-import { TexasExplainedSearchDiscovery } from "./search";
+import {
+  SEARCH_INPUT_PLACEHOLDER,
+  SEARCH_KIND_LABELS,
+  SEARCH_SCOPE_DESCRIPTION,
+  SPORTS_SEARCH_STARTING_POINT,
+  TexasExplainedSearchDiscovery,
+} from "./search";
 
 const startingPoints = [
   { to: "/explore", label: "Explore Texas", copy: "Parks, water, road trips, small towns and places worth making the drive for." },
   { to: "/explore/painted-churches", label: "Painted Churches", copy: "Historic sanctuaries, painted interiors, church-by-church guides and the Schulenburg heritage route." },
-  { to: "/sports-venues", label: "Sports Venues", copy: "Stadiums, arenas, ballparks, racetracks and sports destinations by market and sport." },
+  SPORTS_SEARCH_STARTING_POINT,
   { to: "/events", label: "Texas Events", copy: "Rodeos, festivals, fairs, live music and things happening around the state." },
   { to: "/guides", label: "The Guidebook", copy: "Travel guides and practical help for living, moving and owning a home here." },
   { to: "/decide/financial-tools", label: "Money & Property", copy: "Calculators and plain-English guides for housing costs and household decisions." },
@@ -34,10 +40,10 @@ function SearchPage() {
       <Container className="py-16 sm:py-24">
         <p className="eyebrow text-primary">Search the magazine</p>
         <h1 className="mt-4 max-w-3xl font-display text-5xl leading-[0.98] sm:text-7xl">Find a place, story or useful answer.</h1>
-        <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">Search Texas Defined by town, landmark, painted church, stadium, subject, guide, event or something you simply want to know more about.</p>
+        <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">{SEARCH_SCOPE_DESCRIPTION}</p>
         <form className="mt-9 flex max-w-2xl border-b-2 border-foreground transition-colors focus-within:border-primary" onSubmit={(event) => { event.preventDefault(); const value = new FormData(event.currentTarget).get("q"); void navigate({ search: { q: String(value ?? "") } }); }}>
           <label htmlFor="q" className="sr-only">Search Texas Defined</label>
-          <input key={query} id="q" name="q" defaultValue={query} placeholder="High Hill, Caddo Lake, Kyle Field, Marfa, property taxes…" className="w-full bg-transparent px-0 py-4 text-base outline-none placeholder:text-muted-foreground/70" />
+          <input key={query} id="q" name="q" defaultValue={query} placeholder={SEARCH_INPUT_PLACEHOLDER} className="w-full bg-transparent px-0 py-4 text-base outline-none placeholder:text-muted-foreground/70" />
           <button type="submit" className="eyebrow shrink-0 px-2 py-4 text-primary">Search →</button>
         </form>
       </Container>
@@ -60,6 +66,5 @@ function SearchPage() {
 
 function kindLabel(kind: string, id?: string) {
   if (id?.startsWith("painted-church:")) return "Painted church";
-  const labels: Record<string, string> = { article: "Story", destination: "Destination", event: "Calendar", guide: "Guide", calculator: "Calculator", product: "Shop", collection: "Collection", city: "City guide", county: "County guide", "sports-venue": "Sports venue", "sports-collection": "Sports collection" };
-  return labels[kind.toLowerCase()] ?? kind.replaceAll("-", " ").replace(/\b\w/g, (letter) => letter.toUpperCase());
+  return SEARCH_KIND_LABELS[kind.toLowerCase()] ?? kind.replaceAll("-", " ").replace(/\b\w/g, (letter) => letter.toUpperCase());
 }
