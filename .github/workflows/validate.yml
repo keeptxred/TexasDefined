@@ -110,6 +110,12 @@ jobs:
       - name: Validate Things That Define Texas deep-link coverage
         run: node scripts/data/validate-texas-icon-link-depth.mjs
 
+      - name: Validate Texas food history authority
+        run: node scripts/data/validate-texas-food-history.mjs
+
+      - name: Validate Texas culture citation index and human guidance
+        run: node scripts/data/validate-texas-culture-citation-index.mjs
+
       - name: Validate Top 25 attraction authority
         run: node scripts/data/validate-top-attraction-authority.mjs
 
