@@ -44,7 +44,7 @@ const GROUPS = [
   },
   {
     title: 'Painted Churches of Texas',
-    description: 'A 24-church verified heritage-reference collection with canonical entity pages for decorative techniques, symbols, people, cultural communities, preservation, archives, routes and research methodology.',
+    description: 'A 25-church verified heritage-reference collection with canonical entity pages for decorative techniques, symbols, people, cultural communities, preservation, archives, routes and research methodology.',
     links: [
       ['Painted Churches of Texas', '/explore/painted-churches'],
       ['Research methodology & corrections', '/explore/painted-churches/methodology'],
@@ -52,6 +52,7 @@ const GROUPS = [
       ['How many Painted Churches?', '/explore/painted-churches/how-many'],
       ['Compare all verified churches', '/explore/painted-churches/compare'],
       ['Interactive statewide map', '/explore/painted-churches/map'],
+      ['Then & now archival comparisons', '/explore/painted-churches/then-and-now'],
       ['Decorative painting techniques', '/explore/painted-churches/techniques'],
       ['Symbols & iconography', '/explore/painted-churches/symbols'],
       ['Artists, architects & researchers', '/explore/painted-churches/people'],
@@ -123,10 +124,11 @@ function CitationGuidePage() {
       <section className="mt-12 border-y border-border py-8" aria-labelledby="painted-source-heading">
         <p className="eyebrow text-primary">Painted Churches source hierarchy</p>
         <h2 id="painted-source-heading" className="mt-2 font-display text-3xl">Cite the definition and entity you are actually using.</h2>
-        <div className="mt-6 grid gap-6 md:grid-cols-3">
+        <div className="mt-6 grid gap-6 md:grid-cols-4">
           <Rule title="Formal designation" body="Use the linked Texas Historical Commission or National Register record when a claim depends on formal historic designation, reference number, architect, listed date or property identity." />
           <Rule title="Current church access" body="Use the responsible parish, congregation, diocese or official local tour source for current access, services, closures and visitor rules. Historic designation does not guarantee a church is open for sightseeing." />
           <Rule title="Broader research claims" body="Use the church-specific source trail plus the relevant technique, symbol, person, heritage or preservation authority page when a claim depends on TexasDefined's broader evidence graph rather than a formal designation." />
+          <Rule title="Historic image claims" body="Use the Then & Now page and linked archival item when discussing visual change. The archival record controls historic-image provenance; a current Commons or other reusable image controls the modern image license." />
         </div>
         <p className="mt-6 max-w-4xl text-sm leading-7 text-muted-foreground">For statewide counts, use the dedicated count explainer; for inclusion/exclusion decisions, use the census; for artist or symbol questions, cite the canonical entity page rather than a generic church-list page. Do not collapse the Schulenburg touring cluster, the formal National Register decorative-interior group and the broader statewide tradition into one unlabeled number.</p>
       </section>
@@ -149,6 +151,7 @@ function CitationGuidePage() {
           <Link to="/about" className="border-b border-primary text-primary">Editorial accountability</Link>
           <Link to="/explore/painted-churches" className="border-b border-primary text-primary">Painted Churches collection</Link>
           <Link to="/explore/painted-churches/census" className="border-b border-primary text-primary">Painted Churches census</Link>
+          <Link to="/explore/painted-churches/then-and-now" className="border-b border-primary text-primary">Painted Churches Then & Now</Link>
           <Link to="/explore/painted-churches/knowledge-graph" className="border-b border-primary text-primary">Painted Churches knowledge graph</Link>
           <Link to="/explore/painted-churches/cite" className="border-b border-primary text-primary">Painted Churches citation guidance</Link>
           <a href="/painted-churches.csv" className="border-b border-primary text-primary">Painted Churches CSV</a>
