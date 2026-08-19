@@ -21,8 +21,8 @@ const deepDiveLinks = deepDiveBlock
   : [];
 
 if (destinationLinks.length < 41) failures.push(`Expected at least 41 exact destination mappings; found ${destinationLinks.length}.`);
-if (deepDiveLinks.length < 42) failures.push(`Expected at least 42 purpose-built/editorial deep-dive mappings; found ${deepDiveLinks.length}.`);
-if (destinationLinks.length + deepDiveLinks.length < 83) failures.push(`Expected at least 83 protected deeper-guide relationships; found ${destinationLinks.length + deepDiveLinks.length}.`);
+if (deepDiveLinks.length < 43) failures.push(`Expected at least 43 purpose-built/editorial deep-dive mappings; found ${deepDiveLinks.length}.`);
+if (destinationLinks.length + deepDiveLinks.length < 84) failures.push(`Expected at least 84 protected deeper-guide relationships; found ${destinationLinks.length + deepDiveLinks.length}.`);
 
 const allIds = [...destinationLinks, ...deepDiveLinks].map((match) => Number(match[1]));
 if (new Set(allIds).size !== allIds.length) failures.push('Texas icon resolver IDs must be unique across destination and deep-dive registries.');
@@ -59,6 +59,7 @@ const requiredDeepDiveMappings = new Map([
   [173, '/texas-chili-con-carne-history'],
   [174, '/texas-dance-halls-honky-tonks'],
   [180, '/texas-dance-halls-honky-tonks'],
+  [185, '/article/galveston-county-island-port-juneteenth-texas'],
   [190, '/texas-homecoming-mums'],
   [191, '/texas-dance-halls-honky-tonks'],
   [200, '/article/texas-wildlife-guide'],
