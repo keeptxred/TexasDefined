@@ -199,6 +199,8 @@ export const NON_INDEXABLE_PUBLIC_PATHS = [
   "/sports-venues/compare.csv",
   "/top-25-texas-attractions.csv",
   "/top-25-texas-attractions.json",
+  "/things-that-define-texas.csv",
+  "/things-that-define-texas.json",
   "/painted-churches.csv",
   "/painted-churches.json",
   "/painted-churches-checklist.txt",
