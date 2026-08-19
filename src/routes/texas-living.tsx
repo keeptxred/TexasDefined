@@ -24,6 +24,16 @@ const sections = [
   ['Money & Property', '/decide/financial-tools', 'Calculators and explainers for housing, paychecks, utilities, insurance and property taxes.'],
 ] as const;
 
+const cultureGuides = [
+  ['/texas-food-trail', 'Texas Food Trail', 'Barbecue, breakfast tacos, Czech bakeries, Gulf seafood and regional food traditions built into a statewide road-trip guide.'],
+  ['/texas-natural-wonders-bucket-list', 'Texas Natural Wonders', 'Twelve landscapes that show how Texas shifts from desert mountains and canyons to cypress swamp, springs and barrier islands.'],
+  ['/texas-dance-halls-honky-tonks', 'Dance Halls & Honky-Tonks', 'Historic halls, Western swing, the two-step and the social spaces where Texas music is still experienced together.'],
+  ['/german-czech-texas-towns', 'German & Czech Texas Towns', 'Food, churches, dance halls, festivals and historic communities across Central Texas and the Hill Country.'],
+  ['/texas-homecoming-mums', 'Texas Homecoming Mums', 'How a simple chrysanthemum became an enormous wearable tradition of school spirit and local identity.'],
+  ['/texas-slang-explained', 'Texas Slang Explained', 'Y’all, fixin’ to, ranch imagery, bilingual influence and the context behind familiar Texas sayings.'],
+  ['/texas-roadside-oddities', 'Texas Roadside Oddities', 'Giant art, neon, tiny towns and strange stops that can turn a highway drive into a real Texas road trip.'],
+] as const;
+
 const texasLivingPhotoOverrides: Partial<Record<string, Article['hero']>> = {
   'texas-homeowners-insurance-guide': {
     src: 'https://upload.wikimedia.org/wikipedia/commons/8/88/Gillette_House_%28Houston%2C_Texas%29.JPG',
@@ -98,7 +108,7 @@ export const Route = createFileRoute('/texas-living')({
   },
   head: ({ loaderData }) => {
     const articles = [...(loaderData?.homeArticles ?? []), ...(loaderData?.movingArticles ?? [])];
-    const topicItems = sections.map(([name, path, copy], index) => ({ '@type': 'ListItem', position: index + 1, item: { '@type': 'WebPage', name, description: copy, url: `${siteUrl}${path}` } }));
+    const topicItems = [...sections, ...cultureGuides].map(([name, path, copy], index) => ({ '@type': 'ListItem', position: index + 1, item: { '@type': 'WebPage', name, description: copy, url: `${siteUrl}${path}` } }));
     const articleItems = articles.map((article, index) => ({ '@type': 'ListItem', position: topicItems.length + index + 1, item: { '@type': 'Article', name: article.title, description: article.dek, url: `${siteUrl}/article/${article.slug}` } }));
     return {
       meta: buildMeta(texasDefinedBrand, { canonicalPath: '/texas-living', title: 'Texas Life', description }),
@@ -128,7 +138,20 @@ function TexasLivingPage() {
       </div>
     </Container>
 
-    {homeArticles.length > 0 && <Section tone="surface"><Container><SectionHeader eyebrow="Homes & ownership" title="What it costs to own a home in Texas" description="Mortgages, closing costs, insurance, equity, utilities and the true cost of owning a home in Texas." actionLabel="See all home guides" actionTo="/real-estate" /><ul className="mt-10 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">{homeArticles.slice(0, 9).map((article) => <li key={article.id}><ArticleCard article={withTexasLivingPhoto(article)} size="compact" /></li>)}</ul></Container></Section>}
+    <Section tone="surface">
+      <Container>
+        <SectionHeader eyebrow="Signature Texas guides" title="Go deeper on the traditions that make the state feel different" description="These evergreen TexasDefined guides turn the 250-item Things That Define Texas collection into practical cultural, historical and travel-focused reading." actionLabel="See all 250 Texas icons" actionTo="/things-unique-to-texas" />
+        <div className="mt-10 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
+          {cultureGuides.map(([to, title, copy]) => <Link key={to} to={to} className="group bg-background p-6">
+            <h2 className="font-display text-2xl leading-tight transition-colors group-hover:text-primary">{title}</h2>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">{copy}</p>
+            <span className="eyebrow mt-5 inline-block text-primary">Read guide →</span>
+          </Link>)}
+        </div>
+      </Container>
+    </Section>
+
+    {homeArticles.length > 0 && <Section><Container><SectionHeader eyebrow="Homes & ownership" title="What it costs to own a home in Texas" description="Mortgages, closing costs, insurance, equity, utilities and the true cost of owning a home in Texas." actionLabel="See all home guides" actionTo="/real-estate" /><ul className="mt-10 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">{homeArticles.slice(0, 9).map((article) => <li key={article.id}><ArticleCard article={withTexasLivingPhoto(article)} size="compact" /></li>)}</ul></Container></Section>}
 
     {movingArticles.length > 0 && <Section><Container><SectionHeader eyebrow="Moving here" title="What to know before you unpack" description="City-by-city help with commutes, schools, utilities, taxes, insurance and regional costs." actionLabel="See all moving guides" actionTo="/moving-to-texas" /><ul className="mt-10 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">{movingArticles.slice(0, 9).map((article) => <li key={article.id}><ArticleCard article={withTexasLivingPhoto(article)} size="compact" /></li>)}</ul></Container></Section>}
   </>;
