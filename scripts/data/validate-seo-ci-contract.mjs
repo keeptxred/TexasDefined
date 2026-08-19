@@ -3,6 +3,7 @@ import { spawnSync } from 'node:child_process';
 
 const packageJson = JSON.parse(fs.readFileSync('package.json', 'utf8'));
 const workflow = fs.readFileSync('.github/workflows/validate.yml', 'utf8');
+const deployWorkflow = fs.readFileSync('.github/workflows/deploy-production.yml', 'utf8');
 const errors = [];
 
 const directValidators = [
@@ -15,6 +16,9 @@ const directValidators = [
   'validate-aeo-answer-layers.mjs',
   'validate-homepage-seo.mjs',
   'validate-texas-explained-seo.mjs',
+  'validate-things-unique-to-texas.mjs',
+  'validate-texas-food-history.mjs',
+  'validate-texas-culture-citation-index.mjs',
   'validate-explore-category-seo.mjs',
   'validate-explore-region-seo.mjs',
   'validate-explore-topical-authority.mjs',
@@ -44,6 +48,13 @@ const delegatedValidators = [
   'validate-citation-downloads.mjs', 'validate-gsc-evergreen-recovery.mjs',
 ];
 
+const cultureDeployValidators = [
+  'validate-machine-indexing.mjs',
+  'validate-things-unique-to-texas.mjs',
+  'validate-texas-food-history.mjs',
+  'validate-texas-culture-citation-index.mjs',
+];
+
 const protectedValidators = [...directValidators, ...delegatedValidators];
 const seoScript = packageJson.scripts?.['seo:validate'] ?? '';
 const dataScript = packageJson.scripts?.['data:validate'] ?? '';
@@ -71,6 +82,21 @@ if (!workflow.includes('Validate SEO CI contract') || !workflow.includes('node s
 if (!workflow.includes('Build production application')) errors.push('Validate workflow must retain the production build gate.');
 if (!workflow.includes('cancel-in-progress: true')) errors.push('Validate workflow should cancel superseded runs to reduce wasted CI minutes.');
 
+if (!deployWorkflow.includes('Validate Texas culture authority before deploy')) {
+  errors.push('Production deploy workflow must retain the Texas culture authority predeploy gate.');
+}
+for (const validator of cultureDeployValidators) {
+  if (!deployWorkflow.includes(`node scripts/data/${validator}`)) {
+    errors.push(`Production deploy workflow must run ${validator} before the production build/deploy.`);
+  }
+}
+const cultureGatePosition = deployWorkflow.indexOf('Validate Texas culture authority before deploy');
+const buildPosition = deployWorkflow.indexOf('Build production bundle');
+const deployPosition = deployWorkflow.indexOf('Deploy TexasDefined Worker');
+if (cultureGatePosition < 0 || buildPosition < 0 || deployPosition < 0 || cultureGatePosition > buildPosition || cultureGatePosition > deployPosition) {
+  errors.push('Texas culture authority validation must run before the production build and Worker deployment.');
+}
+
 if (errors.length) {
   console.error('SEO CI contract validation failed:');
   for (const error of errors) console.error(`- ${error}`);
@@ -92,4 +118,4 @@ for (const validator of delegatedValidators) {
   }
 }
 
-console.log(`SEO CI contract passed with ${protectedValidators.length} protected remediation validators (${directValidators.length} direct, ${delegatedValidators.length} delegated). The workflow may use one monolithic SEO gate or stricter named direct gates, while preserving generated-page quality, citation discovery, GSC evergreen recovery and machine-readable citation-download protections.`);
+console.log(`SEO CI contract passed with ${protectedValidators.length} protected remediation validators (${directValidators.length} direct, ${delegatedValidators.length} delegated) plus ${cultureDeployValidators.length} culture-authority predeploy gates. The workflow may use one monolithic SEO gate or stricter named direct gates while preserving generated-page quality, citation discovery, GSC evergreen recovery, machine-readable citation-download protections and Texas culture deployment safety.`);
