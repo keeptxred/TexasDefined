@@ -1,7 +1,8 @@
 import { paintedChurchResearchBySlug, schulenburgTourInfo } from "@/data/painted-church-research";
+import { statewidePaintedChurchResearchBySlug } from "@/data/painted-church-research-statewide";
 
 export function PaintedChurchResearchDossier({ slug, schulenburgCluster }: { slug: string; schulenburgCluster?: boolean }) {
-  const dossier = paintedChurchResearchBySlug(slug);
+  const dossier = paintedChurchResearchBySlug(slug) ?? statewidePaintedChurchResearchBySlug(slug);
   if (!dossier && !schulenburgCluster) return null;
 
   return (
