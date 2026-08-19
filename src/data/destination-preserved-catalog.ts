@@ -1,4 +1,5 @@
 import { topAttractionDestinations } from "./destination-curation-top-attractions";
+import { topAttractionExpansionDestinations } from "./destination-curation-top-attractions-fallbacks";
 import { isDestinationPhotoPlaceholder } from "./explore-hero-reconciliation";
 import { legacyExploreDestinations } from "./fixtures/legacy-explore";
 import { legacyLakeDestinations } from "./fixtures/legacy-lakes";
@@ -29,9 +30,12 @@ function mergePreservedDestinations(...groups: Destination[][]): Destination[] {
  * Checked-in destination catalog used whenever remote Explore data is absent.
  * Keep runtime destination resolution, search and the Explore sitemap on this
  * single source so Google discovery cannot drift from pages the app can serve.
+ * Top-25 expansion fallbacks are explicit here instead of relying on the
+ * curation module's import-time mutation of topAttractionDestinations.
  */
 export const preservedExploreDestinations = mergePreservedDestinations(
   topAttractionDestinations,
+  topAttractionExpansionDestinations,
   legacyExploreDestinations,
   legacyLakeDestinations,
   historicSiteDestinations,
