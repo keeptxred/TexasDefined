@@ -1,0 +1,3 @@
+Validation marker for the current Things That Define Texas authority baseline.
+
+This branch intentionally differs from main only by this marker so the pull-request workflow validates the current main snapshot, including the expanded authority mappings, citation guidance, historic-site enrichment, search-intent contracts, production build, Trip Planner coverage, and client performance budget.
