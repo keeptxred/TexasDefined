@@ -32,6 +32,7 @@ const NON_PRIMARY_TRIP_PLANNER_SLUGS = new Set([
   "hill-country-louise-merrick-unit-state-natural-area",
   "lake-mineral-wells-trailway-garner-th-state-park",
   "lake-somerville-trailway-newman-bottom-th-state-park",
+  "palo-duro-canyon",
   "ray-roberts-lake-jordon-unit-state-park",
   "world-birding-center-bentsen-rio-grande-valley-state-park",
   "world-birding-center-estero-llano-grande-state-park",
