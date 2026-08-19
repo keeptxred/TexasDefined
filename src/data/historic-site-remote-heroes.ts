@@ -105,7 +105,7 @@ export const historicSiteRemoteHeroes: Record<string, ImageRef> = {
     alt: "Admiral Nimitz Museum, part of the National Museum of the Pacific War in Fredericksburg, Texas",
     width: 1600, height: 1067, credit: "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons",
   },
-  "official-state-texas-longhorn-herd": {
+  "official-texas-longhorn-herd": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Part_of_the_State_of_Texas%27s_official_longhorn_herd%2C_kept_at_Fort_Griffin%2C_a_state_historic_site_in_Shackelford_County%2C_Texas_LCCN2015630038.tif?width=1600",
     alt: "Part of the Official State of Texas Longhorn Herd at Fort Griffin State Historic Site",
     width: 1600, height: 1068, credit: "Carol M. Highsmith / Library of Congress · Public domain · Wikimedia Commons",
@@ -159,6 +159,11 @@ export const historicSiteRemoteHeroes: Record<string, ImageRef> = {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Starr_Family_Home%2C_Marshall%2C_Texas_%287190040914%29.jpg?width=1600",
     alt: "Starr Family Home State Historic Site in Marshall, Texas",
     width: 1600, height: 1067, credit: "Nicolas Henderson · CC BY 2.0 · Wikimedia Commons",
+  },
+  "stephen-f-austin-memorial": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/StephenAustinPlaceofDeathMemorial.jpg?width=1600",
+    alt: "Stephen F. Austin place-of-death memorial at the George McKinstry cabin site in Brazoria County, Texas",
+    width: 1200, height: 1600, credit: "Lazarus1255 · CC0 · Wikimedia Commons",
   },
   "varner-hogg-plantation": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Varner-Hogg_Plantation_-_West_Columbia%2C_Texas_16.jpg?width=1600",
