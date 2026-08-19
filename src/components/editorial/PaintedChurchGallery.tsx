@@ -1,6 +1,19 @@
+import { Link } from "@tanstack/react-router";
+
 import { extraPaintedChurchGalleryBySlug } from "@/data/painted-church-gallery-extra";
 import { supplementalPaintedChurchGalleryBySlug } from "@/data/painted-church-gallery-supplemental";
 import { paintedChurchGalleryBySlug } from "@/data/painted-church-gallery";
+
+const licenseUrl = (license: string) => {
+  const normalized = license.toLowerCase();
+  if (normalized.includes("cc0")) return "https://creativecommons.org/publicdomain/zero/1.0/";
+  if (normalized.includes("cc by-sa 4.0")) return "https://creativecommons.org/licenses/by-sa/4.0/";
+  if (normalized.includes("cc by-sa 3.0")) return "https://creativecommons.org/licenses/by-sa/3.0/";
+  if (normalized.includes("cc by 4.0")) return "https://creativecommons.org/licenses/by/4.0/";
+  if (normalized.includes("cc by 3.0")) return "https://creativecommons.org/licenses/by/3.0/";
+  if (normalized.includes("cc by 2.0")) return "https://creativecommons.org/licenses/by/2.0/";
+  return undefined;
+};
 
 export function PaintedChurchGallery({ slug }: { slug: string }) {
   const images = [...new Map([
@@ -10,8 +23,28 @@ export function PaintedChurchGallery({ slug }: { slug: string }) {
   ].map((image) => [image.sourceUrl, image])).values()];
   if (!images.length) return null;
 
+  const imageSchema = {
+    "@context": "https://schema.org",
+    "@graph": images.map((image, index) => ({
+      "@type": "ImageObject",
+      "@id": `${image.sourceUrl}#texas-defined-image-${index + 1}`,
+      contentUrl: image.src,
+      url: image.sourceUrl,
+      caption: image.caption,
+      description: image.alt,
+      width: image.width,
+      height: image.height,
+      creditText: image.credit,
+      creator: { "@type": "Person", name: image.credit.replace(/\s*·.*$/, "") },
+      ...(licenseUrl(image.license) ? { license: licenseUrl(image.license) } : {}),
+      acquireLicensePage: image.sourceUrl,
+      representativeOfPage: false,
+    })),
+  };
+
   return (
     <section aria-labelledby="church-gallery" className="mt-14 border-t border-border pt-8">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(imageSchema) }} />
       <p className="eyebrow text-primary">Rights-verified photography</p>
       <h2 id="church-gallery" className="mt-3 font-display text-4xl">See the church in detail</h2>
       <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">
@@ -28,6 +61,7 @@ export function PaintedChurchGallery({ slug }: { slug: string }) {
           </figure>
         ))}
       </div>
+      <p className="mt-6 max-w-3xl text-xs leading-6 text-muted-foreground">Texas Defined verifies the subject, creator and reuse terms at the individual item level before publishing. <Link to="/explore/painted-churches/methodology" className="border-b border-primary text-primary">Read the image-rights and research methodology.</Link></p>
     </section>
   );
 }
