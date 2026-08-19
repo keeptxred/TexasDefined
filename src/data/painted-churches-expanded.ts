@@ -2,6 +2,38 @@ import { paintedChurches as originalPaintedChurches, type PaintedChurch } from "
 
 const CHECKED = "2026-08-18";
 
+export type PaintedChurchClassification =
+  | "formal-national-register-group"
+  | "broader-historic-tradition"
+  | "modern-decorative-campaign";
+
+export type PaintedChurchInteriorIntegrity =
+  | "largely-original"
+  | "restored-original-scheme"
+  | "reconstructed-from-evidence"
+  | "extensively-repainted"
+  | "modern-decorative-campaign"
+  | "uncertain";
+
+export type PaintedChurchTechniqueSlug =
+  | "stenciling"
+  | "infill"
+  | "freehand"
+  | "marbling"
+  | "graining"
+  | "pouncing"
+  | "gilding-metallic-accents"
+  | "trompe-loeil-architectural-illusion"
+  | "canvas-applied-decoration"
+  | "decorative-murals";
+
+export type CanonicalPaintedChurch = PaintedChurch & {
+  classification: PaintedChurchClassification;
+  interiorIntegrity: PaintedChurchInteriorIntegrity;
+  culturalHeritage: string[];
+  techniques: PaintedChurchTechniqueSlug[];
+};
+
 export const additionalVerifiedPaintedChurches: PaintedChurch[] = [
   {
     slug: "plantersville-st-marys-catholic-church",
@@ -88,16 +120,58 @@ const imageOverrides: Partial<Record<string, NonNullable<PaintedChurch["image"]>
   },
 };
 
-for (const church of originalPaintedChurches) {
-  const override = imageOverrides[church.slug];
-  if (override) church.image = override;
-}
+const formal = new Set([
+  "wallis-guardian-angel", "wesley-brethren-church", "amarillo-first-baptist-church",
+  "umbarger-st-marys-catholic-church", "paris-first-united-methodist-church",
+  "moravia-ascension-of-our-lord", "sweet-home-queen-of-peace",
+  "st-marys-immaculate-conception-lavaca", "shiner-saints-cyril-methodius",
+  "lindsay-st-peters-catholic-church", "high-hill-nativity-of-mary",
+  "ammannsville-st-john-the-baptist", "praha-st-marys-assumption",
+  "fredericksburg-st-marys-catholic-church",
+]);
 
-for (const church of additionalVerifiedPaintedChurches) {
-  if (!originalPaintedChurches.some((existing) => existing.slug === church.slug)) originalPaintedChurches.push(church);
-}
+const metadata: Record<string, Pick<CanonicalPaintedChurch, "interiorIntegrity" | "culturalHeritage" | "techniques">> = {
+  "high-hill-nativity-of-mary": { interiorIntegrity: "restored-original-scheme", culturalHeritage: ["German Catholic", "Moravian Czech"], techniques: ["marbling", "stenciling", "gilding-metallic-accents", "trompe-loeil-architectural-illusion", "canvas-applied-decoration"] },
+  "ammannsville-st-john-the-baptist": { interiorIntegrity: "restored-original-scheme", culturalHeritage: ["Czech Catholic"], techniques: ["stenciling", "infill", "pouncing", "marbling"] },
+  "praha-st-marys-assumption": { interiorIntegrity: "restored-original-scheme", culturalHeritage: ["Czech Catholic"], techniques: ["freehand", "stenciling", "decorative-murals"] },
+  "dubina-saints-cyril-methodius": { interiorIntegrity: "reconstructed-from-evidence", culturalHeritage: ["Czech Catholic"], techniques: ["stenciling", "decorative-murals"] },
+  "moravia-ascension-of-our-lord": { interiorIntegrity: "largely-original", culturalHeritage: ["Czech Catholic"], techniques: ["freehand", "stenciling", "marbling", "decorative-murals"] },
+  "st-john-texas-st-john-the-baptist": { interiorIntegrity: "uncertain", culturalHeritage: ["Central European Catholic"], techniques: [] },
+  "wallis-guardian-angel": { interiorIntegrity: "extensively-repainted", culturalHeritage: ["Czech Catholic"], techniques: ["stenciling", "marbling"] },
+  "wesley-brethren-church": { interiorIntegrity: "largely-original", culturalHeritage: ["Czech Protestant", "Moravian"], techniques: ["freehand", "trompe-loeil-architectural-illusion", "decorative-murals"] },
+  "amarillo-first-baptist-church": { interiorIntegrity: "uncertain", culturalHeritage: ["Texas Baptist"], techniques: [] },
+  "umbarger-st-marys-catholic-church": { interiorIntegrity: "restored-original-scheme", culturalHeritage: ["German Catholic", "Italian POW artistic contribution"], techniques: ["freehand", "decorative-murals"] },
+  "paris-first-united-methodist-church": { interiorIntegrity: "uncertain", culturalHeritage: ["Texas Methodist"], techniques: [] },
+  "lindsay-st-peters-catholic-church": { interiorIntegrity: "restored-original-scheme", culturalHeritage: ["German Catholic"], techniques: ["stenciling", "decorative-murals"] },
+  "fredericksburg-st-marys-catholic-church": { interiorIntegrity: "restored-original-scheme", culturalHeritage: ["German Catholic"], techniques: ["stenciling", "freehand", "gilding-metallic-accents"] },
+  "sweet-home-queen-of-peace": { interiorIntegrity: "restored-original-scheme", culturalHeritage: ["Czech Catholic"], techniques: ["stenciling", "marbling", "freehand"] },
+  "st-marys-immaculate-conception-lavaca": { interiorIntegrity: "uncertain", culturalHeritage: ["Czech and German Catholic"], techniques: [] },
+  "shiner-saints-cyril-methodius": { interiorIntegrity: "restored-original-scheme", culturalHeritage: ["Czech and German Catholic"], techniques: ["freehand", "decorative-murals", "marbling"] },
+  "serbin-st-paul-lutheran-church": { interiorIntegrity: "largely-original", culturalHeritage: ["Wendish Lutheran"], techniques: ["stenciling", "freehand"] },
+  "panna-maria-immaculate-conception": { interiorIntegrity: "extensively-repainted", culturalHeritage: ["Polish Catholic"], techniques: ["decorative-murals"] },
+  "plantersville-st-marys-catholic-church": { interiorIntegrity: "restored-original-scheme", culturalHeritage: ["German Catholic", "Polish Catholic", "German-Russian Catholic"], techniques: ["stenciling", "canvas-applied-decoration", "decorative-murals"] },
+  "corn-hill-holy-trinity-catholic-church": { interiorIntegrity: "uncertain", culturalHeritage: ["Czech Catholic", "Moravian Catholic"], techniques: ["decorative-murals"] },
+  "palestine-sacred-heart-catholic-church": { interiorIntegrity: "restored-original-scheme", culturalHeritage: ["East Texas Catholic"], techniques: ["freehand", "decorative-murals"] },
+  "bandera-st-stanislaus-catholic-church": { interiorIntegrity: "modern-decorative-campaign", culturalHeritage: ["Silesian Polish Catholic"], techniques: ["freehand", "marbling", "decorative-murals"] },
+};
 
-export const expandedPaintedChurches: PaintedChurch[] = originalPaintedChurches;
+const combined = [
+  ...originalPaintedChurches.map((church) => ({ ...church, image: imageOverrides[church.slug] ?? church.image })),
+  ...additionalVerifiedPaintedChurches.map((church) => ({ ...church, image: imageOverrides[church.slug] ?? church.image })),
+];
+
+export const expandedPaintedChurches: CanonicalPaintedChurch[] = combined.map((church) => {
+  const details = metadata[church.slug] ?? { interiorIntegrity: "uncertain" as const, culturalHeritage: [], techniques: [] };
+  return {
+    ...church,
+    classification: church.slug === "bandera-st-stanislaus-catholic-church"
+      ? "modern-decorative-campaign"
+      : formal.has(church.slug)
+        ? "formal-national-register-group"
+        : "broader-historic-tradition",
+    ...details,
+  };
+});
 
 export function expandedPaintedChurchBySlug(slug: string) {
   return expandedPaintedChurches.find((church) => church.slug === slug) ?? null;
