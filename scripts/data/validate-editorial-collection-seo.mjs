@@ -34,9 +34,11 @@ for (const [label, filename, canonicalPath] of routes) {
     'loaderData.destinations.map',
     'type: "Article" as const',
     'type: "TouristAttraction" as const',
-    'return { articles, destinations }',
   ]) {
     if (!route.includes(feature)) errors.push(`${label} collection SEO feature missing: ${feature}.`);
+  }
+  if (!/return\s*\{\s*articles\s*,\s*destinations\s*(?::|[,}])/.test(route)) {
+    errors.push(`${label} collection SEO feature missing: loader must return articles plus destinations.`);
   }
   // Department breadcrumb parent may vary per collection, but must be present and internal.
   if (!/breadcrumbParentName: "[^"]+"/.test(route) || !/breadcrumbParentPath: "\/[^"]*"/.test(route)) {
