@@ -103,6 +103,18 @@ const brazoriaPlantationsSlaveryEmancipationHistoryStub: Article = {
   body: [], relatedCollections: [], relatedDestinations: ["levi-jordan-plantation", "varner-hogg-plantation", "first-capitol-of-texas", "stephen-f-austin-memorial"],
 };
 
+const texasBorderlandsHistoricSitesGuideStub: Article = {
+  id: "evergreen-texas-borderlands-historic-sites-guide", brandId: "texasdefined", slug: "texas-borderlands-historic-sites-guide",
+  title: "Texas Borderlands Historic Sites: Missions, Tejano Politics and the Rio Grande World",
+  dek: "Connect Old Socorro Mission, Magoffin Home, Casa Navarro, Lipantitlán and Mission Dolores to the Indigenous, Spanish, Mexican, Tejano and American histories that overlap across Texas borderlands.",
+  category: "texas-history",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Magoffin_home_2009.jpg?width=1600", alt: "Magoffin Home State Historic Site in El Paso, Texas", width: 1600, height: 965, credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons" },
+  authorId: "a-marisol", publishedAt: "2026-08-19", readingMinutes: 13,
+  tags: ["texas borderlands", "tejano history", "old socorro mission", "magoffin home", "casa navarro", "lipantitlan", "mission dolores"], featured: true,
+  sourceName: "Texas Historical Commission", sourceUrl: "https://thc.texas.gov/historic-sites",
+  body: [], relatedCollections: [], relatedDestinations: ["old-socorro-mission", "magoffin-home", "casa-navarro", "lipantitlan", "mission-dolores"],
+};
+
 export const standaloneEvergreenStubs: Article[] = [
   rodeo101Stub,
   highSchoolFootballNewcomersStub,
@@ -113,6 +125,7 @@ export const standaloneEvergreenStubs: Article[] = [
   texasFrontierFortsRoadTripStub,
   presidentialTexasHistoricHomesStub,
   brazoriaPlantationsSlaveryEmancipationHistoryStub,
+  texasBorderlandsHistoricSitesGuideStub,
 ];
 
 export async function loadStandaloneEvergreenArticle(brandId: string, slug: string): Promise<Article | null> {
@@ -126,5 +139,6 @@ export async function loadStandaloneEvergreenArticle(brandId: string, slug: stri
   if (slug === texasFrontierFortsRoadTripStub.slug) return import("./texas-frontier-forts-road-trip").then((module) => module.texasFrontierFortsRoadTripArticle);
   if (slug === presidentialTexasHistoricHomesStub.slug) return import("./presidential-texas-historic-homes").then((module) => module.presidentialTexasHistoricHomesArticle);
   if (slug === brazoriaPlantationsSlaveryEmancipationHistoryStub.slug) return import("./brazoria-plantations-slavery-emancipation-history").then((module) => module.brazoriaPlantationsSlaveryEmancipationHistoryArticle);
+  if (slug === texasBorderlandsHistoricSitesGuideStub.slug) return import("./texas-borderlands-historic-sites-guide").then((module) => module.texasBorderlandsHistoricSitesGuideArticle);
   return null;
 }
