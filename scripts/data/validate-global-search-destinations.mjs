@@ -1,7 +1,11 @@
 import fs from 'node:fs';
 
 const queries = fs.readFileSync('src/data/queries.ts', 'utf8');
-const searchRoute = fs.readFileSync('src/routes/search.tsx', 'utf8');
+const destinationRuntime = fs.readFileSync('src/data/destination-query-runtime.ts', 'utf8');
+const searchImplementation = `${queries}\n${destinationRuntime}`;
+const searchShell = fs.readFileSync('src/routes/search.tsx', 'utf8');
+const searchLazy = fs.readFileSync('src/routes/search.lazy.tsx', 'utf8');
+const searchRoute = `${searchShell}\n${searchLazy}`;
 const errors = [];
 
 for (const feature of [
@@ -22,13 +26,13 @@ for (const feature of [
   'fetchExploreDestinations({ limit: 5000 })',
   'fetchCoreExploreDestinations({ limit: 5000 })',
   'mergeDestinations(enriched, core, preservedExploreDestinations)',
-  'const destinations = reconcileExploreCatalog(',
+  'return reconcileExploreCatalog(',
   'const nonDestinationDocuments = base.filter((document) => document.kind !== "destination")',
   'if (!destinations.length) return nonDestinationDocuments',
   '...nonDestinationDocuments',
   'destinations.map(destinationSearchDocument)',
 ]) {
-  if (!queries.includes(feature)) errors.push(`Global destination search feature missing: ${feature}.`);
+  if (!searchImplementation.includes(feature)) errors.push(`Global destination search feature missing: ${feature}.`);
 }
 
 for (const feature of [
@@ -38,14 +42,23 @@ for (const feature of [
 ]) {
   if (!searchRoute.includes(feature)) errors.push(`Global search route must use the publication-ready search index: ${feature}.`);
 }
+if (!searchShell.includes('await import("@/data/queries")')) {
+  errors.push('Global search route shell must dynamically load the publication-ready query module.');
+}
+if (!searchLazy.includes('createLazyFileRoute("/search")')) {
+  errors.push('Global search result renderer must remain behind the explicit lazy route boundary.');
+}
+if (!queries.includes('await import("./destination-query-runtime")')) {
+  errors.push('Heavy destination resolution must stay behind a dynamic runtime boundary.');
+}
 
-if (queries.includes('href: `/explore/${destination.category}/${destination.slug}`')) {
+if (searchImplementation.includes('href: `/explore/${destination.category}/${destination.slug}`')) {
   errors.push('Global destination search documents must link to canonical /destination/:slug routes.');
 }
-if (!queries.includes('Enriched destination search index unavailable; merging core and preserved catalogs')) {
+if (!searchImplementation.includes('Enriched destination search index unavailable; merging core and preserved catalogs')) {
   errors.push('Enriched destination search fallback logging is missing.');
 }
-if (!queries.includes('Core remote destination search index unavailable; retaining preserved destinations')) {
+if (!searchImplementation.includes('Core remote destination search index unavailable; retaining preserved destinations')) {
   errors.push('Core destination search fallback logging is missing.');
 }
 if (queries.includes('if (!destinations.length) return base')) {
@@ -64,4 +77,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Global search destinations are resolved and SEO-ready before publication, use canonical URLs and deduplicated keywords, retain core/preserved source fallbacks, fail closed when no destination is ready, and cannot be bypassed by a raw route-level destination feed.');
+console.log('Global search destinations are resolved and SEO-ready before publication, use canonical URLs and deduplicated keywords, retain core/preserved source fallbacks, fail closed when no destination is ready, keep heavy destination resolution behind a runtime split, use a lazy result renderer with dynamic query loading, and cannot be bypassed by a raw route-level destination feed.');

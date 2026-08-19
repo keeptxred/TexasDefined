@@ -16,6 +16,7 @@ on:
       - "public/citation-magnets.json"
       - "scripts/data/validate-painted-churches-seo.mjs"
       - "scripts/data/validate-painted-church-map.mjs"
+      - "scripts/data/validate-painted-church-search-intents.mjs"
       - ".github/workflows/painted-churches-seo.yml"
   pull_request:
     paths:
@@ -31,6 +32,7 @@ on:
       - "public/citation-magnets.json"
       - "scripts/data/validate-painted-churches-seo.mjs"
       - "scripts/data/validate-painted-church-map.mjs"
+      - "scripts/data/validate-painted-church-search-intents.mjs"
       - ".github/workflows/painted-churches-seo.yml"
 
 permissions:
@@ -46,5 +48,7 @@ jobs:
           node-version: 22
       - name: Validate Painted Churches SEO/AEO/authority contract
         run: node scripts/data/validate-painted-churches-seo.mjs
+      - name: Validate Painted Churches search-intent coverage
+        run: node scripts/data/validate-painted-church-search-intents.mjs
       - name: Validate Painted Churches interactive map and 24-church authority contract
         run: node scripts/data/validate-painted-church-map.mjs
