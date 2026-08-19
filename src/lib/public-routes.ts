@@ -208,6 +208,7 @@ export const REDIRECT_ONLY_PATHS = [
   "/state-park/garner-state-park",
   "/state-park/balmorhea-state-park",
   "/state-park/mustang-island-state-park",
+  "/state-park/choke-canyon-calliham-unit-state-park",
   "/historic-site/hueco-tanks-state-park-state-historic-site",
   "/historic-site/seminole-canyon-state-park-state-historic-site",
   "/historic-site/monument-hill-kreische-brewery-state-historic-site",
