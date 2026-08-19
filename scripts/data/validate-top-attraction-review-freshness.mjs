@@ -15,14 +15,20 @@ if (slugs.length !== 25) {
 }
 
 const curationFiles = fs.readdirSync(path.join(ROOT, 'src/data'))
-  .filter((name) => /^destination-curation-top-attractions.*\.ts$/.test(name))
+  .filter((name) => /^destination-curation-top-attractions(?:-batch\d+)?\.ts$/.test(name))
+  .sort()
   .map((name) => path.join(ROOT, 'src/data', name));
+
+if (curationFiles.length !== 5) {
+  console.error(`Top 25 freshness audit found ${curationFiles.length} canonical curation files; expected base + batches 2–5.`);
+  process.exit(1);
+}
 
 const source = curationFiles.map((file) => fs.readFileSync(file, 'utf8')).join('\n');
 const failures = [];
 const dates = [...source.matchAll(/sourceCheckedAt:\s*["'](\d{4}-\d{2}-\d{2})["']/g)].map((match) => match[1]);
 
-if (dates.length < 25) failures.push(`Found only ${dates.length} Top-25 sourceCheckedAt values; expected at least 25.`);
+if (dates.length !== 25) failures.push(`Found ${dates.length} canonical Top-25 sourceCheckedAt values; expected exactly 25.`);
 
 for (const value of dates) {
   const checked = new Date(`${value}T00:00:00Z`);
@@ -44,4 +50,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Top 25 review freshness validation passed: ${dates.length} verification dates checked; oldest ${oldest}, newest ${newest}, maximum age ${MAX_AGE_DAYS} days.`);
+console.log(`Top 25 review freshness validation passed: exactly ${dates.length} canonical verification dates across ${curationFiles.length} curation files; oldest ${oldest}, newest ${newest}, maximum age ${MAX_AGE_DAYS} days.`);
