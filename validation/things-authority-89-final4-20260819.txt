@@ -1,0 +1,3 @@
+Validation-only marker for current main after the latest redirect-governance and Texas-history route updates.
+
+This branch intentionally differs from main only by this marker so pull-request CI validates current main through citation downloads, production data, complete Trip Planner coverage, production build, and client performance budget.
