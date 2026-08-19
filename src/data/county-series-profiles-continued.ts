@@ -31,4 +31,10 @@ export const COUNTY_SERIES_PROFILES_CONTINUED: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/limestone-county-groesbeck-mexia-fort-parker-navasota-prairie")
       .then((module) => module.limestoneCountyGroesbeckMexiaFortParkerNavasotaPrairieArticle),
   },
+  {
+    countySlug: "freestone",
+    articleSlug: "freestone-county-fairfield-teague-wortham-trinity-prairie-texas",
+    loadArticle: () => import("@/data/fixtures/freestone-county-fairfield-teague-wortham-trinity-prairie")
+      .then((module) => module.freestoneCountyFairfieldTeagueWorthamTrinityPrairieArticle),
+  },
 ];
