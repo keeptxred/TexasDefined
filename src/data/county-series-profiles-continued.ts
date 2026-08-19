@@ -97,4 +97,10 @@ export const COUNTY_SERIES_PROFILES_CONTINUED: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/sabine-county-hemphill-toledo-bend-sabine-river-piney-woods-texas")
       .then((module) => module.sabineCountyHemphillToledoBendSabineRiverPineyWoodsArticle),
   },
+  {
+    countySlug: "shelby",
+    articleSlug: "shelby-county-center-regulator-moderator-sabine-piney-woods-texas",
+    loadArticle: () => import("@/data/fixtures/shelby-county-center-regulator-moderator-sabine-piney-woods-texas")
+      .then((module) => module.shelbyCountyCenterRegulatorModeratorSabinePineyWoodsArticle),
+  },
 ];
