@@ -101,6 +101,9 @@ jobs:
       - name: Validate Explore topical authority
         run: node scripts/data/validate-explore-topical-authority.mjs
 
+      - name: Validate statewide historic sites
+        run: node scripts/data/validate-historic-sites.mjs
+
       - name: Validate Things That Define Texas authority
         run: node scripts/data/validate-things-unique-to-texas.mjs
 
