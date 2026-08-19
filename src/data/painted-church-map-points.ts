@@ -35,6 +35,7 @@ export const paintedChurchMapPoints: PaintedChurchMapPoint[] = [
   { slug: "corpus-christi-sacred-heart-catholic-church", lat: 27.793383, lon: -97.404283, precision: "exact-property", sourceUrl: "https://texashistoricalmarkers.weebly.com/antonio-e-garcia.html", sourceLabel: "Antonio E. Garcia historical marker at 1322 Comanche" },
   { slug: "san-antonio-st-joseph-catholic-church", lat: 29.423539, lon: -98.486431, precision: "exact-property", sourceUrl: "https://www.wikidata.org/wiki/Q17021352", sourceLabel: "THC-backed Wikidata property coordinate" },
   { slug: "anderson-st-stanislaus-kostka", lat: 30.478701, lon: -96.000382, precision: "near-property", sourceUrl: "https://saintstans.org/contact-us-1", sourceLabel: "Official parish address with mapped-address cross-check" },
+  { slug: "castroville-st-louis-catholic-church", lat: 29.356266, lon: -98.878905, precision: "exact-property", sourceUrl: "https://atlas.thc.texas.gov/Details/5325005051", sourceLabel: "Texas Historical Commission RTHL UTM coordinate converted to WGS84" },
 ];
 
 export const paintedChurchMapPointBySlug = new Map(paintedChurchMapPoints.map((point) => [point.slug, point]));
