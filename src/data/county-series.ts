@@ -116,6 +116,7 @@ const LEGACY_ARTICLE_TO_COUNTY = new Map<string, string>([
   ["limestone-county-groesbeck-mexia-fort-parker-navasota-prairie-texas", "limestone"],
   ["freestone-county-fairfield-teague-wortham-trinity-prairie-texas", "freestone"],
   ["leon-county-centerville-buffalo-jewett-trinity-prairie-texas", "leon"],
+  ["madison-county-madisonville-midway-north-zulch-trinity-navasota-texas", "madison"],
 ]);
 
 const COUNTY_SLUGS = new Set(LEGACY_ARTICLE_TO_COUNTY.values());
