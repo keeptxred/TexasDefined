@@ -13,6 +13,7 @@ const promotedArticleTargets = [
 ];
 const promotedRouteTargets = [
   ['src/routes/texas-slang-explained.tsx', 'const canonicalPath = "/texas-slang-explained"', '/texas-slang-explained'],
+  ['src/routes/texas-blue-norther-weather-guide.tsx', 'const canonicalPath = "/texas-blue-norther-weather-guide"', '/texas-blue-norther-weather-guide'],
   ['src/routes/texas-dance-halls-honky-tonks.tsx', 'const canonicalPath = "/texas-dance-halls-honky-tonks"', '/texas-dance-halls-honky-tonks'],
   ['src/routes/texas-breakfast-taco-guide.tsx', 'const canonicalPath = "/texas-breakfast-taco-guide"', '/texas-breakfast-taco-guide'],
   ['src/routes/texas-chili-con-carne-history.tsx', 'const canonicalPath = "/texas-chili-con-carne-history"', '/texas-chili-con-carne-history'],
@@ -32,9 +33,9 @@ const deepDiveLinks = deepDiveBlock
   ? [...deepDiveBlock[1].matchAll(/^\s{2}(\d+):\s*"(\/[^"]+)",/gm)]
   : [];
 
-if (destinationLinks.length < 41) failures.push(`Expected at least 41 exact destination mappings; found ${destinationLinks.length}.`);
-if (deepDiveLinks.length < 43) failures.push(`Expected at least 43 purpose-built/editorial deep-dive mappings; found ${deepDiveLinks.length}.`);
-if (destinationLinks.length + deepDiveLinks.length < 84) failures.push(`Expected at least 84 protected deeper-guide relationships; found ${destinationLinks.length + deepDiveLinks.length}.`);
+if (destinationLinks.length < 42) failures.push(`Expected at least 42 exact destination mappings; found ${destinationLinks.length}.`);
+if (deepDiveLinks.length < 47) failures.push(`Expected at least 47 purpose-built/editorial deep-dive mappings; found ${deepDiveLinks.length}.`);
+if (destinationLinks.length + deepDiveLinks.length < 89) failures.push(`Expected at least 89 protected deeper-guide relationships; found ${destinationLinks.length + deepDiveLinks.length}.`);
 
 const allIds = [...destinationLinks, ...deepDiveLinks].map((match) => Number(match[1]));
 if (new Set(allIds).size !== allIds.length) failures.push('Texas icon resolver IDs must be unique across destination and deep-dive registries.');
@@ -89,12 +90,23 @@ const requiredDeepDiveMappings = new Map([
   [222, '/texas-slang-explained'],
   [223, '/texas-slang-explained'],
   [224, '/texas-slang-explained'],
+  [225, '/texas-symbols'],
   [231, '/texas-slang-explained'],
+  [233, '/texas-blue-norther-weather-guide'],
+  [234, '/texas-blue-norther-weather-guide'],
+  [235, '/texas-blue-norther-weather-guide'],
   [239, '/texas-slang-explained'],
 ]);
+const requiredDestinationMappings = new Map([
+  [249, '/destination/the-alamo'],
+]);
 const actualDeepDiveMappings = new Map(deepDiveLinks.map((match) => [Number(match[1]), match[2]]));
+const actualDestinationMappings = new Map(destinationLinks.map((match) => [Number(match[1]), match[2]]));
 for (const [id, href] of requiredDeepDiveMappings) {
   if (actualDeepDiveMappings.get(id) !== href) failures.push(`Icon ${id} must retain exact deeper guide ${href}.`);
+}
+for (const [id, href] of requiredDestinationMappings) {
+  if (actualDestinationMappings.get(id) !== href) failures.push(`Icon ${id} must retain exact destination guide ${href}.`);
 }
 
 for (const [file, slugToken, href] of [...promotedArticleTargets, ...promotedRouteTargets]) {
@@ -123,6 +135,7 @@ for (const token of [
 if (!route.includes('deeperGuideCount: TEXAS_ICON_DEEPER_GUIDE_COUNT')) failures.push('Things That Define Texas loader must expose the computed deeper-guide count.');
 if (!hub.includes('const { categories, itemCount, deeperGuideCount } = Route.useLoaderData();')) failures.push('Things That Define Texas hub must consume the computed deeper-guide count.');
 if (!hub.includes('<Stat value={String(deeperGuideCount)} label="Deeper guide links" />')) failures.push('Things That Define Texas hub must display deeper-guide coverage as a headline statistic.');
+if (!hub.includes('to="/texas-blue-norther-weather-guide"')) failures.push('Things That Define Texas hub must visibly feature the Texas Blue Norther weather guide.');
 if (hub.includes('label="Very big state"')) failures.push('Things That Define Texas hub must not replace its authority metric with the old novelty statistic.');
 for (const token of [
   'import { TEXAS_ICON_DEEPER_GUIDE_COUNT } from "@/data/things-unique-to-texas-reference";',
