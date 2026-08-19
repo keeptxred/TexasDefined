@@ -1,32 +1,32 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { DestinationCard } from "@/components/editorial/DestinationCard";
-import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
-import { Container } from "@/components/layout/Container";
 import { destinationsQuery } from "@/data/queries";
-import { TOP_TEXAS_ATTRACTIONS } from "@/data/top-texas-attractions";
 import type { Destination } from "@/data/types";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const canonicalPath = "/explore/top-attractions";
 const description = "Twenty-five landmark Texas experiences, from the Alamo and River Walk to Big Bend, the Gulf Coast, museums, caverns, gardens and historic districts — with practical trip-planning guides for each stop.";
 
-function rankDestinations(destinations: Destination[], resolveAuthority: (destination: Destination) => Destination) {
-  const bySlug = new Map(destinations.map((destination) => [destination.slug, destination]));
-  return TOP_TEXAS_ATTRACTIONS.flatMap((entry) => {
-    const destination = bySlug.get(entry.slug);
-    return destination ? [{ ...entry, destination: resolveAuthority(destination) }] : [];
-  });
-}
+type RankedDestination = {
+  rank: number;
+  slug: string;
+  name: string;
+  destination: Destination;
+};
 
 export const Route = createFileRoute("/explore/top-attractions")({
   loader: async ({ context }) => {
-    const [destinations, { resolveTopAttractionAuthority }] = await Promise.all([
+    const [destinations, { resolveTopAttractionAuthority }, { TOP_TEXAS_ATTRACTIONS }] = await Promise.all([
       context.queryClient.ensureQueryData(destinationsQuery({ limit: 5000 })),
       import("@/data/top-attraction-authority-resolver"),
+      import("@/data/top-texas-attractions"),
     ]);
-    return rankDestinations(destinations, resolveTopAttractionAuthority);
+    const bySlug = new Map(destinations.map((destination) => [destination.slug, destination]));
+    return TOP_TEXAS_ATTRACTIONS.flatMap((entry): RankedDestination[] => {
+      const destination = bySlug.get(entry.slug);
+      return destination ? [{ ...entry, destination: resolveTopAttractionAuthority(destination) }] : [];
+    });
   },
   head: ({ loaderData }) => {
     const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
@@ -40,151 +40,12 @@ export const Route = createFileRoute("/explore/top-attractions")({
       scripts: [jsonLd({
         "@context": "https://schema.org",
         "@graph": [
-          {
-            "@type": "CollectionPage",
-            "@id": `${pageUrl}#page`,
-            url: pageUrl,
-            name: "Top 25 Texas Attractions",
-            description,
-            mainEntity: { "@id": `${pageUrl}#attractions` },
-            isBasedOn: methodologyUrl,
-          },
-          {
-            "@type": "ItemList",
-            "@id": `${pageUrl}#attractions`,
-            name: "Top 25 Texas Attractions",
-            numberOfItems: attractions.length,
-            itemListOrder: "https://schema.org/ItemListOrderAscending",
-            itemListElement: attractions.map(({ rank, destination }) => ({
-              "@type": "ListItem",
-              position: rank,
-              name: destination.name,
-              url: absoluteUrl(texasDefinedBrand, `/destination/${destination.slug}`),
-            })),
-          },
-          {
-            "@type": "Dataset",
-            "@id": `${pageUrl}#comparison-dataset`,
-            name: "TexasDefined Top 25 Texas Attractions comparison dataset",
-            description: "Rank, canonical location, region, category, visit-length assessment, physical effort, weather exposure, advance-planning level, family fit, first-time Texas value, source-review date, controlling visitor source, supporting authority sources and road-trip membership for the Top 25 collection.",
-            creator: { "@type": "Organization", "@id": `${absoluteUrl(texasDefinedBrand, "/authors/a-hollis")}#desk`, name: "Texas Defined Editorial Desk" },
-            isBasedOn: methodologyUrl,
-            sameAs: pageUrl,
-            variableMeasured: [
-              "rank",
-              "recommended visit",
-              "physical effort",
-              "weather exposure",
-              "advance planning",
-              "family fit",
-              "first-time Texas value",
-              "source checked date",
-              "authority source count",
-              "authority source URLs",
-              "road-trip membership",
-            ],
-            distribution: [
-              {
-                "@type": "DataDownload",
-                encodingFormat: "text/csv",
-                contentUrl: csvUrl,
-                name: "Top 25 Texas Attractions comparison CSV",
-              },
-              {
-                "@type": "DataDownload",
-                encodingFormat: "application/json",
-                contentUrl: jsonUrl,
-                name: "Top 25 Texas Attractions reference JSON",
-              },
-            ],
-          },
-          {
-            "@type": "BreadcrumbList",
-            itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Front page", item: absoluteUrl(texasDefinedBrand, "/") },
-              { "@type": "ListItem", position: 2, name: "Explore Texas", item: absoluteUrl(texasDefinedBrand, "/explore") },
-              { "@type": "ListItem", position: 3, name: "Top 25 Texas Attractions", item: pageUrl },
-            ],
-          },
+          { "@type": "CollectionPage", "@id": `${pageUrl}#page`, url: pageUrl, name: "Top 25 Texas Attractions", description, mainEntity: { "@id": `${pageUrl}#attractions` }, isBasedOn: methodologyUrl },
+          { "@type": "ItemList", "@id": `${pageUrl}#attractions`, name: "Top 25 Texas Attractions", numberOfItems: attractions.length, itemListOrder: "https://schema.org/ItemListOrderAscending", itemListElement: attractions.map(({ rank, destination }) => ({ "@type": "ListItem", position: rank, name: destination.name, url: absoluteUrl(texasDefinedBrand, `/destination/${destination.slug}`) })) },
+          { "@type": "Dataset", "@id": `${pageUrl}#comparison-dataset`, name: "TexasDefined Top 25 Texas Attractions comparison dataset", description: "Rank, canonical location, region, category, visit-length assessment, physical effort, weather exposure, advance-planning level, family fit, first-time Texas value, source-review date, controlling visitor source, supporting authority sources and road-trip membership for the Top 25 collection.", creator: { "@type": "Organization", "@id": `${absoluteUrl(texasDefinedBrand, "/authors/a-hollis")}#desk`, name: "Texas Defined Editorial Desk" }, isBasedOn: methodologyUrl, sameAs: pageUrl, variableMeasured: ["rank", "recommended visit", "physical effort", "weather exposure", "advance planning", "family fit", "first-time Texas value", "source checked date", "authority source count", "authority source URLs", "road-trip membership"], distribution: [{ "@type": "DataDownload", encodingFormat: "text/csv", contentUrl: csvUrl, name: "Top 25 Texas Attractions comparison CSV" }, { "@type": "DataDownload", encodingFormat: "application/json", contentUrl: jsonUrl, name: "Top 25 Texas Attractions reference JSON" }] },
+          { "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Front page", item: absoluteUrl(texasDefinedBrand, "/") }, { "@type": "ListItem", position: 2, name: "Explore Texas", item: absoluteUrl(texasDefinedBrand, "/explore") }, { "@type": "ListItem", position: 3, name: "Top 25 Texas Attractions", item: pageUrl }] },
         ],
       })],
     };
   },
-  component: TopAttractionsPage,
 });
-
-function TopAttractionsPage() {
-  const attractions = Route.useLoaderData();
-
-  return <>
-    <Container className="pb-8 pt-12 sm:pt-16">
-      <nav aria-label="Breadcrumb" className="border-b border-border pb-4 text-xs uppercase tracking-[0.14em] text-muted-foreground">
-        <Link to="/">Front page</Link><span aria-hidden="true" className="mx-2">/</span><Link to="/explore">Explore</Link><span aria-hidden="true" className="mx-2">/</span><span aria-current="page">Top 25 attractions</span>
-      </nav>
-      <header className="py-10 sm:py-14">
-        <p className="eyebrow text-primary">The Texas essential list</p>
-        <h1 className="mt-3 max-w-5xl font-display text-5xl leading-[0.98] sm:text-7xl">25 Texas attractions worth building a trip around</h1>
-        <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">From missions and presidential history to desert national parks, Gulf beaches, caverns, gardens and big-city museums, these are 25 places that make a strong first map of Texas. Each guide includes practical visit planning, multi-source authority evidence, editorial trip assessments, three itinerary options and a full “what’s in the area” section.</p>
-        <div className="mt-8 flex flex-wrap gap-3">
-          <Link to="/explore/trip-planner" className="inline-flex items-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90">Build a Texas trip →</Link>
-          <Link to="/explore/top-attractions/road-trips" className="inline-flex items-center border border-border px-5 py-3 text-sm font-semibold transition-colors hover:border-primary hover:text-primary">Top-25 road trips →</Link>
-          <Link to="/explore/attractions-comparison" className="inline-flex items-center border border-border px-5 py-3 text-sm font-semibold transition-colors hover:border-primary hover:text-primary">Compare destinations →</Link>
-          <Link to="/explore/top-attractions/methodology" className="inline-flex items-center border border-border px-5 py-3 text-sm font-semibold transition-colors hover:border-primary hover:text-primary">Methodology →</Link>
-          <a href="/top-25-texas-attractions.csv" className="inline-flex items-center border border-border px-5 py-3 text-sm font-semibold transition-colors hover:border-primary hover:text-primary">Download comparison CSV →</a>
-          <a href="/top-25-texas-attractions.json" className="inline-flex items-center border border-border px-5 py-3 text-sm font-semibold transition-colors hover:border-primary hover:text-primary">Download reference JSON →</a>
-          <a href="/top-25-texas-attractions-checklist.txt" className="inline-flex items-center border border-border px-5 py-3 text-sm font-semibold transition-colors hover:border-primary hover:text-primary">Download checklist →</a>
-          <Link to="/citation-guide" className="inline-flex items-center border border-border px-5 py-3 text-sm font-semibold transition-colors hover:border-primary hover:text-primary">Citation guidance →</Link>
-        </div>
-      </header>
-    </Container>
-
-    <Section>
-      <Container>
-        <SectionHeader eyebrow="How this list is researched" title="Operational facts and editorial judgment are kept separate" description="Visitor logistics come from a controlling official source and carry a review date. Supporting public, institutional, science, conservation and historic-designation sources deepen context. Visit length, effort, weather exposure, planning difficulty and first-time value remain TexasDefined editorial assessments." />
-        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          <div className="border-t-2 border-foreground pt-4"><p className="eyebrow text-primary">Source hierarchy</p><p className="mt-2 text-sm leading-6 text-muted-foreground">Each guide identifies its controlling visitor source separately from supporting authority evidence.</p></div>
-          <div className="border-t-2 border-foreground pt-4"><p className="eyebrow text-primary">Trip assessment</p><p className="mt-2 text-sm leading-6 text-muted-foreground">TexasDefined compares visit time, effort, exposure and advance-planning needs using one shared scale.</p></div>
-          <div className="border-t-2 border-foreground pt-4"><p className="eyebrow text-primary">Three itineraries</p><p className="mt-2 text-sm leading-6 text-muted-foreground">Every attraction includes a short, medium and expanded way to use the stop in a real Texas trip.</p></div>
-          <div className="border-t-2 border-foreground pt-4"><p className="eyebrow text-primary">Review log</p><p className="mt-2 text-sm leading-6 text-muted-foreground">Changing operational details are separated from durable editorial context and pointed back to official sources.</p></div>
-        </div>
-        <div className="mt-7 flex flex-wrap gap-5 text-sm font-semibold"><Link to="/explore/top-attractions/methodology" className="border-b border-primary text-primary">Read the full methodology →</Link><Link to="/explore/top-attractions/road-trips" className="border-b border-primary text-primary">See the seven route structures →</Link></div>
-      </Container>
-    </Section>
-
-    <Section tone="surface">
-      <Container>
-        <SectionHeader eyebrow="The full list" title="TexasDefined’s Top 25" description="Open any attraction for the full guide, verified planning notes, multi-source evidence, nearby places, food and lodging areas, family stops, side trips, maps and a direct handoff to the Trip Planner." />
-        <ol className="mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-          {attractions.map(({ rank, destination }) => {
-            const assessment = destination.authorityGuide?.assessment;
-            const sourceCount = destination.authorityGuide?.sources.length ?? 0;
-            return <li key={destination.slug} className="relative">
-              <div className="mb-3 flex items-baseline gap-3 border-b border-border pb-3">
-                <span className="font-display text-4xl leading-none text-primary">{String(rank).padStart(2, "0")}</span>
-                <span className="eyebrow text-muted-foreground">Top Texas attraction</span>
-              </div>
-              <DestinationCard destination={destination} />
-              {assessment && <dl className="mt-4 grid grid-cols-2 gap-x-5 gap-y-3 border-y border-border py-4 text-xs">
-                <div><dt className="uppercase tracking-[0.1em] text-muted-foreground">Allow</dt><dd className="mt-1 font-medium leading-5">{assessment.recommendedVisit}</dd></div>
-                <div><dt className="uppercase tracking-[0.1em] text-muted-foreground">Effort</dt><dd className="mt-1 font-medium">{assessment.physicalEffort}</dd></div>
-                <div><dt className="uppercase tracking-[0.1em] text-muted-foreground">Planning</dt><dd className="mt-1 font-medium">{assessment.planningLevel}</dd></div>
-                <div><dt className="uppercase tracking-[0.1em] text-muted-foreground">Evidence</dt><dd className="mt-1 font-medium">{sourceCount} authority {sourceCount === 1 ? "source" : "sources"}</dd></div>
-              </dl>}
-            </li>;
-          })}
-        </ol>
-      </Container>
-    </Section>
-
-    <Section>
-      <Container>
-        <div className="grid gap-8 border-y border-border py-10 md:grid-cols-4">
-          <div><p className="eyebrow text-primary">Turn the list into a route</p><h2 className="mt-2 font-display text-3xl">Start with one stop</h2><p className="mt-3 text-sm leading-6 text-muted-foreground">Every attraction page can seed the TexasDefined Trip Planner, which then scores other destinations around your starting point.</p></div>
-          <Link to="/explore/top-attractions/road-trips" className="group border-t border-border pt-5 md:border-l md:border-t-0 md:pl-8"><strong className="font-display text-2xl transition-colors group-hover:text-primary">Use a ready-made route</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Seven editorial road-trip structures combine the Top 25 into geographic Texas itineraries.</span><span className="eyebrow mt-4 inline-block text-primary">Open road trips →</span></Link>
-          <Link to="/explore/trip-planner" className="group border-t border-border pt-5 md:border-l md:border-t-0 md:pl-8"><strong className="font-display text-2xl transition-colors group-hover:text-primary">Build an itinerary</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Choose your pace, interests and trip length, then start with a favorite attraction.</span><span className="eyebrow mt-4 inline-block text-primary">Open Trip Planner →</span></Link>
-          <Link to="/explore/attractions-comparison" className="group border-t border-border pt-5 md:border-l md:border-t-0 md:pl-8"><strong className="font-display text-2xl transition-colors group-hover:text-primary">Compare the broader catalog</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Go beyond the Top 25 and compare TexasDefined destinations by region, season and planning notes.</span><span className="eyebrow mt-4 inline-block text-primary">Compare attractions →</span></Link>
-        </div>
-      </Container>
-    </Section>
-  </>;
-}
