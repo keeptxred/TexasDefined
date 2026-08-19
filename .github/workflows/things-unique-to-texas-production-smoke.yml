@@ -1,0 +1,72 @@
+name: Things That Define Texas production smoke
+
+on:
+  workflow_run:
+    workflows: ['Deploy TexasDefined production']
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: things-that-define-texas-production-smoke
+  cancel-in-progress: true
+
+jobs:
+  smoke:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Verify magazine authority routes
+        shell: bash
+        run: |
+          set -euo pipefail
+          origin='https://texasdefined.com'
+          cache_key="${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+
+          check_page() {
+            local path="$1"
+            local needle="$2"
+            local out
+            out="$(mktemp)"
+            for attempt in 1 2 3 4 5 6; do
+              if curl --fail-with-body --silent --show-error --location --max-time 30 \
+                "${origin}${path}?verify=${cache_key}-${attempt}" -o "$out"; then
+                if grep -Fqi "$needle" "$out" && ! grep -Eqi '<meta[^>]+name=["'"']robots["'"'][^>]+content=["'"'][^"'"']*noindex' "$out"; then
+                  echo "PASS ${path}"
+                  rm -f "$out"
+                  return 0
+                fi
+              fi
+              sleep 5
+            done
+            echo "FAIL ${path}: expected indexable page containing '${needle}'" >&2
+            sed -n '1,80p' "$out" >&2 || true
+            rm -f "$out"
+            return 1
+          }
+
+          check_page '/things-unique-to-texas' 'Things That Define Texas'
+          check_page '/things-unique-to-texas/methodology' 'How we decide what defines Texas'
+          check_page '/things-unique-to-texas/food-drink' 'Iconic Texas Foods & Drinks'
+          check_page '/things-unique-to-texas/texas-brands' 'Legendary Texas Brands & Retail Institutions'
+          check_page '/things-unique-to-texas/natural-wonders' 'Natural Wonders & Parks'
+          check_page '/things-unique-to-texas/landmarks' 'Historic Landmarks & Texas Architecture'
+          check_page '/things-unique-to-texas/roadside-small-towns' 'Quirky Roadside Texas & Small-Town Icons'
+          check_page '/things-unique-to-texas/culture-music' 'Texas Cultural Traditions & Music'
+          check_page '/things-unique-to-texas/wildlife-landscape' 'Texas Wildlife, Plants & Geography'
+          check_page '/things-unique-to-texas/slang-folklore' 'Texas Slang, Symbols & Folklore'
+
+      - name: Publish smoke summary
+        if: always()
+        run: |
+          {
+            echo '## Things That Define Texas production smoke'
+            echo
+            echo '- Canonical collection: https://texasdefined.com/things-unique-to-texas'
+            echo '- Methodology: https://texasdefined.com/things-unique-to-texas/methodology'
+            echo '- Chapter routes checked: 8'
+            echo '- Every route must return successfully, contain its expected identity text and avoid a noindex robots meta tag.'
+          } >> "$GITHUB_STEP_SUMMARY"
