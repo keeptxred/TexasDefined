@@ -111,8 +111,16 @@ for (const path of ['/things-unique-to-texas', '/things-unique-to-texas/methodol
 }
 if (!trustRouter.includes('Collection structure, methodology and canonical-link policy reviewed August 19, 2026.')) failures.push('Magazine trust layer must retain an explicit collection review date.');
 
-for (const token of ['"@type": "Article"', '"@type": "WebPage"', '"@type": "ItemList"', '"@type": "BreadcrumbList"', 'publisher:', 'articleSection: "Things That Define Texas"']) {
-  if (!evergreenComponent.includes(token)) failures.push(`Shared evergreen guide schema must retain token: ${token}.`);
+for (const token of ['"@type": "Article"', '"@type": "WebPage"', '"@type": "ItemList"', '"@type": "BreadcrumbList"', 'publisher:', 'articleSection: "Things That Define Texas"', 'citation: sources.length', 'Source notes', 'Where the historical claims come from']) {
+  if (!evergreenComponent.includes(token)) failures.push(`Shared evergreen guide schema/source layer must retain token: ${token}.`);
+}
+for (const sourceUrl of [
+  'https://www.tshaonline.org/handbook/entries/san-antonio-tx',
+  'https://www.tshaonline.org/handbook/entries/gebhardt-mexican-foods-company',
+  'https://www.tshaonline.org/handbook/entries/chicken-fried-steak',
+  'https://drpeppermuseum.com/history/',
+]) {
+  if (!evergreenComponent.includes(sourceUrl)) failures.push(`Evergreen source notes missing authoritative source ${sourceUrl}.`);
 }
 
 const allEvergreenData = `${evergreenData}\n${evergreenBatch2}\n${evergreenBatch3}\n${evergreenBatch4}`;
@@ -146,4 +154,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Things That Define Texas validation passed: ${ids.length} entries, ${categorySlugs.length} categories, ${evergreenGuides.length} evergreen deep dives, ${hrefs.length} editorial links, ${canonicalIds.length} canonical destination cross-links, two shared data distributions, methodology/provenance/trust contracts, and ${smokePaths.length + evergreenGuides.length} HTML production smoke routes intact.`);
+console.log(`Things That Define Texas validation passed: ${ids.length} entries, ${categorySlugs.length} categories, ${evergreenGuides.length} evergreen deep dives, ${hrefs.length} editorial links, ${canonicalIds.length} canonical destination cross-links, source-note citations, two shared data distributions, methodology/provenance/trust contracts, and ${smokePaths.length + evergreenGuides.length} HTML production smoke routes intact.`);
