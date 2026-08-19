@@ -1,0 +1,1 @@
+Verify the current main branch San Augustine County enrichment, normal validation/build, Wrangler deployment, live canonical county page, preserved structured county layer, legacy 301, and raster hero.
