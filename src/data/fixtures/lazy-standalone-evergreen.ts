@@ -55,12 +55,51 @@ const sixFlagsOverTexasMeaningStub: Article = {
   body: [], relatedCollections: [], relatedDestinations: [],
 };
 
+const texasRevolutionHistoricSitesRoadTripStub: Article = {
+  id: "evergreen-texas-revolution-historic-sites-road-trip", brandId: "texasdefined", slug: "texas-revolution-historic-sites-road-trip",
+  title: "Texas Revolution Road Trip: Where Independence Happened",
+  dek: "Follow the Texas Revolution through the places where colonists organized, delegates declared independence, armies surrendered and the campaign ended at San Jacinto.",
+  category: "texas-history",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/San_felipe_de_austin_shs_cabin_2007.jpg?width=1600", alt: "Replica log cabin at San Felipe de Austin State Historic Site in Texas", width: 1600, height: 1067, credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons" },
+  authorId: "a-marisol", publishedAt: "2026-08-19", readingMinutes: 14,
+  tags: ["texas revolution", "texas independence", "texas history road trip", "san felipe de austin", "washington on the brazos", "goliad", "san jacinto"], featured: true,
+  sourceName: "Texas Historical Commission", sourceUrl: "https://thc.texas.gov/historic-sites",
+  body: [], relatedCollections: [], relatedDestinations: ["san-felipe-de-austin", "washington-on-the-brazos", "star-of-the-republic-museum", "fannin-battleground", "presidio-la-bahia", "san-jacinto-battleground"],
+};
+
+const texasFrontierFortsRoadTripStub: Article = {
+  id: "evergreen-texas-frontier-forts-road-trip", brandId: "texasdefined", slug: "texas-frontier-forts-road-trip",
+  title: "Texas Frontier Forts Road Trip: Four Army Posts That Explain the West",
+  dek: "Fort Martin Scott, Fort Griffin, Fort McKavett and Fort Lancaster reveal how soldiers, settlers, travelers, ranchers and Native nations collided across the Texas frontier.",
+  category: "texas-history",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/0011FortGriffinTxAdminBuilding.jpg", alt: "Ruins of the administration building at Fort Griffin State Historic Site in Texas", width: 1024, height: 685, credit: "Mark Fisher · CC BY-SA 3.0 · Wikimedia Commons" },
+  authorId: "a-marisol", publishedAt: "2026-08-19", readingMinutes: 14,
+  tags: ["texas frontier forts", "texas history road trip", "fort martin scott", "fort griffin", "fort mckavett", "fort lancaster", "buffalo soldiers"], featured: true,
+  sourceName: "Texas Historical Commission", sourceUrl: "https://thc.texas.gov/historic-sites",
+  body: [], relatedCollections: [], relatedDestinations: ["fort-martin-scott", "fort-griffin", "fort-mckavett", "fort-lancaster", "official-texas-longhorn-herd"],
+};
+
+const presidentialTexasHistoricHomesStub: Article = {
+  id: "evergreen-presidential-texas-historic-homes", brandId: "texasdefined", slug: "presidential-texas-historic-homes",
+  title: "Presidential Texas: Historic Homes of Eisenhower, Bush and Sam Rayburn",
+  dek: "Three modest Texas homes reveal how national political careers grew from railroad towns, oil-boom neighborhoods and rural North Texas rather than monumental settings.",
+  category: "texas-history",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/2022_03_26_Eisenhour_Birth_Place%2C_Denison%2C_TX_%2828%29.jpg?width=1600", alt: "Eisenhower Birthplace State Historic Site in Denison, Texas", width: 1600, height: 900, credit: "E's & D's Adventures in Life · CC BY 2.0 · Wikimedia Commons" },
+  authorId: "a-marisol", publishedAt: "2026-08-19", readingMinutes: 13,
+  tags: ["texas presidents", "eisenhower birthplace", "bush family home", "sam rayburn house", "texas political history", "historic homes"], featured: true,
+  sourceName: "Texas Historical Commission", sourceUrl: "https://thc.texas.gov/historic-sites",
+  body: [], relatedCollections: [], relatedDestinations: ["eisenhower-birthplace", "bush-family-home", "sam-rayburn-house", "casa-navarro"],
+};
+
 export const standaloneEvergreenStubs: Article[] = [
   rodeo101Stub,
   highSchoolFootballNewcomersStub,
   kolacheOrKlobasnekStub,
   orderingTexasBarbecueStub,
   sixFlagsOverTexasMeaningStub,
+  texasRevolutionHistoricSitesRoadTripStub,
+  texasFrontierFortsRoadTripStub,
+  presidentialTexasHistoricHomesStub,
 ];
 
 export async function loadStandaloneEvergreenArticle(brandId: string, slug: string): Promise<Article | null> {
@@ -70,5 +109,8 @@ export async function loadStandaloneEvergreenArticle(brandId: string, slug: stri
   if (slug === kolacheOrKlobasnekStub.slug) return import("./kolache-or-klobasnek").then((module) => module.kolacheOrKlobasnekArticle);
   if (slug === orderingTexasBarbecueStub.slug) return import("./ordering-texas-barbecue").then((module) => module.orderingTexasBarbecueArticle);
   if (slug === sixFlagsOverTexasMeaningStub.slug) return import("./six-flags-over-texas-meaning").then((module) => module.sixFlagsOverTexasMeaningArticle);
+  if (slug === texasRevolutionHistoricSitesRoadTripStub.slug) return import("./texas-revolution-historic-sites-road-trip").then((module) => module.texasRevolutionHistoricSitesRoadTripArticle);
+  if (slug === texasFrontierFortsRoadTripStub.slug) return import("./texas-frontier-forts-road-trip").then((module) => module.texasFrontierFortsRoadTripArticle);
+  if (slug === presidentialTexasHistoricHomesStub.slug) return import("./presidential-texas-historic-homes").then((module) => module.presidentialTexasHistoricHomesArticle);
   return null;
 }
