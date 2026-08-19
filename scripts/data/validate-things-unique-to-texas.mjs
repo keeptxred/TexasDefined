@@ -111,7 +111,7 @@ for (const path of ['/things-unique-to-texas', '/things-unique-to-texas/methodol
 }
 if (!trustRouter.includes('Collection structure, methodology and canonical-link policy reviewed August 19, 2026.')) failures.push('Magazine trust layer must retain an explicit collection review date.');
 
-for (const token of ['"@type": "Article"', '"@type": "WebPage"', '"@type": "ItemList"', '"@type": "BreadcrumbList"', 'publisher:', 'articleSection: "Things That Define Texas"', 'citation: sources.length', 'Source notes', 'Where the historical claims come from']) {
+for (const token of ['"@type": "Article"', '"@type": "WebPage"', '"@type": "ItemList"', '"@type": "BreadcrumbList"', 'publisher:', 'articleSection: isFoodHistoryChild ? "Texas Food History" : "Things That Define Texas"', 'citation: sources.length', 'Source notes', 'Where the historical claims come from']) {
   if (!evergreenComponent.includes(token)) failures.push(`Shared evergreen guide schema/source layer must retain token: ${token}.`);
 }
 for (const sourceUrl of [
