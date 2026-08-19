@@ -1,12 +1,31 @@
+import "@/data/painted-churches-expanded";
+import { additionalPaintedChurchProfileBySlug } from "@/data/painted-church-profiles-additional";
+import { additionalPaintedChurchResearchBySlug } from "@/data/painted-church-research-additional";
 import { paintedChurchResearchBySlug, schulenburgTourInfo } from "@/data/painted-church-research";
 import { statewidePaintedChurchResearchBySlug } from "@/data/painted-church-research-statewide";
 
 export function PaintedChurchResearchDossier({ slug, schulenburgCluster }: { slug: string; schulenburgCluster?: boolean }) {
-  const dossier = paintedChurchResearchBySlug(slug) ?? statewidePaintedChurchResearchBySlug(slug);
+  const dossier = paintedChurchResearchBySlug(slug) ?? statewidePaintedChurchResearchBySlug(slug) ?? additionalPaintedChurchResearchBySlug(slug);
+  const additionalProfile = additionalPaintedChurchProfileBySlug(slug);
   if (!dossier && !schulenburgCluster) return null;
 
   return (
     <>
+      {additionalProfile ? (
+        <section aria-labelledby="verified-profile" className="mt-14 border-t border-border pt-8">
+          <p className="eyebrow text-primary">Verified profile</p>
+          <h2 id="verified-profile" className="mt-3 font-display text-4xl">The church in documented facts</h2>
+          <p className="mt-5 max-w-3xl text-base leading-8 text-foreground/90">{additionalProfile.quickAnswer}</p>
+          <dl className="mt-8 grid gap-x-10 gap-y-6 border-y border-border py-7 sm:grid-cols-2">
+            {additionalProfile.foundedYear ? <div><dt className="eyebrow text-muted-foreground">Parish founded</dt><dd className="mt-2 text-sm leading-6">{additionalProfile.foundedYear}</dd></div> : null}
+            {additionalProfile.builtYear ? <div><dt className="eyebrow text-muted-foreground">Present church</dt><dd className="mt-2 text-sm leading-6">{additionalProfile.builtYear}</dd></div> : null}
+            {additionalProfile.architecture ? <div><dt className="eyebrow text-muted-foreground">Architecture</dt><dd className="mt-2 text-sm leading-6">{additionalProfile.architecture}</dd></div> : null}
+            {additionalProfile.heritage ? <div><dt className="eyebrow text-muted-foreground">Cultural background</dt><dd className="mt-2 text-sm leading-6">{additionalProfile.heritage}</dd></div> : null}
+            {additionalProfile.facts.map((fact) => <div key={`${fact.label}-${fact.value}`}><dt className="eyebrow text-muted-foreground">{fact.label}</dt><dd className="mt-2 text-sm leading-6">{fact.value}</dd></div>)}
+          </dl>
+        </section>
+      ) : null}
+
       {dossier ? (
         <section aria-labelledby="research-dossier" className="mt-14 border-t border-border pt-8">
           <p className="eyebrow text-primary">Research dossier</p>
