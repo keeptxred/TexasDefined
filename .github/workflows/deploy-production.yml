@@ -1,0 +1,61 @@
+name: Deploy TexasDefined production
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/**'
+      - 'public/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'wrangler.jsonc'
+      - 'vite.config.*'
+      - 'tsconfig*.json'
+      - '.github/workflows/deploy-production.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: texasdefined-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    environment: texasdefined-publication
+    env:
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Build production bundle
+        run: npm run build
+      - name: Enforce existing client bundle budget
+        run: npm run performance:validate
+      - name: Deploy TexasDefined Worker
+        run: npx wrangler deploy
+      - name: Verify production homepage
+        shell: bash
+        run: |
+          set -euo pipefail
+          origin='https://texasdefined.com'
+          out="$(mktemp)"
+          for attempt in 1 2 3 4 5 6; do
+            if curl --fail-with-body --silent --show-error --location --max-time 30 \
+              "${origin}/?verify=${GITHUB_SHA}-${GITHUB_RUN_ID}-${attempt}" -o "$out"; then
+              grep -Fq 'Texas Defined' "$out" && exit 0
+            fi
+            sleep 5
+          done
+          echo 'Production homepage verification failed after deploy.' >&2
+          exit 1
