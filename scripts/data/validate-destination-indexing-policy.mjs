@@ -107,6 +107,20 @@ for (const marker of [
   if (!availability.includes(marker)) failures.push(`Destination primary/duplicate policy missing: ${marker}`);
 }
 
+const aliasBlock = curationAll.match(/const CURATION_SLUG_ALIASES:[\s\S]*?= \{([\s\S]*?)\n\};/);
+if (!aliasBlock) {
+  failures.push('Could not parse CURATION_SLUG_ALIASES for duplicate-publication coverage.');
+} else {
+  const aliasKeys = [...aliasBlock[1].matchAll(/"([^"]+)"\s*:/g)].map((match) => match[1]);
+  const curationOnlyExceptions = new Set(['possum-kingdom-lake']);
+  for (const slug of aliasKeys) {
+    if (curationOnlyExceptions.has(slug)) continue;
+    if (!availability.includes(`"${slug}"`)) {
+      failures.push(`Known legacy/duplicate curation alias is still eligible as a primary destination: ${slug}`);
+    }
+  }
+}
+
 for (const marker of [
   'import { preservedExploreDestinations } from "./destination-preserved-catalog"',
   'filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved))',
@@ -221,4 +235,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Destination indexing policy passed: route metadata emits one consistent robots policy; live destination resolution/search and the Explore sitemap share one preserved catalog containing Top 25 attractions, legacy Explore destinations, legacy lakes and statewide historic sites before the same curation/readiness gate; duplicate units plus legacy Enchanted Rock and Palo Duro slugs stay consolidated with permanent 301 redirects; substantive-copy, hero, coordinate and official-source gates remain aligned; recorded review dates must be fresh; and reviewed curation overlays remain tracked separately from guaranteed local routes.');
+console.log('Destination indexing policy passed: route metadata emits one consistent robots policy; live destination resolution/search and the Explore sitemap share one preserved catalog containing Top 25 attractions, legacy Explore destinations, legacy lakes and statewide historic sites before the same curation/readiness gate; all known legacy curation aliases except explicitly documented curation-only adapters are non-primary; legacy Enchanted Rock and Palo Duro slugs consolidate with permanent 301 redirects; substantive-copy, hero, coordinate and official-source gates remain aligned; recorded review dates must be fresh; and reviewed curation overlays remain tracked separately from guaranteed local routes.');
