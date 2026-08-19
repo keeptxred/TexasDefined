@@ -8,6 +8,7 @@ const newsIndex = fs.readFileSync('src/routes/news.index.tsx', 'utf8');
 const newsStory = fs.readFileSync('src/routes/news.$slug.tsx', 'utf8');
 const articleRoute = fs.readFileSync('src/routes/article.$slug.tsx', 'utf8');
 const lazyEvergreen = fs.readFileSync('src/data/fixtures/lazy-evergreen.ts', 'utf8');
+const specialDistricts = fs.readFileSync('src/data/fixtures/muds-pids-hoas-special-districts.ts', 'utf8');
 const lazyMigratedEditorial = fs.readFileSync('src/data/fixtures/lazy-migrated-editorial.ts', 'utf8');
 const financeEvergreenDepth = fs.readFileSync('src/data/fixtures/finance-evergreen-depth.ts', 'utf8');
 const entityRoute = fs.readFileSync('src/routes/$kind.$slug.tsx', 'utf8');
@@ -60,6 +61,20 @@ if (!sitemap.includes('...articles.filter((article) => !isLegacyCountySeriesArti
 for (const slug of ['muds-pids-hoas-special-districts-texas', 'texas-towns-german-czech-mexican-roots']) {
   if (!lazyEvergreen.includes(`slug: "${slug}"`)) failures.push(`GSC evergreen indexing candidate is missing from the lazy article registry: ${slug}`);
 }
+for (const marker of [
+  'https://www.tceq.texas.gov/agency/subjects-of-interest/utilities/municipal-utility-districts',
+  'https://comptroller.texas.gov/transparency/local/sb625/lookup.php',
+  'https://statutes.capitol.texas.gov/Docs/LG/htm/LG.372.htm',
+  'https://statutes.capitol.texas.gov/Docs/PR/htm/PR.209.htm',
+  'TCEQ municipal utility district resources',
+  'Texas special purpose district database',
+  'Texas Local Government Code Chapter 372',
+  'Texas Residential Property Owners Protection Act',
+  'href: "/learn/mud-taxes-explained"',
+  'href: "/learn/property-taxes"',
+]) {
+  if (!specialDistricts.includes(marker)) failures.push(`Special-district evergreen authority/discovery contract missing: ${marker}`);
+}
 const migratedFinanceEvergreens = [
   'texas-closing-costs-guide',
   'texas-utility-costs-guide',
@@ -82,29 +97,17 @@ for (const marker of [
 }
 
 if (!entityRoute.includes('isIndexableEntityPage')) failures.push('Generic entity indexation gate missing: isIndexableEntityPage.');
-if (!entityRoute.includes('robots: indexable ? undefined :') || !entityRoute.includes('noindex, follow')) {
-  failures.push('Generic entity pages must emit a noindex directive when the quality gate fails.');
-}
+if (!entityRoute.includes('robots: indexable ? undefined :') || !entityRoute.includes('noindex, follow')) failures.push('Generic entity pages must emit a noindex directive when the quality gate fails.');
 if (!countyRoute.includes('isCountyPropertyIndexReady')) failures.push('County indexation gate missing: isCountyPropertyIndexReady.');
-if (!countyRoute.includes('robots: indexReady ? undefined :') || !countyRoute.includes('noindex, follow')) {
-  failures.push('County pages must emit a noindex directive when the quality gate fails.');
-}
-for (const feature of ['graph.filter(isIndexableEntityPage)', 'COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady)']) {
-  if (!sitemap.includes(feature)) failures.push(`Primary sitemap quality gate missing: ${feature}`);
-}
-for (const feature of ['isPrimaryTripPlannerDestination(destination)', 'auditDestination(destination).readyForIndexing']) {
-  if (!exploreSitemap.includes(feature)) failures.push(`Explore sitemap destination quality gate missing: ${feature}`);
-}
-if (!sitemap.includes('.filter((path) => !isExploreSitemapOwnedPath(path))')) {
-  failures.push('Primary sitemap must exclude Explore-owned static paths.');
-}
-if (!exploreSitemap.includes('!isExploreSitemapOwnedPath(normalized)')) {
-  failures.push('Explore sitemap must reject paths outside its owned crawl namespace.');
-}
+if (!countyRoute.includes('robots: indexReady ? undefined :') || !countyRoute.includes('noindex, follow')) failures.push('County pages must emit a noindex directive when the quality gate fails.');
+for (const feature of ['graph.filter(isIndexableEntityPage)', 'COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady)']) if (!sitemap.includes(feature)) failures.push(`Primary sitemap quality gate missing: ${feature}`);
+for (const feature of ['isPrimaryTripPlannerDestination(destination)', 'auditDestination(destination).readyForIndexing']) if (!exploreSitemap.includes(feature)) failures.push(`Explore sitemap destination quality gate missing: ${feature}`);
+if (!sitemap.includes('.filter((path) => !isExploreSitemapOwnedPath(path))')) failures.push('Primary sitemap must exclude Explore-owned static paths.');
+if (!exploreSitemap.includes('!isExploreSitemapOwnedPath(normalized)')) failures.push('Explore sitemap must reject paths outside its owned crawl namespace.');
 
 if (failures.length) {
   console.error('Indexation quality validation failed:');
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
-console.log('Indexation quality validation passed: conditional hubs, routed-news canonical isolation, loaded evergreen article canonicals/indexability and sitemap publication, parsed migrated finance evergreen deep-content routing, noindex utilities, redirects, generated-page quality gates, and sitemap ownership are aligned.');
+console.log('Indexation quality validation passed: conditional hubs, routed-news canonical isolation, loaded evergreen article canonicals/indexability and sitemap publication, primary-source-backed special-district evergreen authority, parsed migrated finance evergreen deep-content routing, noindex utilities, redirects, generated-page quality gates, and sitemap ownership are aligned.');
