@@ -6,6 +6,7 @@ const failures = [];
 const lazyMigrated = read('src/data/fixtures/lazy-migrated-editorial.ts');
 const financeDepth1 = read('src/data/fixtures/finance-evergreen-depth.ts');
 const financeDepth2 = read('src/data/fixtures/finance-evergreen-depth-2.ts');
+const relocationDepth = read('src/data/fixtures/relocation-evergreen-depth.ts');
 const lazyCore = read('src/data/fixtures/lazy-texas-core-articles.ts');
 const danceHall = read('src/data/fixtures/texas-dance-hall-preservation.ts');
 const hurricane = read('src/data/fixtures/texas-hurricane-preparation-guide.ts');
@@ -73,6 +74,28 @@ for (const path of [
   if (!financialHub.includes(path)) failures.push(`Money & Property recovery link missing ${path}.`);
 }
 
+const relocationSet = lazyMigrated.match(/const relocationDepthSlugSet = new Set\(\[([\s\S]*?)\n\]\);/)?.[1] ?? '';
+if (!relocationSet) failures.push('Could not parse relocationDepthSlugSet.');
+for (const slug of ['moving-to-austin-guide', 'moving-to-dallas-fort-worth-guide']) {
+  if (!lazyMigrated.includes(`slug: "${slug}"`)) failures.push(`Relocation recovery slug missing from lightweight catalog: ${slug}.`);
+  if (!relocationSet.includes(`"${slug}"`)) failures.push(`Relocation recovery slug missing from deep-loader set: ${slug}.`);
+  if (!relocationDepth.includes(`slug: "${slug}"`)) failures.push(`Relocation recovery deep body missing: ${slug}.`);
+}
+for (const marker of [
+  'await import("./relocation-evergreen-depth")',
+  'relocationEvergreenDepthArticles.find((article) => article.slug === slug)',
+]) if (!lazyMigrated.includes(marker)) failures.push(`Relocation lazy-loading recovery contract missing ${marker}.`);
+for (const marker of [
+  'https://www.austintexas.gov/services/pay-utility-bill',
+  'https://www.austintexas.gov/water/rates-and-fees',
+  'https://www.capmetro.org/',
+  'https://www.ntta.org/plan-your-trip',
+  'https://www.dart.org/about/about-dart/about-dart/dart-service-area',
+  'https://www.dart.org/guide/transit-and-use/dart-schedules-and-maps',
+  'href: "/find-my-school-district"',
+  'href: "/browse/counties"',
+]) if (!relocationDepth.includes(marker)) failures.push(`Relocation recovery authority/discovery marker missing ${marker}.`);
+
 if (!lazyPractical.includes('slug: "texas-hurricane-preparation-homeowners-renters"')) failures.push('Hurricane recovery stub missing from lazy practical catalog.');
 for (const marker of [
   'https://tdem.texas.gov/prepare',
@@ -114,4 +137,4 @@ if (failures.length) {
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
-console.log('GSC evergreen recovery passed: six finance guides retain deep lazy bodies and primary sources, hurricane and football retain authoritative guidance, dance-hall survival remains a distinct preservation article, and shared article canonical/sitemap discovery remains intact.');
+console.log('GSC evergreen recovery passed: six finance guides and two relocation guides retain deep lazy bodies and primary sources, hurricane and football retain authoritative guidance, dance-hall survival remains a distinct preservation article, and shared article canonical/sitemap discovery remains intact.');
