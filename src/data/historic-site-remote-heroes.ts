@@ -15,6 +15,11 @@ export const historicSiteRemoteHeroes: Record<string, ImageRef> = {
     alt: "Caddo mound at Caddo Mounds State Historic Site near Alto, Texas",
     width: 802, height: 538, credit: "N. Saum · CC BY-SA 3.0 · Wikimedia Commons",
   },
+  "casa-navarro": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Casa_Navarro_State_Historic_Site_in_2009.jpg",
+    alt: "Casa Navarro State Historic Site in San Antonio, Texas",
+    width: 500, height: 333, credit: "TxHC · CC BY-SA 3.0 · Wikimedia Commons",
+  },
   "eisenhower-birthplace": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/2022_03_26_Eisenhour_Birth_Place%2C_Denison%2C_TX_%2828%29.jpg?width=1600",
     alt: "Eisenhower Birthplace State Historic Site in Denison, Texas",
@@ -60,6 +65,11 @@ export const historicSiteRemoteHeroes: Record<string, ImageRef> = {
     alt: "Charles and Mary Ann Goodnight Ranch House near Goodnight, Texas",
     width: 1600, height: 1200, credit: "Pi3.124 · CC BY-SA 4.0 · Wikimedia Commons",
   },
+  "iwo-jima-museum-monument": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Iwo_Jima_Monument_Mold_in_Harlingen%2C_TX.jpg?width=1600",
+    alt: "Iwo Jima monument mold in Harlingen, Texas",
+    width: 1600, height: 1200, credit: "John Bowles · CC BY-SA 4.0 · Wikimedia Commons",
+  },
   "landmark-inn": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Landmark_inn_2010.jpg?width=1600",
     alt: "Landmark Inn State Historic Site in Castroville, Texas",
@@ -79,6 +89,11 @@ export const historicSiteRemoteHeroes: Record<string, ImageRef> = {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Mission_Nuestra_Senora_de_los_Dolores_de_los_Ais_Site_%281_of_1%29.jpg?width=1600",
     alt: "Mission Nuestra Señora de los Dolores de los Ais site in San Augustine, Texas",
     width: 1600, height: 1067, credit: "Renelibrary · CC BY-SA 4.0 · Wikimedia Commons",
+  },
+  "national-museum-pacific-war": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Fredericksburg_July_2017_7_%28Admiral_Nimitz_Museum%29.jpg?width=1600",
+    alt: "Admiral Nimitz Museum, part of the National Museum of the Pacific War in Fredericksburg, Texas",
+    width: 1600, height: 1067, credit: "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons",
   },
   "old-socorro-mission": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Socorro_Mission%2C_Mission_Trail%2C_El_Paso%2C_Texas_%282b1d2a78-155d-451f-679e-7d70fee5ef0f%29.jpg",
@@ -104,6 +119,21 @@ export const historicSiteRemoteHeroes: Record<string, ImageRef> = {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/S._B._MAXEY_HOUSE.jpg?width=1600",
     alt: "Sam Bell Maxey House State Historic Site in Paris, Texas",
     width: 1600, height: 1053, credit: "Jerrye & Roy Klotz MD · CC BY-SA 3.0 · Wikimedia Commons",
+  },
+  "sam-rayburn-house": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Sam_Rayburn_House%2C_Bonham%2C_Texas_Historical_Marker_%287551799838%29.jpg?width=1600",
+    alt: "Sam Rayburn House in Bonham, Texas",
+    width: 1600, height: 1067, credit: "Nicolas Henderson · CC BY 2.0 · Wikimedia Commons",
+  },
+  "san-felipe-de-austin": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/San_felipe_de_austin_shs_cabin_2007.jpg?width=1600",
+    alt: "Replica log cabin at San Felipe de Austin State Historic Site in Texas",
+    width: 1600, height: 1067, credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons",
+  },
+  "star-of-the-republic-museum": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Star_of_the_Republic_Museum_entrance_IMG_9271.JPG?width=1600",
+    alt: "Entrance to the Star of the Republic Museum at Washington-on-the-Brazos, Texas",
+    width: 1600, height: 985, credit: "Reading Associate 17 · CC BY 4.0 · Wikimedia Commons",
   },
   "starr-family-home": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Starr_Family_Home%2C_Marshall%2C_Texas_%287190040914%29.jpg?width=1600",
