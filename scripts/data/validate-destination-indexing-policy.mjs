@@ -10,6 +10,7 @@ const destinationRuntime = read('src/data/destination-query-runtime.ts');
 const curationAll = read('src/data/destination-curation-all.ts');
 const waterCuration = read('src/data/destination-curation-batch45.ts');
 const museumCuration = read('src/data/destination-curation-batch49.ts');
+const batch52Curation = read('src/data/destination-curation-batch52.ts');
 const coreFallbacks = read('src/data/destination-curation-batch53.ts');
 const queryImplementation = `${queries}\n${destinationRuntime}`;
 const failures = [];
@@ -136,6 +137,25 @@ for (const slug of reviewedMuseumCurationSlugs) {
 for (const marker of ['const CHECKED', 'officialUrl:', 'sourceCheckedAt:CHECKED']) {
   if (!museumCuration.includes(marker)) failures.push(`Reviewed museum curation provenance contract missing: ${marker}`);
 }
+
+const reviewedBatch52Slugs = [
+  'fort-richardson-state-park-state-historic-site',
+  'hancock-springs-park',
+  'lipantitlan-state-historic-site',
+];
+for (const slug of reviewedBatch52Slugs) {
+  if (!batch52Curation.includes(`"${slug}"`)) failures.push(`Reviewed batch 52 curation missing destination key: ${slug}`);
+}
+for (const marker of [
+  'const CHECKED = "2026-08-19"',
+  'sourceCheckedAt: CHECKED',
+  'Texas Historical Commission',
+  'https://thc.texas.gov/historic-sites/lipantitlan',
+  'https://lampasas.org/367/Hancock-Springs-Park',
+  'https://tpwd.texas.gov/state-parks/fort-richardson/',
+]) {
+  if (!batch52Curation.includes(marker)) failures.push(`Reviewed batch 52 provenance/current-authority contract missing: ${marker}`);
+}
 for (const marker of [
   'officialUrl:',
   'sourceCheckedAt: CHECKED',
@@ -161,4 +181,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Destination indexing policy passed: route metadata emits one consistent robots policy; Explore sitemap merges remote sources, falls back to curated fixtures when remote data is unavailable or empty, resolves curation/heroes/quality before indexing, and preserves the same primary/readiness gate; query publication uses the same resolution concepts behind a lazy runtime boundary; duplicate units stay consolidated; substantive-copy, hero, coordinate and official-source gates remain aligned; recorded review dates must be fresh; live fallback destinations retain explicit current-source provenance; and reviewed water and museum curation overlays are tracked separately from guaranteed local routes.');
+console.log('Destination indexing policy passed: route metadata emits one consistent robots policy; Explore sitemap merges remote sources, falls back to curated fixtures when remote data is unavailable or empty, resolves curation/heroes/quality before indexing, and preserves the same primary/readiness gate; query publication uses the same resolution concepts behind a lazy runtime boundary; duplicate units stay consolidated; substantive-copy, hero, coordinate and official-source gates remain aligned; recorded review dates must be fresh; live fallback destinations retain explicit current-source provenance; and reviewed water, museum, and batch 52 curation overlays are tracked separately from guaranteed local routes.');
