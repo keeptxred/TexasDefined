@@ -1,6 +1,7 @@
 import { finalPaintedChurchProfileBySlug } from "./painted-church-profiles-final";
 import { paintedChurchExtendedProfileBySlug } from "./painted-church-profiles-extended";
 import { paintedChurchExpansionProfileBySlug } from "./painted-church-profiles-expansion";
+import { latestPaintedChurchProfileBySlug } from "./painted-church-profiles-latest";
 import { paintedChurchStatewideProfileBySlug } from "./painted-church-profiles-statewide";
 import { paintedChurchProfileBySlug } from "./painted-church-profiles";
 import { paintedChurchAdditionProfileBySlug } from "./painted-church-profiles-additions";
@@ -13,5 +14,6 @@ export function canonicalPaintedChurchProfileBySlug(slug: string) {
     ?? paintedChurchStatewideProfileBySlug(slug)
     ?? finalPaintedChurchProfileBySlug(slug)
     ?? paintedChurchAdditionProfileBySlug(slug)
-    ?? paintedChurchExpansionProfileBySlug(slug);
+    ?? paintedChurchExpansionProfileBySlug(slug)
+    ?? latestPaintedChurchProfileBySlug(slug);
 }
