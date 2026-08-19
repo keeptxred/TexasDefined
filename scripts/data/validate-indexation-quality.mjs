@@ -8,6 +8,8 @@ const newsIndex = fs.readFileSync('src/routes/news.index.tsx', 'utf8');
 const newsStory = fs.readFileSync('src/routes/news.$slug.tsx', 'utf8');
 const articleRoute = fs.readFileSync('src/routes/article.$slug.tsx', 'utf8');
 const lazyEvergreen = fs.readFileSync('src/data/fixtures/lazy-evergreen.ts', 'utf8');
+const lazyMigratedEditorial = fs.readFileSync('src/data/fixtures/lazy-migrated-editorial.ts', 'utf8');
+const financeEvergreenDepth = fs.readFileSync('src/data/fixtures/finance-evergreen-depth.ts', 'utf8');
 const entityRoute = fs.readFileSync('src/routes/$kind.$slug.tsx', 'utf8');
 const countyRoute = fs.readFileSync('src/routes/property-tax.county.$county.tsx', 'utf8');
 const failures = [];
@@ -58,6 +60,24 @@ if (!sitemap.includes('...articles.filter((article) => !isLegacyCountySeriesArti
 for (const slug of ['muds-pids-hoas-special-districts-texas', 'texas-towns-german-czech-mexican-roots']) {
   if (!lazyEvergreen.includes(`slug: "${slug}"`)) failures.push(`GSC evergreen indexing candidate is missing from the lazy article registry: ${slug}`);
 }
+const migratedFinanceEvergreens = [
+  'texas-closing-costs-guide',
+  'texas-utility-costs-guide',
+  'salary-needed-to-buy-a-house-in-texas',
+];
+for (const slug of migratedFinanceEvergreens) {
+  if (!lazyMigratedEditorial.includes(`slug: "${slug}"`)) failures.push(`Migrated finance evergreen is missing from the lazy article registry: ${slug}`);
+  if (!lazyMigratedEditorial.includes(`"${slug}"`)) failures.push(`Migrated finance evergreen is missing from the deep-content routing set: ${slug}`);
+  if (!financeEvergreenDepth.includes(`slug: "${slug}"`)) failures.push(`Migrated finance evergreen deep article is missing: ${slug}`);
+}
+for (const marker of [
+  'const financeDepthSlugSet = new Set([',
+  'if (financeDepthSlugSet.has(slug))',
+  'await import("./finance-evergreen-depth")',
+  'financeEvergreenDepthArticles.find((article) => article.slug === slug)',
+]) {
+  if (!lazyMigratedEditorial.includes(marker)) failures.push(`Finance evergreen deep-loader contract missing: ${marker}`);
+}
 
 if (!entityRoute.includes('isIndexableEntityPage')) failures.push('Generic entity indexation gate missing: isIndexableEntityPage.');
 if (!entityRoute.includes('robots: indexable ? undefined :') || !entityRoute.includes('noindex, follow')) {
@@ -85,4 +105,4 @@ if (failures.length) {
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
-console.log('Indexation quality validation passed: conditional hubs, routed-news canonical isolation, loaded evergreen article canonicals/indexability and sitemap publication, noindex utilities, redirects, generated-page quality gates, and sitemap ownership are aligned.');
+console.log('Indexation quality validation passed: conditional hubs, routed-news canonical isolation, loaded evergreen article canonicals/indexability and sitemap publication, migrated finance evergreen deep-content routing, noindex utilities, redirects, generated-page quality gates, and sitemap ownership are aligned.');
