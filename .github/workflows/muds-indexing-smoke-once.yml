@@ -1,0 +1,59 @@
+name: MUD PID article indexing smoke once
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/muds-indexing-smoke-once.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: muds-indexing-smoke-once-main
+  cancel-in-progress: true
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Verify MUD PID article indexing live
+        shell: bash
+        run: |
+          set -euo pipefail
+          origin='https://texasdefined.com'
+          path='/article/muds-pids-hoas-special-districts-texas'
+          ready=0
+          for attempt in $(seq 1 30); do
+            status="$(curl --max-time 45 -sS -o /tmp/article.html -w '%{http_code}' "$origin$path" || true)"
+            if [ "$status" = '200' ] && grep -Fq 'MUDs, PIDs, HOAs and Special Districts' /tmp/article.html; then
+              ready=1
+              break
+            fi
+            sleep 10
+          done
+          test "$ready" = '1' || { echo 'Article did not become available.' >&2; exit 1; }
+          if grep -Eiq '<meta[^>]+name=["'"']robots["'"'][^>]+content=["'"'][^"'"']*noindex' /tmp/article.html; then
+            echo 'Article unexpectedly noindex.' >&2
+            exit 1
+          fi
+          canonical_count="$(grep -oF '<link rel="canonical" href="https://texasdefined.com/article/muds-pids-hoas-special-districts-texas"' /tmp/article.html | wc -l | tr -d ' ')"
+          test "$canonical_count" = '1' || { echo "Expected one self canonical, found $canonical_count" >&2; exit 1; }
+          curl --retry 5 --retry-all-errors --retry-delay 2 --max-time 45 -fsSL "$origin/sitemap.xml" -o /tmp/sitemap.xml
+          grep -Fq "$origin$path" /tmp/sitemap.xml || { echo 'Article missing from sitemap.xml' >&2; exit 1; }
+          echo 'MUD/PID article indexing smoke passed.'
+
+      - name: Record passing live verification
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          checked_sha="$(git rev-parse HEAD)"
+          git pull --rebase origin main
+          printf '%s\n' "MUD/PID article live indexing smoke passed for ${checked_sha} from workflow run ${GITHUB_RUN_ID}." > .github/muds-indexing-smoke-passed.txt
+          git add .github/muds-indexing-smoke-passed.txt
+          git commit -m 'Record MUD PID indexing smoke pass'
+          git push origin HEAD:main
