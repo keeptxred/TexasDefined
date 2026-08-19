@@ -6,11 +6,13 @@ const dataPath = 'src/data/texas-evergreen-guides-batch6.ts';
 const linksPath = 'src/data/things-unique-to-texas-links.ts';
 const hubPath = 'src/routes/things-unique-to-texas.lazy.tsx';
 const categoryPath = 'src/routes/things-unique-to-texas.$category.lazy.tsx';
+const texasLifePath = 'src/routes/texas-living.tsx';
+const llmsPath = 'src/routes/llms[.]txt.ts';
 const publicRoutesPath = 'src/lib/public-routes.ts';
 const citationPath = 'public/citation-magnets.json';
 const smokePath = '.github/workflows/things-unique-to-texas-production-smoke.yml';
 
-for (const file of [routePath, dataPath, linksPath, hubPath, categoryPath, publicRoutesPath, citationPath, smokePath]) {
+for (const file of [routePath, dataPath, linksPath, hubPath, categoryPath, texasLifePath, llmsPath, publicRoutesPath, citationPath, smokePath]) {
   if (!fs.existsSync(file)) failures.push(`Missing Texas weather authority file: ${file}.`);
 }
 
@@ -19,6 +21,8 @@ const data = fs.existsSync(dataPath) ? fs.readFileSync(dataPath, 'utf8') : '';
 const links = fs.existsSync(linksPath) ? fs.readFileSync(linksPath, 'utf8') : '';
 const hub = fs.existsSync(hubPath) ? fs.readFileSync(hubPath, 'utf8') : '';
 const category = fs.existsSync(categoryPath) ? fs.readFileSync(categoryPath, 'utf8') : '';
+const texasLife = fs.existsSync(texasLifePath) ? fs.readFileSync(texasLifePath, 'utf8') : '';
+const llms = fs.existsSync(llmsPath) ? fs.readFileSync(llmsPath, 'utf8') : '';
 const publicRoutes = fs.existsSync(publicRoutesPath) ? fs.readFileSync(publicRoutesPath, 'utf8') : '';
 const smoke = fs.existsSync(smokePath) ? fs.readFileSync(smokePath, 'utf8') : '';
 
@@ -49,6 +53,8 @@ for (const id of [233, 234, 235]) {
 }
 if (!hub.includes('to="/texas-blue-norther-weather-guide"')) failures.push('Things That Define Texas hub must link the Texas weather guide.');
 if (!category.includes('{ href: "/texas-blue-norther-weather-guide", label: "Texas Blue Northers & Spring Storms"')) failures.push('Slang/Folklore chapter must feature the Texas weather guide.');
+if (!texasLife.includes("['/texas-blue-norther-weather-guide', 'Texas Blue Northers & Spring Storms'")) failures.push('Texas Life must retain an inbound link to the Texas weather guide.');
+if (!llms.includes('https://texasdefined.com/texas-blue-norther-weather-guide')) failures.push('llms.txt must advertise the Texas weather guide.');
 if (!publicRoutes.includes('"/texas-blue-norther-weather-guide"')) failures.push('Texas weather guide must remain governed as an indexable public route.');
 
 let citation;
@@ -72,7 +78,7 @@ for (const token of [
   "check_page '/texas-blue-norther-weather-guide'",
   'test "$json_deep_links" -ge 89',
   'test "$csv_deep_links" -ge 89',
-  'Topical/evergreen authority routes checked: 22',
+  'Topical/evergreen authority routes checked: 23',
   'at least 89 deeper-guide relationships',
 ]) {
   if (!smoke.includes(token)) failures.push(`Texas weather production smoke contract missing: ${token}`);
@@ -84,4 +90,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Texas weather authority validation passed: sourced weather-language guide, three icon mappings, public discovery, citation trust and 89-link production smoke are protected.');
+console.log('Texas weather authority validation passed: sourced weather-language guide, three icon mappings, Texas Life and machine discovery, citation trust and 89-link/23-route production smoke are protected.');
