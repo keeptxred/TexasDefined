@@ -1,7 +1,8 @@
+import { extraPaintedChurchGalleryBySlug } from "@/data/painted-church-gallery-extra";
 import { paintedChurchGalleryBySlug } from "@/data/painted-church-gallery";
 
 export function PaintedChurchGallery({ slug }: { slug: string }) {
-  const images = paintedChurchGalleryBySlug(slug);
+  const images = [...paintedChurchGalleryBySlug(slug), ...extraPaintedChurchGalleryBySlug(slug)];
   if (!images.length) return null;
 
   return (
