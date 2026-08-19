@@ -1,7 +1,8 @@
-import { isDestinationPhotoPlaceholder } from "./explore-hero-reconciliation";
 import { topAttractionDestinations } from "./destination-curation-top-attractions";
+import { isDestinationPhotoPlaceholder } from "./explore-hero-reconciliation";
 import { legacyExploreDestinations } from "./fixtures/legacy-explore";
 import { legacyLakeDestinations } from "./fixtures/legacy-lakes";
+import { historicSiteDestinations } from "./historic-sites";
 import type { Destination } from "./types";
 
 function mergePreservedDestinations(...groups: Destination[][]): Destination[] {
@@ -33,4 +34,5 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   topAttractionDestinations,
   legacyExploreDestinations,
   legacyLakeDestinations,
+  historicSiteDestinations,
 );
