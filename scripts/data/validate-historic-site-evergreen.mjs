@@ -10,36 +10,12 @@ const runtime = fs.readFileSync('src/data/destination-query-runtime.ts', 'utf8')
 const failures = [];
 
 const guides = [
-  {
-    slug: 'texas-revolution-historic-sites-road-trip',
-    path: 'src/data/fixtures/texas-revolution-historic-sites-road-trip.ts',
-    exportName: 'texasRevolutionHistoricSitesRoadTripArticle',
-    destinations: ['san-felipe-de-austin', 'washington-on-the-brazos', 'fannin-battleground', 'presidio-la-bahia', 'san-jacinto-battleground'],
-  },
-  {
-    slug: 'texas-frontier-forts-road-trip',
-    path: 'src/data/fixtures/texas-frontier-forts-road-trip.ts',
-    exportName: 'texasFrontierFortsRoadTripArticle',
-    destinations: ['fort-martin-scott', 'fort-griffin', 'fort-mckavett', 'fort-lancaster'],
-  },
-  {
-    slug: 'presidential-texas-historic-homes',
-    path: 'src/data/fixtures/presidential-texas-historic-homes.ts',
-    exportName: 'presidentialTexasHistoricHomesArticle',
-    destinations: ['eisenhower-birthplace', 'bush-family-home', 'sam-rayburn-house', 'casa-navarro'],
-  },
-  {
-    slug: 'brazoria-plantations-slavery-emancipation-history',
-    path: 'src/data/fixtures/brazoria-plantations-slavery-emancipation-history.ts',
-    exportName: 'brazoriaPlantationsSlaveryEmancipationHistoryArticle',
-    destinations: ['levi-jordan-plantation', 'varner-hogg-plantation', 'first-capitol-of-texas', 'stephen-f-austin-memorial'],
-  },
-  {
-    slug: 'texas-borderlands-historic-sites-guide',
-    path: 'src/data/fixtures/texas-borderlands-historic-sites-guide.ts',
-    exportName: 'texasBorderlandsHistoricSitesGuideArticle',
-    destinations: ['old-socorro-mission', 'magoffin-home', 'casa-navarro', 'lipantitlan', 'mission-dolores'],
-  },
+  { slug: 'texas-revolution-historic-sites-road-trip', path: 'src/data/fixtures/texas-revolution-historic-sites-road-trip.ts', exportName: 'texasRevolutionHistoricSitesRoadTripArticle', destinations: ['san-felipe-de-austin', 'washington-on-the-brazos', 'fannin-battleground', 'presidio-la-bahia', 'san-jacinto-battleground'] },
+  { slug: 'texas-frontier-forts-road-trip', path: 'src/data/fixtures/texas-frontier-forts-road-trip.ts', exportName: 'texasFrontierFortsRoadTripArticle', destinations: ['fort-martin-scott', 'fort-griffin', 'fort-mckavett', 'fort-lancaster'] },
+  { slug: 'presidential-texas-historic-homes', path: 'src/data/fixtures/presidential-texas-historic-homes.ts', exportName: 'presidentialTexasHistoricHomesArticle', destinations: ['eisenhower-birthplace', 'bush-family-home', 'sam-rayburn-house', 'casa-navarro'] },
+  { slug: 'brazoria-plantations-slavery-emancipation-history', path: 'src/data/fixtures/brazoria-plantations-slavery-emancipation-history.ts', exportName: 'brazoriaPlantationsSlaveryEmancipationHistoryArticle', destinations: ['levi-jordan-plantation', 'varner-hogg-plantation', 'first-capitol-of-texas', 'stephen-f-austin-memorial'] },
+  { slug: 'texas-borderlands-historic-sites-guide', path: 'src/data/fixtures/texas-borderlands-historic-sites-guide.ts', exportName: 'texasBorderlandsHistoricSitesGuideArticle', destinations: ['old-socorro-mission', 'magoffin-home', 'casa-navarro', 'lipantitlan', 'mission-dolores'] },
+  { slug: 'texas-world-war-ii-historic-sites-guide', path: 'src/data/fixtures/texas-world-war-ii-historic-sites-guide.ts', exportName: 'texasWorldWarIIHistoricSitesGuideArticle', destinations: ['eisenhower-birthplace', 'national-museum-pacific-war', 'iwo-jima-museum-monument', 'slaton-harvey-house'] },
 ];
 
 const seedBlock = historicSites.match(/export const historicSiteSeeds:[\s\S]*?= \[([\s\S]*?)\n\];/);
@@ -55,50 +31,28 @@ for (const guide of guides) {
   if (!source.includes('sourceName: "Texas Historical Commission"')) failures.push(`Historic evergreen guide lacks THC source identity: ${guide.slug}.`);
   if (!source.includes('sourceUrl: "https://thc.texas.gov/historic-sites"')) failures.push(`Historic evergreen guide lacks canonical THC historic-sites source: ${guide.slug}.`);
   if (!source.includes('relatedDestinations: [')) failures.push(`Historic evergreen guide lacks related destination discovery: ${guide.slug}.`);
-
   const paragraphCount = (source.match(/\bp\("/g) ?? []).length;
   const headingCount = (source.match(/\bh\("/g) ?? []).length;
   if (paragraphCount < 14) failures.push(`Historic evergreen guide is too thin (${paragraphCount} paragraphs): ${guide.slug}.`);
   if (headingCount < 6) failures.push(`Historic evergreen guide lacks section depth (${headingCount} headings): ${guide.slug}.`);
-
   for (const destination of guide.destinations) {
     if (!seedSlugs.includes(destination)) failures.push(`Historic evergreen guide validator references non-seed destination ${destination} in ${guide.slug}.`);
     if (!source.includes(destination)) failures.push(`Historic evergreen guide does not link required destination ${destination}: ${guide.slug}.`);
   }
-
   if (!lazy.includes(`slug: "${guide.slug}"`)) failures.push(`Historic evergreen stub is not registered: ${guide.slug}.`);
   if (!lazy.includes(`import("./${guide.path.split('/').pop().replace('.ts', '')}")`)) failures.push(`Historic evergreen full article is not lazy-loaded: ${guide.slug}.`);
   if (!lazy.includes(guide.exportName)) failures.push(`Historic evergreen lazy loader export mismatch: ${guide.slug}.`);
-
   const href = `/article/${guide.slug}`;
   if (!reciprocal.includes(`href: "${href}"`)) failures.push(`Historic destination reciprocal route guide link is missing: ${href}.`);
   if (!historyHub.includes(`slug: "${guide.slug}"`)) failures.push(`Historic evergreen guide is not explicitly featured on the Texas History hub: ${guide.slug}.`);
 }
 
-const reciprocalSlugSets = [...reciprocal.matchAll(/slugs:\s*new Set\(\[([\s\S]*?)\]\)/g)]
-  .flatMap((match) => [...match[1].matchAll(/"([^"]+)"/g)].map((slugMatch) => slugMatch[1]));
+const reciprocalSlugSets = [...reciprocal.matchAll(/slugs:\s*new Set\(\[([\s\S]*?)\]\)/g)].flatMap((match) => [...match[1].matchAll(/"([^"]+)"/g)].map((slugMatch) => slugMatch[1]));
 for (const slug of reciprocalSlugSets) if (!seedSlugs.includes(slug)) failures.push(`Historic reciprocal guide link references non-seed destination: ${slug}.`);
+for (const marker of ['import { enrichHistoricSiteEvergreenLinks } from "./historic-site-evergreen-links";', 'enrichHistoricSiteEvergreenLinks(', '.map(enrichHistoricSiteEvergreenLinks)']) if (!runtime.includes(marker)) failures.push(`Historic destination runtime is missing reciprocal evergreen enrichment: ${marker}`);
+for (const marker of ['standaloneEvergreenStubs', '...standaloneEvergreenStubs', 'loadStandaloneEvergreenArticle']) if (!repositories.includes(marker)) failures.push(`Historic evergreen repository discovery contract missing: ${marker}.`);
+for (const marker of ['platform.articles.list(scope)', 'articles.filter((article) => !isLegacyCountySeriesArticle(article.slug)).map((article) => ({ path: `/article/${article.slug}`']) if (!sitemap.includes(marker)) failures.push(`Historic evergreen sitemap discovery contract missing: ${marker}.`);
+for (const marker of ['historicAuthorityGuides', 'Plan history by story', 'Six routes into the statewide collection']) if (!historyHub.includes(marker)) failures.push(`Texas History hub authority-guide presentation contract missing: ${marker}.`);
 
-for (const marker of [
-  'import { enrichHistoricSiteEvergreenLinks } from "./historic-site-evergreen-links";',
-  'enrichHistoricSiteEvergreenLinks(',
-  '.map(enrichHistoricSiteEvergreenLinks)',
-]) if (!runtime.includes(marker)) failures.push(`Historic destination runtime is missing reciprocal evergreen enrichment: ${marker}`);
-
-for (const marker of ['standaloneEvergreenStubs', '...standaloneEvergreenStubs', 'loadStandaloneEvergreenArticle']) {
-  if (!repositories.includes(marker)) failures.push(`Historic evergreen repository discovery contract missing: ${marker}.`);
-}
-for (const marker of ['platform.articles.list(scope)', 'articles.filter((article) => !isLegacyCountySeriesArticle(article.slug)).map((article) => ({ path: `/article/${article.slug}`']) {
-  if (!sitemap.includes(marker)) failures.push(`Historic evergreen sitemap discovery contract missing: ${marker}.`);
-}
-for (const marker of ['historicAuthorityGuides', 'Plan history by story', 'Five routes into the statewide collection']) {
-  if (!historyHub.includes(marker)) failures.push(`Texas History hub authority-guide presentation contract missing: ${marker}.`);
-}
-
-if (failures.length) {
-  console.error('Historic-site evergreen validation failed:');
-  for (const failure of failures) console.error(`- ${failure}`);
-  process.exit(1);
-}
-
+if (failures.length) { console.error('Historic-site evergreen validation failed:'); for (const failure of failures) console.error(`- ${failure}`); process.exit(1); }
 console.log(`Historic-site evergreen validation passed: ${guides.length} lazy-loaded Texas-history guides retain substantive depth, THC sourcing, verified destination links, reciprocal route-guide discovery, explicit Texas History hub visibility, repository listing and canonical article-sitemap publication.`);
