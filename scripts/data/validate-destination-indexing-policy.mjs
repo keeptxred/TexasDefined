@@ -8,7 +8,7 @@ const availability = read('src/data/destination-availability.ts');
 const queries = read('src/data/queries.ts');
 const destinationRuntime = read('src/data/destination-query-runtime.ts');
 const curationAll = read('src/data/destination-curation-all.ts');
-const waterFallbacks = read('src/data/destination-curation-batch45.ts');
+const waterCuration = read('src/data/destination-curation-batch45.ts');
 const coreFallbacks = read('src/data/destination-curation-batch53.ts');
 const queryImplementation = `${queries}\n${destinationRuntime}`;
 const failures = [];
@@ -94,29 +94,31 @@ for (const marker of [
   if (!curationAll.includes(marker)) failures.push(`Verified fallback destination curation wiring missing: ${marker}`);
 }
 
-const verifiedFallbackSlugs = [
-  'caddo-lake',
-  'possums-kingdom-lake',
-  'lake-travis',
-  'lake-conroe',
-  'toledo-bend-reservoir',
-  'guadalupe-river',
+const liveFallbackSlugs = [
   'enchanted-rock',
   'palo-duro-canyon',
   'blue-hole-wimberley',
   'big-bend-chisos-basin',
   'gruene-historic-district',
 ];
-for (const slug of verifiedFallbackSlugs) {
-  const source = waterFallbacks.includes(`"${slug}"`) ? waterFallbacks : coreFallbacks;
-  if (!source.includes(`"${slug}"`)) failures.push(`Verified fallback curation missing destination: ${slug}`);
-  if (!source.includes('const CHECKED')) failures.push(`Verified fallback curation is missing an explicit review-date constant for ${slug}.`);
+for (const slug of liveFallbackSlugs) {
+  if (!coreFallbacks.includes(`"${slug}"`)) failures.push(`Verified live fallback curation missing destination: ${slug}`);
+  if (!coreFallbacks.includes('const CHECKED')) failures.push(`Verified live fallback curation is missing an explicit review-date constant for ${slug}.`);
 }
-for (const marker of [
-  'officialUrl:',
-  'sourceCheckedAt:CHECKED',
-]) {
-  if (!waterFallbacks.includes(marker)) failures.push(`Water fallback provenance contract missing: ${marker}`);
+
+const reviewedWaterCurationSlugs = [
+  'caddo-lake',
+  'possums-kingdom-lake',
+  'lake-travis',
+  'lake-conroe',
+  'toledo-bend-reservoir',
+  'guadalupe-river',
+];
+for (const slug of reviewedWaterCurationSlugs) {
+  if (!waterCuration.includes(`"${slug}"`)) failures.push(`Reviewed water curation missing destination key: ${slug}`);
+}
+for (const marker of ['const CHECKED', 'officialUrl:', 'sourceCheckedAt:CHECKED']) {
+  if (!waterCuration.includes(marker)) failures.push(`Reviewed water curation provenance contract missing: ${marker}`);
 }
 for (const marker of [
   'officialUrl:',
@@ -143,4 +145,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Destination indexing policy passed: route metadata emits one consistent robots policy; Explore sitemap merges remote sources, falls back to curated fixtures when remote data is unavailable or empty, resolves curation/heroes/quality before indexing, and preserves the same primary/readiness gate; query publication uses the same resolution concepts behind a lazy runtime boundary; duplicate units stay consolidated; substantive-copy, hero, coordinate and official-source gates remain aligned; recorded review dates must be fresh; and the base fallback destination set retains explicit current-source provenance.');
+console.log('Destination indexing policy passed: route metadata emits one consistent robots policy; Explore sitemap merges remote sources, falls back to curated fixtures when remote data is unavailable or empty, resolves curation/heroes/quality before indexing, and preserves the same primary/readiness gate; query publication uses the same resolution concepts behind a lazy runtime boundary; duplicate units stay consolidated; substantive-copy, hero, coordinate and official-source gates remain aligned; recorded review dates must be fresh; live fallback destinations retain explicit current-source provenance; and reviewed water curation overlays are tracked separately from guaranteed local routes.');
