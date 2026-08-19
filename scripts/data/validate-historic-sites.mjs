@@ -38,6 +38,7 @@ const verifiedRemoteHeroes = [
   ['bush-family-home', 'CC BY-SA 3.0'],
   ['caddo-mounds-state-historic-site', 'CC BY-SA 3.0'],
   ['casa-navarro', 'CC BY-SA 3.0'],
+  ['confederate-reunion-grounds', 'CC BY-SA 3.0'],
   ['eisenhower-birthplace', 'CC BY 2.0'],
   ['fannin-battleground', 'Public domain'],
   ['first-capitol-of-texas', 'no known copyright restrictions'],
