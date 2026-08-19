@@ -51,9 +51,11 @@ for (const marker of [
   'code: "hero-placeholder"',
   'code: "coordinates"',
   'const SOURCE_MAX_AGE_DAYS = 730',
-  'function sourceReviewIsFresh(value?: string)',
+  'function sourceReviewIsFresh(value: string)',
   'code: "official-source", severity: "error"',
   'destination-specific HTTPS official visitor-information source before indexing',
+  'code: "source-review-missing", severity: "warning"',
+  'does not yet record when that source was reviewed',
   'code: "source-freshness", severity: "error"',
   'sourceReviewIsFresh(destination.sourceCheckedAt)',
   'readyForIndexing: errors === 0 && score >= 76',
@@ -98,4 +100,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Destination indexing policy passed: route metadata emits one consistent robots policy; Explore sitemap merges remote sources, falls back to curated fixtures when remote data is unavailable or empty, resolves curation/heroes/quality before indexing, and preserves the same primary/readiness gate; query publication uses the same resolution concepts behind a lazy runtime boundary; duplicate units stay consolidated; substantive-copy, hero, coordinate, official-source and source-freshness gates remain aligned.');
+console.log('Destination indexing policy passed: route metadata emits one consistent robots policy; Explore sitemap merges remote sources, falls back to curated fixtures when remote data is unavailable or empty, resolves curation/heroes/quality before indexing, and preserves the same primary/readiness gate; query publication uses the same resolution concepts behind a lazy runtime boundary; duplicate units stay consolidated; substantive-copy, hero, coordinate and official-source gates remain aligned; recorded review dates must be fresh while older curated records without dates stay visibly flagged for explicit recheck.');
