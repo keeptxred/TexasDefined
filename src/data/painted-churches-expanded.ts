@@ -142,6 +142,22 @@ export const additionalVerifiedPaintedChurches: PaintedChurch[] = [
     secondarySourceUrl: "https://saintstans.org/",
     sourceCheckedAt: CHECKED,
   },
+  {
+    slug: "castroville-st-louis-catholic-church",
+    name: "St. Louis Catholic Church",
+    shortName: "St. Louis at Castroville",
+    city: "Castroville",
+    county: "Medina",
+    address: "610 Madrid Street, Castroville, TX 78009",
+    denomination: "Roman Catholic",
+    summary: "An 1870 limestone Gothic Revival church at the heart of Castroville's Alsatian Catholic community, with a church-documented painted interior and independent decorative-painting research in the Buie Harwood archive.",
+    significance: "The active parish publishes its own painted-interior imagery, the Harwood archive includes St. Louis in Texas decorative-painting field research, and the Texas Historical Commission records the church as a 1970 Recorded Texas Historic Landmark. Texas Defined classifies it in the broader historic Painted Churches tradition rather than the formal 1983 decorative-interior group.",
+    visitNote: "St. Louis remains an active Castroville parish. Verify current Mass, confession and event schedules before sightseeing; worship takes priority over touring.",
+    sourceUrl: "https://www.stlouiscastroville.com/copy-of-about-us",
+    secondarySourceUrl: "https://atlas.thc.texas.gov/Details/5325005051",
+    sourceCheckedAt: CHECKED,
+    recordedTexasHistoricLandmark: true,
+  },
 ];
 
 const imageOverrides: Partial<Record<string, NonNullable<PaintedChurch["image"]>>> = {
@@ -201,6 +217,7 @@ const metadata: Record<string, Pick<CanonicalPaintedChurch, "interiorIntegrity" 
   "corpus-christi-sacred-heart-catholic-church": { interiorIntegrity: "largely-original", culturalHeritage: ["Mexican American Catholic", "South Texas regionalist art"], techniques: ["freehand", "decorative-murals"] },
   "san-antonio-st-joseph-catholic-church": { interiorIntegrity: "restored-original-scheme", culturalHeritage: ["German Catholic"], techniques: ["freehand", "decorative-murals"] },
   "anderson-st-stanislaus-kostka": { interiorIntegrity: "restored-original-scheme", culturalHeritage: ["Polish Catholic"], techniques: ["freehand", "decorative-murals"] },
+  "castroville-st-louis-catholic-church": { interiorIntegrity: "uncertain", culturalHeritage: ["Alsatian Catholic", "French-German frontier Catholic"], techniques: ["decorative-murals"] },
 };
 
 const combined = [
