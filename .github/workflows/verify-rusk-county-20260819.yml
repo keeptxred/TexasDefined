@@ -15,7 +15,7 @@ jobs:
     timeout-minutes: 30
     environment: texasdefined-publication
     env:
-      TARGET_SHA: c8c739afdcc38825f9c9b3a2a0d6ed948b824701
+      TARGET_SHA: dc1d0417612b56b17b75f8e101017bfa6ac0f419
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       HERO_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Rusk_County_Courthouse%2C_Henderson%2C_TX_IMG_2967.JPG?width=1600
