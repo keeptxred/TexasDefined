@@ -3,6 +3,7 @@ import fs from 'node:fs';
 const seeds = fs.readFileSync('src/data/historic-sites.ts', 'utf8');
 const primary = fs.readFileSync('src/data/historic-site-enrichment.ts', 'utf8');
 const extra = fs.readFileSync('src/data/historic-site-area-guides-extra.ts', 'utf8');
+const remoteHeroes = fs.readFileSync('src/data/historic-site-remote-heroes.ts', 'utf8');
 const runtime = fs.readFileSync('src/data/destination-query-runtime.ts', 'utf8');
 const preserved = fs.readFileSync('src/data/destination-preserved-catalog.ts', 'utf8');
 const history = fs.readFileSync('src/routes/texas-history.tsx', 'utf8');
@@ -34,7 +35,8 @@ for (const marker of [
   'enrichHistoricSiteCatalog',
   'enrichHistoricSiteDestination',
   'enrichRemainingHistoricSiteAreaGuide',
-  'enrichHistoricSiteCatalog(curated).map(enrichRemainingHistoricSiteAreaGuide)',
+  'enrichHistoricSiteRemoteHero',
+  'enrichHistoricSiteCatalog(curated).map(enrichRemainingHistoricSiteAreaGuide).map(enrichHistoricSiteRemoteHero)',
 ]) if (!runtime.includes(marker)) failures.push(`Historic-site runtime enrichment contract missing: ${marker}`);
 
 for (const marker of [
@@ -60,10 +62,22 @@ const exactHeroAliases = [
 ];
 for (const slug of exactHeroAliases) if (!primary.includes(`"${slug}"`)) failures.push(`Expected exact historic hero alias is missing: ${slug}.`);
 
+const verifiedRemoteHeroes = [
+  ['eisenhower-birthplace', 'CC BY 2.0'],
+  ['fort-mckavett', 'CC0'],
+  ['french-legation', 'CC BY 4.0'],
+  ['fulton-mansion', 'CC BY 4.0'],
+];
+for (const [slug, license] of verifiedRemoteHeroes) {
+  if (!remoteHeroes.includes(`"${slug}"`)) failures.push(`Verified historic remote hero is missing: ${slug}.`);
+  if (!remoteHeroes.includes(license)) failures.push(`Verified historic remote hero license marker is missing: ${slug} (${license}).`);
+}
+if (!remoteHeroes.includes('enrichHistoricSiteRemoteHero')) failures.push('Verified historic remote heroes are not exposed through the runtime enrichment function.');
+
 if (failures.length) {
   console.error('Historic-sites validation failed:');
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log(`Historic-sites validation passed: ${seedSlugs.length} statewide seeds, ${guideSlugs.size} destination-specific area guides, six exact existing hero aliases, shared preserved-catalog publication, Texas History discovery and county cross-links are protected.`);
+console.log(`Historic-sites validation passed: ${seedSlugs.length} statewide seeds, ${guideSlugs.size} destination-specific area guides, ${exactHeroAliases.length + verifiedRemoteHeroes.length} exact verified hero mappings, shared preserved-catalog publication, Texas History discovery and county cross-links are protected.`);
