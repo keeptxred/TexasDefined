@@ -1,7 +1,7 @@
-import { paintedChurches } from "./painted-churches";
+import { expandedPaintedChurches } from "./painted-churches-expanded";
 import type { SearchDocument } from "./types";
 
-export const paintedChurchSearchDocuments: SearchDocument[] = paintedChurches.map((church) => {
+export const paintedChurchSearchDocuments: SearchDocument[] = expandedPaintedChurches.map((church) => {
   const keywords = [
     "painted church",
     "painted churches",
