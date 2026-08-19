@@ -40,10 +40,12 @@ const supportLinksByPillar: Record<string, Array<{ href: string; label: string; 
   "texas-wildflowers-guide": [
     { href: "/article/texas-ecoregions-habitats-guide", label: "Texas ecoregions explained", description: "See how rainfall, soils and habitat regions change the wildflower calendar across the state." },
     { href: "/article/texas-prairies-grasslands-guide", label: "Texas prairies and grasslands", description: "Understand the open native habitats behind many of the state's best-known wildflowers." },
+    { href: "/things-unique-to-texas/wildlife-landscape", label: "Texas wildlife, plants & geography", description: "Connect wildflowers with the broader collection of Texas animals, trees, landscapes and regional natural icons." },
   ],
   "texas-trees-guide": [
     { href: "/article/texas-ecoregions-habitats-guide", label: "The habitat map behind Texas trees", description: "Connect pine, oak, mesquite and juniper communities to the state's major natural regions." },
     { href: "/article/texas-prairies-grasslands-guide", label: "Where Texas is naturally open", description: "Compare wooded regions with prairie systems and the forces that keep grasslands open." },
+    { href: "/things-unique-to-texas/wildlife-landscape", label: "Texas wildlife, plants & geography", description: "Move from individual tree species into the larger set of landscapes, animals and plants that define Texas." },
   ],
   "texas-home-architecture-regions": [
     { href: "/article/texas-courthouse-architecture-guide", label: "Compare Texas civic architecture", description: "See how public buildings reflect era, materials and regional identity alongside residential architecture." },
@@ -58,6 +60,7 @@ const supportLinksByPillar: Record<string, Array<{ href: string; label: string; 
   "texas-wildlife-guide": [
     { href: "/article/texas-ecoregions-habitats-guide", label: "Why Texas wildlife changes by region", description: "Use the ecoregion map to understand the habitat systems behind the state's wildlife distribution." },
     { href: "/article/texas-prairies-grasslands-guide", label: "Wildlife of open Texas", description: "See why native grassland structure matters to birds, pollinators and grazing wildlife." },
+    { href: "/things-unique-to-texas/wildlife-landscape", label: "Texas wildlife, plants & geography", description: "Browse the statewide icon collection that connects horned lizards, cranes, ocelots, javelinas and other species to Texas identity." },
   ],
   "texas-cultural-regions-explained": [
     { href: "/article/texas-settlement-patterns-explained", label: "Texas settlement patterns explained", description: "Trace how water, farming, ranching, county seats, railroads and highways created the communities behind regional culture." },
@@ -66,6 +69,7 @@ const supportLinksByPillar: Record<string, Array<{ href: string; label: string; 
     { href: "/san-antonio-puffy-taco-history", label: "San Antonio puffy tacos", description: "See how one West Side food tradition became a citywide symbol through Mexican American and Tex-Mex culture." },
     { href: "/barbacoa-big-red-san-antonio", label: "Barbacoa & Big Red in San Antonio", description: "Follow a Sunday family ritual where an older barbacoa tradition met a later Waco-born soda and became local shorthand." },
     { href: "/texas-ranch-water-guide", label: "Texas Ranch Water", description: "Use the disputed cocktail origin story to see how regional folklore, Austin restaurant culture and Texas adoption overlap." },
+    { href: "/things-unique-to-texas/culture-music", label: "Texas cultural traditions & music", description: "Connect regional settlement and migration history to music, dance halls, school rituals, Juneteenth and other living traditions." },
   ],
   "texas-barbecue-styles-explained": [
     { href: "/texas-food-history", label: "Texas Food History", description: "Place barbecue inside the larger story of cattle, migration, border foodways, immigrant communities and Texas-born brands." },
@@ -74,6 +78,14 @@ const supportLinksByPillar: Record<string, Array<{ href: string; label: string; 
   "kolache-or-klobasnek-texas-story": [
     { href: "/texas-food-history", label: "Texas Food History", description: "Connect Czech-Texan pastries with the wider history of migration, adaptation and regional food identity." },
     { href: "/german-czech-texas-towns", label: "German & Czech Texas towns", description: "Follow the pastry tradition back to the communities, churches, dance halls and festivals that kept it visible." },
+  ],
+  "caddo-lake-cypress-morning": [
+    { href: "/things-unique-to-texas/natural-wonders", label: "Texas natural wonders & parks", description: "Put Caddo Lake's cypress-and-bayou landscape beside the desert mountains, canyons, springs, coast and other places that define the state's geography." },
+    { href: "/texas-natural-wonders-bucket-list", label: "Texas Natural Wonders Bucket List", description: "Compare Caddo Lake with eleven other landscapes chosen to show the range of Texas terrain and ecosystems." },
+  ],
+  "galveston-county-island-port-juneteenth-texas": [
+    { href: "/things-unique-to-texas/culture-music", label: "Texas cultural traditions & music", description: "Connect Galveston's Juneteenth history with the broader collection of Texas traditions, celebrations, music and community rituals." },
+    { href: "/texas-history", label: "Texas history", description: "Continue from Juneteenth into the people, places and turning points that shaped the state." },
   ],
 };
 
