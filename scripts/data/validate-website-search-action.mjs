@@ -8,6 +8,8 @@ const siteSearchLazy = fs.readFileSync(path.join(root, 'src/routes/search.lazy.t
 const siteSearchRoute = `${siteSearchShell}\n${siteSearchLazy}`;
 const exploreSearchRoute = fs.readFileSync(path.join(root, 'src/routes/explore.search.tsx'), 'utf8');
 const queries = fs.readFileSync(path.join(root, 'src/data/queries.ts'), 'utf8');
+const destinationRuntime = fs.readFileSync(path.join(root, 'src/data/destination-query-runtime.ts'), 'utf8');
+const searchImplementation = `${queries}\n${destinationRuntime}`;
 const errors = [];
 
 if (!rootRoute.includes('"@type": "SearchAction"')) errors.push('WebSite schema is missing SearchAction.');
@@ -19,6 +21,7 @@ if (!siteSearchRoute.includes('name="q"')) errors.push('Site-wide search form do
 if (!siteSearchRoute.includes('canonicalPath: "/search"')) errors.push('Site-wide search does not consolidate query variants to its canonical route.');
 if (!siteSearchRoute.includes('robots: "noindex, follow"')) errors.push('Site-wide search results are not protected from indexing.');
 if (!siteSearchShell.includes('searchDocumentsQuery()')) errors.push('Site-wide search no longer preloads the publication corpus from its route loader.');
+if (!siteSearchShell.includes('await import("@/data/queries")')) errors.push('Site-wide search route shell must dynamically load the publication query module.');
 if (siteSearchRoute.includes('fetchExploreDestinations')) errors.push('Site-wide search route must not bypass the resolved destination search index with a raw Explore fetch.');
 for (const feature of [
   'fetchExploreDestinations({ limit: 5000 })',
@@ -28,8 +31,9 @@ for (const feature of [
   'if (!destinations.length) return nonDestinationDocuments',
   'destinations.map(destinationSearchDocument)',
 ]) {
-  if (!queries.includes(feature)) errors.push(`Gated destination search-index feature missing: ${feature}`);
+  if (!searchImplementation.includes(feature)) errors.push(`Gated destination search-index feature missing: ${feature}`);
 }
+if (!queries.includes('await import("./destination-query-runtime")')) errors.push('Heavy destination search resolution must stay behind the dynamic runtime boundary.');
 if (!exploreSearchRoute.includes('robots: "noindex, follow"')) errors.push('Destination-only search results are not protected from indexing.');
 
 if (errors.length) {
@@ -38,4 +42,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('WebSite SearchAction, lazy site-search UI, noindex search surfaces, and resolved publication-gated destination search indexing passed validation.');
+console.log('WebSite SearchAction, lazy site-search UI, noindex search surfaces, and resolved publication-gated destination search indexing behind the runtime split passed validation.');
