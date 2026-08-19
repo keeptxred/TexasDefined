@@ -69,6 +69,13 @@ for (const routePath of redirects) {
   }
   if (!/\bredirect\s*\(/.test(routeEntry.source)) failures.push(`Redirect-only route does not call redirect(): ${routePath} (${routeEntry.file}).`);
   if (!routeEntry.source.includes('statusCode: 301')) failures.push(`Redirect-only route must use permanent status 301: ${routePath} (${routeEntry.file}).`);
+
+  const escaped = routePath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const linkedLiteral = new RegExp(`(?:href|to)\\s*(?:=|:)\\s*["'\\\`]${escaped}(?:[?#][^"'\\\`]*)?["'\\\`]`);
+  for (const [file, source] of sourceByFile.entries()) {
+    if (file === routeEntry.file) continue;
+    if (linkedLiteral.test(source)) failures.push(`Normal site content links to redirect-only route ${routePath}: ${file}. Link directly to its canonical target instead.`);
+  }
 }
 
 const redirectContracts = [
@@ -107,4 +114,4 @@ for (const routePath of [...indexable, ...conditional]) {
   if (conditional.includes(routePath) && !/noindex/i.test(routeSource)) failures.push(`Conditional route does not expose an explicit noindex state: ${routePath} (${routeFile}).`);
 }
 if (failures.length) { console.error('Public-route governance validation failed:'); for (const failure of failures) console.error(`- ${failure}`); process.exit(1); }
-console.log(`Public-route governance passed for ${registeredStaticPublicPaths.size} static routes, ${indexable.length} always-indexable routes, ${conditional.length} conditional routes, and ${redirects.length} permanent redirect-only routes.`);
+console.log(`Public-route governance passed for ${registeredStaticPublicPaths.size} static routes, ${indexable.length} always-indexable routes, ${conditional.length} conditional routes, and ${redirects.length} permanent redirect-only routes; normal site content does not link back into redirect-only URLs.`);
