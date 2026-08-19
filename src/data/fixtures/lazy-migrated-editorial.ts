@@ -82,12 +82,21 @@ const financeDepthSlugSet = new Set([
   "texas-utility-costs-guide",
   "salary-needed-to-buy-a-house-in-texas",
 ]);
+const financeDepth2SlugSet = new Set([
+  "texas-house-down-payment-guide",
+  "should-you-refinance-texas-mortgage",
+  "texas-homeowners-insurance-guide",
+]);
 
 export async function loadMigratedEditorialArticle(brandId: string, slug: string): Promise<Article | null> {
   if (brandId !== "texasdefined" || !migratedSlugSet.has(slug)) return null;
   if (financeDepthSlugSet.has(slug)) {
     const { financeEvergreenDepthArticles } = await import("./finance-evergreen-depth");
     return financeEvergreenDepthArticles.find((article) => article.slug === slug) ?? null;
+  }
+  if (financeDepth2SlugSet.has(slug)) {
+    const { financeEvergreenDepth2Articles } = await import("./finance-evergreen-depth-2");
+    return financeEvergreenDepth2Articles.find((article) => article.slug === slug) ?? null;
   }
   const { migratedEditorialArticles } = await import("./migrated-editorial");
   return migratedEditorialArticles.find((article) => article.slug === slug) ?? null;
