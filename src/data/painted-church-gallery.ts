@@ -92,6 +92,42 @@ const gallery: Record<string, PaintedChurchGalleryImage[]> = {
       license: "CC BY 2.0",
     },
   ],
+  "wallis-guardian-angel": [
+    {
+      src: commons("Church of the guardian angel 2008.jpg"),
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Church_of_the_guardian_angel_2008.jpg",
+      alt: "Church of the Guardian Angel in Wallis, Texas",
+      caption: "Guardian Angel at Wallis, one of the formal National Register decorative-interior churches.",
+      width: 1750,
+      height: 1568,
+      credit: "Larry D. Moore · Wikimedia Commons",
+      license: "CC BY 4.0",
+    },
+  ],
+  "wesley-brethren-church": [
+    {
+      src: commons("Wesley brethren church 2013.jpg"),
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Wesley_brethren_church_2013.jpg",
+      alt: "Wesley Brethren Church in Wesley, Texas",
+      caption: "The rural Wesley Brethren Church, whose interior demonstrates that Texas decorative church painting was not limited to Catholic congregations.",
+      width: 2505,
+      height: 2004,
+      credit: "Larry D. Moore · Wikimedia Commons",
+      license: "CC BY 4.0",
+    },
+  ],
+  "amarillo-first-baptist-church": [
+    {
+      src: commons("Amarillo texas - first baptist church of amarillo.jpg"),
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Amarillo_texas_-_first_baptist_church_of_amarillo.jpg",
+      alt: "Historic First Baptist Church building in Amarillo, Texas",
+      caption: "The historic First Baptist Church property in Amarillo, representing the Panhandle in Texas's decorative-interior church record.",
+      width: 1000,
+      height: 1151,
+      credit: "Who What Where Nguyen Why · Wikimedia Commons",
+      license: "CC BY-SA 3.0 / GFDL",
+    },
+  ],
   "shiner-saints-cyril-methodius": [
     {
       src: commons("Saints Cyril and Methodius Church.JPG"),
@@ -137,6 +173,18 @@ const gallery: Record<string, PaintedChurchGalleryImage[]> = {
       width: 1936,
       height: 2592,
       credit: "Pete unseth · Wikimedia Commons",
+      license: "CC BY-SA 4.0",
+    },
+  ],
+  "palestine-sacred-heart-catholic-church": [
+    {
+      src: commons("Sacred Heart Church, Anderson County, Palestine, Texas.jpg"),
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Sacred_Heart_Church,_Anderson_County,_Palestine,_Texas.jpg",
+      alt: "Sacred Heart Catholic Church in Palestine, Texas",
+      caption: "Sacred Heart in Palestine, a Gothic Revival church with documented mural and decorative-interior evidence in Texas archival collections.",
+      width: 5568,
+      height: 3712,
+      credit: "Christialine · Wikimedia Commons",
       license: "CC BY-SA 4.0",
     },
   ],
