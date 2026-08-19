@@ -107,4 +107,5 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   profile("eastland", "eastland-county-eastland-cisco-ranger-oil-cross-timbers-texas", () => import("@/data/fixtures/eastland-county-eastland-cisco-ranger-oil-cross-timbers").then((module) => module.eastlandCountyEastlandCiscoRangerOilCrossTimbersArticle)),
   profile("palo-pinto", "palo-pinto-county-mineral-wells-possum-kingdom-brazos-cross-timbers-texas", () => import("@/data/fixtures/palo-pinto-county-mineral-wells-possum-kingdom-brazos-cross-timbers").then((module) => module.paloPintoCountyMineralWellsPossumKingdomBrazosCrossTimbersArticle)),
   profile("hood", "hood-county-granbury-lake-brazos-acton-cross-timbers-texas", () => import("@/data/fixtures/hood-county-granbury-lake-brazos-acton-cross-timbers").then((module) => module.hoodCountyGranburyLakeBrazosActonCrossTimbersArticle)),
+  profile("somervell", "somervell-county-glen-rose-dinosaur-valley-paluxy-brazos-texas", () => import("@/data/fixtures/somervell-county-glen-rose-dinosaur-valley-paluxy-brazos").then((module) => module.somervellCountyGlenRoseDinosaurValleyPaluxyBrazosArticle)),
 ];
