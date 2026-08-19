@@ -21,6 +21,7 @@ const fishingHub = read('src/components/fishing/FishingHub.tsx');
 const sportsQuickAnswers = read('src/components/sports/SportsVenueQuickAnswers.tsx');
 const countyIdentity = read('src/components/content/CountyIdentitySection.tsx');
 const guidesPage = read('src/routes/guides.tsx');
+const texasLiving = read('src/routes/texas-living.tsx');
 const exploreSitemap = read('src/routes/sitemap-explore[.]xml.ts');
 
 for (const path of ['/property', '/explore/trip-planner']) {
@@ -110,6 +111,18 @@ for (const marker of [
   if (!dataIndex.includes(marker)) failures.push(`Finance evergreen → calculator discovery contract is missing ${marker}.`);
 }
 
+for (const marker of [
+  'const financeGuides = [',
+  '/article/texas-utility-costs-guide',
+  '/article/texas-closing-costs-guide',
+  '/article/salary-needed-to-buy-a-house-in-texas',
+  'eyebrow="Money decisions"',
+  'financeGuides.map',
+  'const financeItems = financeGuides.map',
+]) {
+  if (!texasLiving.includes(marker)) failures.push(`Texas Life → finance evergreen discovery contract is missing ${marker}.`);
+}
+
 for (const token of ['to="/explore/$category"', '/explore/trip-planner?destination=', 'to="/explore"', 'to="/browse/cities"']) {
   if (!destinationPlanner.includes(token)) failures.push(`Destination planning pathways are missing ${token}.`);
 }
@@ -172,4 +185,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Internal-link discovery pathways, sitewide Start Here resources link, Texas Explained links from Texas Life, county profiles, Guidebook, destination pages, fishing and sports venues, calculator hub inbound/outbound discovery, reciprocal finance evergreen/calculator clusters, priority calculator indexing depth, structured calculator collection links and Explore sitemap coverage are protected.');
+console.log('Internal-link discovery pathways, sitewide Start Here resources link, Texas Explained links from Texas Life, county profiles, Guidebook, destination pages, fishing and sports venues, calculator hub inbound/outbound discovery, reciprocal finance evergreen/calculator clusters, direct Texas Life finance evergreen discovery, priority calculator indexing depth, structured calculator collection links and Explore sitemap coverage are protected.');
