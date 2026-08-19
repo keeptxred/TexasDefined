@@ -24,6 +24,8 @@ const DEEP_DIVE_ICON_LINKS: Readonly<Record<number, string>> = {
   44: "/texas-brand-origin-stories",
   45: "/texas-brand-origin-stories",
   60: "/article/caddo-lake-cypress-morning",
+  129: "/texas-roadside-oddities",
+  137: "/texas-roadside-oddities",
   166: "/texas-dance-halls-honky-tonks",
   167: "/texas-dance-halls-honky-tonks",
   173: "/texas-chili-con-carne-history",
