@@ -51,6 +51,24 @@ const requiredDiscoveryTargets = [
   '/explore/region/piney-woods',
   '/explore/region/prairies-lakes',
   '/explore/region/south-texas',
+  '/things-unique-to-texas',
+  '/things-unique-to-texas/methodology',
+  '/texas-food-history',
+  '/texas-food-trail',
+  '/texas-ranch-water-guide',
+  '/san-antonio-puffy-taco-history',
+  '/barbacoa-big-red-san-antonio',
+  '/texas-chili-con-carne-history',
+  '/texas-chicken-fried-steak-guide',
+  '/texas-breakfast-taco-guide',
+  '/texas-brand-origin-stories',
+  '/dr-pepper-texas-history',
+  '/texas-roadside-oddities',
+  '/texas-slang-explained',
+  '/texas-dance-halls-honky-tonks',
+  '/texas-homecoming-mums',
+  '/texas-natural-wonders-bucket-list',
+  '/german-czech-texas-towns',
   '/sports',
   '/sports-venues',
   '/sports-venues/dallas-fort-worth',
@@ -136,7 +154,16 @@ if (citationIndex) {
   for (const url of [
     'https://texasdefined.com/things-unique-to-texas',
     'https://texasdefined.com/things-unique-to-texas/methodology',
+    'https://texasdefined.com/texas-food-history',
     'https://texasdefined.com/texas-food-trail',
+    'https://texasdefined.com/texas-ranch-water-guide',
+    'https://texasdefined.com/san-antonio-puffy-taco-history',
+    'https://texasdefined.com/barbacoa-big-red-san-antonio',
+    'https://texasdefined.com/texas-chili-con-carne-history',
+    'https://texasdefined.com/texas-chicken-fried-steak-guide',
+    'https://texasdefined.com/texas-breakfast-taco-guide',
+    'https://texasdefined.com/texas-brand-origin-stories',
+    'https://texasdefined.com/dr-pepper-texas-history',
     'https://texasdefined.com/texas-roadside-oddities',
     'https://texasdefined.com/texas-slang-explained',
     'https://texasdefined.com/texas-dance-halls-honky-tonks',
@@ -236,4 +263,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('TexasDefined machine endpoints, provenance, current sports identity/schema, human and machine citation resources, robots policy, AI discovery guidance, and core Organization/WebSite/Article schema contracts are protected.');
+console.log(`TexasDefined machine endpoints, provenance, ${requiredDiscoveryTargets.length} llms.txt discovery targets, Texas culture citation resources, current sports identity/schema, robots policy, and core Organization/WebSite/Article schema contracts are protected.`);
