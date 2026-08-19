@@ -49,4 +49,10 @@ export const COUNTY_SERIES_PROFILES_CONTINUED: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/madison-county-madisonville-midway-north-zulch-trinity-navasota")
       .then((module) => module.madisonCountyMadisonvilleMidwayNorthZulchTrinityNavasotaArticle),
   },
+  {
+    countySlug: "grimes",
+    articleSlug: "grimes-county-anderson-navasota-fanthorp-railroads-texas",
+    loadArticle: () => import("@/data/fixtures/grimes-county-anderson-navasota-fanthorp-railroads-texas")
+      .then((module) => module.grimesCountyAndersonNavasotaFanthorpRailroadsArticle),
+  },
 ];
