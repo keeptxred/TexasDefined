@@ -105,4 +105,5 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   profile("erath", "erath-county-stephenville-dublin-tarleton-cross-timbers-texas", () => import("@/data/fixtures/erath-county-stephenville-dublin-tarleton-cross-timbers").then((module) => module.erathCountyStephenvilleDublinTarletonCrossTimbersArticle)),
   profile("comanche", "comanche-county-comanche-de-leon-proctor-lake-cross-timbers-texas", () => import("@/data/fixtures/comanche-county-comanche-de-leon-proctor-lake-cross-timbers").then((module) => module.comancheCountyComancheDeLeonProctorLakeCrossTimbersArticle)),
   profile("eastland", "eastland-county-eastland-cisco-ranger-oil-cross-timbers-texas", () => import("@/data/fixtures/eastland-county-eastland-cisco-ranger-oil-cross-timbers").then((module) => module.eastlandCountyEastlandCiscoRangerOilCrossTimbersArticle)),
+  profile("palo-pinto", "palo-pinto-county-mineral-wells-possum-kingdom-brazos-cross-timbers-texas", () => import("@/data/fixtures/palo-pinto-county-mineral-wells-possum-kingdom-brazos-cross-timbers").then((module) => module.paloPintoCountyMineralWellsPossumKingdomBrazosCrossTimbersArticle)),
 ];
