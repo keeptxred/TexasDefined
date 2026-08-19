@@ -25,6 +25,12 @@ const guides = [
     exportName: 'presidentialTexasHistoricHomesArticle',
     destinations: ['eisenhower-birthplace', 'bush-family-home', 'sam-rayburn-house', 'casa-navarro'],
   },
+  {
+    slug: 'brazoria-plantations-slavery-emancipation-history',
+    path: 'src/data/fixtures/brazoria-plantations-slavery-emancipation-history.ts',
+    exportName: 'brazoriaPlantationsSlaveryEmancipationHistoryArticle',
+    destinations: ['levi-jordan-plantation', 'varner-hogg-plantation', 'first-capitol-of-texas', 'stephen-f-austin-memorial'],
+  },
 ];
 
 const seedBlock = historicSites.match(/export const historicSiteSeeds:[\s\S]*?= \[([\s\S]*?)\n\];/);
