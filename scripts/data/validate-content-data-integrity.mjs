@@ -16,7 +16,7 @@ for (const feature of [
 }
 
 for (const feature of [
-  'destinations as fixtureDestinations',
+  'preservedExploreDestinations',
   'fetchExploreDestinations({ limit: 5000 })',
   'fetchCoreExploreDestinations({ limit: 5000 })',
   'const remoteConfigured = hasExploreRemoteData()',
@@ -24,8 +24,8 @@ for (const feature of [
   'let coreFailed = !remoteConfigured',
   'if (remoteConfigured)',
   'const remoteDestinations = mergeDestinationSources(coreDestinations, enrichedDestinations)',
-  'const useFixtureFallback = (enrichedFailed && coreFailed) || remoteDestinations.length === 0',
-  'const rawDestinations = useFixtureFallback ? fixtureDestinations : remoteDestinations',
+  'const usePreservedFallback = (enrichedFailed && coreFailed) || remoteDestinations.length === 0',
+  'const rawDestinations = usePreservedFallback ? preservedExploreDestinations : remoteDestinations',
   'const destinations = resolveDestinationCatalog(rawDestinations)',
   'new Map(destinations.filter((item) => item.slug)',
   'isPrimaryTripPlannerDestination(destination)',
