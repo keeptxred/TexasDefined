@@ -107,6 +107,7 @@ const LEGACY_ARTICLE_TO_COUNTY = new Map<string, string>([
   ["comanche-county-comanche-de-leon-proctor-lake-cross-timbers-texas", "comanche"],
   ["eastland-county-eastland-cisco-ranger-oil-cross-timbers-texas", "eastland"],
   ["palo-pinto-county-mineral-wells-possum-kingdom-brazos-cross-timbers-texas", "palo-pinto"],
+  ["hood-county-granbury-lake-brazos-acton-cross-timbers-texas", "hood"],
 ]);
 
 const COUNTY_SLUGS = new Set(LEGACY_ARTICLE_TO_COUNTY.values());
