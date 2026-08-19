@@ -1,17 +1,35 @@
-import heroHillCountry from "@/assets/hero-hill-country.jpg";
+import closingHeroAsset from "@/assets/generated/texas-courthouse-square.jpg";
+import electricityHeroAsset from "@/assets/generated/texas-electricity-plan.jpg";
+import smallTown from "@/assets/small-town.jpg";
 import type { Article, ArticleBlock } from "../types";
 
 const p = (text: string): ArticleBlock => ({ type: "paragraph", text });
 const h = (text: string): ArticleBlock => ({ type: "heading", text });
 const list = (...items: string[]): ArticleBlock => ({ type: "list", items });
-const hero = {
-  src: heroHillCountry,
-  alt: "Texas homes and neighborhoods beneath a wide evening sky",
+const closingHero: Article["hero"] = {
+  src: closingHeroAsset,
+  alt: "A Texas courthouse and civic square representing the paperwork and settlement process behind a home closing",
+  width: 1600,
+  height: 1067,
+};
+const utilityHero: Article["hero"] = {
+  src: electricityHeroAsset,
+  alt: "A Texas home, electric service and household utility costs",
+  width: 1600,
+  height: 900,
+};
+const salaryHero: Article["hero"] = {
+  src: smallTown,
+  alt: "Texas homes and neighborhoods representing home affordability and household income",
   width: 1600,
   height: 1067,
 };
 
-const base = (record: Omit<Article, "id" | "brandId" | "hero" | "authorId" | "relatedCollections" | "relatedDestinations">, id: string): Article => ({
+const base = (
+  record: Omit<Article, "id" | "brandId" | "hero" | "authorId" | "relatedCollections" | "relatedDestinations">,
+  id: string,
+  hero: Article["hero"],
+): Article => ({
   id,
   brandId: "texasdefined",
   hero,
@@ -65,7 +83,7 @@ const closingCosts = base({
     h("For sellers, separate proceeds from the sale price"),
     p("A seller should also avoid treating the contract price as the amount that will be deposited after closing. Mortgage payoff, transaction expenses, taxes, credits, repairs and other adjustments can reduce proceeds. A seller-side estimate is most useful when every expected deduction is entered separately and then replaced with actual figures as the title and settlement documents develop."),
   ],
-}, "migration-finance-depth-closing");
+}, "migration-finance-depth-closing", closingHero);
 
 const utilityCosts = base({
   slug: "texas-utility-costs-guide",
@@ -114,7 +132,7 @@ const utilityCosts = base({
     h("Use the estimate as a question list"),
     p("The goal is not to predict every future bill to the dollar. A good estimate tells you which assumptions matter enough to verify before signing a lease or buying a home. Ask who provides each service, request historical usage when available, check the current plan or tariff, and make sure the total still fits after taxes, insurance, maintenance and transportation are included."),
   ],
-}, "migration-finance-depth-utilities");
+}, "migration-finance-depth-utilities", utilityHero);
 
 const salaryNeeded = base({
   slug: "salary-needed-to-buy-a-house-in-texas",
@@ -155,6 +173,6 @@ const salaryNeeded = base({
     h("Treat preapproval as a ceiling to evaluate, not a spending instruction"),
     p("A lender's preapproval can be useful for understanding available financing, but the buyer still decides what payment is sustainable. Keep room for savings, maintenance, utilities and ordinary life. The strongest home-buying budget is one that still works after the excitement of the purchase is over."),
   ],
-}, "migration-finance-depth-salary");
+}, "migration-finance-depth-salary", salaryHero);
 
 export const financeEvergreenDepthArticles: Article[] = [closingCosts, utilityCosts, salaryNeeded];
