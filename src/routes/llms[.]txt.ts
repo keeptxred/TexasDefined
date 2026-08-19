@@ -42,6 +42,9 @@ Canonical contributor profiles use https://texasdefined.com/authors/{author-id}.
 - Things That Define Texas methodology: https://texasdefined.com/things-unique-to-texas/methodology
 - Texas food traditions: https://texasdefined.com/texas-food-trail
 - Texas food history: https://texasdefined.com/texas-food-history
+- Texas ranch water guide: https://texasdefined.com/texas-ranch-water-guide
+- San Antonio puffy taco history: https://texasdefined.com/san-antonio-puffy-taco-history
+- Barbacoa and Big Red in San Antonio: https://texasdefined.com/barbacoa-big-red-san-antonio
 - Chili con carne history: https://texasdefined.com/texas-chili-con-carne-history
 - Chicken-fried steak guide: https://texasdefined.com/texas-chicken-fried-steak-guide
 - Texas breakfast taco guide: https://texasdefined.com/texas-breakfast-taco-guide
