@@ -44,7 +44,7 @@ const GROUPS = [
   },
   {
     title: 'Painted Churches of Texas',
-    description: 'A 25-church verified heritage-reference collection with canonical entity pages for decorative techniques, symbols, people, cultural communities, preservation, archives, routes and research methodology.',
+    description: 'A 27-church verified heritage-reference collection with canonical entity pages for decorative techniques, symbols, people, cultural communities, preservation, archives, routes and research methodology.',
     links: [
       ['Painted Churches of Texas', '/explore/painted-churches'],
       ['Research methodology & corrections', '/explore/painted-churches/methodology'],
