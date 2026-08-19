@@ -92,6 +92,14 @@ export const paintedChurchVisitorStatuses: PaintedChurchVisitorStatus[] = [
     controllingSourceLabel: "St. Stanislaus Kostka Catholic Church — Anderson",
     checkedAt: CHECKED,
   },
+  {
+    slug: "castroville-st-louis-catholic-church",
+    status: "verify-before-travel",
+    summary: "St. Louis is an active Castroville parish with current Mass, confession and office schedules. Confirm church access before making a special sightseeing trip; worship and parish events take priority.",
+    controllingSourceUrl: "https://www.stlouiscastroville.com/",
+    controllingSourceLabel: "St. Louis Catholic Church — Castroville",
+    checkedAt: CHECKED,
+  },
 ];
 
 export const paintedChurchVisitorStatusBySlug = new Map(paintedChurchVisitorStatuses.map((item) => [item.slug, item]));
