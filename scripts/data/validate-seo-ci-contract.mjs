@@ -41,7 +41,7 @@ const delegatedValidators = [
   'validate-knowledge-graph-platform.mjs', 'validate-internal-linking.mjs',
   'validate-internal-link-policy-release.mjs', 'validate-internal-link-golden-corpus.mjs',
   'validate-knowledge-graph-behavior.mjs', 'validate-citation-magnets.mjs',
-  'validate-citation-downloads.mjs',
+  'validate-citation-downloads.mjs', 'validate-gsc-evergreen-recovery.mjs',
 ];
 
 const protectedValidators = [...directValidators, ...delegatedValidators];
@@ -92,4 +92,4 @@ for (const validator of delegatedValidators) {
   }
 }
 
-console.log(`SEO CI contract passed with ${protectedValidators.length} protected remediation validators (${directValidators.length} direct, ${delegatedValidators.length} delegated). The workflow may use one monolithic SEO gate or stricter named direct gates, while preserving generated-page quality, citation discovery and machine-readable citation-download protections.`);
+console.log(`SEO CI contract passed with ${protectedValidators.length} protected remediation validators (${directValidators.length} direct, ${delegatedValidators.length} delegated). The workflow may use one monolithic SEO gate or stricter named direct gates, while preserving generated-page quality, citation discovery, GSC evergreen recovery and machine-readable citation-download protections.`);
