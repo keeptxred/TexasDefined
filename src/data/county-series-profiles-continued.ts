@@ -37,4 +37,10 @@ export const COUNTY_SERIES_PROFILES_CONTINUED: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/freestone-county-fairfield-teague-wortham-trinity-prairie")
       .then((module) => module.freestoneCountyFairfieldTeagueWorthamTrinityPrairieArticle),
   },
+  {
+    countySlug: "leon",
+    articleSlug: "leon-county-centerville-buffalo-jewett-trinity-prairie-texas",
+    loadArticle: () => import("@/data/fixtures/leon-county-centerville-buffalo-jewett-trinity-prairie")
+      .then((module) => module.leonCountyCentervilleBuffaloJewettTrinityPrairieArticle),
+  },
 ];
