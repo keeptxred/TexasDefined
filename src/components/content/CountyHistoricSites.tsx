@@ -1,9 +1,9 @@
-import { use } from 'react';
+import { useSuspenseQuery } from '@tanstack/react-query';
 
-import { listResolvedDestinations } from '@/data/destination-query-runtime';
+import { destinationsQuery } from '@/data/queries';
 
 export function CountyHistoricSites({ countyName }: { countyName: string }) {
-  const destinations = use(listResolvedDestinations({ category: 'historic-sites' }));
+  const { data: destinations } = useSuspenseQuery(destinationsQuery({ category: 'historic-sites' }));
   const county = countyName.replace(/\s+County$/i, '').trim().toLowerCase();
   const sites = destinations
     .filter((destination) => destination.county?.replace(/\s+County$/i, '').trim().toLowerCase() === county)
