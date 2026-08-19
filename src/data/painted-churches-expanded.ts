@@ -127,6 +127,21 @@ export const additionalVerifiedPaintedChurches: PaintedChurch[] = [
     secondarySourceUrl: "https://texashistory.unt.edu/ark:/67531/metapth460055/",
     sourceCheckedAt: CHECKED,
   },
+  {
+    slug: "anderson-st-stanislaus-kostka",
+    name: "St. Stanislaus Kostka Catholic Church",
+    shortName: "St. Stanislaus Kostka at Anderson",
+    city: "Anderson",
+    county: "Grimes",
+    address: "1511 Highway 90 South, Anderson, TX 77830",
+    denomination: "Roman Catholic",
+    summary: "A 1917 Romanesque Polish Catholic church in Grimes County whose parish history documents surviving historic decorative work, restoration of the original ceiling painting in the sacristy and a later mural above the altar.",
+    significance: "The parish’s own historical record documents the original ceiling painting, its restoration, the 2014 altar mural, historic wood-carved altars and European stained glass. Texas Defined therefore includes Anderson in the broader historic Painted Churches tradition while distinguishing original fabric from later decorative additions.",
+    visitNote: "St. Stanislaus Kostka remains an active parish. Verify current Masses, events and sightseeing access with the parish before making a special trip.",
+    sourceUrl: "https://saintstans.org/church-history",
+    secondarySourceUrl: "https://saintstans.org/",
+    sourceCheckedAt: CHECKED,
+  },
 ];
 
 const imageOverrides: Partial<Record<string, NonNullable<PaintedChurch["image"]>>> = {
@@ -185,6 +200,7 @@ const metadata: Record<string, Pick<CanonicalPaintedChurch, "interiorIntegrity" 
   "bandera-st-stanislaus-catholic-church": { interiorIntegrity: "modern-decorative-campaign", culturalHeritage: ["Silesian Polish Catholic"], techniques: ["freehand", "marbling", "decorative-murals"] },
   "corpus-christi-sacred-heart-catholic-church": { interiorIntegrity: "largely-original", culturalHeritage: ["Mexican American Catholic", "South Texas regionalist art"], techniques: ["freehand", "decorative-murals"] },
   "san-antonio-st-joseph-catholic-church": { interiorIntegrity: "restored-original-scheme", culturalHeritage: ["German Catholic"], techniques: ["freehand", "decorative-murals"] },
+  "anderson-st-stanislaus-kostka": { interiorIntegrity: "restored-original-scheme", culturalHeritage: ["Polish Catholic"], techniques: ["freehand", "decorative-murals"] },
 };
 
 const combined = [
