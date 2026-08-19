@@ -32,7 +32,10 @@ for (const marker of ['destinationsQuery({ category: "historic-sites" })','histo
 for (const marker of ["destinationsQuery({ category: 'historic-sites' })",'Historic places in this county','/explore/historic-sites','/texas-history']) if (!county.includes(marker)) failures.push(`County historic-site discovery contract missing: ${marker}`);
 
 const exactHeroAliases = ['barrington-living-history-farm','fanthorp-inn','kreische-brewery','monument-hill','san-jacinto-battleground','washington-on-the-brazos'];
-for (const slug of exactHeroAliases) if (!primary.includes(`"${slug}"`)) failures.push(`Expected exact historic hero alias is missing: ${slug}.`);
+for (const slug of exactHeroAliases) {
+  if (!seedSlugs.includes(slug)) failures.push(`Exact historic hero alias does not match a statewide seed: ${slug}.`);
+  if (!primary.includes(`"${slug}"`)) failures.push(`Expected exact historic hero alias is missing: ${slug}.`);
+}
 
 const verifiedRemoteHeroes = [
   ['bush-family-home', 'CC BY-SA 3.0'],
@@ -55,7 +58,7 @@ const verifiedRemoteHeroes = [
   ['magoffin-home', 'CC BY 4.0'],
   ['mission-dolores', 'CC BY-SA 4.0'],
   ['national-museum-pacific-war', 'CC BY-SA 4.0'],
-  ['official-state-texas-longhorn-herd', 'Public domain'],
+  ['official-texas-longhorn-herd', 'Public domain'],
   ['old-socorro-mission', 'Public domain'],
   ['palmito-ranch-battlefield', 'CC BY-SA 3.0'],
   ['port-isabel-lighthouse', 'CC BY-SA 4.0'],
@@ -66,14 +69,24 @@ const verifiedRemoteHeroes = [
   ['san-felipe-de-austin', 'CC BY 4.0'],
   ['star-of-the-republic-museum', 'CC BY 4.0'],
   ['starr-family-home', 'CC BY 2.0'],
+  ['stephen-f-austin-memorial', 'CC0'],
   ['varner-hogg-plantation', 'CC BY 2.0'],
   ['zaragoza-birthplace', 'CC BY-SA 2.0'],
 ];
+
+const remoteHeroBlock = remoteHeroes.match(/export const historicSiteRemoteHeroes:[\s\S]*?= \{([\s\S]*?)\n\};\n\nexport function/);
+if (!remoteHeroBlock) failures.push('Could not parse verified historic remote-hero map.');
+const remoteHeroSlugs = remoteHeroBlock ? [...remoteHeroBlock[1].matchAll(/^\s{2}"([^"]+)":\s*\{/gm)].map((match) => match[1]) : [];
+if (new Set(remoteHeroSlugs).size !== remoteHeroSlugs.length) failures.push('Verified historic remote-hero slugs must be unique.');
+for (const slug of remoteHeroSlugs) if (!seedSlugs.includes(slug)) failures.push(`Verified historic remote hero does not match a statewide historic-site seed: ${slug}.`);
+if (remoteHeroSlugs.length !== verifiedRemoteHeroes.length) failures.push(`Historic remote-hero registry/validator count mismatch: registry ${remoteHeroSlugs.length}, validator ${verifiedRemoteHeroes.length}.`);
+
 for (const [slug, license] of verifiedRemoteHeroes) {
-  if (!remoteHeroes.includes(`"${slug}"`)) failures.push(`Verified historic remote hero is missing: ${slug}.`);
+  if (!seedSlugs.includes(slug)) failures.push(`Protected historic remote hero does not match a statewide seed: ${slug}.`);
+  if (!remoteHeroSlugs.includes(slug)) failures.push(`Verified historic remote hero is missing: ${slug}.`);
   if (!remoteHeroes.includes(license)) failures.push(`Verified historic remote hero license marker is missing: ${slug} (${license}).`);
 }
 if (!remoteHeroes.includes('enrichHistoricSiteRemoteHero')) failures.push('Verified historic remote heroes are not exposed through the runtime enrichment function.');
 
 if (failures.length) { console.error('Historic-sites validation failed:'); for (const failure of failures) console.error(`- ${failure}`); process.exit(1); }
-console.log(`Historic-sites validation passed: ${seedSlugs.length} statewide seeds, ${guideSlugs.size} destination-specific area guides, ${exactHeroAliases.length + verifiedRemoteHeroes.length} exact verified hero mappings, shared preserved-catalog publication, Texas History discovery and county cross-links are protected.`);
+console.log(`Historic-sites validation passed: ${seedSlugs.length} statewide seeds, ${guideSlugs.size} destination-specific area guides, ${exactHeroAliases.length + verifiedRemoteHeroes.length} exact verified hero mappings, every protected hero matches a real seed, shared preserved-catalog publication, Texas History discovery and county cross-links are protected.`);
