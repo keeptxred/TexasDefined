@@ -46,7 +46,7 @@ export const texasLakesReservoirsExplainedArticle: Article = {
       description: "See the river systems underneath the reservoir map and how they divide the state into major basins.",
     },
     {
-      href: "/explore/texas-lakes-guide",
+      href: "/explore/lakes-rivers",
       label: "Texas lakes guide",
       description: "Turn the statewide reservoir story into lake-by-lake trip planning and recreation ideas.",
     },

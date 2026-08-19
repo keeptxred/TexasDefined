@@ -47,7 +47,7 @@ export const texasRiversExplainedArticle: Article = {
       description: "See how springs and aquifers feed some of the state's clearest rivers and swimming holes.",
     },
     {
-      href: "/explore/texas-lakes-guide",
+      href: "/explore/lakes-rivers",
       label: "A guide to Texas lakes",
       description: "Follow the river story into the reservoirs that store water, control floods and shape recreation across the state.",
     },
