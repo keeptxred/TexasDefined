@@ -5,7 +5,7 @@ import viteReact from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 import tsConfigPaths from "vite-tsconfig-paths";
 
-// Cloudflare Builds production smoke marker: safe no-op source change.
+// TEMPORARY DIAGNOSTIC BRANCH ONLY: source maps identify shared-bundle sources.
 export default defineConfig({
   plugins: [
     cloudflare({ viteEnvironment: { name: "ssr" } }),
@@ -18,6 +18,9 @@ export default defineConfig({
     tailwindcss(),
     viteReact(),
   ],
+  build: {
+    sourcemap: true,
+  },
   optimizeDeps: {
     include: [
       "react",
