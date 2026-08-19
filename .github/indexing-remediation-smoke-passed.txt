@@ -1,0 +1,1 @@
+Production indexing remediation smoke passed: destination provenance + finance depth verified live.
