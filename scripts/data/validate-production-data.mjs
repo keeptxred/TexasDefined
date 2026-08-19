@@ -76,8 +76,8 @@ for (const feature of ['INDEXABLE_STATIC_PATHS','isIndexablePublicPath']) if (!s
 for (const feature of ['INDEXABLE_STATIC_PATHS','NON_INDEXABLE_PUBLIC_PATHS','isIndexablePublicPath']) if (!publicRoutes.includes(feature)) errors.push(`Public-route registry feature missing: ${feature}.`);
 if (exploreSitemap.includes('`${BASE_URL}/explore/search`')) errors.push('Noindex Explore search is still submitted in the Explore sitemap.');
 for (const feature of [
-  'const useFixtureFallback = (enrichedFailed && coreFailed) || remoteDestinations.length === 0',
-  'const rawDestinations = useFixtureFallback ? fixtureDestinations : remoteDestinations',
+  'const usePreservedFallback = (enrichedFailed && coreFailed) || remoteDestinations.length === 0',
+  'const rawDestinations = usePreservedFallback ? preservedExploreDestinations : remoteDestinations',
   'isPrimaryTripPlannerDestination(destination)',
   'auditDestination(destination).readyForIndexing',
 ]) if (!exploreSitemap.includes(feature)) errors.push(`Explore sitemap resilient quality protection missing: ${feature}.`);
