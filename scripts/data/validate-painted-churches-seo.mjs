@@ -34,6 +34,7 @@ const jsonData = read('src/routes/painted-churches[.]json.ts');
 const csvData = read('src/routes/painted-churches[.]csv.ts');
 const llms = read('src/routes/llms[.]txt.ts');
 const manifest = read('public/citation-magnets.json');
+const countyGuides = read('src/components/content/CountyGuideSections.tsx');
 
 const requiredFiles = [
   'src/routes/explore.painted-churches.symbols.tsx','src/routes/explore.painted-churches.symbols.$slug.tsx',
@@ -103,6 +104,11 @@ requireText(comparison, 'paintedChurchSymbols', 'Comparison intelligence');
 requireText(jsonData, 'schemaVersion: 3', 'JSON dataset');
 requireText(csvData, 'documented_symbols', 'CSV dataset');
 
+requireText(countyGuides, "import { expandedPaintedChurches }", 'County reciprocal links');
+requireText(countyGuides, 'countyChurches = expandedPaintedChurches.filter', 'County reciprocal links');
+requireText(countyGuides, 'Painted Churches in {entity.name}', 'County reciprocal links');
+requireText(countyGuides, '/explore/painted-churches/map', 'County reciprocal links');
+
 const authorityPaths = [
   '/explore/painted-churches/map','/explore/painted-churches/compare','/explore/painted-churches/how-many',
   '/explore/painted-churches/methodology','/explore/painted-churches/census','/explore/painted-churches/techniques',
@@ -125,4 +131,4 @@ if (failures.length) {
   failures.forEach((failure) => console.error(`- ${failure}`));
   process.exit(1);
 }
-console.log('Painted Churches authority protected: 27 verified churches, 14 formal records, entity authority pages, archival comparisons, visitor freshness, datasets, search, sitemap and citation surfaces.');
+console.log('Painted Churches authority protected: 27 verified churches, 14 formal records, entity authority pages, archival comparisons, county reciprocal links, visitor freshness, datasets, search, sitemap and citation surfaces.');
