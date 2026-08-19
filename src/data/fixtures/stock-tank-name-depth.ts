@@ -1,6 +1,6 @@
-import caddoLake from "@/assets/caddo-lake.jpg";
 import type { Article, ArticleBlock } from "../types";
 
+const stockTankHero = "https://commons.wikimedia.org/wiki/Special:Redirect/file/Earthen_livestock_water_tank_on_Walking_M_Ranch_in_Baylor_County_near_Seymour,_Texas._(24490583523).jpg?width=1600";
 const p = (text: string): ArticleBlock => ({ type: "paragraph", text });
 const h = (text: string): ArticleBlock => ({ type: "heading", text });
 const list = (...items: string[]): ArticleBlock => ({ type: "list", items });
@@ -12,7 +12,7 @@ export const stockTankNameDepthArticle: Article = {
   title: "Why Texans Call a Pond a Stock Tank",
   dek: "Why 'stock tank' became ordinary Texas ranch language for small man-made ponds built to water livestock—and why the term now gets used far beyond cattle country.",
   category: "texas-history",
-  hero: { src: caddoLake, alt: "A Texas water landscape representing the ponds and impoundments Texans often call stock tanks", width: 1600, height: 1067 },
+  hero: { src: stockTankHero, alt: "Earthen livestock water tank on a Texas ranch near Seymour in Baylor County", width: 1600, height: 1065 },
   authorId: "a-hollis",
   publishedAt: "2026-06-29",
   readingMinutes: 8,
