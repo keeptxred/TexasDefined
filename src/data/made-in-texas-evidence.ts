@@ -190,6 +190,27 @@ export const MADE_IN_TEXAS_EVIDENCE: MadeInTexasEvidence[] = [
     sourceUrl: 'https://gatorpit.net/',
     checkedAt: '2026-08-19',
   },
+  {
+    entryName: 'All Seasons Feeders',
+    claim: 'All Seasons Feeders labels its feeders and deer blinds as Made in Texas and operates a San Antonio facility.',
+    sourceLabel: 'All Seasons Feeders',
+    sourceUrl: 'https://www.allseasonsfeeders.com/products/1500lb-trio-feeder',
+    checkedAt: '2026-08-19',
+  },
+  {
+    entryName: 'Texas Hunter Products',
+    claim: 'Texas Hunter Products says it has manufactured feeders, blinds and outdoor accessories since 1954 and lists its San Antonio operation.',
+    sourceLabel: 'Texas Hunter Products',
+    sourceUrl: 'https://www.texashunterproducts.com/contact-texas-hunter-products',
+    checkedAt: '2026-08-19',
+  },
+  {
+    entryName: 'Waterloo Rods',
+    claim: 'Waterloo Rods says its team builds high-quality fishing rods from its shop in Victoria, Texas.',
+    sourceLabel: 'Waterloo Rods',
+    sourceUrl: 'https://www.waterloorods.com/',
+    checkedAt: '2026-08-19',
+  },
 ];
 
 export function evidenceForMadeInTexasEntry(entryName: string) {
