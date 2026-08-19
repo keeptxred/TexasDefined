@@ -36,6 +36,20 @@ for (const marker of [
 ]) {
   if (!financeDepth.includes(marker)) errors.push(`Finance evergreen primary-source authority marker missing: ${marker}`);
 }
+for (const marker of [
+  'import closingHeroAsset from "@/assets/generated/texas-courthouse-square.jpg"',
+  'import electricityHeroAsset from "@/assets/generated/texas-electricity-plan.jpg"',
+  'import smallTown from "@/assets/small-town.jpg"',
+  'const closingHero: Article["hero"]',
+  'const utilityHero: Article["hero"]',
+  'const salaryHero: Article["hero"]',
+  '"migration-finance-depth-closing", closingHero',
+  '"migration-finance-depth-utilities", utilityHero',
+  '"migration-finance-depth-salary", salaryHero',
+]) {
+  if (!financeDepth.includes(marker)) errors.push(`Finance evergreen topic-specific hero contract missing: ${marker}`);
+}
+if (financeDepth.includes('import heroHillCountry from "@/assets/hero-hill-country.jpg"')) errors.push('Finance evergreen deep articles must not collapse back onto one generic Hill Country hero.');
 const slugMatches = [...migrated.matchAll(/slug: "([^"]+)"/g)].map((match) => match[1]);
 if (new Set(slugMatches).size !== slugMatches.length) errors.push('Migrated editorial body slugs must remain unique.');
 if (slugMatches.length !== expected.length) errors.push(`Expected ${expected.length} migrated article bodies, found ${slugMatches.length}.`);
@@ -59,4 +73,4 @@ for (const feature of ["articlesQuery({ category: 'real-estate' })","articlesQue
 if (!sitemap.includes('platform.articles.list(scope)')) errors.push('Primary sitemap no longer sources the complete article repository.');
 for (const category of ['real-estate','moving-to-texas','texas-history','food-bbq']) { if (!migrated.includes(`category: "${category}"`)) errors.push(`Expected migrated body category is empty: ${category}`); if (!lazyMigrated.includes(`category: "${category}"`)) errors.push(`Expected migrated catalog category is empty: ${category}`); }
 if (errors.length) { console.error('Editorial migration validation failed:'); for (const error of errors) console.error(`- ${error}`); process.exit(1); }
-console.log('Seventeen migrated lifestyle articles and ten core fixture articles retain lightweight catalogs, lazy detail loading, three protected deeper finance evergreen overrides with primary-source authority, Texas Life exposure with curated photo enrichment, repository search, sitemap sourcing and legacy redirects.');
+console.log('Seventeen migrated lifestyle articles and ten core fixture articles retain lightweight catalogs, lazy detail loading, three protected deeper finance evergreen overrides with primary-source authority and topic-specific imagery, Texas Life exposure with curated photo enrichment, repository search, sitemap sourcing and legacy redirects.');
