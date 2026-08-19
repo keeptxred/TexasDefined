@@ -78,6 +78,34 @@ function EventsPage() {
       </Container>
     </section>
 
+    <section className="border-b border-border bg-surface py-10">
+      <Container>
+        <div className="grid gap-6 lg:grid-cols-[15rem_1fr] lg:items-start">
+          <div>
+            <p className="eyebrow text-primary">Understand the tradition</p>
+            <h2 className="mt-2 font-display text-3xl">The culture behind the calendar</h2>
+          </div>
+          <div className="grid gap-px overflow-hidden border border-border bg-border md:grid-cols-3">
+            <Link to="/texas-dance-halls-honky-tonks" className="group bg-background p-5">
+              <strong className="font-display text-2xl leading-tight group-hover:text-primary">Dance halls & honky-tonks</strong>
+              <span className="mt-3 block text-sm leading-6 text-muted-foreground">Two-step culture, Western swing, historic community halls and how to plan a live-music weekend.</span>
+              <span className="mt-4 block text-sm font-semibold text-primary">Read the guide →</span>
+            </Link>
+            <Link to="/texas-homecoming-mums" className="group bg-background p-5">
+              <strong className="font-display text-2xl leading-tight group-hover:text-primary">Texas homecoming mums</strong>
+              <span className="mt-3 block text-sm leading-6 text-muted-foreground">How a school flower became an oversized wearable tradition tied to football, clubs and homecoming week.</span>
+              <span className="mt-4 block text-sm font-semibold text-primary">Read the guide →</span>
+            </Link>
+            <Link to="/german-czech-texas-towns" className="group bg-background p-5">
+              <strong className="font-display text-2xl leading-tight group-hover:text-primary">German & Czech Texas heritage</strong>
+              <span className="mt-3 block text-sm leading-6 text-muted-foreground">Connect festivals and music to the towns, churches, bakeries and halls that preserve the deeper history.</span>
+              <span className="mt-4 block text-sm font-semibold text-primary">Read the guide →</span>
+            </Link>
+          </div>
+        </div>
+      </Container>
+    </section>
+
     <Section><Container>
       <SectionHeader eyebrow="Browse the calendar" title="Find something worth the trip" description="Filter by event type and region to see what’s happening across the state." />
       <div className="mt-8 space-y-4 border-y border-border py-6">
