@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - "src/routes/explore.painted-churches*"
+      - "src/routes/painted-churches*"
       - "src/data/painted-church*"
       - "src/components/editorial/PaintedChurch*"
       - "src/components/authority/CitationCollectionTrustRouter.tsx"
@@ -18,6 +19,7 @@ on:
   pull_request:
     paths:
       - "src/routes/explore.painted-churches*"
+      - "src/routes/painted-churches*"
       - "src/data/painted-church*"
       - "src/components/editorial/PaintedChurch*"
       - "src/components/authority/CitationCollectionTrustRouter.tsx"
