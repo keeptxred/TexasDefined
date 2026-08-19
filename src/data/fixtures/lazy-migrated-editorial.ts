@@ -3,11 +3,44 @@ import caddoLake from "@/assets/caddo-lake.jpg";
 import heroHillCountry from "@/assets/hero-hill-country.jpg";
 import roadTrip from "@/assets/road-trip.jpg";
 import smallTown from "@/assets/small-town.jpg";
+import closingHeroAsset from "@/assets/generated/texas-courthouse-square.jpg";
+import electricityHeroAsset from "@/assets/generated/texas-electricity-plan.jpg";
+import foundationHeroAsset from "@/assets/generated/texas-foundation-clay-drought.jpg";
+import homeMaintenanceHeroAsset from "@/assets/generated/texas-home-maintenance-calendar-unique.jpg";
+import roofHeroAsset from "@/assets/generated/texas-roofs-hail-wind-heat.jpg";
 
 import type { Article, ImageRef } from "../types";
 
-const image = (src: string, alt: string): ImageRef => ({ src, alt, width: 1600, height: 1067 });
-const homeHero = image(heroHillCountry, "Texas homes and neighborhoods beneath a wide evening sky");
+const image = (src: string, alt: string, credit?: string): ImageRef => ({
+  src,
+  alt,
+  width: 1600,
+  height: 1067,
+  ...(credit ? { credit } : {}),
+});
+
+const rentBuyHero = image(
+  "https://images.unsplash.com/photo-1758915576261-8da237f62126?auto=format&fit=crop&w=1600&q=82",
+  "A distinctive Texas house representing the choice between renting and buying",
+  "Dennis Lamberth · Unsplash",
+);
+const downPaymentHero = image(
+  "https://images.unsplash.com/photo-1662166980304-8c927b110066?auto=format&fit=crop&w=1600&q=82",
+  "A Texas property representing the purchase price and cash needed to buy a home",
+  "Erin Decker · Unsplash",
+);
+const trueCostHero = image(homeMaintenanceHeroAsset, "Texas home maintenance and recurring ownership costs");
+const refinanceHero = image(foundationHeroAsset, "A Texas house and foundation representing the value behind a refinance decision");
+const helocHero = image(
+  "https://images.unsplash.com/photo-1671410304582-1c2fb1390fbf?auto=format&fit=crop&w=1600&h=900&q=82",
+  "A Texas suburban neighborhood representing home equity and borrowing against a property",
+  "Jose Losada · Unsplash",
+);
+const mortgageHero = image(heroHillCountry, "Texas homes and neighborhoods representing the full monthly mortgage payment");
+const closingHero = image(closingHeroAsset, "A Texas courthouse and civic square representing the legal paperwork behind a home closing");
+const utilityHero = image(electricityHeroAsset, "A Texas home, power service and household utility costs");
+const insuranceHero = image(roofHeroAsset, "A Texas roof exposed to hail, wind and heat for a homeowners insurance guide");
+const salaryHero = image(smallTown, "Texas homes and neighborhoods representing home affordability and household income");
 const movingHero = image(roadTrip, "A Texas highway leading toward a new city and a new home");
 const cultureHero = image(caddoLake, "A working Texas landscape shaped by water, ranching and local language");
 const bbqHero = image(bbqBrisket, "Sliced Texas brisket on butcher paper beside a working barbecue pit");
@@ -23,16 +56,16 @@ const stub = (index: number, record: Omit<Article, "id" | "brandId" | "body" | "
 });
 
 export const migratedEditorialArticleStubs: Article[] = [
-  stub(1, { slug: "renting-vs-buying-in-texas", title: "Renting vs. Buying in Texas", dek: "A complete comparison of flexibility, equity, taxes, insurance, maintenance and the time it takes ownership costs to break even.", category: "real-estate", hero: homeHero, authorId: "a-hollis", publishedAt: "2026-07-25", readingMinutes: 10, tags: ["renting", "home buying", "affordability", "moving to texas"] }),
-  stub(2, { slug: "texas-house-down-payment-guide", title: "How Much Down Payment Do You Need for a Texas House?", dek: "Why 20 percent is not a universal minimum, how loan programs differ and how to preserve enough cash for closing and repairs.", category: "real-estate", hero: homeHero, authorId: "a-hollis", publishedAt: "2026-07-25", readingMinutes: 9, tags: ["down payment", "mortgage", "homebuyer", "closing costs"] }),
-  stub(3, { slug: "true-cost-of-owning-a-home-in-texas", title: "The True Cost of Owning a Home in Texas", dek: "Mortgage, taxes and insurance are only the beginning. Build a realistic budget for heat, roofs, foundations, pools, districts and repairs.", category: "real-estate", hero: homeHero, authorId: "a-hollis", publishedAt: "2026-07-25", readingMinutes: 11, tags: ["homeownership", "maintenance", "property taxes", "insurance"] }),
-  stub(4, { slug: "should-you-refinance-texas-mortgage", title: "Should You Refinance a Texas Mortgage?", dek: "Calculate break-even, compare equal loan terms and avoid lowering the payment by quietly adding years to the debt.", category: "real-estate", hero: homeHero, authorId: "a-hollis", publishedAt: "2026-07-25", readingMinutes: 9, tags: ["refinance", "mortgage", "interest rates", "home equity"] }),
-  stub(5, { slug: "texas-home-equity-heloc-guide", title: "Texas Home Equity Loans and HELOCs", dek: "How the Texas 80 percent homestead limit works, how loans differ from revolving lines and what to compare before borrowing.", category: "real-estate", hero: homeHero, authorId: "a-hollis", publishedAt: "2026-07-25", readingMinutes: 10, tags: ["home equity", "heloc", "texas constitution", "borrowing"] }),
-  stub(6, { slug: "texas-mortgage-payment-guide", title: "What Is Included in a Texas Mortgage Payment?", dek: "Principal and interest are only the core. Add property taxes, insurance, mortgage insurance and HOA costs to see the real payment.", category: "real-estate", hero: homeHero, authorId: "a-hollis", publishedAt: "2026-07-25", readingMinutes: 8, tags: ["mortgage payment", "escrow", "property taxes", "home insurance"] }),
-  stub(7, { slug: "texas-closing-costs-guide", title: "Texas Closing Costs and Cash to Close", dek: "Understand lender charges, title services, prepaids, escrow deposits and the final amount a buyer must bring to closing.", category: "real-estate", hero: homeHero, authorId: "a-hollis", publishedAt: "2026-07-25", readingMinutes: 8, tags: ["closing costs", "cash to close", "loan estimate", "homebuyer"] }),
-  stub(8, { slug: "texas-utility-costs-guide", title: "How to Estimate Texas Utility Costs", dek: "Build an address-specific budget for electricity, water, wastewater, gas, internet, trash, pools and irrigation.", category: "moving-to-texas", hero: homeHero, authorId: "a-hollis", publishedAt: "2026-07-25", readingMinutes: 8, tags: ["utilities", "electricity", "water", "moving"] }),
-  stub(9, { slug: "texas-homeowners-insurance-guide", title: "Texas Homeowners Insurance: What Buyers Should Compare", dek: "Coverage, roof settlement, percentage deductibles, flood exclusions and coastal wind protection can matter more than the cheapest premium.", category: "real-estate", hero: homeHero, authorId: "a-hollis", publishedAt: "2026-07-25", readingMinutes: 9, tags: ["home insurance", "deductibles", "flood", "windstorm"] }),
-  stub(10, { slug: "salary-needed-to-buy-a-house-in-texas", title: "What Salary Do You Need to Buy a House in Texas?", dek: "Work backward from the complete payment, recurring debts and a comfortable budget instead of relying on one statewide income number.", category: "real-estate", hero: homeHero, authorId: "a-hollis", publishedAt: "2026-07-25", readingMinutes: 8, tags: ["salary", "affordability", "debt to income", "home buying"] }),
+  stub(1, { slug: "renting-vs-buying-in-texas", title: "Renting vs. Buying in Texas", dek: "A complete comparison of flexibility, equity, taxes, insurance, maintenance and the time it takes ownership costs to break even.", category: "real-estate", hero: rentBuyHero, authorId: "a-hollis", publishedAt: "2026-07-25", readingMinutes: 10, tags: ["renting", "home buying", "affordability", "moving to texas"] }),
+  stub(2, { slug: "texas-house-down-payment-guide", title: "How Much Down Payment Do You Need for a Texas House?", dek: "Why 20 percent is not a universal minimum, how loan programs differ and how to preserve enough cash for closing and repairs.", category: "real-estate", hero: downPaymentHero, authorId: "a-hollis", publishedAt: "2026-07-25", readingMinutes: 9, tags: ["down payment", "mortgage", "homebuyer", "closing costs"] }),
+  stub(3, { slug: "true-cost-of-owning-a-home-in-texas", title: "The True Cost of Owning a Home in Texas", dek: "Mortgage, taxes and insurance are only the beginning. Build a realistic budget for heat, roofs, foundations, pools, districts and repairs.", category: "real-estate", hero: trueCostHero, authorId: "a-hollis", publishedAt: "2026-07-25", readingMinutes: 11, tags: ["homeownership", "maintenance", "property taxes", "insurance"] }),
+  stub(4, { slug: "should-you-refinance-texas-mortgage", title: "Should You Refinance a Texas Mortgage?", dek: "Calculate break-even, compare equal loan terms and avoid lowering the payment by quietly adding years to the debt.", category: "real-estate", hero: refinanceHero, authorId: "a-hollis", publishedAt: "2026-07-25", readingMinutes: 9, tags: ["refinance", "mortgage", "interest rates", "home equity"] }),
+  stub(5, { slug: "texas-home-equity-heloc-guide", title: "Texas Home Equity Loans and HELOCs", dek: "How the Texas 80 percent homestead limit works, how loans differ from revolving lines and what to compare before borrowing.", category: "real-estate", hero: helocHero, authorId: "a-hollis", publishedAt: "2026-07-25", readingMinutes: 10, tags: ["home equity", "heloc", "texas constitution", "borrowing"] }),
+  stub(6, { slug: "texas-mortgage-payment-guide", title: "What Is Included in a Texas Mortgage Payment?", dek: "Principal and interest are only the core. Add property taxes, insurance, mortgage insurance and HOA costs to see the real payment.", category: "real-estate", hero: mortgageHero, authorId: "a-hollis", publishedAt: "2026-07-25", readingMinutes: 8, tags: ["mortgage payment", "escrow", "property taxes", "home insurance"] }),
+  stub(7, { slug: "texas-closing-costs-guide", title: "Texas Closing Costs and Cash to Close", dek: "Understand lender charges, title services, prepaids, escrow deposits and the final amount a buyer must bring to closing.", category: "real-estate", hero: closingHero, authorId: "a-hollis", publishedAt: "2026-07-25", readingMinutes: 8, tags: ["closing costs", "cash to close", "loan estimate", "homebuyer"] }),
+  stub(8, { slug: "texas-utility-costs-guide", title: "How to Estimate Texas Utility Costs", dek: "Build an address-specific budget for electricity, water, wastewater, gas, internet, trash, pools and irrigation.", category: "moving-to-texas", hero: utilityHero, authorId: "a-hollis", publishedAt: "2026-07-25", readingMinutes: 8, tags: ["utilities", "electricity", "water", "moving"] }),
+  stub(9, { slug: "texas-homeowners-insurance-guide", title: "Texas Homeowners Insurance: What Buyers Should Compare", dek: "Coverage, roof settlement, percentage deductibles, flood exclusions and coastal wind protection can matter more than the cheapest premium.", category: "real-estate", hero: insuranceHero, authorId: "a-hollis", publishedAt: "2026-07-25", readingMinutes: 9, tags: ["home insurance", "deductibles", "flood", "windstorm"] }),
+  stub(10, { slug: "salary-needed-to-buy-a-house-in-texas", title: "What Salary Do You Need to Buy a House in Texas?", dek: "Work backward from the complete payment, recurring debts and a comfortable budget instead of relying on one statewide income number.", category: "real-estate", hero: salaryHero, authorId: "a-hollis", publishedAt: "2026-07-25", readingMinutes: 8, tags: ["salary", "affordability", "debt to income", "home buying"] }),
   stub(11, { slug: "moving-to-houston-address-checklist", title: "Moving to Houston: The Address Checklist", dek: "Flood history, drainage, taxing units, utilities, insurance and commute can change block by block across the Houston region.", category: "moving-to-texas", region: "gulf-coast", hero: cityHero, authorId: "a-hollis", publishedAt: "2026-07-23", readingMinutes: 10, tags: ["houston", "relocation", "flood risk", "property taxes"] }),
   stub(12, { slug: "moving-to-dallas-fort-worth-guide", title: "Moving to Dallas–Fort Worth", dek: "Choose the work corridor first, then compare tolls, local governments, school boundaries, utilities and total housing costs.", category: "moving-to-texas", region: "prairies-lakes", hero: movingHero, authorId: "a-hollis", publishedAt: "2026-07-23", readingMinutes: 10, tags: ["dallas", "fort worth", "dfw", "relocation"] }),
   stub(13, { slug: "moving-to-san-antonio-guide", title: "Moving to San Antonio", dek: "How to compare Bexar-area commutes, city boundaries, school districts, CPS Energy, SAWS and fast-growing suburban corridors.", category: "moving-to-texas", region: "south-texas", hero: cityHero, authorId: "a-hollis", publishedAt: "2026-07-23", readingMinutes: 9, tags: ["san antonio", "relocation", "utilities", "commute"] }),
