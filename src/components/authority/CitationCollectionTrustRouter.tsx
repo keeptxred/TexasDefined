@@ -29,6 +29,26 @@ const TRUST_BY_PATH: Record<string, TrustConfig> = {
     methodology: 'The Texas Data hub is a catalog across multiple public datasets. Each dataset page controls its own source list, year, methodology and freshness; the hub does not create a synthetic catalog-wide verification date.',
     lastVerified: 'Catalog source hierarchy reviewed August 11, 2026. Dataset-specific source and modification dates control individual figures.',
   },
+  '/things-unique-to-texas': {
+    title: 'Things That Define Texas editorial provenance',
+    sources: [
+      { name: 'Things That Define Texas methodology', url: 'https://texasdefined.com/things-unique-to-texas/methodology' },
+      { name: 'Texas Defined editorial accountability', url: 'https://texasdefined.com/about' },
+      { name: 'TexasDefined citation policy', url: 'https://texasdefined.com/citation-guide' },
+    ],
+    methodology: 'The 250-entry collection is an editorial map of Texas identity. It separates official designations from folklore, labels Texas adoption separately from Texas origin, and routes current operational facts to deeper pages whose linked public agency or operator remains controlling. Automatic canonical links are limited to direct, high-confidence matches.',
+    lastVerified: 'Collection structure, methodology and canonical-link policy reviewed August 19, 2026.',
+  },
+  '/things-unique-to-texas/methodology': {
+    title: 'Things That Define Texas methodology provenance',
+    sources: [
+      { name: 'Canonical 250-item collection', url: 'https://texasdefined.com/things-unique-to-texas' },
+      { name: 'Texas Defined editorial accountability', url: 'https://texasdefined.com/about' },
+      { name: 'TexasDefined citation policy', url: 'https://texasdefined.com/citation-guide' },
+    ],
+    methodology: 'This page controls the inclusion standard, official-fact-versus-folklore distinction, internal cross-link rules, handling of changing information and correction policy for the 250-item collection.',
+    lastVerified: 'Collection methodology documented and reviewed August 19, 2026.',
+  },
   '/explore/top-attractions': {
     title: 'Top 25 attraction research and verification',
     sources: [
