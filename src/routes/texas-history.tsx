@@ -13,6 +13,12 @@ import { buildEditorialCollectionHead, buildMeta, canonicalLink } from "@/lib/se
 const description = "Missions and cattle trails, oil booms and courthouse squares — the people, places and turning points that still shape how Texas looks and feels today.";
 const imageAlt = "The granite dome of Enchanted Rock under a wide sky";
 const mergeDestinations = (...groups: Destination[][]) => [...new Map(groups.flat().map((destination) => [destination.slug, destination])).values()];
+const historicAuthorityGuides = [
+  { slug: "texas-revolution-historic-sites-road-trip", eyebrow: "1835–1836", title: "Texas Revolution road trip", description: "Follow the political and military sequence from San Felipe and Washington-on-the-Brazos through Goliad and San Jacinto." },
+  { slug: "texas-frontier-forts-road-trip", eyebrow: "Frontier Texas", title: "Texas frontier forts road trip", description: "Compare four Army posts to understand overland travel, military logistics, ranching and conflict across the western frontier." },
+  { slug: "presidential-texas-historic-homes", eyebrow: "Public life", title: "Presidential Texas", description: "Use preserved homes to connect Eisenhower, the Bush family and Sam Rayburn to the Texas communities that shaped their public careers." },
+  { slug: "brazoria-plantations-slavery-emancipation-history", eyebrow: "Labor · freedom · archaeology", title: "Slavery, emancipation and plantation Texas", description: "Read Levi Jordan and Varner-Hogg through enslaved labor, emancipation, Reconstruction, archaeology and the changing systems that followed." },
+] as const;
 
 export const Route = createFileRoute("/texas-history")({
   head: ({ loaderData }: { loaderData?: { articles: Article[]; destinations: Destination[] } }) => loaderData ? buildEditorialCollectionHead(texasDefinedBrand, {
@@ -55,6 +61,12 @@ function TexasHistoryPage() {
       <section className="grid gap-6 border-y border-border py-7 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
         <div><p className="eyebrow text-primary">Go to the places themselves</p><h2 className="mt-2 font-display text-4xl">Historic Sites & Museums across Texas</h2><p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Explore battlefields, missions, forts, presidential homes, plantations, museums and historic landscapes with visitor context and official sources.</p></div>
         <Link to="/explore/$category" params={{ category: "historic-sites" }} className="eyebrow border-b border-primary pb-1 text-primary">Browse all historic sites →</Link>
+      </section>
+    </Container>
+    <Container className="pb-14 sm:pb-18">
+      <section aria-labelledby="historic-authority-guides">
+        <div className="mb-6 max-w-3xl"><p className="eyebrow text-primary">Plan history by story</p><h2 id="historic-authority-guides" className="mt-2 font-display text-4xl">Four routes into the statewide collection</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">Start with a narrative, then move into the individual historic sites. These guides connect places that make more sense together than they do as isolated stops.</p></div>
+        <div className="grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2">{historicAuthorityGuides.map((guide) => <Link key={guide.slug} to="/article/$slug" params={{ slug: guide.slug }} className="group bg-background p-6 sm:p-7"><span className="eyebrow text-primary">{guide.eyebrow}</span><strong className="mt-2 block font-display text-2xl group-hover:text-primary">{guide.title}</strong><span className="mt-3 block text-sm leading-6 text-muted-foreground">{guide.description}</span><span className="mt-5 block text-sm font-semibold text-primary">Open history guide →</span></Link>)}</div>
       </section>
     </Container>
     <Container className="pb-14 sm:pb-18">
