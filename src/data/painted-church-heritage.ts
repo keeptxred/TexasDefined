@@ -39,9 +39,9 @@ export const paintedChurchHeritage: PaintedChurchHeritage[] = [
   {
     slug: "polish-silesian",
     name: "Polish and Silesian Texas",
-    answer: "Texas's Polish Painted Church story begins with the 1854 settlement at Panna Maria and extends to Bandera and other communities founded by Upper Silesian Catholic immigrants.",
-    context: ["Panna Maria is documented by its parish and Polish Heritage Center as the oldest permanent Polish settlement in the United States.", "The first Mass at Panna Maria was celebrated on Christmas Eve 1854; the present church dates to 1877.", "Bandera's St. Stanislaus traces its parish history to Silesian Polish immigrant families and later developed a modern painted program."],
-    churchSlugs: ["panna-maria-immaculate-conception", "bandera-st-stanislaus-catholic-church"],
+    answer: "Texas's Polish Painted Church story begins with the 1854 settlement at Panna Maria and extends through Bandera, Anderson and other communities formed by Polish and Upper Silesian Catholic immigrants.",
+    context: ["Panna Maria is documented by its parish and Polish Heritage Center as the oldest permanent Polish settlement in the United States.", "The first Mass at Panna Maria was celebrated on Christmas Eve 1854; the present church dates to 1877.", "Bandera's St. Stanislaus traces its parish history to Silesian Polish immigrant families and later developed a modern painted program.", "St. Stanislaus Kostka at Anderson documents the later Polish settlement of Grimes County, a 1917 Romanesque church and surviving/restored decorative painting."],
+    churchSlugs: ["panna-maria-immaculate-conception", "bandera-st-stanislaus-catholic-church", "anderson-st-stanislaus-kostka"],
     sourceLabel: "Polish Heritage Center at Panna Maria",
     sourceUrl: "https://polishheritagecentertx.org/historic-panna-maria",
   },
