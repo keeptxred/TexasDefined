@@ -5,6 +5,8 @@ const root = process.cwd();
 const remote = fs.readFileSync(path.join(root, 'src/data/explore-remote.ts'), 'utf8');
 const core = fs.readFileSync(path.join(root, 'src/data/explore-core-remote.ts'), 'utf8');
 const queries = fs.readFileSync(path.join(root, 'src/data/queries.ts'), 'utf8');
+const destinationRuntime = fs.readFileSync(path.join(root, 'src/data/destination-query-runtime.ts'), 'utf8');
+const searchImplementation = `${queries}\n${destinationRuntime}`;
 const route = fs.readFileSync(path.join(root, 'src/routes/destination.$slug.tsx'), 'utf8');
 const planner = fs.readFileSync(path.join(root, 'src/components/editorial/DestinationVisitPlanner.tsx'), 'utf8');
 const relationships = fs.readFileSync(path.join(root, 'src/components/editorial/DestinationRelationships.tsx'), 'utf8');
@@ -96,7 +98,8 @@ for (const feature of [
   'fetchCoreExploreDestinations({ limit: 5000 })',
   'base.filter((document) => document.kind !== "destination")',
   'destination.managingAuthority', 'destination.bestSeason', '...destination.highlights',
-]) if (!queries.includes(feature)) errors.push(`Remote destination search feature missing: ${feature}`);
+]) if (!searchImplementation.includes(feature)) errors.push(`Remote destination search feature missing: ${feature}`);
+if (!queries.includes('await import("./destination-query-runtime")')) errors.push('Destination resolution must remain behind the dynamic runtime boundary.');
 
 for (const feature of [
   'destinationsQuery({ limit: 5000 })', 'scoreDestination', 'searchText',
@@ -152,14 +155,14 @@ for (const forbiddenFeature of [
   'lastmod: toDate(destination.sourceCheckedAt)',
 ]) if (primarySitemap.includes(forbiddenFeature)) errors.push(`Primary sitemap must not own Explore destination work: ${forbiddenFeature}`);
 
-const enrichedListIndex = queries.indexOf('fetchExploreDestinations(options)');
-const coreListIndex = queries.indexOf('fetchCoreExploreDestinations(options)');
-const fixtureListIndex = queries.indexOf('platform.destinations.list');
+const enrichedListIndex = destinationRuntime.indexOf('fetchExploreDestinations(options)');
+const coreListIndex = destinationRuntime.indexOf('fetchCoreExploreDestinations(options)');
+const fixtureListIndex = destinationRuntime.indexOf('platform.destinations.list');
 if (!(enrichedListIndex >= 0 && coreListIndex > enrichedListIndex && fixtureListIndex > coreListIndex)) errors.push('Destination list fallback order must be enriched remote → core remote → fixtures.');
 
-const enrichedDetailIndex = queries.indexOf('fetchExploreDestination(slug)');
-const coreDetailIndex = queries.indexOf('fetchCoreExploreDestination(slug)');
-const fixtureDetailIndex = queries.indexOf('platform.destinations.getBySlug');
+const enrichedDetailIndex = destinationRuntime.indexOf('fetchExploreDestination(slug)');
+const coreDetailIndex = destinationRuntime.indexOf('fetchCoreExploreDestination(slug)');
+const fixtureDetailIndex = destinationRuntime.indexOf('platform.destinations.getBySlug');
 if (!(enrichedDetailIndex >= 0 && coreDetailIndex > enrichedDetailIndex && fixtureDetailIndex > coreDetailIndex)) errors.push('Destination detail fallback order must be enriched remote → core remote → fixture.');
 
 if (!remote.includes('visibility: "eq.public"') || !remote.includes('status: "in.(published,verified)"')) errors.push('Enriched remote Explore publication filters are missing.');
@@ -171,4 +174,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Explore enrichment, grouped planning, ranked search, AI discovery, unavailable-or-empty remote fallback with quality-gated sitemap freshness, authority, relationship discovery with Texas Explained fallback, public-view fallback, and fixture resilience passed.');
+console.log('Explore enrichment, grouped planning, ranked search, AI discovery, unavailable-or-empty remote fallback with quality-gated sitemap freshness, authority, relationship discovery with Texas Explained fallback, public-view fallback, lazy destination runtime, and fixture resilience passed.');
