@@ -38,6 +38,7 @@ const GROUPS = [
       ['Texas Food History', '/texas-food-history'],
       ['Texas natural wonders', '/texas-natural-wonders-bucket-list'],
       ['Texas dance halls & honky-tonks', '/texas-dance-halls-honky-tonks'],
+      ['Texas Blue Northers & spring storms', '/texas-blue-norther-weather-guide'],
     ],
   },
   {
@@ -125,9 +126,10 @@ function CitationGuidePage() {
       <section className="mt-12 border-y border-border py-8" aria-labelledby="texas-culture-source-heading">
         <p className="eyebrow text-primary">Things That Define Texas source hierarchy</p>
         <h2 id="texas-culture-source-heading" className="mt-2 font-display text-3xl">Cite the collection for identity; cite the deeper guide for the claim.</h2>
-        <div className="mt-6 grid gap-6 md:grid-cols-3">
+        <div className="mt-6 grid gap-6 md:grid-cols-4">
           <Rule title="Collection & chapter identity" body="Use the canonical Things That Define Texas collection or chapter when citing the 250-item editorial set, chapter membership or TexasDefined's explanation of why an icon belongs in the collection." />
           <Rule title="Deeper factual claims" body="When an entry resolves to a destination or evergreen deep dive, use that deeper guide—and its linked official or institutional sources—for the underlying history, visitor facts, cultural context or current operations." />
+          <Rule title="Weather language vs. live weather" body="Use the Texas Blue Norther guide and its Handbook of Texas source for terminology and cultural history. For a current front, thunderstorm, tornado, hail, lightning or flood decision, use current National Weather Service forecasts and warnings as the controlling authority." />
           <Rule title="Data reuse" body="The CSV and JSON are generated from the same 250 editorial records and canonical-link resolver. Cite the human collection for context and methodology unless the machine-readable distribution itself is what you are analyzing or redistributing." />
         </div>
       </section>
@@ -172,6 +174,7 @@ function CitationGuidePage() {
           <Link to="/about" className="border-b border-primary text-primary">Editorial accountability</Link>
           <Link to="/things-unique-to-texas" className="border-b border-primary text-primary">Things That Define Texas</Link>
           <Link to="/things-unique-to-texas/methodology" className="border-b border-primary text-primary">Things methodology</Link>
+          <Link to="/texas-blue-norther-weather-guide" className="border-b border-primary text-primary">Texas weather language guide</Link>
           <a href="/things-that-define-texas.csv" className="border-b border-primary text-primary">Things That Define Texas CSV</a>
           <a href="/things-that-define-texas.json" className="border-b border-primary text-primary">Things That Define Texas JSON</a>
           <Link to="/explore/painted-churches" className="border-b border-primary text-primary">Painted Churches collection</Link>
