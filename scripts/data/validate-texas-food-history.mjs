@@ -2,6 +2,7 @@ import fs from 'node:fs';
 
 const route = fs.readFileSync('src/routes/texas-food-history.tsx', 'utf8');
 const evergreenComponent = fs.readFileSync('src/components/editorial/TexasEvergreenGuide.tsx', 'utf8');
+const exploreCategory = fs.readFileSync('src/routes/explore.$category.tsx', 'utf8');
 const publicRoutes = fs.readFileSync('src/lib/public-routes.ts', 'utf8');
 const rootHub = fs.readFileSync('src/routes/things-unique-to-texas.lazy.tsx', 'utf8');
 const categoryHub = fs.readFileSync('src/routes/things-unique-to-texas.$category.lazy.tsx', 'utf8');
@@ -42,12 +43,27 @@ for (const token of [
   'isPartOf: { "@type": "CollectionPage", "@id": `${siteUrl}/texas-food-history#page`',
   '<Link to="/texas-food-history"',
   'Explore the full Texas Food History collection',
+  'const guideDestinationLinks',
+  'href: "/destination/dr-pepper-museum"',
+  'Explore the Dr Pepper Museum',
+  '"@type": "TouristAttraction"',
 ]) {
-  if (!evergreenComponent.includes(token)) failures.push(`Food-history child guides missing parent-cluster token: ${token}.`);
+  if (!evergreenComponent.includes(token)) failures.push(`Food-history child guides missing parent/travel token: ${token}.`);
 }
 
 for (const slug of ['texas-food-trail','texas-chili-con-carne-history','texas-chicken-fried-steak-guide','texas-breakfast-taco-guide','german-czech-texas-towns','dr-pepper-texas-history']) {
   if (!evergreenComponent.includes(`"${slug}"`)) failures.push(`Food-history parent cluster missing child slug ${slug}.`);
+}
+
+for (const token of [
+  'params.category === "food-bbq"',
+  'name: "Texas Food History"',
+  'url: `${siteUrl}/texas-food-history`',
+  'const showFoodHistory = match.slug === "food-bbq"',
+  '<Link to="/texas-food-history"',
+  'Explore Texas food history',
+]) {
+  if (!exploreCategory.includes(token)) failures.push(`Explore Food & BBQ discovery missing token: ${token}.`);
 }
 
 const imageContracts = [
@@ -95,4 +111,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Texas Food History validation passed: canonical hub, ${focusedGuides.length} focused links, bidirectional parent-child schema, licensed exact-subject heroes with social metadata, sitemap governance, discovery, smoke, llms.txt and citation-index coverage intact.`);
+console.log(`Texas Food History validation passed: canonical hub, ${focusedGuides.length} focused links, bidirectional parent-child schema, Food & BBQ discovery, Dr Pepper museum handoff, licensed exact-subject heroes with social metadata, sitemap governance, smoke, llms.txt and citation-index coverage intact.`);
