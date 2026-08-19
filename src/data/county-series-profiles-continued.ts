@@ -55,4 +55,10 @@ export const COUNTY_SERIES_PROFILES_CONTINUED: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/grimes-county-anderson-navasota-fanthorp-railroads-texas")
       .then((module) => module.grimesCountyAndersonNavasotaFanthorpRailroadsArticle),
   },
+  {
+    countySlug: "walker",
+    articleSlug: "walker-county-huntsville-sam-houston-piney-woods-texas",
+    loadArticle: () => import("@/data/fixtures/walker-county-huntsville-sam-houston-piney-woods-texas")
+      .then((module) => module.walkerCountyHuntsvilleSamHoustonPineyWoodsArticle),
+  },
 ];
