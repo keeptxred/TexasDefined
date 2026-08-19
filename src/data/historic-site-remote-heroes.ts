@@ -20,6 +20,11 @@ export const historicSiteRemoteHeroes: Record<string, ImageRef> = {
     alt: "Casa Navarro State Historic Site in San Antonio, Texas",
     width: 500, height: 333, credit: "TxHC · CC BY-SA 3.0 · Wikimedia Commons",
   },
+  "confederate-reunion-grounds": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Confederate_Reunion_Grounds_State_Historic_Site_in_2009.jpg",
+    alt: "Confederate Reunion Grounds State Historic Site near Mexia, Texas",
+    width: 500, height: 339, credit: "TxHC · CC BY-SA 3.0 · Wikimedia Commons",
+  },
   "eisenhower-birthplace": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/2022_03_26_Eisenhour_Birth_Place%2C_Denison%2C_TX_%2828%29.jpg?width=1600",
     alt: "Eisenhower Birthplace State Historic Site in Denison, Texas",
