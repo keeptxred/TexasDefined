@@ -27,14 +27,6 @@ export const paintedChurchCandidateCensus: PaintedChurchCensusEntry[] = [
     sourceUrls: ["https://atlas.thc.texas.gov/Details/5021009223"],
   },
   {
-    slug: "lacoste-our-lady-of-grace",
-    name: "Our Lady of Grace Catholic Church",
-    city: "LaCoste",
-    status: "candidate",
-    reason: "The Buie Harwood archive makes this a credible decorative-painting lead, but the surviving interior, authorship and chronology still need primary verification.",
-    sourceUrls: ["https://txarchives.org/utaaa/finding_aids/00136.xml"],
-  },
-  {
     slug: "san-antonio-san-fernando-cathedral",
     name: "San Fernando Cathedral",
     city: "San Antonio",
