@@ -29,6 +29,18 @@ const closingCosts = base({
   publishedAt: "2026-07-25",
   readingMinutes: 8,
   tags: ["closing costs", "cash to close", "loan estimate", "homebuyer"],
+  internalLinks: [
+    {
+      href: "https://www.consumerfinance.gov/owning-a-home/loan-estimate/",
+      label: "CFPB Loan Estimate explainer",
+      description: "Official federal guidance for reviewing estimated loan terms, closing costs and cash to close.",
+    },
+    {
+      href: "https://www.consumerfinance.gov/owning-a-home/closing-disclosure/",
+      label: "CFPB Closing Disclosure explainer",
+      description: "Official federal guidance for comparing final closing costs, payment terms and cash to close before settlement.",
+    },
+  ],
   body: [
     p("Texas homebuyers often save for a down payment and then discover a second number that matters just as much: cash to close. The down payment is only one part of the transaction. Loan charges, title and settlement services, prepaid interest, homeowners insurance, tax-related deposits, recording charges and other items can all change the amount due when ownership transfers."),
     h("Closing costs and cash to close are not the same number"),
@@ -63,6 +75,13 @@ const utilityCosts = base({
   publishedAt: "2026-07-25",
   readingMinutes: 8,
   tags: ["utilities", "electricity", "water", "moving"],
+  internalLinks: [
+    {
+      href: "https://www.powertochoose.org/PlanDetails/Content/UserGuide",
+      label: "Texas Power to Choose user guide",
+      description: "Official Public Utility Commission guidance for comparing competitive retail electricity plans using realistic seasonal usage.",
+    },
+  ],
   body: [
     p("A Texas utility budget should be built from the address and the household, not from one statewide average. A compact apartment, an older all-electric house, a newer high-efficiency home, a property with a pool and a home served by a municipal utility can all produce very different monthly totals even when they are in the same metro area."),
     h("Start with every recurring service"),
@@ -105,6 +124,13 @@ const salaryNeeded = base({
   publishedAt: "2026-07-25",
   readingMinutes: 8,
   tags: ["salary", "affordability", "debt to income", "home buying"],
+  internalLinks: [
+    {
+      href: "https://www.hud.gov/helping-americans/buying-a-home",
+      label: "HUD homebuying guidance",
+      description: "Official federal guidance on affordability, loan shopping and housing counseling for prospective homebuyers.",
+    },
+  ],
   body: [
     p("There is no single salary that buys a house in Texas. The useful question is how much income a particular household needs for a particular home, loan and location while still leaving room for the rest of life. Purchase price alone cannot answer that because taxes, insurance, interest rate, down payment, existing debts and recurring household expenses can change the payment dramatically."),
     h("Start with the complete monthly housing cost"),
