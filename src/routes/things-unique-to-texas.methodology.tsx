@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { Link, createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
@@ -116,7 +117,7 @@ function ThingsThatDefineTexasMethodology() {
   );
 }
 
-function MethodSection({ title, children }: { title: string; children: React.ReactNode }) {
+function MethodSection({ title, children }: { title: string; children: ReactNode }) {
   return (
     <section className="border-t border-border pt-8">
       <h2 className="font-display text-3xl sm:text-4xl">{title}</h2>
