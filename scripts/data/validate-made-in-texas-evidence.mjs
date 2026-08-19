@@ -35,7 +35,7 @@ const evidence = evidenceBlocks.map((block) => ({
 }));
 
 if (entries.size < 80) failures.push(`Made in Texas dataset unexpectedly shrank to ${entries.size} entries.`);
-if (evidence.length < 26) failures.push(`Expected at least 26 verified Made in Texas evidence records; found ${evidence.length}.`);
+if (evidence.length < 29) failures.push(`Expected at least 29 verified Made in Texas evidence records; found ${evidence.length}.`);
 
 const seenNames = new Set();
 const seenUrls = new Set();
