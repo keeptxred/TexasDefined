@@ -82,4 +82,5 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   profile("live-oak", "live-oak-county-george-west-three-rivers-choke-canyon-texas", () => import("@/data/fixtures/live-oak-county-george-west-three-rivers-choke-canyon").then((module) => module.liveOakCountyGeorgeWestThreeRiversChokeCanyonArticle)),
   profile("atascosa", "atascosa-county-jourdanton-pleasanton-poteet-ranch-country-texas", () => import("@/data/fixtures/atascosa-county-jourdanton-pleasanton-poteet-ranch-country").then((module) => module.atascosaCountyJourdantonPleasantonPoteetRanchCountryArticle)),
   profile("bee", "bee-county-beeville-railroads-ranching-coastal-bend-texas", () => import("@/data/fixtures/bee-county-beeville-railroads-ranching-coastal-bend").then((module) => module.beeCountyBeevilleRailroadsRanchingCoastalBendArticle)),
+  profile("frio", "frio-county-pearsall-dilley-frio-river-winter-garden-texas", () => import("@/data/fixtures/frio-county-pearsall-dilley-frio-river-winter-garden").then((module) => module.frioCountyPearsallDilleyFrioRiverWinterGardenArticle)),
 ];
