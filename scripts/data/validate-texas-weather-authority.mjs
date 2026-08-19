@@ -54,11 +54,18 @@ for (const token of [
   '"texas-blue-norther-weather-guide"',
   'Blue Norther',
   'not unique to Texas',
-  'Spring storm watching is culture, not a warning system',
+  'A norther does not feel the same everywhere in Texas',
+  'Spring storm watching comes from a real seasonal pattern',
+  'The sky is not a warning system',
+  'A strong front can change more than the temperature',
+  'Never use this evergreen guide, a saying, cloud color or a remembered rule of thumb as a substitute for a current official warning.',
   '/things-unique-to-texas/slang-folklore',
+  '/article/texas-regions-explained',
 ]) {
   if (!data.includes(token)) failures.push(`Texas weather guide data must retain: ${token}`);
 }
+const sectionCount = [...data.matchAll(/\n\s{6}\{\n\s{8}heading:/g)].length;
+if (sectionCount < 8) failures.push(`Texas weather guide must retain at least 8 substantive sections; found ${sectionCount}.`);
 
 for (const id of [233, 234, 235]) {
   if (!links.includes(`${id}: "/texas-blue-norther-weather-guide"`)) failures.push(`Texas icon ${id} must resolve to the Blue Norther weather guide.`);
@@ -109,4 +116,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Texas weather authority validation passed: sourced weather-language guide, JSON-LD citations, three icon mappings, Texas Life and machine discovery, human source precedence, citation trust and 89-link/23-route production smoke are protected.');
+console.log(`Texas weather authority validation passed: ${sectionCount} substantive sections, sourced JSON-LD citations, three icon mappings, Texas Life and machine discovery, human source precedence, citation trust and 89-link/23-route production smoke are protected.`);
