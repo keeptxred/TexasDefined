@@ -96,6 +96,7 @@ const LEGACY_ARTICLE_TO_COUNTY = new Map<string, string>([
   ["blanco-county-johnson-city-blanco-pedernales-hill-country-texas", "blanco"],
   ["burnet-county-burnet-marble-falls-highland-lakes-granite-texas", "burnet"],
   ["llano-county-llano-river-granite-highland-lakes-texas", "llano"],
+  ["mason-county-mason-fort-llano-river-hill-country-texas", "mason"],
 ]);
 
 const COUNTY_SLUGS = new Set(LEGACY_ARTICLE_TO_COUNTY.values());
