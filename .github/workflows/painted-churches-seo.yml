@@ -1,0 +1,36 @@
+name: Painted Churches SEO Authority
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "src/routes/explore.painted-churches*"
+      - "src/data/painted-church*"
+      - "src/components/editorial/PaintedChurch*"
+      - "src/lib/public-routes.ts"
+      - "src/routes/sitemap-explore[.]xml.ts"
+      - "scripts/data/validate-painted-churches-seo.mjs"
+      - ".github/workflows/painted-churches-seo.yml"
+  pull_request:
+    paths:
+      - "src/routes/explore.painted-churches*"
+      - "src/data/painted-church*"
+      - "src/components/editorial/PaintedChurch*"
+      - "src/lib/public-routes.ts"
+      - "src/routes/sitemap-explore[.]xml.ts"
+      - "scripts/data/validate-painted-churches-seo.mjs"
+      - ".github/workflows/painted-churches-seo.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate Painted Churches SEO/AEO/authority contract
+        run: node scripts/data/validate-painted-churches-seo.mjs
