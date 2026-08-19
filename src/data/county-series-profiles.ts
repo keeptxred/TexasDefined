@@ -94,4 +94,5 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   profile("kerr", "kerr-county-kerrville-guadalupe-hunt-hill-country-texas", () => import("@/data/fixtures/kerr-county-kerrville-guadalupe-hunt-hill-country").then((module) => module.kerrCountyKerrvilleGuadalupeHuntHillCountryArticle)),
   profile("blanco", "blanco-county-johnson-city-blanco-pedernales-hill-country-texas", () => import("@/data/fixtures/blanco-county-johnson-city-blanco-pedernales-hill-country").then((module) => module.blancoCountyJohnsonCityBlancoPedernalesHillCountryArticle)),
   profile("burnet", "burnet-county-burnet-marble-falls-highland-lakes-granite-texas", () => import("@/data/fixtures/burnet-county-burnet-marble-falls-highland-lakes-granite").then((module) => module.burnetCountyBurnetMarbleFallsHighlandLakesGraniteArticle)),
+  profile("llano", "llano-county-llano-river-granite-highland-lakes-texas", () => import("@/data/fixtures/llano-county-llano-river-granite-highland-lakes").then((module) => module.llanoCountyLlanoRiverGraniteHighlandLakesArticle)),
 ];
