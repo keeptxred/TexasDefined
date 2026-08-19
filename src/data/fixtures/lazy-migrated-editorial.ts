@@ -51,21 +51,59 @@ export const migratedEditorialArticleStubs: Article[] = [
 
 export const migratedEditorialSlugs = migratedEditorialArticleStubs.map((article) => article.slug);
 const migratedSlugSet = new Set(migratedEditorialSlugs);
-const financeDepthSlugSet = new Set(["texas-closing-costs-guide", "texas-utility-costs-guide", "salary-needed-to-buy-a-house-in-texas"]);
-const financeDepth2SlugSet = new Set(["texas-house-down-payment-guide", "should-you-refinance-texas-mortgage", "texas-homeowners-insurance-guide"]);
-const financeDepth3SlugSet = new Set(["renting-vs-buying-in-texas", "true-cost-of-owning-a-home-in-texas", "texas-home-equity-heloc-guide", "texas-mortgage-payment-guide"]);
-const relocationDepthSlugSet = new Set(["moving-to-austin-guide", "moving-to-dallas-fort-worth-guide"]);
-const relocationDepth2SlugSet = new Set(["moving-to-houston-address-checklist", "moving-to-san-antonio-guide", "moving-to-el-paso-guide"]);
+const financeDepthSlugSet = new Set([
+  "texas-closing-costs-guide",
+  "texas-utility-costs-guide",
+  "salary-needed-to-buy-a-house-in-texas",
+]);
+const financeDepth2SlugSet = new Set([
+  "texas-house-down-payment-guide",
+  "should-you-refinance-texas-mortgage",
+  "texas-homeowners-insurance-guide",
+]);
+const financeDepth3SlugSet = new Set([
+  "renting-vs-buying-in-texas",
+  "true-cost-of-owning-a-home-in-texas",
+  "texas-home-equity-heloc-guide",
+  "texas-mortgage-payment-guide",
+]);
+const relocationDepthSlugSet = new Set([
+  "moving-to-austin-guide",
+  "moving-to-dallas-fort-worth-guide",
+]);
+const relocationDepth2SlugSet = new Set([
+  "moving-to-houston-address-checklist",
+  "moving-to-san-antonio-guide",
+  "moving-to-el-paso-guide",
+]);
 const STOCK_TANK_DEPTH_SLUG = "live-2026-06-29-the-history-behind-the-texas-stock-tank-name-bxkvg7";
 
 export async function loadMigratedEditorialArticle(brandId: string, slug: string): Promise<Article | null> {
   if (brandId !== "texasdefined" || !migratedSlugSet.has(slug)) return null;
-  if (financeDepthSlugSet.has(slug)) { const { financeEvergreenDepthArticles } = await import("./finance-evergreen-depth"); return financeEvergreenDepthArticles.find((article) => article.slug === slug) ?? null; }
-  if (financeDepth2SlugSet.has(slug)) { const { financeEvergreenDepth2Articles } = await import("./finance-evergreen-depth-2"); return financeEvergreenDepth2Articles.find((article) => article.slug === slug) ?? null; }
-  if (financeDepth3SlugSet.has(slug)) { const { financeEvergreenDepth3Articles } = await import("./finance-evergreen-depth-3"); return financeEvergreenDepth3Articles.find((article) => article.slug === slug) ?? null; }
-  if (relocationDepthSlugSet.has(slug)) { const { relocationEvergreenDepthArticles } = await import("./relocation-evergreen-depth"); return relocationEvergreenDepthArticles.find((article) => article.slug === slug) ?? null; }
-  if (relocationDepth2SlugSet.has(slug)) { const { relocationEvergreenDepth2Articles } = await import("./relocation-evergreen-depth-2"); return relocationEvergreenDepth2Articles.find((article) => article.slug === slug) ?? null; }
-  if (slug === STOCK_TANK_DEPTH_SLUG) { const { stockTankNameDepthArticle } = await import("./stock-tank-name-depth"); return stockTankNameDepthArticle; }
+  if (financeDepthSlugSet.has(slug)) {
+    const { financeEvergreenDepthArticles } = await import("./finance-evergreen-depth");
+    return financeEvergreenDepthArticles.find((article) => article.slug === slug) ?? null;
+  }
+  if (financeDepth2SlugSet.has(slug)) {
+    const { financeEvergreenDepth2Articles } = await import("./finance-evergreen-depth-2");
+    return financeEvergreenDepth2Articles.find((article) => article.slug === slug) ?? null;
+  }
+  if (financeDepth3SlugSet.has(slug)) {
+    const { financeEvergreenDepth3Articles } = await import("./finance-evergreen-depth-3");
+    return financeEvergreenDepth3Articles.find((article) => article.slug === slug) ?? null;
+  }
+  if (relocationDepthSlugSet.has(slug)) {
+    const { relocationEvergreenDepthArticles } = await import("./relocation-evergreen-depth");
+    return relocationEvergreenDepthArticles.find((article) => article.slug === slug) ?? null;
+  }
+  if (relocationDepth2SlugSet.has(slug)) {
+    const { relocationEvergreenDepth2Articles } = await import("./relocation-evergreen-depth-2");
+    return relocationEvergreenDepth2Articles.find((article) => article.slug === slug) ?? null;
+  }
+  if (slug === STOCK_TANK_DEPTH_SLUG) {
+    const { stockTankNameDepthArticle } = await import("./stock-tank-name-depth");
+    return stockTankNameDepthArticle;
+  }
   const { migratedEditorialArticles } = await import("./migrated-editorial");
   return migratedEditorialArticles.find((article) => article.slug === slug) ?? null;
 }
