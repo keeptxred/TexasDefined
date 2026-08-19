@@ -27,14 +27,6 @@ export const paintedChurchCandidateCensus: PaintedChurchCensusEntry[] = [
     sourceUrls: ["https://atlas.thc.texas.gov/Details/5021009223"],
   },
   {
-    slug: "castroville-st-louis-catholic-church",
-    name: "St. Louis Catholic Church",
-    city: "Castroville",
-    status: "candidate",
-    reason: "The Buie Harwood decorative-painting archive identifies the church as a research lead. It still needs church-specific primary documentation of the surviving decorative program before promotion.",
-    sourceUrls: ["https://txarchives.org/utaaa/finding_aids/00136.xml"],
-  },
-  {
     slug: "lacoste-our-lady-of-grace",
     name: "Our Lady of Grace Catholic Church",
     city: "LaCoste",
