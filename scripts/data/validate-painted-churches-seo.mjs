@@ -10,6 +10,10 @@ const searchDocs = read('src/data/painted-church-search.ts');
 const gallery = read('src/components/editorial/PaintedChurchGallery.tsx');
 const dossier = read('src/components/editorial/PaintedChurchResearchDossier.tsx');
 const expanded = read('src/data/painted-churches-expanded.ts');
+const citationGuide = read('src/routes/citation-guide.tsx');
+const citationManifest = JSON.parse(read('public/citation-magnets.json'));
+const llms = read('src/routes/llms[.]txt.ts');
+const trustRouter = read('src/components/authority/CitationCollectionTrustRouter.tsx');
 
 const supportRoutes = [
   'src/routes/explore.painted-churches.map.tsx',
@@ -23,6 +27,7 @@ const supportPaths = [
   '/explore/painted-churches/how-many',
   '/explore/painted-churches/methodology',
 ];
+const authorityPaths = ['/explore/painted-churches', ...supportPaths];
 
 for (const path of supportRoutes) {
   if (!fs.existsSync(path)) failures.push(`Missing Painted Churches authority route: ${path}`);
@@ -51,6 +56,19 @@ if (!gallery.includes('creditText')) failures.push('Painted Church image schema 
 if (!dossier.includes('Research methodology & corrections')) failures.push('Every Painted Church dossier must link to the methodology/corrections page.');
 if (!dossier.includes('Verified church, visible source trail.')) failures.push('Every Painted Church dossier must expose the editorial-standard authority panel.');
 
+const manifestUrls = new Set(citationManifest.resources.map((resource) => resource.url));
+for (const path of authorityPaths) {
+  const url = `https://texasdefined.com${path}`;
+  if (!manifestUrls.has(url)) failures.push(`Citation manifest must promote ${url}.`);
+  if (!llms.includes(url)) failures.push(`llms.txt must explicitly prioritize ${url}.`);
+  if (!trustRouter.includes(`'${path}'`)) failures.push(`Citation trust router must cover ${path}.`);
+}
+if (!citationGuide.includes("title: 'Painted Churches of Texas'")) failures.push('Citation guide must expose a dedicated Painted Churches reference family.');
+if (!citationGuide.includes('Painted Churches source hierarchy')) failures.push('Citation guide must explain Painted Churches source precedence.');
+if (!citationGuide.includes('/explore/painted-churches/how-many')) failures.push('Citation guide must link the Painted Churches count explainer.');
+if (!llms.includes('## Painted Churches of Texas')) failures.push('llms.txt must include a dedicated Painted Churches retrieval section.');
+if (!llms.includes('Do not treat “Schulenburg cluster,” “National Register decorative-interior group” and “broader Painted Churches tradition” as interchangeable labels.')) failures.push('llms.txt must preserve Painted Churches definition separation.');
+
 for (const marker of ['plantersville-st-marys-catholic-church','corn-hill-holy-trinity-catholic-church','palestine-sacred-heart-catholic-church','bandera-st-stanislaus-catholic-church']) {
   if (!expanded.includes(marker)) failures.push(`Expanded collection must retain verified addition ${marker}.`);
 }
@@ -61,4 +79,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Painted Churches hub, authority cluster, indexing policy, search discovery, image schema and methodology links are protected.');
+console.log('Painted Churches hub, authority cluster, indexing policy, search discovery, image schema, citation manifest, llms guidance, trust panels and methodology links are protected.');
