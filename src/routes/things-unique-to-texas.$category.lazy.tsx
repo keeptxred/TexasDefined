@@ -33,6 +33,7 @@ const FEATURED_GUIDES: Record<string, { href: string; label: string; description
   ],
   "slang-folklore": [
     { href: "/texas-slang-explained", label: "Texas Slang Explained", description: "Y'all, fixin' to, ranch imagery, bilingual influence and the context behind familiar Texas sayings." },
+    { href: "/texas-blue-norther-weather-guide", label: "Texas Blue Northers & Spring Storms", description: "Separate Texas weather vocabulary and storm-watching culture from the meteorology and safety guidance that should control real decisions." },
   ],
   "landmarks": [
     { href: "/german-czech-texas-towns", label: "German & Czech Texas towns", description: "Historic districts, churches and settlement landscapes connect architecture to immigrant history." },
