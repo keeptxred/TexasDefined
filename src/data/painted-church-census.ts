@@ -51,14 +51,6 @@ export const paintedChurchCandidateCensus: PaintedChurchCensusEntry[] = [
     sourceUrls: ["https://txarchives.org/utaaa/finding_aids/00136.xml"],
   },
   {
-    slug: "anderson-st-stanislaus-kostka",
-    name: "St. Stanislaus Kostka Catholic Church",
-    city: "Anderson",
-    status: "candidate",
-    reason: "The parish documents surviving/restored ceiling painting and a later altar mural. Texas Defined still needs enough evidence to classify the historic and modern decorative layers consistently with the statewide methodology.",
-    sourceUrls: ["https://saintstans.org/church-history"],
-  },
-  {
     slug: "san-antonio-mission-san-jose",
     name: "Mission San José",
     city: "San Antonio",
