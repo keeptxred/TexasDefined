@@ -15,6 +15,7 @@ export const Route = createFileRoute("/things-unique-to-texas/$category")({
     const category = loaderData;
     const path = `/things-unique-to-texas/${params.category}`;
     const origin = `https://${texasDefinedBrand.identity.domain}`;
+    const methodologyUrl = `${origin}/things-unique-to-texas/methodology`;
     const description = category?.description ?? "Explore the people, places, foods, traditions and symbols that help define Texas.";
     const title = category ? `${category.title} — Things That Define Texas` : "Things That Define Texas";
     return {
@@ -30,6 +31,9 @@ export const Route = createFileRoute("/things-unique-to-texas/$category")({
             description,
             url: `${origin}${path}`,
             about: { "@type": "Place", name: "Texas" },
+            isBasedOn: methodologyUrl,
+            author: { "@type": "Organization", name: "Texas Defined Editorial Desk", url: `${origin}/authors/a-hollis` },
+            dateModified: "2026-08-19",
             mainEntity: category ? {
               "@type": "ItemList",
               numberOfItems: category.items.length,
