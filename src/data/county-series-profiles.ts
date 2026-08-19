@@ -87,4 +87,5 @@ export const COUNTY_SERIES_PROFILES: CountySeriesProfile[] = [
   profile("wilson", "wilson-county-floresville-la-vernia-stockdale-san-antonio-river-texas", () => import("@/data/fixtures/wilson-county-floresville-la-vernia-stockdale-san-antonio-river").then((module) => module.wilsonCountyFloresvilleLaVerniaStockdaleSanAntonioRiverArticle)),
   profile("gonzales", "gonzales-county-gonzales-come-and-take-it-guadalupe-palmetto-texas", () => import("@/data/fixtures/gonzales-county-gonzales-come-and-take-it-guadalupe-palmetto").then((module) => module.gonzalesCountyGonzalesComeAndTakeItGuadalupePalmettoArticle)),
   profile("guadalupe", "guadalupe-county-seguin-cibolo-guadalupe-river-texas", () => import("@/data/fixtures/guadalupe-county-seguin-cibolo-guadalupe-river").then((module) => module.guadalupeCountySeguinCiboloGuadalupeRiverArticle)),
+  profile("dewitt", "dewitt-county-cuero-yorktown-guadalupe-river-texas", () => import("@/data/fixtures/dewitt-county-cuero-yorktown-guadalupe-river-texas").then((module) => module.dewittCountyCueroYorktownGuadalupeRiverArticle)),
 ];
