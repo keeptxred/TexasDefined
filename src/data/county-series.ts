@@ -127,6 +127,7 @@ const LEGACY_ARTICLE_TO_COUNTY = new Map<string, string>([
   ["sabine-county-hemphill-toledo-bend-sabine-river-piney-woods-texas", "sabine"],
   ["shelby-county-center-regulator-moderator-sabine-piney-woods-texas", "shelby"],
   ["panola-county-carthage-sabine-timber-music-piney-woods-texas", "panola"],
+  ["rusk-county-henderson-east-texas-oil-field-piney-woods-texas", "rusk"],
 ]);
 
 const COUNTY_SLUGS = new Set(LEGACY_ARTICLE_TO_COUNTY.values());
