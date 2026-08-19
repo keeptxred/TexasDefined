@@ -67,6 +67,32 @@ export const additionalVerifiedPaintedChurches: PaintedChurch[] = [
   },
 ];
 
+const imageOverrides: Partial<Record<string, NonNullable<PaintedChurch["image"]>>> = {
+  "shiner-saints-cyril-methodius": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Saints%20Cyril%20and%20Methodius%20Church.JPG",
+    alt: "Exterior of Saints Cyril and Methodius Church in Shiner, Texas",
+    width: 3713,
+    height: 3072,
+    credit: "25or6to4 · Wikimedia Commons",
+    license: "CC BY-SA 3.0",
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Saints_Cyril_and_Methodius_Church.JPG",
+  },
+  "sweet-home-queen-of-peace": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Church%20of%20the%20Blessed%20Virgin%20Mary%2C%20the%20Queen%20of%20Peace.JPG",
+    alt: "Church of the Blessed Virgin Mary, the Queen of Peace in Sweet Home, Texas",
+    width: 4608,
+    height: 3072,
+    credit: "25or6to4 · Wikimedia Commons",
+    license: "CC BY-SA 3.0",
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Church_of_the_Blessed_Virgin_Mary,_the_Queen_of_Peace.JPG",
+  },
+};
+
+for (const church of originalPaintedChurches) {
+  const override = imageOverrides[church.slug];
+  if (override) church.image = override;
+}
+
 for (const church of additionalVerifiedPaintedChurches) {
   if (!originalPaintedChurches.some((existing) => existing.slug === church.slug)) originalPaintedChurches.push(church);
 }
