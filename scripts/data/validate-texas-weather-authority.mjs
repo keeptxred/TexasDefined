@@ -102,10 +102,10 @@ if (citation) {
 
 for (const token of [
   "check_page '/texas-blue-norther-weather-guide'",
-  'test "$json_deep_links" -ge 89',
-  'test "$csv_deep_links" -ge 89',
+  'test "$json_deep_links" -ge 91',
+  'test "$csv_deep_links" -ge 91',
   'Topical/evergreen authority routes checked: 23',
-  'at least 89 deeper-guide relationships',
+  'at least 91 deeper-guide relationships',
 ]) {
   if (!smoke.includes(token)) failures.push(`Texas weather production smoke contract missing: ${token}`);
 }
@@ -116,4 +116,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Texas weather authority validation passed: ${sectionCount} substantive sections, sourced JSON-LD citations, three icon mappings, Texas Life and machine discovery, human source precedence, citation trust and 89-link/23-route production smoke are protected.`);
+console.log(`Texas weather authority validation passed: ${sectionCount} substantive sections, sourced JSON-LD citations, three icon mappings, Texas Life and machine discovery, human source precedence, citation trust and 91-link/23-route production smoke are protected.`);
