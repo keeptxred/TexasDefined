@@ -12,7 +12,7 @@ export const masonCountyMasonFortLlanoRiverHillCountryArticle: Article = {
   category: "texas-history",
   region: "hill-country",
   hero: {
-    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Mason_County_Courthouse_%282018%29%2C_Mason%2C_TX.jpg?width=1600",
+    src: "https://upload.wikimedia.org/wikipedia/commons/1/18/Mason_County_Courthouse_%282018%29%2C_Mason%2C_TX.jpg",
     alt: "Mason County Courthouse in Mason, Texas",
     width: 4608,
     height: 3072,
