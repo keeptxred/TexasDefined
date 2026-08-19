@@ -1,7 +1,10 @@
 import fs from 'node:fs';
 
 const queries = fs.readFileSync('src/data/queries.ts', 'utf8');
-const searchRoute = fs.readFileSync('src/routes/search.tsx', 'utf8');
+const searchShell = fs.readFileSync('src/routes/search.tsx', 'utf8');
+const searchLazy = fs.readFileSync('src/routes/search.lazy.tsx', 'utf8');
+const paintedChurchSearch = fs.readFileSync('src/data/painted-church-search.ts', 'utf8');
+const searchRoute = `${searchShell}\n${searchLazy}`;
 const errors = [];
 
 for (const feature of [
@@ -34,9 +37,15 @@ for (const feature of [
 for (const feature of [
   'searchDocumentsQuery',
   'const { data: documents } = useSuspenseQuery(searchDocumentsQuery())',
-  'search(documents, { term: query, brandId: texasDefinedBrand.identity.id })',
+  'const searchableDocuments = [...new Map([...documents, ...paintedChurchSearchDocuments]',
+  'search(searchableDocuments, { term: query, brandId: texasDefinedBrand.identity.id })',
 ]) {
-  if (!searchRoute.includes(feature)) errors.push(`Global search route must use the publication-ready search index: ${feature}.`);
+  if (!searchRoute.includes(feature)) errors.push(`Global search route must use the publication-ready search index plus verified Painted Church documents: ${feature}.`);
+}
+if (!searchLazy.includes('createLazyFileRoute("/search")')) errors.push('Global search UI and Painted Church search catalog must remain behind a native lazy route boundary.');
+if (searchShell.includes('paintedChurchSearchDocuments') || searchShell.includes('painted-church-search')) errors.push('Global search shell must not eagerly import the Painted Churches search catalog.');
+for (const feature of ['paintedChurches.map', 'id: `painted-church:${church.slug}`', 'href: `/explore/painted-churches/${church.slug}`', 'keywords: [...new Set(keywords)]']) {
+  if (!paintedChurchSearch.includes(feature)) errors.push(`Painted Church search document contract missing: ${feature}.`);
 }
 
 if (queries.includes('href: `/explore/${destination.category}/${destination.slug}`')) {
@@ -64,4 +73,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Global search destinations are resolved and SEO-ready before publication, use canonical URLs and deduplicated keywords, retain core/preserved source fallbacks, fail closed when no destination is ready, and cannot be bypassed by a raw route-level destination feed.');
+console.log('Global search destinations are resolved and SEO-ready before publication, use canonical URLs and deduplicated keywords, retain core/preserved source fallbacks, add verified Painted Churches behind a native lazy boundary, fail closed when no destination is ready, and cannot be bypassed by a raw route-level destination feed.');
