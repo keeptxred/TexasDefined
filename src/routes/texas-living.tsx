@@ -108,7 +108,9 @@ export const Route = createFileRoute('/texas-living')({
   },
   head: ({ loaderData }) => {
     const articles = [...(loaderData?.homeArticles ?? []), ...(loaderData?.movingArticles ?? [])];
-    const topicItems = [...sections, ...cultureGuides].map(([name, path, copy], index) => ({ '@type': 'ListItem', position: index + 1, item: { '@type': 'WebPage', name, description: copy, url: `${siteUrl}${path}` } }));
+    const sectionItems = sections.map(([name, path, copy]) => ({ name, path, copy }));
+    const cultureItems = cultureGuides.map(([path, name, copy]) => ({ name, path, copy }));
+    const topicItems = [...sectionItems, ...cultureItems].map(({ name, path, copy }, index) => ({ '@type': 'ListItem', position: index + 1, item: { '@type': 'WebPage', name, description: copy, url: `${siteUrl}${path}` } }));
     const articleItems = articles.map((article, index) => ({ '@type': 'ListItem', position: topicItems.length + index + 1, item: { '@type': 'Article', name: article.title, description: article.dek, url: `${siteUrl}/article/${article.slug}` } }));
     return {
       meta: buildMeta(texasDefinedBrand, { canonicalPath: '/texas-living', title: 'Texas Life', description }),
