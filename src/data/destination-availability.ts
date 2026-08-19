@@ -29,6 +29,7 @@ const NON_PRIMARY_TRIP_PLANNER_SLUGS = new Set([
   "cooper-lake-doctors-creek-unit-state-park",
   "cooper-lake-johns-creek-unit-state-park",
   "devils-river-big-satan-unit-state-natural-area",
+  "enchanted-rock",
   "hill-country-louise-merrick-unit-state-natural-area",
   "lake-mineral-wells-trailway-garner-th-state-park",
   "lake-somerville-trailway-newman-bottom-th-state-park",
