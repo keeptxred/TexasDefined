@@ -102,6 +102,7 @@ const LEGACY_ARTICLE_TO_COUNTY = new Map<string, string>([
   ["mills-county-goldthwaite-colorado-river-ranch-country-texas", "mills"],
   ["hamilton-county-hamilton-hico-rivers-ranch-country-texas", "hamilton"],
   ["coryell-county-gatesville-fort-cavazos-leon-river-central-texas", "coryell"],
+  ["bosque-county-meridian-clifton-norwegian-heritage-bosque-river-texas", "bosque"],
 ]);
 
 const COUNTY_SLUGS = new Set(LEGACY_ARTICLE_TO_COUNTY.values());
