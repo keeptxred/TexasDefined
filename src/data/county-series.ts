@@ -114,6 +114,7 @@ const LEGACY_ARTICLE_TO_COUNTY = new Map<string, string>([
   ["ellis-county-waxahachie-ennis-blackland-prairie-texas", "ellis"],
   ["navarro-county-corsicana-oil-blackland-prairie-texas", "navarro"],
   ["limestone-county-groesbeck-mexia-fort-parker-navasota-prairie-texas", "limestone"],
+  ["freestone-county-fairfield-teague-wortham-trinity-prairie-texas", "freestone"],
 ]);
 
 const COUNTY_SLUGS = new Set(LEGACY_ARTICLE_TO_COUNTY.values());
