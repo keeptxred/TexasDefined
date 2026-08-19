@@ -5,6 +5,11 @@ import type { Destination, ImageRef } from "./types";
  * Wikimedia Commons license and attribution were verified before publication.
  */
 export const historicSiteRemoteHeroes: Record<string, ImageRef> = {
+  "bush-family-home": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/George_W._Bush_Childhood_Home_in_Midland%2C_TX_Picture_1879.jpg?width=1600",
+    alt: "Bush Family Home in Midland, Texas",
+    width: 1600, height: 1200, credit: "Billy Hathorn · CC BY-SA 3.0 · Wikimedia Commons",
+  },
   "caddo-mounds-state-historic-site": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Caddo_Mound_TX.jpg",
     alt: "Caddo mound at Caddo Mounds State Historic Site near Alto, Texas",
@@ -14,6 +19,11 @@ export const historicSiteRemoteHeroes: Record<string, ImageRef> = {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/2022_03_26_Eisenhour_Birth_Place%2C_Denison%2C_TX_%2828%29.jpg?width=1600",
     alt: "Eisenhower Birthplace State Historic Site in Denison, Texas",
     width: 1600, height: 900, credit: "E's & D's Adventures in Life · CC BY 2.0 · Wikimedia Commons",
+  },
+  "fannin-battleground": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Statue_on_the_Battlefield_of_Coleto.jpg",
+    alt: "Memorial obelisk at Fannin Battleground State Historic Site in Texas",
+    width: 1200, height: 1600, credit: "Ernest Mettendorf · Public domain · Wikimedia Commons",
   },
   "fort-griffin": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/0011FortGriffinTxAdminBuilding.jpg",
@@ -55,6 +65,11 @@ export const historicSiteRemoteHeroes: Record<string, ImageRef> = {
     alt: "Landmark Inn State Historic Site in Castroville, Texas",
     width: 1600, height: 1039, credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons",
   },
+  "levi-jordan-plantation": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Levi_Jordan_Plantation_State_Historic_Site.jpg",
+    alt: "Levi Jordan Plantation State Historic Site in Brazoria County, Texas",
+    width: 960, height: 720, credit: "Texas Historical Commission · CC BY 4.0 · Wikimedia Commons",
+  },
   "magoffin-home": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Magoffin_home_2009.jpg?width=1600",
     alt: "Magoffin Home State Historic Site in El Paso, Texas",
@@ -89,6 +104,16 @@ export const historicSiteRemoteHeroes: Record<string, ImageRef> = {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/S._B._MAXEY_HOUSE.jpg?width=1600",
     alt: "Sam Bell Maxey House State Historic Site in Paris, Texas",
     width: 1600, height: 1053, credit: "Jerrye & Roy Klotz MD · CC BY-SA 3.0 · Wikimedia Commons",
+  },
+  "starr-family-home": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Starr_Family_Home%2C_Marshall%2C_Texas_%287190040914%29.jpg?width=1600",
+    alt: "Starr Family Home State Historic Site in Marshall, Texas",
+    width: 1600, height: 1067, credit: "Nicolas Henderson · CC BY 2.0 · Wikimedia Commons",
+  },
+  "varner-hogg-plantation": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Varner-Hogg_Plantation_-_West_Columbia%2C_Texas_16.jpg?width=1600",
+    alt: "Varner-Hogg Plantation State Historic Site in West Columbia, Texas",
+    width: 1600, height: 652, credit: "Robert Gray · CC BY 2.0 · Wikimedia Commons",
   },
   "zaragoza-birthplace": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Birthplace_of_General_Ignacio_Zaragoza%2C_Presidio_La_Bah%C3%ADa%2C_Goliad%2C_Texas_%2816076316689%29.jpg?width=1600",
