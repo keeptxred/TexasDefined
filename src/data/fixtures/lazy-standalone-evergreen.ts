@@ -115,6 +115,18 @@ const texasBorderlandsHistoricSitesGuideStub: Article = {
   body: [], relatedCollections: [], relatedDestinations: ["old-socorro-mission", "magoffin-home", "casa-navarro", "lipantitlan", "mission-dolores"],
 };
 
+const texasWorldWarIIHistoricSitesGuideStub: Article = {
+  id: "evergreen-texas-world-war-ii-historic-sites-guide", brandId: "texasdefined", slug: "texas-world-war-ii-historic-sites-guide",
+  title: "Texas and World War II: Four Historic Sites That Connect the State to a Global War",
+  dek: "Eisenhower's Denison birthplace, the National Museum of the Pacific War, Harlingen's Iwo Jima monument and Slaton's Harvey House connect Texas leadership, memory, rail travel and the Pacific war to places you can still visit.",
+  category: "texas-history",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Fredericksburg_July_2017_7_%28Admiral_Nimitz_Museum%29.jpg?width=1600", alt: "Admiral Nimitz Museum, part of the National Museum of the Pacific War in Fredericksburg, Texas", width: 1600, height: 1067, credit: "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons" },
+  authorId: "a-marisol", publishedAt: "2026-08-19", readingMinutes: 14,
+  tags: ["texas world war ii", "eisenhower birthplace", "national museum pacific war", "iwo jima monument harlingen", "slaton harvey house", "texas military history"], featured: true,
+  sourceName: "Texas Historical Commission", sourceUrl: "https://thc.texas.gov/historic-sites",
+  body: [], relatedCollections: [], relatedDestinations: ["eisenhower-birthplace", "national-museum-pacific-war", "iwo-jima-museum-monument", "slaton-harvey-house"],
+};
+
 export const standaloneEvergreenStubs: Article[] = [
   rodeo101Stub,
   highSchoolFootballNewcomersStub,
@@ -126,6 +138,7 @@ export const standaloneEvergreenStubs: Article[] = [
   presidentialTexasHistoricHomesStub,
   brazoriaPlantationsSlaveryEmancipationHistoryStub,
   texasBorderlandsHistoricSitesGuideStub,
+  texasWorldWarIIHistoricSitesGuideStub,
 ];
 
 export async function loadStandaloneEvergreenArticle(brandId: string, slug: string): Promise<Article | null> {
@@ -140,5 +153,6 @@ export async function loadStandaloneEvergreenArticle(brandId: string, slug: stri
   if (slug === presidentialTexasHistoricHomesStub.slug) return import("./presidential-texas-historic-homes").then((module) => module.presidentialTexasHistoricHomesArticle);
   if (slug === brazoriaPlantationsSlaveryEmancipationHistoryStub.slug) return import("./brazoria-plantations-slavery-emancipation-history").then((module) => module.brazoriaPlantationsSlaveryEmancipationHistoryArticle);
   if (slug === texasBorderlandsHistoricSitesGuideStub.slug) return import("./texas-borderlands-historic-sites-guide").then((module) => module.texasBorderlandsHistoricSitesGuideArticle);
+  if (slug === texasWorldWarIIHistoricSitesGuideStub.slug) return import("./texas-world-war-ii-historic-sites-guide").then((module) => module.texasWorldWarIIHistoricSitesGuideArticle);
   return null;
 }
