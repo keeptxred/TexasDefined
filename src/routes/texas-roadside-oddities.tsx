@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import texasCourthouseSquare from "@/assets/generated/texas-courthouse-square.jpg";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { TexasEvergreenGuide } from "@/components/editorial/TexasEvergreenGuide";
 import { getTexasEvergreenGuide } from "@/data/texas-evergreen-guides";
@@ -15,8 +14,6 @@ export const Route = createFileRoute(canonicalPath)({
       canonicalPath,
       title: "Texas Roadside Oddities: Weird Stops Worth the Detour",
       description: guide.dek,
-      image: texasCourthouseSquare,
-      imageAlt: "Historic Texas courthouse square and surrounding streetscape",
       type: "article",
     }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
