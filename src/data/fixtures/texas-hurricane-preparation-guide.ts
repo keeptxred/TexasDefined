@@ -24,6 +24,9 @@ export const texasHurricanePreparationArticle: Article = {
     { href: "/home-garden", label: "Home & Garden", description: "More practical guidance for living in a Texas home." },
     { href: "/article/texas-homeowners-insurance-guide", label: "Texas homeowners insurance", description: "Understand coverage, deductibles and the records worth keeping before a loss." },
     { href: "/article/texas-home-maintenance-calendar", label: "Texas home maintenance calendar", description: "Build storm-season preparation into your regular home routine." },
+    { href: "https://tdem.texas.gov/prepare", label: "Texas Division of Emergency Management preparedness tips", description: "Official Texas guidance for making a plan, building a kit, evacuation routes, flood information and disaster readiness." },
+    { href: "https://www.nhc.noaa.gov/prepare/hazards.php", label: "National Hurricane Center hurricane hazards", description: "Official NOAA guidance on storm surge, inland flooding, wind, rip currents and tornado hazards from tropical cyclones." },
+    { href: "https://www.ready.gov/", label: "Ready.gov disaster preparedness", description: "Official federal preparedness guidance for evacuation planning, emergency kits, hurricanes, flooding and power outages." },
   ],
   relatedCollections: [], relatedDestinations: [],
   body: [
