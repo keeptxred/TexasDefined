@@ -21,8 +21,8 @@ const deepDiveLinks = deepDiveBlock
   : [];
 
 if (destinationLinks.length < 41) failures.push(`Expected at least 41 exact destination mappings; found ${destinationLinks.length}.`);
-if (deepDiveLinks.length < 40) failures.push(`Expected at least 40 purpose-built/editorial deep-dive mappings; found ${deepDiveLinks.length}.`);
-if (destinationLinks.length + deepDiveLinks.length < 81) failures.push(`Expected at least 81 protected deeper-guide relationships; found ${destinationLinks.length + deepDiveLinks.length}.`);
+if (deepDiveLinks.length < 42) failures.push(`Expected at least 42 purpose-built/editorial deep-dive mappings; found ${deepDiveLinks.length}.`);
+if (destinationLinks.length + deepDiveLinks.length < 83) failures.push(`Expected at least 83 protected deeper-guide relationships; found ${destinationLinks.length + deepDiveLinks.length}.`);
 
 const allIds = [...destinationLinks, ...deepDiveLinks].map((match) => Number(match[1]));
 if (new Set(allIds).size !== allIds.length) failures.push('Texas icon resolver IDs must be unique across destination and deep-dive registries.');
@@ -46,6 +46,7 @@ const requiredDeepDiveMappings = new Map([
   [14, '/san-antonio-puffy-taco-history'],
   [18, '/barbacoa-big-red-san-antonio'],
   [30, '/texas-ranch-water-guide'],
+  [32, '/texas-breakfast-taco-guide'],
   [36, '/texas-brand-origin-stories'],
   [37, '/texas-brand-origin-stories'],
   [38, '/texas-brand-origin-stories'],
@@ -55,6 +56,7 @@ const requiredDeepDiveMappings = new Map([
   [60, '/article/caddo-lake-cypress-morning'],
   [166, '/texas-dance-halls-honky-tonks'],
   [167, '/texas-dance-halls-honky-tonks'],
+  [173, '/texas-chili-con-carne-history'],
   [174, '/texas-dance-halls-honky-tonks'],
   [180, '/texas-dance-halls-honky-tonks'],
   [190, '/texas-homecoming-mums'],
