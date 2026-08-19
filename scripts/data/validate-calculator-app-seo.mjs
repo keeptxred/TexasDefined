@@ -50,9 +50,7 @@ for (const [label, filename] of routes) {
   for (const feature of ['buildCalculatorHead', 'featureList:']) {
     if (!route.includes(feature)) failures.push(`${label} calculator missing ${feature}.`);
   }
-  if (route.includes('aggregateRating:') || route.includes('offers:')) {
-    failures.push(`${label} calculator must not invent ratings or offers.`);
-  }
+  if (route.includes('aggregateRating:') || route.includes('offers:')) failures.push(`${label} calculator must not invent ratings or offers.`);
 }
 
 const deepCalculatorContracts = [
@@ -96,6 +94,14 @@ const deepCalculatorContracts = [
   ['Salary comparison', 'src/routes/texas-salary-comparison-by-city.tsx', [
     'Texas Salary Comparison by City | Cost-Adjusted Pay Estimate', 'A citywide index cannot see your housing or commute', 'Texas salary comparison FAQ',
     'to="/texas-salary-calculator"', 'to="/texas-budget-planner"', 'to="/moving-to-texas"',
+  ]],
+  ['Cost of living', 'src/routes/texas-cost-of-living-calculator.tsx', [
+    'Texas Cost of Living Calculator | Compare Household Budgets', 'Build the comparison around the household you actually have', 'Texas cost of living calculator FAQ',
+    'to="/texas-salary-comparison-by-city"', 'to="/texas-budget-planner"', 'to="/moving-to-texas"',
+  ]],
+  ['Down payment assistance', 'src/routes/texas-down-payment-assistance-calculator.tsx', [
+    'Texas Down Payment Assistance Calculator | Cash-to-Close Scenario', 'Assistance changes cash to close, not the need to verify the program', 'Texas down payment assistance calculator FAQ',
+    'to="/article/texas-house-down-payment-guide"', 'to="/texas-down-payment-calculator"', 'to="/texas-home-affordability-calculator"', 'https://welcomehome.tdhca.texas.gov/',
   ]],
 ];
 for (const [label, filename, markers] of deepCalculatorContracts) {
