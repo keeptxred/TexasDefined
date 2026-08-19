@@ -41,6 +41,12 @@ Canonical contributor profiles use https://texasdefined.com/authors/{author-id}.
 - Things That Define Texas: https://texasdefined.com/things-unique-to-texas
 - Things That Define Texas methodology: https://texasdefined.com/things-unique-to-texas/methodology
 - Texas food traditions: https://texasdefined.com/texas-food-trail
+- Texas food history: https://texasdefined.com/texas-food-history
+- Chili con carne history: https://texasdefined.com/texas-chili-con-carne-history
+- Chicken-fried steak guide: https://texasdefined.com/texas-chicken-fried-steak-guide
+- Texas breakfast taco guide: https://texasdefined.com/texas-breakfast-taco-guide
+- Texas brand origin stories: https://texasdefined.com/texas-brand-origin-stories
+- Dr Pepper Texas history: https://texasdefined.com/dr-pepper-texas-history
 - Texas roadside oddities: https://texasdefined.com/texas-roadside-oddities
 - Texas slang explained: https://texasdefined.com/texas-slang-explained
 - Texas dance halls and honky-tonks: https://texasdefined.com/texas-dance-halls-honky-tonks
