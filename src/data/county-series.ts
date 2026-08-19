@@ -81,6 +81,7 @@ const LEGACY_ARTICLE_TO_COUNTY = new Map<string, string>([
   ["duval-county-san-diego-freer-benavides-brush-country-texas", "duval"],
   ["jim-wells-county-alice-ranching-oil-brush-country-texas", "jim-wells"],
   ["live-oak-county-george-west-three-rivers-choke-canyon-texas", "live-oak"],
+  ["atascosa-county-jourdanton-pleasanton-poteet-ranch-country-texas", "atascosa"],
 ]);
 
 const COUNTY_SLUGS = new Set(LEGACY_ARTICLE_TO_COUNTY.values());
