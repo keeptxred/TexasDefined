@@ -2,6 +2,7 @@ import { createFileRoute, notFound } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { getTexasIconCategory } from "@/data/things-unique-to-texas";
+import { texasIconCanonicalHref } from "@/data/things-unique-to-texas-links";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 export const Route = createFileRoute("/things-unique-to-texas/$category")({
@@ -32,7 +33,15 @@ export const Route = createFileRoute("/things-unique-to-texas/$category")({
             mainEntity: category ? {
               "@type": "ItemList",
               numberOfItems: category.items.length,
-              itemListElement: category.items.map((entry, index) => ({ "@type": "ListItem", position: index + 1, name: entry.name })),
+              itemListElement: category.items.map((entry, index) => {
+                const href = texasIconCanonicalHref(entry);
+                return {
+                  "@type": "ListItem",
+                  position: index + 1,
+                  name: entry.name,
+                  ...(href ? { url: `${origin}${href}` } : {}),
+                };
+              }),
             } : undefined,
           },
           {
