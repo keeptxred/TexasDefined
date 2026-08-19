@@ -12,6 +12,7 @@ const promotedArticleTargets = [
   ['src/data/fixtures/galveston-county-island-port-juneteenth.ts', 'slug: "galveston-county-island-port-juneteenth-texas"', '/article/galveston-county-island-port-juneteenth-texas'],
 ];
 const promotedRouteTargets = [
+  ['src/routes/texas-roadside-oddities.tsx', 'const canonicalPath = "/texas-roadside-oddities"', '/texas-roadside-oddities'],
   ['src/routes/texas-slang-explained.tsx', 'const canonicalPath = "/texas-slang-explained"', '/texas-slang-explained'],
   ['src/routes/texas-blue-norther-weather-guide.tsx', 'const canonicalPath = "/texas-blue-norther-weather-guide"', '/texas-blue-norther-weather-guide'],
   ['src/routes/texas-dance-halls-honky-tonks.tsx', 'const canonicalPath = "/texas-dance-halls-honky-tonks"', '/texas-dance-halls-honky-tonks'],
@@ -34,8 +35,8 @@ const deepDiveLinks = deepDiveBlock
   : [];
 
 if (destinationLinks.length < 42) failures.push(`Expected at least 42 exact destination mappings; found ${destinationLinks.length}.`);
-if (deepDiveLinks.length < 47) failures.push(`Expected at least 47 purpose-built/editorial deep-dive mappings; found ${deepDiveLinks.length}.`);
-if (destinationLinks.length + deepDiveLinks.length < 89) failures.push(`Expected at least 89 protected deeper-guide relationships; found ${destinationLinks.length + deepDiveLinks.length}.`);
+if (deepDiveLinks.length < 49) failures.push(`Expected at least 49 purpose-built/editorial deep-dive mappings; found ${deepDiveLinks.length}.`);
+if (destinationLinks.length + deepDiveLinks.length < 91) failures.push(`Expected at least 91 protected deeper-guide relationships; found ${destinationLinks.length + deepDiveLinks.length}.`);
 
 const allIds = [...destinationLinks, ...deepDiveLinks].map((match) => Number(match[1]));
 if (new Set(allIds).size !== allIds.length) failures.push('Texas icon resolver IDs must be unique across destination and deep-dive registries.');
@@ -67,6 +68,8 @@ const requiredDeepDiveMappings = new Map([
   [44, '/texas-brand-origin-stories'],
   [45, '/texas-brand-origin-stories'],
   [60, '/article/caddo-lake-cypress-morning'],
+  [129, '/texas-roadside-oddities'],
+  [137, '/texas-roadside-oddities'],
   [166, '/texas-dance-halls-honky-tonks'],
   [167, '/texas-dance-halls-honky-tonks'],
   [173, '/texas-chili-con-carne-history'],
