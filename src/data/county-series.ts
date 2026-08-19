@@ -87,6 +87,7 @@ const LEGACY_ARTICLE_TO_COUNTY = new Map<string, string>([
   ["karnes-county-karnes-city-kenedy-panna-maria-san-antonio-river-texas", "karnes"],
   ["wilson-county-floresville-la-vernia-stockdale-san-antonio-river-texas", "wilson"],
   ["gonzales-county-gonzales-come-and-take-it-guadalupe-palmetto-texas", "gonzales"],
+  ["guadalupe-county-seguin-cibolo-guadalupe-river-texas", "guadalupe"],
 ]);
 
 const COUNTY_SLUGS = new Set(LEGACY_ARTICLE_TO_COUNTY.values());
