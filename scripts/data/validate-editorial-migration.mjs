@@ -16,9 +16,26 @@ const expected = [
 ];
 for (const slug of expected) { if (!migrated.includes(`slug: "${slug}"`)) errors.push(`Migrated article body missing: ${slug}`); if (!lazyMigrated.includes(`slug: "${slug}"`)) errors.push(`Migrated article catalog stub missing: ${slug}`); }
 const financeDepthSlugs = ['texas-closing-costs-guide','texas-utility-costs-guide','salary-needed-to-buy-a-house-in-texas'];
-for (const slug of financeDepthSlugs) { if (!financeDepth.includes(`slug: "${slug}"`)) errors.push(`Deeper finance evergreen body missing: ${slug}`); if (!lazyMigrated.includes(`"${slug}"`)) errors.push(`Finance evergreen override slug missing from lazy loader: ${slug}`); }
+const financeDepthSet = lazyMigrated.match(/const financeDepthSlugSet = new Set\(\[([\s\S]*?)\n\]\);/)?.[1] ?? '';
+if (!financeDepthSet) errors.push('Could not parse financeDepthSlugSet.');
+for (const slug of financeDepthSlugs) {
+  if (!financeDepth.includes(`slug: "${slug}"`)) errors.push(`Deeper finance evergreen body missing: ${slug}`);
+  if (!financeDepthSet.includes(`"${slug}"`)) errors.push(`Finance evergreen override slug missing from financeDepthSlugSet: ${slug}`);
+}
 for (const feature of ['financeDepthSlugSet','await import("./finance-evergreen-depth")','financeEvergreenDepthArticles.find((article) => article.slug === slug)']) if (!lazyMigrated.includes(feature)) errors.push(`Finance evergreen lazy override wiring missing: ${feature}`);
 for (const marker of ['Closing costs and cash to close are not the same number','Use the Closing Disclosure as the final comparison','Use a full year when you can','Separate usage from the rate plan','Debt-to-income is a lender measure, not a household budget','Treat preapproval as a ceiling to evaluate, not a spending instruction']) if (!financeDepth.includes(marker)) errors.push(`Finance evergreen depth marker missing: ${marker}`);
+for (const marker of [
+  'https://www.consumerfinance.gov/owning-a-home/loan-estimate/',
+  'https://www.consumerfinance.gov/owning-a-home/closing-disclosure/',
+  'https://www.powertochoose.org/PlanDetails/Content/UserGuide',
+  'https://www.hud.gov/helping-americans/buying-a-home',
+  'CFPB Loan Estimate explainer',
+  'CFPB Closing Disclosure explainer',
+  'Texas Power to Choose user guide',
+  'HUD homebuying guidance',
+]) {
+  if (!financeDepth.includes(marker)) errors.push(`Finance evergreen primary-source authority marker missing: ${marker}`);
+}
 const slugMatches = [...migrated.matchAll(/slug: "([^"]+)"/g)].map((match) => match[1]);
 if (new Set(slugMatches).size !== slugMatches.length) errors.push('Migrated editorial body slugs must remain unique.');
 if (slugMatches.length !== expected.length) errors.push(`Expected ${expected.length} migrated article bodies, found ${slugMatches.length}.`);
@@ -42,4 +59,4 @@ for (const feature of ["articlesQuery({ category: 'real-estate' })","articlesQue
 if (!sitemap.includes('platform.articles.list(scope)')) errors.push('Primary sitemap no longer sources the complete article repository.');
 for (const category of ['real-estate','moving-to-texas','texas-history','food-bbq']) { if (!migrated.includes(`category: "${category}"`)) errors.push(`Expected migrated body category is empty: ${category}`); if (!lazyMigrated.includes(`category: "${category}"`)) errors.push(`Expected migrated catalog category is empty: ${category}`); }
 if (errors.length) { console.error('Editorial migration validation failed:'); for (const error of errors) console.error(`- ${error}`); process.exit(1); }
-console.log('Seventeen migrated lifestyle articles and ten core fixture articles retain lightweight catalogs, lazy detail loading, three protected deeper finance evergreen overrides, Texas Life exposure with curated photo enrichment, repository search, sitemap sourcing and legacy redirects.');
+console.log('Seventeen migrated lifestyle articles and ten core fixture articles retain lightweight catalogs, lazy detail loading, three protected deeper finance evergreen overrides with primary-source authority, Texas Life exposure with curated photo enrichment, repository search, sitemap sourcing and legacy redirects.');
