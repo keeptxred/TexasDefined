@@ -35,8 +35,10 @@ const exactHeroAliases = ['barrington-living-history-farm','fanthorp-inn','kreis
 for (const slug of exactHeroAliases) if (!primary.includes(`"${slug}"`)) failures.push(`Expected exact historic hero alias is missing: ${slug}.`);
 
 const verifiedRemoteHeroes = [
+  ['bush-family-home', 'CC BY-SA 3.0'],
   ['caddo-mounds-state-historic-site', 'CC BY-SA 3.0'],
   ['eisenhower-birthplace', 'CC BY 2.0'],
+  ['fannin-battleground', 'Public domain'],
   ['fort-griffin', 'CC BY-SA 3.0'],
   ['fort-lancaster', 'Public domain'],
   ['fort-martin-scott', 'CC BY 4.0'],
@@ -45,6 +47,7 @@ const verifiedRemoteHeroes = [
   ['fulton-mansion', 'CC BY 4.0'],
   ['goodnight-ranch', 'CC BY-SA 4.0'],
   ['landmark-inn', 'CC BY 4.0'],
+  ['levi-jordan-plantation', 'CC BY 4.0'],
   ['magoffin-home', 'CC BY 4.0'],
   ['mission-dolores', 'CC BY-SA 4.0'],
   ['old-socorro-mission', 'Public domain'],
@@ -52,6 +55,8 @@ const verifiedRemoteHeroes = [
   ['port-isabel-lighthouse', 'CC BY-SA 4.0'],
   ['presidio-la-bahia', 'CC BY-SA 4.0'],
   ['sam-bell-maxey-house', 'CC BY-SA 3.0'],
+  ['starr-family-home', 'CC BY 2.0'],
+  ['varner-hogg-plantation', 'CC BY 2.0'],
   ['zaragoza-birthplace', 'CC BY-SA 2.0'],
 ];
 for (const [slug, license] of verifiedRemoteHeroes) {
