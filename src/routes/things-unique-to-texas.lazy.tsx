@@ -50,7 +50,22 @@ function ThingsUniqueToTexasPage() {
         </Container>
       </section>
 
-      <section className="border-y border-border bg-muted/25 py-16 sm:py-20">
+      <section className="border-y border-border bg-surface py-16 sm:py-20">
+        <Container>
+          <div className="max-w-3xl">
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">Deep-dive guides</p>
+            <h2 className="mt-3 font-display text-4xl sm:text-5xl">Turn the list into stories and road trips</h2>
+            <p className="mt-5 leading-7 text-muted-foreground">The strongest themes get full editorial treatment instead of hundreds of thin one-item pages. These guides connect culture to places, history and practical trip planning.</p>
+          </div>
+          <div className="mt-10 grid gap-px overflow-hidden border border-border bg-border lg:grid-cols-3">
+            <PillarLink to="/texas-food-trail" eyebrow="Food & road trips" title="The Texas Food Trail" text="Ten food traditions—from Central Texas barbecue and breakfast tacos to Czech bakeries, Gulf seafood and Hill Country produce—organized as a travel-ready guide." />
+            <PillarLink to="/texas-roadside-oddities" eyebrow="Roadside Texas" title="Texas Roadside Oddities" text="Cadillac Ranch, giant boots, tiny towns, neon, courthouse squares and the logic behind building a better weird-Texas road trip." />
+            <PillarLink to="/texas-slang-explained" eyebrow="Language & identity" title="Texas Slang Explained" text="Y'all, fixin' to, all hat no cattle, bilingual influence and why context matters more than stereotype lists." />
+          </div>
+        </Container>
+      </section>
+
+      <section className="border-b border-border bg-muted/25 py-16 sm:py-20">
         <Container>
           <div className="grid gap-10 lg:grid-cols-[1.05fr_.95fr]">
             <div>
@@ -77,6 +92,10 @@ function ThingsUniqueToTexasPage() {
 
 function Stat({ value, label }: { value: string; label: string }) {
   return <div className="bg-background p-5"><p className="font-display text-3xl">{value}</p><p className="mt-1 text-xs uppercase tracking-[0.12em] text-muted-foreground">{label}</p></div>;
+}
+
+function PillarLink({ to, eyebrow, title, text }: { to: string; eyebrow: string; title: string; text: string }) {
+  return <Link to={to} className="group bg-background p-7"><span className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">{eyebrow}</span><strong className="mt-3 block font-display text-3xl leading-tight group-hover:text-primary">{title}</strong><span className="mt-4 block text-sm leading-7 text-muted-foreground">{text}</span><span className="mt-6 block text-sm font-semibold">Read the guide →</span></Link>;
 }
 
 function RelatedLink({ to, title, text }: { to: string; title: string; text: string }) {
