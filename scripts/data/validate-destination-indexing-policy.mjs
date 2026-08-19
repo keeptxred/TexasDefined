@@ -49,8 +49,13 @@ for (const marker of [
   'let enrichedFailed = !remoteConfigured',
   'let coreFailed = !remoteConfigured',
   'if (remoteConfigured)',
-  'const useFixtureFallback = (enrichedFailed && coreFailed) || remoteDestinations.length === 0',
-  'const rawDestinations = useFixtureFallback ? fixtureDestinations : remoteDestinations',
+  'function preservedDestinationFallback()',
+  'fixtureDestinations,',
+  'topAttractionDestinations,',
+  'legacyExploreDestinations,',
+  'legacyLakeDestinations,',
+  'const usePreservedFallback = (enrichedFailed && coreFailed) || remoteDestinations.length === 0',
+  'const rawDestinations = usePreservedFallback ? preservedDestinationFallback() : remoteDestinations',
   'function resolveDestinationCatalog',
   'applyStateParkHeroAssets(destinations)',
   'applyExploreHeroAssets(',
@@ -62,6 +67,13 @@ for (const marker of [
   'entry(`/destination/${item.slug}`',
 ]) {
   if (!sitemap.includes(marker)) failures.push(`Explore sitemap resolved-catalog/indexing contract missing: ${marker}`);
+}
+
+for (const obsolete of [
+  'const useFixtureFallback = (enrichedFailed && coreFailed) || remoteDestinations.length === 0',
+  'const rawDestinations = useFixtureFallback ? fixtureDestinations : remoteDestinations',
+]) {
+  if (sitemap.includes(obsolete)) failures.push(`Explore sitemap reverted to the narrow fixture-only fallback: ${obsolete}`);
 }
 
 for (const marker of [
@@ -98,6 +110,7 @@ for (const marker of [
 for (const marker of [
   'filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved))',
   'return reconcileExploreCatalog(mergeDestinations(enriched, core, preservedExploreDestinations))',
+  'const preservedExploreDestinations = mergeDestinations(topAttractionDestinations, legacyExploreDestinations, legacyLakeDestinations)',
   'reconcileDestinationHeroes(applyExploreHeroAssets(applyStateParkHeroAssets(destinations)))',
 ]) {
   if (!queryImplementation.includes(marker)) failures.push(`Destination query publication/resolution contract missing: ${marker}`);
@@ -198,4 +211,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Destination indexing policy passed: route metadata emits one consistent robots policy; Explore sitemap merges remote sources, falls back to curated fixtures when remote data is unavailable or empty, resolves curation/heroes/quality before indexing, and preserves the same primary/readiness gate; query publication uses the same resolution concepts behind a lazy runtime boundary; duplicate units plus the legacy Enchanted Rock and Palo Duro slugs stay consolidated with permanent 301 redirects; substantive-copy, hero, coordinate and official-source gates remain aligned; recorded review dates must be fresh; core fallback curation retains explicit current-source provenance; and reviewed water, museum, and batch 52 curation overlays are tracked separately from guaranteed local routes.');
+console.log('Destination indexing policy passed: route metadata emits one consistent robots policy; Explore sitemap and live destination queries share the preserved Top 25 + legacy Explore + legacy lake fallback sources before the same curation/readiness gate; duplicate units plus the legacy Enchanted Rock and Palo Duro slugs stay consolidated with permanent 301 redirects; substantive-copy, hero, coordinate and official-source gates remain aligned; recorded review dates must be fresh; and reviewed curation overlays remain tracked separately from guaranteed local routes.');
