@@ -107,6 +107,9 @@ jobs:
       - name: Validate Things That Define Texas authority
         run: node scripts/data/validate-things-unique-to-texas.mjs
 
+      - name: Validate Things That Define Texas deep-link coverage
+        run: node scripts/data/validate-texas-icon-link-depth.mjs
+
       - name: Validate Top 25 attraction authority
         run: node scripts/data/validate-top-attraction-authority.mjs
 
