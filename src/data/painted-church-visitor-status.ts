@@ -68,6 +68,22 @@ export const paintedChurchVisitorStatuses: PaintedChurchVisitorStatus[] = [
     controllingSourceLabel: "St. Mary's Catholic Church — Fredericksburg",
     checkedAt: CHECKED,
   },
+  {
+    slug: "corpus-christi-sacred-heart-catholic-church",
+    status: "verify-before-travel",
+    summary: "Sacred Heart is an active Corpus Christi parish. Verify current Masses, parish events and sightseeing access with the official parish before making a special trip to view Antonio E. Garcia's frescoes.",
+    controllingSourceUrl: "https://www.sacredheartcorpus.org/",
+    controllingSourceLabel: "Sacred Heart Catholic Church — Corpus Christi",
+    checkedAt: CHECKED,
+  },
+  {
+    slug: "san-antonio-st-joseph-catholic-church",
+    status: "verify-before-travel",
+    summary: "St. Joseph is an active downtown San Antonio parish. Confirm current church hours, Masses and event access with the parish before planning a sightseeing visit.",
+    controllingSourceUrl: "https://www.stjsa.org/",
+    controllingSourceLabel: "St. Joseph Catholic Church — San Antonio",
+    checkedAt: CHECKED,
+  },
 ];
 
 export const paintedChurchVisitorStatusBySlug = new Map(paintedChurchVisitorStatuses.map((item) => [item.slug, item]));
