@@ -63,6 +63,20 @@ const guideImages: Partial<Record<string, GuideImage>> = {
     credit: "Paxsimius · CC BY-SA 4.0 · Wikimedia Commons",
     sourceHref: "https://commons.wikimedia.org/wiki/File:BreakfastTaco.jpg",
   },
+  "texas-ranch-water-guide": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Ranch_water.jpg?width=1600",
+    alt: "Ranch Water cocktail served over ice with citrus",
+    caption: "The modern Ranch Water format is simple—tequila, lime and sparkling mineral water—even though the drink's exact origin remains disputed.",
+    credit: "BanjoZebra · CC BY 4.0 · Wikimedia Commons",
+    sourceHref: "https://commons.wikimedia.org/wiki/File:Ranch_water.jpg",
+  },
+  "san-antonio-puffy-taco-history": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Puffy_taco.jpg?width=1600",
+    alt: "Puffy taco served at Los Barrios Mexican Restaurant in San Antonio",
+    caption: "A San Antonio puffy taco uses fresh masa fried until the shell expands into a crisp, airy pocket.",
+    credit: "y6y6y6 · CC BY 2.0 · Wikimedia Commons",
+    sourceHref: "https://commons.wikimedia.org/wiki/File:Puffy_taco.jpg",
+  },
   "texas-natural-wonders-bucket-list": {
     src: bigBend,
     alt: "Big Bend landscape with desert terrain and distant mountains",
@@ -100,17 +114,17 @@ const guideSources: Partial<Record<string, { label: string; href: string; note: 
   ],
   "texas-ranch-water-guide": [
     { label: "Austin Monthly — How the Ranch Water Was Born in Austin", href: "https://www.austinmonthly.com/ranch-water/", note: "Documents Ranch 616's late-1990s menu history and Kevin Williamson's account while identifying the drink as an Austin and Texas icon." },
-    { label: "Liquor.com — Ranch Water", href: "https://www.liquor.com/ranch-water-cocktail-recipe-5496343", note: "Summarizes the competing West Texas folklore and Ranch 616 naming claim, reinforcing that the exact first origin is not settled." },
+    { label: "The Washington Post — Ranch Water origin reporting", href: "https://www.washingtonpost.com/food/2021/07/27/ranch-water-recipe/", note: "Examines competing origin stories and identifies Kevin Williamson and Ranch 616 as the closest documented modern naming/origin claim without treating older West Texas folklore as proven fact." },
   ],
   "san-antonio-puffy-taco-history": [
-    { label: "Visit San Antonio — Culinary and city history", href: "https://www.visitsanantonio.com/in-the-news/post/cowboy-culture-and-history-in-san-antonio/", note: "Identifies Ray's Drive Inn with the puffy taco's San Antonio origin story and describes the fried masa shell." },
+    { label: "Visit San Antonio — Hill Country road trip and tacos", href: "https://www.visitsanantonio.com/in-the-news/post/the-ultimate-texas-hill-country-road-trip-includes-tree-houses-tubing-and-tacos/", note: "Identifies Ray's Drive Inn with the puffy taco's modern San Antonio origin story and describes the fresh-fried shell." },
     { label: "UTSA — Tacos, Texas and tradition", href: "https://news.utsa.edu/2020/08/everything-you-need-to-know-about-tacos-texas-and-tradition/", note: "Places puffy tacos within San Antonio's broader taco culture and regional food-history conversation." },
     { label: "Texas Standard — An Ode to the Puffy Taco", href: "https://texasstandard.org/stories/opinion-an-ode-to-the-puffy-taco/", note: "Documents Arturo Lopez and Ray's Drive Inn as central to the modern San Antonio puffy-taco story." },
   ],
   "barbacoa-big-red-san-antonio": [
     { label: "Texas A&M University–San Antonio — Barbacoa and Big Red festival", href: "https://mesquite-news.com/big-red-and-barbacoa-headline-festival/", note: "Documents Sunday barbacoa family traditions and the established San Antonio pairing with Big Red." },
     { label: "Dr Pepper Museum — Big Red exhibit", href: "https://drpeppermuseum.com/virtual-tour/", note: "Documents Big Red as another Waco-created beverage and its earlier Sun Tang name." },
-    { label: "Texas Tribune — Big Red in San Antonio", href: "https://www.texastribune.org/2025/08/02/big-red-san-antonio-red-dye-40/", note: "Documents the 1937 Waco origin and the soda's later cultural connection to San Antonio barbacoa." },
+    { label: "San Antonio Report — Barbacoa & Big Red Festival", href: "https://sanantonioreport.org/barbacoa-big-red-festival-only-in-sa/", note: "Documents the pairing as a San Antonio family tradition and the festival's role in turning that recurring Sunday ritual into a public celebration." },
   ],
 };
 
