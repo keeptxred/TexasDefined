@@ -55,10 +55,51 @@ for (const [label, filename] of routes) {
   }
 }
 
+const deepCalculatorContracts = [
+  ['Mortgage payoff', 'src/routes/texas-mortgage-payoff-calculator.tsx', [
+    'Texas Mortgage Payoff Calculator | Extra Payment Scenarios',
+    'Extra principal changes the balance that future interest uses',
+    'Pay extra, refinance, or keep the current schedule?',
+    'Texas mortgage payoff calculator FAQ',
+    'to="/texas-refinance-savings-calculator"',
+    'to="/article/should-you-refinance-texas-mortgage"',
+    'to="/texas-homeownership-cost-calculator"',
+    'https://www.consumerfinance.gov/ask-cfpb/how-does-paying-down-a-mortgage-work-en-1943/',
+    'https://www.consumerfinance.gov/ask-cfpb/what-is-a-payoff-amount-and-is-it-the-same-as-my-current-balance-en-205/',
+    'https://www.consumerfinance.gov/ask-cfpb/what-is-a-prepayment-penalty-en-1957/',
+  ]],
+  ['Down payment', 'src/routes/texas-down-payment-calculator.tsx', [
+    'Texas Down Payment Calculator | Cash Needed to Buy a Home',
+    'Keep the down payment, closing costs and reserves in one plan',
+    'Connect the cash requirement to the payment you can carry',
+    'Texas down payment calculator FAQ',
+    'to="/article/texas-house-down-payment-guide"',
+    'to="/texas-closing-cost-calculator"',
+    'to="/texas-home-affordability-calculator"',
+    'https://www.hud.gov/buying/loans',
+    'https://www.va.gov/housing-assistance/home-loans/loan-types/purchase-loan/',
+    'https://welcomehome.tdhca.texas.gov/',
+  ]],
+  ['Homeownership cost', 'src/routes/texas-homeownership-cost-calculator.tsx', [
+    'Texas Homeownership Cost Calculator | Beyond the Mortgage',
+    'The mortgage payment is only one part of owning the house',
+    'Verify the biggest ownership-cost assumptions separately',
+    'Texas homeownership cost calculator FAQ',
+    'to="/texas-utility-cost-calculator"',
+    'to="/texas-home-insurance-calculator"',
+    'to="/article/true-cost-of-owning-a-home-in-texas"',
+    'to="/article/muds-pids-hoas-special-districts-texas"',
+  ]],
+];
+for (const [label, filename, markers] of deepCalculatorContracts) {
+  const route = fs.readFileSync(filename, 'utf8');
+  for (const marker of markers) if (!route.includes(marker)) failures.push(`${label} calculator indexing-depth contract missing ${marker}.`);
+}
+
 if (failures.length) {
   console.error('Calculator application SEO validation failed:');
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log('Calculator WebPage, WebApplication, canonical relationship, and breadcrumb validation passed.');
+console.log('Calculator WebPage, WebApplication, canonical relationship, breadcrumb, and priority home-finance indexing-depth validation passed.');
