@@ -19,3 +19,5 @@ export const TEXAS_ICON_REFERENCE_ROWS = TEXAS_ICON_CATEGORIES.flatMap((category
     };
   }),
 );
+
+export const TEXAS_ICON_DEEPER_GUIDE_COUNT = TEXAS_ICON_REFERENCE_ROWS.filter((row) => row.deeperGuide !== null).length;
