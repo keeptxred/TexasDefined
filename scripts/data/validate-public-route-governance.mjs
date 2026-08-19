@@ -46,6 +46,9 @@ const isVerifiedPermanentRedirectEntry = (entry) => shouldCountPublicRoute(entry
   && /\bredirect\s*\(/.test(entry.source)
   && entry.source.includes('statusCode: 301');
 const derivedRedirects = sourceRouteEntries.filter(isVerifiedPermanentRedirectEntry).map((entry) => entry.path);
+for (const routePath of derivedRedirects) {
+  if (!explicitRedirects.includes(routePath)) failures.push(`Permanent public redirect must be explicitly registered in REDIRECT_ONLY_PATHS so sitemap policy can exclude it: ${routePath}.`);
+}
 const redirects = [...new Set([...explicitRedirects, ...derivedRedirects])];
 const classified = new Set([...indexable, ...conditional, ...redirects, ...nonIndexable]);
 
@@ -125,4 +128,4 @@ for (const routePath of [...indexable, ...conditional]) {
   if (conditional.includes(routePath) && !/noindex/i.test(routeSource)) failures.push(`Conditional route does not expose an explicit noindex state: ${routePath} (${routeFile}).`);
 }
 if (failures.length) { console.error('Public-route governance validation failed:'); for (const failure of failures) console.error(`- ${failure}`); process.exit(1); }
-console.log(`Public-route governance passed for ${registeredStaticPublicPaths.size} static routes, ${indexable.length} always-indexable routes, ${conditional.length} conditional routes, and ${redirects.length} verified permanent redirect-only routes (${explicitRedirects.length} explicitly registered, ${derivedRedirects.length} source-derived before de-duplication); normal site content does not link back into redirect-only URLs.`);
+console.log(`Public-route governance passed for ${registeredStaticPublicPaths.size} static routes, ${indexable.length} always-indexable routes, ${conditional.length} conditional routes, and ${redirects.length} verified permanent redirect-only routes (${explicitRedirects.length} explicitly registered, ${derivedRedirects.length} source-derived before de-duplication); every permanent redirect is explicitly crawl-governed and normal site content does not link back into redirect-only URLs.`);
