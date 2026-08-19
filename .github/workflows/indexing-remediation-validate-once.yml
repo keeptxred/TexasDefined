@@ -63,4 +63,4 @@ jobs:
           git commit -m 'Record indexing remediation source validation pass'
           git push origin HEAD:main
 
-# Retriggered after destination provenance batch 52 refresh on 2026-08-19.
+# Retriggered after preserved-catalog sitemap alignment and destination canonical consolidation on 2026-08-19.
