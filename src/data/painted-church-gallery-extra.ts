@@ -15,6 +15,28 @@ const extraGallery: Record<string, PaintedChurchGalleryImage[]> = {
       license: "CC BY-SA 4.0",
     },
   ],
+  "san-antonio-st-joseph-catholic-church": [
+    {
+      src: commons("San Antonio May 2018 2 (St. Joseph Catholic Church).jpg"),
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:San_Antonio_May_2018_2_(St._Joseph_Catholic_Church).jpg",
+      alt: "Interior of St. Joseph Catholic Church in downtown San Antonio, Texas",
+      caption: "Michael Barera's 2018 interior view documents the surviving decorative sanctuary, columns and Gothic interior envelope of St. Joseph in downtown San Antonio.",
+      width: 6000,
+      height: 4000,
+      credit: "Michael Barera · Wikimedia Commons",
+      license: "CC BY-SA 4.0",
+    },
+    {
+      src: commons("St Joseph Catholic Church in San Antonio Texas.jpg"),
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:St_Joseph_Catholic_Church_in_San_Antonio_Texas.jpg",
+      alt: "Exterior of St. Joseph Catholic Church in downtown San Antonio, Texas",
+      caption: "The compact Gothic exterior of St. Joseph survives in the middle of downtown San Antonio's later commercial development.",
+      width: 640,
+      height: 465,
+      credit: "Clipper471 · Wikimedia Commons",
+      license: "Public domain — released by author",
+    },
+  ],
 };
 
 export function extraPaintedChurchGalleryBySlug(slug: string) {
