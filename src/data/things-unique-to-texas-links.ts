@@ -10,6 +10,9 @@ const DEEP_DIVE_ICON_LINKS: Readonly<Record<number, string>> = {
   3: "/texas-chili-con-carne-history",
   4: "/texas-breakfast-taco-guide",
   7: "/dr-pepper-texas-history",
+  14: "/san-antonio-puffy-taco-history",
+  18: "/barbacoa-big-red-san-antonio",
+  30: "/texas-ranch-water-guide",
   180: "/texas-dance-halls-honky-tonks",
   190: "/texas-homecoming-mums",
 };
