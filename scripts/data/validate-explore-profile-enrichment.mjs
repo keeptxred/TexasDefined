@@ -133,8 +133,8 @@ for (const feature of [
   'let coreFailed = !remoteConfigured',
   'if (remoteConfigured)',
   'const remoteDestinations = mergeDestinationSources(coreDestinations, enrichedDestinations)',
-  'const useFixtureFallback = (enrichedFailed && coreFailed) || remoteDestinations.length === 0',
-  'const rawDestinations = useFixtureFallback ? fixtureDestinations : remoteDestinations',
+  'const usePreservedFallback = (enrichedFailed && coreFailed) || remoteDestinations.length === 0',
+  'const rawDestinations = usePreservedFallback ? preservedExploreDestinations : remoteDestinations',
   'const destinations = resolveDestinationCatalog(rawDestinations)',
   'validLastModified', '<lastmod>', 'item.sourceCheckedAt',
   'isPrimaryTripPlannerDestination(destination)',
@@ -174,4 +174,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Explore enrichment, grouped planning, ranked search, AI discovery, unavailable-or-empty remote fallback with quality-gated sitemap freshness, authority, relationship discovery with Texas Explained fallback, public-view fallback, lazy destination runtime, and fixture resilience passed.');
+console.log('Explore enrichment, grouped planning, ranked search, AI discovery, unavailable-or-empty remote fallback with quality-gated sitemap freshness, authority, relationship discovery with Texas Explained fallback, public-view fallback, lazy destination runtime, and preserved-catalog resilience passed.');
