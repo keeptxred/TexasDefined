@@ -15,7 +15,7 @@ jobs:
     timeout-minutes: 30
     environment: texasdefined-publication
     env:
-      TARGET_SHA: 0c465d46c069de6eebc64179517bac7b4e316def
+      TARGET_SHA: e149865f54147fbb371161a581912d25e55a9310
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       HERO_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/HarrisonCountyCourthouse1_%281_of_1%29.jpg?width=1600
