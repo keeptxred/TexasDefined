@@ -1,6 +1,8 @@
 import fs from 'node:fs';
 
 const lazy = fs.readFileSync('src/data/fixtures/lazy-standalone-evergreen.ts', 'utf8');
+const repositories = fs.readFileSync('src/data/fixtures/repositories.ts', 'utf8');
+const sitemap = fs.readFileSync('src/routes/sitemap[.]xml.ts', 'utf8');
 const historicSites = fs.readFileSync('src/data/historic-sites.ts', 'utf8');
 const reciprocal = fs.readFileSync('src/data/historic-site-evergreen-links.ts', 'utf8');
 const runtime = fs.readFileSync('src/data/destination-query-runtime.ts', 'utf8');
@@ -75,10 +77,17 @@ for (const marker of [
   '.map(enrichHistoricSiteEvergreenLinks)',
 ]) if (!runtime.includes(marker)) failures.push(`Historic destination runtime is missing reciprocal evergreen enrichment: ${marker}`);
 
+for (const marker of ['standaloneEvergreenStubs', '...standaloneEvergreenStubs', 'loadStandaloneEvergreenArticle']) {
+  if (!repositories.includes(marker)) failures.push(`Historic evergreen repository discovery contract missing: ${marker}.`);
+}
+for (const marker of ['platform.articles.list(scope)', 'articles.filter((article) => !isLegacyCountySeriesArticle(article.slug)).map((article) => ({ path: `/article/${article.slug}`']) {
+  if (!sitemap.includes(marker)) failures.push(`Historic evergreen sitemap discovery contract missing: ${marker}.`);
+}
+
 if (failures.length) {
   console.error('Historic-site evergreen validation failed:');
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log(`Historic-site evergreen validation passed: ${guides.length} lazy-loaded Texas-history guides retain substantive depth, THC sourcing, verified destination links and reciprocal route-guide discovery from the statewide historic-site catalog.`);
+console.log(`Historic-site evergreen validation passed: ${guides.length} lazy-loaded Texas-history guides retain substantive depth, THC sourcing, verified destination links, reciprocal route-guide discovery, repository listing and canonical article-sitemap publication.`);
