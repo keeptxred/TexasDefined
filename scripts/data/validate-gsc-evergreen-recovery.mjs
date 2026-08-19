@@ -7,7 +7,10 @@ const lazyMigrated = read('src/data/fixtures/lazy-migrated-editorial.ts');
 const financeDepth1 = read('src/data/fixtures/finance-evergreen-depth.ts');
 const financeDepth2 = read('src/data/fixtures/finance-evergreen-depth-2.ts');
 const relocationDepth = read('src/data/fixtures/relocation-evergreen-depth.ts');
+const stockTank = read('src/data/fixtures/stock-tank-name-depth.ts');
 const lazyCore = read('src/data/fixtures/lazy-texas-core-articles.ts');
+const lazyCoreEvergreen = read('src/data/fixtures/lazy-core-evergreen.ts');
+const countiesGuide = read('src/data/fixtures/why-texas-has-254-counties.ts');
 const danceHall = read('src/data/fixtures/texas-dance-hall-preservation.ts');
 const hurricane = read('src/data/fixtures/texas-hurricane-preparation-guide.ts');
 const football = read('src/data/fixtures/high-school-football-newcomers.ts');
@@ -96,6 +99,30 @@ for (const marker of [
   'href: "/browse/counties"',
 ]) if (!relocationDepth.includes(marker)) failures.push(`Relocation recovery authority/discovery marker missing ${marker}.`);
 
+const stockTankSlug = 'live-2026-06-29-the-history-behind-the-texas-stock-tank-name-bxkvg7';
+for (const marker of [
+  `const STOCK_TANK_DEPTH_SLUG = "${stockTankSlug}"`,
+  'await import("./stock-tank-name-depth")',
+  'return stockTankNameDepthArticle',
+]) if (!lazyMigrated.includes(marker)) failures.push(`Stock-tank recovery lazy-loader contract missing ${marker}.`);
+for (const marker of [
+  `slug: "${stockTankSlug}"`,
+  'https://tpwd.texas.gov/landwater/land/habitats/post_oak/waterfowl/mallard_res/',
+  'https://agrilifeextension.tamu.edu/asset-external/a-pond-to-call-my-own-understanding-water-law-in-texas/',
+  'https://www.nrcs.usda.gov/state-offices/texas/news/nors-cattle-co-a-legacy-of-innovation-and-collaboration-with-nrcs',
+  'href: "/article/texas-rural-wells-water-guide"',
+  'The name starts with livestock, not recreation',
+]) if (!stockTank.includes(marker)) failures.push(`Stock-tank recovery contract missing ${marker}.`);
+
+if (!lazyCoreEvergreen.includes('slug: "why-texas-has-254-counties"')) failures.push('254-counties recovery article missing from lazy core evergreen catalog.');
+for (const marker of [
+  'https://www.texas.gov/local-government-resources/',
+  'https://www.tsl.texas.gov/ref/abouttx/countyseats.html',
+  'https://comptroller.texas.gov/transparency/local/counties.php',
+  'href: "/browse/counties"',
+  'href: "/article/texas-courthouses-town-square"',
+]) if (!countiesGuide.includes(marker)) failures.push(`254-counties recovery authority/discovery contract missing ${marker}.`);
+
 if (!lazyPractical.includes('slug: "texas-hurricane-preparation-homeowners-renters"')) failures.push('Hurricane recovery stub missing from lazy practical catalog.');
 for (const marker of [
   'https://tdem.texas.gov/prepare',
@@ -137,4 +164,4 @@ if (failures.length) {
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
-console.log('GSC evergreen recovery passed: six finance guides and two relocation guides retain deep lazy bodies and primary sources, hurricane and football retain authoritative guidance, dance-hall survival remains a distinct preservation article, and shared article canonical/sitemap discovery remains intact.');
+console.log('GSC evergreen recovery passed: six finance guides, two relocation guides, stock-tank terminology, 254-county history, hurricane, football and dance-hall preservation retain deep source-backed content, lazy delivery where appropriate, and shared article canonical/sitemap discovery.');
