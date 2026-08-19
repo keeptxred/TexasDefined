@@ -66,11 +66,11 @@ export const migratedEditorialArticleStubs: Article[] = [
   stub(8, { slug: "texas-utility-costs-guide", title: "How to Estimate Texas Utility Costs", dek: "Build an address-specific budget for electricity, water, wastewater, gas, internet, trash, pools and irrigation.", category: "moving-to-texas", hero: utilityHero, authorId: "a-hollis", publishedAt: "2026-07-25", readingMinutes: 8, tags: ["utilities", "electricity", "water", "moving"] }),
   stub(9, { slug: "texas-homeowners-insurance-guide", title: "Texas Homeowners Insurance: What Buyers Should Compare", dek: "Coverage, roof settlement, percentage deductibles, flood exclusions and coastal wind protection can matter more than the cheapest premium.", category: "real-estate", hero: insuranceHero, authorId: "a-hollis", publishedAt: "2026-07-25", readingMinutes: 9, tags: ["home insurance", "deductibles", "flood", "windstorm"] }),
   stub(10, { slug: "salary-needed-to-buy-a-house-in-texas", title: "What Salary Do You Need to Buy a House in Texas?", dek: "Work backward from the complete payment, recurring debts and a comfortable budget instead of relying on one statewide income number.", category: "real-estate", hero: salaryHero, authorId: "a-hollis", publishedAt: "2026-07-25", readingMinutes: 8, tags: ["salary", "affordability", "debt to income", "home buying"] }),
-  stub(11, { slug: "moving-to-houston-address-checklist", title: "Moving to Houston: The Address Checklist", dek: "Flood history, drainage, taxing units, utilities, insurance and commute can change block by block across the Houston region.", category: "moving-to-texas", region: "gulf-coast", hero: cityHero, authorId: "a-hollis", publishedAt: "2026-07-23", readingMinutes: 10, tags: ["houston", "relocation", "flood risk", "property taxes"] }),
+  stub(11, { slug: "moving-to-houston-address-checklist", title: "Moving to Houston: The Address Checklist", dek: "Flood history, drainage, taxing units, utilities, insurance and commute can change block by block across the Houston region.", category: "moving-to-texas", region: "gulf-coast", hero: cityHero, authorId: "a-hollis", publishedAt: "2026-07-23", readingMinutes: 12, tags: ["houston", "relocation", "flood risk", "property taxes"] }),
   stub(12, { slug: "moving-to-dallas-fort-worth-guide", title: "Moving to Dallas–Fort Worth", dek: "Choose the work corridor first, then compare tolls, local governments, school boundaries, utilities and total housing costs.", category: "moving-to-texas", region: "prairies-lakes", hero: movingHero, authorId: "a-hollis", publishedAt: "2026-07-23", readingMinutes: 12, tags: ["dallas", "fort worth", "dfw", "relocation"] }),
-  stub(13, { slug: "moving-to-san-antonio-guide", title: "Moving to San Antonio", dek: "How to compare Bexar-area commutes, city boundaries, school districts, CPS Energy, SAWS and fast-growing suburban corridors.", category: "moving-to-texas", region: "south-texas", hero: cityHero, authorId: "a-hollis", publishedAt: "2026-07-23", readingMinutes: 9, tags: ["san antonio", "relocation", "utilities", "commute"] }),
+  stub(13, { slug: "moving-to-san-antonio-guide", title: "Moving to San Antonio", dek: "How to compare Bexar-area commutes, city boundaries, school districts, CPS Energy, SAWS and fast-growing suburban corridors.", category: "moving-to-texas", region: "south-texas", hero: cityHero, authorId: "a-hollis", publishedAt: "2026-07-23", readingMinutes: 11, tags: ["san antonio", "relocation", "utilities", "commute"] }),
   stub(14, { slug: "moving-to-austin-guide", title: "Moving to Austin and Central Texas", dek: "Compare total monthly cost, city limits, utility territories, school districts and the real commute across Travis, Williamson and Hays counties.", category: "moving-to-texas", region: "hill-country", hero: movingHero, authorId: "a-hollis", publishedAt: "2026-07-23", readingMinutes: 11, tags: ["austin", "central texas", "relocation", "cost of living"] }),
-  stub(15, { slug: "moving-to-el-paso-guide", title: "Moving to El Paso", dek: "Choose the right side of the mountain, plan vehicle registration and emissions, and budget for desert utilities and Fort Bliss access.", category: "moving-to-texas", region: "big-bend", hero: movingHero, authorId: "a-hollis", publishedAt: "2026-07-23", readingMinutes: 9, tags: ["el paso", "relocation", "fort bliss", "desert living"] }),
+  stub(15, { slug: "moving-to-el-paso-guide", title: "Moving to El Paso", dek: "Choose the right side of the mountain, plan vehicle registration and emissions, and budget for desert utilities and Fort Bliss access.", category: "moving-to-texas", region: "big-bend", hero: movingHero, authorId: "a-hollis", publishedAt: "2026-07-23", readingMinutes: 11, tags: ["el paso", "relocation", "fort bliss", "desert living"] }),
   stub(16, { slug: "live-2026-06-29-the-history-behind-the-texas-stock-tank-name-bxkvg7", title: "Why Texans Call a Pond a Stock Tank", dek: "Why 'stock tank' became ordinary Texas ranch language for small man-made ponds built to water livestock—and why the term now gets used far beyond cattle country.", category: "texas-history", hero: cultureHero, authorId: "a-hollis", publishedAt: "2026-06-29", readingMinutes: 8, tags: ["texas language", "ranching", "stock tank", "history"] }),
   stub(17, { slug: "live-2026-07-07-texas-pitmasters-to-feature-in-new-food-network-competition-series-v3wglp", title: "Texas Pitmasters Bring Several Traditions to National Television", dek: "A Food Network competition puts Central Texas smoke, South Texas influence and live-fire cooking on the same stage.", category: "food-bbq", region: "south-texas", hero: bbqHero, authorId: "a-marisol", publishedAt: "2026-07-07", readingMinutes: 6, tags: ["barbecue", "pitmasters", "san antonio", "live fire"] }),
 ];
@@ -91,6 +91,11 @@ const relocationDepthSlugSet = new Set([
   "moving-to-austin-guide",
   "moving-to-dallas-fort-worth-guide",
 ]);
+const relocationDepth2SlugSet = new Set([
+  "moving-to-houston-address-checklist",
+  "moving-to-san-antonio-guide",
+  "moving-to-el-paso-guide",
+]);
 const STOCK_TANK_DEPTH_SLUG = "live-2026-06-29-the-history-behind-the-texas-stock-tank-name-bxkvg7";
 
 export async function loadMigratedEditorialArticle(brandId: string, slug: string): Promise<Article | null> {
@@ -106,6 +111,10 @@ export async function loadMigratedEditorialArticle(brandId: string, slug: string
   if (relocationDepthSlugSet.has(slug)) {
     const { relocationEvergreenDepthArticles } = await import("./relocation-evergreen-depth");
     return relocationEvergreenDepthArticles.find((article) => article.slug === slug) ?? null;
+  }
+  if (relocationDepth2SlugSet.has(slug)) {
+    const { relocationEvergreenDepth2Articles } = await import("./relocation-evergreen-depth-2");
+    return relocationEvergreenDepth2Articles.find((article) => article.slug === slug) ?? null;
   }
   if (slug === STOCK_TANK_DEPTH_SLUG) {
     const { stockTankNameDepthArticle } = await import("./stock-tank-name-depth");
