@@ -84,6 +84,14 @@ export const paintedChurchVisitorStatuses: PaintedChurchVisitorStatus[] = [
     controllingSourceLabel: "St. Joseph Catholic Church — San Antonio",
     checkedAt: CHECKED,
   },
+  {
+    slug: "anderson-st-stanislaus-kostka",
+    status: "verify-before-travel",
+    summary: "St. Stanislaus Kostka is an active Grimes County parish with current Mass, confession and parish-event schedules. Verify sightseeing access before traveling specifically to view the historic decorative interior.",
+    controllingSourceUrl: "https://saintstans.org/",
+    controllingSourceLabel: "St. Stanislaus Kostka Catholic Church — Anderson",
+    checkedAt: CHECKED,
+  },
 ];
 
 export const paintedChurchVisitorStatusBySlug = new Map(paintedChurchVisitorStatuses.map((item) => [item.slug, item]));
