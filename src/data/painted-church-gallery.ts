@@ -128,6 +128,18 @@ const gallery: Record<string, PaintedChurchGalleryImage[]> = {
       license: "CC BY-SA 3.0 / GFDL",
     },
   ],
+  "umbarger-st-marys-catholic-church": [
+    {
+      src: commons("St. Mary's (Umbarger, TX) from SE 1.JPG"),
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:St._Mary%27s_(Umbarger,_TX)_from_SE_1.JPG",
+      alt: "St. Mary's Catholic Church in Umbarger, Texas, seen from the southeast",
+      caption: "The 1929 St. Mary's church at Umbarger, whose interior was transformed by Italian prisoners of war in 1945.",
+      width: 2141,
+      height: 1209,
+      credit: "Ammodramus · Wikimedia Commons",
+      license: "CC0 1.0 / public domain dedication",
+    },
+  ],
   "lindsay-st-peters-catholic-church": [
     {
       src: commons("Lindsay June 2017 1 (St. Peter's Catholic Church).jpg"),
