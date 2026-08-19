@@ -39,7 +39,7 @@ export const gonzalesCountyGonzalesComeAndTakeItGuadalupePalmettoArticle: Articl
     { href: "/county/fayette", label: "Explore Fayette County", description: "Continue northeast toward La Grange, the Colorado River and the painted-church country." },
     { href: "/county/lavaca", label: "Explore Lavaca County", description: "Head east toward Hallettsville, Shiner, Yoakum and another layer of Czech and German Texas heritage." },
     { href: "/county/wilson", label: "Explore Wilson County", description: "Travel southwest toward Floresville, Stockdale and the San Antonio River country." },
-    { href: "/state-park/palmetto-state-park", label: "Palmetto State Park", description: "Plan a visit to the county's distinctive dwarf-palmetto landscape along the San Marcos River." },
+    { href: "/destination/palmetto-state-park", label: "Palmetto State Park", description: "Plan a visit to the county's distinctive dwarf-palmetto landscape along the San Marcos River." },
     { href: "/article/why-texas-has-254-counties", label: "Why Texas has 254 counties", description: "See how settlement, travel distance and courthouse access shaped the Texas county map." },
   ],
   relatedCollections: [],
