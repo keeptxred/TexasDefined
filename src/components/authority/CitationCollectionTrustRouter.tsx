@@ -18,7 +18,7 @@ const TRUST_BY_PATH: Record<string, TrustConfig> = {
       { name: 'Machine-readable citation index', url: 'https://texasdefined.com/citation-magnets.json' },
     ],
     methodology: 'The citation guide explains how TexasDefined reference pages relate to their underlying official and public-data sources. It is a policy layer rather than an independent factual dataset.',
-    lastVerified: 'Citation policy and manifest relationship reviewed August 11, 2026.',
+    lastVerified: 'Citation policy and manifest relationship reviewed August 18, 2026.',
   },
   '/texas-data': {
     title: 'Texas data catalog sources',
@@ -57,6 +57,53 @@ const TRUST_BY_PATH: Record<string, TrustConfig> = {
     ],
     methodology: 'The seven route structures are TexasDefined editorial trip-planning synthesis built only from canonical Top-25 attraction guides. They are not live navigation instructions. Each attraction’s official source controls current hours, reservations, closures and operating restrictions.',
     lastVerified: 'Top 25 route groupings and canonical stop links reviewed August 18, 2026.',
+  },
+  '/explore/painted-churches': {
+    title: 'Painted Churches research and verification',
+    sources: [
+      { name: 'Texas Historical Commission', url: 'https://thc.texas.gov/' },
+      { name: 'Painted Churches methodology and corrections', url: 'https://texasdefined.com/explore/painted-churches/methodology' },
+      { name: 'TexasDefined citation policy', url: 'https://texasdefined.com/citation-guide' },
+    ],
+    methodology: 'The statewide collection separates formal National Register decorative-interior membership, the Schulenburg touring cluster and the broader Painted Churches tradition. Primary and official church-specific records lead for dates, designations and current access; public-history and scholarly sources deepen interpretation. Churches are not added from travel-list mentions alone.',
+    lastVerified: 'The 22-church verified collection, inclusion labels and source hierarchy were reviewed August 18, 2026.',
+  },
+  '/explore/painted-churches/methodology': {
+    title: 'Painted Churches methodology provenance',
+    sources: [
+      { name: 'Painted Churches canonical collection', url: 'https://texasdefined.com/explore/painted-churches' },
+      { name: 'Texas Defined editorial accountability', url: 'https://texasdefined.com/about' },
+      { name: 'Machine-readable citation index', url: 'https://texasdefined.com/citation-magnets.json' },
+    ],
+    methodology: 'This is the controlling methodology page for inclusion criteria, source precedence, conflict handling, correction policy and image-rights review across the Painted Churches collection.',
+    lastVerified: 'Painted Churches research, correction and image-rights methodology documented August 18, 2026.',
+  },
+  '/explore/painted-churches/how-many': {
+    title: 'Painted Churches count methodology',
+    sources: [
+      { name: 'Painted Churches canonical collection', url: 'https://texasdefined.com/explore/painted-churches' },
+      { name: 'Painted Churches methodology', url: 'https://texasdefined.com/explore/painted-churches/methodology' },
+    ],
+    methodology: 'The count explainer treats the Schulenburg cluster, formal National Register decorative-interior group and broader statewide tradition as distinct definitions. It reports the TexasDefined verified collection count without claiming that every historical or tourism source uses the same scope.',
+    lastVerified: 'Collection counts and definition labels reviewed August 18, 2026.',
+  },
+  '/explore/painted-churches/compare': {
+    title: 'Painted Churches comparison provenance',
+    sources: [
+      { name: 'Painted Churches canonical collection', url: 'https://texasdefined.com/explore/painted-churches' },
+      { name: 'Painted Churches methodology', url: 'https://texasdefined.com/explore/painted-churches/methodology' },
+    ],
+    methodology: 'The comparison table is generated from the same verified church records as the collection hub. It preserves county, denomination and designation flags without filling missing fields or converting broader-tradition churches into formal National Register members.',
+    lastVerified: 'Comparison labels and verified collection coverage reviewed August 18, 2026.',
+  },
+  '/explore/painted-churches/map': {
+    title: 'Painted Churches location-directory provenance',
+    sources: [
+      { name: 'Painted Churches canonical collection', url: 'https://texasdefined.com/explore/painted-churches' },
+      { name: 'Painted Churches methodology', url: 'https://texasdefined.com/explore/painted-churches/methodology' },
+    ],
+    methodology: 'The statewide location directory is a geographic distribution of the verified church collection. Map searches use a verified address when available and otherwise the named church and community; the directory does not infer public access from map presence.',
+    lastVerified: 'Regional grouping, church identity and location-link logic reviewed August 18, 2026.',
   },
   '/learn/property-taxes': {
     title: 'Texas property-tax explainer sources',
