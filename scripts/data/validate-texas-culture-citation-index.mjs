@@ -83,8 +83,12 @@ for (const token of [
   "title: 'Things That Define Texas'",
   "['Things That Define Texas', '/things-unique-to-texas']",
   "['Selection & cross-link methodology', '/things-unique-to-texas/methodology']",
+  "['Texas Blue Northers & spring storms', '/texas-blue-norther-weather-guide']",
   'Things That Define Texas source hierarchy',
   'Cite the collection for identity; cite the deeper guide for the claim.',
+  'Weather language vs. live weather',
+  'use current National Weather Service forecasts and warnings as the controlling authority',
+  '<Link to="/texas-blue-norther-weather-guide"',
   'href="/things-that-define-texas.csv"',
   'href="/things-that-define-texas.json"',
 ]) {
@@ -97,4 +101,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Texas culture citation-index validation passed: ${required.length} canonical culture references retain machine discovery, trust guidance, route governance, hub discovery and human citation guidance.`);
+console.log(`Texas culture citation-index validation passed: ${required.length} canonical culture references retain machine discovery, trust guidance, route governance, hub discovery and human citation guidance including weather source precedence.`);
