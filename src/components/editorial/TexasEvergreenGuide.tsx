@@ -8,6 +8,15 @@ import type { TexasEvergreenGuide as TexasEvergreenGuideData } from "@/data/texa
 
 const siteUrl = "https://texasdefined.com";
 
+const foodHistoryGuideSlugs = new Set([
+  "texas-food-trail",
+  "texas-chili-con-carne-history",
+  "texas-chicken-fried-steak-guide",
+  "texas-breakfast-taco-guide",
+  "german-czech-texas-towns",
+  "dr-pepper-texas-history",
+]);
+
 const guideImages: Partial<Record<string, { src: string; alt: string; caption: string }>> = {
   "texas-food-trail": {
     src: bbqBrisket,
@@ -48,7 +57,14 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
   const canonicalUrl = `${siteUrl}/${guide.slug}`;
   const image = guideImages[guide.slug];
   const sources = guideSources[guide.slug] ?? [];
+  const isFoodHistoryChild = foodHistoryGuideSlugs.has(guide.slug);
   const imageUrl = image ? `${siteUrl}${image.src.startsWith('/') ? image.src : `/${image.src}`}` : undefined;
+  const breadcrumbItems = [
+    { "@type": "ListItem", position: 1, name: "Front page", item: `${siteUrl}/` },
+    { "@type": "ListItem", position: 2, name: "Things That Define Texas", item: `${siteUrl}/things-unique-to-texas` },
+    ...(isFoodHistoryChild ? [{ "@type": "ListItem", position: 3, name: "Texas Food History", item: `${siteUrl}/texas-food-history` }] : []),
+    { "@type": "ListItem", position: isFoodHistoryChild ? 4 : 3, name: guide.title, item: canonicalUrl },
+  ];
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -60,9 +76,10 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
         url: canonicalUrl,
         mainEntityOfPage: { "@id": `${canonicalUrl}#page` },
         publisher: { "@type": "Organization", name: "TexasDefined", url: siteUrl },
-        articleSection: "Things That Define Texas",
+        articleSection: isFoodHistoryChild ? "Texas Food History" : "Things That Define Texas",
         image: imageUrl,
         citation: sources.length ? sources.map((source) => source.href) : undefined,
+        ...(isFoodHistoryChild ? { isPartOf: { "@type": "CollectionPage", "@id": `${siteUrl}/texas-food-history#page`, name: "Texas Food History", url: `${siteUrl}/texas-food-history` } } : {}),
         about: guide.sections.map((section) => ({ "@type": "Thing", name: section.heading.replace(/^\d+\.\s*/, "") })),
       },
       {
@@ -90,11 +107,7 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
       {
         "@type": "BreadcrumbList",
         "@id": `${canonicalUrl}#breadcrumb`,
-        itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Front page", item: `${siteUrl}/` },
-          { "@type": "ListItem", position: 2, name: "Things That Define Texas", item: `${siteUrl}/things-unique-to-texas` },
-          { "@type": "ListItem", position: 3, name: guide.title, item: canonicalUrl },
-        ],
+        itemListElement: breadcrumbItems,
       },
     ],
   };
@@ -107,6 +120,10 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
           <Link to="/" className="hover:text-foreground">Front page</Link>
           <span aria-hidden="true" className="mx-2">/</span>
           <Link to="/things-unique-to-texas" className="hover:text-foreground">Things That Define Texas</Link>
+          {isFoodHistoryChild ? <>
+            <span aria-hidden="true" className="mx-2">/</span>
+            <Link to="/texas-food-history" className="hover:text-foreground">Texas Food History</Link>
+          </> : null}
           <span aria-hidden="true" className="mx-2">/</span>
           <span aria-current="page" className="text-foreground">{guide.title}</span>
         </nav>
@@ -115,6 +132,7 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
           <p className="eyebrow text-primary">{guide.eyebrow}</p>
           <h1 className="mt-3 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">{guide.title}</h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground sm:text-xl">{guide.dek}</p>
+          {isFoodHistoryChild ? <Link to="/texas-food-history" className="mt-6 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Explore the full Texas Food History collection →</Link> : null}
         </header>
 
         {image ? <figure className="border-b border-border py-8">
