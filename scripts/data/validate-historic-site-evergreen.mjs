@@ -2,6 +2,8 @@ import fs from 'node:fs';
 
 const lazy = fs.readFileSync('src/data/fixtures/lazy-standalone-evergreen.ts', 'utf8');
 const historicSites = fs.readFileSync('src/data/historic-sites.ts', 'utf8');
+const reciprocal = fs.readFileSync('src/data/historic-site-evergreen-links.ts', 'utf8');
+const runtime = fs.readFileSync('src/data/destination-query-runtime.ts', 'utf8');
 const failures = [];
 
 const guides = [
@@ -52,7 +54,20 @@ for (const guide of guides) {
   if (!lazy.includes(`slug: "${guide.slug}"`)) failures.push(`Historic evergreen stub is not registered: ${guide.slug}.`);
   if (!lazy.includes(`import("./${guide.path.split('/').pop().replace('.ts', '')}")`)) failures.push(`Historic evergreen full article is not lazy-loaded: ${guide.slug}.`);
   if (!lazy.includes(guide.exportName)) failures.push(`Historic evergreen lazy loader export mismatch: ${guide.slug}.`);
+
+  const href = `/article/${guide.slug}`;
+  if (!reciprocal.includes(`href: "${href}"`)) failures.push(`Historic destination reciprocal route guide link is missing: ${href}.`);
 }
+
+const reciprocalSlugSets = [...reciprocal.matchAll(/slugs:\s*new Set\(\[([\s\S]*?)\]\)/g)]
+  .flatMap((match) => [...match[1].matchAll(/"([^"]+)"/g)].map((slugMatch) => slugMatch[1]));
+for (const slug of reciprocalSlugSets) if (!seedSlugs.includes(slug)) failures.push(`Historic reciprocal guide link references non-seed destination: ${slug}.`);
+
+for (const marker of [
+  'import { enrichHistoricSiteEvergreenLinks } from "./historic-site-evergreen-links";',
+  'enrichHistoricSiteEvergreenLinks(',
+  '.map(enrichHistoricSiteEvergreenLinks)',
+]) if (!runtime.includes(marker)) failures.push(`Historic destination runtime is missing reciprocal evergreen enrichment: ${marker}`);
 
 if (failures.length) {
   console.error('Historic-site evergreen validation failed:');
@@ -60,4 +75,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Historic-site evergreen validation passed: ${guides.length} lazy-loaded Texas-history guides retain substantive depth, THC sourcing and links to verified statewide historic-site destinations.`);
+console.log(`Historic-site evergreen validation passed: ${guides.length} lazy-loaded Texas-history guides retain substantive depth, THC sourcing, verified destination links and reciprocal route-guide discovery from the statewide historic-site catalog.`);
