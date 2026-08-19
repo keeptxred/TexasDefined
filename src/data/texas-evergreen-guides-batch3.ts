@@ -65,6 +65,7 @@ export const TEXAS_BRAND_ORIGINS_GUIDE: TexasEvergreenGuide = {
   ],
   related: [
     { href: "/things-unique-to-texas/texas-brands", label: "Legendary Texas brands", description: "The broader TexasDefined index of brands, retailers and products tied to the state." },
+    { href: "/dr-pepper-texas-history", label: "Dr Pepper in Texas", description: "Follow the documented Waco origin of another Texas-born brand through soda-fountain and bottling history." },
     { href: "/texas-food-trail", label: "Texas Food Trail", description: "See how food brands fit alongside regional food traditions and independent institutions." },
     { href: "/texas-roadside-oddities", label: "Texas Roadside Oddities", description: "Follow the highway culture that helped turn some Texas brands into travel rituals." }
   ]
