@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
+import bigBend from "@/assets/big-bend.jpg";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { TexasEvergreenGuide } from "@/components/editorial/TexasEvergreenGuide";
 import { getTexasEvergreenGuideBatch2 } from "@/data/texas-evergreen-guides-batch2";
@@ -14,6 +15,8 @@ export const Route = createFileRoute(canonicalPath)({
       canonicalPath,
       title: "Texas Natural Wonders Bucket List: 12 Landscapes",
       description: guide.dek,
+      image: bigBend,
+      imageAlt: "Big Bend landscape with desert terrain and distant mountains",
       type: "article",
     }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
