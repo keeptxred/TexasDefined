@@ -48,10 +48,17 @@ function preservedFor(query: Omit<DestinationQuery, "brandId">): Destination[] {
   return query.limit ? rows.slice(0, query.limit) : rows;
 }
 
+function normalizeHistoricCounty(destination: Destination): Destination {
+  if (destination.category !== "historic-sites" || !destination.county) return destination;
+  return { ...destination, county: destination.county.replace(/\s+County$/i, "").trim() };
+}
+
 function applyResolvedHero(destination: Destination) {
-  return enrichHistoricSiteDestination(
-    improveDestinationQuality(
-      applyAllCuratedDestination(applyExploreHeroAsset(applyStateParkHeroAsset(destination))),
+  return normalizeHistoricCounty(
+    enrichHistoricSiteDestination(
+      improveDestinationQuality(
+        applyAllCuratedDestination(applyExploreHeroAsset(applyStateParkHeroAsset(destination))),
+      ),
     ),
   );
 }
@@ -62,7 +69,7 @@ function reconcileExploreCatalog(destinations: Destination[]) {
       reconcileDestinationHeroes(applyExploreHeroAssets(applyStateParkHeroAssets(destinations))),
     ),
   );
-  const historicEnriched = enrichHistoricSiteCatalog(improved);
+  const historicEnriched = enrichHistoricSiteCatalog(improved).map(normalizeHistoricCounty);
   return filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(historicEnriched));
 }
 
