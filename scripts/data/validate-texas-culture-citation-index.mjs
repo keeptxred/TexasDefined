@@ -30,6 +30,7 @@ const required = [
   ['https://texasdefined.com/barbacoa-big-red-san-antonio', 'food-culture-reference'],
   ['https://texasdefined.com/texas-roadside-oddities', 'culture-travel-reference'],
   ['https://texasdefined.com/texas-slang-explained', 'culture-reference'],
+  ['https://texasdefined.com/texas-blue-norther-weather-guide', 'weather-culture-reference'],
   ['https://texasdefined.com/texas-dance-halls-honky-tonks', 'music-culture-reference'],
   ['https://texasdefined.com/texas-homecoming-mums', 'culture-reference'],
   ['https://texasdefined.com/texas-natural-wonders-bucket-list', 'travel-reference'],
@@ -56,6 +57,10 @@ if (index) {
       if (!publicRoutes.includes(`"${path}"`)) failures.push(`${path} citation target must remain governed as an indexable public route.`);
     }
   }
+  const weatherResource = resources.get('https://texasdefined.com/texas-blue-norther-weather-guide');
+  for (const marker of ['TSHA-terminology-source', 'NWS-meteorology-source', 'safety-first', 'folklore-vs-forecast-distinction']) {
+    if (!weatherResource?.trust?.includes(marker)) failures.push(`Texas Blue Norther citation resource must retain ${marker}.`);
+  }
 }
 
 for (const path of [
@@ -67,6 +72,7 @@ for (const path of [
   '/texas-ranch-water-guide',
   '/san-antonio-puffy-taco-history',
   '/barbacoa-big-red-san-antonio',
+  '/texas-blue-norther-weather-guide',
   '/texas-brand-origin-stories',
   '/dr-pepper-texas-history',
 ]) {
