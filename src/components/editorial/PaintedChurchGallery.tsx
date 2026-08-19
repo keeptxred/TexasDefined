@@ -1,8 +1,13 @@
 import { extraPaintedChurchGalleryBySlug } from "@/data/painted-church-gallery-extra";
+import { supplementalPaintedChurchGalleryBySlug } from "@/data/painted-church-gallery-supplemental";
 import { paintedChurchGalleryBySlug } from "@/data/painted-church-gallery";
 
 export function PaintedChurchGallery({ slug }: { slug: string }) {
-  const images = [...paintedChurchGalleryBySlug(slug), ...extraPaintedChurchGalleryBySlug(slug)];
+  const images = [...new Map([
+    ...paintedChurchGalleryBySlug(slug),
+    ...extraPaintedChurchGalleryBySlug(slug),
+    ...supplementalPaintedChurchGalleryBySlug(slug),
+  ].map((image) => [image.sourceUrl, image])).values()];
   if (!images.length) return null;
 
   return (
