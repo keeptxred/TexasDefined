@@ -47,6 +47,7 @@ const DEEP_DIVE_ICON_LINKS: Readonly<Record<number, string>> = {
   222: "/texas-slang-explained",
   223: "/texas-slang-explained",
   224: "/texas-slang-explained",
+  225: "/texas-symbols",
   231: "/texas-slang-explained",
   239: "/texas-slang-explained",
 };
@@ -98,6 +99,7 @@ const CANONICAL_ICON_LINKS: Readonly<Record<number, string>> = {
   135: "/destination/luckenbach",
   140: "/destination/blue-hole-regional-park",
   165: "/destination/palo-duro-canyon-state-park",
+  249: "/destination/the-alamo",
 };
 
 export function texasIconCanonicalHref(entry: TexasIconItem): string | undefined {
