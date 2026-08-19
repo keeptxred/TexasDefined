@@ -97,7 +97,7 @@ jobs:
           test "$(wc -l < "$csv_body" | tr -d ' ')" -eq 251
           head -n 1 "$csv_body" | grep -Fq 'deeper_guide'
           head -n 1 "$csv_body" | grep -Fq 'methodology'
-          csv_deep_links="$(awk -F',' 'NR > 1 && $5 != "" { count++ } END { print count + 0 }' "$csv_body")"
+          csv_deep_links="$(awk -F',' 'NR > 1 && $6 != "" { count++ } END { print count + 0 }' "$csv_body")"
           test "$csv_deep_links" -ge 47
           echo "PASS machine-readable distributions: 250 JSON items, 250 CSV records, ${json_deep_links} JSON deep links and ${csv_deep_links} CSV deep links."
 
