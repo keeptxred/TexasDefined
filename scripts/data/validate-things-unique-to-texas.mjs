@@ -9,6 +9,7 @@ const lazyRoute = fs.readFileSync('src/routes/things-unique-to-texas.$category.l
 const methodologyRoute = fs.readFileSync('src/routes/things-unique-to-texas.methodology.tsx', 'utf8');
 const publicRoutes = fs.readFileSync('src/lib/public-routes.ts', 'utf8');
 const trustRouter = fs.readFileSync('src/components/authority/CitationCollectionTrustRouter.tsx', 'utf8');
+const productionSmoke = fs.readFileSync('.github/workflows/things-unique-to-texas-production-smoke.yml', 'utf8');
 const failures = [];
 
 const ids = [...source.matchAll(/\bitem\((\d+),/g)].map((match) => Number(match[1]));
@@ -59,10 +60,21 @@ for (const path of ['/things-unique-to-texas', '/things-unique-to-texas/methodol
 }
 if (!trustRouter.includes('Collection structure, methodology and canonical-link policy reviewed August 19, 2026.')) failures.push('Magazine trust layer must retain an explicit collection review date.');
 
+if (!productionSmoke.includes("workflows: ['Deploy TexasDefined production']")) failures.push('Magazine production smoke must remain chained to successful production deployments.');
+const smokePaths = [
+  '/things-unique-to-texas',
+  '/things-unique-to-texas/methodology',
+  ...categorySlugs.map((slug) => `/things-unique-to-texas/${slug}`),
+];
+for (const path of smokePaths) {
+  if (!productionSmoke.includes(`'${path}'`)) failures.push(`Magazine production smoke must verify ${path}.`);
+}
+if (!productionSmoke.includes('noindex robots meta tag')) failures.push('Magazine production smoke must retain its indexability assertion.');
+
 if (failures.length) {
   console.error('Things That Define Texas validation failed:');
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log(`Things That Define Texas validation passed: ${ids.length} entries, ${categorySlugs.length} categories, ${hrefs.length} editorial links, ${canonicalIds.length} canonical destination cross-links, and methodology/provenance/trust contracts intact across the root collection and all chapters.`);
+console.log(`Things That Define Texas validation passed: ${ids.length} entries, ${categorySlugs.length} categories, ${hrefs.length} editorial links, ${canonicalIds.length} canonical destination cross-links, methodology/provenance/trust contracts, and ${smokePaths.length} production smoke routes intact.`);
