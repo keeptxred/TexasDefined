@@ -1,8 +1,0 @@
-{
-  "county": "haskell",
-  "status": "pass",
-  "stage": "complete",
-  "target_sha": "fff7d8be452e30648eb1a2542121f9cfc8601728",
-  "detail": "validate=PASS deploy=PASS page=200 structured=yes editorial=yes canonical=yes legacy=n/a hero=200 mime=image/jpeg bytes=627645",
-  "recorded_at_utc": "2026-08-20T17:39:20.498780+00:00"
-}
