@@ -1,0 +1,72 @@
+import type { PaintedChurchContributor } from "./painted-church-contributors";
+
+export const masonPaintedChurchContributors: PaintedChurchContributor[] = [
+  {
+    slug: "manuel-lopez-mason",
+    name: "Manuel Lopez",
+    kind: "person",
+    roles: ["artist", "decorator"],
+    answer: "Manuel Lopez is the artist named by St. Joseph Catholic Church in Mason as the painter of its 1916 light-blue interior, including the opening-sky sanctuary scene, hovering dove, clouds, stars and angels across the ceiling.",
+    significance: [
+      "The parish's own historical study names Lopez and gives a precise 1916 date, making the attribution stronger than an anonymous travel-guide description.",
+      "His work gives Mason one of the clearest documented Mexican artistic contributions in the broader Texas Painted Churches tradition.",
+      "Later restorers should not be conflated with Lopez: the present ceiling includes restored historic work and modern visual continuation across an enlarged building.",
+    ],
+    churchSlugs: ["mason-st-joseph-catholic-church"],
+    techniqueSlugs: ["freehand", "decorative-murals"],
+    sourceLabel: "St. Joseph Catholic Church Mason — official parish history",
+    sourceUrl: "https://stjosephmason.org/about-us",
+    sources: [
+      { label: "St. Joseph Catholic Church Mason — official parish history", url: "https://stjosephmason.org/about-us", use: "artist attribution, 1916 date and painted subject matter" },
+      { label: "Texas Time Travel — St. Joseph's Catholic Church Mason", url: "https://texastimetravel.com/directory/st-josephs-catholic-church/", use: "independent public-history identification of the historic sky-blue painted ceiling" },
+    ],
+    attributionNote: "The church-controlled 1983 history identifies Manuel Lopez by name. Texas Defined does not presently claim a fuller biography or additional works without further primary evidence.",
+  },
+  {
+    slug: "murals-by-jericho",
+    name: "Murals by Jericho",
+    kind: "organization",
+    roles: ["restorer", "conservator", "artist"],
+    answer: "Murals by Jericho is credited by Studio io with fully restoring St. Joseph Mason's rediscovered historic painted vault during the 2024 preservation campaign and matching the ceiling across the enlarged church interior.",
+    significance: [
+      "The project record distinguishes restoration of the historic ceiling from new decorative work by other contributors.",
+      "The restoration provides the evidentiary basis for classifying Mason as a restored original scheme rather than an untouched original interior.",
+    ],
+    churchSlugs: ["mason-st-joseph-catholic-church"],
+    techniqueSlugs: ["freehand", "decorative-murals"],
+    sourceLabel: "Studio io — St. Joseph Mason",
+    sourceUrl: "https://www.studioiodesign.com/st-joseph-mason",
+    sources: [{ label: "Studio io — St. Joseph Mason", url: "https://www.studioiodesign.com/st-joseph-mason", use: "2024 restoration credit and scope" }],
+  },
+  {
+    slug: "stabat-mater-foundation",
+    name: "Stabat Mater Foundation",
+    kind: "organization",
+    roles: ["artist", "decorator"],
+    answer: "Stabat Mater Foundation is credited with new hand-painted decorative detailing at St. Joseph Mason during the 2024 renovation, including St. Joseph lily imagery and a Tree of Life / Twelve Apostles theme.",
+    significance: [
+      "Its work is a documented modern contribution and is not attributed retroactively to Manuel Lopez.",
+      "The campaign shows how a living parish can add new sacred art while preserving the historical identity of an older painted interior.",
+    ],
+    churchSlugs: ["mason-st-joseph-catholic-church"],
+    techniqueSlugs: ["stenciling", "freehand"],
+    sourceLabel: "Studio io — St. Joseph Mason",
+    sourceUrl: "https://www.studioiodesign.com/st-joseph-mason",
+    sources: [{ label: "Studio io — St. Joseph Mason", url: "https://www.studioiodesign.com/st-joseph-mason", use: "2024 hand-painted detailing credit and iconographic description" }],
+  },
+  {
+    slug: "little-way-construction",
+    name: "Little Way Construction",
+    kind: "organization",
+    roles: ["builder", "interior-craftsman"],
+    answer: "Little Way Construction is credited with the 2024 sanctuary furnishings at St. Joseph Mason, including the reredos, altar, ambo, side shrines, baptismal font and ambry designed to complement the historic church interior.",
+    significance: [
+      "The furnishings form part of the present decorative ensemble but are clearly modern rather than nineteenth- or early-twentieth-century fabric.",
+      "Documenting the furnishings separately helps Texas Defined interpret the entire interior without collapsing architecture, painting and liturgical woodwork into one category.",
+    ],
+    churchSlugs: ["mason-st-joseph-catholic-church"],
+    sourceLabel: "Studio io — St. Joseph Mason",
+    sourceUrl: "https://www.studioiodesign.com/st-joseph-mason",
+    sources: [{ label: "Studio io — St. Joseph Mason", url: "https://www.studioiodesign.com/st-joseph-mason", use: "2024 sanctuary-furnishings credit and scope" }],
+  },
+];
