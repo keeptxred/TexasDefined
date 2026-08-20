@@ -91,4 +91,10 @@ export const COUNTY_SERIES_PROFILES_ROLLING_PLAINS: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/stephens-county-breckenridge-oil-hubbard-creek-rolling-plains-texas")
       .then((module) => module.stephensCountyBreckenridgeOilHubbardCreekRollingPlainsTexasArticle),
   },
+  {
+    countySlug: "taylor",
+    articleSlug: "taylor-county-abilene-buffalo-gap-dyess-big-country-texas",
+    loadArticle: () => import("@/data/fixtures/taylor-county-abilene-buffalo-gap-dyess-big-country-texas")
+      .then((module) => module.taylorCountyAbileneBuffaloGapDyessBigCountryTexasArticle),
+  },
 ];
