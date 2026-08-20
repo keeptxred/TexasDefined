@@ -175,4 +175,10 @@ export const COUNTY_SERIES_PROFILES_CONTINUED: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/lamar-county-paris-red-river-railroads-northeast-texas")
       .then((module) => module.lamarCountyParisRedRiverRailroadsNortheastTexasArticle),
   },
+  {
+    countySlug: "delta",
+    articleSlug: "delta-county-cooper-sulphur-rivers-cooper-lake-blackland-prairie-texas",
+    loadArticle: () => import("@/data/fixtures/delta-county-cooper-sulphur-rivers-cooper-lake-blackland-prairie-texas")
+      .then((module) => module.deltaCountyCooperSulphurRiversCooperLakeBlacklandPrairieArticle),
+  },
 ];
