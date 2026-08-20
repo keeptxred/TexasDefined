@@ -1,4 +1,5 @@
 import type { BrandConfig } from "@/brand/types";
+import { shouldIndexPaintedChurchPath } from "@/lib/painted-church-publication";
 
 /** Brand-agnostic head/meta and schema builders. */
 
@@ -52,7 +53,7 @@ export function buildMeta(brand: BrandConfig, page: PageSeo) {
   const fullTitle = cleanMetaText(brand.seo.titleTemplate.replace("%s", pageTitle));
   const canonicalUrl = page.canonicalPath ? absoluteUrl(brand, page.canonicalPath) : undefined;
   const imageUrl = page.image ? absoluteUrl(brand, page.image) : undefined;
-  const paintedChurchPreIndexHold = page.canonicalPath?.startsWith("/explore/painted-churches") ?? false;
+  const paintedChurchPreIndexHold = page.canonicalPath ? !shouldIndexPaintedChurchPath(page.canonicalPath) : false;
   const robots = page.robots ?? (page.canonicalPath ? (paintedChurchPreIndexHold ? PAINTED_CHURCHES_PREINDEX_ROBOTS : DEFAULT_INDEX_ROBOTS) : undefined);
   const meta: Array<Record<string, string>> = [
     { title: fullTitle },
