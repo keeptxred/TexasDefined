@@ -146,6 +146,7 @@ const LEGACY_ARTICLE_TO_COUNTY = new Map<string, string>([
   ["kaufman-county-kaufman-terrell-forney-blackland-prairie-texas", "kaufman"],
   ["franklin-county-mount-vernon-cypress-springs-northeast-texas", "franklin"],
   ["titus-county-mount-pleasant-caddo-railroads-lake-bob-sandlin-northeast-texas", "titus"],
+  ["morris-county-daingerfield-steel-state-park-piney-woods-texas", "morris"],
 ]);
 
 const COUNTY_SLUGS = new Set(LEGACY_ARTICLE_TO_COUNTY.values());
