@@ -47,6 +47,31 @@ const latestResearch: PaintedChurchResearchDossier[] = [
       { label: "Our Lady of Grace — official parish", url: "https://olgtx.org/", tier: "official", use: "current Masses, office information and visitor contact" },
     ],
   },
+  {
+    slug: "galveston-st-joseph-church",
+    researchSummary: "St. Joseph's Church in Galveston is essential to understanding why historical Painted Church counts differ. It was already individually listed in the National Register in 1976, yet the 1982 statewide thematic nomination explicitly counts it among 15 churches and identifies its pews as the group's only graining example. The church also preserves an unusually complete German Catholic interior ensemble under Galveston Historical Foundation stewardship.",
+    lookFor: [
+      { label: "Coffered painted ceiling", detail: "Galveston Historical Foundation describes a softly painted coffered ceiling with painted quatrefoils and other Gothic symbols." },
+      { label: "Faux-grained pews", detail: "The 1982 thematic nomination identifies St. Joseph's pews as the only graining example among the 15-church study, making them a key material-culture feature rather than ordinary furniture." },
+      { label: "German inscriptions", detail: "The early twentieth-century plaster Stations of the Cross retain German inscriptions that connect the interior directly to the congregation's immigrant-language history." },
+      { label: "Integrated altar ensemble", detail: "Main and side altars with reredoses, statues and altar furnishings survive as part of the decorative interior and should be studied together with the paint rather than treated as separate decoration." },
+    ],
+    interpretation: [
+      { heading: "The missing fifteenth church is not actually missing from the historic record", paragraphs: ["The original thematic nomination repeatedly says that 15 churches make up the study. St. Joseph's Galveston is explicitly discussed within that document. Its earlier 1976 individual National Register listing explains why a modern Multiple Property Listing interface can show 14 thematic entries while the underlying historical study still contained 15 churches.", "That distinction resolves a long-running count discrepancy without forcing the current THC interface, Austin PBS historical wording and the original nomination into false agreement."] },
+      { heading: "Why graining matters", paragraphs: ["The nomination defines graining as a trompe-l'oeil technique used to make available pine or cedar resemble more expensive woods such as mahogany or rosewood. St. Joseph's is the sole graining example identified in the 15-church study, so its pews document both decorative craft and the economic/material constraints under which Texas congregations furnished their churches."] },
+      { heading: "A preservation history layered over the decorative history", paragraphs: ["The church survived the 1900 Storm with damage and subsequent repair, enlargement and redecoration. The parish closed in 1968, furnishings were dispersed, and preservation efforts recovered much of the ensemble. The present interior must therefore be read as a combination of historic decorative fabric, early twentieth-century devotional additions and later preservation stewardship."] },
+    ],
+    communityContext: [
+      { heading: "German Catholic Galveston", paragraphs: ["Galveston was a major nineteenth-century immigrant port, and St. Joseph's was established for German-speaking Catholics. The painted interior, German inscriptions and Gothic design are therefore evidence of immigrant community formation in an urban Gulf Coast setting, broadening a story often told mainly through rural Central Texas churches."] },
+    ],
+    recordNotes: ["The official individual National Register reference is 76002082, listed in December 1976.", "The 1982 thematic nomination still counts St. Joseph's among its 15 churches even though the church had already been individually listed.", "Texas Defined should distinguish the historical thematic-study corpus of 15 from the 14 properties currently surfaced by THC's MPS index.", "The church is no longer operated as a regular parish and should not inherit active-parish visitor assumptions."],
+    sources: [
+      { label: "NPS — Churches in Texas with Decorative Interior Painting thematic nomination", url: "https://npgallery.nps.gov/GetAsset/0534eaa0-e073-4836-815e-d10985b22d13", tier: "historic-register", use: "15-church scope, graining technique and statewide significance framework" },
+      { label: "Texas Historical Commission — St. Joseph's individual National Register nomination", url: "https://atlas.thc.texas.gov/NR/pdfs/76002082/76002082.pdf", tier: "historic-register", use: "individual National Register listing and property record" },
+      { label: "Galveston Historical Foundation — 1859 St. Joseph's Church", url: "https://www.galvestonhistory.org/sites/special-event-venues", tier: "official", use: "current stewardship, building history and surviving interior ensemble" },
+      { label: "Galveston Historical Foundation — managed properties", url: "https://www.galvestonhistory.org/sites/ghf-managed-properties", tier: "official", use: "current property operation and preservation responsibility" },
+    ],
+  },
 ];
 
 export function latestPaintedChurchResearchBySlug(slug: string) {
