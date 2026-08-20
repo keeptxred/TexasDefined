@@ -40,7 +40,7 @@ const FEATURED_GUIDES: Record<string, { href: string; label: string; description
   ],
 };
 
-export const Route = createLazyFileRoute("/things-unique-to-texas/$category")({
+export const Route = createLazyFileRoute("/things-unique-to-texas_/$category")({
   component: TexasIconCategoryPage,
 });
 

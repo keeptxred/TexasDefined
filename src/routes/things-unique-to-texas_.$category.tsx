@@ -5,7 +5,7 @@ import { getTexasIconCategory } from "@/data/things-unique-to-texas";
 import { texasIconCanonicalHref } from "@/data/things-unique-to-texas-links";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
-export const Route = createFileRoute("/things-unique-to-texas/$category")({
+export const Route = createFileRoute("/things-unique-to-texas_/$category")({
   loader: ({ params }) => {
     const category = getTexasIconCategory(params.category);
     if (!category) throw notFound();
