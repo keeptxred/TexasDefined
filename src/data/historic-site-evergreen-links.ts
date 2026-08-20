@@ -41,6 +41,40 @@ const routeGuides: RouteGuide[] = [
   },
   {
     slugs: new Set([
+      "washington-on-the-brazos",
+      "star-of-the-republic-museum",
+      "barrington-living-history-farm",
+    ]),
+    item: {
+      name: "Plan a Washington-on-the-Brazos history weekend",
+      description: "Turn the townsite, Star of the Republic Museum and Barrington Farm into a paced one-day or overnight history itinerary.",
+      href: "/article/washington-on-the-brazos-weekend-guide",
+    },
+  },
+  {
+    slugs: new Set([
+      "fannin-battleground",
+      "presidio-la-bahia",
+    ]),
+    item: {
+      name: "Plan a Goliad history weekend",
+      description: "Visit the Coleto battlefield first, then follow the campaign chronologically to Presidio La Bahía and the wider Goliad landscape.",
+      href: "/article/goliad-history-weekend-guide",
+    },
+  },
+  {
+    slugs: new Set([
+      "fort-martin-scott",
+      "national-museum-pacific-war",
+    ]),
+    item: {
+      name: "Plan a history-first Fredericksburg weekend",
+      description: "Build a two-day Fredericksburg trip around the Pacific War museum, Fort Martin Scott and German-Texas heritage.",
+      href: "/article/fredericksburg-history-weekend-guide",
+    },
+  },
+  {
+    slugs: new Set([
       "fort-martin-scott",
       "fort-griffin",
       "fort-mckavett",
