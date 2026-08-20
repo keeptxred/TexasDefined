@@ -54,7 +54,6 @@ const mapCorpus = concatMatching((name) => name.startsWith('painted-church-map-p
 const peopleCorpus = concatMatching((name) =>
   (name.startsWith('painted-church-people') || name.startsWith('painted-church-contributors')) && name.endsWith('.ts')
 );
-const galleryCorpus = concatMatching((name) => name.startsWith('painted-church-gallery') && name !== 'painted-church-gallery-index.ts');
 
 if (manifest.schemaVersion < 1) failures.push('Pre-index manifest schemaVersion must be present.');
 if (manifest.publicationState !== 'pre-index-review') failures.push('Painted Churches must remain in pre-index-review state until explicit publication approval.');
@@ -155,11 +154,20 @@ for (const file of [
   'src/routes/explore.painted-churches.sacred-furnishings.tsx',
   'src/routes/explore.painted-churches.sources.tsx',
   'src/routes/explore.painted-churches.preindex-readiness.tsx',
+  'src/routes/explore.painted-churches.fieldwork-protocol.tsx',
+  'src/data/painted-church-fieldwork-protocol.ts',
   'src/data/painted-church-evidence-ledger.ts',
   'src/components/editorial/PaintedChurchEvidenceLedger.tsx',
   'src/data/painted-church-editorial-status.ts',
   'src/components/editorial/PaintedChurchEditorialStatus.tsx',
 ]) if (!exists(file)) failures.push(`Missing pre-index authority asset: ${file}.`);
+
+const fieldwork = read('src/data/painted-church-fieldwork-protocol.ts');
+requireText(fieldwork, 'No audio/video recording without explicit participant permission.', 'Fieldwork consent protocol');
+requireText(fieldwork, 'No fieldwork checkbox may be marked complete from web research', 'Fieldwork evidence boundary');
+requireText(fieldwork, 'Transcribe exactly as visible before translating', 'Fieldwork inscription protocol');
+const fieldworkRoute = read('src/routes/explore.painted-churches.fieldwork-protocol.tsx');
+requireText(fieldworkRoute, 'HowTo', 'Fieldwork structured data');
 
 const knowledgeLinks = read('src/components/editorial/PaintedChurchKnowledgeLinks.tsx');
 requireText(knowledgeLinks, 'PaintedChurchEvidenceLedger', 'Church evidence UI');
@@ -177,4 +185,4 @@ if (failures.length) {
   failures.forEach((failure) => console.error(`- ${failure}`));
   process.exit(1);
 }
-console.log(`Painted Churches pre-index gate protected: ${manifest.verifiedChurchCount} verified churches, canonical profile/research/feature coverage, explicit visitor/map evidence, noindex+sitemap hold, gated IndexNow release, source registry, contributor graph, evidence/editorial disclosures, and resolved 1982 15-vs-current-14 thematic distinction.`);
+console.log(`Painted Churches pre-index gate protected: ${manifest.verifiedChurchCount} verified churches, canonical profile/research/feature coverage, explicit visitor/map evidence, noindex+sitemap hold, gated IndexNow release, source registry, contributor graph, evidence/editorial disclosures, fieldwork protocol, and resolved 1982 15-vs-current-14 thematic distinction.`);
