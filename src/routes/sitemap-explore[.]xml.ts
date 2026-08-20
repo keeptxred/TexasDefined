@@ -157,6 +157,8 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           "/explore/painted-churches/inscriptions",
           "/explore/painted-churches/stained-glass",
           "/explore/painted-churches/sacred-furnishings",
+          "/explore/painted-churches/sources",
+          "/explore/painted-churches/fieldwork-protocol",
           "/explore/painted-churches/preindex-readiness",
           "/explore/top-attractions",
           "/explore/top-attractions/methodology",
@@ -174,7 +176,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           .filter((item): item is string => Boolean(item));
         const techniqueEntries = paintedChurchTechniques.map((item) => entry(`/explore/painted-churches/techniques/${item.slug}`, "2026-08-19")).filter((item): item is string => Boolean(item));
         const symbolEntries = paintedChurchSymbols.map((item) => entry(`/explore/painted-churches/symbols/${item.slug}`, "2026-08-19")).filter((item): item is string => Boolean(item));
-        const peopleEntries = canonicalPaintedChurchContributors.map((item) => entry(`/explore/painted-churches/people/${item.slug}`, "2026-08-19")).filter((item): item is string => Boolean(item));
+        const peopleEntries = canonicalPaintedChurchContributors.map((item) => entry(`/explore/painted-churches/people/${item.slug}`, "2026-08-20")).filter((item): item is string => Boolean(item));
         const heritageEntries = paintedChurchHeritage.map((item) => entry(`/explore/painted-churches/heritage/${item.slug}`, "2026-08-19")).filter((item): item is string => Boolean(item));
         const preservationEntries = paintedChurchPreservationTopics.map((item) => entry(`/explore/painted-churches/preservation/${item.slug}`, "2026-08-19")).filter((item): item is string => Boolean(item));
         const glossaryEntries = paintedChurchGlossary.map((item) => entry(`/explore/painted-churches/glossary/${item.slug}`, "2026-08-19")).filter((item): item is string => Boolean(item));
