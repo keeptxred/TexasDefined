@@ -72,12 +72,34 @@ export const texasFlagHistoryArticle: Article = {
     h("1836: the Burnet flag becomes the first official national standard"),
     p("The Republic's first clearly documented official national standard came later in 1836. President David G. Burnet proposed a simple design: an azure or blue field with one large golden star in the center. Congress approved it on December 10, 1836, and President Sam Houston signed the measure."),
     p("Known today as the Burnet flag, it served as the Republic's national flag until January 25, 1839. Its most important element was already in place: a single star representing Texas. The star would survive even as nearly everything around it changed."),
+    {
+      type: "image",
+      image: {
+        src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Flag_of_the_Republic_of_Texas_(1836%E2%80%931839).svg?width=1280",
+        alt: "The Burnet flag of the Republic of Texas, a blue field with a large gold five-pointed star in the center",
+        width: 900,
+        height: 600,
+        credit: "Public domain · Wikimedia Commons",
+      },
+      caption: "The Burnet flag served as the Republic of Texas national standard from December 10, 1836, until January 25, 1839.",
+    },
     p("The Republic also adopted a separate national flag for naval service. That flag looked much closer to the United States flag, with thirteen alternating stripes and a blue canton containing one white star. The coexistence of a national standard and a naval flag helps explain why accounts of early Texas flags can seem contradictory: more than one official design was in use for different purposes."),
 
     h("1838–1839: the modern Lone Star design takes shape"),
     p("By late 1838, the Republic's leaders wanted a national flag that more clearly represented an independent Texas. Senator William H. Wharton introduced a bill on December 28, 1838, containing the basic design that survives today. The measure went to a Senate committee chaired by Oliver Jones, and a substitute bill carrying the same flag design advanced through the Third Congress of the Republic."),
     p("The Congress passed the measure in January 1839, and President Mirabeau B. Lamar approved it on January 25, 1839. The law described a blue perpendicular stripe taking up one-third of the flag's length, a white five-pointed star centered on that blue field, and two equal horizontal stripes covering the remaining two-thirds: white above and red below."),
     p("That is essentially the Texas flag we still recognize. It was not created as a state flag. It was the national flag of the independent Republic of Texas."),
+    {
+      type: "image",
+      image: {
+        src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Flag_of_Texas_(1839%E2%80%931879).svg?width=1280",
+        alt: "Historical rendering of the 1839 Lone Star flag of the Republic of Texas with a blue hoist, white star, white upper stripe and red lower stripe",
+        width: 1080,
+        height: 720,
+        credit: "Peter Krag design · Public domain · Wikimedia Commons",
+      },
+      caption: "A public-domain rendering based on Peter Krag's 1839 artwork. The structure of the Lone Star flag has endured into the present state flag.",
+    },
 
     h("Who designed the Texas flag?"),
     p("The surviving official color drawing of the 1839 flag was made by Austin artist Peter Krag. The original artwork is preserved by the Texas State Library and Archives Commission and bears the approval date of January 25, 1839, along with the signatures of President Mirabeau Lamar, House Speaker John M. Hansford and Senate President David G. Burnet."),
