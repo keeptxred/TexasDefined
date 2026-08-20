@@ -110,6 +110,9 @@ jobs:
       - name: Validate historic-site evergreen guides
         run: node scripts/data/validate-historic-site-evergreen.mjs
 
+      - name: Validate military history expansion
+        run: node scripts/data/validate-military-history-expansion.mjs
+
       - name: Validate Things That Define Texas authority
         run: node scripts/data/validate-things-unique-to-texas.mjs
 
