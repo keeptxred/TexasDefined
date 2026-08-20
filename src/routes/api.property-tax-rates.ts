@@ -1,13 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
-import {
-  TEXAS_TAX_RATE_DATASET_META,
-  findTaxingUnitHistory,
-  getCountyTaxRateSummary,
-  latestFinalizedTaxYear,
-  searchTaxingUnits,
-  taxRateDatasetReady,
-  type TexasTaxingUnitType,
-} from '@/data/property/texas-tax-rates';
+import type { TexasTaxingUnitType } from '@/data/property/texas-tax-rates.generated';
 
 const HEADERS = {
   'cache-control': 'public, max-age=3600, stale-while-revalidate=86400',
@@ -19,11 +11,19 @@ export const Route = createFileRoute('/api/property-tax-rates')({
   server: {
     handlers: {
       GET: async ({ request }) => {
+        const {
+          TEXAS_TAX_RATE_DATASET_META,
+          findTaxingUnitHistory,
+          getCountyTaxRateSummary,
+          latestFinalizedTaxYear,
+          searchTaxingUnits,
+          taxRateDatasetReady,
+        } = await import('@/data/property/texas-tax-rates');
+
         const url = new URL(request.url);
-        const yearParam = Number(url.searchParams.get('year') ?? latestFinalizedTaxYear());
-        const year = Number.isInteger(yearParam) && yearParam >= 2000 && yearParam <= latestFinalizedTaxYear()
-          ? yearParam
-          : latestFinalizedTaxYear();
+        const latestYear = latestFinalizedTaxYear();
+        const yearParam = Number(url.searchParams.get('year') ?? latestYear);
+        const year = Number.isInteger(yearParam) && yearParam >= 2000 && yearParam <= latestYear ? yearParam : latestYear;
         const county = url.searchParams.get('county')?.trim().toLowerCase() ?? '';
         const query = url.searchParams.get('q')?.trim() ?? '';
         const unit = url.searchParams.get('unit')?.trim().toLowerCase() ?? '';
