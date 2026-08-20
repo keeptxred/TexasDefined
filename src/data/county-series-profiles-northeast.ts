@@ -37,4 +37,10 @@ export const COUNTY_SERIES_PROFILES_NORTHEAST: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/wood-county-quitman-mineola-lake-fork-piney-woods-texas")
       .then((module) => module.woodCountyQuitmanMineolaLakeForkPineyWoodsTexasArticle),
   },
+  {
+    countySlug: "rockwall",
+    articleSlug: "rockwall-county-rockwall-heath-lake-ray-hubbard-blackland-prairie-texas",
+    loadArticle: () => import("@/data/fixtures/rockwall-county-rockwall-heath-lake-ray-hubbard-blackland-prairie-texas")
+      .then((module) => module.rockwallCountyRockwallHeathLakeRayHubbardBlacklandPrairieTexasArticle),
+  },
 ];
