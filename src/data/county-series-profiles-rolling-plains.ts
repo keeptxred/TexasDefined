@@ -7,4 +7,22 @@ export const COUNTY_SERIES_PROFILES_ROLLING_PLAINS: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/childress-county-childress-railroads-red-river-rolling-plains-texas")
       .then((module) => module.childressCountyChildressRailroadsRedRiverRollingPlainsTexasArticle),
   },
+  {
+    countySlug: "cottle",
+    articleSlug: "cottle-county-paducah-pease-river-ranching-railroads-rolling-plains-texas",
+    loadArticle: () => import("@/data/fixtures/cottle-county-paducah-pease-river-ranching-railroads-rolling-plains-texas")
+      .then((module) => module.cottleCountyPaducahPeaseRiverRanchingRailroadsRollingPlainsTexasArticle),
+  },
+  {
+    countySlug: "motley",
+    articleSlug: "motley-county-matador-roaring-springs-matador-ranch-rolling-plains-texas",
+    loadArticle: () => import("@/data/fixtures/motley-county-matador-roaring-springs-matador-ranch-rolling-plains-texas")
+      .then((module) => module.motleyCountyMatadorRoaringSpringsMatadorRanchRollingPlainsTexasArticle),
+  },
+  {
+    countySlug: "dickens",
+    articleSlug: "dickens-county-dickens-spur-ranch-caprock-rolling-plains-texas",
+    loadArticle: () => import("@/data/fixtures/dickens-county-dickens-spur-ranch-caprock-rolling-plains-texas")
+      .then((module) => module.dickensCountyDickensSpurRanchCaprockRollingPlainsTexasArticle),
+  },
 ];

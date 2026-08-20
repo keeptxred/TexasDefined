@@ -1,0 +1,9 @@
+{
+  "county": "dickens",
+  "status": "pass",
+  "stage": "complete",
+  "county_commit": "e8a366febcb9965f54faee48e5031ea22575196e",
+  "tested_main": "573464cac18cd77dfc9ac976beb68221620ba677",
+  "detail": "validate=PASS deploy=PASS page=200 structured=yes editorial=yes legacy=not-applicable hero=200 mime=image/jpeg bytes=164344",
+  "recorded_at_utc": "2026-08-20T15:09:39.423474+00:00"
+}
