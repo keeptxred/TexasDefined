@@ -25,4 +25,10 @@ export const COUNTY_SERIES_PROFILES_ROLLING_PLAINS: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/dickens-county-dickens-spur-ranch-caprock-rolling-plains-texas")
       .then((module) => module.dickensCountyDickensSpurRanchCaprockRollingPlainsTexasArticle),
   },
+  {
+    countySlug: "archer",
+    articleSlug: "archer-county-archer-city-ranching-oil-cross-timbers-north-texas",
+    loadArticle: () => import("@/data/fixtures/archer-county-archer-city-ranching-oil-cross-timbers-north-texas")
+      .then((module) => module.archerCountyArcherCityRanchingOilCrossTimbersNorthTexasArticle),
+  },
 ];
