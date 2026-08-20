@@ -45,6 +45,14 @@ export function TaxingUnitSearch({
   return <div className="border-t border-border pt-4">
     <label className="block text-sm font-semibold"><span>{label}</span><div className="mt-2 flex gap-3"><input value={query} onChange={(event) => setQuery(event.target.value)} onKeyDown={(event) => { if (event.key === 'Enter') { event.preventDefault(); void runSearch(); } }} placeholder={placeholder} className="min-w-0 flex-1 border-0 border-b border-border bg-background px-0 py-3 text-sm outline-none focus:border-primary"/><button type="button" onClick={() => void runSearch()} disabled={loading} className="border-b border-primary text-sm font-semibold text-primary disabled:opacity-50">{loading ? 'Searching…' : 'Search'}</button></div></label>
     {status ? <p className="mt-3 text-xs text-muted-foreground">{status}</p> : null}
-    {results.length ? <div className="mt-3 max-h-72 overflow-y-auto border-y border-border">{results.map((record) => <button key={record.id} type="button" onClick={() => onSelect(record)} className="block w-full border-b border-border px-0 py-3 text-left last:border-b-0 hover:text-primary"><strong className="block text-sm">{record.name}</strong><span className="mt-1 block text-xs text-muted-foreground">{record.type.replaceAll('-', ' ')} · {record.totalRate.toFixed(6)} per $100 · {record.year}</span></button>)}</div> : null}
+    {results.length ? <div className="mt-3 max-h-72 overflow-y-auto border-y border-border">{results.map((record) => {
+      const applicable = !record.variableRate && record.totalRate != null;
+      const rateLabel = applicable
+        ? `${record.totalRate!.toFixed(6)} per $100`
+        : record.rateVariants.length
+          ? `variable rates: ${record.rateVariants.map((rate) => rate.toFixed(6)).join(', ')} — verify parcel`
+          : 'parcel-specific rate verification required';
+      return <button key={record.id} type="button" disabled={!applicable} onClick={() => onSelect(record)} className="block w-full border-b border-border px-0 py-3 text-left last:border-b-0 hover:text-primary disabled:cursor-not-allowed disabled:opacity-60"><strong className="block text-sm">{record.name}</strong><span className="mt-1 block text-xs text-muted-foreground">{record.type.replaceAll('-', ' ')} · {rateLabel} · {record.year}</span></button>;
+    })}</div> : null}
   </div>;
 }
