@@ -103,4 +103,10 @@ export const COUNTY_SERIES_PROFILES_ROLLING_PLAINS: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/callahan-county-baird-cross-plains-railroads-callahan-divide-big-country-texas")
       .then((module) => module.callahanCountyBairdCrossPlainsRailroadsCallahanDivideBigCountryTexasArticle),
   },
+  {
+    countySlug: "nolan",
+    articleSlug: "nolan-county-sweetwater-wasp-wind-railroads-big-country-texas",
+    loadArticle: () => import("@/data/fixtures/nolan-county-sweetwater-wasp-wind-railroads-big-country-texas")
+      .then((module) => module.nolanCountySweetwaterWaspWindRailroadsBigCountryTexasArticle),
+  },
 ];
