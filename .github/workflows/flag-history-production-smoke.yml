@@ -13,6 +13,7 @@ on:
       - 'src/data/articles-remote.ts'
       - 'src/components/editorial/ArticleBody.tsx'
       - 'src/routes/article.$slug.tsx'
+      - 'src/routes/texas-symbols.lazy.tsx'
       - 'src/routes/sitemap[.]xml.ts'
       - '.github/workflows/flag-history-production-smoke.yml'
 
@@ -140,6 +141,20 @@ jobs:
               exit 1
             }
           done
+
+          fetch_page '/texas-symbols' "$workdir/symbols.html"
+          grep -Fq "$history_path" "$workdir/symbols.html" || {
+            echo 'Texas symbols page does not link to flag history.' >&2
+            exit 1
+          }
+          grep -Fq "$etiquette_path" "$workdir/symbols.html" || {
+            echo 'Texas symbols page does not link to flag etiquette.' >&2
+            exit 1
+          }
+          grep -Fq "Texas's best-known symbol has a Republic-era story of its own." "$workdir/symbols.html" || {
+            echo 'Texas symbols flag callout is missing from production.' >&2
+            exit 1
+          }
 
           echo 'Texas flag history cluster, sitemap, robots and inbound discovery links verified.'
 
