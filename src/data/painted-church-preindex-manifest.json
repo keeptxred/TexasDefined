@@ -1,14 +1,17 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "asOf": "2026-08-20",
-  "verifiedChurchCount": 32,
+  "verifiedChurchCount": 33,
   "publicationState": "pre-index-review",
   "requirements": {
     "canonicalProfile": true,
     "canonicalResearchDossier": true,
+    "minimumDistinctSources": 3,
+    "minimumAuthoritySources": 2,
     "explicitVisitorEvidence": true,
     "sourcedMapPoint": true,
-    "objectLevelFeature": true,
+    "minimumObjectLevelFeatures": 2,
+    "rightsClearedCurrentPhotography": true,
     "sourceRegistryCoverage": true,
     "classificationAndIntegrity": true,
     "searchIndexingEnabled": false
@@ -45,6 +48,7 @@
     "palestine-first-presbyterian-church",
     "houston-annunciation-catholic-church",
     "waco-st-francis-on-the-brazos",
-    "san-antonio-immaculate-heart-of-mary"
+    "san-antonio-immaculate-heart-of-mary",
+    "mason-st-joseph-catholic-church"
   ]
 }
