@@ -97,6 +97,42 @@ const texasColdWarMilitaryHistoryStub: Article = {
   body: [], relatedCollections: [], relatedDestinations: ["texas-military-forces-museum"],
 };
 
+const spanishTexasMilitaryBattleMedinaStub: Article = {
+  id: "evergreen-spanish-texas-military-battle-medina", brandId: "texasdefined", slug: "spanish-texas-military-battle-medina",
+  title: "Military Texas Before the Republic: Presidios, Filibusters and the Battle of Medina",
+  dek: "Long before the Alamo, Spanish soldiers, presidios, Indigenous alliances, imperial rivalry and independence movements shaped Texas. The 1813 Battle of Medina was the violent climax of that earlier military world.",
+  category: "texas-history", region: "south-texas",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Map._The_Guti%C3%A9rrez-Magee_Expedition_into_Texas,_1812-1813.png?width=1600", alt: "Historic map of the Gutiérrez-Magee Expedition through Spanish Texas and the 1813 campaign toward the Battle of Medina", width: 1600, height: 1080, credit: "Historic map published 1916 · Public domain · Wikimedia Commons" },
+  authorId: "a-marisol", publishedAt: "2026-08-20", readingMinutes: 17,
+  tags: ["Spanish Texas", "Battle of Medina", "Gutiérrez-Magee Expedition", "presidios", "San Antonio history", "Texas military history"], featured: true,
+  sourceName: "Texas Historical Commission", sourceUrl: "https://thc.texas.gov/learn/military-history/military-spanish-texas",
+  body: [], relatedCollections: [], relatedDestinations: ["presidio-la-bahia", "san-antonio-missions-national-historical-park", "the-alamo"],
+};
+
+const texasSpanishAmericanWarGuideStub: Article = {
+  id: "evergreen-texas-spanish-american-war-guide", brandId: "texasdefined", slug: "texas-spanish-american-war-guide",
+  title: "Texas and the Spanish-American War: San Antonio, the Rough Riders and an Army Going Overseas",
+  dek: "The 1898 war with Spain marked a turning point for Texas military life. San Antonio helped organize the Rough Riders, Texas volunteer regiments mobilized, and Texans served in Cuba, the Philippines and an expanding overseas military.",
+  category: "texas-history", region: "south-texas",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Theodore_Roosevelt,_Leonard_Wood,_and_Alexander_Brodie_in_1898,_in_San_Antonio,_Texas_LCCN2013650939.jpg?width=1600", alt: "Theodore Roosevelt, Leonard Wood and Alexander Brodie in San Antonio in 1898 during organization of the Rough Riders", width: 5992, height: 4806, credit: "Library of Congress · 1898 · Public domain · Wikimedia Commons" },
+  authorId: "a-marisol", publishedAt: "2026-08-20", readingMinutes: 16,
+  tags: ["Spanish-American War", "Rough Riders", "San Antonio military history", "Fort Sam Houston", "Texas Volunteer Guard", "Texas military history"], featured: true,
+  sourceName: "Texas Historical Commission", sourceUrl: "https://thc.texas.gov/learn/military-history/texas-spanish-american-war",
+  body: [], relatedCollections: [], relatedDestinations: ["the-alamo", "texas-military-forces-museum"],
+};
+
+const texasWorldWarIHistoryGuideStub: Article = {
+  id: "evergreen-texas-world-war-i-history-guide", brandId: "texasdefined", slug: "texas-world-war-i-history-guide",
+  title: "Texas in World War I: Border Mobilization, Training Camps and the War That Remade the State",
+  dek: "Texas was already militarized by the Mexican Revolution before U.S. entry into World War I. Then nearly 200,000 Texans served, new camps and airfields reshaped cities, and the 36th and 90th Divisions went overseas.",
+  category: "texas-history", region: "gulf-coast",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Training_Camps_and_Schools_-_Military_-_Camp_Logan,_Houston,_Texas_%28165-WW-526A-18%29_-_DPLA_-_8a0e237561b266a5ebfbe36604599b39.jpg?width=1600", alt: "World War I soldiers training at Camp Logan in Houston, Texas", width: 1600, height: 1067, credit: "U.S. National Archives · 1917–1918 · Public domain · Wikimedia Commons" },
+  authorId: "a-marisol", publishedAt: "2026-08-20", readingMinutes: 18,
+  tags: ["Texas World War I", "Camp Logan", "36th Infantry Division", "90th Infantry Division", "Kelly Field", "Texas military history"], featured: true,
+  sourceName: "Texas Historical Commission", sourceUrl: "https://thc.texas.gov/learn/military-history/texas-world-war-i",
+  body: [], relatedCollections: [], relatedDestinations: ["texas-military-forces-museum", "battleship-texas"],
+};
+
 const buffaloSoldiersLink = {
   href: "/article/buffalo-soldiers-texas-frontier-guide",
   label: "Buffalo Soldiers in Texas",
@@ -117,26 +153,45 @@ const coldWarLink = {
   label: "Cold War Texas",
   description: "Connect strategic bombers, Atlas missile fields, Pantex, U-2 reconnaissance and the military infrastructure that made Texas central to nuclear deterrence.",
 };
+const spanishTexasLink = {
+  href: "/article/spanish-texas-military-battle-medina",
+  label: "Military Texas before the Republic",
+  description: "Start with presidios, imperial rivalry, the Gutiérrez-Magee Expedition and the 1813 Battle of Medina before the Texas Revolution.",
+};
+const spanishAmericanWarLink = {
+  href: "/article/texas-spanish-american-war-guide",
+  label: "Texas and the Spanish-American War",
+  description: "Follow San Antonio, the Rough Riders, Texas volunteers and the 1898 transition toward overseas military service.",
+};
+const worldWarILink = {
+  href: "/article/texas-world-war-i-history-guide",
+  label: "Texas in World War I",
+  description: "Connect border mobilization, Camp Logan, the 36th and 90th Divisions, military aviation and the wartime Texas home front.",
+};
 
 const supplementalLinks: Record<string, Array<{ href: string; label: string; description: string }>> = {
   "texas-us-mexican-war-palo-alto-guide": [
     { href: "/destination/palo-alto-battlefield-national-historical-park", label: "Visit Palo Alto Battlefield", description: "Open the Trip Planner destination for the preserved 1846 battlefield, visitor context and lower Rio Grande area guide." },
+    spanishTexasLink,
   ],
-  "texas-military-history-timeline": [buffaloSoldiersLink, redRiverWarLink, republicNavyLink, coldWarLink],
+  "texas-military-history-timeline": [spanishTexasLink, buffaloSoldiersLink, redRiverWarLink, spanishAmericanWarLink, worldWarILink, republicNavyLink, coldWarLink],
   "texas-frontier-forts-road-trip": [buffaloSoldiersLink, redRiverWarLink],
-  "buffalo-soldiers-texas-frontier-guide": [redRiverWarLink],
+  "buffalo-soldiers-texas-frontier-guide": [redRiverWarLink, worldWarILink],
   "texas-cattle-ranching-history-guide": [redRiverWarLink],
-  "republic-of-texas-government-trail": [republicNavyLink],
-  "texas-revolution-historic-sites-road-trip": [republicNavyLink],
-  "battleship-texas-bb-35-history-restoration": [republicNavyLink],
+  "republic-of-texas-government-trail": [republicNavyLink, spanishTexasLink],
+  "texas-revolution-historic-sites-road-trip": [republicNavyLink, spanishTexasLink],
+  "battleship-texas-bb-35-history-restoration": [republicNavyLink, worldWarILink],
   "texas-national-guard-history": [
     { href: "/destination/texas-military-forces-museum", label: "Texas Military Forces Museum", description: "Turn the Guard history into a Camp Mabry visit with current access guidance and an Austin area guide." },
     buffaloSoldiersLink,
+    spanishAmericanWarLink,
+    worldWarILink,
     coldWarLink,
   ],
-  "san-antonio-military-aviation-history": [coldWarLink],
+  "san-antonio-military-aviation-history": [spanishAmericanWarLink, worldWarILink, coldWarLink],
   "texas-world-war-ii-bases-pow-camps": [
     { href: "/article/battleship-texas-bb-35-history-restoration", label: "Battleship Texas (BB-35)", description: "Connect the Texas home front with the surviving dreadnought that fought from North Africa and Normandy to Iwo Jima and Okinawa." },
+    worldWarILink,
     coldWarLink,
   ],
 };
@@ -150,25 +205,31 @@ for (const [slug, additions] of Object.entries(supplementalLinks)) {
 }
 
 export const militaryHistoryExpansionStubs: Article[] = [
+  spanishTexasMilitaryBattleMedinaStub,
   texasUsMexicanWarPaloAltoGuideStub,
+  republicOfTexasNavyHistoryStub,
   buffaloSoldiersTexasFrontierGuideStub,
   texasRedRiverWarGuideStub,
+  texasSpanishAmericanWarGuideStub,
+  texasWorldWarIHistoryGuideStub,
   texasNationalGuardHistoryStub,
   sanAntonioMilitaryAviationHistoryStub,
   texasWorldWarIIBasesPowCampsStub,
-  republicOfTexasNavyHistoryStub,
   texasColdWarMilitaryHistoryStub,
 ];
 
 export async function loadMilitaryHistoryExpansionArticle(brandId: string, slug: string): Promise<Article | null> {
   if (brandId !== "texasdefined") return null;
+  if (slug === spanishTexasMilitaryBattleMedinaStub.slug) return import("./spanish-texas-military-battle-medina").then((module) => module.spanishTexasMilitaryBattleMedinaArticle);
   if (slug === texasUsMexicanWarPaloAltoGuideStub.slug) return import("./texas-us-mexican-war-palo-alto-guide").then((module) => module.texasUsMexicanWarPaloAltoGuideArticle);
+  if (slug === republicOfTexasNavyHistoryStub.slug) return import("./republic-of-texas-navy-history").then((module) => module.republicOfTexasNavyHistoryArticle);
   if (slug === buffaloSoldiersTexasFrontierGuideStub.slug) return import("./buffalo-soldiers-texas-frontier-guide").then((module) => module.buffaloSoldiersTexasFrontierGuideArticle);
   if (slug === texasRedRiverWarGuideStub.slug) return import("./texas-red-river-war-guide").then((module) => module.texasRedRiverWarGuideArticle);
+  if (slug === texasSpanishAmericanWarGuideStub.slug) return import("./texas-spanish-american-war-guide").then((module) => module.texasSpanishAmericanWarGuideArticle);
+  if (slug === texasWorldWarIHistoryGuideStub.slug) return import("./texas-world-war-i-history-guide").then((module) => module.texasWorldWarIHistoryGuideArticle);
   if (slug === texasNationalGuardHistoryStub.slug) return import("./texas-national-guard-history").then((module) => module.texasNationalGuardHistoryArticle);
   if (slug === sanAntonioMilitaryAviationHistoryStub.slug) return import("./san-antonio-military-aviation-history").then((module) => module.sanAntonioMilitaryAviationHistoryArticle);
   if (slug === texasWorldWarIIBasesPowCampsStub.slug) return import("./texas-world-war-ii-bases-pow-camps").then((module) => module.texasWorldWarIIBasesPowCampsArticle);
-  if (slug === republicOfTexasNavyHistoryStub.slug) return import("./republic-of-texas-navy-history").then((module) => module.republicOfTexasNavyHistoryArticle);
   if (slug === texasColdWarMilitaryHistoryStub.slug) return import("./texas-cold-war-military-history").then((module) => module.texasColdWarMilitaryHistoryArticle);
   return null;
 }
