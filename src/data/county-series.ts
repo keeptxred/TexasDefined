@@ -137,6 +137,7 @@ const LEGACY_ARTICLE_TO_COUNTY = new Map<string, string>([
   ["cass-county-linden-atlanta-wright-patman-piney-woods-texas", "cass"],
   ["bowie-county-texarkana-new-boston-red-river-piney-woods-texas", "bowie"],
   ["red-river-county-clarksville-red-river-gateway-northeast-texas", "red-river"],
+  ["delta-county-cooper-sulphur-rivers-cooper-lake-blackland-prairie-texas", "delta"],
 ]);
 
 const COUNTY_SLUGS = new Set(LEGACY_ARTICLE_TO_COUNTY.values());
