@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "asOf": "2026-08-20",
-  "verifiedChurchCount": 31,
+  "verifiedChurchCount": 32,
   "publicationState": "pre-index-review",
   "requirements": {
     "canonicalProfile": true,
@@ -44,6 +44,7 @@
     "galveston-st-joseph-church",
     "palestine-first-presbyterian-church",
     "houston-annunciation-catholic-church",
-    "waco-st-francis-on-the-brazos"
+    "waco-st-francis-on-the-brazos",
+    "san-antonio-immaculate-heart-of-mary"
   ]
 }
