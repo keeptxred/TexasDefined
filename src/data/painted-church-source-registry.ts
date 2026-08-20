@@ -26,12 +26,95 @@ const slugify = (value: string) => value
   .replace(/^-|-$/g, "")
   .slice(0, 90);
 
-function inferTier(url: string, hint?: string): PaintedChurchSourceTier {
-  const value = `${url} ${hint ?? ""}`.toLowerCase();
-  if (value.includes("npgallery.nps.gov") || value.includes("atlas.thc.texas.gov") || value.includes("texashistory.unt.edu") || value.includes("loc.gov") || value.includes("txarchives.org")) return "archive-register";
-  if (value.includes("tshaonline.org") || value.includes("sah-archipedia.org") || value.includes("austinpbs.org") || value.includes("tamucc.edu") || value.includes("edu/")) return "scholarly-public-history";
-  if (value.includes("parish") || value.includes("church") || value.includes("diocese") || value.includes("archgh.org") || value.includes("galvestonhistory.org") || value.includes("pcusa.org") || value.includes("umc.org") || value.includes("stsophiagoc.org")) return "current-organization";
-  if (value.includes("gov") || value.includes("nps.gov")) return "primary-official";
+const archiveHosts = new Set([
+  "npgallery.nps.gov",
+  "atlas.thc.texas.gov",
+  "texashistory.unt.edu",
+  "www.loc.gov",
+  "loc.gov",
+  "txarchives.org",
+]);
+
+const scholarlyHosts = new Set([
+  "www.tshaonline.org",
+  "tshaonline.org",
+  "sah-archipedia.org",
+  "www.sah-archipedia.org",
+  "austinpbs.org",
+  "www.austinpbs.org",
+  "www.tamucc.edu",
+  "tamucc.edu",
+  "blogs.baylor.edu",
+  "www.baylor.edu",
+  "baylor.edu",
+]);
+
+const currentOrganizationHosts = new Set([
+  "www.schulenburgchamber.org",
+  "schulenburgchamber.org",
+  "annunciationcc.org",
+  "www.annunciationcc.org",
+  "ihmsatx.org",
+  "www.ihmsatx.org",
+  "stfrancistorwaco.org",
+  "www.stfrancistorwaco.org",
+  "pcusa.org",
+  "www.pcusa.org",
+  "www.umc.org",
+  "umc.org",
+  "www.archgh.org",
+  "archgh.org",
+  "www.galvestonhistory.org",
+  "galvestonhistory.org",
+  "www.austindiocese.org",
+  "austindiocese.org",
+  "amarillodiocese.org",
+  "www.amarillodiocese.org",
+  "www.stpeterlindsay.org",
+  "stpeterlindsay.org",
+  "church.stmarysfbg.com",
+  "qpcatholicchurch.com",
+  "www.qpcatholicchurch.com",
+  "shcatholicchurch.org",
+  "www.shcatholicchurch.org",
+  "sscmshiner.org",
+  "www.sscmshiner.org",
+  "www.stpaulserbin.org",
+  "stpaulserbin.org",
+  "www.pannamariachurch.com",
+  "pannamariachurch.com",
+  "holytrinityofcornhill.org",
+  "www.holytrinityofcornhill.org",
+  "shpalestine.org",
+  "www.shpalestine.org",
+  "www.ststanislausbandera.com",
+  "ststanislausbandera.com",
+  "www.sacredheartcorpus.org",
+  "sacredheartcorpus.org",
+  "www.stjsa.org",
+  "stjsa.org",
+  "saintstans.org",
+  "www.saintstans.org",
+  "www.saintlouisdaycastroville.org",
+  "saintlouisdaycastroville.org",
+  "olgtx.org",
+  "www.olgtx.org",
+]);
+
+function hostnameOf(url: string) {
+  try {
+    return new URL(url).hostname.toLowerCase();
+  } catch {
+    return "";
+  }
+}
+
+function inferTier(url: string): PaintedChurchSourceTier {
+  const host = hostnameOf(url);
+  if (archiveHosts.has(host)) return "archive-register";
+  if (scholarlyHosts.has(host) || host.endsWith(".edu")) return "scholarly-public-history";
+  if (currentOrganizationHosts.has(host)) return "current-organization";
+  if (host.endsWith(".gov")) return "primary-official";
   return "secondary-discovery";
 }
 
@@ -44,13 +127,14 @@ function addSource({ url, label, use, churchSlug, globalReference = false, tier 
     if (!existing.uses.includes(use)) existing.uses.push(use);
     if (churchSlug && !existing.churchSlugs.includes(churchSlug)) existing.churchSlugs.push(churchSlug);
     existing.globalReference ||= globalReference;
+    if (tier && existing.tier === "secondary-discovery") existing.tier = tier;
     return;
   }
   sourceMap.set(url, {
     id: `source-${slugify(url)}`,
     url,
     label,
-    tier: tier ?? inferTier(url, label),
+    tier: tier ?? inferTier(url),
     uses: [use],
     churchSlugs: churchSlug ? [churchSlug] : [],
     globalReference,
