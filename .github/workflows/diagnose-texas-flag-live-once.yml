@@ -1,0 +1,101 @@
+name: Diagnose Texas flag live pages once
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/diagnose-texas-flag-live-once.yml'
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check flag history page
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -u
+          context='texas-flag-live-history'
+          api="https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}"
+          post() { curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' "$api" --data "{\"state\":\"$1\",\"context\":\"$context\",\"description\":\"$2\"}" >/dev/null; }
+          post pending 'Checking live Texas flag history page'
+          out="$(mktemp)"
+          if curl --retry 4 --retry-delay 2 -fsSL --max-time 45 "https://texasdefined.com/article/history-of-the-texas-flag?diag=${GITHUB_SHA}" -o "$out" \
+            && grep -Fq 'The Texas Flag: A History of the Lone Star' "$out" \
+            && grep -Fq 'Who designed the Texas flag?' "$out" \
+            && grep -Fq 'Flag_of_the_Republic_of_Texas_' "$out"; then
+            post success 'Live flag history page verified'
+            exit 0
+          fi
+          post failure 'Live flag history page check failed'
+          exit 1
+
+      - name: Check flag etiquette page
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -u
+          context='texas-flag-live-etiquette'
+          api="https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}"
+          post() { curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' "$api" --data "{\"state\":\"$1\",\"context\":\"$context\",\"description\":\"$2\"}" >/dev/null; }
+          post pending 'Checking live Texas flag etiquette page'
+          out="$(mktemp)"
+          if curl --retry 4 --retry-delay 2 -fsSL --max-time 45 "https://texasdefined.com/article/texas-flag-etiquette-display-guide?diag=${GITHUB_SHA}" -o "$out" \
+            && grep -Fq 'Texas Flag Etiquette: How to Display the Lone Star Flag Correctly' "$out" \
+            && grep -Fq 'When should the Texas flag be at half-staff?' "$out"; then
+            post success 'Live flag etiquette page verified'
+            exit 0
+          fi
+          post failure 'Live flag etiquette page check failed'
+          exit 1
+
+      - name: Check Texas Symbols discovery
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -u
+          context='texas-flag-live-symbols'
+          api="https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}"
+          post() { curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' "$api" --data "{\"state\":\"$1\",\"context\":\"$context\",\"description\":\"$2\"}" >/dev/null; }
+          post pending 'Checking Texas Symbols flag links'
+          out="$(mktemp)"
+          if curl --retry 4 --retry-delay 2 -fsSL --max-time 45 "https://texasdefined.com/texas-symbols?diag=${GITHUB_SHA}" -o "$out" \
+            && grep -Fq '/article/history-of-the-texas-flag' "$out" \
+            && grep -Fq '/article/texas-flag-etiquette-display-guide' "$out"; then
+            post success 'Texas Symbols flag links verified'
+            exit 0
+          fi
+          post failure 'Texas Symbols flag discovery check failed'
+          exit 1
+
+      - name: Check flag sitemap entries
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -u
+          context='texas-flag-live-sitemap'
+          api="https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}"
+          post() { curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' "$api" --data "{\"state\":\"$1\",\"context\":\"$context\",\"description\":\"$2\"}" >/dev/null; }
+          post pending 'Checking Texas flag sitemap entries'
+          out="$(mktemp)"
+          if curl --retry 4 --retry-delay 2 -fsSL --max-time 45 "https://texasdefined.com/sitemap.xml?diag=${GITHUB_SHA}" -o "$out" \
+            && grep -Fq 'https://texasdefined.com/article/history-of-the-texas-flag' "$out" \
+            && grep -Fq 'https://texasdefined.com/article/texas-flag-etiquette-display-guide' "$out"; then
+            post success 'Both Texas flag sitemap entries verified'
+            exit 0
+          fi
+          post failure 'Texas flag sitemap check failed'
+          exit 1
