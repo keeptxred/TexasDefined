@@ -10,6 +10,10 @@ const files = {
   symbols: read("src/routes/texas-symbols.lazy.tsx"),
   historyHub: read("src/routes/texas-history.tsx"),
   articleRoute: read("src/routes/article.$slug.tsx"),
+  rootRoute: read("src/routes/__root.tsx"),
+  rss: read("src/routes/rss[.]xml.ts"),
+  sitemap: read("src/routes/sitemap[.]xml.ts"),
+  robots: read("public/robots.txt"),
   smoke: read(".github/workflows/flag-history-production-smoke.yml"),
   deploy: read(".github/workflows/deploy-production.yml"),
 };
@@ -75,10 +79,31 @@ requireContains("Article route", files.articleRoute, "Image credit:");
 requireNotContains("Article route", files.articleRoute, "const movingToTexasFaq");
 requireNotContains("Article route", files.articleRoute, "const articleFaqBySlug");
 
+requireContains("Root route", files.rootRoute, 'rel: "alternate"');
+requireContains("Root route", files.rootRoute, 'href: "/rss.xml"');
+requireContains("Root route", files.rootRoute, 'type: "application/rss+xml"');
+
+requireContains("RSS feed", files.rss, 'createFileRoute("/rss.xml")');
+requireContains("RSS feed", files.rss, '<rss version="2.0"');
+requireContains("RSS feed", files.rss, 'application/rss+xml; charset=utf-8');
+requireContains("RSS feed", files.rss, 'platform.articles.list(scope)');
+requireContains("RSS feed", files.rss, '/article/${article.slug}');
+
+requireContains("Primary sitemap", files.sitemap, '"/texas-history": "2026-08-20"');
+requireContains("Primary sitemap", files.sitemap, '"/texas-symbols": "2026-08-20"');
+requireContains("Primary sitemap", files.sitemap, '"history-of-the-texas-flag": "2026-08-20"');
+requireContains("Primary sitemap", files.sitemap, '"texas-flag-etiquette-display-guide": "2026-08-20"');
+
+requireContains("robots.txt", files.robots, "Sitemap: https://texasdefined.com/sitemap.xml");
+requireContains("robots.txt", files.robots, "Sitemap: https://texasdefined.com/sitemap-explore.xml");
+requireContains("robots.txt", files.robots, "Sitemap: https://texasdefined.com/rss.xml");
+
 requireContains("Flag production smoke", files.smoke, "workflow_run:");
 requireContains("Flag production smoke", files.smoke, 'workflows: ["Deploy TexasDefined production"]');
 requireContains("Flag production smoke", files.smoke, "texas-flag-history-page");
 requireContains("Flag production smoke", files.smoke, "texas-flag-indexing-signals");
+requireContains("Flag production smoke", files.smoke, "'/rss.xml'");
+requireContains("Flag production smoke", files.smoke, "fresh sitemap dates and RSS discovery verified");
 
 requireContains("Production deploy", files.deploy, "fetch_assert flag-history");
 requireContains("Production deploy", files.deploy, "fetch_assert flag-etiquette");
