@@ -161,6 +161,7 @@ const LEGACY_ARTICLE_TO_COUNTY = new Map<string, string>([
   ["childress-county-childress-railroads-red-river-rolling-plains-texas", "childress"],
   ["motley-county-matador-roaring-springs-matador-ranch-rolling-plains-texas", "motley"],
   ["archer-county-archer-city-ranching-oil-cross-timbers-north-texas", "archer"],
+  ["garza-county-post-caprock-lake-alan-henry-west-texas", "garza"],
 ]);
 
 const COUNTY_SLUGS = new Set(LEGACY_ARTICLE_TO_COUNTY.values());
