@@ -1,0 +1,8 @@
+{
+  "county": "stonewall",
+  "status": "pass",
+  "stage": "complete",
+  "target_sha": "bef9cbd6f302eae5cba2a9b6d07dcf1d7f175e55",
+  "detail": "validate=PASS deploy=PASS page=200 structured=yes editorial=yes canonical=yes legacy=n/a hero=200 mime=image/jpeg bytes=461783",
+  "recorded_at_utc": "2026-08-20T17:06:50.932540+00:00"
+}
