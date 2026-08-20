@@ -1,6 +1,7 @@
 import type { Article } from "../types";
 import "./newest-evergreen-links";
 import "./military-museum-links";
+import "./seasonal-authority-links";
 import { winklerCountyArticleStub } from "./winkler-county-article-stub";
 import { seasonalAuthorityArticleStubs, loadSeasonalAuthorityArticle } from "./lazy-seasonal-authority";
 
