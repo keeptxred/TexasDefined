@@ -20,6 +20,12 @@ function requireContains(label, text, needle) {
   }
 }
 
+function requireNotContains(label, text, needle) {
+  if (text.includes(needle)) {
+    throw new Error(`${label} contains disallowed value: ${needle}`);
+  }
+}
+
 function requireCount(label, text, needle, minimum) {
   const count = text.split(needle).length - 1;
   if (count < minimum) {
@@ -37,6 +43,9 @@ requireContains("Texas flag history", files.history, 'h("Can the Texas flag fly 
 requireContains("Texas flag history", files.history, "Flag_of_the_Republic_of_Texas_");
 requireContains("Texas flag history", files.history, "Flag_of_Texas_");
 requireCount("Texas flag history", files.history, 'type: "image"', 2);
+requireCount("Texas flag history", files.history, "https://upload.wikimedia.org/", 3);
+requireNotContains("Texas flag history", files.history, "commons.wikimedia.org/wiki/Special:Redirect");
+requireContains("Texas flag history", files.history, "width: 1280");
 
 requireContains("Texas flag etiquette", files.etiquette, 'slug: "texas-flag-etiquette-display-guide"');
 requireContains("Texas flag etiquette", files.etiquette, 'sourceUrl: "https://www.tsl.texas.gov/ref/abouttx/flagcode.html"');
