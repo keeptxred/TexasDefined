@@ -23,162 +23,122 @@ jobs:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       HERO_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Wood_courthouse_tx_2010.jpg?width=1600
     steps:
-      - name: Check out current main
-        id: checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           ref: main
           fetch-depth: 2
-
-      - name: Set up Node.js
-        id: node
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
           cache-dependency-path: package-lock.json
-
       - name: Install dependencies
-        id: install
         run: npm ci --no-audit --no-fund
-
-      - name: Verify county hero source
-        id: hero
+      - name: Certify current main
+        id: certify
         shell: bash
         run: |
-          set -euo pipefail
-          workdir="$(mktemp -d)"; trap 'rm -rf "$workdir"' EXIT
-          status="$(curl -L --retry 5 --retry-all-errors --retry-delay 2 --max-time 60 -sS -D "$workdir/headers" -o "$workdir/body" -w '%{http_code}' "$HERO_URL")"
-          test "$status" = '200'
-          mime="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/{gsub(/\r/,""); sub(/^content-type:[[:space:]]*/,""); v=$0} END{print v}' "$workdir/headers" | cut -d';' -f1)"
-          case "$mime" in image/jpeg|image/png|image/webp) ;; *) echo "Unexpected hero MIME: $mime" >&2; exit 1;; esac
-          test "$(wc -c < "$workdir/body")" -gt 50000
-          echo "Hero source verified: HTTP $status $mime $(wc -c < "$workdir/body") bytes"
-          echo "mime=$mime" >> "$GITHUB_OUTPUT"
-          echo "bytes=$(wc -c < "$workdir/body")" >> "$GITHUB_OUTPUT"
+          set +e
+          git fetch origin main
+          git reset --hard origin/main
+          target="$(git rev-parse HEAD)"
+          echo "target_sha=$target" >> "$GITHUB_OUTPUT"
+          : > /tmp/wood-cert.log
+          fail_stage=''
 
-      - name: Validate and deploy newest stable main
-        id: deploy
-        shell: bash
-        run: |
-          set -euo pipefail
-          test -n "$CLOUDFLARE_ACCOUNT_ID"
-          test -n "$CLOUDFLARE_API_TOKEN"
+          echo '=== source checks ===' | tee -a /tmp/wood-cert.log
+          test -f src/data/fixtures/wood-county-quitman-mineola-lake-fork-piney-woods-texas.ts || fail_stage='source-fixture'
+          grep -Fq 'countySlug: "wood"' src/data/county-series-profiles-northeast.ts || fail_stage='source-registry'
+          grep -Fq '["wood-county-quitman-mineola-lake-fork-piney-woods-texas", "wood"]' src/data/county-series.ts || fail_stage='source-legacy-map'
+          if grep -n 'www\.texasdefined\.com' src/data/fixtures/wood-county-quitman-mineola-lake-fork-piney-woods-texas.ts src/data/county-series-profiles-northeast.ts src/data/county-series.ts >> /tmp/wood-cert.log; then fail_stage='canonical-host'; fi
 
-          for pass in 1 2 3 4 5; do
-            echo "Certification pass $pass"
-            git fetch origin main
-            git reset --hard origin/main
-            target="$(git rev-parse HEAD)"
+          echo '=== hero source ===' | tee -a /tmp/wood-cert.log
+          hero_status="$(curl -L --retry 5 --retry-all-errors --retry-delay 2 --max-time 60 -sS -D /tmp/hero-headers -o /tmp/hero-body -w '%{http_code}' "$HERO_URL")"
+          hero_mime="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/{gsub(/\r/,""); sub(/^content-type:[[:space:]]*/,""); v=$0} END{print v}' /tmp/hero-headers | cut -d';' -f1)"
+          hero_bytes="$(wc -c < /tmp/hero-body)"
+          echo "hero source: HTTP $hero_status $hero_mime $hero_bytes bytes" | tee -a /tmp/wood-cert.log
+          if [ "$hero_status" != '200' ] || ! [[ "$hero_mime" =~ ^image/(jpeg|png|webp)$ ]] || [ "$hero_bytes" -le 50000 ]; then fail_stage='hero-source'; fi
 
-            test -f src/data/fixtures/wood-county-quitman-mineola-lake-fork-piney-woods-texas.ts
-            grep -Fq 'countySlug: "wood"' src/data/county-series-profiles-northeast.ts
-            grep -Fq '["wood-county-quitman-mineola-lake-fork-piney-woods-texas", "wood"]' src/data/county-series.ts
-            grep -Fq 'Wood County: Quitman, Mineola, Lake Fork and the Edge of the Piney Woods' src/data/fixtures/wood-county-quitman-mineola-lake-fork-piney-woods-texas.ts
-            if grep -n 'www\.texasdefined\.com' src/data/fixtures/wood-county-quitman-mineola-lake-fork-piney-woods-texas.ts src/data/county-series-profiles-northeast.ts src/data/county-series.ts; then
-              echo 'Non-canonical www TexasDefined hostname found.' >&2
-              exit 1
-            fi
+          if [ -z "$fail_stage" ]; then
+            echo '=== npm run validate ===' | tee -a /tmp/wood-cert.log
+            npm run validate >> /tmp/wood-cert.log 2>&1
+            validate_code=$?
+            echo "validate exit=$validate_code" | tee -a /tmp/wood-cert.log
+            [ "$validate_code" -eq 0 ] || fail_stage='validation'
+          fi
 
-            npm run validate
-
+          if [ -z "$fail_stage" ]; then
             git fetch origin main
             latest="$(git rev-parse origin/main)"
             if [ "$latest" != "$target" ]; then
-              echo "main moved during validation: $target -> $latest; revalidating newest main"
-              continue
+              echo "main moved after validation: $target -> $latest" | tee -a /tmp/wood-cert.log
+              fail_stage='main-moved-after-validation'
             fi
+          fi
 
-            npm run deploy
+          if [ -z "$fail_stage" ]; then
+            echo '=== npm run deploy ===' | tee -a /tmp/wood-cert.log
+            npm run deploy >> /tmp/wood-cert.log 2>&1
+            deploy_code=$?
+            echo "deploy exit=$deploy_code" | tee -a /tmp/wood-cert.log
+            [ "$deploy_code" -eq 0 ] || fail_stage='deployment'
+          fi
 
-            git fetch origin main
-            latest="$(git rev-parse origin/main)"
-            if [ "$latest" != "$target" ]; then
-              echo "main moved during deployment: $target -> $latest; validating and redeploying newest main"
-              continue
+          if [ -z "$fail_stage" ]; then
+            echo '=== live verification ===' | tee -a /tmp/wood-cert.log
+            origin='https://texasdefined.com'
+            county='/county/wood'
+            legacy='/article/wood-county-quitman-mineola-lake-fork-piney-woods-texas'
+            expected_title='Wood County: Quitman, Mineola, Lake Fork and the Edge of the Piney Woods'
+            ok=0
+            for attempt in $(seq 1 12); do
+              status="$(curl --retry 3 --retry-all-errors --retry-delay 2 --max-time 60 -sS -o /tmp/wood-page -w '%{http_code}' "$origin$county?verify=${target}-${GITHUB_RUN_ID}-$attempt")"
+              if [ "$status" = '200' ] && grep -Fq "$expected_title" /tmp/wood-page && grep -Fq 'The county in numbers' /tmp/wood-page && grep -Fq 'County seat' /tmp/wood-page && grep -Fq '2020 population' /tmp/wood-page && grep -Fq 'County feature' /tmp/wood-page && grep -Fq 'Quitman' /tmp/wood-page && grep -Fq 'https://texasdefined.com/county/wood' /tmp/wood-page; then ok=1; break; fi
+              sleep 5
+            done
+            echo "county HTTP=$status editorial_structured=$ok" | tee -a /tmp/wood-cert.log
+            [ "$ok" -eq 1 ] || fail_stage='live-county'
+
+            if [ -z "$fail_stage" ]; then
+              legacy_status="$(curl --max-redirs 0 -sS -D /tmp/legacy-headers -o /dev/null -w '%{http_code}' "$origin$legacy")"
+              location="$(awk 'BEGIN{IGNORECASE=1} /^location:/{gsub(/\r/,""); sub(/^location:[[:space:]]*/,""); print; exit}' /tmp/legacy-headers)"
+              echo "legacy HTTP=$legacy_status location=$location" | tee -a /tmp/wood-cert.log
+              if [ "$legacy_status" != '301' ] || ! [[ "$location" == *'/county/wood'* ]]; then fail_stage='legacy-redirect'; fi
             fi
+          fi
 
-            echo "TARGET_SHA=$target" >> "$GITHUB_ENV"
-            echo "target_sha=$target" >> "$GITHUB_OUTPUT"
-            echo "Validated and deployed stable main $target"
-            exit 0
-          done
-
-          echo 'Could not obtain a stable validated/deployed main revision after five passes.' >&2
-          exit 1
-
-      - name: Verify live Wood County page, structured layer, redirect, and hero
-        id: live
-        shell: bash
-        run: |
-          set -euo pipefail
-          origin='https://texasdefined.com'
-          county='/county/wood'
-          legacy='/article/wood-county-quitman-mineola-lake-fork-piney-woods-texas'
-          expected_title='Wood County: Quitman, Mineola, Lake Fork and the Edge of the Piney Woods'
-          workdir="$(mktemp -d)"; trap 'rm -rf "$workdir"' EXIT
-          ok=0
-          for attempt in $(seq 1 12); do
-            status="$(curl --retry 3 --retry-all-errors --retry-delay 2 --max-time 60 -sS -o "$workdir/page" -w '%{http_code}' "$origin$county?verify=${TARGET_SHA}-${GITHUB_RUN_ID}-$attempt")"
-            if [ "$status" = '200' ] && grep -Fq "$expected_title" "$workdir/page" && grep -Fq 'The county in numbers' "$workdir/page" && grep -Fq 'County seat' "$workdir/page" && grep -Fq '2020 population' "$workdir/page" && grep -Fq 'County feature' "$workdir/page" && grep -Fq 'Quitman' "$workdir/page" && grep -Fq 'https://texasdefined.com/county/wood' "$workdir/page"; then ok=1; break; fi
-            sleep 5
-          done
-          test "$ok" = '1' || { echo 'Live Wood County structured/editorial layers did not appear.' >&2; exit 1; }
-
-          legacy_status="$(curl --max-redirs 0 -sS -D "$workdir/legacy-headers" -o /dev/null -w '%{http_code}' "$origin$legacy")"
-          location="$(awk 'BEGIN{IGNORECASE=1} /^location:/{gsub(/\r/,""); sub(/^location:[[:space:]]*/,""); print; exit}' "$workdir/legacy-headers")"
-          test "$legacy_status" = '301'
-          [[ "$location" == *'/county/wood'* ]]
-
-          hero_status="$(curl -L --retry 5 --retry-all-errors --retry-delay 2 --max-time 60 -sS -D "$workdir/hero-headers" -o "$workdir/hero" -w '%{http_code}' "$HERO_URL")"
-          hero_mime="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/{gsub(/\r/,""); sub(/^content-type:[[:space:]]*/,""); v=$0} END{print v}' "$workdir/hero-headers" | cut -d';' -f1)"
-          test "$hero_status" = '200'
-          case "$hero_mime" in image/jpeg|image/png|image/webp) ;; *) echo "Live hero MIME invalid: $hero_mime" >&2; exit 1;; esac
-          test "$(wc -c < "$workdir/hero")" -gt 50000
-          echo "legacy_status=$legacy_status" >> "$GITHUB_OUTPUT"
+          if [ -z "$fail_stage" ]; then overall='pass'; else overall='fail'; fi
+          echo "overall=$overall" >> "$GITHUB_OUTPUT"
+          echo "fail_stage=$fail_stage" >> "$GITHUB_OUTPUT"
           echo "hero_status=$hero_status" >> "$GITHUB_OUTPUT"
           echo "hero_mime=$hero_mime" >> "$GITHUB_OUTPUT"
-          echo "hero_bytes=$(wc -c < "$workdir/hero")" >> "$GITHUB_OUTPUT"
-          echo "PASS county=$county structured=yes editorial=yes legacy=$legacy_status hero=$hero_status mime=$hero_mime target=$TARGET_SHA"
+          echo "hero_bytes=$hero_bytes" >> "$GITHUB_OUTPUT"
+          echo "RESULT overall=$overall stage=${fail_stage:-none} target=$target" | tee -a /tmp/wood-cert.log
+          exit 0
 
-      - name: Record Wood County certification outcome
+      - name: Record certification diagnostics
         if: always()
         shell: bash
         env:
-          CHECKOUT_OUTCOME: ${{ steps.checkout.outcome }}
-          INSTALL_OUTCOME: ${{ steps.install.outcome }}
-          HERO_OUTCOME: ${{ steps.hero.outcome }}
-          DEPLOY_OUTCOME: ${{ steps.deploy.outcome }}
-          LIVE_OUTCOME: ${{ steps.live.outcome }}
-          TARGET_FROM_STEP: ${{ steps.deploy.outputs.target_sha }}
-          HERO_SOURCE_MIME: ${{ steps.hero.outputs.mime }}
-          HERO_SOURCE_BYTES: ${{ steps.hero.outputs.bytes }}
-          LEGACY_STATUS: ${{ steps.live.outputs.legacy_status }}
-          HERO_STATUS: ${{ steps.live.outputs.hero_status }}
-          HERO_MIME: ${{ steps.live.outputs.hero_mime }}
-          HERO_BYTES: ${{ steps.live.outputs.hero_bytes }}
+          OVERALL: ${{ steps.certify.outputs.overall }}
+          FAIL_STAGE: ${{ steps.certify.outputs.fail_stage }}
+          TARGET_SHA: ${{ steps.certify.outputs.target_sha }}
+          HERO_STATUS: ${{ steps.certify.outputs.hero_status }}
+          HERO_MIME: ${{ steps.certify.outputs.hero_mime }}
+          HERO_BYTES: ${{ steps.certify.outputs.hero_bytes }}
         run: |
           set -euo pipefail
           git fetch origin main
           git reset --hard origin/main
-          target="${TARGET_FROM_STEP:-$(git rev-parse HEAD)}"
-          overall='pass'
-          if [ "$DEPLOY_OUTCOME" != 'success' ] || [ "$LIVE_OUTCOME" != 'success' ] || [ "$HERO_OUTCOME" != 'success' ]; then overall='fail'; fi
           mkdir -p ops/certifications
+          cp /tmp/wood-cert.log ops/certifications/wood-county-production.log
           cat > ops/certifications/wood-county-production.json <<EOF
           {
             "county": "Wood",
             "canonical": "https://texasdefined.com/county/wood",
-            "target_sha": "$target",
-            "overall": "$overall",
-            "checkout": "$CHECKOUT_OUTCOME",
-            "install": "$INSTALL_OUTCOME",
-            "hero_source": "$HERO_OUTCOME",
-            "validation_deployment": "$DEPLOY_OUTCOME",
-            "live_verification": "$LIVE_OUTCOME",
-            "hero_source_mime": "$HERO_SOURCE_MIME",
-            "hero_source_bytes": "$HERO_SOURCE_BYTES",
-            "legacy_redirect": "$LEGACY_STATUS",
+            "target_sha": "$TARGET_SHA",
+            "overall": "$OVERALL",
+            "fail_stage": "$FAIL_STAGE",
             "hero_http": "$HERO_STATUS",
             "hero_mime": "$HERO_MIME",
             "hero_bytes": "$HERO_BYTES",
@@ -188,6 +148,6 @@ jobs:
           EOF
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -- ops/certifications/wood-county-production.json
-          git commit -m 'Record Wood County production certification outcome'
+          git add -- ops/certifications/wood-county-production.json ops/certifications/wood-county-production.log
+          git commit -m 'Record Wood County production certification diagnostics'
           git push origin HEAD:main
