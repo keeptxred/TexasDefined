@@ -151,4 +151,10 @@ export const COUNTY_SERIES_PROFILES_CONTINUED: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/marion-county-jefferson-caddo-lake-riverport-piney-woods-texas")
       .then((module) => module.marionCountyJeffersonCaddoLakeRiverportPineyWoodsArticle),
   },
+  {
+    countySlug: "cass",
+    articleSlug: "cass-county-linden-atlanta-wright-patman-piney-woods-texas",
+    loadArticle: () => import("@/data/fixtures/cass-county-linden-atlanta-wright-patman-piney-woods-texas")
+      .then((module) => module.cassCountyLindenAtlantaWrightPatmanPineyWoodsArticle),
+  },
 ];
