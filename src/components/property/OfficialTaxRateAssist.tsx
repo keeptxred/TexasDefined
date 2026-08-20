@@ -24,7 +24,7 @@ type ApiResponse = {
 };
 
 function isApplicable(record: TexasTaxRateRecord) {
-  return !record.variableRate && record.totalRate != null;
+  return !record.rateUnavailable && !record.variableRate && record.totalRate != null;
 }
 
 export function OfficialTaxRateAssist({
@@ -97,7 +97,7 @@ export function OfficialTaxRateAssist({
       .slice(0, 100);
   }, [summary, specialFilter]);
 
-  const variableCount = summary
+  const unavailableCount = summary
     ? [...summary.county, ...summary.cities, ...summary.schoolDistricts, ...summary.specialDistricts].filter((record) => !isApplicable(record)).length
     : 0;
 
@@ -110,7 +110,7 @@ export function OfficialTaxRateAssist({
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <p className="text-sm font-semibold text-foreground">{title}</p>
-          <p className="mt-1 max-w-3xl text-xs leading-5 text-muted-foreground">County rates are included automatically. Choose the school district and city that serve the property, then add only the special districts that actually apply to the parcel.</p>
+          <p className="mt-1 max-w-3xl text-xs leading-5 text-muted-foreground">County rates are included automatically when a usable rate is reported. Choose the school district and city that serve the property, then add only the special districts that actually apply to the parcel.</p>
         </div>
         {summary ? <span className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">{summary.year} finalized rates</span> : null}
       </div>
@@ -119,7 +119,7 @@ export function OfficialTaxRateAssist({
       {error ? <p className="mt-4 text-sm text-destructive">{error}</p> : null}
 
       {summary ? <div className="mt-5 space-y-5">
-        {variableCount ? <p className="border-l-2 border-primary pl-3 text-xs leading-5 text-muted-foreground"><strong className="text-foreground">{variableCount} reported taxing {variableCount === 1 ? 'unit has' : 'units have'} a parcel-specific or conflicting rate variant.</strong> TexasDefined shows those units but disables automatic application so a single statewide-file row is never substituted for the exact parcel rate.</p> : null}
+        {unavailableCount ? <p className="border-l-2 border-primary pl-3 text-xs leading-5 text-muted-foreground"><strong className="text-foreground">{unavailableCount} reported taxing {unavailableCount === 1 ? 'unit is' : 'units are'} withheld from automatic calculation.</strong> This includes not-reported, cross-source-conflict, and variable-rate records. They remain visible for research but must be verified against the parcel/local source before use.</p> : null}
         <div className="grid gap-4 md:grid-cols-2">
           <RateSelect label="School district" value={schoolSlug} onChange={setSchoolSlug} records={summary.schoolDistricts} placeholder="Choose the property's school district" />
           <RateSelect label="City / municipality" value={citySlug} onChange={setCitySlug} records={summary.cities} placeholder="Outside city limits / choose city" />
@@ -127,25 +127,14 @@ export function OfficialTaxRateAssist({
 
         <details className="border-y border-border py-4">
           <summary className="cursor-pointer text-sm font-semibold">Special districts ({summary.specialDistricts.length} reported in county; {specialSlugs.length} selected)</summary>
-          <p className="mt-3 text-xs leading-5 text-muted-foreground">Do not select every district in the county. A parcel normally belongs to only a subset. Confirm MUD, ESD, hospital, community-college, flood-control and other district membership on the appraisal/tax record. Variable-rate units cannot be auto-applied.</p>
-          <input
-            type="search"
-            value={specialFilter}
-            onChange={(event) => setSpecialFilter(event.target.value)}
-            placeholder="Filter special districts"
-            className="mt-4 w-full border-0 border-b border-border bg-background px-0 py-3 text-sm outline-none focus:border-primary"
-          />
+          <p className="mt-3 text-xs leading-5 text-muted-foreground">Do not select every district in the county. A parcel normally belongs to only a subset. Confirm MUD, ESD, hospital, community-college, flood-control and other district membership on the appraisal/tax record. Unavailable or conflicting rates cannot be auto-applied.</p>
+          <input type="search" value={specialFilter} onChange={(event) => setSpecialFilter(event.target.value)} placeholder="Filter special districts" className="mt-4 w-full border-0 border-b border-border bg-background px-0 py-3 text-sm outline-none focus:border-primary" />
           <div className="mt-4 grid max-h-80 gap-x-6 overflow-y-auto sm:grid-cols-2">
             {filteredSpecial.map((record) => {
               const checked = specialSlugs.includes(record.slug);
               const applicable = isApplicable(record);
               return <label key={record.id} className={`flex gap-3 border-t border-border py-3 text-sm ${applicable ? '' : 'opacity-70'}`}>
-                <input
-                  type="checkbox"
-                  checked={checked}
-                  disabled={!applicable}
-                  onChange={(event) => setSpecialSlugs((current) => event.target.checked ? [...current, record.slug] : current.filter((slug) => slug !== record.slug))}
-                />
+                <input type="checkbox" checked={checked} disabled={!applicable} onChange={(event) => setSpecialSlugs((current) => event.target.checked ? [...current, record.slug] : current.filter((slug) => slug !== record.slug))} />
                 <span><strong className="block font-medium">{record.name}</strong><span className="text-xs text-muted-foreground">{formatRate(record)}</span></span>
               </label>;
             })}
@@ -160,14 +149,7 @@ export function OfficialTaxRateAssist({
           <RateFact label="Combined selected" value={totals.combinedRate} emphasize />
         </div>
 
-        <button
-          type="button"
-          disabled={!selected.length}
-          onClick={() => onApply({ year: summary.year, ...totals, selectedUnits: selected })}
-          className="border-b border-primary pb-1 text-sm font-semibold text-primary disabled:cursor-not-allowed disabled:opacity-50"
-        >
-          Apply these official rates to calculator
-        </button>
+        <button type="button" disabled={!selected.length} onClick={() => onApply({ year: summary.year, ...totals, selectedUnits: selected })} className="border-b border-primary pb-1 text-sm font-semibold text-primary disabled:cursor-not-allowed disabled:opacity-50">Apply these official rates to calculator</button>
         <p className="text-xs leading-5 text-muted-foreground">Source: Texas Comptroller Property Tax Assistance Division statewide Tax Rates and Levies. Rates are dollars per $100 of taxable value. Exact parcel jurisdiction and taxable value still control the actual bill.</p>
       </div> : null}
     </div>
@@ -179,6 +161,7 @@ function RateSelect({ label, value, onChange, records, placeholder }: { label: s
 }
 
 function formatRate(record: TexasTaxRateRecord) {
+  if (record.rateUnavailable) return record.sourceStatus === 'cross-source-conflict' ? 'state-source conflict — verify locally' : 'rate not reported — verify locally';
   if (record.totalRate != null && !record.variableRate) return `${record.totalRate.toFixed(6)} per $100`;
   if (record.rateVariants.length) return `variable reported rates: ${record.rateVariants.map((rate) => rate.toFixed(6)).join(', ')} — verify parcel`;
   return 'parcel-specific rate verification required';
