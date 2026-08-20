@@ -60,7 +60,9 @@ const texasExplainedPillarSlugs = new Set<string>(texasExplainedPillarOrder);
 const texasExplainedSupportSlugs = new Set<string>(texasExplainedSupportOrder);
 const texasExplainedCollectionSlugs = new Set<string>([...texasExplainedPillarOrder, ...texasExplainedSupportOrder]);
 
-const movingToTexasFaq = [
+type FaqEntry = { question: string; answer: string };
+
+const movingToTexasFaq: readonly FaqEntry[] = [
   {
     question: "Is Texas actually cheaper to live in?",
     answer: "Sometimes, but not automatically. Housing prices, property taxes, insurance, utilities, transportation and child care vary widely by metro and household. Compare a full monthly budget for the exact area rather than relying on a statewide cost-of-living claim.",
@@ -101,7 +103,55 @@ const movingToTexasFaq = [
     question: "What is the biggest mistake people make when moving to Texas?",
     answer: "The most expensive mistake is choosing a home from the purchase price and neighborhood appearance while skipping address-level research on taxes, insurance, commute, flood risk, schools, utilities and special districts. Texas rewards people who investigate the layers.",
   },
-] as const;
+];
+
+const articleFaqBySlug: Readonly<Record<string, readonly FaqEntry[]>> = {
+  [MOVING_TO_TEXAS_PILLAR_SLUG]: movingToTexasFaq,
+  "history-of-the-texas-flag": [
+    {
+      question: "Who designed the Texas flag?",
+      answer: "Peter Krag drew the surviving official 1839 artwork, but the historical record does not conclusively identify one person as the original designer. William H. Wharton introduced the legislative design, and Oliver Jones chaired the committee that advanced it.",
+    },
+    {
+      question: "When was the current Texas flag adopted?",
+      answer: "The Republic of Texas adopted the familiar Lone Star flag on January 25, 1839, when President Mirabeau B. Lamar approved the legislation.",
+    },
+    {
+      question: "Was the Burnet flag the first official Texas national standard?",
+      answer: "Yes. The Republic adopted the Burnet flag, a blue field with a large gold star, as its first official national standard on December 10, 1836. It remained the national standard until January 25, 1839.",
+    },
+    {
+      question: "Can the Texas flag fly at the same height as the U.S. flag?",
+      answer: "On separate adjacent staffs, the poles may be the same height and the flags approximately the same size, but the U.S. flag retains the position of honor. Texas has no special former-republic exemption that allows its flag to outrank the U.S. flag.",
+    },
+    {
+      question: "Why was there a Texas flag-law gap from 1879 to 1933?",
+      answer: "When Texas adopted revised civil statutes in 1879, the earlier flag law was not carried forward. Texans kept using the Lone Star flag by custom until the Legislature restored explicit statutory recognition in 1933.",
+    },
+  ],
+  "texas-flag-etiquette-display-guide": [
+    {
+      question: "Is Texas the only state that can fly its flag as high as the U.S. flag?",
+      answer: "No. State flags on adjacent staffs can appear at the same physical height, but the United States flag retains the position of honor. Texas has no special former-republic exception to the federal flag rules.",
+    },
+    {
+      question: "Where does the Texas flag go when it shares a pole with the U.S. flag?",
+      answer: "When both flags are flown from the same halyard, the United States flag belongs above the Texas flag.",
+    },
+    {
+      question: "When should the Texas flag be at half-staff?",
+      answer: "The Texas governor can direct or authorize the Texas flag to be flown at half-staff. Because orders can be temporary or limited in scope, use the Office of the Texas Governor's current Flag Status page rather than an old notice.",
+    },
+    {
+      question: "Can the Texas flag touch the ground?",
+      answer: "Flag etiquette calls for avoiding contact with the ground, but accidental contact does not automatically require destroying a serviceable flag. Clean it if appropriate and retire it respectfully when it becomes too worn or damaged for dignified display.",
+    },
+    {
+      question: "How should a worn Texas flag be retired?",
+      answer: "Texas law addresses flag retirement and recommends a dignified retirement ceremony. A flag that is no longer suitable for display should be retired respectfully rather than treated as ordinary household waste.",
+    },
+  ],
+};
 
 type ArticleDepartment = { name: string; path: string; usesExploreCategory: boolean };
 
@@ -154,7 +204,7 @@ export const Route = createFileRoute("/article/$slug")({
       ?? article.category.replace(/-/g, " ");
     const department = articleDepartment(article.category);
     const isTexasExplainedCollectionArticle = texasExplainedCollectionSlugs.has(article.slug);
-    const isMovingToTexasPillar = article.slug === MOVING_TO_TEXAS_PILLAR_SLUG;
+    const faqEntries = articleFaqBySlug[article.slug] ?? null;
     const relatedDestinations = article.relatedDestinations
       .map((slug) => destinations.find((destination) => destination.slug === slug))
       .filter((destination): destination is NonNullable<typeof destination> => Boolean(destination))
@@ -211,6 +261,7 @@ export const Route = createFileRoute("/article/$slug")({
       isAccessibleForFree: true,
       author: { "@id": authorId },
       publisher: { "@id": `${siteUrl}/#organization` },
+      ...(article.sourceUrl ? { citation: article.sourceUrl } : {}),
       ...((texasExplainedPillarSlugs.has(article.slug) || texasExplainedSupportSlugs.has(article.slug)) ? {
         isPartOf: {
           "@type": "CollectionPage",
@@ -245,10 +296,10 @@ export const Route = createFileRoute("/article/$slug")({
       "@id": `${articleUrl}#breadcrumbs`,
       itemListElement: breadcrumbItems,
     };
-    const faqSchema = isMovingToTexasPillar ? {
+    const faqSchema = faqEntries ? {
       "@type": "FAQPage",
       "@id": `${articleUrl}#faq`,
-      mainEntity: movingToTexasFaq.map(({ question, answer }) => ({
+      mainEntity: faqEntries.map(({ question, answer }) => ({
         "@type": "Question",
         name: question,
         acceptedAnswer: { "@type": "Answer", text: answer },
@@ -368,6 +419,7 @@ function ArticlePage() {
       </section>}
       <div id={isTexasExplainedPillar ? "guide-body" : undefined} className="mt-10 scroll-mt-28"><ArticleBody blocks={article.body} entities={graph} /></div>
       {article.hero.credit && <p className="mt-10 text-xs text-muted-foreground">Photography: {article.hero.credit}</p>}
+      {article.sourceUrl && <p className="mt-4 text-xs leading-6 text-muted-foreground">Primary source: <a href={article.sourceUrl} target="_blank" rel="noreferrer" className="font-semibold text-foreground underline decoration-border underline-offset-4 hover:text-primary">{article.sourceName || "Source material"} ↗</a></p>}
       {internalLinks.length > 0 && <aside className="mt-14 border-y border-border py-8" aria-label="Related reading">
         <p className="eyebrow text-primary">Related reading</p>
         <ul className="mt-5 divide-y divide-border">{internalLinks.map((item) => <li key={item.href} className="py-4 first:pt-0 last:pb-0">
