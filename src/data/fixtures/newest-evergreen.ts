@@ -28,11 +28,19 @@ const supportLinksByPillar: Record<string, Array<{ href: string; label: string; 
     { href: "/article/texas-highway-designations-explained", label: "Texas highway designations explained", description: "Decode FM, RM, SH, Loop, Spur, business routes, Park Roads and the rest of the state highway alphabet." },
     { href: "/article/texas-settlement-patterns-explained", label: "How transportation reshaped Texas settlement", description: "See how rural roads layered onto rivers, county seats, railroads and older settlement corridors." },
     { href: "/article/texas-railroads-town-growth-explained", label: "How railroads remade the Texas map", description: "See the transportation network that reshaped towns before the highway era." },
+    { href: "/article/texas-historic-travel-transportation-guide", label: "How Texans traveled before highways", description: "Move backward from the FM/RM network into stage roads, wagon freight, historic inns, military roads and railroad travel." },
     { href: "/article/texas-ranch-to-market-roads-explained", label: "Ranch-to-Market roads explained", description: "Understand what an RM designation actually means and why Ranch Road 1 is a separate exception." },
     { href: "/article/texas-loops-spurs-explained", label: "Texas Loops and Spurs explained", description: "Read the bypasses and branch connectors that organize traffic around and off the main corridor." },
     { href: "/article/texas-business-routes-explained", label: "Texas Business Routes explained", description: "See why an older highway alignment often keeps running through the center of town after a bypass opens." },
     { href: "/article/texas-park-recreational-roads-explained", label: "Park and Recreational Roads explained", description: "Decode the PR and RE systems that connect parks and recreation areas to the state highway network." },
     { href: "/article/texas-historic-memorial-highways-explained", label: "Historic routes and memorial highways", description: "Separate the numbered highway designation from historic-route signs and honorary highway names." },
+  ],
+  "texas-settlement-patterns-explained": [
+    { href: "/article/texas-historic-travel-transportation-guide", label: "Travel networks before the highway era", description: "See how stage roads, inns, freight routes and rail depots changed which Texas communities prospered." },
+    { href: "/article/texas-cattle-ranching-history-guide", label: "Cattle trails and the ranching frontier", description: "Connect grasslands, cattle movement, frontier posts and Panhandle ranches to the settlement map." },
+  ],
+  "texas-railroads-town-growth-explained": [
+    { href: "/article/texas-historic-travel-transportation-guide", label: "From stage roads to rail travel", description: "Compare railroad-created travel patterns with the inns, wagon roads and stage stops that came before them." },
   ],
   "texas-courthouses-town-square": [
     { href: "/article/texas-courthouse-architecture-guide", label: "Texas courthouse architecture", description: "Read the towers, domes, masonry and civic styles that make county seats look so different." },
@@ -67,6 +75,8 @@ const supportLinksByPillar: Record<string, Array<{ href: string; label: string; 
   "texas-cultural-regions-explained": [
     { href: "/article/texas-settlement-patterns-explained", label: "Texas settlement patterns explained", description: "Trace how water, farming, ranching, county seats, railroads and highways created the communities behind regional culture." },
     { href: "/article/texas-railroads-town-growth-explained", label: "Railroads and the growth of Texas towns", description: "See how transportation redirected migration, commerce and regional development." },
+    { href: "/article/texas-historic-travel-transportation-guide", label: "How Texans traveled before highways", description: "Connect regional culture to the stage roads, freight routes, inns and railroad stops that moved people and ideas." },
+    { href: "/article/texas-cattle-ranching-history-guide", label: "Texas cattle and ranching history", description: "See how cattle trails, longhorns and Panhandle ranches shaped regional economies and identity." },
     { href: "/article/texas-main-street-downtowns-guide", label: "Historic downtowns as cultural records", description: "Read migration, commerce and civic identity in the surviving fabric of Texas Main Streets." },
     { href: "/san-antonio-puffy-taco-history", label: "San Antonio puffy tacos", description: "See how one West Side food tradition became a citywide symbol through Mexican American and Tex-Mex culture." },
     { href: "/barbacoa-big-red-san-antonio", label: "Barbacoa & Big Red in San Antonio", description: "Follow a Sunday family ritual where an older barbacoa tradition met a later Waco-born soda and became local shorthand." },
@@ -75,6 +85,7 @@ const supportLinksByPillar: Record<string, Array<{ href: string; label: string; 
   ],
   "texas-barbecue-styles-explained": [
     { href: "/texas-food-history", label: "Texas Food History", description: "Place barbecue inside the larger story of cattle, migration, border foodways, immigrant communities and Texas-born brands." },
+    { href: "/article/texas-cattle-ranching-history-guide", label: "The cattle history behind Texas beef", description: "Move from barbecue styles into longhorns, trail drives and the ranching economy that made cattle central to Texas identity." },
     { href: "/texas-food-trail", label: "The Texas Food Trail", description: "Turn regional barbecue styles into a broader road trip through the foods that define different parts of Texas." },
   ],
   "kolache-or-klobasnek-texas-story": [
