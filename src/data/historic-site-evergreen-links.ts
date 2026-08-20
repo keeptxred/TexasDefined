@@ -25,6 +25,22 @@ const routeGuides: RouteGuide[] = [
   },
   {
     slugs: new Set([
+      "san-felipe-de-austin",
+      "washington-on-the-brazos",
+      "star-of-the-republic-museum",
+      "first-capitol-of-texas",
+      "stephen-f-austin-memorial",
+      "french-legation",
+      "barrington-living-history-farm",
+    ]),
+    item: {
+      name: "Republic of Texas government trail",
+      description: "Follow the movement of government from Austin's colony and the independence convention through the Republic's first Congress, diplomacy and annexation.",
+      href: "/article/republic-of-texas-government-trail",
+    },
+  },
+  {
+    slugs: new Set([
       "fort-martin-scott",
       "fort-griffin",
       "fort-mckavett",
