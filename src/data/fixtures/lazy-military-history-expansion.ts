@@ -1,3 +1,4 @@
+import { articleInternalLinks } from "../article-internal-links";
 import type { Article } from "../types";
 
 const texasUsMexicanWarPaloAltoGuideStub: Article = {
@@ -9,7 +10,7 @@ const texasUsMexicanWarPaloAltoGuideStub: Article = {
   authorId: "a-marisol", publishedAt: "2026-08-19", readingMinutes: 16,
   tags: ["u.s.-mexican war", "mexican-american war", "palo alto", "resaca de la palma", "brownsville history", "texas military history", "rio grande", "treaty of guadalupe hidalgo"], featured: true,
   sourceName: "National Park Service", sourceUrl: "https://www.nps.gov/paal/learn/historyculture/index.htm",
-  body: [], relatedCollections: [], relatedDestinations: ["palmito-ranch-battlefield", "iwo-jima-museum-monument", "port-isabel-lighthouse"],
+  body: [], relatedCollections: [], relatedDestinations: ["palo-alto-battlefield-national-historical-park", "palmito-ranch-battlefield", "port-isabel-lighthouse"],
 };
 
 const texasNationalGuardHistoryStub: Article = {
@@ -21,7 +22,7 @@ const texasNationalGuardHistoryStub: Article = {
   authorId: "a-marisol", publishedAt: "2026-08-19", readingMinutes: 15,
   tags: ["texas national guard", "camp mabry", "36th infantry division", "texas military department", "texas state guard", "texas military history", "citizen soldiers"], featured: true,
   sourceName: "Texas Military Department", sourceUrl: "https://tmd.texas.gov/texas-military-department-history",
-  body: [], relatedCollections: [], relatedDestinations: ["fort-griffin", "fort-mckavett", "eisenhower-birthplace", "national-museum-pacific-war"],
+  body: [], relatedCollections: [], relatedDestinations: ["texas-military-forces-museum", "fort-griffin", "fort-mckavett", "national-museum-pacific-war"],
 };
 
 const sanAntonioMilitaryAviationHistoryStub: Article = {
@@ -48,24 +49,31 @@ const texasWorldWarIIBasesPowCampsStub: Article = {
   body: [], relatedCollections: [], relatedDestinations: ["eisenhower-birthplace", "national-museum-pacific-war", "iwo-jima-museum-monument", "slaton-harvey-house"],
 };
 
-const battleshipTexasHistoryRestorationGuideStub: Article = {
-  id: "evergreen-battleship-texas-history-restoration-guide", brandId: "texasdefined", slug: "battleship-texas-history-restoration-guide",
-  title: "Battleship Texas: The Dreadnought That Fought in Two World Wars",
-  dek: "USS Texas (BB-35) served with the Grand Fleet in World War I, supported amphibious invasions from North Africa to Normandy and Okinawa in World War II, became a museum ship in 1948, and is now being restored for a new home in Galveston.",
-  category: "texas-history",
-  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/USS_Texas_(BB-35)_underway_at_sea,_on_1_November_1944_(80-G-289714).jpg?width=1600", alt: "USS Texas BB-35 underway at sea in November 1944 wearing wartime camouflage", width: 2650, height: 2056, credit: "U.S. Navy photo 80-G-289714 · Public domain · Wikimedia Commons" },
-  authorId: "a-marisol", publishedAt: "2026-08-19", readingMinutes: 18,
-  tags: ["battleship texas", "uss texas bb-35", "texas naval history", "dreadnought", "world war i", "world war ii", "d-day", "galveston history"], featured: true,
-  sourceName: "Battleship Texas Foundation", sourceUrl: "https://battleshiptexas.org/",
-  body: [], relatedCollections: [], relatedDestinations: ["battleship-texas", "san-jacinto-battleground", "national-museum-pacific-war", "iwo-jima-museum-monument"],
+const supplementalLinks: Record<string, Array<{ href: string; label: string; description: string }>> = {
+  "texas-us-mexican-war-palo-alto-guide": [
+    { href: "/destination/palo-alto-battlefield-national-historical-park", label: "Visit Palo Alto Battlefield", description: "Open the Trip Planner destination for the preserved 1846 battlefield, visitor context and lower Rio Grande area guide." },
+  ],
+  "texas-national-guard-history": [
+    { href: "/destination/texas-military-forces-museum", label: "Texas Military Forces Museum", description: "Turn the Guard history into a Camp Mabry visit with current access guidance and an Austin area guide." },
+  ],
+  "texas-world-war-ii-bases-pow-camps": [
+    { href: "/article/battleship-texas-bb-35-history-restoration", label: "Battleship Texas (BB-35)", description: "Connect the Texas home front with the surviving dreadnought that fought from North Africa and Normandy to Iwo Jima and Okinawa." },
+  ],
 };
+
+for (const [slug, additions] of Object.entries(supplementalLinks)) {
+  const existing = articleInternalLinks[slug] ?? [];
+  articleInternalLinks[slug] = [
+    ...existing,
+    ...additions.filter((addition) => !existing.some((link) => link.href === addition.href)),
+  ];
+}
 
 export const militaryHistoryExpansionStubs: Article[] = [
   texasUsMexicanWarPaloAltoGuideStub,
   texasNationalGuardHistoryStub,
   sanAntonioMilitaryAviationHistoryStub,
   texasWorldWarIIBasesPowCampsStub,
-  battleshipTexasHistoryRestorationGuideStub,
 ];
 
 export async function loadMilitaryHistoryExpansionArticle(brandId: string, slug: string): Promise<Article | null> {
@@ -74,6 +82,5 @@ export async function loadMilitaryHistoryExpansionArticle(brandId: string, slug:
   if (slug === texasNationalGuardHistoryStub.slug) return import("./texas-national-guard-history").then((module) => module.texasNationalGuardHistoryArticle);
   if (slug === sanAntonioMilitaryAviationHistoryStub.slug) return import("./san-antonio-military-aviation-history").then((module) => module.sanAntonioMilitaryAviationHistoryArticle);
   if (slug === texasWorldWarIIBasesPowCampsStub.slug) return import("./texas-world-war-ii-bases-pow-camps").then((module) => module.texasWorldWarIIBasesPowCampsArticle);
-  if (slug === battleshipTexasHistoryRestorationGuideStub.slug) return import("./battleship-texas-history-restoration-guide").then((module) => module.battleshipTexasHistoryRestorationGuideArticle);
   return null;
 }
