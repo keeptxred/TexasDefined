@@ -1,4 +1,4 @@
-import { paintedChurchArchivalImagesBySlug } from "./painted-church-archival-images";
+import { canonicalPaintedChurchArchivalImagesBySlug } from "./painted-church-archival-image-index";
 import { canonicalPaintedChurchContributors } from "./painted-church-contributor-index";
 import { canonicalPaintedChurchFeaturesBySlug } from "./painted-church-feature-index";
 import { canonicalPaintedChurchGalleryBySlug } from "./painted-church-gallery-index";
@@ -30,7 +30,7 @@ export const paintedChurchReadiness: PaintedChurchReadinessRecord[] = expandedPa
   const profile = canonicalPaintedChurchProfileBySlug(church.slug);
   const research = canonicalPaintedChurchResearchBySlug(church.slug);
   const gallery = canonicalPaintedChurchGalleryBySlug(church.slug);
-  const archives = paintedChurchArchivalImagesBySlug(church.slug);
+  const archives = canonicalPaintedChurchArchivalImagesBySlug(church.slug);
   const mapPoint = paintedChurchMapPointBySlug.get(church.slug);
   const visitor = paintedChurchVisitorStatusBySlug.get(church.slug);
   const features = canonicalPaintedChurchFeaturesBySlug(church.slug);
