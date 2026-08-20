@@ -1,4 +1,4 @@
-# one-time production certification for the current Kent County enrichment
+# retrigger after workflow entered default branch
 name: Certify Kent County production once
 
 on:
