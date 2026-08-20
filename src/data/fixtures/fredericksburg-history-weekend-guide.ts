@@ -1,0 +1,70 @@
+import type { Article, ArticleBlock } from "../types";
+
+const p = (text: string): ArticleBlock => ({ type: "paragraph", text });
+const h = (text: string): ArticleBlock => ({ type: "heading", text });
+const list = (...items: string[]): ArticleBlock => ({ type: "list", items });
+
+export const fredericksburgHistoryWeekendGuideArticle: Article = {
+  id: "evergreen-fredericksburg-history-weekend-guide",
+  brandId: "texasdefined",
+  slug: "fredericksburg-history-weekend-guide",
+  title: "A History-First Weekend in Fredericksburg",
+  dek: "Build a Fredericksburg weekend around the National Museum of the Pacific War, Fort Martin Scott and the town's German-Texas heritage instead of treating history as an afterthought to Main Street.",
+  category: "road-trips",
+  hero: {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Fort_martin_scott_2008.jpg?width=1600",
+    alt: "Fort Martin Scott State Historic Site in Fredericksburg, Texas",
+    width: 1600,
+    height: 1200,
+    credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons",
+  },
+  authorId: "a-marisol",
+  publishedAt: "2026-08-19",
+  readingMinutes: 12,
+  tags: ["fredericksburg texas history", "national museum pacific war", "fort martin scott", "german texas", "fredericksburg weekend", "texas hill country history"],
+  featured: true,
+  sourceName: "National Museum of the Pacific War",
+  sourceUrl: "https://www.pacificwarmuseum.org/visit",
+  internalLinks: [
+    { href: "/destination/national-museum-pacific-war", label: "National Museum of the Pacific War", description: "Give the museum the largest time block of the weekend rather than trying to squeeze it between shopping stops." },
+    { href: "/destination/fort-martin-scott", label: "Fort Martin Scott", description: "Connect U.S. Army frontier expansion with the young German settlement of Fredericksburg." },
+    { href: "/german-czech-texas-towns", label: "German & Czech Texas towns", description: "Place Fredericksburg inside the larger Central Texas immigration and cultural landscape." },
+    { href: "/article/texas-frontier-forts-road-trip", label: "Texas frontier forts road trip", description: "Continue the military story west through Fort McKavett, Fort Griffin and Fort Lancaster." },
+    { href: "/article/texas-world-war-ii-historic-sites-guide", label: "Texas and World War II", description: "Connect Fredericksburg's Pacific War story with Eisenhower, Iwo Jima memory and wartime mobility elsewhere in Texas." },
+  ],
+  relatedCollections: [],
+  relatedDestinations: ["national-museum-pacific-war", "fort-martin-scott"],
+  body: [
+    p("Fredericksburg is easy to visit without learning much about why the town exists. Main Street, restaurants, tasting rooms and shops can fill a weekend by themselves. A history-first trip reverses the order: start with the German settlement and frontier context, reserve a serious block of time for the National Museum of the Pacific War, and let food and shopping fit around the story rather than replace it."),
+    p("That approach works because Fredericksburg holds two unusually different historical scales. Fort Martin Scott explains the local frontier of the late 1840s and 1850s. The National Museum of the Pacific War expands from the life of Fredericksburg native Chester Nimitz into a global conflict. The town between them supplies the immigration, architecture and community history that connects local identity to both."),
+    h("Do not underestimate the Pacific War museum"),
+    p("The National Museum of the Pacific War is not a one-hour local museum. Its campus includes galleries, outdoor spaces and specialized exhibits, and the official visitor guidance recommends allowing real time for the experience. The current schedule lists general admission Wednesday through Monday from morning through late afternoon, with Tuesday closed."),
+    p("The Pacific Combat Zone closes earlier than the main campus, so arriving late can remove part of the experience even when the museum itself is still open. The museum also notes that visitors arriving after 3 p.m. should expect a shorter visit. For a history-first weekend, that means the museum belongs in the morning or early afternoon, not at the end of a crowded Main Street day."),
+    h("Day 1 morning: National Museum of the Pacific War"),
+    p("Begin with the Admiral Nimitz connection, but do not stop there. The museum uses Fredericksburg's native son as an entry point into the wider Pacific War, including naval strategy, island campaigns, individual service members, civilians and the consequences of a conflict fought across enormous distances."),
+    p("Give yourself enough time to move slowly through major galleries. A rushed visit tends to turn the war into equipment and dates; a longer one makes room for personal stories, operational context and the museum's effort to connect the conflict to the world that followed."),
+    h("Day 1 afternoon: let the town become part of the interpretation"),
+    p("After the museum, walk Fredericksburg with German-Texas history in mind. The town was founded by German immigrants in 1846, and the street pattern, community institutions, architecture and food traditions make more sense when treated as evidence of settlement rather than just atmosphere."),
+    p("This is the right time for a meal, shops and a slower Main Street walk. The point is not to remove the things most visitors enjoy; it is to connect them to the migration and community history that made Fredericksburg distinctive in the first place."),
+    h("Day 2 morning: Fort Martin Scott"),
+    p("Fort Martin Scott was established by the U.S. Army in 1848, only two years after Fredericksburg's founding. That timing is the key. The fort was part of a federal military system intended to protect travel and settlement as U.S. expansion pushed farther west across Texas."),
+    p("Visit the fort after spending a day in town so you can see the relationship between military infrastructure and the immigrant settlement nearby. The frontier was not an empty stage: German settlers, Army troops and Native nations were interacting within the same changing Hill Country landscape."),
+    p("The site is also a natural starting point for a larger frontier-forts road trip. Fredericksburg can be the eastern gateway before continuing toward Fort McKavett and more remote western posts."),
+    h("Where to stay"),
+    p("For this itinerary, staying in or very near Fredericksburg is worth the premium because both primary history stops and the town center are close together. The National Museum of the Pacific War itself points visitors to the wide range of local lodging, from hotels to guesthouses and bed-and-breakfasts."),
+    p("If price is the priority, compare nearby lodging before assuming the historic district is necessary. But avoid a base so distant that you lose the main advantage of this weekend: very little driving between major history stops."),
+    h("The best two-day order"),
+    list(
+      "Saturday morning: National Museum of the Pacific War at opening or soon after.",
+      "Saturday afternoon: finish museum campus areas before their earlier closing times, then walk Main Street with German-Texas context.",
+      "Saturday evening: keep dinner and lodging in Fredericksburg so the day does not end with a long drive.",
+      "Sunday morning: Fort Martin Scott and the local frontier story.",
+      "Sunday afternoon: German-Texas architecture, food traditions or a short regional heritage extension rather than another major museum."
+    ),
+    h("Family pacing"),
+    p("The Pacific War museum can be information-dense for younger visitors, so plan breaks and use outdoor campus areas to vary the pace. Fort Martin Scott naturally changes the experience from galleries to open grounds and surviving structures, which makes it a useful second-day counterpoint."),
+    h("What makes this different from a normal Fredericksburg weekend"),
+    p("The usual Fredericksburg itinerary starts with consumption: where to eat, drink, shop and stay. A history-first itinerary begins with why the town matters. German immigration explains the community. Fort Martin Scott explains the nearby federal frontier. Chester Nimitz connects a Hill Country town to the Pacific War."),
+    p("Once those layers are clear, the modern destination feels less generic. The food, architecture, street life and museums become parts of one story instead of unrelated attractions competing for a weekend schedule."),
+  ],
+};
