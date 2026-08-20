@@ -103,4 +103,10 @@ export const COUNTY_SERIES_PROFILES_NORTHEAST: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/henderson-county-athens-lakes-fisheries-east-texas")
       .then((module) => module.hendersonCountyAthensLakesFisheriesEastTexasArticle),
   },
+  {
+    countySlug: "wichita",
+    articleSlug: "wichita-county-wichita-falls-sheppard-oil-red-river-texas",
+    loadArticle: () => import("@/data/fixtures/wichita-county-wichita-falls-sheppard-oil-red-river-texas")
+      .then((module) => module.wichitaCountyWichitaFallsSheppardOilRedRiverTexasArticle),
+  },
 ];
