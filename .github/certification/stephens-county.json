@@ -1,0 +1,8 @@
+{
+  "county": "stephens",
+  "status": "pass",
+  "stage": "complete",
+  "target_sha": "65c2d0283b449e441428624f69452d11e9dd66eb",
+  "detail": "validate=PASS deploy=PASS page=200 structured=yes editorial=yes legacy=not-applicable hero=200 mime=image/jpeg bytes=708231",
+  "recorded_at_utc": "2026-08-20T20:34:08.446767+00:00"
+}
