@@ -163,4 +163,10 @@ export const COUNTY_SERIES_PROFILES_CONTINUED: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/bowie-county-texarkana-new-boston-red-river-piney-woods-texas")
       .then((module) => module.bowieCountyTexarkanaNewBostonRedRiverPineyWoodsArticle),
   },
+  {
+    countySlug: "red-river",
+    articleSlug: "red-river-county-clarksville-red-river-gateway-northeast-texas",
+    loadArticle: () => import("@/data/fixtures/red-river-county-clarksville-red-river-gateway-northeast-texas")
+      .then((module) => module.redRiverCountyClarksvilleRedRiverGatewayNortheastTexasArticle),
+  },
 ];
