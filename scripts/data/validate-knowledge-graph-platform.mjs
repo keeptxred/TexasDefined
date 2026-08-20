@@ -27,7 +27,7 @@ const promoter = read('scripts/data/prepare-entity-promotion.mjs');
 const article = read('src/routes/article.$slug.tsx');
 const articleBody = read('src/components/editorial/ArticleBody.tsx');
 const sitemap = read('src/routes/sitemap[.]xml.ts');
-const health = read('src/routes/admin.platform-health.tsx');
+const health = `${read('src/routes/admin.platform-health.tsx')}\n${read('src/routes/admin.platform-health.lazy.tsx')}`;
 
 if (!registry.includes('GENERATED_KNOWLEDGE_GRAPH_ENTITIES')) errors.push('Generated imports are not connected to the production registry.');
 if (!generated.includes('GENERATED_KNOWLEDGE_GRAPH_ENTITIES')) errors.push('Generated graph export is missing.');
