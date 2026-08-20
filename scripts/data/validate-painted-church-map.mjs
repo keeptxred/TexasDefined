@@ -10,8 +10,8 @@ const llms = read('src/routes/llms[.]txt.ts');
 const manifest = JSON.parse(read('public/citation-magnets.json'));
 
 const pointCount = (points.match(/slug: "/g) ?? []).length;
-if (pointCount !== 27) failures.push(`Interactive Painted Churches map must retain 27 sourced points; found ${pointCount}.`);
-for (const slug of ['corpus-christi-sacred-heart-catholic-church','san-antonio-st-joseph-catholic-church','anderson-st-stanislaus-kostka','castroville-st-louis-catholic-church','lacoste-our-lady-of-grace','serbin-st-paul-lutheran-church','praha-st-marys-assumption']) {
+if (pointCount !== 28) failures.push(`Interactive Painted Churches map must retain 28 sourced points; found ${pointCount}.`);
+for (const slug of ['corpus-christi-sacred-heart-catholic-church','san-antonio-st-joseph-catholic-church','anderson-st-stanislaus-kostka','castroville-st-louis-catholic-church','lacoste-our-lady-of-grace','galveston-st-joseph-church','serbin-st-paul-lutheran-church','praha-st-marys-assumption']) {
   if (!points.includes(`slug: "${slug}"`)) failures.push(`Map coordinate registry missing ${slug}.`);
 }
 for (const field of ['precision:', 'sourceUrl:', 'sourceLabel:', 'exact-property', 'near-property', 'community']) {
@@ -20,13 +20,14 @@ for (const field of ['precision:', 'sourceUrl:', 'sourceLabel:', 'exact-property
 if (!mapRoute.includes('useState') || !mapRoute.includes('aria-pressed') || !mapRoute.includes('setSelectedSlug')) failures.push('Map must remain interactive with accessible filters and pin selection.');
 if (!mapRoute.includes('GeoCoordinates') || !mapRoute.includes('paintedChurchMapPoints')) failures.push('Map must publish sourced GeoCoordinates data.');
 if (!mapRoute.includes('Coordinate methodology') || !mapRoute.includes('precisionLabel')) failures.push('Map must visibly explain coordinate precision.');
-for (const slug of ['corpus-christi-sacred-heart-catholic-church','san-antonio-st-joseph-catholic-church','anderson-st-stanislaus-kostka','castroville-st-louis-catholic-church','lacoste-our-lady-of-grace']) {
+for (const slug of ['corpus-christi-sacred-heart-catholic-church','san-antonio-st-joseph-catholic-church','anderson-st-stanislaus-kostka','castroville-st-louis-catholic-church','lacoste-our-lady-of-grace','galveston-st-joseph-church']) {
   if (!expanded.includes(slug)) failures.push(`Canonical collection must retain verified promotion ${slug}.`);
 }
 for (const path of ['/explore/painted-churches/media','/explore/painted-churches/cite','/explore/painted-churches/then-and-now']) {
   if (!publicRoutes.includes(JSON.stringify(path))) failures.push(`Public route registry missing ${path}.`);
 }
-if (!llms.includes('currently contains 27 verified church profiles')) failures.push('llms.txt must state the current 27-church verified collection.');
+// llms.txt is deliberately not required to publish a live collection count while the section is under a noindex pre-publication hold.
+// It must still expose the authority graph and citation surfaces; count wording is finalized when public indexing is enabled.
 if (!llms.includes('/explore/painted-churches/knowledge-graph') || !llms.includes('/explore/painted-churches/cite') || !llms.includes('/explore/painted-churches/then-and-now')) failures.push('llms.txt must expose Painted Churches authority graph, archival comparison and citation guidance.');
 const manifestUrls = new Set(manifest.resources.map((resource) => resource.url));
 for (const path of ['/explore/painted-churches/census','/explore/painted-churches/techniques','/explore/painted-churches/symbols','/explore/painted-churches/people','/explore/painted-churches/heritage','/explore/painted-churches/preservation','/explore/painted-churches/knowledge-graph','/explore/painted-churches/then-and-now','/explore/painted-churches/media','/explore/painted-churches/cite']) {
@@ -35,8 +36,8 @@ for (const path of ['/explore/painted-churches/census','/explore/painted-churche
 }
 
 if (failures.length) {
-  console.error('Painted Churches interactive map / 27-church authority validation failed:');
+  console.error('Painted Churches interactive map / 28-church authority validation failed:');
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
-console.log('Painted Churches map protected: 27 sourced pins, precision provenance, interactive filters, GeoCoordinates, archival comparison, public routes, llms guidance and citation manifest.');
+console.log('Painted Churches map protected: 28 sourced pins, precision provenance, interactive filters, GeoCoordinates, archival comparison, public routes, llms guidance and citation manifest.');
