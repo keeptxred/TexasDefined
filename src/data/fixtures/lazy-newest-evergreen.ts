@@ -1,5 +1,6 @@
 import type { Article } from "../types";
 import "./newest-evergreen-links";
+import "./military-museum-links";
 import { winklerCountyArticleStub } from "./winkler-county-article-stub";
 
 const texasFlagHistoryStub: Article = {
