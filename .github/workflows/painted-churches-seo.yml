@@ -68,9 +68,9 @@ jobs:
         run: node scripts/data/validate-painted-churches-seo.mjs
       - name: Validate Painted Churches search-intent coverage
         run: node scripts/data/validate-painted-church-search-intents.mjs
-      - name: Validate Painted Churches interactive map and 31-church authority contract
+      - name: Validate Painted Churches interactive map and 32-church authority contract
         run: node scripts/data/validate-painted-church-map.mjs
       - name: Validate Painted Churches completion surfaces
         run: node scripts/data/validate-painted-church-completion.mjs
-      - name: Validate Painted Churches pre-index authority gate
-        run: node scripts/data/validate-painted-church-preindex.mjs
+      - name: Validate Painted Churches pre-index authority readiness
+        run: node scripts/data/validate-painted-church-preindex-readiness.mjs
