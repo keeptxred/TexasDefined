@@ -1,0 +1,97 @@
+name: Certify Cass County production once
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/certify-cass-county-once.yml'
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  certify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      GH_TOKEN: ${{ github.token }}
+      ORIGIN: https://texasdefined.com
+      COUNTY_PATH: /county/cass
+      LEGACY_PATH: /article/cass-county-linden-atlanta-wright-patman-piney-woods-texas
+      HERO_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Cass_County_Courthouse_Linden_Tx.jpg?width=1600
+      EXPECTED_TITLE: 'Cass County: Linden, Atlanta, Piney Woods and Wright Patman Lake'
+    steps:
+      - name: Verify live county structured and editorial layers
+        shell: bash
+        run: |
+          set -euo pipefail
+          workdir="$(mktemp -d)"; trap 'rm -rf "$workdir"' EXIT
+          ok=0
+          for attempt in $(seq 1 12); do
+            code="$(curl --retry 2 --retry-all-errors --retry-delay 2 --max-time 60 -sS -o "$workdir/page" -w '%{http_code}' "$ORIGIN$COUNTY_PATH?verify=${GITHUB_SHA}-${GITHUB_RUN_ID}-$attempt")"
+            if [ "$code" = '200' ] \
+              && grep -Fq "$EXPECTED_TITLE" "$workdir/page" \
+              && grep -Fq 'The county in numbers' "$workdir/page" \
+              && grep -Fq 'County seat' "$workdir/page" \
+              && grep -Fq '2020 population' "$workdir/page" \
+              && grep -Fq 'County feature' "$workdir/page" \
+              && grep -Fq 'https://texasdefined.com/county/cass' "$workdir/page" \
+              && grep -Fq 'Cass_County_Courthouse_Linden_Tx.jpg' "$workdir/page"; then
+              ok=1
+              break
+            fi
+            sleep 5
+          done
+          test "$ok" = '1'
+          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
+            --data '{"state":"success","context":"cass-live-page-200-structured-editorial","description":"Cass county page is HTTP 200 with structured and editorial layers"}' >/dev/null
+
+      - name: Verify legacy redirect
+        shell: bash
+        run: |
+          set -euo pipefail
+          workdir="$(mktemp -d)"; trap 'rm -rf "$workdir"' EXIT
+          code="$(curl --max-redirs 0 --max-time 60 -sS -D "$workdir/headers" -o /dev/null -w '%{http_code}' "$ORIGIN$LEGACY_PATH")"
+          location="$(awk 'BEGIN{IGNORECASE=1} /^location:/{gsub(/\r/,""); sub(/^location:[[:space:]]*/,""); print; exit}' "$workdir/headers")"
+          test "$code" = '301'
+          [[ "$location" == *'/county/cass'* ]]
+          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
+            --data '{"state":"success","context":"cass-legacy-301-to-county","description":"Cass legacy article permanently redirects to canonical county page"}' >/dev/null
+
+      - name: Verify exact hero HTTP and MIME
+        shell: bash
+        run: |
+          set -euo pipefail
+          workdir="$(mktemp -d)"; trap 'rm -rf "$workdir"' EXIT
+          code="$(curl -L --retry 5 --retry-all-errors --retry-delay 2 --max-time 60 -sS -D "$workdir/headers" -o "$workdir/hero" -w '%{http_code}' "$HERO_URL")"
+          mime="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/{gsub(/\r/,""); sub(/^content-type:[[:space:]]*/,""); v=$0} END{print v}' "$workdir/headers" | cut -d';' -f1)"
+          test "$code" = '200'
+          case "$mime" in
+            image/jpeg)
+              context='cass-hero-http-200-image-jpeg'
+              ;;
+            image/png)
+              context='cass-hero-http-200-image-png'
+              ;;
+            image/webp)
+              context='cass-hero-http-200-image-webp'
+              ;;
+            *)
+              echo "Unexpected hero MIME: $mime" >&2
+              exit 1
+              ;;
+          esac
+          test "$(wc -c < "$workdir/hero")" -gt 50000
+          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
+            --data "{\"state\":\"success\",\"context\":\"$context\",\"description\":\"Cass courthouse hero is HTTP 200 with valid raster MIME\"}" >/dev/null
+
+      - name: Publish Cass certification success
+        shell: bash
+        run: |
+          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
+            --data '{"state":"success","context":"cass-production-certification","description":"Cass county page, redirect and hero all verified live"}' >/dev/null
