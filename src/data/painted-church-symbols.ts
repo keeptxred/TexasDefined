@@ -8,7 +8,9 @@ export type PaintedChurchSymbolSlug =
   | "wheat-and-eucharist"
   | "angels"
   | "marian-imagery"
-  | "evangelist-symbols";
+  | "evangelist-symbols"
+  | "star-of-david"
+  | "cross-and-crown";
 
 export type PaintedChurchSymbol = {
   slug: PaintedChurchSymbolSlug;
@@ -23,6 +25,7 @@ export type PaintedChurchSymbol = {
 };
 
 const PBS_SYMBOLS = "https://austinpbs.org/paintedchurches/symbols";
+const THEMATIC_NOMINATION = "https://npgallery.nps.gov/GetAsset/0534eaa0-e073-4836-815e-d10985b22d13";
 
 export const paintedChurchSymbols: PaintedChurchSymbol[] = [
   {
@@ -84,33 +87,33 @@ export const paintedChurchSymbols: PaintedChurchSymbol[] = [
     slug: "grapes-and-vines",
     name: "Grapes and Vines",
     shortDefinition: "Vine and grape imagery associated with Christ, the Eucharist, growth and the biblical vine metaphor.",
-    answer: "Grapes and vines in Painted Church decoration can carry Eucharistic and biblical vine symbolism while also functioning as ornamental foliage. Texas Defined marks the motif only where church-specific visual or textual evidence supports it.",
+    answer: "Grapes and vines in Painted Church decoration can carry Eucharistic and biblical vine symbolism while also functioning as ornamental foliage. The 1982 thematic nomination specifically records grape imagery at High Hill; later church-specific research supports additional vine and grape motifs.",
     whatItMeans: ["Grapes can refer to Eucharistic wine.", "Vines can evoke Christ's 'true vine' imagery.", "Decorative foliage should not automatically be assigned Eucharistic meaning without context."],
-    churchSlugs: ["dubina-saints-cyril-methodius", "moravia-ascension-of-our-lord", "shiner-saints-cyril-methodius"],
-    sourceLabel: "Austin PBS — Painted Churches documentary and church profiles",
-    sourceUrl: "https://austinpbs.org/paintedchurches/",
+    churchSlugs: ["high-hill-nativity-of-mary", "dubina-saints-cyril-methodius", "moravia-ascension-of-our-lord", "shiner-saints-cyril-methodius"],
+    sourceLabel: "1982 National Register thematic nomination + Austin PBS",
+    sourceUrl: THEMATIC_NOMINATION,
     related: ["wheat-and-eucharist", "lamb-of-god"],
   },
   {
     slug: "wheat-and-eucharist",
     name: "Wheat and Eucharistic Symbols",
     shortDefinition: "Wheat, chalices and related motifs associated with the Eucharist and sacramental life.",
-    answer: "Wheat and chalice imagery commonly points to Eucharistic themes. At Wesley, Austin PBS specifically documents a gold chalice above the pulpit and connects it to the congregation's theology of receiving both bread and wine.",
-    whatItMeans: ["Wheat can signify bread and Eucharistic nourishment.", "A chalice signifies sacramental wine and the Blood of Christ.", "Denominational context matters: Wesley's chalice has a specifically Brethren/Lutheran interpretive history documented by Austin PBS."],
-    churchSlugs: ["wesley-brethren-church", "bandera-st-stanislaus-catholic-church"],
-    sourceLabel: "Austin PBS — Wesley Brethren Church",
-    sourceUrl: "https://austinpbs.org/paintedchurches/wesley",
+    answer: "Wheat and chalice imagery commonly points to Eucharistic themes. The 1982 thematic nomination records wheat sheaves at High Hill, while Austin PBS specifically documents a gold chalice at Wesley and connects it to the congregation's theology of receiving both bread and wine.",
+    whatItMeans: ["Wheat can signify bread and Eucharistic nourishment.", "A chalice signifies sacramental wine and the Blood of Christ.", "Denominational context matters: Wesley's chalice has a specifically Brethren interpretive history documented by Austin PBS."],
+    churchSlugs: ["high-hill-nativity-of-mary", "wesley-brethren-church", "bandera-st-stanislaus-catholic-church"],
+    sourceLabel: "1982 National Register thematic nomination + Austin PBS Wesley profile",
+    sourceUrl: THEMATIC_NOMINATION,
     related: ["grapes-and-vines", "lamb-of-god"],
   },
   {
     slug: "angels",
     name: "Angels",
     shortDefinition: "Painted or stained-glass heavenly figures used in devotional, narrative and architectural compositions.",
-    answer: "Angels appear repeatedly across Texas Painted Churches, but their role varies by church. They may frame an altar, populate a painted heaven, accompany Christ or Mary, or serve as part of a restored decorative program.",
+    answer: "Angels appear repeatedly across Texas Painted Churches, but their role varies by church. The 1982 nomination explicitly identifies angel imagery at Wallis, the St. Mary's church in Lavaca County, Umbarger and Shiner; later sources document additional examples at Praha, Dubina, Bandera and Plantersville.",
     whatItMeans: ["Angels function as heavenly attendants and messengers.", "Their meaning depends on the scene they inhabit.", "Restored angels at Dubina should be distinguished from untouched original imagery because parts of that interior were reconstructed from surviving evidence."],
-    churchSlugs: ["dubina-saints-cyril-methodius", "praha-st-marys-assumption", "bandera-st-stanislaus-catholic-church", "plantersville-st-marys-catholic-church"],
-    sourceLabel: "Austin PBS — Painted Churches church profiles",
-    sourceUrl: "https://austinpbs.org/paintedchurches/",
+    churchSlugs: ["wallis-guardian-angel", "st-marys-immaculate-conception-lavaca", "umbarger-st-marys-catholic-church", "shiner-saints-cyril-methodius", "dubina-saints-cyril-methodius", "praha-st-marys-assumption", "bandera-st-stanislaus-catholic-church", "plantersville-st-marys-catholic-church"],
+    sourceLabel: "1982 National Register thematic nomination + Austin PBS church profiles",
+    sourceUrl: THEMATIC_NOMINATION,
     related: ["marian-imagery", "holy-spirit-dove"],
   },
   {
@@ -134,6 +137,28 @@ export const paintedChurchSymbols: PaintedChurchSymbol[] = [
     sourceLabel: "St. Stanislaus Bandera — official church history",
     sourceUrl: "https://www.ststanislausbandera.com/history-of-the-church.html",
     related: ["holy-spirit-dove", "angels"],
+  },
+  {
+    slug: "star-of-david",
+    name: "Star of David Motif",
+    shortDefinition: "A six-pointed star documented by the 1982 thematic nomination as part of High Hill's religious-symbol program.",
+    answer: "The original statewide National Register nomination explicitly records a Star of David among High Hill's freehand religious symbols. The nomination establishes the motif's presence but does not explain the local painter's intended theological reading, so Texas Defined does not assign a more specific meaning without church-level evidence.",
+    whatItMeans: ["The motif is securely documented at High Hill by the 1982 nomination.", "Its exact local intended meaning is not stated in that source.", "Texas Defined distinguishes identification of a symbol from interpretation of the painter's intent."],
+    churchSlugs: ["high-hill-nativity-of-mary"],
+    sourceLabel: "1982 National Register thematic nomination",
+    sourceUrl: THEMATIC_NOMINATION,
+    related: ["cross-and-crown", "grapes-and-vines"],
+  },
+  {
+    slug: "cross-and-crown",
+    name: "Cross and Crown Motif",
+    shortDefinition: "A combined cross-and-crown religious emblem documented at High Hill in the 1982 thematic nomination.",
+    answer: "The original National Register thematic nomination records a cross with crown among High Hill's freehand religious symbols. The nomination is sufficient to identify the motif, but it does not give a church-specific explanation of the painter's intended symbolism, so Texas Defined leaves that interpretive question open pending stronger local evidence.",
+    whatItMeans: ["The motif is securely documented at High Hill by the primary thematic nomination.", "The source does not state the exact local intended theological interpretation.", "A leading reference should separate visual identification from inferred symbolic meaning."],
+    churchSlugs: ["high-hill-nativity-of-mary"],
+    sourceLabel: "1982 National Register thematic nomination",
+    sourceUrl: THEMATIC_NOMINATION,
+    related: ["star-of-david", "lamb-of-god"],
   },
 ];
 
