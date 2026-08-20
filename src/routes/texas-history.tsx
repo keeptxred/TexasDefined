@@ -21,9 +21,8 @@ const historicAuthorityGuides = [
   { slug: "texas-civil-war-sites-guide", eyebrow: "1861–1865", title: "Texas in the Civil War", description: "Connect Galveston, Sabine Pass, the Rio Grande trade corridor, Palmito Ranch and Juneteenth while keeping slavery and emancipation central to the story." },
   { slug: "texas-national-guard-history", eyebrow: "Citizen-soldiers", title: "Texas National Guard history", description: "Follow the state's citizen-soldier tradition from militia companies and Camp Mabry through the 36th Division, disaster response and modern Guard service." },
   { slug: "san-antonio-military-aviation-history", eyebrow: "Military City USA", title: "San Antonio military aviation", description: "See how Kelly, Brooks, Randolph, Lackland and Fort Sam Houston made San Antonio a national center for aviation, training and military medicine." },
-  { slug: "texas-world-war-ii-historic-sites-guide", eyebrow: "World War II", title: "Texas and World War II", description: "Connect Eisenhower, the Pacific War, Iwo Jima memory and railroad mobility through four Texas places tied to a global conflict." },
+  { slug: "texas-world-war-ii-historic-sites-guide", eyebrow: "World War II", title: "Texas and World War II", description: "Connect Battleship Texas, Eisenhower, the Pacific War, Iwo Jima memory and railroad mobility through five Texas places tied to a global conflict." },
   { slug: "texas-world-war-ii-bases-pow-camps", eyebrow: "World War II home front", title: "Bases, training camps and POW camps", description: "Understand the enormous wartime training network—and the separate POW and civilian-internment systems—that reshaped communities across Texas." },
-  { slug: "battleship-texas-history-restoration-guide", eyebrow: "1914 → Galveston", title: "Battleship Texas", description: "Follow USS Texas from the dreadnought era and two world wars through museum preservation, restoration and her future Galveston berth." },
   { slug: "presidential-texas-historic-homes", eyebrow: "Public life", title: "Presidential Texas", description: "Use preserved homes to connect Eisenhower, the Bush family and Sam Rayburn to the Texas communities that shaped their public careers." },
   { slug: "brazoria-plantations-slavery-emancipation-history", eyebrow: "Labor · freedom · archaeology", title: "Slavery, emancipation and plantation Texas", description: "Read Levi Jordan and Varner-Hogg through enslaved labor, emancipation, Reconstruction, archaeology and the changing systems that followed." },
   { slug: "texas-borderlands-historic-sites-guide", eyebrow: "Borderlands", title: "Texas borderlands historic sites", description: "Connect Pueblo, Spanish, Mexican, Tejano and Indigenous histories through missions, homes and landscapes from El Paso to South and East Texas." },
@@ -41,6 +40,7 @@ export const Route = createFileRoute("/texas-history")({
     breadcrumbParentPath: "/texas-living",
     items: [
       { type: "WebPage" as const, name: "Texas Historic Sites & Museums", url: "/explore/historic-sites", description: "A statewide guide to battlefields, missions, museums, homes, forts and monuments." },
+      { type: "WebPage" as const, name: "Battleship Texas (BB-35)", url: "/article/battleship-texas-bb-35-history-restoration", description: "A full history of the surviving dreadnought from 1914 through both World Wars, preservation and the Galveston restoration." },
       { type: "WebPage" as const, name: "Painted Churches of Texas", url: "/explore/painted-churches", description: "A source-checked statewide collection connecting church history, immigrant communities, architecture, decorative arts and preservation." },
       { type: "WebPage" as const, name: "Official Texas Capital Designations", url: "/texas-capital-designations", description: "A source-backed directory of current specialty capital titles enacted by the Texas Legislature." },
       { type: "WebPage" as const, name: "German & Czech Texas Towns", url: "/german-czech-texas-towns", description: "A heritage guide connecting food, churches, dance halls and settlement history across Central Texas and the Hill Country." },
@@ -77,6 +77,16 @@ function TexasHistoryPage() {
       <section aria-labelledby="historic-authority-guides">
         <div className="mb-6 max-w-3xl"><p className="eyebrow text-primary">Plan history by story</p><h2 id="historic-authority-guides" className="mt-2 font-display text-4xl">{historicAuthorityGuides.length} routes into the statewide collection</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">Start with a narrative, then move into the individual historic sites. These guides connect places that make more sense together than they do as isolated stops.</p></div>
         <div className="grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2">{historicAuthorityGuides.map((guide) => <Link key={guide.slug} to="/article/$slug" params={{ slug: guide.slug }} className="group bg-background p-6 sm:p-7"><span className="eyebrow text-primary">{guide.eyebrow}</span><strong className="mt-2 block font-display text-2xl group-hover:text-primary">{guide.title}</strong><span className="mt-3 block text-sm leading-6 text-muted-foreground">{guide.description}</span><span className="mt-5 block text-sm font-semibold text-primary">Open history guide →</span></Link>)}</div>
+      </section>
+    </Container>
+    <Container className="pb-14 sm:pb-18">
+      <section className="grid gap-6 border-y border-border bg-surface p-6 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:p-8" aria-labelledby="battleship-texas-history-feature">
+        <div>
+          <p className="eyebrow text-primary">Naval history · 1914–present</p>
+          <h2 id="battleship-texas-history-feature" className="mt-2 font-display text-4xl">Battleship Texas connects the dreadnought era to Galveston.</h2>
+          <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">Follow USS Texas (BB-35) from World War I and D-Day through Iwo Jima, Okinawa, seven decades at San Jacinto and the current restoration for a permanent Pier 15 museum home in Galveston. Regular tours remain closed while restoration continues.</p>
+          <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold"><Link to="/article/$slug" params={{ slug: "battleship-texas-bb-35-history-restoration" }} className="border-b border-primary text-primary">Read the full Battleship Texas history</Link><Link to="/destination/$slug" params={{ slug: "battleship-texas" }} className="border-b border-primary text-primary">Current restoration and visitor status</Link></div>
+        </div>
       </section>
     </Container>
     <Container className="pb-14 sm:pb-18">
