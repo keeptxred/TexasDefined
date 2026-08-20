@@ -1,4 +1,5 @@
 import { articleInternalLinks } from "../article-internal-links";
+import { texasFlagEtiquetteArticle } from "./texas-flag-etiquette";
 import { texasFlagHistoryArticle } from "./texas-flag-history";
 import { winklerCountyArticleStub } from "./winkler-county-article-stub";
 
@@ -117,6 +118,11 @@ for (const slug of [
 const flagArticleLinks = articleInternalLinks["history-of-the-texas-flag"] ?? [];
 const flagArticleAdditions = [
   {
+    href: "/article/texas-flag-etiquette-display-guide",
+    label: "Texas flag display & etiquette",
+    description: "Use the Texas Flag Code for position with the U.S. flag, vertical display, half-staff, folding, the pledge and retirement.",
+  },
+  {
     href: "/texas-symbols",
     label: "Official Texas symbols",
     description: "See the legislatively designated birds, plants, foods, wildlife and cultural symbols Texas recognizes today.",
@@ -135,4 +141,5 @@ articleInternalLinks["history-of-the-texas-flag"] = [
 export const newestEvergreenArticles = [
   winklerCountyArticleStub,
   texasFlagHistoryArticle,
+  texasFlagEtiquetteArticle,
 ];
