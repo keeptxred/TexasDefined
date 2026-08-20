@@ -127,4 +127,10 @@ export const COUNTY_SERIES_PROFILES_NORTHEAST: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/baylor-county-seymour-brazos-ranching-railroads-rolling-plains-texas")
       .then((module) => module.baylorCountySeymourBrazosRanchingRailroadsRollingPlainsTexasArticle),
   },
+  {
+    countySlug: "wilbarger",
+    articleSlug: "wilbarger-county-vernon-doans-crossing-red-river-rolling-plains-texas",
+    loadArticle: () => import("@/data/fixtures/wilbarger-county-vernon-doans-crossing-red-river-rolling-plains-texas")
+      .then((module) => module.wilbargerCountyVernonDoansCrossingRedRiverRollingPlainsTexasArticle),
+  },
 ];
