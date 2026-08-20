@@ -1,0 +1,9 @@
+{
+  "county": "throckmorton",
+  "status": "pass",
+  "stage": "complete",
+  "county_commit": "393ba9813ffb4eb1a73bb050106129e4aef87456",
+  "tested_main": "250d0f1f807f9c8c49d67ceb16d7f7525af2af36",
+  "detail": "validate=PASS deploy=PASS page=200 structured=yes editorial=yes legacy=not-applicable hero=200 mime=image/jpeg bytes=740416",
+  "recorded_at_utc": "2026-08-20T18:38:26.615649+00:00"
+}
