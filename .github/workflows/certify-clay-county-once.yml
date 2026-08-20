@@ -1,0 +1,91 @@
+name: Certify Clay County production once
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/certify-clay-county-once.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  certify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Publish pending status
+        shell: bash
+        run: |
+          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
+            --data '{"state":"pending","context":"clay-county-production","description":"Checking Clay County page, redirect and hero"}' >/dev/null
+
+      - name: Verify Clay County production
+        id: verify
+        shell: bash
+        run: |
+          set -euo pipefail
+          origin='https://texasdefined.com'
+          county='/county/clay'
+          legacy='/article/clay-county-henrietta-red-river-lake-arrowhead-north-texas'
+          hero='https://commons.wikimedia.org/wiki/Special:Redirect/file/Clay%20Co%20Courthouse%20Henrietta%2C%20TX.JPG?width=1600'
+          workdir="$(mktemp -d)"
+          trap 'rm -rf "$workdir"' EXIT
+
+          page="$workdir/clay.html"
+          for attempt in 1 2 3 4 5 6; do
+            code="$(curl -sS -L -o "$page" -w '%{http_code}' --max-time 30 "${origin}${county}?verify=${GITHUB_SHA}-${attempt}" || true)"
+            if [[ "$code" == '200' ]] \
+              && grep -Fq 'Clay County' "$page" \
+              && grep -Fq 'Henrietta' "$page" \
+              && grep -Fq 'The county in numbers' "$page" \
+              && grep -Fq 'County feature' "$page" \
+              && grep -Fq 'Clay County: Henrietta, the Red River, Lake Arrowhead and North Texas Prairie' "$page" \
+              && grep -Fq 'County property-tax resources' "$page"; then
+              break
+            fi
+            if [[ "$attempt" == '6' ]]; then
+              echo "Clay county page verification failed: HTTP $code" >&2
+              head -c 2000 "$page" >&2 || true
+              exit 1
+            fi
+            sleep 5
+          done
+
+          headers="$workdir/legacy.headers"
+          curl -sS -D "$headers" -o /dev/null --max-time 30 "${origin}${legacy}?verify=${GITHUB_SHA}"
+          status="$(awk 'NR==1 {print $2}' "$headers")"
+          location="$(awk 'BEGIN{IGNORECASE=1} /^location:/ {sub(/^[^:]+:[[:space:]]*/,""); sub(/\r$/,""); print; exit}' "$headers")"
+          [[ "$status" == '301' ]]
+          [[ "$location" == "${origin}${county}?verify=${GITHUB_SHA}" ]]
+
+          hero_headers="$workdir/hero.headers"
+          hero_file="$workdir/hero.bin"
+          hero_code="$(curl -sS -L -D "$hero_headers" -o "$hero_file" -w '%{http_code}' --max-time 30 "$hero")"
+          hero_type="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/ {sub(/^[^:]+:[[:space:]]*/,""); sub(/\r$/,""); value=$0} END{print value}' "$hero_headers")"
+          [[ "$hero_code" == '200' ]]
+          [[ "$hero_type" == image/jpeg* || "$hero_type" == image/png* || "$hero_type" == image/webp* ]]
+          [[ "$(wc -c < "$hero_file")" -gt 20000 ]]
+
+          echo "Clay County page, structured layer, editorial feature, property-tax section, permanent redirect and raster hero verified."
+
+      - name: Publish success status
+        if: ${{ steps.verify.outcome == 'success' }}
+        shell: bash
+        run: |
+          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
+            --data '{"state":"success","context":"clay-county-production","description":"Clay County page, redirect and raster hero passed"}' >/dev/null
+
+      - name: Publish failure status
+        if: ${{ failure() && steps.verify.outcome == 'failure' }}
+        shell: bash
+        run: |
+          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
+            --data '{"state":"failure","context":"clay-county-production","description":"Clay County production certification failed"}' >/dev/null
