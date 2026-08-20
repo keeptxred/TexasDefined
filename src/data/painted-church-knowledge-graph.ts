@@ -1,11 +1,12 @@
-import { paintedChurchContributors } from "./painted-church-contributors";
+import { canonicalPaintedChurchContributors } from "./painted-church-contributor-index";
+import { canonicalPaintedChurchFeatures } from "./painted-church-feature-index";
 import { paintedChurchHeritage } from "./painted-church-heritage";
 import { paintedChurchPreservationTopics } from "./painted-church-preservation";
 import { paintedChurchSymbols } from "./painted-church-symbols";
 import { paintedChurchTechniques } from "./painted-church-techniques";
 import { expandedPaintedChurches } from "./painted-churches-expanded";
 
-export type PaintedChurchKnowledgeNodeType = "church" | "technique" | "symbol" | "contributor" | "heritage" | "preservation";
+export type PaintedChurchKnowledgeNodeType = "church" | "feature" | "technique" | "symbol" | "contributor" | "heritage" | "preservation";
 
 export type PaintedChurchKnowledgeNode = {
   id: string;
@@ -15,6 +16,7 @@ export type PaintedChurchKnowledgeNode = {
 };
 
 export type PaintedChurchKnowledgeRelationship =
+  | "contains-feature"
   | "uses-technique"
   | "depicts-symbol"
   | "designed-by"
@@ -24,7 +26,10 @@ export type PaintedChurchKnowledgeRelationship =
   | "researched-by"
   | "heritage-context"
   | "preservation-example"
-  | "contributor-uses-technique";
+  | "contributor-uses-technique"
+  | "feature-created-by"
+  | "feature-uses-technique"
+  | "feature-depicts-symbol";
 
 export type PaintedChurchKnowledgeEdge = {
   from: string;
@@ -36,9 +41,10 @@ const base = "/explore/painted-churches";
 
 export const paintedChurchKnowledgeNodes: PaintedChurchKnowledgeNode[] = [
   ...expandedPaintedChurches.map((church) => ({ id: `church:${church.slug}`, type: "church" as const, name: church.name, url: `${base}/${church.slug}` })),
+  ...canonicalPaintedChurchFeatures.map((feature) => ({ id: `feature:${feature.id}`, type: "feature" as const, name: feature.name, url: `${base}/${feature.churchSlug}#interior-feature-inventory` })),
   ...paintedChurchTechniques.map((item) => ({ id: `technique:${item.slug}`, type: "technique" as const, name: item.name, url: `${base}/techniques/${item.slug}` })),
   ...paintedChurchSymbols.map((item) => ({ id: `symbol:${item.slug}`, type: "symbol" as const, name: item.name, url: `${base}/symbols/${item.slug}` })),
-  ...paintedChurchContributors.map((item) => ({ id: `contributor:${item.slug}`, type: "contributor" as const, name: item.name, url: `${base}/people/${item.slug}` })),
+  ...canonicalPaintedChurchContributors.map((item) => ({ id: `contributor:${item.slug}`, type: "contributor" as const, name: item.name, url: `${base}/people/${item.slug}` })),
   ...paintedChurchHeritage.map((item) => ({ id: `heritage:${item.slug}`, type: "heritage" as const, name: item.name, url: `${base}/heritage/${item.slug}` })),
   ...paintedChurchPreservationTopics.map((item) => ({ id: `preservation:${item.slug}`, type: "preservation" as const, name: item.name, url: `${base}/preservation/${item.slug}` })),
 ];
@@ -46,7 +52,7 @@ export const paintedChurchKnowledgeNodes: PaintedChurchKnowledgeNode[] = [
 function contributorRelationships(slug: string): PaintedChurchKnowledgeEdge[] {
   const churchId = `church:${slug}`;
   const edges: PaintedChurchKnowledgeEdge[] = [];
-  for (const contributor of paintedChurchContributors.filter((item) => item.churchSlugs.includes(slug))) {
+  for (const contributor of canonicalPaintedChurchContributors.filter((item) => item.churchSlugs.includes(slug))) {
     const to = `contributor:${contributor.slug}`;
     const relationships = new Set<PaintedChurchKnowledgeRelationship>();
     if (contributor.roles.includes("architect")) relationships.add("designed-by");
@@ -67,11 +73,18 @@ const churchEdges: PaintedChurchKnowledgeEdge[] = expandedPaintedChurches.flatMa
   ...paintedChurchPreservationTopics.filter((item) => item.churchSlugs.includes(church.slug)).map((item) => ({ from: `church:${church.slug}`, to: `preservation:${item.slug}`, relationship: "preservation-example" as const })),
 ]);
 
-const contributorTechniqueEdges: PaintedChurchKnowledgeEdge[] = paintedChurchContributors.flatMap((person) =>
+const featureEdges: PaintedChurchKnowledgeEdge[] = canonicalPaintedChurchFeatures.flatMap((feature) => [
+  { from: `church:${feature.churchSlug}`, to: `feature:${feature.id}`, relationship: "contains-feature" as const },
+  ...(feature.contributorSlugs ?? []).map((slug) => ({ from: `feature:${feature.id}`, to: `contributor:${slug}`, relationship: "feature-created-by" as const })),
+  ...(feature.techniqueSlugs ?? []).map((slug) => ({ from: `feature:${feature.id}`, to: `technique:${slug}`, relationship: "feature-uses-technique" as const })),
+  ...(feature.symbolSlugs ?? []).map((slug) => ({ from: `feature:${feature.id}`, to: `symbol:${slug}`, relationship: "feature-depicts-symbol" as const })),
+]);
+
+const contributorTechniqueEdges: PaintedChurchKnowledgeEdge[] = canonicalPaintedChurchContributors.flatMap((person) =>
   (person.techniqueSlugs ?? []).map((slug) => ({ from: `contributor:${person.slug}`, to: `technique:${slug}`, relationship: "contributor-uses-technique" as const })),
 );
 
-export const paintedChurchKnowledgeEdges: PaintedChurchKnowledgeEdge[] = [...churchEdges, ...contributorTechniqueEdges];
+export const paintedChurchKnowledgeEdges: PaintedChurchKnowledgeEdge[] = [...churchEdges, ...featureEdges, ...contributorTechniqueEdges];
 
 const nodeMap = new Map(paintedChurchKnowledgeNodes.map((node) => [node.id, node]));
 
