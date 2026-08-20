@@ -152,6 +152,7 @@ const LEGACY_ARTICLE_TO_COUNTY = new Map<string, string>([
   ["camp-county-pittsburg-railroads-poultry-piney-woods-texas", "camp"],
   ["anderson-county-palestine-railroads-piney-woods-texas", "anderson"],
   ["clay-county-henrietta-red-river-lake-arrowhead-north-texas", "clay"],
+  ["henderson-county-athens-lakes-fisheries-east-texas", "henderson"],
 ]);
 
 const COUNTY_SLUGS = new Set(LEGACY_ARTICLE_TO_COUNTY.values());
