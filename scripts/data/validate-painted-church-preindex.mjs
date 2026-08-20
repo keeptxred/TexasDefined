@@ -77,18 +77,22 @@ const visitorSource = read("src/data/painted-church-visitor-status.ts");
 for (const slug of expectedSlugs) assert(visitorSource.includes(`"${slug}"`), `Missing explicit visitor research for ${slug}.`);
 assert(!visitorSource.includes("Texas Defined does not currently have a church-controlled public-access guarantee"), "Generic visitor-status fallback must not return for verified churches.");
 
-const featureSource = read("src/data/painted-church-features.ts");
+const featureSource = `${read("src/data/painted-church-features.ts")}\n${read("src/data/painted-church-features-authority.ts")}`;
 const featureSlugs = new Set([...featureSource.matchAll(/churchSlug:\s*"([^"]+)"/g)].map((match) => match[1]));
 const missingFeatureSlugs = expectedSlugs.filter((slug) => !featureSlugs.has(slug));
 assert(missingFeatureSlugs.length === 0, `Object-level feature inventory missing: ${missingFeatureSlugs.join(", ") || "none"}.`);
 for (const type of ["mural", "symbol", "ornament", "faux-finish", "stained-glass", "inscription", "altar-reredos", "pulpit", "organ", "restoration-evidence"]) {
   assert(featureSource.includes(`"${type}"`), `Feature inventory must support ${type}.`);
 }
+const featureIndex = read("src/data/painted-church-feature-index.ts");
+assert(featureIndex.includes("canonicalPaintedChurchFeatures"), "Canonical feature registry must exist.");
 
-const contributorSource = read("src/data/painted-church-contributors.ts");
-for (const contributor of ["o-kramer", "frank-bohlmann", "jacob-wagner", "frank-a-ludewig", "j-carlander", "schnoor-company", "elmer-witter-van-slyke", "clyde-h-woodruff", "rev-louis-netardus"]) {
+const contributorSource = `${read("src/data/painted-church-contributors.ts")}\n${read("src/data/painted-church-contributors-authority.ts")}`;
+for (const contributor of ["o-kramer", "frank-bohlmann", "jacob-wagner", "frank-a-ludewig", "j-carlander", "schnoor-company", "elmer-witter-van-slyke", "clyde-h-woodruff", "rev-louis-netardus", "arthur-fatjo"]) {
   assert(contributorSource.includes(`slug: "${contributor}"`), `Contributor registry missing ${contributor}.`);
 }
+const contributorIndex = read("src/data/painted-church-contributor-index.ts");
+assert(contributorIndex.includes("canonicalPaintedChurchContributors"), "Canonical contributor registry must exist.");
 
 for (const file of [
   "src/routes/explore.painted-churches.national-register-study.tsx",
