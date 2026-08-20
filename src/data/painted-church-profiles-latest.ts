@@ -51,6 +51,39 @@ const latestProfiles: PaintedChurchProfile[] = [
       { label: "Our Lady of Grace — official parish", url: "https://olgtx.org/" },
     ],
   },
+  {
+    slug: "galveston-st-joseph-church",
+    quickAnswer: "St. Joseph's Church in Galveston is the historically missing fifteenth church in the 1982 statewide decorative-interior thematic study. The German Catholic wooden Gothic Revival church was built in 1859–1860, individually listed in the National Register in 1976, and later included in the 15-church thematic nomination, which identifies its pews as the only documented graining example in the group.",
+    foundedYear: 1859,
+    builtYear: 1860,
+    architecture: "Wood-frame Gothic Revival",
+    heritage: "German Catholic immigrant community in nineteenth-century Galveston",
+    facts: [
+      { label: "Construction", value: "Built by Galveston's German Catholic community in 1859–1860 and dedicated in April 1860" },
+      { label: "National Register", value: "Individually listed December 13, 1976; reference 76002082" },
+      { label: "1982 thematic study", value: "Explicitly included among the 15 Churches in Texas with Decorative Interior Painting" },
+      { label: "Distinctive technique", value: "The thematic nomination identifies the pews as the only graining example among the 15 churches" },
+      { label: "Interior ensemble", value: "Painted coffered ceiling, painted quatrefoils and Gothic symbols, German-inscription Stations of the Cross, main and side altars with reredoses, statues and altar furnishings" },
+      { label: "Current stewardship", value: "Operated and preserved by Galveston Historical Foundation under a long-term agreement with the Catholic Archdiocese of Galveston-Houston" },
+    ],
+    history: [
+      { heading: "A German Catholic church in the Texas port of entry", paragraphs: ["Galveston Historical Foundation traces St. Joseph's to the large German immigrant population that entered and settled through Galveston in the nineteenth century. Bishop John Odin recommended a German-language Catholic church for the community, and St. Joseph's was built in 1859–1860 and dedicated in April 1860.", "The church remained an active parish until 1968. After closure and dispersal of furnishings, preservation efforts recovered much of the original interior ensemble. Galveston Historical Foundation now operates the building as a historic property and special-event venue rather than as a regular parish church."] },
+      { heading: "Why the National Register count became confusing", paragraphs: ["St. Joseph's was already individually listed in the National Register in 1976. When Texas researchers assembled the 1982 thematic nomination, they still counted it as one of 15 churches in the statewide decorative-interior study. The current THC Multiple Property Listing interface surfaces 14 thematic-property records, so modern lists that rely only on that interface can miss Galveston even though the original nomination explicitly includes it."] },
+    ],
+    paintings: [
+      { heading: "A softly painted Gothic interior", paragraphs: ["Galveston Historical Foundation describes a softly painted interior with a coffered ceiling, painted quatrefoils and other Gothic symbols. The decorative program works together with early twentieth-century German-inscription Stations of the Cross and the original main and side altars and reredoses to create a surviving ensemble rather than an isolated ceiling treatment.", "The 1982 thematic nomination adds a technique detail that makes St. Joseph's unique in the statewide study: its pews are the only example of wood graining identified among the 15 churches. Graining used paint to make less expensive native wood visually resemble costlier species and finishes."] },
+    ],
+    preservation: [
+      { heading: "Storm damage, parish closure and preservation", paragraphs: ["The church was damaged in the 1900 Galveston Storm and repaired, enlarged and redecorated soon afterward while retaining its historic character. After the parish closed in 1968, much of the interior was dispersed at auction; preservation efforts recovered and reinstalled many furnishings and stabilized the building.", "Texas Defined therefore treats the surviving interior as a preservation story as well as a decorative-painting story. Claims about individual paint layers should distinguish surviving historic fabric, post-storm redecoration and later preservation work where documentation allows."] },
+    ],
+    visitorNotes: ["The building is not operated as a normal parish. Galveston Historical Foundation uses it for special events and prearranged access; verify current availability before planning an interior visit."],
+    sources: [
+      { label: "Galveston Historical Foundation — 1859 St. Joseph's Church", url: "https://www.galvestonhistory.org/sites/special-event-venues" },
+      { label: "NPS — Churches in Texas with Decorative Interior Painting thematic nomination", url: "https://npgallery.nps.gov/GetAsset/0534eaa0-e073-4836-815e-d10985b22d13" },
+      { label: "Texas Historical Commission — St. Joseph's individual National Register nomination", url: "https://atlas.thc.texas.gov/NR/pdfs/76002082/76002082.pdf" },
+      { label: "Galveston Historical Foundation — managed properties", url: "https://www.galvestonhistory.org/sites/ghf-managed-properties" },
+    ],
+  },
 ];
 
 export function latestPaintedChurchProfileBySlug(slug: string) {
