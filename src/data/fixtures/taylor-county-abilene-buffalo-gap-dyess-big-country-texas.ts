@@ -40,7 +40,7 @@ export const taylorCountyAbileneBuffaloGapDyessBigCountryTexasArticle: Article =
     { href: "/county/callahan", label: "Explore Callahan County", description: "Head east from Abilene into the Cross Timbers edge around Baird and Clyde." },
     { href: "/county/nolan", label: "Explore Nolan County", description: "Travel west toward Sweetwater, wind country and the Rolling Plains." },
     { href: "/county/runnels", label: "Explore Runnels County", description: "Follow the country south toward Winters, Ballinger and the Colorado River basin." },
-    { href: "/state-park/abilene-state-park", label: "Visit Abilene State Park", description: "Plan time among pecan groves, trails and historic Civilian Conservation Corps features south of Abilene." },
+    { href: "/destination/abilene-state-park", label: "Visit Abilene State Park", description: "Plan time among pecan groves, trails and historic Civilian Conservation Corps features south of Abilene." },
     { href: "/article/why-texas-has-254-counties", label: "Why Texas has 254 counties", description: "See how settlement, distance and courthouse access shaped the Texas county map." },
   ],
   relatedCollections: [],
