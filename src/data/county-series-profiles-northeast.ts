@@ -43,4 +43,10 @@ export const COUNTY_SERIES_PROFILES_NORTHEAST: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/rockwall-county-rockwall-heath-lake-ray-hubbard-blackland-prairie-texas")
       .then((module) => module.rockwallCountyRockwallHeathLakeRayHubbardBlacklandPrairieTexasArticle),
   },
+  {
+    countySlug: "kaufman",
+    articleSlug: "kaufman-county-kaufman-terrell-forney-blackland-prairie-texas",
+    loadArticle: () => import("@/data/fixtures/kaufman-county-kaufman-terrell-forney-blackland-prairie-texas")
+      .then((module) => module.kaufmanCountyKaufmanTerrellForneyBlacklandPrairieTexasArticle),
+  },
 ];
