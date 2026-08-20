@@ -1,4 +1,4 @@
-# One-time PR trigger for Delta County production certification.
+# One-time PR trigger for Delta County production certification (rerun after canonical-link repair).
 name: Certify Delta County production once
 
 on:
