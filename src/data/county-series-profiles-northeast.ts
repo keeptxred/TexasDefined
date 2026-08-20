@@ -7,4 +7,10 @@ export const COUNTY_SERIES_PROFILES_NORTHEAST: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/hopkins-county-sulphur-springs-dairy-railroads-northeast-texas")
       .then((module) => module.hopkinsCountySulphurSpringsDairyRailroadsNortheastTexasArticle),
   },
+  {
+    countySlug: "hunt",
+    articleSlug: "hunt-county-greenville-cotton-railroads-blackland-prairie-texas",
+    loadArticle: () => import("@/data/fixtures/hunt-county-greenville-cotton-railroads-blackland-prairie-texas")
+      .then((module) => module.huntCountyGreenvilleCottonRailroadsBlacklandPrairieArticle),
+  },
 ];
