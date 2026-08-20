@@ -3,9 +3,9 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
+import { canonicalPaintedChurchContributors } from "@/data/painted-church-contributor-index";
 import { canonicalPaintedChurchGalleryBySlug } from "@/data/painted-church-gallery-index";
 import { canonicalPaintedChurchProfileBySlug } from "@/data/painted-church-profile-index";
-import { paintedChurchPeople } from "@/data/painted-church-people";
 import { paintedChurchSymbols } from "@/data/painted-church-symbols";
 import { paintedChurchVisitorStatusBySlug } from "@/data/painted-church-visitor-status";
 import { expandedPaintedChurches } from "@/data/painted-churches-expanded";
@@ -13,6 +13,19 @@ import { absoluteUrl, buildEditorialCollectionHead, jsonLd } from "@/lib/seo";
 
 const canonicalPath = "/explore/painted-churches/compare";
 const description = "Filter and compare verified Texas Painted Churches by dates, artists, architecture, classification, integrity, heritage, techniques, symbols, historic designation, visitor evidence and image coverage.";
+
+function buildComparisonRow(church: (typeof expandedPaintedChurches)[number]) {
+  const profile = canonicalPaintedChurchProfileBySlug(church.slug);
+  const contributors = canonicalPaintedChurchContributors.filter((person) => person.churchSlugs.includes(church.slug));
+  const artists = contributors.filter((person) => person.roles.some((role) => role === "artist" || role === "decorator" || role === "clergy-artist" || role === "interior-craftsman"));
+  const architects = contributors.filter((person) => person.roles.includes("architect"));
+  const symbols = paintedChurchSymbols.filter((symbol) => symbol.churchSlugs.includes(church.slug));
+  const visitor = paintedChurchVisitorStatusBySlug.get(church.slug);
+  const hasImage = Boolean(church.image || canonicalPaintedChurchGalleryBySlug(church.slug).length);
+  return { church, profile, contributors, artists, architects, symbols, visitor, hasImage };
+}
+
+type ComparisonRow = ReturnType<typeof buildComparisonRow>;
 
 export const Route = createFileRoute(canonicalPath)({
   head: () => {
@@ -65,20 +78,24 @@ function PaintedChurchComparison() {
   const [imageFilter, setImageFilter] = useState("all");
   const [sort, setSort] = useState("city");
 
-  const enriched = useMemo(() => expandedPaintedChurches.map((church) => {
-    const profile = canonicalPaintedChurchProfileBySlug(church.slug);
-    const people = paintedChurchPeople.filter((person) => person.churchSlugs.includes(church.slug));
-    const artists = people.filter((person) => person.roles.some((role) => role === "artist" || role === "decorator" || role === "clergy-artist"));
-    const symbols = paintedChurchSymbols.filter((symbol) => symbol.churchSlugs.includes(church.slug));
-    const visitor = paintedChurchVisitorStatusBySlug.get(church.slug);
-    const hasImage = Boolean(church.image || canonicalPaintedChurchGalleryBySlug(church.slug).length);
-    return { church, profile, artists, symbols, visitor, hasImage };
-  }), []);
+  const enriched = useMemo(() => expandedPaintedChurches.map(buildComparisonRow), []);
 
   const rows = useMemo(() => {
     const normalized = query.trim().toLowerCase();
-    const filtered = enriched.filter(({ church, profile, artists, symbols, hasImage }) => {
-      const haystack = [church.name, church.shortName, church.city, church.county, church.denomination, ...church.culturalHeritage, ...church.techniques, profile?.architect ?? "", ...(profile?.artists ?? []), ...artists.map((person) => person.name), ...symbols.map((symbol) => symbol.name)].join(" ").toLowerCase();
+    const filtered = enriched.filter(({ church, profile, contributors, symbols, hasImage }) => {
+      const haystack = [
+        church.name,
+        church.shortName,
+        church.city,
+        church.county,
+        church.denomination,
+        ...church.culturalHeritage,
+        ...church.techniques,
+        profile?.architect ?? "",
+        ...(profile?.artists ?? []),
+        ...contributors.map((person) => person.name),
+        ...symbols.map((symbol) => symbol.name),
+      ].join(" ").toLowerCase();
       if (normalized && !haystack.includes(normalized)) return false;
       if (classification !== "all" && church.classification !== classification) return false;
       if (integrity !== "all" && church.interiorIntegrity !== integrity) return false;
@@ -131,7 +148,7 @@ function PaintedChurchComparison() {
       <div className="mt-10 hidden overflow-x-auto border-y border-border lg:block">
         <table className="min-w-[2480px] w-full border-collapse text-left text-sm">
           <thead><tr className="border-b border-border bg-surface text-[0.68rem] uppercase tracking-[0.12em] text-muted-foreground"><th className="p-4">Church</th><th className="p-4">City</th><th className="p-4">Built</th><th className="p-4">Painted</th><th className="p-4">Architect</th><th className="p-4">Artists / decorators</th><th className="p-4">Classification</th><th className="p-4">Interior integrity</th><th className="p-4">Heritage</th><th className="p-4">Techniques</th><th className="p-4">Symbols</th><th className="p-4">NR</th><th className="p-4">RTHL</th><th className="p-4">Schulenburg</th><th className="p-4">Visitor evidence</th><th className="p-4">Current image</th></tr></thead>
-          <tbody>{rows.map(({ church, profile, artists, symbols, visitor, hasImage }) => <tr key={church.slug} className="border-b border-border align-top last:border-b-0"><td className="p-4"><Link to="/explore/painted-churches/$slug" params={{ slug: church.slug }} className="font-display text-xl leading-tight hover:text-primary">{church.shortName}</Link><p className="mt-2 max-w-xs text-xs leading-5 text-muted-foreground">{church.county} County · {church.denomination}</p></td><td className="p-4">{church.city}</td><td className="p-4">{profile?.builtYear ?? "—"}</td><td className="p-4">{profile?.paintedYear ?? "—"}</td><td className="p-4">{profile?.architect ?? "—"}</td><td className="p-4">{profile?.artists?.length ? profile.artists.join(" · ") : artists.length ? artists.map((person) => person.name).join(" · ") : "—"}</td><td className="p-4">{church.classification.replaceAll("-", " ")}</td><td className="p-4">{church.interiorIntegrity.replaceAll("-", " ")}</td><td className="p-4">{church.culturalHeritage.length ? church.culturalHeritage.join(" · ") : "—"}</td><td className="p-4">{church.techniques.length ? church.techniques.map((value) => value.replaceAll("-", " ")).join(" · ") : "Under review"}</td><td className="p-4">{symbols.length ? symbols.map((symbol) => symbol.name).join(" · ") : "—"}</td><td className="p-4">{church.nationalRegister ? church.nationalRegister.referenceNumber : "—"}</td><td className="p-4">{church.recordedTexasHistoricLandmark ? "Yes" : "—"}</td><td className="p-4">{church.schulenburgCluster ? "Yes" : "—"}</td><td className="p-4">{visitor ? visitor.status.replaceAll("-", " ") : "—"}</td><td className="p-4">{hasImage ? "Yes" : "No"}</td></tr>)}</tbody>
+          <tbody>{rows.map(({ church, profile, artists, architects, symbols, visitor, hasImage }) => <tr key={church.slug} className="border-b border-border align-top last:border-b-0"><td className="p-4"><Link to="/explore/painted-churches/$slug" params={{ slug: church.slug }} className="font-display text-xl leading-tight hover:text-primary">{church.shortName}</Link><p className="mt-2 max-w-xs text-xs leading-5 text-muted-foreground">{church.county} County · {church.denomination}</p></td><td className="p-4">{church.city}</td><td className="p-4">{profile?.builtYear ?? "—"}</td><td className="p-4">{profile?.paintedYear ?? "—"}</td><td className="p-4">{profile?.architect ?? (architects.length ? architects.map((person) => person.name).join(" · ") : "—")}</td><td className="p-4">{profile?.artists?.length ? profile.artists.join(" · ") : artists.length ? artists.map((person) => person.name).join(" · ") : "—"}</td><td className="p-4">{church.classification.replaceAll("-", " ")}</td><td className="p-4">{church.interiorIntegrity.replaceAll("-", " ")}</td><td className="p-4">{church.culturalHeritage.length ? church.culturalHeritage.join(" · ") : "—"}</td><td className="p-4">{church.techniques.length ? church.techniques.map((value) => value.replaceAll("-", " ")).join(" · ") : "Under review"}</td><td className="p-4">{symbols.length ? symbols.map((symbol) => symbol.name).join(" · ") : "—"}</td><td className="p-4">{church.nationalRegister ? church.nationalRegister.referenceNumber : "—"}</td><td className="p-4">{church.recordedTexasHistoricLandmark ? "Yes" : "—"}</td><td className="p-4">{church.schulenburgCluster ? "Yes" : "—"}</td><td className="p-4">{visitor ? visitor.status.replaceAll("-", " ") : "—"}</td><td className="p-4">{hasImage ? "Yes" : "No"}</td></tr>)}</tbody>
         </table>
       </div>
 
@@ -144,5 +161,28 @@ function Filter({ label, value, onChange, options, includeAll = true }: { label:
   return <label className="text-sm"><span className="block text-xs uppercase tracking-[0.1em] text-muted-foreground">{label}</span><select value={value} onChange={(event) => onChange(event.target.value)} className="mt-2 w-full border border-border bg-background px-3 py-2">{includeAll ? <option value="all">All</option> : null}{options.map((option) => <option key={option} value={option}>{option.replaceAll("-", " ")}</option>)}</select></label>;
 }
 
-function MobileCard({ row }: { row: ReturnType<typeof buildRowType> }) { return null; }
-function buildRowType() { return null as any; }
+function MobileCard({ row }: { row: ComparisonRow }) {
+  const { church, profile, artists, architects, symbols, visitor, hasImage } = row;
+  return <article className="border border-border p-5">
+    <p className="eyebrow text-muted-foreground">{church.city} · {church.county} County</p>
+    <h2 className="mt-2 font-display text-3xl"><Link to="/explore/painted-churches/$slug" params={{ slug: church.slug }} className="hover:text-primary">{church.shortName}</Link></h2>
+    <p className="mt-3 text-sm leading-6 text-muted-foreground">{church.denomination} · {church.classification.replaceAll("-", " ")}</p>
+    <dl className="mt-5 grid grid-cols-2 gap-x-5 gap-y-4 text-sm">
+      <Fact label="Built" value={profile?.builtYear ? String(profile.builtYear) : "—"} />
+      <Fact label="Painted" value={profile?.paintedYear ? String(profile.paintedYear) : "—"} />
+      <Fact label="Architect" value={profile?.architect ?? (architects.length ? architects.map((person) => person.name).join(" · ") : "—")} />
+      <Fact label="Artists" value={profile?.artists?.length ? profile.artists.join(" · ") : artists.length ? artists.map((person) => person.name).join(" · ") : "—"} />
+      <Fact label="Integrity" value={church.interiorIntegrity.replaceAll("-", " ")} />
+      <Fact label="Current image" value={hasImage ? "Rights-cleared available" : "Still needed"} />
+      <Fact label="Visitor evidence" value={visitor ? visitor.status.replaceAll("-", " ") : "—"} />
+      <Fact label="National Register" value={church.nationalRegister?.referenceNumber ?? "—"} />
+    </dl>
+    {church.techniques.length ? <p className="mt-5 text-xs leading-6 text-muted-foreground"><strong className="text-foreground">Techniques:</strong> {church.techniques.map((value) => value.replaceAll("-", " ")).join(" · ")}</p> : null}
+    {symbols.length ? <p className="mt-2 text-xs leading-6 text-muted-foreground"><strong className="text-foreground">Symbols:</strong> {symbols.map((symbol) => symbol.name).join(" · ")}</p> : null}
+    <Link to="/explore/painted-churches/$slug" params={{ slug: church.slug }} className="mt-5 inline-block border-b border-primary text-sm text-primary">Open evidence-backed church guide</Link>
+  </article>;
+}
+
+function Fact({ label, value }: { label: string; value: string }) {
+  return <div><dt className="text-[0.65rem] uppercase tracking-[0.1em] text-muted-foreground">{label}</dt><dd className="mt-1 leading-5">{value}</dd></div>;
+}
