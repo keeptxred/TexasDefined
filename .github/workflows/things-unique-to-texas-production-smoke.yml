@@ -34,7 +34,7 @@ jobs:
             for attempt in 1 2 3 4 5 6; do
               if curl --fail-with-body --silent --show-error --location --max-time 30 \
                 "${origin}${path}?verify=${cache_key}-${attempt}" -o "$out"; then
-                if grep -Fqi "$needle" "$out" && ! grep -Eqi '<meta[^>]+name=["'"']robots["'"'][^>]+content=["'"'][^"'"']*noindex' "$out"; then
+                if grep -Fqi "$needle" "$out" && ! grep -Eqi "<meta[^>]+name=[\"']robots[\"'][^>]+content=[\"'][^\"']*noindex" "$out"; then
                   echo "PASS ${path}"
                   rm -f "$out"
                   return 0
