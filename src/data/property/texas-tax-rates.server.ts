@@ -1,10 +1,10 @@
 import { supabase } from '@/integrations/supabase/client';
 import type { TexasTaxRateRecord, TexasTaxRateSourceStatus, TexasTaxingUnitType } from './texas-tax-rates.generated';
 
-export const LATEST_FINALIZED_TAX_YEAR = 2025;
-export const AVAILABLE_TAX_YEARS = [2021, 2022, 2023, 2024, 2025] as const;
 export const TAX_RATE_SOURCE_NAME = 'Texas Comptroller of Public Accounts — Property Tax Assistance Division';
 export const TAX_RATE_SOURCE_PAGE = 'https://comptroller.texas.gov/taxes/property-tax/rates/';
+const FALLBACK_LATEST_YEAR = 2025;
+const EARLIEST_RETAINED_YEAR = 2021;
 
 type TaxRateRow = {
   id: string;
@@ -66,19 +66,36 @@ export function mapTaxRateRow(row: TaxRateRow): TexasTaxRateRecord {
   };
 }
 
-export function taxRateMetadata(generatedAt: string | null = null, recordCount?: number) {
+export async function getLatestTaxRateYearServer() {
+  const { data, error } = await db
+    .from('texas_property_tax_rates')
+    .select('year')
+    .order('year', { ascending: false })
+    .limit(1);
+  if (error) throw error;
+  const year = Number(data?.[0]?.year);
+  return Number.isInteger(year) ? year : FALLBACK_LATEST_YEAR;
+}
+
+export function availableTaxYears(latestYear: number) {
+  const years: number[] = [];
+  for (let year = EARLIEST_RETAINED_YEAR; year <= latestYear; year++) years.push(year);
+  return years;
+}
+
+export function taxRateMetadata(latestYear: number, generatedAt: string | null = null, recordCount?: number) {
   return {
     sourceName: TAX_RATE_SOURCE_NAME,
     sourcePage: TAX_RATE_SOURCE_PAGE,
-    latestFinalizedYear: LATEST_FINALIZED_TAX_YEAR,
-    availableYears: [...AVAILABLE_TAX_YEARS],
+    latestFinalizedYear: latestYear,
+    availableYears: availableTaxYears(latestYear),
     generatedAt,
     recordCount,
     status: 'synced' as const,
   };
 }
 
-export async function getCountyTaxRateSummaryServer(countySlug: string, year = LATEST_FINALIZED_TAX_YEAR): Promise<{ summary: CountyTaxRateSummary; generatedAt: string | null }> {
+export async function getCountyTaxRateSummaryServer(countySlug: string, year: number): Promise<{ summary: CountyTaxRateSummary; generatedAt: string | null }> {
   const { data, error } = await db
     .from('texas_property_tax_rates')
     .select('*')
@@ -103,7 +120,7 @@ export async function getCountyTaxRateSummaryServer(countySlug: string, year = L
   };
 }
 
-export async function searchTaxingUnitsServer(query: string, year = LATEST_FINALIZED_TAX_YEAR, limit = 100): Promise<{ records: TexasTaxRateRecord[]; generatedAt: string | null }> {
+export async function searchTaxingUnitsServer(query: string, year: number, limit = 100): Promise<{ records: TexasTaxRateRecord[]; generatedAt: string | null }> {
   const safeQuery = query.replace(/[%_]/g, ' ').replace(/\s+/g, ' ').trim();
   if (!safeQuery) return { records: [], generatedAt: null };
   const { data, error } = await db
