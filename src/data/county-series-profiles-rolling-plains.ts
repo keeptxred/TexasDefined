@@ -37,4 +37,10 @@ export const COUNTY_SERIES_PROFILES_ROLLING_PLAINS: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/king-county-guthrie-four-sixes-ranch-rolling-plains-texas")
       .then((module) => module.kingCountyGuthrieFourSixesRanchRollingPlainsTexasArticle),
   },
+  {
+    countySlug: "knox",
+    articleSlug: "knox-county-benjamin-munday-brazos-ranching-rolling-plains-texas",
+    loadArticle: () => import("@/data/fixtures/knox-county-benjamin-munday-brazos-ranching-rolling-plains-texas")
+      .then((module) => module.knoxCountyBenjaminMundayBrazosRanchingRollingPlainsTexasArticle),
+  },
 ];
