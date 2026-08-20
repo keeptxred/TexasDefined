@@ -1,0 +1,8 @@
+{
+  "county": "hardeman",
+  "status": "pass",
+  "stage": "complete",
+  "target_sha": "3fff7d5dca8372d5fd7e247f4182bafce5f9731c",
+  "detail": "validate=PASS deploy=PASS page=200 structured=yes editorial=yes legacy=301 location=https://texasdefined.com/county/hardeman hero=200 mime=image/jpeg bytes=617167",
+  "recorded_at_utc": "2026-08-20T13:10:55.349346+00:00"
+}
