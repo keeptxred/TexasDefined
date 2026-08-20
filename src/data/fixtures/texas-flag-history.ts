@@ -79,7 +79,7 @@ export const texasFlagHistoryArticle: Article = {
     p("The Congress passed the measure in January 1839, and President Mirabeau B. Lamar approved it on January 25, 1839. The law described a blue perpendicular stripe taking up one-third of the flag's length, a white five-pointed star centered on that blue field, and two equal horizontal stripes covering the remaining two-thirds: white above and red below."),
     p("That is essentially the Texas flag we still recognize. It was not created as a state flag. It was the national flag of the independent Republic of Texas."),
 
-    h("Peter Krag and the designer question"),
+    h("Who designed the Texas flag?"),
     p("The surviving official color drawing of the 1839 flag was made by Austin artist Peter Krag. The original artwork is preserved by the Texas State Library and Archives Commission and bears the approval date of January 25, 1839, along with the signatures of President Mirabeau Lamar, House Speaker John M. Hansford and Senate President David G. Burnet."),
     p("Krag's role is well documented: he produced the official artwork. The harder question is who actually conceived the flag's design. For years, Charles Bellinger Stewart was widely credited as the designer, and the Texas Legislature itself repeated that attribution in 1989. But the documentary record does not prove it. In 1992, the Legislature corrected the earlier recognition and acknowledged that the actual designer is unknown, while recognizing Wharton and Jones for their roles in the flag legislation."),
     p("That distinction matters. Peter Krag drew the surviving official design; William H. Wharton introduced the legislative design; Oliver Jones chaired the committee that advanced it; but no surviving evidence conclusively identifies one person as the original designer."),
@@ -103,6 +103,10 @@ export const texasFlagHistoryArticle: Article = {
       "The single star is the defining Lone Star symbol of Texas.",
     ),
     p("An 1839 committee recommendation proposed different color meanings—white for peace, red for war and blue for friendship—but that language was not adopted by Congress. The meanings recognized today are the ones set out in modern Texas law."),
+
+    h("Can the Texas flag fly at the same height as the U.S. flag?"),
+    p("Yes, when the Texas and United States flags are displayed together on separate flagpoles, Texas guidance calls for flagpoles of the same height and flags of approximately equal size. But this is not a special privilege Texas received because it was once an independent republic. Federal flag rules do not give Texas a unique exemption, and the Texas flag may not be displayed above the United States flag."),
+    p("When the two flags are flown from the same halyard, the United States flag belongs above the Texas flag. On adjacent poles, the United States flag takes the position of honor. The popular claim that Texas is the only state allowed to fly its flag at the same height as the U.S. flag is a myth."),
 
     h("The Texas flag pledge changed, too"),
     p("Texas adopted a formal flag pledge in 1933, but the original wording contained a historical mistake: it referred to the 'Texas Flag of 1836.' The Lone Star flag being pledged to was adopted in 1839, not 1836. The erroneous date survived for decades before the Legislature removed the words 'of 1836' in 1965."),
