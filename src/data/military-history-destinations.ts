@@ -116,6 +116,7 @@ export const militaryHistoryDestinations: Destination[] = [
       ],
       sideTrips: [
         { name: "Texas National Guard history", description: "Read the full TexasDefined guide from militia and Camp Mabry through the 36th Division, disaster response and modern Guard service.", href: "/article/texas-national-guard-history" },
+        { name: "Cold War Texas", description: "Continue from Camp Mabry into strategic bombers, Atlas missile fields, Pantex, U-2 reconnaissance and the statewide infrastructure of nuclear deterrence.", href: "/article/texas-cold-war-military-history" },
         { name: "Texas military history timeline", description: "Place Camp Mabry inside the longer evolution from Republic military institutions to the modern Texas Military Department.", href: "/article/texas-military-history-timeline" },
         { name: "San Antonio military aviation", description: "Continue south to the federal military network that made San Antonio a center for Army and Air Force training.", href: "/article/san-antonio-military-aviation-history" },
       ],
