@@ -27,6 +27,7 @@ for (const required of [
   'User-agent: Bingbot',
   'Sitemap: https://texasdefined.com/sitemap.xml',
   'Sitemap: https://texasdefined.com/sitemap-explore.xml',
+  'Sitemap: https://texasdefined.com/rss.xml',
 ]) {
   if (!robots.includes(required)) throw new Error(`robots.txt missing: ${required}`);
 }
