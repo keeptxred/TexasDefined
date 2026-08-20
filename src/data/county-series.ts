@@ -154,6 +154,7 @@ const LEGACY_ARTICLE_TO_COUNTY = new Map<string, string>([
   ["clay-county-henrietta-red-river-lake-arrowhead-north-texas", "clay"],
   ["henderson-county-athens-lakes-fisheries-east-texas", "henderson"],
   ["wichita-county-wichita-falls-sheppard-oil-red-river-texas", "wichita"],
+  ["foard-county-crowell-pease-river-ranching-oil-rolling-plains-texas", "foard"],
 ]);
 
 const COUNTY_SLUGS = new Set(LEGACY_ARTICLE_TO_COUNTY.values());
