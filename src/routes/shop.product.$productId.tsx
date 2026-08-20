@@ -7,6 +7,9 @@ import { ProductCard } from "@/components/commerce/ProductCard";
 import { useShopCart } from "@/lib/shop-cart";
 
 export const Route = createFileRoute("/shop/product/$productId")({
+  validateSearch: (search: Record<string, unknown>) => ({
+    variant: typeof search.variant === "string" ? search.variant : undefined,
+  }),
   loader: async ({ params }) => {
     const [product] = await fetchAssignedShopProducts({ id: params.productId });
     if (!product) throw notFound();
@@ -21,12 +24,15 @@ function variantLabel(variant: ProductVariant) { return variant.title || `Option
 
 function ProductPage() {
   const { product, related } = Route.useLoaderData();
-  const available = (product.variants ?? []).filter((variant) => variant.is_enabled !== false);
-  const [variantId, setVariantId] = useState<number | null>(available[0]?.id ?? null);
+  const { variant } = Route.useSearch();
+  const available = (product.variants ?? []).filter((candidate) => candidate.is_enabled !== false);
+  const requestedVariantId = variant ? Number(variant) : null;
+  const initialVariantId = available.some((candidate) => candidate.id === requestedVariantId) ? requestedVariantId : (available[0]?.id ?? null);
+  const [variantId, setVariantId] = useState<number | null>(initialVariantId);
   const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
   const cart = useShopCart();
-  const selected = available.find((variant) => variant.id === variantId) ?? null;
+  const selected = available.find((candidate) => candidate.id === variantId) ?? null;
   const purchasable = Boolean(selected);
   const image = selected?.image || selected?.images?.[0] || product.image.src;
   const price = Number(selected?.price ?? product.priceCents / 100);
@@ -49,7 +55,7 @@ function ProductPage() {
           <div className="mt-5 flex items-center justify-between gap-4 border-b border-border pb-5"><p className="text-xl font-semibold">{money(price)}</p><p className="eyebrow text-muted-foreground">{product.maker}</p></div>
           <p className="mt-6 whitespace-pre-line text-base leading-8 text-muted-foreground">{product.blurb}</p>
 
-          {available.length > 0 ? <label className="eyebrow mt-8 text-muted-foreground">Choose an option<select value={variantId ?? ""} onChange={(event) => { setVariantId(Number(event.target.value)); setAdded(false); }} className="mt-3 h-12 w-full border-0 border-b border-border bg-transparent px-0 text-sm font-normal normal-case tracking-normal text-foreground outline-none focus:border-primary">{available.map((variant) => <option key={variant.id} value={variant.id}>{variantLabel(variant)} — {money(Number(variant.price ?? price))}</option>)}</select></label> : <div className="mt-8 border-y border-border py-5" role="status"><p className="eyebrow text-primary">Temporarily unavailable</p><p className="mt-2 text-sm leading-6 text-muted-foreground">There is not an orderable size or option for this item right now. Check back after the catalog updates.</p></div>}
+          {available.length > 0 ? <label className="eyebrow mt-8 text-muted-foreground">Choose an option<select value={variantId ?? ""} onChange={(event) => { setVariantId(Number(event.target.value)); setAdded(false); }} className="mt-3 h-12 w-full border-0 border-b border-border bg-transparent px-0 text-sm font-normal normal-case tracking-normal text-foreground outline-none focus:border-primary">{available.map((candidate) => <option key={candidate.id} value={candidate.id}>{variantLabel(candidate)} — {money(Number(candidate.price ?? price))}</option>)}</select></label> : <div className="mt-8 border-y border-border py-5" role="status"><p className="eyebrow text-primary">Temporarily unavailable</p><p className="mt-2 text-sm leading-6 text-muted-foreground">There is not an orderable size or option for this item right now. Check back after the catalog updates.</p></div>}
 
           <div className="mt-7 flex items-center gap-3 border-b border-border pb-7"><span className="eyebrow mr-2 text-muted-foreground">Quantity</span><button type="button" aria-label="Decrease quantity" onClick={() => setQuantity((value) => Math.max(1, value - 1))} disabled={!purchasable} className="h-9 w-9 border border-border disabled:cursor-not-allowed disabled:opacity-40">−</button><span className="min-w-8 text-center font-semibold">{quantity}</span><button type="button" aria-label="Increase quantity" onClick={() => setQuantity((value) => Math.min(20, value + 1))} disabled={!purchasable} className="h-9 w-9 border border-border disabled:cursor-not-allowed disabled:opacity-40">+</button></div>
 
