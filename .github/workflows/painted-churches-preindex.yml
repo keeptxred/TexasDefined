@@ -46,7 +46,9 @@ jobs:
           node scripts/data/validate-painted-church-map.mjs
           node scripts/data/validate-painted-church-completion.mjs
       - name: Strict pre-index authority gate
-        run: node scripts/data/validate-painted-church-preindex.mjs
+        run: |
+          node scripts/data/validate-painted-church-preindex.mjs
+          node scripts/data/validate-painted-church-release-review.mjs
       - name: Build production bundle
         run: npm run build
       - name: Preserve existing client bundle budget
