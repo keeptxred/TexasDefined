@@ -19,4 +19,10 @@ export const COUNTY_SERIES_PROFILES_NORTHEAST: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/rains-county-emory-lake-tawakoni-lake-fork-texas")
       .then((module) => module.rainsCountyEmoryLakeTawakoniLakeForkTexasArticle),
   },
+  {
+    countySlug: "fannin",
+    articleSlug: "fannin-county-bonham-bois-darc-lake-rayburn-northeast-texas",
+    loadArticle: () => import("@/data/fixtures/fannin-county-bonham-bois-darc-lake-rayburn-northeast-texas")
+      .then((module) => module.fanninCountyBonhamBoisDArcLakeRayburnNortheastTexasArticle),
+  },
 ];
