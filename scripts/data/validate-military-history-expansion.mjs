@@ -33,6 +33,8 @@ const guides = [
   { slug: 'texas-world-war-ii-bases-pow-camps', path: 'src/data/fixtures/texas-world-war-ii-bases-pow-camps.ts', exportName: 'texasWorldWarIIBasesPowCampsArticle', sourceName: 'Texas Historical Commission', sourceUrl: 'https://thc.texas.gov/learn/military-history/texas-world-war-ii', reciprocalHref: '/article/texas-world-war-ii-bases-pow-camps', requiredTerms: ['Camp Hood', 'Camp Swift', 'Camp Wolters', 'prisoner-of-war', 'Crystal City'] },
   { slug: 'texas-cold-war-military-history', path: 'src/data/fixtures/texas-cold-war-military-history.ts', exportName: 'texasColdWarMilitaryHistoryArticle', sourceName: 'Texas Historical Commission', sourceUrl: 'https://thc.texas.gov/learn/military-history/texas-cold-war', reciprocalHref: '/article/texas-cold-war-military-history', reciprocalSource: 'military-destinations', requiredTerms: ['Carswell', 'B-36', 'Dyess', 'Atlas F', 'Pantex', 'Laughlin', 'U-2', 'Nike'] },
   { slug: 'texas-recent-wars-military-history', path: 'src/data/fixtures/texas-recent-wars-military-history.ts', exportName: 'texasRecentWarsMilitaryHistoryArticle', sourceName: 'Texas Historical Commission', sourceUrl: 'https://thc.texas.gov/learn/military-history/texas-recent-wars', requiredTerms: ['Operation Desert Storm', 'Yugoslavia', 'September 11', 'Operation Enduring Freedom', 'Operation Iraqi Freedom', 'BRAC', '36th Infantry Division'] },
+  { slug: 'women-in-texas-military-history', path: 'src/data/fixtures/women-in-texas-military-history.ts', exportName: 'womenInTexasMilitaryHistoryArticle', sourceName: 'Texas Historical Commission', sourceUrl: 'https://atlas.thc.texas.gov/Details?atlasnumber=5353005666&fn=print', requireHub: false, requiredTerms: ['Oveta Culp Hobby', "Women's Army Corps", 'Avenger Field', 'WASP', 'Thirty-eight', 'National WASP WWII Museum'] },
+  { slug: 'texas-medal-of-honor-heroes', path: 'src/data/fixtures/texas-medal-of-honor-heroes.ts', exportName: 'texasMedalOfHonorHeroesArticle', sourceName: 'U.S. Army', sourceUrl: 'https://www.army.mil/medalofhonor/', requireHub: false, requiredTerms: ['Audie', 'Macario Garcia', 'Roy P. Benavidez', 'Medal of Honor', 'Texas Legislative Medal of Honor', 'Fort Sam Houston'] },
 ];
 
 for (const guide of guides) {
@@ -55,14 +57,14 @@ for (const guide of guides) {
   const moduleName = guide.path.split('/').pop().replace('.ts', '');
   if (!lazy.includes(`import("./${moduleName}")`)) failures.push(`Dynamic import missing: ${guide.slug}`);
   if (!lazy.includes(guide.exportName)) failures.push(`Lazy export name mismatch: ${guide.slug}`);
-  if (!historyHub.includes(`slug: "${guide.slug}"`)) failures.push(`Texas History hub does not feature: ${guide.slug}`);
+  if (guide.requireHub !== false && !historyHub.includes(`slug: "${guide.slug}"`)) failures.push(`Texas History hub does not feature: ${guide.slug}`);
   if (guide.reciprocalHref) {
     const reciprocalCatalog = guide.reciprocalSource === 'military-destinations' ? destinations : reciprocal;
     if (!reciprocalCatalog.includes(`href: "${guide.reciprocalHref}"`)) failures.push(`Reciprocal destination link missing: ${guide.slug}`);
   }
 }
 
-for (const href of ['/article/spanish-texas-military-battle-medina', '/article/mexican-texas-military-history', '/article/texas-spanish-american-war-guide', '/article/texas-world-war-i-history-guide', '/article/texas-recent-wars-military-history']) {
+for (const href of ['/article/spanish-texas-military-battle-medina', '/article/mexican-texas-military-history', '/article/texas-spanish-american-war-guide', '/article/texas-world-war-i-history-guide', '/article/texas-recent-wars-military-history', '/article/women-in-texas-military-history', '/article/texas-medal-of-honor-heroes']) {
   if (!lazy.includes(`href: "${href}"`)) failures.push(`New military guide lacks reciprocal article discovery: ${href}`);
 }
 
@@ -80,7 +82,7 @@ for (const destination of plannerDestinations) {
 
 for (const marker of ['import { militaryHistoryDestinations } from "./military-history-destinations";', 'militaryHistoryDestinations,']) if (!preservedCatalog.includes(marker)) failures.push(`Preserved destination catalog is missing military Trip Planner integration: ${marker}`);
 for (const marker of ['militaryHistoryExpansionStubs', 'loadMilitaryHistoryExpansionArticle', '...militaryHistoryExpansionStubs', 'const militaryHistoryArticle = await loadMilitaryHistoryExpansionArticle']) if (!repositories.includes(marker)) failures.push(`Article repository is missing military expansion contract: ${marker}`);
-for (const marker of ['export const militaryHistoryExpansionStubs', 'export async function loadMilitaryHistoryExpansionArticle', '/destination/palo-alto-battlefield-national-historical-park', '/destination/texas-military-forces-museum', '/article/buffalo-soldiers-texas-frontier-guide', '/article/texas-red-river-war-guide', '/article/republic-of-texas-navy-history', '/article/texas-cold-war-military-history', '/article/battleship-texas-bb-35-history-restoration', '/article/spanish-texas-military-battle-medina', '/article/mexican-texas-military-history', '/article/texas-spanish-american-war-guide', '/article/texas-world-war-i-history-guide', '/article/texas-recent-wars-military-history']) if (!lazy.includes(marker)) failures.push(`Lazy military expansion registry or supplemental linking is missing: ${marker}`);
+for (const marker of ['export const militaryHistoryExpansionStubs', 'export async function loadMilitaryHistoryExpansionArticle', '/destination/palo-alto-battlefield-national-historical-park', '/destination/texas-military-forces-museum', '/article/buffalo-soldiers-texas-frontier-guide', '/article/texas-red-river-war-guide', '/article/republic-of-texas-navy-history', '/article/texas-cold-war-military-history', '/article/battleship-texas-bb-35-history-restoration', '/article/spanish-texas-military-battle-medina', '/article/mexican-texas-military-history', '/article/texas-spanish-american-war-guide', '/article/texas-world-war-i-history-guide', '/article/texas-recent-wars-military-history', '/article/women-in-texas-military-history', '/article/texas-medal-of-honor-heroes']) if (!lazy.includes(marker)) failures.push(`Lazy military expansion registry or supplemental linking is missing: ${marker}`);
 for (const marker of ['The Portal to Texas History', 'Texas Digital Archive', 'Library of Congress', 'Wikimedia Commons', 'PICRYL', 'Pexels', 'No known restrictions', 'Historical image workflow']) if (!sourcing.includes(marker)) failures.push(`Historical image sourcing policy is missing: ${marker}`);
 for (const marker of ['platform.articles.list(scope)', 'articles.filter((article) => !isLegacyCountySeriesArticle(article.slug)).map((article) => ({ path: `/article/${article.slug}`']) if (!sitemap.includes(marker)) failures.push(`Article sitemap discovery contract missing: ${marker}`);
 for (const marker of ['historicAuthorityGuides', '{historicAuthorityGuides.length} routes into the statewide collection', 'Plan history by story', 'battleship-texas-bb-35-history-restoration']) if (!historyHub.includes(marker)) failures.push(`History hub presentation contract missing: ${marker}`);
@@ -90,4 +92,4 @@ if (failures.length) {
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
-console.log(`Military history expansion validation passed: ${guides.length} source-backed, lazy-loaded guides, the canonical Battleship Texas authority page, and ${plannerDestinations.length} preserved Trip Planner destinations retain substantive depth, explicit History-hub discovery, article sitemap publication, reciprocal discovery and archival-image sourcing rules.`);
+console.log(`Military history expansion validation passed: ${guides.length} source-backed, lazy-loaded guides, the canonical Battleship Texas authority page, and ${plannerDestinations.length} preserved Trip Planner destinations retain substantive depth, explicit discovery, article sitemap publication, reciprocal linking and archival-image sourcing rules.`);
