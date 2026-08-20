@@ -3,9 +3,9 @@ import type { TexasEvergreenGuide } from "@/data/texas-evergreen-guides";
 export const TEXAS_BRAND_ORIGINS_GUIDE: TexasEvergreenGuide = {
   slug: "texas-brand-origin-stories",
   eyebrow: "Built in Texas, adopted as identity",
-  title: "Texas Brand Origin Stories: How Six Local Names Became Cultural Icons",
-  dek: "H-E-B, Whataburger, Blue Bell, Shiner, Dickies and Buc-ee's all began with a specific Texas place and business idea before becoming shorthand for a much larger version of Texas identity.",
-  quickAnswer: "Texas brands become cultural icons when they stay connected to recognizable places, routines and visual signals. H-E-B began in Kerrville, Whataburger in Corpus Christi, Blue Bell in Brenham, Shiner beer in Shiner, Dickies in Fort Worth and Buc-ee's in the Lake Jackson area. Their stories are useful not because every Texan loves every brand, but because each became attached to an everyday Texas ritual: grocery shopping, burgers, ice cream, beer, workwear or the highway stop.",
+  title: "Texas Brand Origin Stories: How Seven Local Names Became Cultural Icons",
+  dek: "H-E-B, Whataburger, Blue Bell, Shiner, Lone Star, Dickies and Buc-ee's all began with a specific Texas place or business story before becoming shorthand for a much larger version of Texas identity.",
+  quickAnswer: "Texas brands become cultural icons when they stay connected to recognizable places, routines and visual signals. H-E-B began in Kerrville, Whataburger in Corpus Christi, Blue Bell in Brenham, Shiner beer in Shiner, the Lone Star beer name in San Antonio, Dickies in Fort Worth and Buc-ee's in the Lake Jackson area. Their stories are useful not because every Texan loves every brand, but because each became attached to an everyday Texas ritual: grocery shopping, burgers, ice cream, beer, workwear or the highway stop.",
   sections: [
     {
       heading: "H-E-B: from Kerrville grocery to Texas institution",
@@ -38,6 +38,14 @@ export const TEXAS_BRAND_ORIGINS_GUIDE: TexasEvergreenGuide = {
         "That origin makes Shiner especially useful for understanding Texas brand identity: the product cannot be separated easily from the town, local heritage, Central Texas music and the larger German- and Czech-Texan cultural landscape."
       ],
       links: [{ href: "/german-czech-texas-towns", label: "German & Czech Texas towns" }, { href: "/texas-dance-halls-honky-tonks", label: "Texas dance halls & honky-tonks" }]
+    },
+    {
+      heading: "Lone Star Beer: San Antonio history becomes a statewide slogan",
+      body: [
+        "The Lone Star name reaches back to San Antonio brewing history in the 1880s. The original Lone Star Brewery began producing beer there in 1884, and a later San Antonio brewery revived the Lone Star name in 1940. Ownership and production arrangements changed repeatedly after that, which is why the origin story should not be confused with a claim about where every modern can is brewed.",
+        "What endured was the identity. 'The National Beer of Texas' became the brand's long-running slogan, and Lone Star became a familiar visual shorthand in Texas bars, music venues, ice chests and popular culture. That makes it a useful example of a product whose Texas symbolism outlived several changes in corporate ownership."
+      ],
+      links: [{ href: "/texas-dance-halls-honky-tonks", label: "Texas dance halls & honky-tonks" }, { href: "/article/texas-culture-social-customs-newcomers", label: "Texas culture for newcomers" }]
     },
     {
       heading: "Dickies: Fort Worth workwear crosses into global style",
