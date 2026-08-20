@@ -163,6 +163,16 @@ export const paintedChurchPeople: PaintedChurchPerson[] = [
     sourceLabel: "UT Architectural Archives — Buie Harwood and Anna Brightman collection",
     sourceUrl: "https://txarchives.org/utaaa/finding_aids/00136.xml",
   },
+  {
+    slug: "michaela-wegman",
+    name: "Michaela Wegman",
+    roles: ["researcher"],
+    answer: "Michaela Wegman is an Umbarger native and art historian whose research and public interpretation focus on the Italian prisoner-of-war mural project at St. Mary's Catholic Church in Umbarger.",
+    significance: ["A 2025 West Texas Catholic podcast identifies Wegman as an Umbarger native and art historian discussing the POW mural story.", "The 80th-anniversary program at St. Mary's featured Wegman leading a sanctuary tour and mural discussion.", "Her work connects community memory, art history and preservation interpretation at one of the most distinctive churches in the statewide collection."],
+    churchSlugs: ["umbarger-st-marys-catholic-church"],
+    sourceLabel: "West Texas Catholic — Color Me Catholic: The Umbarger Mural Story",
+    sourceUrl: "https://music.amazon.in/podcasts/8a0552b4-9dfa-410a-9dd0-95ffacf49e90/episodes/7e1aa490-f147-4efc-bee0-eceb413a537a/the-west-texas-catholic-the-podcast-color-me-catholic-the-umbarger-mural-story",
+  },
 ];
 
 export const paintedChurchPersonBySlug = new Map(paintedChurchPeople.map((person) => [person.slug, person]));
