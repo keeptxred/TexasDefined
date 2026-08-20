@@ -1,0 +1,98 @@
+name: Texas flag history production smoke
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'src/data/fixtures/texas-flag-history.ts'
+      - 'src/data/fixtures/newest-evergreen.ts'
+      - 'src/data/things-unique-to-texas-links.ts'
+      - 'src/routes/article.$slug.tsx'
+      - 'src/routes/sitemap[.]xml.ts'
+      - '.github/workflows/flag-history-production-smoke.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: texas-flag-history-production-smoke
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Verify live article, indexing signals and discovery links
+        shell: bash
+        run: |
+          set -euo pipefail
+          origin='https://texasdefined.com'
+          article_path='/article/history-of-the-texas-flag'
+          article_url="$origin$article_path"
+          workdir="$(mktemp -d)"
+          trap 'rm -rf "$workdir"' EXIT
+
+          curl --retry 6 --retry-all-errors --retry-delay 3 --max-time 45 \
+            --fail-with-body --silent --show-error --location \
+            "$article_url?production-smoke=${GITHUB_SHA}-${GITHUB_RUN_ID}" \
+            -o "$workdir/article.html"
+
+          python3 - "$workdir/article.html" <<'PY'
+          import re, sys
+          html=open(sys.argv[1], encoding='utf-8', errors='replace').read()
+          origin='https://texasdefined.com'
+          path='/article/history-of-the-texas-flag'
+
+          assert 'The Texas Flag: A History of the Lone Star' in html, 'Flag-history title missing from production HTML'
+          for phrase in [
+              'Who designed the Texas flag?',
+              'The strange legal gap from 1879 to 1933',
+              'Can the Texas flag fly at the same height as the U.S. flag?',
+              'Texas State Library and Archives Commission',
+          ]:
+              assert phrase in html, f'Expected flag-history content missing: {phrase}'
+
+          robots=[m.group(1).lower() for m in re.finditer(r'<meta[^>]+name=["\']robots["\'][^>]+content=["\']([^"\']+)', html, re.I)]
+          assert not any('noindex' in value for value in robots), f'Flag article unexpectedly noindex: {robots}'
+
+          canonicals=re.findall(r'<link[^>]+rel=["\']canonical["\'][^>]+href=["\']([^"\']+)', html, re.I)
+          assert canonicals == [origin+path], f'Flag article canonical mismatch: {canonicals}'
+          print('Live Texas flag article content, canonical and indexability verified.')
+          PY
+
+          curl --retry 6 --retry-all-errors --retry-delay 3 --max-time 45 \
+            --fail-with-body --silent --show-error --location \
+            "$origin/robots.txt?production-smoke=${GITHUB_SHA}" \
+            -o "$workdir/robots.txt"
+          grep -Fq 'Sitemap: https://texasdefined.com/sitemap.xml' "$workdir/robots.txt" || {
+            echo 'robots.txt does not advertise the canonical sitemap.' >&2
+            exit 1
+          }
+
+          curl --retry 6 --retry-all-errors --retry-delay 3 --max-time 45 \
+            --fail-with-body --silent --show-error --location \
+            "$origin/sitemap.xml?production-smoke=${GITHUB_SHA}" \
+            -o "$workdir/sitemap.xml"
+          grep -Fq "$article_url" "$workdir/sitemap.xml" || {
+            echo 'Flag-history article missing from production sitemap.' >&2
+            exit 1
+          }
+
+          for discovery_path in \
+            '/article/six-flags-over-texas-meaning' \
+            '/article/texas-revolution-historic-sites-road-trip' \
+            '/things-unique-to-texas/slang-folklore'; do
+            safe_name="$(printf '%s' "$discovery_path" | tr '/.' '__')"
+            curl --retry 6 --retry-all-errors --retry-delay 3 --max-time 45 \
+              --fail-with-body --silent --show-error --location \
+              "$origin${discovery_path}?production-smoke=${GITHUB_SHA}" \
+              -o "$workdir/${safe_name}.html"
+            grep -Fq "$article_path" "$workdir/${safe_name}.html" || {
+              echo "Discovery page $discovery_path does not link to $article_path" >&2
+              exit 1
+            }
+          done
+
+          echo 'Texas flag history production article, sitemap, robots and inbound discovery links verified.'
