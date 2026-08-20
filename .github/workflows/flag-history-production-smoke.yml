@@ -64,8 +64,11 @@ jobs:
             && grep -Fq 'Can the Texas flag fly at the same height as the U.S. flag?' "$workdir/history.html" \
             && grep -Fq 'Flag_of_the_Republic_of_Texas_' "$workdir/history.html" \
             && grep -Fq 'Flag_of_Texas_' "$workdir/history.html" \
+            && grep -Fq 'FAQPage' "$workdir/history.html" \
+            && grep -Fq 'Primary source:' "$workdir/history.html" \
+            && grep -Fq 'https://www.tsl.texas.gov/treasures/flagsandmaps/flag-design.html' "$workdir/history.html" \
             && grep -Fq "$etiquette" "$workdir/history.html"; then
-            post_status texas-flag-history-page success 'Live history article and historical figures verified'
+            post_status texas-flag-history-page success 'Live history article, figures, source and FAQ schema verified'
           else
             post_status texas-flag-history-page failure 'Live Texas flag history article verification failed'
             failed=1
@@ -78,8 +81,11 @@ jobs:
             && grep -Fq 'How to hang the Texas flag vertically' "$workdir/etiquette.html" \
             && grep -Fq 'When should the Texas flag be at half-staff?' "$workdir/etiquette.html" \
             && grep -Fq 'Is Texas the only state that can fly its flag as high as the U.S. flag?' "$workdir/etiquette.html" \
+            && grep -Fq 'FAQPage' "$workdir/etiquette.html" \
+            && grep -Fq 'Primary source:' "$workdir/etiquette.html" \
+            && grep -Fq 'https://www.tsl.texas.gov/ref/abouttx/flagcode.html' "$workdir/etiquette.html" \
             && grep -Fq "$history" "$workdir/etiquette.html"; then
-            post_status texas-flag-etiquette-page success 'Live flag etiquette article verified'
+            post_status texas-flag-etiquette-page success 'Live flag etiquette article, source and FAQ schema verified'
           else
             post_status texas-flag-etiquette-page failure 'Live Texas flag etiquette verification failed'
             failed=1
