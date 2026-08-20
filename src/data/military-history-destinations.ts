@@ -23,9 +23,13 @@ export const militaryHistoryDestinations: Destination[] = [
     highlights: ["1846 battlefield", "Visitor center", "Battlefield trails", "U.S.–Mexican War history", "Brownsville Historic Battlefield Trail"],
     body: [
       "Palo Alto preserves the open coastal prairie where General Zachary Taylor's U.S. force and General Mariano Arista's Mexican army fought on May 8, 1846. The landscape makes artillery ranges, troop positions and the terrain of the war's opening campaign unusually easy to visualize.",
-      "The park interprets the causes and consequences of the U.S.–Mexican War from both national perspectives and also administers nearby Resaca de la Palma Battlefield. Use the site with the TexasDefined U.S.–Mexican War guide to connect annexation, the disputed Rio Grande boundary and the campaign that followed.",
+      "The park interprets the causes and consequences of the U.S.–Mexican War from both national perspectives and also administers nearby Resaca de la Palma Battlefield. Exhibits and trails place the battle inside the disputed Texas-Mexico boundary question that followed U.S. annexation rather than presenting the fighting as an isolated military episode.",
+      "Use Palo Alto as the anchor for a lower Rio Grande military-history day. Brownsville and the Fort Brown area explain the river crossing and U.S. Army presence, Port Isabel adds the Gulf supply route, and Palmito Ranch shows why the same corridor remained strategically important through the final land battle of the Civil War nearly two decades later.",
     ],
     officialUrl: "https://www.nps.gov/paal/index.htm",
+    managingAuthority: "National Park Service",
+    address: "7200 Paredes Line Road, Brownsville, TX 78526",
+    sourceCheckedAt: "2026-08-19",
     county: "Cameron",
   },
   {
@@ -49,10 +53,14 @@ export const militaryHistoryDestinations: Destination[] = [
     entryNote: "The museum is on active Camp Mabry. Adult visitors are subject to installation security screening and photo-ID requirements, and the visitor-control cutoff can be earlier than museum closing time. Check the museum's current access instructions before visiting.",
     highlights: ["Texas National Guard", "36th Infantry Division", "Military vehicles", "Texas State Guard", "Camp Mabry"],
     body: [
-      "The 45,000-square-foot Texas Military Forces Museum interprets the state's militia and volunteer traditions, the Texas Army and Air National Guard, and the Texas State Guard through uniforms, weapons, vehicles, photographs, artifacts and large-scale exhibits.",
-      "Because the museum sits on an active military installation, access is different from an ordinary city museum. Pair the visit with the TexasDefined National Guard history guide and confirm Camp Mabry's current security and visitor-control procedures before arrival.",
+      "The 45,000-square-foot Texas Military Forces Museum interprets the state's militia and volunteer traditions, the Texas Army and Air National Guard, and the Texas State Guard through uniforms, weapons, vehicles, photographs, artifacts and large-scale exhibits. It is the best single public collection for following the institutional story from nineteenth-century citizen-soldiers into the modern Texas Military Department.",
+      "The museum is especially useful for understanding the 36th Infantry Division, border mobilizations, World War service and the distinction between National Guard components that can enter federal service and the Texas State Guard, which remains a state force. Vehicles and larger artifacts make the military organization easier to read than a chronology alone.",
+      "Because the museum sits on active Camp Mabry, access is different from an ordinary city museum. Security screening and identification rules apply, and the visitor-control cutoff can occur before the museum itself closes. Pair the visit with the TexasDefined National Guard history guide and confirm the museum's current Camp Mabry entry instructions before arrival.",
     ],
     officialUrl: "https://texasmilitaryforcesmuseum.org/",
+    managingAuthority: "Texas Military Department",
+    address: "3038 W 35th St, Austin, TX 78703",
+    sourceCheckedAt: "2026-08-19",
     county: "Travis",
   },
 ];
