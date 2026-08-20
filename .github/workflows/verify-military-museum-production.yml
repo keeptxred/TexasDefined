@@ -1,0 +1,90 @@
+name: Verify military museum production
+
+on:
+  workflow_run:
+    workflows:
+      - Deploy TexasDefined production
+    types:
+      - completed
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  verify-military-museum-production:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    env:
+      GH_TOKEN: ${{ github.token }}
+      DEPLOY_SHA: ${{ github.event.workflow_run.head_sha }}
+    steps:
+      - name: Publish pending status
+        shell: bash
+        run: |
+          curl --fail-with-body --silent --show-error --request POST \
+            --header "Authorization: Bearer $GH_TOKEN" \
+            --header 'Accept: application/vnd.github+json' \
+            --header 'X-GitHub-Api-Version: 2022-11-28' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${DEPLOY_SHA}" \
+            --data '{"state":"pending","context":"texasdefined-military-visitor-live","description":"Verifying military museum visitor routes"}' >/dev/null
+
+      - name: Verify military visitor routes
+        id: live
+        shell: bash
+        run: |
+          set -euo pipefail
+          origin='https://texasdefined.com'
+          workdir="$(mktemp -d)"
+          trap 'rm -rf "$workdir"' EXIT
+
+          fetch_assert() {
+            local label="$1" path="$2" needle="$3"
+            local out="$workdir/${label}.html"
+            local attempt
+            for attempt in 1 2 3 4 5 6; do
+              echo "[$label] attempt $attempt: ${origin}${path}"
+              if curl --fail-with-body --silent --show-error --location --max-time 30 \
+                "${origin}${path}?verify=${DEPLOY_SHA}-${GITHUB_RUN_ID}-${attempt}" -o "$out"; then
+                if grep -Fq "$needle" "$out"; then
+                  echo "[$label] production content verified: $needle"
+                  return 0
+                fi
+                echo "[$label] fetched but expected content is not live yet: $needle"
+              fi
+              sleep 5
+            done
+            echo "[$label] production verification failed for ${origin}${path}" >&2
+            head -c 1200 "$out" 2>/dev/null || true
+            echo >&2
+            return 1
+          }
+
+          fetch_assert visitor-guide '/article/texas-military-museums-historic-sites-guide' 'Texas Military Museums & Historic Sites'
+          fetch_assert uss-lexington '/destination/uss-lexington-museum-corpus-christi' 'USS Lexington Museum'
+          fetch_assert wasp-museum '/destination/national-wasp-wwii-museum-sweetwater' 'National WASP WWII Museum'
+          fetch_assert silent-wings '/destination/silent-wings-museum-lubbock' 'Silent Wings Museum'
+          fetch_assert texas-history '/texas-history' 'Texas Military Museums'
+
+      - name: Publish success status
+        if: ${{ steps.live.outcome == 'success' }}
+        shell: bash
+        run: |
+          curl --fail-with-body --silent --show-error --request POST \
+            --header "Authorization: Bearer $GH_TOKEN" \
+            --header 'Accept: application/vnd.github+json' \
+            --header 'X-GitHub-Api-Version: 2022-11-28' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${DEPLOY_SHA}" \
+            --data '{"state":"success","context":"texasdefined-military-visitor-live","description":"Military museum visitor routes are live"}' >/dev/null
+
+      - name: Publish failure status
+        if: ${{ failure() }}
+        shell: bash
+        run: |
+          curl --fail-with-body --silent --show-error --request POST \
+            --header "Authorization: Bearer $GH_TOKEN" \
+            --header 'Accept: application/vnd.github+json' \
+            --header 'X-GitHub-Api-Version: 2022-11-28' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${DEPLOY_SHA}" \
+            --data '{"state":"failure","context":"texasdefined-military-visitor-live","description":"Military museum visitor route verification failed"}' >/dev/null
