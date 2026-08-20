@@ -48,6 +48,7 @@ jobs:
 
           record() {
             status="$1"; stage="$2"; detail="$3"
+            git reset --hard HEAD >/dev/null
             mkdir -p "$(dirname "$marker")"
             python3 - "$marker" "$status" "$stage" "$target" "$detail" <<'PY'
           import datetime, json, pathlib, sys
