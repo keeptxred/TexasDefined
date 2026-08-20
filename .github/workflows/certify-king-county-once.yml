@@ -1,0 +1,128 @@
+name: Certify King County production once
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/certify-king-county-once.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: certify-king-county-once
+  cancel-in-progress: true
+
+jobs:
+  certify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    environment: texasdefined-publication
+    env:
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      HERO_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Texas_State_Highway_222%2C_King_County%2C_Texas.jpg?width=1600
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - run: npm ci --no-audit --no-fund
+      - name: Validate, deploy, and verify King County
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -n "$CLOUDFLARE_ACCOUNT_ID"
+          test -n "$CLOUDFLARE_API_TOKEN"
+
+          tmp="$(mktemp -d)"
+          hs="$(curl -L --retry 5 --retry-all-errors --retry-delay 2 --max-time 60 -sS -D "$tmp/h" -o "$tmp/b" -w '%{http_code}' "$HERO_URL")"
+          hm="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/{gsub(/\r/,""); sub(/^content-type:[[:space:]]*/,""); v=$0} END{print v}' "$tmp/h" | cut -d';' -f1)"
+          hb="$(wc -c < "$tmp/b")"
+          test "$hs" = 200
+          [[ "$hm" =~ ^image/(jpeg|png|webp)$ ]]
+          test "$hb" -gt 50000
+          echo "HERO_SOURCE HTTP=$hs MIME=$hm bytes=$hb"
+          rm -rf "$tmp"
+
+          for pass in 1 2 3 4 5; do
+            git fetch origin main
+            git reset --hard origin/main
+            target="$(git rev-parse HEAD)"
+            fixture='src/data/fixtures/king-county-guthrie-four-sixes-ranch-rolling-plains-texas.ts'
+            registry='src/data/county-series-profiles-rolling-plains.ts'
+
+            test -f "$fixture"
+            grep -Fq 'countySlug: "king"' "$registry"
+            grep -Fq 'King County: Guthrie, the Four Sixes Ranch and the Open Rolling Plains' "$fixture"
+            grep -Fq 'Texas_State_Highway_222%2C_King_County%2C_Texas.jpg?width=1600' "$fixture"
+            if grep -n 'www\.texasdefined\.com' "$fixture" "$registry"; then
+              echo 'Canonical-host violation in King County changed files'
+              exit 1
+            fi
+
+            echo "TARGET_SHA=$target"
+            npm run validate
+
+            git fetch origin main
+            latest="$(git rev-parse origin/main)"
+            if [ "$latest" != "$target" ]; then
+              echo "main moved during validation; retrying newest main"
+              continue
+            fi
+
+            npm run deploy
+
+            git fetch origin main
+            latest="$(git rev-parse origin/main)"
+            if [ "$latest" != "$target" ]; then
+              echo "main moved during deployment; retrying newest main"
+              continue
+            fi
+
+            w="$(mktemp -d)"
+            ok=0
+            for attempt in $(seq 1 12); do
+              ps="$(curl --retry 3 --retry-all-errors --retry-delay 2 --max-time 60 -sS -o "$w/page" -w '%{http_code}' "https://texasdefined.com/county/king?verify=${target}-${GITHUB_RUN_ID}-${attempt}" || true)"
+              if [ "$ps" = 200 ] \
+                && grep -Fq 'King County: Guthrie, the Four Sixes Ranch and the Open Rolling Plains' "$w/page" \
+                && grep -Fq 'The county in numbers' "$w/page" \
+                && grep -Fq 'County seat' "$w/page" \
+                && grep -Fq '2020 population' "$w/page" \
+                && grep -Fq 'County feature' "$w/page" \
+                && grep -Fq 'https://texasdefined.com/county/king' "$w/page"; then
+                ok=1
+                break
+              fi
+              sleep 5
+            done
+            test "$ok" = 1
+            echo "LIVE_PAGE HTTP=$ps structured=yes editorial=yes canonical=yes"
+
+            his="$(curl -L --retry 5 --retry-all-errors --retry-delay 2 --max-time 60 -sS -D "$w/hh" -o "$w/hb" -w '%{http_code}' "$HERO_URL")"
+            him="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/{gsub(/\r/,""); sub(/^content-type:[[:space:]]*/,""); v=$0} END{print v}' "$w/hh" | cut -d';' -f1)"
+            hib="$(wc -c < "$w/hb")"
+            test "$his" = 200
+            [[ "$him" =~ ^image/(jpeg|png|webp)$ ]]
+            test "$hib" -gt 50000
+            echo "LIVE_HERO HTTP=$his MIME=$him bytes=$hib"
+
+            git fetch origin main
+            latest="$(git rev-parse origin/main)"
+            if [ "$latest" != "$target" ]; then
+              rm -rf "$w"
+              echo "main moved during live verification; retrying newest main"
+              continue
+            fi
+            rm -rf "$w"
+            echo "KING_COUNTY_CERTIFICATION=PASS TARGET_SHA=$target VALIDATE=PASS DEPLOY=PASS PAGE=200 STRUCTURED=yes EDITORIAL=yes LEGACY=n/a HERO=$his MIME=$him BYTES=$hib"
+            exit 0
+          done
+
+          echo 'Could not obtain a stable validated/deployed current main after five passes'
+          exit 1
