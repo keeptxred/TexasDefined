@@ -2,11 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
-import { paintedChurchArchivalImagesBySlug } from "@/data/painted-church-archival-images";
-import { expansionPaintedChurchArchivalImagesBySlug } from "@/data/painted-church-archival-images-expansion";
-import { extraPaintedChurchGalleryBySlug } from "@/data/painted-church-gallery-extra";
-import { supplementalPaintedChurchGalleryBySlug } from "@/data/painted-church-gallery-supplemental";
-import { paintedChurchGalleryBySlug } from "@/data/painted-church-gallery";
+import { canonicalPaintedChurchArchivalImagesBySlug } from "@/data/painted-church-archival-image-index";
+import { canonicalPaintedChurchGalleryBySlug } from "@/data/painted-church-gallery-index";
 import { expandedPaintedChurches } from "@/data/painted-churches-expanded";
 import { buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
@@ -16,15 +13,8 @@ const pageUrl = `${siteUrl}${canonicalPath}`;
 const description = "Historic Texas Painted Church records paired with current rights-cleared photography, with archival provenance, image-rights status and a transparent church-by-church coverage backlog.";
 
 const rows = expandedPaintedChurches.map((church) => {
-  const archival = [...new Map([
-    ...paintedChurchArchivalImagesBySlug(church.slug),
-    ...expansionPaintedChurchArchivalImagesBySlug(church.slug),
-  ].map((item) => [item.url, item])).values()];
-  const current = [...new Map([
-    ...paintedChurchGalleryBySlug(church.slug),
-    ...extraPaintedChurchGalleryBySlug(church.slug),
-    ...supplementalPaintedChurchGalleryBySlug(church.slug),
-  ].map((item) => [item.sourceUrl, item])).values()];
+  const archival = canonicalPaintedChurchArchivalImagesBySlug(church.slug);
+  const current = canonicalPaintedChurchGalleryBySlug(church.slug);
   return { church, archival, current, paired: archival.length > 0 && current.length > 0 };
 });
 
