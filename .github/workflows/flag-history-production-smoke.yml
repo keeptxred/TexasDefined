@@ -113,14 +113,28 @@ jobs:
             failed=1
           fi
 
-          post_status texas-flag-indexing-signals pending 'Checking robots, canonicals and sitemap entries'
+          post_status texas-flag-indexing-signals pending 'Checking robots, canonicals, sitemap freshness and RSS discovery'
           indexing_ok=1
           if ! fetch_page '/robots.txt' "$workdir/robots.txt" || ! grep -Fq 'Sitemap: https://texasdefined.com/sitemap.xml' "$workdir/robots.txt"; then indexing_ok=0; fi
-          if ! fetch_page '/sitemap.xml' "$workdir/sitemap.xml" || ! grep -Fq "$origin$history" "$workdir/sitemap.xml" || ! grep -Fq "$origin$etiquette" "$workdir/sitemap.xml"; then indexing_ok=0; fi
-          if [[ -f "$workdir/history.html" ]] && ! grep -Fq 'https://texasdefined.com/article/history-of-the-texas-flag' "$workdir/history.html"; then indexing_ok=0; fi
+          if ! fetch_page '/sitemap.xml' "$workdir/sitemap.xml"; then
+            indexing_ok=0
+          else
+            grep -Fq "<loc>${origin}${history}</loc><lastmod>2026-08-20</lastmod>" "$workdir/sitemap.xml" || indexing_ok=0
+            grep -Fq "<loc>${origin}${etiquette}</loc><lastmod>2026-08-20</lastmod>" "$workdir/sitemap.xml" || indexing_ok=0
+            grep -Fq "<loc>${origin}/texas-history</loc><lastmod>2026-08-20</lastmod>" "$workdir/sitemap.xml" || indexing_ok=0
+            grep -Fq "<loc>${origin}/texas-symbols</loc><lastmod>2026-08-20</lastmod>" "$workdir/sitemap.xml" || indexing_ok=0
+          fi
+          if ! fetch_page '/rss.xml' "$workdir/rss.xml" \
+            || ! grep -Fq '<rss version="2.0"' "$workdir/rss.xml" \
+            || ! grep -Fq "$origin$history" "$workdir/rss.xml" \
+            || ! grep -Fq "$origin$etiquette" "$workdir/rss.xml"; then indexing_ok=0; fi
+          if [[ -f "$workdir/history.html" ]] \
+            && { ! grep -Fq 'https://texasdefined.com/article/history-of-the-texas-flag' "$workdir/history.html" \
+              || ! grep -Fq 'application/rss+xml' "$workdir/history.html" \
+              || ! grep -Fq '/rss.xml' "$workdir/history.html"; }; then indexing_ok=0; fi
           if [[ -f "$workdir/etiquette.html" ]] && ! grep -Fq 'https://texasdefined.com/article/texas-flag-etiquette-display-guide' "$workdir/etiquette.html"; then indexing_ok=0; fi
           if [[ "$indexing_ok" -eq 1 ]]; then
-            post_status texas-flag-indexing-signals success 'Robots, article canonicals and both sitemap entries verified'
+            post_status texas-flag-indexing-signals success 'Robots, canonicals, fresh sitemap dates and RSS discovery verified'
           else
             post_status texas-flag-indexing-signals failure 'Texas flag indexing-signal verification failed'
             failed=1
