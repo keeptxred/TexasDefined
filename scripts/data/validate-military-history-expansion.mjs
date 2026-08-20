@@ -6,6 +6,8 @@ const historyHubPath = 'src/routes/texas-history.tsx';
 const reciprocalPath = 'src/data/historic-site-evergreen-links.ts';
 const sourcingPath = 'docs/free-image-sourcing.md';
 const sitemapPath = 'src/routes/sitemap[.]xml.ts';
+const destinationsPath = 'src/data/military-history-destinations.ts';
+const preservedCatalogPath = 'src/data/destination-preserved-catalog.ts';
 
 const lazy = fs.readFileSync(lazyPath, 'utf8');
 const repositories = fs.readFileSync(repositoriesPath, 'utf8');
@@ -13,6 +15,8 @@ const historyHub = fs.readFileSync(historyHubPath, 'utf8');
 const reciprocal = fs.readFileSync(reciprocalPath, 'utf8');
 const sourcing = fs.readFileSync(sourcingPath, 'utf8');
 const sitemap = fs.readFileSync(sitemapPath, 'utf8');
+const destinations = fs.readFileSync(destinationsPath, 'utf8');
+const preservedCatalog = fs.readFileSync(preservedCatalogPath, 'utf8');
 const failures = [];
 
 const guides = [
@@ -88,6 +92,33 @@ for (const guide of guides) {
   if (guide.reciprocalHref && !reciprocal.includes(`href: "${guide.reciprocalHref}"`)) failures.push(`Historic-site reciprocal link missing: ${guide.slug}`);
 }
 
+const plannerDestinations = [
+  {
+    slug: 'palo-alto-battlefield-national-historical-park',
+    name: 'Palo Alto Battlefield National Historical Park',
+    officialUrl: 'https://www.nps.gov/paal/index.htm',
+    requiredTerms: ['category: "historic-sites"', 'nearestTown: "Brownsville"', 'county: "Cameron"', 'coordinates:', 'credit:'],
+  },
+  {
+    slug: 'texas-military-forces-museum',
+    name: 'Texas Military Forces Museum',
+    officialUrl: 'https://texasmilitaryforcesmuseum.org/',
+    requiredTerms: ['category: "historic-sites"', 'nearestTown: "Austin"', 'county: "Travis"', 'coordinates:', 'credit:'],
+  },
+];
+
+for (const destination of plannerDestinations) {
+  if (!destinations.includes(`slug: "${destination.slug}"`)) failures.push(`Trip Planner destination missing: ${destination.slug}`);
+  if (!destinations.includes(`name: "${destination.name}"`)) failures.push(`Trip Planner destination name missing: ${destination.name}`);
+  if (!destinations.includes(`officialUrl: "${destination.officialUrl}"`)) failures.push(`Trip Planner destination official source missing: ${destination.slug}`);
+  for (const marker of destination.requiredTerms) if (!destinations.includes(marker)) failures.push(`Trip Planner destination contract missing '${marker}': ${destination.slug}`);
+}
+
+for (const marker of [
+  'import { militaryHistoryDestinations } from "./military-history-destinations";',
+  'militaryHistoryDestinations,',
+]) if (!preservedCatalog.includes(marker)) failures.push(`Preserved destination catalog is missing military Trip Planner integration: ${marker}`);
+
 for (const marker of [
   'militaryHistoryExpansionStubs',
   'loadMilitaryHistoryExpansionArticle',
@@ -128,4 +159,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Military history expansion validation passed: ${guides.length} source-backed, lazy-loaded guides retain substantive depth, explicit History-hub discovery, article sitemap publication, internal linking and archival-image sourcing rules.`);
+console.log(`Military history expansion validation passed: ${guides.length} source-backed, lazy-loaded guides and ${plannerDestinations.length} preserved Trip Planner destinations retain substantive depth, explicit History-hub discovery, article sitemap publication, internal linking and archival-image sourcing rules.`);
