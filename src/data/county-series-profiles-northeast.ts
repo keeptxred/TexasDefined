@@ -55,4 +55,10 @@ export const COUNTY_SERIES_PROFILES_NORTHEAST: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/franklin-county-mount-vernon-cypress-springs-northeast-texas")
       .then((module) => module.franklinCountyMountVernonCypressSpringsNortheastTexasArticle),
   },
+  {
+    countySlug: "titus",
+    articleSlug: "titus-county-mount-pleasant-caddo-railroads-lake-bob-sandlin-northeast-texas",
+    loadArticle: () => import("@/data/fixtures/titus-county-mount-pleasant-caddo-railroads-lake-bob-sandlin-northeast-texas")
+      .then((module) => module.titusCountyMountPleasantCaddoRailroadsLakeBobSandlinNortheastTexasArticle),
+  },
 ];
