@@ -181,4 +181,10 @@ export const COUNTY_SERIES_PROFILES_CONTINUED: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/delta-county-cooper-sulphur-rivers-cooper-lake-blackland-prairie-texas")
       .then((module) => module.deltaCountyCooperSulphurRiversCooperLakeBlacklandPrairieArticle),
   },
+  {
+    countySlug: "hopkins",
+    articleSlug: "hopkins-county-sulphur-springs-dairy-railroads-blackland-prairie-texas",
+    loadArticle: () => import("@/data/fixtures/hopkins-county-sulphur-springs-dairy-railroads-blackland-prairie-texas")
+      .then((module) => module.hopkinsCountySulphurSpringsDairyRailroadsBlacklandPrairieArticle),
+  },
 ];
