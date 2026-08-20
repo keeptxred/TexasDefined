@@ -6,8 +6,10 @@ on:
     paths:
       - "src/routes/explore.painted-churches*"
       - "src/routes/painted-churches*"
+      - "src/routes/explore.trip-planner.tsx"
       - "src/data/painted-church*"
       - "src/components/editorial/PaintedChurch*"
+      - "src/components/content/CountyGuideSections.tsx"
       - "src/components/authority/CitationCollectionTrustRouter.tsx"
       - "src/lib/public-routes.ts"
       - "src/routes/sitemap-explore[.]xml.ts"
@@ -17,13 +19,16 @@ on:
       - "scripts/data/validate-painted-churches-seo.mjs"
       - "scripts/data/validate-painted-church-map.mjs"
       - "scripts/data/validate-painted-church-search-intents.mjs"
+      - "scripts/data/validate-painted-church-completion.mjs"
       - ".github/workflows/painted-churches-seo.yml"
   pull_request:
     paths:
       - "src/routes/explore.painted-churches*"
       - "src/routes/painted-churches*"
+      - "src/routes/explore.trip-planner.tsx"
       - "src/data/painted-church*"
       - "src/components/editorial/PaintedChurch*"
+      - "src/components/content/CountyGuideSections.tsx"
       - "src/components/authority/CitationCollectionTrustRouter.tsx"
       - "src/lib/public-routes.ts"
       - "src/routes/sitemap-explore[.]xml.ts"
@@ -33,6 +38,7 @@ on:
       - "scripts/data/validate-painted-churches-seo.mjs"
       - "scripts/data/validate-painted-church-map.mjs"
       - "scripts/data/validate-painted-church-search-intents.mjs"
+      - "scripts/data/validate-painted-church-completion.mjs"
       - ".github/workflows/painted-churches-seo.yml"
 
 permissions:
@@ -50,5 +56,7 @@ jobs:
         run: node scripts/data/validate-painted-churches-seo.mjs
       - name: Validate Painted Churches search-intent coverage
         run: node scripts/data/validate-painted-church-search-intents.mjs
-      - name: Validate Painted Churches interactive map and 24-church authority contract
+      - name: Validate Painted Churches interactive map and 27-church authority contract
         run: node scripts/data/validate-painted-church-map.mjs
+      - name: Validate Painted Churches completion surfaces
+        run: node scripts/data/validate-painted-church-completion.mjs
