@@ -181,19 +181,14 @@ jobs:
           origin='https://texasdefined.com'
           workdir="$(mktemp -d)"
           trap 'rm -rf "$workdir"' EXIT
-
           fetch_assert() {
             local label="$1" path="$2" needle="$3"
             local out="$workdir/${label}.html"
             local attempt
             for attempt in 1 2 3 4 5 6; do
               echo "[$label] attempt $attempt: ${origin}${path}"
-              if curl --fail-with-body --silent --show-error --location --max-time 30 \
-                "${origin}${path}?verify=${GITHUB_SHA}-${GITHUB_RUN_ID}-${attempt}" -o "$out"; then
-                if grep -Fq "$needle" "$out"; then
-                  echo "[$label] production content verified: $needle"
-                  return 0
-                fi
+              if curl --fail-with-body --silent --show-error --location --max-time 30 "${origin}${path}?verify=${GITHUB_SHA}-${GITHUB_RUN_ID}-${attempt}" -o "$out"; then
+                if grep -Fq "$needle" "$out"; then echo "[$label] production content verified: $needle"; return 0; fi
                 echo "[$label] fetched successfully but expected content is not live yet: $needle"
               fi
               sleep 5
@@ -203,7 +198,6 @@ jobs:
             echo >&2
             return 1
           }
-
           fetch_assert homepage '/' 'Texas Defined'
           fetch_assert moving-pillar '/article/moving-to-texas-what-nobody-tells-you' 'The quick answer: what should you know before moving to Texas?'
           fetch_assert flag-history '/article/history-of-the-texas-flag' 'The Texas Flag: A History of the Lone Star'
@@ -217,14 +211,15 @@ jobs:
           fetch_assert road-trips '/explore/road-trips' 'Painted Churches routes'
           fetch_assert small-towns '/explore/small-towns' 'Painted Churches'
           fetch_assert spanish-texas '/article/spanish-texas-military-battle-medina' 'Military Texas Before the Republic'
+          fetch_assert mexican-texas '/article/mexican-texas-military-history' 'Military in Mexican Texas'
           fetch_assert buffalo-soldiers '/article/buffalo-soldiers-texas-frontier-guide' 'Buffalo Soldiers in Texas'
           fetch_assert red-river-war '/article/texas-red-river-war-guide' 'The Red River War in Texas'
           fetch_assert spanish-american-war '/article/texas-spanish-american-war-guide' 'Texas and the Spanish-American War'
           fetch_assert world-war-i '/article/texas-world-war-i-history-guide' 'Texas in World War I'
           fetch_assert republic-navy '/article/republic-of-texas-navy-history' 'The Republic of Texas Navy'
           fetch_assert cold-war '/article/texas-cold-war-military-history' 'Cold War Texas'
-          fetch_assert texas-history-military '/texas-history' 'Military Texas before the Republic'
-
+          fetch_assert recent-wars '/article/texas-recent-wars-military-history' 'Texas in Recent Wars'
+          fetch_assert texas-history-military '/texas-history' 'Military in Mexican Texas'
           echo 'TexasDefined production, core authority clusters and military-history surfaces are live.'
       - name: Publish live verification success
         if: ${{ steps.live.outcome == 'success' }}

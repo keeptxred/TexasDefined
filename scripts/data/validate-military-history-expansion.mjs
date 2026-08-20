@@ -20,44 +20,19 @@ const preservedCatalog = fs.readFileSync(preservedCatalogPath, 'utf8');
 const failures = [];
 
 const guides = [
-  {
-    slug: 'spanish-texas-military-battle-medina',
-    path: 'src/data/fixtures/spanish-texas-military-battle-medina.ts',
-    exportName: 'spanishTexasMilitaryBattleMedinaArticle',
-    sourceName: 'Texas Historical Commission',
-    sourceUrl: 'https://thc.texas.gov/learn/military-history/military-spanish-texas',
-    requiredTerms: ['presidio', 'Gutiérrez-Magee', 'Battle of Medina', 'Joaquín de Arredondo', 'San Antonio', 'Indigenous'],
-  },
-  {
-    slug: 'texas-us-mexican-war-palo-alto-guide', path: 'src/data/fixtures/texas-us-mexican-war-palo-alto-guide.ts', exportName: 'texasUsMexicanWarPaloAltoGuideArticle', sourceName: 'National Park Service', sourceUrl: 'https://www.nps.gov/paal/learn/historyculture/index.htm', reciprocalHref: '/article/texas-us-mexican-war-palo-alto-guide', requiredTerms: ['Palo Alto', 'Resaca de la Palma', 'Rio Grande', 'Treaty of Guadalupe Hidalgo'],
-  },
-  {
-    slug: 'buffalo-soldiers-texas-frontier-guide', path: 'src/data/fixtures/buffalo-soldiers-texas-frontier-guide.ts', exportName: 'buffaloSoldiersTexasFrontierGuideArticle', sourceName: 'National Park Service', sourceUrl: 'https://www.nps.gov/foda/learn/historyculture/buffalo-soldiers.htm', reciprocalHref: '/article/buffalo-soldiers-texas-frontier-guide', requiredTerms: ['9th Cavalry', '10th Cavalry', '24th Infantry', '25th Infantry', 'Fort Davis', 'Fort McKavett', 'Fort Lancaster', 'Native'],
-  },
-  {
-    slug: 'texas-red-river-war-guide', path: 'src/data/fixtures/texas-red-river-war-guide.ts', exportName: 'texasRedRiverWarGuideArticle', sourceName: 'Texas Historical Commission', sourceUrl: 'https://thc.texas.gov/learn/archeological-spotlight/red-river-war-battle-sites-project', reciprocalHref: '/article/texas-red-river-war-guide', requiredTerms: ['Adobe Walls', 'Palo Duro Canyon', 'Quanah Parker', 'Comanche', 'Kiowa', 'Southern Cheyenne', 'bison', 'archeological'],
-  },
-  {
-    slug: 'republic-of-texas-navy-history', path: 'src/data/fixtures/republic-of-texas-navy-history.ts', exportName: 'republicOfTexasNavyHistoryArticle', sourceName: 'Texas State Library and Archives Commission', sourceUrl: 'https://www.tsl.texas.gov/exhibits/navy/index.html', reciprocalHref: '/article/republic-of-texas-navy-history', requiredTerms: ['Liberty', 'Invincible', 'Independence', 'Brutus', 'Austin', 'Wharton', 'Campeche', 'Edwin Ward Moore'],
-  },
-  {
-    slug: 'texas-spanish-american-war-guide', path: 'src/data/fixtures/texas-spanish-american-war-guide.ts', exportName: 'texasSpanishAmericanWarGuideArticle', sourceName: 'Texas Historical Commission', sourceUrl: 'https://thc.texas.gov/learn/military-history/texas-spanish-american-war', requiredTerms: ['Rough Riders', 'Texas Volunteer Guard', '1st Texas Volunteer Infantry', '33rd United States Volunteer Infantry', 'Cuba', 'Philippine'],
-  },
-  {
-    slug: 'texas-world-war-i-history-guide', path: 'src/data/fixtures/texas-world-war-i-history-guide.ts', exportName: 'texasWorldWarIHistoryGuideArticle', sourceName: 'Texas Historical Commission', sourceUrl: 'https://thc.texas.gov/learn/military-history/texas-world-war-i', requiredTerms: ['Camp Logan', '36th Infantry Division', '90th Infantry Division', 'Kelly Field', 'African American', 'Marcelino Serna', 'influenza'],
-  },
-  {
-    slug: 'texas-national-guard-history', path: 'src/data/fixtures/texas-national-guard-history.ts', exportName: 'texasNationalGuardHistoryArticle', sourceName: 'Texas Military Department', sourceUrl: 'https://tmd.texas.gov/texas-military-department-history', requiredTerms: ['Camp Mabry', '36th', 'Texas State Guard', '1903'],
-  },
-  {
-    slug: 'san-antonio-military-aviation-history', path: 'src/data/fixtures/san-antonio-military-aviation-history.ts', exportName: 'sanAntonioMilitaryAviationHistoryArticle', sourceName: 'Joint Base San Antonio', sourceUrl: 'https://www.jbsa.mil/Information/JBSA-History-Fact-Sheets/', requiredTerms: ['Kelly Field', 'Brooks Field', 'Randolph', 'Lackland', 'Fort Sam Houston'],
-  },
-  {
-    slug: 'texas-world-war-ii-bases-pow-camps', path: 'src/data/fixtures/texas-world-war-ii-bases-pow-camps.ts', exportName: 'texasWorldWarIIBasesPowCampsArticle', sourceName: 'Texas Historical Commission', sourceUrl: 'https://thc.texas.gov/learn/military-history/texas-world-war-ii', reciprocalHref: '/article/texas-world-war-ii-bases-pow-camps', requiredTerms: ['Camp Hood', 'Camp Swift', 'Camp Wolters', 'prisoner-of-war', 'Crystal City'],
-  },
-  {
-    slug: 'texas-cold-war-military-history', path: 'src/data/fixtures/texas-cold-war-military-history.ts', exportName: 'texasColdWarMilitaryHistoryArticle', sourceName: 'Texas Historical Commission', sourceUrl: 'https://thc.texas.gov/learn/military-history/texas-cold-war', reciprocalHref: '/article/texas-cold-war-military-history', reciprocalSource: 'military-destinations', requiredTerms: ['Carswell', 'B-36', 'Dyess', 'Atlas F', 'Pantex', 'Laughlin', 'U-2', 'Nike'],
-  },
+  { slug: 'spanish-texas-military-battle-medina', path: 'src/data/fixtures/spanish-texas-military-battle-medina.ts', exportName: 'spanishTexasMilitaryBattleMedinaArticle', sourceName: 'Texas Historical Commission', sourceUrl: 'https://thc.texas.gov/learn/military-history/military-spanish-texas', requiredTerms: ['presidio', 'Gutiérrez-Magee', 'Battle of Medina', 'Joaquín de Arredondo', 'San Antonio', 'Indigenous'] },
+  { slug: 'mexican-texas-military-history', path: 'src/data/fixtures/mexican-texas-military-history.ts', exportName: 'mexicanTexasMilitaryHistoryArticle', sourceName: 'Texas Historical Commission', sourceUrl: 'https://thc.texas.gov/learn/military-history/military-mexican-texas', requiredTerms: ['Coahuila y Tejas', 'Fredonian Rebellion', 'Law of April 6, 1830', 'Anahuac', 'Turtle Bayou Resolutions', 'Gonzales', 'Texas Rangers'] },
+  { slug: 'texas-us-mexican-war-palo-alto-guide', path: 'src/data/fixtures/texas-us-mexican-war-palo-alto-guide.ts', exportName: 'texasUsMexicanWarPaloAltoGuideArticle', sourceName: 'National Park Service', sourceUrl: 'https://www.nps.gov/paal/learn/historyculture/index.htm', reciprocalHref: '/article/texas-us-mexican-war-palo-alto-guide', requiredTerms: ['Palo Alto', 'Resaca de la Palma', 'Rio Grande', 'Treaty of Guadalupe Hidalgo'] },
+  { slug: 'buffalo-soldiers-texas-frontier-guide', path: 'src/data/fixtures/buffalo-soldiers-texas-frontier-guide.ts', exportName: 'buffaloSoldiersTexasFrontierGuideArticle', sourceName: 'National Park Service', sourceUrl: 'https://www.nps.gov/foda/learn/historyculture/buffalo-soldiers.htm', reciprocalHref: '/article/buffalo-soldiers-texas-frontier-guide', requiredTerms: ['9th Cavalry', '10th Cavalry', '24th Infantry', '25th Infantry', 'Fort Davis', 'Fort McKavett', 'Fort Lancaster', 'Native'] },
+  { slug: 'texas-red-river-war-guide', path: 'src/data/fixtures/texas-red-river-war-guide.ts', exportName: 'texasRedRiverWarGuideArticle', sourceName: 'Texas Historical Commission', sourceUrl: 'https://thc.texas.gov/learn/archeological-spotlight/red-river-war-battle-sites-project', reciprocalHref: '/article/texas-red-river-war-guide', requiredTerms: ['Adobe Walls', 'Palo Duro Canyon', 'Quanah Parker', 'Comanche', 'Kiowa', 'Southern Cheyenne', 'bison', 'archeological'] },
+  { slug: 'republic-of-texas-navy-history', path: 'src/data/fixtures/republic-of-texas-navy-history.ts', exportName: 'republicOfTexasNavyHistoryArticle', sourceName: 'Texas State Library and Archives Commission', sourceUrl: 'https://www.tsl.texas.gov/exhibits/navy/index.html', reciprocalHref: '/article/republic-of-texas-navy-history', requiredTerms: ['Liberty', 'Invincible', 'Independence', 'Brutus', 'Austin', 'Wharton', 'Campeche', 'Edwin Ward Moore'] },
+  { slug: 'texas-spanish-american-war-guide', path: 'src/data/fixtures/texas-spanish-american-war-guide.ts', exportName: 'texasSpanishAmericanWarGuideArticle', sourceName: 'Texas Historical Commission', sourceUrl: 'https://thc.texas.gov/learn/military-history/texas-spanish-american-war', requiredTerms: ['Rough Riders', 'Texas Volunteer Guard', '1st Texas Volunteer Infantry', '33rd United States Volunteer Infantry', 'Cuba', 'Philippine'] },
+  { slug: 'texas-world-war-i-history-guide', path: 'src/data/fixtures/texas-world-war-i-history-guide.ts', exportName: 'texasWorldWarIHistoryGuideArticle', sourceName: 'Texas Historical Commission', sourceUrl: 'https://thc.texas.gov/learn/military-history/texas-world-war-i', requiredTerms: ['Camp Logan', '36th Infantry Division', '90th Infantry Division', 'Kelly Field', 'African American', 'Marcelino Serna', 'influenza'] },
+  { slug: 'texas-national-guard-history', path: 'src/data/fixtures/texas-national-guard-history.ts', exportName: 'texasNationalGuardHistoryArticle', sourceName: 'Texas Military Department', sourceUrl: 'https://tmd.texas.gov/texas-military-department-history', requiredTerms: ['Camp Mabry', '36th', 'Texas State Guard', '1903'] },
+  { slug: 'san-antonio-military-aviation-history', path: 'src/data/fixtures/san-antonio-military-aviation-history.ts', exportName: 'sanAntonioMilitaryAviationHistoryArticle', sourceName: 'Joint Base San Antonio', sourceUrl: 'https://www.jbsa.mil/Information/JBSA-History-Fact-Sheets/', requiredTerms: ['Kelly Field', 'Brooks Field', 'Randolph', 'Lackland', 'Fort Sam Houston'] },
+  { slug: 'texas-world-war-ii-bases-pow-camps', path: 'src/data/fixtures/texas-world-war-ii-bases-pow-camps.ts', exportName: 'texasWorldWarIIBasesPowCampsArticle', sourceName: 'Texas Historical Commission', sourceUrl: 'https://thc.texas.gov/learn/military-history/texas-world-war-ii', reciprocalHref: '/article/texas-world-war-ii-bases-pow-camps', requiredTerms: ['Camp Hood', 'Camp Swift', 'Camp Wolters', 'prisoner-of-war', 'Crystal City'] },
+  { slug: 'texas-cold-war-military-history', path: 'src/data/fixtures/texas-cold-war-military-history.ts', exportName: 'texasColdWarMilitaryHistoryArticle', sourceName: 'Texas Historical Commission', sourceUrl: 'https://thc.texas.gov/learn/military-history/texas-cold-war', reciprocalHref: '/article/texas-cold-war-military-history', reciprocalSource: 'military-destinations', requiredTerms: ['Carswell', 'B-36', 'Dyess', 'Atlas F', 'Pantex', 'Laughlin', 'U-2', 'Nike'] },
+  { slug: 'texas-recent-wars-military-history', path: 'src/data/fixtures/texas-recent-wars-military-history.ts', exportName: 'texasRecentWarsMilitaryHistoryArticle', sourceName: 'Texas Historical Commission', sourceUrl: 'https://thc.texas.gov/learn/military-history/texas-recent-wars', requiredTerms: ['Operation Desert Storm', 'Yugoslavia', 'September 11', 'Operation Enduring Freedom', 'Operation Iraqi Freedom', 'BRAC', '36th Infantry Division'] },
 ];
 
 for (const guide of guides) {
@@ -87,7 +62,7 @@ for (const guide of guides) {
   }
 }
 
-for (const href of ['/article/spanish-texas-military-battle-medina', '/article/texas-spanish-american-war-guide', '/article/texas-world-war-i-history-guide']) {
+for (const href of ['/article/spanish-texas-military-battle-medina', '/article/mexican-texas-military-history', '/article/texas-spanish-american-war-guide', '/article/texas-world-war-i-history-guide', '/article/texas-recent-wars-military-history']) {
   if (!lazy.includes(`href: "${href}"`)) failures.push(`New military guide lacks reciprocal article discovery: ${href}`);
 }
 
@@ -105,7 +80,7 @@ for (const destination of plannerDestinations) {
 
 for (const marker of ['import { militaryHistoryDestinations } from "./military-history-destinations";', 'militaryHistoryDestinations,']) if (!preservedCatalog.includes(marker)) failures.push(`Preserved destination catalog is missing military Trip Planner integration: ${marker}`);
 for (const marker of ['militaryHistoryExpansionStubs', 'loadMilitaryHistoryExpansionArticle', '...militaryHistoryExpansionStubs', 'const militaryHistoryArticle = await loadMilitaryHistoryExpansionArticle']) if (!repositories.includes(marker)) failures.push(`Article repository is missing military expansion contract: ${marker}`);
-for (const marker of ['export const militaryHistoryExpansionStubs', 'export async function loadMilitaryHistoryExpansionArticle', '/destination/palo-alto-battlefield-national-historical-park', '/destination/texas-military-forces-museum', '/article/buffalo-soldiers-texas-frontier-guide', '/article/texas-red-river-war-guide', '/article/republic-of-texas-navy-history', '/article/texas-cold-war-military-history', '/article/battleship-texas-bb-35-history-restoration', '/article/spanish-texas-military-battle-medina', '/article/texas-spanish-american-war-guide', '/article/texas-world-war-i-history-guide']) if (!lazy.includes(marker)) failures.push(`Lazy military expansion registry or supplemental linking is missing: ${marker}`);
+for (const marker of ['export const militaryHistoryExpansionStubs', 'export async function loadMilitaryHistoryExpansionArticle', '/destination/palo-alto-battlefield-national-historical-park', '/destination/texas-military-forces-museum', '/article/buffalo-soldiers-texas-frontier-guide', '/article/texas-red-river-war-guide', '/article/republic-of-texas-navy-history', '/article/texas-cold-war-military-history', '/article/battleship-texas-bb-35-history-restoration', '/article/spanish-texas-military-battle-medina', '/article/mexican-texas-military-history', '/article/texas-spanish-american-war-guide', '/article/texas-world-war-i-history-guide', '/article/texas-recent-wars-military-history']) if (!lazy.includes(marker)) failures.push(`Lazy military expansion registry or supplemental linking is missing: ${marker}`);
 for (const marker of ['The Portal to Texas History', 'Texas Digital Archive', 'Library of Congress', 'Wikimedia Commons', 'PICRYL', 'Pexels', 'No known restrictions', 'Historical image workflow']) if (!sourcing.includes(marker)) failures.push(`Historical image sourcing policy is missing: ${marker}`);
 for (const marker of ['platform.articles.list(scope)', 'articles.filter((article) => !isLegacyCountySeriesArticle(article.slug)).map((article) => ({ path: `/article/${article.slug}`']) if (!sitemap.includes(marker)) failures.push(`Article sitemap discovery contract missing: ${marker}`);
 for (const marker of ['historicAuthorityGuides', '{historicAuthorityGuides.length} routes into the statewide collection', 'Plan history by story', 'battleship-texas-bb-35-history-restoration']) if (!historyHub.includes(marker)) failures.push(`History hub presentation contract missing: ${marker}`);
