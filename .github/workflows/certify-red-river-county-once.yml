@@ -113,3 +113,5 @@ jobs:
           case "$hero_mime" in image/jpeg|image/png|image/webp) ;; *) echo "Live hero MIME invalid: $hero_mime" >&2; exit 1;; esac
           test "$(wc -c < "$workdir/hero")" -gt 50000
           echo "PASS county=$county structured=yes editorial=yes legacy=$legacy_status hero=$hero_status mime=$hero_mime target=$TARGET_SHA"
+
+# Temporary PR-only change to make the certification run observable; never merge.
