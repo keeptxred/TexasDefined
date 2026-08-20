@@ -41,6 +41,16 @@ const expansionArchival: PaintedChurchArchivalImageReference[] = [
     rightsNote: "Exact church-specific archival evidence. Texas Defined links the Portal item but does not republish it without an item-level reuse grant.",
   },
   {
+    slug: "fredericksburg-st-marys-catholic-church",
+    label: "St. Mary's Fredericksburg interior detail — 1980 THC National Register survey",
+    source: "The Portal to Texas History / Texas Historical Commission",
+    url: "https://texashistory.unt.edu/ark:/67531/metapth943229/",
+    subject: "Exact interior-detail photograph of St. Mary's Catholic Church at 306 W. San Antonio Street in Fredericksburg, created by the Texas Historical Commission on October 1, 1980 during National Register documentation.",
+    credit: "Texas Historical Commission",
+    rightsStatus: "item-review-required",
+    rightsNote: "The Portal identifies the exact church and THC National Register provenance. Texas Defined links the primary-source item and pairs it with a separately licensed modern interior without assuming the THC photograph is freely reusable.",
+  },
+  {
     slug: "anderson-st-stanislaus-kostka",
     label: "Official parish old-church photo albums",
     source: "St. Stanislaus Kostka Catholic Church — Anderson",
