@@ -1,0 +1,71 @@
+import type { Article, ArticleBlock } from "../types";
+
+const p = (text: string): ArticleBlock => ({ type: "paragraph", text });
+const h = (text: string): ArticleBlock => ({ type: "heading", text });
+const list = (...items: string[]): ArticleBlock => ({ type: "list", items });
+
+export const texasCattleRanchingHistoryGuideArticle: Article = {
+  id: "evergreen-texas-cattle-ranching-history-guide",
+  brandId: "texasdefined",
+  slug: "texas-cattle-ranching-history-guide",
+  title: "Texas Cattle History: Longhorns, Cattle Trails and Goodnight Ranch",
+  dek: "Connect the Official State Longhorn Herd, Fort Griffin and Goodnight Ranch to the cattle drives, ranch businesses, trail towns and conservation stories that turned cattle into one of Texas' defining symbols.",
+  category: "texas-history",
+  hero: {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Charles_Goodnight_Ranch_House.jpg?width=1600",
+    alt: "Charles and Mary Ann Goodnight Ranch House in Armstrong County, Texas",
+    width: 1600,
+    height: 1200,
+    credit: "Pi3.124 · CC BY-SA 4.0 · Wikimedia Commons",
+  },
+  authorId: "a-marisol",
+  publishedAt: "2026-08-19",
+  readingMinutes: 14,
+  tags: ["texas cattle history", "texas longhorns", "cattle trails", "goodnight ranch", "fort griffin", "charles goodnight", "texas ranching"],
+  featured: true,
+  sourceName: "Texas Historical Commission",
+  sourceUrl: "https://thc.texas.gov/state-historic-sites/official-state-texas-longhorn-herd/state-texas-longhorn-herd-history",
+  internalLinks: [
+    { href: "/destination/official-texas-longhorn-herd", label: "Official State of Texas Longhorn Herd", description: "See the preserved state herd at Fort Griffin and connect the breed to the cattle-drive era." },
+    { href: "/destination/fort-griffin", label: "Fort Griffin", description: "Read the frontier fort, cattle-trail and town story in the same landscape that now houses the state herd." },
+    { href: "/destination/goodnight-ranch", label: "Goodnight Ranch", description: "Follow Charles and Mary Ann Goodnight into Panhandle ranching, cattle drives, business and bison conservation." },
+    { href: "/article/texas-frontier-forts-road-trip", label: "Texas frontier forts road trip", description: "Place Fort Griffin inside the larger Army-post network that overlapped with cattle and settlement routes." },
+    { href: "/explore/historic-sites", label: "Texas historic sites", description: "Browse the statewide historic-site collection." },
+  ],
+  relatedCollections: [],
+  relatedDestinations: ["official-texas-longhorn-herd", "fort-griffin", "goodnight-ranch"],
+  body: [
+    p("Texas cattle history is bigger than the image of a cowboy pushing longhorns north. The story begins with cattle introduced by Spanish settlers, expands through open-range herds and post-Civil War trail drives, and then changes again as railroads, fenced ranches, new breeds and commercial ranching reorganized the industry."),
+    p("Three Texas historic places make that evolution unusually tangible. The Official State of Texas Longhorn Herd preserves the animal at the center of the trail-driving era. Fort Griffin connects cattle routes to a frontier military post and the town that grew around it. Goodnight Ranch carries the story into large-scale Panhandle ranching, business innovation and conservation."),
+    h("Why the Texas Longhorn mattered"),
+    p("Texas longhorns descended from cattle introduced into the region by Spanish explorers and settlers. Over generations, escaped and free-ranging cattle adapted to heat, drought, sparse forage, predators and long distances. Those traits helped make the breed suited to an era when cattle might travel hundreds of miles on foot before reaching a railhead or market."),
+    p("After the Civil War, cattle represented one of the resources Texas could move to markets outside the state. The Texas Historical Commission notes that millions of cattle were driven north during the great trail-driving decades. The drives connected South and Central Texas herds to railroads and buyers farther north, helping create the national image of the Texas cowboy."),
+    h("Fort Griffin: where frontier and cattle history overlap"),
+    p("Fort Griffin was established by the U.S. Army in 1867, just as the cattle-drive era accelerated. Its location placed military activity, travelers, merchants, ranchers and trail herds in the same region. The nearby civilian settlement became known for the rough commercial life that followed a frontier post."),
+    p("The Great Western Cattle Trail passed through the area, so Fort Griffin is useful precisely because it refuses to separate military expansion from cattle history. Army posts needed supplies and transportation. Ranching expanded across the same plains. Towns grew where people, animals, freight and money converged."),
+    p("Today Fort Griffin is also the permanent home of the Official State of Texas Longhorn Herd. That pairing turns a preserved breed into interpretation rather than decoration: visitors can see animals resembling the cattle that once moved through the same broader landscape."),
+    h("The Official State Longhorn Herd: preserving the breed"),
+    p("By the early twentieth century, traditional longhorns had become much less common as ranchers adopted other breeds and modern production systems. Preservationists including J. Frank Dobie, Sid Richardson and Graves Peeler helped assemble animals that reflected the older Texas type."),
+    p("The state herd moved through several Texas park locations before Fort Griffin was selected as its permanent home in 1948. The Legislature formally recognized the State of Texas Longhorn Herd in 1969, and herd managers have continued breeding with historical type in mind."),
+    p("That history makes the herd a preservation project in the same sense that a historic house or battlefield is a preservation project. The resource happens to be alive, and its genetics, appearance and management carry the interpretive burden."),
+    h("Charles Goodnight: from trail driver to Panhandle rancher"),
+    p("Charles Goodnight represents the shift from trail driving into large ranch enterprises. In 1866 he and Oliver Loving drove cattle toward New Mexico along the route later known as the Goodnight-Loving Trail. Goodnight also adapted a wagon into the chuckwagon, creating a mobile kitchen and supply center suited to long cattle drives."),
+    p("In the 1870s Goodnight moved into the Texas Panhandle and partnered with John Adair to establish the JA Ranch. The enterprise grew to enormous scale in the Palo Duro Canyon region, reflecting a different phase of cattle history: organized ranch capital, controlled range, breeding decisions and large permanent operations rather than only seasonal trail movement."),
+    p("Goodnight later established his own operation in Armstrong County and built the ranch house preserved today. The site connects business history to the domestic world Charles shared with Mary Ann Goodnight, who was a ranch partner, educator and an important force in preserving Southern Plains bison."),
+    h("Cattle, bison and conservation"),
+    p("Ranching history and wildlife history overlap at Goodnight Ranch. As wild bison populations collapsed across the Southern Plains, Mary Ann encouraged preservation of a domestic bison herd. Descendants of the Goodnights' herd remain part of the state's conservation story."),
+    p("That makes Goodnight a more useful historical figure when viewed beyond cowboy mythology. His career involved cattle drives, military scouting, ranch finance, breeding experiments, land, settlement and changing relationships with Native people and wildlife. Mary Ann's work adds education, household management, ranch partnership and conservation to the same story."),
+    h("How railroads and fencing changed the cattle world"),
+    p("The classic cattle-drive era did not last forever. Railroads extended deeper into Texas, barbed wire divided open range, markets changed and ranchers increasingly managed cattle within fenced properties. Trail towns and long-distance drives lost some of their economic necessity."),
+    p("The result was not the end of Texas ranching but a transition. Ranches became more fixed, breeding more deliberate and transportation more closely tied to rail and later highways. The cowboy remained a working occupation, but the economic system around the cowboy changed."),
+    h("A practical cattle-history route"),
+    list(
+      "Fort Griffin: begin with the Army post, cattle-trail landscape and the Official State Longhorn Herd in one stop.",
+      "Official State Longhorn Herd: treat the animals as a living preservation collection rather than simply a photo opportunity.",
+      "Goodnight Ranch: continue northwest into the Panhandle for Goodnight-Loving Trail history, JA Ranch context, the chuckwagon story and bison conservation.",
+      "Palo Duro Canyon extension: use the landscape to understand why large-scale Panhandle ranching developed where it did."
+    ),
+    p("The distances are too large for a single casual day trip, but that is part of the lesson. Cattle history is a geography story. Markets, water, grass, military roads, railheads and open land determined where herds moved and where ranch businesses could survive."),
+    p("Seen together, the longhorn herd, Fort Griffin and Goodnight Ranch turn a familiar Texas symbol into a much richer story about animals, labor, markets, migration, technology and conservation. The cattle industry did not simply create cowboy imagery; it helped reorganize the state's economy and landscape."),
+  ],
+};
