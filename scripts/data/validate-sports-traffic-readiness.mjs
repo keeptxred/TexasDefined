@@ -1,16 +1,22 @@
 import fs from 'node:fs/promises';
 
 const read = (file) => fs.readFile(file, 'utf8');
-const [migration, server, functions, tracker, quickAnswers, admin, adminNav, sponsorship] = await Promise.all([
+const [migration, server, functions, tracker, quickAnswers, adminRoute, adminLazy, adminNav, sponsorship] = await Promise.all([
   read('supabase/migrations/20260814143000_add_sports_venue_traffic_readiness_metrics.sql'),
   read('src/data/sports-traffic.server.ts'),
   read('src/data/sports-traffic.functions.ts'),
   read('src/components/sports/SportsTrafficTracker.tsx'),
   read('src/components/sports/SportsVenueQuickAnswers.tsx'),
   read('src/routes/admin.sports-traffic.tsx'),
+  read('src/routes/admin.sports-traffic.lazy.tsx'),
   read('src/routes/admin.tsx'),
   read('src/data/sports-sponsorship.server.ts'),
 ]);
+
+// TanStack file routes intentionally split head/loader metadata from the lazy UI.
+// Audit the complete route surface so performance-oriented lazy loading does not
+// create a false negative while preserving every readiness/privacy requirement.
+const admin = `${adminRoute}\n${adminLazy}`;
 
 const errors = [];
 const assert = (condition, message) => { if (!condition) errors.push(message); };
@@ -56,6 +62,7 @@ assert(quickAnswers.includes('SportsTrafficTracker'), 'All venue guides must inh
 
 for (const marker of [
   "createFileRoute('/admin/sports-traffic')",
+  "createLazyFileRoute('/admin/sports-traffic')",
   'noindex,nofollow,noarchive',
   'monthlyPageviewTarget',
   'venuePageviewTarget',
