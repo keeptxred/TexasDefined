@@ -79,4 +79,10 @@ export const COUNTY_SERIES_PROFILES_ROLLING_PLAINS: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/jones-county-anson-stamford-fort-phantom-rolling-plains-texas")
       .then((module) => module.jonesCountyAnsonStamfordFortPhantomRollingPlainsTexasArticle),
   },
+  {
+    countySlug: "shackelford",
+    articleSlug: "shackelford-county-albany-fort-griffin-clear-fork-texas",
+    loadArticle: () => import("@/data/fixtures/shackelford-county-albany-fort-griffin-clear-fork-texas")
+      .then((module) => module.shackelfordCountyAlbanyFortGriffinClearForkTexasArticle),
+  },
 ];
