@@ -14,6 +14,7 @@ on:
       - 'tsconfig*.json'
       - 'scripts/data/validate-painted-church*.mjs'
       - 'scripts/data/validate-texas-flag-authority.mjs'
+      - 'scripts/data/validate-military-history-expansion.mjs'
       - 'scripts/seo/submit-indexnow.mjs'
       - '.github/workflows/deploy-production.yml'
   workflow_dispatch:
@@ -74,6 +75,7 @@ jobs:
           node scripts/data/validate-painted-church-search-intents.mjs
           node scripts/data/validate-painted-church-map.mjs
           node scripts/data/validate-painted-church-completion.mjs
+          node scripts/data/validate-military-history-expansion.mjs
       - name: Publish validation success
         if: ${{ steps.validation.outcome == 'success' }}
         shell: bash
@@ -214,8 +216,13 @@ jobs:
           fetch_assert historic-sites '/explore/historic-sites' 'Painted Churches of Texas'
           fetch_assert road-trips '/explore/road-trips' 'Painted Churches routes'
           fetch_assert small-towns '/explore/small-towns' 'Painted Churches'
+          fetch_assert buffalo-soldiers '/article/buffalo-soldiers-texas-frontier-guide' 'Buffalo Soldiers in Texas'
+          fetch_assert red-river-war '/article/texas-red-river-war-guide' 'The Red River War in Texas'
+          fetch_assert republic-navy '/article/republic-of-texas-navy-history' 'The Republic of Texas Navy'
+          fetch_assert cold-war '/article/texas-cold-war-military-history' 'Cold War Texas'
+          fetch_assert texas-history-military '/texas-history' 'The Red River War in Texas'
 
-          echo 'TexasDefined production, moving-to-Texas pillar, Texas flag cluster and Painted Churches authority/discovery surfaces are live.'
+          echo 'TexasDefined production, core authority clusters and military-history surfaces are live.'
       - name: Publish live verification success
         if: ${{ steps.live.outcome == 'success' }}
         shell: bash
@@ -229,7 +236,7 @@ jobs:
         run: |
           curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
             "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
-            --data '{"state":"failure","context":"texasdefined-live","description":"Production surface verification failed"}' >/dev/null
+            --data '{"state":"failure","context":"texasdefined-live","description":"Production deploy or live verification failed"}' >/dev/null
 
       - name: Publish IndexNow pending
         if: success()
