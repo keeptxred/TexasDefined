@@ -23,6 +23,10 @@ type ApiResponse = {
   };
 };
 
+function isApplicable(record: TexasTaxRateRecord) {
+  return !record.variableRate && record.totalRate != null;
+}
+
 export function OfficialTaxRateAssist({
   countySlug,
   onApply,
@@ -68,19 +72,20 @@ export function OfficialTaxRateAssist({
   const summary = data?.summary;
   const selected = useMemo(() => {
     if (!summary) return [] as TexasTaxRateRecord[];
-    const units = [...summary.county];
-    const school = summary.schoolDistricts.find((item) => item.slug === schoolSlug);
-    const city = summary.cities.find((item) => item.slug === citySlug);
+    const units = summary.county.filter(isApplicable);
+    const school = summary.schoolDistricts.find((item) => item.slug === schoolSlug && isApplicable(item));
+    const city = summary.cities.find((item) => item.slug === citySlug && isApplicable(item));
     if (school) units.push(school);
     if (city) units.push(city);
-    units.push(...summary.specialDistricts.filter((item) => specialSlugs.includes(item.slug)));
+    units.push(...summary.specialDistricts.filter((item) => specialSlugs.includes(item.slug) && isApplicable(item)));
     return units;
   }, [summary, schoolSlug, citySlug, specialSlugs]);
 
   const totals = useMemo(() => {
-    const countyRate = selected.filter((item) => item.type === 'county').reduce((sum, item) => sum + item.totalRate, 0);
-    const schoolRate = selected.filter((item) => item.type === 'school-district').reduce((sum, item) => sum + item.totalRate, 0);
-    const otherRate = selected.filter((item) => item.type !== 'school-district').reduce((sum, item) => sum + item.totalRate, 0);
+    const rate = (item: TexasTaxRateRecord) => item.totalRate ?? 0;
+    const countyRate = selected.filter((item) => item.type === 'county').reduce((sum, item) => sum + rate(item), 0);
+    const schoolRate = selected.filter((item) => item.type === 'school-district').reduce((sum, item) => sum + rate(item), 0);
+    const otherRate = selected.filter((item) => item.type !== 'school-district').reduce((sum, item) => sum + rate(item), 0);
     return { countyRate, schoolRate, otherRate, combinedRate: schoolRate + otherRate };
   }, [selected]);
 
@@ -91,6 +96,10 @@ export function OfficialTaxRateAssist({
       .filter((item) => !needle || item.name.toLowerCase().includes(needle))
       .slice(0, 100);
   }, [summary, specialFilter]);
+
+  const variableCount = summary
+    ? [...summary.county, ...summary.cities, ...summary.schoolDistricts, ...summary.specialDistricts].filter((record) => !isApplicable(record)).length
+    : 0;
 
   if (!countySlug) {
     return <div className="border-t border-border pt-5 text-sm leading-6 text-muted-foreground">Choose a county to load adopted rates reported to the Texas Comptroller.</div>;
@@ -110,6 +119,7 @@ export function OfficialTaxRateAssist({
       {error ? <p className="mt-4 text-sm text-destructive">{error}</p> : null}
 
       {summary ? <div className="mt-5 space-y-5">
+        {variableCount ? <p className="border-l-2 border-primary pl-3 text-xs leading-5 text-muted-foreground"><strong className="text-foreground">{variableCount} reported taxing {variableCount === 1 ? 'unit has' : 'units have'} a parcel-specific or conflicting rate variant.</strong> TexasDefined shows those units but disables automatic application so a single statewide-file row is never substituted for the exact parcel rate.</p> : null}
         <div className="grid gap-4 md:grid-cols-2">
           <RateSelect label="School district" value={schoolSlug} onChange={setSchoolSlug} records={summary.schoolDistricts} placeholder="Choose the property's school district" />
           <RateSelect label="City / municipality" value={citySlug} onChange={setCitySlug} records={summary.cities} placeholder="Outside city limits / choose city" />
@@ -117,7 +127,7 @@ export function OfficialTaxRateAssist({
 
         <details className="border-y border-border py-4">
           <summary className="cursor-pointer text-sm font-semibold">Special districts ({summary.specialDistricts.length} reported in county; {specialSlugs.length} selected)</summary>
-          <p className="mt-3 text-xs leading-5 text-muted-foreground">Do not select every district in the county. A parcel normally belongs to only a subset. Confirm MUD, ESD, hospital, community-college, flood-control and other district membership on the appraisal/tax record.</p>
+          <p className="mt-3 text-xs leading-5 text-muted-foreground">Do not select every district in the county. A parcel normally belongs to only a subset. Confirm MUD, ESD, hospital, community-college, flood-control and other district membership on the appraisal/tax record. Variable-rate units cannot be auto-applied.</p>
           <input
             type="search"
             value={specialFilter}
@@ -128,13 +138,15 @@ export function OfficialTaxRateAssist({
           <div className="mt-4 grid max-h-80 gap-x-6 overflow-y-auto sm:grid-cols-2">
             {filteredSpecial.map((record) => {
               const checked = specialSlugs.includes(record.slug);
-              return <label key={record.id} className="flex gap-3 border-t border-border py-3 text-sm">
+              const applicable = isApplicable(record);
+              return <label key={record.id} className={`flex gap-3 border-t border-border py-3 text-sm ${applicable ? '' : 'opacity-70'}`}>
                 <input
                   type="checkbox"
                   checked={checked}
+                  disabled={!applicable}
                   onChange={(event) => setSpecialSlugs((current) => event.target.checked ? [...current, record.slug] : current.filter((slug) => slug !== record.slug))}
                 />
-                <span><strong className="block font-medium">{record.name}</strong><span className="text-xs text-muted-foreground">{record.totalRate.toFixed(6)} per $100</span></span>
+                <span><strong className="block font-medium">{record.name}</strong><span className="text-xs text-muted-foreground">{formatRate(record)}</span></span>
               </label>;
             })}
           </div>
@@ -163,7 +175,13 @@ export function OfficialTaxRateAssist({
 }
 
 function RateSelect({ label, value, onChange, records, placeholder }: { label: string; value: string; onChange: (value: string) => void; records: TexasTaxRateRecord[]; placeholder: string }) {
-  return <label className="block text-sm font-semibold"><span>{label}</span><select className="mt-2 w-full border-0 border-b border-border bg-background px-0 py-3 text-sm outline-none focus:border-primary" value={value} onChange={(event) => onChange(event.target.value)}><option value="">{placeholder}</option>{records.map((record) => <option key={record.id} value={record.slug}>{record.name} — {record.totalRate.toFixed(6)}</option>)}</select></label>;
+  return <label className="block text-sm font-semibold"><span>{label}</span><select className="mt-2 w-full border-0 border-b border-border bg-background px-0 py-3 text-sm outline-none focus:border-primary" value={value} onChange={(event) => onChange(event.target.value)}><option value="">{placeholder}</option>{records.map((record) => <option key={record.id} value={record.slug} disabled={!isApplicable(record)}>{record.name} — {formatRate(record)}</option>)}</select></label>;
+}
+
+function formatRate(record: TexasTaxRateRecord) {
+  if (record.totalRate != null && !record.variableRate) return `${record.totalRate.toFixed(6)} per $100`;
+  if (record.rateVariants.length) return `variable reported rates: ${record.rateVariants.map((rate) => rate.toFixed(6)).join(', ')} — verify parcel`;
+  return 'parcel-specific rate verification required';
 }
 
 function RateFact({ label, value, emphasize = false }: { label: string; value: number; emphasize?: boolean }) {
