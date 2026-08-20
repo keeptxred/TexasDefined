@@ -153,14 +153,26 @@ const texasMilitaryHistoryTimelineStub: Article = {
 
 const texasCivilWarSitesGuideStub: Article = {
   id: "evergreen-texas-civil-war-sites-guide", brandId: "texasdefined", slug: "texas-civil-war-sites-guide",
-  title: "Texas in the Civil War: Galveston, Sabine Pass, Palmito Ranch and Juneteenth",
-  dek: "Texas was far from the Civil War's largest eastern armies, but Gulf ports, the Rio Grande trade corridor, frontier posts and federal occupation made the state strategically important from secession through emancipation.",
+  title: "Texas in the Civil War: Battlefields, Emancipation, Reconstruction and Memory",
+  dek: "Follow Texas from secession and Gulf Coast fighting through Palmito Ranch, Juneteenth, emancipation, Reconstruction and the later places where Texans preserved—and reshaped—the war's memory.",
   category: "texas-history",
   hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Richard_Dowling_Memorial_Sabine_Pass_TX.jpg?width=1600", alt: "Richard Dowling Memorial at Sabine Pass Battleground State Historic Site in Texas", width: 1600, height: 1200, credit: "Junglecat · CC BY-SA 4.0 · Wikimedia Commons" },
-  authorId: "a-marisol", publishedAt: "2026-08-19", readingMinutes: 14,
-  tags: ["texas civil war", "battle of galveston", "sabine pass", "palmito ranch", "juneteenth", "texas military history", "galveston history", "rio grande civil war"], featured: true,
+  authorId: "a-marisol", publishedAt: "2026-08-19", readingMinutes: 16,
+  tags: ["texas civil war", "reconstruction texas", "sabine pass", "palmito ranch", "juneteenth", "texas military history", "emancipation texas", "civil war memory"], featured: true,
   sourceName: "Texas Historical Commission", sourceUrl: "https://thc.texas.gov/learn/military-history/texas-civil-war",
-  body: [], relatedCollections: [], relatedDestinations: ["sabine-pass-battleground", "palmito-ranch-battlefield", "confederate-reunion-grounds", "sam-bell-maxey-house"],
+  body: [], relatedCollections: [], relatedDestinations: ["sabine-pass-battleground", "palmito-ranch-battlefield", "confederate-reunion-grounds", "sam-bell-maxey-house", "levi-jordan-plantation", "varner-hogg-plantation", "starr-family-home"],
+};
+
+const republicOfTexasGovernmentTrailStub: Article = {
+  id: "evergreen-republic-of-texas-government-trail", brandId: "texasdefined", slug: "republic-of-texas-government-trail",
+  title: "Republic of Texas Government Trail: San Felipe, Washington, Columbia and Austin",
+  dek: "Follow Texas government from Austin's colonial capital and the provisional government through the independence convention, the Republic's first Congress, international diplomacy and the final years before statehood.",
+  category: "texas-history",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/First_Capitol_of_the_Republic_of_Texas_%283967003172%29.jpg", alt: "Historic photograph of the First Capitol of the Republic of Texas in West Columbia", width: 575, height: 725, credit: "F. E. Beach / DeGolyer Library, SMU · no known copyright restrictions · Wikimedia Commons" },
+  authorId: "a-marisol", publishedAt: "2026-08-19", readingMinutes: 15,
+  tags: ["republic of texas", "texas capitals", "san felipe de austin", "washington on the brazos", "west columbia texas", "french legation", "texas government history", "sam houston"], featured: true,
+  sourceName: "Texas Historical Commission", sourceUrl: "https://thc.texas.gov/historic-sites",
+  body: [], relatedCollections: [], relatedDestinations: ["san-felipe-de-austin", "washington-on-the-brazos", "star-of-the-republic-museum", "first-capitol-of-texas", "stephen-f-austin-memorial", "french-legation", "barrington-living-history-farm"],
 };
 
 export const standaloneEvergreenStubs: Article[] = [
@@ -178,6 +190,7 @@ export const standaloneEvergreenStubs: Article[] = [
   battleshipTexasBB35HistoryRestorationStub,
   texasMilitaryHistoryTimelineStub,
   texasCivilWarSitesGuideStub,
+  republicOfTexasGovernmentTrailStub,
 ];
 
 export async function loadStandaloneEvergreenArticle(brandId: string, slug: string): Promise<Article | null> {
@@ -196,5 +209,6 @@ export async function loadStandaloneEvergreenArticle(brandId: string, slug: stri
   if (slug === battleshipTexasBB35HistoryRestorationStub.slug) return import("./battleship-texas-bb-35-history-restoration").then((module) => module.battleshipTexasBB35HistoryRestorationArticle);
   if (slug === texasMilitaryHistoryTimelineStub.slug) return import("./texas-military-history-timeline").then((module) => module.texasMilitaryHistoryTimelineArticle);
   if (slug === texasCivilWarSitesGuideStub.slug) return import("./texas-civil-war-sites-guide").then((module) => module.texasCivilWarSitesGuideArticle);
+  if (slug === republicOfTexasGovernmentTrailStub.slug) return import("./republic-of-texas-government-trail").then((module) => module.republicOfTexasGovernmentTrailArticle);
   return null;
 }
