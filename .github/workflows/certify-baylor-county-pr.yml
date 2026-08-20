@@ -1,0 +1,105 @@
+name: Certify Baylor County production PR
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/certify-baylor-county-pr.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  certify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    environment: texasdefined-publication
+    env:
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      HERO_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Baylor%20County%20Texas%20Courthouse%202015.jpg?width=1600
+    steps:
+      - name: Check out current main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Verify source and canonical host
+        shell: bash
+        run: |
+          set -euo pipefail
+          target="$(git rev-parse HEAD)"
+          echo "Target main SHA: $target"
+          fixture='src/data/fixtures/baylor-county-seymour-brazos-ranching-railroads-rolling-plains-texas.ts'
+          test -f "$fixture"
+          grep -Fq 'countySlug: "baylor"' src/data/county-series-profiles-northeast.ts
+          grep -Fq '["baylor-county-seymour-brazos-ranching-railroads-rolling-plains-texas", "baylor"]' src/data/county-series.ts
+          ! grep -n 'www\.texasdefined\.com' "$fixture" src/data/county-series-profiles-northeast.ts src/data/county-series.ts
+      - name: Verify hero source
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -L --retry 5 --retry-all-errors --retry-delay 2 --max-time 60 -sS -D /tmp/hh -o /tmp/hb "$HERO_URL"
+          status="$(curl -L --retry 3 --retry-all-errors --max-time 60 -sS -o /dev/null -w '%{http_code}' "$HERO_URL")"
+          mime="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/{gsub(/\r/,""); sub(/^content-type:[[:space:]]*/,""); v=$0} END{print v}' /tmp/hh | cut -d';' -f1)"
+          bytes="$(wc -c < /tmp/hb)"
+          echo "Hero source HTTP=$status MIME=$mime bytes=$bytes"
+          test "$status" = 200
+          [[ "$mime" =~ ^image/(jpeg|png|webp)$ ]]
+          test "$bytes" -gt 50000
+      - name: Validate TexasDefined
+        run: npm run validate
+      - name: Ensure validated main is still current
+        shell: bash
+        run: |
+          set -euo pipefail
+          target="$(git rev-parse HEAD)"
+          git fetch origin main
+          latest="$(git rev-parse origin/main)"
+          echo "Validated=$target latest=$latest"
+          test "$target" = "$latest"
+      - name: Deploy current main
+        run: npm run deploy
+      - name: Verify live Baylor County
+        shell: bash
+        run: |
+          set -euo pipefail
+          target="$(git rev-parse HEAD)"
+          origin='https://texasdefined.com'
+          page='/county/baylor'
+          legacy='/article/baylor-county-seymour-brazos-ranching-railroads-rolling-plains-texas'
+          title='Baylor County: Seymour, the Brazos and the Edge of the Rolling Plains'
+          ok=0
+          for attempt in $(seq 1 12); do
+            status="$(curl --retry 3 --retry-all-errors --retry-delay 2 --max-time 60 -sS -o /tmp/page -w '%{http_code}' "$origin$page?verify=${target}-${GITHUB_RUN_ID}-${attempt}" || true)"
+            if [ "$status" = 200 ] \
+              && grep -Fq "$title" /tmp/page \
+              && grep -Fq 'The county in numbers' /tmp/page \
+              && grep -Fq 'County seat' /tmp/page \
+              && grep -Fq '2020 population' /tmp/page \
+              && grep -Fq 'County feature' /tmp/page \
+              && grep -Fq 'Seymour' /tmp/page \
+              && grep -Fq 'https://texasdefined.com/county/baylor' /tmp/page; then ok=1; break; fi
+            sleep 5
+          done
+          echo "County page HTTP=$status content_gate=$ok"
+          test "$ok" = 1
+          legacy_status="$(curl --max-redirs 0 -sS -D /tmp/lh -o /dev/null -w '%{http_code}' "$origin$legacy")"
+          location="$(awk 'BEGIN{IGNORECASE=1} /^location:/{gsub(/\r/,""); sub(/^location:[[:space:]]*/,""); print; exit}' /tmp/lh)"
+          echo "Legacy HTTP=$legacy_status location=$location"
+          test "$legacy_status" = 301
+          [[ "$location" == *'/county/baylor'* ]]
+          hero_status="$(curl -L --retry 5 --retry-all-errors --retry-delay 2 --max-time 60 -sS -D /tmp/ih -o /tmp/ib -w '%{http_code}' "$HERO_URL")"
+          hero_mime="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/{gsub(/\r/,""); sub(/^content-type:[[:space:]]*/,""); v=$0} END{print v}' /tmp/ih | cut -d';' -f1)"
+          hero_bytes="$(wc -c < /tmp/ib)"
+          echo "Live hero HTTP=$hero_status MIME=$hero_mime bytes=$hero_bytes"
+          test "$hero_status" = 200
+          [[ "$hero_mime" =~ ^image/(jpeg|png|webp)$ ]]
+          test "$hero_bytes" -gt 50000
