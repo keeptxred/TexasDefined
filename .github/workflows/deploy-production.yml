@@ -95,26 +95,49 @@ jobs:
         run: |
           curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
             "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
-            --data '{"state":"pending","context":"texasdefined-build","description":"Building production bundle and checking budget"}' >/dev/null
-      - name: Build and validate client bundle
+            --data '{"state":"pending","context":"texasdefined-build","description":"Building the production bundle"}' >/dev/null
+      - name: Build production bundle
         id: build
-        run: |
-          npm run build
-          npm run performance:validate
+        run: npm run build
       - name: Publish build success
         if: ${{ steps.build.outcome == 'success' }}
         shell: bash
         run: |
           curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
             "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
-            --data '{"state":"success","context":"texasdefined-build","description":"Production build and bundle budget passed"}' >/dev/null
+            --data '{"state":"success","context":"texasdefined-build","description":"Production bundle build passed"}' >/dev/null
       - name: Publish build failure
         if: ${{ failure() && steps.build.outcome == 'failure' }}
         shell: bash
         run: |
           curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
             "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
-            --data '{"state":"failure","context":"texasdefined-build","description":"Production build or bundle budget failed"}' >/dev/null
+            --data '{"state":"failure","context":"texasdefined-build","description":"Production bundle build failed"}' >/dev/null
+
+      - name: Publish bundle budget pending
+        if: success()
+        shell: bash
+        run: |
+          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
+            --data '{"state":"pending","context":"texasdefined-bundle-budget","description":"Checking client bundle size budget"}' >/dev/null
+      - name: Enforce client bundle budget
+        id: budget
+        run: npm run performance:validate
+      - name: Publish bundle budget success
+        if: ${{ steps.budget.outcome == 'success' }}
+        shell: bash
+        run: |
+          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
+            --data '{"state":"success","context":"texasdefined-bundle-budget","description":"Client bundle budget passed"}' >/dev/null
+      - name: Publish bundle budget failure
+        if: ${{ failure() && steps.budget.outcome == 'failure' }}
+        shell: bash
+        run: |
+          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
+            --data '{"state":"failure","context":"texasdefined-bundle-budget","description":"Client bundle budget failed"}' >/dev/null
 
       - name: Publish Cloudflare deploy pending
         if: success()
