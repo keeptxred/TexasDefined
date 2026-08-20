@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 
 import { PaintedChurchEditorialStatus } from "@/components/editorial/PaintedChurchEditorialStatus";
 import { PaintedChurchEvidenceLedger } from "@/components/editorial/PaintedChurchEvidenceLedger";
+import { PaintedChurchSourceBibliography } from "@/components/editorial/PaintedChurchSourceBibliography";
 import { paintedChurchKnowledgeForChurch } from "@/data/painted-church-knowledge-graph";
 
 const labels: Record<string, string> = {
@@ -44,10 +45,20 @@ export function PaintedChurchKnowledgeLinks({ slug }: { slug: string }) {
             ))}
           </div>
           <p className="mt-5 text-xs leading-6 text-muted-foreground">Relationships are published only when Texas Defined has a church-specific source or documented collection-level basis for the connection. Architectural design, construction, decoration, restoration and research are intentionally kept separate.</p>
+          <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm">
+            <Link to="/explore/painted-churches/features" className="border-b border-primary text-primary">Interior objects & artworks</Link>
+            <Link to="/explore/painted-churches/inscriptions" className="border-b border-primary text-primary">Inscriptions & languages</Link>
+            <Link to="/explore/painted-churches/stained-glass" className="border-b border-primary text-primary">Stained glass</Link>
+            <Link to="/explore/painted-churches/sacred-furnishings" className="border-b border-primary text-primary">Altars, pulpits, organs & furnishings</Link>
+            <Link to="/explore/painted-churches/national-register-study" className="border-b border-primary text-primary">Original National Register study</Link>
+            <Link to="/explore/painted-churches/bibliography" className="border-b border-primary text-primary">Scholarly bibliography</Link>
+            <Link to="/explore/painted-churches/sources" className="border-b border-primary text-primary">Source registry</Link>
+          </div>
         </section>
       ) : null}
       <PaintedChurchEvidenceLedger slug={slug} />
       <PaintedChurchEditorialStatus slug={slug} />
+      <PaintedChurchSourceBibliography slug={slug} />
     </>
   );
 }
