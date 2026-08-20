@@ -11,7 +11,7 @@ export const COUNTY_SERIES_PROFILES_NORTHEAST: CountySeriesProfile[] = [
     countySlug: "hunt",
     articleSlug: "hunt-county-greenville-cotton-railroads-blackland-prairie-texas",
     loadArticle: () => import("@/data/fixtures/hunt-county-greenville-cotton-railroads-blackland-prairie-texas")
-      .then((module) => module.huntCountyGreenvilleCottonRailroadsBlacklandPrairieArticle),
+      .then((module) => module.huntCountyGreenvilleCottonRailroadsBlacklandPrairieTexasArticle),
   },
   {
     countySlug: "rains",
@@ -120,5 +120,11 @@ export const COUNTY_SERIES_PROFILES_NORTHEAST: CountySeriesProfile[] = [
     articleSlug: "foard-county-crowell-pease-river-ranching-oil-rolling-plains-texas",
     loadArticle: () => import("@/data/fixtures/foard-county-crowell-pease-river-ranching-oil-rolling-plains-texas")
       .then((module) => module.foardCountyCrowellPeaseRiverRanchingOilRollingPlainsTexasArticle),
+  },
+  {
+    countySlug: "baylor",
+    articleSlug: "baylor-county-seymour-brazos-ranching-railroads-rolling-plains-texas",
+    loadArticle: () => import("@/data/fixtures/baylor-county-seymour-brazos-ranching-railroads-rolling-plains-texas")
+      .then((module) => module.baylorCountySeymourBrazosRanchingRailroadsRollingPlainsTexasArticle),
   },
 ];
