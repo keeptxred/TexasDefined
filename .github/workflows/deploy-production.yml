@@ -13,6 +13,7 @@ on:
       - 'vite.config.*'
       - 'tsconfig*.json'
       - 'scripts/data/validate-painted-church*.mjs'
+      - 'scripts/seo/submit-indexnow.mjs'
       - '.github/workflows/deploy-production.yml'
   workflow_dispatch:
 
@@ -95,5 +96,10 @@ jobs:
           fetch_assert then-and-now '/explore/painted-churches/then-and-now' 'Texas Painted Churches, then and now.'
           fetch_assert media '/explore/painted-churches/media' 'Watch the documentary. Follow the voices behind it.'
           fetch_assert guidebook '/guides' 'Painted Churches of Texas'
+          fetch_assert historic-sites '/explore/historic-sites' 'Painted Churches of Texas'
+          fetch_assert road-trips '/explore/road-trips' 'Painted Churches routes'
+          fetch_assert small-towns '/explore/small-towns' 'Painted Churches'
 
-          echo 'TexasDefined production, moving-to-Texas pillar and Painted Churches authority surfaces are live.'
+          echo 'TexasDefined production, moving-to-Texas pillar and Painted Churches authority/discovery surfaces are live.'
+      - name: Notify IndexNow after verified deployment
+        run: node scripts/seo/submit-indexnow.mjs
