@@ -61,4 +61,10 @@ export const COUNTY_SERIES_PROFILES_ROLLING_PLAINS: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/kent-county-jayton-clairemont-brazos-ranching-rolling-plains-texas")
       .then((module) => module.kentCountyJaytonClairemontBrazosRanchingRollingPlainsTexasArticle),
   },
+  {
+    countySlug: "throckmorton",
+    articleSlug: "throckmorton-county-throckmorton-clear-fork-ranching-rolling-plains-texas",
+    loadArticle: () => import("@/data/fixtures/throckmorton-county-throckmorton-clear-fork-ranching-rolling-plains-texas")
+      .then((module) => module.throckmortonCountyThrockmortonClearForkRanchingRollingPlainsTexasArticle),
+  },
 ];
