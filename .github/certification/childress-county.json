@@ -1,0 +1,9 @@
+{
+  "county": "childress",
+  "status": "fail",
+  "stage": "source",
+  "county_commit": "04f7b7690699348d21135c2dd019597465290f5c",
+  "tested_main": "7805cbf800df94dbae760d163e5ab7f5ae5f6716",
+  "detail": "Childress county commit is not in current main ancestry",
+  "recorded_at_utc": "2026-08-20T13:41:28.121035+00:00"
+}
