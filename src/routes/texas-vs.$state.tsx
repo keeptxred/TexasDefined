@@ -2,7 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
-import { texasVsStateName, texasVsStateProfile } from "@/data/texas-vs-states";
+import { TEXAS_VS_STATE_GROUPS, texasVsStateName, texasVsStateProfile, texasVsStateSlug } from "@/data/texas-vs-states";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 export const Route = createFileRoute("/texas-vs/$state")({
@@ -46,6 +46,8 @@ export const Route = createFileRoute("/texas-vs/$state")({
 
 function TexasVsStatePage() {
   const { name, profile } = Route.useLoaderData();
+  const relatedGroup = TEXAS_VS_STATE_GROUPS.find((group) => group.states.some((state) => state === name));
+  const relatedStates = relatedGroup?.states.filter((state) => state !== name).slice(0, 6) ?? [];
   const sections = [
     {
       heading: "The comparison that actually matters",
@@ -122,6 +124,18 @@ function TexasVsStatePage() {
     <section className="border-t border-border bg-surface py-12">
       <Container><div className="max-w-4xl"><p className="eyebrow text-primary">Decision questions</p><h2 className="mt-2 font-display text-3xl md:text-4xl">Texas vs {name} FAQ</h2><div className="mt-6 divide-y divide-border border-y border-border">{faq.map((item) => <details key={item.q} className="group py-5"><summary className="cursor-pointer list-none pr-8 font-display text-xl marker:hidden">{item.q}<span className="float-right text-primary group-open:rotate-45">+</span></summary><p className="mt-3 max-w-3xl leading-7 text-muted-foreground">{item.a}</p></details>)}</div></div></Container>
     </section>
+
+    {relatedStates.length > 0 && <section className="border-t border-border py-12">
+      <Container>
+        <p className="eyebrow text-primary">Keep comparing</p>
+        <h2 className="mt-2 font-display text-3xl md:text-4xl">More Texas vs {relatedGroup?.region} comparisons</h2>
+        <p className="mt-3 max-w-3xl leading-7 text-muted-foreground">Compare Texas with nearby or regionally similar states using the same framework, then return to the full 49-state index when you want to widen the search.</p>
+        <div className="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {relatedStates.map((state) => <Link key={state} to="/texas-vs/$state" params={{ state: texasVsStateSlug(state) }} className="border border-border p-4 font-display text-xl hover:border-primary hover:text-primary">Texas vs {state} →</Link>)}
+        </div>
+        <Link to="/texas-vs-every-state" className="mt-6 inline-block text-sm font-semibold text-primary underline decoration-primary/40 underline-offset-4">Browse all 49 Texas state comparisons</Link>
+      </Container>
+    </section>}
 
     <section className="border-t border-border bg-muted/30 py-10">
       <Container>
