@@ -15,6 +15,7 @@ const files = {
   sitemap: read("src/routes/sitemap[.]xml.ts"),
   robots: read("public/robots.txt"),
   smoke: read(".github/workflows/flag-history-production-smoke.yml"),
+  webSub: read(".github/workflows/websub-notify.yml"),
   deploy: read(".github/workflows/deploy-production.yml"),
 };
 
@@ -88,6 +89,8 @@ requireContains("RSS feed", files.rss, '<rss version="2.0"');
 requireContains("RSS feed", files.rss, 'application/rss+xml; charset=utf-8');
 requireContains("RSS feed", files.rss, 'platform.articles.list(scope)');
 requireContains("RSS feed", files.rss, '/article/${article.slug}');
+requireContains("RSS feed", files.rss, 'https://pubsubhubbub.appspot.com/');
+requireContains("RSS feed", files.rss, 'rel="hub"');
 
 requireContains("Primary sitemap", files.sitemap, '"/texas-history": "2026-08-20"');
 requireContains("Primary sitemap", files.sitemap, '"/texas-symbols": "2026-08-20"');
@@ -104,6 +107,12 @@ requireContains("Flag production smoke", files.smoke, "texas-flag-history-page")
 requireContains("Flag production smoke", files.smoke, "texas-flag-indexing-signals");
 requireContains("Flag production smoke", files.smoke, "'/rss.xml'");
 requireContains("Flag production smoke", files.smoke, "fresh sitemap dates and RSS discovery verified");
+
+requireContains("WebSub notifier", files.webSub, 'workflows: ["Deploy TexasDefined production"]');
+requireContains("WebSub notifier", files.webSub, "https://pubsubhubbub.appspot.com/");
+requireContains("WebSub notifier", files.webSub, "hub.mode=publish");
+requireContains("WebSub notifier", files.webSub, "hub.url=${feed}");
+requireContains("WebSub notifier", files.webSub, "texasdefined-websub");
 
 requireContains("Production deploy", files.deploy, "fetch_assert flag-history");
 requireContains("Production deploy", files.deploy, "fetch_assert flag-etiquette");

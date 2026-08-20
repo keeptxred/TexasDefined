@@ -6,6 +6,7 @@ import { isLegacyCountySeriesArticle } from "@/data/county-series";
 
 const origin = `https://${texasDefinedBrand.identity.domain}`;
 const feedUrl = `${origin}/rss.xml`;
+const webSubHub = "https://pubsubhubbub.appspot.com/";
 
 export const Route = createFileRoute("/rss.xml")({
   server: {
@@ -32,7 +33,7 @@ export const Route = createFileRoute("/rss.xml")({
           ].join("\n");
         }).join("\n");
 
-        const body = `<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n  <channel>\n    <title>${escapeXml(texasDefinedBrand.identity.name)}</title>\n    <link>${escapeXml(origin)}</link>\n    <description>${escapeXml(texasDefinedBrand.seo.defaultDescription)}</description>\n    <language>${escapeXml(texasDefinedBrand.identity.locale)}</language>\n    <lastBuildDate>${escapeXml(lastBuildDate)}</lastBuildDate>\n    <atom:link href="${escapeXml(feedUrl)}" rel="self" type="application/rss+xml" />\n${items}\n  </channel>\n</rss>`;
+        const body = `<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n  <channel>\n    <title>${escapeXml(texasDefinedBrand.identity.name)}</title>\n    <link>${escapeXml(origin)}</link>\n    <description>${escapeXml(texasDefinedBrand.seo.defaultDescription)}</description>\n    <language>${escapeXml(texasDefinedBrand.identity.locale)}</language>\n    <lastBuildDate>${escapeXml(lastBuildDate)}</lastBuildDate>\n    <atom:link href="${escapeXml(feedUrl)}" rel="self" type="application/rss+xml" />\n    <atom:link href="${escapeXml(webSubHub)}" rel="hub" />\n${items}\n  </channel>\n</rss>`;
 
         return new Response(body, {
           headers: {

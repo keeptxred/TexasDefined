@@ -1,0 +1,74 @@
+name: Notify WebSub after production deploy
+
+on:
+  workflow_run:
+    workflows: ["Deploy TexasDefined production"]
+    types: [completed]
+    branches: [main]
+
+permissions:
+  contents: read
+  statuses: write
+
+concurrency:
+  group: texasdefined-websub
+  cancel-in-progress: true
+
+jobs:
+  notify:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      GH_TOKEN: ${{ github.token }}
+      VERIFY_SHA: ${{ github.event.workflow_run.head_sha }}
+    steps:
+      - name: Verify feed and notify Google WebSub hub
+        shell: bash
+        run: |
+          set -u
+          origin='https://texasdefined.com'
+          feed="${origin}/rss.xml"
+          hub='https://pubsubhubbub.appspot.com/'
+          workdir="$(mktemp -d)"
+          trap 'rm -rf "$workdir"' EXIT
+
+          post_status() {
+            local state="$1" description="$2"
+            python3 - "$state" "$description" > "$workdir/status.json" <<'PY'
+          import json, sys
+          print(json.dumps({"state": sys.argv[1], "context": "texasdefined-websub", "description": sys.argv[2]}))
+          PY
+            curl -fsS -X POST \
+              -H "Authorization: Bearer $GH_TOKEN" \
+              -H 'Accept: application/vnd.github+json' \
+              "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${VERIFY_SHA}" \
+              --data-binary @"$workdir/status.json" >/dev/null
+          }
+
+          post_status pending 'Verifying RSS feed and notifying Google WebSub hub'
+
+          ok=1
+          if ! curl --retry 3 --retry-all-errors --retry-delay 2 --max-time 30 \
+            --fail-with-body --silent --show-error --location \
+            "${feed}?websub=${VERIFY_SHA}-${GITHUB_RUN_ID}" -o "$workdir/rss.xml"; then
+            ok=0
+          fi
+          grep -Fq "rel=\"self\" type=\"application/rss+xml\"" "$workdir/rss.xml" 2>/dev/null || ok=0
+          grep -Fq "href=\"${hub}\" rel=\"hub\"" "$workdir/rss.xml" 2>/dev/null || ok=0
+
+          if [[ "$ok" -eq 1 ]]; then
+            code="$(curl --silent --show-error --output "$workdir/hub-response.txt" --write-out '%{http_code}' \
+              --max-time 30 --request POST \
+              --header 'Content-Type: application/x-www-form-urlencoded' \
+              --data-urlencode 'hub.mode=publish' \
+              --data-urlencode "hub.url=${feed}" \
+              "$hub" || true)"
+            if [[ "$code" =~ ^2[0-9][0-9]$ ]]; then
+              post_status success "Google WebSub hub accepted RSS update (${code})"
+              exit 0
+            fi
+          fi
+
+          post_status failure 'RSS verification or Google WebSub notification failed'
+          exit 1
