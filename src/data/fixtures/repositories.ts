@@ -22,7 +22,6 @@ import { standaloneEvergreenStubs, loadStandaloneEvergreenArticle } from "./lazy
 import { coreEvergreenArticleStubs, loadCoreEvergreenArticle } from "./lazy-core-evergreen";
 import { migratedEditorialArticleStubs, loadMigratedEditorialArticle } from "./lazy-migrated-editorial";
 import { texasCoreArticleStubs, loadTexasCoreArticle } from "./lazy-texas-core-articles";
-import { texasLifeSplitArticles } from "./texas-life-split";
 import {
   categories,
   collections,
@@ -47,9 +46,15 @@ const editorialArticles = [
   ...militaryHistoryExpansionStubs,
   ...newestEvergreenArticles,
   ...texasCoreArticleStubs,
-  ...texasLifeSplitArticles,
   ...migratedEditorialArticleStubs,
 ];
+
+let texasLifeSplitArticlesPromise: Promise<Article[]> | null = null;
+const loadTexasLifeSplitArticles = () => {
+  texasLifeSplitArticlesPromise ??= import("./texas-life-split")
+    .then((module) => module.texasLifeSplitArticles);
+  return texasLifeSplitArticlesPromise;
+};
 
 let countySeriesArticleStubsPromise: Promise<Article[]> | null = null;
 const loadCountySeriesArticleStubs = () => {
@@ -60,6 +65,7 @@ const loadCountySeriesArticleStubs = () => {
 
 const loadEditorialArticles = async () => [
   ...editorialArticles,
+  ...(await loadTexasLifeSplitArticles()),
   ...(await loadCountySeriesArticleStubs()),
 ];
 
@@ -166,11 +172,8 @@ const currentEvents = <T extends { startDate: string; endDate?: string }>(rows: 
 
 export const fixtureArticles: ArticleRepository = {
   async list(query) {
-    const countySeriesArticles = await loadCountySeriesArticleStubs();
-    let rows = newestFirst([
-      ...byBrand(editorialArticles, query.brandId),
-      ...byBrand(countySeriesArticles, query.brandId),
-    ]);
+    const allEditorialArticles = await loadEditorialArticles();
+    let rows = newestFirst(byBrand(allEditorialArticles, query.brandId));
     if (query.category) rows = rows.filter((a) => a.category === query.category);
     if (query.tag) rows = rows.filter((a) => a.tags.includes(query.tag!));
     if (query.featured !== undefined) rows = rows.filter((a) => Boolean(a.featured) === query.featured);
