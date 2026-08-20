@@ -8,11 +8,13 @@ export function TaxingUnitSearch({
   type,
   onSelect,
   placeholder = 'Enter a city, ISD, MUD or district name',
+  allowVariableSelection = false,
 }: {
   label?: string;
   type?: TexasTaxingUnitType;
   onSelect: (record: TexasTaxRateRecord) => void;
   placeholder?: string;
+  allowVariableSelection?: boolean;
 }) {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<TexasTaxRateRecord[]>([]);
@@ -47,12 +49,13 @@ export function TaxingUnitSearch({
     {status ? <p className="mt-3 text-xs text-muted-foreground">{status}</p> : null}
     {results.length ? <div className="mt-3 max-h-72 overflow-y-auto border-y border-border">{results.map((record) => {
       const applicable = !record.variableRate && record.totalRate != null;
+      const selectable = applicable || allowVariableSelection;
       const rateLabel = applicable
         ? `${record.totalRate!.toFixed(6)} per $100`
         : record.rateVariants.length
           ? `variable rates: ${record.rateVariants.map((rate) => rate.toFixed(6)).join(', ')} — verify parcel`
           : 'parcel-specific rate verification required';
-      return <button key={record.id} type="button" disabled={!applicable} onClick={() => onSelect(record)} className="block w-full border-b border-border px-0 py-3 text-left last:border-b-0 hover:text-primary disabled:cursor-not-allowed disabled:opacity-60"><strong className="block text-sm">{record.name}</strong><span className="mt-1 block text-xs text-muted-foreground">{record.type.replaceAll('-', ' ')} · {rateLabel} · {record.year}</span></button>;
+      return <button key={record.id} type="button" disabled={!selectable} onClick={() => onSelect(record)} className="block w-full border-b border-border px-0 py-3 text-left last:border-b-0 hover:text-primary disabled:cursor-not-allowed disabled:opacity-60"><strong className="block text-sm">{record.name}</strong><span className="mt-1 block text-xs text-muted-foreground">{record.type.replaceAll('-', ' ')} · {rateLabel} · {record.year}</span></button>;
     })}</div> : null}
   </div>;
 }
