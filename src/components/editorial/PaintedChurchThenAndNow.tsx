@@ -1,21 +1,11 @@
 import { Link } from "@tanstack/react-router";
 
-import { paintedChurchArchivalImagesBySlug } from "@/data/painted-church-archival-images";
-import { expansionPaintedChurchArchivalImagesBySlug } from "@/data/painted-church-archival-images-expansion";
-import { extraPaintedChurchGalleryBySlug } from "@/data/painted-church-gallery-extra";
-import { supplementalPaintedChurchGalleryBySlug } from "@/data/painted-church-gallery-supplemental";
-import { paintedChurchGalleryBySlug } from "@/data/painted-church-gallery";
+import { canonicalPaintedChurchArchivalImagesBySlug } from "@/data/painted-church-archival-image-index";
+import { canonicalPaintedChurchGalleryBySlug } from "@/data/painted-church-gallery-index";
 
 export function PaintedChurchThenAndNow({ slug }: { slug: string }) {
-  const archival = [...new Map([
-    ...paintedChurchArchivalImagesBySlug(slug),
-    ...expansionPaintedChurchArchivalImagesBySlug(slug),
-  ].map((item) => [item.url, item])).values()];
-  const current = [...new Map([
-    ...paintedChurchGalleryBySlug(slug),
-    ...extraPaintedChurchGalleryBySlug(slug),
-    ...supplementalPaintedChurchGalleryBySlug(slug),
-  ].map((item) => [item.sourceUrl, item])).values()];
+  const archival = canonicalPaintedChurchArchivalImagesBySlug(slug);
+  const current = canonicalPaintedChurchGalleryBySlug(slug);
   if (!archival.length || !current.length) return null;
 
   const archivalPrimary = archival[0];
