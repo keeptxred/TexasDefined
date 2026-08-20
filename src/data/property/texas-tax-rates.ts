@@ -61,8 +61,12 @@ export function searchTaxingUnits(query: string, year = latestFinalizedTaxYear()
     .slice(0, Math.max(1, Math.min(100, limit)));
 }
 
+export function isAutoApplicableTaxRate(record: TexasTaxRateRecord) {
+  return !record.variableRate && record.totalRate != null;
+}
+
 export function combinedSelectedRate(records: TexasTaxRateRecord[]) {
-  return records.reduce((sum, record) => sum + Math.max(0, record.totalRate), 0);
+  return records.reduce((sum, record) => sum + (isAutoApplicableTaxRate(record) ? Math.max(0, record.totalRate!) : 0), 0);
 }
 
 export function estimatePropertyTax(taxableValue: number, ratePerHundred: number) {
