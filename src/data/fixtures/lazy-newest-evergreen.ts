@@ -2,6 +2,7 @@ import type { Article } from "../types";
 import "./newest-evergreen-links";
 import "./military-museum-links";
 import { winklerCountyArticleStub } from "./winkler-county-article-stub";
+import { seasonalAuthorityArticleStubs, loadSeasonalAuthorityArticle } from "./lazy-seasonal-authority";
 
 const texasFlagHistoryStub: Article = {
   id: "evergreen-texas-flag-history",
@@ -82,6 +83,7 @@ const texasMilitaryMuseumsGuideStub: Article = {
 };
 
 export const newestEvergreenArticles: Article[] = [
+  ...seasonalAuthorityArticleStubs,
   winklerCountyArticleStub,
   texasFlagHistoryStub,
   texasFlagEtiquetteStub,
@@ -96,6 +98,8 @@ const loaders: Record<string, () => Promise<Article>> = {
 
 export async function loadNewestEvergreenArticle(brandId: string, slug: string) {
   if (brandId !== "texasdefined") return null;
+  const seasonalArticle = await loadSeasonalAuthorityArticle(brandId, slug);
+  if (seasonalArticle) return seasonalArticle;
   const loader = loaders[slug];
   return loader ? loader() : null;
 }
