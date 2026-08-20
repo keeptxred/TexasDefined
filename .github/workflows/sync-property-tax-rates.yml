@@ -1,68 +1,55 @@
 name: Sync Texas property tax rates
 
 on:
-  workflow_dispatch:
   schedule:
-    - cron: '17 12 * * 1'
-  push:
-    branches:
-      - feature/property-tax-rate-platform
+    - cron: '23 11 3 * *'
+  workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
-  group: property-tax-rate-sync-${{ github.ref }}
+  group: texas-property-tax-rate-sync
   cancel-in-progress: false
 
 jobs:
-  sync-and-build:
+  sync:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 15
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.ref_name }}
-          fetch-depth: 0
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-
-      - name: Sync official Comptroller rates
-        run: python scripts/data/sync-property-tax-rates.py
-
-      - name: Verify generated dataset is non-empty
+      - name: Require Supabase repository secrets
         shell: bash
         run: |
-          grep -q "status: 'synced'" src/data/property/texas-tax-rates.generated.ts
-          grep -Eq 'recordCount: [1-9][0-9]{3,}' src/data/property/texas-tax-rates.generated.ts
-          grep -q 'latestFinalizedYear: 2025' src/data/property/texas-tax-rates.generated.ts
-          git diff --check
+          test -n "$SUPABASE_URL" || { echo "SUPABASE_URL is not configured"; exit 1; }
+          test -n "$SUPABASE_SERVICE_ROLE_KEY" || { echo "SUPABASE_SERVICE_ROLE_KEY is not configured"; exit 1; }
 
-      - name: Set up Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-          cache: npm
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build application with generated rate data
-        run: npm run build
-
-      - name: Commit refreshed dataset
+      - name: Import newest published Comptroller tax-rate workbooks
         shell: bash
         run: |
-          if git diff --quiet -- src/data/property/texas-tax-rates.generated.ts; then
-            echo 'No tax-rate changes.'
-            exit 0
-          fi
-          git config user.name 'TexasDefined Data Bot'
-          git config user.email 'actions@users.noreply.github.com'
-          git add -- src/data/property/texas-tax-rates.generated.ts
-          git commit -m 'Refresh official Texas property tax rates'
-          git push origin "HEAD:${GITHUB_REF_NAME}"
+          set -euo pipefail
+          current_year="$(date -u +%Y)"
+          previous_year="$((current_year - 1))"
+
+          for year in "$current_year" "$previous_year"; do
+            echo "Trying Texas property-tax rate import for $year"
+            response_file="$(mktemp)"
+            status="$(curl --silent --show-error \
+              --output "$response_file" \
+              --write-out '%{http_code}' \
+              --header "Authorization: Bearer $SUPABASE_SERVICE_ROLE_KEY" \
+              --header "apikey: $SUPABASE_SERVICE_ROLE_KEY" \
+              "$SUPABASE_URL/functions/v1/import-texas-property-tax-rates?year=$year")"
+            cat "$response_file"
+            echo
+            if [ "$status" -ge 200 ] && [ "$status" -lt 300 ]; then
+              echo "Imported finalized/publicly available $year statewide rate workbooks."
+              exit 0
+            fi
+            echo "Year $year is not importable yet (HTTP $status); trying the prior year."
+          done
+
+          echo "No current or prior-year statewide rate set could be imported."
+          exit 1
