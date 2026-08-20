@@ -1,3 +1,5 @@
+import "../military-history-internal-links";
+
 import rodeoHero from "@/assets/rodeo-101-hero-photo.jpg";
 import footballHero from "@/assets/high-school-football-hero.jpg";
 import kolacheHero from "@/assets/kolache-klobasnek-hero-photo.jpg";
@@ -211,6 +213,42 @@ const fredericksburgHistoryWeekendGuideStub: Article = {
   body: [], relatedCollections: [], relatedDestinations: ["national-museum-pacific-war", "fort-martin-scott"],
 };
 
+const texasUsMexicanWarRioGrandeGuideStub: Article = {
+  id: "evergreen-texas-us-mexican-war-rio-grande-guide", brandId: "texasdefined", slug: "texas-us-mexican-war-rio-grande-guide",
+  title: "Texas and the U.S.–Mexican War: Palo Alto, Resaca de la Palma and Fort Brown",
+  dek: "The first major battles of the U.S.–Mexican War were fought beside Brownsville before Congress formally declared war. Connect annexation, the disputed border, Fort Texas, Palo Alto and Resaca de la Palma.",
+  category: "texas-history", region: "south-texas",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Nebel_Mexican_War_01_Battle_of_Palo_Alto_%28cropped%29.jpg?width=1600", alt: "Hand-colored 1851 lithograph depicting the Battle of Palo Alto near Brownsville", width: 1600, height: 1060, credit: "Carl Nebel / Adolphe Jean-Baptiste Bayot · Public domain · Wikimedia Commons" },
+  authorId: "a-marisol", publishedAt: "2026-08-19", readingMinutes: 16,
+  tags: ["U.S.-Mexican War", "Palo Alto Battlefield", "Resaca de la Palma", "Fort Brown", "Brownsville history", "Texas military history"], featured: true,
+  sourceName: "National Park Service", sourceUrl: "https://www.nps.gov/paal/",
+  body: [], relatedCollections: [], relatedDestinations: [],
+};
+
+const buffaloSoldiersTexasFrontierGuideStub: Article = {
+  id: "evergreen-buffalo-soldiers-texas-frontier-guide", brandId: "texasdefined", slug: "buffalo-soldiers-texas-frontier-guide",
+  title: "Buffalo Soldiers in Texas: The Black Regulars Who Manned the Frontier",
+  dek: "After the Civil War, African American soldiers served across Texas in the 9th and 10th Cavalry and the 24th and 25th Infantry. Fort Davis, Fort Concho, Fort McKavett and Fort Lancaster preserve parts of that complicated frontier story.",
+  category: "texas-history", region: "big-bend",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Fort_Davis_National_Historic_Site_%28790ae2ca-cd05-44da-bfd4-b713441c231b%29.jpg?width=1600", alt: "Historic image of mounted African American soldiers associated with Fort Davis National Historic Site", width: 1600, height: 1067, credit: "National Park Service · Public domain · Wikimedia Commons" },
+  authorId: "a-marisol", publishedAt: "2026-08-19", readingMinutes: 17,
+  tags: ["Buffalo Soldiers", "Black Regulars", "African American Texas history", "Fort Davis", "Fort McKavett", "Fort Concho", "Texas military history"], featured: true,
+  sourceName: "National Park Service", sourceUrl: "https://www.nps.gov/foda/learn/historyculture/buffalo-soldiers.htm",
+  body: [], relatedCollections: [], relatedDestinations: ["fort-davis-national-historic-site", "fort-mckavett", "fort-lancaster"],
+};
+
+const texasNationalGuardCampMabryHistoryStub: Article = {
+  id: "evergreen-texas-national-guard-camp-mabry-history", brandId: "texasdefined", slug: "texas-national-guard-camp-mabry-history",
+  title: "Camp Mabry and the Texas National Guard: From Volunteer Guard to the 36th Division",
+  dek: "Austin's Camp Mabry began as an 1892 training ground for the Texas Volunteer Guard and grew into the headquarters landscape of the Texas Military Department, connecting state militia history, two world wars and the modern Guard.",
+  category: "texas-history", region: "hill-country",
+  hero: { src: "https://tmd.texas.gov/Data/Sites/1/media/news/ngarmy/2017/april/23april/1000w_q95.jpg", alt: "Living-history program at Camp Mabry in Austin", width: 1000, height: 667, credit: "U.S. Army photo by Sgt. Mark Otte · Public domain · Texas Military Department" },
+  authorId: "a-marisol", publishedAt: "2026-08-19", readingMinutes: 16,
+  tags: ["Camp Mabry", "Texas National Guard", "Texas Military Department", "36th Infantry Division", "Texas military history"], featured: true,
+  sourceName: "Texas Military Department", sourceUrl: "https://tmd.texas.gov/museum",
+  body: [], relatedCollections: [], relatedDestinations: [],
+};
+
 export const standaloneEvergreenStubs: Article[] = [
   rodeo101Stub,
   highSchoolFootballNewcomersStub,
@@ -230,6 +268,9 @@ export const standaloneEvergreenStubs: Article[] = [
   washingtonOnTheBrazosWeekendGuideStub,
   goliadHistoryWeekendGuideStub,
   fredericksburgHistoryWeekendGuideStub,
+  texasUsMexicanWarRioGrandeGuideStub,
+  buffaloSoldiersTexasFrontierGuideStub,
+  texasNationalGuardCampMabryHistoryStub,
 ];
 
 export async function loadStandaloneEvergreenArticle(brandId: string, slug: string): Promise<Article | null> {
@@ -252,5 +293,8 @@ export async function loadStandaloneEvergreenArticle(brandId: string, slug: stri
   if (slug === washingtonOnTheBrazosWeekendGuideStub.slug) return import("./washington-on-the-brazos-weekend-guide").then((module) => module.washingtonOnTheBrazosWeekendGuideArticle);
   if (slug === goliadHistoryWeekendGuideStub.slug) return import("./goliad-history-weekend-guide").then((module) => module.goliadHistoryWeekendGuideArticle);
   if (slug === fredericksburgHistoryWeekendGuideStub.slug) return import("./fredericksburg-history-weekend-guide").then((module) => module.fredericksburgHistoryWeekendGuideArticle);
+  if (slug === texasUsMexicanWarRioGrandeGuideStub.slug) return import("./texas-us-mexican-war-rio-grande-guide").then((module) => module.texasUsMexicanWarRioGrandeGuideArticle);
+  if (slug === buffaloSoldiersTexasFrontierGuideStub.slug) return import("./buffalo-soldiers-texas-frontier-guide").then((module) => module.buffaloSoldiersTexasFrontierGuideArticle);
+  if (slug === texasNationalGuardCampMabryHistoryStub.slug) return import("./texas-national-guard-camp-mabry-history").then((module) => module.texasNationalGuardCampMabryHistoryArticle);
   return null;
 }
