@@ -238,6 +238,8 @@ function TripPlanner() {
         </Container>
       </section>
 
+      <PaintedChurchRoutePromo />
+
       <Container className="py-14 sm:py-18">
         <div className="grid gap-12 lg:grid-cols-[330px_minmax(0,1fr)] lg:gap-16">
           <form onSubmit={submit} className="space-y-6 border-t-2 border-foreground pt-6 print:hidden">
@@ -273,6 +275,10 @@ function TripPlanner() {
       </Container>
     </main>
   );
+}
+
+function PaintedChurchRoutePromo() {
+  return <section className="border-b border-border"><Container className="py-8 sm:py-10"><div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end"><div><p className="eyebrow text-primary">Research-backed history routes</p><h2 className="mt-2 font-display text-3xl sm:text-4xl">Planning a Painted Churches trip?</h2><p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Use the dedicated route system instead of asking the generic planner to approximate it. Texas Defined maintains eight Painted Churches itineraries, a statewide interactive map and church-specific visitor-source checks.</p></div><div className="flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold"><Link to="/explore/painted-churches/routes" className="border-b border-primary text-primary">8 researched routes</Link><Link to="/explore/painted-churches/map" className="border-b border-primary text-primary">Interactive map</Link><Link to="/explore/painted-churches" className="border-b border-primary text-primary">Painted Churches guide</Link></div></div></Container></section>;
 }
 
 function Field({ label, ...props }: React.InputHTMLAttributes<HTMLInputElement> & { label: string }) {
