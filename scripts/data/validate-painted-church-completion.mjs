@@ -14,6 +14,8 @@ const tripPlanner = read('src/routes/explore.trip-planner.tsx');
 const countyGuides = read('src/components/content/CountyGuideSections.tsx');
 const guidebook = read('src/routes/guides.tsx');
 const topicPaths = read('src/components/editorial/ExploreTopicPaths.tsx');
+const thematic = read('src/data/painted-church-thematic-nomination.ts');
+const sources = read('src/data/painted-church-source-registry.ts');
 
 for (const slug of ['ellinger-st-marys-catholic-church','rockne-sacred-heart-catholic-church','san-antonio-san-fernando-cathedral']) {
   requireText(census, `slug: "${slug}"`, 'Candidate adjudication');
@@ -24,6 +26,8 @@ requireText(census, 'qualifying decorative evidence', 'Rockne hold standard');
 
 requireText(people, 'slug: "michaela-wegman"', 'People authority');
 requireText(people, 'umbarger-st-marys-catholic-church', 'Umbarger researcher relationship');
+requireText(people, 'slug: "rev-louis-netardus"', 'Praha artist authority');
+requireText(people, 'san-antonio-st-joseph-catholic-church', 'Stockert/Kern San Antonio relationship');
 requireText(media, 'St. Mary\'s Umbarger parish history', 'Oral-history library');
 requireText(media, 'Color Me Catholic: The Umbarger Mural Story', 'Oral-history library');
 requireText(media, 'Documented voices', 'Oral-history library');
@@ -47,12 +51,17 @@ requireText(thenNow, 'Coverage accounting:', 'Then & Now coverage accounting');
 requireText(thenNow, 'Open visual-research queue', 'Then & Now backlog transparency');
 requireText(thenNow, 'paired.length + archivalOnly.length + currentOnly.length + neither.length', 'Then & Now reconciliation');
 
+requireText(thematic, 'originalChurchCount: 15', 'Original thematic count');
+requireText(thematic, 'currentThcMpsIndexCount: 14', 'Current THC MPS count');
+requireText(thematic, 'galveston-st-joseph-church', 'Galveston thematic-member reconciliation');
+requireText(sources, 'paintedChurchSourcesForChurch', 'Canonical source registry');
+
 requireText(tripPlanner, 'PaintedChurchRoutePromo', 'Trip-planner reciprocal link');
 requireText(tripPlanner, '/explore/painted-churches/routes', 'Trip-planner reciprocal link');
 requireText(tripPlanner, '/explore/painted-churches/map', 'Trip-planner reciprocal link');
 requireText(countyGuides, 'countyChurches = expandedPaintedChurches.filter', 'County reciprocal link');
 requireText(guidebook, 'label: "Painted Churches of Texas"', 'Guidebook discovery');
-requireText(guidebook, 'A source-backed heritage reference and travel-planning system for 27 verified churches.', 'Guidebook authority copy');
+requireText(guidebook, 'A source-backed heritage reference and travel-planning system for 28 verified churches.', 'Guidebook authority copy');
 requireText(topicPaths, 'label: "Painted Churches of Texas"', 'Historic-sites reciprocal link');
 requireText(topicPaths, 'to: "/explore/painted-churches/routes"', 'Road-trip reciprocal link');
 requireText(topicPaths, 'label: "Painted Churches"', 'Small-town reciprocal link');
@@ -62,4 +71,4 @@ if (failures.length) {
   failures.forEach((failure) => console.error(`- ${failure}`));
   process.exit(1);
 }
-console.log('Painted Churches completion protected: candidate adjudication, oral-history sources, complete Then & Now accounting, Fredericksburg, High Hill and Ammannsville current imagery, Lindsay and Umbarger primary-source interiors, county/history/road-trip/small-town discovery, trip-planner integration and statewide Guidebook exposure.');
+console.log('Painted Churches completion protected: 28-church authority corpus, original 14-vs-15 thematic reconciliation, candidate adjudication, oral-history sources, complete Then & Now accounting, rights-verified interiors, primary-source archival evidence, source registry, and county/history/road-trip/small-town discovery.');
