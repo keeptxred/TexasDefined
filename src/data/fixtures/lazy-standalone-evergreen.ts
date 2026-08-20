@@ -175,6 +175,42 @@ const republicOfTexasGovernmentTrailStub: Article = {
   body: [], relatedCollections: [], relatedDestinations: ["san-felipe-de-austin", "washington-on-the-brazos", "star-of-the-republic-museum", "first-capitol-of-texas", "stephen-f-austin-memorial", "french-legation", "barrington-living-history-farm"],
 };
 
+const washingtonOnTheBrazosWeekendGuideStub: Article = {
+  id: "evergreen-washington-on-the-brazos-weekend-guide", brandId: "texasdefined", slug: "washington-on-the-brazos-weekend-guide",
+  title: "A History Weekend at Washington-on-the-Brazos",
+  dek: "Plan a history-first day or overnight around Independence Hall, the Star of the Republic Museum and Barrington Living History Farm without rushing the Brazos landscape that connects them.",
+  category: "road-trips",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Brazos_River_at_Washington_on_the_Brazos.jpg?width=1600", alt: "The Brazos River at Washington-on-the-Brazos State Historic Site", width: 1600, height: 900, credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons" },
+  authorId: "a-marisol", publishedAt: "2026-08-19", readingMinutes: 11,
+  tags: ["washington on the brazos", "texas history weekend", "star of the republic museum", "barrington living history farm", "texas road trip", "washington county"], featured: true,
+  sourceName: "Texas Historical Commission", sourceUrl: "https://thc.texas.gov/historic-sites/washington-brazos",
+  body: [], relatedCollections: [], relatedDestinations: ["washington-on-the-brazos", "star-of-the-republic-museum", "barrington-living-history-farm", "san-felipe-de-austin", "fanthorp-inn"],
+};
+
+const goliadHistoryWeekendGuideStub: Article = {
+  id: "evergreen-goliad-history-weekend-guide", brandId: "texasdefined", slug: "goliad-history-weekend-guide",
+  title: "A Goliad History Weekend: Fannin Battleground to Presidio La Bahía",
+  dek: "Follow the Goliad campaign in the right order—from the Coleto battlefield to Presidio La Bahía—then slow down enough to see the Spanish, Mexican and Republic-era layers around the story.",
+  category: "road-trips",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Presidio_Nuestra_Senora_de_Loreto_de_la_Bahia%2C_commonly_known_as_Presidio_La_Bahia%2C_Goliad%2C_Texas.jpg?width=1600", alt: "Presidio La Bahía in Goliad, Texas", width: 1600, height: 1195, credit: "Jkulick · CC BY-SA 4.0 · Wikimedia Commons" },
+  authorId: "a-marisol", publishedAt: "2026-08-19", readingMinutes: 11,
+  tags: ["goliad texas", "fannin battleground", "presidio la bahia", "texas revolution road trip", "goliad weekend", "texas history"], featured: true,
+  sourceName: "Texas Historical Commission", sourceUrl: "https://thc.texas.gov/historic-sites/presidio-la-bahia",
+  body: [], relatedCollections: [], relatedDestinations: ["fannin-battleground", "presidio-la-bahia"],
+};
+
+const fredericksburgHistoryWeekendGuideStub: Article = {
+  id: "evergreen-fredericksburg-history-weekend-guide", brandId: "texasdefined", slug: "fredericksburg-history-weekend-guide",
+  title: "A History-First Weekend in Fredericksburg",
+  dek: "Build a Fredericksburg weekend around the National Museum of the Pacific War, Fort Martin Scott and the town's German-Texas heritage instead of treating history as an afterthought to Main Street.",
+  category: "road-trips",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Fort_martin_scott_2008.jpg?width=1600", alt: "Fort Martin Scott State Historic Site in Fredericksburg, Texas", width: 1600, height: 1200, credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons" },
+  authorId: "a-marisol", publishedAt: "2026-08-19", readingMinutes: 12,
+  tags: ["fredericksburg texas history", "national museum pacific war", "fort martin scott", "german texas", "fredericksburg weekend", "texas hill country history"], featured: true,
+  sourceName: "National Museum of the Pacific War", sourceUrl: "https://www.pacificwarmuseum.org/visit",
+  body: [], relatedCollections: [], relatedDestinations: ["national-museum-pacific-war", "fort-martin-scott"],
+};
+
 export const standaloneEvergreenStubs: Article[] = [
   rodeo101Stub,
   highSchoolFootballNewcomersStub,
@@ -191,6 +227,9 @@ export const standaloneEvergreenStubs: Article[] = [
   texasMilitaryHistoryTimelineStub,
   texasCivilWarSitesGuideStub,
   republicOfTexasGovernmentTrailStub,
+  washingtonOnTheBrazosWeekendGuideStub,
+  goliadHistoryWeekendGuideStub,
+  fredericksburgHistoryWeekendGuideStub,
 ];
 
 export async function loadStandaloneEvergreenArticle(brandId: string, slug: string): Promise<Article | null> {
@@ -210,5 +249,8 @@ export async function loadStandaloneEvergreenArticle(brandId: string, slug: stri
   if (slug === texasMilitaryHistoryTimelineStub.slug) return import("./texas-military-history-timeline").then((module) => module.texasMilitaryHistoryTimelineArticle);
   if (slug === texasCivilWarSitesGuideStub.slug) return import("./texas-civil-war-sites-guide").then((module) => module.texasCivilWarSitesGuideArticle);
   if (slug === republicOfTexasGovernmentTrailStub.slug) return import("./republic-of-texas-government-trail").then((module) => module.republicOfTexasGovernmentTrailArticle);
+  if (slug === washingtonOnTheBrazosWeekendGuideStub.slug) return import("./washington-on-the-brazos-weekend-guide").then((module) => module.washingtonOnTheBrazosWeekendGuideArticle);
+  if (slug === goliadHistoryWeekendGuideStub.slug) return import("./goliad-history-weekend-guide").then((module) => module.goliadHistoryWeekendGuideArticle);
+  if (slug === fredericksburgHistoryWeekendGuideStub.slug) return import("./fredericksburg-history-weekend-guide").then((module) => module.fredericksburgHistoryWeekendGuideArticle);
   return null;
 }
