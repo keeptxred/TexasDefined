@@ -1,0 +1,160 @@
+name: Certify Rockwall County production once
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/certify-rockwall-county-once.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  certify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    environment: texasdefined-publication
+    env:
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      HERO_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Rockwall%20county%20tx%20courthouse%202014.jpg?width=1600
+      EXPECTED_TITLE: 'Rockwall County: The Rock Wall, Lake Ray Hubbard and a Small County in a Fast-Growing Metro'
+      LEGACY_PATH: /article/rockwall-county-rockwall-heath-lake-ray-hubbard-blackland-prairie-texas
+      COUNTY_PATH: /county/rockwall
+    steps:
+      - name: Check out current main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Verify Rockwall source and hero
+        shell: bash
+        run: |
+          set -euo pipefail
+          fixture='src/data/fixtures/rockwall-county-rockwall-heath-lake-ray-hubbard-blackland-prairie-texas.ts'
+          test -f "$fixture"
+          grep -Fq 'countySlug: "rockwall"' src/data/county-series-profiles-northeast.ts
+          grep -Fq '["rockwall-county-rockwall-heath-lake-ray-hubbard-blackland-prairie-texas", "rockwall"]' src/data/county-series.ts
+          grep -Fq "$EXPECTED_TITLE" "$fixture"
+          if grep -n 'www\.texasdefined\.com' "$fixture" src/data/county-series-profiles-northeast.ts src/data/county-series.ts; then
+            echo 'Non-canonical www TexasDefined hostname found.' >&2
+            exit 1
+          fi
+          workdir="$(mktemp -d)"; trap 'rm -rf "$workdir"' EXIT
+          status="$(curl -L --retry 5 --retry-all-errors --retry-delay 2 --max-time 60 -sS -D "$workdir/headers" -o "$workdir/body" -w '%{http_code}' "$HERO_URL")"
+          test "$status" = '200'
+          mime="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/{gsub(/\r/,""); sub(/^content-type:[[:space:]]*/,""); v=$0} END{print v}' "$workdir/headers" | cut -d';' -f1)"
+          case "$mime" in image/jpeg|image/png|image/webp) ;; *) echo "Unexpected hero MIME: $mime" >&2; exit 1;; esac
+          bytes="$(wc -c < "$workdir/body")"
+          test "$bytes" -gt 50000
+          echo "Hero source verified: HTTP $status $mime $bytes bytes"
+
+      - name: Validate and deploy newest stable main
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -n "$CLOUDFLARE_ACCOUNT_ID"
+          test -n "$CLOUDFLARE_API_TOKEN"
+
+          for pass in 1 2 3 4 5; do
+            echo "Certification pass $pass"
+            git fetch origin main
+            git reset --hard origin/main
+            target="$(git rev-parse HEAD)"
+
+            fixture='src/data/fixtures/rockwall-county-rockwall-heath-lake-ray-hubbard-blackland-prairie-texas.ts'
+            test -f "$fixture"
+            grep -Fq 'countySlug: "rockwall"' src/data/county-series-profiles-northeast.ts
+            grep -Fq '["rockwall-county-rockwall-heath-lake-ray-hubbard-blackland-prairie-texas", "rockwall"]' src/data/county-series.ts
+            grep -Fq "$EXPECTED_TITLE" "$fixture"
+            if grep -n 'www\.texasdefined\.com' "$fixture" src/data/county-series-profiles-northeast.ts src/data/county-series.ts; then
+              echo 'Non-canonical www TexasDefined hostname found.' >&2
+              exit 1
+            fi
+
+            npm run validate
+
+            git fetch origin main
+            latest="$(git rev-parse origin/main)"
+            if [ "$latest" != "$target" ]; then
+              echo "main moved during validation: $target -> $latest; revalidating newest main"
+              continue
+            fi
+
+            npm run deploy
+
+            git fetch origin main
+            latest="$(git rev-parse origin/main)"
+            if [ "$latest" != "$target" ]; then
+              echo "main moved during deployment: $target -> $latest; validating and redeploying newest main"
+              continue
+            fi
+
+            echo "TARGET_SHA=$target" >> "$GITHUB_ENV"
+            echo "Validated and deployed stable main $target"
+            exit 0
+          done
+
+          echo 'Could not obtain a stable validated/deployed main revision after five passes.' >&2
+          exit 1
+
+      - name: Verify live Rockwall County page, structured layer, redirect, and hero
+        shell: bash
+        run: |
+          set -euo pipefail
+          origin='https://texasdefined.com'
+          workdir="$(mktemp -d)"; trap 'rm -rf "$workdir"' EXIT
+          ok=0
+          for attempt in $(seq 1 12); do
+            status="$(curl --retry 3 --retry-all-errors --retry-delay 2 --max-time 60 -sS -o "$workdir/page" -w '%{http_code}' "$origin$COUNTY_PATH?verify=${TARGET_SHA}-${GITHUB_RUN_ID}-$attempt")"
+            if [ "$status" = '200' ] && grep -Fq "$EXPECTED_TITLE" "$workdir/page" && grep -Fq 'The county in numbers' "$workdir/page" && grep -Fq 'County seat' "$workdir/page" && grep -Fq '2020 population' "$workdir/page" && grep -Fq 'County feature' "$workdir/page" && grep -Fq 'Rockwall' "$workdir/page" && grep -Fq 'https://texasdefined.com/county/rockwall' "$workdir/page"; then
+              ok=1
+              break
+            fi
+            sleep 5
+          done
+          test "$ok" = '1' || { echo 'Live Rockwall County structured/editorial layers did not appear.' >&2; exit 1; }
+
+          legacy_status="$(curl --max-redirs 0 -sS -D "$workdir/legacy-headers" -o /dev/null -w '%{http_code}' "$origin$LEGACY_PATH")"
+          location="$(awk 'BEGIN{IGNORECASE=1} /^location:/{gsub(/\r/,""); sub(/^location:[[:space:]]*/,""); print; exit}' "$workdir/legacy-headers")"
+          test "$legacy_status" = '301'
+          [[ "$location" == *'/county/rockwall'* ]]
+
+          hero_status="$(curl -L --retry 5 --retry-all-errors --retry-delay 2 --max-time 60 -sS -D "$workdir/hero-headers" -o "$workdir/hero" -w '%{http_code}' "$HERO_URL")"
+          hero_mime="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/{gsub(/\r/,""); sub(/^content-type:[[:space:]]*/,""); v=$0} END{print v}' "$workdir/hero-headers" | cut -d';' -f1)"
+          test "$hero_status" = '200'
+          case "$hero_mime" in image/jpeg|image/png|image/webp) ;; *) echo "Live hero MIME invalid: $hero_mime" >&2; exit 1;; esac
+          hero_bytes="$(wc -c < "$workdir/hero")"
+          test "$hero_bytes" -gt 50000
+
+          printf 'TARGET_SHA=%s\nPAGE_STATUS=200\nSTRUCTURED=yes\nEDITORIAL=yes\nLEGACY_STATUS=%s\nLEGACY_LOCATION=%s\nHERO_STATUS=%s\nHERO_MIME=%s\nHERO_BYTES=%s\n' "$TARGET_SHA" "$legacy_status" "$location" "$hero_status" "$hero_mime" "$hero_bytes" > /tmp/rockwall-cert.txt
+          cat /tmp/rockwall-cert.txt
+
+      - name: Record successful certification
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p reports/automation
+          cp /tmp/rockwall-cert.txt reports/automation/rockwall-county-certification.txt
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- reports/automation/rockwall-county-certification.txt
+          git commit -m 'Record Rockwall County production certification'
+          for attempt in 1 2 3 4 5; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            git rebase --abort || true
+            sleep $((attempt * 3))
+          done
+          echo 'Certification passed but result marker could not be pushed after retries.' >&2
+          exit 1
