@@ -14,7 +14,7 @@ import { supplementalExploreCategories } from "../explore-categories";
 import { guideHref } from "../guide-links";
 import type { Article, ArticleBlock, SearchDocument } from "../types";
 import { exploreFeatureArticleStubs, loadExploreFeatureArticle } from "./lazy-explore-feature-articles";
-import { newestEvergreenArticles } from "./newest-evergreen";
+import { newestEvergreenArticles, loadNewestEvergreenArticle } from "./lazy-newest-evergreen";
 import { lazyEvergreenArticleStubs, loadLazyEvergreenArticle } from "./lazy-evergreen";
 import { historicSupportingStubs, loadHistoricSupportingArticle } from "./lazy-historic-supporting";
 import { militaryHistoryExpansionStubs, loadMilitaryHistoryExpansionArticle } from "./lazy-military-history-expansion";
@@ -178,6 +178,9 @@ export const fixtureArticles: ArticleRepository = {
     return take(rows, query.limit).map(normalizeArticle);
   },
   async getBySlug(scope, slug) {
+    const newestEvergreenArticle = await loadNewestEvergreenArticle(scope.brandId, slug);
+    if (newestEvergreenArticle) return normalizeArticle(newestEvergreenArticle);
+
     const coreEvergreenArticle = await loadCoreEvergreenArticle(scope.brandId, slug);
     if (coreEvergreenArticle) return normalizeArticle(coreEvergreenArticle);
 
