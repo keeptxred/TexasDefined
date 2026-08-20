@@ -89,6 +89,17 @@ const routeGuides: RouteGuide[] = [
   },
   {
     slugs: new Set([
+      "fort-mckavett",
+      "fort-lancaster",
+    ]),
+    item: {
+      name: "Buffalo Soldiers in Texas",
+      description: "Follow the Black Regulars through Texas frontier posts while holding African American military service, citizenship and Native dispossession in the same history.",
+      href: "/article/buffalo-soldiers-texas-frontier-guide",
+    },
+  },
+  {
+    slugs: new Set([
       "eisenhower-birthplace",
       "bush-family-home",
       "sam-rayburn-house",
