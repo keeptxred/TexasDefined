@@ -1,4 +1,5 @@
 import { PaintedChurchCanonicalRecord } from "@/components/editorial/PaintedChurchCanonicalRecord";
+import { PaintedChurchFeatureInventory } from "@/components/editorial/PaintedChurchFeatureInventory";
 import { PaintedChurchNominationEvidence } from "@/components/editorial/PaintedChurchNominationEvidence";
 import { paintedChurchRegisterRecordBySlug } from "@/data/painted-church-register-evidence";
 
@@ -31,6 +32,7 @@ export function PaintedChurchRegisterEvidence({ slug }: { slug: string }) {
         </section>
       ) : null}
       <PaintedChurchNominationEvidence slug={slug} />
+      <PaintedChurchFeatureInventory slug={slug} />
     </>
   );
 }
