@@ -188,6 +188,7 @@ export const REDIRECT_ONLY_PATHS = [
   "/texas-financial-tools",
   "/texas-property-tax-increase-calculator",
   "/texas-property-tax-protest-guide",
+  "/article/high-school-football-newcomers",
   "/fishing/lake/lake-conroe",
   "/lakes/lake-conroe.html",
   "/destination/enchanted-rock",
