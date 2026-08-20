@@ -1,0 +1,9 @@
+{
+  "county": "fisher",
+  "status": "pass",
+  "stage": "complete",
+  "county_commit": "29d96690c58667c8d4960cb2a82465d159f9dd08",
+  "tested_main": "6550435a24cdd8aa714a4cd62825561b02a15fcd",
+  "detail": "validate=PASS deploy=PASS page=200 structured=yes editorial=yes legacy=not-applicable hero=200 mime=image/jpeg bytes=930640",
+  "recorded_at_utc": "2026-08-20T19:10:23.510640+00:00"
+}
