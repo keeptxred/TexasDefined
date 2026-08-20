@@ -1,0 +1,9 @@
+{
+  "county": "kent",
+  "status": "pass",
+  "stage": "complete",
+  "county_commit": "49e79c110f7fce07f3c10e0ed2174f1305ff3bc9",
+  "tested_main": "63df273972d0a0ff3616d295993c043a318100d3",
+  "detail": "validate=PASS deploy=PASS page=200 structured=yes editorial=yes legacy=not-applicable hero=200 mime=image/jpeg bytes=843213",
+  "recorded_at_utc": "2026-08-20T18:07:36.357080+00:00"
+}
