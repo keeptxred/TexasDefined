@@ -1,5 +1,6 @@
 name: Certify Borden County production once
 
+# Temporary PR-observable certification for the current Borden County release.
 on:
   push:
     branches: [main]
