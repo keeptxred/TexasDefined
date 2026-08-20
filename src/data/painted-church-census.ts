@@ -9,6 +9,7 @@ const promoted = new Set([
   "houston-annunciation-catholic-church",
   "waco-st-francis-on-the-brazos",
   "san-antonio-immaculate-heart-of-mary",
+  "mason-st-joseph-catholic-church",
 ]);
 
 /** Research ledger after removing churches that cleared the verified inclusion standard. */
