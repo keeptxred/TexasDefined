@@ -2,6 +2,7 @@ import { authorityPaintedChurchResearchBySlug } from "./painted-church-research-
 import { paintedChurchAdditionResearchBySlug } from "./painted-church-research-additions";
 import { paintedChurchExpansionResearchBySlug } from "./painted-church-research-expansion";
 import { immaculateHeartOfMaryPaintedChurchResearchBySlug } from "./painted-church-research-preindex-ihm";
+import { masonPaintedChurchResearchBySlug } from "./painted-church-research-mason";
 import { latestPaintedChurchResearchBySlug } from "./painted-church-research-latest";
 import { preindexPaintedChurchResearchBySlug } from "./painted-church-research-preindex";
 import { supplementalPreindexPaintedChurchResearchBySlug } from "./painted-church-research-preindex-supplemental";
@@ -11,7 +12,8 @@ import { statewidePaintedChurchResearchBySlug } from "./painted-church-research-
 export type { PaintedChurchResearchDossier } from "./painted-church-research";
 
 export function canonicalPaintedChurchResearchBySlug(slug: string): PaintedChurchResearchDossier | undefined {
-  return immaculateHeartOfMaryPaintedChurchResearchBySlug(slug)
+  return masonPaintedChurchResearchBySlug(slug)
+    ?? immaculateHeartOfMaryPaintedChurchResearchBySlug(slug)
     ?? preindexPaintedChurchResearchBySlug(slug)
     ?? supplementalPreindexPaintedChurchResearchBySlug(slug)
     ?? authorityPaintedChurchResearchBySlug(slug)
