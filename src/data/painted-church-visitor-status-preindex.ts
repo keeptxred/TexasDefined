@@ -39,4 +39,13 @@ export const preindexPaintedChurchVisitorStatuses: PaintedChurchVisitorStatus[] 
     evidenceScope: "current-visitor-guidance",
     checkedAt: CHECKED,
   },
+  {
+    slug: "mason-st-joseph-catholic-church",
+    status: "arrange-ahead",
+    summary: "Texas Time Travel states that St. Joseph in Mason does not keep regular visitation hours outside its Mass schedule and recommends calling to schedule a time to view the church. The parish itself invites visitors to its newly remodeled worship site and publishes current liturgies and contact information.",
+    controllingSourceUrl: "https://texastimetravel.com/directory/st-josephs-catholic-church/",
+    controllingSourceLabel: "Texas Time Travel / Texas Historical Commission — St. Joseph Mason visitor instructions",
+    evidenceScope: "current-visitor-guidance",
+    checkedAt: CHECKED,
+  },
 ];
