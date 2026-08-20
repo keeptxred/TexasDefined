@@ -44,15 +44,42 @@ const readHeroSource = (source, heroBlock) => {
   return importMatch[1];
 };
 
+const escapeRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+const resolveFixtureSource = (fixture, exportName) => {
+  const directExportPattern = new RegExp(`export\\s+const\\s+${escapeRegExp(exportName)}\\b`);
+  const wrapperSource = fs.readFileSync(fixture, 'utf8');
+  if (directExportPattern.test(wrapperSource)) return { source: wrapperSource, sourcePath: fixture };
+
+  const reExportPattern = new RegExp(
+    `export\\s*\\{[^}]*\\b${escapeRegExp(exportName)}\\b[^}]*\\}\\s*from\\s*["']([^"']+)["']`,
+  );
+  const reExport = wrapperSource.match(reExportPattern);
+  if (!reExport) throw new Error(`Missing expected export ${exportName} in ${fixture}`);
+
+  const relativeTarget = reExport[1];
+  const targetPath = path.resolve(
+    path.dirname(fixture),
+    relativeTarget.endsWith('.ts') ? relativeTarget : `${relativeTarget}.ts`,
+  );
+  if (!fs.existsSync(targetPath)) {
+    throw new Error(`County fixture re-export target is missing: ${fixture} -> ${targetPath}`);
+  }
+
+  const targetSource = fs.readFileSync(targetPath, 'utf8');
+  if (!directExportPattern.test(targetSource)) {
+    throw new Error(`Missing expected export ${exportName} in re-export target ${targetPath}`);
+  }
+
+  return { source: targetSource, sourcePath: targetPath };
+};
+
 const rows = profiles
   .sort((a, b) => a.countySlug.localeCompare(b.countySlug))
   .map((profile) => {
     const fixture = path.resolve(`src/data/fixtures/${profile.fixturePath}.ts`);
     if (!fs.existsSync(fixture)) throw new Error(`Missing county fixture: ${fixture}`);
-    const source = fs.readFileSync(fixture, 'utf8');
-    if (!new RegExp(`export\\s+const\\s+${profile.exportName}\\b`).test(source)) {
-      throw new Error(`Missing expected export ${profile.exportName} in ${fixture}`);
-    }
+    const { source, sourcePath } = resolveFixtureSource(fixture, profile.exportName);
 
     const id = readStringField(source, 'id');
     const slug = readStringField(source, 'slug');
@@ -61,7 +88,7 @@ const rows = profiles
     const heroSrc = readHeroSource(source, heroBlock);
 
     if (!id || !slug || !title || !heroSrc) {
-      throw new Error(`County profile is missing required publication metadata: ${profile.countySlug}`);
+      throw new Error(`County profile is missing required publication metadata: ${profile.countySlug} (${sourcePath})`);
     }
     if (!id.startsWith('county-')) {
       throw new Error(`County article id must start with county-: ${id} (${profile.countySlug})`);
