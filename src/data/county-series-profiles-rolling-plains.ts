@@ -67,4 +67,10 @@ export const COUNTY_SERIES_PROFILES_ROLLING_PLAINS: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/throckmorton-county-throckmorton-clear-fork-ranching-rolling-plains-texas")
       .then((module) => module.throckmortonCountyThrockmortonClearForkRanchingRollingPlainsTexasArticle),
   },
+  {
+    countySlug: "fisher",
+    articleSlug: "fisher-county-roby-rotan-double-mountain-fork-rolling-plains-texas",
+    loadArticle: () => import("@/data/fixtures/fisher-county-roby-rotan-double-mountain-fork-rolling-plains-texas")
+      .then((module) => module.fisherCountyRobyRotanDoubleMountainForkRollingPlainsTexasArticle),
+  },
 ];
