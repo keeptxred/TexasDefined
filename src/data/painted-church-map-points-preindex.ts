@@ -25,4 +25,12 @@ export const preindexPaintedChurchMapPoints: PaintedChurchMapPoint[] = [
     sourceUrl: "https://mapcarta.com/W362324228",
     sourceLabel: "OpenStreetMap-derived St. Francis church-office coordinate at 315 Jefferson Avenue; church is immediately adjacent",
   },
+  {
+    slug: "san-antonio-immaculate-heart-of-mary",
+    lat: 29.420008,
+    lon: -98.499885,
+    precision: "near-property",
+    sourceUrl: "https://ihmsatx.org/contact-us",
+    sourceLabel: "Official parish address at 617 S. Santa Rosa Avenue; coordinate cross-checked against current mapped property records",
+  },
 ];
