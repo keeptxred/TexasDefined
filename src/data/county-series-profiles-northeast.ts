@@ -115,4 +115,10 @@ export const COUNTY_SERIES_PROFILES_NORTHEAST: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/archer-county-archer-city-ranching-oil-larry-mcmurtry-north-texas")
       .then((module) => module.archerCountyArcherCityRanchingOilLarryMcMurtryNorthTexasArticle),
   },
+  {
+    countySlug: "foard",
+    articleSlug: "foard-county-crowell-pease-river-ranching-oil-rolling-plains-texas",
+    loadArticle: () => import("@/data/fixtures/foard-county-crowell-pease-river-ranching-oil-rolling-plains-texas")
+      .then((module) => module.foardCountyCrowellPeaseRiverRanchingOilRollingPlainsTexasArticle),
+  },
 ];
