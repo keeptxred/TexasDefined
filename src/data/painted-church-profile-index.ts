@@ -3,6 +3,7 @@ import { finalPaintedChurchProfileBySlug } from "./painted-church-profiles-final
 import { paintedChurchExtendedProfileBySlug } from "./painted-church-profiles-extended";
 import { paintedChurchExpansionProfileBySlug } from "./painted-church-profiles-expansion";
 import { immaculateHeartOfMaryPaintedChurchProfileBySlug } from "./painted-church-profiles-preindex-ihm";
+import { masonPaintedChurchProfileBySlug } from "./painted-church-profiles-mason";
 import { latestPaintedChurchProfileBySlug } from "./painted-church-profiles-latest";
 import { preindexPaintedChurchProfileBySlug } from "./painted-church-profiles-preindex";
 import { supplementalPreindexPaintedChurchProfileBySlug } from "./painted-church-profiles-preindex-supplemental";
@@ -13,7 +14,8 @@ import { paintedChurchAdditionProfileBySlug } from "./painted-church-profiles-ad
 export type { PaintedChurchProfile } from "./painted-church-profiles";
 
 export function canonicalPaintedChurchProfileBySlug(slug: string) {
-  return immaculateHeartOfMaryPaintedChurchProfileBySlug(slug)
+  return masonPaintedChurchProfileBySlug(slug)
+    ?? immaculateHeartOfMaryPaintedChurchProfileBySlug(slug)
     ?? preindexPaintedChurchProfileBySlug(slug)
     ?? supplementalPreindexPaintedChurchProfileBySlug(slug)
     ?? authorityPaintedChurchProfileBySlug(slug)
