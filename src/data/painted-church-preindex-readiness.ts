@@ -1,6 +1,6 @@
 import { paintedChurchArchivalImagesBySlug } from "./painted-church-archival-images";
 import { paintedChurchContributors } from "./painted-church-contributors";
-import { paintedChurchFeatures } from "./painted-church-features";
+import { canonicalPaintedChurchFeaturesBySlug } from "./painted-church-feature-index";
 import { canonicalPaintedChurchGalleryBySlug } from "./painted-church-gallery-index";
 import { paintedChurchMapPointBySlug } from "./painted-church-map-points";
 import { canonicalPaintedChurchProfileBySlug } from "./painted-church-profile-index";
@@ -33,7 +33,7 @@ export const paintedChurchReadiness: PaintedChurchReadinessRecord[] = expandedPa
   const archives = paintedChurchArchivalImagesBySlug(church.slug);
   const mapPoint = paintedChurchMapPointBySlug.get(church.slug);
   const visitor = paintedChurchVisitorStatusBySlug.get(church.slug);
-  const features = paintedChurchFeatures.filter((item) => item.churchSlug === church.slug);
+  const features = canonicalPaintedChurchFeaturesBySlug(church.slug);
   const contributors = paintedChurchContributors.filter((item) => item.churchSlugs.includes(church.slug));
   const symbols = paintedChurchSymbols.filter((item) => item.churchSlugs.includes(church.slug));
   const sourceCount = new Set([
@@ -41,12 +41,13 @@ export const paintedChurchReadiness: PaintedChurchReadinessRecord[] = expandedPa
     church.secondarySourceUrl,
     ...(profile?.sources.map((item) => item.url) ?? []),
     ...(research?.sources.map((item) => item.url) ?? []),
+    ...features.map((item) => item.sourceUrl),
   ].filter((value): value is string => Boolean(value))).size;
 
   const dimensions: PaintedChurchReadinessDimension[] = [
     { id: "canonical-profile", label: "Canonical narrative profile", complete: Boolean(profile), requiredForIndexLaunch: true, detail: profile ? "Canonical profile resolves." : "No canonical profile resolves." },
     { id: "research-dossier", label: "Research dossier", complete: Boolean(research), requiredForIndexLaunch: true, detail: research ? "Church-specific research dossier resolves." : "No church-specific research dossier resolves." },
-    { id: "source-density", label: "Multi-source provenance", complete: sourceCount >= 2, requiredForIndexLaunch: true, detail: `${sourceCount} distinct church/profile/research source URLs.` },
+    { id: "source-density", label: "Multi-source provenance", complete: sourceCount >= 2, requiredForIndexLaunch: true, detail: `${sourceCount} distinct church/profile/research/feature source URLs.` },
     { id: "visitor-control", label: "Explicit visitor-status research", complete: Boolean(visitor), requiredForIndexLaunch: true, detail: visitor ? `${visitor.status}; evidence scope ${visitor.evidenceScope}.` : "No explicit visitor-status record." },
     { id: "map", label: "Mapped location", complete: Boolean(mapPoint), requiredForIndexLaunch: true, detail: mapPoint ? `${mapPoint.precision} coordinate from ${mapPoint.sourceLabel}.` : "No sourced map point." },
     { id: "map-exact", label: "Exact-property coordinate", complete: mapPoint?.precision === "exact-property", requiredForIndexLaunch: false, detail: mapPoint?.precision === "exact-property" ? "Exact-property coordinate documented." : `Best current precision: ${mapPoint?.precision ?? "none"}.` },
