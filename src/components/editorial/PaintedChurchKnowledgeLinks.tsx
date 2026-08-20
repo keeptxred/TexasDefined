@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 
+import { PaintedChurchEvidenceLedger } from "@/components/editorial/PaintedChurchEvidenceLedger";
 import { paintedChurchKnowledgeForChurch } from "@/data/painted-church-knowledge-graph";
 
 const labels: Record<string, string> = {
@@ -23,25 +24,28 @@ export function PaintedChurchKnowledgeLinks({ slug }: { slug: string }) {
     grouped.set(item.edge.relationship, current);
   }
 
-  if (!connections.length) return null;
-
   return (
-    <section aria-labelledby="knowledge-graph-links" className="mt-14 border-t border-border pt-8">
-      <p className="eyebrow text-primary">Painted Churches knowledge graph</p>
-      <h2 id="knowledge-graph-links" className="mt-3 font-display text-4xl">Follow the authorship, symbols, techniques and traditions connected to this church.</h2>
-      <div className="mt-8 grid gap-px border border-border bg-border md:grid-cols-2">
-        {[...grouped.entries()].map(([relationship, items]) => (
-          <div key={relationship} className="bg-background p-6">
-            <h3 className="font-display text-2xl">{labels[relationship] ?? relationship}</h3>
-            <div className="mt-4 flex flex-wrap gap-x-5 gap-y-3 text-sm">
-              {items.map(({ node }) => (
-                <Link key={node.id} to={node.url as any} className="border-b border-primary text-primary">{node.name}</Link>
-              ))}
-            </div>
+    <>
+      {connections.length ? (
+        <section aria-labelledby="knowledge-graph-links" className="mt-14 border-t border-border pt-8">
+          <p className="eyebrow text-primary">Painted Churches knowledge graph</p>
+          <h2 id="knowledge-graph-links" className="mt-3 font-display text-4xl">Follow the authorship, symbols, techniques and traditions connected to this church.</h2>
+          <div className="mt-8 grid gap-px border border-border bg-border md:grid-cols-2">
+            {[...grouped.entries()].map(([relationship, items]) => (
+              <div key={relationship} className="bg-background p-6">
+                <h3 className="font-display text-2xl">{labels[relationship] ?? relationship}</h3>
+                <div className="mt-4 flex flex-wrap gap-x-5 gap-y-3 text-sm">
+                  {items.map(({ node }) => (
+                    <Link key={node.id} to={node.url as any} className="border-b border-primary text-primary">{node.name}</Link>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-      <p className="mt-5 text-xs leading-6 text-muted-foreground">Relationships are published only when Texas Defined has a church-specific source or documented collection-level basis for the connection. Architectural design, construction, decoration, restoration and research are intentionally kept separate.</p>
-    </section>
+          <p className="mt-5 text-xs leading-6 text-muted-foreground">Relationships are published only when Texas Defined has a church-specific source or documented collection-level basis for the connection. Architectural design, construction, decoration, restoration and research are intentionally kept separate.</p>
+        </section>
+      ) : null}
+      <PaintedChurchEvidenceLedger slug={slug} />
+    </>
   );
 }
