@@ -216,11 +216,14 @@ jobs:
           fetch_assert historic-sites '/explore/historic-sites' 'Painted Churches of Texas'
           fetch_assert road-trips '/explore/road-trips' 'Painted Churches routes'
           fetch_assert small-towns '/explore/small-towns' 'Painted Churches'
+          fetch_assert spanish-texas '/article/spanish-texas-military-battle-medina' 'Military Texas Before the Republic'
           fetch_assert buffalo-soldiers '/article/buffalo-soldiers-texas-frontier-guide' 'Buffalo Soldiers in Texas'
           fetch_assert red-river-war '/article/texas-red-river-war-guide' 'The Red River War in Texas'
+          fetch_assert spanish-american-war '/article/texas-spanish-american-war-guide' 'Texas and the Spanish-American War'
+          fetch_assert world-war-i '/article/texas-world-war-i-history-guide' 'Texas in World War I'
           fetch_assert republic-navy '/article/republic-of-texas-navy-history' 'The Republic of Texas Navy'
           fetch_assert cold-war '/article/texas-cold-war-military-history' 'Cold War Texas'
-          fetch_assert texas-history-military '/texas-history' 'The Red River War in Texas'
+          fetch_assert texas-history-military '/texas-history' 'Military Texas before the Republic'
 
           echo 'TexasDefined production, core authority clusters and military-history surfaces are live.'
       - name: Publish live verification success
