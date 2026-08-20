@@ -1,0 +1,126 @@
+name: Certify Franklin County production once
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/certify-franklin-county-once.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  certify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    environment: texasdefined-publication
+    env:
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      HERO_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Mount_Vernon_May_2018_17_%28Franklin_County_Courthouse%29.jpg?width=1600
+    steps:
+      - name: Check out current main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Verify county hero source
+        shell: bash
+        run: |
+          set -euo pipefail
+          workdir="$(mktemp -d)"; trap 'rm -rf "$workdir"' EXIT
+          status="$(curl -L --retry 5 --retry-all-errors --retry-delay 2 --max-time 60 -sS -D "$workdir/headers" -o "$workdir/body" -w '%{http_code}' "$HERO_URL")"
+          test "$status" = '200'
+          mime="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/{gsub(/\r/,""); sub(/^content-type:[[:space:]]*/,""); v=$0} END{print v}' "$workdir/headers" | cut -d';' -f1)"
+          case "$mime" in image/jpeg|image/png|image/webp) ;; *) echo "Unexpected hero MIME: $mime" >&2; exit 1;; esac
+          test "$(wc -c < "$workdir/body")" -gt 50000
+          echo "Hero source verified: HTTP $status $mime $(wc -c < "$workdir/body") bytes"
+
+      - name: Validate and deploy newest stable main
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -n "$CLOUDFLARE_ACCOUNT_ID"
+          test -n "$CLOUDFLARE_API_TOKEN"
+
+          for pass in 1 2 3 4 5; do
+            echo "Certification pass $pass"
+            git fetch origin main
+            git reset --hard origin/main
+            target="$(git rev-parse HEAD)"
+
+            test -f src/data/fixtures/franklin-county-mount-vernon-cypress-springs-northeast-texas.ts
+            grep -Fq 'countySlug: "franklin"' src/data/county-series-profiles-northeast.ts
+            grep -Fq '["franklin-county-mount-vernon-cypress-springs-northeast-texas", "franklin"]' src/data/county-series.ts
+            grep -Fq 'Franklin County: Mount Vernon, Lake Cypress Springs and Northeast Texas Woodlands' src/data/fixtures/franklin-county-mount-vernon-cypress-springs-northeast-texas.ts
+            if grep -n 'www\.texasdefined\.com' src/data/fixtures/franklin-county-mount-vernon-cypress-springs-northeast-texas.ts src/data/county-series-profiles-northeast.ts src/data/county-series.ts; then
+              echo 'Non-canonical www TexasDefined hostname found.' >&2
+              exit 1
+            fi
+
+            npm run validate
+
+            git fetch origin main
+            latest="$(git rev-parse origin/main)"
+            if [ "$latest" != "$target" ]; then
+              echo "main moved during validation: $target -> $latest; revalidating newest main"
+              continue
+            fi
+
+            npm run deploy
+
+            git fetch origin main
+            latest="$(git rev-parse origin/main)"
+            if [ "$latest" != "$target" ]; then
+              echo "main moved during deployment: $target -> $latest; validating and redeploying newest main"
+              continue
+            fi
+
+            echo "TARGET_SHA=$target" >> "$GITHUB_ENV"
+            echo "Validated and deployed stable main $target"
+            exit 0
+          done
+
+          echo 'Could not obtain a stable validated/deployed main revision after five passes.' >&2
+          exit 1
+
+      - name: Verify live Franklin County page, structured layer, redirect, and hero
+        shell: bash
+        run: |
+          set -euo pipefail
+          origin='https://texasdefined.com'
+          county='/county/franklin'
+          legacy='/article/franklin-county-mount-vernon-cypress-springs-northeast-texas'
+          expected_title='Franklin County: Mount Vernon, Lake Cypress Springs and Northeast Texas Woodlands'
+          hero_file='Mount_Vernon_May_2018_17_(Franklin_County_Courthouse).jpg'
+          workdir="$(mktemp -d)"; trap 'rm -rf "$workdir"' EXIT
+          ok=0
+          for attempt in $(seq 1 12); do
+            status="$(curl --retry 3 --retry-all-errors --retry-delay 2 --max-time 60 -sS -o "$workdir/page" -w '%{http_code}' "$origin$county?verify=${TARGET_SHA}-${GITHUB_RUN_ID}-$attempt")"
+            if [ "$status" = '200' ] && grep -Fq "$expected_title" "$workdir/page" && grep -Fq 'The county in numbers' "$workdir/page" && grep -Fq 'County seat' "$workdir/page" && grep -Fq '2020 population' "$workdir/page" && grep -Fq 'County feature' "$workdir/page" && grep -Fq 'Mount Vernon' "$workdir/page" && grep -Fq 'Lake Cypress Springs' "$workdir/page" && grep -Fq 'https://texasdefined.com/county/franklin' "$workdir/page" && grep -Fq "$hero_file" "$workdir/page"; then ok=1; break; fi
+            sleep 5
+          done
+          test "$ok" = '1' || { echo 'Live Franklin County structured/editorial layers did not appear.' >&2; exit 1; }
+
+          legacy_status="$(curl --max-redirs 0 -sS -D "$workdir/legacy-headers" -o /dev/null -w '%{http_code}' "$origin$legacy")"
+          location="$(awk 'BEGIN{IGNORECASE=1} /^location:/{gsub(/\r/,""); sub(/^location:[[:space:]]*/,""); print; exit}' "$workdir/legacy-headers")"
+          test "$legacy_status" = '301'
+          [[ "$location" == *'/county/franklin'* ]]
+
+          hero_status="$(curl -L --retry 5 --retry-all-errors --retry-delay 2 --max-time 60 -sS -D "$workdir/hero-headers" -o "$workdir/hero" -w '%{http_code}' "$HERO_URL")"
+          hero_mime="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/{gsub(/\r/,""); sub(/^content-type:[[:space:]]*/,""); v=$0} END{print v}' "$workdir/hero-headers" | cut -d';' -f1)"
+          test "$hero_status" = '200'
+          case "$hero_mime" in image/jpeg|image/png|image/webp) ;; *) echo "Live hero MIME invalid: $hero_mime" >&2; exit 1;; esac
+          test "$(wc -c < "$workdir/hero")" -gt 50000
+          echo "PASS county=$county structured=yes editorial=yes legacy=$legacy_status hero=$hero_status mime=$hero_mime target=$TARGET_SHA"
