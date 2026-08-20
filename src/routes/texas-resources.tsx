@@ -54,6 +54,7 @@ const groups: ReadonlyArray<ResourceGroup> = [
     links: [
       ['Texas Secretary of State agency page', '/agency/texas-secretary-of-state'],
       ['Texas Comptroller agency page', '/agency/texas-comptroller'],
+      ['Texas Attorney General agency page', '/agency/texas-attorney-general'],
       ['Texas Department of Insurance', '/agency/texas-department-insurance'],
       ['Texas Department of Motor Vehicles agency page', '/agency/texas-dmv'],
       ['Texas Commission on Environmental Quality', '/agency/texas-commission-environmental-quality'],
