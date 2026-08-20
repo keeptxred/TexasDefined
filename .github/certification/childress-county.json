@@ -1,9 +1,0 @@
-{
-  "county": "childress",
-  "status": "pass",
-  "stage": "complete",
-  "county_commit": "04f7b7690699348d21135c2dd019597465290f5c",
-  "tested_main": "9137eb01b53e67c8ddcdbc3cfe19575d5c4c7f5a",
-  "detail": "validate=PASS page=200 structured=yes editorial=yes legacy=301 location=https://texasdefined.com/county/childress hero=200 mime=image/jpeg bytes=2021187",
-  "recorded_at_utc": "2026-08-20T13:44:39.195425+00:00"
-}
