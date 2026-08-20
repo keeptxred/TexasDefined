@@ -33,7 +33,6 @@ export const mudsPidsHoasSpecialDistrictsArticle: Article = {
     { href: "https://comptroller.texas.gov/transparency/local/sb625/lookup.php", label: "Texas special purpose district database", description: "Official Comptroller lookup for district-reported tax, debt, contact and financial information." },
     { href: "https://statutes.capitol.texas.gov/Docs/LG/htm/LG.372.htm", label: "Texas Local Government Code Chapter 372", description: "The Texas statutory chapter governing public improvement districts and assessments." },
     { href: "https://statutes.capitol.texas.gov/Docs/PR/htm/PR.209.htm", label: "Texas Residential Property Owners Protection Act", description: "Texas Property Code Chapter 209, the statutory framework for many residential property owners associations." },
-    { href: "https://keeptxred.com/policy/property-taxes", label: "KTR: Texas property-tax policy", description: "Follow exemptions, tax compression, appraisal rules, legislation and statewide policy separately from this homebuying guide." },
   ],
   relatedCollections: [],
   relatedDestinations: [],
