@@ -1,112 +1,23 @@
 import type { CountySeriesProfile } from "@/data/county-series";
 
 export const COUNTY_SERIES_PROFILES_ROLLING_PLAINS: CountySeriesProfile[] = [
-  {
-    countySlug: "childress",
-    articleSlug: "childress-county-childress-railroads-red-river-rolling-plains-texas",
-    loadArticle: () => import("@/data/fixtures/childress-county-childress-railroads-red-river-rolling-plains-texas")
-      .then((module) => module.childressCountyChildressRailroadsRedRiverRollingPlainsTexasArticle),
-  },
-  {
-    countySlug: "cottle",
-    articleSlug: "cottle-county-paducah-pease-river-ranching-railroads-rolling-plains-texas",
-    loadArticle: () => import("@/data/fixtures/cottle-county-paducah-pease-river-ranching-railroads-rolling-plains-texas")
-      .then((module) => module.cottleCountyPaducahPeaseRiverRanchingRailroadsRollingPlainsTexasArticle),
-  },
-  {
-    countySlug: "motley",
-    articleSlug: "motley-county-matador-roaring-springs-matador-ranch-rolling-plains-texas",
-    loadArticle: () => import("@/data/fixtures/motley-county-matador-roaring-springs-matador-ranch-rolling-plains-texas")
-      .then((module) => module.motleyCountyMatadorRoaringSpringsMatadorRanchRollingPlainsTexasArticle),
-  },
-  {
-    countySlug: "dickens",
-    articleSlug: "dickens-county-dickens-spur-ranch-caprock-rolling-plains-texas",
-    loadArticle: () => import("@/data/fixtures/dickens-county-dickens-spur-ranch-caprock-rolling-plains-texas")
-      .then((module) => module.dickensCountyDickensSpurRanchCaprockRollingPlainsTexasArticle),
-  },
-  {
-    countySlug: "archer",
-    articleSlug: "archer-county-archer-city-ranching-oil-cross-timbers-north-texas",
-    loadArticle: () => import("@/data/fixtures/archer-county-archer-city-ranching-oil-cross-timbers-north-texas")
-      .then((module) => module.archerCountyArcherCityRanchingOilCrossTimbersNorthTexasArticle),
-  },
-  {
-    countySlug: "king",
-    articleSlug: "king-county-guthrie-four-sixes-ranch-rolling-plains-texas",
-    loadArticle: () => import("@/data/fixtures/king-county-guthrie-four-sixes-ranch-rolling-plains-texas")
-      .then((module) => module.kingCountyGuthrieFourSixesRanchRollingPlainsTexasArticle),
-  },
-  {
-    countySlug: "knox",
-    articleSlug: "knox-county-benjamin-munday-brazos-ranching-rolling-plains-texas",
-    loadArticle: () => import("@/data/fixtures/knox-county-benjamin-munday-brazos-ranching-rolling-plains-texas")
-      .then((module) => module.knoxCountyBenjaminMundayBrazosRanchingRollingPlainsTexasArticle),
-  },
-  {
-    countySlug: "stonewall",
-    articleSlug: "stonewall-county-aspermont-double-mountain-brazos-rolling-plains-texas",
-    loadArticle: () => import("@/data/fixtures/stonewall-county-aspermont-double-mountain-brazos-rolling-plains-texas")
-      .then((module) => module.stonewallCountyAspermontDoubleMountainBrazosRollingPlainsTexasArticle),
-  },
-  {
-    countySlug: "haskell",
-    articleSlug: "haskell-county-haskell-rice-springs-railroads-brazos-rolling-plains-texas",
-    loadArticle: () => import("@/data/fixtures/haskell-county-haskell-rice-springs-railroads-brazos-rolling-plains-texas")
-      .then((module) => module.haskellCountyHaskellRiceSpringsRailroadsBrazosRollingPlainsTexasArticle),
-  },
-  {
-    countySlug: "kent",
-    articleSlug: "kent-county-jayton-clairemont-brazos-ranching-rolling-plains-texas",
-    loadArticle: () => import("@/data/fixtures/kent-county-jayton-clairemont-brazos-ranching-rolling-plains-texas")
-      .then((module) => module.kentCountyJaytonClairemontBrazosRanchingRollingPlainsTexasArticle),
-  },
-  {
-    countySlug: "throckmorton",
-    articleSlug: "throckmorton-county-throckmorton-clear-fork-ranching-rolling-plains-texas",
-    loadArticle: () => import("@/data/fixtures/throckmorton-county-throckmorton-clear-fork-ranching-rolling-plains-texas")
-      .then((module) => module.throckmortonCountyThrockmortonClearForkRanchingRollingPlainsTexasArticle),
-  },
-  {
-    countySlug: "fisher",
-    articleSlug: "fisher-county-roby-rotan-double-mountain-fork-rolling-plains-texas",
-    loadArticle: () => import("@/data/fixtures/fisher-county-roby-rotan-double-mountain-fork-rolling-plains-texas")
-      .then((module) => module.fisherCountyRobyRotanDoubleMountainForkRollingPlainsTexasArticle),
-  },
-  {
-    countySlug: "jones",
-    articleSlug: "jones-county-anson-stamford-fort-phantom-rolling-plains-texas",
-    loadArticle: () => import("@/data/fixtures/jones-county-anson-stamford-fort-phantom-rolling-plains-texas")
-      .then((module) => module.jonesCountyAnsonStamfordFortPhantomRollingPlainsTexasArticle),
-  },
-  {
-    countySlug: "shackelford",
-    articleSlug: "shackelford-county-albany-fort-griffin-clear-fork-texas",
-    loadArticle: () => import("@/data/fixtures/shackelford-county-albany-fort-griffin-clear-fork-texas")
-      .then((module) => module.shackelfordCountyAlbanyFortGriffinClearForkTexasArticle),
-  },
-  {
-    countySlug: "stephens",
-    articleSlug: "stephens-county-breckenridge-oil-hubbard-creek-rolling-plains-texas",
-    loadArticle: () => import("@/data/fixtures/stephens-county-breckenridge-oil-hubbard-creek-rolling-plains-texas")
-      .then((module) => module.stephensCountyBreckenridgeOilHubbardCreekRollingPlainsTexasArticle),
-  },
-  {
-    countySlug: "taylor",
-    articleSlug: "taylor-county-abilene-buffalo-gap-dyess-big-country-texas",
-    loadArticle: () => import("@/data/fixtures/taylor-county-abilene-buffalo-gap-dyess-big-country-texas")
-      .then((module) => module.taylorCountyAbileneBuffaloGapDyessBigCountryTexasArticle),
-  },
-  {
-    countySlug: "callahan",
-    articleSlug: "callahan-county-baird-cross-plains-railroads-callahan-divide-big-country-texas",
-    loadArticle: () => import("@/data/fixtures/callahan-county-baird-cross-plains-railroads-callahan-divide-big-country-texas")
-      .then((module) => module.callahanCountyBairdCrossPlainsRailroadsCallahanDivideBigCountryTexasArticle),
-  },
-  {
-    countySlug: "nolan",
-    articleSlug: "nolan-county-sweetwater-wasp-wind-railroads-big-country-texas",
-    loadArticle: () => import("@/data/fixtures/nolan-county-sweetwater-wasp-wind-railroads-big-country-texas")
-      .then((module) => module.nolanCountySweetwaterWaspWindRailroadsBigCountryTexasArticle),
-  },
+  { countySlug: "childress", articleSlug: "childress-county-childress-railroads-red-river-rolling-plains-texas", loadArticle: () => import("@/data/fixtures/childress-county-childress-railroads-red-river-rolling-plains-texas").then((m) => m.childressCountyChildressRailroadsRedRiverRollingPlainsTexasArticle) },
+  { countySlug: "cottle", articleSlug: "cottle-county-paducah-pease-river-ranching-railroads-rolling-plains-texas", loadArticle: () => import("@/data/fixtures/cottle-county-paducah-pease-river-ranching-railroads-rolling-plains-texas").then((m) => m.cottleCountyPaducahPeaseRiverRanchingRailroadsRollingPlainsTexasArticle) },
+  { countySlug: "motley", articleSlug: "motley-county-matador-roaring-springs-matador-ranch-rolling-plains-texas", loadArticle: () => import("@/data/fixtures/motley-county-matador-roaring-springs-matador-ranch-rolling-plains-texas").then((m) => m.motleyCountyMatadorRoaringSpringsMatadorRanchRollingPlainsTexasArticle) },
+  { countySlug: "dickens", articleSlug: "dickens-county-dickens-spur-ranch-caprock-rolling-plains-texas", loadArticle: () => import("@/data/fixtures/dickens-county-dickens-spur-ranch-caprock-rolling-plains-texas").then((m) => m.dickensCountyDickensSpurRanchCaprockRollingPlainsTexasArticle) },
+  { countySlug: "archer", articleSlug: "archer-county-archer-city-ranching-oil-cross-timbers-north-texas", loadArticle: () => import("@/data/fixtures/archer-county-archer-city-ranching-oil-cross-timbers-north-texas").then((m) => m.archerCountyArcherCityRanchingOilCrossTimbersNorthTexasArticle) },
+  { countySlug: "king", articleSlug: "king-county-guthrie-four-sixes-ranch-rolling-plains-texas", loadArticle: () => import("@/data/fixtures/king-county-guthrie-four-sixes-ranch-rolling-plains-texas").then((m) => m.kingCountyGuthrieFourSixesRanchRollingPlainsTexasArticle) },
+  { countySlug: "knox", articleSlug: "knox-county-benjamin-munday-brazos-ranching-rolling-plains-texas", loadArticle: () => import("@/data/fixtures/knox-county-benjamin-munday-brazos-ranching-rolling-plains-texas").then((m) => m.knoxCountyBenjaminMundayBrazosRanchingRollingPlainsTexasArticle) },
+  { countySlug: "stonewall", articleSlug: "stonewall-county-aspermont-double-mountain-brazos-rolling-plains-texas", loadArticle: () => import("@/data/fixtures/stonewall-county-aspermont-double-mountain-brazos-rolling-plains-texas").then((m) => m.stonewallCountyAspermontDoubleMountainBrazosRollingPlainsTexasArticle) },
+  { countySlug: "haskell", articleSlug: "haskell-county-haskell-rice-springs-railroads-brazos-rolling-plains-texas", loadArticle: () => import("@/data/fixtures/haskell-county-haskell-rice-springs-railroads-brazos-rolling-plains-texas").then((m) => m.haskellCountyHaskellRiceSpringsRailroadsBrazosRollingPlainsTexasArticle) },
+  { countySlug: "kent", articleSlug: "kent-county-jayton-clairemont-brazos-ranching-rolling-plains-texas", loadArticle: () => import("@/data/fixtures/kent-county-jayton-clairemont-brazos-ranching-rolling-plains-texas").then((m) => m.kentCountyJaytonClairemontBrazosRanchingRollingPlainsTexasArticle) },
+  { countySlug: "throckmorton", articleSlug: "throckmorton-county-throckmorton-clear-fork-ranching-rolling-plains-texas", loadArticle: () => import("@/data/fixtures/throckmorton-county-throckmorton-clear-fork-ranching-rolling-plains-texas").then((m) => m.throckmortonCountyThrockmortonClearForkRanchingRollingPlainsTexasArticle) },
+  { countySlug: "fisher", articleSlug: "fisher-county-roby-rotan-double-mountain-fork-rolling-plains-texas", loadArticle: () => import("@/data/fixtures/fisher-county-roby-rotan-double-mountain-fork-rolling-plains-texas").then((m) => m.fisherCountyRobyRotanDoubleMountainForkRollingPlainsTexasArticle) },
+  { countySlug: "jones", articleSlug: "jones-county-anson-stamford-fort-phantom-rolling-plains-texas", loadArticle: () => import("@/data/fixtures/jones-county-anson-stamford-fort-phantom-rolling-plains-texas").then((m) => m.jonesCountyAnsonStamfordFortPhantomRollingPlainsTexasArticle) },
+  { countySlug: "shackelford", articleSlug: "shackelford-county-albany-fort-griffin-clear-fork-texas", loadArticle: () => import("@/data/fixtures/shackelford-county-albany-fort-griffin-clear-fork-texas").then((m) => m.shackelfordCountyAlbanyFortGriffinClearForkTexasArticle) },
+  { countySlug: "stephens", articleSlug: "stephens-county-breckenridge-oil-hubbard-creek-rolling-plains-texas", loadArticle: () => import("@/data/fixtures/stephens-county-breckenridge-oil-hubbard-creek-rolling-plains-texas").then((m) => m.stephensCountyBreckenridgeOilHubbardCreekRollingPlainsTexasArticle) },
+  { countySlug: "taylor", articleSlug: "taylor-county-abilene-buffalo-gap-dyess-big-country-texas", loadArticle: () => import("@/data/fixtures/taylor-county-abilene-buffalo-gap-dyess-big-country-texas").then((m) => m.taylorCountyAbileneBuffaloGapDyessBigCountryTexasArticle) },
+  { countySlug: "callahan", articleSlug: "callahan-county-baird-cross-plains-railroads-callahan-divide-big-country-texas", loadArticle: () => import("@/data/fixtures/callahan-county-baird-cross-plains-railroads-callahan-divide-big-country-texas").then((m) => m.callahanCountyBairdCrossPlainsRailroadsCallahanDivideBigCountryTexasArticle) },
+  { countySlug: "nolan", articleSlug: "nolan-county-sweetwater-wasp-wind-railroads-big-country-texas", loadArticle: () => import("@/data/fixtures/nolan-county-sweetwater-wasp-wind-railroads-big-country-texas").then((m) => m.nolanCountySweetwaterWaspWindRailroadsBigCountryTexasArticle) },
+  { countySlug: "mitchell", articleSlug: "mitchell-county-colorado-city-cattle-railroads-colorado-river-west-texas", loadArticle: () => import("@/data/fixtures/mitchell-county-colorado-city-cattle-railroads-colorado-river-west-texas").then((m) => m.mitchellCountyColoradoCityCattleRailroadsColoradoRiverWestTexasArticle) },
 ];
