@@ -85,7 +85,12 @@ function EventsPage() {
             <p className="eyebrow text-primary">Understand the tradition</p>
             <h2 className="mt-2 font-display text-3xl">The culture behind the calendar</h2>
           </div>
-          <div className="grid gap-px overflow-hidden border border-border bg-border md:grid-cols-3">
+          <div className="grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2 lg:grid-cols-4">
+            <Link to="/texas-state-fair" className="group bg-background p-5">
+              <strong className="font-display text-2xl leading-tight group-hover:text-primary">State Fair of Texas 2026</strong>
+              <span className="mt-3 block text-sm leading-6 text-muted-foreground">Dates, Fair Park, Big Tex, food, rides and practical planning for the Dallas fair.</span>
+              <span className="mt-4 block text-sm font-semibold text-primary">Plan the fair →</span>
+            </Link>
             <Link to="/texas-dance-halls-honky-tonks" className="group bg-background p-5">
               <strong className="font-display text-2xl leading-tight group-hover:text-primary">Dance halls & honky-tonks</strong>
               <span className="mt-3 block text-sm leading-6 text-muted-foreground">Two-step culture, Western swing, historic community halls and how to plan a live-music weekend.</span>
