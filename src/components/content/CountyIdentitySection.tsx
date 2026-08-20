@@ -1,6 +1,7 @@
 import { CountyHistoricSites } from '@/components/content/CountyHistoricSites';
 import { CountyMadeBuiltBorn } from '@/components/content/CountyMadeBuiltBorn';
 import { CountyStatewideContextSection } from '@/components/content/CountyStatewideContextSection';
+import { CountyTaxRateSection } from '@/components/property/CountyTaxRateSection';
 import type { CountyProfile } from '@/data/county-profile';
 
 const regionalExplainers: Record<string, Array<{ href: string; label: string }>> = {
@@ -56,7 +57,7 @@ export function CountyIdentitySection({ countyName, region, profile }: { countyN
     { href: '/texas-explained', label: 'All 10 Texas Explained guides' },
   ];
 
-  if (!hasIdentitySignal) return <CountyMadeBuiltBorn countySlug={slug} />;
+  if (!hasIdentitySignal) return <><CountyTaxRateSection countySlug={slug} countyName={countyName} /><CountyMadeBuiltBorn countySlug={slug} /></>;
 
   return (
     <>
@@ -84,6 +85,7 @@ export function CountyIdentitySection({ countyName, region, profile }: { countyN
           </div>
         </div>
       </section>
+      <CountyTaxRateSection countySlug={slug} countyName={countyName} />
       <CountyMadeBuiltBorn countySlug={slug} />
     </>
   );
