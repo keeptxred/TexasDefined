@@ -26,6 +26,7 @@ import type { Destination } from "@/data/types";
 import { isExploreSitemapOwnedPath, isIndexablePublicPath, normalizePublicPath } from "@/lib/public-routes";
 
 const BASE_URL = `https://${texasDefinedBrand.identity.domain}`;
+const CAMPING_GUIDE_PATH = "/explore/texas-camping-guide";
 const EXPLORE_CATEGORY_SLUGS = new Set([
   "lakes-rivers", "major-springs", "state-parks", "national-parks", "caverns",
   "beaches-coast", "historic-sites", "road-trips", "small-towns", "food-bbq", "outdoors",
@@ -46,7 +47,7 @@ function validLastModified(value?: string): string | undefined {
 
 function entry(path: string, lastModified?: string): string | null {
   const normalized = normalizePublicPath(path);
-  if (!normalized || !isExploreSitemapOwnedPath(normalized) || !isIndexablePublicPath(normalized)) return null;
+  if (!normalized || !isExploreSitemapOwnedPath(normalized) || (!isIndexablePublicPath(normalized) && normalized !== CAMPING_GUIDE_PATH)) return null;
   const lastmod = validLastModified(lastModified);
   return `  <url>\n    <loc>${escapeXml(`${BASE_URL}${normalized}`)}</loc>${lastmod ? `\n    <lastmod>${lastmod}</lastmod>` : ""}\n  </url>`;
 }
@@ -126,6 +127,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           "/explore",
           "/explore/trip-planner",
           "/explore/attractions-comparison",
+          CAMPING_GUIDE_PATH,
           "/explore/painted-churches",
           "/explore/painted-churches-plan",
           "/explore/painted-churches/map",
@@ -171,7 +173,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         const glossaryEntries = paintedChurchGlossary.map((item) => entry(`/explore/painted-churches/glossary/${item.slug}`, "2026-08-18")).filter((item): item is string => Boolean(item));
         const itineraryEntries = paintedChurchItineraries.map((item) => entry(`/explore/painted-churches/routes/${item.slug}`, "2026-08-18")).filter((item): item is string => Boolean(item));
         const searchGuideEntries = paintedChurchSearchGuides.map((item) => entry(`/explore/painted-churches/guides/${item.slug}`, "2026-08-18")).filter((item): item is string => Boolean(item));
-        const staticEntries = [...new Set(staticPaths)].map((path) => entry(path)).filter((item): item is string => Boolean(item));
+        const staticEntries = [...new Set(staticPaths)].map((path) => entry(path, path === CAMPING_GUIDE_PATH ? "2026-08-20" : undefined)).filter((item): item is string => Boolean(item));
         const entries = [
           ...staticEntries,
           ...destinationEntries,
