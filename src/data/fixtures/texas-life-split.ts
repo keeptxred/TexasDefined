@@ -120,7 +120,6 @@ const economyArticle: Article = {
     { href: "/made-in-texas", label: "Made in Texas", description: "See products and manufacturers tied to communities across the state." },
     { href: "https://gov.texas.gov/business/page/reports-and-publications", label: "Texas economic reports", description: "Current state economic-development reports, industry maps and business data." },
     { href: "https://www.twc.texas.gov/", label: "Texas Workforce Commission", description: "Official Texas labor-market, unemployment, workforce and employment resources." },
-    { href: "https://keeptxred.com/policy/right-to-work", label: "KTR: Texas right-to-work policy", description: "Read the legal and policy framework separately from this practical jobs guide." },
   ],
   relatedCollections: [],
   relatedDestinations: [],
@@ -169,7 +168,7 @@ const economyArticle: Article = {
 
     h("Right-to-work and at-will are two different rules"),
     p("Texas is a right-to-work state: employment generally cannot be conditioned on union membership or nonmembership under the state's right-to-work laws. Texas also generally follows employment-at-will, meaning that absent a contrary statute or agreement, either side may end the employment relationship with or without advance notice. Those are different legal concepts, and both have exceptions and federal-law overlays."),
-    p("TexasDefined keeps this page practical; KeepTXRed maintains the policy and statutory layer for readers who want the legal framework and legislative debate."),
+    p("TexasDefined keeps this page practical. Readers who need legal interpretation should consult current Texas statutes, agency guidance or qualified counsel."),
 
     h("Do not assume Texas is cheap for every business or worker"),
     p("Land and operating costs can be attractive in many Texas markets, but Austin office space, prime Dallas industrial sites, skilled labor, insurance and power infrastructure can all be expensive. The same is true for workers: a higher salary can disappear into housing, tolls, commuting, child care or insurance."),
@@ -208,9 +207,6 @@ const schoolsArticle: Article = {
     { href: "/article/texas-major-cities-regional-differences", label: "Texas cities and regional differences", description: "Compare family life across the state's major metros and regions." },
     { href: "https://tea.texas.gov/school-and-district-leaders/reporting-and-accountability", label: "TEA accountability and reporting", description: "Current STAAR and A–F accountability resources from the state." },
     { href: "https://tea.texas.gov/families-and-students/finding-school-your-child/home-schooling", label: "TEA home-school information", description: "Official state explanation of Texas home-school status and public-school transfer issues." },
-    { href: "https://keeptxred.com/policy/charter-schools", label: "KTR: charter-school policy", description: "Follow legislation, funding and state policy separately from this family guide." },
-    { href: "https://keeptxred.com/policy/homeschool-autonomy", label: "KTR: homeschool policy", description: "Follow the legal and legislative side of Texas homeschooling." },
-    { href: "https://keeptxred.com/policy/property-taxes", label: "KTR: school and property-tax policy", description: "Follow tax compression, exemptions, state finance and legislative changes." },
   ],
   relatedCollections: [],
   relatedDestinations: [],
@@ -486,7 +482,7 @@ const citiesArticle: Article = {
 
     h("Politics changes by geography too"),
     p("Texas voting patterns vary sharply among urban cores, suburbs, exurbs and rural counties, and those patterns continue to change as populations move. A simplified 'cities blue, rural red' rule can describe a broad tendency without predicting every neighborhood, suburb or election."),
-    p("TexasDefined treats that as one piece of local context. KeepTXRed is the better home for election results, district maps, candidates and policy consequences."),
+    p("TexasDefined treats voting patterns only as local context; election coverage and political analysis are outside this site's scope."),
 
     h("The best fit starts with four maps"),
     list(
