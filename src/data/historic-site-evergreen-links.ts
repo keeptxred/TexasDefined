@@ -118,10 +118,15 @@ const routeGuides: RouteGuide[] = [
     slugs: new Set([
       "sabine-pass-battleground",
       "palmito-ranch-battlefield",
+      "confederate-reunion-grounds",
+      "sam-bell-maxey-house",
+      "levi-jordan-plantation",
+      "varner-hogg-plantation",
+      "starr-family-home",
     ]),
     item: {
-      name: "Texas in the Civil War",
-      description: "Connect this battlefield to Galveston, the Rio Grande trade corridor, the final fighting at Palmito Ranch and the military enforcement of emancipation in 1865.",
+      name: "Texas in the Civil War and Reconstruction",
+      description: "Connect battlefield history to slavery, emancipation, Reconstruction, postwar political life and the later construction of Civil War memory across Texas.",
       href: "/article/texas-civil-war-sites-guide",
     },
   },
