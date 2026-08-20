@@ -27,6 +27,9 @@ const lexingtonDestination = {
 const additionsBySlug: Record<string, Array<{ href: string; label: string; description: string }>> = {
   "texas-military-history-timeline": [visitorGuide],
   "women-in-texas-military-history": [waspDestination, visitorGuide],
+  "texas-medal-of-honor-heroes": [visitorGuide],
+  "buffalo-soldiers-texas-frontier-guide": [visitorGuide],
+  "texas-frontier-forts-road-trip": [visitorGuide],
   "texas-world-war-ii-bases-pow-camps": [waspDestination, silentWingsDestination, lexingtonDestination, visitorGuide],
   "texas-world-war-ii-historic-sites-guide": [waspDestination, silentWingsDestination, lexingtonDestination, visitorGuide],
   "texas-national-guard-history": [visitorGuide],
