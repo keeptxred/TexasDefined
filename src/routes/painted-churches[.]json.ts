@@ -76,11 +76,14 @@ export const Route = createFileRoute("/painted-churches.json")({
         });
 
         return Response.json({
-          schemaVersion: 3,
+          schemaVersion: 4,
           title: "Texas Defined Painted Churches reference dataset",
           canonicalCollection: `${BASE_URL}/explore/painted-churches`,
           methodology: `${BASE_URL}/explore/painted-churches/methodology`,
           census: `${BASE_URL}/explore/painted-churches/census`,
+          map: `${BASE_URL}/explore/painted-churches/map`,
+          comparison: `${BASE_URL}/explore/painted-churches/compare`,
+          routes: `${BASE_URL}/explore/painted-churches/routes`,
           techniques: `${BASE_URL}/explore/painted-churches/techniques`,
           symbols: `${BASE_URL}/explore/painted-churches/symbols`,
           people: `${BASE_URL}/explore/painted-churches/people`,
@@ -90,7 +93,10 @@ export const Route = createFileRoute("/painted-churches.json")({
           glossary: `${BASE_URL}/explore/painted-churches/glossary`,
           timeline: `${BASE_URL}/explore/painted-churches/timeline`,
           countExplainer: `${BASE_URL}/explore/painted-churches/how-many`,
-          asOf: "2026-08-18",
+          thenAndNow: `${BASE_URL}/explore/painted-churches/then-and-now`,
+          media: `${BASE_URL}/explore/painted-churches/media`,
+          citationGuide: `${BASE_URL}/explore/painted-churches/cite`,
+          asOf: "2026-08-19",
           numberOfItems: churches.length,
           scopeNote: "This dataset distinguishes formal National Register membership, broader historic Painted Church status and modern documented decorative campaigns. Missing fields and relationships are not inferred.",
           churches,
