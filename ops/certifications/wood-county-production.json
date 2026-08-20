@@ -1,0 +1,19 @@
+{
+  "county": "Wood",
+  "canonical": "https://texasdefined.com/county/wood",
+  "target_sha": "f4b29dff0b6a389c98ae87b1bf2256ae8f2601d0",
+  "overall": "fail",
+  "checkout": "success",
+  "install": "success",
+  "hero_source": "success",
+  "validation_deployment": "failure",
+  "live_verification": "skipped",
+  "hero_source_mime": "image/jpeg",
+  "hero_source_bytes": "820470",
+  "legacy_redirect": "",
+  "hero_http": "",
+  "hero_mime": "",
+  "hero_bytes": "",
+  "run_id": "32334478065",
+  "certified_at_utc": "2026-08-20T05:09:13Z"
+}
