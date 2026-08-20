@@ -1,0 +1,132 @@
+name: Certify Henderson County production once
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/certify-henderson-county-once.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  statuses: write
+
+concurrency:
+  group: texasdefined-henderson-county-certification
+  cancel-in-progress: false
+
+jobs:
+  certify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    environment: texasdefined-publication
+    env:
+      GH_TOKEN: ${{ github.token }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+    steps:
+      - name: Publish pending status
+        shell: bash
+        run: |
+          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
+            --data '{"state":"pending","context":"henderson-county-certification","description":"Validating, deploying and verifying Henderson County"}' >/dev/null
+
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Verify Henderson County source is present
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -Fq 'Henderson County: Athens, Lakes and the East Texas Crossroads' src/data/fixtures/henderson-county-athens-lakes-fisheries-east-texas.ts
+          grep -Fq 'countySlug: "henderson"' src/data/county-series-profiles-northeast.ts
+          grep -Fq '["henderson-county-athens-lakes-fisheries-east-texas", "henderson"]' src/data/county-series.ts
+          ! grep -Fq 'www.texasdefined.com' src/data/fixtures/henderson-county-athens-lakes-fisheries-east-texas.ts
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Run normal repository validation
+        run: npm run validate
+
+      - name: Refuse stale deployment
+        shell: bash
+        run: |
+          set -euo pipefail
+          main_sha="$(curl -fsS -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/branches/main" | python3 -c 'import json,sys; print(json.load(sys.stdin)["commit"]["sha"])')"
+          test "$main_sha" = "$GITHUB_SHA" || { echo "Main moved to $main_sha while validating $GITHUB_SHA" >&2; exit 1; }
+
+      - name: Deploy current validated source to Cloudflare
+        run: npm run deploy
+
+      - name: Verify Henderson County production
+        id: verify
+        shell: bash
+        run: |
+          set -euo pipefail
+          origin='https://texasdefined.com'
+          county='/county/henderson'
+          legacy='/article/henderson-county-athens-lakes-fisheries-east-texas'
+          hero='https://commons.wikimedia.org/wiki/Special:Redirect/file/Henderson%20County%20Courthouse,%20Athens,%20Texas%20(8529938442).jpg?width=1600'
+          workdir="$(mktemp -d)"
+          trap 'rm -rf "$workdir"' EXIT
+
+          page="$workdir/henderson.html"
+          for attempt in 1 2 3 4 5 6 7 8 9 10; do
+            code="$(curl -sS -L -o "$page" -w '%{http_code}' --max-time 40 "${origin}${county}?verify=${GITHUB_SHA}-${attempt}" || true)"
+            if [[ "$code" == '200' ]] \
+              && grep -Fq 'Henderson County' "$page" \
+              && grep -Fq 'Athens' "$page" \
+              && grep -Fq 'The county in numbers' "$page" \
+              && grep -Fq 'County feature' "$page" \
+              && grep -Fq 'Henderson County: Athens, Lakes and the East Texas Crossroads' "$page" \
+              && grep -Fq 'County property-tax resources' "$page" \
+              && grep -Fq 'rel="canonical" href="https://texasdefined.com/county/henderson"' "$page"; then
+              break
+            fi
+            if [[ "$attempt" == '10' ]]; then
+              echo "Henderson County page verification failed: HTTP $code" >&2
+              head -c 2500 "$page" >&2 || true
+              exit 1
+            fi
+            sleep 6
+          done
+
+          headers="$workdir/legacy.headers"
+          curl -sS -D "$headers" -o /dev/null --max-time 30 "${origin}${legacy}?verify=${GITHUB_SHA}"
+          status="$(awk 'NR==1 {print $2}' "$headers")"
+          location="$(awk 'BEGIN{IGNORECASE=1} /^location:/ {sub(/^[^:]+:[[:space:]]*/,""); sub(/\r$/,""); print; exit}' "$headers")"
+          [[ "$status" == '301' ]]
+          [[ "$location" == "${origin}${county}?verify=${GITHUB_SHA}" ]]
+
+          hero_headers="$workdir/hero.headers"
+          hero_file="$workdir/hero.bin"
+          hero_code="$(curl -sS -L -D "$hero_headers" -o "$hero_file" -w '%{http_code}' --max-time 40 "$hero")"
+          hero_type="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/ {sub(/^[^:]+:[[:space:]]*/,""); sub(/\r$/,""); value=$0} END{print value}' "$hero_headers")"
+          [[ "$hero_code" == '200' ]]
+          [[ "$hero_type" == image/jpeg* || "$hero_type" == image/png* || "$hero_type" == image/webp* ]]
+          [[ "$(wc -c < "$hero_file")" -gt 20000 ]]
+
+          echo "Henderson County page, structured layer, editorial feature, canonical, permanent redirect and raster hero verified."
+
+      - name: Publish success status
+        if: ${{ success() }}
+        shell: bash
+        run: |
+          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
+            --data '{"state":"success","context":"henderson-county-certification","description":"Henderson County validation, deploy and production checks passed"}' >/dev/null
+
+      - name: Publish failure status
+        if: ${{ failure() }}
+        shell: bash
+        run: |
+          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
+            --data '{"state":"failure","context":"henderson-county-certification","description":"Henderson County certification failed; inspect workflow logs"}' >/dev/null
