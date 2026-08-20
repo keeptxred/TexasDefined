@@ -38,7 +38,7 @@ export const paintedChurchPreindexFeatures: PaintedChurchFeature[] = [
     id: "galveston-st-joseph-german-stations",
     churchSlug: "galveston-st-joseph-church",
     name: "German-inscription Stations of the Cross",
-    type: "devotional-object",
+    type: "furnishing",
     location: "Nave walls",
     description: "The preserved interior includes early twentieth-century plaster Stations of the Cross with German inscriptions, a direct material link between the church's devotional furnishings and Galveston's German Catholic immigrant community.",
     dateOrPeriod: "Early twentieth century",
