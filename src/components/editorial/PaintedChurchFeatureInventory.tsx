@@ -1,9 +1,9 @@
 import { Link } from "@tanstack/react-router";
 
-import { paintedChurchFeaturesBySlug } from "@/data/painted-church-features";
+import { canonicalPaintedChurchFeaturesBySlug } from "@/data/painted-church-feature-index";
 
 export function PaintedChurchFeatureInventory({ slug }: { slug: string }) {
-  const features = paintedChurchFeaturesBySlug(slug);
+  const features = canonicalPaintedChurchFeaturesBySlug(slug);
   if (!features.length) return null;
 
   return (
