@@ -4,4 +4,5 @@ export * from './seed-expanded';
 export * from './cultural-observations';
 export * from './sources';
 export * from './social';
+export * from './social-batch';
 export * from './validation';
