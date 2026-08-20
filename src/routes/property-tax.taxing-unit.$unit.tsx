@@ -1,12 +1,12 @@
 import { createFileRoute, Link, notFound } from '@tanstack/react-router';
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { Container } from '@/components/layout/Container';
-import { findTaxingUnitHistory } from '@/data/property/texas-tax-rates';
+import { getTaxingUnitRateHistory } from '@/data/property/texas-tax-rates.functions';
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 export const Route = createFileRoute('/property-tax/taxing-unit/$unit')({
-  loader: ({ params }) => {
-    const history = findTaxingUnitHistory(params.unit.trim().toLowerCase());
+  loader: async ({ params }) => {
+    const history = await getTaxingUnitRateHistory({ data: { slug: params.unit.trim().toLowerCase() } });
     if (!history.length) throw notFound();
     return { history, latest: history.at(-1)! };
   },
