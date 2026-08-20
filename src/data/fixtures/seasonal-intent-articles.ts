@@ -1,0 +1,265 @@
+import bluebonnets from "@/assets/bluebonnets.jpg";
+import caddoLake from "@/assets/caddo-lake.jpg";
+import roadTrip from "@/assets/road-trip.jpg";
+import smallTown from "@/assets/small-town.jpg";
+
+import type { Article, ImageRef } from "../types";
+
+const BRAND = "texasdefined" as const;
+const image = (src: string, alt: string): ImageRef => ({ src, alt, width: 1600, height: 1067 });
+const blue = image(bluebonnets, "Texas bluebonnets blooming across a spring field");
+const fall = image(caddoLake, "Bald cypress trees and reflective water in East Texas");
+const christmas = image(smallTown, "A historic Texas town square during the holiday season");
+const road = image(roadTrip, "A two-lane Texas road crossing open country");
+
+export const seasonalIntentArticles: Article[] = [
+  {
+    id: "si-1", brandId: BRAND, slug: "bluebonnets-near-austin", title: "Where to See Bluebonnets Near Austin",
+    dek: "A practical Austin-area bluebonnet guide covering Lake Travis, the Highland Lakes, Hill Country drives and public places where spring flower viewing makes sense.", category: "outdoors", region: "hill-country", hero: blue, authorId: "a-dell", publishedAt: "2026-08-20", readingMinutes: 8,
+    tags: ["bluebonnets near Austin", "Austin bluebonnets", "Muleshoe Bend", "Hill Country wildflowers"], relatedCollections: ["wildflower-house"], relatedDestinations: [],
+    sourceName: "Texas Parks and Wildlife Department", sourceUrl: "https://tpwd.texas.gov/newsmedia/releases/?req=20210315a",
+    internalLinks: [
+      { href: "/article/texas-bluebonnets-complete-guide", label: "Texas bluebonnet season, explained", description: "Check statewide timing, etiquette and bloom patterns before choosing a weekend." },
+      { href: "/article/texas-bluebonnet-road-trip", label: "Drive the full bluebonnet loop", description: "Extend an Austin day trip into the Highland Lakes and Washington County." },
+      { href: "/article/best-places-to-see-bluebonnets-in-texas", label: "Compare Texas bluebonnet regions", description: "See when Ennis, Brenham or Big Bend may be a better bloom bet." },
+    ],
+    body: [
+      { type: "paragraph", text: "Austin sits close enough to several major bluebonnet regions that the best answer to 'where are the flowers?' changes from week to week. Instead of betting on one famous field, choose a direction with several public stops and scenic roads." },
+      { type: "heading", text: "Lake Travis and Muleshoe Bend" },
+      { type: "paragraph", text: "Muleshoe Bend Recreation Area is the Austin-area name most associated with broad lakeside bluebonnet displays. The show is highly dependent on rainfall and lake conditions, so check current Lower Colorado River Authority information before making it the centerpiece of a trip." },
+      { type: "heading", text: "Highland Lakes: Marble Falls, Burnet and Llano" },
+      { type: "paragraph", text: "West of Austin, the Highland Lakes give you multiple towns, farm roads and public landscapes in one direction. Burnet's long bluebonnet tradition, Marble Falls and Llano make this the strongest backup-rich route from the city." },
+      { type: "heading", text: "South and southwest of Austin" },
+      { type: "paragraph", text: "The Wildflower Center offers a controlled public setting for native flowers, while Hill Country roads toward Johnson City and Fredericksburg can add roadside color. For photography, public gardens and parks are usually safer than narrow highway shoulders." },
+      { type: "list", items: ["Check same-week bloom reports.", "Use public land or clearly permitted access.", "Avoid parking where the entire vehicle cannot clear traffic.", "Build the day around towns, parks and food so a weak field does not ruin the trip."] },
+    ],
+  },
+  {
+    id: "si-2", brandId: BRAND, slug: "bluebonnets-near-houston", title: "Where to See Bluebonnets Near Houston",
+    dek: "The best Houston-area strategy for bluebonnets: head toward Washington County, use Brenham and Chappell Hill as anchors, and keep closer-in options as backups.", category: "outdoors", region: "prairies-lakes", hero: blue, authorId: "a-dell", publishedAt: "2026-08-20", readingMinutes: 7,
+    tags: ["bluebonnets near Houston", "Brenham bluebonnets", "Chappell Hill", "Washington County wildflowers"], relatedCollections: ["wildflower-house"], relatedDestinations: [],
+    sourceName: "Texas Parks and Wildlife Department", sourceUrl: "https://tpwd.texas.gov/newsmedia/releases/?req=20210315a",
+    internalLinks: [
+      { href: "/article/texas-bluebonnets-complete-guide", label: "Texas bluebonnet season guide", description: "Understand timing and bloom variability before driving west." },
+      { href: "/article/best-places-to-see-bluebonnets-in-texas", label: "Best bluebonnet regions statewide", description: "Compare Washington County with Ennis, the Highland Lakes and Big Bend." },
+      { href: "/article/texas-bluebonnet-road-trip", label: "Bluebonnet road trip", description: "Turn a Brenham day into a longer spring loop." },
+    ],
+    body: [
+      { type: "paragraph", text: "For Houston, the most reliable bluebonnet plan is usually not a city park. It is a drive west toward Washington County, where Brenham, Chappell Hill, Independence and the farm-to-market roads between them create a whole region of possible spring stops." },
+      { type: "heading", text: "Brenham and Washington County" },
+      { type: "paragraph", text: "Use Brenham as a base, then ask local visitor information sources where roadside color is strongest that week. The advantage is density: even if one road is disappointing, another part of the county may be better." },
+      { type: "heading", text: "Closer to Houston" },
+      { type: "paragraph", text: "Bluebonnets can appear around Katy, Tomball, Sugar Land and Houston-area parks, but urban patches are smaller and more variable. Treat them as convenient local finds rather than guaranteed destination fields." },
+      { type: "heading", text: "Make the drive worth it without flowers" },
+      { type: "paragraph", text: "Washington-on-the-Brazos, historic downtown Brenham and small-town stops around Chappell Hill give the trip enough substance to work even if the bloom is below peak." },
+    ],
+  },
+  {
+    id: "si-3", brandId: BRAND, slug: "bluebonnets-near-dallas-fort-worth", title: "Where to See Bluebonnets Near Dallas–Fort Worth",
+    dek: "Ennis is the headline, but North Texas bluebonnet season works best when you understand its later timing, mapped trails and day-trip alternatives.", category: "outdoors", region: "prairies-lakes", hero: blue, authorId: "a-dell", publishedAt: "2026-08-20", readingMinutes: 7,
+    tags: ["bluebonnets near Dallas", "bluebonnets near Fort Worth", "Ennis Bluebonnet Trails", "North Texas wildflowers"], relatedCollections: ["wildflower-house"], relatedDestinations: [],
+    sourceName: "City of Ennis", sourceUrl: "https://www.bluebonnettrail.org/",
+    internalLinks: [
+      { href: "/article/texas-bluebonnets-complete-guide", label: "Complete Texas bluebonnet guide", description: "See how North Texas timing differs from Central and South Texas." },
+      { href: "/article/best-places-to-see-bluebonnets-in-texas", label: "Best places for bluebonnets statewide", description: "Compare Ennis with Brenham and the Hill Country." },
+      { href: "/article/texas-bluebonnet-road-trip", label: "Texas bluebonnet road trip", description: "Use a Central Texas route when the bloom is running earlier farther south." },
+    ],
+    body: [
+      { type: "paragraph", text: "Ennis gives Dallas–Fort Worth something most Texas bluebonnet destinations do not: an organized trail system built specifically around annual flower viewing. That makes it the default North Texas answer, especially for visitors who do not want to wander rural roads hoping to get lucky." },
+      { type: "heading", text: "Why Ennis works" },
+      { type: "paragraph", text: "The Ennis Bluebonnet Trails cover miles of local roads and are monitored during the season. Because Ennis is farther north than Brenham or Austin, its strongest bloom often arrives later." },
+      { type: "heading", text: "Plan around the season, not the calendar" },
+      { type: "paragraph", text: "Warmth can accelerate a bloom and late cold can slow it. Use current Ennis trail reports immediately before leaving rather than assuming the same April weekend will be perfect every year." },
+      { type: "heading", text: "Make it a real day trip" },
+      { type: "paragraph", text: "Downtown Ennis, local Czech heritage and seasonal festival activity give the trip a second purpose. That matters on years when bluebonnet density is uneven." },
+    ],
+  },
+  {
+    id: "si-4", brandId: BRAND, slug: "bluebonnets-near-san-antonio", title: "Where to See Bluebonnets Near San Antonio",
+    dek: "A South-Central Texas bluebonnet guide covering the rural roads south and west of San Antonio, New Braunfels, the Hill Country and safer public-land options.", category: "outdoors", region: "south-texas", hero: blue, authorId: "a-dell", publishedAt: "2026-08-20", readingMinutes: 7,
+    tags: ["bluebonnets near San Antonio", "Poteet wildflowers", "New Braunfels bluebonnets", "South Texas wildflowers"], relatedCollections: ["wildflower-house"], relatedDestinations: [],
+    sourceName: "Texas Parks and Wildlife Department", sourceUrl: "https://tpwd.texas.gov/newsmedia/releases/?req=20210315a",
+    internalLinks: [
+      { href: "/article/texas-bluebonnets-complete-guide", label: "Texas bluebonnet season guide", description: "See why South Texas can flower earlier than North Texas." },
+      { href: "/article/best-places-to-see-bluebonnets-in-texas", label: "Compare bluebonnet regions", description: "Choose between South Texas, Hill Country, Washington County and Ennis." },
+      { href: "/article/texas-bluebonnet-road-trip", label: "Bluebonnet road trip", description: "Extend north into the Highland Lakes for a longer spring drive." },
+    ],
+    body: [
+      { type: "paragraph", text: "San Antonio sits between South Texas and the Hill Country, which gives local bluebonnet hunters options in several directions. The tradeoff is that flower fields are often on private ranchland or along fast rural highways, so access matters as much as bloom density." },
+      { type: "heading", text: "South and southwest: Poteet, Pleasanton and rural farm roads" },
+      { type: "paragraph", text: "The countryside south and southwest of San Antonio can produce early spring color. Poteet and nearby communities are useful anchors because the drive remains interesting even when a specific roadside patch changes from year to year." },
+      { type: "heading", text: "North toward New Braunfels and the Hill Country" },
+      { type: "paragraph", text: "New Braunfels and routes toward Blanco, Johnson City and the Highland Lakes shift you into classic Central Texas wildflower country. This direction is especially useful later in the season." },
+      { type: "heading", text: "Use public spaces when photographing families" },
+      { type: "paragraph", text: "Parks, gardens and clearly accessible public areas are much safer for family photographs than stopping beside a narrow road or entering an unfenced-looking pasture. No flower display is worth trespassing or a traffic hazard." },
+    ],
+  },
+  {
+    id: "si-5", brandId: BRAND, slug: "texas-bluebonnet-festivals", title: "Texas Bluebonnet Festivals and Spring Flower Weekends",
+    dek: "The communities that turn bluebonnet season into festivals, trails and spring weekends—and how to use event dates without confusing them with guaranteed peak bloom.", category: "events", hero: blue, authorId: "a-marisol", publishedAt: "2026-08-20", readingMinutes: 8,
+    tags: ["Texas bluebonnet festivals", "Burnet Bluebonnet Festival", "Ennis Bluebonnet Festival", "Chappell Hill Bluebonnet Festival"], relatedCollections: [], relatedDestinations: [],
+    sourceName: "Bluebonnet Festival of Texas", sourceUrl: "https://bluebonnetfestival.org/",
+    internalLinks: [
+      { href: "/article/texas-bluebonnets-complete-guide", label: "Bluebonnet season, explained", description: "Understand why festival weekend and peak bloom are related but not identical." },
+      { href: "/article/best-places-to-see-bluebonnets-in-texas", label: "Where to see the flowers", description: "Compare the regions behind the festivals." },
+      { href: "/events", label: "Texas events calendar", description: "Check current event listings and dates before traveling." },
+    ],
+    body: [
+      { type: "paragraph", text: "Texas bluebonnet festivals solve a problem that flower fields cannot: they give you something dependable to do on a spring weekend even when weather shifts the bloom. The event date is fixed; the flowers are not." },
+      { type: "heading", text: "Burnet" },
+      { type: "paragraph", text: "Burnet's Bluebonnet Festival is one of the state's best-known spring celebrations and fits naturally with Highland Lakes drives through Marble Falls and Llano. Use the official festival site for the current year's schedule." },
+      { type: "heading", text: "Ennis" },
+      { type: "paragraph", text: "Ennis combines a festival with a mapped trail system, making it unusually easy to pair downtown events with flower viewing. North Texas bloom timing often runs later than Central Texas." },
+      { type: "heading", text: "Chappell Hill and Washington County" },
+      { type: "paragraph", text: "Chappell Hill's festival sits inside one of Texas' strongest wildflower road-trip regions. Brenham, Independence and Washington-on-the-Brazos give the weekend historical and small-town depth beyond the festival grounds." },
+      { type: "paragraph", text: "Always verify the current year's dates with the organizer. Festival calendars can be planned months ahead; peak bloom still depends on rainfall and temperature." },
+    ],
+  },
+  {
+    id: "si-6", brandId: BRAND, slug: "is-it-illegal-to-pick-bluebonnets-in-texas", title: "Is It Illegal to Pick Bluebonnets in Texas?",
+    dek: "The short answer is no statewide blanket ban—but property law, park rules, protected plants, roadside safety and common courtesy still determine what you should actually do.", category: "guides", hero: blue, authorId: "a-hollis", publishedAt: "2026-08-20", readingMinutes: 6,
+    tags: ["is it illegal to pick bluebonnets", "Texas bluebonnet law", "picking bluebonnets", "Texas wildflower rules"], relatedCollections: [], relatedDestinations: [],
+    sourceName: "Texas Parks and Wildlife Department", sourceUrl: "https://tpwd.texas.gov/education/resources/keep-texas-wild/dont-pick-the-wildflowers",
+    internalLinks: [
+      { href: "/article/texas-bluebonnets-complete-guide", label: "Complete Texas bluebonnet guide", description: "Get bloom timing, viewing regions and field etiquette in one place." },
+      { href: "/article/best-places-to-see-bluebonnets-in-texas", label: "Find public bluebonnet destinations", description: "Choose places where flower viewing does not depend on questionable roadside access." },
+      { href: "/article/texas-wildflowers-guide", label: "Texas wildflowers guide", description: "Learn what else blooms alongside bluebonnets." },
+    ],
+    body: [
+      { type: "paragraph", text: "Texas does not have a statewide law that simply says 'it is illegal to pick a bluebonnet.' That familiar warning is a myth when stated that broadly. The important part is what the myth leaves out." },
+      { type: "heading", text: "Private property is still private" },
+      { type: "paragraph", text: "A field full of bluebonnets does not become public because it is beautiful or because there is no obvious fence. Entering private property without permission can be trespassing regardless of what flower is growing there." },
+      { type: "heading", text: "Parks and preserves can have their own rules" },
+      { type: "paragraph", text: "State parks, natural areas, local parks and protected lands may prohibit removing plants or damaging natural resources. Follow the rules of the specific place rather than relying on the statewide bluebonnet myth." },
+      { type: "heading", text: "Roadside safety matters more than the flower law" },
+      { type: "paragraph", text: "Stopping where a car blocks a lane, parking unsafely, crossing traffic or climbing a right-of-way barrier can create legal and physical risks. The safest bluebonnet photograph is one taken from a legitimate public access point." },
+      { type: "heading", text: "The better rule: leave them" },
+      { type: "paragraph", text: "Even where picking a particular flower would not violate a law, leaving bluebonnets in place protects the display and future seed production. For most visitors, a photograph is the better souvenir." },
+    ],
+  },
+  {
+    id: "si-7", brandId: BRAND, slug: "best-christmas-lights-in-texas", title: "The Best Christmas Lights in Texas",
+    dek: "A statewide guide to the holiday light experiences worth traveling for, from the San Antonio River Walk and Johnson City to Grapevine, Marshall and Gulf Coast displays.", category: "events", hero: christmas, authorId: "a-marisol", publishedAt: "2026-08-20", readingMinutes: 9,
+    tags: ["best Christmas lights Texas", "Texas holiday lights", "San Antonio River Walk Christmas", "Johnson City lights", "Grapevine Christmas"], relatedCollections: [], relatedDestinations: [],
+    sourceName: "San Antonio River Walk", sourceUrl: "https://www.thesanantonioriverwalk.com/events/ford-holiday-river-parade/",
+    internalLinks: [
+      { href: "/article/christmas-in-texas-complete-guide", label: "Complete Christmas in Texas guide", description: "Compare lights with markets, coastal trips, train rides and small-town traditions." },
+      { href: "/article/best-christmas-towns-in-texas", label: "Best Christmas towns", description: "Choose a destination where the whole town contributes to the holiday atmosphere." },
+      { href: "/article/texas-christmas-road-trip", label: "Hill Country Christmas road trip", description: "Link several major light displays in one December loop." },
+    ],
+    body: [
+      { type: "paragraph", text: "The best Texas Christmas-light trips are places where the setting does half the work. A river, courthouse square, historic downtown or Hill Country oak grove turns strings of lights into something tied to the place itself." },
+      { type: "heading", text: "San Antonio River Walk" },
+      { type: "paragraph", text: "Holiday lights reflected in the San Antonio River create one of the state's most recognizable December scenes. The public River Walk display can be combined with downtown, the Alamo area and seasonal river events." },
+      { type: "heading", text: "Johnson City" },
+      { type: "paragraph", text: "Johnson City concentrates huge visual impact into a small Hill Country town, with courthouse-area lights and the Pedernales Electric Cooperative grounds forming the core of the experience." },
+      { type: "heading", text: "Grapevine and Marshall" },
+      { type: "paragraph", text: "Grapevine offers the broadest menu of North Texas Christmas activity, while Marshall's Wonderland of Lights builds East Texas holiday identity around its historic courthouse square." },
+      { type: "heading", text: "Verify before you drive" },
+      { type: "paragraph", text: "Dates, ticketing and display locations can change every season. Use this page to choose the destination, then confirm the current schedule with the official organizer." },
+    ],
+  },
+  {
+    id: "si-8", brandId: BRAND, slug: "texas-christmas-train-rides", title: "Christmas Train Rides in Texas",
+    dek: "Where to ride holiday trains in Texas, from historic railroad experiences to Polar Express-style family trips—and what to check before tickets sell out.", category: "events", hero: road, authorId: "a-marisol", publishedAt: "2026-08-20", readingMinutes: 8,
+    tags: ["Texas Christmas train rides", "Polar Express Texas", "Grapevine North Pole Express", "Texas State Railroad Christmas"], relatedCollections: [], relatedDestinations: [],
+    sourceName: "Texas State Railroad", sourceUrl: "https://texasstaterailroad.net/events/polar-express/",
+    internalLinks: [
+      { href: "/article/christmas-in-texas-complete-guide", label: "Christmas in Texas guide", description: "Add train rides to lights, markets and town-square weekends." },
+      { href: "/article/best-christmas-towns-in-texas", label: "Texas Christmas towns", description: "Pair a train ride with a destination worth exploring before and after departure." },
+      { href: "/events", label: "Texas events", description: "Check seasonal listings and current dates." },
+    ],
+    body: [
+      { type: "paragraph", text: "A Christmas train works best when the railroad is part of the place rather than a temporary ride in a parking lot. Texas has several holiday experiences built around real depots and established rail operations, which makes the trip appealing even before Santa appears." },
+      { type: "heading", text: "Texas State Railroad at Palestine" },
+      { type: "paragraph", text: "The Texas State Railroad hosts a licensed Polar Express experience from its historic East Texas operation. It is among the most popular family holiday tickets in the state, so dates and seating should be checked early with the railroad." },
+      { type: "heading", text: "Grapevine Vintage Railroad" },
+      { type: "paragraph", text: "Grapevine's North Pole Express fits into a much larger downtown Christmas program. That makes it particularly useful for families who want a full day of holiday activity rather than one train departure." },
+      { type: "heading", text: "Other seasonal rail experiences" },
+      { type: "paragraph", text: "Holiday train programming can change by operator and year. Before promising children a particular character, route or gift, verify the exact current experience, departure point and age policy from the official railroad." },
+    ],
+  },
+  {
+    id: "si-9", brandId: BRAND, slug: "free-christmas-events-in-texas", title: "Free Christmas Events in Texas",
+    dek: "Holiday lights, courthouse squares, downtown strolls and community traditions that can anchor a Texas Christmas trip without turning every stop into another ticket purchase.", category: "events", hero: christmas, authorId: "a-marisol", publishedAt: "2026-08-20", readingMinutes: 8,
+    tags: ["free Christmas events Texas", "free Christmas lights Texas", "Texas holiday events", "free things to do Christmas Texas"], relatedCollections: [], relatedDestinations: [],
+    sourceName: "San Antonio River Walk", sourceUrl: "https://www.thesanantonioriverwalk.com/",
+    internalLinks: [
+      { href: "/article/christmas-in-texas-complete-guide", label: "Complete Christmas in Texas guide", description: "Mix free public traditions with ticketed signature attractions." },
+      { href: "/article/best-christmas-lights-in-texas", label: "Best Texas Christmas lights", description: "Find public displays and destination-worthy light traditions." },
+      { href: "/article/best-christmas-towns-in-texas", label: "Best Christmas towns", description: "Choose walkable places where much of the atmosphere is outdoors and public." },
+    ],
+    body: [
+      { type: "paragraph", text: "Texas Christmas trips can get expensive quickly when every evening has timed tickets. The better strategy is to make a free public tradition the anchor, then add one paid attraction only if it is worth it." },
+      { type: "heading", text: "Walk the San Antonio River Walk lights" },
+      { type: "paragraph", text: "The public River Walk itself provides a major holiday-light experience without requiring a parade ticket or attraction admission. Restaurants and cruises cost extra, but walking the decorated river is its own event." },
+      { type: "heading", text: "Historic squares" },
+      { type: "paragraph", text: "Georgetown, Johnson City, Marshall and other courthouse towns use public downtown spaces as the center of their holiday identity. Parking or special programming may vary, but the basic square-and-lights experience can often be enjoyed without admission." },
+      { type: "heading", text: "Community tree lightings and parades" },
+      { type: "paragraph", text: "Cities across Texas hold public tree lightings, parades and downtown nights. These dates change annually, so use city or tourism-board calendars to confirm the current season rather than relying on last year's travel article." },
+    ],
+  },
+  {
+    id: "si-10", brandId: BRAND, slug: "east-texas-fall-colors", title: "Where to See Fall Colors in East Texas",
+    dek: "A Piney Woods fall guide to Caddo Lake, Daingerfield, Lake Bob Sandlin, Tyler and the hardwoods that bring red, gold and rust to East Texas each autumn.", category: "outdoors", region: "piney-woods", hero: fall, authorId: "a-dell", publishedAt: "2026-08-20", readingMinutes: 8,
+    tags: ["East Texas fall colors", "Piney Woods fall foliage", "Caddo Lake fall", "Daingerfield fall colors"], relatedCollections: [], relatedDestinations: ["caddo-lake"],
+    sourceName: "Texas Parks and Wildlife Department", sourceUrl: "https://tpwd.texas.gov/state-parks/parks/things-to-do/fall-for-parks",
+    internalLinks: [
+      { href: "/article/fall-in-texas-complete-guide", label: "Complete Texas fall guide", description: "Compare East Texas with the Hill Country and West Texas." },
+      { href: "/article/best-places-for-fall-colors-in-texas", label: "Best Texas fall-color destinations", description: "Rank the parks and landscapes most worth a foliage trip." },
+      { href: "/article/caddo-lake-cypress-morning", label: "Caddo Lake at water level", description: "See why paddling changes the experience of East Texas cypress country." },
+    ],
+    body: [
+      { type: "paragraph", text: "East Texas is the part of the state that most closely matches the classic idea of a fall forest. Pines remain green while sweetgum, oak, hickory and cypress add the red, gold and rust that make the Piney Woods feel layered rather than uniformly evergreen." },
+      { type: "heading", text: "Caddo Lake" },
+      { type: "paragraph", text: "Bald cypress and dark bayou water make Caddo visually distinct even before the leaves change. In fall, rusty cypress color and lower-angle light deepen a landscape already defined by reflections and Spanish moss." },
+      { type: "heading", text: "Daingerfield and Lake Bob Sandlin" },
+      { type: "paragraph", text: "Northeast Texas state parks provide easy public access to mixed woodland and lakeshore color. Daingerfield is especially compact and photogenic; Lake Bob Sandlin offers another water-and-hardwood combination nearby." },
+      { type: "heading", text: "Tyler and surrounding forests" },
+      { type: "paragraph", text: "Tyler State Park and the country roads around the city give visitors a convenient East Texas base. Because peak conditions depend on cold fronts and rainfall, current park reports matter more than any fixed November date." },
+    ],
+  },
+  {
+    id: "si-11", brandId: BRAND, slug: "hill-country-fall-colors", title: "Where to See Fall Colors in the Texas Hill Country",
+    dek: "Lost Maples is only the beginning: follow the Frio, Guadalupe and Hill Country river corridors for some of the strongest autumn color in Central Texas.", category: "outdoors", region: "hill-country", hero: fall, authorId: "a-dell", publishedAt: "2026-08-20", readingMinutes: 8,
+    tags: ["Hill Country fall colors", "Lost Maples fall", "Garner State Park fall", "Guadalupe River fall"], relatedCollections: [], relatedDestinations: [],
+    sourceName: "Texas Parks and Wildlife Department", sourceUrl: "https://tpwd.texas.gov/state-parks/lost-maples/nature",
+    internalLinks: [
+      { href: "/article/fall-in-texas-complete-guide", label: "Texas fall, statewide", description: "Compare the Hill Country with East Texas and mountain destinations." },
+      { href: "/article/texas-fall-foliage-road-trip", label: "Hill Country fall road trip", description: "Link the Frio, Lost Maples and Guadalupe corridors over several days." },
+      { href: "/article/best-places-for-fall-colors-in-texas", label: "Best Texas fall-color places", description: "See how individual parks compare." },
+    ],
+    body: [
+      { type: "paragraph", text: "The Hill Country's best fall color follows water and elevation. Cypress line clear rivers, oaks shift on hillsides, and one famous stand of Uvalde bigtooth maples creates a concentration of color that feels almost imported from another state." },
+      { type: "heading", text: "Lost Maples State Natural Area" },
+      { type: "paragraph", text: "Lost Maples earns its reputation, but it also earns its crowds. Texas Parks and Wildlife notes that fall color often develops from late October into the first half of November depending on weather. Reserve entry early and use current foliage reports." },
+      { type: "heading", text: "Garner State Park and the Frio" },
+      { type: "paragraph", text: "Garner brings broad cypress-lined river views, limestone hills and reflections. The landscape can be more varied than a pure maple hike and works well as the first leg of a Lost Maples weekend." },
+      { type: "heading", text: "Guadalupe River corridor" },
+      { type: "paragraph", text: "Guadalupe River State Park and the river roads around New Braunfels and Canyon Lake add another cypress-heavy fall zone, especially useful for Austin and San Antonio travelers." },
+    ],
+  },
+  {
+    id: "si-12", brandId: BRAND, slug: "best-texas-state-parks-for-fall-colors", title: "The Best Texas State Parks for Fall Colors",
+    dek: "A park-by-park shortlist for autumn: maples at Lost Maples, cypress on the Frio and Guadalupe, mixed hardwoods in East Texas and desert-mountain surprises farther west.", category: "state-parks", hero: fall, authorId: "a-dell", publishedAt: "2026-08-20", readingMinutes: 9,
+    tags: ["Texas state parks fall colors", "best state parks fall Texas", "Lost Maples", "Garner State Park", "Daingerfield State Park"], relatedCollections: [], relatedDestinations: ["caddo-lake"],
+    sourceName: "Texas Parks and Wildlife Department", sourceUrl: "https://tpwd.texas.gov/state-parks/parks/things-to-do/fall-for-parks",
+    internalLinks: [
+      { href: "/article/fall-in-texas-complete-guide", label: "Complete Texas fall guide", description: "See timing and regional differences beyond state parks." },
+      { href: "/article/best-places-for-fall-colors-in-texas", label: "Best fall-color places statewide", description: "Compare parks with gardens, forests and other public landscapes." },
+      { href: "/explore/state-parks", label: "Explore Texas state parks", description: "Browse park guides for camping, hiking and year-round trips." },
+    ],
+    body: [
+      { type: "paragraph", text: "The best state park for Texas fall color depends on what kind of color you want. Lost Maples delivers the rarest tree story. Garner and Guadalupe River deliver cypress and water. East Texas parks deliver the broadest forest palette." },
+      { type: "heading", text: "Lost Maples State Natural Area" },
+      { type: "paragraph", text: "The obvious first choice for concentrated maple color. It is also one of the parks where reservation strategy matters most during the fall season." },
+      { type: "heading", text: "Garner and Guadalupe River" },
+      { type: "paragraph", text: "Both parks use rivers to concentrate trees and reflections. Garner has the Frio and dramatic limestone country; Guadalupe River is easier to combine with San Antonio, New Braunfels and Canyon Lake." },
+      { type: "heading", text: "Daingerfield, Tyler and Lake Bob Sandlin" },
+      { type: "paragraph", text: "These East Texas parks mix evergreen pines with hardwood color, creating a more classic woodland fall experience than most of Central Texas." },
+      { type: "heading", text: "Dinosaur Valley and Caddo Lake" },
+      { type: "paragraph", text: "Dinosaur Valley adds the Paluxy River and dinosaur-track landscape, while Caddo Lake's cypress sloughs provide one of the state's most distinctive autumn settings." },
+      { type: "paragraph", text: "For every park, verify current conditions and reservations with Texas Parks and Wildlife. A great foliage report can create a crowded weekend quickly." },
+    ],
+  },
+];
