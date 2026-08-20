@@ -1,3 +1,4 @@
+# explicit retrigger after workflow entered main
 name: Certify Taylor County production once
 
 on:
