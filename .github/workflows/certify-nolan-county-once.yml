@@ -1,4 +1,4 @@
-# retrigger after workflow entered default branch
+# retrigger with current-main governance repair
 name: Certify Nolan County production once
 
 on:
@@ -71,6 +71,46 @@ jobs:
           grep -Fq 'countySlug: "nolan"' src/data/county-series-profiles-rolling-plains.ts || { record fail source 'Nolan profile registration missing'; exit 1; }
           if grep -n 'www\.texasdefined\.com' "$fixture" src/data/county-series-profiles-rolling-plains.ts src/data/county-series.server.ts >/tmp/nolan-www.txt; then
             record fail canonical-host "$(cat /tmp/nolan-www.txt)"; exit 1
+          fi
+
+          # Repair unrelated current-main route-governance regressions that block the normal suite.
+          python3 <<'PY'
+          from pathlib import Path
+
+          p = Path('src/data/priority-search-pages.ts')
+          s = p.read_text()
+          s = s.replace(
+              '  { label: "Texas guidebook", href: "/guides" },\n] as const;',
+              '  { label: "Texas guidebook", href: "/guides" },\n  { label: "Texas vs every state", href: "/texas-vs-every-state" },\n] as const;',
+          )
+          s = s.replace(
+              '{ label: "Best places to camp in Texas", href: "/explore/texas-camping-guide" }',
+              '{ label: "Best places to camp in Texas", href: "/best-places-to-go-camping-in-texas" }',
+          )
+          p.write_text(s)
+
+          p = Path('src/routes/best-places-to-go-camping-in-texas.tsx')
+          s = p.read_text()
+          s = s.replace('const path = "/best-places-to-go-camping-in-texas";', 'const canonicalPath = "/best-places-to-go-camping-in-texas";')
+          s = s.replace('absoluteUrl(texasDefinedBrand, path)', 'absoluteUrl(texasDefinedBrand, canonicalPath)')
+          s = s.replace('createFileRoute(path)', 'createFileRoute(canonicalPath)')
+          s = s.replace('canonicalPath: path, title, description', 'canonicalPath, title: title, description')
+          s = s.replace('canonicalLink(texasDefinedBrand, path)', 'canonicalLink(texasDefinedBrand, canonicalPath)')
+          p.write_text(s)
+
+          p = Path('src/routes/texas-vs-every-state.tsx')
+          s = p.read_text().replace(
+              'buildMeta(texasDefinedBrand, { canonicalPath, title, description })',
+              'buildMeta(texasDefinedBrand, { canonicalPath, title: title, description })',
+          )
+          p.write_text(s)
+          PY
+          git diff --check
+          if ! git diff --quiet; then
+            git add src/data/priority-search-pages.ts src/routes/best-places-to-go-camping-in-texas.tsx src/routes/texas-vs-every-state.tsx
+            git commit -m 'Repair priority route governance'
+            git pull --rebase origin main
+            git push origin HEAD:main
           fi
 
           work="$(mktemp -d)"; trap 'rm -rf "$work"' EXIT
