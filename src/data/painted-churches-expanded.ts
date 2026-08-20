@@ -4,6 +4,7 @@ const CHECKED = "2026-08-18";
 
 export type PaintedChurchClassification =
   | "formal-national-register-group"
+  | "historical-thematic-nomination-member"
   | "broader-historic-tradition"
   | "modern-decorative-campaign";
 
@@ -32,6 +33,11 @@ export type CanonicalPaintedChurch = PaintedChurch & {
   interiorIntegrity: PaintedChurchInteriorIntegrity;
   culturalHeritage: string[];
   techniques: PaintedChurchTechniqueSlug[];
+  thematicNomination1982?: {
+    originalMember: boolean;
+    currentThcMpsIndex: boolean;
+    note?: string;
+  };
 };
 
 export const additionalVerifiedPaintedChurches: PaintedChurch[] = [
@@ -173,6 +179,22 @@ export const additionalVerifiedPaintedChurches: PaintedChurch[] = [
     secondarySourceUrl: "https://txarchives.org/utaaa/finding_aids/00136.xml",
     sourceCheckedAt: CHECKED,
   },
+  {
+    slug: "galveston-st-joseph-church",
+    name: "St. Joseph's Church",
+    shortName: "St. Joseph's at Galveston",
+    city: "Galveston",
+    county: "Galveston",
+    address: "2202 Avenue K, Galveston, TX 77550",
+    denomination: "Roman Catholic (historic; preserved by Galveston Historical Foundation)",
+    summary: "An 1859–1860 German Catholic wooden Gothic Revival church in Galveston whose painted coffered ceiling, Gothic symbols and faux-grained pews make it the historically missing fifteenth church in the 1982 statewide decorative-interior thematic nomination.",
+    significance: "St. Joseph's was individually listed in the National Register in 1976, before the 1982–1983 thematic nomination. The thematic nomination nevertheless explicitly includes the Galveston church among its 15 painted interiors and identifies its pews as the group's only documented example of graining. Texas Defined therefore distinguishes it from the 14 properties surfaced by THC's current Multiple Property Listing index rather than treating the historic 15-count as an unexplained discrepancy.",
+    visitNote: "The building is preserved by the Galveston Historical Foundation and is used as a historic site and special-event venue rather than an active parish. Check current public access or event availability with Galveston Historical Foundation before traveling specifically to enter the church.",
+    sourceUrl: "https://www.galvestonhistory.org/sites/special-event-venues",
+    secondarySourceUrl: "https://atlas.thc.texas.gov/NR/pdfs/76002082/76002082.pdf",
+    sourceCheckedAt: "2026-08-19",
+    nationalRegister: { referenceNumber: "76002082", listed: "December 13, 1976", multipleProperty: false },
+  },
 ];
 
 const imageOverrides: Partial<Record<string, NonNullable<PaintedChurch["image"]>>> = {
@@ -206,6 +228,8 @@ const formal = new Set([
   "fredericksburg-st-marys-catholic-church",
 ]);
 
+const historicalThematicMembers = new Set(["galveston-st-joseph-church"]);
+
 const metadata: Record<string, Pick<CanonicalPaintedChurch, "interiorIntegrity" | "culturalHeritage" | "techniques">> = {
   "high-hill-nativity-of-mary": { interiorIntegrity: "restored-original-scheme", culturalHeritage: ["German Catholic", "Moravian Czech"], techniques: ["marbling", "stenciling", "gilding-metallic-accents", "trompe-loeil-architectural-illusion", "canvas-applied-decoration"] },
   "ammannsville-st-john-the-baptist": { interiorIntegrity: "restored-original-scheme", culturalHeritage: ["Czech Catholic"], techniques: ["stenciling", "infill", "pouncing", "marbling"] },
@@ -234,6 +258,7 @@ const metadata: Record<string, Pick<CanonicalPaintedChurch, "interiorIntegrity" 
   "anderson-st-stanislaus-kostka": { interiorIntegrity: "restored-original-scheme", culturalHeritage: ["Polish Catholic"], techniques: ["freehand", "decorative-murals"] },
   "castroville-st-louis-catholic-church": { interiorIntegrity: "uncertain", culturalHeritage: ["Alsatian Catholic", "French-German frontier Catholic"], techniques: ["decorative-murals"] },
   "lacoste-our-lady-of-grace": { interiorIntegrity: "uncertain", culturalHeritage: ["Medina County Catholic"], techniques: [] },
+  "galveston-st-joseph-church": { interiorIntegrity: "uncertain", culturalHeritage: ["German Catholic", "Galveston immigrant heritage"], techniques: ["graining"] },
 };
 
 const combined = [
@@ -243,13 +268,25 @@ const combined = [
 
 export const expandedPaintedChurches: CanonicalPaintedChurch[] = combined.map((church) => {
   const details = metadata[church.slug] ?? { interiorIntegrity: "uncertain" as const, culturalHeritage: [], techniques: [] };
+  const classification: PaintedChurchClassification = church.slug === "bandera-st-stanislaus-catholic-church"
+    ? "modern-decorative-campaign"
+    : formal.has(church.slug)
+      ? "formal-national-register-group"
+      : historicalThematicMembers.has(church.slug)
+        ? "historical-thematic-nomination-member"
+        : "broader-historic-tradition";
   return {
     ...church,
-    classification: church.slug === "bandera-st-stanislaus-catholic-church"
-      ? "modern-decorative-campaign"
-      : formal.has(church.slug)
-        ? "formal-national-register-group"
-        : "broader-historic-tradition",
+    classification,
+    thematicNomination1982: formal.has(church.slug)
+      ? { originalMember: true, currentThcMpsIndex: true }
+      : historicalThematicMembers.has(church.slug)
+        ? {
+            originalMember: true,
+            currentThcMpsIndex: false,
+            note: "The 1982 thematic nomination includes St. Joseph's Church in Galveston among the 15 painted churches. It had already been individually listed in 1976, so THC's current Multiple Property Listing index surfaces the 14 properties newly associated with the thematic group rather than this earlier listing.",
+          }
+        : undefined,
     ...details,
   };
 });
