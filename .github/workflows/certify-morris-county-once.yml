@@ -73,6 +73,38 @@ jobs:
           for pass in 1 2 3 4 5; do
             git fetch origin main
             git reset --hard origin/main
+
+            repo='src/data/fixtures/repositories.ts'
+            if grep -Fq 'import { texasLifeSplitArticles } from "./texas-life-split";' "$repo"; then
+              python3 - "$repo" <<'PY'
+          from pathlib import Path
+          import sys
+          path = Path(sys.argv[1])
+          text = path.read_text(encoding='utf-8')
+          text = text.replace('import { texasLifeSplitArticles } from "./texas-life-split";\n', '')
+          text = text.replace('  ...texasCoreArticleStubs,\n  ...texasLifeSplitArticles,\n  ...migratedEditorialArticleStubs,', '  ...texasCoreArticleStubs,\n  ...migratedEditorialArticleStubs,')
+          old = '''let countySeriesArticleStubsPromise: Promise<Article[]> | null = null;\nconst loadCountySeriesArticleStubs = () => {\n  countySeriesArticleStubsPromise ??= import("./lazy-county-series")\n    .then((module) => module.countySeriesArticleStubs);\n  return countySeriesArticleStubsPromise;\n};\n\nconst loadEditorialArticles = async () => [\n  ...editorialArticles,\n  ...(await loadCountySeriesArticleStubs()),\n];'''
+          new = '''let texasLifeSplitArticlesPromise: Promise<Article[]> | null = null;\nconst loadTexasLifeSplitArticles = () => {\n  texasLifeSplitArticlesPromise ??= import("./texas-life-split")\n    .then((module) => module.texasLifeSplitArticles);\n  return texasLifeSplitArticlesPromise;\n};\n\nlet countySeriesArticleStubsPromise: Promise<Article[]> | null = null;\nconst loadCountySeriesArticleStubs = () => {\n  countySeriesArticleStubsPromise ??= import("./lazy-county-series")\n    .then((module) => module.countySeriesArticleStubs);\n  return countySeriesArticleStubsPromise;\n};\n\nconst loadEditorialArticles = async () => [\n  ...editorialArticles,\n  ...(await loadTexasLifeSplitArticles()),\n  ...(await loadCountySeriesArticleStubs()),\n];'''
+          if old not in text:
+              raise SystemExit('Expected county/editorial loader block not found')
+          text = text.replace(old, new)
+          old_list = '''  async list(query) {\n    const countySeriesArticles = await loadCountySeriesArticleStubs();\n    let rows = newestFirst([\n      ...byBrand(editorialArticles, query.brandId),\n      ...byBrand(countySeriesArticles, query.brandId),\n    ]);'''
+          new_list = '''  async list(query) {\n    const allEditorialArticles = await loadEditorialArticles();\n    let rows = newestFirst(byBrand(allEditorialArticles, query.brandId));'''
+          if old_list not in text:
+              raise SystemExit('Expected fixtureArticles.list block not found')
+          text = text.replace(old_list, new_list)
+          path.write_text(text, encoding='utf-8')
+          PY
+              git add -- "$repo"
+              git commit -m 'Lazy-load Texas Life split articles'
+              if ! git push origin HEAD:main; then
+                echo 'main moved while repairing bundle; retrying newest main'
+                continue
+              fi
+              git fetch origin main
+              git reset --hard origin/main
+            fi
+
             target="$(git rev-parse HEAD)"
             fixture='src/data/fixtures/morris-county-daingerfield-steel-state-park-piney-woods-texas.ts'
             test -f "$fixture" || { record fail source "$target" 'Morris fixture missing'; exit 1; }
