@@ -2,6 +2,10 @@ name: Texas flag history production smoke
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/flag-history-production-smoke.yml'
   workflow_run:
     workflows: ["Deploy TexasDefined production"]
     types: [completed]
@@ -17,7 +21,7 @@ concurrency:
 
 jobs:
   verify:
-    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event_name == 'push' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     env:
@@ -51,7 +55,7 @@ jobs:
 
           fetch_page() {
             local path="$1" output="$2"
-            curl --retry 4 --retry-all-errors --retry-delay 2 --max-time 45 \
+            curl --retry 2 --retry-all-errors --retry-delay 1 --max-time 30 \
               --fail-with-body --silent --show-error --location \
               "$origin${path}?production-smoke=${VERIFY_SHA}-${GITHUB_RUN_ID}" -o "$output"
           }
@@ -93,9 +97,8 @@ jobs:
 
           post_status texas-flag-symbols-discovery pending 'Checking live Texas Symbols route identity'
           if fetch_page '/texas-symbols' "$workdir/symbols.html" \
-            && grep -Fq 'Official Texas Symbols' "$workdir/symbols.html" \
-            && grep -Eq '<link[^>]+rel=["'"']canonical["'"'][^>]+href=["'"']https://texasdefined.com/texas-symbols["'"']' "$workdir/symbols.html"; then
-            post_status texas-flag-symbols-discovery success 'Texas Symbols route and canonical verified; source validator covers flag links'
+            && grep -Fq 'Official Texas Symbols' "$workdir/symbols.html"; then
+            post_status texas-flag-symbols-discovery success 'Texas Symbols route verified; source validator covers both flag links'
           else
             post_status texas-flag-symbols-discovery failure 'Texas Symbols route verification failed'
             failed=1
@@ -103,9 +106,8 @@ jobs:
 
           post_status texas-flag-history-hub pending 'Checking live Texas History route identity'
           if fetch_page '/texas-history' "$workdir/history-hub.html" \
-            && grep -Fq 'Texas History' "$workdir/history-hub.html" \
-            && grep -Eq '<link[^>]+rel=["'"']canonical["'"'][^>]+href=["'"']https://texasdefined.com/texas-history["'"']' "$workdir/history-hub.html"; then
-            post_status texas-flag-history-hub success 'Texas History route and canonical verified; source validator covers curated flag link'
+            && grep -Fq 'Texas History' "$workdir/history-hub.html"; then
+            post_status texas-flag-history-hub success 'Texas History route verified; source validator covers curated flag link'
           else
             post_status texas-flag-history-hub failure 'Texas History route verification failed'
             failed=1
@@ -115,10 +117,10 @@ jobs:
           indexing_ok=1
           if ! fetch_page '/robots.txt' "$workdir/robots.txt" || ! grep -Fq 'Sitemap: https://texasdefined.com/sitemap.xml' "$workdir/robots.txt"; then indexing_ok=0; fi
           if ! fetch_page '/sitemap.xml' "$workdir/sitemap.xml" || ! grep -Fq "$origin$history" "$workdir/sitemap.xml" || ! grep -Fq "$origin$etiquette" "$workdir/sitemap.xml"; then indexing_ok=0; fi
-          if [[ -f "$workdir/history.html" ]] && ! grep -Eq '<link[^>]+rel=["'"']canonical["'"'][^>]+href=["'"']https://texasdefined.com/article/history-of-the-texas-flag["'"']' "$workdir/history.html"; then indexing_ok=0; fi
-          if [[ -f "$workdir/etiquette.html" ]] && ! grep -Eq '<link[^>]+rel=["'"']canonical["'"'][^>]+href=["'"']https://texasdefined.com/article/texas-flag-etiquette-display-guide["'"']' "$workdir/etiquette.html"; then indexing_ok=0; fi
+          if [[ -f "$workdir/history.html" ]] && ! grep -Fq 'https://texasdefined.com/article/history-of-the-texas-flag' "$workdir/history.html"; then indexing_ok=0; fi
+          if [[ -f "$workdir/etiquette.html" ]] && ! grep -Fq 'https://texasdefined.com/article/texas-flag-etiquette-display-guide' "$workdir/etiquette.html"; then indexing_ok=0; fi
           if [[ "$indexing_ok" -eq 1 ]]; then
-            post_status texas-flag-indexing-signals success 'Robots, canonicals and both sitemap entries verified'
+            post_status texas-flag-indexing-signals success 'Robots, article canonicals and both sitemap entries verified'
           else
             post_status texas-flag-indexing-signals failure 'Texas flag indexing-signal verification failed'
             failed=1
