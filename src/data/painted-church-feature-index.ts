@@ -1,5 +1,6 @@
 import { paintedChurchAuthorityFeatures } from "./painted-church-features-authority";
 import { immaculateHeartOfMaryFeatures } from "./painted-church-features-preindex-ihm";
+import { masonPaintedChurchFeatures } from "./painted-church-features-mason";
 import { paintedChurchPreindexExpansionFeatures } from "./painted-church-features-preindex-expansion";
 import { paintedChurchPreindexFeatures } from "./painted-church-features-preindex";
 import { paintedChurchFeatures, type PaintedChurchFeature } from "./painted-church-features";
@@ -17,6 +18,7 @@ export const canonicalPaintedChurchFeatures: PaintedChurchFeature[] = [
       ...paintedChurchPreindexFeatures,
       ...paintedChurchPreindexExpansionFeatures,
       ...immaculateHeartOfMaryFeatures,
+      ...masonPaintedChurchFeatures,
     ].map((feature) => [feature.id, feature]),
   ).values(),
 ];
