@@ -22,42 +22,52 @@ export function buildPrioritySearchHead({
     name: section.heading,
     description: section.paragraphs.join(" "),
   }));
+  const graph: Record<string, unknown>[] = [
+    {
+      "@type": "WebPage",
+      "@id": `${pageUrl}#page`,
+      url: pageUrl,
+      name: title,
+      description,
+      dateModified: "2026-08-20",
+      isPartOf: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#website` },
+      about: about.map((name) => ({ "@type": "Thing", name })),
+      mainEntity: { "@id": `${pageUrl}#sections` },
+      breadcrumb: { "@id": `${pageUrl}#breadcrumbs` },
+    },
+    {
+      "@type": "ItemList",
+      "@id": `${pageUrl}#sections`,
+      name: `${data.title} guide sections`,
+      numberOfItems: sectionItems.length,
+      itemListElement: sectionItems,
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": `${pageUrl}#breadcrumbs`,
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl(texasDefinedBrand, "/") },
+        { "@type": "ListItem", position: 2, name: "Texas Resources", item: absoluteUrl(texasDefinedBrand, "/texas-resources") },
+        { "@type": "ListItem", position: 3, name: data.title, item: pageUrl },
+      ],
+    },
+  ];
+
+  if (data.faq?.length) {
+    graph.push({
+      "@type": "FAQPage",
+      "@id": `${pageUrl}#faq`,
+      mainEntity: data.faq.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: { "@type": "Answer", text: item.answer },
+      })),
+    });
+  }
 
   return {
     meta: buildMeta(texasDefinedBrand, { canonicalPath, title, description }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
-    scripts: [jsonLd({
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "WebPage",
-          "@id": `${pageUrl}#page`,
-          url: pageUrl,
-          name: title,
-          description,
-          dateModified: "2026-08-20",
-          isPartOf: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#website` },
-          about: about.map((name) => ({ "@type": "Thing", name })),
-          mainEntity: { "@id": `${pageUrl}#sections` },
-          breadcrumb: { "@id": `${pageUrl}#breadcrumbs` },
-        },
-        {
-          "@type": "ItemList",
-          "@id": `${pageUrl}#sections`,
-          name: `${data.title} guide sections`,
-          numberOfItems: sectionItems.length,
-          itemListElement: sectionItems,
-        },
-        {
-          "@type": "BreadcrumbList",
-          "@id": `${pageUrl}#breadcrumbs`,
-          itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl(texasDefinedBrand, "/") },
-            { "@type": "ListItem", position: 2, name: "Texas Resources", item: absoluteUrl(texasDefinedBrand, "/texas-resources") },
-            { "@type": "ListItem", position: 3, name: data.title, item: pageUrl },
-          ],
-        },
-      ],
-    })],
+    scripts: [jsonLd({ "@context": "https://schema.org", "@graph": graph })],
   };
 }
