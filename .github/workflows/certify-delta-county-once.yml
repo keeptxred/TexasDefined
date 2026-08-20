@@ -1,3 +1,4 @@
+# Trigger concurrency-safe Delta County production certification.
 name: Certify Delta County production once
 
 on:
