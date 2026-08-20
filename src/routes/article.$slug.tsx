@@ -16,6 +16,7 @@ import { absoluteUrl, buildMeta, canonicalLink, schemaTypeForEntityKind } from "
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const DISCOVER_MIN_IMAGE_WIDTH = 1200;
+const MOVING_TO_TEXAS_PILLAR_SLUG = "moving-to-texas-what-nobody-tells-you";
 const texasExplainedPillarOrder = [
   "texas-rivers-explained",
   "texas-lakes-reservoirs-explained",
@@ -58,6 +59,49 @@ const texasExplainedSupportOrder = [
 const texasExplainedPillarSlugs = new Set<string>(texasExplainedPillarOrder);
 const texasExplainedSupportSlugs = new Set<string>(texasExplainedSupportOrder);
 const texasExplainedCollectionSlugs = new Set<string>([...texasExplainedPillarOrder, ...texasExplainedSupportOrder]);
+
+const movingToTexasFaq = [
+  {
+    question: "Is Texas actually cheaper to live in?",
+    answer: "Sometimes, but not automatically. Housing prices, property taxes, insurance, utilities, transportation and child care vary widely by metro and household. Compare a full monthly budget for the exact area rather than relying on a statewide cost-of-living claim.",
+  },
+  {
+    question: "Does Texas have a state income tax?",
+    answer: "Texas does not levy an individual state income tax. That fact should be considered alongside local property taxes, sales taxes and the household costs that differ by location.",
+  },
+  {
+    question: "Are Texas property taxes high?",
+    answer: "Property taxes can be a major homeowner expense, but the correct number is address-specific. Texas property tax is locally assessed and administered, and a property can be subject to several local taxing units. Compare the actual taxable value, exemptions and applicable tax rates for the property you are considering.",
+  },
+  {
+    question: "What is a MUD in Texas?",
+    answer: "A municipal utility district is a special-purpose district commonly used to provide or finance infrastructure such as water, sewer and drainage in developing areas. A MUD can have its own tax rate and fees, so include it when comparing the total cost of a home.",
+  },
+  {
+    question: "Should I rent before buying in Texas?",
+    answer: "Renting first can be useful if you do not know the metro, commute or regional climate well. It gives you time to experience traffic, summer heat, storm behavior and neighborhood routines before making a larger commitment. It is not required for someone who already understands the area.",
+  },
+  {
+    question: "Do I need flood insurance in Texas?",
+    answer: "A lender may require flood insurance for certain properties, but the broader decision depends on risk and coverage. Most standard homeowners policies do not cover flood damage. Review the property's mapped flood information, drainage conditions and insurance options rather than assuming not required means no risk.",
+  },
+  {
+    question: "How expensive is electricity in Texas?",
+    answer: "The answer depends on the home, climate, usage and local market. In competitive retail areas, plan structure matters in addition to the advertised rate. More importantly for relocation, summer cooling use can make a large or inefficient house much more expensive to operate than a spring bill suggests.",
+  },
+  {
+    question: "What should I know about Texas school districts before buying a home?",
+    answer: "School district boundaries do not necessarily match city limits or postal city names. Verify the district and assigned campuses for the exact address using authoritative district or state information, and check whether attendance boundaries are under review.",
+  },
+  {
+    question: "What part of Texas has the best weather?",
+    answer: "There is no statewide answer. Gulf Coast residents trade milder winters for humidity and tropical risk. North Texas experiences severe thunderstorms and hail. Central Texas is hot and can be drought- and flash-flood-prone. West Texas is drier with larger temperature swings. Choose the climate whose tradeoffs fit you rather than chasing a single best region.",
+  },
+  {
+    question: "What is the biggest mistake people make when moving to Texas?",
+    answer: "The most expensive mistake is choosing a home from the purchase price and neighborhood appearance while skipping address-level research on taxes, insurance, commute, flood risk, schools, utilities and special districts. Texas rewards people who investigate the layers.",
+  },
+] as const;
 
 type ArticleDepartment = { name: string; path: string; usesExploreCategory: boolean };
 
@@ -110,6 +154,7 @@ export const Route = createFileRoute("/article/$slug")({
       ?? article.category.replace(/-/g, " ");
     const department = articleDepartment(article.category);
     const isTexasExplainedCollectionArticle = texasExplainedCollectionSlugs.has(article.slug);
+    const isMovingToTexasPillar = article.slug === MOVING_TO_TEXAS_PILLAR_SLUG;
     const relatedDestinations = article.relatedDestinations
       .map((slug) => destinations.find((destination) => destination.slug === slug))
       .filter((destination): destination is NonNullable<typeof destination> => Boolean(destination))
@@ -200,11 +245,27 @@ export const Route = createFileRoute("/article/$slug")({
       "@id": `${articleUrl}#breadcrumbs`,
       itemListElement: breadcrumbItems,
     };
-    const schemaGraph = [webPageSchema, imageSchema, ...(authorSchema ? [authorSchema] : []), articleSchema, breadcrumbSchema];
+    const faqSchema = isMovingToTexasPillar ? {
+      "@type": "FAQPage",
+      "@id": `${articleUrl}#faq`,
+      mainEntity: movingToTexasFaq.map(({ question, answer }) => ({
+        "@type": "Question",
+        name: question,
+        acceptedAnswer: { "@type": "Answer", text: answer },
+      })),
+    } : null;
+    const schemaGraph = [
+      webPageSchema,
+      imageSchema,
+      ...(authorSchema ? [authorSchema] : []),
+      articleSchema,
+      breadcrumbSchema,
+      ...(faqSchema ? [faqSchema] : []),
+    ];
 
     return {
       meta: buildMeta(texasDefinedBrand, {
-        title: article.title,
+        title: isMovingToTexasPillar ? "Moving to Texas: What Nobody Tells You (2026 Guide)" : article.title,
         description: article.dek,
         type: "article",
         canonicalPath,
