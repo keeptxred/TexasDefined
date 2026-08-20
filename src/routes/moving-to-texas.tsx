@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 
 import roadTrip from "@/assets/road-trip.jpg";
 
@@ -15,6 +15,15 @@ import { buildEditorialCollectionHead, buildMeta, canonicalLink } from "@/lib/se
 const description = "A clear-eyed guide to choosing a Texas city or county, understanding the cost and property context, finding a home and settling into everyday life in a very large state.";
 const imageAlt = "A two-lane Texas farm road running to the horizon";
 const seoTitle = "Moving to Texas: County Comparison, Cities & What to Know";
+
+const arrivalTasks = [
+  ["Texas driver license", "/texas-drivers-license", "DPS handles Texas driver licenses and state ID services. Start here for renewals, appointments, REAL ID and address changes."],
+  ["Texas vehicle registration", "/texas-vehicle-registration", "Understand registration, renewal and the role of TxDMV and your county tax assessor-collector."],
+  ["Texas DMV", "/texas-dmv", "Use the TxDMV guide for titles, vehicle registration, dealers and motor-carrier services."],
+  ["Texas DPS", "/texas-dps", "Use the DPS guide for driver licensing, identification cards and statewide public-safety services."],
+  ["Find my DMV or county office", "/find-my-dmv", "Move from statewide rules to the local office that actually serves your county."],
+  ["Texas resources", "/texas-resources", "Open the broader directory for unemployment, the Comptroller, Secretary of State, Attorney General and other everyday state services."],
+] as const;
 
 type MovingToTexasLoaderData = {
   articles: Article[];
@@ -62,6 +71,22 @@ function MovingToTexasPage() {
   return <>
     <CategoryPage category="moving-to-texas" eyebrow="The relocation guide" title="What to know before you move to Texas" intro={description} image={{ src: roadTrip, alt: imageAlt, width: 1600, height: 1067 }} />
     <Container className="pb-16 sm:pb-24">
+      <section className="mb-12 border-y border-border py-8" aria-labelledby="moving-texas-paperwork">
+        <div className="grid gap-8 lg:grid-cols-[16rem_1fr]">
+          <div>
+            <p className="eyebrow text-primary">After you arrive</p>
+            <h2 id="moving-texas-paperwork" className="mt-2 font-display text-3xl leading-tight">Texas paperwork without the agency confusion</h2>
+            <p className="mt-4 text-sm leading-7 text-muted-foreground">Texas splits driver licensing and vehicle services between different agencies. These guides route you to the right system before you make an appointment or start a transaction.</p>
+          </div>
+          <div className="grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2">
+            {arrivalTasks.map(([title, to, copy]) => <Link key={to} to={to} className="group bg-background p-5">
+              <h3 className="font-display text-2xl leading-tight transition-colors group-hover:text-primary">{title}</h3>
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">{copy}</p>
+              <span className="eyebrow mt-5 inline-block text-primary">Open guide →</span>
+            </Link>)}
+          </div>
+        </div>
+      </section>
       <TexasCountyComparisonTable
         rows={largestCounties}
         title="Largest Texas counties by 2020 Census population"
