@@ -1,11 +1,7 @@
-import { paintedChurchArchivalImagesBySlug } from "@/data/painted-church-archival-images";
-import { expansionPaintedChurchArchivalImagesBySlug } from "@/data/painted-church-archival-images-expansion";
+import { canonicalPaintedChurchArchivalImagesBySlug } from "@/data/painted-church-archival-image-index";
 
 export function PaintedChurchArchivalImageSources({ slug }: { slug: string }) {
-  const references = [...new Map([
-    ...paintedChurchArchivalImagesBySlug(slug),
-    ...expansionPaintedChurchArchivalImagesBySlug(slug),
-  ].map((item) => [item.url, item])).values()];
+  const references = canonicalPaintedChurchArchivalImagesBySlug(slug);
   if (!references.length) return null;
 
   return (
