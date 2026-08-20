@@ -1,3 +1,4 @@
+import { authorityPaintedChurchProfileBySlug } from "./painted-church-profiles-authority";
 import { finalPaintedChurchProfileBySlug } from "./painted-church-profiles-final";
 import { paintedChurchExtendedProfileBySlug } from "./painted-church-profiles-extended";
 import { paintedChurchExpansionProfileBySlug } from "./painted-church-profiles-expansion";
@@ -9,7 +10,8 @@ import { paintedChurchAdditionProfileBySlug } from "./painted-church-profiles-ad
 export type { PaintedChurchProfile } from "./painted-church-profiles";
 
 export function canonicalPaintedChurchProfileBySlug(slug: string) {
-  return paintedChurchProfileBySlug(slug)
+  return authorityPaintedChurchProfileBySlug(slug)
+    ?? paintedChurchProfileBySlug(slug)
     ?? paintedChurchExtendedProfileBySlug(slug)
     ?? paintedChurchStatewideProfileBySlug(slug)
     ?? finalPaintedChurchProfileBySlug(slug)
