@@ -117,14 +117,26 @@ const texasBorderlandsHistoricSitesGuideStub: Article = {
 
 const texasWorldWarIIHistoricSitesGuideStub: Article = {
   id: "evergreen-texas-world-war-ii-historic-sites-guide", brandId: "texasdefined", slug: "texas-world-war-ii-historic-sites-guide",
-  title: "Texas and World War II: Four Historic Sites That Connect the State to a Global War",
-  dek: "Eisenhower's Denison birthplace, the National Museum of the Pacific War, Harlingen's Iwo Jima monument and Slaton's Harvey House connect Texas leadership, memory, rail travel and the Pacific war to places you can still visit.",
+  title: "Texas and World War II: Five Historic Places That Connect the State to a Global War",
+  dek: "Battleship Texas, Eisenhower's Denison birthplace, the National Museum of the Pacific War, Harlingen's Iwo Jima monument and Slaton's Harvey House connect Texas to combat, command, memory and wartime mobility.",
   category: "texas-history",
   hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Fredericksburg_July_2017_7_%28Admiral_Nimitz_Museum%29.jpg?width=1600", alt: "Admiral Nimitz Museum, part of the National Museum of the Pacific War in Fredericksburg, Texas", width: 1600, height: 1067, credit: "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons" },
-  authorId: "a-marisol", publishedAt: "2026-08-19", readingMinutes: 14,
-  tags: ["texas world war ii", "eisenhower birthplace", "national museum pacific war", "iwo jima monument harlingen", "slaton harvey house", "texas military history"], featured: true,
+  authorId: "a-marisol", publishedAt: "2026-08-19", readingMinutes: 16,
+  tags: ["texas world war ii", "battleship texas", "eisenhower birthplace", "national museum pacific war", "iwo jima monument harlingen", "slaton harvey house", "texas military history"], featured: true,
   sourceName: "Texas Historical Commission", sourceUrl: "https://thc.texas.gov/historic-sites",
-  body: [], relatedCollections: [], relatedDestinations: ["eisenhower-birthplace", "national-museum-pacific-war", "iwo-jima-museum-monument", "slaton-harvey-house"],
+  body: [], relatedCollections: [], relatedDestinations: ["battleship-texas", "eisenhower-birthplace", "national-museum-pacific-war", "iwo-jima-museum-monument", "slaton-harvey-house"],
+};
+
+const battleshipTexasBB35HistoryRestorationStub: Article = {
+  id: "evergreen-battleship-texas-bb-35-history-restoration", brandId: "texasdefined", slug: "battleship-texas-bb-35-history-restoration",
+  title: "Battleship Texas (BB-35): The Last Dreadnought and Its Return to Galveston",
+  dek: "Commissioned in 1914, Battleship Texas served in both World Wars, fired on Normandy, Iwo Jima and Okinawa, became a museum ship in 1948 and is now being restored for a new permanent home at Pier 15 in Galveston.",
+  category: "texas-history", region: "gulf-coast",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/USS_Texas_%28BB-35%29_underway_off_San_Pedro%2C_California_%28USA%29%2C_in_December_1944_%2880-G-288338%29.jpg?width=1600", alt: "USS Texas BB-35 underway off San Pedro, California, in December 1944", width: 1600, height: 997, credit: "U.S. Navy · Public domain · Wikimedia Commons" },
+  authorId: "a-marisol", publishedAt: "2026-08-19", readingMinutes: 16,
+  tags: ["Battleship Texas", "USS Texas BB-35", "Texas military history", "Texas naval history", "World War I", "World War II", "D-Day", "Galveston"], featured: true,
+  sourceName: "Battleship Texas Foundation", sourceUrl: "https://battleshiptexas.org/",
+  body: [], relatedCollections: [], relatedDestinations: ["battleship-texas", "galveston-island-historic-pleasure-pier", "moody-gardens", "galveston-island-state-park"],
 };
 
 const texasMilitaryHistoryTimelineStub: Article = {
@@ -163,6 +175,7 @@ export const standaloneEvergreenStubs: Article[] = [
   brazoriaPlantationsSlaveryEmancipationHistoryStub,
   texasBorderlandsHistoricSitesGuideStub,
   texasWorldWarIIHistoricSitesGuideStub,
+  battleshipTexasBB35HistoryRestorationStub,
   texasMilitaryHistoryTimelineStub,
   texasCivilWarSitesGuideStub,
 ];
@@ -180,6 +193,7 @@ export async function loadStandaloneEvergreenArticle(brandId: string, slug: stri
   if (slug === brazoriaPlantationsSlaveryEmancipationHistoryStub.slug) return import("./brazoria-plantations-slavery-emancipation-history").then((module) => module.brazoriaPlantationsSlaveryEmancipationHistoryArticle);
   if (slug === texasBorderlandsHistoricSitesGuideStub.slug) return import("./texas-borderlands-historic-sites-guide").then((module) => module.texasBorderlandsHistoricSitesGuideArticle);
   if (slug === texasWorldWarIIHistoricSitesGuideStub.slug) return import("./texas-world-war-ii-historic-sites-guide").then((module) => module.texasWorldWarIIHistoricSitesGuideArticle);
+  if (slug === battleshipTexasBB35HistoryRestorationStub.slug) return import("./battleship-texas-bb-35-history-restoration").then((module) => module.battleshipTexasBB35HistoryRestorationArticle);
   if (slug === texasMilitaryHistoryTimelineStub.slug) return import("./texas-military-history-timeline").then((module) => module.texasMilitaryHistoryTimelineArticle);
   if (slug === texasCivilWarSitesGuideStub.slug) return import("./texas-civil-war-sites-guide").then((module) => module.texasCivilWarSitesGuideArticle);
   return null;
