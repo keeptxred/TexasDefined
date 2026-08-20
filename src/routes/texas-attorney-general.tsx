@@ -7,10 +7,6 @@ const canonicalPath = "/texas-attorney-general";
 const sourceData = PRIORITY_SEARCH_PAGES["texas-attorney-general"];
 const data = {
   ...sourceData,
-  related: [
-    { label: "Texas child support law guide on KeepTXRed", href: "https://keeptxred.com/guides/texas-child-support-guidelines-law", external: true },
-    ...sourceData.related,
-  ],
   faq: [
     { question: "Does the Texas Attorney General handle child support?", answer: "Yes. The Office of the Attorney General administers Texas's child-support enforcement program, including services related to establishing, enforcing and modifying support orders and paternity." },
     { question: "Can the Texas Attorney General act as my private lawyer?", answer: "The Attorney General represents the State of Texas and performs duties assigned by law. Its consumer-protection and other public programs do not make the office a private attorney for an individual." },
