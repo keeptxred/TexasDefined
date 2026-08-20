@@ -19,8 +19,8 @@ const TOPIC_PATHS: Partial<Record<CategorySlug, TopicLink[]>> = {
     { to: "/explore/state-parks", label: "State parks", description: "Find protected landscapes with swimming, trails and spring-fed water." },
   ],
   "state-parks": [
+    { to: "/best-places-to-go-camping-in-texas", label: "Best camping in Texas", description: "Choose standout campsites by region, season and camping style, then use the park guide for the detailed destination layer." },
     { to: "/explore/outdoors", label: "Wildlife & outdoors", description: "Go beyond park gates into refuges, birding areas and wild landscapes." },
-    { to: "/explore/road-trips", label: "Road trips", description: "Connect several parks and nearby towns into a practical driving route." },
     { to: "/explore/lakes-rivers", label: "Lakes & rivers", description: "Find paddling, fishing and swimming destinations near Texas parks." },
   ],
   "national-parks": [

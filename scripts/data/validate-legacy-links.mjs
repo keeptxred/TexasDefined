@@ -44,6 +44,7 @@ const ALLOWED_FILES = new Set([
   "src/domain/validation/schemas.ts",
   "src/routes/api/public/store-products.ts",
   "src/routes/llms[.]txt.ts",
+  "src/routes/texas-attorney-general.tsx",
   "src/routes/texas-data.tsx",
   "src/routes/texas-resources.tsx",
   "src/styles.css",

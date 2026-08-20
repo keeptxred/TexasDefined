@@ -21,7 +21,22 @@ import { INDEXABLE_STATIC_PATHS, isExploreSitemapOwnedPath, isIndexablePublicPat
 const origin = `https://${texasDefinedBrand.identity.domain}`;
 type SitemapEntry = { path: string; lastmod?: string };
 
+const PRIORITY_SEO_LASTMOD = "2026-08-20";
 const STATIC_LASTMOD_BY_PATH: Readonly<Record<string, string>> = {
+  "/best-places-to-go-camping-in-texas": PRIORITY_SEO_LASTMOD,
+  "/texas-state-fair": PRIORITY_SEO_LASTMOD,
+  "/texas-two-step": PRIORITY_SEO_LASTMOD,
+  "/texas-attorney-general": PRIORITY_SEO_LASTMOD,
+  "/texas-fishing-license": PRIORITY_SEO_LASTMOD,
+  "/texas-secretary-of-state": PRIORITY_SEO_LASTMOD,
+  "/texas-drivers-license": PRIORITY_SEO_LASTMOD,
+  "/texas-dmv": PRIORITY_SEO_LASTMOD,
+  "/texas-dps": PRIORITY_SEO_LASTMOD,
+  "/texas-unemployment": PRIORITY_SEO_LASTMOD,
+  "/texas-comptroller": PRIORITY_SEO_LASTMOD,
+  "/texas-vehicle-registration": PRIORITY_SEO_LASTMOD,
+  "/texas-flag": PRIORITY_SEO_LASTMOD,
+  "/texas-vs-every-state": PRIORITY_SEO_LASTMOD,
   "/texas-history": "2026-08-20",
   "/texas-symbols": "2026-08-20",
 };
@@ -57,7 +72,7 @@ export const Route = createFileRoute("/sitemap.xml")({
         const entityPages = graph.filter(isIndexableEntityPage);
         const entries: SitemapEntry[] = [
           ...INDEXABLE_STATIC_PATHS.filter((path) => !isExploreSitemapOwnedPath(path)).map((path) => ({ path, lastmod: STATIC_LASTMOD_BY_PATH[path] })),
-          ...TEXAS_VS_STATES.map((state) => ({ path: `/texas-vs/${texasVsStateSlug(state)}`, lastmod: "2026-08-20" })),
+          ...TEXAS_VS_STATES.map((state) => ({ path: `/texas-vs/${texasVsStateSlug(state)}`, lastmod: PRIORITY_SEO_LASTMOD })),
           ...FISHING_SITEMAP_ENTRIES,
           ...fishingGuideSitemapEntries,
           ...fishingReportSitemapEntries,
