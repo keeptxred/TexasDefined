@@ -79,9 +79,23 @@ jobs:
           for pass in 1 2 3 4 5; do
             git fetch origin main
             git reset --hard origin/main
+
+            fixture='src/data/fixtures/morris-county-daingerfield-steel-state-park-piney-woods-texas.ts'
+            if grep -Fq 'href: "/state-park/daingerfield-state-park"' "$fixture"; then
+              sed -i 's#href: "/state-park/daingerfield-state-park"#href: "/destination/daingerfield-state-park"#' "$fixture"
+              git add -- "$fixture"
+              git commit -m 'Fix Morris County canonical state park link'
+              if ! git push origin HEAD:main; then
+                echo 'main moved while repairing Morris link; retrying newest main'
+                continue
+              fi
+              git fetch origin main
+              git reset --hard origin/main
+            fi
+
             target="$(git rev-parse HEAD)"
 
-            if ! test -f src/data/fixtures/morris-county-daingerfield-steel-state-park-piney-woods-texas.ts; then
+            if ! test -f "$fixture"; then
               record_marker fail source "$target" 'Morris fixture missing from current main'; exit 1
             fi
             if ! grep -Fq 'countySlug: "morris"' src/data/county-series-profiles-northeast.ts; then
@@ -90,7 +104,7 @@ jobs:
             if ! grep -Fq '["morris-county-daingerfield-steel-state-park-piney-woods-texas", "morris"]' src/data/county-series.ts; then
               record_marker fail source "$target" 'Morris legacy mapping missing from current main'; exit 1
             fi
-            if grep -n 'www\.texasdefined\.com' src/data/fixtures/morris-county-daingerfield-steel-state-park-piney-woods-texas.ts src/data/county-series-profiles-northeast.ts src/data/county-series.ts >/tmp/morris-www.txt; then
+            if grep -n 'www\.texasdefined\.com' "$fixture" src/data/county-series-profiles-northeast.ts src/data/county-series.ts >/tmp/morris-www.txt; then
               record_marker fail canonical-host "$target" "$(cat /tmp/morris-www.txt)"; exit 1
             fi
 
