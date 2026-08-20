@@ -49,6 +49,18 @@ const extraGallery: Record<string, PaintedChurchGalleryImage[]> = {
       license: "CC BY-SA 4.0",
     },
   ],
+  "fredericksburg-st-marys-catholic-church": [
+    {
+      src: commons("Saint Mary Catholic Church Fredericksburg Texas by afc 240916.jpg"),
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Saint_Mary_Catholic_Church_Fredericksburg_Texas_by_afc_240916.jpg",
+      alt: "Wide interior view of St. Mary's Catholic Church in Fredericksburg, Texas",
+      caption: "Allen F. Corrigan's 2024 interior photograph gives a current wide view of St. Mary's decorative Gothic Revival interior and provides a rights-cleared modern counterpart for archival and preservation research.",
+      width: 2486,
+      height: 1264,
+      credit: "Allen F. Corrigan (Acorrigan1956) · Wikimedia Commons",
+      license: "CC BY-SA 4.0",
+    },
+  ],
 };
 
 export function extraPaintedChurchGalleryBySlug(slug: string) {
