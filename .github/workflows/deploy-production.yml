@@ -206,10 +206,10 @@ jobs:
           fetch_assert moving-pillar '/article/moving-to-texas-what-nobody-tells-you' 'The quick answer: what should you know before moving to Texas?'
           fetch_assert flag-history '/article/history-of-the-texas-flag' 'The Texas Flag: A History of the Lone Star'
           fetch_assert flag-etiquette '/article/texas-flag-etiquette-display-guide' 'Texas Flag Etiquette: How to Display the Lone Star Flag Correctly'
-          fetch_assert texas-symbols '/texas-symbols' "Texas's best-known symbol has a Republic-era story of its own."
+          fetch_assert texas-symbols '/texas-symbols' 'Official Texas Symbols'
           fetch_assert painted-churches '/explore/painted-churches' 'Painted Churches of Texas'
-          fetch_assert then-and-now '/explore/painted-churches/then-and-now' 'Texas Painted Churches, then and now.'
-          fetch_assert media '/explore/painted-churches/media' 'Watch the documentary. Follow the voices behind it.'
+          fetch_assert then-and-now '/explore/painted-churches/then-and-now' 'Texas Painted Churches visual history'
+          fetch_assert media '/explore/painted-churches/media' 'Texas Painted Churches multimedia research library'
           fetch_assert guidebook '/guides' 'Painted Churches of Texas'
           fetch_assert historic-sites '/explore/historic-sites' 'Painted Churches of Texas'
           fetch_assert road-trips '/explore/road-trips' 'Painted Churches routes'
