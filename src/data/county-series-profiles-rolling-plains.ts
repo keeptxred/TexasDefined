@@ -1,0 +1,10 @@
+import type { CountySeriesProfile } from "@/data/county-series";
+
+export const COUNTY_SERIES_PROFILES_ROLLING_PLAINS: CountySeriesProfile[] = [
+  {
+    countySlug: "childress",
+    articleSlug: "childress-county-childress-railroads-red-river-rolling-plains-texas",
+    loadArticle: () => import("@/data/fixtures/childress-county-childress-railroads-red-river-rolling-plains-texas")
+      .then((module) => module.childressCountyChildressRailroadsRedRiverRollingPlainsTexasArticle),
+  },
+];
