@@ -21,9 +21,14 @@ const runtimeValidator = read('scripts/data/validate-painted-church-runtime-read
 const publication = read('src/lib/painted-church-publication.ts');
 const deploy = read('.github/workflows/deploy-production.yml');
 
-if (manifest.verifiedChurchCount !== 32) failures.push(`Strict pre-index baseline expects 32 verified churches; manifest reports ${manifest.verifiedChurchCount}. Update this assertion deliberately with the census when the corpus changes.`);
+if (manifest.verifiedChurchCount !== 33) failures.push(`Strict pre-index baseline expects 33 verified churches; manifest reports ${manifest.verifiedChurchCount}. Update this assertion deliberately with the census when the corpus changes.`);
+if (manifest.schemaVersion < 2) failures.push('Pre-index manifest must use schemaVersion 2 or newer so quantitative release floors are machine-readable.');
 if (manifest.publicationState !== 'pre-index-review') failures.push('Publication state must remain pre-index-review.');
 if (manifest.requirements?.searchIndexingEnabled !== false) failures.push('Manifest must explicitly keep searchIndexingEnabled false.');
+if (manifest.requirements?.minimumDistinctSources !== 3) failures.push('Manifest must require three distinct normalized sources per church.');
+if (manifest.requirements?.minimumAuthoritySources !== 2) failures.push('Manifest must require two non-discovery authority sources per church.');
+if (manifest.requirements?.minimumObjectLevelFeatures !== 2) failures.push('Manifest must require at least two object-level features per church.');
+if (manifest.requirements?.rightsClearedCurrentPhotography !== true) failures.push('Manifest must require rights-cleared current photography before index launch.');
 
 requireText(readiness, 'sourceUrls.size >= 3', 'Readiness three-source floor');
 requireText(readiness, 'authoritySourceUrls.size >= 2', 'Readiness authority-source floor');
@@ -40,9 +45,10 @@ requireText(sourceRoute, 'dateModified: "2026-08-20"', 'Source registry freshnes
 requireText(methodology, 'const checkedAt = "2026-08-20"', 'Methodology freshness');
 requireText(methodology, 'Search indexing remains intentionally disabled during authority review.', 'Methodology publication disclosure');
 
-requireText(seoWorkflow, '32-church authority contract', 'Static authority workflow');
+requireText(seoWorkflow, '33-church authority contract', 'Static authority workflow');
 requireText(seoWorkflow, 'validate-painted-church-preindex-readiness.mjs', 'Static authority workflow');
 forbidText(seoWorkflow, '31-church authority contract', 'Static authority workflow');
+forbidText(seoWorkflow, '32-church authority contract', 'Static authority workflow');
 requireText(runtimeWorkflow, 'Painted Churches Pre-Index Runtime Gate', 'Runtime authority workflow');
 requireText(runtimeWorkflow, 'validate-painted-church-runtime-readiness.mjs', 'Runtime authority workflow');
 requireText(runtimeValidator, 'paintedChurchIndexLaunchReady', 'Runtime authority validator');
@@ -57,4 +63,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Painted Churches strict pre-index standard protected: 32-church baseline, 3-source/2-authority/2-object/image launch floor, provenance metadata, runtime execution gate, current methodology, and search indexing disabled.');
+console.log('Painted Churches strict pre-index standard protected: 33-church baseline, 3-source/2-authority/2-object/image launch floor, provenance metadata, runtime execution gate, current methodology, and search indexing disabled.');
