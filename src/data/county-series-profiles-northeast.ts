@@ -49,4 +49,10 @@ export const COUNTY_SERIES_PROFILES_NORTHEAST: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/kaufman-county-kaufman-terrell-forney-blackland-prairie-texas")
       .then((module) => module.kaufmanCountyKaufmanTerrellForneyBlacklandPrairieTexasArticle),
   },
+  {
+    countySlug: "franklin",
+    articleSlug: "franklin-county-mount-vernon-cypress-springs-northeast-texas",
+    loadArticle: () => import("@/data/fixtures/franklin-county-mount-vernon-cypress-springs-northeast-texas")
+      .then((module) => module.franklinCountyMountVernonCypressSpringsNortheastTexasArticle),
+  },
 ];
