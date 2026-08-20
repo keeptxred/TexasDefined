@@ -41,6 +41,16 @@ const routeGuides: RouteGuide[] = [
   },
   {
     slugs: new Set([
+      "san-jacinto-battleground",
+    ]),
+    item: {
+      name: "The Republic of Texas Navy",
+      description: "Connect the Gulf supply line, the First and Second Texas Navies, Edwin Ward Moore and the Battle of Campeche to the Republic's military survival.",
+      href: "/article/republic-of-texas-navy-history",
+    },
+  },
+  {
+    slugs: new Set([
       "washington-on-the-brazos",
       "star-of-the-republic-museum",
       "barrington-living-history-farm",
@@ -96,6 +106,16 @@ const routeGuides: RouteGuide[] = [
       name: "Buffalo Soldiers in Texas",
       description: "Follow the Black Regulars through Texas frontier posts while holding African American military service, citizenship and Native dispossession in the same history.",
       href: "/article/buffalo-soldiers-texas-frontier-guide",
+    },
+  },
+  {
+    slugs: new Set([
+      "goodnight-ranch",
+    ]),
+    item: {
+      name: "The Red River War in Texas",
+      description: "Connect Adobe Walls, Palo Duro Canyon and the 1874–1875 campaign to Native removal, bison destruction and the rapid ranching transformation of the Panhandle.",
+      href: "/article/texas-red-river-war-guide",
     },
   },
   {
