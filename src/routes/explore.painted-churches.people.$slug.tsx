@@ -2,7 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
-import { paintedChurchContributorBySlug } from "@/data/painted-church-contributors";
+import { canonicalPaintedChurchContributorBySlug } from "@/data/painted-church-contributor-index";
 import { paintedChurchTechniqueBySlug } from "@/data/painted-church-techniques";
 import { expandedPaintedChurches } from "@/data/painted-churches-expanded";
 import { buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
@@ -11,7 +11,7 @@ const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
 export const Route = createFileRoute("/explore/painted-churches/people/$slug")({
   loader: ({ params }) => {
-    const person = paintedChurchContributorBySlug.get(params.slug);
+    const person = canonicalPaintedChurchContributorBySlug.get(params.slug);
     if (!person) throw notFound();
     return { person };
   },
