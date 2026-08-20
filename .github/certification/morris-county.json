@@ -2,7 +2,7 @@
   "county": "morris",
   "status": "pass",
   "stage": "complete",
-  "target_sha": "d519c05291fcf72fbe4e5aafafec8095b981ba30",
+  "target_sha": "bc94c5b652fe3d1a5070fb4e408044ec937c1161",
   "detail": "validate=PASS deploy=PASS page=200 structured=yes editorial=yes legacy=301 location=https://texasdefined.com/county/morris hero=200 mime=image/jpeg bytes=1161066",
-  "recorded_at_utc": "2026-08-20T12:15:46.434654+00:00"
+  "recorded_at_utc": "2026-08-20T15:28:00.983489+00:00"
 }
