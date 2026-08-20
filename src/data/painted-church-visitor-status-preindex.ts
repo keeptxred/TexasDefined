@@ -30,4 +30,13 @@ export const preindexPaintedChurchVisitorStatuses: PaintedChurchVisitorStatus[] 
     evidenceScope: "current-organization-information",
     checkedAt: CHECKED,
   },
+  {
+    slug: "san-antonio-immaculate-heart-of-mary",
+    status: "visitors-welcome",
+    summary: "Immaculate Heart of Mary's official contact page says visitors are always welcome during regular business hours. The parish also warns that office hours can change for meetings, holidays, feast days and special events, so verify before a dedicated art-history visit.",
+    controllingSourceUrl: "https://ihmsatx.org/contact-us",
+    controllingSourceLabel: "Immaculate Heart of Mary Church — official contact and visitor guidance",
+    evidenceScope: "current-visitor-guidance",
+    checkedAt: CHECKED,
+  },
 ];
