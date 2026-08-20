@@ -35,6 +35,22 @@ function TexasSymbolsPage() {
         </Container>
       </section>
 
+      <section className="border-b border-border py-10 sm:py-12" aria-labelledby="texas-flag-symbol-guide">
+        <Container>
+          <div className="grid gap-7 border border-border bg-card p-6 sm:p-8 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,.7fr)] lg:items-center">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">The Lone Star flag</p>
+              <h2 id="texas-flag-symbol-guide" className="mt-3 font-display text-4xl sm:text-5xl">Texas's best-known symbol has a Republic-era story of its own.</h2>
+              <p className="mt-5 max-w-3xl leading-7 text-muted-foreground">The state flag is governed separately in the Texas Flag Code rather than being forced into this legislatively designated-symbol directory. Follow the documented path from the Burnet flag to the 1839 Lone Star design, then use the practical guide for display, half-staff, the pledge and position with the U.S. flag.</p>
+            </div>
+            <div className="divide-y divide-border border-y border-border">
+              <RelatedLink to="/article/history-of-the-texas-flag" title="History of the Texas flag" text="From revolution-era proposals and the Burnet flag through the Republic's 1839 Lone Star design." />
+              <RelatedLink to="/article/texas-flag-etiquette-display-guide" title="Texas flag display & etiquette" text="Position with the U.S. flag, vertical display, half-staff, folding, the pledge and retirement." />
+            </div>
+          </div>
+        </Container>
+      </section>
+
       <section className="py-16 sm:py-20">
         <Container>
           <div className="max-w-3xl">
@@ -147,6 +163,7 @@ function TexasSymbolsPage() {
             <aside className="border border-border bg-muted/30 p-7">
               <h2 className="font-display text-3xl">Keep exploring Texas</h2>
               <div className="mt-6 divide-y divide-border border-y border-border">
+                <RelatedLink to="/article/history-of-the-texas-flag" title="History of the Texas flag" text="The Republic-era story behind the Lone Star design." />
                 <RelatedLink to="/texas-history" title="Texas History" text="The people, places and turning points behind the state." />
                 <RelatedLink to="/texas-explained" title="Texas Explained" text="Plain-English guides to why Texas looks and works the way it does." />
                 <RelatedLink to="/explore" title="Explore Texas" text="Move from the symbols into parks, rivers, towns and road trips." />
