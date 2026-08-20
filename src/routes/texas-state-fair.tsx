@@ -5,7 +5,15 @@ import { buildPrioritySearchHead } from "@/lib/priority-search-seo";
 import { jsonLd } from "@/lib/seo";
 
 const canonicalPath = "/texas-state-fair";
-const data = PRIORITY_SEARCH_PAGES["texas-state-fair"];
+const sourceData = PRIORITY_SEARCH_PAGES["texas-state-fair"];
+const data = {
+  ...sourceData,
+  faq: [
+    { question: "When is the 2026 State Fair of Texas?", answer: "The 2026 State Fair of Texas is scheduled for September 25 through October 18, 2026." },
+    { question: "Where is the State Fair of Texas held?", answer: "The State Fair of Texas is held at Fair Park in Dallas. Check the official fair site for the current daily schedule, hours, tickets and transportation information." },
+    { question: "What is the State Fair of Texas known for?", answer: "Big Tex, the Midway, fried-food competition, livestock and agriculture, auto exhibits, live music, college football and the historic Fair Park setting are all major parts of the fair experience." },
+  ],
+};
 
 export const Route = createFileRoute("/texas-state-fair")({
   head: () => {
