@@ -4,7 +4,15 @@ import { PRIORITY_SEARCH_PAGES } from "@/data/priority-search-pages";
 import { buildPrioritySearchHead } from "@/lib/priority-search-seo";
 
 const canonicalPath = "/texas-two-step";
-const data = PRIORITY_SEARCH_PAGES["texas-two-step"];
+const sourceData = PRIORITY_SEARCH_PAGES["texas-two-step"];
+const data = {
+  ...sourceData,
+  quickAnswer: `${sourceData.quickAnswer} If you mean the Texas two-step dance rather than the lottery game, use the dance-hall and honky-tonk guide linked below.`,
+  related: [
+    { label: "Texas two-step dance, dance halls & honky-tonks", href: "/texas-dance-halls-honky-tonks" },
+    ...sourceData.related,
+  ],
+};
 
 export const Route = createFileRoute("/texas-two-step")({
   head: () => buildPrioritySearchHead({
