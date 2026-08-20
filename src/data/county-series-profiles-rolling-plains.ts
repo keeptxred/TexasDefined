@@ -73,4 +73,10 @@ export const COUNTY_SERIES_PROFILES_ROLLING_PLAINS: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/fisher-county-roby-rotan-double-mountain-fork-rolling-plains-texas")
       .then((module) => module.fisherCountyRobyRotanDoubleMountainForkRollingPlainsTexasArticle),
   },
+  {
+    countySlug: "jones",
+    articleSlug: "jones-county-anson-stamford-fort-phantom-rolling-plains-texas",
+    loadArticle: () => import("@/data/fixtures/jones-county-anson-stamford-fort-phantom-rolling-plains-texas")
+      .then((module) => module.jonesCountyAnsonStamfordFortPhantomRollingPlainsTexasArticle),
+  },
 ];
