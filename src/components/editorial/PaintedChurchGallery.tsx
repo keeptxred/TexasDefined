@@ -1,8 +1,6 @@
 import { Link } from "@tanstack/react-router";
 
-import { extraPaintedChurchGalleryBySlug } from "@/data/painted-church-gallery-extra";
-import { supplementalPaintedChurchGalleryBySlug } from "@/data/painted-church-gallery-supplemental";
-import { paintedChurchGalleryBySlug } from "@/data/painted-church-gallery";
+import { canonicalPaintedChurchGalleryBySlug } from "@/data/painted-church-gallery-index";
 
 const licenseUrl = (license: string) => {
   const normalized = license.toLowerCase();
@@ -16,11 +14,7 @@ const licenseUrl = (license: string) => {
 };
 
 export function PaintedChurchGallery({ slug }: { slug: string }) {
-  const images = [...new Map([
-    ...paintedChurchGalleryBySlug(slug),
-    ...extraPaintedChurchGalleryBySlug(slug),
-    ...supplementalPaintedChurchGalleryBySlug(slug),
-  ].map((image) => [image.sourceUrl, image])).values()];
+  const images = canonicalPaintedChurchGalleryBySlug(slug);
   if (!images.length) return null;
 
   const imageSchema = {
