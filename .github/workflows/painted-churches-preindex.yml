@@ -1,0 +1,49 @@
+name: Painted Churches pre-index authority
+
+on:
+  push:
+    branches:
+      - painted-churches-authority-preindex
+    paths:
+      - 'src/data/painted-church*'
+      - 'src/components/editorial/PaintedChurch*'
+      - 'src/routes/explore.painted-churches*'
+      - 'src/lib/seo.ts'
+      - 'scripts/data/validate-painted-church*.mjs'
+      - '.github/workflows/painted-churches-preindex.yml'
+  pull_request:
+    paths:
+      - 'src/data/painted-church*'
+      - 'src/components/editorial/PaintedChurch*'
+      - 'src/routes/explore.painted-churches*'
+      - 'src/lib/seo.ts'
+      - 'scripts/data/validate-painted-church*.mjs'
+      - '.github/workflows/painted-churches-preindex.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  authority:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - name: Existing Painted Churches regression contracts
+        run: |
+          node scripts/data/validate-painted-churches-seo.mjs
+          node scripts/data/validate-painted-church-search-intents.mjs
+          node scripts/data/validate-painted-church-map.mjs
+          node scripts/data/validate-painted-church-completion.mjs
+      - name: Strict pre-index authority gate
+        run: node scripts/data/validate-painted-church-preindex.mjs
+      - name: Build production bundle
+        run: npm run build
+      - name: Preserve existing client bundle budget
+        run: npm run performance:validate
