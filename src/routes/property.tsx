@@ -25,6 +25,7 @@ const roadmap = [
 
 const popularGuides = [
   { to: '/learn/property-taxes', label: 'Texas Property Taxes', body: 'The main guide to the Texas property-tax system.' },
+  { to: '/decide/property-taxes', label: 'Property Tax Decisions', body: 'A decision-oriented path through exemptions, protests, payments and the next action to take.' },
   { to: '/do/homestead-exemption', label: 'Homestead Exemption', body: 'Eligibility, filing, appraisal limits and related protections.' },
   { to: '/do/property-tax-protest', label: 'Property Tax Protest', body: 'Deadlines, evidence, ARB hearings and next steps.' },
   { to: '/learn/agricultural-valuation', label: 'Agricultural Valuation', body: 'How qualifying agricultural land can be valued by productivity.' },
@@ -39,6 +40,7 @@ const calculators = [
   { to: '/texas-property-tax-rate-history', label: 'Rate History Explorer', body: 'Track counties, cities, ISDs, MUDs and other taxing units across retained annual files.' },
   { to: '/texas-mud-tax-impact-calculator', label: 'MUD / District Impact', body: 'Measure the annual, monthly and long-term impact of a special-district rate.' },
   { to: '/texas-homeownership-cost-calculator', label: 'Homeownership Cost Calculator', body: 'Add official-rate property taxes, insurance, financing and recurring ownership costs.' },
+  { to: '/texas-home-affordability-calculator', label: 'Home Affordability Calculator', body: 'Test home price, income and recurring costs before comparing a purchase scenario.' },
 ] as const;
 
 const updates = [
