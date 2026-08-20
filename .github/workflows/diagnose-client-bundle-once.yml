@@ -1,3 +1,4 @@
+# retrigger after entering default branch
 name: Diagnose client bundle once
 
 on:
