@@ -27,6 +27,8 @@ requireText(media, 'Color Me Catholic: The Umbarger Mural Story', 'Oral-history 
 requireText(media, 'Documented voices', 'Oral-history library');
 
 requireText(extraGallery, 'Saint Mary Catholic Church Fredericksburg Texas by afc 240916.jpg', 'Fredericksburg current interior');
+requireText(extraGallery, 'Reverence (5670524189).jpg', 'High Hill current interior detail');
+requireText(extraGallery, 'BFS Man (Mike Fisher)', 'High Hill image attribution');
 requireText(extraGallery, 'CC BY-SA 4.0', 'Fredericksburg image license');
 requireText(archival, 'metapth943229', 'Fredericksburg 1980 archival record');
 requireText(archival, 'October 1, 1980', 'Fredericksburg archival date');
@@ -43,4 +45,4 @@ if (failures.length) {
   failures.forEach((failure) => console.error(`- ${failure}`));
   process.exit(1);
 }
-console.log('Painted Churches completion protected: candidate adjudication, oral-history sources, Fredericksburg Then & Now, county links, trip-planner discovery and statewide Guidebook exposure.');
+console.log('Painted Churches completion protected: candidate adjudication, oral-history sources, Fredericksburg and High Hill image coverage, county links, trip-planner discovery and statewide Guidebook exposure.');
