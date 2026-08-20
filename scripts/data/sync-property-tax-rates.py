@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Sync Texas Comptroller property-tax rates without third-party packages.
 
-Downloads the official annual XLSX files, parses their XML directly with the
-Python standard library, normalizes county/city/school/special-district rows,
-and writes the TypeScript dataset consumed by TexasDefined.
+Downloads official annual XLSX files, parses their XML directly with the Python
+standard library, normalizes county/city/school/special-district rows, and
+writes the TypeScript dataset consumed by TexasDefined.
 """
 from __future__ import annotations
 
@@ -36,15 +36,10 @@ SOURCES = {
     "special-district": "{year}-special-district-rates-levies.xlsx",
 }
 
-HEADER_ALIASES = {
+COMMON_HEADER_ALIASES = {
     "county": (
         "county", "county name", "county names", "county(ies)", "counties",
         "appraisal district county", "county of location",
-    ),
-    "name": (
-        "taxing unit name", "taxing unit", "entity name", "district name",
-        "school district name", "city name", "county name", "special district name",
-        "name of taxing unit", "name",
     ),
     "total": (
         "total tax rate", "tax rate", "total rate", "adopted tax rate",
@@ -63,13 +58,26 @@ HEADER_ALIASES = {
     ),
 }
 
+NAME_HEADER_ALIASES = {
+    "county": ("county name", "county", "taxing unit name", "name of taxing unit"),
+    "city": ("city name", "city", "taxing unit name", "name of taxing unit"),
+    "school-district": ("school district name", "school name", "district name", "taxing unit name", "name of taxing unit"),
+    "special-district": ("special district name", "district name", "taxing unit name", "name of taxing unit"),
+}
+
 NS_MAIN = "{http://schemas.openxmlformats.org/spreadsheetml/2006/main}"
 NS_REL_OFFICE = "{http://schemas.openxmlformats.org/officeDocument/2006/relationships}"
 NS_REL_PACKAGE = "{http://schemas.openxmlformats.org/package/2006/relationships}"
 
 
 def fetch(url: str) -> bytes:
-    request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, "Accept": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,*/*"})
+    request = urllib.request.Request(
+        url,
+        headers={
+            "User-Agent": USER_AGENT,
+            "Accept": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,*/*",
+        },
+    )
     with urllib.request.urlopen(request, timeout=45) as response:
         if response.status != 200:
             raise RuntimeError(f"HTTP {response.status} for {url}")
@@ -82,6 +90,27 @@ def clean(value: object) -> str:
 
 def normalized_header(value: object) -> str:
     return re.sub(r"[^a-z0-9&]+", " ", clean(value).lower()).strip()
+
+
+def normalized_aliases(values: tuple[str, ...]) -> tuple[str, ...]:
+    return tuple(normalized_header(value) for value in values)
+
+
+def header_matches(value: object, aliases: tuple[str, ...]) -> bool:
+    """Match exact or qualified headers without confusing M&O with total rate.
+
+    Example: `M&O Tax Rate` must not satisfy the generic `Tax Rate` alias merely
+    because the words appear inside the header.
+    """
+    normalized = normalized_header(value)
+    if not normalized:
+        return False
+    for alias in normalized_aliases(aliases):
+        if normalized == alias:
+            return True
+        if len(alias) >= 8 and normalized.startswith(alias + " "):
+            return True
+    return False
 
 
 def slugify(value: str) -> str:
@@ -104,7 +133,7 @@ def split_counties(value: str) -> list[str]:
         return []
     value = re.sub(r"\band\b", ",", value, flags=re.I)
     parts = re.split(r"[,;/|]+", value)
-    result = []
+    result: list[str] = []
     for part in parts:
         slug = county_slug(part)
         if slug and slug not in {"county", "counties", "statewide", "texas"} and slug not in result:
@@ -152,7 +181,10 @@ def read_shared_strings(zf: zipfile.ZipFile) -> list[str]:
 def workbook_sheets(zf: zipfile.ZipFile) -> list[tuple[str, str]]:
     workbook = ET.fromstring(zf.read("xl/workbook.xml"))
     rels = ET.fromstring(zf.read("xl/_rels/workbook.xml.rels"))
-    rel_map = {rel.attrib["Id"]: rel.attrib["Target"] for rel in rels.findall(f"{NS_REL_PACKAGE}Relationship")}
+    rel_map = {
+        rel.attrib["Id"]: rel.attrib["Target"]
+        for rel in rels.findall(f"{NS_REL_PACKAGE}Relationship")
+    }
     sheets: list[tuple[str, str]] = []
     for sheet in workbook.findall(f".//{NS_MAIN}sheet"):
         name = sheet.attrib.get("name", "Sheet")
@@ -173,16 +205,16 @@ def worksheet_rows(zf: zipfile.ZipFile, path: str, shared: list[str]) -> list[li
     for row in root.findall(f".//{NS_MAIN}row"):
         values: dict[int, str] = {}
         max_col = -1
-        for cell in row.findall(f"{NS_MAIN}c"):
-            ref = cell.attrib.get("r", "A1")
+        for cell_node in row.findall(f"{NS_MAIN}c"):
+            ref = cell_node.attrib.get("r", "A1")
             idx = column_index(ref)
             max_col = max(max_col, idx)
-            cell_type = cell.attrib.get("t")
+            cell_type = cell_node.attrib.get("t")
             value = ""
             if cell_type == "inlineStr":
-                value = "".join(node.text or "" for node in cell.iter(f"{NS_MAIN}t"))
+                value = "".join(node.text or "" for node in cell_node.iter(f"{NS_MAIN}t"))
             else:
-                node = cell.find(f"{NS_MAIN}v")
+                node = cell_node.find(f"{NS_MAIN}v")
                 raw = node.text if node is not None and node.text is not None else ""
                 if cell_type == "s" and raw:
                     try:
@@ -205,20 +237,24 @@ def parse_xlsx(payload: bytes) -> list[tuple[str, list[list[str]]]]:
         return [(name, worksheet_rows(zf, path, shared)) for name, path in workbook_sheets(zf)]
 
 
-def match_header(value: str, key: str) -> bool:
-    normalized = normalized_header(value)
-    aliases = HEADER_ALIASES[key]
-    return any(normalized == normalized_header(alias) or normalized_header(alias) in normalized for alias in aliases)
-
-
 def identify_header(rows: list[list[str]], unit_type: str) -> tuple[int, dict[str, int]] | None:
     best: tuple[int, int, dict[str, int]] | None = None
+    name_aliases = NAME_HEADER_ALIASES[unit_type]
+
     for row_index, row in enumerate(rows[:60]):
         mapping: dict[str, int] = {}
         for col_index, value in enumerate(row):
-            for key in HEADER_ALIASES:
-                if key not in mapping and match_header(value, key):
+            if "name" not in mapping and header_matches(value, name_aliases):
+                mapping["name"] = col_index
+            for key, aliases in COMMON_HEADER_ALIASES.items():
+                if key not in mapping and header_matches(value, aliases):
                     mapping[key] = col_index
+
+        # County workbooks legitimately use the same County/County Name column
+        # as both the unit identity and its geographic association.
+        if unit_type == "county" and "county" in mapping and "name" not in mapping:
+            mapping["name"] = mapping["county"]
+
         score = 0
         if "total" in mapping:
             score += 5
@@ -232,13 +268,11 @@ def identify_header(rows: list[list[str]], unit_type: str) -> tuple[int, dict[st
             score += 1
         if "levy" in mapping:
             score += 1
-        # County files sometimes use one County Name column for both identity and county.
-        if unit_type == "county" and "county" in mapping and "name" not in mapping:
-            mapping["name"] = mapping["county"]
-            score += 5
+
         candidate = (score, -row_index, mapping)
         if best is None or candidate[:2] > best[:2]:
             best = (score, -row_index, mapping)
+
     if not best or best[0] < 8:
         return None
     return -best[1], best[2]
@@ -256,8 +290,6 @@ def infer_counties(unit_type: str, name: str, county_value: str) -> list[str]:
     if unit_type == "county":
         slug = county_slug(name)
         return [slug] if slug else []
-    # Many special districts begin with the county name. Preserve only a clear
-    # "X County" prefix rather than guessing from city/school names.
     match = re.match(r"^(.+?)\s+County\b", name, flags=re.I)
     if match:
         slug = county_slug(match.group(1))
@@ -268,8 +300,8 @@ def infer_counties(unit_type: str, name: str, county_value: str) -> list[str]:
 def normalize_rate(number: float | None) -> float | None:
     if number is None or not math.isfinite(number) or number < 0:
         return None
-    # State files are reported as dollars per $100 of taxable value. Reject
-    # values that are obviously not tax rates rather than silently rescaling.
+    # Comptroller rates are dollars per $100 of taxable value. Reject values
+    # that are obviously not rates instead of silently rescaling them.
     if number > 20:
         return None
     return round(number, 8)
@@ -278,13 +310,21 @@ def normalize_rate(number: float | None) -> float | None:
 def parse_source(payload: bytes, year: int, unit_type: str, source_url: str) -> list[dict]:
     records: list[dict] = []
     parsed = parse_xlsx(payload)
+
     for sheet_name, rows in parsed:
         header = identify_header(rows, unit_type)
         if not header:
             continue
         header_index, mapping = header
         blanks = 0
+        last_county_value = ""
+
         for row in rows[header_index + 1:]:
+            raw_county = clean(cell(row, mapping, "county"))
+            if raw_county:
+                last_county_value = raw_county
+            county_value = raw_county or last_county_value
+
             name = clean(cell(row, mapping, "name"))
             total = normalize_rate(parse_number(cell(row, mapping, "total")))
             if not name and total is None:
@@ -295,18 +335,24 @@ def parse_source(payload: bytes, year: int, unit_type: str, source_url: str) -> 
             blanks = 0
             if not name or total is None:
                 continue
+
             name = re.sub(r"\*+$", "", name).strip()
             if normalized_header(name) in {"total", "totals", "state total", "texas total"}:
                 continue
-            counties = infer_counties(unit_type, name, cell(row, mapping, "county"))
+
+            counties = infer_counties(unit_type, name, county_value)
             if not counties:
-                # County association is required for every TexasDefined county
-                # page and calculator. Do not guess if the source row omitted it.
+                # County association is required for county pages/calculators.
+                # Withhold ambiguous rows rather than guessing jurisdiction.
                 continue
+
             mo = normalize_rate(parse_number(cell(row, mapping, "mo")))
             debt = normalize_rate(parse_number(cell(row, mapping, "debt")))
             levy = parse_number(cell(row, mapping, "levy"))
             unit_slug = slugify(name)
+            if not unit_slug:
+                continue
+
             records.append({
                 "id": f"{year}:{unit_type}:{unit_slug}",
                 "year": year,
@@ -322,6 +368,7 @@ def parse_source(payload: bytes, year: int, unit_type: str, source_url: str) -> 
                 "sourceStatus": "reported-final",
                 "_sheet": sheet_name,
             })
+
     return records
 
 
@@ -335,17 +382,19 @@ def merge_records(records: list[dict]) -> list[dict]:
         rates = [row["totalRate"] for row in rows if row["totalRate"] is not None]
         if not rates:
             continue
-        # A taxing unit spanning counties should have the same adopted rate in
-        # every row. If source rows disagree, retain the most common value and
-        # avoid inventing an average tax rate.
+
         counts: dict[float, int] = defaultdict(int)
         for rate in rates:
             counts[rate] += 1
         total_rate = sorted(counts.items(), key=lambda item: (-item[1], item[0]))[0][0]
         compatible = [row for row in rows if row["totalRate"] == total_rate]
-        base = max(compatible, key=lambda row: int(row["maintenanceOperationsRate"] is not None) + int(row["debtServiceRate"] is not None))
+        base = max(
+            compatible,
+            key=lambda row: int(row["maintenanceOperationsRate"] is not None) + int(row["debtServiceRate"] is not None),
+        )
         counties = sorted({county for row in compatible for county in row["countySlugs"]})
         levy_values = [row["levy"] for row in compatible if row["levy"] is not None]
+
         merged.append({
             "id": f"{year}:{unit_type}:{unit_slug}",
             "year": year,
@@ -360,17 +409,20 @@ def merge_records(records: list[dict]) -> list[dict]:
             "sourceUrl": base["sourceUrl"],
             "sourceStatus": "reported-final",
         })
+
     return sorted(merged, key=lambda row: (row["year"], row["type"], row["name"].lower()))
 
 
 def validate(records: list[dict]) -> None:
     if not records:
         raise RuntimeError("No property-tax-rate records parsed from official workbooks")
+
     latest = [record for record in records if record["year"] == LATEST_FINALIZED_YEAR]
     county_records = [record for record in latest if record["type"] == "county"]
     school_records = [record for record in latest if record["type"] == "school-district"]
     city_records = [record for record in latest if record["type"] == "city"]
     special_records = [record for record in latest if record["type"] == "special-district"]
+
     if len(county_records) < 240:
         raise RuntimeError(f"Expected near-statewide county coverage; parsed only {len(county_records)} counties")
     if len(school_records) < 900:
@@ -379,6 +431,7 @@ def validate(records: list[dict]) -> None:
         raise RuntimeError(f"Expected statewide city coverage; parsed only {len(city_records)} cities")
     if len(special_records) < 500:
         raise RuntimeError(f"Expected broad special-district coverage; parsed only {len(special_records)} districts")
+
     for record in records:
         if record["totalRate"] < 0 or record["totalRate"] > 20:
             raise RuntimeError(f"Out-of-range tax rate for {record['id']}: {record['totalRate']}")
@@ -396,6 +449,7 @@ def render(records: list[dict]) -> str:
 def main() -> int:
     all_rows: list[dict] = []
     failures: list[str] = []
+
     for year in YEARS:
         for unit_type, pattern in SOURCES.items():
             source_url = f"{BASE}/{pattern.format(year=year)}"
