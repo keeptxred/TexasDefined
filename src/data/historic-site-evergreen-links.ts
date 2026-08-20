@@ -42,7 +42,6 @@ const routeGuides: RouteGuide[] = [
   {
     slugs: new Set([
       "san-jacinto-battleground",
-      "battleship-texas",
     ]),
     item: {
       name: "The Republic of Texas Navy",
@@ -195,16 +194,6 @@ const routeGuides: RouteGuide[] = [
       name: "Texas and World War II",
       description: "Connect leadership, the Pacific War, public memory and railroad-era mobility through four Texas historic sites tied to the global conflict.",
       href: "/article/texas-world-war-ii-historic-sites-guide",
-    },
-  },
-  {
-    slugs: new Set([
-      "texas-military-forces-museum",
-    ]),
-    item: {
-      name: "Cold War Texas",
-      description: "Connect Camp Mabry's twentieth-century collections with strategic bombers, Atlas missile fields, Pantex, U-2 reconnaissance and nuclear deterrence across Texas.",
-      href: "/article/texas-cold-war-military-history",
     },
   },
   {
