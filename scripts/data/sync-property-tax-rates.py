@@ -97,11 +97,7 @@ def normalized_aliases(values: tuple[str, ...]) -> tuple[str, ...]:
 
 
 def header_matches(value: object, aliases: tuple[str, ...]) -> bool:
-    """Match exact or qualified headers without confusing M&O with total rate.
-
-    Example: `M&O Tax Rate` must not satisfy the generic `Tax Rate` alias merely
-    because the words appear inside the header.
-    """
+    """Match exact or qualified headers without confusing M&O with total rate."""
     normalized = normalized_header(value)
     if not normalized:
         return False
@@ -181,10 +177,7 @@ def read_shared_strings(zf: zipfile.ZipFile) -> list[str]:
 def workbook_sheets(zf: zipfile.ZipFile) -> list[tuple[str, str]]:
     workbook = ET.fromstring(zf.read("xl/workbook.xml"))
     rels = ET.fromstring(zf.read("xl/_rels/workbook.xml.rels"))
-    rel_map = {
-        rel.attrib["Id"]: rel.attrib["Target"]
-        for rel in rels.findall(f"{NS_REL_PACKAGE}Relationship")
-    }
+    rel_map = {rel.attrib["Id"]: rel.attrib["Target"] for rel in rels.findall(f"{NS_REL_PACKAGE}Relationship")}
     sheets: list[tuple[str, str]] = []
     for sheet in workbook.findall(f".//{NS_MAIN}sheet"):
         name = sheet.attrib.get("name", "Sheet")
@@ -240,7 +233,6 @@ def parse_xlsx(payload: bytes) -> list[tuple[str, list[list[str]]]]:
 def identify_header(rows: list[list[str]], unit_type: str) -> tuple[int, dict[str, int]] | None:
     best: tuple[int, int, dict[str, int]] | None = None
     name_aliases = NAME_HEADER_ALIASES[unit_type]
-
     for row_index, row in enumerate(rows[:60]):
         mapping: dict[str, int] = {}
         for col_index, value in enumerate(row):
@@ -249,12 +241,8 @@ def identify_header(rows: list[list[str]], unit_type: str) -> tuple[int, dict[st
             for key, aliases in COMMON_HEADER_ALIASES.items():
                 if key not in mapping and header_matches(value, aliases):
                     mapping[key] = col_index
-
-        # County workbooks legitimately use the same County/County Name column
-        # as both the unit identity and its geographic association.
         if unit_type == "county" and "county" in mapping and "name" not in mapping:
             mapping["name"] = mapping["county"]
-
         score = 0
         if "total" in mapping:
             score += 5
@@ -268,11 +256,9 @@ def identify_header(rows: list[list[str]], unit_type: str) -> tuple[int, dict[st
             score += 1
         if "levy" in mapping:
             score += 1
-
         candidate = (score, -row_index, mapping)
         if best is None or candidate[:2] > best[:2]:
             best = (score, -row_index, mapping)
-
     if not best or best[0] < 8:
         return None
     return -best[1], best[2]
@@ -300,8 +286,6 @@ def infer_counties(unit_type: str, name: str, county_value: str) -> list[str]:
 def normalize_rate(number: float | None) -> float | None:
     if number is None or not math.isfinite(number) or number < 0:
         return None
-    # Comptroller rates are dollars per $100 of taxable value. Reject values
-    # that are obviously not rates instead of silently rescaling them.
     if number > 20:
         return None
     return round(number, 8)
@@ -309,50 +293,38 @@ def normalize_rate(number: float | None) -> float | None:
 
 def parse_source(payload: bytes, year: int, unit_type: str, source_url: str) -> list[dict]:
     records: list[dict] = []
-    parsed = parse_xlsx(payload)
-
-    for sheet_name, rows in parsed:
+    for sheet_name, rows in parse_xlsx(payload):
         header = identify_header(rows, unit_type)
         if not header:
             continue
         header_index, mapping = header
         blanks = 0
         last_county_value = ""
-
         for row in rows[header_index + 1:]:
             raw_county = clean(cell(row, mapping, "county"))
             if raw_county:
                 last_county_value = raw_county
             county_value = raw_county or last_county_value
-
-            name = clean(cell(row, mapping, "name"))
+            raw_name = clean(cell(row, mapping, "name"))
             total = normalize_rate(parse_number(cell(row, mapping, "total")))
-            if not name and total is None:
+            if not raw_name and total is None:
                 blanks += 1
                 if blanks > 30:
                     break
                 continue
             blanks = 0
-            if not name or total is None:
+            if not raw_name or total is None:
                 continue
-
-            name = re.sub(r"\*+$", "", name).strip()
+            name = re.sub(r"\*+$", "", raw_name).strip()
             if normalized_header(name) in {"total", "totals", "state total", "texas total"}:
                 continue
-
             counties = infer_counties(unit_type, name, county_value)
             if not counties:
-                # County association is required for county pages/calculators.
-                # Withhold ambiguous rows rather than guessing jurisdiction.
                 continue
-
-            mo = normalize_rate(parse_number(cell(row, mapping, "mo")))
-            debt = normalize_rate(parse_number(cell(row, mapping, "debt")))
-            levy = parse_number(cell(row, mapping, "levy"))
             unit_slug = slugify(name)
             if not unit_slug:
                 continue
-
+            levy = parse_number(cell(row, mapping, "levy"))
             records.append({
                 "id": f"{year}:{unit_type}:{unit_slug}",
                 "year": year,
@@ -361,15 +333,20 @@ def parse_source(payload: bytes, year: int, unit_type: str, source_url: str) -> 
                 "slug": unit_slug,
                 "countySlugs": counties,
                 "totalRate": total,
-                "maintenanceOperationsRate": mo,
-                "debtServiceRate": debt,
+                "maintenanceOperationsRate": normalize_rate(parse_number(cell(row, mapping, "mo"))),
+                "debtServiceRate": normalize_rate(parse_number(cell(row, mapping, "debt"))),
                 "levy": round(levy, 2) if levy is not None and math.isfinite(levy) else None,
                 "sourceUrl": source_url,
                 "sourceStatus": "reported-final",
+                "sourceVariableRateFlag": raw_name.endswith("**"),
                 "_sheet": sheet_name,
             })
-
     return records
+
+
+def consistent_value(rows: list[dict], key: str):
+    values = sorted({row[key] for row in rows if row.get(key) is not None})
+    return values[0] if len(values) == 1 else None
 
 
 def merge_records(records: list[dict]) -> list[dict]:
@@ -379,22 +356,13 @@ def merge_records(records: list[dict]) -> list[dict]:
 
     merged: list[dict] = []
     for (year, unit_type, unit_slug), rows in grouped.items():
-        rates = [row["totalRate"] for row in rows if row["totalRate"] is not None]
-        if not rates:
+        rate_variants = sorted({row["totalRate"] for row in rows if row["totalRate"] is not None})
+        if not rate_variants:
             continue
-
-        counts: dict[float, int] = defaultdict(int)
-        for rate in rates:
-            counts[rate] += 1
-        total_rate = sorted(counts.items(), key=lambda item: (-item[1], item[0]))[0][0]
-        compatible = [row for row in rows if row["totalRate"] == total_rate]
-        base = max(
-            compatible,
-            key=lambda row: int(row["maintenanceOperationsRate"] is not None) + int(row["debtServiceRate"] is not None),
-        )
-        counties = sorted({county for row in compatible for county in row["countySlugs"]})
-        levy_values = [row["levy"] for row in compatible if row["levy"] is not None]
-
+        variable_rate = len(rate_variants) > 1 or any(bool(row.get("sourceVariableRateFlag")) for row in rows)
+        total_rate = rate_variants[0] if len(rate_variants) == 1 else None
+        counties = sorted({county for row in rows for county in row["countySlugs"]})
+        base = max(rows, key=lambda row: int(row["maintenanceOperationsRate"] is not None) + int(row["debtServiceRate"] is not None))
         merged.append({
             "id": f"{year}:{unit_type}:{unit_slug}",
             "year": year,
@@ -403,26 +371,25 @@ def merge_records(records: list[dict]) -> list[dict]:
             "slug": unit_slug,
             "countySlugs": counties,
             "totalRate": total_rate,
-            "maintenanceOperationsRate": base["maintenanceOperationsRate"],
-            "debtServiceRate": base["debtServiceRate"],
-            "levy": round(sum(levy_values), 2) if levy_values else None,
+            "rateVariants": rate_variants,
+            "variableRate": variable_rate,
+            "maintenanceOperationsRate": consistent_value(rows, "maintenanceOperationsRate") if not variable_rate else None,
+            "debtServiceRate": consistent_value(rows, "debtServiceRate") if not variable_rate else None,
+            "levy": consistent_value(rows, "levy"),
             "sourceUrl": base["sourceUrl"],
             "sourceStatus": "reported-final",
         })
-
     return sorted(merged, key=lambda row: (row["year"], row["type"], row["name"].lower()))
 
 
 def validate(records: list[dict]) -> None:
     if not records:
         raise RuntimeError("No property-tax-rate records parsed from official workbooks")
-
     latest = [record for record in records if record["year"] == LATEST_FINALIZED_YEAR]
     county_records = [record for record in latest if record["type"] == "county"]
     school_records = [record for record in latest if record["type"] == "school-district"]
     city_records = [record for record in latest if record["type"] == "city"]
     special_records = [record for record in latest if record["type"] == "special-district"]
-
     if len(county_records) < 240:
         raise RuntimeError(f"Expected near-statewide county coverage; parsed only {len(county_records)} counties")
     if len(school_records) < 900:
@@ -431,25 +398,26 @@ def validate(records: list[dict]) -> None:
         raise RuntimeError(f"Expected statewide city coverage; parsed only {len(city_records)} cities")
     if len(special_records) < 500:
         raise RuntimeError(f"Expected broad special-district coverage; parsed only {len(special_records)} districts")
-
     for record in records:
-        if record["totalRate"] < 0 or record["totalRate"] > 20:
-            raise RuntimeError(f"Out-of-range tax rate for {record['id']}: {record['totalRate']}")
         if not record["countySlugs"]:
             raise RuntimeError(f"Missing county mapping for {record['id']}")
+        for rate in record["rateVariants"]:
+            if rate < 0 or rate > 20:
+                raise RuntimeError(f"Out-of-range tax rate for {record['id']}: {rate}")
+        if record["variableRate"] and record["totalRate"] is not None:
+            raise RuntimeError(f"Variable-rate record unexpectedly has one auto-applicable rate: {record['id']}")
 
 
 def render(records: list[dict]) -> str:
     years = sorted({record["year"] for record in records})
     generated = dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
     payload = json.dumps(records, ensure_ascii=False, separators=(",", ":"))
-    return f'''// AUTO-GENERATED by scripts/data/sync-property-tax-rates.py. DO NOT EDIT BY HAND.\n\nexport type TexasTaxingUnitType = 'county' | 'city' | 'school-district' | 'special-district';\n\nexport type TexasTaxRateRecord = {{\n  id: string;\n  year: number;\n  type: TexasTaxingUnitType;\n  name: string;\n  slug: string;\n  countySlugs: string[];\n  totalRate: number;\n  maintenanceOperationsRate: number | null;\n  debtServiceRate: number | null;\n  levy: number | null;\n  sourceUrl: string;\n  sourceStatus: 'reported-final';\n}};\n\nexport const TEXAS_TAX_RATE_DATASET_META = {{\n  sourceName: 'Texas Comptroller of Public Accounts — Property Tax Assistance Division',\n  sourcePage: '{SOURCE_PAGE}',\n  latestFinalizedYear: {LATEST_FINALIZED_YEAR},\n  availableYears: {json.dumps(years)},\n  generatedAt: '{generated}',\n  recordCount: {len(records)},\n  status: 'synced' as const,\n}};\n\nexport const TEXAS_TAX_RATE_RECORDS: TexasTaxRateRecord[] = {payload};\n'''
+    return f'''// AUTO-GENERATED by scripts/data/sync-property-tax-rates.py. DO NOT EDIT BY HAND.\n\nexport type TexasTaxingUnitType = 'county' | 'city' | 'school-district' | 'special-district';\n\nexport type TexasTaxRateRecord = {{\n  id: string;\n  year: number;\n  type: TexasTaxingUnitType;\n  name: string;\n  slug: string;\n  countySlugs: string[];\n  totalRate: number | null;\n  rateVariants: number[];\n  variableRate: boolean;\n  maintenanceOperationsRate: number | null;\n  debtServiceRate: number | null;\n  levy: number | null;\n  sourceUrl: string;\n  sourceStatus: 'reported-final';\n}};\n\nexport const TEXAS_TAX_RATE_DATASET_META = {{\n  sourceName: 'Texas Comptroller of Public Accounts — Property Tax Assistance Division',\n  sourcePage: '{SOURCE_PAGE}',\n  latestFinalizedYear: {LATEST_FINALIZED_YEAR},\n  availableYears: {json.dumps(years)},\n  generatedAt: '{generated}',\n  recordCount: {len(records)},\n  status: 'synced' as const,\n}};\n\nexport const TEXAS_TAX_RATE_RECORDS: TexasTaxRateRecord[] = {payload};\n'''
 
 
 def main() -> int:
     all_rows: list[dict] = []
     failures: list[str] = []
-
     for year in YEARS:
         for unit_type, pattern in SOURCES.items():
             source_url = f"{BASE}/{pattern.format(year=year)}"
@@ -463,11 +431,11 @@ def main() -> int:
             except (urllib.error.URLError, RuntimeError, zipfile.BadZipFile, ET.ParseError, KeyError) as exc:
                 failures.append(f"{source_url}: {exc}")
                 print(f"WARN {source_url}: {exc}", file=sys.stderr)
-
     records = merge_records(all_rows)
     validate(records)
     OUTPUT.write_text(render(records), encoding="utf-8")
-    print(f"Wrote {len(records)} normalized tax-rate records across {len(set(r['year'] for r in records))} years to {OUTPUT}")
+    variable_count = sum(1 for record in records if record["variableRate"])
+    print(f"Wrote {len(records)} normalized tax-rate records across {len(set(r['year'] for r in records))} years to {OUTPUT}; {variable_count} records require parcel-specific rate verification.")
     if failures:
         print(f"Completed with {len(failures)} source warning(s); validation still passed.", file=sys.stderr)
     return 0
