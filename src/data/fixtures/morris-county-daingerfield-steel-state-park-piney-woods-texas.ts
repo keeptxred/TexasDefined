@@ -38,7 +38,7 @@ export const morrisCountyDaingerfieldSteelStateParkPineyWoodsTexasArticle: Artic
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
     { href: "/county/titus", label: "Explore Titus County", description: "Continue west toward Mount Pleasant, Lake Bob Sandlin and the Sulphur River country." },
     { href: "/county/cass", label: "Explore Cass County", description: "Head east toward Linden, Atlanta, Wright Patman Lake and deeper Piney Woods history." },
-    { href: "/state-park/daingerfield-state-park", label: "Daingerfield State Park", description: "Plan a visit to the CCC-built park, Little Pine Lake and wooded trails just outside Daingerfield." },
+    { href: "/destination/daingerfield-state-park", label: "Daingerfield State Park", description: "Plan a visit to the CCC-built park, Little Pine Lake and wooded trails just outside Daingerfield." },
     { href: "/article/why-texas-has-254-counties", label: "Why Texas has 254 counties", description: "See how settlement, travel distance and courthouse access shaped county boundaries across Texas." },
   ],
   relatedCollections: [],
