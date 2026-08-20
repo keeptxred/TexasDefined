@@ -64,7 +64,7 @@ jobs:
           check_page '/texas-roadside-oddities' 'Texas Roadside Oddities'
           check_page '/texas-slang-explained' 'Texas Slang Explained'
           check_page '/texas-symbols' 'Official Texas Symbols'
-          check_page '/texas-blue-norther-weather-guide' 'Texas Blue Northers, Spring Storms & Weather Folklore'
+          check_page '/texas-blue-norther-weather-guide' 'Texas Blue Northers, Spring Storms & the Weather Language of a Fast-Changing State'
           check_page '/texas-dance-halls-honky-tonks' 'Texas Dance Halls & Honky-Tonks'
           check_page '/texas-homecoming-mums' 'Texas Homecoming Mums Explained'
           check_page '/texas-natural-wonders-bucket-list' 'Texas Natural Wonders Bucket List'
