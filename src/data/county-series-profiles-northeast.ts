@@ -74,6 +74,12 @@ export const COUNTY_SERIES_PROFILES_NORTHEAST: CountySeriesProfile[] = [
       .then((module) => module.graysonCountyShermanDenisonLakeTexomaRailroadsNorthTexasArticle),
   },
   {
+    countySlug: "montague",
+    articleSlug: "montague-county-bowie-nocona-chisholm-trail-red-river-texas",
+    loadArticle: () => import("@/data/fixtures/montague-county-bowie-nocona-chisholm-trail-red-river-texas")
+      .then((module) => module.montagueCountyBowieNoconaChisholmTrailRedRiverTexasArticle),
+  },
+  {
     countySlug: "cass",
     articleSlug: "cass-county-linden-atlanta-piney-woods-wright-patman-texas",
     loadArticle: () => import("@/data/fixtures/cass-county-linden-atlanta-piney-woods-wright-patman-texas")
