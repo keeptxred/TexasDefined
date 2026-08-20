@@ -22,6 +22,7 @@ import { standaloneEvergreenStubs, loadStandaloneEvergreenArticle } from "./lazy
 import { coreEvergreenArticleStubs, loadCoreEvergreenArticle } from "./lazy-core-evergreen";
 import { migratedEditorialArticleStubs, loadMigratedEditorialArticle } from "./lazy-migrated-editorial";
 import { texasCoreArticleStubs, loadTexasCoreArticle } from "./lazy-texas-core-articles";
+import { texasLifeSplitArticles } from "./texas-life-split";
 import {
   categories,
   collections,
@@ -46,6 +47,7 @@ const editorialArticles = [
   ...militaryHistoryExpansionStubs,
   ...newestEvergreenArticles,
   ...texasCoreArticleStubs,
+  ...texasLifeSplitArticles,
   ...migratedEditorialArticleStubs,
 ];
 
