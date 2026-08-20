@@ -147,6 +147,7 @@ const LEGACY_ARTICLE_TO_COUNTY = new Map<string, string>([
   ["franklin-county-mount-vernon-cypress-springs-northeast-texas", "franklin"],
   ["titus-county-mount-pleasant-caddo-railroads-lake-bob-sandlin-northeast-texas", "titus"],
   ["morris-county-daingerfield-steel-state-park-piney-woods-texas", "morris"],
+  ["grayson-county-sherman-denison-lake-texoma-railroads-north-texas", "grayson"],
 ]);
 
 const COUNTY_SLUGS = new Set(LEGACY_ARTICLE_TO_COUNTY.values());
