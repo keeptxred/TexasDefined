@@ -1,3 +1,4 @@
+# Same-repository PR trigger for one-time certification.
 name: Certify Howard County production once
 
 on:
