@@ -22,7 +22,7 @@ const practicalGuides = [
 ] as const;
 const travelGuides = [
   { to: "/texas-explained", label: "Texas Explained", body: "Understand the systems behind the scenery: rivers, reservoirs, roads, courthouse towns, wildlife, homes, land and cultural regions.", note: "Ten connected evergreen guides to why Texas works the way it does." },
-  { to: "/explore/painted-churches", label: "Painted Churches of Texas", body: "Explore the verified statewide collection, church-by-church history, artists, techniques, symbols, archival evidence, map and road-trip routes.", note: "A source-backed heritage reference and travel-planning system for 27 verified churches." },
+  { to: "/explore/painted-churches", label: "Painted Churches of Texas", body: "Explore the verified statewide collection, church-by-church history, artists, techniques, symbols, archival evidence, map and road-trip routes.", note: "A source-backed heritage reference and travel-planning system for 28 verified churches." },
   { to: "/explore/state-parks", label: "Texas State Parks Guide", body: "Choose parks by region, season, activity, camping style and drive time.", note: "A statewide guide covering all seven regions." },
   { to: "/explore/lakes-rivers", label: "Texas Lakes & Rivers Guide", body: "Plan swimming, fishing, paddling, boating and lakeside weekends with the practical details in one place.", note: "Lakes, rivers and swimming holes across the state." },
   { to: "/explore/outdoors", label: "Texas Camping Guide", body: "Compare state-park, lakeside, primitive and RV camping with practical seasonal advice.", note: "A field guide to camping across Texas." },
