@@ -25,4 +25,10 @@ export const COUNTY_SERIES_PROFILES_NORTHEAST: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/fannin-county-bonham-bois-darc-lake-rayburn-northeast-texas")
       .then((module) => module.fanninCountyBonhamBoisDArcLakeRayburnNortheastTexasArticle),
   },
+  {
+    countySlug: "van-zandt",
+    articleSlug: "van-zandt-county-canton-grand-saline-first-monday-east-texas",
+    loadArticle: () => import("@/data/fixtures/van-zandt-county-canton-grand-saline-first-monday-east-texas")
+      .then((module) => module.vanZandtCountyCantonGrandSalineFirstMondayEastTexasArticle),
+  },
 ];
