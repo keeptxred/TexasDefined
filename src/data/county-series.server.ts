@@ -5,9 +5,11 @@ import { COUNTY_SERIES_PROFILES_NORTHEAST } from "@/data/county-series-profiles-
 
 const articlePromiseCache = new Map<string, Promise<Article | null>>();
 const countySeriesProfiles = [
-  ...COUNTY_SERIES_PROFILES,
-  ...COUNTY_SERIES_PROFILES_CONTINUED,
+  // Later regional enrichment batches intentionally take precedence over older
+  // compatibility profiles when the same county has been expanded again.
   ...COUNTY_SERIES_PROFILES_NORTHEAST,
+  ...COUNTY_SERIES_PROFILES_CONTINUED,
+  ...COUNTY_SERIES_PROFILES,
 ];
 
 export function loadCountySeriesArticleServer(countySlug: string): Promise<Article | null> {
