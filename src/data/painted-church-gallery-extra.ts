@@ -27,6 +27,18 @@ const extraGallery: Record<string, PaintedChurchGalleryImage[]> = {
       license: "CC BY 2.0",
     },
   ],
+  "ammannsville-st-john-the-baptist": [
+    {
+      src: commons("Holy Holy Holy (5650995094).jpg"),
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Holy_Holy_Holy_(5650995094).jpg",
+      alt: "Painted faux-stone columns and religious icons inside St. John the Baptist Catholic Church in Ammannsville, Texas",
+      caption: "Mike Fisher's 2011 Ammannsville interior detail documents one of the church's defining decorative effects: wooden columns painted to resemble stone, alongside religious iconography. The Flickr-origin license was reviewed on Commons and confirmed as CC BY 2.0.",
+      width: 720,
+      height: 576,
+      credit: "BFS Man (Mike Fisher) · Wikimedia Commons",
+      license: "CC BY 2.0",
+    },
+  ],
   "san-antonio-st-joseph-catholic-church": [
     {
       src: commons("San Antonio May 2018 2 (St. Joseph Catholic Church).jpg"),
