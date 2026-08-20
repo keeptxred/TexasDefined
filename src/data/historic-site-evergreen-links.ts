@@ -180,6 +180,31 @@ const routeGuides: RouteGuide[] = [
       href: "/article/texas-civil-war-sites-guide",
     },
   },
+  {
+    slugs: new Set([
+      "palmito-ranch-battlefield",
+      "port-isabel-lighthouse",
+      "iwo-jima-museum-monument",
+    ]),
+    item: {
+      name: "Texas and the U.S.–Mexican War",
+      description: "Use Palo Alto, Resaca de la Palma, Fort Brown and the lower Rio Grande corridor to connect annexation with the opening battles of the 1846–1848 war.",
+      href: "/article/texas-us-mexican-war-palo-alto-guide",
+    },
+  },
+  {
+    slugs: new Set([
+      "eisenhower-birthplace",
+      "national-museum-pacific-war",
+      "iwo-jima-museum-monument",
+      "slaton-harvey-house",
+    ]),
+    item: {
+      name: "Texas World War II bases and POW camps",
+      description: "Move from this preserved place into the statewide training-camp, airfield, POW and civilian-internment systems that transformed Texas during World War II.",
+      href: "/article/texas-world-war-ii-bases-pow-camps",
+    },
+  },
 ];
 
 export function enrichHistoricSiteEvergreenLinks(destination: Destination): Destination {
