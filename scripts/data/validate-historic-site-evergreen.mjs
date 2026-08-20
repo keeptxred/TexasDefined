@@ -18,6 +18,25 @@ const guides = [
   { slug: 'texas-world-war-ii-historic-sites-guide', path: 'src/data/fixtures/texas-world-war-ii-historic-sites-guide.ts', exportName: 'texasWorldWarIIHistoricSitesGuideArticle', destinations: ['eisenhower-birthplace', 'national-museum-pacific-war', 'iwo-jima-museum-monument', 'slaton-harvey-house'] },
 ];
 
+const militaryGuides = [
+  {
+    slug: 'texas-military-history-timeline',
+    path: 'src/data/fixtures/texas-military-history-timeline.ts',
+    exportName: 'texasMilitaryHistoryTimelineArticle',
+    sourceName: 'Texas Military Department',
+    sourceUrl: 'https://tmd.texas.gov/texas-military-department-history',
+    destinations: ['san-jacinto-battleground', 'fort-mckavett', 'sabine-pass-battleground', 'palmito-ranch-battlefield', 'national-museum-pacific-war'],
+  },
+  {
+    slug: 'texas-civil-war-sites-guide',
+    path: 'src/data/fixtures/texas-civil-war-sites-guide.ts',
+    exportName: 'texasCivilWarSitesGuideArticle',
+    sourceName: 'Texas Historical Commission',
+    sourceUrl: 'https://thc.texas.gov/learn/military-history/texas-civil-war',
+    destinations: ['sabine-pass-battleground', 'palmito-ranch-battlefield'],
+  },
+];
+
 const seedBlock = historicSites.match(/export const historicSiteSeeds:[\s\S]*?= \[([\s\S]*?)\n\];/);
 const seedSlugs = seedBlock ? [...seedBlock[1].matchAll(/slug:\s*"([^"]+)"/g)].map((match) => match[1]) : [];
 if (seedSlugs.length !== 43) failures.push(`Expected 43 historic-site seeds while validating evergreen guides; found ${seedSlugs.length}.`);
@@ -47,12 +66,38 @@ for (const guide of guides) {
   if (!historyHub.includes(`slug: "${guide.slug}"`)) failures.push(`Historic evergreen guide is not explicitly featured on the Texas History hub: ${guide.slug}.`);
 }
 
+for (const guide of militaryGuides) {
+  if (!fs.existsSync(guide.path)) { failures.push(`Military history evergreen guide file is missing: ${guide.path}`); continue; }
+  const source = fs.readFileSync(guide.path, 'utf8');
+  if (!source.includes(`slug: "${guide.slug}"`)) failures.push(`Military history guide slug mismatch: ${guide.slug}.`);
+  if (!source.includes(`export const ${guide.exportName}`)) failures.push(`Military history guide export missing: ${guide.exportName}.`);
+  if (!source.includes('category: "texas-history"')) failures.push(`Military history guide is not in texas-history: ${guide.slug}.`);
+  if (!source.includes(`sourceName: "${guide.sourceName}"`)) failures.push(`Military history guide source identity mismatch: ${guide.slug}.`);
+  if (!source.includes(`sourceUrl: "${guide.sourceUrl}"`)) failures.push(`Military history guide source URL mismatch: ${guide.slug}.`);
+  if (!source.includes('relatedDestinations: [')) failures.push(`Military history guide lacks related destination discovery: ${guide.slug}.`);
+  const paragraphCount = (source.match(/\bp\("/g) ?? []).length;
+  const headingCount = (source.match(/\bh\("/g) ?? []).length;
+  if (paragraphCount < 14) failures.push(`Military history guide is too thin (${paragraphCount} paragraphs): ${guide.slug}.`);
+  if (headingCount < 6) failures.push(`Military history guide lacks section depth (${headingCount} headings): ${guide.slug}.`);
+  for (const destination of guide.destinations) {
+    if (!seedSlugs.includes(destination)) failures.push(`Military history guide validator references non-seed destination ${destination} in ${guide.slug}.`);
+    if (!source.includes(destination)) failures.push(`Military history guide does not link required destination ${destination}: ${guide.slug}.`);
+    if (!reciprocal.includes(`"${destination}"`)) failures.push(`Military history reciprocal destination registration is missing ${destination}: ${guide.slug}.`);
+  }
+  if (!lazy.includes(`slug: "${guide.slug}"`)) failures.push(`Military history stub is not registered: ${guide.slug}.`);
+  if (!lazy.includes(`import("./${guide.path.split('/').pop().replace('.ts', '')}")`)) failures.push(`Military history full article is not lazy-loaded: ${guide.slug}.`);
+  if (!lazy.includes(guide.exportName)) failures.push(`Military history lazy loader export mismatch: ${guide.slug}.`);
+  const href = `/article/${guide.slug}`;
+  if (!reciprocal.includes(`href: "${href}"`)) failures.push(`Military history reciprocal route guide link is missing: ${href}.`);
+  if (!historyHub.includes(`slug: "${guide.slug}"`)) failures.push(`Military history guide is not explicitly featured on the Texas History hub: ${guide.slug}.`);
+}
+
 const reciprocalSlugSets = [...reciprocal.matchAll(/slugs:\s*new Set\(\[([\s\S]*?)\]\)/g)].flatMap((match) => [...match[1].matchAll(/"([^"]+)"/g)].map((slugMatch) => slugMatch[1]));
 for (const slug of reciprocalSlugSets) if (!seedSlugs.includes(slug)) failures.push(`Historic reciprocal guide link references non-seed destination: ${slug}.`);
 for (const marker of ['import { enrichHistoricSiteEvergreenLinks } from "./historic-site-evergreen-links";', 'enrichHistoricSiteEvergreenLinks(', '.map(enrichHistoricSiteEvergreenLinks)']) if (!runtime.includes(marker)) failures.push(`Historic destination runtime is missing reciprocal evergreen enrichment: ${marker}`);
 for (const marker of ['standaloneEvergreenStubs', '...standaloneEvergreenStubs', 'loadStandaloneEvergreenArticle']) if (!repositories.includes(marker)) failures.push(`Historic evergreen repository discovery contract missing: ${marker}.`);
 for (const marker of ['platform.articles.list(scope)', 'articles.filter((article) => !isLegacyCountySeriesArticle(article.slug)).map((article) => ({ path: `/article/${article.slug}`']) if (!sitemap.includes(marker)) failures.push(`Historic evergreen sitemap discovery contract missing: ${marker}.`);
-for (const marker of ['historicAuthorityGuides', 'Plan history by story', 'Six routes into the statewide collection']) if (!historyHub.includes(marker)) failures.push(`Texas History hub authority-guide presentation contract missing: ${marker}.`);
+for (const marker of ['historicAuthorityGuides', 'Plan history by story', '{historicAuthorityGuides.length} routes into the statewide collection']) if (!historyHub.includes(marker)) failures.push(`Texas History hub authority-guide presentation contract missing: ${marker}`);
 
 if (failures.length) { console.error('Historic-site evergreen validation failed:'); for (const failure of failures) console.error(`- ${failure}`); process.exit(1); }
-console.log(`Historic-site evergreen validation passed: ${guides.length} lazy-loaded Texas-history guides retain substantive depth, THC sourcing, verified destination links, reciprocal route-guide discovery, explicit Texas History hub visibility, repository listing and canonical article-sitemap publication.`);
+console.log(`Historic-site evergreen validation passed: ${guides.length + militaryGuides.length} lazy-loaded Texas-history guides retain substantive depth, authoritative sourcing, verified destination links, reciprocal route-guide discovery, explicit Texas History hub visibility, repository listing and canonical article-sitemap publication.`);
