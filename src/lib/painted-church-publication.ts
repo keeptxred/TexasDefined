@@ -2,6 +2,7 @@ export const PAINTED_CHURCHES_SEARCH_INDEXING_ENABLED = false;
 
 const PERMANENTLY_NON_INDEXABLE_PAINTED_CHURCH_PATHS = new Set([
   "/explore/painted-churches/preindex-readiness",
+  "/explore/painted-churches/release-review",
 ]);
 
 export function isPaintedChurchPath(path?: string | null) {
