@@ -88,6 +88,7 @@ const guides = [
     sourceName: 'Texas Historical Commission',
     sourceUrl: 'https://thc.texas.gov/learn/military-history/texas-cold-war',
     reciprocalHref: '/article/texas-cold-war-military-history',
+    reciprocalSource: 'military-destinations',
     requiredTerms: ['Carswell', 'B-36', 'Dyess', 'Atlas F', 'Pantex', 'Laughlin', 'U-2', 'Nike'],
   },
 ];
@@ -117,7 +118,10 @@ for (const guide of guides) {
   if (!lazy.includes(`import("./${moduleName}")`)) failures.push(`Dynamic import missing: ${guide.slug}`);
   if (!lazy.includes(guide.exportName)) failures.push(`Lazy export name mismatch: ${guide.slug}`);
   if (!historyHub.includes(`slug: "${guide.slug}"`)) failures.push(`Texas History hub does not feature: ${guide.slug}`);
-  if (guide.reciprocalHref && !reciprocal.includes(`href: "${guide.reciprocalHref}"`)) failures.push(`Historic-site reciprocal link missing: ${guide.slug}`);
+  if (guide.reciprocalHref) {
+    const reciprocalCatalog = guide.reciprocalSource === 'military-destinations' ? destinations : reciprocal;
+    if (!reciprocalCatalog.includes(`href: "${guide.reciprocalHref}"`)) failures.push(`Reciprocal destination link missing: ${guide.slug}`);
+  }
 }
 
 const plannerDestinations = [
@@ -133,7 +137,7 @@ const plannerDestinations = [
     name: 'Texas Military Forces Museum',
     officialUrl: 'https://texasmilitaryforcesmuseum.org/',
     articleHref: '/article/texas-national-guard-history',
-    requiredTerms: ['category: "historic-sites"', 'nearestTown: "Austin"', 'county: "Travis"', 'coordinates:', 'credit:', 'sourceCheckedAt: "2026-08-19"', 'areaGuide: {'],
+    requiredTerms: ['category: "historic-sites"', 'nearestTown: "Austin"', 'county: "Travis"', 'coordinates:', 'credit:', 'sourceCheckedAt: "2026-08-19"', 'areaGuide: {', 'href: "/article/texas-cold-war-military-history"'],
   },
 ];
 
@@ -198,4 +202,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Military history expansion validation passed: ${guides.length} source-backed, lazy-loaded guides, the canonical Battleship Texas authority page, and ${plannerDestinations.length} preserved Trip Planner destinations retain substantive depth, explicit History-hub discovery, article sitemap publication, internal linking and archival-image sourcing rules.`);
+console.log(`Military history expansion validation passed: ${guides.length} source-backed, lazy-loaded guides, the canonical Battleship Texas authority page, and ${plannerDestinations.length} preserved Trip Planner destinations retain substantive depth, explicit History-hub discovery, article sitemap publication, reciprocal discovery and archival-image sourcing rules.`);
