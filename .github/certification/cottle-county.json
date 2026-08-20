@@ -1,0 +1,9 @@
+{
+  "county": "cottle",
+  "status": "pass",
+  "stage": "complete",
+  "county_commit": "c9d7197654cbc9d9578aa37ff42dd9edfea2c291",
+  "tested_main": "825ded71b807081c046715c97224ef17fa50f653",
+  "detail": "validate=PASS deploy=PASS page=200 structured=yes editorial=yes legacy=not-applicable hero=200 mime=image/jpeg bytes=782028",
+  "recorded_at_utc": "2026-08-20T14:14:19.223862+00:00"
+}
