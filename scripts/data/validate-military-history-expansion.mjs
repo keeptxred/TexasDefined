@@ -30,6 +30,15 @@ const guides = [
     requiredTerms: ['Palo Alto', 'Resaca de la Palma', 'Rio Grande', 'Treaty of Guadalupe Hidalgo'],
   },
   {
+    slug: 'buffalo-soldiers-texas-frontier-guide',
+    path: 'src/data/fixtures/buffalo-soldiers-texas-frontier-guide.ts',
+    exportName: 'buffaloSoldiersTexasFrontierGuideArticle',
+    sourceName: 'National Park Service',
+    sourceUrl: 'https://www.nps.gov/foda/learn/historyculture/buffalo-soldiers.htm',
+    reciprocalHref: '/article/buffalo-soldiers-texas-frontier-guide',
+    requiredTerms: ['9th Cavalry', '10th Cavalry', '24th Infantry', '25th Infantry', 'Fort Davis', 'Fort McKavett', 'Fort Lancaster', 'Native'],
+  },
+  {
     slug: 'texas-national-guard-history',
     path: 'src/data/fixtures/texas-national-guard-history.ts',
     exportName: 'texasNationalGuardHistoryArticle',
@@ -126,6 +135,7 @@ for (const marker of [
   'export async function loadMilitaryHistoryExpansionArticle',
   '/destination/palo-alto-battlefield-national-historical-park',
   '/destination/texas-military-forces-museum',
+  '/article/buffalo-soldiers-texas-frontier-guide',
   '/article/battleship-texas-bb-35-history-restoration',
 ]) if (!lazy.includes(marker)) failures.push(`Lazy military expansion registry or supplemental linking is missing: ${marker}`);
 
@@ -158,4 +168,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Military history expansion validation passed: ${guides.length} new source-backed, lazy-loaded guides, the canonical Battleship Texas authority page, and ${plannerDestinations.length} preserved Trip Planner destinations retain substantive depth, explicit History-hub discovery, article sitemap publication, internal linking and archival-image sourcing rules.`);
+console.log(`Military history expansion validation passed: ${guides.length} source-backed, lazy-loaded guides, the canonical Battleship Texas authority page, and ${plannerDestinations.length} preserved Trip Planner destinations retain substantive depth, explicit History-hub discovery, article sitemap publication, internal linking and archival-image sourcing rules.`);

@@ -13,6 +13,18 @@ const texasUsMexicanWarPaloAltoGuideStub: Article = {
   body: [], relatedCollections: [], relatedDestinations: ["palo-alto-battlefield-national-historical-park", "palmito-ranch-battlefield", "port-isabel-lighthouse"],
 };
 
+const buffaloSoldiersTexasFrontierGuideStub: Article = {
+  id: "evergreen-buffalo-soldiers-texas-frontier-guide", brandId: "texasdefined", slug: "buffalo-soldiers-texas-frontier-guide",
+  title: "Buffalo Soldiers in Texas: The Black Regulars Who Manned the Frontier",
+  dek: "After the Civil War, African American soldiers served across Texas in the 9th and 10th Cavalry and the 24th and 25th Infantry. Fort Davis, Fort Concho, Fort McKavett and Fort Lancaster preserve parts of that complicated frontier story.",
+  category: "texas-history",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Fort_Davis_National_Historic_Site_%28790ae2ca-cd05-44da-bfd4-b713441c231b%29.jpg?width=1600", alt: "Historic image of mounted African American soldiers associated with Fort Davis National Historic Site", width: 1600, height: 1067, credit: "National Park Service · Public domain · Wikimedia Commons" },
+  authorId: "a-marisol", publishedAt: "2026-08-19", readingMinutes: 17,
+  tags: ["buffalo soldiers", "black regulars", "african american texas history", "fort davis", "fort mckavett", "fort concho", "fort lancaster", "texas military history"], featured: true,
+  sourceName: "National Park Service", sourceUrl: "https://www.nps.gov/foda/learn/historyculture/buffalo-soldiers.htm",
+  body: [], relatedCollections: [], relatedDestinations: ["fort-davis-national-historic-site", "fort-mckavett", "fort-lancaster"],
+};
+
 const texasNationalGuardHistoryStub: Article = {
   id: "evergreen-texas-national-guard-history", brandId: "texasdefined", slug: "texas-national-guard-history",
   title: "Texas National Guard History: From Militia Companies to the Modern Guard",
@@ -49,12 +61,22 @@ const texasWorldWarIIBasesPowCampsStub: Article = {
   body: [], relatedCollections: [], relatedDestinations: ["eisenhower-birthplace", "national-museum-pacific-war", "iwo-jima-museum-monument", "slaton-harvey-house"],
 };
 
+const buffaloSoldiersLink = {
+  href: "/article/buffalo-soldiers-texas-frontier-guide",
+  label: "Buffalo Soldiers in Texas",
+  description: "Follow the Black Regulars through Fort Davis, Fort Concho, Fort McKavett and Fort Lancaster while holding military service, citizenship and Native dispossession in the same history.",
+};
+
 const supplementalLinks: Record<string, Array<{ href: string; label: string; description: string }>> = {
   "texas-us-mexican-war-palo-alto-guide": [
     { href: "/destination/palo-alto-battlefield-national-historical-park", label: "Visit Palo Alto Battlefield", description: "Open the Trip Planner destination for the preserved 1846 battlefield, visitor context and lower Rio Grande area guide." },
   ],
+  "texas-military-history-timeline": [buffaloSoldiersLink],
+  "texas-frontier-forts-road-trip": [buffaloSoldiersLink],
+  "texas-civil-war-sites-guide": [buffaloSoldiersLink],
   "texas-national-guard-history": [
     { href: "/destination/texas-military-forces-museum", label: "Texas Military Forces Museum", description: "Turn the Guard history into a Camp Mabry visit with current access guidance and an Austin area guide." },
+    buffaloSoldiersLink,
   ],
   "texas-world-war-ii-bases-pow-camps": [
     { href: "/article/battleship-texas-bb-35-history-restoration", label: "Battleship Texas (BB-35)", description: "Connect the Texas home front with the surviving dreadnought that fought from North Africa and Normandy to Iwo Jima and Okinawa." },
@@ -71,6 +93,7 @@ for (const [slug, additions] of Object.entries(supplementalLinks)) {
 
 export const militaryHistoryExpansionStubs: Article[] = [
   texasUsMexicanWarPaloAltoGuideStub,
+  buffaloSoldiersTexasFrontierGuideStub,
   texasNationalGuardHistoryStub,
   sanAntonioMilitaryAviationHistoryStub,
   texasWorldWarIIBasesPowCampsStub,
@@ -79,6 +102,7 @@ export const militaryHistoryExpansionStubs: Article[] = [
 export async function loadMilitaryHistoryExpansionArticle(brandId: string, slug: string): Promise<Article | null> {
   if (brandId !== "texasdefined") return null;
   if (slug === texasUsMexicanWarPaloAltoGuideStub.slug) return import("./texas-us-mexican-war-palo-alto-guide").then((module) => module.texasUsMexicanWarPaloAltoGuideArticle);
+  if (slug === buffaloSoldiersTexasFrontierGuideStub.slug) return import("./buffalo-soldiers-texas-frontier-guide").then((module) => module.buffaloSoldiersTexasFrontierGuideArticle);
   if (slug === texasNationalGuardHistoryStub.slug) return import("./texas-national-guard-history").then((module) => module.texasNationalGuardHistoryArticle);
   if (slug === sanAntonioMilitaryAviationHistoryStub.slug) return import("./san-antonio-military-aviation-history").then((module) => module.sanAntonioMilitaryAviationHistoryArticle);
   if (slug === texasWorldWarIIBasesPowCampsStub.slug) return import("./texas-world-war-ii-bases-pow-camps").then((module) => module.texasWorldWarIIBasesPowCampsArticle);
