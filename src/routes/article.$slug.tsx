@@ -265,7 +265,7 @@ export const Route = createFileRoute("/article/$slug")({
 
     return {
       meta: buildMeta(texasDefinedBrand, {
-        title: isMovingToTexasPillar ? "Moving to Texas: What Nobody Tells You (2026 Guide)" : article.title,
+        title: article.title,
         description: article.dek,
         type: "article",
         canonicalPath,
