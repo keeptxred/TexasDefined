@@ -1,4 +1,4 @@
-# PR-triggered certification after safe client-bundle isolation; checkout remains pinned to current main.
+# PR-triggered certification after validator update; checkout remains pinned to current main.
 name: Certify Garza County production once
 
 on:
@@ -51,9 +51,7 @@ jobs:
           grep -Fq 'countySlug: "garza"' "$registry"
           grep -Fq '["garza-county-post-caprock-lake-alan-henry-west-texas", "garza"]' src/data/county-series.ts
           grep -Fq 'Garza County: Post, the Caprock, Ranch Country and Lake Alan Henry' "$fixture"
-          if grep -n 'www\.texasdefined\.com' "$fixture" "$registry" src/data/county-series.ts src/data/county-series.server.ts; then
-            echo 'Noncanonical www TexasDefined hostname found'; exit 1
-          fi
+          if grep -n 'www\.texasdefined\.com' "$fixture" "$registry" src/data/county-series.ts src/data/county-series.server.ts; then echo 'Noncanonical www TexasDefined hostname found'; exit 1; fi
           git diff --check
 
           work="$(mktemp -d)"; trap 'rm -rf "$work"' EXIT
