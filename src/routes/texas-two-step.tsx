@@ -8,6 +8,14 @@ const sourceData = PRIORITY_SEARCH_PAGES["texas-two-step"];
 const data = {
   ...sourceData,
   quickAnswer: `${sourceData.quickAnswer} The Texas Lottery is now administered by the Texas Department of Licensing and Regulation. If you mean the Texas two-step dance rather than the lottery game, use the dance-hall and honky-tonk guide linked below.`,
+  sections: [
+    ...sourceData.sections,
+    {
+      heading: "Who administers the Texas Lottery now",
+      paragraphs: ["The former Texas Lottery Commission was abolished and responsibility for the Texas Lottery transferred to the Texas Department of Licensing and Regulation effective September 1, 2025. Current lottery program information is now available through TDLR's Texas Lottery section."],
+      links: [{ label: "Official Texas Lottery at TDLR", href: "https://www.tdlr.texas.gov/lottery/", external: true }],
+    },
+  ],
   related: [
     { label: "Official Texas Lottery at TDLR", href: "https://www.tdlr.texas.gov/lottery/", external: true },
     { label: "Texas two-step dance, dance halls & honky-tonks", href: "/texas-dance-halls-honky-tonks" },
