@@ -35,6 +35,22 @@ function body(value: unknown): ArticleBlock[] {
     const type = (block as { type?: unknown }).type;
     if (type === "list") return Array.isArray((block as { items?: unknown }).items);
     if (["paragraph","heading","quote"].includes(String(type))) return typeof (block as { text?: unknown }).text === "string";
+    if (type === "image") {
+      const image = (block as { image?: unknown }).image;
+      if (!image || typeof image !== "object") return false;
+      const candidate = image as { src?: unknown; alt?: unknown; width?: unknown; height?: unknown; credit?: unknown };
+      const caption = (block as { caption?: unknown }).caption;
+      return typeof candidate.src === "string"
+        && typeof candidate.alt === "string"
+        && typeof candidate.width === "number"
+        && Number.isFinite(candidate.width)
+        && candidate.width > 0
+        && typeof candidate.height === "number"
+        && Number.isFinite(candidate.height)
+        && candidate.height > 0
+        && (candidate.credit === undefined || typeof candidate.credit === "string")
+        && (caption === undefined || typeof caption === "string");
+    }
     if (type === "shop") return typeof (block as { collectionSlug?: unknown }).collectionSlug === "string";
     return false;
   });
