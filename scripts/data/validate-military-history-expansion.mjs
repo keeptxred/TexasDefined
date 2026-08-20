@@ -39,6 +39,24 @@ const guides = [
     requiredTerms: ['9th Cavalry', '10th Cavalry', '24th Infantry', '25th Infantry', 'Fort Davis', 'Fort McKavett', 'Fort Lancaster', 'Native'],
   },
   {
+    slug: 'texas-red-river-war-guide',
+    path: 'src/data/fixtures/texas-red-river-war-guide.ts',
+    exportName: 'texasRedRiverWarGuideArticle',
+    sourceName: 'Texas Historical Commission',
+    sourceUrl: 'https://thc.texas.gov/learn/archeological-spotlight/red-river-war-battle-sites-project',
+    reciprocalHref: '/article/texas-red-river-war-guide',
+    requiredTerms: ['Adobe Walls', 'Palo Duro Canyon', 'Quanah Parker', 'Comanche', 'Kiowa', 'Southern Cheyenne', 'bison', 'archeological'],
+  },
+  {
+    slug: 'republic-of-texas-navy-history',
+    path: 'src/data/fixtures/republic-of-texas-navy-history.ts',
+    exportName: 'republicOfTexasNavyHistoryArticle',
+    sourceName: 'Texas State Library and Archives Commission',
+    sourceUrl: 'https://www.tsl.texas.gov/exhibits/navy/index.html',
+    reciprocalHref: '/article/republic-of-texas-navy-history',
+    requiredTerms: ['Liberty', 'Invincible', 'Independence', 'Brutus', 'Austin', 'Wharton', 'Campeche', 'Edwin Ward Moore'],
+  },
+  {
     slug: 'texas-national-guard-history',
     path: 'src/data/fixtures/texas-national-guard-history.ts',
     exportName: 'texasNationalGuardHistoryArticle',
@@ -62,6 +80,15 @@ const guides = [
     sourceUrl: 'https://thc.texas.gov/learn/military-history/texas-world-war-ii',
     reciprocalHref: '/article/texas-world-war-ii-bases-pow-camps',
     requiredTerms: ['Camp Hood', 'Camp Swift', 'Camp Wolters', 'prisoner-of-war', 'Crystal City'],
+  },
+  {
+    slug: 'texas-cold-war-military-history',
+    path: 'src/data/fixtures/texas-cold-war-military-history.ts',
+    exportName: 'texasColdWarMilitaryHistoryArticle',
+    sourceName: 'Texas Historical Commission',
+    sourceUrl: 'https://thc.texas.gov/learn/military-history/texas-cold-war',
+    reciprocalHref: '/article/texas-cold-war-military-history',
+    requiredTerms: ['Carswell', 'B-36', 'Dyess', 'Atlas F', 'Pantex', 'Laughlin', 'U-2', 'Nike'],
   },
 ];
 
@@ -136,6 +163,9 @@ for (const marker of [
   '/destination/palo-alto-battlefield-national-historical-park',
   '/destination/texas-military-forces-museum',
   '/article/buffalo-soldiers-texas-frontier-guide',
+  '/article/texas-red-river-war-guide',
+  '/article/republic-of-texas-navy-history',
+  '/article/texas-cold-war-military-history',
   '/article/battleship-texas-bb-35-history-restoration',
 ]) if (!lazy.includes(marker)) failures.push(`Lazy military expansion registry or supplemental linking is missing: ${marker}`);
 
