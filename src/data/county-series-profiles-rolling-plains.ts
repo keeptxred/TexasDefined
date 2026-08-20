@@ -55,4 +55,10 @@ export const COUNTY_SERIES_PROFILES_ROLLING_PLAINS: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/haskell-county-haskell-rice-springs-railroads-brazos-rolling-plains-texas")
       .then((module) => module.haskellCountyHaskellRiceSpringsRailroadsBrazosRollingPlainsTexasArticle),
   },
+  {
+    countySlug: "kent",
+    articleSlug: "kent-county-jayton-clairemont-brazos-ranching-rolling-plains-texas",
+    loadArticle: () => import("@/data/fixtures/kent-county-jayton-clairemont-brazos-ranching-rolling-plains-texas")
+      .then((module) => module.kentCountyJaytonClairemontBrazosRanchingRollingPlainsTexasArticle),
+  },
 ];
