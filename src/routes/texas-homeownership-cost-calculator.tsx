@@ -28,7 +28,7 @@ const faqs = [
 export const Route = createFileRoute('/texas-homeownership-cost-calculator')({
   head: () => buildCalculatorHead(texasDefinedBrand, {
     canonicalPath: '/texas-homeownership-cost-calculator',
-    title: 'Texas Homeownership Cost Calculator | Local Tax Rates',
+    title: 'Texas Homeownership Cost Calculator | Beyond the Mortgage',
     description,
     featureList: [
       'Estimate monthly ownership costs',
