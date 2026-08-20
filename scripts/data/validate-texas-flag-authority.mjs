@@ -64,11 +64,16 @@ requireContains("Texas Symbols page", files.symbols, '/article/history-of-the-te
 requireContains("Texas Symbols page", files.symbols, '/article/texas-flag-etiquette-display-guide');
 requireContains("Texas History hub", files.historyHub, 'slug: "history-of-the-texas-flag"');
 
-requireContains("Article route", files.articleRoute, '"history-of-the-texas-flag": [');
-requireContains("Article route", files.articleRoute, '"texas-flag-etiquette-display-guide": [');
+requireContains("Article route", files.articleRoute, "FAQ_ARTICLE_SLUGS");
+requireContains("Article route", files.articleRoute, '"history-of-the-texas-flag"');
+requireContains("Article route", files.articleRoute, '"texas-flag-etiquette-display-guide"');
+requireContains("Article route", files.articleRoute, "faqEntriesForArticle");
 requireContains("Article route", files.articleRoute, '"@type": "FAQPage"');
 requireContains("Article route", files.articleRoute, 'citation: article.sourceUrl');
 requireContains("Article route", files.articleRoute, "Primary source:");
+requireContains("Article route", files.articleRoute, "Image credit:");
+requireNotContains("Article route", files.articleRoute, "const movingToTexasFaq");
+requireNotContains("Article route", files.articleRoute, "const articleFaqBySlug");
 
 requireContains("Flag production smoke", files.smoke, "workflow_run:");
 requireContains("Flag production smoke", files.smoke, 'workflows: ["Deploy TexasDefined production"]');
@@ -79,5 +84,6 @@ requireContains("Production deploy", files.deploy, "fetch_assert flag-history");
 requireContains("Production deploy", files.deploy, "fetch_assert flag-etiquette");
 requireContains("Production deploy", files.deploy, "fetch_assert texas-symbols");
 requireContains("Production deploy", files.deploy, 'context":"texasdefined-production"');
+requireContains("Production deploy", files.deploy, 'context":"texasdefined-bundle-budget"');
 
 console.log("Texas flag authority cluster validation passed.");
