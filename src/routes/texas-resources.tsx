@@ -20,9 +20,6 @@ const groups: ReadonlyArray<ResourceGroup> = [
       ['Texas vehicle registration', '/texas-vehicle-registration'],
       ['Texas fishing license', '/texas-fishing-license'],
       ['Texas unemployment benefits', '/texas-unemployment'],
-      ['Texas Comptroller', '/texas-comptroller'],
-      ['Texas Secretary of State', '/texas-secretary-of-state'],
-      ['Texas Attorney General', '/texas-attorney-general'],
       ['Find your DMV or county office', '/find-my-dmv'],
     ],
   },
@@ -52,8 +49,6 @@ const groups: ReadonlyArray<ResourceGroup> = [
   {
     title: 'Texas state agencies and services',
     links: [
-      ['Texas Secretary of State agency page', '/agency/texas-secretary-of-state'],
-      ['Texas Comptroller agency page', '/agency/texas-comptroller'],
       ['Texas Department of Insurance', '/agency/texas-department-insurance'],
       ['Texas Department of Motor Vehicles agency page', '/agency/texas-dmv'],
       ['Texas Commission on Environmental Quality', '/agency/texas-commission-environmental-quality'],
