@@ -8,6 +8,7 @@ import smallTown from "@/assets/small-town.jpg";
 
 import type { Article, ImageRef } from "../types";
 import { texasGatewayArticles, loadTexasGatewayArticle } from "./texas-gateway-articles";
+import { texasGatewayArticlesBatch2, loadTexasGatewayArticleBatch2 } from "./texas-gateway-articles-batch2";
 
 const image = (src: string, alt: string): ImageRef => ({ src, alt, width: 1600, height: 1067 });
 const images = {
@@ -35,7 +36,11 @@ const baseTexasCoreArticleStubs: Article[] = [
   stub({ id: "ar-10", slug: "big-bend-in-winter", title: "Big Bend Is a Winter Park", dek: "The five-hour drive, the eighty-mile gas gap, and why the hardest national park in Texas to reach is best in January.", category: "outdoors", region: "big-bend", hero: images.bigBend, authorId: "a-hollis", publishedAt: "2026-01-09", readingMinutes: 8, tags: ["big bend", "national parks", "desert", "dark skies"], relatedCollections: ["campfire-kitchen"], relatedDestinations: ["big-bend-chisos-basin"] }),
 ];
 
-export const texasCoreArticleStubs: Article[] = [...baseTexasCoreArticleStubs, ...texasGatewayArticles];
+export const texasCoreArticleStubs: Article[] = [
+  ...baseTexasCoreArticleStubs,
+  ...texasGatewayArticles,
+  ...texasGatewayArticlesBatch2,
+];
 
 const coreSlugs = new Set(texasCoreArticleStubs.map((article) => article.slug));
 
@@ -44,6 +49,9 @@ export async function loadTexasCoreArticle(brandId: string, slug: string): Promi
 
   const gatewayArticle = await loadTexasGatewayArticle(brandId, slug);
   if (gatewayArticle) return gatewayArticle;
+
+  const gatewayArticleBatch2 = await loadTexasGatewayArticleBatch2(brandId, slug);
+  if (gatewayArticleBatch2) return gatewayArticleBatch2;
 
   if (slug === "moving-to-texas-what-nobody-tells-you") {
     const { movingToTexasPillarArticle } = await import("./moving-to-texas-pillar");
