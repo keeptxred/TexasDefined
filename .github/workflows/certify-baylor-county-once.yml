@@ -1,0 +1,230 @@
+name: Certify Baylor County production once
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/certify-baylor-county-once.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: certify-baylor-county-production
+  cancel-in-progress: false
+
+jobs:
+  certify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    environment: texasdefined-publication
+    env:
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      HERO_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Baylor%20County%20Texas%20Courthouse%202015.jpg?width=1600
+      MARKER_JSON: ops/certifications/baylor-county-production.json
+      MARKER_LOG: ops/certifications/baylor-county-production.log
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Validate, deploy and verify Baylor County
+        id: certify
+        shell: bash
+        run: |
+          set -u
+          : > /tmp/baylor-cert.log
+          overall='fail'
+          fail_stage='unknown'
+          target=''
+          hero_status=''
+          hero_mime=''
+          hero_bytes='0'
+          page_status=''
+          legacy_status=''
+          legacy_location=''
+
+          for pass in 1 2 3 4 5; do
+            echo "=== certification pass $pass ===" | tee -a /tmp/baylor-cert.log
+            git fetch origin main
+            git reset --hard origin/main
+            target="$(git rev-parse HEAD)"
+
+            fixture='src/data/fixtures/baylor-county-seymour-brazos-ranching-railroads-rolling-plains-texas.ts'
+            registry='src/data/county-series-profiles-northeast.ts'
+            legacy_map='src/data/county-series.ts'
+
+            if [ ! -f "$fixture" ]; then fail_stage='source-fixture'; break; fi
+            if ! grep -Fq 'countySlug: "baylor"' "$registry"; then fail_stage='source-registry'; break; fi
+            if ! grep -Fq '["baylor-county-seymour-brazos-ranching-railroads-rolling-plains-texas", "baylor"]' "$legacy_map"; then fail_stage='source-legacy-map'; break; fi
+            if grep -n 'www\.texasdefined\.com' "$fixture" "$registry" "$legacy_map" >/tmp/baylor-www.txt; then
+              cat /tmp/baylor-www.txt >> /tmp/baylor-cert.log
+              fail_stage='canonical-host'
+              break
+            fi
+
+            echo '=== hero source ===' | tee -a /tmp/baylor-cert.log
+            if ! curl -L --retry 5 --retry-all-errors --retry-delay 2 --max-time 60 -sS -D /tmp/baylor-hero-headers -o /tmp/baylor-hero-body -w '%{http_code}' "$HERO_URL" > /tmp/baylor-hero-status; then
+              fail_stage='hero-source-request'; break
+            fi
+            hero_status="$(cat /tmp/baylor-hero-status)"
+            hero_mime="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/{gsub(/\r/,""); sub(/^content-type:[[:space:]]*/,""); v=$0} END{print v}' /tmp/baylor-hero-headers | cut -d';' -f1)"
+            hero_bytes="$(wc -c < /tmp/baylor-hero-body)"
+            echo "hero source HTTP=$hero_status MIME=$hero_mime bytes=$hero_bytes" | tee -a /tmp/baylor-cert.log
+            if [ "$hero_status" != '200' ] || ! [[ "$hero_mime" =~ ^image/(jpeg|png|webp)$ ]] || [ "$hero_bytes" -le 50000 ]; then
+              fail_stage='hero-source'
+              break
+            fi
+
+            echo '=== npm run validate ===' | tee -a /tmp/baylor-cert.log
+            if ! npm run validate >> /tmp/baylor-cert.log 2>&1; then
+              fail_stage='validation'
+              break
+            fi
+
+            git fetch origin main
+            latest="$(git rev-parse origin/main)"
+            if [ "$latest" != "$target" ]; then
+              echo "main moved after validation: $target -> $latest; retrying newest main" | tee -a /tmp/baylor-cert.log
+              continue
+            fi
+
+            echo '=== npm run deploy ===' | tee -a /tmp/baylor-cert.log
+            if ! npm run deploy >> /tmp/baylor-cert.log 2>&1; then
+              fail_stage='deployment'
+              break
+            fi
+
+            git fetch origin main
+            latest="$(git rev-parse origin/main)"
+            if [ "$latest" != "$target" ]; then
+              echo "main moved after deployment: $target -> $latest; retrying newest main" | tee -a /tmp/baylor-cert.log
+              continue
+            fi
+
+            echo '=== live verification ===' | tee -a /tmp/baylor-cert.log
+            origin='https://texasdefined.com'
+            county='/county/baylor'
+            legacy='/article/baylor-county-seymour-brazos-ranching-railroads-rolling-plains-texas'
+            expected_title='Baylor County: Seymour, the Brazos and the Edge of the Rolling Plains'
+            live_ok=0
+            for attempt in $(seq 1 12); do
+              page_status="$(curl --retry 3 --retry-all-errors --retry-delay 2 --max-time 60 -sS -o /tmp/baylor-page -w '%{http_code}' "$origin$county?verify=${target}-${GITHUB_RUN_ID}-${attempt}" || true)"
+              if [ "$page_status" = '200' ] \
+                && grep -Fq "$expected_title" /tmp/baylor-page \
+                && grep -Fq 'The county in numbers' /tmp/baylor-page \
+                && grep -Fq 'County seat' /tmp/baylor-page \
+                && grep -Fq '2020 population' /tmp/baylor-page \
+                && grep -Fq 'County feature' /tmp/baylor-page \
+                && grep -Fq 'Seymour' /tmp/baylor-page \
+                && grep -Fq 'Baylor%20County%20Texas%20Courthouse%202015.jpg' /tmp/baylor-page \
+                && grep -Fq 'https://texasdefined.com/county/baylor' /tmp/baylor-page; then
+                live_ok=1
+                break
+              fi
+              sleep 5
+            done
+            echo "county HTTP=$page_status structured_editorial=$live_ok" | tee -a /tmp/baylor-cert.log
+            if [ "$live_ok" -ne 1 ]; then fail_stage='live-county'; break; fi
+
+            legacy_status="$(curl --max-redirs 0 -sS -D /tmp/baylor-legacy-headers -o /dev/null -w '%{http_code}' "$origin$legacy" || true)"
+            legacy_location="$(awk 'BEGIN{IGNORECASE=1} /^location:/{gsub(/\r/,""); sub(/^location:[[:space:]]*/,""); print; exit}' /tmp/baylor-legacy-headers)"
+            echo "legacy HTTP=$legacy_status location=$legacy_location" | tee -a /tmp/baylor-cert.log
+            if [ "$legacy_status" != '301' ] || ! [[ "$legacy_location" == *'/county/baylor'* ]]; then
+              fail_stage='legacy-redirect'
+              break
+            fi
+
+            live_hero_status="$(curl -L --retry 5 --retry-all-errors --retry-delay 2 --max-time 60 -sS -D /tmp/baylor-live-hero-headers -o /tmp/baylor-live-hero-body -w '%{http_code}' "$HERO_URL" || true)"
+            live_hero_mime="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/{gsub(/\r/,""); sub(/^content-type:[[:space:]]*/,""); v=$0} END{print v}' /tmp/baylor-live-hero-headers | cut -d';' -f1)"
+            live_hero_bytes="$(wc -c < /tmp/baylor-live-hero-body 2>/dev/null || echo 0)"
+            echo "live hero HTTP=$live_hero_status MIME=$live_hero_mime bytes=$live_hero_bytes" | tee -a /tmp/baylor-cert.log
+            if [ "$live_hero_status" != '200' ] || ! [[ "$live_hero_mime" =~ ^image/(jpeg|png|webp)$ ]] || [ "$live_hero_bytes" -le 50000 ]; then
+              fail_stage='live-hero'
+              break
+            fi
+
+            git fetch origin main
+            latest="$(git rev-parse origin/main)"
+            if [ "$latest" != "$target" ]; then
+              echo "main moved during live verification: $target -> $latest; retrying newest main" | tee -a /tmp/baylor-cert.log
+              continue
+            fi
+
+            overall='pass'
+            fail_stage=''
+            break
+          done
+
+          if [ "$overall" != 'pass' ] && [ "$fail_stage" = 'unknown' ]; then fail_stage='concurrency'; fi
+          echo "RESULT overall=$overall stage=${fail_stage:-none} target=$target" | tee -a /tmp/baylor-cert.log
+          echo "overall=$overall" >> "$GITHUB_OUTPUT"
+          echo "fail_stage=$fail_stage" >> "$GITHUB_OUTPUT"
+          echo "target_sha=$target" >> "$GITHUB_OUTPUT"
+          echo "hero_status=$hero_status" >> "$GITHUB_OUTPUT"
+          echo "hero_mime=$hero_mime" >> "$GITHUB_OUTPUT"
+          echo "hero_bytes=$hero_bytes" >> "$GITHUB_OUTPUT"
+          echo "page_status=$page_status" >> "$GITHUB_OUTPUT"
+          echo "legacy_status=$legacy_status" >> "$GITHUB_OUTPUT"
+          echo "legacy_location=$legacy_location" >> "$GITHUB_OUTPUT"
+
+      - name: Record Baylor certification result
+        if: always()
+        shell: bash
+        env:
+          OVERALL: ${{ steps.certify.outputs.overall }}
+          FAIL_STAGE: ${{ steps.certify.outputs.fail_stage }}
+          TARGET_SHA: ${{ steps.certify.outputs.target_sha }}
+          HERO_STATUS: ${{ steps.certify.outputs.hero_status }}
+          HERO_MIME: ${{ steps.certify.outputs.hero_mime }}
+          HERO_BYTES: ${{ steps.certify.outputs.hero_bytes }}
+          PAGE_STATUS: ${{ steps.certify.outputs.page_status }}
+          LEGACY_STATUS: ${{ steps.certify.outputs.legacy_status }}
+          LEGACY_LOCATION: ${{ steps.certify.outputs.legacy_location }}
+        run: |
+          set -euo pipefail
+          git fetch origin main
+          git reset --hard origin/main
+          mkdir -p ops/certifications
+          cp /tmp/baylor-cert.log "$MARKER_LOG"
+          python3 - "$MARKER_JSON" <<'PY'
+          import json, os, pathlib, sys, datetime
+          path = pathlib.Path(sys.argv[1])
+          path.write_text(json.dumps({
+            'county': 'Baylor',
+            'canonical': 'https://texasdefined.com/county/baylor',
+            'target_sha': os.environ.get('TARGET_SHA',''),
+            'overall': os.environ.get('OVERALL','fail'),
+            'fail_stage': os.environ.get('FAIL_STAGE','unknown'),
+            'hero_http': os.environ.get('HERO_STATUS',''),
+            'hero_mime': os.environ.get('HERO_MIME',''),
+            'hero_bytes': os.environ.get('HERO_BYTES',''),
+            'page_http': os.environ.get('PAGE_STATUS',''),
+            'legacy_http': os.environ.get('LEGACY_STATUS',''),
+            'legacy_location': os.environ.get('LEGACY_LOCATION',''),
+            'run_id': os.environ.get('GITHUB_RUN_ID',''),
+            'certified_at_utc': datetime.datetime.now(datetime.timezone.utc).isoformat(),
+          }, indent=2) + '\n', encoding='utf-8')
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- "$MARKER_JSON" "$MARKER_LOG"
+          git commit -m "Record Baylor County production certification $OVERALL"
+          for try in 1 2 3 4 5; do
+            if git push origin HEAD:main; then exit 0; fi
+            git pull --rebase origin main
+          done
+          exit 1
+
+      - name: Fail workflow when certification failed
+        if: steps.certify.outputs.overall != 'pass'
+        run: exit 1
