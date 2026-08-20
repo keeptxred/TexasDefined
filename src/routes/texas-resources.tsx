@@ -12,11 +12,26 @@ type ResourceGroup = { title: string; links: ReadonlyArray<readonly [string, str
 
 const groups: ReadonlyArray<ResourceGroup> = [
   {
+    title: 'Popular Texas services',
+    links: [
+      ['Texas driver license', '/texas-drivers-license'],
+      ['Texas DMV', '/texas-dmv'],
+      ['Texas DPS', '/texas-dps'],
+      ['Texas vehicle registration', '/texas-vehicle-registration'],
+      ['Texas fishing license', '/texas-fishing-license'],
+      ['Texas unemployment benefits', '/texas-unemployment'],
+      ['Texas Comptroller', '/texas-comptroller'],
+      ['Texas Secretary of State', '/texas-secretary-of-state'],
+      ['Texas Attorney General', '/texas-attorney-general'],
+      ['Find your DMV or county office', '/find-my-dmv'],
+    ],
+  },
+  {
     title: 'Moving and settling in',
     links: [
       ['Moving Here', '/moving-to-texas'],
       ['Your first-month checklist', '/moving-to-texas-checklist'],
-      ['Register your vehicle', '/find-my-dmv'],
+      ['Register your vehicle', '/texas-vehicle-registration'],
       ['Find your school district', '/find-my-school-district'],
     ],
   },
@@ -37,15 +52,16 @@ const groups: ReadonlyArray<ResourceGroup> = [
   {
     title: 'Texas state agencies and services',
     links: [
-      ['Texas Secretary of State', '/agency/texas-secretary-of-state'],
-      ['Texas Comptroller', '/agency/texas-comptroller'],
+      ['Texas Secretary of State agency page', '/agency/texas-secretary-of-state'],
+      ['Texas Comptroller agency page', '/agency/texas-comptroller'],
       ['Texas Department of Insurance', '/agency/texas-department-insurance'],
-      ['Texas Department of Motor Vehicles', '/agency/texas-dmv'],
+      ['Texas Department of Motor Vehicles agency page', '/agency/texas-dmv'],
       ['Texas Commission on Environmental Quality', '/agency/texas-commission-environmental-quality'],
       ['Texas Education Agency', '/agency/texas-education-agency'],
       ['Texas Health and Human Services', '/agency/texas-health-human-services'],
       ['Texas Parks and Wildlife', '/agency/texas-parks-wildlife'],
-      ['Texas Department of Public Safety', '/agency/texas-dps'],
+      ['Texas Department of Public Safety agency page', '/agency/texas-dps'],
+      ['Texas Workforce Commission', '/agency/texas-workforce-commission'],
       ['Public Utility Commission of Texas', '/agency/public-utility-commission'],
     ],
   },
@@ -53,9 +69,21 @@ const groups: ReadonlyArray<ResourceGroup> = [
     title: 'Finding your place',
     links: [
       ['Explore', '/explore'],
+      ['Best places to go camping in Texas', '/best-places-to-go-camping-in-texas'],
       ['Find your county', '/browse/counties'],
       ['Find a city', '/browse/cities'],
       ['Texas Life', '/texas-living'],
+    ],
+  },
+  {
+    title: 'Texas culture and traditions',
+    links: [
+      ['State Fair of Texas 2026', '/texas-state-fair'],
+      ['Texas flag', '/texas-flag'],
+      ['Texas Two Step', '/texas-two-step'],
+      ['Texas Explained', '/texas-explained'],
+      ['Texas facts', '/texas-facts'],
+      ['Things unique to Texas', '/things-unique-to-texas'],
     ],
   },
   {
@@ -142,7 +170,7 @@ function Page() {
               </div>
               <div className="grid sm:grid-cols-2">
                 {group.links.map(([label, to]) => (
-                  <Link key={to} to={to} className="group border-t border-border py-4 sm:px-5">
+                  <Link key={`${group.title}-${to}-${label}`} to={to} className="group border-t border-border py-4 sm:px-5">
                     <span className="font-display text-xl group-hover:text-primary">{label}</span>
                     <span className="ml-2 text-sm text-muted-foreground">→</span>
                   </Link>
