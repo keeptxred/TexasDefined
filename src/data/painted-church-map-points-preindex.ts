@@ -33,4 +33,12 @@ export const preindexPaintedChurchMapPoints: PaintedChurchMapPoint[] = [
     sourceUrl: "https://ihmsatx.org/contact-us",
     sourceLabel: "Official parish address at 617 S. Santa Rosa Avenue; coordinate cross-checked against current mapped property records",
   },
+  {
+    slug: "mason-st-joseph-catholic-church",
+    lat: 30.747778,
+    lon: -99.231944,
+    precision: "community",
+    sourceUrl: "https://hillcountryportal.com/mason.html",
+    sourceLabel: "Published Mason city coordinate used conservatively while exact church-property coordinate is unresolved; parish confirms the church is on the western edge of town",
+  },
 ];
