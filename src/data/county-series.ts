@@ -150,6 +150,7 @@ const LEGACY_ARTICLE_TO_COUNTY = new Map<string, string>([
   ["grayson-county-sherman-denison-lake-texoma-railroads-north-texas", "grayson"],
   ["montague-county-bowie-nocona-chisholm-trail-red-river-texas", "montague"],
   ["camp-county-pittsburg-railroads-poultry-piney-woods-texas", "camp"],
+  ["anderson-county-palestine-railroads-piney-woods-texas", "anderson"],
 ]);
 
 const COUNTY_SLUGS = new Set(LEGACY_ARTICLE_TO_COUNTY.values());
