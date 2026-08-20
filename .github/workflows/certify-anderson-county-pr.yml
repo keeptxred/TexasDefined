@@ -1,0 +1,109 @@
+name: Certify Anderson County production once
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/certify-anderson-county-pr.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  certify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    environment: texasdefined-publication
+    env:
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      TARGET_SHA: 3eaf2cac835464fb1e8c2fff44772d49172f32dd
+      HERO_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Anderson_courthouse_tx_2010.jpg?width=1600
+    steps:
+      - name: Check out exact Anderson County revision
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.TARGET_SHA }}
+          fetch-depth: 2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Verify Anderson source and canonical host
+        shell: bash
+        run: |
+          set -euo pipefail
+          fixture='src/data/fixtures/anderson-county-palestine-railroads-piney-woods-texas.ts'
+          test -f "$fixture"
+          grep -Fq 'countySlug: "anderson"' src/data/county-series-profiles-continued.ts
+          grep -Fq '["anderson-county-palestine-railroads-piney-woods-texas", "anderson"]' src/data/county-series.ts
+          if grep -n 'www\.texasdefined\.com' "$fixture" src/data/county-series-profiles-continued.ts src/data/county-series.ts; then
+            echo 'Noncanonical www TexasDefined URL found in Anderson changes' >&2
+            exit 1
+          fi
+      - name: Verify Anderson hero source
+        shell: bash
+        run: |
+          set -euo pipefail
+          work="$(mktemp -d)"
+          status="$(curl -L --retry 5 --retry-all-errors --retry-delay 2 --max-time 60 -sS -D "$work/h" -o "$work/b" -w '%{http_code}' "$HERO_URL")"
+          mime="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/{gsub(/\r/,""); sub(/^content-type:[[:space:]]*/,""); v=$0} END{print v}' "$work/h" | cut -d';' -f1)"
+          bytes="$(wc -c < "$work/b")"
+          echo "hero source HTTP=$status MIME=$mime bytes=$bytes"
+          test "$status" = 200
+          [[ "$mime" =~ ^image/(jpeg|png|webp)$ ]]
+          test "$bytes" -gt 50000
+      - name: Run full normal TexasDefined validation and build
+        run: npm run validate
+      - name: Refuse stale deployment if main moved
+        shell: bash
+        run: |
+          set -euo pipefail
+          main_sha="$(git ls-remote origin refs/heads/main | awk '{print $1}')"
+          echo "target=$TARGET_SHA main=$main_sha"
+          test "$main_sha" = "$TARGET_SHA" || {
+            echo 'main moved after Anderson certification target; refusing to deploy an older revision' >&2
+            exit 1
+          }
+      - name: Deploy exact validated revision with current Wrangler path
+        run: npm run deploy
+      - name: Verify live Anderson County page, redirect and hero
+        shell: bash
+        run: |
+          set -euo pipefail
+          origin='https://texasdefined.com'
+          work="$(mktemp -d)"
+          ok=0
+          for attempt in $(seq 1 12); do
+            status="$(curl --retry 3 --retry-all-errors --retry-delay 2 --max-time 60 -sS -o "$work/page" -w '%{http_code}' "$origin/county/anderson?verify=${TARGET_SHA}-${GITHUB_RUN_ID}-${attempt}" || true)"
+            if [ "$status" = 200 ] \
+              && grep -Fq 'Anderson County: Palestine, Railroads and the East Texas Piney Woods' "$work/page" \
+              && grep -Fq 'The county in numbers' "$work/page" \
+              && grep -Fq 'County seat' "$work/page" \
+              && grep -Fq '2020 population' "$work/page" \
+              && grep -Fq 'County feature' "$work/page" \
+              && grep -Fq 'https://texasdefined.com/county/anderson' "$work/page"; then
+              ok=1
+              break
+            fi
+            sleep 5
+          done
+          test "$ok" = 1 || { echo "Anderson live page failed; last HTTP=$status" >&2; exit 1; }
+
+          legacy="$origin/article/anderson-county-palestine-railroads-piney-woods-texas"
+          legacy_status="$(curl --max-redirs 0 -sS -D "$work/lh" -o /dev/null -w '%{http_code}' "$legacy" || true)"
+          location="$(awk 'BEGIN{IGNORECASE=1} /^location:/{gsub(/\r/,""); sub(/^location:[[:space:]]*/,""); print; exit}' "$work/lh")"
+          echo "legacy HTTP=$legacy_status location=$location"
+          test "$legacy_status" = 301
+          [[ "$location" == *'/county/anderson'* ]]
+
+          hero_status="$(curl -L --retry 5 --retry-all-errors --retry-delay 2 --max-time 60 -sS -D "$work/hh" -o "$work/hb" -w '%{http_code}' "$HERO_URL")"
+          hero_mime="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/{gsub(/\r/,""); sub(/^content-type:[[:space:]]*/,""); v=$0} END{print v}' "$work/hh" | cut -d';' -f1)"
+          hero_bytes="$(wc -c < "$work/hb")"
+          echo "live hero HTTP=$hero_status MIME=$hero_mime bytes=$hero_bytes"
+          test "$hero_status" = 200
+          [[ "$hero_mime" =~ ^image/(jpeg|png|webp)$ ]]
+          test "$hero_bytes" -gt 50000
