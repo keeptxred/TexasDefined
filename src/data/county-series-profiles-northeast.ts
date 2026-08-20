@@ -67,4 +67,10 @@ export const COUNTY_SERIES_PROFILES_NORTHEAST: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/morris-county-daingerfield-steel-state-park-piney-woods-texas")
       .then((module) => module.morrisCountyDaingerfieldSteelStateParkPineyWoodsTexasArticle),
   },
+  {
+    countySlug: "grayson",
+    articleSlug: "grayson-county-sherman-denison-lake-texoma-railroads-north-texas",
+    loadArticle: () => import("@/data/fixtures/grayson-county-sherman-denison-lake-texoma-railroads-north-texas")
+      .then((module) => module.graysonCountyShermanDenisonLakeTexomaRailroadsNorthTexasArticle),
+  },
 ];
