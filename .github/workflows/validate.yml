@@ -110,6 +110,9 @@ jobs:
       - name: Validate historic-site evergreen guides
         run: node scripts/data/validate-historic-site-evergreen.mjs
 
+      - name: Validate historic supporting guides
+        run: node scripts/data/validate-historic-supporting-guides.mjs
+
       - name: Validate military history expansion
         run: node scripts/data/validate-military-history-expansion.mjs
 
