@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 
+import { PaintedChurchEditorialStatus } from "@/components/editorial/PaintedChurchEditorialStatus";
 import { PaintedChurchEvidenceLedger } from "@/components/editorial/PaintedChurchEvidenceLedger";
 import { paintedChurchKnowledgeForChurch } from "@/data/painted-church-knowledge-graph";
 
@@ -46,6 +47,7 @@ export function PaintedChurchKnowledgeLinks({ slug }: { slug: string }) {
         </section>
       ) : null}
       <PaintedChurchEvidenceLedger slug={slug} />
+      <PaintedChurchEditorialStatus slug={slug} />
     </>
   );
 }
