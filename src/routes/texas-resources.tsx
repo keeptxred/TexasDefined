@@ -78,6 +78,7 @@ const groups: ReadonlyArray<ResourceGroup> = [
   {
     title: 'Texas culture and traditions',
     links: [
+      ['Texas vs every other state', '/texas-vs-every-state'],
       ['State Fair of Texas 2026', '/texas-state-fair'],
       ['Texas flag', '/texas-flag'],
       ['Texas Two Step', '/texas-two-step'],
