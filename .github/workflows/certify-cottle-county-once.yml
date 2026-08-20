@@ -1,0 +1,175 @@
+name: Certify Cottle County production once
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/certify-cottle-county-once.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: certify-cottle-county-production
+  cancel-in-progress: true
+
+jobs:
+  certify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    environment: texasdefined-publication
+    env:
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      HERO_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/North_Pease_River%2C_Cottle_County%2C_Texas.jpg?width=1600
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Certify current main
+        id: certify
+        shell: bash
+        run: |
+          set +e
+          git fetch origin main
+          git reset --hard origin/main
+          target="$(git rev-parse HEAD)"
+          echo "target_sha=$target" >> "$GITHUB_OUTPUT"
+          : > /tmp/cottle-cert.log
+          fail_stage=''
+          hero_status='not-run'
+          hero_mime='not-run'
+          hero_bytes='0'
+          page_status='not-run'
+          live_hero_status='not-run'
+          live_hero_mime='not-run'
+          live_hero_bytes='0'
+
+          echo '=== source checks ===' | tee -a /tmp/cottle-cert.log
+          fixture='src/data/fixtures/cottle-county-paducah-pease-river-ranching-railroads-rolling-plains-texas.ts'
+          registry='src/data/county-series-profiles-rolling-plains.ts'
+          test -f "$fixture" || fail_stage='source-fixture'
+          grep -Fq 'countySlug: "cottle"' "$registry" || fail_stage='source-registry'
+          grep -Fq 'Cottle County: Paducah, the Pease River and Rolling Plains Ranch Country' "$fixture" || fail_stage='source-title'
+          if grep -n 'www\.texasdefined\.com' "$fixture" "$registry" >> /tmp/cottle-cert.log; then fail_stage='canonical-host'; fi
+
+          echo '=== hero source ===' | tee -a /tmp/cottle-cert.log
+          hero_status="$(curl -L --retry 5 --retry-all-errors --retry-delay 2 --max-time 60 -sS -D /tmp/hero-headers -o /tmp/hero-body -w '%{http_code}' "$HERO_URL")"
+          hero_mime="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/{gsub(/\r/,""); sub(/^content-type:[[:space:]]*/,""); v=$0} END{print v}' /tmp/hero-headers | cut -d';' -f1)"
+          hero_bytes="$(wc -c < /tmp/hero-body)"
+          echo "hero source: HTTP $hero_status $hero_mime $hero_bytes bytes" | tee -a /tmp/cottle-cert.log
+          if [ "$hero_status" != '200' ] || ! [[ "$hero_mime" =~ ^image/(jpeg|png|webp)$ ]] || [ "$hero_bytes" -le 50000 ]; then fail_stage='hero-source'; fi
+
+          if [ -z "$fail_stage" ]; then
+            echo '=== npm run validate ===' | tee -a /tmp/cottle-cert.log
+            npm run validate >> /tmp/cottle-cert.log 2>&1
+            validate_code=$?
+            echo "validate exit=$validate_code" | tee -a /tmp/cottle-cert.log
+            [ "$validate_code" -eq 0 ] || fail_stage='validation'
+          fi
+
+          if [ -z "$fail_stage" ]; then
+            git fetch origin main
+            latest="$(git rev-parse origin/main)"
+            if [ "$latest" != "$target" ]; then
+              echo "main moved after validation: $target -> $latest" | tee -a /tmp/cottle-cert.log
+              fail_stage='main-moved-after-validation'
+            fi
+          fi
+
+          if [ -z "$fail_stage" ]; then
+            echo '=== npm run deploy ===' | tee -a /tmp/cottle-cert.log
+            npm run deploy >> /tmp/cottle-cert.log 2>&1
+            deploy_code=$?
+            echo "deploy exit=$deploy_code" | tee -a /tmp/cottle-cert.log
+            [ "$deploy_code" -eq 0 ] || fail_stage='deployment'
+          fi
+
+          if [ -z "$fail_stage" ]; then
+            echo '=== live verification ===' | tee -a /tmp/cottle-cert.log
+            origin='https://texasdefined.com'
+            county='/county/cottle'
+            expected_title='Cottle County: Paducah, the Pease River and Rolling Plains Ranch Country'
+            ok=0
+            for attempt in $(seq 1 12); do
+              page_status="$(curl --retry 3 --retry-all-errors --retry-delay 2 --max-time 60 -sS -o /tmp/cottle-page -w '%{http_code}' "$origin$county?verify=${target}-${GITHUB_RUN_ID}-$attempt")"
+              if [ "$page_status" = '200' ] && grep -Fq "$expected_title" /tmp/cottle-page && grep -Fq 'The county in numbers' /tmp/cottle-page && grep -Fq 'County seat' /tmp/cottle-page && grep -Fq '2020 population' /tmp/cottle-page && grep -Fq 'County feature' /tmp/cottle-page && grep -Fq 'Paducah' /tmp/cottle-page && grep -Fq 'https://texasdefined.com/county/cottle' /tmp/cottle-page && grep -Fq 'North Pease River' /tmp/cottle-page; then ok=1; break; fi
+              sleep 5
+            done
+            echo "county HTTP=$page_status editorial_structured=$ok" | tee -a /tmp/cottle-cert.log
+            [ "$ok" -eq 1 ] || fail_stage='live-county'
+          fi
+
+          if [ -z "$fail_stage" ]; then
+            live_hero_status="$(curl -L --retry 5 --retry-all-errors --retry-delay 2 --max-time 60 -sS -D /tmp/live-hero-headers -o /tmp/live-hero-body -w '%{http_code}' "$HERO_URL")"
+            live_hero_mime="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/{gsub(/\r/,""); sub(/^content-type:[[:space:]]*/,""); v=$0} END{print v}' /tmp/live-hero-headers | cut -d';' -f1)"
+            live_hero_bytes="$(wc -c < /tmp/live-hero-body)"
+            echo "live hero: HTTP $live_hero_status $live_hero_mime $live_hero_bytes bytes" | tee -a /tmp/cottle-cert.log
+            if [ "$live_hero_status" != '200' ] || ! [[ "$live_hero_mime" =~ ^image/(jpeg|png|webp)$ ]] || [ "$live_hero_bytes" -le 50000 ]; then fail_stage='live-hero'; fi
+          fi
+
+          if [ -z "$fail_stage" ]; then overall='pass'; else overall='fail'; fi
+          echo "overall=$overall" >> "$GITHUB_OUTPUT"
+          echo "fail_stage=$fail_stage" >> "$GITHUB_OUTPUT"
+          echo "hero_status=$hero_status" >> "$GITHUB_OUTPUT"
+          echo "hero_mime=$hero_mime" >> "$GITHUB_OUTPUT"
+          echo "hero_bytes=$hero_bytes" >> "$GITHUB_OUTPUT"
+          echo "page_status=$page_status" >> "$GITHUB_OUTPUT"
+          echo "live_hero_status=$live_hero_status" >> "$GITHUB_OUTPUT"
+          echo "live_hero_mime=$live_hero_mime" >> "$GITHUB_OUTPUT"
+          echo "live_hero_bytes=$live_hero_bytes" >> "$GITHUB_OUTPUT"
+          echo "RESULT overall=$overall stage=${fail_stage:-none} target=$target" | tee -a /tmp/cottle-cert.log
+          exit 0
+
+      - name: Record certification diagnostics
+        if: always()
+        shell: bash
+        env:
+          OVERALL: ${{ steps.certify.outputs.overall }}
+          FAIL_STAGE: ${{ steps.certify.outputs.fail_stage }}
+          TARGET_SHA: ${{ steps.certify.outputs.target_sha }}
+          HERO_STATUS: ${{ steps.certify.outputs.hero_status }}
+          HERO_MIME: ${{ steps.certify.outputs.hero_mime }}
+          HERO_BYTES: ${{ steps.certify.outputs.hero_bytes }}
+          PAGE_STATUS: ${{ steps.certify.outputs.page_status }}
+          LIVE_HERO_STATUS: ${{ steps.certify.outputs.live_hero_status }}
+          LIVE_HERO_MIME: ${{ steps.certify.outputs.live_hero_mime }}
+          LIVE_HERO_BYTES: ${{ steps.certify.outputs.live_hero_bytes }}
+        run: |
+          set -euo pipefail
+          git fetch origin main
+          git reset --hard origin/main
+          mkdir -p ops/certifications
+          cp /tmp/cottle-cert.log ops/certifications/cottle-county-production.log
+          cat > ops/certifications/cottle-county-production.json <<EOF
+          {
+            "county": "Cottle",
+            "canonical": "https://texasdefined.com/county/cottle",
+            "target_sha": "$TARGET_SHA",
+            "overall": "$OVERALL",
+            "fail_stage": "$FAIL_STAGE",
+            "hero_http": "$HERO_STATUS",
+            "hero_mime": "$HERO_MIME",
+            "hero_bytes": "$HERO_BYTES",
+            "page_http": "$PAGE_STATUS",
+            "live_hero_http": "$LIVE_HERO_STATUS",
+            "live_hero_mime": "$LIVE_HERO_MIME",
+            "live_hero_bytes": "$LIVE_HERO_BYTES",
+            "run_id": "$GITHUB_RUN_ID",
+            "certified_at_utc": "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          }
+          EOF
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- ops/certifications/cottle-county-production.json ops/certifications/cottle-county-production.log
+          git commit -m 'Record Cottle County production certification diagnostics'
+          git push origin HEAD:main
