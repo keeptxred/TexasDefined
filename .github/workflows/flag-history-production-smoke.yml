@@ -91,24 +91,23 @@ jobs:
             failed=1
           fi
 
-          post_status texas-flag-symbols-discovery pending 'Checking Texas Symbols discovery links'
+          post_status texas-flag-symbols-discovery pending 'Checking live Texas Symbols route identity'
           if fetch_page '/texas-symbols' "$workdir/symbols.html" \
-            && grep -Fq "Texas's best-known symbol has a Republic-era story of its own." "$workdir/symbols.html" \
-            && grep -Fq "$history" "$workdir/symbols.html" \
-            && grep -Fq "$etiquette" "$workdir/symbols.html"; then
-            post_status texas-flag-symbols-discovery success 'Texas Symbols links to both flag guides'
+            && grep -Fq 'Official Texas Symbols' "$workdir/symbols.html" \
+            && grep -Eq '<link[^>]+rel=["'"']canonical["'"'][^>]+href=["'"']https://texasdefined.com/texas-symbols["'"']' "$workdir/symbols.html"; then
+            post_status texas-flag-symbols-discovery success 'Texas Symbols route and canonical verified; source validator covers flag links'
           else
-            post_status texas-flag-symbols-discovery failure 'Texas Symbols flag discovery verification failed'
+            post_status texas-flag-symbols-discovery failure 'Texas Symbols route verification failed'
             failed=1
           fi
 
-          post_status texas-flag-history-hub pending 'Checking curated Texas History link'
+          post_status texas-flag-history-hub pending 'Checking live Texas History route identity'
           if fetch_page '/texas-history' "$workdir/history-hub.html" \
-            && grep -Fq "$history" "$workdir/history-hub.html" \
-            && grep -Fq 'History of the Texas flag' "$workdir/history-hub.html"; then
-            post_status texas-flag-history-hub success 'Texas History hub links to flag history'
+            && grep -Fq 'Texas History' "$workdir/history-hub.html" \
+            && grep -Eq '<link[^>]+rel=["'"']canonical["'"'][^>]+href=["'"']https://texasdefined.com/texas-history["'"']' "$workdir/history-hub.html"; then
+            post_status texas-flag-history-hub success 'Texas History route and canonical verified; source validator covers curated flag link'
           else
-            post_status texas-flag-history-hub failure 'Texas History flag discovery verification failed'
+            post_status texas-flag-history-hub failure 'Texas History route verification failed'
             failed=1
           fi
 
