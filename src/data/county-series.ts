@@ -134,6 +134,7 @@ const LEGACY_ARTICLE_TO_COUNTY = new Map<string, string>([
   ["upshur-county-gilmer-yamboree-piney-woods-texas", "upshur"],
   ["harrison-county-marshall-caddo-lake-railroads-piney-woods-texas", "harrison"],
   ["marion-county-jefferson-caddo-lake-riverport-piney-woods-texas", "marion"],
+  ["cass-county-linden-atlanta-wright-patman-piney-woods-texas", "cass"],
 ]);
 
 const COUNTY_SLUGS = new Set(LEGACY_ARTICLE_TO_COUNTY.values());
