@@ -101,7 +101,9 @@ requireText(thenNow, 'expansionPaintedChurchArchivalImagesBySlug', 'Then & Now m
 requireText(thenNowRoute, 'Rights-clearing queue', 'Then & Now authority page');
 requireText(comparison, 'builtYear', 'Comparison intelligence');
 requireText(comparison, 'paintedChurchSymbols', 'Comparison intelligence');
-requireText(jsonData, 'schemaVersion: 3', 'JSON dataset');
+requireText(jsonData, 'schemaVersion: 4', 'JSON dataset');
+requireText(jsonData, 'asOf: "2026-08-19"', 'JSON dataset freshness');
+for (const token of ['map:', 'comparison:', 'routes:', 'thenAndNow:', 'media:', 'citationGuide:']) requireText(jsonData, token, 'JSON authority metadata');
 requireText(csvData, 'documented_symbols', 'CSV dataset');
 
 requireText(countyGuides, "import { expandedPaintedChurches }", 'County reciprocal links');
@@ -131,4 +133,4 @@ if (failures.length) {
   failures.forEach((failure) => console.error(`- ${failure}`));
   process.exit(1);
 }
-console.log('Painted Churches authority protected: 27 verified churches, 14 formal records, entity authority pages, archival comparisons, county reciprocal links, visitor freshness, datasets, search, sitemap and citation surfaces.');
+console.log('Painted Churches authority protected: 27 verified churches, 14 formal records, entity authority pages, archival comparisons, county reciprocal links, visitor freshness, JSON v4/CSV datasets, search, sitemap and citation surfaces.');
