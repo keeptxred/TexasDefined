@@ -1,9 +1,0 @@
-{
-  "county": "jones",
-  "status": "pass",
-  "stage": "complete",
-  "county_commit": "714a939b860dbca4e0d8a029737b6a18cba26327",
-  "tested_main": "84fff8b4acb2d15891508f707164afa7c753bcd5",
-  "detail": "validate=PASS deploy=PASS page=200 structured=yes editorial=yes legacy=not-applicable hero=200 mime=image/jpeg bytes=904615",
-  "recorded_at_utc": "2026-08-20T19:40:19.342156+00:00"
-}
