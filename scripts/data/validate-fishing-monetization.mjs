@@ -9,6 +9,7 @@ const required = [
   'src/data/fishing-sponsorship.functions.ts',
   'src/components/fishing/SponsoredFishingPlacement.tsx',
   'src/routes/admin.fishing-sponsors.tsx',
+  'src/routes/admin.fishing-sponsors.lazy.tsx',
 ];
 for (const path of required) if (!fs.existsSync(path)) throw new Error(`Fishing Batch 10 missing required file: ${path}`);
 
@@ -17,7 +18,7 @@ const inventory = read(required[2]);
 const server = read(required[3]);
 const functions = read(required[4]);
 const component = read(required[5]);
-const admin = read(required[6]);
+const admin = `${read(required[6])}\n${read(required[7])}`;
 const adminLayout = read('src/routes/admin.tsx');
 
 const requireText = (text, token, label) => { if (!text.includes(token)) throw new Error(`Fishing Batch 10 validation failed: ${label}`); };
