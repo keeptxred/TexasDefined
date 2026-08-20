@@ -34,6 +34,7 @@ interface EditorialCollectionSeo extends PageSeo {
 }
 
 const DEFAULT_INDEX_ROBOTS = "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
+const PAINTED_CHURCHES_PREINDEX_ROBOTS = "noindex, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
 
 function cleanMetaText(value: string) {
   return value.replace(/\s+/g, " ").trim();
@@ -51,7 +52,8 @@ export function buildMeta(brand: BrandConfig, page: PageSeo) {
   const fullTitle = cleanMetaText(brand.seo.titleTemplate.replace("%s", pageTitle));
   const canonicalUrl = page.canonicalPath ? absoluteUrl(brand, page.canonicalPath) : undefined;
   const imageUrl = page.image ? absoluteUrl(brand, page.image) : undefined;
-  const robots = page.robots ?? (page.canonicalPath ? DEFAULT_INDEX_ROBOTS : undefined);
+  const paintedChurchPreIndexHold = page.canonicalPath?.startsWith("/explore/painted-churches") ?? false;
+  const robots = page.robots ?? (page.canonicalPath ? (paintedChurchPreIndexHold ? PAINTED_CHURCHES_PREINDEX_ROBOTS : DEFAULT_INDEX_ROBOTS) : undefined);
   const meta: Array<Record<string, string>> = [
     { title: fullTitle },
     { name: "description", content: description },
