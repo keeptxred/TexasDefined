@@ -2,7 +2,7 @@ import type { PaintedChurchProfile } from "./painted-church-profiles";
 
 const profile: PaintedChurchProfile = {
   slug: "san-antonio-immaculate-heart-of-mary",
-  quickAnswer: "Immaculate Heart of Mary in San Antonio is a 1912 Byzantine Romanesque Claretian church whose famous patterned walls are a documented historical and preservation sequence rather than one untouched campaign: a Mexican artist identified in the Claretian archives as Bartola executed the original stencil decoration in 1944; Fr. Alberto Domingo led a major restoration beginning in the 1980s; a 1991 arson fire destroyed part of the work; and the renewed restoration was completed in 1994.",
+  quickAnswer: "Immaculate Heart of Mary in San Antonio is a 1912 Byzantine Romanesque Claretian church whose famous patterned walls are a documented historical and preservation sequence rather than one untouched campaign: a Mexican artist identified in the Claretian archives as Bartola executed the original stencil decoration in 1944; Fr. Alberto Domingo led a major restoration beginning in the 1980s; a 1991 arson fire destroyed part of the work; the post-fire restoration was completed in 1994; and the parish announced completion of another major restoration in 2026.",
   foundedYear: 1912,
   builtYear: 1912,
   paintedYear: 1944,
@@ -20,7 +20,8 @@ const profile: PaintedChurchProfile = {
     { label: "Major restorer", value: "Fr. Alberto Domingo, C.M.F., who began restoring the ornate interior in the 1980s" },
     { label: "1991 fire", value: "Arson damaged the sacristy and a large portion of the painted walls then under restoration" },
     { label: "Post-fire work", value: "Visible patterns were repainted by hand and destroyed patterns reconstructed by a local restoration specialist" },
-    { label: "Restoration completed", value: "1994" },
+    { label: "Post-fire restoration completed", value: "1994" },
+    { label: "Latest parish restoration", value: "The parish announced completion of a new restoration campaign in 2026" },
     { label: "Current city designation", value: "The parish identifies the building as a City of San Antonio Historic Exceptional Landmark" },
   ],
   history: [
@@ -50,6 +51,13 @@ const profile: PaintedChurchProfile = {
         "Because the present interior contains original-pattern evidence, restoration and reconstructed post-fire areas, Texas Defined classifies the church as a restored original scheme rather than untouched original paint.",
       ],
     },
+    {
+      heading: "A new restoration completed in 2026",
+      paragraphs: [
+        "The active parish announced in 2026 that another restoration of Immaculate Heart of Mary Church had been completed and invited parishioners and visitors to experience the renewed sanctuary. The parish describes the work as respecting the traditions and historic character of the church while renewing the building for continued worship.",
+        "Texas Defined treats this as a separate modern preservation phase. It does not use the announcement alone to infer which painted surfaces, stained-glass elements, masonry features or furnishings were conserved. Those object-level treatment details remain open until a project report, conservator record or field survey documents the scope.",
+      ],
+    },
   ],
   visitorNotes: [
     "The official parish currently says visitors are welcome during regular business hours.",
@@ -59,6 +67,7 @@ const profile: PaintedChurchProfile = {
     { label: "Immaculate Heart of Mary — official parish history", url: "https://ihmsatx.org/our-history-1" },
     { label: "Claretian Missionaries Archives — A Work of Heart", url: "https://claretianmissionariesarchives.org/a-work-of-heart-a-history-of-the-painted-walls-of-immaculate-heart-of-mary-church/" },
     { label: "Immaculate Heart of Mary — official visitor/contact information", url: "https://ihmsatx.org/contact-us" },
+    { label: "Immaculate Heart of Mary — 2026 restoration completion announcement", url: "https://ihmsatx.org/giving-to-ihm-1" },
   ],
 };
 
