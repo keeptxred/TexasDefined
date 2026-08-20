@@ -37,11 +37,11 @@ export const paintedChurchPreindexExpansionFeatures: PaintedChurchFeature[] = [
     location: "Curved sanctuary wall and half dome",
     description: "A historical description preserved by Baylor University's Texas Collection attributes a monumental sanctuary composition to an artist identified as Raggi and describes Franciscan historical subject matter. Texas Defined keeps this object-level attribution separate from Pedro Juan Barceló's independently documented wall paintings until archival evidence establishes the relationship.",
     dateOrPeriod: "Historic description associated with the 1931 church",
-    contributorSlugs: ["raggi-unresolved"],
+    contributorSlugs: ["raggi-waco-unresolved"],
     techniqueSlugs: ["decorative-murals"],
     integrity: "uncertain",
     sourceLabel: "Baylor University Texas Collection — St. Francis on the Brazos",
     sourceUrl: "https://blogs.baylor.edu/texascollection/2019/11/15/st-francis-on-the-brazos/",
-    sourceDetail: "Historical architectural/interior description preserved by The Texas Collection; attribution remains under study.",
+    sourceDetail: "Historical architectural/interior description preserved by The Texas Collection; attribution remains under study and is not merged with Pedro Juan Barceló's separately documented works.",
   },
 ];
