@@ -12,12 +12,28 @@ type ResourceGroup = { title: string; links: ReadonlyArray<readonly [string, str
 
 const groups: ReadonlyArray<ResourceGroup> = [
   {
+    title: 'Most-searched Texas tasks',
+    links: [
+      ['Texas driver license', '/texas-drivers-license'],
+      ['Texas DMV', '/texas-dmv'],
+      ['Texas DPS', '/texas-dps'],
+      ['Texas vehicle registration', '/texas-vehicle-registration'],
+      ['Texas unemployment benefits', '/texas-unemployment'],
+      ['Texas fishing license', '/texas-fishing-license'],
+      ['Texas Secretary of State', '/texas-secretary-of-state'],
+      ['Texas Comptroller', '/texas-comptroller'],
+      ['Texas Attorney General', '/texas-attorney-general'],
+    ],
+  },
+  {
     title: 'Moving and settling in',
     links: [
       ['Moving Here', '/moving-to-texas'],
       ['Your first-month checklist', '/moving-to-texas-checklist'],
-      ['Register your vehicle', '/find-my-dmv'],
+      ['Register your vehicle', '/texas-vehicle-registration'],
+      ['Find your DMV or county office', '/find-my-dmv'],
       ['Find your school district', '/find-my-school-district'],
+      ['Compare Texas with every other state', '/texas-vs'],
     ],
   },
   {
@@ -37,8 +53,8 @@ const groups: ReadonlyArray<ResourceGroup> = [
   {
     title: 'Texas state agencies and services',
     links: [
-      ['Texas Secretary of State', '/agency/texas-secretary-of-state'],
-      ['Texas Comptroller', '/agency/texas-comptroller'],
+      ['Texas Secretary of State agency profile', '/agency/texas-secretary-of-state'],
+      ['Texas Comptroller agency profile', '/agency/texas-comptroller'],
       ['Texas Department of Insurance', '/agency/texas-department-insurance'],
       ['Texas Department of Motor Vehicles', '/agency/texas-dmv'],
       ['Texas Commission on Environmental Quality', '/agency/texas-commission-environmental-quality'],
@@ -46,13 +62,26 @@ const groups: ReadonlyArray<ResourceGroup> = [
       ['Texas Health and Human Services', '/agency/texas-health-human-services'],
       ['Texas Parks and Wildlife', '/agency/texas-parks-wildlife'],
       ['Texas Department of Public Safety', '/agency/texas-dps'],
+      ['Texas Workforce Commission', '/agency/texas-workforce-commission'],
       ['Public Utility Commission of Texas', '/agency/public-utility-commission'],
+    ],
+  },
+  {
+    title: 'Texas culture, events and symbols',
+    links: [
+      ['State Fair of Texas 2026', '/texas-state-fair'],
+      ['Texas flag', '/texas-flag'],
+      ['Texas Two Step', '/texas-two-step'],
+      ['Texas events', '/events'],
+      ['Texas symbols', '/texas-symbols'],
+      ['Things unique to Texas', '/things-unique-to-texas'],
     ],
   },
   {
     title: 'Finding your place',
     links: [
       ['Explore', '/explore'],
+      ['Best places to go camping in Texas', '/explore/texas-camping-guide'],
       ['Find your county', '/browse/counties'],
       ['Find a city', '/browse/cities'],
       ['Texas Life', '/texas-living'],
