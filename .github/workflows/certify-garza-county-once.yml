@@ -1,3 +1,4 @@
+# Observable PR-triggered certification; checkout remains pinned to current main.
 name: Certify Garza County production once
 
 on:
