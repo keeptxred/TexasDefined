@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - '.github/verification/painted-churches-pr148.txt'
+      - '.github/workflows/verify-painted-churches-production-once.yml'
 
 permissions:
   contents: read
@@ -11,7 +12,7 @@ permissions:
 jobs:
   deploy-and-verify:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
     environment: texasdefined-publication
     env:
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -24,67 +25,63 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci --no-audit --no-fund
-      - name: Validate Painted Churches search-intent coverage
-        run: node scripts/data/validate-painted-church-search-intents.mjs
+      - name: Validate complete Painted Churches authority contract
+        run: |
+          node scripts/data/validate-painted-churches-seo.mjs
+          node scripts/data/validate-painted-church-search-intents.mjs
+          node scripts/data/validate-painted-church-map.mjs
+          node scripts/data/validate-painted-church-completion.mjs
       - name: Build production bundle
         run: npm run build
       - name: Enforce existing client bundle budget
         run: npm run performance:validate
       - name: Deploy TexasDefined Worker
         run: npx wrangler deploy
-      - name: Verify Painted Churches production routes
+      - name: Verify current Painted Churches production routes
         shell: bash
         run: |
           set -euo pipefail
-          atlas='https://texasdefined.com/explore/painted-churches/guides'
-          sample='https://texasdefined.com/explore/painted-churches/guides/st-michael-weimar'
-          sitemap='https://texasdefined.com/sitemap-explore.xml'
+          origin='https://texasdefined.com'
           workdir="$(mktemp -d)"
           trap 'rm -rf "$workdir"' EXIT
 
-          fetch_with_retry() {
-            local label="$1" url="$2" out="$3" headers="$4"
+          fetch_assert() {
+            local label="$1" path="$2" needle="$3"
+            local out="$workdir/${label}.html"
+            local headers="$workdir/${label}.headers"
             local attempt
             for attempt in 1 2 3 4 5 6; do
-              echo "[$label] fetch attempt $attempt: $url"
+              echo "[$label] fetch attempt $attempt: ${origin}${path}"
               if curl --fail-with-body --silent --show-error --location --max-time 30 \
                 -D "$headers" \
                 -w "[$label] http=%{http_code} final=%{url_effective} bytes=%{size_download}\n" \
-                "${url}?verify=${GITHUB_SHA}-${GITHUB_RUN_ID}" -o "$out"; then
-                echo "[$label] response headers:"
+                "${origin}${path}?verify=${GITHUB_SHA}-${GITHUB_RUN_ID}-${attempt}" -o "$out"; then
                 grep -Ei '^(HTTP/|content-type:|cache-control:|cf-cache-status:|location:)' "$headers" || true
-                return 0
+                if grep -Fq "$needle" "$out"; then
+                  echo "[$label] CONTENT_OK: $needle"
+                  return 0
+                fi
+                echo "[$label] CONTENT_ASSERTION_FAILED: $needle"
               fi
               sleep 5
             done
-            echo "[$label] FETCH_FAILED"
+            echo "[$label] production verification failed" >&2
+            head -c 1200 "$out" 2>/dev/null || true
+            echo >&2
             return 1
           }
 
-          assert_contains() {
-            local label="$1" file="$2" needle="$3"
-            if grep -Fq "$needle" "$file"; then
-              echo "[$label] CONTENT_OK: $needle"
-              return 0
-            fi
-            echo "[$label] CONTENT_ASSERTION_FAILED: $needle"
-            echo "[$label] first 1200 bytes follow:"
-            head -c 1200 "$file" || true
-            echo
-            echo "[$label] diagnostic title/canonical fragments:"
-            grep -Eo '<title>[^<]*|rel="canonical"[^>]*|<h1[^>]*>[^<]*' "$file" | head -20 || true
-            return 1
-          }
+          fetch_assert hub '/explore/painted-churches' 'Painted Churches of Texas'
+          fetch_assert map '/explore/painted-churches/map' 'Texas Painted Churches Map'
+          fetch_assert then-now '/explore/painted-churches/then-and-now' 'Texas Painted Churches, then and now.'
+          fetch_assert media '/explore/painted-churches/media' 'Watch the documentary. Follow the voices behind it.'
+          fetch_assert guides '/guides' 'Painted Churches of Texas'
 
-          fetch_with_retry atlas "$atlas" "$workdir/atlas.html" "$workdir/atlas.headers"
-          assert_contains atlas "$workdir/atlas.html" 'Texas Painted Churches Search Guide'
-          assert_contains atlas "$workdir/atlas.html" 'Every major Painted Churches question has somewhere useful to land.'
+          sitemap="$workdir/sitemap.xml"
+          curl --fail-with-body --silent --show-error --location --max-time 30 \
+            "${origin}/sitemap-explore.xml?verify=${GITHUB_SHA}-${GITHUB_RUN_ID}" -o "$sitemap"
+          grep -Fq '/explore/painted-churches/then-and-now' "$sitemap"
+          grep -Fq '/explore/painted-churches/media' "$sitemap"
+          grep -Fq '/explore/painted-churches/cite' "$sitemap"
 
-          fetch_with_retry sample "$sample" "$workdir/sample.html" "$workdir/sample.headers"
-          assert_contains sample "$workdir/sample.html" 'St. Michael Catholic Church in Weimar'
-          assert_contains sample "$workdir/sample.html" 'Diocese of Victoria'
-
-          fetch_with_retry sitemap "$sitemap" "$workdir/sitemap.xml" "$workdir/sitemap.headers"
-          assert_contains sitemap "$workdir/sitemap.xml" '/explore/painted-churches/guides/st-michael-weimar'
-
-          echo 'Painted Churches atlas, representative guide, and Explore sitemap are live in production.'
+          echo 'Current Painted Churches hub, map, archival, media, Guidebook and sitemap surfaces are live in production.'
