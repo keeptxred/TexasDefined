@@ -1,0 +1,1 @@
+Painted Churches remain in pre-index review. Public indexing must stay disabled until the authority readiness gate and an explicit publication decision are complete.
