@@ -4,7 +4,7 @@ const source = fs.readFileSync('src/data/things-unique-to-texas-links.ts', 'utf8
 const reference = fs.readFileSync('src/data/things-unique-to-texas-reference.ts', 'utf8');
 const route = fs.readFileSync('src/routes/things-unique-to-texas.tsx', 'utf8');
 const hub = fs.readFileSync('src/routes/things-unique-to-texas.lazy.tsx', 'utf8');
-const methodology = fs.readFileSync('src/routes/things-unique-to-texas.methodology.tsx', 'utf8');
+const methodology = fs.readFileSync('src/routes/things-unique-to-texas_.methodology.tsx', 'utf8');
 const promotedArticleTargets = [
   ['src/data/fixtures/caddo-lake-cypress-morning.ts', 'slug: "caddo-lake-cypress-morning"', '/article/caddo-lake-cypress-morning'],
   ['src/data/fixtures/texas-wildlife-guide-stub.ts', 'slug: "texas-wildlife-guide"', '/article/texas-wildlife-guide'],
