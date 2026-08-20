@@ -89,6 +89,31 @@ const routeGuides: RouteGuide[] = [
   },
   {
     slugs: new Set([
+      "goodnight-ranch",
+      "fort-griffin",
+      "official-texas-longhorn-herd",
+    ]),
+    item: {
+      name: "Texas cattle and ranching history",
+      description: "Connect longhorn preservation, cattle trails and Fort Griffin with Charles and Mary Ann Goodnight and the rise of large-scale Panhandle ranching.",
+      href: "/article/texas-cattle-ranching-history-guide",
+    },
+  },
+  {
+    slugs: new Set([
+      "fanthorp-inn",
+      "landmark-inn",
+      "slaton-harvey-house",
+      "fort-lancaster",
+    ]),
+    item: {
+      name: "How Texans traveled before highways",
+      description: "Follow stage roads, wagon freight, historic inns, military overland routes and the railroad-era Harvey House network across Texas.",
+      href: "/article/texas-historic-travel-transportation-guide",
+    },
+  },
+  {
+    slugs: new Set([
       "eisenhower-birthplace",
       "bush-family-home",
       "sam-rayburn-house",
