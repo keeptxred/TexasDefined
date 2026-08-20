@@ -14,7 +14,13 @@ export interface Region { id: TexasRegion; name: string; blurb: string; }
 export type CategorySlug = "lakes-rivers" | "major-springs" | "state-parks" | "national-parks" | "caverns" | "beaches-coast" | "historic-sites" | "road-trips" | "small-towns" | "food-bbq" | "outdoors" | "sports" | "events" | "texas-history" | "moving-to-texas" | "home-garden" | "real-estate" | "guides";
 export interface Category { slug: CategorySlug; name: string; eyebrow: string; description: string; image?: ImageRef; }
 export interface Author { id: string; name: string; role: string; bio: string; }
-export type ArticleBlock = { type: "paragraph"; text: string } | { type: "heading"; text: string } | { type: "quote"; text: string; attribution?: string } | { type: "list"; items: string[] } | { type: "shop"; collectionSlug: Slug };
+export type ArticleBlock =
+  | { type: "paragraph"; text: string }
+  | { type: "heading"; text: string }
+  | { type: "quote"; text: string; attribution?: string }
+  | { type: "list"; items: string[] }
+  | { type: "image"; image: ImageRef; caption?: string }
+  | { type: "shop"; collectionSlug: Slug };
 export interface ArticleInternalLink { href: string; label: string; description?: string; }
 export interface Article { id: string; brandId: BrandId; slug: Slug; title: string; dek: string; category: CategorySlug; region?: TexasRegion; hero: ImageRef; authorId: string; publishedAt: string; readingMinutes: number; tags: string[]; featured?: boolean; body: ArticleBlock[]; internalLinks?: ArticleInternalLink[]; relatedCollections: Slug[]; relatedDestinations: Slug[]; sourceName?: string; sourceUrl?: string; }
 
