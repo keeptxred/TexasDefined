@@ -44,6 +44,7 @@ function TexasSymbolsPage() {
               <p className="mt-5 max-w-3xl leading-7 text-muted-foreground">The state flag is governed separately in the Texas Flag Code rather than being forced into this legislatively designated-symbol directory. Follow the documented path from the Burnet flag to the 1839 Lone Star design, then use the practical guide for display, half-staff, the pledge and position with the U.S. flag.</p>
             </div>
             <div className="divide-y divide-border border-y border-border">
+              <RelatedLink to="/texas-flag" title="Texas flag: complete guide" text="History, meaning, statutory design rules, display guidance and the Lone Star in one search-focused hub." />
               <RelatedLink to="/article/history-of-the-texas-flag" title="History of the Texas flag" text="From revolution-era proposals and the Burnet flag through the Republic's 1839 Lone Star design." />
               <RelatedLink to="/article/texas-flag-etiquette-display-guide" title="Texas flag display & etiquette" text="Position with the U.S. flag, vertical display, half-staff, folding, the pledge and retirement." />
             </div>
@@ -163,6 +164,7 @@ function TexasSymbolsPage() {
             <aside className="border border-border bg-muted/30 p-7">
               <h2 className="font-display text-3xl">Keep exploring Texas</h2>
               <div className="mt-6 divide-y divide-border border-y border-border">
+                <RelatedLink to="/texas-flag" title="Texas flag" text="The Lone Star flag's history, meaning, rules and display guides." />
                 <RelatedLink to="/article/history-of-the-texas-flag" title="History of the Texas flag" text="The Republic-era story behind the Lone Star design." />
                 <RelatedLink to="/texas-history" title="Texas History" text="The people, places and turning points behind the state." />
                 <RelatedLink to="/texas-explained" title="Texas Explained" text="Plain-English guides to why Texas looks and works the way it does." />
