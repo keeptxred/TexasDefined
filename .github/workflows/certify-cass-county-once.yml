@@ -95,3 +95,5 @@ jobs:
           curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
             "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
             --data '{"state":"success","context":"cass-production-certification","description":"Cass county page, redirect and hero all verified live"}' >/dev/null
+
+# Second-push trigger for one-time certification.
