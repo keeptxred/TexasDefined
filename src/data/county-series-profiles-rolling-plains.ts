@@ -97,4 +97,10 @@ export const COUNTY_SERIES_PROFILES_ROLLING_PLAINS: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/taylor-county-abilene-buffalo-gap-dyess-big-country-texas")
       .then((module) => module.taylorCountyAbileneBuffaloGapDyessBigCountryTexasArticle),
   },
+  {
+    countySlug: "callahan",
+    articleSlug: "callahan-county-baird-cross-plains-railroads-callahan-divide-big-country-texas",
+    loadArticle: () => import("@/data/fixtures/callahan-county-baird-cross-plains-railroads-callahan-divide-big-country-texas")
+      .then((module) => module.callahanCountyBairdCrossPlainsRailroadsCallahanDivideBigCountryTexasArticle),
+  },
 ];
