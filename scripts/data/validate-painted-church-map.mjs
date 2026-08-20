@@ -8,16 +8,13 @@ const expanded = [read('src/data/painted-churches-expanded-legacy.ts'), read('sr
 const publicRoutes = read('src/lib/public-routes.ts');
 const llms = read('src/routes/llms[.]txt.ts');
 const manifest = JSON.parse(read('public/citation-magnets.json'));
+const preindexManifest = JSON.parse(read('src/data/painted-church-preindex-manifest.json'));
 
 const pointCount = (points.match(/slug: "/g) ?? []).length;
-if (pointCount !== 31) failures.push(`Interactive Painted Churches map must retain 31 sourced points; found ${pointCount}.`);
-for (const slug of [
-  'corpus-christi-sacred-heart-catholic-church','san-antonio-st-joseph-catholic-church','anderson-st-stanislaus-kostka',
-  'castroville-st-louis-catholic-church','lacoste-our-lady-of-grace','galveston-st-joseph-church',
-  'palestine-first-presbyterian-church','houston-annunciation-catholic-church','waco-st-francis-on-the-brazos',
-  'serbin-st-paul-lutheran-church','praha-st-marys-assumption'
-]) {
+if (pointCount !== preindexManifest.verifiedChurchCount) failures.push(`Interactive Painted Churches map must retain ${preindexManifest.verifiedChurchCount} sourced points; found ${pointCount}.`);
+for (const slug of preindexManifest.churchSlugs) {
   if (!points.includes(`slug: "${slug}"`)) failures.push(`Map coordinate registry missing ${slug}.`);
+  if (!expanded.includes(slug)) failures.push(`Canonical collection must retain verified church ${slug}.`);
 }
 for (const field of ['precision:', 'sourceUrl:', 'sourceLabel:', 'exact-property', 'near-property', 'community']) {
   if (!points.includes(field)) failures.push(`Map coordinate registry must preserve ${field}`);
@@ -25,9 +22,6 @@ for (const field of ['precision:', 'sourceUrl:', 'sourceLabel:', 'exact-property
 if (!mapRoute.includes('useState') || !mapRoute.includes('aria-pressed') || !mapRoute.includes('setSelectedSlug')) failures.push('Map must remain interactive with accessible filters and pin selection.');
 if (!mapRoute.includes('GeoCoordinates') || !mapRoute.includes('paintedChurchMapPoints')) failures.push('Map must publish sourced GeoCoordinates data.');
 if (!mapRoute.includes('Coordinate methodology') || !mapRoute.includes('precisionLabel')) failures.push('Map must visibly explain coordinate precision.');
-for (const slug of ['corpus-christi-sacred-heart-catholic-church','san-antonio-st-joseph-catholic-church','anderson-st-stanislaus-kostka','castroville-st-louis-catholic-church','lacoste-our-lady-of-grace','galveston-st-joseph-church','palestine-first-presbyterian-church','houston-annunciation-catholic-church','waco-st-francis-on-the-brazos']) {
-  if (!expanded.includes(slug)) failures.push(`Canonical collection must retain verified promotion ${slug}.`);
-}
 for (const path of ['/explore/painted-churches/media','/explore/painted-churches/cite','/explore/painted-churches/then-and-now']) {
   if (!publicRoutes.includes(JSON.stringify(path))) failures.push(`Public route registry missing ${path}.`);
 }
@@ -39,8 +33,8 @@ for (const path of ['/explore/painted-churches/census','/explore/painted-churche
 }
 
 if (failures.length) {
-  console.error('Painted Churches interactive map / 31-church authority validation failed:');
+  console.error(`Painted Churches interactive map / ${preindexManifest.verifiedChurchCount}-church authority validation failed:`);
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
-console.log('Painted Churches map protected: 31 sourced pins, precision provenance, interactive filters, GeoCoordinates, archival comparison, public routes, llms guidance and citation manifest.');
+console.log(`Painted Churches map protected: ${preindexManifest.verifiedChurchCount} sourced pins, precision provenance, interactive filters, GeoCoordinates, archival comparison, public routes, llms guidance and citation manifest.`);
