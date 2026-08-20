@@ -24,12 +24,14 @@ jobs:
       HERO_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Wood_courthouse_tx_2010.jpg?width=1600
     steps:
       - name: Check out current main
+        id: checkout
         uses: actions/checkout@v4
         with:
           ref: main
           fetch-depth: 2
 
       - name: Set up Node.js
+        id: node
         uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -37,9 +39,11 @@ jobs:
           cache-dependency-path: package-lock.json
 
       - name: Install dependencies
+        id: install
         run: npm ci --no-audit --no-fund
 
       - name: Verify county hero source
+        id: hero
         shell: bash
         run: |
           set -euo pipefail
@@ -50,8 +54,11 @@ jobs:
           case "$mime" in image/jpeg|image/png|image/webp) ;; *) echo "Unexpected hero MIME: $mime" >&2; exit 1;; esac
           test "$(wc -c < "$workdir/body")" -gt 50000
           echo "Hero source verified: HTTP $status $mime $(wc -c < "$workdir/body") bytes"
+          echo "mime=$mime" >> "$GITHUB_OUTPUT"
+          echo "bytes=$(wc -c < "$workdir/body")" >> "$GITHUB_OUTPUT"
 
       - name: Validate and deploy newest stable main
+        id: deploy
         shell: bash
         run: |
           set -euo pipefail
@@ -92,6 +99,7 @@ jobs:
             fi
 
             echo "TARGET_SHA=$target" >> "$GITHUB_ENV"
+            echo "target_sha=$target" >> "$GITHUB_OUTPUT"
             echo "Validated and deployed stable main $target"
             exit 0
           done
@@ -100,6 +108,7 @@ jobs:
           exit 1
 
       - name: Verify live Wood County page, structured layer, redirect, and hero
+        id: live
         shell: bash
         run: |
           set -euo pipefail
@@ -126,27 +135,53 @@ jobs:
           test "$hero_status" = '200'
           case "$hero_mime" in image/jpeg|image/png|image/webp) ;; *) echo "Live hero MIME invalid: $hero_mime" >&2; exit 1;; esac
           test "$(wc -c < "$workdir/hero")" -gt 50000
+          echo "legacy_status=$legacy_status" >> "$GITHUB_OUTPUT"
+          echo "hero_status=$hero_status" >> "$GITHUB_OUTPUT"
+          echo "hero_mime=$hero_mime" >> "$GITHUB_OUTPUT"
+          echo "hero_bytes=$(wc -c < "$workdir/hero")" >> "$GITHUB_OUTPUT"
           echo "PASS county=$county structured=yes editorial=yes legacy=$legacy_status hero=$hero_status mime=$hero_mime target=$TARGET_SHA"
-          echo "LIVE_HERO_MIME=$hero_mime" >> "$GITHUB_ENV"
 
-      - name: Record successful Wood County certification
+      - name: Record Wood County certification outcome
+        if: always()
         shell: bash
+        env:
+          CHECKOUT_OUTCOME: ${{ steps.checkout.outcome }}
+          INSTALL_OUTCOME: ${{ steps.install.outcome }}
+          HERO_OUTCOME: ${{ steps.hero.outcome }}
+          DEPLOY_OUTCOME: ${{ steps.deploy.outcome }}
+          LIVE_OUTCOME: ${{ steps.live.outcome }}
+          TARGET_FROM_STEP: ${{ steps.deploy.outputs.target_sha }}
+          HERO_SOURCE_MIME: ${{ steps.hero.outputs.mime }}
+          HERO_SOURCE_BYTES: ${{ steps.hero.outputs.bytes }}
+          LEGACY_STATUS: ${{ steps.live.outputs.legacy_status }}
+          HERO_STATUS: ${{ steps.live.outputs.hero_status }}
+          HERO_MIME: ${{ steps.live.outputs.hero_mime }}
+          HERO_BYTES: ${{ steps.live.outputs.hero_bytes }}
         run: |
           set -euo pipefail
           git fetch origin main
           git reset --hard origin/main
+          target="${TARGET_FROM_STEP:-$(git rev-parse HEAD)}"
+          overall='pass'
+          if [ "$DEPLOY_OUTCOME" != 'success' ] || [ "$LIVE_OUTCOME" != 'success' ] || [ "$HERO_OUTCOME" != 'success' ]; then overall='fail'; fi
           mkdir -p ops/certifications
           cat > ops/certifications/wood-county-production.json <<EOF
           {
             "county": "Wood",
             "canonical": "https://texasdefined.com/county/wood",
-            "target_sha": "$TARGET_SHA",
-            "validation": "pass",
-            "deployment": "pass",
-            "live_page": "pass",
-            "legacy_redirect": "301",
-            "hero_http": "200",
-            "hero_mime": "$LIVE_HERO_MIME",
+            "target_sha": "$target",
+            "overall": "$overall",
+            "checkout": "$CHECKOUT_OUTCOME",
+            "install": "$INSTALL_OUTCOME",
+            "hero_source": "$HERO_OUTCOME",
+            "validation_deployment": "$DEPLOY_OUTCOME",
+            "live_verification": "$LIVE_OUTCOME",
+            "hero_source_mime": "$HERO_SOURCE_MIME",
+            "hero_source_bytes": "$HERO_SOURCE_BYTES",
+            "legacy_redirect": "$LEGACY_STATUS",
+            "hero_http": "$HERO_STATUS",
+            "hero_mime": "$HERO_MIME",
+            "hero_bytes": "$HERO_BYTES",
             "run_id": "$GITHUB_RUN_ID",
             "certified_at_utc": "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
           }
@@ -154,5 +189,5 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -- ops/certifications/wood-county-production.json
-          git commit -m 'Record Wood County production certification'
+          git commit -m 'Record Wood County production certification outcome'
           git push origin HEAD:main
