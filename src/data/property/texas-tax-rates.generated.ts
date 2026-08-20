@@ -10,7 +10,9 @@ export type TexasTaxRateRecord = {
   name: string;
   slug: string;
   countySlugs: string[];
-  totalRate: number;
+  totalRate: number | null;
+  rateVariants: number[];
+  variableRate: boolean;
   maintenanceOperationsRate: number | null;
   debtServiceRate: number | null;
   levy: number | null;
