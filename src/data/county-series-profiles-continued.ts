@@ -157,4 +157,10 @@ export const COUNTY_SERIES_PROFILES_CONTINUED: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/cass-county-linden-atlanta-wright-patman-piney-woods-texas")
       .then((module) => module.cassCountyLindenAtlantaWrightPatmanPineyWoodsArticle),
   },
+  {
+    countySlug: "bowie",
+    articleSlug: "bowie-county-texarkana-new-boston-red-river-piney-woods-texas",
+    loadArticle: () => import("@/data/fixtures/bowie-county-texarkana-new-boston-red-river-piney-woods-texas")
+      .then((module) => module.bowieCountyTexarkanaNewBostonRedRiverPineyWoodsArticle),
+  },
 ];
