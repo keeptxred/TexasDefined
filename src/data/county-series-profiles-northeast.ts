@@ -13,10 +13,4 @@ export const COUNTY_SERIES_PROFILES_NORTHEAST: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/hunt-county-greenville-cotton-railroads-blackland-prairie-texas")
       .then((module) => module.huntCountyGreenvilleCottonRailroadsBlacklandPrairieArticle),
   },
-  {
-    countySlug: "delta",
-    articleSlug: "delta-county-cooper-sulphur-rivers-blackland-prairie-texas",
-    loadArticle: () => import("@/data/fixtures/delta-county-cooper-sulphur-rivers-blackland-prairie-texas")
-      .then((module) => module.deltaCountyCooperSulphurRiversBlacklandPrairieTexasArticle),
-  },
 ];
