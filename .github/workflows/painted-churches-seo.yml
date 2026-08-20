@@ -2,7 +2,7 @@ name: Painted Churches SEO Authority
 
 on:
   push:
-    branches: [main]
+    branches: [main, painted-churches-authority-preindex]
     paths:
       - "src/routes/explore.painted-churches*"
       - "src/routes/painted-churches*"
@@ -22,6 +22,7 @@ on:
       - "scripts/data/validate-painted-church-map.mjs"
       - "scripts/data/validate-painted-church-search-intents.mjs"
       - "scripts/data/validate-painted-church-completion.mjs"
+      - "scripts/data/validate-painted-church-preindex.mjs"
       - ".github/workflows/painted-churches-seo.yml"
   pull_request:
     paths:
@@ -43,6 +44,7 @@ on:
       - "scripts/data/validate-painted-church-map.mjs"
       - "scripts/data/validate-painted-church-search-intents.mjs"
       - "scripts/data/validate-painted-church-completion.mjs"
+      - "scripts/data/validate-painted-church-preindex.mjs"
       - ".github/workflows/painted-churches-seo.yml"
 
 permissions:
@@ -60,7 +62,9 @@ jobs:
         run: node scripts/data/validate-painted-churches-seo.mjs
       - name: Validate Painted Churches search-intent coverage
         run: node scripts/data/validate-painted-church-search-intents.mjs
-      - name: Validate Painted Churches interactive map and 27-church authority contract
+      - name: Validate Painted Churches interactive map and 28-church authority contract
         run: node scripts/data/validate-painted-church-map.mjs
       - name: Validate Painted Churches completion surfaces
         run: node scripts/data/validate-painted-church-completion.mjs
+      - name: Validate Painted Churches pre-index authority gate
+        run: node scripts/data/validate-painted-church-preindex.mjs
