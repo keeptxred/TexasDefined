@@ -5,6 +5,7 @@ import { legacyExploreDestinations } from "./fixtures/legacy-explore";
 import { legacyLakeDestinations } from "./fixtures/legacy-lakes";
 import { historicSiteDestinations } from "./historic-sites";
 import { militaryHistoryDestinations } from "./military-history-destinations";
+import { militaryMuseumDestinations } from "./military-museum-destinations";
 import type { Destination } from "./types";
 
 function mergePreservedDestinations(...groups: Destination[][]): Destination[] {
@@ -41,4 +42,5 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   legacyLakeDestinations,
   historicSiteDestinations,
   militaryHistoryDestinations,
+  militaryMuseumDestinations,
 );
