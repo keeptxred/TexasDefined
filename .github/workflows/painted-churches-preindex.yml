@@ -9,6 +9,7 @@ on:
       - 'src/components/editorial/PaintedChurch*'
       - 'src/routes/explore.painted-churches*'
       - 'src/lib/seo.ts'
+      - 'src/lib/painted-church-publication.ts'
       - 'scripts/data/validate-painted-church*.mjs'
       - '.github/workflows/painted-churches-preindex.yml'
   pull_request:
@@ -17,6 +18,7 @@ on:
       - 'src/components/editorial/PaintedChurch*'
       - 'src/routes/explore.painted-churches*'
       - 'src/lib/seo.ts'
+      - 'src/lib/painted-church-publication.ts'
       - 'scripts/data/validate-painted-church*.mjs'
       - '.github/workflows/painted-churches-preindex.yml'
   workflow_dispatch:
@@ -30,6 +32,8 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -47,3 +51,13 @@ jobs:
         run: npm run build
       - name: Preserve existing client bundle budget
         run: npm run performance:validate
+      - name: Release-base freshness check
+        shell: bash
+        run: |
+          git fetch origin main --no-tags
+          if ! git merge-base --is-ancestor origin/main HEAD; then
+            echo 'Painted Churches authority work does not yet contain current main.' >&2
+            echo 'Reconcile the authority branch with current main before any publication/indexing release.' >&2
+            exit 1
+          fi
+          echo 'Authority branch contains current main and is eligible for final release review.'
