@@ -90,9 +90,10 @@ jobs:
           }
 
           fetch_assert homepage '/' 'Texas Defined'
+          fetch_assert moving-pillar '/article/moving-to-texas-what-nobody-tells-you' 'The quick answer: what should you know before moving to Texas?'
           fetch_assert painted-churches '/explore/painted-churches' 'Painted Churches of Texas'
           fetch_assert then-and-now '/explore/painted-churches/then-and-now' 'Texas Painted Churches, then and now.'
           fetch_assert media '/explore/painted-churches/media' 'Watch the documentary. Follow the voices behind it.'
           fetch_assert guidebook '/guides' 'Painted Churches of Texas'
 
-          echo 'TexasDefined production and Painted Churches authority surfaces are live.'
+          echo 'TexasDefined production, moving-to-Texas pillar and Painted Churches authority surfaces are live.'
