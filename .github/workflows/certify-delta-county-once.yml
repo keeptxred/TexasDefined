@@ -1,3 +1,4 @@
+# One-time PR trigger for Delta County production certification.
 name: Certify Delta County production once
 
 on:
