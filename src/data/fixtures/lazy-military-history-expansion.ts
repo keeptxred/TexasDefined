@@ -34,7 +34,7 @@ const texasRedRiverWarGuideStub: Article = {
   authorId: "a-marisol", publishedAt: "2026-08-19", readingMinutes: 18,
   tags: ["Red River War", "Adobe Walls", "Palo Duro Canyon", "Quanah Parker", "Comanche history", "Kiowa history", "Texas Panhandle history", "Texas military history"], featured: true,
   sourceName: "Texas Historical Commission", sourceUrl: "https://thc.texas.gov/learn/archeological-spotlight/red-river-war-battle-sites-project",
-  body: [], relatedCollections: [], relatedDestinations: ["palo-duro-canyon", "goodnight-ranch"],
+  body: [], relatedCollections: [], relatedDestinations: ["palo-duro-canyon-state-park", "goodnight-ranch"],
 };
 
 const texasNationalGuardHistoryStub: Article = {
