@@ -29,8 +29,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
-          curl --fail-with-body --silent --show-error \
-            --request POST \
+          curl --fail-with-body --silent --show-error --request POST \
             --header "Authorization: Bearer $GH_TOKEN" \
             --header 'Accept: application/vnd.github+json' \
             --header 'X-GitHub-Api-Version: 2022-11-28' \
@@ -41,14 +40,87 @@ jobs:
         with:
           node-version: 22
           cache: npm
-      - name: Install dependencies
-        run: npm ci --no-audit --no-fund
-      - name: Build production bundle
-        run: npm run build
+
+      - name: Publish build pending
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          curl --fail-with-body --silent --show-error --request POST \
+            --header "Authorization: Bearer $GH_TOKEN" --header 'Accept: application/vnd.github+json' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
+            --data '{"state":"pending","context":"texas-flag-build","description":"Installing dependencies and building production bundle"}' >/dev/null
+      - name: Install dependencies and build production bundle
+        run: npm ci --no-audit --no-fund && npm run build
+      - name: Publish build success
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          curl --fail-with-body --silent --show-error --request POST \
+            --header "Authorization: Bearer $GH_TOKEN" --header 'Accept: application/vnd.github+json' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
+            --data '{"state":"success","context":"texas-flag-build","description":"Production build passed"}' >/dev/null
+      - name: Publish build failure
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          curl --fail-with-body --silent --show-error --request POST \
+            --header "Authorization: Bearer $GH_TOKEN" --header 'Accept: application/vnd.github+json' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
+            --data '{"state":"failure","context":"texas-flag-build","description":"Production build failed"}' >/dev/null
+
+      - name: Publish bundle-budget pending
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          curl --fail-with-body --silent --show-error --request POST \
+            --header "Authorization: Bearer $GH_TOKEN" --header 'Accept: application/vnd.github+json' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
+            --data '{"state":"pending","context":"texas-flag-bundle-budget","description":"Checking existing client bundle budget"}' >/dev/null
       - name: Enforce existing client bundle budget
         run: npm run performance:validate
+      - name: Publish bundle-budget success
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          curl --fail-with-body --silent --show-error --request POST \
+            --header "Authorization: Bearer $GH_TOKEN" --header 'Accept: application/vnd.github+json' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
+            --data '{"state":"success","context":"texas-flag-bundle-budget","description":"Client bundle budget passed"}' >/dev/null
+
+      - name: Publish deploy pending
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          curl --fail-with-body --silent --show-error --request POST \
+            --header "Authorization: Bearer $GH_TOKEN" --header 'Accept: application/vnd.github+json' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
+            --data '{"state":"pending","context":"texas-flag-cloudflare-deploy","description":"Deploying TexasDefined Worker to Cloudflare"}' >/dev/null
       - name: Deploy TexasDefined Worker
         run: npx wrangler deploy
+      - name: Publish deploy success
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          curl --fail-with-body --silent --show-error --request POST \
+            --header "Authorization: Bearer $GH_TOKEN" --header 'Accept: application/vnd.github+json' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
+            --data '{"state":"success","context":"texas-flag-cloudflare-deploy","description":"Cloudflare Worker deploy completed"}' >/dev/null
+
+      - name: Publish live verification pending
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          curl --fail-with-body --silent --show-error --request POST \
+            --header "Authorization: Bearer $GH_TOKEN" --header 'Accept: application/vnd.github+json' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
+            --data '{"state":"pending","context":"texas-flag-live-verify","description":"Checking live articles, sitemap and discovery"}' >/dev/null
       - name: Verify Texas flag content cluster
         shell: bash
         run: |
@@ -92,23 +164,34 @@ jobs:
           grep -Fq 'When should the Texas flag be at half-staff?' "$workdir/etiquette.html"
           grep -Fq "$history" "$workdir/etiquette.html"
 
+          fetch_until_match '/texas-symbols' "$workdir/symbols.html" "Texas's best-known symbol has a Republic-era story of its own."
+          grep -Fq "$history" "$workdir/symbols.html"
+          grep -Fq "$etiquette" "$workdir/symbols.html"
+
           curl --fail-with-body --silent --show-error --location --max-time 30 \
             "$origin/sitemap.xml?verify=${GITHUB_SHA}-${GITHUB_RUN_ID}" -o "$workdir/sitemap.xml"
           grep -Fq "$origin$history" "$workdir/sitemap.xml"
           grep -Fq "$origin$etiquette" "$workdir/sitemap.xml"
 
           echo 'Texas flag history and etiquette cluster verified live in production.'
+      - name: Publish live verification success
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          curl --fail-with-body --silent --show-error --request POST \
+            --header "Authorization: Bearer $GH_TOKEN" --header 'Accept: application/vnd.github+json' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
+            --data '{"state":"success","context":"texas-flag-live-verify","description":"Live Texas flag cluster verified"}' >/dev/null
+
       - name: Publish successful deployment status
         if: success()
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
-          curl --fail-with-body --silent --show-error \
-            --request POST \
-            --header "Authorization: Bearer $GH_TOKEN" \
-            --header 'Accept: application/vnd.github+json' \
-            --header 'X-GitHub-Api-Version: 2022-11-28' \
+          curl --fail-with-body --silent --show-error --request POST \
+            --header "Authorization: Bearer $GH_TOKEN" --header 'Accept: application/vnd.github+json' \
             "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
             --data '{"state":"success","context":"texas-flag-production-deploy","description":"Texas flag cluster verified live in production"}' >/dev/null
       - name: Publish failed deployment status
@@ -117,10 +200,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
-          curl --fail-with-body --silent --show-error \
-            --request POST \
-            --header "Authorization: Bearer $GH_TOKEN" \
-            --header 'Accept: application/vnd.github+json' \
-            --header 'X-GitHub-Api-Version: 2022-11-28' \
+          curl --fail-with-body --silent --show-error --request POST \
+            --header "Authorization: Bearer $GH_TOKEN" --header 'Accept: application/vnd.github+json' \
             "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
             --data '{"state":"failure","context":"texas-flag-production-deploy","description":"Texas flag production deploy or verification failed"}' >/dev/null
