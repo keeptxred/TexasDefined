@@ -91,4 +91,10 @@ export const COUNTY_SERIES_PROFILES_NORTHEAST: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/camp-county-pittsburg-railroads-poultry-piney-woods-texas")
       .then((module) => module.campCountyPittsburgRailroadsPoultryPineyWoodsTexasArticle),
   },
+  {
+    countySlug: "clay",
+    articleSlug: "clay-county-henrietta-red-river-lake-arrowhead-north-texas",
+    loadArticle: () => import("@/data/fixtures/clay-county-henrietta-red-river-lake-arrowhead-north-texas")
+      .then((module) => module.clayCountyHenriettaRedRiverLakeArrowheadNorthTexasArticle),
+  },
 ];
