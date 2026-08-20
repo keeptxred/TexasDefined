@@ -90,6 +90,41 @@ const routeGuides: RouteGuide[] = [
       href: "/article/texas-world-war-ii-historic-sites-guide",
     },
   },
+  {
+    slugs: new Set([
+      "san-felipe-de-austin",
+      "washington-on-the-brazos",
+      "fannin-battleground",
+      "presidio-la-bahia",
+      "san-jacinto-battleground",
+      "fort-martin-scott",
+      "fort-griffin",
+      "fort-mckavett",
+      "fort-lancaster",
+      "sabine-pass-battleground",
+      "palmito-ranch-battlefield",
+      "eisenhower-birthplace",
+      "national-museum-pacific-war",
+      "iwo-jima-museum-monument",
+      "slaton-harvey-house",
+    ]),
+    item: {
+      name: "Texas military history timeline",
+      description: "Place this site inside the longer military chronology from the Texas Revolution and frontier Army through the Civil War, border mobilizations and the world wars.",
+      href: "/article/texas-military-history-timeline",
+    },
+  },
+  {
+    slugs: new Set([
+      "sabine-pass-battleground",
+      "palmito-ranch-battlefield",
+    ]),
+    item: {
+      name: "Texas in the Civil War",
+      description: "Connect this battlefield to Galveston, the Rio Grande trade corridor, the final fighting at Palmito Ranch and the military enforcement of emancipation in 1865.",
+      href: "/article/texas-civil-war-sites-guide",
+    },
+  },
 ];
 
 export function enrichHistoricSiteEvergreenLinks(destination: Destination): Destination {
