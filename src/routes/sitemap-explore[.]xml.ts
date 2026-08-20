@@ -11,10 +11,10 @@ import { fetchCoreExploreDestinations } from "@/data/explore-core-remote";
 import { reconcileDestinationHeroes } from "@/data/explore-hero-reconciliation";
 import { applyExploreHeroAssets } from "@/data/explore-heroes";
 import { categories, regions } from "@/data/fixtures/texas";
+import { canonicalPaintedChurchContributors } from "@/data/painted-church-contributor-index";
 import { paintedChurchGlossary } from "@/data/painted-church-glossary";
 import { paintedChurchHeritage } from "@/data/painted-church-heritage";
 import { paintedChurchItineraries } from "@/data/painted-church-itineraries";
-import { paintedChurchPeople } from "@/data/painted-church-people";
 import { paintedChurchPreservationTopics } from "@/data/painted-church-preservation";
 import { paintedChurchSearchGuides } from "@/data/painted-church-search-guides";
 import { paintedChurchSymbols } from "@/data/painted-church-symbols";
@@ -23,6 +23,7 @@ import { expandedPaintedChurches } from "@/data/painted-churches-expanded";
 import { fetchExploreDestinations, hasExploreRemoteData } from "@/data/explore-remote";
 import { applyStateParkHeroAssets } from "@/data/state-park-heroes";
 import type { Destination } from "@/data/types";
+import { shouldIndexPaintedChurchPath } from "@/lib/painted-church-publication";
 import { isExploreSitemapOwnedPath, isIndexablePublicPath, normalizePublicPath } from "@/lib/public-routes";
 
 const BASE_URL = `https://${texasDefinedBrand.identity.domain}`;
@@ -46,7 +47,7 @@ function validLastModified(value?: string): string | undefined {
 
 function entry(path: string, lastModified?: string): string | null {
   const normalized = normalizePublicPath(path);
-  if (!normalized || !isExploreSitemapOwnedPath(normalized) || !isIndexablePublicPath(normalized)) return null;
+  if (!normalized || !isExploreSitemapOwnedPath(normalized) || !isIndexablePublicPath(normalized) || !shouldIndexPaintedChurchPath(normalized)) return null;
   const lastmod = validLastModified(lastModified);
   return `  <url>\n    <loc>${escapeXml(`${BASE_URL}${normalized}`)}</loc>${lastmod ? `\n    <lastmod>${lastmod}</lastmod>` : ""}\n  </url>`;
 }
@@ -149,6 +150,14 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           "/explore/painted-churches/media",
           "/explore/painted-churches/cite",
           "/explore/painted-churches/then-and-now",
+          "/explore/painted-churches/national-register-study",
+          "/explore/painted-churches/bibliography",
+          "/explore/painted-churches/features",
+          "/explore/painted-churches/count-concordance",
+          "/explore/painted-churches/inscriptions",
+          "/explore/painted-churches/stained-glass",
+          "/explore/painted-churches/sacred-furnishings",
+          "/explore/painted-churches/preindex-readiness",
           "/explore/top-attractions",
           "/explore/top-attractions/methodology",
           "/explore/top-attractions/road-trips",
@@ -163,14 +172,14 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         const paintedChurchEntries = expandedPaintedChurches
           .map((church) => entry(`/explore/painted-churches/${church.slug}`, church.sourceCheckedAt))
           .filter((item): item is string => Boolean(item));
-        const techniqueEntries = paintedChurchTechniques.map((item) => entry(`/explore/painted-churches/techniques/${item.slug}`, "2026-08-18")).filter((item): item is string => Boolean(item));
-        const symbolEntries = paintedChurchSymbols.map((item) => entry(`/explore/painted-churches/symbols/${item.slug}`, "2026-08-18")).filter((item): item is string => Boolean(item));
-        const peopleEntries = paintedChurchPeople.map((item) => entry(`/explore/painted-churches/people/${item.slug}`, "2026-08-18")).filter((item): item is string => Boolean(item));
-        const heritageEntries = paintedChurchHeritage.map((item) => entry(`/explore/painted-churches/heritage/${item.slug}`, "2026-08-18")).filter((item): item is string => Boolean(item));
-        const preservationEntries = paintedChurchPreservationTopics.map((item) => entry(`/explore/painted-churches/preservation/${item.slug}`, "2026-08-18")).filter((item): item is string => Boolean(item));
-        const glossaryEntries = paintedChurchGlossary.map((item) => entry(`/explore/painted-churches/glossary/${item.slug}`, "2026-08-18")).filter((item): item is string => Boolean(item));
-        const itineraryEntries = paintedChurchItineraries.map((item) => entry(`/explore/painted-churches/routes/${item.slug}`, "2026-08-18")).filter((item): item is string => Boolean(item));
-        const searchGuideEntries = paintedChurchSearchGuides.map((item) => entry(`/explore/painted-churches/guides/${item.slug}`, "2026-08-18")).filter((item): item is string => Boolean(item));
+        const techniqueEntries = paintedChurchTechniques.map((item) => entry(`/explore/painted-churches/techniques/${item.slug}`, "2026-08-19")).filter((item): item is string => Boolean(item));
+        const symbolEntries = paintedChurchSymbols.map((item) => entry(`/explore/painted-churches/symbols/${item.slug}`, "2026-08-19")).filter((item): item is string => Boolean(item));
+        const peopleEntries = canonicalPaintedChurchContributors.map((item) => entry(`/explore/painted-churches/people/${item.slug}`, "2026-08-19")).filter((item): item is string => Boolean(item));
+        const heritageEntries = paintedChurchHeritage.map((item) => entry(`/explore/painted-churches/heritage/${item.slug}`, "2026-08-19")).filter((item): item is string => Boolean(item));
+        const preservationEntries = paintedChurchPreservationTopics.map((item) => entry(`/explore/painted-churches/preservation/${item.slug}`, "2026-08-19")).filter((item): item is string => Boolean(item));
+        const glossaryEntries = paintedChurchGlossary.map((item) => entry(`/explore/painted-churches/glossary/${item.slug}`, "2026-08-19")).filter((item): item is string => Boolean(item));
+        const itineraryEntries = paintedChurchItineraries.map((item) => entry(`/explore/painted-churches/routes/${item.slug}`, "2026-08-19")).filter((item): item is string => Boolean(item));
+        const searchGuideEntries = paintedChurchSearchGuides.map((item) => entry(`/explore/painted-churches/guides/${item.slug}`, "2026-08-19")).filter((item): item is string => Boolean(item));
         const staticEntries = [...new Set(staticPaths)].map((path) => entry(path)).filter((item): item is string => Boolean(item));
         const entries = [
           ...staticEntries,
@@ -185,7 +194,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           ...itineraryEntries,
           ...searchGuideEntries,
         ].join("\n");
-        const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${entries}\n</urlset>`;
+        const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/sitemap/0.9">\n${entries}\n</urlset>`;
         return new Response(xml, {
           headers: {
             "Content-Type": "application/xml; charset=utf-8",
