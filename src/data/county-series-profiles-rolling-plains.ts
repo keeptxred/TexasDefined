@@ -85,4 +85,10 @@ export const COUNTY_SERIES_PROFILES_ROLLING_PLAINS: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/shackelford-county-albany-fort-griffin-clear-fork-texas")
       .then((module) => module.shackelfordCountyAlbanyFortGriffinClearForkTexasArticle),
   },
+  {
+    countySlug: "stephens",
+    articleSlug: "stephens-county-breckenridge-oil-hubbard-creek-rolling-plains-texas",
+    loadArticle: () => import("@/data/fixtures/stephens-county-breckenridge-oil-hubbard-creek-rolling-plains-texas")
+      .then((module) => module.stephensCountyBreckenridgeOilHubbardCreekRollingPlainsTexasArticle),
+  },
 ];
