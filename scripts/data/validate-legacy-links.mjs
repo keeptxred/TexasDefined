@@ -25,7 +25,8 @@ const FORBIDDEN = [
 ];
 
 // These paths intentionally describe cross-site ownership, shared contracts,
-// server-side commerce bridges, or private governance tooling. They are not
+// server-side commerce bridges, private governance tooling, or explicit
+// editorial handoffs to KeepTXRed for policy/statutory coverage. They are not
 // consumer-facing legacy-brand leaks.
 const ALLOWED_PREFIXES = [
   "src/shared/platform-core/",
@@ -36,6 +37,7 @@ const ALLOWED_PREFIXES = [
 
 const ALLOWED_FILES = new Set([
   "src/brand/types.ts",
+  "src/data/fixtures/texas-life-split.ts",
   "src/data/shop-products-remote.ts",
   "src/data/texas-data-sources.ts",
   "src/data/types.ts",
