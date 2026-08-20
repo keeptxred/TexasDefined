@@ -41,6 +41,7 @@ jobs:
           set -euo pipefail
           target='2eeee380c7315a066e9072351153567d4afe349d'
           hero='https://commons.wikimedia.org/wiki/Special:Redirect/file/Garza%20County%20courthouse%2C%20Post%2C%20Texas.jpg?width=1600'
+          agent='TexasDefined/1.0 (+https://texasdefined.com)'
           fixture='src/data/fixtures/garza-county-post-caprock-lake-alan-henry-west-texas.ts'
           registry='src/data/county-series-profiles-rolling-plains.ts'
 
@@ -55,7 +56,7 @@ jobs:
           git diff --check
 
           work="$(mktemp -d)"; trap 'rm -rf "$work"' EXIT
-          hcode="$(curl -L --retry 5 --retry-all-errors --retry-delay 2 --max-time 60 -sS -D "$work/hh" -o "$work/hb" -w '%{http_code}' "$hero" || true)"
+          hcode="$(curl -A "$agent" -L --retry 5 --retry-all-errors --retry-delay 3 --max-time 90 -sS -D "$work/hh" -o "$work/hb" -w '%{http_code}' "$hero" || true)"
           hmime="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/{gsub(/\r/,""); sub(/^content-type:[[:space:]]*/,""); v=$0} END{print v}' "$work/hh" | cut -d';' -f1)"
           hbytes="$(wc -c < "$work/hb" 2>/dev/null || echo 0)"
           echo "Hero source: HTTP=$hcode MIME=$hmime bytes=$hbytes"
@@ -74,7 +75,7 @@ jobs:
 
           page=''; code=''
           for attempt in $(seq 1 12); do
-            code="$(curl --retry 3 --retry-all-errors --retry-delay 2 --max-time 60 -sS -o "$work/page" -w '%{http_code}' "https://texasdefined.com/county/garza?verify=${target}-${GITHUB_RUN_ID}-${attempt}" || true)"
+            code="$(curl -A "$agent" --retry 3 --retry-all-errors --retry-delay 2 --max-time 60 -sS -o "$work/page" -w '%{http_code}' "https://texasdefined.com/county/garza?verify=${target}-${GITHUB_RUN_ID}-${attempt}" || true)"
             if [ "$code" = 200 ] \
               && grep -Fq 'Garza County: Post, the Caprock, Ranch Country and Lake Alan Henry' "$work/page" \
               && grep -Fq 'The county in numbers' "$work/page" \
@@ -88,7 +89,7 @@ jobs:
           done
           [ "$page" = pass ] || { echo "Live page failed: HTTP=$code or expected structured/editorial markers missing"; exit 1; }
 
-          live_hcode="$(curl -L --retry 5 --retry-all-errors --retry-delay 2 --max-time 60 -sS -D "$work/lhh" -o "$work/lhb" -w '%{http_code}' "$hero" || true)"
+          live_hcode="$(curl -A "$agent" -L --retry 5 --retry-all-errors --retry-delay 3 --max-time 90 -sS -D "$work/lhh" -o "$work/lhb" -w '%{http_code}' "$hero" || true)"
           live_hmime="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/{gsub(/\r/,""); sub(/^content-type:[[:space:]]*/,""); v=$0} END{print v}' "$work/lhh" | cut -d';' -f1)"
           live_hbytes="$(wc -c < "$work/lhb" 2>/dev/null || echo 0)"
           echo "Live hero: HTTP=$live_hcode MIME=$live_hmime bytes=$live_hbytes"
@@ -97,7 +98,7 @@ jobs:
           fi
 
           legacy='https://texasdefined.com/article/garza-county-post-caprock-lake-alan-henry-west-texas'
-          legacy_code="$(curl --max-redirs 0 -sS -D "$work/legacy_headers" -o /dev/null -w '%{http_code}' "$legacy" || true)"
+          legacy_code="$(curl -A "$agent" --max-redirs 0 -sS -D "$work/legacy_headers" -o /dev/null -w '%{http_code}' "$legacy" || true)"
           legacy_location="$(awk 'BEGIN{IGNORECASE=1} /^location:/{gsub(/\r/,""); sub(/^location:[[:space:]]*/,""); print; exit}' "$work/legacy_headers")"
           echo "Legacy article: HTTP=$legacy_code location=$legacy_location"
           if ! [[ "$legacy_code" =~ ^30(1|8)$ ]] || [[ "$legacy_location" != *'/county/garza'* ]]; then
