@@ -61,4 +61,10 @@ export const COUNTY_SERIES_PROFILES_NORTHEAST: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/titus-county-mount-pleasant-caddo-railroads-lake-bob-sandlin-northeast-texas")
       .then((module) => module.titusCountyMountPleasantCaddoRailroadsLakeBobSandlinNortheastTexasArticle),
   },
+  {
+    countySlug: "morris",
+    articleSlug: "morris-county-daingerfield-steel-state-park-piney-woods-texas",
+    loadArticle: () => import("@/data/fixtures/morris-county-daingerfield-steel-state-park-piney-woods-texas")
+      .then((module) => module.morrisCountyDaingerfieldSteelStateParkPineyWoodsTexasArticle),
+  },
 ];
