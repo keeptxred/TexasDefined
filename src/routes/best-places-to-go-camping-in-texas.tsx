@@ -6,8 +6,8 @@ import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const title = "Best Places to Go Camping in Texas";
 const description = "A statewide guide to the best places to camp in Texas, from Big Bend and Palo Duro Canyon to Hill Country rivers, Piney Woods lakes and Gulf Coast beaches.";
-const path = "/best-places-to-go-camping-in-texas";
-const pageUrl = absoluteUrl(texasDefinedBrand, path);
+const canonicalPath = "/best-places-to-go-camping-in-texas";
+const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
 
 const picks = [
   ["Big Bend Ranch State Park", "Far West Texas", "Best for dark skies, rugged desert scenery and remote primitive camping."],
@@ -20,10 +20,10 @@ const picks = [
   ["Colorado Bend State Park", "Hill Country", "Best for hiking, waterfalls, caves and a more adventurous weekend."],
 ] as const;
 
-export const Route = createFileRoute(path)({
+export const Route = createFileRoute(canonicalPath)({
   head: () => ({
-    meta: buildMeta(texasDefinedBrand, { canonicalPath: path, title, description }),
-    links: [canonicalLink(texasDefinedBrand, path)],
+    meta: buildMeta(texasDefinedBrand, { canonicalPath, title: title, description }),
+    links: [canonicalLink(texasDefinedBrand, canonicalPath)],
     scripts: [jsonLd({
       "@context": "https://schema.org",
       "@graph": [

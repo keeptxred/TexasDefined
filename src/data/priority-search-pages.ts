@@ -4,6 +4,7 @@ const relatedServices = [
   { label: "Texas resources", href: "/texas-resources" },
   { label: "Find my DMV", href: "/find-my-dmv" },
   { label: "Texas guidebook", href: "/guides" },
+  { label: "Texas vs every state", href: "/texas-vs-every-state" },
 ] as const;
 
 export const PRIORITY_SEARCH_PAGES: Record<string, PrioritySearchPageData> = {
@@ -31,7 +32,7 @@ export const PRIORITY_SEARCH_PAGES: Record<string, PrioritySearchPageData> = {
       { heading: "Freshwater, saltwater and packages", paragraphs: ["The correct package depends on where you fish and your residency status. Freshwater and saltwater endorsements are separate, while all-water and combination packages can cover broader use cases."], links: [{ label: "Fishing licenses and packages", href: "https://tpwd.texas.gov/regulations/outdoor-annual/licenses/fishing-licenses-stamps-tags-packages/fishing-licenses-and-packages", external: true }] },
       { heading: "Where to buy", paragraphs: ["Official licenses can be purchased through Texas Parks and Wildlife's authorized online sales system and at participating license retailers. Verify the current season and identification requirements before purchase."], links: [{ label: "Official online license sales", href: "https://tpwd.texas.gov/business/licenses/online_sales/index.phtml", external: true }, { label: "Texas fishing guide", href: "/fishing" }] },
     ],
-    related: [{ label: "Texas fishing", href: "/fishing" }, { label: "Fishing regulations", href: "/fishing/regulations" }, { label: "Texas lakes", href: "/fishing/lakes" }, { label: "Best places to camp in Texas", href: "/explore/texas-camping-guide" }],
+    related: [{ label: "Texas fishing", href: "/fishing" }, { label: "Fishing regulations", href: "/fishing/regulations" }, { label: "Texas lakes", href: "/fishing/lakes" }, { label: "Best places to camp in Texas", href: "/best-places-to-go-camping-in-texas" }],
   },
   "texas-secretary-of-state": {
     eyebrow: "Texas government",

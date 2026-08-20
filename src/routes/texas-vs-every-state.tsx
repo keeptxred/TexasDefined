@@ -21,7 +21,7 @@ const slug = (value: string) => value.toLowerCase().replaceAll(" ", "-");
 
 export const Route = createFileRoute("/texas-vs-every-state")({
   head: () => ({
-    meta: buildMeta(texasDefinedBrand, { canonicalPath, title, description }),
+    meta: buildMeta(texasDefinedBrand, { canonicalPath, title: title, description }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
     scripts: [jsonLd({
       "@context": "https://schema.org",
