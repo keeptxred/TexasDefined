@@ -1,8 +1,7 @@
-# retrigger after workflow entered default branch
 name: Certify Cottle County production once
 
 on:
-  push:
+  pull_request:
     branches: [main]
     paths:
       - '.github/workflows/certify-cottle-county-once.yml'
@@ -11,7 +10,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: certify-cottle-county-once
+  group: certify-cottle-county-pr
   cancel-in-progress: true
 
 jobs:
@@ -32,70 +31,37 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci --no-audit --no-fund
-      - name: Validate deploy and certify Cottle County
+      - name: Certify Cottle County from current main
         shell: bash
         run: |
           set -euo pipefail
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          marker='.github/certification/cottle-county.json'
           target='c9d7197654cbc9d9578aa37ff42dd9edfea2c291'
-          hero='https://commons.wikimedia.org/wiki/Special:Redirect/file/North_Pease_River%2C_Cottle_County%2C_Texas.jpg?width=1600'
-
-          record() {
-            status="$1"; stage="$2"; detail="$3"
-            mkdir -p "$(dirname "$marker")"
-            python3 - "$marker" "$status" "$stage" "$target" "$detail" <<'PY'
-          import datetime, json, pathlib, sys
-          path, status, stage, target, detail = sys.argv[1:]
-          pathlib.Path(path).write_text(json.dumps({
-            'county': 'cottle', 'status': status, 'stage': stage,
-            'county_commit': target, 'tested_main': '', 'detail': detail[-12000:],
-            'recorded_at_utc': datetime.datetime.now(datetime.timezone.utc).isoformat()
-          }, indent=2) + '\n', encoding='utf-8')
-          PY
-            current="$(git rev-parse HEAD)"
-            python3 - "$marker" "$current" <<'PY'
-          import json, pathlib, sys
-          p=pathlib.Path(sys.argv[1]); d=json.loads(p.read_text()); d['tested_main']=sys.argv[2]; p.write_text(json.dumps(d,indent=2)+'\n')
-          PY
-            git add "$marker"
-            git commit -m "Record Cottle County production ${status}" >/dev/null || true
-            git push origin HEAD:main
-          }
-
-          git merge-base --is-ancestor "$target" HEAD || { record fail source 'Cottle county commit is not in current main ancestry'; exit 1; }
           fixture='src/data/fixtures/cottle-county-paducah-pease-river-ranching-railroads-rolling-plains-texas.ts'
-          test -f "$fixture" || { record fail source 'Cottle fixture missing'; exit 1; }
-          grep -Fq 'countySlug: "cottle"' src/data/county-series-profiles-rolling-plains.ts || { record fail source 'Cottle profile registration missing'; exit 1; }
-          if grep -n 'www\.texasdefined\.com' "$fixture" src/data/county-series-profiles-rolling-plains.ts src/data/county-series.server.ts >/tmp/cottle-www.txt; then
-            record fail canonical-host "$(cat /tmp/cottle-www.txt)"; exit 1
-          fi
-
+          hero='https://commons.wikimedia.org/wiki/Special:Redirect/file/North_Pease_River%2C_Cottle_County%2C_Texas.jpg?width=1600'
           work="$(mktemp -d)"; trap 'rm -rf "$work"' EXIT
-          hcode="$(curl -L --retry 5 --retry-all-errors --retry-delay 2 --max-time 60 -sS -D "$work/hh" -o "$work/hb" -w '%{http_code}' "$hero" || true)"
+
+          git merge-base --is-ancestor "$target" HEAD
+          test -f "$fixture"
+          grep -Fq 'countySlug: "cottle"' src/data/county-series-profiles-rolling-plains.ts
+          ! grep -n 'www\.texasdefined\.com' "$fixture" src/data/county-series-profiles-rolling-plains.ts src/data/county-series.server.ts
+
+          hcode="$(curl -L --retry 5 --retry-all-errors --retry-delay 2 --max-time 60 -sS -D "$work/hh" -o "$work/hb" -w '%{http_code}' "$hero")"
           hmime="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/{gsub(/\r/,""); sub(/^content-type:[[:space:]]*/,""); v=$0} END{print v}' "$work/hh" | cut -d';' -f1)"
-          hbytes="$(wc -c < "$work/hb" 2>/dev/null || echo 0)"
-          if [ "$hcode" != 200 ] || ! [[ "$hmime" =~ ^image/(jpeg|png|webp)$ ]] || [ "$hbytes" -le 50000 ]; then
-            record fail hero-source "HTTP=$hcode MIME=$hmime bytes=$hbytes"; exit 1
-          fi
+          hbytes="$(wc -c < "$work/hb")"
+          test "$hcode" = 200
+          [[ "$hmime" =~ ^image/(jpeg|png|webp)$ ]]
+          test "$hbytes" -gt 50000
 
-          if ! npm run validate >"$work/validate.log" 2>&1; then
-            record fail validation "$(tail -200 "$work/validate.log")"; exit 1
-          fi
-
+          npm run validate
+          validated="$(git rev-parse HEAD)"
           git fetch origin main
-          latest="$(git rev-parse origin/main)"
-          current="$(git rev-parse HEAD)"
-          [ "$latest" = "$current" ] || { record fail main-moved-after-validation "main moved $current -> $latest"; exit 1; }
+          test "$(git rev-parse origin/main)" = "$validated"
 
-          if ! npm run deploy >"$work/deploy.log" 2>&1; then
-            record fail deployment "$(tail -200 "$work/deploy.log")"; exit 1
-          fi
+          npm run deploy
 
-          page=''; code=''
+          page_ok=0
           for attempt in $(seq 1 12); do
-            code="$(curl --retry 3 --retry-all-errors --retry-delay 2 --max-time 60 -sS -o "$work/page" -w '%{http_code}' "https://texasdefined.com/county/cottle?verify=${target}-${GITHUB_RUN_ID}-${attempt}" || true)"
+            code="$(curl --retry 3 --retry-all-errors --retry-delay 2 --max-time 60 -sS -o "$work/page" -w '%{http_code}' "https://texasdefined.com/county/cottle?verify=${validated}-${GITHUB_RUN_ID}-${attempt}")"
             if [ "$code" = 200 ] \
               && grep -Fq 'Cottle County: Paducah, the Pease River and Rolling Plains Ranch Country' "$work/page" \
               && grep -Fq 'The county in numbers' "$work/page" \
@@ -104,16 +70,16 @@ jobs:
               && grep -Fq 'County feature' "$work/page" \
               && grep -Fq 'Paducah' "$work/page" \
               && grep -Fq 'North Pease River' "$work/page" \
-              && grep -Fq 'https://texasdefined.com/county/cottle' "$work/page"; then page=pass; break; fi
+              && grep -Fq 'https://texasdefined.com/county/cottle' "$work/page"; then page_ok=1; break; fi
             sleep 5
           done
-          [ "$page" = pass ] || { record fail live-page "HTTP=$code expected structured/editorial markers missing"; exit 1; }
+          test "$page_ok" -eq 1
 
-          live_hcode="$(curl -L --retry 5 --retry-all-errors --retry-delay 2 --max-time 60 -sS -D "$work/lhh" -o "$work/lhb" -w '%{http_code}' "$hero" || true)"
+          live_hcode="$(curl -L --retry 5 --retry-all-errors --retry-delay 2 --max-time 60 -sS -D "$work/lhh" -o "$work/lhb" -w '%{http_code}' "$hero")"
           live_hmime="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/{gsub(/\r/,""); sub(/^content-type:[[:space:]]*/,""); v=$0} END{print v}' "$work/lhh" | cut -d';' -f1)"
-          live_hbytes="$(wc -c < "$work/lhb" 2>/dev/null || echo 0)"
-          if [ "$live_hcode" != 200 ] || ! [[ "$live_hmime" =~ ^image/(jpeg|png|webp)$ ]] || [ "$live_hbytes" -le 50000 ]; then
-            record fail live-hero "HTTP=$live_hcode MIME=$live_hmime bytes=$live_hbytes"; exit 1
-          fi
+          live_hbytes="$(wc -c < "$work/lhb")"
+          test "$live_hcode" = 200
+          [[ "$live_hmime" =~ ^image/(jpeg|png|webp)$ ]]
+          test "$live_hbytes" -gt 50000
 
-          record pass complete "validate=PASS deploy=PASS page=200 structured=yes editorial=yes legacy=not-applicable hero=$live_hcode mime=$live_hmime bytes=$live_hbytes"
+          printf 'Cottle certification PASS: target=%s page=%s hero=%s mime=%s bytes=%s\n' "$validated" "$code" "$live_hcode" "$live_hmime" "$live_hbytes"
