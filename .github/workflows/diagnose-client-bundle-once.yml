@@ -1,0 +1,55 @@
+name: Diagnose client bundle once
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/diagnose-client-bundle-once.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - name: Build and record bundle sizes
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          npm run build >/tmp/build.log 2>&1
+          mkdir -p .github/certification
+          python3 <<'PY'
+          from pathlib import Path
+          import json
+          roots=[Path('dist/client/assets'),Path('.output/public/assets')]
+          root=next((p for p in roots if p.is_dir()),None)
+          if not root: raise SystemExit('assets missing')
+          files=[]
+          for p in sorted(root.iterdir()):
+              if p.is_file() and p.suffix in {'.js','.css'}:
+                  files.append({'name':p.name,'bytes':p.stat().st_size})
+          main=[x for x in files if x['name'].startswith('main-') and x['name'].endswith('.js')]
+          out={'head':'', 'main':main, 'largest':sorted(files,key=lambda x:x['bytes'],reverse=True)[:30]}
+          Path('.github/certification/client-bundle-diagnostic.json').write_text(json.dumps(out,indent=2)+'\n')
+          PY
+          head=$(git rev-parse HEAD)
+          python3 - "$head" <<'PY'
+          import json, pathlib, sys
+          p=pathlib.Path('.github/certification/client-bundle-diagnostic.json'); d=json.loads(p.read_text()); d['head']=sys.argv[1]; p.write_text(json.dumps(d,indent=2)+'\n')
+          PY
+          git add .github/certification/client-bundle-diagnostic.json
+          git commit -m 'Record client bundle diagnostic' || true
+          git pull --rebase origin main
+          git push origin HEAD:main
