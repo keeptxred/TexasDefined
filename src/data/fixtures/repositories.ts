@@ -16,6 +16,7 @@ import type { Article, ArticleBlock, SearchDocument } from "../types";
 import { exploreFeatureArticleStubs, loadExploreFeatureArticle } from "./lazy-explore-feature-articles";
 import { newestEvergreenArticles } from "./newest-evergreen";
 import { lazyEvergreenArticleStubs, loadLazyEvergreenArticle } from "./lazy-evergreen";
+import { militaryHistoryExpansionStubs, loadMilitaryHistoryExpansionArticle } from "./lazy-military-history-expansion";
 import { standaloneEvergreenStubs, loadStandaloneEvergreenArticle } from "./lazy-standalone-evergreen";
 import { coreEvergreenArticleStubs, loadCoreEvergreenArticle } from "./lazy-core-evergreen";
 import { migratedEditorialArticleStubs, loadMigratedEditorialArticle } from "./lazy-migrated-editorial";
@@ -40,6 +41,7 @@ const editorialArticles = [
   ...coreEvergreenArticleStubs,
   ...lazyEvergreenArticleStubs,
   ...standaloneEvergreenStubs,
+  ...militaryHistoryExpansionStubs,
   ...newestEvergreenArticles,
   ...texasCoreArticleStubs,
   ...migratedEditorialArticleStubs,
@@ -180,6 +182,9 @@ export const fixtureArticles: ArticleRepository = {
 
     const standaloneArticle = await loadStandaloneEvergreenArticle(scope.brandId, slug);
     if (standaloneArticle) return normalizeArticle(standaloneArticle);
+
+    const militaryHistoryArticle = await loadMilitaryHistoryExpansionArticle(scope.brandId, slug);
+    if (militaryHistoryArticle) return normalizeArticle(militaryHistoryArticle);
 
     const { loadCountySeriesArticleBySlug } = await import("./lazy-county-series");
     const countySeriesArticle = await loadCountySeriesArticleBySlug(scope.brandId, slug);
