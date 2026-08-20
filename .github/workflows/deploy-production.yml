@@ -12,6 +12,7 @@ on:
       - 'wrangler.jsonc'
       - 'vite.config.*'
       - 'tsconfig*.json'
+      - 'scripts/data/validate-painted-church*.mjs'
       - '.github/workflows/deploy-production.yml'
   workflow_dispatch:
 
@@ -46,24 +47,52 @@ jobs:
           node scripts/data/validate-texas-weather-authority.mjs
           node scripts/data/validate-texas-food-history.mjs
           node scripts/data/validate-texas-culture-citation-index.mjs
+      - name: Validate Painted Churches authority before deploy
+        run: |
+          node scripts/data/validate-painted-churches-seo.mjs
+          node scripts/data/validate-painted-church-search-intents.mjs
+          node scripts/data/validate-painted-church-map.mjs
+          node scripts/data/validate-painted-church-completion.mjs
       - name: Build production bundle
         run: npm run build
       - name: Enforce existing client bundle budget
         run: npm run performance:validate
       - name: Deploy TexasDefined Worker
         run: npx wrangler deploy
-      - name: Verify production homepage
+      - name: Verify production surfaces
         shell: bash
         run: |
           set -euo pipefail
           origin='https://texasdefined.com'
-          out="$(mktemp)"
-          for attempt in 1 2 3 4 5 6; do
-            if curl --fail-with-body --silent --show-error --location --max-time 30 \
-              "${origin}/?verify=${GITHUB_SHA}-${GITHUB_RUN_ID}-${attempt}" -o "$out"; then
-              grep -Fq 'Texas Defined' "$out" && exit 0
-            fi
-            sleep 5
-          done
-          echo 'Production homepage verification failed after deploy.' >&2
-          exit 1
+          workdir="$(mktemp -d)"
+          trap 'rm -rf "$workdir"' EXIT
+
+          fetch_assert() {
+            local label="$1" path="$2" needle="$3"
+            local out="$workdir/${label}.html"
+            local attempt
+            for attempt in 1 2 3 4 5 6; do
+              echo "[$label] attempt $attempt: ${origin}${path}"
+              if curl --fail-with-body --silent --show-error --location --max-time 30 \
+                "${origin}${path}?verify=${GITHUB_SHA}-${GITHUB_RUN_ID}-${attempt}" -o "$out"; then
+                if grep -Fq "$needle" "$out"; then
+                  echo "[$label] production content verified: $needle"
+                  return 0
+                fi
+                echo "[$label] fetched successfully but expected content is not live yet: $needle"
+              fi
+              sleep 5
+            done
+            echo "[$label] production verification failed for ${origin}${path}" >&2
+            head -c 1200 "$out" 2>/dev/null || true
+            echo >&2
+            return 1
+          }
+
+          fetch_assert homepage '/' 'Texas Defined'
+          fetch_assert painted-churches '/explore/painted-churches' 'Painted Churches of Texas'
+          fetch_assert then-and-now '/explore/painted-churches/then-and-now' 'Texas Painted Churches, then and now.'
+          fetch_assert media '/explore/painted-churches/media' 'Watch the documentary. Follow the voices behind it.'
+          fetch_assert guidebook '/guides' 'Painted Churches of Texas'
+
+          echo 'TexasDefined production and Painted Churches authority surfaces are live.'
