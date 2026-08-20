@@ -1,4 +1,4 @@
-# PR-triggered certification retry; checkout remains pinned to current main.
+# PR-triggered certification after safe client-bundle isolation; checkout remains pinned to current main.
 name: Certify Garza County production once
 
 on:
@@ -61,9 +61,7 @@ jobs:
           hmime="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/{gsub(/\r/,""); sub(/^content-type:[[:space:]]*/,""); v=$0} END{print v}' "$work/hh" | cut -d';' -f1)"
           hbytes="$(wc -c < "$work/hb" 2>/dev/null || echo 0)"
           echo "Hero source: HTTP=$hcode MIME=$hmime bytes=$hbytes"
-          if [ "$hcode" != 200 ] || ! [[ "$hmime" =~ ^image/(jpeg|png|webp)$ ]] || [ "$hbytes" -le 50000 ]; then
-            exit 1
-          fi
+          if [ "$hcode" != 200 ] || ! [[ "$hmime" =~ ^image/(jpeg|png|webp)$ ]] || [ "$hbytes" -le 50000 ]; then exit 1; fi
 
           npm run validate
 
@@ -77,15 +75,7 @@ jobs:
           page=''; code=''
           for attempt in $(seq 1 12); do
             code="$(curl -A "$agent" --retry 3 --retry-all-errors --retry-delay 2 --max-time 60 -sS -o "$work/page" -w '%{http_code}' "https://texasdefined.com/county/garza?verify=${target}-${GITHUB_RUN_ID}-${attempt}" || true)"
-            if [ "$code" = 200 ] \
-              && grep -Fq 'Garza County: Post, the Caprock, Ranch Country and Lake Alan Henry' "$work/page" \
-              && grep -Fq 'The county in numbers' "$work/page" \
-              && grep -Fq 'County seat' "$work/page" \
-              && grep -Fq '2020 population' "$work/page" \
-              && grep -Fq 'County feature' "$work/page" \
-              && grep -Fq 'Post' "$work/page" \
-              && grep -Fq 'Lake Alan Henry' "$work/page" \
-              && grep -Fq 'https://texasdefined.com/county/garza' "$work/page"; then page=pass; break; fi
+            if [ "$code" = 200 ] && grep -Fq 'Garza County: Post, the Caprock, Ranch Country and Lake Alan Henry' "$work/page" && grep -Fq 'The county in numbers' "$work/page" && grep -Fq 'County seat' "$work/page" && grep -Fq '2020 population' "$work/page" && grep -Fq 'County feature' "$work/page" && grep -Fq 'Post' "$work/page" && grep -Fq 'Lake Alan Henry' "$work/page" && grep -Fq 'https://texasdefined.com/county/garza' "$work/page"; then page=pass; break; fi
             sleep 5
           done
           [ "$page" = pass ] || { echo "Live page failed: HTTP=$code or expected structured/editorial markers missing"; exit 1; }
@@ -94,16 +84,12 @@ jobs:
           live_hmime="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/{gsub(/\r/,""); sub(/^content-type:[[:space:]]*/,""); v=$0} END{print v}' "$work/lhh" | cut -d';' -f1)"
           live_hbytes="$(wc -c < "$work/lhb" 2>/dev/null || echo 0)"
           echo "Live hero: HTTP=$live_hcode MIME=$live_hmime bytes=$live_hbytes"
-          if [ "$live_hcode" != 200 ] || ! [[ "$live_hmime" =~ ^image/(jpeg|png|webp)$ ]] || [ "$live_hbytes" -le 50000 ]; then
-            exit 1
-          fi
+          if [ "$live_hcode" != 200 ] || ! [[ "$live_hmime" =~ ^image/(jpeg|png|webp)$ ]] || [ "$live_hbytes" -le 50000 ]; then exit 1; fi
 
           legacy='https://texasdefined.com/article/garza-county-post-caprock-lake-alan-henry-west-texas'
           legacy_code="$(curl -A "$agent" --max-redirs 0 -sS -D "$work/legacy_headers" -o /dev/null -w '%{http_code}' "$legacy" || true)"
           legacy_location="$(awk 'BEGIN{IGNORECASE=1} /^location:/{gsub(/\r/,""); sub(/^location:[[:space:]]*/,""); print; exit}' "$work/legacy_headers")"
           echo "Legacy article: HTTP=$legacy_code location=$legacy_location"
-          if ! [[ "$legacy_code" =~ ^30(1|8)$ ]] || [[ "$legacy_location" != *'/county/garza'* ]]; then
-            exit 1
-          fi
+          if ! [[ "$legacy_code" =~ ^30(1|8)$ ]] || [[ "$legacy_location" != *'/county/garza'* ]]; then exit 1; fi
 
           echo "PASS Garza County validate=PASS deploy=PASS page=200 structured=yes editorial=yes legacy=$legacy_code hero=$live_hcode mime=$live_hmime bytes=$live_hbytes"
