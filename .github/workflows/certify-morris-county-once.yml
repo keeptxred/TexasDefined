@@ -1,4 +1,3 @@
-# rerun after validator repair
 name: Certify Morris County production once
 
 on:
@@ -6,9 +5,14 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/certify-morris-county-once.yml'
+      - 'scripts/data/validate-*.mjs'
 
 permissions:
   contents: write
+
+concurrency:
+  group: certify-morris-county-once
+  cancel-in-progress: true
 
 jobs:
   certify:
@@ -21,168 +25,102 @@ jobs:
       HERO_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/View_in_Daingerfield_State_Park_Texas_2023.jpg?width=1600
       MARKER: .github/certification/morris-county.json
     steps:
-      - name: Check out current main
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           ref: main
           fetch-depth: 2
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
           cache-dependency-path: package-lock.json
-
-      - name: Install dependencies
-        run: npm ci --no-audit --no-fund
-
-      - name: Certify, deploy, verify, and record result
+      - run: npm ci --no-audit --no-fund
+      - name: Validate, deploy, verify, and record
         shell: bash
         run: |
           set -u
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
 
-          record_marker() {
-            local status="$1" stage="$2" target="$3" detail="$4"
+          record() {
+            status="$1"; stage="$2"; target="$3"; detail="$4"
             mkdir -p "$(dirname "$MARKER")"
             python3 - "$MARKER" "$status" "$stage" "$target" "$detail" <<'PY'
           import json, pathlib, sys, datetime
           path, status, stage, target, detail = sys.argv[1:]
           pathlib.Path(path).write_text(json.dumps({
-            'county': 'morris',
-            'status': status,
-            'stage': stage,
-            'target_sha': target,
-            'detail': detail[-12000:],
-            'recorded_at_utc': datetime.datetime.now(datetime.timezone.utc).isoformat(),
-          }, indent=2) + '\n', encoding='utf-8')
+            'county':'morris','status':status,'stage':stage,'target_sha':target,
+            'detail':detail[-12000:],'recorded_at_utc':datetime.datetime.now(datetime.timezone.utc).isoformat()
+          }, indent=2)+'\n', encoding='utf-8')
           PY
             git add -- "$MARKER"
             git commit -m "Record Morris County production ${status}" >/dev/null || true
             git push origin HEAD:main
           }
 
-          test -n "$CLOUDFLARE_ACCOUNT_ID" || { record_marker fail credentials "$(git rev-parse HEAD)" 'Missing CLOUDFLARE_ACCOUNT_ID'; exit 1; }
-          test -n "$CLOUDFLARE_API_TOKEN" || { record_marker fail credentials "$(git rev-parse HEAD)" 'Missing CLOUDFLARE_API_TOKEN'; exit 1; }
+          test -n "$CLOUDFLARE_ACCOUNT_ID" || { record fail credentials "$(git rev-parse HEAD)" 'Missing CLOUDFLARE_ACCOUNT_ID'; exit 1; }
+          test -n "$CLOUDFLARE_API_TOKEN" || { record fail credentials "$(git rev-parse HEAD)" 'Missing CLOUDFLARE_API_TOKEN'; exit 1; }
 
-          hero_work="$(mktemp -d)"
-          hero_status="$(curl -L --retry 5 --retry-all-errors --retry-delay 2 --max-time 60 -sS -D "$hero_work/headers" -o "$hero_work/body" -w '%{http_code}' "$HERO_URL" || true)"
-          hero_mime="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/{gsub(/\r/,""); sub(/^content-type:[[:space:]]*/,""); v=$0} END{print v}' "$hero_work/headers" | cut -d';' -f1)"
-          hero_bytes="$(wc -c < "$hero_work/body" 2>/dev/null || echo 0)"
-          if [ "$hero_status" != '200' ] || ! [[ "$hero_mime" =~ ^image/(jpeg|png|webp)$ ]] || [ "$hero_bytes" -le 50000 ]; then
-            record_marker fail hero-source "$(git rev-parse HEAD)" "HTTP=$hero_status MIME=$hero_mime bytes=$hero_bytes"
-            exit 1
+          tmp="$(mktemp -d)"
+          hs="$(curl -L --retry 5 --retry-all-errors --retry-delay 2 --max-time 60 -sS -D "$tmp/h" -o "$tmp/b" -w '%{http_code}' "$HERO_URL" || true)"
+          hm="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/{gsub(/\r/,""); sub(/^content-type:[[:space:]]*/,""); v=$0} END{print v}' "$tmp/h" | cut -d';' -f1)"
+          hb="$(wc -c < "$tmp/b" 2>/dev/null || echo 0)"
+          if [ "$hs" != 200 ] || ! [[ "$hm" =~ ^image/(jpeg|png|webp)$ ]] || [ "$hb" -le 50000 ]; then
+            record fail hero-source "$(git rev-parse HEAD)" "HTTP=$hs MIME=$hm bytes=$hb"; exit 1
           fi
-          rm -rf "$hero_work"
+          rm -rf "$tmp"
 
           for pass in 1 2 3 4 5; do
             git fetch origin main
             git reset --hard origin/main
-
-            fixture='src/data/fixtures/morris-county-daingerfield-steel-state-park-piney-woods-texas.ts'
-            if grep -Fq 'href: "/state-park/daingerfield-state-park"' "$fixture"; then
-              sed -i 's#href: "/state-park/daingerfield-state-park"#href: "/destination/daingerfield-state-park"#' "$fixture"
-              git add -- "$fixture"
-              git commit -m 'Fix Morris County canonical state park link'
-              if ! git push origin HEAD:main; then
-                echo 'main moved while repairing Morris link; retrying newest main'
-                continue
-              fi
-              git fetch origin main
-              git reset --hard origin/main
-            fi
-
             target="$(git rev-parse HEAD)"
-
-            if ! test -f "$fixture"; then
-              record_marker fail source "$target" 'Morris fixture missing from current main'; exit 1
-            fi
-            if ! grep -Fq 'countySlug: "morris"' src/data/county-series-profiles-northeast.ts; then
-              record_marker fail source "$target" 'Morris registry entry missing from current main'; exit 1
-            fi
-            if ! grep -Fq '["morris-county-daingerfield-steel-state-park-piney-woods-texas", "morris"]' src/data/county-series.ts; then
-              record_marker fail source "$target" 'Morris legacy mapping missing from current main'; exit 1
-            fi
+            fixture='src/data/fixtures/morris-county-daingerfield-steel-state-park-piney-woods-texas.ts'
+            test -f "$fixture" || { record fail source "$target" 'Morris fixture missing'; exit 1; }
+            grep -Fq 'countySlug: "morris"' src/data/county-series-profiles-northeast.ts || { record fail source "$target" 'Morris registry missing'; exit 1; }
+            grep -Fq '["morris-county-daingerfield-steel-state-park-piney-woods-texas", "morris"]' src/data/county-series.ts || { record fail source "$target" 'Morris legacy mapping missing'; exit 1; }
             if grep -n 'www\.texasdefined\.com' "$fixture" src/data/county-series-profiles-northeast.ts src/data/county-series.ts >/tmp/morris-www.txt; then
-              record_marker fail canonical-host "$target" "$(cat /tmp/morris-www.txt)"; exit 1
+              record fail canonical-host "$target" "$(cat /tmp/morris-www.txt)"; exit 1
             fi
 
             if ! npm run validate >/tmp/morris-validate.log 2>&1; then
-              record_marker fail validation "$target" "$(tail -160 /tmp/morris-validate.log)"
-              exit 1
+              record fail validation "$target" "$(tail -180 /tmp/morris-validate.log)"; exit 1
             fi
-
             git fetch origin main
             latest="$(git rev-parse origin/main)"
-            if [ "$latest" != "$target" ]; then
-              echo "main moved during validation: $target -> $latest; retrying newest main"
-              continue
-            fi
+            [ "$latest" = "$target" ] || { echo "main moved during validation; retrying"; continue; }
 
             if ! npm run deploy >/tmp/morris-deploy.log 2>&1; then
-              record_marker fail deployment "$target" "$(tail -160 /tmp/morris-deploy.log)"
-              exit 1
+              record fail deployment "$target" "$(tail -180 /tmp/morris-deploy.log)"; exit 1
             fi
-
             git fetch origin main
             latest="$(git rev-parse origin/main)"
-            if [ "$latest" != "$target" ]; then
-              echo "main moved during deployment: $target -> $latest; retrying newest main"
-              continue
-            fi
+            [ "$latest" = "$target" ] || { echo "main moved during deployment; retrying"; continue; }
 
-            workdir="$(mktemp -d)"
-            ok=0
+            w="$(mktemp -d)"; ok=0
             for attempt in $(seq 1 12); do
-              page_status="$(curl --retry 3 --retry-all-errors --retry-delay 2 --max-time 60 -sS -o "$workdir/page" -w '%{http_code}' "https://texasdefined.com/county/morris?verify=${target}-${GITHUB_RUN_ID}-${attempt}" || true)"
-              if [ "$page_status" = '200' ] && \
-                 grep -Fq 'Morris County: Daingerfield, Steel, Piney Woods and a CCC-Built State Park' "$workdir/page" && \
-                 grep -Fq 'The county in numbers' "$workdir/page" && \
-                 grep -Fq 'County seat' "$workdir/page" && \
-                 grep -Fq '2020 population' "$workdir/page" && \
-                 grep -Fq 'County feature' "$workdir/page" && \
-                 grep -Fq 'Daingerfield' "$workdir/page" && \
-                 grep -Fq 'https://texasdefined.com/county/morris' "$workdir/page"; then
-                ok=1; break
-              fi
+              ps="$(curl --retry 3 --retry-all-errors --retry-delay 2 --max-time 60 -sS -o "$w/page" -w '%{http_code}' "https://texasdefined.com/county/morris?verify=${target}-${GITHUB_RUN_ID}-${attempt}" || true)"
+              if [ "$ps" = 200 ] && grep -Fq 'Morris County: Daingerfield, Steel, Piney Woods and a CCC-Built State Park' "$w/page" && grep -Fq 'The county in numbers' "$w/page" && grep -Fq 'County seat' "$w/page" && grep -Fq '2020 population' "$w/page" && grep -Fq 'County feature' "$w/page" && grep -Fq 'Daingerfield' "$w/page" && grep -Fq 'https://texasdefined.com/county/morris' "$w/page"; then ok=1; break; fi
               sleep 5
             done
-            if [ "$ok" != '1' ]; then
-              record_marker fail live-page "$target" "Morris live structured/editorial layers missing or non-200; last_status=$page_status"
-              exit 1
-            fi
+            [ "$ok" = 1 ] || { record fail live-page "$target" "last_status=$ps"; exit 1; }
 
-            legacy='/article/morris-county-daingerfield-steel-state-park-piney-woods-texas'
-            legacy_status="$(curl --max-redirs 0 -sS -D "$workdir/legacy-headers" -o /dev/null -w '%{http_code}' "https://texasdefined.com$legacy" || true)"
-            location="$(awk 'BEGIN{IGNORECASE=1} /^location:/{gsub(/\r/,""); sub(/^location:[[:space:]]*/,""); print; exit}' "$workdir/legacy-headers")"
-            if [ "$legacy_status" != '301' ] || ! [[ "$location" == *'/county/morris'* ]]; then
-              record_marker fail legacy-redirect "$target" "HTTP=$legacy_status location=$location"
-              exit 1
-            fi
+            legacy='https://texasdefined.com/article/morris-county-daingerfield-steel-state-park-piney-woods-texas'
+            ls="$(curl --max-redirs 0 -sS -D "$w/lh" -o /dev/null -w '%{http_code}' "$legacy" || true)"
+            loc="$(awk 'BEGIN{IGNORECASE=1} /^location:/{gsub(/\r/,""); sub(/^location:[[:space:]]*/,""); print; exit}' "$w/lh")"
+            if [ "$ls" != 301 ] || ! [[ "$loc" == *'/county/morris'* ]]; then record fail legacy-redirect "$target" "HTTP=$ls location=$loc"; exit 1; fi
 
-            live_hero_status="$(curl -L --retry 5 --retry-all-errors --retry-delay 2 --max-time 60 -sS -D "$workdir/hero-headers" -o "$workdir/hero" -w '%{http_code}' "$HERO_URL" || true)"
-            live_hero_mime="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/{gsub(/\r/,""); sub(/^content-type:[[:space:]]*/,""); v=$0} END{print v}' "$workdir/hero-headers" | cut -d';' -f1)"
-            live_hero_bytes="$(wc -c < "$workdir/hero" 2>/dev/null || echo 0)"
-            if [ "$live_hero_status" != '200' ] || ! [[ "$live_hero_mime" =~ ^image/(jpeg|png|webp)$ ]] || [ "$live_hero_bytes" -le 50000 ]; then
-              record_marker fail live-hero "$target" "HTTP=$live_hero_status MIME=$live_hero_mime bytes=$live_hero_bytes"
-              exit 1
-            fi
+            his="$(curl -L --retry 5 --retry-all-errors --retry-delay 2 --max-time 60 -sS -D "$w/hh" -o "$w/hb" -w '%{http_code}' "$HERO_URL" || true)"
+            him="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/{gsub(/\r/,""); sub(/^content-type:[[:space:]]*/,""); v=$0} END{print v}' "$w/hh" | cut -d';' -f1)"
+            hib="$(wc -c < "$w/hb" 2>/dev/null || echo 0)"
+            if [ "$his" != 200 ] || ! [[ "$him" =~ ^image/(jpeg|png|webp)$ ]] || [ "$hib" -le 50000 ]; then record fail live-hero "$target" "HTTP=$his MIME=$him bytes=$hib"; exit 1; fi
 
             git fetch origin main
             latest="$(git rev-parse origin/main)"
-            if [ "$latest" != "$target" ]; then
-              echo "main moved during live verification: $target -> $latest; retrying newest main"
-              rm -rf "$workdir"
-              continue
-            fi
-
-            detail="validate=PASS deploy=PASS page=200 structured=yes editorial=yes legacy=301 location=$location hero=$live_hero_status mime=$live_hero_mime bytes=$live_hero_bytes"
-            rm -rf "$workdir"
-            record_marker pass complete "$target" "$detail"
+            [ "$latest" = "$target" ] || { rm -rf "$w"; echo "main moved during live verification; retrying"; continue; }
+            rm -rf "$w"
+            record pass complete "$target" "validate=PASS deploy=PASS page=200 structured=yes editorial=yes legacy=301 location=$loc hero=$his mime=$him bytes=$hib"
             exit 0
           done
 
-          record_marker fail concurrency "$(git rev-parse HEAD)" 'Could not obtain a stable validated/deployed main revision after five passes'
+          record fail concurrency "$(git rev-parse HEAD)" 'Could not obtain stable validated/deployed main after five passes'
           exit 1
