@@ -40,7 +40,7 @@ export const fanninCountyBonhamBoisDArcLakeRayburnNortheastTexasArticle: Article
     { href: "/county/hunt", label: "Explore Hunt County", description: "Head south toward Greenville and the Blackland Prairie." },
     { href: "/county/delta", label: "Explore Delta County", description: "Continue southeast toward Cooper and the Sulphur River country." },
     { href: "/county/lamar", label: "Explore Lamar County", description: "Travel east toward Paris and the Red River corridor." },
-    { href: "/state-park/bonham-state-park", label: "Visit Bonham State Park", description: "Plan a trip to the CCC-built state park south of Bonham." },
+    { href: "/destination/bonham-state-park", label: "Visit Bonham State Park", description: "Plan a trip to the CCC-built state park south of Bonham." },
     { href: "/article/why-texas-has-254-counties", label: "Why Texas has 254 counties", description: "See how frontier travel and courthouse access shaped the Texas county map." },
   ],
   relatedCollections: [],
