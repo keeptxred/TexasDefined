@@ -139,6 +139,7 @@ const LEGACY_ARTICLE_TO_COUNTY = new Map<string, string>([
   ["red-river-county-clarksville-red-river-gateway-northeast-texas", "red-river"],
   ["delta-county-cooper-sulphur-rivers-cooper-lake-blackland-prairie-texas", "delta"],
   ["hopkins-county-sulphur-springs-dairy-railroads-northeast-texas", "hopkins"],
+  ["hunt-county-greenville-cotton-railroads-blackland-prairie-texas", "hunt"],
 ]);
 
 const COUNTY_SLUGS = new Set(LEGACY_ARTICLE_TO_COUNTY.values());
