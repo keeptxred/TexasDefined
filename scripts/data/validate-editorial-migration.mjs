@@ -121,7 +121,7 @@ const stubSlugMatches = [...lazyMigrated.matchAll(/slug: "([^"]+)"/g)].map((matc
 if (new Set(stubSlugMatches).size !== stubSlugMatches.length) errors.push('Migrated editorial stub slugs must remain unique.');
 if (stubSlugMatches.length !== expected.length) errors.push(`Expected ${expected.length} migrated article stubs, found ${stubSlugMatches.length}.`);
 for (const forbidden of ['KeepTXRed','Keep TX Red','/news/homestead','/tools/']) if (migrated.includes(forbidden) || lazyMigrated.includes(forbidden) || financeDepth.includes(forbidden) || financeDepth2.includes(forbidden) || relocationDepth.includes(forbidden) || relocationDepth2.includes(forbidden)) errors.push(`Public migrated editorial contains legacy text or path: ${forbidden}`);
-for (const feature of ['const editorialArticles = [','...texasCoreArticleStubs,','...migratedEditorialArticleStubs,','loadTexasCoreArticle(scope.brandId, slug)','loadMigratedEditorialArticle(scope.brandId, slug)','byBrand(editorialArticles, query.brandId)','href: `/article/${a.slug}`']) if (!repositories.includes(feature)) errors.push(`Editorial repository wiring missing: ${feature}`);
+for (const feature of ['const editorialArticles = [','...texasCoreArticleStubs,','...migratedEditorialArticleStubs,','loadTexasCoreArticle(scope.brandId, slug)','loadMigratedEditorialArticle(scope.brandId, slug)','byBrand(allEditorialArticles, query.brandId)','href: `/article/${a.slug}`']) if (!repositories.includes(feature)) errors.push(`Editorial repository wiring missing: ${feature}`);
 for (const feature of ['await import("./migrated-editorial")','migratedEditorialSlugs','migratedEditorialArticleStubs']) if (!lazyMigrated.includes(feature)) errors.push(`Lazy migrated editorial wiring missing: ${feature}`);
 for (const feature of ['await import("./texas-core-articles")','texasCoreArticleStubs','loadTexasCoreArticle']) if (!lazyCore.includes(feature)) errors.push(`Lazy core fixture wiring missing: ${feature}`);
 const coreBodySlugs = [...coreBodies.matchAll(/slug: "([^"]+)"/g)].map((match) => match[1]);
@@ -130,6 +130,8 @@ if (coreBodySlugs.length !== 10 || new Set(coreBodySlugs).size !== 10) errors.pu
 if (coreStubSlugs.length !== 10 || new Set(coreStubSlugs).size !== 10) errors.push('Expected 10 unique lazy core fixture article stubs.');
 for (const slug of coreBodySlugs) if (!coreStubSlugs.includes(slug)) errors.push(`Core fixture article stub missing: ${slug}`);
 if (repositories.includes('from "./migrated-editorial"')) errors.push('Central article repository must not eagerly import migrated editorial bodies.');
+if (repositories.includes('import { texasLifeSplitArticles } from "./texas-life-split"')) errors.push('Central article repository must not eagerly import Texas Life split article bodies.');
+for (const feature of ['loadTexasLifeSplitArticles','await import("./texas-life-split")']) if (!repositories.includes(feature)) errors.push(`Lazy Texas Life split repository wiring missing: ${feature}`);
 if (repositories.includes('  articles,') || repositories.includes('...articles,')) errors.push('Central article repository must not eagerly import the full texas.ts article array.');
 if (redirectRoute.includes('@/data/fixtures/migrated-editorial"')) errors.push('Legacy news redirect must use lightweight migrated editorial slugs.');
 for (const feature of ['migratedEditorialSlugs.includes(params.slug)','href: `/article/${params.slug}`','statusCode: 301','throw notFound()']) if (!redirectRoute.includes(feature)) errors.push(`Legacy article redirect protection missing: ${feature}`);
