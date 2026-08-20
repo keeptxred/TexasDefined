@@ -1,4 +1,5 @@
 import { paintedChurchAuthorityFeatures } from "./painted-church-features-authority";
+import { paintedChurchPreindexExpansionFeatures } from "./painted-church-features-preindex-expansion";
 import { paintedChurchPreindexFeatures } from "./painted-church-features-preindex";
 import { paintedChurchFeatures, type PaintedChurchFeature } from "./painted-church-features";
 
@@ -9,7 +10,12 @@ import { paintedChurchFeatures, type PaintedChurchFeature } from "./painted-chur
  */
 export const canonicalPaintedChurchFeatures: PaintedChurchFeature[] = [
   ...new Map(
-    [...paintedChurchFeatures, ...paintedChurchAuthorityFeatures, ...paintedChurchPreindexFeatures].map((feature) => [feature.id, feature]),
+    [
+      ...paintedChurchFeatures,
+      ...paintedChurchAuthorityFeatures,
+      ...paintedChurchPreindexFeatures,
+      ...paintedChurchPreindexExpansionFeatures,
+    ].map((feature) => [feature.id, feature]),
   ).values(),
 ];
 
