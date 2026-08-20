@@ -1,14 +1,9 @@
 import type { Article } from "@/data/types";
 import { COUNTY_SERIES_PROFILES } from "@/data/county-series-profiles";
 import { COUNTY_SERIES_PROFILES_CONTINUED } from "@/data/county-series-profiles-continued";
-import { COUNTY_SERIES_PROFILES_CONTINUED_2 } from "@/data/county-series-profiles-continued-2";
 
 const articlePromiseCache = new Map<string, Promise<Article | null>>();
-const countySeriesProfiles = [
-  ...COUNTY_SERIES_PROFILES,
-  ...COUNTY_SERIES_PROFILES_CONTINUED,
-  ...COUNTY_SERIES_PROFILES_CONTINUED_2,
-];
+const countySeriesProfiles = [...COUNTY_SERIES_PROFILES, ...COUNTY_SERIES_PROFILES_CONTINUED];
 
 export function loadCountySeriesArticleServer(countySlug: string): Promise<Article | null> {
   const cached = articlePromiseCache.get(countySlug);
