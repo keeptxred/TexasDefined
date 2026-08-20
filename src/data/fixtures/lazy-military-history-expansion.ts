@@ -2,8 +2,7 @@ import { articleInternalLinks } from "../article-internal-links";
 import type { Article } from "../types";
 
 const texasUsMexicanWarPaloAltoGuideStub: Article = {
-  id: "evergreen-texas-us-mexican-war-palo-alto-guide", brandId: "texasdefined", slug: "texas-us-mexican-war-palo-alto-guide",
-  title: "Texas and the U.S.–Mexican War: Palo Alto, the Rio Grande and the Border That Changed a Continent",
+  id: "evergreen-texas-us-mexican-war-palo-alto-guide", brandId: "texasdefined", slug: "texas-us-mexican-war-palo-alto-guide", title: "Texas and the U.S.–Mexican War: Palo Alto, the Rio Grande and the Border That Changed a Continent",
   dek: "The first major battles of the U.S.–Mexican War were fought near Brownsville. This guide connects annexation, the disputed border, Palo Alto, Resaca de la Palma, Texas Rangers, the Treaty of Guadalupe Hidalgo and the war's lasting consequences.", category: "texas-history",
   hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Nebel_Mexican_War_01_Battle_of_Palo_Alto.jpg?width=1600", alt: "1851 hand-colored lithograph depicting the Battle of Palo Alto near Brownsville", width: 5066, height: 3797, credit: "Adolphe Jean-Baptiste Bayot after Carl Nebel · 1851 · Public domain · Wikimedia Commons" },
   authorId: "a-marisol", publishedAt: "2026-08-19", readingMinutes: 16, tags: ["u.s.-mexican war", "mexican-american war", "palo alto", "resaca de la palma", "brownsville history", "texas military history", "rio grande", "treaty of guadalupe hidalgo"], featured: true,
@@ -93,6 +92,20 @@ const texasRecentWarsMilitaryHistoryStub: Article = {
   authorId: "a-marisol", publishedAt: "2026-08-20", readingMinutes: 17, tags: ["Texas recent wars", "Operation Desert Storm", "Operation Iraqi Freedom", "Operation Enduring Freedom", "36th Infantry Division", "Texas National Guard", "BRAC", "Texas military history"], featured: true,
   sourceName: "Texas Historical Commission", sourceUrl: "https://thc.texas.gov/learn/military-history/texas-recent-wars", body: [], relatedCollections: [], relatedDestinations: ["texas-military-forces-museum"],
 };
+const womenInTexasMilitaryHistoryStub: Article = {
+  id: "evergreen-women-in-texas-military-history", brandId: "texasdefined", slug: "women-in-texas-military-history", title: "Women in Texas Military History: From Army Nurses to the WASP and the Modern Force",
+  dek: "Texas military history is full of women whose service was once treated as auxiliary, temporary or invisible. From Army nurses and Oveta Culp Hobby to the Women Airforce Service Pilots at Avenger Field, their work reshaped who could serve and what military service looked like.", category: "texas-history", region: "panhandle-plains",
+  hero: { src: "https://www.nationalmuseum.af.mil/Upcoming/Photos/igphoto/2003643229/", alt: "Women Airforce Service Pilot trainees preparing for flight training at Avenger Field in Sweetwater, Texas", width: 1600, height: 1067, credit: "U.S. Air Force · Public domain · National Museum of the U.S. Air Force" },
+  authorId: "a-marisol", publishedAt: "2026-08-20", readingMinutes: 17, tags: ["women in Texas military history", "WASP", "Avenger Field", "Oveta Culp Hobby", "Women's Army Corps", "Texas women veterans", "Texas military history"], featured: true,
+  sourceName: "Texas Historical Commission", sourceUrl: "https://atlas.thc.texas.gov/Details?atlasnumber=5353005666&fn=print", body: [], relatedCollections: [], relatedDestinations: ["texas-military-forces-museum"],
+};
+const texasMedalOfHonorHeroesStub: Article = {
+  id: "evergreen-texas-medal-of-honor-heroes", brandId: "texasdefined", slug: "texas-medal-of-honor-heroes", title: "Texas Medal of Honor Stories: Audie Murphy, Macario Garcia, Roy Benavidez and More",
+  dek: "Audie Murphy, Macario Garcia and Roy Benavidez connect World War II and Vietnam to Texas communities, civil-rights struggles, the National Guard and the country's highest military decoration.", category: "texas-history", region: "north-texas",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Audie_Murphy.jpg?width=1600", alt: "U.S. Army publicity portrait of Texas-born Medal of Honor recipient Audie Murphy in uniform", width: 1104, height: 1600, credit: "U.S. Army · 1948 · Public domain · Wikimedia Commons" },
+  authorId: "a-marisol", publishedAt: "2026-08-20", readingMinutes: 18, tags: ["Texas Medal of Honor", "Audie Murphy", "Macario Garcia", "Roy Benavidez", "Texas military heroes", "Texas veterans", "Texas military history"], featured: true,
+  sourceName: "U.S. Army", sourceUrl: "https://www.army.mil/medalofhonor/", body: [], relatedCollections: [], relatedDestinations: ["texas-military-forces-museum"],
+};
 
 const buffaloSoldiersLink = { href: "/article/buffalo-soldiers-texas-frontier-guide", label: "Buffalo Soldiers in Texas", description: "Follow the Black Regulars through Fort Davis, Fort Concho, Fort McKavett and Fort Lancaster while holding military service, citizenship and Native dispossession in the same history." };
 const redRiverWarLink = { href: "/article/texas-red-river-war-guide", label: "The Red River War in Texas", description: "Follow the 1874–1875 campaign from Adobe Walls through Palo Duro Canyon and into the rapid ranching transformation of the Panhandle." };
@@ -103,21 +116,25 @@ const mexicanTexasLink = { href: "/article/mexican-texas-military-history", labe
 const spanishAmericanWarLink = { href: "/article/texas-spanish-american-war-guide", label: "Texas and the Spanish-American War", description: "Follow San Antonio, the Rough Riders, Texas volunteers and the 1898 transition toward overseas military service." };
 const worldWarILink = { href: "/article/texas-world-war-i-history-guide", label: "Texas in World War I", description: "Connect border mobilization, Camp Logan, the 36th and 90th Divisions, military aviation and the wartime Texas home front." };
 const recentWarsLink = { href: "/article/texas-recent-wars-military-history", label: "Texas in Recent Wars", description: "Follow Desert Storm, Balkan peacekeeping, Iraq, Afghanistan, BRAC and the modern Texas National Guard after 1991." };
+const womenMilitaryLink = { href: "/article/women-in-texas-military-history", label: "Women in Texas military history", description: "Follow Army nurses, Oveta Culp Hobby, the WASP at Avenger Field and the expansion of women's military roles." };
+const medalOfHonorLink = { href: "/article/texas-medal-of-honor-heroes", label: "Texas Medal of Honor stories", description: "Connect Audie Murphy, Macario Garcia, Roy Benavidez and other decorated Texans to the wars and communities around them." };
 
 const supplementalLinks: Record<string, Array<{ href: string; label: string; description: string }>> = {
   "spanish-texas-military-battle-medina": [mexicanTexasLink],
   "texas-us-mexican-war-palo-alto-guide": [{ href: "/destination/palo-alto-battlefield-national-historical-park", label: "Visit Palo Alto Battlefield", description: "Open the Trip Planner destination for the preserved 1846 battlefield, visitor context and lower Rio Grande area guide." }, mexicanTexasLink, spanishTexasLink],
-  "texas-military-history-timeline": [spanishTexasLink, mexicanTexasLink, buffaloSoldiersLink, redRiverWarLink, spanishAmericanWarLink, worldWarILink, republicNavyLink, coldWarLink, recentWarsLink],
+  "texas-military-history-timeline": [spanishTexasLink, mexicanTexasLink, buffaloSoldiersLink, redRiverWarLink, spanishAmericanWarLink, worldWarILink, republicNavyLink, coldWarLink, recentWarsLink, womenMilitaryLink, medalOfHonorLink],
   "texas-frontier-forts-road-trip": [buffaloSoldiersLink, redRiverWarLink],
-  "buffalo-soldiers-texas-frontier-guide": [redRiverWarLink, worldWarILink],
+  "buffalo-soldiers-texas-frontier-guide": [redRiverWarLink, worldWarILink, medalOfHonorLink],
   "texas-cattle-ranching-history-guide": [redRiverWarLink],
   "republic-of-texas-government-trail": [republicNavyLink, spanishTexasLink, mexicanTexasLink],
   "texas-revolution-historic-sites-road-trip": [republicNavyLink, spanishTexasLink, mexicanTexasLink],
-  "battleship-texas-bb-35-history-restoration": [republicNavyLink, worldWarILink],
-  "texas-national-guard-history": [{ href: "/destination/texas-military-forces-museum", label: "Texas Military Forces Museum", description: "Turn the Guard history into a Camp Mabry visit with current access guidance and an Austin area guide." }, buffaloSoldiersLink, spanishAmericanWarLink, worldWarILink, coldWarLink, recentWarsLink],
-  "san-antonio-military-aviation-history": [spanishAmericanWarLink, worldWarILink, coldWarLink, recentWarsLink],
-  "texas-world-war-ii-bases-pow-camps": [{ href: "/article/battleship-texas-bb-35-history-restoration", label: "Battleship Texas (BB-35)", description: "Connect the Texas home front with the surviving dreadnought that fought from North Africa and Normandy to Iwo Jima and Okinawa." }, worldWarILink, coldWarLink],
-  "texas-cold-war-military-history": [recentWarsLink],
+  "battleship-texas-bb-35-history-restoration": [republicNavyLink, worldWarILink, womenMilitaryLink],
+  "texas-national-guard-history": [{ href: "/destination/texas-military-forces-museum", label: "Texas Military Forces Museum", description: "Turn the Guard history into a Camp Mabry visit with current access guidance and an Austin area guide." }, buffaloSoldiersLink, spanishAmericanWarLink, worldWarILink, coldWarLink, recentWarsLink, womenMilitaryLink, medalOfHonorLink],
+  "san-antonio-military-aviation-history": [spanishAmericanWarLink, worldWarILink, coldWarLink, recentWarsLink, womenMilitaryLink],
+  "texas-world-war-ii-bases-pow-camps": [{ href: "/article/battleship-texas-bb-35-history-restoration", label: "Battleship Texas (BB-35)", description: "Connect the Texas home front with the surviving dreadnought that fought from North Africa and Normandy to Iwo Jima and Okinawa." }, worldWarILink, coldWarLink, womenMilitaryLink, medalOfHonorLink],
+  "texas-world-war-ii-historic-sites-guide": [womenMilitaryLink, medalOfHonorLink],
+  "texas-cold-war-military-history": [recentWarsLink, womenMilitaryLink, medalOfHonorLink],
+  "texas-recent-wars-military-history": [womenMilitaryLink, medalOfHonorLink],
 };
 for (const [slug, additions] of Object.entries(supplementalLinks)) {
   const existing = articleInternalLinks[slug] ?? [];
@@ -138,6 +155,8 @@ export const militaryHistoryExpansionStubs: Article[] = [
   texasWorldWarIIBasesPowCampsStub,
   texasColdWarMilitaryHistoryStub,
   texasRecentWarsMilitaryHistoryStub,
+  womenInTexasMilitaryHistoryStub,
+  texasMedalOfHonorHeroesStub,
 ];
 
 export async function loadMilitaryHistoryExpansionArticle(brandId: string, slug: string): Promise<Article | null> {
@@ -155,5 +174,7 @@ export async function loadMilitaryHistoryExpansionArticle(brandId: string, slug:
   if (slug === texasWorldWarIIBasesPowCampsStub.slug) return import("./texas-world-war-ii-bases-pow-camps").then((module) => module.texasWorldWarIIBasesPowCampsArticle);
   if (slug === texasColdWarMilitaryHistoryStub.slug) return import("./texas-cold-war-military-history").then((module) => module.texasColdWarMilitaryHistoryArticle);
   if (slug === texasRecentWarsMilitaryHistoryStub.slug) return import("./texas-recent-wars-military-history").then((module) => module.texasRecentWarsMilitaryHistoryArticle);
+  if (slug === womenInTexasMilitaryHistoryStub.slug) return import("./women-in-texas-military-history").then((module) => module.womenInTexasMilitaryHistoryArticle);
+  if (slug === texasMedalOfHonorHeroesStub.slug) return import("./texas-medal-of-honor-heroes").then((module) => module.texasMedalOfHonorHeroesArticle);
   return null;
 }
