@@ -1,6 +1,4 @@
 import { articleInternalLinks } from "../article-internal-links";
-import { texasCivilWarSitesGuideArticle } from "./texas-civil-war-sites-guide";
-import { texasMilitaryHistoryTimelineArticle } from "./texas-military-history-timeline";
 import { winklerCountyArticleStub } from "./winkler-county-article-stub";
 
 // Texas Explained support bodies formerly registered here via ...texasExplainedSupportArticles
@@ -101,6 +99,4 @@ for (const [slug, additions] of Object.entries(supportLinksByPillar)) {
 
 export const newestEvergreenArticles = [
   winklerCountyArticleStub,
-  texasMilitaryHistoryTimelineArticle,
-  texasCivilWarSitesGuideArticle,
 ];
