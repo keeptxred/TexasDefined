@@ -12,10 +12,10 @@ export const texasFlagHistoryArticle: Article = {
   dek: "Texas did not begin with the familiar blue, white and red Lone Star flag. Its path runs through revolution-era proposals, the Burnet flag, a Republic-era redesign, annexation, a decades-long legal gap and the modern Texas Flag Code.",
   category: "texas-history",
   hero: {
-    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Flag_of_Texas_(1839%E2%80%931879).svg?width=1600",
+    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Flag_of_Texas_%281839%E2%80%931879%29.svg/1280px-Flag_of_Texas_%281839%E2%80%931879%29.svg.png",
     alt: "Historical 1839 Lone Star flag of the Republic of Texas with a blue hoist, white star, white upper stripe and red lower stripe",
-    width: 1600,
-    height: 1067,
+    width: 1280,
+    height: 853,
     credit: "Peter Krag design · Public domain · Wikimedia Commons",
   },
   authorId: "a-marisol",
@@ -75,10 +75,10 @@ export const texasFlagHistoryArticle: Article = {
     {
       type: "image",
       image: {
-        src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Flag_of_the_Republic_of_Texas_(1836%E2%80%931839).svg?width=1280",
+        src: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Flag_of_the_Republic_of_Texas_%281836%E2%80%931839%29.svg/1280px-Flag_of_the_Republic_of_Texas_%281836%E2%80%931839%29.svg.png",
         alt: "The Burnet flag of the Republic of Texas, a blue field with a large gold five-pointed star in the center",
-        width: 900,
-        height: 600,
+        width: 1280,
+        height: 853,
         credit: "Public domain · Wikimedia Commons",
       },
       caption: "The Burnet flag served as the Republic of Texas national standard from December 10, 1836, until January 25, 1839.",
@@ -92,10 +92,10 @@ export const texasFlagHistoryArticle: Article = {
     {
       type: "image",
       image: {
-        src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Flag_of_Texas_(1839%E2%80%931879).svg?width=1280",
+        src: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Flag_of_Texas_%281839%E2%80%931879%29.svg/1280px-Flag_of_Texas_%281839%E2%80%931879%29.svg.png",
         alt: "Historical rendering of the 1839 Lone Star flag of the Republic of Texas with a blue hoist, white star, white upper stripe and red lower stripe",
-        width: 1080,
-        height: 720,
+        width: 1280,
+        height: 853,
         credit: "Peter Krag design · Public domain · Wikimedia Commons",
       },
       caption: "A public-domain rendering based on Peter Krag's 1839 artwork. The structure of the Lone Star flag has endured into the present state flag.",
@@ -148,7 +148,7 @@ export const texasFlagHistoryArticle: Article = {
       "1933: The Legislature restores detailed statutory recognition of the flag and establishes a state flag pledge.",
       "1965: The inaccurate words 'of 1836' are removed from the pledge.",
       "1992: The Legislature corrects earlier claims that definitively named Charles B. Stewart as designer and acknowledges that the actual designer is unknown.",
-      "2007: 'One state under God' is added to the Texas flag pledge.",
+      "2007: 'one state under God' is added to the Texas flag pledge.",
     ),
 
     h("Why the Lone Star endured"),
