@@ -15,6 +15,7 @@ const labels: Record<string, string> = {
   "researched-by": "Researchers",
   "heritage-context": "Heritage",
   "preservation-example": "Preservation",
+  "contains-feature": "Interior objects & artworks",
 };
 
 export function PaintedChurchKnowledgeLinks({ slug }: { slug: string }) {
@@ -53,6 +54,8 @@ export function PaintedChurchKnowledgeLinks({ slug }: { slug: string }) {
             <Link to="/explore/painted-churches/national-register-study" className="border-b border-primary text-primary">Original National Register study</Link>
             <Link to="/explore/painted-churches/bibliography" className="border-b border-primary text-primary">Scholarly bibliography</Link>
             <Link to="/explore/painted-churches/sources" className="border-b border-primary text-primary">Source registry</Link>
+            <Link to="/explore/painted-churches/fieldwork-protocol" className="border-b border-primary text-primary">Original fieldwork protocol</Link>
+            <Link to="/explore/painted-churches/preindex-readiness" className="border-b border-primary text-primary">Pre-index authority audit</Link>
           </div>
         </section>
       ) : null}
