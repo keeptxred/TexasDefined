@@ -26,6 +26,7 @@ on:
       - "scripts/data/validate-painted-church-completion.mjs"
       - "scripts/data/validate-painted-church-preindex.mjs"
       - "scripts/data/validate-painted-church-preindex-readiness.mjs"
+      - "scripts/data/validate-painted-church-preindex-strictness.mjs"
       - ".github/workflows/painted-churches-seo.yml"
   pull_request:
     paths:
@@ -51,6 +52,7 @@ on:
       - "scripts/data/validate-painted-church-completion.mjs"
       - "scripts/data/validate-painted-church-preindex.mjs"
       - "scripts/data/validate-painted-church-preindex-readiness.mjs"
+      - "scripts/data/validate-painted-church-preindex-strictness.mjs"
       - ".github/workflows/painted-churches-seo.yml"
 
 permissions:
@@ -74,3 +76,5 @@ jobs:
         run: node scripts/data/validate-painted-church-completion.mjs
       - name: Validate Painted Churches pre-index authority readiness
         run: node scripts/data/validate-painted-church-preindex-readiness.mjs
+      - name: Protect strict pre-index release standard
+        run: node scripts/data/validate-painted-church-preindex-strictness.mjs
