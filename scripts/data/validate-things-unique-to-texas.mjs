@@ -84,7 +84,7 @@ for (const [id, path] of [
   [200, '/article/texas-wildlife-guide'],
   [204, '/article/texas-trees-guide'],
   [222, '/texas-slang-explained'],
-  [225, '/texas-symbols'],
+  [225, '/article/history-of-the-texas-flag'],
   [233, '/texas-blue-norther-weather-guide'],
   [234, '/texas-blue-norther-weather-guide'],
   [235, '/texas-blue-norther-weather-guide'],
