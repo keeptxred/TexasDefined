@@ -158,6 +158,7 @@ const LEGACY_ARTICLE_TO_COUNTY = new Map<string, string>([
   ["baylor-county-seymour-brazos-ranching-railroads-rolling-plains-texas", "baylor"],
   ["wilbarger-county-vernon-doans-crossing-red-river-rolling-plains-texas", "wilbarger"],
   ["hardeman-county-quanah-chillicothe-red-river-rolling-plains-texas", "hardeman"],
+  ["childress-county-childress-railroads-red-river-rolling-plains-texas", "childress"],
 ]);
 
 const COUNTY_SLUGS = new Set(LEGACY_ARTICLE_TO_COUNTY.values());
