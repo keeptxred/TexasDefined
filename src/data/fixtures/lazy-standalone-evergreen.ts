@@ -127,6 +127,30 @@ const texasWorldWarIIHistoricSitesGuideStub: Article = {
   body: [], relatedCollections: [], relatedDestinations: ["eisenhower-birthplace", "national-museum-pacific-war", "iwo-jima-museum-monument", "slaton-harvey-house"],
 };
 
+const texasMilitaryHistoryTimelineStub: Article = {
+  id: "evergreen-texas-military-history-timeline", brandId: "texasdefined", slug: "texas-military-history-timeline",
+  title: "Texas Military History: From the Revolution to the World Wars",
+  dek: "A chronological guide to the battles, frontier posts, state forces, naval history, border mobilizations and global wars that shaped Texas from 1835 into the modern era.",
+  category: "texas-history",
+  hero: { src: "/images/explore/historic-sites/battleship-texas.jpg", alt: "Battleship Texas, the historic battleship that served in both World Wars", width: 1600, height: 1067, credit: "Daniel Schwen · CC BY-SA 4.0 · Wikimedia Commons" },
+  authorId: "a-marisol", publishedAt: "2026-08-19", readingMinutes: 17,
+  tags: ["texas military history", "texas revolution", "republic of texas army", "texas frontier forts", "texas civil war", "texas national guard", "texas world war ii", "battleship texas"], featured: true,
+  sourceName: "Texas Military Department", sourceUrl: "https://tmd.texas.gov/texas-military-department-history",
+  body: [], relatedCollections: [], relatedDestinations: ["the-alamo", "san-jacinto-battleground", "fort-martin-scott", "fort-griffin", "fort-mckavett", "fort-lancaster", "sabine-pass-battleground", "palmito-ranch-battlefield", "battleship-texas", "national-museum-pacific-war", "iwo-jima-museum-monument"],
+};
+
+const texasCivilWarSitesGuideStub: Article = {
+  id: "evergreen-texas-civil-war-sites-guide", brandId: "texasdefined", slug: "texas-civil-war-sites-guide",
+  title: "Texas in the Civil War: Galveston, Sabine Pass, Palmito Ranch and Juneteenth",
+  dek: "Texas was far from the Civil War's largest eastern armies, but Gulf ports, the Rio Grande trade corridor, frontier posts and federal occupation made the state strategically important from secession through emancipation.",
+  category: "texas-history",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Richard_Dowling_Memorial_Sabine_Pass_TX.jpg?width=1600", alt: "Richard Dowling Memorial at Sabine Pass Battleground State Historic Site in Texas", width: 1600, height: 1200, credit: "Junglecat · CC BY-SA 4.0 · Wikimedia Commons" },
+  authorId: "a-marisol", publishedAt: "2026-08-19", readingMinutes: 14,
+  tags: ["texas civil war", "battle of galveston", "sabine pass", "palmito ranch", "juneteenth", "texas military history", "galveston history", "rio grande civil war"], featured: true,
+  sourceName: "Texas Historical Commission", sourceUrl: "https://thc.texas.gov/learn/military-history/texas-civil-war",
+  body: [], relatedCollections: [], relatedDestinations: ["sabine-pass-battleground", "palmito-ranch-battlefield", "confederate-reunion-grounds", "sam-bell-maxey-house"],
+};
+
 export const standaloneEvergreenStubs: Article[] = [
   rodeo101Stub,
   highSchoolFootballNewcomersStub,
@@ -139,6 +163,8 @@ export const standaloneEvergreenStubs: Article[] = [
   brazoriaPlantationsSlaveryEmancipationHistoryStub,
   texasBorderlandsHistoricSitesGuideStub,
   texasWorldWarIIHistoricSitesGuideStub,
+  texasMilitaryHistoryTimelineStub,
+  texasCivilWarSitesGuideStub,
 ];
 
 export async function loadStandaloneEvergreenArticle(brandId: string, slug: string): Promise<Article | null> {
@@ -154,5 +180,7 @@ export async function loadStandaloneEvergreenArticle(brandId: string, slug: stri
   if (slug === brazoriaPlantationsSlaveryEmancipationHistoryStub.slug) return import("./brazoria-plantations-slavery-emancipation-history").then((module) => module.brazoriaPlantationsSlaveryEmancipationHistoryArticle);
   if (slug === texasBorderlandsHistoricSitesGuideStub.slug) return import("./texas-borderlands-historic-sites-guide").then((module) => module.texasBorderlandsHistoricSitesGuideArticle);
   if (slug === texasWorldWarIIHistoricSitesGuideStub.slug) return import("./texas-world-war-ii-historic-sites-guide").then((module) => module.texasWorldWarIIHistoricSitesGuideArticle);
+  if (slug === texasMilitaryHistoryTimelineStub.slug) return import("./texas-military-history-timeline").then((module) => module.texasMilitaryHistoryTimelineArticle);
+  if (slug === texasCivilWarSitesGuideStub.slug) return import("./texas-civil-war-sites-guide").then((module) => module.texasCivilWarSitesGuideArticle);
   return null;
 }
