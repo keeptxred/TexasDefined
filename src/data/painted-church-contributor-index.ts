@@ -1,5 +1,6 @@
 import { paintedChurchAuthorityContributors } from "./painted-church-contributors-authority";
 import { paintedChurchPreindexContributors } from "./painted-church-contributors-preindex";
+import { paintedChurchWacoContributors } from "./painted-church-contributors-waco";
 import { paintedChurchContributors, type PaintedChurchContributor } from "./painted-church-contributors";
 
 /**
@@ -9,7 +10,7 @@ import { paintedChurchContributors, type PaintedChurchContributor } from "./pain
  */
 export const canonicalPaintedChurchContributors: PaintedChurchContributor[] = [
   ...new Map(
-    [...paintedChurchContributors, ...paintedChurchAuthorityContributors, ...paintedChurchPreindexContributors]
+    [...paintedChurchContributors, ...paintedChurchAuthorityContributors, ...paintedChurchPreindexContributors, ...paintedChurchWacoContributors]
       .map((contributor) => [contributor.slug, contributor]),
   ).values(),
 ].filter((contributor) => contributor.churchSlugs.length > 0);
