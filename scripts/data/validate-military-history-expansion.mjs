@@ -54,14 +54,6 @@ const guides = [
     reciprocalHref: '/article/texas-world-war-ii-bases-pow-camps',
     requiredTerms: ['Camp Hood', 'Camp Swift', 'Camp Wolters', 'prisoner-of-war', 'Crystal City'],
   },
-  {
-    slug: 'battleship-texas-history-restoration-guide',
-    path: 'src/data/fixtures/battleship-texas-history-restoration-guide.ts',
-    exportName: 'battleshipTexasHistoryRestorationGuideArticle',
-    sourceName: 'Battleship Texas Foundation',
-    sourceUrl: 'https://battleshiptexas.org/',
-    requiredTerms: ['World War I', 'Normandy', 'Iwo Jima', 'Okinawa', 'Galveston'],
-  },
 ];
 
 for (const guide of guides) {
@@ -97,13 +89,15 @@ const plannerDestinations = [
     slug: 'palo-alto-battlefield-national-historical-park',
     name: 'Palo Alto Battlefield National Historical Park',
     officialUrl: 'https://www.nps.gov/paal/index.htm',
-    requiredTerms: ['category: "historic-sites"', 'nearestTown: "Brownsville"', 'county: "Cameron"', 'coordinates:', 'credit:'],
+    articleHref: '/article/texas-us-mexican-war-palo-alto-guide',
+    requiredTerms: ['category: "historic-sites"', 'nearestTown: "Brownsville"', 'county: "Cameron"', 'coordinates:', 'credit:', 'sourceCheckedAt: "2026-08-19"', 'areaGuide: {'],
   },
   {
     slug: 'texas-military-forces-museum',
     name: 'Texas Military Forces Museum',
     officialUrl: 'https://texasmilitaryforcesmuseum.org/',
-    requiredTerms: ['category: "historic-sites"', 'nearestTown: "Austin"', 'county: "Travis"', 'coordinates:', 'credit:'],
+    articleHref: '/article/texas-national-guard-history',
+    requiredTerms: ['category: "historic-sites"', 'nearestTown: "Austin"', 'county: "Travis"', 'coordinates:', 'credit:', 'sourceCheckedAt: "2026-08-19"', 'areaGuide: {'],
   },
 ];
 
@@ -111,6 +105,7 @@ for (const destination of plannerDestinations) {
   if (!destinations.includes(`slug: "${destination.slug}"`)) failures.push(`Trip Planner destination missing: ${destination.slug}`);
   if (!destinations.includes(`name: "${destination.name}"`)) failures.push(`Trip Planner destination name missing: ${destination.name}`);
   if (!destinations.includes(`officialUrl: "${destination.officialUrl}"`)) failures.push(`Trip Planner destination official source missing: ${destination.slug}`);
+  if (!destinations.includes(`href: "${destination.articleHref}"`)) failures.push(`Trip Planner destination does not link back to its military-history article: ${destination.slug}`);
   for (const marker of destination.requiredTerms) if (!destinations.includes(marker)) failures.push(`Trip Planner destination contract missing '${marker}': ${destination.slug}`);
 }
 
@@ -129,7 +124,10 @@ for (const marker of [
 for (const marker of [
   'export const militaryHistoryExpansionStubs',
   'export async function loadMilitaryHistoryExpansionArticle',
-]) if (!lazy.includes(marker)) failures.push(`Lazy military expansion registry is missing: ${marker}`);
+  '/destination/palo-alto-battlefield-national-historical-park',
+  '/destination/texas-military-forces-museum',
+  '/article/battleship-texas-bb-35-history-restoration',
+]) if (!lazy.includes(marker)) failures.push(`Lazy military expansion registry or supplemental linking is missing: ${marker}`);
 
 for (const marker of [
   'The Portal to Texas History',
@@ -151,6 +149,7 @@ for (const marker of [
   'historicAuthorityGuides',
   '{historicAuthorityGuides.length} routes into the statewide collection',
   'Plan history by story',
+  'battleship-texas-bb-35-history-restoration',
 ]) if (!historyHub.includes(marker)) failures.push(`History hub presentation contract missing: ${marker}`);
 
 if (failures.length) {
@@ -159,4 +158,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Military history expansion validation passed: ${guides.length} source-backed, lazy-loaded guides and ${plannerDestinations.length} preserved Trip Planner destinations retain substantive depth, explicit History-hub discovery, article sitemap publication, internal linking and archival-image sourcing rules.`);
+console.log(`Military history expansion validation passed: ${guides.length} new source-backed, lazy-loaded guides, the canonical Battleship Texas authority page, and ${plannerDestinations.length} preserved Trip Planner destinations retain substantive depth, explicit History-hub discovery, article sitemap publication, internal linking and archival-image sourcing rules.`);
