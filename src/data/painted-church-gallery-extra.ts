@@ -15,6 +15,18 @@ const extraGallery: Record<string, PaintedChurchGalleryImage[]> = {
       license: "CC BY-SA 4.0",
     },
   ],
+  "high-hill-nativity-of-mary": [
+    {
+      src: commons("Reverence (5670524189).jpg"),
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Reverence_(5670524189).jpg",
+      alt: "Interior devotional detail at Nativity of Mary Catholic Church in High Hill, Texas",
+      caption: "This licensed interior detail from High Hill adds a current visual counterpart to the church's separately documented archival sanctuary records without treating a detail photograph as a complete-room survey.",
+      width: 576,
+      height: 720,
+      credit: "BFS Man (Mike Fisher) · Wikimedia Commons",
+      license: "CC BY 2.0",
+    },
+  ],
   "san-antonio-st-joseph-catholic-church": [
     {
       src: commons("San Antonio May 2018 2 (St. Joseph Catholic Church).jpg"),
