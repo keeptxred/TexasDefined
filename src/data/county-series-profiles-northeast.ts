@@ -31,4 +31,10 @@ export const COUNTY_SERIES_PROFILES_NORTHEAST: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/van-zandt-county-canton-grand-saline-first-monday-east-texas")
       .then((module) => module.vanZandtCountyCantonGrandSalineFirstMondayEastTexasArticle),
   },
+  {
+    countySlug: "wood",
+    articleSlug: "wood-county-quitman-mineola-lake-fork-piney-woods-texas",
+    loadArticle: () => import("@/data/fixtures/wood-county-quitman-mineola-lake-fork-piney-woods-texas")
+      .then((module) => module.woodCountyQuitmanMineolaLakeForkPineyWoodsTexasArticle),
+  },
 ];
