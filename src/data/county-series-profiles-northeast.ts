@@ -79,4 +79,10 @@ export const COUNTY_SERIES_PROFILES_NORTHEAST: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/cass-county-linden-atlanta-piney-woods-wright-patman-texas")
       .then((module) => module.cassCountyLindenAtlantaPineyWoodsWrightPatmanTexasArticle),
   },
+  {
+    countySlug: "camp",
+    articleSlug: "camp-county-pittsburg-railroads-poultry-piney-woods-texas",
+    loadArticle: () => import("@/data/fixtures/camp-county-pittsburg-railroads-poultry-piney-woods-texas")
+      .then((module) => module.campCountyPittsburgRailroadsPoultryPineyWoodsTexasArticle),
+  },
 ];
