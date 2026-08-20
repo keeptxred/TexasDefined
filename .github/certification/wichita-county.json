@@ -1,0 +1,13 @@
+{
+  "county": "wichita",
+  "status": "pass",
+  "target_sha": "64d0cf89fb04dacea4b9046946f459d4c17308f8",
+  "live_page_http": 200,
+  "structured_data_visible": true,
+  "editorial_visible": true,
+  "legacy_http": 301,
+  "legacy_location": "https://texasdefined.com/county/wichita",
+  "hero_http": 200,
+  "hero_mime": "image/jpeg",
+  "hero_bytes": 5846531
+}
