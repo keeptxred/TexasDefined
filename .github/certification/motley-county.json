@@ -1,0 +1,9 @@
+{
+  "county": "motley",
+  "status": "pass",
+  "stage": "complete",
+  "county_commit": "9e9b2eb319121f9903eadc80660dbec79dfb588d",
+  "tested_main": "9e9b2eb319121f9903eadc80660dbec79dfb588d",
+  "detail": "validate=PASS deploy=PASS page=200 structured=yes editorial=yes legacy=301 hero=200 mime=image/jpeg bytes=826755",
+  "recorded_at_utc": "2026-08-20T14:43:26.740158+00:00"
+}
