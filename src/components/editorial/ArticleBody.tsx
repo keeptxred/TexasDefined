@@ -44,6 +44,26 @@ export function ArticleBody({ blocks, entities = [] }: { blocks: ArticleBlock[];
       case "heading": return <h2 key={index} className="mb-4 mt-14 font-display text-[2rem] font-semibold leading-[1.08] sm:mt-16 sm:text-[2.45rem]">{render(block.text, 2)}</h2>;
       case "quote": return <PullQuote key={index} text={block.text} entities={available()} {...(block.attribution ? { attribution: block.attribution } : {})} />;
       case "list": return <ul key={index} className="my-8 list-disc space-y-3 pl-6 marker:text-primary">{block.items.map((item) => <li key={item}>{render(item, 2)}</li>)}</ul>;
+      case "image": return (
+        <figure key={index} className="my-10 sm:my-12">
+          <div className="overflow-hidden rounded-2xl border border-border bg-muted/20">
+            <img
+              src={block.image.src}
+              alt={block.image.alt}
+              width={block.image.width}
+              height={block.image.height}
+              loading="lazy"
+              decoding="async"
+              className="h-auto w-full object-contain"
+            />
+          </div>
+          {(block.caption || block.image.credit) && (
+            <figcaption className="mt-3 text-sm leading-6 text-muted-foreground">
+              {block.caption}{block.caption && block.image.credit ? " · " : ""}{block.image.credit}
+            </figcaption>
+          )}
+        </figure>
+      );
       case "shop": return <ShopTheStory key={index} collectionSlug={block.collectionSlug} />;
       case "paragraph":
       default: return <p key={index} className="mt-6 first:mt-0">{render(block.text, 4)}</p>;
