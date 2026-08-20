@@ -27,7 +27,7 @@ export const texasLighthouseMapPoints: TexasLighthouseMapPoint[] = [
     note: "Historic Sabine Pass light at the eastern gateway to the Texas coast. It stands on the Louisiana side of the Sabine but belongs to the maritime story of the Texas-Louisiana boundary and the Sabine-Neches approach.",
     sourceUrl: "https://data.ngdc.noaa.gov/platforms/ocean/nos/coast/F00001-F02000/F00351/DR/F00351.pdf",
     sourceLabel: "NOAA Coast and Geodetic Survey position record",
-    articleHref: "/article/texas-lighthouses-complete-guide",
+    articleHref: "/article/sabine-pass-lighthouse-texas-border",
     countyHref: "/county/jefferson",
   },
   {
@@ -41,7 +41,7 @@ export const texasLighthouseMapPoints: TexasLighthouseMapPoint[] = [
     note: "The black cast-iron tower at Bolivar Point guarded the entrance to Galveston Bay and sheltered residents during the 1900 and 1915 storms. The property is not a public climb site.",
     sourceUrl: "https://atlas.thc.texas.gov/Details/2077001445",
     sourceLabel: "Texas Historical Commission National Register record",
-    articleHref: "/article/texas-lighthouses-complete-guide",
+    articleHref: "/article/point-bolivar-lighthouse-history",
     countyHref: "/county/galveston",
   },
   {
@@ -55,7 +55,7 @@ export const texasLighthouseMapPoints: TexasLighthouseMapPoint[] = [
     note: "Originally a screw-pile light in Matagorda Bay, Halfmoon Reef was moved onshore and preserved at Port Lavaca, making it one of the easiest historic Texas lighthouse structures to see from land.",
     sourceUrl: "https://www.wikidata.org/wiki/Q14710479",
     sourceLabel: "Wikidata coordinate record for the relocated lighthouse",
-    articleHref: "/article/texas-lighthouses-complete-guide",
+    articleHref: "/article/halfmoon-reef-lighthouse-port-lavaca",
     countyHref: "/county/calhoun",
   },
   {
@@ -69,7 +69,7 @@ export const texasLighthouseMapPoints: TexasLighthouseMapPoint[] = [
     note: "A major middle-coast light on Matagorda Island, preserved in a remote barrier-island setting where the difficulty of access is part of the story.",
     sourceUrl: "https://www.wikidata.org/wiki/Q6785980",
     sourceLabel: "Texas Historic Sites Atlas-backed Wikidata coordinate",
-    articleHref: "/article/texas-lighthouses-complete-guide",
+    articleHref: "/article/matagorda-island-lighthouse-history",
     countyHref: "/county/calhoun",
   },
   {
@@ -83,7 +83,7 @@ export const texasLighthouseMapPoints: TexasLighthouseMapPoint[] = [
     note: "The former Aransas Pass Light survives on Harbor Island as a private aid to navigation. It can be appreciated from public waterways and the Lighthouse Lakes paddling area but is not a public tower.",
     sourceUrl: "https://www.history.uscg.mil/Browse-by-Topic/Assets/Land/All/Article/2014937/aransas-pass-light-station-lydia-ann-lighthouse/",
     sourceLabel: "U.S. Coast Guard Historian's Office",
-    articleHref: "/article/texas-lighthouses-complete-guide",
+    articleHref: "/article/lydia-ann-lighthouse-port-aransas",
     countyHref: "/county/aransas",
   },
   {
