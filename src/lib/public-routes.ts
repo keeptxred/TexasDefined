@@ -180,6 +180,7 @@ export const CONDITIONAL_INDEXABLE_PUBLIC_PATHS = [
 ] as const;
 
 export const REDIRECT_ONLY_PATHS = [
+  "/article/high-school-football-newcomers",
   "/tools",
   "/mortgage-calculator",
   "/calculators/texas-home-affordability",

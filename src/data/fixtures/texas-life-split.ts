@@ -30,7 +30,7 @@ const cultureArticle: Article = {
     { href: "/texas-slang-explained", label: "Texas slang explained", description: "Y'all, fixin' to and the context behind familiar Texas expressions." },
     { href: "/texas-homecoming-mums", label: "Texas homecoming mums", description: "How a small flower tradition became a giant wearable symbol of school spirit." },
     { href: "/texas-dance-halls-honky-tonks", label: "Texas dance halls and honky-tonks", description: "Two-step culture, Western swing and the social spaces that keep the tradition alive." },
-    { href: "/article/high-school-football-newcomers", label: "Texas high-school football for newcomers", description: "Why Friday night can feel like a townwide civic event." },
+    { href: "/article/texas-high-school-football-newcomers", label: "Texas high-school football for newcomers", description: "Why Friday night can feel like a townwide civic event." },
     { href: "/article/texas-cultural-regions-explained", label: "Texas cultural regions", description: "See why East Texas, South Texas, the Hill Country and West Texas feel so different." },
     { href: "/texas-food-history", label: "Texas food history", description: "Connect barbecue, Tex-Mex, Czech and German foodways, cattle and migration." },
     { href: "/texas-history", label: "Texas history", description: "Go deeper on the Alamo, Juneteenth and the events behind modern Texas identity." },
