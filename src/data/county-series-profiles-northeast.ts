@@ -34,7 +34,7 @@ export const COUNTY_SERIES_PROFILES_NORTHEAST: CountySeriesProfile[] = [
   {
     countySlug: "wood",
     articleSlug: "wood-county-quitman-mineola-lake-fork-piney-woods-texas",
-    loadArticle: () => import("@/data/fixtures/wood-county-quitman-mineola-lake-fork-piney-woods-texas")
+    loadArticle: () => import("@/data/fixtures/wood-county-quitman-lake-fork-piney-woods-texas")
       .then((module) => module.woodCountyQuitmanMineolaLakeForkPineyWoodsTexasArticle),
   },
   {
@@ -72,5 +72,11 @@ export const COUNTY_SERIES_PROFILES_NORTHEAST: CountySeriesProfile[] = [
     articleSlug: "grayson-county-sherman-denison-lake-texoma-railroads-north-texas",
     loadArticle: () => import("@/data/fixtures/grayson-county-sherman-denison-lake-texoma-railroads-north-texas")
       .then((module) => module.graysonCountyShermanDenisonLakeTexomaRailroadsNorthTexasArticle),
+  },
+  {
+    countySlug: "cass",
+    articleSlug: "cass-county-linden-atlanta-piney-woods-wright-patman-texas",
+    loadArticle: () => import("@/data/fixtures/cass-county-linden-atlanta-piney-woods-wright-patman-texas")
+      .then((module) => module.cassCountyLindenAtlantaPineyWoodsWrightPatmanTexasArticle),
   },
 ];
