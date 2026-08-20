@@ -1,0 +1,49 @@
+name: Painted Churches Pre-Index Runtime Gate
+
+on:
+  push:
+    branches: [main, painted-churches-authority-preindex]
+    paths:
+      - "src/data/painted-church*"
+      - "src/routes/explore.painted-churches*"
+      - "src/components/editorial/PaintedChurch*"
+      - "src/lib/painted-church-publication.ts"
+      - "src/lib/seo.ts"
+      - "scripts/data/validate-painted-church-runtime-readiness.mjs"
+      - "scripts/data/validate-painted-church-preindex-readiness.mjs"
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/painted-churches-preindex-runtime.yml"
+  pull_request:
+    paths:
+      - "src/data/painted-church*"
+      - "src/routes/explore.painted-churches*"
+      - "src/components/editorial/PaintedChurch*"
+      - "src/lib/painted-church-publication.ts"
+      - "src/lib/seo.ts"
+      - "scripts/data/validate-painted-church-runtime-readiness.mjs"
+      - "scripts/data/validate-painted-church-preindex-readiness.mjs"
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/painted-churches-preindex-runtime.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  runtime-readiness:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install repository dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Validate static pre-index contract
+        run: node scripts/data/validate-painted-church-preindex-readiness.mjs
+      - name: Execute 32-church runtime authority model
+        run: node scripts/data/validate-painted-church-runtime-readiness.mjs
