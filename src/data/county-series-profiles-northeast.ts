@@ -97,4 +97,10 @@ export const COUNTY_SERIES_PROFILES_NORTHEAST: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/clay-county-henrietta-red-river-lake-arrowhead-north-texas")
       .then((module) => module.clayCountyHenriettaRedRiverLakeArrowheadNorthTexasArticle),
   },
+  {
+    countySlug: "henderson",
+    articleSlug: "henderson-county-athens-lakes-fisheries-east-texas",
+    loadArticle: () => import("@/data/fixtures/henderson-county-athens-lakes-fisheries-east-texas")
+      .then((module) => module.hendersonCountyAthensLakesFisheriesEastTexasArticle),
+  },
 ];
