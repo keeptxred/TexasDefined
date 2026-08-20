@@ -33,7 +33,7 @@ const militaryGuides = [
     exportName: 'texasCivilWarSitesGuideArticle',
     sourceName: 'Texas Historical Commission',
     sourceUrl: 'https://thc.texas.gov/learn/military-history/texas-civil-war',
-    destinations: ['sabine-pass-battleground', 'palmito-ranch-battlefield'],
+    destinations: ['sabine-pass-battleground', 'palmito-ranch-battlefield', 'confederate-reunion-grounds', 'sam-bell-maxey-house', 'levi-jordan-plantation', 'varner-hogg-plantation', 'starr-family-home'],
   },
 ];
 
