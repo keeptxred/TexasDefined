@@ -36,7 +36,7 @@ const expectedSlugs = [
   "anderson-st-stanislaus-kostka",
   "castroville-st-louis-catholic-church",
   "lacoste-our-lady-of-grace",
-  "galveston-st-josephs-church",
+  "galveston-st-joseph-church",
 ];
 
 const detailRoute = read("src/routes/explore.painted-churches.$slug.tsx");
@@ -54,11 +54,11 @@ assert(deploy.includes("PUBLIC_INDEXING_ENABLED"), "Production workflow must gat
 assert(deploy.includes("submit-indexnow.mjs"), "Production workflow must retain explicit IndexNow orchestration.");
 
 const expanded = read("src/data/painted-churches-expanded.ts");
-assert(expanded.includes("galveston-st-josephs-church"), "Canonical collection must include St. Joseph's Galveston.");
-assert(expanded.includes("historical-thematic-study-member"), "Galveston/thematic-study distinction must be represented in the canonical model.");
+assert(expanded.includes("galveston-st-joseph-church"), "Canonical collection must include St. Joseph's Galveston.");
+assert(expanded.includes("historical-thematic-nomination-member"), "Galveston/thematic-nomination distinction must be represented in the canonical model.");
 
 const thematic = read("src/data/painted-church-thematic-nomination.ts");
-assert(thematic.includes("galveston-st-josephs-church"), "Original thematic nomination model must include Galveston.");
+assert(thematic.includes("galveston-st-joseph-church"), "Original thematic nomination model must include Galveston.");
 assert(thematic.includes("15"), "Original thematic nomination model must preserve the historical fifteen-church study.");
 
 const concordance = read("src/data/painted-church-count-concordance.ts");
