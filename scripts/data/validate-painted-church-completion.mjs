@@ -13,6 +13,7 @@ const thenNow = read('src/routes/explore.painted-churches.then-and-now.tsx');
 const tripPlanner = read('src/routes/explore.trip-planner.tsx');
 const countyGuides = read('src/components/content/CountyGuideSections.tsx');
 const guidebook = read('src/routes/guides.tsx');
+const topicPaths = read('src/components/editorial/ExploreTopicPaths.tsx');
 
 for (const slug of ['ellinger-st-marys-catholic-church','rockne-sacred-heart-catholic-church','san-antonio-san-fernando-cathedral']) {
   requireText(census, `slug: "${slug}"`, 'Candidate adjudication');
@@ -48,10 +49,13 @@ requireText(tripPlanner, '/explore/painted-churches/map', 'Trip-planner reciproc
 requireText(countyGuides, 'countyChurches = expandedPaintedChurches.filter', 'County reciprocal link');
 requireText(guidebook, 'label: "Painted Churches of Texas"', 'Guidebook discovery');
 requireText(guidebook, 'A source-backed heritage reference and travel-planning system for 27 verified churches.', 'Guidebook authority copy');
+requireText(topicPaths, 'label: "Painted Churches of Texas"', 'Historic-sites reciprocal link');
+requireText(topicPaths, 'to: "/explore/painted-churches/routes"', 'Road-trip reciprocal link');
+requireText(topicPaths, 'label: "Painted Churches"', 'Small-town reciprocal link');
 
 if (failures.length) {
   console.error('Painted Churches completion validation failed:');
   failures.forEach((failure) => console.error(`- ${failure}`));
   process.exit(1);
 }
-console.log('Painted Churches completion protected: candidate adjudication, oral-history sources, complete Then & Now accounting, Fredericksburg, High Hill and Ammannsville image coverage, county links, trip-planner discovery and statewide Guidebook exposure.');
+console.log('Painted Churches completion protected: candidate adjudication, oral-history sources, complete Then & Now accounting, Fredericksburg, High Hill and Ammannsville image coverage, county, history, road-trip and small-town discovery, trip-planner integration and statewide Guidebook exposure.');
