@@ -141,6 +141,7 @@ const LEGACY_ARTICLE_TO_COUNTY = new Map<string, string>([
   ["hopkins-county-sulphur-springs-dairy-railroads-northeast-texas", "hopkins"],
   ["hunt-county-greenville-cotton-railroads-blackland-prairie-texas", "hunt"],
   ["fannin-county-bonham-bois-darc-lake-rayburn-northeast-texas", "fannin"],
+  ["wood-county-quitman-mineola-lake-fork-piney-woods-texas", "wood"],
 ]);
 
 const COUNTY_SLUGS = new Set(LEGACY_ARTICLE_TO_COUNTY.values());
