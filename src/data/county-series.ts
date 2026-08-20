@@ -157,6 +157,7 @@ const LEGACY_ARTICLE_TO_COUNTY = new Map<string, string>([
   ["foard-county-crowell-pease-river-ranching-oil-rolling-plains-texas", "foard"],
   ["baylor-county-seymour-brazos-ranching-railroads-rolling-plains-texas", "baylor"],
   ["wilbarger-county-vernon-doans-crossing-red-river-rolling-plains-texas", "wilbarger"],
+  ["hardeman-county-quanah-chillicothe-red-river-rolling-plains-texas", "hardeman"],
 ]);
 
 const COUNTY_SLUGS = new Set(LEGACY_ARTICLE_TO_COUNTY.values());
