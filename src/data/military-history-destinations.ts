@@ -1,0 +1,58 @@
+import type { Destination } from "./types";
+
+export const militaryHistoryDestinations: Destination[] = [
+  {
+    id: "military-history-palo-alto-battlefield",
+    brandId: "texasdefined",
+    slug: "palo-alto-battlefield-national-historical-park",
+    name: "Palo Alto Battlefield National Historical Park",
+    summary: "The preserved South Texas prairie where U.S. and Mexican armies fought the first major battle of the U.S.–Mexican War on May 8, 1846.",
+    category: "historic-sites",
+    region: "south-texas",
+    nearestTown: "Brownsville",
+    coordinates: { lat: 26.017886, lng: -97.480617 },
+    hero: {
+      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Palo_Alto_Battlefield_National_Historic_Site_PAAL8324.jpg?width=1600",
+      alt: "Open coastal prairie at Palo Alto Battlefield National Historical Park near Brownsville",
+      width: 3072,
+      height: 2048,
+      credit: "National Park Service Digital Image Archives · Public domain · Wikimedia Commons",
+    },
+    bestSeason: "November through May offers milder South Texas weather; check current park conditions before visiting.",
+    entryNote: "Park grounds and visitor-center schedules differ and can change with staffing. Confirm current hours and closures with the National Park Service before the trip.",
+    highlights: ["1846 battlefield", "Visitor center", "Battlefield trails", "U.S.–Mexican War history", "Brownsville Historic Battlefield Trail"],
+    body: [
+      "Palo Alto preserves the open coastal prairie where General Zachary Taylor's U.S. force and General Mariano Arista's Mexican army fought on May 8, 1846. The landscape makes artillery ranges, troop positions and the terrain of the war's opening campaign unusually easy to visualize.",
+      "The park interprets the causes and consequences of the U.S.–Mexican War from both national perspectives and also administers nearby Resaca de la Palma Battlefield. Use the site with the TexasDefined U.S.–Mexican War guide to connect annexation, the disputed Rio Grande boundary and the campaign that followed.",
+    ],
+    officialUrl: "https://www.nps.gov/paal/index.htm",
+    county: "Cameron",
+  },
+  {
+    id: "military-history-texas-military-forces-museum",
+    brandId: "texasdefined",
+    slug: "texas-military-forces-museum",
+    name: "Texas Military Forces Museum",
+    summary: "Camp Mabry's museum of Texas militia, National Guard, State Guard and wartime service from the early nineteenth century to modern deployments.",
+    category: "historic-sites",
+    region: "prairies-lakes",
+    nearestTown: "Austin",
+    coordinates: { lat: 30.3136, lng: -97.7611 },
+    hero: {
+      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Ceremonies_at_Camp_Mabry_190112-Z-DZ751-0199_(32916620338).jpg?width=1600",
+      alt: "A 2019 ceremony inside the Texas Military Forces Museum at Camp Mabry in Austin",
+      width: 3000,
+      height: 2002,
+      credit: "Sgt. 1st Class Jim Greenhill / U.S. Army National Guard · Public domain · Wikimedia Commons",
+    },
+    bestSeason: "Year-round indoor museum; verify Camp Mabry access requirements before leaving home.",
+    entryNote: "The museum is on active Camp Mabry. Adult visitors are subject to installation security screening and photo-ID requirements, and the visitor-control cutoff can be earlier than museum closing time. Check the museum's current access instructions before visiting.",
+    highlights: ["Texas National Guard", "36th Infantry Division", "Military vehicles", "Texas State Guard", "Camp Mabry"],
+    body: [
+      "The 45,000-square-foot Texas Military Forces Museum interprets the state's militia and volunteer traditions, the Texas Army and Air National Guard, and the Texas State Guard through uniforms, weapons, vehicles, photographs, artifacts and large-scale exhibits.",
+      "Because the museum sits on an active military installation, access is different from an ordinary city museum. Pair the visit with the TexasDefined National Guard history guide and confirm Camp Mabry's current security and visitor-control procedures before arrival.",
+    ],
+    officialUrl: "https://texasmilitaryforcesmuseum.org/",
+    county: "Travis",
+  },
+];
