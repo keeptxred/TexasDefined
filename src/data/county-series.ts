@@ -136,6 +136,7 @@ const LEGACY_ARTICLE_TO_COUNTY = new Map<string, string>([
   ["marion-county-jefferson-caddo-lake-riverport-piney-woods-texas", "marion"],
   ["cass-county-linden-atlanta-wright-patman-piney-woods-texas", "cass"],
   ["bowie-county-texarkana-new-boston-red-river-piney-woods-texas", "bowie"],
+  ["red-river-county-clarksville-red-river-gateway-northeast-texas", "red-river"],
 ]);
 
 const COUNTY_SLUGS = new Set(LEGACY_ARTICLE_TO_COUNTY.values());
