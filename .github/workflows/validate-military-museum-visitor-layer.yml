@@ -1,0 +1,36 @@
+name: Validate military museum visitor layer
+
+on:
+  pull_request:
+    paths:
+      - 'src/data/military-museum-destinations.ts'
+      - 'src/data/destination-preserved-catalog.ts'
+      - 'src/data/fixtures/texas-military-museums-historic-sites-guide.ts'
+      - 'src/data/fixtures/lazy-newest-evergreen.ts'
+      - 'src/data/fixtures/military-museum-links.ts'
+      - 'scripts/data/validate-military-museum-visitor-layer.mjs'
+      - '.github/workflows/validate-military-museum-visitor-layer.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/data/military-museum-destinations.ts'
+      - 'src/data/destination-preserved-catalog.ts'
+      - 'src/data/fixtures/texas-military-museums-historic-sites-guide.ts'
+      - 'src/data/fixtures/lazy-newest-evergreen.ts'
+      - 'src/data/fixtures/military-museum-links.ts'
+      - 'scripts/data/validate-military-museum-visitor-layer.mjs'
+      - '.github/workflows/validate-military-museum-visitor-layer.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate-military-museum-visitor-layer:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate military museum visitor layer
+        run: node scripts/data/validate-military-museum-visitor-layer.mjs
