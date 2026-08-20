@@ -9,6 +9,7 @@ const people = read('src/data/painted-church-people.ts');
 const media = read('src/routes/explore.painted-churches.media.tsx');
 const extraGallery = read('src/data/painted-church-gallery-extra.ts');
 const archival = read('src/data/painted-church-archival-images-expansion.ts');
+const thenNow = read('src/routes/explore.painted-churches.then-and-now.tsx');
 const tripPlanner = read('src/routes/explore.trip-planner.tsx');
 const countyGuides = read('src/components/content/CountyGuideSections.tsx');
 const guidebook = read('src/routes/guides.tsx');
@@ -33,6 +34,11 @@ requireText(extraGallery, 'CC BY-SA 4.0', 'Fredericksburg image license');
 requireText(archival, 'metapth943229', 'Fredericksburg 1980 archival record');
 requireText(archival, 'October 1, 1980', 'Fredericksburg archival date');
 
+requireText(thenNow, 'const neither =', 'Then & Now coverage accounting');
+requireText(thenNow, 'Coverage accounting:', 'Then & Now coverage accounting');
+requireText(thenNow, 'Open visual-research queue', 'Then & Now backlog transparency');
+requireText(thenNow, 'paired.length + archivalOnly.length + currentOnly.length + neither.length', 'Then & Now reconciliation');
+
 requireText(tripPlanner, 'PaintedChurchRoutePromo', 'Trip-planner reciprocal link');
 requireText(tripPlanner, '/explore/painted-churches/routes', 'Trip-planner reciprocal link');
 requireText(tripPlanner, '/explore/painted-churches/map', 'Trip-planner reciprocal link');
@@ -45,4 +51,4 @@ if (failures.length) {
   failures.forEach((failure) => console.error(`- ${failure}`));
   process.exit(1);
 }
-console.log('Painted Churches completion protected: candidate adjudication, oral-history sources, Fredericksburg and High Hill image coverage, county links, trip-planner discovery and statewide Guidebook exposure.');
+console.log('Painted Churches completion protected: candidate adjudication, oral-history sources, complete Then & Now accounting, Fredericksburg and High Hill image coverage, county links, trip-planner discovery and statewide Guidebook exposure.');
