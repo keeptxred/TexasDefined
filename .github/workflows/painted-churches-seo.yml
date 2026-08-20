@@ -14,6 +14,8 @@ on:
       - "src/components/content/CountyGuideSections.tsx"
       - "src/components/authority/CitationCollectionTrustRouter.tsx"
       - "src/lib/public-routes.ts"
+      - "src/lib/painted-church-publication.ts"
+      - "src/lib/seo.ts"
       - "src/routes/sitemap-explore[.]xml.ts"
       - "src/routes/citation-guide.tsx"
       - "src/routes/llms[.]txt.ts"
@@ -23,6 +25,7 @@ on:
       - "scripts/data/validate-painted-church-search-intents.mjs"
       - "scripts/data/validate-painted-church-completion.mjs"
       - "scripts/data/validate-painted-church-preindex.mjs"
+      - "scripts/data/validate-painted-church-preindex-readiness.mjs"
       - ".github/workflows/painted-churches-seo.yml"
   pull_request:
     paths:
@@ -36,6 +39,8 @@ on:
       - "src/components/content/CountyGuideSections.tsx"
       - "src/components/authority/CitationCollectionTrustRouter.tsx"
       - "src/lib/public-routes.ts"
+      - "src/lib/painted-church-publication.ts"
+      - "src/lib/seo.ts"
       - "src/routes/sitemap-explore[.]xml.ts"
       - "src/routes/citation-guide.tsx"
       - "src/routes/llms[.]txt.ts"
@@ -45,6 +50,7 @@ on:
       - "scripts/data/validate-painted-church-search-intents.mjs"
       - "scripts/data/validate-painted-church-completion.mjs"
       - "scripts/data/validate-painted-church-preindex.mjs"
+      - "scripts/data/validate-painted-church-preindex-readiness.mjs"
       - ".github/workflows/painted-churches-seo.yml"
 
 permissions:
@@ -62,7 +68,7 @@ jobs:
         run: node scripts/data/validate-painted-churches-seo.mjs
       - name: Validate Painted Churches search-intent coverage
         run: node scripts/data/validate-painted-church-search-intents.mjs
-      - name: Validate Painted Churches interactive map and 28-church authority contract
+      - name: Validate Painted Churches interactive map and 31-church authority contract
         run: node scripts/data/validate-painted-church-map.mjs
       - name: Validate Painted Churches completion surfaces
         run: node scripts/data/validate-painted-church-completion.mjs
