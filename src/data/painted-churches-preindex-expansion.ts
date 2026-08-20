@@ -1,0 +1,71 @@
+import type { CanonicalPaintedChurch } from "./painted-churches-expanded-legacy";
+
+const CHECKED = "2026-08-20";
+
+/**
+ * Churches promoted during the final pre-index authority audit.
+ * Each record must clear the same church-specific inclusion standard as the legacy corpus.
+ */
+export const preindexVerifiedPaintedChurches: CanonicalPaintedChurch[] = [
+  {
+    slug: "palestine-first-presbyterian-church",
+    name: "First Presbyterian Church",
+    shortName: "First Presbyterian at Palestine",
+    city: "Palestine",
+    county: "Anderson",
+    address: "410 Avenue A, Palestine, TX 75801",
+    denomination: "Presbyterian",
+    summary: "An 1888 Gothic Revival sanctuary whose city preservation survey documents a hand-painted ceiling by an itinerant German craftsman, leaded stained glass and Tiffany memorial windows.",
+    significance: "A Recorded Texas Historic Landmark and later National Register property with unusually strong church-specific evidence for a historic hand-painted ceiling. Buie Harwood also preserved a dedicated 23-slide decorative-interior research group for the church.",
+    visitNote: "The congregation remains active. Verify worship, events and interior access with the current congregation before traveling specifically to study the painted ceiling and memorial glass.",
+    sourceUrl: "https://texashistory.unt.edu/ark:/67531/metapth25684/",
+    secondarySourceUrl: "https://pcusa.org/congregation/first-church-palestine-tx",
+    sourceCheckedAt: CHECKED,
+    nationalRegister: { referenceNumber: "98000695", listed: "June 11, 1998", multipleProperty: false },
+    recordedTexasHistoricLandmark: true,
+    classification: "broader-historic-tradition",
+    interiorIntegrity: "uncertain",
+    culturalHeritage: ["East Texas Presbyterian", "German itinerant decorative craftsman"],
+    techniques: ["freehand"],
+  },
+  {
+    slug: "houston-annunciation-catholic-church",
+    name: "Church of the Annunciation",
+    shortName: "Annunciation at Houston",
+    city: "Houston",
+    county: "Harris",
+    address: "1618 Texas Ave, Houston, TX 77003",
+    denomination: "Roman Catholic",
+    summary: "Houston's historic Catholic mother church, with a documented sanctuary-dome replica of Raphael's Transfiguration, a barreled and coffered nave ceiling, memorial glass and a layered nineteenth-century decorative ensemble.",
+    significance: "An individually listed National Register property and Recorded Texas Historic Landmark that Buie Harwood also studied as part of the wider Texas decorative-interior research universe. Texas Defined treats the surviving interior as historically layered rather than assigning all visible decoration to one campaign.",
+    visitNote: "Annunciation remains an active downtown parish and explicitly welcomes visitors. Check current liturgies and parish events before sightseeing; the parish publishes detailed downtown parking and transit guidance.",
+    sourceUrl: "https://annunciationcc.org/about",
+    secondarySourceUrl: "https://www.tshaonline.org/handbook/entries/church-of-the-annunciation-houston",
+    sourceCheckedAt: CHECKED,
+    nationalRegister: { referenceNumber: "75001988", listed: "November 3, 1975", multipleProperty: false },
+    recordedTexasHistoricLandmark: true,
+    classification: "broader-historic-tradition",
+    interiorIntegrity: "uncertain",
+    culturalHeritage: ["Houston Catholic", "French diocesan roots", "Urban immigrant Catholic"],
+    techniques: ["decorative-murals"],
+  },
+  {
+    slug: "waco-st-francis-on-the-brazos",
+    name: "St. Francis on the Brazos Catholic Church",
+    shortName: "St. Francis on the Brazos",
+    city: "Waco",
+    county: "McLennan",
+    address: "301 Jefferson Ave, Waco, TX 76701",
+    denomination: "Roman Catholic",
+    summary: "A 1931 Franciscan church serving Waco's Mexican American Catholic community, with monumental sacred paintings and nearly life-size Stations of the Cross painted on canvas by Mallorcan artist Pedro Juan Barceló and installed on the interior walls.",
+    significance: "The active parish and Diocese of Austin document a large church-specific painted program by Pedro Juan Barceló, while Baylor preserves a historical description of a separate or differently attributed sanctuary composition. Texas Defined includes the church in the broader statewide Painted Churches tradition while preserving that attribution question rather than flattening it.",
+    visitNote: "St. Francis is an active parish. The Diocese of Austin confirms the current church and worship schedule; verify interior access and any photography rules before a special art-history visit.",
+    sourceUrl: "https://stfrancistorwaco.org/100th-anniversary",
+    secondarySourceUrl: "https://www.austindiocese.org/parishfinder",
+    sourceCheckedAt: CHECKED,
+    classification: "broader-historic-tradition",
+    interiorIntegrity: "uncertain",
+    culturalHeritage: ["Franciscan Catholic", "Mexican American Catholic", "Mallorcan Spanish artistic contribution"],
+    techniques: ["canvas-applied-decoration", "decorative-murals"],
+  },
+];
