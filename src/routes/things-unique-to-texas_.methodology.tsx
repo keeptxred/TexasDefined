@@ -9,7 +9,7 @@ import { buildMeta, canonicalLink } from "@/lib/seo";
 const canonicalPath = "/things-unique-to-texas/methodology";
 const description = "How TexasDefined selects, labels, cross-links and maintains the 250 Things That Define Texas collection, including source precedence, scope rules, data distributions and corrections.";
 
-export const Route = createFileRoute("/things-unique-to-texas_/methodology")({
+export const Route = createFileRoute("/things-unique-to-texas/methodology")({
   head: () => {
     const origin = `https://${texasDefinedBrand.identity.domain}`;
     const url = `${origin}${canonicalPath}`;
