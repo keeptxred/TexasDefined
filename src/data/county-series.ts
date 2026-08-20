@@ -143,6 +143,7 @@ const LEGACY_ARTICLE_TO_COUNTY = new Map<string, string>([
   ["fannin-county-bonham-bois-darc-lake-rayburn-northeast-texas", "fannin"],
   ["wood-county-quitman-mineola-lake-fork-piney-woods-texas", "wood"],
   ["rockwall-county-rockwall-heath-lake-ray-hubbard-blackland-prairie-texas", "rockwall"],
+  ["kaufman-county-kaufman-terrell-forney-blackland-prairie-texas", "kaufman"],
 ]);
 
 const COUNTY_SLUGS = new Set(LEGACY_ARTICLE_TO_COUNTY.values());
