@@ -187,4 +187,10 @@ export const COUNTY_SERIES_PROFILES_CONTINUED: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/anderson-county-palestine-railroads-piney-woods-texas")
       .then((module) => module.andersonCountyPalestineRailroadsPineyWoodsTexasArticle),
   },
+  {
+    countySlug: "hardeman",
+    articleSlug: "hardeman-county-quanah-chillicothe-red-river-rolling-plains-texas",
+    loadArticle: () => import("@/data/fixtures/hardeman-county-quanah-chillicothe-red-river-rolling-plains-texas")
+      .then((module) => module.hardemanCountyQuanahChillicotheRedRiverRollingPlainsTexasArticle),
+  },
 ];
