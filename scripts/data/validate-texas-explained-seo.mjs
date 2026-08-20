@@ -9,7 +9,12 @@ const articleRoute = read('src/routes/article.$slug.tsx');
 const publicRoutes = read('src/lib/public-routes.ts');
 const resources = read('src/routes/texas-resources.tsx');
 const internalLinks = read('src/data/article-internal-links.ts');
-const newestEvergreen = read('src/data/fixtures/newest-evergreen.ts');
+const newestEvergreenEntry = read('src/data/fixtures/newest-evergreen.ts');
+const newestEvergreenBasePath = path.join(root, 'src/data/fixtures/newest-evergreen-base.ts');
+const newestEvergreenBase = fs.existsSync(newestEvergreenBasePath)
+  ? fs.readFileSync(newestEvergreenBasePath, 'utf8')
+  : '';
+const newestEvergreen = `${newestEvergreenEntry}\n${newestEvergreenBase}`;
 const supportArticles = read('src/data/fixtures/texas-explained-support-articles.ts');
 const supportStubs = read('src/data/fixtures/texas-explained-support-stubs.ts');
 const homepage = read('src/routes/index.tsx');
