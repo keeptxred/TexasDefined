@@ -109,4 +109,10 @@ export const COUNTY_SERIES_PROFILES_NORTHEAST: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/wichita-county-wichita-falls-sheppard-oil-red-river-texas")
       .then((module) => module.wichitaCountyWichitaFallsSheppardOilRedRiverTexasArticle),
   },
+  {
+    countySlug: "archer",
+    articleSlug: "archer-county-archer-city-ranching-oil-larry-mcmurtry-north-texas",
+    loadArticle: () => import("@/data/fixtures/archer-county-archer-city-ranching-oil-larry-mcmurtry-north-texas")
+      .then((module) => module.archerCountyArcherCityRanchingOilLarryMcMurtryNorthTexasArticle),
+  },
 ];
