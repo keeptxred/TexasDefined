@@ -43,4 +43,10 @@ export const COUNTY_SERIES_PROFILES_ROLLING_PLAINS: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/knox-county-benjamin-munday-brazos-ranching-rolling-plains-texas")
       .then((module) => module.knoxCountyBenjaminMundayBrazosRanchingRollingPlainsTexasArticle),
   },
+  {
+    countySlug: "stonewall",
+    articleSlug: "stonewall-county-aspermont-double-mountain-brazos-rolling-plains-texas",
+    loadArticle: () => import("@/data/fixtures/stonewall-county-aspermont-double-mountain-brazos-rolling-plains-texas")
+      .then((module) => module.stonewallCountyAspermontDoubleMountainBrazosRollingPlainsTexasArticle),
+  },
 ];
