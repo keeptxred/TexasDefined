@@ -1,0 +1,55 @@
+name: Sync Texas property tax rates
+
+on:
+  schedule:
+    - cron: '23 11 3 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: texas-property-tax-rate-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+    steps:
+      - name: Require Supabase repository secrets
+        shell: bash
+        run: |
+          test -n "$SUPABASE_URL" || { echo "SUPABASE_URL is not configured"; exit 1; }
+          test -n "$SUPABASE_SERVICE_ROLE_KEY" || { echo "SUPABASE_SERVICE_ROLE_KEY is not configured"; exit 1; }
+
+      - name: Import newest published Comptroller tax-rate workbooks
+        shell: bash
+        run: |
+          set -euo pipefail
+          current_year="$(date -u +%Y)"
+          previous_year="$((current_year - 1))"
+
+          for year in "$current_year" "$previous_year"; do
+            echo "Trying Texas property-tax rate import for $year"
+            response_file="$(mktemp)"
+            status="$(curl --silent --show-error \
+              --output "$response_file" \
+              --write-out '%{http_code}' \
+              --header "Authorization: Bearer $SUPABASE_SERVICE_ROLE_KEY" \
+              --header "apikey: $SUPABASE_SERVICE_ROLE_KEY" \
+              "$SUPABASE_URL/functions/v1/import-texas-property-tax-rates?year=$year")"
+            cat "$response_file"
+            echo
+            if [ "$status" -ge 200 ] && [ "$status" -lt 300 ]; then
+              echo "Imported finalized/publicly available $year statewide rate workbooks."
+              exit 0
+            fi
+            echo "Year $year is not importable yet (HTTP $status); trying the prior year."
+          done
+
+          echo "No current or prior-year statewide rate set could be imported."
+          exit 1
