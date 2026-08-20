@@ -7,9 +7,6 @@ on:
   push:
     branches:
       - feature/property-tax-rate-platform
-    paths:
-      - '.github/workflows/sync-property-tax-rates.yml'
-      - 'scripts/data/sync-property-tax-rates.py'
 
 permissions:
   contents: write
@@ -19,9 +16,9 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  sync:
+  sync-and-build:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -42,7 +39,20 @@ jobs:
         run: |
           grep -q "status: 'synced'" src/data/property/texas-tax-rates.generated.ts
           grep -Eq 'recordCount: [1-9][0-9]{3,}' src/data/property/texas-tax-rates.generated.ts
+          grep -q 'latestFinalizedYear: 2025' src/data/property/texas-tax-rates.generated.ts
           git diff --check
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build application with generated rate data
+        run: npm run build
 
       - name: Commit refreshed dataset
         shell: bash
