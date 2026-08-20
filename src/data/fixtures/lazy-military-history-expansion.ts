@@ -25,6 +25,18 @@ const buffaloSoldiersTexasFrontierGuideStub: Article = {
   body: [], relatedCollections: [], relatedDestinations: ["fort-davis-national-historic-site", "fort-mckavett", "fort-lancaster"],
 };
 
+const texasRedRiverWarGuideStub: Article = {
+  id: "evergreen-texas-red-river-war-guide", brandId: "texasdefined", slug: "texas-red-river-war-guide",
+  title: "The Red River War in Texas: Adobe Walls, Palo Duro Canyon and the End of the Southern Plains Frontier",
+  dek: "The 1874–1875 Red River War was the U.S. Army campaign that forced Comanche, Kiowa, Southern Cheyenne and Arapaho peoples from the Texas Panhandle onto reservations. Adobe Walls, Palo Duro Canyon and bison destruction explain how the Southern Plains changed so quickly.",
+  category: "texas-history", region: "panhandle-plains",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Ledger-sm2.jpg?width=1600", alt: "Kiowa ledger drawing from 1874 possibly depicting the Battle of Buffalo Wallow during the Red River War", width: 780, height: 442, credit: "Kiowa ledger drawing · 1874 · Public domain · Wikimedia Commons" },
+  authorId: "a-marisol", publishedAt: "2026-08-19", readingMinutes: 18,
+  tags: ["Red River War", "Adobe Walls", "Palo Duro Canyon", "Quanah Parker", "Comanche history", "Kiowa history", "Texas Panhandle history", "Texas military history"], featured: true,
+  sourceName: "Texas Historical Commission", sourceUrl: "https://thc.texas.gov/learn/archeological-spotlight/red-river-war-battle-sites-project",
+  body: [], relatedCollections: [], relatedDestinations: ["palo-duro-canyon", "goodnight-ranch"],
+};
+
 const texasNationalGuardHistoryStub: Article = {
   id: "evergreen-texas-national-guard-history", brandId: "texasdefined", slug: "texas-national-guard-history",
   title: "Texas National Guard History: From Militia Companies to the Modern Guard",
@@ -61,25 +73,71 @@ const texasWorldWarIIBasesPowCampsStub: Article = {
   body: [], relatedCollections: [], relatedDestinations: ["eisenhower-birthplace", "national-museum-pacific-war", "iwo-jima-museum-monument", "slaton-harvey-house"],
 };
 
+const republicOfTexasNavyHistoryStub: Article = {
+  id: "evergreen-republic-of-texas-navy-history", brandId: "texasdefined", slug: "republic-of-texas-navy-history",
+  title: "The Republic of Texas Navy: The Forgotten Fleet That Fought for Texas Independence",
+  dek: "Texas maintained two small navies between the Revolution and annexation. From Liberty, Invincible and Independence to Austin, Wharton and the Battle of Campeche, the fleet protected supply lines, challenged Mexican blockades and became entangled in the political feud between Sam Houston and Edwin Ward Moore.",
+  category: "texas-history", region: "gulf-coast",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Pencil_sktech_of_texas_navy_ships_on_a_calling_card_circa_1840.jpg?width=1600", alt: "Pencil sketch of eight Texas Navy ships and waterfront buildings on a calling card around 1840", width: 752, height: 445, credit: "Anonymous sketch · circa 1840 · Public domain · Wikimedia Commons / San Jacinto Museum" },
+  authorId: "a-marisol", publishedAt: "2026-08-19", readingMinutes: 18,
+  tags: ["Republic of Texas Navy", "Texas Navy", "Edwin Ward Moore", "Battle of Campeche", "Texas Revolution", "Republic of Texas", "Galveston history", "Texas military history"], featured: true,
+  sourceName: "Texas State Library and Archives Commission", sourceUrl: "https://www.tsl.texas.gov/exhibits/navy/index.html",
+  body: [], relatedCollections: [], relatedDestinations: ["san-jacinto-battleground", "battleship-texas"],
+};
+
+const texasColdWarMilitaryHistoryStub: Article = {
+  id: "evergreen-texas-cold-war-military-history", brandId: "texasdefined", slug: "texas-cold-war-military-history",
+  title: "Cold War Texas: Strategic Bombers, Missile Silos, Pantex and a State Built for Deterrence",
+  dek: "From B-36 bombers at Fort Worth and Atlas missile silos around Abilene to U-2 missions from Laughlin and nuclear-warhead work at Pantex, Texas became one of the country's most important Cold War military landscapes.",
+  category: "texas-history", region: "north-texas",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/B36-b-52-b-58-carswell.jpg?width=1600", alt: "B-36, B-52 and B-58 strategic bombers from Carswell Air Force Base flying together over Texas in 1958", width: 684, height: 404, credit: "U.S. Air Force Historical Research Agency · 1958 · Public domain · Wikimedia Commons" },
+  authorId: "a-marisol", publishedAt: "2026-08-19", readingMinutes: 18,
+  tags: ["Cold War Texas", "Pantex Plant", "Carswell Air Force Base", "Dyess Air Force Base", "Atlas missile silos", "Strategic Air Command", "nuclear history", "Texas military history"], featured: true,
+  sourceName: "Texas Historical Commission", sourceUrl: "https://thc.texas.gov/learn/military-history/texas-cold-war",
+  body: [], relatedCollections: [], relatedDestinations: ["texas-military-forces-museum"],
+};
+
 const buffaloSoldiersLink = {
   href: "/article/buffalo-soldiers-texas-frontier-guide",
   label: "Buffalo Soldiers in Texas",
   description: "Follow the Black Regulars through Fort Davis, Fort Concho, Fort McKavett and Fort Lancaster while holding military service, citizenship and Native dispossession in the same history.",
+};
+const redRiverWarLink = {
+  href: "/article/texas-red-river-war-guide",
+  label: "The Red River War in Texas",
+  description: "Follow the 1874–1875 campaign from Adobe Walls through Palo Duro Canyon and into the rapid ranching transformation of the Panhandle.",
+};
+const republicNavyLink = {
+  href: "/article/republic-of-texas-navy-history",
+  label: "The Republic of Texas Navy",
+  description: "See how two small fleets protected Gulf supply lines, fought Mexico and exposed the financial and political limits of the independent Republic.",
+};
+const coldWarLink = {
+  href: "/article/texas-cold-war-military-history",
+  label: "Cold War Texas",
+  description: "Connect strategic bombers, Atlas missile fields, Pantex, U-2 reconnaissance and the military infrastructure that made Texas central to nuclear deterrence.",
 };
 
 const supplementalLinks: Record<string, Array<{ href: string; label: string; description: string }>> = {
   "texas-us-mexican-war-palo-alto-guide": [
     { href: "/destination/palo-alto-battlefield-national-historical-park", label: "Visit Palo Alto Battlefield", description: "Open the Trip Planner destination for the preserved 1846 battlefield, visitor context and lower Rio Grande area guide." },
   ],
-  "texas-military-history-timeline": [buffaloSoldiersLink],
-  "texas-frontier-forts-road-trip": [buffaloSoldiersLink],
-  "texas-civil-war-sites-guide": [buffaloSoldiersLink],
+  "texas-military-history-timeline": [buffaloSoldiersLink, redRiverWarLink, republicNavyLink, coldWarLink],
+  "texas-frontier-forts-road-trip": [buffaloSoldiersLink, redRiverWarLink],
+  "buffalo-soldiers-texas-frontier-guide": [redRiverWarLink],
+  "texas-cattle-ranching-history-guide": [redRiverWarLink],
+  "republic-of-texas-government-trail": [republicNavyLink],
+  "texas-revolution-historic-sites-road-trip": [republicNavyLink],
+  "battleship-texas-bb-35-history-restoration": [republicNavyLink],
   "texas-national-guard-history": [
     { href: "/destination/texas-military-forces-museum", label: "Texas Military Forces Museum", description: "Turn the Guard history into a Camp Mabry visit with current access guidance and an Austin area guide." },
     buffaloSoldiersLink,
+    coldWarLink,
   ],
+  "san-antonio-military-aviation-history": [coldWarLink],
   "texas-world-war-ii-bases-pow-camps": [
     { href: "/article/battleship-texas-bb-35-history-restoration", label: "Battleship Texas (BB-35)", description: "Connect the Texas home front with the surviving dreadnought that fought from North Africa and Normandy to Iwo Jima and Okinawa." },
+    coldWarLink,
   ],
 };
 
@@ -94,17 +152,23 @@ for (const [slug, additions] of Object.entries(supplementalLinks)) {
 export const militaryHistoryExpansionStubs: Article[] = [
   texasUsMexicanWarPaloAltoGuideStub,
   buffaloSoldiersTexasFrontierGuideStub,
+  texasRedRiverWarGuideStub,
   texasNationalGuardHistoryStub,
   sanAntonioMilitaryAviationHistoryStub,
   texasWorldWarIIBasesPowCampsStub,
+  republicOfTexasNavyHistoryStub,
+  texasColdWarMilitaryHistoryStub,
 ];
 
 export async function loadMilitaryHistoryExpansionArticle(brandId: string, slug: string): Promise<Article | null> {
   if (brandId !== "texasdefined") return null;
   if (slug === texasUsMexicanWarPaloAltoGuideStub.slug) return import("./texas-us-mexican-war-palo-alto-guide").then((module) => module.texasUsMexicanWarPaloAltoGuideArticle);
   if (slug === buffaloSoldiersTexasFrontierGuideStub.slug) return import("./buffalo-soldiers-texas-frontier-guide").then((module) => module.buffaloSoldiersTexasFrontierGuideArticle);
+  if (slug === texasRedRiverWarGuideStub.slug) return import("./texas-red-river-war-guide").then((module) => module.texasRedRiverWarGuideArticle);
   if (slug === texasNationalGuardHistoryStub.slug) return import("./texas-national-guard-history").then((module) => module.texasNationalGuardHistoryArticle);
   if (slug === sanAntonioMilitaryAviationHistoryStub.slug) return import("./san-antonio-military-aviation-history").then((module) => module.sanAntonioMilitaryAviationHistoryArticle);
   if (slug === texasWorldWarIIBasesPowCampsStub.slug) return import("./texas-world-war-ii-bases-pow-camps").then((module) => module.texasWorldWarIIBasesPowCampsArticle);
+  if (slug === republicOfTexasNavyHistoryStub.slug) return import("./republic-of-texas-navy-history").then((module) => module.republicOfTexasNavyHistoryArticle);
+  if (slug === texasColdWarMilitaryHistoryStub.slug) return import("./texas-cold-war-military-history").then((module) => module.texasColdWarMilitaryHistoryArticle);
   return null;
 }
