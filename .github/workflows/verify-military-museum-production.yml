@@ -1,6 +1,7 @@
 name: Verify military museum production
 
 on:
+  workflow_dispatch:
   workflow_run:
     workflows:
       - Deploy TexasDefined production
@@ -13,12 +14,12 @@ permissions:
 
 jobs:
   verify-military-museum-production:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     timeout-minutes: 8
     env:
       GH_TOKEN: ${{ github.token }}
-      DEPLOY_SHA: ${{ github.event.workflow_run.head_sha }}
+      DEPLOY_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
     steps:
       - name: Publish pending status
         shell: bash
