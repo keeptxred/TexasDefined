@@ -6,13 +6,14 @@ const required = [
   'src/components/admin/InternalLinkGoldenCorpus.tsx',
   'src/routes/api.internal-link-tests.ts',
   'src/routes/admin.internal-link-tests.tsx',
+  'src/routes/admin.internal-link-tests.lazy.tsx',
 ];
 for (const path of required) if (!fs.existsSync(path)) errors.push(`Missing golden-corpus file: ${path}`);
 if (!errors.length) {
   const corpus = fs.readFileSync(required[0], 'utf8');
   const panel = fs.readFileSync(required[1], 'utf8');
   const api = fs.readFileSync(required[2], 'utf8');
-  const page = fs.readFileSync(required[3], 'utf8');
+  const page = `${fs.readFileSync(required[3], 'utf8')}\n${fs.readFileSync(required[4], 'utf8')}`;
   for (const id of ['canonical-travel-place','county-context-disambiguation','topic-priority','unsafe-ambiguity-rejected','self-link-prevention','exposure-penalty']) {
     if (!corpus.includes(`id: '${id}'`)) errors.push(`Missing golden test case: ${id}`);
   }
