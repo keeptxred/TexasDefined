@@ -228,7 +228,7 @@ const ARTICLE_INTERNAL_LINK_ADDITIONS: Partial<Record<string, NonNullable<Articl
 };
 
 const wordsInBlock = (block: ArticleBlock) => {
-  if (block.type === "shop") return 0;
+  if (block.type === "shop" || block.type === "image") return 0;
   const text = block.type === "list" ? block.items.join(" ") : block.text;
   return text.trim().split(/\s+/).filter(Boolean).length;
 };
