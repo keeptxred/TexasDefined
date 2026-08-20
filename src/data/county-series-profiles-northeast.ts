@@ -13,4 +13,10 @@ export const COUNTY_SERIES_PROFILES_NORTHEAST: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/hunt-county-greenville-cotton-railroads-blackland-prairie-texas")
       .then((module) => module.huntCountyGreenvilleCottonRailroadsBlacklandPrairieArticle),
   },
+  {
+    countySlug: "rains",
+    articleSlug: "rains-county-emory-lake-tawakoni-lake-fork-texas",
+    loadArticle: () => import("@/data/fixtures/rains-county-emory-lake-tawakoni-lake-fork-texas")
+      .then((module) => module.rainsCountyEmoryLakeTawakoniLakeForkTexasArticle),
+  },
 ];
