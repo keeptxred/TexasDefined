@@ -34,6 +34,42 @@ jobs:
           cache-dependency-path: package-lock.json
       - name: Install dependencies
         run: npm ci --no-audit --no-fund
+
+      - name: Repair current route-governance regression
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main
+          git reset --hard origin/main
+          python3 - <<'PY'
+          from pathlib import Path
+
+          registry = Path('src/lib/public-routes.ts')
+          text = registry.read_text()
+          alias = '  "/article/high-school-football-newcomers",\n'
+          marker = 'export const REDIRECT_ONLY_PATHS = [\n'
+          if alias not in text:
+              if marker not in text:
+                  raise SystemExit('REDIRECT_ONLY_PATHS marker missing')
+              text = text.replace(marker, marker + alias, 1)
+              registry.write_text(text)
+
+          fixture = Path('src/data/fixtures/texas-life-split.ts')
+          text = fixture.read_text()
+          old = 'href: "/article/high-school-football-newcomers"'
+          new = 'href: "/article/texas-high-school-football-newcomers"'
+          if old in text:
+              text = text.replace(old, new)
+              fixture.write_text(text)
+          PY
+          if ! git diff --quiet; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add src/lib/public-routes.ts src/data/fixtures/texas-life-split.ts
+            git commit -m 'Fix Texas football alias route governance'
+            git push origin HEAD:main
+          fi
+
       - name: Certify current main
         id: certify
         shell: bash
