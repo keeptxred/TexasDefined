@@ -17,7 +17,7 @@ export function merchantImageUrl(value: string | null | undefined): string {
 
   if (!isPrintifyImage(absolute)) return absolute.toString();
 
-  const proxy = new URL("/merchant-image", BASE_URL);
+  const proxy = new URL("/api/merchant-image", BASE_URL);
   proxy.searchParams.set("src", absolute.toString());
   return proxy.toString();
 }
