@@ -4,6 +4,7 @@ import { texasDefinedBrand } from '@/brand/texasdefined';
 import { CitationTrustPanel } from '@/components/authority/CitationTrustPanel';
 import { Container } from '@/components/layout/Container';
 import { CountyPropertyTaxTemplate } from '@/components/property/CountyPropertyTaxTemplate';
+import { CountyTaxRateSection } from '@/components/property/CountyTaxRateSection';
 import { getCountyPropertyRecordBySlug } from '@/data/property/county-property-data';
 import { isCountyPropertyIndexReady } from '@/data/property/county-property-schema';
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
@@ -31,8 +32,8 @@ export const Route = createFileRoute('/property-tax/county/$county')({
     const canonicalPath = `/property-tax/county/${county.slug}`;
     const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
     const siteUrl = absoluteUrl(texasDefinedBrand, '/');
-    const title = `${county.name} Property Tax | Appraisal, Exemptions & Protests`;
-    const description = `${county.name} property tax guide with appraisal-district resources, exemptions, protest information, payment details, taxing units and official local links.`;
+    const title = `${county.name} Property Tax Rates | Appraisal, Exemptions & Protests`;
+    const description = `${county.name} property tax guide with county, city, school-district and special-district rate data, appraisal resources, exemptions, protests, payment details and official local links.`;
     const indexReady = isCountyPropertyIndexReady(county);
 
     return {
@@ -72,10 +73,7 @@ export const Route = createFileRoute('/property-tax/county/$county')({
             '@type': 'AdministrativeArea',
             '@id': `${pageUrl}#county`,
             name: county.name,
-            containedInPlace: {
-              '@type': 'State',
-              name: 'Texas',
-            },
+            containedInPlace: { '@type': 'State', name: 'Texas' },
             ...(county.fips ? { identifier: { '@type': 'PropertyValue', propertyID: 'FIPS', value: county.fips } } : {}),
             sameAs: county.links.countyWebsiteUrl ?? county.officialDirectoryUrl,
           },
@@ -103,20 +101,26 @@ function CountyPropertyTaxPage() {
     url,
     note: 'Official or authoritative source used to verify this county property-tax record.',
   }));
+  sources.push({
+    name: 'Texas Comptroller Property Tax Assistance Division',
+    url: 'https://comptroller.texas.gov/taxes/property-tax/rates/',
+    note: 'Official statewide Tax Rates and Levies source for county, city, school-district and special-district adopted rates.',
+  });
   const upstreamFreshness = [
     county.sourceUpdatedAt.appraisalDistrict ? `Appraisal-district record updated ${formatVerifiedDate(county.sourceUpdatedAt.appraisalDistrict)}` : null,
     county.sourceUpdatedAt.taxOffice ? `tax-office record updated ${formatVerifiedDate(county.sourceUpdatedAt.taxOffice)}` : null,
   ].filter((value): value is string => Boolean(value)).join('; ');
-  const methodology = `TexasDefined combines verified county, appraisal-district and tax-office records into one county reference. ${upstreamFreshness ? `The Texas Comptroller directory reports: ${upstreamFreshness}. ` : ''}Property-specific values, exemptions, jurisdictions and deadlines must still be confirmed against the official parcel record and local notices; this page does not infer missing local facts.`;
+  const methodology = `TexasDefined combines verified county, appraisal-district and tax-office records with statewide taxing-unit rate files reported to the Texas Comptroller. ${upstreamFreshness ? `The Texas Comptroller county directory reports: ${upstreamFreshness}. ` : ''}A taxing unit being associated with the county does not mean every parcel pays that tax. Property-specific values, exemptions, taxing-unit membership and deadlines must still be confirmed against the official parcel record and local notices.`;
 
   return (
     <>
       <CountyPropertyTaxTemplate county={county} />
       <Container className="pb-12 sm:pb-16">
+        <CountyTaxRateSection countySlug={county.slug} countyName={county.name} />
         <CitationTrustPanel
           sources={sources}
           methodology={methodology}
-          lastVerified={county.lastVerifiedAt ? formatVerifiedDate(county.lastVerifiedAt) : 'Verification pending; this page remains outside the searchable citation-ready set until local sources are verified.'}
+          lastVerified={county.lastVerifiedAt ? formatVerifiedDate(county.lastVerifiedAt) : 'Local office verification pending; the rate data is sourced separately from the statewide Comptroller file.'}
           title="Sources, methodology and verification"
         />
       </Container>
@@ -125,11 +129,8 @@ function CountyPropertyTaxPage() {
 }
 
 function sourceName(url: string) {
-  try {
-    return new URL(url).hostname.replace(/^www\./, '');
-  } catch {
-    return 'Official source';
-  }
+  try { return new URL(url).hostname.replace(/^www\./, ''); }
+  catch { return 'Official source'; }
 }
 
 function formatVerifiedDate(value: string) {
