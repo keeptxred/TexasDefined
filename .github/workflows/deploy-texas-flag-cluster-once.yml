@@ -1,0 +1,87 @@
+name: Deploy Texas flag content cluster once
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/deploy-texas-flag-cluster-once.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: texasdefined-flag-cluster-once
+  cancel-in-progress: false
+
+jobs:
+  deploy-and-verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    environment: texasdefined-publication
+    env:
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Build production bundle
+        run: npm run build
+      - name: Enforce existing client bundle budget
+        run: npm run performance:validate
+      - name: Deploy TexasDefined Worker
+        run: npx wrangler deploy
+      - name: Verify Texas flag content cluster
+        shell: bash
+        run: |
+          set -euo pipefail
+          origin='https://texasdefined.com'
+          history='/article/history-of-the-texas-flag'
+          etiquette='/article/texas-flag-etiquette-display-guide'
+          workdir="$(mktemp -d)"
+          trap 'rm -rf "$workdir"' EXIT
+
+          fetch_until_match() {
+            local path="$1"
+            local output="$2"
+            local phrase="$3"
+            for attempt in 1 2 3 4 5 6 7 8; do
+              echo "Fetch $path attempt $attempt"
+              if curl --fail-with-body --silent --show-error --location --max-time 30 \
+                "$origin${path}?verify=${GITHUB_SHA}-${GITHUB_RUN_ID}-${attempt}" -o "$output"; then
+                if grep -Fq "$phrase" "$output"; then
+                  return 0
+                fi
+              fi
+              sleep 5
+            done
+            echo "$path did not verify in production." >&2
+            head -c 2000 "$output" || true
+            return 1
+          }
+
+          fetch_until_match "$history" "$workdir/history.html" 'The Texas Flag: A History of the Lone Star'
+          grep -Fq 'Who designed the Texas flag?' "$workdir/history.html"
+          grep -Fq 'The strange legal gap from 1879 to 1933' "$workdir/history.html"
+          grep -Fq 'Can the Texas flag fly at the same height as the U.S. flag?' "$workdir/history.html"
+          grep -Fq 'Flag_of_the_Republic_of_Texas_' "$workdir/history.html"
+          grep -Fq 'Flag_of_Texas_' "$workdir/history.html"
+          grep -Fq "$etiquette" "$workdir/history.html"
+
+          fetch_until_match "$etiquette" "$workdir/etiquette.html" 'Texas Flag Etiquette: How to Display the Lone Star Flag Correctly'
+          grep -Fq 'Texas flag and U.S. flag on separate poles' "$workdir/etiquette.html"
+          grep -Fq 'How to hang the Texas flag vertically' "$workdir/etiquette.html"
+          grep -Fq 'When should the Texas flag be at half-staff?' "$workdir/etiquette.html"
+          grep -Fq "$history" "$workdir/etiquette.html"
+
+          curl --fail-with-body --silent --show-error --location --max-time 30 \
+            "$origin/sitemap.xml?verify=${GITHUB_SHA}-${GITHUB_RUN_ID}" -o "$workdir/sitemap.xml"
+          grep -Fq "$origin$history" "$workdir/sitemap.xml"
+          grep -Fq "$origin$etiquette" "$workdir/sitemap.xml"
+
+          echo 'Texas flag history and etiquette cluster verified live in production.'
