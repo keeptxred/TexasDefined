@@ -93,7 +93,7 @@ const requiredDeepDiveMappings = new Map([
   [222, '/texas-slang-explained'],
   [223, '/texas-slang-explained'],
   [224, '/texas-slang-explained'],
-  [225, '/texas-symbols'],
+  [225, '/article/history-of-the-texas-flag'],
   [231, '/texas-slang-explained'],
   [233, '/texas-blue-norther-weather-guide'],
   [234, '/texas-blue-norther-weather-guide'],
