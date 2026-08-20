@@ -264,6 +264,8 @@ export const REDIRECT_ONLY_PATHS = [
   "/historic-site/fort-leaton-state-historic-site",
   "/historic-site/fanthorp-inn-state-historic-site",
   "/historic-site/lipantitlan-state-historic-site",
+  "/historic-site/lyndon-b-johnson-state-park-state-historic-site",
+  "/historic-site/washington-on-the-brazos-state-historic-site",
   "/attraction/devils-river-del-norte-unit-state-natural-area",
   "/attraction/devils-river-big-satan-unit-state-natural-area",
   "/attraction/honey-creek-state-natural-area",
