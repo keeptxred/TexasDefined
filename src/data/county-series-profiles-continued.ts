@@ -181,4 +181,10 @@ export const COUNTY_SERIES_PROFILES_CONTINUED: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/delta-county-cooper-sulphur-rivers-cooper-lake-blackland-prairie-texas")
       .then((module) => module.deltaCountyCooperSulphurRiversCooperLakeBlacklandPrairieArticle),
   },
+  {
+    countySlug: "anderson",
+    articleSlug: "anderson-county-palestine-railroads-piney-woods-texas",
+    loadArticle: () => import("@/data/fixtures/anderson-county-palestine-railroads-piney-woods-texas")
+      .then((module) => module.andersonCountyPalestineRailroadsPineyWoodsTexasArticle),
+  },
 ];
