@@ -31,4 +31,10 @@ export const COUNTY_SERIES_PROFILES_ROLLING_PLAINS: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/archer-county-archer-city-ranching-oil-cross-timbers-north-texas")
       .then((module) => module.archerCountyArcherCityRanchingOilCrossTimbersNorthTexasArticle),
   },
+  {
+    countySlug: "king",
+    articleSlug: "king-county-guthrie-four-sixes-ranch-rolling-plains-texas",
+    loadArticle: () => import("@/data/fixtures/king-county-guthrie-four-sixes-ranch-rolling-plains-texas")
+      .then((module) => module.kingCountyGuthrieFourSixesRanchRollingPlainsTexasArticle),
+  },
 ];
