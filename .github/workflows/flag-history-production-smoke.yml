@@ -6,8 +6,12 @@ on:
     branches: [main]
     paths:
       - 'src/data/fixtures/texas-flag-history.ts'
+      - 'src/data/fixtures/texas-flag-etiquette.ts'
       - 'src/data/fixtures/newest-evergreen.ts'
       - 'src/data/things-unique-to-texas-links.ts'
+      - 'src/data/types.ts'
+      - 'src/data/articles-remote.ts'
+      - 'src/components/editorial/ArticleBody.tsx'
       - 'src/routes/article.$slug.tsx'
       - 'src/routes/sitemap[.]xml.ts'
       - '.github/workflows/flag-history-production-smoke.yml'
@@ -37,45 +41,72 @@ jobs:
             --header 'Accept: application/vnd.github+json' \
             --header 'X-GitHub-Api-Version: 2022-11-28' \
             "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
-            --data '{"state":"pending","context":"texas-flag-history-production","description":"Verifying live article, sitemap and discovery"}' \
+            --data '{"state":"pending","context":"texas-flag-history-production","description":"Verifying live Texas flag content cluster"}' \
             >/dev/null
 
-      - name: Verify live article, indexing signals and discovery links
+      - name: Verify live articles, figures, indexing signals and discovery links
         shell: bash
         run: |
           set -euo pipefail
           origin='https://texasdefined.com'
-          article_path='/article/history-of-the-texas-flag'
-          article_url="$origin$article_path"
+          history_path='/article/history-of-the-texas-flag'
+          etiquette_path='/article/texas-flag-etiquette-display-guide'
           workdir="$(mktemp -d)"
           trap 'rm -rf "$workdir"' EXIT
 
-          curl --retry 6 --retry-all-errors --retry-delay 3 --max-time 45 \
-            --fail-with-body --silent --show-error --location \
-            "$article_url?production-smoke=${GITHUB_SHA}-${GITHUB_RUN_ID}" \
-            -o "$workdir/article.html"
+          fetch_page() {
+            local path="$1"
+            local output="$2"
+            curl --retry 6 --retry-all-errors --retry-delay 3 --max-time 45 \
+              --fail-with-body --silent --show-error --location \
+              "$origin${path}?production-smoke=${GITHUB_SHA}-${GITHUB_RUN_ID}" \
+              -o "$output"
+          }
 
-          python3 - "$workdir/article.html" <<'PY'
+          fetch_page "$history_path" "$workdir/history.html"
+          fetch_page "$etiquette_path" "$workdir/etiquette.html"
+
+          python3 - "$workdir/history.html" "$workdir/etiquette.html" <<'PY'
           import re, sys
-          html=open(sys.argv[1], encoding='utf-8', errors='replace').read()
           origin='https://texasdefined.com'
-          path='/article/history-of-the-texas-flag'
-
-          assert 'The Texas Flag: A History of the Lone Star' in html, 'Flag-history title missing from production HTML'
-          for phrase in [
-              'Who designed the Texas flag?',
-              'The strange legal gap from 1879 to 1933',
-              'Can the Texas flag fly at the same height as the U.S. flag?',
-              'Texas State Library and Archives Commission',
-          ]:
-              assert phrase in html, f'Expected flag-history content missing: {phrase}'
-
-          robots=[m.group(1).lower() for m in re.finditer(r'<meta[^>]+name=["\']robots["\'][^>]+content=["\']([^"\']+)', html, re.I)]
-          assert not any('noindex' in value for value in robots), f'Flag article unexpectedly noindex: {robots}'
-
-          canonicals=re.findall(r'<link[^>]+rel=["\']canonical["\'][^>]+href=["\']([^"\']+)', html, re.I)
-          assert canonicals == [origin+path], f'Flag article canonical mismatch: {canonicals}'
-          print('Live Texas flag article content, canonical and indexability verified.')
+          checks = [
+              (
+                  sys.argv[1],
+                  '/article/history-of-the-texas-flag',
+                  'The Texas Flag: A History of the Lone Star',
+                  [
+                      'Who designed the Texas flag?',
+                      'The strange legal gap from 1879 to 1933',
+                      'Can the Texas flag fly at the same height as the U.S. flag?',
+                      'Texas State Library and Archives Commission',
+                      'Flag_of_the_Republic_of_Texas_',
+                      'Flag_of_Texas_',
+                      '/article/texas-flag-etiquette-display-guide',
+                  ],
+              ),
+              (
+                  sys.argv[2],
+                  '/article/texas-flag-etiquette-display-guide',
+                  'Texas Flag Etiquette: How to Display the Lone Star Flag Correctly',
+                  [
+                      'Texas flag and U.S. flag on separate poles',
+                      'How to hang the Texas flag vertically',
+                      'When should the Texas flag be at half-staff?',
+                      'Is Texas the only state that can fly its flag as high as the U.S. flag?',
+                      '/article/history-of-the-texas-flag',
+                  ],
+              ),
+          ]
+          for filename, path, title, phrases in checks:
+              html=open(filename, encoding='utf-8', errors='replace').read()
+              assert title in html, f'Expected title missing from {path}'
+              for phrase in phrases:
+                  assert phrase in html, f'Expected production content missing from {path}: {phrase}'
+              robots=[m.group(1).lower() for m in re.finditer(r'<meta[^>]+name=["\']robots["\'][^>]+content=["\']([^"\']+)', html, re.I)]
+              assert not any('noindex' in value for value in robots), f'{path} unexpectedly noindex: {robots}'
+              canonicals=re.findall(r'<link[^>]+rel=["\']canonical["\'][^>]+href=["\']([^"\']+)', html, re.I)
+              assert canonicals == [origin+path], f'{path} canonical mismatch: {canonicals}'
+          print('Live Texas flag articles, figures, reciprocal links, canonicals and indexability verified.')
           PY
 
           curl --retry 6 --retry-all-errors --retry-delay 3 --max-time 45 \
@@ -91,27 +122,26 @@ jobs:
             --fail-with-body --silent --show-error --location \
             "$origin/sitemap.xml?production-smoke=${GITHUB_SHA}" \
             -o "$workdir/sitemap.xml"
-          grep -Fq "$article_url" "$workdir/sitemap.xml" || {
-            echo 'Flag-history article missing from production sitemap.' >&2
-            exit 1
-          }
+          for path in "$history_path" "$etiquette_path"; do
+            grep -Fq "$origin$path" "$workdir/sitemap.xml" || {
+              echo "$path missing from production sitemap." >&2
+              exit 1
+            }
+          done
 
           for discovery_path in \
             '/article/six-flags-over-texas-meaning' \
             '/article/texas-revolution-historic-sites-road-trip' \
             '/things-unique-to-texas/slang-folklore'; do
             safe_name="$(printf '%s' "$discovery_path" | tr '/.' '__')"
-            curl --retry 6 --retry-all-errors --retry-delay 3 --max-time 45 \
-              --fail-with-body --silent --show-error --location \
-              "$origin${discovery_path}?production-smoke=${GITHUB_SHA}" \
-              -o "$workdir/${safe_name}.html"
-            grep -Fq "$article_path" "$workdir/${safe_name}.html" || {
-              echo "Discovery page $discovery_path does not link to $article_path" >&2
+            fetch_page "$discovery_path" "$workdir/${safe_name}.html"
+            grep -Fq "$history_path" "$workdir/${safe_name}.html" || {
+              echo "Discovery page $discovery_path does not link to $history_path" >&2
               exit 1
             }
           done
 
-          echo 'Texas flag history production article, sitemap, robots and inbound discovery links verified.'
+          echo 'Texas flag history cluster, sitemap, robots and inbound discovery links verified.'
 
       - name: Publish successful production status
         if: success()
@@ -126,7 +156,7 @@ jobs:
             --header 'Accept: application/vnd.github+json' \
             --header 'X-GitHub-Api-Version: 2022-11-28' \
             "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
-            --data '{"state":"success","context":"texas-flag-history-production","description":"Live flag article, sitemap and discovery verified"}' \
+            --data '{"state":"success","context":"texas-flag-history-production","description":"Live Texas flag content cluster verified"}' \
             >/dev/null
 
       - name: Publish failed production status
