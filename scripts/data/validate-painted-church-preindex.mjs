@@ -54,13 +54,48 @@ if (nonExact.length) notes.push(`Map precision stretch queue: ${nonExact.join(",
 const visitorSource = read("src/data/painted-church-visitor-status.ts");
 for (const slug of expectedSlugs) assert(visitorSource.includes(`"${slug}"`), `Missing explicit visitor research for ${slug}.`);
 assert(!visitorSource.includes("Texas Defined does not currently have a church-controlled public-access guarantee"), "Generic visitor-status fallback must not return for verified churches.");
+assert(visitorSource.includes("Missing explicit visitor-status research for verified Painted Church"), "Verified churches must fail closed if visitor research is missing.");
 
-const featureSource = `${read("src/data/painted-church-features.ts")}\n${read("src/data/painted-church-features-authority.ts")}`;
+const featureSource = [
+  read("src/data/painted-church-features.ts"),
+  read("src/data/painted-church-features-authority.ts"),
+  read("src/data/painted-church-features-preindex.ts"),
+].join("\n");
 const featureSlugs = new Set([...featureSource.matchAll(/churchSlug:\s*"([^"]+)"/g)].map((match) => match[1]));
 const missingFeatureSlugs = expectedSlugs.filter((slug) => !featureSlugs.has(slug));
 assert(missingFeatureSlugs.length === 0, `Object-level feature inventory missing: ${missingFeatureSlugs.join(", ") || "none"}.`);
-for (const type of ["mural", "symbol", "ornament", "faux-finish", "stained-glass", "inscription", "altar-reredos", "pulpit", "organ", "restoration-evidence"]) assert(featureSource.includes(`"${type}"`), `Feature inventory must support ${type}.`);
+for (const type of ["mural", "symbol", "ornament", "faux-finish", "stained-glass", "inscription", "altar-reredos", "pulpit", "organ", "restoration-evidence", "devotional-object"]) assert(featureSource.includes(`"${type}"`), `Feature inventory must support ${type}.`);
+assert(read("src/data/painted-church-feature-index.ts").includes("paintedChurchPreindexFeatures"), "Canonical feature registry must merge pre-index evidence.");
 assert(read("src/data/painted-church-feature-index.ts").includes("canonicalPaintedChurchFeatures"), "Canonical feature registry must exist.");
+
+const profileSource = [
+  "src/data/painted-church-profiles.ts", "src/data/painted-church-profiles-extended.ts", "src/data/painted-church-profiles-statewide.ts",
+  "src/data/painted-church-profiles-final.ts", "src/data/painted-church-profiles-additions.ts", "src/data/painted-church-profiles-expansion.ts",
+  "src/data/painted-church-profiles-latest.ts", "src/data/painted-church-profiles-authority.ts",
+].filter(exists).map(read).join("\n");
+const researchSource = [
+  "src/data/painted-church-research.ts", "src/data/painted-church-research-statewide.ts", "src/data/painted-church-research-additions.ts",
+  "src/data/painted-church-research-expansion.ts", "src/data/painted-church-research-latest.ts", "src/data/painted-church-research-authority.ts",
+].filter(exists).map(read).join("\n");
+for (const slug of expectedSlugs) {
+  assert(profileSource.includes(`slug: "${slug}"`), `Verified church missing canonical profile input: ${slug}.`);
+  assert(researchSource.includes(`slug: "${slug}"`), `Verified church missing research dossier input: ${slug}.`);
+}
+
+const gallerySource = [
+  "src/data/painted-church-gallery.ts", "src/data/painted-church-gallery-extra.ts", "src/data/painted-church-gallery-supplemental.ts",
+].filter(exists).map(read).join("\n");
+const baseChurchSource = read("src/data/painted-churches.ts");
+const hasHeroImageForSlug = (source, slug) => {
+  const marker = `slug: "${slug}"`;
+  const start = source.indexOf(marker);
+  if (start < 0) return false;
+  const next = source.indexOf('slug: "', start + marker.length);
+  return source.slice(start, next < 0 ? source.length : next).includes("image:");
+};
+const missingCurrentImages = expectedSlugs.filter((slug) => !gallerySource.includes(`"${slug}"`) && !hasHeroImageForSlug(baseChurchSource, slug) && !hasHeroImageForSlug(expanded, slug));
+assert(missingCurrentImages.length === 0, `Rights-cleared current photography missing: ${missingCurrentImages.join(", ") || "none"}.`);
+if (missingCurrentImages.length) notes.push(`Do not weaken image-rights policy to clear these blockers: ${missingCurrentImages.join(", ")}.`);
 
 const contributorSource = `${read("src/data/painted-church-contributors.ts")}\n${read("src/data/painted-church-contributors-authority.ts")}`;
 for (const contributor of ["o-kramer", "frank-bohlmann", "jacob-wagner", "frank-a-ludewig", "j-carlander", "schnoor-company", "elmer-witter-van-slyke", "clyde-h-woodruff", "rev-louis-netardus", "arthur-fatjo", "nicholas-j-clayton", "charles-sebastian-ott", "joseph-frederick-wolff"]) assert(contributorSource.includes(`slug: "${contributor}"`), `Contributor registry missing ${contributor}.`);
@@ -131,4 +166,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Painted Churches pre-index authority gate passed for ${expectedSlugs.length} verified churches; high-priority candidate packages are preserved separately until canonical promotion.`);
+console.log(`Painted Churches pre-index authority gate passed for ${expectedSlugs.length} verified churches; every verified page has a canonical profile, research dossier, visitor evidence, map point, object inventory and rights-cleared current photography. High-priority candidate packages remain separate until canonical promotion.`);
