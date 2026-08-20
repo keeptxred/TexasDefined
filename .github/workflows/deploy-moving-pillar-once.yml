@@ -1,0 +1,61 @@
+name: Deploy moving-to-Texas pillar once
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/deploy-moving-pillar-once.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: texasdefined-moving-pillar-once
+  cancel-in-progress: false
+
+jobs:
+  deploy-and-verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    environment: texasdefined-publication
+    env:
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Build production bundle
+        run: npm run build
+      - name: Enforce existing client bundle budget
+        run: npm run performance:validate
+      - name: Deploy TexasDefined Worker
+        run: npx wrangler deploy
+      - name: Verify moving-to-Texas pillar
+        shell: bash
+        run: |
+          set -euo pipefail
+          url='https://texasdefined.com/article/moving-to-texas-what-nobody-tells-you'
+          out="$(mktemp)"
+          trap 'rm -f "$out"' EXIT
+          for attempt in 1 2 3 4 5 6 7 8; do
+            echo "Fetch attempt $attempt"
+            if curl --fail-with-body --silent --show-error --location --max-time 30 \
+              "${url}?verify=${GITHUB_SHA}-${GITHUB_RUN_ID}-${attempt}" -o "$out"; then
+              if grep -Fq 'The quick answer: what should you know before moving to Texas?' "$out" \
+                && grep -Fq 'New construction deserves its own due-diligence checklist' "$out" \
+                && grep -Fq 'Frequently asked questions about moving to Texas' "$out"; then
+                echo 'Moving-to-Texas pillar verified live in production.'
+                exit 0
+              fi
+            fi
+            sleep 5
+          done
+          echo 'Moving-to-Texas pillar did not verify in production.' >&2
+          head -c 2000 "$out" || true
+          exit 1
