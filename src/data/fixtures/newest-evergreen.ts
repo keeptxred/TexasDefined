@@ -18,6 +18,24 @@ for (const slug of [
     : [...existing, flagHistoryLink];
 }
 
+const flagArticleLinks = articleInternalLinks["history-of-the-texas-flag"] ?? [];
+const flagArticleAdditions = [
+  {
+    href: "/texas-symbols",
+    label: "Official Texas symbols",
+    description: "See the legislatively designated birds, plants, foods, wildlife and cultural symbols Texas recognizes today.",
+  },
+  {
+    href: "/things-unique-to-texas/slang-folklore",
+    label: "Texas symbols, sayings & folklore",
+    description: "Put the Lone Star flag beside the sayings, traditions and identity markers Texans recognize instantly.",
+  },
+];
+articleInternalLinks["history-of-the-texas-flag"] = [
+  ...flagArticleLinks,
+  ...flagArticleAdditions.filter((addition) => !flagArticleLinks.some((link) => link.href === addition.href)),
+];
+
 export const newestEvergreenArticles = [
   ...baseNewestEvergreenArticles,
   texasFlagHistoryArticle,
