@@ -38,7 +38,7 @@ export const deltaCountyCooperSulphurRiversCooperLakeBlacklandPrairieArticle: Ar
     { href: "/county/lamar", label: "Explore Lamar County", description: "Continue north toward Paris and the Red River country from which part of Delta County was formed." },
     { href: "/county/hopkins", label: "Explore Hopkins County", description: "Head south and east toward Sulphur Springs and the other parent county of Delta County." },
     { href: "/county/hunt", label: "Explore Hunt County", description: "Travel west toward Commerce and Greenville across the Northeast Texas prairie." },
-    { href: "/destination/cooper-lake-doctors-creek-unit-state-park", label: "Cooper Lake State Park — Doctors Creek", description: "Plan a visit to the Delta County unit of Cooper Lake State Park." },
+    { href: "/destination/cooper-lake-state-park", label: "Cooper Lake State Park — Doctors Creek", description: "Plan a visit to the Delta County unit of Cooper Lake State Park." },
     { href: "/article/why-texas-has-254-counties", label: "Why Texas has 254 counties", description: "Learn why courthouse access and travel distance created so many Texas counties." },
   ],
   relatedCollections: [],
