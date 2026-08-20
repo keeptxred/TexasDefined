@@ -7,8 +7,8 @@ import { expandedPaintedChurches } from "@/data/painted-churches-expanded";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const canonicalPath = "/explore/painted-churches/methodology";
-const description = "How Texas Defined verifies Painted Churches of Texas: inclusion rules, source hierarchy, image licensing, corrections, update dates and treatment of conflicting historical records.";
-const checkedAt = "2026-08-18";
+const description = "How Texas Defined verifies Painted Churches of Texas: inclusion rules, source hierarchy, image licensing, corrections, update dates, fieldwork boundaries and treatment of conflicting historical records.";
+const checkedAt = "2026-08-20";
 
 export const Route = createFileRoute(canonicalPath)({
   head: () => {
@@ -34,6 +34,11 @@ export const Route = createFileRoute(canonicalPath)({
             isPartOf: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#website` },
             about: { "@id": `${absoluteUrl(texasDefinedBrand, "/explore/painted-churches")}#collection` },
             publisher: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#organization` },
+            subjectOf: [
+              { "@type": "WebPage", url: absoluteUrl(texasDefinedBrand, "/explore/painted-churches/sources") },
+              { "@type": "WebPage", url: absoluteUrl(texasDefinedBrand, "/explore/painted-churches/bibliography") },
+              { "@type": "WebPage", url: absoluteUrl(texasDefinedBrand, "/explore/painted-churches/preindex-readiness") },
+            ],
           },
           {
             "@type": "BreadcrumbList",
@@ -69,7 +74,8 @@ const inclusionRules = [
 const conflictRules = [
   "When official and secondary sources disagree, the page states the disagreement instead of silently choosing the more convenient date or attribution.",
   "When a decorative scheme was restored, reconstructed or repainted, the page distinguishes surviving original work from later reconstruction where the record allows it.",
-  "Time-sensitive access, tour prices and hours are rechecked against the responsible parish, Chamber or official visitor source and are never treated as permanent historical facts.",
+  "Time-sensitive access, tour prices and hours are rechecked against the responsible parish, congregation, preservation organization, Chamber or official visitor source and are never treated as permanent historical facts.",
+  "Original Texas Defined fieldwork and expert review are never claimed from web research. Those statuses remain explicitly unverified until a documented visit or real reviewer record exists.",
 ] as const;
 
 function PaintedChurchMethodology() {
@@ -87,8 +93,8 @@ function PaintedChurchMethodology() {
           </nav>
           <p className="eyebrow mt-8 text-primary">Research transparency</p>
           <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">How Texas Defined verifies a Painted Church.</h1>
-          <p className="mt-6 max-w-4xl text-lg leading-8 text-muted-foreground">The collection currently contains {expandedPaintedChurches.length} verified church profiles. This page explains what qualifies, which sources take precedence, how image rights are checked, and how corrections or conflicting historical records are handled.</p>
-          <p className="mt-5 text-sm text-muted-foreground">Methodology reviewed {new Date(`${checkedAt}T12:00:00`).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}.</p>
+          <p className="mt-6 max-w-4xl text-lg leading-8 text-muted-foreground">The pre-index collection currently contains {expandedPaintedChurches.length} verified church profiles. This page explains what qualifies, which sources take precedence, how image rights are checked, how fieldwork is distinguished from desk research, and how corrections or conflicting historical records are handled.</p>
+          <p className="mt-5 text-sm text-muted-foreground">Methodology reviewed {new Date(`${checkedAt}T12:00:00`).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}. Search indexing remains intentionally disabled during authority review.</p>
         </Container>
       </section>
 
@@ -96,7 +102,7 @@ function PaintedChurchMethodology() {
         <section className="border-t-2 border-foreground pt-8">
           <p className="eyebrow text-primary">Quick answer</p>
           <h2 className="mt-3 font-display text-4xl">Primary records lead; secondary sources interpret.</h2>
-          <p className="mt-5 max-w-4xl text-base leading-8 text-foreground/90">Texas Defined does not treat every “Painted Church” list as equivalent. Formal National Register membership, local touring traditions and later painted interiors are labeled separately. A church enters the verified statewide count only after church-specific evidence establishes the identity of the building and the basis for calling its interior painted or decoratively significant.</p>
+          <p className="mt-5 max-w-4xl text-base leading-8 text-foreground/90">Texas Defined does not treat every “Painted Church” list as equivalent. Formal National Register membership, the original 1982 thematic research universe, local touring traditions and later painted interiors are labeled separately. A church enters the verified statewide count only after church-specific evidence establishes the identity of the building and the basis for calling its interior painted or decoratively significant.</p>
         </section>
 
         <section className="mt-14 border-t border-border pt-8">
@@ -116,10 +122,10 @@ function PaintedChurchMethodology() {
         </section>
 
         <section className="mt-14 border-t border-border pt-8">
-          <p className="eyebrow text-primary">Conflicts and corrections</p>
+          <p className="eyebrow text-primary">Conflicts, fieldwork and corrections</p>
           <h2 className="mt-3 font-display text-4xl">Uncertainty is recorded, not hidden.</h2>
           <ul className="mt-7 list-disc space-y-3 pl-5 text-base leading-8 text-muted-foreground">{conflictRules.map((rule) => <li key={rule}>{rule}</li>)}</ul>
-          <p className="mt-6 max-w-4xl text-sm leading-7 text-muted-foreground">When Texas Defined identifies a material factual error, the published page is corrected. Readers can also use the linked primary source on each church page to verify the underlying record independently. This collection follows the broader site accountability principles described on the <Link to="/about" className="border-b border-primary text-primary">About Texas Defined</Link> page.</p>
+          <p className="mt-6 max-w-4xl text-sm leading-7 text-muted-foreground">When Texas Defined identifies a material factual error, the published record is corrected while the source trail remains visible. Readers can inspect the evidence ledger and canonical source registry rather than relying on an unattributed summary.</p>
         </section>
 
         <section className="mt-14 border-t border-border pt-8">
@@ -132,11 +138,14 @@ function PaintedChurchMethodology() {
         </section>
 
         <section className="mt-14 border-y border-border py-9">
-          <p className="eyebrow text-primary">Continue the research</p>
+          <p className="eyebrow text-primary">Audit the research</p>
           <div className="mt-4 flex flex-wrap gap-x-7 gap-y-3 text-sm">
-            <Link to="/explore/painted-churches" className="border-b border-primary text-primary">All Painted Churches</Link>
-            <Link to="/explore/painted-churches/how-many" className="border-b border-primary text-primary">Why Painted Church counts differ</Link>
-            <Link to="/explore/painted-churches/compare" className="border-b border-primary text-primary">Compare the verified churches</Link>
+            <Link to="/explore/painted-churches/sources" className="border-b border-primary text-primary">Canonical source registry</Link>
+            <Link to="/explore/painted-churches/bibliography" className="border-b border-primary text-primary">Research bibliography</Link>
+            <Link to="/explore/painted-churches/preindex-readiness" className="border-b border-primary text-primary">Pre-index readiness audit</Link>
+            <Link to="/explore/painted-churches/fieldwork-protocol" className="border-b border-primary text-primary">Fieldwork protocol</Link>
+            <Link to="/explore/painted-churches/how-many" className="border-b border-primary text-primary">Why counts differ</Link>
+            <Link to="/explore/painted-churches/compare" className="border-b border-primary text-primary">Compare verified churches</Link>
           </div>
         </section>
       </Container>
