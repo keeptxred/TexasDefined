@@ -26,10 +26,13 @@ for (const file of files) {
   const exportName = `TEXAS_COUNTY_FACTS_BATCH${batchNumber}`;
   if (!catalog.includes(exportName)) failures.push(`Canonical catalog is missing ${exportName}.`);
   if (!barrel.includes(`./seed-counties-batch${batchNumber}`)) failures.push(`Knowledge Bank index is missing county batch ${batchNumber}.`);
-  if (!source.includes("sourceId: 'tslac'")) failures.push(`${file} must use the canonical TSLAC source ID.`);
+  if (!/sourceId\s*:\s*['\"]tslac['\"]/.test(source)) failures.push(`${file} must use the canonical TSLAC source ID.`);
   if (!source.includes('https://www.tsl.texas.gov/ref/abouttx/countyseats.html')) failures.push(`${file} must cite the official TSLAC county-seat directory.`);
-  if (!source.includes("verification:'verified'") && !source.includes("verification: 'verified'")) failures.push(`${file} must mark county-seat facts verified.`);
-  if (!source.includes("socialFormats:['county-of-the-day','fact-of-the-day','texas-trivia']") && !source.includes("socialFormats: ['county-of-the-day', 'fact-of-the-day', 'texas-trivia']")) failures.push(`${file} must support county-of-the-day, fact-of-the-day and Texas trivia.`);
+  if (!/verification\s*:\s*['\"]verified['\"]/.test(source)) failures.push(`${file} must mark county-seat facts verified.`);
+  if (!/articlePath\s*:\s*`\/county\/\$\{slug\}`/.test(source)) failures.push(`${file} must link county facts through the verified /county/{slug} route template.`);
+  if (!/socialFormats\s*:\s*\[\s*['\"]county-of-the-day['\"]\s*,\s*['\"]fact-of-the-day['\"]\s*,\s*['\"]texas-trivia['\"]\s*\]/.test(source)) {
+    failures.push(`${file} must support county-of-the-day, fact-of-the-day and Texas trivia.`);
+  }
 
   for (const match of source.matchAll(/countySeat\(\s*['\"]([^'\"]+)['\"]\s*,\s*['\"]([^'\"]+)['\"]\s*,\s*['\"]([^'\"]+)['\"]\s*\)/g)) {
     const [, county, slug, seat] = match;
@@ -40,9 +43,6 @@ for (const file of files) {
     ids.add(id);
     slugs.add(slug);
     if (!county.trim() || !slug.trim() || !seat.trim()) failures.push(`County row ${id} requires county, slug and seat.`);
-    if (!source.includes(`articlePath:\`/county/\${slug}\``) && !source.includes('articlePath:`/county/${slug}`')) {
-      failures.push(`${file} must link county facts through the verified /county/{slug} route template.`);
-    }
   }
 }
 
