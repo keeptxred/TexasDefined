@@ -37,6 +37,7 @@ const TOPIC_PATHS: Partial<Record<CategorySlug, TopicLink[]>> = {
     { to: "/explore/lighthouses", label: "Texas lighthouses", description: "Use the sourced lighthouse map to connect Gulf Coast beaches with maritime history, public-access guidance and a coast-spanning route." },
     { to: "/explore/outdoors", label: "Wildlife & outdoors", description: "Explore coastal birding, marshes, refuges and barrier-island habitat." },
     { to: "/explore/small-towns", label: "Small towns", description: "Find Gulf Coast communities worth adding to a beach weekend." },
+    { to: "/explore/food-bbq", label: "Food & barbecue", description: "Add seafood, local institutions and regional food stops to the trip." },
   ],
   "historic-sites": [
     { to: "/explore/lighthouses", label: "Texas lighthouses", description: "Follow surviving and relocated Gulf Coast lights through shipping, storms, war, preservation and the counties they served." },
