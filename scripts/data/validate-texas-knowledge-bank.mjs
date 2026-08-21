@@ -74,7 +74,7 @@ for (const slug of stagedGuideSlugs) {
 for (const field of ['verification', 'socialReady', 'sources', 'socialFormats', 'usage', 'plannedArticlePath']) if (!types.includes(field)) failures.push(`Knowledge record type is missing field: ${field}`);
 if (!validation.includes('record.articlePath && record.plannedArticlePath')) failures.push('Runtime validation must reject records that mix live and planned article paths.');
 const requiredSocialFormats = [
-  'fact-of-the-day', 'you-know-youre-a-texan-if', 'you-know-youre-from-texas-if',
+  'fact-of-the-day', 'you-know-youre-a-texan-if', 'you-know-youre-from-texas-if', 'tell-me-youre-from-texas',
   'only-texans-understand', 'til-texas-edition', 'only-in-texas', 'texas-trivia',
   'true-or-false', 'this-or-that', 'would-you-rather-texas', 'finish-the-sentence',
   'name-this-texas-place', 'what-do-texans-call-this', 'how-texas-are-you',
