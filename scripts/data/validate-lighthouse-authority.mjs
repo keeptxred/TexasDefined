@@ -93,8 +93,8 @@ assert(
 for (const categoryMarker of ['"beaches-coast": [', '"historic-sites": [', '"road-trips": [']) {
   const start = topicPaths.indexOf(categoryMarker);
   assert(start >= 0, `Missing Explore topic group ${categoryMarker}`);
-  const nextGroup = topicPaths.indexOf("\n  ", start + categoryMarker.length);
-  const block = topicPaths.slice(start, nextGroup > start ? nextGroup : topicPaths.length);
+  const end = topicPaths.indexOf("\n  ],", start + categoryMarker.length);
+  const block = topicPaths.slice(start, end > start ? end : topicPaths.length);
   assert(block.includes('to: "/explore/lighthouses"'), `Explore topic group ${categoryMarker} must link to /explore/lighthouses`);
 }
 
