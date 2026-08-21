@@ -25,6 +25,24 @@ export function texasKnowledgeByDomain(domain: TexasKnowledgeDomain): TexasKnowl
   return TEXAS_KNOWLEDGE_CATALOG.filter((record) => record.domain === domain);
 }
 
+export function texasKnowledgeByVerification(
+  verification: TexasKnowledgeRecord['verification'],
+): TexasKnowledgeRecord[] {
+  return TEXAS_KNOWLEDGE_CATALOG.filter((record) => record.verification === verification);
+}
+
+export function texasKnowledgeNeedsReview(): TexasKnowledgeRecord[] {
+  return texasKnowledgeByVerification('needs-review');
+}
+
+export function texasKnowledgeWithPlannedArticles(): TexasKnowledgeRecord[] {
+  return TEXAS_KNOWLEDGE_CATALOG.filter((record) => Boolean(record.plannedArticlePath));
+}
+
+export function texasKnowledgeWithLiveArticles(): TexasKnowledgeRecord[] {
+  return TEXAS_KNOWLEDGE_CATALOG.filter((record) => Boolean(record.articlePath));
+}
+
 export function texasSocialCandidateRecords(): TexasKnowledgeRecord[] {
   return TEXAS_KNOWLEDGE_CATALOG.filter(
     (record) =>
