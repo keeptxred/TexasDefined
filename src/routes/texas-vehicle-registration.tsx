@@ -7,6 +7,10 @@ const canonicalPath = "/texas-vehicle-registration";
 const sourceData = PRIORITY_SEARCH_PAGES["texas-vehicle-registration"];
 const data = {
   ...sourceData,
+  related: [
+    { label: "Texas DMV agency profile", href: "/agency/texas-dmv" },
+    ...sourceData.related,
+  ],
   faq: [
     { question: "Who handles Texas vehicle registration?", answer: "TxDMV sets statewide vehicle-registration requirements and provides renewal guidance, while county tax assessor-collector offices handle many local registration transactions." },
     { question: "Is Texas vehicle registration the same as a driver license?", answer: "No. Vehicle registration is a TxDMV and county-office function. Driver licenses and state IDs are handled by Texas DPS." },

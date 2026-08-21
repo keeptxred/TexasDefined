@@ -16,6 +16,13 @@ const description = "A clear-eyed guide to choosing a Texas city or county, unde
 const imageAlt = "A two-lane Texas farm road running to the horizon";
 const seoTitle = "Moving to Texas: County Comparison, Cities & What to Know";
 
+const decisionTools = [
+  ["Texas vs every other state", "/texas-vs-every-state", "Start with the state you are leaving, then compare the actual Texas metro, city or county you would choose."],
+  ["Texas cost-of-living calculator", "/texas-cost-of-living-calculator", "Translate a move into housing, utilities, transportation and household-cost assumptions instead of relying on a statewide slogan."],
+  ["Texas salary comparison by city", "/texas-salary-comparison-by-city", "Compare Texas labor markets and city-level pay before assuming a lower cost of living offsets a different salary."],
+  ["Texas home affordability", "/texas-home-affordability-calculator", "Estimate what a Texas home budget looks like once income, rates, taxes and other ownership costs are included."],
+] as const;
+
 const arrivalTasks = [
   ["Texas driver license", "/texas-drivers-license", "DPS handles Texas driver licenses and state ID services. Start here for renewals, appointments, REAL ID and address changes."],
   ["Texas vehicle registration", "/texas-vehicle-registration", "Understand registration, renewal and the role of TxDMV and your county tax assessor-collector."],
@@ -71,6 +78,23 @@ function MovingToTexasPage() {
   return <>
     <CategoryPage category="moving-to-texas" eyebrow="The relocation guide" title="What to know before you move to Texas" intro={description} image={{ src: roadTrip, alt: imageAlt, width: 1600, height: 1067 }} />
     <Container className="pb-16 sm:pb-24">
+      <section className="mb-12 border-y border-border py-8" aria-labelledby="moving-texas-decision-tools">
+        <div className="grid gap-8 lg:grid-cols-[16rem_1fr]">
+          <div>
+            <p className="eyebrow text-primary">Before you choose Texas</p>
+            <h2 id="moving-texas-decision-tools" className="mt-2 font-display text-3xl leading-tight">Compare the move before you compare neighborhoods</h2>
+            <p className="mt-4 text-sm leading-7 text-muted-foreground">A state-to-state move should start with the actual places, salary, housing and household costs involved—not a single tax rate or statewide average.</p>
+          </div>
+          <div className="grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2">
+            {decisionTools.map(([title, to, copy]) => <Link key={to} to={to} className="group bg-background p-5">
+              <h3 className="font-display text-2xl leading-tight transition-colors group-hover:text-primary">{title}</h3>
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">{copy}</p>
+              <span className="eyebrow mt-5 inline-block text-primary">Compare →</span>
+            </Link>)}
+          </div>
+        </div>
+      </section>
+
       <section className="mb-12 border-y border-border py-8" aria-labelledby="moving-texas-paperwork">
         <div className="grid gap-8 lg:grid-cols-[16rem_1fr]">
           <div>

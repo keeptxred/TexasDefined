@@ -17,6 +17,7 @@ const INTENT_GROUPS = [
     title: "Park weekends",
     body: "Start with public land, then connect trails, camping, wildlife and nearby towns.",
     links: [
+      { to: "/best-places-to-go-camping-in-texas", label: "Best camping in Texas" },
       { to: "/explore/state-parks", label: "State parks" },
       { to: "/explore/national-parks", label: "National parks" },
       { to: "/explore/outdoors", label: "Wildlife & outdoors" },
