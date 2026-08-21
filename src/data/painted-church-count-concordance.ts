@@ -80,7 +80,7 @@ export const paintedChurchCountConcordance: PaintedChurchCountConcordanceEntry[]
     label: "Texas Defined verified statewide reference set",
     countText: "33 verified churches",
     numericCount: 33,
-    dateOrEra: "Pre-index authority audit, August 20, 2026",
+    dateOrEra: "Pre-index authority audit, August 21, 2026",
     scope: "Churches that individually clear Texas Defined's published evidence standard for a historic, restored or later significant decorative interior",
     interpretation: "The verified set is evidence-based rather than quota-based. It includes the historic 15-church thematic research universe plus additional statewide churches supported by church-specific primary, archival, scholarly, diocesan or preservation evidence. St. Joseph in Mason became the 33rd verified entry after its parish history and 2024 preservation record established both the 1916 Manuel Lopez painted program and the restoration of the historic vault. Research leads remain outside this count until they clear the same standard.",
     sourceLabel: "Texas Defined — Painted Churches research methodology",
