@@ -31,4 +31,10 @@ export const COUNTY_SERIES_PROFILES_PANHANDLE: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/donley-county-clarendon-saints-roost-greenbelt-panhandle-texas")
       .then((module) => module.donleyCountyClarendonSaintsRoostGreenbeltPanhandleTexasArticle),
   },
+  {
+    countySlug: "carson",
+    articleSlug: "carson-county-panhandle-white-deer-groom-pantex-texas",
+    loadArticle: () => import("@/data/fixtures/carson-county-panhandle-white-deer-groom-pantex-texas")
+      .then((module) => module.carsonCountyPanhandleWhiteDeerGroomPantexTexasArticle),
+  },
 ];
