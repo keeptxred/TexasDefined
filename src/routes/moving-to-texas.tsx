@@ -16,13 +16,6 @@ const description = "A clear-eyed guide to choosing a Texas city or county, unde
 const imageAlt = "A two-lane Texas farm road running to the horizon";
 const seoTitle = "Moving to Texas: County Comparison, Cities & What to Know";
 
-const decisionTools = [
-  ["Texas vs every other state", "/texas-vs-every-state", "Start with the state you are leaving, then compare the actual Texas metro, city or county you would choose."],
-  ["Texas cost-of-living calculator", "/texas-cost-of-living-calculator", "Translate a move into housing, utilities, transportation and household-cost assumptions instead of relying on a statewide slogan."],
-  ["Texas salary comparison by city", "/texas-salary-comparison-by-city", "Compare Texas labor markets and city-level pay before assuming a lower cost of living offsets a different salary."],
-  ["Texas home affordability", "/texas-home-affordability-calculator", "Estimate what a Texas home budget looks like once income, rates, taxes and other ownership costs are included."],
-] as const;
-
 const arrivalTasks = [
   ["Texas driver license", "/texas-drivers-license", "DPS handles Texas driver licenses and state ID services. Start here for renewals, appointments, REAL ID and address changes."],
   ["Texas vehicle registration", "/texas-vehicle-registration", "Understand registration, renewal and the role of TxDMV and your county tax assessor-collector."],
@@ -36,6 +29,7 @@ type MovingToTexasLoaderData = {
   articles: Article[];
   destinations: Destination[];
   counties: TexasCountyComparisonRow[];
+  decisionTools: readonly (readonly [string, string, string])[];
 };
 
 function editorialCollectionPayload(articles: Article[], destinations: Destination[]) {
@@ -60,20 +54,21 @@ export const Route = createFileRoute("/moving-to-texas")({
     ],
   }) : ({ meta: buildMeta(texasDefinedBrand, { canonicalPath: "/moving-to-texas", title: seoTitle, description, image: roadTrip, imageAlt, imageWidth: 1600, imageHeight: 1067 }), links: [canonicalLink(texasDefinedBrand, "/moving-to-texas")] }),
   loader: async ({ context }): Promise<MovingToTexasLoaderData> => {
-    const [articles, destinations, counties] = await Promise.all([
+    const [articles, destinations, counties, extras] = await Promise.all([
       context.queryClient.ensureQueryData(articlesQuery({ category: "moving-to-texas" })),
       context.queryClient.ensureQueryData(destinationsQuery({ category: "moving-to-texas" })),
       loadTexasCountyComparison(),
+      import("@/data/priority-route-extras"),
     ]);
     await context.queryClient.ensureQueryData(regionsQuery());
     const editorial = editorialCollectionPayload(articles, destinations);
-    return { ...editorial, counties };
+    return { ...editorial, counties, decisionTools: extras.movingDecisionTools };
   },
   component: MovingToTexasPage,
 });
 
 function MovingToTexasPage() {
-  const { counties } = Route.useLoaderData();
+  const { counties, decisionTools } = Route.useLoaderData();
   const largestCounties = populationRankedCounties(counties, 20);
   return <>
     <CategoryPage category="moving-to-texas" eyebrow="The relocation guide" title="What to know before you move to Texas" intro={description} image={{ src: roadTrip, alt: imageAlt, width: 1600, height: 1067 }} />
