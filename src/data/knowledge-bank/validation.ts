@@ -62,6 +62,14 @@ export function validateKnowledgeBank(records: TexasKnowledgeRecord[]): Knowledg
     if (new Set(socialFormats).size !== socialFormats.length) {
       errors.push(`${record.id} has duplicate approved social formats.`);
     }
+    if (socialFormats.includes('which-one-is-more-texas')) {
+      const choices = record.engagementChoices;
+      if (!choices || choices.length !== 2 || choices.some((choice) => !choice.trim())) {
+        errors.push(`${record.id} requires two non-empty engagementChoices for which-one-is-more-texas.`);
+      } else if (choices[0].trim().toLowerCase() === choices[1].trim().toLowerCase()) {
+        errors.push(`${record.id} engagementChoices must be distinct.`);
+      }
+    }
 
     const sourceIds = new Set<string>();
     for (const source of record.sources) {
