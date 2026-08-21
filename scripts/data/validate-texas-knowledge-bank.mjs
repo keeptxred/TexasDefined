@@ -7,6 +7,7 @@ const types = read('src/data/knowledge-bank/types.ts');
 const sources = read('src/data/knowledge-bank/sources.ts');
 const seed = read('src/data/knowledge-bank/seed.ts');
 const expanded = read('src/data/knowledge-bank/seed-expanded.ts');
+const verifiedBatch2 = read('src/data/knowledge-bank/seed-verified-batch2.ts');
 const observations = read('src/data/knowledge-bank/cultural-observations.ts');
 const observationsBatch2 = read('src/data/knowledge-bank/cultural-observations-batch2.ts');
 const catalog = read('src/data/knowledge-bank/catalog.ts');
@@ -34,7 +35,7 @@ for (const id of requiredSourceIds) if (!registeredSourceIds.has(id)) failures.p
 for (const urlMatch of sources.matchAll(/\burl:\s*['\"]([^'\"]+)['\"]/g)) {
   if (!urlMatch[1].startsWith('https://')) failures.push(`Knowledge source registry URL must use HTTPS: ${urlMatch[1]}`);
 }
-for (const text of [seed, expanded]) {
+for (const text of [seed, expanded, verifiedBatch2]) {
   for (const sourceMatch of text.matchAll(/\bsourceId:\s*['\"]([^'\"]+)['\"]/g)) {
     if (!registeredSourceIds.has(sourceMatch[1])) failures.push(`Knowledge record references unregistered source ID: ${sourceMatch[1]}`);
   }
@@ -61,7 +62,7 @@ const stagedGuideSlugs = [
   'texas-flowers-wildflowers-guide',
 ];
 const stagedGuidePaths = stagedGuideSlugs.map((slug) => `/${slug}`);
-const knowledgeRecordText = `${seed}\n${expanded}`;
+const knowledgeRecordText = `${seed}\n${expanded}\n${verifiedBatch2}`;
 for (const path of stagedGuidePaths) {
   if (routes.includes(`\"${path}\"`) || routes.includes(`'${path}'`)) failures.push(`Staged guide leaked into public route registry: ${path}`);
   if (homeGarden.includes(path)) failures.push(`Staged guide leaked into Home & Garden links: ${path}`);
@@ -95,7 +96,7 @@ for (const format of requiredSocialFormats) if (!social.includes(`case '${format
 if (!scheduler.includes('excludeRecordIds') || !scheduler.includes('timesUsed') || !scheduler.includes('preferredSeason')) failures.push('Social scheduler must support exclusions, usage scoring and season preference.');
 if (!scheduler.includes("'which-one-is-more-texas'")) failures.push('Social scheduler must rotate the paired Texas choice format.');
 if (!scheduler.includes('buildDefaultTexasSocialBatch') || !scheduler.includes('TEXAS_KNOWLEDGE_CATALOG')) failures.push('Default social batching must use the canonical Knowledge Bank catalog.');
-for (const seedExport of ['TEXAS_KNOWLEDGE_SEED', 'TEXAS_KNOWLEDGE_EXPANDED_SEED', 'TEXAS_CULTURAL_OBSERVATIONS', 'TEXAS_CULTURAL_OBSERVATIONS_BATCH2']) {
+for (const seedExport of ['TEXAS_KNOWLEDGE_SEED', 'TEXAS_KNOWLEDGE_EXPANDED_SEED', 'TEXAS_KNOWLEDGE_VERIFIED_BATCH2', 'TEXAS_CULTURAL_OBSERVATIONS', 'TEXAS_CULTURAL_OBSERVATIONS_BATCH2']) {
   if (!catalog.includes(seedExport)) failures.push(`Canonical Knowledge Bank catalog is missing ${seedExport}.`);
 }
 if (!catalog.includes("record.verification !== 'needs-review'")) failures.push('Canonical social candidate selector must exclude needs-review records.');
@@ -104,9 +105,11 @@ const explicitRecordIds = (text) => [...text.matchAll(/\bid:\s*['\"]([^'\"]+)['\
 const helperObservationIds = [...observations.matchAll(/\bobservation\(\s*['\"]([^'\"]+)['\"]/g)].map((match) => match[1]);
 const pairedChoiceIds = [...observations.matchAll(/\bpairedChoice\(\s*['\"]([^'\"]+)['\"]/g)].map((match) => match[1]);
 const batch2ObservationIds = [...observationsBatch2.matchAll(/\bobservation\(\s*['\"]([^'\"]+)['\"]/g)].map((match) => match[1]);
+const verifiedBatch2Ids = explicitRecordIds(verifiedBatch2);
 const ids = [
   ...explicitRecordIds(seed),
   ...explicitRecordIds(expanded),
+  ...verifiedBatch2Ids,
   ...helperObservationIds,
   ...pairedChoiceIds,
   ...batch2ObservationIds,
@@ -116,14 +119,15 @@ for (const id of ids) {
   if (seen.has(id)) failures.push(`Duplicate knowledge record id detected in source files: ${id}`);
   seen.add(id);
 }
-if (ids.length < 75) failures.push(`Expected at least 75 seeded knowledge records; found ${ids.length}.`);
+if (ids.length < 88) failures.push(`Expected at least 88 seeded knowledge records; found ${ids.length}.`);
 if (pairedChoiceIds.length < 5) failures.push(`Expected at least 5 paired Texas engagement prompts; found ${pairedChoiceIds.length}.`);
 if (batch2ObservationIds.length < 30) failures.push(`Expected at least 30 second-batch cultural observations; found ${batch2ObservationIds.length}.`);
+if (verifiedBatch2Ids.length < 13) failures.push(`Expected at least 13 second-batch verified facts; found ${verifiedBatch2Ids.length}.`);
 
 const observationCount = helperObservationIds.length + pairedChoiceIds.length + batch2ObservationIds.length + ((seed + expanded).match(/verification:\s*['\"]editorial-observation['\"]/g) ?? []).length;
 if (observationCount < 55) failures.push(`Expected at least 55 cultural observations/engagement prompts; found ${observationCount}.`);
-const verifiedCount = ((seed + expanded).match(/verification:\s*['\"]verified['\"]/g) ?? []).length;
-if (verifiedCount < 15) failures.push(`Expected at least 15 verified/source-backed records; found ${verifiedCount}.`);
+const verifiedCount = ((seed + expanded + verifiedBatch2).match(/verification:\s*['\"]verified['\"]/g) ?? []).length;
+if (verifiedCount < 28) failures.push(`Expected at least 28 verified/source-backed records; found ${verifiedCount}.`);
 
 for (const slug of stagedGuideSlugs) {
   if (!guides.includes(`\"${slug}\"`) && !guides.includes(`'${slug}'`)) failures.push(`Staged evergreen guide batch is missing ${slug}.`);
@@ -135,4 +139,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Texas knowledge bank validation passed: ${ids.length} seeded records, ${verifiedCount} verified records, ${observationCount} cultural observations/engagement prompts, ${pairedChoiceIds.length} paired-choice prompts, ${stagedGuidePaths.length} staged/non-public practical guides, ${registeredSourceIds.size} registered sources, and ${requiredSocialFormats.length} social formats.`);
+console.log(`Texas knowledge bank validation passed: ${ids.length} seeded records, ${verifiedCount} verified records, ${observationCount} cultural observations/engagement prompts, ${verifiedBatch2Ids.length} second-batch verified facts, ${pairedChoiceIds.length} paired-choice prompts, ${stagedGuidePaths.length} staged/non-public practical guides, ${registeredSourceIds.size} registered sources, and ${requiredSocialFormats.length} social formats.`);
