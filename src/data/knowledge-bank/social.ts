@@ -28,6 +28,12 @@ const headlineFor = (format: TexasSocialFormat) => {
   }
 };
 
+function requireChoices(record: TexasKnowledgeRecord, format: TexasSocialFormat) {
+  const choices = record.engagementChoices;
+  if (!choices) throw new Error(`Knowledge record ${record.id} requires two engagement choices for ${format}.`);
+  return choices;
+}
+
 function renderBody(record: TexasKnowledgeRecord, format: TexasSocialFormat) {
   switch (format) {
     case 'you-know-youre-a-texan-if':
@@ -48,15 +54,20 @@ function renderBody(record: TexasKnowledgeRecord, format: TexasSocialFormat) {
       return `${record.statement}\n\nTrue or false?`;
     case 'finish-the-sentence':
       return `You know you're in Texas when ________.\n\nOur take: ${record.statement}`;
-    case 'this-or-that':
-      return `${record.subject}: which side are you on? Tell us why.`;
-    case 'which-one-is-more-texas': {
-      const choices = record.engagementChoices;
-      if (!choices) throw new Error(`Knowledge record ${record.id} requires two engagement choices for ${format}.`);
-      return `${choices[0]} or ${choices[1]}?\n\nPick one — and defend your answer.`;
+    case 'this-or-that': {
+      if (!record.engagementChoices) return `${record.subject}: which side are you on? Tell us why.`;
+      const [left, right] = requireChoices(record, format);
+      return `${left} or ${right}?\n\nWhich side are you on?`;
     }
-    case 'would-you-rather-texas':
-      return `${record.subject}: which Texas choice would you make? Tell us why.`;
+    case 'which-one-is-more-texas': {
+      const [left, right] = requireChoices(record, format);
+      return `${left} or ${right}?\n\nPick one — and defend your answer.`;
+    }
+    case 'would-you-rather-texas': {
+      if (!record.engagementChoices) return `${record.subject}: which Texas choice would you make? Tell us why.`;
+      const [left, right] = requireChoices(record, format);
+      return `Would you rather choose ${left} or ${right}?\n\nTell us why.`;
+    }
     case 'name-this-texas-place':
       return `${record.subject}\n\nCan you name the Texas place before checking the answer?\n\nAnswer: ${record.statement}`;
     case 'what-do-texans-call-this':
