@@ -12,6 +12,7 @@ const GATEWAY_LINK_ALIASES: Record<string, string> = {
   "/small-towns": "/explore/small-towns",
   "/food-bbq": "/explore/food-bbq",
   "/outdoors": "/explore/outdoors",
+  "/explore/texas-camping-guide": "/best-places-to-go-camping-in-texas",
 };
 
 const JACOBS_WELL_OLD = "Jacob's Well area when open for swimming";
