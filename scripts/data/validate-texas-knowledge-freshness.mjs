@@ -25,10 +25,12 @@ if (!batch.includes('isKnowledgeRecordCurrent') || !batch.includes('asOfDate')) 
   failures.push('Social batch selection must enforce temporal freshness with an injectable asOfDate.');
 }
 
-const currentRuleRecords = [...source.matchAll(/\{[\s\S]*?temporalScope:\s*['\"]current-rule['\"][\s\S]*?\}/g)];
+const recordBlocks = source
+  .split(/\n\s*\},\n/)
+  .filter((block) => /\bid:\s*['\"][^'\"]+['\"]/.test(block));
+const currentRuleRecords = recordBlocks.filter((block) => /temporalScope:\s*['\"]current-rule['\"]/.test(block));
 if (currentRuleRecords.length < 3) failures.push(`Expected at least 3 current-rule records; found ${currentRuleRecords.length}.`);
-for (const match of currentRuleRecords) {
-  const block = match[0];
+for (const block of currentRuleRecords) {
   const id = block.match(/\bid:\s*['\"]([^'\"]+)['\"]/)?.[1] ?? 'unknown-record';
   const reviewBy = block.match(/\breviewBy:\s*['\"](\d{4}-\d{2}-\d{2})['\"]/)?.[1];
   if (!reviewBy) failures.push(`${id} is current-rule but has no ISO reviewBy date.`);
@@ -42,12 +44,11 @@ const requiredTimeBoundedIds = [
   'wildlife-bat-exclusion-season',
 ];
 for (const id of requiredTimeBoundedIds) {
-  const start = source.indexOf(`id: '${id}'`);
-  if (start < 0) {
+  const block = recordBlocks.find((recordBlock) => recordBlock.includes(`id: '${id}'`) || recordBlock.includes(`id: \"${id}\"`));
+  if (!block) {
     failures.push(`Missing expected time-bounded record: ${id}`);
     continue;
   }
-  const block = source.slice(start, source.indexOf('\n  },', start) + 5);
   if (!/\breviewBy:\s*['\"]\d{4}-\d{2}-\d{2}['\"]/.test(block)) failures.push(`${id} must have an ISO reviewBy date.`);
 }
 
