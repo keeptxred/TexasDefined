@@ -1,0 +1,121 @@
+name: Certify Polk County production once
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/certify-polk-county-once.yml'
+
+permissions:
+  contents: read
+  statuses: write
+
+env:
+  TARGET_SHA: 7a74e5d63dd8c03941b3897dc188e5c0646e021a
+  HERO_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Polk_County_Courthouse%2C_Livingston%2C_TX_IMG_8278.JPG?width=1600
+  CANONICAL_URL: https://texasdefined.com/county/polk
+  LEGACY_URL: https://texasdefined.com/article/polk-county-livingston-lake-livingston-alabama-coushatta-piney-woods-texas
+
+jobs:
+  certify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    environment: texasdefined-publication
+    env:
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.TARGET_SHA }}
+          fetch-depth: 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Certify Polk source, validation and production
+        id: cert
+        shell: bash
+        run: |
+          set +e
+          log=/tmp/polk-cert.log
+          : > "$log"
+          fail=''
+          fixture='src/data/fixtures/polk-county-livingston-lake-livingston-alabama-coushatta-piney-woods-texas.ts'
+          registry='src/data/county-series-profiles-east-texas.ts'
+          loader='src/data/county-series.server.ts'
+
+          test -f "$fixture" || fail='source-fixture'
+          grep -Fq 'countySlug: "polk"' "$registry" || fail='source-registry'
+          grep -Fq 'COUNTY_SERIES_PROFILES_EAST_TEXAS' "$loader" || fail='source-loader'
+          grep -Fq 'Polk County: Livingston, Lake Livingston, the Alabama-Coushatta and the Piney Woods' "$fixture" || fail='source-title'
+          grep -Fq 'Polk_County_Courthouse%2C_Livingston%2C_TX_IMG_8278.JPG?width=1600' "$fixture" || fail='source-hero'
+          if grep -n 'www\.texasdefined\.com' "$fixture" "$registry" "$loader" >> "$log"; then fail='canonical-host'; fi
+
+          if [ -z "$fail" ]; then
+            npm run data:validate:editorial-images >> "$log" 2>&1 || fail='editorial-image-uniqueness'
+          fi
+          if [ -z "$fail" ]; then
+            npm run validate >> "$log" 2>&1 || fail='repository-validation'
+          fi
+
+          hero_status=''; hero_mime=''; hero_bytes='0'
+          if [ -z "$fail" ]; then
+            hero_status="$(curl -A 'TexasDefined/1.0 (+https://texasdefined.com)' -L --retry 5 --retry-all-errors --retry-delay 3 --max-time 90 -sS -D /tmp/hero-h -o /tmp/hero-b -w '%{http_code}' "$HERO_URL" || true)"
+            hero_mime="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/{gsub(/\r/,""); sub(/^content-type:[[:space:]]*/,""); v=$0} END{print v}' /tmp/hero-h | cut -d';' -f1)"
+            hero_bytes="$(wc -c < /tmp/hero-b 2>/dev/null || echo 0)"
+            echo "hero HTTP=$hero_status MIME=$hero_mime bytes=$hero_bytes" >> "$log"
+            if [ "$hero_status" != '200' ] || ! [[ "$hero_mime" =~ ^image/(jpeg|png|webp)$ ]] || [ "$hero_bytes" -le 50000 ]; then fail='hero-http'; fi
+          fi
+
+          if [ -z "$fail" ]; then
+            npm run deploy >> "$log" 2>&1 || fail='deployment'
+          fi
+
+          page_status=''; page_ok=0
+          if [ -z "$fail" ]; then
+            for attempt in $(seq 1 12); do
+              page_status="$(curl -A 'TexasDefined/1.0 (+https://texasdefined.com)' --retry 3 --retry-all-errors --retry-delay 2 --max-time 60 -sS -o /tmp/page -w '%{http_code}' "${CANONICAL_URL}?verify=${TARGET_SHA}-${GITHUB_RUN_ID}-$attempt" || true)"
+              if [ "$page_status" = '200' ] \
+                && grep -Fq 'Polk County: Livingston, Lake Livingston, the Alabama-Coushatta and the Piney Woods' /tmp/page \
+                && grep -Fq 'The county in numbers' /tmp/page \
+                && grep -Fq 'County seat' /tmp/page \
+                && grep -Fq '2020 population' /tmp/page \
+                && grep -Fq 'Livingston' /tmp/page \
+                && grep -Fq 'https://texasdefined.com/county/polk' /tmp/page; then page_ok=1; break; fi
+              sleep 5
+            done
+            echo "page HTTP=$page_status data_layers=$page_ok" >> "$log"
+            [ "$page_ok" -eq 1 ] || fail='live-county'
+          fi
+
+          legacy_status=''; legacy_location=''
+          if [ -z "$fail" ]; then
+            legacy_status="$(curl -A 'TexasDefined/1.0 (+https://texasdefined.com)' --max-redirs 0 -sS -D /tmp/legacy-h -o /dev/null -w '%{http_code}' "$LEGACY_URL" || true)"
+            legacy_location="$(awk 'BEGIN{IGNORECASE=1} /^location:/{gsub(/\r/,""); sub(/^location:[[:space:]]*/,""); print; exit}' /tmp/legacy-h)"
+            echo "legacy HTTP=$legacy_status location=$legacy_location" >> "$log"
+            if [ "$legacy_status" != '301' ] || [ "$legacy_location" != 'https://texasdefined.com/county/polk' ]; then fail='legacy-redirect'; fi
+          fi
+
+          if [ -z "$fail" ]; then state='success'; desc='Polk county validation and live certification passed'; else state='failure'; desc="Polk certification failed: $fail"; fi
+          echo "state=$state" >> "$GITHUB_OUTPUT"
+          echo "fail=$fail" >> "$GITHUB_OUTPUT"
+          echo "hero_status=$hero_status" >> "$GITHUB_OUTPUT"
+          echo "hero_mime=$hero_mime" >> "$GITHUB_OUTPUT"
+          echo "hero_bytes=$hero_bytes" >> "$GITHUB_OUTPUT"
+          echo "page_status=$page_status" >> "$GITHUB_OUTPUT"
+          echo "legacy_status=$legacy_status" >> "$GITHUB_OUTPUT"
+          echo "legacy_location=$legacy_location" >> "$GITHUB_OUTPUT"
+          cat "$log"
+
+          curl --fail-with-body --silent --show-error --request POST \
+            --header "Authorization: Bearer ${{ github.token }}" \
+            --header 'Accept: application/vnd.github+json' \
+            --header 'X-GitHub-Api-Version: 2022-11-28' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${TARGET_SHA}" \
+            --data "{\"state\":\"$state\",\"context\":\"polk-county-live-cert\",\"description\":\"$desc\"}" >/dev/null
+
+          [ "$state" = 'success' ]
