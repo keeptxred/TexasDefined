@@ -16,6 +16,46 @@ export type CountyPropertyEnrichment = {
  * external requests.
  */
 export const COUNTY_PROPERTY_ENRICHMENT: Record<string, CountyPropertyEnrichment> = {
+  bell: {
+    appraisalDistrict: { name: 'Billy White', websiteUrl: 'https://bellcad.org', phone: '254-939-5841', address: '411 E. Central Ave., Belton, TX 76513-3241', email: 'customerservice@bellcad.org' },
+    taxOffice: { name: 'Shay Luedeke', websiteUrl: 'https://www.bellcountytx.com', phone: '254-933-5318', address: '550 E. 2nd Ave., Belton, TX 76513-3203', email: 'shay.luedeke@bellcounty.texas.gov' },
+    links: { appraisalDistrictUrl: 'https://bellcad.org', taxOfficeUrl: 'https://www.bellcountytx.com', propertySearchUrl: 'https://esearch.bellcad.org/', paymentUrl: 'https://bellcad.org/pay-property-taxes/' },
+    sourceUpdatedAt: { appraisalDistrict: '2024-05-23', taxOffice: '2025-03-03' },
+    lastVerifiedAt: '2026-08-21',
+    sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/bell.php', 'https://bellcad.org', 'https://esearch.bellcad.org/', 'https://bellcad.org/pay-property-taxes/', 'https://www.bellcountytx.com'],
+  },
+  bexar: {
+    appraisalDistrict: { name: 'Rogelio Sandoval', websiteUrl: 'https://www.bcad.org', phone: '210-242-2432', address: '411 N. Frio St., San Antonio, TX 78207-4416', email: 'cacomms@bcad.org' },
+    taxOffice: { name: 'Mr. Albert Uresti, MPA', websiteUrl: 'https://www.bexar.org/tax', phone: '210-335-2251', address: '233 N. Pecos La Trinidad, San Antonio, TX 78207-3175', email: 'taxoffice@bexar.org' },
+    links: { appraisalDistrictUrl: 'https://www.bcad.org', taxOfficeUrl: 'https://www.bexar.org/tax' },
+    sourceUpdatedAt: { appraisalDistrict: '2026-04-07', taxOffice: '2025-03-03' },
+    lastVerifiedAt: '2026-08-21',
+    sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/bexar.php', 'https://www.bcad.org', 'https://www.bexar.org/tax'],
+  },
+  comal: {
+    appraisalDistrict: { name: 'Jeffrey Booker', websiteUrl: 'https://www.comalad.org', phone: '830-625-8597', address: '900 S. Seguin Ave., New Braunfels, TX 78130-7838', email: 'comalad@co.comal.tx.us' },
+    taxOffice: { name: 'Kristen Hoyt', websiteUrl: 'https://www.co.comal.tx.us', phone: '830-221-1353', address: '205 N. Seguin Ave., New Braunfels, TX 78130-5005', email: 'cctax@co.comal.tx.us' },
+    links: { appraisalDistrictUrl: 'https://www.comalad.org', taxOfficeUrl: 'https://www.co.comal.tx.us' },
+    sourceUpdatedAt: { appraisalDistrict: '2025-11-24', taxOffice: '2025-03-13' },
+    lastVerifiedAt: '2026-08-21',
+    sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/comal.php', 'https://www.comalad.org', 'https://www.co.comal.tx.us'],
+  },
+  denton: {
+    appraisalDistrict: { name: 'Don Spencer', websiteUrl: 'https://www.dentoncad.com', phone: '940-349-3800', address: '3911 Morse St., Denton, TX 76208-6331', email: 'info@dentoncad.com' },
+    taxOffice: { name: 'Dawn Waye', websiteUrl: 'https://www.dentoncounty.gov/778/Tax-Assessor-Collector', phone: '940-349-3500', address: '1505 E. McKinney St., Denton, TX 76209-4525', email: 'dawn.waye@dentoncounty.gov' },
+    links: { appraisalDistrictUrl: 'https://www.dentoncad.com', taxOfficeUrl: 'https://www.dentoncounty.gov/778/Tax-Assessor-Collector' },
+    sourceUpdatedAt: { appraisalDistrict: '2026-03-12', taxOffice: '2025-02-14' },
+    lastVerifiedAt: '2026-08-21',
+    sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/denton.php', 'https://www.dentoncad.com', 'https://www.dentoncounty.gov/778/Tax-Assessor-Collector'],
+  },
+  travis: {
+    appraisalDistrict: { name: 'Leana Mann', websiteUrl: 'https://www.traviscad.org', phone: '512-834-9317', address: '850 E. Anderson Ln., Austin, TX 78752', email: 'csinfo@tcadcentral.org' },
+    taxOffice: { name: 'Celia Israel', websiteUrl: 'https://www.tax-office.traviscountytx.gov', phone: '512-854-9473', address: '2433 Ridgepoint Dr., Austin, TX 78754-5231', email: 'taxoffice@traviscountytx.gov' },
+    links: { appraisalDistrictUrl: 'https://www.traviscad.org', taxOfficeUrl: 'https://www.tax-office.traviscountytx.gov' },
+    sourceUpdatedAt: { appraisalDistrict: '2026-06-11', taxOffice: '2025-04-29' },
+    lastVerifiedAt: '2026-08-21',
+    sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/travis.php', 'https://www.traviscad.org', 'https://www.tax-office.traviscountytx.gov'],
+  },
   angelina: {
     appraisalDistrict: { name: 'Tim Chambers', websiteUrl: 'https://www.angelinacad.org', phone: '936-634-8456', address: '105 Miles Way, Ste. 300, Lufkin, TX 75901-5980', email: 'cdowns@angelinacad.org' },
     taxOffice: { name: 'Terri Collier', websiteUrl: 'https://www.angelinacounty.net', phone: '936-634-8376', address: '211 E. Shepherd Ave., Lufkin, TX 75901', email: 'taxoffice@angelinacounty.net' },
