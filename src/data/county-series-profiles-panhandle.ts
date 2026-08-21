@@ -74,4 +74,10 @@ export const COUNTY_SERIES_PROFILES_PANHANDLE: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/ochiltree-county-perryton-wolf-creek-wheat-high-plains-texas")
       .then((module) => module.ochiltreeCountyPerrytonWolfCreekWheatHighPlainsTexasArticle),
   },
+  {
+    countySlug: "gray",
+    articleSlug: "gray-county-pampa-lefors-red-river-oil-panhandle-texas",
+    loadArticle: () => import("@/data/fixtures/gray-county-pampa-lefors-red-river-oil-panhandle-texas")
+      .then((module) => module.grayCountyPampaLeforsRedRiverOilPanhandleTexasArticle),
+  },
 ];
