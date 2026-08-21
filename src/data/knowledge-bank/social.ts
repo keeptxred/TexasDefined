@@ -34,6 +34,10 @@ function requireChoices(record: TexasKnowledgeRecord, format: TexasSocialFormat)
   return choices;
 }
 
+function isCurrent(record: TexasKnowledgeRecord, asOfDate: string) {
+  return !(record.validThrough && record.validThrough < asOfDate) && !(record.reviewBy && record.reviewBy < asOfDate);
+}
+
 function renderBody(record: TexasKnowledgeRecord, format: TexasSocialFormat) {
   switch (format) {
     case 'you-know-youre-a-texan-if':
@@ -41,19 +45,13 @@ function renderBody(record: TexasKnowledgeRecord, format: TexasSocialFormat) {
       return record.verification === 'editorial-observation'
         ? record.statement.replace(/^Texans often /i, '').replace(/\.$/, '') + '.'
         : record.statement;
-    case 'tell-me-youre-from-texas':
-      return `${record.statement}\n\nWhat is your version?`;
+    case 'tell-me-youre-from-texas': return `${record.statement}\n\nWhat is your version?`;
     case 'only-texans-understand':
     case 'only-in-texas':
-      return record.statement;
-    case 'til-texas-edition':
-      return record.statement;
-    case 'texas-trivia':
-      return `How well do you know Texas? ${record.subject}: what do you know before you reveal the answer?\n\nAnswer: ${record.statement}`;
-    case 'true-or-false':
-      return `${record.statement}\n\nTrue or false?`;
-    case 'finish-the-sentence':
-      return `You know you're in Texas when ________.\n\nOur take: ${record.statement}`;
+    case 'til-texas-edition': return record.statement;
+    case 'texas-trivia': return `How well do you know Texas? ${record.subject}: what do you know before you reveal the answer?\n\nAnswer: ${record.statement}`;
+    case 'true-or-false': return `${record.statement}\n\nTrue or false?`;
+    case 'finish-the-sentence': return `You know you're in Texas when ________.\n\nOur take: ${record.statement}`;
     case 'this-or-that': {
       if (!record.engagementChoices) return `${record.subject}: which side are you on? Tell us why.`;
       const [left, right] = requireChoices(record, format);
@@ -68,40 +66,31 @@ function renderBody(record: TexasKnowledgeRecord, format: TexasSocialFormat) {
       const [left, right] = requireChoices(record, format);
       return `Would you rather choose ${left} or ${right}?\n\nTell us why.`;
     }
-    case 'name-this-texas-place':
-      return `${record.subject}\n\nCan you name the Texas place before checking the answer?\n\nAnswer: ${record.statement}`;
-    case 'what-do-texans-call-this':
-      return `${record.subject}: what do you call it where you're from in Texas?\n\nOur note: ${record.statement}`;
-    case 'how-texas-are-you':
-      return `${record.statement}\n\nDoes this belong on your Texas scorecard?`;
+    case 'name-this-texas-place': return `${record.subject}\n\nCan you name the Texas place before checking the answer?\n\nAnswer: ${record.statement}`;
+    case 'what-do-texans-call-this': return `${record.subject}: what do you call it where you're from in Texas?\n\nOur note: ${record.statement}`;
+    case 'how-texas-are-you': return `${record.statement}\n\nDoes this belong on your Texas scorecard?`;
     case 'county-of-the-day':
-      return `${record.subject}\n\n${record.statement}`;
-    case 'town-of-the-day':
-      return `${record.subject}\n\n${record.statement}`;
-    case 'wildlife-of-the-day':
-      return `${record.subject}\n\n${record.statement}\n\nWould you know what to do if you saw one?`;
-    case 'wildflower-of-the-day':
-      return `${record.subject}\n\n${record.statement}\n\nHave you seen these blooming this year?`;
-    case 'food-fight':
-      return `${record.statement}\n\nTexas, settle this one in the comments.`;
-    case 'tag-a-texan':
-      return `${record.statement}\n\nTag the Texan this describes perfectly.`;
+    case 'town-of-the-day': return `${record.subject}\n\n${record.statement}`;
+    case 'wildlife-of-the-day': return `${record.subject}\n\n${record.statement}\n\nWould you know what to do if you saw one?`;
+    case 'wildflower-of-the-day': return `${record.subject}\n\n${record.statement}\n\nHave you seen these blooming this year?`;
+    case 'food-fight': return `${record.statement}\n\nTexas, settle this one in the comments.`;
+    case 'tag-a-texan': return `${record.statement}\n\nTag the Texan this describes perfectly.`;
     case 'texas-by-the-numbers':
     case 'fact-of-the-day':
-    default:
-      return record.statement;
+    default: return record.statement;
   }
 }
 
-export function renderTexasSocialPost(record: TexasKnowledgeRecord, format: TexasSocialFormat): TexasSocialPost {
+export function renderTexasSocialPost(
+  record: TexasKnowledgeRecord,
+  format: TexasSocialFormat,
+  asOfDate = new Date().toISOString().slice(0, 10),
+): TexasSocialPost {
   if (!record.socialReady) throw new Error(`Knowledge record ${record.id} is not approved for social use.`);
   if (record.verification === 'needs-review') throw new Error(`Knowledge record ${record.id} still needs review and cannot be rendered for social use.`);
-  if (record.socialFormats?.length && !record.socialFormats.includes(format)) {
-    throw new Error(`Social format ${format} is not approved for ${record.id}.`);
-  }
-  if (format === 'which-one-is-more-texas' && !record.engagementChoices) {
-    throw new Error(`Knowledge record ${record.id} requires engagementChoices for ${format}.`);
-  }
+  if (!isCurrent(record, asOfDate)) throw new Error(`Knowledge record ${record.id} is past its review or validity date and cannot be rendered for social use.`);
+  if (record.socialFormats?.length && !record.socialFormats.includes(format)) throw new Error(`Social format ${format} is not approved for ${record.id}.`);
+  if (format === 'which-one-is-more-texas' && !record.engagementChoices) throw new Error(`Knowledge record ${record.id} requires engagementChoices for ${format}.`);
 
   return {
     recordId: record.id,
@@ -112,13 +101,13 @@ export function renderTexasSocialPost(record: TexasKnowledgeRecord, format: Texa
   };
 }
 
-export function renderAllApprovedSocialVariants(record: TexasKnowledgeRecord) {
-  return (record.socialFormats ?? []).map((format) => renderTexasSocialPost(record, format));
+export function renderAllApprovedSocialVariants(record: TexasKnowledgeRecord, asOfDate?: string) {
+  return (record.socialFormats ?? []).map((format) => renderTexasSocialPost(record, format, asOfDate));
 }
 
-export function selectUnusedSocialRecords(records: TexasKnowledgeRecord[], limit = 10) {
+export function selectUnusedSocialRecords(records: TexasKnowledgeRecord[], limit = 10, asOfDate = new Date().toISOString().slice(0, 10)) {
   return records
-    .filter((record) => record.socialReady && record.verification !== 'needs-review')
+    .filter((record) => record.socialReady && record.verification !== 'needs-review' && isCurrent(record, asOfDate))
     .sort((a, b) => {
       const uses = (a.usage?.timesUsed ?? 0) - (b.usage?.timesUsed ?? 0);
       if (uses !== 0) return uses;
