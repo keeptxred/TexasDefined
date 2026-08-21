@@ -77,7 +77,7 @@ function MadeInTexasPage() {
                         <p className="mt-3 text-sm leading-6 text-muted-foreground">{entry.note}</p>
                         {evidence ? <div className="mt-4 border-t border-border pt-4 text-xs leading-5 text-muted-foreground">
                           <p>{evidence.claim}</p>
-                          <a href={evidence.sourceUrl} target="_blank" rel="noreferrer" className="mt-2 inline-block font-semibold text-foreground underline decoration-primary/40 underline-offset-4 hover:text-primary">Manufacturer source: {evidence.sourceLabel} ↗</a>
+                          <a href={evidence.sourceUrl} target="_blank" rel="noreferrer" className="mt-2 inline-block font-semibold text-foreground underline decoration-primary/40 underline-offset-4 hover:text-primary">Verified source: {evidence.sourceLabel} ↗</a>
                         </div> : null}
                         <a href={`/county/${entry.countySlug}`} className="mt-4 inline-block text-sm font-semibold underline decoration-primary/40 underline-offset-4 hover:text-primary">Explore the county →</a>
                       </article>;
@@ -95,7 +95,7 @@ function MadeInTexasPage() {
                   <Definition term="Headquartered here" text="The company has its headquarters in the community; headquarters are not treated as proof of product manufacturing." />
                   <Definition term="Major Texas operations" text="The company maintains a significant facility or operating presence in the community." />
                 </dl>
-                <p className="mt-5 text-xs leading-5 text-muted-foreground">Entries with a manufacturer citation have been checked against a first-party production source. The broader directory remains deliberately labeled by relationship so a Texas origin or headquarters is never presented as proof that every product is made here.</p>
+                <p className="mt-5 text-xs leading-5 text-muted-foreground">Entries with a verified citation have been checked against a first-party producer or authoritative public source. The broader directory remains deliberately labeled by relationship so a Texas origin or headquarters is never presented as proof that every product is made here.</p>
                 <div className="mt-6 space-y-3 text-sm font-semibold">
                   <a href="/texas-facts" className="block underline decoration-primary/40 underline-offset-4 hover:text-primary">100 essential Texas facts →</a>
                   <a href="/things-unique-to-texas" className="block underline decoration-primary/40 underline-offset-4 hover:text-primary">250 things that define Texas →</a>

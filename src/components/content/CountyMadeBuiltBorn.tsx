@@ -27,7 +27,7 @@ export function CountyMadeBuiltBorn({ countySlug }: { countySlug: string }) {
                 <h3 className="mt-2 font-display text-2xl leading-tight">{entry.name}</h3>
                 <p className="mt-1 text-sm font-medium">{entry.city}</p>
                 <p className="mt-3 text-sm leading-6 text-muted-foreground">{entry.note}</p>
-                {evidence ? <a href={evidence.sourceUrl} target="_blank" rel="noreferrer" className="mt-4 inline-block text-xs font-semibold underline decoration-primary/50 underline-offset-4 hover:text-primary">Verified manufacturer source: {evidence.sourceLabel} ↗</a> : null}
+                {evidence ? <a href={evidence.sourceUrl} target="_blank" rel="noreferrer" className="mt-4 inline-block text-xs font-semibold underline decoration-primary/50 underline-offset-4 hover:text-primary">Verified source: {evidence.sourceLabel} ↗</a> : null}
                 {entry.href ? <a href={entry.href} className="mt-4 block text-sm font-semibold underline decoration-primary/50 underline-offset-4 hover:text-primary">Go deeper →</a> : null}
               </article>
             );
