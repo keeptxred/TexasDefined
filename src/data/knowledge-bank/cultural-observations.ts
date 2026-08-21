@@ -25,6 +25,22 @@ const observation = (id: string, statement: string, tags: string[], season?: Tex
   usage: { timesUsed: 0 },
 });
 
+const pairedChoice = (id: string, choiceA: string, choiceB: string, tags: string[]): TexasKnowledgeRecord => ({
+  id,
+  kind: 'this-or-that',
+  domain: 'culture',
+  subject: 'Texas choice',
+  statement: `${choiceA} or ${choiceB}: which one feels more Texas to you?`,
+  engagementChoices: [choiceA, choiceB],
+  tags,
+  sources: [],
+  verification: 'editorial-observation',
+  evergreen: true,
+  socialReady: true,
+  socialFormats: ['which-one-is-more-texas','this-or-that','would-you-rather-texas'],
+  usage: { timesUsed: 0 },
+});
+
 export const TEXAS_CULTURAL_OBSERVATIONS: TexasKnowledgeRecord[] = [
   observation('culture-bluebonnet-photos', 'Spring bluebonnet photos can become an annual family tradition.', ['bluebonnets','spring','family'], 'spring'),
   observation('culture-weather-radar', 'Checking the weather radar can be part of the daily routine even when the sky still looks clear.', ['weather','storms']),
@@ -51,4 +67,9 @@ export const TEXAS_CULTURAL_OBSERVATIONS: TexasKnowledgeRecord[] = [
   observation('culture-small-town-bakery', 'A bakery can be reason enough to choose one small-town route over another.', ['food','small-towns','road-trip']),
   observation('culture-pickup-bed-weather', 'People can check the forecast before leaving something in a pickup bed even when rain chances look tiny.', ['weather','trucks']),
   observation('culture-sunscreen-winter', 'Bright Texas sun can make sunscreen useful on outdoor days well outside summer.', ['sun','outdoors']),
+  pairedChoice('choice-brisket-breakfast-tacos', 'Brisket', 'Breakfast tacos', ['food','barbecue','breakfast-tacos']),
+  pairedChoice('choice-bluebonnets-football', 'Bluebonnet season', 'Friday night football', ['culture','bluebonnets','football']),
+  pairedChoice('choice-hill-country-gulf-coast', 'A Hill Country road trip', 'A Gulf Coast weekend', ['travel','hill-country','gulf-coast']),
+  pairedChoice('choice-courthouse-square-dance-hall', 'A small-town courthouse square', 'A historic dance hall', ['small-towns','history','dance-halls']),
+  pairedChoice('choice-pecan-pie-kolache', 'Pecan pie', 'A Czech-Texas kolache', ['food','dessert','czech-texas']),
 ];
