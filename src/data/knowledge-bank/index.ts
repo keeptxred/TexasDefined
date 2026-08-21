@@ -2,6 +2,7 @@ export * from './types';
 export * from './seed';
 export * from './seed-expanded';
 export * from './cultural-observations';
+export * from './catalog';
 export * from './sources';
 export * from './social';
 export * from './social-batch';
