@@ -19,4 +19,10 @@ export const COUNTY_SERIES_PROFILES_EAST_TEXAS: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/newton-county-newton-sabine-river-piney-woods-texas")
       .then((module) => module.newtonCountyNewtonSabineRiverPineyWoodsTexasArticle),
   },
+  {
+    countySlug: "tyler",
+    articleSlug: "tyler-county-woodville-big-thicket-neches-piney-woods-texas",
+    loadArticle: () => import("@/data/fixtures/tyler-county-woodville-big-thicket-neches-piney-woods-texas")
+      .then((module) => module.tylerCountyWoodvilleBigThicketNechesPineyWoodsTexasArticle),
+  },
 ];
