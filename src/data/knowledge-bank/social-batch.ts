@@ -7,6 +7,8 @@ export type TexasSocialBatchOptions = {
   excludeRecordIds?: string[];
   preferredDomains?: TexasKnowledgeRecord['domain'][];
   preferredSeason?: TexasKnowledgeRecord['season'];
+  /** Maximum records from any one domain. Defaults to a balanced share of the requested batch. */
+  maxPerDomain?: number;
   /** YYYY-MM-DD date used for freshness gating; defaults to the current UTC date. */
   asOfDate?: string;
 };
@@ -66,8 +68,11 @@ export function buildTexasSocialBatch(
   options: TexasSocialBatchOptions = {},
 ): TexasSocialPost[] {
   const limit = Math.max(1, Math.min(options.limit ?? 10, 50));
+  const defaultDomainCap = Math.max(2, Math.ceil(limit / 5));
+  const maxPerDomain = Math.max(1, Math.min(options.maxPerDomain ?? defaultDomainCap, limit));
   const excluded = new Set(options.excludeRecordIds ?? []);
   const usedDomains = new Set<TexasKnowledgeRecord['domain']>();
+  const domainCounts = new Map<TexasKnowledgeRecord['domain'], number>();
   const usedFormats = new Set<TexasSocialFormat>();
   const asOfDate = options.asOfDate ?? new Date().toISOString().slice(0, 10);
 
@@ -86,18 +91,23 @@ export function buildTexasSocialBatch(
     });
 
   const selected: TexasKnowledgeRecord[] = [];
+  const selectRecord = (record: TexasKnowledgeRecord) => {
+    selected.push(record);
+    usedDomains.add(record.domain);
+    domainCounts.set(record.domain, (domainCounts.get(record.domain) ?? 0) + 1);
+  };
 
   for (const record of candidates) {
     if (selected.length >= limit) break;
     if (usedDomains.has(record.domain)) continue;
-    selected.push(record);
-    usedDomains.add(record.domain);
+    selectRecord(record);
   }
 
   for (const record of candidates) {
     if (selected.length >= limit) break;
     if (selected.some((item) => item.id === record.id)) continue;
-    selected.push(record);
+    if ((domainCounts.get(record.domain) ?? 0) >= maxPerDomain) continue;
+    selectRecord(record);
   }
 
   return selected.map((record) => {
