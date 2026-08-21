@@ -1,0 +1,95 @@
+name: Certify Donley County production once
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/certify-donley-county-once.yml'
+
+permissions:
+  contents: read
+  statuses: write
+
+concurrency:
+  group: certify-donley-county-once
+  cancel-in-progress: true
+
+jobs:
+  certify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      GH_TOKEN: ${{ github.token }}
+      HERO_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Donley_Courthouse_IMG_0667.JPG?width=1600
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish pending status
+        shell: bash
+        run: |
+          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
+            --data '{"state":"pending","context":"donley-certification","description":"Checking Donley County production hard gates"}' >/dev/null
+      - name: Verify Donley source and production
+        shell: bash
+        run: |
+          set -euo pipefail
+          fixture='src/data/fixtures/donley-county-clarendon-saints-roost-greenbelt-panhandle-texas.ts'
+          registry='src/data/county-series-profiles-panhandle.ts'
+          test -f "$fixture"
+          grep -Fq 'countySlug: "donley"' "$registry"
+          grep -Fq 'Donley County: Clarendon, Saints'"'"' Roost and Greenbelt Lake' "$fixture"
+          if grep -n 'www\.texasdefined\.com' "$fixture" "$registry"; then
+            echo 'Noncanonical www host found in Donley changes' >&2
+            exit 1
+          fi
+
+          work="$(mktemp -d)"
+          trap 'rm -rf "$work"' EXIT
+          page_ok=0
+          for attempt in $(seq 1 12); do
+            page_status="$(curl --retry 3 --retry-all-errors --retry-delay 2 --max-time 60 -sS -o "$work/page" -w '%{http_code}' "https://texasdefined.com/county/donley?verify=${GITHUB_SHA}-${GITHUB_RUN_ID}-${attempt}" || true)"
+            if [ "$page_status" = 200 ] \
+              && grep -Fq "Donley County: Clarendon, Saints' Roost and Greenbelt Lake" "$work/page" \
+              && grep -Fq 'The county in numbers' "$work/page" \
+              && grep -Fq 'County seat' "$work/page" \
+              && grep -Fq '2020 population' "$work/page" \
+              && grep -Fq 'County feature' "$work/page" \
+              && grep -Fq 'Clarendon' "$work/page" \
+              && grep -Fq 'https://texasdefined.com/county/donley' "$work/page"; then
+              page_ok=1
+              break
+            fi
+            sleep 5
+          done
+          [ "$page_ok" = 1 ] || { echo "Donley live page hard gate failed: HTTP=$page_status" >&2; exit 1; }
+
+          legacy='https://texasdefined.com/article/donley-county-clarendon-saints-roost-greenbelt-panhandle-texas'
+          legacy_status="$(curl --max-redirs 0 -sS -D "$work/legacy-headers" -o /dev/null -w '%{http_code}' "$legacy" || true)"
+          legacy_location="$(awk 'BEGIN{IGNORECASE=1} /^location:/{gsub(/\r/,""); sub(/^location:[[:space:]]*/,""); print; exit}' "$work/legacy-headers")"
+          if [ "$legacy_status" != 301 ] || ! [[ "$legacy_location" == *'/county/donley'* ]]; then
+            echo "Donley legacy redirect failed: HTTP=$legacy_status location=$legacy_location" >&2
+            exit 1
+          fi
+
+          hero_status="$(curl -L --retry 5 --retry-all-errors --retry-delay 2 --max-time 60 -sS -D "$work/hero-headers" -o "$work/hero" -w '%{http_code}' "$HERO_URL" || true)"
+          hero_mime="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/{gsub(/\r/,""); sub(/^content-type:[[:space:]]*/,""); v=$0} END{print v}' "$work/hero-headers" | cut -d';' -f1)"
+          hero_bytes="$(wc -c < "$work/hero" 2>/dev/null || echo 0)"
+          if [ "$hero_status" != 200 ] || ! [[ "$hero_mime" =~ ^image/(jpeg|png|webp)$ ]] || [ "$hero_bytes" -le 50000 ]; then
+            echo "Donley hero failed: HTTP=$hero_status MIME=$hero_mime bytes=$hero_bytes" >&2
+            exit 1
+          fi
+          echo "Donley certification PASS: page=200 structured=yes editorial=yes legacy=301 hero=$hero_status mime=$hero_mime bytes=$hero_bytes"
+      - name: Publish success status
+        if: success()
+        shell: bash
+        run: |
+          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
+            --data '{"state":"success","context":"donley-certification","description":"Donley page, redirect and hero hard gates passed"}' >/dev/null
+      - name: Publish failure status
+        if: failure()
+        shell: bash
+        run: |
+          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
+            --data '{"state":"failure","context":"donley-certification","description":"Donley production hard gate failed"}' >/dev/null
