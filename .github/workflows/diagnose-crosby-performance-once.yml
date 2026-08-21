@@ -1,4 +1,4 @@
-# retrigger after workflow entered default branch
+# retrigger for Lubbock County certification bundle diagnosis
 name: Diagnose Crosby performance once
 
 on:
