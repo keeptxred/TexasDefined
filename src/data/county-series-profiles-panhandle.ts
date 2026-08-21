@@ -98,4 +98,10 @@ export const COUNTY_SERIES_PROFILES_PANHANDLE: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/lipscomb-county-lipscomb-higgins-booker-wolf-creek-panhandle-texas")
       .then((module) => module.lipscombCountyLipscombHigginsBookerWolfCreekPanhandleTexasArticle),
   },
+  {
+    countySlug: "hemphill",
+    articleSlug: "hemphill-county-canadian-rivers-rodeo-panhandle-texas",
+    loadArticle: () => import("@/data/fixtures/hemphill-county-canadian-rivers-rodeo-panhandle-texas")
+      .then((module) => module.hemphillCountyCanadianRiversRodeoPanhandleTexasArticle),
+  },
 ];
