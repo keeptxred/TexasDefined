@@ -12,6 +12,7 @@ on:
       - 'src/lib/public-routes.ts'
       - 'scripts/data/validate-texas-knowledge-bank.mjs'
       - 'scripts/data/validate-texas-knowledge-freshness.mjs'
+      - 'scripts/data/validate-texas-county-knowledge.mjs'
       - 'tsconfig.knowledge-bank.json'
       - '.github/workflows/texas-knowledge-bank.yml'
   workflow_dispatch:
@@ -37,6 +38,9 @@ jobs:
 
       - name: Validate Texas knowledge bank
         run: node scripts/data/validate-texas-knowledge-bank.mjs
+
+      - name: Validate county knowledge
+        run: node scripts/data/validate-texas-county-knowledge.mjs
 
       - name: Validate knowledge freshness
         run: node scripts/data/validate-texas-knowledge-freshness.mjs
