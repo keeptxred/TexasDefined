@@ -13,6 +13,8 @@ export type KnowledgeBankValidation = {
   };
 };
 
+const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
+
 export function validateKnowledgeBank(records: TexasKnowledgeRecord[]): KnowledgeBankValidation {
   const errors: string[] = [];
   const warnings: string[] = [];
@@ -24,11 +26,17 @@ export function validateKnowledgeBank(records: TexasKnowledgeRecord[]): Knowledg
     ids.add(record.id);
 
     if (!record.statement.trim()) errors.push(`${record.id} requires a statement.`);
+    if (!record.subject.trim()) errors.push(`${record.id} requires a subject.`);
+    if (!record.tags.length) warnings.push(`${record.id} has no tags for discovery or reuse.`);
+
     if (record.verification === 'verified' && !record.sources.length) {
       errors.push(`${record.id} is marked verified but has no source.`);
     }
     if (record.verification === 'verified' && !record.verifiedAt) {
       errors.push(`${record.id} is marked verified but has no verifiedAt date.`);
+    }
+    if (record.verification === 'verified' && record.verifiedAt && !ISO_DATE.test(record.verifiedAt)) {
+      errors.push(`${record.id} has a non-ISO verifiedAt date.`);
     }
     if (record.verification === 'editorial-observation' && record.sources.length) {
       warnings.push(`${record.id} is an editorial observation but also has factual sources; confirm classification.`);
@@ -39,9 +47,23 @@ export function validateKnowledgeBank(records: TexasKnowledgeRecord[]): Knowledg
     if (record.verification === 'needs-review' && record.socialReady) {
       errors.push(`${record.id} needs review and must not be social-ready.`);
     }
+    if (record.articlePath && (!record.articlePath.startsWith('/') || record.articlePath.includes('://'))) {
+      errors.push(`${record.id} articlePath must be a root-relative internal path.`);
+    }
+
+    const socialFormats = record.socialFormats ?? [];
+    if (new Set(socialFormats).size !== socialFormats.length) {
+      errors.push(`${record.id} has duplicate approved social formats.`);
+    }
+
+    const sourceIds = new Set<string>();
     for (const source of record.sources) {
+      if (!source.sourceId.trim()) errors.push(`${record.id} has a source with no sourceId.`);
+      if (sourceIds.has(source.sourceId)) errors.push(`${record.id} repeats source ${source.sourceId}.`);
+      sourceIds.add(source.sourceId);
+      if (!source.authority.trim()) errors.push(`${record.id} source ${source.sourceId} requires an authority.`);
       if (!source.url.startsWith('https://')) errors.push(`${record.id} source ${source.sourceId} must use HTTPS.`);
-      if (!/^\d{4}-\d{2}-\d{2}$/.test(source.checkedAt)) warnings.push(`${record.id} source ${source.sourceId} has a non-ISO checkedAt date.`);
+      if (!ISO_DATE.test(source.checkedAt)) warnings.push(`${record.id} source ${source.sourceId} has a non-ISO checkedAt date.`);
     }
   }
 
