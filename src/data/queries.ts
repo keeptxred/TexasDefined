@@ -43,7 +43,7 @@ export const guidesQuery = () => queryOptions({ queryKey: ["guides", scope.brand
 export const eventsQuery = (params: { limit?: number } = {}) => queryOptions({ queryKey: ["events", scope.brandId, params], staleTime: 15 * 60 * 1000, queryFn: async () => { try { const remote = await fetchPublishedTexasEvents(params.limit ?? 24); if (remote.length) return remote; } catch (error) { console.error("Live Texas events catalog unavailable; using curated fixture fallback", error); } return platform.events.list({ ...scope, ...params }); } });
 export const categoriesQuery = () => queryOptions({ queryKey: ["categories", scope.brandId], queryFn: async () => { const categories = await platform.taxonomy.categories(scope); const merged = new Map(categories.map((category) => [category.slug, category])); for (const category of supplementalExploreCategories) { const existing = merged.get(category.slug); merged.set(category.slug, existing ? { ...existing, ...category } : category); } return [...merged.values()]; } });
 export const regionsQuery = () => queryOptions({ queryKey: ["regions", scope.brandId], queryFn: () => platform.taxonomy.regions(scope) });
-export const authorsQuery = () => queryOptions({ queryKey: ["authors", scope.brandId], queryFn: () => platform.taxonomy.authors.list(scope) });
+export const authorsQuery = () => queryOptions({ queryKey: ["authors", scope.brandId], queryFn: () => platform.taxonomy.authors(scope) });
 
 function destinationSearchDocument(destination: Destination): SearchDocument {
   const keywords = [destination.category, destination.region, destination.nearestTown, destination.county, destination.managingAuthority, destination.bestSeason, ...destination.highlights].filter((value): value is string => Boolean(value));
