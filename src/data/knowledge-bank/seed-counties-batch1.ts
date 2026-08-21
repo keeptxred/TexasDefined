@@ -1,0 +1,61 @@
+import type { TexasKnowledgeRecord } from './types';
+
+const checkedAt = '2026-08-20';
+const sourceUrl = 'https://www.tsl.texas.gov/ref/abouttx/countyseats.html';
+
+const countySeat = (county: string, slug: string, seat: string): TexasKnowledgeRecord => ({
+  id: `county-${slug}-seat`,
+  kind: 'county-fact',
+  domain: 'counties',
+  subject: `${county} County`,
+  statement: `The county seat of ${county} County is ${seat}.`,
+  countySlug: slug,
+  tags: ['county-seat', 'texas-counties', slug],
+  sources: [{
+    sourceId: 'tslac',
+    url: sourceUrl,
+    authority: 'Texas State Library and Archives Commission',
+    checkedAt,
+  }],
+  verification: 'verified',
+  verifiedAt: checkedAt,
+  temporalScope: 'evergreen',
+  evergreen: true,
+  socialReady: true,
+  articlePath: `/county/${slug}`,
+  socialFormats: ['county-of-the-day', 'fact-of-the-day', 'texas-trivia'],
+  usage: { timesUsed: 0 },
+});
+
+export const TEXAS_COUNTY_FACTS_BATCH1: TexasKnowledgeRecord[] = [
+  countySeat('Anderson', 'anderson', 'Palestine'),
+  countySeat('Andrews', 'andrews', 'Andrews'),
+  countySeat('Angelina', 'angelina', 'Lufkin'),
+  countySeat('Aransas', 'aransas', 'Rockport'),
+  countySeat('Archer', 'archer', 'Archer City'),
+  countySeat('Armstrong', 'armstrong', 'Claude'),
+  countySeat('Atascosa', 'atascosa', 'Jourdanton'),
+  countySeat('Austin', 'austin', 'Bellville'),
+  countySeat('Bailey', 'bailey', 'Muleshoe'),
+  countySeat('Bandera', 'bandera', 'Bandera'),
+  countySeat('Bastrop', 'bastrop', 'Bastrop'),
+  countySeat('Baylor', 'baylor', 'Seymour'),
+  countySeat('Bee', 'bee', 'Beeville'),
+  countySeat('Bell', 'bell', 'Belton'),
+  countySeat('Bexar', 'bexar', 'San Antonio'),
+  countySeat('Blanco', 'blanco', 'Johnson City'),
+  countySeat('Borden', 'borden', 'Gail'),
+  countySeat('Bosque', 'bosque', 'Meridian'),
+  countySeat('Bowie', 'bowie', 'Boston'),
+  countySeat('Brazoria', 'brazoria', 'Angleton'),
+  countySeat('Brazos', 'brazos', 'Bryan'),
+  countySeat('Brewster', 'brewster', 'Alpine'),
+  countySeat('Briscoe', 'briscoe', 'Silverton'),
+  countySeat('Brooks', 'brooks', 'Falfurrias'),
+  countySeat('Brown', 'brown', 'Brownwood'),
+  countySeat('Burleson', 'burleson', 'Caldwell'),
+  countySeat('Burnet', 'burnet', 'Burnet'),
+  countySeat('Caldwell', 'caldwell', 'Lockhart'),
+  countySeat('Calhoun', 'calhoun', 'Port Lavaca'),
+  countySeat('Callahan', 'callahan', 'Baird'),
+];
