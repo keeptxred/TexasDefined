@@ -1,5 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
-import type { TexasVsStateProfile } from "@/data/texas-vs-states";
+import type { TexasVsStateProfile } from "@/data/texas-vs-states-index";
 
 const loadTexasVsStateProfileServerFn = createServerFn({ method: "GET" })
   .inputValidator((data: { name: string }) => data)
