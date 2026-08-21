@@ -24,14 +24,20 @@ const requiredSourceIds = [
 ];
 for (const id of requiredSourceIds) if (!sources.includes(`id:'${id}'`) && !sources.includes(`id: '${id}'`)) failures.push(`Missing required knowledge source: ${id}`);
 
-const guidePaths = [
-  '/texas-hurricane-home-prep', '/texas-pool-guide', '/texas-pests-guide',
-  '/texas-snakes-guide', '/texas-wildlife-guide', '/texas-birds-guide',
-  '/texas-flowers-wildflowers-guide',
+// Batch 8 is deliberately staged editorial copy. Until publication is explicitly approved,
+// these paths must not leak into the public crawl registry, navigation, or file routes.
+const stagedGuideSlugs = [
+  'texas-hurricane-home-prep', 'texas-pool-guide', 'texas-pests-guide',
+  'texas-snakes-guide', 'texas-wildlife-guide', 'texas-birds-guide',
+  'texas-flowers-wildflowers-guide',
 ];
-for (const path of guidePaths) {
-  if (!routes.includes(`"${path}"`) && !routes.includes(`'${path}'`)) failures.push(`Guide is not crawl-governed as a public route: ${path}`);
-  if (!homeGarden.includes(path)) failures.push(`Home & Garden does not link to practical guide: ${path}`);
+const stagedGuidePaths = stagedGuideSlugs.map((slug) => `/${slug}`);
+for (const path of stagedGuidePaths) {
+  if (routes.includes(`\"${path}\"`) || routes.includes(`'${path}'`)) failures.push(`Staged guide leaked into public route registry: ${path}`);
+  if (homeGarden.includes(path)) failures.push(`Staged guide leaked into Home & Garden links: ${path}`);
+}
+for (const slug of stagedGuideSlugs) {
+  if (fs.existsSync(`src/routes/${slug}.tsx`)) failures.push(`Staged guide has a public file route before publication approval: /${slug}`);
 }
 
 for (const field of ['verification', 'socialReady', 'sources', 'socialFormats', 'usage']) if (!types.includes(field)) failures.push(`Knowledge record type is missing field: ${field}`);
@@ -48,8 +54,8 @@ for (const seedExport of ['TEXAS_KNOWLEDGE_SEED', 'TEXAS_KNOWLEDGE_EXPANDED_SEED
 }
 if (!catalog.includes("record.verification !== 'needs-review'")) failures.push('Canonical social candidate selector must exclude needs-review records.');
 
-const explicitRecordIds = (text) => [...text.matchAll(/\bid:\s*['"]([^'"]+)['"]/g)].map((match) => match[1]);
-const helperObservationIds = [...observations.matchAll(/\bobservation\(\s*['"]([^'"]+)['"]/g)].map((match) => match[1]);
+const explicitRecordIds = (text) => [...text.matchAll(/\bid:\s*['\"]([^'\"]+)['\"]/g)].map((match) => match[1]);
+const helperObservationIds = [...observations.matchAll(/\bobservation\(\s*['\"]([^'\"]+)['\"]/g)].map((match) => match[1]);
 const ids = [
   ...explicitRecordIds(seed),
   ...explicitRecordIds(expanded),
@@ -62,13 +68,13 @@ for (const id of ids) {
 }
 if (ids.length < 40) failures.push(`Expected at least 40 seeded knowledge records; found ${ids.length}.`);
 
-const observationCount = helperObservationIds.length + ((seed + expanded).match(/verification:\s*['"]editorial-observation['"]/g) ?? []).length;
+const observationCount = helperObservationIds.length + ((seed + expanded).match(/verification:\s*['\"]editorial-observation['\"]/g) ?? []).length;
 if (observationCount < 20) failures.push(`Expected at least 20 cultural observations; found ${observationCount}.`);
-const verifiedCount = ((seed + expanded).match(/verification:\s*['"]verified['"]/g) ?? []).length;
+const verifiedCount = ((seed + expanded).match(/verification:\s*['\"]verified['\"]/g) ?? []).length;
 if (verifiedCount < 15) failures.push(`Expected at least 15 verified/source-backed records; found ${verifiedCount}.`);
 
-for (const slug of ['texas-hurricane-home-prep','texas-pool-guide','texas-pests-guide','texas-snakes-guide','texas-wildlife-guide','texas-birds-guide','texas-flowers-wildflowers-guide']) {
-  if (!guides.includes(`"${slug}"`) && !guides.includes(`'${slug}'`)) failures.push(`Evergreen guide batch is missing ${slug}.`);
+for (const slug of stagedGuideSlugs) {
+  if (!guides.includes(`\"${slug}\"`) && !guides.includes(`'${slug}'`)) failures.push(`Staged evergreen guide batch is missing ${slug}.`);
 }
 
 if (failures.length) {
@@ -77,4 +83,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Texas knowledge bank validation passed: ${ids.length} seeded records, ${verifiedCount} verified records, ${observationCount} cultural observations, ${guidePaths.length} governed practical guides, and ${requiredSourceIds.length} required authoritative sources.`);
+console.log(`Texas knowledge bank validation passed: ${ids.length} seeded records, ${verifiedCount} verified records, ${observationCount} cultural observations, ${stagedGuidePaths.length} staged/non-public practical guides, and ${requiredSourceIds.length} required authoritative sources.`);
