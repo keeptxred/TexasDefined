@@ -109,7 +109,7 @@ for (const route of [files.overviewRoute, files.sectionRoute]) {
   requireText(route, "isShowcaseLakeSlug", "generic dynamic route must enforce published showcase gate");
   requireText(route, "getShowcaseLakesPageData()", "generic dynamic route must hydrate shared server data");
   requireText(route, "@/data/fishing/live-lake-level.functions", "lake route must use server-function live-level bridge");
-  requireText(route, "loadLiveLakeLevel(pageData.sources.liveLevel.url)", "lake route must fetch current level on request");
+  requireText(route, "getLiveLakeLevel({ data: { sourceUrl: pageData.sources.liveLevel.url } })", "lake route must call live lake server function directly");
   requireText(route, "LiveLakeLevelStrip", "lake route must render the live level strip");
   if (route.includes("@/data/fishing/live-lake-level.server")) throw new Error("Fishing Batch 15 validation failed: lake routes must not import .server live-level code directly into the client route boundary.");
 }
@@ -136,4 +136,4 @@ for (const phrase of ["guaranteed catch", "today's best lake", "sponsored rankin
 
 requireText(pkg.scripts["fishing:validate"], "validate-fishing-lake-expansion.mjs", "Batch 15 validator not wired into fishing:validate");
 
-console.log("Fishing Batch 15 lake-expansion validation passed: ten complete lake guides, ten Water Data for Texas live-level sources, official 30-day CSV-first request-time server-function lake-level loading with HTML fallback, graceful live UI fallback, verified species/technique depth, reusable dynamic routes, live-condition separation, ten-lake directory discovery and sitemap publication are protected.");
+console.log("Fishing Batch 15 lake-expansion validation passed: ten complete lake guides, ten Water Data for Texas live-level sources, request-time server-function lake-level loading with resilient recent-condition and HTML fallback paths, graceful live UI fallback, verified species/technique depth, reusable dynamic routes, live-condition separation, ten-lake directory discovery and sitemap publication are protected.");
