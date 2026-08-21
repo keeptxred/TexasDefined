@@ -151,3 +151,5 @@ jobs:
           git add -- ops/certifications/hansford-county-production.json ops/certifications/hansford-county-production.log
           git commit -m 'Record Hansford County production certification'
           git push origin HEAD:main
+
+# Triggered after the workflow file exists on main.
