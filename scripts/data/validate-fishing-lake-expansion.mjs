@@ -75,7 +75,11 @@ if (uniqueLiveSources.size !== 10) throw new Error(`Fishing Batch 15 validation 
 for (const token of [
   "cache: \"no-store\"",
   "waterdatafortexas\\.org\\/reservoirs\\/individual",
+  "parseWaterDataForTexasReservoirCsv",
   "parseWaterDataForTexasReservoirPage",
+  "`${canonicalSourceUrl}.csv`",
+  "percent_full",
+  "mean_water_level",
   "percentFull",
   "measuredAt",
   "AbortSignal.timeout",
@@ -131,4 +135,4 @@ for (const phrase of ["guaranteed catch", "today's best lake", "sponsored rankin
 
 requireText(pkg.scripts["fishing:validate"], "validate-fishing-lake-expansion.mjs", "Batch 15 validator not wired into fishing:validate");
 
-console.log("Fishing Batch 15 lake-expansion validation passed: ten complete lake guides, ten Water Data for Texas live-level sources, request-time server-function lake-level loading, graceful live UI fallback, verified species/technique depth, reusable dynamic routes, live-condition separation, ten-lake directory discovery and sitemap publication are protected.");
+console.log("Fishing Batch 15 lake-expansion validation passed: ten complete lake guides, ten Water Data for Texas live-level sources, official CSV-first request-time server-function lake-level loading with HTML fallback, graceful live UI fallback, verified species/technique depth, reusable dynamic routes, live-condition separation, ten-lake directory discovery and sitemap publication are protected.");
