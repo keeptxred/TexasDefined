@@ -6,6 +6,7 @@ export type LiveLakeLevelSnapshot = {
 };
 
 const TIMEOUT_MS = 5000;
+const MAX_DISPLAY_AGE_DAYS = 7;
 const RECENT_CONDITIONS_URL = "https://waterdatafortexas.org/reservoirs/recent-conditions.json";
 
 function stripHtml(value: string) {
@@ -59,6 +60,13 @@ function normalizeCsvHeader(value: string) {
 
 function normalizeReservoirIdentity(value: string) {
   return value.toLowerCase().replace(/[^a-z0-9]+/g, "");
+}
+
+function snapshotIsFresh(snapshot: LiveLakeLevelSnapshot, now = new Date()) {
+  const measured = Date.parse(`${snapshot.measuredAt}T23:59:59Z`);
+  if (!Number.isFinite(measured)) return false;
+  const ageDays = (now.getTime() - measured) / 86_400_000;
+  return ageDays >= -1 && ageDays <= MAX_DISPLAY_AGE_DAYS;
 }
 
 export function parseWaterDataForTexasRecentConditions(sourceUrl: string, payload: unknown): LiveLakeLevelSnapshot | null {
@@ -153,7 +161,7 @@ export async function loadLiveLakeLevel(sourceUrl: string): Promise<LiveLakeLeve
     });
     if (recentResponse.ok) {
       const recentSnapshot = parseWaterDataForTexasRecentConditions(canonicalSourceUrl, await recentResponse.json());
-      if (recentSnapshot) return recentSnapshot;
+      if (recentSnapshot && snapshotIsFresh(recentSnapshot)) return recentSnapshot;
     }
 
     const csvResponse = await fetch(csvUrl, {
@@ -166,7 +174,7 @@ export async function loadLiveLakeLevel(sourceUrl: string): Promise<LiveLakeLeve
     });
     if (csvResponse.ok) {
       const csvSnapshot = parseWaterDataForTexasReservoirCsv(canonicalSourceUrl, await csvResponse.text());
-      if (csvSnapshot) return csvSnapshot;
+      if (csvSnapshot && snapshotIsFresh(csvSnapshot)) return csvSnapshot;
     }
 
     const htmlResponse = await fetch(canonicalSourceUrl, {
@@ -178,7 +186,8 @@ export async function loadLiveLakeLevel(sourceUrl: string): Promise<LiveLakeLeve
       signal: AbortSignal.timeout(TIMEOUT_MS),
     });
     if (!htmlResponse.ok) return null;
-    return parseWaterDataForTexasReservoirPage(canonicalSourceUrl, await htmlResponse.text());
+    const htmlSnapshot = parseWaterDataForTexasReservoirPage(canonicalSourceUrl, await htmlResponse.text());
+    return htmlSnapshot && snapshotIsFresh(htmlSnapshot) ? htmlSnapshot : null;
   } catch {
     return null;
   }
