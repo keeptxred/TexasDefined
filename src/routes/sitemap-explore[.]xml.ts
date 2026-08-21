@@ -22,7 +22,7 @@ import { paintedChurchTechniques } from "@/data/painted-church-techniques";
 import { expandedPaintedChurches } from "@/data/painted-churches-expanded";
 import { fetchExploreDestinations, hasExploreRemoteData } from "@/data/explore-remote";
 import { applyStateParkHeroAssets } from "@/data/state-park-heroes";
-import { landscapeGuideSlugs, landscapeSlugs } from "@/data/texas-landscapes";
+import { landscapeGuideSlugs, landscapeSlugs } from "@/data/texas-landscape-catalog";
 import type { Destination } from "@/data/types";
 import { isExploreSitemapOwnedPath, isIndexablePublicPath, normalizePublicPath } from "@/lib/public-routes";
 
