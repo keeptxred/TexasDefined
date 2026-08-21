@@ -7,4 +7,10 @@ export const COUNTY_SERIES_PROFILES_EAST_TEXAS: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/polk-county-livingston-lake-livingston-alabama-coushatta-piney-woods-texas")
       .then((module) => module.polkCountyLivingstonLakeLivingstonAlabamaCoushattaPineyWoodsTexasArticle),
   },
+  {
+    countySlug: "jasper",
+    articleSlug: "jasper-county-jasper-kirbyville-sam-rayburn-piney-woods-texas",
+    loadArticle: () => import("@/data/fixtures/jasper-county-jasper-kirbyville-sam-rayburn-piney-woods-texas")
+      .then((module) => module.jasperCountyJasperKirbyvilleSamRayburnPineyWoodsTexasArticle),
+  },
 ];
