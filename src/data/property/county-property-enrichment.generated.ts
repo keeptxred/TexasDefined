@@ -20,7 +20,7 @@ export const COUNTY_PROPERTY_ENRICHMENT: Record<string, CountyPropertyEnrichment
     appraisalDistrict: { name: 'Billy White', websiteUrl: 'https://bellcad.org', phone: '254-939-5841', address: '411 E. Central Ave., Belton, TX 76513-3241', email: 'customerservice@bellcad.org' },
     taxOffice: { name: 'Shay Luedeke', websiteUrl: 'https://www.bellcountytx.com', phone: '254-933-5318', address: '550 E. 2nd Ave., Belton, TX 76513-3203', email: 'shay.luedeke@bellcounty.texas.gov' },
     links: { appraisalDistrictUrl: 'https://bellcad.org', taxOfficeUrl: 'https://www.bellcountytx.com', propertySearchUrl: 'https://esearch.bellcad.org/', paymentUrl: 'https://bellcad.org/pay-property-taxes/' },
-    sourceUpdatedAt: { appraisalDistrict: '2024-05-23', taxOffice: '2025-03-03' },
+    sourceUpdatedAt: { appraisalDistrict: '2026-08-21', taxOffice: '2025-03-03' },
     lastVerifiedAt: '2026-08-21',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/bell.php', 'https://bellcad.org', 'https://esearch.bellcad.org/', 'https://bellcad.org/pay-property-taxes/', 'https://www.bellcountytx.com'],
   },
