@@ -12,6 +12,7 @@ const headlineFor = (format: TexasSocialFormat) => {
     case 'texas-trivia': return 'Texas Trivia';
     case 'true-or-false': return 'True or False — Texas Edition';
     case 'this-or-that': return 'Texas This or That';
+    case 'which-one-is-more-texas': return 'Which One Is More Texas?';
     case 'would-you-rather-texas': return 'Would You Rather — Texas Edition';
     case 'finish-the-sentence': return 'Finish the sentence';
     case 'name-this-texas-place': return 'Name This Texas Place';
@@ -49,6 +50,11 @@ function renderBody(record: TexasKnowledgeRecord, format: TexasSocialFormat) {
       return `You know you're in Texas when ________.\n\nOur take: ${record.statement}`;
     case 'this-or-that':
       return `${record.subject}: which side are you on? Tell us why.`;
+    case 'which-one-is-more-texas': {
+      const choices = record.engagementChoices;
+      if (!choices) throw new Error(`Knowledge record ${record.id} requires two engagement choices for ${format}.`);
+      return `${choices[0]} or ${choices[1]}?\n\nPick one — and defend your answer.`;
+    }
     case 'would-you-rather-texas':
       return `${record.subject}: which Texas choice would you make? Tell us why.`;
     case 'name-this-texas-place':
@@ -81,6 +87,9 @@ export function renderTexasSocialPost(record: TexasKnowledgeRecord, format: Texa
   if (record.verification === 'needs-review') throw new Error(`Knowledge record ${record.id} still needs review and cannot be rendered for social use.`);
   if (record.socialFormats?.length && !record.socialFormats.includes(format)) {
     throw new Error(`Social format ${format} is not approved for ${record.id}.`);
+  }
+  if (format === 'which-one-is-more-texas' && !record.engagementChoices) {
+    throw new Error(`Knowledge record ${record.id} requires engagementChoices for ${format}.`);
   }
 
   return {
