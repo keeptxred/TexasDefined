@@ -38,6 +38,7 @@ const ALLOWED_PREFIXES = [
 const ALLOWED_FILES = new Set([
   "src/brand/types.ts",
   "src/data/fixtures/texas-life-split.ts",
+  "src/data/knowledge-graph/relationships.ts",
   "src/data/shop-products-remote.ts",
   "src/data/texas-data-sources.ts",
   "src/data/types.ts",

@@ -156,22 +156,6 @@ function ShopPage() {
         </Container>
       </section>
 
-      <section className="py-14">
-        <Container>
-          <div className="grid gap-8 lg:grid-cols-[15rem_1fr]">
-            <div>
-              <p className="eyebrow text-primary">Shop by story</p>
-              <h2 className="mt-2 font-display text-4xl">Three Texas collections</h2>
-            </div>
-            <div className="grid md:grid-cols-3">
-              <CollectionLink href="/shop/campfire-kitchen" title="Campfire Kitchen">Cast iron, coffee, durable camp-kitchen basics and the small set of outdoor tools worth carrying from a river bank to a tailgate.</CollectionLink>
-              <CollectionLink href="/shop/wildflower-house" title="Wildflower House">Native-plant color, botanical art, home pieces and garden-minded goods inspired by Texas spring without turning the room into a souvenir shop.</CollectionLink>
-              <CollectionLink href="/shop/smoke-and-salt" title="Smoke & Salt">Barbecue tools and ingredients selected around fire management, seasoning, wrapping, resting, slicing and serving—not novelty pit clutter.</CollectionLink>
-            </div>
-          </div>
-        </Container>
-      </section>
-
       <section className="border-y border-border py-14">
         <Container className="grid gap-10 lg:grid-cols-2">
           <div>
@@ -211,9 +195,6 @@ function ShopPage() {
   );
 }
 
-function CollectionLink({ href, title, children }: { href: string; title: string; children: React.ReactNode }) {
-  return <Link to={href} className="group border-b border-border py-7 md:border-l md:px-6"><strong className="block font-display text-3xl group-hover:text-primary">{title}</strong><span className="mt-4 block text-sm leading-7 text-muted-foreground">{children}</span><span className="mt-5 block text-xs font-semibold uppercase tracking-[0.14em] text-primary">Open collection →</span></Link>;
-}
 function Rule({ title, children }: { title: string; children: React.ReactNode }) { return <div className="border-t border-border pt-4"><h3 className="font-display text-2xl text-foreground">{title}</h3><p className="mt-2">{children}</p></div>; }
 function Step({ number, children }: { number: string; children: React.ReactNode }) { return <li className="grid grid-cols-[2rem_1fr] gap-3 border-t border-border pt-3"><span className="font-display text-xl text-primary">{number}</span><span>{children}</span></li>; }
 function StoryLink({ href, title, children }: { href: string; title: string; children: React.ReactNode }) { return <a href={href} className="group border-b border-border py-6 sm:px-5 sm:border-l"><strong className="block font-display text-2xl group-hover:text-primary">{title}</strong><span className="mt-3 block text-sm leading-6 text-muted-foreground">{children}</span><span className="mt-4 block text-xs font-semibold uppercase tracking-[0.14em] text-primary">Read next →</span></a>; }
