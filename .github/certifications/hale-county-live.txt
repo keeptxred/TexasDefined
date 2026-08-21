@@ -1,0 +1,10 @@
+PASS Hale County
+page=200
+structured=yes
+editorial=yes
+canonical=https://texasdefined.com/county/hale
+legacy=301
+legacy_location=https://texasdefined.com/county/hale
+hero=200
+mime=image/jpeg
+bytes=614402
