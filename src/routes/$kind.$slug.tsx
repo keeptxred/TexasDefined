@@ -1,7 +1,9 @@
 import { createFileRoute, notFound } from '@tanstack/react-router';
 import { texasDefinedBrand } from '@/brand/texasdefined';
+import { AgencyGuideSections } from '@/components/content/AgencyGuideSections';
 import { AutoEntityLinks } from '@/components/content/AutoEntityLinks';
 import { CountyGuideSections } from '@/components/content/CountyGuideSections';
+import { LocalOfficeGuideSections } from '@/components/content/LocalOfficeGuideSections';
 import { Container } from '@/components/layout/Container';
 import { CountySportsDestinations } from '@/components/sports/CountySportsDestinations';
 import { loadCountyProfile } from '@/data/county-profile';
@@ -32,6 +34,12 @@ export const Route = createFileRoute('/$kind/$slug')({
         .filter((candidate) => candidate.kind === 'sports-venue' && candidate.countySlug === entity.slug && isIndexableEntityPage(candidate))
         .sort((left, right) => sportsVenuePriority(left) - sportsVenuePriority(right) || left.name.localeCompare(right.name))
       : [];
+
+    if ((entity.kind === 'appraisal-district' || entity.kind === 'tax-office') && entity.countySlug) {
+      const localGovernment = await loadLocalGovernmentProfile(entity.countySlug, `${title(entity.countySlug)} County`);
+      return { entity, related, countyProfile: null, localGovernment, countySeriesArticle: null, countySportsVenues };
+    }
+
     if (entity.kind !== 'county') return { entity, related, countyProfile: null, localGovernment: null, countySeriesArticle: null, countySportsVenues };
     const [countyProfile, localGovernment, countySeriesArticle] = await Promise.all([
       loadCountyProfile(entity.slug, entity.name),
@@ -154,6 +162,8 @@ function EntityPage() {
 
         {entity.kind === 'county' && countyProfile && localGovernment ? <CountyGuideSections entity={entity} profile={countyProfile} localGovernment={localGovernment} related={related} /> : null}
         {entity.kind === 'county' ? <CountySportsDestinations county={entity} venues={countySportsVenues} /> : null}
+        <AgencyGuideSections entity={entity} />
+        <LocalOfficeGuideSections entity={entity} profile={localGovernment} />
 
         {entity.kind !== 'county' && entity.tags?.length ? <section className="grid gap-6 border-b border-border py-10 lg:grid-cols-[14rem_1fr]">
           <div>
