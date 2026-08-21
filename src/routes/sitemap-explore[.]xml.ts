@@ -22,6 +22,7 @@ import { paintedChurchTechniques } from "@/data/painted-church-techniques";
 import { expandedPaintedChurches } from "@/data/painted-churches-expanded";
 import { fetchExploreDestinations, hasExploreRemoteData } from "@/data/explore-remote";
 import { applyStateParkHeroAssets } from "@/data/state-park-heroes";
+import { landscapeGuideSlugs, landscapeSlugs } from "@/data/texas-landscapes";
 import type { Destination } from "@/data/types";
 import { isExploreSitemapOwnedPath, isIndexablePublicPath, normalizePublicPath } from "@/lib/public-routes";
 
@@ -122,9 +123,6 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           ...regions.map((region) => region.id),
           ...EXPLORE_REGION_SLUGS,
         ])];
-        // Keep only self-canonical static pages in this sitemap. The Top
-        // Attractions collection, methodology and road-trip pages each carry
-        // their own canonical URL and therefore belong here.
         const staticPaths = [
           "/explore",
           "/explore/trip-planner",
@@ -135,6 +133,9 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           "/explore/top-attractions",
           "/explore/top-attractions/methodology",
           "/explore/top-attractions/road-trips",
+          "/explore/landscapes",
+          ...landscapeSlugs.map((slug) => `/explore/landscapes/${slug}`),
+          ...landscapeGuideSlugs.map((slug) => `/explore/landscapes/${slug}`),
           ...categorySlugs.map((slug) => `/explore/${slug}`),
           ...regionSlugs.map((regionSlug) => `/explore/region/${regionSlug}`),
         ];
