@@ -60,7 +60,10 @@ export type TexasKnowledgeRecord = {
   verifiedAt?: string;
   evergreen: boolean;
   socialReady: boolean;
+  /** Existing, verified public route only. Downstream social rendering may emit this link. */
   articlePath?: string;
+  /** Editorial planning target only. Never emitted as a public/social link until promoted to articlePath. */
+  plannedArticlePath?: string;
   relatedEntityIds?: string[];
   imageQuery?: string;
   socialFormats?: TexasSocialFormat[];
