@@ -12,6 +12,7 @@ import { enrichHistoricSiteCatalog, enrichHistoricSiteDestination } from "./hist
 import { enrichHistoricSiteEvergreenLinks } from "./historic-site-evergreen-links";
 import { applyHistoricSiteFactCorrections } from "./historic-site-fact-corrections";
 import { enrichHistoricSiteRemoteHero } from "./historic-site-remote-heroes";
+import { enrichNationalCemeteryDestination } from "./national-cemetery-enrichment";
 import { platform, scope } from "./index";
 import { applyStateParkHeroAsset, applyStateParkHeroAssets } from "./state-park-heroes";
 import type { Destination, Slug } from "./types";
@@ -52,8 +53,10 @@ function preservedFor(query: Omit<DestinationQuery, "brandId">): Destination[] {
 function finishHistoricSiteEnrichment(destination: Destination) {
   return applyHistoricSiteFactCorrections(
     enrichHistoricSiteEvergreenLinks(
-      enrichHistoricSiteRemoteHero(
-        enrichRemainingHistoricSiteAreaGuide(enrichHistoricSiteDestination(destination)),
+      enrichNationalCemeteryDestination(
+        enrichHistoricSiteRemoteHero(
+          enrichRemainingHistoricSiteAreaGuide(enrichHistoricSiteDestination(destination)),
+        ),
       ),
     ),
   );
@@ -68,6 +71,7 @@ function reconcileExploreCatalog(destinations: Destination[]) {
   const improved = enrichHistoricSiteCatalog(curated)
     .map(enrichRemainingHistoricSiteAreaGuide)
     .map(enrichHistoricSiteRemoteHero)
+    .map(enrichNationalCemeteryDestination)
     .map(enrichHistoricSiteEvergreenLinks)
     .map(applyHistoricSiteFactCorrections);
   return filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved));
