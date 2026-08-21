@@ -14,7 +14,6 @@ jobs:
   diagnose:
     runs-on: ubuntu-latest
     timeout-minutes: 45
-    environment: texasdefined-publication
     env:
       GH_TOKEN: ${{ github.token }}
     steps:
@@ -27,42 +26,50 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci --no-audit --no-fund
-      - name: Diagnose SEO validator
-        id: seo
-        continue-on-error: true
+      - name: Find first failing SEO validator
         shell: bash
         run: |
-          set +e
-          npm run seo:validate > /tmp/seo.log 2>&1
-          code=$?
-          cat /tmp/seo.log
-          tail -n 8 /tmp/seo.log | tr '\n' ' ' | cut -c1-125 > /tmp/seo-tail
-          exit $code
-      - name: Diagnose data validator
-        id: data
-        continue-on-error: true
-        shell: bash
-        run: |
-          set +e
-          npm run data:validate > /tmp/data.log 2>&1
-          code=$?
-          cat /tmp/data.log
-          tail -n 8 /tmp/data.log | tr '\n' ' ' | cut -c1-125 > /tmp/data-tail
-          exit $code
-      - name: Publish diagnostic statuses
-        if: always()
-        shell: bash
-        env:
-          SEO: ${{ steps.seo.outcome }}
-          DATA: ${{ steps.data.outcome }}
-        run: |
-          set -euo pipefail
-          post() {
-            local context="$1" state="$2" desc="$3"
-            desc="${desc//\\/ }"; desc="${desc//\"/ }"
-            curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
-              "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
-              --data "{\"state\":\"$state\",\"context\":\"$context\",\"description\":\"$desc\"}" >/dev/null
-          }
-          if [ "$SEO" = success ]; then post deaf-smith-seo-detail success 'SEO validation passed'; else post deaf-smith-seo-detail failure "$(cat /tmp/seo-tail)"; fi
-          if [ "$DATA" = success ]; then post deaf-smith-data-detail success 'Data validation passed'; else post deaf-smith-data-detail failure "$(cat /tmp/data-tail)"; fi
+          set -uo pipefail
+          validators=(
+            validate-generated-page-quality
+            validate-public-route-governance
+            validate-indexation-quality
+            validate-crawl-demand
+            validate-freshness-signals
+            validate-machine-indexing
+            validate-aeo-answer-layers
+            validate-homepage-seo
+            validate-texas-explained-seo
+            validate-things-unique-to-texas
+            validate-texas-icon-link-depth
+            validate-texas-weather-authority
+            validate-texas-food-history
+            validate-texas-culture-citation-index
+            validate-explore-category-seo
+            validate-explore-region-seo
+            validate-explore-topical-authority
+            validate-article-discover-seo
+            validate-author-eeat
+            validate-entity-template-quality
+            validate-image-seo
+            validate-search-rendering-performance
+            validate-content-duplication
+            validate-sitemap-routes
+            validate-internal-link-discovery
+            validate-search-intent-ctr
+            validate-seo-ci-contract
+          )
+          for validator in "${validators[@]}"; do
+            echo "Running $validator"
+            if ! node "scripts/data/${validator}.mjs"; then
+              context="seo-fail-${validator#validate-}"
+              context="${context:0:90}"
+              curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
+                "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
+                --data "{\"state\":\"failure\",\"context\":\"$context\",\"description\":\"First failing SEO validator\"}" >/dev/null
+              exit 1
+            fi
+          done
+          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
+            --data '{"state":"success","context":"seo-all-individual","description":"All SEO validators passed individually"}' >/dev/null
