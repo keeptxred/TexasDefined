@@ -1,0 +1,77 @@
+name: Validate Burleson County exact commit once
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/validate-burleson-county-once.yml'
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      GH_TOKEN: ${{ github.token }}
+      TARGET_SHA: 6641161cf9d155a02d27de737b8eb1ad0653d3ed
+    steps:
+      - name: Publish pending status on exact county commit
+        shell: bash
+        run: |
+          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${TARGET_SHA}" \
+            --data '{"state":"pending","context":"burleson-county-repo-validate","description":"Running full repository validation on exact Burleson County commit"}' >/dev/null
+
+      - name: Check out exact Burleson County commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.TARGET_SHA }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Enforce canonical-host hard gate on Burleson County changes
+        shell: bash
+        run: |
+          set -euo pipefail
+          if grep -Rni --fixed-strings 'www.texasdefined.com' \
+            src/data/fixtures/burleson-county-caldwell-somerville-brazos-central-texas.ts \
+            src/data/county-series-profiles-central.ts; then
+            echo 'Burleson County changes contain forbidden www.texasdefined.com host.' >&2
+            exit 1
+          fi
+
+      - name: Validate editorial hero uniqueness site-wide
+        run: node scripts/data/validate-editorial-image-duplicates.mjs --all
+
+      - name: Run full repository validation and build
+        id: full
+        run: npm run validate
+
+      - name: Publish validation result on exact county commit
+        if: always()
+        shell: bash
+        env:
+          OUTCOME: ${{ steps.full.outcome }}
+        run: |
+          set -euo pipefail
+          if [ "$OUTCOME" = success ]; then
+            state=success
+            desc='Full validation, image uniqueness, build and canonical-host gate passed'
+          else
+            state=failure
+            desc='Full Burleson County exact-commit repository validation failed'
+          fi
+          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${TARGET_SHA}" \
+            --data "{\"state\":\"${state}\",\"context\":\"burleson-county-repo-validate\",\"description\":\"${desc}\"}" >/dev/null
