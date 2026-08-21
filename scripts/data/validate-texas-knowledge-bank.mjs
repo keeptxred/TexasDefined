@@ -8,6 +8,7 @@ const sources = read('src/data/knowledge-bank/sources.ts');
 const seed = read('src/data/knowledge-bank/seed.ts');
 const expanded = read('src/data/knowledge-bank/seed-expanded.ts');
 const observations = read('src/data/knowledge-bank/cultural-observations.ts');
+const observationsBatch2 = read('src/data/knowledge-bank/cultural-observations-batch2.ts');
 const catalog = read('src/data/knowledge-bank/catalog.ts');
 const social = read('src/data/knowledge-bank/social.ts');
 const scheduler = read('src/data/knowledge-bank/social-batch.ts');
@@ -94,7 +95,7 @@ for (const format of requiredSocialFormats) if (!social.includes(`case '${format
 if (!scheduler.includes('excludeRecordIds') || !scheduler.includes('timesUsed') || !scheduler.includes('preferredSeason')) failures.push('Social scheduler must support exclusions, usage scoring and season preference.');
 if (!scheduler.includes("'which-one-is-more-texas'")) failures.push('Social scheduler must rotate the paired Texas choice format.');
 if (!scheduler.includes('buildDefaultTexasSocialBatch') || !scheduler.includes('TEXAS_KNOWLEDGE_CATALOG')) failures.push('Default social batching must use the canonical Knowledge Bank catalog.');
-for (const seedExport of ['TEXAS_KNOWLEDGE_SEED', 'TEXAS_KNOWLEDGE_EXPANDED_SEED', 'TEXAS_CULTURAL_OBSERVATIONS']) {
+for (const seedExport of ['TEXAS_KNOWLEDGE_SEED', 'TEXAS_KNOWLEDGE_EXPANDED_SEED', 'TEXAS_CULTURAL_OBSERVATIONS', 'TEXAS_CULTURAL_OBSERVATIONS_BATCH2']) {
   if (!catalog.includes(seedExport)) failures.push(`Canonical Knowledge Bank catalog is missing ${seedExport}.`);
 }
 if (!catalog.includes("record.verification !== 'needs-review'")) failures.push('Canonical social candidate selector must exclude needs-review records.');
@@ -102,22 +103,25 @@ if (!catalog.includes("record.verification !== 'needs-review'")) failures.push('
 const explicitRecordIds = (text) => [...text.matchAll(/\bid:\s*['\"]([^'\"]+)['\"]/g)].map((match) => match[1]);
 const helperObservationIds = [...observations.matchAll(/\bobservation\(\s*['\"]([^'\"]+)['\"]/g)].map((match) => match[1]);
 const pairedChoiceIds = [...observations.matchAll(/\bpairedChoice\(\s*['\"]([^'\"]+)['\"]/g)].map((match) => match[1]);
+const batch2ObservationIds = [...observationsBatch2.matchAll(/\bobservation\(\s*['\"]([^'\"]+)['\"]/g)].map((match) => match[1]);
 const ids = [
   ...explicitRecordIds(seed),
   ...explicitRecordIds(expanded),
   ...helperObservationIds,
   ...pairedChoiceIds,
+  ...batch2ObservationIds,
 ];
 const seen = new Set();
 for (const id of ids) {
   if (seen.has(id)) failures.push(`Duplicate knowledge record id detected in source files: ${id}`);
   seen.add(id);
 }
-if (ids.length < 45) failures.push(`Expected at least 45 seeded knowledge records; found ${ids.length}.`);
+if (ids.length < 75) failures.push(`Expected at least 75 seeded knowledge records; found ${ids.length}.`);
 if (pairedChoiceIds.length < 5) failures.push(`Expected at least 5 paired Texas engagement prompts; found ${pairedChoiceIds.length}.`);
+if (batch2ObservationIds.length < 30) failures.push(`Expected at least 30 second-batch cultural observations; found ${batch2ObservationIds.length}.`);
 
-const observationCount = helperObservationIds.length + pairedChoiceIds.length + ((seed + expanded).match(/verification:\s*['\"]editorial-observation['\"]/g) ?? []).length;
-if (observationCount < 25) failures.push(`Expected at least 25 cultural observations/engagement prompts; found ${observationCount}.`);
+const observationCount = helperObservationIds.length + pairedChoiceIds.length + batch2ObservationIds.length + ((seed + expanded).match(/verification:\s*['\"]editorial-observation['\"]/g) ?? []).length;
+if (observationCount < 55) failures.push(`Expected at least 55 cultural observations/engagement prompts; found ${observationCount}.`);
 const verifiedCount = ((seed + expanded).match(/verification:\s*['\"]verified['\"]/g) ?? []).length;
 if (verifiedCount < 15) failures.push(`Expected at least 15 verified/source-backed records; found ${verifiedCount}.`);
 
