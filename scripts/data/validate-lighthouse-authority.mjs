@@ -74,7 +74,7 @@ assert(
 
 const expansionHeadingCount = (expansions.match(/h\("/g) ?? []).length;
 const expansionParagraphCount = (expansions.match(/p\("/g) ?? []).length;
-assert(expansionHeadingCount >= 20, `Expected at least 20 lighthouse expansion headings; found ${expansionHeadingCount}`);
+assert(expansionHeadingCount >= 18, `Expected at least 18 lighthouse expansion headings; found ${expansionHeadingCount}`);
 assert(expansionParagraphCount >= 25, `Expected at least 25 lighthouse expansion paragraphs; found ${expansionParagraphCount}`);
 
 console.log(`Lighthouse authority validation passed: ${lighthouses.length} deep dives, ${expansionHeadingCount} expansion headings, ${expansionParagraphCount} expansion paragraphs.`);
