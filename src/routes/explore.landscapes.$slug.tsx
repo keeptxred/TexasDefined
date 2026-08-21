@@ -4,18 +4,17 @@ import { texasDefinedBrand } from '@/brand/texasdefined';
 import { DepartmentHero } from '@/components/editorial/DepartmentHero';
 import { Section, SectionHeader } from '@/components/editorial/SectionHeader';
 import { Container } from '@/components/layout/Container';
-import { texasLandscapeCatalog } from '@/data/texas-landscape-catalog';
 import { getTexasLandscapePage } from '@/data/texas-landscapes.functions';
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 export const Route = createFileRoute('/explore/landscapes/$slug')({
   loader: async ({ params }) => {
-    const item = await getTexasLandscapePage({ data: { slug: params.slug } });
-    if (!item) throw notFound();
-    return item;
+    const result = await getTexasLandscapePage({ data: { slug: params.slug } });
+    if (!result) throw notFound();
+    return result;
   },
   head: ({ loaderData }) => {
-    const item = loaderData;
+    const item = loaderData?.item;
     if (!item) return {};
     const path = `/explore/landscapes/${item.slug}`;
     const isLandscape = 'name' in item;
@@ -55,7 +54,7 @@ export const Route = createFileRoute('/explore/landscapes/$slug')({
 });
 
 function LandscapeDetailPage() {
-  const item = Route.useLoaderData();
+  const { item, nearby } = Route.useLoaderData();
   const isLandscape = 'name' in item;
 
   if (!isLandscape) {
@@ -85,8 +84,6 @@ function LandscapeDetailPage() {
       </Section>
     </>;
   }
-
-  const nearby = texasLandscapeCatalog.filter((landscape) => landscape.slug !== item.slug).slice(0, 6);
 
   return <>
     <DepartmentHero current="Explore" eyebrow={item.eyebrow} title={item.name} description={item.dek} />
