@@ -9,43 +9,51 @@ const stubs = read("src/data/fixtures/lazy-lighthouse-deep-dives.ts");
 const expansions = read("src/data/fixtures/lighthouse-deep-dive-expansions.ts");
 const links = read("src/data/fixtures/lighthouse-authority-links.ts");
 const hub = read("src/routes/explore.lighthouses.tsx");
+const visitorPlans = read("src/data/lighthouse-visitor-planning.ts");
 const routes = read("src/lib/public-routes.ts");
 
 const lighthouses = [
   {
-    slug: "point-bolivar-lighthouse-history",
+    articleSlug: "point-bolivar-lighthouse-history",
+    mapSlug: "point-bolivar-lighthouse",
     hero: "Port_Bolivar_TX_-_Point_Bolivar_Lighthouse.jpg",
     county: "galveston-county-island-port-juneteenth-texas",
   },
   {
-    slug: "lydia-ann-lighthouse-port-aransas",
+    articleSlug: "lydia-ann-lighthouse-port-aransas",
+    mapSlug: "lydia-ann-lighthouse",
     hero: "Lydia_Ann_Lighthouse_near_Port_Aransas.jpg",
     county: "aransas-county-rockport-fulton-bays-coastal-heritage-texas",
   },
   {
-    slug: "matagorda-island-lighthouse-history",
+    articleSlug: "matagorda-island-lighthouse-history",
+    mapSlug: "matagorda-island-lighthouse",
     hero: "Matagorda_Island_Light_%28Calhoun_County%2C_Texas%29.jpg",
     county: "calhoun-county-port-lavaca-indianola-seadrift-bays-texas",
   },
   {
-    slug: "halfmoon-reef-lighthouse-port-lavaca",
+    articleSlug: "halfmoon-reef-lighthouse-port-lavaca",
+    mapSlug: "halfmoon-reef-lighthouse",
     hero: "HALFMOON_REEF_LIGHTHOUSE.jpg",
     county: "calhoun-county-port-lavaca-indianola-seadrift-bays-texas",
   },
   {
-    slug: "sabine-pass-lighthouse-texas-border",
+    articleSlug: "sabine-pass-lighthouse-texas-border",
+    mapSlug: "sabine-pass-lighthouse",
     hero: "Sabine_Pass_Lighthouse_01.jpg",
     county: "texas-civil-war-sites-guide",
   },
 ];
 
 for (const lighthouse of lighthouses) {
-  assert(stubs.includes(lighthouse.slug), `Missing lighthouse stub: ${lighthouse.slug}`);
-  assert(stubs.includes(lighthouse.hero), `Missing exact hero for ${lighthouse.slug}`);
-  assert(expansions.includes(`\"${lighthouse.slug}\"`), `Missing lazy authority expansion for ${lighthouse.slug}`);
-  assert(links.includes(`\"${lighthouse.slug}\"`), `Missing lighthouse authority links for ${lighthouse.slug}`);
+  assert(stubs.includes(lighthouse.articleSlug), `Missing lighthouse stub: ${lighthouse.articleSlug}`);
+  assert(stubs.includes(lighthouse.hero), `Missing exact hero for ${lighthouse.articleSlug}`);
+  assert(expansions.includes(`\"${lighthouse.articleSlug}\"`), `Missing lazy authority expansion for ${lighthouse.articleSlug}`);
+  assert(links.includes(`\"${lighthouse.articleSlug}\"`), `Missing lighthouse authority links for ${lighthouse.articleSlug}`);
   assert(links.includes(`\"${lighthouse.county}\"`), `Missing reciprocal authority target ${lighthouse.county}`);
+  assert(visitorPlans.includes(`slug: \"${lighthouse.mapSlug}\"`), `Missing visitor plan for ${lighthouse.mapSlug}`);
 }
+assert(visitorPlans.includes('slug: "port-isabel-lighthouse"'), "Missing visitor plan for Port Isabel Lighthouse");
 
 const uniqueHeroMarkers = new Set(lighthouses.map((lighthouse) => lighthouse.hero));
 assert(uniqueHeroMarkers.size === lighthouses.length, "Lighthouse deep dives must use unique exact-subject heroes");
@@ -60,6 +68,11 @@ assert(
   "Sabine Pass Louisiana caveat must remain explicit in the deep-dive expansion",
 );
 assert(
+  visitorPlans.includes("the tower itself is on the Louisiana side of the Sabine") &&
+    visitorPlans.includes("do not imply tower access"),
+  "Sabine Pass visitor guidance must preserve the Louisiana location and no-access caveat",
+);
+assert(
   stubs.includes('import("./lighthouse-deep-dive-expansions")'),
   "Lighthouse authority expansions must remain lazy-loaded",
 );
@@ -67,14 +80,25 @@ assert(
   hub.includes("Texas Lighthouse") || hub.includes("Texas lighthouse"),
   "Lighthouse authority hub content is missing",
 );
+assert(hub.includes("Visitability at a glance"), "Lighthouse visitability comparison is missing from the hub");
+assert(hub.includes('"@type": "FAQPage"'), "Lighthouse hub FAQ schema is missing");
+assert(hub.includes("Which Texas lighthouse can you climb?"), "Lighthouse climb answer layer is missing");
+assert(hub.includes("/destination/port-isabel-lighthouse-state-park"), "Port Isabel destination guide link is missing");
 assert(
   routes.includes('"/explore/lighthouses"') || routes.includes("'/explore/lighthouses'"),
   "/explore/lighthouses must remain governed as a public route",
 );
+
+const visitorPlanCount = (visitorPlans.match(/slug: \"/g) ?? []).length;
+assert(visitorPlanCount >= 6, `Expected at least 6 lighthouse visitor plans; found ${visitorPlanCount}`);
+for (const field of ["publicAccess:", "bestFor:", "pairWith:", "planningNote:"]) {
+  const count = (visitorPlans.match(new RegExp(field, "g")) ?? []).length;
+  assert(count >= 6, `Expected visitor planning field ${field} for all lighthouse plans; found ${count}`);
+}
 
 const expansionHeadingCount = (expansions.match(/h\("/g) ?? []).length;
 const expansionParagraphCount = (expansions.match(/p\("/g) ?? []).length;
 assert(expansionHeadingCount >= 18, `Expected at least 18 lighthouse expansion headings; found ${expansionHeadingCount}`);
 assert(expansionParagraphCount >= 25, `Expected at least 25 lighthouse expansion paragraphs; found ${expansionParagraphCount}`);
 
-console.log(`Lighthouse authority validation passed: ${lighthouses.length} deep dives, ${expansionHeadingCount} expansion headings, ${expansionParagraphCount} expansion paragraphs.`);
+console.log(`Lighthouse authority validation passed: ${lighthouses.length} deep dives, ${visitorPlanCount} visitor plans, ${expansionHeadingCount} expansion headings, ${expansionParagraphCount} expansion paragraphs.`);
