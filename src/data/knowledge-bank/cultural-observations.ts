@@ -12,7 +12,15 @@ const observation = (id: string, statement: string, tags: string[], season?: Tex
   verification: 'editorial-observation',
   evergreen: true,
   socialReady: true,
-  socialFormats: ['you-know-youre-a-texan-if','only-texans-understand','finish-the-sentence','tag-a-texan'],
+  socialFormats: [
+    'you-know-youre-a-texan-if',
+    'you-know-youre-from-texas-if',
+    'only-texans-understand',
+    'only-in-texas',
+    'finish-the-sentence',
+    'how-texas-are-you',
+    'tag-a-texan',
+  ],
   usage: { timesUsed: 0 },
 });
 
