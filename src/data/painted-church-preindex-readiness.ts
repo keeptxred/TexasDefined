@@ -4,7 +4,7 @@ import { canonicalPaintedChurchFeaturesBySlug } from "./painted-church-feature-i
 import { canonicalPaintedChurchGalleryBySlug } from "./painted-church-gallery-index";
 import { paintedChurchMapPointBySlug } from "./painted-church-map-points";
 import { canonicalPaintedChurchProfileBySlug } from "./painted-church-profile-index";
-import { paintedChurchPreservationEventsBySlug } from "./painted-church-preservation-chronology";
+import { canonicalPaintedChurchPreservationEventsBySlug } from "./painted-church-preservation-index";
 import { canonicalPaintedChurchResearchBySlug } from "./painted-church-research-index";
 import { paintedChurchSourcesForChurch } from "./painted-church-source-registry";
 import { paintedChurchSymbols } from "./painted-church-symbols";
@@ -36,7 +36,7 @@ export const paintedChurchReadiness: PaintedChurchReadinessRecord[] = expandedPa
   const mapPoint = paintedChurchMapPointBySlug.get(church.slug);
   const visitor = paintedChurchVisitorStatusBySlug.get(church.slug);
   const features = canonicalPaintedChurchFeaturesBySlug(church.slug);
-  const preservationEvents = paintedChurchPreservationEventsBySlug.get(church.slug) ?? [];
+  const preservationEvents = canonicalPaintedChurchPreservationEventsBySlug.get(church.slug) ?? [];
   const contributors = canonicalPaintedChurchContributors.filter((item) => item.churchSlugs.includes(church.slug));
   const symbols = paintedChurchSymbols.filter((item) => item.churchSlugs.includes(church.slug));
   const sources = paintedChurchSourcesForChurch(church.slug);
