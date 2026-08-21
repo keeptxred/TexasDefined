@@ -13,4 +13,10 @@ export const COUNTY_SERIES_PROFILES_PANHANDLE: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/potter-county-amarillo-canadian-river-route-66-panhandle-texas")
       .then((module) => module.potterCountyAmarilloCanadianRiverRoute66PanhandleTexasArticle),
   },
+  {
+    countySlug: "hartley",
+    articleSlug: "hartley-county-channing-xit-ranch-high-plains-texas",
+    loadArticle: () => import("@/data/fixtures/hartley-county-channing-xit-ranch-high-plains-texas")
+      .then((module) => module.hartleyCountyChanningXitRanchHighPlainsTexasArticle),
+  },
 ];
