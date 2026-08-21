@@ -3,6 +3,7 @@ import fs from 'node:fs';
 const files = [
   'src/data/knowledge-bank/seed-counties-batch1.ts',
   'src/data/knowledge-bank/seed-counties-batch2.ts',
+  'src/data/knowledge-bank/seed-counties-batch3.ts',
 ];
 const route = fs.readFileSync('src/routes/$kind.$slug.tsx', 'utf8');
 const relationships = fs.readFileSync('src/data/knowledge-graph/relationships.ts', 'utf8');
@@ -17,7 +18,8 @@ if (!relationships.includes('return `/${entity.kind}/${entity.slug}`')) failures
 
 for (const file of files) {
   const source = fs.readFileSync(file, 'utf8');
-  const exportName = file.includes('batch1') ? 'TEXAS_COUNTY_FACTS_BATCH1' : 'TEXAS_COUNTY_FACTS_BATCH2';
+  const batchNumber = file.match(/batch(\d+)/)?.[1];
+  const exportName = `TEXAS_COUNTY_FACTS_BATCH${batchNumber}`;
   if (!catalog.includes(exportName)) failures.push(`Canonical catalog is missing ${exportName}.`);
   if (!source.includes("sourceId: 'tslac'")) failures.push(`${file} must use the canonical TSLAC source ID.`);
   if (!source.includes('https://www.tsl.texas.gov/ref/abouttx/countyseats.html')) failures.push(`${file} must cite the official TSLAC county-seat directory.`);
@@ -35,9 +37,8 @@ for (const file of files) {
   }
 }
 
-if (count < 60) failures.push(`Expected at least 60 county-seat facts; found ${count}.`);
+if (count < 90) failures.push(`Expected at least 90 county-seat facts; found ${count}.`);
 
-// These known rows catch accidental source-list drift on high-value and previously reported counties.
 const requiredRows = new Map([
   ['borden', 'Gail'],
   ['bexar', 'San Antonio'],
@@ -46,6 +47,10 @@ const requiredRows = new Map([
   ['collin', 'McKinney'],
   ['dallas', 'Dallas'],
   ['deaf-smith', 'Hereford'],
+  ['denton', 'Denton'],
+  ['el-paso', 'El Paso'],
+  ['fort-bend', 'Richmond'],
+  ['gillespie', 'Fredericksburg'],
 ]);
 const allSource = files.map((file) => fs.readFileSync(file, 'utf8')).join('\n');
 for (const [slug, seat] of requiredRows) {
