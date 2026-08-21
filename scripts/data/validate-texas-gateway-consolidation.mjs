@@ -22,6 +22,7 @@ const files = [
 ];
 
 const rows = [];
+const hrefs = [];
 for (const file of files) {
   const full = path.join(root, file);
   if (!fs.existsSync(full)) throw new Error(`Missing gateway module: ${file}`);
@@ -43,11 +44,12 @@ for (const file of files) {
     if (!href.startsWith("/") || href.startsWith("//")) {
       throw new Error(`${file}: invalid gateway internal href ${href}`);
     }
+    hrefs.push({ href, file });
   }
 }
 
-if (rows.length < 120) {
-  throw new Error(`Gateway consolidation lost content: expected at least 120 articles, found ${rows.length}`);
+if (rows.length !== 140) {
+  throw new Error(`Gateway consolidation count changed: expected exactly 140 articles, found ${rows.length}`);
 }
 
 const duplicates = (key) => {
@@ -68,6 +70,48 @@ if (duplicateIds.length) {
 }
 if (duplicateSlugs.length) {
   throw new Error(`Duplicate gateway slugs: ${duplicateSlugs.map(([value]) => value).join(", ")}`);
+}
+
+function walk(dir, output = []) {
+  if (!fs.existsSync(dir)) return output;
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) walk(full, output);
+    else if (/\.(?:ts|tsx)$/.test(entry.name)) output.push(full);
+  }
+  return output;
+}
+
+const sourceFiles = walk(path.join(root, "src"));
+const articleSlugs = new Set(rows.map((row) => row.slug));
+const fixedRoutes = new Set(["/"]);
+for (const sourceFile of sourceFiles) {
+  const source = fs.readFileSync(sourceFile, "utf8");
+  for (const match of source.matchAll(/\bslug:\s*["']([^"']+)["']/g)) articleSlugs.add(match[1]);
+  for (const match of source.matchAll(/createFileRoute\(["']([^"']+)["']\)/g)) fixedRoutes.add(match[1]);
+}
+
+const dynamicPrefixes = [
+  "/destination/",
+  "/county/",
+  "/city/",
+  "/texas-vs/",
+  "/property-tax/county/",
+];
+const brokenLinks = [];
+for (const { href, file } of hrefs) {
+  const clean = href.split(/[?#]/, 1)[0] || "/";
+  if (clean.startsWith("/article/")) {
+    const slug = clean.slice("/article/".length);
+    if (!articleSlugs.has(slug)) brokenLinks.push({ href, file, reason: "unknown article slug" });
+    continue;
+  }
+  if (dynamicPrefixes.some((prefix) => clean.startsWith(prefix))) continue;
+  if (!fixedRoutes.has(clean)) brokenLinks.push({ href, file, reason: "missing fixed route" });
+}
+if (brokenLinks.length) {
+  const detail = brokenLinks.slice(0, 25).map((item) => `${item.href} (${item.reason}; ${item.file})`).join("\n");
+  throw new Error(`Broken gateway internal links (${brokenLinks.length}):\n${detail}`);
 }
 
 const loaderPath = path.join(root, "src/data/fixtures/lazy-texas-gateway.ts");
@@ -100,3 +144,4 @@ if (/^import .*texas-gateway-/m.test(core)) {
 }
 
 console.log(`PASS Texas gateway consolidation: ${rows.length} unique articles across ${files.length} modules`);
+console.log(`PASS gateway internal links: ${hrefs.length} validated`);
