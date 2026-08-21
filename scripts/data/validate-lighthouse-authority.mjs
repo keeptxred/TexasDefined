@@ -81,6 +81,22 @@ for (const requiredText of [
 ]) assert(searchIntentArticles.includes(requiredText), `Best-lighthouses article missing required authority text: ${requiredText}`);
 assert(links.includes(`\"${intentSlug}\"`), "Best-lighthouses intent page is missing from lighthouse reciprocal links");
 assert(links.includes(`/article/${intentSlug}`), "Existing lighthouse authority pages must discover the best-lighthouses intent page");
+
+const reciprocalDiscoverySlugs = [
+  "cameron-county-brownsville-harlingen-south-padre-rio-grande",
+  "galveston-county-island-port-juneteenth-texas",
+  "aransas-county-rockport-fulton-bays-coastal-heritage-texas",
+  "calhoun-county-port-lavaca-indianola-seadrift-bays-texas",
+  "texas-civil-war-sites-guide",
+];
+for (const slug of reciprocalDiscoverySlugs) {
+  const start = links.indexOf(`\"${slug}\"`);
+  assert(start >= 0, `Missing lighthouse reciprocal discovery block for ${slug}`);
+  const end = links.indexOf("\n  ],", start);
+  const block = links.slice(start, end > start ? end : links.length);
+  assert(block.includes(`/article/${intentSlug}`) || block.includes("bestToVisit"), `${slug} must discover the best-lighthouses intent page`);
+}
+
 const intentParagraphCount = (searchIntentArticles.match(/type: \"paragraph\"/g) ?? []).length;
 const intentHeadingCount = (searchIntentArticles.match(/type: \"heading\"/g) ?? []).length;
 assert(intentParagraphCount >= 20, `Expected at least 20 best-lighthouses paragraphs; found ${intentParagraphCount}`);
@@ -97,4 +113,4 @@ const expansionParagraphCount = (expansions.match(/p\("/g) ?? []).length;
 assert(expansionHeadingCount >= 18, `Expected at least 18 lighthouse expansion headings; found ${expansionHeadingCount}`);
 assert(expansionParagraphCount >= 25, `Expected at least 25 lighthouse expansion paragraphs; found ${expansionParagraphCount}`);
 
-console.log(`Lighthouse authority validation passed: ${lighthouses.length} deep dives, 1 search-intent authority page, ${visitorPlanCount} visitor plans, 4 broad discovery paths, ${expansionHeadingCount} expansion headings, ${expansionParagraphCount} expansion paragraphs.`);
+console.log(`Lighthouse authority validation passed: ${lighthouses.length} deep dives, 1 search-intent authority page, ${visitorPlanCount} visitor plans, 5 reciprocal discovery surfaces, 4 broad discovery paths, ${expansionHeadingCount} expansion headings, ${expansionParagraphCount} expansion paragraphs.`);
