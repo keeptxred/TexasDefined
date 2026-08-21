@@ -5,12 +5,18 @@ import { Link } from "@tanstack/react-router";
 import { AnswerSummary } from "@/components/content/AnswerSummary";
 import { ArticleCard } from "@/components/editorial/ArticleCard";
 import { DestinationCollectionGrid } from "@/components/editorial/DestinationCollectionGrid";
-import { ExploreTopicPaths } from "@/components/editorial/ExploreTopicPaths";
-import { LivingAuthorityPaths } from "@/components/editorial/LivingAuthorityPaths";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import { articlesQuery, categoriesQuery, destinationsQuery, regionsQuery } from "@/data/queries";
 import type { CategorySlug, ImageRef } from "@/data/types";
+
+const LivingAuthorityPaths = lazy(() =>
+  import("@/components/editorial/LivingAuthorityPaths").then((module) => ({ default: module.LivingAuthorityPaths })),
+);
+
+const ExploreTopicPaths = lazy(() =>
+  import("@/components/editorial/ExploreTopicPaths").then((module) => ({ default: module.ExploreTopicPaths })),
+);
 
 const ExploreDiscovery = lazy(() =>
   import("@/components/editorial/ExploreDiscovery").then((module) => ({ default: module.ExploreDiscovery })),
@@ -113,7 +119,9 @@ export function CategoryPage({ category, eyebrow, title, intro, image }: {
         items={answerItems}
       />
 
-      <LivingAuthorityPaths currentCategory={category} />
+      <Suspense fallback={null}>
+        <LivingAuthorityPaths currentCategory={category} />
+      </Suspense>
 
       {lead && (
         <Section>
@@ -144,7 +152,11 @@ export function CategoryPage({ category, eyebrow, title, intro, image }: {
         </Section>
       )}
 
-      {belongsToExplore && <ExploreTopicPaths category={category} />}
+      {belongsToExplore && (
+        <Suspense fallback={null}>
+          <ExploreTopicPaths category={category} />
+        </Suspense>
+      )}
       {belongsToExplore && (
         <Suspense fallback={null}>
           <ExploreDiscovery currentCategory={category} categories={categories} regions={regions} />
