@@ -34,12 +34,20 @@ const stagedCount = (tools.match(/publicationState:\s*['\"]staged['\"]\s*,/g) ??
 if (stagedCount !== requiredToolIds.length) failures.push(`Every home/nature tool must remain staged; found ${stagedCount} staged of ${requiredToolIds.length}.`);
 
 if (!tools.includes('const GALLONS_PER_CUBIC_FOOT = 7.48052')) failures.push('Pool volume/loss tools must use the cubic-foot-to-gallon conversion constant.');
-if (!tools.includes('input.days ?? 3')) failures.push('Emergency-water planner must default to at least a three-day planning horizon.');
+if (!tools.includes('const positiveInteger')) failures.push('Emergency-water planner must enforce whole-number household and day counts.');
+if (!tools.includes("positiveInteger(input.people, 'people')")) failures.push('Emergency-water planner must validate people as a positive integer.');
+if (!tools.includes("positiveInteger(input.days ?? 3, 'days')")) failures.push('Emergency-water planner must validate days as a positive integer with a three-day default.');
 if (!tools.includes('input.gallonsPerPersonPerDay ?? 1')) failures.push('Emergency-water planner must default to one gallon per person per day.');
 if (!tools.includes("sourceIds: ['ready-gov', 'tdem-emergency']")) failures.push('Emergency-water tool must retain Ready.gov and TDEM source provenance.');
+if (!tools.includes('https://www.ready.gov/sites/default/files/documents/files/checklist3.pdf')) failures.push('Emergency-water guidance must retain claim-specific Ready.gov evidence.');
+if (!tools.includes("reviewBy: '2027-08-01'")) failures.push('Source-backed staged preparedness tools must carry an explicit review date.');
 if (!tools.includes('does not predict evaporation from weather')) failures.push('Pool water-loss engine must explicitly avoid claiming weather-based evaporation diagnosis.');
 if (!tools.includes('hoursBefore: 72') || !tools.includes('hoursBefore: 48') || !tools.includes('hoursBefore: 24')) failures.push('Hurricane checklist must contain 72/48/24 organizational stages.');
 if (!tools.includes('Follow evacuation orders')) failures.push('Hurricane checklist must explicitly defer to evacuation orders/local officials.');
+if (!tools.includes('https://www.weather.gov/safety/hurricane')) failures.push('Hurricane checklist tool must retain claim-specific NWS hurricane evidence.');
+
+const evidenceUrls = [...tools.matchAll(/https:\/\/[^'\"]+/g)].map((match) => match[0]);
+for (const url of evidenceUrls) if (!url.startsWith('https://')) failures.push(`Tool evidence URL must use HTTPS: ${url}`);
 
 if (failures.length) {
   console.error('Texas home/nature tool validation failed:');
@@ -47,4 +55,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Texas home/nature tool validation passed: ${requiredToolIds.length} staged tools, ${plannedPaths.length} non-public planned paths, Ready.gov provenance, and publication-safety guards.`);
+console.log(`Texas home/nature tool validation passed: ${requiredToolIds.length} staged tools, ${plannedPaths.length} non-public planned paths, Ready.gov/NWS evidence, review windows, and publication-safety guards.`);
