@@ -82,13 +82,14 @@ function walk(dir, output = []) {
   return output;
 }
 
+const normalizeRoute = (value) => value === "/" ? value : value.replace(/\/+$/, "");
 const sourceFiles = walk(path.join(root, "src"));
 const articleSlugs = new Set(rows.map((row) => row.slug));
 const fixedRoutes = new Set(["/"]);
 for (const sourceFile of sourceFiles) {
   const source = fs.readFileSync(sourceFile, "utf8");
   for (const match of source.matchAll(/\bslug:\s*["']([^"']+)["']/g)) articleSlugs.add(match[1]);
-  for (const match of source.matchAll(/createFileRoute\(["']([^"']+)["']\)/g)) fixedRoutes.add(match[1]);
+  for (const match of source.matchAll(/createFileRoute\(["']([^"']+)["']\)/g)) fixedRoutes.add(normalizeRoute(match[1]));
 }
 
 const dynamicPrefixes = [
@@ -100,7 +101,7 @@ const dynamicPrefixes = [
 ];
 const brokenLinks = [];
 for (const { href, file } of hrefs) {
-  const clean = href.split(/[?#]/, 1)[0] || "/";
+  const clean = normalizeRoute(href.split(/[?#]/, 1)[0] || "/");
   if (clean.startsWith("/article/")) {
     const slug = clean.slice("/article/".length);
     if (!articleSlugs.has(slug)) brokenLinks.push({ href, file, reason: "unknown article slug" });
