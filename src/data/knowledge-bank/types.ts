@@ -77,6 +77,7 @@ export type TexasSocialFormat =
   | 'fact-of-the-day'
   | 'you-know-youre-a-texan-if'
   | 'you-know-youre-from-texas-if'
+  | 'tell-me-youre-from-texas'
   | 'only-texans-understand'
   | 'til-texas-edition'
   | 'only-in-texas'
