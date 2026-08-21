@@ -86,4 +86,10 @@ export const COUNTY_SERIES_PROFILES_PANHANDLE: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/wheeler-county-shamrock-mobeetie-fort-elliott-route-66-panhandle-texas")
       .then((module) => module.wheelerCountyShamrockMobeetieFortElliottRoute66PanhandleTexasArticle),
   },
+  {
+    countySlug: "roberts",
+    articleSlug: "roberts-county-miami-canadian-river-ranching-panhandle-texas",
+    loadArticle: () => import("@/data/fixtures/roberts-county-miami-canadian-river-ranching-panhandle-texas")
+      .then((module) => module.robertsCountyMiamiCanadianRiverRanchingPanhandleTexasArticle),
+  },
 ];
