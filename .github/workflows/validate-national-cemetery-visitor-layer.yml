@@ -1,0 +1,29 @@
+name: Validate national cemetery visitor layer
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'src/data/national-cemetery-destinations.ts'
+      - 'src/data/destination-preserved-catalog.ts'
+      - 'src/data/fixtures/texas-military-cemeteries-memorials-guide.ts'
+      - 'src/data/fixtures/lazy-newest-evergreen.ts'
+      - 'src/data/fixtures/national-cemetery-links.ts'
+      - 'scripts/data/validate-national-cemetery-visitor-layer.mjs'
+      - '.github/workflows/validate-national-cemetery-visitor-layer.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-national-cemetery-visitor-layer:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate national cemetery visitor layer
+        run: node scripts/data/validate-national-cemetery-visitor-layer.mjs
