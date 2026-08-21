@@ -10,6 +10,8 @@ const expansions = read("src/data/fixtures/lighthouse-deep-dive-expansions.ts");
 const links = read("src/data/fixtures/lighthouse-authority-links.ts");
 const hub = read("src/routes/explore.lighthouses.tsx");
 const visitorPlans = read("src/data/lighthouse-visitor-planning.ts");
+const topicPaths = read("src/components/editorial/ExploreTopicPaths.tsx");
+const intentPaths = read("src/components/editorial/ExploreIntentPaths.tsx");
 const routes = read("src/lib/public-routes.ts");
 
 const lighthouses = [
@@ -89,6 +91,19 @@ assert(
   "/explore/lighthouses must remain governed as a public route",
 );
 
+for (const categoryMarker of ['"beaches-coast": [', '"historic-sites": [', '"road-trips": [']) {
+  const start = topicPaths.indexOf(categoryMarker);
+  assert(start >= 0, `Missing Explore topic group ${categoryMarker}`);
+  const end = topicPaths.indexOf("\n  ],", start + categoryMarker.length);
+  const block = topicPaths.slice(start, end > start ? end : topicPaths.length);
+  assert(block.includes('to: "/explore/lighthouses"'), `Explore topic group ${categoryMarker} must link to /explore/lighthouses`);
+}
+const historyIntentStart = intentPaths.indexOf('title: "History routes"');
+assert(historyIntentStart >= 0, "Explore History routes intent group is missing");
+const historyIntentEnd = intentPaths.indexOf("\n  },", historyIntentStart);
+const historyIntentBlock = intentPaths.slice(historyIntentStart, historyIntentEnd > historyIntentStart ? historyIntentEnd : intentPaths.length);
+assert(historyIntentBlock.includes('to: "/explore/lighthouses"'), "Explore History routes must link to /explore/lighthouses");
+
 const visitorPlanCount = (visitorPlans.match(/slug: \"/g) ?? []).length;
 assert(visitorPlanCount >= 6, `Expected at least 6 lighthouse visitor plans; found ${visitorPlanCount}`);
 for (const field of ["publicAccess:", "bestFor:", "pairWith:", "planningNote:"]) {
@@ -101,4 +116,4 @@ const expansionParagraphCount = (expansions.match(/p\("/g) ?? []).length;
 assert(expansionHeadingCount >= 18, `Expected at least 18 lighthouse expansion headings; found ${expansionHeadingCount}`);
 assert(expansionParagraphCount >= 25, `Expected at least 25 lighthouse expansion paragraphs; found ${expansionParagraphCount}`);
 
-console.log(`Lighthouse authority validation passed: ${lighthouses.length} deep dives, ${visitorPlanCount} visitor plans, ${expansionHeadingCount} expansion headings, ${expansionParagraphCount} expansion paragraphs.`);
+console.log(`Lighthouse authority validation passed: ${lighthouses.length} deep dives, ${visitorPlanCount} visitor plans, 4 broad discovery paths, ${expansionHeadingCount} expansion headings, ${expansionParagraphCount} expansion paragraphs.`);

@@ -62,6 +62,12 @@ jobs:
           }
 
           fetch_assert lighthouse-hub '/explore/lighthouses' 'Texas Lighthouses'
+          fetch_assert lighthouse-visitability '/explore/lighthouses' 'Visitability at a glance'
+          fetch_assert lighthouse-faq '/explore/lighthouses' 'Which Texas lighthouse can you climb?'
+          fetch_assert explore-home-discovery '/explore' 'Texas lighthouses'
+          fetch_assert beaches-discovery '/explore/beaches-coast' 'Texas lighthouses'
+          fetch_assert historic-discovery '/explore/historic-sites' 'Texas lighthouses'
+          fetch_assert roadtrip-discovery '/explore/road-trips' 'Texas lighthouse trail'
           fetch_assert point-bolivar '/article/point-bolivar-lighthouse-history' 'Point Bolivar Lighthouse: The Black Tower at Galveston Bay'
           fetch_assert lydia-ann '/article/lydia-ann-lighthouse-port-aransas' 'Lydia Ann Lighthouse: The Light Across From Port Aransas'
           fetch_assert matagorda '/article/matagorda-island-lighthouse-history' "Matagorda Island Lighthouse: The Black Tower Beyond Port O'Connor"
