@@ -14,6 +14,7 @@ on:
       - 'scripts/data/validate-texas-knowledge-freshness.mjs'
       - 'scripts/data/validate-texas-county-knowledge.mjs'
       - 'scripts/data/validate-texas-social-balance.mjs'
+      - 'scripts/data/validate-texas-home-nature-tools.mjs'
       - 'tsconfig.knowledge-bank.json'
       - '.github/workflows/texas-knowledge-bank.yml'
   workflow_dispatch:
@@ -45,6 +46,9 @@ jobs:
 
       - name: Validate social domain balance
         run: node scripts/data/validate-texas-social-balance.mjs
+
+      - name: Validate staged home nature tools
+        run: node scripts/data/validate-texas-home-nature-tools.mjs
 
       - name: Validate knowledge freshness
         run: node scripts/data/validate-texas-knowledge-freshness.mjs
