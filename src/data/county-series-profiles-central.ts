@@ -7,4 +7,10 @@ export const COUNTY_SERIES_PROFILES_CENTRAL: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/robertson-county-franklin-hearne-calvert-brazos-railroads-texas")
       .then((module) => module.robertsonCountyFranklinHearneCalvertBrazosRailroadsTexasArticle),
   },
+  {
+    countySlug: "falls",
+    articleSlug: "falls-county-marlin-brazos-hot-wells-railroads-texas",
+    loadArticle: () => import("@/data/fixtures/falls-county-marlin-brazos-hot-wells-railroads-texas")
+      .then((module) => module.fallsCountyMarlinBrazosHotWellsRailroadsTexasArticle),
+  },
 ];
