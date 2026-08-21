@@ -1,0 +1,56 @@
+import type { TexasKnowledgeRecord } from './types';
+
+const checkedAt = '2026-08-20';
+const sourceUrl = 'https://www.tsl.texas.gov/ref/abouttx/countyseats.html';
+
+const countySeat = (county: string, slug: string, seat: string): TexasKnowledgeRecord => ({
+  id: `county-${slug}-seat`,
+  kind: 'county-fact',
+  domain: 'counties',
+  subject: `${county} County`,
+  statement: `The county seat of ${county} County is ${seat}.`,
+  countySlug: slug,
+  tags: ['county-seat', 'texas-counties', slug],
+  sources: [{ sourceId: 'tslac', url: sourceUrl, authority: 'Texas State Library and Archives Commission', checkedAt }],
+  verification: 'verified',
+  verifiedAt: checkedAt,
+  temporalScope: 'evergreen',
+  evergreen: true,
+  socialReady: true,
+  articlePath: `/county/${slug}`,
+  socialFormats: ['county-of-the-day', 'fact-of-the-day', 'texas-trivia'],
+  usage: { timesUsed: 0 },
+});
+
+export const TEXAS_COUNTY_FACTS_BATCH2: TexasKnowledgeRecord[] = [
+  countySeat('Cameron', 'cameron', 'Brownsville'),
+  countySeat('Camp', 'camp', 'Pittsburg'),
+  countySeat('Carson', 'carson', 'Panhandle'),
+  countySeat('Cass', 'cass', 'Linden'),
+  countySeat('Castro', 'castro', 'Dimmitt'),
+  countySeat('Chambers', 'chambers', 'Anahuac'),
+  countySeat('Cherokee', 'cherokee', 'Rusk'),
+  countySeat('Childress', 'childress', 'Childress'),
+  countySeat('Clay', 'clay', 'Henrietta'),
+  countySeat('Cochran', 'cochran', 'Morton'),
+  countySeat('Coke', 'coke', 'Robert Lee'),
+  countySeat('Coleman', 'coleman', 'Coleman'),
+  countySeat('Collin', 'collin', 'McKinney'),
+  countySeat('Collingsworth', 'collingsworth', 'Wellington'),
+  countySeat('Colorado', 'colorado', 'Columbus'),
+  countySeat('Comal', 'comal', 'New Braunfels'),
+  countySeat('Comanche', 'comanche', 'Comanche'),
+  countySeat('Concho', 'concho', 'Paint Rock'),
+  countySeat('Cooke', 'cooke', 'Gainesville'),
+  countySeat('Coryell', 'coryell', 'Gatesville'),
+  countySeat('Cottle', 'cottle', 'Paducah'),
+  countySeat('Crane', 'crane', 'Crane'),
+  countySeat('Crockett', 'crockett', 'Ozona'),
+  countySeat('Crosby', 'crosby', 'Crosbyton'),
+  countySeat('Culberson', 'culberson', 'Van Horn'),
+  countySeat('Dallam', 'dallam', 'Dalhart'),
+  countySeat('Dallas', 'dallas', 'Dallas'),
+  countySeat('Dawson', 'dawson', 'Lamesa'),
+  countySeat('Deaf Smith', 'deaf-smith', 'Hereford'),
+  countySeat('Delta', 'delta', 'Cooper'),
+];
