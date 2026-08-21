@@ -12,13 +12,14 @@ import {
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const canonicalPath = "/explore/painted-churches/preindex-readiness";
-const description = "Texas Defined's church-by-church pre-index authority audit for the Painted Churches of Texas: profiles, source quality, visitor evidence, maps, image rights, feature inventories and remaining launch blockers.";
+const description = "Texas Defined's church-by-church pre-index authority audit for the Painted Churches of Texas: profiles, source quality, visitor evidence, maps, image rights, preservation chronology, feature inventories and remaining launch blockers.";
+const checkedAt = "2026-08-21";
 
 export const Route = createFileRoute(canonicalPath)({
   head: () => {
     const url = absoluteUrl(texasDefinedBrand, canonicalPath);
     return {
-      meta: buildMeta(texasDefinedBrand, { canonicalPath, title: "Painted Churches Pre-Index Authority Audit", description, modifiedTime: "2026-08-20T17:50:00-05:00" }),
+      meta: buildMeta(texasDefinedBrand, { canonicalPath, title: "Painted Churches Pre-Index Authority Audit", description, modifiedTime: `${checkedAt}T14:00:00-05:00` }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
       scripts: [jsonLd({
         "@context": "https://schema.org",
@@ -27,9 +28,9 @@ export const Route = createFileRoute(canonicalPath)({
         name: "Texas Painted Churches pre-index authority audit",
         description,
         url,
-        dateModified: "2026-08-20",
+        dateModified: checkedAt,
         creator: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#organization` },
-        variableMeasured: ["canonical profile", "research dossier", "three-source provenance floor", "authority-source quality", "visitor status", "map precision", "multi-object inventory", "rights-cleared imagery", "archival evidence", "contributors", "techniques", "symbols", "integrity", "fieldwork"],
+        variableMeasured: ["canonical profile", "research dossier", "three-source provenance floor", "authority-source quality", "visitor status", "map precision", "multi-object inventory", "rights-cleared imagery", "preservation chronology", "archival evidence", "contributors", "techniques", "symbols", "integrity", "fieldwork"],
       })],
     };
   },
@@ -43,6 +44,7 @@ function PreIndexReadiness() {
       <p className="eyebrow mt-8 text-primary">Publication control</p>
       <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.98] sm:text-7xl">We do not confuse “published in the repo” with “ready for the index.”</h1>
       <p className="mt-6 max-w-5xl text-lg leading-8 text-muted-foreground">Every verified church is audited against a strict launch floor and a higher authority ceiling. Search-engine submission remains separately gated; this dashboard makes the gaps visible before that switch can be enabled.</p>
+      <p className="mt-4 text-sm text-muted-foreground">Authority audit refreshed August 21, 2026.</p>
       <div className={`mt-8 inline-flex border px-5 py-3 text-sm font-semibold ${paintedChurchIndexLaunchReady ? "border-foreground" : "border-primary"}`}>{paintedChurchIndexLaunchReady ? "Required launch floor currently satisfied" : `${paintedChurchLaunchBlockers.length} churches still have required launch blockers`}</div>
     </Container></section>
 
@@ -50,7 +52,7 @@ function PreIndexReadiness() {
       <section className="border-t-2 border-foreground pt-8">
         <p className="eyebrow text-primary">Launch floor</p>
         <h2 className="mt-3 font-display text-4xl">A church does not clear pre-index review with one source and one decorative fact.</h2>
-        <p className="mt-5 max-w-4xl text-base leading-8 text-foreground/90">Required dimensions are a canonical narrative profile, a church-specific research dossier, at least three distinct normalized source URLs, at least two non-discovery authority sources, explicit visitor research, a sourced map point, at least two object-level interior features, and rights-cleared current photography. These are minimums, not the authority ceiling.</p>
+        <p className="mt-5 max-w-4xl text-base leading-8 text-foreground/90">Required dimensions are a canonical narrative profile, a church-specific research dossier, at least three distinct normalized source URLs, at least two non-discovery authority sources, explicit visitor research, a sourced map point, at least two object-level interior features, rights-cleared current photography, and a sourced preservation/alteration/stewardship chronology. These are minimums, not the authority ceiling.</p>
       </section>
 
       {paintedChurchLaunchBlockers.length ? <section className="mt-10 border-l-2 border-primary bg-surface p-6 sm:p-8"><p className="eyebrow text-primary">Current release blockers</p><h2 className="mt-3 font-display text-3xl">{paintedChurchLaunchBlockers.length} church{paintedChurchLaunchBlockers.length === 1 ? "" : "es"} still fail at least one required dimension.</h2><div className="mt-5 flex flex-wrap gap-x-5 gap-y-3 text-sm">{paintedChurchLaunchBlockers.map((record) => <a key={record.slug} href={`#${record.slug}`} className="border-b border-primary text-primary">{record.name}</a>)}</div></section> : null}
