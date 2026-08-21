@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 
 import { PaintedChurchEditorialStatus } from "@/components/editorial/PaintedChurchEditorialStatus";
 import { PaintedChurchEvidenceLedger } from "@/components/editorial/PaintedChurchEvidenceLedger";
+import { PaintedChurchPreservationChronology } from "@/components/editorial/PaintedChurchPreservationChronology";
 import { PaintedChurchSourceBibliography } from "@/components/editorial/PaintedChurchSourceBibliography";
 import { paintedChurchKnowledgeForChurch } from "@/data/painted-church-knowledge-graph";
 
@@ -51,6 +52,7 @@ export function PaintedChurchKnowledgeLinks({ slug }: { slug: string }) {
             <Link to="/explore/painted-churches/inscriptions" className="border-b border-primary text-primary">Inscriptions & languages</Link>
             <Link to="/explore/painted-churches/stained-glass" className="border-b border-primary text-primary">Stained glass</Link>
             <Link to="/explore/painted-churches/sacred-furnishings" className="border-b border-primary text-primary">Altars, pulpits, organs & furnishings</Link>
+            <Link to="/explore/painted-churches/preservation" className="border-b border-primary text-primary">Preservation & fabric history</Link>
             <Link to="/explore/painted-churches/national-register-study" className="border-b border-primary text-primary">Original National Register study</Link>
             <Link to="/explore/painted-churches/bibliography" className="border-b border-primary text-primary">Scholarly bibliography</Link>
             <Link to="/explore/painted-churches/sources" className="border-b border-primary text-primary">Source registry</Link>
@@ -59,6 +61,7 @@ export function PaintedChurchKnowledgeLinks({ slug }: { slug: string }) {
           </div>
         </section>
       ) : null}
+      <PaintedChurchPreservationChronology slug={slug} />
       <PaintedChurchEvidenceLedger slug={slug} />
       <PaintedChurchEditorialStatus slug={slug} />
       <PaintedChurchSourceBibliography slug={slug} />
