@@ -8,6 +8,9 @@ const assert = (condition, message) => {
 const stubs = read("src/data/fixtures/lazy-lighthouse-deep-dives.ts");
 const expansions = read("src/data/fixtures/lighthouse-deep-dive-expansions.ts");
 const links = read("src/data/fixtures/lighthouse-authority-links.ts");
+const searchIntentStubs = read("src/data/fixtures/lazy-lighthouse-search-intents.ts");
+const searchIntentArticles = read("src/data/fixtures/lighthouse-search-intent-articles.ts");
+const newestEvergreen = read("src/data/fixtures/lazy-newest-evergreen.ts");
 const hub = read("src/routes/explore.lighthouses.tsx");
 const visitorPlans = read("src/data/lighthouse-visitor-planning.ts");
 const topicPaths = read("src/components/editorial/ExploreTopicPaths.tsx");
@@ -104,6 +107,31 @@ const historyIntentEnd = intentPaths.indexOf("\n  },", historyIntentStart);
 const historyIntentBlock = intentPaths.slice(historyIntentStart, historyIntentEnd > historyIntentStart ? historyIntentEnd : intentPaths.length);
 assert(historyIntentBlock.includes('to: "/explore/lighthouses"'), "Explore History routes must link to /explore/lighthouses");
 
+const intentSlug = "best-lighthouses-to-visit-in-texas";
+assert(searchIntentStubs.includes(`slug: \"${intentSlug}\"`), "Best-lighthouses search-intent stub is missing");
+assert(searchIntentStubs.includes('import("./lighthouse-search-intent-articles")'), "Best-lighthouses article must remain lazy-loaded");
+assert(searchIntentStubs.includes("Port_Isabel_Texas_Lighthouse.jpg"), "Best-lighthouses page must retain its unique exact-subject hero");
+assert(searchIntentStubs.includes("CC BY 2.0"), "Best-lighthouses hero attribution/license is missing");
+assert(newestEvergreen.includes("lighthouseSearchIntentStubs") && newestEvergreen.includes("loadLighthouseSearchIntentArticle"), "Best-lighthouses intent loader is not registered");
+assert(searchIntentArticles.includes('title: "Best Lighthouses to Visit in Texas: What You Can Actually See and Climb"'), "Best-lighthouses search title is missing");
+for (const requiredText of [
+  "1. Port Isabel Lighthouse — best overall",
+  "2. Point Bolivar Lighthouse — best for Galveston Bay history",
+  "3. Halfmoon Reef Lighthouse — best easy historic stop from land",
+  "4. Lydia Ann Lighthouse — best for Port Aransas waterways",
+  "5. Matagorda Island Lighthouse — best for remote maritime history",
+  "6. Sabine Pass Lighthouse — best for the story, not a conventional visit",
+  "the historic lighthouse tower stands on the Louisiana side of the Sabine",
+]) {
+  assert(searchIntentArticles.includes(requiredText), `Best-lighthouses article missing required authority text: ${requiredText}`);
+}
+assert(links.includes(`\"${intentSlug}\"`), "Best-lighthouses intent page is missing from lighthouse reciprocal links");
+assert(links.includes(`/article/${intentSlug}`), "Existing lighthouse authority pages must discover the best-lighthouses intent page");
+const intentParagraphCount = (searchIntentArticles.match(/type: \"paragraph\"/g) ?? []).length;
+const intentHeadingCount = (searchIntentArticles.match(/type: \"heading\"/g) ?? []).length;
+assert(intentParagraphCount >= 20, `Expected at least 20 best-lighthouses paragraphs; found ${intentParagraphCount}`);
+assert(intentHeadingCount >= 10, `Expected at least 10 best-lighthouses headings; found ${intentHeadingCount}`);
+
 const visitorPlanCount = (visitorPlans.match(/slug: \"/g) ?? []).length;
 assert(visitorPlanCount >= 6, `Expected at least 6 lighthouse visitor plans; found ${visitorPlanCount}`);
 for (const field of ["publicAccess:", "bestFor:", "pairWith:", "planningNote:"]) {
@@ -116,4 +144,4 @@ const expansionParagraphCount = (expansions.match(/p\("/g) ?? []).length;
 assert(expansionHeadingCount >= 18, `Expected at least 18 lighthouse expansion headings; found ${expansionHeadingCount}`);
 assert(expansionParagraphCount >= 25, `Expected at least 25 lighthouse expansion paragraphs; found ${expansionParagraphCount}`);
 
-console.log(`Lighthouse authority validation passed: ${lighthouses.length} deep dives, ${visitorPlanCount} visitor plans, 4 broad discovery paths, ${expansionHeadingCount} expansion headings, ${expansionParagraphCount} expansion paragraphs.`);
+console.log(`Lighthouse authority validation passed: ${lighthouses.length} deep dives, 1 search-intent authority page, ${visitorPlanCount} visitor plans, 4 broad discovery paths, ${expansionHeadingCount} expansion headings, ${expansionParagraphCount} expansion paragraphs.`);
