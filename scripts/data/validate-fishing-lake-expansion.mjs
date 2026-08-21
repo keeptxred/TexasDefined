@@ -68,7 +68,7 @@ for (const [slug] of newLakes) {
 }
 
 const liveSourceCorpus = `${files.conroePrototype}\n${files.showcasePrototypes}\n${files.expansionPrototypes}`;
-const liveSourceUrls = [...liveSourceCorpus.matchAll(/liveLevel:\s*\{[^}]*url:\s*"(https:\/\/waterdatafortexas\.org\/reservoirs\/individual\/[a-z0-9-]+)"/g)].map((match) => match[1]);
+const liveSourceUrls = [...liveSourceCorpus.matchAll(/liveLevel:\s*\{[^}]*url:\s*"(https:\/\/(?:www\.)?waterdatafortexas\.org\/reservoirs\/individual\/[a-z0-9-]+)"/g)].map((match) => match[1]);
 const uniqueLiveSources = new Set(liveSourceUrls);
 if (uniqueLiveSources.size !== 10) throw new Error(`Fishing Batch 15 validation failed: expected 10 unique Water Data for Texas live-level sources, found ${uniqueLiveSources.size}.`);
 
