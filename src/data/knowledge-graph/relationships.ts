@@ -10,6 +10,14 @@ const LOCAL_GOVERNMENT_KINDS = new Set([
   'dps-office',
 ]);
 
+const GOVERNMENT_REFERENCE_KINDS = new Set([
+  'agency',
+  'appraisal-district',
+  'tax-office',
+  'county-clerk',
+  'dps-office',
+]);
+
 /**
  * These generic knowledge-graph entity kinds are mirrors of richer destination
  * guides sourced from the Explore catalog. Publishing both URL families as
@@ -35,12 +43,6 @@ export function rankRelatedEntities(entity: TexasEntityRecord, graph: TexasEntit
   return graph
     .filter((candidate) => {
       if (candidate.id === entity.id || candidate.status === 'retired') return false;
-      // Generic related links must use the same publication gate as route
-      // metadata and sitemap generation. This prevents thin regions, rivers,
-      // cities, local-office placeholders and other unfinished entities from
-      // manufacturing crawl demand merely because a relationship exists.
-      // Destination mirrors are deliberately excluded here too; their richer
-      // /destination pages are related through the destination catalog instead.
       if (!isIndexableEntityPage(candidate)) return false;
       return true;
     })
@@ -74,17 +76,11 @@ export function rankRelatedEntities(entity: TexasEntityRecord, graph: TexasEntit
         reasons.push(`shared: ${sharedTags.slice(0, 3).join(', ')}`);
       }
 
-      // Same-kind similarity is only useful after a real geographic or semantic
-      // relationship exists. It must never create an alphabetical fallback list.
       if (entity.kind === candidate.kind && (sameCounty || miles != null || Boolean(entity.region && candidate.region === entity.region) || sharedTags.length > 0)) {
         score += 4;
         reasons.push('same guide type');
       }
 
-      // Local-government pages should only recommend resources from their own
-      // county (or an explicit graph relationship). This prevents county A from
-      // falling through to alphabetically adjacent county B simply because both
-      // records are the same entity kind.
       if (LOCAL_GOVERNMENT_KINDS.has(entity.kind) && !sameCounty && !directlyRelated && !incomingRelated) {
         score = 0;
         reasons.length = 0;
@@ -153,10 +149,12 @@ function hasEntitySpecificOfficialUrl(entity: TexasEntityRecord) {
  * as a useful search result.
  */
 export function isIndexableEntityPage(entity: TexasEntityRecord) {
-  // Destination mirrors are deliberately consolidated on /destination/:slug.
-  // Their compatibility routes remain crawlable with a canonical pointing at
-  // the richer guide, but must not compete as separate indexable pages.
   if (DESTINATION_MIRROR_KINDS.has(entity.kind)) return false;
+
+  // TexasDefined is not a state-agency or local-government directory. These
+  // entity records remain useful as source/context data, but their public URL
+  // ownership is consolidated into KeepTXRed or richer county/service guides.
+  if (GOVERNMENT_REFERENCE_KINDS.has(entity.kind)) return false;
 
   if (!['active', 'seasonal'].includes(entity.status)) return false;
   if (!entity.sourceCheckedAt) return false;
@@ -164,31 +162,12 @@ export function isIndexableEntityPage(entity: TexasEntityRecord) {
 
   const description = entity.description?.trim() ?? '';
 
-  // County guides are enriched with Texas State Library county-seat data and
-  // Census geography before this gate runs. Their static seed intentionally
-  // points at Texas.gov's statewide county directory, so requiring an
-  // entity-specific county website here makes sitemap eligibility depend on a
-  // separate runtime scrape that the sitemap does not perform. A county may
-  // qualify without that website only when its authoritative enrichment is
-  // present and the record has the expected county relationships.
   if (entity.kind === 'county') {
     return description.length >= 180
       && entity.sourceConfidence === 'official'
       && entity.status === 'active'
       && Boolean(entity.coordinates)
       && entity.relationships.length >= 2;
-  }
-
-  // Statewide agencies do not naturally have county, region, or coordinate
-  // signals. Their authority comes from an entity-specific official state URL,
-  // a source-checked description, and a useful service/topic taxonomy. Requiring
-  // geographic context here incorrectly excludes strong agency reference pages.
-  if (entity.kind === 'agency') {
-    return description.length >= 150
-      && hasEntitySpecificOfficialUrl(entity)
-      && entity.sourceConfidence === 'official'
-      && entity.status === 'active'
-      && Boolean(entity.tags?.length && entity.tags.length >= 3);
   }
 
   if (description.length < 180) return false;
