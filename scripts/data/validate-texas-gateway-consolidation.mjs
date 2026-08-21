@@ -26,12 +26,17 @@ for (const file of files) {
   const full = path.join(root, file);
   if (!fs.existsSync(full)) throw new Error(`Missing gateway module: ${file}`);
   const source = fs.readFileSync(full, "utf8");
-  const ids = [...source.matchAll(/\bid:\s*"([^"]+)"/g)].map((match) => match[1]);
-  const slugs = [...source.matchAll(/\bslug:\s*"([^"]+)"/g)].map((match) => match[1]);
-  if (ids.length !== slugs.length) {
-    throw new Error(`${file}: found ${ids.length} IDs but ${slugs.length} slugs`);
+
+  const objectIds = [...source.matchAll(/\bid:\s*"([^"]+)"/g)].map((match) => match[1]);
+  const objectSlugs = [...source.matchAll(/\bslug:\s*"([^"]+)"/g)].map((match) => match[1]);
+  if (objectIds.length !== objectSlugs.length) {
+    throw new Error(`${file}: found ${objectIds.length} object IDs but ${objectSlugs.length} object slugs`);
   }
-  ids.forEach((id, index) => rows.push({ id, slug: slugs[index], file }));
+  objectIds.forEach((id, index) => rows.push({ id, slug: objectSlugs[index], file }));
+
+  for (const match of source.matchAll(/\b(?:make|trip|article)\(\s*"([^"]+)"\s*,\s*"([^"]+)"/g)) {
+    rows.push({ id: match[1], slug: match[2], file });
+  }
 
   for (const match of source.matchAll(/href:\s*"([^"]+)"/g)) {
     const href = match[1];
