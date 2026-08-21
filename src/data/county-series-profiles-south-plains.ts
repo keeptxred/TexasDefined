@@ -109,4 +109,10 @@ export const COUNTY_SERIES_PROFILES_SOUTH_PLAINS: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/deaf-smith-county-hereford-xit-cattle-ogallala-panhandle-texas")
       .then((module) => module.deafSmithCountyHerefordXitCattleOgallalaPanhandleTexasArticle),
   },
+  {
+    countySlug: "castro",
+    articleSlug: "castro-county-dimmitt-nazareth-hart-irrigation-high-plains-texas",
+    loadArticle: () => import("@/data/fixtures/castro-county-dimmitt-nazareth-hart-irrigation-high-plains-texas")
+      .then((module) => module.castroCountyDimmittNazarethHartIrrigationHighPlainsTexasArticle),
+  },
 ];
