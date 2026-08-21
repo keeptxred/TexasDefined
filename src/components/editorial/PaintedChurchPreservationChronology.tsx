@@ -1,18 +1,18 @@
-import { paintedChurchPreservationEventsBySlug } from "@/data/painted-church-preservation-chronology";
+import { canonicalPaintedChurchPreservationEventsBySlug } from "@/data/painted-church-preservation-index";
 
 function typeLabel(value: string) {
   return value.replaceAll("-", " ");
 }
 
 export function PaintedChurchPreservationChronology({ slug }: { slug: string }) {
-  const events = paintedChurchPreservationEventsBySlug.get(slug) ?? [];
+  const events = canonicalPaintedChurchPreservationEventsBySlug.get(slug) ?? [];
   if (!events.length) {
     return (
       <section aria-labelledby="preservation-chronology" className="mt-14 border-t border-border pt-8">
         <p className="eyebrow text-primary">Preservation chronology</p>
         <h2 id="preservation-chronology" className="mt-3 font-display text-4xl">What changed—and what still needs documentation</h2>
         <p className="mt-5 max-w-3xl text-sm leading-7 text-muted-foreground">
-          Texas Defined has not yet located a church-specific intervention, disaster, repainting or conservation chronology that clears the source standard for this property. That is a documented research gap, not evidence that the interior has never changed.
+          Texas Defined has not yet located a church-specific intervention, disaster, repainting or conservation chronology that clears the source standard for this property. That is a documented pre-index research blocker, not evidence that the interior has never changed.
         </p>
       </section>
     );
