@@ -8,19 +8,6 @@ const relatedServices = [
 ] as const;
 
 export const PRIORITY_SEARCH_PAGES: Record<string, PrioritySearchPageData> = {
-  "texas-attorney-general": {
-    eyebrow: "Texas government",
-    title: "Texas Attorney General: What the Office Does and Where to Go",
-    intro: "A practical guide to the Office of the Texas Attorney General, including consumer protection, child support, open government, crime-victim programs and the office's role representing the State of Texas.",
-    updated: "August 20, 2026",
-    quickAnswer: "The Texas Attorney General is the state's attorney. The office represents Texas in legal matters and also administers major public-facing programs including child-support enforcement, consumer protection and crime-victim compensation.",
-    sections: [
-      { heading: "What the Texas Attorney General does", paragraphs: ["The office represents the State of Texas, defends state laws and agencies in court, issues certain legal opinions requested by authorized officials and performs duties assigned by the Texas Constitution and statutes.", "For everyday Texans, the best-known services include child-support enforcement, consumer protection, open-government resources and crime-victim assistance."], links: [{ label: "Official Texas Attorney General website", href: "https://www.texasattorneygeneral.gov/", external: true }] },
-      { heading: "Child support", paragraphs: ["The Child Support Division helps establish, enforce and modify child-support orders and provides services related to paternity and support payments. Texas child support itself is governed primarily by Family Code Chapter 154."], links: [{ label: "Attorney General child support", href: "https://www.texasattorneygeneral.gov/child-support", external: true }] },
-      { heading: "Consumer protection and complaints", paragraphs: ["The Consumer Protection Division accepts complaints and enforces state consumer-protection laws. The office cannot act as a private attorney for an individual consumer, so Texans should use the agency's complaint and educational resources for the type of issue involved."], links: [{ label: "Consumer protection", href: "https://www.texasattorneygeneral.gov/consumer-protection", external: true }] },
-    ],
-    related: [...relatedServices, { label: "Texas Secretary of State", href: "/texas-secretary-of-state" }],
-  },
   "texas-fishing-license": {
     eyebrow: "Texas outdoors",
     title: "Texas Fishing License: Requirements, Options and Official Links",
@@ -33,19 +20,6 @@ export const PRIORITY_SEARCH_PAGES: Record<string, PrioritySearchPageData> = {
       { heading: "Where to buy", paragraphs: ["Official licenses can be purchased through Texas Parks and Wildlife's authorized online sales system and at participating license retailers. Verify the current season and identification requirements before purchase."], links: [{ label: "Official online license sales", href: "https://tpwd.texas.gov/business/licenses/online_sales/index.phtml", external: true }, { label: "Texas fishing guide", href: "/fishing" }] },
     ],
     related: [{ label: "Texas fishing", href: "/fishing" }, { label: "Fishing regulations", href: "/fishing/regulations" }, { label: "Texas lakes", href: "/fishing/lakes" }, { label: "Best places to camp in Texas", href: "/best-places-to-go-camping-in-texas" }],
-  },
-  "texas-secretary-of-state": {
-    eyebrow: "Texas government",
-    title: "Texas Secretary of State: Elections, Business Filings and State Records",
-    intro: "A practical guide to the Texas Secretary of State and the services Texans most often need, from election information and voter resources to business filings, the Texas Register and official state records.",
-    updated: "August 20, 2026",
-    quickAnswer: "The Texas Secretary of State is the state's chief elections officer and also handles business-entity filings, the Texas Register and many official state records and filings.",
-    sections: [
-      { heading: "Elections and voting", paragraphs: ["The Secretary of State serves as Texas's chief elections officer, publishes election guidance and maintains statewide voter and election resources."], links: [{ label: "Texas Secretary of State elections", href: "https://www.sos.state.tx.us/elections/", external: true }] },
-      { heading: "Business and nonprofit filings", paragraphs: ["The office receives formation, registration and other filings for many Texas business entities and maintains SOSDirect for online filing and record access."], links: [{ label: "Business and nonprofit forms", href: "https://www.sos.state.tx.us/corp/forms_option.shtml", external: true }] },
-      { heading: "Texas Register and official records", paragraphs: ["The Secretary of State publishes the Texas Register and provides access to state rules, notices and other official materials."], links: [{ label: "Official Secretary of State website", href: "https://www.sos.state.tx.us/", external: true }, { label: "Texas Secretary of State entity page", href: "/agency/texas-secretary-of-state" }] },
-    ],
-    related: [...relatedServices, { label: "Texas Comptroller", href: "/texas-comptroller" }, { label: "Texas Attorney General", href: "/texas-attorney-general" }],
   },
   "texas-drivers-license": {
     eyebrow: "Texas driving",
@@ -98,19 +72,6 @@ export const PRIORITY_SEARCH_PAGES: Record<string, PrioritySearchPageData> = {
       { heading: "Texas Workforce Commission", paragraphs: ["TWC administers unemployment insurance along with statewide workforce and employer programs. Keep copies of agency notices and respond to requests by the deadlines stated in your claim."], links: [{ label: "Texas Workforce Commission entity page", href: "/agency/texas-workforce-commission" }] },
     ],
     related: [{ label: "Texas Workforce Commission", href: "/agency/texas-workforce-commission" }, { label: "Texas salary calculator", href: "/texas-salary-calculator" }, { label: "Texas cost of living calculator", href: "/texas-cost-of-living-calculator" }, ...relatedServices],
-  },
-  "texas-comptroller": {
-    eyebrow: "Texas government",
-    title: "Texas Comptroller: Taxes, Revenue, Property-Tax Data and Business Services",
-    intro: "A practical guide to the Texas Comptroller of Public Accounts and the services people most often search for, including sales tax, franchise tax, state revenue, property-tax resources and business taxpayer services.",
-    updated: "August 20, 2026",
-    quickAnswer: "The Texas Comptroller collects major state taxes, administers taxpayer services, oversees state accounting and publishes extensive revenue, sales-tax and local property-tax information.",
-    sections: [
-      { heading: "Texas taxes and taxpayer services", paragraphs: ["The Comptroller administers major Texas state taxes and provides online systems and guidance for businesses and taxpayers."], links: [{ label: "Official Texas Comptroller", href: "https://comptroller.texas.gov/", external: true }, { label: "Texas Comptroller entity page", href: "/agency/texas-comptroller" }] },
-      { heading: "Property-tax information", paragraphs: ["Local governments levy property taxes, but the Comptroller's Property Tax Assistance Division publishes statewide guidance, appraisal-district information, reports and data that are useful for understanding the system."], links: [{ label: "Texas property-tax guide", href: "/learn/property-taxes" }, { label: "Property-tax calculators", href: "/property-tax-calculators" }] },
-      { heading: "Revenue and economic data", paragraphs: ["The Comptroller publishes state revenue estimates, tax collections and economic information that can help explain the condition of Texas state finances."], links: [{ label: "Texas data center", href: "/texas-data" }] },
-    ],
-    related: [{ label: "Texas property taxes", href: "/learn/property-taxes" }, { label: "Texas sales tax", href: "/texas-sales-tax-explained" }, { label: "Texas Secretary of State", href: "/texas-secretary-of-state" }, ...relatedServices],
   },
   "texas-vehicle-registration": {
     eyebrow: "Texas driving",
