@@ -64,7 +64,7 @@ jobs:
           fetch_assert fort-sam '/destination/fort-sam-houston-national-cemetery' 'Fort Sam Houston National Cemetery'
           fetch_assert houston '/destination/houston-national-cemetery' 'Houston National Cemetery'
           fetch_assert dfw '/destination/dallas-fort-worth-national-cemetery' 'Dallas–Fort Worth National Cemetery'
-          fetch_assert texas-history '/texas-history' 'Texas military cemeteries'
+          fetch_assert texas-history '/texas-history' 'Texas Military Cemeteries'
 
       - name: Publish success status
         if: ${{ steps.live.outcome == 'success' }}
