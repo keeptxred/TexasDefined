@@ -1,0 +1,66 @@
+name: Certify Milam County production once
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/certify-milam-county-once.yml'
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  certify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Publish pending status
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
+            --data '{"state":"pending","context":"milam-county-cert","description":"Checking Milam County live page and hero"}' >/dev/null
+      - name: Verify Milam County live page and hero
+        id: verify
+        shell: bash
+        run: |
+          set -euo pipefail
+          agent='TexasDefined/1.0 (+https://texasdefined.com)'
+          work="$(mktemp -d)"; trap 'rm -rf "$work"' EXIT
+          page='https://texasdefined.com/county/milam'
+          hero='https://commons.wikimedia.org/wiki/Special:Redirect/file/Milam_County_Courthouse_Cameron_Texas_DSC_1324_ad.JPG?width=1600'
+
+          code="$(curl -A "$agent" --retry 5 --retry-all-errors --retry-delay 3 --max-time 60 -sS -o "$work/page" -w '%{http_code}' "$page?verify=${GITHUB_SHA}-${GITHUB_RUN_ID}" || true)"
+          [ "$code" = 200 ]
+          grep -Fq 'Milam County: Cameron, Rockdale, the Little River and Central Texas Crossroads' "$work/page"
+          grep -Fq 'The county in numbers' "$work/page"
+          grep -Fq 'County seat' "$work/page"
+          grep -Fq '2020 population' "$work/page"
+          grep -Fq 'County feature' "$work/page"
+          grep -Fq 'https://texasdefined.com/county/milam' "$work/page"
+
+          hcode="$(curl -A "$agent" -L --retry 5 --retry-all-errors --retry-delay 3 --max-time 90 -sS -D "$work/hh" -o "$work/hb" -w '%{http_code}' "$hero" || true)"
+          hmime="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/{gsub(/\r/,""); sub(/^content-type:[[:space:]]*/,""); v=$0} END{print v}' "$work/hh" | cut -d';' -f1)"
+          hbytes="$(wc -c < "$work/hb" 2>/dev/null || echo 0)"
+          echo "Milam page=$code hero=$hcode mime=$hmime bytes=$hbytes"
+          [ "$hcode" = 200 ]
+          [[ "$hmime" =~ ^image/(jpeg|png|webp)$ ]]
+          [ "$hbytes" -gt 50000 ]
+      - name: Publish success status
+        if: ${{ steps.verify.outcome == 'success' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
+            --data '{"state":"success","context":"milam-county-cert","description":"Milam live page, structured/editorial layers and hero passed"}' >/dev/null
+      - name: Publish failure status
+        if: ${{ failure() }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
+            --data '{"state":"failure","context":"milam-county-cert","description":"Milam county-specific production verification failed"}' >/dev/null
