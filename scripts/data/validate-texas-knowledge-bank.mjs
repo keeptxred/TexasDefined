@@ -23,18 +23,33 @@ const requiredSourceIds = [
   'tnris', 'texas-water-data', 'txdot', 'texas-comptroller', 'noaa',
   'nws-hurricanes', 'usgs', 'texas-am-agrilife', 'texas-am-fire-ants', 'tdem-emergency',
 ];
-const registeredSourceIds = new Set(
-  [...sources.matchAll(/\bid:\s*['\"]([^'\"]+)['\"]/g)].map((match) => match[1]),
-);
+const sourceIdMatches = [...sources.matchAll(/\bid:\s*['\"]([^'\"]+)['\"]/g)].map((match) => match[1]);
+const registeredSourceIds = new Set(sourceIdMatches);
+for (const id of sourceIdMatches) {
+  if (sourceIdMatches.indexOf(id) !== sourceIdMatches.lastIndexOf(id)) failures.push(`Duplicate knowledge source ID: ${id}`);
+}
 for (const id of requiredSourceIds) if (!registeredSourceIds.has(id)) failures.push(`Missing required knowledge source: ${id}`);
+for (const urlMatch of sources.matchAll(/\burl:\s*['\"]([^'\"]+)['\"]/g)) {
+  if (!urlMatch[1].startsWith('https://')) failures.push(`Knowledge source registry URL must use HTTPS: ${urlMatch[1]}`);
+}
+for (const text of [seed, expanded]) {
+  for (const sourceMatch of text.matchAll(/\bsourceId:\s*['\"]([^'\"]+)['\"]/g)) {
+    if (!registeredSourceIds.has(sourceMatch[1])) failures.push(`Knowledge record references unregistered source ID: ${sourceMatch[1]}`);
+  }
+}
 
 for (const sourceList of clusters.matchAll(/sourceIds:\s*\[([^\]]*)\]/g)) {
   for (const sourceMatch of sourceList[1].matchAll(/['\"]([^'\"]+)['\"]/g)) {
     if (!registeredSourceIds.has(sourceMatch[1])) failures.push(`Home/nature cluster references unregistered source ID: ${sourceMatch[1]}`);
   }
 }
-if (!clusters.includes("publicationState: 'staged'")) failures.push('Home/nature clusters must explicitly declare staged publication state.');
-if (!clusters.includes('plannedCrossLinkTargets')) failures.push('Home/nature cluster link hints must be labeled planning-only.');
+const clusterCount = (clusters.match(/\bid:\s*['\"]/g) ?? []).length;
+const stagedClusterCount = (clusters.match(/publicationState:\s*['\"]staged['\"]/g) ?? []).length;
+const plannedLinkCount = (clusters.match(/plannedCrossLinkTargets\s*:/g) ?? []).length;
+if (!clusterCount) failures.push('Home/nature cluster inventory must contain at least one cluster.');
+if (stagedClusterCount !== clusterCount) failures.push(`Every home/nature cluster must be staged; found ${stagedClusterCount} staged of ${clusterCount}.`);
+if (plannedLinkCount !== clusterCount) failures.push(`Every home/nature cluster must label cross-links planning-only; found ${plannedLinkCount} of ${clusterCount}.`);
+if (/\bcrossLinkTargets\s*:/.test(clusters)) failures.push('Home/nature clusters must not expose unqualified crossLinkTargets; use plannedCrossLinkTargets until routes are verified for publication.');
 
 // Batch 8 is deliberately staged editorial copy. Until publication is explicitly approved,
 // these paths must not leak into the public crawl registry, navigation, or file routes.
