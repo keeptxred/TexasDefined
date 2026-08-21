@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
-import { TEXAS_VS_STATE_GROUPS, TEXAS_VS_STATES, texasVsStateSlug } from "@/data/texas-vs-states";
+import { TEXAS_VS_STATE_GROUPS, TEXAS_VS_STATES, texasVsStateSlug } from "@/data/texas-vs-states-index";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const canonicalPath = "/texas-vs-every-state";
