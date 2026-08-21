@@ -45,8 +45,10 @@ const ALLOWED_FILES = new Set([
   "src/routes/api/public/store-products.ts",
   "src/routes/llms[.]txt.ts",
   "src/routes/texas-attorney-general.tsx",
+  "src/routes/texas-comptroller.tsx",
   "src/routes/texas-data.tsx",
   "src/routes/texas-resources.tsx",
+  "src/routes/texas-secretary-of-state.tsx",
   "src/styles.css",
 ]);
 
