@@ -49,4 +49,10 @@ export const COUNTY_SERIES_PROFILES_SOUTH_PLAINS: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/yoakum-county-plains-denver-city-oil-ogallala-south-plains-texas")
       .then((module) => module.yoakumCountyPlainsDenverCityOilOgallalaSouthPlainsTexasArticle),
   },
+  {
+    countySlug: "cochran",
+    articleSlug: "cochran-county-morton-whiteface-oil-irrigation-south-plains-texas",
+    loadArticle: () => import("@/data/fixtures/cochran-county-morton-whiteface-oil-irrigation-south-plains-texas")
+      .then((module) => module.cochranCountyMortonWhitefaceOilIrrigationSouthPlainsTexasArticle),
+  },
 ];
