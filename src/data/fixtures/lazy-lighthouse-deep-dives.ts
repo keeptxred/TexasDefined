@@ -66,8 +66,17 @@ const slugs = new Set(lighthouseDeepDiveStubs.map((article) => article.slug));
 
 export async function loadLighthouseDeepDiveArticle(brandId: string, slug: string): Promise<Article | null> {
   if (brandId !== "texasdefined" || !slugs.has(slug)) return null;
-  const { lighthouseDeepDiveArticles } = await import("./lighthouse-deep-dive-articles");
+  const [{ lighthouseDeepDiveArticles }, { lighthouseDeepDiveExpansionBySlug }] = await Promise.all([
+    import("./lighthouse-deep-dive-articles"),
+    import("./lighthouse-deep-dive-expansions"),
+  ]);
   const article = lighthouseDeepDiveArticles.find((candidate) => candidate.slug === slug);
+  if (!article) return null;
   const articleStub = lighthouseDeepDiveStubs.find((candidate) => candidate.slug === slug);
-  return article && articleStub ? { ...article, hero: articleStub.hero } : article ?? null;
+  const expansion = lighthouseDeepDiveExpansionBySlug[slug] ?? [];
+  const expandedArticle: Article = {
+    ...article,
+    body: [...article.body, ...expansion],
+  };
+  return articleStub ? { ...expandedArticle, hero: articleStub.hero } : expandedArticle;
 }
