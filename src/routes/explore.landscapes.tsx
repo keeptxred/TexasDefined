@@ -4,14 +4,15 @@ import { texasDefinedBrand } from '@/brand/texasdefined';
 import { DepartmentHero } from '@/components/editorial/DepartmentHero';
 import { Section, SectionHeader } from '@/components/editorial/SectionHeader';
 import { Container } from '@/components/layout/Container';
-import { texasLandscapeCatalog, texasLandscapeGuideCatalog } from '@/data/texas-landscape-catalog';
+import { getTexasLandscapeHub } from '@/data/texas-landscapes.functions';
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 const description = 'A field guide to the landscapes that define Texas: Hill Country limestone, Piney Woods forest, Gulf marshes, prairie, canyon, desert, mountain, river and more.';
 const pagePath = '/explore/landscapes';
 
 export const Route = createFileRoute('/explore/landscapes')({
-  head: () => ({
+  loader: () => getTexasLandscapeHub(),
+  head: ({ loaderData }) => ({
     meta: buildMeta(texasDefinedBrand, { canonicalPath: pagePath, title: 'Texas Landscapes: The Complete Guide', description }),
     links: [canonicalLink(texasDefinedBrand, pagePath)],
     scripts: [jsonLd({
@@ -30,8 +31,8 @@ export const Route = createFileRoute('/explore/landscapes')({
           '@type': 'ItemList',
           '@id': `${absoluteUrl(texasDefinedBrand, pagePath)}#landscapes`,
           name: 'Landscapes of Texas',
-          numberOfItems: texasLandscapeCatalog.length,
-          itemListElement: texasLandscapeCatalog.map((item, index) => ({
+          numberOfItems: loaderData?.landscapes.length ?? 0,
+          itemListElement: (loaderData?.landscapes ?? []).map((item, index) => ({
             '@type': 'ListItem',
             position: index + 1,
             item: {
@@ -58,6 +59,8 @@ export const Route = createFileRoute('/explore/landscapes')({
 });
 
 function TexasLandscapesPage() {
+  const { landscapes, guides } = Route.useLoaderData();
+
   return <>
     <DepartmentHero current="Explore" eyebrow="Texas Landscapes" title="The landscapes that define Texas" description={description} />
 
@@ -78,9 +81,9 @@ function TexasLandscapesPage() {
 
     <Section tone="surface">
       <Container>
-        <SectionHeader eyebrow="The field guide" title={`${texasLandscapeCatalog.length} Texas landscapes to know`} description="Use these as building blocks. Many counties and travel regions contain more than one landscape." />
+        <SectionHeader eyebrow="The field guide" title={`${landscapes.length} Texas landscapes to know`} description="Use these as building blocks. Many counties and travel regions contain more than one landscape." />
         <ul className="mt-12 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
-          {texasLandscapeCatalog.map((item, index) => <li key={item.slug} className="border-t border-border pt-5">
+          {landscapes.map((item, index) => <li key={item.slug} className="border-t border-border pt-5">
             <Link to="/explore/landscapes/$slug" params={{ slug: item.slug }} className="group block">
               <p className="eyebrow text-muted-foreground">{String(index + 1).padStart(2, '0')} · {item.eyebrow}</p>
               <h2 className="mt-3 font-display text-3xl leading-tight transition-colors group-hover:text-primary">{item.name}</h2>
@@ -96,7 +99,7 @@ function TexasLandscapesPage() {
       <Container>
         <SectionHeader eyebrow="Questions people actually ask" title="Texas geography, explained plainly" description="These guides connect the landscape pages to practical travel, photography and geography searches." />
         <div className="mt-12 grid gap-6 lg:grid-cols-2">
-          {texasLandscapeGuideCatalog.map((guide) => <Link key={guide.slug} to="/explore/landscapes/$slug" params={{ slug: guide.slug }} className="group border border-border bg-background p-7 transition-colors hover:border-primary">
+          {guides.map((guide) => <Link key={guide.slug} to="/explore/landscapes/$slug" params={{ slug: guide.slug }} className="group border border-border bg-background p-7 transition-colors hover:border-primary">
             <h2 className="font-display text-3xl leading-tight group-hover:text-primary">{guide.title}</h2>
             <p className="mt-3 text-sm leading-7 text-muted-foreground">{guide.dek}</p>
             <span className="eyebrow mt-5 inline-block text-primary">Read the guide →</span>
