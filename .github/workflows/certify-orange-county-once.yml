@@ -1,0 +1,92 @@
+name: Certify Orange County production once
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/certify-orange-county-once.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  certify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Check out exact certification commit
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Verify Orange County implementation gates
+        shell: bash
+        run: |
+          set -euo pipefail
+          fixture='src/data/fixtures/orange-county-orange-sabine-neches-golden-triangle-texas.ts'
+          registry='src/data/county-series-profiles-east-texas.ts'
+          test -f "$fixture"
+          grep -Fq 'countySlug: "orange"' "$registry"
+          grep -Fq 'Orange County: Where the Sabine Meets the Gulf Coast' "$fixture"
+          grep -Fq 'https://upload.wikimedia.org/wikipedia/commons/1/19/Orange_county_tx_courthouse_2015.jpg' "$fixture"
+          if grep -n 'www\.texasdefined\.com' "$fixture" "$registry"; then
+            echo 'Non-canonical www TexasDefined hostname found.' >&2
+            exit 1
+          fi
+          uses="$(grep -R -l -F 'Orange_county_tx_courthouse_2015.jpg' src/data/fixtures | wc -l | tr -d ' ')"
+          test "$uses" = '1' || { echo "Orange hero reuse count is $uses, expected 1" >&2; exit 1; }
+          npm run data:validate:editorial-images
+
+      - name: Run full repository validation and build
+        run: npm run validate
+
+      - name: Verify live Orange County page, structured layer, redirect, and hero
+        shell: bash
+        env:
+          HERO_URL: https://upload.wikimedia.org/wikipedia/commons/1/19/Orange_county_tx_courthouse_2015.jpg
+        run: |
+          set -euo pipefail
+          origin='https://texasdefined.com'
+          county='/county/orange'
+          legacy='/article/orange-county-orange-sabine-neches-golden-triangle-texas'
+          expected_title='Orange County: Where the Sabine Meets the Gulf Coast'
+          workdir="$(mktemp -d)"; trap 'rm -rf "$workdir"' EXIT
+
+          ok=0
+          for attempt in $(seq 1 12); do
+            status="$(curl --retry 3 --retry-all-errors --retry-delay 2 --max-time 60 -sS -o "$workdir/page" -w '%{http_code}' "$origin$county?verify=${GITHUB_SHA}-${GITHUB_RUN_ID}-$attempt")"
+            if [ "$status" = '200' ] \
+              && grep -Fq "$expected_title" "$workdir/page" \
+              && grep -Fq 'The county in numbers' "$workdir/page" \
+              && grep -Fq 'County seat' "$workdir/page" \
+              && grep -Fq '2020 population' "$workdir/page" \
+              && grep -Fq 'County feature' "$workdir/page" \
+              && grep -Fq 'Orange' "$workdir/page" \
+              && grep -Fq 'https://texasdefined.com/county/orange' "$workdir/page"; then
+              ok=1
+              break
+            fi
+            sleep 5
+          done
+          test "$ok" = '1' || { echo 'Live Orange County structured/editorial layers did not appear.' >&2; head -c 1600 "$workdir/page" >&2 || true; exit 1; }
+
+          legacy_status="$(curl --max-redirs 0 -sS -D "$workdir/legacy-headers" -o /dev/null -w '%{http_code}' "$origin$legacy")"
+          location="$(awk 'BEGIN{IGNORECASE=1} /^location:/{gsub(/\r/,""); sub(/^location:[[:space:]]*/,""); print; exit}' "$workdir/legacy-headers")"
+          test "$legacy_status" = '301'
+          [[ "$location" == *'/county/orange'* ]]
+
+          hero_status="$(curl -L --retry 5 --retry-all-errors --retry-delay 2 --max-time 60 -sS -D "$workdir/hero-headers" -o "$workdir/hero" -w '%{http_code}' "$HERO_URL")"
+          hero_mime="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/{gsub(/\r/,""); sub(/^content-type:[[:space:]]*/,""); v=$0} END{print v}' "$workdir/hero-headers" | cut -d';' -f1)"
+          test "$hero_status" = '200'
+          case "$hero_mime" in image/jpeg|image/png|image/webp) ;; *) echo "Live hero MIME invalid: $hero_mime" >&2; exit 1;; esac
+          test "$(wc -c < "$workdir/hero")" -gt 50000
+          echo "PASS county=$county structured=yes editorial=yes legacy=$legacy_status hero=$hero_status mime=$hero_mime sha=$GITHUB_SHA"
