@@ -1,0 +1,93 @@
+name: Verify Tyler County production once
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/verify-tyler-county-once.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Publish pending status
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
+            --data '{"state":"pending","context":"texasdefined-tyler-county-live","description":"Verifying Tyler County production page, redirect and hero"}' >/dev/null
+
+      - name: Verify Tyler County live page
+        shell: bash
+        run: |
+          set -euo pipefail
+          page="$(mktemp)"
+          for attempt in 1 2 3 4 5 6; do
+            if curl --fail-with-body --silent --show-error --location --max-time 30 \
+              "https://texasdefined.com/county/tyler?verify=${GITHUB_SHA}-${attempt}" -o "$page"; then
+              if grep -Fq 'Tyler County: Woodville, the Big Thicket and Deep East Texas Timber Country' "$page" \
+                && grep -Fq '2020 population' "$page" \
+                && grep -Fq '19,798' "$page" \
+                && grep -Fq 'https://texasdefined.com/county/tyler' "$page"; then
+                break
+              fi
+            fi
+            if [ "$attempt" -eq 6 ]; then
+              echo 'Tyler County live page did not expose both structured and editorial layers.' >&2
+              head -c 2500 "$page" >&2 || true
+              exit 1
+            fi
+            sleep 5
+          done
+
+      - name: Verify legacy county-series redirect
+        shell: bash
+        run: |
+          set -euo pipefail
+          headers="$(mktemp)"
+          curl --silent --show-error --max-time 30 --head \
+            'https://texasdefined.com/article/tyler-county-woodville-big-thicket-neches-piney-woods-texas' -o "$headers"
+          status="$(awk 'toupper($1) ~ /^HTTP\// {code=$2} END {print code}' "$headers")"
+          location="$(awk 'BEGIN{IGNORECASE=1} /^location:/ {sub(/^[^:]+:[[:space:]]*/, ""); sub(/\r$/, ""); print; exit}' "$headers")"
+          test "$status" = '301'
+          test "$location" = 'https://texasdefined.com/county/tyler'
+
+      - name: Verify live hero HTTP and MIME
+        shell: bash
+        run: |
+          set -euo pipefail
+          hero='https://commons.wikimedia.org/wiki/Special:Redirect/file/Tyler%20County%20Courthouse%2C%20Woodville%2C%20Texas%201709161133%20%2837161186322%29.jpg?width=1600'
+          headers="$(mktemp)"
+          image="$(mktemp)"
+          code="$(curl --silent --show-error --location --max-time 45 --dump-header "$headers" --output "$image" --write-out '%{http_code}' "$hero")"
+          test "$code" = '200'
+          mime="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/ {sub(/^[^:]+:[[:space:]]*/, ""); sub(/;.*/, ""); sub(/\r$/, ""); value=$0} END {print value}' "$headers")"
+          case "$mime" in image/jpeg|image/png|image/webp) ;; *) echo "Unexpected hero MIME: $mime" >&2; exit 1;; esac
+          file "$image"
+          file "$image" | grep -Eq 'JPEG image data|PNG image data|Web/P image'
+          echo "Tyler hero HTTP 200 MIME $mime"
+
+      - name: Publish success status
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
+            --data '{"state":"success","context":"texasdefined-tyler-county-live","description":"Tyler County page, redirect and hero verified live"}' >/dev/null
+
+      - name: Publish failure status
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
+            --data '{"state":"failure","context":"texasdefined-tyler-county-live","description":"Tyler County live verification failed"}' >/dev/null
