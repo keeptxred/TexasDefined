@@ -7,6 +7,8 @@ export type TexasSocialBatchOptions = {
   excludeRecordIds?: string[];
   preferredDomains?: TexasKnowledgeRecord['domain'][];
   preferredSeason?: TexasKnowledgeRecord['season'];
+  /** YYYY-MM-DD date used for freshness gating; defaults to the current UTC date. */
+  asOfDate?: string;
 };
 
 const formatPriority: TexasSocialFormat[] = [
@@ -35,6 +37,12 @@ const formatPriority: TexasSocialFormat[] = [
   'this-or-that',
 ];
 
+export function isKnowledgeRecordCurrent(record: TexasKnowledgeRecord, asOfDate: string): boolean {
+  if (record.validThrough && record.validThrough < asOfDate) return false;
+  if (record.reviewBy && record.reviewBy < asOfDate) return false;
+  return true;
+}
+
 function scoreRecord(record: TexasKnowledgeRecord, options: TexasSocialBatchOptions) {
   let score = 0;
   score -= (record.usage?.timesUsed ?? 0) * 100;
@@ -61,9 +69,16 @@ export function buildTexasSocialBatch(
   const excluded = new Set(options.excludeRecordIds ?? []);
   const usedDomains = new Set<TexasKnowledgeRecord['domain']>();
   const usedFormats = new Set<TexasSocialFormat>();
+  const asOfDate = options.asOfDate ?? new Date().toISOString().slice(0, 10);
 
   const candidates = records
-    .filter((record) => record.socialReady && record.verification !== 'needs-review' && record.socialFormats?.length && !excluded.has(record.id))
+    .filter((record) =>
+      record.socialReady &&
+      record.verification !== 'needs-review' &&
+      record.socialFormats?.length &&
+      !excluded.has(record.id) &&
+      isKnowledgeRecordCurrent(record, asOfDate),
+    )
     .sort((a, b) => {
       const scoreDelta = scoreRecord(b, options) - scoreRecord(a, options);
       if (scoreDelta !== 0) return scoreDelta;
@@ -72,7 +87,6 @@ export function buildTexasSocialBatch(
 
   const selected: TexasKnowledgeRecord[] = [];
 
-  // First pass favors domain diversity so a daily queue does not become ten wildlife posts.
   for (const record of candidates) {
     if (selected.length >= limit) break;
     if (usedDomains.has(record.domain)) continue;
@@ -80,7 +94,6 @@ export function buildTexasSocialBatch(
     usedDomains.add(record.domain);
   }
 
-  // Second pass fills the requested batch size using the same least-used scoring.
   for (const record of candidates) {
     if (selected.length >= limit) break;
     if (selected.some((item) => item.id === record.id)) continue;
@@ -95,7 +108,6 @@ export function buildTexasSocialBatch(
   });
 }
 
-/** Build a candidate batch from the complete in-repository Knowledge Bank. */
 export function buildDefaultTexasSocialBatch(options: TexasSocialBatchOptions = {}): TexasSocialPost[] {
   return buildTexasSocialBatch(TEXAS_KNOWLEDGE_CATALOG, options);
 }
