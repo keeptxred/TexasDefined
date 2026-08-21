@@ -1,0 +1,25 @@
+name: Validate Texas social evergreen
+
+on:
+  pull_request:
+    paths:
+      - "src/data/texas-social-evergreen.ts"
+      - "src/data/texas-social-evergreen-batch2.ts"
+      - "src/lib/texas-social-rotation.ts"
+      - "src/lib/texas-social-facebook-queue.ts"
+      - "scripts/data/validate-texas-social-evergreen.mjs"
+      - ".github/workflows/validate-texas-social-evergreen.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Validate evergreen social pool and draft queue safety
+        run: node scripts/data/validate-texas-social-evergreen.mjs
