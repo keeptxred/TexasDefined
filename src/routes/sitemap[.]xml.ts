@@ -15,7 +15,7 @@ import { canonicalEntityPath, isIndexableEntityPage } from "@/data/knowledge-gra
 import { COUNTY_PROPERTY_RECORDS } from "@/data/property/county-property-data";
 import { isCountyPropertyIndexReady } from "@/data/property/county-property-schema";
 import { TEXAS_DATASETS } from "@/data/texas-data-center";
-import { TEXAS_VS_STATES, texasVsStateSlug } from "@/data/texas-vs-states";
+import { TEXAS_VS_STATES, texasVsStateSlug } from "@/data/texas-vs-states-index";
 import { INDEXABLE_STATIC_PATHS, isExploreSitemapOwnedPath, isIndexablePublicPath, normalizePublicPath } from "@/lib/public-routes";
 
 const origin = `https://${texasDefinedBrand.identity.domain}`;
