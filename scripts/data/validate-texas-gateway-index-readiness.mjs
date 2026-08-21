@@ -45,6 +45,7 @@ if (!ids.length) fail("could not identify gateway-* article IDs in gateway fixtu
 
 const allowlistBody = readiness.match(/TEXAS_GATEWAY_INDEX_READY_SLUGS\s*=\s*new Set<string>\(\[([\s\S]*?)\]\)/)?.[1] ?? "";
 const readySlugs = [...allowlistBody.matchAll(/["']([^"']+)["']/g)].map((match) => match[1]);
+const readySet = new Set(readySlugs);
 const fixtureSlugs = new Set([
   ...gatewaySource.matchAll(/slug:\s*["']([^"']+)["']/g),
   ...gatewaySource.matchAll(/article\(\s*["'][^"']+["']\s*,\s*["']([^"']+)["']/g),
@@ -53,7 +54,35 @@ for (const slug of readySlugs) {
   if (!fixtureSlugs.has(slug)) fail(`index-ready allowlist contains unknown gateway slug: ${slug}`);
 }
 
+function walk(dir, output = []) {
+  if (!fs.existsSync(dir)) return output;
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) walk(full, output);
+    else if (/\.(?:ts|tsx)$/.test(entry.name)) output.push(full);
+  }
+  return output;
+}
+
+const publicSourceFiles = [
+  ...walk(path.join(root, "src/routes")),
+  ...walk(path.join(root, "src/components")),
+  ...walk(path.join(root, "src/brand")),
+];
+const stagedInboundLinks = [];
+for (const full of publicSourceFiles) {
+  const relative = path.relative(root, full).replaceAll("\\", "/");
+  const source = fs.readFileSync(full, "utf8");
+  for (const match of source.matchAll(/\/article\/([a-z0-9-]+)/g)) {
+    const slug = match[1];
+    if (fixtureSlugs.has(slug) && !readySet.has(slug)) stagedInboundLinks.push({ relative, slug });
+  }
+}
+if (stagedInboundLinks.length) {
+  fail(`public routes/components link to staged gateway drafts:\n${stagedInboundLinks.map(({ relative, slug }) => `- ${relative} -> /article/${slug}`).join("\n")}`);
+}
+
 if (!process.exitCode) {
   console.log(`Gateway index-readiness contract passed: ${gatewayFiles.length} fixture modules, ${ids.length} explicit gateway IDs, ${readySlugs.length} index-ready slug(s).`);
-  console.log("Staged gateway drafts remain directly QA-accessible but are excluded from normal discovery and noindexed at the article route.");
+  console.log("Staged gateway drafts remain directly QA-accessible but are excluded from normal discovery, public inbound linking and article indexing.");
 }
