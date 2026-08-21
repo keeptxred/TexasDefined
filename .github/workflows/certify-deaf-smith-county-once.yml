@@ -11,74 +11,33 @@ permissions:
   statuses: write
 
 jobs:
-  certify:
+  diagnose:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
-    environment: texasdefined-publication
+    timeout-minutes: 20
     env:
       GH_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v4
         with:
           ref: main
-          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
       - run: npm ci --no-audit --no-fund
-      - name: Validate repository and county source
-        id: validate
+      - name: Expose route-governance failure
         shell: bash
         run: |
-          set -euo pipefail
-          target='89725652843b7b3ea8b1d26b6c73eeba395a7b9d'
-          fixture='src/data/fixtures/deaf-smith-county-hereford-xit-cattle-ogallala-panhandle-texas.ts'
-          registry='src/data/county-series-profiles-south-plains.ts'
-          git merge-base --is-ancestor "$target" HEAD
-          test -f "$fixture"
-          grep -Fq 'countySlug: "deaf-smith"' "$registry"
-          grep -Fq 'Deaf Smith County: Hereford, XIT Ranch Country and the Western Texas Panhandle' "$fixture"
-          ! grep -n 'www\.texasdefined\.com' "$fixture" "$registry" src/data/county-series.ts src/data/county-series.server.ts
-          npm run data:validate:editorial-images
-          npm run validate
-      - name: Certify hero page and redirect
-        id: live
-        shell: bash
-        run: |
-          set -euo pipefail
-          work="$(mktemp -d)"; trap 'rm -rf "$work"' EXIT
-          agent='TexasDefined/1.0 (+https://texasdefined.com)'
-          hero='https://commons.wikimedia.org/wiki/Special:Redirect/file/Deaf_Smith_County%2C_TX%2C_Courthouse_IMG_4835.JPG?width=1600'
-          hcode="$(curl -A "$agent" -L --retry 5 --retry-all-errors --retry-delay 3 --max-time 90 -sS -D "$work/hh" -o "$work/hb" -w '%{http_code}' "$hero")"
-          hmime="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/{gsub(/\r/,""); sub(/^content-type:[[:space:]]*/,""); v=$0} END{print v}' "$work/hh" | cut -d';' -f1)"
-          hbytes="$(wc -c < "$work/hb")"
-          [ "$hcode" = 200 ] && [[ "$hmime" =~ ^image/(jpeg|png|webp)$ ]] && [ "$hbytes" -gt 50000 ]
-          code="$(curl -A "$agent" --retry 5 --retry-all-errors --retry-delay 2 --max-time 60 -sS -o "$work/page" -w '%{http_code}' "https://texasdefined.com/county/deaf-smith?verify=${GITHUB_SHA}-${GITHUB_RUN_ID}")"
-          [ "$code" = 200 ]
-          grep -Fq 'Deaf Smith County: Hereford, XIT Ranch Country and the Western Texas Panhandle' "$work/page"
-          grep -Fq 'The county in numbers' "$work/page"
-          grep -Fq 'County seat' "$work/page"
-          grep -Fq '2020 population' "$work/page"
-          grep -Fq 'County feature' "$work/page"
-          grep -Fq 'Hereford' "$work/page"
-          grep -Fq 'https://texasdefined.com/county/deaf-smith' "$work/page"
-          legacy='https://texasdefined.com/article/deaf-smith-county-hereford-xit-cattle-ogallala-panhandle-texas'
-          lcode="$(curl -A "$agent" --max-redirs 0 -sS -D "$work/lh" -o /dev/null -w '%{http_code}' "$legacy" || true)"
-          location="$(awk 'BEGIN{IGNORECASE=1} /^location:/{gsub(/\r/,""); sub(/^location:[[:space:]]*/,""); print; exit}' "$work/lh")"
-          [[ "$lcode" =~ ^30(1|8)$ ]] && [[ "$location" == *'/county/deaf-smith'* ]]
-          echo "PASS page=$code hero=$hcode mime=$hmime bytes=$hbytes legacy=$lcode location=$location"
-      - name: Publish success status
-        if: success()
-        shell: bash
-        run: |
+          set +e
+          node scripts/data/validate-public-route-governance.mjs > /tmp/route.log 2>&1
+          code=$?
+          cat /tmp/route.log
+          if [ $code -eq 0 ]; then context='route-governance-pass'; state='success'; else
+            detail="$(grep -m1 '^- ' /tmp/route.log | sed 's/^- //' | tr -cs 'A-Za-z0-9._/-' '-' | sed 's/^-//;s/-$//' | cut -c1-80)"
+            [ -n "$detail" ] || detail='unknown'
+            context="route-fail-${detail}"; state='failure'
+          fi
           curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
             "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
-            --data '{"state":"success","context":"deaf-smith-county-production","description":"Full validation and live county certification passed"}' >/dev/null
-      - name: Publish failure status
-        if: failure()
-        shell: bash
-        run: |
-          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
-            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
-            --data '{"state":"failure","context":"deaf-smith-county-production","description":"Final Deaf Smith County certification failed"}' >/dev/null
+            --data "{\"state\":\"$state\",\"context\":\"$context\",\"description\":\"Public route governance diagnostic\"}" >/dev/null
+          exit $code
