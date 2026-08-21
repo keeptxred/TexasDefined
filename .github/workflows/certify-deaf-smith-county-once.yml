@@ -27,6 +27,30 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci --no-audit --no-fund
+      - name: County property validation
+        id: county_property
+        continue-on-error: true
+        run: npm run county-property:validate
+      - name: SEO validation
+        id: seo
+        continue-on-error: true
+        run: npm run seo:validate
+      - name: Data validation
+        id: data
+        continue-on-error: true
+        run: npm run data:validate
+      - name: Production build
+        id: build
+        continue-on-error: true
+        run: npm run build
+      - name: Bundle budget
+        id: performance
+        continue-on-error: true
+        run: npm run performance:validate
+      - name: Editorial image uniqueness
+        id: images
+        continue-on-error: true
+        run: npm run data:validate:editorial-images
       - name: Source and canonical checks
         id: source
         continue-on-error: true
@@ -55,14 +79,6 @@ jobs:
           bytes="$(wc -c < "$work/b" 2>/dev/null || echo 0)"
           echo "HTTP=$code MIME=$mime bytes=$bytes"
           [ "$code" = 200 ] && [[ "$mime" =~ ^image/(jpeg|png|webp)$ ]] && [ "$bytes" -gt 50000 ]
-      - name: Editorial image uniqueness
-        id: images
-        continue-on-error: true
-        run: npm run data:validate:editorial-images
-      - name: Full repository validation
-        id: validate
-        continue-on-error: true
-        run: npm run validate
       - name: Live county page
         id: page
         continue-on-error: true
@@ -70,20 +86,15 @@ jobs:
         run: |
           set -euo pipefail
           work="$(mktemp -d)"; trap 'rm -rf "$work"' EXIT
-          ok=''
-          for attempt in $(seq 1 12); do
-            code="$(curl -A 'TexasDefined/1.0 (+https://texasdefined.com)' --retry 3 --retry-all-errors --retry-delay 2 --max-time 60 -sS -o "$work/page" -w '%{http_code}' "https://texasdefined.com/county/deaf-smith?verify=${GITHUB_SHA}-${GITHUB_RUN_ID}-${attempt}" || true)"
-            if [ "$code" = 200 ] \
-              && grep -Fq 'Deaf Smith County: Hereford, XIT Ranch Country and the Western Texas Panhandle' "$work/page" \
-              && grep -Fq 'The county in numbers' "$work/page" \
-              && grep -Fq 'County seat' "$work/page" \
-              && grep -Fq '2020 population' "$work/page" \
-              && grep -Fq 'County feature' "$work/page" \
-              && grep -Fq 'Hereford' "$work/page" \
-              && grep -Fq 'https://texasdefined.com/county/deaf-smith' "$work/page"; then ok=yes; break; fi
-            sleep 5
-          done
-          [ "$ok" = yes ]
+          code="$(curl -A 'TexasDefined/1.0 (+https://texasdefined.com)' --retry 5 --retry-all-errors --retry-delay 2 --max-time 60 -sS -o "$work/page" -w '%{http_code}' "https://texasdefined.com/county/deaf-smith?verify=${GITHUB_SHA}-${GITHUB_RUN_ID}" || true)"
+          [ "$code" = 200 ]
+          grep -Fq 'Deaf Smith County: Hereford, XIT Ranch Country and the Western Texas Panhandle' "$work/page"
+          grep -Fq 'The county in numbers' "$work/page"
+          grep -Fq 'County seat' "$work/page"
+          grep -Fq '2020 population' "$work/page"
+          grep -Fq 'County feature' "$work/page"
+          grep -Fq 'Hereford' "$work/page"
+          grep -Fq 'https://texasdefined.com/county/deaf-smith' "$work/page"
       - name: Legacy redirect
         id: redirect
         continue-on-error: true
@@ -99,10 +110,14 @@ jobs:
         if: always()
         shell: bash
         env:
+          COUNTY_PROPERTY: ${{ steps.county_property.outcome }}
+          SEO: ${{ steps.seo.outcome }}
+          DATA: ${{ steps.data.outcome }}
+          BUILD: ${{ steps.build.outcome }}
+          PERFORMANCE: ${{ steps.performance.outcome }}
+          IMAGES: ${{ steps.images.outcome }}
           SOURCE: ${{ steps.source.outcome }}
           HERO: ${{ steps.hero.outcome }}
-          IMAGES: ${{ steps.images.outcome }}
-          VALIDATE: ${{ steps.validate.outcome }}
           PAGE: ${{ steps.page.outcome }}
           REDIRECT: ${{ steps.redirect.outcome }}
         run: |
@@ -114,13 +129,17 @@ jobs:
               "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
               --data "{\"state\":\"$state\",\"context\":\"$context\",\"description\":\"$desc\"}" >/dev/null
           }
+          post deaf-smith-county-property "$COUNTY_PROPERTY" 'County property validation'
+          post deaf-smith-seo "$SEO" 'SEO validation group'
+          post deaf-smith-data "$DATA" 'Data validation group'
+          post deaf-smith-build "$BUILD" 'Production build'
+          post deaf-smith-performance "$PERFORMANCE" 'Client bundle budget'
+          post deaf-smith-image-uniqueness "$IMAGES" 'Editorial image uniqueness'
           post deaf-smith-source "$SOURCE" 'Source ancestry and canonical-host checks'
-          post deaf-smith-hero "$HERO" 'Hero HTTP, MIME and payload check'
-          post deaf-smith-image-uniqueness "$IMAGES" 'Editorial image uniqueness validator'
-          post deaf-smith-full-validate "$VALIDATE" 'Normal repository validation and build'
-          post deaf-smith-live-page "$PAGE" 'Live county structured and editorial page check'
-          post deaf-smith-legacy-redirect "$REDIRECT" 'Legacy article permanent redirect check'
-          if [ "$SOURCE" = success ] && [ "$HERO" = success ] && [ "$IMAGES" = success ] && [ "$VALIDATE" = success ] && [ "$PAGE" = success ] && [ "$REDIRECT" = success ]; then
+          post deaf-smith-hero "$HERO" 'Hero HTTP and MIME check'
+          post deaf-smith-live-page "$PAGE" 'Live structured and editorial page'
+          post deaf-smith-legacy-redirect "$REDIRECT" 'Legacy permanent redirect'
+          if [ "$COUNTY_PROPERTY" = success ] && [ "$SEO" = success ] && [ "$DATA" = success ] && [ "$BUILD" = success ] && [ "$PERFORMANCE" = success ] && [ "$IMAGES" = success ] && [ "$SOURCE" = success ] && [ "$HERO" = success ] && [ "$PAGE" = success ] && [ "$REDIRECT" = success ]; then
             post deaf-smith-county-production success 'Deaf Smith County certification passed'
           else
             post deaf-smith-county-production failure 'Deaf Smith County certification failed; see granular statuses'
