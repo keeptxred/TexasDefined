@@ -64,6 +64,8 @@ export type TexasKnowledgeRecord = {
   articlePath?: string;
   /** Editorial planning target only. Never emitted as a public/social link until promoted to articlePath. */
   plannedArticlePath?: string;
+  /** Two editorial choices for paired engagement formats such as Which One Is More Texas? */
+  engagementChoices?: [string, string];
   relatedEntityIds?: string[];
   imageQuery?: string;
   socialFormats?: TexasSocialFormat[];
@@ -84,6 +86,7 @@ export type TexasSocialFormat =
   | 'texas-trivia'
   | 'true-or-false'
   | 'this-or-that'
+  | 'which-one-is-more-texas'
   | 'would-you-rather-texas'
   | 'finish-the-sentence'
   | 'name-this-texas-place'
