@@ -102,8 +102,10 @@ async function enrichGovernmentEntity(entity: TexasEntityRecord): Promise<TexasE
 
 async function enrichCountyGeographyEntity(entity: TexasEntityRecord): Promise<TexasEntityRecord> {
   try {
-    const profile = await loadCountyProfile(entity.slug, entity.name);
-    const editorialComplete = hasCountySeriesProfile(entity.slug);
+    const [profile, editorialComplete] = await Promise.all([
+      loadCountyProfile(entity.slug, entity.name),
+      hasCountySeriesProfile(entity.slug),
+    ]);
     return {
       ...entity,
       // A generated Census/geography reference description is not the same as
