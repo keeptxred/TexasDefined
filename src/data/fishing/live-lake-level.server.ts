@@ -6,6 +6,7 @@ export type LiveLakeLevelSnapshot = {
 };
 
 const TIMEOUT_MS = 5000;
+const RECENT_CONDITIONS_URL = "https://waterdatafortexas.org/reservoirs/recent-conditions.json";
 
 function stripHtml(value: string) {
   return value
@@ -56,6 +57,45 @@ function normalizeCsvHeader(value: string) {
   return value.toLowerCase().trim().replace(/[^a-z0-9]+/g, "_").replace(/^_+|_+$/g, "");
 }
 
+function normalizeReservoirIdentity(value: string) {
+  return value.toLowerCase().replace(/[^a-z0-9]+/g, "");
+}
+
+export function parseWaterDataForTexasRecentConditions(sourceUrl: string, payload: unknown): LiveLakeLevelSnapshot | null {
+  if (!payload || typeof payload !== "object" || Array.isArray(payload)) return null;
+  const slug = sourceUrl.match(/\/reservoirs\/individual\/([a-z0-9-]+)\/?$/i)?.[1];
+  if (!slug) return null;
+  const wanted = normalizeReservoirIdentity(slug);
+  const records = Object.values(payload as Record<string, unknown>);
+
+  let partialMatch: Record<string, unknown> | null = null;
+  for (const value of records) {
+    if (!value || typeof value !== "object" || Array.isArray(value)) continue;
+    const record = value as Record<string, unknown>;
+    const names = [record.condensed_name, record.short_name, record.full_name]
+      .filter((name): name is string => typeof name === "string")
+      .map(normalizeReservoirIdentity);
+    if (names.some((name) => name === wanted)) {
+      partialMatch = record;
+      break;
+    }
+    if (!partialMatch && names.some((name) => name.includes(wanted) || wanted.includes(name))) partialMatch = record;
+  }
+
+  if (!partialMatch) return null;
+  const percentFull = typeof partialMatch.percent_full === "number" ? partialMatch.percent_full : Number(partialMatch.percent_full);
+  const measuredAt = typeof partialMatch.timestamp === "string" ? partialMatch.timestamp.match(/\d{4}-\d{2}-\d{2}/)?.[0] ?? null : null;
+  const elevationValue = typeof partialMatch.elevation === "number" ? partialMatch.elevation : Number(partialMatch.elevation);
+  if (!measuredAt || !Number.isFinite(percentFull) || percentFull < 0 || percentFull > 150) return null;
+
+  return {
+    sourceUrl,
+    measuredAt,
+    percentFull,
+    elevationFeet: Number.isFinite(elevationValue) ? elevationValue : null,
+  };
+}
+
 export function parseWaterDataForTexasReservoirCsv(sourceUrl: string, csv: string): LiveLakeLevelSnapshot | null {
   const lines = csv.replace(/^\uFEFF/, "").split(/\r?\n/).filter((line) => line.trim().length > 0);
   const headerIndex = lines.findIndex((line) => {
@@ -103,11 +143,24 @@ export async function loadLiveLakeLevel(sourceUrl: string): Promise<LiveLakeLeve
   const canonicalSourceUrl = sourceUrl.replace(/\/$/, "");
   const csvUrl = `${canonicalSourceUrl}-30day.csv`;
   try {
+    const recentResponse = await fetch(RECENT_CONDITIONS_URL, {
+      cache: "no-store",
+      headers: {
+        accept: "application/json",
+        "user-agent": "TexasDefined-Live-Lake-Level/1.3",
+      },
+      signal: AbortSignal.timeout(TIMEOUT_MS),
+    });
+    if (recentResponse.ok) {
+      const recentSnapshot = parseWaterDataForTexasRecentConditions(canonicalSourceUrl, await recentResponse.json());
+      if (recentSnapshot) return recentSnapshot;
+    }
+
     const csvResponse = await fetch(csvUrl, {
       cache: "no-store",
       headers: {
         accept: "text/csv,text/plain;q=0.9,*/*;q=0.1",
-        "user-agent": "TexasDefined-Live-Lake-Level/1.2",
+        "user-agent": "TexasDefined-Live-Lake-Level/1.3",
       },
       signal: AbortSignal.timeout(TIMEOUT_MS),
     });
@@ -120,7 +173,7 @@ export async function loadLiveLakeLevel(sourceUrl: string): Promise<LiveLakeLeve
       cache: "no-store",
       headers: {
         accept: "text/html,application/xhtml+xml",
-        "user-agent": "TexasDefined-Live-Lake-Level/1.2",
+        "user-agent": "TexasDefined-Live-Lake-Level/1.3",
       },
       signal: AbortSignal.timeout(TIMEOUT_MS),
     });
