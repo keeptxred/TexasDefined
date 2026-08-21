@@ -46,9 +46,9 @@ const INTENT_GROUPS = [
     body: "Choose the Texas you want to see — limestone hills, pine forest, prairie, coast, canyon, desert or mountain country.",
     links: [
       { to: "/explore/landscapes", label: "Texas landscapes" },
-      { to: "/explore/texas-scenic-drives", label: "Scenic drives" },
+      { to: "/explore/road-trips", label: "Scenic drives" },
       { to: "/explore/caverns", label: "Caverns & karst" },
-      { to: "/explore/texas-wildflower-seasons", label: "Wildflower seasons" },
+      { to: "/article/texas-wildflowers-guide", label: "Wildflower seasons" },
     ],
   },
   {
