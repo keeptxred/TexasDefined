@@ -22,6 +22,7 @@ const requiredSourceIds = [
   'texas-historical-commission', 'tslac', 'texas-demographic-center', 'census',
   'tnris', 'texas-water-data', 'txdot', 'texas-comptroller', 'noaa',
   'nws-hurricanes', 'usgs', 'texas-am-agrilife', 'texas-am-fire-ants', 'tdem-emergency',
+  'cdc-snakebite',
 ];
 const sourceIdMatches = [...sources.matchAll(/\bid:\s*['\"]([^'\"]+)['\"]/g)].map((match) => match[1]);
 const registeredSourceIds = new Set(sourceIdMatches);
@@ -71,12 +72,14 @@ for (const slug of stagedGuideSlugs) {
   if (fs.existsSync(`src/routes/${slug}.tsx`)) failures.push(`Staged guide has a public file route before publication approval: /${slug}`);
 }
 
-for (const field of ['verification', 'socialReady', 'sources', 'socialFormats', 'usage', 'plannedArticlePath']) if (!types.includes(field)) failures.push(`Knowledge record type is missing field: ${field}`);
+for (const field of ['verification', 'socialReady', 'sources', 'socialFormats', 'usage', 'plannedArticlePath', 'engagementChoices']) if (!types.includes(field)) failures.push(`Knowledge record type is missing field: ${field}`);
 if (!validation.includes('record.articlePath && record.plannedArticlePath')) failures.push('Runtime validation must reject records that mix live and planned article paths.');
+if (!validation.includes("socialFormats.includes('which-one-is-more-texas')")) failures.push('Runtime validation must enforce paired engagement choices.');
+if (!social.includes("format === 'which-one-is-more-texas' && !record.engagementChoices")) failures.push('Social renderer must reject paired-choice posts without engagementChoices.');
 const requiredSocialFormats = [
   'fact-of-the-day', 'you-know-youre-a-texan-if', 'you-know-youre-from-texas-if', 'tell-me-youre-from-texas',
   'only-texans-understand', 'til-texas-edition', 'only-in-texas', 'texas-trivia',
-  'true-or-false', 'this-or-that', 'would-you-rather-texas', 'finish-the-sentence',
+  'true-or-false', 'this-or-that', 'which-one-is-more-texas', 'would-you-rather-texas', 'finish-the-sentence',
   'name-this-texas-place', 'what-do-texans-call-this', 'how-texas-are-you',
   'texas-by-the-numbers', 'county-of-the-day', 'town-of-the-day',
   'wildlife-of-the-day', 'wildflower-of-the-day', 'food-fight', 'tag-a-texan',
@@ -89,6 +92,7 @@ if (!social.includes('if (!record.socialReady)')) failures.push('Social renderer
 if (!social.includes('record.socialFormats?.length') || !social.includes('includes(format)')) failures.push('Social renderer must enforce approved formats.');
 for (const format of requiredSocialFormats) if (!social.includes(`case '${format}'`) && !['fact-of-the-day', 'texas-by-the-numbers'].includes(format)) failures.push(`Social renderer is missing format handling: ${format}`);
 if (!scheduler.includes('excludeRecordIds') || !scheduler.includes('timesUsed') || !scheduler.includes('preferredSeason')) failures.push('Social scheduler must support exclusions, usage scoring and season preference.');
+if (!scheduler.includes("'which-one-is-more-texas'")) failures.push('Social scheduler must rotate the paired Texas choice format.');
 if (!scheduler.includes('buildDefaultTexasSocialBatch') || !scheduler.includes('TEXAS_KNOWLEDGE_CATALOG')) failures.push('Default social batching must use the canonical Knowledge Bank catalog.');
 for (const seedExport of ['TEXAS_KNOWLEDGE_SEED', 'TEXAS_KNOWLEDGE_EXPANDED_SEED', 'TEXAS_CULTURAL_OBSERVATIONS']) {
   if (!catalog.includes(seedExport)) failures.push(`Canonical Knowledge Bank catalog is missing ${seedExport}.`);
@@ -97,20 +101,23 @@ if (!catalog.includes("record.verification !== 'needs-review'")) failures.push('
 
 const explicitRecordIds = (text) => [...text.matchAll(/\bid:\s*['\"]([^'\"]+)['\"]/g)].map((match) => match[1]);
 const helperObservationIds = [...observations.matchAll(/\bobservation\(\s*['\"]([^'\"]+)['\"]/g)].map((match) => match[1]);
+const pairedChoiceIds = [...observations.matchAll(/\bpairedChoice\(\s*['\"]([^'\"]+)['\"]/g)].map((match) => match[1]);
 const ids = [
   ...explicitRecordIds(seed),
   ...explicitRecordIds(expanded),
   ...helperObservationIds,
+  ...pairedChoiceIds,
 ];
 const seen = new Set();
 for (const id of ids) {
   if (seen.has(id)) failures.push(`Duplicate knowledge record id detected in source files: ${id}`);
   seen.add(id);
 }
-if (ids.length < 40) failures.push(`Expected at least 40 seeded knowledge records; found ${ids.length}.`);
+if (ids.length < 45) failures.push(`Expected at least 45 seeded knowledge records; found ${ids.length}.`);
+if (pairedChoiceIds.length < 5) failures.push(`Expected at least 5 paired Texas engagement prompts; found ${pairedChoiceIds.length}.`);
 
-const observationCount = helperObservationIds.length + ((seed + expanded).match(/verification:\s*['\"]editorial-observation['\"]/g) ?? []).length;
-if (observationCount < 20) failures.push(`Expected at least 20 cultural observations; found ${observationCount}.`);
+const observationCount = helperObservationIds.length + pairedChoiceIds.length + ((seed + expanded).match(/verification:\s*['\"]editorial-observation['\"]/g) ?? []).length;
+if (observationCount < 25) failures.push(`Expected at least 25 cultural observations/engagement prompts; found ${observationCount}.`);
 const verifiedCount = ((seed + expanded).match(/verification:\s*['\"]verified['\"]/g) ?? []).length;
 if (verifiedCount < 15) failures.push(`Expected at least 15 verified/source-backed records; found ${verifiedCount}.`);
 
@@ -124,4 +131,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Texas knowledge bank validation passed: ${ids.length} seeded records, ${verifiedCount} verified records, ${observationCount} cultural observations, ${stagedGuidePaths.length} staged/non-public practical guides, ${registeredSourceIds.size} registered sources, and ${requiredSocialFormats.length} social formats.`);
+console.log(`Texas knowledge bank validation passed: ${ids.length} seeded records, ${verifiedCount} verified records, ${observationCount} cultural observations/engagement prompts, ${pairedChoiceIds.length} paired-choice prompts, ${stagedGuidePaths.length} staged/non-public practical guides, ${registeredSourceIds.size} registered sources, and ${requiredSocialFormats.length} social formats.`);
