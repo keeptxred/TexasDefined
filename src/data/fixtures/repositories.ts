@@ -56,6 +56,13 @@ const loadTexasLifeSplitArticles = () => {
   return texasLifeSplitArticlesPromise;
 };
 
+let texasGatewayArticlesPromise: Promise<Article[]> | null = null;
+const loadGatewayEditorialArticles = () => {
+  texasGatewayArticlesPromise ??= import("./lazy-texas-gateway")
+    .then((module) => module.loadTexasGatewayArticles());
+  return texasGatewayArticlesPromise;
+};
+
 let countySeriesArticleStubsPromise: Promise<Article[]> | null = null;
 const loadCountySeriesArticleStubs = () => {
   countySeriesArticleStubsPromise ??= import("./lazy-county-series")
@@ -66,6 +73,7 @@ const loadCountySeriesArticleStubs = () => {
 const loadEditorialArticles = async () => [
   ...editorialArticles,
   ...(await loadTexasLifeSplitArticles()),
+  ...(await loadGatewayEditorialArticles()),
   ...(await loadCountySeriesArticleStubs()),
 ];
 
