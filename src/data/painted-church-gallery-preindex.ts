@@ -27,6 +27,18 @@ const gallery: Record<string, PaintedChurchGalleryImage[]> = {
       license: "CC BY 3.0",
     },
   ],
+  "galveston-st-joseph-church": [
+    {
+      src: commons("St. Josephs Church -- Galveston.jpg"),
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:St._Josephs_Church_--_Galveston.jpg",
+      alt: "St. Joseph's Church at 2202 Avenue K in Galveston, Texas",
+      caption: "Jim Evans's exact-subject photograph documents the 1859–60 German Catholic St. Joseph's Church in Galveston, the individually listed property that resolves the historic fifteen-church thematic study against THC's current fourteen-property MPS interface.",
+      width: 2610,
+      height: 2418,
+      credit: "Jim Evans · Wikimedia Commons",
+      license: "CC BY-SA 4.0",
+    },
+  ],
 };
 
 export function preindexPaintedChurchGalleryBySlug(slug: string) {
