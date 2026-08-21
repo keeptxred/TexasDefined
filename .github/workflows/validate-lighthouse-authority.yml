@@ -12,6 +12,7 @@ on:
       - 'src/data/fixtures/lighthouse-search-intent-articles.ts'
       - 'src/data/fixtures/lazy-newest-evergreen.ts'
       - 'src/routes/explore.lighthouses.tsx'
+      - 'src/routes/texas-lighthouses[.]json.ts'
       - 'src/data/texas-lighthouse-map-points.ts'
       - 'src/data/lighthouse-visitor-planning.ts'
       - 'src/data/destination-editorial-links.ts'
@@ -21,6 +22,7 @@ on:
       - 'src/lib/public-routes.ts'
       - 'scripts/data/validate-lighthouse-authority.mjs'
       - 'scripts/data/validate-lighthouse-destination-discovery.mjs'
+      - 'scripts/data/validate-lighthouse-reference-json.mjs'
       - '.github/workflows/validate-lighthouse-authority.yml'
   push:
     branches: [main]
@@ -34,6 +36,7 @@ on:
       - 'src/data/fixtures/lighthouse-search-intent-articles.ts'
       - 'src/data/fixtures/lazy-newest-evergreen.ts'
       - 'src/routes/explore.lighthouses.tsx'
+      - 'src/routes/texas-lighthouses[.]json.ts'
       - 'src/data/texas-lighthouse-map-points.ts'
       - 'src/data/lighthouse-visitor-planning.ts'
       - 'src/data/destination-editorial-links.ts'
@@ -43,6 +46,7 @@ on:
       - 'src/lib/public-routes.ts'
       - 'scripts/data/validate-lighthouse-authority.mjs'
       - 'scripts/data/validate-lighthouse-destination-discovery.mjs'
+      - 'scripts/data/validate-lighthouse-reference-json.mjs'
       - '.github/workflows/validate-lighthouse-authority.yml'
 
 permissions:
@@ -60,3 +64,5 @@ jobs:
         run: node scripts/data/validate-lighthouse-authority.mjs
       - name: Validate Port Isabel destination discovery
         run: node scripts/data/validate-lighthouse-destination-discovery.mjs
+      - name: Validate Texas lighthouse reference JSON
+        run: node scripts/data/validate-lighthouse-reference-json.mjs
