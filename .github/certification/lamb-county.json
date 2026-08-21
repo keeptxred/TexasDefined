@@ -1,9 +1,0 @@
-{
-  "county": "lamb",
-  "status": "pass",
-  "stage": "complete",
-  "county_commit": "f1ab60c1d88613413828fadbd8627cfc242af4f2",
-  "tested_main": "709787ac25f03d05979d6716382002a6e171c247",
-  "detail": "validate=PASS deploy=PASS page=200 structured=yes editorial=yes legacy=not-applicable hero=200 mime=image/jpeg bytes=630894",
-  "recorded_at_utc": "2026-08-21T03:56:28.612997+00:00"
-}
