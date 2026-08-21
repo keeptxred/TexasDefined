@@ -7,13 +7,6 @@ export type CountySeriesProfile = {
   loadArticle: () => Promise<Article>;
 };
 
-const hasCountySeriesProfileServerFn = createServerFn({ method: "GET" })
-  .inputValidator((data: { countySlug: string }) => data)
-  .handler(async ({ data }) => {
-    const { hasCountySeriesProfileServer } = await import("./county-series.server");
-    return hasCountySeriesProfileServer(data.countySlug);
-  });
-
 const loadCountySeriesArticleServerFn = createServerFn({ method: "GET" })
   .inputValidator((data: { countySlug: string }) => data)
   .handler(async ({ data }) => {
@@ -21,8 +14,8 @@ const loadCountySeriesArticleServerFn = createServerFn({ method: "GET" })
     return loadCountySeriesArticleServer(data.countySlug);
   });
 
-export function hasCountySeriesProfile(countySlug: string): Promise<boolean> {
-  return hasCountySeriesProfileServerFn({ data: { countySlug } });
+export async function hasCountySeriesProfile(countySlug: string): Promise<boolean> {
+  return (await loadCountySeriesArticle(countySlug)) !== null;
 }
 
 export function loadCountySeriesArticle(countySlug: string): Promise<Article | null> {
