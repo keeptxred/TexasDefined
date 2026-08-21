@@ -44,8 +44,8 @@ for (const sourceList of clusters.matchAll(/sourceIds:\s*\[([^\]]*)\]/g)) {
   }
 }
 const clusterCount = (clusters.match(/\bid:\s*['\"]/g) ?? []).length;
-const stagedClusterCount = (clusters.match(/publicationState:\s*['\"]staged['\"]/g) ?? []).length;
-const plannedLinkCount = (clusters.match(/plannedCrossLinkTargets\s*:/g) ?? []).length;
+const stagedClusterCount = (clusters.match(/publicationState:\s*['\"]staged['\"],/g) ?? []).length;
+const plannedLinkCount = (clusters.match(/plannedCrossLinkTargets\s*:\s*\[/g) ?? []).length;
 if (!clusterCount) failures.push('Home/nature cluster inventory must contain at least one cluster.');
 if (stagedClusterCount !== clusterCount) failures.push(`Every home/nature cluster must be staged; found ${stagedClusterCount} staged of ${clusterCount}.`);
 if (plannedLinkCount !== clusterCount) failures.push(`Every home/nature cluster must label cross-links planning-only; found ${plannedLinkCount} of ${clusterCount}.`);
