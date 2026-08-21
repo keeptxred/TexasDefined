@@ -7,7 +7,7 @@ on:
       - '.github/workflows/certify-gaines-county-once.yml'
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: certify-gaines-county-once
@@ -61,6 +61,7 @@ jobs:
           fi
 
           npm run validate
+          validated="$(git rev-parse HEAD)"
 
           git fetch origin main
           latest="$(git rev-parse origin/main)"
@@ -100,5 +101,29 @@ jobs:
           if ! [[ "$legacy_code" =~ ^30(1|8)$ ]] || [[ "$legacy_location" != *'/county/gaines'* ]]; then
             exit 1
           fi
+
+          mkdir -p .github/certifications
+          cat > .github/certifications/gaines-county-production.txt <<EOF
+          PASS Gaines County
+          target=$target
+          validated=$validated
+          validate=PASS
+          deploy=PASS
+          page=200
+          structured=yes
+          editorial=yes
+          canonical=https://texasdefined.com/county/gaines
+          legacy=$legacy_code
+          legacy_location=$legacy_location
+          hero=$live_hcode
+          mime=$live_hmime
+          bytes=$live_hbytes
+          EOF
+          sed -i 's/^          //' .github/certifications/gaines-county-production.txt
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- .github/certifications/gaines-county-production.txt
+          git commit -m 'Record Gaines County production pass'
+          git push origin HEAD:main
 
           echo "PASS Gaines County validate=PASS deploy=PASS page=200 structured=yes editorial=yes legacy=$legacy_code hero=$live_hcode mime=$live_hmime bytes=$live_hbytes"
