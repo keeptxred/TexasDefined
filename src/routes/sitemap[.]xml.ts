@@ -42,6 +42,52 @@ const ARTICLE_LASTMOD_BY_SLUG: Readonly<Record<string, string>> = {
   "texas-flag-etiquette-display-guide": "2026-08-20",
 };
 
+// These pages deliberately canonicalize to a broader collection page while
+// their unique child content is still being developed. Keep the routes usable,
+// but do not send contradictory sitemap signals to search engines.
+const CANONICALIZED_STATIC_PATHS = new Set([
+  "/fishing/lakes",
+  "/fishing/plan",
+  "/fishing/compare",
+  "/fishing/seasons",
+  "/fishing/techniques",
+  "/fishing/techniques/soft-plastics",
+  "/fishing/techniques/crankbaits",
+  "/fishing/techniques/spinnerbaits",
+  "/fishing/techniques/topwater",
+  "/fishing/techniques/trolling",
+  "/fishing/techniques/vertical-jigging",
+  "/fishing/techniques/jigs-and-minnows",
+  "/fishing/techniques/live-bait",
+  "/fishing/techniques/cut-bait",
+  "/fishing/regulations",
+  "/fishing/species",
+  "/fishing/species/largemouth-bass",
+  "/fishing/guides",
+  "/fishing/reports",
+  "/fishing/access",
+  "/fishing/services",
+  "/sports-venues/compare",
+  "/sports-venues/dallas-fort-worth",
+  "/sports-venues/houston",
+  "/sports-venues/austin-central-texas",
+  "/sports-venues/san-antonio",
+  "/sports-venues/waco",
+  "/sports-venues/college-station",
+  "/sports-venues/el-paso",
+  "/sports-venues/lubbock",
+  "/sports-venues/football",
+  "/sports-venues/baseball",
+  "/sports-venues/basketball",
+  "/sports-venues/motorsports",
+  "/sports-venues/college-sports",
+  "/sports-venues/high-school-football",
+  "/sports-venues/rodeo-western",
+  "/sports-venues/golf",
+  "/sports-venues/soccer",
+  "/texas-data/city-county-relationships",
+]);
+
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
@@ -70,7 +116,7 @@ export const Route = createFileRoute("/sitemap.xml")({
         const countyPages = COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady);
         const entityPages = graph.filter(isIndexableEntityPage).filter(isTexasDefinedOwnedEntity);
         const entries: SitemapEntry[] = [
-          ...INDEXABLE_STATIC_PATHS.filter((path) => !isExploreSitemapOwnedPath(path) && isTexasDefinedOwnedStaticPath(path)).map((path) => ({ path, lastmod: STATIC_LASTMOD_BY_PATH[path] })),
+          ...INDEXABLE_STATIC_PATHS.filter((path) => !isExploreSitemapOwnedPath(path) && isTexasDefinedOwnedStaticPath(path) && !CANONICALIZED_STATIC_PATHS.has(path)).map((path) => ({ path, lastmod: STATIC_LASTMOD_BY_PATH[path] })),
           ...TEXAS_VS_STATES.map((state) => ({ path: `/texas-vs/${texasVsStateSlug(state)}`, lastmod: PRIORITY_SEO_LASTMOD })),
           ...FISHING_SITEMAP_ENTRIES,
           ...fishingGuideSitemapEntries,
@@ -87,7 +133,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           ...entityPages.map((entity) => ({ path: canonicalEntityPath(entity), lastmod: toDate(entity.sourceCheckedAt) })),
           ...TEXAS_DATASETS.map((dataset) => ({ path: `/texas-data/${dataset.slug}`, lastmod: toDate(dataset.updated) })),
         ];
-        const uniqueEntries = [...new Map(entries.map((entry) => { const path = normalizePublicPath(entry.path); return path ? { ...entry, path } : null; }).filter((entry): entry is SitemapEntry => Boolean(entry) && isIndexablePublicPath(entry.path) && isTexasDefinedOwnedStaticPath(entry.path)).map((entry) => [entry.path, entry])).values()];
+        const uniqueEntries = [...new Map(entries.map((entry) => { const path = normalizePublicPath(entry.path); return path ? { ...entry, path } : null; }).filter((entry): entry is SitemapEntry => Boolean(entry) && isIndexablePublicPath(entry.path) && isTexasDefinedOwnedStaticPath(entry.path) && !CANONICALIZED_STATIC_PATHS.has(entry.path)).map((entry) => [entry.path, entry])).values()];
         const body = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${uniqueEntries.map(({ path, lastmod }) => `  <url><loc>${escapeXml(`${origin}${path}`)}</loc>${lastmod ? `<lastmod>${lastmod}</lastmod>` : ""}</url>`).join("\n")}\n</urlset>`;
         return new Response(body, { headers: { "content-type": "application/xml; charset=utf-8", "cache-control": "public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400" } });
       },
