@@ -13,6 +13,7 @@ on:
       - "src/routes/texas-vs.$state.tsx"
       - "scripts/data/validate-texas-gateway-consolidation.mjs"
       - "scripts/data/validate-texas-gateway-reciprocal-links.mjs"
+      - "scripts/data/audit-texas-gateway-depth.mjs"
       - ".github/workflows/validate-texas-gateway-consolidation.yml"
   workflow_dispatch:
 
@@ -41,6 +42,9 @@ jobs:
 
       - name: Validate reciprocal gateway discovery links
         run: node scripts/data/validate-texas-gateway-reciprocal-links.mjs
+
+      - name: Audit gateway article depth
+        run: node scripts/data/audit-texas-gateway-depth.mjs
 
       - name: Build production application
         run: npm run build
