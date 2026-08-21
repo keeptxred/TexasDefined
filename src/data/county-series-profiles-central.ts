@@ -25,4 +25,10 @@ export const COUNTY_SERIES_PROFILES_CENTRAL: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/burleson-county-caldwell-somerville-brazos-central-texas")
       .then((module) => module.burlesonCountyCaldwellSomervilleBrazosCentralTexasArticle),
   },
+  {
+    countySlug: "caldwell",
+    articleSlug: "caldwell-county-lockhart-luling-plum-creek-san-marcos-river-texas",
+    loadArticle: () => import("@/data/fixtures/caldwell-county-lockhart-luling-plum-creek-san-marcos-river-texas")
+      .then((module) => module.caldwellCountyLockhartLulingPlumCreekSanMarcosRiverTexasArticle),
+  },
 ];
