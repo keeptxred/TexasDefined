@@ -14,6 +14,7 @@ export * from './seed-counties-batch9';
 export * from './cultural-observations';
 export * from './cultural-observations-batch2';
 export * from './home-nature-tools';
+export * from './home-nature-tools-expanded';
 export * from './catalog';
 export * from './sources';
 export * from './social';
