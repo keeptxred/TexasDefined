@@ -1,8 +1,0 @@
-{
-  "county": "wheeler",
-  "status": "pass",
-  "stage": "complete",
-  "target_sha": "36ba89090bc93ed1d57881d69329e440acb97a4d",
-  "detail": "validate=PASS deploy=PASS page=200 structured=yes editorial=yes hero=200 mime=image/jpeg bytes=406181",
-  "recorded_at_utc": "2026-08-21T13:35:23.483539+00:00"
-}
