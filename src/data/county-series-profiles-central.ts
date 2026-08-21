@@ -25,4 +25,10 @@ export const COUNTY_SERIES_PROFILES_CENTRAL: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/burleson-county-caldwell-somerville-brazos-central-texas")
       .then((module) => module.burlesonCountyCaldwellSomervilleBrazosCentralTexasArticle),
   },
+  {
+    countySlug: "leon",
+    articleSlug: "leon-county-centerville-buffalo-jewett-fort-boggy-central-texas",
+    loadArticle: () => import("@/data/fixtures/leon-county-centerville-buffalo-jewett-fort-boggy-central-texas")
+      .then((module) => module.leonCountyCentervilleBuffaloJewettFortBoggyCentralTexasArticle),
+  },
 ];
