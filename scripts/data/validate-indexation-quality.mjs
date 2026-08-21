@@ -67,8 +67,8 @@ if (!articleRoute.includes('shouldNoindexTexasGatewayArticle')) failures.push('A
 if (!gatewayReadiness.includes('return isTexasGatewayArticle(article) && !isTexasGatewayIndexReadySlug(article.slug);')) {
   failures.push('Gateway noindex helper must remain scoped to staged gateway articles only.');
 }
-const normalArticleCatalogPattern = /\.\.\.articles\s*\.filter\(\(article\)\s*=>\s*!isLegacyCountySeriesArticle\(article\.slug\)\)\s*\.filter\(\(article\)\s*=>\s*isTexasGatewayIndexReadyArticle\(article\)\)\s*\.map\(\(article\)\s*=>\s*\(\{\s*path:\s*`\/article\/\$\{article\.slug\}`/s;
-if (!normalArticleCatalogPattern.test(sitemap)) {
+const articleCatalogPattern = /\.\.\.articles\s*\.filter\(\(article\)\s*=>\s*!isLegacyCountySeriesArticle\(article\.slug\)\s*&&\s*isTexasGatewayIndexReadyArticle\(article\)\)\s*\.map\(\(article\)\s*=>\s*\(\{\s*path:\s*`\/article\/\$\{article\.slug\}`/s;
+if (!articleCatalogPattern.test(sitemap)) {
   failures.push('Primary sitemap must publish the normal non-legacy article catalog while excluding staged gateway drafts.');
 }
 for (const slug of ['muds-pids-hoas-special-districts-texas', 'texas-towns-german-czech-mexican-roots']) {
