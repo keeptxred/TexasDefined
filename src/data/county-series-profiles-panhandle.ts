@@ -43,4 +43,10 @@ export const COUNTY_SERIES_PROFILES_PANHANDLE: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/dallam-county-dalhart-xit-ranch-texline-panhandle-texas")
       .then((module) => module.dallamCountyDalhartXitRanchTexlinePanhandleTexasArticle),
   },
+  {
+    countySlug: "sherman",
+    articleSlug: "sherman-county-stratford-canadian-river-agriculture-panhandle-texas",
+    loadArticle: () => import("@/data/fixtures/sherman-county-stratford-canadian-river-agriculture-panhandle-texas")
+      .then((module) => module.shermanCountyStratfordCanadianRiverAgriculturePanhandleTexasArticle),
+  },
 ];
