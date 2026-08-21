@@ -10,8 +10,8 @@ type TopicLink = { to: string; label: string; description: string };
 const TOPIC_PATHS: Partial<Record<CategorySlug, TopicLink[]>> = {
   "lakes-rivers": [
     { to: "/explore/major-springs", label: "Springs & swimming", description: "Pair rivers and lakes with clear spring-fed water and swimming holes." },
-    { to: "/explore/state-parks", label: "State parks", description: "Find shoreline parks, paddling access, camping and trails near the water." },
     { to: "/fishing", label: "Texas fishing", description: "Go deeper lake by lake with target species, techniques, reports and local fishing resources." },
+    { to: "/best-places-to-go-camping-in-texas", label: "Best camping in Texas", description: "Turn a lake or river trip into an overnight plan with standout campsites by region, season and camping style." },
   ],
   "major-springs": [
     { to: "/explore/lakes-rivers", label: "Lakes & rivers", description: "See the larger waterways connected to Texas springs and swimming country." },
@@ -46,7 +46,7 @@ const TOPIC_PATHS: Partial<Record<CategorySlug, TopicLink[]>> = {
   "road-trips": [
     { to: "/explore/painted-churches/routes", label: "Painted Churches routes", description: "Use eight researched church itineraries ranging from the classic Schulenburg circuit to statewide heritage routes." },
     { to: "/explore/trip-planner", label: "Texas Trip Planner", description: "Turn destinations and interests into a practical day-by-day itinerary." },
-    { to: "/explore/small-towns", label: "Small towns", description: "Add courthouse squares, local landmarks and worthwhile detours." },
+    { to: "/best-places-to-go-camping-in-texas", label: "Best camping in Texas", description: "Add an overnight anchor to a Texas road trip with standout camping options across every major region." },
   ],
   "small-towns": [
     { to: "/explore/painted-churches", label: "Painted Churches", description: "Connect immigrant communities, parish history and painted interiors across small-town Texas." },
@@ -61,7 +61,7 @@ const TOPIC_PATHS: Partial<Record<CategorySlug, TopicLink[]>> = {
   outdoors: [
     { to: "/explore/state-parks", label: "State parks", description: "Start with protected public land for trails, camping and wildlife." },
     { to: "/explore/lakes-rivers", label: "Lakes & rivers", description: "Follow wildlife, paddling and fishing into Texas water destinations." },
-    { to: "/explore/national-parks", label: "National parks", description: "Go deeper into Texas' largest wild landscapes and dark-sky country." },
+    { to: "/best-places-to-go-camping-in-texas", label: "Best camping in Texas", description: "Choose an overnight base by region, season and camping style before heading deeper outdoors." },
   ],
 };
 
