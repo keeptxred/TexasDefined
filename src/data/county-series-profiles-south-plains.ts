@@ -79,4 +79,10 @@ export const COUNTY_SERIES_PROFILES_SOUTH_PLAINS: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/hale-county-plainview-runningwater-draw-irrigation-south-plains-texas")
       .then((module) => module.haleCountyPlainviewRunningwaterDrawIrrigationSouthPlainsTexasArticle),
   },
+  {
+    countySlug: "floyd",
+    articleSlug: "floyd-county-floydada-lockney-caprock-agriculture-south-plains-texas",
+    loadArticle: () => import("@/data/fixtures/floyd-county-floydada-lockney-caprock-agriculture-south-plains-texas")
+      .then((module) => module.floydCountyFloydadaLockneyCaprockAgricultureSouthPlainsTexasArticle),
+  },
 ];
