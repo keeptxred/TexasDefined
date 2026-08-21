@@ -16,6 +16,7 @@ export const Route = createFileRoute("/shop/$collection")({
     const collection = await context.queryClient.ensureQueryData(collectionQuery(params.collection));
     if (!collection) throw notFound();
     const products = await context.queryClient.ensureQueryData(productsQuery({ collection: params.collection }));
+    if (!products.length) throw notFound();
     return { collection, products };
   },
   head: ({ loaderData, params }) => {
@@ -33,7 +34,7 @@ export const Route = createFileRoute("/shop/$collection")({
       ] })],
     };
   },
-  notFoundComponent: () => <Container className="py-24"><p className="eyebrow text-primary">Shop collection</p><h1 className="mt-3 font-display text-4xl">That collection has moved on</h1><p className="mt-4 max-w-lg text-sm leading-7 text-muted-foreground">Browse the current Texas Defined selection instead.</p><Link to="/shop" className="eyebrow mt-6 inline-block border-b border-primary pb-1 text-primary">Return to the shop →</Link></Container>,
+  notFoundComponent: () => <Container className="py-24"><p className="eyebrow text-primary">Shop collection</p><h1 className="mt-3 font-display text-4xl">That collection is not active</h1><p className="mt-4 max-w-lg text-sm leading-7 text-muted-foreground">Only collections with products currently for sale are published. Browse the live Texas Defined shop instead.</p><Link to="/shop" className="eyebrow mt-6 inline-block border-b border-primary pb-1 text-primary">Return to the shop →</Link></Container>,
   component: CollectionPage,
 });
 
@@ -41,7 +42,7 @@ function CollectionPage() {
   const { collection: slug } = Route.useParams();
   const { data: collection } = useSuspenseQuery(collectionQuery(slug));
   const { data: products } = useSuspenseQuery(productsQuery({ collection: slug }));
-  if (!collection) return null;
+  if (!collection || !products.length) return null;
 
   return <>
     <section className="relative isolate overflow-hidden bg-ink text-ink-foreground">
@@ -57,7 +58,7 @@ function CollectionPage() {
     <Section>
       <Container>
         <SectionHeader eyebrow={collection.tagline || "The collection"} title="Selected for the Texas Defined shop" description="A smaller assortment, chosen to feel at home with the stories and places in the magazine." />
-        {products.length > 0 ? <ul className="mt-10 grid gap-x-7 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">{products.map((product) => <li key={product.id} id={productAnchor(product.id)}><ProductCard product={product} /></li>)}</ul> : <div className="mt-10 border-t border-border pt-8"><p className="font-display text-3xl">Nothing in this collection right now.</p><p className="mt-3 max-w-lg text-sm leading-7 text-muted-foreground">We keep the shop edited rather than filling every shelf. Check the main shop for the current selection.</p></div>}
+        <ul className="mt-10 grid gap-x-7 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">{products.map((product) => <li key={product.id} id={productAnchor(product.id)}><ProductCard product={product} /></li>)}</ul>
       </Container>
     </Section>
 
