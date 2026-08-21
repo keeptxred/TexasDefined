@@ -1,6 +1,8 @@
 import "./lib/error-capture";
 
 import { countySlugForLegacyArticle } from "./data/county-series";
+import { findCompleteTexasEntity } from "./data/knowledge-graph";
+import { canonicalEntityPath } from "./data/knowledge-graph/relationships";
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
 
@@ -10,6 +12,17 @@ type ServerEntry = {
 
 const BING_VERIFICATION_META =
   '<meta name="msvalidate.01" content="74E5E79AEC351CF6D2577A6FC6A125DF" />';
+
+const ENTITY_ROUTE_KINDS = new Set([
+  "county", "city", "census-place", "zip-code", "region", "metro-area",
+  "lake", "river", "state-park", "national-park", "national-forest",
+  "wildlife-management-area", "beach", "mountain", "cavern", "waterfall",
+  "agency", "appraisal-district", "tax-office", "county-clerk", "dps-office",
+  "museum", "historic-site", "courthouse", "mission", "battlefield",
+  "attraction", "scenic-drive", "fair", "rodeo", "festival",
+  "holiday-event", "sporting-event", "fairground", "sports-venue",
+  "school-district", "university", "utility",
+]);
 
 let serverEntryPromise: Promise<ServerEntry> | undefined;
 
@@ -38,6 +51,37 @@ function legacyCountyRedirect(request: Request) {
   const countySlug = countySlugForLegacyArticle(decodeURIComponent(match[1]));
   if (!countySlug) return null;
   url.pathname = `/county/${countySlug}`;
+  return Response.redirect(url.toString(), 301);
+}
+
+async function canonicalEntityRedirect(request: Request): Promise<Response | null> {
+  if (request.method !== "GET" && request.method !== "HEAD") return null;
+  const url = new URL(request.url);
+  const match = url.pathname.match(/^\/([^/]+)\/([^/]+)\/?$/);
+  if (!match) return null;
+
+  let kind: string;
+  let requestedSlug: string;
+  try {
+    kind = decodeURIComponent(match[1]).toLowerCase();
+    requestedSlug = decodeURIComponent(match[2]).toLowerCase();
+  } catch {
+    return null;
+  }
+  if (!ENTITY_ROUTE_KINDS.has(kind)) return null;
+
+  const entity = await findCompleteTexasEntity(`${kind}:${requestedSlug}`)
+    ?? await findCompleteTexasEntity(requestedSlug);
+  if (!entity || entity.kind !== kind) return null;
+
+  const canonicalPath = canonicalEntityPath(entity);
+  const requestedPath = `/${kind}/${requestedSlug}`;
+  if (canonicalPath === requestedPath) return null;
+
+  url.protocol = "https:";
+  url.hostname = "texasdefined.com";
+  url.port = "";
+  url.pathname = canonicalPath;
   return Response.redirect(url.toString(), 301);
 }
 
@@ -93,8 +137,10 @@ export default {
     try {
       const canonicalRedirect = canonicalHostRedirect(request);
       if (canonicalRedirect) return canonicalRedirect;
-      const redirect = legacyCountyRedirect(request);
-      if (redirect) return redirect;
+      const countyRedirect = legacyCountyRedirect(request);
+      if (countyRedirect) return countyRedirect;
+      const entityRedirect = await canonicalEntityRedirect(request);
+      if (entityRedirect) return entityRedirect;
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
       const normalizedResponse = await normalizeCatastrophicSsrResponse(response);
