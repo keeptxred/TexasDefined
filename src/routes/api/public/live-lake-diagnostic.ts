@@ -50,13 +50,17 @@ export const Route = createFileRoute("/api/public/live-lake-diagnostic")({
   server: {
     handlers: {
       GET: async () => {
-        const [{ loadLiveLakeLevelResilient }, recent, csv, html] = await Promise.all([
+        const [{ loadLiveLakeLevelResilient }, { getLiveLakeLevel }, recent, csv, html] = await Promise.all([
           import("@/data/fishing/live-lake-level-fetch.server"),
+          import("@/data/fishing/live-lake-level.functions"),
           probe(RECENT_URL, "application/json,text/plain;q=0.9,*/*;q=0.1"),
           probe(`${CONROE_URL}-30day.csv`, "text/csv,text/plain;q=0.9,*/*;q=0.1"),
           probe(CONROE_URL, "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"),
         ]);
-        const snapshot = await loadLiveLakeLevelResilient(CONROE_URL);
+        const [snapshot, serverFnSnapshot] = await Promise.all([
+          loadLiveLakeLevelResilient(CONROE_URL),
+          getLiveLakeLevel({ data: { sourceUrl: CONROE_URL } }).catch(() => null),
+        ]);
         return Response.json(
           {
             ok: Boolean(snapshot),
@@ -64,6 +68,7 @@ export const Route = createFileRoute("/api/public/live-lake-diagnostic")({
             runtime: "TexasDefined production worker",
             probes: { recent, csv, html },
             conroeSnapshot: snapshot,
+            conroeServerFnSnapshot: serverFnSnapshot,
           },
           { headers: { "cache-control": "no-store" } },
         );
