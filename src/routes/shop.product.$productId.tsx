@@ -11,12 +11,28 @@ export const Route = createFileRoute("/shop/product/$productId")({
     variant: typeof search.variant === "string" ? search.variant : undefined,
   }),
   loader: async ({ params }) => {
-    const [product] = await fetchAssignedShopProducts({ id: params.productId });
+    const [productResults, relatedResults] = await Promise.all([
+      fetchAssignedShopProducts({ id: params.productId }),
+      fetchAssignedShopProducts({ limit: 12 }),
+    ]);
+    const [product] = productResults;
     if (!product) throw notFound();
-    const related = (await fetchAssignedShopProducts({ limit: 12 })).filter((candidate) => candidate.id !== product.id).sort((a, b) => Number(b.collectionSlugs.some((slug) => product.collectionSlugs.includes(slug))) - Number(a.collectionSlugs.some((slug) => product.collectionSlugs.includes(slug)))).slice(0, 4);
+    const related = relatedResults
+      .filter((candidate) => candidate.id !== product.id)
+      .sort((a, b) => Number(b.collectionSlugs.some((slug) => product.collectionSlugs.includes(slug))) - Number(a.collectionSlugs.some((slug) => product.collectionSlugs.includes(slug))))
+      .slice(0, 4);
     return { product, related };
   },
-  head: ({ loaderData }) => ({ meta: [{ title: loaderData ? `${loaderData.product.name} | Texas Defined Shop` : "Product | Texas Defined Shop" }, { name: "description", content: loaderData?.product.blurb || "Shop Texas-inspired products from Texas Defined." }] }),
+  head: ({ loaderData }) => {
+    const canonicalUrl = loaderData ? `https://texasdefined.com/shop/product/${encodeURIComponent(loaderData.product.id)}` : undefined;
+    return {
+      meta: [
+        { title: loaderData ? `${loaderData.product.name} | Texas Defined Shop` : "Product | Texas Defined Shop" },
+        { name: "description", content: loaderData?.product.blurb || "Shop Texas-inspired products from Texas Defined." },
+      ],
+      links: canonicalUrl ? [{ rel: "canonical", href: canonicalUrl }] : [],
+    };
+  },
   component: ProductPage,
 });
 
