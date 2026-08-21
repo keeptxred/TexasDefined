@@ -3,3 +3,4 @@
 // specialized authority validators extend it without weakening the launch floor.
 await import('./validate-painted-church-preindex-readiness.mjs');
 await import('./validate-painted-church-preservation-authority.mjs');
+await import('./validate-painted-church-authority-floor.mjs');
