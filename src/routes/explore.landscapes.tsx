@@ -4,7 +4,7 @@ import { texasDefinedBrand } from '@/brand/texasdefined';
 import { DepartmentHero } from '@/components/editorial/DepartmentHero';
 import { Section, SectionHeader } from '@/components/editorial/SectionHeader';
 import { Container } from '@/components/layout/Container';
-import { texasLandscapeGuides, texasLandscapes } from '@/data/texas-landscapes';
+import { texasLandscapeCatalog, texasLandscapeGuideCatalog } from '@/data/texas-landscape-catalog';
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 const description = 'A field guide to the landscapes that define Texas: Hill Country limestone, Piney Woods forest, Gulf marshes, prairie, canyon, desert, mountain, river and more.';
@@ -30,8 +30,8 @@ export const Route = createFileRoute('/explore/landscapes')({
           '@type': 'ItemList',
           '@id': `${absoluteUrl(texasDefinedBrand, pagePath)}#landscapes`,
           name: 'Landscapes of Texas',
-          numberOfItems: texasLandscapes.length,
-          itemListElement: texasLandscapes.map((item, index) => ({
+          numberOfItems: texasLandscapeCatalog.length,
+          itemListElement: texasLandscapeCatalog.map((item, index) => ({
             '@type': 'ListItem',
             position: index + 1,
             item: {
@@ -78,9 +78,9 @@ function TexasLandscapesPage() {
 
     <Section tone="surface">
       <Container>
-        <SectionHeader eyebrow="The field guide" title={`${texasLandscapes.length} Texas landscapes to know`} description="Use these as building blocks. Many counties and travel regions contain more than one landscape." />
+        <SectionHeader eyebrow="The field guide" title={`${texasLandscapeCatalog.length} Texas landscapes to know`} description="Use these as building blocks. Many counties and travel regions contain more than one landscape." />
         <ul className="mt-12 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
-          {texasLandscapes.map((item, index) => <li key={item.slug} className="border-t border-border pt-5">
+          {texasLandscapeCatalog.map((item, index) => <li key={item.slug} className="border-t border-border pt-5">
             <Link to="/explore/landscapes/$slug" params={{ slug: item.slug }} className="group block">
               <p className="eyebrow text-muted-foreground">{String(index + 1).padStart(2, '0')} · {item.eyebrow}</p>
               <h2 className="mt-3 font-display text-3xl leading-tight transition-colors group-hover:text-primary">{item.name}</h2>
@@ -96,7 +96,7 @@ function TexasLandscapesPage() {
       <Container>
         <SectionHeader eyebrow="Questions people actually ask" title="Texas geography, explained plainly" description="These guides connect the landscape pages to practical travel, photography and geography searches." />
         <div className="mt-12 grid gap-6 lg:grid-cols-2">
-          {texasLandscapeGuides.map((guide) => <Link key={guide.slug} to="/explore/landscapes/$slug" params={{ slug: guide.slug }} className="group border border-border bg-background p-7 transition-colors hover:border-primary">
+          {texasLandscapeGuideCatalog.map((guide) => <Link key={guide.slug} to="/explore/landscapes/$slug" params={{ slug: guide.slug }} className="group border border-border bg-background p-7 transition-colors hover:border-primary">
             <h2 className="font-display text-3xl leading-tight group-hover:text-primary">{guide.title}</h2>
             <p className="mt-3 text-sm leading-7 text-muted-foreground">{guide.dek}</p>
             <span className="eyebrow mt-5 inline-block text-primary">Read the guide →</span>
