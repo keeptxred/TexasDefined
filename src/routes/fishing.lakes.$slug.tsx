@@ -7,7 +7,6 @@ import { ShowcaseLakeGuide } from "@/components/fishing/ShowcaseLakeGuide";
 import { Container } from "@/components/layout/Container";
 import { getLakeConroePageData } from "@/data/fishing/lake-conroe-page-data.functions";
 import { LAKE_CONROE_SLUG, lakeConroeCanonicalPath } from "@/data/fishing/lake-conroe-routing";
-import { getLiveLakeLevel } from "@/data/fishing/live-lake-level.functions";
 import { isShowcaseLakeSlug, showcaseLakeCanonicalPath } from "@/data/fishing/showcase-lake-routing";
 import { getShowcaseLakesPageData } from "@/data/fishing/showcase-lakes-page-data.functions";
 import { buildMeta, canonicalLink } from "@/lib/seo";
@@ -21,25 +20,23 @@ export const Route = createFileRoute("/fishing/lakes/$slug")({
     if (!lake) throw notFound();
     if (params.slug === LAKE_CONROE_SLUG) {
       const pageData = await getLakeConroePageData();
-      const [reports, guides, liveLakeLevel] = await Promise.all([
+      const [reports, guides] = await Promise.all([
         context.queryClient.ensureQueryData(fishingReportsQuery({ lakeId: lake.id, limit: 20 })),
         context.queryClient.ensureQueryData(fishingGuidesQuery({ lakeId: lake.id, limit: 50 })),
-        getLiveLakeLevel({ data: { sourceUrl: pageData.sources.liveLevel.url } }),
       ]);
-      return { kind: "conroe" as const, lake, reports, guides, pageData, liveLakeLevel };
+      return { kind: "conroe" as const, lake, reports, guides, pageData, liveLakeLevel: pageData.liveLakeLevel };
     }
     if (!isShowcaseLakeSlug(params.slug)) throw notFound();
     const allPageData = await getShowcaseLakesPageData();
     const pageData = allPageData[params.slug];
     if (!pageData) throw notFound();
-    const [reports, guides, businesses, placements, liveLakeLevel] = await Promise.all([
+    const [reports, guides, businesses, placements] = await Promise.all([
       context.queryClient.ensureQueryData(fishingReportsQuery({ lakeId: lake.id, limit: 20 })),
       context.queryClient.ensureQueryData(fishingGuidesQuery({ lakeId: lake.id, limit: 50 })),
       context.queryClient.ensureQueryData(fishingBusinessesQuery({ lakeId: lake.id, limit: 50 })),
       context.queryClient.ensureQueryData(fishingPlacementsQuery({ lakeId: lake.id, limit: 20 })),
-      getLiveLakeLevel({ data: { sourceUrl: pageData.sources.liveLevel.url } }),
     ]);
-    return { kind: "showcase" as const, lake, reports, guides, businesses, placements, pageData, liveLakeLevel };
+    return { kind: "showcase" as const, lake, reports, guides, businesses, placements, pageData, liveLakeLevel: pageData.liveLakeLevel };
   },
   head: ({ loaderData }) => {
     if (!loaderData) return { meta: [{ title: "Fishing lake unavailable" }, { name: "robots", content: "noindex, nofollow" }] };
