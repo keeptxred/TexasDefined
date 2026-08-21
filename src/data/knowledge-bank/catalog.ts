@@ -1,3 +1,4 @@
+import { TEXAS_CULTURAL_OBSERVATIONS_BATCH2 } from './cultural-observations-batch2';
 import { TEXAS_CULTURAL_OBSERVATIONS } from './cultural-observations';
 import { TEXAS_KNOWLEDGE_EXPANDED_SEED } from './seed-expanded';
 import { TEXAS_KNOWLEDGE_SEED } from './seed';
@@ -15,6 +16,7 @@ export const TEXAS_KNOWLEDGE_CATALOG: readonly TexasKnowledgeRecord[] = [
   ...TEXAS_KNOWLEDGE_SEED,
   ...TEXAS_KNOWLEDGE_EXPANDED_SEED,
   ...TEXAS_CULTURAL_OBSERVATIONS,
+  ...TEXAS_CULTURAL_OBSERVATIONS_BATCH2,
 ];
 
 export function texasKnowledgeByDomain(domain: TexasKnowledgeDomain): TexasKnowledgeRecord[] {
