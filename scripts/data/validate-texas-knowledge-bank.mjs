@@ -13,6 +13,7 @@ const social = read('src/data/knowledge-bank/social.ts');
 const scheduler = read('src/data/knowledge-bank/social-batch.ts');
 const validation = read('src/data/knowledge-bank/validation.ts');
 const guides = read('src/data/texas-evergreen-guides-batch8.ts');
+const clusters = read('src/data/texas-home-nature-clusters.ts');
 const routes = read('src/lib/public-routes.ts');
 const homeGarden = read('src/routes/home-garden.tsx');
 
@@ -22,7 +23,18 @@ const requiredSourceIds = [
   'tnris', 'texas-water-data', 'txdot', 'texas-comptroller', 'noaa',
   'nws-hurricanes', 'usgs', 'texas-am-agrilife', 'texas-am-fire-ants', 'tdem-emergency',
 ];
-for (const id of requiredSourceIds) if (!sources.includes(`id:'${id}'`) && !sources.includes(`id: '${id}'`)) failures.push(`Missing required knowledge source: ${id}`);
+const registeredSourceIds = new Set(
+  [...sources.matchAll(/\bid:\s*['\"]([^'\"]+)['\"]/g)].map((match) => match[1]),
+);
+for (const id of requiredSourceIds) if (!registeredSourceIds.has(id)) failures.push(`Missing required knowledge source: ${id}`);
+
+for (const sourceList of clusters.matchAll(/sourceIds:\s*\[([^\]]*)\]/g)) {
+  for (const sourceMatch of sourceList[1].matchAll(/['\"]([^'\"]+)['\"]/g)) {
+    if (!registeredSourceIds.has(sourceMatch[1])) failures.push(`Home/nature cluster references unregistered source ID: ${sourceMatch[1]}`);
+  }
+}
+if (!clusters.includes("publicationState: 'staged'")) failures.push('Home/nature clusters must explicitly declare staged publication state.');
+if (!clusters.includes('plannedCrossLinkTargets')) failures.push('Home/nature cluster link hints must be labeled planning-only.');
 
 // Batch 8 is deliberately staged editorial copy. Until publication is explicitly approved,
 // these paths must not leak into the public crawl registry, navigation, or file routes.
@@ -41,12 +53,21 @@ for (const slug of stagedGuideSlugs) {
 }
 
 for (const field of ['verification', 'socialReady', 'sources', 'socialFormats', 'usage']) if (!types.includes(field)) failures.push(`Knowledge record type is missing field: ${field}`);
-for (const format of ['fact-of-the-day', 'you-know-youre-a-texan-if', 'texas-trivia', 'wildlife-of-the-day', 'wildflower-of-the-day']) if (!types.includes(format)) failures.push(`Missing social format: ${format}`);
+const requiredSocialFormats = [
+  'fact-of-the-day', 'you-know-youre-a-texan-if', 'you-know-youre-from-texas-if',
+  'only-texans-understand', 'til-texas-edition', 'only-in-texas', 'texas-trivia',
+  'true-or-false', 'this-or-that', 'would-you-rather-texas', 'finish-the-sentence',
+  'name-this-texas-place', 'what-do-texans-call-this', 'how-texas-are-you',
+  'texas-by-the-numbers', 'county-of-the-day', 'town-of-the-day',
+  'wildlife-of-the-day', 'wildflower-of-the-day', 'food-fight', 'tag-a-texan',
+];
+for (const format of requiredSocialFormats) if (!types.includes(`'${format}'`)) failures.push(`Missing social format: ${format}`);
 
 if (!validation.includes("record.verification === 'needs-review' && record.socialReady")) failures.push('Validation must block needs-review records from social use.');
 if (!validation.includes("record.verification === 'verified' && !record.sources.length")) failures.push('Validation must block verified records with no source.');
 if (!social.includes('if (!record.socialReady)')) failures.push('Social renderer must reject non-social-ready records.');
 if (!social.includes('record.socialFormats?.length') || !social.includes('includes(format)')) failures.push('Social renderer must enforce approved formats.');
+for (const format of requiredSocialFormats) if (!social.includes(`case '${format}'`) && !['fact-of-the-day', 'texas-by-the-numbers'].includes(format)) failures.push(`Social renderer is missing format handling: ${format}`);
 if (!scheduler.includes('excludeRecordIds') || !scheduler.includes('timesUsed') || !scheduler.includes('preferredSeason')) failures.push('Social scheduler must support exclusions, usage scoring and season preference.');
 if (!scheduler.includes('buildDefaultTexasSocialBatch') || !scheduler.includes('TEXAS_KNOWLEDGE_CATALOG')) failures.push('Default social batching must use the canonical Knowledge Bank catalog.');
 for (const seedExport of ['TEXAS_KNOWLEDGE_SEED', 'TEXAS_KNOWLEDGE_EXPANDED_SEED', 'TEXAS_CULTURAL_OBSERVATIONS']) {
@@ -83,4 +104,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Texas knowledge bank validation passed: ${ids.length} seeded records, ${verifiedCount} verified records, ${observationCount} cultural observations, ${stagedGuidePaths.length} staged/non-public practical guides, and ${requiredSourceIds.length} required authoritative sources.`);
+console.log(`Texas knowledge bank validation passed: ${ids.length} seeded records, ${verifiedCount} verified records, ${observationCount} cultural observations, ${stagedGuidePaths.length} staged/non-public practical guides, ${registeredSourceIds.size} registered sources, and ${requiredSocialFormats.length} social formats.`);
