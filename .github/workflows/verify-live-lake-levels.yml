@@ -1,0 +1,135 @@
+name: Verify live lake levels in production
+
+on:
+  workflow_run:
+    workflows:
+      - Deploy TexasDefined production
+    types:
+      - completed
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/verify-live-lake-levels.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  verify-live-lakes:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      GH_TOKEN: ${{ github.token }}
+      STATUS_SHA: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}
+    steps:
+      - name: Publish live-lake verification pending
+        shell: bash
+        run: |
+          curl --fail-with-body --silent --show-error --request POST \
+            --header "Authorization: Bearer $GH_TOKEN" \
+            --header 'Accept: application/vnd.github+json' \
+            --header 'X-GitHub-Api-Version: 2022-11-28' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${STATUS_SHA}" \
+            --data '{"state":"pending","context":"texasdefined-live-lakes","description":"Checking all live lake-level surfaces"}' >/dev/null
+
+      - name: Verify all published lake pages expose live-level UI
+        shell: bash
+        run: |
+          set -euo pipefail
+          origin='https://texasdefined.com'
+          lakes=(
+            lake-conroe
+            lake-fork
+            sam-rayburn-reservoir
+            lake-livingston
+            lake-texoma
+            toledo-bend-reservoir
+            possum-kingdom-reservoir
+            canyon-lake
+            choke-canyon-reservoir
+            amistad-reservoir
+          )
+
+          failures=0
+          numeric=0
+          workdir="$(mktemp -d)"
+          trap 'rm -rf "$workdir"' EXIT
+
+          for slug in "${lakes[@]}"; do
+            out="$workdir/${slug}.html"
+            ok=0
+            for attempt in 1 2 3; do
+              url="${origin}/fishing/lakes/${slug}?verify-live-lake=${GITHUB_RUN_ID}-${attempt}"
+              echo "[$slug] attempt $attempt: $url"
+              if curl --fail-with-body --silent --show-error --location --max-time 30 "$url" -o "$out"; then
+                if grep -Fq 'Live lake level:' "$out" && grep -Fq 'Water Data for Texas' "$out"; then
+                  ok=1
+                  break
+                fi
+              fi
+              sleep 5
+            done
+
+            if [[ "$ok" -ne 1 ]]; then
+              echo "::error title=Lake live-level UI missing::${slug} did not render the live lake-level strip in production"
+              failures=$((failures + 1))
+              continue
+            fi
+
+            if grep -Eq '[0-9]+\.[0-9]% full' "$out" && grep -Fq 'measured' "$out"; then
+              echo "[$slug] live numeric reading rendered"
+              numeric=$((numeric + 1))
+            else
+              echo "::warning title=Lake live reading unavailable::${slug} rendered the live-level UI but the upstream current reading was unavailable during this check"
+            fi
+          done
+
+          if [[ "$failures" -gt 0 ]]; then
+            echo "${failures} published lake page(s) failed the production live-level UI check" >&2
+            exit 1
+          fi
+
+          if [[ "$numeric" -lt 1 ]]; then
+            echo "::error title=No live lake readings returned::All lake pages rendered the UI, but none returned a current numeric Water Data for Texas reading"
+            exit 1
+          fi
+
+          echo "All 10 published lake pages render the live-level surface; ${numeric}/10 returned a numeric current reading in this run."
+
+      - name: Verify lake section route also carries current-condition surface
+        shell: bash
+        run: |
+          set -euo pipefail
+          url="https://texasdefined.com/fishing/lakes/lake-conroe/boating?verify-live-lake-section=${GITHUB_RUN_ID}"
+          body="$(mktemp)"
+          trap 'rm -f "$body"' EXIT
+          curl --fail-with-body --silent --show-error --location --max-time 30 "$url" -o "$body"
+          grep -Fq 'Live lake level:' "$body"
+          grep -Fq 'Water Data for Texas' "$body"
+          echo 'Lake section route live-level surface verified.'
+
+      - name: Publish live-lake verification success
+        if: success()
+        shell: bash
+        run: |
+          curl --fail-with-body --silent --show-error --request POST \
+            --header "Authorization: Bearer $GH_TOKEN" \
+            --header 'Accept: application/vnd.github+json' \
+            --header 'X-GitHub-Api-Version: 2022-11-28' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${STATUS_SHA}" \
+            --data '{"state":"success","context":"texasdefined-live-lakes","description":"All production lake-level surfaces passed"}' >/dev/null
+
+      - name: Publish live-lake verification failure
+        if: failure()
+        shell: bash
+        run: |
+          curl --fail-with-body --silent --show-error --request POST \
+            --header "Authorization: Bearer $GH_TOKEN" \
+            --header 'Accept: application/vnd.github+json' \
+            --header 'X-GitHub-Api-Version: 2022-11-28' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${STATUS_SHA}" \
+            --data '{"state":"failure","context":"texasdefined-live-lakes","description":"Production lake-level verification failed"}' >/dev/null
