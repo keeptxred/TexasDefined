@@ -13,4 +13,10 @@ export const COUNTY_SERIES_PROFILES_EAST_TEXAS: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/jasper-county-jasper-kirbyville-sam-rayburn-piney-woods-texas")
       .then((module) => module.jasperCountyJasperKirbyvilleSamRayburnPineyWoodsTexasArticle),
   },
+  {
+    countySlug: "newton",
+    articleSlug: "newton-county-newton-sabine-river-piney-woods-texas",
+    loadArticle: () => import("@/data/fixtures/newton-county-newton-sabine-river-piney-woods-texas")
+      .then((module) => module.newtonCountyNewtonSabineRiverPineyWoodsTexasArticle),
+  },
 ];
