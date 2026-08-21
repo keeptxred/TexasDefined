@@ -36,6 +36,71 @@ jobs:
             "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${STATUS_SHA}" \
             --data '{"state":"pending","context":"texasdefined-live-lakes","description":"Checking all live lake-level surfaces"}' >/dev/null
 
+      - name: Probe Water Data connectivity from production Worker
+        shell: bash
+        run: |
+          set -euo pipefail
+          url="https://texasdefined.com/api/public/live-lake-diagnostic?verify=${GITHUB_RUN_ID}"
+          body="$(mktemp)"
+          vars="$(mktemp)"
+          trap 'rm -f "$body" "$vars"' EXIT
+
+          publish_status() {
+            local state="$1" context="$2" description="$3"
+            local payload
+            payload="$(python3 - "$state" "$context" "$description" <<'PY'
+          import json, sys
+          print(json.dumps({"state": sys.argv[1], "context": sys.argv[2], "description": sys.argv[3][:140]}))
+          PY
+          )"
+            curl --fail-with-body --silent --show-error --request POST \
+              --header "Authorization: Bearer $GH_TOKEN" \
+              --header 'Accept: application/vnd.github+json' \
+              --header 'X-GitHub-Api-Version: 2022-11-28' \
+              "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${STATUS_SHA}" \
+              --data "$payload" >/dev/null
+          }
+
+          if ! curl --fail-with-body --silent --show-error --location --max-time 45 "$url" -o "$body"; then
+            publish_status failure texasdefined-waterdata-diagnostic "Production diagnostic endpoint unavailable"
+            exit 0
+          fi
+
+          python3 - "$body" "$vars" <<'PY'
+          import json, sys
+          payload = json.load(open(sys.argv[1], encoding="utf-8"))
+          probes = payload.get("probes") or {}
+          with open(sys.argv[2], "w", encoding="utf-8") as out:
+              for key in ("recent", "csv", "html"):
+                  probe = probes.get(key) or {}
+                  out.write(f"{key}_ok={'true' if probe.get('ok') else 'false'}\n")
+                  out.write(f"{key}_status={probe.get('status') if probe.get('status') is not None else 'none'}\n")
+                  out.write(f"{key}_length={probe.get('contentLength') or 0}\n")
+                  out.write(f"{key}_elapsed={probe.get('elapsedMs') or 0}\n")
+              out.write(f"snapshot_ok={'true' if payload.get('conroeSnapshot') else 'false'}\n")
+          print(json.dumps(payload, indent=2)[:6000])
+          PY
+          source "$vars"
+
+          for source_name in recent csv html; do
+            eval "ok=\${${source_name}_ok:-false}"
+            eval "status=\${${source_name}_status:-none}"
+            eval "length=\${${source_name}_length:-0}"
+            eval "elapsed=\${${source_name}_elapsed:-0}"
+            if [[ "$ok" == "true" ]]; then
+              publish_status success "texasdefined-waterdata-${source_name}" "HTTP ${status}; ${length} bytes; ${elapsed}ms"
+            else
+              publish_status failure "texasdefined-waterdata-${source_name}" "HTTP ${status}; ${length} bytes; ${elapsed}ms"
+            fi
+          done
+          if [[ "${snapshot_ok:-false}" == "true" ]]; then
+            publish_status success texasdefined-waterdata-snapshot "Production Worker parsed current Lake Conroe snapshot"
+            publish_status success texasdefined-waterdata-diagnostic "Water Data production runtime diagnostic passed"
+          else
+            publish_status failure texasdefined-waterdata-snapshot "Production Worker returned no Lake Conroe snapshot"
+            publish_status failure texasdefined-waterdata-diagnostic "Water Data reachable state captured; snapshot missing"
+          fi
+
       - name: Verify every published lake returns a current numeric reading
         shell: bash
         run: |
