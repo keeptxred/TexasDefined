@@ -7,6 +7,7 @@ const newsLayout = fs.readFileSync('src/routes/news.tsx', 'utf8');
 const newsIndex = fs.readFileSync('src/routes/news.index.tsx', 'utf8');
 const newsStory = fs.readFileSync('src/routes/news.$slug.tsx', 'utf8');
 const articleRoute = fs.readFileSync('src/routes/article.$slug.tsx', 'utf8');
+const gatewayReadiness = fs.readFileSync('src/data/fixtures/texas-gateway-index-readiness.ts', 'utf8');
 const lazyEvergreen = fs.readFileSync('src/data/fixtures/lazy-evergreen.ts', 'utf8');
 const specialDistricts = fs.readFileSync('src/data/fixtures/muds-pids-hoas-special-districts.ts', 'utf8');
 const lazyMigratedEditorial = fs.readFileSync('src/data/fixtures/lazy-migrated-editorial.ts', 'utf8');
@@ -54,11 +55,21 @@ if (!articleRoute.includes('if (!loaderData) return { meta: [{ title: "Unavailab
   failures.push('Article route must reserve noindex for the unavailable-loader state.');
 }
 const articleMetaBlock = articleRoute.match(/meta: buildMeta\(texasDefinedBrand, \{([\s\S]*?)\n\s*\}\),\n\s*links:/)?.[1] ?? '';
+const gatewayRobotsContract = 'robots: shouldNoindexTexasGatewayArticle(article) ? "noindex, follow, max-image-preview:large" : undefined';
 if (!articleMetaBlock) failures.push('Could not parse normal article buildMeta block.');
-else if (/\brobots\s*:/.test(articleMetaBlock)) failures.push('Loaded evergreen articles must not emit a noindex robots override from the normal article metadata block.');
-const normalArticleCatalogPattern = /\.\.\.articles\s*\.filter\(\(article\)\s*=>\s*!isLegacyCountySeriesArticle\(article\.slug\)\)\s*\.map\(\(article\)\s*=>\s*\(\{\s*path:\s*`\/article\/\$\{article\.slug\}`/s;
+else {
+  const robotsEntries = articleMetaBlock.match(/\brobots\s*:[^\n]+/g) ?? [];
+  if (robotsEntries.length > 1 || (robotsEntries.length === 1 && !articleMetaBlock.includes(gatewayRobotsContract))) {
+    failures.push('Loaded evergreen articles may only emit the explicit staged-gateway robots override.');
+  }
+}
+if (!articleRoute.includes('shouldNoindexTexasGatewayArticle')) failures.push('Article route must scope conditional noindex behavior through the staged gateway helper.');
+if (!gatewayReadiness.includes('return isTexasGatewayArticle(article) && !isTexasGatewayIndexReadySlug(article.slug);')) {
+  failures.push('Gateway noindex helper must remain scoped to staged gateway articles only.');
+}
+const normalArticleCatalogPattern = /\.\.\.articles\s*\.filter\(\(article\)\s*=>\s*!isLegacyCountySeriesArticle\(article\.slug\)\)\s*\.filter\(\(article\)\s*=>\s*isTexasGatewayIndexReadyArticle\(article\)\)\s*\.map\(\(article\)\s*=>\s*\(\{\s*path:\s*`\/article\/\$\{article\.slug\}`/s;
 if (!normalArticleCatalogPattern.test(sitemap)) {
-  failures.push('Primary sitemap must publish the normal non-legacy article catalog.');
+  failures.push('Primary sitemap must publish the normal non-legacy article catalog while excluding staged gateway drafts.');
 }
 for (const slug of ['muds-pids-hoas-special-districts-texas', 'texas-towns-german-czech-mexican-roots']) {
   if (!lazyEvergreen.includes(`slug: "${slug}"`)) failures.push(`GSC evergreen indexing candidate is missing from the lazy article registry: ${slug}`);
@@ -148,4 +159,4 @@ if (failures.length) {
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
-console.log('Indexation quality validation passed: conditional hubs, routed-news canonical isolation, loaded evergreen article canonicals/indexability and sitemap publication, primary-source-backed special-district evergreen authority, two parsed migrated finance deep-content batches with primary-source authority and reciprocal tools, noindex utilities, redirects, generated-page quality gates, and sitemap ownership are aligned.');
+console.log('Indexation quality validation passed: conditional hubs, routed-news canonical isolation, normal evergreen article canonicals/indexability, explicit staged-gateway noindex/sitemap gating, primary-source-backed special-district evergreen authority, two parsed migrated finance deep-content batches with primary-source authority and reciprocal tools, noindex utilities, redirects, generated-page quality gates, and sitemap ownership are aligned.');
