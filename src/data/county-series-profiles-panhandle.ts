@@ -80,4 +80,10 @@ export const COUNTY_SERIES_PROFILES_PANHANDLE: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/gray-county-pampa-lefors-red-river-oil-panhandle-texas")
       .then((module) => module.grayCountyPampaLeforsRedRiverOilPanhandleTexasArticle),
   },
+  {
+    countySlug: "wheeler",
+    articleSlug: "wheeler-county-shamrock-mobeetie-fort-elliott-route-66-panhandle-texas",
+    loadArticle: () => import("@/data/fixtures/wheeler-county-shamrock-mobeetie-fort-elliott-route-66-panhandle-texas")
+      .then((module) => module.wheelerCountyShamrockMobeetieFortElliottRoute66PanhandleTexasArticle),
+  },
 ];
