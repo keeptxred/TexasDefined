@@ -14,6 +14,7 @@ const localGovernment = read('src/data/local-government-profile.ts');
 const propertySchema = read('src/data/property/county-property-schema.ts');
 const propertyRoute = read('src/routes/property-tax.county.$county.tsx');
 const sitemap = read('src/routes/sitemap[.]xml.ts');
+const ownership = read('src/lib/brand-route-ownership.ts');
 
 function requireAll(label, text, needles) {
   for (const needle of needles) if (!text.includes(needle)) errors.push(`${label}: missing ${needle}`);
@@ -44,18 +45,31 @@ requireAll('county publication gate', relationships, [
   'Boolean(entity.coordinates)',
   'entity.relationships.length >= 2',
 ]);
-requireAll('agency publication gate', relationships, [
-  "entity.kind === 'agency'",
-  'description.length >= 150',
-  'hasEntitySpecificOfficialUrl(entity)',
-  'Boolean(entity.tags?.length && entity.tags.length >= 3)',
+requireAll('government reference ownership gate', relationships, [
+  'GOVERNMENT_REFERENCE_KINDS',
+  "'agency'",
+  "'appraisal-district'",
+  "'tax-office'",
+  "'county-clerk'",
+  "'dps-office'",
+  'if (GOVERNMENT_REFERENCE_KINDS.has(entity.kind)) return false',
 ]);
-requireAll('local-office publication gate', relationships, [
-  'LOCAL_GOVERNMENT_KINDS.has(entity.kind)',
-  "entity.sourceConfidence !== 'official'",
-  "entity.status !== 'active'",
+requireAll('government redirect ownership', ownership, [
+  'texasDefinedAgencyRedirect',
+  "if (slug === 'texas-dmv') return '/texas-dmv'",
+  "'texas-comptroller'",
+  "'texas-secretary-of-state'",
+  "'texas-dps'",
+  "'texas-parks-wildlife'",
+  "'texas-workforce-commission'",
+  "'texas-education-agency'",
+  "'public-utility-commission'",
+  "'texas-commission-environmental-quality'",
+  "'texas-general-land-office'",
+  "'texas-department-insurance'",
+  "'texas-health-human-services'",
 ]);
-requireAll('office promotion gate', entityIndex, [
+requireAll('office promotion data layer', entityIndex, [
   'enrichLocalOfficeEntityFromSnapshot',
   'getCountyPropertyRecordBySlug',
   'isCountyPropertyIndexReady',
@@ -63,7 +77,7 @@ requireAll('office promotion gate', entityIndex, [
   'const readyForPublication = hasVerifiedWebsite && hasUsefulContact && description.length >= 180',
   "status: readyForPublication ? 'active' : entity.status",
 ]);
-requireAll('sitemap office enrichment', entityIndex, [
+requireAll('office source enrichment', entityIndex, [
   "entity.kind !== 'appraisal-district' && entity.kind !== 'tax-office'",
   'const enriched = enrichLocalOfficeEntityFromSnapshot(entity)',
   'enrichedById.set(entity.id, enriched)',
@@ -154,6 +168,7 @@ requireAll('property county route', propertyRoute, [
 requireAll('sitemap qualification', sitemap, [
   'COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady)',
   'graph.filter(isIndexableEntityPage)',
+  '.filter(isTexasDefinedOwnedEntity)',
   'canonicalEntityPath(entity)',
 ]);
 
@@ -170,9 +185,9 @@ forbidAll('relationship filler', relationships, [
 ]);
 
 if (errors.length) {
-  console.error('Generated-page quality validation failed. These regressions can recreate thin, generic, or prematurely indexed pages:');
+  console.error('Generated-page quality validation failed. These regressions can recreate thin, generic, prematurely indexed, or incorrectly owned pages:');
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
 for (const warning of warnings) console.warn(`- ${warning}`);
-console.log('Generated-page quality validator passed: inventory, source authority, county-seat place semantics, content richness, indexability, sitemap qualification, snapshot-backed local-office promotion, property-page gating, county crawl-demand filtering, and related-content relevance are protected.');
+console.log('Generated-page quality validator passed: inventory, source authority, county-seat place semantics, content richness, brand ownership, indexability, sitemap qualification, snapshot-backed local-office data, property-page gating, county crawl-demand filtering, and related-content relevance are protected.');
