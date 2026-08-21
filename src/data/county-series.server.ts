@@ -16,6 +16,10 @@ const countySeriesProfiles = [
   ...COUNTY_SERIES_PROFILES,
 ];
 
+export function hasCountySeriesProfileServer(countySlug: string) {
+  return countySeriesProfiles.some((item) => item.countySlug === countySlug);
+}
+
 export function loadCountySeriesArticleServer(countySlug: string): Promise<Article | null> {
   const cached = articlePromiseCache.get(countySlug);
   if (cached) return cached;
