@@ -162,9 +162,8 @@ function hasEntitySpecificOfficialUrl(entity: TexasEntityRecord) {
 export function isIndexableEntityPage(entity: TexasEntityRecord) {
   if (canonicalEntityPath(entity) !== genericEntityPath(entity)) return false;
 
-  // TexasDefined is not a state-agency or local-government directory. These
-  // entity records remain useful as source/context data, but their public URL
-  // ownership is consolidated into KeepTXRed or richer county/service guides.
+  // These public-service records remain useful as source/context data, but the
+  // generic graph URLs are not standalone search-result owners on this site.
   if (GOVERNMENT_REFERENCE_KINDS.has(entity.kind)) return false;
 
   if (!['active', 'seasonal'].includes(entity.status)) return false;
