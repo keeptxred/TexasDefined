@@ -18,6 +18,21 @@ const GOVERNMENT_REFERENCE_KINDS = new Set([
   'dps-office',
 ]);
 
+/**
+ * Exact curated mirrors whose richer public owner is a destination page.
+ * This is intentionally entity-specific rather than kind-specific: a generic
+ * entity is never sent to /destination unless that destination is known to exist.
+ */
+const EXPLICIT_CANONICAL_PATHS: Readonly<Record<string, string>> = {
+  'lake:caddo-lake': '/destination/caddo-lake',
+  'state-park:palo-duro-canyon-state-park': '/destination/palo-duro-canyon-state-park',
+  'state-park:enchanted-rock-state-natural-area': '/destination/enchanted-rock-state-natural-area',
+  'national-park:big-bend-national-park': '/destination/big-bend-national-park',
+  'cavern:natural-bridge-caverns': '/destination/natural-bridge-caverns',
+  'beach:padre-island-national-seashore': '/destination/padre-island-national-seashore',
+  'historic-site:the-alamo': '/destination/the-alamo',
+};
+
 export function rankRelatedEntities(entity: TexasEntityRecord, graph: TexasEntityRecord[], limit = 12): RankedRelatedEntity[] {
   const explicit = new Set(entity.relationships.map((relationship) => relationship.targetId));
   const entityCounty = countyContext(entity);
@@ -110,12 +125,14 @@ export function genericEntityPath(entity: Pick<TexasEntityRecord, 'kind' | 'slug
 
 /**
  * Public URL ownership is explicit instead of inferred from entity kind.
- * Curated graph records may point at a richer route with canonicalPath.
- * Records projected directly from the Explore catalog are also owned by the
- * destination route because that catalog is the source of truth for those pages.
+ * Curated graph records may point at a richer route with canonicalPath, exact
+ * known mirrors are listed above, and records projected directly from the
+ * Explore catalog belong to the destination route that owns that catalog.
  */
 export function canonicalEntityPath(entity: Pick<TexasEntityRecord, 'kind' | 'slug' | 'canonicalPath' | 'sourceId'>) {
   if (entity.canonicalPath) return entity.canonicalPath;
+  const exactOwner = EXPLICIT_CANONICAL_PATHS[`${entity.kind}:${entity.slug}`];
+  if (exactOwner) return exactOwner;
   if (entity.sourceId === 'explore-shared-catalog') return `/destination/${entity.slug}`;
   return genericEntityPath(entity);
 }
