@@ -24,13 +24,49 @@ export const Route = createFileRoute("/shop/product/$productId")({
     return { product, related };
   },
   head: ({ loaderData }) => {
-    const canonicalUrl = loaderData ? `https://texasdefined.com/shop/product/${encodeURIComponent(loaderData.product.id)}` : undefined;
+    const product = loaderData?.product;
+    const canonicalUrl = product ? `https://texasdefined.com/shop/product/${encodeURIComponent(product.id)}` : undefined;
+    const enabledVariants = product?.variants?.filter((variant) => variant.is_enabled !== false) ?? [];
+    const offers = product && canonicalUrl
+      ? enabledVariants.length > 0
+        ? enabledVariants.map((variant) => ({
+            "@type": "Offer",
+            url: `${canonicalUrl}?variant=${encodeURIComponent(String(variant.id))}`,
+            priceCurrency: product.currency || "USD",
+            price: Number(variant.price ?? product.priceCents / 100).toFixed(2),
+            availability: "https://schema.org/InStock",
+            itemCondition: "https://schema.org/NewCondition",
+            sku: `${product.id}-${variant.id}`,
+            name: variantLabel(variant),
+          }))
+        : [{
+            "@type": "Offer",
+            url: canonicalUrl,
+            priceCurrency: product.currency || "USD",
+            price: (product.priceCents / 100).toFixed(2),
+            availability: "https://schema.org/OutOfStock",
+            itemCondition: "https://schema.org/NewCondition",
+            sku: product.id,
+          }]
+      : [];
+    const structuredProduct = product && canonicalUrl ? {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      name: product.name,
+      description: product.blurb,
+      image: product.image.src,
+      url: canonicalUrl,
+      sku: product.id,
+      brand: { "@type": "Brand", name: "Texas Defined" },
+      offers,
+    } : undefined;
     return {
       meta: [
-        { title: loaderData ? `${loaderData.product.name} | Texas Defined Shop` : "Product | Texas Defined Shop" },
-        { name: "description", content: loaderData?.product.blurb || "Shop Texas-inspired products from Texas Defined." },
+        { title: product ? `${product.name} | Texas Defined Shop` : "Product | Texas Defined Shop" },
+        { name: "description", content: product?.blurb || "Shop Texas-inspired products from Texas Defined." },
       ],
       links: canonicalUrl ? [{ rel: "canonical", href: canonicalUrl }] : [],
+      scripts: structuredProduct ? [{ type: "application/ld+json", children: JSON.stringify(structuredProduct) }] : [],
     };
   },
   component: ProductPage,
