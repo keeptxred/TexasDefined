@@ -37,6 +37,8 @@ const archiveHosts = new Set([
   "www.loc.gov",
   "loc.gov",
   "txarchives.org",
+  "claretianmissionariesarchives.org",
+  "www.claretianmissionariesarchives.org",
 ]);
 
 const scholarlyHosts = new Set([
@@ -51,6 +53,8 @@ const scholarlyHosts = new Set([
   "blogs.baylor.edu",
   "www.baylor.edu",
   "baylor.edu",
+  "texastimetravel.com",
+  "www.texastimetravel.com",
 ]);
 
 const currentOrganizationHosts = new Set([
@@ -75,10 +79,15 @@ const currentOrganizationHosts = new Set([
   "shpalestine.org", "www.shpalestine.org",
   "www.ststanislausbandera.com", "ststanislausbandera.com",
   "www.sacredheartcorpus.org", "sacredheartcorpus.org",
+  "diocesecc.org", "www.diocesecc.org",
   "www.stjsa.org", "stjsa.org",
   "saintstans.org", "www.saintstans.org",
   "www.saintlouisdaycastroville.org", "saintlouisdaycastroville.org",
   "olgtx.org", "www.olgtx.org",
+  "guardianangelwallis.org", "www.guardianangelwallis.org",
+  "stjohntexas.org", "www.stjohntexas.org",
+  "stjosephmason.org", "www.stjosephmason.org",
+  "studioiodesign.com", "www.studioiodesign.com",
 ]);
 
 function hostnameOf(url: string) {
@@ -189,7 +198,7 @@ for (const item of paintedChurchBibliography) addSource({
   creator: item.creator,
   date: item.year,
   citationNote: item.note,
-  checkedAt: "2026-08-20",
+  checkedAt: "2026-08-21",
   tier: item.type === "primary-register" || item.type === "archive" ? "archive-register" : item.type === "official-history" ? "current-organization" : item.type === "book" || item.type === "article" || item.type === "documentary" ? "scholarly-public-history" : undefined,
 });
 
