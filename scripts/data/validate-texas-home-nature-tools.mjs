@@ -2,6 +2,7 @@ import fs from 'node:fs';
 
 const baseTools = fs.readFileSync('src/data/knowledge-bank/home-nature-tools.ts', 'utf8');
 const expandedTools = fs.readFileSync('src/data/knowledge-bank/home-nature-tools-expanded.ts', 'utf8');
+const toolCatalog = fs.readFileSync('src/data/knowledge-bank/home-nature-tool-catalog.ts', 'utf8');
 const tools = `${baseTools}\n${expandedTools}`;
 const sources = fs.readFileSync('src/data/knowledge-bank/sources.ts', 'utf8');
 const barrel = fs.readFileSync('src/data/knowledge-bank/index.ts', 'utf8');
@@ -10,6 +11,7 @@ const failures = [];
 
 if (!barrel.includes("export * from './home-nature-tools'")) failures.push('Knowledge Bank barrel must export staged home/nature tools.');
 if (!barrel.includes("export * from './home-nature-tools-expanded'")) failures.push('Knowledge Bank barrel must export expanded staged home/nature tools.');
+if (!barrel.includes("export * from './home-nature-tool-catalog'")) failures.push('Knowledge Bank barrel must export the canonical staged home/nature tool catalog.');
 if (!/id:\s*['\"]ready-gov['\"]/.test(sources)) failures.push('Ready.gov must be registered as a canonical emergency-planning source.');
 if (!sources.includes('https://www.ready.gov/')) failures.push('Ready.gov source must use its canonical HTTPS origin.');
 
@@ -37,6 +39,12 @@ for (const path of plannedPaths) {
 // semicolon while actual object fields end with a comma.
 const stagedCount = (tools.match(/publicationState:\s*['\"]staged['\"]\s*,/g) ?? []).length;
 if (stagedCount !== requiredToolIds.length) failures.push(`Every home/nature tool must remain staged; found ${stagedCount} staged of ${requiredToolIds.length}.`);
+
+if (!toolCatalog.includes('...STAGED_HOME_NATURE_TOOLS')) failures.push('Canonical tool catalog must include the base staged tools.');
+if (!toolCatalog.includes('...STAGED_HOME_NATURE_TOOL_EXTENSIONS')) failures.push('Canonical tool catalog must include the expanded staged tools.');
+if (!toolCatalog.includes('stagedHomeNatureToolById')) failures.push('Canonical tool catalog must support ID lookup.');
+if (!toolCatalog.includes('stagedHomeNatureToolByPlannedPath')) failures.push('Canonical tool catalog must support planned-path lookup.');
+if (!toolCatalog.includes('stagedHomeNatureToolsDueForReview')) failures.push('Canonical tool catalog must expose review-due selection.');
 
 if (!baseTools.includes('const GALLONS_PER_CUBIC_FOOT = 7.48052')) failures.push('Pool volume/loss tools must use the cubic-foot-to-gallon conversion constant.');
 if (!baseTools.includes('const positiveInteger')) failures.push('Emergency-water planner must enforce whole-number household and day counts.');
@@ -66,4 +74,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Texas home/nature tool validation passed: ${requiredToolIds.length} staged tools, ${plannedPaths.length} unique non-public planned paths, Ready.gov/NWS evidence, review windows, and publication-safety guards.`);
+console.log(`Texas home/nature tool validation passed: ${requiredToolIds.length} staged tools in one canonical catalog, ${plannedPaths.length} unique non-public planned paths, Ready.gov/NWS evidence, review windows, and publication-safety guards.`);
