@@ -1,6 +1,6 @@
 export type KnowledgeBankSourceDomain =
   | 'open-data' | 'wildlife' | 'birds' | 'plants' | 'history' | 'demographics' | 'geography'
-  | 'water' | 'transportation' | 'economy' | 'weather' | 'geology' | 'agriculture' | 'emergency-management';
+  | 'water' | 'transportation' | 'economy' | 'weather' | 'geology' | 'agriculture' | 'emergency-management' | 'health';
 
 export type KnowledgeBankSource = {
   id: string;
@@ -33,6 +33,7 @@ export const KNOWLEDGE_BANK_SOURCES: KnowledgeBankSource[] = [
   { id:'texas-am-agrilife', domain:'agriculture', authority:'Texas A&M AgriLife Extension', title:'Texas A&M AgriLife Extension', url:'https://agrilifeextension.tamu.edu/', useFor:['pests','plants','home and garden','wildlife conflicts'], canonical:true },
   { id:'texas-am-fire-ants', domain:'agriculture', authority:'Texas A&M AgriLife Extension', title:'Texas Imported Fire Ant Research and Management', url:'https://fireant.tamu.edu/', useFor:['fire ants','pest management'], canonical:true },
   { id:'tdem-emergency', domain:'emergency-management', authority:'Texas Division of Emergency Management', title:'Texas Division of Emergency Management', url:'https://tdem.texas.gov/', useFor:['disaster preparedness','hurricane readiness','local emergency guidance'], canonical:true },
+  { id:'cdc-snakebite', domain:'health', authority:'Centers for Disease Control and Prevention / NIOSH', title:'Venomous Snakes at Work', url:'https://www.cdc.gov/niosh/outdoor-workers/about/venomous-snakes.html', useFor:['snakebite first aid','venomous snake safety'], canonical:true },
 ];
 
 export function knowledgeSourcesForDomain(domain: KnowledgeBankSourceDomain) {
