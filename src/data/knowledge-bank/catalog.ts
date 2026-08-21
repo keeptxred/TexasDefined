@@ -35,6 +35,14 @@ export function texasKnowledgeNeedsReview(): TexasKnowledgeRecord[] {
   return texasKnowledgeByVerification('needs-review');
 }
 
+export function texasKnowledgeDueForReview(asOfDate = new Date().toISOString().slice(0, 10)): TexasKnowledgeRecord[] {
+  return TEXAS_KNOWLEDGE_CATALOG.filter(
+    (record) =>
+      Boolean(record.reviewBy && record.reviewBy < asOfDate) ||
+      Boolean(record.validThrough && record.validThrough < asOfDate),
+  );
+}
+
 export function texasKnowledgeWithPlannedArticles(): TexasKnowledgeRecord[] {
   return TEXAS_KNOWLEDGE_CATALOG.filter((record) => Boolean(record.plannedArticlePath));
 }
@@ -43,12 +51,16 @@ export function texasKnowledgeWithLiveArticles(): TexasKnowledgeRecord[] {
   return TEXAS_KNOWLEDGE_CATALOG.filter((record) => Boolean(record.articlePath));
 }
 
-export function texasSocialCandidateRecords(): TexasKnowledgeRecord[] {
+export function texasSocialCandidateRecords(
+  asOfDate = new Date().toISOString().slice(0, 10),
+): TexasKnowledgeRecord[] {
   return TEXAS_KNOWLEDGE_CATALOG.filter(
     (record) =>
       record.socialReady === true &&
       record.verification !== 'needs-review' &&
-      Boolean(record.socialFormats?.length),
+      Boolean(record.socialFormats?.length) &&
+      !(record.reviewBy && record.reviewBy < asOfDate) &&
+      !(record.validThrough && record.validThrough < asOfDate),
   );
 }
 
