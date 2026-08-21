@@ -18,6 +18,11 @@ export type TexasSocialDailyPlanOptions = {
   preferDifferentLinks?: boolean;
 };
 
+export type TexasSocialPreparedPost = TexasSocialEvergreenPost & {
+  message: string;
+  canonicalUrl: string | null;
+};
+
 function hashString(value: string) {
   let hash = 2166136261;
   for (let i = 0; i < value.length; i += 1) {
@@ -50,6 +55,16 @@ export function getTexasSocialEvergreenPool(category?: TexasSocialEvergreenCateg
 
 export function getTexasSocialPostById(id: string) {
   return texasSocialEvergreenPool.find((post) => post.id === id) ?? null;
+}
+
+export function prepareTexasSocialPost(
+  post: TexasSocialEvergreenPost,
+  origin = "https://texasdefined.com",
+): TexasSocialPreparedPost {
+  const safeOrigin = origin.replace(/\/$/, "");
+  const canonicalUrl = post.link ? `${safeOrigin}${post.link}` : null;
+  const message = post.prompt ? `${post.text}\n\n${post.prompt}` : post.text;
+  return { ...post, message, canonicalUrl };
 }
 
 export function buildTexasSocialDailyPlan(
@@ -106,6 +121,14 @@ export function buildTexasSocialDailyPlan(
   }
 
   return selected;
+}
+
+export function buildPreparedTexasSocialDailyPlan(
+  date: Date | string,
+  options: TexasSocialDailyPlanOptions = {},
+  origin = "https://texasdefined.com",
+) {
+  return buildTexasSocialDailyPlan(date, options).map((post) => prepareTexasSocialPost(post, origin));
 }
 
 export function buildTexasSocialWeekPlan(startDate: Date | string, postsPerDay = 2) {
