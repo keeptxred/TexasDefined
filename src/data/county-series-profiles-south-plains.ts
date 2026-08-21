@@ -61,4 +61,10 @@ export const COUNTY_SERIES_PROFILES_SOUTH_PLAINS: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/bailey-county-muleshoe-refuge-irrigation-high-plains-texas")
       .then((module) => module.baileyCountyMuleshoeRefugeIrrigationHighPlainsTexasArticle),
   },
+  {
+    countySlug: "lamb",
+    articleSlug: "lamb-county-littlefield-olton-irrigation-cotton-south-plains-texas",
+    loadArticle: () => import("@/data/fixtures/lamb-county-littlefield-olton-irrigation-cotton-south-plains-texas")
+      .then((module) => module.lambCountyLittlefieldOltonIrrigationCottonSouthPlainsTexasArticle),
+  },
 ];
