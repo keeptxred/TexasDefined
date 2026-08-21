@@ -1,0 +1,109 @@
+name: Certify Cochran County production once
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/certify-cochran-county-once.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: certify-cochran-county-once
+  cancel-in-progress: true
+
+jobs:
+  certify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    environment: texasdefined-publication
+    env:
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      HERO_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Cochran_County_Texas_Courthouse_2019.jpg?width=1600
+      MARKER: .github/certification/cochran-county.json
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - run: npm ci --no-audit --no-fund
+      - name: Validate, deploy, verify, and record
+        shell: bash
+        run: |
+          set -u
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+
+          record() {
+            status="$1"; stage="$2"; target="$3"; detail="$4"
+            mkdir -p "$(dirname "$MARKER")"
+            python3 - "$MARKER" "$status" "$stage" "$target" "$detail" <<'PY'
+          import json, pathlib, sys, datetime
+          path, status, stage, target, detail = sys.argv[1:]
+          pathlib.Path(path).write_text(json.dumps({
+            'county':'cochran','status':status,'stage':stage,'target_sha':target,
+            'detail':detail[-12000:],'recorded_at_utc':datetime.datetime.now(datetime.timezone.utc).isoformat()
+          }, indent=2)+'\n', encoding='utf-8')
+          PY
+            git add -- "$MARKER"
+            git commit -m "Record Cochran County production ${status}" >/dev/null || true
+            git push origin HEAD:main
+          }
+
+          target="$(git rev-parse HEAD)"
+          fixture='src/data/fixtures/cochran-county-morton-whiteface-oil-irrigation-south-plains-texas.ts'
+          test -f "$fixture" || { record fail source "$target" 'Cochran fixture missing'; exit 1; }
+          grep -Fq 'countySlug: "cochran"' src/data/county-series-profiles-south-plains.ts || { record fail source "$target" 'Cochran profile registration missing'; exit 1; }
+          if grep -n 'www\.texasdefined\.com' "$fixture" src/data/county-series-profiles-south-plains.ts >/tmp/cochran-www.txt; then
+            record fail canonical-host "$target" "$(cat /tmp/cochran-www.txt)"; exit 1
+          fi
+
+          tmp="$(mktemp -d)"
+          hs="$(curl -L --retry 5 --retry-all-errors --retry-delay 2 --max-time 60 -A 'TexasDefinedCountyVerifier/1.0' -sS -D "$tmp/h" -o "$tmp/b" -w '%{http_code}' "$HERO_URL" || true)"
+          hm="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/{gsub(/\r/,""); sub(/^content-type:[[:space:]]*/,""); v=$0} END{print v}' "$tmp/h" | cut -d';' -f1)"
+          hb="$(wc -c < "$tmp/b" 2>/dev/null || echo 0)"
+          if [ "$hs" != 200 ] || ! [[ "$hm" =~ ^image/(jpeg|png|webp)$ ]] || [ "$hb" -le 50000 ]; then
+            record fail hero-source "$target" "HTTP=$hs MIME=$hm bytes=$hb"; exit 1
+          fi
+          rm -rf "$tmp"
+
+          if ! npm run validate >/tmp/cochran-validate.log 2>&1; then
+            record fail validation "$target" "$(tail -180 /tmp/cochran-validate.log)"; exit 1
+          fi
+          git fetch origin main
+          latest="$(git rev-parse origin/main)"
+          [ "$latest" = "$target" ] || { record fail concurrency "$target" "main moved after validation to $latest"; exit 1; }
+
+          if ! npm run deploy >/tmp/cochran-deploy.log 2>&1; then
+            record fail deployment "$target" "$(tail -180 /tmp/cochran-deploy.log)"; exit 1
+          fi
+
+          w="$(mktemp -d)"; ok=0
+          for attempt in $(seq 1 12); do
+            ps="$(curl --retry 3 --retry-all-errors --retry-delay 2 --max-time 60 -A 'TexasDefinedCountyVerifier/1.0' -sS -o "$w/page" -w '%{http_code}' "https://texasdefined.com/county/cochran?verify=${target}-${GITHUB_RUN_ID}-${attempt}" || true)"
+            if [ "$ps" = 200 ] \
+              && grep -Fq 'Cochran County: Morton, Whiteface, Oil, Irrigation and the South Plains' "$w/page" \
+              && grep -Fq 'The county in numbers' "$w/page" \
+              && grep -Fq 'County seat' "$w/page" \
+              && grep -Fq '2020 population' "$w/page" \
+              && grep -Fq 'County feature' "$w/page" \
+              && grep -Fq 'Morton' "$w/page"; then ok=1; break; fi
+            sleep 5
+          done
+          [ "$ok" = 1 ] || { record fail live-page "$target" "last_status=$ps"; exit 1; }
+
+          his="$(curl -L --retry 5 --retry-all-errors --retry-delay 2 --max-time 60 -A 'TexasDefinedCountyVerifier/1.0' -sS -D "$w/hh" -o "$w/hb" -w '%{http_code}' "$HERO_URL" || true)"
+          him="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/{gsub(/\r/,""); sub(/^content-type:[[:space:]]*/,""); v=$0} END{print v}' "$w/hh" | cut -d';' -f1)"
+          hib="$(wc -c < "$w/hb" 2>/dev/null || echo 0)"
+          if [ "$his" != 200 ] || ! [[ "$him" =~ ^image/(jpeg|png|webp)$ ]] || [ "$hib" -le 50000 ]; then
+            record fail live-hero "$target" "HTTP=$his MIME=$him bytes=$hib"; exit 1
+          fi
+
+          record pass complete "$target" "validate=PASS deploy=PASS page=200 structured=yes editorial=yes legacy=NA hero=$his mime=$him bytes=$hib"
