@@ -76,5 +76,41 @@ for (const [category, count] of Object.entries(counts)) {
   if (count < 10) throw new Error(`Texas social category ${category} is too thin: ${count}`);
 }
 
+const queueFile = "src/lib/texas-social-facebook-queue.ts";
+const queuePath = path.join(root, queueFile);
+if (!fs.existsSync(queuePath)) throw new Error(`Missing Facebook draft queue: ${queueFile}`);
+const queueSource = fs.readFileSync(queuePath, "utf8");
+
+const requiredQueueMarkers = [
+  'enabled: false',
+  'postsPerDay: 2',
+  'status: "draft"',
+  'canPublish: false',
+  'assertTexasFacebookPublishingDisabled',
+  'TexasDefined Facebook publishing is not implemented in this module',
+  'texasdefined:facebook:',
+];
+
+for (const marker of requiredQueueMarkers) {
+  if (!queueSource.includes(marker)) {
+    throw new Error(`Facebook queue safety marker missing: ${marker}`);
+  }
+}
+
+const forbiddenQueueMarkers = [
+  "graph.facebook.com",
+  "PAGE_ACCESS_TOKEN",
+  "FACEBOOK_PAGE_ACCESS_TOKEN",
+  "fetch(\"https://graph.facebook.com",
+  "axios.post",
+];
+
+for (const marker of forbiddenQueueMarkers) {
+  if (queueSource.includes(marker)) {
+    throw new Error(`Facebook queue must remain draft-only; forbidden publisher marker found: ${marker}`);
+  }
+}
+
 console.log(`PASS Texas social evergreen pool: ${posts.length} posts`);
 console.log(counts);
+console.log("PASS Texas Facebook queue: disabled-by-default and draft-only");
