@@ -6,6 +6,8 @@ export type StagedHomeNatureTool = {
   plannedPath: string;
   description: string;
   sourceIds: string[];
+  evidenceUrls?: string[];
+  reviewBy?: string;
 };
 
 const GALLONS_PER_CUBIC_FOOT = 7.48052;
@@ -17,6 +19,12 @@ const finiteNonNegative = (value: number, field: string) => {
 
 const finitePositive = (value: number, field: string) => {
   if (!Number.isFinite(value) || value <= 0) throw new Error(`${field} must be a finite positive number.`);
+  return value;
+};
+
+const positiveInteger = (value: number, field: string) => {
+  finitePositive(value, field);
+  if (!Number.isInteger(value)) throw new Error(`${field} must be a positive integer.`);
   return value;
 };
 
@@ -42,8 +50,8 @@ export type EmergencyWaterEstimate = {
  * medical needs, heat, or other household circumstances.
  */
 export function estimateEmergencyWaterGallons(input: EmergencyWaterInput): EmergencyWaterEstimate {
-  const people = finitePositive(input.people, 'people');
-  const days = finitePositive(input.days ?? 3, 'days');
+  const people = positiveInteger(input.people, 'people');
+  const days = positiveInteger(input.days ?? 3, 'days');
   const gallonsPerPersonPerDay = finitePositive(input.gallonsPerPersonPerDay ?? 1, 'gallonsPerPersonPerDay');
   const additionalGallons = finiteNonNegative(input.additionalGallons ?? 0, 'additionalGallons');
   const householdGallons = people * days * gallonsPerPersonPerDay;
@@ -146,7 +154,7 @@ export const TEXAS_HURRICANE_PREP_CHECKLIST: PreparednessChecklistStage[] = [
     items: [
       { id: 'secure-exterior', label: 'Bring in or secure loose outdoor items and continue following official storm updates.', sourceIds: ['nws-hurricanes', 'tdem-emergency'] },
       { id: 'fuel-charge', label: 'Charge communication devices and prepare transportation according to the household emergency plan.', sourceIds: ['ready-gov', 'tdem-emergency'] },
-      { id: 'cold-storage-plan', label: 'Prepare for possible power interruption and minimize unnecessary refrigerator/freezer opening if power is lost.', sourceIds: ['ready-gov'] },
+      { id: 'power-needs-plan', label: 'Review the household plan for communications and other essential needs if power is interrupted.', sourceIds: ['ready-gov', 'tdem-emergency'] },
     ],
   },
   {
@@ -174,6 +182,8 @@ export const STAGED_HOME_NATURE_TOOLS: StagedHomeNatureTool[] = [
     plannedPath: '/texas-emergency-water-planner',
     description: 'Estimate baseline household emergency water and add extra capacity for household-specific needs.',
     sourceIds: ['ready-gov', 'tdem-emergency'],
+    evidenceUrls: ['https://www.ready.gov/sites/default/files/documents/files/checklist3.pdf', 'https://tdem.texas.gov/'],
+    reviewBy: '2027-08-01',
   },
   {
     id: 'texas-pool-volume-calculator',
@@ -201,6 +211,8 @@ export const STAGED_HOME_NATURE_TOOLS: StagedHomeNatureTool[] = [
     plannedPath: '/texas-hurricane-72-48-24-checklist',
     description: 'A staged household organization checklist that defers to official warnings, evacuation orders, and local instructions.',
     sourceIds: ['ready-gov', 'tdem-emergency', 'nws-hurricanes'],
+    evidenceUrls: ['https://www.ready.gov/sites/default/files/documents/files/checklist3.pdf', 'https://tdem.texas.gov/', 'https://www.weather.gov/safety/hurricane'],
+    reviewBy: '2027-08-01',
   },
   {
     id: 'texas-freeze-prep-checklist',
@@ -210,5 +222,7 @@ export const STAGED_HOME_NATURE_TOOLS: StagedHomeNatureTool[] = [
     plannedPath: '/texas-freeze-prep-checklist',
     description: 'A staged freeze-planning checklist that avoids universal equipment instructions and points users to property-specific guidance.',
     sourceIds: ['ready-gov', 'tdem-emergency', 'noaa'],
+    evidenceUrls: ['https://www.ready.gov/', 'https://tdem.texas.gov/', 'https://www.noaa.gov/'],
+    reviewBy: '2027-08-01',
   },
 ];
