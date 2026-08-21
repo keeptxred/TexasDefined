@@ -9,6 +9,8 @@ export type TexasSocialBatchOptions = {
   preferredSeason?: TexasKnowledgeRecord['season'];
   /** Maximum records from any one domain. Defaults to a balanced share of the requested batch. */
   maxPerDomain?: number;
+  /** Optional deterministic rotation seed. Defaults to asOfDate so equal-score candidates rotate daily. */
+  rotationSeed?: string;
   /** YYYY-MM-DD date used for freshness gating; defaults to the current UTC date. */
   asOfDate?: string;
 };
@@ -57,6 +59,16 @@ function scoreRecord(record: TexasKnowledgeRecord, options: TexasSocialBatchOpti
   return score;
 }
 
+function rotationRank(recordId: string, seed: string) {
+  let hash = 2166136261;
+  const value = `${seed}:${recordId}`;
+  for (let index = 0; index < value.length; index += 1) {
+    hash ^= value.charCodeAt(index);
+    hash = Math.imul(hash, 16777619);
+  }
+  return hash >>> 0;
+}
+
 function chooseFormat(record: TexasKnowledgeRecord, alreadyUsedFormats: Set<TexasSocialFormat>) {
   const allowed = record.socialFormats ?? [];
   const unused = formatPriority.find((format) => allowed.includes(format) && !alreadyUsedFormats.has(format));
@@ -75,6 +87,7 @@ export function buildTexasSocialBatch(
   const domainCounts = new Map<TexasKnowledgeRecord['domain'], number>();
   const usedFormats = new Set<TexasSocialFormat>();
   const asOfDate = options.asOfDate ?? new Date().toISOString().slice(0, 10);
+  const rotationSeed = options.rotationSeed ?? asOfDate;
 
   const candidates = records
     .filter((record) =>
@@ -87,6 +100,8 @@ export function buildTexasSocialBatch(
     .sort((a, b) => {
       const scoreDelta = scoreRecord(b, options) - scoreRecord(a, options);
       if (scoreDelta !== 0) return scoreDelta;
+      const rotationDelta = rotationRank(a.id, rotationSeed) - rotationRank(b.id, rotationSeed);
+      if (rotationDelta !== 0) return rotationDelta;
       return a.id.localeCompare(b.id);
     });
 
@@ -114,7 +129,7 @@ export function buildTexasSocialBatch(
     const format = chooseFormat(record, usedFormats);
     if (!format) throw new Error(`Social-ready record ${record.id} has no approved format.`);
     usedFormats.add(format);
-    return renderTexasSocialPost(record, format);
+    return renderTexasSocialPost(record, format, asOfDate);
   });
 }
 
