@@ -29,7 +29,7 @@ export const texasMilitaryCemeteriesMemorialsGuideArticle: Article = {
     { href: "/destination/fort-sam-houston-national-cemetery", label: "Fort Sam Houston National Cemetery", description: "Plan a respectful remembrance visit in San Antonio and use the VA kiosk to locate individual graves." },
     { href: "/destination/houston-national-cemetery", label: "Houston National Cemetery", description: "See the unique hemicycle and understand the VA-designed cemetery dedicated in 1965." },
     { href: "/destination/dallas-fort-worth-national-cemetery", label: "Dallas–Fort Worth National Cemetery", description: "Understand the modern national-cemetery landscape serving North Texas since 2000." },
-    { href: "/article/texas-medal-of-honor-stories", label: "Texas Medal of Honor stories", description: "Connect places of burial with the service stories behind the highest U.S. military decoration." },
+    { href: "/article/texas-medal-of-honor-heroes", label: "Texas Medal of Honor stories", description: "Connect places of burial with the service stories behind the highest U.S. military decoration." },
     { href: "/article/women-in-texas-military-history", label: "Women in Texas military history", description: "Continue into Army nursing, the WAC, WASP and the expansion of women's service." },
     { href: "/article/texas-military-museums-historic-sites-guide", label: "Texas military museums and historic sites", description: "Use museums, ships, forts and battlefields for the broader military-history visitor network." },
     { href: "/texas-history", label: "Texas History", description: "Return to the statewide TexasDefined history collection." },
