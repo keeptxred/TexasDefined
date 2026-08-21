@@ -23,6 +23,8 @@ const countyIdentity = read('src/components/content/CountyIdentitySection.tsx');
 const guidesPage = read('src/routes/guides.tsx');
 const texasLiving = read('src/routes/texas-living.tsx');
 const exploreSitemap = read('src/routes/sitemap-explore[.]xml.ts');
+const homepage = read('src/routes/index.tsx');
+const exploreTopicPaths = read('src/components/editorial/ExploreTopicPaths.tsx');
 
 for (const path of ['/property', '/explore/trip-planner']) {
   const indexableSection = registry.split('export const REDIRECT_ONLY_PATHS')[0];
@@ -32,6 +34,22 @@ if (!brand.includes('{ label: "Start Here", to: "/texas-resources" }')) failures
 for (const target of ['/explore/trip-planner', '/browse/cities', '/events']) if (!exploreDiscovery.includes(`to="${target}"`)) failures.push(`Explore discovery must link to ${target}.`);
 for (const target of ['/property', '/decide/financial-tools', '/browse/cities', '/moving-to-texas', '/real-estate', '/texas-explained']) if (!texasLifeDiscovery.includes(`to: "${target}"`)) failures.push(`Texas Life discovery must link to ${target}.`);
 for (const target of ['/decide/financial-tools', '/property', '/browse/counties', '/moving-to-texas', '/browse/cities']) if (!calculatorPage.includes(`to="${target}"`)) failures.push(`Calculator pages must link to ${target}.`);
+
+for (const target of [
+  '/best-places-to-go-camping-in-texas', '/texas-state-fair', '/texas-vs-every-state', '/texas-fishing-license',
+  '/texas-drivers-license', '/texas-flag', '/texas-two-step', '/texas-resources',
+]) if (!homepage.includes(`to: "${target}"`) && !homepage.includes(`to="${target}"`)) failures.push(`Homepage priority-search discovery must link to ${target}.`);
+if (!homepage.includes('eyebrow="Popular Texas searches"')) failures.push('Homepage must retain the Popular Texas searches discovery module.');
+for (const category of ['"lakes-rivers"', '"state-parks"', 'outdoors']) {
+  const start = exploreTopicPaths.indexOf(`${category}: [`);
+  if (start < 0) {
+    failures.push(`Explore topic paths must retain ${category} configuration.`);
+    continue;
+  }
+  const end = exploreTopicPaths.indexOf('],', start);
+  const block = exploreTopicPaths.slice(start, end > start ? end : undefined);
+  if (!block.includes('/best-places-to-go-camping-in-texas')) failures.push(`${category} topic paths must keep a direct camping-cornerstone link.`);
+}
 
 for (const target of [
   '/texas-mortgage-calculator', '/texas-home-affordability-calculator', '/texas-down-payment-calculator', '/texas-closing-cost-calculator',
@@ -71,4 +89,4 @@ if (!categoryPage.includes('TexasLifeDiscovery')) failures.push('Texas Life cate
 if (!categoryPage.includes('belongsToTexasLife && (') || !categoryPage.includes('<TexasLifeDiscovery currentCategory={category} />')) failures.push('TexasLifeDiscovery must be limited to Texas Life category surfaces.');
 if (!exploreSitemap.includes('"/explore/trip-planner"')) failures.push('Explore sitemap must publish the Trip Planner.');
 if (failures.length) { console.error('Internal-link discovery validation failed:'); for (const failure of failures) console.error(`- ${failure}`); process.exit(1); }
-console.log('Internal-link discovery pathways, sitewide Start Here resources link, Texas Explained links from Texas Life, county profiles, Guidebook, destination pages, fishing and sports venues, calculator hub inbound/outbound discovery, reciprocal finance evergreen/calculator clusters, direct Texas Life and financial-tools finance/special-district evergreen discovery, priority calculator indexing depth, structured calculator collection links and Explore sitemap coverage are protected.');
+console.log('Internal-link discovery pathways, sitewide Start Here resources link, homepage priority-search links, protected camping-cornerstone links, Texas Explained links from Texas Life, county profiles, Guidebook, destination pages, fishing and sports venues, calculator hub inbound/outbound discovery, reciprocal finance evergreen/calculator clusters, direct Texas Life and financial-tools finance/special-district evergreen discovery, priority calculator indexing depth, structured calculator collection links and Explore sitemap coverage are protected.');
