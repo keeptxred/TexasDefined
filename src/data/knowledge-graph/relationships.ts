@@ -18,24 +18,6 @@ const GOVERNMENT_REFERENCE_KINDS = new Set([
   'dps-office',
 ]);
 
-/**
- * These generic knowledge-graph entity kinds are mirrors of richer destination
- * guides sourced from the Explore catalog. Publishing both URL families as
- * indexable pages creates duplicate search intent (for example
- * /state-park/enchanted-rock-state-natural-area and
- * /destination/enchanted-rock-state-natural-area).
- *
- * Keep the generic route available for compatibility, but consolidate search
- * signals and sitemap references on the richer destination URL. The generic
- * related-entity layer does not promote these mirrors; destination pages have
- * their own curated relationship system backed by the destination catalog.
- */
-const DESTINATION_MIRROR_KINDS = new Set([
-  'state-park',
-  'attraction',
-  'historic-site',
-]);
-
 export function rankRelatedEntities(entity: TexasEntityRecord, graph: TexasEntityRecord[], limit = 12): RankedRelatedEntity[] {
   const explicit = new Set(entity.relationships.map((relationship) => relationship.targetId));
   const entityCounty = countyContext(entity);
@@ -122,9 +104,20 @@ function proximityTieBreak(origin: TexasEntityRecord, a: TexasEntityRecord, b: T
   return aMiles - bMiles;
 }
 
-export function canonicalEntityPath(entity: Pick<TexasEntityRecord, 'kind' | 'slug'>) {
-  if (DESTINATION_MIRROR_KINDS.has(entity.kind)) return `/destination/${entity.slug}`;
+export function genericEntityPath(entity: Pick<TexasEntityRecord, 'kind' | 'slug'>) {
   return `/${entity.kind}/${entity.slug}`;
+}
+
+/**
+ * Public URL ownership is explicit instead of inferred from entity kind.
+ * Curated graph records may point at a richer route with canonicalPath.
+ * Records projected directly from the Explore catalog are also owned by the
+ * destination route because that catalog is the source of truth for those pages.
+ */
+export function canonicalEntityPath(entity: Pick<TexasEntityRecord, 'kind' | 'slug' | 'canonicalPath' | 'sourceId'>) {
+  if (entity.canonicalPath) return entity.canonicalPath;
+  if (entity.sourceId === 'explore-shared-catalog') return `/destination/${entity.slug}`;
+  return genericEntityPath(entity);
 }
 
 const NON_SPECIFIC_OFFICIAL_URLS = new Set([
@@ -146,10 +139,11 @@ function hasEntitySpecificOfficialUrl(entity: TexasEntityRecord) {
  * Search-index quality gate for generic knowledge-graph entity pages.
  * Generated pages are intentionally noindex until the underlying record is
  * substantively written, source-verified, and specific enough to stand alone
- * as a useful search result.
+ * as a useful search result. Records owned by another canonical route are never
+ * independently indexable here.
  */
 export function isIndexableEntityPage(entity: TexasEntityRecord) {
-  if (DESTINATION_MIRROR_KINDS.has(entity.kind)) return false;
+  if (canonicalEntityPath(entity) !== genericEntityPath(entity)) return false;
 
   // TexasDefined is not a state-agency or local-government directory. These
   // entity records remain useful as source/context data, but their public URL
