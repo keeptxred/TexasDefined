@@ -28,7 +28,9 @@ for (const path of plannedPaths) {
   if (fs.existsSync(`src/routes/${slug}.tsx`)) failures.push(`Staged tool has a public file route before publication approval: ${path}`);
 }
 
-const stagedCount = (tools.match(/publicationState:\s*['\"]staged['\"]/g) ?? []).length;
+// Require the runtime tool objects to remain staged. The type declaration ends
+// with a semicolon, while actual object fields end with a comma.
+const stagedCount = (tools.match(/publicationState:\s*['\"]staged['\"]\s*,/g) ?? []).length;
 if (stagedCount !== requiredToolIds.length) failures.push(`Every home/nature tool must remain staged; found ${stagedCount} staged of ${requiredToolIds.length}.`);
 
 if (!tools.includes('const GALLONS_PER_CUBIC_FOOT = 7.48052')) failures.push('Pool volume/loss tools must use the cubic-foot-to-gallon conversion constant.');
@@ -36,7 +38,7 @@ if (!tools.includes('input.days ?? 3')) failures.push('Emergency-water planner m
 if (!tools.includes('input.gallonsPerPersonPerDay ?? 1')) failures.push('Emergency-water planner must default to one gallon per person per day.');
 if (!tools.includes("sourceIds: ['ready-gov', 'tdem-emergency']")) failures.push('Emergency-water tool must retain Ready.gov and TDEM source provenance.');
 if (!tools.includes('does not predict evaporation from weather')) failures.push('Pool water-loss engine must explicitly avoid claiming weather-based evaporation diagnosis.');
-if (!tools.includes("hoursBefore: 72") || !tools.includes("hoursBefore: 48") || !tools.includes("hoursBefore: 24")) failures.push('Hurricane checklist must contain 72/48/24 organizational stages.');
+if (!tools.includes('hoursBefore: 72') || !tools.includes('hoursBefore: 48') || !tools.includes('hoursBefore: 24')) failures.push('Hurricane checklist must contain 72/48/24 organizational stages.');
 if (!tools.includes('Follow evacuation orders')) failures.push('Hurricane checklist must explicitly defer to evacuation orders/local officials.');
 
 if (failures.length) {
