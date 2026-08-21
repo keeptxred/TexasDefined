@@ -45,20 +45,27 @@ function toProduct(row: StoreProduct): Product {
 }
 
 export async function fetchAssignedShopProducts(params: { collection?: Slug; limit?: number; id?: string } = {}): Promise<Product[]> {
-  // In the browser go through our own same-origin proxy route: the shared
-  // storefront API only allows a fixed CORS origin list, so a direct call from
-  // preview/custom domains fails with "Failed to fetch". On the server we can
-  // call the upstream API directly.
-  const base = typeof window === "undefined" ? commerceApiBase() : window.location.origin;
-  const url = new URL("/api/public/store-products", base);
-  url.searchParams.set("site", "texasdefined");
-  if (params.collection) url.searchParams.set("collection", params.collection);
-  if (params.limit) url.searchParams.set("limit", String(params.limit));
-  if (params.id) url.searchParams.set("id", params.id);
+  try {
+    // In the browser go through our own same-origin proxy route: the shared
+    // storefront API only allows a fixed CORS origin list, so a direct call from
+    // preview/custom domains fails. On the server we can call upstream directly.
+    const base = typeof window === "undefined" ? commerceApiBase() : window.location.origin;
+    const url = new URL("/api/public/store-products", base);
+    url.searchParams.set("site", "texasdefined");
+    if (params.collection) url.searchParams.set("collection", params.collection);
+    if (params.limit) url.searchParams.set("limit", String(params.limit));
+    if (params.id) url.searchParams.set("id", params.id);
 
-  const response = await fetch(url, { headers: { accept: "application/json" }, signal: AbortSignal.timeout(8000) });
-  if (!response.ok) throw new Error(`Commerce catalog unavailable (${response.status})`);
-  const payload = await response.json() as { ok?: boolean; products?: StoreProduct[]; error?: string };
-  if (!payload.ok) throw new Error(payload.error || "Commerce catalog unavailable");
-  return (payload.products ?? []).filter((product) => product.imageUrl && product.title).map(toProduct);
+    const response = await fetch(url, { headers: { accept: "application/json" }, signal: AbortSignal.timeout(8000) });
+    if (!response.ok) throw new Error(`Commerce catalog unavailable (${response.status})`);
+    const payload = await response.json() as { ok?: boolean; products?: StoreProduct[]; error?: string };
+    if (!payload.ok) throw new Error(payload.error || "Commerce catalog unavailable");
+    return (payload.products ?? []).filter((product) => product.imageUrl && product.title).map(toProduct);
+  } catch (error) {
+    // Fixture products are useful during local development, but must never make
+    // an empty or unavailable production collection look like an active shop.
+    if (import.meta.env.DEV) throw error;
+    console.error("Assigned TexasDefined shop catalog unavailable", error);
+    return [];
+  }
 }
