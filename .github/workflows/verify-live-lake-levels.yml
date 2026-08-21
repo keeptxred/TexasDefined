@@ -78,6 +78,7 @@ jobs:
                   out.write(f"{key}_length={probe.get('contentLength') or 0}\n")
                   out.write(f"{key}_elapsed={probe.get('elapsedMs') or 0}\n")
               out.write(f"snapshot_ok={'true' if payload.get('conroeSnapshot') else 'false'}\n")
+              out.write(f"serverfn_snapshot_ok={'true' if payload.get('conroeServerFnSnapshot') else 'false'}\n")
           print(json.dumps(payload, indent=2)[:6000])
           PY
           source "$vars"
@@ -95,10 +96,18 @@ jobs:
           done
           if [[ "${snapshot_ok:-false}" == "true" ]]; then
             publish_status success texasdefined-waterdata-snapshot "Production Worker parsed current Lake Conroe snapshot"
-            publish_status success texasdefined-waterdata-diagnostic "Water Data production runtime diagnostic passed"
           else
             publish_status failure texasdefined-waterdata-snapshot "Production Worker returned no Lake Conroe snapshot"
-            publish_status failure texasdefined-waterdata-diagnostic "Water Data reachable state captured; snapshot missing"
+          fi
+          if [[ "${serverfn_snapshot_ok:-false}" == "true" ]]; then
+            publish_status success texasdefined-waterdata-serverfn "createServerFn returned current Lake Conroe snapshot"
+          else
+            publish_status failure texasdefined-waterdata-serverfn "createServerFn returned no Lake Conroe snapshot"
+          fi
+          if [[ "${snapshot_ok:-false}" == "true" && "${serverfn_snapshot_ok:-false}" == "true" ]]; then
+            publish_status success texasdefined-waterdata-diagnostic "Water Data helper and server function both passed"
+          else
+            publish_status failure texasdefined-waterdata-diagnostic "Water Data helper/server-function mismatch captured"
           fi
 
       - name: Verify every published lake returns a current numeric reading
