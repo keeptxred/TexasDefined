@@ -9,6 +9,7 @@ const description = 'Texas calculators and practical guides for mortgages, home 
 const sections = [
   ['Estimate your property taxes', '/decide/property-taxes', 'See an estimated taxable value and annual or monthly property-tax cost.', 'Property taxes'],
   ['Understand MUDs, PIDs, HOAs and special districts', '/article/muds-pids-hoas-special-districts-texas', 'See how district taxes, assessments and private association dues can change the true carrying cost of a Texas home.', 'Property taxes'],
+  ['Understand Texas sales tax', '/texas-sales-tax-explained', 'See how state and local sales taxes, exemptions, online purchases and seller obligations work in Texas.', 'Property taxes'],
   ['Estimate a mortgage payment', '/texas-mortgage-calculator', 'Combine principal, interest, property taxes and insurance in one monthly estimate.', 'Home buying'],
   ['See what home may fit your budget', '/texas-home-affordability-calculator', 'Use income, debts and housing costs to explore a possible price range.', 'Home buying'],
   ['Understand salary and home affordability', '/article/salary-needed-to-buy-a-house-in-texas', 'Work backward from the complete housing payment, recurring debts, reserves and household budget before testing a price range.', 'Home buying'],
