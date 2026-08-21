@@ -34,19 +34,19 @@ const TOPIC_PATHS: Partial<Record<CategorySlug, TopicLink[]>> = {
     { to: "/explore/road-trips", label: "Road trips", description: "Link caves, parks and Hill Country stops into a weekend route." },
   ],
   "beaches-coast": [
+    { to: "/explore/lighthouses", label: "Texas lighthouses", description: "Use the sourced lighthouse map to connect Gulf Coast beaches with maritime history, public-access guidance and a coast-spanning route." },
     { to: "/explore/outdoors", label: "Wildlife & outdoors", description: "Explore coastal birding, marshes, refuges and barrier-island habitat." },
     { to: "/explore/small-towns", label: "Small towns", description: "Find Gulf Coast communities worth adding to a beach weekend." },
-    { to: "/explore/food-bbq", label: "Food & barbecue", description: "Add seafood, local institutions and regional food stops to the trip." },
   ],
   "historic-sites": [
+    { to: "/explore/lighthouses", label: "Texas lighthouses", description: "Follow surviving and relocated Gulf Coast lights through shipping, storms, war, preservation and the counties they served." },
     { to: "/explore/painted-churches", label: "Painted Churches of Texas", description: "Explore 27 verified churches through history, immigrant heritage, decorative art, preservation and current visitor guidance." },
-    { to: "/explore/small-towns", label: "Small towns", description: "Follow Texas history into courthouse squares and communities with a story." },
     { to: "/texas-history", label: "Texas history", description: "Read the deeper stories behind the places preserved across the state." },
   ],
   "road-trips": [
+    { to: "/explore/lighthouses", label: "Texas lighthouse trail", description: "Build a Gulf Coast itinerary around Port Isabel, Bolivar, Matagorda Bay, Port Aransas and the historic Sabine gateway." },
     { to: "/explore/painted-churches/routes", label: "Painted Churches routes", description: "Use eight researched church itineraries ranging from the classic Schulenburg circuit to statewide heritage routes." },
     { to: "/explore/trip-planner", label: "Texas Trip Planner", description: "Turn destinations and interests into a practical day-by-day itinerary." },
-    { to: "/best-places-to-go-camping-in-texas", label: "Best camping in Texas", description: "Add an overnight anchor to a Texas road trip with standout camping options across every major region." },
   ],
   "small-towns": [
     { to: "/explore/painted-churches", label: "Painted Churches", description: "Connect immigrant communities, parish history and painted interiors across small-town Texas." },
