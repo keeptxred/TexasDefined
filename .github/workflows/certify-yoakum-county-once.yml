@@ -1,0 +1,75 @@
+name: Certify Yoakum County production once
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/certify-yoakum-county-once.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: certify-yoakum-county-once
+  cancel-in-progress: true
+
+jobs:
+  certify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      HERO_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Yoakum_County_Heritage_and_Art_Museum.jpg?width=1600
+      MARKER: .github/certification/yoakum-county.json
+      DEPLOYED_SHA: 85d41e516682b190458226d009c03eb38450c36d
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Verify Yoakum production and record result
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          w="$(mktemp -d)"
+          trap 'rm -rf "$w"' EXIT
+
+          page='https://texasdefined.com/county/yoakum'
+          ps="$(curl --retry 5 --retry-all-errors --retry-delay 2 --max-time 60 -sS -o "$w/page" -w '%{http_code}' "${page}?verify=${DEPLOYED_SHA}-${GITHUB_RUN_ID}" || true)"
+          test "$ps" = 200
+          grep -Fq 'Yoakum County: Plains, Denver City, Oil and the Southern High Plains' "$w/page"
+          grep -Fq 'The county in numbers' "$w/page"
+          grep -Fq 'County seat' "$w/page"
+          grep -Fq '2020 population' "$w/page"
+          grep -Fq 'County feature' "$w/page"
+          grep -Fq 'https://texasdefined.com/county/yoakum' "$w/page"
+
+          legacy='https://texasdefined.com/article/yoakum-county-plains-denver-city-oil-ogallala-south-plains-texas'
+          ls="$(curl --max-redirs 0 --retry 3 --retry-all-errors --retry-delay 2 --max-time 60 -sS -D "$w/lh" -o /dev/null -w '%{http_code}' "$legacy" || true)"
+          loc="$(awk 'BEGIN{IGNORECASE=1} /^location:/{gsub(/\r/,""); sub(/^location:[[:space:]]*/,""); print; exit}' "$w/lh")"
+          test "$ls" = 301
+          [[ "$loc" == *'/county/yoakum'* ]]
+
+          hs="$(curl -L --retry 5 --retry-all-errors --retry-delay 2 --max-time 60 -sS -D "$w/hh" -o "$w/hb" -w '%{http_code}' "$HERO_URL" || true)"
+          hm="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/{gsub(/\r/,""); sub(/^content-type:[[:space:]]*/,""); v=$0} END{print v}' "$w/hh" | cut -d';' -f1)"
+          hb="$(wc -c < "$w/hb" 2>/dev/null || echo 0)"
+          test "$hs" = 200
+          [[ "$hm" =~ ^image/(jpeg|png|webp)$ ]]
+          test "$hb" -gt 50000
+
+          mkdir -p "$(dirname "$MARKER")"
+          python3 - "$MARKER" "$DEPLOYED_SHA" "$ps" "$ls" "$loc" "$hs" "$hm" "$hb" <<'PY'
+          import datetime, json, pathlib, sys
+          path, sha, page, legacy, location, hero, mime, size = sys.argv[1:]
+          pathlib.Path(path).write_text(json.dumps({
+            'county':'yoakum','status':'pass','target_sha':sha,
+            'live_page_http':int(page),'structured_layer':True,'editorial_layer':True,
+            'legacy_http':int(legacy),'legacy_location':location,
+            'hero_http':int(hero),'hero_mime':mime,'hero_bytes':int(size),
+            'visual_subject':'Yoakum County Heritage and Art Museum in Plains, Texas; source metadata verified on Wikimedia Commons',
+            'recorded_at_utc':datetime.datetime.now(datetime.timezone.utc).isoformat()
+          }, indent=2)+'\n', encoding='utf-8')
+          PY
+          git add "$MARKER"
+          git commit -m 'Record Yoakum County production certification'
+          git push origin HEAD:main
