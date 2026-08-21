@@ -6,6 +6,7 @@ import "./lighthouse-authority-links";
 import { winklerCountyArticleStub } from "./winkler-county-article-stub";
 import { seasonalAuthorityArticleStubs, loadSeasonalAuthorityArticle } from "./lazy-seasonal-authority";
 import { lighthouseDeepDiveStubs, loadLighthouseDeepDiveArticle } from "./lazy-lighthouse-deep-dives";
+import { lighthouseSearchIntentStubs, loadLighthouseSearchIntentArticle } from "./lazy-lighthouse-search-intents";
 import { seasonalIntentStubs, loadSeasonalIntentArticle } from "./lazy-seasonal-intents";
 
 const texasFlagHistoryStub: Article = {
@@ -88,6 +89,7 @@ const texasMilitaryMuseumsGuideStub: Article = {
 
 export const newestEvergreenArticles: Article[] = [
   ...seasonalIntentStubs,
+  ...lighthouseSearchIntentStubs,
   ...lighthouseDeepDiveStubs,
   ...seasonalAuthorityArticleStubs,
   winklerCountyArticleStub,
@@ -106,6 +108,8 @@ export async function loadNewestEvergreenArticle(brandId: string, slug: string) 
   if (brandId !== "texasdefined") return null;
   const intentArticle = await loadSeasonalIntentArticle(brandId, slug);
   if (intentArticle) return intentArticle;
+  const lighthouseIntentArticle = await loadLighthouseSearchIntentArticle(brandId, slug);
+  if (lighthouseIntentArticle) return lighthouseIntentArticle;
   const lighthouseArticle = await loadLighthouseDeepDiveArticle(brandId, slug);
   if (lighthouseArticle) return lighthouseArticle;
   const seasonalArticle = await loadSeasonalAuthorityArticle(brandId, slug);
