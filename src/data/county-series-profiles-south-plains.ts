@@ -16,8 +16,8 @@ export const COUNTY_SERIES_PROFILES_SOUTH_PLAINS: CountySeriesProfile[] = [
   {
     countySlug: "hockley",
     articleSlug: "hockley-county-levelland-yellow-house-canyon-oil-cotton-south-plains-texas",
-    loadArticle: () => import("@/data/fixtures/hockley-county-levelland-yellow-house-canyon-oil-cotton-south-plains-texas")
-      .then((module) => module.hockleyCountyLevellandYellowHouseCanyonOilCottonSouthPlainsTexasArticle),
+    loadArticle: () => import("@/data/fixtures/hockley-county-profile")
+      .then((module) => module.hockleyCountyProfileArticle),
   },
   {
     countySlug: "terry",
