@@ -25,6 +25,7 @@ const formatPriority: TexasSocialFormat[] = [
   'what-do-texans-call-this',
   'how-texas-are-you',
   'name-this-texas-place',
+  'which-one-is-more-texas',
   'would-you-rather-texas',
   'tag-a-texan',
   'texas-by-the-numbers',
