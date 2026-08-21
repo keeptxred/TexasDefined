@@ -1,4 +1,4 @@
-# retrigger for Lubbock County certification bundle diagnosis
+# retrigger current Lubbock County certification bundle diagnosis
 name: Diagnose Crosby performance once
 
 on:
