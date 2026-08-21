@@ -46,7 +46,17 @@ export const Route = createFileRoute("/texas-vs/$state")({
 });
 
 function TexasVsStatePage() {
-  const { name, profile } = Route.useLoaderData();
+  const { name, slug, profile } = Route.useLoaderData();
+  const gatewayHref = slug === "california"
+    ? "/article/texas-vs-california-differences"
+    : slug === "florida"
+      ? "/article/texas-vs-florida-differences"
+      : null;
+  const gatewayLabel = slug === "california"
+    ? "Texas vs California: 30 differences you notice fast"
+    : slug === "florida"
+      ? "Texas vs Florida: 25 differences that matter in real life"
+      : null;
   const relatedGroup = TEXAS_VS_STATE_GROUPS.find((group) => group.states.some((state) => state === name));
   const relatedStates = relatedGroup?.states.filter((state) => state !== name).slice(0, 6) ?? [];
   const sections = [
@@ -96,6 +106,7 @@ function TexasVsStatePage() {
         <p className="eyebrow text-primary">Texas compared</p>
         <h1 className="mt-3 max-w-5xl font-display text-5xl leading-none md:text-7xl">Texas vs {name}</h1>
         <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">A practical side-by-side framework for comparing Texas with {name}, with state-specific context for the places, climate and tradeoffs that make this comparison different from the other 48.</p>
+        {gatewayHref && gatewayLabel ? <p className="mt-5"><Link to={gatewayHref} className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">{gatewayLabel} →</Link></p> : null}
       </Container>
     </section>
 
@@ -143,6 +154,7 @@ function TexasVsStatePage() {
         <div className="flex flex-wrap gap-x-7 gap-y-3 text-sm">
           <Link to="/texas-vs-every-state" className="font-semibold text-primary">All 49 state comparisons</Link>
           <Link to="/moving-to-texas" className="font-semibold text-primary">Moving to Texas</Link>
+          <Link to="/article/things-nobody-tells-you-before-moving-to-texas" className="font-semibold text-primary">31 moving-to-Texas surprises</Link>
           <Link to="/browse/cities" className="font-semibold text-primary">Texas city guides</Link>
           <Link to="/browse/counties" className="font-semibold text-primary">Texas county guides</Link>
         </div>
