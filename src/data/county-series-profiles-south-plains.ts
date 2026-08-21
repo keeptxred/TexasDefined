@@ -55,4 +55,10 @@ export const COUNTY_SERIES_PROFILES_SOUTH_PLAINS: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/cochran-county-morton-whiteface-oil-irrigation-south-plains-texas")
       .then((module) => module.cochranCountyMortonWhitefaceOilIrrigationSouthPlainsTexasArticle),
   },
+  {
+    countySlug: "bailey",
+    articleSlug: "bailey-county-muleshoe-refuge-irrigation-high-plains-texas",
+    loadArticle: () => import("@/data/fixtures/bailey-county-muleshoe-refuge-irrigation-high-plains-texas")
+      .then((module) => module.baileyCountyMuleshoeRefugeIrrigationHighPlainsTexasArticle),
+  },
 ];
