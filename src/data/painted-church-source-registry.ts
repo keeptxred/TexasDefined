@@ -2,7 +2,7 @@ import { paintedChurchBibliography } from "./painted-church-bibliography";
 import { canonicalPaintedChurchFeaturesBySlug } from "./painted-church-feature-index";
 import { paintedChurchMapPointBySlug } from "./painted-church-map-points";
 import { canonicalPaintedChurchProfileBySlug } from "./painted-church-profile-index";
-import { paintedChurchPreservationEventsBySlug } from "./painted-church-preservation-chronology";
+import { canonicalPaintedChurchPreservationEventsBySlug } from "./painted-church-preservation-index";
 import { paintedChurchRegisterRecordBySlug } from "./painted-church-register-evidence";
 import { canonicalPaintedChurchResearchBySlug } from "./painted-church-research-index";
 import { paintedChurchVisitorStatusBySlug } from "./painted-church-visitor-status";
@@ -49,8 +49,9 @@ const currentOrganizationHosts = new Set([
   "sscmshiner.org", "www.sscmshiner.org", "www.stpaulserbin.org", "stpaulserbin.org", "www.pannamariachurch.com", "pannamariachurch.com",
   "holytrinityofcornhill.org", "www.holytrinityofcornhill.org", "shpalestine.org", "www.shpalestine.org", "www.ststanislausbandera.com", "ststanislausbandera.com",
   "www.sacredheartcorpus.org", "sacredheartcorpus.org", "diocesecc.org", "www.diocesecc.org", "www.stjsa.org", "stjsa.org", "saintstans.org", "www.saintstans.org",
-  "www.saintlouisdaycastroville.org", "saintlouisdaycastroville.org", "olgtx.org", "www.olgtx.org", "guardianangelwallis.org", "www.guardianangelwallis.org",
+  "www.saintlouisdaycastroville.org", "saintlouisdaycastroville.org", "www.stlouiscastroville.com", "stlouiscastroville.com", "olgtx.org", "www.olgtx.org", "guardianangelwallis.org", "www.guardianangelwallis.org",
   "stjohntexas.org", "www.stjohntexas.org", "stjosephmason.org", "www.stjosephmason.org", "studioiodesign.com", "www.studioiodesign.com",
+  "texaswendish.org", "www.texaswendish.org",
 ]);
 
 function hostnameOf(url: string) {
@@ -135,7 +136,7 @@ for (const church of expandedPaintedChurches) {
     checkedAt: church.sourceCheckedAt,
   });
 
-  for (const event of paintedChurchPreservationEventsBySlug.get(church.slug) ?? []) addSource({
+  for (const event of canonicalPaintedChurchPreservationEventsBySlug.get(church.slug) ?? []) addSource({
     url: event.sourceUrl,
     label: event.sourceLabel,
     use: `preservation chronology: ${event.yearLabel ?? event.year} ${event.type.replaceAll("-", " ")}`,
