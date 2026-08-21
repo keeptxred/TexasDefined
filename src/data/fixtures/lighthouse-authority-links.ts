@@ -32,6 +32,7 @@ const additions: Record<string, ArticleInternalLink[]> = {
     { href: "/article/texas-lighthouse-road-trip", label: "Turn the ranking into a Gulf Coast road trip", description: "Use the coast-spanning itinerary when you want to connect several lighthouse stories in one trip." },
     { href: "/article/port-isabel-lighthouse-guide", label: "Go deeper on Port Isabel Lighthouse", description: "Read the history and visitor context behind the best traditional lighthouse visit in Texas." },
     { href: "/destination/port-isabel-lighthouse-state-park", label: "Plan the Port Isabel stop", description: "Use the destination guide for the public lighthouse experience, nearby places and current planning context." },
+    { href: "/api/texas-lighthouses.json", label: "Download the Texas lighthouse reference JSON", description: "Use the machine-readable source, location, access and visitor-planning records behind the lighthouse authority collection." },
   ],
   "texas-lighthouses-complete-guide": [bestToVisit],
   "texas-lighthouse-road-trip": [bestToVisit],
