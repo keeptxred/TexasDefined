@@ -61,15 +61,6 @@ const INTENT_GROUPS = [
   },
 ] as const;
 
-const FEATURED_GATEWAYS = [
-  { slug: "texas-places-worth-driving-for", label: "25 Texas places worth driving for" },
-  { slug: "best-texas-weekend-trips-by-season", label: "Best Texas weekend trips by season" },
-  { slug: "best-texas-small-towns-by-trip-type", label: "Best Texas small towns by trip type" },
-  { slug: "best-texas-state-parks-for-first-time-visitors", label: "Best state parks for first-time visitors" },
-  { slug: "best-texas-family-road-trips", label: "Best Texas family road trips" },
-  { slug: "best-texas-food-towns", label: "Texas food towns worth a trip" },
-] as const;
-
 export function ExploreIntentPaths() {
   return (
     <Section>
@@ -96,26 +87,6 @@ export function ExploreIntentPaths() {
             </section>
           ))}
         </div>
-
-        <section className="mt-10 border-t border-border pt-7" aria-labelledby="gateway-trip-ideas">
-          <h3 id="gateway-trip-ideas" className="font-display text-2xl">Start with a shortlist</h3>
-          <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">
-            These broader guides help narrow the state before you choose the exact towns, parks, meals and roads for the trip.
-          </p>
-          <ul className="mt-5 grid gap-x-8 gap-y-2 sm:grid-cols-2 lg:grid-cols-3">
-            {FEATURED_GATEWAYS.map((item) => (
-              <li key={item.slug}>
-                <Link
-                  to="/article/$slug"
-                  params={{ slug: item.slug }}
-                  className="text-sm font-semibold text-primary hover:underline"
-                >
-                  {item.label} →
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </section>
       </Container>
     </Section>
   );
