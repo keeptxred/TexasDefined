@@ -14,7 +14,6 @@ import { supplementalExploreCategories } from "../explore-categories";
 import { guideHref } from "../guide-links";
 import type { Article, ArticleBlock, SearchDocument } from "../types";
 import { exploreFeatureArticleStubs, loadExploreFeatureArticle } from "./lazy-explore-feature-articles";
-import { newestEvergreenArticles, loadNewestEvergreenArticle } from "./lazy-newest-evergreen";
 import { lazyEvergreenArticleStubs, loadLazyEvergreenArticle } from "./lazy-evergreen";
 import { historicSupportingStubs, loadHistoricSupportingArticle } from "./lazy-historic-supporting";
 import { militaryHistoryExpansionStubs, loadMilitaryHistoryExpansionArticle } from "./lazy-military-history-expansion";
@@ -44,23 +43,21 @@ const editorialArticles = [
   ...standaloneEvergreenStubs,
   ...historicSupportingStubs,
   ...militaryHistoryExpansionStubs,
-  ...newestEvergreenArticles,
   ...texasCoreArticleStubs,
   ...migratedEditorialArticleStubs,
 ];
+
+let newestEvergreenModulePromise: Promise<typeof import("./lazy-newest-evergreen")> | null = null;
+const loadNewestEvergreenModule = () => {
+  newestEvergreenModulePromise ??= import("./lazy-newest-evergreen");
+  return newestEvergreenModulePromise;
+};
 
 let texasLifeSplitArticlesPromise: Promise<Article[]> | null = null;
 const loadTexasLifeSplitArticles = () => {
   texasLifeSplitArticlesPromise ??= import("./texas-life-split")
     .then((module) => module.texasLifeSplitArticles);
   return texasLifeSplitArticlesPromise;
-};
-
-let texasGatewayArticlesPromise: Promise<Article[]> | null = null;
-const loadGatewayEditorialArticles = () => {
-  texasGatewayArticlesPromise ??= import("./lazy-texas-gateway")
-    .then((module) => module.loadTexasGatewayArticles());
-  return texasGatewayArticlesPromise;
 };
 
 let countySeriesArticleStubsPromise: Promise<Article[]> | null = null;
@@ -72,8 +69,8 @@ const loadCountySeriesArticleStubs = () => {
 
 const loadEditorialArticles = async () => [
   ...editorialArticles,
+  ...(await loadNewestEvergreenModule()).newestEvergreenArticles,
   ...(await loadTexasLifeSplitArticles()),
-  ...(await loadGatewayEditorialArticles()),
   ...(await loadCountySeriesArticleStubs()),
 ];
 
@@ -87,7 +84,7 @@ const COUNTY_HERO_OVERRIDES: Partial<Record<string, Article["hero"]>> = {
   },
   "brewster-county-big-bend-texas": {
     src: "/images/explore/national-parks/big-bend-national-park.jpg",
-    alt: "Big Bend National Park in Brewster County, Texas",
+    alt: "Big Bend National Park in Brewster County, home of the Chisos Mountains and Rio Grande canyons",
     width: 1600,
     height: 2133,
     credit: "Betty Alex (U.S. National Park Service) · Public domain · Wikimedia Commons",
@@ -189,6 +186,7 @@ export const fixtureArticles: ArticleRepository = {
     return take(rows, query.limit).map(normalizeArticle);
   },
   async getBySlug(scope, slug) {
+    const { loadNewestEvergreenArticle } = await loadNewestEvergreenModule();
     const newestEvergreenArticle = await loadNewestEvergreenArticle(scope.brandId, slug);
     if (newestEvergreenArticle) return normalizeArticle(newestEvergreenArticle);
 
