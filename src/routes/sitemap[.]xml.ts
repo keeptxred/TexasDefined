@@ -116,7 +116,10 @@ export const Route = createFileRoute("/sitemap.xml")({
         const countyPages = COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady);
         const entityPages = graph.filter(isIndexableEntityPage).filter(isTexasDefinedOwnedEntity);
         const entries: SitemapEntry[] = [
-          ...INDEXABLE_STATIC_PATHS.filter((path) => !isExploreSitemapOwnedPath(path) && isTexasDefinedOwnedStaticPath(path) && !CANONICALIZED_STATIC_PATHS.has(path)).map((path) => ({ path, lastmod: STATIC_LASTMOD_BY_PATH[path] })),
+          ...INDEXABLE_STATIC_PATHS
+            .filter((path) => !isExploreSitemapOwnedPath(path))
+            .filter((path) => isTexasDefinedOwnedStaticPath(path) && !CANONICALIZED_STATIC_PATHS.has(path))
+            .map((path) => ({ path, lastmod: STATIC_LASTMOD_BY_PATH[path] })),
           ...TEXAS_VS_STATES.map((state) => ({ path: `/texas-vs/${texasVsStateSlug(state)}`, lastmod: PRIORITY_SEO_LASTMOD })),
           ...FISHING_SITEMAP_ENTRIES,
           ...fishingGuideSitemapEntries,
