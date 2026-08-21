@@ -12,6 +12,7 @@ export type TexasSocialBatchOptions = {
 const formatPriority: TexasSocialFormat[] = [
   'you-know-youre-a-texan-if',
   'you-know-youre-from-texas-if',
+  'tell-me-youre-from-texas',
   'fact-of-the-day',
   'til-texas-edition',
   'texas-trivia',
