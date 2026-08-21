@@ -14,6 +14,7 @@ export type KnowledgeBankValidation = {
 };
 
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
+const isRootRelativePath = (value: string) => value.startsWith('/') && !value.includes('://');
 
 export function validateKnowledgeBank(records: TexasKnowledgeRecord[]): KnowledgeBankValidation {
   const errors: string[] = [];
@@ -47,8 +48,14 @@ export function validateKnowledgeBank(records: TexasKnowledgeRecord[]): Knowledg
     if (record.verification === 'needs-review' && record.socialReady) {
       errors.push(`${record.id} needs review and must not be social-ready.`);
     }
-    if (record.articlePath && (!record.articlePath.startsWith('/') || record.articlePath.includes('://'))) {
+    if (record.articlePath && !isRootRelativePath(record.articlePath)) {
       errors.push(`${record.id} articlePath must be a root-relative internal path.`);
+    }
+    if (record.plannedArticlePath && !isRootRelativePath(record.plannedArticlePath)) {
+      errors.push(`${record.id} plannedArticlePath must be a root-relative internal path.`);
+    }
+    if (record.articlePath && record.plannedArticlePath) {
+      errors.push(`${record.id} cannot have both articlePath and plannedArticlePath.`);
     }
 
     const socialFormats = record.socialFormats ?? [];
