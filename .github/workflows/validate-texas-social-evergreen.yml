@@ -7,6 +7,7 @@ on:
       - "src/data/texas-social-evergreen-batch2.ts"
       - "src/lib/texas-social-rotation.ts"
       - "src/lib/texas-social-facebook-queue.ts"
+      - "src/routes/admin.social-calendar.tsx"
       - "scripts/data/validate-texas-social-evergreen.mjs"
       - ".github/workflows/validate-texas-social-evergreen.yml"
   workflow_dispatch:
