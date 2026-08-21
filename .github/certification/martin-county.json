@@ -1,0 +1,9 @@
+{
+  "county": "martin",
+  "status": "pass",
+  "stage": "complete",
+  "county_commit": "525bffec33c4e9e5ebeee51b721c785f93d827f4",
+  "tested_main": "15dca1b687ad62567246355467d5abb4c4e45c7f",
+  "detail": "validate=PASS deploy=PASS page=200 structured=yes editorial=yes legacy=301->https://texasdefined.com/county/martin hero=200 mime=image/jpeg bytes=724837",
+  "recorded_at_utc": "2026-08-21T04:01:57.604493+00:00"
+}
