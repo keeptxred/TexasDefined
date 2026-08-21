@@ -1,0 +1,61 @@
+name: Certify Swisher County production once
+on:
+  push:
+    paths:
+      - '.github/workflows/certify-swisher-county-once.yml'
+permissions:
+  contents: read
+  statuses: write
+jobs:
+  certify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      HERO_URL: https://commons.wikimedia.org/wiki/Special:Redirect/file/Swisher_county_courthouse_2009.jpg?width=1600
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Verify live Swisher County
+        shell: bash
+        run: |
+          set -euo pipefail
+          origin='https://texasdefined.com'
+          county='/county/swisher'
+          legacy='/article/swisher-county-tulia-tule-creek-irrigation-south-plains-texas'
+          expected_title='Swisher County: Tulia, Tule Creek, Irrigation and the South Plains'
+          workdir="$(mktemp -d)"; trap 'rm -rf "$workdir"' EXIT
+
+          ok=0
+          for attempt in $(seq 1 12); do
+            status="$(curl --retry 3 --retry-all-errors --retry-delay 2 --max-time 60 -sS -o "$workdir/page" -w '%{http_code}' "$origin$county?verify=${GITHUB_SHA}-${GITHUB_RUN_ID}-$attempt")"
+            if [ "$status" = '200' ] \
+              && grep -Fq "$expected_title" "$workdir/page" \
+              && grep -Fq 'The county in numbers' "$workdir/page" \
+              && grep -Fq 'County seat' "$workdir/page" \
+              && grep -Fq '2020 population' "$workdir/page" \
+              && grep -Fq 'County feature' "$workdir/page" \
+              && grep -Fq 'Tulia' "$workdir/page" \
+              && grep -Fq 'https://texasdefined.com/county/swisher' "$workdir/page"; then
+              ok=1
+              break
+            fi
+            sleep 5
+          done
+          test "$ok" = '1' || { echo 'Live Swisher County structured/editorial layers did not appear.' >&2; exit 1; }
+
+          legacy_status="$(curl --max-redirs 0 -sS -D "$workdir/legacy-headers" -o /dev/null -w '%{http_code}' "$origin$legacy")"
+          location="$(awk 'BEGIN{IGNORECASE=1} /^location:/{gsub(/\r/,""); sub(/^location:[[:space:]]*/,""); print; exit}' "$workdir/legacy-headers")"
+          test "$legacy_status" = '301'
+          [[ "$location" == *'/county/swisher'* ]]
+
+          hero_status="$(curl -A 'TexasDefined production verifier/1.0' -L --retry 5 --retry-all-errors --retry-delay 2 --max-time 60 -sS -D "$workdir/hero-headers" -o "$workdir/hero" -w '%{http_code}' "$HERO_URL")"
+          hero_mime="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/{gsub(/\r/,""); sub(/^content-type:[[:space:]]*/,""); v=$0} END{print v}' "$workdir/hero-headers" | cut -d';' -f1)"
+          hero_bytes="$(wc -c < "$workdir/hero")"
+          test "$hero_status" = '200'
+          case "$hero_mime" in image/jpeg|image/png|image/webp) ;; *) echo "Live hero MIME invalid: $hero_mime" >&2; exit 1;; esac
+          test "$hero_bytes" -gt 50000
+
+          description="page=200 structured=yes editorial=yes legacy=301 hero=200 $hero_mime"
+          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
+            --data "{\"state\":\"success\",\"context\":\"swisher-certification\",\"description\":\"$description\"}" >/dev/null
+          echo "PASS county=$county structured=yes editorial=yes legacy=$legacy_status hero=$hero_status mime=$hero_mime bytes=$hero_bytes"
