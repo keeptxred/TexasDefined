@@ -11,7 +11,9 @@ export function ShopTheStory({ collectionSlug }: { collectionSlug: string }) {
   const collection = useQuery(collectionQuery(collectionSlug));
   const products = useQuery(productsQuery({ collection: collectionSlug, limit: 3 }));
 
-  if (!brand.features.shop || !collection.data) return null;
+  // Editorial shop modules only exist when the collection is genuinely selling
+  // something. Never link an article into an empty placeholder collection.
+  if (!brand.features.shop || !collection.data || !products.data?.length) return null;
 
   return (
     <aside className="my-12 border-y border-border bg-secondary/60 px-5 py-8 sm:px-8">
@@ -19,7 +21,7 @@ export function ShopTheStory({ collectionSlug }: { collectionSlug: string }) {
       <h3 className="mt-2 font-display text-2xl">Things that caught our eye</h3>
       <p className="mt-1 text-sm text-muted-foreground">{collection.data.tagline}</p>
       <ul className="mt-6 grid gap-6 sm:grid-cols-3">
-        {(products.data ?? []).map((product) => (
+        {products.data.map((product) => (
           <li key={product.id}>
             <img
               src={product.image.src}
