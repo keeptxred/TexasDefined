@@ -14,8 +14,10 @@ import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
 import { canonicalEntityPath, isIndexableEntityPage } from "@/data/knowledge-graph/relationships";
 import { COUNTY_PROPERTY_RECORDS } from "@/data/property/county-property-data";
 import { isCountyPropertyIndexReady } from "@/data/property/county-property-schema";
+import { fetchAssignedShopProducts } from "@/data/shop-products-remote";
 import { TEXAS_DATASETS } from "@/data/texas-data-center";
 import { TEXAS_VS_STATES, texasVsStateSlug } from "@/data/texas-vs-states-index";
+import { isTexasDefinedOwnedEntity, isTexasDefinedOwnedStaticPath } from "@/lib/brand-route-ownership";
 import { INDEXABLE_STATIC_PATHS, isExploreSitemapOwnedPath, isIndexablePublicPath, normalizePublicPath } from "@/lib/public-routes";
 
 const origin = `https://${texasDefinedBrand.identity.domain}`;
@@ -26,14 +28,9 @@ const STATIC_LASTMOD_BY_PATH: Readonly<Record<string, string>> = {
   "/best-places-to-go-camping-in-texas": PRIORITY_SEO_LASTMOD,
   "/texas-state-fair": PRIORITY_SEO_LASTMOD,
   "/texas-two-step": PRIORITY_SEO_LASTMOD,
-  "/texas-attorney-general": PRIORITY_SEO_LASTMOD,
   "/texas-fishing-license": PRIORITY_SEO_LASTMOD,
-  "/texas-secretary-of-state": PRIORITY_SEO_LASTMOD,
   "/texas-drivers-license": PRIORITY_SEO_LASTMOD,
   "/texas-dmv": PRIORITY_SEO_LASTMOD,
-  "/texas-dps": PRIORITY_SEO_LASTMOD,
-  "/texas-unemployment": PRIORITY_SEO_LASTMOD,
-  "/texas-comptroller": PRIORITY_SEO_LASTMOD,
   "/texas-vehicle-registration": PRIORITY_SEO_LASTMOD,
   "/texas-flag": PRIORITY_SEO_LASTMOD,
   "/texas-vs-every-state": PRIORITY_SEO_LASTMOD,
@@ -68,10 +65,12 @@ export const Route = createFileRoute("/sitemap.xml")({
         const fishingReportSitemapEntries = fishingReportSitemapResult.status === "fulfilled" ? fishingReportSitemapResult.value : [];
         const fishingLocalSitemapEntries = fishingLocalSitemapResult.status === "fulfilled" ? fishingLocalSitemapResult.value : [];
         const countyGrowth = await loadTexasCountyGrowth();
+        const liveShopProducts = await fetchAssignedShopProducts();
+        const activeCollectionSlugs = new Set(liveShopProducts.flatMap((product) => product.collectionSlugs));
         const countyPages = COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady);
-        const entityPages = graph.filter(isIndexableEntityPage);
+        const entityPages = graph.filter(isIndexableEntityPage).filter(isTexasDefinedOwnedEntity);
         const entries: SitemapEntry[] = [
-          ...INDEXABLE_STATIC_PATHS.filter((path) => !isExploreSitemapOwnedPath(path)).map((path) => ({ path, lastmod: STATIC_LASTMOD_BY_PATH[path] })),
+          ...INDEXABLE_STATIC_PATHS.filter((path) => !isExploreSitemapOwnedPath(path) && isTexasDefinedOwnedStaticPath(path)).map((path) => ({ path, lastmod: STATIC_LASTMOD_BY_PATH[path] })),
           ...TEXAS_VS_STATES.map((state) => ({ path: `/texas-vs/${texasVsStateSlug(state)}`, lastmod: PRIORITY_SEO_LASTMOD })),
           ...FISHING_SITEMAP_ENTRIES,
           ...fishingGuideSitemapEntries,
@@ -81,14 +80,14 @@ export const Route = createFileRoute("/sitemap.xml")({
           ...remoteArticles.map((article) => ({ path: `/news/${article.slug}`, lastmod: toDate(article.publishedAt) })),
           ...(countyGrowth.available ? [{ path: "/texas-data/county-growth", lastmod: "2026-03-17" }] : []),
           ...(countyHousingCosts?.available ? [{ path: "/texas-data/county-housing-costs", lastmod: toDate(countyHousingCosts.generatedAt ?? undefined) }] : []),
-          ...collections.map((collection) => ({ path: `/shop/${collection.slug}` })),
+          ...collections.filter((collection) => activeCollectionSlugs.has(collection.slug)).map((collection) => ({ path: `/shop/${collection.slug}` })),
           ...authors.map((author) => ({ path: `/authors/${author.id}` })),
           ...articles.filter((article) => !isLegacyCountySeriesArticle(article.slug)).map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(ARTICLE_LASTMOD_BY_SLUG[article.slug] ?? article.publishedAt) })),
           ...countyPages.map((county) => ({ path: `/property-tax/county/${county.slug}`, lastmod: toDate(county.lastVerifiedAt ?? undefined) })),
           ...entityPages.map((entity) => ({ path: canonicalEntityPath(entity), lastmod: toDate(entity.sourceCheckedAt) })),
           ...TEXAS_DATASETS.map((dataset) => ({ path: `/texas-data/${dataset.slug}`, lastmod: toDate(dataset.updated) })),
         ];
-        const uniqueEntries = [...new Map(entries.map((entry) => { const path = normalizePublicPath(entry.path); return path ? { ...entry, path } : null; }).filter((entry): entry is SitemapEntry => Boolean(entry) && isIndexablePublicPath(entry.path)).map((entry) => [entry.path, entry])).values()];
+        const uniqueEntries = [...new Map(entries.map((entry) => { const path = normalizePublicPath(entry.path); return path ? { ...entry, path } : null; }).filter((entry): entry is SitemapEntry => Boolean(entry) && isIndexablePublicPath(entry.path) && isTexasDefinedOwnedStaticPath(entry.path)).map((entry) => [entry.path, entry])).values()];
         const body = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${uniqueEntries.map(({ path, lastmod }) => `  <url><loc>${escapeXml(`${origin}${path}`)}</loc>${lastmod ? `<lastmod>${lastmod}</lastmod>` : ""}</url>`).join("\n")}\n</urlset>`;
         return new Response(body, { headers: { "content-type": "application/xml; charset=utf-8", "cache-control": "public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400" } });
       },
