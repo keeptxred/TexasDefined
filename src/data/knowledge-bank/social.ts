@@ -4,11 +4,18 @@ const headlineFor = (format: TexasSocialFormat) => {
   switch (format) {
     case 'fact-of-the-day': return 'Texas Fact of the Day';
     case 'you-know-youre-a-texan-if': return "You know you're a Texan if…";
+    case 'you-know-youre-from-texas-if': return "You know you're FROM Texas if…";
     case 'only-texans-understand': return 'Only Texans understand…';
+    case 'til-texas-edition': return 'TIL — Texas Edition';
+    case 'only-in-texas': return 'Only in Texas';
     case 'texas-trivia': return 'Texas Trivia';
     case 'true-or-false': return 'True or False — Texas Edition';
     case 'this-or-that': return 'Texas This or That';
+    case 'would-you-rather-texas': return 'Would You Rather — Texas Edition';
     case 'finish-the-sentence': return 'Finish the sentence';
+    case 'name-this-texas-place': return 'Name This Texas Place';
+    case 'what-do-texans-call-this': return 'What Do Texans Call This?';
+    case 'how-texas-are-you': return 'How Texas Are You?';
     case 'texas-by-the-numbers': return 'Texas by the Numbers';
     case 'county-of-the-day': return 'Texas County of the Day';
     case 'town-of-the-day': return 'Texas Town of the Day';
@@ -22,10 +29,14 @@ const headlineFor = (format: TexasSocialFormat) => {
 function renderBody(record: TexasKnowledgeRecord, format: TexasSocialFormat) {
   switch (format) {
     case 'you-know-youre-a-texan-if':
+    case 'you-know-youre-from-texas-if':
       return record.verification === 'editorial-observation'
         ? record.statement.replace(/^Texans often /i, '').replace(/\.$/, '') + '.'
         : record.statement;
     case 'only-texans-understand':
+    case 'only-in-texas':
+      return record.statement;
+    case 'til-texas-edition':
       return record.statement;
     case 'texas-trivia':
       return `How well do you know Texas? ${record.subject}: what do you know before you reveal the answer?\n\nAnswer: ${record.statement}`;
@@ -35,6 +46,14 @@ function renderBody(record: TexasKnowledgeRecord, format: TexasSocialFormat) {
       return `You know you're in Texas when ________.\n\nOur take: ${record.statement}`;
     case 'this-or-that':
       return `${record.subject}: which side are you on? Tell us why.`;
+    case 'would-you-rather-texas':
+      return `${record.subject}: which Texas choice would you make? Tell us why.`;
+    case 'name-this-texas-place':
+      return `${record.subject}\n\nCan you name the Texas place before checking the answer?\n\nAnswer: ${record.statement}`;
+    case 'what-do-texans-call-this':
+      return `${record.subject}: what do you call it where you're from in Texas?\n\nOur note: ${record.statement}`;
+    case 'how-texas-are-you':
+      return `${record.statement}\n\nDoes this belong on your Texas scorecard?`;
     case 'county-of-the-day':
       return `${record.subject}\n\n${record.statement}`;
     case 'town-of-the-day':
