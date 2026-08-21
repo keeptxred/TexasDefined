@@ -9,8 +9,12 @@ const RECENT_CONDITIONS_URL = "https://waterdatafortexas.org/reservoirs/recent-c
 const MAX_DISPLAY_AGE_DAYS = 7;
 const PRIMARY_TIMEOUT_MS = 10_000;
 const HTML_TIMEOUT_MS = 5_000;
+const RECENT_CACHE_MS = 60_000;
 const BROWSER_USER_AGENT =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36";
+
+let recentCache: { expiresAt: number; payload: unknown } | null = null;
+let recentRequest: Promise<unknown | null> | null = null;
 
 function snapshotIsFresh(snapshot: LiveLakeLevelSnapshot, now = new Date()) {
   const measured = Date.parse(`${snapshot.measuredAt}T23:59:59Z`);
@@ -30,20 +34,38 @@ function headers(accept: string) {
   };
 }
 
+async function fetchRecentConditionsPayload(): Promise<unknown | null> {
+  const now = Date.now();
+  if (recentCache && recentCache.expiresAt > now) return recentCache.payload;
+  if (recentRequest) return recentRequest;
+
+  recentRequest = (async () => {
+    try {
+      const response = await fetch(RECENT_CONDITIONS_URL, {
+        cache: "no-store",
+        redirect: "follow",
+        headers: headers("application/json,text/plain;q=0.9,*/*;q=0.1"),
+        signal: AbortSignal.timeout(PRIMARY_TIMEOUT_MS),
+      });
+      if (!response.ok) return null;
+      const payload: unknown = await response.json();
+      recentCache = { expiresAt: Date.now() + RECENT_CACHE_MS, payload };
+      return payload;
+    } catch {
+      return null;
+    } finally {
+      recentRequest = null;
+    }
+  })();
+
+  return recentRequest;
+}
+
 async function fetchRecentSnapshot(canonicalSourceUrl: string) {
-  try {
-    const response = await fetch(RECENT_CONDITIONS_URL, {
-      cache: "no-store",
-      redirect: "follow",
-      headers: headers("application/json,text/plain;q=0.9,*/*;q=0.1"),
-      signal: AbortSignal.timeout(PRIMARY_TIMEOUT_MS),
-    });
-    if (!response.ok) return null;
-    const snapshot = parseWaterDataForTexasRecentConditions(canonicalSourceUrl, await response.json());
-    return snapshot && snapshotIsFresh(snapshot) ? snapshot : null;
-  } catch {
-    return null;
-  }
+  const payload = await fetchRecentConditionsPayload();
+  if (!payload) return null;
+  const snapshot = parseWaterDataForTexasRecentConditions(canonicalSourceUrl, payload);
+  return snapshot && snapshotIsFresh(snapshot) ? snapshot : null;
 }
 
 async function fetchCsvSnapshot(canonicalSourceUrl: string) {
@@ -82,11 +104,11 @@ export async function loadLiveLakeLevelResilient(sourceUrl: string): Promise<Liv
   if (!/^https:\/\/(?:www\.)?waterdatafortexas\.org\/reservoirs\/individual\/[a-z0-9-]+\/?$/i.test(sourceUrl)) return null;
 
   const canonicalSourceUrl = sourceUrl.replace(/\/$/, "");
-  const [recent, csv] = await Promise.all([
-    fetchRecentSnapshot(canonicalSourceUrl),
-    fetchCsvSnapshot(canonicalSourceUrl),
-  ]);
+  const recent = await fetchRecentSnapshot(canonicalSourceUrl);
   if (recent) return recent;
+
+  const csv = await fetchCsvSnapshot(canonicalSourceUrl);
   if (csv) return csv;
+
   return fetchHtmlSnapshot(canonicalSourceUrl);
 }
