@@ -1,4 +1,4 @@
-import { paintedChurchEvidenceLedgerBySlug } from "@/data/painted-church-evidence-ledger";
+import { canonicalPaintedChurchEvidenceLedgerBySlug } from "@/data/painted-church-evidence-ledger-index";
 
 const statusLabel = {
   accepted: "Accepted",
@@ -7,7 +7,7 @@ const statusLabel = {
 } as const;
 
 export function PaintedChurchEvidenceLedger({ slug }: { slug: string }) {
-  const claims = paintedChurchEvidenceLedgerBySlug(slug);
+  const claims = canonicalPaintedChurchEvidenceLedgerBySlug(slug);
   if (!claims.length) return null;
 
   return (
