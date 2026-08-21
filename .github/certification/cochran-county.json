@@ -1,0 +1,8 @@
+{
+  "county": "cochran",
+  "status": "pass",
+  "stage": "complete",
+  "target_sha": "aefe0cf992987d8e42e0cadf32203da69c41a336",
+  "detail": "validate=PASS deploy=PASS page=200 structured=yes editorial=yes legacy=NA hero=200 mime=image/jpeg bytes=708755",
+  "recorded_at_utc": "2026-08-21T03:39:17.089903+00:00"
+}
