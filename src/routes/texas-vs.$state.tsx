@@ -2,14 +2,15 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
-import { TEXAS_VS_STATE_GROUPS, texasVsStateName, texasVsStateProfile, texasVsStateSlug } from "@/data/texas-vs-states";
+import { loadTexasVsStateProfile } from "@/data/texas-vs-state-profile";
+import { TEXAS_VS_STATE_GROUPS, texasVsStateName, texasVsStateSlug } from "@/data/texas-vs-states";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 export const Route = createFileRoute("/texas-vs/$state")({
-  loader: ({ params }) => {
+  loader: async ({ params }) => {
     const name = texasVsStateName(params.state);
     if (!name) throw notFound();
-    const profile = texasVsStateProfile(name);
+    const profile = await loadTexasVsStateProfile(name);
     if (!profile) throw notFound();
     return { name, slug: params.state, profile };
   },
