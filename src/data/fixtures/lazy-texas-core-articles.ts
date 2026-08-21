@@ -7,6 +7,7 @@ import roadTrip from "@/assets/road-trip.jpg";
 import smallTown from "@/assets/small-town.jpg";
 
 import type { Article, ImageRef } from "../types";
+import { loadTexasGatewayDecisionBatch13Article, texasGatewayDecisionBatch13Articles } from "./texas-gateway-decision-batch13";
 
 const image = (src: string, alt: string): ImageRef => ({ src, alt, width: 1600, height: 1067 });
 const images = {
@@ -32,12 +33,15 @@ export const texasCoreArticleStubs: Article[] = [
   stub({ id: "ar-8", slug: "texas-native-garden-that-survives-august", title: "A Garden That Survives August", dek: "Ten native plants that ask for nothing, plus the watering habit that kills more Texas landscapes than drought does.", category: "home-garden", hero: images.bluebonnets, authorId: "a-marisol", publishedAt: "2026-04-25", readingMinutes: 7, tags: ["gardening", "native plants", "xeriscape", "home"], relatedCollections: ["wildflower-house"], relatedDestinations: [] }),
   stub({ id: "ar-9", slug: "friday-night-and-the-texas-town", title: "Friday Night and the Texas Town", dek: "Why the stadium is the largest civic building in towns of four thousand people, and what happens there that has nothing to do with football.", category: "sports", hero: images.smallTown, authorId: "a-dell", publishedAt: "2026-06-02", readingMinutes: 6, tags: ["football", "small towns", "friday night", "community"], relatedCollections: [], relatedDestinations: [] }),
   stub({ id: "ar-10", slug: "big-bend-in-winter", title: "Big Bend Is a Winter Park", dek: "The five-hour drive, the eighty-mile gas gap, and why the hardest national park in Texas to reach is best in January.", category: "outdoors", region: "big-bend", hero: images.bigBend, authorId: "a-hollis", publishedAt: "2026-01-09", readingMinutes: 8, tags: ["big bend", "national parks", "desert", "dark skies"], relatedCollections: ["campfire-kitchen"], relatedDestinations: ["big-bend-chisos-basin"] }),
+  ...texasGatewayDecisionBatch13Articles,
 ];
 
 const coreSlugs = new Set(texasCoreArticleStubs.map((article) => article.slug));
 
 export async function loadTexasCoreArticle(brandId: string, slug: string): Promise<Article | null> {
   if (brandId !== "texasdefined" || !coreSlugs.has(slug)) return null;
+  const gatewayArticle = await loadTexasGatewayDecisionBatch13Article(brandId, slug);
+  if (gatewayArticle) return gatewayArticle;
   if (slug === "moving-to-texas-what-nobody-tells-you") {
     const { movingToTexasPillarArticle } = await import("./moving-to-texas-pillar");
     return movingToTexasPillarArticle;
