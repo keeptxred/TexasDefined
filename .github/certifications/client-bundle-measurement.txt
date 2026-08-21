@@ -1,4 +1,0 @@
-sha=ddb73a678b619619ec5fa9d77f765b8cdb7ee6c9
-file=main-CsvFcBVL.js
-bytes=1826058
-budget=1825000
