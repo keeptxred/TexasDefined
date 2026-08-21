@@ -74,17 +74,25 @@ const additions: Record<string, ArticleInternalLink[]> = {
     civilWar,
     { href: "/article/texas-lighthouse-road-trip", label: "Start the lighthouse road trip at Sabine Pass", description: "Use the eastern border waterway as the historical starting point before following the coast southwest." },
   ],
+  "cameron-county-brownsville-harlingen-south-padre-rio-grande": [
+    { href: "/article/port-isabel-lighthouse-guide", label: "Port Isabel Lighthouse", description: "Go deeper on the public historic lighthouse that anchors the lower Texas coast." },
+    bestToVisit,
+    mapLink,
+  ],
   "galveston-county-island-port-juneteenth-texas": [
     { href: "/article/point-bolivar-lighthouse-history", label: "Point Bolivar Lighthouse", description: "Explore the black cast-iron tower across the bay and its role in Galveston navigation and hurricane survival." },
+    bestToVisit,
     mapLink,
   ],
   "aransas-county-rockport-fulton-bays-coastal-heritage-texas": [
     { href: "/article/lydia-ann-lighthouse-port-aransas", label: "Lydia Ann Lighthouse", description: "Follow the historic Aransas Pass light through Civil War damage, reconstruction and modern private navigation use." },
+    bestToVisit,
     mapLink,
   ],
   "calhoun-county-port-lavaca-indianola-seadrift-bays-texas": [
     { href: "/article/matagorda-island-lighthouse-history", label: "Matagorda Island Lighthouse", description: "Trace the cast-iron Pass Cavallo light from 1852 through war, rebuilding and restoration." },
     { href: "/article/halfmoon-reef-lighthouse-port-lavaca", label: "Halfmoon Reef Lighthouse", description: "See the bay light that was moved ashore and preserved in Port Lavaca." },
+    bestToVisit,
     mapLink,
   ],
   "texas-civil-war-sites-guide": [
@@ -92,6 +100,7 @@ const additions: Record<string, ArticleInternalLink[]> = {
     { href: "/article/lydia-ann-lighthouse-port-aransas", label: "Lydia Ann Lighthouse and Civil War damage", description: "Follow the Aransas Pass light through demolition attempts and postwar rebuilding." },
     { href: "/article/matagorda-island-lighthouse-history", label: "Matagorda Island Lighthouse after the Civil War", description: "See how wartime damage and shoreline change produced the 1873 rebuilt tower." },
     { href: "/article/sabine-pass-lighthouse-texas-border", label: "Sabine Pass lighthouse and border waterway", description: "Connect the eastern lighthouse story with the 1863 battle and Sabine-Neches corridor." },
+    bestToVisit,
   ],
 };
 
