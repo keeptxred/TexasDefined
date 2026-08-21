@@ -5,19 +5,19 @@ const assert = (condition, message) => {
   if (!condition) throw new Error(message);
 };
 
-const route = read("src/routes/texas-lighthouses[.]json.ts");
+const route = read("src/routes/api.texas-lighthouses[.]json.ts");
 const mapPoints = read("src/data/texas-lighthouse-map-points.ts");
 const visitorPlans = read("src/data/lighthouse-visitor-planning.ts");
 const authorityLinks = read("src/data/fixtures/lighthouse-authority-links.ts");
 
-assert(route.includes("createFileRoute('/texas-lighthouses.json')"), "Texas lighthouse JSON route is missing");
+assert(route.includes("createFileRoute('/api/texas-lighthouses.json')"), "Texas lighthouse JSON API route is missing");
 assert(route.includes("texasLighthouseMapPoints") && route.includes("lighthouseVisitorPlans"), "Lighthouse JSON must derive from the shared map and visitor-planning datasets");
 assert(route.includes("canonicalCollection: 'https://texasdefined.com/explore/lighthouses'"), "Lighthouse JSON canonical collection is missing");
 assert(route.includes("visitorGuide: 'https://texasdefined.com/article/best-lighthouses-to-visit-in-texas'"), "Lighthouse JSON visitor guide is missing");
 assert(route.includes("Sabine Pass Lighthouse stands on the Louisiana side"), "Lighthouse JSON must preserve the Sabine Pass geographic caveat");
 assert(route.includes("'x-robots-tag': 'noindex, follow'"), "Lighthouse JSON download must stay noindex/follow");
 assert(route.includes("texasdefined-texas-lighthouses.json"), "Lighthouse JSON download filename is missing");
-assert(authorityLinks.includes('href: "/texas-lighthouses.json"'), "Best-lighthouses authority page must discover the lighthouse JSON download");
+assert(authorityLinks.includes('href: "/api/texas-lighthouses.json"'), "Best-lighthouses authority page must discover the lighthouse JSON download");
 
 const mapCount = (mapPoints.match(/slug: \"[^\"]+\"/g) ?? []).length;
 const planCount = (visitorPlans.match(/slug: \"[^\"]+\"/g) ?? []).length;
