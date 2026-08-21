@@ -2,6 +2,7 @@ import { paintedChurchBibliography } from "./painted-church-bibliography";
 import { canonicalPaintedChurchFeaturesBySlug } from "./painted-church-feature-index";
 import { paintedChurchMapPointBySlug } from "./painted-church-map-points";
 import { canonicalPaintedChurchProfileBySlug } from "./painted-church-profile-index";
+import { paintedChurchPreservationEventsBySlug } from "./painted-church-preservation-chronology";
 import { paintedChurchRegisterRecordBySlug } from "./painted-church-register-evidence";
 import { canonicalPaintedChurchResearchBySlug } from "./painted-church-research-index";
 import { paintedChurchVisitorStatusBySlug } from "./painted-church-visitor-status";
@@ -31,71 +32,29 @@ const slugify = (value: string) => value
   .slice(0, 90);
 
 const archiveHosts = new Set([
-  "npgallery.nps.gov",
-  "atlas.thc.texas.gov",
-  "texashistory.unt.edu",
-  "www.loc.gov",
-  "loc.gov",
-  "txarchives.org",
-  "claretianmissionariesarchives.org",
-  "www.claretianmissionariesarchives.org",
+  "npgallery.nps.gov", "atlas.thc.texas.gov", "texashistory.unt.edu", "www.loc.gov", "loc.gov", "txarchives.org",
+  "claretianmissionariesarchives.org", "www.claretianmissionariesarchives.org",
 ]);
 
 const scholarlyHosts = new Set([
-  "www.tshaonline.org",
-  "tshaonline.org",
-  "sah-archipedia.org",
-  "www.sah-archipedia.org",
-  "austinpbs.org",
-  "www.austinpbs.org",
-  "www.tamucc.edu",
-  "tamucc.edu",
-  "blogs.baylor.edu",
-  "www.baylor.edu",
-  "baylor.edu",
-  "texastimetravel.com",
-  "www.texastimetravel.com",
+  "www.tshaonline.org", "tshaonline.org", "sah-archipedia.org", "www.sah-archipedia.org", "austinpbs.org", "www.austinpbs.org",
+  "www.tamucc.edu", "tamucc.edu", "blogs.baylor.edu", "www.baylor.edu", "baylor.edu", "texastimetravel.com", "www.texastimetravel.com",
 ]);
 
 const currentOrganizationHosts = new Set([
-  "www.schulenburgchamber.org", "schulenburgchamber.org",
-  "annunciationcc.org", "www.annunciationcc.org",
-  "ihmsatx.org", "www.ihmsatx.org",
-  "stfrancistorwaco.org", "www.stfrancistorwaco.org",
-  "pcusa.org", "www.pcusa.org",
-  "www.umc.org", "umc.org",
-  "www.archgh.org", "archgh.org",
-  "www.galvestonhistory.org", "galvestonhistory.org",
-  "www.austindiocese.org", "austindiocese.org",
-  "amarillodiocese.org", "www.amarillodiocese.org",
-  "www.stpeterlindsay.org", "stpeterlindsay.org",
-  "church.stmarysfbg.com",
-  "qpcatholicchurch.com", "www.qpcatholicchurch.com",
-  "shcatholicchurch.org", "www.shcatholicchurch.org",
-  "sscmshiner.org", "www.sscmshiner.org",
-  "www.stpaulserbin.org", "stpaulserbin.org",
-  "www.pannamariachurch.com", "pannamariachurch.com",
-  "holytrinityofcornhill.org", "www.holytrinityofcornhill.org",
-  "shpalestine.org", "www.shpalestine.org",
-  "www.ststanislausbandera.com", "ststanislausbandera.com",
-  "www.sacredheartcorpus.org", "sacredheartcorpus.org",
-  "diocesecc.org", "www.diocesecc.org",
-  "www.stjsa.org", "stjsa.org",
-  "saintstans.org", "www.saintstans.org",
-  "www.saintlouisdaycastroville.org", "saintlouisdaycastroville.org",
-  "olgtx.org", "www.olgtx.org",
-  "guardianangelwallis.org", "www.guardianangelwallis.org",
-  "stjohntexas.org", "www.stjohntexas.org",
-  "stjosephmason.org", "www.stjosephmason.org",
-  "studioiodesign.com", "www.studioiodesign.com",
+  "www.schulenburgchamber.org", "schulenburgchamber.org", "annunciationcc.org", "www.annunciationcc.org", "ihmsatx.org", "www.ihmsatx.org",
+  "stfrancistorwaco.org", "www.stfrancistorwaco.org", "pcusa.org", "www.pcusa.org", "www.umc.org", "umc.org", "www.archgh.org", "archgh.org",
+  "www.galvestonhistory.org", "galvestonhistory.org", "www.austindiocese.org", "austindiocese.org", "amarillodiocese.org", "www.amarillodiocese.org",
+  "www.stpeterlindsay.org", "stpeterlindsay.org", "church.stmarysfbg.com", "qpcatholicchurch.com", "www.qpcatholicchurch.com", "shcatholicchurch.org", "www.shcatholicchurch.org",
+  "sscmshiner.org", "www.sscmshiner.org", "www.stpaulserbin.org", "stpaulserbin.org", "www.pannamariachurch.com", "pannamariachurch.com",
+  "holytrinityofcornhill.org", "www.holytrinityofcornhill.org", "shpalestine.org", "www.shpalestine.org", "www.ststanislausbandera.com", "ststanislausbandera.com",
+  "www.sacredheartcorpus.org", "sacredheartcorpus.org", "diocesecc.org", "www.diocesecc.org", "www.stjsa.org", "stjsa.org", "saintstans.org", "www.saintstans.org",
+  "www.saintlouisdaycastroville.org", "saintlouisdaycastroville.org", "olgtx.org", "www.olgtx.org", "guardianangelwallis.org", "www.guardianangelwallis.org",
+  "stjohntexas.org", "www.stjohntexas.org", "stjosephmason.org", "www.stjosephmason.org", "studioiodesign.com", "www.studioiodesign.com",
 ]);
 
 function hostnameOf(url: string) {
-  try {
-    return new URL(url).hostname.toLowerCase();
-  } catch {
-    return "";
-  }
+  try { return new URL(url).hostname.toLowerCase(); } catch { return ""; }
 }
 
 function inferTier(url: string): PaintedChurchSourceTier {
@@ -168,13 +127,28 @@ for (const church of expandedPaintedChurches) {
     tier: source.tier === "official" ? "primary-official" : source.tier === "historic-register" ? "archive-register" : source.tier === "scholarly" || source.tier === "public-media" ? "scholarly-public-history" : undefined,
   });
 
-  for (const feature of canonicalPaintedChurchFeaturesBySlug(church.slug)) addSource({ url: feature.sourceUrl, label: feature.sourceLabel, use: feature.sourceDetail ?? `object-level evidence for ${feature.name}`, churchSlug: church.slug, checkedAt: church.sourceCheckedAt });
+  for (const feature of canonicalPaintedChurchFeaturesBySlug(church.slug)) addSource({
+    url: feature.sourceUrl,
+    label: feature.sourceLabel,
+    use: feature.sourceDetail ?? `object-level evidence for ${feature.name}`,
+    churchSlug: church.slug,
+    checkedAt: church.sourceCheckedAt,
+  });
+
+  for (const event of paintedChurchPreservationEventsBySlug.get(church.slug) ?? []) addSource({
+    url: event.sourceUrl,
+    label: event.sourceLabel,
+    use: `preservation chronology: ${event.yearLabel ?? event.year} ${event.type.replaceAll("-", " ")}`,
+    churchSlug: church.slug,
+    checkedAt: church.sourceCheckedAt,
+    citationNote: event.qualification,
+  });
 
   const visitor = paintedChurchVisitorStatusBySlug.get(church.slug);
   if (visitor) addSource({
     url: visitor.controllingSourceUrl,
     label: visitor.controllingSourceLabel,
-    use: `current visitor/access evidence`,
+    use: "current visitor/access evidence",
     churchSlug: church.slug,
     checkedAt: visitor.checkedAt,
     tier: visitor.evidenceScope === "historic-property-record-only" ? "archive-register" : "current-organization",
