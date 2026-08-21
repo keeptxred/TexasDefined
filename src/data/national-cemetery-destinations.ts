@@ -53,7 +53,7 @@ export const nationalCemeteryDestinations: Destination[] = [
         { name: "Veterans gravesite kiosk", proximity: "On site", description: "Use the VA kiosk to locate a specific grave and teach younger visitors how national cemeteries preserve individual service histories." },
       ],
       sideTrips: [
-        { name: "Texas Medal of Honor stories", description: "Connect cemetery remembrance with Texas service members recognized for valor.", href: "/article/texas-medal-of-honor-stories" },
+        { name: "Texas Medal of Honor stories", description: "Connect cemetery remembrance with Texas service members recognized for valor.", href: "/article/texas-medal-of-honor-heroes" },
         { name: "San Antonio military aviation history", description: "Continue through the military institutions that made San Antonio one of the country's major defense centers.", href: "/article/san-antonio-military-aviation-history" },
         { name: "Texas military cemeteries and memorials", description: "Compare Fort Sam Houston with Houston and Dallas–Fort Worth national cemeteries.", href: "/article/texas-military-cemeteries-memorials-guide" },
       ],
@@ -109,7 +109,7 @@ export const nationalCemeteryDestinations: Destination[] = [
         { name: "Hemicycle and memorial landscape", proximity: "On site", description: "A setting for teaching respectful remembrance, military service and national cemetery traditions." },
       ],
       sideTrips: [
-        { name: "Texas Medal of Honor stories", description: "Read about Macario Garcia and other Texas-connected Medal of Honor recipients before or after a remembrance visit.", href: "/article/texas-medal-of-honor-stories" },
+        { name: "Texas Medal of Honor stories", description: "Read about Macario Garcia and other Texas-connected Medal of Honor recipients before or after a remembrance visit.", href: "/article/texas-medal-of-honor-heroes" },
         { name: "Buffalo Soldiers in Texas", description: "Continue into the history of Black Regular Army regiments and African American military service in Texas.", href: "/article/buffalo-soldiers-texas-frontier-guide" },
         { name: "Texas military cemeteries and memorials", description: "Compare Houston with Fort Sam Houston and Dallas–Fort Worth national cemeteries.", href: "/article/texas-military-cemeteries-memorials-guide" },
       ],
@@ -165,7 +165,7 @@ export const nationalCemeteryDestinations: Destination[] = [
         { name: "Veterans gravesite kiosk", proximity: "Near the entrance", description: "Use it to locate an individual veteran and keep a family visit focused on remembrance rather than casual sightseeing." },
       ],
       sideTrips: [
-        { name: "Texas Medal of Honor stories", description: "Connect North Texas burials with the broader history of valor and military remembrance.", href: "/article/texas-medal-of-honor-stories" },
+        { name: "Texas Medal of Honor stories", description: "Connect North Texas burials with the broader history of valor and military remembrance.", href: "/article/texas-medal-of-honor-heroes" },
         { name: "Texas in recent wars", description: "Connect the modern cemetery to the generations who served from Desert Storm through Iraq and Afghanistan.", href: "/article/texas-recent-wars-military-history" },
         { name: "Texas military cemeteries and memorials", description: "Compare the modern DFW landscape with Houston and Fort Sam Houston national cemeteries.", href: "/article/texas-military-cemeteries-memorials-guide" },
       ],
