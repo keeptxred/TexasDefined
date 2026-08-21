@@ -142,6 +142,78 @@ function ShopPage() {
           )}
         </Container>
       </Section>
+
+      <section className="border-y border-border py-14">
+        <Container className="grid gap-8 lg:grid-cols-[15rem_1fr]">
+          <div>
+            <p className="eyebrow text-primary">Why we have a shop</p>
+            <h2 className="mt-2 font-display text-4xl">The store should feel like the magazine</h2>
+          </div>
+          <div className="max-w-3xl space-y-5 text-base leading-8 text-muted-foreground">
+            <p>Texas Defined covers the things that make living here specific: the road trips, state parks, barbecue counters, native plants, home projects, weather, small towns, outdoor weekends and everyday objects that pick up a Texas identity because people actually use them. The shop follows the same rule. We would rather carry a smaller assortment tied to those stories than fill a catalog with generic merchandise that happens to have the state outline printed on it.</p>
+            <p>That means a product has to make sense outside a product photo. Outdoor pieces should survive outdoor use. Home goods should still look good after bluebonnet season. Barbecue tools should solve a real pit problem. Apparel and gifts should feel specific enough to Texas to be recognizable without becoming a costume. When a live product comes from the shared catalog, the product page is where pricing, variants, availability and checkout details belong; this page explains the editorial logic behind the assortment.</p>
+          </div>
+        </Container>
+      </section>
+
+      <section className="py-14">
+        <Container>
+          <div className="grid gap-8 lg:grid-cols-[15rem_1fr]">
+            <div>
+              <p className="eyebrow text-primary">Shop by story</p>
+              <h2 className="mt-2 font-display text-4xl">Three Texas collections</h2>
+            </div>
+            <div className="grid md:grid-cols-3">
+              <CollectionLink href="/shop/campfire-kitchen" title="Campfire Kitchen">Cast iron, coffee, durable camp-kitchen basics and the small set of outdoor tools worth carrying from a river bank to a tailgate.</CollectionLink>
+              <CollectionLink href="/shop/wildflower-house" title="Wildflower House">Native-plant color, botanical art, home pieces and garden-minded goods inspired by Texas spring without turning the room into a souvenir shop.</CollectionLink>
+              <CollectionLink href="/shop/smoke-and-salt" title="Smoke & Salt">Barbecue tools and ingredients selected around fire management, seasoning, wrapping, resting, slicing and serving—not novelty pit clutter.</CollectionLink>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      <section className="border-y border-border py-14">
+        <Container className="grid gap-10 lg:grid-cols-2">
+          <div>
+            <p className="eyebrow text-primary">What we look for</p>
+            <h2 className="mt-2 font-display text-4xl">Useful beats themed</h2>
+            <div className="mt-6 space-y-5 text-sm leading-7 text-muted-foreground">
+              <Rule title="A real job">The item should solve a problem, support a hobby, improve a trip, make a home more useful or carry a story that still matters when the novelty wears off.</Rule>
+              <Rule title="Clear origin claims">If something is described as Texas-made, Texas-designed or connected to a Texas maker, that claim should be specific enough to understand. “Texas inspired” and “made in Texas” are not the same thing.</Rule>
+              <Rule title="Materials that fit the use">A camp item should tolerate camp life. A kitchen piece should make sense around food. A garden product should fit Texas conditions. We prefer understandable materials and straightforward care over a long feature list.</Rule>
+              <Rule title="A reason to link it to the site">The best products have a natural home beside an article or guide. A bluebonnet piece belongs with wildflower coverage; pit gear belongs with barbecue; camping equipment belongs with state parks and road trips.</Rule>
+            </div>
+          </div>
+          <div>
+            <p className="eyebrow text-primary">Before you buy</p>
+            <h2 className="mt-2 font-display text-4xl">Use the product details, not the mood</h2>
+            <ol className="mt-6 space-y-4 text-sm leading-7 text-muted-foreground">
+              <Step number="1">Check the current product page for sizes, variants, colors, materials, availability and the exact item being sold. Editorial photography and collection imagery can set context but should not replace product specifications.</Step>
+              <Step number="2">For gifts, verify dimensions and use. A print, mug, shirt, seed product and piece of camp gear can all look similarly sized on a screen and be completely different purchases in real life.</Step>
+              <Step number="3">For Texas-made or maker-specific goods, read the origin description carefully. We separate the story of the design from manufacturing claims whenever the catalog provides that detail.</Step>
+              <Step number="4">For outdoor, food or garden products, use the relevant Texas Defined guide and official safety or planting source when the purchase depends on conditions, regulations or region—not only on the product description.</Step>
+            </ol>
+          </div>
+        </Container>
+      </section>
+
+      <section className="py-14">
+        <Container className="grid gap-8 lg:grid-cols-[15rem_1fr]">
+          <div><p className="eyebrow text-primary">Keep exploring</p><h2 className="mt-2 font-display text-4xl">The Texas behind the products</h2></div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3">
+            <StoryLink href="/best-places-to-go-camping-in-texas" title="Best places to camp in Texas">Start with the campsite before deciding what deserves space in the gear bin.</StoryLink>
+            <StoryLink href="/article/bluebonnet-season-field-guide" title="Chasing bluebonnet season">The practical field guide behind the Wildflower House collection.</StoryLink>
+            <StoryLink href="/article/what-defines-texas-barbecue" title="What defines Texas barbecue">The smoke, patience and butcher-paper culture behind Smoke & Salt.</StoryLink>
+          </div>
+        </Container>
+      </section>
     </>
   );
 }
+
+function CollectionLink({ href, title, children }: { href: string; title: string; children: React.ReactNode }) {
+  return <Link to={href} className="group border-b border-border py-7 md:border-l md:px-6"><strong className="block font-display text-3xl group-hover:text-primary">{title}</strong><span className="mt-4 block text-sm leading-7 text-muted-foreground">{children}</span><span className="mt-5 block text-xs font-semibold uppercase tracking-[0.14em] text-primary">Open collection →</span></Link>;
+}
+function Rule({ title, children }: { title: string; children: React.ReactNode }) { return <div className="border-t border-border pt-4"><h3 className="font-display text-2xl text-foreground">{title}</h3><p className="mt-2">{children}</p></div>; }
+function Step({ number, children }: { number: string; children: React.ReactNode }) { return <li className="grid grid-cols-[2rem_1fr] gap-3 border-t border-border pt-3"><span className="font-display text-xl text-primary">{number}</span><span>{children}</span></li>; }
+function StoryLink({ href, title, children }: { href: string; title: string; children: React.ReactNode }) { return <a href={href} className="group border-b border-border py-6 sm:px-5 sm:border-l"><strong className="block font-display text-2xl group-hover:text-primary">{title}</strong><span className="mt-3 block text-sm leading-6 text-muted-foreground">{children}</span><span className="mt-4 block text-xs font-semibold uppercase tracking-[0.14em] text-primary">Read next →</span></a>; }
