@@ -56,7 +56,8 @@ if (!articleRoute.includes('if (!loaderData) return { meta: [{ title: "Unavailab
 const articleMetaBlock = articleRoute.match(/meta: buildMeta\(texasDefinedBrand, \{([\s\S]*?)\n\s*\}\),\n\s*links:/)?.[1] ?? '';
 if (!articleMetaBlock) failures.push('Could not parse normal article buildMeta block.');
 else if (/\brobots\s*:/.test(articleMetaBlock)) failures.push('Loaded evergreen articles must not emit a noindex robots override from the normal article metadata block.');
-if (!sitemap.includes('...articles.filter((article) => !isLegacyCountySeriesArticle(article.slug)).map((article) => ({ path: `/article/${article.slug}`')) {
+const normalArticleCatalogPattern = /\.\.\.articles\s*\.filter\(\(article\)\s*=>\s*!isLegacyCountySeriesArticle\(article\.slug\)\)\s*\.map\(\(article\)\s*=>\s*\(\{\s*path:\s*`\/article\/\$\{article\.slug\}`/s;
+if (!normalArticleCatalogPattern.test(sitemap)) {
   failures.push('Primary sitemap must publish the normal non-legacy article catalog.');
 }
 for (const slug of ['muds-pids-hoas-special-districts-texas', 'texas-towns-german-czech-mexican-roots']) {
