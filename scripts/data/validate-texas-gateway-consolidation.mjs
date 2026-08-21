@@ -138,14 +138,13 @@ if (brokenLinks.length) {
 }
 
 const loaderPath = path.join(root, "src/data/fixtures/lazy-texas-gateway.ts");
-const repositoryPath = path.join(root, "src/data/fixtures/repositories.ts");
 const corePath = path.join(root, "src/data/fixtures/lazy-texas-core-articles.ts");
-for (const required of [loaderPath, repositoryPath, corePath]) {
+const stubsPath = path.join(root, "src/data/fixtures/texas-gateway-index-ready-stubs.ts");
+for (const required of [loaderPath, corePath, stubsPath]) {
   if (!fs.existsSync(required)) throw new Error(`Missing gateway integration file: ${path.relative(root, required)}`);
 }
 
 const loader = fs.readFileSync(loaderPath, "utf8");
-const repository = fs.readFileSync(repositoryPath, "utf8");
 const core = fs.readFileSync(corePath, "utf8");
 for (const file of files) {
   const moduleName = `./${path.basename(file, ".ts")}`;
@@ -155,11 +154,12 @@ for (const [legacy, canonical] of Object.entries(gatewayAliases)) {
   if (!loader.includes(`"${legacy}": "${canonical}"`)) throw new Error(`Gateway loader is missing alias normalization ${legacy} -> ${canonical}`);
   if (!isKnownRoute(canonical)) throw new Error(`Gateway alias target is not a public route: ${canonical}`);
 }
-if (!repository.includes('import("./lazy-texas-gateway")')) throw new Error("Editorial discovery does not dynamically load the gateway module");
-if (!repository.includes("...(await loadGatewayEditorialArticles())")) throw new Error("Gateway articles are missing from editorial list/search discovery");
-if (!core.includes('await import("./lazy-texas-gateway")')) throw new Error("Core article resolution is not dynamically loading gateway articles");
-if (/^import .*texas-gateway-/m.test(core)) throw new Error("Core article registry must not statically import full gateway modules");
+if (!core.includes('await import("./lazy-texas-gateway")')) throw new Error("Core article resolution is not dynamically loading full gateway articles");
+if (!core.includes('import { texasGatewayIndexReadyStubs } from "./texas-gateway-index-ready-stubs";')) throw new Error("Core article discovery is missing the lightweight gateway promotion registry");
+if (!core.includes("texasCoreArticleStubs.push(...texasGatewayIndexReadyStubs);")) throw new Error("Promoted gateway stubs are missing from existing article list/search discovery");
+if (/^import .*from "\.\/texas-gateway-(?!index-ready-stubs)/m.test(core)) throw new Error("Core article registry must not statically import full gateway content modules");
 
 console.log(`PASS Texas gateway consolidation: ${rows.length} unique articles across ${files.length} modules`);
 console.log(`PASS gateway internal links: ${hrefs.length} validated against public routes`);
 console.log("PASS gateway editorial hygiene: no TODO/TBD/placeholder/editor-note debris detected");
+console.log("PASS gateway discovery architecture: full bodies stay lazy; only explicit promotion stubs enter synchronous list/search discovery");
