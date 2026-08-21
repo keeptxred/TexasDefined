@@ -109,12 +109,14 @@ const gatewayAliases = {
 };
 
 const dynamicPrefixes = [
+  "/explore/",
   "/destination/",
   "/county/",
   "/city/",
   "/texas-vs/",
   "/property-tax/county/",
 ];
+const isKnownRoute = (route) => publicRoutes.has(route) || dynamicPrefixes.some((prefix) => route.startsWith(prefix));
 const brokenLinks = [];
 for (const { href, file } of hrefs) {
   const sourcePath = normalizeRoute(href.split(/[?#]/, 1)[0] || "/");
@@ -124,8 +126,7 @@ for (const { href, file } of hrefs) {
     if (!articleSlugs.has(slug)) brokenLinks.push({ href, file, reason: "unknown article slug" });
     continue;
   }
-  if (dynamicPrefixes.some((prefix) => clean.startsWith(prefix))) continue;
-  if (!publicRoutes.has(clean)) brokenLinks.push({ href, file, reason: `missing public route after normalization (${clean})` });
+  if (!isKnownRoute(clean)) brokenLinks.push({ href, file, reason: `missing public route after normalization (${clean})` });
 }
 if (brokenLinks.length) {
   const detail = brokenLinks.slice(0, 25).map((item) => `${item.href} (${item.reason}; ${item.file})`).join("\n");
@@ -148,7 +149,7 @@ for (const file of files) {
 }
 for (const [legacy, canonical] of Object.entries(gatewayAliases)) {
   if (!loader.includes(`"${legacy}": "${canonical}"`)) throw new Error(`Gateway loader is missing alias normalization ${legacy} -> ${canonical}`);
-  if (!publicRoutes.has(canonical)) throw new Error(`Gateway alias target is not a public route: ${canonical}`);
+  if (!isKnownRoute(canonical)) throw new Error(`Gateway alias target is not a public route: ${canonical}`);
 }
 if (!repository.includes('import("./lazy-texas-gateway")')) throw new Error("Editorial discovery does not dynamically load the gateway module");
 if (!repository.includes("...(await loadGatewayEditorialArticles())")) throw new Error("Gateway articles are missing from editorial list/search discovery");
