@@ -31,4 +31,10 @@ export const COUNTY_SERIES_PROFILES_EAST_TEXAS: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/tyler-county-woodville-big-thicket-neches-piney-woods-texas")
       .then((module) => module.tylerCountyWoodvilleBigThicketNechesPineyWoodsTexasArticle),
   },
+  {
+    countySlug: "anderson",
+    articleSlug: "anderson-county-palestine-railroads-dogwoods-east-texas",
+    loadArticle: () => import("@/data/fixtures/anderson-county-palestine-railroads-dogwoods-east-texas")
+      .then((module) => module.andersonCountyPalestineRailroadsDogwoodsEastTexasArticle),
+  },
 ];
