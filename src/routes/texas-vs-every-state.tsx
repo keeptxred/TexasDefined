@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
-import { TEXAS_VS_STATE_GROUPS, TEXAS_VS_STATES, texasVsStateProfile, texasVsStateSlug } from "@/data/texas-vs-states";
+import { TEXAS_VS_STATE_GROUPS, TEXAS_VS_STATES, texasVsStateSlug } from "@/data/texas-vs-state-index";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const canonicalPath = "/texas-vs-every-state";
@@ -17,6 +17,10 @@ const faq = [
 ] as const;
 
 export const Route = createFileRoute("/texas-vs-every-state")({
+  loader: async () => {
+    const { TEXAS_VS_STATE_PROFILES } = await import("@/data/texas-vs-states");
+    return { comparisonFocus: Object.fromEntries(Object.entries(TEXAS_VS_STATE_PROFILES).map(([state, profile]) => [state, profile.comparisonFocus])) as Record<string, string> };
+  },
   head: () => ({
     meta: buildMeta(texasDefinedBrand, { canonicalPath, title: title, description }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
@@ -38,6 +42,7 @@ export const Route = createFileRoute("/texas-vs-every-state")({
 });
 
 function TexasVsEveryStatePage() {
+  const { comparisonFocus } = Route.useLoaderData();
   return <main>
     <section className="border-b border-border bg-muted/30 py-14 md:py-20"><Container><p className="eyebrow text-primary">Texas compared</p><h1 className="mt-3 max-w-5xl font-display text-5xl leading-none md:text-7xl">Texas vs Every Other State</h1><p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Forty-nine comparisons, one consistent framework. Use this hub to compare Texas with every other state without changing the yardstick from page to page.</p></Container></section>
 
@@ -45,10 +50,7 @@ function TexasVsEveryStatePage() {
 
     <section className="border-y border-border bg-muted/30 py-12 md:py-16"><Container><h2 className="font-display text-4xl">Texas vs all 49 states</h2><p className="mt-3 max-w-3xl text-muted-foreground">Every state has a dedicated comparison URL with a consistent decision framework plus state-specific place, metro, geography and climate context.</p><div className="mt-8 grid gap-8 md:grid-cols-2 lg:grid-cols-4">{TEXAS_VS_STATE_GROUPS.map((group) => <section key={group.region}><h3 className="eyebrow text-primary">{group.region}</h3><ul className="mt-4 divide-y divide-border border-y border-border">{group.states.map((state) => <li key={state}><Link to="/texas-vs/$state" params={{ state: texasVsStateSlug(state) }} className="block py-3 font-display text-lg hover:text-primary">Texas vs {state} →</Link></li>)}</ul></section>)}</div></Container></section>
 
-    <section className="py-12 md:py-16"><Container><h2 className="font-display text-4xl">The comparison index</h2><div className="mt-8 divide-y divide-border border-y border-border">{TEXAS_VS_STATE_GROUPS.flatMap((group) => group.states.map((state) => {
-      const profile = texasVsStateProfile(state);
-      return <article key={state} className="py-7 md:grid md:grid-cols-[18rem_1fr] md:gap-8"><div><p className="eyebrow text-muted-foreground">State comparison</p><h3 className="mt-2 font-display text-2xl">Texas vs {state}</h3></div><div><p className="leading-7 text-muted-foreground">{profile?.comparisonFocus ?? `Compare Texas and ${state} across housing, jobs, taxes, climate, transportation and everyday life.`}</p><div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm"><Link to="/texas-vs/$state" params={{ state: texasVsStateSlug(state) }} className="font-semibold text-primary hover:underline">Open Texas vs {state} →</Link><Link to="/texas-data" className="text-primary hover:underline">Explore Texas data</Link><Link to="/moving-to-texas" className="text-primary hover:underline">Moving to Texas</Link></div></div></article>;
-    }))}</div></Container></section>
+    <section className="py-12 md:py-16"><Container><h2 className="font-display text-4xl">The comparison index</h2><div className="mt-8 divide-y divide-border border-y border-border">{TEXAS_VS_STATE_GROUPS.flatMap((group) => group.states.map((state) => <article key={state} className="py-7 md:grid md:grid-cols-[18rem_1fr] md:gap-8"><div><p className="eyebrow text-muted-foreground">State comparison</p><h3 className="mt-2 font-display text-2xl">Texas vs {state}</h3></div><div><p className="leading-7 text-muted-foreground">{comparisonFocus[state] ?? `Compare Texas and ${state} across housing, jobs, taxes, climate, transportation and everyday life.`}</p><div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm"><Link to="/texas-vs/$state" params={{ state: texasVsStateSlug(state) }} className="font-semibold text-primary hover:underline">Open Texas vs {state} →</Link><Link to="/texas-data" className="text-primary hover:underline">Explore Texas data</Link><Link to="/moving-to-texas" className="text-primary hover:underline">Moving to Texas</Link></div></div></article>))}</div></Container></section>
 
     <section className="border-t border-border bg-surface py-12"><Container><div className="max-w-4xl"><p className="eyebrow text-primary">Comparison questions</p><h2 className="mt-2 font-display text-4xl">Texas vs other states FAQ</h2><div className="mt-7 divide-y divide-border border-y border-border">{faq.map((item) => <details key={item.q} className="group py-5"><summary className="cursor-pointer list-none pr-8 font-display text-xl marker:hidden">{item.q}<span className="float-right text-primary group-open:rotate-45">+</span></summary><p className="mt-3 max-w-3xl leading-7 text-muted-foreground">{item.a}</p></details>)}</div></div></Container></section>
 
