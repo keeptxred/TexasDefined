@@ -95,7 +95,6 @@ globalThis.fetch = async function cloudflareImageFetch(input, init = {}) {
     body: JSON.stringify({
       prompt,
       steps: 4,
-      seed: Math.floor(Math.random() * 2_147_483_647),
     }),
   });
 
