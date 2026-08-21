@@ -25,16 +25,17 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci --no-audit --no-fund
-      - name: Find first failing SEO validator
+      - name: Find first failing delegated SEO validator
         shell: bash
         run: |
           set -uo pipefail
-          validators=(validate-generated-page-quality validate-public-route-governance validate-indexation-quality validate-crawl-demand validate-freshness-signals validate-machine-indexing validate-aeo-answer-layers validate-homepage-seo validate-texas-explained-seo validate-things-unique-to-texas validate-texas-icon-link-depth validate-texas-weather-authority validate-texas-food-history validate-texas-culture-citation-index validate-explore-category-seo validate-explore-region-seo validate-explore-topical-authority validate-article-discover-seo validate-author-eeat validate-entity-template-quality validate-image-seo validate-search-rendering-performance validate-content-duplication validate-sitemap-routes validate-internal-link-discovery validate-search-intent-ctr validate-seo-ci-contract)
+          validators=(validate-website-search-action validate-global-search-destinations validate-explore-route-registration validate-destination-data-integrity validate-destination-relationships validate-explore-profile-enrichment validate-destination-card-enrichment validate-remote-homepage-destinations validate-texas-resources-seo validate-texas-living-seo validate-living-authority validate-shop-schema validate-data-center-seo validate-place-directory-seo validate-financial-tools-seo validate-guides-seo validate-practical-guides-seo validate-property-tax-guide-seo validate-calculator-app-seo validate-knowledge-graph-platform validate-internal-linking validate-internal-link-policy-release validate-internal-link-golden-corpus validate-knowledge-graph-behavior validate-citation-magnets validate-citation-downloads validate-gsc-evergreen-recovery)
           for validator in "${validators[@]}"; do
             if ! node "scripts/data/${validator}.mjs"; then
-              context="seo-fail-${validator#validate-}"
-              curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" --data "{\"state\":\"failure\",\"context\":\"$context\",\"description\":\"First failing SEO validator\"}" >/dev/null
+              context="delegated-fail-${validator#validate-}"
+              context="${context:0:95}"
+              curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" --data "{\"state\":\"failure\",\"context\":\"$context\",\"description\":\"First failing delegated SEO validator\"}" >/dev/null
               exit 1
             fi
           done
-          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" --data '{"state":"success","context":"seo-all-individual","description":"All SEO validators passed"}' >/dev/null
+          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" --data '{"state":"success","context":"delegated-seo-all-pass","description":"All delegated SEO validators passed"}' >/dev/null
