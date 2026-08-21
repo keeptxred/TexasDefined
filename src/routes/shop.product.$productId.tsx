@@ -50,11 +50,8 @@ export const Route = createFileRoute("/shop/product/$productId")({
       "@context": "https://schema.org",
       "@type": "Product",
       name: product.name,
-      description: product.blurb,
       image: product.image.src,
       url: canonicalUrl,
-      sku: product.id,
-      brand: { "@type": "Brand", name: "Texas Defined" },
       offers,
     } : undefined;
     return {
