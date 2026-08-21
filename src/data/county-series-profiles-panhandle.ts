@@ -68,4 +68,10 @@ export const COUNTY_SERIES_PROFILES_PANHANDLE: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/hutchinson-county-borger-stinnett-adobe-walls-lake-meredith-panhandle-texas")
       .then((module) => module.hutchinsonCountyBorgerStinnettAdobeWallsLakeMeredithPanhandleTexasArticle),
   },
+  {
+    countySlug: "ochiltree",
+    articleSlug: "ochiltree-county-perryton-wolf-creek-wheat-high-plains-texas",
+    loadArticle: () => import("@/data/fixtures/ochiltree-county-perryton-wolf-creek-wheat-high-plains-texas")
+      .then((module) => module.ochiltreeCountyPerrytonWolfCreekWheatHighPlainsTexasArticle),
+  },
 ];
