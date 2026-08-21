@@ -19,4 +19,10 @@ export const COUNTY_SERIES_PROFILES_CENTRAL: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/milam-county-cameron-rockdale-little-river-central-texas")
       .then((module) => module.milamCountyCameronRockdaleLittleRiverCentralTexasArticle),
   },
+  {
+    countySlug: "burleson",
+    articleSlug: "burleson-county-caldwell-somerville-brazos-central-texas",
+    loadArticle: () => import("@/data/fixtures/burleson-county-caldwell-somerville-brazos-central-texas")
+      .then((module) => module.burlesonCountyCaldwellSomervilleBrazosCentralTexasArticle),
+  },
 ];
