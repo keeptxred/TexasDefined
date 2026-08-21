@@ -42,12 +42,13 @@ const INTENT_GROUPS = [
     ],
   },
   {
-    title: "Below-ground Texas",
-    body: "Connect caverns, springs and Hill Country road trips where geology shapes the whole day.",
+    title: "Landscapes & scenery",
+    body: "Choose the Texas you want to see — limestone hills, pine forest, prairie, coast, canyon, desert or mountain country.",
     links: [
-      { to: "/explore/caverns", label: "Caverns & caves" },
-      { to: "/explore/major-springs", label: "Major springs" },
-      { to: "/explore/road-trips", label: "Scenic road trips" },
+      { to: "/explore/landscapes", label: "Texas landscapes" },
+      { to: "/explore/texas-scenic-drives", label: "Scenic drives" },
+      { to: "/explore/caverns", label: "Caverns & karst" },
+      { to: "/explore/texas-wildflower-seasons", label: "Wildflower seasons" },
     ],
   },
   {
