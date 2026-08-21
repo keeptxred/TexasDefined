@@ -5,16 +5,12 @@ import { DepartmentHero } from '@/components/editorial/DepartmentHero';
 import { Section, SectionHeader } from '@/components/editorial/SectionHeader';
 import { Container } from '@/components/layout/Container';
 import { texasLandscapeCatalog } from '@/data/texas-landscape-catalog';
+import { getTexasLandscapePage } from '@/data/texas-landscapes.functions';
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
-
-async function lookup(slug: string) {
-  const { texasLandscapeGuides, texasLandscapes } = await import('@/data/texas-landscapes');
-  return texasLandscapes.find((item) => item.slug === slug) ?? texasLandscapeGuides.find((item) => item.slug === slug);
-}
 
 export const Route = createFileRoute('/explore/landscapes/$slug')({
   loader: async ({ params }) => {
-    const item = await lookup(params.slug);
+    const item = await getTexasLandscapePage({ data: { slug: params.slug } });
     if (!item) throw notFound();
     return item;
   },
