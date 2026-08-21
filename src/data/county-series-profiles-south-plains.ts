@@ -37,4 +37,10 @@ export const COUNTY_SERIES_PROFILES_SOUTH_PLAINS: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/lubbock-county-hub-city-cotton-texas-tech-south-plains-texas")
       .then((module) => module.lubbockCountyHubCityCottonTexasTechSouthPlainsTexasArticle),
   },
+  {
+    countySlug: "yoakum",
+    articleSlug: "yoakum-county-plains-denver-city-oil-ogallala-south-plains-texas",
+    loadArticle: () => import("@/data/fixtures/yoakum-county-plains-denver-city-oil-ogallala-south-plains-texas")
+      .then((module) => module.yoakumCountyPlainsDenverCityOilOgallalaSouthPlainsTexasArticle),
+  },
 ];
