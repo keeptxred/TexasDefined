@@ -1,9 +1,13 @@
+import { lazy, Suspense } from "react";
 import { Link } from "@tanstack/react-router";
 
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
-import { EvergreenNextSteps } from "@/components/monetization/EvergreenNextSteps";
 import type { CategorySlug } from "@/data/types";
+
+const EvergreenNextSteps = lazy(() =>
+  import("@/components/monetization/EvergreenNextSteps").then((module) => ({ default: module.EvergreenNextSteps })),
+);
 
 type TopicLink = { to: string; label: string; description: string };
 
@@ -88,7 +92,9 @@ export function ExploreTopicPaths({ category }: { category: CategorySlug }) {
           </nav>
         </Container>
       </Section>
-      <EvergreenNextSteps category={category} />
+      <Suspense fallback={null}>
+        <EvergreenNextSteps category={category} />
+      </Suspense>
     </>
   );
 }

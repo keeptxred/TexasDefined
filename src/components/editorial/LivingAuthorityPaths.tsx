@@ -1,9 +1,13 @@
+import { lazy, Suspense } from "react";
 import { Link } from "@tanstack/react-router";
 
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
-import { EvergreenNextSteps } from "@/components/monetization/EvergreenNextSteps";
 import type { CategorySlug } from "@/data/types";
+
+const EvergreenNextSteps = lazy(() =>
+  import("@/components/monetization/EvergreenNextSteps").then((module) => ({ default: module.EvergreenNextSteps })),
+);
 
 const pathways = [
   { to: "/browse/cities", label: "Compare Texas cities", description: "Start with place, county and region before comparing household costs." },
@@ -46,7 +50,9 @@ export function LivingAuthorityPaths({ currentCategory }: { currentCategory: Cat
           </nav>
         </Container>
       </Section>
-      <EvergreenNextSteps category={currentCategory} />
+      <Suspense fallback={null}>
+        <EvergreenNextSteps category={currentCategory} />
+      </Suspense>
     </>
   );
 }
