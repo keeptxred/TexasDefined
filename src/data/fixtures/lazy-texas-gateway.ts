@@ -1,4 +1,5 @@
 import type { Article } from "../types";
+import { isTexasGatewayIndexReadyArticle } from "./texas-gateway-index-readiness";
 
 const GATEWAY_LINK_ALIASES: Record<string, string> = {
   "/lakes-rivers": "/explore/lakes-rivers",
@@ -34,10 +35,10 @@ const normalizeGatewayArticle = (article: Article): Article => ({
   })),
 });
 
-let gatewayArticlesPromise: Promise<Article[]> | null = null;
+let allGatewayArticlesPromise: Promise<Article[]> | null = null;
 
-export function loadTexasGatewayArticles(): Promise<Article[]> {
-  gatewayArticlesPromise ??= Promise.all([
+function loadAllTexasGatewayArticles(): Promise<Article[]> {
+  allGatewayArticlesPromise ??= Promise.all([
     import("./texas-gateway-articles").then((module) => module.texasGatewayArticles),
     import("./texas-gateway-articles-batch2").then((module) => module.texasGatewayArticlesBatch2),
     import("./texas-gateway-lifestyle-batch3").then((module) => module.texasGatewayLifestyleBatch3),
@@ -56,11 +57,21 @@ export function loadTexasGatewayArticles(): Promise<Article[]> {
     import("./texas-gateway-identity-batch16").then((module) => module.texasGatewayIdentityBatch16Articles),
   ]).then((batches) => batches.flat().map(normalizeGatewayArticle));
 
-  return gatewayArticlesPromise;
+  return allGatewayArticlesPromise;
 }
 
+/**
+ * Public discovery loader used by article lists, internal search and sitemap
+ * generation. Staged gateway drafts are intentionally excluded here.
+ */
+export async function loadTexasGatewayArticles(): Promise<Article[]> {
+  const articles = await loadAllTexasGatewayArticles();
+  return articles.filter(isTexasGatewayIndexReadyArticle);
+}
+
+/** Direct article resolution keeps staged drafts reachable for editorial QA. */
 export async function loadTexasGatewayArticle(brandId: string, slug: string): Promise<Article | null> {
   if (brandId !== "texasdefined") return null;
-  const articles = await loadTexasGatewayArticles();
+  const articles = await loadAllTexasGatewayArticles();
   return articles.find((article) => article.slug === slug) ?? null;
 }
