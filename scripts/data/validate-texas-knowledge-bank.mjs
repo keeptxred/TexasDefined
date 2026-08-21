@@ -8,7 +8,9 @@ const sources = read('src/data/knowledge-bank/sources.ts');
 const seed = read('src/data/knowledge-bank/seed.ts');
 const expanded = read('src/data/knowledge-bank/seed-expanded.ts');
 const verifiedBatch2 = read('src/data/knowledge-bank/seed-verified-batch2.ts');
-const countyBatch1 = read('src/data/knowledge-bank/seed-counties-batch1.ts');
+const countyBatchFiles = Array.from({ length: 9 }, (_, index) => `src/data/knowledge-bank/seed-counties-batch${index + 1}.ts`);
+const countyBatches = countyBatchFiles.map(read);
+const countyText = countyBatches.join('\n');
 const observations = read('src/data/knowledge-bank/cultural-observations.ts');
 const observationsBatch2 = read('src/data/knowledge-bank/cultural-observations-batch2.ts');
 const catalog = read('src/data/knowledge-bank/catalog.ts');
@@ -38,7 +40,7 @@ for (const id of requiredSourceIds) if (!registeredSourceIds.has(id)) failures.p
 for (const urlMatch of sources.matchAll(/\burl:\s*['\"]([^'\"]+)['\"]/g)) {
   if (!urlMatch[1].startsWith('https://')) failures.push(`Knowledge source registry URL must use HTTPS: ${urlMatch[1]}`);
 }
-for (const text of [seed, expanded, verifiedBatch2, countyBatch1]) {
+for (const text of [seed, expanded, verifiedBatch2, ...countyBatches]) {
   for (const sourceMatch of text.matchAll(/\bsourceId:\s*['\"]([^'\"]+)['\"]/g)) {
     if (!registeredSourceIds.has(sourceMatch[1])) failures.push(`Knowledge record references unregistered source ID: ${sourceMatch[1]}`);
   }
@@ -63,7 +65,7 @@ const stagedGuideSlugs = [
   'texas-flowers-wildflowers-guide',
 ];
 const stagedGuidePaths = stagedGuideSlugs.map((slug) => `/${slug}`);
-const knowledgeRecordText = `${seed}\n${expanded}\n${verifiedBatch2}\n${countyBatch1}`;
+const knowledgeRecordText = `${seed}\n${expanded}\n${verifiedBatch2}\n${countyText}`;
 for (const path of stagedGuidePaths) {
   if (routes.includes(`\"${path}\"`) || routes.includes(`'${path}'`)) failures.push(`Staged guide leaked into public route registry: ${path}`);
   if (homeGarden.includes(path)) failures.push(`Staged guide leaked into Home & Garden links: ${path}`);
@@ -99,7 +101,15 @@ for (const format of requiredSocialFormats) if (!social.includes(`case '${format
 if (!scheduler.includes('excludeRecordIds') || !scheduler.includes('timesUsed') || !scheduler.includes('preferredSeason')) failures.push('Social scheduler must support exclusions, usage scoring and season preference.');
 if (!scheduler.includes("'which-one-is-more-texas'")) failures.push('Social scheduler must rotate the paired Texas choice format.');
 if (!scheduler.includes('buildDefaultTexasSocialBatch') || !scheduler.includes('TEXAS_KNOWLEDGE_CATALOG')) failures.push('Default social batching must use the canonical Knowledge Bank catalog.');
-for (const seedExport of ['TEXAS_KNOWLEDGE_SEED', 'TEXAS_KNOWLEDGE_EXPANDED_SEED', 'TEXAS_KNOWLEDGE_VERIFIED_BATCH2', 'TEXAS_COUNTY_FACTS_BATCH1', 'TEXAS_CULTURAL_OBSERVATIONS', 'TEXAS_CULTURAL_OBSERVATIONS_BATCH2']) {
+const requiredCatalogExports = [
+  'TEXAS_KNOWLEDGE_SEED',
+  'TEXAS_KNOWLEDGE_EXPANDED_SEED',
+  'TEXAS_KNOWLEDGE_VERIFIED_BATCH2',
+  ...Array.from({ length: 9 }, (_, index) => `TEXAS_COUNTY_FACTS_BATCH${index + 1}`),
+  'TEXAS_CULTURAL_OBSERVATIONS',
+  'TEXAS_CULTURAL_OBSERVATIONS_BATCH2',
+];
+for (const seedExport of requiredCatalogExports) {
   if (!catalog.includes(seedExport)) failures.push(`Canonical Knowledge Bank catalog is missing ${seedExport}.`);
 }
 if (!catalog.includes("record.verification !== 'needs-review'")) failures.push('Canonical social candidate selector must exclude needs-review records.');
@@ -108,15 +118,18 @@ if (!catalog.includes("record.verification !== 'needs-review'")) failures.push('
 // and canonicalEntityPath resolves non-destination entities to /{kind}/{slug}.
 if (!entityRoute.includes("createFileRoute('/$kind/$slug')")) failures.push('County facts require the existing /$kind/$slug entity route.');
 if (!entityRelationships.includes('return `/${entity.kind}/${entity.slug}`')) failures.push('County facts require canonicalEntityPath to preserve /county/{slug}.');
-if (!countyBatch1.includes("sourceId: 'tslac'") || !countyBatch1.includes('https://www.tsl.texas.gov/ref/abouttx/countyseats.html')) failures.push('County facts must cite the official TSLAC county-seat directory.');
-if (!countyBatch1.includes("socialFormats: ['county-of-the-day', 'fact-of-the-day', 'texas-trivia']")) failures.push('County facts must support the county social format set.');
+for (const [index, countyBatch] of countyBatches.entries()) {
+  if (!countyBatch.includes("sourceId:'tslac'") && !countyBatch.includes("sourceId: 'tslac'")) failures.push(`County fact batch ${index + 1} must cite the canonical TSLAC source.`);
+  if (!countyBatch.includes('https://www.tsl.texas.gov/ref/abouttx/countyseats.html')) failures.push(`County fact batch ${index + 1} must cite the official TSLAC county-seat directory.`);
+  if (!countyBatch.includes("socialFormats:['county-of-the-day','fact-of-the-day','texas-trivia']") && !countyBatch.includes("socialFormats: ['county-of-the-day', 'fact-of-the-day', 'texas-trivia']")) failures.push(`County fact batch ${index + 1} must support the county social format set.`);
+}
 
 const explicitRecordIds = (text) => [...text.matchAll(/\bid:\s*['\"]([^'\"]+)['\"]/g)].map((match) => match[1]);
 const helperObservationIds = [...observations.matchAll(/\bobservation\(\s*['\"]([^'\"]+)['\"]/g)].map((match) => match[1]);
 const pairedChoiceIds = [...observations.matchAll(/\bpairedChoice\(\s*['\"]([^'\"]+)['\"]/g)].map((match) => match[1]);
 const batch2ObservationIds = [...observationsBatch2.matchAll(/\bobservation\(\s*['\"]([^'\"]+)['\"]/g)].map((match) => match[1]);
 const verifiedBatch2Ids = explicitRecordIds(verifiedBatch2);
-const countyRows = [...countyBatch1.matchAll(/\bcountySeat\(\s*['\"]([^'\"]+)['\"]\s*,\s*['\"]([^'\"]+)['\"]\s*,\s*['\"]([^'\"]+)['\"]\s*\)/g)];
+const countyRows = [...countyText.matchAll(/\bcountySeat\(\s*['\"]([^'\"]+)['\"]\s*,\s*['\"]([^'\"]+)['\"]\s*,\s*['\"]([^'\"]+)['\"]\s*\)/g)];
 const countyIds = countyRows.map((match) => `county-${match[2]}-seat`);
 const ids = [
   ...explicitRecordIds(seed),
@@ -132,12 +145,12 @@ for (const id of ids) {
   if (seen.has(id)) failures.push(`Duplicate knowledge record id detected in source files: ${id}`);
   seen.add(id);
 }
-if (ids.length < 118) failures.push(`Expected at least 118 seeded knowledge records; found ${ids.length}.`);
+if (ids.length < 342) failures.push(`Expected at least 342 seeded knowledge records after statewide county coverage; found ${ids.length}.`);
 if (pairedChoiceIds.length < 5) failures.push(`Expected at least 5 paired Texas engagement prompts; found ${pairedChoiceIds.length}.`);
 if (batch2ObservationIds.length < 30) failures.push(`Expected at least 30 second-batch cultural observations; found ${batch2ObservationIds.length}.`);
 if (verifiedBatch2Ids.length < 13) failures.push(`Expected at least 13 second-batch verified facts; found ${verifiedBatch2Ids.length}.`);
-if (countyIds.length < 30) failures.push(`Expected at least 30 first-batch county facts; found ${countyIds.length}.`);
-if (new Set(countyIds).size !== countyIds.length) failures.push('County fact batch contains duplicate county slugs.');
+if (countyIds.length !== 254) failures.push(`Expected exactly 254 statewide county facts; found ${countyIds.length}.`);
+if (new Set(countyIds).size !== 254) failures.push(`Expected exactly 254 unique county fact IDs; found ${new Set(countyIds).size}.`);
 for (const [, county, slug] of countyRows) {
   if (!county.trim() || !slug.trim()) failures.push('County fact rows require county name and slug.');
 }
@@ -145,7 +158,7 @@ for (const [, county, slug] of countyRows) {
 const observationCount = helperObservationIds.length + pairedChoiceIds.length + batch2ObservationIds.length + ((seed + expanded).match(/verification:\s*['\"]editorial-observation['\"]/g) ?? []).length;
 if (observationCount < 55) failures.push(`Expected at least 55 cultural observations/engagement prompts; found ${observationCount}.`);
 const verifiedCount = ((seed + expanded + verifiedBatch2).match(/verification:\s*['\"]verified['\"]/g) ?? []).length + countyIds.length;
-if (verifiedCount < 58) failures.push(`Expected at least 58 verified/source-backed records; found ${verifiedCount}.`);
+if (verifiedCount < 282) failures.push(`Expected at least 282 verified/source-backed records after statewide county coverage; found ${verifiedCount}.`);
 
 for (const slug of stagedGuideSlugs) {
   if (!guides.includes(`\"${slug}\"`) && !guides.includes(`'${slug}'`)) failures.push(`Staged evergreen guide batch is missing ${slug}.`);
@@ -157,4 +170,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Texas knowledge bank validation passed: ${ids.length} seeded records, ${verifiedCount} verified records, ${observationCount} cultural observations/engagement prompts, ${verifiedBatch2Ids.length} second-batch verified facts, ${countyIds.length} county facts, ${pairedChoiceIds.length} paired-choice prompts, ${stagedGuidePaths.length} staged/non-public practical guides, ${registeredSourceIds.size} registered sources, and ${requiredSocialFormats.length} social formats.`);
+console.log(`Texas knowledge bank validation passed: ${ids.length} seeded records, ${verifiedCount} verified records, ${observationCount} cultural observations/engagement prompts, ${verifiedBatch2Ids.length} second-batch verified facts, ${countyIds.length} statewide county facts, ${pairedChoiceIds.length} paired-choice prompts, ${stagedGuidePaths.length} staged/non-public practical guides, ${registeredSourceIds.size} registered sources, and ${requiredSocialFormats.length} social formats.`);
