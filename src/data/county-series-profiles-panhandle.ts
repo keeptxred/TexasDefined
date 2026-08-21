@@ -61,4 +61,10 @@ export const COUNTY_SERIES_PROFILES_PANHANDLE: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/moore-county-dumas-sunray-cactus-high-plains-texas")
       .then((module) => module.mooreCountyDumasSunrayCactusHighPlainsTexasArticle),
   },
+  {
+    countySlug: "hutchinson",
+    articleSlug: "hutchinson-county-borger-stinnett-adobe-walls-lake-meredith-panhandle-texas",
+    loadArticle: () => import("@/data/fixtures/hutchinson-county-borger-stinnett-adobe-walls-lake-meredith-panhandle-texas")
+      .then((module) => module.hutchinsonCountyBorgerStinnettAdobeWallsLakeMeredithPanhandleTexasArticle),
+  },
 ];
