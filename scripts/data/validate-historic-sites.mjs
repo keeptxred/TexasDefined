@@ -3,6 +3,7 @@ import fs from 'node:fs';
 const seeds = fs.readFileSync('src/data/historic-sites.ts', 'utf8');
 const primary = fs.readFileSync('src/data/historic-site-enrichment.ts', 'utf8');
 const extra = fs.readFileSync('src/data/historic-site-area-guides-extra.ts', 'utf8');
+const nationalCemeteries = fs.readFileSync('src/data/national-cemetery-enrichment.ts', 'utf8');
 const remoteHeroes = fs.readFileSync('src/data/historic-site-remote-heroes.ts', 'utf8');
 const clusters = fs.readFileSync('src/data/historic-site-clusters.ts', 'utf8');
 const corrections = fs.readFileSync('src/data/historic-site-fact-corrections.ts', 'utf8');
@@ -15,18 +16,34 @@ const failures = [];
 const seedBlock = seeds.match(/export const historicSiteSeeds:[\s\S]*?= \[([\s\S]*?)\n\];/);
 if (!seedBlock) failures.push('Could not parse historicSiteSeeds.');
 const seedSlugs = seedBlock ? [...seedBlock[1].matchAll(/slug:\s*"([^"]+)"/g)].map((match) => match[1]) : [];
-if (seedSlugs.length !== 43) failures.push(`Expected 43 statewide historic-site seeds; found ${seedSlugs.length}.`);
+if (seedSlugs.length !== 46) failures.push(`Expected 46 statewide historic-site seeds; found ${seedSlugs.length}.`);
 if (new Set(seedSlugs).size !== seedSlugs.length) failures.push('Historic-site seed slugs must be unique.');
 
 const primaryGuideBlock = primary.match(/const areaSeeds:[\s\S]*?= \{([\s\S]*?)\n\};\n\nfunction areaGuide/);
 const extraGuideBlock = extra.match(/const guides:[\s\S]*?= \{([\s\S]*?)\n\};\n\nexport function/);
+const nationalGuideBlock = nationalCemeteries.match(/const nationalCemeteryDetails:[\s\S]*?= \{([\s\S]*?)\n\};\n\nexport function/);
 if (!primaryGuideBlock) failures.push('Could not parse primary historic-site area-guide map.');
 if (!extraGuideBlock) failures.push('Could not parse supplemental historic-site area-guide map.');
+if (!nationalGuideBlock) failures.push('Could not parse national-cemetery area-guide map.');
 const primaryGuideSlugs = primaryGuideBlock ? [...primaryGuideBlock[1].matchAll(/^\s{2}"([^"]+)":\s*\{/gm)].map((match) => match[1]) : [];
 const extraGuideSlugs = extraGuideBlock ? [...extraGuideBlock[1].matchAll(/^\s{2}"([^"]+)":\s*\{/gm)].map((match) => match[1]) : [];
-const guideSlugs = new Set([...primaryGuideSlugs, ...extraGuideSlugs]);
+const nationalGuideSlugs = nationalGuideBlock ? [...nationalGuideBlock[1].matchAll(/^\s{2}"([^"]+)":\s*\{/gm)].map((match) => match[1]) : [];
+const guideSlugs = new Set([...primaryGuideSlugs, ...extraGuideSlugs, ...nationalGuideSlugs]);
 for (const slug of seedSlugs) if (!guideSlugs.has(slug)) failures.push(`Historic site is missing destination-specific area-guide coverage: ${slug}.`);
 for (const slug of guideSlugs) if (!seedSlugs.includes(slug)) failures.push(`Historic area-guide key does not match a statewide historic-site seed: ${slug}.`);
+
+const protectedNationalCemeteries = [
+  'fort-sam-houston-national-cemetery',
+  'houston-national-cemetery',
+  'dallas-fort-worth-national-cemetery',
+];
+for (const slug of protectedNationalCemeteries) {
+  if (!seedSlugs.includes(slug)) failures.push(`Protected national cemetery is missing from statewide historic-site seeds: ${slug}.`);
+  if (!nationalGuideSlugs.includes(slug)) failures.push(`Protected national cemetery is missing its dedicated visitor enrichment: ${slug}.`);
+}
+for (const marker of ['areaGuide:', 'sourceCheckedAt: "2026-08-21"', 'U.S. Department of Veterans Affairs — National Cemetery Administration']) {
+  if (!nationalCemeteries.includes(marker)) failures.push(`National-cemetery enrichment contract missing: ${marker}`);
+}
 
 const clusterIds = [...clusters.matchAll(/\{ id: "([^"]+)"[\s\S]*?slugs: \[([^\]]+)\] \}/g)].map((match) => ({
   id: match[1],
@@ -48,8 +65,10 @@ for (const marker of [
   'enrichHistoricSiteRemoteHero',
   'enrichHistoricSiteEvergreenLinks',
   'applyHistoricSiteFactCorrections',
+  'enrichNationalCemeteryDestination',
   'enrichHistoricSiteCatalog(curated)\n    .map(enrichRemainingHistoricSiteAreaGuide)\n    .map(enrichHistoricSiteRemoteHero)\n    .map(enrichHistoricSiteEvergreenLinks)',
   '.map(applyHistoricSiteFactCorrections)',
+  '.map(enrichNationalCemeteryDestination)',
 ]) if (!runtime.includes(marker)) failures.push(`Historic-site runtime enrichment contract missing: ${marker}`);
 for (const marker of ['destinationsQuery({ category: "historic-sites" })','historicSiteClusters','/explore/$category']) if (!history.includes(marker)) failures.push(`Texas History historic-site discovery contract missing: ${marker}`);
 for (const marker of ["destinationsQuery({ category: 'historic-sites' })",'Historic places in this county','/explore/historic-sites','/texas-history']) if (!county.includes(marker)) failures.push(`County historic-site discovery contract missing: ${marker}`);
@@ -121,4 +140,4 @@ for (const [slug, license] of verifiedRemoteHeroes) {
 if (!remoteHeroes.includes('enrichHistoricSiteRemoteHero')) failures.push('Verified historic remote heroes are not exposed through the runtime enrichment function.');
 
 if (failures.length) { console.error('Historic-sites validation failed:'); for (const failure of failures) console.error(`- ${failure}`); process.exit(1); }
-console.log(`Historic-sites validation passed: ${seedSlugs.length} statewide seeds, ${guideSlugs.size} destination-specific area guides, ${clusterIds.length} thematic clusters with valid seed links, ${exactHeroAliases.length + verifiedRemoteHeroes.length} exact verified hero mappings, every protected hero matches a real seed, Lipantitlan geography is source-corrected, shared preserved-catalog publication, runtime enrichment, Texas History discovery and county cross-links are protected.`);
+console.log(`Historic-sites validation passed: ${seedSlugs.length} statewide seeds, ${guideSlugs.size} destination-specific area guides, ${clusterIds.length} thematic clusters with valid seed links, ${exactHeroAliases.length + verifiedRemoteHeroes.length} exact verified hero mappings plus ${protectedNationalCemeteries.length} dedicated national-cemetery heroes, every protected hero matches a real seed, Lipantitlan geography is source-corrected, shared preserved-catalog publication, runtime enrichment, Texas History discovery and county cross-links are protected.`);
