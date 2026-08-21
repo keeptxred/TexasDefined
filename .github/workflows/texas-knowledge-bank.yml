@@ -11,6 +11,7 @@ on:
       - 'src/routes/home-garden.tsx'
       - 'src/lib/public-routes.ts'
       - 'scripts/data/validate-texas-knowledge-bank.mjs'
+      - 'tsconfig.knowledge-bank.json'
       - '.github/workflows/texas-knowledge-bank.yml'
   workflow_dispatch:
 
@@ -35,6 +36,9 @@ jobs:
 
       - name: Validate Texas knowledge bank
         run: node scripts/data/validate-texas-knowledge-bank.mjs
+
+      - name: Typecheck Texas knowledge bank
+        run: npx tsc --noEmit -p tsconfig.knowledge-bank.json
 
       - name: Validate public route governance
         run: node scripts/data/validate-public-route-governance.mjs
