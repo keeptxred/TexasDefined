@@ -104,14 +104,3 @@ export function renderTexasSocialPost(
 export function renderAllApprovedSocialVariants(record: TexasKnowledgeRecord, asOfDate?: string) {
   return (record.socialFormats ?? []).map((format) => renderTexasSocialPost(record, format, asOfDate));
 }
-
-export function selectUnusedSocialRecords(records: TexasKnowledgeRecord[], limit = 10, asOfDate = new Date().toISOString().slice(0, 10)) {
-  return records
-    .filter((record) => record.socialReady && record.verification !== 'needs-review' && isCurrent(record, asOfDate))
-    .sort((a, b) => {
-      const uses = (a.usage?.timesUsed ?? 0) - (b.usage?.timesUsed ?? 0);
-      if (uses !== 0) return uses;
-      return (a.usage?.lastUsedAt ?? '').localeCompare(b.usage?.lastUsedAt ?? '');
-    })
-    .slice(0, limit);
-}
