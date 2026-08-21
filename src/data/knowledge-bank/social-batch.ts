@@ -1,3 +1,4 @@
+import { TEXAS_KNOWLEDGE_CATALOG } from './catalog';
 import { renderTexasSocialPost } from './social';
 import type { TexasKnowledgeRecord, TexasSocialFormat, TexasSocialPost } from './types';
 
@@ -44,7 +45,7 @@ function chooseFormat(record: TexasKnowledgeRecord, alreadyUsedFormats: Set<Texa
 }
 
 export function buildTexasSocialBatch(
-  records: TexasKnowledgeRecord[],
+  records: readonly TexasKnowledgeRecord[],
   options: TexasSocialBatchOptions = {},
 ): TexasSocialPost[] {
   const limit = Math.max(1, Math.min(options.limit ?? 10, 50));
@@ -53,7 +54,7 @@ export function buildTexasSocialBatch(
   const usedFormats = new Set<TexasSocialFormat>();
 
   const candidates = records
-    .filter((record) => record.socialReady && record.socialFormats?.length && !excluded.has(record.id))
+    .filter((record) => record.socialReady && record.verification !== 'needs-review' && record.socialFormats?.length && !excluded.has(record.id))
     .sort((a, b) => {
       const scoreDelta = scoreRecord(b, options) - scoreRecord(a, options);
       if (scoreDelta !== 0) return scoreDelta;
@@ -83,6 +84,11 @@ export function buildTexasSocialBatch(
     usedFormats.add(format);
     return renderTexasSocialPost(record, format);
   });
+}
+
+/** Build a candidate batch from the complete in-repository Knowledge Bank. */
+export function buildDefaultTexasSocialBatch(options: TexasSocialBatchOptions = {}): TexasSocialPost[] {
+  return buildTexasSocialBatch(TEXAS_KNOWLEDGE_CATALOG, options);
 }
 
 export function markTexasKnowledgeRecordUsed(record: TexasKnowledgeRecord, usedAt = new Date().toISOString()): TexasKnowledgeRecord {
