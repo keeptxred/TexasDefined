@@ -27,11 +27,11 @@ export const preindexPaintedChurchMapPoints: PaintedChurchMapPoint[] = [
   },
   {
     slug: "san-antonio-immaculate-heart-of-mary",
-    lat: 29.420008,
-    lon: -98.499885,
-    precision: "near-property",
-    sourceUrl: "https://ihmsatx.org/contact-us",
-    sourceLabel: "Official parish address at 617 S. Santa Rosa Avenue; coordinate cross-checked against current mapped property records",
+    lat: 29.41972,
+    lon: -98.50056,
+    precision: "exact-property",
+    sourceUrl: "https://topoquest.com/map.php?datum=nad83&lat=29.416667&lon=-98.5&map=sat1m&zoom=4",
+    sourceLabel: "USGS/GNIS Immaculate Heart of Mary Church feature coordinate, cross-checked to the parish's 617 S. Santa Rosa address",
   },
   {
     slug: "mason-st-joseph-catholic-church",
