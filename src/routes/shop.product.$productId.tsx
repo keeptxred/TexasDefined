@@ -26,35 +26,24 @@ export const Route = createFileRoute("/shop/product/$productId")({
   head: ({ loaderData }) => {
     const product = loaderData?.product;
     const canonicalUrl = product ? `https://texasdefined.com/shop/product/${encodeURIComponent(product.id)}` : undefined;
-    const enabledVariants = (product?.variants ?? []).filter((variant) => variant.is_enabled !== false);
     const structuredProduct = product && canonicalUrl ? {
       "@context": "https://schema.org",
       "@type": "Product",
-      "@id": `${canonicalUrl}#product`,
       name: product.name,
       description: product.blurb,
-      image: [product.image.src],
+      image: product.image.src,
       url: canonicalUrl,
       brand: { "@type": "Brand", name: "Texas Defined" },
-      offers: enabledVariants.length > 0
-        ? enabledVariants.map((variant) => ({
-            "@type": "Offer",
-            sku: `${product.id}-${variant.id}`,
-            url: `${canonicalUrl}?variant=${encodeURIComponent(String(variant.id))}`,
-            priceCurrency: product.currency || "USD",
-            price: Number(variant.price ?? product.priceCents / 100).toFixed(2),
-            availability: "https://schema.org/InStock",
-            itemCondition: "https://schema.org/NewCondition",
-          }))
-        : [{
-            "@type": "Offer",
-            sku: product.id,
-            url: canonicalUrl,
-            priceCurrency: product.currency || "USD",
-            price: (product.priceCents / 100).toFixed(2),
-            availability: "https://schema.org/OutOfStock",
-            itemCondition: "https://schema.org/NewCondition",
-          }],
+      offers: {
+        "@type": "Offer",
+        url: canonicalUrl,
+        priceCurrency: product.currency || "USD",
+        price: (product.priceCents / 100).toFixed(2),
+        availability: product.variants?.some((variant) => variant.is_enabled !== false)
+          ? "https://schema.org/InStock"
+          : "https://schema.org/OutOfStock",
+        itemCondition: "https://schema.org/NewCondition",
+      },
     } : undefined;
     return {
       meta: [
