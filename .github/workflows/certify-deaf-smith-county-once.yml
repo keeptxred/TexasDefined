@@ -1,0 +1,41 @@
+name: Certify Deaf Smith County production once
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/certify-deaf-smith-county-once.yml'
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - name: Expose citation magnet failure
+        shell: bash
+        run: |
+          set +e
+          node scripts/data/validate-citation-magnets.mjs > /tmp/citation.log 2>&1
+          code=$?
+          cat /tmp/citation.log
+          if [ $code -eq 0 ]; then context='citation-magnets-pass'; state='success'; else
+            detail="$(grep -m1 '^- ' /tmp/citation.log | sed 's/^- //' | tr -cs 'A-Za-z0-9._/-' '-' | sed 's/^-//;s/-$//' | cut -c1-80)"
+            [ -n "$detail" ] || detail='unknown'
+            context="citation-fail-${detail}"; state='failure'
+          fi
+          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" --data "{\"state\":\"$state\",\"context\":\"$context\",\"description\":\"Citation magnet diagnostic\"}" >/dev/null
+          exit $code

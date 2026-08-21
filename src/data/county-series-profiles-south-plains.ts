@@ -85,4 +85,34 @@ export const COUNTY_SERIES_PROFILES_SOUTH_PLAINS: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/floyd-county-floydada-lockney-caprock-agriculture-south-plains-texas")
       .then((module) => module.floydCountyFloydadaLockneyCaprockAgricultureSouthPlainsTexasArticle),
   },
+  {
+    countySlug: "swisher",
+    articleSlug: "swisher-county-tulia-tule-creek-irrigation-south-plains-texas",
+    loadArticle: () => import("@/data/fixtures/swisher-county-tulia-tule-creek-irrigation-south-plains-texas")
+      .then((module) => module.swisherCountyTuliaTuleCreekIrrigationSouthPlainsTexasArticle),
+  },
+  {
+    countySlug: "briscoe",
+    articleSlug: "briscoe-county-silverton-quitaque-tule-canyon-caprock-texas",
+    loadArticle: () => import("@/data/fixtures/briscoe-county-silverton-quitaque-tule-canyon-caprock-texas")
+      .then((module) => module.briscoeCountySilvertonQuitaqueTuleCanyonCaprockTexasArticle),
+  },
+  {
+    countySlug: "parmer",
+    articleSlug: "parmer-county-farwell-friona-xit-agriculture-high-plains-texas",
+    loadArticle: () => import("@/data/fixtures/parmer-county-farwell-friona-xit-agriculture-high-plains-texas")
+      .then((module) => module.parmerCountyFarwellFrionaXitAgricultureHighPlainsTexasArticle),
+  },
+  {
+    countySlug: "deaf-smith",
+    articleSlug: "deaf-smith-county-hereford-xit-cattle-ogallala-panhandle-texas",
+    loadArticle: () => import("@/data/fixtures/deaf-smith-county-hereford-xit-cattle-ogallala-panhandle-texas")
+      .then((module) => module.deafSmithCountyHerefordXitCattleOgallalaPanhandleTexasArticle),
+  },
+  {
+    countySlug: "castro",
+    articleSlug: "castro-county-dimmitt-nazareth-hart-irrigation-high-plains-texas",
+    loadArticle: () => import("@/data/fixtures/castro-county-dimmitt-nazareth-hart-irrigation-high-plains-texas")
+      .then((module) => module.castroCountyDimmittNazarethHartIrrigationHighPlainsTexasArticle),
+  },
 ];

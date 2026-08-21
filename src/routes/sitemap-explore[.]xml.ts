@@ -122,9 +122,9 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           ...regions.map((region) => region.id),
           ...EXPLORE_REGION_SLUGS,
         ])];
-        // Only self-canonical static pages belong in a sitemap. Top Attractions
-        // methodology and road-trip pages are self-canonical authority pages;
-        // secondary Painted Churches research/utility views remain excluded.
+        // Keep only self-canonical static pages in this sitemap. The Top
+        // Attractions collection, methodology and road-trip pages each carry
+        // their own canonical URL and therefore belong here.
         const staticPaths = [
           "/explore",
           "/explore/trip-planner",

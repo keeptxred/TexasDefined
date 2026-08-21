@@ -37,6 +37,7 @@ const groups: ReadonlyArray<ResourceGroup> = [
     title: 'Money and homeownership',
     links: [
       ['Money & Property', '/decide/financial-tools'],
+      ['How Texas sales tax works', '/texas-sales-tax-explained'],
       ['Understand property taxes', '/learn/property-taxes'],
       ['Property-tax guide library', '/property-tax-guides'],
       ['Property-tax calculator toolkit', '/property-tax-calculators'],
