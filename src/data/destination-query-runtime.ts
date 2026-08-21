@@ -51,9 +51,9 @@ function preservedFor(query: Omit<DestinationQuery, "brandId">): Destination[] {
 }
 
 function finishHistoricSiteEnrichment(destination: Destination) {
-  return applyHistoricSiteFactCorrections(
-    enrichHistoricSiteEvergreenLinks(
-      enrichNationalCemeteryDestination(
+  return enrichNationalCemeteryDestination(
+    applyHistoricSiteFactCorrections(
+      enrichHistoricSiteEvergreenLinks(
         enrichHistoricSiteRemoteHero(
           enrichRemainingHistoricSiteAreaGuide(enrichHistoricSiteDestination(destination)),
         ),
@@ -71,9 +71,9 @@ function reconcileExploreCatalog(destinations: Destination[]) {
   const improved = enrichHistoricSiteCatalog(curated)
     .map(enrichRemainingHistoricSiteAreaGuide)
     .map(enrichHistoricSiteRemoteHero)
-    .map(enrichNationalCemeteryDestination)
     .map(enrichHistoricSiteEvergreenLinks)
-    .map(applyHistoricSiteFactCorrections);
+    .map(applyHistoricSiteFactCorrections)
+    .map(enrichNationalCemeteryDestination);
   return filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved));
 }
 
