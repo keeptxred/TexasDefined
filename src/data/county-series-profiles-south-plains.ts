@@ -67,4 +67,10 @@ export const COUNTY_SERIES_PROFILES_SOUTH_PLAINS: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/lamb-county-littlefield-olton-irrigation-cotton-south-plains-texas")
       .then((module) => module.lambCountyLittlefieldOltonIrrigationCottonSouthPlainsTexasArticle),
   },
+  {
+    countySlug: "martin",
+    articleSlug: "martin-county-stanton-marienfeld-cotton-oil-southern-high-plains-texas",
+    loadArticle: () => import("@/data/fixtures/martin-county-stanton-marienfeld-cotton-oil-southern-high-plains-texas")
+      .then((module) => module.martinCountyStantonMarienfeldCottonOilSouthernHighPlainsTexasArticle),
+  },
 ];
