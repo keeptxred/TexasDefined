@@ -7,6 +7,10 @@ on:
       - "src/data/fixtures/lazy-texas-gateway.ts"
       - "src/data/fixtures/lazy-texas-core-articles.ts"
       - "src/data/fixtures/repositories.ts"
+      - "src/components/editorial/ExploreIntentPaths.tsx"
+      - "src/routes/texas-facts.tsx"
+      - "src/routes/texas-vs-every-state.tsx"
+      - "src/routes/texas-vs.$state.tsx"
       - "scripts/data/validate-texas-gateway-consolidation.mjs"
       - ".github/workflows/validate-texas-gateway-consolidation.yml"
   workflow_dispatch:
