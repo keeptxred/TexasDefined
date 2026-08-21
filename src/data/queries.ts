@@ -72,6 +72,12 @@ export const searchDocumentsQuery = () => queryOptions({
       base.push(document);
       knownHrefs.add(document.href);
     }
+    const { buildPrioritySearchDocuments } = await import("./priority-search-documents");
+    for (const document of buildPrioritySearchDocuments()) {
+      if (knownHrefs.has(document.href)) continue;
+      base.push(document);
+      knownHrefs.add(document.href);
+    }
     const { buildFishingSearchDocuments } = await import("./fishing/search");
     const fishingDocuments = await buildFishingSearchDocuments();
     for (const document of fishingDocuments) {
