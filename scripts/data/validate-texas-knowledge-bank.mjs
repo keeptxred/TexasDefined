@@ -40,10 +40,15 @@ if (!validation.includes("record.verification === 'needs-review' && record.socia
 if (!validation.includes("record.verification === 'verified' && !record.sources.length")) failures.push('Validation must block verified records with no source.');
 if (!social.includes('if (!record.socialReady)')) failures.push('Social renderer must reject non-social-ready records.');
 if (!social.includes('record.socialFormats?.length') || !social.includes('includes(format)')) failures.push('Social renderer must enforce approved formats.');
-if (!scheduler.includes('excludedRecordIds') || !scheduler.includes('timesUsed') || !scheduler.includes('preferredSeason')) failures.push('Social scheduler must support exclusions, usage scoring and season preference.');
+if (!scheduler.includes('excludeRecordIds') || !scheduler.includes('timesUsed') || !scheduler.includes('preferredSeason')) failures.push('Social scheduler must support exclusions, usage scoring and season preference.');
 
-const combinedRecords = `${seed}\n${expanded}\n${observations}`;
-const ids = [...combinedRecords.matchAll(/\bid:\s*['"]([^'"]+)['"]/g)].map((match) => match[1]);
+const explicitRecordIds = (text) => [...text.matchAll(/\bid:\s*['"]([^'"]+)['"]/g)].map((match) => match[1]);
+const helperObservationIds = [...observations.matchAll(/\bobservation\(\s*['"]([^'"]+)['"]/g)].map((match) => match[1]);
+const ids = [
+  ...explicitRecordIds(seed),
+  ...explicitRecordIds(expanded),
+  ...helperObservationIds,
+];
 const seen = new Set();
 for (const id of ids) {
   if (seen.has(id)) failures.push(`Duplicate knowledge record id detected in source files: ${id}`);
@@ -51,7 +56,7 @@ for (const id of ids) {
 }
 if (ids.length < 40) failures.push(`Expected at least 40 seeded knowledge records; found ${ids.length}.`);
 
-const observationCount = (observations.match(/verification:\s*['"]editorial-observation['"]/g) ?? []).length;
+const observationCount = helperObservationIds.length + ((seed + expanded).match(/verification:\s*['"]editorial-observation['"]/g) ?? []).length;
 if (observationCount < 20) failures.push(`Expected at least 20 cultural observations; found ${observationCount}.`);
 const verifiedCount = ((seed + expanded).match(/verification:\s*['"]verified['"]/g) ?? []).length;
 if (verifiedCount < 15) failures.push(`Expected at least 15 verified/source-backed records; found ${verifiedCount}.`);
