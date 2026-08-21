@@ -1,17 +1,24 @@
+import { lazy, Suspense } from "react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 
 import { AnswerSummary } from "@/components/content/AnswerSummary";
 import { ArticleCard } from "@/components/editorial/ArticleCard";
 import { DestinationCollectionGrid } from "@/components/editorial/DestinationCollectionGrid";
-import { ExploreDiscovery } from "@/components/editorial/ExploreDiscovery";
 import { ExploreTopicPaths } from "@/components/editorial/ExploreTopicPaths";
 import { LivingAuthorityPaths } from "@/components/editorial/LivingAuthorityPaths";
-import { TexasLifeDiscovery } from "@/components/editorial/TexasLifeDiscovery";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import { articlesQuery, categoriesQuery, destinationsQuery, regionsQuery } from "@/data/queries";
 import type { CategorySlug, ImageRef } from "@/data/types";
+
+const ExploreDiscovery = lazy(() =>
+  import("@/components/editorial/ExploreDiscovery").then((module) => ({ default: module.ExploreDiscovery })),
+);
+
+const TexasLifeDiscovery = lazy(() =>
+  import("@/components/editorial/TexasLifeDiscovery").then((module) => ({ default: module.TexasLifeDiscovery })),
+);
 
 const TEXAS_LIFE_DEPARTMENTS = new Set<CategorySlug>([
   "sports",
@@ -138,8 +145,16 @@ export function CategoryPage({ category, eyebrow, title, intro, image }: {
       )}
 
       {belongsToExplore && <ExploreTopicPaths category={category} />}
-      {belongsToExplore && <ExploreDiscovery currentCategory={category} categories={categories} regions={regions} />}
-      {belongsToTexasLife && <TexasLifeDiscovery currentCategory={category} />}
+      {belongsToExplore && (
+        <Suspense fallback={null}>
+          <ExploreDiscovery currentCategory={category} categories={categories} regions={regions} />
+        </Suspense>
+      )}
+      {belongsToTexasLife && (
+        <Suspense fallback={null}>
+          <TexasLifeDiscovery currentCategory={category} />
+        </Suspense>
+      )}
     </>
   );
 }
