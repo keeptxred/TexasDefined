@@ -13,7 +13,7 @@ permissions:
 jobs:
   diagnose:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 45
     env:
       GH_TOKEN: ${{ github.token }}
     steps:
@@ -25,19 +25,16 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci --no-audit --no-fund
-      - name: Expose route-governance failure
+      - name: Find first failing SEO validator
         shell: bash
         run: |
-          set +e
-          node scripts/data/validate-public-route-governance.mjs > /tmp/route.log 2>&1
-          code=$?
-          cat /tmp/route.log
-          if [ $code -eq 0 ]; then context='route-governance-pass'; state='success'; else
-            detail="$(grep -m1 '^- ' /tmp/route.log | sed 's/^- //' | tr -cs 'A-Za-z0-9._/-' '-' | sed 's/^-//;s/-$//' | cut -c1-80)"
-            [ -n "$detail" ] || detail='unknown'
-            context="route-fail-${detail}"; state='failure'
-          fi
-          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
-            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
-            --data "{\"state\":\"$state\",\"context\":\"$context\",\"description\":\"Public route governance diagnostic\"}" >/dev/null
-          exit $code
+          set -uo pipefail
+          validators=(validate-generated-page-quality validate-public-route-governance validate-indexation-quality validate-crawl-demand validate-freshness-signals validate-machine-indexing validate-aeo-answer-layers validate-homepage-seo validate-texas-explained-seo validate-things-unique-to-texas validate-texas-icon-link-depth validate-texas-weather-authority validate-texas-food-history validate-texas-culture-citation-index validate-explore-category-seo validate-explore-region-seo validate-explore-topical-authority validate-article-discover-seo validate-author-eeat validate-entity-template-quality validate-image-seo validate-search-rendering-performance validate-content-duplication validate-sitemap-routes validate-internal-link-discovery validate-search-intent-ctr validate-seo-ci-contract)
+          for validator in "${validators[@]}"; do
+            if ! node "scripts/data/${validator}.mjs"; then
+              context="seo-fail-${validator#validate-}"
+              curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" --data "{\"state\":\"failure\",\"context\":\"$context\",\"description\":\"First failing SEO validator\"}" >/dev/null
+              exit 1
+            fi
+          done
+          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" --data '{"state":"success","context":"seo-all-individual","description":"All SEO validators passed"}' >/dev/null
