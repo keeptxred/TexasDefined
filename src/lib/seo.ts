@@ -35,6 +35,14 @@ interface EditorialCollectionSeo extends PageSeo {
 
 const DEFAULT_INDEX_ROBOTS = "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
 
+const SOCIAL_IMAGE_FALLBACKS: Partial<Record<BrandConfig["identity"]["id"], { src: string; alt: string; type: string }>> = {
+  texasdefined: {
+    src: "/images/state-parks/palo-duro-canyon-state-park.jpg",
+    alt: "Palo Duro Canyon, one of the landscapes that define Texas",
+    type: "image/jpeg",
+  },
+};
+
 function cleanMetaText(value: string) {
   return value.replace(/\s+/g, " ").trim();
 }
@@ -50,7 +58,11 @@ export function buildMeta(brand: BrandConfig, page: PageSeo) {
   const description = cleanMetaText(page.description);
   const fullTitle = cleanMetaText(brand.seo.titleTemplate.replace("%s", pageTitle));
   const canonicalUrl = page.canonicalPath ? absoluteUrl(brand, page.canonicalPath) : undefined;
-  const imageUrl = page.image ? absoluteUrl(brand, page.image) : undefined;
+  const fallbackImage = SOCIAL_IMAGE_FALLBACKS[brand.identity.id];
+  const image = page.image
+    ? { src: page.image, alt: page.imageAlt, type: page.imageType }
+    : fallbackImage;
+  const imageUrl = image ? absoluteUrl(brand, image.src) : undefined;
   const robots = page.robots ?? (page.canonicalPath ? DEFAULT_INDEX_ROBOTS : undefined);
   const meta: Array<Record<string, string>> = [
     { title: fullTitle },
@@ -71,10 +83,10 @@ export function buildMeta(brand: BrandConfig, page: PageSeo) {
       { property: "og:image:secure_url", content: imageUrl },
       { name: "twitter:image", content: imageUrl },
     );
-    if (page.imageAlt) meta.push({ property: "og:image:alt", content: cleanMetaText(page.imageAlt) }, { name: "twitter:image:alt", content: cleanMetaText(page.imageAlt) });
+    if (image?.alt) meta.push({ property: "og:image:alt", content: cleanMetaText(image.alt) }, { name: "twitter:image:alt", content: cleanMetaText(image.alt) });
     if (page.imageWidth) meta.push({ property: "og:image:width", content: String(page.imageWidth) });
     if (page.imageHeight) meta.push({ property: "og:image:height", content: String(page.imageHeight) });
-    if (page.imageType) meta.push({ property: "og:image:type", content: page.imageType });
+    if (image?.type) meta.push({ property: "og:image:type", content: image.type });
   }
   if (robots) meta.push({ name: "robots", content: robots }, { name: "googlebot", content: robots });
   if (page.publishedTime) meta.push({ property: "article:published_time", content: page.publishedTime });

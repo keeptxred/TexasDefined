@@ -1,4 +1,4 @@
-# retrigger after entering default branch
+# retrigger Crosby County bundle diagnosis
 name: Diagnose client bundle once
 
 on:

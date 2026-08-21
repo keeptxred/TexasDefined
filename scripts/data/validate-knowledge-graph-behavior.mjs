@@ -8,6 +8,7 @@ const required = [
   'src/components/admin/KnowledgeGraphBehavior.tsx',
   'src/routes/api.knowledge-graph-behavior.ts',
   'src/routes/admin.knowledge-graph-behavior.tsx',
+  'src/routes/admin.knowledge-graph-behavior.lazy.tsx',
 ];
 for (const path of required) if (!fs.existsSync(path)) errors.push(`Missing knowledge-graph behavior file: ${path}`);
 if (errors.length) fail();
@@ -17,7 +18,8 @@ const regression = fs.readFileSync(required[1], 'utf8');
 const linking = fs.readFileSync(required[2], 'utf8');
 const panel = fs.readFileSync(required[3], 'utf8');
 const api = fs.readFileSync(required[4], 'utf8');
-const page = fs.readFileSync(required[5], 'utf8');
+const route = fs.readFileSync(required[5], 'utf8');
+const page = fs.readFileSync(required[6], 'utf8');
 
 requireSymbols(behavior, [
   'GRAPH_BEHAVIOR_THRESHOLDS', 'simulateKnowledgeGraph', 'connectedComponents',
@@ -45,10 +47,11 @@ for (const benchmark of ['Caddo Lake', 'state parks near Austin', 'property taxe
 }
 requireSymbols(panel, ['KnowledgeGraphBehavior', 'Behavioral status', 'Orphan entities', 'Connected components', 'AI benchmark', 'Graph density', 'Maximum navigation depth', 'Duplicate entity IDs', 'Weakest entities', 'Highest authority'], 'admin panel');
 requireSymbols(api, ["createFileRoute('/api/knowledge-graph-behavior')", 'auditKnowledgeGraphBehavior', 'auditKnowledgeGraphRegression', 'status: healthy ? 200 : 503', 'no-store', 'noindex, nofollow'], 'behavior API');
-requireSymbols(page, ["createFileRoute('/admin/knowledge-graph-behavior')", 'KnowledgeGraphBehavior', 'loadTexasKnowledgeGraph', 'noindex,nofollow', '/admin/platform-health'], 'behavior admin page');
+requireSymbols(route, ["createFileRoute('/admin/knowledge-graph-behavior')", "import('@/data/knowledge-graph')", 'loadTexasKnowledgeGraph', 'noindex,nofollow'], 'behavior admin route shell');
+requireSymbols(page, ["createLazyFileRoute('/admin/knowledge-graph-behavior')", 'KnowledgeGraphBehavior', '/admin/platform-health'], 'behavior admin lazy page');
 
 if (errors.length) fail();
-console.log('Knowledge-graph simulation, publication-gated automatic linking, authority ranking, canonical paths, completeness, full graph regressions, and AI retrieval benchmarks are protected.');
+console.log('Knowledge-graph simulation, publication-gated automatic linking, authority ranking, canonical paths, completeness, full graph regressions, AI retrieval benchmarks, and lazy admin delivery are protected.');
 
 function requireSymbols(source, symbols, area) {
   for (const symbol of symbols) if (!source.includes(symbol)) errors.push(`${area} feature missing: ${symbol}`);
