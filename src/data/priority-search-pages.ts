@@ -8,19 +8,6 @@ const relatedServices = [
 ] as const;
 
 export const PRIORITY_SEARCH_PAGES: Record<string, PrioritySearchPageData> = {
-  "texas-attorney-general": {
-    eyebrow: "Texas government",
-    title: "Texas Attorney General: What the Office Does and Where to Go",
-    intro: "A practical guide to the Office of the Texas Attorney General, including consumer protection, child support, open government, crime-victim programs and the office's role representing the State of Texas.",
-    updated: "August 20, 2026",
-    quickAnswer: "The Texas Attorney General is the state's attorney. The office represents Texas in legal matters and also administers major public-facing programs including child-support enforcement, consumer protection and crime-victim compensation.",
-    sections: [
-      { heading: "What the Texas Attorney General does", paragraphs: ["The office represents the State of Texas, defends state laws and agencies in court, issues certain legal opinions requested by authorized officials and performs duties assigned by the Texas Constitution and statutes.", "For everyday Texans, the best-known services include child-support enforcement, consumer protection, open-government resources and crime-victim assistance."], links: [{ label: "Official Texas Attorney General website", href: "https://www.texasattorneygeneral.gov/", external: true }] },
-      { heading: "Child support", paragraphs: ["The Child Support Division helps establish, enforce and modify child-support orders and provides services related to paternity and support payments. Texas child support itself is governed primarily by Family Code Chapter 154."], links: [{ label: "Attorney General child support", href: "https://www.texasattorneygeneral.gov/child-support", external: true }] },
-      { heading: "Consumer protection and complaints", paragraphs: ["The Consumer Protection Division accepts complaints and enforces state consumer-protection laws. The office cannot act as a private attorney for an individual consumer, so Texans should use the agency's complaint and educational resources for the type of issue involved."], links: [{ label: "Consumer protection", href: "https://www.texasattorneygeneral.gov/consumer-protection", external: true }] },
-    ],
-    related: [...relatedServices, { label: "Texas Secretary of State", href: "/texas-secretary-of-state" }],
-  },
   "texas-fishing-license": {
     eyebrow: "Texas outdoors",
     title: "Texas Fishing License: Requirements, Options and Official Links",
@@ -34,19 +21,6 @@ export const PRIORITY_SEARCH_PAGES: Record<string, PrioritySearchPageData> = {
     ],
     related: [{ label: "Texas fishing", href: "/fishing" }, { label: "Fishing regulations", href: "/fishing/regulations" }, { label: "Texas lakes", href: "/fishing/lakes" }, { label: "Best places to camp in Texas", href: "/best-places-to-go-camping-in-texas" }],
   },
-  "texas-secretary-of-state": {
-    eyebrow: "Texas government",
-    title: "Texas Secretary of State: Elections, Business Filings and State Records",
-    intro: "A practical guide to the Texas Secretary of State and the services Texans most often need, from election information and voter resources to business filings, the Texas Register and official state records.",
-    updated: "August 20, 2026",
-    quickAnswer: "The Texas Secretary of State is the state's chief elections officer and also handles business-entity filings, the Texas Register and many official state records and filings.",
-    sections: [
-      { heading: "Elections and voting", paragraphs: ["The Secretary of State serves as Texas's chief elections officer, publishes election guidance and maintains statewide voter and election resources."], links: [{ label: "Texas Secretary of State elections", href: "https://www.sos.state.tx.us/elections/", external: true }] },
-      { heading: "Business and nonprofit filings", paragraphs: ["The office receives formation, registration and other filings for many Texas business entities and maintains SOSDirect for online filing and record access."], links: [{ label: "Business and nonprofit forms", href: "https://www.sos.state.tx.us/corp/forms_option.shtml", external: true }] },
-      { heading: "Texas Register and official records", paragraphs: ["The Secretary of State publishes the Texas Register and provides access to state rules, notices and other official materials."], links: [{ label: "Official Secretary of State website", href: "https://www.sos.state.tx.us/", external: true }, { label: "Texas Secretary of State entity page", href: "/agency/texas-secretary-of-state" }] },
-    ],
-    related: [...relatedServices, { label: "Texas Comptroller", href: "/texas-comptroller" }, { label: "Texas Attorney General", href: "/texas-attorney-general" }],
-  },
   "texas-drivers-license": {
     eyebrow: "Texas driving",
     title: "Texas Driver License: Renewals, Appointments, REAL ID and Address Changes",
@@ -54,11 +28,11 @@ export const PRIORITY_SEARCH_PAGES: Record<string, PrioritySearchPageData> = {
     updated: "August 20, 2026",
     quickAnswer: "Texas driver licenses are issued by the Texas Department of Public Safety, not TxDMV. DPS handles driver-license and ID services; TxDMV handles vehicle titles and registration.",
     sections: [
-      { heading: "DPS, not DMV, handles Texas driver licenses", paragraphs: ["One of the most common Texas government-service mix-ups is the division between DPS and TxDMV. Driver licenses and state identification cards are DPS services. Vehicle registration and titles are TxDMV services."], links: [{ label: "Texas DPS driver-license services", href: "https://www.dps.texas.gov/section/driver-license", external: true }, { label: "Texas DPS guide", href: "/texas-dps" }] },
+      { heading: "DPS, not DMV, handles Texas driver licenses", paragraphs: ["One of the most common Texas service mix-ups is the division between DPS and TxDMV. Driver licenses and state identification cards are DPS services. Vehicle registration and titles are TxDMV services."], links: [{ label: "Official DPS driver-license services", href: "https://www.dps.texas.gov/section/driver-license", external: true }] },
       { heading: "Renew, replace or change your address", paragraphs: ["Many eligible Texans can renew, replace or update a license or ID through DPS online services. Eligibility varies, so use the official DPS service to determine whether an office visit is required."], links: [{ label: "DPS online driver-license services", href: "https://www.dps.texas.gov/apps/DriverLicense/", external: true }] },
       { heading: "Appointments and REAL ID", paragraphs: ["Texas driver-license offices operate primarily by appointment. If you need an in-person visit, review the required documents before booking. DPS also publishes REAL ID information and document-check resources."], links: [{ label: "Driver-license appointments and information", href: "https://www.dps.texas.gov/section/driver-license", external: true }] },
     ],
-    related: [{ label: "Texas DPS", href: "/texas-dps" }, { label: "Texas DMV", href: "/texas-dmv" }, { label: "Texas vehicle registration", href: "/texas-vehicle-registration" }, { label: "Find my DMV", href: "/find-my-dmv" }],
+    related: [{ label: "Texas DMV", href: "/texas-dmv" }, { label: "Texas vehicle registration", href: "/texas-vehicle-registration" }, { label: "Find my DMV", href: "/find-my-dmv" }, { label: "Moving to Texas", href: "/moving-to-texas" }],
   },
   "texas-dmv": {
     eyebrow: "Texas driving",
@@ -67,50 +41,11 @@ export const PRIORITY_SEARCH_PAGES: Record<string, PrioritySearchPageData> = {
     updated: "August 20, 2026",
     quickAnswer: "TxDMV handles vehicle registration, titles, dealer licensing and motor-carrier services. Texas DPS handles driver licenses and identification cards.",
     sections: [
-      { heading: "What TxDMV handles", paragraphs: ["The Texas Department of Motor Vehicles oversees vehicle titles and registration, motor carriers, dealer licensing and related motor-vehicle programs."], links: [{ label: "Official TxDMV website", href: "https://www.txdmv.gov/", external: true }, { label: "Texas DMV entity page", href: "/agency/texas-dmv" }] },
+      { heading: "What TxDMV handles", paragraphs: ["The Texas Department of Motor Vehicles oversees vehicle titles and registration, motor carriers, dealer licensing and related motor-vehicle programs."], links: [{ label: "Official TxDMV website", href: "https://www.txdmv.gov/", external: true }] },
       { heading: "Vehicle registration", paragraphs: ["Texas registration transactions are closely tied to county tax assessor-collector offices, while TxDMV sets statewide requirements and provides online renewal services and guidance."], links: [{ label: "Texas vehicle registration guide", href: "/texas-vehicle-registration" }, { label: "Find my DMV and local office", href: "/find-my-dmv" }] },
-      { heading: "Need a driver license instead?", paragraphs: ["Driver licenses are a Department of Public Safety service, not a TxDMV service. If your task is a license renewal, replacement, appointment or REAL ID question, go to DPS."], links: [{ label: "Texas driver-license guide", href: "/texas-drivers-license" }, { label: "Texas DPS", href: "/texas-dps" }] },
+      { heading: "Need a driver license instead?", paragraphs: ["Driver licenses are a Department of Public Safety service, not a TxDMV service. If your task is a license renewal, replacement, appointment or REAL ID question, use the Texas Defined driver-license guide or the official DPS service."], links: [{ label: "Texas driver-license guide", href: "/texas-drivers-license" }, { label: "Official DPS driver-license services", href: "https://www.dps.texas.gov/section/driver-license", external: true }] },
     ],
-    related: [{ label: "Texas driver license", href: "/texas-drivers-license" }, { label: "Texas DPS", href: "/texas-dps" }, { label: "Texas vehicle registration", href: "/texas-vehicle-registration" }, { label: "Find my DMV", href: "/find-my-dmv" }],
-  },
-  "texas-dps": {
-    eyebrow: "Texas government",
-    title: "Texas DPS: Driver Licenses, Public Safety and Official Services",
-    intro: "A practical guide to the Texas Department of Public Safety, including driver-license services, identification cards, criminal-history resources and statewide public-safety programs.",
-    updated: "August 20, 2026",
-    quickAnswer: "Texas DPS issues driver licenses and IDs and runs statewide public-safety and law-enforcement programs. TxDMV is the separate agency responsible for vehicle registration and titles.",
-    sections: [
-      { heading: "Driver-license and ID services", paragraphs: ["DPS issues Texas driver licenses and identification cards and provides renewal, replacement, address-change, appointment and REAL ID resources."], links: [{ label: "Texas driver-license guide", href: "/texas-drivers-license" }, { label: "Official DPS driver-license page", href: "https://www.dps.texas.gov/section/driver-license", external: true }] },
-      { heading: "Public-safety functions", paragraphs: ["DPS includes the Texas Highway Patrol and administers other statewide law-enforcement, emergency-management, regulatory and criminal-history functions."], links: [{ label: "Official Texas DPS", href: "https://www.dps.texas.gov/", external: true }, { label: "Texas DPS entity page", href: "/agency/texas-dps" }] },
-      { heading: "DPS versus TxDMV", paragraphs: ["If you need to renew a vehicle registration or handle a title, use TxDMV or your county tax office. If you need a driver license, ID or DPS public-safety service, use DPS."], links: [{ label: "Texas DMV guide", href: "/texas-dmv" }] },
-    ],
-    related: [{ label: "Texas driver license", href: "/texas-drivers-license" }, { label: "Texas DMV", href: "/texas-dmv" }, { label: "Texas vehicle registration", href: "/texas-vehicle-registration" }, ...relatedServices],
-  },
-  "texas-unemployment": {
-    eyebrow: "Texas work & money",
-    title: "Texas Unemployment Benefits: How to Apply and What Happens Next",
-    intro: "A plain-English guide to Texas unemployment benefits, including where to apply, basic eligibility concepts, payment requests, work-search requirements and the role of the Texas Workforce Commission.",
-    updated: "August 20, 2026",
-    quickAnswer: "Texas unemployment benefits are administered by the Texas Workforce Commission. Apply through TWC's official Unemployment Benefits Services system, then follow TWC instructions for work-search registration, payment requests and ongoing eligibility.",
-    sections: [
-      { heading: "Where to apply for Texas unemployment", paragraphs: ["The Texas Workforce Commission accepts unemployment claims through its official online services and by phone. Apply only through TWC or links that TWC identifies as official."], links: [{ label: "Apply for unemployment benefits at TWC", href: "https://www.twc.texas.gov/services/apply-benefits", external: true }] },
-      { heading: "Basic eligibility framework", paragraphs: ["Eligibility depends on factors including base-period wages, the reason for the job separation and ongoing availability for work. Claimants generally must meet continuing work-search and payment-request requirements."], links: [{ label: "Texas unemployment benefits overview", href: "https://www.twc.texas.gov/programs/unemployment-benefits", external: true }] },
-      { heading: "Texas Workforce Commission", paragraphs: ["TWC administers unemployment insurance along with statewide workforce and employer programs. Keep copies of agency notices and respond to requests by the deadlines stated in your claim."], links: [{ label: "Texas Workforce Commission entity page", href: "/agency/texas-workforce-commission" }] },
-    ],
-    related: [{ label: "Texas Workforce Commission", href: "/agency/texas-workforce-commission" }, { label: "Texas salary calculator", href: "/texas-salary-calculator" }, { label: "Texas cost of living calculator", href: "/texas-cost-of-living-calculator" }, ...relatedServices],
-  },
-  "texas-comptroller": {
-    eyebrow: "Texas government",
-    title: "Texas Comptroller: Taxes, Revenue, Property-Tax Data and Business Services",
-    intro: "A practical guide to the Texas Comptroller of Public Accounts and the services people most often search for, including sales tax, franchise tax, state revenue, property-tax resources and business taxpayer services.",
-    updated: "August 20, 2026",
-    quickAnswer: "The Texas Comptroller collects major state taxes, administers taxpayer services, oversees state accounting and publishes extensive revenue, sales-tax and local property-tax information.",
-    sections: [
-      { heading: "Texas taxes and taxpayer services", paragraphs: ["The Comptroller administers major Texas state taxes and provides online systems and guidance for businesses and taxpayers."], links: [{ label: "Official Texas Comptroller", href: "https://comptroller.texas.gov/", external: true }, { label: "Texas Comptroller entity page", href: "/agency/texas-comptroller" }] },
-      { heading: "Property-tax information", paragraphs: ["Local governments levy property taxes, but the Comptroller's Property Tax Assistance Division publishes statewide guidance, appraisal-district information, reports and data that are useful for understanding the system."], links: [{ label: "Texas property-tax guide", href: "/learn/property-taxes" }, { label: "Property-tax calculators", href: "/property-tax-calculators" }] },
-      { heading: "Revenue and economic data", paragraphs: ["The Comptroller publishes state revenue estimates, tax collections and economic information that can help explain the condition of Texas state finances."], links: [{ label: "Texas data center", href: "/texas-data" }] },
-    ],
-    related: [{ label: "Texas property taxes", href: "/learn/property-taxes" }, { label: "Texas sales tax", href: "/texas-sales-tax-explained" }, { label: "Texas Secretary of State", href: "/texas-secretary-of-state" }, ...relatedServices],
+    related: [{ label: "Texas driver license", href: "/texas-drivers-license" }, { label: "Texas vehicle registration", href: "/texas-vehicle-registration" }, { label: "Find my DMV", href: "/find-my-dmv" }, { label: "Moving to Texas", href: "/moving-to-texas" }],
   },
   "texas-vehicle-registration": {
     eyebrow: "Texas driving",
@@ -123,7 +58,7 @@ export const PRIORITY_SEARCH_PAGES: Record<string, PrioritySearchPageData> = {
       { heading: "Renewing registration", paragraphs: ["Eligible vehicles can often be renewed online. Use the official TxDMV renewal system or your county office instructions and check the current inspection and emissions requirements that apply in your county."], links: [{ label: "TxDMV online services", href: "https://www.txdmv.gov/", external: true }, { label: "Find a local office", href: "/find-my-dmv" }] },
       { heading: "Registration is not a driver-license service", paragraphs: ["TxDMV handles registration and titles. DPS handles driver licenses and IDs. Keeping the two agencies straight can save an unnecessary office visit."], links: [{ label: "Texas driver-license guide", href: "/texas-drivers-license" }, { label: "Texas DMV guide", href: "/texas-dmv" }] },
     ],
-    related: [{ label: "Texas DMV", href: "/texas-dmv" }, { label: "Texas driver license", href: "/texas-drivers-license" }, { label: "Texas DPS", href: "/texas-dps" }, { label: "Find my DMV", href: "/find-my-dmv" }],
+    related: [{ label: "Texas DMV", href: "/texas-dmv" }, { label: "Texas driver license", href: "/texas-drivers-license" }, { label: "Find my DMV", href: "/find-my-dmv" }, { label: "Moving to Texas", href: "/moving-to-texas" }],
   },
   "texas-flag": {
     eyebrow: "Texas symbols",
@@ -147,7 +82,7 @@ export const PRIORITY_SEARCH_PAGES: Record<string, PrioritySearchPageData> = {
     sections: [
       { heading: "2026 dates and location", paragraphs: ["The 2026 State Fair of Texas is scheduled to run Friday, September 25 through Sunday, October 18 at Fair Park in Dallas. Fair schedules can vary by day, so confirm opening hours and event times for the date you plan to attend."], links: [{ label: "Official State Fair of Texas", href: "https://bigtex.com/", external: true }] },
       { heading: "What the fair is known for", paragraphs: ["Big Tex, the Midway, fried-food competition, livestock and agriculture, auto exhibits, live music, college football and the historic Fair Park setting all contribute to the fair's identity. A good first visit mixes a few headline attractions with time to walk the grounds rather than trying to do everything."], links: [{ label: "Texas events", href: "/events" }, { label: "Texas food history", href: "/texas-food-history" }] },
-      { heading: "Planning the day", paragraphs: ["Decide before arriving whether your priority is rides, food, livestock, football, concerts or architecture. Public transportation can reduce parking stress, and weekday visits are often easier for seeing exhibits at a slower pace. Check the official site for bag rules, coupons, ticket promotions and daily schedules."], links: [{ label: "Dallas and North Texas travel ideas", href: "/explore" }] },
+      { heading: "Planning the day", paragraphs: ["Decide before arriving whether your priority is rides, food, livestock, football, concerts or architecture. Public transportation can reduce parking stress, and weekday visits are often easier for seeing exhibits at a slower pace. Check the official site for bag rules, coupons, ticket promotions and daily schedules."], links: [{ label: "Explore Texas", href: "/explore" }] },
     ],
     related: [{ label: "Texas events", href: "/events" }, { label: "Texas food trail", href: "/texas-food-trail" }, { label: "Texas road trips", href: "/explore/road-trips" }, { label: "Texas sports venues", href: "/sports-venues" }],
   },
