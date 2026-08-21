@@ -1,0 +1,101 @@
+name: Verify Young County live once
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/verify-young-county-once.yml'
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    env:
+      GH_TOKEN: ${{ github.token }}
+      ORIGIN: https://texasdefined.com
+      PAGE: /county/young
+      LEGACY: /article/young-county-graham-fort-belknap-brazos-cross-timbers-texas
+      HERO: https://commons.wikimedia.org/wiki/Special:Redirect/file/Young_County_courthouse_in_Graham%2C_Texas.jpg?width=1800
+    steps:
+      - name: Publish pending statuses
+        shell: bash
+        run: |
+          set -euo pipefail
+          publish() {
+            curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
+              "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
+              --data "{\"state\":\"pending\",\"context\":\"$1\",\"description\":\"$2\"}" >/dev/null
+          }
+          publish young-county-page 'Checking live Young County page and both data layers'
+          publish young-county-hero 'Checking live Young County hero HTTP and MIME'
+          publish young-county-redirect 'Checking legacy Young County 301 redirect'
+
+      - name: Verify live county page and preserved structured data
+        id: page
+        shell: bash
+        run: |
+          set -euo pipefail
+          out="$(mktemp)"
+          trap 'rm -f "$out"' EXIT
+          curl --fail-with-body --silent --show-error --location --max-time 30 \
+            "${ORIGIN}${PAGE}?verify=${GITHUB_SHA}" -o "$out"
+          grep -Fq 'Young County: Graham, Fort Belknap and the Brazos Frontier' "$out"
+          grep -Fq '17,867' "$out"
+          grep -Fq 'Young_County_courthouse_in_Graham' "$out"
+          echo 'Young County live page contains the new editorial title, preserved 2020 population, and configured county-specific hero.'
+
+      - name: Verify live hero HTTP and MIME
+        id: hero
+        shell: bash
+        run: |
+          set -euo pipefail
+          headers="$(mktemp)"
+          body="$(mktemp)"
+          trap 'rm -f "$headers" "$body"' EXIT
+          curl --fail-with-body --silent --show-error --location --max-time 30 \
+            --dump-header "$headers" "$HERO" -o "$body"
+          test -s "$body"
+          final_type="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/ {gsub(/\r/,""); t=$2} END{print t}' "$headers")"
+          case "$final_type" in
+            image/jpeg|image/png|image/webp) ;;
+            *) echo "Unexpected hero MIME: $final_type" >&2; exit 1 ;;
+          esac
+          echo "Hero MIME verified: $final_type"
+
+      - name: Verify legacy county-series redirect
+        id: redirect
+        shell: bash
+        run: |
+          set -euo pipefail
+          headers="$(mktemp)"
+          trap 'rm -f "$headers"' EXIT
+          code="$(curl --silent --show-error --max-time 30 --output /dev/null --dump-header "$headers" --write-out '%{http_code}' "${ORIGIN}${LEGACY}")"
+          test "$code" = '301'
+          location="$(awk 'BEGIN{IGNORECASE=1} /^location:/ {sub(/^[^:]+:[[:space:]]*/,""); gsub(/\r/,""); print; exit}' "$headers")"
+          test "$location" = 'https://texasdefined.com/county/young'
+          echo "Legacy redirect verified: $code $location"
+
+      - name: Publish result statuses
+        if: always()
+        shell: bash
+        env:
+          PAGE_OUTCOME: ${{ steps.page.outcome }}
+          HERO_OUTCOME: ${{ steps.hero.outcome }}
+          REDIRECT_OUTCOME: ${{ steps.redirect.outcome }}
+        run: |
+          set -euo pipefail
+          publish() {
+            local context="$1" outcome="$2" success_desc="$3" failure_desc="$4"
+            local state desc
+            if [ "$outcome" = success ]; then state=success; desc="$success_desc"; else state=failure; desc="$failure_desc"; fi
+            curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
+              "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
+              --data "{\"state\":\"${state}\",\"context\":\"${context}\",\"description\":\"${desc}\"}" >/dev/null
+          }
+          publish young-county-page "$PAGE_OUTCOME" 'Live page and structured/editorial layers verified' 'Young County live page verification failed'
+          publish young-county-hero "$HERO_OUTCOME" 'Young County hero returned an allowed raster MIME' 'Young County hero HTTP/MIME verification failed'
+          publish young-county-redirect "$REDIRECT_OUTCOME" 'Legacy Young County URL returns canonical 301' 'Young County legacy redirect verification failed'
