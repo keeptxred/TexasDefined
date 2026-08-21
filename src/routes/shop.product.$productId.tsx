@@ -35,9 +35,7 @@ export const Route = createFileRoute("/shop/product/$productId")({
             priceCurrency: product.currency || "USD",
             price: Number(variant.price ?? product.priceCents / 100).toFixed(2),
             availability: "https://schema.org/InStock",
-            itemCondition: "https://schema.org/NewCondition",
             sku: `${product.id}-${variant.id}`,
-            name: variantLabel(variant),
           }))
         : [{
             "@type": "Offer",
@@ -45,7 +43,6 @@ export const Route = createFileRoute("/shop/product/$productId")({
             priceCurrency: product.currency || "USD",
             price: (product.priceCents / 100).toFixed(2),
             availability: "https://schema.org/OutOfStock",
-            itemCondition: "https://schema.org/NewCondition",
             sku: product.id,
           }]
       : [];
