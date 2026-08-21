@@ -85,4 +85,10 @@ export const COUNTY_SERIES_PROFILES_SOUTH_PLAINS: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/floyd-county-floydada-lockney-caprock-agriculture-south-plains-texas")
       .then((module) => module.floydCountyFloydadaLockneyCaprockAgricultureSouthPlainsTexasArticle),
   },
+  {
+    countySlug: "swisher",
+    articleSlug: "swisher-county-tulia-tule-creek-irrigation-south-plains-texas",
+    loadArticle: () => import("@/data/fixtures/swisher-county-tulia-tule-creek-irrigation-south-plains-texas")
+      .then((module) => module.swisherCountyTuliaTuleCreekIrrigationSouthPlainsTexasArticle),
+  },
 ];
