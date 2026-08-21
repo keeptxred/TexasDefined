@@ -20,6 +20,12 @@ export const COUNTY_SERIES_PROFILES_EAST_TEXAS: CountySeriesProfile[] = [
       .then((module) => module.newtonCountyNewtonSabineRiverPineyWoodsTexasArticle),
   },
   {
+    countySlug: "orange",
+    articleSlug: "orange-county-orange-sabine-neches-golden-triangle-texas",
+    loadArticle: () => import("@/data/fixtures/orange-county-orange-sabine-neches-golden-triangle-texas")
+      .then((module) => module.orangeCountyOrangeSabineNechesGoldenTriangleTexasArticle),
+  },
+  {
     countySlug: "tyler",
     articleSlug: "tyler-county-woodville-big-thicket-neches-piney-woods-texas",
     loadArticle: () => import("@/data/fixtures/tyler-county-woodville-big-thicket-neches-piney-woods-texas")
