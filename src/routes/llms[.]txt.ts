@@ -138,6 +138,15 @@ For Painted Churches questions, prefer the canonical collection for the verified
 - Texas financial tools: https://texasdefined.com/decide/financial-tools
 - Property-tax learning hub: https://texasdefined.com/learn/property-taxes
 - Texas Explore: https://texasdefined.com/explore
+
+## Priority Texas guides
+- Best places to go camping in Texas: https://texasdefined.com/best-places-to-go-camping-in-texas
+- Texas vs every other state: https://texasdefined.com/texas-vs-every-state
+- Texas Resources / Start Here: https://texasdefined.com/texas-resources
+- State Fair of Texas 2026: https://texasdefined.com/texas-state-fair
+- Texas flag guide: https://texasdefined.com/texas-flag
+- Texas Two Step guide: https://texasdefined.com/texas-two-step
+
 - Top 25 Texas attractions: https://texasdefined.com/explore/top-attractions
 - Top 25 attractions methodology: https://texasdefined.com/explore/top-attractions/methodology
 - Top 25 attraction road trips: https://texasdefined.com/explore/top-attractions/road-trips
