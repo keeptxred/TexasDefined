@@ -64,7 +64,7 @@ jobs:
           fetch_assert lighthouse-hub '/explore/lighthouses' 'Texas Lighthouses'
           fetch_assert point-bolivar '/article/point-bolivar-lighthouse-history' 'Point Bolivar Lighthouse: The Black Tower at Galveston Bay'
           fetch_assert lydia-ann '/article/lydia-ann-lighthouse-port-aransas' 'Lydia Ann Lighthouse: The Light Across From Port Aransas'
-          fetch_assert matagorda '/article/matagorda-island-lighthouse-history' 'Matagorda Island Lighthouse: The Black Tower Beyond Port O'
+          fetch_assert matagorda '/article/matagorda-island-lighthouse-history' "Matagorda Island Lighthouse: The Black Tower Beyond Port O'Connor"
           fetch_assert halfmoon '/article/halfmoon-reef-lighthouse-port-lavaca' 'Halfmoon Reef Lighthouse: The Texas Light That Came Ashore'
           fetch_assert sabine '/article/sabine-pass-lighthouse-texas-border' 'The most important fact: the tower is in Louisiana'
 
