@@ -49,6 +49,16 @@ export function texasKnowledgeByVerification(
   return TEXAS_KNOWLEDGE_CATALOG.filter((record) => record.verification === verification);
 }
 
+export function texasKnowledgeByCountySlug(countySlug: string): TexasKnowledgeRecord[] {
+  return TEXAS_KNOWLEDGE_CATALOG.filter((record) => record.countySlug === countySlug);
+}
+
+export function texasCountySeatFactBySlug(countySlug: string): TexasKnowledgeRecord | undefined {
+  return TEXAS_KNOWLEDGE_CATALOG.find(
+    (record) => record.kind === 'county-fact' && record.countySlug === countySlug && record.tags.includes('county-seat'),
+  );
+}
+
 export function texasKnowledgeNeedsReview(): TexasKnowledgeRecord[] {
   return texasKnowledgeByVerification('needs-review');
 }
