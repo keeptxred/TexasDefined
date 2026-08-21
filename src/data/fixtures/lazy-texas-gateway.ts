@@ -14,8 +14,19 @@ const GATEWAY_LINK_ALIASES: Record<string, string> = {
   "/outdoors": "/explore/outdoors",
 };
 
+const JACOBS_WELL_OLD = "Jacob's Well area when open for swimming";
+const JACOBS_WELL_CURRENT = "Jacob's Well Natural Area for hiking and the spring overlook; swimming is currently closed until further notice";
+
 const normalizeGatewayArticle = (article: Article): Article => ({
   ...article,
+  body: article.body.map((block) =>
+    block.type === "list"
+      ? {
+          ...block,
+          items: block.items.map((item) => item === JACOBS_WELL_OLD ? JACOBS_WELL_CURRENT : item),
+        }
+      : block,
+  ),
   internalLinks: article.internalLinks?.map((link) => ({
     ...link,
     href: GATEWAY_LINK_ALIASES[link.href] ?? link.href,
