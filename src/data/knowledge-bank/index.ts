@@ -3,6 +3,7 @@ export * from './seed';
 export * from './seed-expanded';
 export * from './seed-verified-batch2';
 export * from './seed-counties-batch1';
+export * from './seed-counties-batch2';
 export * from './cultural-observations';
 export * from './cultural-observations-batch2';
 export * from './catalog';
