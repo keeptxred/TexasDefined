@@ -103,4 +103,10 @@ export const COUNTY_SERIES_PROFILES_SOUTH_PLAINS: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/parmer-county-farwell-friona-xit-agriculture-high-plains-texas")
       .then((module) => module.parmerCountyFarwellFrionaXitAgricultureHighPlainsTexasArticle),
   },
+  {
+    countySlug: "deaf-smith",
+    articleSlug: "deaf-smith-county-hereford-xit-cattle-ogallala-panhandle-texas",
+    loadArticle: () => import("@/data/fixtures/deaf-smith-county-hereford-xit-cattle-ogallala-panhandle-texas")
+      .then((module) => module.deafSmithCountyHerefordXitCattleOgallalaPanhandleTexasArticle),
+  },
 ];
