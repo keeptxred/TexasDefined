@@ -97,20 +97,46 @@ for (const marker of requiredQueueMarkers) {
   }
 }
 
-const forbiddenQueueMarkers = [
+const forbiddenPublisherMarkers = [
   "graph.facebook.com",
   "PAGE_ACCESS_TOKEN",
   "FACEBOOK_PAGE_ACCESS_TOKEN",
-  "fetch(\"https://graph.facebook.com",
   "axios.post",
 ];
 
-for (const marker of forbiddenQueueMarkers) {
+for (const marker of forbiddenPublisherMarkers) {
   if (queueSource.includes(marker)) {
     throw new Error(`Facebook queue must remain draft-only; forbidden publisher marker found: ${marker}`);
+  }
+}
+
+const calendarFile = "src/routes/admin.social-calendar.tsx";
+const calendarPath = path.join(root, calendarFile);
+if (!fs.existsSync(calendarPath)) throw new Error(`Missing social calendar preview: ${calendarFile}`);
+const calendarSource = fs.readFileSync(calendarPath, "utf8");
+
+const requiredCalendarMarkers = [
+  'createFileRoute("/admin/social-calendar")',
+  'content: "noindex,nofollow"',
+  'enabled: false',
+  'postsPerDay: 2',
+  'Publishing disabled',
+  'no Facebook credentials, Graph API calls, scheduling action, or publish control',
+];
+
+for (const marker of requiredCalendarMarkers) {
+  if (!calendarSource.includes(marker)) {
+    throw new Error(`Social calendar safety marker missing: ${marker}`);
+  }
+}
+
+for (const marker of forbiddenPublisherMarkers) {
+  if (calendarSource.includes(marker)) {
+    throw new Error(`Social calendar must remain read-only; forbidden publisher marker found: ${marker}`);
   }
 }
 
 console.log(`PASS Texas social evergreen pool: ${posts.length} posts`);
 console.log(counts);
 console.log("PASS Texas Facebook queue: disabled-by-default and draft-only");
+console.log("PASS Texas social calendar: read-only and noindex");
