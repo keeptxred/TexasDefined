@@ -7,6 +7,7 @@ import roadTrip from "@/assets/road-trip.jpg";
 import smallTown from "@/assets/small-town.jpg";
 
 import type { Article, ImageRef } from "../types";
+import { texasGatewayBestOfBatch8Articles, loadTexasGatewayBestOfBatch8Article } from "./texas-gateway-bestof-batch8";
 
 const image = (src: string, alt: string): ImageRef => ({ src, alt, width: 1600, height: 1067 });
 const images = {
@@ -21,7 +22,7 @@ const images = {
 
 const stub = (record: Omit<Article, "brandId" | "body">): Article => ({ brandId: "texasdefined", body: [], ...record });
 
-export const texasCoreArticleStubs: Article[] = [
+const baseTexasCoreArticleStubs: Article[] = [
   stub({ id: "ar-1", slug: "what-defines-texas-barbecue", title: "The Line Is the Point", dek: "Why Texans will stand three hours in July for a plate of meat and butcher paper — and what the wait is actually for.", category: "food-bbq", region: "hill-country", hero: images.bbqBrisket, authorId: "a-marisol", publishedAt: "2026-06-18", readingMinutes: 8, tags: ["barbecue", "lockhart", "brisket", "central texas"], featured: true, relatedCollections: ["smoke-and-salt"], relatedDestinations: ["gruene-historic-district"] }),
   stub({ id: "ar-2", slug: "bluebonnet-season-field-guide", title: "Chasing Bluebonnet Season", dek: "Six weeks, one flower, and a state that reorganizes its weekends around it. Where to go, when, and how not to ruin the field.", category: "outdoors", region: "hill-country", hero: images.bluebonnets, authorId: "a-hollis", publishedAt: "2026-03-04", readingMinutes: 6, tags: ["wildflowers", "spring", "hill country", "highway 71"], featured: true, relatedCollections: ["wildflower-house"], relatedDestinations: ["enchanted-rock"] }),
   stub({ id: "ar-3", slug: "hill-country-two-lane-loop", title: "The Two-Lane Loop", dek: "A 240-mile Hill Country drive built entirely from roads with no stripe down the middle — dance halls, low-water crossings and one perfect pie.", category: "road-trips", region: "hill-country", hero: images.roadTrip, authorId: "a-dell", publishedAt: "2026-05-02", readingMinutes: 9, tags: ["road trip", "hill country", "weekend", "driving"], featured: true, relatedCollections: ["campfire-kitchen"], relatedDestinations: ["enchanted-rock", "blue-hole-wimberley"] }),
@@ -34,10 +35,16 @@ export const texasCoreArticleStubs: Article[] = [
   stub({ id: "ar-10", slug: "big-bend-in-winter", title: "Big Bend Is a Winter Park", dek: "The five-hour drive, the eighty-mile gas gap, and why the hardest national park in Texas to reach is best in January.", category: "outdoors", region: "big-bend", hero: images.bigBend, authorId: "a-hollis", publishedAt: "2026-01-09", readingMinutes: 8, tags: ["big bend", "national parks", "desert", "dark skies"], relatedCollections: ["campfire-kitchen"], relatedDestinations: ["big-bend-chisos-basin"] }),
 ];
 
+export const texasCoreArticleStubs: Article[] = [...baseTexasCoreArticleStubs, ...texasGatewayBestOfBatch8Articles];
+
 const coreSlugs = new Set(texasCoreArticleStubs.map((article) => article.slug));
 
 export async function loadTexasCoreArticle(brandId: string, slug: string): Promise<Article | null> {
   if (brandId !== "texasdefined" || !coreSlugs.has(slug)) return null;
+
+  const gatewayArticle = await loadTexasGatewayBestOfBatch8Article(brandId, slug);
+  if (gatewayArticle) return gatewayArticle;
+
   if (slug === "moving-to-texas-what-nobody-tells-you") {
     const { movingToTexasPillarArticle } = await import("./moving-to-texas-pillar");
     return movingToTexasPillarArticle;
