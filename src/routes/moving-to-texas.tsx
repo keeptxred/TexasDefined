@@ -17,12 +17,12 @@ const imageAlt = "A two-lane Texas farm road running to the horizon";
 const seoTitle = "Moving to Texas: County Comparison, Cities & What to Know";
 
 const arrivalTasks = [
-  ["Texas driver license", "/texas-drivers-license", "DPS handles Texas driver licenses and state ID services. Start here for renewals, appointments, REAL ID and address changes."],
+  ["Texas driver license", "/texas-drivers-license", "Start here for renewals, appointments, REAL ID, replacements and address changes, with direct links to the official DPS transaction pages."],
   ["Texas vehicle registration", "/texas-vehicle-registration", "Understand registration, renewal and the role of TxDMV and your county tax assessor-collector."],
   ["Texas DMV", "/texas-dmv", "Use the TxDMV guide for titles, vehicle registration, dealers and motor-carrier services."],
-  ["Texas DPS", "/texas-dps", "Use the DPS guide for driver licensing, identification cards and statewide public-safety services."],
   ["Find my DMV or county office", "/find-my-dmv", "Move from statewide rules to the local office that actually serves your county."],
-  ["Texas resources", "/texas-resources", "Open the broader directory for unemployment, the Comptroller, Secretary of State, Attorney General and other everyday state services."],
+  ["Texas cost-of-living calculator", "/texas-cost-of-living-calculator", "Compare household-budget assumptions before choosing a city or signing a lease."],
+  ["Texas resources", "/texas-resources", "Open Texas Defined's practical guidebook for moving, driving, property, money, travel and everyday Texas life."],
 ] as const;
 
 type MovingToTexasLoaderData = {
@@ -76,7 +76,7 @@ function MovingToTexasPage() {
           <div>
             <p className="eyebrow text-primary">After you arrive</p>
             <h2 id="moving-texas-paperwork" className="mt-2 font-display text-3xl leading-tight">Texas paperwork without the agency confusion</h2>
-            <p className="mt-4 text-sm leading-7 text-muted-foreground">Texas splits driver licensing and vehicle services between different agencies. These guides route you to the right system before you make an appointment or start a transaction.</p>
+            <p className="mt-4 text-sm leading-7 text-muted-foreground">Texas splits driver licensing and vehicle services between different systems. These practical guides route you to the right transaction and official source before you make an appointment or start paperwork.</p>
           </div>
           <div className="grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2">
             {arrivalTasks.map(([title, to, copy]) => <Link key={to} to={to} className="group bg-background p-5">
