@@ -92,4 +92,10 @@ export const COUNTY_SERIES_PROFILES_PANHANDLE: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/roberts-county-miami-canadian-river-ranching-panhandle-texas")
       .then((module) => module.robertsCountyMiamiCanadianRiverRanchingPanhandleTexasArticle),
   },
+  {
+    countySlug: "lipscomb",
+    articleSlug: "lipscomb-county-lipscomb-higgins-booker-wolf-creek-panhandle-texas",
+    loadArticle: () => import("@/data/fixtures/lipscomb-county-lipscomb-higgins-booker-wolf-creek-panhandle-texas")
+      .then((module) => module.lipscombCountyLipscombHigginsBookerWolfCreekPanhandleTexasArticle),
+  },
 ];
