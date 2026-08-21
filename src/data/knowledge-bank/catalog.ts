@@ -1,6 +1,12 @@
 import { TEXAS_COUNTY_FACTS_BATCH1 } from './seed-counties-batch1';
 import { TEXAS_COUNTY_FACTS_BATCH2 } from './seed-counties-batch2';
 import { TEXAS_COUNTY_FACTS_BATCH3 } from './seed-counties-batch3';
+import { TEXAS_COUNTY_FACTS_BATCH4 } from './seed-counties-batch4';
+import { TEXAS_COUNTY_FACTS_BATCH5 } from './seed-counties-batch5';
+import { TEXAS_COUNTY_FACTS_BATCH6 } from './seed-counties-batch6';
+import { TEXAS_COUNTY_FACTS_BATCH7 } from './seed-counties-batch7';
+import { TEXAS_COUNTY_FACTS_BATCH8 } from './seed-counties-batch8';
+import { TEXAS_COUNTY_FACTS_BATCH9 } from './seed-counties-batch9';
 import { TEXAS_CULTURAL_OBSERVATIONS_BATCH2 } from './cultural-observations-batch2';
 import { TEXAS_CULTURAL_OBSERVATIONS } from './cultural-observations';
 import { TEXAS_KNOWLEDGE_EXPANDED_SEED } from './seed-expanded';
@@ -23,6 +29,12 @@ export const TEXAS_KNOWLEDGE_CATALOG: readonly TexasKnowledgeRecord[] = [
   ...TEXAS_COUNTY_FACTS_BATCH1,
   ...TEXAS_COUNTY_FACTS_BATCH2,
   ...TEXAS_COUNTY_FACTS_BATCH3,
+  ...TEXAS_COUNTY_FACTS_BATCH4,
+  ...TEXAS_COUNTY_FACTS_BATCH5,
+  ...TEXAS_COUNTY_FACTS_BATCH6,
+  ...TEXAS_COUNTY_FACTS_BATCH7,
+  ...TEXAS_COUNTY_FACTS_BATCH8,
+  ...TEXAS_COUNTY_FACTS_BATCH9,
   ...TEXAS_CULTURAL_OBSERVATIONS,
   ...TEXAS_CULTURAL_OBSERVATIONS_BATCH2,
 ];
