@@ -1,5 +1,27 @@
 import type { Article } from "../types";
 
+const GATEWAY_LINK_ALIASES: Record<string, string> = {
+  "/lakes-rivers": "/explore/lakes-rivers",
+  "/major-springs": "/explore/major-springs",
+  "/state-parks": "/explore/state-parks",
+  "/national-parks": "/explore/national-parks",
+  "/caverns": "/explore/caverns",
+  "/beaches-coast": "/explore/beaches-coast",
+  "/historic-sites": "/explore/historic-sites",
+  "/road-trips": "/explore/road-trips",
+  "/small-towns": "/explore/small-towns",
+  "/food-bbq": "/explore/food-bbq",
+  "/outdoors": "/explore/outdoors",
+};
+
+const normalizeGatewayArticle = (article: Article): Article => ({
+  ...article,
+  internalLinks: article.internalLinks?.map((link) => ({
+    ...link,
+    href: GATEWAY_LINK_ALIASES[link.href] ?? link.href,
+  })),
+});
+
 let gatewayArticlesPromise: Promise<Article[]> | null = null;
 
 export function loadTexasGatewayArticles(): Promise<Article[]> {
@@ -20,7 +42,7 @@ export function loadTexasGatewayArticles(): Promise<Article[]> {
     import("./texas-gateway-occasion-batch14").then((module) => module.texasGatewayOccasionBatch14Articles),
     import("./texas-gateway-monthly-batch15").then((module) => module.texasGatewayMonthlyBatch15Articles),
     import("./texas-gateway-identity-batch16").then((module) => module.texasGatewayIdentityBatch16Articles),
-  ]).then((batches) => batches.flat());
+  ]).then((batches) => batches.flat().map(normalizeGatewayArticle));
 
   return gatewayArticlesPromise;
 }
