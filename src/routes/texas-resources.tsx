@@ -4,7 +4,7 @@ import { DepartmentHero } from '@/components/editorial/DepartmentHero';
 import { Container } from '@/components/layout/Container';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
-const description = 'A practical starting point for moving to Texas, driving, buying and owning a home, exploring the state and handling everyday Texas life.';
+const description = 'A practical starting point for moving, driving, buying and owning a home, finding Texas state agencies and navigating everyday life across the state.';
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const pageUrl = `${siteUrl}/texas-resources`;
 
@@ -16,9 +16,14 @@ const groups: ReadonlyArray<ResourceGroup> = [
     links: [
       ['Texas driver license', '/texas-drivers-license'],
       ['Texas DMV', '/texas-dmv'],
+      ['Texas DPS', '/texas-dps'],
       ['Texas vehicle registration', '/texas-vehicle-registration'],
       ['Find your DMV or county office', '/find-my-dmv'],
       ['Texas fishing license', '/texas-fishing-license'],
+      ['Texas unemployment benefits', '/texas-unemployment'],
+      ['Texas Comptroller', '/texas-comptroller'],
+      ['Texas Secretary of State', '/texas-secretary-of-state'],
+      ['Texas Attorney General', '/texas-attorney-general'],
       ['Find your school district', '/find-my-school-district'],
     ],
   },
@@ -50,6 +55,23 @@ const groups: ReadonlyArray<ResourceGroup> = [
     ],
   },
   {
+    title: 'Texas state agencies and services',
+    links: [
+      ['Texas Secretary of State agency page', '/agency/texas-secretary-of-state'],
+      ['Texas Comptroller agency page', '/agency/texas-comptroller'],
+      ['Texas Attorney General agency page', '/agency/texas-attorney-general'],
+      ['Texas Department of Insurance', '/agency/texas-department-insurance'],
+      ['Texas Department of Motor Vehicles agency page', '/agency/texas-dmv'],
+      ['Texas Commission on Environmental Quality', '/agency/texas-commission-environmental-quality'],
+      ['Texas Education Agency', '/agency/texas-education-agency'],
+      ['Texas Health and Human Services', '/agency/texas-health-human-services'],
+      ['Texas Parks and Wildlife', '/agency/texas-parks-wildlife'],
+      ['Texas Department of Public Safety agency page', '/agency/texas-dps'],
+      ['Texas Workforce Commission', '/agency/texas-workforce-commission'],
+      ['Public Utility Commission of Texas', '/agency/public-utility-commission'],
+    ],
+  },
+  {
     title: 'Finding your place',
     links: [
       ['Explore Texas', '/explore'],
@@ -66,7 +88,7 @@ const groups: ReadonlyArray<ResourceGroup> = [
     title: 'Texas culture and traditions',
     links: [
       ['Texas vs every other state', '/texas-vs-every-state'],
-      ['State Fair of Texas', '/texas-state-fair'],
+      ['State Fair of Texas 2026', '/texas-state-fair'],
       ['Texas flag', '/texas-flag'],
       ['Texas Two Step', '/texas-two-step'],
       ['Texas Explained', '/texas-explained'],
@@ -112,7 +134,7 @@ const structuredData = {
     {
       '@type': 'ItemList',
       '@id': `${pageUrl}#resources`,
-      name: 'Practical Texas Defined guides and tools',
+      name: 'Practical Texas Defined guides and Texas state agency references',
       numberOfItems: itemListElement.length,
       itemListElement,
     },
@@ -131,7 +153,7 @@ export const Route = createFileRoute('/texas-resources')({
   head: () => ({
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath: '/texas-resources',
-      title: 'Texas Resources, Guides & Everyday Tools | Start Here',
+      title: 'Texas Resources & State Agencies | Start Here',
       description,
     }),
     links: [canonicalLink(texasDefinedBrand, '/texas-resources')],
@@ -148,7 +170,7 @@ function Page() {
       <Container className="py-12 sm:py-16">
         <aside className="max-w-3xl border-y border-border py-5 text-sm leading-7 text-muted-foreground">
           <p className="eyebrow text-primary">How to use this page</p>
-          <p className="mt-3">Start with the task in front of you. Texas Defined focuses here on practical life in Texas: moving, driving, property, money, travel, outdoors, culture and the tools that help you make a decision.</p>
+          <p className="mt-3">Start with the task in front of you. These Texas Defined guides connect practical explanations with reference pages for the state agencies, official offices and records that matter when details need verification.</p>
         </aside>
 
         <div className="mt-8 divide-y divide-border">
@@ -169,12 +191,6 @@ function Page() {
             </section>
           ))}
         </div>
-
-        <aside className="border-t border-border py-8 text-sm leading-7 text-muted-foreground">
-          <p className="eyebrow text-primary">Government, elections and public officials</p>
-          <p className="mt-3 max-w-3xl">Those reference pages belong on Keep TX Red rather than Texas Defined. Use the KTR Texas Government section for agencies, elected offices, laws, policy and election coverage.</p>
-          <a href="https://keeptxred.com/texas-government" className="mt-4 inline-block font-semibold text-foreground underline decoration-primary/50 underline-offset-4">Open Texas Government on Keep TX Red →</a>
-        </aside>
 
         <footer className="border-t border-border pt-6 text-sm leading-6 text-muted-foreground">
           Looking for a place rather than a practical guide? <Link to="/explore" className="font-semibold text-foreground underline decoration-primary/50 underline-offset-4">Open the Texas travel guide.</Link>
