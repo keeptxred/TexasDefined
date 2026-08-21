@@ -17,7 +17,7 @@ const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 export const Route = createFileRoute("/fishing/lakes/$slug/$section")({
   loader: async ({ context, params }) => {
     const { fishingBusinessesQuery, fishingGuidesQuery, fishingLakeQuery, fishingPlacementsQuery, fishingReportsQuery } = await import("@/data/fishing/queries");
-    const { loadLiveLakeLevel } = await import("@/data/fishing/live-lake-level.server");
+    const { loadLiveLakeLevel } = await import("@/data/fishing/live-lake-level.functions");
     const lake = await context.queryClient.ensureQueryData(fishingLakeQuery(params.slug));
     if (!lake) throw notFound();
     if (params.slug === LAKE_CONROE_SLUG) {
