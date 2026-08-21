@@ -26,15 +26,15 @@ const KTR_AGENCY_PATHS: Readonly<Record<string, string>> = {
 
 const GOVERNMENT_REFERENCE_KINDS = new Set<TexasEntityKind>(['agency', 'appraisal-district', 'tax-office', 'county-clerk', 'dps-office']);
 
+export function texasDefinedAgencyRedirect(slug: string) {
+  if (slug === 'texas-dmv') return '/texas-dmv';
+  const ktrPath = KTR_AGENCY_PATHS[slug];
+  return ktrPath ? `${KTR}${ktrPath}` : `${KTR}/texas-government/agencies`;
+}
+
 export function texasDefinedEntityRedirect(entity: Pick<TexasEntityRecord, 'kind' | 'slug' | 'countySlug'>): string | undefined {
-  if (entity.kind === 'agency') {
-    if (entity.slug === 'texas-dmv') return '/texas-dmv';
-    const ktrPath = KTR_AGENCY_PATHS[entity.slug];
-    return ktrPath ? `${KTR}${ktrPath}` : `${KTR}/texas-government/agencies`;
-  }
-  if ((entity.kind === 'appraisal-district' || entity.kind === 'tax-office') && entity.countySlug) {
-    return `/property-tax/county/${entity.countySlug}`;
-  }
+  if (entity.kind === 'agency') return texasDefinedAgencyRedirect(entity.slug);
+  if ((entity.kind === 'appraisal-district' || entity.kind === 'tax-office') && entity.countySlug) return `/property-tax/county/${entity.countySlug}`;
   if (entity.kind === 'county-clerk' && entity.countySlug) return `/county/${entity.countySlug}`;
   if (entity.kind === 'dps-office') return '/texas-drivers-license';
   return undefined;
