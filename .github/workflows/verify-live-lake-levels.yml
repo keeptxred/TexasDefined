@@ -42,7 +42,8 @@ jobs:
           set -euo pipefail
           url="https://texasdefined.com/api/public/live-lake-diagnostic?verify=${GITHUB_RUN_ID}"
           body="$(mktemp)"
-          trap 'rm -f "$body"' EXIT
+          vars="$(mktemp)"
+          trap 'rm -f "$body" "$vars"' EXIT
 
           publish_status() {
             local state="$1" context="$2" description="$3"
@@ -65,11 +66,11 @@ jobs:
             exit 0
           fi
 
-          python3 - "$body" "$GITHUB_OUTPUT" <<'PY'
+          python3 - "$body" "$vars" <<'PY'
           import json, sys
           payload = json.load(open(sys.argv[1], encoding="utf-8"))
           probes = payload.get("probes") or {}
-          with open(sys.argv[2], "a", encoding="utf-8") as out:
+          with open(sys.argv[2], "w", encoding="utf-8") as out:
               for key in ("recent", "csv", "html"):
                   probe = probes.get(key) or {}
                   out.write(f"{key}_ok={'true' if probe.get('ok') else 'false'}\n")
@@ -79,16 +80,17 @@ jobs:
               out.write(f"snapshot_ok={'true' if payload.get('conroeSnapshot') else 'false'}\n")
           print(json.dumps(payload, indent=2)[:6000])
           PY
+          source "$vars"
 
-          for source in recent csv html; do
-            eval "ok=\${${source}_ok:-false}"
-            eval "status=\${${source}_status:-none}"
-            eval "length=\${${source}_length:-0}"
-            eval "elapsed=\${${source}_elapsed:-0}"
+          for source_name in recent csv html; do
+            eval "ok=\${${source_name}_ok:-false}"
+            eval "status=\${${source_name}_status:-none}"
+            eval "length=\${${source_name}_length:-0}"
+            eval "elapsed=\${${source_name}_elapsed:-0}"
             if [[ "$ok" == "true" ]]; then
-              publish_status success "texasdefined-waterdata-${source}" "HTTP ${status}; ${length} bytes; ${elapsed}ms"
+              publish_status success "texasdefined-waterdata-${source_name}" "HTTP ${status}; ${length} bytes; ${elapsed}ms"
             else
-              publish_status failure "texasdefined-waterdata-${source}" "HTTP ${status}; ${length} bytes; ${elapsed}ms"
+              publish_status failure "texasdefined-waterdata-${source_name}" "HTTP ${status}; ${length} bytes; ${elapsed}ms"
             fi
           done
           if [[ "${snapshot_ok:-false}" == "true" ]]; then
