@@ -141,6 +141,7 @@ export const texasDefinedBrand: BrandConfig = {
         { label: "Events", to: "/events" },
         { label: "Guides", to: "/guides" },
         { label: "Money & Property", to: "/decide/financial-tools" },
+        { label: "Texas Sales Tax", to: "/texas-sales-tax-explained" },
         { label: "Texas Data", to: "/texas-data" },
         { label: "Shop", to: "/shop" },
         { label: "About", to: "/about" },
