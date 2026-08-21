@@ -8,6 +8,7 @@ const sources = read('src/data/knowledge-bank/sources.ts');
 const seed = read('src/data/knowledge-bank/seed.ts');
 const expanded = read('src/data/knowledge-bank/seed-expanded.ts');
 const observations = read('src/data/knowledge-bank/cultural-observations.ts');
+const catalog = read('src/data/knowledge-bank/catalog.ts');
 const social = read('src/data/knowledge-bank/social.ts');
 const scheduler = read('src/data/knowledge-bank/social-batch.ts');
 const validation = read('src/data/knowledge-bank/validation.ts');
@@ -41,6 +42,11 @@ if (!validation.includes("record.verification === 'verified' && !record.sources.
 if (!social.includes('if (!record.socialReady)')) failures.push('Social renderer must reject non-social-ready records.');
 if (!social.includes('record.socialFormats?.length') || !social.includes('includes(format)')) failures.push('Social renderer must enforce approved formats.');
 if (!scheduler.includes('excludeRecordIds') || !scheduler.includes('timesUsed') || !scheduler.includes('preferredSeason')) failures.push('Social scheduler must support exclusions, usage scoring and season preference.');
+if (!scheduler.includes('buildDefaultTexasSocialBatch') || !scheduler.includes('TEXAS_KNOWLEDGE_CATALOG')) failures.push('Default social batching must use the canonical Knowledge Bank catalog.');
+for (const seedExport of ['TEXAS_KNOWLEDGE_SEED', 'TEXAS_KNOWLEDGE_EXPANDED_SEED', 'TEXAS_CULTURAL_OBSERVATIONS']) {
+  if (!catalog.includes(seedExport)) failures.push(`Canonical Knowledge Bank catalog is missing ${seedExport}.`);
+}
+if (!catalog.includes("record.verification !== 'needs-review'")) failures.push('Canonical social candidate selector must exclude needs-review records.');
 
 const explicitRecordIds = (text) => [...text.matchAll(/\bid:\s*['"]([^'"]+)['"]/g)].map((match) => match[1]);
 const helperObservationIds = [...observations.matchAll(/\bobservation\(\s*['"]([^'"]+)['"]/g)].map((match) => match[1]);
