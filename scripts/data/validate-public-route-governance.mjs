@@ -30,7 +30,7 @@ const routePatternMatches = (concretePath, routePattern) => {
   if (concreteSegments.length !== patternSegments.length) return false;
   return patternSegments.every((segment, index) => segment.startsWith('$') ? concreteSegments[index].length > 0 : segment === concreteSegments[index]);
 };
-const sourceRoots = ['src/routes', 'src/components', 'src/data'];
+const sourceRoots = ['src/routes', 'src/components', 'src/data', 'src/brand'];
 const sourceFiles = [];
 const collect = (directory) => { for (const entry of fs.readdirSync(directory, { withFileTypes: true })) { const fullPath = path.join(directory, entry.name); if (entry.isDirectory()) collect(fullPath); else if (/\.(?:ts|tsx)$/.test(entry.name)) sourceFiles.push(fullPath); } };
 for (const root of sourceRoots) collect(root);
