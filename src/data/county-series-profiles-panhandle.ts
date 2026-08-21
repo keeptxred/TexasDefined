@@ -19,4 +19,10 @@ export const COUNTY_SERIES_PROFILES_PANHANDLE: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/hartley-county-channing-xit-ranch-high-plains-texas")
       .then((module) => module.hartleyCountyChanningXitRanchHighPlainsTexasArticle),
   },
+  {
+    countySlug: "armstrong",
+    articleSlug: "armstrong-county-claude-palo-duro-ja-ranch-panhandle-texas",
+    loadArticle: () => import("@/data/fixtures/armstrong-county-claude-palo-duro-ja-ranch-panhandle-texas")
+      .then((module) => module.armstrongCountyClaudePaloDuroJaRanchPanhandleTexasArticle),
+  },
 ];
