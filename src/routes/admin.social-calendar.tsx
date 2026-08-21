@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { buildTexasFacebookDraftWeek } from "@/lib/texas-social-facebook-queue";
 
 export const Route = createFileRoute("/admin/social-calendar")({
   head: () => ({
@@ -8,13 +7,16 @@ export const Route = createFileRoute("/admin/social-calendar")({
       { name: "robots", content: "noindex,nofollow" },
     ],
   }),
-  loader: async () => ({
-    week: buildTexasFacebookDraftWeek(new Date(), {
-      enabled: false,
-      postsPerDay: 2,
-      origin: "https://texasdefined.com",
-    }),
-  }),
+  loader: async () => {
+    const { buildTexasFacebookDraftWeek } = await import("@/lib/texas-social-facebook-queue");
+    return {
+      week: buildTexasFacebookDraftWeek(new Date(), {
+        enabled: false,
+        postsPerDay: 2,
+        origin: "https://texasdefined.com",
+      }),
+    };
+  },
   component: TexasSocialCalendarPage,
 });
 
