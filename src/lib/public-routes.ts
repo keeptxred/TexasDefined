@@ -76,14 +76,9 @@ export const INDEXABLE_STATIC_PATHS = [
   "/events",
   "/texas-state-fair",
   "/texas-two-step",
-  "/texas-attorney-general",
   "/texas-fishing-license",
-  "/texas-secretary-of-state",
   "/texas-drivers-license",
   "/texas-dmv",
-  "/texas-dps",
-  "/texas-unemployment",
-  "/texas-comptroller",
   "/texas-vehicle-registration",
   "/texas-flag",
   "/texas-vs-every-state",
@@ -199,6 +194,11 @@ export const CONDITIONAL_INDEXABLE_PUBLIC_PATHS = [
 ] as const;
 
 export const REDIRECT_ONLY_PATHS = [
+  "/texas-attorney-general",
+  "/texas-secretary-of-state",
+  "/texas-comptroller",
+  "/texas-dps",
+  "/texas-unemployment",
   "/article/high-school-football-newcomers",
   "/tools",
   "/mortgage-calculator",
