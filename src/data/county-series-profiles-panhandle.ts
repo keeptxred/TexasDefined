@@ -55,4 +55,10 @@ export const COUNTY_SERIES_PROFILES_PANHANDLE: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/hansford-county-spearman-gruver-palo-duro-high-plains-texas")
       .then((module) => module.hansfordCountySpearmanGruverPaloDuroHighPlainsTexasArticle),
   },
+  {
+    countySlug: "moore",
+    articleSlug: "moore-county-dumas-sunray-cactus-high-plains-texas",
+    loadArticle: () => import("@/data/fixtures/moore-county-dumas-sunray-cactus-high-plains-texas")
+      .then((module) => module.mooreCountyDumasSunrayCactusHighPlainsTexasArticle),
+  },
 ];
