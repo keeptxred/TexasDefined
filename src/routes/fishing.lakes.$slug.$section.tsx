@@ -2,6 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { LakeConroeGuide } from "@/components/fishing/LakeConroeGuide";
+import { LiveLakeLevelStrip } from "@/components/fishing/LiveLakeLevelStrip";
 import { ShowcaseLakeGuide } from "@/components/fishing/ShowcaseLakeGuide";
 import { Container } from "@/components/layout/Container";
 import { getLakeConroePageData } from "@/data/fishing/lake-conroe-page-data.functions";
@@ -16,28 +17,31 @@ const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 export const Route = createFileRoute("/fishing/lakes/$slug/$section")({
   loader: async ({ context, params }) => {
     const { fishingBusinessesQuery, fishingGuidesQuery, fishingLakeQuery, fishingPlacementsQuery, fishingReportsQuery } = await import("@/data/fishing/queries");
+    const { loadLiveLakeLevel } = await import("@/data/fishing/live-lake-level.server");
     const lake = await context.queryClient.ensureQueryData(fishingLakeQuery(params.slug));
     if (!lake) throw notFound();
     if (params.slug === LAKE_CONROE_SLUG) {
       if (!isLakeConroeSection(params.section)) throw notFound();
-      const [reports, guides, pageData] = await Promise.all([
+      const pageData = await getLakeConroePageData();
+      const [reports, guides, liveLakeLevel] = await Promise.all([
         context.queryClient.ensureQueryData(fishingReportsQuery({ lakeId: lake.id, limit: 20 })),
         context.queryClient.ensureQueryData(fishingGuidesQuery({ lakeId: lake.id, limit: 50 })),
-        getLakeConroePageData(),
+        loadLiveLakeLevel(pageData.sources.liveLevel.url),
       ]);
-      return { kind: "conroe" as const, lake, reports, guides, pageData, section: params.section };
+      return { kind: "conroe" as const, lake, reports, guides, pageData, section: params.section, liveLakeLevel };
     }
     if (!isShowcaseLakeSlug(params.slug) || !isShowcaseLakeSection(params.section)) throw notFound();
     const allPageData = await getShowcaseLakesPageData();
     const pageData = allPageData[params.slug];
     if (!pageData) throw notFound();
-    const [reports, guides, businesses, placements] = await Promise.all([
+    const [reports, guides, businesses, placements, liveLakeLevel] = await Promise.all([
       context.queryClient.ensureQueryData(fishingReportsQuery({ lakeId: lake.id, limit: 20 })),
       context.queryClient.ensureQueryData(fishingGuidesQuery({ lakeId: lake.id, limit: 50 })),
       context.queryClient.ensureQueryData(fishingBusinessesQuery({ lakeId: lake.id, limit: 50 })),
       context.queryClient.ensureQueryData(fishingPlacementsQuery({ lakeId: lake.id, limit: 20 })),
+      loadLiveLakeLevel(pageData.sources.liveLevel.url),
     ]);
-    return { kind: "showcase" as const, lake, reports, guides, businesses, placements, pageData, section: params.section };
+    return { kind: "showcase" as const, lake, reports, guides, businesses, placements, pageData, section: params.section, liveLakeLevel };
   },
   head: ({ loaderData }) => {
     if (!loaderData) return { meta: [{ title: "Fishing guide unavailable" }, { name: "robots", content: "noindex, nofollow" }] };
@@ -68,8 +72,14 @@ export const Route = createFileRoute("/fishing/lakes/$slug/$section")({
 
 function FishingLakeSectionRoute() {
   const data = Route.useLoaderData();
-  if (data.kind === "conroe") return <LakeConroeGuide section={data.section} reports={data.reports} guides={data.guides} pageData={data.pageData} />;
-  return <ShowcaseLakeGuide section={data.section} reports={data.reports} guides={data.guides} businesses={data.businesses} placements={data.placements} pageData={data.pageData} />;
+  if (data.kind === "conroe") return <>
+    <LiveLakeLevelStrip lakeName={data.pageData.overview.name} sourceUrl={data.pageData.sources.liveLevel.url} snapshot={data.liveLakeLevel} />
+    <LakeConroeGuide section={data.section} reports={data.reports} guides={data.guides} pageData={data.pageData} />
+  </>;
+  return <>
+    <LiveLakeLevelStrip lakeName={data.pageData.overview.name} sourceUrl={data.pageData.sources.liveLevel.url} snapshot={data.liveLakeLevel} />
+    <ShowcaseLakeGuide section={data.section} reports={data.reports} guides={data.guides} businesses={data.businesses} placements={data.placements} pageData={data.pageData} />
+  </>;
 }
 
 function sectionCitations(section: LakeConroeSection, sources: LakeConroeSources) {
