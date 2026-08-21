@@ -1,0 +1,41 @@
+name: Diagnose bundle size once
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/diagnose-bundle-size-once.yml'
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - run: npm run build
+      - name: Publish exact bundle bytes as commit status context
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          root='dist/client/assets'
+          [ -d "$root" ] || root='.output/public/assets'
+          main=$(find "$root" -maxdepth 1 -type f -name 'main-*.js' -printf '%s\n' | head -n1)
+          css=$(find "$root" -maxdepth 1 -type f -name '*.css' -printf '%s\n' | sort -nr | head -n1)
+          main=${main:-0}
+          css=${css:-0}
+          context="bundle-bytes-${main}-css-${css}"
+          curl -fsS -X POST \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H 'Accept: application/vnd.github+json' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
+            --data "{\"state\":\"success\",\"context\":\"${context}\",\"description\":\"Exact built client bundle bytes\"}" >/dev/null
