@@ -4,6 +4,11 @@ const read = (path) => fs.readFileSync(path, "utf8");
 const paths = {
   expansionFixtures: "src/data/fishing/lake-expansion-fixtures.ts",
   expansionPrototypes: "src/data/fishing/expanded-showcase-lakes-prototype.ts",
+  showcasePrototypes: "src/data/fishing/showcase-lakes-prototype.ts",
+  conroePrototype: "src/data/fishing/lake-conroe-prototype.ts",
+  liveLevelServer: "src/data/fishing/live-lake-level.server.ts",
+  liveLevelFunctions: "src/data/fishing/live-lake-level.functions.ts",
+  liveLevelStrip: "src/components/fishing/LiveLakeLevelStrip.tsx",
   index: "src/data/fishing/index.ts",
   slugs: "src/data/fishing/slugs.ts",
   routing: "src/data/fishing/showcase-lake-routing.ts",
@@ -62,6 +67,33 @@ for (const [slug] of newLakes) {
   if (relationCount < 3) throw new Error(`Fishing Batch 15 validation failed: ${slug} has insufficient verified relationship depth (${relationCount}).`);
 }
 
+const liveSourceCorpus = `${files.conroePrototype}\n${files.showcasePrototypes}\n${files.expansionPrototypes}`;
+const liveSourceUrls = [...liveSourceCorpus.matchAll(/liveLevel:\s*\{[^}]*url:\s*"(https:\/\/waterdatafortexas\.org\/reservoirs\/individual\/[a-z0-9-]+)"/g)].map((match) => match[1]);
+const uniqueLiveSources = new Set(liveSourceUrls);
+if (uniqueLiveSources.size !== 10) throw new Error(`Fishing Batch 15 validation failed: expected 10 unique Water Data for Texas live-level sources, found ${uniqueLiveSources.size}.`);
+
+for (const token of [
+  "cache: \"no-store\"",
+  "waterdatafortexas\\.org\\/reservoirs\\/individual",
+  "parseWaterDataForTexasReservoirPage",
+  "percentFull",
+  "measuredAt",
+  "AbortSignal.timeout",
+]) requireText(files.liveLevelServer, token, `live lake-level server contract missing ${token}`);
+for (const token of [
+  "createServerFn",
+  "live-lake-level.server",
+  "getLiveLakeLevel",
+  "loadLiveLakeLevel",
+]) requireText(files.liveLevelFunctions, token, `live lake-level server bridge missing ${token}`);
+for (const token of [
+  "Live lake level:",
+  "snapshot.percentFull.toFixed(1)",
+  "measured",
+  "Water Data for Texas",
+  "Current reading could not be loaded right now.",
+]) requireText(files.liveLevelStrip, token, `live lake-level UI contract missing ${token}`);
+
 for (const token of [
   "expandedShowcaseLakePrototypes",
   "const prototypes = { ...showcaseLakePrototypes, ...expandedShowcaseLakePrototypes }",
@@ -71,6 +103,10 @@ for (const token of ["EXPANDED_SHOWCASE_LAKE_SLUGS", "isShowcaseLakeSlug", "Publ
 for (const route of [files.overviewRoute, files.sectionRoute]) {
   requireText(route, "isShowcaseLakeSlug", "generic dynamic route must enforce published showcase gate");
   requireText(route, "getShowcaseLakesPageData()", "generic dynamic route must hydrate shared server data");
+  requireText(route, "@/data/fishing/live-lake-level.functions", "lake route must use server-function live-level bridge");
+  requireText(route, "loadLiveLakeLevel(pageData.sources.liveLevel.url)", "lake route must fetch current level on request");
+  requireText(route, "LiveLakeLevelStrip", "lake route must render the live level strip");
+  if (route.includes("@/data/fishing/live-lake-level.server")) throw new Error("Fishing Batch 15 validation failed: lake routes must not import .server live-level code directly into the client route boundary.");
 }
 requireText(files.sectionRoute, "isShowcaseLakeSection", "lake section route must keep section allowlist");
 
@@ -95,4 +131,4 @@ for (const phrase of ["guaranteed catch", "today's best lake", "sponsored rankin
 
 requireText(pkg.scripts["fishing:validate"], "validate-fishing-lake-expansion.mjs", "Batch 15 validator not wired into fishing:validate");
 
-console.log("Fishing Batch 15 lake-expansion validation passed: ten complete lake guides, five new TPWD-backed lake records, verified species/technique depth, reusable dynamic routes, live-condition separation, ten-lake directory discovery and sitemap publication are protected.");
+console.log("Fishing Batch 15 lake-expansion validation passed: ten complete lake guides, ten Water Data for Texas live-level sources, request-time server-function lake-level loading, graceful live UI fallback, verified species/technique depth, reusable dynamic routes, live-condition separation, ten-lake directory discovery and sitemap publication are protected.");
