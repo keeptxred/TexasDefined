@@ -25,4 +25,10 @@ export const COUNTY_SERIES_PROFILES_PANHANDLE: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/armstrong-county-claude-palo-duro-ja-ranch-panhandle-texas")
       .then((module) => module.armstrongCountyClaudePaloDuroJaRanchPanhandleTexasArticle),
   },
+  {
+    countySlug: "donley",
+    articleSlug: "donley-county-clarendon-saints-roost-greenbelt-panhandle-texas",
+    loadArticle: () => import("@/data/fixtures/donley-county-clarendon-saints-roost-greenbelt-panhandle-texas")
+      .then((module) => module.donleyCountyClarendonSaintsRoostGreenbeltPanhandleTexasArticle),
+  },
 ];
