@@ -116,9 +116,7 @@ export const Route = createFileRoute("/sitemap.xml")({
             .filter((collection) => activeCollectionSlugs.has(collection.slug))
             .map((collection) => ({ path: `/shop/${collection.slug}` })),
           ...authors.map((author) => ({ path: `/authors/${author.id}` })),
-          ...articles
-            .filter((article) => !isLegacyCountySeriesArticle(article.slug))
-            .map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(ARTICLE_LASTMOD_BY_SLUG[article.slug] ?? article.publishedAt) })),
+          ...articles.filter((article) => !isLegacyCountySeriesArticle(article.slug)).map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(ARTICLE_LASTMOD_BY_SLUG[article.slug] ?? article.publishedAt) })),
           ...countyPages.map((county) => ({ path: `/property-tax/county/${county.slug}`, lastmod: toDate(county.lastVerifiedAt ?? undefined) })),
           ...entityPages.map((entity) => ({ path: canonicalEntityPath(entity), lastmod: toDate(entity.sourceCheckedAt) })),
           ...TEXAS_DATASETS.map((dataset) => ({ path: `/texas-data/${dataset.slug}`, lastmod: toDate(dataset.updated) })),
