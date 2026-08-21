@@ -68,7 +68,7 @@ if (!destinationRelationships.includes('TexasExplainedContextLinks surface="dest
 if (!fishingHub.includes('TexasExplainedContextLinks surface="fishing"')) failures.push('Fishing hub must render contextual Texas Explained links.');
 if (!sportsQuickAnswers.includes('TexasExplainedContextLinks surface="sports"')) failures.push('Sports venue pages must render contextual Texas Explained links.');
 if (!categoryPage.includes('TexasLifeDiscovery')) failures.push('Texas Life category pages must render TexasLifeDiscovery.');
-if (!categoryPage.includes('belongsToTexasLife && <TexasLifeDiscovery')) failures.push('TexasLifeDiscovery must be limited to Texas Life category surfaces.');
+if (!categoryPage.includes('belongsToTexasLife && (') || !categoryPage.includes('<TexasLifeDiscovery currentCategory={category} />')) failures.push('TexasLifeDiscovery must be limited to Texas Life category surfaces.');
 if (!exploreSitemap.includes('"/explore/trip-planner"')) failures.push('Explore sitemap must publish the Trip Planner.');
 if (failures.length) { console.error('Internal-link discovery validation failed:'); for (const failure of failures) console.error(`- ${failure}`); process.exit(1); }
 console.log('Internal-link discovery pathways, sitewide Start Here resources link, Texas Explained links from Texas Life, county profiles, Guidebook, destination pages, fishing and sports venues, calculator hub inbound/outbound discovery, reciprocal finance evergreen/calculator clusters, direct Texas Life and financial-tools finance/special-district evergreen discovery, priority calculator indexing depth, structured calculator collection links and Explore sitemap coverage are protected.');
