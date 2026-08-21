@@ -1,6 +1,7 @@
 import type { Article } from "../types";
 import "./newest-evergreen-links";
 import "./military-museum-links";
+import "./national-cemetery-links";
 import "./seasonal-authority-links";
 import "./lighthouse-authority-links";
 import { winklerCountyArticleStub } from "./winkler-county-article-stub";
@@ -86,6 +87,32 @@ const texasMilitaryMuseumsGuideStub: Article = {
   relatedDestinations: ["uss-lexington-museum-corpus-christi", "national-wasp-wwii-museum-sweetwater", "silent-wings-museum-lubbock", "texas-military-forces-museum", "palo-alto-battlefield-national-historical-park"],
 };
 
+const texasMilitaryCemeteriesGuideStub: Article = {
+  id: "evergreen-texas-military-cemeteries-memorials-guide",
+  brandId: "texasdefined",
+  slug: "texas-military-cemeteries-memorials-guide",
+  title: "Texas Military Cemeteries & Memorials: A Respectful Guide to Places of Remembrance",
+  dek: "Fort Sam Houston, Houston and Dallas–Fort Worth national cemeteries preserve different eras of Texas veterans history. Learn what makes each place significant, how to locate a grave and how to visit respectfully.",
+  category: "texas-history",
+  hero: {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Fort_Sam_Houston_National_Cemetery%2C_San_Antonio%2C_Texas%2C_USA.jpg?width=1600",
+    alt: "Rows of headstones and flags at Fort Sam Houston National Cemetery in San Antonio",
+    width: 2100,
+    height: 1500,
+    credit: "Tech. Sgt. Larry A. Simmons / U.S. Air Force · Public domain · Wikimedia Commons",
+  },
+  authorId: "a-marisol",
+  publishedAt: "2026-08-21",
+  readingMinutes: 16,
+  tags: ["Texas national cemeteries", "Fort Sam Houston National Cemetery", "Houston National Cemetery", "Dallas Fort Worth National Cemetery", "Texas veterans", "military memorials", "Texas military history"],
+  featured: true,
+  sourceName: "U.S. Department of Veterans Affairs · National Cemetery Administration",
+  sourceUrl: "https://www.cem.va.gov/find-cemetery/state.asp",
+  body: [],
+  relatedCollections: [],
+  relatedDestinations: ["fort-sam-houston-national-cemetery", "houston-national-cemetery", "dallas-fort-worth-national-cemetery"],
+};
+
 export const newestEvergreenArticles: Article[] = [
   ...seasonalIntentStubs,
   ...lighthouseDeepDiveStubs,
@@ -94,12 +121,14 @@ export const newestEvergreenArticles: Article[] = [
   texasFlagHistoryStub,
   texasFlagEtiquetteStub,
   texasMilitaryMuseumsGuideStub,
+  texasMilitaryCemeteriesGuideStub,
 ];
 
 const loaders: Record<string, () => Promise<Article>> = {
   "history-of-the-texas-flag": async () => (await import("./texas-flag-history")).texasFlagHistoryArticle,
   "texas-flag-etiquette-display-guide": async () => (await import("./texas-flag-etiquette")).texasFlagEtiquetteArticle,
   "texas-military-museums-historic-sites-guide": async () => (await import("./texas-military-museums-historic-sites-guide")).texasMilitaryMuseumsHistoricSitesGuideArticle,
+  "texas-military-cemeteries-memorials-guide": async () => (await import("./texas-military-cemeteries-memorials-guide")).texasMilitaryCemeteriesMemorialsGuideArticle,
 };
 
 export async function loadNewestEvergreenArticle(brandId: string, slug: string) {
