@@ -49,4 +49,10 @@ export const COUNTY_SERIES_PROFILES_PANHANDLE: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/sherman-county-stratford-canadian-river-agriculture-panhandle-texas")
       .then((module) => module.shermanCountyStratfordCanadianRiverAgriculturePanhandleTexasArticle),
   },
+  {
+    countySlug: "hansford",
+    articleSlug: "hansford-county-spearman-gruver-palo-duro-high-plains-texas",
+    loadArticle: () => import("@/data/fixtures/hansford-county-spearman-gruver-palo-duro-high-plains-texas")
+      .then((module) => module.hansfordCountySpearmanGruverPaloDuroHighPlainsTexasArticle),
+  },
 ];
