@@ -42,65 +42,45 @@ const ARTICLE_LASTMOD_BY_SLUG: Readonly<Record<string, string>> = {
   "texas-flag-etiquette-display-guide": "2026-08-20",
 };
 
-// These pages deliberately canonicalize to a broader collection page while
-// their unique child content is still being developed. Keep the routes usable,
-// but do not send contradictory sitemap signals to search engines.
-const CANONICALIZED_STATIC_PATHS = new Set([
-  "/fishing/lakes",
-  "/fishing/plan",
-  "/fishing/compare",
-  "/fishing/seasons",
-  "/fishing/techniques",
-  "/fishing/techniques/soft-plastics",
-  "/fishing/techniques/crankbaits",
-  "/fishing/techniques/spinnerbaits",
-  "/fishing/techniques/topwater",
-  "/fishing/techniques/trolling",
-  "/fishing/techniques/vertical-jigging",
-  "/fishing/techniques/jigs-and-minnows",
-  "/fishing/techniques/live-bait",
-  "/fishing/techniques/cut-bait",
-  "/fishing/regulations",
-  "/fishing/species",
-  "/fishing/species/largemouth-bass",
-  "/fishing/guides",
-  "/fishing/reports",
-  "/fishing/access",
-  "/fishing/services",
-  "/sports-venues/compare",
-  "/sports-venues/dallas-fort-worth",
-  "/sports-venues/houston",
-  "/sports-venues/austin-central-texas",
-  "/sports-venues/san-antonio",
-  "/sports-venues/waco",
-  "/sports-venues/college-station",
-  "/sports-venues/el-paso",
-  "/sports-venues/lubbock",
-  "/sports-venues/football",
-  "/sports-venues/baseball",
-  "/sports-venues/basketball",
-  "/sports-venues/motorsports",
-  "/sports-venues/college-sports",
-  "/sports-venues/high-school-football",
-  "/sports-venues/rodeo-western",
-  "/sports-venues/golf",
-  "/sports-venues/soccer",
-  "/texas-data/city-county-relationships",
-]);
-
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
       GET: async () => {
         const coreResults = await Promise.allSettled([
-          platform.articles.list(scope), platform.collections.list(scope), platform.taxonomy.authors(scope), loadTexasKnowledgeGraph(), fetchPublishedTexasDefinedArticles({ limit: 200 }), getTexasCountyHousingCosts(), loadFishingGuideSitemapEntriesServer(), loadFishingReportSitemapEntriesServer(), loadFishingLocalSitemapEntriesServer(),
+          platform.articles.list(scope),
+          platform.collections.list(scope),
+          platform.taxonomy.authors(scope),
+          loadTexasKnowledgeGraph(),
+          fetchPublishedTexasDefinedArticles({ limit: 200 }),
+          getTexasCountyHousingCosts(),
+          loadFishingGuideSitemapEntriesServer(),
+          loadFishingReportSitemapEntriesServer(),
+          loadFishingLocalSitemapEntriesServer(),
         ]);
         const failures = coreResults.filter((result) => result.status === "rejected");
         if (failures.length > 0) {
           for (const failure of failures) console.error("Primary sitemap core data unavailable", failure.reason);
-          return new Response("Sitemap data temporarily unavailable", { status: 503, headers: { "content-type": "text/plain; charset=utf-8", "cache-control": "no-store", "retry-after": "300" } });
+          return new Response("Sitemap data temporarily unavailable", {
+            status: 503,
+            headers: {
+              "content-type": "text/plain; charset=utf-8",
+              "cache-control": "no-store",
+              "retry-after": "300",
+            },
+          });
         }
-        const [articlesResult, collectionsResult, authorsResult, graphResult, remoteArticlesResult, countyHousingResult, fishingGuideSitemapResult, fishingReportSitemapResult, fishingLocalSitemapResult] = coreResults;
+
+        const [
+          articlesResult,
+          collectionsResult,
+          authorsResult,
+          graphResult,
+          remoteArticlesResult,
+          countyHousingResult,
+          fishingGuideSitemapResult,
+          fishingReportSitemapResult,
+          fishingLocalSitemapResult,
+        ] = coreResults;
         const articles = articlesResult.status === "fulfilled" ? articlesResult.value : [];
         const collections = collectionsResult.status === "fulfilled" ? collectionsResult.value : [];
         const authors = authorsResult.status === "fulfilled" ? authorsResult.value : [];
@@ -115,10 +95,11 @@ export const Route = createFileRoute("/sitemap.xml")({
         const activeCollectionSlugs = new Set(liveShopProducts.flatMap((product) => product.collectionSlugs));
         const countyPages = COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady);
         const entityPages = graph.filter(isIndexableEntityPage).filter(isTexasDefinedOwnedEntity);
+
         const entries: SitemapEntry[] = [
           ...INDEXABLE_STATIC_PATHS
             .filter((path) => !isExploreSitemapOwnedPath(path))
-            .filter((path) => isTexasDefinedOwnedStaticPath(path) && !CANONICALIZED_STATIC_PATHS.has(path))
+            .filter((path) => isTexasDefinedOwnedStaticPath(path))
             .map((path) => ({ path, lastmod: STATIC_LASTMOD_BY_PATH[path] })),
           ...TEXAS_VS_STATES.map((state) => ({ path: `/texas-vs/${texasVsStateSlug(state)}`, lastmod: PRIORITY_SEO_LASTMOD })),
           ...FISHING_SITEMAP_ENTRIES,
@@ -128,20 +109,60 @@ export const Route = createFileRoute("/sitemap.xml")({
           ...(articles.length ? [{ path: "/news" }] : []),
           ...remoteArticles.map((article) => ({ path: `/news/${article.slug}`, lastmod: toDate(article.publishedAt) })),
           ...(countyGrowth.available ? [{ path: "/texas-data/county-growth", lastmod: "2026-03-17" }] : []),
-          ...(countyHousingCosts?.available ? [{ path: "/texas-data/county-housing-costs", lastmod: toDate(countyHousingCosts.generatedAt ?? undefined) }] : []),
-          ...collections.filter((collection) => activeCollectionSlugs.has(collection.slug)).map((collection) => ({ path: `/shop/${collection.slug}` })),
+          ...(countyHousingCosts?.available
+            ? [{ path: "/texas-data/county-housing-costs", lastmod: toDate(countyHousingCosts.generatedAt ?? undefined) }]
+            : []),
+          ...collections
+            .filter((collection) => activeCollectionSlugs.has(collection.slug))
+            .map((collection) => ({ path: `/shop/${collection.slug}` })),
           ...authors.map((author) => ({ path: `/authors/${author.id}` })),
-          ...articles.filter((article) => !isLegacyCountySeriesArticle(article.slug)).map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(ARTICLE_LASTMOD_BY_SLUG[article.slug] ?? article.publishedAt) })),
+          ...articles
+            .filter((article) => !isLegacyCountySeriesArticle(article.slug))
+            .map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(ARTICLE_LASTMOD_BY_SLUG[article.slug] ?? article.publishedAt) })),
           ...countyPages.map((county) => ({ path: `/property-tax/county/${county.slug}`, lastmod: toDate(county.lastVerifiedAt ?? undefined) })),
           ...entityPages.map((entity) => ({ path: canonicalEntityPath(entity), lastmod: toDate(entity.sourceCheckedAt) })),
           ...TEXAS_DATASETS.map((dataset) => ({ path: `/texas-data/${dataset.slug}`, lastmod: toDate(dataset.updated) })),
         ];
-        const uniqueEntries = [...new Map(entries.map((entry) => { const path = normalizePublicPath(entry.path); return path ? { ...entry, path } : null; }).filter((entry): entry is SitemapEntry => Boolean(entry) && isIndexablePublicPath(entry.path) && isTexasDefinedOwnedStaticPath(entry.path) && !CANONICALIZED_STATIC_PATHS.has(entry.path)).map((entry) => [entry.path, entry])).values()];
-        const body = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${uniqueEntries.map(({ path, lastmod }) => `  <url><loc>${escapeXml(`${origin}${path}`)}</loc>${lastmod ? `<lastmod>${lastmod}</lastmod>` : ""}</url>`).join("\n")}\n</urlset>`;
-        return new Response(body, { headers: { "content-type": "application/xml; charset=utf-8", "cache-control": "public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400" } });
+
+        const uniqueEntries = [
+          ...new Map(
+            entries
+              .map((entry) => {
+                const path = normalizePublicPath(entry.path);
+                return path ? { ...entry, path } : null;
+              })
+              .filter(
+                (entry): entry is SitemapEntry =>
+                  Boolean(entry) && isIndexablePublicPath(entry.path) && isTexasDefinedOwnedStaticPath(entry.path),
+              )
+              .map((entry) => [entry.path, entry]),
+          ).values(),
+        ];
+
+        const body = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${uniqueEntries
+          .map(
+            ({ path, lastmod }) =>
+              `  <url><loc>${escapeXml(`${origin}${path}`)}</loc>${lastmod ? `<lastmod>${lastmod}</lastmod>` : ""}</url>`,
+          )
+          .join("\n")}\n</urlset>`;
+
+        return new Response(body, {
+          headers: {
+            "content-type": "application/xml; charset=utf-8",
+            "cache-control": "public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400",
+          },
+        });
       },
     },
   },
 });
-function toDate(value?: string) { if (!value) return undefined; const date = new Date(value); return Number.isNaN(date.getTime()) ? undefined : date.toISOString().slice(0, 10); }
-function escapeXml(value: string) { return value.replace(/[&<>"']/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '\"': "&quot;", "'": "&apos;" })[character] ?? character); }
+
+function toDate(value?: string) {
+  if (!value) return undefined;
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? undefined : date.toISOString().slice(0, 10);
+}
+
+function escapeXml(value: string) {
+  return value.replace(/[&<>"']/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '\"': "&quot;", "'": "&apos;" })[character] ?? character);
+}
