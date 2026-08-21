@@ -97,4 +97,10 @@ export const COUNTY_SERIES_PROFILES_SOUTH_PLAINS: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/briscoe-county-silverton-quitaque-tule-canyon-caprock-texas")
       .then((module) => module.briscoeCountySilvertonQuitaqueTuleCanyonCaprockTexasArticle),
   },
+  {
+    countySlug: "parmer",
+    articleSlug: "parmer-county-farwell-friona-xit-agriculture-high-plains-texas",
+    loadArticle: () => import("@/data/fixtures/parmer-county-farwell-friona-xit-agriculture-high-plains-texas")
+      .then((module) => module.parmerCountyFarwellFrionaXitAgricultureHighPlainsTexasArticle),
+  },
 ];
