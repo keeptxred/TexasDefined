@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 
 const source = fs.readFileSync('src/data/knowledge-bank/social-batch.ts', 'utf8');
+const renderer = fs.readFileSync('src/data/knowledge-bank/social.ts', 'utf8');
 const failures = [];
 
 if (!source.includes('maxPerDomain?: number')) failures.push('Social batch options must expose a maxPerDomain override.');
@@ -14,6 +15,7 @@ if (!source.includes('const rotationSeed = options.rotationSeed ?? asOfDate')) f
 if (!source.includes('rotationRank(a.id, rotationSeed)')) failures.push('Social batching must use the rotation rank as an equal-score tie breaker.');
 if (!source.includes('renderTexasSocialPost(record, format, asOfDate)')) failures.push('Social batching must pass its freshness date through to direct rendering.');
 if (!source.includes('TEXAS_KNOWLEDGE_CATALOG')) failures.push('Default social batching must use the canonical Knowledge Bank catalog.');
+if (renderer.includes('selectUnusedSocialRecords')) failures.push('Renderer must not expose a second unbalanced record-selection path.');
 
 if (failures.length) {
   console.error('Texas social balance validation failed:');
@@ -21,4 +23,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Texas social balance validation passed: domain-diverse capped selection and deterministic daily rotation are enforced.');
+console.log('Texas social balance validation passed: one domain-diverse capped selector with deterministic daily rotation is enforced.');
