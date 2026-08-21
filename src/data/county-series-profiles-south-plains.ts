@@ -14,6 +14,12 @@ export const COUNTY_SERIES_PROFILES_SOUTH_PLAINS: CountySeriesProfile[] = [
       .then((module) => module.gainesCountySeminoleOilCottonPeanutsHighPlainsTexasArticle),
   },
   {
+    countySlug: "hockley",
+    articleSlug: "hockley-county-levelland-yellow-house-canyon-oil-cotton-south-plains-texas",
+    loadArticle: () => import("@/data/fixtures/hockley-county-levelland-yellow-house-canyon-oil-cotton-south-plains-texas")
+      .then((module) => module.hockleyCountyLevellandYellowHouseCanyonOilCottonSouthPlainsTexasArticle),
+  },
+  {
     countySlug: "terry",
     articleSlug: "terry-county-brownfield-cotton-grapes-south-plains-texas",
     loadArticle: () => import("@/data/fixtures/terry-county-brownfield-cotton-grapes-south-plains-texas")
