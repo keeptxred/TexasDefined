@@ -37,15 +37,19 @@ export const texasCoreArticleStubs: Article[] = [
 const coreSlugs = new Set(texasCoreArticleStubs.map((article) => article.slug));
 
 export async function loadTexasCoreArticle(brandId: string, slug: string): Promise<Article | null> {
-  if (brandId !== "texasdefined" || !coreSlugs.has(slug)) return null;
-  if (slug === "moving-to-texas-what-nobody-tells-you") {
-    const { movingToTexasPillarArticle } = await import("./moving-to-texas-pillar");
-    return movingToTexasPillarArticle;
+  if (brandId !== "texasdefined") return null;
+  if (coreSlugs.has(slug)) {
+    if (slug === "moving-to-texas-what-nobody-tells-you") {
+      const { movingToTexasPillarArticle } = await import("./moving-to-texas-pillar");
+      return movingToTexasPillarArticle;
+    }
+    if (slug === "texas-dance-hall-survival") {
+      const { texasDanceHallPreservationArticle } = await import("./texas-dance-hall-preservation");
+      return texasDanceHallPreservationArticle;
+    }
+    const { texasCoreArticles } = await import("./texas-core-articles");
+    return texasCoreArticles.find((article) => article.slug === slug) ?? null;
   }
-  if (slug === "texas-dance-hall-survival") {
-    const { texasDanceHallPreservationArticle } = await import("./texas-dance-hall-preservation");
-    return texasDanceHallPreservationArticle;
-  }
-  const { texasCoreArticles } = await import("./texas-core-articles");
-  return texasCoreArticles.find((article) => article.slug === slug) ?? null;
+  const { loadTexasGatewayIdentityBatch16Article } = await import("./texas-gateway-identity-batch16");
+  return loadTexasGatewayIdentityBatch16Article(slug);
 }
