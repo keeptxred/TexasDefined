@@ -43,6 +43,8 @@ export type TexasKnowledgeSource = {
   checkedAt: string;
 };
 
+export type TexasKnowledgeTemporalScope = 'evergreen' | 'seasonal' | 'current-rule' | 'current-data';
+
 export type TexasKnowledgeRecord = {
   id: string;
   kind: TexasKnowledgeKind;
@@ -58,6 +60,12 @@ export type TexasKnowledgeRecord = {
   sources: TexasKnowledgeSource[];
   verification: 'verified' | 'editorial-observation' | 'needs-review';
   verifiedAt?: string;
+  /** How quickly the underlying claim can become stale. */
+  temporalScope?: TexasKnowledgeTemporalScope;
+  /** Date by which the record should be re-checked against its authoritative source. */
+  reviewBy?: string;
+  /** Last date the claim is known to be valid, when an authority publishes a bounded rule/data period. */
+  validThrough?: string;
   evergreen: boolean;
   socialReady: boolean;
   /** Existing, verified public route only. Downstream social rendering may emit this link. */
