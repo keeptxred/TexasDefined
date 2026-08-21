@@ -5,6 +5,7 @@ const headlineFor = (format: TexasSocialFormat) => {
     case 'fact-of-the-day': return 'Texas Fact of the Day';
     case 'you-know-youre-a-texan-if': return "You know you're a Texan if…";
     case 'you-know-youre-from-texas-if': return "You know you're FROM Texas if…";
+    case 'tell-me-youre-from-texas': return "Tell me you're from Texas without telling me…";
     case 'only-texans-understand': return 'Only Texans understand…';
     case 'til-texas-edition': return 'TIL — Texas Edition';
     case 'only-in-texas': return 'Only in Texas';
@@ -33,6 +34,8 @@ function renderBody(record: TexasKnowledgeRecord, format: TexasSocialFormat) {
       return record.verification === 'editorial-observation'
         ? record.statement.replace(/^Texans often /i, '').replace(/\.$/, '') + '.'
         : record.statement;
+    case 'tell-me-youre-from-texas':
+      return `${record.statement}\n\nWhat is your version?`;
     case 'only-texans-understand':
     case 'only-in-texas':
       return record.statement;
