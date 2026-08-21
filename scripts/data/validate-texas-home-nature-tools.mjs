@@ -9,6 +9,7 @@ const sources = fs.readFileSync('src/data/knowledge-bank/sources.ts', 'utf8');
 const barrel = fs.readFileSync('src/data/knowledge-bank/index.ts', 'utf8');
 const routes = fs.readFileSync('src/lib/public-routes.ts', 'utf8');
 const failures = [];
+const today = new Date().toISOString().slice(0, 10);
 
 if (!barrel.includes("export * from './home-nature-tools'")) failures.push('Knowledge Bank barrel must export staged home/nature tools.');
 if (!barrel.includes("export * from './home-nature-tools-expanded'")) failures.push('Knowledge Bank barrel must export expanded staged home/nature tools.');
@@ -60,7 +61,6 @@ if (!baseTools.includes("positiveInteger(input.days ?? 3, 'days')")) failures.pu
 if (!baseTools.includes('input.gallonsPerPersonPerDay ?? 1')) failures.push('Emergency-water planner must default to one gallon per person per day.');
 if (!baseTools.includes("sourceIds: ['ready-gov', 'tdem-emergency']")) failures.push('Emergency-water tool must retain Ready.gov and TDEM source provenance.');
 if (!tools.includes('https://www.ready.gov/sites/default/files/documents/files/checklist3.pdf')) failures.push('Emergency guidance must retain claim-specific Ready.gov evidence.');
-if (!tools.includes("reviewBy: '2027-08-01'")) failures.push('Source-backed staged preparedness tools must carry an explicit review date.');
 if (!baseTools.includes('does not predict evaporation from weather')) failures.push('Pool water-loss engine must explicitly avoid claiming weather-based evaporation diagnosis.');
 if (!baseTools.includes('hoursBefore: 72') || !baseTools.includes('hoursBefore: 48') || !baseTools.includes('hoursBefore: 24')) failures.push('Hurricane checklist must contain 72/48/24 organizational stages.');
 if (!baseTools.includes('Follow evacuation orders')) failures.push('Hurricane checklist must explicitly defer to evacuation orders/local officials.');
@@ -75,10 +75,16 @@ if (!expandedTools.includes('does not calculate chemical doses')) failures.push(
 const evidenceUrls = [...tools.matchAll(/https:\/\/[^'\"]+/g)].map((match) => match[0]);
 for (const url of evidenceUrls) if (!url.startsWith('https://')) failures.push(`Tool evidence URL must use HTTPS: ${url}`);
 
+const reviewDates = [...tools.matchAll(/reviewBy:\s*['\"](\d{4}-\d{2}-\d{2})['\"]/g)].map((match) => match[1]);
+if (reviewDates.length !== 4) failures.push(`Expected review dates on four source-backed preparedness tools; found ${reviewDates.length}.`);
+for (const reviewBy of reviewDates) {
+  if (reviewBy < today) failures.push(`Staged preparedness guidance passed its review date ${reviewBy}; re-verify the source-backed tool before keeping CI green.`);
+}
+
 if (failures.length) {
   console.error('Texas home/nature tool validation failed:');
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log(`Texas home/nature tool validation passed: ${requiredToolIds.length} staged tools in one canonical catalog, ${plannedPaths.length} unique non-public planned paths connected to staged clusters, Ready.gov/NWS evidence, review windows, and publication-safety guards.`);
+console.log(`Texas home/nature tool validation passed: ${requiredToolIds.length} staged tools in one canonical catalog, ${plannedPaths.length} unique non-public planned paths connected to staged clusters, Ready.gov/NWS evidence, ${reviewDates.length} current review windows, and publication-safety guards.`);
