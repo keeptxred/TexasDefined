@@ -4,8 +4,8 @@ import type { TexasVsStateProfile } from "@/data/texas-vs-states-index";
 const loadTexasVsStateProfileServerFn = createServerFn({ method: "GET" })
   .inputValidator((data: { name: string }) => data)
   .handler(async ({ data }) => {
-    const { texasVsStateProfile } = await import("./texas-vs-states");
-    return texasVsStateProfile(data.name);
+    const { loadTexasVsStateProfileServer } = await import("./texas-vs-state-profile.server");
+    return loadTexasVsStateProfileServer(data.name);
   });
 
 export function loadTexasVsStateProfile(name: string): Promise<TexasVsStateProfile | null> {
