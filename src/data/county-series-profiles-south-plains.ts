@@ -73,4 +73,10 @@ export const COUNTY_SERIES_PROFILES_SOUTH_PLAINS: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/martin-county-stanton-marienfeld-cotton-oil-southern-high-plains-texas")
       .then((module) => module.martinCountyStantonMarienfeldCottonOilSouthernHighPlainsTexasArticle),
   },
+  {
+    countySlug: "hale",
+    articleSlug: "hale-county-plainview-runningwater-draw-irrigation-south-plains-texas",
+    loadArticle: () => import("@/data/fixtures/hale-county-plainview-runningwater-draw-irrigation-south-plains-texas")
+      .then((module) => module.haleCountyPlainviewRunningwaterDrawIrrigationSouthPlainsTexasArticle),
+  },
 ];
