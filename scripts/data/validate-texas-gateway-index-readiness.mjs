@@ -9,36 +9,46 @@ const fail = (message) => {
 };
 
 const readinessPath = "src/data/fixtures/texas-gateway-index-readiness.ts";
+const stubsPath = "src/data/fixtures/texas-gateway-index-ready-stubs.ts";
 const loaderPath = "src/data/fixtures/lazy-texas-gateway.ts";
+const corePath = "src/data/fixtures/lazy-texas-core-articles.ts";
 const articleRoutePath = "src/routes/article.$slug.tsx";
 const sitemapPath = "src/routes/sitemap[.]xml.ts";
-const repositoriesPath = "src/data/fixtures/repositories.ts";
 
 const readiness = read(readinessPath);
+const stubs = read(stubsPath);
 const loader = read(loaderPath);
+const core = read(corePath);
 const articleRoute = read(articleRoutePath);
 const sitemap = read(sitemapPath);
-const repositories = read(repositoriesPath);
 
 if (!readiness.includes("TEXAS_GATEWAY_INDEX_READY_SLUGS")) fail("missing explicit index-ready allowlist");
 if (!readiness.includes('article.id.startsWith("gateway-")')) fail("gateway identity must remain explicit and scoped to gateway-* article IDs");
 if (!readiness.includes("shouldNoindexTexasGatewayArticle")) fail("missing staged-page noindex helper");
 
 if (!loader.includes("function loadAllTexasGatewayArticles()")) fail("direct QA loader must retain access to the full gateway set");
-if (!loader.includes("return articles.filter(isTexasGatewayIndexReadyArticle);")) fail("public gateway discovery must filter through the index-ready allowlist");
 if (!/loadTexasGatewayArticle[\s\S]*loadAllTexasGatewayArticles\(\)/.test(loader)) fail("direct gateway lookup must resolve from the full staged+ready set");
+if (!loader.includes("return articles.filter(isTexasGatewayIndexReadyArticle);")) fail("gateway loader must retain the index-ready filtering helper for guarded consumers");
+
+if (!core.includes('import { texasGatewayIndexReadyStubs } from "./texas-gateway-index-ready-stubs";')) {
+  fail("core article discovery must import the lightweight gateway promotion stubs");
+}
+if (!core.includes("texasCoreArticleStubs.push(...texasGatewayIndexReadyStubs);")) {
+  fail("core article discovery must expose promoted gateway stubs to existing list/search repositories");
+}
 
 if (!articleRoute.includes('shouldNoindexTexasGatewayArticle(article) ? "noindex, follow, max-image-preview:large" : undefined')) {
   fail("article metadata must noindex staged gateway drafts while preserving followed links");
 }
-
 if (!sitemap.includes("isTexasGatewayIndexReadyArticle(article)")) fail("sitemap must defensively filter staged gateway drafts");
-if (!repositories.includes('import("./lazy-texas-gateway")')) fail("public editorial discovery is no longer wired through the staged gateway loader");
-if (!repositories.includes("module.loadTexasGatewayArticles()")) fail("repository discovery must use the filtered public gateway loader");
 
 const gatewayFixtureDir = path.join(root, "src/data/fixtures");
+const nonArticleGatewayFiles = new Set([
+  "texas-gateway-index-readiness.ts",
+  "texas-gateway-index-ready-stubs.ts",
+]);
 const gatewayFiles = fs.readdirSync(gatewayFixtureDir)
-  .filter((name) => /^texas-gateway-(?!index-readiness).*\.ts$/.test(name));
+  .filter((name) => /^texas-gateway-.*\.ts$/.test(name) && !nonArticleGatewayFiles.has(name));
 const gatewaySource = gatewayFiles.map((name) => read(`src/data/fixtures/${name}`)).join("\n");
 const ids = [...gatewaySource.matchAll(/(?:id:\s*|article\(\s*)["'](gateway-[^"']+)["']/g)].map((match) => match[1]);
 if (!ids.length) fail("could not identify gateway-* article IDs in gateway fixtures");
@@ -52,6 +62,20 @@ const fixtureSlugs = new Set([
 ].map((match) => match[1]));
 for (const slug of readySlugs) {
   if (!fixtureSlugs.has(slug)) fail(`index-ready allowlist contains unknown gateway slug: ${slug}`);
+}
+
+const stubSlugs = [...stubs.matchAll(/\bslug:\s*["']([^"']+)["']/g)].map((match) => match[1]);
+const stubSet = new Set(stubSlugs);
+if (stubSlugs.length !== stubSet.size) fail("gateway index-ready stub registry contains duplicate slugs");
+for (const slug of readySlugs) {
+  if (!stubSet.has(slug)) fail(`index-ready gateway slug is missing its lightweight public-discovery stub: ${slug}`);
+}
+for (const slug of stubSlugs) {
+  if (!readySet.has(slug)) fail(`gateway public-discovery stub exists for a staged slug that is not allowlisted: ${slug}`);
+  if (!fixtureSlugs.has(slug)) fail(`gateway public-discovery stub references an unknown gateway slug: ${slug}`);
+}
+if (stubSlugs.length !== readySlugs.length) {
+  fail(`gateway allowlist/stub count mismatch: ${readySlugs.length} allowlisted slug(s), ${stubSlugs.length} discovery stub(s)`);
 }
 
 function walk(dir, output = []) {
@@ -83,6 +107,6 @@ if (stagedInboundLinks.length) {
 }
 
 if (!process.exitCode) {
-  console.log(`Gateway index-readiness contract passed: ${gatewayFiles.length} fixture modules, ${ids.length} explicit gateway IDs, ${readySlugs.length} index-ready slug(s).`);
+  console.log(`Gateway index-readiness contract passed: ${gatewayFiles.length} article fixture modules, ${ids.length} explicit gateway IDs, ${readySlugs.length} index-ready slug(s), ${stubSlugs.length} public-discovery stub(s).`);
   console.log("Staged gateway drafts remain directly QA-accessible but are excluded from normal discovery, public inbound linking and article indexing.");
 }
