@@ -52,15 +52,19 @@ function parseCsvLine(line: string) {
   return values;
 }
 
+function normalizeCsvHeader(value: string) {
+  return value.toLowerCase().trim().replace(/[^a-z0-9]+/g, "_").replace(/^_+|_+$/g, "");
+}
+
 export function parseWaterDataForTexasReservoirCsv(sourceUrl: string, csv: string): LiveLakeLevelSnapshot | null {
   const lines = csv.replace(/^\uFEFF/, "").split(/\r?\n/).filter((line) => line.trim().length > 0);
   const headerIndex = lines.findIndex((line) => {
-    const headers = parseCsvLine(line).map((value) => value.toLowerCase());
+    const headers = parseCsvLine(line).map(normalizeCsvHeader);
     return headers.includes("date") && headers.includes("percent_full");
   });
   if (headerIndex < 0) return null;
 
-  const headers = parseCsvLine(lines[headerIndex]).map((value) => value.toLowerCase());
+  const headers = parseCsvLine(lines[headerIndex]).map(normalizeCsvHeader);
   const dateIndex = headers.indexOf("date");
   const percentIndex = headers.indexOf("percent_full");
   const elevationIndex = ["mean_water_level", "water_level", "elevation"].map((key) => headers.indexOf(key)).find((index) => index >= 0) ?? -1;
@@ -97,13 +101,13 @@ export async function loadLiveLakeLevel(sourceUrl: string): Promise<LiveLakeLeve
   if (!/^https:\/\/(?:www\.)?waterdatafortexas\.org\/reservoirs\/individual\/[a-z0-9-]+\/?$/i.test(sourceUrl)) return null;
 
   const canonicalSourceUrl = sourceUrl.replace(/\/$/, "");
-  const csvUrl = `${canonicalSourceUrl}.csv`;
+  const csvUrl = `${canonicalSourceUrl}-30day.csv`;
   try {
     const csvResponse = await fetch(csvUrl, {
       cache: "no-store",
       headers: {
         accept: "text/csv,text/plain;q=0.9,*/*;q=0.1",
-        "user-agent": "TexasDefined-Live-Lake-Level/1.1",
+        "user-agent": "TexasDefined-Live-Lake-Level/1.2",
       },
       signal: AbortSignal.timeout(TIMEOUT_MS),
     });
@@ -116,7 +120,7 @@ export async function loadLiveLakeLevel(sourceUrl: string): Promise<LiveLakeLeve
       cache: "no-store",
       headers: {
         accept: "text/html,application/xhtml+xml",
-        "user-agent": "TexasDefined-Live-Lake-Level/1.1",
+        "user-agent": "TexasDefined-Live-Lake-Level/1.2",
       },
       signal: AbortSignal.timeout(TIMEOUT_MS),
     });
