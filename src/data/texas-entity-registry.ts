@@ -36,7 +36,7 @@ export const TEXAS_CITY_ENTITIES: TexasEntityRecord[] = TEXAS_CITIES.map(city=>(
 export const TEXAS_LOCAL_OFFICE_ENTITIES: TexasEntityRecord[] = TEXAS_COUNTIES.flatMap(county=>[
   {id:`appraisal-district:${county.slug}`,kind:'appraisal-district',name:`${county.name.replace(/ County$/,'')} Central Appraisal District`,slug:`${county.slug}-appraisal-district`,aliases:[`${county.name.replace(/ County$/,'')} CAD`],countySlug:county.slug,sourceId:'comptroller-appraisal-districts',sourceConfidence:'official',sourceCheckedAt:checkedAt,status:'pending-source-verification',relationships:[{type:'serves-county',targetId:`county:${county.slug}`}]},
   {id:`tax-office:${county.slug}`,kind:'tax-office',name:`${county.name} Tax Office`,slug:`${county.slug}-tax-office`,aliases:[`${county.name} Tax Assessor-Collector`],countySlug:county.slug,sourceId:'txdmv-tax-offices',sourceConfidence:'official',sourceCheckedAt:checkedAt,status:'pending-source-verification',relationships:[{type:'serves-county',targetId:`county:${county.slug}`}]}
-]));
+]);
 
 export const TEXAS_ENTITY_REGISTRY: TexasEntityRecord[] = [
   ...CORE_TEXAS_AGENCIES,
