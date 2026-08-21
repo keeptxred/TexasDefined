@@ -3,6 +3,7 @@ import fs from 'node:fs';
 const baseTools = fs.readFileSync('src/data/knowledge-bank/home-nature-tools.ts', 'utf8');
 const expandedTools = fs.readFileSync('src/data/knowledge-bank/home-nature-tools-expanded.ts', 'utf8');
 const toolCatalog = fs.readFileSync('src/data/knowledge-bank/home-nature-tool-catalog.ts', 'utf8');
+const clusters = fs.readFileSync('src/data/texas-home-nature-clusters.ts', 'utf8');
 const tools = `${baseTools}\n${expandedTools}`;
 const sources = fs.readFileSync('src/data/knowledge-bank/sources.ts', 'utf8');
 const barrel = fs.readFileSync('src/data/knowledge-bank/index.ts', 'utf8');
@@ -33,7 +34,13 @@ for (const path of plannedPaths) {
   if (routes.includes(`'${path}'`) || routes.includes(`\"${path}\"`)) failures.push(`Staged tool leaked into public route registry: ${path}`);
   const slug = path.replace(/^\//, '');
   if (fs.existsSync(`src/routes/${slug}.tsx`)) failures.push(`Staged tool has a public file route before publication approval: ${path}`);
+  if (!clusters.includes(`'${path}'`)) failures.push(`Staged tool is not connected to a planning-only home/nature cluster: ${path}`);
 }
+if (!clusters.includes('plannedToolPaths?: string[]')) failures.push('Home/nature clusters must type planned tool destinations explicitly.');
+const plannedClusterToolPaths = [...clusters.matchAll(/plannedToolPaths:\s*\[([\s\S]*?)\]/g)]
+  .flatMap((match) => [...match[1].matchAll(/['\"]([^'\"]+)['\"]/g)].map((item) => item[1]));
+if (plannedClusterToolPaths.length !== plannedPaths.length) failures.push(`Expected exactly ${plannedPaths.length} cluster tool references; found ${plannedClusterToolPaths.length}.`);
+for (const path of plannedClusterToolPaths) if (!plannedPaths.includes(path)) failures.push(`Cluster references unknown staged tool path: ${path}`);
 
 // Require runtime tool objects to remain staged; type declarations use a
 // semicolon while actual object fields end with a comma.
@@ -74,4 +81,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Texas home/nature tool validation passed: ${requiredToolIds.length} staged tools in one canonical catalog, ${plannedPaths.length} unique non-public planned paths, Ready.gov/NWS evidence, review windows, and publication-safety guards.`);
+console.log(`Texas home/nature tool validation passed: ${requiredToolIds.length} staged tools in one canonical catalog, ${plannedPaths.length} unique non-public planned paths connected to staged clusters, Ready.gov/NWS evidence, review windows, and publication-safety guards.`);
