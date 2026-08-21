@@ -38,6 +38,12 @@ export const COUNTY_SERIES_PROFILES_SOUTH_PLAINS: CountySeriesProfile[] = [
       .then((module) => module.lubbockCountyHubCityCottonTexasTechSouthPlainsTexasArticle),
   },
   {
+    countySlug: "andrews",
+    articleSlug: "andrews-county-andrews-oil-ranching-high-plains-west-texas",
+    loadArticle: () => import("@/data/fixtures/andrews-county-andrews-oil-ranching-high-plains-west-texas")
+      .then((module) => module.andrewsCountyOilRanchingHighPlainsWestTexasArticle),
+  },
+  {
     countySlug: "yoakum",
     articleSlug: "yoakum-county-plains-denver-city-oil-ogallala-south-plains-texas",
     loadArticle: () => import("@/data/fixtures/yoakum-county-plains-denver-city-oil-ogallala-south-plains-texas")
