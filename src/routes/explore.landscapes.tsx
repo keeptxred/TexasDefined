@@ -59,12 +59,7 @@ export const Route = createFileRoute('/explore/landscapes')({
 
 function TexasLandscapesPage() {
   return <>
-    <DepartmentHero
-      current="Explore"
-      eyebrow="Texas Landscapes"
-      title="The landscapes that define Texas"
-      description={description}
-    />
+    <DepartmentHero current="Explore" eyebrow="Texas Landscapes" title="The landscapes that define Texas" description={description} />
 
     <Section>
       <Container>
@@ -113,7 +108,7 @@ function TexasLandscapesPage() {
     <Section tone="surface">
       <Container>
         <div className="grid gap-8 border-y border-border py-8 md:grid-cols-3">
-          <Link to="/explore/texas-scenic-drives" className="group"><p className="eyebrow text-primary">See it from the road</p><h2 className="mt-2 font-display text-2xl group-hover:text-primary">Texas scenic drives</h2><p className="mt-2 text-sm leading-6 text-muted-foreground">Match a route to the landscape you want to see.</p></Link>
+          <Link to="/explore/road-trips" className="group"><p className="eyebrow text-primary">See it from the road</p><h2 className="mt-2 font-display text-2xl group-hover:text-primary">Texas scenic drives</h2><p className="mt-2 text-sm leading-6 text-muted-foreground">Match a route to the landscape you want to see.</p></Link>
           <Link to="/explore/state-parks" className="group"><p className="eyebrow text-primary">Get outside</p><h2 className="mt-2 font-display text-2xl group-hover:text-primary">Texas state parks</h2><p className="mt-2 text-sm leading-6 text-muted-foreground">Find protected examples of canyons, rivers, prairie, desert and forest.</p></Link>
           <Link to="/explore/road-trips" className="group"><p className="eyebrow text-primary">Connect the dots</p><h2 className="mt-2 font-display text-2xl group-hover:text-primary">Texas road trips</h2><p className="mt-2 text-sm leading-6 text-muted-foreground">Build a trip around changing terrain instead of just cities.</p></Link>
         </div>
