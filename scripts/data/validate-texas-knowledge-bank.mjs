@@ -52,22 +52,27 @@ if (plannedLinkCount !== clusterCount) failures.push(`Every home/nature cluster 
 if (/\bcrossLinkTargets\s*:/.test(clusters)) failures.push('Home/nature clusters must not expose unqualified crossLinkTargets; use plannedCrossLinkTargets until routes are verified for publication.');
 
 // Batch 8 is deliberately staged editorial copy. Until publication is explicitly approved,
-// these paths must not leak into the public crawl registry, navigation, or file routes.
+// these paths must not leak into the public crawl registry, navigation, file routes, or live social links.
 const stagedGuideSlugs = [
   'texas-hurricane-home-prep', 'texas-pool-guide', 'texas-pests-guide',
   'texas-snakes-guide', 'texas-wildlife-guide', 'texas-birds-guide',
   'texas-flowers-wildflowers-guide',
 ];
 const stagedGuidePaths = stagedGuideSlugs.map((slug) => `/${slug}`);
+const knowledgeRecordText = `${seed}\n${expanded}`;
 for (const path of stagedGuidePaths) {
   if (routes.includes(`\"${path}\"`) || routes.includes(`'${path}'`)) failures.push(`Staged guide leaked into public route registry: ${path}`);
   if (homeGarden.includes(path)) failures.push(`Staged guide leaked into Home & Garden links: ${path}`);
+  const escaped = path.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  if (new RegExp(`\\barticlePath\\s*:\\s*['\"]${escaped}['\"]`).test(knowledgeRecordText)) failures.push(`Staged guide leaked into live knowledge articlePath: ${path}`);
+  if (!new RegExp(`\\bplannedArticlePath\\s*:\\s*['\"]${escaped}['\"]`).test(knowledgeRecordText)) failures.push(`Staged guide is missing a planning-only knowledge destination: ${path}`);
 }
 for (const slug of stagedGuideSlugs) {
   if (fs.existsSync(`src/routes/${slug}.tsx`)) failures.push(`Staged guide has a public file route before publication approval: /${slug}`);
 }
 
-for (const field of ['verification', 'socialReady', 'sources', 'socialFormats', 'usage']) if (!types.includes(field)) failures.push(`Knowledge record type is missing field: ${field}`);
+for (const field of ['verification', 'socialReady', 'sources', 'socialFormats', 'usage', 'plannedArticlePath']) if (!types.includes(field)) failures.push(`Knowledge record type is missing field: ${field}`);
+if (!validation.includes('record.articlePath && record.plannedArticlePath')) failures.push('Runtime validation must reject records that mix live and planned article paths.');
 const requiredSocialFormats = [
   'fact-of-the-day', 'you-know-youre-a-texan-if', 'you-know-youre-from-texas-if',
   'only-texans-understand', 'til-texas-edition', 'only-in-texas', 'texas-trivia',
