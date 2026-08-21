@@ -23,10 +23,13 @@ const files = [
 
 const rows = [];
 const hrefs = [];
+const editorialDebris = /\b(?:TODO|TBD|placeholder|editor(?:'s)? note)\b|out of state[—-]+keep/i;
 for (const file of files) {
   const full = path.join(root, file);
   if (!fs.existsSync(full)) throw new Error(`Missing gateway module: ${file}`);
   const source = fs.readFileSync(full, "utf8");
+  const debrisMatch = source.match(editorialDebris);
+  if (debrisMatch) throw new Error(`${file}: reader-facing editorial debris detected: ${debrisMatch[0]}`);
 
   const objectIds = [...source.matchAll(/\bid:\s*"([^"]+)"/g)].map((match) => match[1]);
   const objectSlugs = [...source.matchAll(/\bslug:\s*"([^"]+)"/g)].map((match) => match[1]);
@@ -106,6 +109,7 @@ const gatewayAliases = {
   "/small-towns": "/explore/small-towns",
   "/food-bbq": "/explore/food-bbq",
   "/outdoors": "/explore/outdoors",
+  "/explore/texas-camping-guide": "/best-places-to-go-camping-in-texas",
 };
 
 const dynamicPrefixes = [
@@ -158,3 +162,4 @@ if (/^import .*texas-gateway-/m.test(core)) throw new Error("Core article regist
 
 console.log(`PASS Texas gateway consolidation: ${rows.length} unique articles across ${files.length} modules`);
 console.log(`PASS gateway internal links: ${hrefs.length} validated against public routes`);
+console.log("PASS gateway editorial hygiene: no TODO/TBD/placeholder/editor-note debris detected");
