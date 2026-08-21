@@ -1,0 +1,56 @@
+name: Verify Lipscomb County redirect once
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/verify-lipscomb-redirect-once.yml'
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Verify legacy-shaped redirect and exact hero MIME
+        shell: bash
+        run: |
+          set -euo pipefail
+          legacy='https://texasdefined.com/article/lipscomb-county-lipscomb-higgins-booker-wolf-creek-panhandle-texas'
+          expected='https://texasdefined.com/county/lipscomb'
+          hero='https://commons.wikimedia.org/wiki/Special:Redirect/file/Lipscomb_County%2C_Texas%2C_courthouse_from_W_3.JPG?width=1600'
+          workdir="$(mktemp -d)"
+          trap 'rm -rf "$workdir"' EXIT
+
+          curl -sS --max-time 30 -D "$workdir/redirect.headers" -o /dev/null "$legacy"
+          status="$(awk 'NR==1 {print $2}' "$workdir/redirect.headers")"
+          location="$(awk 'BEGIN{IGNORECASE=1} /^location:/ {sub(/^[^:]+:[[:space:]]*/,""); gsub("\r",""); print}' "$workdir/redirect.headers" | tail -n1)"
+          test "$status" = '301'
+          test "$location" = "$expected"
+
+          curl -A 'TexasDefined production verifier/1.0' -fsSL --max-time 40 "$hero" -D "$workdir/hero.headers" -o "$workdir/hero.bin"
+          hero_type="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/ {gsub("\r",""); print $2}' "$workdir/hero.headers" | tail -n1)"
+          test "$hero_type" = 'image/jpeg'
+          test "$(wc -c < "$workdir/hero.bin")" -gt 10000
+          echo "Lipscomb redirect PASS: 301 -> $location; hero MIME $hero_type"
+
+      - name: Publish success status
+        if: success()
+        shell: bash
+        run: |
+          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
+            --data '{"state":"success","context":"lipscomb-redirect-certification","description":"Legacy 301 to /county/lipscomb and hero image/jpeg passed"}' >/dev/null
+      - name: Publish failure status
+        if: failure()
+        shell: bash
+        run: |
+          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
+            --data '{"state":"failure","context":"lipscomb-redirect-certification","description":"Lipscomb redirect or hero MIME certification failed"}' >/dev/null
