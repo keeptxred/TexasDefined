@@ -13,6 +13,7 @@ on:
       - "src/routes/texas-facts.tsx"
       - "src/routes/texas-vs-every-state.tsx"
       - "src/routes/texas-vs.$state.tsx"
+      - "scripts/data/validate-indexation-quality.mjs"
       - "scripts/data/validate-texas-gateway-consolidation.mjs"
       - "scripts/data/validate-texas-gateway-index-readiness.mjs"
       - "scripts/data/audit-texas-gateway-depth.mjs"
@@ -44,6 +45,9 @@ jobs:
 
       - name: Validate gateway index-readiness staging
         run: node scripts/data/validate-texas-gateway-index-readiness.mjs
+
+      - name: Validate shared indexation contract
+        run: node scripts/data/validate-indexation-quality.mjs
 
       - name: Audit gateway article depth
         run: node scripts/data/audit-texas-gateway-depth.mjs
