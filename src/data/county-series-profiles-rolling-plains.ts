@@ -25,4 +25,5 @@ export const COUNTY_SERIES_PROFILES_ROLLING_PLAINS: CountySeriesProfile[] = [
   { countySlug: "borden", articleSlug: "borden-county-gail-caprock-ranching-colorado-river-west-texas", loadArticle: () => import("@/data/fixtures/borden-county-gail-caprock-ranching-colorado-river-west-texas").then((m) => m.bordenCountyGailCaprockRanchingColoradoRiverWestTexasArticle) },
   { countySlug: "garza", articleSlug: "garza-county-post-caprock-lake-alan-henry-west-texas", loadArticle: () => import("@/data/fixtures/garza-county-post-caprock-lake-alan-henry-west-texas").then((m) => m.garzaCountyPostCaprockLakeAlanHenryWestTexasArticle) },
   { countySlug: "dawson", articleSlug: "dawson-county-lamesa-cotton-oil-south-plains-texas", loadArticle: () => import("@/data/fixtures/dawson-county-lamesa-cotton-oil-south-plains-texas").then((m) => m.dawsonCountyLamesaCottonOilSouthPlainsTexasArticle) },
+  { countySlug: "hall", articleSlug: "hall-county-memphis-red-river-railroads-rolling-plains-texas", loadArticle: () => import("@/data/fixtures/hall-county-memphis-red-river-railroads-rolling-plains-texas").then((m) => m.hallCountyMemphisRedRiverRailroadsRollingPlainsTexasArticle) },
 ];

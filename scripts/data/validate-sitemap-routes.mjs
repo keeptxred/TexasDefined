@@ -26,7 +26,6 @@ const migratedGuideRedirects = [
   ['src/routes/explore.texas-wildflower-seasons.tsx', '/explore/texas-wildflower-seasons', '/article/texas-wildflowers-guide'],
   ['src/routes/explore.national-wildlife-refuges.tsx', '/explore/national-wildlife-refuges', '/explore/outdoors'],
   ['src/routes/explore.wildlife-management-areas.tsx', '/explore/wildlife-management-areas', '/explore/outdoors'],
-  ['src/routes/explore.lighthouses.tsx', '/explore/lighthouses', '/explore/beaches-coast'],
   ['src/routes/explore.spring-fed-swimming.tsx', '/explore/spring-fed-swimming', '/explore/lakes-rivers'],
   ['src/routes/explore.hill-country-springs.tsx', '/explore/hill-country-springs', '/explore/lakes-rivers'],
   ['src/routes/explore.spring-conservation-and-education.tsx', '/explore/spring-conservation-and-education', '/explore/lakes-rivers'],

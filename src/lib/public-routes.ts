@@ -1,6 +1,7 @@
 export const INDEXABLE_STATIC_PATHS = [
   "/",
   "/explore",
+  "/explore/lighthouses",
   "/explore/landscapes",
   "/explore/trip-planner",
   "/explore/attractions-comparison",
@@ -297,7 +298,6 @@ export const REDIRECT_ONLY_PATHS = [
   "/explore/texas-wildflower-seasons",
   "/explore/national-wildlife-refuges",
   "/explore/wildlife-management-areas",
-  "/explore/lighthouses",
   "/explore/spring-fed-swimming",
   "/explore/hill-country-springs",
   "/explore/spring-conservation-and-education",

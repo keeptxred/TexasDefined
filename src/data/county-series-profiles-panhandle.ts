@@ -61,4 +61,47 @@ export const COUNTY_SERIES_PROFILES_PANHANDLE: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/moore-county-dumas-sunray-cactus-high-plains-texas")
       .then((module) => module.mooreCountyDumasSunrayCactusHighPlainsTexasArticle),
   },
+  // Hutchinson uses the same server-backed Panhandle profile path as its neighboring county guides.
+  {
+    countySlug: "hutchinson",
+    articleSlug: "hutchinson-county-borger-stinnett-adobe-walls-lake-meredith-panhandle-texas",
+    loadArticle: () => import("@/data/fixtures/hutchinson-county-borger-stinnett-adobe-walls-lake-meredith-panhandle-texas")
+      .then((module) => module.hutchinsonCountyBorgerStinnettAdobeWallsLakeMeredithPanhandleTexasArticle),
+  },
+  {
+    countySlug: "ochiltree",
+    articleSlug: "ochiltree-county-perryton-wolf-creek-wheat-high-plains-texas",
+    loadArticle: () => import("@/data/fixtures/ochiltree-county-perryton-wolf-creek-wheat-high-plains-texas")
+      .then((module) => module.ochiltreeCountyPerrytonWolfCreekWheatHighPlainsTexasArticle),
+  },
+  {
+    countySlug: "gray",
+    articleSlug: "gray-county-pampa-lefors-red-river-oil-panhandle-texas",
+    loadArticle: () => import("@/data/fixtures/gray-county-pampa-lefors-red-river-oil-panhandle-texas")
+      .then((module) => module.grayCountyPampaLeforsRedRiverOilPanhandleTexasArticle),
+  },
+  {
+    countySlug: "wheeler",
+    articleSlug: "wheeler-county-shamrock-mobeetie-fort-elliott-route-66-panhandle-texas",
+    loadArticle: () => import("@/data/fixtures/wheeler-county-shamrock-mobeetie-fort-elliott-route-66-panhandle-texas")
+      .then((module) => module.wheelerCountyShamrockMobeetieFortElliottRoute66PanhandleTexasArticle),
+  },
+  {
+    countySlug: "roberts",
+    articleSlug: "roberts-county-miami-canadian-river-ranching-panhandle-texas",
+    loadArticle: () => import("@/data/fixtures/roberts-county-miami-canadian-river-ranching-panhandle-texas")
+      .then((module) => module.robertsCountyMiamiCanadianRiverRanchingPanhandleTexasArticle),
+  },
+  {
+    countySlug: "lipscomb",
+    articleSlug: "lipscomb-county-lipscomb-higgins-booker-wolf-creek-panhandle-texas",
+    loadArticle: () => import("@/data/fixtures/lipscomb-county-lipscomb-higgins-booker-wolf-creek-panhandle-texas")
+      .then((module) => module.lipscombCountyLipscombHigginsBookerWolfCreekPanhandleTexasArticle),
+  },
+  {
+    countySlug: "hemphill",
+    articleSlug: "hemphill-county-canadian-rivers-rodeo-panhandle-texas",
+    loadArticle: () => import("@/data/fixtures/hemphill-county-canadian-rivers-rodeo-panhandle-texas")
+      .then((module) => module.hemphillCountyCanadianRiversRodeoPanhandleTexasArticle),
+  },
 ];
