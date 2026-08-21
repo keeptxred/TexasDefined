@@ -9,6 +9,8 @@ export type TexasContentCluster = {
   sourceIds: string[];
   /** Planning hints only. Every route must be re-verified before publication. */
   plannedCrossLinkTargets: string[];
+  /** Staged tool destinations only; these are not public links until separately approved. */
+  plannedToolPaths?: string[];
   seasonal?: string[];
 };
 
@@ -26,7 +28,14 @@ export const TEXAS_HOME_NATURE_CLUSTERS: TexasContentCluster[] = [
       'Texas Hurricane Supplies: What You Actually Need',
       'How Hurricane Preparation Differs Along the Texas Gulf Coast',
     ],
-    sourceIds: ['nws-hurricanes','noaa','tdem-emergency'], plannedCrossLinkTargets: ['/texas-weather','/guides','/county'], seasonal: ['May','June','July','August','September','October','November'],
+    sourceIds: ['nws-hurricanes','noaa','tdem-emergency','ready-gov'],
+    plannedCrossLinkTargets: ['/texas-weather','/guides','/county'],
+    plannedToolPaths: [
+      '/texas-emergency-water-planner',
+      '/texas-hurricane-supply-calculator',
+      '/texas-hurricane-72-48-24-checklist',
+    ],
+    seasonal: ['May','June','July','August','September','October','November'],
   },
   {
     id: 'texas-pools', title: 'Texas Pool Guide', hubPath: '/guides/texas-pool-guide', section: 'Home & Garden', publicationState: 'staged',
@@ -42,7 +51,15 @@ export const TEXAS_HOME_NATURE_CLUSTERS: TexasContentCluster[] = [
       'North Texas vs Houston vs South Texas Pool Winterization',
       'Spring Pool Startup Checklist for Texas Homeowners',
     ],
-    sourceIds: ['noaa','texas-water-data','texas-am-agrilife'], plannedCrossLinkTargets: ['/home-garden','/tools','/texas-weather'], seasonal: ['January','February','March','April','May','October','November','December'],
+    sourceIds: ['noaa','texas-water-data','texas-am-agrilife'],
+    plannedCrossLinkTargets: ['/home-garden','/tools','/texas-weather'],
+    plannedToolPaths: [
+      '/texas-pool-volume-calculator',
+      '/texas-pool-water-loss-calculator',
+      '/texas-pool-opening-refill-calculator',
+      '/texas-freeze-prep-checklist',
+    ],
+    seasonal: ['January','February','March','April','May','October','November','December'],
   },
   {
     id: 'texas-pests', title: 'Texas Pests', hubPath: '/guides/texas-pests', section: 'Home & Garden', publicationState: 'staged',
