@@ -13,4 +13,10 @@ export const COUNTY_SERIES_PROFILES_SOUTH_PLAINS: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/gaines-county-seminole-oil-cotton-peanuts-high-plains-texas")
       .then((module) => module.gainesCountySeminoleOilCottonPeanutsHighPlainsTexasArticle),
   },
+  {
+    countySlug: "terry",
+    articleSlug: "terry-county-brownfield-cotton-grapes-south-plains-texas",
+    loadArticle: () => import("@/data/fixtures/terry-county-brownfield-cotton-grapes-south-plains-texas")
+      .then((module) => module.terryCountyBrownfieldCottonGrapesSouthPlainsTexasArticle),
+  },
 ];
