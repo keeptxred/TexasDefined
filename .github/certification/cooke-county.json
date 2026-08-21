@@ -1,9 +1,0 @@
-{
-  "county": "cooke",
-  "status": "pass",
-  "stage": "complete",
-  "county_commit": "08ee4327ad25c3b8c18da3a486dc11e3e0b401f2",
-  "tested_main": "ea67ef9313007f62aff16fe96e8011c98eba2435",
-  "detail": "validate=PASS deploy=PASS page=200 structured=yes editorial=yes legacy=not-applicable hero=200 mime=image/jpeg bytes=607087",
-  "recorded_at_utc": "2026-08-21T19:35:52.518160+00:00"
-}
