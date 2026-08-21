@@ -1,0 +1,15 @@
+{
+  "county": "andrews",
+  "status": "PASS",
+  "stage": "complete",
+  "target_sha": "21d0a6c612c271a4fc5333aee1e8974289bc3b6b",
+  "validate": "PASS",
+  "deploy": "PASS",
+  "live_page": "PASS",
+  "legacy_redirect": "PASS",
+  "hero_http": "200",
+  "hero_mime": "image/jpeg",
+  "visual_subject": "Andrews County Courthouse in Andrews, Texas; Wikimedia metadata and coordinates verified",
+  "issue": "",
+  "recorded_at_utc": "2026-08-21T03:04:17.525327+00:00"
+}
