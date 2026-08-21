@@ -50,17 +50,37 @@ export const Route = createFileRoute("/api/public/live-lake-diagnostic")({
   server: {
     handlers: {
       GET: async () => {
-        const [{ loadLiveLakeLevelResilient }, { getLiveLakeLevel }, recent, csv, html] = await Promise.all([
+        const [
+          { loadLiveLakeLevelResilient },
+          { getLiveLakeLevel },
+          { getLakeConroePageData },
+          { getShowcaseLakesPageData },
+          recent,
+          csv,
+          html,
+        ] = await Promise.all([
           import("@/data/fishing/live-lake-level-fetch.server"),
           import("@/data/fishing/live-lake-level.functions"),
+          import("@/data/fishing/lake-conroe-page-data.functions"),
+          import("@/data/fishing/showcase-lakes-page-data.functions"),
           probe(RECENT_URL, "application/json,text/plain;q=0.9,*/*;q=0.1"),
           probe(`${CONROE_URL}-30day.csv`, "text/csv,text/plain;q=0.9,*/*;q=0.1"),
           probe(CONROE_URL, "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"),
         ]);
-        const [snapshot, serverFnSnapshot] = await Promise.all([
+
+        const [snapshot, serverFnSnapshot, conroePageData, showcasePageData] = await Promise.all([
           loadLiveLakeLevelResilient(CONROE_URL),
           getLiveLakeLevel({ data: { sourceUrl: CONROE_URL } }).catch(() => null),
+          getLakeConroePageData().catch(() => null),
+          getShowcaseLakesPageData().catch(() => null),
         ]);
+
+        const showcaseSnapshots = showcasePageData
+          ? Object.fromEntries(
+              Object.entries(showcasePageData).map(([slug, lake]) => [slug, lake.liveLakeLevel ?? null]),
+            )
+          : null;
+
         return Response.json(
           {
             ok: Boolean(snapshot),
@@ -69,6 +89,8 @@ export const Route = createFileRoute("/api/public/live-lake-diagnostic")({
             probes: { recent, csv, html },
             conroeSnapshot: snapshot,
             conroeServerFnSnapshot: serverFnSnapshot,
+            conroePageDataSnapshot: conroePageData?.liveLakeLevel ?? null,
+            showcasePageDataSnapshots: showcaseSnapshots,
           },
           { headers: { "cache-control": "no-store" } },
         );
