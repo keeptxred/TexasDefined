@@ -65,12 +65,8 @@ const duplicates = (key) => {
 
 const duplicateIds = duplicates("id");
 const duplicateSlugs = duplicates("slug");
-if (duplicateIds.length) {
-  throw new Error(`Duplicate gateway IDs: ${duplicateIds.map(([value]) => value).join(", ")}`);
-}
-if (duplicateSlugs.length) {
-  throw new Error(`Duplicate gateway slugs: ${duplicateSlugs.map(([value]) => value).join(", ")}`);
-}
+if (duplicateIds.length) throw new Error(`Duplicate gateway IDs: ${duplicateIds.map(([value]) => value).join(", ")}`);
+if (duplicateSlugs.length) throw new Error(`Duplicate gateway slugs: ${duplicateSlugs.map(([value]) => value).join(", ")}`);
 
 function walk(dir, output = []) {
   if (!fs.existsSync(dir)) return output;
@@ -85,12 +81,32 @@ function walk(dir, output = []) {
 const normalizeRoute = (value) => value === "/" ? value : value.replace(/\/+$/, "");
 const sourceFiles = walk(path.join(root, "src"));
 const articleSlugs = new Set(rows.map((row) => row.slug));
-const fixedRoutes = new Set(["/"]);
 for (const sourceFile of sourceFiles) {
   const source = fs.readFileSync(sourceFile, "utf8");
   for (const match of source.matchAll(/\bslug:\s*["']([^"']+)["']/g)) articleSlugs.add(match[1]);
-  for (const match of source.matchAll(/createFileRoute\(["']([^"']+)["']\)/g)) fixedRoutes.add(normalizeRoute(match[1]));
 }
+
+const publicRoutesPath = path.join(root, "src/lib/public-routes.ts");
+if (!fs.existsSync(publicRoutesPath)) throw new Error("Missing src/lib/public-routes.ts");
+const publicRouteSource = fs.readFileSync(publicRoutesPath, "utf8");
+const publicRoutes = new Set(
+  [...publicRouteSource.matchAll(/["'](\/[^"']*)["']/g)].map((match) => normalizeRoute(match[1])),
+);
+publicRoutes.add("/");
+
+const gatewayAliases = {
+  "/lakes-rivers": "/explore/lakes-rivers",
+  "/major-springs": "/explore/major-springs",
+  "/state-parks": "/explore/state-parks",
+  "/national-parks": "/explore/national-parks",
+  "/caverns": "/explore/caverns",
+  "/beaches-coast": "/explore/beaches-coast",
+  "/historic-sites": "/explore/historic-sites",
+  "/road-trips": "/explore/road-trips",
+  "/small-towns": "/explore/small-towns",
+  "/food-bbq": "/explore/food-bbq",
+  "/outdoors": "/explore/outdoors",
+};
 
 const dynamicPrefixes = [
   "/destination/",
@@ -101,14 +117,15 @@ const dynamicPrefixes = [
 ];
 const brokenLinks = [];
 for (const { href, file } of hrefs) {
-  const clean = normalizeRoute(href.split(/[?#]/, 1)[0] || "/");
+  const sourcePath = normalizeRoute(href.split(/[?#]/, 1)[0] || "/");
+  const clean = gatewayAliases[sourcePath] ?? sourcePath;
   if (clean.startsWith("/article/")) {
     const slug = clean.slice("/article/".length);
     if (!articleSlugs.has(slug)) brokenLinks.push({ href, file, reason: "unknown article slug" });
     continue;
   }
   if (dynamicPrefixes.some((prefix) => clean.startsWith(prefix))) continue;
-  if (!fixedRoutes.has(clean)) brokenLinks.push({ href, file, reason: "missing fixed route" });
+  if (!publicRoutes.has(clean)) brokenLinks.push({ href, file, reason: `missing public route after normalization (${clean})` });
 }
 if (brokenLinks.length) {
   const detail = brokenLinks.slice(0, 25).map((item) => `${item.href} (${item.reason}; ${item.file})`).join("\n");
@@ -127,22 +144,16 @@ const repository = fs.readFileSync(repositoryPath, "utf8");
 const core = fs.readFileSync(corePath, "utf8");
 for (const file of files) {
   const moduleName = `./${path.basename(file, ".ts")}`;
-  if (!loader.includes(`import("${moduleName}")`)) {
-    throw new Error(`Lazy loader does not reference ${moduleName}`);
-  }
+  if (!loader.includes(`import("${moduleName}")`)) throw new Error(`Lazy loader does not reference ${moduleName}`);
 }
-if (!repository.includes('import("./lazy-texas-gateway")')) {
-  throw new Error("Editorial discovery does not dynamically load the gateway module");
+for (const [legacy, canonical] of Object.entries(gatewayAliases)) {
+  if (!loader.includes(`"${legacy}": "${canonical}"`)) throw new Error(`Gateway loader is missing alias normalization ${legacy} -> ${canonical}`);
+  if (!publicRoutes.has(canonical)) throw new Error(`Gateway alias target is not a public route: ${canonical}`);
 }
-if (!repository.includes("...(await loadGatewayEditorialArticles())")) {
-  throw new Error("Gateway articles are missing from editorial list/search discovery");
-}
-if (!core.includes('await import("./lazy-texas-gateway")')) {
-  throw new Error("Core article resolution is not dynamically loading gateway articles");
-}
-if (/^import .*texas-gateway-/m.test(core)) {
-  throw new Error("Core article registry must not statically import full gateway modules");
-}
+if (!repository.includes('import("./lazy-texas-gateway")')) throw new Error("Editorial discovery does not dynamically load the gateway module");
+if (!repository.includes("...(await loadGatewayEditorialArticles())")) throw new Error("Gateway articles are missing from editorial list/search discovery");
+if (!core.includes('await import("./lazy-texas-gateway")')) throw new Error("Core article resolution is not dynamically loading gateway articles");
+if (/^import .*texas-gateway-/m.test(core)) throw new Error("Core article registry must not statically import full gateway modules");
 
 console.log(`PASS Texas gateway consolidation: ${rows.length} unique articles across ${files.length} modules`);
-console.log(`PASS gateway internal links: ${hrefs.length} validated`);
+console.log(`PASS gateway internal links: ${hrefs.length} validated against public routes`);
