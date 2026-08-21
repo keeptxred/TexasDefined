@@ -91,4 +91,10 @@ export const COUNTY_SERIES_PROFILES_SOUTH_PLAINS: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/swisher-county-tulia-tule-creek-irrigation-south-plains-texas")
       .then((module) => module.swisherCountyTuliaTuleCreekIrrigationSouthPlainsTexasArticle),
   },
+  {
+    countySlug: "briscoe",
+    articleSlug: "briscoe-county-silverton-quitaque-tule-canyon-caprock-texas",
+    loadArticle: () => import("@/data/fixtures/briscoe-county-silverton-quitaque-tule-canyon-caprock-texas")
+      .then((module) => module.briscoeCountySilvertonQuitaqueTuleCanyonCaprockTexasArticle),
+  },
 ];
