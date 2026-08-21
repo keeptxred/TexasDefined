@@ -34,6 +34,7 @@ interface EditorialCollectionSeo extends PageSeo {
 }
 
 const DEFAULT_INDEX_ROBOTS = "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
+const META_DESCRIPTION_MAX_LENGTH = 160;
 
 const SOCIAL_IMAGE_FALLBACKS: Partial<Record<BrandConfig["identity"]["id"], { src: string; alt: string; type: string }>> = {
   texasdefined: {
@@ -47,6 +48,15 @@ function cleanMetaText(value: string) {
   return value.replace(/\s+/g, " ").trim();
 }
 
+function cleanMetaDescription(value: string) {
+  const cleaned = cleanMetaText(value);
+  if (cleaned.length <= META_DESCRIPTION_MAX_LENGTH) return cleaned;
+  const slice = cleaned.slice(0, META_DESCRIPTION_MAX_LENGTH - 1);
+  const wordBoundary = slice.lastIndexOf(" ");
+  const trimmed = (wordBoundary >= 120 ? slice.slice(0, wordBoundary) : slice).replace(/[,:;\s]+$/, "");
+  return `${trimmed}.`;
+}
+
 export function absoluteUrl(brand: BrandConfig, value: string) {
   if (/^https?:\/\//i.test(value)) return value;
   const path = value.startsWith("/") ? value : `/${value}`;
@@ -55,7 +65,7 @@ export function absoluteUrl(brand: BrandConfig, value: string) {
 
 export function buildMeta(brand: BrandConfig, page: PageSeo) {
   const pageTitle = cleanMetaText(page.title);
-  const description = cleanMetaText(page.description);
+  const description = cleanMetaDescription(page.description);
   const fullTitle = cleanMetaText(brand.seo.titleTemplate.replace("%s", pageTitle));
   const canonicalUrl = page.canonicalPath ? absoluteUrl(brand, page.canonicalPath) : undefined;
   const fallbackImage = SOCIAL_IMAGE_FALLBACKS[brand.identity.id];
