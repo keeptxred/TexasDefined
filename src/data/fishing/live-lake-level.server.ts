@@ -26,41 +26,102 @@ function parseNumber(value: string | undefined) {
   return Number.isFinite(parsed) ? parsed : null;
 }
 
+function parseCsvLine(line: string) {
+  const values: string[] = [];
+  let current = "";
+  let quoted = false;
+  for (let index = 0; index < line.length; index += 1) {
+    const char = line[index];
+    if (char === '"') {
+      if (quoted && line[index + 1] === '"') {
+        current += '"';
+        index += 1;
+      } else {
+        quoted = !quoted;
+      }
+      continue;
+    }
+    if (char === "," && !quoted) {
+      values.push(current.trim());
+      current = "";
+      continue;
+    }
+    current += char;
+  }
+  values.push(current.trim());
+  return values;
+}
+
+export function parseWaterDataForTexasReservoirCsv(sourceUrl: string, csv: string): LiveLakeLevelSnapshot | null {
+  const lines = csv.replace(/^\uFEFF/, "").split(/\r?\n/).filter((line) => line.trim().length > 0);
+  const headerIndex = lines.findIndex((line) => {
+    const headers = parseCsvLine(line).map((value) => value.toLowerCase());
+    return headers.includes("date") && headers.includes("percent_full");
+  });
+  if (headerIndex < 0) return null;
+
+  const headers = parseCsvLine(lines[headerIndex]).map((value) => value.toLowerCase());
+  const dateIndex = headers.indexOf("date");
+  const percentIndex = headers.indexOf("percent_full");
+  const elevationIndex = ["mean_water_level", "water_level", "elevation"].map((key) => headers.indexOf(key)).find((index) => index >= 0) ?? -1;
+
+  let best: { timestamp: number; snapshot: LiveLakeLevelSnapshot } | null = null;
+  for (const line of lines.slice(headerIndex + 1)) {
+    const values = parseCsvLine(line);
+    const rawDate = values[dateIndex]?.trim();
+    const percentFull = parseNumber(values[percentIndex]);
+    const measuredAt = rawDate?.match(/\d{4}-\d{2}-\d{2}/)?.[0] ?? null;
+    if (!measuredAt || percentFull == null || percentFull < 0 || percentFull > 150) continue;
+    const timestamp = Date.parse(`${measuredAt}T12:00:00Z`);
+    if (!Number.isFinite(timestamp)) continue;
+    const elevationFeet = elevationIndex >= 0 ? parseNumber(values[elevationIndex]) : null;
+    const snapshot: LiveLakeLevelSnapshot = { sourceUrl, measuredAt, percentFull, elevationFeet };
+    if (!best || timestamp > best.timestamp) best = { timestamp, snapshot };
+  }
+
+  return best?.snapshot ?? null;
+}
+
 export function parseWaterDataForTexasReservoirPage(sourceUrl: string, html: string): LiveLakeLevelSnapshot | null {
   const text = stripHtml(html);
-
   const headline = text.match(/([A-Za-z0-9 .&'()\/-]+):\s*([0-9]{1,3}(?:\.[0-9]+)?)%\s+full\s+as\s+of\s+(\d{4}-\d{2}-\d{2})/i);
   const alternate = text.match(/([0-9]{1,3}(?:\.[0-9]+)?)%\s+full[^0-9]{0,80}(\d{4}-\d{2}-\d{2})/i);
   const percentFull = parseNumber(headline?.[2] ?? alternate?.[1]);
   const measuredAt = headline?.[3] ?? alternate?.[2] ?? null;
-
   if (percentFull == null || percentFull < 0 || percentFull > 150 || !measuredAt) return null;
-
   const elevationMatch = text.match(/(?:water\s+level|elevation)[^0-9]{0,30}([0-9]{2,4}(?:\.[0-9]+)?)\s*(?:ft|feet)/i);
-  const elevationFeet = parseNumber(elevationMatch?.[1]);
-
-  return {
-    sourceUrl,
-    measuredAt,
-    percentFull,
-    elevationFeet,
-  };
+  return { sourceUrl, measuredAt, percentFull, elevationFeet: parseNumber(elevationMatch?.[1]) };
 }
 
 export async function loadLiveLakeLevel(sourceUrl: string): Promise<LiveLakeLevelSnapshot | null> {
-  if (!/^https:\/\/(?:www\.)?waterdatafortexas\.org\/reservoirs\/individual\//i.test(sourceUrl)) return null;
+  if (!/^https:\/\/(?:www\.)?waterdatafortexas\.org\/reservoirs\/individual\/[a-z0-9-]+\/?$/i.test(sourceUrl)) return null;
 
+  const canonicalSourceUrl = sourceUrl.replace(/\/$/, "");
+  const csvUrl = `${canonicalSourceUrl}.csv`;
   try {
-    const response = await fetch(sourceUrl, {
+    const csvResponse = await fetch(csvUrl, {
       cache: "no-store",
       headers: {
-        accept: "text/html,application/xhtml+xml",
-        "user-agent": "TexasDefined-Live-Lake-Level/1.0",
+        accept: "text/csv,text/plain;q=0.9,*/*;q=0.1",
+        "user-agent": "TexasDefined-Live-Lake-Level/1.1",
       },
       signal: AbortSignal.timeout(TIMEOUT_MS),
     });
-    if (!response.ok) return null;
-    return parseWaterDataForTexasReservoirPage(sourceUrl, await response.text());
+    if (csvResponse.ok) {
+      const csvSnapshot = parseWaterDataForTexasReservoirCsv(canonicalSourceUrl, await csvResponse.text());
+      if (csvSnapshot) return csvSnapshot;
+    }
+
+    const htmlResponse = await fetch(canonicalSourceUrl, {
+      cache: "no-store",
+      headers: {
+        accept: "text/html,application/xhtml+xml",
+        "user-agent": "TexasDefined-Live-Lake-Level/1.1",
+      },
+      signal: AbortSignal.timeout(TIMEOUT_MS),
+    });
+    if (!htmlResponse.ok) return null;
+    return parseWaterDataForTexasReservoirPage(canonicalSourceUrl, await htmlResponse.text());
   } catch {
     return null;
   }
