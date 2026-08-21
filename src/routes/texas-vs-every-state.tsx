@@ -9,40 +9,43 @@ const canonicalPath = "/texas-vs-every-state";
 const title = "Texas vs Every Other State: 49 State-by-State Comparisons";
 const description = "Compare Texas with every other U.S. state across cost of living, housing, taxes, jobs, climate, geography and everyday life, with a consistent comparison framework.";
 const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
-const faq = [
-  { q: "What should I compare before moving to Texas from another state?", a: "Compare the actual cities or counties you would live in, not just statewide averages. Housing, insurance, utilities, transportation, occupation-specific pay, total taxes, weather risks and the services your household uses can all change the result." },
-  { q: "Does Texas have an individual state income tax?", a: "Texas does not impose an individual state income tax, but that does not automatically make every Texas household cheaper to operate. Property taxes, sales taxes, housing, insurance, utilities and transportation still matter." },
-  { q: "Are all 49 Texas-versus-state pages the same comparison?", a: "No. The same core decision framework is used for consistency, but every state page now includes state-specific place, metro, geography and climate context so the comparison reflects the actual differences that matter for that state." },
-  { q: "Where should I verify current numbers?", a: "Use current public data such as the U.S. Census Bureau, Bureau of Economic Analysis and Bureau of Labor Statistics, then use Texas Defined calculators and local city or county pages to translate statewide data into a real household decision." },
-] as const;
 
 export const Route = createFileRoute("/texas-vs-every-state")({
   loader: async () => {
-    const { TEXAS_VS_STATE_PROFILES } = await import("@/data/texas-vs-states");
-    return { comparisonFocus: Object.fromEntries(Object.entries(TEXAS_VS_STATE_PROFILES).map(([state, profile]) => [state, profile.comparisonFocus])) as Record<string, string> };
+    const [{ TEXAS_VS_STATE_PROFILES }, { texasVsEveryStateFaq }] = await Promise.all([
+      import("@/data/texas-vs-states"),
+      import("@/data/priority-route-extras"),
+    ]);
+    return {
+      comparisonFocus: Object.fromEntries(Object.entries(TEXAS_VS_STATE_PROFILES).map(([state, profile]) => [state, profile.comparisonFocus])) as Record<string, string>,
+      faq: texasVsEveryStateFaq,
+    };
   },
-  head: () => ({
-    meta: buildMeta(texasDefinedBrand, { canonicalPath, title: title, description }),
-    links: [canonicalLink(texasDefinedBrand, canonicalPath)],
-    scripts: [jsonLd({
-      "@context": "https://schema.org",
-      "@graph": [
-        { "@type": "CollectionPage", "@id": `${pageUrl}#page`, url: pageUrl, name: title, description, dateModified: "2026-08-20" },
-        { "@type": "ItemList", "@id": `${pageUrl}#states`, name: "Texas compared with every other U.S. state", numberOfItems: TEXAS_VS_STATES.length, itemListElement: TEXAS_VS_STATES.map((state, index) => ({ "@type": "ListItem", position: index + 1, name: `Texas vs ${state}`, url: absoluteUrl(texasDefinedBrand, `/texas-vs/${texasVsStateSlug(state)}`) })) },
-        { "@type": "BreadcrumbList", itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl(texasDefinedBrand, "/") },
-          { "@type": "ListItem", position: 2, name: "Texas Explained", item: absoluteUrl(texasDefinedBrand, "/texas-explained") },
-          { "@type": "ListItem", position: 3, name: "Texas vs Every State", item: pageUrl },
-        ] },
-        { "@type": "FAQPage", "@id": `${pageUrl}#faq`, mainEntity: faq.map((item) => ({ "@type": "Question", name: item.q, acceptedAnswer: { "@type": "Answer", text: item.a } })) },
-      ],
-    })],
-  }),
+  head: ({ loaderData }) => {
+    const faq = loaderData?.faq ?? [];
+    return {
+      meta: buildMeta(texasDefinedBrand, { canonicalPath, title, description }),
+      links: [canonicalLink(texasDefinedBrand, canonicalPath)],
+      scripts: [jsonLd({
+        "@context": "https://schema.org",
+        "@graph": [
+          { "@type": "CollectionPage", "@id": `${pageUrl}#page`, url: pageUrl, name: title, description, dateModified: "2026-08-20" },
+          { "@type": "ItemList", "@id": `${pageUrl}#states`, name: "Texas compared with every other U.S. state", numberOfItems: TEXAS_VS_STATES.length, itemListElement: TEXAS_VS_STATES.map((state, index) => ({ "@type": "ListItem", position: index + 1, name: `Texas vs ${state}`, url: absoluteUrl(texasDefinedBrand, `/texas-vs/${texasVsStateSlug(state)}`) })) },
+          { "@type": "BreadcrumbList", itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl(texasDefinedBrand, "/") },
+            { "@type": "ListItem", position: 2, name: "Texas Explained", item: absoluteUrl(texasDefinedBrand, "/texas-explained") },
+            { "@type": "ListItem", position: 3, name: "Texas vs Every State", item: pageUrl },
+          ] },
+          ...(faq.length ? [{ "@type": "FAQPage", "@id": `${pageUrl}#faq`, mainEntity: faq.map((item) => ({ "@type": "Question", name: item.q, acceptedAnswer: { "@type": "Answer", text: item.a } })) }] : []),
+        ],
+      })],
+    };
+  },
   component: TexasVsEveryStatePage,
 });
 
 function TexasVsEveryStatePage() {
-  const { comparisonFocus } = Route.useLoaderData();
+  const { comparisonFocus, faq } = Route.useLoaderData();
   return <main>
     <section className="border-b border-border bg-muted/30 py-14 md:py-20"><Container><p className="eyebrow text-primary">Texas compared</p><h1 className="mt-3 max-w-5xl font-display text-5xl leading-none md:text-7xl">Texas vs Every Other State</h1><p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Forty-nine comparisons, one consistent framework. Use this hub to compare Texas with every other state without changing the yardstick from page to page.</p></Container></section>
 
