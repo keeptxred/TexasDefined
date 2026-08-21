@@ -14,10 +14,13 @@ on:
       - 'src/routes/explore.lighthouses.tsx'
       - 'src/data/texas-lighthouse-map-points.ts'
       - 'src/data/lighthouse-visitor-planning.ts'
+      - 'src/data/destination-editorial-links.ts'
+      - 'src/components/editorial/DestinationVisitPlanner.tsx'
       - 'src/components/editorial/ExploreTopicPaths.tsx'
       - 'src/components/editorial/ExploreIntentPaths.tsx'
       - 'src/lib/public-routes.ts'
       - 'scripts/data/validate-lighthouse-authority.mjs'
+      - 'scripts/data/validate-lighthouse-destination-discovery.mjs'
       - '.github/workflows/validate-lighthouse-authority.yml'
   push:
     branches: [main]
@@ -33,10 +36,13 @@ on:
       - 'src/routes/explore.lighthouses.tsx'
       - 'src/data/texas-lighthouse-map-points.ts'
       - 'src/data/lighthouse-visitor-planning.ts'
+      - 'src/data/destination-editorial-links.ts'
+      - 'src/components/editorial/DestinationVisitPlanner.tsx'
       - 'src/components/editorial/ExploreTopicPaths.tsx'
       - 'src/components/editorial/ExploreIntentPaths.tsx'
       - 'src/lib/public-routes.ts'
       - 'scripts/data/validate-lighthouse-authority.mjs'
+      - 'scripts/data/validate-lighthouse-destination-discovery.mjs'
       - '.github/workflows/validate-lighthouse-authority.yml'
 
 permissions:
@@ -52,3 +58,5 @@ jobs:
           node-version: 22
       - name: Validate Texas lighthouse authority
         run: node scripts/data/validate-lighthouse-authority.mjs
+      - name: Validate Port Isabel destination discovery
+        run: node scripts/data/validate-lighthouse-destination-discovery.mjs
