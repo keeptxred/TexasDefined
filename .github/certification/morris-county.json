@@ -2,7 +2,7 @@
   "county": "morris",
   "status": "fail",
   "stage": "source",
-  "target_sha": "5792c1ffc5dfa11a895db245a46741901dea0a24",
+  "target_sha": "c4c06cbf56ad41b1b769b14f0d403b2e7c63e835",
   "detail": "Morris legacy mapping missing",
-  "recorded_at_utc": "2026-08-21T16:15:13.890973+00:00"
+  "recorded_at_utc": "2026-08-21T17:04:45.699257+00:00"
 }
