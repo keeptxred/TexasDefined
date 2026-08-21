@@ -52,6 +52,15 @@ const INTENT_GROUPS = [
     ],
   },
   {
+    title: "Below-ground Texas",
+    body: "Connect caverns, springs and Hill Country road trips where geology shapes the whole day.",
+    links: [
+      { to: "/explore/caverns", label: "Caverns & caves" },
+      { to: "/explore/major-springs", label: "Major springs" },
+      { to: "/explore/road-trips", label: "Scenic road trips" },
+    ],
+  },
+  {
     title: "Plan the whole trip",
     body: "Move from ideas to an itinerary, then check nearby towns and events before you go.",
     links: [
