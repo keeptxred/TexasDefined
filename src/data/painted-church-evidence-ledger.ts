@@ -1,6 +1,7 @@
 import { canonicalPaintedChurchFeaturesBySlug } from "./painted-church-feature-index";
 import { paintedChurchMapPointBySlug } from "./painted-church-map-points";
 import { canonicalPaintedChurchProfileBySlug } from "./painted-church-profile-index";
+import { paintedChurchPreservationEventsBySlug } from "./painted-church-preservation-chronology";
 import { paintedChurchRegisterRecordBySlug } from "./painted-church-register-evidence";
 import { nominationEvidenceForChurch, paintedChurchThematicNomination } from "./painted-church-thematic-nomination";
 import { paintedChurchVisitorStatusBySlug } from "./painted-church-visitor-status";
@@ -16,7 +17,7 @@ export type PaintedChurchEvidenceSource = {
 
 export type PaintedChurchEvidenceClaim = {
   id: string;
-  category: "identity" | "classification" | "chronology" | "designation" | "location" | "visitor" | "interior-feature";
+  category: "identity" | "classification" | "chronology" | "designation" | "location" | "visitor" | "interior-feature" | "preservation";
   label: string;
   claim: string;
   status: PaintedChurchClaimStatus;
@@ -39,6 +40,7 @@ export function paintedChurchEvidenceLedgerBySlug(slug: string): PaintedChurchEv
   const map = paintedChurchMapPointBySlug.get(slug);
   const visitor = paintedChurchVisitorStatusBySlug.get(slug);
   const features = canonicalPaintedChurchFeaturesBySlug(slug);
+  const preservationEvents = paintedChurchPreservationEventsBySlug.get(slug) ?? [];
   const nomination = nominationEvidenceForChurch(slug);
 
   const claims: PaintedChurchEvidenceClaim[] = [];
@@ -148,6 +150,18 @@ export function paintedChurchEvidenceLedgerBySlug(slug: string): PaintedChurchEv
       status: feature.integrity === "uncertain" ? "qualified" : "accepted",
       qualification: feature.integrity === "uncertain" ? "The feature is documented, but its original/restored/repainted integrity remains unresolved." : undefined,
       sources: [{ label: feature.sourceLabel, url: feature.sourceUrl, use: feature.sourceDetail ?? `object-level evidence; integrity classified ${feature.integrity}` }],
+    });
+  }
+
+  for (const event of preservationEvents) {
+    claims.push({
+      id: `${slug}-preservation-${event.id}`,
+      category: "preservation",
+      label: `${event.yearLabel ?? event.year} — ${event.type.replaceAll("-", " ")}`,
+      claim: event.summary,
+      status: event.qualification ? "qualified" : "accepted",
+      qualification: event.qualification,
+      sources: [{ label: event.sourceLabel, url: event.sourceUrl, use: `church-specific ${event.type.replaceAll("-", " ")} chronology evidence` }],
     });
   }
 
