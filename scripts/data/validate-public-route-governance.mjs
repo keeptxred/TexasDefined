@@ -42,6 +42,23 @@ const sourceRouteEntries = [...sourceByFile.entries()].flatMap(([file, source]) 
   return entries;
 });
 
+const runtimeNormalizedRedirectLinks = [
+  {
+    legacyPath: '/explore/texas-camping-guide',
+    canonicalPath: '/best-places-to-go-camping-in-texas',
+    sourcePrefix: 'src/data/fixtures/texas-gateway-',
+    normalizerFile: 'src/data/fixtures/lazy-texas-gateway.ts',
+  },
+];
+const isVerifiedRuntimeNormalizedRedirectLink = (file, routePath) => {
+  const contract = runtimeNormalizedRedirectLinks.find((item) => item.legacyPath === routePath && file.startsWith(item.sourcePrefix));
+  if (!contract) return false;
+  const normalizer = sourceByFile.get(contract.normalizerFile) ?? '';
+  const doubleQuoted = `"${contract.legacyPath}": "${contract.canonicalPath}"`;
+  const singleQuoted = `'${contract.legacyPath}': '${contract.canonicalPath}'`;
+  return normalizer.includes(doubleQuoted) || normalizer.includes(singleQuoted);
+};
+
 const isVerifiedPermanentRedirectEntry = (entry) => shouldCountPublicRoute(entry.path)
   && /\bredirect\s*\(/.test(entry.source)
   && entry.source.includes('statusCode: 301');
@@ -88,7 +105,7 @@ for (const routePath of redirects) {
   if (!routeEntry.source.includes('statusCode: 301')) failures.push(`Redirect-only route must use permanent status 301: ${routePath} (${routeEntry.file}).`);
   for (const [file, source] of sourceByFile.entries()) {
     if (file === routeEntry.file) continue;
-    if (linkedRouteLiteral(source, routePath)) failures.push(`Normal site content links to redirect-only route ${routePath}: ${file}. Link directly to its canonical target instead.`);
+    if (linkedRouteLiteral(source, routePath) && !isVerifiedRuntimeNormalizedRedirectLink(file, routePath)) failures.push(`Normal site content links to redirect-only route ${routePath}: ${file}. Link directly to its canonical target instead.`);
   }
 }
 
@@ -128,4 +145,4 @@ for (const routePath of [...indexable, ...conditional]) {
   if (conditional.includes(routePath) && !/noindex/i.test(routeSource)) failures.push(`Conditional route does not expose an explicit noindex state: ${routePath} (${routeFile}).`);
 }
 if (failures.length) { console.error('Public-route governance validation failed:'); for (const failure of failures) console.error(`- ${failure}`); process.exit(1); }
-console.log(`Public-route governance passed for ${registeredStaticPublicPaths.size} static routes, ${indexable.length} always-indexable routes, ${conditional.length} conditional routes, and ${redirects.length} verified permanent redirect-only routes (${explicitRedirects.length} explicitly registered, ${derivedRedirects.length} source-derived before de-duplication); every permanent redirect is explicitly crawl-governed and normal site content does not link back into redirect-only URLs.`);
+console.log(`Public-route governance passed for ${registeredStaticPublicPaths.size} static routes, ${indexable.length} always-indexable routes, ${conditional.length} conditional routes, and ${redirects.length} verified permanent redirect-only routes (${explicitRedirects.length} explicitly registered, ${derivedRedirects.length} source-derived before de-duplication); every permanent redirect is explicitly crawl-governed and normal site content does not link back into redirect-only URLs unless an exact verified runtime normalizer maps the legacy source path to its canonical target.`);
