@@ -56,6 +56,7 @@ function renderBody(record: TexasKnowledgeRecord, format: TexasSocialFormat) {
 
 export function renderTexasSocialPost(record: TexasKnowledgeRecord, format: TexasSocialFormat): TexasSocialPost {
   if (!record.socialReady) throw new Error(`Knowledge record ${record.id} is not approved for social use.`);
+  if (record.verification === 'needs-review') throw new Error(`Knowledge record ${record.id} still needs review and cannot be rendered for social use.`);
   if (record.socialFormats?.length && !record.socialFormats.includes(format)) {
     throw new Error(`Social format ${format} is not approved for ${record.id}.`);
   }
@@ -75,7 +76,7 @@ export function renderAllApprovedSocialVariants(record: TexasKnowledgeRecord) {
 
 export function selectUnusedSocialRecords(records: TexasKnowledgeRecord[], limit = 10) {
   return records
-    .filter((record) => record.socialReady)
+    .filter((record) => record.socialReady && record.verification !== 'needs-review')
     .sort((a, b) => {
       const uses = (a.usage?.timesUsed ?? 0) - (b.usage?.timesUsed ?? 0);
       if (uses !== 0) return uses;
