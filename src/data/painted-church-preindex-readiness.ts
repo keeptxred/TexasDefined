@@ -4,6 +4,7 @@ import { canonicalPaintedChurchFeaturesBySlug } from "./painted-church-feature-i
 import { canonicalPaintedChurchGalleryBySlug } from "./painted-church-gallery-index";
 import { paintedChurchMapPointBySlug } from "./painted-church-map-points";
 import { canonicalPaintedChurchProfileBySlug } from "./painted-church-profile-index";
+import { paintedChurchPreservationEventsBySlug } from "./painted-church-preservation-chronology";
 import { canonicalPaintedChurchResearchBySlug } from "./painted-church-research-index";
 import { paintedChurchSourcesForChurch } from "./painted-church-source-registry";
 import { paintedChurchSymbols } from "./painted-church-symbols";
@@ -35,6 +36,7 @@ export const paintedChurchReadiness: PaintedChurchReadinessRecord[] = expandedPa
   const mapPoint = paintedChurchMapPointBySlug.get(church.slug);
   const visitor = paintedChurchVisitorStatusBySlug.get(church.slug);
   const features = canonicalPaintedChurchFeaturesBySlug(church.slug);
+  const preservationEvents = paintedChurchPreservationEventsBySlug.get(church.slug) ?? [];
   const contributors = canonicalPaintedChurchContributors.filter((item) => item.churchSlugs.includes(church.slug));
   const symbols = paintedChurchSymbols.filter((item) => item.churchSlugs.includes(church.slug));
   const sources = paintedChurchSourcesForChurch(church.slug);
@@ -57,6 +59,7 @@ export const paintedChurchReadiness: PaintedChurchReadinessRecord[] = expandedPa
     { id: "techniques", label: "Documented decorative technique", complete: church.techniques.length > 0, requiredForIndexLaunch: false, detail: church.techniques.length ? church.techniques.join(", ") : "Technique attribution remains unresolved." },
     { id: "symbols", label: "Documented iconography", complete: symbols.length > 0, requiredForIndexLaunch: false, detail: `${symbols.length} symbol relationship${symbols.length === 1 ? "" : "s"}.` },
     { id: "integrity", label: "Interior integrity resolved", complete: church.interiorIntegrity !== "uncertain", requiredForIndexLaunch: false, detail: church.interiorIntegrity.replaceAll("-", " ") },
+    { id: "preservation-chronology", label: "Church-specific preservation chronology", complete: preservationEvents.length > 0, requiredForIndexLaunch: false, detail: preservationEvents.length ? `${preservationEvents.length} sourced intervention/disaster/restoration event${preservationEvents.length === 1 ? "" : "s"}.` : "No sourced preservation intervention chronology yet; this does not imply no alterations occurred." },
     { id: "fieldwork", label: "Original Texas Defined fieldwork", complete: false, requiredForIndexLaunch: false, detail: "Reserved for a future documented Texas Defined visit/interview/photo survey. Never auto-completed from secondary research." },
   ];
   const required = dimensions.filter((item) => item.requiredForIndexLaunch);
