@@ -1,0 +1,130 @@
+name: Certify Hartley County once
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/certify-hartley-county-once.yml'
+
+permissions:
+  contents: read
+  statuses: write
+
+concurrency:
+  group: certify-hartley-county-once
+  cancel-in-progress: false
+
+jobs:
+  certify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    environment: texasdefined-publication
+    env:
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      GH_TOKEN: ${{ github.token }}
+      HERO_URL: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Hartley_County_Courthouse_%28Built_1906%29_Channing%2C_Texas.jpg?width=1600'
+      COUNTY_URL: 'https://texasdefined.com/county/hartley'
+      LEGACY_URL: 'https://texasdefined.com/article/hartley-county-channing-xit-ranch-high-plains-texas'
+    steps:
+      - name: Publish certification pending
+        shell: bash
+        run: |
+          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
+            --data '{"state":"pending","context":"hartley-county-certification","description":"Validating and certifying Hartley County"}' >/dev/null
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Verify county source and canonical-host gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f src/data/fixtures/hartley-county-channing-xit-ranch-high-plains-texas.ts
+          grep -Fq 'countySlug: "hartley"' src/data/county-series-profiles-panhandle.ts
+          grep -Fq 'Hartley County: Channing, XIT Ranch Country and the Northwest Panhandle' src/data/fixtures/hartley-county-channing-xit-ranch-high-plains-texas.ts
+          if grep -R -n 'www\.texasdefined\.com' src/data/fixtures/hartley-county-channing-xit-ranch-high-plains-texas.ts src/data/county-series-profiles-panhandle.ts; then
+            echo 'Noncanonical www TexasDefined URL found in Hartley changes' >&2
+            exit 1
+          fi
+      - name: Verify Hartley hero source
+        shell: bash
+        run: |
+          set -euo pipefail
+          tmp="$(mktemp)"
+          headers="$(mktemp)"
+          trap 'rm -f "$tmp" "$headers"' EXIT
+          ok=0
+          for attempt in 1 2 3 4 5 6; do
+            : > "$headers"
+            if curl --fail-with-body --silent --show-error --location --retry 2 --retry-all-errors --max-time 45 \
+              -A 'TexasDefined county certification/1.0 (+https://texasdefined.com)' \
+              -D "$headers" "$HERO_URL" -o "$tmp"; then
+              ctype="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/ {gsub("\r",""); value=$0} END{sub(/^[^:]+:[[:space:]]*/,"",value); print value}' "$headers")"
+              case "$ctype" in
+                image/jpeg*|image/png*|image/webp*) ok=1; break ;;
+              esac
+            fi
+            sleep 4
+          done
+          test "$ok" = 1
+          test "$(wc -c < "$tmp")" -gt 50000
+          echo "Hartley hero verified: $ctype, $(wc -c < "$tmp") bytes"
+      - name: Run normal repository validation
+        run: npm run validate
+      - name: Deploy with current Wrangler path
+        run: npm run deploy
+      - name: Verify live Hartley county page
+        shell: bash
+        run: |
+          set -euo pipefail
+          page="$(mktemp)"
+          trap 'rm -f "$page"' EXIT
+          ok=0
+          for attempt in 1 2 3 4 5 6; do
+            code="$(curl --silent --show-error --location --max-time 35 -o "$page" -w '%{http_code}' "${COUNTY_URL}?verify=${GITHUB_SHA}-${GITHUB_RUN_ID}-${attempt}" || true)"
+            if [ "$code" = 200 ] \
+              && grep -Fq 'Hartley County: Channing, XIT Ranch Country and the Northwest Panhandle' "$page" \
+              && grep -Fq 'County property-tax resources' "$page" \
+              && grep -Fq 'The county in numbers' "$page" \
+              && grep -Fq 'https://texasdefined.com/county/hartley' "$page"; then
+              ok=1
+              break
+            fi
+            sleep 5
+          done
+          test "$ok" = 1
+          echo 'Hartley live county page contains structured and editorial layers.'
+      - name: Verify legacy county-series redirect
+        shell: bash
+        run: |
+          set -euo pipefail
+          headers="$(mktemp)"
+          trap 'rm -f "$headers"' EXIT
+          code="$(curl --silent --show-error --max-time 30 --output /dev/null --dump-header "$headers" --write-out '%{http_code}' "$LEGACY_URL")"
+          test "$code" = 301
+          location="$(awk 'BEGIN{IGNORECASE=1} /^location:/ {gsub("\r",""); sub(/^[^:]+:[[:space:]]*/,""); print; exit}' "$headers")"
+          case "$location" in
+            https://texasdefined.com/county/hartley*|/county/hartley*) ;;
+            *) echo "Unexpected redirect: $location" >&2; exit 1 ;;
+          esac
+          echo "Legacy redirect verified: $code -> $location"
+      - name: Publish certification success
+        if: success()
+        shell: bash
+        run: |
+          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
+            --data '{"state":"success","context":"hartley-county-certification","description":"Hartley county validation, deploy and live checks passed"}' >/dev/null
+      - name: Publish certification failure
+        if: failure()
+        shell: bash
+        run: |
+          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
+            --data '{"state":"failure","context":"hartley-county-certification","description":"Hartley county certification failed"}' >/dev/null
