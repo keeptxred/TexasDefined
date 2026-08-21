@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 2,
-  "asOf": "2026-08-20",
+  "schemaVersion": 3,
+  "asOf": "2026-08-21",
   "verifiedChurchCount": 33,
   "publicationState": "pre-index-review",
   "requirements": {
@@ -14,6 +14,7 @@
     "rightsClearedCurrentPhotography": true,
     "sourceRegistryCoverage": true,
     "classificationAndIntegrity": true,
+    "preservationChronologyTracked": true,
     "searchIndexingEnabled": false
   },
   "churchSlugs": [
