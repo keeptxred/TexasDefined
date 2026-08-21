@@ -64,6 +64,7 @@ jobs:
           fetch_assert lighthouse-hub '/explore/lighthouses' 'Texas Lighthouses'
           fetch_assert lighthouse-visitability '/explore/lighthouses' 'Visitability at a glance'
           fetch_assert lighthouse-faq '/explore/lighthouses' 'Which Texas lighthouse can you climb?'
+          fetch_assert explore-home-discovery '/explore' 'Texas lighthouses'
           fetch_assert beaches-discovery '/explore/beaches-coast' 'Texas lighthouses'
           fetch_assert historic-discovery '/explore/historic-sites' 'Texas lighthouses'
           fetch_assert roadtrip-discovery '/explore/road-trips' 'Texas lighthouse trail'
