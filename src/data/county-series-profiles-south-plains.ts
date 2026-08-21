@@ -25,4 +25,10 @@ export const COUNTY_SERIES_PROFILES_SOUTH_PLAINS: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/lynn-county-tahoka-cotton-tahoka-lake-south-plains-texas")
       .then((module) => module.lynnCountyTahokaCottonTahokaLakeSouthPlainsTexasArticle),
   },
+  {
+    countySlug: "lubbock",
+    articleSlug: "lubbock-county-hub-city-cotton-texas-tech-south-plains-texas",
+    loadArticle: () => import("@/data/fixtures/lubbock-county-hub-city-cotton-texas-tech-south-plains-texas")
+      .then((module) => module.lubbockCountyHubCityCottonTexasTechSouthPlainsTexasArticle),
+  },
 ];
