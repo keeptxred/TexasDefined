@@ -127,4 +127,10 @@ export const COUNTY_SERIES_PROFILES_SOUTH_PLAINS: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/sterling-county-sterling-city-north-concho-ranching-oil-west-texas")
       .then((module) => module.sterlingCountySterlingCityNorthConchoRanchingOilWestTexasArticle),
   },
+  {
+    countySlug: "reagan",
+    articleSlug: "reagan-county-big-lake-santa-rita-oil-stiles-west-texas",
+    loadArticle: () => import("@/data/fixtures/reagan-county-big-lake-santa-rita-oil-stiles-west-texas")
+      .then((module) => module.reaganCountyBigLakeSantaRitaOilStilesWestTexasArticle),
+  },
 ];
