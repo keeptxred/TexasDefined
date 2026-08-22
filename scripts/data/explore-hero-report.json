@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-08-07T17:41:50.236Z",
-  "totalDestinations": 63,
+  "generatedAt": "2026-08-22T16:49:45.537Z",
+  "totalDestinations": 49,
   "byCategory": {
     "beaches-coast": {
       "total": 4,
@@ -17,12 +17,11 @@
       "unresolved": 0
     },
     "historic-sites": {
-      "total": 30,
+      "total": 16,
       "retained": 0,
-      "downloaded": 29,
+      "downloaded": 16,
       "aiGenerated": 0,
-      "unresolved": 0,
-      "generatedRepresentative": 1
+      "unresolved": 0
     },
     "lakes-rivers": {
       "total": 13,
@@ -34,10 +33,9 @@
     "major-springs": {
       "total": 8,
       "retained": 0,
-      "downloaded": 8,
-      "aiGenerated": 0,
-      "unresolved": 0,
-      "generatedRepresentative": 0
+      "downloaded": 7,
+      "aiGenerated": 1,
+      "unresolved": 0
     },
     "national-parks": {
       "total": 3,
@@ -99,22 +97,10 @@
       "sourceTitle": "File:Lake Meredith National Recreation Area, Alibates Flint Quarries National Monument, Texas LOC 2003682905.jpg"
     },
     {
-      "slug": "barrington-farm-site",
-      "name": "Barrington Farm Site",
-      "category": "historic-sites",
-      "sourceTitle": "File:Barrington Farm, residence of Dr. Anson Jones.jpg"
-    },
-    {
       "slug": "battleship-texas",
       "name": "Battleship Texas",
       "category": "historic-sites",
       "sourceTitle": "File:Battleship Texas.jpg"
-    },
-    {
-      "slug": "battleship-texas-state-historic-site",
-      "name": "Battleship Texas State Historic Site",
-      "category": "historic-sites",
-      "sourceTitle": "File:Battleship Texas, Laporte, Texas 1212201548 (8308971646).jpg"
     },
     {
       "slug": "chamizal-national-memorial",
@@ -123,22 +109,10 @@
       "sourceTitle": "File:Chamizal National Memorial.jpg"
     },
     {
-      "slug": "fanthorp-inn-state-historic-site",
-      "name": "Fanthorp Inn State Historic Site",
-      "category": "historic-sites",
-      "sourceTitle": "File:Fanthorp inn texas 2008.jpg"
-    },
-    {
       "slug": "fort-davis-national-historic-site",
       "name": "Fort Davis National Historic Site",
       "category": "historic-sites",
-      "sourceTitle": "File:Fort Davis National Historic Site FODA1578.jpg"
-    },
-    {
-      "slug": "fort-leaton-state-historic-site",
-      "name": "Fort Leaton State Historic Site",
-      "category": "historic-sites",
-      "sourceTitle": "File:A portion of Fort Leaton, a Texas State Historic Site, on the edge of Presidio, along the Rio Grande River in Brewster County, Texas LCCN2014630294.jpg"
+      "sourceTitle": "File:Fort Davis National Historic Site FODA1577.jpg"
     },
     {
       "slug": "goliad-state-park",
@@ -147,22 +121,10 @@
       "sourceTitle": "File:Goliad State Park & Historic Site, San Antonio River Trail, Texas.jpg"
     },
     {
-      "slug": "goliad-state-park-state-historic-site",
-      "name": "Goliad State Park/State Historic Site",
-      "category": "historic-sites",
-      "sourceTitle": "File:Goliad sp entrance portal.jpg"
-    },
-    {
       "slug": "hueco-tanks-state-park",
       "name": "Hueco Tanks State Park & Historic Site",
       "category": "historic-sites",
       "sourceTitle": "File:Hueco-tanks-east-mtn-tx1.jpg"
-    },
-    {
-      "slug": "hueco-tanks-state-park-state-historic-site",
-      "name": "Hueco Tanks State Park/State Historic Site",
-      "category": "historic-sites",
-      "sourceTitle": "File:Metates and White Horned Dancer, Hueco Tanks.jpg"
     },
     {
       "slug": "lyndon-b-johnson-national-historical-park",
@@ -177,22 +139,10 @@
       "sourceTitle": "File:Texas longhorn.jpg"
     },
     {
-      "slug": "lyndon-b-johnson-state-park-state-historic-site",
-      "name": "Lyndon B. Johnson State Park/State Historic Site",
-      "category": "historic-sites",
-      "sourceTitle": "File:Lyndon B. Johnson State Park and Historic Site July 2017.jpg"
-    },
-    {
       "slug": "mission-tejas-state-park",
       "name": "Mission Tejas State Park",
       "category": "historic-sites",
       "sourceTitle": "File:Headquarters Mission Tejas State Park 2026.jpg"
-    },
-    {
-      "slug": "monument-hill-kreische-brewery-state-historic-site",
-      "name": "Monument Hill - Kreische Brewery State Historic Site",
-      "category": "historic-sites",
-      "sourceTitle": "File:Monument Hill SHS Crypt.jpg"
     },
     {
       "slug": "san-antonio-missions-national-historical-park",
@@ -201,22 +151,10 @@
       "sourceTitle": "File:San Antonio Missions National Historical Park (22074001589).jpg"
     },
     {
-      "slug": "san-jacinto-battleground-state-historic-site",
-      "name": "San Jacinto Battleground State Historic Site",
-      "category": "historic-sites",
-      "sourceTitle": "File:USA - Texas - San Jacinto Battleground State Historic Site.jpg"
-    },
-    {
       "slug": "san-jacinto-battleground",
       "name": "San Jacinto Battleground State Historic Site",
       "category": "historic-sites",
-      "sourceTitle": "File:USA - Texas - San Jacinto Battleground State Historic Site - 52518998447.jpg"
-    },
-    {
-      "slug": "san-jacinto-monument-state-historic-site",
-      "name": "San Jacinto Monument State Historic Site",
-      "category": "historic-sites",
-      "sourceTitle": "File:San Jacinto Monument March 2022 4.jpg"
+      "sourceTitle": "File:USA - Texas - San Jacinto Battleground State Historic Site.jpg"
     },
     {
       "slug": "seminole-canyon-state-park",
@@ -225,22 +163,16 @@
       "sourceTitle": "File:Seminole Canyon State Park & Historic Site.JPG"
     },
     {
-      "slug": "seminole-canyon-state-park-state-historic-site",
-      "name": "Seminole Canyon State Park/State Historic Site",
-      "category": "historic-sites",
-      "sourceTitle": "File:Seminole Canyon Park5.JPG"
-    },
-    {
       "slug": "texas-state-capitol",
       "name": "Texas State Capitol",
       "category": "historic-sites",
-      "sourceTitle": "File:Texas State Capitol, Austin 12.JPG"
+      "sourceTitle": "File:Texas State Capitol, Austin, Texas - Explore - Flickr - TexasExplorer98.jpg"
     },
     {
       "slug": "the-alamo",
       "name": "The Alamo",
       "category": "historic-sites",
-      "sourceTitle": "File:The Alamo with Crockett Hotel (4762812215).jpg"
+      "sourceTitle": "File:The Alamo (4763445690).jpg"
     },
     {
       "slug": "waco-mammoth-national-monument",
@@ -249,16 +181,10 @@
       "sourceTitle": "File:Camelops hesternus in Waco Mammoth National Monument.jpg"
     },
     {
-      "slug": "washington-on-the-brazos-state-historic-site",
-      "name": "Washington-on-the-Brazos State Historic Site",
-      "category": "historic-sites",
-      "sourceTitle": "File:Washington-on-the-Brazos State Historic Site, Washington County, Texas, USA (30 March 2012).jpg"
-    },
-    {
       "slug": "washington-on-the-brazos",
       "name": "Washington-on-the-Brazos State Historic Site",
       "category": "historic-sites",
-      "sourceTitle": "File:Brazos River at Washington on the Brazos.jpg"
+      "sourceTitle": "File:Washington-on-the-Brazos State Historic Site, Washington County, Texas, USA (30 March 2012).jpg"
     },
     {
       "slug": "amistad-national-recreation-area",
@@ -270,7 +196,7 @@
       "slug": "blanco-state-park",
       "name": "Blanco State Park",
       "category": "lakes-rivers",
-      "sourceTitle": "File:Blanco State Park 1.jpg"
+      "sourceTitle": "File:Blanco State Park 2.jpg"
     },
     {
       "slug": "devils-river-state-natural-area",
@@ -336,7 +262,7 @@
       "slug": "village-creek-state-park",
       "name": "Village Creek State Park",
       "category": "lakes-rivers",
-      "sourceTitle": "File:Village Creek State Park Wynne AR 02.jpg"
+      "sourceTitle": "File:Village Creek State Park Wynne AR 07.jpg"
     },
     {
       "slug": "balmorhea-state-park",
@@ -378,13 +304,13 @@
       "slug": "san-marcos-springs-spring-lake",
       "name": "San Marcos Springs at Spring Lake",
       "category": "major-springs",
-      "sourceTitle": "File:Johnston et al. Reconnoissances (sic.) of Routes from San Antonio de Bexar to El Paso del Norte 1849 (1850) UTA.jpg"
+      "sourceTitle": "File:San Marcos Pass.jpg"
     },
     {
       "slug": "big-bend-national-park",
       "name": "Big Bend National Park",
       "category": "national-parks",
-      "sourceTitle": "File:Streptanthus cutleri. Big Bend National Park, Tunnel. February 2005 (09AFF0B980EF439F9B6CA75CA7C28CD5).JPG"
+      "sourceTitle": "File:Streptanthus cutleri. Big Bend National Park, Tunnel. February 2004 (1068BFA04B4E4CE4959D94834722071B).JPG"
     },
     {
       "slug": "guadalupe-mountains-national-park",
@@ -396,7 +322,7 @@
       "slug": "padre-island-national-seashore",
       "name": "Padre Island National Seashore",
       "category": "national-parks",
-      "sourceTitle": "File:Padre Island National Seashore, Kleberg County, Texas, USA (26 November 2011).jpg"
+      "sourceTitle": "File:Padre Island National Seashore, beach, Kleberg Co, TX; 1 Nov 2022.jpg"
     },
     {
       "slug": "bentsen-rio-grande-valley-state-park",
@@ -417,42 +343,14 @@
       "sourceTitle": "File:Tower Sheldon Lake SP Harris Co Texas 2024.jpg"
     }
   ],
-  "aiGenerated": [],
-  "unresolved": [],
-  "rejectedDuplicateExisting": [],
-  "aiAvailable": false,
-  "repairedAt": "2026-08-08T14:24:06.733Z",
-  "repairedFree": [
-    {
-      "slug": "fort-richardson-state-park-state-historic-site",
-      "name": "Fort Richardson State Park/State Historic Site",
-      "category": "historic-sites",
-      "sourceTitle": "File:0011Fort Richardson Officers Quarters Jacksboro Texas.jpg"
-    },
+  "aiGenerated": [
     {
       "slug": "hancock-springs-park",
       "name": "Hancock Springs Park",
-      "category": "major-springs",
-      "sourceTitle": "File:Hancock Park Pool Lampasas Texas.jpg"
-    },
-    {
-      "slug": "village-creek-state-park",
-      "name": "Village Creek State Park",
-      "category": "lakes-rivers",
-      "sourceTitle": "File:Cane Slough Village Creek State Park Texas 2023.jpg"
+      "category": "major-springs"
     }
   ],
-  "generatedRepresentative": [
-    {
-      "slug": "lipantitlan-state-historic-site",
-      "name": "Lipantitlan State Historic Site",
-      "category": "historic-sites"
-    }
-  ],
-  "validation": {
-    "reconciledHeroEntries": 63,
-    "uniqueHeroSources": 63,
-    "unresolved": 0,
-    "wrongStateVillageCreekCorrected": true
-  }
+  "unresolved": [],
+  "rejectedDuplicateExisting": [],
+  "aiAvailable": true
 }
