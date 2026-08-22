@@ -94,7 +94,7 @@ export const COUNTY_SERIES_PROFILES_CONTINUED: CountySeriesProfile[] = [
   {
     countySlug: "sabine",
     articleSlug: "sabine-county-hemphill-toledo-bend-sabine-river-piney-woods-texas",
-    loadArticle: () => import("@/data/fixtures/sabine-county-hemphill-toledo-bend-sabine-river-piney-woods-texas")
+    loadArticle: () => import("@/data/fixtures/chat-article-hero-overrides")
       .then((module) => module.sabineCountyHemphillToledoBendSabineRiverPineyWoodsArticle),
   },
   {
