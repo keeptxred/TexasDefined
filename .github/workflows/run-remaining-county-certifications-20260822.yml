@@ -17,27 +17,12 @@ concurrency:
 
 jobs:
   certify:
-    if: github.event.pull_request.head.ref == 'run/county-certifications-20260822'
+    if: false
     strategy:
-      fail-fast: false
+      fail-fast: true
       max-parallel: 1
       matrix:
-        county:
-          - crosby
-          - gaines
-          - howard
-          - hutchinson
-          - morris
-          - nolan
-          - rockwall
-          - scurry
-          - wise
-          - wood
-          - borden
-          - garza
-          - delta
-          - parmer
-          - dawson
+        county: [crosby]
     uses: ./.github/workflows/certify-county-production-reusable.yml
     with:
       county: ${{ matrix.county }}
