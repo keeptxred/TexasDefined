@@ -35,7 +35,8 @@ jobs:
     environment: texasdefined-publication
     env:
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_DEPLOY_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_DEPLOY_TOKEN_PRESENT: ${{ secrets.CLOUDFLARE_DEPLOY_API_TOKEN != '' }}
       GH_TOKEN: ${{ github.token }}
 
     steps:
@@ -54,6 +55,15 @@ jobs:
       - name: Install dependencies
         id: install
         run: npm ci --no-audit --no-fund
+
+      - name: Report Cloudflare deployment credential source
+        shell: bash
+        run: |
+          if [[ "$CLOUDFLARE_DEPLOY_TOKEN_PRESENT" == 'true' ]]; then
+            echo 'Production deployment will use CLOUDFLARE_DEPLOY_API_TOKEN.'
+          else
+            echo '::warning title=Dedicated Cloudflare deploy token unavailable::Production deployment is falling back to CLOUDFLARE_API_TOKEN. If that token lacks Workers Scripts write access, deployment will fail closed.'
+          fi
 
       - name: Publish validation pending
         if: success()
