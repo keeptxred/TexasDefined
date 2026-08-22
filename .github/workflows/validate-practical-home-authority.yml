@@ -1,4 +1,4 @@
-name: Validate practical Texas home authority
+name: Validate practical Texas authority
 
 on:
   pull_request:
@@ -7,6 +7,8 @@ on:
       - "src/data/fixtures/prepare-texas-house-freeze.ts"
       - "src/data/fixtures/texas-foundation-care-clay-drought.ts"
       - "src/data/fixtures/texas-roofs-hail-wind-heat.ts"
+      - "src/data/fixtures/choose-electricity-plan-texas.ts"
+      - "src/data/fixtures/texas-school-districts-explained.ts"
       - "scripts/data/validate-practical-home-authority.mjs"
       - ".github/workflows/validate-practical-home-authority.yml"
   push:
@@ -16,6 +18,8 @@ on:
       - "src/data/fixtures/prepare-texas-house-freeze.ts"
       - "src/data/fixtures/texas-foundation-care-clay-drought.ts"
       - "src/data/fixtures/texas-roofs-hail-wind-heat.ts"
+      - "src/data/fixtures/choose-electricity-plan-texas.ts"
+      - "src/data/fixtures/texas-school-districts-explained.ts"
       - "scripts/data/validate-practical-home-authority.mjs"
       - ".github/workflows/validate-practical-home-authority.yml"
   workflow_dispatch:
@@ -24,7 +28,7 @@ permissions:
   contents: read
 
 jobs:
-  practical-home-authority:
+  practical-authority:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -32,5 +36,5 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Protect practical home authority depth
+      - name: Protect practical Texas authority depth
         run: node scripts/data/validate-practical-home-authority.mjs
