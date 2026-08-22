@@ -133,4 +133,10 @@ export const COUNTY_SERIES_PROFILES_SOUTH_PLAINS: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/reagan-county-big-lake-santa-rita-oil-stiles-west-texas")
       .then((module) => module.reaganCountyBigLakeSantaRitaOilStilesWestTexasArticle),
   },
+  {
+    countySlug: "upton",
+    articleSlug: "upton-county-rankin-mccamey-oil-ranching-permian-basin-texas",
+    loadArticle: () => import("@/data/fixtures/upton-county-rankin-mccamey-oil-ranching-permian-basin-texas")
+      .then((module) => module.uptonCountyRankinMcCameyOilRanchingPermianBasinTexasArticle),
+  },
 ];
