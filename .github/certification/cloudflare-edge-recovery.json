@@ -1,0 +1,1291 @@
+{
+  "recorded_at_utc": "2026-08-22T15:10:29.825570+00:00",
+  "security_secret_available": false,
+  "same_name_actions_variable_present": false,
+  "general_cloudflare_token_available": true,
+  "deploy_cloudflare_token_available": false,
+  "account_id_secret_available": true,
+  "security_diagnostic_complete": true,
+  "changed": false,
+  "diagnostic_token_attempts": [
+    {
+      "source": "dedicated_security_secret",
+      "available": false
+    },
+    {
+      "source": "general_cloudflare_api_secret_readonly",
+      "available": true,
+      "http": "200",
+      "success": true,
+      "errors": []
+    }
+  ],
+  "diagnostic_token_source": "general_cloudflare_api_secret_readonly",
+  "zone_id": "c251a715a3be875ac70a397d77efef22",
+  "security_level": {
+    "http": "200",
+    "curl_exit": 0,
+    "stderr": "",
+    "body": {
+      "result": {
+        "id": "security_level",
+        "value": "medium",
+        "modified_on": null,
+        "editable": true
+      },
+      "success": true,
+      "errors": [],
+      "messages": []
+    }
+  },
+  "browser_integrity_check": {
+    "http": "200",
+    "curl_exit": 0,
+    "stderr": "",
+    "body": {
+      "result": {
+        "id": "browser_check",
+        "value": "on",
+        "modified_on": null,
+        "editable": true
+      },
+      "success": true,
+      "errors": [],
+      "messages": []
+    }
+  },
+  "bot_management": {
+    "http": "200",
+    "curl_exit": 0,
+    "stderr": "",
+    "body": {
+      "result": {
+        "enable_js": true,
+        "fight_mode": false,
+        "ai_bots_protection": "disabled",
+        "content_bots_protection": "disabled",
+        "crawler_protection": "disabled",
+        "ai_training": "disabled",
+        "ai_search": "disabled",
+        "ai_user": "disabled",
+        "is_robots_txt_managed": true,
+        "cf_robots_variant": "off",
+        "ai_bots_migration_opt_out": false,
+        "using_latest_model": true
+      },
+      "success": true,
+      "errors": [],
+      "messages": []
+    }
+  },
+  "custom_firewall_entrypoint": {
+    "http": "404",
+    "curl_exit": 0,
+    "stderr": "",
+    "body": {
+      "result": null,
+      "success": false,
+      "errors": [
+        {
+          "code": 10003,
+          "message": "could not find entrypoint ruleset in the http_request_firewall_custom phase"
+        }
+      ],
+      "messages": []
+    }
+  },
+  "config_settings_entrypoint": {
+    "http": "403",
+    "curl_exit": 0,
+    "stderr": "",
+    "body": {
+      "result": null,
+      "success": false,
+      "errors": [
+        {
+          "message": "request is not authorized"
+        }
+      ],
+      "messages": []
+    }
+  },
+  "security_level_value": "medium",
+  "security_events": {
+    "http": "200",
+    "curl_exit": 0,
+    "stderr": "",
+    "body": {
+      "data": {
+        "viewer": {
+          "zones": [
+            {
+              "firewallEventsAdaptive": [
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/sitemap.xml",
+                  "datetime": "2026-08-22T15:05:22Z",
+                  "description": "",
+                  "rayName": "a2f2c67cdf16ffb9",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/140 Safari/537.36 TexasDefinedVerifier/1.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/",
+                  "datetime": "2026-08-22T15:05:22Z",
+                  "description": "",
+                  "rayName": "a2f2c67c9df3d6d8",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/140 Safari/537.36 TexasDefinedVerifier/1.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/texas-symbols",
+                  "datetime": "2026-08-22T15:05:22Z",
+                  "description": "",
+                  "rayName": "a2f2c67d4ed62979",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/140 Safari/537.36 TexasDefinedVerifier/1.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/article/fall-in-texas-complete-guide",
+                  "datetime": "2026-08-22T15:05:22Z",
+                  "description": "",
+                  "rayName": "a2f2c67e4b70d6f7",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/140 Safari/537.36 TexasDefinedVerifier/1.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/texas-history",
+                  "datetime": "2026-08-22T15:05:22Z",
+                  "description": "",
+                  "rayName": "a2f2c67d8f4a4b20",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/140 Safari/537.36 TexasDefinedVerifier/1.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/article/christmas-in-texas-complete-guide",
+                  "datetime": "2026-08-22T15:05:22Z",
+                  "description": "",
+                  "rayName": "a2f2c67e0a161fd3",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/140 Safari/537.36 TexasDefinedVerifier/1.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/article/history-of-the-texas-flag",
+                  "datetime": "2026-08-22T15:05:22Z",
+                  "description": "",
+                  "rayName": "a2f2c67d0c7cca2b",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/140 Safari/537.36 TexasDefinedVerifier/1.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/article/texas-bluebonnets-complete-guide",
+                  "datetime": "2026-08-22T15:05:22Z",
+                  "description": "",
+                  "rayName": "a2f2c67db9a9cce6",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/140 Safari/537.36 TexasDefinedVerifier/1.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/article/history-of-the-texas-flag",
+                  "datetime": "2026-08-22T14:58:14Z",
+                  "description": "",
+                  "rayName": "a2f2bc07397ae60d",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/140 Safari/537.36 TexasDefinedVerifier/1.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/article/texas-bluebonnets-complete-guide",
+                  "datetime": "2026-08-22T14:58:14Z",
+                  "description": "",
+                  "rayName": "a2f2bc08095ab9e3",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/140 Safari/537.36 TexasDefinedVerifier/1.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/article/christmas-in-texas-complete-guide",
+                  "datetime": "2026-08-22T14:58:14Z",
+                  "description": "",
+                  "rayName": "a2f2bc08590e7afc",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/140 Safari/537.36 TexasDefinedVerifier/1.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/sitemap.xml",
+                  "datetime": "2026-08-22T14:58:14Z",
+                  "description": "",
+                  "rayName": "a2f2bc06fb232060",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/140 Safari/537.36 TexasDefinedVerifier/1.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/",
+                  "datetime": "2026-08-22T14:58:14Z",
+                  "description": "",
+                  "rayName": "a2f2bc06ac0dc97d",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/140 Safari/537.36 TexasDefinedVerifier/1.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/texas-symbols",
+                  "datetime": "2026-08-22T14:58:14Z",
+                  "description": "",
+                  "rayName": "a2f2bc078f083020",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/140 Safari/537.36 TexasDefinedVerifier/1.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/article/fall-in-texas-complete-guide",
+                  "datetime": "2026-08-22T14:58:14Z",
+                  "description": "",
+                  "rayName": "a2f2bc089d78d63d",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/140 Safari/537.36 TexasDefinedVerifier/1.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/texas-history",
+                  "datetime": "2026-08-22T14:58:14Z",
+                  "description": "",
+                  "rayName": "a2f2bc07cefc55c5",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/140 Safari/537.36 TexasDefinedVerifier/1.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/article/history-of-the-texas-flag",
+                  "datetime": "2026-08-22T14:50:37Z",
+                  "description": "",
+                  "rayName": "a2f2b0dfaa202734",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/140 Safari/537.36 TexasDefinedVerifier/1.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/sitemap.xml",
+                  "datetime": "2026-08-22T14:50:37Z",
+                  "description": "",
+                  "rayName": "a2f2b0df7f61eb28",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/140 Safari/537.36 TexasDefinedVerifier/1.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/",
+                  "datetime": "2026-08-22T14:50:37Z",
+                  "description": "",
+                  "rayName": "a2f2b0df3ade8fc5",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/140 Safari/537.36 TexasDefinedVerifier/1.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/article/fall-in-texas-complete-guide",
+                  "datetime": "2026-08-22T14:50:37Z",
+                  "description": "",
+                  "rayName": "a2f2b0e0ce635476",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/140 Safari/537.36 TexasDefinedVerifier/1.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/article/texas-bluebonnets-complete-guide",
+                  "datetime": "2026-08-22T14:50:37Z",
+                  "description": "",
+                  "rayName": "a2f2b0e058fa3117",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/140 Safari/537.36 TexasDefinedVerifier/1.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/article/christmas-in-texas-complete-guide",
+                  "datetime": "2026-08-22T14:50:37Z",
+                  "description": "",
+                  "rayName": "a2f2b0e09bb4405d",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/140 Safari/537.36 TexasDefinedVerifier/1.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/texas-history",
+                  "datetime": "2026-08-22T14:50:37Z",
+                  "description": "",
+                  "rayName": "a2f2b0e02dfd7e0e",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/140 Safari/537.36 TexasDefinedVerifier/1.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/texas-symbols",
+                  "datetime": "2026-08-22T14:50:37Z",
+                  "description": "",
+                  "rayName": "a2f2b0dfea45b1b4",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/140 Safari/537.36 TexasDefinedVerifier/1.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/zavala",
+                  "datetime": "2026-08-22T14:40:17Z",
+                  "description": "",
+                  "rayName": "a2f2a1baba36df26",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/zapata",
+                  "datetime": "2026-08-22T14:40:17Z",
+                  "description": "",
+                  "rayName": "a2f2a1ba7c647ac1",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/starr",
+                  "datetime": "2026-08-22T14:40:16Z",
+                  "description": "",
+                  "rayName": "a2f2a1b71fd22b29",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/washington",
+                  "datetime": "2026-08-22T14:40:16Z",
+                  "description": "",
+                  "rayName": "a2f2a1b8dc07f497",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/tarrant",
+                  "datetime": "2026-08-22T14:40:16Z",
+                  "description": "",
+                  "rayName": "a2f2a1b74b6e586f",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/san-saba",
+                  "datetime": "2026-08-22T14:40:16Z",
+                  "description": "",
+                  "rayName": "a2f2a1b69a94e612",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/willacy",
+                  "datetime": "2026-08-22T14:40:16Z",
+                  "description": "",
+                  "rayName": "a2f2a1b988f2e612",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/ward",
+                  "datetime": "2026-08-22T14:40:16Z",
+                  "description": "",
+                  "rayName": "a2f2a1b8af0e15c4",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/san-patricio",
+                  "datetime": "2026-08-22T14:40:16Z",
+                  "description": "",
+                  "rayName": "a2f2a1b66dda80fd",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/wharton",
+                  "datetime": "2026-08-22T14:40:16Z",
+                  "description": "",
+                  "rayName": "a2f2a1b95df4b231",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/webb",
+                  "datetime": "2026-08-22T14:40:16Z",
+                  "description": "",
+                  "rayName": "a2f2a1b91eb9ce44",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/reeves",
+                  "datetime": "2026-08-22T14:40:16Z",
+                  "description": "",
+                  "rayName": "a2f2a1b5f81d2af7",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/pecos",
+                  "datetime": "2026-08-22T14:40:16Z",
+                  "description": "",
+                  "rayName": "a2f2a1b50ac0cf2a",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/tom-green",
+                  "datetime": "2026-08-22T14:40:16Z",
+                  "description": "",
+                  "rayName": "a2f2a1b78e4e909c",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/williamson",
+                  "datetime": "2026-08-22T14:40:16Z",
+                  "description": "",
+                  "rayName": "a2f2a1b9c9ac5cfb",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/real",
+                  "datetime": "2026-08-22T14:40:16Z",
+                  "description": "",
+                  "rayName": "a2f2a1b5bc1bae00",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/nueces",
+                  "datetime": "2026-08-22T14:40:16Z",
+                  "description": "",
+                  "rayName": "a2f2a1b499077b82",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/somervell",
+                  "datetime": "2026-08-22T14:40:16Z",
+                  "description": "",
+                  "rayName": "a2f2a1b6dae9cf1a",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/montgomery",
+                  "datetime": "2026-08-22T14:40:16Z",
+                  "description": "",
+                  "rayName": "a2f2a1b45a4433fc",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/uvalde",
+                  "datetime": "2026-08-22T14:40:16Z",
+                  "description": "",
+                  "rayName": "a2f2a1b7fb746142",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/refugio",
+                  "datetime": "2026-08-22T14:40:16Z",
+                  "description": "",
+                  "rayName": "a2f2a1b62dc22271",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/victoria",
+                  "datetime": "2026-08-22T14:40:16Z",
+                  "description": "",
+                  "rayName": "a2f2a1b86db1eb30",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/presidio",
+                  "datetime": "2026-08-22T14:40:16Z",
+                  "description": "",
+                  "rayName": "a2f2a1b549a8cf27",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/wilson",
+                  "datetime": "2026-08-22T14:40:16Z",
+                  "description": "",
+                  "rayName": "a2f2a1ba0dfd3ad4",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/val-verde",
+                  "datetime": "2026-08-22T14:40:16Z",
+                  "description": "",
+                  "rayName": "a2f2a1b82a99b341",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/palo-pinto",
+                  "datetime": "2026-08-22T14:40:16Z",
+                  "description": "",
+                  "rayName": "a2f2a1b4ce0a7ac7",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/winkler",
+                  "datetime": "2026-08-22T14:40:16Z",
+                  "description": "",
+                  "rayName": "a2f2a1ba3c7acf2f",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/randall",
+                  "datetime": "2026-08-22T14:40:16Z",
+                  "description": "",
+                  "rayName": "a2f2a1b57f08fad2",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/mills",
+                  "datetime": "2026-08-22T14:40:16Z",
+                  "description": "",
+                  "rayName": "a2f2a1b419df38ce",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/travis",
+                  "datetime": "2026-08-22T14:40:16Z",
+                  "description": "",
+                  "rayName": "a2f2a1b7b9fd6ad1",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/midland",
+                  "datetime": "2026-08-22T14:40:15Z",
+                  "description": "",
+                  "rayName": "a2f2a1b3ed5015b0",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/kenedy",
+                  "datetime": "2026-08-22T14:40:15Z",
+                  "description": "",
+                  "rayName": "a2f2a1b04e014900",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/jeff-davis",
+                  "datetime": "2026-08-22T14:40:15Z",
+                  "description": "",
+                  "rayName": "a2f2a1af28aa909c",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/kerr",
+                  "datetime": "2026-08-22T14:40:15Z",
+                  "description": "",
+                  "rayName": "a2f2a1b08f97df0a",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/live-oak",
+                  "datetime": "2026-08-22T14:40:15Z",
+                  "description": "",
+                  "rayName": "a2f2a1b21de1ee17",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/kinney",
+                  "datetime": "2026-08-22T14:40:15Z",
+                  "description": "",
+                  "rayName": "a2f2a1b0bd5cc6c6",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/lampasas",
+                  "datetime": "2026-08-22T14:40:15Z",
+                  "description": "",
+                  "rayName": "a2f2a1b16b14ed3a",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/mclennan",
+                  "datetime": "2026-08-22T14:40:15Z",
+                  "description": "",
+                  "rayName": "a2f2a1b33d8915ba",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/hood",
+                  "datetime": "2026-08-22T14:40:15Z",
+                  "description": "",
+                  "rayName": "a2f2a1ae7bfb171e",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/mcmullen",
+                  "datetime": "2026-08-22T14:40:15Z",
+                  "description": "",
+                  "rayName": "a2f2a1b36bd515e1",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/jackson",
+                  "datetime": "2026-08-22T14:40:15Z",
+                  "description": "",
+                  "rayName": "a2f2a1aeebeefa2e",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/llano",
+                  "datetime": "2026-08-22T14:40:15Z",
+                  "description": "",
+                  "rayName": "a2f2a1b24e9867eb",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/kleberg",
+                  "datetime": "2026-08-22T14:40:15Z",
+                  "description": "",
+                  "rayName": "a2f2a1b0fc152157",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/lavaca",
+                  "datetime": "2026-08-22T14:40:15Z",
+                  "description": "",
+                  "rayName": "a2f2a1b1ae61cf2b",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/jim-wells",
+                  "datetime": "2026-08-22T14:40:15Z",
+                  "description": "",
+                  "rayName": "a2f2a1af9fb1e8d8",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/medina",
+                  "datetime": "2026-08-22T14:40:15Z",
+                  "description": "",
+                  "rayName": "a2f2a1b3a8e4e8d9",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/kendall",
+                  "datetime": "2026-08-22T14:40:15Z",
+                  "description": "",
+                  "rayName": "a2f2a1b00c300995",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/lee",
+                  "datetime": "2026-08-22T14:40:15Z",
+                  "description": "",
+                  "rayName": "a2f2a1b1dac0ebe4",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/hidalgo",
+                  "datetime": "2026-08-22T14:40:15Z",
+                  "description": "",
+                  "rayName": "a2f2a1ae3e13d3d7",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/la-salle",
+                  "datetime": "2026-08-22T14:40:15Z",
+                  "description": "",
+                  "rayName": "a2f2a1b139389447",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/hudspeth",
+                  "datetime": "2026-08-22T14:40:15Z",
+                  "description": "",
+                  "rayName": "a2f2a1aeaede34c3",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/maverick",
+                  "datetime": "2026-08-22T14:40:15Z",
+                  "description": "",
+                  "rayName": "a2f2a1b2fc43cf05",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/mason",
+                  "datetime": "2026-08-22T14:40:15Z",
+                  "description": "",
+                  "rayName": "a2f2a1b28dcd5024",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/karnes",
+                  "datetime": "2026-08-22T14:40:15Z",
+                  "description": "",
+                  "rayName": "a2f2a1afdb394f1c",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/matagorda",
+                  "datetime": "2026-08-22T14:40:15Z",
+                  "description": "",
+                  "rayName": "a2f2a1b2b971eb34",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/jim-hogg",
+                  "datetime": "2026-08-22T14:40:15Z",
+                  "description": "",
+                  "rayName": "a2f2a1af58a09338",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/hays",
+                  "datetime": "2026-08-22T14:40:15Z",
+                  "description": "",
+                  "rayName": "a2f2a1adfadecee9",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/edwards",
+                  "datetime": "2026-08-22T14:40:14Z",
+                  "description": "",
+                  "rayName": "a2f2a1aaff684900",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/hamilton",
+                  "datetime": "2026-08-22T14:40:14Z",
+                  "description": "",
+                  "rayName": "a2f2a1ad7f8af897",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/guadalupe",
+                  "datetime": "2026-08-22T14:40:14Z",
+                  "description": "",
+                  "rayName": "a2f2a1ad4bae36e8",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/collin",
+                  "datetime": "2026-08-22T14:40:14Z",
+                  "description": "",
+                  "rayName": "a2f2a1a80a97dc3c",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/goliad",
+                  "datetime": "2026-08-22T14:40:14Z",
+                  "description": "",
+                  "rayName": "a2f2a1acd84f8627",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/comanche",
+                  "datetime": "2026-08-22T14:40:14Z",
+                  "description": "",
+                  "rayName": "a2f2a1a8bb017b83",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/cameron",
+                  "datetime": "2026-08-22T14:40:14Z",
+                  "description": "",
+                  "rayName": "a2f2a1a7dfd2be62",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/el-paso",
+                  "datetime": "2026-08-22T14:40:14Z",
+                  "description": "",
+                  "rayName": "a2f2a1ab3e04501e",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/ector",
+                  "datetime": "2026-08-22T14:40:14Z",
+                  "description": "",
+                  "rayName": "a2f2a1aabd9667c1",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/denton",
+                  "datetime": "2026-08-22T14:40:14Z",
+                  "description": "",
+                  "rayName": "a2f2a1a99ad87aeb",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/erath",
+                  "datetime": "2026-08-22T14:40:14Z",
+                  "description": "",
+                  "rayName": "a2f2a1ab68867ae0",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/galveston",
+                  "datetime": "2026-08-22T14:40:14Z",
+                  "description": "",
+                  "rayName": "a2f2a1ac5920ed3b",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/harris",
+                  "datetime": "2026-08-22T14:40:14Z",
+                  "description": "",
+                  "rayName": "a2f2a1adb92ffbec",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/colorado",
+                  "datetime": "2026-08-22T14:40:14Z",
+                  "description": "",
+                  "rayName": "a2f2a1a84f5623fd",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/dewitt",
+                  "datetime": "2026-08-22T14:40:14Z",
+                  "description": "",
+                  "rayName": "a2f2a1a9d88ffa3e",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/dimmit",
+                  "datetime": "2026-08-22T14:40:14Z",
+                  "description": "",
+                  "rayName": "a2f2a1aa1d07cdb3",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/gonzales",
+                  "datetime": "2026-08-22T14:40:14Z",
+                  "description": "",
+                  "rayName": "a2f2a1ad0ee2138a",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/dallas",
+                  "datetime": "2026-08-22T14:40:14Z",
+                  "description": "",
+                  "rayName": "a2f2a1a969b7ed3f",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                },
+                {
+                  "action": "managed_challenge",
+                  "clientRequestHTTPHost": "texasdefined.com",
+                  "clientRequestPath": "/county/comal",
+                  "datetime": "2026-08-22T14:40:14Z",
+                  "description": "",
+                  "rayName": "a2f2a1a87d48ac07",
+                  "ruleId": "bot_fight_mode",
+                  "source": "botFight",
+                  "userAgent": "curl/8.5.0"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "errors": null
+    }
+  },
+  "diagnostic_note": "Security Level is not under_attack; inspect BIC/Bot/WAF/Security Events before changing anything else",
+  "custom_domain_probes": {
+    "/": {
+      "http": "200",
+      "curl_exit": 0,
+      "cf_mitigated_challenge": false,
+      "headers_tail": "HTTP/2 200 \ndate: Sat, 22 Aug 2026 15:10:33 GMT\ncontent-type: text/html; charset=utf-8\nspeculation-rules: \"/cdn-cgi/speculation\"\nreport-to: {\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=eJ%2BfAF0k%2FNx%2BueDToyk1QnU41bOqIBHOvS4uK5J7%2FGKTMbKXAysfOrUk3KNfb5KNOjexOSCLL%2Fjz5Og9q17GQ85YOeQTVyCMinnGKcAiJu%2FYp%2F1ppvYLyetlS%2B59P2xQ%2B2V%2B\"}]}\nnel: {\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}\nserver: cloudflare\ncf-ray: a2f2ce103c7d393e-IAD\nalt-svc: h3=\":443\"; ma=86400\n\n",
+      "body_prefix": "<!DOCTYPE html><html lang=\"en-US\"><head><meta charSet=\"utf-8\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/><link rel=\"preload\" as=\"image\" href=\"https://commons.wikimedia.org/wiki/Special:Redirect/file/Fort_Sam_Houston_National_Cemetery.jpg?width=1600\" imageSizes=\"(min-width: 1024px) 58vw, 100vw\" fetchPriority=\"high\"/><title>The Places, Stories &amp; Life of Texas | Texas Defined</title><meta name=\"author\" content=\"Texas Defined\"/><meta name=\"description\" content=\"Stories"
+    },
+    "/sitemap.xml": {
+      "http": "200",
+      "curl_exit": 0,
+      "cf_mitigated_challenge": false,
+      "headers_tail": "HTTP/2 200 \ndate: Sat, 22 Aug 2026 15:10:35 GMT\ncontent-type: application/xml; charset=utf-8\ncontent-length: 85271\ncache-control: public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400\nspeculation-rules: \"/cdn-cgi/speculation\"\nreport-to: {\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=OZMoKusbuxa15B4LuXxACUKjmgf76xqgIj2H%2BiriuwIOwjgGtRRmigVB6DLYs57tDZ7%2Fmihtl7AVE4qRYQIc3%2Btg220E4RruHlyb2FqQL91gqoDg6H%2FyMZCLZ5IS%2FwdcIlZt\"}]}\nnel: {\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}\nserver: cloudflare\ncf-ray: a2f2ce12fb3515e4-IAD\nalt-svc: h3=\":443\"; ma=86400\n\n",
+      "body_prefix": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  <url><loc>https://texasdefined.com/</loc></url>\n  <url><loc>https://texasdefined.com/best-places-to-go-camping-in-texas</loc><lastmod>2026-08-20</lastmod></url>\n  <url><loc>https://texasdefined.com/fishing</loc></url>\n  <url><loc>https://texasdefined.com/fishing/lakes</loc><lastmod>2026-08-15</lastmod></url>\n  <url><loc>https://texasdefined.com/fishing/plan</loc><lastmod>2026-08-14</lastmod></ur"
+    },
+    "/article/history-of-the-texas-flag": {
+      "http": "200",
+      "curl_exit": 0,
+      "cf_mitigated_challenge": false,
+      "headers_tail": "HTTP/2 200 \ndate: Sat, 22 Aug 2026 15:10:36 GMT\ncontent-type: text/html; charset=utf-8\nspeculation-rules: \"/cdn-cgi/speculation\"\nreport-to: {\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=Jj869FVuWvJePbkyra9sL5XcVJ56ka6II2XK8CeMHoFZpJXpnFWTSTkCpUZyxVnO2LWfgRwyq8T9WgA%2FzpEic73T9wxAbmabYRKzigUSXrzND7FuXI8ktcf0CtvJInNpwMyk\"}]}\nnel: {\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}\nserver: cloudflare\ncf-ray: a2f2ce206af5ccb9-IAD\nalt-svc: h3=\":443\"; ma=86400\n\n",
+      "body_prefix": "<!DOCTYPE html><html lang=\"en-US\"><head><meta charSet=\"utf-8\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/><link rel=\"preload\" as=\"image\" href=\"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Flag_of_Texas.svg/1280px-Flag_of_Texas.svg.png\" fetchPriority=\"high\"/><title>The Texas Flag: A History of the Lone Star | Texas Defined</title><meta name=\"author\" content=\"Texas Defined\"/><meta name=\"description\" content=\"Texas did not begin with the familiar blue, white a"
+    },
+    "/texas-symbols": {
+      "http": "200",
+      "curl_exit": 0,
+      "cf_mitigated_challenge": false,
+      "headers_tail": "HTTP/2 200 \ndate: Sat, 22 Aug 2026 15:10:36 GMT\ncontent-type: text/html; charset=utf-8\nspeculation-rules: \"/cdn-cgi/speculation\"\nreport-to: {\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=I2UGuRFSCGt4NGQzyIQwEccHYVaaYdojD9qvnBm%2FsAj7ZovgOK7CanBFvcPOk7d1d8%2FPuNhjiCtAnijVcDQHcVHTjI7njiUz%2FzOmzarl0WLG%2BNPQVjdKpDRXg4xpVFS8JX03\"}]}\nnel: {\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}\nserver: cloudflare\ncf-ray: a2f2ce26a999898c-IAD\nalt-svc: h3=\":443\"; ma=86400\n\n",
+      "body_prefix": "<!DOCTYPE html><html lang=\"en-US\"><head><meta charSet=\"utf-8\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/><title>Official Texas Symbols \u2014 Complete State Symbol Guide | Texas Defined</title><meta name=\"author\" content=\"Texas Defined\"/><meta name=\"description\" content=\"Explore the official symbols of Texas, from the mockingbird and bluebonnet to the pecan tree, Guadalupe bass, rodeo, chili, cowboy boots and dozens more.\"/><meta property=\"og:title\" content=\"Official Texas "
+    },
+    "/texas-history": {
+      "http": "200",
+      "curl_exit": 0,
+      "cf_mitigated_challenge": false,
+      "headers_tail": "HTTP/2 200 \ndate: Sat, 22 Aug 2026 15:10:36 GMT\ncontent-type: text/html; charset=utf-8\nspeculation-rules: \"/cdn-cgi/speculation\"\nreport-to: {\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=7VmErab6Axr%2B0mWPW%2FdR%2FDH2dQ05zJIRGJOv7yTWftD%2FCu5%2FM2vMhJTtrS1CqLhR967J0Gp0FI4B%2Bn30svHprY3xbh%2FRlMqaKxQtP%2B6aRoQXzfyvKZnNJotqIWc4fl2VVsNo\"}]}\nnel: {\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}\nserver: cloudflare\ncf-ray: a2f2ce272cb58f7d-IAD\nalt-svc: h3=\":443\"; ma=86400\n\n",
+      "body_prefix": "<!DOCTYPE html><html lang=\"en-US\"><head><meta charSet=\"utf-8\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/><title>Texas History | Texas Defined</title><meta name=\"author\" content=\"Texas Defined\"/><meta name=\"description\" content=\"Missions and cattle trails, oil booms and courthouse squares \u2014 the people, places and turning points that still shape how Texas looks and feels today.\"/><meta property=\"og:title\" content=\"Texas History | Texas Defined\"/><meta property=\"og:descri"
+    },
+    "/article/texas-bluebonnets-complete-guide": {
+      "http": "200",
+      "curl_exit": 0,
+      "cf_mitigated_challenge": false,
+      "headers_tail": "HTTP/2 200 \ndate: Sat, 22 Aug 2026 15:10:40 GMT\ncontent-type: text/html; charset=utf-8\nspeculation-rules: \"/cdn-cgi/speculation\"\nreport-to: {\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=G1dlRNBnnXVEzomKiJq0peGo9P388fb0%2BmLbjj2%2FVeBYuvWUNFw0bYhQPuS%2BzkIfA5rrNYtioO%2Fva%2Bu2we37rF0RKHo2yI76s51zXUAh534atwpdFbRVu8G5Xxr%2FftBDBH5k\"}]}\nnel: {\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}\nserver: cloudflare\ncf-ray: a2f2ce293c971777-IAD\nalt-svc: h3=\":443\"; ma=86400\n\n",
+      "body_prefix": "<!DOCTYPE html><html lang=\"en-US\"><head><meta charSet=\"utf-8\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/><link rel=\"preload\" as=\"image\" href=\"/assets/bluebonnets-2fTG3pDy.jpg\" fetchPriority=\"high\"/><title>Bluebonnet Season, Explained | Texas Defined</title><meta name=\"author\" content=\"Texas Defined\"/><meta name=\"description\" content=\"When bluebonnets bloom, where to find them, how weather changes the season, what the state-flower law actually says, and how to plan a sp"
+    },
+    "/article/christmas-in-texas-complete-guide": {
+      "http": "200",
+      "curl_exit": 0,
+      "cf_mitigated_challenge": false,
+      "headers_tail": "HTTP/2 200 \ndate: Sat, 22 Aug 2026 15:10:42 GMT\ncontent-type: text/html; charset=utf-8\nspeculation-rules: \"/cdn-cgi/speculation\"\nreport-to: {\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=fF8XDjpILFHWNHhw27YRHkzi0sXJgvOoGLYVl6g4xv9uhLj7qRTlp3aLdJZDKqVHhZE13SE9eT6qszx6fXSLpRWqyp9HkokF0TOx%2BfpMgXkH62ShgXCvQNDzd8arHhDnxuzl\"}]}\nnel: {\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}\nserver: cloudflare\ncf-ray: a2f2ce40ac124b25-IAD\nalt-svc: h3=\":443\"; ma=86400\n\n",
+      "body_prefix": "<!DOCTYPE html><html lang=\"en-US\"><head><meta charSet=\"utf-8\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/><link rel=\"preload\" as=\"image\" href=\"/assets/small-town-Dhk7tzn-.jpg\" fetchPriority=\"high\"/><title>Christmas in Texas, From River Lights to Courthouse Squares | Texas Defined</title><meta name=\"author\" content=\"Texas Defined\"/><meta name=\"description\" content=\"The Texas holiday guide: big-city lights, small-town squares, German traditions, train rides, coastal celeb"
+    },
+    "/article/fall-in-texas-complete-guide": {
+      "http": "200",
+      "curl_exit": 0,
+      "cf_mitigated_challenge": false,
+      "headers_tail": "HTTP/2 200 \ndate: Sat, 22 Aug 2026 15:10:45 GMT\ncontent-type: text/html; charset=utf-8\nspeculation-rules: \"/cdn-cgi/speculation\"\nreport-to: {\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=BiPkoD3LZL3uhf5BfoQrX%2BeyIPsply5kMxatrBI%2BXZziZBCfCsXmpzcaj%2FSn%2BH3QpEfqqGMV8ZVFqnZyaSxM7UKTrnHHX6GT1zzq2DcpRyvbj432dAV3bW5iZ2Vd9e2nWIzC\"}]}\nnel: {\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}\nserver: cloudflare\ncf-ray: a2f2ce49bfed2720-IAD\nalt-svc: h3=\":443\"; ma=86400\n\n",
+      "body_prefix": "<!DOCTYPE html><html lang=\"en-US\"><head><meta charSet=\"utf-8\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/><link rel=\"preload\" as=\"image\" href=\"/assets/caddo-lake-B9in7hbn.jpg\" fetchPriority=\"high\"/><title>Where Autumn Actually Shows Up in Texas | Texas Defined</title><meta name=\"author\" content=\"Texas Defined\"/><meta name=\"description\" content=\"A statewide fall guide to color, timing, parks, scenic drives and weekend destinations from Lost Maples and the Frio to the Pin"
+    }
+  },
+  "custom_domain_healthy": true
+}
