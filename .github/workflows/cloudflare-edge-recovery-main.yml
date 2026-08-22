@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
   recover-edge:
@@ -22,7 +23,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: main
-          fetch-depth: 2
+          fetch-depth: 0
       - name: Diagnose and narrowly recover Cloudflare edge
         shell: bash
         run: |
@@ -83,13 +84,27 @@ jobs:
           out['custom_domain_healthy']=all(v.get('http')=='200' and not v.get('cf_mitigated_challenge') for v in probes.values())
           marker=pathlib.Path(os.environ['MARKER']); marker.parent.mkdir(parents=True,exist_ok=True); marker.write_text(json.dumps(out,indent=2)+'\n')
           PY
+
+      - name: Publish recovery evidence as review PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          branch="automation/cloudflare-edge-recovery-${GITHUB_RUN_ID}"
+          git checkout -b "$branch"
           git add "$MARKER"
-          git commit -m 'Record Cloudflare edge recovery result' || true
-          for attempt in 1 2 3; do
-            git pull --rebase origin main || { git rebase --abort || true; sleep 2; continue; }
-            git push origin HEAD:main && break
-            sleep 3
-          done
+          git commit -m 'Record Cloudflare edge recovery result'
+          git push origin "$branch"
+          gh pr create \
+            --base main \
+            --head "$branch" \
+            --title 'Review Cloudflare edge recovery evidence' \
+            --body 'Automated Cloudflare edge recovery evidence. Review the recorded security setting, security-event/WAF/Bot evidence, and live-route probes. This PR is intentionally not auto-merged.'
+
+      - name: Require healthy custom domain
+        shell: bash
+        run: |
           python3 - <<'PY'
           import json, os, sys
           data=json.load(open(os.environ['MARKER']))
