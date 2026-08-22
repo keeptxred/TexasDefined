@@ -1,4 +1,5 @@
 import type { Article } from "../types";
+import "./pool-owner-authority-links";
 
 export const texasPoolOwnerGuideStub: Article = {
   id: "evergreen-texas-pool-owner-guide",
