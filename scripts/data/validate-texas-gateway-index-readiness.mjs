@@ -30,13 +30,6 @@ if (!loader.includes("function loadAllTexasGatewayArticles()")) fail("direct QA 
 if (!/loadTexasGatewayArticle[\s\S]*loadAllTexasGatewayArticles\(\)/.test(loader)) fail("direct gateway lookup must resolve from the full staged+ready set");
 if (!loader.includes("return articles.filter(isTexasGatewayIndexReadyArticle);")) fail("gateway loader must retain the index-ready filtering helper for guarded consumers");
 
-if (!core.includes('import { texasGatewayIndexReadyStubs } from "./texas-gateway-index-ready-stubs";')) {
-  fail("core article discovery must import the lightweight gateway promotion stubs");
-}
-if (!core.includes("texasCoreArticleStubs.push(...texasGatewayIndexReadyStubs);")) {
-  fail("core article discovery must expose promoted gateway stubs to existing list/search repositories");
-}
-
 if (!articleRoute.includes('shouldNoindexTexasGatewayArticle(article) ? "noindex, follow, max-image-preview:large" : undefined')) {
   fail("article metadata must noindex staged gateway drafts while preserving followed links");
 }
@@ -76,6 +69,21 @@ for (const slug of stubSlugs) {
 }
 if (stubSlugs.length !== readySlugs.length) {
   fail(`gateway allowlist/stub count mismatch: ${readySlugs.length} allowlisted slug(s), ${stubSlugs.length} discovery stub(s)`);
+}
+
+const coreImportsPromotionStubs = core.includes('import { texasGatewayIndexReadyStubs } from "./texas-gateway-index-ready-stubs";');
+const coreExposesPromotionStubs = core.includes("texasCoreArticleStubs.push(...texasGatewayIndexReadyStubs);");
+if (readySlugs.length === 0) {
+  if (coreImportsPromotionStubs || coreExposesPromotionStubs) {
+    fail("zero index-ready gateway slugs must not wire promotion stubs into the public core article bundle");
+  }
+} else {
+  if (!coreImportsPromotionStubs) {
+    fail("core article discovery must import the lightweight gateway promotion stubs when gateway slugs are index-ready");
+  }
+  if (!coreExposesPromotionStubs) {
+    fail("core article discovery must expose promoted gateway stubs to existing list/search repositories");
+  }
 }
 
 function walk(dir, output = []) {
