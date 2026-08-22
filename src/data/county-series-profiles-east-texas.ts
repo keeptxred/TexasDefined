@@ -37,4 +37,10 @@ export const COUNTY_SERIES_PROFILES_EAST_TEXAS: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/anderson-county-palestine-railroads-dogwoods-east-texas")
       .then((module) => module.andersonCountyPalestineRailroadsDogwoodsEastTexasArticle),
   },
+  {
+    countySlug: "jefferson",
+    articleSlug: "jefferson-county-beaumont-port-arthur-spindletop-gulf-coast-texas",
+    loadArticle: () => import("@/data/fixtures/jefferson-county-beaumont-port-arthur-spindletop-gulf-coast-texas")
+      .then((module) => module.jeffersonCountyBeaumontPortArthurSpindletopGulfCoastTexasArticle),
+  },
 ];
