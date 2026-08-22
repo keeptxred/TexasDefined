@@ -100,7 +100,7 @@ export const COUNTY_SERIES_PROFILES_SOUTH_PLAINS: CountySeriesProfile[] = [
   {
     countySlug: "parmer",
     articleSlug: "parmer-county-farwell-friona-xit-agriculture-high-plains-texas",
-    loadArticle: () => import("@/data/fixtures/parmer-county-farwell-friona-xit-agriculture-high-plains-texas")
+    loadArticle: () => import("@/data/fixtures/parmer-county-farwell-friona-xit-cattle-ogallala-panhandle-texas")
       .then((module) => module.parmerCountyFarwellFrionaXitAgricultureHighPlainsTexasArticle),
   },
   {
@@ -120,5 +120,11 @@ export const COUNTY_SERIES_PROFILES_SOUTH_PLAINS: CountySeriesProfile[] = [
     articleSlug: "glasscock-county-garden-city-ranching-oil-permian-basin-west-texas",
     loadArticle: () => import("@/data/fixtures/glasscock-county-garden-city-ranching-oil-permian-basin-west-texas")
       .then((module) => module.glasscockCountyGardenCityRanchingOilPermianBasinWestTexasArticle),
+  },
+  {
+    countySlug: "sterling",
+    articleSlug: "sterling-county-sterling-city-north-concho-ranching-oil-west-texas",
+    loadArticle: () => import("@/data/fixtures/sterling-county-sterling-city-north-concho-ranching-oil-west-texas")
+      .then((module) => module.sterlingCountySterlingCityNorthConchoRanchingOilWestTexasArticle),
   },
 ];
