@@ -40,5 +40,37 @@ export const Route = createFileRoute("/explore/painted-churches/glossary/$slug")
 function GlossaryTermPage() {
   const { term } = Route.useLoaderData();
   const churches = expandedPaintedChurches.filter((church) => term.churchSlugs.includes(church.slug));
-  return <main><section className="border-b border-border bg-surface"><Container className="py-16 sm:py-24"><nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.14em] text-muted-foreground"><ol className="flex flex-wrap gap-2"><li><Link to="/">Front page</Link></li><li aria-hidden>·</li><li><Link to="/explore/painted-churches">Painted Churches</Link></li><li aria-hidden>·</li><li><Link to="/explore/painted-churches/glossary">Glossary</Link></li><li aria-hidden>·</li><li aria-current="page">{term.name}</li></ol></nav><p className="eyebrow mt-8 text-primary">Painted Church glossary</p><h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.98] sm:text-7xl">{term.name}</h1><p className="mt-6 max-w-4xl text-lg leading-8 text-muted-foreground">{term.definition}</p></Container></section><Container className="py-14 sm:py-18"><section className="border-t-2 border-foreground pt-8"><p className="eyebrow text-primary">Why it matters here</p><p className="mt-5 max-w-4xl text-base leading-8 text-foreground/90">{term.whyItMatters}</p></section><section className="mt-14 border-t border-border pt-8"><p className="eyebrow text-primary">Church examples</p><div className="mt-7 grid gap-px border border-border bg-border md:grid-cols-2">{churches.map((church) => <article key={church.slug} className="bg-background p-6"><p className="eyebrow text-muted-foreground">{church.city} · {church.county} County</p><h2 className="mt-2 font-display text-2xl"><Link to="/explore/painted-churches/$slug" params={{ slug: church.slug }} className="hover:text-primary">{church.shortName}</Link></h2><p className="mt-3 text-sm leading-7 text-muted-foreground">{church.summary}</p></article>)}</div></section>{term.related?.length ? <section className="mt-14 border-t border-border pt-8"><p className="eyebrow text-primary">Related terms</p><div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm">{term.related.map((slug) => <Link key={slug} to="/explore/painted-churches/glossary/$slug" params={{ slug }} className="border-b border-primary text-primary">{paintedChurchGlossaryBySlug.get(slug)?.name ?? slug}</Link>)}</div></section> : null}</Container></main>;
+  return (
+    <main>
+      <section className="border-b border-border bg-surface">
+        <Container className="py-16 sm:py-24">
+          <nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.14em] text-muted-foreground">
+            <ol className="flex flex-wrap gap-2"><li><Link to="/">Front page</Link></li><li aria-hidden>·</li><li><Link to="/explore/painted-churches">Painted Churches</Link></li><li aria-hidden>·</li><li><Link to="/explore/painted-churches/glossary">Glossary</Link></li><li aria-hidden>·</li><li aria-current="page">{term.name}</li></ol>
+          </nav>
+          <p className="eyebrow mt-8 text-primary">Painted Church glossary</p>
+          <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.98] sm:text-7xl">{term.name}</h1>
+          <p className="mt-6 max-w-4xl text-lg leading-8 text-muted-foreground">{term.definition}</p>
+        </Container>
+      </section>
+      <Container className="py-14 sm:py-18">
+        <section className="border-t-2 border-foreground pt-8">
+          <p className="eyebrow text-primary">Why it matters here</p>
+          <p className="mt-5 max-w-4xl text-base leading-8 text-foreground/90">{term.whyItMatters}</p>
+        </section>
+        <section className="mt-14 border-t border-border pt-8">
+          <p className="eyebrow text-primary">How to use this term inside a Painted Church</p>
+          <div className="mt-5 max-w-4xl space-y-5 text-base leading-8 text-muted-foreground">
+            <p>Start by locating the architectural feature before trying to interpret the decoration around it. Painted Churches often combine structural architecture, applied ornament and visual illusion, so the same word can help describe where a painted program sits without implying that every visible line or surface is structural.</p>
+            <p>Then compare the feature from more than one viewpoint. A ceiling, arch, wall surface or sanctuary element can read differently from the center aisle, a side bay or the entrance. That distinction matters when painted ribs, masonry effects, panels or other decorative treatments are meant to organize the viewer&apos;s eye across the room.</p>
+            <p>Use the linked church profiles for the site-specific history. This glossary defines the architectural vocabulary; it does not by itself establish a construction date, painter, restoration campaign, denomination or cultural origin. Those claims belong to the church record and the sources attached to that profile.</p>
+          </div>
+        </section>
+        <section className="mt-14 border-t border-border pt-8">
+          <p className="eyebrow text-primary">Church examples</p>
+          <div className="mt-7 grid gap-px border border-border bg-border md:grid-cols-2">{churches.map((church) => <article key={church.slug} className="bg-background p-6"><p className="eyebrow text-muted-foreground">{church.city} · {church.county} County</p><h2 className="mt-2 font-display text-2xl"><Link to="/explore/painted-churches/$slug" params={{ slug: church.slug }} className="hover:text-primary">{church.shortName}</Link></h2><p className="mt-3 text-sm leading-7 text-muted-foreground">{church.summary}</p></article>)}</div>
+        </section>
+        {term.related?.length ? <section className="mt-14 border-t border-border pt-8"><p className="eyebrow text-primary">Related terms</p><p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Architectural vocabulary works best as a system. Follow the related terms to see how adjacent spaces, forms and decorative effects connect to this feature.</p><div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm">{term.related.map((slug) => <Link key={slug} to="/explore/painted-churches/glossary/$slug" params={{ slug }} className="border-b border-primary text-primary">{paintedChurchGlossaryBySlug.get(slug)?.name ?? slug}</Link>)}</div></section> : null}
+      </Container>
+    </main>
+  );
 }
