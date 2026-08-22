@@ -24,13 +24,19 @@ export const Route = createFileRoute("/shop/product/$productId")({
     return { product, related };
   },
   head: ({ loaderData }) => {
-    const canonicalUrl = loaderData ? `https://texasdefined.com/shop/product/${encodeURIComponent(loaderData.product.id)}` : undefined;
+    const product = loaderData?.product;
+    const canonicalUrl = product ? `https://texasdefined.com/shop/product/${encodeURIComponent(product.id)}` : undefined;
+    const enabled = product?.variants?.filter((variant) => variant.is_enabled !== false) ?? [];
+    const offers = product && canonicalUrl ? (enabled.length ? enabled.map((variant) => ({
+      "@type": "Offer", url: `${canonicalUrl}?variant=${encodeURIComponent(String(variant.id))}`, priceCurrency: product.currency || "USD", price: Number(variant.price ?? product.priceCents / 100).toFixed(2), availability: "https://schema.org/InStock", sku: `${product.id}-${variant.id}`,
+    })) : [{ "@type": "Offer", url: canonicalUrl, priceCurrency: product.currency || "USD", price: (product.priceCents / 100).toFixed(2), availability: "https://schema.org/OutOfStock", sku: product.id }]) : [];
     return {
       meta: [
-        { title: loaderData ? `${loaderData.product.name} | Texas Defined Shop` : "Product | Texas Defined Shop" },
-        { name: "description", content: loaderData?.product.blurb || "Shop Texas-inspired products from Texas Defined." },
+        { title: product ? `${product.name} | Texas Defined Shop` : "Product | Texas Defined Shop" },
+        { name: "description", content: product?.blurb || "Shop Texas-inspired products from Texas Defined." },
       ],
       links: canonicalUrl ? [{ rel: "canonical", href: canonicalUrl }] : [],
+      scripts: product && canonicalUrl ? [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@type": "Product", name: product.name, image: product.image.src, url: canonicalUrl, offers }) }] : [],
     };
   },
   component: ProductPage,
