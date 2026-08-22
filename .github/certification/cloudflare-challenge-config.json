@@ -1,0 +1,166 @@
+{
+  "recorded_at_utc": "2026-08-22T03:54:05.191007+00:00",
+  "zone_lookup_http": "200",
+  "zone_id": "c251a715a3be875ac70a397d77efef22",
+  "zone_lookup_body": {
+    "result": [
+      {
+        "id": "c251a715a3be875ac70a397d77efef22",
+        "name": "texasdefined.com",
+        "status": "active",
+        "paused": false,
+        "type": "full",
+        "development_mode": 0,
+        "name_servers": [
+          "harlee.ns.cloudflare.com",
+          "jerry.ns.cloudflare.com"
+        ],
+        "original_name_servers": [
+          "ns55.domaincontrol.com",
+          "ns56.domaincontrol.com"
+        ],
+        "original_registrar": "godaddy.com, llc (id: 146)",
+        "original_dnshost": null,
+        "modified_on": "2026-08-22T02:53:05.814786Z",
+        "created_on": "2026-08-15T13:42:59.081258Z",
+        "activated_on": "2026-08-15T14:17:01.922488Z",
+        "vanity_name_servers": [],
+        "vanity_name_servers_ips": null,
+        "meta": {
+          "step": 2,
+          "custom_certificate_quota": 0,
+          "page_rule_quota": 3,
+          "phishing_detected": false
+        },
+        "owner": {
+          "id": null,
+          "type": "user",
+          "email": null
+        },
+        "account": {
+          "id": "693afebd220a2003d8cd85809c554ffb",
+          "name": "Freddy.coppola@gmail.com's Account"
+        },
+        "tenant": {
+          "id": null,
+          "name": null
+        },
+        "tenant_unit": {
+          "id": null
+        },
+        "permissions": [
+          "#zone:read",
+          "#zone_settings:read",
+          "#dns_records:edit",
+          "#dns_records:read"
+        ],
+        "plan": {
+          "id": "0feeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+          "name": "Free Website",
+          "price": 0,
+          "currency": "USD",
+          "frequency": "",
+          "is_subscribed": false,
+          "can_subscribe": false,
+          "legacy_id": "free",
+          "legacy_discount": false,
+          "externally_managed": false
+        }
+      }
+    ],
+    "result_info": {
+      "page": 1,
+      "per_page": 20,
+      "total_pages": 1,
+      "count": 1,
+      "total_count": 1
+    },
+    "success": true,
+    "errors": [],
+    "messages": []
+  },
+  "security_level": {
+    "http": "403",
+    "curl_exit": 0,
+    "stderr": "",
+    "body": {
+      "success": false,
+      "errors": [
+        {
+          "code": 9109,
+          "message": "Unauthorized to access requested resource"
+        }
+      ],
+      "messages": [],
+      "result": null
+    }
+  },
+  "bot_management": {
+    "http": "403",
+    "curl_exit": 0,
+    "stderr": "",
+    "body": {
+      "success": false,
+      "errors": [
+        {
+          "code": 10000,
+          "message": "Authentication error",
+          "documentation_url": "https://developers.cloudflare.com/api/resources/bot_management/methods/get"
+        }
+      ],
+      "messages": [],
+      "result": null
+    }
+  },
+  "custom_firewall_entrypoint": {
+    "http": "403",
+    "curl_exit": 0,
+    "stderr": "",
+    "body": {
+      "success": false,
+      "errors": [
+        {
+          "code": 10000,
+          "message": "Authentication error",
+          "documentation_url": "https://developers.cloudflare.com/api/resources/rulesets/subresources/phases/methods/get"
+        }
+      ],
+      "messages": [],
+      "result": null
+    }
+  },
+  "config_settings_entrypoint": {
+    "http": "403",
+    "curl_exit": 0,
+    "stderr": "",
+    "body": {
+      "success": false,
+      "errors": [
+        {
+          "code": 10000,
+          "message": "Authentication error",
+          "documentation_url": "https://developers.cloudflare.com/api/resources/rulesets/subresources/phases/methods/get"
+        }
+      ],
+      "messages": [],
+      "result": null
+    }
+  },
+  "rulesets": {
+    "http": "403",
+    "curl_exit": 0,
+    "stderr": "",
+    "body": {
+      "success": false,
+      "errors": [
+        {
+          "code": 10000,
+          "message": "Authentication error",
+          "documentation_url": "https://developers.cloudflare.com/api/resources/rulesets/methods/list"
+        }
+      ],
+      "messages": [],
+      "result": null
+    }
+  }
+}

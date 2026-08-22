@@ -1,0 +1,16 @@
+name: Certify Wise County production
+
+on:
+  workflow_dispatch:
+
+permissions:
+  actions: write
+  contents: write
+  pull-requests: write
+
+jobs:
+  certify:
+    uses: ./.github/workflows/certify-county-production-reusable.yml
+    with:
+      county: wise
+    secrets: inherit

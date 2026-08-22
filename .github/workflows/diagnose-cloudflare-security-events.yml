@@ -1,0 +1,26 @@
+name: Retired — Cloudflare security events audit
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit-retired-diagnostic:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify current recovery captures security events safely
+        shell: bash
+        run: |
+          set -euo pipefail
+          workflow=.github/workflows/cloudflare-edge-recovery-main.yml
+          grep -Fq 'firewallEventsAdaptive' "$workflow"
+          grep -Fq 'security_events' "$workflow"
+          grep -Fq 'Publish recovery evidence as review PR' "$workflow"
+          if grep -Eq 'git[[:space:]]+push[[:space:]]+origin[[:space:]]+HEAD:main' "$workflow"; then
+            echo 'Current recovery evidence must not write directly to main.' >&2
+            exit 1
+          fi
+          echo 'Legacy security-events writer retired; current recovery retains the evidence through a review PR.'

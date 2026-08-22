@@ -62,6 +62,20 @@ jobs:
           }
 
           fetch_assert lighthouse-hub '/explore/lighthouses' 'Texas Lighthouses'
+          fetch_assert lighthouse-visitability '/explore/lighthouses' 'Visitability at a glance'
+          fetch_assert lighthouse-faq '/explore/lighthouses' 'Which Texas lighthouse can you climb?'
+          fetch_assert best-lighthouses-intent '/article/best-lighthouses-to-visit-in-texas' 'Best Lighthouses to Visit in Texas: What You Can Actually See and Climb'
+          fetch_assert best-lighthouses-sabine '/article/best-lighthouses-to-visit-in-texas' 'the historic lighthouse tower stands on the Louisiana side of the Sabine'
+          fetch_assert lighthouse-reference-json '/api/texas-lighthouses.json' '"count": 6'
+          fetch_assert lighthouse-reference-source '/api/texas-lighthouses.json' '"sourceUrl"'
+          fetch_assert lighthouse-reference-sabine '/api/texas-lighthouses.json' 'Sabine Pass Lighthouse stands on the Louisiana side'
+          fetch_assert port-isabel-go-deeper '/destination/port-isabel-lighthouse-state-park' 'Go deeper'
+          fetch_assert port-isabel-ranking-link '/destination/port-isabel-lighthouse-state-park' 'Compare the best Texas lighthouse visits'
+          fetch_assert port-isabel-history-link '/destination/port-isabel-lighthouse-state-park' 'Read the full Port Isabel Lighthouse history'
+          fetch_assert explore-home-discovery '/explore' 'Texas lighthouses'
+          fetch_assert beaches-discovery '/explore/beaches-coast' 'Texas lighthouses'
+          fetch_assert historic-discovery '/explore/historic-sites' 'Texas lighthouses'
+          fetch_assert roadtrip-discovery '/explore/road-trips' 'Texas lighthouse trail'
           fetch_assert point-bolivar '/article/point-bolivar-lighthouse-history' 'Point Bolivar Lighthouse: The Black Tower at Galveston Bay'
           fetch_assert lydia-ann '/article/lydia-ann-lighthouse-port-aransas' 'Lydia Ann Lighthouse: The Light Across From Port Aransas'
           fetch_assert matagorda '/article/matagorda-island-lighthouse-history' "Matagorda Island Lighthouse: The Black Tower Beyond Port O'Connor"

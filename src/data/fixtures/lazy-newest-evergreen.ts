@@ -2,10 +2,12 @@ import type { Article } from "../types";
 import "./newest-evergreen-links";
 import "./military-museum-links";
 import "./seasonal-authority-links";
+import "./seasonal-county-links";
 import "./lighthouse-authority-links";
 import { winklerCountyArticleStub } from "./winkler-county-article-stub";
 import { seasonalAuthorityArticleStubs, loadSeasonalAuthorityArticle } from "./lazy-seasonal-authority";
 import { lighthouseDeepDiveStubs, loadLighthouseDeepDiveArticle } from "./lazy-lighthouse-deep-dives";
+import { lighthouseSearchIntentStubs, loadLighthouseSearchIntentArticle } from "./lazy-lighthouse-search-intents";
 import { seasonalIntentStubs, loadSeasonalIntentArticle } from "./lazy-seasonal-intents";
 
 const texasFlagHistoryStub: Article = {
@@ -86,26 +88,58 @@ const texasMilitaryMuseumsGuideStub: Article = {
   relatedDestinations: ["uss-lexington-museum-corpus-christi", "national-wasp-wwii-museum-sweetwater", "silent-wings-museum-lubbock", "texas-military-forces-museum", "palo-alto-battlefield-national-historical-park"],
 };
 
+const texasNationalCemeteriesGuideStub: Article = {
+  id: "evergreen-texas-national-cemeteries-guide",
+  brandId: "texasdefined",
+  slug: "texas-national-cemeteries-guide",
+  title: "Texas National Cemeteries: Fort Sam Houston, Houston and Dallas–Fort Worth",
+  dek: "A practical and historical guide to three of Texas' major VA national cemeteries—where they are, when visitors can enter, what makes each landscape distinctive and how their veteran stories connect to Texas military history.",
+  category: "texas-history",
+  region: "south-texas",
+  hero: {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Fort_Sam_Houston_National_Cemetery.jpg?width=1600",
+    alt: "Panoramic view across Fort Sam Houston National Cemetery in San Antonio",
+    width: 1600,
+    height: 481,
+    credit: "Travis K. Witt · CC BY-SA 4.0 · Wikimedia Commons",
+  },
+  authorId: "a-marisol",
+  publishedAt: "2026-08-21",
+  readingMinutes: 12,
+  tags: ["Texas national cemeteries", "Fort Sam Houston National Cemetery", "Houston National Cemetery", "Dallas-Fort Worth National Cemetery", "Texas veterans", "military cemeteries", "Medal of Honor", "Texas military history"],
+  featured: true,
+  sourceName: "U.S. Department of Veterans Affairs — National Cemetery Administration",
+  sourceUrl: "https://www.cem.va.gov/find-cemetery/state.asp?STATE=TX",
+  body: [],
+  relatedCollections: [],
+  relatedDestinations: ["fort-sam-houston-national-cemetery", "houston-national-cemetery", "dallas-fort-worth-national-cemetery", "texas-military-forces-museum"],
+};
+
 export const newestEvergreenArticles: Article[] = [
   ...seasonalIntentStubs,
+  ...lighthouseSearchIntentStubs,
   ...lighthouseDeepDiveStubs,
   ...seasonalAuthorityArticleStubs,
   winklerCountyArticleStub,
   texasFlagHistoryStub,
   texasFlagEtiquetteStub,
   texasMilitaryMuseumsGuideStub,
+  texasNationalCemeteriesGuideStub,
 ];
 
 const loaders: Record<string, () => Promise<Article>> = {
   "history-of-the-texas-flag": async () => (await import("./texas-flag-history")).texasFlagHistoryArticle,
   "texas-flag-etiquette-display-guide": async () => (await import("./texas-flag-etiquette")).texasFlagEtiquetteArticle,
   "texas-military-museums-historic-sites-guide": async () => (await import("./texas-military-museums-historic-sites-guide")).texasMilitaryMuseumsHistoricSitesGuideArticle,
+  "texas-national-cemeteries-guide": async () => (await import("./texas-national-cemeteries-guide")).texasNationalCemeteriesGuideArticle,
 };
 
 export async function loadNewestEvergreenArticle(brandId: string, slug: string) {
   if (brandId !== "texasdefined") return null;
   const intentArticle = await loadSeasonalIntentArticle(brandId, slug);
   if (intentArticle) return intentArticle;
+  const lighthouseIntentArticle = await loadLighthouseSearchIntentArticle(brandId, slug);
+  if (lighthouseIntentArticle) return lighthouseIntentArticle;
   const lighthouseArticle = await loadLighthouseDeepDiveArticle(brandId, slug);
   if (lighthouseArticle) return lighthouseArticle;
   const seasonalArticle = await loadSeasonalAuthorityArticle(brandId, slug);

@@ -9,6 +9,7 @@ on:
       - "src/lib/texas-social-facebook-queue.ts"
       - "src/routes/api.admin.social-calendar-preview.ts"
       - "src/routes/admin.social-calendar.tsx"
+      - "src/routes/admin.social-calendar.lazy.tsx"
       - "scripts/data/validate-texas-social-evergreen.mjs"
       - ".github/workflows/validate-texas-social-evergreen.yml"
   workflow_dispatch:

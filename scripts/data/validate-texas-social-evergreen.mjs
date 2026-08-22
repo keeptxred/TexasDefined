@@ -42,12 +42,23 @@ for (const marker of ['createFileRoute("/api/admin/social-calendar-preview")','s
 
 const calendarFile = "src/routes/admin.social-calendar.tsx";
 const calendar = fs.readFileSync(path.join(root, calendarFile), "utf8");
-for (const marker of ['createFileRoute("/admin/social-calendar")','content: "noindex,nofollow"','fetch("/api/admin/social-calendar-preview"','Publishing disabled','no Facebook credentials, Graph API calls, scheduling action, or publish control']) {
-  if (!calendar.includes(marker)) throw new Error(`Calendar safety marker missing: ${marker}`);
+for (const marker of ['createFileRoute("/admin/social-calendar")','content: "noindex,nofollow"']) {
+  if (!calendar.includes(marker)) throw new Error(`Calendar route safety marker missing: ${marker}`);
 }
-if (calendar.includes("texas-social-facebook-queue") || calendar.includes("texas-social-evergreen")) throw new Error("Client calendar must not import social corpus or queue");
 
-for (const [label, source] of [[queueFile, queue],[apiFile, api],[calendarFile, calendar]]) {
+const calendarLazyFile = "src/routes/admin.social-calendar.lazy.tsx";
+const calendarLazy = fs.readFileSync(path.join(root, calendarLazyFile), "utf8");
+for (const marker of ['createLazyFileRoute("/admin/social-calendar")','fetch("/api/admin/social-calendar-preview"','Publishing disabled','no Facebook credentials, Graph API calls, scheduling action, or publish control']) {
+  if (!calendarLazy.includes(marker)) throw new Error(`Lazy calendar safety marker missing: ${marker}`);
+}
+
+for (const [label, source] of [[calendarFile, calendar], [calendarLazyFile, calendarLazy]]) {
+  if (source.includes("texas-social-facebook-queue") || source.includes("texas-social-evergreen")) {
+    throw new Error(`${label} must not import social corpus or queue`);
+  }
+}
+
+for (const [label, source] of [[queueFile, queue],[apiFile, api],[calendarFile, calendar],[calendarLazyFile, calendarLazy]]) {
   for (const marker of ["graph.facebook.com","PAGE_ACCESS_TOKEN","FACEBOOK_PAGE_ACCESS_TOKEN","axios.post"]) {
     if (source.includes(marker)) throw new Error(`${label} contains forbidden publisher marker: ${marker}`);
   }
@@ -55,4 +66,4 @@ for (const [label, source] of [[queueFile, queue],[apiFile, api],[calendarFile, 
 
 console.log(`PASS Texas social evergreen pool: ${posts.length} posts`);
 console.log("PASS Texas Facebook queue: disabled-by-default and draft-only");
-console.log("PASS Texas social calendar: server API boundary, read-only and noindex");
+console.log("PASS Texas social calendar: server API boundary, lazy client preview, read-only and noindex");

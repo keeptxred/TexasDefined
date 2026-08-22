@@ -3,7 +3,7 @@ import historicFallback from "@/assets/small-town.jpg";
 import type { Destination, TexasRegion } from "./types";
 
 const BRAND = "texasdefined" as const;
-const SOURCE_CHECKED_AT = "2026-08-19";
+const SOURCE_CHECKED_AT = "2026-08-21";
 
 export type HistoricSiteSeed = {
   slug: string;
@@ -62,6 +62,9 @@ export const historicSiteSeeds: HistoricSiteSeed[] = [
   { slug: "varner-hogg-plantation", name: "Varner-Hogg Plantation State Historic Site", nearestTown: "West Columbia", county: "Brazoria County", region: "gulf-coast", coordinates: { lat: 29.17, lng: -95.64 }, officialUrl: "https://thc.texas.gov/historic-sites/varner-hogg-plantation", significance: "The plantation site preserves more than a century of layered stories involving enslaved labor, emancipation, agriculture, oil wealth and the families who controlled or worked the land.", visitAngle: "Its interpretation is most valuable when treated as a long history of changing power, labor and community rather than as a single historic house.", themes: ["slavery and emancipation", "plantation history", "Texas oil era"] },
   { slug: "washington-on-the-brazos", name: "Washington-on-the-Brazos State Historic Site", nearestTown: "Washington", county: "Washington County", region: "prairies-lakes", coordinates: { lat: 30.325, lng: -96.153 }, officialUrl: "https://thc.texas.gov/historic-sites/washington-brazos", significance: "Delegates gathered here in March 1836 to declare Texas independence from Mexico and establish the political foundation of the Republic of Texas.", visitAngle: "The broader complex lets visitors combine the independence story with the Star of the Republic Museum and Barrington Living History Farm in one destination.", themes: ["Texas Declaration of Independence", "Republic of Texas", "Washington-on-the-Brazos"] },
   { slug: "zaragoza-birthplace", name: "Zaragoza Birthplace State Historic Site", nearestTown: "Goliad", county: "Goliad County", region: "gulf-coast", coordinates: { lat: 28.668, lng: -97.392 }, officialUrl: "https://thc.texas.gov/historic-sites/zaragoza-birthplace", significance: "Ignacio Zaragoza was born in the Goliad area and later commanded Mexican forces in their 1862 victory over the French at Puebla, commemorated by Cinco de Mayo.", visitAngle: "The birthplace connects Texas borderlands history to a major event in Mexican national memory and adds another layer to a Goliad history trip.", themes: ["Ignacio Zaragoza", "Cinco de Mayo", "Texas-Mexico history"] },
+  { slug: "fort-sam-houston-national-cemetery", name: "Fort Sam Houston National Cemetery", nearestTown: "San Antonio", county: "Bexar County", region: "south-texas", coordinates: { lat: 29.477, lng: -98.433 }, officialUrl: "https://www.cem.va.gov/CEM/cems/nchp/ftsamhouston.asp", significance: "The VA national cemetery in San Antonio is one of Texas' major military memorial landscapes and the burial place of generations of service members, including multiple Medal of Honor recipients.", visitAngle: "Use the cemetery to connect San Antonio's long military identity with individual veteran stories, memorial traditions and the modern National Cemetery Administration system.", themes: ["veterans", "Medal of Honor", "San Antonio military history"] },
+  { slug: "houston-national-cemetery", name: "Houston National Cemetery", nearestTown: "Houston", county: "Harris County", region: "gulf-coast", coordinates: { lat: 29.928, lng: -95.452 }, officialUrl: "https://www.cem.va.gov/CEM/cems/nchp/houston.asp", significance: "Established as a national cemetery in 1965, Houston National Cemetery serves veterans and families across one of the nation's largest metropolitan regions and includes its distinctive hemicycle memorial structure.", visitAngle: "Treat the cemetery as both a place of remembrance and a gateway into Houston-area veteran history, military service and national commemoration.", themes: ["veterans", "military memorials", "Houston history"] },
+  { slug: "dallas-fort-worth-national-cemetery", name: "Dallas-Fort Worth National Cemetery", nearestTown: "Dallas", county: "Dallas County", region: "prairies-lakes", coordinates: { lat: 32.716, lng: -96.948 }, officialUrl: "https://www.cem.va.gov/cems/nchp/DallasFtWorth.asp", significance: "Dedicated and opened for burials in 2000, the VA cemetery occupies more than 600 acres overlooking Mountain Creek Lake and serves veterans and families across North Texas.", visitAngle: "The rolling landscape and modern committal facilities make it a useful place to understand how national cemetery traditions continue in a fast-growing Texas metro area.", themes: ["veterans", "North Texas military history", "national cemeteries"] },
 ];
 
 function historicBody(site: HistoricSiteSeed): [string, string, string] {
@@ -93,7 +96,7 @@ export const historicSiteDestinations: Destination[] = historicSiteSeeds.map((si
   entryNote: "Check the official visitor page before departure for current hours, tours, fees, closures and accessibility details.",
   highlights: [...site.themes],
   body: historicBody(site),
-  managingAuthority: site.officialUrl.includes("thc.texas.gov") ? "Texas Historical Commission" : undefined,
+  managingAuthority: site.officialUrl.includes("thc.texas.gov") ? "Texas Historical Commission" : site.officialUrl.includes("cem.va.gov") ? "U.S. Department of Veterans Affairs — National Cemetery Administration" : undefined,
   officialUrl: site.officialUrl,
   sourceCheckedAt: SOURCE_CHECKED_AT,
 }));

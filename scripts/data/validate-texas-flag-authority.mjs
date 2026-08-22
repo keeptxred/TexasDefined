@@ -17,6 +17,8 @@ const files = {
   smoke: read(".github/workflows/flag-history-production-smoke.yml"),
   webSub: read(".github/workflows/websub-notify.yml"),
   deploy: read(".github/workflows/deploy-production.yml"),
+  productionVerifier: read("scripts/ci/verify-production-surfaces.mjs"),
+  statusPublisher: read("scripts/ci/publish-github-status.mjs"),
 };
 
 function requireContains(label, text, needle) {
@@ -114,10 +116,13 @@ requireContains("WebSub notifier", files.webSub, "hub.mode=publish");
 requireContains("WebSub notifier", files.webSub, "hub.url=${feed}");
 requireContains("WebSub notifier", files.webSub, "texasdefined-websub");
 
-requireContains("Production deploy", files.deploy, "fetch_assert flag-history");
-requireContains("Production deploy", files.deploy, "fetch_assert flag-etiquette");
-requireContains("Production deploy", files.deploy, "fetch_assert texas-symbols");
-requireContains("Production deploy", files.deploy, 'context":"texasdefined-production"');
-requireContains("Production deploy", files.deploy, 'context":"texasdefined-bundle-budget"');
+requireContains("Production deploy", files.deploy, "node scripts/ci/verify-production-surfaces.mjs");
+requireContains("Production deploy", files.deploy, "node scripts/ci/publish-github-status.mjs texasdefined-production");
+requireContains("Production deploy", files.deploy, "node scripts/ci/publish-github-status.mjs texasdefined-bundle-budget");
+requireContains("Production verifier", files.productionVerifier, "['flag-history', '/article/history-of-the-texas-flag'");
+requireContains("Production verifier", files.productionVerifier, "['flag-etiquette', '/article/texas-flag-etiquette-display-guide'");
+requireContains("Production verifier", files.productionVerifier, "['texas-symbols', '/texas-symbols'");
+requireContains("Production verifier", files.productionVerifier, "LIVE PRODUCTION failure");
+requireContains("Status publisher", files.statusPublisher, "CI telemetry failed");
 
 console.log("Texas flag authority cluster validation passed.");

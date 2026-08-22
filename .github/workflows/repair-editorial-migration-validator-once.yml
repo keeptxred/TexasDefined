@@ -1,46 +1,26 @@
-name: Repair editorial migration validator once
+name: Verify retired editorial migration repair
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/repair-editorial-migration-validator-once.yml'
+  workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  repair:
+  verify-retired-repair:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          ref: main
-      - name: Update validator for lazy Texas Life repository
+          node-version: 22
+      - name: Verify lazy Texas Life migration repair remains applied
         shell: bash
         run: |
           set -euo pipefail
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           file='scripts/data/validate-editorial-migration.mjs'
-          python3 - "$file" <<'PY'
-          from pathlib import Path
-          import sys
-          path = Path(sys.argv[1])
-          text = path.read_text(encoding='utf-8')
-          old = "'byBrand(editorialArticles, query.brandId)'"
-          new = "'byBrand(allEditorialArticles, query.brandId)'"
-          if old not in text:
-              raise SystemExit('Expected old repository wiring assertion was not found')
-          text = text.replace(old, new, 1)
-          anchor = "if (repositories.includes('from \"./migrated-editorial\"')) errors.push('Central article repository must not eagerly import migrated editorial bodies.');"
-          extra = "\nif (repositories.includes('import { texasLifeSplitArticles } from \"./texas-life-split\"')) errors.push('Central article repository must not eagerly import Texas Life split article bodies.');\nfor (const feature of ['loadTexasLifeSplitArticles','await import(\"./texas-life-split\")']) if (!repositories.includes(feature)) errors.push(`Lazy Texas Life split repository wiring missing: ${feature}`);"
-          if anchor not in text:
-              raise SystemExit('Expected eager-import guard anchor was not found')
-          text = text.replace(anchor, anchor + extra, 1)
-          path.write_text(text, encoding='utf-8')
-          PY
-          git add -- "$file"
-          git commit -m 'Validate lazy Texas Life article loading'
-          git pull --rebase origin main
-          git push origin HEAD:main
+          grep -Fq 'byBrand(allEditorialArticles, query.brandId)' "$file"
+          grep -Fq 'loadTexasLifeSplitArticles' "$file"
+          grep -Fq 'import("./texas-life-split")' "$file"
+          node "$file"
+          echo 'Editorial migration repair remains applied and its validator passes.'

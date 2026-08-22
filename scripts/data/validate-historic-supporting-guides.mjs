@@ -21,7 +21,7 @@ const sitemap = fs.existsSync(sitemapPath) ? fs.readFileSync(sitemapPath, 'utf8'
 
 const seedBlock = seeds.match(/export const historicSiteSeeds:[\s\S]*?= \[([\s\S]*?)\n\];/);
 const seedSlugs = seedBlock ? [...seedBlock[1].matchAll(/slug:\s*"([^"]+)"/g)].map((match) => match[1]) : [];
-if (seedSlugs.length !== 43) failures.push(`Expected 43 statewide historic-site seeds; found ${seedSlugs.length}.`);
+if (seedSlugs.length !== 46) failures.push(`Expected 46 statewide historic-site seeds; found ${seedSlugs.length}.`);
 
 const guides = [
   {

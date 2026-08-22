@@ -1,0 +1,27 @@
+name: Retired — Cloudflare challenge configuration audit
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit-retired-diagnostic:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify current recovery captures challenge configuration safely
+        shell: bash
+        run: |
+          set -euo pipefail
+          workflow=.github/workflows/cloudflare-edge-recovery-main.yml
+          for needle in security_level browser_integrity_check bot_management custom_firewall_entrypoint config_settings_entrypoint; do
+            grep -Fq "$needle" "$workflow"
+          done
+          grep -Fq 'Publish recovery evidence as review PR' "$workflow"
+          if grep -Eq 'git[[:space:]]+push[[:space:]]+origin[[:space:]]+HEAD:main' "$workflow"; then
+            echo 'Current recovery evidence must not write directly to main.' >&2
+            exit 1
+          fi
+          echo 'Legacy challenge-config writer retired; current recovery captures the configuration through a review PR.'

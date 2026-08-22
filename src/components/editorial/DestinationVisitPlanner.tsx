@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { AnswerSummary } from "@/components/content/AnswerSummary";
+import { destinationEditorialLinks } from "@/data/destination-editorial-links";
 import type { Destination } from "@/data/types";
 
 type Props = { destination: Destination };
@@ -22,6 +23,7 @@ export function DestinationVisitPlanner({ destination }: Props) {
     destination.accessibilityNotes ? `Accessibility: ${destination.accessibilityNotes}` : "",
     destination.directions ? `Getting there: ${destination.directions}` : "",
   ]);
+  const editorialLinks = destinationEditorialLinks(destination.slug);
 
   if (!activities.length && !facilities.length && !otherHighlights.length && !practicalTips.length) return null;
 
@@ -58,6 +60,15 @@ export function DestinationVisitPlanner({ destination }: Props) {
             </div>
           ))}
         </div>
+        {editorialLinks.length > 0 && <nav aria-label={`Editorial guides for ${destination.name}`} className="mt-8 border-t border-border pt-6">
+          <p className="eyebrow text-primary">Go deeper</p>
+          <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {editorialLinks.map((item) => <Link key={item.href} to={item.href} className="group border-t border-border pt-4">
+              <strong className="block font-display text-xl group-hover:text-primary">{item.label}</strong>
+              <span className="mt-2 block text-sm leading-6 text-muted-foreground">{item.description}</span>
+            </Link>)}
+          </div>
+        </nav>}
         <nav aria-label={`Continue planning from ${destination.name}`} className="mt-8 border-t border-border pt-6">
           <p className="eyebrow text-primary">Keep exploring</p>
           <div className="mt-4 flex flex-wrap gap-x-7 gap-y-3">
