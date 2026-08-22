@@ -1,0 +1,8 @@
+{
+  "county": "san-jacinto",
+  "status": "pass",
+  "stage": "complete",
+  "target_sha": "9844ce5dea19e74dc374004052ee803215c3818f",
+  "detail": "validate=PASS deploy=PASS page=200 structured=yes editorial=yes hero=200 mime=image/jpeg bytes=3218317 legacy=not-applicable",
+  "recorded_at_utc": "2026-08-22T02:38:45.573375+00:00"
+}
