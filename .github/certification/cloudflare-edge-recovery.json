@@ -1,0 +1,7 @@
+{
+  "recorded_at_utc": "2026-08-22T14:13:45.535622+00:00",
+  "blocked": "CLOUDFLARE_SECURITY_API_TOKEN is unavailable to the trusted main workflow environment",
+  "secret_available": false,
+  "changed": false,
+  "custom_domain_healthy": false
+}
