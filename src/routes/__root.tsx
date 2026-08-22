@@ -46,11 +46,6 @@ function NotFoundComponent() {
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
   const router = useRouter();
-  useEffect(() => {
-    void import("../lib/lovable-error-reporting").then(({ reportLovableError }) => {
-      reportLovableError(error, { boundary: "tanstack_root_error_component" });
-    });
-  }, [error]);
   return (
     <>
       <title>Page unavailable | Texas Defined</title>
