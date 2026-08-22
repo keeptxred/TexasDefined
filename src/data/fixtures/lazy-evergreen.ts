@@ -28,7 +28,6 @@ import {
   texasSchoolDistrictsExplainedStub,
 } from "./lazy-practical-evergreen-stubs";
 import { texasLakesReservoirsExplainedStub } from "./texas-lakes-reservoirs-explained-stub";
-import { texasPoolOwnerGuideStub } from "./texas-pool-owner-guide-stub";
 import { texasTreesGuideStub } from "./texas-trees-guide-stub";
 import { texasWildflowersGuideStub } from "./texas-wildflowers-guide-stub";
 import { texasWildlifeGuideStub } from "./texas-wildlife-guide-stub";
@@ -123,7 +122,7 @@ const mudsPidsHoasSpecialDistrictsStub: Article = {
 export const lazyEvergreenArticleStubs: Article[] = [
   buyingLandInTexasGuideStub, texasFarmToMarketRoadsExplainedStub, texasWildflowersGuideStub, texasTreesGuideStub,
   texasWildlifeGuideStub, texasCulturalRegionsExplainedStub, texasHomeArchitectureRegionsStub, texasHurricanePreparationStub,
-  texasRoofsHailWindHeatStub, texasSchoolDistrictsExplainedStub, chooseElectricityPlanTexasStub, texasPoolOwnerGuideStub, texasRiversExplainedStub,
+  texasRoofsHailWindHeatStub, texasSchoolDistrictsExplainedStub, chooseElectricityPlanTexasStub, texasRiversExplainedStub,
   texasLakesReservoirsExplainedStub, texasHillCountryStub, texasTownCulturalRootsStub, texasCourthousesTownSquareStub,
   texasFoundationCareStub, prepareTexasHouseFreezeStub, mudsPidsHoasSpecialDistrictsStub,
   ...texasExplainedSupportStubs, ...texasExplainedSupportStubs2, ...texasExplainedRiverProfileStubs, ...texasExplainedReservoirProfileStubs, ...texasExplainedRoadSystemStubs,
@@ -180,7 +179,6 @@ export async function loadLazyEvergreenArticle(brandId: string, slug: string): P
   if (slug === texasRoofsHailWindHeatStub.slug) { const { texasRoofsHailWindHeatArticle } = await import("./texas-roofs-hail-wind-heat"); return addSourceLinks(texasRoofsHailWindHeatArticle, [{ href: "https://www.tdi.texas.gov/tips/replacing-your-roof.html", label: "Texas Department of Insurance roof guidance", description: "Official guidance on roof coverage, wind and hail deductibles, claims and replacement." }, { href: "https://www.tdi.texas.gov/tips/after-hail-or-windstorms.html", label: "Texas hail and windstorm claim guidance", description: "Official Texas consumer guidance for documenting damage and handling storm claims." }]); }
   if (slug === texasSchoolDistrictsExplainedStub.slug) { const { texasSchoolDistrictsExplainedArticle } = await import("./texas-school-districts-explained"); return addSourceLinks(texasSchoolDistrictsExplainedArticle, [{ href: "https://tea.texas.gov/families-and-students/school-district-locator/school-district-locator", label: "Texas Education Agency school district locator", description: "Official state map and district-boundary information for Texas addresses." }, { href: "https://tea.texas.gov/glossary/askted", label: "AskTED Texas Education Directory", description: "Official school, district, county and regional education directory information." }]); }
   if (slug === chooseElectricityPlanTexasStub.slug) { const { chooseElectricityPlanTexasArticle } = await import("./choose-electricity-plan-texas"); return addSourceLinks(chooseElectricityPlanTexasArticle, [{ href: "https://www.powertochoose.org/", label: "Power to Choose", description: "Official Texas resource for comparing retail electricity offers in eligible areas." }, { href: "https://www.puc.texas.gov/consumer/electricity/", label: "Public Utility Commission electricity information", description: "Official consumer guidance on electric service, utilities and retail providers." }]); }
-  if (slug === texasPoolOwnerGuideStub.slug) { const { texasPoolOwnerGuideArticle } = await import("./texas-pool-owner-guide"); return texasPoolOwnerGuideArticle; }
   if (slug === texasRiversExplainedStub.slug) { const { texasRiversExplainedArticle } = await import("./texas-rivers-explained"); return addSourceLinks(texasRiversExplainedArticle, texasRiversSourceLinks); }
   if (slug === texasLakesReservoirsExplainedStub.slug) { const { texasLakesReservoirsExplainedArticle } = await import("./texas-lakes-reservoirs-explained"); return texasLakesReservoirsExplainedArticle; }
   if (slug === texasHillCountryStub.slug) { const { texasHillCountryWhatMakesItArticle } = await import("./texas-hill-country-what-makes-it"); return texasHillCountryWhatMakesItArticle; }
