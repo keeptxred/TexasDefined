@@ -38,6 +38,16 @@ const additions: Record<string, ArticleInternalLink[]> = {
     { href: "/article/best-places-to-see-bluebonnets-in-texas", label: "Compare Llano with Texas bluebonnet regions", description: "Put Llano's Hill Country wildflowers in context with Burnet, Brenham, Ennis, Lake Travis and Big Bend." },
     { href: "/article/texas-bluebonnet-road-trip", label: "Add Llano to the bluebonnet road trip", description: "Connect the Llano River and granite country with Burnet, Marble Falls and the wider Hill Country spring loop." },
   ],
+  "uvalde-county-uvalde-garner-frio-fort-inge-texas": [
+    { href: "/article/fall-in-texas-complete-guide", label: "Plan Uvalde County for fall color", description: "Use current reports to time Garner, the Frio corridor and the Sabinal canyons instead of relying on fixed calendar dates." },
+    { href: "/article/best-places-for-fall-colors-in-texas", label: "Compare Garner with Texas fall-color destinations", description: "See how the Frio and Uvalde County compare with Lost Maples, Guadalupe River and East Texas." },
+    { href: "/article/hill-country-fall-colors", label: "Build a Hill Country fall-color trip", description: "Connect Garner and the Frio with the Sabinal, Lost Maples and Guadalupe corridors when current conditions line up." },
+    { href: "/article/best-texas-state-parks-for-fall-colors", label: "Compare Garner with Texas state parks in fall", description: "Use the public-land guide to compare river cypress, maples, trails and access across the strongest fall parks." },
+  ],
+  "bandera-county-bandera-medina-river-cowboy-hill-country-texas": [
+    { href: "/article/hill-country-fall-colors", label: "Use Bandera County in a Hill Country fall trip", description: "Pair the Medina and Sabinal watersheds with stronger nearby foliage corridors and current color reports." },
+    { href: "/article/fall-in-texas-complete-guide", label: "Compare Bandera County with Texas fall regions", description: "Use the statewide guide to decide whether the Hill Country or East Texas has the better current autumn conditions." },
+  ],
 };
 
 for (const [slug, links] of Object.entries(additions)) {
