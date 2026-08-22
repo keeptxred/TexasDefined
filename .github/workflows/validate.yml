@@ -45,6 +45,10 @@ jobs:
         id: automation_policy
         run: node scripts/ci/validate-automation-main-write-policy.mjs
 
+      - name: Validate retired one-time certifications
+        id: retirement_policy
+        run: node scripts/ci/validate-retired-one-time-certifications.mjs
+
       - name: Run authoritative validation suite
         id: validation
         run: node scripts/ci/run-validation-suite.mjs full
@@ -66,6 +70,7 @@ jobs:
         shell: bash
         env:
           AUTOMATION_POLICY_OUTCOME: ${{ steps.automation_policy.outcome }}
+          RETIREMENT_POLICY_OUTCOME: ${{ steps.retirement_policy.outcome }}
           VALIDATION_OUTCOME: ${{ steps.validation.outcome }}
           PREDEPLOY_OUTCOME: ${{ steps.predeploy.outcome }}
           BUILD_OUTCOME: ${{ steps.build.outcome }}
@@ -77,6 +82,7 @@ jobs:
             echo '| Stage | Failure class | Outcome |'
             echo '|---|---|---|'
             echo "| Automation main-write policy | CI / AUTOMATION SAFETY | ${AUTOMATION_POLICY_OUTCOME:-not-run} |"
+            echo "| Retired one-time certification policy | CI / RETIREMENT SAFETY | ${RETIREMENT_POLICY_OUTCOME:-not-run} |"
             echo "| Authoritative validation suite | CODE / CONTENT / SEO / DATA | ${VALIDATION_OUTCOME:-not-run} |"
             echo "| Production predeploy authority suite | PREDEPLOY AUTHORITY | ${PREDEPLOY_OUTCOME:-not-run} |"
             echo "| Production build | BUILD | ${BUILD_OUTCOME:-not-run} |"
@@ -85,6 +91,8 @@ jobs:
 
           if [[ "$AUTOMATION_POLICY_OUTCOME" == 'failure' ]]; then
             echo '::error title=CI failure class: automation safety::An active automation workflow violated the protected main-write or image-review policy.'
+          elif [[ "$RETIREMENT_POLICY_OUTCOME" == 'failure' ]]; then
+            echo '::error title=CI failure class: retirement safety::A completed one-time county certification lost PASS evidence or regained write/deploy behavior.'
           elif [[ "$VALIDATION_OUTCOME" == 'failure' ]]; then
             echo '::error title=CI failure class: validation::A code/content/SEO/data validator failed. The exact validator and command are listed in the validation-suite summary above.'
           elif [[ "$PREDEPLOY_OUTCOME" == 'failure' ]]; then
