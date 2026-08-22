@@ -45,6 +45,8 @@ const destinationRequirements = {
   "enchanted-rock-state-natural-area": ["/article/texas-bluebonnets-complete-guide", "/article/best-places-to-see-bluebonnets-in-texas", "/article/texas-bluebonnet-road-trip"],
   "caddo-lake-state-park": ["/article/fall-in-texas-complete-guide", "/article/east-texas-fall-colors", "/article/best-texas-state-parks-for-fall-colors", "/article/texas-fall-foliage-road-trip"],
   "caddo-lake": ["/article/fall-in-texas-complete-guide", "/article/east-texas-fall-colors", "/article/best-places-for-fall-colors-in-texas"],
+  "new-braunfels": ["/article/christmas-in-texas-complete-guide", "/article/best-christmas-towns-in-texas", "/article/texas-christmas-road-trip"],
+  "gruene": ["/article/christmas-in-texas-complete-guide", "/article/best-christmas-towns-in-texas"],
 };
 for (const [destination, hrefs] of Object.entries(destinationRequirements)) {
   if (!destinationLinks.includes(`\"${destination}\"`)) fail(`missing seasonal destination link group for ${destination}`);

@@ -78,6 +78,35 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       description: "See how Caddo Lake stacks up against Lost Maples, Garner, Daingerfield, the Guadalupe and other strong autumn stops.",
     },
   ],
+  "new-braunfels": [
+    {
+      href: "/article/christmas-in-texas-complete-guide",
+      label: "Plan New Braunfels in the Texas Christmas guide",
+      description: "Compare the city's German-Texan holiday traditions with statewide Christmas towns, lights, train rides and coastal celebrations.",
+    },
+    {
+      href: "/article/best-christmas-towns-in-texas",
+      label: "Compare Texas Christmas towns",
+      description: "See how New Braunfels and nearby Gruene fit alongside Fredericksburg, Grapevine, Johnson City, Marshall and other strong holiday destinations.",
+    },
+    {
+      href: "/article/texas-christmas-road-trip",
+      label: "Build a Hill Country Christmas road trip",
+      description: "Use New Braunfels as a southern add-on to the Fredericksburg, Johnson City and Marble Falls holiday loop.",
+    },
+  ],
+  "gruene": [
+    {
+      href: "/article/christmas-in-texas-complete-guide",
+      label: "Put Gruene in a Texas Christmas trip",
+      description: "Connect the historic district's Hill Country setting with the statewide holiday guide and current seasonal planning advice.",
+    },
+    {
+      href: "/article/best-christmas-towns-in-texas",
+      label: "Compare the best Texas Christmas towns",
+      description: "Use the statewide shortlist to pair Gruene with other places where historic streets and local traditions shape the season.",
+    },
+  ],
 };
 
 export function destinationEditorialLinks(slug: string): DestinationEditorialLink[] {
