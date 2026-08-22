@@ -2,14 +2,27 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 
-const counties = ['crosby','gaines','howard','hutchinson','morris','nolan','rockwall','scurry','wise','wood'];
+const baseCounties = ['crosby','gaines','howard','hutchinson','morris','nolan','rockwall','scurry','wise','wood'];
+const additionalCounties = ['borden','garza','delta','parmer','dawson'];
+const counties = [...baseCounties, ...additionalCounties];
 const errors = [];
 const read = (file) => fs.readFileSync(file, 'utf8');
-const configPath = 'scripts/ci/incomplete-county-certification-config.json';
-const config = JSON.parse(read(configPath));
+const baseConfigPath = 'scripts/ci/incomplete-county-certification-config.json';
+const additionalConfigPath = 'scripts/ci/additional-county-certification-config.json';
+const baseConfig = JSON.parse(read(baseConfigPath));
+const additionalConfig = JSON.parse(read(additionalConfigPath));
 
+if (JSON.stringify(Object.keys(baseConfig).sort()) !== JSON.stringify([...baseCounties].sort())) {
+  errors.push(`Base certification config must contain exactly: ${baseCounties.join(', ')}`);
+}
+if (JSON.stringify(Object.keys(additionalConfig).sort()) !== JSON.stringify([...additionalCounties].sort())) {
+  errors.push(`Additional certification config must contain exactly: ${additionalCounties.join(', ')}`);
+}
+const overlaps = Object.keys(additionalConfig).filter((county) => Object.hasOwn(baseConfig, county));
+if (overlaps.length) errors.push(`Certification config files must not overlap: ${overlaps.join(', ')}`);
+const config = { ...baseConfig, ...additionalConfig };
 if (JSON.stringify(Object.keys(config).sort()) !== JSON.stringify([...counties].sort())) {
-  errors.push(`Certification config must contain exactly: ${counties.join(', ')}`);
+  errors.push(`Merged certification config must contain exactly: ${counties.join(', ')}`);
 }
 
 for (const county of counties) {
@@ -89,11 +102,21 @@ for (const needle of [
   'actions: write',
   'contents: write',
   'pull-requests: write',
+  'node scripts/ci/merge-county-certification-config.mjs',
   'node scripts/ci/run-incomplete-county-certification.mjs "$COUNTY"',
   'bash scripts/ci/publish-county-certification-evidence.sh',
   'Require certification pass',
 ]) if (!reusable.includes(needle)) errors.push(`${reusablePath}: missing ${needle}`);
 if (reusable.includes('git push origin HEAD:main')) errors.push(`${reusablePath}: direct main writes are forbidden`);
+
+const mergerPath = 'scripts/ci/merge-county-certification-config.mjs';
+const merger = read(mergerPath);
+for (const needle of [
+  baseConfigPath,
+  additionalConfigPath,
+  'duplicates.length',
+  'const merged = { ...base, ...additional };',
+]) if (!merger.includes(needle)) errors.push(`${mergerPath}: missing fail-closed config merge behavior ${needle}`);
 
 const enginePath = 'scripts/ci/run-incomplete-county-certification.mjs';
 const engine = read(enginePath);
@@ -125,6 +148,7 @@ if (/git\s+push\s+origin\s+HEAD:main/.test(publisher)) errors.push(`${publisherP
 
 for (const [command, args, label] of [
   ['node', ['--check', enginePath], 'county certification engine syntax'],
+  ['node', ['--check', mergerPath], 'county certification config merger syntax'],
   ['node', ['--check', 'scripts/ci/validate-direct-main-writer-inventory.mjs'], 'direct-main policy syntax'],
   ['node', ['--check', 'scripts/ci/validate-county-certifier-consolidation.mjs'], 'county certifier contract syntax'],
   ['bash', ['-n', publisherPath], 'evidence publisher shell syntax'],
@@ -139,4 +163,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('County certifier consolidation passed: ten manual wrappers share one source-read-only production certification engine, exact-commit validated evidence PRs, zero direct-main writes, current source assertions are executable, and all legacy county-series article shapes are protected as exact 301 redirects to canonical county URLs.');
+console.log(`County certifier consolidation passed: ${counties.length} manual wrappers share one source-read-only production certification engine, exact-commit validated evidence PRs, zero direct-main writes, executable current-source assertions, and exact 301 legacy redirects to canonical county URLs.`);
