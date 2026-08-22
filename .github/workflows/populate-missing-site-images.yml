@@ -10,6 +10,8 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
+  actions: write
 
 concurrency:
   group: populate-missing-site-images
@@ -18,11 +20,12 @@ concurrency:
 jobs:
   populate:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
-      - name: Check out repository
+      - name: Check out current main
         uses: actions/checkout@v4
         with:
+          ref: main
           fetch-depth: 0
 
       - name: Set up Node
@@ -40,15 +43,54 @@ jobs:
       - name: Populate missing editorial JPEGs
         run: node scripts/data/populate-missing-site-images.mjs
 
-      - name: Commit populated images
+      - name: Detect populated image changes
+        id: changes
+        shell: bash
         run: |
+          if [[ -z "$(git status --porcelain -- src scripts/data/missing-site-image-report.json)" ]]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No missing site image changes to preserve."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "Missing site image changes detected."
+          fi
+
+      - name: Create missing-image review branch
+        if: steps.changes.outputs.changed == 'true'
+        id: branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          branch="automation/missing-site-images-${GITHUB_RUN_ID}"
           git config user.name "Texas Defined Data Bot"
           git config user.email "actions@users.noreply.github.com"
+          git checkout -b "$branch"
           git add src scripts/data/missing-site-image-report.json
-          if git diff --cached --quiet; then
-            echo "No missing site image changes to commit."
-            exit 0
-          fi
-          git commit -m "fix: populate missing Texas Defined editorial images [skip ci]"
-          git pull --rebase origin main
-          git push
+          git commit -m "fix: populate missing Texas Defined editorial images"
+          git push origin "$branch"
+          echo "name=$branch" >> "$GITHUB_OUTPUT"
+
+      - name: Open reviewable missing-image pull request
+        if: steps.changes.outputs.changed == 'true'
+        id: pr
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ steps.branch.outputs.name }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          pr_url="$(gh pr create \
+            --base main \
+            --head "$BRANCH" \
+            --title 'Review populated TexasDefined editorial images' \
+            --body $'Automated missing-image population. This PR is intentionally not auto-merged. Review item-level image rights, source/credit metadata, subject relevance, and visual quality before merge. The official TexasDefined validation workflow is dispatched explicitly against this exact branch commit.')"
+          echo "url=$pr_url" >> "$GITHUB_OUTPUT"
+          echo "Opened $pr_url"
+
+      - name: Run official validation on populated branch
+        if: steps.changes.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ steps.branch.outputs.name }}
+        shell: bash
+        run: bash scripts/ci/dispatch-validate-branch.sh "$BRANCH"
