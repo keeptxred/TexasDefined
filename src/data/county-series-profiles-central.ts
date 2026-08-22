@@ -73,4 +73,10 @@ export const COUNTY_SERIES_PROFILES_CENTRAL: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/sutton-county-sonora-caverns-ranching-edwards-plateau-texas")
       .then((module) => module.suttonCountySonoraCavernsRanchingEdwardsPlateauTexasArticle),
   },
+  {
+    countySlug: "irion",
+    articleSlug: "irion-county-mertzon-sherwood-middle-concho-ranching-texas",
+    loadArticle: () => import("@/data/fixtures/irion-county-mertzon-sherwood-middle-concho-ranching-texas")
+      .then((module) => module.irionCountyMertzonSherwoodMiddleConchoRanchingTexasArticle),
+  },
 ];
