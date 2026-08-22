@@ -115,6 +115,32 @@ const texasNationalCemeteriesGuideStub: Article = {
   relatedDestinations: ["fort-sam-houston-national-cemetery", "houston-national-cemetery", "dallas-fort-worth-national-cemetery", "texas-military-forces-museum"],
 };
 
+const texasHomeownerFieldManualStub: Article = {
+  id: "evergreen-texas-homeowner-field-manual",
+  brandId: "texasdefined",
+  slug: "texas-homeowner-field-manual",
+  title: "The Texas Homeowner Field Manual: Weather, Utilities, Insurance, Wildlife and the Systems That Matter",
+  dek: "A practical operating manual for owning a house in Texas: storms, freezes, foundations, roofs, electricity, insurance, water, pools, pests, wildlife, school districts, emergency records and the annual maintenance rhythm that ties them together.",
+  category: "home-garden",
+  hero: {
+    src: "https://images.unsplash.com/photo-1768941124710-1a42b3195208?auto=format&fit=crop&w=1600&h=1067&q=82",
+    alt: "Brick and stucco suburban home exterior with a green lawn and walkway",
+    width: 1600,
+    height: 1067,
+    credit: "Kellen Riggin · Unsplash",
+  },
+  authorId: "a-marisol",
+  publishedAt: "2026-08-22",
+  readingMinutes: 19,
+  tags: ["texas homeowner guide", "texas home maintenance", "texas weather", "texas insurance", "texas electricity", "texas wildlife", "texas foundation", "texas roof", "moving to texas"],
+  featured: true,
+  sourceName: "Texas Department of Insurance",
+  sourceUrl: "https://www.tdi.texas.gov/consumer/homeowners.html",
+  body: [],
+  relatedCollections: [],
+  relatedDestinations: [],
+};
+
 export const newestEvergreenArticles: Article[] = [
   ...seasonalIntentStubs,
   ...lighthouseSearchIntentStubs,
@@ -125,6 +151,7 @@ export const newestEvergreenArticles: Article[] = [
   texasFlagEtiquetteStub,
   texasMilitaryMuseumsGuideStub,
   texasNationalCemeteriesGuideStub,
+  texasHomeownerFieldManualStub,
 ];
 
 const loaders: Record<string, () => Promise<Article>> = {
@@ -132,6 +159,7 @@ const loaders: Record<string, () => Promise<Article>> = {
   "texas-flag-etiquette-display-guide": async () => (await import("./texas-flag-etiquette")).texasFlagEtiquetteArticle,
   "texas-military-museums-historic-sites-guide": async () => (await import("./texas-military-museums-historic-sites-guide")).texasMilitaryMuseumsHistoricSitesGuideArticle,
   "texas-national-cemeteries-guide": async () => (await import("./texas-national-cemeteries-guide")).texasNationalCemeteriesGuideArticle,
+  "texas-homeowner-field-manual": async () => (await import("./texas-homeowner-field-manual")).texasHomeownerFieldManualArticle,
 };
 
 export async function loadNewestEvergreenArticle(brandId: string, slug: string) {
