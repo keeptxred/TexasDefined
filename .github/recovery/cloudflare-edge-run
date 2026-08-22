@@ -1,2 +1,2 @@
-triggered: 2026-08-22T14:57Z
-reason: run read-only Cloudflare security diagnosis using existing credentials after dedicated security secret was unavailable
+triggered: 2026-08-22T15:06Z
+reason: identify the remaining Cloudflare challenge source after Bot Fight Mode was proven and disabled while representative routes still returned cf-mitigated challenge
