@@ -1,2 +1,2 @@
-triggered: 2026-08-22T14:12Z
-reason: execute trusted main Cloudflare edge recovery with dedicated security token after hardened evidence runner merge
+triggered: 2026-08-22T14:49Z
+reason: rerun trusted main Cloudflare edge recovery after closing the missing-token public-probe evidence gap
