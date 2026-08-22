@@ -57,6 +57,34 @@ const targets = [
       "Repair or replace?",
     ],
   },
+  {
+    file: "src/data/fixtures/choose-electricity-plan-texas.ts",
+    label: "Texas electricity shopping guide",
+    minHeadings: 16,
+    minParagraphs: 27,
+    required: [
+      "Power to Choose",
+      "Public Utility Commission electricity information",
+      "PUCT guide to the Electricity Facts Label",
+      "Know the three companies that may appear on your bill",
+      "Solar buyback plans require two calculations",
+      "Build a one-page comparison table",
+    ],
+  },
+  {
+    file: "src/data/fixtures/texas-school-districts-explained.ts",
+    label: "Texas school district guide",
+    minHeadings: 14,
+    minParagraphs: 23,
+    required: [
+      "Texas Education Agency district directory",
+      "TXschools.gov",
+      "The five address checks to make before you buy or lease",
+      "What a rezoning proposal means for a homebuyer",
+      "MUDs, PIDs, HOAs and school districts can all overlap one address",
+      "Questions to ask before signing a contract",
+    ],
+  },
 ];
 
 const failures = [];
@@ -79,9 +107,9 @@ for (const target of targets) {
 }
 
 if (failures.length) {
-  console.error(`Practical Texas home authority validation failed (${failures.length} issue${failures.length === 1 ? "" : "s"}):`);
+  console.error(`Practical Texas authority validation failed (${failures.length} issue${failures.length === 1 ? "" : "s"}):`);
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Practical Texas home authority protected: hurricane, freeze, foundation and roof guides retain substantive depth, official-source trails, homeowner checklists and Texas-specific decision support.");
+console.log("Practical Texas authority protected: hurricane, freeze, foundation, roof, electricity and school-district guides retain substantive depth, official-source trails, checklists and Texas-specific decision support.");
