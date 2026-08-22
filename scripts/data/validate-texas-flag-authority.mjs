@@ -42,6 +42,8 @@ function requireCount(label, text, needle, minimum) {
 
 requireContains("Texas flag history", files.history, 'slug: "history-of-the-texas-flag"');
 requireContains("Texas flag history", files.history, 'sourceUrl: "https://www.tsl.texas.gov/treasures/flagsandmaps/flag-design.html"');
+requireContains("Texas flag history", files.history, 'href: "/article/texas-flag-etiquette-display-guide"');
+requireContains("Texas flag history", files.history, 'label: "Texas flag display & etiquette"');
 requireContains("Texas flag history", files.history, 'h("1836: the Burnet flag becomes the first official national standard")');
 requireContains("Texas flag history", files.history, 'h("1838–1839: the modern Lone Star design takes shape")');
 requireContains("Texas flag history", files.history, 'h("Who designed the Texas flag?")');
@@ -111,6 +113,9 @@ requireContains("robots.txt", files.robots, "Sitemap: https://texasdefined.com/r
 requireContains("Flag production smoke", files.smoke, "workflow_run:");
 requireContains("Flag production smoke", files.smoke, 'workflows: ["Deploy TexasDefined production"]');
 requireContains("Flag production smoke", files.smoke, "texas-flag-history-page");
+requireContains("Flag production smoke", files.smoke, "texas-flag-history-reciprocity");
+requireContains("Flag production smoke", files.smoke, "texas-flag-history-schema");
+requireContains("Flag production smoke", files.smoke, "texas-flag-history-source");
 requireContains("Flag production smoke", files.smoke, "texas-flag-indexing-signals");
 requireContains("Flag production smoke", files.smoke, "'/rss.xml'");
 requireContains("Flag production smoke", files.smoke, "fresh sitemap dates and RSS discovery verified");
