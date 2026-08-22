@@ -1,4 +1,3 @@
-import { explicitCanonicalPath } from './canonical-ownership';
 import type { TexasEntityRecord } from './types';
 
 export type RankedRelatedEntity = { entity: TexasEntityRecord; score: number; reasons: string[] };
@@ -109,9 +108,8 @@ export function genericEntityPath(entity: Pick<TexasEntityRecord, 'kind' | 'slug
   return `/${entity.kind}/${entity.slug}`;
 }
 
-export function canonicalEntityPath(entity: Pick<TexasEntityRecord, 'kind' | 'slug' | 'sourceId'>) {
-  const explicit = explicitCanonicalPath(entity.kind, entity.slug);
-  if (explicit) return explicit;
+export function canonicalEntityPath(entity: Pick<TexasEntityRecord, 'kind' | 'slug' | 'sourceId' | 'tags'>) {
+  if (entity.tags?.includes('destination-owner')) return `/destination/${entity.slug}`;
   if (entity.sourceId === 'explore-shared-catalog') return `/destination/${entity.slug}`;
   return genericEntityPath(entity);
 }
