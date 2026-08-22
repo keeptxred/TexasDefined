@@ -7,11 +7,13 @@
     "sourceRequirements": [
       {"file":"src/data/county-series-profiles-south-plains.ts","includes":["countySlug: \"crosby\""]},
       {"file":"src/data/county-series.server.ts","includes":["COUNTY_SERIES_PROFILES_SOUTH_PLAINS"]},
-      {"file":"src/data/fixtures/crosby-county-crosbyton-blanco-canyon-caprock-south-plains-texas.ts","includes":["Crosby County: Crosbyton, Blanco Canyon and the Edge of the Caprock"]}
+      {"file":"src/data/fixtures/crosby-county-crosbyton-blanco-canyon-caprock-south-plains-texas.ts","includes":["Crosby County: Crosbyton, Blanco Canyon and the Edge of the Caprock"]},
+      {"file":"src/data/county-series.ts","includes":["articleSlug.indexOf(\"-county-\")","articleSlug.endsWith(\"-texas\")","return articleSlug.slice(0, markerIndex);"]},
+      {"file":"src/server.ts","includes":["const countySlug = countySlugForLegacyArticle(decodeURIComponent(match[1]));","url.pathname = `/county/${countySlug}`;","return Response.redirect(url.toString(), 301);"]}
     ],
     "canonicalScanFiles": ["src/data/fixtures/crosby-county-crosbyton-blanco-canyon-caprock-south-plains-texas.ts","src/data/county-series-profiles-south-plains.ts","src/data/county-series.server.ts"],
     "pageMarkers": ["Crosby County: Crosbyton, Blanco Canyon and the Edge of the Caprock","The county in numbers","County seat","2020 population","County feature","Crosbyton","Blanco Canyon","https://texasdefined.com/county/crosby"],
-    "legacy": {"mode":"none"}
+    "legacy": {"mode":"redirect","path":"/article/crosby-county-crosbyton-blanco-canyon-caprock-south-plains-texas","locationExact":"https://texasdefined.com/county/crosby","statuses":[301]}
   },
   "gaines": {
     "displayName": "Gaines County",
@@ -20,12 +22,13 @@
     "heroUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/The_Gaines_County_Courthouse_in_Seminole%2C_Texas_LCCN2014631702.jpg?width=1600",
     "sourceRequirements": [
       {"file":"src/data/county-series-profiles-south-plains.ts","includes":["countySlug: \"gaines\""]},
-      {"file":"src/data/county-series.ts","includes":["[\"gaines-county-seminole-oil-cotton-peanuts-high-plains-texas\", \"gaines\"]"]},
-      {"file":"src/data/fixtures/gaines-county-seminole-oil-cotton-peanuts-high-plains-texas.ts","includes":["Gaines County: Seminole, Oil, Cotton, Peanuts and the High Plains"]}
+      {"file":"src/data/fixtures/gaines-county-seminole-oil-cotton-peanuts-high-plains-texas.ts","includes":["Gaines County: Seminole, Oil, Cotton, Peanuts and the High Plains"]},
+      {"file":"src/data/county-series.ts","includes":["articleSlug.indexOf(\"-county-\")","articleSlug.endsWith(\"-texas\")","return articleSlug.slice(0, markerIndex);"]},
+      {"file":"src/server.ts","includes":["const countySlug = countySlugForLegacyArticle(decodeURIComponent(match[1]));","url.pathname = `/county/${countySlug}`;","return Response.redirect(url.toString(), 301);"]}
     ],
     "canonicalScanFiles": ["src/data/fixtures/gaines-county-seminole-oil-cotton-peanuts-high-plains-texas.ts","src/data/county-series-profiles-south-plains.ts","src/data/county-series.ts","src/data/county-series.server.ts"],
     "pageMarkers": ["Gaines County: Seminole, Oil, Cotton, Peanuts and the High Plains","The county in numbers","County seat","2020 population","County feature","Seminole","Seagraves","https://texasdefined.com/county/gaines"],
-    "legacy": {"mode":"redirect","path":"/article/gaines-county-seminole-oil-cotton-peanuts-high-plains-texas","locationContains":"/county/gaines","statuses":[301,308]}
+    "legacy": {"mode":"redirect","path":"/article/gaines-county-seminole-oil-cotton-peanuts-high-plains-texas","locationExact":"https://texasdefined.com/county/gaines","statuses":[301]}
   },
   "howard": {
     "displayName": "Howard County",
@@ -34,11 +37,13 @@
     "heroUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Howard_County%2C_TX%2C_Courthouse%2C_Big_Spring%2C_TX_IMG_1443.JPG?width=1600",
     "sourceRequirements": [
       {"file":"src/data/county-series-profiles-rolling-plains.ts","includes":["countySlug: \"howard\""]},
-      {"file":"src/data/fixtures/howard-county-big-spring-scenic-mountain-railroads-oil-west-texas.ts","includes":["Howard County: Big Spring, Scenic Mountain, Railroads and West Texas Oil Country"]}
+      {"file":"src/data/fixtures/howard-county-big-spring-scenic-mountain-railroads-oil-west-texas.ts","includes":["Howard County: Big Spring, Scenic Mountain, Railroads and West Texas Oil Country"]},
+      {"file":"src/data/county-series.ts","includes":["articleSlug.indexOf(\"-county-\")","articleSlug.endsWith(\"-texas\")","return articleSlug.slice(0, markerIndex);"]},
+      {"file":"src/server.ts","includes":["const countySlug = countySlugForLegacyArticle(decodeURIComponent(match[1]));","url.pathname = `/county/${countySlug}`;","return Response.redirect(url.toString(), 301);"]}
     ],
     "canonicalScanFiles": ["src/data/fixtures/howard-county-big-spring-scenic-mountain-railroads-oil-west-texas.ts","src/data/county-series-profiles-rolling-plains.ts","src/data/county-series.server.ts"],
     "pageMarkers": ["Howard County: Big Spring, Scenic Mountain, Railroads and West Texas Oil Country","The county in numbers","County seat","2020 population","County feature","Big Spring","Scenic Mountain","https://texasdefined.com/county/howard"],
-    "legacy": {"mode":"not-200","path":"/article/howard-county-big-spring-scenic-mountain-railroads-oil-west-texas"}
+    "legacy": {"mode":"redirect","path":"/article/howard-county-big-spring-scenic-mountain-railroads-oil-west-texas","locationExact":"https://texasdefined.com/county/howard","statuses":[301]}
   },
   "hutchinson": {
     "displayName": "Hutchinson County",
@@ -47,11 +52,13 @@
     "heroUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Hutchinson_County_Texas_Courthouse.jpg?width=1600",
     "sourceRequirements": [
       {"file":"src/data/county-series-profiles-panhandle.ts","includes":["countySlug: \"hutchinson\""]},
-      {"file":"src/data/fixtures/hutchinson-county-borger-stinnett-adobe-walls-lake-meredith-panhandle-texas.ts","includes":["Hutchinson County: Borger, Stinnett, Adobe Walls and Lake Meredith","Hutchinson_County_Texas_Courthouse.jpg?width=1600"]}
+      {"file":"src/data/fixtures/hutchinson-county-borger-stinnett-adobe-walls-lake-meredith-panhandle-texas.ts","includes":["Hutchinson County: Borger, Stinnett, Adobe Walls and Lake Meredith","Hutchinson_County_Texas_Courthouse.jpg?width=1600"]},
+      {"file":"src/data/county-series.ts","includes":["articleSlug.indexOf(\"-county-\")","articleSlug.endsWith(\"-texas\")","return articleSlug.slice(0, markerIndex);"]},
+      {"file":"src/server.ts","includes":["const countySlug = countySlugForLegacyArticle(decodeURIComponent(match[1]));","url.pathname = `/county/${countySlug}`;","return Response.redirect(url.toString(), 301);"]}
     ],
     "canonicalScanFiles": ["src/data/fixtures/hutchinson-county-borger-stinnett-adobe-walls-lake-meredith-panhandle-texas.ts","src/data/county-series-profiles-panhandle.ts","src/data/county-series.ts","src/data/county-series.server.ts"],
     "pageMarkers": ["Hutchinson County: Borger, Stinnett, Adobe Walls and Lake Meredith","The county in numbers","County seat","2020 population","County feature","Borger","Stinnett","https://texasdefined.com/county/hutchinson"],
-    "legacy": {"mode":"redirect","path":"/article/hutchinson-county-borger-stinnett-adobe-walls-lake-meredith-panhandle-texas","locationContains":"/county/hutchinson","statuses":[301,308]}
+    "legacy": {"mode":"redirect","path":"/article/hutchinson-county-borger-stinnett-adobe-walls-lake-meredith-panhandle-texas","locationExact":"https://texasdefined.com/county/hutchinson","statuses":[301]}
   },
   "morris": {
     "displayName": "Morris County",
@@ -60,12 +67,13 @@
     "heroUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/View_in_Daingerfield_State_Park_Texas_2023.jpg?width=1600",
     "sourceRequirements": [
       {"file":"src/data/county-series-profiles-northeast.ts","includes":["countySlug: \"morris\""]},
-      {"file":"src/data/county-series.ts","includes":["[\"morris-county-daingerfield-steel-state-park-piney-woods-texas\", \"morris\"]"]},
-      {"file":"src/data/fixtures/repositories.ts","includes":["loadTexasLifeSplitArticles","import(\"./texas-life-split\")"],"forbidden":["import { texasLifeSplitArticles } from \"./texas-life-split\";"]}
+      {"file":"src/data/fixtures/repositories.ts","includes":["loadTexasLifeSplitArticles","import(\"./texas-life-split\")"],"forbidden":["import { texasLifeSplitArticles } from \"./texas-life-split\";"]},
+      {"file":"src/data/county-series.ts","includes":["articleSlug.indexOf(\"-county-\")","articleSlug.endsWith(\"-texas\")","return articleSlug.slice(0, markerIndex);"]},
+      {"file":"src/server.ts","includes":["const countySlug = countySlugForLegacyArticle(decodeURIComponent(match[1]));","url.pathname = `/county/${countySlug}`;","return Response.redirect(url.toString(), 301);"]}
     ],
     "canonicalScanFiles": ["src/data/fixtures/morris-county-daingerfield-steel-state-park-piney-woods-texas.ts","src/data/county-series-profiles-northeast.ts","src/data/county-series.ts"],
     "pageMarkers": ["Morris County: Daingerfield, Steel, Piney Woods and a CCC-Built State Park","The county in numbers","County seat","2020 population","County feature","Daingerfield","https://texasdefined.com/county/morris"],
-    "legacy": {"mode":"redirect","path":"/article/morris-county-daingerfield-steel-state-park-piney-woods-texas","locationContains":"/county/morris","statuses":[301]}
+    "legacy": {"mode":"redirect","path":"/article/morris-county-daingerfield-steel-state-park-piney-woods-texas","locationExact":"https://texasdefined.com/county/morris","statuses":[301]}
   },
   "nolan": {
     "displayName": "Nolan County",
@@ -74,11 +82,13 @@
     "heroUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Nolan_County_Texas_Courthouse_2015.jpg?width=1600",
     "sourceRequirements": [
       {"file":"src/data/county-series-profiles-rolling-plains.ts","includes":["countySlug: \"nolan\""]},
-      {"file":"src/data/priority-search-pages.ts","forbidden":["keeptxred.com/guides/texas-child-support-guidelines-law"]}
+      {"file":"src/data/priority-search-pages.ts","forbidden":["keeptxred.com/guides/texas-child-support-guidelines-law"]},
+      {"file":"src/data/county-series.ts","includes":["articleSlug.indexOf(\"-county-\")","articleSlug.endsWith(\"-texas\")","return articleSlug.slice(0, markerIndex);"]},
+      {"file":"src/server.ts","includes":["const countySlug = countySlugForLegacyArticle(decodeURIComponent(match[1]));","url.pathname = `/county/${countySlug}`;","return Response.redirect(url.toString(), 301);"]}
     ],
     "canonicalScanFiles": ["src/data/fixtures/nolan-county-sweetwater-wasp-wind-railroads-big-country-texas.ts","src/data/county-series-profiles-rolling-plains.ts","src/data/county-series.server.ts"],
     "pageMarkers": ["Nolan County: Sweetwater, WASP History, Railroads and Wind Country","The county in numbers","County seat","2020 population","County feature","Sweetwater","Avenger Field","https://texasdefined.com/county/nolan"],
-    "legacy": {"mode":"none"}
+    "legacy": {"mode":"redirect","path":"/article/nolan-county-sweetwater-wasp-wind-railroads-big-country-texas","locationExact":"https://texasdefined.com/county/nolan","statuses":[301]}
   },
   "rockwall": {
     "displayName": "Rockwall County",
@@ -87,12 +97,13 @@
     "heroUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Rockwall%20county%20tx%20courthouse%202014.jpg?width=1600",
     "sourceRequirements": [
       {"file":"src/data/county-series-profiles-northeast.ts","includes":["countySlug: \"rockwall\""]},
-      {"file":"src/data/county-series.ts","includes":["[\"rockwall-county-rockwall-heath-lake-ray-hubbard-blackland-prairie-texas\", \"rockwall\"]"]},
-      {"file":"src/data/fixtures/rockwall-county-rockwall-heath-lake-ray-hubbard-blackland-prairie-texas.ts","includes":["Rockwall County: The Rock Wall, Lake Ray Hubbard and a Small County in a Fast-Growing Metro"]}
+      {"file":"src/data/fixtures/rockwall-county-rockwall-heath-lake-ray-hubbard-blackland-prairie-texas.ts","includes":["Rockwall County: The Rock Wall, Lake Ray Hubbard and a Small County in a Fast-Growing Metro"]},
+      {"file":"src/data/county-series.ts","includes":["articleSlug.indexOf(\"-county-\")","articleSlug.endsWith(\"-texas\")","return articleSlug.slice(0, markerIndex);"]},
+      {"file":"src/server.ts","includes":["const countySlug = countySlugForLegacyArticle(decodeURIComponent(match[1]));","url.pathname = `/county/${countySlug}`;","return Response.redirect(url.toString(), 301);"]}
     ],
     "canonicalScanFiles": ["src/data/fixtures/rockwall-county-rockwall-heath-lake-ray-hubbard-blackland-prairie-texas.ts","src/data/county-series-profiles-northeast.ts","src/data/county-series.ts"],
     "pageMarkers": ["Rockwall County: The Rock Wall, Lake Ray Hubbard and a Small County in a Fast-Growing Metro","The county in numbers","County seat","2020 population","County feature","Rockwall","https://texasdefined.com/county/rockwall"],
-    "legacy": {"mode":"redirect","path":"/article/rockwall-county-rockwall-heath-lake-ray-hubbard-blackland-prairie-texas","locationContains":"/county/rockwall","statuses":[301]}
+    "legacy": {"mode":"redirect","path":"/article/rockwall-county-rockwall-heath-lake-ray-hubbard-blackland-prairie-texas","locationExact":"https://texasdefined.com/county/rockwall","statuses":[301]}
   },
   "scurry": {
     "displayName": "Scurry County",
@@ -101,11 +112,13 @@
     "heroUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Scurry_County_Courthouse%2C_Snyder%2C_TX_IMG_4574.JPG?width=1600",
     "sourceRequirements": [
       {"file":"src/data/county-series-profiles-rolling-plains.ts","includes":["countySlug: \"scurry\""]},
-      {"file":"src/data/fixtures/scurry-county-snyder-buffalo-oil-colorado-river-west-texas.ts","includes":["Scurry County: Snyder, Buffalo Country, Oil and the Upper Colorado River"]}
+      {"file":"src/data/fixtures/scurry-county-snyder-buffalo-oil-colorado-river-west-texas.ts","includes":["Scurry County: Snyder, Buffalo Country, Oil and the Upper Colorado River"]},
+      {"file":"src/data/county-series.ts","includes":["articleSlug.indexOf(\"-county-\")","articleSlug.endsWith(\"-texas\")","return articleSlug.slice(0, markerIndex);"]},
+      {"file":"src/server.ts","includes":["const countySlug = countySlugForLegacyArticle(decodeURIComponent(match[1]));","url.pathname = `/county/${countySlug}`;","return Response.redirect(url.toString(), 301);"]}
     ],
     "canonicalScanFiles": ["src/data/fixtures/scurry-county-snyder-buffalo-oil-colorado-river-west-texas.ts","src/data/county-series-profiles-rolling-plains.ts","src/data/county-series.server.ts"],
     "pageMarkers": ["Scurry County: Snyder, Buffalo Country, Oil and the Upper Colorado River","The county in numbers","County seat","2020 population","County feature","Snyder","Canyon Reef","https://texasdefined.com/county/scurry"],
-    "legacy": {"mode":"not-200","path":"/article/scurry-county-snyder-buffalo-oil-colorado-river-west-texas"}
+    "legacy": {"mode":"redirect","path":"/article/scurry-county-snyder-buffalo-oil-colorado-river-west-texas","locationExact":"https://texasdefined.com/county/scurry","statuses":[301]}
   },
   "wise": {
     "displayName": "Wise County",
@@ -114,7 +127,9 @@
     "heroUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Wise_County_Courthouse_Decatur%2C_TX.JPG?width=1800",
     "sourceRequirements": [
       {"file":"src/data/county-series-profiles-rolling-plains.ts","includes":["countySlug: \"wise\""]},
-      {"file":"src/data/fixtures/wise-county-decatur-bridgeport-cross-timbers-lake-bridgeport-texas.ts","includes":["wiseCountyDecaturBridgeportCrossTimbersLakeBridgeportTexasArticle"]}
+      {"file":"src/data/fixtures/wise-county-decatur-bridgeport-cross-timbers-lake-bridgeport-texas.ts","includes":["wiseCountyDecaturBridgeportCrossTimbersLakeBridgeportTexasArticle"]},
+      {"file":"src/data/county-series.ts","includes":["articleSlug.indexOf(\"-county-\")","articleSlug.endsWith(\"-texas\")","return articleSlug.slice(0, markerIndex);"]},
+      {"file":"src/server.ts","includes":["const countySlug = countySlugForLegacyArticle(decodeURIComponent(match[1]));","url.pathname = `/county/${countySlug}`;","return Response.redirect(url.toString(), 301);"]}
     ],
     "canonicalScanFiles": ["src/data/fixtures/wise-county-decatur-bridgeport-cross-timbers-lake-bridgeport-texas.ts","src/data/county-series-profiles-rolling-plains.ts"],
     "pageMarkers": ["Wise County: Decatur, Bridgeport and the Cross Timbers of North Texas","The county in numbers","County seat","2020 population","County feature","https://texasdefined.com/county/wise"],
@@ -127,12 +142,13 @@
     "heroUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Wood_courthouse_tx_2010.jpg?width=1600",
     "sourceRequirements": [
       {"file":"src/data/county-series-profiles-northeast.ts","includes":["countySlug: \"wood\""]},
-      {"file":"src/data/county-series.ts","includes":["[\"wood-county-quitman-mineola-lake-fork-piney-woods-texas\", \"wood\"]"]},
       {"file":"src/lib/public-routes.ts","includes":["\"/article/high-school-football-newcomers\""]},
-      {"file":"src/data/fixtures/texas-life-split.ts","includes":["href: \"/article/texas-high-school-football-newcomers\""],"forbidden":["href: \"/article/high-school-football-newcomers\""]}
+      {"file":"src/data/fixtures/texas-life-split.ts","includes":["href: \"/article/texas-high-school-football-newcomers\""],"forbidden":["href: \"/article/high-school-football-newcomers\""]},
+      {"file":"src/data/county-series.ts","includes":["articleSlug.indexOf(\"-county-\")","articleSlug.endsWith(\"-texas\")","return articleSlug.slice(0, markerIndex);"]},
+      {"file":"src/server.ts","includes":["const countySlug = countySlugForLegacyArticle(decodeURIComponent(match[1]));","url.pathname = `/county/${countySlug}`;","return Response.redirect(url.toString(), 301);"]}
     ],
     "canonicalScanFiles": ["src/data/fixtures/wood-county-quitman-mineola-lake-fork-piney-woods-texas.ts","src/data/county-series-profiles-northeast.ts","src/data/county-series.ts"],
     "pageMarkers": ["Wood County: Quitman, Mineola, Lake Fork and the Edge of the Piney Woods","The county in numbers","County seat","2020 population","County feature","Quitman","https://texasdefined.com/county/wood"],
-    "legacy": {"mode":"redirect","path":"/article/wood-county-quitman-mineola-lake-fork-piney-woods-texas","locationContains":"/county/wood","statuses":[301]}
+    "legacy": {"mode":"redirect","path":"/article/wood-county-quitman-mineola-lake-fork-piney-woods-texas","locationExact":"https://texasdefined.com/county/wood","statuses":[301]}
   }
 }
