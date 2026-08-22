@@ -1,0 +1,147 @@
+name: Recover Cloudflare edge challenge
+
+on:
+  workflow_dispatch:
+    inputs:
+      apply_under_attack_fix:
+        description: 'If Security Level is exactly under_attack, restore it to medium'
+        required: true
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+jobs:
+  diagnose-and-recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: texasdefined-publication
+    env:
+      CF_TOKEN: ${{ secrets.CLOUDFLARE_SECURITY_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      MARKER: .github/certification/cloudflare-edge-recovery.json
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 2
+
+      - name: Diagnose and narrowly recover edge challenge
+        shell: bash
+        run: |
+          set -u
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          export APPLY_FIX='${{ inputs.apply_under_attack_fix }}'
+          python3 - <<'PY'
+          import datetime, json, os, pathlib, subprocess, sys, urllib.parse
+
+          token = os.environ.get('CF_TOKEN','')
+          if not token:
+              raise SystemExit('Missing CLOUDFLARE_SECURITY_API_TOKEN/CLOUDFLARE_API_TOKEN')
+
+          base = 'https://api.cloudflare.com/client/v4'
+          headers = ['-H', f'Authorization: Bearer {token}', '-H', 'Content-Type: application/json']
+
+          def request(method, url, body=None):
+              cmd = ['curl','--silent','--show-error','--max-time','40','-X',method,*headers,'-o','/tmp/cf-response','-w','%{http_code}',url]
+              if body is not None:
+                  cmd += ['--data-binary', json.dumps(body)]
+              p = subprocess.run(cmd, capture_output=True, text=True)
+              raw = pathlib.Path('/tmp/cf-response').read_text(errors='replace') if pathlib.Path('/tmp/cf-response').exists() else ''
+              try: parsed = json.loads(raw)
+              except Exception: parsed = {'raw': raw[:12000]}
+              return {'http': p.stdout.strip(), 'curl_exit': p.returncode, 'stderr': p.stderr[-1500:], 'body': parsed}
+
+          zone_lookup = request('GET', f"{base}/zones?name=texasdefined.com&account.id={urllib.parse.quote(os.environ.get('CLOUDFLARE_ACCOUNT_ID',''))}")
+          rows = ((zone_lookup.get('body') or {}).get('result') or []) if isinstance(zone_lookup.get('body'), dict) else []
+          zone_id = rows[0].get('id','') if rows else ''
+          now = datetime.datetime.now(datetime.timezone.utc)
+          result = {
+              'recorded_at_utc': now.isoformat(),
+              'zone_lookup': zone_lookup,
+              'zone_id': zone_id,
+              'apply_under_attack_fix': os.environ.get('APPLY_FIX','false').lower() == 'true',
+              'changed': False,
+              'change': None,
+          }
+          if not zone_id:
+              result['blocked'] = 'zone lookup failed'
+          else:
+              security = request('GET', f'{base}/zones/{zone_id}/settings/security_level')
+              bic = request('GET', f'{base}/zones/{zone_id}/settings/browser_check')
+              custom = request('GET', f'{base}/zones/{zone_id}/rulesets/phases/http_request_firewall_custom/entrypoint')
+              result['security_level'] = security
+              result['browser_integrity_check'] = bic
+              result['custom_firewall_entrypoint'] = custom
+
+              sec_body = security.get('body') if isinstance(security, dict) else {}
+              current = ((sec_body or {}).get('result') or {}).get('value') if isinstance(sec_body, dict) else None
+              result['security_level_value'] = current
+
+              end = now
+              start = end - datetime.timedelta(hours=3)
+              gql = '''query Events($zoneTag: string, $start: Time, $end: Time) {
+                viewer { zones(filter: { zoneTag: $zoneTag }) {
+                  firewallEventsAdaptive(filter: { datetime_geq: $start, datetime_leq: $end }, limit: 100, orderBy: [datetime_DESC]) {
+                    action source description ruleId clientRequestPath clientRequestHTTPHost datetime userAgent rayName
+                  }
+                } }
+              }'''
+              payload = {'query': gql, 'variables': {'zoneTag': zone_id, 'start': start.isoformat().replace('+00:00','Z'), 'end': end.isoformat().replace('+00:00','Z')}}
+              graph = request('POST', f'{base}/graphql', payload)
+              result['security_events'] = graph
+
+              if current == 'under_attack' and result['apply_under_attack_fix']:
+                  edit = request('PATCH', f'{base}/zones/{zone_id}/settings/security_level', {'value':'medium'})
+                  result['change'] = {'from':'under_attack','to':'medium','response':edit}
+                  changed = edit.get('http') == '200' and bool((edit.get('body') or {}).get('success'))
+                  result['changed'] = changed
+                  if not changed:
+                      result['blocked'] = 'Under Attack Mode detected, but Zone Settings Write was not authorized'
+              elif current == 'under_attack':
+                  result['blocked'] = 'Under Attack Mode detected; apply_under_attack_fix was false'
+              elif security.get('http') != '200':
+                  result['blocked'] = 'Security setting cannot be read; token needs Zone Settings Read/Write'
+              else:
+                  result['blocked'] = 'Security Level is not under_attack; inspect Security Events/BIC/custom WAF evidence before changing anything'
+
+          # Verify custom domain without weakening success criteria.
+          probes = {}
+          for path in ['/', '/sitemap.xml', '/article/history-of-the-texas-flag', '/article/texas-flag-etiquette-display-guide', '/texas-symbols', '/texas-history']:
+              hdr = pathlib.Path('/tmp/probe-h'); body = pathlib.Path('/tmp/probe-b')
+              cmd = ['curl','--silent','--show-error','--location','--max-time','35','-A','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/140 Safari/537.36','-D',str(hdr),'-o',str(body),'-w','%{http_code}','https://texasdefined.com'+path]
+              p = subprocess.run(cmd,capture_output=True,text=True)
+              headers_text = hdr.read_text(errors='replace')[-3000:] if hdr.exists() else ''
+              probes[path] = {
+                  'http': p.stdout.strip(),
+                  'curl_exit': p.returncode,
+                  'cf_mitigated_challenge': 'cf-mitigated: challenge' in headers_text.lower(),
+                  'headers_tail': headers_text,
+                  'body_prefix': (body.read_text(errors='replace')[:500] if body.exists() else ''),
+              }
+          result['custom_domain_probes'] = probes
+          result['custom_domain_healthy'] = all(v.get('http') == '200' and not v.get('cf_mitigated_challenge') for v in probes.values())
+
+          marker = pathlib.Path(os.environ['MARKER']); marker.parent.mkdir(parents=True, exist_ok=True); marker.write_text(json.dumps(result,indent=2)+'\n')
+          if not result['custom_domain_healthy']:
+              print('Custom domain still challenged/unhealthy; evidence recorded.', file=sys.stderr)
+          PY
+
+          git add "$MARKER"
+          git commit -m 'Record Cloudflare edge recovery result' || true
+          for attempt in 1 2 3; do
+            git pull --rebase origin main || { git rebase --abort || true; sleep 2; continue; }
+            git push origin HEAD:main && break
+            sleep 3
+          done
+
+          python3 - <<'PY'
+          import json, os, sys
+          data=json.load(open(os.environ['MARKER']))
+          if not data.get('custom_domain_healthy'):
+              print(data.get('blocked') or 'custom domain verification failed', file=sys.stderr)
+              raise SystemExit(1)
+          print('Cloudflare edge recovery verified: all representative custom-domain routes return 200 without a challenge.')
+          PY
