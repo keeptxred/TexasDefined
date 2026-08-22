@@ -1,126 +1,16 @@
-# retrigger after workflow entered default branch
-name: Certify Crosby County production once
+name: Certify Crosby County production
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/certify-crosby-county-once.yml'
+  workflow_dispatch:
 
 permissions:
+  actions: write
   contents: write
-
-concurrency:
-  group: certify-crosby-county-once
-  cancel-in-progress: true
+  pull-requests: write
 
 jobs:
   certify:
-    runs-on: ubuntu-latest
-    timeout-minutes: 45
-    environment: texasdefined-publication
-    env:
-      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: main
-          fetch-depth: 0
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-      - run: npm ci --no-audit --no-fund
-      - name: Validate deploy and certify Crosby County
-        shell: bash
-        run: |
-          set -euo pipefail
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          target='3ad5e19ac37986f1167eccd172b6b08b62e153f3'
-          marker='.github/certification/crosby-county.json'
-          fixture='src/data/fixtures/crosby-county-crosbyton-blanco-canyon-caprock-south-plains-texas.ts'
-          registry='src/data/county-series-profiles-south-plains.ts'
-          hero='https://commons.wikimedia.org/wiki/Special:Redirect/file/Blanco%20Canyon%20Crosby%20County%20Texas%202015.jpg?width=1600'
-          agent='TexasDefined/1.0 (+https://texasdefined.com)'
-
-          record() {
-            status="$1"; stage="$2"; detail="$3"
-            git fetch origin main
-            git reset --hard origin/main >/dev/null
-            mkdir -p "$(dirname "$marker")"
-            current="$(git rev-parse HEAD)"
-            python3 - "$marker" "$status" "$stage" "$target" "$current" "$detail" <<'PY'
-          import datetime, json, pathlib, sys
-          path, status, stage, target, tested_main, detail = sys.argv[1:]
-          pathlib.Path(path).write_text(json.dumps({
-            'county': 'crosby', 'status': status, 'stage': stage,
-            'county_commit': target, 'tested_main': tested_main,
-            'detail': detail[-12000:],
-            'recorded_at_utc': datetime.datetime.now(datetime.timezone.utc).isoformat()
-          }, indent=2) + '\n', encoding='utf-8')
-          PY
-            git add "$marker"
-            git commit -m "Record Crosby County production ${status}" >/dev/null || true
-            git push origin HEAD:main
-          }
-
-          git merge-base --is-ancestor "$target" HEAD || { record fail source 'Crosby county commit is not in current main ancestry'; exit 1; }
-          test -f "$fixture" || { record fail source 'Crosby fixture missing'; exit 1; }
-          test -f "$registry" || { record fail source 'Crosby registry missing'; exit 1; }
-          grep -Fq 'countySlug: "crosby"' "$registry" || { record fail source 'Crosby profile registration missing'; exit 1; }
-          grep -Fq 'COUNTY_SERIES_PROFILES_SOUTH_PLAINS' src/data/county-series.server.ts || { record fail source 'South Plains registry not wired into county server'; exit 1; }
-          grep -Fq 'Crosby County: Crosbyton, Blanco Canyon and the Edge of the Caprock' "$fixture" || { record fail source 'Crosby editorial title missing'; exit 1; }
-          if grep -n 'www\.texasdefined\.com' "$fixture" "$registry" src/data/county-series.server.ts >/tmp/crosby-www.txt; then
-            record fail canonical-host "$(cat /tmp/crosby-www.txt)"; exit 1
-          fi
-          if ! git diff --check >/tmp/crosby-diff.txt 2>&1; then
-            record fail source "$(cat /tmp/crosby-diff.txt)"; exit 1
-          fi
-
-          work="$(mktemp -d)"; trap 'rm -rf "$work"' EXIT
-          hcode="$(curl -A "$agent" -L --retry 5 --retry-all-errors --retry-delay 3 --max-time 90 -sS -D "$work/hh" -o "$work/hb" -w '%{http_code}' "$hero" || true)"
-          hmime="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/{gsub(/\r/,""); sub(/^content-type:[[:space:]]*/,""); v=$0} END{print v}' "$work/hh" | cut -d';' -f1)"
-          hbytes="$(wc -c < "$work/hb" 2>/dev/null || echo 0)"
-          if [ "$hcode" != 200 ] || ! [[ "$hmime" =~ ^image/(jpeg|png|webp)$ ]] || [ "$hbytes" -le 50000 ]; then
-            record fail hero-source "HTTP=$hcode MIME=$hmime bytes=$hbytes"; exit 1
-          fi
-
-          if ! npm run validate >"$work/validate.log" 2>&1; then
-            record fail validation "$(tail -220 "$work/validate.log")"; exit 1
-          fi
-
-          git fetch origin main
-          latest="$(git rev-parse origin/main)"
-          current="$(git rev-parse HEAD)"
-          [ "$latest" = "$current" ] || { record fail main-moved-after-validation "main moved $current -> $latest"; exit 1; }
-
-          if ! npm run deploy >"$work/deploy.log" 2>&1; then
-            record fail deployment "$(tail -220 "$work/deploy.log")"; exit 1
-          fi
-
-          page=''; code=''
-          for attempt in $(seq 1 12); do
-            code="$(curl -A "$agent" --retry 3 --retry-all-errors --retry-delay 2 --max-time 60 -sS -o "$work/page" -w '%{http_code}' "https://texasdefined.com/county/crosby?verify=${target}-${GITHUB_RUN_ID}-${attempt}" || true)"
-            if [ "$code" = 200 ] \
-              && grep -Fq 'Crosby County: Crosbyton, Blanco Canyon and the Edge of the Caprock' "$work/page" \
-              && grep -Fq 'The county in numbers' "$work/page" \
-              && grep -Fq 'County seat' "$work/page" \
-              && grep -Fq '2020 population' "$work/page" \
-              && grep -Fq 'County feature' "$work/page" \
-              && grep -Fq 'Crosbyton' "$work/page" \
-              && grep -Fq 'Blanco Canyon' "$work/page" \
-              && grep -Fq 'https://texasdefined.com/county/crosby' "$work/page"; then page=pass; break; fi
-            sleep 5
-          done
-          [ "$page" = pass ] || { record fail live-page "HTTP=$code expected structured/editorial markers missing"; exit 1; }
-
-          live_hcode="$(curl -A "$agent" -L --retry 5 --retry-all-errors --retry-delay 3 --max-time 90 -sS -D "$work/lhh" -o "$work/lhb" -w '%{http_code}' "$hero" || true)"
-          live_hmime="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/{gsub(/\r/,""); sub(/^content-type:[[:space:]]*/,""); v=$0} END{print v}' "$work/lhh" | cut -d';' -f1)"
-          live_hbytes="$(wc -c < "$work/lhb" 2>/dev/null || echo 0)"
-          if [ "$live_hcode" != 200 ] || ! [[ "$live_hmime" =~ ^image/(jpeg|png|webp)$ ]] || [ "$live_hbytes" -le 50000 ]; then
-            record fail live-hero "HTTP=$live_hcode MIME=$live_hmime bytes=$live_hbytes"; exit 1
-          fi
-
-          record pass complete "validate=PASS deploy=PASS page=200 structured=yes editorial=yes legacy=not-applicable hero=$live_hcode mime=$live_hmime bytes=$live_hbytes"
+    uses: ./.github/workflows/certify-county-production-reusable.yml
+    with:
+      county: crosby
+    secrets: inherit
