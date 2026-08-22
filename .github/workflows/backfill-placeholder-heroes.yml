@@ -43,4 +43,4 @@ jobs:
         with:
           node-version: 24
       - name: Replace placeholder heroes without publishing content
-        run: node scripts/news/backfill-placeholder-heroes.mjs --limit=${{ inputs.limit || '5' }}
+        run: node scripts/news/backfill-placeholder-heroes.mjs --limit=${{ inputs.limit || '20' }}
