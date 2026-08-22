@@ -44,6 +44,9 @@ jobs:
       - name: Install dependencies
         run: npm ci --no-audit --no-fund
 
+      - name: Merge county certification contracts
+        run: node scripts/ci/merge-county-certification-config.mjs
+
       - name: Run county-specific production certification
         id: certification
         continue-on-error: true
