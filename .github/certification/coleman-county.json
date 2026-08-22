@@ -1,0 +1,8 @@
+{
+  "county": "coleman",
+  "status": "fail",
+  "stage": "live-page",
+  "target_sha": "d2453cf4c6c10f5416c1c8af880031499c66174e",
+  "detail": "last_status=403",
+  "recorded_at_utc": "2026-08-22T03:16:29.551582+00:00"
+}
