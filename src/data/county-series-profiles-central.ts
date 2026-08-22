@@ -97,4 +97,10 @@ export const COUNTY_SERIES_PROFILES_CENTRAL: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/terrell-county-sanderson-rio-grande-canyons-ranching-west-texas")
       .then((module) => module.terrellCountySandersonRioGrandeCanyonsRanchingWestTexasArticle),
   },
+  {
+    countySlug: "bosque",
+    articleSlug: "bosque-county-meridian-clifton-norwegian-heritage-central-texas",
+    loadArticle: () => import("@/data/fixtures/bosque-county-meridian-clifton-norwegian-heritage-central-texas")
+      .then((module) => module.bosqueCountyMeridianCliftonNorwegianHeritageCentralTexasArticle),
+  },
 ];
