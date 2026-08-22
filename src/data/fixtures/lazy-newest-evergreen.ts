@@ -8,6 +8,8 @@ import "./pest-authority-links";
 import "./septic-authority-links";
 import "./tree-homeowner-authority-links";
 import "./pool-owner-authority-links";
+import "./wildfire-home-authority-links";
+import "./backup-power-authority-links";
 import { winklerCountyArticleStub } from "./winkler-county-article-stub";
 import { seasonalAuthorityArticleStubs, loadSeasonalAuthorityArticle } from "./lazy-seasonal-authority";
 import { lighthouseDeepDiveStubs, loadLighthouseDeepDiveArticle } from "./lazy-lighthouse-deep-dives";
@@ -249,6 +251,58 @@ const texasPoolOwnerGuideStub: Article = {
   relatedDestinations: [],
 };
 
+const texasWildfireHomeProtectionGuideStub: Article = {
+  id: "evergreen-texas-wildfire-home-protection-guide",
+  brandId: "texasdefined",
+  slug: "texas-wildfire-home-protection-guide",
+  title: "Texas Wildfire Home Protection: Embers, Defensible Space, Evacuation and Rural Property Risk",
+  dek: "A practical Texas homeowner guide to wildfire risk: TxWRAP, ember hardening, home ignition zones, roofs and vents, landscaping, decks and fences, responder access, evacuation, insurance records and what to check before buying rural property.",
+  category: "home-garden",
+  hero: {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Home_destroyed_by_Bastrop_County_complex_fire_(311-MAD-51537).jpg?width=1600",
+    alt: "Bastrop County home destroyed by wildfire in September 2011",
+    width: 1600,
+    height: 1062,
+    credit: "Patsy Lynch / FEMA · Public domain · Wikimedia Commons",
+  },
+  authorId: "a-marisol",
+  publishedAt: "2026-08-22",
+  readingMinutes: 17,
+  tags: ["texas wildfire", "wildfire home protection", "defensible space texas", "texas wildfire risk", "home ignition zone", "ember hardening", "rural texas home", "wildfire evacuation", "home and garden"],
+  featured: true,
+  sourceName: "Texas A&M Forest Service",
+  sourceUrl: "https://tfsweb.tamu.edu/wildfire-and-other-disasters/homeowners-prevention-and-preparedness/prepare-for-wildfires-home/",
+  body: [],
+  relatedCollections: [],
+  relatedDestinations: [],
+};
+
+const texasBackupPowerGeneratorGuideStub: Article = {
+  id: "evergreen-texas-backup-power-generator-guide",
+  brandId: "texasdefined",
+  slug: "texas-backup-power-generator-guide",
+  title: "Texas Backup Power Guide: Portable Generators, Standby Systems, Transfer Switches and Outage Safety",
+  dek: "A practical Texas homeowner guide to backup power: sizing essential loads, portable versus standby generators, transfer switches, carbon monoxide, fuel, weather, freeze outages, maintenance, batteries and what to inspect before buying a home with backup power.",
+  category: "home-garden",
+  hero: {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/FEMA_-_44727_-_Generators_staged_in_Texas.jpg?width=1600",
+    alt: "Emergency generators staged in Seguin, Texas before Hurricane Alex",
+    width: 1600,
+    height: 1062,
+    credit: "Patsy Lynch / FEMA · Public domain · Wikimedia Commons",
+  },
+  authorId: "a-marisol",
+  publishedAt: "2026-08-22",
+  readingMinutes: 17,
+  tags: ["texas generator", "backup power texas", "portable generator safety", "standby generator", "transfer switch", "power outage texas", "generator carbon monoxide", "home backup power", "home and garden"],
+  featured: true,
+  sourceName: "U.S. Consumer Product Safety Commission",
+  sourceUrl: "https://www.cpsc.gov/Safety-Education/Safety-Education-Centers/Carbon-Monoxide-Information-Center",
+  body: [],
+  relatedCollections: [],
+  relatedDestinations: [],
+};
+
 export const newestEvergreenArticles: Article[] = [
   ...seasonalIntentStubs,
   ...lighthouseSearchIntentStubs,
@@ -264,6 +318,8 @@ export const newestEvergreenArticles: Article[] = [
   texasSepticSystemsHomeownerGuideStub,
   texasTreesAroundHomeGuideStub,
   texasPoolOwnerGuideStub,
+  texasWildfireHomeProtectionGuideStub,
+  texasBackupPowerGeneratorGuideStub,
 ];
 
 const loaders: Record<string, () => Promise<Article>> = {
@@ -276,6 +332,8 @@ const loaders: Record<string, () => Promise<Article>> = {
   "texas-septic-systems-homeowner-guide": async () => (await import("./texas-septic-systems-homeowner-guide")).texasSepticSystemsHomeownerGuideArticle,
   "texas-trees-around-home-guide": async () => (await import("./texas-trees-around-home-guide")).texasTreesAroundHomeGuideArticle,
   "texas-pool-owner-guide": async () => (await import("./texas-pool-owner-guide")).texasPoolOwnerGuideArticle,
+  "texas-wildfire-home-protection-guide": async () => (await import("./texas-wildfire-home-protection-guide")).texasWildfireHomeProtectionGuideArticle,
+  "texas-backup-power-generator-guide": async () => (await import("./texas-backup-power-generator-guide")).texasBackupPowerGeneratorGuideArticle,
 };
 
 export async function loadNewestEvergreenArticle(brandId: string, slug: string) {
