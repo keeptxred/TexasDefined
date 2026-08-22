@@ -17,7 +17,7 @@ export const preindexPaintedChurchPeople: PaintedChurchPerson[] = [
     sourceUrl: "https://stfrancistorwaco.org/100th-anniversary",
   },
   {
-    slug: "raggi-unresolved",
+    slug: "raggi-waco-unresolved",
     name: "Raggi — historical attribution under study",
     roles: ["unresolved-attribution"],
     answer: "A historical description preserved by Baylor University's Texas Collection attributes the monumental sanctuary composition at St. Francis on the Brazos to an artist identified as Raggi. Texas Defined has not yet established the artist's full identity or the relationship between this attribution and Pedro Juan Barceló's independently documented wall paintings.",
