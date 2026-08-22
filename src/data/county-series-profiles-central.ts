@@ -49,4 +49,10 @@ export const COUNTY_SERIES_PROFILES_CENTRAL: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/menard-county-menard-fort-mckavett-san-saba-river-texas")
       .then((module) => module.menardCountyMenardFortMcKavettSanSabaRiverTexasArticle),
   },
+  {
+    countySlug: "schleicher",
+    articleSlug: "schleicher-county-eldorado-edwards-plateau-ranching-west-texas",
+    loadArticle: () => import("@/data/fixtures/schleicher-county-eldorado-edwards-plateau-ranching-west-texas")
+      .then((module) => module.schleicherCountyEldoradoEdwardsPlateauRanchingWestTexasArticle),
+  },
 ];
