@@ -35,6 +35,15 @@ const INTENT_GROUPS = [
     ],
   },
   {
+    title: "Seasonal Texas",
+    body: "Plan around the seasons that actually change a Texas trip: spring wildflowers, late fall color and December town traditions.",
+    links: [
+      { to: "/article/texas-bluebonnets-complete-guide", label: "Bluebonnet season" },
+      { to: "/article/fall-in-texas-complete-guide", label: "Fall colors in Texas" },
+      { to: "/article/christmas-in-texas-complete-guide", label: "Christmas in Texas" },
+    ],
+  },
+  {
     title: "Small-town weekends",
     body: "Choose a courthouse square, add a meal worth the drive and make the road between them part of the trip.",
     links: [
