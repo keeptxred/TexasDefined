@@ -61,4 +61,10 @@ export const COUNTY_SERIES_PROFILES_EAST_TEXAS: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/chambers-county-anahuac-trinity-bay-wallisville-gulf-coast-texas")
       .then((module) => module.chambersCountyAnahuacTrinityBayWallisvilleGulfCoastTexasArticle),
   },
+  {
+    countySlug: "san-jacinto",
+    articleSlug: "san-jacinto-county-coldspring-lake-livingston-sam-houston-national-forest-east-texas",
+    loadArticle: () => import("@/data/fixtures/san-jacinto-county-coldspring-lake-livingston-sam-houston-national-forest-east-texas")
+      .then((module) => module.sanJacintoCountyColdspringLakeLivingstonSamHoustonNationalForestEastTexasArticle),
+  },
 ];
