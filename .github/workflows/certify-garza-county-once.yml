@@ -1,108 +1,16 @@
-name: Certify Garza County production once
+name: Certify Garza County production
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/certify-garza-county-once.yml'
-  pull_request:
-    branches: [main]
-    paths:
-      - '.github/workflows/certify-garza-county-once.yml'
+  workflow_dispatch:
 
 permissions:
-  contents: read
-
-concurrency:
-  group: certify-garza-county-once
-  cancel-in-progress: true
+  actions: write
+  contents: write
+  pull-requests: write
 
 jobs:
   certify:
-    runs-on: ubuntu-latest
-    timeout-minutes: 45
-    environment: texasdefined-publication
-    env:
-      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: main
-          fetch-depth: 0
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-      - run: npm ci --no-audit --no-fund
-      - name: Validate deploy and certify Garza County
-        shell: bash
-        run: |
-          set -euo pipefail
-          target='2eeee380c7315a066e9072351153567d4afe349d'
-          hero='https://commons.wikimedia.org/wiki/Special:Redirect/file/Garza%20County%20courthouse%2C%20Post%2C%20Texas.jpg?width=1600'
-          agent='TexasDefined/1.0 (+https://texasdefined.com)'
-          fixture='src/data/fixtures/garza-county-post-caprock-lake-alan-henry-west-texas.ts'
-          registry='src/data/county-series-profiles-rolling-plains.ts'
-
-          git merge-base --is-ancestor "$target" HEAD || { echo 'Garza county commit is not in current main ancestry'; exit 1; }
-          test -f "$fixture"
-          grep -Fq 'countySlug: "garza"' "$registry"
-          grep -Fq '["garza-county-post-caprock-lake-alan-henry-west-texas", "garza"]' src/data/county-series.ts
-          grep -Fq 'Garza County: Post, the Caprock, Ranch Country and Lake Alan Henry' "$fixture"
-          if grep -n 'www\.texasdefined\.com' "$fixture" "$registry" src/data/county-series.ts src/data/county-series.server.ts; then
-            echo 'Noncanonical www TexasDefined hostname found'; exit 1
-          fi
-          git diff --check
-
-          work="$(mktemp -d)"; trap 'rm -rf "$work"' EXIT
-          hcode="$(curl -A "$agent" -L --retry 5 --retry-all-errors --retry-delay 3 --max-time 90 -sS -D "$work/hh" -o "$work/hb" -w '%{http_code}' "$hero" || true)"
-          hmime="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/{gsub(/\r/,""); sub(/^content-type:[[:space:]]*/,""); v=$0} END{print v}' "$work/hh" | cut -d';' -f1)"
-          hbytes="$(wc -c < "$work/hb" 2>/dev/null || echo 0)"
-          echo "Hero source: HTTP=$hcode MIME=$hmime bytes=$hbytes"
-          if [ "$hcode" != 200 ] || ! [[ "$hmime" =~ ^image/(jpeg|png|webp)$ ]] || [ "$hbytes" -le 50000 ]; then
-            exit 1
-          fi
-
-          npm run validate
-
-          git fetch origin main
-          latest="$(git rev-parse origin/main)"
-          current="$(git rev-parse HEAD)"
-          [ "$latest" = "$current" ] || { echo "main moved after validation: $current -> $latest"; exit 1; }
-
-          npm run deploy
-
-          page=''; code=''
-          for attempt in $(seq 1 12); do
-            code="$(curl -A "$agent" --retry 3 --retry-all-errors --retry-delay 2 --max-time 60 -sS -o "$work/page" -w '%{http_code}' "https://texasdefined.com/county/garza?verify=${target}-${GITHUB_RUN_ID}-${attempt}" || true)"
-            if [ "$code" = 200 ] \
-              && grep -Fq 'Garza County: Post, the Caprock, Ranch Country and Lake Alan Henry' "$work/page" \
-              && grep -Fq 'The county in numbers' "$work/page" \
-              && grep -Fq 'County seat' "$work/page" \
-              && grep -Fq '2020 population' "$work/page" \
-              && grep -Fq 'County feature' "$work/page" \
-              && grep -Fq 'Post' "$work/page" \
-              && grep -Fq 'Lake Alan Henry' "$work/page" \
-              && grep -Fq 'https://texasdefined.com/county/garza' "$work/page"; then page=pass; break; fi
-            sleep 5
-          done
-          [ "$page" = pass ] || { echo "Live page failed: HTTP=$code or expected structured/editorial markers missing"; exit 1; }
-
-          live_hcode="$(curl -A "$agent" -L --retry 5 --retry-all-errors --retry-delay 3 --max-time 90 -sS -D "$work/lhh" -o "$work/lhb" -w '%{http_code}' "$hero" || true)"
-          live_hmime="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/{gsub(/\r/,""); sub(/^content-type:[[:space:]]*/,""); v=$0} END{print v}' "$work/lhh" | cut -d';' -f1)"
-          live_hbytes="$(wc -c < "$work/lhb" 2>/dev/null || echo 0)"
-          echo "Live hero: HTTP=$live_hcode MIME=$live_hmime bytes=$live_hbytes"
-          if [ "$live_hcode" != 200 ] || ! [[ "$live_hmime" =~ ^image/(jpeg|png|webp)$ ]] || [ "$live_hbytes" -le 50000 ]; then
-            exit 1
-          fi
-
-          legacy='https://texasdefined.com/article/garza-county-post-caprock-lake-alan-henry-west-texas'
-          legacy_code="$(curl -A "$agent" --max-redirs 0 -sS -D "$work/legacy_headers" -o /dev/null -w '%{http_code}' "$legacy" || true)"
-          legacy_location="$(awk 'BEGIN{IGNORECASE=1} /^location:/{gsub(/\r/,""); sub(/^location:[[:space:]]*/,""); print; exit}' "$work/legacy_headers")"
-          echo "Legacy article: HTTP=$legacy_code location=$legacy_location"
-          if ! [[ "$legacy_code" =~ ^30(1|8)$ ]] || [[ "$legacy_location" != *'/county/garza'* ]]; then
-            exit 1
-          fi
-
-          echo "PASS Garza County validate=PASS deploy=PASS page=200 structured=yes editorial=yes legacy=$legacy_code hero=$live_hcode mime=$live_hmime bytes=$live_hbytes"
+    uses: ./.github/workflows/certify-county-production-reusable.yml
+    with:
+      county: garza
+    secrets: inherit
