@@ -117,12 +117,19 @@ for (const token of [
   "return Object.fromEntries(entries)",
 ]) requireText(files.showcasePageFunctions, token, `showcase lake page-data bundle missing ${token}`);
 for (const token of [
+  "useEffect",
+  "useState",
+  "getLiveLakeLevel",
+  "getLiveLakeLevel({ data: { sourceUrl } })",
+  "setLiveSnapshot(nextSnapshot)",
+  "Checking current reading…",
   "Live lake level:",
-  "snapshot.percentFull.toFixed(1)",
+  "liveSnapshot.percentFull.toFixed(1)",
   "measured",
   "Water Data for Texas",
   "Current reading could not be loaded right now.",
-]) requireText(files.liveLevelStrip, token, `live lake-level UI contract missing ${token}`);
+  "when this page opens",
+]) requireText(files.liveLevelStrip, token, `page-open live lake-level UI contract missing ${token}`);
 
 for (const token of [
   "expandedShowcaseLakePrototypes",
@@ -161,4 +168,4 @@ for (const phrase of ["guaranteed catch", "today's best lake", "sponsored rankin
 
 requireText(pkg.scripts["fishing:validate"], "validate-fishing-lake-expansion.mjs", "Batch 15 validator not wired into fishing:validate");
 
-console.log("Fishing Batch 15 lake-expansion validation passed: ten complete lake guides, ten Water Data for Texas live-level sources, recent-conditions-first resilient fetching with shared cache and CSV/HTML fallbacks, live snapshots bundled into established page-data server functions, graceful live UI fallback, verified species/technique depth, reusable dynamic routes, live-condition separation, ten-lake directory discovery and sitemap publication are protected.");
+console.log("Fishing Batch 15 lake-expansion validation passed: ten complete lake guides, ten Water Data for Texas live-level sources, recent-conditions-first resilient fetching with shared cache and CSV/HTML fallbacks, live snapshots bundled into established page-data server functions, page-open client refresh through the safe server function, graceful live UI fallback, verified species/technique depth, reusable dynamic routes, live-condition separation, ten-lake directory discovery and sitemap publication are protected.");
