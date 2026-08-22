@@ -1,0 +1,45 @@
+name: Run remaining county certifications 2026-08-22
+
+on:
+  push:
+    branches:
+      - run/county-certifications-20260822
+    paths:
+      - '.github/workflows/run-remaining-county-certifications-20260822.yml'
+
+permissions:
+  actions: write
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: run-remaining-county-certifications-20260822
+  cancel-in-progress: false
+
+jobs:
+  certify:
+    if: github.actor == 'keeptxred'
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        county:
+          - crosby
+          - gaines
+          - howard
+          - hutchinson
+          - morris
+          - nolan
+          - rockwall
+          - scurry
+          - wise
+          - wood
+          - borden
+          - garza
+          - delta
+          - parmer
+          - dawson
+    uses: ./.github/workflows/certify-county-production-reusable.yml
+    with:
+      county: ${{ matrix.county }}
+    secrets: inherit
