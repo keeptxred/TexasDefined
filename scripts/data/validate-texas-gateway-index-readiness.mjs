@@ -14,6 +14,7 @@ const loaderPath = "src/data/fixtures/lazy-texas-gateway.ts";
 const corePath = "src/data/fixtures/lazy-texas-core-articles.ts";
 const articleRoutePath = "src/routes/article.$slug.tsx";
 const sitemapPath = "src/routes/sitemap[.]xml.ts";
+const editorialReviewPath = "scripts/data/texas-gateway-editorial-review.json";
 
 const readiness = read(readinessPath);
 const stubs = read(stubsPath);
@@ -55,6 +56,63 @@ const fixtureSlugs = new Set([
 ].map((match) => match[1]));
 for (const slug of readySlugs) {
   if (!fixtureSlugs.has(slug)) fail(`index-ready allowlist contains unknown gateway slug: ${slug}`);
+}
+
+let editorialReview;
+try {
+  editorialReview = JSON.parse(read(editorialReviewPath));
+} catch (error) {
+  fail(`editorial review manifest is missing or invalid JSON: ${error instanceof Error ? error.message : String(error)}`);
+  editorialReview = { entries: [], summary: {}, reasonDefinitions: {} };
+}
+const reviewEntries = Array.isArray(editorialReview.entries) ? editorialReview.entries : [];
+const reviewReasons = editorialReview.reasonDefinitions && typeof editorialReview.reasonDefinitions === "object"
+  ? editorialReview.reasonDefinitions
+  : {};
+const allowedReviewStatuses = new Set(["needs-expansion", "remain-staged", "index-ready"]);
+const reviewBySlug = new Map();
+for (const entry of reviewEntries) {
+  if (!entry || typeof entry.slug !== "string" || !entry.slug) {
+    fail("editorial review contains an entry without a slug");
+    continue;
+  }
+  if (reviewBySlug.has(entry.slug)) fail(`editorial review contains duplicate slug: ${entry.slug}`);
+  reviewBySlug.set(entry.slug, entry);
+  if (!fixtureSlugs.has(entry.slug)) fail(`editorial review contains unknown gateway slug: ${entry.slug}`);
+  if (!allowedReviewStatuses.has(entry.status)) fail(`editorial review has invalid status for ${entry.slug}: ${entry.status}`);
+  if (!Number.isInteger(entry.batch) || entry.batch < 1 || entry.batch > 16) fail(`editorial review has invalid batch for ${entry.slug}`);
+  if (typeof entry.reason !== "string" || typeof reviewReasons[entry.reason] !== "string" || !reviewReasons[entry.reason].trim()) {
+    fail(`editorial review has missing or unknown reason code for ${entry.slug}: ${entry.reason}`);
+  }
+  if (entry.status === "index-ready" && !readySet.has(entry.slug)) {
+    fail(`editorial review marks a slug index-ready without allowlisting it: ${entry.slug}`);
+  }
+}
+for (const slug of fixtureSlugs) {
+  if (!reviewBySlug.has(slug)) fail(`gateway fixture slug is missing from the editorial review: ${slug}`);
+}
+for (const slug of readySlugs) {
+  if (reviewBySlug.get(slug)?.status !== "index-ready") fail(`allowlisted gateway slug is not marked index-ready in editorial review: ${slug}`);
+}
+if (reviewEntries.length !== fixtureSlugs.size) {
+  fail(`editorial review/fixture count mismatch: ${reviewEntries.length} reviewed entries, ${fixtureSlugs.size} fixture slugs`);
+}
+const reviewCounts = reviewEntries.reduce((counts, entry) => {
+  if (entry.status === "needs-expansion") counts.needsExpansion += 1;
+  if (entry.status === "remain-staged") counts.remainStaged += 1;
+  if (entry.status === "index-ready") counts.indexReady += 1;
+  return counts;
+}, { needsExpansion: 0, remainStaged: 0, indexReady: 0 });
+const reviewSummary = editorialReview.summary ?? {};
+if (reviewSummary.total !== reviewEntries.length) fail(`editorial review summary total mismatch: ${reviewSummary.total} vs ${reviewEntries.length}`);
+for (const key of ["needsExpansion", "remainStaged", "indexReady"]) {
+  if (reviewSummary[key] !== reviewCounts[key]) fail(`editorial review summary ${key} mismatch: ${reviewSummary[key]} vs ${reviewCounts[key]}`);
+}
+if (reviewCounts.indexReady !== readySlugs.length) {
+  fail(`editorial review/index-ready allowlist mismatch: ${reviewCounts.indexReady} reviewed ready vs ${readySlugs.length} allowlisted`);
+}
+if (!Number.isInteger(reviewSummary.expanded) || reviewSummary.expanded < 0 || reviewSummary.expanded > reviewEntries.length) {
+  fail(`editorial review summary expanded count is invalid: ${reviewSummary.expanded}`);
 }
 
 const stubSlugs = [...stubs.matchAll(/\bslug:\s*["']([^"']+)["']/g)].map((match) => match[1]);
@@ -115,6 +173,6 @@ if (stagedInboundLinks.length) {
 }
 
 if (!process.exitCode) {
-  console.log(`Gateway index-readiness contract passed: ${gatewayFiles.length} article fixture modules, ${ids.length} explicit gateway IDs, ${readySlugs.length} index-ready slug(s), ${stubSlugs.length} public-discovery stub(s).`);
+  console.log(`Gateway index-readiness contract passed: ${gatewayFiles.length} article fixture modules, ${ids.length} explicit gateway IDs, ${fixtureSlugs.size} reviewed gateway slugs, ${reviewCounts.needsExpansion} needing expansion, ${reviewCounts.remainStaged} remaining staged, ${readySlugs.length} index-ready slug(s), ${stubSlugs.length} public-discovery stub(s).`);
   console.log("Staged gateway drafts remain directly QA-accessible but are excluded from normal discovery, public inbound linking and article indexing.");
 }
