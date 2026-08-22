@@ -37,4 +37,10 @@ export const COUNTY_SERIES_PROFILES_CENTRAL: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/kimble-county-junction-llano-rivers-hill-country-texas")
       .then((module) => module.kimbleCountyJunctionLlanoRiversHillCountryTexasArticle),
   },
+  {
+    countySlug: "gonzales",
+    articleSlug: "gonzales-county-gonzales-guadalupe-come-and-take-it-texas",
+    loadArticle: () => import("@/data/fixtures/gonzales-county-gonzales-guadalupe-come-and-take-it-texas")
+      .then((module) => module.gonzalesCountyGonzalesGuadalupeComeAndTakeItTexasArticle),
+  },
 ];
