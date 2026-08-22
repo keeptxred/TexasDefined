@@ -6,8 +6,6 @@ import { Container } from "./Container";
 
 const CitationCollectionTrustRouter = lazy(() => import("@/components/authority/CitationCollectionTrustRouter"));
 const ContextualOfficialSources = lazy(() => import("@/components/authority/ContextualOfficialSources"));
-const NewsletterSignup = lazy(() => import("@/components/editorial/NewsletterSignup").then((module) => ({ default: module.NewsletterSignup })));
-const newsletterSignupEnabled = Boolean(String(import.meta.env.VITE_TEXASDEFINED_NEWSLETTER_SIGNUP_URL || "").trim());
 
 export function Footer() {
   const brand = useBrand();
@@ -18,13 +16,6 @@ export function Footer() {
       <Suspense fallback={null}><CitationCollectionTrustRouter /></Suspense>
       <Suspense fallback={<div className="h-20 sm:h-24" aria-hidden="true" />}><ContextualOfficialSources /></Suspense>
       <footer className="border-t border-border bg-surface text-surface-foreground">
-        {brand.features.newsletter && newsletterSignupEnabled && (
-          <div className="border-b border-border/70">
-            <Container className="py-16 sm:py-20">
-              <Suspense fallback={<div className="h-44 sm:h-48" aria-hidden="true" />}><NewsletterSignup /></Suspense>
-            </Container>
-          </div>
-        )}
         <Container className="grid gap-12 py-14 sm:py-16 md:grid-cols-[1.25fr_repeat(3,1fr)]">
           <div className="md:pr-8">
             <p className="font-display text-4xl font-semibold leading-none tracking-[-0.03em]">{brand.identity.wordmark}</p>
