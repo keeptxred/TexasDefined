@@ -15,6 +15,8 @@ export type PaintedChurchImageAcquisitionLead = {
   status: PaintedChurchImageAcquisitionStatus;
   nextAction: string;
   note: string;
+  contactUrl?: string;
+  contactEmail?: string;
 };
 
 /**
@@ -62,6 +64,8 @@ export const paintedChurchImageAcquisitionLeads: PaintedChurchImageAcquisitionLe
     status: "permission-needed",
     nextAction: "Request written reuse permission for one sanctuary/interior image with creator credit and publication terms before embedding.",
     note: "Excellent current church-specific interior evidence, but no reusable license is published on the item page.",
+    contactUrl: "https://stfrancistorwaco.org/contact",
+    contactEmail: "churchoffice@stfrancistorwaco.org",
   },
   {
     churchSlug: "waco-st-francis-on-the-brazos",
@@ -72,6 +76,8 @@ export const paintedChurchImageAcquisitionLeads: PaintedChurchImageAcquisitionLe
     status: "permission-needed",
     nextAction: "Request reusable permission or locate the underlying photographer/license record before embedding.",
     note: "Exact current church exterior; tourism publication does not itself establish a reuse license.",
+    contactUrl: "https://stfrancistorwaco.org/contact",
+    contactEmail: "churchoffice@stfrancistorwaco.org",
   },
   {
     churchSlug: "waco-st-francis-on-the-brazos",
@@ -92,6 +98,8 @@ export const paintedChurchImageAcquisitionLeads: PaintedChurchImageAcquisitionLe
     status: "fieldwork-needed",
     nextAction: "Capture original Texas Defined exterior, interior and artwork-detail photographs during documented fieldwork if third-party reusable rights remain unavailable.",
     note: "Preferred long-term solution because original field photography also strengthens E-E-A-T and artwork-level documentation.",
+    contactUrl: "https://stfrancistorwaco.org/contact",
+    contactEmail: "churchoffice@stfrancistorwaco.org",
   },
   {
     churchSlug: "san-antonio-immaculate-heart-of-mary",
@@ -102,6 +110,8 @@ export const paintedChurchImageAcquisitionLeads: PaintedChurchImageAcquisitionLe
     status: "permission-needed",
     nextAction: "Request written permission from the parish for one current full-interior image and one detail image, with creator/credit terms if known.",
     note: "The parish publishes exact current interior imagery and is the best controlling visual source, but the page does not publish an open reuse license.",
+    contactUrl: "https://ihmsatx.org/contact-us",
+    contactEmail: "admin@ihmsatx.org",
   },
   {
     churchSlug: "san-antonio-immaculate-heart-of-mary",
@@ -122,6 +132,8 @@ export const paintedChurchImageAcquisitionLeads: PaintedChurchImageAcquisitionLe
     status: "permission-needed",
     nextAction: "Request reuse permission only if a restoration-project exterior is useful; otherwise prioritize parish or original Texas Defined field photography.",
     note: "Exact church exterior associated with a documented restoration contractor; no open license published.",
+    contactUrl: "https://ihmsatx.org/contact-us",
+    contactEmail: "admin@ihmsatx.org",
   },
   {
     churchSlug: "san-antonio-immaculate-heart-of-mary",
@@ -131,7 +143,7 @@ export const paintedChurchImageAcquisitionLeads: PaintedChurchImageAcquisitionLe
     sourceOwner: "Wikimedia Commons contributors",
     status: "rights-unclear",
     nextAction: "Resolve the exact Commons file-description pages, creator names and item-level licenses before adding any file to the canonical gallery.",
-    note: "A third-party church index reports several exact IHM images as CC BY-SA 3.0 and attributes them to Wikimedia Commons, but Texas Defined will not rely on that secondary license claim without the underlying Commons item pages.",
+    note: "A third-party church index reports several exact IHM images as CC BY-SA 3.0 and attributes them to Wikimedia Commons, but Texas Defined will not rely on that secondary license claim without the underlying Commons item pages. Fresh August 2026 searches still resolve those filenames to other churches or unrelated subjects, so this lead remains unresolved rather than presumed valid.",
   },
   {
     churchSlug: "san-antonio-immaculate-heart-of-mary",
@@ -142,6 +154,8 @@ export const paintedChurchImageAcquisitionLeads: PaintedChurchImageAcquisitionLe
     status: "fieldwork-needed",
     nextAction: "Capture an original exterior, full-interior, stencil-detail and restoration-detail survey during documented fieldwork.",
     note: "Preferred long-term visual solution because it can document the current restored condition with controlled rights and exact object captions.",
+    contactUrl: "https://ihmsatx.org/contact-us",
+    contactEmail: "admin@ihmsatx.org",
   },
   {
     churchSlug: "mason-st-joseph-catholic-church",
@@ -152,6 +166,7 @@ export const paintedChurchImageAcquisitionLeads: PaintedChurchImageAcquisitionLe
     status: "permission-needed",
     nextAction: "Request written reuse permission for one current full-interior image plus a detail showing the restored Manuel Lopez ceiling, with photographer/credit terms if known.",
     note: "The parish controls the strongest current visual record of the 2024 restoration, but no open reuse license is published.",
+    contactUrl: "https://stjosephmason.org/contact-us",
   },
   {
     churchSlug: "mason-st-joseph-catholic-church",
@@ -162,6 +177,7 @@ export const paintedChurchImageAcquisitionLeads: PaintedChurchImageAcquisitionLe
     status: "permission-needed",
     nextAction: "Request reuse permission only for photographs whose creator and reuse terms can be documented; otherwise use the page as restoration evidence, not as an image source.",
     note: "Exact preservation-project imagery documenting the restored historic vault and modern complementary work; no open license is stated.",
+    contactUrl: "https://stjosephmason.org/contact-us",
   },
   {
     churchSlug: "mason-st-joseph-catholic-church",
@@ -182,6 +198,7 @@ export const paintedChurchImageAcquisitionLeads: PaintedChurchImageAcquisitionLe
     status: "fieldwork-needed",
     nextAction: "Capture original exterior, full-interior, historic-vault, angel/cloud, altar and 2024 restoration-detail photographs under the fieldwork protocol.",
     note: "Preferred long-term solution because it simultaneously closes image rights, exact current-condition evidence and preservation documentation gaps.",
+    contactUrl: "https://stjosephmason.org/contact-us",
   },
   {
     churchSlug: "galveston-st-joseph-church",
