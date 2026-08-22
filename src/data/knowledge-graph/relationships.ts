@@ -1,4 +1,4 @@
-import { explicitCanonicalPath } from './canonical-redirects';
+import { explicitCanonicalPath } from './canonical-ownership';
 import type { TexasEntityRecord } from './types';
 
 export type RankedRelatedEntity = { entity: TexasEntityRecord; score: number; reasons: string[] };
