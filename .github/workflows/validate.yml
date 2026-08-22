@@ -45,6 +45,10 @@ jobs:
         id: validation
         run: node scripts/ci/run-validation-suite.mjs full
 
+      - name: Validate production predeploy gates
+        id: predeploy
+        run: node scripts/ci/run-validation-suite.mjs predeploy
+
       - name: Build production application
         id: build
         run: npm run build
@@ -58,6 +62,7 @@ jobs:
         shell: bash
         env:
           VALIDATION_OUTCOME: ${{ steps.validation.outcome }}
+          PREDEPLOY_OUTCOME: ${{ steps.predeploy.outcome }}
           BUILD_OUTCOME: ${{ steps.build.outcome }}
           BUDGET_OUTCOME: ${{ steps.budget.outcome }}
         run: |
@@ -67,14 +72,17 @@ jobs:
             echo '| Stage | Failure class | Outcome |'
             echo '|---|---|---|'
             echo "| Authoritative validation suite | CODE / CONTENT / SEO / DATA | ${VALIDATION_OUTCOME:-not-run} |"
+            echo "| Production predeploy authority suite | PREDEPLOY AUTHORITY | ${PREDEPLOY_OUTCOME:-not-run} |"
             echo "| Production build | BUILD | ${BUILD_OUTCOME:-not-run} |"
             echo "| Client performance budget | BUNDLE BUDGET | ${BUDGET_OUTCOME:-not-run} |"
           } >> "$GITHUB_STEP_SUMMARY"
 
           if [[ "$VALIDATION_OUTCOME" == 'failure' ]]; then
             echo '::error title=CI failure class: validation::A code/content/SEO/data validator failed. The exact validator and command are listed in the validation-suite summary above.'
+          elif [[ "$PREDEPLOY_OUTCOME" == 'failure' ]]; then
+            echo '::error title=CI failure class: predeploy authority::A production predeploy authority validator failed. The exact validator and command are listed in the validation-suite summary above.'
           elif [[ "$BUILD_OUTCOME" == 'failure' ]]; then
-            echo '::error title=CI failure class: build::Application validation passed; the production build failed.'
+            echo '::error title=CI failure class: build::Application and predeploy validation passed; the production build failed.'
           elif [[ "$BUDGET_OUTCOME" == 'failure' ]]; then
             echo '::error title=CI failure class: bundle budget::Validation and build passed; the protected client performance budget failed.'
           fi
