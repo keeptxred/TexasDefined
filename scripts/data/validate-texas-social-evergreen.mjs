@@ -110,6 +110,24 @@ for (const marker of forbiddenPublisherMarkers) {
   }
 }
 
+const serverCalendarFile = "src/data/texas-social-calendar.functions.ts";
+const serverCalendarPath = path.join(root, serverCalendarFile);
+if (!fs.existsSync(serverCalendarPath)) throw new Error(`Missing server-side social calendar boundary: ${serverCalendarFile}`);
+const serverCalendarSource = fs.readFileSync(serverCalendarPath, "utf8");
+
+const requiredServerCalendarMarkers = [
+  'createServerFn({ method: "GET" })',
+  'await import("@/lib/texas-social-facebook-queue")',
+  'enabled: false',
+  'postsPerDay: 2',
+  'origin: "https://texasdefined.com"',
+];
+for (const marker of requiredServerCalendarMarkers) {
+  if (!serverCalendarSource.includes(marker)) {
+    throw new Error(`Server-side social calendar safety marker missing: ${marker}`);
+  }
+}
+
 const calendarFile = "src/routes/admin.social-calendar.tsx";
 const calendarPath = path.join(root, calendarFile);
 if (!fs.existsSync(calendarPath)) throw new Error(`Missing social calendar preview: ${calendarFile}`);
@@ -118,8 +136,7 @@ const calendarSource = fs.readFileSync(calendarPath, "utf8");
 const requiredCalendarMarkers = [
   'createFileRoute("/admin/social-calendar")',
   'content: "noindex,nofollow"',
-  'enabled: false',
-  'postsPerDay: 2',
+  'getTexasSocialCalendarPreview',
   'Publishing disabled',
   'no Facebook credentials, Graph API calls, scheduling action, or publish control',
 ];
@@ -130,13 +147,19 @@ for (const marker of requiredCalendarMarkers) {
   }
 }
 
-for (const marker of forbiddenPublisherMarkers) {
-  if (calendarSource.includes(marker)) {
-    throw new Error(`Social calendar must remain read-only; forbidden publisher marker found: ${marker}`);
+if (calendarSource.includes('texas-social-facebook-queue')) {
+  throw new Error("Social calendar route must not import the Facebook queue into the client bundle; use the server function boundary instead.");
+}
+
+for (const [label, source] of [[queueFile, queueSource], [serverCalendarFile, serverCalendarSource], [calendarFile, calendarSource]]) {
+  for (const marker of forbiddenPublisherMarkers) {
+    if (source.includes(marker)) {
+      throw new Error(`${label} must remain draft-only/read-only; forbidden publisher marker found: ${marker}`);
+    }
   }
 }
 
 console.log(`PASS Texas social evergreen pool: ${posts.length} posts`);
 console.log(counts);
 console.log("PASS Texas Facebook queue: disabled-by-default and draft-only");
-console.log("PASS Texas social calendar: read-only and noindex");
+console.log("PASS Texas social calendar: server-side queue boundary, read-only and noindex");
