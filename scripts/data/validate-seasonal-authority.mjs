@@ -6,6 +6,7 @@ const intents = read("src/data/fixtures/seasonal-intent-articles.ts");
 const authorityLazy = read("src/data/fixtures/lazy-seasonal-authority.ts");
 const intentLazy = read("src/data/fixtures/lazy-seasonal-intents.ts");
 const links = read("src/data/fixtures/seasonal-authority-links.ts");
+const destinationLinks = read("src/data/destination-editorial-links.ts");
 const newest = read("src/data/fixtures/lazy-newest-evergreen.ts");
 const exploreIntents = read("src/components/editorial/ExploreIntentPaths.tsx");
 
@@ -39,6 +40,16 @@ for (const hub of ["texas-bluebonnets-complete-guide", "christmas-in-texas-compl
   if (!exploreIntents.includes(`/article/${hub}`)) fail(`${hub}: missing direct Explore discovery path`);
 }
 
+const destinationRequirements = {
+  "enchanted-rock-state-natural-area": ["/article/texas-bluebonnets-complete-guide", "/article/best-places-to-see-bluebonnets-in-texas", "/article/texas-bluebonnet-road-trip"],
+  "caddo-lake-state-park": ["/article/fall-in-texas-complete-guide", "/article/east-texas-fall-colors", "/article/best-texas-state-parks-for-fall-colors"],
+  "caddo-lake": ["/article/fall-in-texas-complete-guide", "/article/east-texas-fall-colors"],
+};
+for (const [destination, hrefs] of Object.entries(destinationRequirements)) {
+  if (!destinationLinks.includes(`\"${destination}\"`)) fail(`missing seasonal destination link group for ${destination}`);
+  for (const href of hrefs) if (!destinationLinks.includes(`href: \"${href}\"`)) fail(`${destination}: missing ${href}`);
+}
+
 if (!exploreIntents.includes('title: "Seasonal Texas"')) fail("Explore seasonal planning group missing");
 if (!authority.includes("There is no statewide law that simply bans picking bluebonnets everywhere")) fail("bluebonnet law caveat missing from statewide authority content");
 if (!intents.includes("Texas does not have a statewide law that simply says 'it is illegal to pick a bluebonnet.'")) fail("bluebonnet-law intent answer missing");
@@ -49,4 +60,4 @@ if (!newest.includes("loadSeasonalIntentArticle") || !newest.includes("loadSeaso
 if (!authorityLazy.includes('await import("./seasonal-authority-articles")')) fail("seasonal authority full bodies are not dynamically imported");
 if (!intentLazy.includes('await import("./seasonal-intent-articles")')) fail("seasonal intent full bodies are not dynamically imported");
 
-if (!process.exitCode) console.log("Seasonal authority guardrail passed: 21 pages, reciprocal links, Explore discovery, safety/currentness caveats and lazy loading verified.");
+if (!process.exitCode) console.log("Seasonal authority guardrail passed: 21 pages, reciprocal links, Explore and destination discovery, safety/currentness caveats and lazy loading verified.");

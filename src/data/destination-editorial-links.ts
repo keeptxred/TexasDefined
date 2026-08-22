@@ -22,6 +22,52 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       description: "Place Port Isabel in the coastwide network of surviving, relocated and historic lighthouse sites.",
     },
   ],
+  "enchanted-rock-state-natural-area": [
+    {
+      href: "/article/texas-bluebonnets-complete-guide",
+      label: "Use the Texas bluebonnet season guide",
+      description: "Check statewide bloom timing, current-report strategy, viewing etiquette and the regions most worth planning around before a spring visit.",
+    },
+    {
+      href: "/article/best-places-to-see-bluebonnets-in-texas",
+      label: "Compare the best bluebonnet regions",
+      description: "Put Enchanted Rock and the western Hill Country in context with Ennis, Washington County, the Highland Lakes, Lake Travis and Big Bend.",
+    },
+    {
+      href: "/article/texas-bluebonnet-road-trip",
+      label: "Build a spring Hill Country road trip",
+      description: "Connect current bloom reports with Fredericksburg, Willow City, the Highland Lakes and other backup-rich spring stops.",
+    },
+  ],
+  "caddo-lake-state-park": [
+    {
+      href: "/article/fall-in-texas-complete-guide",
+      label: "Use the Texas fall-color guide",
+      description: "Compare East Texas cypress and hardwood color with Lost Maples, the Frio, the Guadalupe corridor and other statewide fall regions.",
+    },
+    {
+      href: "/article/east-texas-fall-colors",
+      label: "Plan an East Texas fall weekend",
+      description: "Build a Piney Woods foliage trip around Caddo Lake, Daingerfield, Tyler and Lake Bob Sandlin using current color reports.",
+    },
+    {
+      href: "/article/best-texas-state-parks-for-fall-colors",
+      label: "Compare Texas state parks for fall color",
+      description: "See which public parks combine reliable tree species, water, trails and autumn scenery for a fall trip.",
+    },
+  ],
+  "caddo-lake": [
+    {
+      href: "/article/fall-in-texas-complete-guide",
+      label: "Use the Texas fall-color guide",
+      description: "Compare Caddo Lake's bald cypress color with the strongest fall regions across Texas.",
+    },
+    {
+      href: "/article/east-texas-fall-colors",
+      label: "Go deeper on East Texas fall color",
+      description: "Turn Caddo Lake into a wider Piney Woods foliage trip built around current conditions.",
+    },
+  ],
 };
 
 export function destinationEditorialLinks(slug: string): DestinationEditorialLink[] {
