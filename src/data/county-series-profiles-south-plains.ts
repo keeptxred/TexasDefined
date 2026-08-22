@@ -115,4 +115,10 @@ export const COUNTY_SERIES_PROFILES_SOUTH_PLAINS: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/castro-county-dimmitt-nazareth-hart-irrigation-high-plains-texas")
       .then((module) => module.castroCountyDimmittNazarethHartIrrigationHighPlainsTexasArticle),
   },
+  {
+    countySlug: "glasscock",
+    articleSlug: "glasscock-county-garden-city-ranching-oil-permian-basin-west-texas",
+    loadArticle: () => import("@/data/fixtures/glasscock-county-garden-city-ranching-oil-permian-basin-west-texas")
+      .then((module) => module.glasscockCountyGardenCityRanchingOilPermianBasinWestTexasArticle),
+  },
 ];
