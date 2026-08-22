@@ -20,22 +20,34 @@ function serviceHeaders(extra = {}) {
 }
 
 async function supabase(path, init = {}) {
-  const response = await fetch(`${SUPABASE_URL}${path}`, {
-    ...init,
-    headers: serviceHeaders(init.headers),
-  });
+  const response = await fetch(`${SUPABASE_URL}${path}`, { ...init, headers: serviceHeaders(init.headers) });
   if (!response.ok) throw new Error(`Supabase ${path} failed: ${response.status} ${await response.text()}`);
   return response;
 }
 
+async function sleep(ms) {
+  await new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 async function workersAi(input) {
-  const response = await fetch(`https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT}/ai/run/${IMAGE_MODEL}`, {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${CF_TOKEN}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify(input),
-  });
-  if (!response.ok) throw new Error(`Workers AI ${response.status}: ${await response.text()}`);
-  return response;
+  let lastError = null;
+  for (let attempt = 1; attempt <= 3; attempt += 1) {
+    try {
+      const response = await fetch(`https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT}/ai/run/${IMAGE_MODEL}`, {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${CF_TOKEN}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify(input),
+      });
+      if (response.ok) return response;
+      const detail = await response.text();
+      lastError = new Error(`Workers AI ${response.status}: ${detail}`);
+      if (response.status >= 400 && response.status < 500 && response.status !== 408 && response.status !== 429) throw lastError;
+    } catch (error) {
+      lastError = error instanceof Error ? error : new Error(String(error));
+    }
+    if (attempt < 3) await sleep(attempt * 1500);
+  }
+  throw lastError || new Error('Workers AI failed after retries.');
 }
 
 function promptFor(article) {
@@ -51,15 +63,39 @@ function promptFor(article) {
   ].join(' ').slice(0, 2048);
 }
 
+function fallbackPromptFor(article) {
+  const category = article.category || 'Texas history and culture';
+  const region = article.region ? ` in ${article.region}, Texas` : ' in Texas';
+  return [
+    `Photorealistic documentary photograph representing ${category}${region}.`,
+    'Use only an anonymous, non-identifiable setting with architecture, landscape, tools, vehicles, livestock, or other ordinary environmental details appropriate to the topic.',
+    'No recognizable people, no portraits, no logos, no brands, no readable text, no signs, no flags with writing, no maps, no poster design, no illustration.',
+    'Natural camera lighting, realistic materials, wide 16:9 editorial composition.',
+  ].join(' ').slice(0, 2048);
+}
+
 async function decodeImage(response) {
   const type = response.headers.get('content-type') || '';
-  if (type.startsWith('image/') || type.includes('application/octet-stream')) {
-    return new Uint8Array(await response.arrayBuffer());
-  }
+  if (type.startsWith('image/') || type.includes('application/octet-stream')) return new Uint8Array(await response.arrayBuffer());
   const envelope = await response.json();
   const encoded = envelope?.result?.image || envelope?.image || (typeof envelope?.result === 'string' ? envelope.result : null);
   if (typeof encoded !== 'string') throw new Error('Workers AI image response did not contain image data.');
   return Uint8Array.from(Buffer.from(encoded, 'base64'));
+}
+
+async function generateBytes(article) {
+  let lastError = null;
+  for (const prompt of [promptFor(article), fallbackPromptFor(article)]) {
+    try {
+      const response = await workersAi({ prompt, steps: 8 });
+      const bytes = await decodeImage(response);
+      if (bytes.length < 10_000) throw new Error(`Generated image is unexpectedly small (${bytes.length} bytes).`);
+      return bytes;
+    } catch (error) {
+      lastError = error instanceof Error ? error : new Error(String(error));
+    }
+  }
+  throw lastError || new Error('Image generation failed.');
 }
 
 async function loadCandidates() {
@@ -74,7 +110,6 @@ async function loadCandidates() {
 }
 
 async function storeImage(article, bytes) {
-  if (bytes.length < 10_000) throw new Error(`Generated image is unexpectedly small (${bytes.length} bytes).`);
   const path = `${article.slug}.jpg`;
   await supabase(`/storage/v1/object/texasdefined-article-images/${encodeURIComponent(path)}`, {
     method: 'POST',
@@ -85,17 +120,16 @@ async function storeImage(article, bytes) {
 }
 
 async function updateArticle(article, heroUrl) {
-  const body = {
-    hero_url: heroUrl,
-    hero_alt: article.hero_alt || `Editorial image for Texas Defined: ${article.title}`,
-    hero_credit: 'Generated editorial image · Cloudflare Workers AI',
-    generator_model: IMAGE_MODEL,
-    updated_at: new Date().toISOString(),
-  };
   await supabase(`/rest/v1/texasdefined_articles?id=eq.${article.id}&hero_url=eq.${encodeURIComponent(PLACEHOLDER)}`, {
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json', Prefer: 'return=minimal' },
-    body: JSON.stringify(body),
+    body: JSON.stringify({
+      hero_url: heroUrl,
+      hero_alt: article.hero_alt || `Editorial image for Texas Defined: ${article.title}`,
+      hero_credit: 'Generated editorial image · Cloudflare Workers AI',
+      generator_model: IMAGE_MODEL,
+      updated_at: new Date().toISOString(),
+    }),
   });
 }
 
@@ -109,8 +143,7 @@ console.log(JSON.stringify({ candidates: candidates.length, slugs: candidates.ma
 let completed = 0;
 for (const article of candidates) {
   try {
-    const response = await workersAi({ prompt: promptFor(article), steps: 8 });
-    const bytes = await decodeImage(response);
+    const bytes = await generateBytes(article);
     const heroUrl = await storeImage(article, bytes);
     await updateArticle(article, heroUrl);
     completed += 1;
