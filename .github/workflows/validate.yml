@@ -41,6 +41,10 @@ jobs:
       - name: Install dependencies
         run: npm ci --no-audit --no-fund
 
+      - name: Validate automation main-write policy
+        id: automation_policy
+        run: node scripts/ci/validate-automation-main-write-policy.mjs
+
       - name: Run authoritative validation suite
         id: validation
         run: node scripts/ci/run-validation-suite.mjs full
@@ -61,6 +65,7 @@ jobs:
         if: always()
         shell: bash
         env:
+          AUTOMATION_POLICY_OUTCOME: ${{ steps.automation_policy.outcome }}
           VALIDATION_OUTCOME: ${{ steps.validation.outcome }}
           PREDEPLOY_OUTCOME: ${{ steps.predeploy.outcome }}
           BUILD_OUTCOME: ${{ steps.build.outcome }}
@@ -71,13 +76,16 @@ jobs:
             echo
             echo '| Stage | Failure class | Outcome |'
             echo '|---|---|---|'
+            echo "| Automation main-write policy | CI / AUTOMATION SAFETY | ${AUTOMATION_POLICY_OUTCOME:-not-run} |"
             echo "| Authoritative validation suite | CODE / CONTENT / SEO / DATA | ${VALIDATION_OUTCOME:-not-run} |"
             echo "| Production predeploy authority suite | PREDEPLOY AUTHORITY | ${PREDEPLOY_OUTCOME:-not-run} |"
             echo "| Production build | BUILD | ${BUILD_OUTCOME:-not-run} |"
             echo "| Client performance budget | BUNDLE BUDGET | ${BUDGET_OUTCOME:-not-run} |"
           } >> "$GITHUB_STEP_SUMMARY"
 
-          if [[ "$VALIDATION_OUTCOME" == 'failure' ]]; then
+          if [[ "$AUTOMATION_POLICY_OUTCOME" == 'failure' ]]; then
+            echo '::error title=CI failure class: automation safety::An active automation workflow violated the protected main-write or image-review policy.'
+          elif [[ "$VALIDATION_OUTCOME" == 'failure' ]]; then
             echo '::error title=CI failure class: validation::A code/content/SEO/data validator failed. The exact validator and command are listed in the validation-suite summary above.'
           elif [[ "$PREDEPLOY_OUTCOME" == 'failure' ]]; then
             echo '::error title=CI failure class: predeploy authority::A production predeploy authority validator failed. The exact validator and command are listed in the validation-suite summary above.'
