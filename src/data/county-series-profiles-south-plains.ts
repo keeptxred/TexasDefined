@@ -100,7 +100,7 @@ export const COUNTY_SERIES_PROFILES_SOUTH_PLAINS: CountySeriesProfile[] = [
   {
     countySlug: "parmer",
     articleSlug: "parmer-county-farwell-friona-xit-agriculture-high-plains-texas",
-    loadArticle: () => import("@/data/fixtures/parmer-county-farwell-friona-xit-cattle-ogallala-panhandle-texas")
+    loadArticle: () => import("@/data/fixtures/parmer-county-farwell-friona-xit-agriculture-high-plains-texas")
       .then((module) => module.parmerCountyFarwellFrionaXitAgricultureHighPlainsTexasArticle),
   },
   {
