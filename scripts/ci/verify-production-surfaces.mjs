@@ -7,10 +7,14 @@ const summaryPath = process.env.GITHUB_STEP_SUMMARY;
 
 const surfaces = [
   ['homepage', '/', 'Texas Defined'],
+  ['sitemap', '/sitemap.xml', '<urlset'],
   ['moving-pillar', '/article/moving-to-texas-what-nobody-tells-you', 'The quick answer: what should you know before moving to Texas?'],
   ['flag-history', '/article/history-of-the-texas-flag', 'The Texas Flag: A History of the Lone Star'],
   ['flag-etiquette', '/article/texas-flag-etiquette-display-guide', 'Texas Flag Etiquette: How to Display the Lone Star Flag Correctly'],
   ['texas-symbols', '/texas-symbols', 'Official Texas Symbols'],
+  ['bluebonnet-authority', '/article/texas-bluebonnets-complete-guide', 'Bluebonnet Season, Explained'],
+  ['christmas-authority', '/article/christmas-in-texas-complete-guide', 'Christmas in Texas, From River Lights to Courthouse Squares'],
+  ['fall-authority', '/article/fall-in-texas-complete-guide', 'Where Autumn Actually Shows Up in Texas'],
   ['painted-churches', '/explore/painted-churches', 'Painted Churches of Texas'],
   ['then-and-now', '/explore/painted-churches/then-and-now', 'Texas Painted Churches visual history'],
   ['media', '/explore/painted-churches/media', 'Texas Painted Churches multimedia research library'],
@@ -37,12 +41,13 @@ function appendSummary(text) {
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 appendSummary('## Production surface verification\n\n');
-appendSummary('| Result | Surface | HTTP | Attempts |\n|---|---|---:|---:|\n');
+appendSummary('| Result | Surface | HTTP | Attempts | Cloudflare challenge |\n|---|---|---:|---:|---|\n');
 
 for (const [label, path, needle] of surfaces) {
   let lastStatus = 'network-error';
   let lastBody = '';
   let lastError = '';
+  let lastChallenge = false;
   let passed = false;
   let attempts = 0;
 
@@ -59,37 +64,43 @@ for (const [label, path, needle] of surfaces) {
         headers: { 'user-agent': 'TexasDefined-CI-Production-Smoke/1.0' },
       });
       lastStatus = String(response.status);
+      lastChallenge = response.headers.get('cf-mitigated')?.toLowerCase() === 'challenge';
       lastBody = await response.text();
       lastError = '';
 
-      if (response.ok && lastBody.includes(needle)) {
+      if (lastChallenge) {
+        console.log(`[${label}] Cloudflare returned cf-mitigated: challenge; waiting for the edge to become healthy.`);
+      } else if (response.ok && lastBody.includes(needle)) {
         console.log(`[${label}] verified (${response.status}): ${needle}`);
         passed = true;
         break;
+      } else {
+        console.log(response.ok
+          ? `[${label}] HTTP ${response.status}, but expected content is not live yet: ${needle}`
+          : `[${label}] HTTP ${response.status}; waiting for production to become healthy.`);
       }
-
-      console.log(response.ok
-        ? `[${label}] HTTP ${response.status}, but expected content is not live yet: ${needle}`
-        : `[${label}] HTTP ${response.status}; waiting for production to become healthy.`);
     } catch (error) {
       lastError = error instanceof Error ? error.message : String(error);
       lastStatus = 'network-error';
+      lastChallenge = false;
       console.log(`[${label}] request failed: ${lastError}`);
     }
 
     if (attempt < 6) await sleep(5_000);
   }
 
-  appendSummary(`| ${passed ? '✅ pass' : '❌ FAIL'} | ${label} | ${lastStatus} | ${attempts} |\n`);
+  appendSummary(`| ${passed ? '✅ pass' : '❌ FAIL'} | ${label} | ${lastStatus} | ${attempts} | ${lastChallenge ? 'yes' : 'no'} |\n`);
 
   if (!passed) {
-    const reason = lastError || (lastStatus !== '200' ? `HTTP ${lastStatus}` : `expected text not found: ${needle}`);
+    const reason = lastError
+      || (lastChallenge ? 'Cloudflare returned cf-mitigated: challenge' : '')
+      || (lastStatus !== '200' ? `HTTP ${lastStatus}` : `expected text not found: ${needle}`);
     console.error(`::error title=LIVE PRODUCTION failure::${label} failed after ${attempts} attempts — ${reason}`);
-    appendSummary(`\n**Failure class:** \`LIVE PRODUCTION\`  \n**Surface:** \`${origin}${path}\`  \n**Last HTTP result:** \`${lastStatus}\`  \n**Expected text:** \`${needle}\`  \n**Reason:** ${reason}\n`);
+    appendSummary(`\n**Failure class:** \`LIVE PRODUCTION\`  \n**Surface:** \`${origin}${path}\`  \n**Last HTTP result:** \`${lastStatus}\`  \n**Cloudflare challenge:** \`${lastChallenge ? 'yes' : 'no'}\`  \n**Expected text:** \`${needle}\`  \n**Reason:** ${reason}\n`);
     if (lastBody) console.error(`[${label}] response sample: ${lastBody.slice(0, 1200).replace(/\s+/g, ' ')}`);
     process.exit(1);
   }
 }
 
-appendSummary(`\nAll ${surfaces.length} production surfaces passed.\n`);
-console.log(`TexasDefined production verification passed (${surfaces.length} surfaces).`);
+appendSummary(`\nAll ${surfaces.length} production surfaces passed without a Cloudflare challenge.\n`);
+console.log(`TexasDefined production verification passed (${surfaces.length} surfaces, no cf-mitigated challenges).`);
