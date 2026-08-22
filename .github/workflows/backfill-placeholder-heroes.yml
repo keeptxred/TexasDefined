@@ -14,11 +14,6 @@ on:
           - '5'
           - '10'
           - '20'
-  push:
-    branches: [main]
-    paths:
-      - 'scripts/news/backfill-placeholder-heroes.mjs'
-      - '.github/workflows/backfill-placeholder-heroes.yml'
 
 permissions:
   contents: read
@@ -43,4 +38,4 @@ jobs:
         with:
           node-version: 24
       - name: Replace placeholder heroes without publishing content
-        run: node scripts/news/backfill-placeholder-heroes.mjs --limit=${{ inputs.limit || '20' }}
+        run: node scripts/news/backfill-placeholder-heroes.mjs --limit=${{ inputs.limit || '5' }}
