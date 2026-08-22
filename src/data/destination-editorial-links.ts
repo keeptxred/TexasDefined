@@ -78,6 +78,23 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       description: "See how Caddo Lake stacks up against Lost Maples, Garner, Daingerfield, the Guadalupe and other strong autumn stops.",
     },
   ],
+  "guadalupe-river-state-park": [
+    {
+      href: "/article/fall-in-texas-complete-guide",
+      label: "Use the Texas fall-color guide",
+      description: "Compare the Guadalupe River corridor with Lost Maples, the Frio and East Texas using current foliage reports before a fall trip.",
+    },
+    {
+      href: "/article/hill-country-fall-colors",
+      label: "Plan a Hill Country fall-color drive",
+      description: "Pair Guadalupe River State Park with the strongest Hill Country foliage corridors and backup stops for variable autumn conditions.",
+    },
+    {
+      href: "/article/best-texas-state-parks-for-fall-colors",
+      label: "Compare state parks for fall color",
+      description: "See how the Guadalupe's cypress-lined riverbanks compare with other public parks that reliably deliver Texas autumn scenery.",
+    },
+  ],
   "new-braunfels": [
     {
       href: "/article/christmas-in-texas-complete-guide",
