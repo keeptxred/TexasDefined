@@ -2,7 +2,8 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 
 const articleSource = readFileSync(new URL("./texas-homeowner-field-manual.ts", import.meta.url), "utf8");
-const loaderSource = readFileSync(new URL("./lazy-core-evergreen.ts", import.meta.url), "utf8");
+const loaderSource = readFileSync(new URL("./lazy-newest-evergreen.ts", import.meta.url), "utf8");
+const repositorySource = readFileSync(new URL("./repositories.ts", import.meta.url), "utf8");
 
 describe("Texas homeowner field manual authority layer", () => {
   it("protects substantive homeowner coverage", () => {
@@ -30,10 +31,11 @@ describe("Texas homeowner field manual authority layer", () => {
     }
   });
 
-  it("is registered in the lazy core evergreen loader", () => {
+  it("is registered on the dynamically loaded newest-evergreen path", () => {
     expect(loaderSource).toContain("texasHomeownerFieldManualStub");
     expect(loaderSource).toContain('slug: "texas-homeowner-field-manual"');
     expect(loaderSource).toContain('import("./texas-homeowner-field-manual")');
     expect(loaderSource).toContain("texasHomeownerFieldManualArticle");
+    expect(repositorySource).toContain('import("./lazy-newest-evergreen")');
   });
 });
