@@ -7,7 +7,6 @@ import roadTrip from "@/assets/road-trip.jpg";
 import smallTown from "@/assets/small-town.jpg";
 
 import type { Article, ImageRef } from "../types";
-import { texasGatewayIndexReadyStubs } from "./texas-gateway-index-ready-stubs";
 
 const image = (src: string, alt: string): ImageRef => ({ src, alt, width: 1600, height: 1067 });
 const images = {
@@ -36,7 +35,6 @@ export const texasCoreArticleStubs: Article[] = [
 ];
 
 const coreSlugs = new Set(texasCoreArticleStubs.map((article) => article.slug));
-texasCoreArticleStubs.push(...texasGatewayIndexReadyStubs);
 
 const depthSlugs = new Set([
   "bluebonnet-season-field-guide",
