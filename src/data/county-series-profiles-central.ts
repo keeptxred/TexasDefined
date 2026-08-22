@@ -31,4 +31,10 @@ export const COUNTY_SERIES_PROFILES_CENTRAL: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/caldwell-county-lockhart-luling-plum-creek-san-marcos-river-texas")
       .then((module) => module.caldwellCountyLockhartLulingPlumCreekSanMarcosRiverTexasArticle),
   },
+  {
+    countySlug: "kimble",
+    articleSlug: "kimble-county-junction-llano-rivers-hill-country-texas",
+    loadArticle: () => import("@/data/fixtures/kimble-county-junction-llano-rivers-hill-country-texas")
+      .then((module) => module.kimbleCountyJunctionLlanoRiversHillCountryTexasArticle),
+  },
 ];
