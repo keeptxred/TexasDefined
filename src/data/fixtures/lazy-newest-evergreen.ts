@@ -5,6 +5,7 @@ import "./seasonal-authority-links";
 import "./seasonal-county-links";
 import "./lighthouse-authority-links";
 import "./pest-authority-links";
+import "./septic-authority-links";
 import { winklerCountyArticleStub } from "./winkler-county-article-stub";
 import { seasonalAuthorityArticleStubs, loadSeasonalAuthorityArticle } from "./lazy-seasonal-authority";
 import { lighthouseDeepDiveStubs, loadLighthouseDeepDiveArticle } from "./lazy-lighthouse-deep-dives";
@@ -168,6 +169,32 @@ const texasHouseholdPestsGuideStub: Article = {
   relatedDestinations: [],
 };
 
+const texasSepticSystemsHomeownerGuideStub: Article = {
+  id: "evergreen-texas-septic-systems-homeowner-guide",
+  brandId: "texasdefined",
+  slug: "texas-septic-systems-homeowner-guide",
+  title: "Texas Septic Systems: A Homeowner Guide to Conventional, Aerobic and OSSF Systems",
+  dek: "A practical guide to owning, buying and maintaining a Texas home with an on-site sewage facility: permits, conventional and aerobic systems, maintenance contracts, alarms, drainfields, flooding, drought, records and the questions to ask before closing.",
+  category: "home-garden",
+  hero: {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Infiltrator_Quick4_leach_field_septic_system.jpg?width=1600",
+    alt: "Residential septic tank and absorption-field chambers being installed",
+    width: 1600,
+    height: 1200,
+    credit: "Raquel Baranow · CC BY-SA 4.0 · Wikimedia Commons",
+  },
+  authorId: "a-marisol",
+  publishedAt: "2026-08-22",
+  readingMinutes: 16,
+  tags: ["texas septic system", "texas ossf", "aerobic septic texas", "conventional septic texas", "septic maintenance", "rural texas home", "septic permit texas", "home and garden"],
+  featured: true,
+  sourceName: "Texas Commission on Environmental Quality",
+  sourceUrl: "https://www.tceq.texas.gov/permitting/ossf/ossfhomeowners.html",
+  body: [],
+  relatedCollections: [],
+  relatedDestinations: [],
+};
+
 export const newestEvergreenArticles: Article[] = [
   ...seasonalIntentStubs,
   ...lighthouseSearchIntentStubs,
@@ -180,6 +207,7 @@ export const newestEvergreenArticles: Article[] = [
   texasNationalCemeteriesGuideStub,
   texasHomeownerFieldManualStub,
   texasHouseholdPestsGuideStub,
+  texasSepticSystemsHomeownerGuideStub,
 ];
 
 const loaders: Record<string, () => Promise<Article>> = {
@@ -189,6 +217,7 @@ const loaders: Record<string, () => Promise<Article>> = {
   "texas-national-cemeteries-guide": async () => (await import("./texas-national-cemeteries-guide")).texasNationalCemeteriesGuideArticle,
   "texas-homeowner-field-manual": async () => (await import("./texas-homeowner-field-manual")).texasHomeownerFieldManualArticle,
   "texas-household-pests-guide": async () => (await import("./texas-household-pests-guide")).texasHouseholdPestsGuideArticle,
+  "texas-septic-systems-homeowner-guide": async () => (await import("./texas-septic-systems-homeowner-guide")).texasSepticSystemsHomeownerGuideArticle,
 };
 
 export async function loadNewestEvergreenArticle(brandId: string, slug: string) {
