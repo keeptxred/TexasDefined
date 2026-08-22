@@ -45,6 +45,10 @@ jobs:
         id: direct_writer_policy
         run: node scripts/ci/validate-direct-main-writer-inventory.mjs
 
+      - name: Validate consolidated county certifiers
+        id: county_certifier_policy
+        run: node scripts/ci/validate-county-certifier-consolidation.mjs
+
       - name: Validate automation main-write policy
         id: automation_policy
         run: node scripts/ci/validate-automation-main-write-policy.mjs
@@ -74,6 +78,7 @@ jobs:
         shell: bash
         env:
           DIRECT_WRITER_POLICY_OUTCOME: ${{ steps.direct_writer_policy.outcome }}
+          COUNTY_CERTIFIER_POLICY_OUTCOME: ${{ steps.county_certifier_policy.outcome }}
           AUTOMATION_POLICY_OUTCOME: ${{ steps.automation_policy.outcome }}
           RETIREMENT_POLICY_OUTCOME: ${{ steps.retirement_policy.outcome }}
           VALIDATION_OUTCOME: ${{ steps.validation.outcome }}
@@ -87,6 +92,7 @@ jobs:
             echo '| Stage | Failure class | Outcome |'
             echo '|---|---|---|'
             echo "| Direct-main writer inventory | CI / DEFAULT-BRANCH SAFETY | ${DIRECT_WRITER_POLICY_OUTCOME:-not-run} |"
+            echo "| Consolidated county certifiers | CI / COUNTY CERTIFIER SAFETY | ${COUNTY_CERTIFIER_POLICY_OUTCOME:-not-run} |"
             echo "| Automation main-write policy | CI / AUTOMATION SAFETY | ${AUTOMATION_POLICY_OUTCOME:-not-run} |"
             echo "| Retired one-time certification policy | CI / RETIREMENT SAFETY | ${RETIREMENT_POLICY_OUTCOME:-not-run} |"
             echo "| Authoritative validation suite | CODE / CONTENT / SEO / DATA | ${VALIDATION_OUTCOME:-not-run} |"
@@ -96,7 +102,9 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
 
           if [[ "$DIRECT_WRITER_POLICY_OUTCOME" == 'failure' ]]; then
-            echo '::error title=CI failure class: default-branch safety::A workflow writes directly to main without an explicitly reviewed exception. The direct-writer inventory above lists the exact files and commands.'
+            echo '::error title=CI failure class: default-branch safety::A workflow writes directly to main. TexasDefined workflow repository changes must go through validated branches/PRs.'
+          elif [[ "$COUNTY_CERTIFIER_POLICY_OUTCOME" == 'failure' ]]; then
+            echo '::error title=CI failure class: county certifier safety::The consolidated county-certification wrappers, source-read-only engine, evidence publisher, or county-specific contracts regressed.'
           elif [[ "$AUTOMATION_POLICY_OUTCOME" == 'failure' ]]; then
             echo '::error title=CI failure class: automation safety::An active automation workflow violated the protected main-write or image-review policy.'
           elif [[ "$RETIREMENT_POLICY_OUTCOME" == 'failure' ]]; then
