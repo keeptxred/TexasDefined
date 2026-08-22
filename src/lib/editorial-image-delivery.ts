@@ -1,4 +1,4 @@
-import type { Article, Destination } from "@/data/types";
+import type { Article, Destination, ImageRef } from "@/data/types";
 
 const REMOTE_EDITORIAL_IMAGE = /^https:\/\/(?:commons\.wikimedia\.org|upload\.wikimedia\.org|images\.unsplash\.com)\//i;
 const OWN_EDITORIAL_IMAGE = /^https:\/\/(?:www\.)?texasdefined\.com(\/[^#]*)/i;
@@ -8,6 +8,11 @@ export function editorialImageSrc(src: string) {
   if (own?.[1]) return own[1];
   return REMOTE_EDITORIAL_IMAGE.test(src) ? `/media/remote?url=${encodeURIComponent(src)}` : src;
 }
+
+const deliverImage = (image: ImageRef): ImageRef => {
+  const src = editorialImageSrc(image.src);
+  return src === image.src ? image : { ...image, src };
+};
 
 const FALL_ARTICLE_OVERRIDES: Partial<Record<string, Partial<Article>>> = {
   "fall-in-texas-complete-guide": {
@@ -32,8 +37,11 @@ const FALL_ARTICLE_OVERRIDES: Partial<Record<string, Partial<Article>>> = {
 export function prepareArticleForDelivery(article: Article): Article {
   const override = FALL_ARTICLE_OVERRIDES[article.slug];
   const presented = override ? ({ ...article, ...override } as Article) : article;
-  const src = editorialImageSrc(presented.hero.src);
-  return src === presented.hero.src ? presented : { ...presented, hero: { ...presented.hero, src } };
+  return {
+    ...presented,
+    hero: deliverImage(presented.hero),
+    body: presented.body.map((block) => block.type === "image" ? { ...block, image: deliverImage(block.image) } : block),
+  };
 }
 
 export function prepareDestinationForDelivery(destination: Destination): Destination {
