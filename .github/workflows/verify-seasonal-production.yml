@@ -7,6 +7,17 @@ on:
       - Deploy TexasDefined production
     types:
       - completed
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/data/destination-editorial-links.ts'
+      - 'src/data/fixtures/seasonal-authority-articles.ts'
+      - 'src/data/fixtures/seasonal-intent-articles.ts'
+      - 'src/data/fixtures/seasonal-authority-links.ts'
+      - 'src/data/fixtures/seasonal-county-links.ts'
+      - 'src/components/editorial/ExploreIntentPaths.tsx'
+      - '.github/workflows/verify-seasonal-production.yml'
 
 permissions:
   contents: read
@@ -14,13 +25,36 @@ permissions:
 
 jobs:
   verify-seasonal-production:
-    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event_name == 'push' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 12
     env:
       GH_TOKEN: ${{ github.token }}
       DEPLOY_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
     steps:
+      - name: Wait for production deploy on push fallback
+        if: ${{ github.event_name == 'push' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          for attempt in $(seq 1 36); do
+            state="$(curl --fail-with-body --silent --show-error \
+              --header "Authorization: Bearer $GH_TOKEN" \
+              --header 'Accept: application/vnd.github+json' \
+              --header 'X-GitHub-Api-Version: 2022-11-28' \
+              "https://api.github.com/repos/${GITHUB_REPOSITORY}/commits/${DEPLOY_SHA}/status" \
+              | node -e 'let d="";process.stdin.on("data",c=>d+=c).on("end",()=>{const j=JSON.parse(d);const s=(j.statuses||[]).find(x=>x.context==="texasdefined-production");process.stdout.write(s?.state||"missing")})')"
+            echo "production status attempt ${attempt}: ${state}"
+            if [ "$state" = success ]; then exit 0; fi
+            if [ "$state" = failure ] || [ "$state" = error ]; then
+              echo "Production deployment failed for ${DEPLOY_SHA}; seasonal smoke will not run against a failed deploy." >&2
+              exit 1
+            fi
+            sleep 10
+          done
+          echo "Timed out waiting for texasdefined-production=success on ${DEPLOY_SHA}" >&2
+          exit 1
+
       - name: Publish pending status
         shell: bash
         run: |
@@ -83,9 +117,15 @@ jobs:
 
           fetch_assert enchanted-bluebonnet '/destination/enchanted-rock-state-natural-area' 'Use the Texas bluebonnet season guide'
           fetch_assert caddo-fall '/destination/caddo-lake-state-park' 'Use the Texas fall-color guide'
+          fetch_assert new-braunfels-christmas '/destination/new-braunfels' 'Use the Christmas in Texas guide'
+          fetch_assert gruene-christmas '/destination/gruene' 'Use the Christmas in Texas guide'
           fetch_assert gillespie-seasonal '/article/gillespie-county-fredericksburg-stonewall-hill-country-texas' 'Plan Gillespie County during bluebonnet season'
           fetch_assert harrison-seasonal '/article/harrison-county-marshall-caddo-lake-railroads-piney-woods-texas' 'Plan an East Texas fall-color weekend'
           fetch_assert marion-seasonal '/article/marion-county-jefferson-caddo-lake-riverport-piney-woods-texas' 'Build a Caddo Lake fall-color trip'
+          fetch_assert ellis-bluebonnet '/article/ellis-county-waxahachie-ennis-blackland-prairie-texas' 'Use the DFW bluebonnet guide for Ennis'
+          fetch_assert washington-bluebonnet '/article/washington-county-brenham-washington-brazos-independence-texas' 'Use the Houston-area bluebonnet guide for Brenham'
+          fetch_assert burnet-bluebonnet '/article/burnet-county-burnet-marble-falls-highland-lakes-granite-texas' 'Plan Burnet County during bluebonnet season'
+          fetch_assert llano-bluebonnet '/article/llano-county-llano-river-granite-highland-lakes-texas' 'Use the Texas bluebonnet season guide'
 
       - name: Publish success status
         if: ${{ steps.live.outcome == 'success' }}
