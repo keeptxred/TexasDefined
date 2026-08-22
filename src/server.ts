@@ -1,6 +1,7 @@
 import "./lib/error-capture";
 
 import { countySlugForLegacyArticle } from "./data/county-series";
+import { explicitEntityRedirectPath } from "./data/knowledge-graph/canonical-redirects";
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
 
@@ -38,6 +39,19 @@ function legacyCountyRedirect(request: Request) {
   const countySlug = countySlugForLegacyArticle(decodeURIComponent(match[1]));
   if (!countySlug) return null;
   url.pathname = `/county/${countySlug}`;
+  return Response.redirect(url.toString(), 301);
+}
+
+function canonicalEntityRedirect(request: Request) {
+  if (request.method !== "GET" && request.method !== "HEAD") return null;
+  const url = new URL(request.url);
+  const canonicalPath = explicitEntityRedirectPath(url.pathname);
+  if (!canonicalPath) return null;
+
+  url.protocol = "https:";
+  url.hostname = "texasdefined.com";
+  url.port = "";
+  url.pathname = canonicalPath;
   return Response.redirect(url.toString(), 301);
 }
 
@@ -93,8 +107,10 @@ export default {
     try {
       const canonicalRedirect = canonicalHostRedirect(request);
       if (canonicalRedirect) return canonicalRedirect;
-      const redirect = legacyCountyRedirect(request);
-      if (redirect) return redirect;
+      const countyRedirect = legacyCountyRedirect(request);
+      if (countyRedirect) return countyRedirect;
+      const entityRedirect = canonicalEntityRedirect(request);
+      if (entityRedirect) return entityRedirect;
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
       const normalizedResponse = await normalizeCatastrophicSsrResponse(response);
