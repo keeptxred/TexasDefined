@@ -5,6 +5,7 @@ on:
     paths:
       - "src/data/texas-social-evergreen.ts"
       - "src/data/texas-social-evergreen-batch2.ts"
+      - "src/data/texas-social-calendar.functions.ts"
       - "src/lib/texas-social-rotation.ts"
       - "src/lib/texas-social-facebook-queue.ts"
       - "src/routes/admin.social-calendar.tsx"
