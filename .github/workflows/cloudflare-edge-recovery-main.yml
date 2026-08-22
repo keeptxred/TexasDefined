@@ -16,8 +16,10 @@ jobs:
     timeout-minutes: 10
     environment: texasdefined-publication
     env:
-      CF_TOKEN: ${{ secrets.CLOUDFLARE_SECURITY_API_TOKEN }}
-      CF_TOKEN_VARIABLE_PRESENT: ${{ vars.CLOUDFLARE_SECURITY_API_TOKEN != '' }}
+      CF_SECURITY_TOKEN: ${{ secrets.CLOUDFLARE_SECURITY_API_TOKEN }}
+      CF_SECURITY_TOKEN_VARIABLE_PRESENT: ${{ vars.CLOUDFLARE_SECURITY_API_TOKEN != '' }}
+      CF_GENERAL_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CF_DEPLOY_TOKEN: ${{ secrets.CLOUDFLARE_DEPLOY_API_TOKEN }}
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       MARKER: .github/certification/cloudflare-edge-recovery.json
     steps:
@@ -36,14 +38,18 @@ jobs:
           python3 - <<'PY'
           import datetime, json, os, pathlib, subprocess, urllib.parse
 
-          token=os.environ.get('CF_TOKEN','')
-          token_variable_present=os.environ.get('CF_TOKEN_VARIABLE_PRESENT','').strip().lower() == 'true'
+          security_token=os.environ.get('CF_SECURITY_TOKEN','')
+          general_token=os.environ.get('CF_GENERAL_TOKEN','')
+          deploy_token=os.environ.get('CF_DEPLOY_TOKEN','')
+          token_variable_present=os.environ.get('CF_SECURITY_TOKEN_VARIABLE_PRESENT','').strip().lower() == 'true'
           account_id=os.environ.get('CLOUDFLARE_ACCOUNT_ID','')
           now=datetime.datetime.now(datetime.timezone.utc)
           out={
               'recorded_at_utc':now.isoformat(),
-              'secret_available':bool(token),
+              'security_secret_available':bool(security_token),
               'same_name_actions_variable_present':token_variable_present,
+              'general_cloudflare_token_available':bool(general_token),
+              'deploy_cloudflare_token_available':bool(deploy_token),
               'account_id_secret_available':bool(account_id),
               'security_diagnostic_complete':False,
               'changed':False,
@@ -51,7 +57,7 @@ jobs:
 
           base='https://api.cloudflare.com/client/v4'
 
-          def req(method,url,body=None):
+          def req(token,method,url,body=None):
               headers=['-H',f'Authorization: Bearer {token}','-H','Content-Type: application/json']
               cmd=['curl','--silent','--show-error','--max-time','40','-X',method,*headers,'-o','/tmp/cfresp','-w','%{http_code}',url]
               if body is not None:
@@ -64,49 +70,77 @@ jobs:
                   parsed={'raw':raw[:12000]}
               return {'http':p.stdout.strip(),'curl_exit':p.returncode,'stderr':p.stderr[-1200:],'body':parsed}
 
-          if not token:
-              out['blocked']='CLOUDFLARE_SECURITY_API_TOKEN is unavailable to the trusted main workflow environment'
-          else:
-              acct=urllib.parse.quote(account_id)
-              zone_lookup=req('GET',f'{base}/zones?name=texasdefined.com&account.id={acct}')
+          acct=urllib.parse.quote(account_id)
+          candidates=[
+              ('dedicated_security_secret',security_token),
+              ('general_cloudflare_api_secret_readonly',general_token),
+              ('deploy_cloudflare_api_secret_readonly',deploy_token),
+          ]
+          diagnostic_token=''
+          diagnostic_source=''
+          zone=''
+          attempts=[]
+          for source,candidate in candidates:
+              if not candidate:
+                  attempts.append({'source':source,'available':False})
+                  continue
+              zone_lookup=req(candidate,'GET',f'{base}/zones?name=texasdefined.com&account.id={acct}')
               rows=((zone_lookup.get('body') or {}).get('result') or []) if isinstance(zone_lookup.get('body'),dict) else []
-              zone=rows[0].get('id','') if rows else ''
-              out.update({'zone_lookup':zone_lookup,'zone_id':zone})
+              candidate_zone=rows[0].get('id','') if rows else ''
+              errors=((zone_lookup.get('body') or {}).get('errors') or []) if isinstance(zone_lookup.get('body'),dict) else []
+              attempts.append({
+                  'source':source,
+                  'available':True,
+                  'http':zone_lookup.get('http'),
+                  'success':bool(candidate_zone),
+                  'errors':errors[:5],
+              })
+              if candidate_zone:
+                  diagnostic_token=candidate
+                  diagnostic_source=source
+                  zone=candidate_zone
+                  break
+          out['diagnostic_token_attempts']=attempts
+          out['diagnostic_token_source']=diagnostic_source or None
+          out['zone_id']=zone or None
 
-              if not zone:
-                  out['blocked']='zone lookup failed'
-              else:
-                  security=req('GET',f'{base}/zones/{zone}/settings/security_level')
-                  bic=req('GET',f'{base}/zones/{zone}/settings/browser_check')
-                  bot=req('GET',f'{base}/zones/{zone}/bot_management')
-                  custom=req('GET',f'{base}/zones/{zone}/rulesets/phases/http_request_firewall_custom/entrypoint')
-                  config=req('GET',f'{base}/zones/{zone}/rulesets/phases/http_config_settings/entrypoint')
-                  out.update({
-                      'security_level':security,
-                      'browser_integrity_check':bic,
-                      'bot_management':bot,
-                      'custom_firewall_entrypoint':custom,
-                      'config_settings_entrypoint':config,
-                  })
-                  current=(((security.get('body') or {}).get('result') or {}).get('value')) if isinstance(security.get('body'),dict) else None
-                  out['security_level_value']=current
-                  out['security_diagnostic_complete']=security.get('http') == '200'
-                  end=now
-                  start=end-datetime.timedelta(hours=6)
-                  gql='''query Events($zoneTag: string, $start: Time, $end: Time) { viewer { zones(filter: { zoneTag: $zoneTag }) { firewallEventsAdaptive(filter: { datetime_geq: $start, datetime_leq: $end }, limit: 100, orderBy: [datetime_DESC]) { action source description ruleId clientRequestPath clientRequestHTTPHost datetime userAgent rayName } } } }'''
-                  payload={'query':gql,'variables':{'zoneTag':zone,'start':start.isoformat().replace('+00:00','Z'),'end':end.isoformat().replace('+00:00','Z')}}
-                  out['security_events']=req('POST',f'{base}/graphql',payload)
+          if not diagnostic_token:
+              out['blocked']='No available Cloudflare token can read the texasdefined.com zone; dedicated security token remains unavailable or unusable'
+          else:
+              security=req(diagnostic_token,'GET',f'{base}/zones/{zone}/settings/security_level')
+              bic=req(diagnostic_token,'GET',f'{base}/zones/{zone}/settings/browser_check')
+              bot=req(diagnostic_token,'GET',f'{base}/zones/{zone}/bot_management')
+              custom=req(diagnostic_token,'GET',f'{base}/zones/{zone}/rulesets/phases/http_request_firewall_custom/entrypoint')
+              config=req(diagnostic_token,'GET',f'{base}/zones/{zone}/rulesets/phases/http_config_settings/entrypoint')
+              out.update({
+                  'security_level':security,
+                  'browser_integrity_check':bic,
+                  'bot_management':bot,
+                  'custom_firewall_entrypoint':custom,
+                  'config_settings_entrypoint':config,
+              })
+              current=(((security.get('body') or {}).get('result') or {}).get('value')) if isinstance(security.get('body'),dict) else None
+              out['security_level_value']=current
+              out['security_diagnostic_complete']=security.get('http') == '200'
+              end=now
+              start=end-datetime.timedelta(hours=6)
+              gql='''query Events($zoneTag: string, $start: Time, $end: Time) { viewer { zones(filter: { zoneTag: $zoneTag }) { firewallEventsAdaptive(filter: { datetime_geq: $start, datetime_leq: $end }, limit: 100, orderBy: [datetime_DESC]) { action source description ruleId clientRequestPath clientRequestHTTPHost datetime userAgent rayName } } } }'''
+              payload={'query':gql,'variables':{'zoneTag':zone,'start':start.isoformat().replace('+00:00','Z'),'end':end.isoformat().replace('+00:00','Z')}}
+              out['security_events']=req(diagnostic_token,'POST',f'{base}/graphql',payload)
 
-                  if current=='under_attack':
-                      edit=req('PATCH',f'{base}/zones/{zone}/settings/security_level',{'value':'medium'})
+              if current=='under_attack':
+                  if diagnostic_source=='dedicated_security_secret':
+                      edit=req(security_token,'PATCH',f'{base}/zones/{zone}/settings/security_level',{'value':'medium'})
                       out['change']={'from':'under_attack','to':'medium','response':edit}
                       out['changed']=edit.get('http')=='200' and bool((edit.get('body') or {}).get('success'))
                       if not out['changed']:
-                          out['blocked']='Under Attack Mode detected but recovery failed'
-                  elif security.get('http')!='200':
-                      out['blocked']='Security Level could not be read with dedicated token'
+                          out['blocked']='Under Attack Mode detected but dedicated-token recovery failed'
                   else:
-                      out['diagnostic_note']='Security Level is not under_attack; inspect BIC/Bot/WAF/Security Events before changing anything else'
+                      out['blocked']='Under Attack Mode detected read-only, but dedicated security token is unavailable; no mutation attempted'
+              elif security.get('http')!='200':
+                  out['blocked']='Security Level could not be read with any available Cloudflare credential'
+              else:
+                  out['diagnostic_note']='Security Level is not under_attack; inspect BIC/Bot/WAF/Security Events before changing anything else'
 
           probes={}
           for path in [
@@ -142,7 +176,7 @@ jobs:
           marker.write_text(json.dumps(out,indent=2)+'\n')
           PY
 
-      - name: Publish recovery evidence as review PR
+      - name: Publish recovery evidence branch and review PR when allowed
         if: always()
         env:
           GH_TOKEN: ${{ github.token }}
@@ -158,11 +192,19 @@ jobs:
           git add "$MARKER"
           git commit -m 'Record Cloudflare edge recovery result'
           git push origin "$branch"
-          gh pr create \
+          if ! gh pr create \
             --base main \
             --head "$branch" \
             --title 'Review Cloudflare edge recovery evidence' \
-            --body 'Automated Cloudflare edge recovery evidence. Review secret/variable availability, security settings, Security Events/WAF/Bot evidence, and all representative live-route probes. This PR is intentionally not auto-merged.'
+            --body 'Automated Cloudflare edge recovery evidence. Review credential availability, security settings, Security Events/WAF/Bot evidence, and all representative live-route probes. This PR is intentionally not auto-merged.'; then
+            echo "::warning title=Evidence PR creation blocked::GitHub repository policy prevented Actions from opening a PR. Evidence is preserved on branch $branch for manual review."
+            {
+              echo '## Cloudflare recovery evidence'
+              echo
+              echo "Evidence branch: \`$branch\`"
+              echo 'GitHub Actions is not permitted to create pull requests in this repository; the evidence branch was still pushed successfully.'
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
 
       - name: Require complete security diagnosis and healthy custom domain
         if: always()
