@@ -55,4 +55,10 @@ export const COUNTY_SERIES_PROFILES_EAST_TEXAS: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/liberty-county-liberty-dayton-cleveland-trinity-river-east-texas")
       .then((module) => module.libertyCountyLibertyDaytonClevelandTrinityRiverEastTexasArticle),
   },
+  {
+    countySlug: "chambers",
+    articleSlug: "chambers-county-anahuac-trinity-bay-wallisville-gulf-coast-texas",
+    loadArticle: () => import("@/data/fixtures/chambers-county-anahuac-trinity-bay-wallisville-gulf-coast-texas")
+      .then((module) => module.chambersCountyAnahuacTrinityBayWallisvilleGulfCoastTexasArticle),
+  },
 ];
