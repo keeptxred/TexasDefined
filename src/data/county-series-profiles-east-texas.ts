@@ -49,4 +49,10 @@ export const COUNTY_SERIES_PROFILES_EAST_TEXAS: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/hardin-county-kountze-big-thicket-sour-lake-piney-woods-texas")
       .then((module) => module.hardinCountyKountzeBigThicketSourLakePineyWoodsTexasArticle),
   },
+  {
+    countySlug: "liberty",
+    articleSlug: "liberty-county-liberty-dayton-cleveland-trinity-river-east-texas",
+    loadArticle: () => import("@/data/fixtures/liberty-county-liberty-dayton-cleveland-trinity-river-east-texas")
+      .then((module) => module.libertyCountyLibertyDaytonClevelandTrinityRiverEastTexasArticle),
+  },
 ];
