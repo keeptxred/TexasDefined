@@ -105,18 +105,60 @@ jobs:
           }
 
           post_status texas-flag-history-page pending 'Checking live Texas flag history article'
-          if fetch_page "$history" "$workdir/history.html" \
-            && html_to_text "$workdir/history.html" "$workdir/history.txt" \
-            && require_text history 'The Texas Flag: A History of the Lone Star' "$workdir/history.txt" \
-            && require_text history 'Who designed the Texas flag?' "$workdir/history.txt" \
-            && require_text history 'The strange legal gap from 1879 to 1933' "$workdir/history.txt" \
-            && require_text history 'Can the Texas flag fly at the same height as the U.S. flag?' "$workdir/history.txt" \
-            && require_raw history 'Flag_of_the_Republic_of_Texas_' "$workdir/history.html" \
-            && require_raw history 'Flag_of_Texas_' "$workdir/history.html" \
-            && require_raw history 'FAQPage' "$workdir/history.html" \
-            && require_text history 'Primary source:' "$workdir/history.txt" \
-            && require_raw history 'https://www.tsl.texas.gov/treasures/flagsandmaps/flag-design.html' "$workdir/history.html" \
-            && require_raw history "$etiquette" "$workdir/history.html"; then
+          history_ok=1
+          if ! fetch_page "$history" "$workdir/history.html" || ! html_to_text "$workdir/history.html" "$workdir/history.txt"; then
+            post_status texas-flag-history-fetch failure 'History article could not be fetched and normalized'
+            history_ok=0
+          else
+            post_status texas-flag-history-fetch success 'History article fetched and normalized'
+
+            post_status texas-flag-history-visible-text pending 'Checking required history headings and title'
+            if require_text history 'The Texas Flag: A History of the Lone Star' "$workdir/history.txt" \
+              && require_text history 'Who designed the Texas flag?' "$workdir/history.txt" \
+              && require_text history 'The strange legal gap from 1879 to 1933' "$workdir/history.txt" \
+              && require_text history 'Can the Texas flag fly at the same height as the U.S. flag?' "$workdir/history.txt"; then
+              post_status texas-flag-history-visible-text success 'Required live history text verified'
+            else
+              post_status texas-flag-history-visible-text failure 'Required live history text missing'
+              history_ok=0
+            fi
+
+            post_status texas-flag-history-figures pending 'Checking both required historical flag figures'
+            if require_raw history 'Flag_of_the_Republic_of_Texas_' "$workdir/history.html" \
+              && require_raw history 'Flag_of_Texas_' "$workdir/history.html"; then
+              post_status texas-flag-history-figures success 'Required historical flag figures verified'
+            else
+              post_status texas-flag-history-figures failure 'One or more required historical flag figures missing'
+              history_ok=0
+            fi
+
+            post_status texas-flag-history-schema pending 'Checking live FAQ schema'
+            if require_raw history 'FAQPage' "$workdir/history.html"; then
+              post_status texas-flag-history-schema success 'FAQ schema verified on live history article'
+            else
+              post_status texas-flag-history-schema failure 'FAQ schema missing from live history article'
+              history_ok=0
+            fi
+
+            post_status texas-flag-history-source pending 'Checking live primary-source attribution'
+            if require_text history 'Primary source:' "$workdir/history.txt" \
+              && require_raw history 'https://www.tsl.texas.gov/treasures/flagsandmaps/flag-design.html' "$workdir/history.html"; then
+              post_status texas-flag-history-source success 'Primary-source attribution verified'
+            else
+              post_status texas-flag-history-source failure 'Primary-source attribution missing or incorrect'
+              history_ok=0
+            fi
+
+            post_status texas-flag-history-reciprocity pending 'Checking live link to flag etiquette guide'
+            if require_raw history "$etiquette" "$workdir/history.html"; then
+              post_status texas-flag-history-reciprocity success 'History article links to flag etiquette guide'
+            else
+              post_status texas-flag-history-reciprocity failure 'History article is missing the flag etiquette link'
+              history_ok=0
+            fi
+          fi
+
+          if [[ "$history_ok" -eq 1 ]]; then
             post_status texas-flag-history-page success 'Live history article, figures, source and FAQ schema verified'
           else
             post_status texas-flag-history-page failure 'Live Texas flag history article verification failed'
