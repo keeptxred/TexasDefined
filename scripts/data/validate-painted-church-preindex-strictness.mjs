@@ -15,6 +15,9 @@ const readinessRoute = read('src/routes/explore.painted-churches.preindex-readin
 const sourceRegistry = read('src/data/painted-church-source-registry.ts');
 const sourceRoute = read('src/routes/explore.painted-churches.sources.tsx');
 const methodology = read('src/routes/explore.painted-churches.methodology.tsx');
+const editorialStatus = read('src/data/painted-church-editorial-status.ts');
+const editorialStatusUi = read('src/components/editorial/PaintedChurchEditorialStatus.tsx');
+const knowledgeLinks = read('src/components/editorial/PaintedChurchKnowledgeLinks.tsx');
 const seoWorkflow = read('.github/workflows/painted-churches-seo.yml');
 const runtimeWorkflow = read('.github/workflows/painted-churches-preindex-runtime.yml');
 const runtimeValidator = read('scripts/data/validate-painted-church-runtime-readiness.mjs');
@@ -45,6 +48,14 @@ requireText(sourceRoute, 'dateModified: "2026-08-20"', 'Source registry freshnes
 requireText(methodology, 'const checkedAt = "2026-08-20"', 'Methodology freshness');
 requireText(methodology, 'Search indexing remains intentionally disabled during authority review.', 'Methodology publication disclosure');
 
+requireText(editorialStatus, 'authoredBy: "Texas Defined Editorial Research"', 'Visible organizational authorship');
+requireText(editorialStatus, 'revisions: PaintedChurchEditorialRevision[]', 'Review and revision history model');
+requireText(editorialStatus, 'fieldworkStatus: "not-yet-field-verified"', 'Fieldwork disclosure');
+requireText(editorialStatus, 'expertReviewStatus: "not-claimed"', 'Expert review disclosure');
+requireText(editorialStatusUi, 'Editorial authorship', 'Visible authorship UI');
+requireText(editorialStatusUi, 'Review & revision history', 'Visible revision-history UI');
+requireText(knowledgeLinks, '<PaintedChurchEditorialStatus slug={slug} />', 'Church-page editorial disclosure integration');
+
 requireText(seoWorkflow, '33-church authority contract', 'Static authority workflow');
 requireText(seoWorkflow, 'validate-painted-church-preindex-readiness.mjs', 'Static authority workflow');
 forbidText(seoWorkflow, '31-church authority contract', 'Static authority workflow');
@@ -63,4 +74,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Painted Churches strict pre-index standard protected: 33-church baseline, 3-source/2-authority/2-object/image launch floor, provenance metadata, runtime execution gate, current methodology, and search indexing disabled.');
+console.log('Painted Churches strict pre-index standard protected: 33-church baseline, 3-source/2-authority/2-object/image launch floor, provenance metadata, visible authorship/revision disclosures, runtime execution gate, current methodology, and search indexing disabled.');
