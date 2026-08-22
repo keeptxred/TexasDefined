@@ -2,7 +2,7 @@
   "county": "brown",
   "status": "fail",
   "stage": "live-page",
-  "target_sha": "7a2816d2335cb7b286e6a23daf6d40e630e6c527",
+  "target_sha": "048084664f865a6b81b84073c4b9fac798191511",
   "detail": "last_status=403",
-  "recorded_at_utc": "2026-08-22T03:39:23.499332+00:00"
+  "recorded_at_utc": "2026-08-22T03:43:03.368869+00:00"
 }
