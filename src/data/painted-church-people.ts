@@ -1,4 +1,5 @@
 import { paintedChurchPeople as legacyPaintedChurchPeople } from "./painted-church-people-legacy";
+import { masonPaintedChurchPeople } from "./painted-church-people-mason";
 import { immaculateHeartOfMaryPeople } from "./painted-church-people-preindex-ihm";
 import { preindexPaintedChurchPeople } from "./painted-church-people-preindex";
 import { supplementalPreindexPaintedChurchPeople } from "./painted-church-people-preindex-supplemental";
@@ -12,6 +13,7 @@ export const paintedChurchPeople: PaintedChurchPerson[] = [
   ...preindexPaintedChurchPeople,
   ...supplementalPreindexPaintedChurchPeople,
   ...immaculateHeartOfMaryPeople,
+  ...masonPaintedChurchPeople,
 ];
 
 export const paintedChurchPersonBySlug = new Map(paintedChurchPeople.map((person) => [person.slug, person]));
