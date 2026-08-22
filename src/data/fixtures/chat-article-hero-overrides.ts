@@ -8,7 +8,6 @@ import { texasHomeMaintenanceCalendarArticle as maintenanceBase } from "./texas-
 import { texasNativePlantsYardArticle as nativePlantsBase } from "./texas-native-plants-yard";
 import { texasRegionsExplainedArticle as regionsBase } from "./texas-regions-explained";
 import { whyTexasHas254CountiesArticle as countiesBase } from "./why-texas-has-254-counties";
-import { sabineCountyHemphillToledoBendSabineRiverPineyWoodsArticle as sabinePineyWoodsBase } from "./sabine-county-hemphill-toledo-bend-sabine-river-piney-woods-texas";
 
 export const texasBarbecueStylesArticle = {
   ...barbecueBase,
@@ -40,16 +39,4 @@ export const texasRegionsExplainedArticle = {
 export const texasHomeMaintenanceCalendarArticle = {
   ...maintenanceBase,
   hero: { ...maintenanceBase.hero, src: homeMaintenanceHero, alt: "A homeowner checking the outdoor air conditioning unit beside a brick Texas house" },
-};
-
-export const sabineCountyHemphillToledoBendSabineRiverPineyWoodsArticle = {
-  ...sabinePineyWoodsBase,
-  hero: {
-    ...sabinePineyWoodsBase.hero,
-    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Sabine_National_Forest,_Toledo_Bend_Reservoir,_Texas.jpg?width=1600",
-    alt: "Toledo Bend Reservoir inlet in the Indian Mounds Wilderness of Sabine National Forest, Sabine County, Texas",
-    width: 1800,
-    height: 1200,
-    credit: "William L. Farr · Wikimedia Commons · CC BY 4.0",
-  },
 };
