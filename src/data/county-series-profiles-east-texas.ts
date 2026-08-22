@@ -43,4 +43,10 @@ export const COUNTY_SERIES_PROFILES_EAST_TEXAS: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/jefferson-county-beaumont-port-arthur-spindletop-gulf-coast-texas")
       .then((module) => module.jeffersonCountyBeaumontPortArthurSpindletopGulfCoastTexasArticle),
   },
+  {
+    countySlug: "hardin",
+    articleSlug: "hardin-county-kountze-big-thicket-sour-lake-piney-woods-texas",
+    loadArticle: () => import("@/data/fixtures/hardin-county-kountze-big-thicket-sour-lake-piney-woods-texas")
+      .then((module) => module.hardinCountyKountzeBigThicketSourLakePineyWoodsTexasArticle),
+  },
 ];
