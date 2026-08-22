@@ -1,0 +1,63 @@
+name: Texas Knowledge Bank
+
+on:
+  pull_request:
+    paths:
+      - 'src/data/knowledge-bank/**'
+      - 'src/data/texas-evergreen-guides-batch8.ts'
+      - 'src/data/texas-home-nature-clusters.ts'
+      - 'src/routes/texas-*-guide.tsx'
+      - 'src/routes/texas-hurricane-home-prep.tsx'
+      - 'src/routes/home-garden.tsx'
+      - 'src/lib/public-routes.ts'
+      - 'scripts/data/validate-texas-knowledge-bank.mjs'
+      - 'scripts/data/validate-texas-knowledge-freshness.mjs'
+      - 'scripts/data/validate-texas-county-knowledge.mjs'
+      - 'scripts/data/validate-texas-social-balance.mjs'
+      - 'scripts/data/validate-texas-home-nature-tools.mjs'
+      - 'tsconfig.knowledge-bank.json'
+      - '.github/workflows/texas-knowledge-bank.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate Texas knowledge bank
+        run: node scripts/data/validate-texas-knowledge-bank.mjs
+
+      - name: Validate county knowledge
+        run: node scripts/data/validate-texas-county-knowledge.mjs
+
+      - name: Validate social domain balance
+        run: node scripts/data/validate-texas-social-balance.mjs
+
+      - name: Validate staged home nature tools
+        run: node scripts/data/validate-texas-home-nature-tools.mjs
+
+      - name: Validate knowledge freshness
+        run: node scripts/data/validate-texas-knowledge-freshness.mjs
+
+      - name: Typecheck Texas knowledge bank
+        run: npx tsc --noEmit -p tsconfig.knowledge-bank.json
+
+      - name: Validate public route governance
+        run: node scripts/data/validate-public-route-governance.mjs
+
+      - name: Build production bundle
+        run: npm run build
