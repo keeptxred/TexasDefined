@@ -43,4 +43,10 @@ export const COUNTY_SERIES_PROFILES_CENTRAL: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/gonzales-county-gonzales-guadalupe-come-and-take-it-texas")
       .then((module) => module.gonzalesCountyGonzalesGuadalupeComeAndTakeItTexasArticle),
   },
+  {
+    countySlug: "menard",
+    articleSlug: "menard-county-menard-san-saba-fort-mckavett-hill-country-texas",
+    loadArticle: () => import("@/data/fixtures/menard-county-menard-san-saba-fort-mckavett-hill-country-texas")
+      .then((module) => module.menardCountyMenardSanSabaFortMcKavettHillCountryTexasArticle),
+  },
 ];
