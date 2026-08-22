@@ -102,6 +102,9 @@ for (const needle of [
   'actions: write',
   'contents: write',
   'pull-requests: write',
+  'CLOUDFLARE_DEPLOY_API_TOKEN:',
+  'CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_DEPLOY_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}',
+  'CLOUDFLARE_DEPLOY_TOKEN_PRESENT:',
   'node scripts/ci/merge-county-certification-config.mjs',
   'node scripts/ci/run-incomplete-county-certification.mjs "$COUNTY"',
   'bash scripts/ci/publish-county-certification-evidence.sh',
@@ -163,4 +166,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`County certifier consolidation passed: ${counties.length} manual wrappers share one source-read-only production certification engine, exact-commit validated evidence PRs, zero direct-main writes, executable current-source assertions, and exact 301 legacy redirects to canonical county URLs.`);
+console.log(`County certifier consolidation passed: ${counties.length} manual wrappers share one source-read-only production certification engine, exact-commit validated evidence PRs, zero direct-main writes, executable current-source assertions, dedicated deploy-token preference with safe fallback, and exact 301 legacy redirects to canonical county URLs.`);
