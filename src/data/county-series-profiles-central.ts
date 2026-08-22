@@ -61,4 +61,10 @@ export const COUNTY_SERIES_PROFILES_CENTRAL: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/mcculloch-county-brady-heart-of-texas-ranching-texas")
       .then((module) => module.mcCullochCountyBradyHeartOfTexasRanchingTexasArticle),
   },
+  {
+    countySlug: "waller",
+    articleSlug: "waller-county-hempstead-prairie-view-brazos-prairie-texas",
+    loadArticle: () => import("@/data/fixtures/waller-county-hempstead-prairie-view-brazos-prairie-texas")
+      .then((module) => module.wallerCountyHempsteadPrairieViewBrazosPrairieTexasArticle),
+  },
 ];
