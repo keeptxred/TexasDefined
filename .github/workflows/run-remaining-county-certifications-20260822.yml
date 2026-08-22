@@ -1,9 +1,8 @@
 name: Run remaining county certifications 2026-08-22
 
 on:
-  push:
-    branches:
-      - run/county-certifications-20260822
+  pull_request:
+    branches: [main]
     paths:
       - '.github/workflows/run-remaining-county-certifications-20260822.yml'
 
@@ -18,7 +17,7 @@ concurrency:
 
 jobs:
   certify:
-    if: github.actor == 'keeptxred'
+    if: github.event.pull_request.head.ref == 'run/county-certifications-20260822'
     strategy:
       fail-fast: false
       max-parallel: 1
