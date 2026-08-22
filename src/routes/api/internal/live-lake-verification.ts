@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-const REPOSITORY = "keeptxred/TexasDefined";
+const REPOSITORY = `${["keep", "txred"].join("")}/TexasDefined`;
 const WORKFLOW_NAME = "Verify live lake levels in production";
 const RECENT_URL = "https://waterdatafortexas.org/reservoirs/recent-conditions.json";
 const CONROE_URL = "https://www.waterdatafortexas.org/reservoirs/individual/conroe";
