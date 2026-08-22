@@ -55,4 +55,10 @@ export const COUNTY_SERIES_PROFILES_CENTRAL: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/schleicher-county-eldorado-edwards-plateau-ranching-west-texas")
       .then((module) => module.schleicherCountyEldoradoEdwardsPlateauRanchingWestTexasArticle),
   },
+  {
+    countySlug: "mcculloch",
+    articleSlug: "mcculloch-county-brady-heart-of-texas-ranching-texas",
+    loadArticle: () => import("@/data/fixtures/mcculloch-county-brady-heart-of-texas-ranching-texas")
+      .then((module) => module.mcCullochCountyBradyHeartOfTexasRanchingTexasArticle),
+  },
 ];
