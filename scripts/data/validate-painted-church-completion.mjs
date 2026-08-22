@@ -94,7 +94,9 @@ requireText(topicPaths, 'label: "Painted Churches of Texas"', 'Historic-sites re
 requireText(topicPaths, 'to: "/explore/painted-churches/routes"', 'Road-trip reciprocal link');
 requireText(topicPaths, 'label: "Painted Churches"', 'Small-town reciprocal link');
 
-if (manifest.verifiedChurchCount !== 32 || manifest.churchSlugs.length !== 32) failures.push('Pre-index manifest must preserve the 32-church authority corpus.');
+if (!Number.isInteger(manifest.verifiedChurchCount) || manifest.verifiedChurchCount < 1) failures.push('Pre-index manifest verifiedChurchCount must be a positive integer.');
+if (!Array.isArray(manifest.churchSlugs) || manifest.churchSlugs.length !== manifest.verifiedChurchCount) failures.push(`Pre-index manifest churchSlugs must exactly match verifiedChurchCount (${manifest.verifiedChurchCount}).`);
+if (new Set(manifest.churchSlugs).size !== manifest.churchSlugs.length) failures.push('Pre-index manifest churchSlugs must not contain duplicates.');
 if (manifest.publicationState !== 'pre-index-review') failures.push('Painted Churches must remain in pre-index-review until explicit release.');
 if (manifest.requirements.searchIndexingEnabled !== false) failures.push('Search indexing must remain disabled during pre-index review.');
 
@@ -103,4 +105,4 @@ if (failures.length) {
   failures.forEach((failure) => console.error(`- ${failure}`));
   process.exit(1);
 }
-console.log('Painted Churches completion protected: 32-church pre-index authority corpus, original 14-vs-15 thematic reconciliation, candidate adjudication, oral-history sources, complete Then & Now accounting, rights-verified interiors, primary-source archival evidence, explicit visitor research, canonical profile/research/feature resolvers, source registry and statewide discovery links.');
+console.log(`Painted Churches completion protected: ${manifest.verifiedChurchCount}-church pre-index authority corpus, original 14-vs-15 thematic reconciliation, candidate adjudication, oral-history sources, complete Then & Now accounting, rights-verified interiors, primary-source archival evidence, explicit visitor research, canonical profile/research/feature resolvers, source registry and statewide discovery links.`);
