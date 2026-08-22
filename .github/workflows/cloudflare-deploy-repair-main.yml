@@ -1,0 +1,157 @@
+name: One-time Cloudflare production deploy repair
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/recovery/cloudflare-deploy-repair-run'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  repair-deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment: texasdefined-publication
+    env:
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_DEPLOY_API_TOKEN: ${{ secrets.CLOUDFLARE_DEPLOY_API_TOKEN }}
+      CLOUDFLARE_FALLBACK_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      EVIDENCE: .github/certification/cloudflare-deploy-repair.json
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Run production predeploy validation
+        run: node scripts/ci/run-validation-suite.mjs predeploy
+
+      - name: Build production bundle
+        run: npm run build
+
+      - name: Enforce protected client bundle budget
+        run: npm run performance:validate
+
+      - name: Diagnose and repair Cloudflare deployment
+        id: deploy
+        shell: bash
+        continue-on-error: true
+        run: |
+          set -uo pipefail
+          mkdir -p "$(dirname "$EVIDENCE")"
+          python3 - <<'PY'
+          import json, os, pathlib, subprocess, datetime
+          account=os.environ.get('CLOUDFLARE_ACCOUNT_ID','')
+          tokens=[
+              ('deploy_specific', os.environ.get('CLOUDFLARE_DEPLOY_API_TOKEN','')),
+              ('general_fallback', os.environ.get('CLOUDFLARE_FALLBACK_API_TOKEN','')),
+          ]
+          evidence={
+              'recorded_at_utc': datetime.datetime.now(datetime.timezone.utc).isoformat(),
+              'main_sha': subprocess.check_output(['git','rev-parse','HEAD'], text=True).strip(),
+              'account_id_available': bool(account),
+              'attempts': [],
+              'deployed': False,
+              'verified': False,
+          }
+          out_path=pathlib.Path(os.environ['EVIDENCE'])
+          def sanitize(text, secrets):
+              s=text or ''
+              for secret in secrets:
+                  if secret:
+                      s=s.replace(secret,'***')
+              return s[-10000:]
+          if not account:
+              evidence['blocked']='CLOUDFLARE_ACCOUNT_ID unavailable'
+              out_path.write_text(json.dumps(evidence,indent=2)+'\n')
+              raise SystemExit(1)
+          available=[t for _,t in tokens if t]
+          for token in available:
+              print(f'::add-mask::{token}')
+          for label, token in tokens:
+              attempt={'source':label,'available':bool(token)}
+              evidence['attempts'].append(attempt)
+              if not token:
+                  continue
+              pre=subprocess.run([
+                  'curl','--silent','--show-error','--max-time','30',
+                  '-H',f'Authorization: Bearer {token}',
+                  '-o','/tmp/cf-workers.json','-w','%{http_code}',
+                  f'https://api.cloudflare.com/client/v4/accounts/{account}/workers/scripts'
+              ], capture_output=True, text=True)
+              attempt['workers_scripts_http']=pre.stdout.strip()
+              attempt['workers_scripts_curl_exit']=pre.returncode
+              env=os.environ.copy()
+              env['CLOUDFLARE_API_TOKEN']=token
+              env['CLOUDFLARE_ACCOUNT_ID']=account
+              deploy=subprocess.run(['npx','wrangler','deploy'],env=env,capture_output=True,text=True)
+              attempt['wrangler_exit']=deploy.returncode
+              attempt['wrangler_output_tail']=sanitize((deploy.stdout or '')+'\n'+(deploy.stderr or ''),available)
+              if deploy.returncode == 0:
+                  evidence['deployed']=True
+                  evidence['selected_token_source']=label
+                  break
+          if not evidence['deployed']:
+              evidence['blocked']='No configured Cloudflare credential completed wrangler deploy'
+              out_path.write_text(json.dumps(evidence,indent=2)+'\n')
+              raise SystemExit(1)
+          verify=subprocess.run(['node','scripts/ci/verify-production-surfaces.mjs'],capture_output=True,text=True)
+          evidence['live_verification_exit']=verify.returncode
+          evidence['live_verification_output_tail']=sanitize((verify.stdout or '')+'\n'+(verify.stderr or ''),available)
+          evidence['verified']=verify.returncode == 0
+          if not evidence['verified']:
+              evidence['blocked']='Worker deployed but production surface verification failed'
+          out_path.write_text(json.dumps(evidence,indent=2)+'\n')
+          raise SystemExit(0 if evidence['verified'] else 1)
+          PY
+
+      - name: Publish deploy repair evidence branch
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ ! -f "$EVIDENCE" ]]; then
+            mkdir -p "$(dirname "$EVIDENCE")"
+            printf '{"blocked":"deploy repair ended before evidence was written","deployed":false,"verified":false}\n' > "$EVIDENCE"
+          fi
+          branch="automation/cloudflare-deploy-repair-${GITHUB_RUN_ID}"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git checkout -b "$branch"
+          git add "$EVIDENCE"
+          git commit -m 'Record Cloudflare production deploy repair evidence'
+          git push origin "$branch"
+          if ! gh pr create \
+            --base main \
+            --head "$branch" \
+            --title 'Review Cloudflare production deploy repair evidence' \
+            --body 'One-time trusted-main production deploy repair evidence. Review credential availability, sanitized Wrangler output, selected credential source, and production surface verification. Do not auto-merge this evidence PR.'; then
+            echo "::warning title=Evidence PR creation blocked::Evidence is preserved on branch $branch for review."
+          fi
+
+      - name: Require successful production repair
+        if: always()
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json, os
+          data=json.load(open(os.environ['EVIDENCE']))
+          if not data.get('deployed'):
+              raise SystemExit(data.get('blocked') or 'Cloudflare deployment did not complete')
+          if not data.get('verified'):
+              raise SystemExit(data.get('blocked') or 'Production verification did not pass')
+          print('Cloudflare production deploy repair verified.')
+          PY

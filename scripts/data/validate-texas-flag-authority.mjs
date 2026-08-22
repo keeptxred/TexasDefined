@@ -42,6 +42,8 @@ function requireCount(label, text, needle, minimum) {
 
 requireContains("Texas flag history", files.history, 'slug: "history-of-the-texas-flag"');
 requireContains("Texas flag history", files.history, 'sourceUrl: "https://www.tsl.texas.gov/treasures/flagsandmaps/flag-design.html"');
+requireContains("Texas flag history", files.history, 'href: "/article/texas-flag-etiquette-display-guide"');
+requireContains("Texas flag history", files.history, 'label: "Texas flag display & etiquette"');
 requireContains("Texas flag history", files.history, 'h("1836: the Burnet flag becomes the first official national standard")');
 requireContains("Texas flag history", files.history, 'h("1838–1839: the modern Lone Star design takes shape")');
 requireContains("Texas flag history", files.history, 'h("Who designed the Texas flag?")');
@@ -93,6 +95,11 @@ requireContains("RSS feed", files.rss, 'platform.articles.list(scope)');
 requireContains("RSS feed", files.rss, '/article/${article.slug}');
 requireContains("RSS feed", files.rss, 'https://pubsubhubbub.appspot.com/');
 requireContains("RSS feed", files.rss, 'rel="hub"');
+requireContains("RSS feed", files.rss, "const RSS_LIMIT = 50;");
+requireContains("RSS feed", files.rss, "const PINNED_DISCOVERY_SLUGS = new Set([");
+requireContains("RSS feed", files.rss, '"history-of-the-texas-flag"');
+requireContains("RSS feed", files.rss, '"texas-flag-etiquette-display-guide"');
+requireContains("RSS feed", files.rss, "Math.max(0, RSS_LIMIT - pinnedArticles.length)");
 
 requireContains("Primary sitemap", files.sitemap, '"/texas-history": "2026-08-20"');
 requireContains("Primary sitemap", files.sitemap, '"/texas-symbols": "2026-08-20"');
@@ -106,9 +113,17 @@ requireContains("robots.txt", files.robots, "Sitemap: https://texasdefined.com/r
 requireContains("Flag production smoke", files.smoke, "workflow_run:");
 requireContains("Flag production smoke", files.smoke, 'workflows: ["Deploy TexasDefined production"]');
 requireContains("Flag production smoke", files.smoke, "texas-flag-history-page");
+requireContains("Flag production smoke", files.smoke, "texas-flag-history-reciprocity");
+requireContains("Flag production smoke", files.smoke, "texas-flag-history-schema");
+requireContains("Flag production smoke", files.smoke, "texas-flag-history-source");
 requireContains("Flag production smoke", files.smoke, "texas-flag-indexing-signals");
 requireContains("Flag production smoke", files.smoke, "'/rss.xml'");
 requireContains("Flag production smoke", files.smoke, "fresh sitemap dates and RSS discovery verified");
+requireContains("Flag production smoke", files.smoke, "html_to_text()");
+requireContains("Flag production smoke", files.smoke, "require_text()");
+requireContains("Flag production smoke", files.smoke, "require_raw()");
+requireContains("Flag production smoke", files.smoke, "history article is missing from RSS");
+requireContains("Flag production smoke", files.smoke, "etiquette article is missing from RSS");
 
 requireContains("WebSub notifier", files.webSub, 'workflows: ["Deploy TexasDefined production"]');
 requireContains("WebSub notifier", files.webSub, "https://pubsubhubbub.appspot.com/");
@@ -119,6 +134,9 @@ requireContains("WebSub notifier", files.webSub, "texasdefined-websub");
 requireContains("Production deploy", files.deploy, "node scripts/ci/verify-production-surfaces.mjs");
 requireContains("Production deploy", files.deploy, "node scripts/ci/publish-github-status.mjs texasdefined-production");
 requireContains("Production deploy", files.deploy, "node scripts/ci/publish-github-status.mjs texasdefined-bundle-budget");
+requireContains("Production deploy", files.deploy, 'CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_DEPLOY_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}');
+requireContains("Production deploy", files.deploy, "CLOUDFLARE_DEPLOY_TOKEN_PRESENT:");
+requireContains("Production deploy", files.deploy, "Production deployment will use CLOUDFLARE_DEPLOY_API_TOKEN.");
 requireContains("Production verifier", files.productionVerifier, "['flag-history', '/article/history-of-the-texas-flag'");
 requireContains("Production verifier", files.productionVerifier, "['flag-etiquette', '/article/texas-flag-etiquette-display-guide'");
 requireContains("Production verifier", files.productionVerifier, "['texas-symbols', '/texas-symbols'");

@@ -22,6 +22,7 @@ const Footer = lazy(() => import("@/components/layout/Footer").then((module) => 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const defaultSocialImage = absoluteUrl(texasDefinedBrand, heroHillCountry);
 const defaultSocialImageAlt = "Texas Hill Country landscape at golden hour";
+const iconVersion = "20260822";
 
 function NotFoundComponent() {
   return (
@@ -46,11 +47,6 @@ function NotFoundComponent() {
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
   const router = useRouter();
-  useEffect(() => {
-    void import("../lib/lovable-error-reporting").then(({ reportLovableError }) => {
-      reportLovableError(error, { boundary: "tanstack_root_error_component" });
-    });
-  }, [error]);
   return (
     <>
       <title>Page unavailable | Texas Defined</title>
@@ -97,9 +93,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" },
-      { rel: "icon", href: "/favicon.png", type: "image/png" },
-      { rel: "shortcut icon", href: "/favicon.png", type: "image/png" },
-      { rel: "apple-touch-icon", href: "/apple-touch-icon.png", sizes: "180x180" },
+      { rel: "icon", href: `/favicon.ico?v=${iconVersion}`, sizes: "any" },
+      { rel: "icon", href: `/favicon.svg?v=${iconVersion}`, type: "image/svg+xml" },
+      { rel: "icon", href: `/favicon.png?v=${iconVersion}`, type: "image/png" },
+      { rel: "shortcut icon", href: `/favicon.ico?v=${iconVersion}` },
+      { rel: "apple-touch-icon", href: `/apple-touch-icon.png?v=${iconVersion}`, sizes: "180x180" },
       { rel: "alternate", href: "/rss.xml", type: "application/rss+xml", title: "Texas Defined RSS" },
     ],
     scripts: [{

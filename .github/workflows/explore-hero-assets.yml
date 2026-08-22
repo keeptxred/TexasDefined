@@ -6,7 +6,6 @@ on:
     branches: [main]
     paths:
       - "scripts/data/sync-explore-hero-assets.mjs"
-      - "scripts/data/cloudflare-workers-ai-shim.mjs"
       - ".github/workflows/explore-hero-assets.yml"
 
 permissions:
@@ -25,7 +24,6 @@ jobs:
     env:
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-      NODE_OPTIONS: --import=./scripts/data/cloudflare-workers-ai-shim.mjs
     steps:
       - name: Check out current main
         uses: actions/checkout@v4

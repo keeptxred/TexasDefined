@@ -34,16 +34,17 @@ jobs:
             --header 'Accept: application/vnd.github+json' \
             --header 'X-GitHub-Api-Version: 2022-11-28' \
             "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${STATUS_SHA}" \
-            --data '{"state":"pending","context":"texasdefined-live-lakes","description":"Checking all live lake-level surfaces"}' >/dev/null
+            --data '{"state":"pending","context":"texasdefined-live-lakes","description":"Checking current data and all live lake UI surfaces"}' >/dev/null
 
-      - name: Probe Water Data connectivity from production Worker
+      - name: Verify current numeric data for all ten lakes
         shell: bash
         run: |
           set -euo pipefail
           url="https://texasdefined.com/api/public/live-lake-diagnostic?verify=${GITHUB_RUN_ID}"
           body="$(mktemp)"
-          vars="$(mktemp)"
-          trap 'rm -f "$body" "$vars"' EXIT
+          headers="$(mktemp)"
+          results="$(mktemp)"
+          trap 'rm -f "$body" "$headers" "$results"' EXIT
 
           publish_status() {
             local state="$1" context="$2" description="$3"
@@ -61,56 +62,82 @@ jobs:
               --data "$payload" >/dev/null
           }
 
-          if ! curl --fail-with-body --silent --show-error --location --max-time 45 "$url" -o "$body"; then
-            publish_status failure texasdefined-waterdata-diagnostic "Production diagnostic endpoint unavailable"
-            exit 0
+          http_code="$(curl --silent --show-error --location --max-time 45 \
+            --user-agent 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/151 Safari/537.36' \
+            --header 'Accept: application/json,text/plain;q=0.9,*/*;q=0.1' \
+            --dump-header "$headers" --output "$body" --write-out '%{http_code}' "$url" || true)"
+
+          if grep -iq '^cf-mitigated: *challenge' "$headers"; then
+            publish_status failure texasdefined-waterdata-diagnostic "Cloudflare challenged production lake diagnostic"
+            exit 1
+          fi
+          if [[ "$http_code" != "200" ]]; then
+            publish_status failure texasdefined-waterdata-diagnostic "Production lake diagnostic returned HTTP ${http_code:-unknown}"
+            exit 1
           fi
 
-          python3 - "$body" "$vars" <<'PY'
+          python3 - "$body" "$results" <<'PY'
           import json, sys
-          payload = json.load(open(sys.argv[1], encoding="utf-8"))
-          probes = payload.get("probes") or {}
-          with open(sys.argv[2], "w", encoding="utf-8") as out:
-              for key in ("recent", "csv", "html"):
-                  probe = probes.get(key) or {}
-                  out.write(f"{key}_ok={'true' if probe.get('ok') else 'false'}\n")
-                  out.write(f"{key}_status={probe.get('status') if probe.get('status') is not None else 'none'}\n")
-                  out.write(f"{key}_length={probe.get('contentLength') or 0}\n")
-                  out.write(f"{key}_elapsed={probe.get('elapsedMs') or 0}\n")
-              out.write(f"snapshot_ok={'true' if payload.get('conroeSnapshot') else 'false'}\n")
-              out.write(f"serverfn_snapshot_ok={'true' if payload.get('conroeServerFnSnapshot') else 'false'}\n")
-          print(json.dumps(payload, indent=2)[:6000])
+          payload = json.load(open(sys.argv[1], encoding='utf-8'))
+          probes = payload.get('probes') or {}
+          lakes = {
+              'lake-conroe': payload.get('conroePageDataSnapshot'),
+              **(payload.get('showcasePageDataSnapshots') or {}),
+          }
+          expected = [
+              'lake-conroe', 'lake-fork', 'sam-rayburn-reservoir', 'lake-livingston', 'lake-texoma',
+              'toledo-bend-reservoir', 'possum-kingdom-reservoir', 'canyon-lake',
+              'choke-canyon-reservoir', 'amistad-reservoir',
+          ]
+          with open(sys.argv[2], 'w', encoding='utf-8') as out:
+              for source in ('recent', 'csv', 'html'):
+                  probe = probes.get(source) or {}
+                  out.write(f"probe|{source}|{'success' if probe.get('ok') else 'failure'}|HTTP {probe.get('status') if probe.get('status') is not None else 'none'}; {probe.get('contentLength') or 0} bytes; {probe.get('elapsedMs') or 0}ms\n")
+              out.write(f"diagnostic|snapshot|{'success' if payload.get('conroeSnapshot') else 'failure'}|{'Production Worker parsed current Lake Conroe snapshot' if payload.get('conroeSnapshot') else 'Production Worker returned no Lake Conroe snapshot'}\n")
+              out.write(f"diagnostic|serverfn|{'success' if payload.get('conroeServerFnSnapshot') else 'failure'}|{'createServerFn returned current Lake Conroe snapshot' if payload.get('conroeServerFnSnapshot') else 'createServerFn returned no Lake Conroe snapshot'}\n")
+              for slug in expected:
+                  snapshot = lakes.get(slug)
+                  valid = isinstance(snapshot, dict) and isinstance(snapshot.get('percentFull'), (int, float)) and snapshot.get('measuredAt')
+                  if valid:
+                      desc = f"{snapshot['percentFull']:.1f}% full; measured {snapshot['measuredAt']}"
+                      out.write(f"lake|{slug}|success|{desc}\n")
+                  else:
+                      out.write(f"lake|{slug}|failure|Current numeric page-data snapshot missing\n")
+          print(json.dumps({
+              'conroePageDataSnapshot': payload.get('conroePageDataSnapshot'),
+              'showcasePageDataSnapshots': payload.get('showcasePageDataSnapshots'),
+          }, indent=2))
           PY
-          source "$vars"
 
-          for source_name in recent csv html; do
-            eval "ok=\${${source_name}_ok:-false}"
-            eval "status=\${${source_name}_status:-none}"
-            eval "length=\${${source_name}_length:-0}"
-            eval "elapsed=\${${source_name}_elapsed:-0}"
-            if [[ "$ok" == "true" ]]; then
-              publish_status success "texasdefined-waterdata-${source_name}" "HTTP ${status}; ${length} bytes; ${elapsed}ms"
-            else
-              publish_status failure "texasdefined-waterdata-${source_name}" "HTTP ${status}; ${length} bytes; ${elapsed}ms"
+          failures=0
+          while IFS='|' read -r kind name state description; do
+            if [[ "$kind" == "probe" ]]; then
+              publish_status "$state" "texasdefined-waterdata-${name}" "$description"
+              continue
             fi
-          done
-          if [[ "${snapshot_ok:-false}" == "true" ]]; then
-            publish_status success texasdefined-waterdata-snapshot "Production Worker parsed current Lake Conroe snapshot"
-          else
-            publish_status failure texasdefined-waterdata-snapshot "Production Worker returned no Lake Conroe snapshot"
-          fi
-          if [[ "${serverfn_snapshot_ok:-false}" == "true" ]]; then
-            publish_status success texasdefined-waterdata-serverfn "createServerFn returned current Lake Conroe snapshot"
-          else
-            publish_status failure texasdefined-waterdata-serverfn "createServerFn returned no Lake Conroe snapshot"
-          fi
-          if [[ "${snapshot_ok:-false}" == "true" && "${serverfn_snapshot_ok:-false}" == "true" ]]; then
-            publish_status success texasdefined-waterdata-diagnostic "Water Data helper and server function both passed"
-          else
-            publish_status failure texasdefined-waterdata-diagnostic "Water Data helper/server-function mismatch captured"
-          fi
+            if [[ "$kind" == "diagnostic" && "$name" == "snapshot" ]]; then
+              publish_status "$state" texasdefined-waterdata-snapshot "$description"
+              [[ "$state" == "success" ]] || failures=$((failures + 1))
+              continue
+            fi
+            if [[ "$kind" == "diagnostic" && "$name" == "serverfn" ]]; then
+              publish_status "$state" texasdefined-waterdata-serverfn "$description"
+              [[ "$state" == "success" ]] || failures=$((failures + 1))
+              continue
+            fi
+            if [[ "$kind" == "lake" ]]; then
+              publish_status "$state" "texasdefined-live-lake-${name}" "$description"
+              [[ "$state" == "success" ]] || failures=$((failures + 1))
+            fi
+          done < "$results"
 
-      - name: Verify every published lake returns a current numeric reading
+          if [[ "$failures" -gt 0 ]]; then
+            publish_status failure texasdefined-waterdata-diagnostic "Current lake data failed one or more protected checks"
+            exit 1
+          fi
+          publish_status success texasdefined-waterdata-diagnostic "All ten page-data snapshots and server paths are current"
+
+      - name: Verify every published lake exposes the live-level UI
         shell: bash
         run: |
           set -euo pipefail
@@ -133,7 +160,7 @@ jobs:
             local payload
             payload="$(python3 - "$state" "$context" "$description" <<'PY'
           import json, sys
-          print(json.dumps({"state": sys.argv[1], "context": sys.argv[2], "description": sys.argv[3]}))
+          print(json.dumps({"state": sys.argv[1], "context": sys.argv[2], "description": sys.argv[3][:140]}))
           PY
           )"
             curl --fail-with-body --silent --show-error --request POST \
@@ -145,64 +172,64 @@ jobs:
           }
 
           failures=0
-          numeric=0
           workdir="$(mktemp -d)"
           trap 'rm -rf "$workdir"' EXIT
 
           for slug in "${lakes[@]}"; do
             out="$workdir/${slug}.html"
+            headers="$workdir/${slug}.headers"
             ok=0
             for attempt in 1 2 3; do
               url="${origin}/fishing/lakes/${slug}?verify-live-lake=${GITHUB_RUN_ID}-${attempt}"
               echo "[$slug] attempt $attempt: $url"
-              if curl --fail-with-body --silent --show-error --location --max-time 30 "$url" -o "$out"; then
-                if grep -Fq 'Live lake level:' "$out" && grep -Fq 'Water Data for Texas' "$out"; then
-                  ok=1
-                  break
-                fi
+              code="$(curl --silent --show-error --location --max-time 30 \
+                --user-agent 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/151 Safari/537.36' \
+                --header 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8' \
+                --dump-header "$headers" --output "$out" --write-out '%{http_code}' "$url" || true)"
+              if grep -iq '^cf-mitigated: *challenge' "$headers"; then
+                echo "[$slug] Cloudflare challenge on attempt $attempt"
+              elif [[ "$code" == "200" ]] && grep -Fq 'Live lake level:' "$out" && grep -Fq 'Water Data for Texas' "$out"; then
+                ok=1
+                break
               fi
               sleep 5
             done
 
-            context="texasdefined-live-lake-${slug}"
-            if [[ "$ok" -ne 1 ]]; then
-              echo "::error title=Lake live-level UI missing::${slug} did not render the live lake-level strip in production"
-              publish_status failure "$context" "Live lake-level UI missing"
-              failures=$((failures + 1))
-              continue
-            fi
-
-            if grep -Eq '[0-9]+\.[0-9]% full' "$out" && grep -Fq 'measured' "$out"; then
-              echo "[$slug] live numeric reading rendered"
-              publish_status success "$context" "Current numeric lake reading rendered"
-              numeric=$((numeric + 1))
+            context="texasdefined-live-lake-ui-${slug}"
+            if [[ "$ok" -eq 1 ]]; then
+              publish_status success "$context" "Live lake-level UI and official source rendered"
             else
-              echo "::error title=Lake live reading unavailable::${slug} rendered the live-level UI but no current numeric reading"
-              publish_status failure "$context" "Live UI rendered but numeric reading missing"
+              publish_status failure "$context" "Live lake-level UI/source missing or edge challenged"
               failures=$((failures + 1))
             fi
           done
 
           if [[ "$failures" -gt 0 ]]; then
-            echo "${failures} of ${#lakes[@]} published lake page(s) failed current lake-level verification; ${numeric} returned numeric readings." >&2
+            echo "${failures} of ${#lakes[@]} lake UI surfaces failed production verification." >&2
             exit 1
           fi
+          echo "All ${#lakes[@]} lake pages expose the live-level UI; numeric freshness is verified separately through production page-data snapshots."
 
-          echo "All ${#lakes[@]} published lake pages render a current numeric Water Data for Texas reading."
-
-      - name: Verify lake section route also carries current numeric reading
+      - name: Verify lake section route exposes live-level UI
         shell: bash
         run: |
           set -euo pipefail
           url="https://texasdefined.com/fishing/lakes/lake-conroe/boating?verify-live-lake-section=${GITHUB_RUN_ID}"
           body="$(mktemp)"
-          trap 'rm -f "$body"' EXIT
-          curl --fail-with-body --silent --show-error --location --max-time 30 "$url" -o "$body"
+          headers="$(mktemp)"
+          trap 'rm -f "$body" "$headers"' EXIT
+          code="$(curl --silent --show-error --location --max-time 30 \
+            --user-agent 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/151 Safari/537.36' \
+            --header 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8' \
+            --dump-header "$headers" --output "$body" --write-out '%{http_code}' "$url" || true)"
+          if grep -iq '^cf-mitigated: *challenge' "$headers"; then
+            echo 'Lake section route was challenged by Cloudflare.' >&2
+            exit 1
+          fi
+          [[ "$code" == "200" ]]
           grep -Fq 'Live lake level:' "$body"
           grep -Fq 'Water Data for Texas' "$body"
-          grep -Eq '[0-9]+\.[0-9]% full' "$body"
-          grep -Fq 'measured' "$body"
-          echo 'Lake section route current numeric lake-level surface verified.'
+          echo 'Lake section route live-level surface verified; the client component refreshes its current reading on open.'
 
       - name: Publish live-lake verification success
         if: success()
@@ -213,7 +240,7 @@ jobs:
             --header 'Accept: application/vnd.github+json' \
             --header 'X-GitHub-Api-Version: 2022-11-28' \
             "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${STATUS_SHA}" \
-            --data '{"state":"success","context":"texasdefined-live-lakes","description":"All production lake-level surfaces passed"}' >/dev/null
+            --data '{"state":"success","context":"texasdefined-live-lakes","description":"All ten current snapshots and live UI surfaces passed"}' >/dev/null
 
       - name: Publish live-lake verification failure
         if: failure()

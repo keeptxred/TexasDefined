@@ -1,11 +1,27 @@
 import fs from 'node:fs';
 
+const removedCounties = [
+  'andrews',
+  'crosby',
+  'gaines',
+  'howard',
+  'hutchinson',
+  'morris',
+  'nolan',
+  'rockwall',
+  'scurry',
+  'wise',
+  'wood',
+  'borden',
+  'garza',
+  'delta',
+  'parmer',
+  'dawson',
+];
+const auditStubCounties = ['cochran', 'cottle', 'fisher', 'king'];
 const retired = [
-  { county: 'andrews', workflow: '.github/workflows/certify-andrews-county-once.yml', mode: 'removed' },
-  { county: 'cochran', workflow: '.github/workflows/certify-cochran-county-once.yml', mode: 'audit-stub' },
-  { county: 'cottle', workflow: '.github/workflows/certify-cottle-county-once.yml', mode: 'audit-stub' },
-  { county: 'fisher', workflow: '.github/workflows/certify-fisher-county-once.yml', mode: 'audit-stub' },
-  { county: 'king', workflow: '.github/workflows/certify-king-county-once.yml', mode: 'audit-stub' },
+  ...removedCounties.map((county) => ({ county, workflow: `.github/workflows/certify-${county}-county-once.yml`, mode: 'removed' })),
+  ...auditStubCounties.map((county) => ({ county, workflow: `.github/workflows/certify-${county}-county-once.yml`, mode: 'audit-stub' })),
 ];
 
 const failures = [];
