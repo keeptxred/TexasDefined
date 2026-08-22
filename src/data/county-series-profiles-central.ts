@@ -91,4 +91,10 @@ export const COUNTY_SERIES_PROFILES_CENTRAL: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/crockett-county-ozona-pecos-edwards-plateau-ranching-texas")
       .then((module) => module.crockettCountyOzonaPecosEdwardsPlateauRanchingTexasArticle),
   },
+  {
+    countySlug: "terrell",
+    articleSlug: "terrell-county-sanderson-rio-grande-canyons-ranching-west-texas",
+    loadArticle: () => import("@/data/fixtures/terrell-county-sanderson-rio-grande-canyons-ranching-west-texas")
+      .then((module) => module.terrellCountySandersonRioGrandeCanyonsRanchingWestTexasArticle),
+  },
 ];
