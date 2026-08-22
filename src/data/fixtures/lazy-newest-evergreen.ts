@@ -6,6 +6,7 @@ import "./seasonal-county-links";
 import "./lighthouse-authority-links";
 import "./pest-authority-links";
 import "./septic-authority-links";
+import "./tree-homeowner-authority-links";
 import { winklerCountyArticleStub } from "./winkler-county-article-stub";
 import { seasonalAuthorityArticleStubs, loadSeasonalAuthorityArticle } from "./lazy-seasonal-authority";
 import { lighthouseDeepDiveStubs, loadLighthouseDeepDiveArticle } from "./lazy-lighthouse-deep-dives";
@@ -195,6 +196,32 @@ const texasSepticSystemsHomeownerGuideStub: Article = {
   relatedDestinations: [],
 };
 
+const texasTreesAroundHomeGuideStub: Article = {
+  id: "evergreen-texas-trees-around-home-guide",
+  brandId: "texasdefined",
+  slug: "texas-trees-around-home-guide",
+  title: "Texas Trees Around a House: Storm Risk, Oak Wilt, Roots, Drought and When to Call an Arborist",
+  dek: "A practical homeowner guide to living with Texas shade trees: storm damage, ice, oak wilt prevention, pruning, drought stress, roots, construction, utilities, insurance records and the warning signs that deserve a certified arborist.",
+  category: "home-garden",
+  hero: {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Preston_Hollow,_Dallas,_Texas_tree_tornado_damage.jpg?width=1600",
+    alt: "Large tree uprooted in a Dallas neighborhood after the October 2019 tornado",
+    width: 1600,
+    height: 1200,
+    credit: "Sharon Hahn Darlin · CC BY 2.0 · Wikimedia Commons",
+  },
+  authorId: "a-marisol",
+  publishedAt: "2026-08-22",
+  readingMinutes: 16,
+  tags: ["texas tree care", "texas storm trees", "oak wilt texas", "certified arborist texas", "tree roots foundation", "texas drought trees", "tree pruning texas", "home and garden"],
+  featured: true,
+  sourceName: "Texas A&M Forest Service",
+  sourceUrl: "https://tfsweb.tamu.edu/trees/tree-care/",
+  body: [],
+  relatedCollections: [],
+  relatedDestinations: [],
+};
+
 export const newestEvergreenArticles: Article[] = [
   ...seasonalIntentStubs,
   ...lighthouseSearchIntentStubs,
@@ -208,6 +235,7 @@ export const newestEvergreenArticles: Article[] = [
   texasHomeownerFieldManualStub,
   texasHouseholdPestsGuideStub,
   texasSepticSystemsHomeownerGuideStub,
+  texasTreesAroundHomeGuideStub,
 ];
 
 const loaders: Record<string, () => Promise<Article>> = {
@@ -218,6 +246,7 @@ const loaders: Record<string, () => Promise<Article>> = {
   "texas-homeowner-field-manual": async () => (await import("./texas-homeowner-field-manual")).texasHomeownerFieldManualArticle,
   "texas-household-pests-guide": async () => (await import("./texas-household-pests-guide")).texasHouseholdPestsGuideArticle,
   "texas-septic-systems-homeowner-guide": async () => (await import("./texas-septic-systems-homeowner-guide")).texasSepticSystemsHomeownerGuideArticle,
+  "texas-trees-around-home-guide": async () => (await import("./texas-trees-around-home-guide")).texasTreesAroundHomeGuideArticle,
 };
 
 export async function loadNewestEvergreenArticle(brandId: string, slug: string) {
