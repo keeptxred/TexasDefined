@@ -1,9 +1,0 @@
-{
-  "county": "glasscock",
-  "status": "fail",
-  "stage": "live-page",
-  "county_commit": "235698a10b52502360a2220fee9bdb1357cf907d",
-  "tested_main": "7720c1dc29837f4ad3c96d0bfcc7a9a34fc20238",
-  "detail": "HTTP=403 expected structured/editorial/canonical markers missing",
-  "recorded_at_utc": "2026-08-22T04:13:25.759615+00:00"
-}
