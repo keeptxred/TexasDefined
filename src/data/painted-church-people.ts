@@ -4,6 +4,7 @@ import { masonPaintedChurchPeople } from "./painted-church-people-mason";
 import { immaculateHeartOfMaryPeople } from "./painted-church-people-preindex-ihm";
 import { preindexPaintedChurchPeople } from "./painted-church-people-preindex";
 import { supplementalPreindexPaintedChurchPeople } from "./painted-church-people-preindex-supplemental";
+import { paintedChurchRegisterGapPeople } from "./painted-church-people-register-gaps";
 import type { PaintedChurchPerson } from "./painted-church-person-types";
 
 export type { PaintedChurchPerson, PaintedChurchPersonRole } from "./painted-church-person-types";
@@ -16,6 +17,7 @@ export const paintedChurchPeople: PaintedChurchPerson[] = [
   ...immaculateHeartOfMaryPeople,
   ...masonPaintedChurchPeople,
   ...paintedChurchCoreGapPeople,
+  ...paintedChurchRegisterGapPeople,
 ];
 
 export const paintedChurchPersonBySlug = new Map(paintedChurchPeople.map((person) => [person.slug, person]));
