@@ -57,6 +57,10 @@ const countyRequirements = {
   "gillespie-county-fredericksburg-stonewall-hill-country-texas": ["/article/texas-bluebonnets-complete-guide", "/article/texas-bluebonnet-road-trip", "/article/texas-christmas-road-trip", "/article/christmas-in-texas-complete-guide"],
   "harrison-county-marshall-caddo-lake-railroads-piney-woods-texas": ["/article/east-texas-fall-colors", "/article/fall-in-texas-complete-guide", "/article/best-christmas-towns-in-texas"],
   "marion-county-jefferson-caddo-lake-riverport-piney-woods-texas": ["/article/east-texas-fall-colors", "/article/fall-in-texas-complete-guide", "/article/best-christmas-towns-in-texas"],
+  "ellis-county-waxahachie-ennis-blackland-prairie-texas": ["/article/bluebonnets-near-dallas-fort-worth", "/article/best-places-to-see-bluebonnets-in-texas", "/article/texas-bluebonnet-festivals"],
+  "washington-county-brenham-washington-brazos-independence-texas": ["/article/bluebonnets-near-houston", "/article/texas-bluebonnets-complete-guide", "/article/texas-bluebonnet-road-trip"],
+  "burnet-county-burnet-marble-falls-highland-lakes-granite-texas": ["/article/texas-bluebonnets-complete-guide", "/article/best-places-to-see-bluebonnets-in-texas", "/article/texas-bluebonnet-road-trip"],
+  "llano-county-llano-river-granite-highland-lakes-texas": ["/article/texas-bluebonnets-complete-guide", "/article/best-places-to-see-bluebonnets-in-texas", "/article/texas-bluebonnet-road-trip"],
 };
 for (const [county, hrefs] of Object.entries(countyRequirements)) {
   if (!countyLinks.includes(`\"${county}\"`)) fail(`missing seasonal county link group for ${county}`);
