@@ -1,0 +1,76 @@
+name: Diagnose Cloudflare challenge config
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/diagnose-cloudflare-security.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: texasdefined-publication
+    env:
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      MARKER: .github/certification/cloudflare-challenge-config.json
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 2
+      - name: Record challenge-producing zone configuration
+        shell: bash
+        run: |
+          set -u
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          auth=(-H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" -H 'Content-Type: application/json')
+          base='https://api.cloudflare.com/client/v4'
+          zones_file="$(mktemp)"
+          zones_code="$(curl --silent --show-error --max-time 30 -o "$zones_file" -w '%{http_code}' "${auth[@]}" "${base}/zones?name=texasdefined.com&account.id=${CLOUDFLARE_ACCOUNT_ID}" || true)"
+          zone_id="$(python3 - "$zones_file" <<'PY'
+          import json,sys
+          try:
+              d=json.load(open(sys.argv[1])); r=d.get('result') or []; print((r[0] if r else {}).get('id',''))
+          except Exception: print('')
+          PY
+          )"
+          export zone_id zones_code zones_file base MARKER CLOUDFLARE_API_TOKEN
+          python3 - <<'PY'
+          import json, os, pathlib, subprocess, datetime
+          def curl_json(url):
+              cmd=['curl','--silent','--show-error','--max-time','30','-H',f"Authorization: Bearer {os.environ['CLOUDFLARE_API_TOKEN']}",'-H','Content-Type: application/json','-o','/tmp/cf-body','-w','%{http_code}',url]
+              p=subprocess.run(cmd,capture_output=True,text=True)
+              body=pathlib.Path('/tmp/cf-body').read_text(errors='replace') if pathlib.Path('/tmp/cf-body').exists() else ''
+              try: parsed=json.loads(body)
+              except Exception: parsed={'raw': body[:4000]}
+              return {'http': p.stdout.strip(), 'curl_exit': p.returncode, 'stderr': p.stderr[-1000:], 'body': parsed}
+          result={'recorded_at_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'zone_lookup_http':os.environ.get('zones_code',''),'zone_id':os.environ.get('zone_id','')}
+          try:
+              result['zone_lookup_body']=json.load(open(os.environ['zones_file']))
+          except Exception as exc:
+              result['zone_lookup_body']={'exception':repr(exc)}
+          zid=os.environ.get('zone_id','')
+          if zid:
+              b=os.environ['base']
+              result['security_level']=curl_json(f'{b}/zones/{zid}/settings/security_level')
+              result['bot_management']=curl_json(f'{b}/zones/{zid}/bot_management')
+              result['custom_firewall_entrypoint']=curl_json(f'{b}/zones/{zid}/rulesets/phases/http_request_firewall_custom/entrypoint')
+              result['config_settings_entrypoint']=curl_json(f'{b}/zones/{zid}/rulesets/phases/http_config_settings/entrypoint')
+              result['rulesets']=curl_json(f'{b}/zones/{zid}/rulesets')
+          pathlib.Path(os.environ['MARKER']).parent.mkdir(parents=True,exist_ok=True)
+          pathlib.Path(os.environ['MARKER']).write_text(json.dumps(result,indent=2)+'\n')
+          PY
+          git add "$MARKER"
+          git commit -m 'Record Cloudflare challenge configuration' || true
+          for attempt in 1 2 3; do
+            git pull --rebase origin main || { git rebase --abort || true; sleep 2; continue; }
+            git push origin HEAD:main && exit 0
+            sleep 3
+          done
+          exit 1
