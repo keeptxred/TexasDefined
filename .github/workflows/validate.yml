@@ -41,6 +41,10 @@ jobs:
       - name: Install dependencies
         run: npm ci --no-audit --no-fund
 
+      - name: Validate direct-main writer inventory
+        id: direct_writer_policy
+        run: node scripts/ci/validate-direct-main-writer-inventory.mjs
+
       - name: Validate automation main-write policy
         id: automation_policy
         run: node scripts/ci/validate-automation-main-write-policy.mjs
@@ -69,6 +73,7 @@ jobs:
         if: always()
         shell: bash
         env:
+          DIRECT_WRITER_POLICY_OUTCOME: ${{ steps.direct_writer_policy.outcome }}
           AUTOMATION_POLICY_OUTCOME: ${{ steps.automation_policy.outcome }}
           RETIREMENT_POLICY_OUTCOME: ${{ steps.retirement_policy.outcome }}
           VALIDATION_OUTCOME: ${{ steps.validation.outcome }}
@@ -81,6 +86,7 @@ jobs:
             echo
             echo '| Stage | Failure class | Outcome |'
             echo '|---|---|---|'
+            echo "| Direct-main writer inventory | CI / DEFAULT-BRANCH SAFETY | ${DIRECT_WRITER_POLICY_OUTCOME:-not-run} |"
             echo "| Automation main-write policy | CI / AUTOMATION SAFETY | ${AUTOMATION_POLICY_OUTCOME:-not-run} |"
             echo "| Retired one-time certification policy | CI / RETIREMENT SAFETY | ${RETIREMENT_POLICY_OUTCOME:-not-run} |"
             echo "| Authoritative validation suite | CODE / CONTENT / SEO / DATA | ${VALIDATION_OUTCOME:-not-run} |"
@@ -89,7 +95,9 @@ jobs:
             echo "| Client performance budget | BUNDLE BUDGET | ${BUDGET_OUTCOME:-not-run} |"
           } >> "$GITHUB_STEP_SUMMARY"
 
-          if [[ "$AUTOMATION_POLICY_OUTCOME" == 'failure' ]]; then
+          if [[ "$DIRECT_WRITER_POLICY_OUTCOME" == 'failure' ]]; then
+            echo '::error title=CI failure class: default-branch safety::A workflow writes directly to main without an explicitly reviewed exception. The direct-writer inventory above lists the exact files and commands.'
+          elif [[ "$AUTOMATION_POLICY_OUTCOME" == 'failure' ]]; then
             echo '::error title=CI failure class: automation safety::An active automation workflow violated the protected main-write or image-review policy.'
           elif [[ "$RETIREMENT_POLICY_OUTCOME" == 'failure' ]]; then
             echo '::error title=CI failure class: retirement safety::A completed one-time county certification lost PASS evidence or regained write/deploy behavior.'
