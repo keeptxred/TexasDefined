@@ -62,6 +62,8 @@ const countyRequirements = {
   "washington-county-brenham-washington-brazos-independence-texas": ["/article/bluebonnets-near-houston", "/article/texas-bluebonnets-complete-guide", "/article/texas-bluebonnet-road-trip"],
   "burnet-county-burnet-marble-falls-highland-lakes-granite-texas": ["/article/texas-bluebonnets-complete-guide", "/article/best-places-to-see-bluebonnets-in-texas", "/article/texas-bluebonnet-road-trip"],
   "llano-county-llano-river-granite-highland-lakes-texas": ["/article/texas-bluebonnets-complete-guide", "/article/best-places-to-see-bluebonnets-in-texas", "/article/texas-bluebonnet-road-trip"],
+  "uvalde-county-uvalde-garner-frio-fort-inge-texas": ["/article/fall-in-texas-complete-guide", "/article/best-places-for-fall-colors-in-texas", "/article/hill-country-fall-colors", "/article/best-texas-state-parks-for-fall-colors"],
+  "bandera-county-bandera-medina-river-cowboy-hill-country-texas": ["/article/hill-country-fall-colors", "/article/fall-in-texas-complete-guide"],
 };
 for (const [county, hrefs] of Object.entries(countyRequirements)) {
   if (!countyLinks.includes(`\"${county}\"`)) fail(`missing seasonal county link group for ${county}`);
