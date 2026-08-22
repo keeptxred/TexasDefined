@@ -1,3 +1,4 @@
+import { paintedChurchCoreGapPeople } from "./painted-church-people-core-gaps";
 import { paintedChurchPeople as legacyPaintedChurchPeople } from "./painted-church-people-legacy";
 import { masonPaintedChurchPeople } from "./painted-church-people-mason";
 import { immaculateHeartOfMaryPeople } from "./painted-church-people-preindex-ihm";
@@ -14,6 +15,7 @@ export const paintedChurchPeople: PaintedChurchPerson[] = [
   ...supplementalPreindexPaintedChurchPeople,
   ...immaculateHeartOfMaryPeople,
   ...masonPaintedChurchPeople,
+  ...paintedChurchCoreGapPeople,
 ];
 
 export const paintedChurchPersonBySlug = new Map(paintedChurchPeople.map((person) => [person.slug, person]));
