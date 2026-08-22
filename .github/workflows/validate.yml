@@ -38,6 +38,10 @@ jobs:
           cache: npm
           cache-dependency-path: package-lock.json
 
+      - name: Validate retired integration traces
+        id: retired_integration
+        run: node scripts/ci/validate-retired-integration-traces.mjs
+
       - name: Install dependencies
         run: npm ci --no-audit --no-fund
 
@@ -77,6 +81,7 @@ jobs:
         if: always()
         shell: bash
         env:
+          RETIRED_INTEGRATION_OUTCOME: ${{ steps.retired_integration.outcome }}
           DIRECT_WRITER_POLICY_OUTCOME: ${{ steps.direct_writer_policy.outcome }}
           COUNTY_CERTIFIER_POLICY_OUTCOME: ${{ steps.county_certifier_policy.outcome }}
           AUTOMATION_POLICY_OUTCOME: ${{ steps.automation_policy.outcome }}
@@ -91,6 +96,7 @@ jobs:
             echo
             echo '| Stage | Failure class | Outcome |'
             echo '|---|---|---|'
+            echo "| Retired integration trace guard | RETIRED INTEGRATION | ${RETIRED_INTEGRATION_OUTCOME:-not-run} |"
             echo "| Direct-main writer inventory | CI / DEFAULT-BRANCH SAFETY | ${DIRECT_WRITER_POLICY_OUTCOME:-not-run} |"
             echo "| Consolidated county certifiers | CI / COUNTY CERTIFIER SAFETY | ${COUNTY_CERTIFIER_POLICY_OUTCOME:-not-run} |"
             echo "| Automation main-write policy | CI / AUTOMATION SAFETY | ${AUTOMATION_POLICY_OUTCOME:-not-run} |"
@@ -101,7 +107,9 @@ jobs:
             echo "| Client performance budget | BUNDLE BUDGET | ${BUDGET_OUTCOME:-not-run} |"
           } >> "$GITHUB_STEP_SUMMARY"
 
-          if [[ "$DIRECT_WRITER_POLICY_OUTCOME" == 'failure' ]]; then
+          if [[ "$RETIRED_INTEGRATION_OUTCOME" == 'failure' ]]; then
+            echo '::error title=CI failure class: retired integration::A retired external integration trace was reintroduced into tracked current source.'
+          elif [[ "$DIRECT_WRITER_POLICY_OUTCOME" == 'failure' ]]; then
             echo '::error title=CI failure class: default-branch safety::A workflow writes directly to main. TexasDefined workflow repository changes must go through validated branches/PRs.'
           elif [[ "$COUNTY_CERTIFIER_POLICY_OUTCOME" == 'failure' ]]; then
             echo '::error title=CI failure class: county certifier safety::The consolidated county-certification wrappers, source-read-only engine, evidence publisher, or county-specific contracts regressed.'
