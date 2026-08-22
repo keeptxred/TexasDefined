@@ -35,6 +35,11 @@ export const texasFlagHistoryArticle: Article = {
   sourceUrl: "https://www.tsl.texas.gov/treasures/flagsandmaps/flag-design.html",
   internalLinks: [
     {
+      href: "/article/texas-flag-etiquette-display-guide",
+      label: "Texas flag display & etiquette",
+      description: "Use the Texas Flag Code for position with the U.S. flag, vertical display, half-staff, folding, the pledge and retirement.",
+    },
+    {
       href: "/article/six-flags-over-texas-meaning",
       label: "What the Six Flags Over Texas actually mean",
       description: "Put the Lone Star flag inside the longer sequence of governments that claimed or governed Texas.",
