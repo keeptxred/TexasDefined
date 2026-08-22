@@ -7,4 +7,10 @@ export const COUNTY_SERIES_PROFILES_CONCHO: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/concho-county-paint-rock-eden-pictographs-ranching-west-central-texas")
       .then((module) => module.conchoCountyPaintRockEdenPictographsRanchingWestCentralTexasArticle),
   },
+  {
+    countySlug: "runnels",
+    articleSlug: "runnels-county-ballinger-winters-colorado-river-west-central-texas",
+    loadArticle: () => import("@/data/fixtures/runnels-county-ballinger-winters-colorado-river-west-central-texas")
+      .then((module) => module.runnelsCountyBallingerWintersColoradoRiverWestCentralTexasArticle),
+  },
 ];
