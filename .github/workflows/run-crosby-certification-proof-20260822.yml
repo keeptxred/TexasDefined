@@ -1,0 +1,24 @@
+name: Run Crosby county certification proof 2026-08-22
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/run-crosby-certification-proof-20260822.yml'
+
+permissions:
+  actions: write
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: run-crosby-certification-proof-20260822
+  cancel-in-progress: true
+
+jobs:
+  certify:
+    if: github.event.pull_request.head.ref == 'run/county-certifications-20260822-v2'
+    uses: ./.github/workflows/certify-county-production-reusable.yml
+    with:
+      county: crosby
+    secrets: inherit
