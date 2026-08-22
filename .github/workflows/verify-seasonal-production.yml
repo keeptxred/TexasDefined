@@ -1,0 +1,110 @@
+name: Verify seasonal production
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows:
+      - Deploy TexasDefined production
+    types:
+      - completed
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  verify-seasonal-production:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    env:
+      GH_TOKEN: ${{ github.token }}
+      DEPLOY_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+    steps:
+      - name: Publish pending status
+        shell: bash
+        run: |
+          curl --fail-with-body --silent --show-error --request POST \
+            --header "Authorization: Bearer $GH_TOKEN" \
+            --header 'Accept: application/vnd.github+json' \
+            --header 'X-GitHub-Api-Version: 2022-11-28' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${DEPLOY_SHA}" \
+            --data '{"state":"pending","context":"texasdefined-seasonal-live","description":"Verifying seasonal Texas authority routes"}' >/dev/null
+
+      - name: Verify seasonal authority routes
+        id: live
+        shell: bash
+        run: |
+          set -euo pipefail
+          origin='https://texasdefined.com'
+          workdir="$(mktemp -d)"
+          trap 'rm -rf "$workdir"' EXIT
+          fetch_assert() {
+            local label="$1" path="$2" needle="$3"
+            local out="$workdir/${label}.html"
+            local attempt
+            for attempt in 1 2 3 4 5 6; do
+              echo "[$label] attempt $attempt: ${origin}${path}"
+              if curl --fail-with-body --silent --show-error --location --max-time 30 \
+                "${origin}${path}?verify=${DEPLOY_SHA}-${GITHUB_RUN_ID}-${attempt}" -o "$out"; then
+                if grep -Fq "$needle" "$out"; then
+                  echo "[$label] production content verified: $needle"
+                  return 0
+                fi
+                echo "[$label] fetched but expected content is not live yet: $needle"
+              fi
+              sleep 5
+            done
+            echo "[$label] production verification failed for ${origin}${path}" >&2
+            head -c 1600 "$out" 2>/dev/null || true
+            echo >&2
+            return 1
+          }
+
+          fetch_assert explore-seasonal '/explore' 'Seasonal Texas'
+          fetch_assert explore-bluebonnets '/explore' 'Bluebonnet season'
+          fetch_assert explore-fall '/explore' 'Fall colors in Texas'
+          fetch_assert explore-christmas '/explore' 'Christmas in Texas'
+
+          fetch_assert bluebonnet-hub '/article/texas-bluebonnets-complete-guide' 'Bluebonnet Season, Explained'
+          fetch_assert bluebonnet-best '/article/best-places-to-see-bluebonnets-in-texas' 'Where Texas Turns Blue in Spring'
+          fetch_assert bluebonnet-law '/article/is-it-illegal-to-pick-bluebonnets-in-texas' 'Is It Illegal to Pick Bluebonnets in Texas?'
+          fetch_assert bluebonnet-austin '/article/bluebonnets-near-austin' 'Where to See Bluebonnets Near Austin'
+
+          fetch_assert christmas-hub '/article/christmas-in-texas-complete-guide' 'Christmas in Texas, From River Lights to Courthouse Squares'
+          fetch_assert christmas-towns '/article/best-christmas-towns-in-texas' 'The Texas Towns That Go All In for Christmas'
+          fetch_assert christmas-lights '/article/best-christmas-lights-in-texas' 'The Best Christmas Lights in Texas'
+          fetch_assert christmas-trains '/article/texas-christmas-train-rides' 'Christmas Train Rides in Texas'
+
+          fetch_assert fall-hub '/article/fall-in-texas-complete-guide' 'Where Autumn Actually Shows Up in Texas'
+          fetch_assert fall-best '/article/best-places-for-fall-colors-in-texas' 'The Places We Trust for Texas Fall Color'
+          fetch_assert fall-east '/article/east-texas-fall-colors' 'Where to See Fall Colors in East Texas'
+          fetch_assert fall-parks '/article/best-texas-state-parks-for-fall-colors' 'The Best Texas State Parks for Fall Colors'
+
+          fetch_assert enchanted-bluebonnet '/destination/enchanted-rock-state-natural-area' 'Use the Texas bluebonnet season guide'
+          fetch_assert caddo-fall '/destination/caddo-lake-state-park' 'Use the Texas fall-color guide'
+          fetch_assert gillespie-seasonal '/article/gillespie-county-fredericksburg-stonewall-hill-country-texas' 'Plan Gillespie County during bluebonnet season'
+          fetch_assert harrison-seasonal '/article/harrison-county-marshall-caddo-lake-railroads-piney-woods-texas' 'Plan an East Texas fall-color weekend'
+          fetch_assert marion-seasonal '/article/marion-county-jefferson-caddo-lake-riverport-piney-woods-texas' 'Build a Caddo Lake fall-color trip'
+
+      - name: Publish success status
+        if: ${{ steps.live.outcome == 'success' }}
+        shell: bash
+        run: |
+          curl --fail-with-body --silent --show-error --request POST \
+            --header "Authorization: Bearer $GH_TOKEN" \
+            --header 'Accept: application/vnd.github+json' \
+            --header 'X-GitHub-Api-Version: 2022-11-28' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${DEPLOY_SHA}" \
+            --data '{"state":"success","context":"texasdefined-seasonal-live","description":"Seasonal Texas authority routes are live"}' >/dev/null
+
+      - name: Publish failure status
+        if: ${{ failure() }}
+        shell: bash
+        run: |
+          curl --fail-with-body --silent --show-error --request POST \
+            --header "Authorization: Bearer $GH_TOKEN" \
+            --header 'Accept: application/vnd.github+json' \
+            --header 'X-GitHub-Api-Version: 2022-11-28' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${DEPLOY_SHA}" \
+            --data '{"state":"failure","context":"texasdefined-seasonal-live","description":"Seasonal Texas production verification failed"}' >/dev/null
