@@ -89,18 +89,30 @@ for (const expected of [
   '/sitemap-explore.xml',
   '[200, 202]',
   '10_000',
+  "process.env.PUBLIC_INDEXING_ENABLED === 'true'",
+  'IndexNow submission skipped: PUBLIC_INDEXING_ENABLED is not explicitly true. No URLs were submitted.',
 ]) {
   requireText(indexNowScript, expected, `IndexNow submitter is missing required contract: ${expected}`);
 }
 
 for (const expected of [
-  'npx wrangler deploy',
+  'workflow_dispatch:',
   'Verify Bing Webmaster meta tag is live',
   webmasterToken,
   'node scripts/seo/submit-indexnow.mjs',
-  "'src/server.ts'",
+  'environment: texasdefined-publication',
 ]) {
   requireText(indexNowWorkflow, expected, `Bing IndexNow workflow is missing required contract: ${expected}`);
+}
+
+if (/^\s*push:\s*$/m.test(indexNowWorkflow)) {
+  errors.push('Bing IndexNow workflow must remain manual-only and must not have a push trigger.');
+}
+if (/\bnpx\s+wrangler\s+deploy\b/.test(indexNowWorkflow)) {
+  errors.push('Bing IndexNow workflow must not duplicate the production Cloudflare deployment.');
+}
+if (!indexNowWorkflow.includes('manual-only') || !indexNowWorkflow.includes('PUBLIC_INDEXING_ENABLED=true')) {
+  errors.push('Bing IndexNow workflow summary must document the manual-only and explicit public-indexing approval safeguards.');
 }
 
 if (errors.length) {
@@ -109,4 +121,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Bing Webmaster verification, Bingbot access, canonical sitemaps, IndexNow keying, deployment verification, and URL submission contracts are protected.');
+console.log('Bing Webmaster verification, Bingbot access, canonical sitemaps, IndexNow keying, manual-only execution, explicit public-indexing approval, and URL submission contracts are protected without duplicating the production deployment.');
