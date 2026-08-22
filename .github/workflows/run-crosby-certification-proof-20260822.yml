@@ -1,4 +1,4 @@
-name: Run Crosby county certification proof 2026-08-22
+name: Run remaining county certifications 2026-08-22 v2
 
 on:
   pull_request:
@@ -12,13 +12,32 @@ permissions:
   pull-requests: write
 
 concurrency:
-  group: run-crosby-certification-proof-20260822
+  group: run-remaining-county-certifications-20260822-v2
   cancel-in-progress: true
 
 jobs:
   certify:
     if: github.event.pull_request.head.ref == 'run/county-certifications-20260822-v2'
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        county:
+          - gaines
+          - howard
+          - hutchinson
+          - morris
+          - nolan
+          - rockwall
+          - scurry
+          - wise
+          - wood
+          - borden
+          - garza
+          - delta
+          - parmer
+          - dawson
     uses: ./.github/workflows/certify-county-production-reusable.yml
     with:
-      county: crosby
+      county: ${{ matrix.county }}
     secrets: inherit
