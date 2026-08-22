@@ -105,13 +105,6 @@ const EDITORIAL_HERO_OVERRIDES: Partial<Record<string, Article["hero"]>> = {
     height: 2134,
     credit: "GoneBefore · CC BY-SA 4.0 · Wikimedia Commons",
   },
-  "sabine-county-hemphill-toledo-bend-sabine-river-piney-woods-texas": {
-    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Sabine_National_Forest,_Toledo_Bend_Reservoir,_Texas.jpg?width=1600",
-    alt: "Toledo Bend Reservoir inlet in the Indian Mounds Wilderness of Sabine National Forest, Sabine County, Texas",
-    width: 1800,
-    height: 1200,
-    credit: "William L. Farr · Wikimedia Commons · CC BY 4.0",
-  },
   "muds-pids-hoas-special-districts-texas": {
     src: "https://images.unsplash.com/photo-1671410304582-1c2fb1390fbf?auto=format&fit=crop&w=1600&h=900&q=82",
     alt: "Aerial view of a Houston-area suburban neighborhood with homes, streets and shared infrastructure",
