@@ -40,11 +40,16 @@ for (const marker of ['createFileRoute("/api/admin/social-calendar-preview")','s
   if (!api.includes(marker)) throw new Error(`API safety marker missing: ${marker}`);
 }
 
+const adminFile = "src/routes/admin.tsx";
+const admin = fs.readFileSync(path.join(root, adminFile), "utf8");
+for (const marker of ["createFileRoute('/admin')", "content: 'noindex, nofollow, noarchive'"]) {
+  if (!admin.includes(marker)) throw new Error(`Admin parent robots guard missing: ${marker}`);
+}
+
 const calendarFile = "src/routes/admin.social-calendar.tsx";
 const calendar = fs.readFileSync(path.join(root, calendarFile), "utf8");
-for (const marker of ['createFileRoute("/admin/social-calendar")','content: "noindex,nofollow"']) {
-  if (!calendar.includes(marker)) throw new Error(`Calendar route safety marker missing: ${marker}`);
-}
+if (!calendar.includes('createFileRoute("/admin/social-calendar")')) throw new Error("Calendar route registration missing.");
+if (calendar.includes("head:")) throw new Error("Calendar route must inherit the stronger admin parent robots guard without a child head override.");
 
 const calendarLazyFile = "src/routes/admin.social-calendar.lazy.tsx";
 const calendarLazy = fs.readFileSync(path.join(root, calendarLazyFile), "utf8");
@@ -66,4 +71,4 @@ for (const [label, source] of [[queueFile, queue],[apiFile, api],[calendarFile, 
 
 console.log(`PASS Texas social evergreen pool: ${posts.length} posts`);
 console.log("PASS Texas Facebook queue: disabled-by-default and draft-only");
-console.log("PASS Texas social calendar: server API boundary, lazy client preview, read-only and noindex");
+console.log("PASS Texas social calendar: server API boundary, lazy client preview, read-only and inherited admin noindex");
