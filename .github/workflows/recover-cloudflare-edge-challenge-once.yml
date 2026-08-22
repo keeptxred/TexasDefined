@@ -1,3 +1,4 @@
+# Retrigger after workflow exists on main.
 name: Recover Cloudflare edge challenge once
 
 on:
