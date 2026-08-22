@@ -6,6 +6,7 @@ const intents = read("src/data/fixtures/seasonal-intent-articles.ts");
 const authorityLazy = read("src/data/fixtures/lazy-seasonal-authority.ts");
 const intentLazy = read("src/data/fixtures/lazy-seasonal-intents.ts");
 const links = read("src/data/fixtures/seasonal-authority-links.ts");
+const countyLinks = read("src/data/fixtures/seasonal-county-links.ts");
 const destinationLinks = read("src/data/destination-editorial-links.ts");
 const newest = read("src/data/fixtures/lazy-newest-evergreen.ts");
 const exploreIntents = read("src/components/editorial/ExploreIntentPaths.tsx");
@@ -50,6 +51,17 @@ for (const [destination, hrefs] of Object.entries(destinationRequirements)) {
   for (const href of hrefs) if (!destinationLinks.includes(`href: \"${href}\"`)) fail(`${destination}: missing ${href}`);
 }
 
+const countyRequirements = {
+  "gillespie-county-fredericksburg-stonewall-hill-country-texas": ["/article/texas-bluebonnets-complete-guide", "/article/texas-bluebonnet-road-trip", "/article/texas-christmas-road-trip", "/article/christmas-in-texas-complete-guide"],
+  "harrison-county-marshall-caddo-lake-railroads-piney-woods-texas": ["/article/east-texas-fall-colors", "/article/fall-in-texas-complete-guide", "/article/best-christmas-towns-in-texas"],
+  "marion-county-jefferson-caddo-lake-riverport-piney-woods-texas": ["/article/east-texas-fall-colors", "/article/fall-in-texas-complete-guide", "/article/best-christmas-towns-in-texas"],
+};
+for (const [county, hrefs] of Object.entries(countyRequirements)) {
+  if (!countyLinks.includes(`\"${county}\"`)) fail(`missing seasonal county link group for ${county}`);
+  for (const href of hrefs) if (!countyLinks.includes(`href: \"${href}\"`)) fail(`${county}: missing ${href}`);
+}
+if (!newest.includes('import "./seasonal-county-links"')) fail("seasonal county reciprocity file is not loaded");
+
 if (!exploreIntents.includes('title: "Seasonal Texas"')) fail("Explore seasonal planning group missing");
 if (!authority.includes("There is no statewide law that simply bans picking bluebonnets everywhere")) fail("bluebonnet law caveat missing from statewide authority content");
 if (!intents.includes("Texas does not have a statewide law that simply says 'it is illegal to pick a bluebonnet.'")) fail("bluebonnet-law intent answer missing");
@@ -60,4 +72,4 @@ if (!newest.includes("loadSeasonalIntentArticle") || !newest.includes("loadSeaso
 if (!authorityLazy.includes('await import("./seasonal-authority-articles")')) fail("seasonal authority full bodies are not dynamically imported");
 if (!intentLazy.includes('await import("./seasonal-intent-articles")')) fail("seasonal intent full bodies are not dynamically imported");
 
-if (!process.exitCode) console.log("Seasonal authority guardrail passed: 21 pages, reciprocal links, Explore and destination discovery, safety/currentness caveats and lazy loading verified.");
+if (!process.exitCode) console.log("Seasonal authority guardrail passed: 21 pages, reciprocal article/county/destination links, Explore discovery, safety/currentness caveats and lazy loading verified.");
