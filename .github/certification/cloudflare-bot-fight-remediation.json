@@ -1,0 +1,412 @@
+{
+  "recorded_at_utc": "2026-08-22T15:05:17.616984+00:00",
+  "operation": "one-time-bot-fight-mode-remediation",
+  "token_available": true,
+  "account_id_available": true,
+  "required_paths": [
+    "/",
+    "/sitemap.xml",
+    "/article/history-of-the-texas-flag",
+    "/texas-symbols",
+    "/texas-history",
+    "/article/texas-bluebonnets-complete-guide",
+    "/article/christmas-in-texas-complete-guide",
+    "/article/fall-in-texas-complete-guide"
+  ],
+  "preconditions_satisfied": true,
+  "changed": true,
+  "custom_domain_healthy": false,
+  "zone_lookup": {
+    "http": "200",
+    "success": true
+  },
+  "zone_id": "c251a715a3be875ac70a397d77efef22",
+  "security_level_before": {
+    "http": "200",
+    "curl_exit": 0,
+    "stderr": "",
+    "body": {
+      "result": {
+        "id": "security_level",
+        "value": "medium",
+        "modified_on": null,
+        "editable": true
+      },
+      "success": true,
+      "errors": [],
+      "messages": []
+    }
+  },
+  "browser_integrity_check_before": {
+    "http": "200",
+    "curl_exit": 0,
+    "stderr": "",
+    "body": {
+      "result": {
+        "id": "browser_check",
+        "value": "on",
+        "modified_on": null,
+        "editable": true
+      },
+      "success": true,
+      "errors": [],
+      "messages": []
+    }
+  },
+  "bot_management_before": {
+    "http": "200",
+    "curl_exit": 0,
+    "stderr": "",
+    "body": {
+      "result": {
+        "enable_js": true,
+        "fight_mode": true,
+        "ai_bots_protection": "disabled",
+        "content_bots_protection": "disabled",
+        "crawler_protection": "disabled",
+        "ai_training": "disabled",
+        "ai_search": "disabled",
+        "ai_user": "disabled",
+        "is_robots_txt_managed": true,
+        "cf_robots_variant": "off",
+        "ai_bots_migration_opt_out": false,
+        "using_latest_model": true
+      },
+      "success": true,
+      "errors": [],
+      "messages": []
+    }
+  },
+  "security_level_value_before": "medium",
+  "browser_integrity_check_value_before": "on",
+  "fight_mode_before": true,
+  "security_events_http": "200",
+  "bot_fight_evidence": {
+    "matching_event_count": 250,
+    "matched_required_paths": [
+      "/",
+      "/article/christmas-in-texas-complete-guide",
+      "/article/fall-in-texas-complete-guide",
+      "/article/history-of-the-texas-flag",
+      "/article/texas-bluebonnets-complete-guide",
+      "/sitemap.xml",
+      "/texas-history",
+      "/texas-symbols"
+    ],
+    "missing_required_paths": [],
+    "sample": [
+      {
+        "action": "managed_challenge",
+        "source": "botFight",
+        "ruleId": "bot_fight_mode",
+        "path": "/article/history-of-the-texas-flag",
+        "datetime": "2026-08-22T14:58:14Z",
+        "rayName": "a2f2bc07397ae60d"
+      },
+      {
+        "action": "managed_challenge",
+        "source": "botFight",
+        "ruleId": "bot_fight_mode",
+        "path": "/article/texas-bluebonnets-complete-guide",
+        "datetime": "2026-08-22T14:58:14Z",
+        "rayName": "a2f2bc08095ab9e3"
+      },
+      {
+        "action": "managed_challenge",
+        "source": "botFight",
+        "ruleId": "bot_fight_mode",
+        "path": "/article/christmas-in-texas-complete-guide",
+        "datetime": "2026-08-22T14:58:14Z",
+        "rayName": "a2f2bc08590e7afc"
+      },
+      {
+        "action": "managed_challenge",
+        "source": "botFight",
+        "ruleId": "bot_fight_mode",
+        "path": "/sitemap.xml",
+        "datetime": "2026-08-22T14:58:14Z",
+        "rayName": "a2f2bc06fb232060"
+      },
+      {
+        "action": "managed_challenge",
+        "source": "botFight",
+        "ruleId": "bot_fight_mode",
+        "path": "/",
+        "datetime": "2026-08-22T14:58:14Z",
+        "rayName": "a2f2bc06ac0dc97d"
+      },
+      {
+        "action": "managed_challenge",
+        "source": "botFight",
+        "ruleId": "bot_fight_mode",
+        "path": "/texas-symbols",
+        "datetime": "2026-08-22T14:58:14Z",
+        "rayName": "a2f2bc078f083020"
+      },
+      {
+        "action": "managed_challenge",
+        "source": "botFight",
+        "ruleId": "bot_fight_mode",
+        "path": "/article/fall-in-texas-complete-guide",
+        "datetime": "2026-08-22T14:58:14Z",
+        "rayName": "a2f2bc089d78d63d"
+      },
+      {
+        "action": "managed_challenge",
+        "source": "botFight",
+        "ruleId": "bot_fight_mode",
+        "path": "/texas-history",
+        "datetime": "2026-08-22T14:58:14Z",
+        "rayName": "a2f2bc07cefc55c5"
+      },
+      {
+        "action": "managed_challenge",
+        "source": "botFight",
+        "ruleId": "bot_fight_mode",
+        "path": "/article/history-of-the-texas-flag",
+        "datetime": "2026-08-22T14:50:37Z",
+        "rayName": "a2f2b0dfaa202734"
+      },
+      {
+        "action": "managed_challenge",
+        "source": "botFight",
+        "ruleId": "bot_fight_mode",
+        "path": "/sitemap.xml",
+        "datetime": "2026-08-22T14:50:37Z",
+        "rayName": "a2f2b0df7f61eb28"
+      },
+      {
+        "action": "managed_challenge",
+        "source": "botFight",
+        "ruleId": "bot_fight_mode",
+        "path": "/",
+        "datetime": "2026-08-22T14:50:37Z",
+        "rayName": "a2f2b0df3ade8fc5"
+      },
+      {
+        "action": "managed_challenge",
+        "source": "botFight",
+        "ruleId": "bot_fight_mode",
+        "path": "/article/fall-in-texas-complete-guide",
+        "datetime": "2026-08-22T14:50:37Z",
+        "rayName": "a2f2b0e0ce635476"
+      },
+      {
+        "action": "managed_challenge",
+        "source": "botFight",
+        "ruleId": "bot_fight_mode",
+        "path": "/article/texas-bluebonnets-complete-guide",
+        "datetime": "2026-08-22T14:50:37Z",
+        "rayName": "a2f2b0e058fa3117"
+      },
+      {
+        "action": "managed_challenge",
+        "source": "botFight",
+        "ruleId": "bot_fight_mode",
+        "path": "/article/christmas-in-texas-complete-guide",
+        "datetime": "2026-08-22T14:50:37Z",
+        "rayName": "a2f2b0e09bb4405d"
+      },
+      {
+        "action": "managed_challenge",
+        "source": "botFight",
+        "ruleId": "bot_fight_mode",
+        "path": "/texas-history",
+        "datetime": "2026-08-22T14:50:37Z",
+        "rayName": "a2f2b0e02dfd7e0e"
+      },
+      {
+        "action": "managed_challenge",
+        "source": "botFight",
+        "ruleId": "bot_fight_mode",
+        "path": "/texas-symbols",
+        "datetime": "2026-08-22T14:50:37Z",
+        "rayName": "a2f2b0dfea45b1b4"
+      },
+      {
+        "action": "managed_challenge",
+        "source": "botFight",
+        "ruleId": "bot_fight_mode",
+        "path": "/county/zavala",
+        "datetime": "2026-08-22T14:40:17Z",
+        "rayName": "a2f2a1baba36df26"
+      },
+      {
+        "action": "managed_challenge",
+        "source": "botFight",
+        "ruleId": "bot_fight_mode",
+        "path": "/county/zapata",
+        "datetime": "2026-08-22T14:40:17Z",
+        "rayName": "a2f2a1ba7c647ac1"
+      },
+      {
+        "action": "managed_challenge",
+        "source": "botFight",
+        "ruleId": "bot_fight_mode",
+        "path": "/county/starr",
+        "datetime": "2026-08-22T14:40:16Z",
+        "rayName": "a2f2a1b71fd22b29"
+      },
+      {
+        "action": "managed_challenge",
+        "source": "botFight",
+        "ruleId": "bot_fight_mode",
+        "path": "/county/washington",
+        "datetime": "2026-08-22T14:40:16Z",
+        "rayName": "a2f2a1b8dc07f497"
+      }
+    ]
+  },
+  "protected_bot_fields_before": {
+    "ai_bots_protection": "disabled",
+    "content_bots_protection": "disabled",
+    "crawler_protection": "disabled",
+    "enable_js": true,
+    "is_robots_txt_managed": true,
+    "cf_robots_variant": "off",
+    "using_latest_model": true
+  },
+  "bot_management_update": {
+    "http": "200",
+    "curl_exit": 0,
+    "stderr": "",
+    "body": {
+      "result": {
+        "enable_js": true,
+        "fight_mode": false,
+        "ai_bots_protection": "disabled",
+        "content_bots_protection": "disabled",
+        "crawler_protection": "disabled",
+        "ai_training": "disabled",
+        "ai_search": "disabled",
+        "ai_user": "disabled",
+        "is_robots_txt_managed": true,
+        "cf_robots_variant": "off",
+        "ai_bots_migration_opt_out": false,
+        "using_latest_model": true
+      },
+      "success": true,
+      "errors": [],
+      "messages": []
+    }
+  },
+  "security_level_after": {
+    "http": "200",
+    "curl_exit": 0,
+    "stderr": "",
+    "body": {
+      "result": {
+        "id": "security_level",
+        "value": "medium",
+        "modified_on": null,
+        "editable": true
+      },
+      "success": true,
+      "errors": [],
+      "messages": []
+    }
+  },
+  "browser_integrity_check_after": {
+    "http": "200",
+    "curl_exit": 0,
+    "stderr": "",
+    "body": {
+      "result": {
+        "id": "browser_check",
+        "value": "on",
+        "modified_on": null,
+        "editable": true
+      },
+      "success": true,
+      "errors": [],
+      "messages": []
+    }
+  },
+  "bot_management_after": {
+    "http": "200",
+    "curl_exit": 0,
+    "stderr": "",
+    "body": {
+      "result": {
+        "enable_js": true,
+        "fight_mode": false,
+        "ai_bots_protection": "disabled",
+        "content_bots_protection": "disabled",
+        "crawler_protection": "disabled",
+        "ai_training": "disabled",
+        "ai_search": "disabled",
+        "ai_user": "disabled",
+        "is_robots_txt_managed": true,
+        "cf_robots_variant": "off",
+        "ai_bots_migration_opt_out": false,
+        "using_latest_model": true
+      },
+      "success": true,
+      "errors": [],
+      "messages": []
+    }
+  },
+  "security_level_value_after": "medium",
+  "browser_integrity_check_value_after": "on",
+  "fight_mode_after": false,
+  "protected_bot_fields_after": {
+    "ai_bots_protection": "disabled",
+    "content_bots_protection": "disabled",
+    "crawler_protection": "disabled",
+    "enable_js": true,
+    "is_robots_txt_managed": true,
+    "cf_robots_variant": "off",
+    "using_latest_model": true
+  },
+  "custom_domain_probes": {
+    "/": {
+      "http": "403",
+      "curl_exit": 0,
+      "cf_mitigated_challenge": true,
+      "content_type": "text/html; charset=UTF-8"
+    },
+    "/sitemap.xml": {
+      "http": "403",
+      "curl_exit": 0,
+      "cf_mitigated_challenge": true,
+      "content_type": "text/html; charset=UTF-8"
+    },
+    "/article/history-of-the-texas-flag": {
+      "http": "403",
+      "curl_exit": 0,
+      "cf_mitigated_challenge": true,
+      "content_type": "text/html; charset=UTF-8"
+    },
+    "/texas-symbols": {
+      "http": "403",
+      "curl_exit": 0,
+      "cf_mitigated_challenge": true,
+      "content_type": "text/html; charset=UTF-8"
+    },
+    "/texas-history": {
+      "http": "403",
+      "curl_exit": 0,
+      "cf_mitigated_challenge": true,
+      "content_type": "text/html; charset=UTF-8"
+    },
+    "/article/texas-bluebonnets-complete-guide": {
+      "http": "403",
+      "curl_exit": 0,
+      "cf_mitigated_challenge": true,
+      "content_type": "text/html; charset=UTF-8"
+    },
+    "/article/christmas-in-texas-complete-guide": {
+      "http": "403",
+      "curl_exit": 0,
+      "cf_mitigated_challenge": true,
+      "content_type": "text/html; charset=UTF-8"
+    },
+    "/article/fall-in-texas-complete-guide": {
+      "http": "403",
+      "curl_exit": 0,
+      "cf_mitigated_challenge": true,
+      "content_type": "text/html; charset=UTF-8"
+    }
+  },
+  "blocked": "Bot Fight Mode was disabled, but one or more representative custom-domain routes are still unhealthy; no further security changes attempted"
+}
