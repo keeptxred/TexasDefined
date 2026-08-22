@@ -79,4 +79,10 @@ export const COUNTY_SERIES_PROFILES_CENTRAL: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/irion-county-mertzon-sherwood-middle-concho-ranching-texas")
       .then((module) => module.irionCountyMertzonSherwoodMiddleConchoRanchingTexasArticle),
   },
+  {
+    countySlug: "coke",
+    articleSlug: "coke-county-robert-lee-bronte-fort-chadbourne-colorado-river-texas",
+    loadArticle: () => import("@/data/fixtures/coke-county-robert-lee-bronte-fort-chadbourne-colorado-river-texas")
+      .then((module) => module.cokeCountyRobertLeeBronteFortChadbourneColoradoRiverTexasArticle),
+  },
 ];
