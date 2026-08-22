@@ -4,6 +4,7 @@ import "./military-museum-links";
 import "./seasonal-authority-links";
 import "./seasonal-county-links";
 import "./lighthouse-authority-links";
+import "./pest-authority-links";
 import { winklerCountyArticleStub } from "./winkler-county-article-stub";
 import { seasonalAuthorityArticleStubs, loadSeasonalAuthorityArticle } from "./lazy-seasonal-authority";
 import { lighthouseDeepDiveStubs, loadLighthouseDeepDiveArticle } from "./lazy-lighthouse-deep-dives";
