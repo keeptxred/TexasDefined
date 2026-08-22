@@ -139,4 +139,10 @@ export const COUNTY_SERIES_PROFILES_SOUTH_PLAINS: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/upton-county-rankin-mccamey-oil-ranching-permian-basin-texas")
       .then((module) => module.uptonCountyRankinMcCameyOilRanchingPermianBasinTexasArticle),
   },
+  {
+    countySlug: "crane",
+    articleSlug: "crane-county-crane-oil-horsehead-crossing-permian-basin-texas",
+    loadArticle: () => import("@/data/fixtures/crane-county-crane-oil-horsehead-crossing-permian-basin-texas")
+      .then((module) => module.craneCountyCraneOilHorseheadCrossingPermianBasinTexasArticle),
+  },
 ];
