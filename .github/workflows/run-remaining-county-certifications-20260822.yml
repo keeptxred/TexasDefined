@@ -13,7 +13,7 @@ permissions:
 
 concurrency:
   group: run-remaining-county-certifications-20260822
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   certify:
