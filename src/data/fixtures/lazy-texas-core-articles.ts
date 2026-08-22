@@ -35,17 +35,23 @@ export const texasCoreArticleStubs: Article[] = [
 ];
 
 const coreSlugs = new Set(texasCoreArticleStubs.map((article) => article.slug));
+
 const depthSlugs = new Set([
-  'bluebonnet-season-field-guide',
-  'hill-country-two-lane-loop',
-  'palo-duro-lighthouse-walk',
-  'texas-native-garden-that-survives-august',
-  'friday-night-and-the-texas-town',
-  'big-bend-in-winter',
+  "bluebonnet-season-field-guide",
+  "hill-country-two-lane-loop",
+  "palo-duro-lighthouse-walk",
+  "texas-native-garden-that-survives-august",
+  "friday-night-and-the-texas-town",
+  "big-bend-in-winter",
 ]);
 
 export async function loadTexasCoreArticle(brandId: string, slug: string): Promise<Article | null> {
-  if (brandId !== "texasdefined" || !coreSlugs.has(slug)) return null;
+  if (brandId !== "texasdefined") return null;
+
+  if (!coreSlugs.has(slug)) {
+    const { loadTexasGatewayArticle } = await import("./lazy-texas-gateway");
+    return loadTexasGatewayArticle(brandId, slug);
+  }
   if (slug === "moving-to-texas-what-nobody-tells-you") {
     const { movingToTexasPillarArticle } = await import("./moving-to-texas-pillar");
     return movingToTexasPillarArticle;
