@@ -13,7 +13,7 @@ export const Route = createFileRoute('/explore/landscapes')({
   loader: () => getTexasLandscapeHub(),
   head: ({ loaderData }) => loaderData?.head ?? {
     meta: [
-      { title },
+      { title: title },
       { name: 'description', content: description },
     ],
     links: [{ rel: 'canonical', href: `https://texasdefined.com${canonicalPath}` }],
