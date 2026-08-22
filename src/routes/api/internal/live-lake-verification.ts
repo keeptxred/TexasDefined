@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
+const REPOSITORY = `${["keep", "txred"].join("")}/TexasDefined`;
+const WORKFLOW_NAME = "Verify live lake levels in production";
 const RECENT_URL = "https://waterdatafortexas.org/reservoirs/recent-conditions.json";
 const CONROE_URL = "https://www.waterdatafortexas.org/reservoirs/individual/conroe";
 const BROWSER_USER_AGENT =
@@ -14,6 +16,43 @@ function requestHeaders(accept: string) {
     referer: "https://waterdatafortexas.org/reservoirs/statewide",
     "user-agent": BROWSER_USER_AGENT,
   };
+}
+
+function bearerToken(request: Request): string | null {
+  const value = request.headers.get("authorization") ?? "";
+  return value.match(/^Bearer\s+(.+)$/i)?.[1]?.trim() || null;
+}
+
+async function authorizeWorkflowRequest(request: Request): Promise<boolean> {
+  const token = bearerToken(request);
+  const runId = request.headers.get("x-github-run-id")?.trim();
+  if (!token || !runId || !/^\d+$/.test(runId)) return false;
+
+  try {
+    const response = await fetch(`https://api.github.com/repos/${REPOSITORY}/actions/runs/${runId}`, {
+      cache: "no-store",
+      headers: {
+        accept: "application/vnd.github+json",
+        authorization: `Bearer ${token}`,
+        "user-agent": "TexasDefined-Live-Lake-Verification/1.0",
+        "x-github-api-version": "2022-11-28",
+      },
+      signal: AbortSignal.timeout(8_000),
+    });
+    if (!response.ok) return false;
+    const payload = (await response.json()) as {
+      name?: string;
+      event?: string;
+      repository?: { full_name?: string };
+    };
+    return (
+      payload.repository?.full_name === REPOSITORY &&
+      payload.name === WORKFLOW_NAME &&
+      (payload.event === "workflow_run" || payload.event === "workflow_dispatch")
+    );
+  } catch {
+    return false;
+  }
 }
 
 async function probe(url: string, accept: string) {
@@ -32,7 +71,6 @@ async function probe(url: string, accept: string) {
       contentType: response.headers.get("content-type"),
       contentLength: text.length,
       elapsedMs: Date.now() - started,
-      prefix: text.slice(0, 120),
     };
   } catch (error) {
     return {
@@ -46,10 +84,14 @@ async function probe(url: string, accept: string) {
   }
 }
 
-export const Route = createFileRoute("/api/public/live-lake-diagnostic")({
+export const Route = createFileRoute("/api/internal/live-lake-verification")({
   server: {
     handlers: {
-      GET: async () => {
+      GET: async ({ request }) => {
+        if (!(await authorizeWorkflowRequest(request))) {
+          return Response.json({ ok: false, error: "Unauthorized" }, { status: 401, headers: { "cache-control": "no-store" } });
+        }
+
         const [
           { loadLiveLakeLevelResilient },
           { getLiveLakeLevel },
