@@ -121,37 +121,12 @@ const texasHomeMaintenanceCalendarStub: Article = {
   relatedDestinations: [],
 };
 
-const texasHomeownerFieldManualStub: Article = {
-  id: "evergreen-texas-homeowner-field-manual",
-  brandId: "texasdefined",
-  slug: "texas-homeowner-field-manual",
-  title: "The Texas Homeowner Field Manual: Weather, Utilities, Insurance, Wildlife and the Systems That Matter",
-  dek: "A practical operating manual for owning a house in Texas: storms, freezes, foundations, roofs, electricity, insurance, water, pools, pests, wildlife, school districts, emergency records and the annual maintenance rhythm that ties them together.",
-  category: "home-garden",
-  hero: {
-    src: "https://images.unsplash.com/photo-1768941124710-1a42b3195208?auto=format&fit=crop&w=1600&h=1067&q=82",
-    alt: "Brick and stucco suburban home exterior with a green lawn and walkway",
-    width: 1600,
-    height: 1067,
-    credit: "Kellen Riggin · Unsplash",
-  },
-  authorId: "a-marisol",
-  publishedAt: "2026-08-22",
-  readingMinutes: 19,
-  tags: ["texas homeowner guide", "texas home maintenance", "texas weather", "texas insurance", "texas electricity", "texas wildlife", "texas foundation", "texas roof", "moving to texas"],
-  featured: true,
-  body: [],
-  relatedCollections: [],
-  relatedDestinations: [],
-};
-
 export const coreEvergreenArticleStubs: Article[] = [
   texasRegionsExplainedStub,
   whyTexasHas254CountiesStub,
   texasNativePlantsYardStub,
   texasBarbecueStylesStub,
   texasHomeMaintenanceCalendarStub,
-  texasHomeownerFieldManualStub,
 ];
 
 export async function loadCoreEvergreenArticle(brandId: string, slug: string): Promise<Article | null> {
@@ -180,11 +155,6 @@ export async function loadCoreEvergreenArticle(brandId: string, slug: string): P
   if (slug === texasHomeMaintenanceCalendarStub.slug) {
     const { texasHomeMaintenanceCalendarArticle } = await import("./texas-home-maintenance-calendar");
     return { ...texasHomeMaintenanceCalendarArticle, hero: texasHomeMaintenanceCalendarStub.hero };
-  }
-
-  if (slug === texasHomeownerFieldManualStub.slug) {
-    const { texasHomeownerFieldManualArticle } = await import("./texas-homeowner-field-manual");
-    return { ...texasHomeownerFieldManualArticle, hero: texasHomeownerFieldManualStub.hero };
   }
 
   return null;
