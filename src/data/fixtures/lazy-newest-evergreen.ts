@@ -9,6 +9,7 @@ import "./septic-authority-links";
 import "./tree-homeowner-authority-links";
 import "./pool-owner-authority-links";
 import "./wildfire-home-authority-links";
+import "./backup-power-authority-links";
 import { winklerCountyArticleStub } from "./winkler-county-article-stub";
 import { seasonalAuthorityArticleStubs, loadSeasonalAuthorityArticle } from "./lazy-seasonal-authority";
 import { lighthouseDeepDiveStubs, loadLighthouseDeepDiveArticle } from "./lazy-lighthouse-deep-dives";
@@ -276,6 +277,32 @@ const texasWildfireHomeProtectionGuideStub: Article = {
   relatedDestinations: [],
 };
 
+const texasBackupPowerGeneratorGuideStub: Article = {
+  id: "evergreen-texas-backup-power-generator-guide",
+  brandId: "texasdefined",
+  slug: "texas-backup-power-generator-guide",
+  title: "Texas Backup Power Guide: Portable Generators, Standby Systems, Transfer Switches and Outage Safety",
+  dek: "A practical Texas homeowner guide to backup power: sizing essential loads, portable versus standby generators, transfer switches, carbon monoxide, fuel, weather, freeze outages, maintenance, batteries and what to inspect before buying a home with backup power.",
+  category: "home-garden",
+  hero: {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/FEMA_-_44727_-_Generators_staged_in_Texas.jpg?width=1600",
+    alt: "Emergency generators staged in Seguin, Texas before Hurricane Alex",
+    width: 1600,
+    height: 1062,
+    credit: "Patsy Lynch / FEMA · Public domain · Wikimedia Commons",
+  },
+  authorId: "a-marisol",
+  publishedAt: "2026-08-22",
+  readingMinutes: 17,
+  tags: ["texas generator", "backup power texas", "portable generator safety", "standby generator", "transfer switch", "power outage texas", "generator carbon monoxide", "home backup power", "home and garden"],
+  featured: true,
+  sourceName: "U.S. Consumer Product Safety Commission",
+  sourceUrl: "https://www.cpsc.gov/Safety-Education/Safety-Education-Centers/Carbon-Monoxide-Information-Center",
+  body: [],
+  relatedCollections: [],
+  relatedDestinations: [],
+};
+
 export const newestEvergreenArticles: Article[] = [
   ...seasonalIntentStubs,
   ...lighthouseSearchIntentStubs,
@@ -292,6 +319,7 @@ export const newestEvergreenArticles: Article[] = [
   texasTreesAroundHomeGuideStub,
   texasPoolOwnerGuideStub,
   texasWildfireHomeProtectionGuideStub,
+  texasBackupPowerGeneratorGuideStub,
 ];
 
 const loaders: Record<string, () => Promise<Article>> = {
@@ -305,6 +333,7 @@ const loaders: Record<string, () => Promise<Article>> = {
   "texas-trees-around-home-guide": async () => (await import("./texas-trees-around-home-guide")).texasTreesAroundHomeGuideArticle,
   "texas-pool-owner-guide": async () => (await import("./texas-pool-owner-guide")).texasPoolOwnerGuideArticle,
   "texas-wildfire-home-protection-guide": async () => (await import("./texas-wildfire-home-protection-guide")).texasWildfireHomeProtectionGuideArticle,
+  "texas-backup-power-generator-guide": async () => (await import("./texas-backup-power-generator-guide")).texasBackupPowerGeneratorGuideArticle,
 };
 
 export async function loadNewestEvergreenArticle(brandId: string, slug: string) {
