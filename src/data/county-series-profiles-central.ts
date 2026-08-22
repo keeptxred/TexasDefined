@@ -67,4 +67,10 @@ export const COUNTY_SERIES_PROFILES_CENTRAL: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/waller-county-hempstead-prairie-view-brazos-prairie-texas")
       .then((module) => module.wallerCountyHempsteadPrairieViewBrazosPrairieTexasArticle),
   },
+  {
+    countySlug: "sutton",
+    articleSlug: "sutton-county-sonora-caverns-ranching-edwards-plateau-texas",
+    loadArticle: () => import("@/data/fixtures/sutton-county-sonora-caverns-ranching-edwards-plateau-texas")
+      .then((module) => module.suttonCountySonoraCavernsRanchingEdwardsPlateauTexasArticle),
+  },
 ];
