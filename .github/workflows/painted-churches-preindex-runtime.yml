@@ -45,5 +45,5 @@ jobs:
         run: npm ci --no-audit --no-fund
       - name: Validate static pre-index contract
         run: node scripts/data/validate-painted-church-preindex-readiness.mjs
-      - name: Execute 32-church runtime authority model
+      - name: Execute runtime authority model
         run: node scripts/data/validate-painted-church-runtime-readiness.mjs
