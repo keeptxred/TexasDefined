@@ -1,0 +1,80 @@
+name: Certify Coleman County live retry
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/certify-coleman-live-retry.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: texasdefined-production
+  cancel-in-progress: false
+
+jobs:
+  certify-live:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 2
+      - name: Verify Coleman live surfaces and record
+        shell: bash
+        run: |
+          set -u
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          marker='.github/certification/coleman-county.json'
+          target="$(git rev-parse HEAD)"
+          record() {
+            status="$1"; stage="$2"; detail="$3"
+            mkdir -p "$(dirname "$marker")"
+            python3 - "$marker" "$status" "$stage" "$target" "$detail" <<'PY'
+          import json, pathlib, sys, datetime
+          path, status, stage, target, detail = sys.argv[1:]
+          pathlib.Path(path).write_text(json.dumps({
+            'county':'coleman','status':status,'stage':stage,'target_sha':target,
+            'detail':detail[-12000:],'recorded_at_utc':datetime.datetime.now(datetime.timezone.utc).isoformat()
+          }, indent=2)+'\n', encoding='utf-8')
+          PY
+            git add -- "$marker"
+            git commit -m "Record Coleman County production ${status}" >/dev/null || true
+            git push origin HEAD:main
+          }
+
+          fixture='src/data/fixtures/coleman-county-coleman-santa-anna-camp-colorado-west-central-texas.ts'
+          registry='src/data/county-series-profiles-rolling-plains.ts'
+          test -f "$fixture" || { record fail source 'Coleman fixture missing'; exit 1; }
+          grep -Fq 'countySlug: "coleman"' "$registry" || { record fail source 'Coleman registry missing'; exit 1; }
+          if grep -n 'www\.texasdefined\.com' "$fixture" "$registry" >/tmp/coleman-www.txt; then record fail canonical-host "$(cat /tmp/coleman-www.txt)"; exit 1; fi
+
+          ua='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36'
+          w="$(mktemp -d)"; ok=0; ps='000'
+          for attempt in $(seq 1 8); do
+            ps="$(curl -A "$ua" --retry 2 --retry-all-errors --retry-delay 2 --max-time 45 -sS -D "$w/ph" -o "$w/page" -w '%{http_code}' 'https://texasdefined.com/county/coleman' || true)"
+            if [ "$ps" = 200 ] && grep -Fq 'Coleman County: Cattle Trails, Camp Colorado and West-Central Texas' "$w/page" && grep -Fq 'The county in numbers' "$w/page" && grep -Fq 'County seat' "$w/page" && grep -Fq '2020 population' "$w/page" && grep -Fq 'County feature' "$w/page" && grep -Fq 'https://texasdefined.com/county/coleman' "$w/page"; then ok=1; break; fi
+            sleep 5
+          done
+          if [ "$ok" != 1 ]; then
+            body="$(head -c 2500 "$w/page" 2>/dev/null || true)"
+            headers="$(head -80 "$w/ph" 2>/dev/null || true)"
+            record fail live-page "HTTP=$ps headers=$headers body=$body"; exit 1
+          fi
+
+          hero='https://commons.wikimedia.org/wiki/Special:Redirect/file/Coleman_County_Courthouse_%282018%29%2C_Coleman%2C_TX.jpg?width=1800'
+          his="$(curl -A "$ua" -L --retry 4 --retry-all-errors --retry-delay 2 --max-time 60 -sS -D "$w/hh" -o "$w/hb" -w '%{http_code}' "$hero" || true)"
+          him="$(awk 'BEGIN{IGNORECASE=1} /^content-type:/{gsub(/\r/,""); sub(/^content-type:[[:space:]]*/,""); v=$0} END{print v}' "$w/hh" | cut -d';' -f1)"
+          hib="$(wc -c < "$w/hb" 2>/dev/null || echo 0)"
+          if [ "$his" != 200 ] || ! [[ "$him" =~ ^image/(jpeg|png|webp)$ ]] || [ "$hib" -le 50000 ]; then record fail live-hero "HTTP=$his MIME=$him bytes=$hib"; exit 1; fi
+
+          legacy='https://texasdefined.com/article/coleman-county-coleman-santa-anna-camp-colorado-west-central-texas'
+          ls="$(curl -A "$ua" -sS -o /dev/null -D "$w/lh" -w '%{http_code}' --max-time 30 "$legacy" || true)"
+          loc="$(awk 'BEGIN{IGNORECASE=1} /^location:/{gsub(/\r/,""); sub(/^location:[[:space:]]*/,""); print; exit}' "$w/lh")"
+          if [ "$ls" != 301 ] || [ "$loc" != 'https://texasdefined.com/county/coleman' ]; then record fail legacy-redirect "HTTP=$ls location=$loc"; exit 1; fi
+
+          rm -rf "$w"
+          record pass complete "page=200 structured=yes editorial=yes canonical=yes hero=$his mime=$him bytes=$hib legacy=301 location=https://texasdefined.com/county/coleman"
