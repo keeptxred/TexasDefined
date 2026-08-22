@@ -17,6 +17,7 @@ jobs:
     environment: texasdefined-publication
     env:
       CF_TOKEN: ${{ secrets.CLOUDFLARE_SECURITY_API_TOKEN }}
+      CF_TOKEN_VARIABLE_PRESENT: ${{ vars.CLOUDFLARE_SECURITY_API_TOKEN != '' }}
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       MARKER: .github/certification/cloudflare-edge-recovery.json
     steps:
@@ -32,30 +33,26 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
 
-          if [[ -z "${CF_TOKEN:-}" ]]; then
-            mkdir -p "$(dirname "$MARKER")"
-            python3 - <<'PY'
-          import datetime, json, os, pathlib
-          out = {
-              'recorded_at_utc': datetime.datetime.now(datetime.timezone.utc).isoformat(),
-              'blocked': 'CLOUDFLARE_SECURITY_API_TOKEN is unavailable to the trusted main workflow environment',
-              'secret_available': False,
-              'changed': False,
-              'custom_domain_healthy': False,
-          }
-          marker = pathlib.Path(os.environ['MARKER'])
-          marker.write_text(json.dumps(out, indent=2) + '\n')
-          PY
-            exit 0
-          fi
-
           python3 - <<'PY'
           import datetime, json, os, pathlib, subprocess, urllib.parse
+
           token=os.environ.get('CF_TOKEN','')
+          token_variable_present=os.environ.get('CF_TOKEN_VARIABLE_PRESENT','').strip().lower() == 'true'
+          account_id=os.environ.get('CLOUDFLARE_ACCOUNT_ID','')
+          now=datetime.datetime.now(datetime.timezone.utc)
+          out={
+              'recorded_at_utc':now.isoformat(),
+              'secret_available':bool(token),
+              'same_name_actions_variable_present':token_variable_present,
+              'account_id_secret_available':bool(account_id),
+              'security_diagnostic_complete':False,
+              'changed':False,
+          }
+
           base='https://api.cloudflare.com/client/v4'
-          headers=['-H',f'Authorization: Bearer {token}','-H','Content-Type: application/json']
 
           def req(method,url,body=None):
+              headers=['-H',f'Authorization: Bearer {token}','-H','Content-Type: application/json']
               cmd=['curl','--silent','--show-error','--max-time','40','-X',method,*headers,'-o','/tmp/cfresp','-w','%{http_code}',url]
               if body is not None:
                   cmd += ['--data-binary',json.dumps(body)]
@@ -67,58 +64,68 @@ jobs:
                   parsed={'raw':raw[:12000]}
               return {'http':p.stdout.strip(),'curl_exit':p.returncode,'stderr':p.stderr[-1200:],'body':parsed}
 
-          acct=urllib.parse.quote(os.environ.get('CLOUDFLARE_ACCOUNT_ID',''))
-          zone_lookup=req('GET',f'{base}/zones?name=texasdefined.com&account.id={acct}')
-          rows=((zone_lookup.get('body') or {}).get('result') or []) if isinstance(zone_lookup.get('body'),dict) else []
-          zone=rows[0].get('id','') if rows else ''
-          now=datetime.datetime.now(datetime.timezone.utc)
-          out={
-              'recorded_at_utc':now.isoformat(),
-              'secret_available':True,
-              'zone_lookup':zone_lookup,
-              'zone_id':zone,
-              'changed':False,
-          }
-
-          if not zone:
-              out['blocked']='zone lookup failed'
+          if not token:
+              out['blocked']='CLOUDFLARE_SECURITY_API_TOKEN is unavailable to the trusted main workflow environment'
           else:
-              security=req('GET',f'{base}/zones/{zone}/settings/security_level')
-              bic=req('GET',f'{base}/zones/{zone}/settings/browser_check')
-              bot=req('GET',f'{base}/zones/{zone}/bot_management')
-              custom=req('GET',f'{base}/zones/{zone}/rulesets/phases/http_request_firewall_custom/entrypoint')
-              config=req('GET',f'{base}/zones/{zone}/rulesets/phases/http_config_settings/entrypoint')
-              out.update({
-                  'security_level':security,
-                  'browser_integrity_check':bic,
-                  'bot_management':bot,
-                  'custom_firewall_entrypoint':custom,
-                  'config_settings_entrypoint':config,
-              })
-              current=(((security.get('body') or {}).get('result') or {}).get('value')) if isinstance(security.get('body'),dict) else None
-              out['security_level_value']=current
-              end=now
-              start=end-datetime.timedelta(hours=6)
-              gql='''query Events($zoneTag: string, $start: Time, $end: Time) { viewer { zones(filter: { zoneTag: $zoneTag }) { firewallEventsAdaptive(filter: { datetime_geq: $start, datetime_leq: $end }, limit: 100, orderBy: [datetime_DESC]) { action source description ruleId clientRequestPath clientRequestHTTPHost datetime userAgent rayName } } } }'''
-              payload={'query':gql,'variables':{'zoneTag':zone,'start':start.isoformat().replace('+00:00','Z'),'end':end.isoformat().replace('+00:00','Z')}}
-              out['security_events']=req('POST',f'{base}/graphql',payload)
+              acct=urllib.parse.quote(account_id)
+              zone_lookup=req('GET',f'{base}/zones?name=texasdefined.com&account.id={acct}')
+              rows=((zone_lookup.get('body') or {}).get('result') or []) if isinstance(zone_lookup.get('body'),dict) else []
+              zone=rows[0].get('id','') if rows else ''
+              out.update({'zone_lookup':zone_lookup,'zone_id':zone})
 
-              if current=='under_attack':
-                  edit=req('PATCH',f'{base}/zones/{zone}/settings/security_level',{'value':'medium'})
-                  out['change']={'from':'under_attack','to':'medium','response':edit}
-                  out['changed']=edit.get('http')=='200' and bool((edit.get('body') or {}).get('success'))
-                  if not out['changed']:
-                      out['blocked']='Under Attack Mode detected but recovery failed'
-              elif security.get('http')!='200':
-                  out['blocked']='Security Level could not be read with dedicated token'
+              if not zone:
+                  out['blocked']='zone lookup failed'
               else:
-                  out['blocked']='Security Level is not under_attack; inspect BIC/Bot/WAF/Security Events before changing anything else'
+                  security=req('GET',f'{base}/zones/{zone}/settings/security_level')
+                  bic=req('GET',f'{base}/zones/{zone}/settings/browser_check')
+                  bot=req('GET',f'{base}/zones/{zone}/bot_management')
+                  custom=req('GET',f'{base}/zones/{zone}/rulesets/phases/http_request_firewall_custom/entrypoint')
+                  config=req('GET',f'{base}/zones/{zone}/rulesets/phases/http_config_settings/entrypoint')
+                  out.update({
+                      'security_level':security,
+                      'browser_integrity_check':bic,
+                      'bot_management':bot,
+                      'custom_firewall_entrypoint':custom,
+                      'config_settings_entrypoint':config,
+                  })
+                  current=(((security.get('body') or {}).get('result') or {}).get('value')) if isinstance(security.get('body'),dict) else None
+                  out['security_level_value']=current
+                  out['security_diagnostic_complete']=security.get('http') == '200'
+                  end=now
+                  start=end-datetime.timedelta(hours=6)
+                  gql='''query Events($zoneTag: string, $start: Time, $end: Time) { viewer { zones(filter: { zoneTag: $zoneTag }) { firewallEventsAdaptive(filter: { datetime_geq: $start, datetime_leq: $end }, limit: 100, orderBy: [datetime_DESC]) { action source description ruleId clientRequestPath clientRequestHTTPHost datetime userAgent rayName } } } }'''
+                  payload={'query':gql,'variables':{'zoneTag':zone,'start':start.isoformat().replace('+00:00','Z'),'end':end.isoformat().replace('+00:00','Z')}}
+                  out['security_events']=req('POST',f'{base}/graphql',payload)
+
+                  if current=='under_attack':
+                      edit=req('PATCH',f'{base}/zones/{zone}/settings/security_level',{'value':'medium'})
+                      out['change']={'from':'under_attack','to':'medium','response':edit}
+                      out['changed']=edit.get('http')=='200' and bool((edit.get('body') or {}).get('success'))
+                      if not out['changed']:
+                          out['blocked']='Under Attack Mode detected but recovery failed'
+                  elif security.get('http')!='200':
+                      out['blocked']='Security Level could not be read with dedicated token'
+                  else:
+                      out['diagnostic_note']='Security Level is not under_attack; inspect BIC/Bot/WAF/Security Events before changing anything else'
 
           probes={}
-          for path in ['/', '/sitemap.xml', '/article/history-of-the-texas-flag', '/article/texas-bluebonnets-complete-guide', '/article/christmas-in-texas-complete-guide', '/article/fall-in-texas-complete-guide']:
+          for path in [
+              '/',
+              '/sitemap.xml',
+              '/article/history-of-the-texas-flag',
+              '/texas-symbols',
+              '/texas-history',
+              '/article/texas-bluebonnets-complete-guide',
+              '/article/christmas-in-texas-complete-guide',
+              '/article/fall-in-texas-complete-guide',
+          ]:
               h=pathlib.Path('/tmp/h')
               b=pathlib.Path('/tmp/b')
-              p=subprocess.run(['curl','--silent','--show-error','--location','--max-time','35','-A','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/140 Safari/537.36 TexasDefinedVerifier/1.0','-D',str(h),'-o',str(b),'-w','%{http_code}','https://texasdefined.com'+path],capture_output=True,text=True)
+              p=subprocess.run([
+                  'curl','--silent','--show-error','--location','--max-time','35',
+                  '-A','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/140 Safari/537.36 TexasDefinedVerifier/1.0',
+                  '-D',str(h),'-o',str(b),'-w','%{http_code}','https://texasdefined.com'+path,
+              ],capture_output=True,text=True)
               ht=h.read_text(errors='replace') if h.exists() else ''
               probes[path]={
                   'http':p.stdout.strip(),
@@ -129,6 +136,7 @@ jobs:
               }
           out['custom_domain_probes']=probes
           out['custom_domain_healthy']=all(v.get('http')=='200' and not v.get('cf_mitigated_challenge') for v in probes.values())
+
           marker=pathlib.Path(os.environ['MARKER'])
           marker.parent.mkdir(parents=True,exist_ok=True)
           marker.write_text(json.dumps(out,indent=2)+'\n')
@@ -143,7 +151,7 @@ jobs:
           set -euo pipefail
           if [[ ! -f "$MARKER" ]]; then
             mkdir -p "$(dirname "$MARKER")"
-            printf '{"blocked":"recovery step ended before writing evidence","custom_domain_healthy":false}\n' > "$MARKER"
+            printf '{"blocked":"recovery step ended before writing evidence","security_diagnostic_complete":false,"custom_domain_healthy":false}\n' > "$MARKER"
           fi
           branch="automation/cloudflare-edge-recovery-${GITHUB_RUN_ID}"
           git checkout -b "$branch"
@@ -154,17 +162,20 @@ jobs:
             --base main \
             --head "$branch" \
             --title 'Review Cloudflare edge recovery evidence' \
-            --body 'Automated Cloudflare edge recovery evidence. Review the recorded secret availability, security setting, security-event/WAF/Bot evidence, and live-route probes. This PR is intentionally not auto-merged.'
+            --body 'Automated Cloudflare edge recovery evidence. Review secret/variable availability, security settings, Security Events/WAF/Bot evidence, and all representative live-route probes. This PR is intentionally not auto-merged.'
 
-      - name: Require healthy custom domain
+      - name: Require complete security diagnosis and healthy custom domain
         if: always()
         shell: bash
         run: |
           python3 - <<'PY'
           import json, os, sys
           data=json.load(open(os.environ['MARKER']))
+          if not data.get('security_diagnostic_complete'):
+              print(data.get('blocked') or 'Cloudflare security diagnostic incomplete', file=sys.stderr)
+              raise SystemExit(1)
           if not data.get('custom_domain_healthy'):
               print(data.get('blocked') or 'custom domain verification failed', file=sys.stderr)
               raise SystemExit(1)
-          print('Cloudflare edge recovery verified: custom domain healthy.')
+          print('Cloudflare edge recovery verified: security diagnosis complete and custom domain healthy.')
           PY
