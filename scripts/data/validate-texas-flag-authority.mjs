@@ -93,6 +93,11 @@ requireContains("RSS feed", files.rss, 'platform.articles.list(scope)');
 requireContains("RSS feed", files.rss, '/article/${article.slug}');
 requireContains("RSS feed", files.rss, 'https://pubsubhubbub.appspot.com/');
 requireContains("RSS feed", files.rss, 'rel="hub"');
+requireContains("RSS feed", files.rss, "const RSS_LIMIT = 50;");
+requireContains("RSS feed", files.rss, "const PINNED_DISCOVERY_SLUGS = new Set([");
+requireContains("RSS feed", files.rss, '"history-of-the-texas-flag"');
+requireContains("RSS feed", files.rss, '"texas-flag-etiquette-display-guide"');
+requireContains("RSS feed", files.rss, "Math.max(0, RSS_LIMIT - pinnedArticles.length)");
 
 requireContains("Primary sitemap", files.sitemap, '"/texas-history": "2026-08-20"');
 requireContains("Primary sitemap", files.sitemap, '"/texas-symbols": "2026-08-20"');
@@ -109,6 +114,11 @@ requireContains("Flag production smoke", files.smoke, "texas-flag-history-page")
 requireContains("Flag production smoke", files.smoke, "texas-flag-indexing-signals");
 requireContains("Flag production smoke", files.smoke, "'/rss.xml'");
 requireContains("Flag production smoke", files.smoke, "fresh sitemap dates and RSS discovery verified");
+requireContains("Flag production smoke", files.smoke, "html_to_text()");
+requireContains("Flag production smoke", files.smoke, "require_text()");
+requireContains("Flag production smoke", files.smoke, "require_raw()");
+requireContains("Flag production smoke", files.smoke, "history article is missing from RSS");
+requireContains("Flag production smoke", files.smoke, "etiquette article is missing from RSS");
 
 requireContains("WebSub notifier", files.webSub, 'workflows: ["Deploy TexasDefined production"]');
 requireContains("WebSub notifier", files.webSub, "https://pubsubhubbub.appspot.com/");
