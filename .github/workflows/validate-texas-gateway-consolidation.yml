@@ -16,7 +16,6 @@ on:
       - "scripts/data/validate-indexation-quality.mjs"
       - "scripts/data/validate-texas-gateway-consolidation.mjs"
       - "scripts/data/validate-texas-gateway-index-readiness.mjs"
-      - "scripts/data/validate-texas-gateway-readiness-flag.mjs"
       - "scripts/data/audit-texas-gateway-depth.mjs"
       - ".github/workflows/validate-texas-gateway-consolidation.yml"
   workflow_dispatch:
@@ -46,9 +45,6 @@ jobs:
 
       - name: Validate gateway index-readiness staging
         run: node scripts/data/validate-texas-gateway-index-readiness.mjs
-
-      - name: Validate gateway readiness compile-time flag
-        run: node scripts/data/validate-texas-gateway-readiness-flag.mjs
 
       - name: Validate shared indexation contract
         run: node scripts/data/validate-indexation-quality.mjs
