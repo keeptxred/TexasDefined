@@ -9,12 +9,6 @@ import type { Article } from "../types";
  */
 export const TEXAS_GATEWAY_INDEX_READY_SLUGS = new Set<string>([]);
 
-// Keep the public article-route check compile-time light while no gateway is
-// promoted. A future promotion must deliberately flip this alongside the
-// allowlist; leaving it false is conservative because the promoted page would
-// remain noindex rather than exposing an unreviewed page to indexing.
-const HAS_INDEX_READY_GATEWAYS = false;
-
 export function isTexasGatewayArticle(article: Pick<Article, "brandId" | "id">): boolean {
   return article.brandId === "texasdefined" && article.id.startsWith("gateway-");
 }
@@ -28,6 +22,5 @@ export function isTexasGatewayIndexReadyArticle(article: Pick<Article, "brandId"
 }
 
 export function shouldNoindexTexasGatewayArticle(article: Pick<Article, "brandId" | "id" | "slug">): boolean {
-  return isTexasGatewayArticle(article)
-    && (!HAS_INDEX_READY_GATEWAYS || !isTexasGatewayIndexReadySlug(article.slug));
+  return isTexasGatewayArticle(article) && !isTexasGatewayIndexReadySlug(article.slug);
 }
