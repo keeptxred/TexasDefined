@@ -141,6 +141,32 @@ const texasHomeownerFieldManualStub: Article = {
   relatedDestinations: [],
 };
 
+const texasHouseholdPestsGuideStub: Article = {
+  id: "evergreen-texas-household-pests-guide",
+  brandId: "texasdefined",
+  slug: "texas-household-pests-guide",
+  title: "Texas Household Pests: Termites, Fire Ants, Mosquitoes, Scorpions, Roaches and What to Do",
+  dek: "A practical Texas homeowner guide to the pests that actually matter: how to recognize the problem, reduce the conditions that attract it, know when DIY prevention is reasonable and when a licensed professional or public-health response makes more sense.",
+  category: "home-garden",
+  hero: {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Fire_ant_mound_(16371103174).jpg?width=1600",
+    alt: "Red imported fire ant mound in a Texas research field",
+    width: 1600,
+    height: 1200,
+    credit: "Alex Wild / University of Texas Insects Unlocked · CC0 · Wikimedia Commons",
+  },
+  authorId: "a-marisol",
+  publishedAt: "2026-08-22",
+  readingMinutes: 17,
+  tags: ["texas pests", "texas termites", "fire ants texas", "texas mosquitoes", "texas scorpions", "texas roaches", "texas rodents", "pest control texas", "home and garden"],
+  featured: true,
+  sourceName: "Texas Department of Agriculture Structural Pest Control Service",
+  sourceUrl: "https://texasagriculture.gov/Regulatory-Programs/Pesticides/Structural-Pest-Control-Service/Structural-Pest-Control-Consumer-Information",
+  body: [],
+  relatedCollections: [],
+  relatedDestinations: [],
+};
+
 export const newestEvergreenArticles: Article[] = [
   ...seasonalIntentStubs,
   ...lighthouseSearchIntentStubs,
@@ -152,6 +178,7 @@ export const newestEvergreenArticles: Article[] = [
   texasMilitaryMuseumsGuideStub,
   texasNationalCemeteriesGuideStub,
   texasHomeownerFieldManualStub,
+  texasHouseholdPestsGuideStub,
 ];
 
 const loaders: Record<string, () => Promise<Article>> = {
@@ -160,6 +187,7 @@ const loaders: Record<string, () => Promise<Article>> = {
   "texas-military-museums-historic-sites-guide": async () => (await import("./texas-military-museums-historic-sites-guide")).texasMilitaryMuseumsHistoricSitesGuideArticle,
   "texas-national-cemeteries-guide": async () => (await import("./texas-national-cemeteries-guide")).texasNationalCemeteriesGuideArticle,
   "texas-homeowner-field-manual": async () => (await import("./texas-homeowner-field-manual")).texasHomeownerFieldManualArticle,
+  "texas-household-pests-guide": async () => (await import("./texas-household-pests-guide")).texasHouseholdPestsGuideArticle,
 };
 
 export async function loadNewestEvergreenArticle(brandId: string, slug: string) {
