@@ -17,6 +17,7 @@ const INTENT_GROUPS = [
     title: "Park weekends",
     body: "Start with public land, then connect trails, camping, wildlife and nearby towns.",
     links: [
+      { to: "/best-places-to-go-camping-in-texas", label: "Best camping in Texas" },
       { to: "/explore/state-parks", label: "State parks" },
       { to: "/explore/national-parks", label: "National parks" },
       { to: "/explore/outdoors", label: "Wildlife & outdoors" },
@@ -24,12 +25,22 @@ const INTENT_GROUPS = [
   },
   {
     title: "History routes",
-    body: "Pair missions, painted churches, museums, battlefields and old towns into a route that explains the place as you go.",
+    body: "Pair missions, lighthouses, painted churches, museums, battlefields and old towns into a route that explains the place as you go.",
     links: [
+      { to: "/explore/lighthouses", label: "Texas lighthouses" },
       { to: "/explore/painted-churches", label: "Painted Churches of Texas" },
       { to: "/explore/historic-sites", label: "Historic sites" },
       { to: "/explore/small-towns", label: "Small towns" },
       { to: "/explore/road-trips", label: "Road trips" },
+    ],
+  },
+  {
+    title: "Seasonal Texas",
+    body: "Plan around the seasons that actually change a Texas trip: spring wildflowers, late fall color and December town traditions.",
+    links: [
+      { to: "/article/texas-bluebonnets-complete-guide", label: "Bluebonnet season" },
+      { to: "/article/fall-in-texas-complete-guide", label: "Fall colors in Texas" },
+      { to: "/article/christmas-in-texas-complete-guide", label: "Christmas in Texas" },
     ],
   },
   {

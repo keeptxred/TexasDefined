@@ -15,8 +15,7 @@ const PLACEHOLDER_MARKERS = ["texasdefined-destination-placeholder", "texasdefin
 const LICENSE_OK = ["public domain", "cc0", "cc by", "cc-by", "cc by-sa", "cc-by-sa"];
 const USER_AGENT = "TexasDefined/1.0 (Explore photo reconciliation; https://texasdefined.com)";
 const API_GAP_MS = 500;
-const AI_MODEL = "google/gemini-3.1-flash-image";
-const AI_GATEWAY = "https://ai.gateway.lovable.dev/v1/images/generations";
+const CLOUDFLARE_MODEL = "@cf/black-forest-labs/flux-1-schnell";
 let lastApiRequestAt = 0;
 
 const GENERIC_WORDS = new Set([
@@ -61,11 +60,13 @@ function categoryForType(value) {
 }
 function distinctiveTokens(name) { return normalize(name).split(" ").filter((token) => token.length > 2 && !GENERIC_WORDS.has(token)); }
 function sourceKey(row) { return `${row.category}:${row.slug}`; }
+function imageAiConfigured() { return Boolean(process.env.CLOUDFLARE_ACCOUNT_ID && process.env.CLOUDFLARE_API_TOKEN); }
 
 async function loadDestinations() {
   const envText = await fs.readFile(ENV_PATH, "utf8").catch(() => "");
   const env = parseEnv(envText);
-  if (!process.env.LOVABLE_API_KEY && env.LOVABLE_API_KEY) process.env.LOVABLE_API_KEY = env.LOVABLE_API_KEY;
+  if (!process.env.CLOUDFLARE_ACCOUNT_ID && env.CLOUDFLARE_ACCOUNT_ID) process.env.CLOUDFLARE_ACCOUNT_ID = env.CLOUDFLARE_ACCOUNT_ID;
+  if (!process.env.CLOUDFLARE_API_TOKEN && env.CLOUDFLARE_API_TOKEN) process.env.CLOUDFLARE_API_TOKEN = env.CLOUDFLARE_API_TOKEN;
   const supabaseUrl = String(env.VITE_TEXASDEFINED_SUPABASE_URL || env.VITE_SUPABASE_URL || "").replace(/\/$/, "");
   const supabaseKey = String(env.VITE_TEXASDEFINED_SUPABASE_ANON_KEY || env.VITE_SUPABASE_PUBLISHABLE_KEY || "");
   const rows = [];
@@ -205,12 +206,28 @@ function aiPrompt(destination) {
   ].join(" ");
 }
 async function generateAiJpeg(destination, destinationPath) {
-  const key = process.env.LOVABLE_API_KEY;
-  if (!key) return false;
-  const response = await fetch(AI_GATEWAY, { method: "POST", headers: { Authorization: `Bearer ${key}`, "Lovable-API-Key": key, "Content-Type": "application/json" }, body: JSON.stringify({ model: AI_MODEL, messages: [{ role: "user", content: aiPrompt(destination) }], modalities: ["image", "text"] }) });
-  if (!response.ok) throw new Error(`AI image gateway ${response.status}: ${(await response.text().catch(() => "")).slice(0, 220)}`);
-  const payload = await response.json(); const b64 = payload.data?.[0]?.b64_json; if (!b64) throw new Error("AI image gateway returned no image data");
-  const bytes = Buffer.from(b64, "base64"); if (bytes.length < 20000) throw new Error(`AI image suspiciously small (${bytes.length} bytes)`);
+  const accountId = process.env.CLOUDFLARE_ACCOUNT_ID;
+  const apiToken = process.env.CLOUDFLARE_API_TOKEN;
+  if (!accountId || !apiToken) return false;
+  const endpoint = `https://api.cloudflare.com/client/v4/accounts/${encodeURIComponent(accountId)}/ai/run/${CLOUDFLARE_MODEL}`;
+  const response = await fetch(endpoint, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${apiToken}`, "Content-Type": "application/json" },
+    body: JSON.stringify({ prompt: aiPrompt(destination).slice(0, 2048), steps: 4 }),
+  });
+  if (!response.ok) throw new Error(`Cloudflare Workers AI ${response.status}: ${(await response.text().catch(() => "")).slice(0, 220)}`);
+
+  const contentType = response.headers.get("content-type") || "";
+  let bytes;
+  if (contentType.includes("application/json")) {
+    const payload = await response.json();
+    const b64 = payload?.result?.image || payload?.image;
+    if (!b64) throw new Error("Cloudflare Workers AI returned no image data");
+    bytes = Buffer.from(b64, "base64");
+  } else {
+    bytes = Buffer.from(await response.arrayBuffer());
+  }
+  if (bytes.length < 20000) throw new Error(`AI image suspiciously small (${bytes.length} bytes)`);
   if (bytes[0] === 0xff && bytes[1] === 0xd8 && bytes[2] === 0xff) { await fs.writeFile(destinationPath, bytes); return true; }
   const temp = `${destinationPath}.generated`; await fs.writeFile(temp, bytes);
   try { await execFileAsync("convert", [temp, "-auto-orient", "-strip", "-resize", "1600x1600>", "-quality", "88", destinationPath]); } finally { await fs.rm(temp, { force: true }); }
@@ -226,7 +243,7 @@ async function main() {
   for (const destination of destinations) if (!isPlaceholder(destination.existingHero)) heroCounts.set(destination.existingHero, (heroCounts.get(destination.existingHero) || 0) + 1);
   const usedTitles = new Set();
   const mapRows = [];
-  const report = { generatedAt: new Date().toISOString(), totalDestinations: destinations.length, byCategory: {}, retainedUniqueExisting: [], downloaded: [], aiGenerated: [], unresolved: [], rejectedDuplicateExisting: [], aiAvailable: Boolean(process.env.LOVABLE_API_KEY) };
+  const report = { generatedAt: new Date().toISOString(), totalDestinations: destinations.length, byCategory: {}, retainedUniqueExisting: [], downloaded: [], aiGenerated: [], unresolved: [], rejectedDuplicateExisting: [], aiAvailable: imageAiConfigured() };
 
   for (let index = 0; index < destinations.length; index += 1) {
     const destination = destinations[index];
@@ -255,7 +272,7 @@ async function main() {
       }
     } catch (error) { console.warn(`  free-photo lookup failed: ${error?.message || error}`); }
 
-    if (!resolved && process.env.LOVABLE_API_KEY) {
+    if (!resolved && imageAiConfigured()) {
       try {
         const categoryDir = path.join(OUT_DIR, destination.category); await fs.mkdir(categoryDir, { recursive: true });
         const relative = `/images/explore/${destination.category}/${destination.slug}.jpg`;
@@ -266,7 +283,7 @@ async function main() {
       } catch (error) { console.warn(`  AI generation failed: ${error?.message || error}`); }
     }
 
-    if (!resolved) { report.unresolved.push({ slug: destination.slug, name: destination.name, category: destination.category, reason: process.env.LOVABLE_API_KEY ? "free photo lookup and AI generation both failed" : "no free photo found and LOVABLE_API_KEY unavailable" }); report.byCategory[destination.category].unresolved += 1; }
+    if (!resolved) { report.unresolved.push({ slug: destination.slug, name: destination.name, category: destination.category, reason: imageAiConfigured() ? "free photo lookup and AI generation both failed" : "no free photo found and Cloudflare image generation unavailable" }); report.byCategory[destination.category].unresolved += 1; }
     await sleep(200);
   }
 

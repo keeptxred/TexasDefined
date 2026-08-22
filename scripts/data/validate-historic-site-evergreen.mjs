@@ -67,7 +67,7 @@ const weekendGuides = [
 
 const seedBlock = historicSites.match(/export const historicSiteSeeds:[\s\S]*?= \[([\s\S]*?)\n\];/);
 const seedSlugs = seedBlock ? [...seedBlock[1].matchAll(/slug:\s*"([^"]+)"/g)].map((match) => match[1]) : [];
-if (seedSlugs.length !== 43) failures.push(`Expected 43 historic-site seeds while validating evergreen guides; found ${seedSlugs.length}.`);
+if (seedSlugs.length !== 46) failures.push(`Expected 46 historic-site seeds while validating evergreen guides; found ${seedSlugs.length}.`);
 
 for (const guide of guides) {
   if (!fs.existsSync(guide.path)) { failures.push(`Historic evergreen guide file is missing: ${guide.path}`); continue; }

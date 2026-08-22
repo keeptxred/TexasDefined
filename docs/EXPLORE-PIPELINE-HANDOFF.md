@@ -1,6 +1,6 @@
 # Explore Data Pipeline — Handoff to KeepTXRed
 
-**Run this work in the `keeptxred/texas-heartland-hub` Lovable project**, which is bound to the
+**Run this work in the `keeptxred/texas-heartland-hub` repository**, which is bound to the
 shared Supabase project `qhwwmdszjgkscqxgmenf`. TexasDefined cannot apply migrations or deploy
 `explore-import` / `explore-review` into that project — it is bound to a different Supabase project
 and has anon-only access to the shared one.

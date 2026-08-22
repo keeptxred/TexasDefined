@@ -21,7 +21,6 @@ const FORBIDDEN = [
   { label: "KeepTXRed domain", pattern: /(?:https?:\/\/)?(?:www\.)?keeptxred\.com/gi },
   { label: "KeepTXRed brand", pattern: /\bkeep\s*tx\s*red\b/gi },
   { label: "legacy repository", pattern: /texas-heartland-hub/gi },
-  { label: "legacy Lovable preview", pattern: /texas-common-core\.lovable\.app/gi },
 ];
 
 // These paths intentionally describe cross-site ownership, shared contracts,

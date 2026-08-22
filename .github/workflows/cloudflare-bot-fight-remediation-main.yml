@@ -1,0 +1,261 @@
+name: One-time Cloudflare Bot Fight Mode remediation
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/recovery/cloudflare-bot-fight-run'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  remediate-bot-fight-mode:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: texasdefined-publication
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      MARKER: .github/certification/cloudflare-bot-fight-remediation.json
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Prove Bot Fight Mode and apply only the proven fix
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+
+          python3 - <<'PY'
+          import datetime, json, os, pathlib, subprocess, time, urllib.parse
+
+          token=os.environ.get('CLOUDFLARE_API_TOKEN','')
+          account_id=os.environ.get('CLOUDFLARE_ACCOUNT_ID','')
+          marker=pathlib.Path(os.environ['MARKER'])
+          marker.parent.mkdir(parents=True, exist_ok=True)
+          now=datetime.datetime.now(datetime.timezone.utc)
+          base='https://api.cloudflare.com/client/v4'
+          required_paths=[
+              '/',
+              '/sitemap.xml',
+              '/article/history-of-the-texas-flag',
+              '/texas-symbols',
+              '/texas-history',
+              '/article/texas-bluebonnets-complete-guide',
+              '/article/christmas-in-texas-complete-guide',
+              '/article/fall-in-texas-complete-guide',
+          ]
+          out={
+              'recorded_at_utc': now.isoformat(),
+              'operation': 'one-time-bot-fight-mode-remediation',
+              'token_available': bool(token),
+              'account_id_available': bool(account_id),
+              'required_paths': required_paths,
+              'preconditions_satisfied': False,
+              'changed': False,
+              'custom_domain_healthy': False,
+          }
+
+          def write_and_fail(message):
+              out['blocked']=message
+              marker.write_text(json.dumps(out,indent=2)+'\n')
+              raise SystemExit(message)
+
+          def req(method,url,body=None):
+              headers=['-H',f'Authorization: Bearer {token}','-H','Content-Type: application/json']
+              cmd=['curl','--silent','--show-error','--max-time','40','-X',method,*headers,'-o','/tmp/cfresp','-w','%{http_code}',url]
+              if body is not None:
+                  cmd += ['--data-binary',json.dumps(body,separators=(',',':'))]
+              p=subprocess.run(cmd,capture_output=True,text=True)
+              raw=pathlib.Path('/tmp/cfresp').read_text(errors='replace') if pathlib.Path('/tmp/cfresp').exists() else ''
+              try:
+                  parsed=json.loads(raw)
+              except Exception:
+                  parsed={'raw':raw[:12000]}
+              return {'http':p.stdout.strip(),'curl_exit':p.returncode,'stderr':p.stderr[-1200:],'body':parsed}
+
+          def result_value(response):
+              body=response.get('body') if isinstance(response,dict) else None
+              return (body or {}).get('result') if isinstance(body,dict) else None
+
+          if not token or not account_id:
+              write_and_fail('Required existing Cloudflare API token/account ID is unavailable; no change attempted')
+
+          acct=urllib.parse.quote(account_id)
+          zone_lookup=req('GET',f'{base}/zones?name=texasdefined.com&account.id={acct}')
+          rows=(result_value(zone_lookup) or []) if isinstance(result_value(zone_lookup),list) else []
+          zone=rows[0].get('id','') if rows else ''
+          out['zone_lookup']={'http':zone_lookup.get('http'),'success':bool(zone)}
+          out['zone_id']=zone or None
+          if not zone:
+              write_and_fail('Could not resolve texasdefined.com zone; no change attempted')
+
+          security_before=req('GET',f'{base}/zones/{zone}/settings/security_level')
+          bic_before=req('GET',f'{base}/zones/{zone}/settings/browser_check')
+          bot_before=req('GET',f'{base}/zones/{zone}/bot_management')
+          out['security_level_before']=security_before
+          out['browser_integrity_check_before']=bic_before
+          out['bot_management_before']=bot_before
+
+          security_value=((result_value(security_before) or {}).get('value')) if isinstance(result_value(security_before),dict) else None
+          bic_value=((result_value(bic_before) or {}).get('value')) if isinstance(result_value(bic_before),dict) else None
+          bot_value=result_value(bot_before) if isinstance(result_value(bot_before),dict) else {}
+          fight_mode=bot_value.get('fight_mode')
+          out['security_level_value_before']=security_value
+          out['browser_integrity_check_value_before']=bic_value
+          out['fight_mode_before']=fight_mode
+
+          if security_before.get('http')!='200' or security_value!='medium':
+              write_and_fail(f'Expected Security Level medium before remediation; got {security_value!r}; no change attempted')
+          if bic_before.get('http')!='200':
+              write_and_fail('Could not read Browser Integrity Check before remediation; no change attempted')
+          if bot_before.get('http')!='200' or fight_mode is not True:
+              write_and_fail(f'Expected Bot Fight Mode to be true before remediation; got {fight_mode!r}; no change attempted')
+
+          end=now
+          start=end-datetime.timedelta(hours=2)
+          gql='''query Events($zoneTag: string, $start: Time, $end: Time) { viewer { zones(filter: { zoneTag: $zoneTag }) { firewallEventsAdaptive(filter: { datetime_geq: $start, datetime_leq: $end }, limit: 250, orderBy: [datetime_DESC]) { action source ruleId clientRequestPath clientRequestHTTPHost datetime userAgent rayName } } } }'''
+          payload={'query':gql,'variables':{'zoneTag':zone,'start':start.isoformat().replace('+00:00','Z'),'end':end.isoformat().replace('+00:00','Z')}}
+          events_response=req('POST',f'{base}/graphql',payload)
+          out['security_events_http']=events_response.get('http')
+          body=events_response.get('body') if isinstance(events_response.get('body'),dict) else {}
+          zones=(((body.get('data') or {}).get('viewer') or {}).get('zones') or []) if isinstance(body,dict) else []
+          events=(zones[0].get('firewallEventsAdaptive') or []) if zones else []
+          matching=[e for e in events if e.get('clientRequestHTTPHost')=='texasdefined.com' and e.get('source')=='botFight' and e.get('ruleId')=='bot_fight_mode' and e.get('action')=='managed_challenge']
+          matched_paths=sorted({e.get('clientRequestPath') for e in matching if e.get('clientRequestPath') in required_paths})
+          missing_paths=[p for p in required_paths if p not in matched_paths]
+          out['bot_fight_evidence']={
+              'matching_event_count':len(matching),
+              'matched_required_paths':matched_paths,
+              'missing_required_paths':missing_paths,
+              'sample':[{
+                  'action':e.get('action'),
+                  'source':e.get('source'),
+                  'ruleId':e.get('ruleId'),
+                  'path':e.get('clientRequestPath'),
+                  'datetime':e.get('datetime'),
+                  'rayName':e.get('rayName'),
+              } for e in matching[:20]],
+          }
+          if events_response.get('http')!='200' or missing_paths:
+              write_and_fail(f'Bot Fight Mode evidence gate incomplete; missing required challenged paths: {missing_paths}; no change attempted')
+
+          protected_bot_fields=[
+              'ai_bots_protection','content_bots_protection','crawler_protection',
+              'enable_js','is_robots_txt_managed','cf_robots_variant','using_latest_model',
+          ]
+          before_protected={k:bot_value.get(k) for k in protected_bot_fields if k in bot_value}
+          out['protected_bot_fields_before']=before_protected
+          out['preconditions_satisfied']=True
+
+          update=req('PUT',f'{base}/zones/{zone}/bot_management',{'fight_mode':False})
+          out['bot_management_update']=update
+          update_result=result_value(update) if isinstance(result_value(update),dict) else {}
+          if update.get('http')!='200' or not ((update.get('body') or {}).get('success')) or update_result.get('fight_mode') is not False:
+              write_and_fail('Cloudflare rejected the exact fight_mode=false update; no broader change attempted')
+          out['changed']=True
+
+          time.sleep(2)
+          security_after=req('GET',f'{base}/zones/{zone}/settings/security_level')
+          bic_after=req('GET',f'{base}/zones/{zone}/settings/browser_check')
+          bot_after=req('GET',f'{base}/zones/{zone}/bot_management')
+          out['security_level_after']=security_after
+          out['browser_integrity_check_after']=bic_after
+          out['bot_management_after']=bot_after
+          security_after_value=((result_value(security_after) or {}).get('value')) if isinstance(result_value(security_after),dict) else None
+          bic_after_value=((result_value(bic_after) or {}).get('value')) if isinstance(result_value(bic_after),dict) else None
+          bot_after_value=result_value(bot_after) if isinstance(result_value(bot_after),dict) else {}
+          fight_mode_after=bot_after_value.get('fight_mode')
+          out['security_level_value_after']=security_after_value
+          out['browser_integrity_check_value_after']=bic_after_value
+          out['fight_mode_after']=fight_mode_after
+          after_protected={k:bot_after_value.get(k) for k in protected_bot_fields if k in bot_after_value}
+          out['protected_bot_fields_after']=after_protected
+
+          if security_after_value != security_value:
+              write_and_fail(f'Security Level changed unexpectedly from {security_value!r} to {security_after_value!r}')
+          if bic_after_value != bic_value:
+              write_and_fail(f'Browser Integrity Check changed unexpectedly from {bic_value!r} to {bic_after_value!r}')
+          if fight_mode_after is not False:
+              write_and_fail(f'Bot Fight Mode did not remain disabled after update: {fight_mode_after!r}')
+          if after_protected != before_protected:
+              write_and_fail('A protected Bot Management field changed unexpectedly; manual review required')
+
+          probes={}
+          for path in required_paths:
+              h=pathlib.Path('/tmp/h')
+              b=pathlib.Path('/tmp/b')
+              p=subprocess.run([
+                  'curl','--silent','--show-error','--location','--max-time','35',
+                  '-A','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/140 Safari/537.36 TexasDefinedVerifier/1.0',
+                  '-D',str(h),'-o',str(b),'-w','%{http_code}','https://texasdefined.com'+path,
+              ],capture_output=True,text=True)
+              headers=h.read_text(errors='replace') if h.exists() else ''
+              probes[path]={
+                  'http':p.stdout.strip(),
+                  'curl_exit':p.returncode,
+                  'cf_mitigated_challenge':'cf-mitigated: challenge' in headers.lower(),
+                  'content_type':next((line.split(':',1)[1].strip() for line in headers.splitlines() if line.lower().startswith('content-type:')),None),
+              }
+          out['custom_domain_probes']=probes
+          out['custom_domain_healthy']=all(v.get('http')=='200' and not v.get('cf_mitigated_challenge') for v in probes.values())
+          if not out['custom_domain_healthy']:
+              write_and_fail('Bot Fight Mode was disabled, but one or more representative custom-domain routes are still unhealthy; no further security changes attempted')
+
+          out['verified']=True
+          marker.write_text(json.dumps(out,indent=2)+'\n')
+          print('Verified: Bot Fight Mode alone was disabled and all representative custom-domain routes are healthy.')
+          PY
+
+      - name: Publish remediation evidence branch
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ ! -f "$MARKER" ]]; then
+            mkdir -p "$(dirname "$MARKER")"
+            printf '{"blocked":"remediation ended before writing evidence","verified":false}\n' > "$MARKER"
+          fi
+          branch="automation/cloudflare-bot-fight-remediation-${GITHUB_RUN_ID}"
+          git checkout -b "$branch"
+          git add "$MARKER"
+          git commit -m 'Record Cloudflare Bot Fight Mode remediation evidence'
+          git push origin "$branch"
+          if ! gh pr create \
+            --base main \
+            --head "$branch" \
+            --title 'Review Cloudflare Bot Fight Mode remediation evidence' \
+            --body 'One-time evidence for the proven Bot Fight Mode remediation. Review all preconditions, before/after security values, protected Bot Management fields, and representative live-route probes. Do not auto-merge this evidence PR.'; then
+            echo "::warning title=Evidence PR creation blocked::Evidence is preserved on branch $branch for manual review."
+            {
+              echo '## Cloudflare Bot Fight Mode remediation evidence'
+              echo
+              echo "Evidence branch: \`$branch\`"
+              echo 'Repository policy prevented GitHub Actions from opening the evidence PR; the branch was pushed successfully.'
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Require verified narrow remediation
+        if: always()
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json, os, sys
+          data=json.load(open(os.environ['MARKER']))
+          if not data.get('verified'):
+              print(data.get('blocked') or 'Cloudflare Bot Fight Mode remediation not verified', file=sys.stderr)
+              raise SystemExit(1)
+          if data.get('fight_mode_after') is not False:
+              raise SystemExit('Bot Fight Mode remains enabled')
+          if not data.get('custom_domain_healthy'):
+              raise SystemExit('Representative custom-domain routes remain unhealthy')
+          print('Narrow Cloudflare Bot Fight Mode remediation verified.')
+          PY

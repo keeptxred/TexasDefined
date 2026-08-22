@@ -1,7 +1,14 @@
 import type { Article } from "../types";
 import "./newest-evergreen-links";
 import "./military-museum-links";
+import "./seasonal-authority-links";
+import "./seasonal-county-links";
+import "./lighthouse-authority-links";
 import { winklerCountyArticleStub } from "./winkler-county-article-stub";
+import { seasonalAuthorityArticleStubs, loadSeasonalAuthorityArticle } from "./lazy-seasonal-authority";
+import { lighthouseDeepDiveStubs, loadLighthouseDeepDiveArticle } from "./lazy-lighthouse-deep-dives";
+import { lighthouseSearchIntentStubs, loadLighthouseSearchIntentArticle } from "./lazy-lighthouse-search-intents";
+import { seasonalIntentStubs, loadSeasonalIntentArticle } from "./lazy-seasonal-intents";
 
 const texasFlagHistoryStub: Article = {
   id: "evergreen-texas-flag-history",
@@ -81,21 +88,90 @@ const texasMilitaryMuseumsGuideStub: Article = {
   relatedDestinations: ["uss-lexington-museum-corpus-christi", "national-wasp-wwii-museum-sweetwater", "silent-wings-museum-lubbock", "texas-military-forces-museum", "palo-alto-battlefield-national-historical-park"],
 };
 
+const texasNationalCemeteriesGuideStub: Article = {
+  id: "evergreen-texas-national-cemeteries-guide",
+  brandId: "texasdefined",
+  slug: "texas-national-cemeteries-guide",
+  title: "Texas National Cemeteries: Fort Sam Houston, Houston and Dallas–Fort Worth",
+  dek: "A practical and historical guide to three of Texas' major VA national cemeteries—where they are, when visitors can enter, what makes each landscape distinctive and how their veteran stories connect to Texas military history.",
+  category: "texas-history",
+  region: "south-texas",
+  hero: {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Fort_Sam_Houston_National_Cemetery.jpg?width=1600",
+    alt: "Panoramic view across Fort Sam Houston National Cemetery in San Antonio",
+    width: 1600,
+    height: 481,
+    credit: "Travis K. Witt · CC BY-SA 4.0 · Wikimedia Commons",
+  },
+  authorId: "a-marisol",
+  publishedAt: "2026-08-21",
+  readingMinutes: 12,
+  tags: ["Texas national cemeteries", "Fort Sam Houston National Cemetery", "Houston National Cemetery", "Dallas-Fort Worth National Cemetery", "Texas veterans", "military cemeteries", "Medal of Honor", "Texas military history"],
+  featured: true,
+  sourceName: "U.S. Department of Veterans Affairs — National Cemetery Administration",
+  sourceUrl: "https://www.cem.va.gov/find-cemetery/state.asp?STATE=TX",
+  body: [],
+  relatedCollections: [],
+  relatedDestinations: ["fort-sam-houston-national-cemetery", "houston-national-cemetery", "dallas-fort-worth-national-cemetery", "texas-military-forces-museum"],
+};
+
+const texasHomeownerFieldManualStub: Article = {
+  id: "evergreen-texas-homeowner-field-manual",
+  brandId: "texasdefined",
+  slug: "texas-homeowner-field-manual",
+  title: "The Texas Homeowner Field Manual: Weather, Utilities, Insurance, Wildlife and the Systems That Matter",
+  dek: "A practical operating manual for owning a house in Texas: storms, freezes, foundations, roofs, electricity, insurance, water, pools, pests, wildlife, school districts, emergency records and the annual maintenance rhythm that ties them together.",
+  category: "home-garden",
+  hero: {
+    src: "https://images.unsplash.com/photo-1768941124710-1a42b3195208?auto=format&fit=crop&w=1600&h=1067&q=82",
+    alt: "Brick and stucco suburban home exterior with a green lawn and walkway",
+    width: 1600,
+    height: 1067,
+    credit: "Kellen Riggin · Unsplash",
+  },
+  authorId: "a-marisol",
+  publishedAt: "2026-08-22",
+  readingMinutes: 19,
+  tags: ["texas homeowner guide", "texas home maintenance", "texas weather", "texas insurance", "texas electricity", "texas wildlife", "texas foundation", "texas roof", "moving to texas"],
+  featured: true,
+  sourceName: "Texas Department of Insurance",
+  sourceUrl: "https://www.tdi.texas.gov/consumer/homeowners.html",
+  body: [],
+  relatedCollections: [],
+  relatedDestinations: [],
+};
+
 export const newestEvergreenArticles: Article[] = [
+  ...seasonalIntentStubs,
+  ...lighthouseSearchIntentStubs,
+  ...lighthouseDeepDiveStubs,
+  ...seasonalAuthorityArticleStubs,
   winklerCountyArticleStub,
   texasFlagHistoryStub,
   texasFlagEtiquetteStub,
   texasMilitaryMuseumsGuideStub,
+  texasNationalCemeteriesGuideStub,
+  texasHomeownerFieldManualStub,
 ];
 
 const loaders: Record<string, () => Promise<Article>> = {
   "history-of-the-texas-flag": async () => (await import("./texas-flag-history")).texasFlagHistoryArticle,
   "texas-flag-etiquette-display-guide": async () => (await import("./texas-flag-etiquette")).texasFlagEtiquetteArticle,
   "texas-military-museums-historic-sites-guide": async () => (await import("./texas-military-museums-historic-sites-guide")).texasMilitaryMuseumsHistoricSitesGuideArticle,
+  "texas-national-cemeteries-guide": async () => (await import("./texas-national-cemeteries-guide")).texasNationalCemeteriesGuideArticle,
+  "texas-homeowner-field-manual": async () => (await import("./texas-homeowner-field-manual")).texasHomeownerFieldManualArticle,
 };
 
 export async function loadNewestEvergreenArticle(brandId: string, slug: string) {
   if (brandId !== "texasdefined") return null;
+  const intentArticle = await loadSeasonalIntentArticle(brandId, slug);
+  if (intentArticle) return intentArticle;
+  const lighthouseIntentArticle = await loadLighthouseSearchIntentArticle(brandId, slug);
+  if (lighthouseIntentArticle) return lighthouseIntentArticle;
+  const lighthouseArticle = await loadLighthouseDeepDiveArticle(brandId, slug);
+  if (lighthouseArticle) return lighthouseArticle;
+  const seasonalArticle = await loadSeasonalAuthorityArticle(brandId, slug);
+  if (seasonalArticle) return seasonalArticle;
   const loader = loaders[slug];
   return loader ? loader() : null;
 }

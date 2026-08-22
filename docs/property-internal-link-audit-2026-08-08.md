@@ -65,7 +65,7 @@ The legacy quick estimator at `/decide/property-taxes` previously defaulted to a
 
 ## Generated route tree
 
-`src/routeTree.gen.ts` is generated output and can lag source-route commits in Git. The Vite configuration is provided by `@lovable.dev/vite-tanstack-config`, which includes TanStack Start/router generation. Do not hand-edit the generated route tree; source files under `src/routes` are the maintained route definitions and generation occurs during dev/build.
+`src/routeTree.gen.ts` is generated output and can lag source-route commits in Git. The Vite/TanStack configuration handles Start/router generation. Do not hand-edit the generated route tree; source files under `src/routes` are the maintained route definitions and generation occurs during dev/build.
 
 ## Result
 

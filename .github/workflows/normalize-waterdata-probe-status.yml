@@ -1,0 +1,32 @@
+name: Normalize optional water-data probe statuses
+
+on:
+  workflow_run:
+    workflows:
+      - Verify live lake levels in production
+    types:
+      - completed
+    branches:
+      - main
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  normalize:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      GH_TOKEN: ${{ github.token }}
+      STATUS_SHA: ${{ github.event.workflow_run.head_sha }}
+      SOURCE_WORKFLOW_CONCLUSION: ${{ github.event.workflow_run.conclusion }}
+    steps:
+      - name: Check out current main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Normalize observability-only probe statuses
+        run: node scripts/ci/normalize-waterdata-probe-status.mjs

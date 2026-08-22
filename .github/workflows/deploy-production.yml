@@ -12,6 +12,7 @@ on:
       - 'wrangler.jsonc'
       - 'vite.config.*'
       - 'tsconfig*.json'
+      - 'scripts/ci/**'
       - 'scripts/data/validate-painted-church*.mjs'
       - 'scripts/data/validate-texas-flag-authority.mjs'
       - 'scripts/data/validate-military-history-expansion.mjs'
@@ -34,244 +35,164 @@ jobs:
     environment: texasdefined-publication
     env:
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_DEPLOY_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_DEPLOY_TOKEN_PRESENT: ${{ secrets.CLOUDFLARE_DEPLOY_API_TOKEN != '' }}
       GH_TOKEN: ${{ github.token }}
+
     steps:
-      - name: Publish pending production status
-        shell: bash
-        run: |
-          curl --fail-with-body --silent --show-error --request POST \
-            --header "Authorization: Bearer $GH_TOKEN" \
-            --header 'Accept: application/vnd.github+json' \
-            --header 'X-GitHub-Api-Version: 2022-11-28' \
-            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
-            --data '{"state":"pending","context":"texasdefined-production","description":"Validating, building and deploying TexasDefined"}' >/dev/null
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
+
+      - name: Publish pending production status
+        run: node scripts/ci/publish-github-status.mjs texasdefined-production pending "Validating, building and deploying TexasDefined"
+
       - name: Install dependencies
+        id: install
         run: npm ci --no-audit --no-fund
+
+      - name: Report Cloudflare deployment credential source
+        shell: bash
+        run: |
+          if [[ "$CLOUDFLARE_DEPLOY_TOKEN_PRESENT" == 'true' ]]; then
+            echo 'Production deployment will use CLOUDFLARE_DEPLOY_API_TOKEN.'
+          else
+            echo '::warning title=Dedicated Cloudflare deploy token unavailable::Production deployment is falling back to CLOUDFLARE_API_TOKEN. If that token lacks Workers Scripts write access, deployment will fail closed.'
+          fi
 
       - name: Publish validation pending
         if: success()
-        shell: bash
-        run: |
-          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
-            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
-            --data '{"state":"pending","context":"texasdefined-validation","description":"Running pre-deploy authority validators"}' >/dev/null
-      - name: Validate Texas culture authority before deploy
+        run: node scripts/ci/publish-github-status.mjs texasdefined-validation pending "Running pre-deploy authority validators"
+
+      - name: Validate authority before deploy
         id: validation
-        run: |
-          node scripts/data/validate-machine-indexing.mjs
-          node scripts/data/validate-things-unique-to-texas.mjs
-          node scripts/data/validate-texas-icon-link-depth.mjs
-          node scripts/data/validate-texas-weather-authority.mjs
-          node scripts/data/validate-texas-food-history.mjs
-          node scripts/data/validate-texas-culture-citation-index.mjs
-          node scripts/data/validate-texas-flag-authority.mjs
-          node scripts/data/validate-painted-churches-seo.mjs
-          node scripts/data/validate-painted-church-search-intents.mjs
-          node scripts/data/validate-painted-church-map.mjs
-          node scripts/data/validate-painted-church-completion.mjs
-          node scripts/data/validate-military-history-expansion.mjs
-      - name: Publish validation success
-        if: ${{ steps.validation.outcome == 'success' }}
-        shell: bash
-        run: |
-          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
-            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
-            --data '{"state":"success","context":"texasdefined-validation","description":"Pre-deploy authority validation passed"}' >/dev/null
-      - name: Publish validation failure
-        if: ${{ failure() && steps.validation.outcome == 'failure' }}
-        shell: bash
-        run: |
-          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
-            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
-            --data '{"state":"failure","context":"texasdefined-validation","description":"Pre-deploy authority validation failed"}' >/dev/null
+        run: node scripts/ci/run-validation-suite.mjs predeploy
+
+      - name: Publish validation result
+        if: always()
+        env:
+          STAGE_OUTCOME: ${{ steps.validation.outcome }}
+        run: node scripts/ci/publish-github-status.mjs texasdefined-validation "$STAGE_OUTCOME" "Pre-deploy authority validation passed" "Pre-deploy authority validation failed"
 
       - name: Publish build pending
         if: success()
-        shell: bash
-        run: |
-          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
-            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
-            --data '{"state":"pending","context":"texasdefined-build","description":"Building the production bundle"}' >/dev/null
+        run: node scripts/ci/publish-github-status.mjs texasdefined-build pending "Building the production bundle"
+
       - name: Build production bundle
         id: build
         run: npm run build
-      - name: Publish build success
-        if: ${{ steps.build.outcome == 'success' }}
-        shell: bash
-        run: |
-          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
-            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
-            --data '{"state":"success","context":"texasdefined-build","description":"Production bundle build passed"}' >/dev/null
-      - name: Publish build failure
-        if: ${{ failure() && steps.build.outcome == 'failure' }}
-        shell: bash
-        run: |
-          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
-            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
-            --data '{"state":"failure","context":"texasdefined-build","description":"Production bundle build failed"}' >/dev/null
+
+      - name: Publish build result
+        if: always()
+        env:
+          STAGE_OUTCOME: ${{ steps.build.outcome }}
+        run: node scripts/ci/publish-github-status.mjs texasdefined-build "$STAGE_OUTCOME" "Production bundle build passed" "Production bundle build failed"
 
       - name: Publish bundle budget pending
         if: success()
-        shell: bash
-        run: |
-          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
-            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
-            --data '{"state":"pending","context":"texasdefined-bundle-budget","description":"Checking client bundle size budget"}' >/dev/null
+        run: node scripts/ci/publish-github-status.mjs texasdefined-bundle-budget pending "Checking client bundle size budget"
+
       - name: Enforce client bundle budget
         id: budget
         run: npm run performance:validate
-      - name: Publish bundle budget success
-        if: ${{ steps.budget.outcome == 'success' }}
-        shell: bash
-        run: |
-          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
-            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
-            --data '{"state":"success","context":"texasdefined-bundle-budget","description":"Client bundle budget passed"}' >/dev/null
-      - name: Publish bundle budget failure
-        if: ${{ failure() && steps.budget.outcome == 'failure' }}
-        shell: bash
-        run: |
-          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
-            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
-            --data '{"state":"failure","context":"texasdefined-bundle-budget","description":"Client bundle budget failed"}' >/dev/null
+
+      - name: Publish bundle budget result
+        if: always()
+        env:
+          STAGE_OUTCOME: ${{ steps.budget.outcome }}
+        run: node scripts/ci/publish-github-status.mjs texasdefined-bundle-budget "$STAGE_OUTCOME" "Client bundle budget passed" "Client bundle budget failed"
 
       - name: Publish Cloudflare deploy pending
         if: success()
-        shell: bash
-        run: |
-          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
-            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
-            --data '{"state":"pending","context":"texasdefined-cloudflare","description":"Deploying TexasDefined Worker"}' >/dev/null
+        run: node scripts/ci/publish-github-status.mjs texasdefined-cloudflare pending "Deploying TexasDefined Worker"
+
       - name: Deploy TexasDefined Worker
         id: cloudflare
         run: npx wrangler deploy
-      - name: Publish Cloudflare deploy success
-        if: ${{ steps.cloudflare.outcome == 'success' }}
-        shell: bash
-        run: |
-          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
-            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
-            --data '{"state":"success","context":"texasdefined-cloudflare","description":"Cloudflare Worker deployment passed"}' >/dev/null
-      - name: Publish Cloudflare deploy failure
-        if: ${{ failure() && steps.cloudflare.outcome == 'failure' }}
-        shell: bash
-        run: |
-          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
-            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
-            --data '{"state":"failure","context":"texasdefined-cloudflare","description":"Cloudflare Worker deployment failed"}' >/dev/null
+
+      - name: Publish Cloudflare deploy result
+        if: always()
+        env:
+          STAGE_OUTCOME: ${{ steps.cloudflare.outcome }}
+        run: node scripts/ci/publish-github-status.mjs texasdefined-cloudflare "$STAGE_OUTCOME" "Cloudflare Worker deployment passed" "Cloudflare Worker deployment failed"
 
       - name: Publish live verification pending
         if: success()
-        shell: bash
-        run: |
-          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
-            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
-            --data '{"state":"pending","context":"texasdefined-live","description":"Verifying production surfaces"}' >/dev/null
+        run: node scripts/ci/publish-github-status.mjs texasdefined-live pending "Verifying production surfaces"
+
       - name: Verify production surfaces
         id: live
-        shell: bash
-        run: |
-          set -euo pipefail
-          origin='https://texasdefined.com'
-          workdir="$(mktemp -d)"
-          trap 'rm -rf "$workdir"' EXIT
-          fetch_assert() {
-            local label="$1" path="$2" needle="$3"
-            local out="$workdir/${label}.html"
-            local attempt
-            for attempt in 1 2 3 4 5 6; do
-              echo "[$label] attempt $attempt: ${origin}${path}"
-              if curl --fail-with-body --silent --show-error --location --max-time 30 "${origin}${path}?verify=${GITHUB_SHA}-${GITHUB_RUN_ID}-${attempt}" -o "$out"; then
-                if grep -Fq "$needle" "$out"; then echo "[$label] production content verified: $needle"; return 0; fi
-                echo "[$label] fetched successfully but expected content is not live yet: $needle"
-              fi
-              sleep 5
-            done
-            echo "[$label] production verification failed for ${origin}${path}" >&2
-            head -c 1200 "$out" 2>/dev/null || true
-            echo >&2
-            return 1
-          }
-          fetch_assert homepage '/' 'Texas Defined'
-          fetch_assert moving-pillar '/article/moving-to-texas-what-nobody-tells-you' 'The quick answer: what should you know before moving to Texas?'
-          fetch_assert flag-history '/article/history-of-the-texas-flag' 'The Texas Flag: A History of the Lone Star'
-          fetch_assert flag-etiquette '/article/texas-flag-etiquette-display-guide' 'Texas Flag Etiquette: How to Display the Lone Star Flag Correctly'
-          fetch_assert texas-symbols '/texas-symbols' 'Official Texas Symbols'
-          fetch_assert painted-churches '/explore/painted-churches' 'Painted Churches of Texas'
-          fetch_assert then-and-now '/explore/painted-churches/then-and-now' 'Texas Painted Churches visual history'
-          fetch_assert media '/explore/painted-churches/media' 'Texas Painted Churches multimedia research library'
-          fetch_assert guidebook '/guides' 'Painted Churches of Texas'
-          fetch_assert historic-sites '/explore/historic-sites' 'Painted Churches of Texas'
-          fetch_assert road-trips '/explore/road-trips' 'Painted Churches routes'
-          fetch_assert small-towns '/explore/small-towns' 'Painted Churches'
-          fetch_assert spanish-texas '/article/spanish-texas-military-battle-medina' 'Military Texas Before the Republic'
-          fetch_assert mexican-texas '/article/mexican-texas-military-history' 'Military in Mexican Texas'
-          fetch_assert buffalo-soldiers '/article/buffalo-soldiers-texas-frontier-guide' 'Buffalo Soldiers in Texas'
-          fetch_assert red-river-war '/article/texas-red-river-war-guide' 'The Red River War in Texas'
-          fetch_assert spanish-american-war '/article/texas-spanish-american-war-guide' 'Texas and the Spanish-American War'
-          fetch_assert world-war-i '/article/texas-world-war-i-history-guide' 'Texas in World War I'
-          fetch_assert republic-navy '/article/republic-of-texas-navy-history' 'The Republic of Texas Navy'
-          fetch_assert cold-war '/article/texas-cold-war-military-history' 'Cold War Texas'
-          fetch_assert recent-wars '/article/texas-recent-wars-military-history' 'Texas in Recent Wars'
-          fetch_assert texas-history-military '/texas-history' 'Military in Mexican Texas'
-          echo 'TexasDefined production, core authority clusters and military-history surfaces are live.'
-      - name: Publish live verification success
-        if: ${{ steps.live.outcome == 'success' }}
-        shell: bash
-        run: |
-          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
-            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
-            --data '{"state":"success","context":"texasdefined-live","description":"Production surface verification passed"}' >/dev/null
-      - name: Publish live verification failure
-        if: ${{ failure() && steps.live.outcome == 'failure' }}
-        shell: bash
-        run: |
-          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
-            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
-            --data '{"state":"failure","context":"texasdefined-live","description":"Production deploy or live verification failed"}' >/dev/null
+        run: node scripts/ci/verify-production-surfaces.mjs
 
-      - name: Publish IndexNow pending
+      - name: Publish live verification result
+        if: always()
+        env:
+          STAGE_OUTCOME: ${{ steps.live.outcome }}
+        run: node scripts/ci/publish-github-status.mjs texasdefined-live "$STAGE_OUTCOME" "Production surface verification passed" "Production surface verification failed"
+
+      - name: Publish IndexNow gate pending
         if: success()
-        shell: bash
-        run: |
-          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
-            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
-            --data '{"state":"pending","context":"texasdefined-indexnow","description":"Submitting verified canonical URLs to IndexNow"}' >/dev/null
-      - name: Notify IndexNow after verified deployment
+        run: node scripts/ci/publish-github-status.mjs texasdefined-indexnow pending "Checking IndexNow approval gate"
+
+      - name: Run guarded IndexNow step
         id: indexnow
         run: node scripts/seo/submit-indexnow.mjs
-      - name: Publish IndexNow success
-        if: ${{ steps.indexnow.outcome == 'success' }}
-        shell: bash
-        run: |
-          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
-            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
-            --data '{"state":"success","context":"texasdefined-indexnow","description":"IndexNow submission passed"}' >/dev/null
-      - name: Publish IndexNow failure
-        if: ${{ failure() && steps.indexnow.outcome == 'failure' }}
-        shell: bash
-        run: |
-          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
-            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
-            --data '{"state":"failure","context":"texasdefined-indexnow","description":"IndexNow submission failed"}' >/dev/null
 
-      - name: Publish successful production status
-        if: success()
+      - name: Publish IndexNow gate result
+        if: always()
+        env:
+          STAGE_OUTCOME: ${{ steps.indexnow.outcome }}
+        run: node scripts/ci/publish-github-status.mjs texasdefined-indexnow "$STAGE_OUTCOME" "IndexNow gate completed" "IndexNow gate or submission failed"
+
+      - name: Summarize production pipeline
+        if: always()
         shell: bash
+        env:
+          INSTALL_OUTCOME: ${{ steps.install.outcome }}
+          VALIDATION_OUTCOME: ${{ steps.validation.outcome }}
+          BUILD_OUTCOME: ${{ steps.build.outcome }}
+          BUDGET_OUTCOME: ${{ steps.budget.outcome }}
+          CLOUDFLARE_OUTCOME: ${{ steps.cloudflare.outcome }}
+          LIVE_OUTCOME: ${{ steps.live.outcome }}
+          INDEXNOW_OUTCOME: ${{ steps.indexnow.outcome }}
         run: |
-          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
-            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
-            --data '{"state":"success","context":"texasdefined-production","description":"Production deploy and live verification passed"}' >/dev/null
-      - name: Publish failed production status
-        if: failure()
-        shell: bash
-        run: |
-          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
-            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
-            --data '{"state":"failure","context":"texasdefined-production","description":"Production deploy or live verification failed"}' >/dev/null
+          {
+            echo '## TexasDefined production pipeline'
+            echo
+            echo '| Stage | Failure class | Outcome |'
+            echo '|---|---|---|'
+            echo "| Dependency install | DEPENDENCY / INSTALL | ${INSTALL_OUTCOME:-not-run} |"
+            echo "| Pre-deploy validation | CODE / CONTENT / SEO / DATA | ${VALIDATION_OUTCOME:-not-run} |"
+            echo "| Production build | BUILD | ${BUILD_OUTCOME:-not-run} |"
+            echo "| Client bundle budget | BUNDLE BUDGET | ${BUDGET_OUTCOME:-not-run} |"
+            echo "| Cloudflare Worker deploy | CLOUDFLARE / DEPLOYMENT | ${CLOUDFLARE_OUTCOME:-not-run} |"
+            echo "| Live production verification | LIVE PRODUCTION | ${LIVE_OUTCOME:-not-run} |"
+            echo "| IndexNow approval gate | INDEXING / EXTERNAL | ${INDEXNOW_OUTCOME:-not-run} |"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          if [[ "$INSTALL_OUTCOME" == 'failure' ]]; then
+            echo '::error title=Pipeline failure class: DEPENDENCY / INSTALL::npm ci failed before application validation.'
+          elif [[ "$VALIDATION_OUTCOME" == 'failure' ]]; then
+            echo '::error title=Pipeline failure class: VALIDATION::A code/content/SEO/data validator failed; the exact check is in the validation-suite summary.'
+          elif [[ "$BUILD_OUTCOME" == 'failure' ]]; then
+            echo '::error title=Pipeline failure class: BUILD::Validation passed; the production build failed.'
+          elif [[ "$BUDGET_OUTCOME" == 'failure' ]]; then
+            echo '::error title=Pipeline failure class: BUNDLE BUDGET::Validation and build passed; the protected client bundle budget failed.'
+          elif [[ "$CLOUDFLARE_OUTCOME" == 'failure' ]]; then
+            echo '::error title=Pipeline failure class: CLOUDFLARE / DEPLOYMENT::Code validation, build and bundle budget passed; Cloudflare deployment failed.'
+          elif [[ "$LIVE_OUTCOME" == 'failure' ]]; then
+            echo '::error title=Pipeline failure class: LIVE PRODUCTION::Cloudflare deployment passed; a production surface failed verification. The exact URL/status is in the production verification summary.'
+          elif [[ "$INDEXNOW_OUTCOME" == 'failure' ]]; then
+            echo '::error title=Pipeline failure class: INDEXING / EXTERNAL::Production verification passed; the guarded IndexNow stage failed.'
+          fi
+
+      - name: Publish final production status
+        if: always()
+        env:
+          PIPELINE_OUTCOME: ${{ job.status }}
+        run: node scripts/ci/publish-github-status.mjs texasdefined-production "$PIPELINE_OUTCOME" "Production deploy and live verification passed" "Production pipeline failed; see the GitHub job summary"

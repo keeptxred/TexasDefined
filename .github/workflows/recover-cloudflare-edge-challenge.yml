@@ -1,0 +1,25 @@
+name: Retired — Cloudflare edge recovery audit
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit-retired-recovery:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify safer Cloudflare recovery path exists
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f .github/workflows/cloudflare-edge-recovery-main.yml
+          grep -Fq 'Publish recovery evidence as review PR' .github/workflows/cloudflare-edge-recovery-main.yml
+          grep -Fq 'This PR is intentionally not auto-merged' .github/workflows/cloudflare-edge-recovery-main.yml
+          if grep -Eq 'git[[:space:]]+push[[:space:]]+origin[[:space:]]+HEAD:main' .github/workflows/cloudflare-edge-recovery-main.yml; then
+            echo 'Safer Cloudflare recovery workflow regressed to direct main writes.' >&2
+            exit 1
+          fi
+          echo 'Legacy recovery path retired; use cloudflare-edge-recovery-main.yml.'

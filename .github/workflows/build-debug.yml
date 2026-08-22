@@ -28,7 +28,7 @@ jobs:
         run: bun install --ignore-scripts
       - name: Installed TanStack versions
         run: |
-          bun pm ls | grep -E '@tanstack|@lovable.dev|vite' || true
+          bun pm ls | grep -E '@tanstack|vite' || true
       - name: Route inventory
         run: |
           find src/routes -maxdepth 1 -type f -print | sort

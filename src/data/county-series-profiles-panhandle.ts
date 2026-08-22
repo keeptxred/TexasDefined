@@ -104,4 +104,10 @@ export const COUNTY_SERIES_PROFILES_PANHANDLE: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/hemphill-county-canadian-rivers-rodeo-panhandle-texas")
       .then((module) => module.hemphillCountyCanadianRiversRodeoPanhandleTexasArticle),
   },
+  {
+    countySlug: "collingsworth",
+    articleSlug: "collingsworth-county-wellington-salt-fork-red-river-panhandle-texas",
+    loadArticle: () => import("@/data/fixtures/collingsworth-county-wellington-salt-fork-red-river-panhandle-texas")
+      .then((module) => module.collingsworthCountyWellingtonSaltForkRedRiverPanhandleTexasArticle),
+  },
 ];
