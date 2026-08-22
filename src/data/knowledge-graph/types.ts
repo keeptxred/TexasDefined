@@ -30,6 +30,8 @@ export type TexasEntityRecord = {
   region?: string;
   coordinates?: GeoPoint;
   officialUrl?: string;
+  /** Explicit public URL owner when this graph record mirrors a richer route. */
+  canonicalPath?: string;
   sourceId: string;
   sourceConfidence: SourceConfidence;
   sourceCheckedAt?: string;
