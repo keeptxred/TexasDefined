@@ -1,0 +1,38 @@
+name: Validate seasonal authority
+
+on:
+  pull_request:
+    paths:
+      - 'src/data/fixtures/seasonal-authority-articles.ts'
+      - 'src/data/fixtures/seasonal-intent-articles.ts'
+      - 'src/data/fixtures/lazy-seasonal-authority.ts'
+      - 'src/data/fixtures/lazy-seasonal-intents.ts'
+      - 'src/data/fixtures/seasonal-authority-links.ts'
+      - 'src/data/fixtures/lazy-newest-evergreen.ts'
+      - 'scripts/data/validate-seasonal-authority.mjs'
+      - '.github/workflows/validate-seasonal-authority.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/data/fixtures/seasonal-authority-articles.ts'
+      - 'src/data/fixtures/seasonal-intent-articles.ts'
+      - 'src/data/fixtures/lazy-seasonal-authority.ts'
+      - 'src/data/fixtures/lazy-seasonal-intents.ts'
+      - 'src/data/fixtures/seasonal-authority-links.ts'
+      - 'src/data/fixtures/lazy-newest-evergreen.ts'
+      - 'scripts/data/validate-seasonal-authority.mjs'
+      - '.github/workflows/validate-seasonal-authority.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate-seasonal-authority:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate bluebonnet, Christmas and fall authority clusters
+        run: node scripts/data/validate-seasonal-authority.mjs
