@@ -1,0 +1,10 @@
+import type { CountySeriesProfile } from "@/data/county-series";
+
+export const COUNTY_SERIES_PROFILES_CONCHO: CountySeriesProfile[] = [
+  {
+    countySlug: "concho",
+    articleSlug: "concho-county-paint-rock-eden-pictographs-ranching-west-central-texas",
+    loadArticle: () => import("@/data/fixtures/concho-county-paint-rock-eden-pictographs-ranching-west-central-texas")
+      .then((module) => module.conchoCountyPaintRockEdenPictographsRanchingWestCentralTexasArticle),
+  },
+];
