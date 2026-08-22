@@ -1,0 +1,94 @@
+name: Cloudflare edge recovery PR check
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/cloudflare-edge-recovery-pr.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  recover-edge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: texasdefined-publication
+    env:
+      CF_TOKEN: ${{ secrets.CLOUDFLARE_SECURITY_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Diagnose and narrowly recover
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import datetime, json, os, pathlib, subprocess, sys, urllib.parse
+
+          token=os.environ.get('CF_TOKEN','')
+          if not token:
+              raise SystemExit('Missing CLOUDFLARE_SECURITY_API_TOKEN')
+          base='https://api.cloudflare.com/client/v4'
+          headers=['-H',f'Authorization: Bearer {token}','-H','Content-Type: application/json']
+
+          def req(method,url,body=None):
+              cmd=['curl','--silent','--show-error','--max-time','40','-X',method,*headers,'-o','/tmp/cfresp','-w','%{http_code}',url]
+              if body is not None: cmd += ['--data-binary',json.dumps(body)]
+              p=subprocess.run(cmd,capture_output=True,text=True)
+              raw=pathlib.Path('/tmp/cfresp').read_text(errors='replace') if pathlib.Path('/tmp/cfresp').exists() else ''
+              try: parsed=json.loads(raw)
+              except Exception: parsed={'raw':raw[:4000]}
+              return p.stdout.strip(),parsed
+
+          acct=urllib.parse.quote(os.environ.get('CLOUDFLARE_ACCOUNT_ID',''))
+          hs,z=req('GET',f'{base}/zones?name=texasdefined.com&account.id={acct}')
+          rows=(z or {}).get('result') or [] if isinstance(z,dict) else []
+          if hs!='200' or not rows:
+              raise SystemExit(f'Zone lookup failed HTTP={hs}')
+          zone=rows[0]['id']
+
+          _,security=req('GET',f'{base}/zones/{zone}/settings/security_level')
+          _,bic=req('GET',f'{base}/zones/{zone}/settings/browser_check')
+          _,bot=req('GET',f'{base}/zones/{zone}/bot_management')
+          _,custom=req('GET',f'{base}/zones/{zone}/rulesets/phases/http_request_firewall_custom/entrypoint')
+          _,config=req('GET',f'{base}/zones/{zone}/rulesets/phases/http_config_settings/entrypoint')
+
+          sec=((security or {}).get('result') or {}).get('value') if isinstance(security,dict) else None
+          bicv=((bic or {}).get('result') or {}).get('value') if isinstance(bic,dict) else None
+          print(f'security_level={sec}')
+          print(f'browser_integrity_check={bicv}')
+          print('bot_management='+json.dumps((bot or {}).get('result') if isinstance(bot,dict) else None,sort_keys=True)[:3000])
+          print('custom_waf='+json.dumps((custom or {}).get('result') if isinstance(custom,dict) else None,sort_keys=True)[:6000])
+          print('config_rules='+json.dumps((config or {}).get('result') if isinstance(config,dict) else None,sort_keys=True)[:6000])
+
+          now=datetime.datetime.now(datetime.timezone.utc); start=now-datetime.timedelta(hours=6)
+          q='''query Events($zoneTag: string, $start: Time, $end: Time) { viewer { zones(filter: { zoneTag: $zoneTag }) { firewallEventsAdaptive(filter: { datetime_geq: $start, datetime_leq: $end }, limit: 100, orderBy: [datetime_DESC]) { action source description ruleId clientRequestPath clientRequestHTTPHost datetime userAgent rayName } } } }'''
+          payload={'query':q,'variables':{'zoneTag':zone,'start':start.isoformat().replace('+00:00','Z'),'end':now.isoformat().replace('+00:00','Z')}}
+          gh,graph=req('POST',f'{base}/graphql',payload)
+          if gh=='200':
+              events=((((graph or {}).get('data') or {}).get('viewer') or {}).get('zones') or [{}])[0].get('firewallEventsAdaptive') or []
+              td=[e for e in events if e.get('clientRequestHTTPHost')=='texasdefined.com']
+              print('recent_texasdefined_security_events='+json.dumps(td[:30],sort_keys=True)[:12000])
+          else:
+              print('security_events_unavailable='+json.dumps(graph)[:3000])
+
+          if sec=='under_attack':
+              eh,edit=req('PATCH',f'{base}/zones/{zone}/settings/security_level',{'value':'medium'})
+              ok=eh=='200' and bool((edit or {}).get('success'))
+              print(f'under_attack_recovery_attempted=true success={str(ok).lower()}')
+              if not ok: raise SystemExit('Under Attack Mode detected but recovery failed')
+          else:
+              print('under_attack_recovery_attempted=false')
+
+          bad=[]
+          for path in ['/', '/sitemap.xml', '/article/history-of-the-texas-flag', '/article/texas-bluebonnets-complete-guide', '/article/christmas-in-texas-complete-guide', '/article/fall-in-texas-complete-guide']:
+              h=pathlib.Path('/tmp/h'); b=pathlib.Path('/tmp/b')
+              p=subprocess.run(['curl','--silent','--show-error','--location','--max-time','35','-A','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/140 Safari/537.36 TexasDefinedVerifier/1.0','-D',str(h),'-o',str(b),'-w','%{http_code}','https://texasdefined.com'+path],capture_output=True,text=True)
+              headers=h.read_text(errors='replace') if h.exists() else ''
+              challenged='cf-mitigated: challenge' in headers.lower()
+              print(f'probe path={path} http={p.stdout.strip()} challenged={str(challenged).lower()}')
+              if p.stdout.strip()!='200' or challenged: bad.append(path)
+          if bad:
+              raise SystemExit('Custom domain still challenged/unhealthy: '+','.join(bad))
+          print('Custom domain healthy: all representative routes returned 200 without Cloudflare challenge.')
+          PY
