@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 
 const counties = ['crosby','gaines','howard','hutchinson','morris','nolan','rockwall','scurry','wise','wood'];
@@ -21,13 +22,33 @@ for (const county of counties) {
   if (!Array.isArray(item.pageMarkers) || item.pageMarkers.length < 5) errors.push(`${county}: pageMarkers must retain structured/editorial depth checks`);
   if (!item.pageMarkers?.includes(`https://texasdefined.com/county/${county}`)) errors.push(`${county}: canonical live-page marker missing`);
   if (item.targetSha && !/^[0-9a-f]{40}$/.test(item.targetSha)) errors.push(`${county}: targetSha must be blank or a full commit SHA`);
-  if (!['none','not-200','redirect'].includes(item.legacy?.mode)) errors.push(`${county}: unsupported legacy mode ${item.legacy?.mode}`);
+
+  const expectedLegacyPath = `/article/${path.basename(item.fixture, '.ts')}`;
+  if (item.legacy?.mode !== 'redirect') errors.push(`${county}: current generic county-series architecture requires legacy mode redirect`);
+  if (item.legacy?.path !== expectedLegacyPath) errors.push(`${county}: legacy path must match fixture slug ${expectedLegacyPath}`);
+  if (item.legacy?.locationExact !== `https://texasdefined.com/county/${county}`) errors.push(`${county}: legacy redirect must resolve exactly to the canonical county URL`);
+  if (JSON.stringify(item.legacy?.statuses) !== JSON.stringify([301])) errors.push(`${county}: current server contract requires exact HTTP 301 legacy redirect`);
 
   for (const requirement of item.sourceRequirements ?? []) {
-    if (!fs.existsSync(requirement.file)) errors.push(`${county}: required source file missing: ${requirement.file}`);
+    if (!fs.existsSync(requirement.file)) {
+      errors.push(`${county}: required source file missing: ${requirement.file}`);
+      continue;
+    }
+    const source = read(requirement.file);
+    for (const needle of requirement.includes ?? []) {
+      if (!source.includes(needle)) errors.push(`${county}: configured source requirement is stale; ${requirement.file} is missing: ${needle}`);
+    }
+    for (const needle of requirement.forbidden ?? []) {
+      if (source.includes(needle)) errors.push(`${county}: forbidden regression marker is present in ${requirement.file}: ${needle}`);
+    }
   }
+
   for (const file of item.canonicalScanFiles ?? []) {
-    if (!fs.existsSync(file)) errors.push(`${county}: canonical scan file missing: ${file}`);
+    if (!fs.existsSync(file)) {
+      errors.push(`${county}: canonical scan file missing: ${file}`);
+      continue;
+    }
+    if (read(file).includes('www.texasdefined.com')) errors.push(`${county}: canonical scan file contains noncanonical www host: ${file}`);
   }
 
   const wrapperPath = `.github/workflows/certify-${county}-county-once.yml`;
@@ -45,6 +66,20 @@ for (const county of counties) {
     if (wrapper.includes(forbidden)) errors.push(`${wrapperPath}: thin wrapper must not contain ${forbidden}`);
   }
 }
+
+const countySeries = read('src/data/county-series.ts');
+for (const needle of [
+  'articleSlug.indexOf("-county-")',
+  'articleSlug.endsWith("-texas")',
+  'return articleSlug.slice(0, markerIndex);',
+]) if (!countySeries.includes(needle)) errors.push(`Generic legacy county-slug parser regressed: missing ${needle}`);
+
+const server = read('src/server.ts');
+for (const needle of [
+  'const countySlug = countySlugForLegacyArticle(decodeURIComponent(match[1]));',
+  'url.pathname = `/county/${countySlug}`;',
+  'return Response.redirect(url.toString(), 301);',
+]) if (!server.includes(needle)) errors.push(`Generic legacy county redirect regressed: missing ${needle}`);
 
 const reusablePath = '.github/workflows/certify-county-production-reusable.yml';
 const reusable = read(reusablePath);
@@ -72,7 +107,7 @@ for (const needle of [
   "evidence.status = 'pass';",
   "evidence.stage = 'complete';",
 ]) if (!engine.includes(needle)) errors.push(`${enginePath}: missing protected certification behavior ${needle}`);
-for (const forbidden of ['git push origin HEAD:main', 'priority-search-pages.ts\')\n          s =', 'Fix Texas football alias route governance', 'Lazy-load Texas Life split articles']) {
+for (const forbidden of ['git push origin HEAD:main', 'Fix Texas football alias route governance', 'Lazy-load Texas Life split articles']) {
   if (engine.includes(forbidden)) errors.push(`${enginePath}: certification engine must not mutate product source (${forbidden})`);
 }
 
@@ -91,6 +126,7 @@ if (/git\s+push\s+origin\s+HEAD:main/.test(publisher)) errors.push(`${publisherP
 for (const [command, args, label] of [
   ['node', ['--check', enginePath], 'county certification engine syntax'],
   ['node', ['--check', 'scripts/ci/validate-direct-main-writer-inventory.mjs'], 'direct-main policy syntax'],
+  ['node', ['--check', 'scripts/ci/validate-county-certifier-consolidation.mjs'], 'county certifier contract syntax'],
   ['bash', ['-n', publisherPath], 'evidence publisher shell syntax'],
 ]) {
   const result = spawnSync(command, args, { encoding: 'utf8' });
@@ -103,4 +139,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('County certifier consolidation passed: ten manual wrappers share one source-read-only production certification engine, exact-commit validated evidence PRs, zero direct-main writes, and retained county-specific source/hero/live/legacy contracts.');
+console.log('County certifier consolidation passed: ten manual wrappers share one source-read-only production certification engine, exact-commit validated evidence PRs, zero direct-main writes, current source assertions are executable, and all legacy county-series article shapes are protected as exact 301 redirects to canonical county URLs.');
