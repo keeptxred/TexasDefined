@@ -1,3 +1,10 @@
+const publicIndexingEnabled = process.env.PUBLIC_INDEXING_ENABLED === 'true';
+
+if (!publicIndexingEnabled) {
+  console.log('IndexNow submission skipped: PUBLIC_INDEXING_ENABLED is not explicitly true. No URLs were submitted.');
+  process.exit(0);
+}
+
 const origin = 'https://texasdefined.com';
 const host = 'texasdefined.com';
 const key = '0c2b08423ce5be707dd931f57239acf1';
