@@ -19,4 +19,10 @@ export const COUNTY_SERIES_PROFILES_CONCHO: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/coke-county-robert-lee-bronte-colorado-river-west-central-texas")
       .then((module) => module.cokeCountyRobertLeeBronteColoradoRiverWestCentralTexasArticle),
   },
+  {
+    countySlug: "irion",
+    articleSlug: "irion-county-mertzon-sherwood-middle-concho-ranching-west-central-texas",
+    loadArticle: () => import("@/data/fixtures/irion-county-mertzon-sherwood-middle-concho-ranching-west-central-texas")
+      .then((module) => module.irionCountyMertzonSherwoodMiddleConchoRanchingWestCentralTexasArticle),
+  },
 ];
