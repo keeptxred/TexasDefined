@@ -1,5 +1,3 @@
-import homeMaintenanceHero from "@/assets/texas-home-maintenance-photo.jpg";
-
 import type { Article, ArticleBlock } from "../types";
 
 const p = (text: string): ArticleBlock => ({ type: "paragraph", text });
@@ -14,10 +12,11 @@ export const texasHomeownerFieldManualArticle: Article = {
   dek: "A practical operating manual for owning a house in Texas: storms, freezes, foundations, roofs, electricity, insurance, water, pools, pests, wildlife, school districts, emergency records and the annual maintenance rhythm that ties them together.",
   category: "home-garden",
   hero: {
-    src: homeMaintenanceHero,
-    alt: "A homeowner checking the outdoor air conditioning unit beside a brick Texas house",
+    src: "https://images.unsplash.com/photo-1768941124710-1a42b3195208?auto=format&fit=crop&w=1600&h=1067&q=82",
+    alt: "Brick and stucco suburban home exterior with a green lawn and walkway",
     width: 1600,
     height: 1067,
+    credit: "Kellen Riggin · Unsplash",
   },
   authorId: "a-marisol",
   publishedAt: "2026-08-22",
