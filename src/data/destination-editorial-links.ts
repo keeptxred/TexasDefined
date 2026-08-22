@@ -55,6 +55,11 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       label: "Compare Texas state parks for fall color",
       description: "See which public parks combine reliable tree species, water, trails and autumn scenery for a fall trip.",
     },
+    {
+      href: "/article/texas-fall-foliage-road-trip",
+      label: "Turn Caddo Lake into a fall road trip",
+      description: "Compare the East Texas alternative with the Frio, Lost Maples and Guadalupe route, then follow the region with the better current color.",
+    },
   ],
   "caddo-lake": [
     {
@@ -66,6 +71,11 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       href: "/article/east-texas-fall-colors",
       label: "Go deeper on East Texas fall color",
       description: "Turn Caddo Lake into a wider Piney Woods foliage trip built around current conditions.",
+    },
+    {
+      href: "/article/best-places-for-fall-colors-in-texas",
+      label: "Compare Texas fall-color destinations",
+      description: "See how Caddo Lake stacks up against Lost Maples, Garner, Daingerfield, the Guadalupe and other strong autumn stops.",
     },
   ],
 };
