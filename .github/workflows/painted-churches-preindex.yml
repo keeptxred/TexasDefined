@@ -43,6 +43,7 @@ jobs:
         run: |
           node scripts/data/validate-painted-churches-seo.mjs
           node scripts/data/validate-painted-church-search-intents.mjs
+          node scripts/data/validate-painted-church-search-guide-quality.mjs
           node scripts/data/validate-painted-church-map.mjs
           node scripts/data/validate-painted-church-completion.mjs
       - name: Strict pre-index authority gate
