@@ -1,60 +1,26 @@
-name: Diagnose Cloudflare security events
+name: Retired — Cloudflare security events audit
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/diagnose-cloudflare-security-events.yml'
+  workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  diagnose:
+  audit-retired-diagnostic:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
-    environment: texasdefined-publication
-    env:
-      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-      MARKER: .github/certification/cloudflare-security-events.json
-      ZONE_ID: c251a715a3be875ac70a397d77efef22
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: main
-          fetch-depth: 2
-      - name: Query recent Cloudflare security events
+      - name: Verify current recovery captures security events safely
         shell: bash
         run: |
-          set -u
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          python3 - <<'PY'
-          import datetime, json, os, pathlib, subprocess
-          end = datetime.datetime.now(datetime.timezone.utc)
-          start = end - datetime.timedelta(hours=2)
-          query = '''query Events($zoneTag: string, $start: Time, $end: Time) {
-            viewer { zones(filter: { zoneTag: $zoneTag }) {
-              firewallEventsAdaptive(filter: { datetime_geq: $start, datetime_leq: $end }, limit: 100, orderBy: [datetime_DESC]) {
-                action source description ruleId clientRequestPath clientRequestHTTPHost datetime userAgent rayName
-              }
-              httpRequestsAdaptive(filter: { datetime_geq: $start, datetime_leq: $end, clientRequestHTTPHost: "texasdefined.com" }, limit: 100, orderBy: [datetime_DESC]) {
-                datetime clientRequestPath edgeResponseStatus securityAction securitySource rayName userAgent
-              }
-            } }
-          }'''
-          payload = json.dumps({'query': query, 'variables': {'zoneTag': os.environ['ZONE_ID'], 'start': start.isoformat().replace('+00:00','Z'), 'end': end.isoformat().replace('+00:00','Z')}})
-          p = subprocess.run(['curl','--silent','--show-error','--max-time','45','https://api.cloudflare.com/client/v4/graphql','-H',f"Authorization: Bearer {os.environ['CLOUDFLARE_API_TOKEN']}",'-H','Content-Type: application/json','--data-binary',payload], capture_output=True, text=True)
-          try: body = json.loads(p.stdout)
-          except Exception: body = {'raw': p.stdout[:12000]}
-          out = {'recorded_at_utc': end.isoformat(), 'window_start_utc': start.isoformat(), 'curl_exit': p.returncode, 'stderr': p.stderr[-2000:], 'response': body}
-          path = pathlib.Path(os.environ['MARKER']); path.parent.mkdir(parents=True, exist_ok=True); path.write_text(json.dumps(out, indent=2)+'\n')
-          PY
-          git add "$MARKER"
-          git commit -m 'Record Cloudflare security events' || true
-          for attempt in 1 2 3; do
-            git pull --rebase origin main || { git rebase --abort || true; sleep 2; continue; }
-            git push origin HEAD:main && exit 0
-            sleep 3
-          done
-          exit 1
+          set -euo pipefail
+          workflow=.github/workflows/cloudflare-edge-recovery-main.yml
+          grep -Fq 'firewallEventsAdaptive' "$workflow"
+          grep -Fq 'security_events' "$workflow"
+          grep -Fq 'Publish recovery evidence as review PR' "$workflow"
+          if grep -Eq 'git[[:space:]]+push[[:space:]]+origin[[:space:]]+HEAD:main' "$workflow"; then
+            echo 'Current recovery evidence must not write directly to main.' >&2
+            exit 1
+          fi
+          echo 'Legacy security-events writer retired; current recovery retains the evidence through a review PR.'
