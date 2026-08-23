@@ -3,7 +3,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import bluebonnets from "@/assets/bluebonnets.jpg";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { CategoryPage } from "@/components/editorial/CategoryPage";
 import { articlesQuery, destinationsQuery, regionsQuery } from "@/data/queries";
 import type { Article, Destination } from "@/data/types";
 import { buildEditorialCollectionHead, buildMeta, canonicalLink } from "@/lib/seo";
@@ -34,5 +33,4 @@ export const Route = createFileRoute("/home-garden")({
     ]);
     return { articles, destinations };
   },
-  component: () => <CategoryPage category="home-garden" eyebrow="Home & Garden" title="A distinctly Texas way of living at home" intro={description} image={{ src: bluebonnets, alt: imageAlt, width: 1600, height: 1067 }} />,
 });
