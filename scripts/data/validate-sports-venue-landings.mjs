@@ -29,7 +29,7 @@ const [landings, landingPaths, route, indexComponent, quickAnswers, countySports
   read('src/routes/$kind.$slug.tsx'),
   read('src/routes/search.tsx'),
   readRouteSurface('src/routes/index.tsx'),
-  read('src/routes/guides.tsx'),
+  readRouteSurface('src/routes/guides.tsx'),
   read('src/data/queries.ts'),
   read('src/data/types.ts'),
   read('src/routes/llms[.]txt.ts'),
