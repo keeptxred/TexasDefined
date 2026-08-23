@@ -8,6 +8,7 @@ const sync = fs.readFileSync('scripts/data/sync-county-property-data.mjs', 'utf8
 const directoryRoute = fs.readFileSync('src/routes/property-tax.counties.tsx', 'utf8');
 const refreshWorkflow = fs.readFileSync('.github/workflows/sync-county-property-data.yml', 'utf8');
 const validateWorkflow = fs.readFileSync('.github/workflows/validate.yml', 'utf8');
+const validationSuite = fs.readFileSync('scripts/ci/run-validation-suite.mjs', 'utf8');
 const failures = [];
 const SOURCE_MAX_AGE_DAYS = 730;
 
@@ -110,11 +111,12 @@ for (const feature of [
 if (/git\s+push\s+origin\s+main(?:\s|$)/m.test(refreshWorkflow)) failures.push('County property refresh workflow must never push generated source changes directly to main.');
 if (/gh\s+pr\s+merge/m.test(refreshWorkflow)) failures.push('County property refresh workflow must not auto-merge externally refreshed data.');
 
-for (const feature of [
-  'Validate county property enrichment',
-  'node scripts/data/validate-county-property-enrichment.mjs',
-]) {
-  if (!validateWorkflow.includes(feature)) failures.push(`Main validation workflow must permanently run county property enrichment protection: ${feature}`);
+const legacyStandaloneProtection = validateWorkflow.includes('Validate county property enrichment') && validateWorkflow.includes('node scripts/data/validate-county-property-enrichment.mjs');
+const centralizedProtection = validateWorkflow.includes('node scripts/ci/run-validation-suite.mjs full')
+  && validationSuite.includes("'county-property-enrichment'")
+  && validationSuite.includes("'scripts/data/validate-county-property-enrichment.mjs'");
+if (!legacyStandaloneProtection && !centralizedProtection) {
+  failures.push('Main validation must permanently run county property enrichment protection either as its legacy named step or through the authoritative validation suite.');
 }
 
 if (/lastVerifiedAt:\s*['"]?\s*['"]?\s*,/.test(snapshot)) failures.push('Snapshot contains an empty verification date.');

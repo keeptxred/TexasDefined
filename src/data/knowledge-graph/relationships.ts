@@ -18,23 +18,19 @@ const GOVERNMENT_REFERENCE_KINDS = new Set([
   'dps-office',
 ]);
 
-/**
- * These generic knowledge-graph entity kinds are mirrors of richer destination
- * guides sourced from the Explore catalog. Publishing both URL families as
- * indexable pages creates duplicate search intent (for example
- * /state-park/enchanted-rock-state-natural-area and
- * /destination/enchanted-rock-state-natural-area).
- *
- * Keep the generic route available for compatibility, but consolidate search
- * signals and sitemap references on the richer destination URL. The generic
- * related-entity layer does not promote these mirrors; destination pages have
- * their own curated relationship system backed by the destination catalog.
- */
-const DESTINATION_MIRROR_KINDS = new Set([
-  'state-park',
-  'attraction',
-  'historic-site',
+const DESTINATION_MIRROR_IDS = new Set([
+  'lake:caddo-lake',
+  'state-park:palo-duro-canyon-state-park',
+  'state-park:enchanted-rock-state-natural-area',
+  'national-park:big-bend-national-park',
+  'cavern:natural-bridge-caverns',
+  'beach:padre-island-national-seashore',
+  'historic-site:the-alamo',
 ]);
+
+function isDestinationMirror(entity: Pick<TexasEntityRecord, 'kind' | 'slug'>) {
+  return DESTINATION_MIRROR_IDS.has(`${entity.kind}:${entity.slug}`);
+}
 
 export function rankRelatedEntities(entity: TexasEntityRecord, graph: TexasEntityRecord[], limit = 12): RankedRelatedEntity[] {
   const explicit = new Set(entity.relationships.map((relationship) => relationship.targetId));
@@ -123,7 +119,7 @@ function proximityTieBreak(origin: TexasEntityRecord, a: TexasEntityRecord, b: T
 }
 
 export function canonicalEntityPath(entity: Pick<TexasEntityRecord, 'kind' | 'slug'>) {
-  if (DESTINATION_MIRROR_KINDS.has(entity.kind)) return `/destination/${entity.slug}`;
+  if (isDestinationMirror(entity)) return `/destination/${entity.slug}`;
   return `/${entity.kind}/${entity.slug}`;
 }
 
@@ -149,11 +145,8 @@ function hasEntitySpecificOfficialUrl(entity: TexasEntityRecord) {
  * as a useful search result.
  */
 export function isIndexableEntityPage(entity: TexasEntityRecord) {
-  if (DESTINATION_MIRROR_KINDS.has(entity.kind)) return false;
+  if (isDestinationMirror(entity)) return false;
 
-  // TexasDefined is not a state-agency or local-government directory. These
-  // entity records remain useful as source/context data, but their public URL
-  // ownership is consolidated into KeepTXRed or richer county/service guides.
   if (GOVERNMENT_REFERENCE_KINDS.has(entity.kind)) return false;
 
   if (!['active', 'seasonal'].includes(entity.status)) return false;
@@ -163,11 +156,12 @@ export function isIndexableEntityPage(entity: TexasEntityRecord) {
   const description = entity.description?.trim() ?? '';
 
   if (entity.kind === 'county') {
+    const editorialComplete = entity.tags?.includes('county-series-complete') ?? false;
     return description.length >= 180
       && entity.sourceConfidence === 'official'
       && entity.status === 'active'
       && Boolean(entity.coordinates)
-      && entity.relationships.length >= 2;
+      && (editorialComplete || entity.relationships.length >= 2);
   }
 
   if (description.length < 180) return false;

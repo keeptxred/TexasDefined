@@ -2,6 +2,7 @@ import { createFileRoute, notFound } from '@tanstack/react-router';
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { AutoEntityLinks } from '@/components/content/AutoEntityLinks';
 import { CountyGuideSections } from '@/components/content/CountyGuideSections';
+import { EntityDepthSections } from '@/components/content/EntityDepthSections';
 import { Container } from '@/components/layout/Container';
 import { CountySportsDestinations } from '@/components/sports/CountySportsDestinations';
 import { loadCountyProfile } from '@/data/county-profile';
@@ -154,6 +155,7 @@ function EntityPage() {
 
         {entity.kind === 'county' && countyProfile && localGovernment ? <CountyGuideSections entity={entity} profile={countyProfile} localGovernment={localGovernment} related={related} /> : null}
         {entity.kind === 'county' ? <CountySportsDestinations county={entity} venues={countySportsVenues} /> : null}
+        {entity.kind !== 'county' ? <EntityDepthSections entity={entity} related={visibleRelated} /> : null}
 
         {entity.kind !== 'county' && entity.tags?.length ? <section className="grid gap-6 border-b border-border py-10 lg:grid-cols-[14rem_1fr]">
           <div>

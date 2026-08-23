@@ -115,9 +115,7 @@ async function generateDraft(item, destinationRows) {
 async function generateAndStoreImage(draft) {
   const response = await workersAi(IMAGE_MODEL, {
     prompt: `${draft.heroPrompt}. Photorealistic natural Texas editorial image, wide 16:9 composition, no text, no logo, no watermark, no recognizable private person.`,
-    width: 1024,
-    height: 576,
-    num_steps: 8,
+    steps: 4,
   });
   const type = response.headers.get('content-type') || '';
   let bytes;

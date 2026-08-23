@@ -1,3 +1,10 @@
+const publicIndexingEnabled = process.env.PUBLIC_INDEXING_ENABLED === 'true';
+
+if (!publicIndexingEnabled) {
+  console.log('IndexNow submission skipped: PUBLIC_INDEXING_ENABLED is not explicitly true. No URLs were submitted.');
+  process.exit(0);
+}
+
 const origin = 'https://texasdefined.com';
 const host = 'texasdefined.com';
 const key = '0c2b08423ce5be707dd931f57239acf1';
@@ -49,13 +56,7 @@ for (const sitemapUrl of sitemapUrls) {
 if (urls.size === 0) throw new Error('No canonical TexasDefined URLs were found in the live sitemaps.');
 if (urls.size > 10_000) throw new Error(`IndexNow batch exceeds 10,000 URLs: ${urls.size}`);
 
-const payload = {
-  host,
-  key,
-  keyLocation,
-  urlList: [...urls].sort(),
-};
-
+const payload = { host, key, keyLocation, urlList: [...urls].sort() };
 const response = await fetch('https://api.indexnow.org/indexnow', {
   method: 'POST',
   headers: { 'content-type': 'application/json; charset=utf-8' },

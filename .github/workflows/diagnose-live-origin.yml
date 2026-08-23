@@ -1,0 +1,92 @@
+name: Diagnose TexasDefined live origin
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+env:
+  MARKER: .github/certification/live-origin-diagnostic.json
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: texasdefined-publication
+    env:
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Probe custom domain and direct Worker
+        shell: bash
+        run: |
+          set -euo pipefail
+          work="$(mktemp -d)"
+          trap 'rm -rf "$work"' EXIT
+          api="https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/workers/subdomain"
+          response="$(curl --fail-with-body --silent --show-error -H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" "$api")"
+          subdomain="$(python3 -c 'import json,sys; d=json.load(sys.stdin); print((d.get("result") or {}).get("subdomain", ""))' <<<"$response")"
+          test -n "$subdomain"
+          direct="https://texasdefined-site.${subdomain}.workers.dev"
+          custom="https://texasdefined.com"
+          export work direct custom MARKER GITHUB_SHA
+          python3 - <<'PY'
+          import base64, json, os, pathlib, subprocess, datetime
+          routes = ['/', '/robots.txt', '/sitemap.xml', '/article/history-of-the-texas-flag', '/article/texas-flag-etiquette-display-guide', '/texas-symbols', '/texas-history']
+          origins = {'custom': os.environ['custom'], 'worker': os.environ['direct']}
+          result = {
+              'target_sha': os.environ['GITHUB_SHA'],
+              'recorded_at_utc': datetime.datetime.now(datetime.timezone.utc).isoformat(),
+              'origins': origins,
+              'routes': {},
+          }
+          for label, origin in origins.items():
+              result['routes'][label] = {}
+              for route in routes:
+                  stem = route.strip('/').replace('/', '_') or 'home'
+                  body = pathlib.Path(os.environ['work']) / f'{label}-{stem}.body'
+                  headers = pathlib.Path(os.environ['work']) / f'{label}-{stem}.headers'
+                  cmd = ['curl','-A','Mozilla/5.0 TexasDefinedDiagnostic/1.0','--silent','--show-error','--location','--max-time','35','-D',str(headers),'-o',str(body),'-w','%{http_code}|%{url_effective}|%{time_total}', origin + route]
+                  try:
+                      proc = subprocess.run(cmd, capture_output=True, text=True, timeout=45)
+                      parts = proc.stdout.strip().split('|', 2)
+                      result['routes'][label][route] = {
+                          'http': parts[0] if parts else '',
+                          'effective_url': parts[1] if len(parts) > 1 else '',
+                          'time_total': parts[2] if len(parts) > 2 else '',
+                          'curl_exit': proc.returncode,
+                          'curl_stderr': proc.stderr[-800:],
+                          'headers_tail': headers.read_text(errors='replace')[-1800:] if headers.exists() else '',
+                          'body_prefix_b64': base64.b64encode(body.read_bytes()[:800] if body.exists() else b'').decode(),
+                      }
+                  except Exception as exc:
+                      result['routes'][label][route] = {'exception': repr(exc)}
+          pathlib.Path(os.environ['MARKER']).parent.mkdir(parents=True, exist_ok=True)
+          pathlib.Path(os.environ['MARKER']).write_text(json.dumps(result, indent=2) + '\n')
+          PY
+
+      - name: Publish diagnostic evidence as review PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          branch="automation/live-origin-diagnostic-${GITHUB_RUN_ID}"
+          git checkout -b "$branch"
+          git add "$MARKER"
+          git commit -m 'Record live origin diagnostic'
+          git push origin "$branch"
+          gh pr create \
+            --base main \
+            --head "$branch" \
+            --title 'Review TexasDefined live-origin diagnostic' \
+            --body 'Automated custom-domain versus workers.dev diagnostic evidence. This PR is intentionally not auto-merged.'

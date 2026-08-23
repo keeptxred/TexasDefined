@@ -38,171 +38,91 @@ jobs:
           cache: npm
           cache-dependency-path: package-lock.json
 
+      - name: Validate retired integration traces
+        id: retired_integration
+        run: node scripts/ci/validate-retired-integration-traces.mjs
+
       - name: Install dependencies
         run: npm ci --no-audit --no-fund
 
-      - name: Validate generated page quality
-        run: node scripts/data/validate-generated-page-quality.mjs
+      - name: Validate direct-main writer inventory
+        id: direct_writer_policy
+        run: node scripts/ci/validate-direct-main-writer-inventory.mjs
 
-      - name: Validate county property enrichment
-        run: node scripts/data/validate-county-property-enrichment.mjs
+      - name: Validate consolidated county certifiers
+        id: county_certifier_policy
+        run: node scripts/ci/validate-county-certifier-consolidation.mjs
 
-      - name: Validate destination indexing policy
-        run: node scripts/data/validate-destination-indexing-policy.mjs
+      - name: Validate automation main-write policy
+        id: automation_policy
+        run: node scripts/ci/validate-automation-main-write-policy.mjs
 
-      - name: Validate public route governance
-        run: node scripts/data/validate-public-route-governance.mjs
+      - name: Validate retired one-time certifications
+        id: retirement_policy
+        run: node scripts/ci/validate-retired-one-time-certifications.mjs
 
-      - name: Validate Made in Texas evidence
-        run: node scripts/data/validate-made-in-texas-evidence.mjs
+      - name: Run authoritative validation suite
+        id: validation
+        run: node scripts/ci/run-validation-suite.mjs full
 
-      - name: Validate Painted Churches search-intent coverage
-        run: node scripts/data/validate-painted-church-search-intents.mjs
-
-      - name: Validate indexation quality
-        run: node scripts/data/validate-indexation-quality.mjs
-
-      - name: Validate crawl demand
-        run: node scripts/data/validate-crawl-demand.mjs
-
-      - name: Validate freshness signals
-        run: node scripts/data/validate-freshness-signals.mjs
-
-      - name: Validate machine indexing
-        run: node scripts/data/validate-machine-indexing.mjs
-
-      - name: Validate Bing configuration
-        run: node scripts/seo/validate-bing.mjs
-
-      - name: Validate AEO answer layers
-        run: node scripts/data/validate-aeo-answer-layers.mjs
-
-      - name: Validate homepage SEO
-        run: node scripts/data/validate-homepage-seo.mjs
-
-      - name: Validate Texas Explained SEO
-        run: node scripts/data/validate-texas-explained-seo.mjs
-
-      - name: Validate Texas Explained depth
-        run: node scripts/data/validate-texas-explained-depth.mjs
-
-      - name: Validate Texas Explained river profiles
-        run: node scripts/data/validate-texas-explained-river-profiles.mjs
-
-      - name: Validate Texas Explained reservoir profiles
-        run: node scripts/data/validate-texas-explained-reservoir-profiles.mjs
-
-      - name: Validate Texas Explained road systems
-        run: node scripts/data/validate-texas-explained-road-systems.mjs
-
-      - name: Validate Explore category SEO
-        run: node scripts/data/validate-explore-category-seo.mjs
-
-      - name: Validate Explore region SEO
-        run: node scripts/data/validate-explore-region-seo.mjs
-
-      - name: Validate Explore topical authority
-        run: node scripts/data/validate-explore-topical-authority.mjs
-
-      - name: Validate statewide historic sites
-        run: node scripts/data/validate-historic-sites.mjs
-
-      - name: Validate historic-site evergreen guides
-        run: node scripts/data/validate-historic-site-evergreen.mjs
-
-      - name: Validate historic supporting guides
-        run: node scripts/data/validate-historic-supporting-guides.mjs
-
-      - name: Validate military history expansion
-        run: node scripts/data/validate-military-history-expansion.mjs
-
-      - name: Validate Things That Define Texas authority
-        run: node scripts/data/validate-things-unique-to-texas.mjs
-
-      - name: Validate Things That Define Texas deep-link coverage
-        run: node scripts/data/validate-texas-icon-link-depth.mjs
-
-      - name: Validate Texas food history authority
-        run: node scripts/data/validate-texas-food-history.mjs
-
-      - name: Validate Texas culture citation index and human guidance
-        run: node scripts/data/validate-texas-culture-citation-index.mjs
-
-      - name: Validate Texas weather authority
-        run: node scripts/data/validate-texas-weather-authority.mjs
-
-      - name: Validate Top 25 attraction authority
-        run: node scripts/data/validate-top-attraction-authority.mjs
-
-      - name: Validate Top 25 review freshness
-        run: node scripts/data/validate-top-attraction-review-freshness.mjs
-
-      - name: Validate article discovery SEO
-        run: node scripts/data/validate-article-discover-seo.mjs
-
-      - name: Validate author EEAT
-        run: node scripts/data/validate-author-eeat.mjs
-
-      - name: Validate entity template quality
-        run: node scripts/data/validate-entity-template-quality.mjs
-
-      - name: Validate image SEO
-        run: node scripts/data/validate-image-seo.mjs
-
-      - name: Validate editorial hero uniqueness site-wide
-        run: node scripts/data/validate-editorial-image-duplicates.mjs --all
-
-      - name: Validate search rendering performance
-        run: node scripts/data/validate-search-rendering-performance.mjs
-
-      - name: Validate content duplication
-        run: node scripts/data/validate-content-duplication.mjs
-
-      - name: Validate sitemap routes
-        run: node scripts/data/validate-sitemap-routes.mjs
-
-      - name: Validate internal-link discovery
-        run: node scripts/data/validate-internal-link-discovery.mjs
-
-      - name: Validate search-intent CTR
-        run: node scripts/data/validate-search-intent-ctr.mjs
-
-      - name: Validate citation magnets
-        run: node scripts/data/validate-citation-magnets.mjs
-
-      - name: Validate citation downloads
-        run: node scripts/data/validate-citation-downloads.mjs
-
-      - name: Validate SEO CI contract
-        run: node scripts/data/validate-seo-ci-contract.mjs
-
-      - name: Validate production data and migrated features
-        run: npm run data:validate
-
-      - name: Validate complete Trip Planner mapped coverage
-        run: node scripts/data/audit-trip-planner-destinations.mjs --strict
-
-      - name: Validate Phase 3 entity maintenance
-        run: node scripts/data/validate-entity-maintenance.mjs
-
-      - name: Validate sports venue, imagery, traffic, event links, editorial authority, discovery, partner and sponsorship operations
-        run: |
-          node scripts/data/validate-sports-venue-coverage.mjs
-          node scripts/data/validate-sports-venue-deep-completeness.mjs
-          node scripts/data/validate-sports-venue-images.mjs
-          node scripts/data/validate-sports-traffic-readiness.mjs
-          node scripts/data/validate-event-sports-venue-links.mjs
-          node scripts/data/validate-sports-editorial-authority.mjs
-          node scripts/data/validate-sports-venue-landings.mjs
-          node scripts/data/validate-sports-venue-comparison.mjs
-          node scripts/data/validate-sports-partner-operations.mjs
-          node scripts/data/validate-sports-sponsorship.mjs
-
-      - name: Validate shared platform core integration
-        run: node scripts/data/validate-shared-platform-core.mjs
+      - name: Validate production predeploy gates
+        id: predeploy
+        run: node scripts/ci/run-validation-suite.mjs predeploy
 
       - name: Build production application
+        id: build
         run: npm run build
 
       - name: Validate client performance budget
+        id: budget
         run: npm run performance:validate
+
+      - name: Summarize CI outcome
+        if: always()
+        shell: bash
+        env:
+          RETIRED_INTEGRATION_OUTCOME: ${{ steps.retired_integration.outcome }}
+          DIRECT_WRITER_POLICY_OUTCOME: ${{ steps.direct_writer_policy.outcome }}
+          COUNTY_CERTIFIER_POLICY_OUTCOME: ${{ steps.county_certifier_policy.outcome }}
+          AUTOMATION_POLICY_OUTCOME: ${{ steps.automation_policy.outcome }}
+          RETIREMENT_POLICY_OUTCOME: ${{ steps.retirement_policy.outcome }}
+          VALIDATION_OUTCOME: ${{ steps.validation.outcome }}
+          PREDEPLOY_OUTCOME: ${{ steps.predeploy.outcome }}
+          BUILD_OUTCOME: ${{ steps.build.outcome }}
+          BUDGET_OUTCOME: ${{ steps.budget.outcome }}
+        run: |
+          {
+            echo '## TexasDefined CI result'
+            echo
+            echo '| Stage | Failure class | Outcome |'
+            echo '|---|---|---|'
+            echo "| Retired integration trace guard | RETIRED INTEGRATION | ${RETIRED_INTEGRATION_OUTCOME:-not-run} |"
+            echo "| Direct-main writer inventory | CI / DEFAULT-BRANCH SAFETY | ${DIRECT_WRITER_POLICY_OUTCOME:-not-run} |"
+            echo "| Consolidated county certifiers | CI / COUNTY CERTIFIER SAFETY | ${COUNTY_CERTIFIER_POLICY_OUTCOME:-not-run} |"
+            echo "| Automation main-write policy | CI / AUTOMATION SAFETY | ${AUTOMATION_POLICY_OUTCOME:-not-run} |"
+            echo "| Retired one-time certification policy | CI / RETIREMENT SAFETY | ${RETIREMENT_POLICY_OUTCOME:-not-run} |"
+            echo "| Authoritative validation suite | CODE / CONTENT / SEO / DATA | ${VALIDATION_OUTCOME:-not-run} |"
+            echo "| Production predeploy authority suite | PREDEPLOY AUTHORITY | ${PREDEPLOY_OUTCOME:-not-run} |"
+            echo "| Production build | BUILD | ${BUILD_OUTCOME:-not-run} |"
+            echo "| Client performance budget | BUNDLE BUDGET | ${BUDGET_OUTCOME:-not-run} |"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          if [[ "$RETIRED_INTEGRATION_OUTCOME" == 'failure' ]]; then
+            echo '::error title=CI failure class: retired integration::A retired external integration trace was reintroduced into tracked current source.'
+          elif [[ "$DIRECT_WRITER_POLICY_OUTCOME" == 'failure' ]]; then
+            echo '::error title=CI failure class: default-branch safety::A workflow writes directly to main. TexasDefined workflow repository changes must go through validated branches/PRs.'
+          elif [[ "$COUNTY_CERTIFIER_POLICY_OUTCOME" == 'failure' ]]; then
+            echo '::error title=CI failure class: county certifier safety::The consolidated county-certification wrappers, source-read-only engine, evidence publisher, or county-specific contracts regressed.'
+          elif [[ "$AUTOMATION_POLICY_OUTCOME" == 'failure' ]]; then
+            echo '::error title=CI failure class: automation safety::An active automation workflow violated the protected main-write or image-review policy.'
+          elif [[ "$RETIREMENT_POLICY_OUTCOME" == 'failure' ]]; then
+            echo '::error title=CI failure class: retirement safety::A completed one-time county certification lost PASS evidence or regained write/deploy behavior.'
+          elif [[ "$VALIDATION_OUTCOME" == 'failure' ]]; then
+            echo '::error title=CI failure class: validation::A code/content/SEO/data validator failed. The exact validator and command are listed in the validation-suite summary above.'
+          elif [[ "$PREDEPLOY_OUTCOME" == 'failure' ]]; then
+            echo '::error title=CI failure class: predeploy authority::A production predeploy authority validator failed. The exact validator and command are listed in the validation-suite summary above.'
+          elif [[ "$BUILD_OUTCOME" == 'failure' ]]; then
+            echo '::error title=CI failure class: build::Application and predeploy validation passed; the production build failed.'
+          elif [[ "$BUDGET_OUTCOME" == 'failure' ]]; then
+            echo '::error title=CI failure class: bundle budget::Validation and build passed; the protected client performance budget failed.'
+          fi

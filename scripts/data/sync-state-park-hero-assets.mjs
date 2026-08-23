@@ -14,8 +14,7 @@ const PLACEHOLDER_MARKERS = ["texasdefined-destination-placeholder", "texasdefin
 const LICENSE_OK = ["public domain", "cc0", "cc by", "cc-by", "cc by-sa", "cc-by-sa"];
 const USER_AGENT = "TexasDefined/1.0 (park-photo sync; https://texasdefined.com)";
 const API_GAP_MS = 850;
-const AI_MODEL = "google/gemini-3.1-flash-image";
-const AI_GATEWAY = "https://ai.gateway.lovable.dev/v1/images/generations";
+const CLOUDFLARE_MODEL = "@cf/black-forest-labs/flux-1-schnell";
 let lastApiRequestAt = 0;
 
 const GENERIC_WORDS = new Set([
@@ -92,10 +91,15 @@ function slugify(value) {
     .replace(/-+/g, "-");
 }
 
+function imageAiConfigured() {
+  return Boolean(process.env.CLOUDFLARE_ACCOUNT_ID && process.env.CLOUDFLARE_API_TOKEN);
+}
+
 async function loadParks() {
   const envText = await fs.readFile(ENV_PATH, "utf8").catch(() => "");
   const env = parseEnv(envText);
-  if (!process.env.LOVABLE_API_KEY && env.LOVABLE_API_KEY) process.env.LOVABLE_API_KEY = env.LOVABLE_API_KEY;
+  if (!process.env.CLOUDFLARE_ACCOUNT_ID && env.CLOUDFLARE_ACCOUNT_ID) process.env.CLOUDFLARE_ACCOUNT_ID = env.CLOUDFLARE_ACCOUNT_ID;
+  if (!process.env.CLOUDFLARE_API_TOKEN && env.CLOUDFLARE_API_TOKEN) process.env.CLOUDFLARE_API_TOKEN = env.CLOUDFLARE_API_TOKEN;
   const supabaseUrl = String(env.VITE_TEXASDEFINED_SUPABASE_URL || env.VITE_SUPABASE_URL || "").replace(/\/$/, "");
   const supabaseKey = String(env.VITE_TEXASDEFINED_SUPABASE_ANON_KEY || env.VITE_SUPABASE_PUBLISHABLE_KEY || "");
   const rows = [];
@@ -328,29 +332,36 @@ function aiPrompt(park) {
 }
 
 async function generateAiJpeg(park, destinationPath) {
-  const key = process.env.LOVABLE_API_KEY;
-  if (!key) return null;
-  const response = await fetch(AI_GATEWAY, {
+  const accountId = process.env.CLOUDFLARE_ACCOUNT_ID;
+  const apiToken = process.env.CLOUDFLARE_API_TOKEN;
+  if (!accountId || !apiToken) return null;
+  const endpoint = `https://api.cloudflare.com/client/v4/accounts/${encodeURIComponent(accountId)}/ai/run/${CLOUDFLARE_MODEL}`;
+  const response = await fetch(endpoint, {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${key}`,
-      "Lovable-API-Key": key,
+      Authorization: `Bearer ${apiToken}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      model: AI_MODEL,
-      messages: [{ role: "user", content: aiPrompt(park) }],
-      modalities: ["image", "text"],
+      prompt: aiPrompt(park).slice(0, 2048),
+      steps: 4,
     }),
   });
   if (!response.ok) {
     const body = await response.text().catch(() => "");
-    throw new Error(`AI image gateway ${response.status}: ${body.slice(0, 220)}`);
+    throw new Error(`Cloudflare Workers AI ${response.status}: ${body.slice(0, 220)}`);
   }
-  const payload = await response.json();
-  const b64 = payload.data?.[0]?.b64_json;
-  if (!b64) throw new Error("AI image gateway returned no image data");
-  const bytes = Buffer.from(b64, "base64");
+
+  const contentType = response.headers.get("content-type") || "";
+  let bytes;
+  if (contentType.includes("application/json")) {
+    const payload = await response.json();
+    const b64 = payload?.result?.image || payload?.image;
+    if (!b64) throw new Error("Cloudflare Workers AI returned no image data");
+    bytes = Buffer.from(b64, "base64");
+  } else {
+    bytes = Buffer.from(await response.arrayBuffer());
+  }
   if (bytes.length < 20_000) throw new Error(`AI image suspiciously small (${bytes.length} bytes)`);
 
   if (bytes[0] === 0xff && bytes[1] === 0xd8 && bytes[2] === 0xff) {
@@ -385,7 +396,7 @@ async function main() {
   const report = {
     generatedAt: new Date().toISOString(), totalParks: parks.length,
     retainedUniqueExisting: [], downloaded: [], aiGenerated: [], unresolved: [], rejectedDuplicateExisting: [],
-    aiAvailable: Boolean(process.env.LOVABLE_API_KEY),
+    aiAvailable: imageAiConfigured(),
   };
 
   for (let index = 0; index < parks.length; index += 1) {
@@ -417,7 +428,7 @@ async function main() {
       console.warn(`  free-photo lookup failed: ${error?.message || error}`);
     }
 
-    if (!resolved && process.env.LOVABLE_API_KEY) {
+    if (!resolved && imageAiConfigured()) {
       try {
         const relative = `/images/state-parks/${park.slug}.jpg`;
         await generateAiJpeg(park, path.join(OUT_DIR, `${park.slug}.jpg`));
@@ -430,7 +441,7 @@ async function main() {
       }
     }
 
-    if (!resolved) report.unresolved.push({ slug: park.slug, name: park.name, reason: process.env.LOVABLE_API_KEY ? "no exact free photo and AI generation failed" : "no exact free photo; LOVABLE_API_KEY unavailable" });
+    if (!resolved) report.unresolved.push({ slug: park.slug, name: park.name, reason: imageAiConfigured() ? "no exact free photo and AI generation failed" : "no exact free photo; Cloudflare image generation unavailable" });
     await sleep(300);
   }
 

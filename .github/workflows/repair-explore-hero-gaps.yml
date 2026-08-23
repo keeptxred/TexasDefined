@@ -10,6 +10,8 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
+  actions: write
 
 concurrency:
   group: repair-explore-hero-gaps
@@ -18,11 +20,12 @@ concurrency:
 jobs:
   repair:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 35
     steps:
-      - name: Check out repository
+      - name: Check out current main
         uses: actions/checkout@v4
         with:
+          ref: main
           fetch-depth: 0
 
       - name: Set up Node
@@ -40,15 +43,54 @@ jobs:
       - name: Repair final gaps and validate hero inventory
         run: node scripts/data/repair-explore-final.mjs
 
-      - name: Commit repaired Explore hero assets
+      - name: Detect repaired Explore changes
+        id: changes
+        shell: bash
         run: |
+          if [[ -z "$(git status --porcelain -- public/images/explore src/data/explore-hero-map.ts scripts/data/explore-hero-report.json)" ]]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No Explore hero repairs to preserve."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "Explore hero repairs detected."
+          fi
+
+      - name: Create Explore repair review branch
+        if: steps.changes.outputs.changed == 'true'
+        id: branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          branch="automation/explore-hero-repair-${GITHUB_RUN_ID}"
           git config user.name "Texas Defined Data Bot"
           git config user.email "actions@users.noreply.github.com"
+          git checkout -b "$branch"
           git add public/images/explore src/data/explore-hero-map.ts scripts/data/explore-hero-report.json
-          if git diff --cached --quiet; then
-            echo "No Explore hero repairs to commit."
-            exit 0
-          fi
-          git commit -m "fix: complete Explore destination hero coverage [skip ci]"
-          git pull --rebase origin main
-          git push
+          git commit -m "fix: complete Explore destination hero coverage"
+          git push origin "$branch"
+          echo "name=$branch" >> "$GITHUB_OUTPUT"
+
+      - name: Open reviewable Explore repair pull request
+        if: steps.changes.outputs.changed == 'true'
+        id: pr
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ steps.branch.outputs.name }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          pr_url="$(gh pr create \
+            --base main \
+            --head "$BRANCH" \
+            --title 'Review repaired Explore hero coverage' \
+            --body $'Automated repair for Explore hero gaps. This PR is intentionally not auto-merged. Review item-level image rights, source/credit metadata, subject relevance, and visual quality before merge. The official TexasDefined validation workflow is dispatched explicitly against this exact branch commit.')"
+          echo "url=$pr_url" >> "$GITHUB_OUTPUT"
+          echo "Opened $pr_url"
+
+      - name: Run official validation on repaired branch
+        if: steps.changes.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ steps.branch.outputs.name }}
+        shell: bash
+        run: bash scripts/ci/dispatch-validate-branch.sh "$BRANCH"

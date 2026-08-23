@@ -1,0 +1,68 @@
+name: Validate lighthouse authority
+
+on:
+  pull_request:
+    paths:
+      - 'src/data/fixtures/lighthouse-deep-dive-articles.ts'
+      - 'src/data/fixtures/lighthouse-deep-dive-expansions.ts'
+      - 'src/data/fixtures/lazy-lighthouse-deep-dives.ts'
+      - 'src/data/fixtures/lighthouse-authority-links.ts'
+      - 'src/data/fixtures/seasonal-authority-links.ts'
+      - 'src/data/fixtures/lazy-lighthouse-search-intents.ts'
+      - 'src/data/fixtures/lighthouse-search-intent-articles.ts'
+      - 'src/data/fixtures/lazy-newest-evergreen.ts'
+      - 'src/routes/explore.lighthouses.tsx'
+      - 'src/routes/api.texas-lighthouses[.]json.ts'
+      - 'src/data/texas-lighthouse-map-points.ts'
+      - 'src/data/lighthouse-visitor-planning.ts'
+      - 'src/data/destination-editorial-links.ts'
+      - 'src/components/editorial/DestinationVisitPlanner.tsx'
+      - 'src/components/editorial/ExploreTopicPaths.tsx'
+      - 'src/components/editorial/ExploreIntentPaths.tsx'
+      - 'src/lib/public-routes.ts'
+      - 'scripts/data/validate-lighthouse-authority.mjs'
+      - 'scripts/data/validate-lighthouse-destination-discovery.mjs'
+      - 'scripts/data/validate-lighthouse-reference-json.mjs'
+      - '.github/workflows/validate-lighthouse-authority.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/data/fixtures/lighthouse-deep-dive-articles.ts'
+      - 'src/data/fixtures/lighthouse-deep-dive-expansions.ts'
+      - 'src/data/fixtures/lazy-lighthouse-deep-dives.ts'
+      - 'src/data/fixtures/lighthouse-authority-links.ts'
+      - 'src/data/fixtures/seasonal-authority-links.ts'
+      - 'src/data/fixtures/lazy-lighthouse-search-intents.ts'
+      - 'src/data/fixtures/lighthouse-search-intent-articles.ts'
+      - 'src/data/fixtures/lazy-newest-evergreen.ts'
+      - 'src/routes/explore.lighthouses.tsx'
+      - 'src/routes/api.texas-lighthouses[.]json.ts'
+      - 'src/data/texas-lighthouse-map-points.ts'
+      - 'src/data/lighthouse-visitor-planning.ts'
+      - 'src/data/destination-editorial-links.ts'
+      - 'src/components/editorial/DestinationVisitPlanner.tsx'
+      - 'src/components/editorial/ExploreTopicPaths.tsx'
+      - 'src/components/editorial/ExploreIntentPaths.tsx'
+      - 'src/lib/public-routes.ts'
+      - 'scripts/data/validate-lighthouse-authority.mjs'
+      - 'scripts/data/validate-lighthouse-destination-discovery.mjs'
+      - 'scripts/data/validate-lighthouse-reference-json.mjs'
+      - '.github/workflows/validate-lighthouse-authority.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate-lighthouse-authority:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate Texas lighthouse authority
+        run: node scripts/data/validate-lighthouse-authority.mjs
+      - name: Validate Port Isabel destination discovery
+        run: node scripts/data/validate-lighthouse-destination-discovery.mjs
+      - name: Validate Texas lighthouse reference JSON
+        run: node scripts/data/validate-lighthouse-reference-json.mjs

@@ -1,0 +1,20 @@
+{
+  "recorded_at_utc": "2026-08-22T04:00:57.267253+00:00",
+  "window_start_utc": "2026-08-22T02:00:57.267253+00:00",
+  "curl_exit": 0,
+  "stderr": "",
+  "response": {
+    "data": null,
+    "errors": [
+      {
+        "message": "Actor 'com.cloudflare.api.token.816c9e205c2203effb1f7527fa1a6cc4' does not have permission 'com.cloudflare.api.account.zone.analytics.read' for zone c251a715a3be875ac70a397d77efef22",
+        "path": null,
+        "extensions": {
+          "code": "authz",
+          "timestamp": "2026-08-22T04:00:57.458725333Z",
+          "ray_id": "a2eef9367da9b74c-LAX"
+        }
+      }
+    ]
+  }
+}

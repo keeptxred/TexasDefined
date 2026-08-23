@@ -3,6 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
+import { lighthouseVisitorPlanBySlug, lighthouseVisitorPlans } from "@/data/lighthouse-visitor-planning";
 import { texasLighthouseMapPoints, type TexasLighthouseStatus } from "@/data/texas-lighthouse-map-points";
 import { absoluteUrl, buildEditorialCollectionHead, jsonLd } from "@/lib/seo";
 
@@ -16,6 +17,29 @@ const statusMeta: Record<TexasLighthouseStatus, { label: string; detail: string 
   relocated: { label: "Relocated", detail: "Historic light preserved off its original station" },
   historic: { label: "Historic site", detail: "Original light no longer survives here" },
 };
+
+const lighthouseFaq = [
+  {
+    question: "Which Texas lighthouse can you climb?",
+    answer: "Port Isabel Lighthouse is the Texas lighthouse to plan a public climb around. Tower access is subject to current Texas Historical Commission hours, weather and climb requirements.",
+  },
+  {
+    question: "Can you climb Point Bolivar Lighthouse?",
+    answer: "No. Point Bolivar is a view-only historic landmark rather than a public tower climb. Visitors should respect private-property boundaries and use lawful public vantage points.",
+  },
+  {
+    question: "Is Lydia Ann Lighthouse open to the public?",
+    answer: "No. Lydia Ann Lighthouse is privately owned. The public experience comes from nearby waterways and the Lighthouse Lakes area, not from entering the lighthouse property.",
+  },
+  {
+    question: "Can you visit Matagorda Island Lighthouse by car?",
+    answer: "No. Matagorda Island has no road bridge from the mainland. Access conditions and transportation arrangements can change, so travelers should verify current public-agency guidance before planning a trip.",
+  },
+  {
+    question: "Is Sabine Pass Lighthouse in Texas?",
+    answer: "The historic tower stands on the Louisiana side of the Sabine. It belongs in a Texas lighthouse itinerary because it served the border waterway and the same Gulf entrance used by vessels bound for the Texas side of the Sabine-Neches system.",
+  },
+];
 
 const mapBounds = { minLon: -98.2, maxLon: -93.4, minLat: 25.7, maxLat: 30.2 };
 const mapWidth = 820;
@@ -69,6 +93,16 @@ export const Route = createFileRoute(canonicalPath)({
             geo: { "@type": "GeoCoordinates", latitude: point.lat, longitude: point.lon },
           })),
         }),
+        jsonLd({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "@id": `${absoluteUrl(texasDefinedBrand, canonicalPath)}#faq`,
+          mainEntity: lighthouseFaq.map((item) => ({
+            "@type": "Question",
+            name: item.question,
+            acceptedAnswer: { "@type": "Answer", text: item.answer },
+          })),
+        }),
       ],
     };
   },
@@ -81,6 +115,7 @@ function TexasLighthousesHub() {
     () => texasLighthouseMapPoints.find((point) => point.slug === selectedSlug) ?? texasLighthouseMapPoints[0],
     [selectedSlug],
   );
+  const selectedPlan = lighthouseVisitorPlanBySlug.get(selected.slug);
 
   return <main>
     <section className="border-b border-border bg-surface">
@@ -132,13 +167,38 @@ function TexasLighthousesHub() {
           <p className="mt-5 text-sm leading-7 text-muted-foreground">{selected.note}</p>
           <dl className="mt-6 border-y border-border py-5 text-sm">
             <div><dt className="eyebrow text-muted-foreground">Access</dt><dd className="mt-1 font-semibold">{statusMeta[selected.status].label}</dd><dd className="mt-1 text-muted-foreground">{statusMeta[selected.status].detail}</dd></div>
+            {selectedPlan ? <>
+              <div className="mt-5"><dt className="eyebrow text-muted-foreground">Best for</dt><dd className="mt-1 text-muted-foreground">{selectedPlan.bestFor}</dd></div>
+              <div className="mt-5"><dt className="eyebrow text-muted-foreground">Pair with</dt><dd className="mt-1 text-muted-foreground">{selectedPlan.pairWith}</dd></div>
+            </> : null}
             <div className="mt-5"><dt className="eyebrow text-muted-foreground">Map source</dt><dd className="mt-1"><a href={selected.sourceUrl} target="_blank" rel="noreferrer" className="border-b border-primary text-primary">{selected.sourceLabel}</a></dd></div>
           </dl>
+          {selectedPlan ? <p className="mt-5 text-sm leading-7 text-muted-foreground">{selectedPlan.planningNote}</p> : null}
           <div className="mt-6 flex flex-col items-start gap-3 text-sm">
             {selected.articleHref ? <Link to={selected.articleHref} className="border-b border-primary text-primary">Read the lighthouse story</Link> : null}
             <Link to={selected.countyHref} className="border-b border-primary text-primary">Explore county guide</Link>
           </div>
         </aside>
+      </section>
+
+      <section className="mt-20 border-t-2 border-foreground pt-8">
+        <p className="eyebrow text-primary">Visitability at a glance</p>
+        <h2 className="mt-3 max-w-4xl font-display text-4xl sm:text-5xl">Choose the lighthouse for the trip you actually want.</h2>
+        <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Texas lighthouse travel ranges from a true public tower climb to roadside history, paddling views and remote barrier-island logistics. The distinction matters more than the distance between pins.</p>
+        <div className="mt-8 grid gap-px border border-border bg-border md:grid-cols-2 xl:grid-cols-3">
+          {lighthouseVisitorPlans.map((plan) => {
+            const point = texasLighthouseMapPoints.find((candidate) => candidate.slug === plan.slug);
+            if (!point) return null;
+            return <article key={plan.slug} className="bg-background p-6 sm:p-7">
+              <div className="flex items-center justify-between gap-4"><p className="eyebrow text-primary">{statusMeta[point.status].label}</p><span className="text-xs text-muted-foreground">{point.era}</span></div>
+              <h3 className="mt-2 font-display text-2xl">{point.name}</h3>
+              <p className="mt-4 text-sm leading-7 text-muted-foreground"><strong className="text-foreground">Access:</strong> {plan.publicAccess}</p>
+              <p className="mt-3 text-sm leading-7 text-muted-foreground"><strong className="text-foreground">Best for:</strong> {plan.bestFor}</p>
+              <p className="mt-3 text-sm leading-7 text-muted-foreground"><strong className="text-foreground">Pair with:</strong> {plan.pairWith}</p>
+              <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm">{point.articleHref ? <Link to={point.articleHref} className="border-b border-primary text-primary">Full story</Link> : null}<Link to={point.countyHref} className="border-b border-primary text-primary">County guide</Link></div>
+            </article>;
+          })}
+        </div>
       </section>
 
       <section className="mt-20 border-t-2 border-foreground pt-8">
@@ -160,7 +220,15 @@ function TexasLighthousesHub() {
         <p className="eyebrow text-primary">Start with the survivor</p>
         <div className="mt-5 grid gap-8 lg:grid-cols-[1fr_.7fr] lg:items-start">
           <div><h2 className="font-display text-4xl sm:text-5xl">Port Isabel is the lighthouse to plan a trip around.</h2><p className="mt-5 max-w-3xl text-base leading-8 text-muted-foreground">The Texas Historical Commission identifies Port Isabel as the only Texas lighthouse currently open to the public. The climb, keeper's cottage, lower-coast setting and 2022 reproduction Fresnel lens make it the natural gateway into the state's larger lighthouse story.</p></div>
-          <div className="border-l-2 border-primary pl-6"><Link to="/article/port-isabel-lighthouse-guide" className="font-display text-2xl hover:text-primary">Port Isabel Lighthouse: The Texas Light You Can Still Climb</Link><p className="mt-3 text-sm leading-7 text-muted-foreground">History, visitor context, Cameron County links and ideas for turning the lighthouse into a full lower-coast day.</p></div>
+          <div className="border-l-2 border-primary pl-6"><Link to="/article/port-isabel-lighthouse-guide" className="font-display text-2xl hover:text-primary">Port Isabel Lighthouse: The Texas Light You Can Still Climb</Link><p className="mt-3 text-sm leading-7 text-muted-foreground">History, visitor context, Cameron County links and ideas for turning the lighthouse into a full lower-coast day.</p><Link to="/destination/port-isabel-lighthouse-state-park" className="mt-4 inline-block border-b border-primary text-sm font-semibold text-primary">Open the Port Isabel destination guide</Link></div>
+        </div>
+      </section>
+
+      <section className="mt-20 border-t-2 border-foreground pt-8">
+        <p className="eyebrow text-primary">Texas lighthouse FAQ</p>
+        <h2 className="mt-3 font-display text-4xl sm:text-5xl">What visitors need to know before they go</h2>
+        <div className="mt-8 grid gap-px border border-border bg-border lg:grid-cols-2">
+          {lighthouseFaq.map((item) => <article key={item.question} className="bg-background p-7 sm:p-8"><h3 className="font-display text-2xl">{item.question}</h3><p className="mt-4 text-sm leading-7 text-muted-foreground">{item.answer}</p></article>)}
         </div>
       </section>
 

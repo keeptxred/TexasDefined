@@ -80,6 +80,12 @@ export const COUNTY_SERIES_PROFILES_NORTHEAST: CountySeriesProfile[] = [
       .then((module) => module.montagueCountyBowieNoconaChisholmTrailRedRiverTexasArticle),
   },
   {
+    countySlug: "cooke",
+    articleSlug: "cooke-county-gainesville-red-river-muenster-north-texas",
+    loadArticle: () => import("@/data/fixtures/cooke-county-gainesville-red-river-muenster-north-texas")
+      .then((module) => module.cookeCountyGainesvilleRedRiverMuensterNorthTexasArticle),
+  },
+  {
     countySlug: "cass",
     articleSlug: "cass-county-linden-atlanta-piney-woods-wright-patman-texas",
     loadArticle: () => import("@/data/fixtures/cass-county-linden-atlanta-piney-woods-wright-patman-texas")

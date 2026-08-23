@@ -1,0 +1,89 @@
+name: Reusable incomplete county production certification
+
+on:
+  workflow_call:
+    inputs:
+      county:
+        description: Incomplete county slug to certify
+        required: true
+        type: string
+    secrets:
+      CLOUDFLARE_ACCOUNT_ID:
+        required: true
+      CLOUDFLARE_API_TOKEN:
+        required: true
+      CLOUDFLARE_DEPLOY_API_TOKEN:
+        required: false
+
+permissions:
+  actions: write
+  contents: write
+  pull-requests: write
+
+jobs:
+  certify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    environment: texasdefined-publication
+    env:
+      COUNTY: ${{ inputs.county }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_DEPLOY_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_DEPLOY_TOKEN_PRESENT: ${{ secrets.CLOUDFLARE_DEPLOY_API_TOKEN != '' }}
+    steps:
+      - name: Check out current main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Report Cloudflare deployment credential source
+        shell: bash
+        run: |
+          if [[ "$CLOUDFLARE_DEPLOY_TOKEN_PRESENT" == 'true' ]]; then
+            echo 'County certification will use CLOUDFLARE_DEPLOY_API_TOKEN.'
+          else
+            echo '::warning title=Dedicated Cloudflare deploy token unavailable::County certification is falling back to CLOUDFLARE_API_TOKEN. If that token lacks Workers Scripts write access, deployment will fail closed.'
+          fi
+
+      - name: Merge county certification contracts
+        run: node scripts/ci/merge-county-certification-config.mjs
+
+      - name: Run county-specific production certification
+        id: certification
+        continue-on-error: true
+        run: node scripts/ci/run-incomplete-county-certification.mjs "$COUNTY"
+
+      - name: Publish certification evidence through exact-commit validation
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: bash scripts/ci/publish-county-certification-evidence.sh ".github/certification/${COUNTY}-county.json"
+
+      - name: Require certification pass
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          marker=".github/certification/${COUNTY}-county.json"
+          node - "$marker" <<'NODE'
+          const fs = require('node:fs');
+          const marker = process.argv[2];
+          if (!fs.existsSync(marker)) {
+            console.error(`Certification marker missing: ${marker}`);
+            process.exit(1);
+          }
+          const result = JSON.parse(fs.readFileSync(marker, 'utf8'));
+          console.log(`Certification result: county=${result.county} status=${result.status} stage=${result.stage} tested_main=${result.tested_main}`);
+          if (String(result.status).toLowerCase() !== 'pass' || String(result.stage).toLowerCase() !== 'complete') process.exit(1);
+          NODE

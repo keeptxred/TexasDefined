@@ -7,15 +7,25 @@ import { isLegacyCountySeriesArticle } from "@/data/county-series";
 const origin = `https://${texasDefinedBrand.identity.domain}`;
 const feedUrl = `${origin}/rss.xml`;
 const webSubHub = "https://pubsubhubbub.appspot.com/";
+const RSS_LIMIT = 50;
+const PINNED_DISCOVERY_SLUGS = new Set([
+  "history-of-the-texas-flag",
+  "texas-flag-etiquette-display-guide",
+]);
 
 export const Route = createFileRoute("/rss.xml")({
   server: {
     handlers: {
       GET: async () => {
-        const articles = (await platform.articles.list(scope))
-          .filter((article) => !isLegacyCountySeriesArticle(article.slug))
+        const eligibleArticles = (await platform.articles.list(scope))
+          .filter((article) => !isLegacyCountySeriesArticle(article.slug));
+        const pinnedArticles = eligibleArticles.filter((article) => PINNED_DISCOVERY_SLUGS.has(article.slug));
+        const recentArticles = eligibleArticles
+          .filter((article) => !PINNED_DISCOVERY_SLUGS.has(article.slug))
           .sort((a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt))
-          .slice(0, 50);
+          .slice(0, Math.max(0, RSS_LIMIT - pinnedArticles.length));
+        const articles = [...pinnedArticles, ...recentArticles]
+          .sort((a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt));
 
         const lastBuildDate = toRfc822(articles[0]?.publishedAt) ?? new Date().toUTCString();
         const items = articles.map((article) => {

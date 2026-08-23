@@ -115,4 +115,34 @@ export const COUNTY_SERIES_PROFILES_SOUTH_PLAINS: CountySeriesProfile[] = [
     loadArticle: () => import("@/data/fixtures/castro-county-dimmitt-nazareth-hart-irrigation-high-plains-texas")
       .then((module) => module.castroCountyDimmittNazarethHartIrrigationHighPlainsTexasArticle),
   },
+  {
+    countySlug: "glasscock",
+    articleSlug: "glasscock-county-garden-city-ranching-oil-permian-basin-west-texas",
+    loadArticle: () => import("@/data/fixtures/glasscock-county-garden-city-ranching-oil-permian-basin-west-texas")
+      .then((module) => module.glasscockCountyGardenCityRanchingOilPermianBasinWestTexasArticle),
+  },
+  {
+    countySlug: "sterling",
+    articleSlug: "sterling-county-sterling-city-north-concho-ranching-oil-west-texas",
+    loadArticle: () => import("@/data/fixtures/sterling-county-sterling-city-north-concho-ranching-oil-west-texas")
+      .then((module) => module.sterlingCountySterlingCityNorthConchoRanchingOilWestTexasArticle),
+  },
+  {
+    countySlug: "reagan",
+    articleSlug: "reagan-county-big-lake-santa-rita-oil-stiles-west-texas",
+    loadArticle: () => import("@/data/fixtures/reagan-county-big-lake-santa-rita-oil-stiles-west-texas")
+      .then((module) => module.reaganCountyBigLakeSantaRitaOilStilesWestTexasArticle),
+  },
+  {
+    countySlug: "upton",
+    articleSlug: "upton-county-rankin-mccamey-oil-ranching-permian-basin-texas",
+    loadArticle: () => import("@/data/fixtures/upton-county-rankin-mccamey-oil-ranching-permian-basin-texas")
+      .then((module) => module.uptonCountyRankinMcCameyOilRanchingPermianBasinTexasArticle),
+  },
+  {
+    countySlug: "crane",
+    articleSlug: "crane-county-crane-oil-horsehead-crossing-permian-basin-texas",
+    loadArticle: () => import("@/data/fixtures/crane-county-crane-oil-horsehead-crossing-permian-basin-texas")
+      .then((module) => module.craneCountyCraneOilHorseheadCrossingPermianBasinTexasArticle),
+  },
 ];

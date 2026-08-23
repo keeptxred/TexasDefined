@@ -6,11 +6,12 @@ on:
     branches: [main]
     paths:
       - "scripts/data/sync-state-park-hero-assets.mjs"
-      - "scripts/data/cloudflare-workers-ai-shim.mjs"
       - ".github/workflows/state-park-hero-assets.yml"
 
 permissions:
   contents: write
+  pull-requests: write
+  actions: write
 
 concurrency:
   group: state-park-hero-assets
@@ -19,15 +20,15 @@ concurrency:
 jobs:
   sync:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     env:
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-      NODE_OPTIONS: --import=./scripts/data/cloudflare-workers-ai-shim.mjs
     steps:
-      - name: Check out repository
+      - name: Check out current main
         uses: actions/checkout@v4
         with:
+          ref: main
           fetch-depth: 0
 
       - name: Set up Node
@@ -45,16 +46,55 @@ jobs:
       - name: Resolve and generate park-specific JPEGs
         run: node scripts/data/sync-state-park-hero-assets.mjs
 
-      - name: Commit generated hero assets
+      - name: Detect generated state park changes
         if: always()
+        id: changes
+        shell: bash
         run: |
+          if [[ -z "$(git status --porcelain -- public/images/state-parks src/data/state-park-hero-map.ts scripts/data/state-park-hero-report.json)" ]]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No state park hero changes to preserve."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "State park hero changes detected."
+          fi
+
+      - name: Create state park hero review branch
+        if: ${{ always() && steps.changes.outputs.changed == 'true' }}
+        id: branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          branch="automation/state-park-hero-assets-${GITHUB_RUN_ID}"
           git config user.name "Texas Defined Data Bot"
           git config user.email "actions@users.noreply.github.com"
+          git checkout -b "$branch"
           git add public/images/state-parks src/data/state-park-hero-map.ts scripts/data/state-park-hero-report.json
-          if git diff --cached --quiet; then
-            echo "No state park hero changes to commit."
-            exit 0
-          fi
-          git commit -m "chore: attach park-specific state park hero JPEGs [skip ci]"
-          git pull --rebase origin main
-          git push
+          git commit -m "chore: attach park-specific state park hero JPEGs"
+          git push origin "$branch"
+          echo "name=$branch" >> "$GITHUB_OUTPUT"
+
+      - name: Open reviewable state park hero pull request
+        if: ${{ always() && steps.changes.outputs.changed == 'true' }}
+        id: pr
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ steps.branch.outputs.name }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          pr_url="$(gh pr create \
+            --base main \
+            --head "$BRANCH" \
+            --title 'Review generated state park hero assets' \
+            --body $'Automated state-park hero reconciliation. This PR is intentionally not auto-merged. Review item-level image rights, source/credit metadata, park relevance, and visual quality before merge. The official TexasDefined validation workflow is dispatched explicitly against this exact branch commit.')"
+          echo "url=$pr_url" >> "$GITHUB_OUTPUT"
+          echo "Opened $pr_url"
+
+      - name: Run official validation on generated branch
+        if: ${{ always() && steps.changes.outputs.changed == 'true' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ steps.branch.outputs.name }}
+        shell: bash
+        run: bash scripts/ci/dispatch-validate-branch.sh "$BRANCH"

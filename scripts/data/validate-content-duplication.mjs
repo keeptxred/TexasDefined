@@ -69,7 +69,7 @@ if (newsLayoutSource.includes('canonicalPath:') || newsLayoutSource.includes('ca
 }
 
 const legacyValidator = await readFile(join(root, 'scripts/data/validate-legacy-links.mjs'), 'utf8');
-for (const feature of ['KeepTXRed domain', 'legacy repository', 'legacy Lovable preview']) {
+for (const feature of ['KeepTXRed domain', 'legacy repository']) {
   if (!legacyValidator.includes(feature)) errors.push(`Legacy-content validation missing: ${feature}`);
 }
 

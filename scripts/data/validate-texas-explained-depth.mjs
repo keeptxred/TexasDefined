@@ -3,6 +3,7 @@ import path from 'node:path';
 
 const root = process.cwd();
 const read = (file) => fs.readFileSync(path.join(root, file), 'utf8');
+const firstLayerArticles = read('src/data/fixtures/texas-explained-support-articles.ts');
 const stubs = read('src/data/fixtures/texas-explained-support-stubs-2.ts');
 const articles = read('src/data/fixtures/texas-explained-support-articles-2.ts');
 const lazy = read('src/data/fixtures/lazy-evergreen.ts');
@@ -121,9 +122,37 @@ for (const [pillar, supportSlugs] of Object.entries(pillarDepth)) {
   }
 }
 
+// Protect the source-backed explainers that are increasingly landing directly
+// from search. Presence in the registry is not enough: each published support
+// article must retain meaningful narrative depth rather than collapsing back to
+// a stub, summary card, or a handful of generic paragraphs.
+const paragraphCount = (block) => (block.match(/\bp\("/g) || []).length;
+const articleBlock = (source, slug) => {
+  const start = source.indexOf(`slug: "${slug}"`);
+  if (start < 0) return '';
+  const next = source.indexOf('\nexport const ', start + 1);
+  return source.slice(start, next > start ? next : source.length);
+};
+
+for (const slug of firstLayerChildren) {
+  const block = articleBlock(firstLayerArticles, slug);
+  const count = paragraphCount(block);
+  if (count < 7) errors.push(`First-layer Texas Explained article too shallow (${count} paragraphs): ${slug}`);
+  if (!block.includes('sourceName:') || !block.includes('sourceUrl:')) errors.push(`First-layer Texas Explained article missing source authority: ${slug}`);
+  if (!block.includes('internalLinks:')) errors.push(`First-layer Texas Explained article missing internal discovery links: ${slug}`);
+}
+
+for (const slug of children) {
+  const block = articleBlock(articles, slug);
+  const count = paragraphCount(block);
+  if (count < 7) errors.push(`Texas Explained depth article too shallow (${count} paragraphs): ${slug}`);
+  if (!block.includes('sourceName:') || !block.includes('sourceUrl:')) errors.push(`Texas Explained depth article missing source authority: ${slug}`);
+  if (!block.includes('internalLinks:')) errors.push(`Texas Explained depth article missing internal discovery links: ${slug}`);
+}
+
 if (errors.length) {
   console.error(errors.join('\n'));
   process.exit(1);
 }
 
-console.log('Texas Explained depth validation passed: ten source-backed support/depth articles remain hub-visible, lazy registered, collection-oriented and mobile-safe while the hub expands to a 35-article collection with five river, five reservoir and five road-system profiles.');
+console.log('Texas Explained depth validation passed: ten source-backed support/depth articles remain substantive, hub-visible, lazy registered, collection-oriented and mobile-safe while the hub expands to a 35-article collection with five river, five reservoir and five road-system profiles.');

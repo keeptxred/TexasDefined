@@ -1,5 +1,8 @@
-import type { LiveLakeLevelSnapshot } from "@/data/fishing/live-lake-level.server";
+import { useEffect, useState } from "react";
+
 import { Container } from "@/components/layout/Container";
+import { getLiveLakeLevel } from "@/data/fishing/live-lake-level.functions";
+import type { LiveLakeLevelSnapshot } from "@/data/fishing/live-lake-level.server";
 
 export function LiveLakeLevelStrip({
   lakeName,
@@ -10,18 +13,45 @@ export function LiveLakeLevelStrip({
   sourceUrl: string;
   snapshot: LiveLakeLevelSnapshot | null;
 }) {
+  const [liveSnapshot, setLiveSnapshot] = useState(snapshot);
+  const [checking, setChecking] = useState(snapshot == null);
+
+  useEffect(() => {
+    let active = true;
+    setChecking(true);
+
+    void getLiveLakeLevel({ data: { sourceUrl } })
+      .then((nextSnapshot) => {
+        if (!active || !nextSnapshot) return;
+        setLiveSnapshot(nextSnapshot);
+      })
+      .catch(() => {
+        // Keep any server-provided reading visible; the graceful fallback below handles a cold failure.
+      })
+      .finally(() => {
+        if (active) setChecking(false);
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [sourceUrl]);
+
   return (
     <div className="border-b border-border bg-muted/35">
       <Container className="py-4">
         <div className="flex flex-wrap items-center justify-between gap-3 text-sm">
           <div>
             <span className="font-semibold">Live lake level:</span>{" "}
-            {snapshot ? (
+            {liveSnapshot ? (
               <>
-                <span>{snapshot.percentFull.toFixed(1)}% full</span>
-                {snapshot.elevationFeet != null ? <span> · {snapshot.elevationFeet.toFixed(2)} ft</span> : null}
-                <span className="text-muted-foreground"> · measured {formatLakeLevelDate(snapshot.measuredAt)}</span>
+                <span>{liveSnapshot.percentFull.toFixed(1)}% full</span>
+                {liveSnapshot.elevationFeet != null ? <span> · {liveSnapshot.elevationFeet.toFixed(2)} ft</span> : null}
+                <span className="text-muted-foreground"> · measured {formatLakeLevelDate(liveSnapshot.measuredAt)}</span>
+                {checking ? <span className="text-muted-foreground"> · refreshing…</span> : null}
               </>
+            ) : checking ? (
+              <span className="text-muted-foreground">Checking current reading…</span>
             ) : (
               <span className="text-muted-foreground">Current reading could not be loaded right now.</span>
             )}
@@ -36,7 +66,7 @@ export function LiveLakeLevelStrip({
           </a>
         </div>
         <p className="mt-1 text-xs text-muted-foreground">
-          TexasDefined checks {lakeName}'s official Water Data for Texas page when this page loads; the reading is not stored as evergreen copy.
+          TexasDefined checks {lakeName}'s official Water Data for Texas page when this page opens; the reading is not stored as evergreen copy.
         </p>
       </Container>
     </div>
