@@ -1,8 +1,14 @@
 import fs from 'node:fs';
 import { search } from '../../src/domain/search/engine.ts';
 
-const insuranceRoute = fs.readFileSync('src/routes/texas-home-insurance-calculator.tsx', 'utf8');
-const costOfLivingRoute = fs.readFileSync('src/routes/texas-cost-of-living-calculator.tsx', 'utf8');
+const readRouteSurface = (file) => {
+  const eagerSource = fs.readFileSync(file, 'utf8');
+  const lazyFile = file.replace(/\.tsx$/, '.lazy.tsx');
+  return fs.existsSync(lazyFile) ? `${eagerSource}\n${fs.readFileSync(lazyFile, 'utf8')}` : eagerSource;
+};
+
+const insuranceRoute = readRouteSurface('src/routes/texas-home-insurance-calculator.tsx');
+const costOfLivingRoute = readRouteSurface('src/routes/texas-cost-of-living-calculator.tsx');
 const citiesRoute = fs.readFileSync('src/routes/browse.cities.tsx', 'utf8');
 const countyPropertyTaxRoute = fs.readFileSync('src/routes/property-tax.county.$county.tsx', 'utf8');
 const disabledVeteranRoute = fs.readFileSync('src/routes/learn.disabled-veteran-property-tax-benefits.tsx', 'utf8');
