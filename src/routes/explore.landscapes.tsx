@@ -16,5 +16,3 @@ export const Route = createFileRoute('/explore/landscapes')({
     links: [{ rel: 'canonical', href: `https://texasdefined.com${canonicalPath}` }],
   },
 });
-
-export const texasLandscapesDescription = description;
