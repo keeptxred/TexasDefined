@@ -1,6 +1,7 @@
 import { readFile } from 'node:fs/promises';
 
 const read = (path) => readFile(path, 'utf8');
+const readRouteSurface = async (path) => `${await read(path)}\n${await read(path.replace(/\.tsx$/, '.lazy.tsx'))}`;
 
 const manifest = JSON.parse(await read('public/citation-magnets.json'));
 const llms = await read('src/routes/llms[.]txt.ts');
@@ -11,7 +12,7 @@ const trustPanel = await read('src/components/authority/CitationTrustPanel.tsx')
 const collectionTrust = await read('src/components/authority/CitationCollectionTrustRouter.tsx');
 const footer = await read('src/components/layout/Footer.tsx');
 const citationGuide = await read('src/routes/citation-guide.tsx');
-const exploreHub = await read('src/routes/explore.index.tsx');
+const exploreHub = await readRouteSurface('src/routes/explore.index.tsx');
 const topAttractions = await read('src/routes/explore.top-attractions.tsx');
 const topMethodology = await read('src/routes/explore.top-attractions.methodology.tsx');
 const topMethodologyContent = await read('src/components/explore/TopAttractionsMethodologyContent.tsx');
