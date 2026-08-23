@@ -3,6 +3,12 @@ import path from 'node:path';
 
 const root = process.cwd();
 const read = (file) => fs.readFileSync(path.join(root, file), 'utf8');
+const readRouteSurface = (file) => {
+  const eagerSource = read(file);
+  const lazyFile = file.replace(/\.tsx$/, '.lazy.tsx');
+  const lazyPath = path.join(root, lazyFile);
+  return fs.existsSync(lazyPath) ? `${eagerSource}\n${fs.readFileSync(lazyPath, 'utf8')}` : eagerSource;
+};
 
 const route = read('src/routes/texas-explained.tsx');
 const articleRoute = read('src/routes/article.$slug.tsx');
@@ -17,7 +23,7 @@ const newestEvergreenBase = fs.existsSync(newestEvergreenBasePath)
 const newestEvergreen = `${newestEvergreenEntry}\n${newestEvergreenBase}`;
 const supportArticles = read('src/data/fixtures/texas-explained-support-articles.ts');
 const supportStubs = read('src/data/fixtures/texas-explained-support-stubs.ts');
-const homepage = read('src/routes/index.tsx');
+const homepage = readRouteSurface('src/routes/index.tsx');
 const brand = read('src/brand/texasdefined.ts');
 const queries = read('src/data/queries.ts');
 const searchRoute = read('src/routes/search.tsx');
@@ -307,4 +313,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Texas Explained collection, answer-first core guides, canonical guide ordering, pillar clusters, five-page authority ring, five source-backed child support articles, reciprocal child-to-core and core-to-child discovery, structured data, search discovery and performance-sensitive registration are protected.');
+console.log('Texas Explained collection, answer-first core guides, canonical guide ordering, pillar clusters, five-page authority ring, five source-backed child support articles, reciprocal child-to-core and core-to-child discovery, structured data, search discovery and performance-sensitive registration are protected across eager and lazy homepage route surfaces.');
