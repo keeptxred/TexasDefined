@@ -5,6 +5,7 @@ const schema = fs.readFileSync('src/data/property/county-property-schema.ts', 'u
 const countyRoute = fs.readFileSync('src/routes/property-tax.county.$county.tsx', 'utf8');
 const entityRelationships = fs.readFileSync('src/data/knowledge-graph/relationships.ts', 'utf8');
 const entityRoute = fs.readFileSync('src/routes/$kind.$slug.tsx', 'utf8');
+const entityRoutePresentation = fs.readFileSync('src/routes/$kind.$slug.lazy.tsx', 'utf8');
 const countyGuide = fs.readFileSync('src/components/content/CountyGuideSections.tsx', 'utf8');
 const countyIdentity = fs.readFileSync('src/components/content/CountyIdentitySection.tsx', 'utf8');
 const countyStatewide = fs.readFileSync('src/components/content/CountyStatewideContextSection.tsx', 'utf8');
@@ -39,8 +40,11 @@ for (const feature of ['const entityCounty = countyContext(entity)','if (!isInde
 for (const forbiddenRanking of ['if (entity.kind === candidate.kind) score += 3',"if (entity.kind === candidate.kind) { score += 3"]) {
   if (entityRelationships.includes(forbiddenRanking)) errors.push(`Alphabetical same-kind fallback must not return: ${forbiddenRanking}`);
 }
-for (const feature of ['isIndexableEntityPage(loaderData.entity)',"robots: indexable ? undefined : 'noindex, follow, max-image-preview:large'",'loadCountyProfile(entity.slug, entity.name)','loadLocalGovernmentProfile(entity.slug, entity.name)','<CountyGuideSections entity={entity} profile={countyProfile} localGovernment={localGovernment} related={related} />',"entity.kind !== 'county' && entity.tags?.length","entity.kind !== 'county' && visibleRelated.length",'2020 Census population','Official county website']) {
-  if (!entityRoute.includes(feature)) errors.push(`Rich county route contract missing: ${feature}`);
+for (const feature of ['isIndexableEntityPage(loaderData.entity)',"robots: indexable ? undefined : 'noindex, follow, max-image-preview:large'",'loadCountyProfile(entity.slug, entity.name)','loadLocalGovernmentProfile(entity.slug, entity.name)']) {
+  if (!entityRoute.includes(feature)) errors.push(`Rich county route data contract missing: ${feature}`);
+}
+for (const feature of ['<CountyGuideSections entity={entity} profile={countyProfile} localGovernment={localGovernment} related={related} />',"entity.kind !== 'county' && entity.tags?.length","entity.kind !== 'county' && visibleRelated.length",'2020 Census population','Official county website']) {
+  if (!entityRoutePresentation.includes(feature)) errors.push(`Rich county route presentation contract missing: ${feature}`);
 }
 for (const feature of ['At a glance','The county in numbers','Where it is','A sense of place','County seat & communities','Places on the map','What to know','How to use this guide','Property & county services','Official local resources','Nearby places','Keep exploring','profile.population2020','profile.landAreaSquareMiles','profile.majorCommunities','localGovernment.appraisalDistrict','localGovernment.taxOffice','localGovernment.countyWebsiteUrl','CountyIdentitySection','profile.populationDensityPerSquareMile','profile.waterSharePercent','How densely populated is','propertyGuideReady','propertyGuideHref','propertyGuideLabel','getCountyPropertyRecordBySlug','isCountyPropertyIndexReady']) {
   if (!countyGuide.includes(feature)) errors.push(`County guide section missing: ${feature}`);
@@ -58,7 +62,7 @@ for (const feature of ['Density','Water share','row.populationDensityPerSquareMi
   if (!countyComparisonTable.includes(feature)) errors.push(`County comparison table uniqueness contract missing: ${feature}`);
 }
 for (const forbiddenCopy of ['A closer look at ${entity.name}, where to find it, and what else is worth seeing nearby.','What to know about ${loaderData.entity.name}, where it is, and what is nearby.','This county guide is being expanded']) {
-  if (entityRoute.includes(forbiddenCopy)) errors.push(`Generic placeholder copy must not return: ${forbiddenCopy}`);
+  if (`${entityRoute}\n${entityRoutePresentation}`.includes(forbiddenCopy)) errors.push(`Generic placeholder copy must not return: ${forbiddenCopy}`);
 }
 
 for (const feature of [
