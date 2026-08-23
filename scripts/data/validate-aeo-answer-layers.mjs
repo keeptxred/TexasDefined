@@ -1,6 +1,13 @@
 import fs from 'node:fs';
 
 const failures = [];
+const read = (file) => fs.readFileSync(file, 'utf8');
+const readRouteSurface = (file) => {
+  const eagerSource = read(file);
+  const lazyFile = file.replace(/\.tsx$/, '.lazy.tsx');
+  return fs.existsSync(lazyFile) ? `${eagerSource}\n${read(lazyFile)}` : eagerSource;
+};
+
 const requiredFiles = {
   'src/components/content/AnswerSummary.tsx': [
     'export function AnswerSummary',
@@ -39,13 +46,13 @@ const requiredFiles = {
 };
 
 for (const [file, needles] of Object.entries(requiredFiles)) {
-  const source = fs.readFileSync(file, 'utf8');
+  const source = file.startsWith('src/routes/') ? readRouteSurface(file) : read(file);
   for (const needle of needles) {
     if (!source.includes(needle)) failures.push(`${file} is missing AEO answer-layer contract: ${needle}`);
   }
 }
 
-const answerSummary = fs.readFileSync('src/components/content/AnswerSummary.tsx', 'utf8');
+const answerSummary = read('src/components/content/AnswerSummary.tsx');
 if (answerSummary.includes('FAQPage')) {
   failures.push('AnswerSummary must not emit FAQPage schema automatically; visible answer content and structured data should remain separately governed.');
 }
