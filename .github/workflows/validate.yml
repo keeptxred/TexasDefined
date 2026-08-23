@@ -73,10 +73,8 @@ jobs:
         id: build
         run: npm run build
 
-      # TEMPORARY: keep measuring the protected budget, but do not block production on it.
-      - name: Validate client performance budget (non-blocking)
+      - name: Validate client performance budget
         id: budget
-        continue-on-error: true
         run: npm run performance:validate
 
       - name: Summarize CI outcome
@@ -106,7 +104,7 @@ jobs:
             echo "| Authoritative validation suite | CODE / CONTENT / SEO / DATA | ${VALIDATION_OUTCOME:-not-run} |"
             echo "| Production predeploy authority suite | PREDEPLOY AUTHORITY | ${PREDEPLOY_OUTCOME:-not-run} |"
             echo "| Production build | BUILD | ${BUILD_OUTCOME:-not-run} |"
-            echo "| Client performance budget (temporary non-blocking) | BUNDLE BUDGET | ${BUDGET_OUTCOME:-not-run} |"
+            echo "| Client performance budget | BUNDLE BUDGET | ${BUDGET_OUTCOME:-not-run} |"
           } >> "$GITHUB_STEP_SUMMARY"
 
           if [[ "$RETIRED_INTEGRATION_OUTCOME" == 'failure' ]]; then
@@ -126,5 +124,5 @@ jobs:
           elif [[ "$BUILD_OUTCOME" == 'failure' ]]; then
             echo '::error title=CI failure class: build::Application and predeploy validation passed; the production build failed.'
           elif [[ "$BUDGET_OUTCOME" == 'failure' ]]; then
-            echo '::warning title=Bundle budget temporarily non-blocking::Validation and build passed, but the protected client performance budget is still over target and must be repaired before enforcement is restored.'
+            echo '::error title=CI failure class: bundle budget::Validation and build passed; the protected client performance budget failed.'
           fi
