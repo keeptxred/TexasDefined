@@ -8,6 +8,7 @@ const registry = read('src/data/texas-entity-registry.ts');
 const relationships = read('src/data/knowledge-graph/relationships.ts');
 const entityIndex = read('src/data/knowledge-graph/index.ts');
 const entityRoute = read('src/routes/$kind.$slug.tsx');
+const entityRoutePresentation = read('src/routes/$kind.$slug.lazy.tsx');
 const countyGuide = read('src/components/content/CountyGuideSections.tsx');
 const countyProfile = read('src/data/county-profile.ts');
 const localGovernment = read('src/data/local-government-profile.ts');
@@ -99,9 +100,11 @@ requireAll('county property link gate', countyGuide, [
 requireAll('entity route index control', entityRoute, [
   'isIndexableEntityPage(loaderData.entity)',
   "robots: indexable ? undefined : 'noindex, follow, max-image-preview:large'",
+]);
+requireAll('entity route county guide presentation', entityRoutePresentation, [
   '<CountyGuideSections entity={entity} profile={countyProfile} localGovernment={localGovernment} related={related} />',
 ]);
-forbidAll('generic placeholder copy', entityRoute, [
+forbidAll('generic placeholder copy', `${entityRoute}\n${entityRoutePresentation}`, [
   'A closer look at ${entity.name}, where to find it, and what else is worth seeing nearby.',
   'What to know about ${loaderData.entity.name}, where it is, and what is nearby.',
   'This county guide is being expanded',
