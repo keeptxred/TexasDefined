@@ -3,7 +3,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import heroHillCountry from "@/assets/hero-hill-country.jpg";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { CategoryPage } from "@/components/editorial/CategoryPage";
 import { articlesQuery, destinationsQuery, regionsQuery } from "@/data/queries";
 import type { Article, Destination } from "@/data/types";
 import { buildEditorialCollectionHead, buildMeta, canonicalLink } from "@/lib/seo";
@@ -37,5 +36,4 @@ export const Route = createFileRoute("/real-estate")({
     ]);
     return { articles, destinations };
   },
-  component: () => <CategoryPage category="real-estate" eyebrow="Homes & Land" title="Homes, land and ownership across Texas" intro={description} image={{ src: heroHillCountry, alt: imageAlt, width: 1600, height: 1067 }} />,
 });
