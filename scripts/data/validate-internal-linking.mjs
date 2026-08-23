@@ -5,7 +5,7 @@ const read = (path) => fs.readFileSync(path, 'utf8');
 const required = [
   'src/platform/internal-linking.ts','src/platform/internal-link-coverage.ts','src/platform/internal-link-memory.ts','src/platform/internal-link-quality.ts','src/platform/internal-link-policies.ts','src/platform/internal-link-policy-history.ts','src/platform/internal-link-policy-diff.ts','src/platform/analytics.ts',
   'src/components/content/AutoEntityLinks.tsx','src/components/editorial/ArticleBody.tsx','src/components/guides/PropertyTaxGuidePage.tsx','src/components/admin/InternalLinkMemoryCard.tsx','src/components/admin/InternalLinkPolicyHistory.tsx','src/components/admin/InternalLinkRollbackPreview.tsx',
-  'src/routes/api.internal-links.ts','src/routes/api.internal-link-coverage.ts','src/routes/api.internal-link-quality.ts','src/routes/api.internal-link-policies.ts','src/routes/api.internal-link-policy-rollback.ts','src/routes/article.$slug.tsx','src/routes/destination.$slug.tsx','src/routes/$kind.$slug.tsx','src/routes/admin.platform-health.tsx','src/routes/admin.platform-health.lazy.tsx','src/routes/admin.internal-link-rollback.tsx','src/routes/admin.internal-link-rollback.lazy.tsx',
+  'src/routes/api.internal-links.ts','src/routes/api.internal-link-coverage.ts','src/routes/api.internal-link-quality.ts','src/routes/api.internal-link-policies.ts','src/routes/api.internal-link-policy-rollback.ts','src/routes/article.$slug.tsx','src/routes/destination.$slug.tsx','src/routes/$kind.$slug.tsx','src/routes/$kind.$slug.lazy.tsx','src/routes/admin.platform-health.tsx','src/routes/admin.platform-health.lazy.tsx','src/routes/admin.internal-link-rollback.tsx','src/routes/admin.internal-link-rollback.lazy.tsx',
 ];
 for (const file of required) if (!fs.existsSync(file)) errors.push(`Missing Phase 2 file: ${file}`);
 if (errors.length) fail();
@@ -32,7 +32,7 @@ const policyApi = files['src/routes/api.internal-link-policies.ts'];
 const rollbackApi = files['src/routes/api.internal-link-policy-rollback.ts'];
 const article = files['src/routes/article.$slug.tsx'];
 const destination = files['src/routes/destination.$slug.tsx'];
-const entity = files['src/routes/$kind.$slug.tsx'];
+const entity = `${files['src/routes/$kind.$slug.tsx']}\n${files['src/routes/$kind.$slug.lazy.tsx']}`;
 const health = `${files['src/routes/admin.platform-health.tsx']}\n${files['src/routes/admin.platform-health.lazy.tsx']}`;
 const rollbackPage = `${files['src/routes/admin.internal-link-rollback.tsx']}\n${files['src/routes/admin.internal-link-rollback.lazy.tsx']}`;
 
