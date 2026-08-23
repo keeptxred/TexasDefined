@@ -9,7 +9,10 @@ import path from 'node:path';
 
 const root = process.cwd();
 const route = fs.readFileSync(path.join(root, 'src/routes/explore.$category.tsx'), 'utf8');
-const landing = fs.readFileSync(path.join(root, 'src/routes/explore.index.tsx'), 'utf8');
+const landing = [
+  fs.readFileSync(path.join(root, 'src/routes/explore.index.tsx'), 'utf8'),
+  fs.readFileSync(path.join(root, 'src/routes/explore.index.lazy.tsx'), 'utf8'),
+].join('\n');
 const categoryPage = fs.readFileSync(path.join(root, 'src/components/editorial/CategoryPage.tsx'), 'utf8');
 const collectionGrid = fs.readFileSync(path.join(root, 'src/components/editorial/DestinationCollectionGrid.tsx'), 'utf8');
 const discovery = fs.readFileSync(path.join(root, 'src/components/editorial/ExploreDiscovery.tsx'), 'utf8');
