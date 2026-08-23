@@ -52,6 +52,9 @@ jobs:
       - name: Publish pending production status
         run: node scripts/ci/publish-github-status.mjs texasdefined-production pending "Validating, building and deploying TexasDefined"
 
+      - name: Validate retired integration traces
+        run: node scripts/ci/validate-retired-integration-traces.mjs
+
       - name: Install dependencies
         id: install
         run: npm ci --no-audit --no-fund
