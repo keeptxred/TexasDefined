@@ -1,14 +1,3 @@
-import { Outlet, createFileRoute } from "@tanstack/react-router";
-import { ShopCartProvider } from "@/lib/shop-cart";
+import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/shop")({
-  component: ShopLayout,
-});
-
-function ShopLayout() {
-  return (
-    <ShopCartProvider>
-      <Outlet />
-    </ShopCartProvider>
-  );
-}
+export const Route = createFileRoute("/shop")({});

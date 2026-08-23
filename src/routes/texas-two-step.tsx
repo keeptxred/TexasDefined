@@ -1,8 +1,8 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
-import { PrioritySearchPage } from "@/components/editorial/PrioritySearchPage";
 import { loadPrioritySearchPage } from "@/data/priority-search-page";
 import { buildPrioritySearchHead } from "@/lib/priority-search-seo";
 
+// PrioritySearchPage UI is intentionally delivered from texas-two-step.lazy.tsx.
 const canonicalPath = "/texas-two-step";
 const faq = [
   { question: "Is Texas Two Step a lottery game or a dance?", answer: "The Texas Two Step page here covers the Texas Lottery draw game. If you mean the Texas two-step dance, use the linked Texas dance-hall and honky-tonk guide." },
@@ -41,9 +41,4 @@ export const Route = createFileRoute("/texas-two-step")({
     data: loaderData,
     about: ["Texas Two Step", "Texas Lottery", "Texas Department of Licensing and Regulation", "Texas lottery game", "Texas lottery drawings"],
   }) : {},
-  component: TexasTwoStepPage,
 });
-
-function TexasTwoStepPage() {
-  return <PrioritySearchPage data={Route.useLoaderData()} />;
-}

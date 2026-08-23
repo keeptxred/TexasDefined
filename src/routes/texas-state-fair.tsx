@@ -1,9 +1,9 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
-import { PrioritySearchPage } from "@/components/editorial/PrioritySearchPage";
 import { loadPrioritySearchPage } from "@/data/priority-search-page";
 import { buildPrioritySearchHead } from "@/lib/priority-search-seo";
 import { jsonLd } from "@/lib/seo";
 
+// PrioritySearchPage UI is intentionally delivered from texas-state-fair.lazy.tsx.
 const canonicalPath = "/texas-state-fair";
 const faq = [
   { question: "When is the 2026 State Fair of Texas?", answer: "The 2026 State Fair of Texas is scheduled for September 25 through October 18, 2026." },
@@ -55,9 +55,4 @@ export const Route = createFileRoute("/texas-state-fair")({
       ],
     };
   },
-  component: TexasStateFairPage,
 });
-
-function TexasStateFairPage() {
-  return <PrioritySearchPage data={Route.useLoaderData()} />;
-}
