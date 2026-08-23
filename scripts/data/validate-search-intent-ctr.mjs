@@ -8,6 +8,8 @@ const countyPropertyTaxRoute = fs.readFileSync('src/routes/property-tax.county.$
 const disabledVeteranRoute = fs.readFileSync('src/routes/learn.disabled-veteran-property-tax-benefits.tsx', 'utf8');
 const calculators = fs.readFileSync('src/components/calculators/TexasPlanningCalculators.tsx', 'utf8');
 const entityRoute = fs.readFileSync('src/routes/$kind.$slug.tsx', 'utf8');
+const entityRoutePresentation = fs.readFileSync('src/routes/$kind.$slug.lazy.tsx', 'utf8');
+const entityRouteContract = `${entityRoute}\n${entityRoutePresentation}`;
 const entityRegistry = fs.readFileSync('src/data/texas-entity-registry.ts', 'utf8');
 const knowledgeGraph = fs.readFileSync('src/data/knowledge-graph/index.ts', 'utf8');
 const localGovernment = fs.readFileSync('src/data/local-government-profile.ts', 'utf8');
@@ -83,7 +85,7 @@ for (const required of [
   "if (kind === 'agency') return 'Official agency website';",
   "if (kind === 'agency') return 'GovernmentOrganization';",
 ]) {
-  if (!entityRoute.includes(required)) failures.push(`Entity SERP intent contract missing: ${required}`);
+  if (!entityRouteContract.includes(required)) failures.push(`Entity SERP intent contract missing: ${required}`);
 }
 
 if (!entityRoute.includes("robots: indexable ? undefined : 'noindex, follow, max-image-preview:large'")) {
