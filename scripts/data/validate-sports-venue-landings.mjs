@@ -26,7 +26,7 @@ const [landings, landingPaths, route, indexComponent, quickAnswers, countySports
   readRouteSurface('src/routes/sports.tsx'),
   read('src/routes/sports-venue.$slug.tsx'),
   read('src/routes/sports-venue.jones-att-stadium.tsx'),
-  read('src/routes/$kind.$slug.tsx'),
+  readRouteSurface('src/routes/$kind.$slug.tsx'),
   read('src/routes/search.tsx'),
   readRouteSurface('src/routes/index.tsx'),
   readRouteSurface('src/routes/guides.tsx'),
