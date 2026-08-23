@@ -9,7 +9,7 @@ const readRouteSurface = (file) => {
 
 const insuranceRoute = readRouteSurface('src/routes/texas-home-insurance-calculator.tsx');
 const costOfLivingRoute = readRouteSurface('src/routes/texas-cost-of-living-calculator.tsx');
-const citiesRoute = fs.readFileSync('src/routes/browse.cities.tsx', 'utf8');
+const citiesRoute = readRouteSurface('src/routes/browse.cities.tsx');
 const countyPropertyTaxRoute = fs.readFileSync('src/routes/property-tax.county.$county.tsx', 'utf8');
 const disabledVeteranRoute = fs.readFileSync('src/routes/learn.disabled-veteran-property-tax-benefits.tsx', 'utf8');
 const calculators = fs.readFileSync('src/components/calculators/TexasPlanningCalculators.tsx', 'utf8');
