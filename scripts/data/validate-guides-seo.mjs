@@ -8,6 +8,7 @@ const readRouteSurface = (file) => {
   const lazyFile = file.replace(/\.tsx$/, '.lazy.tsx');
   return fs.existsSync(path.join(root, lazyFile)) ? `${eagerSource}\n${read(lazyFile)}` : eagerSource;
 };
+const eagerSource = read('src/routes/guides.tsx');
 const source = readRouteSurface('src/routes/guides.tsx');
 const errors = [];
 
@@ -31,10 +32,14 @@ if (source.includes('"@type": "Offer"') || source.includes('"@type": "FinancialP
   errors.push('Guides hub must not claim Offer or FinancialProduct structured data.');
 }
 
+for (const forbidden of ['useSuspenseQuery', 'DepartmentHero', 'GuideCard', 'SectionHeader', 'component: GuidesPage']) {
+  if (eagerSource.includes(forbidden)) errors.push(`Guides eager route must not retain lazy UI dependency: ${forbidden}.`);
+}
+
 if (errors.length) {
   console.error('TexasDefined guides SEO validation failed:');
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
 
-console.log('TexasDefined guides hub structured data is valid.');
+console.log('TexasDefined guides hub structured data and lazy UI boundary are valid.');
