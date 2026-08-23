@@ -28,7 +28,7 @@ const countyIdentity = read('src/components/content/CountyIdentitySection.tsx');
 const guidesPage = read('src/routes/guides.tsx');
 const texasLiving = read('src/routes/texas-living.tsx');
 const exploreSitemap = read('src/routes/sitemap-explore[.]xml.ts');
-const homepage = read('src/routes/index.tsx');
+const homepage = readRouteSurface('src/routes/index.tsx');
 const exploreTopicPaths = read('src/components/editorial/ExploreTopicPaths.tsx');
 
 for (const path of ['/property', '/explore/trip-planner']) {
