@@ -1,4 +1,3 @@
-import { createServerFn } from "@tanstack/react-start";
 import type { Article } from "@/data/types";
 
 export type CountySeriesProfile = {
@@ -7,18 +6,12 @@ export type CountySeriesProfile = {
   loadArticle: () => Promise<Article>;
 };
 
-const loadCountySeriesArticleServerFn = createServerFn({ method: "GET" })
-  .inputValidator((data: { countySlug: string }) => data)
-  .handler(async ({ data }) => {
-    const { loadCountySeriesArticleServer } = await import("./county-series.server");
-    return loadCountySeriesArticleServer(data.countySlug);
-  });
-
 export async function hasCountySeriesProfile(countySlug: string): Promise<boolean> {
   return (await loadCountySeriesArticle(countySlug)) !== null;
 }
 
-export function loadCountySeriesArticle(countySlug: string): Promise<Article | null> {
+export async function loadCountySeriesArticle(countySlug: string): Promise<Article | null> {
+  const { loadCountySeriesArticleServerFn } = await import("./county-series.functions");
   return loadCountySeriesArticleServerFn({ data: { countySlug } });
 }
 
