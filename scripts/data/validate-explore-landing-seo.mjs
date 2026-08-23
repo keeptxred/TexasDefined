@@ -2,7 +2,10 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const root = process.cwd();
-const route = fs.readFileSync(path.join(root, 'src/routes/explore.index.tsx'), 'utf8');
+const route = [
+  fs.readFileSync(path.join(root, 'src/routes/explore.index.tsx'), 'utf8'),
+  fs.readFileSync(path.join(root, 'src/routes/explore.index.lazy.tsx'), 'utf8'),
+].join('\n');
 const departmentHero = fs.readFileSync(path.join(root, 'src/components/editorial/DepartmentHero.tsx'), 'utf8');
 const errors = [];
 
