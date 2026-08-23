@@ -6,7 +6,7 @@ const errors = [];
 const read = (file) => fs.readFileSync(path.join(root, file), 'utf8');
 const requiredFiles = [
   'src/routes/learn.property-taxes.tsx','src/routes/learn.property-tax-payments.tsx','src/routes/decide.property-taxes.tsx','src/routes/learn.appraisal-districts.tsx','src/routes/do.homestead-exemption.tsx','src/routes/do.property-tax-protest.tsx','src/routes/browse.counties.tsx','src/routes/browse.cities.tsx','src/routes/article.$slug.tsx',
-  'src/routes/admin.platform-health.tsx','src/routes/sitemap[.]xml.ts','src/routes/sitemap-explore[.]xml.ts','src/routes/events.tsx','src/routes/destination.$slug.tsx','src/routes/api.knowledge-graph.ts','src/routes/api.ai.entities.ts','src/routes/llms[.]txt.ts','src/routes/$kind.$slug.tsx',
+  'src/routes/admin.platform-health.tsx','src/routes/sitemap[.]xml.ts','src/routes/sitemap-explore[.]xml.ts','src/routes/events.tsx','src/routes/destination.$slug.tsx','src/routes/api.knowledge-graph.ts','src/routes/api.ai.entities.ts','src/routes/llms[.]txt.ts','src/routes/$kind.$slug.tsx','src/routes/$kind.$slug.lazy.tsx',
   'src/data/texas-data-sources.ts','src/data/texas-entity-registry.ts','src/data/knowledge-graph/types.ts','src/data/knowledge-graph/seed.ts','src/data/knowledge-graph/index.ts','src/data/knowledge-graph/explore-adapter.ts','src/data/knowledge-graph/relationships.ts','src/data/knowledge-graph/audit.ts',
   'src/components/content/AutoEntityLinks.tsx','src/components/editorial/ArticleBody.tsx','src/platform/internal-linking.ts','src/platform/analytics.ts','src/lib/public-routes.ts','scripts/data/import-authoritative-entities.mjs','.github/workflows/import-entities.yml',
 ];
@@ -22,6 +22,8 @@ const graphAdapter = read('src/data/knowledge-graph/explore-adapter.ts');
 const relationships = read('src/data/knowledge-graph/relationships.ts');
 const audit = read('src/data/knowledge-graph/audit.ts');
 const entityRoute = read('src/routes/$kind.$slug.tsx');
+const entityRoutePresentation = read('src/routes/$kind.$slug.lazy.tsx');
+const entityRouteContract = `${entityRoute}\n${entityRoutePresentation}`;
 const articleRoute = read('src/routes/article.$slug.tsx');
 const destinationRoute = read('src/routes/destination.$slug.tsx');
 const eventsRoute = read('src/routes/events.tsx');
@@ -50,7 +52,7 @@ for (const api of ['loadTexasKnowledgeGraph','searchCompleteTexasKnowledgeGraph'
 for (const feature of ['explore_entities',"visibility: 'eq.public'","status: 'in.(published,verified)'"]) if (!graphAdapter.includes(feature)) errors.push(`Explore adapter protection missing: ${feature}.`);
 for (const feature of ['rankRelatedEntities','canonicalEntityPath','direct relationship','same county','same region']) if (!relationships.includes(feature)) errors.push(`Relationship engine feature missing: ${feature}.`);
 for (const feature of ['auditTexasKnowledgeGraph','missing-official-url','missing-coordinates','missing-relationships','review-overdue','duplicate-alias']) if (!audit.includes(feature)) errors.push(`Graph audit feature missing: ${feature}.`);
-for (const feature of ["createFileRoute('/$kind/$slug')",'rankRelatedEntities','application/ld+json','GeoCoordinates','BreadcrumbList',"kind === 'city'", "kind === 'museum'",'href={entity.officialUrl}','www.google.com/maps/search','buildMeta(texasDefinedBrand','canonicalPath']) if (!entityRoute.includes(feature)) errors.push(`Entity page feature missing: ${feature}.`);
+for (const feature of ["createFileRoute('/$kind/$slug')",'rankRelatedEntities','application/ld+json','GeoCoordinates','BreadcrumbList',"kind === 'city'", "kind === 'museum'",'href={entity.officialUrl}','www.google.com/maps/search','buildMeta(texasDefinedBrand','canonicalPath']) if (!entityRouteContract.includes(feature)) errors.push(`Entity page feature missing: ${feature}.`);
 for (const feature of ['autoLinkEntityMentions','maxLinks = 8','resolveInternalEntityLinks','match.href']) if (!linker.includes(feature)) errors.push(`Automatic linking feature missing: ${feature}.`);
 for (const feature of ['used.has','canonicalEntityPath']) if (!internalLinking.includes(feature)) errors.push(`Internal-link resolver feature missing: ${feature}.`);
 for (const feature of ['ArticleBody blocks={article.body} entities={graph}','loadTexasKnowledgeGraph','mentions: mentions.map','absoluteUrl(texasDefinedBrand, article.hero.src)','canonicalEntityPath(entity)']) if (!articleRoute.includes(feature)) errors.push(`Article graph integration missing: ${feature}.`);
