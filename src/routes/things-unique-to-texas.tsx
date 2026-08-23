@@ -1,14 +1,23 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { TEXAS_ICON_CATEGORIES, TEXAS_ICON_ITEM_COUNT } from "@/data/things-unique-to-texas";
-import { TEXAS_ICON_DEEPER_GUIDE_COUNT } from "@/data/things-unique-to-texas-reference";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const description = "Explore 250 foods, landscapes, landmarks, small-town oddities, traditions, wildlife, brands, sayings and stories that help define Texas.";
 
 export const Route = createFileRoute("/things-unique-to-texas")({
-  loader: () => ({ categories: TEXAS_ICON_CATEGORIES, itemCount: TEXAS_ICON_ITEM_COUNT, deeperGuideCount: TEXAS_ICON_DEEPER_GUIDE_COUNT }),
+  loader: async () => {
+    const [{ TEXAS_ICON_CATEGORIES, TEXAS_ICON_ITEM_COUNT }, { TEXAS_ICON_DEEPER_GUIDE_COUNT }] = await Promise.all([
+      import("@/data/things-unique-to-texas"),
+      import("@/data/things-unique-to-texas-reference"),
+    ]);
+
+    return {
+      categories: TEXAS_ICON_CATEGORIES,
+      itemCount: TEXAS_ICON_ITEM_COUNT,
+      deeperGuideCount: TEXAS_ICON_DEEPER_GUIDE_COUNT,
+    };
+  },
   head: ({ loaderData }) => {
     const origin = `https://${texasDefinedBrand.identity.domain}`;
     const categories = loaderData?.categories ?? [];
@@ -45,7 +54,7 @@ export const Route = createFileRoute("/things-unique-to-texas")({
               "@type": "ItemList",
               "@id": `${origin}/things-unique-to-texas#items`,
               name: "250 Things That Define Texas chapters",
-              numberOfItems: loaderData?.itemCount ?? TEXAS_ICON_ITEM_COUNT,
+              numberOfItems: loaderData?.itemCount ?? 250,
               itemListElement: categories.map((category, index) => ({
                 "@type": "ListItem",
                 position: index + 1,
