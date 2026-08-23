@@ -2,7 +2,13 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const root = process.cwd();
-const source = fs.readFileSync(path.join(root, 'src/routes/guides.tsx'), 'utf8');
+const read = (file) => fs.readFileSync(path.join(root, file), 'utf8');
+const readRouteSurface = (file) => {
+  const eagerSource = read(file);
+  const lazyFile = file.replace(/\.tsx$/, '.lazy.tsx');
+  return fs.existsSync(path.join(root, lazyFile)) ? `${eagerSource}\n${read(lazyFile)}` : eagerSource;
+};
+const source = readRouteSurface('src/routes/guides.tsx');
 const errors = [];
 
 for (const marker of ['"@type": "CollectionPage"', '"@type": "BreadcrumbList"', '"@type": "ItemList"']) {

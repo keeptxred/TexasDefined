@@ -1,16 +1,11 @@
-import { useSuspenseQuery } from "@tanstack/react-query";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { DepartmentHero } from "@/components/editorial/DepartmentHero";
-import { GuideCard } from "@/components/editorial/GuideCard";
-import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
-import { Container } from "@/components/layout/Container";
 import { guidesQuery } from "@/data/queries";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
-const description = "Travel, moving, homeowner, property-tax and everyday-life guides gathered in one editorial library.";
-const practicalGuides = [
+export const description = "Travel, moving, homeowner, property-tax and everyday-life guides gathered in one editorial library.";
+export const practicalGuides = [
   { to: "/learn/property-taxes", label: "Property Taxes Without the Guesswork", body: "A plain-English look at appraisals, exemptions, protests, rates and the yearly tax cycle.", action: "Read the guide" },
   { to: "/decide/property-taxes", label: "Estimate Your Property Taxes", body: "Get a quick estimate using your home value, exemptions and local tax rate.", action: "Open calculator" },
   { to: "/learn/property-tax-payments", label: "Paying Your Property Taxes", body: "What to know about deadlines, escrow, payment plans, late bills and tax liens.", action: "Read the guide" },
@@ -20,7 +15,7 @@ const practicalGuides = [
   { to: "/browse/counties", label: "Find Your County", body: "Start with your county and head straight to the local offices and information you need.", action: "Open directory" },
   { to: "/browse/cities", label: "Find a City", body: "Look up a city for nearby stories, moving information and local details.", action: "Open directory" },
 ] as const;
-const travelGuides = [
+export const travelGuides = [
   { to: "/texas-explained", label: "Texas Explained", body: "Understand the systems behind the scenery: rivers, reservoirs, roads, courthouse towns, wildlife, homes, land and cultural regions.", note: "Ten connected evergreen guides to why Texas works the way it does." },
   { to: "/explore/painted-churches", label: "Painted Churches of Texas", body: "Explore the verified statewide collection, church-by-church history, artists, techniques, symbols, archival evidence, map and road-trip routes.", note: "A source-backed heritage reference and travel-planning system for 27 verified churches." },
   { to: "/explore/state-parks", label: "Texas State Parks Guide", body: "Choose parks by region, season, activity, camping style and drive time.", note: "A statewide guide covering all seven regions." },
@@ -32,18 +27,10 @@ const travelGuides = [
   { to: "/explore/historic-sites", label: "Texas Historic Places", body: "Browse forts, missions, battlefields, museums, historic districts and cultural landmarks.", note: "Where the past still shapes the present." },
   { to: "/sports-venues", label: "Texas Sports Venue Guide", body: "Browse stadiums, arenas, ballparks, racetracks, college venues and other sports destinations by market and sport.", note: "Verified venue guides for planning game days and sports weekends." },
 ] as const;
+export const travelIntro = "Start with Texas Explained for the why behind the state, then move into Painted Churches, parks, water, camping, roads, caverns, small towns, historic places and sports destinations.";
 const allFeaturedGuides = [...travelGuides, ...practicalGuides];
-const guideAnchor = (index: number) => `guide-${index + 1}`;
+export const guideAnchor = (index: number) => `guide-${index + 1}`;
 const guidesUrl = absoluteUrl(texasDefinedBrand, "/guides");
-const TOPIC_LABELS: Record<string, { eyebrow: string; title: string }> = {
-  moving: { eyebrow: "Moving Here", title: "Make the move with confidence" },
-  housing: { eyebrow: "Homes & Land", title: "Buying, owning and understanding Texas property" },
-  "property-taxes": { eyebrow: "Property Taxes", title: "Texas property taxes, explained" },
-  money: { eyebrow: "Money & Property", title: "Plan the numbers before you decide" },
-  utilities: { eyebrow: "Everyday Costs", title: "What it costs to keep a Texas home running" },
-  travel: { eyebrow: "Travel", title: "Plan the next Texas getaway" },
-};
-const editorialLabel = (value: string) => value.replaceAll("-", " ").replace(/\b\w/g, (letter) => letter.toUpperCase());
 
 export const Route = createFileRoute("/guides")({
   head: () => ({
@@ -56,19 +43,4 @@ export const Route = createFileRoute("/guides")({
     ] })],
   }),
   loader: async ({ context }) => { await context.queryClient.ensureQueryData(guidesQuery()); },
-  component: GuidesPage,
 });
-
-function GuidesPage() {
-  const { data: guides } = useSuspenseQuery(guidesQuery());
-  const topics = [...new Set(guides.map((guide) => guide.topic))];
-  return <>
-    <DepartmentHero current="Guides" eyebrow="The Texas Guidebook" title="Travel well. Live well. Know Texas better." description={description} />
-    <Section tone="surface"><Container><SectionHeader eyebrow="Travel guides" title="Where to go and how to make the most of it" description="Start with Texas Explained for the why behind the state, then move into Painted Churches, parks, water, camping, roads, caverns, small towns, historic places and sports destinations." /><ul className="mt-10 divide-y divide-border border-y border-border md:grid md:grid-cols-2 md:divide-y-0 lg:grid-cols-4">{travelGuides.map((guide, index) => <li key={`${guide.label}-${guide.to}`} id={guideAnchor(index)} className="border-border py-6 md:border-b md:p-6 lg:border-r lg:last:border-r-0"><Link to={guide.to} className="group block h-full"><p className="eyebrow text-muted-foreground">Guide {String(index + 1).padStart(2, "0")}</p><h2 className="mt-3 font-display text-2xl leading-tight group-hover:text-primary">{guide.label}</h2><p className="mt-3 text-sm leading-6 text-muted-foreground">{guide.body}</p><p className="mt-4 text-xs leading-5 text-muted-foreground">{guide.note}</p><span className="eyebrow mt-6 inline-block border-b border-primary pb-1 text-primary">Read the guide</span></Link></li>)}</ul></Container></Section>
-    <Section><Container><SectionHeader eyebrow="Living here" title="Practical guides for making Texas home" /><ul className="mt-10 grid gap-x-8 gap-y-0 md:grid-cols-2 lg:grid-cols-4">{practicalGuides.map((guide, index) => <li key={guide.to} id={guideAnchor(travelGuides.length + index)} className="border-t border-border py-6"><Link to={guide.to} className="group block"><h2 className="font-display text-2xl leading-tight group-hover:text-primary">{guide.label}</h2><p className="mt-3 text-sm leading-6 text-muted-foreground">{guide.body}</p><span className="eyebrow mt-5 inline-block text-primary">{guide.action} →</span></Link></li>)}</ul></Container></Section>
-    {topics.map((topic, index) => {
-      const topicCopy = TOPIC_LABELS[topic] ?? { eyebrow: editorialLabel(topic), title: `Explore ${editorialLabel(topic)}` };
-      return <Section key={topic} tone={index % 2 === 0 ? "surface" : "default"}><Container><SectionHeader eyebrow={topicCopy.eyebrow} title={topicCopy.title} /><ul className="mt-10 grid gap-8 md:grid-cols-2 lg:grid-cols-3">{guides.filter((guide) => guide.topic === topic).map((guide) => <li key={guide.id}><GuideCard guide={guide} /></li>)}</ul></Container></Section>;
-    })}
-  </>;
-}
