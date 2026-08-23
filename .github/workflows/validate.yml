@@ -73,6 +73,17 @@ jobs:
         id: build
         run: npm run build
 
+      - name: Verify 1.7 MB entry target
+        id: target_1700
+        continue-on-error: true
+        shell: bash
+        run: |
+          asset=$(find dist/public/assets -maxdepth 1 -type f -name 'main-*.js' -print -quit)
+          test -n "$asset"
+          bytes=$(wc -c < "$asset" | tr -d ' ')
+          echo "main bundle bytes: $bytes"
+          test "$bytes" -le 1700000
+
       - name: Validate client performance budget
         id: budget
         run: npm run performance:validate
