@@ -89,6 +89,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
   server: {
     handlers: {
       GET: async () => {
+        const { landscapeGuideSlugs, landscapeSlugs } = await import("@/data/texas-landscape-slugs");
         let enrichedDestinations: Awaited<ReturnType<typeof fetchExploreDestinations>> = [];
         let coreDestinations: Awaited<ReturnType<typeof fetchCoreExploreDestinations>> = [];
         const remoteConfigured = hasExploreRemoteData();
@@ -122,9 +123,6 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           ...regions.map((region) => region.id),
           ...EXPLORE_REGION_SLUGS,
         ])];
-        // Keep only self-canonical static pages in this sitemap. The Top
-        // Attractions collection, methodology and road-trip pages each carry
-        // their own canonical URL and therefore belong here.
         const staticPaths = [
           "/explore",
           "/explore/trip-planner",
@@ -135,6 +133,9 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           "/explore/top-attractions",
           "/explore/top-attractions/methodology",
           "/explore/top-attractions/road-trips",
+          "/explore/landscapes",
+          ...landscapeSlugs.map((slug) => `/explore/landscapes/${slug}`),
+          ...landscapeGuideSlugs.map((slug) => `/explore/landscapes/${slug}`),
           ...categorySlugs.map((slug) => `/explore/${slug}`),
           ...regionSlugs.map((regionSlug) => `/explore/region/${regionSlug}`),
         ];

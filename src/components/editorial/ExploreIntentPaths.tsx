@@ -53,6 +53,16 @@ const INTENT_GROUPS = [
     ],
   },
   {
+    title: "Landscapes & scenery",
+    body: "Choose the Texas you want to see — limestone hills, pine forest, prairie, coast, canyon, desert or mountain country.",
+    links: [
+      { to: "/explore/landscapes", label: "Texas landscapes" },
+      { to: "/explore/road-trips", label: "Scenic drives" },
+      { to: "/explore/caverns", label: "Caverns & karst" },
+      { to: "/article/texas-wildflowers-guide", label: "Wildflower seasons" },
+    ],
+  },
+  {
     title: "Below-ground Texas",
     body: "Connect caverns, springs and Hill Country road trips where geology shapes the whole day.",
     links: [
