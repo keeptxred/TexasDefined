@@ -11,19 +11,22 @@ const protectedMainDiagnostics = {
     for (const output of Object.values(bundle)) {
       if (output.type !== "chunk" || !/^assets\/main-.*\.js$/.test(output.fileName)) continue;
 
-      const targets = Object.keys(output.modules).filter((id) =>
-        id.endsWith("/src/data/painted-church-search-guides.ts") ||
-        id.endsWith("/src/data/painted-church-search.ts")
+      const target = Object.keys(output.modules).find((id) =>
+        id.endsWith("/src/data/painted-church-search-guides.ts")
       );
+      if (!target) continue;
 
-      console.log("PROTECTED_MAIN_TARGET_IMPORTERS_START");
-      for (const id of targets) {
+      console.log("PROTECTED_MAIN_IMPORT_CHAIN_START");
+      const seen = new Set();
+      const visit = (id, depth) => {
+        if (seen.has(id) || depth > 8) return;
+        seen.add(id);
         const info = this.getModuleInfo(id);
-        console.log(`target\t${id}`);
-        for (const importer of info?.importers ?? []) console.log(`importer\t${importer}`);
-        for (const importer of info?.dynamicImporters ?? []) console.log(`dynamicImporter\t${importer}`);
-      }
-      console.log("PROTECTED_MAIN_TARGET_IMPORTERS_END");
+        console.log(`${depth}\t${id}`);
+        for (const importer of info?.importers ?? []) visit(importer, depth + 1);
+      };
+      visit(target, 0);
+      console.log("PROTECTED_MAIN_IMPORT_CHAIN_END");
     }
   },
 };
