@@ -10,7 +10,7 @@ const CATEGORY_LABELS: Record<string, string> = {
   hats: "Hats",
   drinkware: "Drinkware",
   stickers: "Stickers",
-  "tote-bags": "Tote Bags",
+  "tote-bags": "Totes",
   accessories: "Accessories",
 };
 
