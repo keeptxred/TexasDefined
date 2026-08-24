@@ -2,7 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import bbqBrisket from "@/assets/bbq-brisket.jpg";
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { TexasEvergreenGuide } from "@/components/editorial/TexasEvergreenGuide";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const canonicalPath = "/texas-food-trail";
@@ -23,10 +22,4 @@ export const Route = createFileRoute(canonicalPath)({
     }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
   }),
-  component: GuidePage,
 });
-
-function GuidePage() {
-  const guide = Route.useLoaderData();
-  return <TexasEvergreenGuide guide={guide} />;
-}
