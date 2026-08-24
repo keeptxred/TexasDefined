@@ -16,7 +16,6 @@ import { paintedChurchHeritage } from "@/data/painted-church-heritage";
 import { paintedChurchItineraries } from "@/data/painted-church-itineraries";
 import { paintedChurchPeople } from "@/data/painted-church-people";
 import { paintedChurchPreservationTopics } from "@/data/painted-church-preservation";
-import { paintedChurchSearchGuides } from "@/data/painted-church-search-guides";
 import { paintedChurchSymbols } from "@/data/painted-church-symbols";
 import { paintedChurchTechniques } from "@/data/painted-church-techniques";
 import { expandedPaintedChurches } from "@/data/painted-churches-expanded";
@@ -90,6 +89,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
     handlers: {
       GET: async () => {
         const { landscapeGuideSlugs, landscapeSlugs } = await import("@/data/texas-landscape-slugs");
+        const { paintedChurchSearchGuides } = await import("@/data/painted-church-search-guides");
         let enrichedDestinations: Awaited<ReturnType<typeof fetchExploreDestinations>> = [];
         let coreDestinations: Awaited<ReturnType<typeof fetchCoreExploreDestinations>> = [];
         const remoteConfigured = hasExploreRemoteData();
