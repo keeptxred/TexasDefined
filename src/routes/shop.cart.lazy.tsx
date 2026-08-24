@@ -81,6 +81,7 @@ function CartPage() {
             {error ? <p className="mt-4 text-sm text-destructive" role="alert">{error}</p> : null}
             <button type="button" onClick={checkout} disabled={working} className="mt-6 w-full bg-foreground px-5 py-3 text-sm font-semibold uppercase tracking-[0.08em] text-background disabled:opacity-60">{working ? "Opening checkout…" : "Secure checkout"}</button>
             <p className="mt-4 text-xs leading-6 text-muted-foreground">Orders are printed and shipped by our U.S. production partner. Secure payment at checkout.</p>
+            <p className="mt-3 text-xs leading-6 text-muted-foreground">Review our <Link to="/return-refund-policy" className="border-b border-primary text-primary">Return &amp; Refund Policy</Link> before checkout.</p>
           </aside>
         </div>
       )}
