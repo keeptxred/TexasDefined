@@ -3,14 +3,16 @@ import { createFileRoute } from "@tanstack/react-router";
 import kolacheKlobasnek from "@/assets/kolache-klobasnek-hero-photo.jpg";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { TexasEvergreenGuide } from "@/components/editorial/TexasEvergreenGuide";
-import { getTexasEvergreenGuideBatch2 } from "@/data/texas-evergreen-guides-batch2";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
-const guide = getTexasEvergreenGuideBatch2("german-czech-texas-towns");
 const canonicalPath = "/german-czech-texas-towns";
 
 export const Route = createFileRoute(canonicalPath)({
-  head: () => ({
+  loader: async () => {
+    const { getTexasEvergreenGuideBatch2 } = await import("@/data/texas-evergreen-guides-batch2");
+    return getTexasEvergreenGuideBatch2("german-czech-texas-towns");
+  },
+  head: ({ loaderData: guide }) => ({
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath,
       title: "German & Czech Texas Towns: Food, Churches and Heritage",
@@ -21,5 +23,10 @@ export const Route = createFileRoute(canonicalPath)({
     }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
   }),
-  component: () => <TexasEvergreenGuide guide={guide} />,
+  component: GuidePage,
 });
+
+function GuidePage() {
+  const guide = Route.useLoaderData();
+  return <TexasEvergreenGuide guide={guide} />;
+}

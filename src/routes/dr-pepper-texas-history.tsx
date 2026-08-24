@@ -2,15 +2,17 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { TexasEvergreenGuide } from "@/components/editorial/TexasEvergreenGuide";
-import { getTexasEvergreenGuideBatch4 } from "@/data/texas-evergreen-guides-batch4";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
-const guide = getTexasEvergreenGuideBatch4("dr-pepper-texas-history");
 const canonicalPath = "/dr-pepper-texas-history";
 const heroImage = "https://commons.wikimedia.org/wiki/Special:Redirect/file/Cupola_Dr_Pepper_Museum_Waco_Texas_2024.jpg?width=1600";
 
 export const Route = createFileRoute(canonicalPath)({
-  head: () => ({
+  loader: async () => {
+    const { getTexasEvergreenGuideBatch4 } = await import("@/data/texas-evergreen-guides-batch4");
+    return getTexasEvergreenGuideBatch4("dr-pepper-texas-history");
+  },
+  head: ({ loaderData: guide }) => ({
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath,
       title: "Dr Pepper in Texas: How a Waco Soda Became a State Icon",
@@ -21,5 +23,10 @@ export const Route = createFileRoute(canonicalPath)({
     }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
   }),
-  component: () => <TexasEvergreenGuide guide={guide} />,
+  component: GuidePage,
 });
+
+function GuidePage() {
+  const guide = Route.useLoaderData();
+  return <TexasEvergreenGuide guide={guide} />;
+}

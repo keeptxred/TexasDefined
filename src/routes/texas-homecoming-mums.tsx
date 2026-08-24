@@ -2,14 +2,16 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { TexasEvergreenGuide } from "@/components/editorial/TexasEvergreenGuide";
-import { getTexasEvergreenGuideBatch2 } from "@/data/texas-evergreen-guides-batch2";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
-const guide = getTexasEvergreenGuideBatch2("texas-homecoming-mums");
 const canonicalPath = "/texas-homecoming-mums";
 
 export const Route = createFileRoute(canonicalPath)({
-  head: () => ({
+  loader: async () => {
+    const { getTexasEvergreenGuideBatch2 } = await import("@/data/texas-evergreen-guides-batch2");
+    return getTexasEvergreenGuideBatch2("texas-homecoming-mums");
+  },
+  head: ({ loaderData: guide }) => ({
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath,
       title: "Texas Homecoming Mums Explained: How a Small Flower Became Huge",
@@ -18,5 +20,10 @@ export const Route = createFileRoute(canonicalPath)({
     }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
   }),
-  component: () => <TexasEvergreenGuide guide={guide} />,
+  component: GuidePage,
 });
+
+function GuidePage() {
+  const guide = Route.useLoaderData();
+  return <TexasEvergreenGuide guide={guide} />;
+}

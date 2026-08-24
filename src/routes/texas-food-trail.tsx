@@ -3,14 +3,16 @@ import { createFileRoute } from "@tanstack/react-router";
 import bbqBrisket from "@/assets/bbq-brisket.jpg";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { TexasEvergreenGuide } from "@/components/editorial/TexasEvergreenGuide";
-import { getTexasEvergreenGuide } from "@/data/texas-evergreen-guides";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
-const guide = getTexasEvergreenGuide("texas-food-trail");
 const canonicalPath = "/texas-food-trail";
 
 export const Route = createFileRoute(canonicalPath)({
-  head: () => ({
+  loader: async () => {
+    const { getTexasEvergreenGuide } = await import("@/data/texas-evergreen-guides");
+    return getTexasEvergreenGuide("texas-food-trail");
+  },
+  head: ({ loaderData: guide }) => ({
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath,
       title: "Texas Food Trail: 10 Food Traditions Worth a Road Trip",
@@ -21,5 +23,10 @@ export const Route = createFileRoute(canonicalPath)({
     }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
   }),
-  component: () => <TexasEvergreenGuide guide={guide} />,
+  component: GuidePage,
 });
+
+function GuidePage() {
+  const guide = Route.useLoaderData();
+  return <TexasEvergreenGuide guide={guide} />;
+}

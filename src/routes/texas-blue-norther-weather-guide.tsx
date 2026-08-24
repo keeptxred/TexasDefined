@@ -3,14 +3,16 @@ import { createFileRoute } from "@tanstack/react-router";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { TexasEvergreenGuide } from "@/components/editorial/TexasEvergreenGuide";
 import { Container } from "@/components/layout/Container";
-import { getTexasEvergreenGuideBatch6 } from "@/data/texas-evergreen-guides-batch6";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
-const guide = getTexasEvergreenGuideBatch6("texas-blue-norther-weather-guide");
 const canonicalPath = "/texas-blue-norther-weather-guide";
 
 export const Route = createFileRoute(canonicalPath)({
-  head: () => ({
+  loader: async () => {
+    const { getTexasEvergreenGuideBatch6 } = await import("@/data/texas-evergreen-guides-batch6");
+    return getTexasEvergreenGuideBatch6("texas-blue-norther-weather-guide");
+  },
+  head: ({ loaderData: guide }) => ({
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath,
       title: "Texas Blue Northers, Spring Storms & Weather Folklore",
@@ -23,6 +25,7 @@ export const Route = createFileRoute(canonicalPath)({
 });
 
 function TexasBlueNortherWeatherPage() {
+  const guide = Route.useLoaderData();
   return <>
     <TexasEvergreenGuide guide={guide} />
     <Container className="-mt-14 pb-20 sm:pb-28">

@@ -2,14 +2,16 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { TexasEvergreenGuide } from "@/components/editorial/TexasEvergreenGuide";
-import { getTexasEvergreenGuideBatch5 } from "@/data/texas-evergreen-guides-batch5";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
-const guide = getTexasEvergreenGuideBatch5("barbacoa-big-red-san-antonio");
 const canonicalPath = "/barbacoa-big-red-san-antonio";
 
 export const Route = createFileRoute(canonicalPath)({
-  head: () => ({
+  loader: async () => {
+    const { getTexasEvergreenGuideBatch5 } = await import("@/data/texas-evergreen-guides-batch5");
+    return getTexasEvergreenGuideBatch5("barbacoa-big-red-san-antonio");
+  },
+  head: ({ loaderData: guide }) => ({
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath,
       title: "Barbacoa & Big Red: The San Antonio Sunday Tradition",
@@ -18,5 +20,10 @@ export const Route = createFileRoute(canonicalPath)({
     }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
   }),
-  component: () => <TexasEvergreenGuide guide={guide} />,
+  component: GuidePage,
 });
+
+function GuidePage() {
+  const guide = Route.useLoaderData();
+  return <TexasEvergreenGuide guide={guide} />;
+}

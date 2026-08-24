@@ -3,14 +3,16 @@ import { createFileRoute } from "@tanstack/react-router";
 import bigBend from "@/assets/big-bend.jpg";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { TexasEvergreenGuide } from "@/components/editorial/TexasEvergreenGuide";
-import { getTexasEvergreenGuideBatch2 } from "@/data/texas-evergreen-guides-batch2";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
-const guide = getTexasEvergreenGuideBatch2("texas-natural-wonders-bucket-list");
 const canonicalPath = "/texas-natural-wonders-bucket-list";
 
 export const Route = createFileRoute(canonicalPath)({
-  head: () => ({
+  loader: async () => {
+    const { getTexasEvergreenGuideBatch2 } = await import("@/data/texas-evergreen-guides-batch2");
+    return getTexasEvergreenGuideBatch2("texas-natural-wonders-bucket-list");
+  },
+  head: ({ loaderData: guide }) => ({
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath,
       title: "Texas Natural Wonders Bucket List: 12 Landscapes",
@@ -21,5 +23,10 @@ export const Route = createFileRoute(canonicalPath)({
     }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
   }),
-  component: () => <TexasEvergreenGuide guide={guide} />,
+  component: GuidePage,
 });
+
+function GuidePage() {
+  const guide = Route.useLoaderData();
+  return <TexasEvergreenGuide guide={guide} />;
+}
