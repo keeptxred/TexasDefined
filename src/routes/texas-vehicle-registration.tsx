@@ -1,8 +1,8 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
-import { PrioritySearchPage } from "@/components/editorial/PrioritySearchPage";
 import { loadPrioritySearchPage } from "@/data/priority-search-page";
 import { buildPrioritySearchHead } from "@/lib/priority-search-seo";
 
+// PrioritySearchPage UI is intentionally delivered from texas-vehicle-registration.lazy.tsx.
 const canonicalPath = "/texas-vehicle-registration";
 const faq = [
   { question: "Who handles Texas vehicle registration?", answer: "TxDMV sets statewide vehicle-registration requirements and provides renewal guidance, while county tax assessor-collector offices handle many local registration transactions." },
@@ -23,9 +23,4 @@ export const Route = createFileRoute("/texas-vehicle-registration")({
     data: loaderData,
     about: ["Texas vehicle registration", "TxDMV", "vehicle registration renewal", "county tax assessor-collector"],
   }) : {},
-  component: TexasVehicleRegistrationPage,
 });
-
-function TexasVehicleRegistrationPage() {
-  return <PrioritySearchPage data={Route.useLoaderData()} />;
-}

@@ -1,8 +1,8 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
-import { PrioritySearchPage } from "@/components/editorial/PrioritySearchPage";
 import { loadPrioritySearchPage } from "@/data/priority-search-page";
 import { buildPrioritySearchHead } from "@/lib/priority-search-seo";
 
+// PrioritySearchPage UI is intentionally delivered from texas-dmv.lazy.tsx.
 const canonicalPath = "/texas-dmv";
 const faq = [
   { question: "Does the Texas DMV issue driver licenses?", answer: "No. Texas driver licenses and state IDs are issued by the Texas Department of Public Safety. TxDMV handles vehicle titles, registration, dealer licensing and motor-carrier services." },
@@ -23,9 +23,4 @@ export const Route = createFileRoute("/texas-dmv")({
     data: loaderData,
     about: ["Texas DMV", "TxDMV", "vehicle registration", "vehicle titles", "Texas motor vehicles"],
   }) : {},
-  component: TexasDmvPage,
 });
-
-function TexasDmvPage() {
-  return <PrioritySearchPage data={Route.useLoaderData()} />;
-}

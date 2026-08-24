@@ -6,17 +6,19 @@ const exists = (path) => fs.existsSync(path);
 
 const dataPath = "src/data/painted-church-search-guides.ts";
 const hubPath = "src/routes/explore.painted-churches_.guides.tsx";
+const hubLazyPath = "src/routes/explore.painted-churches_.guides.lazy.tsx";
 const detailPath = "src/routes/explore.painted-churches_.guides_.$slug.tsx";
+const detailLazyPath = "src/routes/explore.painted-churches_.guides_.$slug.lazy.tsx";
 const sitemapPath = "src/routes/sitemap-explore[.]xml.ts";
 
-for (const path of [dataPath, hubPath, detailPath, sitemapPath]) {
+for (const path of [dataPath, hubPath, hubLazyPath, detailPath, detailLazyPath, sitemapPath]) {
   if (!exists(path)) failures.push(`Missing Painted Churches search-intent file: ${path}`);
 }
 
 if (failures.length === 0) {
   const data = read(dataPath);
-  const hub = read(hubPath);
-  const detail = read(detailPath);
+  const hub = `${read(hubPath)}\n${read(hubLazyPath)}`;
+  const detail = `${read(detailPath)}\n${read(detailLazyPath)}`;
   const sitemap = read(sitemapPath);
 
   const guideBlock = data.slice(
@@ -71,7 +73,7 @@ if (failures.length === 0) {
   for (const token of ["FAQPage", '"@type": "Article"', "relatedChurchSlugs", "Primary / controlling sources", "Open verified profile"]) {
     if (!detail.includes(token)) failures.push(`Search guide detail route missing ${token}.`);
   }
-  if (!sitemap.includes('import { paintedChurchSearchGuides } from "@/data/painted-church-search-guides"')) failures.push("Explore sitemap is not importing Painted Churches search guides.");
+  if (!sitemap.includes('await import("@/data/painted-church-search-guides")')) failures.push("Explore sitemap is not dynamically loading Painted Churches search guides inside its server handler.");
   if (!sitemap.includes('"/explore/painted-churches/guides"')) failures.push("Explore sitemap is missing the search-guide hub.");
   if (!sitemap.includes("paintedChurchSearchGuides.map")) failures.push("Explore sitemap is not emitting dedicated search-guide URLs.");
 

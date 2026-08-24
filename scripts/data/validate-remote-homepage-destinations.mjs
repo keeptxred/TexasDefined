@@ -2,9 +2,15 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const root = process.cwd();
+const readRouteSurface = (file) => {
+  const eagerSource = fs.readFileSync(path.join(root, file), 'utf8');
+  const lazyFile = file.replace(/\.tsx$/, '.lazy.tsx');
+  const lazyPath = path.join(root, lazyFile);
+  return fs.existsSync(lazyPath) ? `${eagerSource}\n${fs.readFileSync(lazyPath, 'utf8')}` : eagerSource;
+};
 const queries = fs.readFileSync(path.join(root, 'src/data/queries.ts'), 'utf8');
 const destinationRuntime = fs.readFileSync(path.join(root, 'src/data/destination-query-runtime.ts'), 'utf8');
-const homepage = fs.readFileSync(path.join(root, 'src/routes/index.tsx'), 'utf8');
+const homepage = readRouteSurface('src/routes/index.tsx');
 const errors = [];
 
 for (const feature of [
@@ -50,4 +56,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Remote-backed homepage picks, preserved/local catalog resilience, lazy destination runtime, and destination detail fallbacks passed.');
+console.log('Remote-backed homepage picks, preserved/local catalog resilience, lazy destination runtime, and destination detail fallbacks passed across eager and lazy homepage route surfaces.');

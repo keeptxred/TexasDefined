@@ -1,8 +1,8 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
-import { PrioritySearchPage } from "@/components/editorial/PrioritySearchPage";
 import { loadPrioritySearchPage } from "@/data/priority-search-page";
 import { buildPrioritySearchHead } from "@/lib/priority-search-seo";
 
+// PrioritySearchPage UI is intentionally delivered from texas-drivers-license.lazy.tsx.
 const canonicalPath = "/texas-drivers-license";
 const faq = [
   { question: "Does Texas DPS or Texas DMV issue driver licenses?", answer: "Texas DPS issues driver licenses and state identification cards. TxDMV handles vehicle titles and registration, not driver licenses." },
@@ -23,9 +23,4 @@ export const Route = createFileRoute("/texas-drivers-license")({
     data: loaderData,
     about: ["Texas driver license", "Texas DPS", "REAL ID", "driver license renewal", "driver license appointments"],
   }) : {},
-  component: TexasDriversLicensePage,
 });
-
-function TexasDriversLicensePage() {
-  return <PrioritySearchPage data={Route.useLoaderData()} />;
-}

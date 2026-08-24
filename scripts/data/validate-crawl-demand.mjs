@@ -1,13 +1,20 @@
 import fs from 'node:fs';
 
-const registry = fs.readFileSync('src/lib/public-routes.ts', 'utf8');
-const primary = fs.readFileSync('src/routes/sitemap[.]xml.ts', 'utf8');
-const explore = fs.readFileSync('src/routes/sitemap-explore[.]xml.ts', 'utf8');
-const robots = fs.readFileSync('public/robots.txt', 'utf8');
-const cityDirectory = fs.readFileSync('src/routes/browse.cities.tsx', 'utf8');
-const placeDirectory = fs.readFileSync('src/components/directories/TexasPlaceDirectory.tsx', 'utf8');
-const countyDirectory = fs.readFileSync('src/routes/browse.counties.tsx', 'utf8');
-const countyPropertyDirectory = fs.readFileSync('src/components/directories/TexasCountyPropertyDirectory.tsx', 'utf8');
+const read = (file) => fs.readFileSync(file, 'utf8');
+const readRouteSurface = (file) => {
+  const eagerSource = read(file);
+  const lazyFile = file.replace(/\.tsx$/, '.lazy.tsx');
+  return fs.existsSync(lazyFile) ? `${eagerSource}\n${read(lazyFile)}` : eagerSource;
+};
+
+const registry = read('src/lib/public-routes.ts');
+const primary = read('src/routes/sitemap[.]xml.ts');
+const explore = read('src/routes/sitemap-explore[.]xml.ts');
+const robots = read('public/robots.txt');
+const cityDirectory = readRouteSurface('src/routes/browse.cities.tsx');
+const placeDirectory = read('src/components/directories/TexasPlaceDirectory.tsx');
+const countyDirectory = readRouteSurface('src/routes/browse.counties.tsx');
+const countyPropertyDirectory = read('src/components/directories/TexasCountyPropertyDirectory.tsx');
 const failures = [];
 
 for (const sitemap of [

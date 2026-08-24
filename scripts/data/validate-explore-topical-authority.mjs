@@ -1,11 +1,17 @@
 import fs from 'node:fs';
 
 const failures = [];
-const topicPaths = fs.readFileSync('src/components/editorial/ExploreTopicPaths.tsx', 'utf8');
-const intentPaths = fs.readFileSync('src/components/editorial/ExploreIntentPaths.tsx', 'utf8');
-const categoryPage = fs.readFileSync('src/components/editorial/CategoryPage.tsx', 'utf8');
-const exploreHub = fs.readFileSync('src/routes/explore.index.tsx', 'utf8');
-const regionalHub = fs.readFileSync('src/components/editorial/RegionalHubSections.tsx', 'utf8');
+const read = (file) => fs.readFileSync(file, 'utf8');
+const readRouteSurface = (file) => {
+  const eagerSource = read(file);
+  const lazyFile = file.replace(/\.tsx$/, '.lazy.tsx');
+  return fs.existsSync(lazyFile) ? `${eagerSource}\n${read(lazyFile)}` : eagerSource;
+};
+const topicPaths = read('src/components/editorial/ExploreTopicPaths.tsx');
+const intentPaths = read('src/components/editorial/ExploreIntentPaths.tsx');
+const categoryPage = read('src/components/editorial/CategoryPage.tsx');
+const exploreHub = readRouteSurface('src/routes/explore.index.tsx');
+const regionalHub = read('src/components/editorial/RegionalHubSections.tsx');
 
 for (const slug of ['lakes-rivers','major-springs','state-parks','national-parks','caverns','beaches-coast','historic-sites','road-trips','small-towns','food-bbq','outdoors']) {
   if (!topicPaths.includes(`${JSON.stringify(slug)}:`) && !topicPaths.includes(`${slug}: [`)) failures.push(`Explore topical bridge missing for ${slug}.`);

@@ -1,6 +1,11 @@
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 
 const read = (path) => readFileSync(path, "utf8");
+const readRouteSurface = (path) => {
+  const eagerSource = read(path);
+  const lazyPath = path.replace(/\.tsx$/, '.lazy.tsx');
+  return existsSync(lazyPath) ? `${eagerSource}\n${read(lazyPath)}` : eagerSource;
+};
 
 const files = {
   history: read("src/data/fixtures/texas-flag-history.ts"),
@@ -8,7 +13,7 @@ const files = {
   newest: read("src/data/fixtures/newest-evergreen.ts"),
   thingsLinks: read("src/data/things-unique-to-texas-links.ts"),
   symbols: read("src/routes/texas-symbols.lazy.tsx"),
-  historyHub: read("src/routes/texas-history.tsx"),
+  historyHub: readRouteSurface("src/routes/texas-history.tsx"),
   articleRoute: read("src/routes/article.$slug.tsx"),
   rootRoute: read("src/routes/__root.tsx"),
   rss: read("src/routes/rss[.]xml.ts"),
@@ -143,4 +148,4 @@ requireContains("Production verifier", files.productionVerifier, "['texas-symbol
 requireContains("Production verifier", files.productionVerifier, "LIVE PRODUCTION failure");
 requireContains("Status publisher", files.statusPublisher, "CI telemetry failed");
 
-console.log("Texas flag authority cluster validation passed.");
+console.log("Texas flag authority cluster validation passed across eager and lazy Texas History route surfaces.");

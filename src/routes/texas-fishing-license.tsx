@@ -1,8 +1,8 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
-import { PrioritySearchPage } from "@/components/editorial/PrioritySearchPage";
 import { loadPrioritySearchPage } from "@/data/priority-search-page";
 import { buildPrioritySearchHead } from "@/lib/priority-search-seo";
 
+// PrioritySearchPage UI is intentionally delivered from texas-fishing-license.lazy.tsx.
 const canonicalPath = "/texas-fishing-license";
 const faq = [
   { question: "Do most people need a fishing license in Texas?", answer: "Most people who fish Texas public waters need a current Texas fishing license unless an official exception applies. Texas Parks and Wildlife publishes the current exceptions and requirements." },
@@ -23,9 +23,4 @@ export const Route = createFileRoute("/texas-fishing-license")({
     data: loaderData,
     about: ["Texas fishing license", "Texas Parks and Wildlife", "fishing regulations", "freshwater fishing", "saltwater fishing"],
   }) : {},
-  component: TexasFishingLicensePage,
 });
-
-function TexasFishingLicensePage() {
-  return <PrioritySearchPage data={Route.useLoaderData()} />;
-}

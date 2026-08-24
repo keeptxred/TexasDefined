@@ -2,7 +2,10 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const root = process.cwd();
-const route = fs.readFileSync(path.join(root, 'src/routes/index.tsx'), 'utf8');
+const read = (file) => fs.readFileSync(path.join(root, file), 'utf8');
+const eagerRoute = read('src/routes/index.tsx');
+const lazyRoutePath = path.join(root, 'src/routes/index.lazy.tsx');
+const route = fs.existsSync(lazyRoutePath) ? `${eagerRoute}\n${fs.readFileSync(lazyRoutePath, 'utf8')}` : eagerRoute;
 const errors = [];
 
 for (const feature of [
@@ -36,4 +39,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Homepage WebPage, curated ItemList and Start Here discovery validation passed.');
+console.log('Homepage WebPage, curated ItemList and Start Here discovery validation passed across eager and lazy route surfaces.');

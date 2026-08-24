@@ -1,6 +1,7 @@
 import { readFile } from 'node:fs/promises';
 
 const read = (path) => readFile(path, 'utf8');
+const readRouteSurface = async (path) => `${await read(path)}\n${await read(path.replace(/\.tsx$/, '.lazy.tsx'))}`;
 
 const manifest = JSON.parse(await read('public/citation-magnets.json'));
 const llms = await read('src/routes/llms[.]txt.ts');
@@ -11,7 +12,7 @@ const trustPanel = await read('src/components/authority/CitationTrustPanel.tsx')
 const collectionTrust = await read('src/components/authority/CitationCollectionTrustRouter.tsx');
 const footer = await read('src/components/layout/Footer.tsx');
 const citationGuide = await read('src/routes/citation-guide.tsx');
-const exploreHub = await read('src/routes/explore.index.tsx');
+const exploreHub = await readRouteSurface('src/routes/explore.index.tsx');
 const topAttractions = await read('src/routes/explore.top-attractions.tsx');
 const topMethodology = await read('src/routes/explore.top-attractions.methodology.tsx');
 const topMethodologyContent = await read('src/components/explore/TopAttractionsMethodologyContent.tsx');
@@ -22,7 +23,7 @@ const dataHub = await read('src/routes/texas-data.tsx');
 const countyGrowth = await read('src/routes/texas-data.county-growth.tsx');
 const countyGrowthContent = await read('src/components/data/CountyGrowthContent.tsx');
 const countyGrowthData = await read('src/data/census-county-growth.ts');
-const countyRoute = await read('src/routes/browse.counties.tsx');
+const countyRoute = await readRouteSurface('src/routes/browse.counties.tsx');
 const propertyTaxCounties = await read('src/routes/property-tax.counties.tsx');
 const appraisalDistricts = await read('src/routes/learn.appraisal-districts.tsx');
 const protest = await read('src/routes/do.property-tax-protest.tsx');

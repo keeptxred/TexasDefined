@@ -2,8 +2,14 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const root = process.cwd();
-const route = fs.readFileSync(path.join(root, 'src/routes/explore.index.tsx'), 'utf8');
-const departmentHero = fs.readFileSync(path.join(root, 'src/components/editorial/DepartmentHero.tsx'), 'utf8');
+const read = (file) => fs.readFileSync(path.join(root, file), 'utf8');
+const readRouteSurface = (file) => {
+  const eagerSource = read(file);
+  const lazyFile = file.replace(/\.tsx$/, '.lazy.tsx');
+  return fs.existsSync(path.join(root, lazyFile)) ? `${eagerSource}\n${read(lazyFile)}` : eagerSource;
+};
+const route = readRouteSurface('src/routes/explore.index.tsx');
+const departmentHero = read('src/components/editorial/DepartmentHero.tsx');
 const errors = [];
 
 for (const feature of [

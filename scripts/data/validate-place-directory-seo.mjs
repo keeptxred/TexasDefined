@@ -1,9 +1,16 @@
 import fs from 'node:fs';
 
-const cities = fs.readFileSync('src/routes/browse.cities.tsx', 'utf8');
-const counties = fs.readFileSync('src/routes/browse.counties.tsx', 'utf8');
-const cityDirectory = fs.readFileSync('src/components/directories/TexasPlaceDirectory.tsx', 'utf8');
-const countyDirectory = fs.readFileSync('src/components/directories/TexasCountyPropertyDirectory.tsx', 'utf8');
+const read = (file) => fs.readFileSync(file, 'utf8');
+const readRouteSurface = (file) => {
+  const eagerSource = read(file);
+  const lazyFile = file.replace(/\.tsx$/, '.lazy.tsx');
+  return fs.existsSync(lazyFile) ? `${eagerSource}\n${read(lazyFile)}` : eagerSource;
+};
+
+const cities = readRouteSurface('src/routes/browse.cities.tsx');
+const counties = readRouteSurface('src/routes/browse.counties.tsx');
+const cityDirectory = read('src/components/directories/TexasPlaceDirectory.tsx');
+const countyDirectory = read('src/components/directories/TexasCountyPropertyDirectory.tsx');
 
 const checks = [
   [cities, '"@type": "City"', 'City directory must declare City entities'],

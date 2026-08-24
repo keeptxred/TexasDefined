@@ -1,8 +1,15 @@
 import fs from 'node:fs';
 
-const sitemap = fs.readFileSync('src/routes/sitemap[.]xml.ts', 'utf8');
-const hub = fs.readFileSync('src/routes/texas-data.tsx', 'utf8');
-const detail = fs.readFileSync('src/routes/texas-data.$datasetSlug.tsx', 'utf8');
+const read = (file) => fs.readFileSync(file, 'utf8');
+const readRouteSurface = (file) => {
+  const eagerSource = read(file);
+  const lazyFile = file.replace(/\.tsx$/, '.lazy.tsx');
+  return fs.existsSync(lazyFile) ? `${eagerSource}\n${read(lazyFile)}` : eagerSource;
+};
+
+const sitemap = read('src/routes/sitemap[.]xml.ts');
+const hub = readRouteSurface('src/routes/texas-data.tsx');
+const detail = read('src/routes/texas-data.$datasetSlug.tsx');
 
 const checks = [
   [sitemap, 'TEXAS_DATASETS.map((dataset)', 'Sitemap must enumerate Texas dataset routes'],

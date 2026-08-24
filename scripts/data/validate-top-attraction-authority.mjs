@@ -1,5 +1,11 @@
 import fs from 'node:fs';
 
+const readRouteSurface = (file) => {
+  const eagerSource = fs.readFileSync(file, 'utf8');
+  const lazyFile = file.replace(/\.tsx$/, '.lazy.tsx');
+  return fs.existsSync(lazyFile) ? `${eagerSource}\n${fs.readFileSync(lazyFile, 'utf8')}` : eagerSource;
+};
+
 const listSource = fs.readFileSync('src/data/top-texas-attractions.ts', 'utf8');
 const authoritySource = fs.readFileSync('src/data/destination-authority-top-attractions.ts', 'utf8');
 const supplementalSource = fs.readFileSync('src/data/top-attraction-authority-sources.ts', 'utf8');
@@ -14,7 +20,7 @@ const methodologyContentSource = fs.readFileSync('src/components/explore/TopAttr
 const roadTripContentSource = fs.readFileSync('src/components/explore/TopAttractionRoadTripsContent.tsx', 'utf8');
 const trustRouterSource = fs.readFileSync('src/components/authority/CitationCollectionTrustRouter.tsx', 'utf8');
 const destinationRouteSource = fs.readFileSync('src/routes/destination.$slug.tsx', 'utf8');
-const categoryRouteSource = fs.readFileSync('src/routes/explore.$category.tsx', 'utf8');
+const categoryRouteSource = readRouteSurface('src/routes/explore.$category.tsx');
 const regionRouteSource = fs.readFileSync('src/routes/explore.region.$region.tsx', 'utf8');
 const hubSource = fs.readFileSync('src/routes/explore.top-attractions.tsx', 'utf8');
 const methodologyRouteSource = fs.readFileSync('src/routes/explore.top-attractions.methodology.tsx', 'utf8');
@@ -212,4 +218,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Top 25 attraction authority validation passed: 25 authority records, ${authorityUrls.length} supplemental authority URLs, 75 itineraries, 25 sourced timeline events, seven complete road-trip clusters, canonical CSV/JSON data distributions, methodology, category/region inbound links, multi-source JSON-LD, lazy authority/methodology/road-trip UI, dynamic data loading, trust panels and citation discovery are wired.`);
+console.log(`Top 25 attraction authority validation passed: 25 authority records, ${authorityUrls.length} supplemental authority URLs, 75 itineraries, 25 sourced timeline events, seven complete road-trip clusters, canonical CSV/JSON data distributions, methodology, category/region inbound links, multi-source JSON-LD, lazy authority/methodology/road-trip UI, dynamic data loading, trust panels and citation discovery are wired across eager and lazy category route surfaces.`);

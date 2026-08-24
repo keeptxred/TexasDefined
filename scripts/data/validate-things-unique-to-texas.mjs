@@ -133,9 +133,14 @@ for (const sourceUrl of ['https://www.tshaonline.org/handbook/entries/san-antoni
 for (const slug of ['texas-ranch-water-guide', 'san-antonio-puffy-taco-history', 'barbacoa-big-red-san-antonio']) if (!evergreenComponent.includes(`"${slug}"`)) failures.push(`Shared Food History parent set missing batch 5 slug ${slug}.`);
 
 const allEvergreenData = `${evergreenData}\n${evergreenBatch2}\n${evergreenBatch3}\n${evergreenBatch4}\n${evergreenBatch5}\n${evergreenBatch6}`;
+const readRouteSurface = (routeFile) => {
+  const eagerSource = fs.readFileSync(routeFile, 'utf8');
+  const lazyFile = routeFile.replace(/\.tsx$/, '.lazy.tsx');
+  return fs.existsSync(lazyFile) ? `${eagerSource}\n${fs.readFileSync(lazyFile, 'utf8')}` : eagerSource;
+};
 for (const [path, routeFile, slug] of evergreenGuides) {
   if (!fs.existsSync(routeFile)) failures.push(`Missing evergreen route file ${routeFile}.`);
-  const routeSource = fs.existsSync(routeFile) ? fs.readFileSync(routeFile, 'utf8') : '';
+  const routeSource = fs.existsSync(routeFile) ? readRouteSurface(routeFile) : '';
   if (!routeSource.includes(`const canonicalPath = "${path}"`)) failures.push(`${routeFile} must retain canonical path ${path}.`);
   if (!routeSource.includes('<TexasEvergreenGuide')) failures.push(`${routeFile} must render the shared TexasEvergreenGuide component.`);
   if (!publicRoutes.includes(`"${path}"`)) failures.push(`Evergreen guide must remain indexable in public route governance: ${path}.`);

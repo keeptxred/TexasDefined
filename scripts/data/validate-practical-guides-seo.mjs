@@ -20,6 +20,7 @@ const guides = [
   {
     label: 'Vehicle registration',
     filename: 'src/routes/find-my-dmv.tsx',
+    lazyFilename: 'src/routes/find-my-dmv.lazy.tsx',
     canonicalPath: '/find-my-dmv',
     collection: 'steps',
     stepPrefix: 'vehicle-step-',
@@ -27,6 +28,7 @@ const guides = [
   {
     label: 'School district lookup',
     filename: 'src/routes/find-my-school-district.tsx',
+    lazyFilename: 'src/routes/find-my-school-district.lazy.tsx',
     canonicalPath: '/find-my-school-district',
     collection: 'steps',
     stepPrefix: 'school-step-',
@@ -35,7 +37,10 @@ const guides = [
 const errors = [];
 
 for (const guide of guides) {
-  const route = fs.readFileSync(path.join(root, guide.filename), 'utf8');
+  const route = [guide.filename, guide.lazyFilename]
+    .filter(Boolean)
+    .map((filename) => fs.readFileSync(path.join(root, filename), 'utf8'))
+    .join('\n');
   for (const feature of [
     "'@type': 'HowTo'",
     "'@type': 'HowToStep'",

@@ -4,6 +4,11 @@ import path from 'node:path';
 const root = process.cwd();
 const errors = [];
 const read = (file) => fs.readFileSync(path.join(root, file), 'utf8');
+const readRouteSurface = (file) => {
+  const eagerSource = read(file);
+  const lazyFile = file.replace(/\.tsx$/, '.lazy.tsx');
+  return fs.existsSync(path.join(root, lazyFile)) ? `${eagerSource}\n${read(lazyFile)}` : eagerSource;
+};
 const requiredFiles = [
   'src/routes/learn.property-taxes.tsx','src/routes/learn.property-tax-payments.tsx','src/routes/decide.property-taxes.tsx','src/routes/learn.appraisal-districts.tsx','src/routes/do.homestead-exemption.tsx','src/routes/do.property-tax-protest.tsx','src/routes/browse.counties.tsx','src/routes/browse.cities.tsx','src/routes/article.$slug.tsx',
   'src/routes/admin.platform-health.tsx','src/routes/sitemap[.]xml.ts','src/routes/sitemap-explore[.]xml.ts','src/routes/events.tsx','src/routes/destination.$slug.tsx','src/routes/api.knowledge-graph.ts','src/routes/api.ai.entities.ts','src/routes/llms[.]txt.ts','src/routes/$kind.$slug.tsx',
@@ -21,7 +26,7 @@ const graphQueries = read('src/data/knowledge-graph/index.ts');
 const graphAdapter = read('src/data/knowledge-graph/explore-adapter.ts');
 const relationships = read('src/data/knowledge-graph/relationships.ts');
 const audit = read('src/data/knowledge-graph/audit.ts');
-const entityRoute = read('src/routes/$kind.$slug.tsx');
+const entityRoute = readRouteSurface('src/routes/$kind.$slug.tsx');
 const articleRoute = read('src/routes/article.$slug.tsx');
 const destinationRoute = read('src/routes/destination.$slug.tsx');
 const eventsRoute = read('src/routes/events.tsx');

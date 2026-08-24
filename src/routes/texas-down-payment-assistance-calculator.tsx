@@ -1,17 +1,8 @@
-import { createFileRoute, Link } from '@tanstack/react-router';
+import { createFileRoute } from '@tanstack/react-router';
 import { texasDefinedBrand } from '@/brand/texasdefined';
-import { CalculatorPage } from '@/components/calculators/CalculatorPage';
-import { DownPaymentAssistanceCalculator } from '@/components/calculators/TexasHomeFinanceCalculators';
 import { buildCalculatorHead } from '@/lib/calculator-seo';
 
 const description = 'Estimate how possible Texas down-payment assistance could change the cash needed for a down payment and closing costs, while keeping current program eligibility and repayment terms as a separate verification step.';
-
-const faqs = [
-  { question: 'Does this calculator tell me whether I qualify for a Texas assistance program?', answer: 'No. It models a possible assistance amount you enter. Eligibility, approved lenders, income limits, purchase-price rules, education requirements and repayment terms must be verified with the current program.' },
-  { question: 'Can assistance cover both down payment and closing costs?', answer: 'Some programs can help with one or both, but the structure varies. Model the possible amount, then confirm exactly what the current program allows before relying on it in a purchase budget.' },
-  { question: 'Should I still keep cash reserves if assistance reduces cash to close?', answer: 'Yes. Assistance can reduce the transaction cash requirement, but moving, immediate repairs and ordinary emergencies still happen after closing. Keep a separate post-closing reserve visible in the plan.' },
-  { question: 'Can assistance have repayment or recapture terms?', answer: 'Programs can use different structures. Verify whether the current assistance is a grant, forgivable loan, deferred loan or another arrangement and what happens when the home is sold, refinanced or no longer occupied as required.' },
-];
 
 export const Route = createFileRoute('/texas-down-payment-assistance-calculator')({
   head: () => buildCalculatorHead(texasDefinedBrand, {
@@ -20,20 +11,4 @@ export const Route = createFileRoute('/texas-down-payment-assistance-calculator'
     description,
     featureList: ['Estimate a possible assistance amount', 'Add closing costs', 'See total cash needed', 'See what may still be left to cover', 'Keep program eligibility separate from the estimate'],
   }),
-  component: TexasDownPaymentAssistanceCalculatorPage,
 });
-
-function TexasDownPaymentAssistanceCalculatorPage() {
-  return <CalculatorPage eyebrow="Help getting to the front door" title="Texas down payment assistance calculator" description={description}>
-    <DownPaymentAssistanceCalculator />
-    <section className="mt-14 border-t border-border pt-10" aria-labelledby="dpa-heading"><p className="eyebrow text-primary">Model the help without assuming eligibility</p><h2 id="dpa-heading" className="mt-3 font-display text-3xl">Assistance changes cash to close, not the need to verify the program</h2><div className="mt-5 max-w-3xl space-y-4 text-base leading-7 text-muted-foreground"><p>Use the calculator to see how a possible assistance amount changes the household's cash requirement. Keep the program rules outside the model: a scenario can be mathematically useful even when the household still needs to confirm current eligibility and lender participation.</p><p>Also keep a post-closing reserve separate from the transaction. Reducing cash to close is helpful only if the household can still handle moving costs, an insurance deductible and the first repair after purchase.</p></div></section>
-    <section className="mt-12 border-t border-border pt-10" aria-labelledby="dpa-links-heading"><p className="eyebrow text-primary">Build the rest of the purchase budget</p><h2 id="dpa-links-heading" className="mt-3 font-display text-3xl">Compare assistance with down payment, closing costs and affordability</h2><div className="mt-6 grid gap-4 md:grid-cols-3">
-      <Link to="/article/texas-house-down-payment-guide" className="border border-border p-5 hover:border-primary"><strong className="font-display text-xl">Texas down-payment guide</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Understand loan pathways, reserves and why one down-payment percentage does not fit every buyer.</span></Link>
-      <Link to="/texas-down-payment-calculator" className="border border-border p-5 hover:border-primary"><strong className="font-display text-xl">Down-payment calculator</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Build the purchase scenario before assistance is applied.</span></Link>
-      <Link to="/texas-closing-cost-calculator" className="border border-border p-5 hover:border-primary"><strong className="font-display text-xl">Closing-cost calculator</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Estimate the transaction costs that may remain after assistance.</span></Link>
-      <Link to="/texas-home-affordability-calculator" className="border border-border p-5 hover:border-primary"><strong className="font-display text-xl">Home affordability</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Check whether the ongoing housing payment works after the upfront help.</span></Link>
-    </div></section>
-    <section className="mt-12 border-t border-border pt-10" aria-labelledby="dpa-source-heading"><p className="eyebrow text-primary">Current Texas program information</p><h2 id="dpa-source-heading" className="mt-3 font-display text-3xl">Verify eligibility and terms before counting assistance</h2><p className="mt-5 max-w-3xl text-sm leading-7 text-muted-foreground"><a className="font-semibold text-primary underline underline-offset-4" href="https://welcomehome.tdhca.texas.gov/">Texas Department of Housing and Community Affairs homebuyer programs</a> provides current program information and participating-professional guidance. Use the current official rules rather than assuming an older assistance amount or eligibility limit still applies.</p></section>
-    <section className="mt-12 border-t border-border pt-10" aria-labelledby="dpa-faq-heading"><p className="eyebrow text-primary">Common questions</p><h2 id="dpa-faq-heading" className="mt-3 font-display text-3xl">Texas down payment assistance calculator FAQ</h2><div className="mt-6 divide-y divide-border border-y border-border">{faqs.map((faq) => <div key={faq.question} className="py-6"><h3 className="font-display text-2xl">{faq.question}</h3><p className="mt-3 max-w-3xl text-base leading-7 text-muted-foreground">{faq.answer}</p></div>)}</div></section>
-  </CalculatorPage>;
-}
