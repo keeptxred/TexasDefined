@@ -9,7 +9,12 @@ type StoreProduct = {
   imageUrl: string;
   productUrl?: string | null;
   tags?: string[];
+  category?: string | null;
   collections?: string[];
+  featured?: boolean;
+  displayOrder?: number;
+  isNew?: boolean;
+  isOnSale?: boolean;
   colors?: string[];
   variants?: ProductVariant[];
 };
@@ -41,6 +46,12 @@ function toProduct(row: StoreProduct): Product {
     productUrl: `/shop/product/${encodeURIComponent(row.id)}`,
     colors: row.colors ?? [],
     variants: Array.isArray(row.variants) ? row.variants : [],
+    category: row.category ?? null,
+    tags: row.tags ?? [],
+    isFeatured: row.featured === true,
+    displayOrder: Number.isFinite(row.displayOrder) ? Number(row.displayOrder) : 0,
+    isNew: row.isNew === true,
+    isOnSale: row.isOnSale === true,
   };
 }
 
