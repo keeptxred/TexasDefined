@@ -64,7 +64,28 @@ export interface DestinationAuthorityGuide {
 export interface Destination { id: string; brandId: BrandId; slug: Slug; name: string; summary: string; category: CategorySlug; region: TexasRegion; nearestTown: string; coordinates: GeoPoint; hero: ImageRef; bestSeason: string; entryNote: string; highlights: string[]; body: string[]; managingAuthority?: string; officialUrl?: string; sourceCheckedAt?: string; reservationUrl?: string; county?: string; address?: string; directions?: string; accessibilityNotes?: string; areaGuide?: DestinationAreaGuide; authorityGuide?: DestinationAuthorityGuide; featured?: boolean; }
 
 export interface ProductVariant { id: number; title: string; price: number; image?: string | null; images?: string[]; color?: string; is_enabled?: boolean; }
-export interface Product { id: string; brandId: BrandId; slug: Slug; name: string; maker: string; priceCents: number; currency: "USD"; image: ImageRef; blurb: string; collectionSlugs: Slug[]; madeInTexas: boolean; productUrl?: string; colors?: string[]; variants?: ProductVariant[]; }
+export interface Product {
+  id: string;
+  brandId: BrandId;
+  slug: Slug;
+  name: string;
+  maker: string;
+  priceCents: number;
+  currency: "USD";
+  image: ImageRef;
+  blurb: string;
+  collectionSlugs: Slug[];
+  madeInTexas: boolean;
+  productUrl?: string;
+  colors?: string[];
+  variants?: ProductVariant[];
+  category?: string | null;
+  tags?: string[];
+  isFeatured?: boolean;
+  displayOrder?: number;
+  isNew?: boolean;
+  isOnSale?: boolean;
+}
 
 export interface Collection { id: string; brandId: BrandId; slug: Slug; name: string; tagline: string; description: string; image: ImageRef; }
 export type GuideKind = "article" | "calculator" | "dataset" | "checklist";
