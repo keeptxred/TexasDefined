@@ -2,6 +2,7 @@ import fs from 'node:fs';
 
 const failures = [];
 const routePath = 'src/routes/texas-blue-norther-weather-guide.tsx';
+const lazyRoutePath = 'src/routes/texas-blue-norther-weather-guide.lazy.tsx';
 const componentPath = 'src/components/editorial/TexasEvergreenGuide.tsx';
 const dataPath = 'src/data/texas-evergreen-guides-batch6.ts';
 const linksPath = 'src/data/things-unique-to-texas-links.ts';
@@ -14,11 +15,14 @@ const citationPath = 'public/citation-magnets.json';
 const citationGuidePath = 'src/routes/citation-guide.tsx';
 const smokePath = '.github/workflows/things-unique-to-texas-production-smoke.yml';
 
-for (const file of [routePath, componentPath, dataPath, linksPath, hubPath, categoryPath, texasLifePath, llmsPath, publicRoutesPath, citationPath, citationGuidePath, smokePath]) {
+for (const file of [routePath, lazyRoutePath, componentPath, dataPath, linksPath, hubPath, categoryPath, texasLifePath, llmsPath, publicRoutesPath, citationPath, citationGuidePath, smokePath]) {
   if (!fs.existsSync(file)) failures.push(`Missing Texas weather authority file: ${file}.`);
 }
 
-const route = fs.existsSync(routePath) ? fs.readFileSync(routePath, 'utf8') : '';
+const route = [routePath, lazyRoutePath]
+  .filter((file) => fs.existsSync(file))
+  .map((file) => fs.readFileSync(file, 'utf8'))
+  .join('\n');
 const component = fs.existsSync(componentPath) ? fs.readFileSync(componentPath, 'utf8') : '';
 const data = fs.existsSync(dataPath) ? fs.readFileSync(dataPath, 'utf8') : '';
 const links = fs.existsSync(linksPath) ? fs.readFileSync(linksPath, 'utf8') : '';
