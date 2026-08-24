@@ -1,6 +1,5 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, type ReactNode } from "react";
 
-import { ProductCard } from "@/components/commerce/ProductCard";
 import type { Product } from "@/data/types";
 
 type SortKey = "featured" | "newest" | "best-selling" | "price-low" | "price-high" | "name";
@@ -79,7 +78,7 @@ function productSearchText(product: Product) {
     .toLowerCase();
 }
 
-export function ShopCatalog({ products }: { products: Product[] }) {
+export function ShopCatalog({ products, renderProduct }: { products: Product[]; renderProduct: (product: Product) => ReactNode }) {
   const [category, setCategory] = useState("all");
   const [collection, setCollection] = useState("all");
   const [query, setQuery] = useState("");
@@ -240,11 +239,7 @@ export function ShopCatalog({ products }: { products: Product[] }) {
 
       {filteredProducts.length > 0 ? (
         <ul className="mt-10 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {filteredProducts.map((product) => (
-            <li id={`product-${product.id}`} key={product.id}>
-              <ProductCard product={product} />
-            </li>
-          ))}
+          {filteredProducts.map(renderProduct)}
         </ul>
       ) : (
         <div className="mt-10 border-y border-border py-12 text-center">
