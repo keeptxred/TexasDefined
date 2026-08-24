@@ -23,6 +23,16 @@ const protectedMainDiagnostics = {
         console.log(`${renderedLength}\t${id}`);
       }
       console.log("PROTECTED_MAIN_MODULES_END");
+
+      for (const id of Object.keys(output.modules)) {
+        if (!id.endsWith("/src/data/painted-church-search-guides.ts")) continue;
+        const info = this.getModuleInfo(id);
+        console.log("PROTECTED_MAIN_TARGET_IMPORTERS_START");
+        console.log(`target\t${id}`);
+        for (const importer of info?.importers ?? []) console.log(`importer\t${importer}`);
+        for (const importer of info?.dynamicImporters ?? []) console.log(`dynamicImporter\t${importer}`);
+        console.log("PROTECTED_MAIN_TARGET_IMPORTERS_END");
+      }
     }
   },
 };
