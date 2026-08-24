@@ -2,7 +2,7 @@ name: Diagnose bundle size once
 
 on:
   push:
-    branches: [main]
+    branches: [diagnostic/exact-bundle-20260824]
     paths:
       - '.github/workflows/diagnose-bundle-size-once.yml'
 
@@ -22,7 +22,7 @@ jobs:
           cache: npm
       - run: npm ci --no-audit --no-fund
       - run: npm run build
-      - name: Publish exact bundle bytes and payload probes
+      - name: Publish exact bundle bytes as commit status context
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
@@ -32,14 +32,10 @@ jobs:
           main_file=$(find "$root" -maxdepth 1 -type f -name 'main-*.js' | head -n1)
           main=$(stat -c '%s' "$main_file")
           css=$(find "$root" -maxdepth 1 -type f -name '*.css' -printf '%s\n' | sort -nr | head -n1)
-          tv=0; priority=0; churches=0
-          grep -Fq 'compact Northeast state tied closely' "$main_file" && tv=1 || true
-          grep -Fq 'Texas Attorney General is the state' "$main_file" && priority=1 || true
-          grep -Fq 'St. Mary’s at Plantersville' "$main_file" && churches=1 || true
-          context="bundle-${main}-tv${tv}-p${priority}-c${churches}"
+          css=${css:-0}
+          context="bundle-bytes-${main}-css-${css}"
           curl -fsS -X POST \
             -H "Authorization: Bearer $GH_TOKEN" \
             -H 'Accept: application/vnd.github+json' \
             "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
-            --data "{\"state\":\"success\",\"context\":\"${context}\",\"description\":\"Exact client bytes and payload probes\"}" >/dev/null
-          # rerun after priority-search route data was moved behind server functions
+            --data "{\"state\":\"success\",\"context\":\"${context}\",\"description\":\"Exact built client bundle bytes\"}" >/dev/null
