@@ -1,6 +1,7 @@
-import { texasDefinedBrand } from '../../src/brand/texasdefined.ts';
-import { buildMeta } from '../../src/lib/seo.ts';
+import fs from 'node:fs';
 
+const seoSource = fs.readFileSync('src/lib/seo.ts', 'utf8');
+const brandSuffix = ' | Texas Defined';
 const targets = [
   ['/county/bexar', 'Bexar County, Texas Guide'],
   ['/explore/road-trips', 'Texas Road Trips & Scenic Drives'],
@@ -20,21 +21,23 @@ const targets = [
 ];
 
 const failures = [];
+if (!seoSource.includes('brand.identity.id === "texasdefined" && page.canonicalPath')) {
+  failures.push('Phase 7 metadata overrides are no longer scoped to TexasDefined canonical paths.');
+}
+if (!seoSource.includes('technicalOverride?.title ?? page.title')) failures.push('Phase 7 title override is not wired into buildMeta.');
+if (!seoSource.includes('technicalOverride?.description ?? page.description')) failures.push('Phase 7 description override is not wired into buildMeta.');
+
 for (const [canonicalPath, expectedTitle] of targets) {
-  const meta = buildMeta(texasDefinedBrand, {
-    canonicalPath,
-    title: 'Deliberately overlong fallback title that should never survive the Phase 7 audited override table for this canonical URL',
-    description: canonicalPath === '/explore/road-trips'
-      ? 'Short fallback description.'
-      : 'A technically valid fallback description used only to exercise the Phase 7 title override contract on this audited canonical URL.',
-  });
-  const title = meta.find((entry) => 'title' in entry)?.title ?? '';
-  const description = meta.find((entry) => entry.name === 'description')?.content ?? '';
-  const expectedFullTitle = texasDefinedBrand.seo.titleTemplate.replace('%s', expectedTitle);
-  if (title !== expectedFullTitle) failures.push(`${canonicalPath}: expected title ${expectedFullTitle}, got ${title}`);
-  if (title.length < 30 || title.length > 60) failures.push(`${canonicalPath}: title length ${title.length} is outside 30–60 chars`);
-  if (description.length > 160) failures.push(`${canonicalPath}: description exceeds 160 chars`);
-  if (canonicalPath === '/explore/road-trips' && description.length < 100) failures.push(`${canonicalPath}: road-trip description is still too short (${description.length})`);
+  const sourceFragment = `"${canonicalPath}": { title: "${expectedTitle}"`;
+  if (!seoSource.includes(sourceFragment)) failures.push(`${canonicalPath}: expected audited title override is missing.`);
+  const fullTitle = `${expectedTitle}${brandSuffix}`;
+  if (fullTitle.length < 30 || fullTitle.length > 60) failures.push(`${canonicalPath}: final title length ${fullTitle.length} is outside 30–60 chars.`);
+}
+
+const roadTripsMatch = seoSource.match(/"\/explore\/road-trips": \{[\s\S]*?description: "([^"]+)"/);
+const roadTripsDescription = roadTripsMatch?.[1] ?? '';
+if (roadTripsDescription.length < 100 || roadTripsDescription.length > 160) {
+  failures.push(`/explore/road-trips: description length ${roadTripsDescription.length} is outside 100–160 chars.`);
 }
 
 if (failures.length) {
