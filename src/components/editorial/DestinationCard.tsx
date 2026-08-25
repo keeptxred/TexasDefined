@@ -20,7 +20,10 @@ function checkedLabel(value?: string) {
 }
 
 function cardHighlights(destination: Destination) {
-  return destination.highlights.map((item) => item.trim()).filter(Boolean).slice(0, 3);
+  return destination.highlights
+    .map((item) => item.trim())
+    .filter((item) => /[\p{L}\p{N}]/u.test(item))
+    .slice(0, 3);
 }
 
 function DestinationImage({ destination, eager, overlay }: { destination: Destination; eager: boolean; overlay: boolean }) {
