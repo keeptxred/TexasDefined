@@ -11,6 +11,7 @@ const insuranceRoute = readRouteSurface('src/routes/texas-home-insurance-calcula
 const costOfLivingRoute = readRouteSurface('src/routes/texas-cost-of-living-calculator.tsx');
 const citiesRoute = readRouteSurface('src/routes/browse.cities.tsx');
 const countyPropertyTaxRoute = fs.readFileSync('src/routes/property-tax.county.$county.tsx', 'utf8');
+const countyPropertyTaxTemplate = fs.readFileSync('src/components/property/CountyPropertyTaxTemplate.tsx', 'utf8');
 const disabledVeteranRoute = fs.readFileSync('src/routes/learn.disabled-veteran-property-tax-benefits.tsx', 'utf8');
 const calculators = fs.readFileSync('src/components/calculators/TexasPlanningCalculators.tsx', 'utf8');
 const entityRoute = readRouteSurface('src/routes/$kind.$slug.tsx');
@@ -59,11 +60,19 @@ for (const required of [
 }
 
 for (const required of [
-  'const title = `${county.name} Property Tax | Appraisal, Exemptions & Protests`;',
-  'property tax guide with appraisal-district resources, exemptions, protest information, payment details, taxing units and official local links',
+  'const title = `${county.name} Appraisal District & Property Tax`;',
+  'appraisal district and property-tax guide with official property search, exemptions, protests, payment resources, tax rates and verified local links',
+  "robots: indexReady ? undefined : 'noindex, follow'",
   'headline: title',
 ]) {
   if (!countyPropertyTaxRoute.includes(required)) failures.push(`County property-tax CTR contract missing: ${required}`);
+}
+
+for (const required of [
+  '{county.name} appraisal district & property taxes',
+  'Official appraisal-district resources plus a practical county-level guide',
+]) {
+  if (!countyPropertyTaxTemplate.includes(required)) failures.push(`County appraisal-intent heading contract missing: ${required}`);
 }
 
 for (const required of [
