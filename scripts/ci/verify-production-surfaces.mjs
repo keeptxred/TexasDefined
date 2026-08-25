@@ -35,6 +35,16 @@ const surfaces = [
   ['texas-history-military', '/texas-history', 'Military in Mexican Texas'],
 ];
 
+const canonicalHomepageRequiredNeedles = [
+  'Texas Defined',
+  'New from Texas Defined',
+];
+const canonicalHomepageForbiddenNeedles = [
+  'The Places We Trust for Texas Fall Color',
+  'The Texas Defined Letter isn’t taking new names just yet.',
+  'Road Trip Fuel & Time Planner',
+];
+
 function appendSummary(text) {
   if (summaryPath) appendFileSync(summaryPath, text);
 }
@@ -103,5 +113,72 @@ for (const [label, path, needle] of surfaces) {
   }
 }
 
-appendSummary(`\nAll ${surfaces.length} production surfaces passed without a Cloudflare challenge.\n`);
-console.log(`TexasDefined production verification passed (${surfaces.length} surfaces, no cf-mitigated challenges).`);
+// The revision-bound probes above prove the new Worker is live. This second
+// homepage probe deliberately uses the canonical URL with no query string so
+// it also catches a stale edge response that a normal visitor could receive.
+let canonicalHomepagePassed = false;
+let canonicalHomepageStatus = 'network-error';
+let canonicalHomepageBody = '';
+let canonicalHomepageError = '';
+let canonicalHomepageChallenge = false;
+let canonicalHomepageAttempts = 0;
+let canonicalHomepageMissing = [];
+let canonicalHomepageForbidden = [];
+
+for (let attempt = 1; attempt <= 6; attempt += 1) {
+  canonicalHomepageAttempts = attempt;
+  console.log(`[homepage-canonical] attempt ${attempt}: ${origin}/`);
+  try {
+    const response = await fetch(`${origin}/`, {
+      redirect: 'follow',
+      signal: AbortSignal.timeout(30_000),
+      headers: { 'user-agent': 'TexasDefined-CI-Production-Smoke/1.0' },
+    });
+    canonicalHomepageStatus = String(response.status);
+    canonicalHomepageChallenge = response.headers.get('cf-mitigated')?.toLowerCase() === 'challenge';
+    canonicalHomepageBody = await response.text();
+    canonicalHomepageError = '';
+    canonicalHomepageMissing = canonicalHomepageRequiredNeedles.filter((needle) => !canonicalHomepageBody.includes(needle));
+    canonicalHomepageForbidden = canonicalHomepageForbiddenNeedles.filter((needle) => canonicalHomepageBody.includes(needle));
+
+    if (!canonicalHomepageChallenge && response.ok && canonicalHomepageMissing.length === 0 && canonicalHomepageForbidden.length === 0) {
+      console.log('[homepage-canonical] canonical homepage is current and contains no retired/dead-end content.');
+      canonicalHomepagePassed = true;
+      break;
+    }
+
+    if (canonicalHomepageForbidden.length > 0) {
+      console.log(`[homepage-canonical] stale/retired content still present: ${canonicalHomepageForbidden.join(' | ')}`);
+    } else if (canonicalHomepageMissing.length > 0) {
+      console.log(`[homepage-canonical] required content missing: ${canonicalHomepageMissing.join(' | ')}`);
+    } else if (canonicalHomepageChallenge) {
+      console.log('[homepage-canonical] Cloudflare returned cf-mitigated: challenge; waiting for the edge to become healthy.');
+    } else {
+      console.log(`[homepage-canonical] HTTP ${canonicalHomepageStatus}; waiting for the canonical homepage to become healthy.`);
+    }
+  } catch (error) {
+    canonicalHomepageError = error instanceof Error ? error.message : String(error);
+    canonicalHomepageStatus = 'network-error';
+    canonicalHomepageChallenge = false;
+    console.log(`[homepage-canonical] request failed: ${canonicalHomepageError}`);
+  }
+
+  if (attempt < 6) await sleep(5_000);
+}
+
+appendSummary(`| ${canonicalHomepagePassed ? '✅ pass' : '❌ FAIL'} | homepage-canonical | ${canonicalHomepageStatus} | ${canonicalHomepageAttempts} | ${canonicalHomepageChallenge ? 'yes' : 'no'} |\n`);
+
+if (!canonicalHomepagePassed) {
+  const reason = canonicalHomepageError
+    || (canonicalHomepageChallenge ? 'Cloudflare returned cf-mitigated: challenge' : '')
+    || (canonicalHomepageForbidden.length > 0 ? `retired/dead-end text still served: ${canonicalHomepageForbidden.join(' | ')}` : '')
+    || (canonicalHomepageMissing.length > 0 ? `required text missing: ${canonicalHomepageMissing.join(' | ')}` : '')
+    || `HTTP ${canonicalHomepageStatus}`;
+  console.error(`::error title=LIVE PRODUCTION failure::canonical homepage failed after ${canonicalHomepageAttempts} attempts — ${reason}`);
+  appendSummary(`\n**Failure class:** \`LIVE PRODUCTION\`  \n**Surface:** \`${origin}/\`  \n**Last HTTP result:** \`${canonicalHomepageStatus}\`  \n**Cloudflare challenge:** \`${canonicalHomepageChallenge ? 'yes' : 'no'}\`  \n**Reason:** ${reason}\n`);
+  if (canonicalHomepageBody) console.error(`[homepage-canonical] response sample: ${canonicalHomepageBody.slice(0, 1600).replace(/\s+/g, ' ')}`);
+  process.exit(1);
+}
+
+appendSummary(`\nAll ${surfaces.length} revision-bound production surfaces plus the canonical homepage passed without a Cloudflare challenge.\n`);
+console.log(`TexasDefined production verification passed (${surfaces.length} revision-bound surfaces plus canonical homepage, no cf-mitigated challenges).`);
