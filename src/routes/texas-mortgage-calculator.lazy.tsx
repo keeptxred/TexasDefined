@@ -2,7 +2,7 @@ import { createLazyFileRoute, Link } from '@tanstack/react-router';
 import { CalculatorPage } from '@/components/calculators/CalculatorPage';
 import { OfficialMortgageCalculator } from '@/components/calculators/OfficialMortgageCalculator';
 
-const description = 'Estimate a Texas mortgage payment with principal, interest, property taxes and homeowners insurance in one monthly housing-cost view, using official local taxing-unit rates when selected.';
+const description = 'Estimate a Texas mortgage payment with down payment, principal, interest, official local property-tax rates and homeowners insurance in one monthly housing-cost view.';
 
 const faqs = [
   {
@@ -33,7 +33,7 @@ export const Route = createLazyFileRoute('/texas-mortgage-calculator')({
 
 function TexasMortgageCalculatorPage() {
   return (
-    <CalculatorPage eyebrow="Texas mortgage payment calculator" title="Texas mortgage calculator" description={description}>
+    <CalculatorPage eyebrow="Texas mortgage payment calculator" title="Texas mortgage payment calculator with taxes and insurance" description={description}>
       <OfficialMortgageCalculator />
 
       <section className="mt-14 border-t border-border pt-10" aria-labelledby="mortgage-cost-heading">
@@ -44,6 +44,19 @@ function TexasMortgageCalculatorPage() {
           <p>Use finalized local taxing-unit rates for a stronger planning estimate, but verify the parcel's taxable values, exemptions and exact district membership before relying on the result. A county name alone does not identify every taxing unit attached to a property.</p>
           <p>After you have a lender quote, replace planning assumptions with the actual interest rate, loan term, mortgage-insurance amount and estimated escrow. The calculator is most valuable when you keep updating it as the home search becomes more specific.</p>
         </div>
+      </section>
+
+      <section className="mt-12 border-t border-border pt-10" aria-labelledby="mortgage-example-heading">
+        <p className="eyebrow text-primary">Worked payment example</p>
+        <h2 id="mortgage-example-heading" className="mt-3 font-display text-3xl">What a Texas mortgage payment can look like with taxes and insurance</h2>
+        <p className="mt-5 max-w-3xl text-base leading-7 text-muted-foreground">The example below is illustrative math, not a current mortgage-rate quote or lending recommendation. It shows why a Texas house-payment calculator should include more than principal and interest.</p>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="border border-border p-5"><span className="eyebrow text-muted-foreground">Home price</span><strong className="mt-2 block font-display text-2xl">$400,000</strong><p className="mt-2 text-sm leading-6 text-muted-foreground">20% down leaves a $320,000 loan.</p></div>
+          <div className="border border-border p-5"><span className="eyebrow text-muted-foreground">Principal + interest</span><strong className="mt-2 block font-display text-2xl">≈ $2,023/mo</strong><p className="mt-2 text-sm leading-6 text-muted-foreground">Illustrative 30-year fixed loan at 6.5%.</p></div>
+          <div className="border border-border p-5"><span className="eyebrow text-muted-foreground">Property tax</span><strong className="mt-2 block font-display text-2xl">≈ $667/mo</strong><p className="mt-2 text-sm leading-6 text-muted-foreground">Illustrative 2.0% annual tax before property-specific exemptions or taxable-value differences.</p></div>
+          <div className="border border-border p-5"><span className="eyebrow text-muted-foreground">Insurance</span><strong className="mt-2 block font-display text-2xl">≈ $250/mo</strong><p className="mt-2 text-sm leading-6 text-muted-foreground">Illustrative $3,000 annual homeowners premium.</p></div>
+        </div>
+        <p className="mt-5 max-w-3xl text-base leading-7 text-muted-foreground">Under those assumptions, the combined principal, interest, tax and insurance estimate is about <strong className="text-foreground">$2,940 per month</strong> before HOA dues, mortgage insurance, MUD or PID charges, utilities, maintenance or other address-specific costs.</p>
       </section>
 
       <section className="mt-12 border-t border-border pt-10" aria-labelledby="mortgage-stack-heading">
