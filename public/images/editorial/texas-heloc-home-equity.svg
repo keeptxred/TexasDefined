@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Texas home equity and HELOC planning illustration</title>
+  <desc id="desc">Editorial illustration of a Texas house, an eighty-percent equity line and a rising home-value chart.</desc>
+  <rect width="1600" height="1000" fill="#f5f0e8"/>
+  <rect x="0" y="700" width="1600" height="300" fill="#d9cbb7"/>
+  <path d="M210 560 L545 285 L880 560 V810 H210 Z" fill="#fbfaf7" stroke="#22201d" stroke-width="22"/>
+  <path d="M165 575 L545 245 L925 575" fill="none" stroke="#22201d" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="335" y="585" width="145" height="225" fill="#c85d45" stroke="#22201d" stroke-width="18"/>
+  <rect x="610" y="575" width="150" height="125" fill="#b8d2df" stroke="#22201d" stroke-width="18"/>
+  <path d="M1020 760 V315 M1020 760 H1435" fill="none" stroke="#22201d" stroke-width="18" stroke-linecap="round"/>
+  <path d="M1065 690 L1150 625 L1240 650 L1330 520 L1410 430" fill="none" stroke="#2f6b5c" stroke-width="30" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="1065" cy="690" r="18" fill="#2f6b5c"/><circle cx="1150" cy="625" r="18" fill="#2f6b5c"/><circle cx="1240" cy="650" r="18" fill="#2f6b5c"/><circle cx="1330" cy="520" r="18" fill="#2f6b5c"/><circle cx="1410" cy="430" r="18" fill="#2f6b5c"/>
+  <line x1="985" y1="455" x2="1460" y2="455" stroke="#c85d45" stroke-width="10" stroke-dasharray="24 18"/>
+  <text x="1000" y="420" font-family="Georgia, serif" font-size="64" font-weight="700" fill="#22201d">80% ceiling</text>
+  <text x="985" y="850" font-family="Arial, sans-serif" font-size="44" font-weight="700" letter-spacing="3" fill="#22201d">TEXAS HOME EQUITY</text>
+  <path d="M120 165 H420" stroke="#1d4f91" stroke-width="28"/><path d="M120 205 H420" stroke="#ffffff" stroke-width="20"/><path d="M120 240 H420" stroke="#bf2f38" stroke-width="28"/>
+</svg>
