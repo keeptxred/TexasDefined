@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react';
 
 import { CountyHistoricSites } from '@/components/content/CountyHistoricSites';
 import { CountyMadeBuiltBorn } from '@/components/content/CountyMadeBuiltBorn';
+import { CountySeasonalPlanning } from '@/components/content/CountySeasonalPlanning';
 import { CountyStatewideContextSection } from '@/components/content/CountyStatewideContextSection';
 import { CountyTaxRateSection } from '@/components/property/CountyTaxRateSection';
 import type { CountyProfile } from '@/data/county-profile';
@@ -61,7 +62,7 @@ export function CountyIdentitySection({ countyName, region, profile }: { countyN
     { href: '/texas-explained', label: 'All 10 Texas Explained guides' },
   ];
 
-  if (!hasIdentitySignal) return <><CountyTaxRateSection countySlug={slug} countyName={countyName} /><CountyMadeBuiltBorn countySlug={slug} /></>;
+  if (!hasIdentitySignal) return <><CountySeasonalPlanning countySlug={slug} countyName={countyName} /><CountyTaxRateSection countySlug={slug} countyName={countyName} /><CountyMadeBuiltBorn countySlug={slug} /></>;
 
   return (
     <>
@@ -92,6 +93,7 @@ export function CountyIdentitySection({ countyName, region, profile }: { countyN
           </div>
         </div>
       </section>
+      <CountySeasonalPlanning countySlug={slug} countyName={countyName} />
       <CountyTaxRateSection countySlug={slug} countyName={countyName} />
       <CountyMadeBuiltBorn countySlug={slug} />
     </>
