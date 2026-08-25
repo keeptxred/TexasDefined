@@ -19,8 +19,8 @@ export const Route = createFileRoute('/sports-venue/jones-att-stadium')({
   head: () => ({
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath,
-      title: 'Galaxy Stadium: Texas Tech Football & Visitor Guide',
-      description,
+      title: 'Galaxy Stadium | Lubbock, TX',
+      description: 'Galaxy Stadium in Lubbock: Texas Tech football, capacity, parking, arrival tips, official planning links and the Jones AT&T Stadium name history.',
     }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
   }),
@@ -32,6 +32,7 @@ function GalaxyStadiumPage() {
   const enrichment = getSportsVenueEnrichmentAll('jones-att-stadium');
   const mapUrl = sportsVenueMapUrl(venueName, 'lubbock');
   const canonicalUrl = `https://texasdefined.com${canonicalPath}`;
+  const heroUrl = 'https://texasdefined.com/api/sports-venue-hero?slug=jones-att-stadium';
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'StadiumOrArena',
@@ -39,6 +40,8 @@ function GalaxyStadiumPage() {
     alternateName: ['Jones AT&T Stadium', 'Jones Stadium'],
     description,
     url: canonicalUrl,
+    mainEntityOfPage: canonicalUrl,
+    image: heroUrl,
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'Lubbock',
@@ -90,6 +93,8 @@ function GalaxyStadiumPage() {
           countyName="Lubbock County"
           capacity={enrichment?.capacity}
           primaryEvents={enrichment?.primaryEvents}
+          parking={enrichment?.parking}
+          arrival={enrichment?.arrival}
           verifiedAt={enrichment?.verifiedAt}
         />
 
