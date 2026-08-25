@@ -8,7 +8,7 @@ const assert = (condition, message) => {
 const registry = read("src/data/destination-editorial-links.ts");
 const planner = read("src/components/editorial/DestinationVisitPlanner.tsx");
 
-assert(registry.includes('"port-isabel-lighthouse-state-park"'), "Port Isabel destination editorial registry entry is missing");
+assert(registry.includes('"port-isabel-lighthouse"'), "Port Isabel destination editorial registry entry is missing");
 for (const href of [
   "/article/best-lighthouses-to-visit-in-texas",
   "/article/port-isabel-lighthouse-guide",
