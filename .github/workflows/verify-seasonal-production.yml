@@ -118,7 +118,7 @@ jobs:
           fetch_assert caddo-fall '/destination/caddo-lake-state-park' 'Use the Texas fall-color guide'
           fetch_assert guadalupe-fall '/destination/guadalupe-river-state-park' 'Use the Texas fall-color guide'
           fetch_assert new-braunfels-christmas '/destination/new-braunfels' 'Plan New Braunfels in the Texas Christmas guide'
-          fetch_assert gruene-christmas '/destination/gruene' 'Put Gruene in a Texas Christmas trip'
+          fetch_assert gruene-christmas '/destination/gruene-historic-district' 'Put Gruene in a Texas Christmas trip'
           fetch_assert gillespie-seasonal '/article/gillespie-county-fredericksburg-stonewall-hill-country-texas' 'Plan Gillespie County during bluebonnet season'
           fetch_assert harrison-seasonal '/article/harrison-county-marshall-caddo-lake-railroads-piney-woods-texas' 'Plan an East Texas fall-color weekend'
           fetch_assert marion-seasonal '/article/marion-county-jefferson-caddo-lake-riverport-piney-woods-texas' 'Build a Caddo Lake fall-color trip'
