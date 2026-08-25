@@ -1,0 +1,212 @@
+import bbqBrisket from "@/assets/bbq-brisket.jpg";
+import bluebonnets from "@/assets/bluebonnets.jpg";
+import roadTrip from "@/assets/road-trip.jpg";
+import smallTown from "@/assets/small-town.jpg";
+
+import type { Article, ImageRef } from "../types";
+
+const image = (src: string, alt: string): ImageRef => ({ src, alt, width: 1600, height: 1067 });
+const images = {
+  bbq: image(bbqBrisket, "Texas barbecue brisket on butcher paper"),
+  bluebonnets: image(bluebonnets, "Texas bluebonnets blooming in spring"),
+  roadTrip: image(roadTrip, "A two-lane Texas highway stretching toward the horizon"),
+  smallTown: image(smallTown, "A Texas courthouse square in a historic small town"),
+};
+
+export const texasGatewayArticlesBatch2: Article[] = [
+  {
+    id: "gateway-tx-vs-ca",
+    brandId: "texasdefined",
+    slug: "texas-vs-california-differences",
+    title: "Texas vs. California: 30 Differences You Notice Fast",
+    dek: "Housing, taxes, weather, driving, food, geography and daily life feel very different in Texas and California. Here is where the contrast is most obvious.",
+    category: "moving-to-texas",
+    hero: images.roadTrip,
+    authorId: "a-dell",
+    publishedAt: "2026-08-20",
+    readingMinutes: 12,
+    tags: ["texas vs california", "moving from california to texas", "texas california differences", "living in texas"],
+    body: [
+      { type: "paragraph", text: "Texas and California are both enormous, diverse states with major economies, coastlines, agricultural regions, technology centers and globally recognized cities. The similarities stop being useful pretty quickly once you compare daily life." },
+      { type: "heading", text: "The biggest differences" },
+      { type: "list", items: ["Texas has no individual state income tax; California does.", "Texas property taxes can be much more prominent in a homeowner's budget.", "California's coastline shapes far more of its population centers.", "Texas metro areas are generally more car-dependent.", "Summer heat is more widespread and persistent across Texas.", "Earthquakes are a defining California risk; hail, hurricanes, tornadoes and flash flooding loom larger in many parts of Texas.", "Texas housing can offer more space for the money in many markets, though metro affordability varies widely.", "California has stronger statewide transit networks in several major metros; Texas transit is much more uneven.", "Texas barbecue, Tex-Mex and breakfast tacos are everyday cultural anchors.", "California's food identity leans more heavily on produce, Pacific seafood and its own Mexican-American regional traditions.", "Texas has 254 counties and county identity remains highly visible.", "Texas road trips often involve longer uninterrupted drives between major destinations.", "Texas public-land access is more limited than many newcomers from western states expect.", "California's climate can change dramatically with elevation; Texas changes dramatically with longitude and region.", "Texas high school football has an unusually large civic role in many communities.", "California's housing regulation and Texas's local development patterns produce very different suburban landscapes.", "Texas energy bills can spike during long cooling seasons.", "Home insurance concerns differ substantially by region in both states.", "Texas has a much larger cattle-and-ranch visual identity.", "California has a stronger beach-centered lifestyle in many population centers.", "Texas's Gulf Coast is warmer, flatter and more storm-exposed than the Pacific Coast.", "Texas has a stronger statewide culture of rodeos and livestock events.", "California wine country has no direct Texas equivalent, though the Hill Country wine region is growing.", "Texas city-to-city distances can surprise even Californians used to long drives.", "Texas political culture is different, but this guide focuses on lifestyle and practical differences.", "Both states contain multiple cultural regions that resist stereotypes.", "Neither state can be understood by visiting only its largest city.", "Texas small towns and courthouse squares are a major travel layer.", "California mountain access is generally more extensive; Texas mountain country is concentrated mostly in the far west.", "The best choice depends on household budget, climate tolerance, career, family needs and the kind of daily life you want."] },
+    ],
+    internalLinks: [
+      { href: "/moving-to-texas", label: "Moving to Texas hub" },
+      { href: "/article/things-nobody-tells-you-before-moving-to-texas", label: "31 things nobody tells you before moving to Texas" },
+      { href: "/texas-cost-of-living-calculator", label: "Texas cost-of-living calculator" },
+      { href: "/texas-home-insurance-calculator", label: "Texas home-insurance calculator" },
+      { href: "/browse/cities", label: "Compare Texas cities" },
+      { href: "/browse/counties", label: "Browse Texas counties" },
+    ],
+    relatedCollections: [], relatedDestinations: [],
+  },
+  {
+    id: "gateway-tx-vs-fl",
+    brandId: "texasdefined",
+    slug: "texas-vs-florida-differences",
+    title: "Texas vs. Florida: 25 Differences That Matter in Real Life",
+    dek: "Both states attract newcomers with warm weather and no individual state income tax, but the day-to-day tradeoffs are very different.",
+    category: "moving-to-texas",
+    hero: images.bluebonnets,
+    authorId: "a-dell",
+    publishedAt: "2026-08-20",
+    readingMinutes: 10,
+    tags: ["texas vs florida", "texas florida differences", "moving to texas", "moving to florida"],
+    body: [
+      { type: "paragraph", text: "Texas and Florida are often compared because both are large Sun Belt states with rapid growth, major metros, warm weather and no individual state income tax. That shorthand hides huge differences in geography, insurance exposure, housing, culture and mobility." },
+      { type: "heading", text: "What changes the decision" },
+      { type: "list", items: ["Florida's coastline influences daily life far more broadly than Texas's Gulf Coast does.", "Texas offers much more geographic variety away from the coast.", "Hurricane exposure matters in both states, but Florida's statewide insurance market is more dominated by coastal storm risk.", "Texas property taxes can be a major homeowner expense.", "Florida humidity is more persistent statewide; Texas heat can be more extreme inland.", "Texas metro areas are highly car-dependent.", "Florida's tourism economy shapes many communities more visibly.", "Texas has stronger barbecue, ranching, rodeo and high-school-football traditions.", "Florida has a stronger boating and beach culture across much of the state.", "Texas includes desert, mountains, pine forests, plains and Hill Country.", "Florida is flatter and more subtropical overall.", "Texas distances between metros can be enormous.", "Both states have large retirement populations in selected regions, but the patterns differ.", "Texas cities often offer larger suburban footprints.", "Florida has no true equivalent to far West Texas or the Panhandle.", "Texas has no equivalent to the Keys or Everglades.", "Property-insurance shopping is essential in both states.", "Flood risk deserves attention even outside designated high-risk zones.", "Summer outdoor routines require heat planning in both states.", "Texas has more pronounced winter-weather swings in many regions.", "Texas college football culture is especially intense.", "Both states have major Hispanic cultural influence, expressed differently by region.", "Neither state's tax picture can be judged by income tax alone.", "The better fit depends on insurance, housing, work, climate and preferred landscape.", "Use actual city and county data rather than choosing between stereotypes."] },
+    ],
+    internalLinks: [
+      { href: "/moving-to-texas", label: "Moving to Texas" },
+      { href: "/article/things-nobody-tells-you-before-moving-to-texas", label: "Moving surprises" },
+      { href: "/texas-home-insurance-calculator", label: "Texas home-insurance calculator" },
+      { href: "/browse/cities", label: "Browse Texas cities" },
+      { href: "/article/things-to-know-before-visiting-texas", label: "Things to know before visiting Texas" },
+    ],
+    relatedCollections: [], relatedDestinations: [],
+  },
+  {
+    id: "gateway-traditions",
+    brandId: "texasdefined",
+    slug: "texas-traditions-you-should-experience",
+    title: "21 Texas Traditions You Should Experience at Least Once",
+    dek: "From bluebonnet photos and Friday-night football to dance halls, rodeos and the State Fair, these traditions explain Texas better than any souvenir shop can.",
+    category: "guides",
+    hero: images.smallTown,
+    authorId: "a-hollis",
+    publishedAt: "2026-08-20",
+    readingMinutes: 9,
+    tags: ["texas traditions", "texas culture", "things to do in texas", "texas bucket list"],
+    body: [
+      { type: "paragraph", text: "The most useful Texas traditions are not performances staged for visitors. They are recurring things communities actually do—sometimes loudly, sometimes casually, and often for generations." },
+      { type: "list", items: ["Take family photos in a bluebonnet field without trampling the flowers.", "Go to a Friday-night high school football game in a small town.", "Order barbecue by the pound at the counter.", "Eat breakfast tacos before 9 a.m.", "Spend an evening in a historic dance hall.", "Attend a local rodeo or livestock show.", "Visit the State Fair of Texas and see Big Tex.", "Stop at a county courthouse square on a road trip.", "Drive a Hill Country back road in spring.", "Eat kolaches or klobasneks on a highway stop.", "Watch a summer storm roll across open country from a safe location.", "Float or swim a spring-fed Hill Country river when conditions allow.", "Camp under dark skies in West Texas.", "Visit a Spanish mission beyond the Alamo.", "Attend a county fair, peach festival, sausage festival or local heritage event.", "Hear live Texas music in a dance hall, honky-tonk or outdoor venue.", "Watch college football with people who care far too much about it.", "Take a Gulf Coast seafood detour.", "Visit a ranching or cattle-drive historic site.", "Stop for pie, barbecue or tacos in a town you did not plan to visit.", "Take one road trip where the detours become the point."] },
+    ],
+    internalLinks: [
+      { href: "/events", label: "Texas events" },
+      { href: "/texas-state-fair", label: "State Fair of Texas" },
+      { href: "/article/bluebonnet-season-field-guide", label: "Bluebonnet season field guide" },
+      { href: "/article/texas-dance-hall-survival", label: "Historic Texas dance halls" },
+      { href: "/article/friday-night-and-the-texas-town", label: "Friday night and the Texas town" },
+      { href: "/food-bbq", label: "Texas food & BBQ" },
+      { href: "/article/hill-country-two-lane-loop", label: "Hill Country two-lane loop" },
+    ],
+    relatedCollections: [], relatedDestinations: [],
+  },
+  {
+    id: "gateway-road-trip-stops",
+    brandId: "texasdefined",
+    slug: "texas-road-trip-stops-worth-the-detour",
+    title: "20 Texas Road Trip Stops Worth the Detour",
+    dek: "Canyons, courthouse squares, springs, barbecue towns, historic missions and roadside stops that can turn a long Texas drive into the best part of the trip.",
+    category: "road-trips",
+    hero: images.roadTrip,
+    authorId: "a-dell",
+    publishedAt: "2026-08-20",
+    readingMinutes: 9,
+    tags: ["texas road trips", "texas roadside attractions", "texas travel", "texas detours"],
+    body: [
+      { type: "paragraph", text: "Texas distances are long enough that the drive itself has to earn its keep. The best stops are not necessarily giant attractions—they are places that reveal a different landscape, town pattern, food tradition or slice of history." },
+      { type: "list", items: ["Palo Duro Canyon for a sudden break in the Panhandle plains.", "Enchanted Rock for Hill Country granite and broad views.", "Lockhart for classic Central Texas barbecue culture.", "Gruene for a historic district and dance-hall stop.", "Fredericksburg for German-Texas history and Hill Country access.", "Caddo Lake for cypress swamps unlike almost anywhere else in Texas.", "Balmorhea for spring-fed West Texas water.", "Fort Davis for mountain air, military history and dark skies.", "Marfa for art, architecture and high-desert weirdness.", "San Antonio Missions for a deeper story than the Alamo alone.", "Waco for a central-state break on I-35.", "West for Czech-Texas bakery culture.", "Brenham for bluebonnet-country drives and small-town stops.", "Gonzales for Texas Revolution history.", "Galveston for architecture, Gulf history and beach access.", "Jefferson for East Texas historic streets and nearby bayou country.", "Alpine as a base for Big Bend country.", "Monahans Sandhills for a landscape that looks transplanted from another state.", "A county courthouse square anywhere you see one worth stopping for.", "Any unplanned local food stop that gives you a better memory than another interstate exit." ] },
+    ],
+    internalLinks: [
+      { href: "/road-trips", label: "Texas road trips" },
+      { href: "/explore", label: "Explore Texas" },
+      { href: "/article/hill-country-two-lane-loop", label: "Hill Country two-lane loop" },
+      { href: "/article/places-everyone-should-visit-in-texas", label: "30 places everyone should visit in Texas" },
+      { href: "/browse/cities", label: "Browse Texas cities" },
+      { href: "/browse/counties", label: "Browse Texas counties" },
+    ],
+    relatedCollections: [], relatedDestinations: ["palo-duro-canyon", "enchanted-rock", "caddo-lake", "gruene-historic-district"],
+  },
+  {
+    id: "gateway-facts-sound-fake",
+    brandId: "texasdefined",
+    slug: "texas-facts-that-sound-made-up",
+    title: "40 Texas Facts That Sound Made Up—but Aren't",
+    dek: "From geography and history to state symbols, giant distances and strange-but-true Texas records, these facts are good enough to double-check.",
+    category: "texas-history",
+    hero: images.bluebonnets,
+    authorId: "a-hollis",
+    publishedAt: "2026-08-20",
+    readingMinutes: 10,
+    tags: ["texas facts", "weird texas facts", "texas trivia", "fun facts about texas"],
+    body: [
+      { type: "paragraph", text: "Texas has been mythologized so aggressively that real facts sometimes sound less believable than the legends. The safest way to enjoy Texas trivia is to separate documented history and geography from folklore." },
+      { type: "list", items: ["Texas was an independent republic from 1836 to 1845.", "Texas has 254 counties, more than any other U.S. state.", "The state spans multiple major ecological regions, including desert, mountains, pine forest, prairie and subtropical brush.", "Big Bend National Park contains an entire mountain range within its boundaries.", "Guadalupe Peak is the highest natural point in Texas.", "Palo Duro is one of the largest canyon systems in the United States.", "Caddo Lake is famous for bald cypress swamps that look nothing like stereotypical Texas.", "The Texas flag is displayed so frequently that visitors often notice it before state residents do.", "The bluebonnet became the state flower in the early 20th century.", "Texas has a state dish: chili.", "Pecan pie is the official state pie.", "Rodeo is the official state sport.", "The armadillo is the official small state mammal.", "The longhorn is the official large state mammal.", "Texas contains Spanish missions that predate the United States.", "The Alamo was one mission in a broader mission system.", "German and Czech immigration permanently shaped towns, foods and music traditions in Central Texas.", "Texas barbecue is not one style statewide.", "Breakfast tacos are a normal weekday food across large parts of the state.", "Historic dance halls still operate as live venues.", "Texas produces oil, natural gas, wind and solar energy at enormous scale.", "The Gulf Coast and far West Texas can have completely different weather on the same day.", "A drive from Texarkana to El Paso is roughly comparable to crossing several northeastern states.", "Texas has two national parks and numerous other National Park Service sites.", "Some Texas rivers are fed by large natural springs.", "Flash flooding can occur rapidly in Hill Country terrain.", "Texas winter weather can include both beach temperatures and snow in different regions.", "The state has major observatories because parts of West Texas offer exceptionally dark skies.", "Houston is one of the most internationally diverse major cities in the United States.", "San Antonio's mission system is a UNESCO World Heritage Site.", "The State Fair of Texas has operated in Dallas for generations.", "Big Tex is one of the most recognizable fairground figures in the country.", "High school football stadiums can be among the largest civic facilities in Texas suburbs and towns.", "County courthouse architecture is a genuine travel interest across the state.", "Texas contains active seaports, border trade corridors, ranch country and spaceflight facilities in one state.", "The state's cultural regions do not line up neatly with metro boundaries.", "Texas has communities where German, Czech, Polish, Tejano, Cajun, Southern and border traditions visibly overlap.", "The same state can support cypress swamp paddling and desert mountain hiking.", "A Texas road trip can take longer than some interstate vacations.", "The strangest Texas fact is often that the stereotype is only one small piece of the state." ] },
+    ],
+    internalLinks: [
+      { href: "/texas-history", label: "Texas history" },
+      { href: "/article/things-that-define-texas", label: "50 things that define Texas" },
+      { href: "/article/things-texas-does-differently-than-every-other-state", label: "25 things Texas does differently" },
+      { href: "/explore", label: "Explore Texas landscapes and destinations" },
+      { href: "/article/bluebonnet-season-field-guide", label: "Bluebonnet field guide" },
+    ],
+    relatedCollections: [], relatedDestinations: [],
+  },
+  {
+    id: "gateway-first-trip-mistakes",
+    brandId: "texasdefined",
+    slug: "mistakes-first-time-visitors-make-in-texas",
+    title: "20 Mistakes First-Time Visitors Make in Texas",
+    dek: "Trying to see too much, underestimating distances, ignoring heat and skipping the small-town stops are easy ways to make a Texas trip worse than it needs to be.",
+    category: "guides",
+    hero: images.roadTrip,
+    authorId: "a-dell",
+    publishedAt: "2026-08-20",
+    readingMinutes: 8,
+    tags: ["texas travel mistakes", "first trip to texas", "texas travel tips", "visiting texas"],
+    body: [
+      { type: "paragraph", text: "Most bad Texas itineraries fail for the same reason: they treat the state as a collection of famous cities instead of a huge geographic system. A little realism about distance, weather and regional variety fixes most of the problem." },
+      { type: "list", items: ["Trying to combine Dallas, Houston, San Antonio and Big Bend into a short trip.", "Planning drive time without adding fuel, food and rest stops.", "Scheduling exposed outdoor activities for the hottest part of a summer afternoon.", "Assuming all Texas weather is the same.", "Waiting too long to reserve popular state-park entry or camping.", "Visiting only major metros and missing the towns between them.", "Treating barbecue as a dinner-only food when famous places may sell out earlier.", "Ignoring flash-flood risk near low-water crossings and rivers.", "Driving into remote West Texas without a fuel plan.", "Expecting public transportation to solve every metro trip.", "Assuming the Gulf Coast feels like a Pacific or Atlantic beach trip.", "Skipping local events because they are not nationally famous.", "Spending the entire trip on interstates.", "Ignoring the State Fair calendar when visiting Dallas in fall.", "Assuming the Alamo tells the entire San Antonio mission story.", "Missing sunrise and sunset when summer daytime heat is strongest.", "Underestimating how good regional food can be outside famous restaurants.", "Ignoring county and small-town history stops.", "Packing only for heat when Texas weather can swing sharply.", "Leaving no room for detours—the exact thing Texas road trips are best at." ] },
+    ],
+    internalLinks: [
+      { href: "/article/things-to-know-before-visiting-texas", label: "25 things to know before visiting Texas" },
+      { href: "/article/texas-road-trip-stops-worth-the-detour", label: "20 road trip stops worth the detour" },
+      { href: "/best-places-to-go-camping-in-texas", label: "Best camping in Texas" },
+      { href: "/texas-state-fair", label: "State Fair guide" },
+      { href: "/explore", label: "Explore Texas" },
+    ],
+    relatedCollections: [], relatedDestinations: [],
+  },
+  {
+    id: "gateway-seasonal-bucket",
+    brandId: "texasdefined",
+    slug: "texas-bucket-list-by-season",
+    title: "The Texas Bucket List by Season: What to Do in Spring, Summer, Fall and Winter",
+    dek: "Texas rewards seasonal planning. Bluebonnets, swimming holes, football, fairs, desert hiking and Gulf Coast escapes each have their own best window.",
+    category: "guides",
+    hero: images.bluebonnets,
+    authorId: "a-hollis",
+    publishedAt: "2026-08-20",
+    readingMinutes: 9,
+    tags: ["texas bucket list", "best time to visit texas", "texas seasons", "things to do in texas"],
+    body: [
+      { type: "heading", text: "Spring" },
+      { type: "list", items: ["Chase bluebonnets and other wildflowers.", "Drive Hill Country back roads.", "Camp before peak summer heat.", "Visit state parks during mild-weather windows.", "Plan small-town festivals and outdoor markets."] },
+      { type: "heading", text: "Summer" },
+      { type: "list", items: ["Swim spring-fed rivers and pools where conditions allow.", "Head to the Gulf Coast.", "Plan early-morning hikes and evening outdoor time.", "Try lake weekends and paddling.", "Use indoor history, food and museum stops during peak afternoon heat."] },
+      { type: "heading", text: "Fall" },
+      { type: "list", items: ["Go to the State Fair of Texas.", "Catch Friday-night football.", "Plan camping and road trips as temperatures ease.", "Look for fall color in selected East Texas and Hill Country areas.", "Build weekends around county fairs, food festivals and live music."] },
+      { type: "heading", text: "Winter" },
+      { type: "list", items: ["Visit Big Bend and far West Texas during cooler weather.", "Explore missions, courthouse squares and historic downtowns.", "Take Gulf Coast birding trips.", "Plan barbecue and food-focused road trips.", "Use clear winter nights for dark-sky viewing in West Texas."] },
+    ],
+    internalLinks: [
+      { href: "/article/bluebonnet-season-field-guide", label: "Bluebonnet season" },
+      { href: "/article/big-bend-in-winter", label: "Big Bend in winter" },
+      { href: "/texas-state-fair", label: "State Fair of Texas" },
+      { href: "/best-places-to-go-camping-in-texas", label: "Best camping in Texas" },
+      { href: "/events", label: "Texas events" },
+      { href: "/road-trips", label: "Texas road trips" },
+    ],
+    relatedCollections: [], relatedDestinations: ["big-bend-chisos-basin"],
+  },
+];
+
+const batch2Slugs = new Set(texasGatewayArticlesBatch2.map((article) => article.slug));
+
+export async function loadTexasGatewayArticleBatch2(brandId: string, slug: string): Promise<Article | null> {
+  if (brandId !== "texasdefined" || !batch2Slugs.has(slug)) return null;
+  return texasGatewayArticlesBatch2.find((article) => article.slug === slug) ?? null;
+}

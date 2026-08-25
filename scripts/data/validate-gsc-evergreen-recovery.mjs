@@ -157,11 +157,13 @@ for (const marker of [
   'const canonicalPath = `/article/${params.slug}`',
   'canonicalLink(texasDefinedBrand, canonicalPath)',
 ]) if (!articleRoute.includes(marker)) failures.push(`Shared evergreen recovery metadata contract missing ${marker}.`);
-if (!sitemap.includes('...articles.filter((article) => !isLegacyCountySeriesArticle(article.slug)).map((article) => ({ path: `/article/${article.slug}`')) failures.push('Primary sitemap must continue publishing normal recovery-candidate articles.');
+if (!sitemap.includes('platform.articles.list(scope)')) failures.push('Primary sitemap must continue sourcing recovery-candidate articles from platform.articles.list(scope).');
+const articleCatalogPattern = /\.\.\.articles\s*\.filter\(\(article\)\s*=>\s*!isLegacyCountySeriesArticle\(article\.slug\)\s*&&\s*isTexasGatewayIndexReadyArticle\(article\)\)\s*\.map\(\(article\)\s*=>\s*\(\{\s*path:\s*`\/article\/\$\{article\.slug\}`/s;
+if (!articleCatalogPattern.test(sitemap)) failures.push('Primary sitemap must continue publishing recovery-candidate articles through the quality-gated canonical article catalog.');
 
 if (failures.length) {
   console.error('GSC evergreen recovery validation failed:');
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
-console.log('GSC evergreen recovery passed: six finance guides, two relocation guides, stock-tank terminology, 254-county history, hurricane, football and dance-hall preservation retain deep source-backed content, lazy delivery where appropriate, and shared article canonical/sitemap discovery.');
+console.log('GSC evergreen recovery passed: six finance guides, two relocation guides, stock-tank terminology, 254-county history, hurricane, football and dance-hall preservation retain deep source-backed content, lazy delivery where appropriate, and shared article canonical/quality-gated sitemap discovery.');
