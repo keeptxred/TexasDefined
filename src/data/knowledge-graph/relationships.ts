@@ -29,6 +29,8 @@ const DESTINATION_MIRROR_IDS = new Set([
   'historic-site:the-alamo',
 ]);
 
+const APPRAISAL_DISTRICT_SUFFIX = '-appraisal-district';
+
 function isDestinationMirror(entity: CanonicalEntityRef) {
   return entity.sourceId === 'explore-shared-catalog'
     || DESTINATION_MIRROR_IDS.has(`${entity.kind}:${entity.slug}`);
@@ -122,6 +124,10 @@ function proximityTieBreak(origin: TexasEntityRecord, a: TexasEntityRecord, b: T
 
 export function canonicalEntityPath(entity: CanonicalEntityRef) {
   if (isDestinationMirror(entity)) return `/destination/${entity.slug}`;
+  if (entity.kind === 'appraisal-district' && entity.slug.endsWith(APPRAISAL_DISTRICT_SUFFIX)) {
+    const countySlug = entity.slug.slice(0, -APPRAISAL_DISTRICT_SUFFIX.length);
+    if (countySlug) return `/property-tax/county/${countySlug}`;
+  }
   return `/${entity.kind}/${entity.slug}`;
 }
 
