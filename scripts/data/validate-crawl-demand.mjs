@@ -15,6 +15,8 @@ const cityDirectory = readRouteSurface('src/routes/browse.cities.tsx');
 const placeDirectory = read('src/components/directories/TexasPlaceDirectory.tsx');
 const countyDirectory = readRouteSurface('src/routes/browse.counties.tsx');
 const countyPropertyDirectory = read('src/components/directories/TexasCountyPropertyDirectory.tsx');
+const leafOnlyParents = read('src/lib/leaf-only-parent-routes.tsx');
+const landscapeServer = read('src/data/texas-landscapes.server.ts');
 const failures = [];
 
 for (const sitemap of [
@@ -69,6 +71,26 @@ for (const generalOnlyTemplate of ['`/article/${', '`/authors/${', '`/shop/${', 
   if (explore.includes(generalOnlyTemplate)) failures.push(`Explore sitemap must not construct general-site URL template ${generalOnlyTemplate}.`);
 }
 
+for (const marker of [
+  'import { Route as landscapesRoute } from "@/routes/explore.landscapes";',
+  'landscapesRoute,',
+]) {
+  if (!leafOnlyParents.includes(marker)) failures.push(`Landscape parent-route canonical protection missing: ${marker}`);
+}
+for (const marker of [
+  'const path = `/explore/landscapes/${item.slug}`;',
+  'buildMeta(texasDefinedBrand, { canonicalPath: path, title, description })',
+  'links: [canonicalLink(texasDefinedBrand, path)]',
+]) {
+  if (!landscapeServer.includes(marker)) failures.push(`Landscape child self-canonical contract missing: ${marker}`);
+}
+for (const marker of [
+  'landscapeSlugs.map((slug) => `/explore/landscapes/${slug}`)',
+  'landscapeGuideSlugs.map((slug) => `/explore/landscapes/${slug}`)',
+]) {
+  if (!explore.includes(marker)) failures.push(`Explore sitemap must retain substantive self-canonical landscape coverage: ${marker}`);
+}
+
 for (const forbidden of [
   'absoluteUrl(texasDefinedBrand, `/city/${city.slug}`)',
   'to="/$kind/$slug" params={{ kind: \'city\'',
@@ -112,4 +134,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Crawl-demand validation passed: sitemap namespaces are partitioned, Explore destinations use quality-gated preserved-catalog fallback when remote sources are unavailable or empty, unverified city detail URLs are not promoted, county property children are verification-filtered, and robots advertises each sitemap once.');
+console.log('Crawl-demand validation passed: sitemap namespaces are partitioned, Explore destinations use quality-gated preserved-catalog fallback when remote sources are unavailable or empty, landscape sitemap children are protected as leaf-only self-canonical routes, unverified city detail URLs are not promoted, county property children are verification-filtered, and robots advertises each sitemap once.');
