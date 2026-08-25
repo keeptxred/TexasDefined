@@ -3,13 +3,13 @@ import { texasDefinedBrand } from '@/brand/texasdefined';
 import { buildCalculatorHead } from '@/lib/calculator-seo';
 
 const description =
-  'Use this Texas homeowners insurance calculator without personal information. Estimate annual cost from replacement cost, an estimated base rate, wind or flood coverage, and deductible assumptions.';
+  'Estimate Texas homeowners insurance cost from replacement cost, rate assumptions, wind or flood coverage, and deductibles—without entering personal information.';
 
 export const Route = createFileRoute('/texas-home-insurance-calculator')({
   head: () =>
     buildCalculatorHead(texasDefinedBrand, {
       canonicalPath: '/texas-home-insurance-calculator',
-      title: 'Texas Homeowners Insurance Calculator | No Personal Info',
+      title: 'Texas Home Insurance Cost Calculator',
       description,
       featureList: [
         'Estimate homeowners insurance without personal information',
