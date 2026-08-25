@@ -34,7 +34,7 @@ export const migratedEditorialArticleStubs: Article[] = [
   stub(2, { slug: "texas-house-down-payment-guide", title: "How Much Down Payment Do You Need for a Texas House?", dek: "Why 20 percent is not a universal minimum, how loan programs differ and how to preserve enough cash for closing and repairs.", category: "real-estate", hero: downPaymentHero, authorId: "a-hollis", publishedAt: "2026-07-25", readingMinutes: 9, tags: ["down payment", "mortgage", "homebuyer", "closing costs"] }),
   stub(3, { slug: "true-cost-of-owning-a-home-in-texas", title: "The True Cost of Owning a Home in Texas", dek: "Mortgage, taxes and insurance are only the beginning. Build a realistic budget for heat, roofs, foundations, pools, districts and repairs.", category: "real-estate", hero: trueCostHero, authorId: "a-hollis", publishedAt: "2026-07-25", readingMinutes: 12, tags: ["homeownership", "maintenance", "property taxes", "insurance"] }),
   stub(4, { slug: "should-you-refinance-texas-mortgage", title: "Should You Refinance a Texas Mortgage?", dek: "Calculate break-even, compare equal loan terms and avoid lowering the payment by quietly adding years to the debt.", category: "real-estate", hero: refinanceHero, authorId: "a-hollis", publishedAt: "2026-07-25", readingMinutes: 9, tags: ["refinance", "mortgage", "interest rates", "home equity"] }),
-  stub(5, { slug: "texas-home-equity-heloc-guide", title: "Texas Home Equity Loans and HELOCs", dek: "How Texas homestead equity limits work, how loans differ from revolving lines and what to compare before borrowing against a home.", category: "real-estate", hero: helocHero, authorId: "a-hollis", publishedAt: "2026-07-25", readingMinutes: 12, tags: ["home equity", "heloc", "texas constitution", "borrowing"] }),
+  stub(5, { slug: "texas-home-equity-heloc-guide", title: "Texas HELOC and Home Equity Loan Rules", dek: "Texas allows home-equity loans and HELOCs, but homestead-secured borrowing has state-specific constitutional rules. Understand the 80% combined-lien ceiling, loan structures, risks and what to verify before applying.", category: "real-estate", hero: helocHero, authorId: "a-hollis", publishedAt: "2026-07-25", readingMinutes: 14, tags: ["home equity", "heloc", "heloc texas", "home equity loan texas", "texas heloc rules", "texas constitution", "borrowing"] }),
   stub(6, { slug: "texas-mortgage-payment-guide", title: "What Is Included in a Texas Mortgage Payment?", dek: "Principal and interest are only the core. Add property taxes, insurance, mortgage insurance and other housing costs to understand the real payment.", category: "real-estate", hero: mortgageHero, authorId: "a-hollis", publishedAt: "2026-07-25", readingMinutes: 10, tags: ["mortgage payment", "escrow", "property taxes", "home insurance"] }),
   stub(7, { slug: "texas-closing-costs-guide", title: "Texas Closing Costs and Cash to Close", dek: "Understand lender charges, title services, prepaids, escrow deposits and the final amount a buyer must bring to closing.", category: "real-estate", hero: closingHero, authorId: "a-hollis", publishedAt: "2026-07-25", readingMinutes: 8, tags: ["closing costs", "cash to close", "loan estimate", "homebuyer"] }),
   stub(8, { slug: "texas-utility-costs-guide", title: "How to Estimate Texas Utility Costs", dek: "Build an address-specific budget for electricity, water, wastewater, gas, internet, trash, pools and irrigation.", category: "moving-to-texas", hero: utilityHero, authorId: "a-hollis", publishedAt: "2026-07-25", readingMinutes: 8, tags: ["utilities", "electricity", "water", "moving"] }),
@@ -76,6 +76,7 @@ const relocationDepth2SlugSet = new Set([
   "moving-to-san-antonio-guide",
   "moving-to-el-paso-guide",
 ]);
+const HELOC_RANKING_DEPTH_SLUG = "texas-home-equity-heloc-guide";
 const STOCK_TANK_DEPTH_SLUG = "live-2026-06-29-the-history-behind-the-texas-stock-tank-name-bxkvg7";
 
 export async function loadMigratedEditorialArticle(brandId: string, slug: string): Promise<Article | null> {
@@ -87,6 +88,10 @@ export async function loadMigratedEditorialArticle(brandId: string, slug: string
   if (financeDepth2SlugSet.has(slug)) {
     const { financeEvergreenDepth2Articles } = await import("./finance-evergreen-depth-2");
     return financeEvergreenDepth2Articles.find((article) => article.slug === slug) ?? null;
+  }
+  if (slug === HELOC_RANKING_DEPTH_SLUG) {
+    const { texasHelocRulesArticle } = await import("./finance-heloc-depth");
+    return texasHelocRulesArticle;
   }
   if (financeDepth3SlugSet.has(slug)) {
     const { financeEvergreenDepth3Articles } = await import("./finance-evergreen-depth-3");

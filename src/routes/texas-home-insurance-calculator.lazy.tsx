@@ -3,7 +3,7 @@ import { CalculatorPage } from '@/components/calculators/CalculatorPage';
 import { HomeInsuranceCalculator } from '@/components/calculators/TexasPlanningCalculators';
 
 const description =
-  'Use this Texas homeowners insurance calculator without personal information. Estimate annual cost from replacement cost, an estimated base rate, wind or flood coverage, and deductible assumptions.';
+  'Estimate Texas homeowners insurance cost from replacement cost, rate assumptions, wind or flood coverage, and deductibles—without entering personal information.';
 
 const faqs = [
   {
@@ -28,11 +28,17 @@ const faqs = [
   },
 ];
 
+const deductibleExamples = [
+  ['250,000', '2,500', '5,000', '7,500'],
+  ['400,000', '4,000', '8,000', '12,000'],
+  ['600,000', '6,000', '12,000', '18,000'],
+];
+
 export const Route = createLazyFileRoute('/texas-home-insurance-calculator')({ component: HomeInsuranceCalculatorPage });
 
 function HomeInsuranceCalculatorPage() {
   return (
-    <CalculatorPage eyebrow="Texas homeowners insurance estimator" title="Texas homeowners insurance calculator without personal information" description={description}>
+    <CalculatorPage eyebrow="Texas homeowners insurance estimator" title="Texas home insurance cost calculator" description={description}>
       <HomeInsuranceCalculator />
       <section className="mt-14 border-t border-border pt-10" aria-labelledby="insurance-estimate-heading">
         <p className="eyebrow text-primary">How the estimate works</p>
@@ -56,6 +62,18 @@ function HomeInsuranceCalculatorPage() {
             ['Coverage limits', 'Compare quotes using equivalent dwelling, personal-property, liability and additional-living-expense assumptions.'],
           ].map(([title, copy]) => <div key={title} className="border border-border p-5"><strong className="font-display text-xl">{title}</strong><p className="mt-2 text-sm leading-6 text-muted-foreground">{copy}</p></div>)}
         </div>
+      </section>
+      <section className="mt-12 border-t border-border pt-10" aria-labelledby="insurance-deductible-heading">
+        <p className="eyebrow text-primary">Percentage deductible math</p>
+        <h2 id="insurance-deductible-heading" className="mt-3 font-display text-3xl">Convert a percentage deductible into dollars before comparing policies</h2>
+        <p className="mt-5 max-w-3xl text-base leading-7 text-muted-foreground">When a policy expresses a deductible as a percentage of the dwelling coverage limit, multiply the dwelling limit by that percentage. The examples below show the arithmetic only; the policy controls which deductible applies to a particular loss.</p>
+        <div className="mt-6 overflow-x-auto">
+          <table className="w-full min-w-[36rem] border-collapse text-left text-sm">
+            <thead><tr className="border-y border-border"><th className="py-3 pr-5 font-semibold">Dwelling limit</th><th className="py-3 pr-5 font-semibold">1%</th><th className="py-3 pr-5 font-semibold">2%</th><th className="py-3 font-semibold">3%</th></tr></thead>
+            <tbody>{deductibleExamples.map(([limit, one, two, three]) => <tr key={limit} className="border-b border-border"><td className="py-3 pr-5">${limit}</td><td className="py-3 pr-5">${one}</td><td className="py-3 pr-5">${two}</td><td className="py-3">${three}</td></tr>)}</tbody>
+          </table>
+        </div>
+        <p className="mt-4 max-w-3xl text-sm leading-6 text-muted-foreground">Example: a 2% deductible applied to a $400,000 dwelling limit equals $8,000. That is why the premium alone is not enough to compare two Texas homeowners policies.</p>
       </section>
       <section className="mt-12 border-t border-border pt-10" aria-labelledby="insurance-resources-heading">
         <p className="eyebrow text-primary">Texas insurance resources</p>

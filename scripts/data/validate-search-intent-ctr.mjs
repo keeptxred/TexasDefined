@@ -8,11 +8,15 @@ const readRouteSurface = (file) => {
 };
 
 const insuranceRoute = readRouteSurface('src/routes/texas-home-insurance-calculator.tsx');
+const salaryRoute = readRouteSurface('src/routes/texas-salary-calculator.tsx');
+const mortgageRoute = readRouteSurface('src/routes/texas-mortgage-calculator.tsx');
 const costOfLivingRoute = readRouteSurface('src/routes/texas-cost-of-living-calculator.tsx');
 const citiesRoute = readRouteSurface('src/routes/browse.cities.tsx');
 const countyPropertyTaxRoute = fs.readFileSync('src/routes/property-tax.county.$county.tsx', 'utf8');
 const countyPropertyTaxTemplate = fs.readFileSync('src/components/property/CountyPropertyTaxTemplate.tsx', 'utf8');
 const disabledVeteranRoute = fs.readFileSync('src/routes/learn.disabled-veteran-property-tax-benefits.tsx', 'utf8');
+const helocRankingArticle = fs.readFileSync('src/data/fixtures/finance-heloc-depth.ts', 'utf8');
+const migratedEditorialLoader = fs.readFileSync('src/data/fixtures/lazy-migrated-editorial.ts', 'utf8');
 const calculators = fs.readFileSync('src/components/calculators/TexasPlanningCalculators.tsx', 'utf8');
 const entityRoute = readRouteSurface('src/routes/$kind.$slug.tsx');
 const entityRegistry = fs.readFileSync('src/data/texas-entity-registry.ts', 'utf8');
@@ -24,11 +28,13 @@ const queriesSource = fs.readFileSync('src/data/queries.ts', 'utf8');
 const failures = [];
 
 for (const required of [
-  "title: 'Texas Homeowners Insurance Calculator | No Personal Info'",
-  'title="Texas homeowners insurance calculator without personal information"',
-  'Use this Texas homeowners insurance calculator without personal information.',
+  "title: 'Texas Home Insurance Cost Calculator'",
+  'title="Texas home insurance cost calculator"',
+  'Estimate Texas homeowners insurance cost from replacement cost',
   'does not require your name, email address, phone number, or street address',
   'The result is a planning estimate only.',
+  'Percentage deductible math',
+  'a 2% deductible applied to a $400,000 dwelling limit equals $8,000',
 ]) {
   if (!insuranceRoute.includes(required)) failures.push(`Home-insurance search intent contract missing: ${required}`);
 }
@@ -40,6 +46,47 @@ for (const prohibited of ['label="Name"', 'label="Email"', 'label="Phone"', 'lab
 }
 for (const required of ['Replacement cost', 'Estimated base rate', 'Wind/flood additions', 'Deductible/discount credit']) {
   if (!insuranceCalculator.includes(required)) failures.push(`Home insurance planning input missing: ${required}`);
+}
+
+for (const required of [
+  "title: 'Texas Paycheck Calculator | Take-Home Pay'",
+  'title="Texas paycheck and salary calculator"',
+  'Estimate after-tax income and take-home pay in Texas',
+  'Gross-pay examples before taxes, benefits or other deductions.',
+  'an $80,000 annual salary is about $3,076.92 gross every two weeks',
+  'https://www.irs.gov/individuals/tax-withholding-estimator',
+  'https://www.ssa.gov/oact/progdata/taxRates.html',
+]) {
+  if (!salaryRoute.includes(required)) failures.push(`Texas paycheck ranking contract missing: ${required}`);
+}
+
+for (const required of [
+  "title: 'Texas Mortgage Calculator | Taxes & Insurance'",
+  'title="Texas mortgage payment calculator with taxes and insurance"',
+  'What a Texas mortgage payment can look like with taxes and insurance',
+  '$2,940 per month',
+  'Load official Texas property-tax rates',
+  'https://www.consumerfinance.gov/owning-a-home/loan-estimate/',
+]) {
+  if (!mortgageRoute.includes(required)) failures.push(`Texas mortgage ranking contract missing: ${required}`);
+}
+
+for (const required of [
+  'title: "Texas HELOC and Home Equity Loan Rules"',
+  'Are HELOCs allowed in Texas?',
+  "Texas's 80% rule is a combined-lien ceiling",
+  'Simplified remaining room: $100,000',
+  'https://statutes.capitol.texas.gov/Docs/CN/htm/CN.16.htm#50',
+  'https://www.consumerfinance.gov/ask-cfpb/what-is-the-difference-between-a-home-equity-loan-and-a-home-equity-line-of-credit-heloc-en-247/',
+]) {
+  if (!helocRankingArticle.includes(required)) failures.push(`Texas HELOC ranking contract missing: ${required}`);
+}
+for (const required of [
+  'const HELOC_RANKING_DEPTH_SLUG = "texas-home-equity-heloc-guide";',
+  'await import("./finance-heloc-depth")',
+  'return texasHelocRulesArticle;',
+]) {
+  if (!migratedEditorialLoader.includes(required)) failures.push(`Texas HELOC lazy-routing contract missing: ${required}`);
 }
 
 for (const required of [
@@ -76,12 +123,16 @@ for (const required of [
 }
 
 for (const required of [
-  "const pageTitle = 'Texas Disabled Veteran Property Tax Exemption | 2026 Guide';",
-  "const heading = 'Texas Disabled Veteran Property Tax Exemption: 2026 Guide';",
-  'VA disability-rating tiers, the 100% homestead exemption, surviving spouses, donated homes and how to apply with your appraisal district',
-  "dateModified: '2026-08-13'",
+  "const pageTitle = 'Texas Disabled Veteran Property Tax Exemption';",
+  "const heading = 'Texas disabled veteran property tax exemptions: 2026 guide';",
+  '10%–29% service-connected disability: up to $5,000 of property value exempted.',
+  '70%–100%: up to $12,000 of property value exempted.',
+  'Tax Code Section 11.131 provides an exemption of the total appraised value of the residence homestead',
+  'Form 50-135 is the Texas Comptroller application',
+  "dateModified: '2026-08-25'",
+  'https://comptroller.texas.gov/taxes/property-tax/exemptions/disabledvet-faq.php',
 ]) {
-  if (!disabledVeteranRoute.includes(required)) failures.push(`Disabled-veteran CTR contract missing: ${required}`);
+  if (!disabledVeteranRoute.includes(required)) failures.push(`Disabled-veteran ranking contract missing: ${required}`);
 }
 
 for (const required of [
@@ -180,4 +231,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Search-intent and SERP CTR validation passed: impression-bearing calculators, disabled-veteran guidance, city discovery, county property-tax pages, legacy county redirects, appraisal-district queries, agency snippets, Texas Explained behavioral search scoring, independent framing, and publication-quality gates are protected.');
+console.log('Search-intent and SERP CTR validation passed: impression-bearing calculators, Phase 3 finance ranking depth, disabled-veteran guidance, city discovery, county property-tax pages, legacy county redirects, appraisal-district queries, agency snippets, Texas Explained behavioral search scoring, independent framing, and publication-quality gates are protected.');

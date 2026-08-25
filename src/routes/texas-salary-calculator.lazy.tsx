@@ -2,7 +2,7 @@ import { createLazyFileRoute, Link } from '@tanstack/react-router';
 import { CalculatorPage } from '@/components/calculators/CalculatorPage';
 import { SalaryCalculator } from '@/components/calculators/TexasPlanningCalculators';
 
-const description = 'Estimate Texas take-home pay after federal income tax, payroll taxes, benefits and other deductions. Texas does not impose an individual state income tax.';
+const description = 'Estimate a Texas paycheck and take-home pay after federal income tax, Social Security, Medicare, benefits and other deductions. Texas has no individual state income tax.';
 
 const faqs = [
   {
@@ -27,15 +27,22 @@ const faqs = [
   },
 ];
 
+const grossPayExamples = [
+  ['50,000', '4,166.67', '2,083.33', '1,923.08', '961.54'],
+  ['80,000', '6,666.67', '3,333.33', '3,076.92', '1,538.46'],
+  ['100,000', '8,333.33', '4,166.67', '3,846.15', '1,923.08'],
+  ['150,000', '12,500.00', '6,250.00', '5,769.23', '2,884.62'],
+];
+
 export const Route = createLazyFileRoute('/texas-salary-calculator')({ component: TexasSalaryCalculatorPage });
 
 function TexasSalaryCalculatorPage() {
   return (
-    <CalculatorPage eyebrow="Texas take-home pay calculator" title="Texas salary calculator" description={description}>
+    <CalculatorPage eyebrow="Texas take-home pay calculator" title="Texas paycheck and salary calculator" description={description}>
       <SalaryCalculator />
       <section className="mt-14 border-t border-border pt-10" aria-labelledby="salary-estimate-heading">
         <p className="eyebrow text-primary">From salary to paycheck</p>
-        <h2 id="salary-estimate-heading" className="mt-3 font-display text-3xl">Estimate after-tax income in Texas</h2>
+        <h2 id="salary-estimate-heading" className="mt-3 font-display text-3xl">Estimate after-tax income and take-home pay in Texas</h2>
         <div className="mt-5 max-w-3xl space-y-4 text-base leading-7 text-muted-foreground">
           <p>Texas does not have an individual state income tax, but that does not make gross salary the same as take-home pay. Federal income tax, Social Security, Medicare, health benefits, retirement contributions and other deductions can all reduce the amount that reaches a paycheck.</p>
           <p>Use the calculator to compare salary or deduction scenarios, then verify actual withholding with payroll records and current federal tax information. A useful estimate should help you understand the size of the gap between gross pay and spendable pay, not pretend to reproduce an employer payroll system.</p>
@@ -64,6 +71,14 @@ function TexasSalaryCalculatorPage() {
           <p>For a biweekly employee, two months each year normally include a third paycheck. For a semimonthly employee, the check amount is usually more consistent because there are 24 scheduled pay periods. Use the annual result for comparison, but build your household budget around the timing of the deposits you actually receive.</p>
           <p>Do not treat irregular bonuses, commissions or overtime as guaranteed monthly income unless they are dependable enough to support the expense you are evaluating.</p>
         </div>
+        <div className="mt-7 overflow-x-auto">
+          <table className="w-full min-w-[44rem] border-collapse text-left text-sm">
+            <caption className="pb-3 text-left text-sm leading-6 text-muted-foreground">Gross-pay examples before taxes, benefits or other deductions.</caption>
+            <thead><tr className="border-y border-border"><th className="py-3 pr-4 font-semibold">Annual salary</th><th className="py-3 pr-4 font-semibold">Monthly</th><th className="py-3 pr-4 font-semibold">Semimonthly</th><th className="py-3 pr-4 font-semibold">Biweekly</th><th className="py-3 font-semibold">Weekly</th></tr></thead>
+            <tbody>{grossPayExamples.map(([salary, monthly, semimonthly, biweekly, weekly]) => <tr key={salary} className="border-b border-border"><td className="py-3 pr-4">${salary}</td><td className="py-3 pr-4">${monthly}</td><td className="py-3 pr-4">${semimonthly}</td><td className="py-3 pr-4">${biweekly}</td><td className="py-3">${weekly}</td></tr>)}</tbody>
+          </table>
+        </div>
+        <p className="mt-4 max-w-3xl text-sm leading-6 text-muted-foreground">For example, an $80,000 annual salary is about $3,076.92 gross every two weeks before withholding and deductions. Use the calculator above for the estimated after-tax result.</p>
       </section>
       <section className="mt-12 border-t border-border pt-10" aria-labelledby="salary-scenarios-heading">
         <p className="eyebrow text-primary">Compare scenarios</p>
@@ -100,7 +115,7 @@ function TexasSalaryCalculatorPage() {
       </section>
       <section className="mt-12 border-t border-border pt-10" aria-labelledby="salary-faq-heading">
         <p className="eyebrow text-primary">Common questions</p>
-        <h2 id="salary-faq-heading" className="mt-3 font-display text-3xl">Texas salary calculator FAQ</h2>
+        <h2 id="salary-faq-heading" className="mt-3 font-display text-3xl">Texas paycheck and salary calculator FAQ</h2>
         <div className="mt-6 divide-y divide-border border-y border-border">{faqs.map((faq) => <div key={faq.question} className="py-6"><h3 className="font-display text-2xl">{faq.question}</h3><p className="mt-3 max-w-3xl text-base leading-7 text-muted-foreground">{faq.answer}</p></div>)}</div>
       </section>
     </CalculatorPage>
