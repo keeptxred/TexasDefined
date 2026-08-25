@@ -32,6 +32,25 @@ const TEXAS_TALENT_ALL_READINESS = {
   ...TEXAS_TALENT_READINESS_BATCH10,
 };
 
+const profileSlugs = TEXAS_TALENT_ALL_PROFILES.map((profile) => profile.slug);
+const duplicateProfileSlugs = profileSlugs.filter((slug, index) => profileSlugs.indexOf(slug) !== index);
+const missingReadinessSlugs = profileSlugs.filter((slug) => !TEXAS_TALENT_ALL_READINESS[slug]);
+const orphanCorrectionSlugs = Object.keys(TEXAS_TALENT_PROFILE_CORRECTIONS).filter(
+  (slug) => !profileSlugs.includes(slug as (typeof profileSlugs)[number]),
+);
+
+if (duplicateProfileSlugs.length > 0) {
+  throw new Error(`Duplicate Texas Talent profile slugs: ${[...new Set(duplicateProfileSlugs)].join(", ")}`);
+}
+
+if (missingReadinessSlugs.length > 0) {
+  throw new Error(`Texas Talent profiles missing readiness records: ${missingReadinessSlugs.join(", ")}`);
+}
+
+if (orphanCorrectionSlugs.length > 0) {
+  throw new Error(`Texas Talent profile corrections target unknown slugs: ${orphanCorrectionSlugs.join(", ")}`);
+}
+
 function withReadiness<T extends (typeof TEXAS_TALENT_ALL_PROFILES)[number]>(profile: T) {
   const correctedProfile = {
     ...profile,
@@ -40,7 +59,7 @@ function withReadiness<T extends (typeof TEXAS_TALENT_ALL_PROFILES)[number]>(pro
 
   return {
     ...correctedProfile,
-    readiness: TEXAS_TALENT_ALL_READINESS[profile.slug] ?? null,
+    readiness: TEXAS_TALENT_ALL_READINESS[profile.slug],
   };
 }
 
