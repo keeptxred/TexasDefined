@@ -13,7 +13,7 @@ export const Route = createLazyFileRoute("/admin/texas-talent")({
 });
 
 function TexasTalentPage() {
-  const { profiles } = Route.useRouteContext();
+  const { profiles, launchAudit } = Route.useRouteContext();
 
   return (
     <main>
@@ -30,13 +30,29 @@ function TexasTalentPage() {
             </div>
             <div className="border-l border-background/20 pl-6 text-sm leading-7 text-background/70">
               <p className="font-semibold text-background">{profiles.length} profile pages now in the workbench.</p>
-              <p className="mt-2">Every page remains internal and noindex until fact-checking, image rights and live internal links meet the public-launch standard.</p>
+              <p className="mt-2">Every page remains internal and noindex until fact-checking, image rights, internal links and explicit editorial approval meet the public-launch standard.</p>
             </div>
           </div>
         </Container>
       </section>
 
-      <Container className="py-12 sm:py-16">
+      <Container className="py-10 sm:py-12">
+        <section aria-labelledby="launch-audit">
+          <p className="eyebrow text-primary">Launch audit</p>
+          <h2 id="launch-audit" className="mt-2 font-display text-4xl">A hard gate between drafts and publication</h2>
+          <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">
+            Mechanical readiness and editorial approval are separate. A profile cannot become publishable until it clears both, so a completed checklist can never expose a page automatically.
+          </p>
+          <div className="mt-7 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+            <Metric label="Profiles tracked" value={launchAudit.totalProfiles} />
+            <Metric label="Mechanically ready" value={launchAudit.mechanicallyReady} />
+            <Metric label="Editorially approved" value={launchAudit.editorialApproved} />
+            <Metric label="Publishable now" value={launchAudit.publishable} />
+          </div>
+        </section>
+      </Container>
+
+      <Container className="pb-12 sm:pb-16">
         <section aria-labelledby="talent-categories">
           <p className="eyebrow text-primary">The collection</p>
           <h2 id="talent-categories" className="mt-2 font-display text-4xl sm:text-5xl">Five ways Texas talent reaches the world</h2>
@@ -93,30 +109,47 @@ function TexasTalentPage() {
             <p className="eyebrow text-primary">Profile workbench</p>
             <h2 id="profile-workbench" className="mt-2 font-display text-4xl sm:text-5xl">The first {profiles.length} Texas Talent pages</h2>
             <p className="mt-4 text-sm leading-7 text-muted-foreground">
-              Every card opens an internal profile draft. These pages are intentionally unpublished and noindex while sourcing, image rights and cross-link verification continue.
+              Every card opens an internal profile draft and now shows the exact mechanical blockers that still prevent launch.
             </p>
           </div>
 
           <div className="mt-8 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2 xl:grid-cols-3">
-            {profiles.map((person) => (
-              <article key={person.slug} className="bg-background p-6">
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <p className="eyebrow text-primary">{labelCategory(person.category)}</p>
-                    <h3 className="mt-2 font-display text-3xl">{person.name}</h3>
+            {profiles.map((person) => {
+              const assessment = launchAudit.assessments.find((item) => item.slug === person.slug);
+              return (
+                <article key={person.slug} className="bg-background p-6">
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <p className="eyebrow text-primary">{labelCategory(person.category)}</p>
+                      <h3 className="mt-2 font-display text-3xl">{person.name}</h3>
+                    </div>
+                    <span className="rounded-full border border-border px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">
+                      {assessment?.publishable ? "publishable" : person.readiness.launchStatus.replace("-", " ")}
+                    </span>
                   </div>
-                  <span className="rounded-full border border-border px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">{person.profileStatus}</span>
-                </div>
-                <p className="mt-4 text-sm leading-7 text-muted-foreground">{person.texasConnection}</p>
-                <div className="mt-5 border-t border-border pt-4">
-                  <p className="text-xs font-bold uppercase tracking-[0.14em] text-foreground">Texas places</p>
-                  <p className="mt-2 text-sm text-muted-foreground">{person.primaryPlaces.join(" · ")}</p>
-                </div>
-                <Link to="/admin/texas-talent/$slug" params={{ slug: person.slug }} className="mt-5 inline-block text-sm font-semibold text-primary">
-                  Open profile draft →
-                </Link>
-              </article>
-            ))}
+                  <p className="mt-4 text-sm leading-7 text-muted-foreground">{person.texasConnection}</p>
+                  <div className="mt-5 border-t border-border pt-4">
+                    <p className="text-xs font-bold uppercase tracking-[0.14em] text-foreground">Texas places</p>
+                    <p className="mt-2 text-sm text-muted-foreground">{person.primaryPlaces.join(" · ")}</p>
+                  </div>
+                  {assessment?.blockers.length ? (
+                    <div className="mt-4 border-t border-border pt-4">
+                      <p className="text-xs font-bold uppercase tracking-[0.14em] text-foreground">Mechanical blockers</p>
+                      <p className="mt-2 text-xs leading-6 text-muted-foreground">
+                        {assessment.blockers.map(humanizeBlocker).join(" · ")}
+                      </p>
+                    </div>
+                  ) : (
+                    <p className="mt-4 border-t border-border pt-4 text-xs font-semibold text-primary">
+                      Mechanical gate cleared · awaiting explicit editorial approval
+                    </p>
+                  )}
+                  <Link to="/admin/texas-talent/$slug" params={{ slug: person.slug }} className="mt-5 inline-block text-sm font-semibold text-primary">
+                    Open profile draft →
+                  </Link>
+                </article>
+              );
+            })}
           </div>
         </section>
       </Container>
@@ -142,6 +175,19 @@ function TexasTalentPage() {
   );
 }
 
+function Metric({ label, value }: { label: string; value: number }) {
+  return (
+    <article className="bg-background p-6">
+      <p className="font-display text-4xl text-primary">{value}</p>
+      <p className="mt-2 text-xs font-bold uppercase tracking-[0.14em] text-muted-foreground">{label}</p>
+    </article>
+  );
+}
+
 function labelCategory(category: string) {
   return TEXAS_TALENT_CATEGORIES.find((item) => item.id === category)?.label ?? category;
+}
+
+function humanizeBlocker(value: string) {
+  return value.replaceAll("-", " ");
 }
