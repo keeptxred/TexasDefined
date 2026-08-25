@@ -235,6 +235,7 @@ const wordsInBlock = (block: ArticleBlock) => {
 
 const computedReadingMinutes = (article: Article) => {
   const wordCount = article.body.reduce((total, block) => total + wordsInBlock(block), 0);
+  if (wordCount === 0) return Math.max(1, article.readingMinutes);
   return Math.max(1, Math.ceil(wordCount / 220));
 };
 
