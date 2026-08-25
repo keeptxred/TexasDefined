@@ -19,7 +19,7 @@ export function PullQuote({ text, attribution, entities = [] }: { text: string; 
 export function Byline({ author, meta }: { author: Author | null; meta: string }) {
   return (
     <div className="flex flex-wrap items-center gap-x-3 gap-y-2 border-b border-border pb-5 text-sm text-muted-foreground">
-      {author && <span className="text-foreground">By <Link to="/authors/$author" params={{ author: author.id }} className="font-semibold underline decoration-border underline-offset-4 transition-colors hover:text-primary">{author.name}</Link></span>}
+      {author && <span className="text-foreground">By <Link to="/authors/$author" params={{ author: author.id }} className="font-semibold underline decoration-border underline-offset-4 transition-colors hover:text-primary">{author.name}</Link>{author.role ? <span className="text-muted-foreground"> · {author.role}</span> : null}</span>}
       {author && <span aria-hidden="true">•</span>}
       <span>{meta}</span>
     </div>
