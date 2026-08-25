@@ -44,7 +44,7 @@ const nonArticleGatewayFiles = new Set([
 const gatewayFiles = fs.readdirSync(gatewayFixtureDir)
   .filter((name) => /^texas-gateway-.*\.ts$/.test(name) && !nonArticleGatewayFiles.has(name));
 const gatewaySource = gatewayFiles.map((name) => read(`src/data/fixtures/${name}`)).join("\n");
-const ids = [...gatewaySource.matchAll(/(?:id:\s*|article\(\s*)["'](gateway-[^"']+)["']/g)].map((match) => match[1]);
+const ids = [...gatewaySource.matchAll(/(?:id:\s*|(?:make|trip|article)\(\s*)["'](gateway-[^"']+)["']/g)].map((match) => match[1]);
 if (!ids.length) fail("could not identify gateway-* article IDs in gateway fixtures");
 
 const allowlistBody = readiness.match(/TEXAS_GATEWAY_INDEX_READY_SLUGS\s*=\s*new Set<string>\(\[([\s\S]*?)\]\)/)?.[1] ?? "";
@@ -52,7 +52,7 @@ const readySlugs = [...allowlistBody.matchAll(/["']([^"']+)["']/g)].map((match) 
 const readySet = new Set(readySlugs);
 const fixtureSlugs = new Set([
   ...gatewaySource.matchAll(/slug:\s*["']([^"']+)["']/g),
-  ...gatewaySource.matchAll(/article\(\s*["'][^"']+["']\s*,\s*["']([^"']+)["']/g),
+  ...gatewaySource.matchAll(/(?:make|trip|article)\(\s*["'][^"']+["']\s*,\s*["']([^"']+)["']/g),
 ].map((match) => match[1]));
 for (const slug of readySlugs) {
   if (!fixtureSlugs.has(slug)) fail(`index-ready allowlist contains unknown gateway slug: ${slug}`);

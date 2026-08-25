@@ -140,12 +140,14 @@ if (brokenLinks.length) {
 const loaderPath = path.join(root, "src/data/fixtures/lazy-texas-gateway.ts");
 const corePath = path.join(root, "src/data/fixtures/lazy-texas-core-articles.ts");
 const stubsPath = path.join(root, "src/data/fixtures/texas-gateway-index-ready-stubs.ts");
-for (const required of [loaderPath, corePath, stubsPath]) {
+const readinessPath = path.join(root, "src/data/fixtures/texas-gateway-index-readiness.ts");
+for (const required of [loaderPath, corePath, stubsPath, readinessPath]) {
   if (!fs.existsSync(required)) throw new Error(`Missing gateway integration file: ${path.relative(root, required)}`);
 }
 
 const loader = fs.readFileSync(loaderPath, "utf8");
 const core = fs.readFileSync(corePath, "utf8");
+const readiness = fs.readFileSync(readinessPath, "utf8");
 for (const file of files) {
   const moduleName = `./${path.basename(file, ".ts")}`;
   if (!loader.includes(`import("${moduleName}")`)) throw new Error(`Lazy loader does not reference ${moduleName}`);
@@ -155,11 +157,22 @@ for (const [legacy, canonical] of Object.entries(gatewayAliases)) {
   if (!isKnownRoute(canonical)) throw new Error(`Gateway alias target is not a public route: ${canonical}`);
 }
 if (!core.includes('await import("./lazy-texas-gateway")')) throw new Error("Core article resolution is not dynamically loading full gateway articles");
-if (!core.includes('import { texasGatewayIndexReadyStubs } from "./texas-gateway-index-ready-stubs";')) throw new Error("Core article discovery is missing the lightweight gateway promotion registry");
-if (!core.includes("texasCoreArticleStubs.push(...texasGatewayIndexReadyStubs);")) throw new Error("Promoted gateway stubs are missing from existing article list/search discovery");
+
+const allowlistBody = readiness.match(/TEXAS_GATEWAY_INDEX_READY_SLUGS\s*=\s*new Set<string>\(\[([\s\S]*?)\]\)/)?.[1] ?? "";
+const readySlugs = [...allowlistBody.matchAll(/["']([^"']+)["']/g)].map((match) => match[1]);
+const coreImportsPromotionStubs = core.includes('import { texasGatewayIndexReadyStubs } from "./texas-gateway-index-ready-stubs";');
+const coreExposesPromotionStubs = core.includes("texasCoreArticleStubs.push(...texasGatewayIndexReadyStubs);");
+if (readySlugs.length === 0) {
+  if (coreImportsPromotionStubs || coreExposesPromotionStubs) {
+    throw new Error("Zero index-ready gateway slugs must not wire promotion stubs into the public core article bundle");
+  }
+} else {
+  if (!coreImportsPromotionStubs) throw new Error("Core article discovery is missing the lightweight gateway promotion registry for index-ready gateway slugs");
+  if (!coreExposesPromotionStubs) throw new Error("Promoted gateway stubs are missing from existing article list/search discovery");
+}
 if (/^import .*from "\.\/texas-gateway-(?!index-ready-stubs)/m.test(core)) throw new Error("Core article registry must not statically import full gateway content modules");
 
 console.log(`PASS Texas gateway consolidation: ${rows.length} unique articles across ${files.length} modules`);
 console.log(`PASS gateway internal links: ${hrefs.length} validated against public routes`);
 console.log("PASS gateway editorial hygiene: no TODO/TBD/placeholder/editor-note debris detected");
-console.log("PASS gateway discovery architecture: full bodies stay lazy; only explicit promotion stubs enter synchronous list/search discovery");
+console.log(`PASS gateway discovery architecture: full bodies stay lazy; ${readySlugs.length} explicit index-ready gateway slug(s) control whether lightweight promotion stubs enter synchronous list/search discovery`);
