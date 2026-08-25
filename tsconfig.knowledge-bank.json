@@ -1,0 +1,8 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    "src/data/knowledge-bank/**/*.ts",
+    "src/data/texas-home-nature-clusters.ts"
+  ],
+  "exclude": []
+}

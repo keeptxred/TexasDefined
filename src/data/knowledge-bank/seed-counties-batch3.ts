@@ -1,0 +1,56 @@
+import type { TexasKnowledgeRecord } from './types';
+
+const checkedAt = '2026-08-20';
+const sourceUrl = 'https://www.tsl.texas.gov/ref/abouttx/countyseats.html';
+
+const countySeat = (county: string, slug: string, seat: string): TexasKnowledgeRecord => ({
+  id: `county-${slug}-seat`,
+  kind: 'county-fact',
+  domain: 'counties',
+  subject: `${county} County`,
+  statement: `The county seat of ${county} County is ${seat}.`,
+  countySlug: slug,
+  tags: ['county-seat', 'texas-counties', slug],
+  sources: [{ sourceId: 'tslac', url: sourceUrl, authority: 'Texas State Library and Archives Commission', checkedAt }],
+  verification: 'verified',
+  verifiedAt: checkedAt,
+  temporalScope: 'evergreen',
+  evergreen: true,
+  socialReady: true,
+  articlePath: `/county/${slug}`,
+  socialFormats: ['county-of-the-day', 'fact-of-the-day', 'texas-trivia'],
+  usage: { timesUsed: 0 },
+});
+
+export const TEXAS_COUNTY_FACTS_BATCH3: TexasKnowledgeRecord[] = [
+  countySeat('Denton', 'denton', 'Denton'),
+  countySeat('DeWitt', 'dewitt', 'Cuero'),
+  countySeat('Dickens', 'dickens', 'Dickens'),
+  countySeat('Dimmit', 'dimmit', 'Carrizo Springs'),
+  countySeat('Donley', 'donley', 'Clarendon'),
+  countySeat('Duval', 'duval', 'San Diego'),
+  countySeat('Eastland', 'eastland', 'Eastland'),
+  countySeat('Ector', 'ector', 'Odessa'),
+  countySeat('Edwards', 'edwards', 'Rocksprings'),
+  countySeat('El Paso', 'el-paso', 'El Paso'),
+  countySeat('Ellis', 'ellis', 'Waxahachie'),
+  countySeat('Erath', 'erath', 'Stephenville'),
+  countySeat('Falls', 'falls', 'Marlin'),
+  countySeat('Fannin', 'fannin', 'Bonham'),
+  countySeat('Fayette', 'fayette', 'La Grange'),
+  countySeat('Fisher', 'fisher', 'Roby'),
+  countySeat('Floyd', 'floyd', 'Floydada'),
+  countySeat('Foard', 'foard', 'Crowell'),
+  countySeat('Fort Bend', 'fort-bend', 'Richmond'),
+  countySeat('Franklin', 'franklin', 'Mount Vernon'),
+  countySeat('Freestone', 'freestone', 'Fairfield'),
+  countySeat('Frio', 'frio', 'Pearsall'),
+  countySeat('Gaines', 'gaines', 'Seminole'),
+  countySeat('Galveston', 'galveston', 'Galveston'),
+  countySeat('Garza', 'garza', 'Post'),
+  countySeat('Gillespie', 'gillespie', 'Fredericksburg'),
+  countySeat('Glasscock', 'glasscock', 'Garden City'),
+  countySeat('Goliad', 'goliad', 'Goliad'),
+  countySeat('Gonzales', 'gonzales', 'Gonzales'),
+  countySeat('Gray', 'gray', 'Pampa'),
+];
