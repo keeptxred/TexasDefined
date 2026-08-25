@@ -32,8 +32,8 @@ export const Route = createFileRoute('/property-tax/county/$county')({
     const canonicalPath = `/property-tax/county/${county.slug}`;
     const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
     const siteUrl = absoluteUrl(texasDefinedBrand, '/');
-    const title = `${county.name} Property Tax | Appraisal, Exemptions & Protests`;
-    const description = `${county.name} property tax guide with appraisal-district resources, exemptions, protest information, payment details, taxing units and official local links, plus finalized county, city, school-district and special-district rate data.`;
+    const title = `${county.name} Appraisal District & Property Tax`;
+    const description = `${county.name} appraisal district and property-tax guide with official property search, exemptions, protests, payment resources, tax rates and verified local links.`;
     const indexReady = isCountyPropertyIndexReady(county);
 
     return {
