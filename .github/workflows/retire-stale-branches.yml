@@ -32,6 +32,11 @@ jobs:
             "fix/remaining-production-smokes-20260824"
             "fix/final-production-smokes-20260824"
             "cleanup/final-retired-housekeeping-20260825"
+            "retire-completed-county-certifiers"
+            "cleanup/retire-completed-county-certifiers-20260822"
+            "cleanup/retire-completed-county-certifiers-20260822-v2"
+            "retire-live-lake-diagnostic"
+            "cleanup/final-housekeeping-deploy-proof-20260825"
           )
 
           main_sha="$(gh api "repos/$REPOSITORY/git/ref/heads/main" --jq '.object.sha')"
