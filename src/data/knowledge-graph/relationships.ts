@@ -1,6 +1,7 @@
 import type { TexasEntityRecord } from './types';
 
 export type RankedRelatedEntity = { entity: TexasEntityRecord; score: number; reasons: string[] };
+type CanonicalEntityRef = Pick<TexasEntityRecord, 'kind' | 'slug'> & Partial<Pick<TexasEntityRecord, 'sourceId'>>;
 
 const LOCAL_GOVERNMENT_KINDS = new Set([
   'county',
@@ -28,8 +29,9 @@ const DESTINATION_MIRROR_IDS = new Set([
   'historic-site:the-alamo',
 ]);
 
-function isDestinationMirror(entity: Pick<TexasEntityRecord, 'kind' | 'slug'>) {
-  return DESTINATION_MIRROR_IDS.has(`${entity.kind}:${entity.slug}`);
+function isDestinationMirror(entity: CanonicalEntityRef) {
+  return entity.sourceId === 'explore-shared-catalog'
+    || DESTINATION_MIRROR_IDS.has(`${entity.kind}:${entity.slug}`);
 }
 
 export function rankRelatedEntities(entity: TexasEntityRecord, graph: TexasEntityRecord[], limit = 12): RankedRelatedEntity[] {
@@ -118,7 +120,7 @@ function proximityTieBreak(origin: TexasEntityRecord, a: TexasEntityRecord, b: T
   return aMiles - bMiles;
 }
 
-export function canonicalEntityPath(entity: Pick<TexasEntityRecord, 'kind' | 'slug'>) {
+export function canonicalEntityPath(entity: CanonicalEntityRef) {
   if (isDestinationMirror(entity)) return `/destination/${entity.slug}`;
   return `/${entity.kind}/${entity.slug}`;
 }
