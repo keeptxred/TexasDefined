@@ -39,7 +39,6 @@ export const countySeasonalLinksBySlug: Record<string, ArticleInternalLink[]> = 
   ],
   uvalde: [
     { href: "/article/fall-in-texas-complete-guide", label: "Plan Uvalde County for fall color", description: "Use current reports to time Garner, the Frio corridor and the Sabinal canyons instead of relying on fixed calendar dates." },
-    { href: "/article/best-places-for-fall-colors-in-texas", label: "Compare Garner with Texas fall-color destinations", description: "See how the Frio and Uvalde County compare with Lost Maples, Guadalupe River and East Texas." },
     { href: "/article/hill-country-fall-colors", label: "Build a Hill Country fall-color trip", description: "Connect Garner and the Frio with the Sabinal, Lost Maples and Guadalupe corridors when current conditions line up." },
     { href: "/article/best-texas-state-parks-for-fall-colors", label: "Compare Garner with Texas state parks in fall", description: "Use the public-land guide to compare river cypress, maples, trails and access across the strongest fall parks." },
   ],
