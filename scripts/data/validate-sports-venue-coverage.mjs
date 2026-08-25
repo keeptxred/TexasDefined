@@ -11,6 +11,7 @@ const [
   directory,
   guide,
   galaxyGuide,
+  quickAnswers,
   enrichmentAll,
   currentCorrections,
   partnerRoute,
@@ -24,6 +25,7 @@ const [
   read('src/routes/sports-venues.tsx'),
   read('src/routes/sports-venue.$slug.tsx'),
   read('src/routes/sports-venue.jones-att-stadium.tsx'),
+  read('src/components/sports/SportsVenueQuickAnswers.tsx'),
   read('src/data/sports-venue-enrichment-all.ts'),
   read('src/data/knowledge-graph/current-entity-corrections.ts'),
   read('src/routes/partner-with-us.tsx'),
@@ -94,15 +96,24 @@ assert(!directory.includes('loadTexasKnowledgeGraph'), 'Sports venue directory m
 for (const marker of [
   "createFileRoute('/sports-venue/$slug')",
   "'@type': 'SportsActivityLocation'",
+  'sportsVenueSearchTitle',
+  'sportsVenueSearchDescription',
+  'mainEntityOfPage: canonicalUrl',
+  'image: venueHeroUrl',
+  'Event-day essentials',
+  '{entity.name} parking, arrival and event planning',
+  'parking={enrichment?.parking}',
+  'arrival={enrichment?.arrival}',
+  'Parking at ${entity.name}',
+  'When to arrive',
+  'Main sports and events',
+  'Capacity and configuration',
   'Plan the trip',
   'Why people travel',
   'Best trip pattern',
   'Before you go',
-  'Verified visitor details',
-  'Parking and access',
-  'Arrival strategy',
-  'Stay and eat',
-  'Primary sports and events',
+  'Venue context',
+  'Build the rest of the {entity.name} trip',
   'Official planning links',
   'sportsVenueMapUrl',
   'getSportsVenueEnrichmentAll',
@@ -118,9 +129,22 @@ for (const marker of [
   'Paid relationships do not change editorial rankings, factual conclusions or which venues we cover',
   '/sports-venues',
 ]) {
-  assert(guide.includes(marker), `Dedicated sports venue guide is missing required visitor, partnership, attribution, or county-trip marker: ${marker}.`);
+  assert(guide.includes(marker), `Dedicated sports venue guide is missing required search-intent, visitor, partnership, attribution, or county-trip marker: ${marker}.`);
 }
+assert(!guide.includes('`${entity.name}: Texas Sports Venue & Visitor Guide`'), 'Sports venue search titles must not regress to the long generic boilerplate title.');
 assert(!guide.includes('const nearbyPlaces = related.filter'), 'Sports venue guide must not describe generic related entities as nearby when the seed lacks reliable distance data.');
+
+for (const marker of [
+  'parking?: string;',
+  'arrival?: string;',
+  'What should I know about parking at ${venueName}?',
+  'When should I arrive at ${venueName}?',
+  'firstSentence(parking)',
+  'firstSentence(arrival)',
+  'answers.slice(0, 6)',
+]) {
+  assert(quickAnswers.includes(marker), `Sports venue quick-answer layer is missing venue-specific parking/arrival quality marker: ${marker}.`);
+}
 
 for (const getter of [
   'getSportsVenueEnrichment(lookupSlug)',
@@ -168,6 +192,10 @@ assert(!currentCorrections.includes("slug: 'galaxy-stadium'"), 'Galaxy Stadium c
 assert(galaxyGuide.includes("createFileRoute('/sports-venue/jones-att-stadium')"), 'Galaxy Stadium must have a static route override at the established Texas Tech venue URL.');
 assert(galaxyGuide.includes("venueName = 'Galaxy Stadium'"), 'Galaxy Stadium static route must display the current venue name.');
 assert(galaxyGuide.includes('Former name'), 'Galaxy Stadium guide must explain its former venue name.');
+assert(galaxyGuide.includes("title: 'Galaxy Stadium | Lubbock, TX'"), 'Galaxy Stadium must use the concise localized sports-venue title pattern.');
+assert(galaxyGuide.includes('parking={enrichment?.parking}'), 'Galaxy Stadium quick answers must receive verified parking context.');
+assert(galaxyGuide.includes('arrival={enrichment?.arrival}'), 'Galaxy Stadium quick answers must receive verified arrival context.');
+assert(galaxyGuide.includes('mainEntityOfPage: canonicalUrl'), 'Galaxy Stadium structured data must identify its canonical main entity page.');
 
 assert(tier2.includes("sourceConfidence: 'official'"), 'Second-tier venue seeds must remain official-source records.');
 assert(tier2.includes("sourceCheckedAt: checkedAt"), 'Second-tier venue seeds must retain source review dates.');
@@ -180,4 +208,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Sports venue coverage contracts validated: ${majorCount} major seeds + ${tier2Count} second-tier rows, core Reliant record, lightweight static directory, statewide category anchors, dedicated visitor template, county-level editorial trip ideas, venue-level sports-travel partnership funnel with safe source attribution, current-name correction and all enrichment batches are wired. Exact seeded-to-deep-profile completeness is enforced separately.`);
+console.log(`Sports venue coverage contracts validated: ${majorCount} major seeds + ${tier2Count} second-tier rows, core Reliant record, lightweight static directory, statewide category anchors, concise localized search titles, source-backed event-day essentials and FAQ answers, richer venue structured data, dedicated visitor template, county-level editorial trip ideas, venue-level sports-travel partnership funnel with safe source attribution, current-name correction and all enrichment batches are wired. Exact seeded-to-deep-profile completeness is enforced separately.`);
