@@ -1,5 +1,6 @@
 import { queryOptions } from "@tanstack/react-query";
 
+import { prepareArticleForDelivery, prepareDestinationForDelivery } from "@/lib/editorial-image-delivery";
 import { fetchPublishedTexasEvents } from "./events-remote";
 import { supplementalExploreCategories } from "./explore-categories";
 import { guideIsAvailable } from "./guide-links";
@@ -8,8 +9,17 @@ import type { ArticleQuery, DestinationQuery } from "./repositories";
 import { fetchAssignedShopProducts } from "./shop-products-remote";
 import type { Destination, SearchDocument, Slug } from "./types";
 
-export const articlesQuery = (params: Omit<ArticleQuery, "brandId"> = {}) => queryOptions({ queryKey: ["articles", scope.brandId, params], queryFn: () => platform.articles.list({ ...scope, ...params }) });
-export const articleQuery = (slug: Slug) => queryOptions({ queryKey: ["article", scope.brandId, slug], queryFn: () => platform.articles.getBySlug(scope, slug) });
+export const articlesQuery = (params: Omit<ArticleQuery, "brandId"> = {}) => queryOptions({
+  queryKey: ["articles", scope.brandId, params],
+  queryFn: async () => (await platform.articles.list({ ...scope, ...params })).map(prepareArticleForDelivery),
+});
+export const articleQuery = (slug: Slug) => queryOptions({
+  queryKey: ["article", scope.brandId, slug],
+  queryFn: async () => {
+    const article = await platform.articles.getBySlug(scope, slug);
+    return article ? prepareArticleForDelivery(article) : article;
+  },
+});
 
 export const destinationsQuery = (params: Omit<DestinationQuery, "brandId"> = {}) => queryOptions({
   queryKey: ["destinations", scope.brandId, params],
@@ -20,7 +30,7 @@ export const destinationsQuery = (params: Omit<DestinationQuery, "brandId"> = {}
   refetchOnReconnect: false,
   queryFn: async () => {
     const { listResolvedDestinations } = await import("./destination-query-runtime");
-    return listResolvedDestinations(params);
+    return (await listResolvedDestinations(params)).map(prepareDestinationForDelivery);
   },
 });
 
@@ -33,7 +43,8 @@ export const destinationQuery = (slug: Slug) => queryOptions({
   refetchOnReconnect: false,
   queryFn: async () => {
     const { getResolvedDestination } = await import("./destination-query-runtime");
-    return getResolvedDestination(slug);
+    const destination = await getResolvedDestination(slug);
+    return destination ? prepareDestinationForDelivery(destination) : destination;
   },
 });
 
