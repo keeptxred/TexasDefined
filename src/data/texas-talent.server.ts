@@ -7,6 +7,7 @@ import { TEXAS_TALENT_READINESS_BATCH3 } from "@/data/texas-talent-readiness-bat
 import { TEXAS_TALENT_READINESS_BATCH4 } from "@/data/texas-talent-readiness-batch4";
 import { TEXAS_TALENT_READINESS_BATCH5 } from "@/data/texas-talent-readiness-batch5";
 import { TEXAS_TALENT_READINESS_BATCH6 } from "@/data/texas-talent-readiness-batch6";
+import { TEXAS_TALENT_READINESS_BATCH7 } from "@/data/texas-talent-readiness-batch7";
 
 const TEXAS_TALENT_ALL_PROFILES = [
   ...TEXAS_TALENT_PROFILES,
@@ -21,6 +22,7 @@ const TEXAS_TALENT_ALL_READINESS = {
   ...TEXAS_TALENT_READINESS_BATCH4,
   ...TEXAS_TALENT_READINESS_BATCH5,
   ...TEXAS_TALENT_READINESS_BATCH6,
+  ...TEXAS_TALENT_READINESS_BATCH7,
 };
 
 function withReadiness<T extends (typeof TEXAS_TALENT_ALL_PROFILES)[number]>(profile: T) {
