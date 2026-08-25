@@ -18,6 +18,8 @@ import { buildMeta, canonicalLink } from '@/lib/seo';
 
 const siteUrl = 'https://texasdefined.com';
 
+type SportsVenueEnrichment = ReturnType<typeof getSportsVenueEnrichmentAll>;
+
 const visitorKindPriority: Partial<Record<TexasEntityKind, number>> = {
   attraction: 0,
   museum: 1,
@@ -66,11 +68,12 @@ export const Route = createFileRoute('/sports-venue/$slug')({
     const { entity } = loaderData;
     const canonicalPath = canonicalEntityPath(entity);
     const indexable = isIndexableEntityPage(entity);
+    const enrichment = getSportsVenueEnrichmentAll(entity.slug);
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
-        title: `${entity.name}: Texas Sports Venue & Visitor Guide`,
-        description: entity.description ?? `${entity.name} sports venue guide from Texas Defined.`,
+        title: sportsVenueSearchTitle(entity.name, enrichment?.city),
+        description: sportsVenueSearchDescription(entity.name, enrichment),
         robots: indexable ? undefined : 'noindex, follow, max-image-preview:large',
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
@@ -86,6 +89,7 @@ function SportsVenuePage() {
   const enrichment = getSportsVenueEnrichmentAll(entity.slug);
   const canonicalPath = canonicalEntityPath(entity);
   const canonicalUrl = `${siteUrl}${canonicalPath}`;
+  const venueHeroUrl = `${siteUrl}/api/sports-venue-hero?slug=${encodeURIComponent(entity.slug)}`;
   const relatedVenues = related.filter(({ entity: candidate }) => candidate.kind === 'sports-venue').slice(0, 6);
   const landingLinks = sportsVenueLandingLinksForVenue(entity);
   const countyName = entity.countySlug ? `${title(entity.countySlug)} County` : undefined;
@@ -103,6 +107,8 @@ function SportsVenuePage() {
         alternateName: entity.aliases.length ? entity.aliases : undefined,
         description: entity.description,
         url: canonicalUrl,
+        mainEntityOfPage: canonicalUrl,
+        image: venueHeroUrl,
         sameAs: entity.officialUrl ? [entity.officialUrl] : undefined,
         geo: entity.coordinates ? {
           '@type': 'GeoCoordinates',
@@ -180,8 +186,26 @@ function SportsVenuePage() {
           countyName={countyName}
           capacity={enrichment?.capacity}
           primaryEvents={enrichment?.primaryEvents}
+          parking={enrichment?.parking}
+          arrival={enrichment?.arrival}
           verifiedAt={enrichment?.verifiedAt ?? entity.sourceCheckedAt}
         />
+
+        {enrichment ? <section className="border-b border-border py-12" aria-labelledby="venue-event-day-heading">
+          <div className="grid gap-8 lg:grid-cols-[15rem_1fr]">
+            <div>
+              <p className="eyebrow text-primary">Event-day essentials</p>
+              <h2 id="venue-event-day-heading" className="mt-2 font-display text-3xl leading-tight">{entity.name} parking, arrival and event planning</h2>
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">Venue-specific details reviewed against official sources on {formatCheckedDate(enrichment.verifiedAt)}.</p>
+            </div>
+            <div className="grid gap-8 md:grid-cols-2">
+              <GuideCard title={`Parking at ${entity.name}`} body={enrichment.parking} />
+              <GuideCard title="When to arrive" body={enrichment.arrival} />
+              <GuideCard title="Main sports and events" body={`The verified venue profile currently highlights ${formatList(enrichment.primaryEvents.slice(0, 3))}. Check the official calendar for the exact event date, start time and ticket requirements.`} />
+              {enrichment.capacity ? <GuideCard title="Capacity and configuration" body={`${entity.name}'s verified profile lists ${enrichment.capacity}. Seating or event configurations can change for concerts, tournaments and special events, so use the official event page for the final layout.`} /> : null}
+            </div>
+          </div>
+        </section> : null}
 
         <section className="grid gap-8 border-b border-border py-12 lg:grid-cols-[15rem_1fr]">
           <div>
@@ -198,32 +222,23 @@ function SportsVenuePage() {
         {enrichment ? <section className="border-b border-border py-12">
           <div className="grid gap-8 lg:grid-cols-[15rem_1fr]">
             <div>
-              <p className="eyebrow text-primary">Verified visitor details</p>
-              <h2 className="mt-2 font-display text-3xl leading-tight">What to know before event day</h2>
-              <p className="mt-3 text-sm leading-6 text-muted-foreground">Venue-specific details reviewed against official sources on {formatCheckedDate(enrichment.verifiedAt)}.</p>
+              <p className="eyebrow text-primary">Venue context</p>
+              <h2 className="mt-2 font-display text-3xl leading-tight">Build the rest of the {entity.name} trip</h2>
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">Use the venue as the fixed point, then fit lodging, food and nearby visitor stops around the actual event schedule.</p>
             </div>
             <div>
               <div className="grid gap-8 md:grid-cols-2">
                 {enrichment.history && <GuideCard title="Venue story" body={enrichment.history} />}
-                <GuideCard title="Parking and access" body={enrichment.parking} />
-                <GuideCard title="Arrival strategy" body={enrichment.arrival} />
                 <GuideCard title="Stay and eat" body={enrichment.stayAndEat} />
                 <GuideCard title="Build the weekend" body={enrichment.nearby} />
               </div>
 
-              <div className="mt-10 grid gap-8 md:grid-cols-2">
-                <div className="border-t border-border pt-4">
-                  <h3 className="font-display text-2xl">Primary sports and events</h3>
-                  <ul className="mt-3 space-y-2 text-sm leading-6 text-muted-foreground">
-                    {enrichment.primaryEvents.map((event) => <li key={event}>• {event}</li>)}
-                  </ul>
-                </div>
-                <div className="border-t border-border pt-4">
-                  <h3 className="font-display text-2xl">Official planning links</h3>
-                  <ul className="mt-3 space-y-2 text-sm font-semibold">
-                    {enrichment.planningLinks.map((link) => <li key={link.url}><a className="underline decoration-primary/50 underline-offset-4 hover:text-primary" href={link.url} target="_blank" rel="noreferrer">{link.label} ↗</a></li>)}
-                  </ul>
-                </div>
+              <div className="mt-10 border-t border-border pt-4">
+                <h3 className="font-display text-2xl">Official planning links</h3>
+                <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">Use these official sources for schedules, tickets, parking maps, gate times and policies that can change after this guide was reviewed.</p>
+                <ul className="mt-4 grid gap-x-8 sm:grid-cols-2 text-sm font-semibold">
+                  {enrichment.planningLinks.map((link) => <li key={link.url} className="border-t border-border py-4"><a className="underline decoration-primary/50 underline-offset-4 hover:text-primary" href={link.url} target="_blank" rel="noreferrer">{link.label} ↗</a></li>)}
+                </ul>
               </div>
             </div>
           </div>
@@ -302,6 +317,30 @@ function GuideCard({ title: heading, body }: { title: string; body: string }) {
 
 function Fact({ label, value }: { label: string; value?: string }) {
   return value ? <div className="border-b border-border py-3 last:border-b-0 lg:first:pt-0 lg:last:pb-0"><dt className="text-[0.68rem] uppercase tracking-[0.16em] text-muted-foreground">{label}</dt><dd className="mt-1 font-medium">{value}</dd></div> : null;
+}
+
+function sportsVenueSearchTitle(name: string, city?: string) {
+  if (!city) return name;
+  const localized = `${name} | ${city}, TX`;
+  return localized.length <= 42 ? localized : name;
+}
+
+function sportsVenueSearchDescription(name: string, enrichment: SportsVenueEnrichment) {
+  const city = enrichment?.city ? `${enrichment.city}, Texas` : 'Texas';
+  const capacity = enrichment?.capacity && enrichment.capacity.length <= 24 ? `, capacity ${enrichment.capacity}` : '';
+  const event = enrichment?.primaryEvents?.[0] ? `, ${enrichment.primaryEvents[0]}` : '';
+  const detailed = `${name} in ${city}${capacity}: parking, arrival${event}, official planning links and nearby visitor ideas.`;
+  if (detailed.length <= 160) return detailed;
+  const fallback = `${name} in ${city}: parking, arrival, events, official planning links and nearby visitor ideas.`;
+  if (fallback.length <= 160) return fallback;
+  return `${name}: parking, arrival, events and official planning links for a Texas sports visit.`;
+}
+
+function formatList(items: readonly string[]) {
+  if (!items.length) return 'the events listed in the guide';
+  if (items.length === 1) return items[0];
+  if (items.length === 2) return `${items[0]} and ${items[1]}`;
+  return `${items.slice(0, -1).join(', ')}, and ${items.at(-1)}`;
 }
 
 function venueProfile(tags: Set<string>) {
