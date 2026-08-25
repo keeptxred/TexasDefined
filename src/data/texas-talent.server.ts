@@ -3,6 +3,12 @@ import { TEXAS_TALENT_MUSIC_EXPANSION } from "@/data/texas-talent-profiles-wave2
 import { TEXAS_TALENT_FILM_EXPANSION } from "@/data/texas-talent-profiles-wave2-film";
 import { TEXAS_TALENT_ARTS_EXPANSION } from "@/data/texas-talent-profiles-wave2-arts";
 import { TEXAS_TALENT_PROFILE_CORRECTIONS } from "@/data/texas-talent-profile-corrections";
+import {
+  assessTexasTalentLaunchReadiness,
+  assertTexasTalentPublishable,
+  isTexasTalentPublishable,
+} from "@/data/texas-talent-launch";
+import { resolveTexasTalentEntityLinks } from "@/data/texas-talent-links.server";
 import { TEXAS_TALENT_READINESS } from "@/data/texas-talent-readiness";
 import { TEXAS_TALENT_READINESS_BATCH3 } from "@/data/texas-talent-readiness-batch3";
 import { TEXAS_TALENT_READINESS_BATCH4 } from "@/data/texas-talent-readiness-batch4";
@@ -70,4 +76,38 @@ export function loadTexasTalentProfilesServer() {
 export function loadTexasTalentProfileServer(slug: string) {
   const profile = TEXAS_TALENT_ALL_PROFILES.find((candidate) => candidate.slug === slug);
   return profile ? withReadiness(profile) : null;
+}
+
+export async function loadTexasTalentProfileWithResolvedLinksServer(slug: string) {
+  const profile = loadTexasTalentProfileServer(slug);
+  if (!profile) return null;
+
+  return {
+    ...profile,
+    resolvedInternalLinks: await resolveTexasTalentEntityLinks(profile),
+    launchAssessment: assessTexasTalentLaunchReadiness(profile),
+  };
+}
+
+export function loadTexasTalentLaunchAuditServer() {
+  const profiles = loadTexasTalentProfilesServer();
+  const assessments = profiles.map(assessTexasTalentLaunchReadiness);
+
+  return {
+    totalProfiles: profiles.length,
+    mechanicallyReady: assessments.filter((assessment) => assessment.mechanicalReady).length,
+    editorialApproved: assessments.filter((assessment) => assessment.editorialApproved).length,
+    publishable: assessments.filter((assessment) => assessment.publishable).length,
+    assessments,
+  };
+}
+
+export function loadTexasTalentPublishableProfilesServer() {
+  return loadTexasTalentProfilesServer().filter(isTexasTalentPublishable);
+}
+
+export function loadTexasTalentProfileForPublicationServer(slug: string) {
+  const profile = loadTexasTalentProfileServer(slug);
+  if (!profile) return null;
+  return assertTexasTalentPublishable(profile);
 }
