@@ -1,7 +1,7 @@
 import type { Destination } from "./types";
 
 const curated: Record<string, Partial<Destination>> = {
-  "port-isabel-lighthouse-state-park": {
+  "port-isabel-lighthouse": {
     summary: "Texas' only lighthouse open to the public, an 1852 brick tower in Port Isabel where 75 winding stairs and short ladders lead to coastal views toward South Padre Island and a restored third-order Fresnel lens.",
     nearestTown: "Port Isabel",
     coordinates: { lat: 26.0764, lng: -97.2086 },

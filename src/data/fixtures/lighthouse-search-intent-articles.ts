@@ -31,7 +31,7 @@ export const lighthouseSearchIntentArticles: Article[] = [
       { href: "/explore/lighthouses", label: "Open the Texas lighthouse map", description: "Compare locations, access status and county context for the major surviving and relocated lighthouse sites." },
       { href: "/article/texas-lighthouses-complete-guide", label: "Read the complete Texas lighthouse history", description: "Go beyond the visitor ranking into the coastwide network of surviving and lost lights." },
       { href: "/article/texas-lighthouse-road-trip", label: "Plan the Texas lighthouse road trip", description: "Turn the lighthouse list into a multi-day Gulf Coast itinerary." },
-      { href: "/destination/port-isabel-lighthouse-state-park", label: "Plan a Port Isabel Lighthouse visit", description: "Use the destination guide for the most visitor-friendly lighthouse stop in Texas." },
+      { href: "/destination/port-isabel-lighthouse", label: "Plan a Port Isabel Lighthouse visit", description: "Use the destination guide for the most visitor-friendly lighthouse stop in Texas." },
     ],
     body: [
       { type: "paragraph", text: "If the question is simply which Texas lighthouse is best to visit, Port Isabel wins. It is the lighthouse experience most travelers imagine when they start searching: a surviving historic tower, a public site, a climb to the lantern level when operations and weather allow, and a lower-coast setting that can anchor a full day around Port Isabel, South Padre Island and Brownsville. The rest of the Texas lighthouse story is more varied—and, in some ways, more interesting." },

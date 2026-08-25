@@ -24,7 +24,7 @@ export const lighthouseSearchIntentStubs: Article[] = [
     tags: [],
     featured: true,
     relatedCollections: [],
-    relatedDestinations: ["port-isabel-lighthouse-state-park"],
+    relatedDestinations: ["port-isabel-lighthouse"],
     body: [],
   },
 ];
