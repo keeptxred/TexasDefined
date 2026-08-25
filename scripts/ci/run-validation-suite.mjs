@@ -44,6 +44,7 @@ const checks = [
   ['sitemap-routes', 'SEO/ROUTING', 'Validate sitemap routes', 'node', ['scripts/data/validate-sitemap-routes.mjs']],
   ['internal-link-discovery', 'INTERNAL-LINKING', 'Validate internal-link discovery', 'node', ['scripts/data/validate-internal-link-discovery.mjs']],
   ['search-intent-ctr', 'SEO/CTR', 'Validate search-intent CTR', 'node', ['scripts/data/validate-search-intent-ctr.mjs']],
+  ['phase7-technical-seo', 'SEO/TECHNICAL', 'Validate Phase 7 technical SEO batch', 'node', ['scripts/data/validate-phase7-technical-seo.mjs']],
   ['citation-magnets', 'SEO/CITATIONS', 'Validate citation magnets', 'node', ['scripts/data/validate-citation-magnets.mjs']],
   ['citation-downloads', 'SEO/CITATIONS', 'Validate citation downloads', 'node', ['scripts/data/validate-citation-downloads.mjs']],
   ['seo-ci-contract', 'CI/CONTRACT', 'Validate SEO CI contract', 'node', ['scripts/data/validate-seo-ci-contract.mjs']],
