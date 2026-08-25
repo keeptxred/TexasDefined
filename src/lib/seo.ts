@@ -38,10 +38,14 @@ const META_DESCRIPTION_MAX_LENGTH = 160;
 
 const TEXASDEFINED_TECHNICAL_SEO_OVERRIDES: Record<string, { title: string; description?: string }> = {
   "/county/bexar": { title: "Bexar County, Texas Guide" },
+  "/explore": { title: "Explore Texas: Places, Road Trips & Outdoors" },
+  "/explore/top-attractions": { title: "Top 25 Texas Attractions" },
   "/explore/road-trips": {
     title: "Texas Road Trips & Scenic Drives",
     description: "Plan Texas road trips with scenic drives, regional routes, stop-by-stop itineraries, parks, small towns and practical trip-planning details.",
   },
+  "/texas-history": { title: "Texas History: People, Places & Stories" },
+  "/texas-explained": { title: "Texas Explained: How the State Works" },
   "/texas-closing-cost-calculator": { title: "Texas Closing Cost Calculator" },
   "/texas-property-tax-estimator": { title: "Texas Property Tax Estimator" },
   "/texas-home-equity-calculator": { title: "Texas Home Equity Calculator" },
