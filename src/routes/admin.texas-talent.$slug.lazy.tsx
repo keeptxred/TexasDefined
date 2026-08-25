@@ -11,7 +11,9 @@ function TexasTalentProfilePreview() {
   const { profile } = Route.useRouteContext();
   const category = TEXAS_TALENT_CATEGORIES.find((item) => item.id === profile.category)?.label ?? profile.category;
   const readiness = profile.readiness;
-  const heroImage = readiness?.imageReview.heroImage;
+  const heroImage = readiness.imageReview.heroImage;
+  const launchAssessment = profile.launchAssessment;
+  const resolvedInternalLinks = profile.resolvedInternalLinks;
 
   return (
     <main>
@@ -59,26 +61,51 @@ function TexasTalentProfilePreview() {
             <p className="mt-6 text-xs font-bold uppercase tracking-[0.14em]">Editorial status</p>
             <p className="mt-2 text-sm font-semibold capitalize text-primary">{profile.profileStatus}</p>
             <p className="mt-6 text-xs font-bold uppercase tracking-[0.14em]">Launch readiness</p>
-            <p className="mt-2 text-sm font-semibold capitalize text-primary">{readiness?.launchStatus.replace("-", " ") ?? "researching"}</p>
+            <p className="mt-2 text-sm font-semibold capitalize text-primary">{readiness.launchStatus.replace("-", " ")}</p>
+            <p className="mt-6 text-xs font-bold uppercase tracking-[0.14em]">Mechanical gate</p>
+            <p className="mt-2 text-sm font-semibold text-primary">{launchAssessment.mechanicalReady ? "Cleared" : "Blocked"}</p>
             <p className="mt-6 text-xs font-bold uppercase tracking-[0.14em]">Last reviewed</p>
             <p className="mt-2 text-sm text-muted-foreground">{profile.lastReviewedAt}</p>
           </aside>
         </div>
       </Container>
 
-      {readiness ? (
-        <section className="border-y border-border bg-background">
-          <Container className="py-10">
-            <p className="eyebrow text-primary">Launch-quality review</p>
-            <h2 className="mt-2 font-display text-4xl">What is cleared and what remains</h2>
-            <div className="mt-7 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-3">
-              <ReviewCard title="Sources" status={readiness.sourceReview.status} note={readiness.sourceReview.note} />
-              <ReviewCard title="Image rights" status={readiness.imageReview.status} note={heroImage?.rightsNote ?? "No cleared hero image has been recorded yet."} />
-              <ReviewCard title="Internal links" status={readiness.internalLinkReview.status} note={readiness.internalLinkReview.note} />
+      <section className="border-y border-border bg-background">
+        <Container className="py-10">
+          <p className="eyebrow text-primary">Launch-quality review</p>
+          <h2 className="mt-2 font-display text-4xl">What is cleared and what remains</h2>
+          <div className="mt-7 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-3">
+            <ReviewCard title="Sources" status={readiness.sourceReview.status} note={readiness.sourceReview.note} />
+            <ReviewCard title="Image rights" status={readiness.imageReview.status} note={heroImage?.rightsNote ?? "No cleared hero image has been recorded yet."} />
+            <ReviewCard title="Internal links" status={readiness.internalLinkReview.status} note={readiness.internalLinkReview.note} />
+          </div>
+          <div className="mt-6 border border-border bg-surface p-6">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[0.14em] text-muted-foreground">Mechanical publication gate</p>
+                <p className="mt-2 font-display text-3xl text-primary">{launchAssessment.mechanicalReady ? "Cleared" : "Blocked"}</p>
+              </div>
+              <div className="text-right">
+                <p className="text-xs font-bold uppercase tracking-[0.14em] text-muted-foreground">Explicit editorial approval</p>
+                <p className="mt-2 text-sm font-semibold text-foreground">{launchAssessment.editorialApproved ? "Approved" : "Not approved"}</p>
+              </div>
             </div>
-          </Container>
-        </section>
-      ) : null}
+            {launchAssessment.blockers.length ? (
+              <div className="mt-5 flex flex-wrap gap-2">
+                {launchAssessment.blockers.map((blocker) => (
+                  <span key={blocker} className="border border-border bg-background px-3 py-2 text-xs font-semibold capitalize text-muted-foreground">
+                    {blocker.replaceAll("-", " ")}
+                  </span>
+                ))}
+              </div>
+            ) : (
+              <p className="mt-5 text-sm leading-7 text-muted-foreground">
+                The profile has cleared the mechanical quality gate, but it still remains unpublished until the launch status is explicitly changed to launch-ready.
+              </p>
+            )}
+          </div>
+        </Container>
+      </section>
 
       <section className="border-y border-border bg-surface">
         <Container className="py-12 sm:py-16">
@@ -131,15 +158,17 @@ function TexasTalentProfilePreview() {
           </div>
           <div>
             <p className="eyebrow text-primary">Internal links</p>
-            {readiness?.internalLinkReview.links.length ? (
+            {resolvedInternalLinks.length ? (
               <div className="mt-4 grid gap-2">
-                {readiness.internalLinkReview.links.map((link) => (
+                {resolvedInternalLinks.map((link) => (
                   <a key={link.href} href={link.href} className="border border-border px-4 py-3 text-sm font-semibold text-primary">
                     {link.label} →
                   </a>
                 ))}
               </div>
-            ) : null}
+            ) : (
+              <p className="mt-4 text-sm leading-7 text-muted-foreground">No safe indexable internal destination has been resolved yet.</p>
+            )}
             <p className="mt-6 text-xs font-bold uppercase tracking-[0.14em] text-muted-foreground">Still planned</p>
             <div className="mt-3 flex flex-wrap gap-2">
               {profile.plannedCrossLinks.map((link) => <span key={link} className="border border-border px-3 py-2 text-xs font-semibold">{link}</span>)}
@@ -159,7 +188,7 @@ function TexasTalentProfilePreview() {
               </a>
             ))}
           </div>
-          <p className="mt-6 max-w-3xl text-xs leading-6 text-background/60">This is an internal editorial preview. Public launch still requires final fact-checking, completed internal links, a cleared image record and an explicit index-readiness review.</p>
+          <p className="mt-6 max-w-3xl text-xs leading-6 text-background/60">This is an internal editorial preview. Public launch still requires final fact-checking, completed internal links, a cleared image record and explicit editorial approval.</p>
         </Container>
       </section>
     </main>
