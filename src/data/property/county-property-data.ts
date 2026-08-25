@@ -1,5 +1,6 @@
 import { TEXAS_CITIES, TEXAS_COUNTIES } from '@/data/texas-places';
 import { COUNTY_PROPERTY_ENRICHMENT } from '@/data/property/county-property-enrichment.generated';
+import { COUNTY_PROPERTY_LOCAL_VERIFICATION } from '@/data/property/county-property-local-verification';
 import {
   createEmptyCountyPropertyRecord,
   type CountyPropertyRecord,
@@ -29,22 +30,36 @@ function majorCitiesForCounty(countyName: string) {
 function buildCountyPropertyRecord(county: (typeof TEXAS_COUNTIES)[number], index: number): CountyPropertyRecord {
   const base = createEmptyCountyPropertyRecord(county);
   const enrichment = COUNTY_PROPERTY_ENRICHMENT[county.slug];
+  const localVerification = COUNTY_PROPERTY_LOCAL_VERIFICATION[county.slug];
 
   return {
     ...base,
     fips: countyFipsFromAlphabeticalIndex(index),
     majorCities: majorCitiesForCounty(county.name),
-    appraisalDistrict: enrichment ? { ...base.appraisalDistrict, ...enrichment.appraisalDistrict } : base.appraisalDistrict,
-    taxOffice: enrichment ? { ...base.taxOffice, ...enrichment.taxOffice } : base.taxOffice,
-    links: enrichment ? { ...base.links, ...enrichment.links } : base.links,
+    appraisalDistrict: {
+      ...base.appraisalDistrict,
+      ...(enrichment?.appraisalDistrict ?? {}),
+      ...(localVerification?.appraisalDistrict ?? {}),
+    },
+    taxOffice: {
+      ...base.taxOffice,
+      ...(enrichment?.taxOffice ?? {}),
+      ...(localVerification?.taxOffice ?? {}),
+    },
+    links: {
+      ...base.links,
+      ...(enrichment?.links ?? {}),
+      ...(localVerification?.links ?? {}),
+    },
     sourceUpdatedAt: enrichment
       ? { appraisalDistrict: enrichment.sourceUpdatedAt.appraisalDistrict, taxOffice: enrichment.sourceUpdatedAt.taxOffice }
       : base.sourceUpdatedAt,
-    lastVerifiedAt: enrichment?.lastVerifiedAt ?? null,
+    lastVerifiedAt: localVerification?.lastVerifiedAt ?? enrichment?.lastVerifiedAt ?? null,
     sourceUrls: Array.from(new Set([
       county.officialDirectoryUrl,
       CENSUS_FIPS_SOURCE,
       ...(enrichment?.sourceUrls ?? []),
+      ...(localVerification?.sourceUrls ?? []),
     ])),
   };
 }
