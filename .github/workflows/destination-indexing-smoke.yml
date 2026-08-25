@@ -38,7 +38,7 @@ on:
       - 'src/routes/explore.region.$region.tsx'
       - 'src/lib/public-routes.ts'
       - 'public/citation-magnets.json'
-      - 'src/routes/llms[.]txt.ts'
+      - 'src/routes/llms*txt.ts'
   workflow_dispatch:
 
 permissions:
