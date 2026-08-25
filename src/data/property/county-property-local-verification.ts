@@ -10,8 +10,8 @@ export type CountyPropertyLocalVerification = {
 
 /**
  * Hand-verified local property-tax records used only when the Texas Comptroller
- * county directory has a stale office "Last Updated" field but current local
- * government sources independently confirm the office and taxpayer resources.
+ * county directory has a stale office "Last Updated" field but current local government sources independently confirm
+ * the office and taxpayer resources.
  *
  * These records are intentionally separate from the generated Comptroller
  * snapshot so the scheduled statewide sync can never overwrite or manufacture
