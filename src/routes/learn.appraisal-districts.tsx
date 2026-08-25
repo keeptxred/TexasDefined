@@ -3,6 +3,8 @@ import { texasDefinedBrand } from '@/brand/texasdefined';
 import { CitationTrustPanel } from '@/components/authority/CitationTrustPanel';
 import { PropertyTaxGuidePage } from '@/components/guides/PropertyTaxGuidePage';
 import { Container } from '@/components/layout/Container';
+import { COUNTY_PROPERTY_RECORDS } from '@/data/property/county-property-data';
+import { isCountyPropertyIndexReady } from '@/data/property/county-property-schema';
 import { TEXAS_COUNTIES } from '@/data/texas-places';
 import { buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
@@ -18,6 +20,12 @@ const steps = [
   'Save the latest appraisal notice and value history.',
   'Contact the district promptly if something is wrong.',
 ];
+const verifiedPropertyCounties = COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady);
+const verifiedPropertySlugs = new Set(verifiedPropertyCounties.map((county) => county.slug));
+const priorityCountySlugs = ['leon', 'terrell', 'lubbock', 'hidalgo', 'sabine'];
+const priorityCounties = priorityCountySlugs
+  .map((slug) => TEXAS_COUNTIES.find((county) => county.slug === slug))
+  .filter((county): county is (typeof TEXAS_COUNTIES)[number] => Boolean(county && verifiedPropertySlugs.has(county.slug)));
 
 export const Route = createFileRoute('/learn/appraisal-districts')({
   head: () => ({
@@ -40,10 +48,10 @@ export const Route = createFileRoute('/learn/appraisal-districts')({
         {
           '@type': 'ItemList',
           '@id': `${pageUrl}#county-directory`,
-          name: 'Texas county appraisal-district research directory',
-          numberOfItems: TEXAS_COUNTIES.length,
-          itemListElement: TEXAS_COUNTIES.map((county, index) => ({
-            '@type': 'ListItem', position: index + 1, name: `${county.name} appraisal district research`, url: `${siteUrl}/property-tax/county/${county.slug}`,
+          name: 'Verified Texas county appraisal-district guides',
+          numberOfItems: verifiedPropertyCounties.length,
+          itemListElement: verifiedPropertyCounties.map((county, index) => ({
+            '@type': 'ListItem', position: index + 1, name: `${county.name} appraisal district guide`, url: `${siteUrl}/property-tax/county/${county.slug}`,
           })),
         },
         {
@@ -79,18 +87,27 @@ function AppraisalDistrictPage() {
       ]}
     />
     <Container className="pb-16 sm:pb-24">
-      <section aria-labelledby="appraisal-county-directory" className="border-t-2 border-foreground pt-8">
+      {priorityCounties.length ? <section aria-labelledby="appraisal-priority-guides" className="border-t-2 border-foreground pt-8">
+        <p className="eyebrow text-primary">Verified local guides</p>
+        <h2 id="appraisal-priority-guides" className="mt-2 font-display text-4xl">Direct appraisal-district starting points</h2>
+        <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These county guides have passed TexasDefined’s local-source readiness gate and link to verified appraisal-district and tax-office resources. They are surfaced here directly instead of sending readers through retired appraisal-district URLs.</p>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+          {priorityCounties.map((county) => <Link key={county.slug} to="/property-tax/county/$county" params={{ county: county.slug }} className="group border-t border-border pt-4"><span className="eyebrow text-primary">Verified county guide</span><strong className="mt-2 block font-display text-2xl leading-tight group-hover:text-primary">{county.name}</strong><span className="mt-3 block text-sm font-semibold">Appraisal & property tax →</span></Link>)}
+        </div>
+      </section> : null}
+
+      <section aria-labelledby="appraisal-county-directory" className="mt-12 border-t-2 border-foreground pt-8">
         <p className="eyebrow text-primary">All 254 counties</p>
         <h2 id="appraisal-county-directory" className="mt-2 font-display text-4xl">County appraisal-district research directory</h2>
-        <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Choose a county to open its property-tax reference. When a local appraisal-district source has been verified, the county page links directly to it; otherwise use the Texas Comptroller directory linked below rather than guessing an office URL.</p>
+        <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Choose a county. Verified local property-tax guides link directly to the county’s appraisal workflow. Counties whose local property-tax sources have not yet passed the publication gate link to the substantive county reference instead of a noindex tax page.</p>
         <ul className="mt-6 grid gap-x-6 sm:grid-cols-2 lg:grid-cols-4">
-          {TEXAS_COUNTIES.map((county) => <li key={county.slug} className="border-b border-border py-3"><Link to="/property-tax/county/$county" params={{ county: county.slug }} className="font-semibold hover:text-primary">{county.name} →</Link></li>)}
+          {TEXAS_COUNTIES.map((county) => <li key={county.slug} className="border-b border-border py-3">{verifiedPropertySlugs.has(county.slug) ? <Link to="/property-tax/county/$county" params={{ county: county.slug }} className="font-semibold hover:text-primary"><span className="text-primary">{county.name}</span> <span className="text-xs font-normal text-muted-foreground">verified appraisal guide</span> →</Link> : <Link to="/county/$slug" params={{ slug: county.slug }} className="font-semibold hover:text-primary">{county.name} <span className="text-xs font-normal text-muted-foreground">county reference</span> →</Link>}</li>)}
         </ul>
       </section>
       <CitationTrustPanel
         className="mt-10"
         sources={[{ name: 'Texas Comptroller county appraisal-district directory', url: officialDirectoryUrl }]}
-        methodology="Texas Defined uses the Comptroller’s statewide directory as the authoritative starting point. County pages expose a direct local appraisal-district link only after that local source has been verified; missing local links are left pending rather than generated from a naming pattern."
+        methodology="Texas Defined uses the Comptroller’s statewide directory as the authoritative starting point. County property-tax pages receive direct internal discovery only after the local-source readiness gate is satisfied; until then, this directory points to the substantive county reference rather than a noindex county-tax page."
         lastVerified="August 3, 2026"
         title="Appraisal-district directory sources and methodology"
       />

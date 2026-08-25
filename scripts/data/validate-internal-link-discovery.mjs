@@ -30,6 +30,11 @@ const texasLiving = read('src/routes/texas-living.tsx');
 const exploreSitemap = read('src/routes/sitemap-explore[.]xml.ts');
 const homepage = readRouteSurface('src/routes/index.tsx');
 const exploreTopicPaths = read('src/components/editorial/ExploreTopicPaths.tsx');
+const relationshipPaths = read('src/data/knowledge-graph/relationships.ts');
+const appraisalHub = read('src/routes/learn.appraisal-districts.tsx');
+const countyPropertyDirectory = read('src/routes/property-tax.counties.tsx');
+const countyPropertyTemplate = read('src/components/property/CountyPropertyTaxTemplate.tsx');
+const appraisalRedirect = read('src/routes/appraisal-district.$slug.tsx');
 
 for (const path of ['/property', '/explore/trip-planner']) {
   const indexableSection = registry.split('export const REDIRECT_ONLY_PATHS')[0];
@@ -93,5 +98,44 @@ if (!sportsQuickAnswers.includes('TexasExplainedContextLinks surface="sports"'))
 if (!categoryPage.includes('TexasLifeDiscovery')) failures.push('Texas Life category pages must render TexasLifeDiscovery.');
 if (!categoryPage.includes('belongsToTexasLife && (') || !categoryPage.includes('<TexasLifeDiscovery currentCategory={category} />')) failures.push('TexasLifeDiscovery must be limited to Texas Life category surfaces.');
 if (!exploreSitemap.includes('"/explore/trip-planner"')) failures.push('Explore sitemap must publish the Trip Planner.');
+
+// Phase 5: consolidate property/appraisal authority on the canonical county property-tax pages.
+for (const marker of [
+  "const APPRAISAL_DISTRICT_SUFFIX = '-appraisal-district'",
+  "entity.kind === 'appraisal-district'",
+  'entity.slug.endsWith(APPRAISAL_DISTRICT_SUFFIX)',
+  'return `/property-tax/county/${countySlug}`',
+]) if (!relationshipPaths.includes(marker)) failures.push(`Appraisal-district canonical authority mapping is missing ${marker}.`);
+for (const marker of [
+  "createFileRoute('/appraisal-district/$slug')",
+  "params.slug.replace(/-appraisal-district$/, '')",
+  'href: `/property-tax/county/${countySlug}`',
+  'statusCode: 301',
+]) if (!appraisalRedirect.includes(marker)) failures.push(`Legacy appraisal-district redirect contract is missing ${marker}.`);
+for (const marker of [
+  "import { COUNTY_PROPERTY_RECORDS } from '@/data/property/county-property-data'",
+  "import { isCountyPropertyIndexReady } from '@/data/property/county-property-schema'",
+  'const verifiedPropertyCounties = COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady)',
+  'const verifiedPropertySlugs = new Set(verifiedPropertyCounties.map((county) => county.slug))',
+  "const priorityCountySlugs = ['leon', 'terrell', 'lubbock', 'hidalgo', 'sabine']",
+  "name: 'Verified Texas county appraisal-district guides'",
+  'numberOfItems: verifiedPropertyCounties.length',
+  'verifiedPropertySlugs.has(county.slug)',
+  'to="/property-tax/county/$county"',
+  'to="/county/$slug"',
+  'instead of a noindex tax page',
+]) if (!appraisalHub.includes(marker)) failures.push(`Appraisal hub authority-flow contract is missing ${marker}.`);
+if (appraisalHub.includes('numberOfItems: TEXAS_COUNTIES.length')) failures.push('Appraisal hub ItemList must not advertise all 254 county-tax URLs when some remain noindex.');
+for (const marker of [
+  'to="/learn/appraisal-districts"',
+  'Texas appraisal-district directory →',
+]) if (!countyPropertyDirectory.includes(marker)) failures.push(`County property-tax directory reciprocal appraisal discovery is missing ${marker}.`);
+for (const marker of [
+  'to="/learn/appraisal-districts"',
+  'How Texas appraisal districts work →',
+]) if (!countyPropertyTemplate.includes(marker)) failures.push(`County property-tax template must link back to appraisal authority with ${marker}.`);
+if (countyPropertyTemplate.includes("const appraisalDistrict = countyEntity('appraisal-district'")) failures.push('County property-tax pages must not create a redundant appraisal-district entity self-link.');
+if (countyPropertyTemplate.includes('canonicalEntityPath(appraisalDistrict)')) failures.push('County property-tax pages must not route appraisal authority through the retired appraisal-district path.');
+
 if (failures.length) { console.error('Internal-link discovery validation failed:'); for (const failure of failures) console.error(`- ${failure}`); process.exit(1); }
-console.log('Internal-link discovery pathways, sitewide Start Here resources link, homepage priority-search links, protected camping-cornerstone links, Texas Explained links from Texas Life, county profiles, Guidebook, destination pages, fishing and sports venues, calculator hub inbound/outbound discovery, reciprocal finance evergreen/calculator clusters, direct Texas Life and financial-tools finance/special-district evergreen discovery, priority calculator indexing depth, structured calculator collection links and Explore sitemap coverage are protected.');
+console.log('Internal-link discovery pathways, sitewide Start Here resources link, homepage priority-search links, protected camping-cornerstone links, Texas Explained links from Texas Life, county profiles, Guidebook, destination pages, fishing and sports venues, calculator hub inbound/outbound discovery, reciprocal finance evergreen/calculator clusters, direct Texas Life and financial-tools finance/special-district evergreen discovery, priority calculator indexing depth, structured calculator collection links, Explore sitemap coverage, and appraisal-district authority consolidation onto verified canonical county-tax pages are protected.');
