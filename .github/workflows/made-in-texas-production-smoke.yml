@@ -37,7 +37,7 @@ jobs:
                 "${origin}${path}?verify=${cache_key}-${attempt}" -o "$out"; then
                 if grep -Fqi "$needle" "$out" \
                   && grep -Eqi "<link[^>]+rel=['\"]canonical['\"][^>]+href=['\"]${expected_canonical//\//\\/}['\"]" "$out" \
-                  && ! grep -Eqi '<meta[^>]+name=["'"']robots["'"'][^>]+content=["'"'][^"'"']*noindex' "$out"; then
+                  && ! grep -Eqi "<meta[^>]+name=['\"]robots['\"][^>]+content=['\"][^>]*noindex" "$out"; then
                   echo "PASS ${path}"
                   rm -f "$out"
                   return 0
