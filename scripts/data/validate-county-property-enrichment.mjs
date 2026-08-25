@@ -2,6 +2,7 @@ import fs from 'node:fs';
 
 const snapshotPath = 'src/data/property/county-property-enrichment.generated.ts';
 const snapshot = fs.readFileSync(snapshotPath, 'utf8');
+const localVerification = fs.readFileSync('src/data/property/county-property-local-verification.ts', 'utf8');
 const dataset = fs.readFileSync('src/data/property/county-property-data.ts', 'utf8');
 const schema = fs.readFileSync('src/data/property/county-property-schema.ts', 'utf8');
 const sync = fs.readFileSync('scripts/data/sync-county-property-data.mjs', 'utf8');
@@ -11,6 +12,7 @@ const validateWorkflow = fs.readFileSync('.github/workflows/validate.yml', 'utf8
 const validationSuite = fs.readFileSync('scripts/ci/run-validation-suite.mjs', 'utf8');
 const failures = [];
 const SOURCE_MAX_AGE_DAYS = 730;
+const LOCAL_VERIFICATION_MAX_AGE_DAYS = 400;
 
 for (const feature of [
   'COUNTY_PROPERTY_ENRICHMENT',
@@ -24,14 +26,54 @@ for (const feature of [
 
 for (const feature of [
   "import { COUNTY_PROPERTY_ENRICHMENT }",
+  "import { COUNTY_PROPERTY_LOCAL_VERIFICATION }",
   'const enrichment = COUNTY_PROPERTY_ENRICHMENT[county.slug]',
-  '...enrichment.appraisalDistrict',
-  '...enrichment.taxOffice',
-  '...enrichment.links',
-  'enrichment?.lastVerifiedAt ?? null',
+  'const localVerification = COUNTY_PROPERTY_LOCAL_VERIFICATION[county.slug]',
+  'enrichment ? enrichment.appraisalDistrict : {}',
+  'enrichment ? enrichment.taxOffice : {}',
+  'enrichment ? enrichment.links : {}',
+  'localVerification?.appraisalDistrict',
+  'localVerification?.taxOffice',
+  'localVerification?.links',
+  'localVerification?.lastVerifiedAt ?? enrichment?.lastVerifiedAt ?? null',
   '...(enrichment?.sourceUrls ?? [])',
+  '...(localVerification?.sourceUrls ?? [])',
 ]) {
   if (!dataset.includes(feature)) failures.push(`County property dataset merge missing ${feature}`);
+}
+
+for (const feature of [
+  'COUNTY_PROPERTY_LOCAL_VERIFICATION',
+  'Hand-verified local property-tax records',
+  'current local government sources independently confirm',
+  "polk:",
+  "mason:",
+  "haskell:",
+  "lastVerifiedAt: '2026-08-25'",
+  'https://polkcad.org',
+  'https://masoncad.org',
+  'https://www.haskellcad.com',
+]) {
+  if (!localVerification.includes(feature)) failures.push(`County property local verification overlay missing ${feature}`);
+}
+
+const localVerificationDates = [...localVerification.matchAll(/lastVerifiedAt:\s*['"](\d{4}-\d{2}-\d{2})['"]/g)].map((match) => match[1]);
+if (localVerificationDates.length < 3) failures.push('Local verification overlay must retain verification dates for Polk, Mason, and Haskell.');
+for (const value of localVerificationDates) {
+  const timestamp = Date.parse(value);
+  if (Number.isNaN(timestamp)) failures.push(`Local verification overlay contains invalid verification date: ${value}`);
+  else {
+    const ageMs = Date.now() - timestamp;
+    if (ageMs < 0) failures.push(`Local verification overlay contains future verification date: ${value}`);
+    else if (ageMs > LOCAL_VERIFICATION_MAX_AGE_DAYS * 24 * 60 * 60 * 1000) failures.push(`Local verification overlay contains stale verification older than ${LOCAL_VERIFICATION_MAX_AGE_DAYS} days: ${value}`);
+  }
+}
+
+for (const slug of ['polk', 'mason', 'haskell']) {
+  const record = new RegExp(`\\b${slug}:\\s*\\{([\\s\\S]*?)(?=\\n  [a-z0-9-]+:\\s*\\{|\\n};)`).exec(localVerification)?.[1] ?? '';
+  const urls = [...record.matchAll(/https:\/\/[^'"\s,]+/g)].map((match) => match[0].replace(/[}\]]+$/, ''));
+  const distinctLocalSources = new Set(urls.filter((url) => !url.includes('comptroller.texas.gov')));
+  if (distinctLocalSources.size < 2) failures.push(`${slug}: local verification must retain at least two distinct non-Comptroller property-tax sources.`);
 }
 
 for (const feature of [
@@ -161,4 +203,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`County property enrichment validation passed: ${recordSlugs.length} verified county records are source-backed, upstream-freshness-gated, catastrophic-shrink protected, stale-source-withdrawal protected, directory crawl-demand filtered, merged behind the indexability gate, and protected by both main CI and a reviewable refresh PR workflow.`);
+console.log(`County property enrichment validation passed: ${recordSlugs.length} generated county records remain upstream-freshness-gated; current local verification overlays are independently freshness/source-count protected; catastrophic-shrink, stale-source withdrawal, crawl-demand filtering, indexability gating, CI protection and reviewable refresh PR behavior remain intact.`);
