@@ -46,7 +46,8 @@ assert(hub.includes("Texas Lighthouse") || hub.includes("Texas lighthouse"), "Li
 assert(hub.includes("Visitability at a glance"), "Lighthouse visitability comparison is missing from the hub");
 assert(hub.includes('"@type": "FAQPage"'), "Lighthouse hub FAQ schema is missing");
 assert(hub.includes("Which Texas lighthouse can you climb?"), "Lighthouse climb answer layer is missing");
-assert(hub.includes("/destination/port-isabel-lighthouse-state-park"), "Port Isabel destination guide link is missing");
+assert(hub.includes("/destination/port-isabel-lighthouse"), "Canonical Port Isabel destination guide link is missing");
+assert(!hub.includes("/destination/port-isabel-lighthouse-state-park"), "Lighthouse hub must not link to the retired Port Isabel destination slug");
 assert(routes.includes('"/explore/lighthouses"') || routes.includes("'/explore/lighthouses'"), "/explore/lighthouses must remain governed as a public route");
 
 for (const categoryMarker of ['"beaches-coast": [', '"historic-sites": [', '"road-trips": [']) {
@@ -79,6 +80,8 @@ for (const requiredText of [
   "6. Sabine Pass Lighthouse — best for the story, not a conventional visit",
   "the historic lighthouse tower stands on the Louisiana side of the Sabine",
 ]) assert(searchIntentArticles.includes(requiredText), `Best-lighthouses article missing required authority text: ${requiredText}`);
+assert(searchIntentArticles.includes('href: "/destination/port-isabel-lighthouse"'), "Best-lighthouses article must link to the canonical Port Isabel destination guide");
+assert(!searchIntentArticles.includes('href: "/destination/port-isabel-lighthouse-state-park"'), "Best-lighthouses article must not link to the retired Port Isabel destination slug");
 assert(links.includes(`\"${intentSlug}\"`), "Best-lighthouses intent page is missing from lighthouse reciprocal links");
 assert(links.includes(`/article/${intentSlug}`), "Existing lighthouse authority pages must discover the best-lighthouses intent page");
 
