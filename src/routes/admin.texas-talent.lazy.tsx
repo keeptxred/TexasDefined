@@ -7,16 +7,14 @@ import {
   TEXAS_TALENT_PROFILE_REQUIREMENTS,
   TEXAS_TALENT_TAGLINE,
 } from "@/data/texas-talent";
-import {
-  TEXAS_TALENT_ALL_PROFILES,
-  getTexasTalentProfilesByCategory,
-} from "@/data/texas-talent-profiles-all";
 
 export const Route = createLazyFileRoute("/admin/texas-talent")({
   component: TexasTalentPage,
 });
 
 function TexasTalentPage() {
+  const { profiles } = Route.useRouteContext();
+
   return (
     <main>
       <section className="border-b border-border bg-foreground text-background">
@@ -31,7 +29,7 @@ function TexasTalentPage() {
               </p>
             </div>
             <div className="border-l border-background/20 pl-6 text-sm leading-7 text-background/70">
-              <p className="font-semibold text-background">{TEXAS_TALENT_ALL_PROFILES.length} profile pages now in the workbench.</p>
+              <p className="font-semibold text-background">{profiles.length} profile pages now in the workbench.</p>
               <p className="mt-2">Every page remains internal and noindex until fact-checking, image rights and live internal links meet the public-launch standard.</p>
             </div>
           </div>
@@ -44,7 +42,7 @@ function TexasTalentPage() {
           <h2 id="talent-categories" className="mt-2 font-display text-4xl sm:text-5xl">Five ways Texas talent reaches the world</h2>
           <div className="mt-8 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2 lg:grid-cols-3">
             {TEXAS_TALENT_CATEGORIES.map((category) => {
-              const count = getTexasTalentProfilesByCategory(category.id).length;
+              const count = profiles.filter((profile) => profile.category === category.id).length;
               return (
                 <article key={category.id} className="bg-background p-6 sm:p-7">
                   <p className="eyebrow text-primary">{count} profile pages</p>
@@ -93,14 +91,14 @@ function TexasTalentPage() {
         <section aria-labelledby="profile-workbench">
           <div className="max-w-4xl">
             <p className="eyebrow text-primary">Profile workbench</p>
-            <h2 id="profile-workbench" className="mt-2 font-display text-4xl sm:text-5xl">The first {TEXAS_TALENT_ALL_PROFILES.length} Texas Talent pages</h2>
+            <h2 id="profile-workbench" className="mt-2 font-display text-4xl sm:text-5xl">The first {profiles.length} Texas Talent pages</h2>
             <p className="mt-4 text-sm leading-7 text-muted-foreground">
               Every card opens an internal profile draft. These pages are intentionally unpublished and noindex while sourcing, image rights and cross-link verification continue.
             </p>
           </div>
 
           <div className="mt-8 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2 xl:grid-cols-3">
-            {TEXAS_TALENT_ALL_PROFILES.map((person) => (
+            {profiles.map((person) => (
               <article key={person.slug} className="bg-background p-6">
                 <div className="flex items-start justify-between gap-4">
                   <div>
@@ -144,6 +142,6 @@ function TexasTalentPage() {
   );
 }
 
-function labelCategory(category: (typeof TEXAS_TALENT_ALL_PROFILES)[number]["category"]) {
+function labelCategory(category: string) {
   return TEXAS_TALENT_CATEGORIES.find((item) => item.id === category)?.label ?? category;
 }
