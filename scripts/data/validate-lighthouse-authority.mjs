@@ -67,7 +67,7 @@ assert(searchIntentStubs.includes(`slug: \"${intentSlug}\"`), "Best-lighthouses 
 assert(searchIntentStubs.includes('import("./lighthouse-search-intent-articles")'), "Best-lighthouses article must remain lazy-loaded");
 assert(searchIntentStubs.includes("Port_Isabel_Texas_Lighthouse.jpg"), "Best-lighthouses page must retain its unique exact-subject hero");
 assert(searchIntentStubs.includes("CC BY 2.0"), "Best-lighthouses hero attribution/license is missing");
-assert(searchIntentStubs.includes('relatedDestinations: ["port-isabel-lighthouse-state-park"]'), "Best-lighthouses stub must point to the canonical Port Isabel destination slug");
+assert(searchIntentStubs.includes('relatedDestinations: ["port-isabel-lighthouse"]'), "Best-lighthouses stub must point to the canonical Port Isabel destination slug");
 assert(newestEvergreen.includes("lighthouseSearchIntentStubs") && newestEvergreen.includes("loadLighthouseSearchIntentArticle"), "Best-lighthouses intent loader is not registered");
 assert(searchIntentArticles.includes('title: "Best Lighthouses to Visit in Texas: What You Can Actually See and Climb"'), "Best-lighthouses search title is missing");
 for (const requiredText of [
