@@ -4,7 +4,11 @@ const seoSource = fs.readFileSync('src/lib/seo.ts', 'utf8');
 const brandSuffix = ' | Texas Defined';
 const targets = [
   ['/county/bexar', 'Bexar County, Texas Guide'],
+  ['/explore', 'Explore Texas: Places, Road Trips & Outdoors'],
+  ['/explore/top-attractions', 'Top 25 Texas Attractions'],
   ['/explore/road-trips', 'Texas Road Trips & Scenic Drives'],
+  ['/texas-history', 'Texas History: People, Places & Stories'],
+  ['/texas-explained', 'Texas Explained: How the State Works'],
   ['/texas-closing-cost-calculator', 'Texas Closing Cost Calculator'],
   ['/texas-property-tax-estimator', 'Texas Property Tax Estimator'],
   ['/texas-home-equity-calculator', 'Texas Home Equity Calculator'],
