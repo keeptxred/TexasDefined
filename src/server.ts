@@ -19,6 +19,16 @@ const BING_VERIFICATION_META =
   '<meta name="msvalidate.01" content="74E5E79AEC351CF6D2577A6FC6A125DF" />';
 const REMOTE_IMAGE_REDIRECT_STATUSES = new Set([301, 302, 303, 307, 308]);
 const MAX_REMOTE_IMAGE_REDIRECTS = 4;
+const ENTITY_REDIRECTS: Record<string, string> = {
+  "/lake/caddo-lake": "/destination/caddo-lake",
+  "/state-park/palo-duro-canyon-state-park": "/destination/palo-duro-canyon-state-park",
+  "/state-park/enchanted-rock-state-natural-area": "/destination/enchanted-rock-state-natural-area",
+  "/national-park/big-bend-national-park": "/destination/big-bend-national-park",
+  "/cavern/natural-bridge-caverns": "/destination/natural-bridge-caverns",
+  "/beach/padre-island-national-seashore": "/destination/padre-island-national-seashore",
+  "/historic-site/the-alamo": "/destination/the-alamo",
+  "/sports-venue/nrg-stadium": "/sports-venue/reliant-stadium",
+};
 
 let serverEntryPromise: Promise<ServerEntry> | undefined;
 
@@ -47,6 +57,22 @@ function legacyCountyRedirect(request: Request) {
   const countySlug = countySlugForLegacyArticle(decodeURIComponent(match[1]));
   if (!countySlug) return null;
   url.pathname = `/county/${countySlug}`;
+  return Response.redirect(url.toString(), 301);
+}
+
+function canonicalEntityRedirect(request: Request) {
+  if (request.method !== "GET" && request.method !== "HEAD") return null;
+  const url = new URL(request.url);
+  const normalizedPath = url.pathname.length > 1
+    ? url.pathname.replace(/\/+$/, "").toLowerCase()
+    : url.pathname;
+  const canonicalPath = ENTITY_REDIRECTS[normalizedPath];
+  if (!canonicalPath) return null;
+
+  url.protocol = "https:";
+  url.hostname = "texasdefined.com";
+  url.port = "";
+  url.pathname = canonicalPath;
   return Response.redirect(url.toString(), 301);
 }
 
@@ -177,8 +203,10 @@ export default {
       if (canonicalRedirect) return canonicalRedirect;
       const image = await remoteImageResponse(request, ctx);
       if (image) return image;
-      const redirect = legacyCountyRedirect(request);
-      if (redirect) return redirect;
+      const countyRedirect = legacyCountyRedirect(request);
+      if (countyRedirect) return countyRedirect;
+      const entityRedirect = canonicalEntityRedirect(request);
+      if (entityRedirect) return entityRedirect;
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
       const normalizedResponse = await normalizeCatastrophicSsrResponse(response);
