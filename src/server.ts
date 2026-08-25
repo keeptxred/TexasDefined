@@ -28,6 +28,7 @@ const ENTITY_REDIRECTS: Record<string, string> = {
   "/beach/padre-island-national-seashore": "/destination/padre-island-national-seashore",
   "/historic-site/the-alamo": "/destination/the-alamo",
   "/sports-venue/nrg-stadium": "/sports-venue/reliant-stadium",
+  "/article/best-places-for-fall-colors-in-texas": "/article/best-texas-state-parks-for-fall-colors",
 };
 
 let serverEntryPromise: Promise<ServerEntry> | undefined;

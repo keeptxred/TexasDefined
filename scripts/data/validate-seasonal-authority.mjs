@@ -13,11 +13,16 @@ const countyIdentity = read("src/components/content/CountyIdentitySection.tsx");
 const destinationLinks = read("src/data/destination-editorial-links.ts");
 const newest = read("src/data/fixtures/lazy-newest-evergreen.ts");
 const exploreIntents = read("src/components/editorial/ExploreIntentPaths.tsx");
+const server = read("src/server.ts");
 
 const groups = {
   bluebonnets: ["texas-bluebonnets-complete-guide", "best-places-to-see-bluebonnets-in-texas", "texas-bluebonnet-road-trip", "bluebonnets-near-austin", "bluebonnets-near-houston", "bluebonnets-near-dallas-fort-worth", "bluebonnets-near-san-antonio", "texas-bluebonnet-festivals", "is-it-illegal-to-pick-bluebonnets-in-texas"],
   christmas: ["christmas-in-texas-complete-guide", "best-christmas-towns-in-texas", "texas-christmas-road-trip", "best-christmas-lights-in-texas", "texas-christmas-train-rides", "free-christmas-events-in-texas"],
-  fall: ["fall-in-texas-complete-guide", "best-places-for-fall-colors-in-texas", "texas-fall-foliage-road-trip", "east-texas-fall-colors", "hill-country-fall-colors", "best-texas-state-parks-for-fall-colors"],
+  fall: ["fall-in-texas-complete-guide", "texas-fall-foliage-road-trip", "east-texas-fall-colors", "hill-country-fall-colors", "best-texas-state-parks-for-fall-colors"],
+};
+
+const retiredSeasonalRedirects = {
+  "/article/best-places-for-fall-colors-in-texas": "/article/best-texas-state-parks-for-fall-colors",
 };
 
 const fail = (message) => { console.error(`SEASONAL AUTHORITY FAIL: ${message}`); process.exitCode = 1; };
@@ -30,6 +35,22 @@ for (const [group, slugs] of Object.entries(groups)) {
     if (!lazySource.includes(`slug: \"${slug}\"`)) fail(`${group}: missing discovery stub ${slug}`);
     if (!links.includes(`\"${slug}\"`)) fail(`${group}: missing reciprocal authority-link entry ${slug}`);
   }
+}
+
+for (const [from, to] of Object.entries(retiredSeasonalRedirects)) {
+  const retiredSlug = from.slice("/article/".length);
+  if (!server.includes(`\"${from}\": \"${to}\"`)) fail(`missing canonical seasonal redirect ${from} -> ${to}`);
+  if (lazySource.includes(`slug: \"${retiredSlug}\"`)) fail(`${retiredSlug}: retired page must not remain in discovery stubs`);
+  if (links.includes(`\"${retiredSlug}\": [`)) fail(`${retiredSlug}: retired page must not retain reciprocal authority-link entry`);
+}
+
+const retiredFallHref = 'href: "/article/best-places-for-fall-colors-in-texas"';
+for (const [label, source] of Object.entries({
+  "seasonal authority links": links,
+  "county seasonal links": countyRegistry,
+  "destination seasonal links": destinationLinks,
+})) {
+  if (source.includes(retiredFallHref)) fail(`${label}: retired fall URL remains internally linked`);
 }
 
 for (const hub of ["texas-bluebonnets-complete-guide", "christmas-in-texas-complete-guide", "fall-in-texas-complete-guide"]) {
@@ -47,7 +68,7 @@ for (const hub of ["texas-bluebonnets-complete-guide", "christmas-in-texas-compl
 const destinationRequirements = {
   "enchanted-rock-state-natural-area": ["/article/texas-bluebonnets-complete-guide", "/article/best-places-to-see-bluebonnets-in-texas", "/article/texas-bluebonnet-road-trip"],
   "caddo-lake-state-park": ["/article/fall-in-texas-complete-guide", "/article/east-texas-fall-colors", "/article/best-texas-state-parks-for-fall-colors", "/article/texas-fall-foliage-road-trip"],
-  "caddo-lake": ["/article/fall-in-texas-complete-guide", "/article/east-texas-fall-colors", "/article/best-places-for-fall-colors-in-texas"],
+  "caddo-lake": ["/article/fall-in-texas-complete-guide", "/article/east-texas-fall-colors", "/article/best-texas-state-parks-for-fall-colors"],
   "guadalupe-river-state-park": ["/article/fall-in-texas-complete-guide", "/article/hill-country-fall-colors", "/article/best-texas-state-parks-for-fall-colors"],
   "new-braunfels": ["/article/christmas-in-texas-complete-guide", "/article/best-christmas-towns-in-texas", "/article/texas-christmas-road-trip"],
   "gruene-historic-district": ["/article/christmas-in-texas-complete-guide", "/article/best-christmas-towns-in-texas"],
@@ -65,7 +86,7 @@ const countyRequirements = {
   washington: ["/article/bluebonnets-near-houston", "/article/texas-bluebonnets-complete-guide", "/article/texas-bluebonnet-road-trip"],
   burnet: ["/article/texas-bluebonnets-complete-guide", "/article/best-places-to-see-bluebonnets-in-texas", "/article/texas-bluebonnet-road-trip"],
   llano: ["/article/texas-bluebonnets-complete-guide", "/article/best-places-to-see-bluebonnets-in-texas", "/article/texas-bluebonnet-road-trip"],
-  uvalde: ["/article/fall-in-texas-complete-guide", "/article/best-places-for-fall-colors-in-texas", "/article/hill-country-fall-colors", "/article/best-texas-state-parks-for-fall-colors"],
+  uvalde: ["/article/fall-in-texas-complete-guide", "/article/hill-country-fall-colors", "/article/best-texas-state-parks-for-fall-colors"],
   bandera: ["/article/hill-country-fall-colors", "/article/fall-in-texas-complete-guide"],
 };
 for (const [county, hrefs] of Object.entries(countyRequirements)) {
@@ -87,4 +108,4 @@ if (!newest.includes("loadSeasonalIntentArticle") || !newest.includes("loadSeaso
 if (!authorityLazy.includes('await import("./seasonal-authority-articles")')) fail("seasonal authority full bodies are not dynamically imported");
 if (!intentLazy.includes('await import("./seasonal-intent-articles")')) fail("seasonal intent full bodies are not dynamically imported");
 
-if (!process.exitCode) console.log("Seasonal authority guardrail passed: 21 pages, canonical county/destination reciprocity, Explore discovery, safety/currentness caveats and lazy loading verified.");
+if (!process.exitCode) console.log("Seasonal authority guardrail passed: 20 canonical pages, 1 retired redirect, county/destination reciprocity, Explore discovery, safety/currentness caveats and lazy loading verified.");
