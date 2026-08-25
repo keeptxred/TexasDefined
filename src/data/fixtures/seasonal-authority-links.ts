@@ -96,13 +96,11 @@ const additions: Record<string, ArticleInternalLink[]> = {
   "texas-christmas-road-trip": [christmasHub, { href: "/article/best-christmas-lights-in-texas", label: "Add the strongest Hill Country light displays", description: "Time the route around current seasonal schedules." }],
 
   "fall-in-texas-complete-guide": [
-    { href: "/article/best-places-for-fall-colors-in-texas", label: "Best places for fall color", description: "Compare the strongest statewide foliage destinations." },
     { href: "/article/east-texas-fall-colors", label: "East Texas fall colors", description: "Explore the Piney Woods, Caddo Lake, Daingerfield, Tyler and Lake Bob Sandlin." },
     { href: "/article/hill-country-fall-colors", label: "Hill Country fall colors", description: "Follow Lost Maples, the Frio and Guadalupe river corridors." },
     { href: "/article/best-texas-state-parks-for-fall-colors", label: "Best state parks for fall", description: "Choose public parks by tree type, region and scenery." },
     { href: "/article/texas-fall-foliage-road-trip", label: "Texas fall foliage road trip", description: "Turn current color reports into a flexible multi-day itinerary." },
   ],
-  "best-places-for-fall-colors-in-texas": [fallHub, { href: "/article/east-texas-fall-colors", label: "Go deeper into East Texas", description: "Use the Piney Woods when broader forest color is the priority." }, { href: "/article/hill-country-fall-colors", label: "Go deeper into the Hill Country", description: "Focus on maples, cypress and river corridors." }],
   "east-texas-fall-colors": [fallHub, { href: "/article/caddo-lake-cypress-morning", label: "See Caddo Lake from the water", description: "Turn an East Texas foliage trip into a bayou and cypress experience." }],
   "hill-country-fall-colors": [fallHub, { href: "/article/texas-fall-foliage-road-trip", label: "Drive the Hill Country fall route", description: "Link Garner, Lost Maples and the Guadalupe corridor." }],
   "best-texas-state-parks-for-fall-colors": [fallHub, { href: "/explore/state-parks", label: "Browse all Texas state parks", description: "Add camping, hiking and nearby parks to the foliage trip." }],
@@ -115,7 +113,7 @@ const additions: Record<string, ArticleInternalLink[]> = {
   ],
   "caddo-lake-cypress-morning": [
     fallHub,
-    { href: "/article/best-places-for-fall-colors-in-texas", label: "Texas fall-color destinations", description: "Compare Caddo with Lost Maples, Garner, Daingerfield, Lake Bob Sandlin and the Guadalupe." },
+    { href: "/article/best-texas-state-parks-for-fall-colors", label: "Texas state parks for fall color", description: "Compare Caddo with Lost Maples, Garner, Daingerfield, Lake Bob Sandlin and the Guadalupe." },
     { href: "/article/east-texas-fall-colors", label: "East Texas fall guide", description: "Build a wider Piney Woods itinerary around Caddo Lake." },
   ],
   "cameron-county-brownsville-harlingen-south-padre-rio-grande-texas": [
