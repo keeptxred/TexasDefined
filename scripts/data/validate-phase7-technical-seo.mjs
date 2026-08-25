@@ -28,13 +28,15 @@ if (!seoSource.includes('technicalOverride?.title ?? page.title')) failures.push
 if (!seoSource.includes('technicalOverride?.description ?? page.description')) failures.push('Phase 7 description override is not wired into buildMeta.');
 
 for (const [canonicalPath, expectedTitle] of targets) {
-  const sourceFragment = `"${canonicalPath}": { title: "${expectedTitle}"`;
-  if (!seoSource.includes(sourceFragment)) failures.push(`${canonicalPath}: expected audited title override is missing.`);
+  const escapedPath = canonicalPath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const escapedTitle = expectedTitle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const overridePattern = new RegExp(`"${escapedPath}"\\s*:\\s*\\{[\\s\\S]*?title\\s*:\\s*"${escapedTitle}"`);
+  if (!overridePattern.test(seoSource)) failures.push(`${canonicalPath}: expected audited title override is missing.`);
   const fullTitle = `${expectedTitle}${brandSuffix}`;
   if (fullTitle.length < 30 || fullTitle.length > 60) failures.push(`${canonicalPath}: final title length ${fullTitle.length} is outside 30–60 chars.`);
 }
 
-const roadTripsMatch = seoSource.match(/"\/explore\/road-trips": \{[\s\S]*?description: "([^"]+)"/);
+const roadTripsMatch = seoSource.match(/"\/explore\/road-trips"\s*:\s*\{[\s\S]*?description\s*:\s*"([^"]+)"/);
 const roadTripsDescription = roadTripsMatch?.[1] ?? '';
 if (roadTripsDescription.length < 100 || roadTripsDescription.length > 160) {
   failures.push(`/explore/road-trips: description length ${roadTripsDescription.length} is outside 100–160 chars.`);
