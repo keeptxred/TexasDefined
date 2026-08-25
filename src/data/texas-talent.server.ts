@@ -3,6 +3,7 @@ import { TEXAS_TALENT_MUSIC_EXPANSION } from "@/data/texas-talent-profiles-wave2
 import { TEXAS_TALENT_FILM_EXPANSION } from "@/data/texas-talent-profiles-wave2-film";
 import { TEXAS_TALENT_ARTS_EXPANSION } from "@/data/texas-talent-profiles-wave2-arts";
 import { TEXAS_TALENT_READINESS } from "@/data/texas-talent-readiness";
+import { TEXAS_TALENT_READINESS_BATCH3 } from "@/data/texas-talent-readiness-batch3";
 
 const TEXAS_TALENT_ALL_PROFILES = [
   ...TEXAS_TALENT_PROFILES,
@@ -11,10 +12,15 @@ const TEXAS_TALENT_ALL_PROFILES = [
   ...TEXAS_TALENT_ARTS_EXPANSION,
 ] as const;
 
+const TEXAS_TALENT_ALL_READINESS = {
+  ...TEXAS_TALENT_READINESS,
+  ...TEXAS_TALENT_READINESS_BATCH3,
+};
+
 function withReadiness<T extends (typeof TEXAS_TALENT_ALL_PROFILES)[number]>(profile: T) {
   return {
     ...profile,
-    readiness: TEXAS_TALENT_READINESS[profile.slug] ?? null,
+    readiness: TEXAS_TALENT_ALL_READINESS[profile.slug] ?? null,
   };
 }
 
