@@ -36,6 +36,27 @@ interface EditorialCollectionSeo extends PageSeo {
 const DEFAULT_INDEX_ROBOTS = "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
 const META_DESCRIPTION_MAX_LENGTH = 160;
 
+const TEXASDEFINED_TECHNICAL_SEO_OVERRIDES: Record<string, { title: string; description?: string }> = {
+  "/county/bexar": { title: "Bexar County, Texas Guide" },
+  "/explore/road-trips": {
+    title: "Texas Road Trips & Scenic Drives",
+    description: "Plan Texas road trips with scenic drives, regional routes, stop-by-stop itineraries, parks, small towns and practical trip-planning details.",
+  },
+  "/texas-closing-cost-calculator": { title: "Texas Closing Cost Calculator" },
+  "/texas-property-tax-estimator": { title: "Texas Property Tax Estimator" },
+  "/texas-home-equity-calculator": { title: "Texas Home Equity Calculator" },
+  "/texas-moving-cost-calculator": { title: "Texas Moving Cost Calculator" },
+  "/property-tax-calculators": { title: "Texas Property Tax Calculators" },
+  "/fishing": { title: "Texas Fishing Guide | Lakes & Species" },
+  "/sports-venues": { title: "Texas Stadiums & Sports Venues" },
+  "/events": { title: "Texas Events & Festivals" },
+  "/destination/palo-duro-canyon-state-park": { title: "Palo Duro Canyon State Park Guide" },
+  "/texas-vs/california": { title: "Texas vs California: Cost & Living" },
+  "/article/texas-wildlife-guide": { title: "Texas Wildlife Guide: Animals & Habitats" },
+  "/article/texas-farm-to-market-roads-explained": { title: "Texas Farm-to-Market Roads Explained" },
+  "/article/beginners-guide-ordering-texas-barbecue": { title: "How to Order Texas Barbecue" },
+};
+
 const SOCIAL_IMAGE_FALLBACKS: Partial<Record<BrandConfig["identity"]["id"], { src: string; alt: string; type: string }>> = {
   texasdefined: {
     src: "/images/state-parks/palo-duro-canyon-state-park.jpg",
@@ -64,8 +85,11 @@ export function absoluteUrl(brand: BrandConfig, value: string) {
 }
 
 export function buildMeta(brand: BrandConfig, page: PageSeo) {
-  const pageTitle = cleanMetaText(page.title);
-  const description = cleanMetaDescription(page.description);
+  const technicalOverride = brand.identity.id === "texasdefined" && page.canonicalPath
+    ? TEXASDEFINED_TECHNICAL_SEO_OVERRIDES[page.canonicalPath]
+    : undefined;
+  const pageTitle = cleanMetaText(technicalOverride?.title ?? page.title);
+  const description = cleanMetaDescription(technicalOverride?.description ?? page.description);
   const fullTitle = cleanMetaText(brand.seo.titleTemplate.replace("%s", pageTitle));
   const canonicalUrl = page.canonicalPath ? absoluteUrl(brand, page.canonicalPath) : undefined;
   const fallbackImage = SOCIAL_IMAGE_FALLBACKS[brand.identity.id];
