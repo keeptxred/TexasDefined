@@ -14,12 +14,15 @@ on:
       - 'src/data/destination-editorial-links.ts'
       - 'src/data/fixtures/seasonal-authority-articles.ts'
       - 'src/data/fixtures/seasonal-intent-articles.ts'
+      - 'src/data/fixtures/lazy-seasonal-authority.ts'
       - 'src/data/fixtures/seasonal-authority-links.ts'
       - 'src/data/fixtures/seasonal-county-links.ts'
       - 'src/data/county-seasonal-links.ts'
       - 'src/components/content/CountySeasonalPlanning.tsx'
       - 'src/components/content/CountyIdentitySection.tsx'
       - 'src/components/editorial/ExploreIntentPaths.tsx'
+      - 'src/server.ts'
+      - 'scripts/data/validate-seasonal-authority.mjs'
 
 permissions:
   contents: read
@@ -96,6 +99,25 @@ jobs:
             echo >&2
             return 1
           }
+          redirect_assert() {
+            local label="$1" path="$2" expected_path="$3"
+            local headers="$workdir/${label}.headers"
+            local attempt status location
+            for attempt in 1 2 3 4 5 6; do
+              echo "[$label] attempt $attempt: ${origin}${path}"
+              status="$(curl --silent --show-error --max-time 30 --output /dev/null --dump-header "$headers" --write-out '%{http_code}' \
+                "${origin}${path}?verify=${DEPLOY_SHA}-${GITHUB_RUN_ID}-${attempt}")"
+              location="$(awk 'BEGIN{IGNORECASE=1} /^location:/ {sub(/\r$/,"",$0); sub(/^location:[[:space:]]*/,"",$0); print; exit}' "$headers")"
+              if [ "$status" = 301 ] && [[ "$location" == "${origin}${expected_path}"* ]]; then
+                echo "[$label] production redirect verified: $status $location"
+                return 0
+              fi
+              echo "[$label] expected 301 to ${expected_path}, got status=${status} location=${location:-missing}"
+              sleep 5
+            done
+            echo "[$label] production redirect verification failed for ${origin}${path}" >&2
+            return 1
+          }
 
           fetch_assert explore-seasonal '/explore' 'Seasonal Texas'
           fetch_assert explore-bluebonnets '/explore' 'Bluebonnet season'
@@ -113,7 +135,7 @@ jobs:
           fetch_assert christmas-trains '/article/texas-christmas-train-rides' 'Christmas Train Rides in Texas'
 
           fetch_assert fall-hub '/article/fall-in-texas-complete-guide' 'Where Autumn Actually Shows Up in Texas'
-          fetch_assert fall-best '/article/best-places-for-fall-colors-in-texas' 'The Places We Trust for Texas Fall Color'
+          redirect_assert fall-best-retired '/article/best-places-for-fall-colors-in-texas' '/article/best-texas-state-parks-for-fall-colors'
           fetch_assert fall-east '/article/east-texas-fall-colors' 'Where to See Fall Colors in East Texas'
           fetch_assert fall-parks '/article/best-texas-state-parks-for-fall-colors' 'The Best Texas State Parks for Fall Colors'
 
