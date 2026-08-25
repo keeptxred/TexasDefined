@@ -6,6 +6,7 @@ import { getTexasCountyHousingCosts } from "@/data/acs-county-housing-costs.func
 import { fetchPublishedTexasDefinedArticles } from "@/data/articles-remote";
 import { loadTexasCountyGrowth } from "@/data/census-county-growth";
 import { isLegacyCountySeriesArticle } from "@/data/county-series";
+import { isTexasGatewayIndexReadyArticle } from "@/data/fixtures/texas-gateway-index-readiness";
 import { loadFishingGuideSitemapEntriesServer } from "@/data/fishing/guide-sitemap.server";
 import { loadFishingLocalSitemapEntriesServer } from "@/data/fishing/local-sitemap.server";
 import { loadFishingReportSitemapEntriesServer } from "@/data/fishing/report-sitemap.server";
@@ -116,7 +117,9 @@ export const Route = createFileRoute("/sitemap.xml")({
             .filter((collection) => activeCollectionSlugs.has(collection.slug))
             .map((collection) => ({ path: `/shop/${collection.slug}` })),
           ...authors.map((author) => ({ path: `/authors/${author.id}` })),
-          ...articles.filter((article) => !isLegacyCountySeriesArticle(article.slug)).map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(ARTICLE_LASTMOD_BY_SLUG[article.slug] ?? article.publishedAt) })),
+          ...articles
+            .filter((article) => !isLegacyCountySeriesArticle(article.slug) && isTexasGatewayIndexReadyArticle(article))
+            .map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(ARTICLE_LASTMOD_BY_SLUG[article.slug] ?? article.publishedAt) })),
           ...countyPages.map((county) => ({ path: `/property-tax/county/${county.slug}`, lastmod: toDate(county.lastVerifiedAt ?? undefined) })),
           ...entityPages.map((entity) => ({ path: canonicalEntityPath(entity), lastmod: toDate(entity.sourceCheckedAt) })),
           ...TEXAS_DATASETS.map((dataset) => ({ path: `/texas-data/${dataset.slug}`, lastmod: toDate(dataset.updated) })),

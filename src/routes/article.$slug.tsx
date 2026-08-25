@@ -8,6 +8,7 @@ import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import { articleInternalLinks } from "@/data/article-internal-links";
+import { shouldNoindexTexasGatewayArticle } from "@/data/fixtures/texas-gateway-index-readiness";
 import { articleQuery, articlesQuery, authorsQuery, categoriesQuery, destinationsQuery } from "@/data/queries";
 import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
 import { canonicalEntityPath } from "@/data/knowledge-graph/relationships";
@@ -272,6 +273,7 @@ export const Route = createFileRoute("/article/$slug")({
         imageWidth: article.hero.width,
         imageHeight: article.hero.height,
         publishedTime: article.publishedAt,
+        robots: shouldNoindexTexasGatewayArticle(article) ? "noindex, follow, max-image-preview:large" : undefined,
       }),
       links: [
         canonicalLink(texasDefinedBrand, canonicalPath),

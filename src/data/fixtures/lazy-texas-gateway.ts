@@ -1,0 +1,77 @@
+import type { Article } from "../types";
+import { isTexasGatewayIndexReadyArticle } from "./texas-gateway-index-readiness";
+
+const GATEWAY_LINK_ALIASES: Record<string, string> = {
+  "/lakes-rivers": "/explore/lakes-rivers",
+  "/major-springs": "/explore/major-springs",
+  "/state-parks": "/explore/state-parks",
+  "/national-parks": "/explore/national-parks",
+  "/caverns": "/explore/caverns",
+  "/beaches-coast": "/explore/beaches-coast",
+  "/historic-sites": "/explore/historic-sites",
+  "/road-trips": "/explore/road-trips",
+  "/small-towns": "/explore/small-towns",
+  "/food-bbq": "/explore/food-bbq",
+  "/outdoors": "/explore/outdoors",
+  "/explore/texas-camping-guide": "/best-places-to-go-camping-in-texas",
+};
+
+const JACOBS_WELL_OLD = "Jacob's Well area when open for swimming";
+const JACOBS_WELL_CURRENT = "Jacob's Well Natural Area for hiking and the spring overlook; swimming is currently closed until further notice";
+
+const normalizeGatewayArticle = (article: Article): Article => ({
+  ...article,
+  body: article.body.map((block) =>
+    block.type === "list"
+      ? {
+          ...block,
+          items: block.items.map((item) => item === JACOBS_WELL_OLD ? JACOBS_WELL_CURRENT : item),
+        }
+      : block,
+  ),
+  internalLinks: article.internalLinks?.map((link) => ({
+    ...link,
+    href: GATEWAY_LINK_ALIASES[link.href] ?? link.href,
+  })),
+});
+
+let allGatewayArticlesPromise: Promise<Article[]> | null = null;
+
+function loadAllTexasGatewayArticles(): Promise<Article[]> {
+  allGatewayArticlesPromise ??= Promise.all([
+    import("./texas-gateway-articles").then((module) => module.texasGatewayArticles),
+    import("./texas-gateway-articles-batch2").then((module) => module.texasGatewayArticlesBatch2),
+    import("./texas-gateway-lifestyle-batch3").then((module) => module.texasGatewayLifestyleBatch3),
+    import("./texas-gateway-lifestyle-batch4").then((module) => module.texasGatewayLifestyleBatch4Articles),
+    import("./texas-gateway-lifestyle-batch5").then((module) => module.texasGatewayLifestyleBatch5Articles),
+    import("./texas-gateway-lifestyle-batch6").then((module) => module.texasGatewayLifestyleBatch6Articles),
+    import("./texas-gateway-regional-batch7").then((module) => module.texasGatewayRegionalBatch7Articles),
+    import("./texas-gateway-bestof-batch8").then((module) => module.texasGatewayBestOfBatch8Articles),
+    import("./texas-gateway-bestof-batch9").then((module) => module.texasGatewayBestOfBatch9Articles),
+    import("./texas-gateway-itinerary-batch10").then((module) => module.texasGatewayItineraryBatch10Articles),
+    import("./texas-gateway-decision-batch11").then((module) => module.texasGatewayDecisionBatch11Articles),
+    import("./texas-gateway-decision-batch12").then((module) => module.texasGatewayDecisionBatch12Articles),
+    import("./texas-gateway-decision-batch13").then((module) => module.texasGatewayDecisionBatch13Articles),
+    import("./texas-gateway-occasion-batch14").then((module) => module.texasGatewayOccasionBatch14Articles),
+    import("./texas-gateway-monthly-batch15").then((module) => module.texasGatewayMonthlyBatch15Articles),
+    import("./texas-gateway-identity-batch16").then((module) => module.texasGatewayIdentityBatch16Articles),
+  ]).then((batches) => batches.flat().map(normalizeGatewayArticle));
+
+  return allGatewayArticlesPromise;
+}
+
+/**
+ * Public discovery loader used by article lists, internal search and sitemap
+ * generation. Staged gateway drafts are intentionally excluded here.
+ */
+export async function loadTexasGatewayArticles(): Promise<Article[]> {
+  const articles = await loadAllTexasGatewayArticles();
+  return articles.filter(isTexasGatewayIndexReadyArticle);
+}
+
+/** Direct article resolution keeps staged drafts reachable for editorial QA. */
+export async function loadTexasGatewayArticle(brandId: string, slug: string): Promise<Article | null> {
+  if (brandId !== "texasdefined") return null;
+  const articles = await loadAllTexasGatewayArticles();
+  return articles.find((article) => article.slug === slug) ?? null;
+}
