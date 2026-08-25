@@ -1,10 +1,10 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 
-import { getTexasTalentProfile } from "@/data/texas-talent.functions";
+import { getTexasTalentProfileWithResolvedLinks } from "@/data/texas-talent.functions";
 
 export const Route = createFileRoute("/admin/texas-talent/$slug")({
   beforeLoad: async ({ params }) => {
-    const profile = await getTexasTalentProfile({ data: { slug: params.slug } });
+    const profile = await getTexasTalentProfileWithResolvedLinks({ data: { slug: params.slug } });
     if (!profile) throw notFound();
     return { profile };
   },
