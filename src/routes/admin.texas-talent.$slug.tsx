@@ -1,6 +1,6 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 
-import { getTexasTalentProfile } from "@/data/texas-talent-profiles";
+import { getTexasTalentProfile } from "@/data/texas-talent-profiles-all";
 
 export const Route = createFileRoute("/admin/texas-talent/$slug")({
   beforeLoad: ({ params }) => {
