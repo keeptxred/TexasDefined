@@ -9,7 +9,7 @@ on:
       - 'src/data/destination-preserved-catalog.ts'
       - 'src/routes/destination.enchanted-rock.tsx'
       - 'src/routes/destination.palo-duro-canyon.tsx'
-      - 'src/routes/sitemap-explore[.]xml.ts'
+      - 'src/routes/sitemap-explore*xml.ts'
       - 'src/data/destination-query-runtime.ts'
   workflow_dispatch:
 
@@ -35,12 +35,17 @@ jobs:
           old_palo='/destination/palo-duro-canyon'
           new_palo='/destination/palo-duro-canyon-state-park'
 
+          sitemap_has() {
+            local path="$1"
+            grep -Fq "<loc>$origin$path</loc>" /tmp/sitemap-explore.xml
+          }
+
           ready=0
           for attempt in $(seq 1 30); do
             status="$(curl --max-time 45 -sS -o /tmp/sitemap-explore.xml -w '%{http_code}' "$origin/sitemap-explore.xml" || true)"
             if [ "$status" = '200' ] \
-              && grep -Fq "$origin$new_enchanted" /tmp/sitemap-explore.xml \
-              && grep -Fq "$origin$new_palo" /tmp/sitemap-explore.xml; then
+              && sitemap_has "$new_enchanted" \
+              && sitemap_has "$new_palo"; then
               ready=1
               echo "Canonical destination sitemap release visible on attempt $attempt."
               break
@@ -51,7 +56,7 @@ jobs:
           test "$ready" = '1' || { echo 'Canonical destination release did not become visible.' >&2; exit 1; }
 
           for legacy in "$old_enchanted" "$old_palo"; do
-            if grep -Fq "$origin$legacy" /tmp/sitemap-explore.xml; then
+            if sitemap_has "$legacy"; then
               echo "Legacy duplicate leaked into Explore sitemap: $legacy" >&2
               exit 1
             fi

@@ -1,8 +1,8 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
-import { PrioritySearchPage } from "@/components/editorial/PrioritySearchPage";
 import { loadPrioritySearchPage } from "@/data/priority-search-page";
 import { buildPrioritySearchHead } from "@/lib/priority-search-seo";
 
+// PrioritySearchPage UI is intentionally delivered from texas-flag.lazy.tsx.
 const canonicalPath = "/texas-flag";
 const faq = [
   { question: "When was the current Texas flag adopted?", answer: "The familiar Lone Star design was adopted by the Republic of Texas in 1839 and remains the state flag today." },
@@ -23,9 +23,4 @@ export const Route = createFileRoute("/texas-flag")({
     data: loaderData,
     about: ["Texas flag", "Lone Star flag", "Texas history", "Texas Flag Code", "Texas symbols"],
   }) : {},
-  component: TexasFlagPage,
 });
-
-function TexasFlagPage() {
-  return <PrioritySearchPage data={Route.useLoaderData()} />;
-}

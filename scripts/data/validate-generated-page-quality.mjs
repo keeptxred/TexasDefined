@@ -3,11 +3,16 @@ import fs from 'node:fs';
 const errors = [];
 const warnings = [];
 const read = (path) => fs.readFileSync(path, 'utf8');
+const readRouteSurface = (file) => {
+  const eagerSource = read(file);
+  const lazyFile = file.replace(/\.tsx$/, '.lazy.tsx');
+  return fs.existsSync(lazyFile) ? `${eagerSource}\n${read(lazyFile)}` : eagerSource;
+};
 
 const registry = read('src/data/texas-entity-registry.ts');
 const relationships = read('src/data/knowledge-graph/relationships.ts');
 const entityIndex = read('src/data/knowledge-graph/index.ts');
-const entityRoute = read('src/routes/$kind.$slug.tsx');
+const entityRoute = readRouteSurface('src/routes/$kind.$slug.tsx');
 const countyGuide = read('src/components/content/CountyGuideSections.tsx');
 const countyProfile = read('src/data/county-profile.ts');
 const localGovernment = read('src/data/local-government-profile.ts');

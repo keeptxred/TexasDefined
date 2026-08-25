@@ -52,6 +52,7 @@ const NON_PRIMARY_TRIP_PLANNER_SLUGS = new Set([
   "lyndon-b-johnson-state-park-state-historic-site",
   "monument-hill-kreische-brewery-state-historic-site",
   "palo-duro-canyon",
+  "port-isabel-lighthouse-state-park",
   "ray-roberts-lake-isle-du-bois-unit",
   "ray-roberts-lake-isle-du-bois-unit-state-park",
   "ray-roberts-lake-johnson-branch-unit",

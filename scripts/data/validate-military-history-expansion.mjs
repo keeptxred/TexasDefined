@@ -9,9 +9,15 @@ const sitemapPath = 'src/routes/sitemap[.]xml.ts';
 const destinationsPath = 'src/data/military-history-destinations.ts';
 const preservedCatalogPath = 'src/data/destination-preserved-catalog.ts';
 
+const readRouteSurface = (file) => {
+  const eagerSource = fs.readFileSync(file, 'utf8');
+  const lazyFile = file.replace(/\.tsx$/, '.lazy.tsx');
+  return fs.existsSync(lazyFile) ? `${eagerSource}\n${fs.readFileSync(lazyFile, 'utf8')}` : eagerSource;
+};
+
 const lazy = fs.readFileSync(lazyPath, 'utf8');
 const repositories = fs.readFileSync(repositoriesPath, 'utf8');
-const historyHub = fs.readFileSync(historyHubPath, 'utf8');
+const historyHub = readRouteSurface(historyHubPath);
 const reciprocal = fs.readFileSync(reciprocalPath, 'utf8');
 const sourcing = fs.readFileSync(sourcingPath, 'utf8');
 const sitemap = fs.readFileSync(sitemapPath, 'utf8');
@@ -92,4 +98,4 @@ if (failures.length) {
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
-console.log(`Military history expansion validation passed: ${guides.length} source-backed, lazy-loaded guides, the canonical Battleship Texas authority page, and ${plannerDestinations.length} preserved Trip Planner destinations retain substantive depth, explicit discovery, quality-gated article sitemap publication, reciprocal linking and archival-image sourcing rules.`);
+console.log(`Military history expansion validation passed: ${guides.length} source-backed, lazy-loaded guides, the canonical Battleship Texas authority page, and ${plannerDestinations.length} preserved Trip Planner destinations retain substantive depth, explicit discovery, quality-gated article sitemap publication, reciprocal linking, archival-image sourcing rules, and Texas History hub coverage across eager and lazy route surfaces.`);

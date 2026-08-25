@@ -8,6 +8,36 @@ import { militaryHistoryDestinations } from "./military-history-destinations";
 import { militaryMuseumDestinations } from "./military-museum-destinations";
 import type { Destination } from "./types";
 
+const newBraunfelsSeasonalFallback: Destination = {
+  id: "preserved-new-braunfels",
+  brandId: "texasdefined",
+  slug: "new-braunfels",
+  name: "New Braunfels",
+  summary: "A German-Texan Hill Country city built around the Comal and Guadalupe rivers, with tubing, historic neighborhoods, Gruene and strong access to Canyon Lake.",
+  category: "small-towns",
+  region: "hill-country",
+  nearestTown: "New Braunfels",
+  county: "Comal County",
+  coordinates: { lat: 29.703, lng: -98.124 },
+  hero: {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Comal-county-courthouse2016-2(new-braunfels).jpg?width=1600",
+    alt: "Historic Comal County Courthouse in downtown New Braunfels, Texas",
+    width: 1600,
+    height: 1128,
+    credit: "Darrylpearson · Wikimedia Commons · CC BY-SA 4.0",
+  },
+  bestSeason: "Late spring through early fall for river recreation; fall through spring for town exploring",
+  entryNote: "River rules, flows and tubing access change with weather and season. Check current city and outfitter information before planning a float.",
+  highlights: ["Comal River", "Guadalupe River", "Gruene Historic District", "German-Texan heritage"],
+  body: [
+    "New Braunfels is defined by water as much as history. The Comal runs directly through town, while the Guadalupe creates a larger recreation corridor nearby.",
+    "Gruene adds preserved architecture, live music and dining, and the city's German-Texan roots remain visible in festivals, food and historic sites.",
+    "Check river conditions and local rules before arrival, especially after heavy rain or during peak summer weekends when parking and shuttle logistics matter.",
+  ],
+  officialUrl: "https://www.playinnewbraunfels.com/",
+  sourceCheckedAt: "2026-08-24",
+};
+
 function mergePreservedDestinations(...groups: Destination[][]): Destination[] {
   const merged = new Map<string, Destination>();
   for (const group of groups) {
@@ -43,4 +73,5 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   historicSiteDestinations,
   militaryHistoryDestinations,
   militaryMuseumDestinations,
+  [newBraunfelsSeasonalFallback],
 );

@@ -1,6 +1,7 @@
 import { appendFileSync } from 'node:fs';
 
 const origin = process.env.PRODUCTION_ORIGIN ?? 'https://texasdefined.com';
+// Bind every no-store production probe to the deploying revision and workflow run.
 const sha = process.env.GITHUB_SHA ?? 'local';
 const runId = process.env.GITHUB_RUN_ID ?? Date.now().toString();
 const summaryPath = process.env.GITHUB_STEP_SUMMARY;

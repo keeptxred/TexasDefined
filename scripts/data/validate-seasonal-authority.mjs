@@ -6,7 +6,10 @@ const intents = read("src/data/fixtures/seasonal-intent-articles.ts");
 const authorityLazy = read("src/data/fixtures/lazy-seasonal-authority.ts");
 const intentLazy = read("src/data/fixtures/lazy-seasonal-intents.ts");
 const links = read("src/data/fixtures/seasonal-authority-links.ts");
-const countyLinks = read("src/data/fixtures/seasonal-county-links.ts");
+const countyRegistry = read("src/data/county-seasonal-links.ts");
+const countyLegacyLinks = read("src/data/fixtures/seasonal-county-links.ts");
+const countyComponent = read("src/components/content/CountySeasonalPlanning.tsx");
+const countyIdentity = read("src/components/content/CountyIdentitySection.tsx");
 const destinationLinks = read("src/data/destination-editorial-links.ts");
 const newest = read("src/data/fixtures/lazy-newest-evergreen.ts");
 const exploreIntents = read("src/components/editorial/ExploreIntentPaths.tsx");
@@ -47,7 +50,7 @@ const destinationRequirements = {
   "caddo-lake": ["/article/fall-in-texas-complete-guide", "/article/east-texas-fall-colors", "/article/best-places-for-fall-colors-in-texas"],
   "guadalupe-river-state-park": ["/article/fall-in-texas-complete-guide", "/article/hill-country-fall-colors", "/article/best-texas-state-parks-for-fall-colors"],
   "new-braunfels": ["/article/christmas-in-texas-complete-guide", "/article/best-christmas-towns-in-texas", "/article/texas-christmas-road-trip"],
-  "gruene": ["/article/christmas-in-texas-complete-guide", "/article/best-christmas-towns-in-texas"],
+  "gruene-historic-district": ["/article/christmas-in-texas-complete-guide", "/article/best-christmas-towns-in-texas"],
 };
 for (const [destination, hrefs] of Object.entries(destinationRequirements)) {
   if (!destinationLinks.includes(`\"${destination}\"`)) fail(`missing seasonal destination link group for ${destination}`);
@@ -55,21 +58,24 @@ for (const [destination, hrefs] of Object.entries(destinationRequirements)) {
 }
 
 const countyRequirements = {
-  "gillespie-county-fredericksburg-stonewall-hill-country-texas": ["/article/texas-bluebonnets-complete-guide", "/article/texas-bluebonnet-road-trip", "/article/texas-christmas-road-trip", "/article/christmas-in-texas-complete-guide"],
-  "harrison-county-marshall-caddo-lake-railroads-piney-woods-texas": ["/article/east-texas-fall-colors", "/article/fall-in-texas-complete-guide", "/article/best-christmas-towns-in-texas"],
-  "marion-county-jefferson-caddo-lake-riverport-piney-woods-texas": ["/article/east-texas-fall-colors", "/article/fall-in-texas-complete-guide", "/article/best-christmas-towns-in-texas"],
-  "ellis-county-waxahachie-ennis-blackland-prairie-texas": ["/article/bluebonnets-near-dallas-fort-worth", "/article/best-places-to-see-bluebonnets-in-texas", "/article/texas-bluebonnet-festivals"],
-  "washington-county-brenham-washington-brazos-independence-texas": ["/article/bluebonnets-near-houston", "/article/texas-bluebonnets-complete-guide", "/article/texas-bluebonnet-road-trip"],
-  "burnet-county-burnet-marble-falls-highland-lakes-granite-texas": ["/article/texas-bluebonnets-complete-guide", "/article/best-places-to-see-bluebonnets-in-texas", "/article/texas-bluebonnet-road-trip"],
-  "llano-county-llano-river-granite-highland-lakes-texas": ["/article/texas-bluebonnets-complete-guide", "/article/best-places-to-see-bluebonnets-in-texas", "/article/texas-bluebonnet-road-trip"],
-  "uvalde-county-uvalde-garner-frio-fort-inge-texas": ["/article/fall-in-texas-complete-guide", "/article/best-places-for-fall-colors-in-texas", "/article/hill-country-fall-colors", "/article/best-texas-state-parks-for-fall-colors"],
-  "bandera-county-bandera-medina-river-cowboy-hill-country-texas": ["/article/hill-country-fall-colors", "/article/fall-in-texas-complete-guide"],
+  gillespie: ["/article/texas-bluebonnets-complete-guide", "/article/texas-bluebonnet-road-trip", "/article/texas-christmas-road-trip", "/article/christmas-in-texas-complete-guide"],
+  harrison: ["/article/east-texas-fall-colors", "/article/fall-in-texas-complete-guide", "/article/best-christmas-towns-in-texas"],
+  marion: ["/article/east-texas-fall-colors", "/article/fall-in-texas-complete-guide", "/article/best-christmas-towns-in-texas"],
+  ellis: ["/article/bluebonnets-near-dallas-fort-worth", "/article/best-places-to-see-bluebonnets-in-texas", "/article/texas-bluebonnet-festivals"],
+  washington: ["/article/bluebonnets-near-houston", "/article/texas-bluebonnets-complete-guide", "/article/texas-bluebonnet-road-trip"],
+  burnet: ["/article/texas-bluebonnets-complete-guide", "/article/best-places-to-see-bluebonnets-in-texas", "/article/texas-bluebonnet-road-trip"],
+  llano: ["/article/texas-bluebonnets-complete-guide", "/article/best-places-to-see-bluebonnets-in-texas", "/article/texas-bluebonnet-road-trip"],
+  uvalde: ["/article/fall-in-texas-complete-guide", "/article/best-places-for-fall-colors-in-texas", "/article/hill-country-fall-colors", "/article/best-texas-state-parks-for-fall-colors"],
+  bandera: ["/article/hill-country-fall-colors", "/article/fall-in-texas-complete-guide"],
 };
 for (const [county, hrefs] of Object.entries(countyRequirements)) {
-  if (!countyLinks.includes(`\"${county}\"`)) fail(`missing seasonal county link group for ${county}`);
-  for (const href of hrefs) if (!countyLinks.includes(`href: \"${href}\"`)) fail(`${county}: missing ${href}`);
+  if (!countyRegistry.includes(`\n  ${county}: [`)) fail(`missing canonical seasonal county link group for /county/${county}`);
+  for (const href of hrefs) if (!countyRegistry.includes(`href: \"${href}\"`)) fail(`/county/${county}: missing ${href}`);
 }
-if (!newest.includes('import "./seasonal-county-links"')) fail("seasonal county reciprocity file is not loaded");
+if (!countyComponent.includes("countySeasonalLinks(countySlug)")) fail("canonical county seasonal component is not reading the shared county registry");
+if (!countyIdentity.includes("<CountySeasonalPlanning countySlug={slug} countyName={countyName} />")) fail("canonical county pages are not rendering the seasonal planning layer");
+if (!countyLegacyLinks.includes("countySeasonalLinksBySlug, legacyCountyArticleSlugByCountySlug")) fail("legacy county articles are not sharing the canonical seasonal registry");
+if (!newest.includes('import "./seasonal-county-links"')) fail("legacy seasonal county reciprocity compatibility file is not loaded");
 
 if (!exploreIntents.includes('title: "Seasonal Texas"')) fail("Explore seasonal planning group missing");
 if (!authority.includes("There is no statewide law that simply bans picking bluebonnets everywhere")) fail("bluebonnet law caveat missing from statewide authority content");
@@ -81,4 +87,4 @@ if (!newest.includes("loadSeasonalIntentArticle") || !newest.includes("loadSeaso
 if (!authorityLazy.includes('await import("./seasonal-authority-articles")')) fail("seasonal authority full bodies are not dynamically imported");
 if (!intentLazy.includes('await import("./seasonal-intent-articles")')) fail("seasonal intent full bodies are not dynamically imported");
 
-if (!process.exitCode) console.log("Seasonal authority guardrail passed: 21 pages, reciprocal article/county/destination links, Explore discovery, safety/currentness caveats and lazy loading verified.");
+if (!process.exitCode) console.log("Seasonal authority guardrail passed: 21 pages, canonical county/destination reciprocity, Explore discovery, safety/currentness caveats and lazy loading verified.");

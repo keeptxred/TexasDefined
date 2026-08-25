@@ -1,8 +1,13 @@
+import { lazy, Suspense } from 'react';
+
 import { CountyHistoricSites } from '@/components/content/CountyHistoricSites';
 import { CountyMadeBuiltBorn } from '@/components/content/CountyMadeBuiltBorn';
+import { CountySeasonalPlanning } from '@/components/content/CountySeasonalPlanning';
 import { CountyStatewideContextSection } from '@/components/content/CountyStatewideContextSection';
 import { CountyTaxRateSection } from '@/components/property/CountyTaxRateSection';
 import type { CountyProfile } from '@/data/county-profile';
+
+const CountyLandscapeContext = lazy(() => import('@/components/content/CountyLandscapeContext').then((module) => ({ default: module.CountyLandscapeContext })));
 
 const regionalExplainers: Record<string, Array<{ href: string; label: string }>> = {
   'hill-country': [
@@ -57,7 +62,7 @@ export function CountyIdentitySection({ countyName, region, profile }: { countyN
     { href: '/texas-explained', label: 'All 10 Texas Explained guides' },
   ];
 
-  if (!hasIdentitySignal) return <><CountyTaxRateSection countySlug={slug} countyName={countyName} /><CountyMadeBuiltBorn countySlug={slug} /></>;
+  if (!hasIdentitySignal) return <><CountySeasonalPlanning countySlug={slug} countyName={countyName} /><CountyTaxRateSection countySlug={slug} countyName={countyName} /><CountyMadeBuiltBorn countySlug={slug} /></>;
 
   return (
     <>
@@ -74,6 +79,9 @@ export function CountyIdentitySection({ countyName, region, profile }: { countyN
             {waterShare != null && profile.waterAreaSquareMiles != null ? <p>Census geography also records about {Math.round(profile.waterAreaSquareMiles).toLocaleString('en-US')} square miles of water. Water represents approximately {waterShare.toFixed(1)}% of the county's mapped land-and-water area.</p> : null}
             {seatName ? <p><strong className="text-foreground">{seatName}</strong> is the verified county seat{region ? `, and Texas Defined groups the county within ${title(region)} for regional browsing` : ''}.</p> : region ? <p>Texas Defined groups this county within {title(region)} for regional browsing.</p> : null}
             {otherCommunities.length > 0 ? <p>Beyond the county seat, the current structured place directory links this county to {formatList(otherCommunities.slice(0, 5))}{otherCommunities.length > 5 ? ', among additional listed communities' : ''}. This is a directory relationship, not a claim that the list contains every incorporated place or settlement in the county.</p> : <p>Texas Defined does not add an unsourced list of local communities. Additional places appear here only when the structured place directory contains a verified county relationship.</p>}
+
+            {region ? <Suspense fallback={null}><CountyLandscapeContext countyName={countyName} region={region} /></Suspense> : null}
+
             <div className="border-t border-border pt-5">
               <p className="eyebrow text-primary">Understand the bigger picture</p>
               <p className="mt-2 text-sm leading-6">These Texas Explained guides add statewide context to the geography, settlement and infrastructure behind {countyName}.</p>
@@ -85,6 +93,7 @@ export function CountyIdentitySection({ countyName, region, profile }: { countyN
           </div>
         </div>
       </section>
+      <CountySeasonalPlanning countySlug={slug} countyName={countyName} />
       <CountyTaxRateSection countySlug={slug} countyName={countyName} />
       <CountyMadeBuiltBorn countySlug={slug} />
     </>

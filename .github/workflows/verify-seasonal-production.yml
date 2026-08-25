@@ -16,6 +16,9 @@ on:
       - 'src/data/fixtures/seasonal-intent-articles.ts'
       - 'src/data/fixtures/seasonal-authority-links.ts'
       - 'src/data/fixtures/seasonal-county-links.ts'
+      - 'src/data/county-seasonal-links.ts'
+      - 'src/components/content/CountySeasonalPlanning.tsx'
+      - 'src/components/content/CountyIdentitySection.tsx'
       - 'src/components/editorial/ExploreIntentPaths.tsx'
 
 permissions:
@@ -117,15 +120,18 @@ jobs:
           fetch_assert enchanted-bluebonnet '/destination/enchanted-rock-state-natural-area' 'Use the Texas bluebonnet season guide'
           fetch_assert caddo-fall '/destination/caddo-lake-state-park' 'Use the Texas fall-color guide'
           fetch_assert guadalupe-fall '/destination/guadalupe-river-state-park' 'Use the Texas fall-color guide'
-          fetch_assert new-braunfels-christmas '/destination/new-braunfels' 'Use the Christmas in Texas guide'
-          fetch_assert gruene-christmas '/destination/gruene' 'Use the Christmas in Texas guide'
-          fetch_assert gillespie-seasonal '/article/gillespie-county-fredericksburg-stonewall-hill-country-texas' 'Plan Gillespie County during bluebonnet season'
-          fetch_assert harrison-seasonal '/article/harrison-county-marshall-caddo-lake-railroads-piney-woods-texas' 'Plan an East Texas fall-color weekend'
-          fetch_assert marion-seasonal '/article/marion-county-jefferson-caddo-lake-riverport-piney-woods-texas' 'Build a Caddo Lake fall-color trip'
-          fetch_assert ellis-bluebonnet '/article/ellis-county-waxahachie-ennis-blackland-prairie-texas' 'Use the DFW bluebonnet guide for Ennis'
-          fetch_assert washington-bluebonnet '/article/washington-county-brenham-washington-brazos-independence-texas' 'Use the Houston-area bluebonnet guide for Brenham'
-          fetch_assert burnet-bluebonnet '/article/burnet-county-burnet-marble-falls-highland-lakes-granite-texas' 'Plan Burnet County during bluebonnet season'
-          fetch_assert llano-bluebonnet '/article/llano-county-llano-river-granite-highland-lakes-texas' 'Use the Texas bluebonnet season guide'
+          fetch_assert new-braunfels-christmas '/destination/new-braunfels' 'Plan New Braunfels in the Texas Christmas guide'
+          fetch_assert gruene-christmas '/destination/gruene-historic-district' 'Put Gruene in a Texas Christmas trip'
+
+          fetch_assert gillespie-seasonal '/county/gillespie' 'Plan Gillespie County during bluebonnet season'
+          fetch_assert harrison-seasonal '/county/harrison' 'Plan an East Texas fall-color weekend'
+          fetch_assert marion-seasonal '/county/marion' 'Build a Caddo Lake fall-color trip'
+          fetch_assert ellis-bluebonnet '/county/ellis' 'Use the DFW bluebonnet guide for Ennis'
+          fetch_assert washington-bluebonnet '/county/washington' 'Use the Houston-area bluebonnet guide for Brenham'
+          fetch_assert burnet-bluebonnet '/county/burnet' 'Plan Burnet County during bluebonnet season'
+          fetch_assert llano-bluebonnet '/county/llano' 'Use the Texas bluebonnet season guide'
+          fetch_assert uvalde-fall '/county/uvalde' 'Plan Uvalde County for fall color'
+          fetch_assert bandera-fall '/county/bandera' 'Use Bandera County in a Hill Country fall trip'
 
       - name: Publish success status
         if: ${{ steps.live.outcome == 'success' }}

@@ -1,11 +1,18 @@
 import fs from 'node:fs';
 
-const workflow = fs.readFileSync('.github/workflows/texasdefined-auto-publication.yml', 'utf8');
-const publisher = fs.readFileSync('scripts/news/texasdefined-auto-publisher.mjs', 'utf8');
-const migration = fs.readFileSync('supabase/migrations/20260813143000_harden_texasdefined_auto_publication.sql', 'utf8');
-const env = fs.readFileSync('.env', 'utf8');
-const sitemap = fs.readFileSync('src/routes/sitemap[.]xml.ts', 'utf8');
-const route = fs.readFileSync('src/routes/news.$slug.tsx', 'utf8');
+const read = (file) => fs.readFileSync(file, 'utf8');
+const readRouteSurface = (file) => {
+  const eagerSource = read(file);
+  const lazyFile = file.replace(/\.tsx$/, '.lazy.tsx');
+  return fs.existsSync(lazyFile) ? `${eagerSource}\n${read(lazyFile)}` : eagerSource;
+};
+
+const workflow = read('.github/workflows/texasdefined-auto-publication.yml');
+const publisher = read('scripts/news/texasdefined-auto-publisher.mjs');
+const migration = read('supabase/migrations/20260813143000_harden_texasdefined_auto_publication.sql');
+const env = read('.env');
+const sitemap = read('src/routes/sitemap[.]xml.ts');
+const route = readRouteSurface('src/routes/news.$slug.tsx');
 const errors = [];
 
 for (const token of ['workflow_dispatch:', 'mode:', 'dry-run', 'publish', 'TEXASDEFINED_AUTO_PUBLISH_ENABLED', 'PUBLISH_TEXASDEFINED']) {

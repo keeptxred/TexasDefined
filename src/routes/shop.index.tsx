@@ -3,6 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import shopFlatlay from "@/assets/shop-flatlay.jpg";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { ProductCard } from "@/components/commerce/ProductCard";
+import { ShopCatalog } from "@/components/commerce/ShopCatalog";
 import { Section } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import { productsQuery } from "@/data/queries";
@@ -125,13 +126,14 @@ function ShopPage() {
           </div>
 
           {products.length > 0 ? (
-            <ul className="mt-10 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {products.map((product) => (
+            <ShopCatalog
+              products={products}
+              renderProduct={(product) => (
                 <li id={productAnchor(product.id)} key={product.id}>
                   <ProductCard product={product} />
                 </li>
-              ))}
-            </ul>
+              )}
+            />
           ) : (
             <div className="mt-10 border-y border-border py-12 text-center">
               <h2 className="font-display text-3xl">The collection is being curated</h2>

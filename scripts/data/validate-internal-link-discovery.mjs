@@ -2,6 +2,11 @@ import fs from 'node:fs';
 
 const failures = [];
 const read = (file) => fs.readFileSync(file, 'utf8');
+const readRouteSurface = (file) => {
+  const eagerSource = read(file);
+  const lazyFile = file.replace(/\.tsx$/, '.lazy.tsx');
+  return fs.existsSync(lazyFile) ? `${eagerSource}\n${read(lazyFile)}` : eagerSource;
+};
 
 const registry = read('src/lib/public-routes.ts');
 const brand = read('src/brand/texasdefined.ts');
@@ -10,9 +15,9 @@ const texasLifeDiscovery = read('src/components/editorial/TexasLifeDiscovery.tsx
 const categoryPage = read('src/components/editorial/CategoryPage.tsx');
 const calculatorPage = read('src/components/calculators/CalculatorPage.tsx');
 const financialToolsHub = read('src/routes/decide.financial-tools.tsx');
-const closingCostPage = read('src/routes/texas-closing-cost-calculator.tsx');
-const affordabilityPage = read('src/routes/texas-home-affordability-calculator.tsx');
-const utilityCostPage = read('src/routes/texas-utility-cost-calculator.tsx');
+const closingCostPage = readRouteSurface('src/routes/texas-closing-cost-calculator.tsx');
+const affordabilityPage = readRouteSurface('src/routes/texas-home-affordability-calculator.tsx');
+const utilityCostPage = readRouteSurface('src/routes/texas-utility-cost-calculator.tsx');
 const dataIndex = read('src/data/index.ts');
 const destinationPlanner = read('src/components/editorial/DestinationVisitPlanner.tsx');
 const destinationRelationships = read('src/components/editorial/DestinationRelationships.tsx');
@@ -23,7 +28,7 @@ const countyIdentity = read('src/components/content/CountyIdentitySection.tsx');
 const guidesPage = read('src/routes/guides.tsx');
 const texasLiving = read('src/routes/texas-living.tsx');
 const exploreSitemap = read('src/routes/sitemap-explore[.]xml.ts');
-const homepage = read('src/routes/index.tsx');
+const homepage = readRouteSurface('src/routes/index.tsx');
 const exploreTopicPaths = read('src/components/editorial/ExploreTopicPaths.tsx');
 
 for (const path of ['/property', '/explore/trip-planner']) {

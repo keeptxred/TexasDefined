@@ -9,7 +9,12 @@ type StoreProduct = {
   imageUrl: string;
   productUrl?: string | null;
   tags?: string[];
+  category?: string | null;
   collections?: string[];
+  featured?: boolean;
+  displayOrder?: number;
+  isNew?: boolean;
+  isOnSale?: boolean;
   colors?: string[];
   variants?: ProductVariant[];
 };
@@ -23,6 +28,17 @@ export function commerceApiBase() {
 
 function slugify(value: string) {
   return value.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+}
+
+export function inferShopCategory(row: Pick<StoreProduct, "title" | "tags" | "category">): string | null {
+  const explicit = row.category?.trim().toLowerCase();
+  if (explicit) return explicit;
+
+  const searchText = [row.title, ...(row.tags ?? [])].join(" ").toLowerCase();
+  if (/\b(sticker|stickers|decal|decals)\b/.test(searchText)) return "stickers";
+  if (/\b(tote|totes|tote bag|tote bags|canvas tote|canvas totes)\b/.test(searchText)) return "tote-bags";
+  if (/\b(t-shirt|t-shirts|tshirt|tshirts|tee|tees|shirt|shirts)\b/.test(searchText)) return "shirts";
+  return null;
 }
 
 function toProduct(row: StoreProduct): Product {
@@ -41,6 +57,12 @@ function toProduct(row: StoreProduct): Product {
     productUrl: `/shop/product/${encodeURIComponent(row.id)}`,
     colors: row.colors ?? [],
     variants: Array.isArray(row.variants) ? row.variants : [],
+    category: inferShopCategory(row),
+    tags: row.tags ?? [],
+    isFeatured: row.featured === true,
+    displayOrder: Number.isFinite(row.displayOrder) ? Number(row.displayOrder) : 0,
+    isNew: row.isNew === true,
+    isOnSale: row.isOnSale === true,
   };
 }
 

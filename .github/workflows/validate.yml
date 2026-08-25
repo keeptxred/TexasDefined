@@ -124,5 +124,5 @@ jobs:
           elif [[ "$BUILD_OUTCOME" == 'failure' ]]; then
             echo '::error title=CI failure class: build::Application and predeploy validation passed; the production build failed.'
           elif [[ "$BUDGET_OUTCOME" == 'failure' ]]; then
-            echo '::error title=CI failure class: bundle budget::Validation and build passed; the protected client performance budget failed.'
+            echo '::error title=CI failure class: bundle budget::Validation and build passed, but the protected client performance budget failed.'
           fi

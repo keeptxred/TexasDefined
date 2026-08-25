@@ -55,7 +55,7 @@ for (const path of declaredRedirects) {
   if (source.includes('canonicalPath:')) errors.push(`${path} must not publish a competing canonical.`);
 }
 
-const newsIndexSource = await readFile(join(root, 'src/routes/news.index.tsx'), 'utf8');
+const newsIndexSource = `${await readFile(join(root, 'src/routes/news.index.tsx'), 'utf8')}\n${await readFile(join(root, 'src/routes/news.index.lazy.tsx'), 'utf8')}`;
 const newsLayoutSource = await readFile(join(root, 'src/routes/news.tsx'), 'utf8');
 for (const feature of [
   'loader: async ({ context }) => context.queryClient.ensureQueryData(newsQuery)',

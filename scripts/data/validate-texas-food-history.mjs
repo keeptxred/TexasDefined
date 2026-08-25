@@ -1,8 +1,14 @@
 import fs from 'node:fs';
 
+const readRouteSurface = (file) => {
+  const eagerSource = fs.readFileSync(file, 'utf8');
+  const lazyFile = file.replace(/\.tsx$/, '.lazy.tsx');
+  return fs.existsSync(lazyFile) ? `${eagerSource}\n${fs.readFileSync(lazyFile, 'utf8')}` : eagerSource;
+};
+
 const route = fs.readFileSync('src/routes/texas-food-history.tsx', 'utf8');
 const evergreenComponent = fs.readFileSync('src/components/editorial/TexasEvergreenGuide.tsx', 'utf8');
-const exploreCategory = fs.readFileSync('src/routes/explore.$category.tsx', 'utf8');
+const exploreCategory = readRouteSurface('src/routes/explore.$category.tsx');
 const publicRoutes = fs.readFileSync('src/lib/public-routes.ts', 'utf8');
 const rootHub = fs.readFileSync('src/routes/things-unique-to-texas.lazy.tsx', 'utf8');
 const categoryHub = fs.readFileSync('src/routes/things-unique-to-texas_.$category.lazy.tsx', 'utf8');
@@ -171,4 +177,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Texas Food History validation passed: canonical hub, ${focusedGuides.length} focused links, parent-child schema, established-pillar inbound links, Food & BBQ discovery, sourced batch-5 guides, Dr Pepper museum handoff, six exact-subject hero/social-image contracts, sitemap governance, smoke, llms.txt and citation-index coverage intact.`);
+console.log(`Texas Food History validation passed: canonical hub, ${focusedGuides.length} focused links, parent-child schema, established-pillar inbound links, Food & BBQ discovery, sourced batch-5 guides, Dr Pepper museum handoff, six exact-subject hero/social-image contracts, sitemap governance, smoke, llms.txt and citation-index coverage intact across eager and lazy Explore category route surfaces.`);

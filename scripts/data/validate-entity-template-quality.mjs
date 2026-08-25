@@ -1,21 +1,27 @@
 import fs from 'node:fs';
 
 const errors = [];
-const schema = fs.readFileSync('src/data/property/county-property-schema.ts', 'utf8');
-const countyRoute = fs.readFileSync('src/routes/property-tax.county.$county.tsx', 'utf8');
-const entityRelationships = fs.readFileSync('src/data/knowledge-graph/relationships.ts', 'utf8');
-const entityRoute = fs.readFileSync('src/routes/$kind.$slug.tsx', 'utf8');
-const countyGuide = fs.readFileSync('src/components/content/CountyGuideSections.tsx', 'utf8');
-const countyIdentity = fs.readFileSync('src/components/content/CountyIdentitySection.tsx', 'utf8');
-const countyStatewide = fs.readFileSync('src/components/content/CountyStatewideContextSection.tsx', 'utf8');
-const countyComparison = fs.readFileSync('src/data/county-comparison.ts', 'utf8');
-const countyComparisonTable = fs.readFileSync('src/components/counties/TexasCountyComparisonTable.tsx', 'utf8');
-const entityIndex = fs.readFileSync('src/data/knowledge-graph/index.ts', 'utf8');
-const countyProfile = fs.readFileSync('src/data/county-profile.ts', 'utf8');
-const localGovernmentProfile = fs.readFileSync('src/data/local-government-profile.ts', 'utf8');
-const dataSources = fs.readFileSync('src/data/texas-data-sources.ts', 'utf8');
-const sitemap = fs.readFileSync('src/routes/sitemap[.]xml.ts', 'utf8');
-const exploreSitemap = fs.readFileSync('src/routes/sitemap-explore[.]xml.ts', 'utf8');
+const read = (file) => fs.readFileSync(file, 'utf8');
+const readRouteSurface = (file) => {
+  const eagerSource = read(file);
+  const lazyFile = file.replace(/\.tsx$/, '.lazy.tsx');
+  return fs.existsSync(lazyFile) ? `${eagerSource}\n${read(lazyFile)}` : eagerSource;
+};
+const schema = read('src/data/property/county-property-schema.ts');
+const countyRoute = read('src/routes/property-tax.county.$county.tsx');
+const entityRelationships = read('src/data/knowledge-graph/relationships.ts');
+const entityRoute = readRouteSurface('src/routes/$kind.$slug.tsx');
+const countyGuide = read('src/components/content/CountyGuideSections.tsx');
+const countyIdentity = read('src/components/content/CountyIdentitySection.tsx');
+const countyStatewide = read('src/components/content/CountyStatewideContextSection.tsx');
+const countyComparison = read('src/data/county-comparison.ts');
+const countyComparisonTable = read('src/components/counties/TexasCountyComparisonTable.tsx');
+const entityIndex = read('src/data/knowledge-graph/index.ts');
+const countyProfile = read('src/data/county-profile.ts');
+const localGovernmentProfile = read('src/data/local-government-profile.ts');
+const dataSources = read('src/data/texas-data-sources.ts');
+const sitemap = read('src/routes/sitemap[.]xml.ts');
+const exploreSitemap = read('src/routes/sitemap-explore[.]xml.ts');
 
 for (const feature of [
   'isCountyPropertyIndexReady',

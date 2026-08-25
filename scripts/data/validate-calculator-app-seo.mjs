@@ -1,5 +1,11 @@
 import fs from 'node:fs';
 
+const readRouteSurface = (file) => {
+  const eagerSource = fs.readFileSync(file, 'utf8');
+  const lazyFile = file.replace(/\.tsx$/, '.lazy.tsx');
+  return fs.existsSync(lazyFile) ? `${eagerSource}\n${fs.readFileSync(lazyFile, 'utf8')}` : eagerSource;
+};
+
 const helper = fs.readFileSync('src/lib/calculator-seo.ts', 'utf8');
 const component = fs.readFileSync('src/components/calculators/CalculatorPage.tsx', 'utf8');
 const routes = [
@@ -46,7 +52,7 @@ for (const feature of ['aria-label="Breadcrumb"', 'to="/decide/financial-tools"'
 }
 
 for (const [label, filename] of routes) {
-  const route = fs.readFileSync(filename, 'utf8');
+  const route = readRouteSurface(filename);
   for (const feature of ['buildCalculatorHead', 'featureList:']) {
     if (!route.includes(feature)) failures.push(`${label} calculator missing ${feature}.`);
   }
@@ -105,7 +111,7 @@ const deepCalculatorContracts = [
   ]],
 ];
 for (const [label, filename, markers] of deepCalculatorContracts) {
-  const route = fs.readFileSync(filename, 'utf8');
+  const route = readRouteSurface(filename);
   for (const marker of markers) if (!route.includes(marker)) failures.push(`${label} calculator indexing-depth contract missing ${marker}.`);
 }
 

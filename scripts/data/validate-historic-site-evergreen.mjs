@@ -1,9 +1,15 @@
 import fs from 'node:fs';
 
+const readRouteSurface = (file) => {
+  const eagerSource = fs.readFileSync(file, 'utf8');
+  const lazyFile = file.replace(/\.tsx$/, '.lazy.tsx');
+  return fs.existsSync(lazyFile) ? `${eagerSource}\n${fs.readFileSync(lazyFile, 'utf8')}` : eagerSource;
+};
+
 const lazy = fs.readFileSync('src/data/fixtures/lazy-standalone-evergreen.ts', 'utf8');
 const repositories = fs.readFileSync('src/data/fixtures/repositories.ts', 'utf8');
 const sitemap = fs.readFileSync('src/routes/sitemap[.]xml.ts', 'utf8');
-const historyHub = fs.readFileSync('src/routes/texas-history.tsx', 'utf8');
+const historyHub = readRouteSurface('src/routes/texas-history.tsx');
 const historicSites = fs.readFileSync('src/data/historic-sites.ts', 'utf8');
 const reciprocal = fs.readFileSync('src/data/historic-site-evergreen-links.ts', 'utf8');
 const runtime = fs.readFileSync('src/data/destination-query-runtime.ts', 'utf8');
@@ -155,4 +161,4 @@ if (!articleCatalogPattern.test(sitemap)) failures.push('Historic evergreen site
 for (const marker of ['historicAuthorityGuides', 'Plan history by story', '{historicAuthorityGuides.length} routes into the statewide collection']) if (!historyHub.includes(marker)) failures.push(`Texas History hub authority-guide presentation contract missing: ${marker}`);
 
 if (failures.length) { console.error('Historic-site evergreen validation failed:'); for (const failure of failures) console.error(`- ${failure}`); process.exit(1); }
-console.log(`Historic-site evergreen validation passed: ${guides.length + militaryGuides.length} authority guides and ${weekendGuides.length} historic weekend planning guides retain substantive depth, authoritative sourcing, verified destination links, reciprocal discovery, lazy loading, repository listing and quality-gated canonical article-sitemap publication.`);
+console.log(`Historic-site evergreen validation passed: ${guides.length + militaryGuides.length} authority guides and ${weekendGuides.length} historic weekend planning guides retain substantive depth, authoritative sourcing, verified destination links, reciprocal discovery, lazy loading, repository listing, quality-gated canonical article-sitemap publication, and Texas History hub discovery across eager and lazy route surfaces.`);

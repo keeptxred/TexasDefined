@@ -1,5 +1,11 @@
 import fs from 'node:fs';
 
+const readRouteSurface = (file) => {
+  const eagerSource = fs.readFileSync(file, 'utf8');
+  const lazyFile = file.replace(/\.tsx$/, '.lazy.tsx');
+  return fs.existsSync(lazyFile) ? `${eagerSource}\n${fs.readFileSync(lazyFile, 'utf8')}` : eagerSource;
+};
+
 const seeds = fs.readFileSync('src/data/historic-sites.ts', 'utf8');
 const primary = fs.readFileSync('src/data/historic-site-enrichment.ts', 'utf8');
 const extra = fs.readFileSync('src/data/historic-site-area-guides-extra.ts', 'utf8');
@@ -9,7 +15,7 @@ const clusters = fs.readFileSync('src/data/historic-site-clusters.ts', 'utf8');
 const corrections = fs.readFileSync('src/data/historic-site-fact-corrections.ts', 'utf8');
 const runtime = fs.readFileSync('src/data/destination-query-runtime.ts', 'utf8');
 const preserved = fs.readFileSync('src/data/destination-preserved-catalog.ts', 'utf8');
-const history = fs.readFileSync('src/routes/texas-history.tsx', 'utf8');
+const history = readRouteSurface('src/routes/texas-history.tsx');
 const county = fs.readFileSync('src/components/content/CountyHistoricSites.tsx', 'utf8');
 const failures = [];
 
@@ -140,4 +146,4 @@ for (const [slug, license] of verifiedRemoteHeroes) {
 if (!remoteHeroes.includes('enrichHistoricSiteRemoteHero')) failures.push('Verified historic remote heroes are not exposed through the runtime enrichment function.');
 
 if (failures.length) { console.error('Historic-sites validation failed:'); for (const failure of failures) console.error(`- ${failure}`); process.exit(1); }
-console.log(`Historic-sites validation passed: ${seedSlugs.length} statewide seeds, ${guideSlugs.size} destination-specific area guides, ${clusterIds.length} thematic clusters with valid seed links, ${exactHeroAliases.length + verifiedRemoteHeroes.length} exact verified hero mappings plus ${protectedNationalCemeteries.length} dedicated national-cemetery heroes, every protected hero matches a real seed, Lipantitlan geography is source-corrected, shared preserved-catalog publication, runtime enrichment, Texas History discovery and county cross-links are protected.`);
+console.log(`Historic-sites validation passed: ${seedSlugs.length} statewide seeds, ${guideSlugs.size} destination-specific area guides, ${clusterIds.length} thematic clusters with valid seed links, ${exactHeroAliases.length + verifiedRemoteHeroes.length} exact verified hero mappings plus ${protectedNationalCemeteries.length} dedicated national-cemetery heroes, every protected hero matches a real seed, Lipantitlan geography is source-corrected, shared preserved-catalog publication, runtime enrichment, Texas History discovery and county cross-links are protected across eager and lazy route surfaces.`);

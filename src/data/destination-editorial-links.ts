@@ -5,7 +5,7 @@ export type DestinationEditorialLink = {
 };
 
 const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = {
-  "port-isabel-lighthouse-state-park": [
+  "port-isabel-lighthouse": [
     {
       href: "/article/best-lighthouses-to-visit-in-texas",
       label: "Compare the best Texas lighthouse visits",
@@ -112,7 +112,7 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       description: "Use New Braunfels as a southern add-on to the Fredericksburg, Johnson City and Marble Falls holiday loop.",
     },
   ],
-  "gruene": [
+  "gruene-historic-district": [
     {
       href: "/article/christmas-in-texas-complete-guide",
       label: "Put Gruene in a Texas Christmas trip",

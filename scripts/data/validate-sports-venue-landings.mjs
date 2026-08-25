@@ -3,6 +3,16 @@ import path from 'node:path';
 
 const root = process.cwd();
 const read = (file) => fs.readFile(path.join(root, file), 'utf8');
+const readRouteSurface = async (file) => {
+  const eagerSource = await read(file);
+  const lazyFile = file.replace(/\.tsx$/, '.lazy.tsx');
+  try {
+    return `${eagerSource}\n${await read(lazyFile)}`;
+  } catch (error) {
+    if (error?.code === 'ENOENT') return eagerSource;
+    throw error;
+  }
+};
 
 const [landings, landingPaths, route, indexComponent, quickAnswers, countySports, sportsSearch, directory, sports, genericVenue, galaxyVenue, entityRoute, searchRoute, homepage, guidebook, queries, types, llms, publicRoutes, majorVenues, tier2Venues] = await Promise.all([
   read('src/data/sports-venue-landings.ts'),
@@ -13,13 +23,13 @@ const [landings, landingPaths, route, indexComponent, quickAnswers, countySports
   read('src/components/sports/CountySportsDestinations.tsx'),
   read('src/data/sports-venue-search.ts'),
   read('src/routes/sports-venues.tsx'),
-  read('src/routes/sports.tsx'),
+  readRouteSurface('src/routes/sports.tsx'),
   read('src/routes/sports-venue.$slug.tsx'),
   read('src/routes/sports-venue.jones-att-stadium.tsx'),
-  read('src/routes/$kind.$slug.tsx'),
+  readRouteSurface('src/routes/$kind.$slug.tsx'),
   read('src/routes/search.tsx'),
-  read('src/routes/index.tsx'),
-  read('src/routes/guides.tsx'),
+  readRouteSurface('src/routes/index.tsx'),
+  readRouteSurface('src/routes/guides.tsx'),
   read('src/data/queries.ts'),
   read('src/data/types.ts'),
   read('src/routes/llms[.]txt.ts'),
@@ -277,4 +287,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Sports venue landings validated: ${expectedLandings.length} indexable market/theme pages, venue guides, county guides, site-wide discovery surfaces and lazy site search are answer-first, bidirectionally linked, structured and source-safe.`);
+console.log(`Sports venue landings validated: ${expectedLandings.length} indexable market/theme pages, venue guides, county guides, site-wide discovery surfaces and lazy site search are answer-first, bidirectionally linked, structured, source-safe, and validated across eager and lazy route surfaces.`);

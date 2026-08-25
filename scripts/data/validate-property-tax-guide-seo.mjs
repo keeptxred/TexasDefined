@@ -3,7 +3,10 @@ import path from 'node:path';
 
 const root = process.cwd();
 const component = fs.readFileSync(path.join(root, 'src/components/guides/PropertyTaxGuidePage.tsx'), 'utf8');
-const calculator = fs.readFileSync(path.join(root, 'src/routes/decide.property-taxes.tsx'), 'utf8');
+const calculator = [
+  'src/routes/decide.property-taxes.tsx',
+  'src/routes/decide.property-taxes.lazy.tsx',
+].map((filename) => fs.readFileSync(path.join(root, filename), 'utf8')).join('\n');
 const calculatorSeo = fs.readFileSync(path.join(root, 'src/lib/calculator-seo.ts'), 'utf8');
 const paymentGuide = fs.readFileSync(path.join(root, 'src/routes/learn.property-tax-payments.tsx'), 'utf8');
 const guides = [

@@ -52,6 +52,9 @@ jobs:
       - name: Publish pending production status
         run: node scripts/ci/publish-github-status.mjs texasdefined-production pending "Validating, building and deploying TexasDefined"
 
+      - name: Validate retired integration traces
+        run: node scripts/ci/validate-retired-integration-traces.mjs
+
       - name: Install dependencies
         id: install
         run: npm ci --no-audit --no-fund
@@ -97,7 +100,7 @@ jobs:
         if: success()
         run: node scripts/ci/publish-github-status.mjs texasdefined-bundle-budget pending "Checking client bundle size budget"
 
-      - name: Enforce client bundle budget
+      - name: Check client bundle budget
         id: budget
         run: npm run performance:validate
 
@@ -105,7 +108,7 @@ jobs:
         if: always()
         env:
           STAGE_OUTCOME: ${{ steps.budget.outcome }}
-        run: node scripts/ci/publish-github-status.mjs texasdefined-bundle-budget "$STAGE_OUTCOME" "Client bundle budget passed" "Client bundle budget failed"
+        run: node scripts/ci/publish-github-status.mjs texasdefined-bundle-budget "$STAGE_OUTCOME" "Client bundle budget passed" "Client bundle budget exceeded"
 
       - name: Publish Cloudflare deploy pending
         if: success()
@@ -182,7 +185,7 @@ jobs:
           elif [[ "$BUILD_OUTCOME" == 'failure' ]]; then
             echo '::error title=Pipeline failure class: BUILD::Validation passed; the production build failed.'
           elif [[ "$BUDGET_OUTCOME" == 'failure' ]]; then
-            echo '::error title=Pipeline failure class: BUNDLE BUDGET::Validation and build passed; the protected client bundle budget failed.'
+            echo '::error title=Pipeline failure class: BUNDLE BUDGET::Validation and build passed, but the protected client bundle budget was exceeded.'
           elif [[ "$CLOUDFLARE_OUTCOME" == 'failure' ]]; then
             echo '::error title=Pipeline failure class: CLOUDFLARE / DEPLOYMENT::Code validation, build and bundle budget passed; Cloudflare deployment failed.'
           elif [[ "$LIVE_OUTCOME" == 'failure' ]]; then

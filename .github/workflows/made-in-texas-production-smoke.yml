@@ -36,8 +36,9 @@ jobs:
               if curl --fail-with-body --silent --show-error --location --max-time 30 \
                 "${origin}${path}?verify=${cache_key}-${attempt}" -o "$out"; then
                 if grep -Fqi "$needle" "$out" \
-                  && grep -Eqi "<link[^>]+rel=['\"]canonical['\"][^>]+href=['\"]${expected_canonical//\//\\/}['\"]" "$out" \
-                  && ! grep -Eqi '<meta[^>]+name=["'"']robots["'"'][^>]+content=["'"'][^"'"']*noindex' "$out"; then
+                  && grep -Fqi "<link rel=\"canonical\" href=\"${expected_canonical}\"" "$out" \
+                  && ! grep -Fqi 'name="robots" content="noindex' "$out" \
+                  && ! grep -Fqi "name='robots' content='noindex" "$out"; then
                   echo "PASS ${path}"
                   rm -f "$out"
                   return 0
@@ -51,12 +52,12 @@ jobs:
             return 1
           }
 
-          check_page '/made-in-texas' 'Made, Built & Born in Texas' 'https://texasdefined.com/made-in-texas'
+          check_page '/made-in-texas' 'Made, Built &amp; Born in Texas' 'https://texasdefined.com/made-in-texas'
           check_page '/texas-facts' '100 Essential Facts About Texas' 'https://texasdefined.com/texas-facts'
-          check_page '/county/washington' 'Made, built & born here' 'https://texasdefined.com/county/washington'
-          check_page '/county/bexar' 'Made, built & born here' 'https://texasdefined.com/county/bexar'
-          check_page '/county/denton' 'Made, built & born here' 'https://texasdefined.com/county/denton'
-          check_page '/county/dallas' 'Made, built & born here' 'https://texasdefined.com/county/dallas'
+          check_page '/county/washington' 'Made, built &amp; born here' 'https://texasdefined.com/county/washington'
+          check_page '/county/bexar' 'Made, built &amp; born here' 'https://texasdefined.com/county/bexar'
+          check_page '/county/denton' 'Made, built &amp; born here' 'https://texasdefined.com/county/denton'
+          check_page '/county/dallas' 'Made, built &amp; born here' 'https://texasdefined.com/county/dallas'
 
       - name: Verify zero-queue production rendering and sitemap discovery
         shell: bash
