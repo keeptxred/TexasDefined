@@ -38,17 +38,17 @@ function buildCountyPropertyRecord(county: (typeof TEXAS_COUNTIES)[number], inde
     majorCities: majorCitiesForCounty(county.name),
     appraisalDistrict: {
       ...base.appraisalDistrict,
-      ...(enrichment?.appraisalDistrict ?? {}),
+      ...(enrichment ? enrichment.appraisalDistrict : {}),
       ...(localVerification?.appraisalDistrict ?? {}),
     },
     taxOffice: {
       ...base.taxOffice,
-      ...(enrichment?.taxOffice ?? {}),
+      ...(enrichment ? enrichment.taxOffice : {}),
       ...(localVerification?.taxOffice ?? {}),
     },
     links: {
       ...base.links,
-      ...(enrichment?.links ?? {}),
+      ...(enrichment ? enrichment.links : {}),
       ...(localVerification?.links ?? {}),
     },
     sourceUpdatedAt: enrichment
