@@ -9,7 +9,7 @@ on:
       - "src/data/fixtures/repositories.ts"
       - "src/components/editorial/ExploreIntentPaths.tsx"
       - "src/routes/article.$slug.tsx"
-      - "src/routes/sitemap[.]xml.ts"
+      - "src/routes/sitemap*xml.ts"
       - "src/routes/texas-facts.tsx"
       - "src/routes/texas-vs-every-state.tsx"
       - "src/routes/texas-vs.$state.tsx"
