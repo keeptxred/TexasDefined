@@ -8,6 +8,8 @@ type SportsVenueQuickAnswersProps = {
   countyName?: string;
   capacity?: string;
   primaryEvents?: readonly string[];
+  parking?: string;
+  arrival?: string;
   verifiedAt?: string;
 };
 
@@ -23,9 +25,11 @@ export function SportsVenueQuickAnswers({
   countyName,
   capacity,
   primaryEvents = [],
+  parking,
+  arrival,
   verifiedAt,
 }: SportsVenueQuickAnswersProps) {
-  const answers = buildAnswers({ venueName, city, countyName, capacity, primaryEvents, verifiedAt });
+  const answers = buildAnswers({ venueName, city, countyName, capacity, primaryEvents, parking, arrival, verifiedAt });
   const slug = canonicalUrl.split('/sports-venue/')[1]?.split(/[?#]/)[0];
   const surfacePath = slug ? `/sports-venue/${slug}` : undefined;
   const heroSrc = slug ? `/api/sports-venue-hero?slug=${encodeURIComponent(slug)}` : undefined;
@@ -93,7 +97,7 @@ export function SportsVenueQuickAnswers({
   </>;
 }
 
-function buildAnswers({ venueName, city, countyName, capacity, primaryEvents = [], verifiedAt }: Omit<SportsVenueQuickAnswersProps, 'canonicalUrl'>): QuickAnswer[] {
+function buildAnswers({ venueName, city, countyName, capacity, primaryEvents = [], parking, arrival, verifiedAt }: Omit<SportsVenueQuickAnswersProps, 'canonicalUrl'>): QuickAnswer[] {
   const answers: QuickAnswer[] = [];
   const location = [city, countyName].filter(Boolean).join(', ');
 
@@ -118,10 +122,24 @@ function buildAnswers({ venueName, city, countyName, capacity, primaryEvents = [
     });
   }
 
-  answers.push({
-    question: `Where should I check parking and arrival information for ${venueName}?`,
-    answer: `Use the venue-specific parking and arrival sections in this guide as planning context, then follow the official planning links for the current event-day parking map, gate times, entry rules and other details that can change.`,
-  });
+  if (parking) {
+    answers.push({
+      question: `What should I know about parking at ${venueName}?`,
+      answer: `${firstSentence(parking)} Use the official venue or event instructions linked in this guide for the current parking map, pass requirements and event-specific changes.`,
+    });
+  } else {
+    answers.push({
+      question: `Where should I check parking information for ${venueName}?`,
+      answer: `Use the official planning links in this guide for the current event-day parking map, pass requirements and access instructions.`,
+    });
+  }
+
+  if (arrival) {
+    answers.push({
+      question: `When should I arrive at ${venueName}?`,
+      answer: `${firstSentence(arrival)} Confirm gate times and event-specific entry instructions with the official venue or organizer before traveling.`,
+    });
+  }
 
   if (verifiedAt) {
     answers.push({
@@ -130,7 +148,12 @@ function buildAnswers({ venueName, city, countyName, capacity, primaryEvents = [
     });
   }
 
-  return answers.slice(0, 5);
+  return answers.slice(0, 6);
+}
+
+function firstSentence(value: string) {
+  const match = value.trim().match(/^.*?[.!?](?:\s|$)/);
+  return (match?.[0] ?? value.trim()).trim();
 }
 
 function formatList(items: readonly string[]) {
