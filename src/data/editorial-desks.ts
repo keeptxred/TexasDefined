@@ -6,6 +6,8 @@ import type { Author } from "./types";
  * A real human contributor must be added through an explicit, verified author
  * record rather than generated automatically.
  */
+export const HOMES_LAND_EDITORIAL_DESK_ID = "a-homes-land";
+
 export const editorialDesks: Author[] = [
   {
     id: "a-hollis",
@@ -24,6 +26,12 @@ export const editorialDesks: Author[] = [
     name: "Texas Defined Travel & Outdoors Desk",
     role: "Travel & outdoors desk",
     bio: "Texas Defined's Travel & Outdoors Desk covers parks, road trips, small towns, public lands and practical ways to explore Texas.",
+  },
+  {
+    id: HOMES_LAND_EDITORIAL_DESK_ID,
+    name: "Texas Defined Homes & Land Desk",
+    role: "Homes & land desk",
+    bio: "Texas Defined's Homes & Land Desk covers homeownership, property, utilities, weather resilience, maintenance and land stewardship using official agencies, extension services and other primary sources. Its service journalism is practical guidance, not a substitute for licensed legal, insurance, engineering or trade advice.",
   },
 ];
 
