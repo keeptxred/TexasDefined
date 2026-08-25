@@ -9,7 +9,7 @@ on:
       - 'src/data/destination-preserved-catalog.ts'
       - 'src/routes/destination.enchanted-rock.tsx'
       - 'src/routes/destination.palo-duro-canyon.tsx'
-      - 'src/routes/sitemap-explore[.]xml.ts'
+      - 'src/routes/sitemap-explore*xml.ts'
       - 'src/data/destination-query-runtime.ts'
   workflow_dispatch:
 
