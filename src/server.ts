@@ -1,6 +1,7 @@
 import "./lib/error-capture";
 
 import { countySlugForLegacyArticle } from "./data/county-series";
+import { allowedRemoteImageUrl, REMOTE_IMAGE_PATH } from "./lib/editorial-image-delivery";
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
 
@@ -8,8 +9,16 @@ type ServerEntry = {
   fetch: (request: Request, env: unknown, ctx: unknown) => Promise<Response> | Response;
 };
 
+type ExecutionContextLike = {
+  waitUntil?: (promise: Promise<unknown>) => void;
+};
+
+type CloudflareCacheStorage = CacheStorage & { default?: Cache };
+
 const BING_VERIFICATION_META =
   '<meta name="msvalidate.01" content="74E5E79AEC351CF6D2577A6FC6A125DF" />';
+const REMOTE_IMAGE_REDIRECT_STATUSES = new Set([301, 302, 303, 307, 308]);
+const MAX_REMOTE_IMAGE_REDIRECTS = 4;
 
 let serverEntryPromise: Promise<ServerEntry> | undefined;
 
@@ -39,6 +48,79 @@ function legacyCountyRedirect(request: Request) {
   if (!countySlug) return null;
   url.pathname = `/county/${countySlug}`;
   return Response.redirect(url.toString(), 301);
+}
+
+async function fetchAllowedRemoteImage(initialUrl: URL) {
+  let target = initialUrl;
+
+  for (let redirectCount = 0; redirectCount <= MAX_REMOTE_IMAGE_REDIRECTS; redirectCount += 1) {
+    const response = await fetch(target.toString(), {
+      method: "GET",
+      redirect: "manual",
+      headers: { Accept: "image/avif,image/webp,image/*,*/*;q=0.8" },
+    });
+
+    if (!REMOTE_IMAGE_REDIRECT_STATUSES.has(response.status)) return response;
+    const location = response.headers.get("location");
+    if (!location) return response;
+    const next = allowedRemoteImageUrl(new URL(location, target).toString());
+    if (!next) return new Response("Remote image redirect blocked", { status: 403 });
+    target = next;
+  }
+
+  return new Response("Too many remote image redirects", { status: 508 });
+}
+
+function cachedHeadResponse(response: Response) {
+  return new Response(null, {
+    status: response.status,
+    statusText: response.statusText,
+    headers: response.headers,
+  });
+}
+
+async function remoteImageResponse(request: Request, ctx: unknown): Promise<Response | null> {
+  const requestUrl = new URL(request.url);
+  if (requestUrl.pathname !== REMOTE_IMAGE_PATH) return null;
+  if (request.method !== "GET" && request.method !== "HEAD") {
+    return new Response("Method not allowed", { status: 405, headers: { Allow: "GET, HEAD" } });
+  }
+
+  const target = allowedRemoteImageUrl(requestUrl.searchParams.get("url") ?? "");
+  if (!target) return new Response("Remote image URL not allowed", { status: 400 });
+
+  const cache = (globalThis.caches as CloudflareCacheStorage | undefined)?.default;
+  const cacheKey = new Request(request.url, { method: "GET" });
+  const cached = cache ? await cache.match(cacheKey) : undefined;
+  if (cached) return request.method === "HEAD" ? cachedHeadResponse(cached) : cached;
+
+  const upstream = await fetchAllowedRemoteImage(target);
+  if (!upstream.ok) return new Response("Remote image unavailable", { status: upstream.status });
+  const contentType = upstream.headers.get("content-type") ?? "";
+  if (!contentType.toLowerCase().startsWith("image/")) {
+    return new Response("Remote resource is not an image", { status: 415 });
+  }
+
+  const headers = new Headers({
+    "Cache-Control": "public, max-age=86400, s-maxage=604800",
+    "Content-Type": contentType,
+    "X-Content-Type-Options": "nosniff",
+  });
+  for (const headerName of ["etag", "last-modified"]) {
+    const value = upstream.headers.get(headerName);
+    if (value) headers.set(headerName, value);
+  }
+
+  const response = new Response(request.method === "HEAD" ? null : upstream.body, {
+    status: 200,
+    headers,
+  });
+
+  const waitUntil = (ctx as ExecutionContextLike | null | undefined)?.waitUntil;
+  if (request.method === "GET" && cache && typeof waitUntil === "function") {
+    waitUntil.call(ctx, cache.put(cacheKey, response.clone()));
+  }
+  return response;
 }
 
 async function addBingVerificationMeta(request: Request, response: Response): Promise<Response> {
@@ -93,6 +175,8 @@ export default {
     try {
       const canonicalRedirect = canonicalHostRedirect(request);
       if (canonicalRedirect) return canonicalRedirect;
+      const image = await remoteImageResponse(request, ctx);
+      if (image) return image;
       const redirect = legacyCountyRedirect(request);
       if (redirect) return redirect;
       const handler = await getServerEntry();
