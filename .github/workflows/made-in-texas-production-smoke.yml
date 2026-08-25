@@ -36,8 +36,9 @@ jobs:
               if curl --fail-with-body --silent --show-error --location --max-time 30 \
                 "${origin}${path}?verify=${cache_key}-${attempt}" -o "$out"; then
                 if grep -Fqi "$needle" "$out" \
-                  && grep -Eqi "<link[^>]+rel=['\"]canonical['\"][^>]+href=['\"]${expected_canonical//\//\\/}['\"]" "$out" \
-                  && ! grep -Eqi "<meta[^>]+name=['\"]robots['\"][^>]+content=['\"][^>]*noindex" "$out"; then
+                  && grep -Fqi "<link rel=\"canonical\" href=\"${expected_canonical}\"" "$out" \
+                  && ! grep -Fqi 'name="robots" content="noindex' "$out" \
+                  && ! grep -Fqi "name='robots' content='noindex" "$out"; then
                   echo "PASS ${path}"
                   rm -f "$out"
                   return 0

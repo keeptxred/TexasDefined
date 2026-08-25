@@ -47,7 +47,7 @@ const destinationRequirements = {
   "caddo-lake": ["/article/fall-in-texas-complete-guide", "/article/east-texas-fall-colors", "/article/best-places-for-fall-colors-in-texas"],
   "guadalupe-river-state-park": ["/article/fall-in-texas-complete-guide", "/article/hill-country-fall-colors", "/article/best-texas-state-parks-for-fall-colors"],
   "new-braunfels": ["/article/christmas-in-texas-complete-guide", "/article/best-christmas-towns-in-texas", "/article/texas-christmas-road-trip"],
-  "gruene": ["/article/christmas-in-texas-complete-guide", "/article/best-christmas-towns-in-texas"],
+  "gruene-historic-district": ["/article/christmas-in-texas-complete-guide", "/article/best-christmas-towns-in-texas"],
 };
 for (const [destination, hrefs] of Object.entries(destinationRequirements)) {
   if (!destinationLinks.includes(`\"${destination}\"`)) fail(`missing seasonal destination link group for ${destination}`);
