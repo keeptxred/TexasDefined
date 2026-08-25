@@ -1,14 +1,16 @@
-import { createLazyFileRoute } from "@tanstack/react-router";
+import { Link, createLazyFileRoute } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
 import {
   TEXAS_TALENT_CATEGORIES,
   TEXAS_TALENT_ELIGIBILITY_RULES,
-  TEXAS_TALENT_LAUNCH_ROSTER,
   TEXAS_TALENT_PROFILE_REQUIREMENTS,
   TEXAS_TALENT_TAGLINE,
-  getTexasTalentByCategory,
 } from "@/data/texas-talent";
+import {
+  TEXAS_TALENT_ALL_PROFILES,
+  getTexasTalentProfilesByCategory,
+} from "@/data/texas-talent-profiles-all";
 
 export const Route = createLazyFileRoute("/admin/texas-talent")({
   component: TexasTalentPage,
@@ -19,7 +21,7 @@ function TexasTalentPage() {
     <main>
       <section className="border-b border-border bg-foreground text-background">
         <Container className="py-14 sm:py-20 lg:py-24">
-          <p className="eyebrow text-primary">New Texas Defined pillar · Preview</p>
+          <p className="eyebrow text-primary">New Texas Defined pillar · Internal preview</p>
           <div className="mt-4 grid gap-8 lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-end">
             <div>
               <h1 className="font-display text-5xl leading-none sm:text-6xl lg:text-7xl">Texas Talent</h1>
@@ -29,8 +31,8 @@ function TexasTalentPage() {
               </p>
             </div>
             <div className="border-l border-background/20 pl-6 text-sm leading-7 text-background/70">
-              <p className="font-semibold text-background">Built as an authority cluster, not a celebrity directory.</p>
-              <p className="mt-2">Every future profile must explain the Texas connection, show the places behind the story and connect back into the wider Texas Defined knowledge network.</p>
+              <p className="font-semibold text-background">{TEXAS_TALENT_ALL_PROFILES.length} profile pages now in the workbench.</p>
+              <p className="mt-2">Every page remains internal and noindex until fact-checking, image rights and live internal links meet the public-launch standard.</p>
             </div>
           </div>
         </Container>
@@ -42,10 +44,10 @@ function TexasTalentPage() {
           <h2 id="talent-categories" className="mt-2 font-display text-4xl sm:text-5xl">Five ways Texas talent reaches the world</h2>
           <div className="mt-8 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2 lg:grid-cols-3">
             {TEXAS_TALENT_CATEGORIES.map((category) => {
-              const count = getTexasTalentByCategory(category.id).length;
+              const count = getTexasTalentProfilesByCategory(category.id).length;
               return (
                 <article key={category.id} className="bg-background p-6 sm:p-7">
-                  <p className="eyebrow text-primary">{count} launch profiles planned</p>
+                  <p className="eyebrow text-primary">{count} profile pages</p>
                   <h3 className="mt-2 font-display text-3xl">{category.label}</h3>
                   <p className="mt-3 text-sm leading-7 text-muted-foreground">{category.description}</p>
                 </article>
@@ -66,9 +68,7 @@ function TexasTalentPage() {
               </p>
               <div className="mt-7 grid gap-3 sm:grid-cols-2">
                 {TEXAS_TALENT_PROFILE_REQUIREMENTS.map((requirement) => (
-                  <div key={requirement} className="border border-border bg-background p-4 text-sm font-semibold leading-6">
-                    {requirement}
-                  </div>
+                  <div key={requirement} className="border border-border bg-background p-4 text-sm font-semibold leading-6">{requirement}</div>
                 ))}
               </div>
             </section>
@@ -90,36 +90,33 @@ function TexasTalentPage() {
       </section>
 
       <Container className="py-12 sm:py-16">
-        <section aria-labelledby="launch-roster">
+        <section aria-labelledby="profile-workbench">
           <div className="max-w-4xl">
-            <p className="eyebrow text-primary">Founding class</p>
-            <h2 id="launch-roster" className="mt-2 font-display text-4xl sm:text-5xl">The first {TEXAS_TALENT_LAUNCH_ROSTER.length} stories to research</h2>
+            <p className="eyebrow text-primary">Profile workbench</p>
+            <h2 id="profile-workbench" className="mt-2 font-display text-4xl sm:text-5xl">The first {TEXAS_TALENT_ALL_PROFILES.length} Texas Talent pages</h2>
             <p className="mt-4 text-sm leading-7 text-muted-foreground">
-              These are editorial candidates, not published profile pages. Each stays in planning until the biography, source set, image rights and Texas cross-linking meet the standard above.
+              Every card opens an internal profile draft. These pages are intentionally unpublished and noindex while sourcing, image rights and cross-link verification continue.
             </p>
           </div>
 
           <div className="mt-8 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2 xl:grid-cols-3">
-            {TEXAS_TALENT_LAUNCH_ROSTER.map((person) => (
+            {TEXAS_TALENT_ALL_PROFILES.map((person) => (
               <article key={person.slug} className="bg-background p-6">
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <p className="eyebrow text-primary">{labelCategory(person.category)}</p>
                     <h3 className="mt-2 font-display text-3xl">{person.name}</h3>
                   </div>
-                  <span className="rounded-full border border-border px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">
-                    {person.profileStatus}
-                  </span>
+                  <span className="rounded-full border border-border px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">{person.profileStatus}</span>
                 </div>
                 <p className="mt-4 text-sm leading-7 text-muted-foreground">{person.texasConnection}</p>
                 <div className="mt-5 border-t border-border pt-4">
                   <p className="text-xs font-bold uppercase tracking-[0.14em] text-foreground">Texas places</p>
                   <p className="mt-2 text-sm text-muted-foreground">{person.primaryPlaces.join(" · ")}</p>
                 </div>
-                <div className="mt-4">
-                  <p className="text-xs font-bold uppercase tracking-[0.14em] text-foreground">Planned cross-links</p>
-                  <p className="mt-2 text-xs leading-6 text-muted-foreground">{person.plannedCrossLinks.join(" · ")}</p>
-                </div>
+                <Link to="/admin/texas-talent/$slug" params={{ slug: person.slug }} className="mt-5 inline-block text-sm font-semibold text-primary">
+                  Open profile draft →
+                </Link>
               </article>
             ))}
           </div>
@@ -147,6 +144,6 @@ function TexasTalentPage() {
   );
 }
 
-function labelCategory(category: (typeof TEXAS_TALENT_LAUNCH_ROSTER)[number]["category"]) {
+function labelCategory(category: (typeof TEXAS_TALENT_ALL_PROFILES)[number]["category"]) {
   return TEXAS_TALENT_CATEGORIES.find((item) => item.id === category)?.label ?? category;
 }
