@@ -73,9 +73,9 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       description: "Turn Caddo Lake into a wider Piney Woods foliage trip built around current conditions.",
     },
     {
-      href: "/article/best-places-for-fall-colors-in-texas",
-      label: "Compare Texas fall-color destinations",
-      description: "See how Caddo Lake stacks up against Lost Maples, Garner, Daingerfield, the Guadalupe and other strong autumn stops.",
+      href: "/article/best-texas-state-parks-for-fall-colors",
+      label: "Compare Texas state parks for fall color",
+      description: "See how Caddo Lake stacks up against Lost Maples, Garner, Daingerfield, Guadalupe River and other strong public-land autumn stops.",
     },
   ],
   "guadalupe-river-state-park": [

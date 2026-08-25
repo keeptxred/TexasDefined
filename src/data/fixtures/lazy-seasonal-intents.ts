@@ -3,6 +3,7 @@ import caddoLake from "@/assets/caddo-lake.jpg";
 import roadTrip from "@/assets/road-trip.jpg";
 import smallTown from "@/assets/small-town.jpg";
 
+import { canonicalizeSeasonalArticleLinks } from "../seasonal-article-redirects";
 import type { Article, ImageRef } from "../types";
 
 const image = (src: string, alt: string): ImageRef => ({ src, alt, width: 1600, height: 1067 });
@@ -43,5 +44,6 @@ const slugs = new Set(seasonalIntentStubs.map((article) => article.slug));
 export async function loadSeasonalIntentArticle(brandId: string, slug: string): Promise<Article | null> {
   if (brandId !== "texasdefined" || !slugs.has(slug)) return null;
   const { seasonalIntentArticles } = await import("./seasonal-intent-articles");
-  return seasonalIntentArticles.find((article) => article.slug === slug) ?? null;
+  const article = seasonalIntentArticles.find((item) => item.slug === slug);
+  return article ? canonicalizeSeasonalArticleLinks(article) : null;
 }

@@ -3,6 +3,7 @@ import caddoLake from "@/assets/caddo-lake.jpg";
 import roadTrip from "@/assets/road-trip.jpg";
 import smallTown from "@/assets/small-town.jpg";
 
+import { canonicalizeSeasonalArticleLinks } from "../seasonal-article-redirects";
 import type { Article, ImageRef } from "../types";
 
 const image = (src: string, alt: string): ImageRef => ({ src, alt, width: 1600, height: 1067 });
@@ -46,7 +47,6 @@ export const seasonalAuthorityArticleStubs: Article[] = [
   stub({ id: "sa-9", slug: "best-christmas-towns-in-texas", title: "The Texas Towns That Go All In for Christmas", dek: "Texas towns that transform for the Christmas season.", category: "small-towns", hero: heroes.christmas, authorId: "a-marisol", readingMinutes: 10 }),
   stub({ id: "sa-10", slug: "texas-christmas-road-trip", title: "A Hill Country Christmas Road Trip", dek: "A Hill Country holiday loop built around lights and town squares.", category: "road-trips", region: "hill-country", hero: heroes.roadTrip, authorId: "a-dell", readingMinutes: 9 }),
   stub({ id: "sa-11", slug: "fall-in-texas-complete-guide", title: "Where Autumn Actually Shows Up in Texas", dek: "Texas fall color, timing, parks and scenic drives.", category: "outdoors", hero: heroes.fall, authorId: "a-hollis", readingMinutes: 14, featured: true, relatedDestinations: ["caddo-lake"] }),
-  stub({ id: "sa-12", slug: "best-places-for-fall-colors-in-texas", title: "The Places We Trust for Texas Fall Color", dek: "The Texas destinations most likely to deliver fall color.", category: "state-parks", hero: heroes.fall, authorId: "a-dell", readingMinutes: 10, relatedDestinations: ["caddo-lake"] }),
   stub({ id: "sa-13", slug: "texas-fall-foliage-road-trip", title: "A Texas Fall Foliage Road Trip That Works", dek: "A flexible Texas foliage route with Hill Country and East Texas options.", category: "road-trips", region: "hill-country", hero: heroes.roadTrip, authorId: "a-dell", readingMinutes: 9 }),
 ];
 
@@ -55,5 +55,6 @@ const seasonalSlugs = new Set(seasonalAuthorityArticleStubs.map((article) => art
 export async function loadSeasonalAuthorityArticle(brandId: string, slug: string): Promise<Article | null> {
   if (brandId !== "texasdefined" || !seasonalSlugs.has(slug)) return null;
   const { seasonalAuthorityArticles } = await import("./seasonal-authority-articles");
-  return seasonalAuthorityArticles.find((article) => article.slug === slug) ?? null;
+  const article = seasonalAuthorityArticles.find((item) => item.slug === slug);
+  return article ? canonicalizeSeasonalArticleLinks(article) : null;
 }
