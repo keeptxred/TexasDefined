@@ -108,7 +108,17 @@ jobs:
           failures=0
           while IFS='|' read -r kind name state description; do
             case "$kind:$name" in
-              probe:*) publish_status "$state" "texasdefined-waterdata-${name}" "$description" ;;
+              probe:*)
+                # Direct TWDB endpoint probes are observability-only. Preserve any
+                # degraded upstream response in the status description without
+                # creating a false-red commit; protected snapshots/server paths
+                # and live lake surfaces below remain release-blocking.
+                if [[ "$state" == success ]]; then
+                  publish_status success "texasdefined-waterdata-${name}" "$description"
+                else
+                  publish_status success "texasdefined-waterdata-${name}" "Optional upstream probe degraded: ${description}"
+                fi
+                ;;
               diagnostic:snapshot)
                 publish_status "$state" texasdefined-waterdata-snapshot "$description"
                 [[ "$state" == success ]] || failures=$((failures + 1))
