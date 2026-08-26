@@ -1,16 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
 import { texasDefinedBrand } from "@/brand/texasdefined";
+import { getTexasIcons } from "@/data/texas-icons.functions";
 import { TEXAS_ICON_CATEGORIES } from "@/data/texas-icons-types";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const canonicalPath = "/texas-icons";
 
 export const Route = createFileRoute("/texas-icons")({
-  loader: async () => {
-    const { loadTexasIconsServer } = await import("@/data/texas-icons.server");
-    return loadTexasIconsServer();
-  },
+  loader: () => getTexasIcons(),
   head: ({ loaderData }) => ({
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath,
