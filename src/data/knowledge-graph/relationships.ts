@@ -32,8 +32,7 @@ const DESTINATION_MIRROR_IDS = new Set([
 const APPRAISAL_DISTRICT_SUFFIX = '-appraisal-district';
 
 function isDestinationMirror(entity: CanonicalEntityRef) {
-  return entity.sourceId === 'explore-shared-catalog'
-    || DESTINATION_MIRROR_IDS.has(`${entity.kind}:${entity.slug}`);
+  return DESTINATION_MIRROR_IDS.has(`${entity.kind}:${entity.slug}`);
 }
 
 export function rankRelatedEntities(entity: TexasEntityRecord, graph: TexasEntityRecord[], limit = 12): RankedRelatedEntity[] {
