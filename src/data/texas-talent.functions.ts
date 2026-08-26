@@ -10,6 +10,11 @@ export const getTexasTalentLaunchAudit = createServerFn({ method: "GET" }).handl
   return loadTexasTalentLaunchAuditServer();
 });
 
+export const getTexasTalentReverseLinkAudit = createServerFn({ method: "GET" }).handler(async () => {
+  const { loadTexasTalentReverseLinkAuditServer } = await import("./texas-talent-reverse-links.server");
+  return loadTexasTalentReverseLinkAuditServer();
+});
+
 export const getTexasTalentProfile = createServerFn({ method: "GET" })
   .inputValidator((data: { slug: string }) => data)
   .handler(async ({ data }) => {
