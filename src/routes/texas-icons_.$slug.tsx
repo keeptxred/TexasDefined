@@ -1,14 +1,14 @@
 import { createFileRoute, notFound, redirect } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
 import { texasDefinedBrand } from "@/brand/texasdefined";
+import { getTexasIconProfile } from "@/data/texas-icons.functions";
 import { TEXAS_ICON_CATEGORIES } from "@/data/texas-icons-types";
 import type { TexasTalentProfile } from "@/data/texas-talent";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 export const Route = createFileRoute("/texas-icons/$slug")({
   loader: async ({ params }) => {
-    const { loadTexasIconProfileServer } = await import("@/data/texas-icons.server");
-    const result = await loadTexasIconProfileServer(params.slug);
+    const result = await getTexasIconProfile({ data: { slug: params.slug } });
     if (!result) throw notFound();
 
     const ownPath = `/texas-icons/${params.slug}`;
@@ -156,11 +156,7 @@ function TexasIconProfilePage() {
   );
 }
 
-function FullTalentProfile({
-  profile,
-}: {
-  profile: TexasTalentProfile;
-}) {
+function FullTalentProfile({ profile }: { profile: TexasTalentProfile }) {
   return (
     <>
       <section className="grid gap-6 border-b border-border py-10 lg:grid-cols-[14rem_1fr]">
