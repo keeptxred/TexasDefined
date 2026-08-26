@@ -200,6 +200,7 @@ export const INDEXABLE_STATIC_PATHS = [
 
 export const CONDITIONAL_INDEXABLE_PUBLIC_PATHS = [
   "/news",
+  "/texas-icons",
   "/texas-data/county-growth",
   "/texas-data/county-housing-costs",
 ] as const;
