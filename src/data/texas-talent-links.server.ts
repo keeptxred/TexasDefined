@@ -4,8 +4,11 @@ import {
   isIndexableEntityPage,
 } from "@/data/knowledge-graph/relationships";
 import type { TexasEntityRecord } from "@/data/knowledge-graph/types";
+import { TEXAS_MUSIC_TRADITIONS } from "@/data/texas-music";
 import type { LoadedTexasTalentProfile } from "@/data/texas-talent-launch";
+import { TEXAS_TALENT_MUSIC_AUTHORITY_BY_PROFILE } from "@/data/texas-talent-music-authority.server";
 import type { TexasTalentVerifiedInternalLink } from "@/data/texas-talent-readiness";
+import { isIndexablePublicPath } from "@/lib/public-routes";
 
 function normalizeLabel(value: string) {
   return value
@@ -47,6 +50,33 @@ function indexableLinkContext(graph: readonly TexasEntityRecord[]) {
   };
 }
 
+function addTexasMusicAuthorityLinks(
+  profile: LoadedTexasTalentProfile,
+  resolved: Map<string, TexasTalentVerifiedInternalLink>,
+) {
+  if (profile.category !== "music") return;
+
+  if (isIndexablePublicPath("/texas-music")) {
+    resolved.set("/texas-music", {
+      label: "Texas Music",
+      href: "/texas-music",
+      kind: "culture",
+    });
+  }
+
+  const traditionIds = TEXAS_TALENT_MUSIC_AUTHORITY_BY_PROFILE[profile.slug] ?? [];
+  for (const traditionId of traditionIds) {
+    const tradition = TEXAS_MUSIC_TRADITIONS.find((candidate) => candidate.id === traditionId);
+    if (!tradition?.guideHref || !isIndexablePublicPath(tradition.guideHref)) continue;
+
+    resolved.set(tradition.guideHref, {
+      label: `Texas ${tradition.label}`,
+      href: tradition.guideHref,
+      kind: "culture",
+    });
+  }
+}
+
 export function resolveTexasTalentEntityLinksFromGraph(
   profile: LoadedTexasTalentProfile,
   graph: readonly TexasEntityRecord[],
@@ -82,15 +112,12 @@ export function resolveTexasTalentEntityLinksFromGraph(
     });
   }
 
-  // Texas Music is now a public, canonical authority hub. Music profiles can
-  // safely strengthen that pillar without exposing any hidden Talent profile.
-  if (profile.category === "music") {
-    resolved.set("/texas-music", {
-      label: "Texas Music",
-      href: "/texas-music",
-      kind: "culture",
-    });
-  }
+  // The general Texas Music hub and deliberately curated genre guides are
+  // public authority pages. Runtime route-governance checks prevent a guide
+  // from remaining in the derived link set if it later stops being indexable.
+  // This strengthens the hidden Profile → Story relationship without changing
+  // stored readiness or granting editorial/publication approval.
+  addTexasMusicAuthorityLinks(profile, resolved);
 
   return [...resolved.values()];
 }
@@ -151,7 +178,7 @@ export function applyTexasTalentMechanicalLinkCertificationFromGraph(
         internalLinkReview: {
           status: "verified",
           links: resolvedLinks,
-          note: `Mechanically certified against the current indexable Texas Defined knowledge graph. This certification never grants editorial approval or public publication. Stored review note: ${storedReview.note}`,
+          note: `Mechanically certified against the current indexable Texas Defined knowledge graph and approved public authority routes. This certification never grants editorial approval or public publication. Stored review note: ${storedReview.note}`,
         },
       },
     };
