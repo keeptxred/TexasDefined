@@ -160,8 +160,20 @@ if (!existsSync(resolve(root, helperPath))) failures.push(`missing ${helperPath}
 else {
   const helper = read(helperPath);
   if (!helper.includes('TEXAS_TALENT_FUTURE_BASE_PATH = "/texas-talent"')) failures.push("future Texas Talent base path contract is missing");
+  if (!helper.includes("texasTalentFutureCanonicalPath")) failures.push("future Texas Talent canonical-path helper is missing");
   if (!helper.includes('"@type": "Person"')) failures.push("future Person schema contract is missing");
   if (!helper.includes("mainEntityOfPage")) failures.push("future Person schema must identify the canonical main entity page");
+}
+
+const iconsServer = read("src/data/texas-icons.server.ts");
+if (!iconsServer.includes('import { texasTalentFutureCanonicalPath } from "@/data/texas-talent-launch-metadata.server"')) {
+  failures.push("Texas Icons must use the shared future Texas Talent canonical-path helper");
+}
+if (!/href:\s*publishable\s*\?\s*texasTalentFutureCanonicalPath\(talentProfile\.slug\)\s*:\s*`\/texas-icons\/\$\{entry\.slug\}`/s.test(iconsServer)) {
+  failures.push("publishable reused Talent profiles must resolve Texas Icons to the Texas Talent canonical path");
+}
+if (/indexableAtOwnRoute:\s*publishable/.test(iconsServer)) {
+  failures.push("Texas Icons must not index a duplicate own-route copy of a publishable Texas Talent profile");
 }
 
 const publicRoutes = read("src/lib/public-routes.ts");
@@ -173,4 +185,4 @@ if (existsSync(resolve(root, "src/routes/texas-talent.tsx")) || existsSync(resol
 }
 
 if (failures.length) fail(`${failures.length} issue(s):\n- ${failures.join("\n- ")}`);
-console.log(`Texas Talent launch metadata passed: ${metadata.length} unique future canonical paths with bounded titles/descriptions and conservative Person schema; public launch remains disabled.`);
+console.log(`Texas Talent launch metadata passed: ${metadata.length} unique future canonical paths with bounded titles/descriptions, conservative Person schema and single canonical ownership across Texas Talent and Texas Icons; public launch remains disabled.`);
