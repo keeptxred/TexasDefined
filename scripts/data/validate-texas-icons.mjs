@@ -16,6 +16,7 @@ const researchPaths = [
   "src/data/texas-icons-research-history-7.server.ts",
   "src/data/texas-icons-research-history-8.server.ts",
   "src/data/texas-icons-research-history-9.server.ts",
+  "src/data/texas-icons-research-history-10.server.ts",
 ];
 const typesPath = "src/data/texas-icons-types.ts";
 const serverPath = "src/data/texas-icons.server.ts";
@@ -89,11 +90,13 @@ const researchedHistorySlugs = [
   "richard-king", "charles-goodnight", "james-hogg", "ma-ferguson", "allan-shivers",
   "phil-gramm", "tom-connally", "anson-jones", "adina-de-zavala", "clara-driscoll",
   "cynthia-ann-parker", "satanta", "george-t-ruby", "norris-wright-cuney",
+  "roy-bedichek", "walter-prescott-webb", "william-bill-clements", "wallace-jefferson", "alberto-gonzales",
 ];
 for (const slug of researchedHistorySlugs) {
   if (!records.some((record) => record.slug === slug)) failures.push(`Researched History & Politics profile is not in the 250-icon roster: ${slug}.`);
   if (!research.includes(`slug: "${slug}"`)) failures.push(`History research profile missing: ${slug}.`);
 }
+if (researchedHistorySlugs.length !== 49) failures.push(`Expected 49 dedicated History & Politics research profiles; found ${researchedHistorySlugs.length}.`);
 if ((research.match(/editorialStatus: "researched-staged"/g) ?? []).length !== researchedHistorySlugs.length) failures.push("Every researched History & Politics profile must remain explicitly researched-staged.");
 if ((research.match(/publicationNote:/g) ?? []).length !== researchedHistorySlugs.length) failures.push("Every researched History & Politics profile must retain an explicit publication boundary note.");
 if ((research.match(/lastReviewedAt: reviewed/g) ?? []).length !== researchedHistorySlugs.length) failures.push("Every researched History & Politics profile must retain a reviewed date.");
@@ -106,7 +109,8 @@ for (const domain of [
   "history.navy.mil", "pacificwarmuseum.org", "cmohs.org", "arlingtoncemetery.mil", "history.army.mil",
   "okhistory.org", "lrl.texas.gov", "energy.gov", "cemetery.texas.gov", "capitol.texas.gov",
   "humanitiestexas.org", "texashistory.unt.edu", "tpwd.texas.gov", "thc.texas.gov", "king-ranch.com",
-  "banking.senate.gov", "gao.gov",
+  "banking.senate.gov", "gao.gov", "uiltexas.org", "utpress.utexas.edu", "smu.edu", "txcourts.gov",
+  "justice.gov", "oig.justice.gov",
 ]) if (!research.includes(domain)) failures.push(`History research is missing expected institutional source authority: ${domain}.`);
 for (const contextualToken of [
   "Vietnam", "slaveowner", "enslaved labor", "September 11", "Watergate",
@@ -120,6 +124,8 @@ for (const contextualToken of [
   "Democratic-to-Republican", "anti-lynching", "five enslaved people", "three days", "$65,000",
   "forcibly returned to white society", "exact death date is uncertain", "Orator of the Plains",
   "civilian murder trial", "only Black member of the Texas delegation", "Screwmen's Benevolent Association", "lily-white",
+  "longest-serving director", "Anglo-centered", "phase out illicit player payments", "first African American justice",
+  "first Hispanic attorney general", "failed to adequately supervise", "mishandled highly classified materials",
 ]) if (!research.includes(contextualToken)) failures.push(`History research is missing required contextual coverage: ${contextualToken}.`);
 
 const reusedTalentSlug = "j-frank-dobie";
@@ -128,13 +134,25 @@ if (!talentProfiles.includes(`slug: "${reusedTalentSlug}"`)) failures.push("J. F
 if (!talentReadiness.includes(`"${reusedTalentSlug}"`)) failures.push("J. Frank Dobie's existing Texas Talent readiness record must remain available for Icons reuse.");
 if (research.includes(`slug: "${reusedTalentSlug}"`)) failures.push("J. Frank Dobie must reuse Texas Talent and must not gain a duplicate Texas Icons research profile.");
 
+const historyPoliticsRecords = records.filter((record) => record.category === "History & Politics");
+const coveredHistorySlugs = new Set([...researchedHistorySlugs, reusedTalentSlug]);
+if (historyPoliticsRecords.length !== 50) failures.push(`History & Politics must retain exactly 50 roster records; found ${historyPoliticsRecords.length}.`);
+if (coveredHistorySlugs.size !== 50) failures.push(`History & Politics coverage must resolve to exactly 50 unique slugs; found ${coveredHistorySlugs.size}.`);
+for (const record of historyPoliticsRecords) {
+  if (!coveredHistorySlugs.has(record.slug)) failures.push(`History & Politics roster entry lacks research/reuse coverage: rank ${record.rank} ${record.slug}.`);
+}
+for (const slug of coveredHistorySlugs) {
+  if (!historyPoliticsRecords.some((record) => record.slug === slug)) failures.push(`History & Politics coverage references a non-category slug: ${slug}.`);
+}
+
 for (const token of [
   "loadTexasTalentProfilesServer", "loadTexasKnowledgeGraph", "canonicalEntityPath", "uniqueMatch",
   'entry.subjectType === "place"', "isTexasTalentPublishable", "TEXAS_ICON_RESEARCH_HISTORY_BATCH_1",
   "TEXAS_ICON_RESEARCH_HISTORY_BATCH_2", "TEXAS_ICON_RESEARCH_HISTORY_BATCH_3", "TEXAS_ICON_RESEARCH_HISTORY_BATCH_4",
   "TEXAS_ICON_RESEARCH_HISTORY_BATCH_5", "TEXAS_ICON_RESEARCH_HISTORY_BATCH_6", "TEXAS_ICON_RESEARCH_HISTORY_BATCH_7",
-  "TEXAS_ICON_RESEARCH_HISTORY_BATCH_8", "TEXAS_ICON_RESEARCH_HISTORY_BATCH_9", "TEXAS_ICON_RESEARCH_PROFILES",
-  'reuseKind: "icon-research-staged"', "matchedResearchSlug", 'resolved.reuseKind === "icon-research-staged"',
+  "TEXAS_ICON_RESEARCH_HISTORY_BATCH_8", "TEXAS_ICON_RESEARCH_HISTORY_BATCH_9", "TEXAS_ICON_RESEARCH_HISTORY_BATCH_10",
+  "TEXAS_ICON_RESEARCH_PROFILES", 'reuseKind: "icon-research-staged"', "matchedResearchSlug",
+  'resolved.reuseKind === "icon-research-staged"',
 ]) if (!server.includes(token)) failures.push(`Texas Icons duplicate/research resolver contract missing: ${token}`);
 const talentPrecedence = server.indexOf("if (talentProfile)");
 const researchPrecedence = server.indexOf("if (researchProfile)");
@@ -170,7 +188,7 @@ if (!/Description (?:field|column).*roster note.*not a publishable authority cit
 if (!/short roster notes below are intake provenance,[\s\S]*not substitutes for research\./.test(hub)) failures.push("Texas Icons hub must disclose that starter notes are not researched profiles.");
 
 if (failures.length) fail();
-console.log(`Texas Icons validation passed: ${records.length} unique source records, ${researchedHistorySlugs.length} substantive staged History & Politics drafts, one protected Texas Talent reuse at rank 45, protected duplicate resolution, server-only data boundary, conditional route governance, canonical reuse, noindex publication boundaries, and eight related-profile links per record.`);
+console.log(`Texas Icons validation passed: ${records.length} unique source records, all 50 History & Politics roster positions covered by ${researchedHistorySlugs.length} substantive staged research profiles plus one protected Texas Talent reuse, protected duplicate resolution, server-only data boundary, conditional route governance, canonical reuse, noindex publication boundaries, and eight related-profile links per record.`);
 
 function fail() {
   console.error("Texas Icons validation failed:");
