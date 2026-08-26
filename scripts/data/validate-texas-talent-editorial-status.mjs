@@ -34,6 +34,16 @@ const expectedCohort = [
   "ethan-hawke",
   "dennis-quaid",
   "sissy-spacek",
+  "forest-whitaker",
+  "richard-linklater",
+  "katherine-anne-porter",
+  "sandra-cisneros",
+  "cormac-mccarthy",
+  "benjamin-alire-saenz",
+  "robert-rauschenberg",
+  "steve-martin",
+  "tom-lea",
+  "julian-onderdonk",
 ];
 
 const statusSource = read("src/data/texas-talent-editorial-status.ts");
