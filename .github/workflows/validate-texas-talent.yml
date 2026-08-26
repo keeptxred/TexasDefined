@@ -3,41 +3,18 @@ name: Validate Texas Talent launch contract
 on:
   push:
     branches: [main]
-    paths:
-      - "src/data/texas-talent*.ts"
-      - "src/data/knowledge-graph*.ts"
-      - "src/routes/admin.texas-talent*.tsx"
-      - "src/routes/texas-talent*.tsx"
-      - "src/routes/sitemap[.]xml.ts"
-      - "src/lib/public-routes.ts"
-      - "public/images/editorial/texas-talent-hero.webp"
-      - "scripts/data/validate-texas-talent.mjs"
-      - ".github/workflows/validate-texas-talent.yml"
   pull_request:
     branches: [main]
-    paths:
-      - "src/data/texas-talent*.ts"
-      - "src/data/knowledge-graph*.ts"
-      - "src/routes/admin.texas-talent*.tsx"
-      - "src/routes/texas-talent*.tsx"
-      - "src/routes/sitemap[.]xml.ts"
-      - "src/lib/public-routes.ts"
-      - "public/images/editorial/texas-talent-hero.webp"
-      - "scripts/data/validate-texas-talent.mjs"
-      - ".github/workflows/validate-texas-talent.yml"
   workflow_dispatch:
 
 permissions:
   contents: read
 
-concurrency:
-  group: texas-talent-launch-contract-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   validate:
     runs-on: ubuntu-latest
     timeout-minutes: 5
+
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
