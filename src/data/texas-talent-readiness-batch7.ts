@@ -100,38 +100,6 @@ export const TEXAS_TALENT_READINESS_BATCH7: Readonly<Record<string, TexasTalentR
     },
     launchStatus: "editorial-review",
   },
-  "larry-mcmurtry": {
-    sourceReview: {
-      status: "reviewed",
-      reviewedAt,
-      verifiedSources: [
-        "https://www.tshaonline.org/handbook/entries/mcmurtry-larry-jeff",
-        "https://www.pulitzer.org/winners/larry-mcmurtry",
-      ],
-      note: "The Handbook of Texas confirms McMurtry was born in Wichita Falls in 1936, lived on his family's Archer County ranch and moved to Archer City before second grade; the current research draft's wording that he was born near Archer City is therefore flagged for editorial correction before launch. Pulitzer records independently verify Lonesome Dove as the 1986 Fiction winner.",
-    },
-    imageReview: {
-      status: "verified",
-      reviewedAt,
-      heroImage: {
-        src: commonsRedirect("Larry McMurtry Photo Last Picture Show 1966.png"),
-        alt: "Larry McMurtry in a 1966 dust-jacket portrait",
-        credit: "Unknown photographer / Dial Press dust jacket / Wikimedia Commons",
-        sourceUrl: "https://commons.wikimedia.org/wiki/File:Larry_McMurtry_Photo_Last_Picture_Show_1966.png",
-        licenseLabel: "Public domain in the United States",
-        rightsNote: "Wikimedia Commons documents the 1966 dust-jacket portrait as public domain in the United States because it was published without a valid copyright notice; the hosted scan is treated as a mechanical reproduction. Keep the determination U.S.-specific and retain provenance.",
-      },
-    },
-    internalLinkReview: {
-      status: "partial",
-      links: [
-        { label: "Archer County", href: "/county/archer", kind: "county" },
-        { label: "Wichita County", href: "/county/wichita", kind: "county" },
-      ],
-      note: "Archer City/ranch-country and Wichita Falls birthplace geography are connected through county-authority pages. The underlying profile's birthplace sentence and timeline must be corrected before this profile can become launch-ready.",
-    },
-    launchStatus: "editorial-review",
-  },
   "katherine-anne-porter": {
     sourceReview: {
       status: "reviewed",
