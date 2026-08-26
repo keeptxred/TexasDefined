@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - "src/data/texas-talent*.ts"
+      - "src/data/knowledge-graph*.ts"
       - "src/routes/admin.texas-talent*.tsx"
       - "src/routes/texas-talent*.tsx"
       - "src/routes/sitemap[.]xml.ts"
@@ -16,6 +17,7 @@ on:
     branches: [main]
     paths:
       - "src/data/texas-talent*.ts"
+      - "src/data/knowledge-graph*.ts"
       - "src/routes/admin.texas-talent*.tsx"
       - "src/routes/texas-talent*.tsx"
       - "src/routes/sitemap[.]xml.ts"
