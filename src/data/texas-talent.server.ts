@@ -1,6 +1,7 @@
 import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
 import { TEXAS_TALENT_EDITORIAL_STATUS_OVERRIDES } from "@/data/texas-talent-editorial-status";
 import { TEXAS_TALENT_LAUNCH_DEPTH_WAVE1 } from "@/data/texas-talent-launch-depth-wave1";
+import { TEXAS_TALENT_LAUNCH_DEPTH_WAVE2 } from "@/data/texas-talent-launch-depth-wave2";
 import { buildTexasTalentLaunchMetadata } from "@/data/texas-talent-launch-metadata.server";
 import { TEXAS_TALENT_PLACE_CONTEXT_OVERRIDES } from "@/data/texas-talent-place-context-overrides";
 import { TEXAS_TALENT_PROFILES } from "@/data/texas-talent-profiles";
@@ -59,9 +60,10 @@ const missingReadinessSlugs = profileSlugs.filter((slug) => !TEXAS_TALENT_ALL_RE
 const orphanCorrectionSlugs = Object.keys(TEXAS_TALENT_PROFILE_CORRECTIONS).filter(
   (slug) => !profileSlugs.includes(slug as (typeof profileSlugs)[number]),
 );
-const orphanDepthOverrideSlugs = Object.keys(TEXAS_TALENT_LAUNCH_DEPTH_WAVE1).filter(
-  (slug) => !profileSlugs.includes(slug as (typeof profileSlugs)[number]),
-);
+const orphanDepthOverrideSlugs = [
+  ...Object.keys(TEXAS_TALENT_LAUNCH_DEPTH_WAVE1),
+  ...Object.keys(TEXAS_TALENT_LAUNCH_DEPTH_WAVE2),
+].filter((slug) => !profileSlugs.includes(slug as (typeof profileSlugs)[number]));
 const orphanEditorialStatusSlugs = Object.keys(TEXAS_TALENT_EDITORIAL_STATUS_OVERRIDES).filter(
   (slug) => !profileSlugs.includes(slug as (typeof profileSlugs)[number]),
 );
@@ -99,6 +101,7 @@ function withReadiness<T extends (typeof TEXAS_TALENT_ALL_PROFILES)[number]>(pro
     ...profile,
     ...(TEXAS_TALENT_PROFILE_CORRECTIONS[profile.slug] ?? {}),
     ...(TEXAS_TALENT_LAUNCH_DEPTH_WAVE1[profile.slug] ?? {}),
+    ...(TEXAS_TALENT_LAUNCH_DEPTH_WAVE2[profile.slug] ?? {}),
     ...(TEXAS_TALENT_EDITORIAL_STATUS_OVERRIDES[profile.slug] ?? {}),
   };
   const texasPlaces = correctedProfile.texasPlaces.map((place) => ({
