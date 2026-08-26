@@ -1,0 +1,35 @@
+name: Texas Icons Registry
+
+on:
+  pull_request:
+    paths:
+      - "src/data/texas-icons-types.ts"
+      - "src/data/texas-icons-roster.server.ts"
+      - "src/data/texas-icons-source-*.server.ts"
+      - "src/data/texas-icons.server.ts"
+      - "src/routes/texas-icons.tsx"
+      - "src/routes/texas-icons_.$slug.tsx"
+      - "scripts/data/validate-texas-icons.mjs"
+      - ".github/workflows/texas-icons-registry.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Validate Texas Icons registry
+        run: node scripts/data/validate-texas-icons.mjs
+      - name: Production build
+        run: npm run build
+      - name: Protected client bundle budget
+        run: npm run performance:validate
