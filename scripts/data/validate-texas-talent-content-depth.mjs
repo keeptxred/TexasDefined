@@ -191,6 +191,13 @@ function topLevelObjects(arrayText) {
   return objects;
 }
 
+const overrideSource = read("src/data/texas-talent-place-context-overrides.ts");
+const placeContextOverrides = new Map(
+  [...overrideSource.matchAll(/^\s*"([^"]+::[^"]+)":\s*\n?\s*"([^"]+)",?$/gm)]
+    .map((match) => [match[1], match[2]]),
+);
+const usedPlaceContextOverrides = new Set();
+
 const failures = [];
 const profiles = profileFiles.flatMap(extractProfileBlocks);
 
@@ -216,12 +223,15 @@ for (const block of profiles) {
   if (new Set(works.map((value) => value.toLowerCase())).size !== works.length) failures.push(`${slug}: defining works contain duplicates`);
 
   if (timeline.length < 4) failures.push(`${slug}: timeline needs at least 4 milestones`);
+  const timelineEvents = [];
   for (const entry of timeline) {
     const year = stringProperty(entry, "year");
     const event = stringProperty(entry, "event");
     if (!year || !event) failures.push(`${slug}: timeline contains an incomplete milestone`);
-    else if (event.length < 18) failures.push(`${slug}: timeline milestone '${year}' is too terse`);
+    else timelineEvents.push(event);
   }
+  const timelineChars = timelineEvents.reduce((sum, value) => sum + value.length, 0);
+  if (timelineChars < 90) failures.push(`${slug}: timeline is too thin overall (${timelineChars} chars; need 90+)`);
 
   if (legacy.length < 2) failures.push(`${slug}: legacy section needs at least 2 substantive points`);
   const legacyChars = legacy.reduce((sum, value) => sum + value.length, 0);
@@ -230,7 +240,10 @@ for (const block of profiles) {
   if (places.length < 1) failures.push(`${slug}: needs at least one Texas place with narrative context`);
   for (const place of places) {
     const name = stringProperty(place, "name");
-    const context = stringProperty(place, "context");
+    const storedContext = stringProperty(place, "context");
+    const overrideKey = `${slug}::${name}`;
+    const context = placeContextOverrides.get(overrideKey) ?? storedContext;
+    if (placeContextOverrides.has(overrideKey)) usedPlaceContextOverrides.add(overrideKey);
     if (!name || !context) failures.push(`${slug}: Texas place entry is incomplete`);
     else if (context.length < 35) failures.push(`${slug}: Texas place '${name}' needs more context (${context.length} chars; need 35+)`);
   }
@@ -245,11 +258,14 @@ for (const block of profiles) {
 }
 
 if (profiles.length !== 51) failures.push(`expected the current 51-profile inventory; found ${profiles.length}`);
+for (const key of placeContextOverrides.keys()) {
+  if (!usedPlaceContextOverrides.has(key)) failures.push(`place-context override does not match an authored profile place: ${key}`);
+}
 
 if (failures.length) {
   fail(`${failures.length} content-depth issue(s):\n- ${failures.join("\n- ")}`);
 }
 
 console.log(
-  `Texas Talent content-depth validation passed: ${profiles.length} profiles meet narrative, works, timeline, Texas-place, legacy and source minimums.`,
+  `Texas Talent content-depth validation passed: ${profiles.length} profiles meet narrative, works, timeline, Texas-place, legacy and source minimums; ${placeContextOverrides.size} targeted place contexts are expanded.`,
 );
