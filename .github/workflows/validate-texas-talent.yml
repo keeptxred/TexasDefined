@@ -33,6 +33,9 @@ jobs:
       - name: Validate Texas Talent flagship depth wave
         run: node scripts/data/validate-texas-talent-flagship-depth.mjs
 
+      - name: Validate Texas Talent flagship depth wave 2
+        run: node scripts/data/validate-texas-talent-flagship-depth-wave2.mjs
+
       - name: Validate Texas Talent source provenance
         run: node scripts/data/validate-texas-talent-source-provenance.mjs
 
