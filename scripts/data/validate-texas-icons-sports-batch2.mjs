@@ -82,10 +82,11 @@ for (const token of [
 const talentPrecedence = resolver.indexOf("if (talentProfile)");
 const researchPrecedence = resolver.indexOf("if (researchProfile)");
 if (talentPrecedence < 0 || researchPrecedence < 0 || talentPrecedence > researchPrecedence) failures.push("Texas Talent must continue to resolve before Texas Icons research profiles.");
+if (!resolver.includes("texasTalentFutureCanonicalPath") || !resolver.includes("canonical owner")) failures.push("Sports reconciliation must preserve Texas Talent future canonical ownership from the launch-metadata contract.");
 if (!resolver.includes('reuseKind: "icon-research-staged"') || !resolver.includes("indexableAtOwnRoute: false")) failures.push("Sports research drafts must remain non-indexable at their own routes.");
 
 if (failures.length) fail();
-console.log("Texas Icons sports batch-2 validation passed: ranks 111-120 preserve ten substantive staged research profiles, distinct source depth, future duplicate detection and noindex publication boundaries.");
+console.log("Texas Icons sports batch-2 validation passed: ranks 111-120 preserve ten substantive staged research profiles, distinct source depth, Talent canonical ownership, future duplicate detection and noindex publication boundaries.");
 
 function fail() {
   console.error("Texas Icons sports batch-2 validation failed:");
