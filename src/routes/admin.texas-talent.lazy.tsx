@@ -33,6 +33,21 @@ function TexasTalentPage() {
               <p className="mt-2">Every page remains internal and noindex until fact-checking, image rights, internal links and explicit editorial approval meet the public-launch standard.</p>
             </div>
           </div>
+
+          <figure className="mt-10 overflow-hidden border border-background/20 bg-background/5 shadow-2xl shadow-black/20">
+            <img
+              src="/images/editorial/texas-talent-hero.webp"
+              alt="Illustrated Texas Talent banner celebrating Texas musicians, actors, filmmakers, writers, artists and performers"
+              width={1800}
+              height={720}
+              className="aspect-[5/2] w-full object-cover"
+              loading="eager"
+              fetchPriority="high"
+            />
+            <figcaption className="border-t border-background/15 px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.14em] text-background/50 sm:px-5">
+              Approved Texas Talent visual direction · internal preview
+            </figcaption>
+          </figure>
         </Container>
       </section>
 
