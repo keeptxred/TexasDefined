@@ -41,3 +41,6 @@ jobs:
 
       - name: Validate Texas Talent reverse-link audit
         run: node scripts/data/validate-texas-talent-reverse-links.mjs
+
+      - name: Validate Texas Talent public-style preview
+        run: node scripts/data/validate-texas-talent-public-preview.mjs
