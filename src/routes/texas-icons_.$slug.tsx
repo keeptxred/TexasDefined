@@ -2,8 +2,11 @@ import { createFileRoute, notFound, redirect } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { getTexasIconProfile } from "@/data/texas-icons.functions";
-import { TEXAS_ICON_CATEGORIES } from "@/data/texas-icons-types";
-import type { TexasTalentProfile } from "@/data/texas-talent";
+import {
+  TEXAS_ICON_CATEGORIES,
+  type TexasIconNarrativeProfile,
+  type TexasIconResearchProfile,
+} from "@/data/texas-icons-types";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 export const Route = createFileRoute("/texas-icons/$slug")({
@@ -26,7 +29,7 @@ export const Route = createFileRoute("/texas-icons/$slug")({
         canonicalPath,
         title: `${loaderData.icon.name}: Texas Icon`,
         description: loaderData.icon.summary,
-        type: loaderData.talentProfile ? "article" : "website",
+        type: loaderData.talentProfile || loaderData.researchProfile ? "article" : "website",
         robots: loaderData.icon.indexableAtOwnRoute
           ? undefined
           : "noindex, follow, max-image-preview:large",
@@ -38,9 +41,10 @@ export const Route = createFileRoute("/texas-icons/$slug")({
 });
 
 function TexasIconProfilePage() {
-  const { icon, related, talentProfile } = Route.useLoaderData();
+  const { icon, related, talentProfile, researchProfile } = Route.useLoaderData();
   const category = TEXAS_ICON_CATEGORIES.find((candidate) => candidate.id === icon.category);
   const canonicalPath = `/texas-icons/${icon.slug}`;
+  const narrativeProfile: TexasIconNarrativeProfile | null = talentProfile ?? researchProfile;
   const schema = talentProfile
     ? {
         "@context": "https://schema.org",
@@ -86,14 +90,18 @@ function TexasIconProfilePage() {
                     ? "Existing Texas Talent record"
                     : icon.reuseKind === "texas-talent-staged"
                       ? "Existing Texas Talent draft"
-                      : "Texas Icons research queue"
+                      : icon.reuseKind === "icon-research-staged"
+                        ? "Texas Icons researched draft"
+                        : "Texas Icons research queue"
                 }
               />
             </dl>
           </header>
 
-          {talentProfile ? (
-            <FullTalentProfile profile={talentProfile} />
+          {researchProfile ? <ResearchDraftNotice profile={researchProfile} /> : null}
+
+          {narrativeProfile ? (
+            <NarrativeProfile profile={narrativeProfile} />
           ) : (
             <section className="grid gap-6 border-b border-border py-10 lg:grid-cols-[14rem_1fr]">
               <div>
@@ -156,7 +164,27 @@ function TexasIconProfilePage() {
   );
 }
 
-function FullTalentProfile({ profile }: { profile: TexasTalentProfile }) {
+function ResearchDraftNotice({ profile }: { profile: TexasIconResearchProfile }) {
+  return (
+    <section className="border-b border-border py-8">
+      <div className="grid gap-5 lg:grid-cols-[14rem_1fr]">
+        <div>
+          <p className="eyebrow text-primary">Editorial status</p>
+          <h2 className="mt-2 font-display text-3xl">Researched draft · noindex</h2>
+        </div>
+        <div className="max-w-3xl space-y-3 text-sm leading-7 text-muted-foreground">
+          <p>{profile.publicationNote}</p>
+          <p>
+            This research is visible for editorial review and cross-linking, but it does not emit
+            publishable structured data and cannot become indexable merely because the copy exists.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function NarrativeProfile({ profile }: { profile: TexasIconNarrativeProfile }) {
   return (
     <>
       <section className="grid gap-6 border-b border-border py-10 lg:grid-cols-[14rem_1fr]">
