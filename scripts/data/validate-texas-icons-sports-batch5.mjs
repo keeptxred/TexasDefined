@@ -72,8 +72,20 @@ for (const domain of ["12thman.com", "ufc.com", "indianapolismotorspeedway.com",
 const allSportsSlugs = [...sportsResearch.matchAll(/slug: "([^"]+)"/g)].map((match) => match[1]);
 if (allSportsSlugs.length !== 50) failures.push(`Sports research must contain exactly 50 profile records; found ${allSportsSlugs.length}.`);
 if (new Set(allSportsSlugs).size !== 50) failures.push("Sports research must contain exactly 50 unique profile slugs.");
-const rosterSportsRows = [...source.matchAll(/^(\d+),([^,]+),Sports,/gm)].filter((match) => Number(match[1]) >= 101 && Number(match[1]) <= 150);
-if (rosterSportsRows.length !== 50) failures.push(`Sports source roster must contain exactly ranks 101-150; found ${rosterSportsRows.length} rows.`);
+
+// Each ten-profile batch already validates the exact `rank,name,Sports,` source row.
+// The completion audit independently proves that the source contains every rank
+// 101 through 150 exactly once without trying to parse quoted CSV note fields.
+const sourceRanks = [...source.matchAll(/^(\d+),/gm)].map((match) => Number(match[1]));
+const expectedSportsRanks = Array.from({ length: 50 }, (_, index) => 101 + index);
+for (const rank of expectedSportsRanks) {
+  const occurrences = sourceRanks.filter((candidate) => candidate === rank).length;
+  if (occurrences !== 1) failures.push(`Sports source roster must contain rank ${rank} exactly once; found ${occurrences}.`);
+}
+const sportsRangeRanks = sourceRanks.filter((rank) => rank >= 101 && rank <= 150);
+if (sportsRangeRanks.length !== 50 || new Set(sportsRangeRanks).size !== 50) {
+  failures.push(`Sports source roster must contain exactly 50 unique ranks from 101-150; found ${sportsRangeRanks.length} rows and ${new Set(sportsRangeRanks).size} unique ranks.`);
+}
 
 const talentFiles = fs.readdirSync(dataDir).filter((name) => /^texas-talent-profiles.*\.ts$/.test(name));
 const talentSource = talentFiles.map((name) => fs.readFileSync(`${dataDir}/${name}`, "utf8")).join("\n");
