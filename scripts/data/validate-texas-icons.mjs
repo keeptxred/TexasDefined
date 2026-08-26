@@ -15,6 +15,7 @@ const researchPaths = [
   "src/data/texas-icons-research-history-6.server.ts",
   "src/data/texas-icons-research-history-7.server.ts",
   "src/data/texas-icons-research-history-8.server.ts",
+  "src/data/texas-icons-research-history-9.server.ts",
 ];
 const typesPath = "src/data/texas-icons-types.ts";
 const serverPath = "src/data/texas-icons.server.ts";
@@ -23,9 +24,14 @@ const publicRoutesPath = "src/lib/public-routes.ts";
 const workflowPath = ".github/workflows/texas-icons-registry.yml";
 const hubPath = "src/routes/texas-icons.tsx";
 const profilePath = "src/routes/texas-icons_.$slug.tsx";
+const talentProfilePath = "src/data/texas-talent-profiles-wave2-arts.ts";
+const talentReadinessPath = "src/data/texas-talent-readiness-batch10.ts";
 
 const failures = [];
-for (const path of [rosterPath, ...sourcePaths, ...researchPaths, typesPath, serverPath, functionsPath, publicRoutesPath, workflowPath, hubPath, profilePath]) {
+for (const path of [
+  rosterPath, ...sourcePaths, ...researchPaths, typesPath, serverPath, functionsPath,
+  publicRoutesPath, workflowPath, hubPath, profilePath, talentProfilePath, talentReadinessPath,
+]) {
   if (!fs.existsSync(path)) failures.push(`Missing Texas Icons contract file: ${path}`);
 }
 if (failures.length) fail();
@@ -39,6 +45,8 @@ const publicRoutes = fs.readFileSync(publicRoutesPath, "utf8");
 const workflow = fs.readFileSync(workflowPath, "utf8");
 const hub = fs.readFileSync(hubPath, "utf8");
 const profile = fs.readFileSync(profilePath, "utf8");
+const talentProfiles = fs.readFileSync(talentProfilePath, "utf8");
+const talentReadiness = fs.readFileSync(talentReadinessPath, "utf8");
 
 const sourceFragments = sourcePaths.map((path) => {
   const source = fs.readFileSync(path, "utf8");
@@ -80,6 +88,7 @@ const researchedHistorySlugs = [
   "henry-b-gonzalez", "irma-rangel", "lulu-belle-madison-white", "sallie-reynolds-matthews", "molly-goodnight",
   "richard-king", "charles-goodnight", "james-hogg", "ma-ferguson", "allan-shivers",
   "phil-gramm", "tom-connally", "anson-jones", "adina-de-zavala", "clara-driscoll",
+  "cynthia-ann-parker", "satanta", "george-t-ruby", "norris-wright-cuney",
 ];
 for (const slug of researchedHistorySlugs) {
   if (!records.some((record) => record.slug === slug)) failures.push(`Researched History & Politics profile is not in the 250-icon roster: ${slug}.`);
@@ -109,15 +118,23 @@ for (const contextualToken of [
   "Interwoven: A Pioneer Chronicle", "orphaned southern-plains bison", "roughly 614,000 acres",
   "supervising enslaved Black labor", "Railroad Commission", "first woman elected governor of Texas", "opposed school integration",
   "Democratic-to-Republican", "anti-lynching", "five enslaved people", "three days", "$65,000",
+  "forcibly returned to white society", "exact death date is uncertain", "Orator of the Plains",
+  "civilian murder trial", "only Black member of the Texas delegation", "Screwmen's Benevolent Association", "lily-white",
 ]) if (!research.includes(contextualToken)) failures.push(`History research is missing required contextual coverage: ${contextualToken}.`);
+
+const reusedTalentSlug = "j-frank-dobie";
+if (!records.some((record) => record.slug === reusedTalentSlug && record.rank === 45)) failures.push("J. Frank Dobie must remain roster rank 45 for duplicate-reuse governance.");
+if (!talentProfiles.includes(`slug: "${reusedTalentSlug}"`)) failures.push("J. Frank Dobie's existing Texas Talent profile must remain available for Icons reuse.");
+if (!talentReadiness.includes(`"${reusedTalentSlug}"`)) failures.push("J. Frank Dobie's existing Texas Talent readiness record must remain available for Icons reuse.");
+if (research.includes(`slug: "${reusedTalentSlug}"`)) failures.push("J. Frank Dobie must reuse Texas Talent and must not gain a duplicate Texas Icons research profile.");
 
 for (const token of [
   "loadTexasTalentProfilesServer", "loadTexasKnowledgeGraph", "canonicalEntityPath", "uniqueMatch",
   'entry.subjectType === "place"', "isTexasTalentPublishable", "TEXAS_ICON_RESEARCH_HISTORY_BATCH_1",
   "TEXAS_ICON_RESEARCH_HISTORY_BATCH_2", "TEXAS_ICON_RESEARCH_HISTORY_BATCH_3", "TEXAS_ICON_RESEARCH_HISTORY_BATCH_4",
   "TEXAS_ICON_RESEARCH_HISTORY_BATCH_5", "TEXAS_ICON_RESEARCH_HISTORY_BATCH_6", "TEXAS_ICON_RESEARCH_HISTORY_BATCH_7",
-  "TEXAS_ICON_RESEARCH_HISTORY_BATCH_8", "TEXAS_ICON_RESEARCH_PROFILES", 'reuseKind: "icon-research-staged"',
-  "matchedResearchSlug", 'resolved.reuseKind === "icon-research-staged"',
+  "TEXAS_ICON_RESEARCH_HISTORY_BATCH_8", "TEXAS_ICON_RESEARCH_HISTORY_BATCH_9", "TEXAS_ICON_RESEARCH_PROFILES",
+  'reuseKind: "icon-research-staged"', "matchedResearchSlug", 'resolved.reuseKind === "icon-research-staged"',
 ]) if (!server.includes(token)) failures.push(`Texas Icons duplicate/research resolver contract missing: ${token}`);
 const talentPrecedence = server.indexOf("if (talentProfile)");
 const researchPrecedence = server.indexOf("if (researchProfile)");
@@ -153,7 +170,7 @@ if (!/Description (?:field|column).*roster note.*not a publishable authority cit
 if (!/short roster notes below are intake provenance,[\s\S]*not substitutes for research\./.test(hub)) failures.push("Texas Icons hub must disclose that starter notes are not researched profiles.");
 
 if (failures.length) fail();
-console.log(`Texas Icons validation passed: ${records.length} unique source records, ${researchedHistorySlugs.length} substantive staged History & Politics drafts, protected duplicate resolution, server-only data boundary, conditional route governance, canonical reuse, noindex publication boundaries, and eight related-profile links per record.`);
+console.log(`Texas Icons validation passed: ${records.length} unique source records, ${researchedHistorySlugs.length} substantive staged History & Politics drafts, one protected Texas Talent reuse at rank 45, protected duplicate resolution, server-only data boundary, conditional route governance, canonical reuse, noindex publication boundaries, and eight related-profile links per record.`);
 
 function fail() {
   console.error("Texas Icons validation failed:");
