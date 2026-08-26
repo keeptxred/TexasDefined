@@ -1,10 +1,10 @@
 import { createLazyFileRoute } from "@tanstack/react-router";
 
-import { TexasEvergreenGuide } from "@/components/editorial/TexasEvergreenGuide";
+import { TexasMusicVenueGuide } from "@/components/editorial/TexasMusicVenueGuide";
 
 export const Route = createLazyFileRoute("/antones-austin-history")({ component: GuidePage });
 
 function GuidePage() {
   const guide = Route.useLoaderData();
-  return <TexasEvergreenGuide guide={guide} />;
+  return <TexasMusicVenueGuide guide={guide} />;
 }
