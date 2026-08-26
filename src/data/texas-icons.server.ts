@@ -3,6 +3,7 @@ import { canonicalEntityPath } from "@/data/knowledge-graph/relationships";
 import type { TexasEntityRecord } from "@/data/knowledge-graph/types";
 import { TEXAS_ICON_RESEARCH_HISTORY_BATCH_1 } from "@/data/texas-icons-research-history-1.server";
 import { TEXAS_ICON_RESEARCH_HISTORY_BATCH_2 } from "@/data/texas-icons-research-history-2.server";
+import { TEXAS_ICON_RESEARCH_HISTORY_BATCH_3 } from "@/data/texas-icons-research-history-3.server";
 import { isTexasTalentPublishable } from "@/data/texas-talent-launch";
 import { loadTexasTalentProfilesServer } from "@/data/texas-talent.server";
 import {
@@ -20,6 +21,7 @@ import {
 const TEXAS_ICON_RESEARCH_PROFILES: readonly TexasIconResearchProfile[] = [
   ...TEXAS_ICON_RESEARCH_HISTORY_BATCH_1,
   ...TEXAS_ICON_RESEARCH_HISTORY_BATCH_2,
+  ...TEXAS_ICON_RESEARCH_HISTORY_BATCH_3,
 ];
 
 export type TexasIconReuseKind =
