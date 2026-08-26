@@ -7,6 +7,7 @@ const articleBody = fs.readFileSync('src/components/editorial/ArticleBody.tsx', 
 const sitemap = fs.readFileSync('src/routes/sitemap[.]xml.ts', 'utf8');
 const about = fs.readFileSync('src/routes/about.tsx', 'utf8');
 const desks = fs.readFileSync('src/data/editorial-desks.ts', 'utf8');
+const delivery = fs.readFileSync('src/lib/editorial-image-delivery.ts', 'utf8');
 const legacyFixture = fs.readFileSync('src/data/fixtures/texas.ts', 'utf8');
 
 for (const feature of [
@@ -33,9 +34,23 @@ for (const feature of [
   'Texas Defined Editorial Desk',
   'Texas Defined Food & Culture Desk',
   'Texas Defined Travel & Outdoors Desk',
+  'Texas Defined Homes & Land Desk',
+  'HOMES_LAND_EDITORIAL_DESK_ID',
+  'official agencies, extension services and other primary sources',
+  'not a substitute for licensed legal, insurance, engineering or trade advice',
   'DEFAULT_EDITORIAL_DESK_ID',
 ]) {
   if (!desks.includes(feature)) failures.push(`Institutional byline registry missing: ${feature}`);
+}
+
+for (const feature of [
+  'HOMES_LAND_EDITORIAL_DESK_ID',
+  'article.category === "home-garden"',
+  'article.category === "real-estate"',
+  'article.category === "property-taxes"',
+  '{ ...article, authorId, hero, body }',
+]) {
+  if (!delivery.includes(feature)) failures.push(`Homes & Land desk delivery assignment missing: ${feature}`);
 }
 
 for (const forbiddenName of ['Hollis Rains', 'Marisol Vega', 'Dell Whitaker']) {
@@ -75,4 +90,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Institutional editorial desks, byline identity, legacy fixture safety, sitemap discovery and editorial accountability signals are protected.');
+console.log('Institutional editorial desks, byline identity, Homes & Land assignment, legacy fixture safety, sitemap discovery and editorial accountability signals are protected.');
