@@ -9,6 +9,7 @@ const sourcePaths = [
 const researchPaths = [
   "src/data/texas-icons-research-history-1.server.ts",
   "src/data/texas-icons-research-history-2.server.ts",
+  "src/data/texas-icons-research-history-3.server.ts",
 ];
 const typesPath = "src/data/texas-icons-types.ts";
 const serverPath = "src/data/texas-icons.server.ts";
@@ -68,6 +69,7 @@ for (const token of [
 const researchedHistorySlugs = [
   "lyndon-b-johnson", "sam-houston", "stephen-f-austin", "george-w-bush", "barbara-jordan",
   "george-h-w-bush", "ann-richards", "sam-rayburn", "davy-crockett", "james-baker",
+  "jose-antonio-navarro", "william-b-travis", "jim-bowie", "dwight-d-eisenhower", "mirabeau-b-lamar",
 ];
 for (const slug of researchedHistorySlugs) {
   if (!records.some((record) => record.slug === slug)) failures.push(`Researched History & Politics profile is not in the 250-icon roster: ${slug}.`);
@@ -86,13 +88,14 @@ for (const domain of [
 for (const contextualToken of [
   "Vietnam", "slaveowner", "enslaved labor", "September 11", "Watergate",
   "end of the Cold War", "women and minority", "longest-serving Speaker", "exact circumstances", "Gulf War",
+  "Tejano citizenship", "slave trading", "Texas-born president", "Joe", "Santa Fe Expedition",
 ]) if (!research.includes(contextualToken)) failures.push(`History research is missing required contextual coverage: ${contextualToken}.`);
 
 for (const token of [
   "loadTexasTalentProfilesServer", "loadTexasKnowledgeGraph", "canonicalEntityPath", "uniqueMatch",
   'entry.subjectType === "place"', "isTexasTalentPublishable", "TEXAS_ICON_RESEARCH_HISTORY_BATCH_1",
-  "TEXAS_ICON_RESEARCH_HISTORY_BATCH_2", "TEXAS_ICON_RESEARCH_PROFILES", 'reuseKind: "icon-research-staged"',
-  "matchedResearchSlug", 'resolved.reuseKind === "icon-research-staged"',
+  "TEXAS_ICON_RESEARCH_HISTORY_BATCH_2", "TEXAS_ICON_RESEARCH_HISTORY_BATCH_3", "TEXAS_ICON_RESEARCH_PROFILES",
+  'reuseKind: "icon-research-staged"', "matchedResearchSlug", 'resolved.reuseKind === "icon-research-staged"',
 ]) if (!server.includes(token)) failures.push(`Texas Icons duplicate/research resolver contract missing: ${token}`);
 const talentPrecedence = server.indexOf("if (talentProfile)");
 const researchPrecedence = server.indexOf("if (researchProfile)");
