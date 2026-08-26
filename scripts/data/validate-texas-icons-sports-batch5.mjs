@@ -76,7 +76,9 @@ if (new Set(allSportsSlugs).size !== 50) failures.push("Sports research must con
 // Each ten-profile batch already validates the exact `rank,name,Sports,` source row.
 // The completion audit independently proves that the source contains every rank
 // 101 through 150 exactly once without trying to parse quoted CSV note fields.
-const sourceRanks = [...source.matchAll(/^(\d+),/gm)].map((match) => Number(match[1]));
+// Rank 101 begins immediately after the String.raw opening backtick, while all
+// later rows begin after a newline, so both delimiters are valid row starts.
+const sourceRanks = [...source.matchAll(/(?:^|\n|`)(\d+),/g)].map((match) => Number(match[1]));
 const expectedSportsRanks = Array.from({ length: 50 }, (_, index) => 101 + index);
 for (const rank of expectedSportsRanks) {
   const occurrences = sourceRanks.filter((candidate) => candidate === rank).length;
