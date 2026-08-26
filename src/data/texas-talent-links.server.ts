@@ -110,9 +110,11 @@ export function auditTexasTalentEntityLinksFromGraph(
   const unsafeRecordedLinks = profile.readiness.internalLinkReview.links.filter(
     (link) => !resolvedPaths.has(link.href),
   );
-  const certificationCandidate = profile.readiness.internalLinkReview.status !== "verified"
+  const mechanicallyCertified = profile.readiness.internalLinkReview.status !== "pending"
     && resolvedLinks.length > 0
     && unsafeRecordedLinks.length === 0;
+  const certificationCandidate = profile.readiness.internalLinkReview.status === "partial"
+    && mechanicallyCertified;
 
   return {
     slug: profile.slug,
@@ -122,6 +124,55 @@ export function auditTexasTalentEntityLinksFromGraph(
     safeResolvedLinkCount: resolvedLinks.length,
     unsafeRecordedLinkCount: unsafeRecordedLinks.length,
     unsafeRecordedLinks,
+    mechanicallyCertified,
     certificationCandidate,
   };
+}
+
+export function applyTexasTalentMechanicalLinkCertificationFromGraph(
+  profile: LoadedTexasTalentProfile,
+  graph: readonly TexasEntityRecord[],
+): LoadedTexasTalentProfile {
+  const resolvedLinks = resolveTexasTalentEntityLinksFromGraph(profile, graph);
+  const resolvedPaths = new Set(resolvedLinks.map((link) => link.href));
+  const unsafeRecordedLinks = profile.readiness.internalLinkReview.links.filter(
+    (link) => !resolvedPaths.has(link.href),
+  );
+  const storedReview = profile.readiness.internalLinkReview;
+  const canCertify = storedReview.status !== "pending"
+    && resolvedLinks.length > 0
+    && unsafeRecordedLinks.length === 0;
+
+  if (canCertify) {
+    return {
+      ...profile,
+      readiness: {
+        ...profile.readiness,
+        internalLinkReview: {
+          status: "verified",
+          links: resolvedLinks,
+          note: `Mechanically certified against the current indexable Texas Defined knowledge graph. This certification never grants editorial approval or public publication. Stored review note: ${storedReview.note}`,
+        },
+      },
+    };
+  }
+
+  // A previously stored "verified" claim is not allowed to outlive route
+  // quality. If an indexed destination disappears or a recorded link becomes
+  // unsafe, the derived preview is demoted until the link set is repaired.
+  if (storedReview.status === "verified") {
+    return {
+      ...profile,
+      readiness: {
+        ...profile.readiness,
+        internalLinkReview: {
+          status: "partial",
+          links: resolvedLinks,
+          note: `Current route-quality checks could not preserve the stored verified link review. ${unsafeRecordedLinks.length} recorded link(s) failed the current indexability gate. Stored review note: ${storedReview.note}`,
+        },
+      },
+    };
+  }
+
+  return profile;
 }
