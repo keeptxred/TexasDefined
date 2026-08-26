@@ -36,6 +36,15 @@ if ((research.match(/lastReviewedAt: reviewed/g) ?? []).length !== 10) failures.
 if ((research.match(/remains noindex pending image-rights and internal-link certification/g) ?? []).length !== 10) failures.push("Every sports batch-2 profile must explicitly retain the noindex/image-rights/internal-link publication boundary.");
 const urls = [...research.matchAll(/url: "(https:\/\/[^\"]+)"/g)].map((match) => match[1]);
 if (urls.length < 30) failures.push(`Sports batch 2 needs at least three HTTPS sources per profile; found ${urls.length}.`);
+for (let i = 0; i < entries.length; i += 1) {
+  const slug = entries[i][2];
+  const start = research.indexOf(`slug: "${slug}"`);
+  const nextSlug = entries[i + 1]?.[2];
+  const end = nextSlug ? research.indexOf(`slug: "${nextSlug}"`, start + 1) : research.length;
+  const block = start >= 0 ? research.slice(start, end > start ? end : research.length) : "";
+  const profileUrls = [...block.matchAll(/url: "(https:\/\/[^\"]+)"/g)].map((match) => match[1]);
+  if (new Set(profileUrls).size < 3) failures.push(`Sports batch-2 profile ${slug} must retain at least three distinct HTTPS sources.`);
+}
 for (const token of [
   "1932 Olympic", "1950", "1949", "11 consecutive", "Marine Corps", "2026 season",
   "2026 Pro Football Hall of Fame", "San Antonio", "Naval Academy", "21 seasons", "41-38",
@@ -76,7 +85,7 @@ if (talentPrecedence < 0 || researchPrecedence < 0 || talentPrecedence > researc
 if (!resolver.includes('reuseKind: "icon-research-staged"') || !resolver.includes("indexableAtOwnRoute: false")) failures.push("Sports research drafts must remain non-indexable at their own routes.");
 
 if (failures.length) fail();
-console.log("Texas Icons sports batch-2 validation passed: ranks 111-120 preserve ten substantive staged research profiles, source depth, future duplicate detection and noindex publication boundaries.");
+console.log("Texas Icons sports batch-2 validation passed: ranks 111-120 preserve ten substantive staged research profiles, distinct source depth, future duplicate detection and noindex publication boundaries.");
 
 function fail() {
   console.error("Texas Icons sports batch-2 validation failed:");
