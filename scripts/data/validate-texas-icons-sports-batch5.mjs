@@ -48,7 +48,7 @@ for (let i = 0; i < entries.length; i += 1) {
   if (new Set(profileUrls).size < 3) failures.push(`Sports batch-5 profile ${slug} must retain at least three distinct HTTPS sources.`);
 }
 for (const token of [
-  "Arkansas-born and Rockport-raised",
+  "Rockport-raised Dat Nguyen",
   "2026 middleweight campaign",
   "UFC career knockout record",
   "four Indianapolis 500 wins",
@@ -65,7 +65,7 @@ if (research.includes("14 NFL seasons")) failures.push("Colt McCoy must not be d
 if (!research.includes("2026") || !research.includes("World Baseball Classic")) failures.push("Dusty Baker profile must retain current 2026 baseball context, including his World Baseball Classic return.");
 if (!research.includes("transitioned fully out of the head-coaching job in May 2025")) failures.push("Gregg Popovich profile must retain his 2025 coaching-to-executive transition.");
 if (!research.includes("UCI accepted the decision") || !research.includes("stripped the seven Tour de France titles")) failures.push("Lance Armstrong profile must foreground the USADA/UCI sanction and stripped Tour titles.");
-for (const domain of ["12thman.com", "ufc.com", "indycar.com", "automotivehalloffame.org", "usada.org", "nbcsports.com", "texaslonghorns.com", "mlb.com", "nba.com", "hoophall.com"]) {
+for (const domain of ["12thman.com", "ufc.com", "indianapolismotorspeedway.com", "automotivehalloffame.org", "usada.org", "nbcsports.com", "texaslonghorns.com", "mlb.com", "nba.com", "hoophall.com"]) {
   if (!research.includes(domain)) failures.push(`Sports batch 5 is missing expected authority/source domain: ${domain}.`);
 }
 
