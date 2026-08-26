@@ -17,6 +17,7 @@ import { TEXAS_ICON_RESEARCH_MUSIC_BATCH_3 } from "@/data/texas-icons-research-m
 import { TEXAS_ICON_RESEARCH_MUSIC_BATCH_4 } from "@/data/texas-icons-research-music-4.server";
 import { TEXAS_ICON_RESEARCH_MUSIC_BATCH_5 } from "@/data/texas-icons-research-music-5.server";
 import { TEXAS_ICON_RESEARCH_SPORTS_BATCH_1 } from "@/data/texas-icons-research-sports-1.server";
+import { TEXAS_ICON_RESEARCH_SPORTS_BATCH_2 } from "@/data/texas-icons-research-sports-2.server";
 import { isTexasTalentPublishable } from "@/data/texas-talent-launch";
 import { loadTexasTalentProfilesServer } from "@/data/texas-talent.server";
 import {
@@ -48,6 +49,7 @@ const TEXAS_ICON_RESEARCH_PROFILES: readonly TexasIconResearchProfile[] = [
   ...TEXAS_ICON_RESEARCH_MUSIC_BATCH_4,
   ...TEXAS_ICON_RESEARCH_MUSIC_BATCH_5,
   ...TEXAS_ICON_RESEARCH_SPORTS_BATCH_1,
+  ...TEXAS_ICON_RESEARCH_SPORTS_BATCH_2,
 ];
 
 export type TexasIconReuseKind =
@@ -141,130 +143,46 @@ function resolveTexasIcon(entry: TexasIconRosterEntry, context: ResolutionContex
     : null;
 
   if (entry.canonicalPath) {
-    return {
-      resolved: {
-        ...entry,
-        href: entry.canonicalPath,
-        reuseKind: "editorial-canonical",
-        indexableAtOwnRoute: false,
-        summary: entry.rosterNote,
-        matchedTalentSlug: talentProfile?.slug,
-        matchedEntityId: graphEntity?.id,
-        matchedResearchSlug: researchProfile?.slug,
-      },
-      talentProfile,
-      researchProfile,
-    };
+    return { resolved: { ...entry, href: entry.canonicalPath, reuseKind: "editorial-canonical", indexableAtOwnRoute: false, summary: entry.rosterNote, matchedTalentSlug: talentProfile?.slug, matchedEntityId: graphEntity?.id, matchedResearchSlug: researchProfile?.slug }, talentProfile, researchProfile };
   }
-
   if (graphEntity) {
-    return {
-      resolved: {
-        ...entry,
-        href: canonicalEntityPath(graphEntity),
-        reuseKind: "knowledge-graph",
-        indexableAtOwnRoute: false,
-        summary: graphEntity.description ?? entry.rosterNote,
-        matchedTalentSlug: talentProfile?.slug,
-        matchedEntityId: graphEntity.id,
-        matchedResearchSlug: researchProfile?.slug,
-      },
-      talentProfile,
-      researchProfile,
-    };
+    return { resolved: { ...entry, href: canonicalEntityPath(graphEntity), reuseKind: "knowledge-graph", indexableAtOwnRoute: false, summary: graphEntity.description ?? entry.rosterNote, matchedTalentSlug: talentProfile?.slug, matchedEntityId: graphEntity.id, matchedResearchSlug: researchProfile?.slug }, talentProfile, researchProfile };
   }
-
-  // Existing Texas Talent records always win over an Icons research draft so
-  // the registry cannot fork one person into two competing editorial records.
   if (talentProfile) {
     const publishable = isTexasTalentPublishable(talentProfile);
-    return {
-      resolved: {
-        ...entry,
-        href: `/texas-icons/${entry.slug}`,
-        reuseKind: publishable ? "texas-talent-ready" : "texas-talent-staged",
-        indexableAtOwnRoute: publishable,
-        summary: publishable ? talentProfile.dek : entry.rosterNote,
-        matchedTalentSlug: talentProfile.slug,
-        matchedResearchSlug: researchProfile?.slug,
-      },
-      talentProfile,
-      researchProfile,
-    };
+    return { resolved: { ...entry, href: `/texas-icons/${entry.slug}`, reuseKind: publishable ? "texas-talent-ready" : "texas-talent-staged", indexableAtOwnRoute: publishable, summary: publishable ? talentProfile.dek : entry.rosterNote, matchedTalentSlug: talentProfile.slug, matchedResearchSlug: researchProfile?.slug }, talentProfile, researchProfile };
   }
-
   if (researchProfile) {
-    return {
-      resolved: {
-        ...entry,
-        href: `/texas-icons/${entry.slug}`,
-        reuseKind: "icon-research-staged",
-        indexableAtOwnRoute: false,
-        summary: researchProfile.dek,
-        matchedResearchSlug: researchProfile.slug,
-      },
-      talentProfile: null,
-      researchProfile,
-    };
+    return { resolved: { ...entry, href: `/texas-icons/${entry.slug}`, reuseKind: "icon-research-staged", indexableAtOwnRoute: false, summary: researchProfile.dek, matchedResearchSlug: researchProfile.slug }, talentProfile: null, researchProfile };
   }
-
-  return {
-    resolved: {
-      ...entry,
-      href: `/texas-icons/${entry.slug}`,
-      reuseKind: "new-starter",
-      indexableAtOwnRoute: false,
-      summary: entry.rosterNote,
-    },
-    talentProfile: null,
-    researchProfile: null,
-  };
+  return { resolved: { ...entry, href: `/texas-icons/${entry.slug}`, reuseKind: "new-starter", indexableAtOwnRoute: false, summary: entry.rosterNote }, talentProfile: null, researchProfile: null };
 }
 
 export async function loadTexasIconsServer() {
   const context = await buildResolutionContext();
   const icons = TEXAS_ICON_ROSTER.map((entry) => resolveTexasIcon(entry, context).resolved);
-  const categories = TEXAS_ICON_CATEGORIES.map((category) => ({
-    ...category,
-    icons: icons.filter((entry) => entry.category === category.id),
-  }));
-
+  const categories = TEXAS_ICON_CATEGORIES.map((category) => ({ ...category, icons: icons.filter((entry) => entry.category === category.id) }));
   const stats = {
     total: icons.length,
-    canonicalReused: icons.filter((entry) =>
-      entry.reuseKind === "editorial-canonical" || entry.reuseKind === "knowledge-graph").length,
-    talentReused: icons.filter((entry) =>
-      entry.reuseKind === "texas-talent-ready" || entry.reuseKind === "texas-talent-staged").length,
+    canonicalReused: icons.filter((entry) => entry.reuseKind === "editorial-canonical" || entry.reuseKind === "knowledge-graph").length,
+    talentReused: icons.filter((entry) => entry.reuseKind === "texas-talent-ready" || entry.reuseKind === "texas-talent-staged").length,
     researchedStaged: icons.filter((entry) => entry.reuseKind === "icon-research-staged").length,
     readyAtOwnRoute: icons.filter((entry) => entry.indexableAtOwnRoute).length,
-    researchQueue: icons.filter((entry) =>
-      entry.reuseKind === "new-starter"
-      || entry.reuseKind === "texas-talent-staged"
-      || entry.reuseKind === "icon-research-staged").length,
+    researchQueue: icons.filter((entry) => entry.reuseKind === "new-starter" || entry.reuseKind === "texas-talent-staged" || entry.reuseKind === "icon-research-staged").length,
   };
-
   return { icons, categories, stats };
 }
 
 export async function loadTexasIconProfileServer(slug: string) {
   const entry = getTexasIconBySlug(slug);
   if (!entry) return null;
-
   const context = await buildResolutionContext();
   const { resolved, talentProfile, researchProfile } = resolveTexasIcon(entry, context);
-  const related = getRelatedTexasIcons(entry, 8).map((candidate) =>
-    resolveTexasIcon(candidate, context).resolved);
-
+  const related = getRelatedTexasIcons(entry, 8).map((candidate) => resolveTexasIcon(candidate, context).resolved);
   return {
     icon: resolved,
     related,
-    talentProfile:
-      talentProfile && isTexasTalentPublishable(talentProfile)
-        ? talentProfile
-        : null,
-    researchProfile:
-      resolved.reuseKind === "icon-research-staged"
-        ? researchProfile
-        : null,
+    talentProfile: talentProfile && isTexasTalentPublishable(talentProfile) ? talentProfile : null,
+    researchProfile: resolved.reuseKind === "icon-research-staged" ? researchProfile : null,
   };
 }
