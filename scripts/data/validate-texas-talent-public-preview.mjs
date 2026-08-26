@@ -50,6 +50,13 @@ requireCondition(
   route.includes('The Stars of Texas Shine Bright'),
   "preview must use the canonical Texas Talent tagline",
 );
+for (const category of ["music", "film-tv", "literature", "visual-arts", "comedy-performance"]) {
+  requireCondition(route.includes(`"${category}"`), `preview cohort must retain the ${category} discipline`);
+}
+requireCondition(
+  route.includes("PREVIEW_CATEGORIES.flatMap") && route.includes("slice(0, 2)"),
+  "preview must remain intentionally balanced across the five Texas Talent disciplines",
+);
 requireCondition(
   route.includes('Preview only · noindex') && route.includes('Still safely behind the curtain.'),
   "preview must visibly retain its non-public status",
@@ -70,4 +77,4 @@ requireCondition(!publicRoutes.includes('"/texas-talent"'), "Texas Talent must r
 requireCondition(!sitemap.includes("texas-talent"), "Texas Talent must remain absent from sitemap generation");
 requireCondition(!editorialStatus.includes('launch-ready'), "preview work must not grant launch-ready editorial approval");
 
-console.log("Texas Talent public-preview contract passed: server-only public-style experience remains hidden, noindex, non-publishing and outside the client bundle.");
+console.log("Texas Talent public-preview contract passed: server-only public-style experience remains hidden, noindex, balanced across disciplines, non-publishing and outside the client bundle.");
