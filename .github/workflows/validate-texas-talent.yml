@@ -2,29 +2,31 @@ name: Validate Texas Talent launch contract
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
     paths:
-      - "src/data/texas-talent*.ts"
-      - "src/data/knowledge-graph*.ts"
-      - "src/routes/admin.texas-talent*.tsx"
-      - "src/routes/texas-talent*.tsx"
-      - "src/routes/sitemap[.]xml.ts"
-      - "src/lib/public-routes.ts"
-      - "public/images/editorial/texas-talent-hero.webp"
-      - "scripts/data/validate-texas-talent.mjs"
-      - ".github/workflows/validate-texas-talent.yml"
+      - 'src/data/texas-talent*.ts'
+      - 'src/data/knowledge-graph*.ts'
+      - 'src/routes/admin.texas-talent*.tsx'
+      - 'src/routes/texas-talent*.tsx'
+      - 'src/routes/sitemap[.]xml.ts'
+      - 'src/lib/public-routes.ts'
+      - 'public/images/editorial/texas-talent-hero.webp'
+      - 'scripts/data/validate-texas-talent.mjs'
+      - '.github/workflows/validate-texas-talent.yml'
   pull_request:
-    branches: [main]
+    branches:
+      - main
     paths:
-      - "src/data/texas-talent*.ts"
-      - "src/data/knowledge-graph*.ts"
-      - "src/routes/admin.texas-talent*.tsx"
-      - "src/routes/texas-talent*.tsx"
-      - "src/routes/sitemap[.]xml.ts"
-      - "src/lib/public-routes.ts"
-      - "public/images/editorial/texas-talent-hero.webp"
-      - "scripts/data/validate-texas-talent.mjs"
-      - ".github/workflows/validate-texas-talent.yml"
+      - 'src/data/texas-talent*.ts'
+      - 'src/data/knowledge-graph*.ts'
+      - 'src/routes/admin.texas-talent*.tsx'
+      - 'src/routes/texas-talent*.tsx'
+      - 'src/routes/sitemap[.]xml.ts'
+      - 'src/lib/public-routes.ts'
+      - 'public/images/editorial/texas-talent-hero.webp'
+      - 'scripts/data/validate-texas-talent.mjs'
+      - '.github/workflows/validate-texas-talent.yml'
   workflow_dispatch:
 
 permissions:
@@ -45,7 +47,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: '22'
 
       - name: Validate hidden Texas Talent launch contract
         run: node scripts/data/validate-texas-talent.mjs
