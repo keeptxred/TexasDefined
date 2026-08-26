@@ -5,7 +5,7 @@ export const Route = createFileRoute("/api/admin/social-calendar-preview")({
     handlers: {
       GET: async () => {
         const { buildTexasFacebookDraftWeek } = await import("@/lib/texas-social-facebook-queue");
-        const week = buildTexasFacebookDraftWeek(new Date(), {
+        const week = await buildTexasFacebookDraftWeek(new Date(), {
           enabled: false,
           postsPerDay: 2,
           origin: "https://texasdefined.com",
