@@ -25,6 +25,7 @@ import { TEXAS_TALENT_READINESS_BATCH8 } from "@/data/texas-talent-readiness-bat
 import { TEXAS_TALENT_READINESS_BATCH9 } from "@/data/texas-talent-readiness-batch9";
 import { TEXAS_TALENT_READINESS_BATCH10 } from "@/data/texas-talent-readiness-batch10";
 import { TEXAS_TALENT_READINESS_BATCH11 } from "@/data/texas-talent-readiness-batch11";
+import { TEXAS_TALENT_READINESS_BATCH12 } from "@/data/texas-talent-readiness-batch12";
 
 const TEXAS_TALENT_ALL_PROFILES = [
   ...TEXAS_TALENT_PROFILES,
@@ -45,6 +46,7 @@ const TEXAS_TALENT_ALL_READINESS = {
   ...TEXAS_TALENT_READINESS_BATCH9,
   ...TEXAS_TALENT_READINESS_BATCH10,
   ...TEXAS_TALENT_READINESS_BATCH11,
+  ...TEXAS_TALENT_READINESS_BATCH12,
 };
 
 const profileSlugs = TEXAS_TALENT_ALL_PROFILES.map((profile) => profile.slug);
