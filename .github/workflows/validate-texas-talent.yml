@@ -32,3 +32,6 @@ jobs:
 
       - name: Validate Texas Talent editorial status separation
         run: node scripts/data/validate-texas-talent-editorial-status.mjs
+
+      - name: Report Texas Talent content depth
+        run: node scripts/data/report-texas-talent-depth.mjs
