@@ -23,12 +23,14 @@ function TexasTalentRelationshipsPage() {
       </section>
 
       <Container className="py-10 sm:py-12">
-        <div className="grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-5">
+        <div className="grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7">
           <Metric label="Profiles tracked" value={reverseLinkAudit.totalProfiles} />
           <Metric label="Profiles with a safe link" value={reverseLinkAudit.profilesWithResolvedLinks} />
           <Metric label="Profiles with no safe link" value={reverseLinkAudit.profilesWithoutResolvedLinks} />
           <Metric label="Reverse-link destinations" value={reverseLinkAudit.destinationCount} />
           <Metric label="County destinations" value={reverseLinkAudit.countyDestinationCount} />
+          <Metric label="City destinations" value={reverseLinkAudit.cityDestinationCount} />
+          <Metric label="Culture destinations" value={reverseLinkAudit.cultureDestinationCount} />
         </div>
       </Container>
 
