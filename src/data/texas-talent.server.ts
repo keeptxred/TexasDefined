@@ -1,3 +1,4 @@
+import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
 import { TEXAS_TALENT_PROFILES } from "@/data/texas-talent-profiles";
 import { TEXAS_TALENT_MUSIC_EXPANSION } from "@/data/texas-talent-profiles-wave2-music";
 import { TEXAS_TALENT_FILM_EXPANSION } from "@/data/texas-talent-profiles-wave2-film";
@@ -9,7 +10,10 @@ import {
   assertTexasTalentPublishable,
   isTexasTalentPublishable,
 } from "@/data/texas-talent-launch";
-import { resolveTexasTalentEntityLinks } from "@/data/texas-talent-links.server";
+import {
+  auditTexasTalentEntityLinksFromGraph,
+  resolveTexasTalentEntityLinks,
+} from "@/data/texas-talent-links.server";
 import { TEXAS_TALENT_READINESS } from "@/data/texas-talent-readiness";
 import { TEXAS_TALENT_READINESS_BATCH3 } from "@/data/texas-talent-readiness-batch3";
 import { TEXAS_TALENT_READINESS_BATCH4 } from "@/data/texas-talent-readiness-batch4";
@@ -93,16 +97,22 @@ export async function loadTexasTalentProfileWithResolvedLinksServer(slug: string
   };
 }
 
-export function loadTexasTalentLaunchAuditServer() {
+export async function loadTexasTalentLaunchAuditServer() {
   const profiles = loadTexasTalentProfilesServer();
   const assessments = profiles.map(assessTexasTalentLaunchReadiness);
+  const graph = await loadTexasKnowledgeGraph();
+  const linkAudits = profiles.map((profile) => auditTexasTalentEntityLinksFromGraph(profile, graph));
 
   return {
     totalProfiles: profiles.length,
     mechanicallyReady: assessments.filter((assessment) => assessment.mechanicalReady).length,
     editorialApproved: assessments.filter((assessment) => assessment.editorialApproved).length,
     publishable: assessments.filter((assessment) => assessment.publishable).length,
+    linkCertificationCandidates: linkAudits.filter((audit) => audit.certificationCandidate).length,
+    profilesWithUnsafeRecordedLinks: linkAudits.filter((audit) => audit.unsafeRecordedLinkCount > 0).length,
+    profilesWithNoSafeLinks: linkAudits.filter((audit) => audit.safeResolvedLinkCount === 0).length,
     assessments,
+    linkAudits,
   };
 }
 
