@@ -27,6 +27,9 @@ jobs:
       - name: Validate hidden Texas Talent launch contract
         run: node scripts/data/validate-texas-talent.mjs
 
+      - name: Validate Texas Talent launch-depth gate
+        run: node scripts/data/validate-texas-talent-launch-depth-gate.mjs
+
       - name: Validate Texas Talent source provenance
         run: node scripts/data/validate-texas-talent-source-provenance.mjs
 
