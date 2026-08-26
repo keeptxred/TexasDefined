@@ -39,6 +39,7 @@ export const TEXAS_MUSIC_TRADITIONS: readonly TexasMusicTradition[] = [
     places: ["Austin", "San Antonio", "West Texas", "Hill Country"],
     representativeArtists: ["Willie Nelson", "Waylon Jennings", "George Strait"],
     sourceUrl: "https://www.tshaonline.org/handbook/projects/texas-music",
+    guideHref: "/texas-country-outlaw",
   },
   {
     id: "blues",
@@ -71,6 +72,7 @@ export const TEXAS_MUSIC_TRADITIONS: readonly TexasMusicTradition[] = [
     places: ["Lubbock", "Port Arthur", "Austin", "Dallas"],
     representativeArtists: ["Buddy Holly", "Janis Joplin", "Roy Orbison", "Stevie Ray Vaughan"],
     sourceUrl: "https://www.tshaonline.org/handbook/projects/texas-music",
+    guideHref: "/texas-rock-rockabilly",
   },
   {
     id: "jazz",
@@ -81,6 +83,7 @@ export const TEXAS_MUSIC_TRADITIONS: readonly TexasMusicTradition[] = [
     places: ["Fort Worth", "Dallas", "Houston", "San Antonio"],
     representativeArtists: ["Ornette Coleman", "Teddy Wilson", "Arnett Cobb"],
     sourceUrl: "https://www.tshaonline.org/handbook/projects/texas-music/category/music/category/genres-jazz",
+    guideHref: "/texas-jazz",
   },
   {
     id: "gospel-rnb-pop",
@@ -101,6 +104,7 @@ export const TEXAS_MUSIC_TRADITIONS: readonly TexasMusicTradition[] = [
     places: ["Houston", "Dallas", "Fort Worth", "Port Arthur"],
     representativeArtists: ["Geto Boys", "DJ Screw", "UGK"],
     sourceUrl: "https://www.tshaonline.org/handbook/projects/texas-music/category/music/category/genres-rap-and-hip-hop",
+    guideHref: "/texas-hip-hop",
   },
 ] as const;
 
@@ -119,6 +123,26 @@ export const TEXAS_MUSIC_RELATED_GUIDES: readonly TexasMusicRelatedGuide[] = [
     title: "Texas Western Swing",
     href: "/texas-western-swing",
     description: "Fort Worth dance music, Milton Brown, Bob Wills, steel guitar and the blend of country, blues and jazz.",
+  },
+  {
+    title: "Texas Country & Outlaw Country",
+    href: "/texas-country-outlaw",
+    description: "Dance halls, songwriters and the Austin progressive-country movement that challenged Nashville convention.",
+  },
+  {
+    title: "Texas Rock & Rockabilly",
+    href: "/texas-rock-rockabilly",
+    description: "Buddy Holly, Roy Orbison, Janis Joplin and the Texas roots that fed rock-and-roll and later roots rock.",
+  },
+  {
+    title: "Texas Jazz",
+    href: "/texas-jazz",
+    description: "Territory bands, Houston tenor saxophone, Fort Worth innovators and Texas musicians who changed modern jazz.",
+  },
+  {
+    title: "Texas Hip-Hop",
+    href: "/texas-hip-hop",
+    description: "Houston rap, DJ Screw's tape culture, the Geto Boys, UGK and the Gulf Coast systems that built a national sound.",
   },
   {
     title: "Texas Dance Halls & Honky-Tonks",
