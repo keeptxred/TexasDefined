@@ -8,11 +8,24 @@ const sourcePaths = [
 ];
 const typesPath = "src/data/texas-icons-types.ts";
 const serverPath = "src/data/texas-icons.server.ts";
+const functionsPath = "src/data/texas-icons.functions.ts";
+const publicRoutesPath = "src/lib/public-routes.ts";
+const workflowPath = ".github/workflows/texas-icons-registry.yml";
 const hubPath = "src/routes/texas-icons.tsx";
 const profilePath = "src/routes/texas-icons_.$slug.tsx";
 
 const failures = [];
-for (const path of [rosterPath, ...sourcePaths, typesPath, serverPath, hubPath, profilePath]) {
+for (const path of [
+  rosterPath,
+  ...sourcePaths,
+  typesPath,
+  serverPath,
+  functionsPath,
+  publicRoutesPath,
+  workflowPath,
+  hubPath,
+  profilePath,
+]) {
   if (!fs.existsSync(path)) failures.push(`Missing Texas Icons contract file: ${path}`);
 }
 if (failures.length) fail();
@@ -20,6 +33,9 @@ if (failures.length) fail();
 const rosterSource = fs.readFileSync(rosterPath, "utf8");
 const types = fs.readFileSync(typesPath, "utf8");
 const server = fs.readFileSync(serverPath, "utf8");
+const functions = fs.readFileSync(functionsPath, "utf8");
+const publicRoutes = fs.readFileSync(publicRoutesPath, "utf8");
+const workflow = fs.readFileSync(workflowPath, "utf8");
 const hub = fs.readFileSync(hubPath, "utf8");
 const profile = fs.readFileSync(profilePath, "utf8");
 
@@ -92,6 +108,29 @@ for (const token of [
 }
 
 for (const token of [
+  'createServerFn({ method: "GET" })',
+  'import("./texas-icons.server")',
+  "loadTexasIconsServer",
+  "loadTexasIconProfileServer",
+]) {
+  if (!functions.includes(token)) failures.push(`Texas Icons server-function boundary missing: ${token}`);
+}
+if (!hub.includes('from "@/data/texas-icons.functions"') || !profile.includes('from "@/data/texas-icons.functions"')) {
+  failures.push("Texas Icons public routes must load server data only through texas-icons.functions.ts.");
+}
+if (hub.includes('import("@/data/texas-icons.server")') || profile.includes('import("@/data/texas-icons.server")')) {
+  failures.push("Texas Icons public routes must never directly import the .server resolver.");
+}
+
+const conditionalBlock = publicRoutes.match(/export const CONDITIONAL_INDEXABLE_PUBLIC_PATHS = \[([\s\S]*?)\] as const;/)?.[1] ?? "";
+if (!conditionalBlock.includes('"/texas-icons"')) {
+  failures.push("Texas Icons hub must remain explicitly classified as a conditional-index public route.");
+}
+if (!/node-version:\s*22\b/.test(workflow)) {
+  failures.push("Texas Icons validation workflow must use the repository-supported Node 22 runtime.");
+}
+
+for (const token of [
   "CANONICAL_PATHS",
   '"/destination/the-alamo"',
   '"/destination/cadillac-ranch"',
@@ -135,7 +174,7 @@ if (!/short roster notes below are intake provenance,[\s\S]*not substitutes for 
 if (failures.length) fail();
 
 console.log(
-  `Texas Icons validation passed: ${records.length} unique source records, protected duplicate resolution, canonical reuse, noindex starter profiles, and eight related-profile links per record.`,
+  `Texas Icons validation passed: ${records.length} unique source records, protected duplicate resolution, server-only data boundary, conditional route governance, canonical reuse, noindex starter profiles, and eight related-profile links per record.`,
 );
 
 function fail() {
