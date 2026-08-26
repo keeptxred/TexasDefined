@@ -10,8 +10,8 @@ export const Route = createFileRoute("/admin/texas-talent/$slug")({
   },
   head: ({ match }) => ({
     meta: [
-      { title: `${match.context.profile.name} | Texas Talent Preview` },
-      { name: "description", content: match.context.profile.dek },
+      { title: `Preview — ${match.context.profile.launchMetadata.title}` },
+      { name: "description", content: match.context.profile.launchMetadata.description },
       { name: "robots", content: "noindex, nofollow, noarchive" },
     ],
   }),
