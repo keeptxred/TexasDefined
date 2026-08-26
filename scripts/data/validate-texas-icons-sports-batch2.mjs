@@ -33,15 +33,29 @@ for (const [rank, name, slug] of entries) {
 if ((research.match(/editorialStatus: "researched-staged"/g) ?? []).length !== 10) failures.push("Sports batch 2 must contain exactly ten researched-staged profiles.");
 if ((research.match(/publicationNote:/g) ?? []).length !== 10) failures.push("Every sports batch-2 profile must retain a publication boundary note.");
 if ((research.match(/lastReviewedAt: reviewed/g) ?? []).length !== 10) failures.push("Every sports batch-2 profile must retain a reviewed date.");
+if ((research.match(/remains noindex pending image-rights and internal-link certification/g) ?? []).length !== 10) failures.push("Every sports batch-2 profile must explicitly retain the noindex/image-rights/internal-link publication boundary.");
 const urls = [...research.matchAll(/url: "(https:\/\/[^\"]+)"/g)].map((match) => match[1]);
 if (urls.length < 30) failures.push(`Sports batch 2 needs at least three HTTPS sources per profile; found ${urls.length}.`);
 for (const token of [
-  "1932 Olympic", "1949", "11 consecutive", "Marine Corps", "2026 season",
+  "1932 Olympic", "1950", "1949", "11 consecutive", "Marine Corps", "2026 season",
   "2026 Pro Football Hall of Fame", "San Antonio", "Naval Academy", "21 seasons", "41-38",
 ]) {
   if (!research.includes(token)) failures.push(`Sports batch 2 is missing required editorial context: ${token}.`);
 }
-for (const domain of ["usopm.org", "worldgolfhalloffame.org", "texasgolfhof.org", "chiefs.com", "texastech.com", "profootballhof.com", "hoophall.com", "navysports.com", "nba.com", "texaslonghorns.com"]) {
+for (const domain of [
+  "lpga.com",
+  "worldgolfhalloffame.org",
+  "texasgolfhof.org",
+  "tshaonline.org",
+  "chiefs.com",
+  "texastech.com",
+  "purduesports.com",
+  "profootballhof.com",
+  "hoophall.com",
+  "navysports.com",
+  "nba.com",
+  "texaslonghorns.com",
+]) {
   if (!research.includes(domain)) failures.push(`Sports batch 2 is missing expected authority/source domain: ${domain}.`);
 }
 const talentFiles = fs.readdirSync(dataDir).filter((name) => /^texas-talent-profiles.*\.ts$/.test(name));
