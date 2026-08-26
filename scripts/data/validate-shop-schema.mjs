@@ -2,15 +2,18 @@ import fs from 'node:fs';
 
 const collectionRoute = fs.readFileSync('src/routes/shop.$collection.tsx', 'utf8');
 const landingRoute = fs.readFileSync('src/routes/shop.index.tsx', 'utf8');
+const productRoute = fs.readFileSync('src/routes/shop.product.$productId.tsx', 'utf8');
+
+const listingUrlSignal = 'product.productUrl || `/shop/product/${encodeURIComponent(product.id)}`';
 
 const collectionRequired = [
   '"@type": "CollectionPage"',
   '"@type": "BreadcrumbList"',
   '"@type": "ItemList"',
-  '"@type": "Product"',
   'mainEntity: { "@id": itemListId }',
   'numberOfItems: loaderData.products.length',
-  'absoluteUrl(texasDefinedBrand, product.image.src)',
+  'name: product.name',
+  listingUrlSignal,
   'id={productAnchor(product.id)}',
   'image: loaderData.collection.image.src',
 ];
@@ -21,10 +24,19 @@ const landingRequired = [
   '"@type": "ItemList"',
   'mainEntity: { "@id": productListId }',
   'numberOfItems: loaderData.products.length',
+  'name: product.name',
+  listingUrlSignal,
   'image: shopFlatlay',
   'imageAlt: "Texas-inspired goods arranged on a tabletop"',
   'id={productAnchor(product.id)}',
-  'absoluteUrl(texasDefinedBrand, product.image.src)',
+];
+
+const productRequired = [
+  '"@type": "Product"',
+  'offers: (enabled.length ? enabled : [null]).map((variant) => ({',
+  '"@type": "Offer"',
+  'priceCurrency: product.currency || "USD"',
+  'availability: `https://schema.org/${variant ? "InStock" : "OutOfStock"}`',
 ];
 
 const failures = [
@@ -34,10 +46,17 @@ const failures = [
   ...landingRequired
     .filter((feature) => !landingRoute.includes(feature))
     .map((feature) => `Landing route missing ${feature}`),
+  ...productRequired
+    .filter((feature) => !productRoute.includes(feature))
+    .map((feature) => `Product route missing ${feature}`),
 ];
 
+if (collectionRoute.includes('"@type": "Product"') || landingRoute.includes('"@type": "Product"')) {
+  failures.push('Shop listing routes must not embed incomplete Product entities; point ItemList entries at product-detail URLs instead.');
+}
+
 if (collectionRoute.includes('"@type": "Offer"') || landingRoute.includes('"@type": "Offer"')) {
-  failures.push('Shop routes must not claim Offer data before checkout is available.');
+  failures.push('Offer schema belongs on product-detail pages, not shop listing routes.');
 }
 
 if (failures.length) {
