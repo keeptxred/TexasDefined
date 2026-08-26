@@ -7,6 +7,8 @@ const checks = [
   ['destination-indexing-policy', 'SEO/INDEXING', 'Validate destination indexing policy', 'node', ['scripts/data/validate-destination-indexing-policy.mjs']],
   ['public-route-governance', 'ROUTING/GOVERNANCE', 'Validate public route governance', 'node', ['scripts/data/validate-public-route-governance.mjs']],
   ['texas-talent-launch-contract', 'CONTENT/GOVERNANCE', 'Validate hidden Texas Talent launch contract', 'node', ['scripts/data/validate-texas-talent.mjs']],
+  ['texas-talent-source-provenance', 'SOURCE/QUALITY', 'Validate Texas Talent source provenance', 'node', ['scripts/data/validate-texas-talent-source-provenance.mjs']],
+  ['texas-talent-music-authority', 'INTERNAL-LINKING', 'Validate Texas Talent music authority links', 'node', ['scripts/data/validate-texas-talent-music-authority.mjs']],
   ['made-in-texas-evidence', 'SOURCE/QUALITY', 'Validate Made in Texas evidence', 'node', ['scripts/data/validate-made-in-texas-evidence.mjs']],
   ['painted-church-search-intents', 'SEO/AUTHORITY', 'Validate Painted Churches search-intent coverage', 'node', ['scripts/data/validate-painted-church-search-intents.mjs']],
   ['indexation-quality', 'SEO/INDEXING', 'Validate indexation quality', 'node', ['scripts/data/validate-indexation-quality.mjs']],
@@ -73,7 +75,7 @@ const predeployIds = new Set([
   'machine-indexing', 'things-unique-to-texas', 'texas-icon-link-depth', 'texas-weather-authority',
   'texas-food-history', 'texas-culture-citation-index', 'texas-flag-authority', 'painted-churches-seo',
   'painted-church-search-intents', 'painted-church-map', 'painted-church-completion', 'military-history-expansion',
-  'texas-talent-launch-contract',
+  'texas-talent-launch-contract', 'texas-talent-source-provenance', 'texas-talent-music-authority',
 ]);
 
 const fullExcludedIds = new Set(['texas-flag-authority', 'painted-churches-seo', 'painted-church-map', 'painted-church-completion']);
