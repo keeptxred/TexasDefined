@@ -1,3 +1,4 @@
+import { HOMES_LAND_EDITORIAL_DESK_ID } from "@/data/editorial-desks";
 import type { Article, Destination, ImageRef } from "@/data/types";
 
 export const REMOTE_IMAGE_PATH = "/media/remote";
@@ -32,8 +33,17 @@ function deliverImage(image: ImageRef): ImageRef {
   return src === image.src ? image : { ...image, src };
 }
 
+function deliveryAuthorId(article: Article) {
+  return article.category === "home-garden"
+    || article.category === "real-estate"
+    || article.category === "property-taxes"
+    ? HOMES_LAND_EDITORIAL_DESK_ID
+    : article.authorId;
+}
+
 export function prepareArticleForDelivery(article: Article): Article {
   const hero = deliverImage(article.hero);
+  const authorId = deliveryAuthorId(article);
   let bodyChanged = false;
   const body = article.body.map((block) => {
     if (block.type !== "image") return block;
@@ -42,7 +52,9 @@ export function prepareArticleForDelivery(article: Article): Article {
     bodyChanged = true;
     return { ...block, image };
   });
-  return hero === article.hero && !bodyChanged ? article : { ...article, hero, body };
+  return hero === article.hero && !bodyChanged && authorId === article.authorId
+    ? article
+    : { ...article, authorId, hero, body };
 }
 
 export function prepareDestinationForDelivery(destination: Destination): Destination {
