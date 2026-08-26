@@ -14,6 +14,20 @@ export const Route = createLazyFileRoute("/admin/texas-talent")({
 
 function TexasTalentPage() {
   const { profiles, launchAudit } = Route.useRouteContext();
+  const mechanicallyReadySlugs = new Set(
+    launchAudit.assessments
+      .filter((assessment) => assessment.mechanicalReady && !assessment.editorialApproved)
+      .map((assessment) => assessment.slug),
+  );
+  const mechanicallyReadyProfiles = profiles.filter((profile) => mechanicallyReadySlugs.has(profile.slug));
+  const categorySeed = TEXAS_TALENT_CATEGORIES.flatMap((category) =>
+    mechanicallyReadyProfiles.filter((profile) => profile.category === category.id).slice(0, 2),
+  );
+  const reviewCohort = [
+    ...new Map(
+      [...categorySeed, ...mechanicallyReadyProfiles].map((profile) => [profile.slug, profile] as const),
+    ).values(),
+  ].slice(0, 12);
 
   return (
     <main>
@@ -74,6 +88,38 @@ function TexasTalentPage() {
           <p className="mt-4 max-w-4xl text-xs leading-6 text-muted-foreground">
             Mechanical link certification is deliberately reversible: if a destination stops meeting indexability rules, the derived review is demoted again. Profiles whose stored link review is still pending are never auto-certified. Publication continues to use the conservative stored readiness record plus explicit launch approval.
           </p>
+        </section>
+      </Container>
+
+      <Container className="pb-12 sm:pb-16">
+        <section aria-labelledby="review-cohort" className="border-t border-border pt-10">
+          <p className="eyebrow text-primary">Next editorial pass</p>
+          <h2 id="review-cohort" className="mt-2 font-display text-4xl sm:text-5xl">Mechanically cleared review cohort</h2>
+          <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">
+            This queue is generated from the current mechanical gate, then lightly balanced across disciplines so editorial review does not begin with one category alone. Inclusion here is not approval and does not change launch status.
+          </p>
+          {reviewCohort.length ? (
+            <div className="mt-7 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
+              {reviewCohort.map((profile) => (
+                <article key={profile.slug} className="bg-background p-5 sm:p-6">
+                  <p className="eyebrow text-primary">{labelCategory(profile.category)}</p>
+                  <h3 className="mt-2 font-display text-2xl">{profile.name}</h3>
+                  <p className="mt-3 text-sm leading-6 text-muted-foreground">{profile.texasConnection}</p>
+                  <Link
+                    to="/admin/texas-talent/$slug"
+                    params={{ slug: profile.slug }}
+                    className="mt-4 inline-block text-sm font-semibold text-primary"
+                  >
+                    Review profile →
+                  </Link>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <p className="mt-6 border border-border bg-surface p-5 text-sm leading-7 text-muted-foreground">
+              No profile has cleared every mechanical launch requirement yet. The queue will populate automatically as source, image, content-depth and safe-link gates clear.
+            </p>
+          )}
         </section>
       </Container>
 
