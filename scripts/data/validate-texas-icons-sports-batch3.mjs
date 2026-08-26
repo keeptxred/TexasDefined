@@ -46,14 +46,31 @@ for (let i = 0; i < entries.length; i += 1) {
 }
 
 for (const token of [
-  "Super Bowl XXX", "first draft choice", "$41 million", "Class of 2024", "3,060 hits",
-  "1994 NL MVP", "sign-stealing", "retire after the season", "200- and 400-meter", "first player signed by the WNBA",
+  "Super Bowl XXX",
+  "first draft choice",
+  "$41 million",
+  "2024 Pro Football Hall of Fame",
+  "3,060 hits",
+  "1994 NL MVP",
+  "2017 AL MVP",
+  "season's end",
+  "200- and 400-meter",
+  "four straight WNBA championships",
 ]) {
   if (!research.includes(token)) failures.push(`Sports batch 3 is missing required editorial context: ${token}.`);
 }
 for (const domain of [
-  "profootballhof.com", "mlb.com", "houstontexans.com", "baseballhall.org",
-  "baylorbears.com", "usopm.org", "hoophall.com", "wnba.com", "texastech.com",
+  "profootballhof.com",
+  "dallascowboys.com",
+  "gofrogs.com",
+  "houstontexans.com",
+  "baseballhall.org",
+  "mlb.com",
+  "worldathletics.org",
+  "baylorbears.com",
+  "hoophall.com",
+  "wnba.com",
+  "texastech.com",
 ]) {
   if (!research.includes(domain)) failures.push(`Sports batch 3 is missing expected authority/source domain: ${domain}.`);
 }
