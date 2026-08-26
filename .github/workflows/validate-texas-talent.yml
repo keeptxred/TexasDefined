@@ -24,6 +24,9 @@ jobs:
         with:
           node-version: 22
 
+      # Keep the cohort-specific depth checks adjacent so every PR validates the
+      # same hidden launch contract that will run again after merge to main.
+      # This synchronized current-main head intentionally reruns that contract.
       - name: Validate hidden Texas Talent launch contract
         run: node scripts/data/validate-texas-talent.mjs
 
@@ -35,6 +38,9 @@ jobs:
 
       - name: Validate Texas Talent flagship depth wave 2
         run: node scripts/data/validate-texas-talent-flagship-depth-wave2.mjs
+
+      - name: Validate Texas Talent flagship depth wave 3
+        run: node scripts/data/validate-texas-talent-flagship-depth-wave3.mjs
 
       - name: Validate Texas Talent source provenance
         run: node scripts/data/validate-texas-talent-source-provenance.mjs
