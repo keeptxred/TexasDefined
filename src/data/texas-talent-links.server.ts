@@ -37,14 +37,21 @@ function exactEntityMatch(label: string, graph: readonly TexasEntityRecord[]) {
   return matches[0];
 }
 
-export async function resolveTexasTalentEntityLinks(
-  profile: LoadedTexasTalentProfile,
-): Promise<readonly TexasTalentVerifiedInternalLink[]> {
-  const graph = await loadTexasKnowledgeGraph();
+function indexableLinkContext(graph: readonly TexasEntityRecord[]) {
   const indexableEntities = graph.filter(isIndexableEntityPage);
-  const indexableByPath = new Map(
-    indexableEntities.map((entity) => [canonicalEntityPath(entity), entity] as const),
-  );
+  return {
+    indexableEntities,
+    indexableByPath: new Map(
+      indexableEntities.map((entity) => [canonicalEntityPath(entity), entity] as const),
+    ),
+  };
+}
+
+export function resolveTexasTalentEntityLinksFromGraph(
+  profile: LoadedTexasTalentProfile,
+  graph: readonly TexasEntityRecord[],
+): readonly TexasTalentVerifiedInternalLink[] {
+  const { indexableEntities, indexableByPath } = indexableLinkContext(graph);
   const resolved = new Map<string, TexasTalentVerifiedInternalLink>();
 
   // Readiness records are editorial claims, not a permanent bypass around route
@@ -76,4 +83,35 @@ export async function resolveTexasTalentEntityLinks(
   }
 
   return [...resolved.values()];
+}
+
+export async function resolveTexasTalentEntityLinks(
+  profile: LoadedTexasTalentProfile,
+): Promise<readonly TexasTalentVerifiedInternalLink[]> {
+  return resolveTexasTalentEntityLinksFromGraph(profile, await loadTexasKnowledgeGraph());
+}
+
+export function auditTexasTalentEntityLinksFromGraph(
+  profile: LoadedTexasTalentProfile,
+  graph: readonly TexasEntityRecord[],
+) {
+  const resolvedLinks = resolveTexasTalentEntityLinksFromGraph(profile, graph);
+  const resolvedPaths = new Set(resolvedLinks.map((link) => link.href));
+  const unsafeRecordedLinks = profile.readiness.internalLinkReview.links.filter(
+    (link) => !resolvedPaths.has(link.href),
+  );
+  const certificationCandidate = profile.readiness.internalLinkReview.status !== "verified"
+    && resolvedLinks.length > 0
+    && unsafeRecordedLinks.length === 0;
+
+  return {
+    slug: profile.slug,
+    name: profile.name,
+    reviewStatus: profile.readiness.internalLinkReview.status,
+    recordedLinkCount: profile.readiness.internalLinkReview.links.length,
+    safeResolvedLinkCount: resolvedLinks.length,
+    unsafeRecordedLinkCount: unsafeRecordedLinks.length,
+    unsafeRecordedLinks,
+    certificationCandidate,
+  };
 }
