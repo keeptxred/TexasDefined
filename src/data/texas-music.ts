@@ -94,6 +94,7 @@ export const TEXAS_MUSIC_TRADITIONS: readonly TexasMusicTradition[] = [
     places: ["Houston", "Dallas", "Fort Worth"],
     representativeArtists: ["Beyoncé", "Kelly Rowland", "Kirk Franklin"],
     sourceUrl: "https://www.tshaonline.org/handbook/projects/texas-music",
+    guideHref: "/texas-gospel-rnb-pop",
   },
   {
     id: "hip-hop",
@@ -138,6 +139,11 @@ export const TEXAS_MUSIC_RELATED_GUIDES: readonly TexasMusicRelatedGuide[] = [
     title: "Texas Jazz",
     href: "/texas-jazz",
     description: "Territory bands, Houston tenor saxophone, Fort Worth innovators and Texas musicians who changed modern jazz.",
+  },
+  {
+    title: "Texas Gospel, R&B & Pop",
+    href: "/texas-gospel-rnb-pop",
+    description: "Church quartets, Duke-Peacock, Kirk Franklin, Erykah Badu, Destiny's Child and the Texas line from gospel to global pop.",
   },
   {
     title: "Texas Hip-Hop",

@@ -27,6 +27,7 @@ const musicGuideSlugs = new Set([
   "texas-country-outlaw",
   "texas-rock-rockabilly",
   "texas-jazz",
+  "texas-gospel-rnb-pop",
   "texas-hip-hop",
 ]);
 
@@ -170,6 +171,15 @@ const guideSources: Partial<Record<string, { label: string; href: string; note: 
     { label: "Handbook of Texas — Arnett Cobb", href: "https://www.tshaonline.org/handbook/entries/cobb-arnett-cleophus", note: "Documents Cobb's Houston training, Milton Larkin Orchestra years, national career and later return to Houston as a bandleader and mentor." },
     { label: "Handbook of Texas — Ornette Coleman", href: "https://www.tshaonline.org/handbook/entries/coleman-ornette", note: "Documents Coleman's Fort Worth upbringing, school and local music connections, and path toward his later innovations in modern jazz." },
     { label: "Handbook of Texas — Teddy Wilson", href: "https://www.tshaonline.org/handbook/entries/wilson-theodore-shaw-teddy", note: "Documents Wilson's Austin birth and his major swing-era career as a pianist, accompanist and improviser." },
+  ],
+  "texas-gospel-rnb-pop": [
+    { label: "Handbook of Texas — Gospel Music", href: "https://www.tshaonline.org/handbook/entries/gospel-music", note: "Documents Texas gospel publishing and radio, Blind Arizona Dranes, the Soul Stirrers' Trinity and Houston history, Peacock's gospel division and the genre's influence on R&B and rock-and-roll." },
+    { label: "Handbook of Texas — Blind Arizona Dranes", href: "https://www.tshaonline.org/handbook/entries/dranes-arizona-juanita-blind-arizona", note: "Documents Dranes's Greenville birth, Deep Ellum years, gospel-beat piano style and 1920s OKeh recording sessions in Chicago and Dallas." },
+    { label: "Handbook of Texas — Duke-Peacock Records", href: "https://www.tshaonline.org/handbook/entries/duke-peacock-records", note: "Documents Don Robey's Houston record enterprise across gospel, blues, R&B and soul and the role gospel sales played in sustaining the wider label system." },
+    { label: "Handbook of Texas — SugarHill Recording Studios", href: "https://www.tshaonline.org/handbook/entries/sugarhill-recording-studios", note: "Documents Gold Star and SugarHill as Houston recording infrastructure used by Duke-Peacock gospel and R&B artists and later by Destiny's Child and Beyoncé." },
+    { label: "Recording Academy — Kirk Franklin", href: "https://www.grammy.com/artists/kirk-franklin/9067/", note: "Confirms Franklin's Fort Worth birth, his 1990s national gospel breakthrough and his long career across gospel, contemporary Christian, R&B and rap categories." },
+    { label: "Recording Academy — Beyoncé", href: "https://www.grammy.com/artists/beyonce-knowles/12474/", note: "Confirms Beyoncé's Houston birth and her rise through Destiny's Child before her solo career expanded across R&B and pop." },
+    { label: "Recording Academy — Leon Bridges interview", href: "https://www.grammy.com/news/coming-home-with-a-grammy-nomination/", note: "Documents Bridges as a Fort Worth-based artist whose local beginnings drew on 1960s R&B, soul and gospel before his national breakthrough." },
   ],
   "texas-hip-hop": [
     { label: "Handbook of Texas — Rap and Hip-Hop", href: "https://www.tshaonline.org/handbook/entries/rap-and-hip-hop", note: "Documents the development of Texas rap, Houston's independent scene, DJ Screw's innovations and the 2000s national breakthrough." },
