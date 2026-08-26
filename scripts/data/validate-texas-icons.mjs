@@ -10,6 +10,7 @@ const researchPaths = [
   "src/data/texas-icons-research-history-1.server.ts",
   "src/data/texas-icons-research-history-2.server.ts",
   "src/data/texas-icons-research-history-3.server.ts",
+  "src/data/texas-icons-research-history-4.server.ts",
 ];
 const typesPath = "src/data/texas-icons-types.ts";
 const serverPath = "src/data/texas-icons.server.ts";
@@ -70,6 +71,7 @@ const researchedHistorySlugs = [
   "lyndon-b-johnson", "sam-houston", "stephen-f-austin", "george-w-bush", "barbara-jordan",
   "george-h-w-bush", "ann-richards", "sam-rayburn", "davy-crockett", "james-baker",
   "jose-antonio-navarro", "william-b-travis", "jim-bowie", "dwight-d-eisenhower", "mirabeau-b-lamar",
+  "lorenzo-de-zavala", "john-nance-garner", "chester-w-nimitz", "audie-murphy", "kay-bailey-hutchison",
 ];
 for (const slug of researchedHistorySlugs) {
   if (!records.some((record) => record.slug === slug)) failures.push(`Researched History & Politics profile is not in the 250-icon roster: ${slug}.`);
@@ -83,19 +85,22 @@ if (researchSourceUrls.length < researchedHistorySlugs.length * 3) failures.push
 for (const domain of [
   "lbjlibrary.org", "nps.gov", "tshaonline.org", "tsl.texas.gov", "glo.texas.gov",
   "georgewbushlibrary.gov", "history.house.gov", "utexas.edu", "tsu.edu", "bush41.org",
-  "history.state.gov", "archives.gov", "thealamo.org", "bakerinstitute.org",
+  "history.state.gov", "archives.gov", "thealamo.org", "bakerinstitute.org", "senate.gov",
+  "history.navy.mil", "pacificwarmuseum.org", "cmohs.org", "arlingtoncemetery.mil", "history.army.mil",
 ]) if (!research.includes(domain)) failures.push(`History research is missing expected institutional source authority: ${domain}.`);
 for (const contextualToken of [
   "Vietnam", "slaveowner", "enslaved labor", "September 11", "Watergate",
   "end of the Cold War", "women and minority", "longest-serving Speaker", "exact circumstances", "Gulf War",
   "Tejano citizenship", "slave trading", "Texas-born president", "Joe", "Santa Fe Expedition",
+  "Yucatán-born", "Supreme Court", "Pacific Ocean Areas", "post-traumatic stress disorder", "first woman senator from Texas",
 ]) if (!research.includes(contextualToken)) failures.push(`History research is missing required contextual coverage: ${contextualToken}.`);
 
 for (const token of [
   "loadTexasTalentProfilesServer", "loadTexasKnowledgeGraph", "canonicalEntityPath", "uniqueMatch",
   'entry.subjectType === "place"', "isTexasTalentPublishable", "TEXAS_ICON_RESEARCH_HISTORY_BATCH_1",
-  "TEXAS_ICON_RESEARCH_HISTORY_BATCH_2", "TEXAS_ICON_RESEARCH_HISTORY_BATCH_3", "TEXAS_ICON_RESEARCH_PROFILES",
-  'reuseKind: "icon-research-staged"', "matchedResearchSlug", 'resolved.reuseKind === "icon-research-staged"',
+  "TEXAS_ICON_RESEARCH_HISTORY_BATCH_2", "TEXAS_ICON_RESEARCH_HISTORY_BATCH_3", "TEXAS_ICON_RESEARCH_HISTORY_BATCH_4",
+  "TEXAS_ICON_RESEARCH_PROFILES", 'reuseKind: "icon-research-staged"', "matchedResearchSlug",
+  'resolved.reuseKind === "icon-research-staged"',
 ]) if (!server.includes(token)) failures.push(`Texas Icons duplicate/research resolver contract missing: ${token}`);
 const talentPrecedence = server.indexOf("if (talentProfile)");
 const researchPrecedence = server.indexOf("if (researchProfile)");
