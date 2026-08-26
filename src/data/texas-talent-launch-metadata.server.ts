@@ -5,6 +5,10 @@ export const TEXAS_TALENT_FUTURE_BASE_PATH = "/texas-talent";
 const DESCRIPTION_MAX = 158;
 const DESCRIPTION_MIN = 110;
 
+export function texasTalentFutureCanonicalPath(slug: string) {
+  return `${TEXAS_TALENT_FUTURE_BASE_PATH}/${slug}`;
+}
+
 function normalizeWhitespace(value: string) {
   return value.replace(/\s+/g, " ").trim();
 }
@@ -31,7 +35,7 @@ function buildDescription(profile: Pick<TexasTalentProfile, "dek" | "texasConnec
 export function buildTexasTalentLaunchMetadata(
   profile: Pick<TexasTalentProfile, "slug" | "name" | "dek" | "texasConnection">,
 ) {
-  const canonicalPath = `${TEXAS_TALENT_FUTURE_BASE_PATH}/${profile.slug}`;
+  const canonicalPath = texasTalentFutureCanonicalPath(profile.slug);
   const title = `${profile.name}: Texas Talent | Texas Defined`;
   const description = buildDescription(profile);
 
