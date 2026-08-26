@@ -52,10 +52,10 @@ for (const token of [
   "2024 Pro Football Hall of Fame",
   "3,060 hits",
   "449 home runs",
-  "2,000 games",
-  "announced 2026 retirement",
+  "sign-stealing",
+  "retire at season's end",
   "four Olympic gold medals",
-  "four WNBA championships",
+  "first player signed by the WNBA",
 ]) {
   if (!research.includes(token)) failures.push(`Sports batch 3 is missing required editorial context: ${token}.`);
 }
@@ -68,6 +68,7 @@ for (const domain of [
   "worldathletics.org",
   "baylorbears.com",
   "hoophall.com",
+  "wnba.com",
   "texastech.com",
 ]) {
   if (!research.includes(domain)) failures.push(`Sports batch 3 is missing expected authority/source domain: ${domain}.`);
@@ -90,7 +91,7 @@ if (talentPrecedence < 0 || researchPrecedence < 0 || talentPrecedence > researc
 if (!resolver.includes('reuseKind: "icon-research-staged"') || !resolver.includes("indexableAtOwnRoute: false")) failures.push("Sports research drafts must remain non-indexable at their own routes.");
 
 if (failures.length) fail();
-console.log("Texas Icons sports batch-3 validation passed: ranks 121-130 preserve ten substantive staged research profiles, source depth, current 2026 context, future duplicate detection and noindex publication boundaries.");
+console.log("Texas Icons sports batch-3 validation passed: ranks 121-130 preserve ten substantive staged research profiles, distinct authority sources, corrected 2026 context, future duplicate detection and noindex publication boundaries.");
 
 function fail() {
   console.error("Texas Icons sports batch-3 validation failed:");
