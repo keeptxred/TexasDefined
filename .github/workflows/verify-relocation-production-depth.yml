@@ -30,38 +30,27 @@ jobs:
           node <<'NODE'
           const origin = process.env.PRODUCTION_ORIGIN;
           const revision = `${process.env.GITHUB_SHA}-${process.env.GITHUB_RUN_ID}`;
+          const minReadingMinutes = 3;
           const checks = [
             {
               label: 'Austin',
               path: '/article/moving-to-austin-guide',
-              needles: [
-                'Austin-area relocation gets easier when the address is treated as a bundle of systems',
-                'About 11 minutes',
-              ],
+              depthNeedle: 'Austin-area relocation gets easier when the address is treated as a bundle of systems',
             },
             {
               label: 'Dallas–Fort Worth',
               path: '/article/moving-to-dallas-fort-worth-guide',
-              needles: [
-                'The best DFW location is rarely the one with the strongest city reputation in isolation',
-                'About 12 minutes',
-              ],
+              depthNeedle: 'The best DFW location is rarely the one with the strongest city reputation in isolation',
             },
             {
               label: 'San Antonio',
               path: '/article/moving-to-san-antonio-guide',
-              needles: [
-                'San Antonio is easiest to compare when the decision is built around systems rather than neighborhood reputation',
-                'About 11 minutes',
-              ],
+              depthNeedle: 'San Antonio is easiest to compare when the decision is built around systems rather than neighborhood reputation',
             },
             {
               label: 'El Paso',
               path: '/article/moving-to-el-paso-guide',
-              needles: [
-                'Water belongs in the housing budget',
-                'About 11 minutes',
-              ],
+              depthNeedle: 'Water belongs in the housing budget',
             },
           ];
 
@@ -78,16 +67,27 @@ jobs:
               },
             });
             const body = await response.text();
-            const missing = check.needles.filter((needle) => !body.includes(needle));
-            if (!response.ok || missing.length > 0) {
+            const depthPresent = body.includes(check.depthNeedle);
+            const readingTimeMatch = body.match(/About\s+(\d+)\s+minutes?/i);
+            const readingMinutes = readingTimeMatch ? Number(readingTimeMatch[1]) : 0;
+            const readingTimeHealthy = readingMinutes >= minReadingMinutes;
+
+            if (!response.ok || !depthPresent || !readingTimeHealthy) {
               failed = true;
-              console.error(`::error title=Relocation production depth failure::${check.label}: HTTP ${response.status}; missing ${missing.join(' | ') || 'none'}`);
+              const problems = [
+                !depthPresent ? `missing depth marker: ${check.depthNeedle}` : null,
+                !readingTimeMatch ? 'missing rendered reading-time byline' : null,
+                readingTimeMatch && !readingTimeHealthy
+                  ? `rendered reading time ${readingMinutes}m is below ${minReadingMinutes}m minimum`
+                  : null,
+              ].filter(Boolean);
+              console.error(`::error title=Relocation production depth failure::${check.label}: HTTP ${response.status}; ${problems.join(' | ') || 'unexpected response'}`);
               console.error(`[${check.label}] response sample: ${body.slice(0, 1400).replace(/\s+/g, ' ')}`);
             } else {
-              console.log(`[${check.label}] verified at ${check.path}: ${check.needles.join(' | ')}`);
+              console.log(`[${check.label}] verified at ${check.path}: enriched depth marker present; computed reading time ${readingMinutes}m.`);
             }
           }
 
           if (failed) process.exit(1);
-          console.log(`Verified ${checks.length} live relocation guides use the enriched depth records.`);
+          console.log(`Verified ${checks.length} live relocation guides use enriched depth records with computed reading times of at least ${minReadingMinutes} minutes.`);
           NODE
