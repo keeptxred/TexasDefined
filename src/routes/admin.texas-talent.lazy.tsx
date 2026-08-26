@@ -41,21 +41,23 @@ function TexasTalentPage() {
           <p className="eyebrow text-primary">Launch audit</p>
           <h2 id="launch-audit" className="mt-2 font-display text-4xl">A hard gate between drafts and publication</h2>
           <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">
-            Mechanical readiness and editorial approval are separate. A profile cannot become publishable until it clears both, so a completed checklist can never expose a page automatically.
+            Mechanical readiness and editorial approval are separate. The workbench now mechanically certifies a link set only while every stored link still resolves through the current indexable Texas Defined graph. That derived certification can clear a mechanical blocker, but it never changes stored editorial approval or makes a profile publishable.
           </p>
           <div className="mt-7 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
             <Metric label="Profiles tracked" value={launchAudit.totalProfiles} />
-            <Metric label="Mechanically ready" value={launchAudit.mechanicallyReady} />
+            <Metric label="Mechanically ready now" value={launchAudit.mechanicallyReady} />
             <Metric label="Editorially approved" value={launchAudit.editorialApproved} />
             <Metric label="Publishable now" value={launchAudit.publishable} />
           </div>
-          <div className="mt-px grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-3">
-            <Metric label="Link certification candidates" value={launchAudit.linkCertificationCandidates} />
+          <div className="mt-px grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-5">
+            <Metric label="Stored mechanically ready" value={launchAudit.storedMechanicallyReady} />
+            <Metric label="Current graph link-certified" value={launchAudit.mechanicallyLinkCertified} />
+            <Metric label="Stored reviews eligible" value={launchAudit.linkCertificationCandidates} />
             <Metric label="Unsafe recorded-link sets" value={launchAudit.profilesWithUnsafeRecordedLinks} />
             <Metric label="Profiles with no safe links" value={launchAudit.profilesWithNoSafeLinks} />
           </div>
           <p className="mt-4 max-w-4xl text-xs leading-6 text-muted-foreground">
-            A link-certification candidate has at least one currently indexable Texas Defined destination and no recorded link that failed the current route-quality gate. Candidate status does not certify the profile by itself.
+            Mechanical link certification is deliberately reversible: if a destination stops meeting indexability rules, the derived review is demoted again. Profiles whose stored link review is still pending are never auto-certified. Publication continues to use the conservative stored readiness record plus explicit launch approval.
           </p>
         </section>
       </Container>
@@ -117,7 +119,7 @@ function TexasTalentPage() {
             <p className="eyebrow text-primary">Profile workbench</p>
             <h2 id="profile-workbench" className="mt-2 font-display text-4xl sm:text-5xl">The first {profiles.length} Texas Talent pages</h2>
             <p className="mt-4 text-sm leading-7 text-muted-foreground">
-              Every card opens an internal profile draft and now shows the exact mechanical blockers and live-link audit that still prevent launch.
+              Every card opens an internal profile draft and shows the current mechanical blockers plus a route-quality-aware live-link audit.
             </p>
           </div>
 
@@ -145,10 +147,12 @@ function TexasTalentPage() {
                     <div className="mt-4 border-t border-border pt-4">
                       <p className="text-xs font-bold uppercase tracking-[0.14em] text-foreground">Live-link audit</p>
                       <p className="mt-2 text-xs leading-6 text-muted-foreground">
-                        {linkAudit.safeResolvedLinkCount} safe live · {linkAudit.unsafeRecordedLinkCount} dropped · review {linkAudit.reviewStatus}
+                        {linkAudit.safeResolvedLinkCount} safe live · {linkAudit.unsafeRecordedLinkCount} dropped · stored review {linkAudit.reviewStatus}
                       </p>
-                      {linkAudit.certificationCandidate ? (
-                        <p className="mt-2 text-xs font-semibold text-primary">Candidate for editorial link certification</p>
+                      {linkAudit.mechanicallyCertified ? (
+                        <p className="mt-2 text-xs font-semibold text-primary">Current graph mechanically certifies this link set</p>
+                      ) : linkAudit.certificationCandidate ? (
+                        <p className="mt-2 text-xs font-semibold text-primary">Eligible for mechanical link certification</p>
                       ) : null}
                     </div>
                   ) : null}
