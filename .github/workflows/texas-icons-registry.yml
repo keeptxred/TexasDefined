@@ -34,6 +34,8 @@ jobs:
         run: node scripts/data/validate-texas-icons.mjs
       - name: Validate Texas Icons music reuse and research
         run: node scripts/data/validate-texas-icons-music.mjs
+      - name: Validate Texas Icons music ranks 81-90
+        run: node scripts/data/validate-texas-icons-music-batch4.mjs
       - name: Validate Texas Icons server isolation
         run: node scripts/data/validate-texas-icons-server-isolation.mjs
       - name: Production build
