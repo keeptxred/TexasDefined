@@ -14,6 +14,7 @@ function TexasTalentProfilePreview() {
   const heroImage = readiness.imageReview.heroImage;
   const launchAssessment = profile.launchAssessment;
   const resolvedInternalLinks = profile.resolvedInternalLinks;
+  const reviewedSourceUrls = new Set(readiness.sourceReview.verifiedSources);
 
   return (
     <main>
@@ -181,12 +182,21 @@ function TexasTalentProfilePreview() {
         <Container className="py-10">
           <p className="eyebrow text-primary">Research record</p>
           <h2 className="mt-2 font-display text-3xl">Sources used for this draft</h2>
+          <p className="mt-3 max-w-3xl text-xs leading-6 text-background/60">
+            {readiness.sourceReview.verifiedSources.length} source{readiness.sourceReview.verifiedSources.length === 1 ? "" : "s"} in this record cleared the formal authority review. Other citations remain useful draft support but are not substitutes for the reviewed set.
+          </p>
           <div className="mt-5 grid gap-3 md:grid-cols-2">
-            {profile.sources.map((source) => (
-              <a key={source.url} href={source.url} target="_blank" rel="noreferrer" className="border border-background/20 p-4 text-sm font-semibold hover:border-primary hover:text-primary">
-                {source.label} ↗
-              </a>
-            ))}
+            {profile.sources.map((source) => {
+              const reviewed = reviewedSourceUrls.has(source.url);
+              return (
+                <a key={source.url} href={source.url} target="_blank" rel="noreferrer" className="border border-background/20 p-4 text-sm font-semibold hover:border-primary hover:text-primary">
+                  <span className="block text-[10px] font-bold uppercase tracking-[0.14em] text-background/50">
+                    {reviewed ? "Reviewed authority" : "Supplemental draft source"}
+                  </span>
+                  <span className="mt-2 block">{source.label} ↗</span>
+                </a>
+              );
+            })}
           </div>
           <p className="mt-6 max-w-3xl text-xs leading-6 text-background/60">This is an internal editorial preview. Public launch still requires final fact-checking, completed internal links, a cleared image record and explicit editorial approval.</p>
         </Container>
