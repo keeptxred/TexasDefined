@@ -13,6 +13,7 @@ const researchPaths = [
   "src/data/texas-icons-research-history-4.server.ts",
   "src/data/texas-icons-research-history-5.server.ts",
   "src/data/texas-icons-research-history-6.server.ts",
+  "src/data/texas-icons-research-history-7.server.ts",
 ];
 const typesPath = "src/data/texas-icons-types.ts";
 const serverPath = "src/data/texas-icons.server.ts";
@@ -76,6 +77,7 @@ const researchedHistorySlugs = [
   "lorenzo-de-zavala", "john-nance-garner", "chester-w-nimitz", "audie-murphy", "kay-bailey-hutchison",
   "juan-seguin", "quanah-parker", "lady-bird-johnson", "rick-perry", "john-connally",
   "henry-b-gonzalez", "irma-rangel", "lulu-belle-madison-white", "sallie-reynolds-matthews", "molly-goodnight",
+  "richard-king", "charles-goodnight", "james-hogg", "ma-ferguson", "allan-shivers",
 ];
 for (const slug of researchedHistorySlugs) {
   if (!records.some((record) => record.slug === slug)) failures.push(`Researched History & Politics profile is not in the 250-icon roster: ${slug}.`);
@@ -92,7 +94,7 @@ for (const domain of [
   "history.state.gov", "archives.gov", "thealamo.org", "bakerinstitute.org", "senate.gov",
   "history.navy.mil", "pacificwarmuseum.org", "cmohs.org", "arlingtoncemetery.mil", "history.army.mil",
   "okhistory.org", "lrl.texas.gov", "energy.gov", "cemetery.texas.gov", "capitol.texas.gov",
-  "humanitiestexas.org", "texashistory.unt.edu", "tpwd.texas.gov", "thc.texas.gov",
+  "humanitiestexas.org", "texashistory.unt.edu", "tpwd.texas.gov", "thc.texas.gov", "king-ranch.com",
 ]) if (!research.includes(domain)) failures.push(`History research is missing expected institutional source authority: ${domain}.`);
 for (const contextualToken of [
   "Vietnam", "slaveowner", "enslaved labor", "September 11", "Watergate",
@@ -101,15 +103,17 @@ for (const contextualToken of [
   "Yucatán-born", "Supreme Court", "Pacific Ocean Areas", "post-traumatic stress disorder", "first woman senator from Texas",
   "only Mexican Texan", "different leadership titles", "Highway Beautification Act", "more than fourteen years", "Kennedy assassination",
   "first Mexican American from Texas", "first Mexican American woman elected", "differ between 1899 and 1900",
-  "Interwoven: A Pioneer Chronicle", "orphaned southern-plains bison",
+  "Interwoven: A Pioneer Chronicle", "orphaned southern-plains bison", "roughly 614,000 acres",
+  "supervising enslaved Black labor", "Railroad Commission", "first woman elected governor of Texas", "opposed school integration",
 ]) if (!research.includes(contextualToken)) failures.push(`History research is missing required contextual coverage: ${contextualToken}.`);
 
 for (const token of [
   "loadTexasTalentProfilesServer", "loadTexasKnowledgeGraph", "canonicalEntityPath", "uniqueMatch",
   'entry.subjectType === "place"', "isTexasTalentPublishable", "TEXAS_ICON_RESEARCH_HISTORY_BATCH_1",
   "TEXAS_ICON_RESEARCH_HISTORY_BATCH_2", "TEXAS_ICON_RESEARCH_HISTORY_BATCH_3", "TEXAS_ICON_RESEARCH_HISTORY_BATCH_4",
-  "TEXAS_ICON_RESEARCH_HISTORY_BATCH_5", "TEXAS_ICON_RESEARCH_HISTORY_BATCH_6", "TEXAS_ICON_RESEARCH_PROFILES",
-  'reuseKind: "icon-research-staged"', "matchedResearchSlug", 'resolved.reuseKind === "icon-research-staged"',
+  "TEXAS_ICON_RESEARCH_HISTORY_BATCH_5", "TEXAS_ICON_RESEARCH_HISTORY_BATCH_6", "TEXAS_ICON_RESEARCH_HISTORY_BATCH_7",
+  "TEXAS_ICON_RESEARCH_PROFILES", 'reuseKind: "icon-research-staged"', "matchedResearchSlug",
+  'resolved.reuseKind === "icon-research-staged"',
 ]) if (!server.includes(token)) failures.push(`Texas Icons duplicate/research resolver contract missing: ${token}`);
 const talentPrecedence = server.indexOf("if (talentProfile)");
 const researchPrecedence = server.indexOf("if (researchProfile)");
