@@ -29,6 +29,26 @@ export type TexasTalentLaunchAssessment = {
   verifiedInternalLinks: readonly TexasTalentVerifiedInternalLink[];
 };
 
+export const TEXAS_TALENT_LAUNCH_DEPTH = {
+  minOverviewParagraphs: 3,
+  minOverviewWords: 300,
+  minDefiningWorks: 5,
+  minTimelineMilestones: 5,
+  minLegacyPoints: 3,
+  minLegacyWords: 100,
+  minTexasPlaces: 2,
+  minTexasPlaceContextWords: 18,
+  minSources: 2,
+} as const;
+
+function wordCount(value: string) {
+  return value.trim().split(/\s+/).filter(Boolean).length;
+}
+
+function totalWords(values: readonly string[]) {
+  return values.reduce((sum, value) => sum + wordCount(value), 0);
+}
+
 export function assessTexasTalentLaunchReadiness(
   profile: LoadedTexasTalentProfile,
 ): TexasTalentLaunchAssessment {
@@ -47,12 +67,40 @@ export function assessTexasTalentLaunchReadiness(
   ) {
     blockers.push("internal-links");
   }
-  if (profile.overview.length < 2) blockers.push("biography-depth");
-  if (profile.definingWorks.length < 4) blockers.push("defining-work-depth");
-  if (profile.timeline.length < 4) blockers.push("timeline-depth");
-  if (profile.legacy.length < 2) blockers.push("legacy-depth");
-  if (profile.texasPlaces.length < 1) blockers.push("texas-place-depth");
-  if (profile.sources.length < 2) blockers.push("source-depth");
+
+  const overviewWords = totalWords(profile.overview);
+  if (
+    profile.overview.length < TEXAS_TALENT_LAUNCH_DEPTH.minOverviewParagraphs ||
+    overviewWords < TEXAS_TALENT_LAUNCH_DEPTH.minOverviewWords
+  ) {
+    blockers.push("biography-depth");
+  }
+
+  if (profile.definingWorks.length < TEXAS_TALENT_LAUNCH_DEPTH.minDefiningWorks) {
+    blockers.push("defining-work-depth");
+  }
+  if (profile.timeline.length < TEXAS_TALENT_LAUNCH_DEPTH.minTimelineMilestones) {
+    blockers.push("timeline-depth");
+  }
+
+  const legacyWords = totalWords(profile.legacy);
+  if (
+    profile.legacy.length < TEXAS_TALENT_LAUNCH_DEPTH.minLegacyPoints ||
+    legacyWords < TEXAS_TALENT_LAUNCH_DEPTH.minLegacyWords
+  ) {
+    blockers.push("legacy-depth");
+  }
+
+  if (
+    profile.texasPlaces.length < TEXAS_TALENT_LAUNCH_DEPTH.minTexasPlaces ||
+    profile.texasPlaces.some(
+      (place) => wordCount(place.context) < TEXAS_TALENT_LAUNCH_DEPTH.minTexasPlaceContextWords,
+    )
+  ) {
+    blockers.push("texas-place-depth");
+  }
+
+  if (profile.sources.length < TEXAS_TALENT_LAUNCH_DEPTH.minSources) blockers.push("source-depth");
 
   const mechanicalReady = blockers.length === 0;
   const editorialApproved = profile.readiness.launchStatus === "launch-ready";
