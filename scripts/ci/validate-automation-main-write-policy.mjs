@@ -29,6 +29,17 @@ for (const contract of [
   requireText(dispatcherPath, dispatcher, contract);
 }
 
+const eventSyncScriptPath = 'scripts/events/sync-texas-events-safe.mjs';
+const eventSyncScript = read(eventSyncScriptPath);
+for (const contract of [
+  'readFile(OUTPUT_PATH, "utf8")',
+  'stableEventEquals(previous, row)',
+  'sourceCheckedAt: previous.sourceCheckedAt',
+  'unchanged records retained their prior sourceCheckedAt timestamp',
+]) {
+  requireText(eventSyncScriptPath, eventSyncScript, contract);
+}
+
 const eventsPath = '.github/workflows/sync-texas-events.yml';
 const events = read(eventsPath);
 for (const contract of [
@@ -77,4 +88,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Automation main-write policy passed: daily event refreshes use exact-branch validation, current-main reconciliation and explicit deployment; generated image changes remain reviewable PRs with explicit item-level rights review and official validation.');
+console.log('Automation main-write policy passed: daily event refreshes are idempotent when only verification timestamps change, use exact-branch validation, current-main reconciliation and explicit deployment; generated image changes remain reviewable PRs with explicit item-level rights review and official validation.');
