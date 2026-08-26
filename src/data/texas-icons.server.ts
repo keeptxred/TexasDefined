@@ -5,6 +5,7 @@ import { TEXAS_ICON_RESEARCH_HISTORY_BATCH_1 } from "@/data/texas-icons-research
 import { TEXAS_ICON_RESEARCH_HISTORY_BATCH_2 } from "@/data/texas-icons-research-history-2.server";
 import { TEXAS_ICON_RESEARCH_HISTORY_BATCH_3 } from "@/data/texas-icons-research-history-3.server";
 import { TEXAS_ICON_RESEARCH_HISTORY_BATCH_4 } from "@/data/texas-icons-research-history-4.server";
+import { TEXAS_ICON_RESEARCH_HISTORY_BATCH_5 } from "@/data/texas-icons-research-history-5.server";
 import { isTexasTalentPublishable } from "@/data/texas-talent-launch";
 import { loadTexasTalentProfilesServer } from "@/data/texas-talent.server";
 import {
@@ -24,6 +25,7 @@ const TEXAS_ICON_RESEARCH_PROFILES: readonly TexasIconResearchProfile[] = [
   ...TEXAS_ICON_RESEARCH_HISTORY_BATCH_2,
   ...TEXAS_ICON_RESEARCH_HISTORY_BATCH_3,
   ...TEXAS_ICON_RESEARCH_HISTORY_BATCH_4,
+  ...TEXAS_ICON_RESEARCH_HISTORY_BATCH_5,
 ];
 
 export type TexasIconReuseKind =
