@@ -24,6 +24,16 @@ const expectedCohort = [
   "tommy-lee-jones",
   "wes-anderson",
   "robert-rodriguez",
+  "ornette-coleman",
+  "townes-van-zandt",
+  "lightnin-hopkins",
+  "lead-belly",
+  "billy-gibbons",
+  "eva-longoria",
+  "renee-zellweger",
+  "ethan-hawke",
+  "dennis-quaid",
+  "sissy-spacek",
 ];
 
 const statusSource = read("src/data/texas-talent-editorial-status.ts");
