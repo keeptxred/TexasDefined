@@ -55,12 +55,16 @@ for (const token of [
   "Shelby Cobra",
   "2012 USADA lifetime ban",
   "NBC Sports analyst",
-  "retires from the NFL and joins NBC Sports",
+  "13 NFL seasons",
   "2022 World Series championship",
   "president of basketball operations",
 ]) {
   if (!research.includes(token)) failures.push(`Sports batch 5 is missing required editorial context: ${token}.`);
 }
+if (research.includes("14 NFL seasons")) failures.push("Colt McCoy must not be described as playing 14 NFL seasons; Texas Athletics verifies 13 seasons.");
+if (!research.includes("2026") || !research.includes("World Baseball Classic")) failures.push("Dusty Baker profile must retain current 2026 baseball context, including his World Baseball Classic return.");
+if (!research.includes("transitioned fully out of the head-coaching job in May 2025")) failures.push("Gregg Popovich profile must retain his 2025 coaching-to-executive transition.");
+if (!research.includes("UCI accepted the decision") || !research.includes("stripped the seven Tour de France titles")) failures.push("Lance Armstrong profile must foreground the USADA/UCI sanction and stripped Tour titles.");
 for (const domain of ["12thman.com", "ufc.com", "indycar.com", "automotivehalloffame.org", "usada.org", "nbcsports.com", "texaslonghorns.com", "mlb.com", "nba.com", "hoophall.com"]) {
   if (!research.includes(domain)) failures.push(`Sports batch 5 is missing expected authority/source domain: ${domain}.`);
 }
@@ -86,7 +90,7 @@ if (talentPrecedence < 0 || researchPrecedence < 0 || talentPrecedence > researc
 if (!resolver.includes('reuseKind: "icon-research-staged"') || !resolver.includes("indexableAtOwnRoute: false")) failures.push("Sports research drafts must remain non-indexable at their own routes.");
 
 if (failures.length) fail();
-console.log("Texas Icons Sports completion validation passed: ranks 101-150 are covered by exactly 50 unique staged research profiles with source depth, future duplicate detection and noindex publication boundaries.");
+console.log("Texas Icons Sports completion validation passed: ranks 101-150 are covered by exactly 50 unique staged research profiles with source depth, current-state safeguards, future duplicate detection and noindex publication boundaries.");
 
 function fail() {
   console.error("Texas Icons Sports completion validation failed:");
