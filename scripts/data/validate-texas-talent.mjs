@@ -134,18 +134,18 @@ const readinessSlugs = readinessFiles.flatMap((path) =>
     .map((match) => match[1] ?? match[2]),
 );
 
-requireCondition(profileBlocks.length === 50, `expected 50 profile records; found ${profileBlocks.length}`);
-requireCondition(profileSlugs.length === 50, `expected 50 profile slugs; found ${profileSlugs.length}`);
-requireCondition(new Set(profileSlugs).size === 50, "profile slugs must be unique");
-requireCondition(readinessSlugs.length === 50, `expected 50 readiness records; found ${readinessSlugs.length}`);
-requireCondition(new Set(readinessSlugs).size === 50, "readiness slugs must be unique");
-
 const profileSet = new Set(profileSlugs);
 const readinessSet = new Set(readinessSlugs);
 const missingReadiness = profileSlugs.filter((slug) => !readinessSet.has(slug));
 const orphanReadiness = readinessSlugs.filter((slug) => !profileSet.has(slug));
 requireCondition(missingReadiness.length === 0, `profiles missing readiness records: ${missingReadiness.join(", ")}`);
 requireCondition(orphanReadiness.length === 0, `readiness records without profiles: ${orphanReadiness.join(", ")}`);
+
+requireCondition(profileBlocks.length === 50, `expected 50 profile records; found ${profileBlocks.length}`);
+requireCondition(profileSlugs.length === 50, `expected 50 profile slugs; found ${profileSlugs.length}`);
+requireCondition(new Set(profileSlugs).size === 50, "profile slugs must be unique");
+requireCondition(readinessSlugs.length === 50, `expected 50 readiness records; found ${readinessSlugs.length}`);
+requireCondition(new Set(readinessSlugs).size === 50, "readiness slugs must be unique");
 
 const structuralFields = ["overview", "definingWorks", "timeline", "legacy", "texasPlaces", "sources"];
 for (const [index, block] of profileBlocks.entries()) {
