@@ -14,6 +14,16 @@ const expectedCohort = [
   "buddy-holly",
   "beyonce",
   "matthew-mcconaughey",
+  "george-strait",
+  "stevie-ray-vaughan",
+  "janis-joplin",
+  "waylon-jennings",
+  "roy-orbison",
+  "jamie-foxx",
+  "woody-harrelson",
+  "tommy-lee-jones",
+  "wes-anderson",
+  "robert-rodriguez",
 ];
 
 const statusSource = read("src/data/texas-talent-editorial-status.ts");
@@ -24,7 +34,7 @@ if (statusSlugs.length !== expectedCohort.length) {
   fail(`expected ${expectedCohort.length} content-ready overrides; found ${statusSlugs.length}`);
 }
 for (const slug of expectedCohort) {
-  if (!statusSlugs.includes(slug)) fail(`first editorial cohort is missing ${slug}`);
+  if (!statusSlugs.includes(slug)) fail(`editorial cohort is missing ${slug}`);
 }
 for (const slug of statusSlugs) {
   if (!expectedCohort.includes(slug)) fail(`unexpected content-ready override ${slug}`);
