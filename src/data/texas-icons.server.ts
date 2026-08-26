@@ -2,6 +2,7 @@ import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
 import { canonicalEntityPath } from "@/data/knowledge-graph/relationships";
 import type { TexasEntityRecord } from "@/data/knowledge-graph/types";
 import { TEXAS_ICON_RESEARCH_HISTORY_BATCH_1 } from "@/data/texas-icons-research-history-1.server";
+import { TEXAS_ICON_RESEARCH_HISTORY_BATCH_2 } from "@/data/texas-icons-research-history-2.server";
 import { isTexasTalentPublishable } from "@/data/texas-talent-launch";
 import { loadTexasTalentProfilesServer } from "@/data/texas-talent.server";
 import {
@@ -15,6 +16,11 @@ import {
   type TexasIconResearchProfile,
   type TexasIconRosterEntry,
 } from "@/data/texas-icons-types";
+
+const TEXAS_ICON_RESEARCH_PROFILES: readonly TexasIconResearchProfile[] = [
+  ...TEXAS_ICON_RESEARCH_HISTORY_BATCH_1,
+  ...TEXAS_ICON_RESEARCH_HISTORY_BATCH_2,
+];
 
 export type TexasIconReuseKind =
   | "editorial-canonical"
@@ -70,7 +76,7 @@ async function buildResolutionContext(): Promise<ResolutionContext> {
     for (const alias of entity.aliases) addLookupValue(entitiesByKey, alias, entity);
   }
 
-  for (const profile of TEXAS_ICON_RESEARCH_HISTORY_BATCH_1) {
+  for (const profile of TEXAS_ICON_RESEARCH_PROFILES) {
     addLookupValue(researchByKey, profile.slug, profile);
     const rosterEntry = getTexasIconBySlug(profile.slug);
     if (rosterEntry) {
