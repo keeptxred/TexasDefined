@@ -1,5 +1,6 @@
 import fs from "node:fs";
 
+// Contract for the owner-supplied Media & Arts ranks 191-200 cohort.
 const sourcePath = "src/data/texas-icons-source-media-symbols.server.ts";
 const researchPath = "src/data/texas-icons-research-media-1.server.ts";
 const resolverPath = "src/data/texas-icons.server.ts";
