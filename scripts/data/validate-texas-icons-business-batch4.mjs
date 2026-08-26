@@ -59,7 +59,7 @@ for (const token of [
   "Mays Business School",
   "owned enslaved people",
   "Union",
-  "Federal Communications Act of 1934",
+  "Communications Act of 1934",
   "Humanities Research Center",
 ]) {
   if (!research.includes(token)) failures.push(`Business batch 4 is missing required accuracy/context token: ${token}.`);
