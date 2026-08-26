@@ -49,6 +49,14 @@ function TexasTalentPage() {
             <Metric label="Editorially approved" value={launchAudit.editorialApproved} />
             <Metric label="Publishable now" value={launchAudit.publishable} />
           </div>
+          <div className="mt-px grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-3">
+            <Metric label="Link certification candidates" value={launchAudit.linkCertificationCandidates} />
+            <Metric label="Unsafe recorded-link sets" value={launchAudit.profilesWithUnsafeRecordedLinks} />
+            <Metric label="Profiles with no safe links" value={launchAudit.profilesWithNoSafeLinks} />
+          </div>
+          <p className="mt-4 max-w-4xl text-xs leading-6 text-muted-foreground">
+            A link-certification candidate has at least one currently indexable Texas Defined destination and no recorded link that failed the current route-quality gate. Candidate status does not certify the profile by itself.
+          </p>
         </section>
       </Container>
 
@@ -109,13 +117,14 @@ function TexasTalentPage() {
             <p className="eyebrow text-primary">Profile workbench</p>
             <h2 id="profile-workbench" className="mt-2 font-display text-4xl sm:text-5xl">The first {profiles.length} Texas Talent pages</h2>
             <p className="mt-4 text-sm leading-7 text-muted-foreground">
-              Every card opens an internal profile draft and now shows the exact mechanical blockers that still prevent launch.
+              Every card opens an internal profile draft and now shows the exact mechanical blockers and live-link audit that still prevent launch.
             </p>
           </div>
 
           <div className="mt-8 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2 xl:grid-cols-3">
             {profiles.map((person) => {
               const assessment = launchAudit.assessments.find((item) => item.slug === person.slug);
+              const linkAudit = launchAudit.linkAudits.find((item) => item.slug === person.slug);
               return (
                 <article key={person.slug} className="bg-background p-6">
                   <div className="flex items-start justify-between gap-4">
@@ -132,6 +141,17 @@ function TexasTalentPage() {
                     <p className="text-xs font-bold uppercase tracking-[0.14em] text-foreground">Texas places</p>
                     <p className="mt-2 text-sm text-muted-foreground">{person.primaryPlaces.join(" · ")}</p>
                   </div>
+                  {linkAudit ? (
+                    <div className="mt-4 border-t border-border pt-4">
+                      <p className="text-xs font-bold uppercase tracking-[0.14em] text-foreground">Live-link audit</p>
+                      <p className="mt-2 text-xs leading-6 text-muted-foreground">
+                        {linkAudit.safeResolvedLinkCount} safe live · {linkAudit.unsafeRecordedLinkCount} dropped · review {linkAudit.reviewStatus}
+                      </p>
+                      {linkAudit.certificationCandidate ? (
+                        <p className="mt-2 text-xs font-semibold text-primary">Candidate for editorial link certification</p>
+                      ) : null}
+                    </div>
+                  ) : null}
                   {assessment?.blockers.length ? (
                     <div className="mt-4 border-t border-border pt-4">
                       <p className="text-xs font-bold uppercase tracking-[0.14em] text-foreground">Mechanical blockers</p>
