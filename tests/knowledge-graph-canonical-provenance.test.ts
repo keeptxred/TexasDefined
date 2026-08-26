@@ -3,18 +3,18 @@ import { describe, expect, it } from 'vitest';
 import { canonicalEntityPath } from '../src/data/knowledge-graph/relationships';
 
 describe('knowledge-graph canonical provenance', () => {
-  it('routes Explore catalog projections to their destination owner', () => {
+  it('does not infer destination ownership from Explore catalog provenance', () => {
     expect(canonicalEntityPath({
       kind: 'museum',
       slug: 'example-museum',
       sourceId: 'explore-shared-catalog',
-    })).toBe('/destination/example-museum');
+    })).toBe('/museum/example-museum');
 
     expect(canonicalEntityPath({
       kind: 'state-park',
       slug: 'example-state-park',
       sourceId: 'explore-shared-catalog',
-    })).toBe('/destination/example-state-park');
+    })).toBe('/state-park/example-state-park');
   });
 
   it('does not broadly redirect curated entities just because their kind can also appear in Explore', () => {
