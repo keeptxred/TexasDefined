@@ -78,12 +78,14 @@ for (const slug of expected) {
   const objectStart = source.indexOf("{", start);
   const block = findBalancedBlock(source, objectStart, "{", "}", slug);
   const overview = stringArray(block, "overview");
+  const timeline = objectArray(block, "timeline");
   const legacy = stringArray(block, "legacy");
   const places = objectArray(block, "texasPlaces");
   const overviewWords = overview.reduce((sum, paragraph) => sum + words(paragraph), 0);
   const legacyWords = legacy.reduce((sum, paragraph) => sum + words(paragraph), 0);
 
   if (overview.length < 3 || overviewWords < 300) fail(`${slug}: overview is below launch depth (${overview.length} paragraphs, ${overviewWords} words)`);
+  if (timeline.length < 5) fail(`${slug}: timeline is below launch depth (${timeline.length} milestones)`);
   if (legacy.length < 3 || legacyWords < 100) fail(`${slug}: legacy is below launch depth (${legacy.length} points, ${legacyWords} words)`);
   if (places.length < 2) fail(`${slug}: needs at least two substantive Texas places`);
   for (const place of places) {
@@ -95,4 +97,4 @@ for (const slug of expected) {
 const recordCount = [...source.matchAll(/^  "[a-z0-9-]+": \{/gm)].length;
 if (recordCount !== expected.length) fail(`wave 2 must contain exactly ${expected.length} flagship records; found ${recordCount}`);
 
-console.log("Texas Talent flagship-depth wave 2 validation passed: George Strait, Stevie Ray Vaughan, Janis Joplin, Waylon Jennings and Roy Orbison meet the stronger narrative, legacy and Texas-place launch thresholds without receiving launch approval.");
+console.log("Texas Talent flagship-depth wave 2 validation passed: George Strait, Stevie Ray Vaughan, Janis Joplin, Waylon Jennings and Roy Orbison meet the stronger narrative, timeline, legacy and Texas-place launch thresholds without receiving launch approval.");
