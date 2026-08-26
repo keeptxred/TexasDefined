@@ -1,4 +1,5 @@
 import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
+import { TEXAS_TALENT_EDITORIAL_STATUS_OVERRIDES } from "@/data/texas-talent-editorial-status";
 import { TEXAS_TALENT_PROFILES } from "@/data/texas-talent-profiles";
 import { TEXAS_TALENT_MUSIC_EXPANSION } from "@/data/texas-talent-profiles-wave2-music";
 import { TEXAS_TALENT_FILM_EXPANSION } from "@/data/texas-talent-profiles-wave2-film";
@@ -55,6 +56,9 @@ const missingReadinessSlugs = profileSlugs.filter((slug) => !TEXAS_TALENT_ALL_RE
 const orphanCorrectionSlugs = Object.keys(TEXAS_TALENT_PROFILE_CORRECTIONS).filter(
   (slug) => !profileSlugs.includes(slug as (typeof profileSlugs)[number]),
 );
+const orphanEditorialStatusSlugs = Object.keys(TEXAS_TALENT_EDITORIAL_STATUS_OVERRIDES).filter(
+  (slug) => !profileSlugs.includes(slug as (typeof profileSlugs)[number]),
+);
 
 if (duplicateProfileSlugs.length > 0) {
   throw new Error(`Duplicate Texas Talent profile slugs: ${[...new Set(duplicateProfileSlugs)].join(", ")}`);
@@ -68,10 +72,15 @@ if (orphanCorrectionSlugs.length > 0) {
   throw new Error(`Texas Talent profile corrections target unknown slugs: ${orphanCorrectionSlugs.join(", ")}`);
 }
 
+if (orphanEditorialStatusSlugs.length > 0) {
+  throw new Error(`Texas Talent editorial status overrides target unknown slugs: ${orphanEditorialStatusSlugs.join(", ")}`);
+}
+
 function withReadiness<T extends (typeof TEXAS_TALENT_ALL_PROFILES)[number]>(profile: T) {
   const correctedProfile = {
     ...profile,
     ...(TEXAS_TALENT_PROFILE_CORRECTIONS[profile.slug] ?? {}),
+    ...(TEXAS_TALENT_EDITORIAL_STATUS_OVERRIDES[profile.slug] ?? {}),
   };
 
   return {
@@ -117,6 +126,7 @@ export async function loadTexasTalentLaunchAuditServer() {
 
   return {
     totalProfiles: profiles.length,
+    contentReady: profiles.filter((profile) => profile.profileStatus === "ready").length,
     storedMechanicallyReady: storedAssessments.filter((assessment) => assessment.mechanicalReady).length,
     mechanicallyReady: assessments.filter((assessment) => assessment.mechanicalReady).length,
     editorialApproved: storedAssessments.filter((assessment) => assessment.editorialApproved).length,
@@ -132,8 +142,8 @@ export async function loadTexasTalentLaunchAuditServer() {
 }
 
 // Publication remains intentionally conservative. These functions use the
-// stored readiness records, not the derived mechanical link certification.
-// A mechanically clean graph can never turn a profile public by itself.
+// stored readiness records, not editorial profile status or derived mechanical
+// link certification. A content-ready profile can never turn public by itself.
 export function loadTexasTalentPublishableProfilesServer() {
   return loadTexasTalentProfilesServer().filter(isTexasTalentPublishable);
 }
