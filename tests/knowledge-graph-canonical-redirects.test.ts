@@ -24,8 +24,11 @@ describe("knowledge-graph canonical redirects", () => {
       expect(canonicalEntityPath(entity!)).toBe(expectedPath);
     }
 
-    expect(canonicalEntityPath({ kind: "national-forest", slug: "sam-houston-national-forest" }))
-      .toBe("/national-forest/sam-houston-national-forest");
+    expect(canonicalEntityPath({
+      kind: "national-forest",
+      slug: "sam-houston-national-forest",
+      sourceId: "explore-shared-catalog",
+    })).toBe("/national-forest/sam-houston-national-forest");
     expect(canonicalEntityPath({ kind: "state-park", slug: "not-a-known-owner" }))
       .toBe("/state-park/not-a-known-owner");
   });
