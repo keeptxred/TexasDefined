@@ -4,7 +4,7 @@ import { resolve } from "node:path";
 const root = process.cwd();
 const read = (path) => readFileSync(resolve(root, path), "utf8");
 const fail = (message) => {
-  console.error(`Texas Talent flagship-depth wave 2 validation failed: ${message}`);
+  console.error(`Texas Talent flagship-depth wave 3 validation failed: ${message}`);
   process.exit(1);
 };
 
@@ -62,19 +62,19 @@ function objectArray(block, property) {
 }
 
 const words = (value) => value.trim().split(/\s+/).filter(Boolean).length;
-const source = read("src/data/texas-talent-launch-depth-wave2.ts");
+const source = read("src/data/texas-talent-launch-depth-wave3.ts");
 const server = read("src/data/texas-talent.server.ts");
-const expected = ["george-strait", "stevie-ray-vaughan", "janis-joplin", "waylon-jennings", "roy-orbison"];
+const expected = ["ornette-coleman", "townes-van-zandt", "lightnin-hopkins", "lead-belly", "billy-gibbons"];
 
-if (!server.includes("TEXAS_TALENT_LAUNCH_DEPTH_WAVE2") || !server.includes("...(TEXAS_TALENT_LAUNCH_DEPTH_WAVE2[profile.slug] ?? {})")) {
-  fail("server loader must apply wave 2 depth overrides to effective profiles");
+if (!server.includes("TEXAS_TALENT_LAUNCH_DEPTH_WAVE3") || !server.includes("...(TEXAS_TALENT_LAUNCH_DEPTH_WAVE3[profile.slug] ?? {})")) {
+  fail("server loader must apply wave 3 depth overrides to effective profiles");
 }
-if (source.includes('launchStatus: "launch-ready"')) fail("wave 2 depth work must not grant editorial launch approval");
+if (source.includes('launchStatus: "launch-ready"')) fail("wave 3 depth work must not grant editorial launch approval");
 
 for (const slug of expected) {
   const marker = `"${slug}": {`;
   const start = source.indexOf(marker);
-  if (start < 0) fail(`missing wave 2 depth record for ${slug}`);
+  if (start < 0) fail(`missing wave 3 depth record for ${slug}`);
   const objectStart = source.indexOf("{", start);
   const block = findBalancedBlock(source, objectStart, "{", "}", slug);
   const overview = stringArray(block, "overview");
@@ -95,6 +95,6 @@ for (const slug of expected) {
 }
 
 const recordCount = [...source.matchAll(/^  "[a-z0-9-]+": \{/gm)].length;
-if (recordCount !== expected.length) fail(`wave 2 must contain exactly ${expected.length} flagship records; found ${recordCount}`);
+if (recordCount !== expected.length) fail(`wave 3 must contain exactly ${expected.length} flagship records; found ${recordCount}`);
 
-console.log("Texas Talent flagship-depth wave 2 validation passed: George Strait, Stevie Ray Vaughan, Janis Joplin, Waylon Jennings and Roy Orbison meet the stronger narrative, timeline, legacy and Texas-place launch thresholds without receiving launch approval.");
+console.log("Texas Talent flagship-depth wave 3 validation passed: Ornette Coleman, Townes Van Zandt, Lightnin' Hopkins, Lead Belly and Billy Gibbons meet the stronger narrative, timeline, legacy and Texas-place launch thresholds without receiving launch approval.");
