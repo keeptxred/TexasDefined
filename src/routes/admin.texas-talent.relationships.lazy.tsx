@@ -8,6 +8,9 @@ export const Route = createLazyFileRoute("/admin/texas-talent/relationships")({
 
 function TexasTalentRelationshipsPage() {
   const { reverseLinkAudit } = Route.useRouteContext();
+  const weakestCoverage = reverseLinkAudit.profileCoverage
+    .filter((profile) => profile.resolvedLinkCount === 0 || profile.countyOnly || !profile.hasCultureLink)
+    .slice(0, 18);
 
   return (
     <main>
@@ -23,10 +26,13 @@ function TexasTalentRelationshipsPage() {
       </section>
 
       <Container className="py-10 sm:py-12">
-        <div className="grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7">
+        <div className="grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-5">
           <Metric label="Profiles tracked" value={reverseLinkAudit.totalProfiles} />
           <Metric label="Profiles with a safe link" value={reverseLinkAudit.profilesWithResolvedLinks} />
           <Metric label="Profiles with no safe link" value={reverseLinkAudit.profilesWithoutResolvedLinks} />
+          <Metric label="Profiles with city links" value={reverseLinkAudit.profilesWithCityLinks} />
+          <Metric label="Profiles with culture links" value={reverseLinkAudit.profilesWithCultureLinks} />
+          <Metric label="County-only profiles" value={reverseLinkAudit.profilesWithCountyOnlyLinks} />
           <Metric label="Reverse-link destinations" value={reverseLinkAudit.destinationCount} />
           <Metric label="County destinations" value={reverseLinkAudit.countyDestinationCount} />
           <Metric label="City destinations" value={reverseLinkAudit.cityDestinationCount} />
@@ -34,12 +40,62 @@ function TexasTalentRelationshipsPage() {
         </div>
       </Container>
 
+      <Container className="pb-14 sm:pb-16">
+        <section aria-labelledby="coverage-gaps" className="border-t border-border pt-10">
+          <p className="eyebrow text-primary">Coverage gaps</p>
+          <h2 id="coverage-gaps" className="mt-2 font-display text-4xl sm:text-5xl">Profiles that still need a richer TexasDefined path</h2>
+          <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">
+            County authority is a useful geographic anchor, but a launch-quality profile should reach the strongest existing city, culture or destination authority pages when those relationships are specific and defensible. This queue is diagnostic only; it does not invent links and does not change stored readiness.
+          </p>
+          {weakestCoverage.length ? (
+            <div className="mt-8 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2 xl:grid-cols-3">
+              {weakestCoverage.map((profile) => (
+                <article key={profile.slug} className="bg-background p-6">
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <p className="eyebrow text-primary">{profile.category}</p>
+                      <h3 className="mt-2 font-display text-2xl">{profile.name}</h3>
+                    </div>
+                    <span className="rounded-full border border-border px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-muted-foreground">
+                      {profile.resolvedLinkCount} live
+                    </span>
+                  </div>
+                  <p className="mt-4 text-xs leading-6 text-muted-foreground">
+                    {profile.countyLinkCount} county · {profile.cityLinkCount} city · {profile.cultureLinkCount} culture · {profile.otherLinkCount} other
+                  </p>
+                  <p className="mt-3 text-xs font-semibold text-primary">
+                    {profile.resolvedLinkCount === 0
+                      ? "No safe destination resolved"
+                      : profile.countyOnly
+                        ? "County-only coverage"
+                        : !profile.hasCultureLink
+                          ? "Place coverage present · culture/story link still thin"
+                          : "Coverage review"}
+                  </p>
+                  <Link
+                    to="/admin/texas-talent/$slug"
+                    params={{ slug: profile.slug }}
+                    className="mt-5 inline-block text-sm font-semibold text-primary"
+                  >
+                    Review profile →
+                  </Link>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <p className="mt-6 border border-border bg-surface p-5 text-sm leading-7 text-muted-foreground">
+              Every profile currently has a diversified safe-link path.
+            </p>
+          )}
+        </section>
+      </Container>
+
       <Container className="pb-14 sm:pb-20">
         <section aria-labelledby="reverse-links">
           <p className="eyebrow text-primary">Reverse-link candidates</p>
           <h2 id="reverse-links" className="mt-2 font-display text-4xl sm:text-5xl">Profile → place becomes place → profile</h2>
           <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">
-            These destinations come only from the current indexable Texas Defined knowledge graph. The list is a launch-planning audit, not authorization to change any public county, city or cultural page.
+            These destinations come only from the current indexable Texas Defined knowledge graph and approved public authority routes. The list is a launch-planning audit, not authorization to change any public county, city or cultural page.
           </p>
 
           <div className="mt-8 grid gap-px overflow-hidden border border-border bg-border lg:grid-cols-2">

@@ -40,6 +40,13 @@ requireCondition(
   "reverse-link destinations must deduplicate profiles by slug",
 );
 requireCondition(
+  server.includes('profileCoverage')
+    && server.includes('profilesWithCityLinks')
+    && server.includes('profilesWithCultureLinks')
+    && server.includes('profilesWithCountyOnlyLinks'),
+  "reverse-link audit must retain per-profile city/culture/county-only coverage diagnostics",
+);
+requireCondition(
   route.includes('createFileRoute("/admin/texas-talent/relationships")'),
   "relationship audit must remain inside the admin namespace",
 );
@@ -56,10 +63,16 @@ requireCondition(
   "hidden relationship view must retain its non-public activation warning",
 );
 requireCondition(
+  page.includes('Profiles that still need a richer TexasDefined path')
+    && page.includes('County-only coverage')
+    && page.includes('does not invent links and does not change stored readiness'),
+  "hidden relationship view must retain the launch-quality coverage-gap audit and its safety boundary",
+);
+requireCondition(
   !existsSync(resolve(root, "src/routes/texas-talent.tsx")) && !existsSync(resolve(root, "src/routes/texas-talent.lazy.tsx")),
   "public Texas Talent hub must remain absent during reverse-link planning",
 );
 requireCondition(!publicRoutes.includes('"/texas-talent"'), "Texas Talent must remain outside public route classification");
 requireCondition(!sitemap.includes("texas-talent"), "Texas Talent must remain absent from sitemap generation");
 
-console.log("Texas Talent reverse-link contract passed: relationships remain graph-derived, hidden and non-publishing.");
+console.log("Texas Talent reverse-link contract passed: relationships and per-profile coverage gaps remain graph-derived, hidden and non-publishing.");
