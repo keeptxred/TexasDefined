@@ -6,7 +6,10 @@ const sourcePaths = [
   "src/data/texas-icons-source-sports-business.server.ts",
   "src/data/texas-icons-source-media-symbols.server.ts",
 ];
-const researchPath = "src/data/texas-icons-research-history-1.server.ts";
+const researchPaths = [
+  "src/data/texas-icons-research-history-1.server.ts",
+  "src/data/texas-icons-research-history-2.server.ts",
+];
 const typesPath = "src/data/texas-icons-types.ts";
 const serverPath = "src/data/texas-icons.server.ts";
 const functionsPath = "src/data/texas-icons.functions.ts";
@@ -19,7 +22,7 @@ const failures = [];
 for (const path of [
   rosterPath,
   ...sourcePaths,
-  researchPath,
+  ...researchPaths,
   typesPath,
   serverPath,
   functionsPath,
@@ -33,7 +36,8 @@ for (const path of [
 if (failures.length) fail();
 
 const rosterSource = fs.readFileSync(rosterPath, "utf8");
-const research = fs.readFileSync(researchPath, "utf8");
+const researchSources = researchPaths.map((path) => fs.readFileSync(path, "utf8"));
+const research = researchSources.join("\n");
 const types = fs.readFileSync(typesPath, "utf8");
 const server = fs.readFileSync(serverPath, "utf8");
 const functions = fs.readFileSync(functionsPath, "utf8");
@@ -65,15 +69,9 @@ if (records.length !== 250) failures.push(`Expected exactly 250 Texas Icon recor
 if (records.map((record) => record.rank).join(",") !== Array.from({ length: 250 }, (_, index) => index + 1).join(",")) {
   failures.push("Texas Icon ranks must be exactly 1 through 250 in source order.");
 }
-if (new Set(records.map((record) => record.slug)).size !== records.length) {
-  failures.push("Texas Icon slugs must be unique.");
-}
-if (new Set(records.map((record) => normalize(record.name))).size !== records.length) {
-  failures.push("Texas Icon names collide after punctuation/accent normalization.");
-}
-if (records.some((record) => !record.name || !record.description)) {
-  failures.push("Every Texas Icon intake row must retain a name and roster note.");
-}
+if (new Set(records.map((record) => record.slug)).size !== records.length) failures.push("Texas Icon slugs must be unique.");
+if (new Set(records.map((record) => normalize(record.name))).size !== records.length) failures.push("Texas Icon names collide after punctuation/accent normalization.");
+if (records.some((record) => !record.name || !record.description)) failures.push("Every Texas Icon intake row must retain a name and roster note.");
 
 const expectedCategoryCounts = new Map([
   ["History & Politics", 50],
@@ -102,31 +100,29 @@ for (const token of [
   if (!types.includes(token)) failures.push(`Texas Icons type/category contract missing: ${token}`);
 }
 
-const historyBatchSlugs = [
+const researchedHistorySlugs = [
   "lyndon-b-johnson",
   "sam-houston",
   "stephen-f-austin",
   "george-w-bush",
   "barbara-jordan",
+  "george-h-w-bush",
+  "ann-richards",
+  "sam-rayburn",
+  "davy-crockett",
+  "james-baker",
 ];
-for (const slug of historyBatchSlugs) {
+for (const slug of researchedHistorySlugs) {
   const rosterRecord = records.find((record) => record.slug === slug);
   if (!rosterRecord) failures.push(`Researched History & Politics profile is not in the 250-icon roster: ${slug}.`);
-  if (!research.includes(`slug: "${slug}"`)) failures.push(`History batch research profile missing: ${slug}.`);
+  if (!research.includes(`slug: "${slug}"`)) failures.push(`History research profile missing: ${slug}.`);
 }
-if ((research.match(/editorialStatus: "researched-staged"/g) ?? []).length !== historyBatchSlugs.length) {
-  failures.push("Every History batch profile must remain explicitly researched-staged.");
-}
-if ((research.match(/publicationNote:/g) ?? []).length !== historyBatchSlugs.length) {
-  failures.push("Every History batch profile must retain an explicit publication boundary note.");
-}
-if ((research.match(/lastReviewedAt: reviewed/g) ?? []).length !== historyBatchSlugs.length) {
-  failures.push("Every History batch profile must retain a reviewed date.");
-}
+if ((research.match(/editorialStatus: "researched-staged"/g) ?? []).length !== researchedHistorySlugs.length) failures.push("Every researched History & Politics profile must remain explicitly researched-staged.");
+if ((research.match(/publicationNote:/g) ?? []).length !== researchedHistorySlugs.length) failures.push("Every researched History & Politics profile must retain an explicit publication boundary note.");
+if ((research.match(/lastReviewedAt: reviewed/g) ?? []).length !== researchedHistorySlugs.length) failures.push("Every researched History & Politics profile must retain a reviewed date.");
 const researchSourceUrls = [...research.matchAll(/url: "(https:\/\/[^\"]+)"/g)].map((match) => match[1]);
-if (researchSourceUrls.length < historyBatchSlugs.length * 3) {
-  failures.push(`History batch needs at least three HTTPS sources per profile; found ${researchSourceUrls.length} source URLs.`);
-}
+if (researchSourceUrls.length < researchedHistorySlugs.length * 3) failures.push(`History research needs at least three HTTPS sources per profile; found ${researchSourceUrls.length} source URLs.`);
+if (new Set(researchSourceUrls).size !== researchSourceUrls.length) failures.push("History research source URLs must not be duplicated across source lists.");
 for (const domain of [
   "lbjlibrary.org",
   "nps.gov",
@@ -137,8 +133,13 @@ for (const domain of [
   "history.house.gov",
   "utexas.edu",
   "tsu.edu",
+  "bush41.org",
+  "history.state.gov",
+  "archives.gov",
+  "thealamo.org",
+  "bakerinstitute.org",
 ]) {
-  if (!research.includes(domain)) failures.push(`History batch is missing expected institutional source authority: ${domain}.`);
+  if (!research.includes(domain)) failures.push(`History research is missing expected institutional source authority: ${domain}.`);
 }
 for (const contextualToken of [
   "Vietnam",
@@ -146,8 +147,13 @@ for (const contextualToken of [
   "enslaved labor",
   "September 11",
   "Watergate",
+  "end of the Cold War",
+  "women and minority",
+  "longest-serving Speaker",
+  "exact circumstances",
+  "Gulf War",
 ]) {
-  if (!research.includes(contextualToken)) failures.push(`History batch is missing required contextual coverage: ${contextualToken}.`);
+  if (!research.includes(contextualToken)) failures.push(`History research is missing required contextual coverage: ${contextualToken}.`);
 }
 
 for (const token of [
@@ -158,6 +164,8 @@ for (const token of [
   'entry.subjectType === "place"',
   "isTexasTalentPublishable",
   "TEXAS_ICON_RESEARCH_HISTORY_BATCH_1",
+  "TEXAS_ICON_RESEARCH_HISTORY_BATCH_2",
+  "TEXAS_ICON_RESEARCH_PROFILES",
   'reuseKind: "icon-research-staged"',
   "matchedResearchSlug",
   'resolved.reuseKind === "icon-research-staged"',
@@ -166,13 +174,9 @@ for (const token of [
 }
 const talentPrecedence = server.indexOf("if (talentProfile)");
 const researchPrecedence = server.indexOf("if (researchProfile)");
-if (talentPrecedence < 0 || researchPrecedence < 0 || talentPrecedence > researchPrecedence) {
-  failures.push("Existing Texas Talent records must resolve before a Texas Icons research draft.");
-}
+if (talentPrecedence < 0 || researchPrecedence < 0 || talentPrecedence > researchPrecedence) failures.push("Existing Texas Talent records must resolve before a Texas Icons research draft.");
 const stagedResearchBlock = server.match(/if \(researchProfile\) \{([\s\S]*?)\n  \}/)?.[1] ?? "";
-if (!stagedResearchBlock.includes('reuseKind: "icon-research-staged"') || !stagedResearchBlock.includes("indexableAtOwnRoute: false")) {
-  failures.push("Researched Texas Icon drafts must remain non-indexable in the resolver.");
-}
+if (!stagedResearchBlock.includes('reuseKind: "icon-research-staged"') || !stagedResearchBlock.includes("indexableAtOwnRoute: false")) failures.push("Researched Texas Icon drafts must remain non-indexable in the resolver.");
 
 for (const token of [
   'createServerFn({ method: "GET" })',
@@ -182,23 +186,13 @@ for (const token of [
 ]) {
   if (!functions.includes(token)) failures.push(`Texas Icons server-function boundary missing: ${token}`);
 }
-if (!hub.includes('from "@/data/texas-icons.functions"') || !profile.includes('from "@/data/texas-icons.functions"')) {
-  failures.push("Texas Icons public routes must load server data only through texas-icons.functions.ts.");
-}
-if (hub.includes('import("@/data/texas-icons.server")') || profile.includes('import("@/data/texas-icons.server")')) {
-  failures.push("Texas Icons public routes must never directly import the .server resolver.");
-}
+if (!hub.includes('from "@/data/texas-icons.functions"') || !profile.includes('from "@/data/texas-icons.functions"')) failures.push("Texas Icons public routes must load server data only through texas-icons.functions.ts.");
+if (hub.includes('import("@/data/texas-icons.server")') || profile.includes('import("@/data/texas-icons.server")')) failures.push("Texas Icons public routes must never directly import the .server resolver.");
 
 const conditionalBlock = publicRoutes.match(/export const CONDITIONAL_INDEXABLE_PUBLIC_PATHS = \[([\s\S]*?)\] as const;/)?.[1] ?? "";
-if (!conditionalBlock.includes('"/texas-icons"')) {
-  failures.push("Texas Icons hub must remain explicitly classified as a conditional-index public route.");
-}
-if (!/node-version:\s*22\b/.test(workflow)) {
-  failures.push("Texas Icons validation workflow must use the repository-supported Node 22 runtime.");
-}
-if (!workflow.includes('"src/data/texas-icons-research-*.server.ts"')) {
-  failures.push("Texas Icons workflow must run when staged research profile batches change.");
-}
+if (!conditionalBlock.includes('"/texas-icons"')) failures.push("Texas Icons hub must remain explicitly classified as a conditional-index public route.");
+if (!/node-version:\s*22\b/.test(workflow)) failures.push("Texas Icons validation workflow must use the repository-supported Node 22 runtime.");
+if (!workflow.includes('"src/data/texas-icons-research-*.server.ts"')) failures.push("Texas Icons workflow must run when staged research profile batches change.");
 
 for (const token of [
   "CANONICAL_PATHS",
@@ -224,7 +218,6 @@ for (const token of [
 ]) {
   if (!hub.includes(token)) failures.push(`Texas Icons hub safeguard missing: ${token}`);
 }
-
 for (const token of [
   'throw redirect({ href: result.icon.href, statusCode: 301 })',
   "noindex, follow, max-image-preview:large",
@@ -235,22 +228,13 @@ for (const token of [
 ]) {
   if (!profile.includes(token)) failures.push(`Texas Icons profile safeguard missing: ${token}`);
 }
-if (!server.includes("getRelatedTexasIcons(entry, 8)")) {
-  failures.push("Texas Icons related-profile resolver must retain eight same-category cross-links.");
-}
+if (!server.includes("getRelatedTexasIcons(entry, 8)")) failures.push("Texas Icons related-profile resolver must retain eight same-category cross-links.");
 
-if (!/Description (?:field|column).*roster note.*not a publishable authority citation\./s.test(rosterSource)) {
-  failures.push("Texas Icons source provenance must distinguish roster notes from authority citations.");
-}
-if (!/short roster notes below are intake provenance,[\s\S]*not substitutes for research\./.test(hub)) {
-  failures.push("Texas Icons hub must disclose that starter notes are not researched profiles.");
-}
+if (!/Description (?:field|column).*roster note.*not a publishable authority citation\./s.test(rosterSource)) failures.push("Texas Icons source provenance must distinguish roster notes from authority citations.");
+if (!/short roster notes below are intake provenance,[\s\S]*not substitutes for research\./.test(hub)) failures.push("Texas Icons hub must disclose that starter notes are not researched profiles.");
 
 if (failures.length) fail();
-
-console.log(
-  `Texas Icons validation passed: ${records.length} unique source records, ${historyBatchSlugs.length} substantive staged History & Politics drafts, protected duplicate resolution, server-only data boundary, conditional route governance, canonical reuse, noindex publication boundaries, and eight related-profile links per record.`,
-);
+console.log(`Texas Icons validation passed: ${records.length} unique source records, ${researchedHistorySlugs.length} substantive staged History & Politics drafts, protected duplicate resolution, server-only data boundary, conditional route governance, canonical reuse, noindex publication boundaries, and eight related-profile links per record.`);
 
 function fail() {
   console.error("Texas Icons validation failed:");
@@ -259,27 +243,11 @@ function fail() {
 }
 
 function slugify(value) {
-  return value
-    .normalize("NFKD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase()
-    .replace(/&/g, " and ")
-    .replace(/['’]/g, "")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
+  return value.normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/&/g, " and ").replace(/['’]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 }
 
 function normalize(value) {
-  return value
-    .normalize("NFKD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase()
-    .replace(/&/g, " and ")
-    .replace(/['’".,()]/g, "")
-    .replace(/\b(the)\b/g, " ")
-    .replace(/[^a-z0-9]+/g, " ")
-    .trim()
-    .replace(/\s+/g, " ");
+  return value.normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/&/g, " and ").replace(/['’".,()]/g, "").replace(/\b(the)\b/g, " ").replace(/[^a-z0-9]+/g, " ").trim().replace(/\s+/g, " ");
 }
 
 function parseCsv(source) {
@@ -291,33 +259,16 @@ function parseCsv(source) {
     const character = source[index];
     const next = source[index + 1];
     if (quoted) {
-      if (character === '"' && next === '"') {
-        field += '"';
-        index += 1;
-      } else if (character === '"') {
-        quoted = false;
-      } else {
-        field += character;
-      }
+      if (character === '"' && next === '"') { field += '"'; index += 1; }
+      else if (character === '"') quoted = false;
+      else field += character;
       continue;
     }
-    if (character === '"') {
-      quoted = true;
-    } else if (character === ",") {
-      row.push(field);
-      field = "";
-    } else if (character === "\n") {
-      row.push(field.replace(/\r$/, ""));
-      rows.push(row);
-      row = [];
-      field = "";
-    } else {
-      field += character;
-    }
+    if (character === '"') quoted = true;
+    else if (character === ",") { row.push(field); field = ""; }
+    else if (character === "\n") { row.push(field.replace(/\r$/, "")); rows.push(row); row = []; field = ""; }
+    else field += character;
   }
-  if (field.length || row.length) {
-    row.push(field.replace(/\r$/, ""));
-    rows.push(row);
-  }
+  if (field.length || row.length) { row.push(field.replace(/\r$/, "")); rows.push(row); }
   return rows;
 }
