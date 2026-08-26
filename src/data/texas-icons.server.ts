@@ -18,6 +18,7 @@ import { TEXAS_ICON_RESEARCH_MUSIC_BATCH_4 } from "@/data/texas-icons-research-m
 import { TEXAS_ICON_RESEARCH_MUSIC_BATCH_5 } from "@/data/texas-icons-research-music-5.server";
 import { TEXAS_ICON_RESEARCH_SPORTS_BATCH_1 } from "@/data/texas-icons-research-sports-1.server";
 import { isTexasTalentPublishable } from "@/data/texas-talent-launch";
+import { texasTalentFutureCanonicalPath } from "@/data/texas-talent-launch-metadata.server";
 import { loadTexasTalentProfilesServer } from "@/data/texas-talent.server";
 import {
   getRelatedTexasIcons,
@@ -176,14 +177,19 @@ function resolveTexasIcon(entry: TexasIconRosterEntry, context: ResolutionContex
 
   // Existing Texas Talent records always win over an Icons research draft so
   // the registry cannot fork one person into two competing editorial records.
+  // Once a Talent profile is explicitly publishable, Texas Talent becomes the
+  // canonical owner and the Icons route redirects there instead of indexing a
+  // second copy of the same biography.
   if (talentProfile) {
     const publishable = isTexasTalentPublishable(talentProfile);
     return {
       resolved: {
         ...entry,
-        href: `/texas-icons/${entry.slug}`,
+        href: publishable
+          ? texasTalentFutureCanonicalPath(talentProfile.slug)
+          : `/texas-icons/${entry.slug}`,
         reuseKind: publishable ? "texas-talent-ready" : "texas-talent-staged",
-        indexableAtOwnRoute: publishable,
+        indexableAtOwnRoute: false,
         summary: publishable ? talentProfile.dek : entry.rosterNote,
         matchedTalentSlug: talentProfile.slug,
         matchedResearchSlug: researchProfile?.slug,

@@ -1,5 +1,6 @@
 import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
 import { TEXAS_TALENT_EDITORIAL_STATUS_OVERRIDES } from "@/data/texas-talent-editorial-status";
+import { buildTexasTalentLaunchMetadata } from "@/data/texas-talent-launch-metadata.server";
 import { TEXAS_TALENT_PLACE_CONTEXT_OVERRIDES } from "@/data/texas-talent-place-context-overrides";
 import { TEXAS_TALENT_PROFILES } from "@/data/texas-talent-profiles";
 import { TEXAS_TALENT_MUSIC_EXPANSION } from "@/data/texas-talent-profiles-wave2-music";
@@ -125,6 +126,7 @@ export async function loadTexasTalentProfileWithResolvedLinksServer(slug: string
     storedInternalLinkReview: storedProfile.readiness.internalLinkReview,
     resolvedInternalLinks,
     linkAudit: auditTexasTalentEntityLinksFromGraph(storedProfile, graph),
+    launchMetadata: buildTexasTalentLaunchMetadata(storedProfile),
     launchAssessment: assessTexasTalentLaunchReadiness(certifiedProfile),
   };
 }

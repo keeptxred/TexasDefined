@@ -53,6 +53,10 @@ jobs:
       - name: Validate Texas Talent content depth
         run: node scripts/data/validate-texas-talent-content-depth.mjs
 
+      # Keep future launch metadata and canonical ownership under the universal merge gate.
+      - name: Validate Texas Talent launch metadata
+        run: node scripts/data/validate-texas-talent-launch-metadata.mjs
+
       - name: Validate production predeploy gates
         run: node scripts/ci/run-validation-suite.mjs predeploy
 
