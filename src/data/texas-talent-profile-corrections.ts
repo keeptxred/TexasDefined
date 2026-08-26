@@ -3,6 +3,7 @@ import type { TexasTalentProfile } from "@/data/texas-talent";
 type TexasTalentProfileCorrection = Partial<TexasTalentProfile>;
 
 const reviewed = "2026-08-25";
+const mirandaReviewed = "2026-08-26";
 
 export const TEXAS_TALENT_PROFILE_CORRECTIONS: Readonly<Record<string, TexasTalentProfileCorrection>> = {
   "larry-mcmurtry": {
@@ -33,5 +34,13 @@ export const TEXAS_TALENT_PROFILE_CORRECTIONS: Readonly<Record<string, TexasTale
       { label: "Pulitzer Prizes — Larry McMurtry", url: "https://www.pulitzer.org/winners/larry-mcmurtry" },
     ],
     lastReviewedAt: reviewed,
+  },
+  "miranda-lambert": {
+    sources: [
+      { label: "Recording Academy — Miranda Lambert", url: "https://www.grammy.com/artists/miranda-lambert/4851/" },
+      { label: "Recording Academy — Miranda Lambert's early Texas career", url: "https://www.grammy.com/news/and-the-grammy-went-to-miranda-lambert/" },
+      { label: "Country Music Hall of Fame — Miranda Lambert: Backstage Access", url: "https://countrymusichalloffame.org/press/releases/miranda-lambert-backstage-access-exhibition-to-open-may-16-at-the-country-music-hall-of-fame-and-museum-2/" },
+    ],
+    lastReviewedAt: mirandaReviewed,
   },
 };
