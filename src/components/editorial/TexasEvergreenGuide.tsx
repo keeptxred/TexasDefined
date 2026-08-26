@@ -24,6 +24,10 @@ const musicGuideSlugs = new Set([
   "texas-blues",
   "texas-conjunto-tejano",
   "texas-western-swing",
+  "texas-country-outlaw",
+  "texas-rock-rockabilly",
+  "texas-jazz",
+  "texas-hip-hop",
 ]);
 
 const guideDestinationLinks: Partial<Record<string, { href: string; label: string; description: string }>> = {
@@ -150,6 +154,28 @@ const guideSources: Partial<Record<string, { label: string; href: string; note: 
     { label: "Handbook of Texas — Milton Brown", href: "https://www.tshaonline.org/handbook/entries/brown-william-milton", note: "Documents Brown's Fort Worth career, the Musical Brownies and their foundational role in the early western swing ensemble sound." },
     { label: "Handbook of Texas — Bob Wills", href: "https://www.tshaonline.org/handbook/entries/wills-james-robert", note: "Documents Wills's Texas roots, the musical influences behind his style and the expansion of western swing through the Texas Playboys." },
     { label: "Handbook of Texas — Country Music", href: "https://www.tshaonline.org/handbook/entries/country-music", note: "Places western swing in the larger Texas country-music history and describes its blend of fiddle music, blues, jazz, ragtime, polkas and dance-band influences." },
+  ],
+  "texas-country-outlaw": [
+    { label: "Handbook of Texas — Country Music", href: "https://www.tshaonline.org/handbook/entries/country-music", note: "Documents Texas country history and Austin's 1970s progressive-country and outlaw movements, including Willie Nelson and Waylon Jennings." },
+    { label: "Handbook of Texas — Armadillo World Headquarters", href: "https://www.tshaonline.org/handbook/entries/armadillo-world-headquarters", note: "Documents the Austin venue's cross-genre audience and its central role in the progressive-country and cosmic-cowboy scene." },
+    { label: "Handbook of Texas — Austin City Limits", href: "https://www.tshaonline.org/handbook/entries/austin-city-limits", note: "Documents the program's origins in Austin's progressive-country scene and the Willie Nelson pilot that helped carry the sound to a national public-television audience." },
+  ],
+  "texas-rock-rockabilly": [
+    { label: "Handbook of Texas — Rock-and-Roll", href: "https://www.tshaonline.org/handbook/entries/rock-and-roll", note: "Documents Texas contributions to rockabilly, early rock, blues rock and other branches, including Buddy Holly, Roy Orbison and Janis Joplin." },
+    { label: "Handbook of Texas — Buddy Holly", href: "https://www.tshaonline.org/handbook/entries/holley-charles-hardin-buddy-holly", note: "Documents Holly's Lubbock upbringing, local radio and performance history, recording career and long influence on later rock bands." },
+    { label: "Handbook of Texas Music", href: "https://www.tshaonline.org/handbook/projects/texas-music", note: "Places Holly, Joplin, Doug Sahm, ZZ Top and other Texas rock figures in the larger statewide music history." },
+  ],
+  "texas-jazz": [
+    { label: "Handbook of Texas — Jazz", href: "https://www.tshaonline.org/handbook/entries/jazz", note: "Documents Texas territory-band networks and musicians who entered swing, bebop and later jazz movements." },
+    { label: "Handbook of Texas — Arnett Cobb", href: "https://www.tshaonline.org/handbook/entries/cobb-arnett-cleophus", note: "Documents Cobb's Houston training, Milton Larkin Orchestra years, national career and later return to Houston as a bandleader and mentor." },
+    { label: "Handbook of Texas — Ornette Coleman", href: "https://www.tshaonline.org/handbook/entries/coleman-ornette", note: "Documents Coleman's Fort Worth upbringing, school and local music connections, and path toward his later innovations in modern jazz." },
+    { label: "Handbook of Texas — Teddy Wilson", href: "https://www.tshaonline.org/handbook/entries/wilson-theodore-shaw-teddy", note: "Documents Wilson's Austin birth and his major swing-era career as a pianist, accompanist and improviser." },
+  ],
+  "texas-hip-hop": [
+    { label: "Handbook of Texas — Rap and Hip-Hop", href: "https://www.tshaonline.org/handbook/entries/rap-and-hip-hop", note: "Documents the development of Texas rap, Houston's independent scene, DJ Screw's innovations and the 2000s national breakthrough." },
+    { label: "Handbook of Texas — Geto Boys", href: "https://www.tshaonline.org/handbook/entries/geto-boys", note: "Documents the Houston group's Rap-A-Lot origins and role in putting Houston and Southern rap on the national map." },
+    { label: "Handbook of Texas — DJ Screw", href: "https://www.tshaonline.org/handbook/entries/davis-robert-earl-jr-dj-screw", note: "Documents Robert Earl Davis Jr.'s Houston career, slowed-down production technique, Grey Tape culture and Screwed Up Click network." },
+    { label: "Handbook of Texas — UGK", href: "https://www.tshaonline.org/handbook/entries/ugk-underground-kingz", note: "Documents UGK's Port Arthur origins, Gulf Coast influences, independent beginnings and move into national hip-hop." },
   ],
 };
 
