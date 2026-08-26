@@ -25,7 +25,7 @@ function isPlaceholder(src: string): boolean {
 }
 
 function mappedHero(slug: string): ImageRef | undefined {
-  const direct = stateParkHeroMap[slug];
+  const direct = stateParkHeroMap[slug] ?? exploreHeroMap[slug];
   if (direct) return direct;
   const alias = STATE_PARK_HERO_ALIASES[slug];
   return alias ? exploreHeroMap[alias] ?? stateParkHeroMap[alias] : undefined;
