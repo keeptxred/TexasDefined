@@ -69,7 +69,10 @@ function TexasMusicPage() {
                     <span><strong className="font-semibold text-foreground">Places:</strong> {tradition.places.join(" · ")}</span>
                   </div>
                   <p className="mt-3 text-sm leading-6 text-muted-foreground"><strong className="font-semibold text-foreground">People to know:</strong> {tradition.representativeArtists.join(" · ")}</p>
-                  <a href={tradition.sourceUrl} target="_blank" rel="noreferrer" className="mt-4 inline-flex text-xs font-semibold uppercase tracking-[0.12em] text-primary">Authority source ↗</a>
+                  <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2">
+                    {tradition.guideHref ? <a href={tradition.guideHref} className="inline-flex items-center gap-2 text-sm font-semibold text-primary">Read the deep guide <ArrowRight className="size-4" aria-hidden /></a> : null}
+                    <a href={tradition.sourceUrl} target="_blank" rel="noreferrer" className="inline-flex text-xs font-semibold uppercase tracking-[0.12em] text-primary">Authority source ↗</a>
+                  </div>
                 </div>
               </article>
             ))}
