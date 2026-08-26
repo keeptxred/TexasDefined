@@ -37,22 +37,14 @@ for (const path of [...profileFiles, ...readinessFiles]) {
   requireCondition(existsSync(resolve(root, path)), `missing required source file ${path}`);
 }
 
-function extractProfileBlocks(path) {
-  const text = read(path);
-  const declaration = /export const\s+[A-Z0-9_]+:\s*readonly\s+TexasTalentProfile\[\]\s*=\s*\[/g.exec(text);
-  requireCondition(Boolean(declaration), `${path} is missing its exported TexasTalentProfile[] array`);
-
-  const arrayStart = declaration.index + declaration[0].lastIndexOf("[");
-  let squareDepth = 0;
-  let curlyDepth = 0;
-  let objectStart = -1;
+function findBalancedBlock(text, start, openChar, closeChar, context) {
+  let depth = 0;
   let quote = null;
   let escaped = false;
   let lineComment = false;
   let blockComment = false;
-  const blocks = [];
 
-  for (let index = arrayStart; index < text.length; index += 1) {
+  for (let index = start; index < text.length; index += 1) {
     const char = text[index];
     const next = text[index + 1];
 
@@ -95,13 +87,56 @@ function extractProfileBlocks(path) {
       continue;
     }
 
+    if (char === openChar) depth += 1;
+    if (char === closeChar) {
+      depth -= 1;
+      if (depth === 0) return text.slice(start, index + 1);
+    }
+  }
+
+  fail(`${context} did not close cleanly`);
+}
+
+function extractProfileBlocks(path) {
+  const text = read(path);
+  const declaration = /export const\s+[A-Z0-9_]+:\s*readonly\s+TexasTalentProfile\[\]\s*=\s*\[/g.exec(text);
+  requireCondition(Boolean(declaration), `${path} is missing its exported TexasTalentProfile[] array`);
+
+  const arrayStart = declaration.index + declaration[0].lastIndexOf("[");
+  const arrayText = findBalancedBlock(text, arrayStart, "[", "]", `${path} profile array`);
+  const blocks = [];
+  let squareDepth = 0;
+  let curlyDepth = 0;
+  let objectStart = -1;
+  let quote = null;
+  let escaped = false;
+
+  for (let index = 0; index < arrayText.length; index += 1) {
+    const char = arrayText[index];
+
+    if (quote) {
+      if (escaped) {
+        escaped = false;
+        continue;
+      }
+      if (char === "\\") {
+        escaped = true;
+        continue;
+      }
+      if (char === quote) quote = null;
+      continue;
+    }
+    if (char === '"' || char === "'" || char === "`") {
+      quote = char;
+      continue;
+    }
+
     if (char === "[") {
       squareDepth += 1;
       continue;
     }
     if (char === "]") {
       squareDepth -= 1;
-      if (squareDepth === 0) break;
       continue;
     }
     if (char === "{") {
@@ -112,14 +147,26 @@ function extractProfileBlocks(path) {
     if (char === "}") {
       curlyDepth -= 1;
       if (squareDepth === 1 && curlyDepth === 0 && objectStart >= 0) {
-        blocks.push(text.slice(objectStart, index + 1));
+        blocks.push(arrayText.slice(objectStart, index + 1));
         objectStart = -1;
       }
     }
   }
 
-  requireCondition(squareDepth === 0, `${path} profile array did not close cleanly`);
   return blocks;
+}
+
+function extractReadinessRegistry(path) {
+  const text = read(path);
+  const declaration = /export const\s+TEXAS_TALENT_READINESS(?:_BATCH\d+)?:\s*Readonly<Record<string, TexasTalentReadinessRecord>>\s*=\s*\{/g.exec(text);
+  requireCondition(Boolean(declaration), `${path} is missing its exported readiness registry`);
+
+  const objectStart = declaration.index + declaration[0].lastIndexOf("{");
+  const registryText = findBalancedBlock(text, objectStart, "{", "}", `${path} readiness registry`);
+  const slugs = [...registryText.matchAll(/^ {2}(?:"([^"]+)"|([a-z][a-z0-9-]*)):\s*\{/gm)]
+    .map((match) => match[1] ?? match[2]);
+
+  return { registryText, slugs };
 }
 
 const profileBlocks = profileFiles.flatMap(extractProfileBlocks);
@@ -129,11 +176,9 @@ const profileSlugs = profileBlocks.map((block, index) => {
   return slug;
 });
 
-const readinessText = readinessFiles.map(read).join("\n");
-const readinessSlugs = readinessFiles.flatMap((path) =>
-  [...read(path).matchAll(/^ {2}(?:"([^"]+)"|([a-z][a-z0-9-]*)):\s*\{/gm)]
-    .map((match) => match[1] ?? match[2]),
-);
+const readinessRegistries = readinessFiles.map(extractReadinessRegistry);
+const readinessRegistryText = readinessRegistries.map((registry) => registry.registryText).join("\n");
+const readinessSlugs = readinessRegistries.flatMap((registry) => registry.slugs);
 
 requireCondition(profileBlocks.length >= 50, `expected at least 50 profile records; found ${profileBlocks.length}`);
 requireCondition(profileSlugs.length === profileBlocks.length, "every profile record must expose exactly one top-level slug");
@@ -161,14 +206,14 @@ for (const [index, block] of profileBlocks.entries()) {
   requireCondition(/\blastReviewedAt:\s*/.test(block), `${slug} is missing lastReviewedAt`);
 }
 
-const sourceReviews = [...readinessText.matchAll(/sourceReview:\s*\{\s*status:\s*"reviewed"/g)].length;
-const imageReviews = [...readinessText.matchAll(/imageReview:\s*\{\s*status:\s*"verified"/g)].length;
-const heroImages = [...readinessText.matchAll(/\bheroImage:\s*\{/g)].length;
-const sourceUrls = [...readinessText.matchAll(/\bsourceUrl:\s*"https:\/\//g)].length;
-const licenseLabels = [...readinessText.matchAll(/\blicenseLabel:\s*"[^"]+"/g)].length;
-const rightsNotes = [...readinessText.matchAll(/\brightsNote:\s*"[^"]+"/g)].length;
-const internalReviews = [...readinessText.matchAll(/\binternalLinkReview:\s*\{/g)].length;
-const launchStatuses = [...readinessText.matchAll(/\blaunchStatus:\s*"([^"]+)"/g)].map((match) => match[1]);
+const sourceReviews = [...readinessRegistryText.matchAll(/sourceReview:\s*\{\s*status:\s*"reviewed"/g)].length;
+const imageReviews = [...readinessRegistryText.matchAll(/imageReview:\s*\{\s*status:\s*"verified"/g)].length;
+const heroImages = [...readinessRegistryText.matchAll(/\bheroImage:\s*\{/g)].length;
+const sourceUrls = [...readinessRegistryText.matchAll(/\bsourceUrl:\s*"https:\/\//g)].length;
+const licenseLabels = [...readinessRegistryText.matchAll(/\blicenseLabel:\s*"[^"]+"/g)].length;
+const rightsNotes = [...readinessRegistryText.matchAll(/\brightsNote:\s*"[^"]+"/g)].length;
+const internalReviews = [...readinessRegistryText.matchAll(/\binternalLinkReview:\s*\{/g)].length;
+const launchStatuses = [...readinessRegistryText.matchAll(/\blaunchStatus:\s*"([^"]+)"/g)].map((match) => match[1]);
 const expected = profileSlugs.length;
 
 requireCondition(sourceReviews === expected, `all ${expected} profiles must have reviewed source records; found ${sourceReviews}`);
