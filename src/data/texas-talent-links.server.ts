@@ -41,16 +41,29 @@ export async function resolveTexasTalentEntityLinks(
   profile: LoadedTexasTalentProfile,
 ): Promise<readonly TexasTalentVerifiedInternalLink[]> {
   const graph = await loadTexasKnowledgeGraph();
+  const indexableEntities = graph.filter(isIndexableEntityPage);
+  const indexableByPath = new Map(
+    indexableEntities.map((entity) => [canonicalEntityPath(entity), entity] as const),
+  );
   const resolved = new Map<string, TexasTalentVerifiedInternalLink>();
 
+  // Readiness records are editorial claims, not a permanent bypass around route
+  // quality. Recheck every recorded entity link against the current indexable
+  // graph before showing it in a Texas Talent preview or future public loader.
   for (const link of profile.readiness.internalLinkReview.links) {
-    resolved.set(link.href, link);
+    const entity = indexableByPath.get(link.href);
+    if (!entity) continue;
+    resolved.set(link.href, {
+      label: entity.name,
+      href: link.href,
+      kind: linkKind(entity),
+    });
   }
 
   const labels = [...new Set([...profile.primaryPlaces, ...profile.plannedCrossLinks])];
   for (const label of labels) {
-    const entity = exactEntityMatch(label, graph);
-    if (!entity || !isIndexableEntityPage(entity)) continue;
+    const entity = exactEntityMatch(label, indexableEntities);
+    if (!entity) continue;
 
     const href = canonicalEntityPath(entity);
     if (resolved.has(href)) continue;
