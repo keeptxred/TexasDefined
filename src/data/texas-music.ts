@@ -151,6 +151,11 @@ export const TEXAS_MUSIC_RELATED_GUIDES: readonly TexasMusicRelatedGuide[] = [
     description: "Houston rap, DJ Screw's tape culture, the Geto Boys, UGK and the Gulf Coast systems that built a national sound.",
   },
   {
+    title: "Texas Music Cities",
+    href: "/texas-music-cities",
+    description: "Compare Austin, Houston, San Antonio, Lubbock and Dallas–Fort Worth as local systems that shaped distinct Texas music scenes.",
+  },
+  {
     title: "Legendary Texas Music Venues",
     href: "/texas-music-venues",
     description: "Gruene Hall, Broken Spoke, Continental Club, Antone's and Billy Bob's—rooms that turned Texas music into lived culture.",
