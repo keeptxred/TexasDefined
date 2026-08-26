@@ -6,6 +6,7 @@ const sourcePaths = [
   "src/data/texas-icons-source-sports-business.server.ts",
   "src/data/texas-icons-source-media-symbols.server.ts",
 ];
+const researchPath = "src/data/texas-icons-research-history-1.server.ts";
 const typesPath = "src/data/texas-icons-types.ts";
 const serverPath = "src/data/texas-icons.server.ts";
 const functionsPath = "src/data/texas-icons.functions.ts";
@@ -18,6 +19,7 @@ const failures = [];
 for (const path of [
   rosterPath,
   ...sourcePaths,
+  researchPath,
   typesPath,
   serverPath,
   functionsPath,
@@ -31,6 +33,7 @@ for (const path of [
 if (failures.length) fail();
 
 const rosterSource = fs.readFileSync(rosterPath, "utf8");
+const research = fs.readFileSync(researchPath, "utf8");
 const types = fs.readFileSync(typesPath, "utf8");
 const server = fs.readFileSync(serverPath, "utf8");
 const functions = fs.readFileSync(functionsPath, "utf8");
@@ -92,8 +95,59 @@ for (const token of [
   'label: "Business & Science"',
   'label: "Media & Arts"',
   'label: "Symbols & Food"',
+  "TexasIconNarrativeProfile",
+  "TexasIconResearchProfile",
+  'editorialStatus: "researched-staged"',
 ]) {
-  if (!types.includes(token)) failures.push(`Texas Icons category contract missing: ${token}`);
+  if (!types.includes(token)) failures.push(`Texas Icons type/category contract missing: ${token}`);
+}
+
+const historyBatchSlugs = [
+  "lyndon-b-johnson",
+  "sam-houston",
+  "stephen-f-austin",
+  "george-w-bush",
+  "barbara-jordan",
+];
+for (const slug of historyBatchSlugs) {
+  const rosterRecord = records.find((record) => record.slug === slug);
+  if (!rosterRecord) failures.push(`Researched History & Politics profile is not in the 250-icon roster: ${slug}.`);
+  if (!research.includes(`slug: "${slug}"`)) failures.push(`History batch research profile missing: ${slug}.`);
+}
+if ((research.match(/editorialStatus: "researched-staged"/g) ?? []).length !== historyBatchSlugs.length) {
+  failures.push("Every History batch profile must remain explicitly researched-staged.");
+}
+if ((research.match(/publicationNote:/g) ?? []).length !== historyBatchSlugs.length) {
+  failures.push("Every History batch profile must retain an explicit publication boundary note.");
+}
+if ((research.match(/lastReviewedAt: reviewed/g) ?? []).length !== historyBatchSlugs.length) {
+  failures.push("Every History batch profile must retain a reviewed date.");
+}
+const researchSourceUrls = [...research.matchAll(/url: "(https:\/\/[^\"]+)"/g)].map((match) => match[1]);
+if (researchSourceUrls.length < historyBatchSlugs.length * 3) {
+  failures.push(`History batch needs at least three HTTPS sources per profile; found ${researchSourceUrls.length} source URLs.`);
+}
+for (const domain of [
+  "lbjlibrary.org",
+  "nps.gov",
+  "tshaonline.org",
+  "tsl.texas.gov",
+  "glo.texas.gov",
+  "georgewbushlibrary.gov",
+  "history.house.gov",
+  "utexas.edu",
+  "tsu.edu",
+]) {
+  if (!research.includes(domain)) failures.push(`History batch is missing expected institutional source authority: ${domain}.`);
+}
+for (const contextualToken of [
+  "Vietnam",
+  "slaveowner",
+  "enslaved labor",
+  "September 11",
+  "Watergate",
+]) {
+  if (!research.includes(contextualToken)) failures.push(`History batch is missing required contextual coverage: ${contextualToken}.`);
 }
 
 for (const token of [
@@ -103,8 +157,21 @@ for (const token of [
   "uniqueMatch",
   'entry.subjectType === "place"',
   "isTexasTalentPublishable",
+  "TEXAS_ICON_RESEARCH_HISTORY_BATCH_1",
+  'reuseKind: "icon-research-staged"',
+  "matchedResearchSlug",
+  'resolved.reuseKind === "icon-research-staged"',
 ]) {
-  if (!server.includes(token)) failures.push(`Texas Icons duplicate resolver contract missing: ${token}`);
+  if (!server.includes(token)) failures.push(`Texas Icons duplicate/research resolver contract missing: ${token}`);
+}
+const talentPrecedence = server.indexOf("if (talentProfile)");
+const researchPrecedence = server.indexOf("if (researchProfile)");
+if (talentPrecedence < 0 || researchPrecedence < 0 || talentPrecedence > researchPrecedence) {
+  failures.push("Existing Texas Talent records must resolve before a Texas Icons research draft.");
+}
+const stagedResearchBlock = server.match(/if \(researchProfile\) \{([\s\S]*?)\n  \}/)?.[1] ?? "";
+if (!stagedResearchBlock.includes('reuseKind: "icon-research-staged"') || !stagedResearchBlock.includes("indexableAtOwnRoute: false")) {
+  failures.push("Researched Texas Icon drafts must remain non-indexable in the resolver.");
 }
 
 for (const token of [
@@ -129,6 +196,9 @@ if (!conditionalBlock.includes('"/texas-icons"')) {
 if (!/node-version:\s*22\b/.test(workflow)) {
   failures.push("Texas Icons validation workflow must use the repository-supported Node 22 runtime.");
 }
+if (!workflow.includes('"src/data/texas-icons-research-*.server.ts"')) {
+  failures.push("Texas Icons workflow must run when staged research profile batches change.");
+}
 
 for (const token of [
   "CANONICAL_PATHS",
@@ -149,6 +219,8 @@ for (const token of [
   "noindex, follow, max-image-preview:large",
   "Existing canonical pages reused",
   "Existing Talent records reused",
+  "Researched drafts",
+  "Research progress alone never",
 ]) {
   if (!hub.includes(token)) failures.push(`Texas Icons hub safeguard missing: ${token}`);
 }
@@ -157,6 +229,9 @@ for (const token of [
   'throw redirect({ href: result.icon.href, statusCode: 301 })',
   "noindex, follow, max-image-preview:large",
   "Cross-linked profiles",
+  "Researched draft · noindex",
+  "profile.publicationNote",
+  "const schema = talentProfile",
 ]) {
   if (!profile.includes(token)) failures.push(`Texas Icons profile safeguard missing: ${token}`);
 }
@@ -174,7 +249,7 @@ if (!/short roster notes below are intake provenance,[\s\S]*not substitutes for 
 if (failures.length) fail();
 
 console.log(
-  `Texas Icons validation passed: ${records.length} unique source records, protected duplicate resolution, server-only data boundary, conditional route governance, canonical reuse, noindex starter profiles, and eight related-profile links per record.`,
+  `Texas Icons validation passed: ${records.length} unique source records, ${historyBatchSlugs.length} substantive staged History & Politics drafts, protected duplicate resolution, server-only data boundary, conditional route governance, canonical reuse, noindex publication boundaries, and eight related-profile links per record.`,
 );
 
 function fail() {
