@@ -92,6 +92,7 @@ export const INDEXABLE_STATIC_PATHS = [
   "/texas-country-outlaw",
   "/texas-rock-rockabilly",
   "/texas-jazz",
+  "/texas-gospel-rnb-pop",
   "/texas-hip-hop",
   "/texas-capital-designations",
   "/texas-symbols",
