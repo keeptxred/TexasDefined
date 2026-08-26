@@ -136,7 +136,7 @@ jobs:
           done
 
           curl --retry 3 --retry-connrefused --max-time 45 -fsSL "$origin$authority_control" -o /tmp/authority-control.html
-          for marker in "Verified visitor information" "Evidence layer" "Editorial assessment" "Why it matters to Texas" "Three ways to visit" "Key dates" "Traveler questions, answered" "Sources & verification" "Authority sources used" "Controlling visitor source" "Supporting authority source" "Review log"; do
+          for marker in "Verified visitor information" "Evidence layer" "Editorial assessment" "Why it matters to Texas" "Three ways to visit" "Key dates" "Traveler questions, answered" "Sources &amp; verification" "Authority sources used" "Controlling visitor source" "Supporting authority source" "Review log"; do
             grep -Fq "$marker" /tmp/authority-control.html || {
               echo "Top 25 authority control is missing required rendered marker: $marker" >&2
               exit 1
