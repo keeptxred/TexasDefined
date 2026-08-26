@@ -183,10 +183,6 @@ const readinessSlugs = readinessRegistries.flatMap((registry) => registry.slugs)
 requireCondition(profileBlocks.length >= 50, `expected at least 50 profile records; found ${profileBlocks.length}`);
 requireCondition(profileSlugs.length === profileBlocks.length, "every profile record must expose exactly one top-level slug");
 requireCondition(new Set(profileSlugs).size === profileSlugs.length, "profile slugs must be unique");
-requireCondition(
-  readinessSlugs.length === profileSlugs.length,
-  `readiness coverage must match profile inventory exactly; found ${readinessSlugs.length} readiness records for ${profileSlugs.length} profiles`,
-);
 requireCondition(new Set(readinessSlugs).size === readinessSlugs.length, "readiness slugs must be unique");
 
 const profileSet = new Set(profileSlugs);
@@ -195,6 +191,10 @@ const missingReadiness = profileSlugs.filter((slug) => !readinessSet.has(slug));
 const orphanReadiness = readinessSlugs.filter((slug) => !profileSet.has(slug));
 requireCondition(missingReadiness.length === 0, `profiles missing readiness records: ${missingReadiness.join(", ")}`);
 requireCondition(orphanReadiness.length === 0, `readiness records without profiles: ${orphanReadiness.join(", ")}`);
+requireCondition(
+  readinessSlugs.length === profileSlugs.length,
+  `readiness coverage must match profile inventory exactly; found ${readinessSlugs.length} readiness records for ${profileSlugs.length} profiles`,
+);
 
 const structuralFields = ["overview", "definingWorks", "timeline", "legacy", "texasPlaces", "sources"];
 for (const [index, block] of profileBlocks.entries()) {
