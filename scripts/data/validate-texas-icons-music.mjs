@@ -2,7 +2,10 @@ import fs from "node:fs";
 
 const rosterPath = "src/data/texas-icons-roster.server.ts";
 const sourcePath = "src/data/texas-icons-source-history-music.server.ts";
-const researchPath = "src/data/texas-icons-research-music-1.server.ts";
+const researchPaths = [
+  "src/data/texas-icons-research-music-1.server.ts",
+  "src/data/texas-icons-research-music-2.server.ts",
+];
 const resolverPath = "src/data/texas-icons.server.ts";
 const talentProfilePaths = [
   "src/data/texas-talent-profiles.ts",
@@ -10,18 +13,18 @@ const talentProfilePaths = [
 ];
 const failures = [];
 
-for (const path of [rosterPath, sourcePath, researchPath, resolverPath, ...talentProfilePaths]) {
+for (const path of [rosterPath, sourcePath, ...researchPaths, resolverPath, ...talentProfilePaths]) {
   if (!fs.existsSync(path)) failures.push(`Missing Texas Icons music contract file: ${path}`);
 }
 if (failures.length) fail();
 
 const roster = fs.readFileSync(rosterPath, "utf8");
 const source = fs.readFileSync(sourcePath, "utf8");
-const research = fs.readFileSync(researchPath, "utf8");
+const research = researchPaths.map((path) => fs.readFileSync(path, "utf8")).join("\n");
 const resolver = fs.readFileSync(resolverPath, "utf8");
 const talentProfiles = talentProfilePaths.map((path) => fs.readFileSync(path, "utf8")).join("\n");
 
-const firstTen = [
+const firstTwenty = [
   { rank: 51, name: "Beyoncé Knowles", iconSlug: "beyonce-knowles", talentSlug: "beyonce", mode: "reuse" },
   { rank: 52, name: "Willie Nelson", iconSlug: "willie-nelson", talentSlug: "willie-nelson", mode: "reuse" },
   { rank: 53, name: "Selena Quintanilla", iconSlug: "selena-quintanilla", talentSlug: "selena", mode: "reuse" },
@@ -32,36 +35,54 @@ const firstTen = [
   { rank: 58, name: "ZZ Top", iconSlug: "zz-top", mode: "research" },
   { rank: 59, name: "Waylon Jennings", iconSlug: "waylon-jennings", talentSlug: "waylon-jennings", mode: "reuse" },
   { rank: 60, name: "Scott Joplin", iconSlug: "scott-joplin", mode: "research" },
+  { rank: 61, name: "Blind Lemon Jefferson", iconSlug: "blind-lemon-jefferson", mode: "research" },
+  { rank: 62, name: "Lead Belly", iconSlug: "lead-belly", talentSlug: "lead-belly", mode: "reuse" },
+  { rank: 63, name: "Roy Orbison", iconSlug: "roy-orbison", talentSlug: "roy-orbison", mode: "reuse" },
+  { rank: 64, name: "Kris Kristofferson", iconSlug: "kris-kristofferson", mode: "research" },
+  { rank: 65, name: "Kenny Rogers", iconSlug: "kenny-rogers", mode: "research" },
+  { rank: 66, name: "Ernest Tubb", iconSlug: "ernest-tubb", mode: "research" },
+  { rank: 67, name: "Bob Wills", iconSlug: "bob-wills", mode: "research" },
+  { rank: 68, name: "Lyle Lovett", iconSlug: "lyle-lovett", mode: "research" },
+  { rank: 69, name: "Robert Earl Keen", iconSlug: "robert-earl-keen", mode: "research" },
+  { rank: 70, name: "Townes Van Zandt", iconSlug: "townes-van-zandt", talentSlug: "townes-van-zandt", mode: "reuse" },
 ];
 
-for (const entry of firstTen) {
+for (const entry of firstTwenty) {
   if (!source.includes(`${entry.rank},${entry.name},Music & Culture,`)) {
     failures.push(`Music & Culture roster drift at rank ${entry.rank}: expected ${entry.name}.`);
   }
 }
 
-const researchEntries = firstTen.filter((entry) => entry.mode === "research");
+const researchEntries = firstTwenty.filter((entry) => entry.mode === "research");
 for (const entry of researchEntries) {
   if (!research.includes(`slug: "${entry.iconSlug}"`)) failures.push(`Missing dedicated music research profile: ${entry.iconSlug}.`);
 }
 if ((research.match(/editorialStatus: "researched-staged"/g) ?? []).length !== researchEntries.length) {
-  failures.push(`Music batch 1 must contain exactly ${researchEntries.length} researched-staged profiles.`);
+  failures.push(`Music ranks 51–70 must contain exactly ${researchEntries.length} researched-staged profiles.`);
 }
 if ((research.match(/publicationNote:/g) ?? []).length !== researchEntries.length) failures.push("Every music research profile needs a publication boundary note.");
 if ((research.match(/lastReviewedAt: reviewed/g) ?? []).length !== researchEntries.length) failures.push("Every music research profile needs a reviewed date.");
 const sourceUrls = [...research.matchAll(/url: "(https:\/\/[^\"]+)"/g)].map((match) => match[1]);
-if (sourceUrls.length < researchEntries.length * 3) failures.push(`Music batch 1 needs at least three HTTPS sources per research profile; found ${sourceUrls.length}.`);
-for (const domain of ["tshaonline.org", "rockhall.com", "zztop.com", "txculturaltrust.org", "loc.gov"]) {
-  if (!research.includes(domain)) failures.push(`Music batch 1 is missing expected authority domain: ${domain}.`);
+if (sourceUrls.length < researchEntries.length * 3) failures.push(`Music ranks 51–70 need at least three HTTPS sources per research profile; found ${sourceUrls.length}.`);
+for (const domain of [
+  "tshaonline.org", "rockhall.com", "zztop.com", "txculturaltrust.org", "loc.gov",
+  "thc.texas.gov", "countrymusichalloffame.org", "kriskristofferson.com", "songhall.org",
+  "kennyrogers.com", "tcmhof.com", "stories.tamu.edu", "grammy.com", "hias.tamu.edu",
+  "robertearlkeen.com",
+]) {
+  if (!research.includes(domain)) failures.push(`Music research is missing expected authority domain: ${domain}.`);
 }
 for (const token of [
   "Frank Beard", "August 17, 2026", "intended to continue", "Dusty Hill",
   "exact birthplace remains uncertain", "Texarkana", "Treemonisha", "Maple Leaf Rag",
+  "surviving record does not support a single certain birth date", "cause of his blindness is also unknown",
+  "Brownsville is the birthplace chapter", "public housing", "1939 tonsillectomy", "Tulsa",
+  "The Front Porch Song", "Distinguished Alumnus",
 ]) {
-  if (!research.includes(token)) failures.push(`Music batch 1 is missing required editorial context: ${token}.`);
+  if (!research.includes(token)) failures.push(`Music research is missing required editorial context: ${token}.`);
 }
 
-const reuseEntries = firstTen.filter((entry) => entry.mode === "reuse");
+const reuseEntries = firstTwenty.filter((entry) => entry.mode === "reuse");
 for (const entry of reuseEntries) {
   if (!talentProfiles.includes(`slug: "${entry.talentSlug}"`)) {
     failures.push(`Music rank ${entry.rank} must reuse existing Texas Talent slug ${entry.talentSlug}.`);
@@ -74,6 +95,7 @@ for (const entry of reuseEntries) {
 for (const aliasToken of [
   '"Beyoncé Knowles": ["Beyoncé", "Beyonce Knowles", "Beyonce"]',
   '"Selena Quintanilla": ["Selena", "Selena Quintanilla-Pérez", "Selena Quintanilla-Perez"]',
+  '"Lead Belly": ["Huddie Ledbetter", "Huddie William Ledbetter"]',
 ]) {
   if (!roster.includes(aliasToken)) failures.push(`Music duplicate resolution is missing roster alias contract: ${aliasToken}.`);
 }
@@ -82,6 +104,9 @@ for (const token of [
   'TEXAS_ICON_RESEARCH_MUSIC_BATCH_1',
   'from "@/data/texas-icons-research-music-1.server"',
   '...TEXAS_ICON_RESEARCH_MUSIC_BATCH_1',
+  'TEXAS_ICON_RESEARCH_MUSIC_BATCH_2',
+  'from "@/data/texas-icons-research-music-2.server"',
+  '...TEXAS_ICON_RESEARCH_MUSIC_BATCH_2',
 ]) {
   if (!resolver.includes(token)) failures.push(`Music research resolver wiring missing: ${token}.`);
 }
@@ -95,12 +120,18 @@ if (!stagedResearchBlock.includes('reuseKind: "icon-research-staged"') || !stage
   failures.push("Music research drafts must remain non-indexable at their own routes.");
 }
 
-const coveredFirstTen = new Set(firstTen.map((entry) => entry.iconSlug));
-if (coveredFirstTen.size !== 10) failures.push(`Music ranks 51–60 must resolve to ten unique roster slugs; found ${coveredFirstTen.size}.`);
-if (reuseEntries.length !== 8 || researchEntries.length !== 2) failures.push(`Music ranks 51–60 must remain eight Talent reuses plus two research profiles; found ${reuseEntries.length} reuse and ${researchEntries.length} research.`);
+const firstTen = firstTwenty.filter((entry) => entry.rank <= 60);
+const secondTen = firstTwenty.filter((entry) => entry.rank >= 61);
+const firstTenReuse = firstTen.filter((entry) => entry.mode === "reuse");
+const firstTenResearch = firstTen.filter((entry) => entry.mode === "research");
+const secondTenReuse = secondTen.filter((entry) => entry.mode === "reuse");
+const secondTenResearch = secondTen.filter((entry) => entry.mode === "research");
+if (new Set(firstTwenty.map((entry) => entry.iconSlug)).size !== 20) failures.push("Music ranks 51–70 must resolve to twenty unique roster slugs.");
+if (firstTenReuse.length !== 8 || firstTenResearch.length !== 2) failures.push(`Music ranks 51–60 must remain 8 Talent reuses + 2 research profiles; found ${firstTenReuse.length} reuse and ${firstTenResearch.length} research.`);
+if (secondTenReuse.length !== 3 || secondTenResearch.length !== 7) failures.push(`Music ranks 61–70 must remain 3 Talent reuses + 7 research profiles; found ${secondTenReuse.length} reuse and ${secondTenResearch.length} research.`);
 
 if (failures.length) fail();
-console.log("Texas Icons music validation passed: ranks 51–60 preserve eight Texas Talent reuses, two substantive staged research profiles, alias-safe duplicate resolution, source depth, noindex publication boundaries, and current ZZ Top/Scott Joplin editorial context.");
+console.log("Texas Icons music validation passed: ranks 51–70 preserve 11 Texas Talent reuses, nine substantive staged research profiles, alias-safe duplicate resolution, source depth, noindex publication boundaries, and batch-specific editorial context.");
 
 function fail() {
   console.error("Texas Icons music validation failed:");
