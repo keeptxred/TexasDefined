@@ -36,28 +36,105 @@ for (const path of [...profileFiles, ...readinessFiles]) {
   requireCondition(existsSync(resolve(root, path)), `missing required source file ${path}`);
 }
 
-const profileText = profileFiles.map(read).join("\n");
-const readinessText = readinessFiles.map(read).join("\n");
+function extractProfileBlocks(path) {
+  const text = read(path);
+  const declaration = /export const\s+[A-Z0-9_]+:\s*readonly\s+TexasTalentProfile\[\]\s*=\s*\[/g.exec(text);
+  requireCondition(Boolean(declaration), `${path} is missing its exported TexasTalentProfile[] array`);
 
-// `profileStatus` occurs once per authored profile. For every profile-status
-// boundary, take the nearest preceding slug. This works for both expanded and
-// compact one-line profile records and avoids treating nested slug fields as
-// additional profiles.
-const profileStatusMatches = [...profileText.matchAll(/\bprofileStatus:\s*"[^"]+"/g)];
-const profileSlugs = profileStatusMatches.map((statusMatch) => {
-  const prefix = profileText.slice(0, statusMatch.index);
-  const precedingSlugs = [...prefix.matchAll(/\bslug:\s*"([^"]+)"/g)];
-  const nearestSlug = precedingSlugs.at(-1)?.[1];
-  requireCondition(Boolean(nearestSlug), "profileStatus record is missing a preceding profile slug");
-  return nearestSlug;
+  const arrayStart = declaration.index + declaration[0].lastIndexOf("[");
+  let squareDepth = 0;
+  let curlyDepth = 0;
+  let objectStart = -1;
+  let quote = null;
+  let escaped = false;
+  let lineComment = false;
+  let blockComment = false;
+  const blocks = [];
+
+  for (let index = arrayStart; index < text.length; index += 1) {
+    const char = text[index];
+    const next = text[index + 1];
+
+    if (lineComment) {
+      if (char === "\n") lineComment = false;
+      continue;
+    }
+    if (blockComment) {
+      if (char === "*" && next === "/") {
+        blockComment = false;
+        index += 1;
+      }
+      continue;
+    }
+    if (quote) {
+      if (escaped) {
+        escaped = false;
+        continue;
+      }
+      if (char === "\\") {
+        escaped = true;
+        continue;
+      }
+      if (char === quote) quote = null;
+      continue;
+    }
+
+    if (char === "/" && next === "/") {
+      lineComment = true;
+      index += 1;
+      continue;
+    }
+    if (char === "/" && next === "*") {
+      blockComment = true;
+      index += 1;
+      continue;
+    }
+    if (char === '"' || char === "'" || char === "`") {
+      quote = char;
+      continue;
+    }
+
+    if (char === "[") {
+      squareDepth += 1;
+      continue;
+    }
+    if (char === "]") {
+      squareDepth -= 1;
+      if (squareDepth === 0) break;
+      continue;
+    }
+    if (char === "{") {
+      if (squareDepth === 1 && curlyDepth === 0) objectStart = index;
+      curlyDepth += 1;
+      continue;
+    }
+    if (char === "}") {
+      curlyDepth -= 1;
+      if (squareDepth === 1 && curlyDepth === 0 && objectStart >= 0) {
+        blocks.push(text.slice(objectStart, index + 1));
+        objectStart = -1;
+      }
+    }
+  }
+
+  requireCondition(squareDepth === 0, `${path} profile array did not close cleanly`);
+  return blocks;
+}
+
+const profileBlocks = profileFiles.flatMap(extractProfileBlocks);
+const profileSlugs = profileBlocks.map((block, index) => {
+  const slug = /\bslug:\s*"([^"]+)"/.exec(block)?.[1];
+  requireCondition(Boolean(slug), `profile record ${index + 1} is missing a slug`);
+  return slug;
 });
 
+const readinessText = readinessFiles.map(read).join("\n");
 const readinessSlugs = readinessFiles.flatMap((path) =>
   [...read(path).matchAll(/^ {2}(?:"([^"]+)"|([a-z][a-z0-9-]*)):\s*\{/gm)]
     .map((match) => match[1] ?? match[2]),
 );
 
-requireCondition(profileStatusMatches.length === 50, `expected 50 profile records; found ${profileStatusMatches.length}`);
+requireCondition(profileBlocks.length === 50, `expected 50 profile records; found ${profileBlocks.length}`);
 requireCondition(profileSlugs.length === 50, `expected 50 profile slugs; found ${profileSlugs.length}`);
 requireCondition(new Set(profileSlugs).size === 50, "profile slugs must be unique");
 requireCondition(readinessSlugs.length === 50, `expected 50 readiness records; found ${readinessSlugs.length}`);
@@ -71,9 +148,16 @@ requireCondition(missingReadiness.length === 0, `profiles missing readiness reco
 requireCondition(orphanReadiness.length === 0, `readiness records without profiles: ${orphanReadiness.join(", ")}`);
 
 const structuralFields = ["overview", "definingWorks", "timeline", "legacy", "texasPlaces", "sources"];
-for (const field of structuralFields) {
-  const count = [...profileText.matchAll(new RegExp(`\\b${field}:\\s*\\[`, "g"))].length;
-  requireCondition(count === 50, `expected ${field} on all 50 profiles; found ${count}`);
+for (const [index, block] of profileBlocks.entries()) {
+  const slug = profileSlugs[index];
+  for (const field of structuralFields) {
+    requireCondition(
+      new RegExp(`\\b${field}:\\s*\\[`).test(block),
+      `${slug} is missing required ${field} content`,
+    );
+  }
+  requireCondition(/\bprofileStatus:\s*"(?:planned|researching|ready)"/.test(block), `${slug} is missing a valid profileStatus`);
+  requireCondition(/\blastReviewedAt:\s*/.test(block), `${slug} is missing lastReviewedAt`);
 }
 
 const sourceReviews = [...readinessText.matchAll(/sourceReview:\s*\{\s*status:\s*"reviewed"/g)].length;
