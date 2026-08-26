@@ -1,4 +1,5 @@
 import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
+import { auditTexasTalentDepth } from "@/data/texas-talent-depth";
 import { TEXAS_TALENT_EDITORIAL_STATUS_OVERRIDES } from "@/data/texas-talent-editorial-status";
 import { TEXAS_TALENT_PROFILES } from "@/data/texas-talent-profiles";
 import { TEXAS_TALENT_MUSIC_EXPANSION } from "@/data/texas-talent-profiles-wave2-music";
@@ -111,6 +112,7 @@ export async function loadTexasTalentProfileWithResolvedLinksServer(slug: string
     storedInternalLinkReview: storedProfile.readiness.internalLinkReview,
     resolvedInternalLinks,
     linkAudit: auditTexasTalentEntityLinksFromGraph(storedProfile, graph),
+    depthAudit: auditTexasTalentDepth(storedProfile),
     launchAssessment: assessTexasTalentLaunchReadiness(certifiedProfile),
   };
 }
@@ -118,6 +120,7 @@ export async function loadTexasTalentProfileWithResolvedLinksServer(slug: string
 export async function loadTexasTalentLaunchAuditServer() {
   const profiles = loadTexasTalentProfilesServer();
   const storedAssessments = profiles.map(assessTexasTalentLaunchReadiness);
+  const depthAudits = profiles.map(auditTexasTalentDepth);
   const graph = await loadTexasKnowledgeGraph();
   const linkAudits = profiles.map((profile) => auditTexasTalentEntityLinksFromGraph(profile, graph));
   const certifiedProfiles = profiles.map((profile) =>
@@ -127,6 +130,9 @@ export async function loadTexasTalentLaunchAuditServer() {
   return {
     totalProfiles: profiles.length,
     contentReady: profiles.filter((profile) => profile.profileStatus === "ready").length,
+    strongDepth: depthAudits.filter((audit) => audit.status === "strong").length,
+    adequateDepth: depthAudits.filter((audit) => audit.status === "adequate").length,
+    thinDepth: depthAudits.filter((audit) => audit.status === "thin").length,
     storedMechanicallyReady: storedAssessments.filter((assessment) => assessment.mechanicalReady).length,
     mechanicallyReady: assessments.filter((assessment) => assessment.mechanicalReady).length,
     editorialApproved: storedAssessments.filter((assessment) => assessment.editorialApproved).length,
@@ -137,6 +143,7 @@ export async function loadTexasTalentLaunchAuditServer() {
     profilesWithNoSafeLinks: linkAudits.filter((audit) => audit.safeResolvedLinkCount === 0).length,
     storedAssessments,
     assessments,
+    depthAudits,
     linkAudits,
   };
 }
