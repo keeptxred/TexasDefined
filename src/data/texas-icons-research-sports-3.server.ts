@@ -131,19 +131,21 @@ export const TEXAS_ICON_RESEARCH_SPORTS_BATCH_3: readonly TexasIconResearchProfi
   {
     slug: "jose-altuve",
     editorialStatus: "researched-staged",
-    publicationNote: "The first-pass profile is date-stamped to 2026 because Altuve remains active; it centers his Houston-only major-league career without treating current totals as final and remains noindex pending image-rights and internal-link certification.",
+    publicationNote: "The first-pass profile is date-stamped to 2026 because Altuve remains active; it centers his Houston-only major-league career, includes the official team-level 2017 sign-stealing context without assigning unsupported individual conduct, and remains noindex pending image-rights and internal-link certification.",
     dek: "Venezuela-born José Altuve has spent his entire major-league career with Houston, pairing a 2017 American League MVP season and two World Series titles with more than 2,000 Astros games by 2026.",
     overview: [
       "José Altuve was born in Maracay, Venezuela, signed with Houston as a teenager and debuted in 2011. Unlike many Texas sports icons on this roster, his connection to the state comes entirely through one professional franchise rather than birthplace or schooling.",
-      "Altuve won the 2017 American League MVP and was a central player on Houston's 2017 and 2022 championship teams. In April 2026 he became only the third player to appear in 2,000 games for the Astros, joining Craig Biggio and Jeff Bagwell; because he remains active, career totals should be treated as date-stamped rather than final."
+      "Altuve won the 2017 American League MVP and was a central player on Houston's 2017 and 2022 championship teams. The 2017 title also sits within MLB's later-confirmed Astros electronic sign-stealing scandal; MLB disciplined club leadership over the team's scheme while separately saying its investigation found no evidence supporting later claims that players used wearable devices. In April 2026 Altuve became only the third player to appear in 2,000 games for the Astros, joining Craig Biggio and Jeff Bagwell; because he remains active, career totals should be treated as date-stamped rather than final."
     ],
     definingWorks: ["2017 AL MVP", "2017 and 2022 World Series titles", "2,000 Astros games", "career-long Houston tenure through 2026"],
-    timeline: [{ year: "2011", event: "Debuts with Houston." }, { year: "2017", event: "Wins AL MVP and a World Series title." }, { year: "2022", event: "Wins a second World Series with Houston." }, { year: "2026", event: "Plays his 2,000th career game for the Astros." }],
-    legacy: ["Altuve became one of the longest-tenured and most decorated players in Astros history.", "His active status means any profile must distinguish enduring milestones from totals that can still change."],
+    timeline: [{ year: "2011", event: "Debuts with Houston." }, { year: "2017", event: "Wins AL MVP and a World Series title during the season later covered by MLB's Astros sign-stealing findings." }, { year: "2022", event: "Wins a second World Series with Houston." }, { year: "2026", event: "Plays his 2,000th career game for the Astros." }],
+    legacy: ["Altuve became one of the longest-tenured and most decorated players in Astros history.", "A responsible profile must preserve both his on-field milestones and the official team-level context surrounding the 2017 championship without converting unsupported allegations into individual findings."],
     texasPlaces: [{ name: "Houston", context: "Only major-league home through 2026." }, { name: "Daikin Park", context: "Home ballpark for the current phase of his Astros career." }],
     sources: [
       { label: "MLB — José Altuve player profile", url: "https://www.mlb.com/player/jose-altuve-514888" },
       { label: "Astros — Altuve reaches 2,000 games", url: "https://www.mlb.com/astros/news/jose-altuve-becomes-3rd-astros-player-to-reach-2-000-career-games" },
+      { label: "MLB — Astros sign-stealing investigation", url: "https://www.mlb.com/astros/news/astros-sign-stealing-investigation" },
+      { label: "MLB — Altuve wearable-device allegation context", url: "https://www.mlb.com/news/jose-altuve-denies-wearing-device-to-steal-signs" },
       { label: "MLB — Altuve 2026 injury/status update", url: "https://www.mlb.com/news/jose-altuve-leaves-game-with-foot-injury" }
     ],
     lastReviewedAt: reviewed,
@@ -191,20 +193,21 @@ export const TEXAS_ICON_RESEARCH_SPORTS_BATCH_3: readonly TexasIconResearchProfi
   {
     slug: "sheryl-swoopes",
     editorialStatus: "researched-staged",
-    publicationNote: "The first-pass profile centers Swoopes's Brownfield/Texas Tech/Houston Comets arc and uses Hall of Fame records rather than shorthand; it remains noindex pending image-rights and internal-link certification.",
-    dek: "Brownfield native Sheryl Swoopes led Texas Tech to the 1993 national title, became one of the WNBA's original signees and won three league MVP awards and four championships with the Houston Comets.",
+    publicationNote: "The first-pass profile centers Swoopes's Brownfield/Texas Tech/Houston Comets arc and uses Hall of Fame and WNBA records rather than shorthand; it remains noindex pending image-rights and internal-link certification.",
+    dek: "Brownfield native Sheryl Swoopes led Texas Tech to the 1993 national title, became the first player signed by the WNBA in 1996 and won three league MVP awards and four championships with the Houston Comets.",
     overview: [
       "Sheryl Swoopes was born in Brownfield, Texas, played at South Plains College and Texas Tech, and produced one of the defining performances in women's college basketball history by scoring 47 points in the 1993 national championship game.",
-      "Swoopes was one of the original players signed by the WNBA in 1997 and became a cornerstone of the Houston Comets' four straight championships. She won three WNBA MVP awards, three Olympic gold medals and entered the Naismith Memorial Basketball Hall of Fame in 2016."
+      "On October 23, 1996, Swoopes became the first player signed by the WNBA. She was assigned to Houston for the league's inaugural 1997 season and became a cornerstone of the Comets' four straight championships. She won three WNBA MVP awards, three Olympic gold medals and entered the Naismith Memorial Basketball Hall of Fame in 2016."
     ],
-    definingWorks: ["1993 NCAA championship", "47-point title game", "four WNBA championships", "three WNBA MVP awards", "2016 Basketball Hall of Fame"],
-    timeline: [{ year: "1971", event: "Born in Brownfield, Texas." }, { year: "1993", event: "Leads Texas Tech to the NCAA championship." }, { year: "1997", event: "Joins the WNBA and Houston Comets." }, { year: "1997-2000", event: "Wins four straight WNBA championships." }, { year: "2016", event: "Inducted into the Basketball Hall of Fame." }],
+    definingWorks: ["1993 NCAA championship", "47-point title game", "first player signed by the WNBA", "four WNBA championships", "three WNBA MVP awards", "2016 Basketball Hall of Fame"],
+    timeline: [{ year: "1971", event: "Born in Brownfield, Texas." }, { year: "1993", event: "Leads Texas Tech to the NCAA championship." }, { year: "1996", event: "Becomes the first player signed by the WNBA." }, { year: "1997", event: "Begins play with the Houston Comets." }, { year: "1997-2000", event: "Wins four straight WNBA championships." }, { year: "2016", event: "Inducted into the Basketball Hall of Fame." }],
     legacy: ["Swoopes connected West Texas college basketball directly to the launch and early dominance of the WNBA.", "Her career is one of the strongest examples on the roster of a Texas-born athlete whose college and professional peaks also occurred in the state."],
     texasPlaces: [{ name: "Brownfield", context: "Birthplace." }, { name: "Lubbock", context: "Texas Tech national-championship career." }, { name: "Houston", context: "Comets dynasty and WNBA peak." }],
     sources: [
       { label: "Naismith Basketball Hall of Fame — Sheryl Swoopes", url: "https://www.hoophall.com/hall-of-famers/sheryl-swoopes" },
       { label: "Texas Tech Athletics — Sheryl Swoopes", url: "https://texastech.com/sports/2016/6/13/sports-w-baskbl-archive-080211aaa-html" },
-      { label: "WNBA — Sheryl Swoopes history", url: "https://www.wnba.com/news/sheryl-swoopes" }
+      { label: "WNBA — league history timeline", url: "https://www.wnba.com/news/wnba-history-timeline-2012" },
+      { label: "WNBA — Sheryl Swoopes pioneer profile", url: "https://www.wnba.com/news/sheryl-swoopes-basketball-hall-of-fame-pioneer" }
     ],
     lastReviewedAt: reviewed,
   },
