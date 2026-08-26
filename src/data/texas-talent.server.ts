@@ -2,6 +2,7 @@ import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
 import { TEXAS_TALENT_EDITORIAL_STATUS_OVERRIDES } from "@/data/texas-talent-editorial-status";
 import { TEXAS_TALENT_LAUNCH_DEPTH_WAVE1 } from "@/data/texas-talent-launch-depth-wave1";
 import { TEXAS_TALENT_LAUNCH_DEPTH_WAVE2 } from "@/data/texas-talent-launch-depth-wave2";
+import { TEXAS_TALENT_LAUNCH_DEPTH_WAVE5 } from "@/data/texas-talent-launch-depth-wave5";
 import { buildTexasTalentLaunchMetadata } from "@/data/texas-talent-launch-metadata.server";
 import { TEXAS_TALENT_PLACE_CONTEXT_OVERRIDES } from "@/data/texas-talent-place-context-overrides";
 import { TEXAS_TALENT_PROFILES } from "@/data/texas-talent-profiles";
@@ -63,6 +64,7 @@ const orphanCorrectionSlugs = Object.keys(TEXAS_TALENT_PROFILE_CORRECTIONS).filt
 const orphanDepthOverrideSlugs = [
   ...Object.keys(TEXAS_TALENT_LAUNCH_DEPTH_WAVE1),
   ...Object.keys(TEXAS_TALENT_LAUNCH_DEPTH_WAVE2),
+  ...Object.keys(TEXAS_TALENT_LAUNCH_DEPTH_WAVE5),
 ].filter((slug) => !profileSlugs.includes(slug as (typeof profileSlugs)[number]));
 const orphanEditorialStatusSlugs = Object.keys(TEXAS_TALENT_EDITORIAL_STATUS_OVERRIDES).filter(
   (slug) => !profileSlugs.includes(slug as (typeof profileSlugs)[number]),
@@ -75,26 +77,11 @@ const orphanPlaceContextKeys = Object.keys(TEXAS_TALENT_PLACE_CONTEXT_OVERRIDES)
 if (duplicateProfileSlugs.length > 0) {
   throw new Error(`Duplicate Texas Talent profile slugs: ${[...new Set(duplicateProfileSlugs)].join(", ")}`);
 }
-
-if (missingReadinessSlugs.length > 0) {
-  throw new Error(`Texas Talent profiles missing readiness records: ${missingReadinessSlugs.join(", ")}`);
-}
-
-if (orphanCorrectionSlugs.length > 0) {
-  throw new Error(`Texas Talent profile corrections target unknown slugs: ${orphanCorrectionSlugs.join(", ")}`);
-}
-
-if (orphanDepthOverrideSlugs.length > 0) {
-  throw new Error(`Texas Talent launch-depth overrides target unknown slugs: ${orphanDepthOverrideSlugs.join(", ")}`);
-}
-
-if (orphanEditorialStatusSlugs.length > 0) {
-  throw new Error(`Texas Talent editorial status overrides target unknown slugs: ${orphanEditorialStatusSlugs.join(", ")}`);
-}
-
-if (orphanPlaceContextKeys.length > 0) {
-  throw new Error(`Texas Talent place-context overrides target unknown slugs: ${orphanPlaceContextKeys.join(", ")}`);
-}
+if (missingReadinessSlugs.length > 0) throw new Error(`Texas Talent profiles missing readiness records: ${missingReadinessSlugs.join(", ")}`);
+if (orphanCorrectionSlugs.length > 0) throw new Error(`Texas Talent profile corrections target unknown slugs: ${orphanCorrectionSlugs.join(", ")}`);
+if (orphanDepthOverrideSlugs.length > 0) throw new Error(`Texas Talent launch-depth overrides target unknown slugs: ${orphanDepthOverrideSlugs.join(", ")}`);
+if (orphanEditorialStatusSlugs.length > 0) throw new Error(`Texas Talent editorial status overrides target unknown slugs: ${orphanEditorialStatusSlugs.join(", ")}`);
+if (orphanPlaceContextKeys.length > 0) throw new Error(`Texas Talent place-context overrides target unknown slugs: ${orphanPlaceContextKeys.join(", ")}`);
 
 function withReadiness<T extends (typeof TEXAS_TALENT_ALL_PROFILES)[number]>(profile: T) {
   const correctedProfile = {
@@ -102,37 +89,27 @@ function withReadiness<T extends (typeof TEXAS_TALENT_ALL_PROFILES)[number]>(pro
     ...(TEXAS_TALENT_PROFILE_CORRECTIONS[profile.slug] ?? {}),
     ...(TEXAS_TALENT_LAUNCH_DEPTH_WAVE1[profile.slug] ?? {}),
     ...(TEXAS_TALENT_LAUNCH_DEPTH_WAVE2[profile.slug] ?? {}),
+    ...(TEXAS_TALENT_LAUNCH_DEPTH_WAVE5[profile.slug] ?? {}),
     ...(TEXAS_TALENT_EDITORIAL_STATUS_OVERRIDES[profile.slug] ?? {}),
   };
   const texasPlaces = correctedProfile.texasPlaces.map((place) => ({
     ...place,
     context: TEXAS_TALENT_PLACE_CONTEXT_OVERRIDES[`${profile.slug}::${place.name}`] ?? place.context,
   }));
-
-  return {
-    ...correctedProfile,
-    texasPlaces,
-    readiness: TEXAS_TALENT_ALL_READINESS[profile.slug],
-  };
+  return { ...correctedProfile, texasPlaces, readiness: TEXAS_TALENT_ALL_READINESS[profile.slug] };
 }
 
-export function loadTexasTalentProfilesServer() {
-  return TEXAS_TALENT_ALL_PROFILES.map(withReadiness);
-}
-
+export function loadTexasTalentProfilesServer() { return TEXAS_TALENT_ALL_PROFILES.map(withReadiness); }
 export function loadTexasTalentProfileServer(slug: string) {
   const profile = TEXAS_TALENT_ALL_PROFILES.find((candidate) => candidate.slug === slug);
   return profile ? withReadiness(profile) : null;
 }
-
 export async function loadTexasTalentProfileWithResolvedLinksServer(slug: string) {
   const storedProfile = loadTexasTalentProfileServer(slug);
   if (!storedProfile) return null;
-
   const graph = await loadTexasKnowledgeGraph();
   const resolvedInternalLinks = resolveTexasTalentEntityLinksFromGraph(storedProfile, graph);
   const certifiedProfile = applyTexasTalentMechanicalLinkCertificationFromGraph(storedProfile, graph);
-
   return {
     ...certifiedProfile,
     storedInternalLinkReview: storedProfile.readiness.internalLinkReview,
@@ -142,16 +119,13 @@ export async function loadTexasTalentProfileWithResolvedLinksServer(slug: string
     launchAssessment: assessTexasTalentLaunchReadiness(certifiedProfile),
   };
 }
-
 export async function loadTexasTalentLaunchAuditServer() {
   const profiles = loadTexasTalentProfilesServer();
   const storedAssessments = profiles.map(assessTexasTalentLaunchReadiness);
   const graph = await loadTexasKnowledgeGraph();
   const linkAudits = profiles.map((profile) => auditTexasTalentEntityLinksFromGraph(profile, graph));
-  const certifiedProfiles = profiles.map((profile) =>
-    applyTexasTalentMechanicalLinkCertificationFromGraph(profile, graph));
+  const certifiedProfiles = profiles.map((profile) => applyTexasTalentMechanicalLinkCertificationFromGraph(profile, graph));
   const assessments = certifiedProfiles.map(assessTexasTalentLaunchReadiness);
-
   return {
     totalProfiles: profiles.length,
     contentReady: profiles.filter((profile) => profile.profileStatus === "ready").length,
@@ -168,14 +142,7 @@ export async function loadTexasTalentLaunchAuditServer() {
     linkAudits,
   };
 }
-
-// Publication remains intentionally conservative. These functions use the
-// stored readiness records, not editorial profile status or derived mechanical
-// link certification. A content-ready profile can never turn public by itself.
-export function loadTexasTalentPublishableProfilesServer() {
-  return loadTexasTalentProfilesServer().filter(isTexasTalentPublishable);
-}
-
+export function loadTexasTalentPublishableProfilesServer() { return loadTexasTalentProfilesServer().filter(isTexasTalentPublishable); }
 export function loadTexasTalentProfileForPublicationServer(slug: string) {
   const profile = loadTexasTalentProfileServer(slug);
   if (!profile) return null;
