@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 const TAGLINE = "The Stars of Texas Shine Bright";
+const PREVIEW_CATEGORIES = ["music", "film-tv", "literature", "visual-arts", "comedy-performance"] as const;
 
 function escapeHtml(value: string) {
   return value
@@ -13,8 +14,10 @@ function escapeHtml(value: string) {
 
 async function buildPreviewHtml() {
   const { loadTexasTalentProfilesServer } = await import("@/data/texas-talent.server");
-  const profiles = loadTexasTalentProfilesServer();
-  const featured = profiles.filter((profile) => profile.readiness.imageReview.heroImage).slice(0, 10);
+  const profiles = loadTexasTalentProfilesServer().filter((profile) => profile.readiness.imageReview.heroImage);
+  const featured = PREVIEW_CATEGORIES.flatMap((category) =>
+    profiles.filter((profile) => profile.category === category).slice(0, 2),
+  );
   const cards = featured.map((profile) => {
     const image = profile.readiness.imageReview.heroImage;
     if (!image) return "";
