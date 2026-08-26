@@ -121,15 +121,13 @@ const authorityPaths = [
   '/explore/painted-churches/cite','/explore/painted-churches/then-and-now',
 ];
 for (const path of authorityPaths) {
-  // These research/utility views remain publicly discoverable and searchable,
-  // but intentionally canonicalize to the parent collection and therefore
-  // must not be forced into the XML sitemap as self-canonical URLs.
+  // These are substantive self-canonical authority pages. Keep search discovery,
+  // public-route governance and XML sitemap eligibility aligned so crawl signals
+  // do not contradict the page-level canonical metadata.
   requireText(search, JSON.stringify(path), 'Global search');
   requireText(publicRoutes, JSON.stringify(path), 'Public-route registry');
+  requireText(sitemap, JSON.stringify(path), 'Explore sitemap authority surface');
 }
-// Keep only self-canonical Painted Churches collection surfaces in the XML
-// sitemap. This protects canonical hygiene while preserving discovery of the
-// utility views through search, navigation, llms.txt and the public registry.
 for (const path of ['/explore/painted-churches', '/explore/painted-churches/guides']) {
   requireText(sitemap, JSON.stringify(path), 'Explore sitemap canonical collection');
 }
@@ -141,4 +139,4 @@ if (failures.length) {
   failures.forEach((failure) => console.error(`- ${failure}`));
   process.exit(1);
 }
-console.log('Painted Churches authority protected: 27 verified churches, 14 formal records, entity authority pages, archival comparisons, county reciprocal links, visitor freshness, JSON v4/CSV datasets, search, canonical sitemap policy and citation surfaces.');
+console.log('Painted Churches authority protected: 27 verified churches, 14 formal records, entity authority pages, archival comparisons, county reciprocal links, visitor freshness, JSON v4/CSV datasets, search, self-canonical sitemap coverage and citation surfaces.');
