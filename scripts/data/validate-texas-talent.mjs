@@ -40,13 +40,13 @@ const profileText = profileFiles.map(read).join("\n");
 const readinessText = readinessFiles.map(read).join("\n");
 
 // `profileStatus` occurs once per authored profile. For every profile-status
-// boundary, take the nearest preceding top-level slug. This avoids treating
-// helper/nested slug fields as additional profiles while still validating the
-// actual authored record set and its uniqueness.
-const profileStatusMatches = [...profileText.matchAll(/^ {4}profileStatus:\s*"[^"]+"/gm)];
+// boundary, take the nearest preceding slug. This works for both expanded and
+// compact one-line profile records and avoids treating nested slug fields as
+// additional profiles.
+const profileStatusMatches = [...profileText.matchAll(/\bprofileStatus:\s*"[^"]+"/g)];
 const profileSlugs = profileStatusMatches.map((statusMatch) => {
   const prefix = profileText.slice(0, statusMatch.index);
-  const precedingSlugs = [...prefix.matchAll(/^ {4}slug:\s*"([^"]+)"/gm)];
+  const precedingSlugs = [...prefix.matchAll(/\bslug:\s*"([^"]+)"/g)];
   const nearestSlug = precedingSlugs.at(-1)?.[1];
   requireCondition(Boolean(nearestSlug), "profileStatus record is missing a preceding profile slug");
   return nearestSlug;
