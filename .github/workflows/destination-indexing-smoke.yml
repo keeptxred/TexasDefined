@@ -113,7 +113,7 @@ jobs:
               exit 1
             }
           done
-          unique_top_links="$(grep -o '/destination/[a-z0-9-]*' /tmp/top-attractions.html | sort -u | wc -l | tr -d ' ')"
+          unique_top_links="$(grep -ao '/destination/[a-z0-9-]*' /tmp/top-attractions.html | sort -u | wc -l | tr -d ' ')"
           if [ "$unique_top_links" -lt 25 ]; then
             echo "Top 25 collection exposed only $unique_top_links unique destination links; expected at least 25." >&2
             exit 1
