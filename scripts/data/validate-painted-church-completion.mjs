@@ -3,6 +3,7 @@ import fs from 'node:fs';
 const failures = [];
 const read = (path) => fs.readFileSync(path, 'utf8');
 const requireText = (content, token, label) => { if (!content.includes(token)) failures.push(`${label} missing ${token}`); };
+const forbidText = (content, token, label) => { if (content.includes(token)) failures.push(`${label} contains stale ${token}`); };
 
 const census = read('src/data/painted-church-census.ts');
 const people = read('src/data/painted-church-people.ts');
@@ -14,6 +15,10 @@ const tripPlanner = read('src/routes/explore.trip-planner.tsx');
 const countyGuides = read('src/components/content/CountyGuideSections.tsx');
 const guidebook = read('src/routes/guides.tsx');
 const topicPaths = read('src/components/editorial/ExploreTopicPaths.tsx');
+const categoryRoute = read('src/routes/explore.$category.lazy.tsx');
+const trustRouter = read('src/components/authority/CitationCollectionTrustRouter.tsx');
+const sitemap = read('src/routes/sitemap-explore[.]xml.ts');
+const releaseState = read('ops/editorial/painted-churches-release-state.json');
 
 for (const slug of ['ellinger-st-marys-catholic-church','rockne-sacred-heart-catholic-church','san-antonio-san-fernando-cathedral']) {
   requireText(census, `slug: "${slug}"`, 'Candidate adjudication');
@@ -57,9 +62,31 @@ requireText(topicPaths, 'label: "Painted Churches of Texas"', 'Historic-sites re
 requireText(topicPaths, 'to: "/explore/painted-churches/routes"', 'Road-trip reciprocal link');
 requireText(topicPaths, 'label: "Painted Churches"', 'Small-town reciprocal link');
 
+forbidText(categoryRoute, 'Explore 18 historic church guides', 'Explore category Painted Churches promo');
+requireText(categoryRoute, 'Explore the verified statewide church collection', 'Explore category Painted Churches promo');
+forbidText(trustRouter, '22-church verified collection', 'Painted Churches trust panel');
+requireText(trustRouter, 'the canonical collection controls the current church count', 'Painted Churches trust panel');
+
+const authorityPaths = [
+  '/explore/painted-churches/map', '/explore/painted-churches/compare', '/explore/painted-churches/how-many',
+  '/explore/painted-churches/methodology', '/explore/painted-churches/census', '/explore/painted-churches/techniques',
+  '/explore/painted-churches/symbols', '/explore/painted-churches/people', '/explore/painted-churches/heritage',
+  '/explore/painted-churches/preservation', '/explore/painted-churches/knowledge-graph', '/explore/painted-churches/harwood-archive',
+  '/explore/painted-churches/how-to-read', '/explore/painted-churches/glossary', '/explore/painted-churches/timeline',
+  '/explore/painted-churches/routes', '/explore/painted-churches/guides', '/explore/painted-churches/print-guide',
+  '/explore/painted-churches/media', '/explore/painted-churches/cite', '/explore/painted-churches/then-and-now',
+];
+requireText(sitemap, 'const PAINTED_CHURCH_STATIC_PATHS = [', 'Painted Churches sitemap registry');
+for (const path of authorityPaths) requireText(sitemap, JSON.stringify(path), 'Painted Churches sitemap registry');
+
+requireText(releaseState, '"collectionState": "production-public"', 'Painted Churches release state');
+requireText(releaseState, '"runtimeIndexability": "public-indexable"', 'Painted Churches release state');
+requireText(releaseState, '"historicalSnapshotControlsRuntime": false', 'Painted Churches release state');
+requireText(releaseState, 'without changing the global public-indexing switch', 'Painted Churches release state');
+
 if (failures.length) {
   console.error('Painted Churches completion validation failed:');
   failures.forEach((failure) => console.error(`- ${failure}`));
   process.exit(1);
 }
-console.log('Painted Churches completion protected: candidate adjudication, oral-history sources, complete Then & Now accounting, Fredericksburg, High Hill and Ammannsville current imagery, Lindsay and Umbarger primary-source interiors, county/history/road-trip/small-town discovery, trip-planner integration and statewide Guidebook exposure.');
+console.log('Painted Churches completion protected: candidate adjudication, oral-history sources, complete Then & Now accounting, current imagery and primary-source interiors, county/history/road-trip/small-town discovery, trip-planner integration, statewide Guidebook exposure, non-stale cross-links, self-canonical sitemap coverage and current release-state documentation.');

@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "asOf": "2026-08-25",
+  "collectionState": "production-public",
+  "runtimeIndexability": "public-indexable",
+  "canonicalChurchCountSource": "src/data/painted-churches-expanded.ts",
+  "publicRouteGovernance": "src/lib/public-routes.ts",
+  "sitemapGovernance": "src/routes/sitemap-explore[.]xml.ts",
+  "historicalPreindexSnapshot": "ops/editorial/painted-churches-preindex-snapshot-20260822/painted-church-preindex-manifest.json",
+  "historicalSnapshotControlsRuntime": false,
+  "note": "The preserved pre-index snapshot is immutable historical provenance from the earlier review stage. It does not control current route visibility, canonical metadata, sitemap eligibility or runtime indexability. Current production behavior is governed by the live route, public-route and sitemap code listed above.",
+  "remediationScope": "Reconcile documentation and crawl signals with the already-public runtime without changing the global public-indexing switch or submitting URLs through IndexNow or Google Search Console."
+}

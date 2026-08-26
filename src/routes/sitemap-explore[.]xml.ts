@@ -33,6 +33,32 @@ const EXPLORE_REGION_SLUGS = [
   "hill-country", "gulf-coast", "big-bend", "panhandle", "piney-woods", "prairies-lakes", "south-texas",
 ];
 
+const PAINTED_CHURCH_STATIC_PATHS = [
+  "/explore/painted-churches",
+  "/explore/painted-churches-plan",
+  "/explore/painted-churches/map",
+  "/explore/painted-churches/compare",
+  "/explore/painted-churches/how-many",
+  "/explore/painted-churches/methodology",
+  "/explore/painted-churches/census",
+  "/explore/painted-churches/techniques",
+  "/explore/painted-churches/symbols",
+  "/explore/painted-churches/people",
+  "/explore/painted-churches/heritage",
+  "/explore/painted-churches/preservation",
+  "/explore/painted-churches/knowledge-graph",
+  "/explore/painted-churches/harwood-archive",
+  "/explore/painted-churches/how-to-read",
+  "/explore/painted-churches/glossary",
+  "/explore/painted-churches/timeline",
+  "/explore/painted-churches/routes",
+  "/explore/painted-churches/guides",
+  "/explore/painted-churches/print-guide",
+  "/explore/painted-churches/media",
+  "/explore/painted-churches/cite",
+  "/explore/painted-churches/then-and-now",
+] as const;
+
 function escapeXml(value: string): string {
   return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\"/g, "&quot;").replace(/'/g, "&apos;");
 }
@@ -127,9 +153,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           "/explore",
           "/explore/trip-planner",
           "/explore/attractions-comparison",
-          "/explore/painted-churches",
-          "/explore/painted-churches-plan",
-          "/explore/painted-churches/guides",
+          ...PAINTED_CHURCH_STATIC_PATHS,
           "/explore/top-attractions",
           "/explore/top-attractions/methodology",
           "/explore/top-attractions/road-trips",
