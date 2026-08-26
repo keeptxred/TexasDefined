@@ -62,6 +62,9 @@ jobs:
       - name: Validate Texas Talent flagship depth wave 2
         run: node scripts/data/validate-texas-talent-flagship-depth-wave2.mjs
 
+      - name: Validate Texas Talent flagship depth wave 4
+        run: node scripts/data/validate-texas-talent-flagship-depth-wave4.mjs
+
       # Keep future launch metadata and canonical ownership under the universal merge gate.
       - name: Validate Texas Talent launch metadata
         run: node scripts/data/validate-texas-talent-launch-metadata.mjs
