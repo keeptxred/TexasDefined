@@ -6,6 +6,7 @@ on:
       - "src/data/texas-icons-types.ts"
       - "src/data/texas-icons-roster.server.ts"
       - "src/data/texas-icons-source-*.server.ts"
+      - "src/data/texas-icons-research-*.server.ts"
       - "src/data/texas-icons.server.ts"
       - "src/data/texas-icons.functions.ts"
       - "src/lib/public-routes.ts"
