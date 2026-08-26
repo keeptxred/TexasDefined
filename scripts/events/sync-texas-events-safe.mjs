@@ -30,7 +30,7 @@ const EVENTS = [
     region: "hill-country",
     category: "food",
     url: "https://wurstfest.com/",
-    sourceUrls: ["https://wurstfest.com/"],
+    sourceUrls: ["https://wurstfest.com/employment/", "https://wurstfest.com/"],
     score: 94,
     months: [11],
   },
@@ -74,6 +74,8 @@ function stripHtml(value) {
     .replace(/<script[\s\S]*?<\/script>/gi, " ")
     .replace(/<style[\s\S]*?<\/style>/gi, " ")
     .replace(/<[^>]+>/g, " ")
+    .replace(/&ndash;|&#8211;|&#x2013;/gi, "–")
+    .replace(/&mdash;|&#8212;|&#x2014;/gi, "—")
     .replace(/&amp;/g, "&")
     .replace(/&quot;/g, '"')
     .replace(/&#39;/g, "'")
