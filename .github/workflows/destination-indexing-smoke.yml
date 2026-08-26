@@ -58,6 +58,7 @@ jobs:
           set -euo pipefail
           origin="https://texasdefined.com"
           non_primary="/destination/world-birding-center-bentsen-rio-grande-valley-state-park"
+          canonical_bentsen="/destination/bentsen-rio-grande-valley-state-park"
           top_attractions="/explore/top-attractions"
           methodology="/explore/top-attractions/methodology"
           road_trips="/explore/top-attractions/road-trips"
@@ -182,20 +183,33 @@ jobs:
             exit 1
           }
 
-          non_primary_status="$(curl --max-time 45 -sS -o /tmp/non-primary.html -w '%{http_code}' "$origin$non_primary" || true)"
-          if [ "$non_primary_status" = "200" ]; then
-            grep -Fq "noindex, follow" /tmp/non-primary.html || {
-              echo "Non-primary Bentsen destination rendered 200 without noindex." >&2
-              exit 1
-            }
-          elif [ "$non_primary_status" != "404" ]; then
-            echo "Unexpected status for non-primary Bentsen destination: $non_primary_status" >&2
+          non_primary_status="$(curl --max-time 45 -sS -D /tmp/non-primary.headers -o /tmp/non-primary.html -w '%{http_code}' "$origin$non_primary" || true)"
+          if [ "$non_primary_status" != "301" ]; then
+            echo "Legacy Bentsen alias must return HTTP 301; got $non_primary_status." >&2
+            exit 1
+          fi
+          non_primary_location="$(tr -d '\r' < /tmp/non-primary.headers | awk 'BEGIN { IGNORECASE=1 } /^location:/ { sub(/^[^:]*:[[:space:]]*/, ""); print; exit }')"
+          if [ "$non_primary_location" != "$canonical_bentsen" ] && [ "$non_primary_location" != "$origin$canonical_bentsen" ]; then
+            echo "Legacy Bentsen alias redirected to unexpected location: ${non_primary_location:-<missing>}." >&2
             exit 1
           fi
 
+          canonical_bentsen_status="$(curl --max-time 45 -sS -o /tmp/canonical-bentsen.html -w '%{http_code}' "$origin$canonical_bentsen" || true)"
+          if [ "$canonical_bentsen_status" != "200" ]; then
+            echo "Canonical Bentsen destination returned HTTP $canonical_bentsen_status; expected 200." >&2
+            exit 1
+          fi
+          if grep -Fq "noindex" /tmp/canonical-bentsen.html; then
+            echo "Canonical Bentsen destination rendered with a noindex directive." >&2
+            exit 1
+          fi
+          if ! grep -Fq "$origin$canonical_bentsen" /tmp/explore-sitemap.xml; then
+            echo "Canonical Bentsen destination is missing from the Explore sitemap." >&2
+            exit 1
+          fi
           if grep -Fq "$origin$non_primary" /tmp/explore-sitemap.xml; then
-            echo "Non-primary Bentsen destination leaked into the Explore sitemap." >&2
+            echo "Legacy Bentsen alias leaked into the Explore sitemap." >&2
             exit 1
           fi
 
-          echo "Destination indexing smoke passed with the Top 25 collection, methodology, road trips, multi-source authority layer, CSV, JSON, checklist, primary control $primary_url and non-primary status $non_primary_status."
+          echo "Destination indexing smoke passed with the Top 25 collection, methodology, road trips, multi-source authority layer, CSV, JSON, checklist, primary control $primary_url and verified Bentsen 301 canonicalization."
