@@ -11,14 +11,17 @@ const requireCondition = (condition, message) => {
   if (!condition) fail(message);
 };
 
-const routePath = "src/routes/admin.texas-talent.preview.tsx";
-const pagePath = "src/routes/admin.texas-talent.preview.lazy.tsx";
-for (const path of [routePath, pagePath]) {
-  requireCondition(existsSync(resolve(root, path)), `missing required preview file ${path}`);
+const routePath = "src/routes/admin.texas-talent.preview.ts";
+const clientPaths = [
+  "src/routes/admin.texas-talent.preview.tsx",
+  "src/routes/admin.texas-talent.preview.lazy.tsx",
+];
+requireCondition(existsSync(resolve(root, routePath)), `missing required preview route ${routePath}`);
+for (const path of clientPaths) {
+  requireCondition(!existsSync(resolve(root, path)), `preview must remain server-only; remove client route ${path}`);
 }
 
 const route = read(routePath);
-const page = read(pagePath);
 const publicRoutes = read("src/lib/public-routes.ts");
 const sitemap = read("src/routes/sitemap[.]xml.ts");
 const editorialStatus = read("src/data/texas-talent-editorial-status.ts");
@@ -28,27 +31,35 @@ requireCondition(
   "public-style preview must remain inside the admin namespace",
 );
 requireCondition(
-  route.includes('noindex, nofollow, noarchive'),
-  "public-style preview must remain noindex, nofollow, noarchive",
+  route.includes("server:") && route.includes("handlers:") && route.includes("GET:"),
+  "preview must remain a server response route rather than a client-rendered page",
 );
 requireCondition(
-  page.includes('/images/editorial/texas-talent-hero.webp'),
+  route.includes('"Content-Type": "text/html; charset=utf-8"'),
+  "preview must serve HTML directly from the server route",
+);
+requireCondition(
+  route.includes('"X-Robots-Tag": "noindex, nofollow, noarchive"') && route.includes('content="noindex, nofollow, noarchive"'),
+  "public-style preview must remain noindex, nofollow, noarchive at both HTTP and HTML layers",
+);
+requireCondition(
+  route.includes('/images/editorial/texas-talent-hero.webp'),
   "preview must use the approved Texas Talent banner",
 );
 requireCondition(
-  page.includes('TEXAS_TALENT_TAGLINE'),
+  route.includes('The Stars of Texas Shine Bright'),
   "preview must use the canonical Texas Talent tagline",
 );
 requireCondition(
-  page.includes('Preview only · noindex') && page.includes('Still safely behind the curtain.'),
+  route.includes('Preview only · noindex') && route.includes('Still safely behind the curtain.'),
   "preview must visibly retain its non-public status",
 );
 requireCondition(
-  page.includes('to="/admin/texas-talent/$slug"'),
+  route.includes('/admin/texas-talent/${encodeURIComponent(profile.slug)}'),
   "profile cards must continue to target internal drafts",
 );
 requireCondition(
-  !/to="\/texas-talent(?:\/|\")/.test(page),
+  !route.includes('href="/texas-talent') && !route.includes('href="https://texasdefined.com/texas-talent'),
   "preview must not link to a public Texas Talent route before launch",
 );
 requireCondition(
@@ -59,4 +70,4 @@ requireCondition(!publicRoutes.includes('"/texas-talent"'), "Texas Talent must r
 requireCondition(!sitemap.includes("texas-talent"), "Texas Talent must remain absent from sitemap generation");
 requireCondition(!editorialStatus.includes('launch-ready'), "preview work must not grant launch-ready editorial approval");
 
-console.log("Texas Talent public-preview contract passed: public-style experience remains hidden, noindex and non-publishing.");
+console.log("Texas Talent public-preview contract passed: server-only public-style experience remains hidden, noindex, non-publishing and outside the client bundle.");
