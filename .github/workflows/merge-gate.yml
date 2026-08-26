@@ -57,6 +57,9 @@ jobs:
       - name: Validate Texas Talent launch metadata
         run: node scripts/data/validate-texas-talent-launch-metadata.mjs
 
+      - name: Validate Texas Talent reverse-link audit
+        run: node scripts/data/validate-texas-talent-reverse-links.mjs
+
       - name: Validate production predeploy gates
         run: node scripts/ci/run-validation-suite.mjs predeploy
 
