@@ -43,10 +43,11 @@ function TexasIconsHub() {
             of the site.
           </p>
 
-          <dl className="mt-8 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+          <dl className="mt-8 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-5">
             <Stat value={stats.total} label="Roster entries" />
             <Stat value={stats.canonicalReused} label="Existing canonical pages reused" />
             <Stat value={stats.talentReused} label="Existing Talent records reused" />
+            <Stat value={stats.researchedStaged} label="Researched drafts" />
             <Stat value={stats.researchQueue} label="Still in research queue" />
           </dl>
         </header>
@@ -69,6 +70,12 @@ function TexasIconsHub() {
                 substantive biography or subject depth, verified sources, appropriate imagery,
                 and reviewed internal links. The short roster notes below are intake provenance,
                 not substitutes for research.
+              </p>
+              <p>
+                A <strong className="text-foreground">researched draft</strong> has passed a
+                substantive source-and-copy pass, but it still remains noindex until image rights
+                and internal-link review are separately certified. Research progress alone never
+                turns a profile public for search.
               </p>
             </div>
           </div>
@@ -145,7 +152,9 @@ function ReuseBadge({ kind }: { kind: string }) {
         ? "Existing profile"
         : kind === "texas-talent-staged"
           ? "Existing draft"
-          : "Research queue";
+          : kind === "icon-research-staged"
+            ? "Researched draft"
+            : "Research queue";
 
   return (
     <span className="rounded-full border border-border px-2 py-1 text-[0.64rem] font-semibold uppercase tracking-[0.1em] text-muted-foreground">
