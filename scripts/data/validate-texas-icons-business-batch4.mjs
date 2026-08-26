@@ -54,7 +54,7 @@ for (let i = 0; i < researched.length; i += 1) {
 
 for (const token of [
   "misclassifies Boz Scaggs",
-  "not a technology innovator",
+  "not a Plano technology inventor",
   "Clear Channel Communications",
   "Mays Business School",
   "owned enslaved people",
