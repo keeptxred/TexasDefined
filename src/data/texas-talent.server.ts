@@ -1,5 +1,6 @@
 import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
 import { TEXAS_TALENT_EDITORIAL_STATUS_OVERRIDES } from "@/data/texas-talent-editorial-status";
+import { TEXAS_TALENT_PLACE_CONTEXT_OVERRIDES } from "@/data/texas-talent-place-context-overrides";
 import { TEXAS_TALENT_PROFILES } from "@/data/texas-talent-profiles";
 import { TEXAS_TALENT_MUSIC_EXPANSION } from "@/data/texas-talent-profiles-wave2-music";
 import { TEXAS_TALENT_FILM_EXPANSION } from "@/data/texas-talent-profiles-wave2-film";
@@ -59,6 +60,10 @@ const orphanCorrectionSlugs = Object.keys(TEXAS_TALENT_PROFILE_CORRECTIONS).filt
 const orphanEditorialStatusSlugs = Object.keys(TEXAS_TALENT_EDITORIAL_STATUS_OVERRIDES).filter(
   (slug) => !profileSlugs.includes(slug as (typeof profileSlugs)[number]),
 );
+const orphanPlaceContextKeys = Object.keys(TEXAS_TALENT_PLACE_CONTEXT_OVERRIDES).filter((key) => {
+  const slug = key.split("::", 1)[0];
+  return !profileSlugs.includes(slug as (typeof profileSlugs)[number]);
+});
 
 if (duplicateProfileSlugs.length > 0) {
   throw new Error(`Duplicate Texas Talent profile slugs: ${[...new Set(duplicateProfileSlugs)].join(", ")}`);
@@ -76,15 +81,24 @@ if (orphanEditorialStatusSlugs.length > 0) {
   throw new Error(`Texas Talent editorial status overrides target unknown slugs: ${orphanEditorialStatusSlugs.join(", ")}`);
 }
 
+if (orphanPlaceContextKeys.length > 0) {
+  throw new Error(`Texas Talent place-context overrides target unknown slugs: ${orphanPlaceContextKeys.join(", ")}`);
+}
+
 function withReadiness<T extends (typeof TEXAS_TALENT_ALL_PROFILES)[number]>(profile: T) {
   const correctedProfile = {
     ...profile,
     ...(TEXAS_TALENT_PROFILE_CORRECTIONS[profile.slug] ?? {}),
     ...(TEXAS_TALENT_EDITORIAL_STATUS_OVERRIDES[profile.slug] ?? {}),
   };
+  const texasPlaces = correctedProfile.texasPlaces.map((place) => ({
+    ...place,
+    context: TEXAS_TALENT_PLACE_CONTEXT_OVERRIDES[`${profile.slug}::${place.name}`] ?? place.context,
+  }));
 
   return {
     ...correctedProfile,
+    texasPlaces,
     readiness: TEXAS_TALENT_ALL_READINESS[profile.slug],
   };
 }
