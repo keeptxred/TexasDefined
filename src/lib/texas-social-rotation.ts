@@ -16,6 +16,7 @@ export type TexasSocialDailyPlanOptions = {
   category?: TexasSocialEvergreenCategory;
   preferDifferentCategories?: boolean;
   preferDifferentLinks?: boolean;
+  additionalPosts?: Iterable<TexasSocialEvergreenPost>;
 };
 
 export type TexasSocialPreparedPost = TexasSocialEvergreenPost & {
@@ -77,13 +78,18 @@ export function buildTexasSocialDailyPlan(
     category,
     preferDifferentCategories = true,
     preferDifferentLinks = true,
+    additionalPosts = [],
   } = options;
 
   if (count <= 0) return [];
 
   const excluded = new Set(excludeIds);
   const dateKey = normalizeDateKey(date);
-  const candidates = getTexasSocialEvergreenPool(category).filter((post) => !excluded.has(post.id));
+  const base = getTexasSocialEvergreenPool(category);
+  const additions = [...additionalPosts].filter((post) => !category || post.category === category);
+  const combined = [...base, ...additions];
+  const deduped = [...new Map(combined.map((post) => [post.id, post] as const)).values()];
+  const candidates = deduped.filter((post) => !excluded.has(post.id));
   if (!candidates.length) return [];
 
   const ordered = rotate(candidates, hashString(`texasdefined-social:${dateKey}`));

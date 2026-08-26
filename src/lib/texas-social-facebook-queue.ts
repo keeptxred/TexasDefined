@@ -2,6 +2,7 @@ import {
   buildPreparedTexasSocialDailyPlan,
   type TexasSocialPreparedPost,
 } from "@/lib/texas-social-rotation";
+import { loadTexasSocialDurablePosts } from "@/lib/texas-social-durable-content.server";
 
 export type TexasFacebookQueueSlot = "morning" | "evening" | `slot-${number}`;
 
@@ -45,13 +46,14 @@ function slotForIndex(index: number): TexasFacebookQueueSlot {
   return `slot-${index + 1}`;
 }
 
-export function buildTexasFacebookDraftQueue(
+export async function buildTexasFacebookDraftQueue(
   date: Date | string,
   config: Partial<TexasFacebookQueueConfig> = {},
   excludeIds: Iterable<string> = [],
-): TexasFacebookQueueItem[] {
+): Promise<TexasFacebookQueueItem[]> {
   const resolved = { ...DEFAULT_TEXAS_FACEBOOK_QUEUE_CONFIG, ...config };
   const dateKey = normalizeDateKey(date);
+  const durablePosts = await loadTexasSocialDurablePosts(dateKey);
   const posts = buildPreparedTexasSocialDailyPlan(
     dateKey,
     {
@@ -59,6 +61,7 @@ export function buildTexasFacebookDraftQueue(
       excludeIds,
       preferDifferentCategories: true,
       preferDifferentLinks: true,
+      additionalPosts: durablePosts,
     },
     resolved.origin,
   );
@@ -77,7 +80,7 @@ export function buildTexasFacebookDraftQueue(
   }));
 }
 
-export function buildTexasFacebookDraftWeek(
+export async function buildTexasFacebookDraftWeek(
   startDate: Date | string,
   config: Partial<TexasFacebookQueueConfig> = {},
 ) {
@@ -85,15 +88,18 @@ export function buildTexasFacebookDraftWeek(
   const startKey = normalizeDateKey(startDate);
   const start = new Date(`${startKey}T12:00:00Z`);
   const used = new Set<string>();
+  const week: Array<{ date: string; items: TexasFacebookQueueItem[] }> = [];
 
-  return Array.from({ length: 7 }, (_, dayOffset) => {
+  for (let dayOffset = 0; dayOffset < 7; dayOffset += 1) {
     const date = new Date(start);
     date.setUTCDate(start.getUTCDate() + dayOffset);
     const dateKey = date.toISOString().slice(0, 10);
-    const items = buildTexasFacebookDraftQueue(dateKey, resolved, used);
+    const items = await buildTexasFacebookDraftQueue(dateKey, resolved, used);
     items.forEach((item) => used.add(item.sourcePostId));
-    return { date: dateKey, items };
-  });
+    week.push({ date: dateKey, items });
+  }
+
+  return week;
 }
 
 export function assertTexasFacebookPublishingDisabled(
