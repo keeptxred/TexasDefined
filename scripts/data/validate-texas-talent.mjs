@@ -38,15 +38,27 @@ for (const path of [...profileFiles, ...readinessFiles]) {
 
 const profileText = profileFiles.map(read).join("\n");
 const readinessText = readinessFiles.map(read).join("\n");
-// Profile objects in the authored arrays place `slug` at four-space indentation.
-// Scoping to that structural position avoids counting nested destination/link slugs.
-const profileSlugs = [...profileText.matchAll(/^ {4}slug:\s*"([^"]+)"/gm)].map((match) => match[1]);
+
+// `profileStatus` occurs once per authored profile. For every profile-status
+// boundary, take the nearest preceding top-level slug. This avoids treating
+// helper/nested slug fields as additional profiles while still validating the
+// actual authored record set and its uniqueness.
+const profileStatusMatches = [...profileText.matchAll(/^ {4}profileStatus:\s*"[^"]+"/gm)];
+const profileSlugs = profileStatusMatches.map((statusMatch) => {
+  const prefix = profileText.slice(0, statusMatch.index);
+  const precedingSlugs = [...prefix.matchAll(/^ {4}slug:\s*"([^"]+)"/gm)];
+  const nearestSlug = precedingSlugs.at(-1)?.[1];
+  requireCondition(Boolean(nearestSlug), "profileStatus record is missing a preceding profile slug");
+  return nearestSlug;
+});
+
 const readinessSlugs = readinessFiles.flatMap((path) =>
   [...read(path).matchAll(/^ {2}(?:"([^"]+)"|([a-z][a-z0-9-]*)):\s*\{/gm)]
     .map((match) => match[1] ?? match[2]),
 );
 
-requireCondition(profileSlugs.length === 50, `expected 50 profile records; found ${profileSlugs.length}`);
+requireCondition(profileStatusMatches.length === 50, `expected 50 profile records; found ${profileStatusMatches.length}`);
+requireCondition(profileSlugs.length === 50, `expected 50 profile slugs; found ${profileSlugs.length}`);
 requireCondition(new Set(profileSlugs).size === 50, "profile slugs must be unique");
 requireCondition(readinessSlugs.length === 50, `expected 50 readiness records; found ${readinessSlugs.length}`);
 requireCondition(new Set(readinessSlugs).size === 50, "readiness slugs must be unique");
