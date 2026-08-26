@@ -180,6 +180,8 @@ function resolveTexasIcon(entry: TexasIconRosterEntry, context: ResolutionContex
     };
   }
 
+  // Existing Texas Talent records always win over an Icons research draft so
+  // the registry cannot fork one person into two competing editorial records.
   if (talentProfile) {
     const publishable = isTexasTalentPublishable(talentProfile);
     return {
