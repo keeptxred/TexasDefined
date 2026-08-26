@@ -19,6 +19,23 @@ export type TexasIconRosterEntry = {
   canonicalPath?: string;
 };
 
+export type TexasIconNarrativeProfile = {
+  slug: string;
+  dek: string;
+  overview: readonly string[];
+  definingWorks: readonly string[];
+  timeline: readonly { year: string; event: string }[];
+  legacy: readonly string[];
+  texasPlaces: readonly { name: string; context: string; href?: string }[];
+  sources: readonly { label: string; url: string }[];
+  lastReviewedAt: string;
+};
+
+export type TexasIconResearchProfile = TexasIconNarrativeProfile & {
+  editorialStatus: "researched-staged";
+  publicationNote: string;
+};
+
 export const TEXAS_ICON_CATEGORIES: ReadonlyArray<{
   id: TexasIconCategory;
   label: string;
