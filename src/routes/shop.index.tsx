@@ -59,15 +59,8 @@ export const Route = createFileRoute("/shop/")({
                   itemListElement: loaderData.products.map((product, index) => ({
                     "@type": "ListItem",
                     position: index + 1,
-                    url: product.productUrl || `${shopUrl}#${productAnchor(product.id)}`,
-                    item: {
-                      "@type": "Product",
-                      "@id": `${shopUrl}#${productAnchor(product.id)}`,
-                      name: product.name,
-                      description: product.blurb,
-                      image: absoluteUrl(texasDefinedBrand, product.image.src),
-                      brand: { "@type": "Brand", name: product.maker },
-                    },
+                    name: product.name,
+                    url: absoluteUrl(texasDefinedBrand, product.productUrl || `/shop/product/${encodeURIComponent(product.id)}`),
                   })),
                 },
               ],
