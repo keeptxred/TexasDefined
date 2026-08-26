@@ -1,4 +1,5 @@
 import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
+import { TEXAS_TALENT_DEPTH_OVERRIDES } from "@/data/texas-talent-depth-overrides";
 import { TEXAS_TALENT_EDITORIAL_STATUS_OVERRIDES } from "@/data/texas-talent-editorial-status";
 import { buildTexasTalentLaunchMetadata } from "@/data/texas-talent-launch-metadata.server";
 import { TEXAS_TALENT_PLACE_CONTEXT_OVERRIDES } from "@/data/texas-talent-place-context-overrides";
@@ -58,6 +59,9 @@ const missingReadinessSlugs = profileSlugs.filter((slug) => !TEXAS_TALENT_ALL_RE
 const orphanCorrectionSlugs = Object.keys(TEXAS_TALENT_PROFILE_CORRECTIONS).filter(
   (slug) => !profileSlugs.includes(slug as (typeof profileSlugs)[number]),
 );
+const orphanDepthOverrideSlugs = Object.keys(TEXAS_TALENT_DEPTH_OVERRIDES).filter(
+  (slug) => !profileSlugs.includes(slug as (typeof profileSlugs)[number]),
+);
 const orphanEditorialStatusSlugs = Object.keys(TEXAS_TALENT_EDITORIAL_STATUS_OVERRIDES).filter(
   (slug) => !profileSlugs.includes(slug as (typeof profileSlugs)[number]),
 );
@@ -78,6 +82,10 @@ if (orphanCorrectionSlugs.length > 0) {
   throw new Error(`Texas Talent profile corrections target unknown slugs: ${orphanCorrectionSlugs.join(", ")}`);
 }
 
+if (orphanDepthOverrideSlugs.length > 0) {
+  throw new Error(`Texas Talent depth overrides target unknown slugs: ${orphanDepthOverrideSlugs.join(", ")}`);
+}
+
 if (orphanEditorialStatusSlugs.length > 0) {
   throw new Error(`Texas Talent editorial status overrides target unknown slugs: ${orphanEditorialStatusSlugs.join(", ")}`);
 }
@@ -90,6 +98,7 @@ function withReadiness<T extends (typeof TEXAS_TALENT_ALL_PROFILES)[number]>(pro
   const correctedProfile = {
     ...profile,
     ...(TEXAS_TALENT_PROFILE_CORRECTIONS[profile.slug] ?? {}),
+    ...(TEXAS_TALENT_DEPTH_OVERRIDES[profile.slug] ?? {}),
     ...(TEXAS_TALENT_EDITORIAL_STATUS_OVERRIDES[profile.slug] ?? {}),
   };
   const texasPlaces = correctedProfile.texasPlaces.map((place) => ({
