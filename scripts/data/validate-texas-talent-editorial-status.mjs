@@ -44,6 +44,22 @@ const expectedCohort = [
   "steve-martin",
   "tom-lea",
   "julian-onderdonk",
+  "t-bone-walker",
+  "don-henley",
+  "kelly-clarkson",
+  "kacey-musgraves",
+  "leon-bridges",
+  "erykah-badu",
+  "carol-burnett",
+  "debbie-allen",
+  "bill-hicks",
+  "j-frank-dobie",
+  "horton-foote",
+  "dorothy-hood",
+  "donald-judd",
+  "larry-mcmurtry",
+  "megan-thee-stallion",
+  "miranda-lambert",
 ];
 
 const statusSource = read("src/data/texas-talent-editorial-status.ts");
