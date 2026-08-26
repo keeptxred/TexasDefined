@@ -33,7 +33,8 @@ for (const [rank, name, slug] of entries) {
 if ((research.match(/editorialStatus: "researched-staged"/g) ?? []).length !== 10) failures.push("Sports batch 4 must contain exactly ten researched-staged profiles.");
 if ((research.match(/publicationNote:/g) ?? []).length !== 10) failures.push("Every sports batch-4 profile must retain a publication boundary note.");
 if ((research.match(/lastReviewedAt: reviewed/g) ?? []).length !== 10) failures.push("Every sports batch-4 profile must retain a reviewed date.");
-if ((research.match(/remains noindex pending image-rights and internal-link certification/g) ?? []).length !== 10) failures.push("Every sports batch-4 profile must explicitly retain the noindex/image-rights/internal-link publication boundary.");
+const boundaryCount = (research.match(/remains noindex pending image-rights(?: and|\/) internal-link certification/g) ?? []).length;
+if (boundaryCount !== 10) failures.push("Every sports batch-4 profile must explicitly retain the noindex/image-rights/internal-link publication boundary.");
 const urls = [...research.matchAll(/url: "(https:\/\/[^\"]+)"/g)].map((match) => match[1]);
 if (urls.length < 30) failures.push(`Sports batch 4 needs at least three HTTPS sources per profile; found ${urls.length}.`);
 for (let i = 0; i < entries.length; i += 1) {
