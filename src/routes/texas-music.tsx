@@ -14,7 +14,7 @@ export const Route = createFileRoute("/texas-music")({
 
     return {
       meta: buildMeta(texasDefinedBrand, {
-        title,
+        title: title,
         description: TEXAS_MUSIC_DESCRIPTION,
         canonicalPath,
       }),
