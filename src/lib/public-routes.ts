@@ -106,6 +106,7 @@ export const INDEXABLE_STATIC_PATHS = [
   "/san-antonio-music-history",
   "/lubbock-music-history",
   "/dallas-fort-worth-music-history",
+  "/texas-music-timeline",
   "/texas-capital-designations",
   "/texas-symbols",
   "/texas-facts",
