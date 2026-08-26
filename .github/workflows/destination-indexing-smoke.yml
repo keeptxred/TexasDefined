@@ -113,7 +113,7 @@ jobs:
               exit 1
             }
           done
-          unique_top_links="$(grep -o '/destination/[a-z0-9-]*' /tmp/top-attractions.html | sort -u | wc -l | tr -d ' ')"
+          unique_top_links="$(grep -ao '/destination/[a-z0-9-]*' /tmp/top-attractions.html | sort -u | wc -l | tr -d ' ')"
           if [ "$unique_top_links" -lt 25 ]; then
             echo "Top 25 collection exposed only $unique_top_links unique destination links; expected at least 25." >&2
             exit 1
@@ -136,7 +136,7 @@ jobs:
           done
 
           curl --retry 3 --retry-connrefused --max-time 45 -fsSL "$origin$authority_control" -o /tmp/authority-control.html
-          for marker in "Verified visitor information" "Evidence layer" "Editorial assessment" "Why it matters to Texas" "Three ways to visit" "Key dates" "Traveler questions, answered" "Sources & verification" "Authority sources used" "Controlling visitor source" "Supporting authority source" "Review log"; do
+          for marker in "Verified visitor information" "Evidence layer" "Editorial assessment" "Why it matters to Texas" "Three ways to visit" "Key dates" "Traveler questions, answered" "Sources &amp; verification" "Authority sources used" "Controlling visitor source" "Supporting authority source" "Review log"; do
             grep -Fq "$marker" /tmp/authority-control.html || {
               echo "Top 25 authority control is missing required rendered marker: $marker" >&2
               exit 1
