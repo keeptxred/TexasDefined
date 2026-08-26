@@ -6,6 +6,7 @@ export type TexasMusicTradition = {
   places: readonly string[];
   representativeArtists: readonly string[];
   sourceUrl: string;
+  guideHref?: string;
 };
 
 export type TexasMusicRelatedGuide = {
@@ -27,6 +28,7 @@ export const TEXAS_MUSIC_TRADITIONS: readonly TexasMusicTradition[] = [
     places: ["Fort Worth", "Waco", "Central Texas"],
     representativeArtists: ["Milton Brown", "Bob Wills", "Cindy Walker"],
     sourceUrl: "https://www.tshaonline.org/handbook/entries/country-music",
+    guideHref: "/texas-western-swing",
   },
   {
     id: "country-outlaw",
@@ -47,6 +49,7 @@ export const TEXAS_MUSIC_TRADITIONS: readonly TexasMusicTradition[] = [
     places: ["Dallas", "Houston", "Austin", "East Texas"],
     representativeArtists: ["Blind Lemon Jefferson", "T-Bone Walker", "Lightnin' Hopkins", "Stevie Ray Vaughan"],
     sourceUrl: "https://www.tshaonline.org/handbook/projects/texas-music/category/music/category/genres-blues",
+    guideHref: "/texas-blues",
   },
   {
     id: "conjunto-tejano",
@@ -57,6 +60,7 @@ export const TEXAS_MUSIC_TRADITIONS: readonly TexasMusicTradition[] = [
     places: ["San Antonio", "Corpus Christi", "Rio Grande Valley", "South Texas"],
     representativeArtists: ["Narciso Martínez", "Lydia Mendoza", "Freddy Fender", "Selena"],
     sourceUrl: "https://www.tshaonline.org/handbook/entries/texas-mexican-conjunto",
+    guideHref: "/texas-conjunto-tejano",
   },
   {
     id: "rock-rockabilly",
@@ -101,6 +105,21 @@ export const TEXAS_MUSIC_TRADITIONS: readonly TexasMusicTradition[] = [
 ] as const;
 
 export const TEXAS_MUSIC_RELATED_GUIDES: readonly TexasMusicRelatedGuide[] = [
+  {
+    title: "Texas Blues",
+    href: "/texas-blues",
+    description: "From Blind Lemon Jefferson and Deep Ellum to Lightnin' Hopkins, electric guitar and Austin blues-rock.",
+  },
+  {
+    title: "Texas Conjunto & Tejano",
+    href: "/texas-conjunto-tejano",
+    description: "Accordion, bajo sexto, South Texas borderlands and the generations that led from conjunto to modern Tejano.",
+  },
+  {
+    title: "Texas Western Swing",
+    href: "/texas-western-swing",
+    description: "Fort Worth dance music, Milton Brown, Bob Wills, steel guitar and the blend of country, blues and jazz.",
+  },
   {
     title: "Texas Dance Halls & Honky-Tonks",
     href: "/texas-dance-halls-honky-tonks",

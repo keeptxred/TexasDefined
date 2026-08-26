@@ -20,6 +20,12 @@ const foodHistoryGuideSlugs = new Set([
   "barbacoa-big-red-san-antonio",
 ]);
 
+const musicGuideSlugs = new Set([
+  "texas-blues",
+  "texas-conjunto-tejano",
+  "texas-western-swing",
+]);
+
 const guideDestinationLinks: Partial<Record<string, { href: string; label: string; description: string }>> = {
   "dr-pepper-texas-history": {
     href: "/destination/dr-pepper-museum",
@@ -131,6 +137,20 @@ const guideSources: Partial<Record<string, { label: string; href: string; note: 
     { label: "National Weather Service Amarillo — 50-degree temperature ranges", href: "https://www.weather.gov/ama/50ranges", note: "Documents major rapid temperature changes in the Texas Panhandle and provides meteorological context for sharp frontal passages." },
     { label: "National Weather Service Houston/Galveston — Spring storm signals", href: "https://www.weather.gov/hgx/stormsignals_vol40", note: "Provides official severe-weather context and reinforces that current NWS forecasts and warnings—not folklore—should control safety decisions." },
   ],
+  "texas-blues": [
+    { label: "Handbook of Texas — Blues", href: "https://www.tshaonline.org/handbook/entries/blues", note: "Documents the Dallas and Deep Ellum blues scene, Blind Lemon Jefferson's commercial breakthrough and the evolution of the Texas guitar tradition through T-Bone Walker." },
+    { label: "Handbook of Texas — Blind Lemon Jefferson", href: "https://www.tshaonline.org/handbook/entries/jefferson-blind-lemon", note: "Documents Jefferson's Freestone County roots, Dallas performance history, recording career and influence on later blues and popular music." },
+    { label: "Handbook of Texas — Lightnin' Hopkins", href: "https://www.tshaonline.org/handbook/entries/hopkins-sam-lightnin", note: "Documents Hopkins's Texas background and the career that made him one of the state's most recognizable blues musicians." },
+  ],
+  "texas-conjunto-tejano": [
+    { label: "Handbook of Texas — Texas-Mexican Conjunto", href: "https://www.tshaonline.org/handbook/entries/texas-mexican-conjunto", note: "Documents the accordion-and-bajo-sexto tradition, Narciso Martínez's formative role and the evolution of conjunto instrumentation." },
+    { label: "Handbook of Texas — Conjunto, Tejano and Border collection", href: "https://www.tshaonline.org/handbook/projects/texas-music/category/music/category/genres-conjunto-tejano-and-border", note: "Provides the wider Texas music authority collection covering musicians, venues, radio, festivals and institutions in the conjunto and Tejano tradition." },
+  ],
+  "texas-western-swing": [
+    { label: "Handbook of Texas — Milton Brown", href: "https://www.tshaonline.org/handbook/entries/brown-william-milton", note: "Documents Brown's Fort Worth career, the Musical Brownies and their foundational role in the early western swing ensemble sound." },
+    { label: "Handbook of Texas — Bob Wills", href: "https://www.tshaonline.org/handbook/entries/wills-james-robert", note: "Documents Wills's Texas roots, the musical influences behind his style and the expansion of western swing through the Texas Playboys." },
+    { label: "Handbook of Texas — Country Music", href: "https://www.tshaonline.org/handbook/entries/country-music", note: "Places western swing in the larger Texas country-music history and describes its blend of fiddle music, blues, jazz, ragtime, polkas and dance-band influences." },
+  ],
 };
 
 export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData }) {
@@ -139,6 +159,7 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
   const sources = guideSources[guide.slug] ?? [];
   const destinationLink = guideDestinationLinks[guide.slug];
   const isFoodHistoryChild = foodHistoryGuideSlugs.has(guide.slug);
+  const isMusicChild = musicGuideSlugs.has(guide.slug);
   const imageUrl = image
     ? image.src.startsWith("http://") || image.src.startsWith("https://")
       ? image.src
@@ -146,7 +167,9 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
     : undefined;
   const breadcrumbItems = [
     { "@type": "ListItem", position: 1, name: "Front page", item: `${siteUrl}/` },
-    { "@type": "ListItem", position: 2, name: "Things That Define Texas", item: `${siteUrl}/things-unique-to-texas` },
+    isMusicChild
+      ? { "@type": "ListItem", position: 2, name: "Texas Music", item: `${siteUrl}/texas-music` }
+      : { "@type": "ListItem", position: 2, name: "Things That Define Texas", item: `${siteUrl}/things-unique-to-texas` },
     ...(isFoodHistoryChild ? [{ "@type": "ListItem", position: 3, name: "Texas Food History", item: `${siteUrl}/texas-food-history` }] : []),
     { "@type": "ListItem", position: isFoodHistoryChild ? 4 : 3, name: guide.title, item: canonicalUrl },
   ];
@@ -162,9 +185,11 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
         mainEntityOfPage: { "@id": `${canonicalUrl}#page` },
         publisher: { "@type": "Organization", name: "TexasDefined", url: siteUrl },
         articleSection: isFoodHistoryChild ? "Texas Food History" : "Things That Define Texas",
+        ...(isMusicChild ? { articleSection: "Texas Music" } : {}),
         image: imageUrl,
         citation: sources.length ? sources.map((source) => source.href) : undefined,
         ...(isFoodHistoryChild ? { isPartOf: { "@type": "CollectionPage", "@id": `${siteUrl}/texas-food-history#page`, name: "Texas Food History", url: `${siteUrl}/texas-food-history` } } : {}),
+        ...(isMusicChild ? { isPartOf: { "@type": "CollectionPage", "@id": `${siteUrl}/texas-music#collection`, name: "Texas Music", url: `${siteUrl}/texas-music` } } : {}),
         ...(destinationLink ? { mentions: [{ "@type": "TouristAttraction", name: destinationLink.label.replace(/^Explore the /, ""), url: `${siteUrl}${destinationLink.href}` }] } : {}),
         about: guide.sections.map((section) => ({ "@type": "Thing", name: section.heading.replace(/^\d+\.\s*/, "") })),
       },
@@ -205,7 +230,9 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
         <nav aria-label="Breadcrumb" className="border-b border-border pb-4 text-xs uppercase tracking-[0.14em] text-muted-foreground">
           <Link to="/" className="hover:text-foreground">Front page</Link>
           <span aria-hidden="true" className="mx-2">/</span>
-          <Link to="/things-unique-to-texas" className="hover:text-foreground">Things That Define Texas</Link>
+          {isMusicChild
+            ? <Link to="/texas-music" className="hover:text-foreground">Texas Music</Link>
+            : <Link to="/things-unique-to-texas" className="hover:text-foreground">Things That Define Texas</Link>}
           {isFoodHistoryChild ? <>
             <span aria-hidden="true" className="mx-2">/</span>
             <Link to="/texas-food-history" className="hover:text-foreground">Texas Food History</Link>
@@ -220,6 +247,7 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
           <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground sm:text-xl">{guide.dek}</p>
           <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
             {isFoodHistoryChild ? <Link to="/texas-food-history" className="border-b border-primary pb-1 text-primary">Explore the full Texas Food History collection →</Link> : null}
+            {isMusicChild ? <Link to="/texas-music" className="border-b border-primary pb-1 text-primary">Explore the full Texas Music collection →</Link> : null}
             {destinationLink ? <Link to={destinationLink.href} className="border-b border-primary pb-1 text-primary">{destinationLink.label} →</Link> : null}
           </div>
           {destinationLink ? <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground">{destinationLink.description}</p> : null}
