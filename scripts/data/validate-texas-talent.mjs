@@ -38,7 +38,9 @@ for (const path of [...profileFiles, ...readinessFiles]) {
 
 const profileText = profileFiles.map(read).join("\n");
 const readinessText = readinessFiles.map(read).join("\n");
-const profileSlugs = [...profileText.matchAll(/\bslug:\s*"([^"]+)"/g)].map((match) => match[1]);
+// Profile objects in the authored arrays place `slug` at four-space indentation.
+// Scoping to that structural position avoids counting nested destination/link slugs.
+const profileSlugs = [...profileText.matchAll(/^ {4}slug:\s*"([^"]+)"/gm)].map((match) => match[1]);
 const readinessSlugs = readinessFiles.flatMap((path) =>
   [...read(path).matchAll(/^ {2}(?:"([^"]+)"|([a-z][a-z0-9-]*)):\s*\{/gm)]
     .map((match) => match[1] ?? match[2]),
