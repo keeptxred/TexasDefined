@@ -42,6 +42,8 @@ jobs:
         run: node scripts/data/validate-texas-icons-sports-batch1.mjs
       - name: Validate Texas Icons sports ranks 111-120
         run: node scripts/data/validate-texas-icons-sports-batch2.mjs
+      - name: Validate Texas Icons sports ranks 121-130
+        run: node scripts/data/validate-texas-icons-sports-batch3.mjs
       - name: Validate Texas Icons server isolation
         run: node scripts/data/validate-texas-icons-server-isolation.mjs
       - name: Production build
