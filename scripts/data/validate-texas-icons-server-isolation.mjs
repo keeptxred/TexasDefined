@@ -9,6 +9,7 @@ const resolverPath = "src/data/texas-icons.server.ts";
 const researchPaths = [
   "src/data/texas-icons-research-history-1.server.ts",
   "src/data/texas-icons-research-history-2.server.ts",
+  "src/data/texas-icons-research-history-3.server.ts",
 ];
 const failures = [];
 
