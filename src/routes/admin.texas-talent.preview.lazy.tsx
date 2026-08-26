@@ -1,10 +1,15 @@
 import { Link, createLazyFileRoute } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
-import {
-  TEXAS_TALENT_CATEGORIES,
-  TEXAS_TALENT_TAGLINE,
-} from "@/data/texas-talent";
+
+const TEXAS_TALENT_TAGLINE = "The Stars of Texas Shine Bright";
+const TEXAS_TALENT_CATEGORIES = [
+  { id: "music", label: "Music", description: "Country, blues, rock, Tejano, R&B, pop and the Texas scenes that shaped them." },
+  { id: "film-tv", label: "Film & Television", description: "Actors, filmmakers and screen storytellers with a meaningful Texas connection." },
+  { id: "literature", label: "Literature", description: "Novelists, poets, playwrights, journalists and other writers whose work carries Texas outward." },
+  { id: "visual-arts", label: "Visual Arts", description: "Painters, photographers, sculptors, designers and artists whose work helps explain the state." },
+  { id: "comedy-performance", label: "Comedy & Performance", description: "Comedians and stage performers whose careers or artistic identities are tied to Texas." },
+] as const;
 
 export const Route = createLazyFileRoute("/admin/texas-talent/preview")({
   component: TexasTalentPublicPreview,
