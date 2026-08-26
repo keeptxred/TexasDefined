@@ -11,8 +11,9 @@ import {
   isTexasTalentPublishable,
 } from "@/data/texas-talent-launch";
 import {
+  applyTexasTalentMechanicalLinkCertificationFromGraph,
   auditTexasTalentEntityLinksFromGraph,
-  resolveTexasTalentEntityLinks,
+  resolveTexasTalentEntityLinksFromGraph,
 } from "@/data/texas-talent-links.server";
 import { TEXAS_TALENT_READINESS } from "@/data/texas-talent-readiness";
 import { TEXAS_TALENT_READINESS_BATCH3 } from "@/data/texas-talent-readiness-batch3";
@@ -87,35 +88,50 @@ export function loadTexasTalentProfileServer(slug: string) {
 }
 
 export async function loadTexasTalentProfileWithResolvedLinksServer(slug: string) {
-  const profile = loadTexasTalentProfileServer(slug);
-  if (!profile) return null;
+  const storedProfile = loadTexasTalentProfileServer(slug);
+  if (!storedProfile) return null;
+
+  const graph = await loadTexasKnowledgeGraph();
+  const resolvedInternalLinks = resolveTexasTalentEntityLinksFromGraph(storedProfile, graph);
+  const certifiedProfile = applyTexasTalentMechanicalLinkCertificationFromGraph(storedProfile, graph);
 
   return {
-    ...profile,
-    resolvedInternalLinks: await resolveTexasTalentEntityLinks(profile),
-    launchAssessment: assessTexasTalentLaunchReadiness(profile),
+    ...certifiedProfile,
+    storedInternalLinkReview: storedProfile.readiness.internalLinkReview,
+    resolvedInternalLinks,
+    linkAudit: auditTexasTalentEntityLinksFromGraph(storedProfile, graph),
+    launchAssessment: assessTexasTalentLaunchReadiness(certifiedProfile),
   };
 }
 
 export async function loadTexasTalentLaunchAuditServer() {
   const profiles = loadTexasTalentProfilesServer();
-  const assessments = profiles.map(assessTexasTalentLaunchReadiness);
+  const storedAssessments = profiles.map(assessTexasTalentLaunchReadiness);
   const graph = await loadTexasKnowledgeGraph();
   const linkAudits = profiles.map((profile) => auditTexasTalentEntityLinksFromGraph(profile, graph));
+  const certifiedProfiles = profiles.map((profile) =>
+    applyTexasTalentMechanicalLinkCertificationFromGraph(profile, graph));
+  const assessments = certifiedProfiles.map(assessTexasTalentLaunchReadiness);
 
   return {
     totalProfiles: profiles.length,
+    storedMechanicallyReady: storedAssessments.filter((assessment) => assessment.mechanicalReady).length,
     mechanicallyReady: assessments.filter((assessment) => assessment.mechanicalReady).length,
-    editorialApproved: assessments.filter((assessment) => assessment.editorialApproved).length,
-    publishable: assessments.filter((assessment) => assessment.publishable).length,
+    editorialApproved: storedAssessments.filter((assessment) => assessment.editorialApproved).length,
+    publishable: storedAssessments.filter((assessment) => assessment.publishable).length,
+    mechanicallyLinkCertified: linkAudits.filter((audit) => audit.mechanicallyCertified).length,
     linkCertificationCandidates: linkAudits.filter((audit) => audit.certificationCandidate).length,
     profilesWithUnsafeRecordedLinks: linkAudits.filter((audit) => audit.unsafeRecordedLinkCount > 0).length,
     profilesWithNoSafeLinks: linkAudits.filter((audit) => audit.safeResolvedLinkCount === 0).length,
+    storedAssessments,
     assessments,
     linkAudits,
   };
 }
 
+// Publication remains intentionally conservative. These functions use the
+// stored readiness records, not the derived mechanical link certification.
+// A mechanically clean graph can never turn a profile public by itself.
 export function loadTexasTalentPublishableProfilesServer() {
   return loadTexasTalentProfilesServer().filter(isTexasTalentPublishable);
 }
