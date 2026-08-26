@@ -19,6 +19,7 @@ import { TEXAS_ICON_RESEARCH_MUSIC_BATCH_5 } from "@/data/texas-icons-research-m
 import { TEXAS_ICON_RESEARCH_SPORTS_BATCH_1 } from "@/data/texas-icons-research-sports-1.server";
 import { TEXAS_ICON_RESEARCH_SPORTS_BATCH_2 } from "@/data/texas-icons-research-sports-2.server";
 import { TEXAS_ICON_RESEARCH_SPORTS_BATCH_3 } from "@/data/texas-icons-research-sports-3.server";
+import { TEXAS_ICON_RESEARCH_SPORTS_BATCH_4 } from "@/data/texas-icons-research-sports-4.server";
 import { isTexasTalentPublishable } from "@/data/texas-talent-launch";
 import { loadTexasTalentProfilesServer } from "@/data/texas-talent.server";
 import {
@@ -52,6 +53,7 @@ const TEXAS_ICON_RESEARCH_PROFILES: readonly TexasIconResearchProfile[] = [
   ...TEXAS_ICON_RESEARCH_SPORTS_BATCH_1,
   ...TEXAS_ICON_RESEARCH_SPORTS_BATCH_2,
   ...TEXAS_ICON_RESEARCH_SPORTS_BATCH_3,
+  ...TEXAS_ICON_RESEARCH_SPORTS_BATCH_4,
 ];
 
 export type TexasIconReuseKind =
@@ -178,8 +180,6 @@ function resolveTexasIcon(entry: TexasIconRosterEntry, context: ResolutionContex
     };
   }
 
-  // Existing Texas Talent records always win over an Icons research draft so
-  // the registry cannot fork one person into two competing editorial records.
   if (talentProfile) {
     const publishable = isTexasTalentPublishable(talentProfile);
     return {
