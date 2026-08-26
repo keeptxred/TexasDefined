@@ -68,15 +68,46 @@ if (orphanCorrectionSlugs.length > 0) {
   throw new Error(`Texas Talent profile corrections target unknown slugs: ${orphanCorrectionSlugs.join(", ")}`);
 }
 
+function reviewedSourceLabel(url: string) {
+  try {
+    return `Reviewed authority — ${new URL(url).hostname.replace(/^www\./, "")}`;
+  } catch {
+    return "Reviewed authority source";
+  }
+}
+
+function withReviewedSourceProvenance<
+  T extends (typeof TEXAS_TALENT_ALL_PROFILES)[number],
+>(
+  profile: T | (T & Record<string, unknown>),
+  verifiedSources: readonly string[],
+) {
+  const existingSources = profile.sources ?? [];
+  const existingUrls = new Set(existingSources.map((source) => source.url));
+  const reviewedSources = verifiedSources
+    .filter((url) => !existingUrls.has(url))
+    .map((url) => ({ label: reviewedSourceLabel(url), url }));
+
+  return {
+    ...profile,
+    sources: [...existingSources, ...reviewedSources],
+  };
+}
+
 function withReadiness<T extends (typeof TEXAS_TALENT_ALL_PROFILES)[number]>(profile: T) {
+  const readiness = TEXAS_TALENT_ALL_READINESS[profile.slug];
   const correctedProfile = {
     ...profile,
     ...(TEXAS_TALENT_PROFILE_CORRECTIONS[profile.slug] ?? {}),
   };
+  const sourcedProfile = withReviewedSourceProvenance(
+    correctedProfile,
+    readiness.sourceReview.verifiedSources,
+  );
 
   return {
-    ...correctedProfile,
-    readiness: TEXAS_TALENT_ALL_READINESS[profile.slug],
+    ...sourcedProfile,
+    readiness,
   };
 }
 
