@@ -24,9 +24,8 @@ jobs:
         with:
           node-version: 22
 
-      # Keep the cohort-specific depth checks adjacent so every PR validates the
-      # same hidden launch contract that will run again after merge to main.
-      # This synchronized current-main head intentionally reruns that contract.
+      # Keep cohort-specific checks adjacent. This fresh current-main PR commit
+      # intentionally triggers the complete hidden-launch contract again.
       - name: Validate hidden Texas Talent launch contract
         run: node scripts/data/validate-texas-talent.mjs
 
