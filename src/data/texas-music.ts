@@ -110,28 +110,112 @@ export const TEXAS_MUSIC_TRADITIONS: readonly TexasMusicTradition[] = [
 ] as const;
 
 export const TEXAS_MUSIC_RELATED_GUIDES: readonly TexasMusicRelatedGuide[] = [
-  { title: "Texas Blues", href: "/texas-blues", description: "From Blind Lemon Jefferson and Deep Ellum to Lightnin' Hopkins, electric guitar and Austin blues-rock." },
-  { title: "Texas Conjunto & Tejano", href: "/texas-conjunto-tejano", description: "Accordion, bajo sexto, South Texas borderlands and the generations that led from conjunto to modern Tejano." },
-  { title: "Texas Western Swing", href: "/texas-western-swing", description: "Fort Worth dance music, Milton Brown, Bob Wills, steel guitar and the blend of country, blues and jazz." },
-  { title: "Texas Country & Outlaw Country", href: "/texas-country-outlaw", description: "Dance halls, songwriters and the Austin progressive-country movement that challenged Nashville convention." },
-  { title: "Texas Rock & Rockabilly", href: "/texas-rock-rockabilly", description: "Buddy Holly, Roy Orbison, Janis Joplin and the Texas roots that fed rock-and-roll and later roots rock." },
-  { title: "Texas Jazz", href: "/texas-jazz", description: "Territory bands, Houston tenor saxophone, Fort Worth innovators and Texas musicians who changed modern jazz." },
-  { title: "Texas Gospel, R&B & Pop", href: "/texas-gospel-rnb-pop", description: "Church quartets, Duke-Peacock, Kirk Franklin, Erykah Badu, Destiny's Child and the Texas line from gospel to global pop." },
-  { title: "Texas Hip-Hop", href: "/texas-hip-hop", description: "Houston rap, DJ Screw's tape culture, the Geto Boys, UGK and the Gulf Coast systems that built a national sound." },
-  { title: "Texas Music Cities", href: "/texas-music-cities", description: "Compare Austin, Houston, San Antonio, Lubbock and Dallas–Fort Worth as local systems that shaped distinct Texas music scenes." },
-  { title: "Texas Music Timeline", href: "/texas-music-timeline", description: "Follow the major eras that connect borderland conjunto, Dallas blues, western swing, Houston R&B, West Texas rock, Tejano, hip-hop and global pop." },
-  { title: "Legendary Texas Music Venues", href: "/texas-music-venues", description: "Gruene Hall, Broken Spoke, Continental Club, Antone's and Billy Bob's—rooms that turned Texas music into lived culture." },
-  { title: "Texas Dance Halls & Honky-Tonks", href: "/texas-dance-halls-honky-tonks", description: "How the rooms, floors and roadside venues of Texas became part of the state's musical infrastructure." },
-  { title: "Culture & Music: Things That Define Texas", href: "/things-unique-to-texas/culture-music", description: "Music, traditions, rituals and cultural touchstones in the Texas Defined reference collection." },
-  { title: "Texas History", href: "/texas-history", description: "Put musical movements into the larger story of migration, communities, industry and change in Texas." },
-  { title: "Texas Small Towns", href: "/explore/small-towns", description: "Explore the towns, courthouse squares and local institutions connected to Texas culture." },
-  { title: "Texas Events", href: "/events", description: "Find festivals and recurring events where Texas traditions are still experienced in person." },
+  {
+    title: "Texas Blues",
+    href: "/texas-blues",
+    description: "From Blind Lemon Jefferson and Deep Ellum to Lightnin' Hopkins, electric guitar and Austin blues-rock.",
+  },
+  {
+    title: "Texas Conjunto & Tejano",
+    href: "/texas-conjunto-tejano",
+    description: "Accordion, bajo sexto, South Texas borderlands and the generations that led from conjunto to modern Tejano.",
+  },
+  {
+    title: "Texas Western Swing",
+    href: "/texas-western-swing",
+    description: "Fort Worth dance music, Milton Brown, Bob Wills, steel guitar and the blend of country, blues and jazz.",
+  },
+  {
+    title: "Texas Country & Outlaw Country",
+    href: "/texas-country-outlaw",
+    description: "Dance halls, songwriters and the Austin progressive-country movement that challenged Nashville convention.",
+  },
+  {
+    title: "Texas Rock & Rockabilly",
+    href: "/texas-rock-rockabilly",
+    description: "Buddy Holly, Roy Orbison, Janis Joplin and the Texas roots that fed rock-and-roll and later roots rock.",
+  },
+  {
+    title: "Texas Jazz",
+    href: "/texas-jazz",
+    description: "Territory bands, Houston tenor saxophone, Fort Worth innovators and Texas musicians who changed modern jazz.",
+  },
+  {
+    title: "Texas Gospel, R&B & Pop",
+    href: "/texas-gospel-rnb-pop",
+    description: "Church quartets, Duke-Peacock, Kirk Franklin, Erykah Badu, Destiny's Child and the Texas line from gospel to global pop.",
+  },
+  {
+    title: "Texas Hip-Hop",
+    href: "/texas-hip-hop",
+    description: "Houston rap, DJ Screw's tape culture, the Geto Boys, UGK and the Gulf Coast systems that built a national sound.",
+  },
+  {
+    title: "Texas Music Cities",
+    href: "/texas-music-cities",
+    description: "Compare Austin, Houston, San Antonio, Lubbock and Dallas–Fort Worth as local systems that shaped distinct Texas music scenes.",
+  },
+  {
+    title: "Texas Music Timeline",
+    href: "/texas-music-timeline",
+    description: "Follow the major eras that connect borderland conjunto, Dallas blues, western swing, Houston R&B, West Texas rock, Tejano, hip-hop and global pop.",
+  },
+  {
+    title: "Legendary Texas Music Venues",
+    href: "/texas-music-venues",
+    description: "Gruene Hall, Broken Spoke, Continental Club, Antone's and Billy Bob's—rooms that turned Texas music into lived culture.",
+  },
+  {
+    title: "Texas Dance Halls & Honky-Tonks",
+    href: "/texas-dance-halls-honky-tonks",
+    description: "How the rooms, floors and roadside venues of Texas became part of the state's musical infrastructure.",
+  },
+  {
+    title: "Culture & Music: Things That Define Texas",
+    href: "/things-unique-to-texas/culture-music",
+    description: "Music, traditions, rituals and cultural touchstones in the Texas Defined reference collection.",
+  },
+  {
+    title: "Texas History",
+    href: "/texas-history",
+    description: "Put musical movements into the larger story of migration, communities, industry and change in Texas.",
+  },
+  {
+    title: "Texas Small Towns",
+    href: "/explore/small-towns",
+    description: "Explore the towns, courthouse squares and local institutions connected to Texas culture.",
+  },
+  {
+    title: "Texas Events",
+    href: "/events",
+    description: "Find festivals and recurring events where Texas traditions are still experienced in person.",
+  },
 ] as const;
 
 export const TEXAS_MUSIC_PRIMARY_SOURCES = [
-  { label: "Handbook of Texas Music", url: "https://www.tshaonline.org/handbook/projects/texas-music", publisher: "Texas State Historical Association" },
-  { label: "Texas Music — Venues", url: "https://www.tshaonline.org/handbook/projects/texas-music/category/music/category/venues", publisher: "Texas State Historical Association" },
-  { label: "Music — Handbook of Texas", url: "https://www.tshaonline.org/handbook/entries/music", publisher: "Texas State Historical Association" },
-  { label: "Texas-Mexican Conjunto — Handbook of Texas", url: "https://www.tshaonline.org/handbook/entries/texas-mexican-conjunto", publisher: "Texas State Historical Association" },
-  { label: "Center for Texas Music History", url: "https://www.txst.edu/ctmh/", publisher: "Texas State University" },
+  {
+    label: "Handbook of Texas Music",
+    url: "https://www.tshaonline.org/handbook/projects/texas-music",
+    publisher: "Texas State Historical Association",
+  },
+  {
+    label: "Texas Music — Venues",
+    url: "https://www.tshaonline.org/handbook/projects/texas-music/category/music/category/venues",
+    publisher: "Texas State Historical Association",
+  },
+  {
+    label: "Music — Handbook of Texas",
+    url: "https://www.tshaonline.org/handbook/entries/music",
+    publisher: "Texas State Historical Association",
+  },
+  {
+    label: "Texas-Mexican Conjunto — Handbook of Texas",
+    url: "https://www.tshaonline.org/handbook/entries/texas-mexican-conjunto",
+    publisher: "Texas State Historical Association",
+  },
+  {
+    label: "Center for Texas Music History",
+    url: "https://www.txst.edu/ctmh/",
+    publisher: "Texas State University",
+  },
 ] as const;
