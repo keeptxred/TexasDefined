@@ -40,6 +40,14 @@ function HomeInsuranceCalculatorPage() {
   return (
     <CalculatorPage eyebrow="Texas homeowners insurance estimator" title="Texas home insurance cost calculator" description={description}>
       <HomeInsuranceCalculator />
+      <section className="mt-8 border border-border p-6" aria-labelledby="insurance-private-estimate-heading">
+        <p className="eyebrow text-primary">No quote form required</p>
+        <h2 id="insurance-private-estimate-heading" className="mt-3 font-display text-3xl">Homeowners insurance calculator without personal information</h2>
+        <div className="mt-4 max-w-3xl space-y-3 text-base leading-7 text-muted-foreground">
+          <p>The calculator itself does not ask for your name, email address, phone number, street address, date of birth, or other contact details. You can model a home-insurance estimate using only replacement cost, an estimated insurance rate, optional wind or flood additions, and a deductible or discount credit.</p>
+          <p>This is a self-service planning estimate rather than an insurer quote. Use it to test a household budget before deciding whether to request personalized pricing from an insurance company or agent.</p>
+        </div>
+      </section>
       <section className="mt-14 border-t border-border pt-10" aria-labelledby="insurance-estimate-heading">
         <p className="eyebrow text-primary">How the estimate works</p>
         <h2 id="insurance-estimate-heading" className="mt-3 font-display text-3xl">Estimate the cost of homeowners insurance before requesting a quote</h2>
