@@ -50,7 +50,7 @@ export const TEXAS_TALENT_LAUNCH_DEPTH_WAVE6: Readonly<Record<string, TexasTalen
     ],
     texasPlaces: [
       { name: "Corpus Christi", context: "Longoria's birthplace and childhood home in Nueces County, providing the South Texas family and cultural setting that preceded her acting, producing and advocacy career." },
-      { name: "Kingsville", context: "The Kleberg County university city where Longoria completed her Texas A&M University-Kingsville degree before pursuing entertainment professionally." },
+      { name: "Kingsville", context: "The Kleberg County university city where Longoria completed her Texas A&M University-Kingsville degree before pursuing entertainment professionally there." },
     ],
     lastReviewedAt: reviewed,
   },
