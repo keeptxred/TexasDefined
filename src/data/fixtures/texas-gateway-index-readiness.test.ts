@@ -41,12 +41,14 @@ describe("strict article index readiness", () => {
   });
 
   it("quarantines incomplete or malformed source attribution", () => {
-    expect(isArticleIndexReady({ ...readyArticle, sourceName: "Official source", sourceUrl: undefined })).toBe(false);
+    const { sourceUrl: _sourceUrl, ...withoutSourceUrl } = readyArticle;
+    expect(isArticleIndexReady({ ...withoutSourceUrl, sourceName: "Official source" })).toBe(false);
     expect(isArticleIndexReady({ ...readyArticle, sourceUrl: "javascript:alert(1)" })).toBe(false);
   });
 
   it("allows an original editorial article without optional source metadata when it otherwise passes", () => {
-    expect(isArticleIndexReady({ ...readyArticle, sourceName: undefined, sourceUrl: undefined })).toBe(true);
+    const { sourceName: _sourceName, sourceUrl: _sourceUrl, ...withoutSourceMetadata } = readyArticle;
+    expect(isArticleIndexReady(withoutSourceMetadata)).toBe(true);
   });
 
   it("keeps staged gateway acquisition drafts quarantined", () => {
