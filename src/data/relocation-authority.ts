@@ -5,7 +5,7 @@ export type RelocationSource = {
   freshness: string;
 };
 
-export const RELOCATION_SOURCE_VERIFIED = "August 26, 2026";
+export const RELOCATION_SOURCE_VERIFIED = "August 27, 2026";
 
 export const RELOCATION_SOURCES = {
   censusMigration: {
@@ -21,16 +21,16 @@ export const RELOCATION_SOURCES = {
     freshness: "2018–2022 ACS five-year flow file",
   },
   censusPopulation: {
-    name: "U.S. Census Bureau — Vintage 2024 Population Estimates",
-    url: "https://www.census.gov/newsroom/press-releases/2024/population-estimates-international-migration.html",
-    purpose: "Texas population change, domestic migration, international migration and natural increase.",
-    freshness: "Vintage 2024 estimates",
+    name: "U.S. Census Bureau — Vintage 2025 Population Estimates",
+    url: "https://www.census.gov/data/datasets/time-series/demo/popest/2020s-state-total.html",
+    purpose: "Current consistent Texas population estimate series and components of change. Census revises the full post-2020 series with each vintage, so older vintages should not be mixed with Vintage 2025.",
+    freshness: "Vintage 2025 state totals and components released January 27, 2026",
   },
   blsMetro: {
     name: "U.S. Bureau of Labor Statistics — Metropolitan Area Employment",
     url: "https://www.bls.gov/news.release/metro.t03.htm",
     purpose: "Current metropolitan nonfarm payroll employment for Texas labor markets.",
-    freshness: "June 2026 preliminary release",
+    freshness: "June 2026 preliminary release; July 2026 release scheduled September 2, 2026",
   },
   tdiInsurance: {
     name: "Texas Department of Insurance — Homeowners Insurance Market",
