@@ -3,6 +3,7 @@ import fs from 'node:fs';
 const registry = fs.readFileSync('src/lib/public-routes.ts', 'utf8');
 const sitemap = fs.readFileSync('src/routes/sitemap[.]xml.ts', 'utf8');
 const exploreSitemap = fs.readFileSync('src/routes/sitemap-explore[.]xml.ts', 'utf8');
+const rss = fs.readFileSync('src/routes/rss[.]xml.ts', 'utf8');
 const newsLayout = fs.readFileSync('src/routes/news.tsx', 'utf8');
 const newsIndex = fs.readFileSync('src/routes/news.index.tsx', 'utf8');
 const newsStory = fs.readFileSync('src/routes/news.$slug.tsx', 'utf8');
@@ -34,10 +35,15 @@ if (!newsIndex.includes('canonicalPath: "/news"') || !newsIndex.includes('canoni
 if (newsLayout.includes('canonicalPath') || newsLayout.includes('canonicalLink(') || newsLayout.includes('head:')) failures.push('/news parent layout must remain canonical-neutral so story children cannot inherit a second canonical.');
 if (!newsLayout.includes('Outlet')) failures.push('/news parent route must render its exact index or story child through Outlet.');
 if (!newsStory.includes('fetchPublishedTexasDefinedNewsArticle') || !newsStory.includes('const canonicalPath = `/news/${params.slug}`') || !newsStory.includes('links: [canonicalLink(texasDefinedBrand, canonicalPath)]')) failures.push('Routed news stories must be feed-backed and own a self-canonical.');
+if (!newsStory.includes('robots: isArticleIndexReady(article) ? undefined : "noindex, follow, max-image-preview:large"')) failures.push('Routed news stories must apply the shared article-readiness robots boundary.');
 if (!newsIndex.includes('fetchPublishedTexasDefinedNewsArticles')) failures.push('/news listing must use the feed-backed news-only remote query.');
-if (!sitemap.includes('...(remoteNews.length ? [{ path: "/news" }] : [])')) failures.push('Primary sitemap must publish /news only when feed-backed remote news exists.');
-if (!sitemap.includes('...remoteNews.map((article) => ({ path: `/news/${article.slug}`')) failures.push('Primary sitemap must map feed-backed remote news to /news paths.');
-if (!sitemap.includes('...remoteEvergreen\n            .filter(isArticleIndexReady)\n            .map((article) => ({ path: `/article/${article.slug}`')) failures.push('Primary sitemap must gate published manual evergreen rows through article readiness before mapping /article paths.');
+if (!newsIndex.includes('.filter(isArticleIndexReady)')) failures.push('/news listing must exclude remote news below the shared article-readiness floor.');
+if (!sitemap.includes('const indexableRemoteNews = remoteNews.filter(isArticleIndexReady);')) failures.push('Primary sitemap must derive an indexable remote-news cohort through the shared readiness floor.');
+if (!sitemap.includes('...(indexableRemoteNews.length ? [{ path: "/news" }] : [])')) failures.push('Primary sitemap must publish /news only when index-ready remote news exists.');
+if (!sitemap.includes('...indexableRemoteNews.map((article) => ({ path: `/news/${article.slug}`')) failures.push('Primary sitemap must map only index-ready remote news to /news paths.');
+if (!sitemap.includes('const indexableRemoteEvergreen = remoteEvergreen.filter(isArticleIndexReady);')) failures.push('Primary sitemap must derive an indexable manual-evergreen cohort through the shared readiness floor.');
+if (!sitemap.includes('...indexableRemoteEvergreen.map((article) => ({ path: `/article/${article.slug}`')) failures.push('Primary sitemap must map only index-ready manual evergreen rows to /article paths.');
+if (!rss.includes('!isLegacyCountySeriesArticle(article.slug) && isArticleIndexReady(article)')) failures.push('RSS must exclude legacy or non-index-ready editorial articles.');
 for (const marker of [
   'if (kind === "evergreen") params.set("source_feed_id", "is.null")',
   'if (kind === "news") params.set("source_feed_id", "not.is.null")',
@@ -198,4 +204,4 @@ if (failures.length) {
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
-console.log('Indexation quality validation passed: conditional feed-backed news, routed-news canonical isolation, canonical manual evergreen routing, strict 600-word article readiness/noindex/sitemap/search gating, editorial desk alignment, Texas-only homepage scope, primary-source-backed special-district evergreen authority, two parsed migrated finance deep-content batches with primary-source authority and reciprocal tools, noindex utilities, redirects, generated-page quality gates, and sitemap ownership are aligned.');
+console.log('Indexation quality validation passed: conditional feed-backed news, routed-news canonical isolation, strict article/news/RSS/sitemap readiness gating, canonical manual evergreen routing, editorial desk alignment, Texas-only homepage scope, primary-source-backed special-district evergreen authority, two parsed migrated finance deep-content batches with primary-source authority and reciprocal tools, noindex utilities, redirects, generated-page quality gates, and sitemap ownership are aligned.');
