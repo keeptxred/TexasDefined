@@ -22,7 +22,7 @@ export function CountySeasonalPlanning({ countySlug, countyName }: { countySlug:
             {events.map((event) => <a key={event.slug} href={`/event/${event.slug}`} className="group border-t border-border pt-5">
               <strong className="block font-display text-2xl leading-tight group-hover:text-primary">{event.name}</strong>
               <span className="mt-2 block text-xs uppercase tracking-[0.1em] text-muted-foreground">{formatDateRange(event.startDate, event.endDate, 'en-US')} · {event.city}</span>
-              <span className="mt-3 block text-sm leading-6 text-muted-foreground">{event.summary}</span>
+              <span className="mt-3 block text-sm leading-6 text-muted-foreground">Verified dates and trip-planning guide →</span>
             </a>)}
           </div>
         </div> : null}
