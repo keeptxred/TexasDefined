@@ -102,6 +102,8 @@ for (const requirement of [
 }
 
 if (!hub.includes('Current Texas population snapshot')) failures.push('Moving hub must label the Vintage 2025 population brief as current.');
+if (!hub.includes('/texas-data/texas-population-and-migration-2024')) failures.push('Moving hub must retain a discoverable link to the revised historical 2024 brief.');
+if (!hub.includes('Revised 2024 population history')) failures.push('Moving hub must label the retained 2024 population brief as revised history.');
 if (!metro.includes('Current Texas population and migration snapshot')) failures.push('Metro guides must lead with the Vintage 2025 population brief.');
 if (!metro.includes('Revised Texas 2024 population history')) failures.push('Metro guides must label the retained 2024 brief as historical/revised.');
 if (!metro.includes('/texas-data/texas-population-and-migration-2024')) failures.push('Metro authority must retain a discoverable link to the revised historical 2024 brief.');
