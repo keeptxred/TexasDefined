@@ -30,6 +30,16 @@ export const TEXAS_MUSIC_TIMELINE: readonly TexasMusicTimelineEntry[] = [
     sourceLabel: "Handbook of Texas — Blues",
   },
   {
+    year: "1923",
+    title: "WBAP's barn dance shows how radio can build a music audience",
+    place: "Fort Worth",
+    summary:
+      "WBAP aired an early barn-dance program built around fiddle music and square-dance entertainment. The format spread quickly, and later WBAP broadcasts helped musicians including the Light Crust Doughboys build a large regional audience before records or touring alone could have done the same job.",
+    href: "/dallas-fort-worth-music-history",
+    sourceUrl: "https://www.tshaonline.org/handbook/entries/wbap",
+    sourceLabel: "Handbook of Texas — WBAP",
+  },
+  {
     year: "1930s",
     title: "Western swing becomes a Texas dance sound",
     place: "Fort Worth, Waco and Central Texas",
@@ -50,6 +60,16 @@ export const TEXAS_MUSIC_TIMELINE: readonly TexasMusicTimelineEntry[] = [
     sourceLabel: "Handbook of Texas — Eldorado Ballroom",
   },
   {
+    year: "1941",
+    title: "Gold Star begins recording Houston",
+    place: "Houston",
+    summary:
+      "Producer Bill Quinn established the recording operation that became Gold Star Studios and later SugarHill Recording Studios. The room documented Cajun music, blues, country, psychedelic rock, R&B and later generations of Houston artists, making recording infrastructure part of the city's musical continuity.",
+    href: "/houston-music-history",
+    sourceUrl: "https://www.tshaonline.org/handbook/entries/sugarhill-recording-studios",
+    sourceLabel: "Handbook of Texas — SugarHill Recording Studios",
+  },
+  {
     year: "1945",
     title: "Victory Grill opens on Austin's East Side",
     place: "Austin",
@@ -58,6 +78,26 @@ export const TEXAS_MUSIC_TIMELINE: readonly TexasMusicTimelineEntry[] = [
     href: "/austin-music-history",
     sourceUrl: "https://www.tshaonline.org/handbook/entries/victory-grill",
     sourceLabel: "Handbook of Texas — Victory Grill",
+  },
+  {
+    year: "1947",
+    title: "Gospel Train begins a half-century Austin radio run",
+    place: "Austin",
+    summary:
+      "Elmer Akins turned a short Sunday slot on KVET into a long-running gospel institution. The program and Akins's promotion work show how local broadcasting connected Black church music, live performers and Central Texas audiences across generations.",
+    href: "/texas-gospel-rnb-pop",
+    sourceUrl: "https://www.tshaonline.org/handbook/entries/akins-elmer",
+    sourceLabel: "Handbook of Texas — Elmer Akins",
+  },
+  {
+    year: "1949",
+    title: "Peacock Records builds a Houston music business",
+    place: "Houston",
+    summary:
+      "Don Robey founded Peacock Records and expanded it into the Duke-Peacock operation, creating a major Black-owned music enterprise around blues, R&B, gospel and soul. Its labels, booking relationships and studio connections show that Texas music history is also a history of ownership and distribution.",
+    href: "/texas-gospel-rnb-pop",
+    sourceUrl: "https://www.tshaonline.org/handbook/entries/duke-peacock-records",
+    sourceLabel: "Handbook of Texas — Duke-Peacock Records",
   },
   {
     year: "1950",
