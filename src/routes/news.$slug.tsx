@@ -1,14 +1,14 @@
 import { createFileRoute, notFound, redirect } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { fetchPublishedTexasDefinedArticle } from "@/data/articles-remote";
+import { fetchPublishedTexasDefinedNewsArticle } from "@/data/articles-remote";
 import { migratedEditorialSlugs } from "@/data/fixtures/lazy-migrated-editorial";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 export const Route = createFileRoute("/news/$slug")({
   beforeLoad: async ({ params }) => {
     if (migratedEditorialSlugs.includes(params.slug)) throw redirect({ href: `/article/${params.slug}`, statusCode: 301 });
-    const article = await fetchPublishedTexasDefinedArticle(params.slug);
+    const article = await fetchPublishedTexasDefinedNewsArticle(params.slug);
     if (!article) throw notFound();
     return { liveArticle: article };
   },

@@ -3,7 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { platform, scope } from "@/data";
 import { getTexasCountyHousingCosts } from "@/data/acs-county-housing-costs.functions";
-import { fetchPublishedTexasDefinedArticles } from "@/data/articles-remote";
+import { fetchPublishedTexasDefinedEvergreenArticles, fetchPublishedTexasDefinedNewsArticles } from "@/data/articles-remote";
 import { loadTexasCountyGrowth } from "@/data/census-county-growth";
 import { isLegacyCountySeriesArticle } from "@/data/county-series";
 import { isTexasGatewayIndexReadyArticle } from "@/data/fixtures/texas-gateway-index-readiness";
@@ -52,7 +52,8 @@ export const Route = createFileRoute("/sitemap.xml")({
           platform.collections.list(scope),
           platform.taxonomy.authors(scope),
           loadTexasKnowledgeGraph(),
-          fetchPublishedTexasDefinedArticles({ limit: 200 }),
+          fetchPublishedTexasDefinedNewsArticles({ limit: 200 }),
+          fetchPublishedTexasDefinedEvergreenArticles({ limit: 200 }),
           getTexasCountyHousingCosts(),
           loadFishingGuideSitemapEntriesServer(),
           loadFishingReportSitemapEntriesServer(),
@@ -76,7 +77,8 @@ export const Route = createFileRoute("/sitemap.xml")({
           collectionsResult,
           authorsResult,
           graphResult,
-          remoteArticlesResult,
+          remoteNewsResult,
+          remoteEvergreenResult,
           countyHousingResult,
           fishingGuideSitemapResult,
           fishingReportSitemapResult,
@@ -86,7 +88,8 @@ export const Route = createFileRoute("/sitemap.xml")({
         const collections = collectionsResult.status === "fulfilled" ? collectionsResult.value : [];
         const authors = authorsResult.status === "fulfilled" ? authorsResult.value : [];
         const graph = graphResult.status === "fulfilled" ? graphResult.value : [];
-        const remoteArticles = remoteArticlesResult.status === "fulfilled" ? remoteArticlesResult.value : [];
+        const remoteNews = remoteNewsResult.status === "fulfilled" ? remoteNewsResult.value : [];
+        const remoteEvergreen = remoteEvergreenResult.status === "fulfilled" ? remoteEvergreenResult.value : [];
         const countyHousingCosts = countyHousingResult.status === "fulfilled" ? countyHousingResult.value : null;
         const fishingGuideSitemapEntries = fishingGuideSitemapResult.status === "fulfilled" ? fishingGuideSitemapResult.value : [];
         const fishingReportSitemapEntries = fishingReportSitemapResult.status === "fulfilled" ? fishingReportSitemapResult.value : [];
@@ -108,8 +111,9 @@ export const Route = createFileRoute("/sitemap.xml")({
           ...fishingGuideSitemapEntries,
           ...fishingReportSitemapEntries,
           ...fishingLocalSitemapEntries,
-          ...(articles.length ? [{ path: "/news" }] : []),
-          ...remoteArticles.map((article) => ({ path: `/news/${article.slug}`, lastmod: toDate(article.publishedAt) })),
+          ...(remoteNews.length ? [{ path: "/news" }] : []),
+          ...remoteNews.map((article) => ({ path: `/news/${article.slug}`, lastmod: toDate(article.publishedAt) })),
+          ...remoteEvergreen.map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(article.publishedAt) })),
           ...(countyGrowth.available ? [{ path: "/texas-data/county-growth", lastmod: "2026-03-17" }] : []),
           ...(countyHousingCosts?.available
             ? [{ path: "/texas-data/county-housing-costs", lastmod: toDate(countyHousingCosts.generatedAt ?? undefined) }]

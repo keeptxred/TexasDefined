@@ -12,6 +12,7 @@ const publisher = read('scripts/news/texasdefined-auto-publisher.mjs');
 const migration = read('supabase/migrations/20260813143000_harden_texasdefined_auto_publication.sql');
 const env = read('.env');
 const sitemap = read('src/routes/sitemap[.]xml.ts');
+const remoteArticles = read('src/data/articles-remote.ts');
 const route = readRouteSurface('src/routes/news.$slug.tsx');
 const errors = [];
 
@@ -27,7 +28,22 @@ for (const token of ['--publish', 'TEXASDEFINED_AUTO_PUBLISH_ENABLED', 'TEXASDEF
 }
 if (env.includes('qhwwmdszjgkscqxgmenf')) errors.push('Retired TexasDefined Supabase project remains in .env.');
 if (!env.includes('ftkznprjljkhymknvhye')) errors.push('Active shared Supabase project is absent from .env.');
-if (!sitemap.includes('fetchPublishedTexasDefinedArticles({ limit: 200 })') || !sitemap.includes('`/news/${article.slug}`')) errors.push('Published TexasDefined articles are missing from the sitemap.');
+
+for (const token of [
+  'fetchPublishedTexasDefinedNewsArticles({ limit: 200 })',
+  '...remoteNews.map((article) => ({ path: `/news/${article.slug}`',
+  'fetchPublishedTexasDefinedEvergreenArticles({ limit: 200 })',
+  '...remoteEvergreen.map((article) => ({ path: `/article/${article.slug}`',
+]) {
+  if (!sitemap.includes(token)) errors.push(`Published TexasDefined sitemap routing contract is missing ${token}`);
+}
+for (const token of [
+  'if (kind === "evergreen") params.set("source_feed_id", "is.null")',
+  'if (kind === "news") params.set("source_feed_id", "not.is.null")',
+]) {
+  if (!remoteArticles.includes(token)) errors.push(`Published TexasDefined source classification contract is missing ${token}`);
+}
+if (!route.includes('fetchPublishedTexasDefinedNewsArticle')) errors.push('Live /news article route must resolve only feed-backed published stories.');
 for (const token of ['article.hero.credit', 'article.sourceUrl', 'article.relatedDestinations']) if (!route.includes(token)) errors.push(`Live article route is missing ${token}`);
 
 if (errors.length) {
@@ -35,4 +51,4 @@ if (errors.length) {
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
-console.log('TexasDefined auto-publication is guarded, source-gated, image-gated, and disabled by default.');
+console.log('TexasDefined auto-publication is guarded, source-gated, image-gated, disabled by default, and isolated to feed-backed /news routes while manual evergreen content remains on canonical /article routes.');

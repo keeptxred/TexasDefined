@@ -7,6 +7,7 @@ const newsLayout = fs.readFileSync('src/routes/news.tsx', 'utf8');
 const newsIndex = fs.readFileSync('src/routes/news.index.tsx', 'utf8');
 const newsStory = fs.readFileSync('src/routes/news.$slug.tsx', 'utf8');
 const articleRoute = fs.readFileSync('src/routes/article.$slug.tsx', 'utf8');
+const remoteArticles = fs.readFileSync('src/data/articles-remote.ts', 'utf8');
 const gatewayReadiness = fs.readFileSync('src/data/fixtures/texas-gateway-index-readiness.ts', 'utf8');
 const lazyEvergreen = fs.readFileSync('src/data/fixtures/lazy-evergreen.ts', 'utf8');
 const specialDistricts = fs.readFileSync('src/data/fixtures/muds-pids-hoas-special-districts.ts', 'utf8');
@@ -29,8 +30,19 @@ if (!newsIndex.includes('robots: hasStories ? undefined : "noindex, follow"')) f
 if (!newsIndex.includes('canonicalPath: "/news"') || !newsIndex.includes('canonicalLink(texasDefinedBrand, "/news")')) failures.push('/news exact index route must own the /news canonical.');
 if (newsLayout.includes('canonicalPath') || newsLayout.includes('canonicalLink(') || newsLayout.includes('head:')) failures.push('/news parent layout must remain canonical-neutral so story children cannot inherit a second canonical.');
 if (!newsLayout.includes('Outlet')) failures.push('/news parent route must render its exact index or story child through Outlet.');
-if (!newsStory.includes('const canonicalPath = `/news/${params.slug}`') || !newsStory.includes('links: [canonicalLink(texasDefinedBrand, canonicalPath)]')) failures.push('Routed news stories must own a self-canonical.');
-if (!sitemap.includes('...(articles.length ? [{ path: "/news" }] : [])')) failures.push('Primary sitemap must publish /news only when live articles exist.');
+if (!newsStory.includes('fetchPublishedTexasDefinedNewsArticle') || !newsStory.includes('const canonicalPath = `/news/${params.slug}`') || !newsStory.includes('links: [canonicalLink(texasDefinedBrand, canonicalPath)]')) failures.push('Routed news stories must be feed-backed and own a self-canonical.');
+if (!newsIndex.includes('fetchPublishedTexasDefinedNewsArticles')) failures.push('/news listing must use the feed-backed news-only remote query.');
+if (!sitemap.includes('...(remoteNews.length ? [{ path: "/news" }] : [])')) failures.push('Primary sitemap must publish /news only when feed-backed remote news exists.');
+if (!sitemap.includes('...remoteNews.map((article) => ({ path: `/news/${article.slug}`')) failures.push('Primary sitemap must map feed-backed remote news to /news paths.');
+if (!sitemap.includes('...remoteEvergreen.map((article) => ({ path: `/article/${article.slug}`')) failures.push('Primary sitemap must map published manual evergreen rows to /article paths.');
+for (const marker of [
+  'if (kind === "evergreen") params.set("source_feed_id", "is.null")',
+  'if (kind === "news") params.set("source_feed_id", "not.is.null")',
+  'fetchPublishedTexasDefinedEvergreenArticle',
+  'fetchPublishedTexasDefinedNewsArticle',
+]) {
+  if (!remoteArticles.includes(marker)) failures.push(`Remote article routing contract missing: ${marker}`);
+}
 
 for (const path of ['/search', '/explore/search', '/shop/cart', '/shop/checkout-return']) {
   if (!nonIndexable.includes(`"${path}"`)) failures.push(`${path} must remain explicitly non-indexable.`);
@@ -159,4 +171,4 @@ if (failures.length) {
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
-console.log('Indexation quality validation passed: conditional hubs, routed-news canonical isolation, normal evergreen article canonicals/indexability, explicit staged-gateway noindex/sitemap gating, primary-source-backed special-district evergreen authority, two parsed migrated finance deep-content batches with primary-source authority and reciprocal tools, noindex utilities, redirects, generated-page quality gates, and sitemap ownership are aligned.');
+console.log('Indexation quality validation passed: conditional feed-backed news, routed-news canonical isolation, canonical manual evergreen routing, normal evergreen article canonicals/indexability, explicit staged-gateway noindex/sitemap gating, primary-source-backed special-district evergreen authority, two parsed migrated finance deep-content batches with primary-source authority and reciprocal tools, noindex utilities, redirects, generated-page quality gates, and sitemap ownership are aligned.');
