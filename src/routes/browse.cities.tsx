@@ -5,7 +5,7 @@ import { TEXAS_CITIES } from "@/data/texas-places";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const description =
-  "Browse Texas cities and towns by county and region, then continue to moving, cost-of-living, salary and county-reference tools while city detail records are independently source-verified.";
+  "Browse Texas cities and towns by county and region, compare source-backed relocation context for cities and suburbs, then verify exact-address details with official school, tax, utility, flood, insurance and transportation sources.";
 const cityAnchor = (slug: string) => `city-${slug}`;
 
 export const Route = createFileRoute("/browse/cities")({
@@ -33,6 +33,11 @@ export const Route = createFileRoute("/browse/cities")({
               publisher: { "@id": `${siteUrl}#organization` },
               mainEntity: { "@id": `${pageUrl}#cities` },
               breadcrumb: { "@id": `${pageUrl}#breadcrumb` },
+              about: [
+                { "@type": "Thing", name: "Moving to Texas" },
+                { "@type": "Thing", name: "Texas cities and suburbs" },
+                { "@type": "Thing", name: "Texas relocation research" },
+              ],
             },
             {
               "@type": "ItemList",

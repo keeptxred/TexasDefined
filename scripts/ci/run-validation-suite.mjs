@@ -36,6 +36,7 @@ const checks = [
   ['texas-culture-citation-index', 'SOURCE/QUALITY', 'Validate Texas culture citation index and human guidance', 'node', ['scripts/data/validate-texas-culture-citation-index.mjs']],
   ['texas-weather-authority', 'CONTENT/AUTHORITY', 'Validate Texas weather authority', 'node', ['scripts/data/validate-texas-weather-authority.mjs']],
   ['relocation-insurance-authority', 'CONTENT/AUTHORITY', 'Validate TDI relocation insurance authority', 'node', ['scripts/data/validate-relocation-insurance-authority.mjs']],
+  ['relocation-city-comparison', 'CONTENT/AUTHORITY', 'Validate Texas city relocation comparison authority', 'node', ['scripts/data/validate-relocation-city-comparison.mjs']],
   ['top-attraction-authority', 'CONTENT/AUTHORITY', 'Validate Top 25 attraction authority', 'node', ['scripts/data/validate-top-attraction-authority.mjs']],
   ['top-attraction-review-freshness', 'CONTENT/FRESHNESS', 'Validate Top 25 review freshness', 'node', ['scripts/data/validate-top-attraction-review-freshness.mjs']],
   ['article-discover-seo', 'SEO/DISCOVERY', 'Validate article discovery SEO', 'node', ['scripts/data/validate-article-discover-seo.mjs']],
@@ -77,7 +78,7 @@ const predeployIds = new Set([
   'texas-food-history', 'texas-culture-citation-index', 'texas-flag-authority', 'painted-churches-seo',
   'painted-church-search-intents', 'painted-church-map', 'painted-church-completion', 'military-history-expansion',
   'texas-talent-launch-contract', 'texas-talent-source-provenance', 'texas-talent-music-authority',
-  'relocation-insurance-authority',
+  'relocation-insurance-authority', 'relocation-city-comparison',
 ]);
 
 const fullExcludedIds = new Set(['texas-flag-authority', 'painted-churches-seo', 'painted-church-map', 'painted-church-completion']);
