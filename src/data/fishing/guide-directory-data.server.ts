@@ -10,7 +10,7 @@ const description = "Browse Texas fishing guides only after their listings and s
 function buildFishingGuideDirectoryHead(guides: Array<{ guide: { businessName: string }; href: string }>) {
   const origin = `https://${texasDefinedBrand.identity.domain}`;
   return {
-    meta: buildMeta(texasDefinedBrand, { title: "Texas Fishing Guide Directory — Verified Guides", description, canonicalPath: FISHING_GUIDES_DIRECTORY_PATH }),
+    meta: buildMeta(texasDefinedBrand, { title: "Texas Fishing Guide Directory — Verified Guides", description, canonicalPath: FISHING_GUIDES_DIRECTORY_PATH, robots: guides.length ? undefined : "noindex, follow" }),
     links: [canonicalLink(texasDefinedBrand, FISHING_GUIDES_DIRECTORY_PATH)],
     scripts: [{ type: "application/ld+json", children: JSON.stringify([
       { "@context": "https://schema.org", "@type": "CollectionPage", name: "Texas Fishing Guide Directory", description, url: `${origin}${FISHING_GUIDES_DIRECTORY_PATH}`, dateModified: FISHING_GUIDES_VERIFIED_AT },
