@@ -64,6 +64,9 @@ const SUPPLEMENTAL_MAJOR_EVENT_SITEMAP: readonly SitemapEntry[] = [
   { path: "/event/galveston-juneteenth-celebrations", lastmod: "2026-08-27" },
   { path: "/event/larry-joe-taylor-texas-music-festival", lastmod: "2026-08-27" },
   { path: "/event/san-antonio-marathon", lastmod: "2026-08-27" },
+  { path: "/event/rockport-art-festival", lastmod: "2026-08-27" },
+  { path: "/event/viva-el-paso", lastmod: "2026-08-27" },
+  { path: "/event/texas-shakespeare-festival", lastmod: "2026-08-27" },
 ];
 
 export const Route = createFileRoute("/sitemap.xml")({
