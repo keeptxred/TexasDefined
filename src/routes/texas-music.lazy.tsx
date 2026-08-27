@@ -6,6 +6,7 @@ import {
   TEXAS_MUSIC_DESCRIPTION,
   TEXAS_MUSIC_PRIMARY_SOURCES,
   TEXAS_MUSIC_RELATED_GUIDES,
+  TEXAS_MUSIC_TIMELINE,
   TEXAS_MUSIC_TRADITIONS,
 } from "@/data/texas-music";
 import { getTexasTalentByCategory } from "@/data/texas-talent";
@@ -34,9 +35,14 @@ function TexasMusicPage() {
               <p className="mt-3 font-display text-2xl font-semibold leading-tight text-foreground sm:text-3xl">
                 Texas music is a story of cultures meeting, borrowing, adapting and making something new.
               </p>
-              <a href="#traditions" className="mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-primary">
-                Explore the traditions <ArrowRight className="size-4" aria-hidden />
-              </a>
+              <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3">
+                <a href="#traditions" className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-primary">
+                  Explore the traditions <ArrowRight className="size-4" aria-hidden />
+                </a>
+                <a href="#timeline" className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-primary">
+                  Follow the timeline <ArrowRight className="size-4" aria-hidden />
+                </a>
+              </div>
             </div>
           </div>
         </Container>
@@ -76,6 +82,48 @@ function TexasMusicPage() {
                 </div>
               </article>
             ))}
+          </div>
+        </Container>
+      </section>
+
+      <section id="timeline" className="scroll-mt-32 border-b border-border bg-surface">
+        <Container className="py-14 sm:py-20">
+          <div className="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-16">
+            <div className="lg:sticky lg:top-28 lg:self-start">
+              <p className="eyebrow text-primary">Texas Music Timeline</p>
+              <h2 className="mt-3 font-display text-4xl font-semibold leading-tight sm:text-5xl">From community roots to global stages</h2>
+              <p className="mt-5 text-base leading-7 text-muted-foreground">
+                Music history does not change cleanly at the edge of a decade. This chronology uses eras as guideposts, then links each period to the deeper genre, city and venue histories where the overlap becomes clearer.
+              </p>
+              <p className="mt-4 text-sm leading-6 text-muted-foreground">
+                The timeline is grounded in the same Texas State Historical Association and Texas State University sources used across this authority hub. It emphasizes documented movements and institutions rather than trying to name every important performer.
+              </p>
+            </div>
+
+            <ol className="border-t border-border">
+              {TEXAS_MUSIC_TIMELINE.map((era, index) => (
+                <li id={`timeline-${era.id}`} key={era.id} className="grid gap-5 border-b border-border py-8 sm:grid-cols-[7rem_minmax(0,1fr)] sm:gap-8">
+                  <div>
+                    <p className="eyebrow text-primary">{String(index + 1).padStart(2, "0")}</p>
+                    <p className="mt-2 text-sm font-semibold text-foreground">{era.period}</p>
+                  </div>
+                  <div>
+                    <h3 className="font-display text-3xl font-semibold leading-tight text-foreground">{era.title}</h3>
+                    <p className="mt-4 text-base leading-7 text-muted-foreground">{era.summary}</p>
+                    <ul className="mt-5 grid gap-3 border-l border-primary/40 pl-5 text-sm leading-7 text-muted-foreground">
+                      {era.milestones.map((milestone) => <li key={milestone}>{milestone}</li>)}
+                    </ul>
+                    <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2">
+                      {era.links.map((link) => (
+                        <a key={link.href} href={link.href} className="inline-flex items-center gap-2 border-b border-primary text-sm font-semibold text-primary">
+                          {link.label} <ArrowRight className="size-3.5" aria-hidden />
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ol>
           </div>
         </Container>
       </section>
