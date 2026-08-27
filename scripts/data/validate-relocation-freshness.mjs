@@ -96,9 +96,16 @@ for (const requirement of [
   'The current statewide population brief uses Census Vintage 2025.',
   'The retained 2024 brief is restated on that same vintage',
   'historical comparisons do not mix superseded Census series',
-  'RELOCATION_SOURCES.censusPopulation',
 ]) {
   if (!dataCenter.includes(requirement)) failures.push(`Relocation Data Center current-vintage safeguard missing: ${requirement}`);
+}
+
+const dataCenterPopulationSourceReference = [
+  'RELOCATION_SOURCES.censusPopulation',
+  'relocationSources.censusPopulation',
+].some((reference) => dataCenter.includes(reference));
+if (!dataCenterPopulationSourceReference) {
+  failures.push('Relocation Data Center current-vintage safeguard missing: Census population source reference');
 }
 
 if (!hub.includes('Current Texas population snapshot')) failures.push('Moving hub must label the Vintage 2025 population brief as current.');
