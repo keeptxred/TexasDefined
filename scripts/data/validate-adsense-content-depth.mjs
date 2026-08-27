@@ -8,6 +8,8 @@ const financeDepth3 = read('src/data/fixtures/finance-evergreen-depth-3.ts');
 const helocDepth = read('src/data/fixtures/finance-heloc-depth.ts');
 const fixtureRepositories = read('src/data/fixtures/repositories.ts');
 const queries = read('src/data/queries.ts');
+const evergreenSource = read('src/data/evergreen-source.ts');
+const evergreenSourceServer = read('src/data/evergreen-source.server.ts');
 
 const depth3Slugs = [
   'renting-vs-buying-in-texas',
@@ -78,15 +80,15 @@ if (migratedIndex < 0 || genericFallbackIndex < 0 || migratedIndex > genericFall
 
 const localLoadMarker = 'const localArticle = await platform.articles.getBySlug(scope, slug);';
 const localSourceFastPathMarker = 'if (localArticle.sourceName && localArticle.sourceUrl) return prepareArticleForDelivery(localArticle);';
-const remoteSourceLoadMarker = 'const remoteSourceArticle = await fetchPublishedTexasDefinedEvergreenArticle(slug);';
-const sourceHydrationMarker = 'sourceName: localArticle.sourceName ?? remoteSourceArticle.sourceName,';
-const sourceUrlHydrationMarker = 'sourceUrl: localArticle.sourceUrl ?? remoteSourceArticle.sourceUrl,';
+const serverSourceLoadMarker = 'const remoteSource = await loadEvergreenSource(slug);';
+const sourceHydrationMarker = 'sourceName: localArticle.sourceName ?? remoteSource.sourceName,';
+const sourceUrlHydrationMarker = 'sourceUrl: localArticle.sourceUrl ?? remoteSource.sourceUrl,';
 const hydratedReturnMarker = 'return prepareArticleForDelivery(sourceHydratedLocalArticle);';
 const remoteFallbackLoadMarker = 'const remoteArticle = await fetchPublishedTexasDefinedEvergreenArticle(slug);';
 for (const feature of [
   localLoadMarker,
   localSourceFastPathMarker,
-  remoteSourceLoadMarker,
+  serverSourceLoadMarker,
   sourceHydrationMarker,
   sourceUrlHydrationMarker,
   hydratedReturnMarker,
@@ -95,21 +97,39 @@ for (const feature of [
 
 const localIndex = queries.indexOf(localLoadMarker);
 const localSourceFastPathIndex = queries.indexOf(localSourceFastPathMarker);
-const remoteSourceLoadIndex = queries.indexOf(remoteSourceLoadMarker);
+const serverSourceLoadIndex = queries.indexOf(serverSourceLoadMarker);
 const hydratedReturnIndex = queries.indexOf(hydratedReturnMarker);
 const remoteFallbackIndex = queries.indexOf(remoteFallbackLoadMarker);
 if (
   localIndex < 0
   || localSourceFastPathIndex < 0
-  || remoteSourceLoadIndex < 0
+  || serverSourceLoadIndex < 0
   || hydratedReturnIndex < 0
   || remoteFallbackIndex < 0
   || localIndex > localSourceFastPathIndex
-  || localSourceFastPathIndex > remoteSourceLoadIndex
-  || remoteSourceLoadIndex > hydratedReturnIndex
+  || localSourceFastPathIndex > serverSourceLoadIndex
+  || serverSourceLoadIndex > hydratedReturnIndex
   || hydratedReturnIndex > remoteFallbackIndex
 ) {
-  errors.push('Local enriched editorial detail must resolve first, preserve explicit sources, hydrate only missing source fields from the published remote row, and fall back to the remote article only when no local detail exists.');
+  errors.push('Local enriched editorial detail must resolve first, preserve explicit sources, hydrate only missing source fields through the server boundary, and fall back to the remote article only when no local detail exists.');
+}
+
+for (const marker of [
+  'createServerFn({ method: "GET" })',
+  'await import("./evergreen-source.server")',
+  'return loadEvergreenSourceServer(data.slug);',
+]) if (!evergreenSource.includes(marker)) errors.push(`Evergreen source server-function boundary missing: ${marker}`);
+
+for (const marker of [
+  'await import("@/integrations/supabase/client.server")',
+  '.from("texasdefined_articles")',
+  '.select("source_name,source_url")',
+  '.eq("status", "published")',
+  '.is("source_feed_id", null)',
+]) if (!evergreenSourceServer.includes(marker)) errors.push(`Evergreen source server lookup missing: ${marker}`);
+
+if (/VITE_(?:TEXASDEFINED_)?SUPABASE/.test(evergreenSource) || /VITE_(?:TEXASDEFINED_)?SUPABASE/.test(evergreenSourceServer)) {
+  errors.push('Evergreen source hydration must not depend on client-visible VITE Supabase configuration.');
 }
 
 if (errors.length) {
@@ -118,4 +138,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('AdSense content-depth validation passed: four later finance depth overrides, the Texas HELOC authority override, 10+ minute catalog expectations, local-first detail-loader precedence, and DB-first source hydration are protected.');
+console.log('AdSense content-depth validation passed: four later finance depth overrides, the Texas HELOC authority override, 10+ minute catalog expectations, local-first detail-loader precedence, and server-only DB source hydration are protected.');

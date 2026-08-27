@@ -2,6 +2,7 @@ import { queryOptions } from "@tanstack/react-query";
 
 import { prepareArticleForDelivery, prepareDestinationForDelivery } from "@/lib/editorial-image-delivery";
 import { fetchPublishedTexasDefinedEvergreenArticle } from "./articles-remote";
+import { loadEvergreenSource } from "./evergreen-source";
 import { fetchPublishedTexasEvents } from "./events-remote";
 import { supplementalExploreCategories } from "./explore-categories";
 import { guideIsAvailable } from "./guide-links";
@@ -20,12 +21,12 @@ export const articleQuery = (slug: Slug) => queryOptions({
     const localArticle = await platform.articles.getBySlug(scope, slug);
     if (localArticle) {
       if (localArticle.sourceName && localArticle.sourceUrl) return prepareArticleForDelivery(localArticle);
-      const remoteSourceArticle = await fetchPublishedTexasDefinedEvergreenArticle(slug);
-      const sourceHydratedLocalArticle = remoteSourceArticle
+      const remoteSource = await loadEvergreenSource(slug);
+      const sourceHydratedLocalArticle = remoteSource
         ? {
             ...localArticle,
-            sourceName: localArticle.sourceName ?? remoteSourceArticle.sourceName,
-            sourceUrl: localArticle.sourceUrl ?? remoteSourceArticle.sourceUrl,
+            sourceName: localArticle.sourceName ?? remoteSource.sourceName,
+            sourceUrl: localArticle.sourceUrl ?? remoteSource.sourceUrl,
           }
         : localArticle;
       return prepareArticleForDelivery(sourceHydratedLocalArticle);
