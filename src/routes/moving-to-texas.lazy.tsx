@@ -6,7 +6,6 @@ import { CitationTrustPanel } from "@/components/authority/CitationTrustPanel";
 import { TexasCountyComparisonTable } from "@/components/counties/TexasCountyComparisonTable";
 import { CategoryPage } from "@/components/editorial/CategoryPage";
 import { Container } from "@/components/layout/Container";
-import { populationRankedCounties } from "@/data/county-comparison";
 
 const RelocationAuthorityLab = lazy(() => import("@/components/relocation/RelocationAuthorityLab").then((module) => ({ default: module.RelocationAuthorityLab })));
 const description = "A clear-eyed guide to choosing a Texas city or county, understanding the cost and property context, finding a home and settling into everyday life in a very large state.";
@@ -24,7 +23,11 @@ export const Route = createLazyFileRoute("/moving-to-texas")({ component: Moving
 
 function MovingToTexasPage() {
   const { counties } = Route.useLoaderData();
-  const largestCounties = populationRankedCounties(counties, 20);
+  const largestCounties = counties
+    .filter((county) => county.population2020 != null)
+    .slice()
+    .sort((a, b) => Number(b.population2020) - Number(a.population2020) || a.name.localeCompare(b.name))
+    .slice(0, 20);
   return <>
     <CategoryPage category="moving-to-texas" eyebrow="The relocation guide" title="What to know before you move to Texas" intro={description} image={{ src: roadTrip, alt: imageAlt, width: 1600, height: 1067 }} />
     <Suspense fallback={null}><RelocationAuthorityLab /></Suspense>
