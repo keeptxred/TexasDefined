@@ -81,13 +81,15 @@ for (const requirement of [
   if (!sources.includes(requirement)) failures.push(`Relocation source freshness contract missing: ${requirement}`);
 }
 
-for (const surface of [hub, dataCenter, metro]) {
+for (const surface of [hub, metro]) {
   if (!surface.includes('/texas-data/texas-population-and-migration-2025')) {
-    failures.push('Every current relocation authority surface must link to the Vintage 2025 population brief.');
+    failures.push('Current relocation hub and metro authority surfaces must link directly to the Vintage 2025 population brief.');
   }
 }
 
 for (const requirement of [
+  "'texas-population-and-migration-2025'",
+  'to="/texas-data/$datasetSlug"',
   "['Texas population', 'texas-population-and-migration-2025', 'Texas population — July 1, 2025']",
   "['Net domestic migration', 'texas-population-and-migration-2025', 'Net domestic migration']",
   'The current statewide population brief uses Census Vintage 2025.',
