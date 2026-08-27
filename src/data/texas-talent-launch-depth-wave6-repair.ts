@@ -1,16 +1,42 @@
-import type { TexasTalentProfile } from "@/data/texas-talent";
-
-type TexasTalentDepthOverride = Partial<TexasTalentProfile>;
+type TexasTalentDepthSupplement = {
+  readonly overviewAppend: readonly string[];
+  readonly lastReviewedAt: string;
+};
 
 const reviewed = "2026-08-27";
 
-/** Narrow content-depth repair discovered by the wave-6 validator. */
-export const TEXAS_TALENT_LAUNCH_DEPTH_WAVE6_REPAIR: Readonly<Record<string, TexasTalentDepthOverride>> = {
+/**
+ * Narrow supplemental depth discovered by the wave-6 validator. These
+ * paragraphs append to, rather than replace, the reviewed profile narratives.
+ */
+export const TEXAS_TALENT_LAUNCH_DEPTH_WAVE6_REPAIR: Readonly<Record<string, TexasTalentDepthSupplement>> = {
   "robert-rodriguez": {
-    overview: [
-      "Robert Rodriguez was born in San Antonio in 1968 and developed his filmmaking ambitions in Texas before studying at the University of Texas at Austin. His early career is especially useful for Texas Defined because it links South Texas upbringing with a Central Texas film-education and production ecosystem. Rodriguez learned to work with limited resources, treating constraints as a reason to control more of the process rather than wait for a conventional industry invitation. That approach culminated in El Mariachi, the ultra-low-budget feature that became a Sundance success and turned a Texas film student into a widely discussed model of independent production.",
-      "Rodriguez expanded that breakthrough into a career that moved between action, horror, family entertainment and stylized comic-book filmmaking. Desperado and From Dusk Till Dawn established his kinetic genre style, while Spy Kids demonstrated that the same production independence could support a major family franchise. Sin City pushed digital compositing and highly controlled visual design to the center of the process. Across those projects, Rodriguez often worked as writer, director, editor, camera operator, composer or producer, reinforcing the do-it-yourself identity that had begun with El Mariachi rather than surrendering control as budgets increased.",
-      "The Texas connection became even more substantial when Rodriguez built long-term production infrastructure in Austin through Troublemaker Studios. That decision means his profile is not simply about a filmmaker who happened to be born in San Antonio. It connects Texas education, entrepreneurship and the state's modern film-production economy. San Antonio explains the personal origin; UT Austin explains the transition into serious filmmaking; and Austin explains the studio base from which international productions could be made without relocating the entire creative operation to California. Few Texas Talent film profiles offer such a direct biography-to-industry connection inside the state. His Austin production base also gives readers a concrete example of Texas serving as creative infrastructure, not merely as scenery for films made elsewhere.",
+    overviewAppend: [
+      "That Austin production base also makes Rodriguez useful to the wider Texas Defined knowledge graph: his story links San Antonio origins, UT Austin training and a durable Central Texas studio economy rather than treating Texas merely as scenery for work controlled elsewhere.",
+    ],
+    lastReviewedAt: reviewed,
+  },
+  "eva-longoria": {
+    overviewAppend: [
+      "Her South Texas route also gives the profile a concrete institutional spine: Corpus Christi, Texas A&M University-Kingsville and the surrounding Gulf Coast communities show how family background, higher education and later media leadership can remain part of one coherent Texas story.",
+    ],
+    lastReviewedAt: reviewed,
+  },
+  "renee-zellweger": {
+    overviewAppend: [
+      "The Katy-to-Austin progression also gives readers two distinct Texas settings to follow, connecting a Houston-area upbringing with UT Austin and the state's early professional film network before her career moved onto a national and international stage.",
+    ],
+    lastReviewedAt: reviewed,
+  },
+  "ethan-hawke": {
+    overviewAppend: [
+      "That recurring Austin connection is especially valuable editorially because it separates birthplace from creative relationship: the profile can document a limited early Texas tie while also showing a later, independently meaningful return through sustained filmmaking collaborations.",
+    ],
+    lastReviewedAt: reviewed,
+  },
+  "dennis-quaid": {
+    overviewAppend: [
+      "Houston therefore functions as both origin and training ground in the profile, giving Texas Defined a stronger institutional connection through the University of Houston than a simple birthplace fact would provide on its own.",
     ],
     lastReviewedAt: reviewed,
   },
