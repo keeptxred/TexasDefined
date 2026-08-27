@@ -2,24 +2,31 @@ import { queryOptions } from "@tanstack/react-query";
 
 import { prepareArticleForDelivery, prepareDestinationForDelivery } from "@/lib/editorial-image-delivery";
 import { fetchPublishedTexasDefinedEvergreenArticle } from "./articles-remote";
+import { normalizeArticleEditorialDesk } from "./editorial-desk-routing";
 import { fetchPublishedTexasEvents } from "./events-remote";
 import { supplementalExploreCategories } from "./explore-categories";
+import { isArticleIndexReady } from "./fixtures/texas-gateway-index-readiness";
 import { guideIsAvailable } from "./guide-links";
 import { platform, scope } from "./index";
 import type { ArticleQuery, DestinationQuery } from "./repositories";
 import { fetchAssignedShopProducts } from "./shop-products-remote";
-import type { Destination, SearchDocument, Slug } from "./types";
+import type { Article, Destination, SearchDocument, Slug } from "./types";
+
+const prepareEditorialArticle = (article: Article): Article =>
+  normalizeArticleEditorialDesk(prepareArticleForDelivery(article));
 
 export const articlesQuery = (params: Omit<ArticleQuery, "brandId"> = {}) => queryOptions({
   queryKey: ["articles", scope.brandId, params],
-  queryFn: async () => (await platform.articles.list({ ...scope, ...params })).map(prepareArticleForDelivery),
+  queryFn: async () => (await platform.articles.list({ ...scope, ...params }))
+    .map(prepareEditorialArticle)
+    .filter(isArticleIndexReady),
 });
 export const articleQuery = (slug: Slug) => queryOptions({
   queryKey: ["article", scope.brandId, slug],
   queryFn: async () => {
     const localArticle = await platform.articles.getBySlug(scope, slug);
     if (localArticle) {
-      if (localArticle.sourceName && localArticle.sourceUrl) return prepareArticleForDelivery(localArticle);
+      if (localArticle.sourceName && localArticle.sourceUrl) return prepareEditorialArticle(localArticle);
       const remoteSourceArticle = await fetchPublishedTexasDefinedEvergreenArticle(slug);
       const sourceHydratedLocalArticle = remoteSourceArticle
         ? {
@@ -28,10 +35,10 @@ export const articleQuery = (slug: Slug) => queryOptions({
             sourceUrl: localArticle.sourceUrl ?? remoteSourceArticle.sourceUrl,
           }
         : localArticle;
-      return prepareArticleForDelivery(sourceHydratedLocalArticle);
+      return prepareEditorialArticle(sourceHydratedLocalArticle);
     }
     const remoteArticle = await fetchPublishedTexasDefinedEvergreenArticle(slug);
-    return remoteArticle ? prepareArticleForDelivery(remoteArticle) : null;
+    return remoteArticle ? prepareEditorialArticle(remoteArticle) : null;
   },
 });
 
@@ -91,7 +98,19 @@ const staticSearchDocuments: SearchDocument[] = [
 export const searchDocumentsQuery = () => queryOptions({
   queryKey: ["search-documents", scope.brandId],
   queryFn: async () => {
-    const base = await platform.search.documents(scope);
+    const [rawBase, articleCatalog] = await Promise.all([
+      platform.search.documents(scope),
+      platform.articles.list(scope),
+    ]);
+    const indexableArticleHrefs = new Set(
+      articleCatalog
+        .map(prepareEditorialArticle)
+        .filter(isArticleIndexReady)
+        .map((article) => `/article/${article.slug}`),
+    );
+    const base = rawBase.filter(
+      (document) => document.kind !== "article" || indexableArticleHrefs.has(document.href),
+    );
     const knownHrefs = new Set(base.map((document) => document.href));
     for (const document of staticSearchDocuments) {
       if (knownHrefs.has(document.href)) continue;
@@ -136,6 +155,6 @@ export const searchDocumentsQuery = () => queryOptions({
       ...nonDestinationDocuments,
       ...destinations.map(destinationSearchDocument),
     ];
-    return [...new Map(documents.map((document) => [document.href, document])).values()];
+    return [...new Map(documents.map((document) => [document.href, document])).values();
   },
 });
