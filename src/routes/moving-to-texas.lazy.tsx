@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
 import roadTrip from "@/assets/road-trip.jpg";
@@ -5,9 +6,9 @@ import { CitationTrustPanel } from "@/components/authority/CitationTrustPanel";
 import { TexasCountyComparisonTable } from "@/components/counties/TexasCountyComparisonTable";
 import { CategoryPage } from "@/components/editorial/CategoryPage";
 import { Container } from "@/components/layout/Container";
-import { RelocationAuthorityLab } from "@/components/relocation/RelocationAuthorityLab";
 import { populationRankedCounties } from "@/data/county-comparison";
 
+const RelocationAuthorityLab = lazy(() => import("@/components/relocation/RelocationAuthorityLab").then((module) => ({ default: module.RelocationAuthorityLab })));
 const description = "A clear-eyed guide to choosing a Texas city or county, understanding the cost and property context, finding a home and settling into everyday life in a very large state.";
 const imageAlt = "A two-lane Texas farm road running to the horizon";
 const arrivalTasks = [
@@ -26,7 +27,7 @@ function MovingToTexasPage() {
   const largestCounties = populationRankedCounties(counties, 20);
   return <>
     <CategoryPage category="moving-to-texas" eyebrow="The relocation guide" title="What to know before you move to Texas" intro={description} image={{ src: roadTrip, alt: imageAlt, width: 1600, height: 1067 }} />
-    <RelocationAuthorityLab />
+    <Suspense fallback={null}><RelocationAuthorityLab /></Suspense>
     <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
       <section className="mb-12 border-y border-border py-8" aria-labelledby="moving-texas-paperwork">
         <div className="grid gap-8 lg:grid-cols-[16rem_1fr]">
