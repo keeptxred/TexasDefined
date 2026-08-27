@@ -15,6 +15,7 @@ const EVENT_LABELS: Record<TexasEvent["category"], string> = {
 export function EventCard({ event, regionLabel }: { event: TexasEvent; regionLabel?: string | undefined }) {
   const brand = useBrand();
   const venueGuide = resolveSportsVenueEventLink(event.venue);
+  const eventGuide = event.id.startsWith("authority:") ? `/event/${event.slug}` : undefined;
 
   return (
     <article className="grid gap-4 border-t border-border py-7 sm:grid-cols-[9rem_1fr] sm:gap-7">
@@ -24,11 +25,12 @@ export function EventCard({ event, regionLabel }: { event: TexasEvent; regionLab
         <p className="mt-1 text-xs uppercase tracking-[0.1em] text-muted-foreground">{event.city}{regionLabel ? ` · ${regionLabel}` : ""}</p>
       </div>
       <div>
-        <h3 className="font-display text-2xl leading-tight">{event.name}</h3>
+        <h3 className="font-display text-2xl leading-tight">{eventGuide ? <a href={eventGuide} className="hover:text-primary">{event.name}</a> : event.name}</h3>
         <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground">{event.blurb}</p>
         {venueGuide && <p className="mt-4 text-sm text-muted-foreground">Venue: <a href={venueGuide.href} className="border-b border-primary text-primary">{venueGuide.venueName} guide →</a></p>}
         <div className="flex flex-wrap gap-5">
-          {event.officialUrl && <a href={event.officialUrl} target="_blank" rel="noreferrer noopener" className="eyebrow mt-5 inline-flex border-b border-primary pb-1 text-primary">Event details ↗</a>}
+          {eventGuide && <a href={eventGuide} className="eyebrow mt-5 inline-flex border-b border-primary pb-1 text-primary">Plan this event →</a>}
+          {event.officialUrl && <a href={event.officialUrl} target="_blank" rel="noreferrer noopener" className="eyebrow mt-5 inline-flex border-b border-primary pb-1 text-primary">Official details ↗</a>}
           {venueGuide && <a href={venueGuide.href} className="eyebrow mt-5 inline-flex border-b border-primary pb-1 text-primary">Plan the venue →</a>}
         </div>
       </div>
