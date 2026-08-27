@@ -1,0 +1,265 @@
+import type { TexasIconResearchProfile } from "@/data/texas-icons-types";
+
+const reviewed = "2026-08-27";
+const staged = "First-pass authority profile remains noindex pending image-rights and internal-link certification.";
+
+export const TEXAS_ICON_RESEARCH_MEDIA_BATCH_3: readonly TexasIconResearchProfile[] = [
+  {
+    slug: "taylor-sheridan",
+    editorialStatus: "researched-staged",
+    publicationNote: staged,
+    dek: "North Carolina-born Taylor Sheridan was raised in Fort Worth and learned ranch life around Cranfills Gap before building a screenwriting and television career that returned the modern American West—and Texas ranching—to mass audiences.",
+    overview: [
+      "Taylor Sheridan was born in Chapel Hill, North Carolina, not Cranfills Gap as many short biographies repeat. He was raised in Fort Worth and spent substantial childhood time on his family's Cranfills Gap ranch, where he learned to ride and work cattle. He later attended what is now Texas State University and worked in Austin before pursuing acting.",
+      "After years as a working actor, Sheridan shifted into writing with Sicario and Hell or High Water, earning an Academy Award nomination for the latter. Yellowstone and its related series made him a dominant television producer, while ownership of Bosque Ranch and the Four Sixes Ranch deepened his present-day Texas ranching and business footprint.",
+    ],
+    definingWorks: ["Sicario", "Hell or High Water", "Wind River", "Yellowstone", "1883"],
+    timeline: [
+      { year: "1970", event: "Born in Chapel Hill, North Carolina; later raised in Fort Worth, Texas." },
+      { year: "1978", event: "Family acquires a ranch near Cranfills Gap, where Sheridan learns cowboy skills." },
+      { year: "2015", event: "Sicario establishes him as a major screenwriter." },
+      { year: "2017", event: "Receives an Academy Award nomination for Hell or High Water." },
+      { year: "2020s", event: "Expands Texas ranch holdings and a large television-production slate." },
+    ],
+    legacy: [
+      "Sheridan helped revive the contemporary Western as a major film and television form while drawing heavily on Texas ranch culture and regional conflict.",
+      "His Texas identity should be grounded in Fort Worth upbringing, Cranfills Gap ranch formation and later ranch ownership—not an inaccurate Texas birthplace claim.",
+    ],
+    texasPlaces: [
+      { name: "Fort Worth", context: "Primary hometown and school years." },
+      { name: "Cranfills Gap", context: "Family ranch landscape where he learned cowboy skills." },
+      { name: "Four Sixes Ranch", context: "Historic ranch acquired by a Sheridan-led ownership group." },
+    ],
+    sources: [
+      { label: "Texas Business Hall of Fame — Taylor Sheridan", url: "https://texasbusiness.org/2024-inductees/taylor-sheridan/" },
+      { label: "Academy Awards — 2017 original screenplay nominees", url: "https://www.oscars.org/oscars/ceremonies/2017/p" },
+      { label: "Texas Highways — Sheridan learned to cowboy in Cranfills Gap", url: "https://texashighways.com/culture/people/yellowstone-creator-taylor-sheridan-learned-to-cowboy-small-town-cranfills-gap/" },
+    ],
+    lastReviewedAt: reviewed,
+  },
+  {
+    slug: "jim-parsons",
+    editorialStatus: "researched-staged",
+    publicationNote: staged,
+    dek: "Houston-born Jim Parsons carried a University of Houston theater education into a four-Emmy performance as Sheldon Cooper and a career spanning television, Broadway, film and producing.",
+    overview: [
+      "Jim Parsons was born in Houston and studied theater at the University of Houston, graduating in 1996 before earning an MFA in San Diego. His Texas training preceded years of stage and commercial work before The Big Bang Theory made him internationally recognizable.",
+      "Parsons won four Primetime Emmy Awards for playing Sheldon Cooper and later worked across Broadway, film and producing, including The Normal Heart and projects through That's Wonderful Productions. His Houston connection is both birthplace and formal artistic training.",
+    ],
+    definingWorks: ["The Big Bang Theory", "The Normal Heart", "Harvey", "Young Sheldon producing", "four Primetime Emmys"],
+    timeline: [
+      { year: "1973", event: "Born in Houston, Texas." },
+      { year: "1996", event: "Graduates from the University of Houston theater program." },
+      { year: "2007", event: "The Big Bang Theory premieres." },
+      { year: "2010", event: "Wins his first Primetime Emmy for Sheldon Cooper." },
+      { year: "2019", event: "The Big Bang Theory ends after twelve seasons." },
+    ],
+    legacy: [
+      "Parsons turned a highly stylized sitcom performance into one of television's defining comedy characters of the 2000s and 2010s.",
+      "His University of Houston training makes the Texas connection part of the craft story, not merely birthplace trivia.",
+    ],
+    texasPlaces: [
+      { name: "Houston", context: "Birthplace and formative theater community." },
+      { name: "University of Houston", context: "Undergraduate theater education." },
+    ],
+    sources: [
+      { label: "Television Academy — Jim Parsons", url: "https://www.televisionacademy.com/bios/jim-parsons" },
+      { label: "University of Houston — Alumni 1990s", url: "https://uh.edu/class/alumni/1990s/index.php" },
+      { label: "Hollywood Walk of Fame — Jim Parsons", url: "https://walkoffame.com/jim-parsons/" },
+    ],
+    lastReviewedAt: reviewed,
+  },
+  {
+    slug: "selena-gomez",
+    editorialStatus: "researched-staged",
+    publicationNote: staged,
+    dek: "Grand Prairie-born Selena Gomez moved from North Texas child acting to global careers in television, film, music, producing and beauty entrepreneurship while retaining a visible connection to her Texas upbringing.",
+    overview: [
+      "Selena Marie Gomez was born in Grand Prairie in 1992 and began acting as a child, including work on Barney & Friends. Disney Channel's Wizards of Waverly Place made her a teen star before she developed parallel recording and film careers.",
+      "Gomez later built a solo music catalog, produced television, starred in Only Murders in the Building and founded Rare Beauty. She has also served as a UNICEF ambassador since 2009. Her Texas story is strongest in the Grand Prairie childhood and early performance years rather than in a claim that her later career remained state-based.",
+    ],
+    definingWorks: ["Wizards of Waverly Place", "Rare", "Revelación", "Only Murders in the Building", "Rare Beauty"],
+    timeline: [
+      { year: "1992", event: "Born in Grand Prairie, Texas." },
+      { year: "2000s", event: "Begins child acting and later becomes a Disney Channel lead." },
+      { year: "2009", event: "Becomes a UNICEF ambassador." },
+      { year: "2013", event: "Releases debut solo album Stars Dance." },
+      { year: "2021", event: "Only Murders in the Building premieres." },
+    ],
+    legacy: [
+      "Gomez successfully crossed from child television into sustained adult careers in music, acting, producing and consumer business.",
+      "Grand Prairie anchors the profile in Texas without flattening a career that became international early.",
+    ],
+    texasPlaces: [
+      { name: "Grand Prairie", context: "Birthplace and childhood home in North Texas." },
+      { name: "Dallas-Fort Worth", context: "Regional setting for her earliest performance years." },
+    ],
+    sources: [
+      { label: "Biography — Selena Gomez", url: "https://www.biography.com/musicians/selena-gomez" },
+      { label: "Recording Academy — Selena Gomez", url: "https://www.grammy.com/artists/selena-gomez/38106/" },
+      { label: "UNICEF USA — Selena Gomez", url: "https://www.unicefusa.org/about-unicef-usa/partnerships/our-supporters/celebrities/selena-gomez" },
+    ],
+    lastReviewedAt: reviewed,
+  },
+  {
+    slug: "demi-lovato",
+    editorialStatus: "researched-staged",
+    publicationNote: staged,
+    dek: "Albuquerque-born Demi Lovato was raised in the Dallas area, began performing on North Texas stages and children's television, and grew into a recording artist, actor and director with a long public record of discussing mental health and recovery.",
+    overview: [
+      "Demi Lovato was born in Albuquerque, New Mexico, in 1992 and raised in the Dallas area. Early performing included local talent contests, Dallas-area venues and Barney & Friends before Disney's Camp Rock and Sonny with a Chance accelerated a national career.",
+      "Lovato developed from child performer into a multi-album pop and rock artist with Grammy nominations and later directed the documentary Child Star. Their public career also includes unusually candid discussion of addiction, eating disorders, mental health and recovery; those subjects should be treated factually rather than as celebrity spectacle.",
+    ],
+    definingWorks: ["Camp Rock", "Don't Forget", "Confident", "Tell Me You Love Me", "Child Star"],
+    timeline: [
+      { year: "1992", event: "Born in Albuquerque, New Mexico and raised in the Dallas area." },
+      { year: "2000s", event: "Performs on Barney & Friends and in North Texas venues." },
+      { year: "2008", event: "Camp Rock and debut album Don't Forget arrive." },
+      { year: "2017", event: "Confident receives a Grammy nomination." },
+      { year: "2024", event: "Makes a feature directing debut with Child Star." },
+    ],
+    legacy: [
+      "Lovato's career spans child television, pop-rock, adult pop, heavier rock and documentary work.",
+      "The Texas connection is formative rather than natal: Dallas-area upbringing and early performance opportunities preceded national fame.",
+    ],
+    texasPlaces: [
+      { name: "Dallas-Fort Worth", context: "Childhood region and early performing base." },
+      { name: "Eisemann Center", context: "North Texas venue associated with early performances." },
+    ],
+    sources: [
+      { label: "Biography — Demi Lovato", url: "https://www.biography.com/musicians/demi-lovato" },
+      { label: "Recording Academy — Demi Lovato", url: "https://www.grammy.com/artists/demi-lovato/19851/" },
+      { label: "Recording Academy — Demi Lovato's multifaceted career", url: "https://www.grammy.com/news/demi-lovato-child-star-hulu-documentary-career-ventures-music-acting/" },
+    ],
+    lastReviewedAt: reviewed,
+  },
+  {
+    slug: "chace-crawford",
+    editorialStatus: "researched-staged",
+    publicationNote: staged,
+    dek: "Lubbock-born and Plano-raised Chace Crawford moved from North Texas schools into television and film, first becoming widely known through Gossip Girl and later through The Boys.",
+    overview: [
+      "Christopher Chace Crawford was born in Lubbock in 1985 and grew up largely in Plano after several childhood years outside Texas. He graduated from Trinity Christian Academy in Addison before attending Pepperdine University in California.",
+      "Crawford became nationally known as Nate Archibald on Gossip Girl and later took on a sharply different satirical superhero role as The Deep in The Boys. His Texas connection is straightforward and verifiable: West Texas birthplace followed by a North Texas upbringing and schooling.",
+    ],
+    definingWorks: ["Gossip Girl", "The Boys", "The Covenant", "What to Expect When You're Expecting", "Blood & Oil"],
+    timeline: [
+      { year: "1985", event: "Born in Lubbock, Texas." },
+      { year: "2003", event: "Graduates from Trinity Christian Academy in Addison." },
+      { year: "2007", event: "Gossip Girl premieres." },
+      { year: "2019", event: "Begins playing The Deep in The Boys." },
+    ],
+    legacy: [
+      "Crawford moved from teen-drama fame into a durable adult television career that often plays against his early screen image.",
+      "Lubbock and Plano provide a clear Texas biography without needing to overstate later state ties.",
+    ],
+    texasPlaces: [
+      { name: "Lubbock", context: "Birthplace." },
+      { name: "Plano", context: "Primary childhood home." },
+      { name: "Addison", context: "High-school location." },
+    ],
+    sources: [
+      { label: "TV Guide — Chace Crawford biography", url: "https://www.tvguide.com/celebrities/chace-crawford/bio/3030400302/" },
+      { label: "Prime Video — The Boys cast", url: "https://www.primevideo.com/detail/0S1FYJ3LY9KTL9C7WFFAGA9F6F" },
+      { label: "TV Guide — Chace Crawford credits", url: "https://www.tvguide.com/celebrities/chace-crawford/credits/3030400302/" },
+    ],
+    lastReviewedAt: reviewed,
+  },
+  {
+    slug: "hilary-duff",
+    editorialStatus: "researched-staged",
+    publicationNote: staged,
+    dek: "Houston-born Hilary Duff began performing in Texas childhood productions before Lizzie McGuire turned her into a teen star and opened parallel careers in music, film, television and publishing.",
+    overview: [
+      "Hilary Erhard Duff was born in Houston in 1987 and spent early childhood between Houston and San Antonio. She and her sister Haylie took dance and acting classes, and Hilary performed in a touring Nutcracker production in San Antonio before moving to California with their mother to pursue entertainment work.",
+      "Lizzie McGuire made Duff one of the defining Disney stars of the early 2000s. She followed with films, several commercially successful albums and later adult television roles in Younger and How I Met Your Father. Her Texas connection is concentrated in birth, family business ties and the earliest performing years.",
+    ],
+    definingWorks: ["Lizzie McGuire", "Metamorphosis", "A Cinderella Story", "Younger", "How I Met Your Father"],
+    timeline: [
+      { year: "1987", event: "Born in Houston, Texas." },
+      { year: "1990s", event: "Performs in Texas dance and theater productions before moving to California." },
+      { year: "2001", event: "Lizzie McGuire premieres." },
+      { year: "2003", event: "Releases the album Metamorphosis." },
+      { year: "2015", event: "Begins starring in Younger." },
+    ],
+    legacy: [
+      "Duff became an early model for the Disney television-to-pop crossover and later transitioned into adult comedy-drama television.",
+      "Her Texas profile should emphasize Houston birth and childhood performing rather than retroactively relocating her later career.",
+    ],
+    texasPlaces: [
+      { name: "Houston", context: "Birthplace and family home." },
+      { name: "San Antonio", context: "Childhood performance connection through a touring Nutcracker production." },
+    ],
+    sources: [
+      { label: "Biography — Hilary Duff", url: "https://www.biography.com/actor/hilary-duff" },
+      { label: "Recording Academy — Disney's golden age of pop", url: "https://www.grammy.com/news/disney-pop-songs-playlist-listen-d23-2024-hollywood-records" },
+      { label: "TV Guide — Hilary Duff biography", url: "https://www.tvguide.com/celebrities/hilary-duff/bio/3030400699/" },
+    ],
+    lastReviewedAt: reviewed,
+  },
+  {
+    slug: "jensen-ackles",
+    editorialStatus: "researched-staged",
+    publicationNote: staged,
+    dek: "Dallas-born and Richardson-raised Jensen Ackles built a long television career from soap opera to Supernatural, later expanding into directing, producing, music and Texas-based brewing.",
+    overview: [
+      "Jensen Ross Ackles was born in Dallas in 1978 and grew up in Richardson. He began modeling and acting while young, then moved into television with roles including Days of Our Lives, Dark Angel and Smallville before Supernatural became the defining long-form role of his career.",
+      "Ackles played Dean Winchester across fifteen seasons of Supernatural and also directed episodes. Later work includes The Boys and producing, while he maintained Texas ties that include family and the Family Business Beer Company venture in Central Texas.",
+    ],
+    definingWorks: ["Supernatural", "Days of Our Lives", "The Boys", "Smallville", "Radio Company"],
+    timeline: [
+      { year: "1978", event: "Born in Dallas, Texas." },
+      { year: "1996", event: "Graduates from high school in Richardson." },
+      { year: "2005", event: "Supernatural premieres." },
+      { year: "2020", event: "Supernatural concludes after fifteen seasons." },
+      { year: "2020s", event: "Expands work in producing, music and The Boys franchise." },
+    ],
+    legacy: [
+      "Ackles became one of the central performers in an unusually long-running genre television franchise and expanded behind the camera during that run.",
+      "His Dallas/Richardson upbringing gives the Texas connection a deeper basis than a birthplace-only label.",
+    ],
+    texasPlaces: [
+      { name: "Dallas", context: "Birthplace." },
+      { name: "Richardson", context: "Childhood and school years." },
+      { name: "Dripping Springs area", context: "Central Texas business connection through Family Business Beer Company." },
+    ],
+    sources: [
+      { label: "TV Guide — Jensen Ackles biography", url: "https://www.tvguide.com/celebrities/jensen-ackles/bio/3030400587/" },
+      { label: "Forbes — Jensen Ackles opens Texas brewery", url: "https://www.forbes.com/sites/jimdobson/2018/05/03/supernatural-star-jensen-ackles-opens-a-new-texas-brewery-and-keeps-it-all-in-the-family/" },
+      { label: "Encyclopedia.com — Jensen Ackles", url: "https://www.encyclopedia.com/education/news-wires-white-papers-and-books/ackles-jensen-1978" },
+    ],
+    lastReviewedAt: reviewed,
+  },
+  {
+    slug: "jared-padalecki",
+    editorialStatus: "researched-staged",
+    publicationNote: staged,
+    dek: "San Antonio-born Jared Padalecki moved from Texas school competition into Gilmore Girls and fifteen seasons of Supernatural, then returned to a Texas setting as star and producer of Walker.",
+    overview: [
+      "Jared Tristan Padalecki was born in San Antonio in 1982 and attended James Madison High School. He studied acting as a child and won national recognition in school forensic competition before moving to Los Angeles after graduation rather than following his original plan to attend the University of Texas.",
+      "Padalecki first became widely known on Gilmore Girls, then played Sam Winchester for fifteen seasons of Supernatural. He later starred in and executive-produced Walker, a modern reworking of Walker, Texas Ranger that filmed in and around Austin, giving his adult career a renewed Texas production connection.",
+    ],
+    definingWorks: ["Gilmore Girls", "Supernatural", "Walker", "House of Wax", "Friday the 13th"],
+    timeline: [
+      { year: "1982", event: "Born in San Antonio, Texas." },
+      { year: "2000", event: "Graduates from James Madison High School and moves to Los Angeles." },
+      { year: "2000", event: "Begins appearing on Gilmore Girls." },
+      { year: "2005", event: "Supernatural premieres." },
+      { year: "2021", event: "Walker premieres with Padalecki as star and executive producer." },
+    ],
+    legacy: [
+      "Padalecki's fifteen-season Supernatural run made him a durable figure in modern genre television.",
+      "San Antonio upbringing plus the later Austin-based Walker production give his Texas story both formative and professional chapters.",
+    ],
+    texasPlaces: [
+      { name: "San Antonio", context: "Birthplace, childhood home and high-school city." },
+      { name: "Austin", context: "Production base for Walker." },
+    ],
+    sources: [
+      { label: "TV Guide — Jared Padalecki biography", url: "https://www.tvguide.com/celebrities/jared-padalecki/bio/3030418395/" },
+      { label: "Austin Film Commission — Walker filming locations", url: "https://www.austintexas.org/film-commission/film-tourism-guide/walker/" },
+      { label: "San Antonio Express-News/MySA — Jared Padalecki", url: "https://www.mysanantonio.com/z-archived-entertainment/celebrities/article/S-A-native-Supernatural-star-Jared-Padalecki-11030909.php" },
+    ],
+    lastReviewedAt: reviewed,
+  },
+];
