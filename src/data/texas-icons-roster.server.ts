@@ -98,7 +98,7 @@ const CANONICAL_PATHS: Readonly<Record<string, string>> = {
   "Buc-ee's": "/article/bucees-texas-road-trip-history",
   "Dr Pepper": "/dr-pepper-texas-history",
   "Chili Con Carne": "/texas-chili-con-carne-history",
-  "The Lone Star Flag": "/article/history-of-the-texas-flag",
+  "The Lone Star Flag": "/article/history-of-texas-flag",
 };
 
 const GROUPS = new Set<string>(["Asleep at the Wheel", "Geto Boys", "Khruangbin", "Pantera", "Spoon", "The Chicks", "ZZ Top"]);
@@ -225,7 +225,7 @@ export function getRelatedTexasIcons(entry: TexasIconRosterEntry, limit = 8) {
   return TEXAS_ICON_ROSTER
     .filter((candidate) => candidate.slug !== entry.slug && candidate.category === entry.category)
     .sort((left, right) =>
-      Math.abs(left.rank - entry.rank) - Math.abs(right.rank - entry.rank)
+      Math.abs(left.rank - entry.rank) - Math.abs(candidate.rank - entry.rank)
       || left.rank - right.rank)
     .slice(0, limit);
 }
