@@ -63,6 +63,7 @@ const SUPPLEMENTAL_MAJOR_EVENT_SITEMAP: readonly SitemapEntry[] = [
   { path: "/event/granbury-founders-day-jubilee", lastmod: "2026-08-27" },
   { path: "/event/galveston-juneteenth-celebrations", lastmod: "2026-08-27" },
   { path: "/event/larry-joe-taylor-texas-music-festival", lastmod: "2026-08-27" },
+  { path: "/event/san-antonio-marathon", lastmod: "2026-08-27" },
 ];
 
 export const Route = createFileRoute("/sitemap.xml")({
