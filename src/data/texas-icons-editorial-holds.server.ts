@@ -1,3 +1,5 @@
+// Disputed intake identities and correction evidence are tracked in GitHub issue #794.
+// This module changes public summary copy only; it must never grant indexability or canonical ownership.
 const TEXAS_ICON_EDITORIAL_HOLD_SUMMARIES: Readonly<Record<string, string>> = {
   "john-crump": "This owner-supplied intake identity remains under editorial verification. TexasDefined has not confirmed which John Crump, if any, supports the supplied early Texas oil-industry claim.",
   "burt-buddy-crump": "This owner-supplied intake identity remains under editorial verification. TexasDefined has not found authoritative evidence tying Burt ‘Buddy’ Crump to the supplied Texas wildcatter and industrial-builder claim.",
