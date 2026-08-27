@@ -80,7 +80,7 @@ if (source.includes('launchStatus: "launch-ready"') || repair.includes('launchSt
 }
 
 const repairRecords = [...repair.matchAll(/^  "([a-z0-9-]+)": \{/gm)].map((match) => match[1]);
-const expectedRepairs = ["t-bone-walker", "jamie-foxx"];
+const expectedRepairs = ["t-bone-walker", "jamie-foxx", "tommy-lee-jones"];
 if (repairRecords.length !== expectedRepairs.length || expectedRepairs.some((slug) => !repairRecords.includes(slug))) {
   fail(`wave 5 repair must remain narrowly scoped to ${expectedRepairs.join(", ")}; found ${repairRecords.join(", ") || "none"}`);
 }
@@ -97,7 +97,7 @@ for (const slug of expected) {
     const repairStart = repair.indexOf(marker);
     if (repairStart < 0) fail(`missing effective ${slug} wave 5 repair`);
     const repairBlock = findBalancedBlock(repair, repair.indexOf("{", repairStart), "{", "}", `${slug} repair`);
-    if (slug === "jamie-foxx") overviewBlock = repairBlock;
+    if (slug === "jamie-foxx" || slug === "tommy-lee-jones") overviewBlock = repairBlock;
     if (slug === "t-bone-walker") legacyBlock = repairBlock;
   }
 
@@ -121,4 +121,4 @@ for (const slug of expected) {
 const recordCount = [...source.matchAll(/^  "[a-z0-9-]+": \{/gm)].length;
 if (recordCount !== expected.length) fail(`wave 5 must contain exactly ${expected.length} records; found ${recordCount}`);
 
-console.log("Texas Talent flagship-depth wave 5 validation passed: narrow T-Bone Walker and Jamie Foxx repairs plus the full wave 5 cohort meet effective narrative, timeline, legacy and Texas-place launch thresholds without receiving launch approval.");
+console.log("Texas Talent flagship-depth wave 5 validation passed: narrow T-Bone Walker, Jamie Foxx and Tommy Lee Jones repairs plus the full wave 5 cohort meet effective narrative, timeline, legacy and Texas-place launch thresholds without receiving launch approval.");
