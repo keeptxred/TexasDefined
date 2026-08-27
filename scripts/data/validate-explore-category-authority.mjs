@@ -19,7 +19,7 @@ for (const feature of [
   if (!route.includes(feature)) errors.push(`Inline Explore authority loader contract missing: ${feature}.`);
 }
 for (const forbidden of [
-  'explore-category-authority',
+  '@/data/explore-category-authority',
   '@tanstack/react-start',
   'createServerFn',
   'createServerOnlyFn',
