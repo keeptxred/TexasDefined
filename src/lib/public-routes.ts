@@ -135,6 +135,7 @@ export const INDEXABLE_STATIC_PATHS = [
   "/texas-ranch-water-guide",
   "/texas-blue-norther-weather-guide",
   "/moving-to-texas",
+  "/moving-to-texas/data",
   "/moving-to-texas-checklist",
   "/home-garden",
   "/real-estate",
