@@ -1,4 +1,5 @@
 import type { Article } from "../types";
+import { texasGatewayBatch3CulturalEnrichment } from "./texas-gateway-batch3-cultural-enrichment";
 import { isTexasGatewayIndexReadyArticle } from "./texas-gateway-index-readiness";
 
 const GATEWAY_LINK_ALIASES: Record<string, string> = {
@@ -19,21 +20,29 @@ const GATEWAY_LINK_ALIASES: Record<string, string> = {
 const JACOBS_WELL_OLD = "Jacob's Well area when open for swimming";
 const JACOBS_WELL_CURRENT = "Jacob's Well Natural Area for hiking and the spring overlook; swimming is currently closed until further notice";
 
-const normalizeGatewayArticle = (article: Article): Article => ({
-  ...article,
-  body: article.body.map((block) =>
-    block.type === "list"
-      ? {
-          ...block,
-          items: block.items.map((item) => item === JACOBS_WELL_OLD ? JACOBS_WELL_CURRENT : item),
-        }
-      : block,
-  ),
-  internalLinks: article.internalLinks?.map((link) => ({
-    ...link,
-    href: GATEWAY_LINK_ALIASES[link.href] ?? link.href,
-  })),
-});
+const normalizeGatewayArticle = (article: Article): Article => {
+  const enrichment = texasGatewayBatch3CulturalEnrichment[article.slug];
+  return {
+    ...article,
+    body: [
+      ...article.body.map((block) =>
+        block.type === "list"
+          ? {
+              ...block,
+              items: block.items.map((item) => item === JACOBS_WELL_OLD ? JACOBS_WELL_CURRENT : item),
+            }
+          : block,
+      ),
+      ...(enrichment?.body ?? []),
+    ],
+    internalLinks: article.internalLinks?.map((link) => ({
+      ...link,
+      href: GATEWAY_LINK_ALIASES[link.href] ?? link.href,
+    })),
+    sourceName: enrichment?.sourceName ?? article.sourceName,
+    sourceUrl: enrichment?.sourceUrl ?? article.sourceUrl,
+  };
+};
 
 let allGatewayArticlesPromise: Promise<Article[]> | null = null;
 
