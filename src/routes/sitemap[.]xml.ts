@@ -59,6 +59,7 @@ const SUPPLEMENTAL_MAJOR_EVENT_SITEMAP: readonly SitemapEntry[] = [
   { path: "/event/houston-auto-show", lastmod: "2026-08-27" },
   { path: "/event/fulton-oysterfest", lastmod: "2026-08-27" },
   { path: "/event/sandhills-stock-show-rodeo", lastmod: "2026-08-27" },
+  { path: "/event/sweetwater-rattlesnake-roundup", lastmod: "2026-08-27" },
 ];
 
 export const Route = createFileRoute("/sitemap.xml")({
