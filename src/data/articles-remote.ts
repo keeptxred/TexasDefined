@@ -5,6 +5,8 @@ const supabaseUrl = String(import.meta.env.VITE_TEXASDEFINED_SUPABASE_URL || imp
 const supabaseKey = String(import.meta.env.VITE_TEXASDEFINED_SUPABASE_ANON_KEY || import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || "");
 const ARTICLE_SELECT = "id,slug,title,dek,category,region,hero_url,hero_alt,hero_credit,author_id,published_at,tags,body_json,related_collections,related_destinations,source_name,source_url";
 
+type RemoteArticleKind = "all" | "evergreen" | "news";
+
 function headers(): HeadersInit {
   return { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}`, Accept: "application/json" };
 }
@@ -93,7 +95,7 @@ async function request(params: URLSearchParams): Promise<Article[]> {
   return value.map((row) => mapRow(row as Record<string, unknown>)).filter((row): row is Article => Boolean(row));
 }
 
-export async function fetchPublishedTexasDefinedArticles(options: { category?: string; limit?: number } = {}): Promise<Article[]> {
+function publishedParams(options: { category?: string; limit?: number } = {}, kind: RemoteArticleKind = "all") {
   const params = new URLSearchParams({
     select: ARTICLE_SELECT,
     status: "eq.published",
@@ -101,15 +103,43 @@ export async function fetchPublishedTexasDefinedArticles(options: { category?: s
     limit: String(Math.max(1, Math.min(options.limit ?? 100, 200))),
   });
   if (options.category) params.set("category", `eq.${options.category}`);
-  return request(params);
+  if (kind === "evergreen") params.set("source_feed_id", "is.null");
+  if (kind === "news") params.set("source_feed_id", "not.is.null");
+  return params;
 }
 
-export async function fetchPublishedTexasDefinedArticle(slug: string): Promise<Article | null> {
+function publishedSlugParams(slug: string, kind: RemoteArticleKind = "all") {
   const params = new URLSearchParams({
     select: ARTICLE_SELECT,
     status: "eq.published",
     slug: `eq.${slug}`,
     limit: "1",
   });
-  return (await request(params))[0] ?? null;
+  if (kind === "evergreen") params.set("source_feed_id", "is.null");
+  if (kind === "news") params.set("source_feed_id", "not.is.null");
+  return params;
+}
+
+export async function fetchPublishedTexasDefinedArticles(options: { category?: string; limit?: number } = {}): Promise<Article[]> {
+  return request(publishedParams(options));
+}
+
+export async function fetchPublishedTexasDefinedArticle(slug: string): Promise<Article | null> {
+  return (await request(publishedSlugParams(slug)))[0] ?? null;
+}
+
+export async function fetchPublishedTexasDefinedEvergreenArticles(options: { category?: string; limit?: number } = {}): Promise<Article[]> {
+  return request(publishedParams(options, "evergreen"));
+}
+
+export async function fetchPublishedTexasDefinedEvergreenArticle(slug: string): Promise<Article | null> {
+  return (await request(publishedSlugParams(slug, "evergreen")))[0] ?? null;
+}
+
+export async function fetchPublishedTexasDefinedNewsArticles(options: { category?: string; limit?: number } = {}): Promise<Article[]> {
+  return request(publishedParams(options, "news"));
+}
+
+export async function fetchPublishedTexasDefinedNewsArticle(slug: string): Promise<Article | null> {
+  return (await request(publishedSlugParams(slug, "news")))[0] ?? null;
 }
