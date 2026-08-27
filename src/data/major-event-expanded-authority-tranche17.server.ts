@@ -30,6 +30,34 @@ const records: MajorEventAuthorityRecord[] = [
       { label: "Visit Granbury annual events", url: "https://www.visitgranbury.com/media-gallery/album/annual-events/67abaff75908cecf7ce52045/" },
     ],
   },
+  {
+    slug: "galveston-juneteenth-celebrations",
+    name: "Galveston Juneteenth Celebrations",
+    city: "Galveston",
+    countySlug: "galveston",
+    countyName: "Galveston County",
+    region: "gulf-coast",
+    category: "culture",
+    startDate: "2027-06-01",
+    endDate: "2027-06-30",
+    dateNote: "Visit Galveston currently publishes Juneteenth Celebrations as a June 1-30, 2027 annual-event window. This replaces the supplied seed inventory's single-day 'Juneteenth Freedom Fest' label with the destination's current, broader official framing. Individual ceremonies, tours, performances and community events will have their own dates and venues, so check the current program before traveling.",
+    venue: "Galveston Island venues",
+    officialUrl: "https://www.visitgalveston.com/events/annual-events/",
+    sourceCheckedAt: "2026-08-27",
+    whyItMatters: "Galveston is the birthplace of Juneteenth, where General Order No. 3 was announced on June 19, 1865. The island's modern Juneteenth season connects that history to commemorations, cultural programs and community events across the month of June.",
+    planningSections: [
+      { title: "Treat June as a series, not one festival day", body: "The current destination calendar lists Juneteenth Celebrations from June 1 through June 30, 2027. Build your trip around the specific ceremonies, museum programs, tours or performances you want to attend instead of assuming every activity happens on June 19." },
+      { title: "Start with the historic context", body: "Galveston's importance comes from the June 19, 1865 announcement of General Order No. 3. Pair festival programming with the island's Juneteenth historic sites and interpretation so the celebration is grounded in the place where the holiday began." },
+      { title: "Check venue-level details before arrival", body: "A month-long destination celebration can span multiple organizations and locations. Confirm the final time, admission policy and venue on the current Galveston event listing before traveling to a specific program." },
+    ],
+    relatedLinks: [
+      { href: "/browse/counties#county-galveston", label: "Explore Galveston County", description: "Build a wider Gulf Coast history and culture itinerary." },
+      { href: "/events", label: "Texas events calendar", description: "Compare other Texas cultural and heritage events." },
+    ],
+    sources: [
+      { label: "Visit Galveston annual events", url: "https://www.visitgalveston.com/events/annual-events/" },
+    ],
+  },
 ];
 
 const bySlug = new Map(records.map((event) => [event.slug, event]));
