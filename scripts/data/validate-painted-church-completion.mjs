@@ -18,6 +18,8 @@ const topicPaths = read('src/components/editorial/ExploreTopicPaths.tsx');
 const categoryRoute = read('src/routes/explore.$category.lazy.tsx');
 const trustRouter = read('src/components/authority/CitationCollectionTrustRouter.tsx');
 const sitemap = read('src/routes/sitemap-explore[.]xml.ts');
+const publicRoutes = read('src/lib/public-routes.ts');
+const robots = read('public/robots.txt');
 const releaseState = read('ops/editorial/painted-churches-release-state.json');
 
 for (const slug of ['ellinger-st-marys-catholic-church','rockne-sacred-heart-catholic-church','san-antonio-san-fernando-cathedral']) {
@@ -78,15 +80,28 @@ const authorityPaths = [
 ];
 requireText(sitemap, 'const PAINTED_CHURCH_STATIC_PATHS = [', 'Painted Churches sitemap registry');
 for (const path of authorityPaths) requireText(sitemap, JSON.stringify(path), 'Painted Churches sitemap registry');
+requireText(sitemap, 'const paintedChurchEntries = expandedPaintedChurches', 'Painted Churches church-profile sitemap registry');
+requireText(publicRoutes, '"/explore/painted-churches"', 'Painted Churches public-route registry');
 
+requireText(robots, 'User-agent: Googlebot', 'Google crawl policy');
+requireText(robots, 'User-agent: Googlebot-Image', 'Google image crawl policy');
+requireText(robots, 'Allow: /', 'Google crawl policy');
+forbidText(robots, 'Disallow: /explore/painted-churches', 'Google crawl policy');
+
+requireText(releaseState, '"schemaVersion": 2', 'Painted Churches release state');
 requireText(releaseState, '"collectionState": "production-public"', 'Painted Churches release state');
 requireText(releaseState, '"runtimeIndexability": "public-indexable"', 'Painted Churches release state');
+requireText(releaseState, '"ownerIndexingApproval": true', 'Painted Churches release state');
+requireText(releaseState, '"ownerIndexingApprovalDate": "2026-08-26"', 'Painted Churches release state');
+requireText(releaseState, '"googleCrawlingExpected": true', 'Painted Churches release state');
+requireText(releaseState, '"robotsGovernance": "public/robots.txt"', 'Painted Churches release state');
 requireText(releaseState, '"historicalSnapshotControlsRuntime": false', 'Painted Churches release state');
-requireText(releaseState, 'without changing the global public-indexing switch', 'Painted Churches release state');
+requireText(releaseState, 'no Painted Churches-specific noindex gate may be introduced', 'Painted Churches release state');
+forbidText(releaseState, '"ownerIndexingApproval": false', 'Painted Churches release state');
 
 if (failures.length) {
   console.error('Painted Churches completion validation failed:');
   failures.forEach((failure) => console.error(`- ${failure}`));
   process.exit(1);
 }
-console.log('Painted Churches completion protected: candidate adjudication, oral-history sources, complete Then & Now accounting, current imagery and primary-source interiors, county/history/road-trip/small-town discovery, trip-planner integration, statewide Guidebook exposure, non-stale cross-links, self-canonical sitemap coverage and current release-state documentation.');
+console.log('Painted Churches completion protected: candidate adjudication, oral-history sources, complete Then & Now accounting, current imagery and primary-source interiors, county/history/road-trip/small-town discovery, trip-planner integration, statewide Guidebook exposure, non-stale cross-links, self-canonical sitemap coverage, Google crawl access and explicit indexing approval.');
