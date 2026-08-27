@@ -19,7 +19,13 @@ on:
       - "scripts/data/validate-indexation-quality.mjs"
       - "scripts/data/validate-texas-gateway-consolidation.mjs"
       - "scripts/data/validate-texas-gateway-index-readiness.mjs"
+      - "scripts/data/validate-texas-gateway-production-readiness.mjs"
       - "scripts/data/audit-texas-gateway-depth.mjs"
+      - "scripts/data/audit-texas-gateway-production-readiness.mjs"
+      - "scripts/data/texas-gateway-production-readiness-lib.mjs"
+      - "scripts/data/texas-gateway-production-manifest.mjs"
+      - "scripts/data/promote-texas-gateway.mjs"
+      - "scripts/data/texas-gateway-editorial-review.json"
       - ".github/workflows/validate-texas-gateway-consolidation.yml"
   workflow_dispatch:
 
@@ -48,6 +54,12 @@ jobs:
 
       - name: Validate gateway index-readiness staging
         run: node scripts/data/validate-texas-gateway-index-readiness.mjs
+
+      - name: Validate gateway production-readiness promotion gate
+        run: node scripts/data/validate-texas-gateway-production-readiness.mjs
+
+      - name: Audit gateway production-readiness backlog
+        run: node scripts/data/audit-texas-gateway-production-readiness.mjs
 
       - name: Validate shared indexation contract
         run: node scripts/data/validate-indexation-quality.mjs
