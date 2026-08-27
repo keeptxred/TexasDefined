@@ -1,11 +1,13 @@
 import { createLazyFileRoute } from "@tanstack/react-router";
-import { ArrowRight, MapPin, Music2 } from "lucide-react";
+import { ArrowRight, Clock3, MapPin, Music2, Route as RouteIcon } from "lucide-react";
 
 import { Container } from "@/components/layout/Container";
 import {
   TEXAS_MUSIC_DESCRIPTION,
   TEXAS_MUSIC_PRIMARY_SOURCES,
   TEXAS_MUSIC_RELATED_GUIDES,
+  TEXAS_MUSIC_ROAD_TRIPS,
+  TEXAS_MUSIC_TIMELINE,
   TEXAS_MUSIC_TRADITIONS,
 } from "@/data/texas-music";
 import { getTexasTalentByCategory } from "@/data/texas-talent";
@@ -74,6 +76,69 @@ function TexasMusicPage() {
                     <a href={tradition.sourceUrl} target="_blank" rel="noreferrer" className="inline-flex text-xs font-semibold uppercase tracking-[0.12em] text-primary">Authority source ↗</a>
                   </div>
                 </div>
+              </article>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      <section id="timeline" className="scroll-mt-32 border-b border-border bg-surface">
+        <Container className="py-14 sm:py-20">
+          <div className="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-16">
+            <div>
+              <p className="eyebrow text-primary">Texas music timeline</p>
+              <h2 className="mt-3 font-display text-4xl font-semibold leading-tight sm:text-5xl">How the traditions overlap across time</h2>
+              <p className="mt-5 text-base leading-7 text-muted-foreground">
+                This chronology is intentionally about movements and infrastructure, not a list of celebrity milestones. It shows how borderland dance music, Black musical traditions, radio, records, clubs, studios and city scenes kept interacting across generations.
+              </p>
+            </div>
+            <ol className="divide-y divide-border border-y border-border">
+              {TEXAS_MUSIC_TIMELINE.map((entry) => (
+                <li key={`${entry.era}-${entry.title}`} className="py-6">
+                  <div className="flex gap-4">
+                    <Clock3 className="mt-1 size-5 shrink-0 text-primary" aria-hidden />
+                    <div>
+                      <p className="eyebrow text-muted-foreground">{entry.era}</p>
+                      <h3 className="mt-2 font-display text-2xl font-semibold leading-tight text-foreground">{entry.title}</h3>
+                      <p className="mt-3 text-sm leading-6 text-muted-foreground">{entry.summary}</p>
+                      <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2">
+                        <a href={entry.href} className="inline-flex items-center gap-2 text-sm font-semibold text-primary">Explore this chapter <ArrowRight className="size-4" aria-hidden /></a>
+                        <a href={entry.sourceUrl} target="_blank" rel="noreferrer" className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">Source ↗</a>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </Container>
+      </section>
+
+      <section id="road-trips" className="scroll-mt-32 border-b border-border bg-background">
+        <Container className="py-14 sm:py-20">
+          <div className="max-w-3xl">
+            <p className="eyebrow text-primary">Texas music road trips</p>
+            <h2 className="mt-3 font-display text-4xl font-semibold leading-tight sm:text-5xl">Follow the history on the ground</h2>
+            <p className="mt-5 text-base leading-7 text-muted-foreground sm:text-lg">
+              These are editorial routes through existing Texas Defined guides, not claims that every venue is open or every stop fits one day. Use the linked place and trip-planning pages to confirm current visitor details before traveling.
+            </p>
+          </div>
+          <div className="mt-10 grid gap-px border border-border bg-border lg:grid-cols-2">
+            {TEXAS_MUSIC_ROAD_TRIPS.map((trip) => (
+              <article key={trip.title} className="bg-background p-6 sm:p-8">
+                <RouteIcon className="size-5 text-primary" aria-hidden />
+                <h3 className="mt-4 font-display text-3xl font-semibold leading-tight text-foreground">{trip.title}</h3>
+                <p className="mt-3 text-sm font-semibold text-primary">{trip.route}</p>
+                <p className="mt-3 text-sm leading-6 text-muted-foreground">{trip.focus}</p>
+                <ul className="mt-6 divide-y divide-border border-y border-border">
+                  {trip.stops.map((stop) => (
+                    <li key={stop.href}>
+                      <a href={stop.href} className="group flex min-h-14 items-center justify-between gap-4 py-3 text-sm font-semibold text-foreground hover:text-primary">
+                        {stop.label}<ArrowRight className="size-4 transition-transform group-hover:translate-x-1" aria-hidden />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
               </article>
             ))}
           </div>
