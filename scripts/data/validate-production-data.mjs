@@ -11,9 +11,9 @@ const readRouteSurface = (file) => {
 };
 const requiredFiles = [
   'src/routes/learn.property-taxes.tsx','src/routes/learn.property-tax-payments.tsx','src/routes/decide.property-taxes.tsx','src/routes/learn.appraisal-districts.tsx','src/routes/do.homestead-exemption.tsx','src/routes/do.property-tax-protest.tsx','src/routes/browse.counties.tsx','src/routes/browse.cities.tsx','src/routes/article.$slug.tsx',
-  'src/routes/admin.platform-health.tsx','src/routes/sitemap[.]xml.ts','src/routes/sitemap-explore[.]xml.ts','src/routes/events.tsx','src/routes/destination.$slug.tsx','src/routes/api.knowledge-graph.ts','src/routes/api.ai.entities.ts','src/routes/llms[.]txt.ts','src/routes/$kind.$slug.tsx',
+  'src/routes/admin.platform-health.tsx','src/routes/sitemap[.]xml.ts','src/routes/sitemap-explore[.]xml.ts','src/routes/events.tsx','src/routes/destination.$slug.tsx','src/routes/api.knowledge-graph.ts','src/routes/api.ai.entities.ts','src/routes/llms[.]txt.ts','src/routes/$kind.$slug.tsx','src/routes/privacy.tsx',
   'src/data/texas-data-sources.ts','src/data/texas-entity-registry.ts','src/data/knowledge-graph/types.ts','src/data/knowledge-graph/seed.ts','src/data/knowledge-graph/index.ts','src/data/knowledge-graph/explore-adapter.ts','src/data/knowledge-graph/relationships.ts','src/data/knowledge-graph/audit.ts',
-  'src/components/content/AutoEntityLinks.tsx','src/components/editorial/ArticleBody.tsx','src/platform/internal-linking.ts','src/platform/analytics.ts','src/lib/public-routes.ts','scripts/data/import-authoritative-entities.mjs','.github/workflows/import-entities.yml',
+  'src/components/content/AutoEntityLinks.tsx','src/components/editorial/ArticleBody.tsx','src/components/layout/Footer.tsx','src/platform/internal-linking.ts','src/platform/analytics.ts','src/lib/public-routes.ts','scripts/data/import-authoritative-entities.mjs','.github/workflows/import-entities.yml',
 ];
 for (const file of requiredFiles) if (!fs.existsSync(path.join(root, file))) errors.push(`Required platform file is missing: ${file}`);
 
@@ -31,6 +31,8 @@ const articleRoute = read('src/routes/article.$slug.tsx');
 const destinationRoute = read('src/routes/destination.$slug.tsx');
 const eventsRoute = read('src/routes/events.tsx');
 const aboutRoute = read('src/routes/about.tsx');
+const privacyRoute = read('src/routes/privacy.tsx');
+const footer = read('src/components/layout/Footer.tsx');
 const homeRoute = read('src/routes/index.tsx');
 const exploreSitemap = read('src/routes/sitemap-explore[.]xml.ts');
 const publicRoutes = read('src/lib/public-routes.ts');
@@ -62,6 +64,16 @@ for (const feature of ['ArticleBody blocks={article.body} entities={graph}','loa
 for (const feature of ['absoluteUrl(texasDefinedBrand, destination.hero.src)','BreadcrumbList','TouristAttraction']) if (!destinationRoute.includes(feature)) errors.push(`Destination SEO feature missing: ${feature}.`);
 for (const feature of ['canonicalPath','ItemList','"@type": "Event"','eventStatus','eventAttendanceMode']) if (!eventsRoute.includes(feature)) errors.push(`Event answer feature missing: ${feature}.`);
 for (const feature of ['"@type": "AboutPage"','BreadcrumbList','about: { "@id"','isPartOf: { "@id"']) if (!aboutRoute.includes(feature)) errors.push(`About page SEO feature missing: ${feature}.`);
+for (const feature of [
+  'const canonicalPath = "/privacy"',
+  'canonicalLink(texasDefinedBrand, canonicalPath)',
+  'Google AdSense',
+  'adssettings.google.com',
+  'aboutads.info/choices',
+  'third-party vendors, including Google',
+  'Google-certified consent management platform',
+]) if (!privacyRoute.includes(feature)) errors.push(`AdSense privacy disclosure missing: ${feature}.`);
+for (const feature of ['to="/privacy"','Privacy Policy','href="/about#privacy-terms"','Site Terms']) if (!footer.includes(feature)) errors.push(`Footer privacy access missing: ${feature}.`);
 for (const feature of ['canonicalPath: "/"']) if (!homeRoute.includes(feature)) errors.push(`Homepage SEO feature missing: ${feature}.`);
 const duplicatesGlobalOrganization = homeRoute.includes('"@type": "Organization", "@id": `${siteUrl}/#organization`');
 const duplicatesGlobalWebsite = homeRoute.includes('"@type": "WebSite", "@id": `${siteUrl}/#website`');
