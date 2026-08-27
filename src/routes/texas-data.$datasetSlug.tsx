@@ -34,11 +34,13 @@ export const Route = createFileRoute('/texas-data/$datasetSlug')({
             url: pageUrl,
             dateModified: loaderData.updated,
             temporalCoverage: String(loaderData.year),
+            spatialCoverage: { '@type': 'State', name: 'Texas' },
             keywords: [loaderData.category, 'Texas data', 'TexasDefined'],
             creator: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#organization` },
             publisher: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#organization` },
             isIncludedIn: { '@id': `${absoluteUrl(texasDefinedBrand, '/texas-data')}#page` },
             isBasedOn: loaderData.sourceUrl,
+            citation: loaderData.sourceUrl,
             measurementTechnique: loaderData.methodology,
             variableMeasured: loaderData.rows.map((row) => ({
               '@type': 'PropertyValue',
@@ -73,6 +75,7 @@ export const Route = createFileRoute('/texas-data/$datasetSlug')({
 
 function Page() {
   const dataset = Route.useLoaderData();
+  const isRelocationDataset = ['Relocation and migration', 'Insurance', 'Jobs', 'Transportation'].includes(dataset.category);
   return (
     <>
       <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
@@ -128,8 +131,15 @@ function Page() {
 
           <footer className="flex flex-wrap gap-x-7 gap-y-3 py-7 text-sm font-semibold">
             <Link to="/texas-data" className="underline underline-offset-4">More Texas data</Link>
-            <Link to="/learn/property-taxes" className="underline underline-offset-4">Property-tax guide</Link>
-            <Link to="/browse/counties" className="underline underline-offset-4">County directory</Link>
+            {isRelocationDataset ? <>
+              <Link to="/moving-to-texas" className="text-primary underline underline-offset-4">Moving to Texas research center</Link>
+              <Link to="/browse/cities" className="underline underline-offset-4">Compare Texas cities</Link>
+              <Link to="/browse/counties" className="underline underline-offset-4">Compare counties</Link>
+              <Link to="/texas-cost-of-living-calculator" className="underline underline-offset-4">Cost-of-living calculator</Link>
+            </> : <>
+              <Link to="/learn/property-taxes" className="underline underline-offset-4">Property-tax guide</Link>
+              <Link to="/browse/counties" className="underline underline-offset-4">County directory</Link>
+            </>}
           </footer>
         </article>
       </Container>

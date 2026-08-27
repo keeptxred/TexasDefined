@@ -9,6 +9,7 @@ export const sportsComparisonPath = '/sports-venues/compare';
 export const sportsComparisonCsvPath = '/sports-venues/compare.csv';
 
 export const nextStops = [
+  ['Plan a move to Texas', '/moving-to-texas', 'Use the relocation research center for metro guides, city matching, address-level source checks, moving tasks and cost tools.'],
   ['Find your county', '/browse/counties', 'Explore all 254 counties and find trusted local information for each one.'],
   ['County population growth', '/texas-data/county-growth', 'Compare Census Vintage 2025 county population change from the 2020 estimates base to July 1, 2025.'],
   ['County housing costs', '/texas-data/county-housing-costs', 'Compare official ACS median home values, gross rent, owner costs and household income across Texas counties.'],

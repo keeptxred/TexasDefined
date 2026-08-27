@@ -16,7 +16,7 @@ export function TexasPlaceDirectory({ mode }: { mode: "counties" | "cities" }) {
   const title = mode === "counties" ? "The Texas county directory" : "The Texas city directory";
   const intro = mode === "counties"
     ? "Find a county, then continue to verified local property-tax guides, official offices and public records."
-    : "Find a Texas city by county and region, then continue to statewide moving, salary and cost-of-living tools while local city records are independently verified.";
+    : "Find a Texas city by county and region, then continue to the relocation research center, salary and cost-of-living tools while local city records are independently verified.";
   const searchLabel = mode === "counties" ? "county" : "city";
   const current = mode === "counties" ? "Counties" : "Cities";
 
@@ -54,8 +54,9 @@ export function TexasPlaceDirectory({ mode }: { mode: "counties" | "cities" }) {
                   <li id={cityAnchor(city.slug)} key={city.slug} className={`border-b border-border py-7 sm:px-6 ${index % 3 === 0 ? "lg:pl-0" : ""} ${index % 3 !== 2 ? "lg:border-r" : ""}`}>
                     <p className="eyebrow text-primary">{city.region}</p>
                     <h3 className="mt-3 font-display text-3xl leading-tight">{city.name}, Texas</h3>
-                    <p className="mt-3 text-sm leading-7 text-muted-foreground">{city.name} is in {city.county} County. City detail pages are published only after local source verification; use the statewide planning tools below in the meantime.</p>
+                    <p className="mt-3 text-sm leading-7 text-muted-foreground">{city.name} is in {city.county} County. City detail pages are published only after local source verification; use the relocation research framework and statewide planning tools in the meantime.</p>
                     <div className="mt-5 flex flex-wrap gap-x-5 gap-y-3">
+                      <Link className="eyebrow border-b border-primary pb-1 text-primary" to="/moving-to-texas">Relocation research →</Link>
                       <Link className="eyebrow border-b border-primary pb-1 text-primary" to="/browse/counties">Find county context →</Link>
                       <Link className="eyebrow border-b border-primary pb-1 text-primary" to="/texas-salary-comparison-by-city">Compare salary →</Link>
                       <Link className="eyebrow border-b border-primary pb-1 text-primary" to="/texas-cost-of-living-calculator">Compare costs →</Link>
@@ -71,6 +72,7 @@ export function TexasPlaceDirectory({ mode }: { mode: "counties" | "cities" }) {
           <p className="eyebrow text-primary">Keep planning</p>
           <div className="mt-4 flex flex-wrap gap-x-7 gap-y-3">
             <Link to="/moving-to-texas" className="eyebrow border-b border-primary pb-1 text-primary">Moving to Texas →</Link>
+            <Link to="/texas-data" className="eyebrow border-b border-primary pb-1 text-primary">Texas Data Desk →</Link>
             <Link to="/property" className="eyebrow border-b border-primary pb-1 text-primary">Property & taxes →</Link>
             <Link to="/decide/financial-tools" className="eyebrow border-b border-primary pb-1 text-primary">Money & property tools →</Link>
             <Link to="/texas-utility-cost-calculator" className="eyebrow border-b border-primary pb-1 text-primary">Utility costs →</Link>
