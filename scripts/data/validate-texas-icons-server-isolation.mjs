@@ -6,6 +6,7 @@ const routePaths = [
 ];
 const functionsPath = "src/data/texas-icons.functions.ts";
 const resolverPath = "src/data/texas-icons.server.ts";
+const correctionsPath = "src/data/texas-icons-roster-corrections.server.ts";
 const researchPaths = [
   "src/data/texas-icons-research-history-1.server.ts",
   "src/data/texas-icons-research-history-2.server.ts",
@@ -41,7 +42,7 @@ const researchPaths = [
 ];
 const failures = [];
 
-for (const path of [...routePaths, functionsPath, resolverPath, ...researchPaths]) {
+for (const path of [...routePaths, functionsPath, resolverPath, correctionsPath, ...researchPaths]) {
   if (!fs.existsSync(path)) failures.push(`Missing Texas Icons isolation contract file: ${path}`);
 }
 
@@ -49,10 +50,12 @@ const routeSources = routePaths.map((path) => [path, fs.readFileSync(path, "utf8
 for (const [path, source] of routeSources) {
   if (!source.includes('from "@/data/texas-icons.functions"')) failures.push(`${path} must use the Texas Icons server-function bridge.`);
   if (/texas-icons(?:-research[^"']*)?\.server/.test(source)) failures.push(`${path} must never import a Texas Icons .server module directly.`);
+  if (source.includes("texas-icons-roster-corrections.server")) failures.push(`${path} must never import the server-only roster-correction module directly.`);
 }
 
 const functions = fs.readFileSync(functionsPath, "utf8");
 if (!functions.includes('import("./texas-icons.server")')) failures.push("Texas Icons server functions must dynamically import the server resolver.");
+if (!functions.includes('import("./texas-icons-roster-corrections.server")')) failures.push("Texas Icons server functions must dynamically import the server-only roster-correction layer.");
 
 const resolver = fs.readFileSync(resolverPath, "utf8");
 for (const path of researchPaths) {
@@ -67,4 +70,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Texas Icons server-isolation validation passed: public routes use the server-function bridge and ${researchPaths.length} staged research batches stay server-only.`);
+console.log(`Texas Icons server-isolation validation passed: public routes use the server-function bridge, ${researchPaths.length} staged research batches stay server-only, and explicit roster corrections stay server-only too.`);
