@@ -5,11 +5,14 @@ import { Link } from "@tanstack/react-router";
 import { AnswerSummary } from "@/components/content/AnswerSummary";
 import { ArticleCard } from "@/components/editorial/ArticleCard";
 import { DestinationCollectionGrid } from "@/components/editorial/DestinationCollectionGrid";
-import { ExploreCategoryAuthority } from "@/components/editorial/ExploreCategoryAuthority";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import { articlesQuery, categoriesQuery, destinationsQuery, regionsQuery } from "@/data/queries";
 import type { CategorySlug, ImageRef } from "@/data/types";
+
+const ExploreCategoryAuthority = lazy(() =>
+  import("@/components/editorial/ExploreCategoryAuthority").then((module) => ({ default: module.ExploreCategoryAuthority })),
+);
 
 const LivingAuthorityPaths = lazy(() =>
   import("@/components/editorial/LivingAuthorityPaths").then((module) => ({ default: module.LivingAuthorityPaths })),
@@ -120,7 +123,11 @@ export function CategoryPage({ category, eyebrow, title, intro, image }: {
         items={answerItems}
       />
 
-      {belongsToExplore && <ExploreCategoryAuthority category={category} />}
+      {belongsToExplore && (
+        <Suspense fallback={null}>
+          <ExploreCategoryAuthority category={category} />
+        </Suspense>
+      )}
 
       <Suspense fallback={null}>
         <LivingAuthorityPaths currentCategory={category} />
