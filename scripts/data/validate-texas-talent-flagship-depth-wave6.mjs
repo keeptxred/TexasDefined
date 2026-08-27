@@ -33,6 +33,12 @@ function objectArray(block, property) {
   }
   return objects;
 }
+function blockFor(source, slug, context) {
+  const marker = `"${slug}": {`;
+  const start = source.indexOf(marker);
+  if (start < 0) fail(`missing ${context} record for ${slug}`);
+  return findBalancedBlock(source, source.indexOf("{", start), "{", "}", `${slug} ${context}`);
+}
 const words = (value) => value.trim().split(/\s+/).filter(Boolean).length;
 const source = read("src/data/texas-talent-launch-depth-wave6.ts");
 const repair = read("src/data/texas-talent-launch-depth-wave6-repair.ts");
@@ -42,21 +48,16 @@ for (const token of [
   "TEXAS_TALENT_LAUNCH_DEPTH_WAVE6",
   "...(TEXAS_TALENT_LAUNCH_DEPTH_WAVE6[profile.slug] ?? {})",
   "TEXAS_TALENT_LAUNCH_DEPTH_WAVE6_REPAIR",
-  "...(TEXAS_TALENT_LAUNCH_DEPTH_WAVE6_REPAIR[profile.slug] ?? {})",
+  "overview: [...baseProfile.overview, ...wave6Repair.overviewAppend]",
 ]) {
   if (!server.includes(token)) fail(`server loader must apply effective wave 6 depth contract: ${token}`);
 }
 if (source.includes('launchStatus: "launch-ready"') || repair.includes('launchStatus: "launch-ready"')) fail("wave 6 depth work must not grant editorial launch approval");
 for (const slug of expected) {
-  const marker = `"${slug}": {`; const start = source.indexOf(marker); if (start < 0) fail(`missing wave 6 depth record for ${slug}`);
-  const block = findBalancedBlock(source, source.indexOf("{", start), "{", "}", slug);
-  let overviewBlock = block;
-  if (slug === "robert-rodriguez") {
-    const repairStart = repair.indexOf(marker);
-    if (repairStart < 0) fail("missing effective Robert Rodriguez wave 6 repair");
-    overviewBlock = findBalancedBlock(repair, repair.indexOf("{", repairStart), "{", "}", `${slug} repair`);
-  }
-  const overview = stringArray(overviewBlock, "overview"), legacy = stringArray(block, "legacy"), places = objectArray(block, "texasPlaces"), timeline = objectArray(block, "timeline");
+  const block = blockFor(source, slug, "wave 6 depth");
+  const repairBlock = blockFor(repair, slug, "wave 6 supplement");
+  const overview = [...stringArray(block, "overview"), ...stringArray(repairBlock, "overviewAppend")];
+  const legacy = stringArray(block, "legacy"), places = objectArray(block, "texasPlaces"), timeline = objectArray(block, "timeline");
   const overviewWords = overview.reduce((sum, p) => sum + words(p), 0), legacyWords = legacy.reduce((sum, p) => sum + words(p), 0);
   if (overview.length < 3 || overviewWords < 300) fail(`${slug}: effective overview below launch depth (${overview.length} paragraphs, ${overviewWords} words)`);
   if (legacy.length < 3 || legacyWords < 100) fail(`${slug}: legacy below launch depth (${legacy.length} points, ${legacyWords} words)`);
@@ -66,6 +67,8 @@ for (const slug of expected) {
 }
 const recordCount = [...source.matchAll(/^  "[a-z0-9-]+": \{/gm)].length;
 if (recordCount !== expected.length) fail(`wave 6 must contain exactly ${expected.length} records; found ${recordCount}`);
-const repairCount = [...repair.matchAll(/^  "[a-z0-9-]+": \{/gm)].length;
-if (repairCount !== 1 || !repair.includes('"robert-rodriguez"')) fail("wave 6 repair must remain narrowly scoped to Robert Rodriguez");
+const repairRecords = [...repair.matchAll(/^  "([a-z0-9-]+)": \{/gm)].map((match) => match[1]);
+if (repairRecords.length !== expected.length || expected.some((slug) => !repairRecords.includes(slug))) {
+  fail(`wave 6 supplement must remain scoped to exactly ${expected.join(", ")}; found ${repairRecords.join(", ") || "none"}`);
+}
 console.log("Texas Talent flagship-depth wave 6 validation passed: Robert Rodriguez, Eva Longoria, Renee Zellweger, Ethan Hawke and Dennis Quaid meet effective narrative, timeline, legacy and Texas-place launch thresholds without receiving launch approval.");
