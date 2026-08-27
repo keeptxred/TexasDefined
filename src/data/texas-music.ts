@@ -151,6 +151,11 @@ export const TEXAS_MUSIC_RELATED_GUIDES: readonly TexasMusicRelatedGuide[] = [
     description: "Houston rap, DJ Screw's tape culture, the Geto Boys, UGK and the Gulf Coast systems that built a national sound.",
   },
   {
+    title: "Legendary Texas Music Venues",
+    href: "/texas-music-venues",
+    description: "Gruene Hall, Broken Spoke, Continental Club, Antone's and Billy Bob's—rooms that turned Texas music into lived culture.",
+  },
+  {
     title: "Texas Dance Halls & Honky-Tonks",
     href: "/texas-dance-halls-honky-tonks",
     description: "How the rooms, floors and roadside venues of Texas became part of the state's musical infrastructure.",
@@ -181,6 +186,11 @@ export const TEXAS_MUSIC_PRIMARY_SOURCES = [
   {
     label: "Handbook of Texas Music",
     url: "https://www.tshaonline.org/handbook/projects/texas-music",
+    publisher: "Texas State Historical Association",
+  },
+  {
+    label: "Texas Music — Venues",
+    url: "https://www.tshaonline.org/handbook/projects/texas-music/category/music/category/venues",
     publisher: "Texas State Historical Association",
   },
   {
