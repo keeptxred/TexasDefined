@@ -155,6 +155,6 @@ export const searchDocumentsQuery = () => queryOptions({
       ...nonDestinationDocuments,
       ...destinations.map(destinationSearchDocument),
     ];
-    return [...new Map(documents.map((document) => [document.href, document])).values();
+    return [...new Map(documents.map((document) => [document.href, document])).values()];
   },
 });
