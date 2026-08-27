@@ -82,6 +82,7 @@ export const INDEXABLE_STATIC_PATHS = [
   "/texas-vs-every-state",
   "/texas-history",
   "/texas-music",
+  "/texas-music-timeline",
   "/texas-blues",
   "/texas-conjunto-tejano",
   "/texas-western-swing",
