@@ -66,14 +66,15 @@ for (const city of [
 for (const requirement of [
   'CityRelocationComparison',
   '<CityRelocationComparison />',
-  'How to compare Texas cities and suburbs before you move',
+  'title="How to use the Texas city directory"',
   'does not publish a hidden best-city score',
 ]) {
   if (!cityRoute.includes(requirement)) failures.push(`Browse-cities authority integration missing: ${requirement}.`);
 }
 
 for (const requirement of [
-  'Compare Texas Cities & Suburbs Before You Move',
+  'title: "Texas Cities & Towns Directory | Browse by County & Region"',
+  'Browse Texas cities and towns by county and region',
   'Texas relocation research',
   'canonicalPath: "/browse/cities"',
   '"@type": "CollectionPage"',
@@ -86,10 +87,8 @@ if (!relocationHub.includes('Compare Texas cities & suburbs →')) failures.push
 if (!relocationHub.includes('to="/browse/cities"')) failures.push('Moving hub city-comparison link must target /browse/cities.');
 if (!publicRoutes.includes('"/browse/cities"')) failures.push('/browse/cities must remain explicitly indexable and sitemap-governed.');
 
-for (const requirement of [
-  "['relocation-city-comparison', '/browse/cities', 'Compare places without a hidden “best city” score']",
-]) {
-  if (!smoke.includes(requirement)) failures.push('Production smoke must permanently verify the Texas city/suburb comparison authority.');
+if (!smoke.includes("['relocation-city-comparison', '/browse/cities', 'Compare places without a hidden “best city” score']")) {
+  failures.push('Production smoke must permanently verify the Texas city/suburb comparison authority.');
 }
 
 if (failures.length) {
@@ -98,4 +97,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Texas city/suburb relocation comparison authority is source-backed, non-ranking, indexed, internally linked and production-smoke protected.');
+console.log('Texas city/suburb relocation comparison authority is source-backed, non-ranking, indexed, internally linked, CTR-contract preserving and production-smoke protected.');
