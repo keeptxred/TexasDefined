@@ -5,6 +5,7 @@ import { Link } from "@tanstack/react-router";
 import { AnswerSummary } from "@/components/content/AnswerSummary";
 import { ArticleCard } from "@/components/editorial/ArticleCard";
 import { DestinationCollectionGrid } from "@/components/editorial/DestinationCollectionGrid";
+import { ExploreCategoryAuthority } from "@/components/editorial/ExploreCategoryAuthority";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import { articlesQuery, categoriesQuery, destinationsQuery, regionsQuery } from "@/data/queries";
@@ -118,6 +119,8 @@ export function CategoryPage({ category, eyebrow, title, intro, image }: {
         title={`What to know about ${eyebrow}`}
         items={answerItems}
       />
+
+      {belongsToExplore && <ExploreCategoryAuthority category={category} />}
 
       <Suspense fallback={null}>
         <LivingAuthorityPaths currentCategory={category} />
