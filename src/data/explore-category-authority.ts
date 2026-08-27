@@ -20,13 +20,13 @@ export type ExploreAuthorityGuide = {
   relatedLinks: Array<{ label: string; href: string }>;
 };
 
-const loadExploreCategoryAuthority = createServerFn({ method: "GET" })
+const loadExploreCategoryAuthorityHtml = createServerFn({ method: "GET" })
   .inputValidator((data: { category: CategorySlug }) => data)
   .handler(async ({ data }) => {
-    const { getExploreCategoryAuthorityServer } = await import("./explore-category-authority.server");
-    return getExploreCategoryAuthorityServer(data.category);
+    const { renderExploreCategoryAuthorityHtml } = await import("./explore-category-authority-html.server");
+    return renderExploreCategoryAuthorityHtml(data.category);
   });
 
-export function getExploreCategoryAuthority(category: CategorySlug) {
-  return loadExploreCategoryAuthority({ data: { category } });
+export function getExploreCategoryAuthorityHtml(category: CategorySlug) {
+  return loadExploreCategoryAuthorityHtml({ data: { category } });
 }
