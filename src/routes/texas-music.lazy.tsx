@@ -15,6 +15,12 @@ import { getTexasTalentByCategory } from "@/data/texas-talent";
 export const Route = createLazyFileRoute("/texas-music")({ component: TexasMusicPage });
 
 const musicTalent = getTexasTalentByCategory("music");
+const roadTrips = [
+  ["Central Texas dance halls & Austin stages", "Austin → South Austin → Gruene → Fort Worth", [["Austin music history", "/austin-music-history"], ["Broken Spoke", "/broken-spoke-austin-history"], ["Antone's", "/antones-austin-history"], ["Gruene Hall", "/gruene-hall-history"], ["Billy Bob's Texas", "/billy-bobs-texas-history"]]],
+  ["South Texas border-music route", "San Antonio → Corpus Christi → Rio Grande Valley", [["San Antonio music history", "/san-antonio-music-history"], ["Conjunto & Tejano", "/texas-conjunto-tejano"], ["Texas dance halls", "/texas-dance-halls-honky-tonks"], ["Texas trip planner", "/explore/trip-planner"]]],
+  ["Houston-to-Gulf Coast sound trail", "Houston → Port Arthur → Gulf Coast", [["Houston music history", "/houston-music-history"], ["Texas blues", "/texas-blues"], ["Gospel, R&B & pop", "/texas-gospel-rnb-pop"], ["Texas hip-hop", "/texas-hip-hop"]]],
+  ["North & West Texas roots route", "Dallas → Fort Worth → Lubbock", [["Dallas–Fort Worth music history", "/dallas-fort-worth-music-history"], ["Texas jazz", "/texas-jazz"], ["Texas western swing", "/texas-western-swing"], ["Lubbock music history", "/lubbock-music-history"], ["Texas rock & rockabilly", "/texas-rock-rockabilly"]]],
+] as const;
 
 function TexasMusicPage() {
   return (
@@ -142,6 +148,27 @@ function TexasMusicPage() {
                 </article>
               ))}
             </div>
+          </div>
+        </Container>
+      </section>
+
+      <section id="road-trips" className="scroll-mt-32 border-b border-border bg-surface">
+        <Container className="py-14 sm:py-20">
+          <div className="max-w-3xl">
+            <p className="eyebrow text-primary">Texas music road trips</p>
+            <h2 className="mt-3 font-display text-4xl font-semibold leading-tight sm:text-5xl">Follow the history on the ground</h2>
+            <p className="mt-5 text-base leading-7 text-muted-foreground">Editorial routes through existing TexasDefined guides. Confirm current visitor details before traveling.</p>
+          </div>
+          <div className="mt-10 grid gap-px border border-border bg-border lg:grid-cols-2">
+            {roadTrips.map(([title, route, stops]) => (
+              <article key={title} className="bg-background p-6 sm:p-8">
+                <h3 className="font-display text-3xl font-semibold leading-tight text-foreground">{title}</h3>
+                <p className="mt-3 text-sm font-semibold text-primary">{route}</p>
+                <ul className="mt-5 divide-y divide-border border-y border-border">
+                  {stops.map(([label, href]) => <li key={href}><a href={href} className="flex min-h-12 items-center justify-between gap-4 py-2 text-sm font-semibold text-foreground hover:text-primary">{label}<span aria-hidden>→</span></a></li>)}
+                </ul>
+              </article>
+            ))}
           </div>
         </Container>
       </section>
