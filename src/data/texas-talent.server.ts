@@ -128,6 +128,7 @@ function withReadiness<T extends (typeof TEXAS_TALENT_ALL_PROFILES)[number]>(pro
     ...baseProfile,
     ...(wave6Repair ? {
       overview: [...baseProfile.overview, ...wave6Repair.overviewAppend],
+      legacy: [...baseProfile.legacy, ...wave6Repair.legacyAppend],
       lastReviewedAt: wave6Repair.lastReviewedAt,
     } : {}),
     ...(TEXAS_TALENT_EDITORIAL_STATUS_OVERRIDES[profile.slug] ?? {}),
