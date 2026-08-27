@@ -19,17 +19,19 @@ const researched = [
   [241, "Prada Marfa", "prada-marfa"],
 ];
 const canonical = [
-  [238, "San Antonio River Walk", "/destination/san-antonio-river-walk"],
-  [240, "Cadillac Ranch", "/destination/cadillac-ranch"],
-  [242, "Palo Duro Canyon", "/destination/palo-duro-canyon-state-park"],
-  [243, "Big Bend National Park", "/destination/big-bend-national-park"],
-  [244, "Enchanted Rock", "/destination/enchanted-rock-state-natural-area"],
-  [245, "King Ranch", "/article/king-ranch-texas-history-cattle-legacy"],
+  [238, "San Antonio River Walk", "/destination/san-antonio-river-walk", "san-antonio-river-walk"],
+  [240, "Cadillac Ranch", "/destination/cadillac-ranch", "cadillac-ranch"],
+  [242, "Palo Duro Canyon", "/destination/palo-duro-canyon-state-park", "palo-duro-canyon"],
+  [243, "Big Bend National Park", "/destination/big-bend-national-park", "big-bend-national-park"],
+  [244, "Enchanted Rock", "/destination/enchanted-rock-state-natural-area", "enchanted-rock"],
+  [245, "King Ranch", "/article/king-ranch-texas-history-cattle-legacy", "king-ranch"],
 ];
 for (const [rank, name] of [...researched, ...canonical]) if (!source.includes(`${rank},${name},Symbols & Food,`)) failures.push(`Symbols & Food roster drift at rank ${rank}: expected ${name}.`);
 for (const [, , slug] of researched) if (!research.includes(`slug: "${slug}"`)) failures.push(`Missing Symbols batch-2 research profile: ${slug}.`);
-for (const [, name, path] of canonical) if (!roster.includes(`"${name}": "${path}"`)) failures.push(`${name} must reuse canonical owner ${path}.`);
-for (const [, , slug] of canonical) if (research.includes(`slug: "${slug}"`)) failures.push(`Canonical Symbols entry ${slug} must not be duplicated as staged research.`);
+for (const [, name, path, slug] of canonical) {
+  if (!roster.includes(`"${name}": "${path}"`)) failures.push(`${name} must reuse canonical owner ${path}.`);
+  if (research.includes(`slug: "${slug}"`)) failures.push(`Canonical Symbols entry ${slug} must not be duplicated as staged research.`);
+}
 
 const slugs = [...research.matchAll(/slug: "([^"]+)"/g)].map((match) => match[1]);
 if (slugs.length !== 4 || new Set(slugs).size !== 4) failures.push(`Symbols batch 2 must contain exactly 4 unique research profiles; found ${slugs.length}.`);
