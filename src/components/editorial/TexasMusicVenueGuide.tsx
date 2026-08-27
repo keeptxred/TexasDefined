@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
 import type { TexasEvergreenGuide } from "@/data/texas-evergreen-guides";
+import { HISTORIC_TEXAS_MUSIC_VENUES } from "@/data/texas-music-historic-venues";
 
 const siteUrl = "https://texasdefined.com";
 
@@ -96,6 +97,7 @@ export function TexasMusicVenueGuide({ guide }: { guide: TexasEvergreenGuide }) 
   const canonicalUrl = `${siteUrl}/${guide.slug}`;
   const sources = venueSources[guide.slug] ?? [];
   const isHub = guide.slug === "texas-music-venues";
+  const historicVenues = isHub ? HISTORIC_TEXAS_MUSIC_VENUES : [];
   const breadcrumbItems = [
     { "@type": "ListItem", position: 1, name: "Front page", item: `${siteUrl}/` },
     { "@type": "ListItem", position: 2, name: "Texas Music", item: `${siteUrl}/texas-music` },
@@ -114,9 +116,15 @@ export function TexasMusicVenueGuide({ guide }: { guide: TexasEvergreenGuide }) 
         mainEntityOfPage: { "@id": `${canonicalUrl}#page` },
         publisher: { "@type": "Organization", name: "TexasDefined", url: siteUrl },
         articleSection: "Texas Music",
-        citation: sources.map((source) => source.href),
+        citation: [
+          ...sources.map((source) => source.href),
+          ...historicVenues.flatMap((venue) => venue.sources.map((source) => source.href)),
+        ],
         isPartOf: { "@type": "CollectionPage", "@id": `${siteUrl}/texas-music#collection`, name: "Texas Music", url: `${siteUrl}/texas-music` },
-        about: guide.sections.map((section) => ({ "@type": "Thing", name: section.heading })),
+        about: [
+          ...guide.sections.map((section) => ({ "@type": "Thing", name: section.heading })),
+          ...historicVenues.map((venue) => ({ "@type": "Place", name: venue.name, address: venue.place })),
+        ],
       },
       {
         "@type": "WebPage",
@@ -185,6 +193,32 @@ export function TexasMusicVenueGuide({ guide }: { guide: TexasEvergreenGuide }) 
             </div>
           </section>)}
         </div>
+
+        {historicVenues.length ? <section className="border-b border-border py-12" aria-labelledby="historic-rooms">
+          <p className="eyebrow text-primary">Historic and lost rooms</p>
+          <h2 id="historic-rooms" className="mt-2 max-w-3xl font-display text-4xl">The second layer of Texas venue history</h2>
+          <p className="mt-4 max-w-3xl text-base leading-8 text-muted-foreground">The best-known surviving halls are only part of the story. These rooms explain how Black touring circuits, progressive country, Gulf Coast honky-tonks and cross-genre Dallas stages built scenes that later became part of the Texas music canon.</p>
+          <div className="mt-8 grid gap-px overflow-hidden border border-border bg-border lg:grid-cols-2">
+            {historicVenues.map((venue) => <section key={venue.slug} className="bg-background p-6 sm:p-8">
+              <p className="eyebrow text-primary">{venue.place} · {venue.era}</p>
+              <h3 className="mt-2 font-display text-3xl leading-tight">{venue.name}</h3>
+              <p className="mt-2 text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">{venue.status}</p>
+              <p className="mt-5 text-base font-medium leading-7">{venue.significance}</p>
+              <div className="mt-5 space-y-4">
+                {venue.story.map((paragraph) => <p key={paragraph} className="text-sm leading-7 text-muted-foreground">{paragraph}</p>)}
+              </div>
+              <div className="mt-6 flex flex-wrap gap-x-5 gap-y-3 text-sm font-semibold">
+                {venue.related.map((item) => <Link key={item.href} to={item.href} className="border-b border-primary text-primary">{item.label}</Link>)}
+              </div>
+              <div className="mt-6 border-t border-border pt-4">
+                <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">Authority sources</p>
+                <div className="mt-2 flex flex-wrap gap-x-4 gap-y-2 text-xs">
+                  {venue.sources.map((source) => <a key={source.href} href={source.href} target="_blank" rel="noreferrer noopener" className="text-primary underline decoration-primary/40 underline-offset-4">{source.label} ↗</a>)}
+                </div>
+              </div>
+            </section>)}
+          </div>
+        </section> : null}
 
         <section className="border-b border-border py-10" aria-labelledby="venue-source-notes">
           <p className="eyebrow text-primary">Source notes</p>
