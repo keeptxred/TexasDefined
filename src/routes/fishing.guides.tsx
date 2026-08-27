@@ -10,5 +10,5 @@ function cleanFilter(value: unknown) {
 export const Route = createFileRoute("/fishing/guides")({
   validateSearch: (search: Record<string, unknown>) => ({ lake: cleanFilter(search.lake), region: cleanFilter(search.region), species: cleanFilter(search.species), trip: cleanFilter(search.trip) }),
   loader: () => getFishingGuideDirectoryData(),
-  head: ({ loaderData }) => loaderData?.head ?? {},
+  head: ({ loaderData }) => loaderData?.head ?? { meta: [{ name: "robots", content: "noindex, follow" }] },
 });
