@@ -122,10 +122,10 @@ for (const [pillar, supportSlugs] of Object.entries(pillarDepth)) {
   }
 }
 
-// Protect the source-backed explainers that are increasingly landing directly
-// from search. Presence in the registry is not enough: each published support
-// article must retain meaningful narrative depth rather than collapsing back to
-// a stub, summary card, or a handful of generic paragraphs.
+// Protect the source-backed explainers that increasingly land directly from
+// search. Paragraph count alone is not a depth signal: seven one-sentence
+// paragraphs can still be a thin page. Keep both structural and real narrative
+// word-depth thresholds so reading-time metadata cannot mask a collapsed body.
 const paragraphCount = (block) => (block.match(/\bp\("/g) || []).length;
 const articleBlock = (source, slug) => {
   const start = source.indexOf(`slug: "${slug}"`);
@@ -134,10 +134,28 @@ const articleBlock = (source, slug) => {
   return source.slice(start, next > start ? next : source.length);
 };
 
+const bodyWordCount = (block) => {
+  const start = block.indexOf('body: [');
+  if (start < 0) return 0;
+  const end = block.indexOf('\n  ],', start);
+  if (end < 0) return 0;
+  const body = block.slice(start, end);
+  const literals = body.match(/"(?:\\.|[^"\\])*"/g) ?? [];
+  const text = literals.map((literal) => {
+    try { return JSON.parse(literal); } catch { return ''; }
+  }).join(' ');
+  return (text.match(/[A-Za-z0-9]+(?:['’][A-Za-z0-9]+)*/g) ?? []).length;
+};
+
+const FIRST_LAYER_MIN_WORDS = 650;
+const DEPTH_MIN_WORDS = 850;
+
 for (const slug of firstLayerChildren) {
   const block = articleBlock(firstLayerArticles, slug);
   const count = paragraphCount(block);
+  const words = bodyWordCount(block);
   if (count < 7) errors.push(`First-layer Texas Explained article too shallow (${count} paragraphs): ${slug}`);
+  if (words < FIRST_LAYER_MIN_WORDS) errors.push(`First-layer Texas Explained article too thin (${words} body words; minimum ${FIRST_LAYER_MIN_WORDS}): ${slug}`);
   if (!block.includes('sourceName:') || !block.includes('sourceUrl:')) errors.push(`First-layer Texas Explained article missing source authority: ${slug}`);
   if (!block.includes('internalLinks:')) errors.push(`First-layer Texas Explained article missing internal discovery links: ${slug}`);
 }
@@ -145,7 +163,9 @@ for (const slug of firstLayerChildren) {
 for (const slug of children) {
   const block = articleBlock(articles, slug);
   const count = paragraphCount(block);
+  const words = bodyWordCount(block);
   if (count < 7) errors.push(`Texas Explained depth article too shallow (${count} paragraphs): ${slug}`);
+  if (words < DEPTH_MIN_WORDS) errors.push(`Texas Explained depth article too thin (${words} body words; minimum ${DEPTH_MIN_WORDS}): ${slug}`);
   if (!block.includes('sourceName:') || !block.includes('sourceUrl:')) errors.push(`Texas Explained depth article missing source authority: ${slug}`);
   if (!block.includes('internalLinks:')) errors.push(`Texas Explained depth article missing internal discovery links: ${slug}`);
 }
@@ -155,4 +175,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Texas Explained depth validation passed: ten source-backed support/depth articles remain substantive, hub-visible, lazy registered, collection-oriented and mobile-safe while the hub expands to a 35-article collection with five river, five reservoir and five road-system profiles.');
+console.log(`Texas Explained depth validation passed: ten source-backed support/depth articles remain substantive, hub-visible, lazy registered, collection-oriented and mobile-safe; first-layer guides retain at least ${FIRST_LAYER_MIN_WORDS} body words and deeper guides retain at least ${DEPTH_MIN_WORDS} body words.`);

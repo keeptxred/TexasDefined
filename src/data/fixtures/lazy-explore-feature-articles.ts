@@ -12,7 +12,7 @@ const image = (src: string, alt: string): ImageRef => ({ src, alt, width: 1600, 
 const stub = (record: Omit<Article, "brandId" | "authorId" | "readingMinutes" | "body" | "relatedCollections" | "relatedDestinations"> & { relatedDestinations?: string[] }): Article => ({
   brandId: "texasdefined",
   authorId: "a-hollis",
-  readingMinutes: 1,
+  readingMinutes: 4,
   body: [],
   relatedCollections: [],
   relatedDestinations: record.relatedDestinations ?? [],
@@ -136,8 +136,19 @@ export const exploreFeatureArticleStubs: Article[] = [
 
 const exploreFeatureSlugs = new Set(exploreFeatureArticleStubs.map((article) => article.slug));
 
+function estimateReadingMinutes(article: Article): number {
+  const text = article.body.map((block) => {
+    if ("text" in block && typeof block.text === "string") return block.text;
+    if ("items" in block && Array.isArray(block.items)) return block.items.join(" ");
+    return "";
+  }).join(" ");
+  const words = text.match(/[A-Za-z0-9]+(?:['’][A-Za-z0-9]+)*/g)?.length ?? 0;
+  return Math.max(3, Math.ceil(words / 200));
+}
+
 export async function loadExploreFeatureArticle(brandId: string, slug: string): Promise<Article | null> {
   if (brandId !== "texasdefined" || !exploreFeatureSlugs.has(slug)) return null;
   const { exploreFeatureArticles } = await import("./explore-feature-articles");
-  return exploreFeatureArticles.find((article) => article.slug === slug) ?? null;
+  const article = exploreFeatureArticles.find((candidate) => candidate.slug === slug);
+  return article ? { ...article, readingMinutes: estimateReadingMinutes(article) } : null;
 }

@@ -20,6 +20,7 @@ const queries = fs.readFileSync(path.join(root, 'src/data/queries.ts'), 'utf8');
 const remote = fs.readFileSync(path.join(root, 'src/data/explore-remote.ts'), 'utf8');
 const sitemap = fs.readFileSync(path.join(root, 'src/routes/sitemap-explore[.]xml.ts'), 'utf8');
 const brand = fs.readFileSync(path.join(root, 'src/brand/texasdefined.ts'), 'utf8');
+const exploreFeatureStubs = fs.readFileSync(path.join(root, 'src/data/fixtures/lazy-explore-feature-articles.ts'), 'utf8');
 const errors = [];
 
 for (const feature of [
@@ -128,10 +129,22 @@ for (const feature of [
   if (!remote.includes(feature)) errors.push(`Migrated Explore catalog feature missing: ${feature}.`);
 }
 
+for (const feature of [
+  'readingMinutes: 4',
+  'function estimateReadingMinutes(article: Article): number',
+  'Math.max(3, Math.ceil(words / 200))',
+  'readingMinutes: estimateReadingMinutes(article)',
+]) {
+  if (!exploreFeatureStubs.includes(feature)) errors.push(`Explore feature reading-time contract missing: ${feature}.`);
+}
+if (exploreFeatureStubs.includes('readingMinutes: 1,')) {
+  errors.push('Explore feature catalog must not advertise substantive feature guides as one-minute reads.');
+}
+
 if (errors.length) {
   console.error('Explore category SEO validation failed:');
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
 
-console.log('Explore categories, classification, filterable collections, taxonomy, navigation, dedicated quality-gated sitemap, related links, regions, structured data, and breadcrumbs passed validation.');
+console.log('Explore categories, classification, filterable collections, taxonomy, navigation, dedicated quality-gated sitemap, related links, regions, structured data, breadcrumbs, and body-derived feature reading times passed validation.');

@@ -32,6 +32,10 @@ for (const required of [
   'title="Texas home insurance cost calculator"',
   'Estimate Texas homeowners insurance cost from replacement cost',
   'does not require your name, email address, phone number, or street address',
+  'No quote form required',
+  'Homeowners insurance calculator without personal information',
+  'does not ask for your name, email address, phone number, street address, date of birth, or other contact details',
+  'This is a self-service planning estimate rather than an insurer quote.',
   'The result is a planning estimate only.',
   'Percentage deductible math',
   'a 2% deductible applied to a $400,000 dwelling limit equals $8,000',
@@ -39,9 +43,15 @@ for (const required of [
   if (!insuranceRoute.includes(required)) failures.push(`Home-insurance search intent contract missing: ${required}`);
 }
 
+const insuranceCalculatorMount = insuranceRoute.indexOf('<HomeInsuranceCalculator />');
+const insurancePrivateIntent = insuranceRoute.indexOf('Homeowners insurance calculator without personal information');
+if (insuranceCalculatorMount < 0 || insurancePrivateIntent < insuranceCalculatorMount) {
+  failures.push('Home-insurance no-personal-information intent must remain visible after the calculator itself.');
+}
+
 const insuranceCalculator = calculators.split('export function HomeInsuranceCalculator()')[1] ?? '';
 if (!insuranceCalculator) failures.push('HomeInsuranceCalculator implementation is missing.');
-for (const prohibited of ['label="Name"', 'label="Email"', 'label="Phone"', 'label="Street address"']) {
+for (const prohibited of ['label="Name"', 'label="Email"', 'label="Phone"', 'label="Street address"', 'label="Date of birth"']) {
   if (insuranceCalculator.includes(prohibited)) failures.push(`Home insurance no-personal-information promise is no longer true: found ${prohibited}.`);
 }
 for (const required of ['Replacement cost', 'Estimated base rate', 'Wind/flood additions', 'Deductible/discount credit']) {
@@ -52,7 +62,9 @@ for (const required of [
   "title: 'Texas Paycheck Calculator | Take-Home Pay'",
   'title="Texas paycheck and salary calculator"',
   'Estimate after-tax income and take-home pay in Texas',
+  'Texas does not have an individual state income tax',
   'Gross-pay examples before taxes, benefits or other deductions.',
+  '24 semimonthly checks and 26 biweekly checks',
   'an $80,000 annual salary is about $3,076.92 gross every two weeks',
   'https://www.irs.gov/individuals/tax-withholding-estimator',
   'https://www.ssa.gov/oact/progdata/taxRates.html',
@@ -231,4 +243,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Search-intent and SERP CTR validation passed: impression-bearing calculators, Phase 3 finance ranking depth, disabled-veteran guidance, city discovery, county property-tax pages, legacy county redirects, appraisal-district queries, agency snippets, Texas Explained behavioral search scoring, independent framing, and publication-quality gates are protected.');
+console.log('Search-intent and SERP CTR validation passed: impression-bearing calculators, home-insurance no-personal-information intent, Phase 3 finance ranking depth, disabled-veteran guidance, city discovery, county property-tax pages, legacy county redirects, appraisal-district queries, agency snippets, Texas Explained behavioral search scoring, independent framing, and publication-quality gates are protected.');
