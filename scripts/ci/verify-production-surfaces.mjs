@@ -10,6 +10,7 @@ const surfaces = [
   ['homepage', '/', 'Texas Defined'],
   ['sitemap', '/sitemap.xml', '<urlset'],
   ['moving-pillar', '/article/moving-to-texas-what-nobody-tells-you', 'The quick answer: what should you know before moving to Texas?'],
+  ['relocation-data-center', '/moving-to-texas/data', 'The data behind a move to Texas'],
   ['flag-history', '/article/history-of-the-texas-flag', 'The Texas Flag: A History of the Lone Star'],
   ['flag-etiquette', '/article/texas-flag-etiquette-display-guide', 'Texas Flag Etiquette: How to Display the Lone Star Flag Correctly'],
   ['texas-symbols', '/texas-symbols', 'Official Texas Symbols'],

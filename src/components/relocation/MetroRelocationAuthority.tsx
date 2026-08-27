@@ -3,6 +3,12 @@ import {
   RELOCATION_SOURCES,
   RELOCATION_SOURCE_VERIFIED,
 } from "@/data/relocation-authority";
+import {
+  TDI_HOMEOWNERS_MARKET,
+  TDI_INSURANCE_VERIFIED,
+  countyWindLabel,
+  countyWindNote,
+} from "@/data/relocation-insurance";
 
 const DATA_DESK_LINKS = [
   {
@@ -110,6 +116,37 @@ export function MetroRelocationAuthority({ articlePath }: { articlePath: string 
           </ul>
         </section>
       </div>
+
+      <section className="mt-7 border-t border-border pt-6" aria-labelledby="metro-insurance-research">
+        <p className="text-[0.68rem] font-semibold uppercase tracking-[0.15em] text-primary">TDI county insurance research · 2025 preliminary</p>
+        <h3 id="metro-insurance-research" className="mt-2 font-display text-2xl">Compare the counties, then quote the address</h3>
+        <p className="mt-3 max-w-4xl text-sm leading-6 text-muted-foreground">
+          TDI publishes average annual homeowners premiums for every Texas county from 2019 through preliminary 2025 data. The 2025 statewide average was ${TDI_HOMEOWNERS_MARKET.statewideAverageAnnualPremium.toLocaleString()}, but a statewide average is not a quote and should not be substituted for the county map or address-specific coverage.
+        </p>
+        <dl className="mt-5 grid gap-4 sm:grid-cols-3">
+          <div className="border-t border-border pt-3"><dt className="text-xs uppercase tracking-[0.12em] text-muted-foreground">Texas active policies</dt><dd className="mt-1 font-display text-2xl">{TDI_HOMEOWNERS_MARKET.activeHomeownersPolicies.toLocaleString()}</dd></div>
+          <div className="border-t border-border pt-3"><dt className="text-xs uppercase tracking-[0.12em] text-muted-foreground">2025 paid losses</dt><dd className="mt-1 font-display text-2xl">${(TDI_HOMEOWNERS_MARKET.statewidePaidLosses / 1_000_000_000).toFixed(2)}B</dd></div>
+          <div className="border-t border-border pt-3"><dt className="text-xs uppercase tracking-[0.12em] text-muted-foreground">Wind + hail share since 2019</dt><dd className="mt-1 font-display text-2xl">{Math.round(TDI_HOMEOWNERS_MARKET.windHailShareSince2019 * 100)}% avg.</dd></div>
+        </dl>
+        <div className="mt-5 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2">
+          {metro.counties.map((county) => (
+            <article key={county} className="bg-background p-4">
+              <p className="font-display text-xl">{county} County</p>
+              <p className="mt-1 text-xs font-semibold uppercase tracking-[0.1em] text-primary">{countyWindLabel(county)}</p>
+              <p className="mt-2 text-xs leading-5 text-muted-foreground">{countyWindNote(county)}</p>
+            </article>
+          ))}
+        </div>
+        <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-xs font-semibold">
+          <a href={TDI_HOMEOWNERS_MARKET.sourceUrl} target="_blank" rel="noreferrer" className="text-primary underline underline-offset-4">Open TDI county premium map ↗</a>
+          <a href={TDI_HOMEOWNERS_MARKET.lossesSourceUrl} target="_blank" rel="noreferrer" className="text-primary underline underline-offset-4">Open county paid-loss tool ↗</a>
+          <a href={TDI_HOMEOWNERS_MARKET.lossesCsvUrl} target="_blank" rel="noreferrer" className="text-primary underline underline-offset-4">Download TDI 2025 county-loss CSV ↗</a>
+          <a href="/texas-home-insurance-calculator" className="underline underline-offset-4">Run planning calculator →</a>
+        </div>
+        <p className="mt-4 text-xs leading-5 text-muted-foreground">
+          {TDI_HOMEOWNERS_MARKET.lossCoverage} County losses describe paid claims, not expected future premiums or the risk at a specific property. Verified {TDI_INSURANCE_VERIFIED}.
+        </p>
+      </section>
 
       <section className="mt-7" aria-labelledby="metro-relocation-datasets">
         <h3 id="metro-relocation-datasets" className="font-display text-2xl">Data to open beside this guide</h3>
