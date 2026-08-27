@@ -7,6 +7,7 @@ import { applyAllCuratedDestinations } from "@/data/destination-curation-all";
 import { preservedExploreDestinations } from "@/data/destination-preserved-catalog";
 import { improveDestinationCatalog } from "@/data/destination-quality";
 import { supplementalExploreCategories } from "@/data/explore-categories";
+import { isExploreCategoryIndexReady } from "@/data/explore-category-indexability";
 import { fetchCoreExploreDestinations } from "@/data/explore-core-remote";
 import { reconcileDestinationHeroes } from "@/data/explore-hero-reconciliation";
 import { applyExploreHeroAssets } from "@/data/explore-heroes";
@@ -144,7 +145,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
 
         const categorySlugs = [...new Set([...categories, ...supplementalExploreCategories]
           .map((category) => category.slug)
-          .filter((slug) => EXPLORE_CATEGORY_SLUGS.has(slug)))];
+          .filter((slug) => EXPLORE_CATEGORY_SLUGS.has(slug) && isExploreCategoryIndexReady(slug)))];
         const regionSlugs = [...new Set([
           ...regions.map((region) => region.id),
           ...EXPLORE_REGION_SLUGS,
