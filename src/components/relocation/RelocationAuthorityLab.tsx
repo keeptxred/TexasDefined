@@ -67,7 +67,7 @@ export function RelocationAuthorityLab() {
             <div>
               <p className="eyebrow text-primary">Relocation decision lab</p>
               <h2 id="relocation-decision-lab" className="mt-3 font-display text-4xl leading-tight">Where should you research first?</h2>
-              <p className="mt-4 text-sm leading-7 text-muted-foreground">Filter Texas places by the kind of move you are planning. This is an orientation tool, not a secret “best places” score: every match shows which filters matched, and current prices still belong in the calculators and address-level research.</p>
+              <p className="mt-4 text-sm leading-7 text-muted-foreground">Filter Texas places by the kind of move you are planning. This is an orientation tool; there is no secret “best places” score: every match shows which filters matched, and current prices still belong in the calculators and address-level research.</p>
             </div>
             <div>
               <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
