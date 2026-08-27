@@ -1,3 +1,4 @@
+import './validate-explore-category-authority.mjs';
 import './validate-editorial-collection-seo.mjs';
 import './validate-events-seo.mjs';
 import './validate-explore-landing-seo.mjs';
