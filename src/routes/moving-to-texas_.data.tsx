@@ -12,6 +12,7 @@ import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 const canonicalPath = '/moving-to-texas/data';
 const description = 'A source-backed Texas relocation data center for migration, jobs, homeowners insurance, traffic, county research and the practical numbers behind a move to Texas.';
+const tdiCountyLossesUrl = 'https://www.tdi.texas.gov/consumer/homeowners-losses-by-county.html';
 const relocationDatasetSlugs = [
   'texas-population-and-migration-2024',
   'where-new-texans-came-from-2024',
@@ -131,7 +132,7 @@ function RelocationDataCenterPage() {
             <p>Coastal research needs extra care. TDI notes that TWIA wind coverage can apply in 14 coastal counties and parts of Harris County, so a homeowners premium that excludes wind is not directly comparable with an inland policy that includes wind.</p>
             <div className="flex flex-wrap gap-x-7 gap-y-3 font-semibold">
               <a href={RELOCATION_SOURCES.tdiInsurance.url} target="_blank" rel="noreferrer" className="text-primary underline underline-offset-4">TDI county premium map ↗</a>
-              <a href={RELOCATION_SOURCES.tdiCountyLosses.url} target="_blank" rel="noreferrer" className="text-primary underline underline-offset-4">TDI homeowners losses by county ↗</a>
+              <a href={tdiCountyLossesUrl} target="_blank" rel="noreferrer" className="text-primary underline underline-offset-4">TDI homeowners losses by county ↗</a>
               <Link to="/texas-home-insurance-calculator" className="underline underline-offset-4">Run the planning calculator →</Link>
             </div>
           </div>
