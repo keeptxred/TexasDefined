@@ -9,7 +9,7 @@ on:
       - 'src/data/remote-evergreen-authority-sources.test.ts'
       - 'src/data/articles-remote.ts'
       - 'src/routes/article.$slug.tsx'
-      - 'src/routes/sitemap[.]xml.ts'
+      - 'src/routes/sitemap*.ts'
   push:
     branches:
       - main
@@ -20,7 +20,7 @@ on:
       - 'src/data/remote-evergreen-authority-sources.test.ts'
       - 'src/data/articles-remote.ts'
       - 'src/routes/article.$slug.tsx'
-      - 'src/routes/sitemap[.]xml.ts'
+      - 'src/routes/sitemap*.ts'
   workflow_dispatch:
 
 permissions:
@@ -46,7 +46,7 @@ jobs:
 
   verify-production:
     name: Verify 19 canonical evergreen pages on texasdefined.com
-    if: github.event_name != 'pull_request'
+    if: ${{ github.event_name != 'pull_request' }}
     needs: validate-cohort
     runs-on: ubuntu-latest
     timeout-minutes: 15
