@@ -1,5 +1,5 @@
 import { countySeasonalLinks } from '@/data/county-seasonal-links';
-import { majorEventsForCounty } from '@/data/major-event-authority';
+import { majorEventsForCounty } from '@/data/major-event-index';
 import { formatDateRange } from '@/domain/utils/format';
 
 export function CountySeasonalPlanning({ countySlug, countyName }: { countySlug: string; countyName: string }) {

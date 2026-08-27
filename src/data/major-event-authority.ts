@@ -1,24 +1,22 @@
-import type { TexasEvent, TexasRegion } from "./types";
+import { majorEventIndexRecords, type MajorEventIndexRecord } from "./major-event-index";
 
 export interface MajorEventSource { label: string; url: string; }
 export interface MajorEventPlanningSection { title: string; body: string; }
 export interface MajorEventRelatedLink { href: string; label: string; description: string; }
-export interface MajorEventAuthorityRecord {
-  slug: string; name: string; city: string; countySlug?: string; countyName?: string;
-  region: TexasRegion; category: TexasEvent["category"]; startDate: string; endDate?: string;
-  dateNote?: string; venue?: string; officialUrl: string; sourceCheckedAt: string;
-  summary: string; whyItMatters: string; planningSections: MajorEventPlanningSection[];
-  relatedLinks: MajorEventRelatedLink[]; sources: MajorEventSource[];
+interface MajorEventAuthorityDetails {
+  slug: string;
+  whyItMatters: string;
+  planningSections: MajorEventPlanningSection[];
+  relatedLinks: MajorEventRelatedLink[];
+  sources: MajorEventSource[];
 }
+export type MajorEventAuthorityRecord = MajorEventIndexRecord & Omit<MajorEventAuthorityDetails, "slug">;
 
-// First verified tranche from the supplied 75-event inventory. The PDF is a discovery
-// seed only; official organizer/host sources control dates. That check corrected the
-// seed's SXSW 2027 dates to Mar 15-21 and Texas SandFest 2027 to Apr 16-18.
-export const majorEventAuthorityRecords: MajorEventAuthorityRecord[] = [
+// Route-only guide copy. The supplied inventory is a discovery seed; official
+// organizer/host sources control verified dates stored in major-event-index.ts.
+const majorEventAuthorityDetails: MajorEventAuthorityDetails[] = [
   {
-    slug: "grapefest", name: "GrapeFest", city: "Grapevine", countySlug: "tarrant", countyName: "Tarrant County", region: "prairies-lakes", category: "food",
-    startDate: "2026-09-17", endDate: "2026-09-20", venue: "Historic Downtown Grapevine", officialUrl: "https://www.grapevinetexasusa.com/grapefest/general-information/", sourceCheckedAt: "2026-08-26",
-    summary: "GrapeFest is Grapevine's four-day wine festival, filling historic downtown with tastings, food, live entertainment and festival programming.",
+    slug: "grapefest",
     whyItMatters: "The festival is a strong North Texas fall-travel anchor because it combines a walkable historic downtown with a large scheduled event.",
     planningSections: [
       { title: "Choose the day first", body: "Admission rules and hours vary by day. Decide whether you want Thursday, Friday evening or the heavier weekend crowd before locking in lodging and arrival time." },
@@ -29,9 +27,7 @@ export const majorEventAuthorityRecords: MajorEventAuthorityRecord[] = [
     sources: [{ label: "GrapeFest official general information", url: "https://www.grapevinetexasusa.com/grapefest/general-information/" }],
   },
   {
-    slug: "texas-renaissance-festival", name: "Texas Renaissance Festival", city: "Todd Mission", region: "prairies-lakes", category: "culture",
-    startDate: "2026-10-10", endDate: "2026-11-29", dateNote: "Open Saturdays and Sundays during the published season, plus Thanksgiving Friday; check the official calendar before traveling.", venue: "Texas Renaissance Festival", officialUrl: "https://www.texrenfest.com/", sourceCheckedAt: "2026-08-26",
-    summary: "The Texas Renaissance Festival is a multi-week fall festival in Todd Mission built around themed weekends, stage shows, food, shopping and a purpose-built festival village.",
+    slug: "texas-renaissance-festival",
     whyItMatters: "This repeat-weekend destination can shape an entire fall trip, and the themed-weekend structure means the best weekend depends on the visitor.",
     planningSections: [
       { title: "Pick the theme first", body: "Start with the official themed-weekend calendar instead of assuming every weekend is interchangeable." },
@@ -42,9 +38,7 @@ export const majorEventAuthorityRecords: MajorEventAuthorityRecord[] = [
     sources: [{ label: "Texas Renaissance Festival official site", url: "https://www.texrenfest.com/" }],
   },
   {
-    slug: "texas-rose-festival", name: "Texas Rose Festival", city: "Tyler", countySlug: "smith", countyName: "Smith County", region: "piney-woods", category: "culture",
-    startDate: "2026-10-15", endDate: "2026-10-18", venue: "Tyler", officialUrl: "https://www.texasrosefestival.org/", sourceCheckedAt: "2026-08-26",
-    summary: "The Texas Rose Festival is Tyler's October celebration of the city's rose-growing heritage, with ceremonial events, a parade and festival traditions across the city.",
+    slug: "texas-rose-festival",
     whyItMatters: "The festival turns Tyler's rose identity into a concentrated travel window that connects horticulture, civic tradition and an East Texas weekend.",
     planningSections: [
       { title: "Build around the program", body: "Use the official schedule to choose the ceremonies, parade activities and public events that matter to your trip." },
@@ -55,9 +49,7 @@ export const majorEventAuthorityRecords: MajorEventAuthorityRecord[] = [
     sources: [{ label: "Texas Rose Festival official site", url: "https://www.texasrosefestival.org/" }],
   },
   {
-    slug: "wurstfest", name: "Wurstfest", city: "New Braunfels", countySlug: "comal", countyName: "Comal County", region: "hill-country", category: "food",
-    startDate: "2026-11-06", endDate: "2026-11-15", venue: "Wurstfest grounds", officialUrl: "https://wurstfest.com/", sourceCheckedAt: "2026-08-26",
-    summary: "Wurstfest is New Braunfels's ten-day German-Texan festival, pairing food, music and heritage programming with a distinctive Hill Country destination.",
+    slug: "wurstfest",
     whyItMatters: "Wurstfest connects a current travel event to the deeper German-Texan story visible across Hill Country towns, dance halls, food traditions and historic communities.",
     planningSections: [
       { title: "Choose weekday or weekend", body: "The ten-day run gives visitors flexibility; choose the day before arranging lodging and other New Braunfels stops." },
@@ -68,9 +60,7 @@ export const majorEventAuthorityRecords: MajorEventAuthorityRecord[] = [
     sources: [{ label: "Wurstfest official site", url: "https://wurstfest.com/" }],
   },
   {
-    slug: "fort-worth-stock-show-rodeo", name: "Fort Worth Stock Show & Rodeo", city: "Fort Worth", countySlug: "tarrant", countyName: "Tarrant County", region: "prairies-lakes", category: "rodeo",
-    startDate: "2027-01-15", endDate: "2027-02-06", venue: "Will Rogers Memorial Center and Dickies Arena", officialUrl: "https://www.fwssr.com/", sourceCheckedAt: "2026-08-26",
-    summary: "The Fort Worth Stock Show & Rodeo opens the Texas winter rodeo calendar with livestock shows, rodeo performances, trade exhibits and Western events.",
+    slug: "fort-worth-stock-show-rodeo",
     whyItMatters: "It supports several kinds of visits, from a single arena night to a full day built around the stock-show grounds and Fort Worth attractions.",
     planningSections: [
       { title: "Choose rodeo night or stock-show day", body: "Start with the specific performance, livestock competition or grounds activity you care about because arrival time and ticket needs differ." },
@@ -81,9 +71,7 @@ export const majorEventAuthorityRecords: MajorEventAuthorityRecord[] = [
     sources: [{ label: "Fort Worth Stock Show & Rodeo official site", url: "https://www.fwssr.com/" }, { label: "FWSSR visitor FAQ", url: "https://www.fwssr.com/p/plan-a-visit/frequently-asked-questions" }],
   },
   {
-    slug: "san-antonio-stock-show-rodeo", name: "San Antonio Stock Show & Rodeo", city: "San Antonio", countySlug: "bexar", countyName: "Bexar County", region: "south-texas", category: "rodeo",
-    startDate: "2027-02-11", endDate: "2027-02-28", venue: "Frost Bank Center and Freeman Coliseum grounds", officialUrl: "https://www.sarodeo.com/", sourceCheckedAt: "2026-08-26",
-    summary: "The San Antonio Stock Show & Rodeo combines PRCA rodeo competition, concerts, livestock programming and fairground activity during an 18-day February run.",
+    slug: "san-antonio-stock-show-rodeo",
     whyItMatters: "The event can be the centerpiece of a San Antonio weekend or one major night inside a broader city trip, linking event, county and destination planning.",
     planningSections: [
       { title: "Start with the performance", body: "Pick the concert or rodeo performance first, then plan lodging and other San Antonio activities around that fixed time." },
@@ -94,9 +82,7 @@ export const majorEventAuthorityRecords: MajorEventAuthorityRecord[] = [
     sources: [{ label: "San Antonio Stock Show & Rodeo official site", url: "https://www.sarodeo.com/" }, { label: "Visit San Antonio rodeo guide", url: "https://www.visitsanantonio.com/events/arts-culture-events/san-antonio-rodeo/" }],
   },
   {
-    slug: "sxsw", name: "South by Southwest (SXSW)", city: "Austin", countySlug: "travis", countyName: "Travis County", region: "hill-country", category: "culture",
-    startDate: "2027-03-15", endDate: "2027-03-21", venue: "Downtown Austin venues", officialUrl: "https://sxsw.com/", sourceCheckedAt: "2026-08-26",
-    summary: "SXSW brings innovation, film and television, music and comedy programming into downtown Austin for a concentrated week of conferences, screenings and showcases.",
+    slug: "sxsw",
     whyItMatters: "SXSW changes the normal rhythm of central Austin, so visitors need to plan around credentials, distributed venues, transportation and unusually high demand.",
     planningSections: [
       { title: "Know which SXSW you are attending", body: "Start with the badge, festival or program that matters to you, then build the day around its official schedule." },
@@ -107,9 +93,7 @@ export const majorEventAuthorityRecords: MajorEventAuthorityRecord[] = [
     sources: [{ label: "SXSW official 2027 dates announcement", url: "https://sxsw.com/news/2026/south-by-southwest-2027-dates-announced/" }, { label: "SXSW official site", url: "https://sxsw.com/" }],
   },
   {
-    slug: "texas-sandfest", name: "Texas SandFest", city: "Port Aransas", countySlug: "nueces", countyName: "Nueces County", region: "gulf-coast", category: "culture",
-    startDate: "2027-04-16", endDate: "2027-04-18", venue: "Port Aransas beach festival grounds", officialUrl: "https://www.texassandfest.org/", sourceCheckedAt: "2026-08-26",
-    summary: "Texas SandFest brings large-scale sand sculpture, artists and festival activity to the beach in Port Aransas for a three-day Gulf Coast event.",
+    slug: "texas-sandfest",
     whyItMatters: "SandFest is a strong travel event because the venue is also the destination, combining festival access, beach conditions, lodging and island transportation.",
     planningSections: [
       { title: "Plan the island stay first", body: "Decide whether to stay on the island or drive in before choosing arrival time; the festival adds traffic and pedestrian demand." },
@@ -121,18 +105,14 @@ export const majorEventAuthorityRecords: MajorEventAuthorityRecord[] = [
   },
 ];
 
-export const verifiedMajorEventOccurrences: TexasEvent[] = majorEventAuthorityRecords.map((event) => ({
-  id: `authority:${event.slug}:${event.startDate}`, brandId: "texasdefined", slug: `${event.slug}-${event.startDate}`,
-  name: event.name, blurb: event.summary, city: event.city, region: event.region, startDate: event.startDate,
-  endDate: event.endDate, category: event.category, venue: event.venue, officialUrl: event.officialUrl,
-  sourceName: event.sources[0]?.label, sourceCheckedAt: event.sourceCheckedAt,
-}));
+const detailsBySlug = new Map(majorEventAuthorityDetails.map((event) => [event.slug, event]));
+
+export const majorEventAuthorityRecords: MajorEventAuthorityRecord[] = majorEventIndexRecords.flatMap((event) => {
+  const details = detailsBySlug.get(event.slug);
+  if (!details) return [];
+  const { slug: _detailSlug, ...routeDetails } = details;
+  return [{ ...event, ...routeDetails }];
+});
 
 const bySlug = new Map(majorEventAuthorityRecords.map((event) => [event.slug, event]));
-const normalizeEventName = (value: string) => value.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
-const byName = new Map(majorEventAuthorityRecords.map((event) => [normalizeEventName(event.name), event]));
-
 export const getMajorEventAuthority = (slug: string) => bySlug.get(slug);
-export const getMajorEventAuthorityByName = (name: string) => byName.get(normalizeEventName(name));
-export const majorEventGuidePath = (name: string) => getMajorEventAuthorityByName(name) ? `/event/${getMajorEventAuthorityByName(name)!.slug}` : undefined;
-export const majorEventsForCounty = (countySlug: string) => majorEventAuthorityRecords.filter((event) => event.countySlug === countySlug).sort((a, b) => a.startDate.localeCompare(b.startDate));

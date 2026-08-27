@@ -1,5 +1,5 @@
 import { useBrand } from "@/brand/context";
-import { majorEventGuidePath } from "@/data/major-event-authority";
+import { majorEventGuidePath } from "@/data/major-event-index";
 import { resolveSportsVenueEventLink } from "@/data/sports-venue-event-links";
 import type { TexasEvent } from "@/data/types";
 import { formatDateRange } from "@/domain/utils/format";

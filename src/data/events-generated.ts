@@ -1,6 +1,6 @@
 import { events as curatedTexasEvents } from "./fixtures/texas";
 import { generatedTexasEvents } from "./generated/texas-events";
-import { verifiedMajorEventOccurrences } from "./major-event-authority";
+import { verifiedMajorEventOccurrences } from "./major-event-index";
 import type { TexasEvent, TexasRegion } from "./types";
 
 interface GeneratedEventRow {
