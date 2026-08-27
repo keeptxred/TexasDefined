@@ -6,6 +6,7 @@ import { fetchPublishedTexasEvents } from "./events-remote";
 import { supplementalExploreCategories } from "./explore-categories";
 import { guideIsAvailable } from "./guide-links";
 import { platform, scope } from "./index";
+import { withRemoteEvergreenAuthoritySources } from "./remote-evergreen-article-sources";
 import type { ArticleQuery, DestinationQuery } from "./repositories";
 import { fetchAssignedShopProducts } from "./shop-products-remote";
 import type { Destination, SearchDocument, Slug } from "./types";
@@ -18,9 +19,9 @@ export const articleQuery = (slug: Slug) => queryOptions({
   queryKey: ["article", scope.brandId, slug],
   queryFn: async () => {
     const localArticle = await platform.articles.getBySlug(scope, slug);
-    if (localArticle) return prepareArticleForDelivery(localArticle);
+    if (localArticle) return prepareArticleForDelivery(withRemoteEvergreenAuthoritySources(localArticle));
     const remoteArticle = await fetchPublishedTexasDefinedEvergreenArticle(slug);
-    return remoteArticle ? prepareArticleForDelivery(remoteArticle) : null;
+    return remoteArticle ? prepareArticleForDelivery(withRemoteEvergreenAuthoritySources(remoteArticle)) : null;
   },
 });
 
