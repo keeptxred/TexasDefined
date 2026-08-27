@@ -8,9 +8,9 @@ import { articlesQuery, destinationsQuery, regionsQuery } from "@/data/queries";
 import type { Article, Destination } from "@/data/types";
 import { buildEditorialCollectionHead, buildMeta, canonicalLink } from "@/lib/seo";
 
-const description = "A clear-eyed guide to choosing a Texas city or county, understanding the cost and property context, finding a home and settling into everyday life in a very large state.";
+const description = "A source-backed Texas relocation research center for comparing cities and counties, migration, jobs, insurance, schools, utilities, household costs, address-level jurisdictions and new-resident paperwork.";
 const imageAlt = "A two-lane Texas farm road running to the horizon";
-const seoTitle = "Moving to Texas: County Comparison, Cities & What to Know";
+const seoTitle = "Moving to Texas: Cities, Costs, Data & Relocation Guide";
 
 type MovingToTexasLoaderData = {
   articles: Article[];
