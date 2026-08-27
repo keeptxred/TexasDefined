@@ -5,7 +5,7 @@ import { TEXAS_CITIES } from "@/data/texas-places";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const description =
-  "Compare Texas cities and suburbs for a move using transparent region, setting, commute and planning context, then browse the full city directory by county and region and verify exact-address details with official sources.";
+  "Browse Texas cities and towns by county and region, compare source-backed relocation context for cities and suburbs, then verify exact-address details with official school, tax, utility, flood, insurance and transportation sources.";
 const cityAnchor = (slug: string) => `city-${slug}`;
 
 export const Route = createFileRoute("/browse/cities")({
@@ -15,7 +15,7 @@ export const Route = createFileRoute("/browse/cities")({
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath: "/browse/cities",
-        title: "Compare Texas Cities & Suburbs Before You Move",
+        title: "Texas Cities & Towns Directory | Browse by County & Region",
         description,
       }),
       links: [canonicalLink(texasDefinedBrand, "/browse/cities")],
@@ -27,7 +27,7 @@ export const Route = createFileRoute("/browse/cities")({
               "@type": "CollectionPage",
               "@id": `${pageUrl}#page`,
               url: pageUrl,
-              name: "Compare Texas Cities and Suburbs Before You Move",
+              name: "Texas Cities and Towns Directory",
               description,
               isPartOf: { "@id": `${siteUrl}#website` },
               publisher: { "@id": `${siteUrl}#organization` },
@@ -76,7 +76,7 @@ export const Route = createFileRoute("/browse/cities")({
                 {
                   "@type": "ListItem",
                   position: 2,
-                  name: "Texas cities and suburbs",
+                  name: "Texas cities and towns",
                   item: pageUrl,
                 },
               ],
