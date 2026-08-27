@@ -1,11 +1,10 @@
 import { Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
-import { exploreCategoryAuthority } from "@/data/explore-category-authority";
+import type { ExploreAuthorityGuide } from "@/data/explore-category-authority";
 import type { CategorySlug } from "@/data/types";
 
-export function ExploreCategoryAuthority({ category }: { category: CategorySlug }) {
-  const guide = exploreCategoryAuthority[category];
+export function ExploreCategoryAuthority({ category, guide }: { category: CategorySlug; guide: ExploreAuthorityGuide | null }) {
   if (!guide) return null;
 
   return (
