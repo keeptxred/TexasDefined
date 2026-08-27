@@ -111,7 +111,7 @@ if (orphanPlaceContextKeys.length > 0) {
 }
 
 function withReadiness<T extends (typeof TEXAS_TALENT_ALL_PROFILES)[number]>(profile: T) {
-  const correctedProfile = {
+  const baseProfile = {
     ...profile,
     ...(TEXAS_TALENT_PROFILE_CORRECTIONS[profile.slug] ?? {}),
     ...(TEXAS_TALENT_LAUNCH_DEPTH_WAVE1[profile.slug] ?? {}),
@@ -122,7 +122,14 @@ function withReadiness<T extends (typeof TEXAS_TALENT_ALL_PROFILES)[number]>(pro
     ...(TEXAS_TALENT_LAUNCH_DEPTH_WAVE5[profile.slug] ?? {}),
     ...(TEXAS_TALENT_LAUNCH_DEPTH_WAVE5_REPAIR[profile.slug] ?? {}),
     ...(TEXAS_TALENT_LAUNCH_DEPTH_WAVE6[profile.slug] ?? {}),
-    ...(TEXAS_TALENT_LAUNCH_DEPTH_WAVE6_REPAIR[profile.slug] ?? {}),
+  };
+  const wave6Repair = TEXAS_TALENT_LAUNCH_DEPTH_WAVE6_REPAIR[profile.slug];
+  const correctedProfile = {
+    ...baseProfile,
+    ...(wave6Repair ? {
+      overview: [...baseProfile.overview, ...wave6Repair.overviewAppend],
+      lastReviewedAt: wave6Repair.lastReviewedAt,
+    } : {}),
     ...(TEXAS_TALENT_EDITORIAL_STATUS_OVERRIDES[profile.slug] ?? {}),
   };
   const texasPlaces = correctedProfile.texasPlaces.map((place) => ({
