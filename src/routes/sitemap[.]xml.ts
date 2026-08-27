@@ -48,6 +48,8 @@ const SUPPLEMENTAL_MAJOR_EVENT_SITEMAP: readonly SitemapEntry[] = [
   { path: "/event/dallas-holiday-parade", lastmod: "2026-08-27" },
   { path: "/event/schulenburg-festival", lastmod: "2026-08-27" },
   { path: "/event/westfest", lastmod: "2026-08-27" },
+  { path: "/event/luling-watermelon-thump", lastmod: "2026-08-27" },
+  { path: "/event/national-polka-festival", lastmod: "2026-08-27" },
   { path: "/event/gillespie-county-fair", lastmod: "2026-08-27" },
   { path: "/event/north-texas-fair-rodeo", lastmod: "2026-08-27" },
   { path: "/event/austin-chronicle-hot-sauce-festival", lastmod: "2026-08-27" },
