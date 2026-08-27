@@ -35,16 +35,30 @@ function objectArray(block, property) {
 }
 const words = (value) => value.trim().split(/\s+/).filter(Boolean).length;
 const source = read("src/data/texas-talent-launch-depth-wave6.ts");
+const repair = read("src/data/texas-talent-launch-depth-wave6-repair.ts");
 const server = read("src/data/texas-talent.server.ts");
 const expected = ["robert-rodriguez", "eva-longoria", "renee-zellweger", "ethan-hawke", "dennis-quaid"];
-if (!server.includes("TEXAS_TALENT_LAUNCH_DEPTH_WAVE6") || !server.includes("...(TEXAS_TALENT_LAUNCH_DEPTH_WAVE6[profile.slug] ?? {})")) fail("server loader must apply wave 6 depth overrides to effective profiles");
-if (source.includes('launchStatus: "launch-ready"')) fail("wave 6 depth work must not grant editorial launch approval");
+for (const token of [
+  "TEXAS_TALENT_LAUNCH_DEPTH_WAVE6",
+  "...(TEXAS_TALENT_LAUNCH_DEPTH_WAVE6[profile.slug] ?? {})",
+  "TEXAS_TALENT_LAUNCH_DEPTH_WAVE6_REPAIR",
+  "...(TEXAS_TALENT_LAUNCH_DEPTH_WAVE6_REPAIR[profile.slug] ?? {})",
+]) {
+  if (!server.includes(token)) fail(`server loader must apply effective wave 6 depth contract: ${token}`);
+}
+if (source.includes('launchStatus: "launch-ready"') || repair.includes('launchStatus: "launch-ready"')) fail("wave 6 depth work must not grant editorial launch approval");
 for (const slug of expected) {
   const marker = `"${slug}": {`; const start = source.indexOf(marker); if (start < 0) fail(`missing wave 6 depth record for ${slug}`);
   const block = findBalancedBlock(source, source.indexOf("{", start), "{", "}", slug);
-  const overview = stringArray(block, "overview"), legacy = stringArray(block, "legacy"), places = objectArray(block, "texasPlaces"), timeline = objectArray(block, "timeline");
+  let overviewBlock = block;
+  if (slug === "robert-rodriguez") {
+    const repairStart = repair.indexOf(marker);
+    if (repairStart < 0) fail("missing effective Robert Rodriguez wave 6 repair");
+    overviewBlock = findBalancedBlock(repair, repair.indexOf("{", repairStart), "{", "}", `${slug} repair`);
+  }
+  const overview = stringArray(overviewBlock, "overview"), legacy = stringArray(block, "legacy"), places = objectArray(block, "texasPlaces"), timeline = objectArray(block, "timeline");
   const overviewWords = overview.reduce((sum, p) => sum + words(p), 0), legacyWords = legacy.reduce((sum, p) => sum + words(p), 0);
-  if (overview.length < 3 || overviewWords < 300) fail(`${slug}: overview below launch depth (${overview.length} paragraphs, ${overviewWords} words)`);
+  if (overview.length < 3 || overviewWords < 300) fail(`${slug}: effective overview below launch depth (${overview.length} paragraphs, ${overviewWords} words)`);
   if (legacy.length < 3 || legacyWords < 100) fail(`${slug}: legacy below launch depth (${legacy.length} points, ${legacyWords} words)`);
   if (timeline.length < 5) fail(`${slug}: timeline below launch depth (${timeline.length} milestones)`);
   if (places.length < 2) fail(`${slug}: needs at least two substantive Texas places`);
@@ -52,4 +66,6 @@ for (const slug of expected) {
 }
 const recordCount = [...source.matchAll(/^  "[a-z0-9-]+": \{/gm)].length;
 if (recordCount !== expected.length) fail(`wave 6 must contain exactly ${expected.length} records; found ${recordCount}`);
-console.log("Texas Talent flagship-depth wave 6 validation passed: Robert Rodriguez, Eva Longoria, Renee Zellweger, Ethan Hawke and Dennis Quaid meet stronger narrative, timeline, legacy and Texas-place launch thresholds without receiving launch approval.");
+const repairCount = [...repair.matchAll(/^  "[a-z0-9-]+": \{/gm)].length;
+if (repairCount !== 1 || !repair.includes('"robert-rodriguez"')) fail("wave 6 repair must remain narrowly scoped to Robert Rodriguez");
+console.log("Texas Talent flagship-depth wave 6 validation passed: Robert Rodriguez, Eva Longoria, Renee Zellweger, Ethan Hawke and Dennis Quaid meet effective narrative, timeline, legacy and Texas-place launch thresholds without receiving launch approval.");
