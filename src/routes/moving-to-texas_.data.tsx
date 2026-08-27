@@ -2,12 +2,7 @@ import { createFileRoute, Link } from '@tanstack/react-router';
 
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { Container } from '@/components/layout/Container';
-import {
-  RELOCATION_METROS,
-  RELOCATION_SOURCES,
-  RELOCATION_SOURCE_VERIFIED,
-} from '@/data/relocation-authority';
-import { TEXAS_DATASETS, formatDatasetValue } from '@/data/texas-data-center';
+import type { TexasDataset } from '@/data/texas-data-center';
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 const canonicalPath = '/moving-to-texas/data';
@@ -21,9 +16,6 @@ const relocationDatasetSlugs = [
   'texas-metro-payrolls-june-2026',
   'texas-traffic-monitoring-coverage',
 ] as const;
-const relocationDatasets = relocationDatasetSlugs
-  .map((slug) => TEXAS_DATASETS.find((dataset) => dataset.slug === slug))
-  .filter((dataset): dataset is (typeof TEXAS_DATASETS)[number] => Boolean(dataset));
 const quickStats = [
   ['Texas population', 'texas-population-and-migration-2025', 'Texas population — July 1, 2025'],
   ['Net domestic migration', 'texas-population-and-migration-2025', 'Net domestic migration'],
@@ -32,8 +24,24 @@ const quickStats = [
 ] as const;
 
 export const Route = createFileRoute('/moving-to-texas/data')({
-  head: () => {
+  loader: async () => {
+    const [{ RELOCATION_METROS, RELOCATION_SOURCES, RELOCATION_SOURCE_VERIFIED }, { TEXAS_DATASETS }] = await Promise.all([
+      import('@/data/relocation-authority'),
+      import('@/data/texas-data-center'),
+    ]);
+    const relocationDatasets = relocationDatasetSlugs
+      .map((slug) => TEXAS_DATASETS.find((dataset) => dataset.slug === slug))
+      .filter((dataset): dataset is TexasDataset => Boolean(dataset));
+    return {
+      relocationDatasets,
+      relocationMetros: RELOCATION_METROS,
+      relocationSources: RELOCATION_SOURCES,
+      relocationSourceVerified: RELOCATION_SOURCE_VERIFIED,
+    };
+  },
+  head: ({ loaderData }) => {
     const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
+    const relocationDatasets = loaderData?.relocationDatasets ?? [];
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
@@ -80,6 +88,7 @@ export const Route = createFileRoute('/moving-to-texas/data')({
 });
 
 function RelocationDataCenterPage() {
+  const { relocationDatasets, relocationMetros, relocationSources, relocationSourceVerified } = Route.useLoaderData();
   return <Container className="pb-16 pt-10 sm:pb-24 sm:pt-14">
     <main className="mx-auto max-w-7xl">
       <nav aria-label="Breadcrumb" className="border-b border-border pb-4 text-xs uppercase tracking-[0.14em] text-muted-foreground">
@@ -95,7 +104,7 @@ function RelocationDataCenterPage() {
         <p className="mt-5 max-w-4xl text-sm leading-7 text-muted-foreground">Texas Defined keeps these datasets separate because population estimates, migration flows, insurance records, payroll employment and traffic monitoring answer different questions and update on different schedules. They should inform a move, not be collapsed into a hidden “best city” score.</p>
         <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">The current statewide population brief uses Census Vintage 2025. The retained 2024 brief is restated on that same vintage so historical comparisons do not mix superseded Census series.</p>
         <dl className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {quickStats.map(([label, slug, rowLabel]) => <QuickStat key={label} label={label} slug={slug} rowLabel={rowLabel} />)}
+          {quickStats.map(([label, slug, rowLabel]) => <QuickStat key={label} label={label} slug={slug} rowLabel={rowLabel} datasets={relocationDatasets} />)}
         </dl>
         <div className="mt-8 flex flex-wrap gap-x-7 gap-y-3 text-sm font-semibold">
           <Link to="/moving-to-texas" className="text-primary underline underline-offset-4">Open the relocation guide →</Link>
@@ -133,7 +142,7 @@ function RelocationDataCenterPage() {
             <p>The Texas Department of Insurance now publishes county-level homeowners premium information from 2019 through preliminary 2025 data, plus a separate county losses tool. Use those official county views to compare the counties in a metro before requesting address-specific quotes.</p>
             <p>Coastal research needs extra care. TDI notes that TWIA wind coverage can apply in 14 coastal counties and parts of Harris County, so a homeowners premium that excludes wind is not directly comparable with an inland policy that includes wind.</p>
             <div className="flex flex-wrap gap-x-7 gap-y-3 font-semibold">
-              <a href={RELOCATION_SOURCES.tdiInsurance.url} target="_blank" rel="noreferrer" className="text-primary underline underline-offset-4">TDI county premium map ↗</a>
+              <a href={relocationSources.tdiInsurance.url} target="_blank" rel="noreferrer" className="text-primary underline underline-offset-4">TDI county premium map ↗</a>
               <a href={tdiCountyLossesUrl} target="_blank" rel="noreferrer" className="text-primary underline underline-offset-4">TDI homeowners losses by county ↗</a>
               <Link to="/texas-home-insurance-calculator" className="underline underline-offset-4">Run the planning calculator →</Link>
             </div>
@@ -149,7 +158,7 @@ function RelocationDataCenterPage() {
             <p className="mt-4 text-sm leading-7 text-muted-foreground">The metro guides connect these datasets to the counties, suburbs, job market and repeated commute that actually shape a relocation decision.</p>
           </div>
           <div className="grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 xl:grid-cols-3">
-            {RELOCATION_METROS.map((metro) => <article key={metro.id} className="bg-background p-5">
+            {relocationMetros.map((metro) => <article key={metro.id} className="bg-background p-5">
               <p className="text-[0.68rem] font-semibold uppercase tracking-[0.15em] text-primary">Metro relocation guide</p>
               <h3 className="mt-2 font-display text-2xl">{metro.name}</h3>
               <p className="mt-3 text-sm leading-6 text-muted-foreground">Counties: {metro.counties.join(', ')}</p>
@@ -168,16 +177,16 @@ function RelocationDataCenterPage() {
           </div>
           <div className="grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2">
             {[
-              RELOCATION_SOURCES.censusPopulation,
-              RELOCATION_SOURCES.censusMigration,
-              RELOCATION_SOURCES.censusCountyMigration,
-              RELOCATION_SOURCES.blsMetro,
-              RELOCATION_SOURCES.tdiInsurance,
-              RELOCATION_SOURCES.teaSchools,
-              RELOCATION_SOURCES.comptrollerProperty,
-              RELOCATION_SOURCES.txdotTraffic,
-              RELOCATION_SOURCES.pucUtilities,
-              RELOCATION_SOURCES.femaFlood,
+              relocationSources.censusPopulation,
+              relocationSources.censusMigration,
+              relocationSources.censusCountyMigration,
+              relocationSources.blsMetro,
+              relocationSources.tdiInsurance,
+              relocationSources.teaSchools,
+              relocationSources.comptrollerProperty,
+              relocationSources.txdotTraffic,
+              relocationSources.pucUtilities,
+              relocationSources.femaFlood,
             ].map((source) => <article key={source.url} className="bg-background p-5">
               <h3 className="font-display text-xl">{source.name}</h3>
               <p className="mt-2 text-sm leading-6 text-muted-foreground">{source.purpose}</p>
@@ -186,7 +195,7 @@ function RelocationDataCenterPage() {
             </article>)}
           </div>
         </div>
-        <p className="mt-6 text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">Relocation source registry verified {RELOCATION_SOURCE_VERIFIED}</p>
+        <p className="mt-6 text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">Relocation source registry verified {relocationSourceVerified}</p>
       </section>
 
       <section className="py-12" aria-labelledby="relocation-actions-heading">
@@ -210,13 +219,21 @@ function RelocationDataCenterPage() {
   </Container>;
 }
 
-function QuickStat({ label, slug, rowLabel }: { label: string; slug: string; rowLabel: string }) {
-  const dataset = TEXAS_DATASETS.find((item) => item.slug === slug);
+function QuickStat({ label, slug, rowLabel, datasets }: { label: string; slug: string; rowLabel: string; datasets: TexasDataset[] }) {
+  const dataset = datasets.find((item) => item.slug === slug);
   const row = dataset?.rows.find((item) => item.label === rowLabel);
   return <div className="border-t border-border pt-3">
     <dt className="text-xs uppercase tracking-[0.14em] text-muted-foreground">{label}</dt>
     <dd className="mt-2 font-display text-3xl leading-tight">{dataset && row ? formatDatasetValue(row.value, dataset.unit) : 'See data brief'}</dd>
   </div>;
+}
+
+function formatDatasetValue(value: number, unit: TexasDataset['unit']) {
+  return unit === 'dollars'
+    ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(value)
+    : unit === 'percent'
+      ? `${value.toFixed(4)}%`
+      : new Intl.NumberFormat('en-US').format(value);
 }
 
 function formatDate(value: string) {
