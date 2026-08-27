@@ -111,6 +111,11 @@ export const TEXAS_MUSIC_TRADITIONS: readonly TexasMusicTradition[] = [
 
 export const TEXAS_MUSIC_RELATED_GUIDES: readonly TexasMusicRelatedGuide[] = [
   {
+    title: "Texas Music Timeline",
+    href: "/texas-music-timeline",
+    description: "Follow Texas music chronologically from community dance traditions and early recordings to global country, Tejano, hip-hop, R&B and pop.",
+  },
+  {
     title: "Texas Blues",
     href: "/texas-blues",
     description: "From Blind Lemon Jefferson and Deep Ellum to Lightnin' Hopkins, electric guitar and Austin blues-rock.",
