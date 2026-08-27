@@ -56,7 +56,7 @@ function TexasIconsHub() {
           <div className="grid gap-5 lg:grid-cols-[14rem_1fr]">
             <div>
               <p className="eyebrow text-primary">Publication rule</p>
-              <h2 className="mt-2 font-display text-3xl">One useful directory, no thin profile pages</h2>
+              <h2 className="mt-2 font-display text-3xl">No duplicate or thin profile pages</h2>
             </div>
             <div className="max-w-3xl space-y-3 text-sm leading-7 text-muted-foreground">
               <p>
@@ -75,8 +75,8 @@ function TexasIconsHub() {
               <p>
                 A <strong className="text-foreground">researched draft</strong> has passed a
                 substantive source-and-copy pass, but its individual profile still remains noindex
-                until image rights and internal-link review are separately certified. Research
-                progress alone never turns an unfinished profile public for search.
+                until image rights and internal-link review are separately certified. Research progress alone never
+                turns an unfinished profile public for search.
               </p>
             </div>
           </div>
