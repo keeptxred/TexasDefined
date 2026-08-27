@@ -21,7 +21,7 @@ export const Route = createFileRoute("/fishing/services")({
     const items = loaderData?.services ?? [];
     const description = "Verified Texas fishing services and lake-area businesses, including tackle shops and other angler services tied to the lakes they actually serve.";
     return {
-      meta: buildMeta(texasDefinedBrand, { title: "Texas Fishing Services — Tackle Shops & Lake-Area Businesses", description, canonicalPath: FISHING_SERVICES_DIRECTORY_PATH }),
+      meta: buildMeta(texasDefinedBrand, { title: "Texas Fishing Services — Tackle Shops & Lake-Area Businesses", description, canonicalPath: FISHING_SERVICES_DIRECTORY_PATH, robots: items.length ? undefined : "noindex, follow" }),
       links: [canonicalLink(texasDefinedBrand, FISHING_SERVICES_DIRECTORY_PATH)],
       scripts: [{ type: "application/ld+json", children: JSON.stringify([
         { "@context": "https://schema.org", "@type": "CollectionPage", name: "Texas Fishing Services", description, url: `${origin}${FISHING_SERVICES_DIRECTORY_PATH}` },
