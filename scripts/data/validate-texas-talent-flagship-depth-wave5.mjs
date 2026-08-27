@@ -80,8 +80,9 @@ if (source.includes('launchStatus: "launch-ready"') || repair.includes('launchSt
 }
 
 const repairRecords = [...repair.matchAll(/^  "([a-z0-9-]+)": \{/gm)].map((match) => match[1]);
-if (repairRecords.length !== 1 || repairRecords[0] !== "t-bone-walker") {
-  fail(`wave 5 repair must remain narrowly scoped to t-bone-walker; found ${repairRecords.join(", ") || "none"}`);
+const expectedRepairs = ["t-bone-walker", "jamie-foxx"];
+if (repairRecords.length !== expectedRepairs.length || expectedRepairs.some((slug) => !repairRecords.includes(slug))) {
+  fail(`wave 5 repair must remain narrowly scoped to ${expectedRepairs.join(", ")}; found ${repairRecords.join(", ") || "none"}`);
 }
 
 for (const slug of expected) {
@@ -90,21 +91,24 @@ for (const slug of expected) {
   if (start < 0) fail(`missing wave 5 depth record for ${slug}`);
   const block = findBalancedBlock(source, source.indexOf("{", start), "{", "}", slug);
 
+  let overviewBlock = block;
   let legacyBlock = block;
-  if (slug === "t-bone-walker") {
+  if (expectedRepairs.includes(slug)) {
     const repairStart = repair.indexOf(marker);
-    if (repairStart < 0) fail("missing effective T-Bone Walker wave 5 repair");
-    legacyBlock = findBalancedBlock(repair, repair.indexOf("{", repairStart), "{", "}", `${slug} repair`);
+    if (repairStart < 0) fail(`missing effective ${slug} wave 5 repair`);
+    const repairBlock = findBalancedBlock(repair, repair.indexOf("{", repairStart), "{", "}", `${slug} repair`);
+    if (slug === "jamie-foxx") overviewBlock = repairBlock;
+    if (slug === "t-bone-walker") legacyBlock = repairBlock;
   }
 
-  const overview = stringArray(block, "overview");
+  const overview = stringArray(overviewBlock, "overview");
   const legacy = stringArray(legacyBlock, "legacy");
   const places = objectArray(block, "texasPlaces");
   const timeline = objectArray(block, "timeline");
   const overviewWords = overview.reduce((sum, paragraph) => sum + words(paragraph), 0);
   const legacyWords = legacy.reduce((sum, paragraph) => sum + words(paragraph), 0);
 
-  if (overview.length < 3 || overviewWords < 300) fail(`${slug}: overview below launch depth (${overview.length} paragraphs, ${overviewWords} words)`);
+  if (overview.length < 3 || overviewWords < 300) fail(`${slug}: effective overview below launch depth (${overview.length} paragraphs, ${overviewWords} words)`);
   if (legacy.length < 3 || legacyWords < 100) fail(`${slug}: effective legacy below launch depth (${legacy.length} points, ${legacyWords} words)`);
   if (timeline.length < 5) fail(`${slug}: timeline below launch depth (${timeline.length} milestones)`);
   if (places.length < 2) fail(`${slug}: needs at least two substantive Texas places`);
@@ -117,4 +121,4 @@ for (const slug of expected) {
 const recordCount = [...source.matchAll(/^  "[a-z0-9-]+": \{/gm)].length;
 if (recordCount !== expected.length) fail(`wave 5 must contain exactly ${expected.length} records; found ${recordCount}`);
 
-console.log("Texas Talent flagship-depth wave 5 validation passed: T-Bone Walker's narrow repair and the full wave 5 cohort meet effective narrative, timeline, legacy and Texas-place launch thresholds without receiving launch approval.");
+console.log("Texas Talent flagship-depth wave 5 validation passed: narrow T-Bone Walker and Jamie Foxx repairs plus the full wave 5 cohort meet effective narrative, timeline, legacy and Texas-place launch thresholds without receiving launch approval.");
