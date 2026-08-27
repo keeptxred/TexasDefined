@@ -35,6 +35,7 @@ function MovingToTexasPage() {
         </div>
       </section>
       <div className="mb-10 flex flex-wrap gap-x-7 gap-y-3 border-b border-border pb-7 text-sm font-semibold">
+        <Link to="/browse/cities" className="text-primary underline underline-offset-4">Compare Texas cities & suburbs →</Link>
         <Link to="/moving-to-texas/data" className="text-primary underline underline-offset-4">Relocation Data Center →</Link>
         <a href="/texas-data/texas-population-and-migration-2024" className="underline underline-offset-4">Texas migration snapshot</a>
         <a href="/texas-data/where-new-texans-came-from-2024" className="underline underline-offset-4">Where new Texans came from</a>
