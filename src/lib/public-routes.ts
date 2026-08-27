@@ -174,6 +174,7 @@ export const INDEXABLE_STATIC_PATHS = [
   "/find-my-school-district",
   "/shop",
   "/about",
+  "/privacy",
   "/return-refund-policy",
   "/partner-with-us",
   "/citation-guide",
