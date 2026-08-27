@@ -1,5 +1,6 @@
 import type { Article, ArticleBlock, CategorySlug, TexasRegion } from "./types";
 import { DEFAULT_EDITORIAL_DESK_ID } from "./editorial-desks";
+import { remoteEvergreenPrimarySources } from "./remote-evergreen-primary-sources";
 import { remoteEvergreenInternalLinks } from "./remote-evergreen-internal-links";
 
 const supabaseUrl = String(import.meta.env.VITE_TEXASDEFINED_SUPABASE_URL || import.meta.env.VITE_SUPABASE_URL || "").replace(/\/$/, "");
@@ -67,6 +68,9 @@ function mapRow(row: Record<string, unknown>): Article | null {
   if (!slug || !title || !heroUrl || blocks.length === 0) return null;
   const mappedRegion = region(row.region);
   const internalLinks = remoteEvergreenInternalLinks[slug];
+  const approvedPrimarySource = remoteEvergreenPrimarySources[slug];
+  const sourceName = text(row.source_name) || approvedPrimarySource?.[0];
+  const sourceUrl = text(row.source_url) || approvedPrimarySource?.[1];
   return {
     id: `remote-${String(row.id || slug)}`,
     brandId: "texasdefined",
@@ -84,8 +88,8 @@ function mapRow(row: Record<string, unknown>): Article | null {
     relatedCollections: strings(row.related_collections),
     relatedDestinations: strings(row.related_destinations),
     ...(internalLinks ? { internalLinks: [...internalLinks] } : {}),
-    sourceName: text(row.source_name) || undefined,
-    sourceUrl: text(row.source_url) || undefined,
+    sourceName,
+    sourceUrl,
   };
 }
 
