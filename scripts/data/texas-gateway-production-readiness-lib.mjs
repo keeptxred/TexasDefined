@@ -171,6 +171,8 @@ function parseGatewayEnrichments(root) {
             const sourceUrl = sourceUrlProperty && ts.isPropertyAssignment(sourceUrlProperty) && ts.isStringLiteral(sourceUrlProperty.initializer)
               ? sourceUrlProperty.initializer.text
               : null;
+            const enrichmentStrings = stringsIn(node.initializer);
+            const internalHrefs = enrichmentStrings.filter((value) => /^\/[a-z0-9]/i.test(value));
             enrichmentBySlug.set(slug, {
               file: path.relative(root, full).replaceAll("\\", "/"),
               estimatedWords: strings.reduce((sum, value) => sum + wordCount(value), 0),
@@ -178,6 +180,9 @@ function parseGatewayEnrichments(root) {
               headingCount: countBlockType(bodyNode, "heading"),
               listBlockCount: countBlockType(bodyNode, "list"),
               listItems: propertyArrayCount(bodyNode, "items"),
+              internalHrefs: [...new Set(internalHrefs)],
+              relatedCollections: propertyArrayCount(node.initializer, "relatedCollections"),
+              relatedDestinations: propertyArrayCount(node.initializer, "relatedDestinations"),
               sourceName,
               sourceUrl,
               externalUrls: sourceUrl ? [sourceUrl] : [],
@@ -230,9 +235,9 @@ function parseGatewayArticles(root) {
         headingCount: countBlockType(element, "heading") + (enrichment?.headingCount ?? 0),
         listBlockCount: countBlockType(element, "list") + (enrichment?.listBlockCount ?? 0),
         listItems: listItems + (enrichment?.listItems ?? 0),
-        internalLinkCount: new Set(internalHrefs).size,
-        relatedCollections: propertyArrayCount(element, "relatedCollections"),
-        relatedDestinations: propertyArrayCount(element, "relatedDestinations"),
+        internalLinkCount: new Set([...internalHrefs, ...(enrichment?.internalHrefs ?? [])]).size,
+        relatedCollections: propertyArrayCount(element, "relatedCollections") + (enrichment?.relatedCollections ?? 0),
+        relatedDestinations: propertyArrayCount(element, "relatedDestinations") + (enrichment?.relatedDestinations ?? 0),
         sourceUrl: enrichment?.sourceUrl ?? sourceUrl,
         sourceName: enrichment?.sourceName ?? sourceName,
         externalUrls: [...new Set([...externalUrls, ...(enrichment?.externalUrls ?? [])])],
