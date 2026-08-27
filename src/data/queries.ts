@@ -86,6 +86,15 @@ const staticSearchDocuments: SearchDocument[] = [
     keywords: ["Texas Explained", "why Texas", "how Texas works", "Texas geography", "Texas regions", "Texas counties", "Texas nature", "Texas infrastructure", "Texas culture", "Texas settlement", "Texas rivers", "Texas lakes", "farm-to-market roads", "Texas courthouse squares", "Texas wildflowers", "Texas trees", "Texas wildlife", "Texas homes", "buying land in Texas", "Texas cultural regions"],
     href: "/texas-explained",
   },
+  {
+    id: "collection:texas-icons",
+    brandId: "texasdefined",
+    kind: "collection",
+    title: "Texas Icons: 250 People, Places and Symbols",
+    summary: "A cross-linked directory of 250 people, musicians, athletes, civic figures, businesses, foods, landmarks and symbols tied to Texas identity.",
+    keywords: ["Texas Icons", "famous Texans", "Texas people", "Texas history figures", "Texas musicians", "Texas athletes", "Texas artists", "Texas business leaders", "Texas brands", "Texas foods", "Texas landmarks", "Texas symbols", "people who shaped Texas"],
+    href: "/texas-icons",
+  },
 ];
 
 export const searchDocumentsQuery = () => queryOptions({
