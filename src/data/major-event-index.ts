@@ -16,8 +16,7 @@ export interface MajorEventIndexRecord {
   sourceCheckedAt: string;
 }
 
-// Client-safe event identity and occurrence metadata only. Long-form summaries,
-// planning copy and source labels live behind the server authority loader.
+// Client-safe occurrence metadata. Long-form guide copy stays server-only.
 export const majorEventIndexRecords: MajorEventIndexRecord[] = [
   { slug: "grapefest", name: "GrapeFest", city: "Grapevine", countySlug: "tarrant", countyName: "Tarrant County", region: "prairies-lakes", category: "food", startDate: "2026-09-17", endDate: "2026-09-20", venue: "Historic Downtown Grapevine", officialUrl: "https://www.grapevinetexasusa.com/grapefest/general-information/", sourceCheckedAt: "2026-08-26" },
   { slug: "texas-renaissance-festival", name: "Texas Renaissance Festival", city: "Todd Mission", region: "prairies-lakes", category: "culture", startDate: "2026-10-10", endDate: "2026-11-29", dateNote: "Open Saturdays and Sundays during the published season, plus Thanksgiving Friday; check the official calendar before traveling.", venue: "Texas Renaissance Festival", officialUrl: "https://www.texrenfest.com/", sourceCheckedAt: "2026-08-26" },
@@ -30,9 +29,9 @@ export const majorEventIndexRecords: MajorEventIndexRecord[] = [
 ];
 
 export const verifiedMajorEventOccurrences: TexasEvent[] = majorEventIndexRecords.map((event) => ({
-  id: `authority:${event.slug}:${event.startDate}`,
+  id: `authority:${event.slug}`,
   brandId: "texasdefined",
-  slug: `${event.slug}-${event.startDate}`,
+  slug: event.slug,
   name: event.name,
   blurb: `Major annual event in ${event.city}. Confirm current details with the organizer before traveling.`,
   city: event.city,
@@ -46,14 +45,6 @@ export const verifiedMajorEventOccurrences: TexasEvent[] = majorEventIndexRecord
   sourceCheckedAt: event.sourceCheckedAt,
 }));
 
-const normalizeEventName = (value: string) => value.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
-const byName = new Map(majorEventIndexRecords.map((event) => [normalizeEventName(event.name), event]));
-
-export const getMajorEventIndexByName = (name: string) => byName.get(normalizeEventName(name));
-export const majorEventGuidePath = (name: string) => {
-  const event = getMajorEventIndexByName(name);
-  return event ? `/event/${event.slug}` : undefined;
-};
 export const majorEventsForCounty = (countySlug: string) => majorEventIndexRecords
   .filter((event) => event.countySlug === countySlug)
   .sort((a, b) => a.startDate.localeCompare(b.startDate));
