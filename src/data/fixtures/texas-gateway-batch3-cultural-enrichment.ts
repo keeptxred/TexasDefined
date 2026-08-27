@@ -1,5 +1,7 @@
 import type { ArticleBlock } from "../types";
 
+// Runtime-only depth enrichment for staged gateway QA. These records do not alter
+// the explicit gateway index-ready allowlist or public discovery behavior.
 interface GatewayEnrichment {
   body: ArticleBlock[];
   sourceName?: string;
