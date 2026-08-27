@@ -49,7 +49,7 @@ const RESEARCH_SOURCES = [
 ] as const;
 
 export function MetroRelocationAuthority({ articlePath }: { articlePath: string }) {
-  const metro = RELOCATION_METROS.find((item) => item.guideHref === articlePath);
+  const metro = RELOCATION_METROS.find((metro) => metro.guideHref === articlePath);
   if (!metro) return null;
 
   return (
