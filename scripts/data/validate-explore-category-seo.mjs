@@ -12,9 +12,9 @@ const route = fs.readFileSync(path.join(root, 'src/routes/explore.$category.tsx'
 const lazyRoute = fs.readFileSync(path.join(root, 'src/routes/explore.$category.lazy.tsx'), 'utf8');
 const landing = fs.readFileSync(path.join(root, 'src/routes/explore.index.tsx'), 'utf8');
 const categoryPage = fs.readFileSync(path.join(root, 'src/components/editorial/CategoryPage.tsx'), 'utf8');
-const categoryAuthorityComponent = fs.readFileSync(path.join(root, 'src/components/editorial/ExploreCategoryAuthority.tsx'), 'utf8');
 const categoryAuthorityClient = fs.readFileSync(path.join(root, 'src/data/explore-category-authority.ts'), 'utf8');
 const categoryAuthorityServer = fs.readFileSync(path.join(root, 'src/data/explore-category-authority.server.ts'), 'utf8');
+const categoryAuthorityHtmlServer = fs.readFileSync(path.join(root, 'src/data/explore-category-authority-html.server.ts'), 'utf8');
 const categoryIndexability = fs.readFileSync(path.join(root, 'src/data/explore-category-indexability.ts'), 'utf8');
 const collectionGrid = fs.readFileSync(path.join(root, 'src/components/editorial/DestinationCollectionGrid.tsx'), 'utf8');
 const discovery = fs.readFileSync(path.join(root, 'src/components/editorial/ExploreDiscovery.tsx'), 'utf8');
@@ -35,8 +35,8 @@ for (const feature of [
   'numberOfItems: itemListElement.length',
   'articlesQuery({ category: category.slug })',
   'destinationsQuery({ category: category.slug })',
-  'getExploreCategoryAuthority(category.slug)',
-  'authorityGuide',
+  'getExploreCategoryAuthorityHtml(category.slug)',
+  'authorityHtml',
   '`${siteUrl}/article/${article.slug}`',
   '`${siteUrl}/destination/${destination.slug}`',
   'absoluteUrl(texasDefinedBrand, article.hero.src)',
@@ -47,8 +47,8 @@ for (const feature of [
 }
 
 for (const feature of [
-  'authorityGuide',
-  'authorityGuide={authorityGuide}',
+  'authorityHtml',
+  'authorityHtml={authorityHtml}',
   '<CategoryPage',
 ]) {
   if (!lazyRoute.includes(feature)) errors.push(`Explore category loader-to-view authority handoff missing: ${feature}.`);
@@ -61,35 +61,50 @@ for (const feature of [
   'aria-current="page"',
   'ExploreDiscovery',
   'DestinationCollectionGrid',
-  'ExploreCategoryAuthority',
-  'authorityGuide?: ExploreAuthorityGuide | null',
-  '<ExploreCategoryAuthority category={category} guide={authorityGuide} />',
+  'authorityHtml?: string | null',
+  'dangerouslySetInnerHTML={{ __html: authorityHtml }}',
   'categoriesQuery()',
   'destinations.length.toLocaleString',
 ]) {
   if (!categoryPage.includes(feature)) errors.push(`Visible Explore category feature missing: ${feature}.`);
 }
-
-for (const feature of [
-  'guide: ExploreAuthorityGuide | null',
-  'Texas field guide',
-  'Official sources',
-  'Keep exploring',
-  'target="_blank"',
-  '<Link to={item.href}',
-]) {
-  if (!categoryAuthorityComponent.includes(feature)) errors.push(`Explore category authority rendering missing: ${feature}.`);
+if (categoryPage.includes('ExploreCategoryAuthority')) {
+  errors.push('Explore authority long-form rendering must not add a dedicated client component/chunk.');
 }
 
 for (const feature of [
   'createServerFn({ method: "GET" })',
-  'await import("./explore-category-authority.server")',
-  'getExploreCategoryAuthorityServer(data.category)',
+  'await import("./explore-category-authority-html.server")',
+  'renderExploreCategoryAuthorityHtml(data.category)',
+  'getExploreCategoryAuthorityHtml',
 ]) {
   if (!categoryAuthorityClient.includes(feature)) errors.push(`Explore authority server boundary missing: ${feature}.`);
 }
 if (categoryAuthorityClient.includes('title: "How to explore wild Texas"') || categoryAuthorityClient.includes('title: "A practical guide to caves and caverns in Texas"')) {
   errors.push('Long-form Explore authority copy must remain server-only and out of the protected client bundle.');
+}
+
+for (const feature of [
+  'function escapeHtml(value: string)',
+  '.replace(/&/g, "&amp;")',
+  '.replace(/</g, "&lt;")',
+  'function safeInternalHref(value: string)',
+  'value.startsWith("/") && !value.startsWith("//")',
+  'function safeOfficialUrl(value: string)',
+  'url.protocol === "https:"',
+  'getExploreCategoryAuthorityServer(category)',
+  'escapeHtml(guide.title)',
+  'escapeHtml(guide.dek)',
+  'escapeHtml(section.heading)',
+  'escapeHtml(paragraph)',
+  'escapeHtml(bullet)',
+  'safeOfficialUrl(source.url)',
+  'safeInternalHref(item.href)',
+  'Texas field guide',
+  'Official sources',
+  'Keep exploring',
+]) {
+  if (!categoryAuthorityHtmlServer.includes(feature)) errors.push(`Safe server-rendered Explore authority contract missing: ${feature}.`);
 }
 
 const authorityBlock = (slug) => {
@@ -229,4 +244,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Explore categories, including server-delivered remediated Outdoors and Caverns authority guides, retain substantive source-backed depth, internal discovery, classification, filterable collections, taxonomy, navigation, dedicated quality-gated sitemap, regions, structured data, breadcrumbs, body-derived feature reading times and the protected client-bundle boundary.');
+console.log('Explore categories, including safely server-rendered Outdoors and Caverns authority guides, retain substantive source-backed depth, internal discovery, classification, filterable collections, taxonomy, navigation, dedicated quality-gated sitemap, regions, structured data, breadcrumbs, body-derived feature reading times and the protected client-bundle boundary.');
