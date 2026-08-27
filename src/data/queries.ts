@@ -92,7 +92,7 @@ export const searchDocumentsQuery = () => queryOptions({
   queryKey: ["search-documents", scope.brandId],
   queryFn: async () => {
     const base = await platform.search.documents(scope);
-    const knownHrefs = new Set(base.map((document) => [document.href]));
+    const knownHrefs = new Set(base.map((document) => document.href));
     for (const document of staticSearchDocuments) {
       if (knownHrefs.has(document.href)) continue;
       base.push(document);
