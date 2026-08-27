@@ -1,0 +1,135 @@
+name: AdSense production smoke
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/adsense-production-smoke.yml'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/adsense-production-smoke.yml'
+  workflow_run:
+    workflows:
+      - Deploy TexasDefined production
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: texasdefined-adsense-production-smoke
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Verify AdSense-critical production surfaces
+        env:
+          PRODUCTION_ORIGIN: https://texasdefined.com
+        shell: bash
+        run: |
+          python3 <<'PY'
+          import os
+          import re
+          import time
+          import urllib.error
+          import urllib.request
+
+          origin = os.environ.get('PRODUCTION_ORIGIN', 'https://texasdefined.com').rstrip('/')
+          sha = os.environ.get('GITHUB_SHA', 'unknown')
+          run_id = os.environ.get('GITHUB_RUN_ID', 'local')
+
+          cases = [
+              (
+                  'privacy-policy',
+                  '/privacy',
+                  [
+                      'Advertising and Google AdSense',
+                      'adssettings.google.com',
+                      'Google-certified consent management platform',
+                  ],
+              ),
+              ('footer-privacy-link', '/', ['Privacy Policy']),
+              (
+                  'true-cost-depth',
+                  '/article/true-cost-of-owning-a-home-in-texas',
+                  ['Build reserves in layers'],
+              ),
+              (
+                  'mortgage-payment-depth',
+                  '/article/texas-mortgage-payment-guide',
+                  ['Homeowners insurance can also sit inside escrow'],
+              ),
+              (
+                  'heloc-depth',
+                  '/article/texas-home-equity-heloc-guide',
+                  ['Worked example of the Texas 80% home-equity calculation'],
+              ),
+          ]
+
+          def has_noindex(html: str) -> bool:
+              for tag in re.findall(r'<meta\\b[^>]*>', html, flags=re.I):
+                  if not re.search(r'\\bname\\s*=\\s*["\\']robots["\\']', tag, re.I):
+                      continue
+                  content = re.search(r'\\bcontent\\s*=\\s*["\\']([^"\\']*)["\\']', tag, re.I)
+                  if content and re.search(r'\\bnoindex\\b', content.group(1), re.I):
+                      return True
+              return False
+
+          failures = []
+          for label, path, needles in cases:
+              passed = False
+              last_reason = 'not attempted'
+              for attempt in range(1, 7):
+                  separator = '&' if '?' in path else '?'
+                  url = f'{origin}{path}{separator}adsense_smoke={sha}-{run_id}-{attempt}'
+                  request = urllib.request.Request(
+                      url,
+                      headers={
+                          'User-Agent': 'TexasDefined-AdSense-Smoke/1.0',
+                          'Cache-Control': 'no-cache',
+                          'Pragma': 'no-cache',
+                      },
+                  )
+                  try:
+                      with urllib.request.urlopen(request, timeout=30) as response:
+                          status = response.status
+                          challenged = (response.headers.get('cf-mitigated') or '').lower() == 'challenge'
+                          body = response.read().decode('utf-8', errors='replace')
+                      missing = [needle for needle in needles if needle not in body]
+                      if status == 200 and not challenged and not missing and not has_noindex(body):
+                          print(f'PASS {label}: HTTP {status}; required production markers present and indexable.')
+                          passed = True
+                          break
+                      reasons = []
+                      if status != 200:
+                          reasons.append(f'HTTP {status}')
+                      if challenged:
+                          reasons.append('Cloudflare challenge')
+                      if missing:
+                          reasons.append('missing: ' + ' | '.join(missing))
+                      if has_noindex(body):
+                          reasons.append('robots noindex present')
+                      last_reason = '; '.join(reasons) or 'unexpected response'
+                      print(f'RETRY {label} attempt {attempt}: {last_reason}')
+                  except (urllib.error.URLError, TimeoutError, OSError) as error:
+                      last_reason = f'request error: {error}'
+                      print(f'RETRY {label} attempt {attempt}: {last_reason}')
+                  if attempt < 6:
+                      time.sleep(5)
+
+              if not passed:
+                  failures.append(f'{label}: {last_reason}')
+
+          if failures:
+              for failure in failures:
+                  print(f'FAIL {failure}')
+              raise SystemExit('AdSense production smoke failed.')
+
+          print(f'AdSense production smoke passed for {len(cases)} live surfaces.')
+          PY
