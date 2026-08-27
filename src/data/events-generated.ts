@@ -1,5 +1,6 @@
 import { events as curatedTexasEvents } from "./fixtures/texas";
 import { generatedTexasEvents } from "./generated/texas-events";
+import { verifiedMajorEventOccurrences } from "./major-event-authority";
 import type { TexasEvent, TexasRegion } from "./types";
 
 interface GeneratedEventRow {
@@ -53,18 +54,29 @@ function generatedRows(): TexasEvent[] {
     }));
 }
 
+function eventKey(event: TexasEvent): string {
+  return `${event.name.toLowerCase()}:${event.startDate}`;
+}
+
 export function getGeneratedTexasEvents(limit = 24): TexasEvent[] {
   const today = new Date().toISOString().slice(0, 10);
   const merged = new Map<string, TexasEvent>();
 
   for (const event of curatedTexasEvents) {
     if ((event.endDate || event.startDate) < today) continue;
-    merged.set(`${event.name.toLowerCase()}:${event.startDate}`, event);
+    merged.set(eventKey(event), event);
   }
 
   for (const event of generatedRows()) {
     if ((event.endDate || event.startDate) < today) continue;
-    merged.set(`${event.name.toLowerCase()}:${event.startDate}`, event);
+    merged.set(eventKey(event), event);
+  }
+
+  // Authority records are independently source-checked. Add them last so an
+  // official correction can supersede an older fixture/generated occurrence.
+  for (const event of verifiedMajorEventOccurrences) {
+    if ((event.endDate || event.startDate) < today) continue;
+    merged.set(eventKey(event), event);
   }
 
   return [...merged.values()]
