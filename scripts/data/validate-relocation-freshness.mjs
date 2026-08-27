@@ -89,10 +89,12 @@ for (const surface of [hub, metro]) {
 
 for (const requirement of [
   "'texas-population-and-migration-2025'",
+  "'texas-population-and-migration-2024'",
   'to="/texas-data/$datasetSlug"',
   "['Texas population', 'texas-population-and-migration-2025', 'Texas population — July 1, 2025']",
   "['Net domestic migration', 'texas-population-and-migration-2025', 'Net domestic migration']",
   'The current statewide population brief uses Census Vintage 2025.',
+  'The retained 2024 brief is restated on that same vintage',
   'historical comparisons do not mix superseded Census series',
   'RELOCATION_SOURCES.censusPopulation',
 ]) {
@@ -100,7 +102,6 @@ for (const requirement of [
 }
 
 if (!hub.includes('Current Texas population snapshot')) failures.push('Moving hub must label the Vintage 2025 population brief as current.');
-if (!hub.includes('Revised 2024 population history')) failures.push('Moving hub must distinguish the retained 2024 historical brief from current data.');
 if (!metro.includes('Current Texas population and migration snapshot')) failures.push('Metro guides must lead with the Vintage 2025 population brief.');
 if (!metro.includes('Revised Texas 2024 population history')) failures.push('Metro guides must label the retained 2024 brief as historical/revised.');
 
