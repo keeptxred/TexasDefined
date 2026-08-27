@@ -1,9 +1,8 @@
 import type { CategorySlug } from "@/data/types";
 
-const STAGED_EXPLORE_CATEGORY_SLUGS = new Set<CategorySlug>([
-  "outdoors",
-  "caverns",
-]);
+// Keep this explicit registry even when empty: unfinished Explore categories can
+// be staged here as noindex/follow without changing route or sitemap behavior.
+const STAGED_EXPLORE_CATEGORY_SLUGS = new Set<CategorySlug>([]);
 
 export function isExploreCategoryIndexReady(category: CategorySlug): boolean {
   return !STAGED_EXPLORE_CATEGORY_SLUGS.has(category);
