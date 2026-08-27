@@ -8,7 +8,10 @@ const todayUtc = Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.get
 const data = read('src/data/texas-data-center.ts');
 const sources = read('src/data/relocation-authority.ts');
 const hub = read('src/routes/moving-to-texas.lazy.tsx');
-const dataCenter = read('src/routes/moving-to-texas_.data.tsx');
+const dataCenter = [
+  read('src/routes/moving-to-texas_.data.tsx'),
+  read('src/routes/moving-to-texas_.data.lazy.tsx'),
+].join('\n');
 const metro = read('src/components/relocation/MetroRelocationAuthority.tsx');
 
 const reviewWindows = [
