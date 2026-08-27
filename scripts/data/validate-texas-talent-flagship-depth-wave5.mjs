@@ -63,28 +63,49 @@ function objectArray(block, property) {
 
 const words = (value) => value.trim().split(/\s+/).filter(Boolean).length;
 const source = read("src/data/texas-talent-launch-depth-wave5.ts");
+const repair = read("src/data/texas-talent-launch-depth-wave5-repair.ts");
 const server = read("src/data/texas-talent.server.ts");
 const expected = ["t-bone-walker", "jamie-foxx", "woody-harrelson", "tommy-lee-jones", "wes-anderson"];
 
-if (!server.includes("TEXAS_TALENT_LAUNCH_DEPTH_WAVE5") || !server.includes("...(TEXAS_TALENT_LAUNCH_DEPTH_WAVE5[profile.slug] ?? {})")) {
-  fail("server loader must apply wave 5 depth overrides to effective profiles");
+for (const token of [
+  "TEXAS_TALENT_LAUNCH_DEPTH_WAVE5",
+  "...(TEXAS_TALENT_LAUNCH_DEPTH_WAVE5[profile.slug] ?? {})",
+  "TEXAS_TALENT_LAUNCH_DEPTH_WAVE5_REPAIR",
+  "...(TEXAS_TALENT_LAUNCH_DEPTH_WAVE5_REPAIR[profile.slug] ?? {})",
+]) {
+  if (!server.includes(token)) fail(`server loader must apply effective wave 5 depth contract: ${token}`);
 }
-if (source.includes('launchStatus: "launch-ready"')) fail("wave 5 depth work must not grant editorial launch approval");
+if (source.includes('launchStatus: "launch-ready"') || repair.includes('launchStatus: "launch-ready"')) {
+  fail("wave 5 depth work must not grant editorial launch approval");
+}
+
+const repairRecords = [...repair.matchAll(/^  "([a-z0-9-]+)": \{/gm)].map((match) => match[1]);
+if (repairRecords.length !== 1 || repairRecords[0] !== "t-bone-walker") {
+  fail(`wave 5 repair must remain narrowly scoped to t-bone-walker; found ${repairRecords.join(", ") || "none"}`);
+}
 
 for (const slug of expected) {
   const marker = `"${slug}": {`;
   const start = source.indexOf(marker);
   if (start < 0) fail(`missing wave 5 depth record for ${slug}`);
   const block = findBalancedBlock(source, source.indexOf("{", start), "{", "}", slug);
+
+  let legacyBlock = block;
+  if (slug === "t-bone-walker") {
+    const repairStart = repair.indexOf(marker);
+    if (repairStart < 0) fail("missing effective T-Bone Walker wave 5 repair");
+    legacyBlock = findBalancedBlock(repair, repair.indexOf("{", repairStart), "{", "}", `${slug} repair`);
+  }
+
   const overview = stringArray(block, "overview");
-  const legacy = stringArray(block, "legacy");
+  const legacy = stringArray(legacyBlock, "legacy");
   const places = objectArray(block, "texasPlaces");
   const timeline = objectArray(block, "timeline");
   const overviewWords = overview.reduce((sum, paragraph) => sum + words(paragraph), 0);
   const legacyWords = legacy.reduce((sum, paragraph) => sum + words(paragraph), 0);
 
   if (overview.length < 3 || overviewWords < 300) fail(`${slug}: overview below launch depth (${overview.length} paragraphs, ${overviewWords} words)`);
-  if (legacy.length < 3 || legacyWords < 100) fail(`${slug}: legacy below launch depth (${legacy.length} points, ${legacyWords} words)`);
+  if (legacy.length < 3 || legacyWords < 100) fail(`${slug}: effective legacy below launch depth (${legacy.length} points, ${legacyWords} words)`);
   if (timeline.length < 5) fail(`${slug}: timeline below launch depth (${timeline.length} milestones)`);
   if (places.length < 2) fail(`${slug}: needs at least two substantive Texas places`);
   for (const place of places) {
@@ -96,4 +117,4 @@ for (const slug of expected) {
 const recordCount = [...source.matchAll(/^  "[a-z0-9-]+": \{/gm)].length;
 if (recordCount !== expected.length) fail(`wave 5 must contain exactly ${expected.length} records; found ${recordCount}`);
 
-console.log("Texas Talent flagship-depth wave 5 validation passed: T-Bone Walker, Jamie Foxx, Woody Harrelson, Tommy Lee Jones and Wes Anderson meet stronger narrative, timeline, legacy and Texas-place launch thresholds without receiving launch approval.");
+console.log("Texas Talent flagship-depth wave 5 validation passed: T-Bone Walker's narrow repair and the full wave 5 cohort meet effective narrative, timeline, legacy and Texas-place launch thresholds without receiving launch approval.");
