@@ -2,6 +2,7 @@ import { createFileRoute, Link, notFound, redirect } from "@tanstack/react-route
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
+import { isExploreCategoryIndexReady } from "@/data/explore-category-indexability";
 import { articlesQuery, categoriesQuery, destinationQuery, destinationsQuery } from "@/data/queries";
 import type { Destination } from "@/data/types";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
@@ -47,6 +48,7 @@ export const Route = createFileRoute("/explore/$category")({
     if (!loaderData) return { meta: [{ title: "Not found" }, { name: "robots", content: "noindex" }] };
     const canonicalPath = `/explore/${params.category}`;
     const categoryUrl = `${siteUrl}${canonicalPath}`;
+    const indexReady = isExploreCategoryIndexReady(loaderData.category.slug);
     const featuredCollectionItems = params.category === "food-bbq" ? [{ "@type": "ListItem", position: 1, item: { "@type": "CollectionPage", name: "Texas Food History", description: "The history behind barbecue, chili, chicken-fried steak, breakfast tacos, Czech and German foodways and Dr Pepper.", url: `${siteUrl}/texas-food-history` } }] : [];
     const itemListElement = [
       ...featuredCollectionItems,
@@ -65,7 +67,7 @@ export const Route = createFileRoute("/explore/$category")({
       { "@type": "ListItem", position: 3, name: loaderData.category.name, item: categoryUrl },
     ] };
     return {
-      meta: buildMeta(texasDefinedBrand, { canonicalPath, title: loaderData.category.name, description: loaderData.category.description, image: loaderData.category.image?.src, imageAlt: loaderData.category.image?.alt }),
+      meta: buildMeta(texasDefinedBrand, { canonicalPath, title: loaderData.category.name, description: loaderData.category.description, image: loaderData.category.image?.src, imageAlt: loaderData.category.image?.alt, robots: indexReady ? undefined : "noindex, follow, max-image-preview:large" }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
       scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": [collectionSchema, breadcrumbSchema] }) }],
     };
