@@ -12,6 +12,7 @@ const media = read('src/routes/explore.painted-churches.media.tsx');
 const extraGallery = read('src/data/painted-church-gallery-extra.ts');
 const archival = read('src/data/painted-church-archival-images-expansion.ts');
 const thenNow = read('src/routes/explore.painted-churches.then-and-now.tsx');
+const mapRoute = read('src/routes/explore.painted-churches.map.tsx');
 const tripPlanner = read('src/routes/explore.trip-planner.tsx');
 const countyGuides = read('src/components/content/CountyGuideSections.tsx');
 const guidebook = read('src/routes/guides.tsx');
@@ -66,6 +67,8 @@ requireText(thenNow, 'const neither =', 'Then & Now coverage accounting');
 requireText(thenNow, 'Coverage accounting:', 'Then & Now coverage accounting');
 requireText(thenNow, 'Open visual-research queue', 'Then & Now backlog transparency');
 requireText(thenNow, 'paired.length + archivalOnly.length + currentOnly.length + neither.length', 'Then & Now reconciliation');
+requireText(mapRoute, '["Gillespie", "Bandera", "Karnes", "Bexar", "Medina"]', 'Medina County Painted Churches map region');
+requireText(mapRoute, 'return "Hill Country & South-Central Texas"', 'Medina County Painted Churches map region');
 
 requireText(tripPlanner, 'PaintedChurchRoutePromo', 'Trip-planner reciprocal link');
 requireText(tripPlanner, '/explore/painted-churches/routes', 'Trip-planner reciprocal link');
@@ -117,4 +120,4 @@ if (failures.length) {
   failures.forEach((failure) => console.error(`- ${failure}`));
   process.exit(1);
 }
-console.log('Painted Churches completion protected: candidate adjudication, complete public research accounting, oral-history sources, complete Then & Now accounting, current imagery and primary-source interiors, county/history/road-trip/small-town discovery, trip-planner integration, statewide Guidebook exposure, non-stale cross-links, self-canonical sitemap coverage, Google crawl access and explicit indexing approval.');
+console.log('Painted Churches completion protected: candidate adjudication, complete public research accounting, oral-history sources, complete Then & Now accounting, current imagery and primary-source interiors, correct regional map grouping, county/history/road-trip/small-town discovery, trip-planner integration, statewide Guidebook exposure, non-stale cross-links, self-canonical sitemap coverage, Google crawl access and explicit indexing approval.');
