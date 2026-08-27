@@ -46,11 +46,11 @@ export const TEXAS_TALENT_LAUNCH_DEPTH_WAVE6: Readonly<Record<string, TexasTalen
     legacy: [
       "Longoria used acting success as a platform for a broader creative career, moving into producing and directing rather than allowing one television role to define the limits of her influence within the industry.",
       "Her advocacy and production choices helped keep Latino representation, entrepreneurship and access to decision-making visible as entertainment-industry issues rather than treating diversity as separate from the mechanics of who controls projects.",
-      "Corpus Christi and Kingsville give that career a clear South Texas beginning. The two cities allow Texas Defined to connect Mexican American cultural identity, higher education and national entertainment leadership within one profile.",
+      "Corpus Christi and Kingsville give that career a clear South Texas beginning. The two cities allow Texas Defined to connect Mexican American cultural identity, higher education and national entertainment leadership within one profile while preserving the regional context behind that work.",
     ],
     texasPlaces: [
       { name: "Corpus Christi", context: "Longoria's birthplace and childhood home in Nueces County, providing the South Texas family and cultural setting that preceded her acting, producing and advocacy career." },
-      { name: "Kingsville", context: "The Kleberg County university city where Longoria completed her Texas A&M University-Kingsville degree before pursuing entertainment professionally." },
+      { name: "Kingsville", context: "The Kleberg County university city where Longoria completed her Texas A&M University-Kingsville degree before pursuing entertainment professionally beyond South Texas." },
     ],
     lastReviewedAt: reviewed,
   },
@@ -118,7 +118,7 @@ export const TEXAS_TALENT_LAUNCH_DEPTH_WAVE6: Readonly<Record<string, TexasTalen
     legacy: [
       "Quaid built one of the more durable mainstream acting careers to emerge from Texas university training, moving among drama, comedy, music biography, sports storytelling and family films without becoming permanently fixed in one category.",
       "His screen presence often combines accessibility with unpredictability, allowing him to play charismatic leads while also moving into more troubled or eccentric characters as the career matured.",
-      "Houston gives the profile a coherent Texas foundation because it contains both the birthplace and University of Houston drama training. That dual connection links personal biography to a specific Texas institution rather than relying on fame alone.",
+      "Houston gives the profile a coherent Texas foundation because it contains both the birthplace and University of Houston drama training. That dual connection links personal biography to a specific Texas institution rather than relying on fame alone, reinforcing the education-to-career connection.",
     ],
     texasPlaces: [
       { name: "Houston", context: "Quaid's birthplace and the city where his formal acting education began, giving his Texas connection both personal and professional significance before the move into national film." },
