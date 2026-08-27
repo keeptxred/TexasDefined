@@ -35,11 +35,14 @@ for (const feature of [
 }
 
 for (const feature of [
+  'import { getExploreCategoryAuthorityHtmlServer } from "./explore-category-authority.server"',
   'createServerFn({ method: "GET" })',
-  'await import("./explore-category-authority.server")',
-  'getExploreCategoryAuthorityHtmlServer(data.category)',
+  '.handler(async ({ data }) => getExploreCategoryAuthorityHtmlServer(data.category))',
 ]) {
   if (!authorityBoundary.includes(feature)) errors.push(`Explore authority server boundary missing: ${feature}.`);
+}
+if (authorityBoundary.includes('await import("./explore-category-authority.server")')) {
+  errors.push('Explore authority must not dynamically import its server helper; TanStack Start can emit that import graph into the protected client bundle.');
 }
 if (authorityBoundary.includes('title: "How to explore wild Texas"') || authorityBoundary.includes('title: "A practical guide to caves and caverns in Texas"')) {
   errors.push('Long-form Explore authority copy must remain server-only and out of the protected client bundle.');
