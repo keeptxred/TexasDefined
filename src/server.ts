@@ -15,6 +15,7 @@ type ExecutionContextLike = {
 
 type CloudflareCacheStorage = CacheStorage & { default?: Cache };
 
+const ADS_TXT = "google.com, pub-1891256141359926, DIRECT, f08c47fec0942fa0\n";
 const BING_VERIFICATION_META =
   '<meta name="msvalidate.01" content="74E5E79AEC351CF6D2577A6FC6A125DF" />';
 const REMOTE_IMAGE_REDIRECT_STATUSES = new Set([301, 302, 303, 307, 308]);
@@ -49,6 +50,26 @@ function canonicalHostRedirect(request: Request) {
   url.hostname = "texasdefined.com";
   url.port = "";
   return Response.redirect(url.toString(), 301);
+}
+
+export function adsTxtResponse(request: Request): Response | null {
+  const url = new URL(request.url);
+  if (url.pathname !== "/ads.txt") return null;
+  if (request.method !== "GET" && request.method !== "HEAD") {
+    return new Response("Method not allowed", {
+      status: 405,
+      headers: { Allow: "GET, HEAD" },
+    });
+  }
+
+  return new Response(request.method === "HEAD" ? null : ADS_TXT, {
+    status: 200,
+    headers: {
+      "Cache-Control": "public, max-age=300, s-maxage=300",
+      "Content-Type": "text/plain; charset=utf-8",
+      "X-Content-Type-Options": "nosniff",
+    },
+  });
 }
 
 function legacyCountyRedirect(request: Request) {
@@ -202,6 +223,8 @@ export default {
     try {
       const canonicalRedirect = canonicalHostRedirect(request);
       if (canonicalRedirect) return canonicalRedirect;
+      const adsTxt = adsTxtResponse(request);
+      if (adsTxt) return adsTxt;
       const image = await remoteImageResponse(request, ctx);
       if (image) return image;
       const countyRedirect = legacyCountyRedirect(request);
