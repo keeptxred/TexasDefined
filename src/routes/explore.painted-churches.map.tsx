@@ -49,7 +49,7 @@ const precisionLabel = {
 
 const regionFor = (county: string) => {
   if (["Fayette", "Lavaca", "Austin", "Grimes", "Williamson", "Lee", "Washington"].includes(county)) return "Central Texas & the classic Painted Churches belt";
-  if (["Gillespie", "Bandera", "Karnes", "Bexar"].includes(county)) return "Hill Country & South-Central Texas";
+  if (["Gillespie", "Bandera", "Karnes", "Bexar", "Medina"].includes(county)) return "Hill Country & South-Central Texas";
   if (["Nueces"].includes(county)) return "Gulf Coast & South Texas";
   if (["Potter", "Randall"].includes(county)) return "Panhandle";
   if (["Cooke", "Lamar"].includes(county)) return "North & Northeast Texas";
