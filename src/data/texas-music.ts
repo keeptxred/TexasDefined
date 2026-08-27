@@ -9,6 +9,21 @@ export type TexasMusicTradition = {
   guideHref?: string;
 };
 
+export type TexasMusicTimelineEntry = {
+  era: string;
+  title: string;
+  summary: string;
+  href: string;
+  sourceUrl: string;
+};
+
+export type TexasMusicRoadTrip = {
+  title: string;
+  route: string;
+  focus: string;
+  stops: readonly { label: string; href: string }[];
+};
+
 export type TexasMusicRelatedGuide = {
   title: string;
   href: string;
@@ -106,6 +121,128 @@ export const TEXAS_MUSIC_TRADITIONS: readonly TexasMusicTradition[] = [
     representativeArtists: ["Geto Boys", "DJ Screw", "UGK"],
     sourceUrl: "https://www.tshaonline.org/handbook/projects/texas-music/category/music/category/genres-rap-and-hip-hop",
     guideHref: "/texas-hip-hop",
+  },
+] as const;
+
+export const TEXAS_MUSIC_TIMELINE: readonly TexasMusicTimelineEntry[] = [
+  {
+    era: "Late 1800s–early 1900s",
+    title: "Borderland dance music and accordion traditions take root",
+    summary: "South Texas and the borderlands become a meeting ground for Mexican musical traditions, button accordion, polkas, waltzes and community dance culture that later feed conjunto.",
+    href: "/texas-conjunto-tejano",
+    sourceUrl: "https://www.tshaonline.org/handbook/entries/texas-mexican-conjunto",
+  },
+  {
+    era: "1900s–1920s",
+    title: "Blues, gospel and jazz networks grow in Texas cities",
+    summary: "Black churches, street performance, theaters, railroad districts and early urban entertainment corridors connect spirituals, blues and jazz across Dallas, Houston, Fort Worth and East Texas.",
+    href: "/texas-blues",
+    sourceUrl: "https://www.tshaonline.org/handbook/entries/blues",
+  },
+  {
+    era: "1920s",
+    title: "Recording and radio widen the audience",
+    summary: "Commercial recording gives performers such as Blind Lemon Jefferson a national audience while radio and touring begin linking local Texas scenes to a much larger music economy.",
+    href: "/texas-music-cities",
+    sourceUrl: "https://www.tshaonline.org/handbook/projects/texas-music",
+  },
+  {
+    era: "1930s",
+    title: "Western swing and modern conjunto crystallize",
+    summary: "Fort Worth bands blend country, blues and jazz into western swing while Narciso Martínez helps define an accordion-led conjunto style in South Texas—two distinctly Texas answers to dance-floor music.",
+    href: "/texas-western-swing",
+    sourceUrl: "https://www.tshaonline.org/handbook/entries/country-music",
+  },
+  {
+    era: "1940s–1950s",
+    title: "Electric blues, R&B, gospel and independent labels expand",
+    summary: "Amplification changes blues guitar, Houston's Duke-Peacock network connects gospel and R&B to national audiences, and Texas musicians move freely through blues, jazz, country and popular music.",
+    href: "/texas-gospel-rnb-pop",
+    sourceUrl: "https://www.tshaonline.org/handbook/projects/texas-music",
+  },
+  {
+    era: "1950s–1960s",
+    title: "Texas helps reshape rock and roll",
+    summary: "Buddy Holly, Roy Orbison, Janis Joplin and other Texas musicians carry regional country, blues and R&B influences into new rock and roots-rock forms heard far beyond the state.",
+    href: "/texas-rock-rockabilly",
+    sourceUrl: "https://www.tshaonline.org/handbook/entries/rock-and-roll",
+  },
+  {
+    era: "1960s–1970s",
+    title: "Modern jazz and hybrid city scenes push outward",
+    summary: "Fort Worth innovators such as Ornette Coleman change modern jazz while San Antonio, Houston and other cities keep producing hybrid sounds that resist clean genre boundaries.",
+    href: "/texas-jazz",
+    sourceUrl: "https://www.tshaonline.org/handbook/entries/jazz",
+  },
+  {
+    era: "1970s",
+    title: "Austin progressive country becomes a national alternative",
+    summary: "Dance halls, clubs, songwriters and Austin City Limits help turn Austin's progressive-country ecosystem into a visible alternative to Nashville convention and a foundation for outlaw-country mythology.",
+    href: "/texas-country-outlaw",
+    sourceUrl: "https://www.tshaonline.org/handbook/entries/country-music",
+  },
+  {
+    era: "1980s–1990s",
+    title: "Tejano, blues revival and Texas hip-hop reach larger audiences",
+    summary: "Selena helps carry Tejano to a much larger public, Stevie Ray Vaughan reconnects blues-centered guitar with mainstream rock audiences, and Houston rap develops independent systems of its own.",
+    href: "/texas-hip-hop",
+    sourceUrl: "https://www.tshaonline.org/handbook/projects/texas-music/category/music/category/genres-rap-and-hip-hop",
+  },
+  {
+    era: "2000s–today",
+    title: "Texas music operates as a global, multi-genre network",
+    summary: "Country, gospel, R&B, hip-hop, pop, Tejano, blues and roots traditions continue at the same time, with Texas cities, venues, festivals and studios feeding both local scenes and global audiences.",
+    href: "/texas-music",
+    sourceUrl: "https://www.tshaonline.org/handbook/projects/texas-music",
+  },
+] as const;
+
+export const TEXAS_MUSIC_ROAD_TRIPS: readonly TexasMusicRoadTrip[] = [
+  {
+    title: "Central Texas dance halls & Austin stages",
+    route: "Austin → South Austin → Gruene → Fort Worth",
+    focus: "Progressive country, blues clubs, dance halls and western swing",
+    stops: [
+      { label: "Austin music history", href: "/austin-music-history" },
+      { label: "Broken Spoke", href: "/broken-spoke-austin-history" },
+      { label: "Antone's", href: "/antones-austin-history" },
+      { label: "Gruene Hall", href: "/gruene-hall-history" },
+      { label: "Billy Bob's Texas", href: "/billy-bobs-texas-history" },
+    ],
+  },
+  {
+    title: "South Texas border-music route",
+    route: "San Antonio → Corpus Christi → Rio Grande Valley",
+    focus: "Conjunto, Tejano, borderland exchange and dance culture",
+    stops: [
+      { label: "San Antonio music history", href: "/san-antonio-music-history" },
+      { label: "Conjunto & Tejano deep guide", href: "/texas-conjunto-tejano" },
+      { label: "Texas dance halls", href: "/texas-dance-halls-honky-tonks" },
+      { label: "Texas trip planner", href: "/explore/trip-planner" },
+    ],
+  },
+  {
+    title: "Houston-to-Gulf Coast sound trail",
+    route: "Houston → Port Arthur → Gulf Coast",
+    focus: "Blues, gospel, R&B, hip-hop and Gulf Coast independence",
+    stops: [
+      { label: "Houston music history", href: "/houston-music-history" },
+      { label: "Texas blues", href: "/texas-blues" },
+      { label: "Gospel, R&B & pop", href: "/texas-gospel-rnb-pop" },
+      { label: "Texas hip-hop", href: "/texas-hip-hop" },
+    ],
+  },
+  {
+    title: "North & West Texas roots route",
+    route: "Dallas → Fort Worth → Lubbock",
+    focus: "Deep Ellum blues, jazz, western swing and early rock and roll",
+    stops: [
+      { label: "Dallas–Fort Worth music history", href: "/dallas-fort-worth-music-history" },
+      { label: "Texas jazz", href: "/texas-jazz" },
+      { label: "Texas western swing", href: "/texas-western-swing" },
+      { label: "Lubbock music history", href: "/lubbock-music-history" },
+      { label: "Texas rock & rockabilly", href: "/texas-rock-rockabilly" },
+    ],
   },
 ] as const;
 
