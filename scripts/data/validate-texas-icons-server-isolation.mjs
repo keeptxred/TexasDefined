@@ -34,6 +34,7 @@ const researchPaths = [
   "src/data/texas-icons-research-media-1.server.ts",
   "src/data/texas-icons-research-media-2.server.ts",
   "src/data/texas-icons-research-media-3.server.ts",
+  "src/data/texas-icons-research-media-4.server.ts",
 ];
 const failures = [];
 
