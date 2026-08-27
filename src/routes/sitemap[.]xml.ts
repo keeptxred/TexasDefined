@@ -75,6 +75,7 @@ const SUPPLEMENTAL_MAJOR_EVENT_SITEMAP: readonly SitemapEntry[] = [
   { path: "/event/austin-reggae-festival", lastmod: "2026-08-27" },
   { path: "/event/texas-outdoor-musical", lastmod: "2026-08-27" },
   { path: "/event/washington-on-the-brazos-texas-independence-day", lastmod: "2026-08-27" },
+  { path: "/event/great-american-scrapbook-convention", lastmod: "2026-08-27" },
 ];
 
 export const Route = createFileRoute("/sitemap.xml")({
