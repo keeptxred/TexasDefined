@@ -22,7 +22,10 @@ for (const feature of [
   'destination.bestSeason',
   '...destination.highlights',
   'keywords: [...new Set(keywords)]',
-  'const base = await platform.search.documents(scope)',
+  'platform.search.documents(scope)',
+  'platform.articles.list(scope)',
+  '.filter(isArticleIndexReady)',
+  'document.kind !== "article" || indexableArticleHrefs.has(document.href)',
   'fetchExploreDestinations({ limit: 5000 })',
   'fetchCoreExploreDestinations({ limit: 5000 })',
   'mergeDestinations(enriched, core, preservedExploreDestinations)',
@@ -77,4 +80,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Global search destinations are resolved and SEO-ready before publication, use canonical URLs and deduplicated keywords, retain core/preserved source fallbacks, fail closed when no destination is ready, keep heavy destination resolution behind a runtime split, use a lazy result renderer with dynamic query loading, and cannot be bypassed by a raw route-level destination feed.');
+console.log('Global search destinations and articles are resolved through publication-readiness gates before discovery, use canonical URLs and deduplicated keywords, retain core/preserved destination fallbacks, fail closed when no destination is ready, keep heavy destination resolution behind a runtime split, use a lazy result renderer with dynamic query loading, and cannot be bypassed by raw route-level feeds.');
