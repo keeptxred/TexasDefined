@@ -14,6 +14,7 @@ const canonicalPath = '/moving-to-texas/data';
 const description = 'A source-backed Texas relocation data center for migration, jobs, homeowners insurance, traffic, county research and the practical numbers behind a move to Texas.';
 const tdiCountyLossesUrl = 'https://www.tdi.texas.gov/consumer/homeowners-losses-by-county.html';
 const relocationDatasetSlugs = [
+  'texas-population-and-migration-2025',
   'texas-population-and-migration-2024',
   'where-new-texans-came-from-2024',
   'texas-homeowners-premium-history',
@@ -24,8 +25,8 @@ const relocationDatasets = relocationDatasetSlugs
   .map((slug) => TEXAS_DATASETS.find((dataset) => dataset.slug === slug))
   .filter((dataset): dataset is (typeof TEXAS_DATASETS)[number] => Boolean(dataset));
 const quickStats = [
-  ['Texas population', 'texas-population-and-migration-2024', 'Texas population — July 1, 2024'],
-  ['Net domestic migration', 'texas-population-and-migration-2024', 'Net domestic migration'],
+  ['Texas population', 'texas-population-and-migration-2025', 'Texas population — July 1, 2025'],
+  ['Net domestic migration', 'texas-population-and-migration-2025', 'Net domestic migration'],
   ['2025 average homeowners premium', 'texas-homeowners-premium-history', '2025'],
   ['DFW nonfarm payrolls', 'texas-metro-payrolls-june-2026', 'Dallas–Fort Worth–Arlington'],
 ] as const;
@@ -92,6 +93,7 @@ function RelocationDataCenterPage() {
         <h1 className="mt-3 max-w-5xl font-display text-5xl leading-[0.98] sm:text-7xl">The data behind a move to Texas</h1>
         <p className="mt-6 max-w-4xl text-lg leading-8 text-muted-foreground sm:text-xl">{description}</p>
         <p className="mt-5 max-w-4xl text-sm leading-7 text-muted-foreground">Texas Defined keeps these datasets separate because population estimates, migration flows, insurance records, payroll employment and traffic monitoring answer different questions and update on different schedules. They should inform a move, not be collapsed into a hidden “best city” score.</p>
+        <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">The current statewide population brief uses Census Vintage 2025. The retained 2024 brief is restated on that same vintage so historical comparisons do not mix superseded Census series.</p>
         <dl className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {quickStats.map(([label, slug, rowLabel]) => <QuickStat key={label} label={label} slug={slug} rowLabel={rowLabel} />)}
         </dl>
@@ -166,6 +168,7 @@ function RelocationDataCenterPage() {
           </div>
           <div className="grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2">
             {[
+              RELOCATION_SOURCES.censusPopulation,
               RELOCATION_SOURCES.censusMigration,
               RELOCATION_SOURCES.censusCountyMigration,
               RELOCATION_SOURCES.blsMetro,
