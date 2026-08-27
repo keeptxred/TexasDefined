@@ -13,7 +13,10 @@ const calculatorPage = read('src/components/calculators/CalculatorPage.tsx');
 const funnel = read('src/components/monetization/EvergreenNextSteps.tsx');
 const analytics = read('src/platform/analytics.ts');
 const relocationHub = read('src/routes/moving-to-texas.lazy.tsx');
-const relocationDataCenter = read('src/routes/moving-to-texas_.data.tsx');
+const relocationDataCenter = [
+  read('src/routes/moving-to-texas_.data.tsx'),
+  read('src/routes/moving-to-texas_.data.lazy.tsx'),
+].join('\n');
 const relocationLab = read('src/components/relocation/RelocationAuthorityLab.tsx');
 const metroRelocationAuthority = read('src/components/relocation/MetroRelocationAuthority.tsx');
 const articleBody = read('src/components/editorial/ArticleBody.tsx');
