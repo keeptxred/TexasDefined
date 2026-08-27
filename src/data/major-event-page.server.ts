@@ -5,6 +5,7 @@ import { getExpandedMajorEventAuthorityTranche3Server } from "./major-event-expa
 import { getExpandedMajorEventAuthorityTranche4Server } from "./major-event-expanded-authority-tranche4.server";
 import { getExpandedMajorEventAuthorityTranche5Server } from "./major-event-expanded-authority-tranche5.server";
 import { getExpandedMajorEventAuthorityTranche6Server } from "./major-event-expanded-authority-tranche6.server";
+import { getExpandedMajorEventAuthorityTranche7Server } from "./major-event-expanded-authority-tranche7.server";
 
 const siteUrl = "https://texasdefined.com";
 const esc = (value: string | undefined) => (value ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\"/g, "&quot;").replace(/'/g, "&#39;");
@@ -15,7 +16,8 @@ export function loadMajorEventPageServer(slug: string) {
     ?? getExpandedMajorEventAuthorityTranche3Server(slug)
     ?? getExpandedMajorEventAuthorityTranche4Server(slug)
     ?? getExpandedMajorEventAuthorityTranche5Server(slug)
-    ?? getExpandedMajorEventAuthorityTranche6Server(slug);
+    ?? getExpandedMajorEventAuthorityTranche6Server(slug)
+    ?? getExpandedMajorEventAuthorityTranche7Server(slug);
   if (!event) return null;
   const dateLabel = formatDateRange(event.startDate, event.endDate, "en-US");
   const canonicalUrl = `${siteUrl}/event/${event.slug}`;
