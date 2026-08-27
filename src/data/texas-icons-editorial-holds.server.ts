@@ -15,3 +15,8 @@ export const TEXAS_ICON_EDITORIAL_HOLD_SLUGS = Object.freeze(
 export function texasIconEditorialHoldSummary(slug: string) {
   return TEXAS_ICON_EDITORIAL_HOLD_SUMMARIES[slug] ?? null;
 }
+
+export function applyTexasIconEditorialHoldSummary<T extends { slug: string; summary: string }>(icon: T): T {
+  const summary = texasIconEditorialHoldSummary(icon.slug);
+  return summary ? { ...icon, summary } : icon;
+}
