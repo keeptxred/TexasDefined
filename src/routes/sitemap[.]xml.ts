@@ -91,6 +91,8 @@ export const Route = createFileRoute("/sitemap.xml")({
         const graph = graphResult.status === "fulfilled" ? graphResult.value : [];
         const remoteNews = remoteNewsResult.status === "fulfilled" ? remoteNewsResult.value : [];
         const remoteEvergreen = remoteEvergreenResult.status === "fulfilled" ? remoteEvergreenResult.value : [];
+        const indexableRemoteNews = remoteNews.filter(isArticleIndexReady);
+        const indexableRemoteEvergreen = remoteEvergreen.filter(isArticleIndexReady);
         const countyHousingCosts = countyHousingResult.status === "fulfilled" ? countyHousingResult.value : null;
         const fishingGuideSitemapEntries = fishingGuideSitemapResult.status === "fulfilled" ? fishingGuideSitemapResult.value : [];
         const fishingReportSitemapEntries = fishingReportSitemapResult.status === "fulfilled" ? fishingReportSitemapResult.value : [];
@@ -116,11 +118,9 @@ export const Route = createFileRoute("/sitemap.xml")({
           ...fishingGuideSitemapEntries,
           ...fishingReportSitemapEntries,
           ...fishingLocalSitemapEntries,
-          ...(remoteNews.length ? [{ path: "/news" }] : []),
-          ...remoteNews.map((article) => ({ path: `/news/${article.slug}`, lastmod: toDate(article.publishedAt) })),
-          ...remoteEvergreen
-            .filter(isArticleIndexReady)
-            .map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(article.publishedAt) })),
+          ...(indexableRemoteNews.length ? [{ path: "/news" }] : []),
+          ...indexableRemoteNews.map((article) => ({ path: `/news/${article.slug}`, lastmod: toDate(article.publishedAt) })),
+          ...indexableRemoteEvergreen.map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(article.publishedAt) })),
           ...(countyGrowth.available ? [{ path: "/texas-data/county-growth", lastmod: "2026-03-17" }] : []),
           ...(countyHousingCosts?.available
             ? [{ path: "/texas-data/county-housing-costs", lastmod: toDate(countyHousingCosts.generatedAt ?? undefined) }]
