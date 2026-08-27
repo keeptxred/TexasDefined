@@ -1,4 +1,5 @@
 name: Verify remote evergreen production
+# This workflow watches its own file so verifier refinements recheck the live cohort after merge.
 
 on:
   pull_request:
@@ -116,10 +117,19 @@ jobs:
           if canonical != expected:
               raise SystemExit(f'canonical mismatch: {canonical!r} != {expected!r}')
 
-          for match in re.finditer(r'<meta[^>]+name=["\x27]robots["\x27][^>]+content=["\x27]([^"\x27]+)', raw, re.I):
-              directives = match.group(1).lower()
-              if 'noindex' in directives or 'nofollow' in directives:
-                  raise SystemExit(f'blocked robots directives: {directives}')
+          robots_values = []
+          for tag in re.findall(r'<meta[^>]+>', raw, re.I):
+              if not re.search(r'name=["\x27]robots["\x27]', tag, re.I):
+                  continue
+              match = re.search(r'content=["\x27]([^"\x27]+)', tag, re.I)
+              if match:
+                  robots_values.append(match.group(1).lower())
+          if not robots_values:
+              raise SystemExit('robots meta missing')
+          if any('noindex' in value or 'nofollow' in value for value in robots_values):
+              raise SystemExit(f'blocked robots directives: {robots_values}')
+          if not any('index' in value and 'follow' in value for value in robots_values):
+              raise SystemExit(f'index/follow directives missing: {robots_values}')
 
           if not re.search(r'"@type"\s*:\s*"Article"', text):
               raise SystemExit('Article structured data missing')
