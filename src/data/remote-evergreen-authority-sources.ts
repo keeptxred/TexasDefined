@@ -1,5 +1,7 @@
 export interface EvergreenAuthoritySource { label: string; url: string; scope: string; }
 
+// This 19-article cohort is also enforced against live production by
+// .github/workflows/verify-remote-evergreen-production.yml.
 export const remoteEvergreenAuthoritySources: Readonly<Record<string, readonly EvergreenAuthoritySource[]>> = {
   "sam-houston-texas-life-legacy": [{ label: "Handbook of Texas — Sam Houston", url: "https://www.tshaonline.org/handbook/entries/houston-sam", scope: "Biographical chronology, offices, military and political career" }, { label: "Texas State Library and Archives Commission — Sam Houston", url: "https://www.tsl.texas.gov/exhibits/presidents/houston1/gtt.html", scope: "Republic-era leadership and archival context" }],
   "davy-crockett-texas-alamo-legend": [{ label: "The Alamo — David ‘Davy’ Crockett", url: "https://www.thealamo.org/remember/battle-and-revolution/defenders/david-davy-crockett", scope: "Alamo defender record and 1836 context" }, { label: "Handbook of Texas — David Crockett", url: "https://www.tshaonline.org/handbook/entries/crockett-david", scope: "Biography, political career and Texas journey" }],
