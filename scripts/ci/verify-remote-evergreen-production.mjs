@@ -79,12 +79,18 @@ async function verifyPage(slug) {
     }
 
     const robotsPattern = /<meta[^>]+name=["']robots["'][^>]+content=["']([^"']+)["']/gi;
-    for (const match of html.matchAll(robotsPattern)) {
-      const directives = match[1].toLowerCase();
-      if (directives.includes("noindex") || directives.includes("nofollow")) {
-        console.log(`WAIT robots=${directives} ${url}`);
-        return false;
-      }
+    const robotsValues = [...html.matchAll(robotsPattern)].map((match) => match[1].toLowerCase());
+    if (robotsValues.length === 0) {
+      console.log(`WAIT robots=missing ${url}`);
+      return false;
+    }
+    if (robotsValues.some((directives) => directives.includes("noindex") || directives.includes("nofollow"))) {
+      console.log(`WAIT robots=${robotsValues.join(" | ")} ${url}`);
+      return false;
+    }
+    if (!robotsValues.some((directives) => directives.includes("index") && directives.includes("follow"))) {
+      console.log(`WAIT robots=index-follow-missing values=${robotsValues.join(" | ")} ${url}`);
+      return false;
     }
 
     const decoded = decodeHtml(html);
