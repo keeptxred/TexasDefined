@@ -2,7 +2,11 @@ import type { Article } from "../types";
 import { texasGatewayBatch3AuthorityEnrichment } from "./texas-gateway-batch3-authority-enrichment";
 import { texasGatewayBatch3CulturalEnrichment } from "./texas-gateway-batch3-cultural-enrichment";
 import { texasGatewayBatch3SeasonalEnrichment } from "./texas-gateway-batch3-seasonal-enrichment";
+import { texasGatewayBatch4AuthorityEnrichment } from "./texas-gateway-batch4-authority-enrichment";
 import { texasGatewayBatch4CulturalEnrichment } from "./texas-gateway-batch4-cultural-enrichment";
+import { texasGatewayBatch5CulturalEnrichment } from "./texas-gateway-batch5-cultural-enrichment";
+import { texasGatewayBatch5TravelEnrichment } from "./texas-gateway-batch5-travel-enrichment";
+import { texasGatewayBatch5WeatherEnrichment } from "./texas-gateway-batch5-weather-enrichment";
 import { isTexasGatewayIndexReadyArticle } from "./texas-gateway-index-readiness";
 
 const GATEWAY_LINK_ALIASES: Record<string, string> = {
@@ -27,7 +31,11 @@ const normalizeGatewayArticle = (article: Article): Article => {
   const enrichment: Partial<Article> | undefined = texasGatewayBatch3CulturalEnrichment[article.slug]
     ?? texasGatewayBatch3AuthorityEnrichment[article.slug]
     ?? texasGatewayBatch3SeasonalEnrichment[article.slug]
-    ?? texasGatewayBatch4CulturalEnrichment[article.slug];
+    ?? texasGatewayBatch4CulturalEnrichment[article.slug]
+    ?? texasGatewayBatch4AuthorityEnrichment[article.slug]
+    ?? texasGatewayBatch5CulturalEnrichment[article.slug]
+    ?? texasGatewayBatch5TravelEnrichment[article.slug]
+    ?? texasGatewayBatch5WeatherEnrichment[article.slug];
   const internalLinks = [...(article.internalLinks ?? []), ...(enrichment?.internalLinks ?? [])]
     .map((link) => ({
       ...link,

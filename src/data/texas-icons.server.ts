@@ -1,5 +1,5 @@
 import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
-import { canonicalEntityPath } from "@/data/knowledge-graph/relationships";
+import { canonicalEntityPath, isIndexableEntityPage } from "@/data/knowledge-graph/relationships";
 import type { TexasEntityRecord } from "@/data/knowledge-graph/types";
 import { TEXAS_ICON_RESEARCH_HISTORY_BATCH_1 } from "@/data/texas-icons-research-history-1.server";
 import { TEXAS_ICON_RESEARCH_HISTORY_BATCH_2 } from "@/data/texas-icons-research-history-2.server";
@@ -159,6 +159,23 @@ function uniqueMatch<T>(lookup: Map<string, T[]>, keys: readonly string[]) {
   return matches.size === 1 ? [...matches][0] : null;
 }
 
+function enrichResearchProfilePlaceLinks(
+  profile: TexasIconResearchProfile,
+  context: ResolutionContext,
+): TexasIconResearchProfile {
+  return {
+    ...profile,
+    texasPlaces: profile.texasPlaces.map((place) => {
+      if (place.href) return place;
+      const key = normalizeTexasIconKey(place.name);
+      if (!key) return place;
+      const entity = uniqueMatch(context.entitiesByKey, [key]);
+      if (!entity || !isIndexableEntityPage(entity)) return place;
+      return { ...place, href: canonicalEntityPath(entity) };
+    }),
+  };
+}
+
 function resolveTexasIcon(entry: TexasIconRosterEntry, context: ResolutionContext): {
   resolved: ResolvedTexasIcon;
   talentProfile: TalentProfile | null;
@@ -299,8 +316,8 @@ export async function loadTexasIconProfileServer(slug: string) {
         ? talentProfile
         : null,
     researchProfile:
-      resolved.reuseKind === "icon-research-staged"
-        ? researchProfile
+      resolved.reuseKind === "icon-research-staged" && researchProfile
+        ? enrichResearchProfilePlaceLinks(researchProfile, context)
         : null,
   };
 }
