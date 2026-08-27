@@ -4,21 +4,24 @@ on:
   pull_request:
     paths:
       - '.github/workflows/verify-remote-evergreen-production.yml'
+      - 'scripts/data/verify-remote-evergreen-production.mjs'
       - 'src/data/remote-evergreen-authority-sources.ts'
       - 'src/data/remote-evergreen-authority-sources.test.ts'
       - 'src/data/articles-remote.ts'
       - 'src/routes/article.$slug.tsx'
       - 'src/routes/sitemap[.]xml.ts'
   push:
-    branches: [main]
+    branches:
+      - main
     paths:
       - '.github/workflows/verify-remote-evergreen-production.yml'
+      - 'scripts/data/verify-remote-evergreen-production.mjs'
       - 'src/data/remote-evergreen-authority-sources.ts'
       - 'src/data/remote-evergreen-authority-sources.test.ts'
       - 'src/data/articles-remote.ts'
       - 'src/routes/article.$slug.tsx'
       - 'src/routes/sitemap[.]xml.ts'
-  workflow_dispatch:
+  workflow_dispatch: {}
 
 permissions:
   contents: read
@@ -32,159 +35,31 @@ jobs:
     name: Validate remote evergreen cohort
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-node@v4
+      - name: Check out repository
+        uses: actions/checkout@v5
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: '22'
           cache: npm
-      - run: npm ci --no-audit --no-fund
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
       - name: Run authority-source coverage test
         run: npx vitest run src/data/remote-evergreen-authority-sources.test.ts
 
   verify-production:
     name: Verify 19 canonical evergreen pages on texasdefined.com
-    if: github.event_name != 'pull_request'
-    needs: validate-cohort
+    if: ${{ github.event_name != 'pull_request' }}
+    needs:
+      - validate-cohort
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v5
-      - name: Require canonical, indexable, sourced, image-backed production pages and sitemap discovery
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          slugs=(
-            sam-houston-texas-life-legacy
-            davy-crockett-texas-alamo-legend
-            william-barret-travis-alamo-commander
-            james-bowie-texas-alamo-life-legend
-            stephen-f-austin-father-of-texas
-            mirabeau-b-lamar-president-republic-texas
-            juan-seguin-tejano-texas-revolution
-            audie-murphy-texas-war-hero-actor
-            chester-nimitz-texas-fleet-admiral
-            chris-kyle-texas-navy-seal-life-legacy
-            heb-texas-grocery-history-culture
-            bucees-texas-road-trip-history
-            king-ranch-texas-history-cattle-legacy
-            san-antonio-spurs-texas-basketball-culture
-            texas-high-school-football-friday-night-lights
-            san-antonio-stock-show-rodeo-history-guide
-            fort-worth-stockyards-history-cattle-culture
-            blue-bell-ice-cream-brenham-texas-history
-            texas-oil-boom-wichita-falls-west-texas-rigs
-          )
-
-          verify_page() {
-            local slug="$1"
-            local url="https://texasdefined.com/article/$slug"
-            local html="/tmp/evergreen-$slug.html"
-            local code hero image_result image_code image_type
-
-            code=$(curl -A 'Mozilla/5.0 TexasDefinedProductionVerifier/1.0' -L -sS -o "$html" -w '%{http_code}' --max-time 30 "$url" || echo 000)
-            if [[ "$code" != "200" ]]; then
-              echo "WAIT page=$code $url"
-              return 1
-            fi
-
-            if grep -Eqi 'Story unavailable|This story is no longer available|page not found|404[^0-9].*not found' "$html"; then
-              echo "WAIT fallback-page $url"
-              return 1
-            fi
-
-            python3 - "$html" "$url" <<'PY'
-          import html as html_lib
-          import re
-          import sys
-          from pathlib import Path
-
-          path, expected = sys.argv[1:]
-          raw = Path(path).read_text(errors='ignore')
-          text = html_lib.unescape(raw)
-
-          canonical_patterns = [
-              r'<link[^>]+rel=["\x27]canonical["\x27][^>]+href=["\x27]([^"\x27]+)',
-              r'<link[^>]+href=["\x27]([^"\x27]+)["\x27][^>]+rel=["\x27]canonical["\x27]',
-          ]
-          canonical = None
-          for pattern in canonical_patterns:
-              match = re.search(pattern, raw, re.I)
-              if match:
-                  canonical = html_lib.unescape(match.group(1))
-                  break
-          if canonical != expected:
-              raise SystemExit(f'canonical mismatch: {canonical!r} != {expected!r}')
-
-          for match in re.finditer(r'<meta[^>]+name=["\x27]robots["\x27][^>]+content=["\x27]([^"\x27]+)', raw, re.I):
-              directives = match.group(1).lower()
-              if 'noindex' in directives or 'nofollow' in directives:
-                  raise SystemExit(f'blocked robots directives: {directives}')
-
-          if not re.search(r'"@type"\s*:\s*"Article"', text):
-              raise SystemExit('Article structured data missing')
-          if 'Primary source:' not in text:
-              raise SystemExit('visible primary source missing')
-          if 'Sources and further reading' not in text:
-              raise SystemExit('visible multi-source section missing')
-          PY
-
-            hero=$(python3 - "$html" <<'PY'
-          import html as html_lib
-          import re
-          import sys
-          from pathlib import Path
-          raw = Path(sys.argv[1]).read_text(errors='ignore')
-          patterns = [
-              r'<meta[^>]+property=["\x27]og:image["\x27][^>]+content=["\x27]([^"\x27]+)',
-              r'<meta[^>]+content=["\x27]([^"\x27]+)["\x27][^>]+property=["\x27]og:image["\x27]',
-          ]
-          for pattern in patterns:
-              match = re.search(pattern, raw, re.I)
-              if match:
-                  print(html_lib.unescape(match.group(1)))
-                  break
-          PY
-          )
-            if [[ -z "$hero" ]]; then
-              echo "WAIT hero-metadata $url"
-              return 1
-            fi
-            if [[ "$hero" == /* ]]; then hero="https://texasdefined.com$hero"; fi
-
-            image_result=$(curl -A 'Mozilla/5.0 TexasDefinedProductionVerifier/1.0' -L -sS -o /dev/null -w '%{http_code}\t%{content_type}' --max-time 30 "$hero" || printf '000\t')
-            IFS=$'\t' read -r image_code image_type <<< "$image_result"
-            if [[ "$image_code" != "200" || ! "$image_type" =~ ^image/ ]]; then
-              echo "WAIT hero=$image_code mime=$image_type $hero ($url)"
-              return 1
-            fi
-
-            echo "PASS page=200 canonical=indexable schema=Article sources=visible hero=200 $url"
-          }
-
-          for attempt in $(seq 1 10); do
-            sitemap=/tmp/evergreen-sitemap.xml
-            sitemap_code=$(curl -A 'Mozilla/5.0 TexasDefinedProductionVerifier/1.0' -L -sS -o "$sitemap" -w '%{http_code}' --max-time 30 https://texasdefined.com/sitemap.xml || echo 000)
-            failures=0
-
-            for slug in "${slugs[@]}"; do
-              url="https://texasdefined.com/article/$slug"
-              if [[ "$sitemap_code" != "200" ]] || ! grep -Fq "$url" "$sitemap"; then
-                echo "WAIT sitemap=$sitemap_code missing=$url"
-                failures=$((failures + 1))
-                continue
-              fi
-              if ! verify_page "$slug"; then failures=$((failures + 1)); fi
-            done
-
-            if [[ "$failures" -eq 0 ]]; then
-              echo "All 19 remote evergreen articles are live, canonical, indexable, sourced, image-backed, structured, and discoverable in the primary sitemap."
-              exit 0
-            fi
-
-            echo "Production is not ready for $failures cohort check(s); attempt $attempt/10."
-            if [[ "$attempt" -lt 10 ]]; then sleep 30; fi
-          done
-
-          echo "Remote evergreen production verification failed after deployment propagation window."
-          exit 1
+      - name: Check out repository
+        uses: actions/checkout@v5
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify canonical evergreen cohort in production
+        run: node scripts/data/verify-remote-evergreen-production.mjs
