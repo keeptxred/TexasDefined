@@ -1,18 +1,18 @@
 import { queryOptions } from "@tanstack/react-query";
 
 import { prepareArticleForDelivery, prepareDestinationForDelivery } from "@/lib/editorial-image-delivery";
-import { isArticleIndexReady } from "./article-index-readiness";
 import { fetchPublishedTexasDefinedEvergreenArticle } from "./articles-remote";
 import { normalizeArticleEditorialDesk } from "./editorial-desk-routing";
 import { fetchPublishedTexasEvents } from "./events-remote";
 import { supplementalExploreCategories } from "./explore-categories";
+import { isArticleIndexReady } from "./fixtures/texas-gateway-index-readiness";
 import { guideIsAvailable } from "./guide-links";
 import { platform, scope } from "./index";
 import type { ArticleQuery, DestinationQuery } from "./repositories";
 import { fetchAssignedShopProducts } from "./shop-products-remote";
-import type { Destination, SearchDocument, Slug } from "./types";
+import type { Article, Destination, SearchDocument, Slug } from "./types";
 
-const prepareEditorialArticle = <T extends Parameters<typeof prepareArticleForDelivery>[0]>(article: T) =>
+const prepareEditorialArticle = (article: Article): Article =>
   normalizeArticleEditorialDesk(prepareArticleForDelivery(article));
 
 export const articlesQuery = (params: Omit<ArticleQuery, "brandId"> = {}) => queryOptions({
