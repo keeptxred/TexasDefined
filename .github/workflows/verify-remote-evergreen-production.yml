@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - '.github/workflows/verify-remote-evergreen-production.yml'
+      - 'scripts/ci/validate-remote-evergreen-authority-sources.mjs'
       - 'scripts/ci/verify-remote-evergreen-production.mjs'
       - 'src/data/remote-evergreen-authority-sources.ts'
       - 'src/data/remote-evergreen-authority-sources.test.ts'
@@ -15,6 +16,7 @@ on:
       - main
     paths:
       - '.github/workflows/verify-remote-evergreen-production.yml'
+      - 'scripts/ci/validate-remote-evergreen-authority-sources.mjs'
       - 'scripts/ci/verify-remote-evergreen-production.mjs'
       - 'src/data/remote-evergreen-authority-sources.ts'
       - 'src/data/remote-evergreen-authority-sources.test.ts'
@@ -41,8 +43,8 @@ jobs:
           node-version: '22'
           cache: npm
       - run: npm ci --no-audit --no-fund
-      - name: Run authority-source coverage test
-        run: npx vitest run src/data/remote-evergreen-authority-sources.test.ts
+      - name: Validate authority-source coverage
+        run: node scripts/ci/validate-remote-evergreen-authority-sources.mjs
 
   verify-production:
     name: Verify 19 canonical evergreen pages on texasdefined.com
