@@ -31,11 +31,18 @@ const MAJOR_EVENT_GUIDES = [
   ["grapefest", "GrapeFest", "Grapevine · Sep. 17–20, 2026"],
   ["texas-renaissance-festival", "Texas Renaissance Festival", "Todd Mission · Oct. 10–Nov. 29, 2026"],
   ["texas-rose-festival", "Texas Rose Festival", "Tyler · Oct. 15–18, 2026"],
+  ["austin-film-festival", "Austin Film Festival", "Austin · Oct. 29–Nov. 5, 2026"],
+  ["wings-over-houston-airshow", "Wings Over Houston Airshow", "Houston · Oct. 31–Nov. 1, 2026"],
   ["wurstfest", "Wurstfest", "New Braunfels · Nov. 6–15, 2026"],
+  ["dickens-on-the-strand", "Dickens on The Strand", "Galveston · Dec. 4–6, 2026"],
   ["fort-worth-stock-show-rodeo", "Fort Worth Stock Show & Rodeo", "Fort Worth · Jan. 15–Feb. 6, 2027"],
   ["san-antonio-stock-show-rodeo", "San Antonio Stock Show & Rodeo", "San Antonio · Feb. 11–28, 2027"],
+  ["houston-livestock-show-rodeo", "Houston Livestock Show and Rodeo", "Houston · Mar. 2–21, 2027"],
   ["sxsw", "South by Southwest (SXSW)", "Austin · Mar. 15–21, 2027"],
+  ["scarborough-renaissance-festival", "Scarborough Renaissance Festival", "Waxahachie · Apr. 10–May 31, 2027"],
+  ["fiesta-san-antonio", "Fiesta San Antonio", "San Antonio · Apr. 15–25, 2027"],
   ["texas-sandfest", "Texas SandFest", "Port Aransas · Apr. 16–18, 2027"],
+  ["kerrville-folk-festival", "Kerrville Folk Festival", "Kerrville · May 27–Jun. 13, 2027"],
 ] as const;
 
 export const Route = createFileRoute("/events")({
