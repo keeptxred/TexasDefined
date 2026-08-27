@@ -2,7 +2,7 @@ import { createFileRoute, Link, notFound, redirect } from "@tanstack/react-route
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
-import { getExploreCategoryAuthority } from "@/data/explore-category-authority";
+import { getExploreCategoryAuthorityHtml } from "@/data/explore-category-authority";
 import { isExploreCategoryIndexReady } from "@/data/explore-category-indexability";
 import { articlesQuery, categoriesQuery, destinationQuery, destinationsQuery } from "@/data/queries";
 import type { Destination } from "@/data/types";
@@ -39,12 +39,12 @@ export const Route = createFileRoute("/explore/$category")({
       if (destination) throw redirect({ href: `/destination/${destination.slug}`, statusCode: 301 });
       throw notFound();
     }
-    const [articles, destinations, authorityGuide] = await Promise.all([
+    const [articles, destinations, authorityHtml] = await Promise.all([
       context.queryClient.ensureQueryData(articlesQuery({ category: category.slug })),
       context.queryClient.ensureQueryData(destinationsQuery({ category: category.slug })),
-      getExploreCategoryAuthority(category.slug),
+      getExploreCategoryAuthorityHtml(category.slug),
     ]);
-    return { category, articles, destinations, authorityGuide };
+    return { category, articles, destinations, authorityHtml };
   },
   head: ({ loaderData, params }) => {
     if (!loaderData) return { meta: [{ title: "Not found" }, { name: "robots", content: "noindex" }] };
