@@ -27,6 +27,16 @@ const EVENT_LABELS: Record<TexasEvent["category"], string> = {
   sport: "Sports",
   culture: "Arts & Culture",
 };
+const MAJOR_EVENT_GUIDES = [
+  ["grapefest", "GrapeFest", "Grapevine · Sep. 17–20, 2026"],
+  ["texas-renaissance-festival", "Texas Renaissance Festival", "Todd Mission · Oct. 10–Nov. 29, 2026"],
+  ["texas-rose-festival", "Texas Rose Festival", "Tyler · Oct. 15–18, 2026"],
+  ["wurstfest", "Wurstfest", "New Braunfels · Nov. 6–15, 2026"],
+  ["fort-worth-stock-show-rodeo", "Fort Worth Stock Show & Rodeo", "Fort Worth · Jan. 15–Feb. 6, 2027"],
+  ["san-antonio-stock-show-rodeo", "San Antonio Stock Show & Rodeo", "San Antonio · Feb. 11–28, 2027"],
+  ["sxsw", "South by Southwest (SXSW)", "Austin · Mar. 15–21, 2027"],
+  ["texas-sandfest", "Texas SandFest", "Port Aransas · Apr. 16–18, 2027"],
+] as const;
 
 export const Route = createFileRoute("/events")({
   loader: async ({ context }) => {
@@ -86,26 +96,21 @@ function EventsPage() {
             <h2 className="mt-2 font-display text-3xl">The culture behind the calendar</h2>
           </div>
           <div className="grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2 lg:grid-cols-4">
-            <Link to="/texas-state-fair" className="group bg-background p-5">
-              <strong className="font-display text-2xl leading-tight group-hover:text-primary">State Fair of Texas 2026</strong>
-              <span className="mt-3 block text-sm leading-6 text-muted-foreground">Dates, Fair Park, Big Tex, food, rides and practical planning for the Dallas fair.</span>
-              <span className="mt-4 block text-sm font-semibold text-primary">Plan the fair →</span>
-            </Link>
-            <Link to="/texas-dance-halls-honky-tonks" className="group bg-background p-5">
-              <strong className="font-display text-2xl leading-tight group-hover:text-primary">Dance halls & honky-tonks</strong>
-              <span className="mt-3 block text-sm leading-6 text-muted-foreground">Two-step culture, Western swing, historic community halls and how to plan a live-music weekend.</span>
-              <span className="mt-4 block text-sm font-semibold text-primary">Read the guide →</span>
-            </Link>
-            <Link to="/texas-homecoming-mums" className="group bg-background p-5">
-              <strong className="font-display text-2xl leading-tight group-hover:text-primary">Texas homecoming mums</strong>
-              <span className="mt-3 block text-sm leading-6 text-muted-foreground">How a school flower became an oversized wearable tradition tied to football, clubs and homecoming week.</span>
-              <span className="mt-4 block text-sm font-semibold text-primary">Read the guide →</span>
-            </Link>
-            <Link to="/german-czech-texas-towns" className="group bg-background p-5">
-              <strong className="font-display text-2xl leading-tight group-hover:text-primary">German & Czech Texas heritage</strong>
-              <span className="mt-3 block text-sm leading-6 text-muted-foreground">Connect festivals and music to the towns, churches, bakeries and halls that preserve the deeper history.</span>
-              <span className="mt-4 block text-sm font-semibold text-primary">Read the guide →</span>
-            </Link>
+            <Link to="/texas-state-fair" className="group bg-background p-5"><strong className="font-display text-2xl leading-tight group-hover:text-primary">State Fair of Texas 2026</strong><span className="mt-3 block text-sm leading-6 text-muted-foreground">Dates, Fair Park, Big Tex, food, rides and practical planning for the Dallas fair.</span><span className="mt-4 block text-sm font-semibold text-primary">Plan the fair →</span></Link>
+            <Link to="/texas-dance-halls-honky-tonks" className="group bg-background p-5"><strong className="font-display text-2xl leading-tight group-hover:text-primary">Dance halls & honky-tonks</strong><span className="mt-3 block text-sm leading-6 text-muted-foreground">Two-step culture, Western swing, historic community halls and how to plan a live-music weekend.</span><span className="mt-4 block text-sm font-semibold text-primary">Read the guide →</span></Link>
+            <Link to="/texas-homecoming-mums" className="group bg-background p-5"><strong className="font-display text-2xl leading-tight group-hover:text-primary">Texas homecoming mums</strong><span className="mt-3 block text-sm leading-6 text-muted-foreground">How a school flower became an oversized wearable tradition tied to football, clubs and homecoming week.</span><span className="mt-4 block text-sm font-semibold text-primary">Read the guide →</span></Link>
+            <Link to="/german-czech-texas-towns" className="group bg-background p-5"><strong className="font-display text-2xl leading-tight group-hover:text-primary">German & Czech Texas heritage</strong><span className="mt-3 block text-sm leading-6 text-muted-foreground">Connect festivals and music to the towns, churches, bakeries and halls that preserve the deeper history.</span><span className="mt-4 block text-sm font-semibold text-primary">Read the guide →</span></Link>
+          </div>
+        </div>
+      </Container>
+    </section>
+
+    <section className="border-b border-border py-10">
+      <Container>
+        <div className="grid gap-6 lg:grid-cols-[15rem_1fr] lg:items-start">
+          <div><p className="eyebrow text-primary">Plan the anchor event</p><h2 className="mt-2 font-display text-3xl">Major Texas event guides</h2><p className="mt-4 text-sm leading-6 text-muted-foreground">Verified dates, official sources and practical trip-planning context for events large enough to shape a Texas weekend.</p></div>
+          <div className="grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+            {MAJOR_EVENT_GUIDES.map(([slug, name, detail]) => <Link key={slug} to="/event/$slug" params={{ slug }} className="group bg-background p-5"><strong className="font-display text-xl leading-tight group-hover:text-primary">{name}</strong><span className="mt-3 block text-sm leading-6 text-muted-foreground">{detail}</span><span className="mt-4 block text-sm font-semibold text-primary">Plan the event →</span></Link>)}
           </div>
         </div>
       </Container>
