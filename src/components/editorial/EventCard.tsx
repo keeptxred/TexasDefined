@@ -1,5 +1,4 @@
 import { useBrand } from "@/brand/context";
-import { majorEventGuidePath } from "@/data/major-event-index";
 import { resolveSportsVenueEventLink } from "@/data/sports-venue-event-links";
 import type { TexasEvent } from "@/data/types";
 import { formatDateRange } from "@/domain/utils/format";
@@ -16,7 +15,7 @@ const EVENT_LABELS: Record<TexasEvent["category"], string> = {
 export function EventCard({ event, regionLabel }: { event: TexasEvent; regionLabel?: string | undefined }) {
   const brand = useBrand();
   const venueGuide = resolveSportsVenueEventLink(event.venue);
-  const eventGuide = majorEventGuidePath(event.name);
+  const eventGuide = event.id.startsWith("authority:") ? `/event/${event.slug}` : undefined;
 
   return (
     <article className="grid gap-4 border-t border-border py-7 sm:grid-cols-[9rem_1fr] sm:gap-7">
