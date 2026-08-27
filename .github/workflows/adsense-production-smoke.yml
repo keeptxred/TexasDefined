@@ -73,11 +73,9 @@ jobs:
           ]
 
           def has_noindex(html: str) -> bool:
-              for tag in re.findall(r'<meta\\b[^>]*>', html, flags=re.I):
-                  if not re.search(r'\\bname\\s*=\\s*["\\']robots["\\']', tag, re.I):
-                      continue
-                  content = re.search(r'\\bcontent\\s*=\\s*["\\']([^"\\']*)["\\']', tag, re.I)
-                  if content and re.search(r'\\bnoindex\\b', content.group(1), re.I):
+              for tag in re.findall(r'<meta\b[^>]*>', html, flags=re.I):
+                  lowered = tag.lower()
+                  if 'robots' in lowered and 'noindex' in lowered:
                       return True
               return False
 
