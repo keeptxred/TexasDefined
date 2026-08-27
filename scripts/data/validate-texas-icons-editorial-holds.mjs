@@ -26,7 +26,6 @@ const expected = [
   [183, "James Truett", "james-truett"],
   [188, "Margarita Salas", "margarita-salas"],
   [220, "Slick Woods", "slick-woods"],
-  [223, "Trey Parker", "trey-parker"],
 ];
 
 for (const [rank, name, slug] of expected) {
@@ -42,6 +41,7 @@ if (holdKeys.length !== expected.length || new Set(holdKeys).size !== expected.l
   failures.push(`Editorial-hold map must contain exactly ${expected.length} unique disputed slugs; found ${holdKeys.length}.`);
 }
 for (const slug of holdKeys) if (!expected.some((entry) => entry[2] === slug)) failures.push(`Unexpected Texas Icons editorial-hold slug: ${slug}.`);
+if (holds.includes('"trey-parker":')) failures.push("Resolved rank 223 must leave the generic editorial-hold map and be governed by the explicit roster-correction contract.");
 
 for (const token of [
   "under editorial verification",
@@ -51,7 +51,6 @@ for (const token of [
   "has not matched the supplied Fort Worth aerospace-engineer",
   "does not match the supplied Houston-laboratory description",
   "Houston-birth claim conflicts",
-  "will not silently substitute Houston-born collaborator Matt Stone",
   "applyTexasIconEditorialHoldSummary",
 ]) if (!holds.includes(token)) failures.push(`Editorial-hold safety copy/function missing: ${token}.`);
 
@@ -67,7 +66,7 @@ if (!holds.includes("TEXAS_ICON_EDITORIAL_HOLD_SLUGS") || !holds.includes("texas
 if (holds.includes("editorialStatus") || holds.includes("indexableAtOwnRoute") || holds.includes("canonicalPath")) failures.push("Editorial holds may sanitize summaries only; they must not alter publication, indexability, or canonical ownership.");
 
 if (failures.length) fail();
-console.log("Texas Icons editorial-hold validation passed: seven disputed intake rows keep provenance while public summaries are sanitized and no profile/indexability ownership changes are introduced.");
+console.log("Texas Icons editorial-hold validation passed: six unresolved intake rows keep provenance while public summaries are sanitized and resolved corrections are governed separately.");
 
 function fail() {
   console.error("Texas Icons editorial-hold validation failed:");

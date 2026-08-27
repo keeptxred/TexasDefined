@@ -2,6 +2,8 @@ import { createLazyFileRoute } from "@tanstack/react-router";
 import { ArrowRight, MapPin, Music2 } from "lucide-react";
 
 import { Container } from "@/components/layout/Container";
+import { TEXAS_MUSIC_HISTORIC_PLACES } from "@/data/texas-music-historic-places";
+import { TEXAS_MUSIC_TIMELINE } from "@/data/texas-music-timeline";
 import {
   TEXAS_MUSIC_DESCRIPTION,
   TEXAS_MUSIC_PRIMARY_SOURCES,
@@ -76,6 +78,70 @@ function TexasMusicPage() {
                 </div>
               </article>
             ))}
+          </div>
+        </Container>
+      </section>
+
+      <section className="border-b border-border bg-surface">
+        <Container className="py-14 sm:py-20">
+          <div className="max-w-3xl">
+            <p className="eyebrow text-primary">A working timeline</p>
+            <h2 className="mt-3 font-display text-4xl font-semibold leading-tight sm:text-5xl">Rooms, scenes and turning points</h2>
+            <p className="mt-5 text-base leading-7 text-muted-foreground sm:text-lg">
+              Texas music did not advance in a straight line. This timeline uses durable milestones to show how community halls, Black performance circuits, radio-era dance music, honky-tonks, counterculture rooms and regional rap systems built on one another.
+            </p>
+          </div>
+          <ol className="mt-10 border-y border-border">
+            {TEXAS_MUSIC_TIMELINE.map((entry) => (
+              <li key={`${entry.year}-${entry.title}`} className="grid gap-4 border-b border-border py-6 last:border-b-0 md:grid-cols-[7rem_1fr] md:gap-8">
+                <div>
+                  <p className="font-display text-2xl font-semibold text-primary">{entry.year}</p>
+                  <p className="mt-1 text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">{entry.place}</p>
+                </div>
+                <div>
+                  <h3 className="font-display text-2xl font-semibold leading-tight text-foreground">{entry.title}</h3>
+                  <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">{entry.summary}</p>
+                  <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">
+                    <a href={entry.href} className="text-primary">Read the related TexasDefined guide →</a>
+                    <a href={entry.sourceUrl} target="_blank" rel="noreferrer" className="text-xs uppercase tracking-[0.12em] text-primary">{entry.sourceLabel} ↗</a>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </Container>
+      </section>
+
+      <section className="border-b border-border bg-background">
+        <Container className="py-14 sm:py-20">
+          <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:gap-16">
+            <div>
+              <p className="eyebrow text-primary">Historic rooms</p>
+              <h2 className="mt-3 font-display text-4xl font-semibold leading-tight sm:text-5xl">Places the modern venue list cannot explain by itself</h2>
+              <p className="mt-5 text-base leading-7 text-muted-foreground">
+                Some of the most important Texas music rooms no longer operate in their original form. Others survive because communities preserved them. Keeping those distinctions visible prevents music history from turning into a directory of places that happen to sell tickets today.
+              </p>
+              <a href="/texas-music-venues" className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary">Browse the live landmark venue hub <ArrowRight className="size-4" aria-hidden /></a>
+            </div>
+            <div className="grid gap-px border border-border bg-border">
+              {TEXAS_MUSIC_HISTORIC_PLACES.map((place) => (
+                <article key={place.name} className="bg-background p-6 sm:p-7">
+                  <div className="flex flex-wrap items-start justify-between gap-4">
+                    <div>
+                      <p className="eyebrow text-muted-foreground">{place.place} · {place.era}</p>
+                      <h3 className="mt-2 font-display text-3xl font-semibold leading-tight text-foreground">{place.name}</h3>
+                    </div>
+                    <span className="border border-border px-3 py-1 text-xs font-semibold uppercase tracking-[0.1em] text-muted-foreground">{place.status}</span>
+                  </div>
+                  <p className="mt-4 text-base leading-7 text-foreground">{place.summary}</p>
+                  <p className="mt-3 text-sm leading-7 text-muted-foreground">{place.significance}</p>
+                  <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">
+                    <a href={place.relatedHref} className="text-primary">{place.relatedLabel} →</a>
+                    <a href={place.sourceUrl} target="_blank" rel="noreferrer" className="text-xs uppercase tracking-[0.12em] text-primary">{place.sourceLabel} ↗</a>
+                  </div>
+                </article>
+              ))}
+            </div>
           </div>
         </Container>
       </section>
