@@ -38,7 +38,7 @@ const groups = [
   ] },
 ] as const;
 
-const howToSections = groups.map((group, groupIndex) => ({ '@type': 'HowToSection', position: groupIndex + 1, name: group.title, itemListElement: group.items.map((entry, itemIndex) => ({ '@type': 'HowToStep', position: itemIndex + 1, name: entry.text, text: entry.text, url: `${pageUrl}#step-${groupIndex + 1}-${itemIndex + 1}` })) }));
+const howToSections = groups.map((group, groupIndex) => ({ '@type': 'HowToSection', position: groupIndex + 1, name: group.title, itemListElement: group.items.map((item, itemIndex) => ({ '@type': 'HowToStep', position: itemIndex + 1, name: item.text, text: item.text, url: `${pageUrl}#step-${groupIndex + 1}-${itemIndex + 1}` })) }));
 
 export const Route = createFileRoute('/moving-to-texas-checklist')({
   head: () => ({
@@ -75,12 +75,12 @@ function Page() {
               <div>
                 <h2 className="font-display text-3xl leading-tight sm:text-4xl">{group.title}</h2>
                 <ol className="mt-6 divide-y divide-border">
-                  {group.items.map((entry, itemIndex) => (
-                    <li id={`step-${groupIndex + 1}-${itemIndex + 1}`} key={entry.text} className="grid gap-3 py-5 sm:grid-cols-[2rem_1fr]">
+                  {group.items.map((item, itemIndex) => (
+                    <li id={`step-${groupIndex + 1}-${itemIndex + 1}`} key={item.text} className="grid gap-3 py-5 sm:grid-cols-[2rem_1fr]">
                       <span aria-hidden className="font-display text-xl text-primary">{itemIndex + 1}</span>
                       <div>
-                        <p className="text-sm leading-7 text-foreground/90">{entry.text}</p>
-                        {'sourceUrl' in entry && entry.sourceUrl && <a href={entry.sourceUrl} target="_blank" rel="noreferrer" className="mt-2 inline-block text-xs font-semibold text-primary underline underline-offset-4">Official source · {entry.sourceName} · {verifiedLabel} ↗</a>}
+                        <p className="text-sm leading-7 text-foreground/90">{item.text}</p>
+                        {'sourceUrl' in item && item.sourceUrl && <a href={item.sourceUrl} target="_blank" rel="noreferrer" className="mt-2 inline-block text-xs font-semibold text-primary underline underline-offset-4">Official source · {item.sourceName} · {verifiedLabel} ↗</a>}
                       </div>
                     </li>
                   ))}
