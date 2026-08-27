@@ -68,6 +68,8 @@ jobs:
         run: node scripts/data/validate-texas-icons-symbols-batch1.mjs
       - name: Validate Texas Icons symbols ranks 236-245
         run: node scripts/data/validate-texas-icons-symbols-batch2.mjs
+      - name: Validate Texas Icons symbols ranks 246-250
+        run: node scripts/data/validate-texas-icons-symbols-batch3.mjs
       - name: Validate Texas Icons server isolation
         run: node scripts/data/validate-texas-icons-server-isolation.mjs
       - name: Production build
