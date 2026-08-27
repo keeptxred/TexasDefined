@@ -50,10 +50,6 @@ export const INDEXABLE_STATIC_PATHS = [
   "/fishing/regulations",
   "/fishing/species",
   "/fishing/species/largemouth-bass",
-  "/fishing/guides",
-  "/fishing/reports",
-  "/fishing/access",
-  "/fishing/services",
   "/sports",
   "/sports-venues",
   "/sports-venues/compare",
@@ -214,6 +210,10 @@ export const INDEXABLE_STATIC_PATHS = [
 
 export const CONDITIONAL_INDEXABLE_PUBLIC_PATHS = [
   "/news",
+  "/fishing/guides",
+  "/fishing/reports",
+  "/fishing/access",
+  "/fishing/services",
   "/texas-icons",
   "/texas-data/county-growth",
   "/texas-data/county-housing-costs",
