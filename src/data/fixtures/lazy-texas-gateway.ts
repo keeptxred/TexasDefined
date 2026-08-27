@@ -1,4 +1,5 @@
 import type { Article } from "../types";
+import { texasGatewayBatch3AuthorityEnrichment } from "./texas-gateway-batch3-authority-enrichment";
 import { texasGatewayBatch3CulturalEnrichment } from "./texas-gateway-batch3-cultural-enrichment";
 import { isTexasGatewayIndexReadyArticle } from "./texas-gateway-index-readiness";
 
@@ -21,7 +22,8 @@ const JACOBS_WELL_OLD = "Jacob's Well area when open for swimming";
 const JACOBS_WELL_CURRENT = "Jacob's Well Natural Area for hiking and the spring overlook; swimming is currently closed until further notice";
 
 const normalizeGatewayArticle = (article: Article): Article => {
-  const enrichment = texasGatewayBatch3CulturalEnrichment[article.slug];
+  const enrichment = texasGatewayBatch3CulturalEnrichment[article.slug]
+    ?? texasGatewayBatch3AuthorityEnrichment[article.slug];
   return {
     ...article,
     body: [
