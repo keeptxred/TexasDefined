@@ -12,12 +12,12 @@ export const Route = createFileRoute("/texas-icons")({
   head: ({ loaderData }) => ({
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath,
-      title: "250 Texas Icons: People, Places, Sports, Music & Culture",
+      title: "250 Texas Icons: People, Places & Culture",
       description:
-        "A cross-linked TexasDefined registry of 250 people, places, brands, foods and symbols, reusing existing canonical profiles wherever they already exist.",
-      robots: loaderData?.stats.researchQueue
-        ? "noindex, follow, max-image-preview:large"
-        : undefined,
+        "A curated TexasDefined directory of 250 influential people, places, brands, foods and symbols, with canonical links to deeper verified guides and profiles.",
+      robots: loaderData?.stats.total === 250
+        ? undefined
+        : "noindex, follow, max-image-preview:large",
     }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
   }),
@@ -56,13 +56,14 @@ function TexasIconsHub() {
           <div className="grid gap-5 lg:grid-cols-[14rem_1fr]">
             <div>
               <p className="eyebrow text-primary">Publication rule</p>
-              <h2 className="mt-2 font-display text-3xl">No duplicate or thin profile pages</h2>
+              <h2 className="mt-2 font-display text-3xl">One useful directory, no thin profile pages</h2>
             </div>
             <div className="max-w-3xl space-y-3 text-sm leading-7 text-muted-foreground">
               <p>
-                A roster match to an existing Texas Talent record or knowledge-graph destination
-                is reused rather than copied. Direct canonical overrides are reserved for
-                high-confidence TexasDefined authority pages.
+                The complete 250-entry directory is a standalone public index of the Texas Icons
+                roster. A roster match to an existing Texas Talent record or knowledge-graph
+                destination is reused rather than copied, and direct canonical overrides are
+                reserved for high-confidence TexasDefined authority pages.
               </p>
               <p>
                 Roster-only starter records are cross-linked for editorial work but stay
@@ -73,9 +74,9 @@ function TexasIconsHub() {
               </p>
               <p>
                 A <strong className="text-foreground">researched draft</strong> has passed a
-                substantive source-and-copy pass, but it still remains noindex until image rights
-                and internal-link review are separately certified. Research progress alone never
-                turns a profile public for search.
+                substantive source-and-copy pass, but its individual profile still remains noindex
+                until image rights and internal-link review are separately certified. Research
+                progress alone never turns an unfinished profile public for search.
               </p>
             </div>
           </div>
