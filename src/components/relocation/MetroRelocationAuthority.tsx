@@ -6,6 +6,11 @@ import {
 
 const DATA_DESK_LINKS = [
   {
+    href: "/moving-to-texas/data",
+    label: "Texas Relocation Data Center",
+    note: "The relocation-specific catalog for migration, jobs, insurance, traffic, source vintages and methodology.",
+  },
+  {
     href: "/texas-data/texas-population-and-migration-2024",
     label: "Texas population and migration",
     note: "Statewide components of population change from Census estimates.",
