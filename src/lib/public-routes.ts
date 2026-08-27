@@ -97,6 +97,7 @@ export const INDEXABLE_STATIC_PATHS = [
   "/antones-austin-history",
   "/billy-bobs-texas-history",
   "/texas-music-cities",
+  "/texas-music-timeline",
   "/austin-music-history",
   "/houston-music-history",
   "/san-antonio-music-history",
@@ -353,7 +354,11 @@ const NON_INDEXABLE_PREFIXES = ["/admin", "/api/"] as const;
 export function normalizePublicPath(path: string) {
   const value = path.trim();
   if (!value || !value.startsWith("/") || value.startsWith("//")) return null;
-  if (value.includes("?") || value.includes("#") || /[\u0000-\u001F\u007F]/.test(value)) return null;
+  const hasControlChar = [...value].some((char) => {
+    const code = char.charCodeAt(0);
+    return code < 32 || code === 127;
+  });
+  if (value.includes("?") || value.includes("#") || hasControlChar) return null;
   if (value === "/") return value;
   return value.replace(/\/{2,}/g, "/").replace(/\/+$/, "");
 }
