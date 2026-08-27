@@ -41,7 +41,7 @@ export const texasWorldWarIIBasesPowCampsArticle: Article = {
     p("Those advantages mattered because the United States had to expand its armed forces at extraordinary speed. New soldiers needed basic training, unit training, specialty instruction and staging areas. Pilots needed airfields. Mechanized units needed open terrain. The military also needed depots, hospitals and prisoner compounds."),
     h("Camp Hood: tank destroyers and a new Central Texas military economy"),
     p("Camp Hood opened in 1942 as a major tank destroyer training center near Killeen. The Army selected the area because it offered large expanses of terrain for anti-tank exercises and maneuver training. The post grew rapidly and transformed the economy of Bell and Coryell counties."),
-    p("After the war, Camp Hood survived when many temporary installations closed. It became Fort Hood and later Fort Cavazos, one of the largest Army installations in the country. The wartime decision to build a training camp in Central Texas therefore had consequences that lasted far beyond 1945."),
+    p("After the war, Camp Hood survived when many temporary installations closed. It became Fort Hood, carried the name Fort Cavazos from May 2023 until June 2025, and is now Fort Hood again in honor of World War I Distinguished Service Cross recipient Col. Robert B. Hood. The wartime decision to build a training camp in Central Texas therefore had consequences that lasted far beyond 1945."),
     h("Camp Swift: training and prisoners near Bastrop"),
     p("Camp Swift near Bastrop was another massive wartime complex. It trained infantry and other Army units while also housing prisoners of war. Like many temporary camps, it functioned as a self-contained military city with barracks, roads, medical facilities, warehouses and training ranges."),
     p("The camp's scale changed Bastrop County even though much of the wartime construction later disappeared. Surviving land uses, roads, photographs and local memory preserve evidence of the installation's role in the mobilization."),
@@ -69,7 +69,7 @@ export const texasWorldWarIIBasesPowCampsArticle: Article = {
     h("What remains today"),
     p("The physical survival of wartime Texas is uneven. Some places, such as the installation born as Camp Hood, remain active military landscapes. Others survive only through foundations, road traces, memorials, museums, archival photographs and local historical markers. That makes documentary collections unusually important for this topic."),
     list(
-      "Camp Hood / Fort Cavazos: a wartime tank-destroyer center that became a permanent Army installation.",
+      "Camp Hood / Fort Hood: a wartime tank-destroyer center that became a permanent Army installation; the post was named Fort Cavazos from 2023 to 2025.",
       "Camp Swift: a major Bastrop-area training camp with POW history and surviving military use in the region.",
       "Camp Bowie at Brownwood: a large wartime training center linked to the Texas National Guard and later military use.",
       "Camp Wolters: a major infantry replacement center whose legacy continued through later military training at Fort Wolters.",
