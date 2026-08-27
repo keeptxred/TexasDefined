@@ -20,6 +20,7 @@ const pathways = [
   { to: "/texas-home-insurance-calculator", label: "Estimate home insurance", description: "Create a planning estimate before comparing actual Texas insurance quotes." },
   { to: "/browse/counties", label: "Find the county", description: "Connect a location to local appraisal, tax and public-record research paths." },
   { to: "/find-my-school-district", label: "Verify the school district", description: "Use the exact address to research district and campus assignment instead of relying on a city name." },
+  { to: "/moving-to-texas/data", label: "Open the Relocation Data Center", description: "Put migration, jobs, insurance, traffic and source-vintage methodology next to the move." },
   { to: "/texas-data", label: "Open the Texas Data Desk", description: "Use source-backed migration, insurance, jobs, housing and Texas reference datasets." },
   { to: "/moving-to-texas-checklist", label: "Use the moving checklist", description: "Keep before-and-after relocation tasks and official agency sources in one practical sequence." },
 ] as const;
