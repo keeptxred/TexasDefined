@@ -11,7 +11,7 @@ function CitiesDirectoryPage() {
   return <>
     <AnswerSummary
       eyebrow="Texas cities"
-      title="How to compare Texas cities and suburbs before you move"
+      title="How to use the Texas city directory"
       items={[
         { question: "What is this directory?", answer: `A searchable starting point for ${TEXAS_CITIES.length.toLocaleString("en-US")} Texas cities in the current Texas Defined reference set, organized by county and region, plus a source-backed relocation comparison layer for places with deeper moving research.` },
         { question: "How can I find what county a Texas city is in?", answer: "Each city entry identifies its Texas county and region. Use the county directory and exact-address research tools for local tax, school, utility, flood and insurance context while city detail records are independently source-verified." },
