@@ -13,6 +13,7 @@ const calculatorPage = read('src/components/calculators/CalculatorPage.tsx');
 const funnel = read('src/components/monetization/EvergreenNextSteps.tsx');
 const analytics = read('src/platform/analytics.ts');
 const relocationHub = read('src/routes/moving-to-texas.lazy.tsx');
+const relocationDataCenter = read('src/routes/moving-to-texas_.data.tsx');
 const relocationLab = read('src/components/relocation/RelocationAuthorityLab.tsx');
 const metroRelocationAuthority = read('src/components/relocation/MetroRelocationAuthority.tsx');
 const articleBody = read('src/components/editorial/ArticleBody.tsx');
@@ -33,6 +34,7 @@ for (const target of [
   '/texas-home-insurance-calculator',
   '/browse/counties',
   '/find-my-school-district',
+  '/moving-to-texas/data',
   '/texas-data',
   '/moving-to-texas-checklist',
 ]) {
@@ -88,6 +90,7 @@ if (!analytics.includes("trackTexasDefinedOutcome('partner_referral_clicked'")) 
 
 for (const requirement of [
   '<RelocationAuthorityLab />',
+  '/moving-to-texas/data',
   '/texas-data/texas-population-and-migration-2024',
   '/texas-data/where-new-texans-came-from-2024',
   '/texas-data/texas-homeowners-premium-history',
@@ -95,6 +98,37 @@ for (const requirement of [
   '/texas-data/texas-traffic-monitoring-coverage',
 ]) {
   if (!relocationHub.includes(requirement)) failures.push(`Moving hub authority surface missing: ${requirement}.`);
+}
+
+for (const requirement of [
+  "createFileRoute('/moving-to-texas/data')",
+  "const canonicalPath = '/moving-to-texas/data'",
+  "'@type': ['CollectionPage', 'DataCatalog']",
+  "'texas-population-and-migration-2024'",
+  "'where-new-texans-came-from-2024'",
+  "'texas-homeowners-premium-history'",
+  "'texas-metro-payrolls-june-2026'",
+  "'texas-traffic-monitoring-coverage'",
+  'TDI county premium map',
+  'homeowners-losses-by-county.html',
+  'TWIA wind coverage can apply in 14 coastal counties and parts of Harris County',
+  'hidden “best city” score',
+  'RELOCATION_METROS',
+  'RELOCATION_SOURCES.censusMigration',
+  'RELOCATION_SOURCES.censusCountyMigration',
+  'RELOCATION_SOURCES.blsMetro',
+  'RELOCATION_SOURCES.tdiInsurance',
+  'RELOCATION_SOURCES.teaSchools',
+  'RELOCATION_SOURCES.comptrollerProperty',
+  'RELOCATION_SOURCES.txdotTraffic',
+  'RELOCATION_SOURCES.pucUtilities',
+  'RELOCATION_SOURCES.femaFlood',
+  '/texas-cost-of-living-calculator',
+  '/texas-salary-comparison-by-city',
+  '/texas-homeownership-cost-calculator',
+  '/moving-to-texas-checklist',
+]) {
+  if (!relocationDataCenter.includes(requirement)) failures.push(`Relocation Data Center safeguard missing: ${requirement}.`);
 }
 
 for (const requirement of [
@@ -185,6 +219,7 @@ for (const requirement of [
   'different datasets and vintages',
   'composite “best city” score',
   '/moving-to-texas#address-research-desk',
+  '/moving-to-texas/data',
   '/texas-cost-of-living-calculator',
   '/texas-salary-comparison-by-city',
   '/texas-home-insurance-calculator',
@@ -210,4 +245,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Moving, relocation data, metro guides, city, county, property, address research, travel and partner-ready evergreen pathways are protected.');
+console.log('Moving, relocation data center, metro guides, city, county, property, address research, travel and partner-ready evergreen pathways are protected.');
