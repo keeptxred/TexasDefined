@@ -2,17 +2,10 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { getTexasIcons } from "@/data/texas-icons.functions";
-import { TEXAS_ICON_CATEGORIES } from "@/data/texas-icons-types";
+import { TEXAS_ICON_CATEGORIES, TEXAS_ICON_CATEGORY_AUTHORITY_HUBS } from "@/data/texas-icons-types";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const canonicalPath = "/texas-icons";
-
-const CATEGORY_AUTHORITY_HUBS: Record<string, { href: string; label: string }> = {
-  "history-politics": { href: "/texas-history", label: "Explore Texas History" },
-  "music-culture": { href: "/texas-music", label: "Explore Texas Music" },
-  sports: { href: "/sports", label: "Explore Texas Sports" },
-  "symbols-food": { href: "/things-unique-to-texas", label: "Explore Things That Define Texas" },
-};
 
 export const Route = createFileRoute("/texas-icons")({
   loader: () => getTexasIcons(),
@@ -144,8 +137,8 @@ function TexasIconsHub() {
   );
 }
 
-function CategoryAuthorityLink({ categoryId }: { categoryId: string }) {
-  const authorityHub = CATEGORY_AUTHORITY_HUBS[categoryId];
+function CategoryAuthorityLink({ categoryId }: { categoryId: keyof typeof TEXAS_ICON_CATEGORY_AUTHORITY_HUBS | string }) {
+  const authorityHub = TEXAS_ICON_CATEGORY_AUTHORITY_HUBS[categoryId as keyof typeof TEXAS_ICON_CATEGORY_AUTHORITY_HUBS];
   if (!authorityHub) return null;
 
   return (
