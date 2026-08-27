@@ -43,6 +43,12 @@ const ARTICLE_LASTMOD_BY_SLUG: Readonly<Record<string, string>> = {
   "history-of-the-texas-flag": "2026-08-20",
   "texas-flag-etiquette-display-guide": "2026-08-20",
 };
+const SUPPLEMENTAL_MAJOR_EVENT_SITEMAP: readonly SitemapEntry[] = [
+  { path: "/event/dobie-dichos", lastmod: "2026-08-27" },
+  { path: "/event/dallas-holiday-parade", lastmod: "2026-08-27" },
+  { path: "/event/schulenburg-festival", lastmod: "2026-08-27" },
+  { path: "/event/westfest", lastmod: "2026-08-27" },
+];
 
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
@@ -113,6 +119,7 @@ export const Route = createFileRoute("/sitemap.xml")({
             path: `/event/${event.slug}`,
             lastmod: toDate(event.sourceCheckedAt),
           })),
+          ...SUPPLEMENTAL_MAJOR_EVENT_SITEMAP,
           ...TEXAS_VS_STATES.map((state) => ({ path: `/texas-vs/${texasVsStateSlug(state)}`, lastmod: PRIORITY_SEO_LASTMOD })),
           ...FISHING_SITEMAP_ENTRIES,
           ...fishingGuideSitemapEntries,
