@@ -1,8 +1,9 @@
 import { createLazyFileRoute } from "@tanstack/react-router";
-import { ArrowRight, MapPin, Music2 } from "lucide-react";
+import { ArrowRight, MapPin, Music2, Route as RouteIcon } from "lucide-react";
 
 import { Container } from "@/components/layout/Container";
 import { TEXAS_MUSIC_HISTORIC_PLACES } from "@/data/texas-music-historic-places";
+import { TEXAS_MUSIC_ROAD_TRIPS } from "@/data/texas-music-road-trips";
 import { TEXAS_MUSIC_TIMELINE } from "@/data/texas-music-timeline";
 import {
   TEXAS_MUSIC_DESCRIPTION,
@@ -142,6 +143,37 @@ function TexasMusicPage() {
                 </article>
               ))}
             </div>
+          </div>
+        </Container>
+      </section>
+
+      <section id="road-trips" className="scroll-mt-32 border-b border-border bg-surface">
+        <Container className="py-14 sm:py-20">
+          <div className="max-w-3xl">
+            <p className="eyebrow text-primary">Texas music road trips</p>
+            <h2 className="mt-3 font-display text-4xl font-semibold leading-tight sm:text-5xl">Follow the history on the ground</h2>
+            <p className="mt-5 text-base leading-7 text-muted-foreground sm:text-lg">
+              These are editorial routes through existing TexasDefined guides, not claims that every venue is open or every stop fits one day. Use the linked place and trip-planning pages to confirm current visitor details before traveling.
+            </p>
+          </div>
+          <div className="mt-10 grid gap-px border border-border bg-border lg:grid-cols-2">
+            {TEXAS_MUSIC_ROAD_TRIPS.map((trip) => (
+              <article key={trip.title} className="bg-background p-6 sm:p-8">
+                <RouteIcon className="size-5 text-primary" aria-hidden />
+                <h3 className="mt-4 font-display text-3xl font-semibold leading-tight text-foreground">{trip.title}</h3>
+                <p className="mt-3 text-sm font-semibold text-primary">{trip.route}</p>
+                <p className="mt-3 text-sm leading-6 text-muted-foreground">{trip.focus}</p>
+                <ul className="mt-6 divide-y divide-border border-y border-border">
+                  {trip.stops.map((stop) => (
+                    <li key={stop.href}>
+                      <a href={stop.href} className="group flex min-h-14 items-center justify-between gap-4 py-3 text-sm font-semibold text-foreground hover:text-primary">
+                        {stop.label}<ArrowRight className="size-4 transition-transform group-hover:translate-x-1" aria-hidden />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            ))}
           </div>
         </Container>
       </section>
