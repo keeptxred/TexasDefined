@@ -28,7 +28,7 @@ const PRINCIPLES = [
 ];
 
 const ACCOUNTABILITY = [
-  { title: "Visible bylines", body: "Editorial stories identify the responsible Texas Defined editorial desk or a verified individual contributor. Bylines link to a profile describing that desk or contributor and its published archive; institutional desk names are not presented as fictional people." },
+  { title: "Named bylines", body: "Editorial stories identify the responsible Texas Defined editorial desk or a verified individual contributor. Bylines link to a profile describing that desk or contributor and its published archive; institutional desk names are not presented as fictional people." },
   { title: "Sources and official records", body: "For facts that can change — including park access, government records, taxes, deadlines, fees and public data — Texas Defined favors the responsible agency, official record or original source and points readers there when practical." },
   { title: "Corrections and updates", body: "When we identify a material factual error, we correct the published information rather than preserving a known mistake. Time-sensitive details should still be confirmed with the responsible agency or provider before a decision." },
   { title: "Clear separation of guidance", body: "Our calculators, planning tools and explainers are informational. They are not official determinations, professional advice, quotes or guarantees, and we say so where those distinctions matter." },
