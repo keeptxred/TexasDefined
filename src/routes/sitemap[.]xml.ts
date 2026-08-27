@@ -48,6 +48,8 @@ const SUPPLEMENTAL_MAJOR_EVENT_SITEMAP: readonly SitemapEntry[] = [
   { path: "/event/dallas-holiday-parade", lastmod: "2026-08-27" },
   { path: "/event/schulenburg-festival", lastmod: "2026-08-27" },
   { path: "/event/westfest", lastmod: "2026-08-27" },
+  { path: "/event/luling-watermelon-thump", lastmod: "2026-08-27" },
+  { path: "/event/national-polka-festival", lastmod: "2026-08-27" },
 ];
 
 export const Route = createFileRoute("/sitemap.xml")({
