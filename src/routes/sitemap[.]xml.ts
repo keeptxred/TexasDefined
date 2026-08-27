@@ -13,6 +13,7 @@ import { loadFishingReportSitemapEntriesServer } from "@/data/fishing/report-sit
 import { FISHING_SITEMAP_ENTRIES } from "@/data/fishing/sitemap";
 import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
 import { canonicalEntityPath, isIndexableEntityPage } from "@/data/knowledge-graph/relationships";
+import { majorEventIndexRecords } from "@/data/major-event-index";
 import { COUNTY_PROPERTY_RECORDS } from "@/data/property/county-property-data";
 import { isCountyPropertyIndexReady } from "@/data/property/county-property-schema";
 import { fetchAssignedShopProducts } from "@/data/shop-products-remote";
@@ -106,6 +107,10 @@ export const Route = createFileRoute("/sitemap.xml")({
             .filter((path) => isTexasDefinedOwnedStaticPath(path))
             .map((path) => ({ path, lastmod: STATIC_LASTMOD_BY_PATH[path] })),
           { path: "/texas-icons" },
+          ...majorEventIndexRecords.map((event) => ({
+            path: `/event/${event.slug}`,
+            lastmod: toDate(event.sourceCheckedAt),
+          })),
           ...TEXAS_VS_STATES.map((state) => ({ path: `/texas-vs/${texasVsStateSlug(state)}`, lastmod: PRIORITY_SEO_LASTMOD })),
           ...FISHING_SITEMAP_ENTRIES,
           ...fishingGuideSitemapEntries,
