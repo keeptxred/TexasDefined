@@ -19,7 +19,9 @@ const pathways = [
   { to: "/texas-homeownership-cost-calculator", label: "See the full cost of owning", description: "Combine mortgage, property taxes, insurance, utilities, maintenance and fees." },
   { to: "/texas-home-insurance-calculator", label: "Estimate home insurance", description: "Create a planning estimate before comparing actual Texas insurance quotes." },
   { to: "/browse/counties", label: "Find the county", description: "Connect a location to local appraisal, tax and public-record research paths." },
-  { to: "/moving-to-texas-checklist", label: "Use the moving checklist", description: "Keep before-and-after relocation tasks in one practical sequence." },
+  { to: "/find-my-school-district", label: "Verify the school district", description: "Use the exact address to research district and campus assignment instead of relying on a city name." },
+  { to: "/texas-data", label: "Open the Texas Data Desk", description: "Use source-backed migration, insurance, jobs, housing and Texas reference datasets." },
+  { to: "/moving-to-texas-checklist", label: "Use the moving checklist", description: "Keep before-and-after relocation tasks and official agency sources in one practical sequence." },
 ] as const;
 
 export function LivingAuthorityPaths({ currentCategory }: { currentCategory: CategorySlug }) {
@@ -33,13 +35,13 @@ export function LivingAuthorityPaths({ currentCategory }: { currentCategory: Cat
             eyebrow={currentCategory === "moving-to-texas" ? "Plan the move" : "Plan the ownership costs"}
             title={currentCategory === "moving-to-texas" ? "Put the practical Texas numbers next to the place" : "Put the full cost of a Texas home in context"}
             description={currentCategory === "moving-to-texas"
-              ? "City choice, salary, utilities, housing, insurance, moving expenses and property taxes all shape what a move really costs."
+              ? "City choice, salary, utilities, schools, housing, insurance, moving expenses and property taxes all shape what a move really costs."
               : "A home price is only one number. Compare financing, taxes, insurance, utilities, maintenance and the local county context together."}
           />
           <nav aria-label="Texas moving and property planning paths" className="mt-8">
-            <ul className="grid border-t border-border sm:grid-cols-2 lg:grid-cols-5">
+            <ul className="grid border-t border-border sm:grid-cols-2 lg:grid-cols-4">
               {pathways.map((item, index) => (
-                <li key={item.to} className={`${index % 5 !== 4 ? "lg:border-r" : ""} border-b border-border sm:px-6 sm:first:pl-0`}>
+                <li key={item.to} className={`${index % 4 !== 3 ? "lg:border-r" : ""} border-b border-border sm:px-6 sm:first:pl-0`}>
                   <Link to={item.to} className="group block py-6">
                     <span className="font-display text-xl leading-tight transition-colors group-hover:text-primary">{item.label}</span>
                     <span className="mt-2 block text-sm leading-6 text-muted-foreground">{item.description}</span>
