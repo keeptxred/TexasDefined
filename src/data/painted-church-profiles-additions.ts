@@ -1,4 +1,6 @@
 import type { PaintedChurchProfile } from "./painted-church-profiles";
+import { paintedChurchExpansionProfileBySlug } from "./painted-church-profiles-expansion";
+import { latestPaintedChurchProfileBySlug } from "./painted-church-profiles-latest";
 
 const profiles: PaintedChurchProfile[] = [
   {
@@ -88,5 +90,7 @@ const profiles: PaintedChurchProfile[] = [
 ];
 
 export function paintedChurchAdditionProfileBySlug(slug: string) {
-  return profiles.find((profile) => profile.slug === slug);
+  return profiles.find((profile) => profile.slug === slug)
+    ?? paintedChurchExpansionProfileBySlug(slug)
+    ?? latestPaintedChurchProfileBySlug(slug);
 }
