@@ -59,7 +59,7 @@ for (let i = 0; i < researched.length; i += 1) {
 for (const token of [
   "born in Chapel Hill, North Carolina",
   "raised in Fort Worth",
-  "born in Houston in 1973",
+  "Jim Parsons was born in Houston",
   "born in Grand Prairie in 1992",
   "born in Albuquerque, New Mexico",
   "born in Lubbock in 1985",
