@@ -151,6 +151,11 @@ export const TEXAS_MUSIC_RELATED_GUIDES: readonly TexasMusicRelatedGuide[] = [
     description: "Houston rap, DJ Screw's tape culture, the Geto Boys, UGK and the Gulf Coast systems that built a national sound.",
   },
   {
+    title: "Texas Music Timeline",
+    href: "/texas-music-timeline",
+    description: "Follow the state's musical roots chronologically, from Indigenous and mission-era traditions to today's global Texas artists.",
+  },
+  {
     title: "Texas Music Cities",
     href: "/texas-music-cities",
     description: "Compare Austin, Houston, San Antonio, Lubbock and Dallas–Fort Worth as local systems that shaped distinct Texas music scenes.",
