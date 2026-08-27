@@ -1,6 +1,7 @@
 import type { Article } from "../types";
 import { texasGatewayBatch3AuthorityEnrichment } from "./texas-gateway-batch3-authority-enrichment";
 import { texasGatewayBatch3CulturalEnrichment } from "./texas-gateway-batch3-cultural-enrichment";
+import { texasGatewayBatch3SeasonalEnrichment } from "./texas-gateway-batch3-seasonal-enrichment";
 import { isTexasGatewayIndexReadyArticle } from "./texas-gateway-index-readiness";
 
 const GATEWAY_LINK_ALIASES: Record<string, string> = {
@@ -23,7 +24,8 @@ const JACOBS_WELL_CURRENT = "Jacob's Well Natural Area for hiking and the spring
 
 const normalizeGatewayArticle = (article: Article): Article => {
   const enrichment = texasGatewayBatch3CulturalEnrichment[article.slug]
-    ?? texasGatewayBatch3AuthorityEnrichment[article.slug];
+    ?? texasGatewayBatch3AuthorityEnrichment[article.slug]
+    ?? texasGatewayBatch3SeasonalEnrichment[article.slug];
   return {
     ...article,
     body: [
