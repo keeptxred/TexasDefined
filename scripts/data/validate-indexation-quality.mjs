@@ -9,6 +9,9 @@ const newsStory = fs.readFileSync('src/routes/news.$slug.tsx', 'utf8');
 const articleRoute = fs.readFileSync('src/routes/article.$slug.tsx', 'utf8');
 const remoteArticles = fs.readFileSync('src/data/articles-remote.ts', 'utf8');
 const gatewayReadiness = fs.readFileSync('src/data/fixtures/texas-gateway-index-readiness.ts', 'utf8');
+const articleQueries = fs.readFileSync('src/data/queries.ts', 'utf8');
+const deskRouting = fs.readFileSync('src/data/editorial-desk-routing.ts', 'utf8');
+const homepage = fs.readFileSync('src/routes/index.lazy.tsx', 'utf8');
 const lazyEvergreen = fs.readFileSync('src/data/fixtures/lazy-evergreen.ts', 'utf8');
 const specialDistricts = fs.readFileSync('src/data/fixtures/muds-pids-hoas-special-districts.ts', 'utf8');
 const lazyMigratedEditorial = fs.readFileSync('src/data/fixtures/lazy-migrated-editorial.ts', 'utf8');
@@ -34,7 +37,7 @@ if (!newsStory.includes('fetchPublishedTexasDefinedNewsArticle') || !newsStory.i
 if (!newsIndex.includes('fetchPublishedTexasDefinedNewsArticles')) failures.push('/news listing must use the feed-backed news-only remote query.');
 if (!sitemap.includes('...(remoteNews.length ? [{ path: "/news" }] : [])')) failures.push('Primary sitemap must publish /news only when feed-backed remote news exists.');
 if (!sitemap.includes('...remoteNews.map((article) => ({ path: `/news/${article.slug}`')) failures.push('Primary sitemap must map feed-backed remote news to /news paths.');
-if (!sitemap.includes('...remoteEvergreen.map((article) => ({ path: `/article/${article.slug}`')) failures.push('Primary sitemap must map published manual evergreen rows to /article paths.');
+if (!sitemap.includes('...remoteEvergreen\n            .filter(isArticleIndexReady)\n            .map((article) => ({ path: `/article/${article.slug}`')) failures.push('Primary sitemap must gate published manual evergreen rows through article readiness before mapping /article paths.');
 for (const marker of [
   'if (kind === "evergreen") params.set("source_feed_id", "is.null")',
   'if (kind === "news") params.set("source_feed_id", "not.is.null")',
@@ -67,22 +70,46 @@ if (!articleRoute.includes('if (!loaderData) return { meta: [{ title: "Unavailab
   failures.push('Article route must reserve noindex for the unavailable-loader state.');
 }
 const articleMetaBlock = articleRoute.match(/meta: buildMeta\(texasDefinedBrand, \{([\s\S]*?)\n\s*\}\),\n\s*links:/)?.[1] ?? '';
-const gatewayRobotsContract = 'robots: shouldNoindexTexasGatewayArticle(article) ? "noindex, follow, max-image-preview:large" : undefined';
+const readinessRobotsContract = 'robots: shouldNoindexTexasGatewayArticle(article) ? "noindex, follow, max-image-preview:large" : undefined';
 if (!articleMetaBlock) failures.push('Could not parse normal article buildMeta block.');
 else {
   const robotsEntries = articleMetaBlock.match(/\brobots\s*:[^\n]+/g) ?? [];
-  if (robotsEntries.length > 1 || (robotsEntries.length === 1 && !articleMetaBlock.includes(gatewayRobotsContract))) {
-    failures.push('Loaded evergreen articles may only emit the explicit staged-gateway robots override.');
+  if (robotsEntries.length > 1 || (robotsEntries.length === 1 && !articleMetaBlock.includes(readinessRobotsContract))) {
+    failures.push('Loaded evergreen articles must use the shared article-readiness robots override.');
   }
 }
-if (!articleRoute.includes('shouldNoindexTexasGatewayArticle')) failures.push('Article route must scope conditional noindex behavior through the staged gateway helper.');
-if (!gatewayReadiness.includes('return isTexasGatewayArticle(article) && !isTexasGatewayIndexReadySlug(article.slug);')) {
-  failures.push('Gateway noindex helper must remain scoped to staged gateway articles only.');
+if (!articleRoute.includes('shouldNoindexTexasGatewayArticle')) failures.push('Article route must apply the shared article-readiness noindex helper.');
+for (const marker of [
+  'export const ARTICLE_INDEX_MIN_BODY_WORDS = 600',
+  'export function isArticleIndexReady(article: Article): boolean',
+  'if (!isTexasGatewayIndexReadyArticle(article)) return false',
+  'return articleBodyWordCount(article) >= ARTICLE_INDEX_MIN_BODY_WORDS',
+  'return !isArticleIndexReady(article)',
+]) {
+  if (!gatewayReadiness.includes(marker)) failures.push(`Article readiness floor missing: ${marker}`);
 }
-const articleCatalogPattern = /\.\.\.articles\s*\.filter\(\(article\)\s*=>\s*!isLegacyCountySeriesArticle\(article\.slug\)\s*&&\s*isTexasGatewayIndexReadyArticle\(article\)\)\s*\.map\(\(article\)\s*=>\s*\(\{\s*path:\s*`\/article\/\$\{article\.slug\}`/s;
+const articleCatalogPattern = /\.\.\.articles\s*\.filter\(\(article\)\s*=>\s*!isLegacyCountySeriesArticle\(article\.slug\)\s*&&\s*isArticleIndexReady\(article\)\)\s*\.map\(\(article\)\s*=>\s*\(\{\s*path:\s*`\/article\/\$\{article\.slug\}`/s;
 if (!articleCatalogPattern.test(sitemap)) {
-  failures.push('Primary sitemap must publish the normal non-legacy article catalog while excluding staged gateway drafts.');
+  failures.push('Primary sitemap must publish only non-legacy articles that pass the shared article-readiness floor.');
 }
+for (const marker of [
+  '.map(prepareEditorialArticle)\n    .filter(isArticleIndexReady)',
+  'document.kind !== "article" || indexableArticleHrefs.has(document.href)',
+  'normalizeArticleEditorialDesk',
+]) {
+  if (!articleQueries.includes(marker)) failures.push(`Article discovery/readiness query contract missing: ${marker}`);
+}
+for (const marker of [
+  'LEGACY_EDITORIAL_DESK_IDS',
+  'HOMES_LAND_CATEGORIES',
+  'TRAVEL_OUTDOORS_CATEGORIES',
+  'FOOD_CULTURE_CATEGORIES',
+  'if (!LEGACY_EDITORIAL_DESK_IDS.has(article.authorId)) return article',
+]) {
+  if (!deskRouting.includes(marker)) failures.push(`Editorial desk routing contract missing: ${marker}`);
+}
+if (homepage.includes('DollyPartonTribute')) failures.push('Homepage must not carry the off-topic Dolly Parton memorial during AdSense review.');
+
 for (const slug of ['muds-pids-hoas-special-districts-texas', 'texas-towns-german-czech-mexican-roots']) {
   if (!lazyEvergreen.includes(`slug: "${slug}"`)) failures.push(`GSC evergreen indexing candidate is missing from the lazy article registry: ${slug}`);
 }
@@ -171,4 +198,4 @@ if (failures.length) {
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
-console.log('Indexation quality validation passed: conditional feed-backed news, routed-news canonical isolation, canonical manual evergreen routing, normal evergreen article canonicals/indexability, explicit staged-gateway noindex/sitemap gating, primary-source-backed special-district evergreen authority, two parsed migrated finance deep-content batches with primary-source authority and reciprocal tools, noindex utilities, redirects, generated-page quality gates, and sitemap ownership are aligned.');
+console.log('Indexation quality validation passed: conditional feed-backed news, routed-news canonical isolation, canonical manual evergreen routing, strict 600-word article readiness/noindex/sitemap/search gating, editorial desk alignment, Texas-only homepage scope, primary-source-backed special-district evergreen authority, two parsed migrated finance deep-content batches with primary-source authority and reciprocal tools, noindex utilities, redirects, generated-page quality gates, and sitemap ownership are aligned.');
