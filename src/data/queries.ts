@@ -1,6 +1,7 @@
 import { queryOptions } from "@tanstack/react-query";
 
 import { prepareArticleForDelivery, prepareDestinationForDelivery } from "@/lib/editorial-image-delivery";
+import { fetchPublishedTexasDefinedEvergreenArticle } from "./articles-remote";
 import { fetchPublishedTexasEvents } from "./events-remote";
 import { supplementalExploreCategories } from "./explore-categories";
 import { guideIsAvailable } from "./guide-links";
@@ -16,8 +17,10 @@ export const articlesQuery = (params: Omit<ArticleQuery, "brandId"> = {}) => que
 export const articleQuery = (slug: Slug) => queryOptions({
   queryKey: ["article", scope.brandId, slug],
   queryFn: async () => {
-    const article = await platform.articles.getBySlug(scope, slug);
-    return article ? prepareArticleForDelivery(article) : article;
+    const localArticle = await platform.articles.getBySlug(scope, slug);
+    if (localArticle) return prepareArticleForDelivery(localArticle);
+    const remoteArticle = await fetchPublishedTexasDefinedEvergreenArticle(slug);
+    return remoteArticle ? prepareArticleForDelivery(remoteArticle) : null;
   },
 });
 
