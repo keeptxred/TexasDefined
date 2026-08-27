@@ -9,8 +9,8 @@ import { buildMeta, canonicalLink } from "@/lib/seo";
 const siteUrl = "https://texasdefined.com";
 
 export const Route = createFileRoute("/event/$slug")({
-  loader: ({ params }) => {
-    const event = getMajorEventAuthority(params.slug);
+  loader: async ({ params }) => {
+    const event = await getMajorEventAuthority(params.slug);
     if (!event) throw notFound();
     return { event };
   },
