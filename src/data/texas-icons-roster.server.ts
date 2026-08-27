@@ -98,7 +98,7 @@ const CANONICAL_PATHS: Readonly<Record<string, string>> = {
   "Buc-ee's": "/article/bucees-texas-road-trip-history",
   "Dr Pepper": "/dr-pepper-texas-history",
   "Chili Con Carne": "/texas-chili-con-carne-history",
-  "The Lone Star Flag": "/article/history-of-texas-flag",
+  "The Lone Star Flag": "/article/history-of-the-texas-flag",
 };
 
 const GROUPS = new Set<string>(["Asleep at the Wheel", "Geto Boys", "Khruangbin", "Pantera", "Spoon", "The Chicks", "ZZ Top"]);
