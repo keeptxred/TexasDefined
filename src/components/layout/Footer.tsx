@@ -12,6 +12,7 @@ const newsletterSignupEnabled = Boolean(String(import.meta.env.VITE_TEXASDEFINED
 export function Footer() {
   const brand = useBrand();
   const year = new Date().getFullYear();
+  const nonPrivacyLegalItems = brand.legal.filter((item) => item.label !== "Privacy & Site Terms");
 
   return (
     <>
@@ -51,7 +52,9 @@ export function Footer() {
             <div className="flex flex-wrap gap-x-5 gap-y-2">
               <Link to="/partner-with-us" className="transition-colors hover:text-primary">Partner With Us</Link>
               <Link to="/citation-guide" className="transition-colors hover:text-primary">Citation Guide</Link>
-              {brand.legal.map((item) => item.to.includes("#") ? <a key={item.to} href={item.to} className="transition-colors hover:text-primary">{item.label}</a> : <Link key={item.to} to={item.to} className="transition-colors hover:text-primary">{item.label}</Link>)}
+              <Link to="/privacy" className="transition-colors hover:text-primary">Privacy Policy</Link>
+              <a href="/about#privacy-terms" className="transition-colors hover:text-primary">Site Terms</a>
+              {nonPrivacyLegalItems.map((item) => item.to.includes("#") ? <a key={item.to} href={item.to} className="transition-colors hover:text-primary">{item.label}</a> : <Link key={item.to} to={item.to} className="transition-colors hover:text-primary">{item.label}</Link>)}
               {brand.identity.social.map((item) => <a key={item.href} href={item.href} rel="noreferrer noopener" target="_blank" aria-label={`Follow Texas Defined on ${item.label}`} className="transition-colors hover:text-primary">{item.label}</a>)}
             </div>
           </Container>
