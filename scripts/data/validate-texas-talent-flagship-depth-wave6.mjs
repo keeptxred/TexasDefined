@@ -49,6 +49,7 @@ for (const token of [
   "...(TEXAS_TALENT_LAUNCH_DEPTH_WAVE6[profile.slug] ?? {})",
   "TEXAS_TALENT_LAUNCH_DEPTH_WAVE6_REPAIR",
   "overview: [...baseProfile.overview, ...wave6Repair.overviewAppend]",
+  "legacy: [...baseProfile.legacy, ...wave6Repair.legacyAppend]",
 ]) {
   if (!server.includes(token)) fail(`server loader must apply effective wave 6 depth contract: ${token}`);
 }
@@ -57,10 +58,11 @@ for (const slug of expected) {
   const block = blockFor(source, slug, "wave 6 depth");
   const repairBlock = blockFor(repair, slug, "wave 6 supplement");
   const overview = [...stringArray(block, "overview"), ...stringArray(repairBlock, "overviewAppend")];
-  const legacy = stringArray(block, "legacy"), places = objectArray(block, "texasPlaces"), timeline = objectArray(block, "timeline");
+  const legacy = [...stringArray(block, "legacy"), ...stringArray(repairBlock, "legacyAppend")];
+  const places = objectArray(block, "texasPlaces"), timeline = objectArray(block, "timeline");
   const overviewWords = overview.reduce((sum, p) => sum + words(p), 0), legacyWords = legacy.reduce((sum, p) => sum + words(p), 0);
   if (overview.length < 3 || overviewWords < 300) fail(`${slug}: effective overview below launch depth (${overview.length} paragraphs, ${overviewWords} words)`);
-  if (legacy.length < 3 || legacyWords < 100) fail(`${slug}: legacy below launch depth (${legacy.length} points, ${legacyWords} words)`);
+  if (legacy.length < 3 || legacyWords < 100) fail(`${slug}: effective legacy below launch depth (${legacy.length} points, ${legacyWords} words)`);
   if (timeline.length < 5) fail(`${slug}: timeline below launch depth (${timeline.length} milestones)`);
   if (places.length < 2) fail(`${slug}: needs at least two substantive Texas places`);
   for (const place of places) { const context = /\bcontext:\s*"((?:\\.|[^"\\])*)"/.exec(place)?.[1] ?? ""; if (words(context) < 18) fail(`${slug}: Texas place context below 18-word launch threshold`); }
