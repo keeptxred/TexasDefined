@@ -13,15 +13,13 @@ export const Route = createFileRoute("/event/$slug")({
     if (!loaderData) return {};
     const { page } = loaderData;
     const canonicalPath = `/event/${page.slug}`;
-    return { meta: buildMeta(texasDefinedBrand, { canonicalPath, title: page.title, description: page.description }), links: [canonicalLink(texasDefinedBrand, canonicalPath)] };
+    return {
+      meta: buildMeta(texasDefinedBrand, {
+        canonicalPath,
+        title: page.title,
+        description: page.description,
+      }),
+      links: [canonicalLink(texasDefinedBrand, canonicalPath)],
+    };
   },
-  component: MajorEventGuidePage,
 });
-
-function MajorEventGuidePage() {
-  const { page } = Route.useLoaderData();
-  return <>
-    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: page.jsonLd }} />
-    <main className="mx-auto max-w-4xl px-5 pb-20 pt-12 sm:px-8"><article dangerouslySetInnerHTML={{ __html: page.html }} /></main>
-  </>;
-}
