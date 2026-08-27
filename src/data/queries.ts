@@ -18,7 +18,18 @@ export const articleQuery = (slug: Slug) => queryOptions({
   queryKey: ["article", scope.brandId, slug],
   queryFn: async () => {
     const localArticle = await platform.articles.getBySlug(scope, slug);
-    if (localArticle) return prepareArticleForDelivery(localArticle);
+    if (localArticle) {
+      if (localArticle.sourceName && localArticle.sourceUrl) return prepareArticleForDelivery(localArticle);
+      const remoteSourceArticle = await fetchPublishedTexasDefinedEvergreenArticle(slug);
+      const sourceHydratedLocalArticle = remoteSourceArticle
+        ? {
+            ...localArticle,
+            sourceName: localArticle.sourceName ?? remoteSourceArticle.sourceName,
+            sourceUrl: localArticle.sourceUrl ?? remoteSourceArticle.sourceUrl,
+          }
+        : localArticle;
+      return prepareArticleForDelivery(sourceHydratedLocalArticle);
+    }
     const remoteArticle = await fetchPublishedTexasDefinedEvergreenArticle(slug);
     return remoteArticle ? prepareArticleForDelivery(remoteArticle) : null;
   },
