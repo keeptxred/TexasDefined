@@ -46,6 +46,8 @@ const ARTICLE_LASTMOD_BY_SLUG: Readonly<Record<string, string>> = {
 const SUPPLEMENTAL_MAJOR_EVENT_SITEMAP: readonly SitemapEntry[] = [
   { path: "/event/dobie-dichos", lastmod: "2026-08-27" },
   { path: "/event/dallas-holiday-parade", lastmod: "2026-08-27" },
+  { path: "/event/schulenburg-festival", lastmod: "2026-08-27" },
+  { path: "/event/westfest", lastmod: "2026-08-27" },
 ];
 
 export const Route = createFileRoute("/sitemap.xml")({
