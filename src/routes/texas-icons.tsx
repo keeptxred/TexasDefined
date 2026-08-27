@@ -7,6 +7,13 @@ import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const canonicalPath = "/texas-icons";
 
+const CATEGORY_AUTHORITY_HUBS: Record<string, { href: string; label: string }> = {
+  "history-politics": { href: "/texas-history", label: "Explore Texas History" },
+  "music-culture": { href: "/texas-music", label: "Explore Texas Music" },
+  sports: { href: "/sports", label: "Explore Texas Sports" },
+  "symbols-food": { href: "/things-unique-to-texas", label: "Explore Things That Define Texas" },
+};
+
 export const Route = createFileRoute("/texas-icons")({
   loader: () => getTexasIcons(),
   head: ({ loaderData }) => ({
@@ -102,6 +109,7 @@ function TexasIconsHub() {
                   <p className="eyebrow text-primary">{category.icons.length} profiles</p>
                   <h2 className="mt-2 font-display text-4xl">{category.label}</h2>
                   <p className="mt-3 text-sm leading-6 text-muted-foreground">{category.description}</p>
+                  <CategoryAuthorityLink categoryId={category.id} />
                 </div>
 
                 <ol className="grid gap-px bg-border sm:grid-cols-2 xl:grid-cols-3">
@@ -133,6 +141,20 @@ function TexasIconsHub() {
         </div>
       </main>
     </Container>
+  );
+}
+
+function CategoryAuthorityLink({ categoryId }: { categoryId: string }) {
+  const authorityHub = CATEGORY_AUTHORITY_HUBS[categoryId];
+  if (!authorityHub) return null;
+
+  return (
+    <a
+      href={authorityHub.href}
+      className="mt-4 inline-block text-sm font-semibold text-primary hover:underline"
+    >
+      {authorityHub.label} →
+    </a>
   );
 }
 
