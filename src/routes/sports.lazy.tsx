@@ -13,6 +13,28 @@ function SportsPage() {
     <CategoryPage category="sports" eyebrow="Texas Sports" title="The games, rituals and rivalries that matter here" intro={description} />
     <Container className="pb-16 sm:pb-24">
       <div className="mx-auto max-w-6xl">
+        <section className="border-t border-border pt-10" aria-labelledby="sports-culture-reading">
+          <div className="grid gap-8 lg:grid-cols-[15rem_1fr]">
+            <div>
+              <p className="eyebrow text-primary">Sports culture</p>
+              <h2 id="sports-culture-reading" className="mt-2 font-display text-3xl leading-tight">Why Texas games become traditions</h2>
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">Go beyond schedules and scores with evergreen guides to the teams and rituals that became part of Texas identity.</p>
+            </div>
+            <div className="grid gap-5 md:grid-cols-2">
+              <Link to="/article/$slug" params={{ slug: "san-antonio-spurs-texas-basketball-culture" }} className="group border-t border-border py-5">
+                <strong className="block font-display text-2xl group-hover:text-primary">San Antonio Spurs: basketball and city identity</strong>
+                <span className="mt-2 block text-sm leading-6 text-muted-foreground">How championships, continuity and a team-first culture became woven into San Antonio's modern civic identity.</span>
+                <span className="mt-3 block text-sm font-semibold text-primary">Read the Spurs culture guide →</span>
+              </Link>
+              <Link to="/article/$slug" params={{ slug: "texas-high-school-football-friday-night-lights" }} className="group border-t border-border py-5">
+                <strong className="block font-display text-2xl group-hover:text-primary">Texas high school football and Friday night lights</strong>
+                <span className="mt-2 block text-sm leading-6 text-muted-foreground">Why stadiums, marching bands, rivalries and community ritual make high school football unusually important across Texas.</span>
+                <span className="mt-3 block text-sm font-semibold text-primary">Read the Friday night lights guide →</span>
+              </Link>
+            </div>
+          </div>
+        </section>
+
         <SportsVenueLandingIndex compact />
         <section className="mt-10 border-t border-border pt-10">
           <div className="grid gap-8 lg:grid-cols-[15rem_1fr]">
