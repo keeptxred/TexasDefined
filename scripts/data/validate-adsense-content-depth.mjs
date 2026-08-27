@@ -76,16 +76,28 @@ if (migratedIndex < 0 || genericFallbackIndex < 0 || migratedIndex > genericFall
   errors.push('Detailed migrated articles must resolve before the lightweight catalog-stub fallback.');
 }
 
-for (const feature of [
-  'const localArticle = await platform.articles.getBySlug(scope, slug);',
-  'if (localArticle) return prepareArticleForDelivery(localArticle);',
-  'const remoteArticle = await fetchPublishedTexasDefinedEvergreenArticle(slug);',
-]) if (!queries.includes(feature)) errors.push(`Article query local-depth precedence missing: ${feature}`);
+const localLoadMarker = 'const localArticle = await platform.articles.getBySlug(scope, slug);';
+const localReturnMarker = 'if (localArticle) return prepareArticleForDelivery(withRemoteEvergreenAuthoritySources(localArticle));';
+const remoteLoadMarker = 'const remoteArticle = await fetchPublishedTexasDefinedEvergreenArticle(slug);';
+const remoteReturnMarker = 'return remoteArticle ? prepareArticleForDelivery(withRemoteEvergreenAuthoritySources(remoteArticle)) : null;';
+for (const feature of [localLoadMarker, localReturnMarker, remoteLoadMarker, remoteReturnMarker]) {
+  if (!queries.includes(feature)) errors.push(`Article query local-depth/source precedence missing: ${feature}`);
+}
 
-const localIndex = queries.indexOf('const localArticle = await platform.articles.getBySlug(scope, slug);');
-const remoteIndex = queries.indexOf('const remoteArticle = await fetchPublishedTexasDefinedEvergreenArticle(slug);');
-if (localIndex < 0 || remoteIndex < 0 || localIndex > remoteIndex) {
-  errors.push('Local enriched editorial detail must resolve before the remote fallback for migrated finance articles.');
+const localIndex = queries.indexOf(localLoadMarker);
+const localReturnIndex = queries.indexOf(localReturnMarker);
+const remoteIndex = queries.indexOf(remoteLoadMarker);
+const remoteReturnIndex = queries.indexOf(remoteReturnMarker);
+if (
+  localIndex < 0
+  || localReturnIndex < 0
+  || remoteIndex < 0
+  || remoteReturnIndex < 0
+  || localIndex > localReturnIndex
+  || localReturnIndex > remoteIndex
+  || remoteIndex > remoteReturnIndex
+) {
+  errors.push('Local enriched editorial detail must resolve and retain vetted-source enrichment before the remote fallback for migrated finance articles.');
 }
 
 if (errors.length) {
@@ -94,4 +106,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('AdSense content-depth validation passed: four later finance depth overrides, the Texas HELOC authority override, 10+ minute catalog expectations, and detail-loader precedence are protected.');
+console.log('AdSense content-depth validation passed: four later finance depth overrides, the Texas HELOC authority override, 10+ minute catalog expectations, local-first detail-loader precedence, and vetted evergreen source enrichment are protected.');
