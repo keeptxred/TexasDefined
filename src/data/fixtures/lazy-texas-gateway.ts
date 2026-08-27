@@ -2,6 +2,7 @@ import type { Article } from "../types";
 import { texasGatewayBatch3AuthorityEnrichment } from "./texas-gateway-batch3-authority-enrichment";
 import { texasGatewayBatch3CulturalEnrichment } from "./texas-gateway-batch3-cultural-enrichment";
 import { texasGatewayBatch3SeasonalEnrichment } from "./texas-gateway-batch3-seasonal-enrichment";
+import { texasGatewayBatch4CulturalEnrichment } from "./texas-gateway-batch4-cultural-enrichment";
 import { isTexasGatewayIndexReadyArticle } from "./texas-gateway-index-readiness";
 
 const GATEWAY_LINK_ALIASES: Record<string, string> = {
@@ -23,9 +24,17 @@ const JACOBS_WELL_OLD = "Jacob's Well area when open for swimming";
 const JACOBS_WELL_CURRENT = "Jacob's Well Natural Area for hiking and the spring overlook; swimming is currently closed until further notice";
 
 const normalizeGatewayArticle = (article: Article): Article => {
-  const enrichment = texasGatewayBatch3CulturalEnrichment[article.slug]
+  const enrichment: Partial<Article> | undefined = texasGatewayBatch3CulturalEnrichment[article.slug]
     ?? texasGatewayBatch3AuthorityEnrichment[article.slug]
-    ?? texasGatewayBatch3SeasonalEnrichment[article.slug];
+    ?? texasGatewayBatch3SeasonalEnrichment[article.slug]
+    ?? texasGatewayBatch4CulturalEnrichment[article.slug];
+  const internalLinks = [...(article.internalLinks ?? []), ...(enrichment?.internalLinks ?? [])]
+    .map((link) => ({
+      ...link,
+      href: GATEWAY_LINK_ALIASES[link.href] ?? link.href,
+    }))
+    .filter((link, index, links) => links.findIndex((candidate) => candidate.href === link.href) === index);
+
   return {
     ...article,
     body: [
@@ -39,10 +48,9 @@ const normalizeGatewayArticle = (article: Article): Article => {
       ),
       ...(enrichment?.body ?? []),
     ],
-    internalLinks: article.internalLinks?.map((link) => ({
-      ...link,
-      href: GATEWAY_LINK_ALIASES[link.href] ?? link.href,
-    })),
+    internalLinks,
+    relatedCollections: [...new Set([...article.relatedCollections, ...(enrichment?.relatedCollections ?? [])])],
+    relatedDestinations: [...new Set([...article.relatedDestinations, ...(enrichment?.relatedDestinations ?? [])])],
     sourceName: enrichment?.sourceName ?? article.sourceName,
     sourceUrl: enrichment?.sourceUrl ?? article.sourceUrl,
   };
