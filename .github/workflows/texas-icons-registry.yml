@@ -62,6 +62,8 @@ jobs:
         run: node scripts/data/validate-texas-icons-media-batch2.mjs
       - name: Validate Texas Icons media ranks 211-220
         run: node scripts/data/validate-texas-icons-media-batch3.mjs
+      - name: Validate Texas Icons media ranks 221-225
+        run: node scripts/data/validate-texas-icons-media-batch4.mjs
       - name: Validate Texas Icons server isolation
         run: node scripts/data/validate-texas-icons-server-isolation.mjs
       - name: Production build
