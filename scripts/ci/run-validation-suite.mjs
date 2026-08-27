@@ -10,6 +10,7 @@ const checks = [
   ['texas-talent-launch-depth-gate', 'CONTENT/DEPTH', 'Validate Texas Talent launch-depth gate', 'node', ['scripts/data/validate-texas-talent-launch-depth-gate.mjs']],
   ['texas-talent-flagship-depth', 'CONTENT/DEPTH', 'Validate Texas Talent flagship depth wave', 'node', ['scripts/data/validate-texas-talent-flagship-depth.mjs']],
   ['texas-talent-flagship-depth-wave2', 'CONTENT/DEPTH', 'Validate Texas Talent flagship depth wave 2', 'node', ['scripts/data/validate-texas-talent-flagship-depth-wave2.mjs']],
+  ['texas-talent-flagship-depth-wave3', 'CONTENT/DEPTH', 'Validate Texas Talent flagship depth wave 3', 'node', ['scripts/data/validate-texas-talent-flagship-depth-wave3.mjs']],
   ['texas-talent-source-provenance', 'SOURCE/QUALITY', 'Validate Texas Talent source provenance', 'node', ['scripts/data/validate-texas-talent-source-provenance.mjs']],
   ['texas-talent-editorial-status', 'CONTENT/GOVERNANCE', 'Validate Texas Talent editorial status separation', 'node', ['scripts/data/validate-texas-talent-editorial-status.mjs']],
   ['texas-talent-content-depth', 'CONTENT/DEPTH', 'Validate Texas Talent content depth', 'node', ['scripts/data/validate-texas-talent-content-depth.mjs']],
@@ -86,9 +87,9 @@ const predeployIds = new Set([
   'texas-food-history', 'texas-culture-citation-index', 'texas-flag-authority', 'painted-churches-seo',
   'painted-church-search-intents', 'painted-church-map', 'painted-church-completion', 'military-history-expansion',
   'texas-talent-launch-contract', 'texas-talent-launch-depth-gate', 'texas-talent-flagship-depth',
-  'texas-talent-flagship-depth-wave2', 'texas-talent-source-provenance', 'texas-talent-editorial-status',
-  'texas-talent-content-depth', 'texas-talent-launch-metadata', 'texas-talent-reverse-links',
-  'texas-talent-public-preview', 'texas-talent-music-authority',
+  'texas-talent-flagship-depth-wave2', 'texas-talent-flagship-depth-wave3', 'texas-talent-source-provenance',
+  'texas-talent-editorial-status', 'texas-talent-content-depth', 'texas-talent-launch-metadata',
+  'texas-talent-reverse-links', 'texas-talent-public-preview', 'texas-talent-music-authority',
   'relocation-insurance-authority', 'relocation-city-comparison',
 ]);
 
