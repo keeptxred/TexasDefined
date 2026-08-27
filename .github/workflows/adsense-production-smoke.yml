@@ -54,7 +54,16 @@ jobs:
                       'Google-certified consent management platform',
                   ],
               ),
-              ('footer-privacy-link', '/', ['Privacy Policy']),
+              (
+                  'ads-txt-account',
+                  '/ads.txt',
+                  ['google.com, pub-1891256141359926, DIRECT, f08c47fec0942fa0'],
+              ),
+              (
+                  'homepage-adsense-account',
+                  '/',
+                  ['Privacy Policy', 'google-adsense-account', 'ca-pub-1891256141359926'],
+              ),
               (
                   'true-cost-depth',
                   '/article/true-cost-of-owning-a-home-in-texas',
