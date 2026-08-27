@@ -1,5 +1,5 @@
 import { fishingPlatform, fishingScope } from "./index";
-import { fishingReportCanonicalPath, fishingReportFreshness } from "./report-routing";
+import { FISHING_REPORTS_DIRECTORY_PATH, FISHING_REPORTS_VERIFIED_AT, fishingReportCanonicalPath, fishingReportFreshness } from "./report-routing";
 import { isPublicFishingReportValid } from "./report-validation";
 
 export async function loadFishingReportSitemapEntriesServer() {
@@ -11,7 +11,9 @@ export async function loadFishingReportSitemapEntriesServer() {
     fishingPlatform.lakeSpecies.list(fishingScope),
   ]);
   const context = { lakes, species, guides, lakeSpecies };
-  return reports
-    .filter((report) => isPublicFishingReportValid(report, context) && fishingReportFreshness(report) !== "expired")
-    .map((report) => ({ path: fishingReportCanonicalPath(report.slug), lastmod: report.publishedAt.slice(0, 10) }));
+  const validReports = reports.filter((report) => isPublicFishingReportValid(report, context) && fishingReportFreshness(report) !== "expired");
+  return [
+    ...(validReports.length ? [{ path: FISHING_REPORTS_DIRECTORY_PATH, lastmod: FISHING_REPORTS_VERIFIED_AT }] : []),
+    ...validReports.map((report) => ({ path: fishingReportCanonicalPath(report.slug), lastmod: report.publishedAt.slice(0, 10) })),
+  ];
 }
