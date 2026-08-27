@@ -5,6 +5,7 @@ on:
     paths:
       - "src/data/texas-icons-types.ts"
       - "src/data/texas-icons-roster.server.ts"
+      - "src/data/texas-icons-roster-corrections.server.ts"
       - "src/data/texas-icons-source-*.server.ts"
       - "src/data/texas-icons-research-*.server.ts"
       - "src/data/texas-icons-editorial-holds.server.ts"
@@ -71,6 +72,8 @@ jobs:
         run: node scripts/data/validate-texas-icons-symbols-batch2.mjs
       - name: Validate Texas Icons symbols ranks 246-250
         run: node scripts/data/validate-texas-icons-symbols-batch3.mjs
+      - name: Validate Texas Icons explicit roster corrections
+        run: node scripts/data/validate-texas-icons-roster-corrections.mjs
       - name: Validate Texas Icons disputed-intake editorial holds
         run: node scripts/data/validate-texas-icons-editorial-holds.mjs
       - name: Validate Texas Icons server isolation
