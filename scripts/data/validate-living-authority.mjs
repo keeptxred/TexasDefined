@@ -14,6 +14,8 @@ const funnel = read('src/components/monetization/EvergreenNextSteps.tsx');
 const analytics = read('src/platform/analytics.ts');
 const relocationHub = read('src/routes/moving-to-texas.lazy.tsx');
 const relocationLab = read('src/components/relocation/RelocationAuthorityLab.tsx');
+const metroRelocationAuthority = read('src/components/relocation/MetroRelocationAuthority.tsx');
+const articleBody = read('src/components/editorial/ArticleBody.tsx');
 const relocationData = read('src/data/relocation-authority.ts');
 const relocationAddress = read('src/data/relocation-address.ts');
 const relocationAddressServer = read('src/data/relocation-address.server.ts');
@@ -155,10 +157,57 @@ for (const officialSource of [
 if (!movingChecklist.includes('Official source ·')) failures.push('Moving checklist must visibly label official-source links.');
 if (!movingChecklist.includes("verifiedLabel = 'Verified Aug. 26, 2026'")) failures.push('Moving checklist must expose its source verification date.');
 
+for (const guidePath of [
+  '/article/moving-to-dallas-fort-worth-guide',
+  '/article/moving-to-houston-address-checklist',
+  '/article/moving-to-austin-guide',
+  '/article/moving-to-san-antonio-guide',
+  '/article/moving-to-el-paso-guide',
+]) {
+  if (!relocationData.includes(`guideHref: \"${guidePath}\"`)) failures.push(`Relocation metro registry must retain canonical guide ${guidePath}.`);
+  if (!articleBody.includes(`\"${guidePath}\"`)) failures.push(`Article body must lazy-gate metro relocation authority on ${guidePath}.`);
+}
+
+for (const requirement of [
+  'lazy(() => import("@/components/relocation/MetroRelocationAuthority")',
+  'useRouterState',
+  'showMetroRelocationAuthority',
+  '<MetroRelocationAuthority articlePath={pathname} />',
+]) {
+  if (!articleBody.includes(requirement)) failures.push(`Metro relocation lazy-render safeguard missing: ${requirement}.`);
+}
+
+for (const requirement of [
+  'RELOCATION_METROS',
+  'RELOCATION_SOURCES',
+  'RELOCATION_SOURCE_VERIFIED',
+  'metro.guideHref === articlePath',
+  'different datasets and vintages',
+  'composite “best city” score',
+  '/moving-to-texas#address-research-desk',
+  '/texas-cost-of-living-calculator',
+  '/texas-salary-comparison-by-city',
+  '/texas-home-insurance-calculator',
+  '/texas-homeownership-cost-calculator',
+  '/texas-data/texas-population-and-migration-2024',
+  '/texas-data/where-new-texans-came-from-2024',
+  '/texas-data/texas-homeowners-premium-history',
+  '/texas-data/texas-metro-payrolls-june-2026',
+  '/texas-data/texas-traffic-monitoring-coverage',
+  'RELOCATION_SOURCES.censusCountyMigration',
+  'RELOCATION_SOURCES.blsMetro',
+  'RELOCATION_SOURCES.tdiInsurance',
+  'RELOCATION_SOURCES.txdotTraffic',
+  'RELOCATION_SOURCES.teaSchools',
+  'RELOCATION_SOURCES.comptrollerProperty',
+]) {
+  if (!metroRelocationAuthority.includes(requirement)) failures.push(`Metro relocation authority surface missing: ${requirement}.`);
+}
+
 if (failures.length) {
   console.error('Texas living/property/relocation authority validation failed:');
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log('Moving, relocation data, city, county, property, address research, travel and partner-ready evergreen pathways are protected.');
+console.log('Moving, relocation data, metro guides, city, county, property, address research, travel and partner-ready evergreen pathways are protected.');
