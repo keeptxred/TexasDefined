@@ -225,7 +225,7 @@ export function getRelatedTexasIcons(entry: TexasIconRosterEntry, limit = 8) {
   return TEXAS_ICON_ROSTER
     .filter((candidate) => candidate.slug !== entry.slug && candidate.category === entry.category)
     .sort((left, right) =>
-      Math.abs(left.rank - entry.rank) - Math.abs(candidate.rank - entry.rank)
+      Math.abs(left.rank - entry.rank) - Math.abs(right.rank - entry.rank)
       || left.rank - right.rank)
     .slice(0, limit);
 }
