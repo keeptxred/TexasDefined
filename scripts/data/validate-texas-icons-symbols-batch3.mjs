@@ -21,7 +21,7 @@ const researched = [
 ];
 const canonical = [
   [246, "Space Center Houston", "/destination/space-center-houston", "space-center-houston"],
-  [250, "The Lone Star Flag", "/article/history-of-texas-flag", "the-lone-star-flag"],
+  [250, "The Lone Star Flag", "/article/history-of-the-texas-flag", "the-lone-star-flag"],
 ];
 const graphOwned = [247, "The Cotton Bowl", "Cotton Bowl Stadium", "cotton-bowl-stadium", "Cotton Bowl"];
 
