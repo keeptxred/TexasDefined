@@ -116,7 +116,8 @@ for (const [filename, aliasPath, targetPath] of migratedGuideRedirects) {
 for (const feature of [
   'supplementalExploreCategories',
   'EXPLORE_CATEGORY_SLUGS',
-  '.filter((slug) => EXPLORE_CATEGORY_SLUGS.has(slug))',
+  'isExploreCategoryIndexReady',
+  '.filter((slug) => EXPLORE_CATEGORY_SLUGS.has(slug) && isExploreCategoryIndexReady(slug))',
   'categorySlugs.map((slug)',
   '`/explore/${slug}`',
   'regionSlugs.map((regionSlug)',
