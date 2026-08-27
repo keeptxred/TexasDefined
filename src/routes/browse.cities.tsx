@@ -5,7 +5,7 @@ import { TEXAS_CITIES } from "@/data/texas-places";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const description =
-  "Browse Texas cities and towns by county and region, then continue to moving, cost-of-living, salary and county-reference tools while city detail records are independently source-verified.";
+  "Compare Texas cities and suburbs for a move using transparent region, setting, commute and planning context, then browse the full city directory by county and region and verify exact-address details with official sources.";
 const cityAnchor = (slug: string) => `city-${slug}`;
 
 export const Route = createFileRoute("/browse/cities")({
@@ -15,7 +15,7 @@ export const Route = createFileRoute("/browse/cities")({
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath: "/browse/cities",
-        title: "Texas Cities & Towns Directory | Browse by County & Region",
+        title: "Compare Texas Cities & Suburbs Before You Move",
         description,
       }),
       links: [canonicalLink(texasDefinedBrand, "/browse/cities")],
@@ -27,12 +27,17 @@ export const Route = createFileRoute("/browse/cities")({
               "@type": "CollectionPage",
               "@id": `${pageUrl}#page`,
               url: pageUrl,
-              name: "Texas Cities and Towns Directory",
+              name: "Compare Texas Cities and Suburbs Before You Move",
               description,
               isPartOf: { "@id": `${siteUrl}#website` },
               publisher: { "@id": `${siteUrl}#organization` },
               mainEntity: { "@id": `${pageUrl}#cities` },
               breadcrumb: { "@id": `${pageUrl}#breadcrumb` },
+              about: [
+                { "@type": "Thing", name: "Moving to Texas" },
+                { "@type": "Thing", name: "Texas cities and suburbs" },
+                { "@type": "Thing", name: "Texas relocation research" },
+              ],
             },
             {
               "@type": "ItemList",
@@ -71,7 +76,7 @@ export const Route = createFileRoute("/browse/cities")({
                 {
                   "@type": "ListItem",
                   position: 2,
-                  name: "Texas cities and towns",
+                  name: "Texas cities and suburbs",
                   item: pageUrl,
                 },
               ],
