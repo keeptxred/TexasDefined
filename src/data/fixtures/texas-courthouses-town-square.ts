@@ -59,7 +59,7 @@ export const texasCourthousesTownSquareArticle: Article = {
     h("Why so many old courthouses look different"),
     p("Texas courthouse architecture spans several eras and styles because counties built and rebuilt at different moments. Fires destroyed some structures. Population growth made others too small. Architectural fashions changed, and new materials and construction methods altered what counties could afford."),
     list("Romanesque Revival courthouses often emphasize heavy masonry, arches and towers.", "Classical and Beaux-Arts influences brought columns, symmetry and monumental entrances.", "Gothic, Renaissance Revival and Second Empire examples added still more regional variety.", "Later courthouses sometimes embraced Art Deco, Moderne or stripped-down civic designs.", "Mid-century replacements often prioritized office space and parking over the old town-square relationship."),
-    p("The Texas Historical Commission has identified more than 200 surviving historic courthouses and more than 700 present and former courthouse sites across the state. The variety is not a design inconsistency. It is a physical timeline of how counties grew, rebuilt and changed their ideas about what public architecture should say."),
+    p("The courthouse collection spans generations of county government, rebuilding and architectural fashion across Texas. The variety is not a design inconsistency; it is a physical timeline of how counties grew, rebuilt and changed their ideas about what public architecture should say."),
 
     h("The square became the town's memory"),
     p("Courthouse lawns accumulated monuments, plaques, shade trees and traditions. Parades passed the square. Election results were discussed there. Businesses around it changed owners but kept the same addresses for generations."),
@@ -76,7 +76,7 @@ export const texasCourthousesTownSquareArticle: Article = {
 
     h("Restoration is about more than pretty architecture"),
     p("Restoring an old courthouse can preserve craftsmanship that would be difficult to reproduce today, but the larger value is urban. A functioning courthouse brings daily activity to the center of town. A restored square can also support surrounding businesses and make historic streets worth maintaining."),
-    p("The state's preservation work has now supported courthouse projects in scores of counties. Many restored buildings continue serving public functions while meeting modern needs for accessibility, life safety, electrical systems, climate control and technology."),
+    p("As of August 2026, the Texas Historical Commission says the preservation program has assisted 107 historic county courthouses with more than $400 million in grants: 81 counties received full-restoration construction projects and 26 received emergency or planning assistance. The agency's separate stewardship program offers preservation training and technical assistance to all 254 counties."),
     p("The strongest preservation projects treat the courthouse, sidewalks, storefronts, trees, parking and public space as one connected place rather than saving a single building in isolation."),
 
     h("The courthouse square is a ready-made Texas road-trip network"),
