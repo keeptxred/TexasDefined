@@ -102,6 +102,7 @@ export const Route = createFileRoute("/sitemap.xml")({
             .filter((path) => !isExploreSitemapOwnedPath(path))
             .filter((path) => isTexasDefinedOwnedStaticPath(path))
             .map((path) => ({ path, lastmod: STATIC_LASTMOD_BY_PATH[path] })),
+          { path: "/texas-icons" },
           ...TEXAS_VS_STATES.map((state) => ({ path: `/texas-vs/${texasVsStateSlug(state)}`, lastmod: PRIORITY_SEO_LASTMOD })),
           ...FISHING_SITEMAP_ENTRIES,
           ...fishingGuideSitemapEntries,
