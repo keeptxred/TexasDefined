@@ -28,12 +28,13 @@ const slugs = [
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 async function fetchWithTimeout(url, { method = "GET" } = {}) {
-  return fetch(url, {
+  const response = await fetch(url, {
     method,
     redirect: "follow",
     headers: { "user-agent": USER_AGENT, accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8" },
     signal: AbortSignal.timeout(30_000),
   });
+  return response;
 }
 
 function attrValue(tag, attribute) {
@@ -114,7 +115,9 @@ async function verifyAttempt(attempt) {
   const sitemap = await sitemapResponse.text();
   const failures = [];
 
-  if (sitemapResponse.status !== 200) failures.push(`sitemap status ${sitemapResponse.status}`);
+  if (sitemapResponse.status !== 200) {
+    failures.push(`sitemap status ${sitemapResponse.status}`);
+  }
 
   for (const slug of slugs) {
     const url = `${SITE}/article/${slug}`;
