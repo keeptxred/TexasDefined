@@ -50,6 +50,9 @@ jobs:
       - name: Run authoritative validation suite
         run: node scripts/ci/run-validation-suite.mjs full
 
+      - name: Validate AdSense-facing finance content depth
+        run: node scripts/data/validate-adsense-content-depth.mjs
+
       - name: Validate Texas Talent content depth
         run: node scripts/data/validate-texas-talent-content-depth.mjs
 
