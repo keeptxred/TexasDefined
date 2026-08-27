@@ -71,6 +71,10 @@ const SUPPLEMENTAL_MAJOR_EVENT_SITEMAP: readonly SitemapEntry[] = [
   { path: "/event/comicpalooza", lastmod: "2026-08-27" },
   { path: "/event/tejano-conjunto-festival", lastmod: "2026-08-27" },
   { path: "/event/great-texas-balloon-race", lastmod: "2026-08-27" },
+  { path: "/event/hidalgo-borderfest", lastmod: "2026-08-27" },
+  { path: "/event/austin-reggae-festival", lastmod: "2026-08-27" },
+  { path: "/event/texas-outdoor-musical", lastmod: "2026-08-27" },
+  { path: "/event/washington-on-the-brazos-texas-independence-day", lastmod: "2026-08-27" },
 ];
 
 export const Route = createFileRoute("/sitemap.xml")({
