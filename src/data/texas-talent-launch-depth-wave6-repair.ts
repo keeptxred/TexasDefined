@@ -31,7 +31,7 @@ export const TEXAS_TALENT_LAUNCH_DEPTH_WAVE6_REPAIR: Readonly<Record<string, Tex
   },
   "renee-zellweger": {
     overviewAppend: [
-      "The Katy-to-Austin progression also gives readers two distinct Texas settings to follow, connecting a Houston-area upbringing with UT Austin and the state's early professional film network before her career moved onto a national and international stage.",
+      "The Katy-to-Austin progression also gives readers two distinct Texas settings to follow, connecting a Houston-area upbringing with UT Austin and the state's early professional film network before her career moved onto a national and international stage today.",
     ],
     legacyAppend: [
       "Her Texas beginning also illustrates how university training and regional production experience can become an early professional bridge rather than remaining separate from a later national career.",
