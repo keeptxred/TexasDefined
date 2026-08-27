@@ -42,7 +42,8 @@ export const getTexasIconProfile = createServerFn({ method: "GET" })
     const sourceSlug = texasIconCorrectionSourceSlug(data.slug);
     const profile = await loadTexasIconProfileServer(sourceSlug);
     if (!profile) return null;
-    const correctedIcon = applyTexasIconRosterCorrection(profile.icon);
+    const sanitizedSourceIcon = applyTexasIconEditorialHoldSummary(profile.icon);
+    const correctedIcon = applyTexasIconRosterCorrection(sanitizedSourceIcon);
     const icon = applyTexasIconEditorialHoldSummary(correctedIcon);
     const correctedResearch = texasIconCorrectedResearchProfile(icon.slug);
     return {
