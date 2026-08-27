@@ -9,6 +9,15 @@ export type TexasMusicTradition = {
   guideHref?: string;
 };
 
+export type TexasMusicTimelineEra = {
+  id: string;
+  period: string;
+  title: string;
+  summary: string;
+  milestones: readonly string[];
+  links: readonly { href: string; label: string }[];
+};
+
 export type TexasMusicRelatedGuide = {
   title: string;
   href: string;
@@ -109,7 +118,167 @@ export const TEXAS_MUSIC_TRADITIONS: readonly TexasMusicTradition[] = [
   },
 ] as const;
 
+export const TEXAS_MUSIC_TIMELINE: readonly TexasMusicTimelineEra[] = [
+  {
+    id: "roots-before-recording",
+    period: "Before 1900",
+    title: "The roots arrive before the record industry",
+    summary:
+      "Texas music began as overlapping community traditions rather than commercial genres. Mexican and borderland music, African American sacred and secular traditions, Anglo fiddle music, German and Czech dance culture, cowboy songs and other local practices met across a rapidly changing state.",
+    milestones: [
+      "Accordion traditions entered South Texas and the borderlands through nineteenth-century cultural exchange and later became central to conjunto.",
+      "German and Czech communities built dance halls and social institutions that made communal music and dancing part of Central Texas life.",
+      "African American work songs, spirituals, blues precursors and church music created foundations later heard in Texas blues, gospel, R&B, jazz and rock.",
+    ],
+    links: [
+      { href: "/texas-conjunto-tejano", label: "Conjunto & Tejano roots" },
+      { href: "/texas-dance-halls-honky-tonks", label: "Dance halls & honky-tonks" },
+    ],
+  },
+  {
+    id: "recording-radio",
+    period: "1900s–1920s",
+    title: "Cities, records and radio make local sounds portable",
+    summary:
+      "Urban districts, touring circuits and new recording technology began turning regional performance traditions into music that could travel. Dallas and Houston became especially important to Black music networks, while radio and record companies changed how country and border musicians reached audiences.",
+    milestones: [
+      "Dallas's Deep Ellum developed into a major Black entertainment district where blues and jazz circulated through clubs, streets and businesses.",
+      "Blind Lemon Jefferson's recordings in the 1920s helped carry a distinctive Texas guitar-and-vocal blues style into the national record market.",
+      "Commercial recording and radio increasingly connected rural performers with city audiences and interstate touring networks.",
+    ],
+    links: [
+      { href: "/texas-blues", label: "Texas blues" },
+      { href: "/dallas-fort-worth-music-history", label: "Dallas–Fort Worth music history" },
+    ],
+  },
+  {
+    id: "swing-conjunto",
+    period: "1930s–1940s",
+    title: "Western swing, conjunto and big-city music systems take shape",
+    summary:
+      "The Depression and wartime decades did not produce one Texas sound. They produced several: western swing grew from dance-band experimentation, conjunto found a defining accordion-and-bajo-sexto format, and jazz, gospel, country and blues moved through increasingly connected radio, ballroom and touring systems.",
+    milestones: [
+      "Milton Brown, Bob Wills and other Texas musicians blended fiddle music, blues, jazz, polkas and dance-band arrangements into western swing.",
+      "Narciso Martínez helped establish the two-row accordion as a lead voice in Texas-Mexican conjunto while the bajo sexto carried rhythm and bass movement.",
+      "Church quartets, territory bands and urban blues scenes expanded the musical infrastructure of Houston, Dallas, Fort Worth and San Antonio.",
+    ],
+    links: [
+      { href: "/texas-western-swing", label: "Western swing" },
+      { href: "/texas-conjunto-tejano", label: "Conjunto & Tejano" },
+      { href: "/texas-jazz", label: "Texas jazz" },
+    ],
+  },
+  {
+    id: "electric-postwar",
+    period: "1940s–1950s",
+    title: "Electric instruments and independent institutions reshape the sound",
+    summary:
+      "Postwar Texas music became louder, more urban and more connected to independent labels, clubs and studios. Electric blues, rhythm and blues, honky-tonk country, gospel and jazz overlapped with the emerging language of rock and roll.",
+    milestones: [
+      "T-Bone Walker's electric-guitar approach became one of the most important bridges from Texas blues into later electric blues and rock guitar.",
+      "Houston's Duke-Peacock network became a major independent force in blues, gospel and rhythm and blues.",
+      "Fort Worth, Houston and other cities produced jazz musicians who moved from swing and territory-band traditions toward bebop and modern experimentation.",
+    ],
+    links: [
+      { href: "/texas-blues", label: "Texas blues" },
+      { href: "/texas-gospel-rnb-pop", label: "Gospel, R&B & pop" },
+      { href: "/houston-music-history", label: "Houston music history" },
+    ],
+  },
+  {
+    id: "rock-modern-jazz",
+    period: "1950s–1960s",
+    title: "Texas enters the rock-and-roll era without leaving its older traditions behind",
+    summary:
+      "Rock and roll made Texas musicians newly visible to international audiences, but the state's older systems kept evolving at the same time. West Texas rock, Gulf Coast R&B, modern jazz, country and border music all continued to borrow from one another.",
+    milestones: [
+      "Buddy Holly and the Crickets turned Lubbock influences into a compact band sound that became foundational to later rock groups.",
+      "Roy Orbison and other Texas performers moved between country, rockabilly and pop as record-industry categories remained fluid.",
+      "Fort Worth-born Ornette Coleman became a central figure in modern jazz experimentation, showing how far Texas-trained musicians could push beyond regional labels.",
+    ],
+    links: [
+      { href: "/texas-rock-rockabilly", label: "Texas rock & rockabilly" },
+      { href: "/lubbock-music-history", label: "Lubbock music history" },
+      { href: "/texas-jazz", label: "Texas jazz" },
+    ],
+  },
+  {
+    id: "austin-progressive-country",
+    period: "1970s",
+    title: "Austin becomes a national crossroads while regional scenes keep their identities",
+    summary:
+      "Austin's progressive-country scene became the decade's most visible Texas music story by putting traditional country, folk, rock and counterculture audiences into the same rooms. At the same time, blues clubs, Tejano networks, soul, jazz and regional country scenes remained essential elsewhere in the state.",
+    milestones: [
+      "Willie Nelson, Waylon Jennings and a larger songwriter community helped make Austin an alternative center for country music outside Nashville convention.",
+      "The Armadillo World Headquarters became a symbol of mixed audiences and cross-genre booking.",
+      "Antone's opened in 1975 and connected veteran blues artists with a younger generation of Austin players.",
+    ],
+    links: [
+      { href: "/texas-country-outlaw", label: "Country & outlaw country" },
+      { href: "/austin-music-history", label: "Austin music history" },
+      { href: "/antones-austin-history", label: "Antone's history" },
+    ],
+  },
+  {
+    id: "regional-stars",
+    period: "1980s–1990s",
+    title: "Regional systems create stars without erasing local identity",
+    summary:
+      "Texas scenes became nationally visible through very different channels: country radio, Tejano, blues-rock, gospel, independent rap and pop. The common pattern was strong local infrastructure—clubs, labels, radio, churches, studios and touring networks—before national attention arrived.",
+    milestones: [
+      "George Strait carried South Texas country and dance-hall traditions into a long national career while remaining closely associated with the state's country identity.",
+      "Selena became the defining public figure of Tejano's 1990s boom and helped bring South Texas bilingual culture to a much wider audience.",
+      "Houston rap grew through Rap-A-Lot, the Geto Boys, DJ Screw's tape culture and other independent networks rather than waiting for coastal industry approval.",
+      "Fort Worth's Kirk Franklin helped transform contemporary gospel's national profile, while Houston's Destiny's Child emerged at the end of the decade.",
+    ],
+    links: [
+      { href: "/texas-conjunto-tejano", label: "Conjunto & Tejano" },
+      { href: "/texas-hip-hop", label: "Texas hip-hop" },
+      { href: "/texas-gospel-rnb-pop", label: "Gospel, R&B & pop" },
+    ],
+  },
+  {
+    id: "national-global",
+    period: "2000s–2010s",
+    title: "Texas scenes move from national influence to global scale",
+    summary:
+      "By the twenty-first century, Texas musicians could carry unmistakably local histories into global pop, hip-hop, country, gospel and roots music. Houston rap entered the national mainstream, Beyoncé built a global career from Houston roots, and new artists repeatedly drew on older Texas forms without treating them as museum pieces.",
+    milestones: [
+      "Houston and Port Arthur hip-hop became central to the national Southern-rap story, with chopped-and-screwed aesthetics and Gulf Coast voices influencing artists far beyond Texas.",
+      "Beyoncé's solo career expanded Houston's place in global R&B and pop while continuing to reference Southern and Texas identity.",
+      "Fort Worth artists such as Leon Bridges demonstrated that older soul, gospel and R&B vocabularies could be renewed rather than merely reproduced.",
+    ],
+    links: [
+      { href: "/texas-hip-hop", label: "Texas hip-hop" },
+      { href: "/texas-gospel-rnb-pop", label: "Gospel, R&B & pop" },
+      { href: "/texas-music-cities", label: "Texas music cities" },
+    ],
+  },
+  {
+    id: "living-history",
+    period: "Today",
+    title: "The timeline stays open because Texas music is still being made",
+    summary:
+      "The most useful way to read Texas music today is as living history. Dance halls still host music, old genres keep changing, city scenes overlap through touring and digital distribution, and new artists can draw simultaneously from country, rap, conjunto, gospel, blues, rock, jazz and pop.",
+    milestones: [
+      "Historic venues remain part of current music culture rather than functioning only as preserved landmarks.",
+      "City scenes still matter even when digital distribution lets artists reach audiences without leaving Texas.",
+      "TexasDefined treats this chronology as a framework for deeper genre, city, venue and artist research—not as a claim that musical change happened in neat decade-sized boxes.",
+    ],
+    links: [
+      { href: "/texas-music-venues", label: "Legendary Texas music venues" },
+      { href: "/texas-music-cities", label: "Texas music cities" },
+      { href: "/events", label: "Texas events" },
+    ],
+  },
+] as const;
+
 export const TEXAS_MUSIC_RELATED_GUIDES: readonly TexasMusicRelatedGuide[] = [
+  {
+    title: "Texas Music Timeline",
+    href: "/texas-music#timeline",
+    description: "Follow the statewide chronology from community roots and early records through western swing, rock, outlaw country, Tejano, hip-hop and modern pop.",
+  },
   {
     title: "Texas Blues",
     href: "/texas-blues",
