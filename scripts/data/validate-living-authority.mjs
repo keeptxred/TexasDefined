@@ -91,7 +91,7 @@ if (!analytics.includes("trackTexasDefinedOutcome('partner_referral_clicked'")) 
 for (const requirement of [
   '<RelocationAuthorityLab />',
   '/moving-to-texas/data',
-  '/texas-data/texas-population-and-migration-2024',
+  '/texas-data/texas-population-and-migration-2025',
   '/texas-data/where-new-texans-came-from-2024',
   '/texas-data/texas-homeowners-premium-history',
   '/texas-data/texas-metro-payrolls-june-2026',
@@ -104,6 +104,7 @@ for (const requirement of [
   "createFileRoute('/moving-to-texas/data')",
   "const canonicalPath = '/moving-to-texas/data'",
   "'@type': ['CollectionPage', 'DataCatalog']",
+  "'texas-population-and-migration-2025'",
   "'texas-population-and-migration-2024'",
   "'where-new-texans-came-from-2024'",
   "'texas-homeowners-premium-history'",
@@ -114,6 +115,7 @@ for (const requirement of [
   'TWIA wind coverage can apply in 14 coastal counties and parts of Harris County',
   'hidden “best city” score',
   'RELOCATION_METROS',
+  'RELOCATION_SOURCES.censusPopulation',
   'RELOCATION_SOURCES.censusMigration',
   'RELOCATION_SOURCES.censusCountyMigration',
   'RELOCATION_SOURCES.blsMetro',
@@ -165,6 +167,7 @@ for (const requirement of ['geocoding.geo.census.gov', 'Public_AR_Current', 'Cur
 }
 
 for (const slug of [
+  'texas-population-and-migration-2025',
   'texas-population-and-migration-2024',
   'where-new-texans-came-from-2024',
   'texas-homeowners-premium-history',
@@ -224,11 +227,13 @@ for (const requirement of [
   '/texas-salary-comparison-by-city',
   '/texas-home-insurance-calculator',
   '/texas-homeownership-cost-calculator',
+  '/texas-data/texas-population-and-migration-2025',
   '/texas-data/texas-population-and-migration-2024',
   '/texas-data/where-new-texans-came-from-2024',
   '/texas-data/texas-homeowners-premium-history',
   '/texas-data/texas-metro-payrolls-june-2026',
   '/texas-data/texas-traffic-monitoring-coverage',
+  'RELOCATION_SOURCES.censusPopulation',
   'RELOCATION_SOURCES.censusCountyMigration',
   'RELOCATION_SOURCES.blsMetro',
   'RELOCATION_SOURCES.tdiInsurance',
