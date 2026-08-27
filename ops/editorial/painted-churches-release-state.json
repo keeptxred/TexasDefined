@@ -1,13 +1,17 @@
 {
-  "schemaVersion": 1,
-  "asOf": "2026-08-25",
+  "schemaVersion": 2,
+  "asOf": "2026-08-26",
   "collectionState": "production-public",
   "runtimeIndexability": "public-indexable",
+  "ownerIndexingApproval": true,
+  "ownerIndexingApprovalDate": "2026-08-26",
+  "googleCrawlingExpected": true,
   "canonicalChurchCountSource": "src/data/painted-churches-expanded.ts",
   "publicRouteGovernance": "src/lib/public-routes.ts",
   "sitemapGovernance": "src/routes/sitemap-explore[.]xml.ts",
+  "robotsGovernance": "public/robots.txt",
   "historicalPreindexSnapshot": "ops/editorial/painted-churches-preindex-snapshot-20260822/painted-church-preindex-manifest.json",
   "historicalSnapshotControlsRuntime": false,
-  "note": "The preserved pre-index snapshot is immutable historical provenance from the earlier review stage. It does not control current route visibility, canonical metadata, sitemap eligibility or runtime indexability. Current production behavior is governed by the live route, public-route and sitemap code listed above.",
-  "remediationScope": "Reconcile documentation and crawl signals with the already-public runtime without changing the global public-indexing switch or submitting URLs through IndexNow or Google Search Console."
+  "note": "The preserved pre-index snapshot is immutable historical provenance from the earlier review stage. It does not control current route visibility, canonical metadata, sitemap eligibility, robots policy or runtime indexability. The owner explicitly approved full Painted Churches search indexing on August 26, 2026.",
+  "remediationScope": "Keep the public Painted Churches collection crawlable and indexable. Googlebot must remain allowed by robots.txt, the collection must remain in public-route and sitemap governance, and no Painted Churches-specific noindex gate may be introduced. Search-engine URL submission remains a separate optional discovery action."
 }
