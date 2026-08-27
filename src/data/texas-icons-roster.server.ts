@@ -81,6 +81,8 @@ const CANONICAL_PATHS: Readonly<Record<string, string>> = {
   "Space Center Houston": "/destination/space-center-houston",
   "Big Bend National Park": "/destination/big-bend-national-park",
   "Palo Duro Canyon": "/destination/palo-duro-canyon-state-park",
+  "San Antonio River Walk": "/destination/san-antonio-river-walk",
+  "Enchanted Rock": "/destination/enchanted-rock-state-natural-area",
   "Sam Houston": "/article/sam-houston-texas-life-legacy",
   "Stephen F. Austin": "/article/stephen-f-austin-father-of-texas",
   "Davy Crockett": "/article/davy-crockett-texas-alamo-legend",
