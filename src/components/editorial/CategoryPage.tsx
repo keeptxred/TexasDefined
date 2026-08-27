@@ -7,6 +7,7 @@ import { ArticleCard } from "@/components/editorial/ArticleCard";
 import { DestinationCollectionGrid } from "@/components/editorial/DestinationCollectionGrid";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
+import type { ExploreAuthorityGuide } from "@/data/explore-category-authority";
 import { articlesQuery, categoriesQuery, destinationsQuery, regionsQuery } from "@/data/queries";
 import type { CategorySlug, ImageRef } from "@/data/types";
 
@@ -52,12 +53,13 @@ function CategoryBreadcrumb({ belongsToExplore, belongsToTexasLife, current, inv
   );
 }
 
-export function CategoryPage({ category, eyebrow, title, intro, image }: {
+export function CategoryPage({ category, eyebrow, title, intro, image, authorityGuide }: {
   category: CategorySlug;
   eyebrow: string;
   title: string;
   intro: string;
   image?: ImageRef | undefined;
+  authorityGuide?: ExploreAuthorityGuide | null;
 }) {
   const { data: articles } = useSuspenseQuery(articlesQuery({ category }));
   const { data: destinations } = useSuspenseQuery(destinationsQuery({ category }));
@@ -123,11 +125,11 @@ export function CategoryPage({ category, eyebrow, title, intro, image }: {
         items={answerItems}
       />
 
-      {belongsToExplore && (
+      {belongsToExplore && authorityGuide ? (
         <Suspense fallback={null}>
-          <ExploreCategoryAuthority category={category} />
+          <ExploreCategoryAuthority category={category} guide={authorityGuide} />
         </Suspense>
-      )}
+      ) : null}
 
       <Suspense fallback={null}>
         <LivingAuthorityPaths currentCategory={category} />
