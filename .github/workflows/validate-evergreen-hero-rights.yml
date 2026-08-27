@@ -1,0 +1,28 @@
+name: Validate evergreen hero rights
+
+on:
+  pull_request:
+    paths:
+      - "scripts/data/evergreen-hero-rights-manifest.json"
+      - "scripts/data/validate-evergreen-hero-rights.mjs"
+      - ".github/workflows/validate-evergreen-hero-rights.yml"
+  push:
+    branches: [main]
+    paths:
+      - "scripts/data/evergreen-hero-rights-manifest.json"
+      - "scripts/data/validate-evergreen-hero-rights.mjs"
+      - ".github/workflows/validate-evergreen-hero-rights.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate evergreen hero rights manifest
+        run: node scripts/data/validate-evergreen-hero-rights.mjs
