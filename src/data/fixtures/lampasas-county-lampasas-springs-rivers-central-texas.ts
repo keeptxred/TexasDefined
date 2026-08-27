@@ -36,16 +36,16 @@ export const lampasasCountyLampasasSpringsRiversCentralTexasArticle: Article = {
   featured: false,
   internalLinks: [
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
-    { href: "/county/bell", label: "Explore Bell County", description: "Continue east toward Belton, Temple, Fort Cavazos and the lakes of Central Texas." },
+    { href: "/county/bell", label: "Explore Bell County", description: "Continue east toward Belton, Temple, Fort Hood and the lakes of Central Texas." },
     { href: "/county/burnet", label: "Explore Burnet County", description: "Head south toward Burnet, Marble Falls, granite country and the Highland Lakes." },
     { href: "/county/san-saba", label: "Explore San Saba County", description: "Continue west into San Saba River country, pecan groves and ranching landscapes." },
-    { href: "/county/coryell", label: "Explore Coryell County", description: "Travel northeast toward Gatesville and the limestone uplands west of Fort Cavazos." },
+    { href: "/county/coryell", label: "Explore Coryell County", description: "Travel northeast toward Gatesville and the limestone uplands west of Fort Hood." },
     { href: "/article/why-texas-has-254-counties", label: "Why Texas has 254 counties", description: "See how settlement, transportation and courthouse access shaped Texas county boundaries." },
   ],
   relatedCollections: [],
   relatedDestinations: [],
   body: [
-    p("Lampasas County occupies a useful middle ground on the Texas map. It is close enough to Austin, Killeen and the Interstate 35 corridor to feel connected to the state's fast-growing center, yet much of the county remains ranch country built around limestone hills, spring-fed creeks and broad river valleys. The town of Lampasas is the county seat and principal service center, while Lometa anchors the northwest and Kempner connects the eastern side of the county with the Fort Cavazos and Killeen area."),
+    p("Lampasas County occupies a useful middle ground on the Texas map. It is close enough to Austin, Killeen and the Interstate 35 corridor to feel connected to the state's fast-growing center, yet much of the county remains ranch country built around limestone hills, spring-fed creeks and broad river valleys. The town of Lampasas is the county seat and principal service center, while Lometa anchors the northwest and Kempner connects the eastern side of the county with the Fort Hood and Killeen area."),
     p("Water explains much of the county's history. The Lampasas River drains most of the county, the Colorado River forms much of its western edge, and mineral springs along Sulphur Creek drew Indigenous people, Spanish travelers, settlers, health seekers and resort developers. Ranching, railroads, limestone construction, military growth nearby and modern highway travel added new layers without erasing that older geography."),
 
     h("A county at the meeting point of Central Texas landscapes"),
@@ -84,8 +84,8 @@ export const lampasasCountyLampasasSpringsRiversCentralTexasArticle: Article = {
     p("Lometa developed in northwestern Lampasas County as railroads reorganized trade routes across the region. Its location near ranch and farm country made it a shipping and service point for livestock, grain and local commerce. The surrounding landscape is more open and agricultural than the spring-centered county seat."),
     p("The town remains a useful gateway to western Lampasas County and the Colorado River country. Nearby creeks, reservoirs and ranch roads show how water and transportation combined to shape settlement even where population remained sparse."),
 
-    h("Kempner links the county with the Fort Cavazos corridor"),
-    p("Kempner lies in eastern Lampasas County near the Lampasas River and along the route toward Copperas Cove and Killeen. It began as a rural farming and ranching community but has increasingly become part of the broader residential and commuting zone influenced by Fort Cavazos and Bell County."),
+    h("Kempner links the county with the Fort Hood corridor"),
+    p("Kempner lies in eastern Lampasas County near the Lampasas River and along the route toward Copperas Cove and Killeen. It began as a rural farming and ranching community but has increasingly become part of the broader residential and commuting zone influenced by Fort Hood and Bell County."),
     p("That growth gives Lampasas County two distinct development patterns. The western and northern portions remain strongly rural, while the eastern corridor feels the pull of one of the state's largest military and employment centers. The county seat sits between those worlds."),
 
     h("The Lampasas River organizes the eastern half of the county"),
@@ -100,8 +100,8 @@ export const lampasasCountyLampasasSpringsRiversCentralTexasArticle: Article = {
     p("Sulphur Creek flows through Lampasas and past Hancock Springs. Its reliable water helped create the town, but the creek also flooded repeatedly, including damaging events in the nineteenth and twentieth centuries. Flood-control projects begun in the mid-twentieth century reduced that risk and changed the way the community managed its watershed."),
     p("Today the creek corridor provides parks and green space close to downtown. It is one of the best places to see how Lampasas grew around water rather than simply beside it: mills, resorts, recreation and flood-control infrastructure all occupy the same narrow valley."),
 
-    h("Fort Cavazos changed the county without being inside it"),
-    p("The development of Camp Hood during World War II, later Fort Hood and now Fort Cavazos, transformed the wider region east of Lampasas County. Soldiers used Hancock Park and its springs for recreation during the war years, and the military installation became a long-term source of employment and population growth for neighboring communities."),
+    h("Fort Hood changed the county without being inside it"),
+    p("The development of Camp Hood during World War II and its later evolution into Fort Hood transformed the wider region east of Lampasas County. The installation carried the name Fort Cavazos from May 2023 until June 2025, when the Army redesignated it Fort Hood in honor of Col. Robert B. Hood. Soldiers used Hancock Park and its springs for recreation during the war years, and the military installation became a long-term source of employment and population growth for neighboring communities."),
     p("Lampasas County remains outside the main urban core around Killeen, but the military economy affects housing, commuting, retail and transportation in the eastern county. This relationship allows Lampasas to remain distinctly rural while participating in one of Central Texas's largest employment networks."),
 
     h("Agriculture remains part of everyday county life"),
@@ -114,7 +114,7 @@ export const lampasasCountyLampasasSpringsRiversCentralTexasArticle: Article = {
 
     h("How to explore Lampasas County"),
     p("Begin at the Lampasas County Courthouse, then walk the historic commercial district before heading toward Hancock Springs and Sulphur Creek. The courthouse explains the civic story; the springs explain why a settlement existed here at all; and the stone downtown shows what happened when the railroad connected the town to distant markets and visitors."),
-    p("From Lampasas, drive northwest toward Lometa for open ranch country and the transition toward the Colorado River basin. Head east toward Kempner to see the county's growing connection with Bell County and Fort Cavazos. Travelers continuing west can pair the trip with San Saba County, while Burnet County to the south leads toward granite country and the Highland Lakes."),
+    p("From Lampasas, drive northwest toward Lometa for open ranch country and the transition toward the Colorado River basin. Head east toward Kempner to see the county's growing connection with Bell County and Fort Hood. Travelers continuing west can pair the trip with San Saba County, while Burnet County to the south leads toward granite country and the Highland Lakes."),
 
     h("What defines Lampasas County"),
     p("Lampasas County is defined by the intersection of water and movement. Mineral springs drew people before there was a county, rivers divided and drained the landscape, livestock spread across the uplands, and the railroad briefly turned a frontier courthouse town into a celebrated resort. Highways and the nearby military economy later connected the same place to modern Central Texas."),

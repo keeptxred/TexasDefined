@@ -64,7 +64,7 @@ export const texasRecentWarsMilitaryHistoryArticle: Article = {
     p("That change connected a famous World War II identity with a very different modern force. The contemporary 36th Division has operated in a military environment defined by joint commands, digital communications, precision weapons, counterinsurgency, homeland response and multinational deployments."),
 
     h("Texas installations became more joint and concentrated"),
-    p("Recent wars also accelerated institutional consolidation. San Antonio's major military facilities were grouped under Joint Base San Antonio, while Fort Hood—now Fort Cavazos—remained one of the Army's largest installations. Fort Bliss at El Paso expanded substantially as missions shifted and other bases closed."),
+    p("Recent wars also accelerated institutional consolidation. San Antonio's major military facilities were grouped under Joint Base San Antonio, while Fort Hood remained one of the Army's largest installations. The Central Texas post was named Fort Cavazos from May 2023 until June 2025, when the Army redesignated it Fort Hood in honor of World War I Distinguished Service Cross recipient Col. Robert B. Hood. Fort Bliss at El Paso expanded substantially as missions shifted and other bases closed."),
     p("These changes show why recent military history is also urban and economic history. Base realignment affects housing, schools, transportation, employment and regional growth. A military mission moving from one installation to another can reshape communities even when no battle occurs nearby."),
 
     h("The Guard still serves two governments"),
