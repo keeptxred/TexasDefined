@@ -6,7 +6,7 @@ import { getTexasCountyHousingCosts } from "@/data/acs-county-housing-costs.func
 import { fetchPublishedTexasDefinedEvergreenArticles, fetchPublishedTexasDefinedNewsArticles } from "@/data/articles-remote";
 import { loadTexasCountyGrowth } from "@/data/census-county-growth";
 import { isLegacyCountySeriesArticle } from "@/data/county-series";
-import { isTexasGatewayIndexReadyArticle } from "@/data/fixtures/texas-gateway-index-readiness";
+import { isArticleIndexReady } from "@/data/fixtures/texas-gateway-index-readiness";
 import { loadFishingGuideSitemapEntriesServer } from "@/data/fishing/guide-sitemap.server";
 import { loadFishingLocalSitemapEntriesServer } from "@/data/fishing/local-sitemap.server";
 import { loadFishingReportSitemapEntriesServer } from "@/data/fishing/report-sitemap.server";
@@ -118,7 +118,9 @@ export const Route = createFileRoute("/sitemap.xml")({
           ...fishingLocalSitemapEntries,
           ...(remoteNews.length ? [{ path: "/news" }] : []),
           ...remoteNews.map((article) => ({ path: `/news/${article.slug}`, lastmod: toDate(article.publishedAt) })),
-          ...remoteEvergreen.map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(article.publishedAt) })),
+          ...remoteEvergreen
+            .filter(isArticleIndexReady)
+            .map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(article.publishedAt) })),
           ...(countyGrowth.available ? [{ path: "/texas-data/county-growth", lastmod: "2026-03-17" }] : []),
           ...(countyHousingCosts?.available
             ? [{ path: "/texas-data/county-housing-costs", lastmod: toDate(countyHousingCosts.generatedAt ?? undefined) }]
@@ -128,7 +130,7 @@ export const Route = createFileRoute("/sitemap.xml")({
             .map((collection) => ({ path: `/shop/${collection.slug}` })),
           ...authors.map((author) => ({ path: `/authors/${author.id}` })),
           ...articles
-            .filter((article) => !isLegacyCountySeriesArticle(article.slug) && isTexasGatewayIndexReadyArticle(article))
+            .filter((article) => !isLegacyCountySeriesArticle(article.slug) && isArticleIndexReady(article))
             .map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(ARTICLE_LASTMOD_BY_SLUG[article.slug] ?? article.publishedAt) })),
           ...countyPages.map((county) => ({ path: `/property-tax/county/${county.slug}`, lastmod: toDate(county.lastVerifiedAt ?? undefined) })),
           ...entityPages.map((entity) => ({ path: canonicalEntityPath(entity), lastmod: toDate(entity.sourceCheckedAt) })),
