@@ -67,6 +67,10 @@ const SUPPLEMENTAL_MAJOR_EVENT_SITEMAP: readonly SitemapEntry[] = [
   { path: "/event/rockport-art-festival", lastmod: "2026-08-27" },
   { path: "/event/viva-el-paso", lastmod: "2026-08-27" },
   { path: "/event/texas-shakespeare-festival", lastmod: "2026-08-27" },
+  { path: "/event/poteet-strawberry-festival", lastmod: "2026-08-27" },
+  { path: "/event/comicpalooza", lastmod: "2026-08-27" },
+  { path: "/event/tejano-conjunto-festival", lastmod: "2026-08-27" },
+  { path: "/event/great-texas-balloon-race", lastmod: "2026-08-27" },
 ];
 
 export const Route = createFileRoute("/sitemap.xml")({
