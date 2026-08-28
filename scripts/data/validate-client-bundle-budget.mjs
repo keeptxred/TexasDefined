@@ -13,6 +13,11 @@ const STABLE_MAIN_BASELINE_BYTES = 1_807_457;
 const MAX_MAIN_BYTES = 1_825_000;
 const MAX_CSS_BYTES = 140_000;
 
+function fail(message) {
+  console.error(`::error title=Client performance budget::${message}`);
+  throw new Error(message);
+}
+
 async function resolveAssetsDir() {
   for (const candidate of assetDirCandidates) {
     try {
@@ -26,35 +31,37 @@ async function resolveAssetsDir() {
     }
   }
 
-  throw new Error(
-    `Client assets directory not found. Expected Cloudflare Vite output at ${assetDirCandidates[0]} or legacy Nitro output at ${assetDirCandidates[1]}.`,
-  );
+  fail(`Client assets directory not found. Expected Cloudflare Vite output at ${assetDirCandidates[0]} or legacy Nitro output at ${assetDirCandidates[1]}.`);
 }
 
 async function main() {
   const viteConfig = await readFile(viteConfigPath, 'utf8');
   if (!/autoCodeSplitting\s*:\s*false/.test(viteConfig)) {
-    throw new Error('TanStack autoCodeSplitting must remain disabled: the measured route-splitting experiment increased the main client bundle.');
+    fail('TanStack autoCodeSplitting must remain disabled: the measured route-splitting experiment increased the main client bundle.');
   }
 
   const assetsDir = await resolveAssetsDir();
   const entries = await readdir(assetsDir);
   const mainCandidates = entries.filter((name) => /^main-.*\.js$/.test(name));
+  const cssFiles = entries.filter((name) => /^styles-.*\.css$/.test(name));
+  const mainAssetSizes = await Promise.all(mainCandidates.map(async (name) => `${name}=${(await stat(path.join(assetsDir, name))).size}`));
+  const cssAssetSizes = await Promise.all(cssFiles.map(async (name) => `${name}=${(await stat(path.join(assetsDir, name))).size}`));
+  console.log(`::notice title=Protected client asset sizes::main: ${mainAssetSizes.join(', ') || 'none'}; styles: ${cssAssetSizes.join(', ') || 'none'}`);
+
   if (mainCandidates.length !== 1) {
-    throw new Error(`Expected exactly one main client bundle, found ${mainCandidates.length}: ${mainCandidates.join(', ')}`);
+    fail(`Expected exactly one main client bundle, found ${mainCandidates.length}: ${mainCandidates.join(', ')}`);
   }
 
   const mainFile = mainCandidates[0];
   const mainBytes = (await stat(path.join(assetsDir, mainFile))).size;
   if (mainBytes > MAX_MAIN_BYTES) {
-    throw new Error(`Main client bundle ${mainFile} is ${mainBytes.toLocaleString()} bytes; budget is ${MAX_MAIN_BYTES.toLocaleString()} bytes (stable baseline ${STABLE_MAIN_BASELINE_BYTES.toLocaleString()} bytes).`);
+    fail(`Main client bundle ${mainFile} is ${mainBytes.toLocaleString()} bytes; budget is ${MAX_MAIN_BYTES.toLocaleString()} bytes (stable baseline ${STABLE_MAIN_BASELINE_BYTES.toLocaleString()} bytes).`);
   }
 
-  const cssFiles = entries.filter((name) => /^styles-.*\.css$/.test(name));
   for (const cssFile of cssFiles) {
     const cssBytes = (await stat(path.join(assetsDir, cssFile))).size;
     if (cssBytes > MAX_CSS_BYTES) {
-      throw new Error(`Primary stylesheet ${cssFile} is ${cssBytes.toLocaleString()} bytes; budget is ${MAX_CSS_BYTES.toLocaleString()} bytes.`);
+      fail(`Primary stylesheet ${cssFile} is ${cssBytes.toLocaleString()} bytes; budget is ${MAX_CSS_BYTES.toLocaleString()} bytes.`);
     }
   }
 
