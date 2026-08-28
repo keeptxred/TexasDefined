@@ -70,10 +70,11 @@ function AboutPage() {
           {ACCOUNTABILITY.map((item) => <section key={item.title} className="border-t border-border pt-5"><h2 className="font-display text-2xl leading-tight">{item.title}</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">{item.body}</p></section>)}
         </div>
         <p className="mt-10 max-w-3xl border-t border-border pt-6 text-sm leading-7 text-muted-foreground">Contributor profiles are reached from article bylines and contain that writer’s published archive. Start with any story in <Link to="/explore" className="border-b border-primary text-primary">Explore Texas</Link> or <Link to="/texas-living" className="border-b border-primary text-primary">Texas Life</Link> to follow a byline to its canonical profile.</p>
+        <p id="contact" className="mt-6 max-w-3xl scroll-mt-28 text-sm leading-7 text-muted-foreground"><strong className="text-foreground">Contact Texas Defined.</strong> For corrections, source updates or general questions, use an official profile: {texasDefinedBrand.identity.social.map((profile, index) => <span key={profile.href}>{index ? " · " : ""}<a href={profile.href} target="_blank" rel="noreferrer" className="border-b border-primary text-primary">{profile.label}</a></span>)}. A street address is published only when there is a verified public business location to list.</p>
       </Container>
     </Section>
 
-    <Section tone="surface">
+    <Section>
       <Container>
         <div id="privacy-terms" className="scroll-mt-28 border-t-2 border-foreground pt-8">
           <SectionHeader eyebrow="Privacy & site terms" title="What the site handles — and what to verify elsewhere" description="A plain-English summary of the data and services used by Texas Defined. We keep this section focused on how the site actually works rather than legal boilerplate." />
