@@ -44,58 +44,36 @@ export function FeatureHero({ eyebrow, title, dek, image, to, params, meta, vari
   const brand = useBrand();
 
   if (variant === "split") {
-    return (
-      <>
-        <section className="relative isolate overflow-hidden border-b border-border/70 bg-background text-foreground">
-          <div className="mx-auto grid w-full max-w-[1600px] lg:min-h-[610px] lg:grid-cols-[42%_58%]">
-            <div className="animate-rise relative z-20 flex flex-col justify-center px-6 py-14 sm:px-10 sm:py-16 lg:px-14 xl:px-20">
-              <p className="eyebrow text-primary">{homepageIntro.eyebrow}</p>
-              <h1 className="mt-4 max-w-[11em] font-display text-[2.9rem] font-semibold leading-[0.98] tracking-[-0.03em] text-ink sm:text-[3.55rem] lg:text-[3.9rem]">
-                {homepageIntro.title}
-              </h1>
-              <p className="mt-5 max-w-xl text-[1.02rem] leading-7 text-muted-foreground">{homepageIntro.description}</p>
-
-              <div className="mt-8 border-t border-border/70 pt-6">
-                <p className="eyebrow text-primary">{editorialLabel(eyebrow)}</p>
-                <h2 className="mt-3 max-w-[15em] font-display text-[2rem] font-semibold leading-[1.02] tracking-[-0.02em] text-ink sm:text-[2.35rem]">
-                  {title}
-                </h2>
-                <p className="mt-4 max-w-lg text-base leading-7 text-muted-foreground">{dek}</p>
-                <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
-                  <Link to={to} params={params} className="eyebrow group inline-flex items-center gap-2 border-b border-primary pb-1 text-primary transition-opacity hover:opacity-70">
-                    {brand.copy.readMore}<span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">→</span>
-                  </Link>
-                  {meta && <p className="text-[0.72rem] font-medium uppercase tracking-[0.08em] text-muted-foreground">{meta}</p>}
-                </div>
+    return <>
+      <section className="relative isolate overflow-hidden border-b border-border/70 bg-background text-foreground">
+        <div className="mx-auto grid w-full max-w-[1600px] lg:min-h-[610px] lg:grid-cols-[42%_58%]">
+          <div className="animate-rise relative z-20 flex flex-col justify-center px-6 py-14 sm:px-10 sm:py-16 lg:px-14 xl:px-20">
+            <p className="eyebrow text-primary">{homepageIntro.eyebrow}</p>
+            <h1 className="mt-4 max-w-[11em] font-display text-[2.9rem] font-semibold leading-[0.98] tracking-[-0.03em] text-ink sm:text-[3.55rem] lg:text-[3.9rem]">{homepageIntro.title}</h1>
+            <p className="mt-5 max-w-xl text-[1.02rem] leading-7 text-muted-foreground">{homepageIntro.description}</p>
+            <div className="mt-8 border-t border-border/70 pt-6">
+              <p className="eyebrow text-primary">{editorialLabel(eyebrow)}</p>
+              <h2 className="mt-3 max-w-[15em] font-display text-[2rem] font-semibold leading-[1.02] tracking-[-0.02em] text-ink sm:text-[2.35rem]">{title}</h2>
+              <p className="mt-4 max-w-lg text-base leading-7 text-muted-foreground">{dek}</p>
+              <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
+                <Link to={to} params={params} className="eyebrow group inline-flex items-center gap-2 border-b border-primary pb-1 text-primary transition-opacity hover:opacity-70">{brand.copy.readMore}<span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">→</span></Link>
+                {meta && <p className="text-[0.72rem] font-medium uppercase tracking-[0.08em] text-muted-foreground">{meta}</p>}
               </div>
             </div>
-
-            <div className="relative isolate min-h-[420px] w-full sm:min-h-[520px] lg:min-h-0">
-              <img src={image.src} alt={image.alt} width={image.width} height={image.height} sizes="(min-width: 1024px) 58vw, 100vw" loading="eager" fetchPriority="high" decoding="async" className="animate-slow-zoom absolute inset-0 size-full object-cover" />
-              <div className="pointer-events-none absolute inset-y-0 left-0 z-10 hidden w-24 bg-gradient-to-r from-background/65 to-transparent lg:block" />
-            </div>
           </div>
-        </section>
-
-        <section className="border-b border-border bg-surface" aria-labelledby="texas-defined-faq">
-          <div className="mx-auto w-full max-w-6xl px-5 py-10 sm:px-8 sm:py-12">
-            <div className="max-w-3xl">
-              <p className="eyebrow text-primary">Texas Defined at a glance</p>
-              <h2 id="texas-defined-faq" className="mt-3 font-display text-3xl font-semibold leading-tight text-foreground sm:text-4xl">What to know before you explore</h2>
-            </div>
-            <dl className="mt-8 grid gap-x-10 gap-y-7 md:grid-cols-2">
-              {homepageFaqs.map((item) => (
-                <div key={item.question} className="border-t border-border pt-5">
-                  <dt><h3 className="font-display text-xl font-semibold leading-tight text-foreground">{item.question}</h3></dt>
-                  <dd className="mt-2 text-sm leading-6 text-muted-foreground">{item.answer}</dd>
-                </div>
-              ))}
-            </dl>
-            <p className="mt-8 border-t border-border pt-5 text-sm leading-6 text-muted-foreground">Need to report a correction, update a source or reach the publication? <a href="/about#contact" className="border-b border-primary font-semibold text-primary">Contact Texas Defined</a>.</p>
+          <div className="relative isolate min-h-[420px] w-full sm:min-h-[520px] lg:min-h-0">
+            <img src={image.src} alt={image.alt} width={image.width} height={image.height} sizes="(min-width: 1024px) 58vw, 100vw" loading="eager" fetchPriority="high" decoding="async" className="animate-slow-zoom absolute inset-0 size-full object-cover" />
+            <div className="pointer-events-none absolute inset-y-0 left-0 z-10 hidden w-24 bg-gradient-to-r from-background/65 to-transparent lg:block" />
           </div>
-        </section>
-      </>
-    );
+        </div>
+      </section>
+      <section className="border-b border-border bg-surface px-5 py-8 sm:px-8" aria-labelledby="texas-defined-faq">
+        <div className="mx-auto max-w-6xl">
+          <h2 id="texas-defined-faq" className="font-display text-2xl font-semibold">Texas Defined at a glance</h2>
+          <dl className="mt-5 grid gap-6 md:grid-cols-2">{homepageFaqs.map((item) => <div key={item.question}><dt><h3 className="font-display text-lg font-semibold">{item.question}</h3></dt><dd className="mt-2 text-sm leading-6 text-muted-foreground">{item.answer}</dd></div>)}</dl>
+        </div>
+      </section>
+    </>;
   }
 
   return (
