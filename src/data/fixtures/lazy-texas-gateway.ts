@@ -17,6 +17,7 @@ import { texasGatewayBatch8SecondaryEnrichment } from "./texas-gateway-batch8-se
 import { texasGatewayBatch8TertiaryEnrichment } from "./texas-gateway-batch8-tertiary-enrichment";
 import { texasGatewayBatch9CoreEnrichment } from "./texas-gateway-batch9-core-enrichment";
 import { texasGatewayBatch9SecondaryEnrichment } from "./texas-gateway-batch9-secondary-enrichment";
+import { texasGatewayBatch10OriginEnrichment } from "./texas-gateway-batch10-origin-enrichment";
 import { isTexasGatewayIndexReadyArticle } from "./texas-gateway-index-readiness";
 
 const GATEWAY_LINK_ALIASES: Record<string, string> = {
@@ -55,7 +56,8 @@ const normalizeGatewayArticle = (article: Article): Article => {
     ?? texasGatewayBatch8SecondaryEnrichment[article.slug]
     ?? texasGatewayBatch8TertiaryEnrichment[article.slug]
     ?? texasGatewayBatch9CoreEnrichment[article.slug]
-    ?? texasGatewayBatch9SecondaryEnrichment[article.slug];
+    ?? texasGatewayBatch9SecondaryEnrichment[article.slug]
+    ?? texasGatewayBatch10OriginEnrichment[article.slug];
   const internalLinks = [...(article.internalLinks ?? []), ...(enrichment?.internalLinks ?? [])]
     .map((link) => ({
       ...link,

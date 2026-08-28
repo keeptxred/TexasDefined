@@ -1,0 +1,167 @@
+import type { ArticleBlock, ArticleInternalLink } from "../types";
+
+interface GatewayBatch10OriginEnrichment {
+  body: ArticleBlock[];
+  sourceName?: string;
+  sourceUrl?: string;
+  internalLinks?: ArticleInternalLink[];
+  relatedDestinations?: string[];
+}
+
+const houston: ArticleBlock[] = [
+  { type: "heading", text: "Use Houston's weekend radius in layers instead of one giant list" },
+  { type: "paragraph", text: "Houston has enough nearby variety that the best weekend depends more on how much driving you want than on a statewide ranking. For a one-night trip, Galveston, Brenham, Huntsville, Lake Conroe, Matagorda-area coast and parts of East Texas make more sense than destinations that require most of Friday night and Sunday afternoon on the highway. For two nights, San Antonio, Austin, the eastern Hill Country and farther coastal stops become more reasonable. For a three-day weekend, Jefferson, Caddo Lake or Rockport can justify the additional distance because the trip has enough time to feel regional rather than rushed." },
+  { type: "paragraph", text: "Treat every drive-time estimate as a planning band, not a promise. Houston traffic, construction, weather and holiday departures can change the road quickly. Check current conditions through DriveTexas and live traffic before departure. The useful question is whether the destination still leaves enough time on site after a realistic Friday exit and Sunday return. A trip that only works if traffic is perfect is not a resilient weekend plan." },
+  { type: "heading", text: "Galveston is the easiest coast weekend because the destination begins quickly" },
+  { type: "paragraph", text: "Galveston works for Houston travelers because the Gulf, Strand-area history, architecture and seafood can support a full weekend without a complicated route. Leave early enough to avoid peak outbound traffic, then choose whether the trip is beach-first, history-first or food-first. A beach-centered weekend should still include an indoor or shaded backup because Gulf weather and heat can change the value of an all-day outdoor plan." },
+  { type: "paragraph", text: "The island also works for a single overnight when lodging prices cooperate. Spend the first evening walking a historic district or waterfront area, use the next morning for beach or architecture, and return before Sunday traffic peaks. The mistake is treating Galveston as only a beach stop; the historic city gives the weekend enough depth to remain useful outside peak swimming weather." },
+  { type: "heading", text: "Brenham and Washington County are stronger when the drive becomes part of the trip" },
+  { type: "paragraph", text: "Brenham is close enough for a relaxed one-night trip but works best when paired with Washington County roads, historic sites, food and seasonal countryside. In spring, wildflowers can add value, but they should not be the only reason the trip works. Use legal public viewing, avoid unsafe roadside stopping and keep a courthouse, museum, historic site or food stop in the plan if bloom conditions disappoint." },
+  { type: "paragraph", text: "Washington-on-the-Brazos can add Republic-era history to the region, while small towns and rural roads make the drive itself feel different from Houston. This is a good choice for travelers who want a short reset rather than a major destination. The value comes from slowing down, not from stacking attractions." },
+  { type: "heading", text: "Huntsville, Lake Conroe and the Sam Houston area solve the low-mileage outdoor weekend" },
+  { type: "paragraph", text: "Travelers who want woods, water and history without a long Friday drive can use Huntsville and Lake Conroe as a compact weekend zone. A state-park or lake block can anchor one day, while museums, local history or downtown time fill the other. This is especially useful for families or groups that value a cabin, campground or simple outdoor base more than a famous destination name." },
+  { type: "paragraph", text: "Weather and water conditions still matter. Check park alerts, lake access and severe-weather forecasts before leaving Houston. A low-mileage weekend is only easier if the primary activity is actually available. Keep one indoor or town-based backup so rain does not force an early drive home." },
+  { type: "heading", text: "Beaumont and the Big Thicket region create a distinct East Texas weekend" },
+  { type: "paragraph", text: "East of Houston, the landscape changes toward wetlands, pine forest and Gulf-influenced culture. Beaumont can provide food, museums and city infrastructure while the Big Thicket region adds trails, paddling and nature. This is a better weekend for travelers who want ecological contrast than for someone chasing a single headline attraction." },
+  { type: "paragraph", text: "Choose one outdoor anchor and one cultural anchor. Trying to cover every Big Thicket unit can turn the weekend into repeated driving between scattered access points. Check the managing authority for trail, water and weather conditions, then use Beaumont or another nearby community as the practical base." },
+  { type: "heading", text: "San Antonio and Austin are real two-night trips, not casual detours" },
+  { type: "paragraph", text: "Both cities are reachable from Houston for a normal weekend, but they deserve enough time to overcome the drive. San Antonio is the stronger choice for missions, historic neighborhoods and a compact visitor core. Austin is stronger for live music, food, state-government history and Hill Country-adjacent outdoors. Leaving late Friday and returning early Sunday can make either city feel like a commute; two full nights or an early departure creates a better trade." },
+  { type: "paragraph", text: "Do not combine Austin and San Antonio into one short Houston weekend just because they are connected by Interstate 35. Each city has enough depth to support its own trip, and corridor traffic can be unpredictable. Pick the city that matches the trip's purpose and let the other become a separate weekend." },
+  { type: "heading", text: "Rockport, Wimberley and Caddo Lake belong to the longer-weekend tier" },
+  { type: "paragraph", text: "Rockport and the central Gulf Coast can justify a longer weekend for birding, seafood and quieter coastal time. Wimberley and the eastern Hill Country can work when rivers, scenic roads and small towns are the goal. Caddo Lake and Jefferson are farther still, but the cypress-water landscape and East Texas history make the distance worthwhile when the trip has three nights or a flexible schedule." },
+  { type: "paragraph", text: "The common rule is simple: farther trips must buy a more distinct experience. If the destination requires substantially more driving but offers only a generic hotel and restaurant weekend, choose something closer. If the landscape, history or food changes enough to make the miles meaningful, then the longer radius can make sense." },
+  { type: "heading", text: "Build the return trip before the outbound trip" },
+  { type: "paragraph", text: "Houston weekend travel often fails on Sunday because everyone plans the destination but not the re-entry. Decide what time you want to be home, then work backward from likely traffic, meal stops and checkout. A final attraction that forces a late congested return may not be worth it. Leave one flexible block on Sunday so you can shorten or extend the trip based on conditions." },
+  { type: "paragraph", text: "The best weekend trip from Houston is therefore not simply the place with the shortest mapped drive. It is the destination that fits the available nights, leaves a meaningful amount of time on site and offers a version of Texas that feels different enough from Houston to justify leaving. Use distance bands, one anchor experience and a realistic return plan to choose." },
+];
+
+const dallas: ArticleBlock[] = [
+  { type: "heading", text: "DFW weekend planning works best in three distance bands" },
+  { type: "paragraph", text: "Dallas-Fort Worth travelers have strong options close enough for one night, a larger circle for two nights and true long-weekend destinations beyond that. Granbury, Glen Rose, Mineral Wells, Waxahachie and Waco fit the short-to-moderate tier for many parts of the metro. Tyler, Jefferson, Possum Kingdom and East Texas lake country justify a full weekend. Fredericksburg, Austin, Palo Duro and Caddo Lake are better when the trip has extra time because the outbound and return legs are substantial." },
+  { type: "paragraph", text: "The starting point inside DFW matters. A traveler in Fort Worth and one in McKinney can have very different practical drive times to the same destination. Use the metro side you live on when judging whether a trip belongs in the one-night or two-night category. Check current DriveTexas and traffic conditions rather than relying on a single statewide drive-time claim." },
+  { type: "heading", text: "Granbury and Glen Rose are reliable short-weekend choices for different reasons" },
+  { type: "paragraph", text: "Granbury is strongest when the trip is about a historic square, lake setting, local food and an easy change of pace. Glen Rose is stronger for families or travelers interested in Dinosaur Valley, geology and outdoor time. The two can be combined, but they do not need to be. One focused overnight often feels more relaxed than a loop designed to collect both names." },
+  { type: "paragraph", text: "For Glen Rose, current river and track conditions matter. For Granbury, event weekends can change parking and lodging demand. The destination is close enough that flexibility is an advantage: if weather shifts, move the trip rather than forcing the plan because too much money is sunk into transportation." },
+  { type: "heading", text: "Waco works best as a two-anchor city weekend" },
+  { type: "paragraph", text: "Waco is close enough for a day trip from much of DFW but benefits from an overnight when visitors want museums, riverfront time and a slower food schedule. Choose one major attraction and one secondary theme—history, shopping, campus, outdoors or food. That prevents the weekend from becoming a parking exercise around a handful of heavily promoted stops." },
+  { type: "paragraph", text: "The city can also act as a midpoint for a longer Central Texas trip, but do not use it as an excuse to add Austin or the Hill Country to an already full two-day plan. A weekend should still contain more destination time than transit time." },
+  { type: "heading", text: "Tyler and Jefferson open the East Texas side of the map" },
+  { type: "paragraph", text: "Tyler offers gardens, East Texas city infrastructure and access to nearby lakes and forests. Jefferson provides a more concentrated historic-town experience and can pair naturally with Caddo Lake. These trips work because they move DFW travelers into a greener, wetter landscape with a different settlement history. The contrast is the payoff." },
+  { type: "paragraph", text: "Jefferson plus Caddo Lake is stronger with two nights than as an aggressive day trip. Water activities, historic walking and the drive between the metro and East Texas all need time. If paddling or boating is central, check conditions and operator schedules before departure so the trip does not depend on an unavailable activity." },
+  { type: "heading", text: "Possum Kingdom and Mineral Wells solve the outdoor reset without a cross-state drive" },
+  { type: "paragraph", text: "Possum Kingdom Lake works when water, boating or a cabin base is the priority. Mineral Wells can provide state-park and small-city options with less driving from the western side of DFW. Neither needs to imitate a Hill Country trip. Their value is access: travelers can spend more of the weekend outside and less of it crossing Central Texas." },
+  { type: "paragraph", text: "Water levels, weather and seasonal demand can change the experience, so confirm access before assuming a favorite swim, boat or trail plan will work. For a short weekend, reliability matters more than the prestige of the destination." },
+  { type: "heading", text: "Austin and Fredericksburg are two-night minimums for most DFW travelers" },
+  { type: "paragraph", text: "Austin can support a city-focused weekend around music, museums, food and outdoor time, while Fredericksburg and the Hill Country offer scenic roads, heritage and parks. The drive is long enough that leaving after work Friday may create a late arrival. An early start, a full two nights or a holiday Monday changes the value considerably." },
+  { type: "paragraph", text: "Do not combine Austin and Fredericksburg merely because both sit south of DFW. Choose one primary base and one nearby extension. The I-35 corridor and Hill Country roads can consume more time than the itinerary suggests, especially on major weekends." },
+  { type: "heading", text: "Palo Duro belongs in the long-weekend category, not the normal Saturday-night category" },
+  { type: "paragraph", text: "Palo Duro Canyon is one of the most rewarding DFW road trips when the schedule gives the Panhandle room. The canyon, High Plains approach, Amarillo-area lodging and regional history create a destination that feels genuinely different from North Texas. The distance is substantial enough that a three-day weekend is usually a better fit than a hurried overnight." },
+  { type: "paragraph", text: "Use the extra day for the canyon itself rather than adding more remote stops. Summer heat can limit exposed hiking, while cold fronts and wind matter in cooler seasons. Check park conditions and build one lighter Amarillo or scenic block around the outdoor anchor." },
+  { type: "heading", text: "Choose the trip by what you want more of—not by the longest possible radius" },
+  { type: "paragraph", text: "If the goal is history and a walkable town, Granbury or Jefferson may beat a longer drive. If the goal is a family nature weekend, Glen Rose may provide more value than a famous faraway park. If the goal is dramatic landscape, Palo Duro can justify the mileage. If the goal is food and city energy, Waco or Austin may fit better. The destination should solve the trip's purpose." },
+  { type: "paragraph", text: "A strong DFW weekend plan leaves enough Sunday margin for the return through metro traffic. Work backward from when you want to be home, check current road conditions and reject any final stop that makes the trip depend on perfect timing. The best weekend is the one that still works when traffic is ordinary rather than ideal." },
+];
+
+const austin: ArticleBlock[] = [
+  { type: "heading", text: "Austin has an unusually strong one-to-two-hour weekend ring" },
+  { type: "paragraph", text: "Austin travelers do not need to cross Texas to find a distinct weekend. Lockhart, Bastrop, San Marcos, New Braunfels, Johnson City, Wimberley, Burnet, Marble Falls and other nearby destinations can all work with one night or even a full day. Fredericksburg, San Antonio and the western Hill Country fit comfortably into two-night planning. That makes Austin one of the easiest Texas bases for short travel because the route can change with season, weather and interest without requiring a major mileage commitment." },
+  { type: "paragraph", text: "The temptation is overpacking. Because so many destinations look close, travelers often try to combine three towns, a state park and a food stop in one day. Hill Country roads, parking, event traffic and time spent actually exploring can make that schedule unpleasant. Choose one anchor town or park and one complementary stop." },
+  { type: "heading", text: "Lockhart and Bastrop are ideal when food or history is the anchor" },
+  { type: "paragraph", text: "Lockhart is close enough that barbecue can be the centerpiece without requiring a hotel, but an overnight becomes more interesting when the trip includes the square, nearby small towns or another regional stop. Share portions if comparing multiple barbecue institutions and leave time to walk. The point is to understand the town's food tradition, not to complete a restaurant leaderboard." },
+  { type: "paragraph", text: "Bastrop offers a different trip: historic downtown, river setting and nearby outdoor options. It can work as a low-mileage reset when Austin feels busy but a long drive does not appeal. Check current park or trail conditions if outdoors is the anchor, and keep the town itself as a weather backup." },
+  { type: "heading", text: "San Marcos, New Braunfels and Gruene are water-and-town weekends" },
+  { type: "paragraph", text: "These destinations are close enough to Austin that the trip can focus on rivers, music, historic districts and food rather than transportation. Summer demand and water conditions matter. Secure reservations or activity plans where needed, and do not assume every river day will operate the same way after storms or drought. A morning water block and evening town or music block often creates better pacing than staying outside through peak heat." },
+  { type: "paragraph", text: "New Braunfels and Gruene can be combined naturally, while San Marcos can stand on its own or pair with another nearby stop. Do not add all three simply because they sit along the same corridor. Traffic can erase the benefit of geographic closeness when everyone is traveling on the same weekend." },
+  { type: "heading", text: "Wimberley and Johnson City are small-radius Hill Country choices" },
+  { type: "paragraph", text: "Wimberley works for travelers who want a compact town, river country and short scenic drives. Johnson City can anchor a history, food or scenic-road weekend with access to surrounding Hill Country. Both are best when the visitor allows time to walk and make one or two local stops rather than treating the town as a checkpoint between Austin and Fredericksburg." },
+  { type: "paragraph", text: "Spring and fall increase demand, while summer shifts the useful hours earlier and later. Keep one indoor or shaded option for the hottest part of the day. A short weekend should feel easier than staying in Austin, not like a longer version of the same traffic problem." },
+  { type: "heading", text: "Fredericksburg and Enchanted Rock need a real weekend plan" },
+  { type: "paragraph", text: "Fredericksburg is close enough for a day trip but deep enough for two nights when history, food, wineries and scenic roads matter. Enchanted Rock adds a major outdoor anchor, but park access and heat need to be planned. Secure reservations when recommended and avoid treating the summit as a casual midday summer walk." },
+  { type: "paragraph", text: "The strongest version keeps the radius tight: one park block, one town block and one optional nearby extension. Trying to add Llano, Johnson City, Luckenbach and multiple wineries in the same day turns the region into a sequence of parking lots. Leave room for the road itself." },
+  { type: "heading", text: "San Antonio is the best city-to-city weekend from Austin when history is the priority" },
+  { type: "paragraph", text: "San Antonio offers enough difference from Austin to justify a dedicated weekend: Spanish colonial missions, historic neighborhoods, museums, Tejano and Mexican American culture, and a different food tradition. The drive is manageable, but corridor traffic can be heavy. Leaving early and staying two nights gives the city space to feel like a destination rather than an extended dinner reservation." },
+  { type: "paragraph", text: "Do not use the trip to prove that Austin and San Antonio can be combined into one giant Central Texas itinerary. Pick the city as the anchor, then add only a nearby stop that supports the theme. The missions, for example, deserve more than a hurried pass on the way to something else." },
+  { type: "heading", text: "Colorado Bend, Inks Lake and other park trips require activity-specific planning" },
+  { type: "paragraph", text: "State parks west and northwest of Austin can produce excellent weekends, but they are not interchangeable. Colorado Bend may appeal to hikers and travelers seeking rugged terrain, while Inks Lake offers a different lake-centered experience. Pedernales Falls has its own trail and river considerations. Choose the park based on the activity, check current alerts and capacity, then build the lodging around the actual access point." },
+  { type: "paragraph", text: "A park weekend should have a nearby fallback because weather can change outdoor plans. A historic town, scenic route or food stop can preserve the trip without forcing unsafe hiking, swimming or driving. This matters most on short weekends when there is little time to recover from a failed anchor." },
+  { type: "heading", text: "Austin weekend travel should maximize difference per mile" },
+  { type: "paragraph", text: "The advantage of leaving Austin is not simply distance. Lockhart offers a food tradition, Wimberley changes the pace, Fredericksburg adds heritage, San Antonio adds historical layers and the state parks change the landscape. Choose the destination that gives you the clearest contrast for the miles required." },
+  { type: "paragraph", text: "Before leaving, check DriveTexas and live traffic, especially for I-35 and major festival weekends. Decide the Sunday return window in advance. A nearby trip should finish with enough margin that the weekend still feels restorative when traffic behaves normally rather than perfectly." },
+];
+
+const sanAntonio: ArticleBlock[] = [
+  { type: "heading", text: "San Antonio's strongest weekend radius is west and north before it is east" },
+  { type: "paragraph", text: "Fredericksburg, Bandera, Boerne, Comfort, Kerrville, New Braunfels, Gruene and Wimberley create a dense ring of distinct weekend options without requiring a cross-state drive. Garner, Concan, Lost Maples and other western Hill Country destinations extend the radius for outdoor trips. Austin, Gonzales and Goliad add city or history options. Corpus Christi and Rockport belong in the longer weekend tier because the coast needs enough time to justify the additional miles." },
+  { type: "paragraph", text: "As with every Texas metro, the starting neighborhood matters. A north-side traveler and a south-side traveler may face different practical times to the same highway. Treat drive times as broad bands, check current DriveTexas conditions and use the return trip as part of the decision. A weekend is only short if the road leaves enough time for the destination." },
+  { type: "heading", text: "Boerne and Comfort are the lowest-friction Hill Country resets" },
+  { type: "paragraph", text: "Boerne works when the goal is a walkable town, food and a short change of scenery. Comfort offers a smaller historic-town experience and can combine naturally with scenic roads or nearby heritage stops. These are strong one-night choices because the drive is short enough that Friday evening and Sunday morning do not disappear into transportation." },
+  { type: "paragraph", text: "Do not overschedule them because they are close. The value is being able to slow down. Walk the historic core, choose one meal worth the drive and add one nearby outdoor or cultural stop. If the plan requires racing through three Hill Country towns, choose fewer." },
+  { type: "heading", text: "Fredericksburg is a full weekend when you treat the town and landscape as one destination" },
+  { type: "paragraph", text: "Fredericksburg supports history, food, wine tourism, scenic roads and access to Enchanted Rock. That depth makes it one of the most reliable weekend trips from San Antonio, but popularity can increase lodging prices and traffic. Reserve park access where recommended and decide whether the trip is primarily outdoor, heritage or food-focused before booking a stack of unrelated reservations." },
+  { type: "paragraph", text: "A good two-night plan might use one morning for Enchanted Rock or another outdoor anchor, one afternoon for town history and one evening for dinner or music. Leave at least one flexible block for scenic roads or a nearby stop. The trip should feel like Hill Country, not like a timed tasting schedule." },
+  { type: "heading", text: "Bandera and the western Hill Country offer a different cultural trip" },
+  { type: "paragraph", text: "Bandera can work for travelers interested in ranching, western heritage, music and the transition toward the western Hill Country. The town is not simply a decorative cowboy stop; the surrounding roads, ranch culture and community events are part of the experience. Check current event schedules if a rodeo, dance or festival is central to the trip." },
+  { type: "paragraph", text: "Pair Bandera with one nearby scenic or outdoor block rather than trying to combine it with every western Hill Country destination. The route toward Medina, Kerrville or the river country can create a strong drive, but distance accumulates quickly on two-lane roads." },
+  { type: "heading", text: "New Braunfels, Gruene and Wimberley are best when water and music set the pace" },
+  { type: "paragraph", text: "These communities give San Antonio travelers a short route into river recreation, historic districts and live music. Summer demand, parking and water conditions can materially change the day. Plan outdoor activity early, confirm current access and leave evenings for food or music. A hot afternoon does not need to become an endurance test." },
+  { type: "paragraph", text: "New Braunfels and Gruene pair naturally. Wimberley is better treated as a separate small-town and river-country stop when the schedule is tight. The short mileage is deceptive because weekend traffic and popular activity windows can still consume time." },
+  { type: "heading", text: "Garner, Concan and Lost Maples require season-specific planning" },
+  { type: "paragraph", text: "Garner and the Frio are classic warm-weather trips, but river conditions, capacity and heat matter. Lost Maples becomes especially popular during fall-color periods, with timing that varies from year to year. Both destinations reward reservations and current-condition checks. Do not build the trip around an assumption that swimming, foliage or a particular trail experience will be available exactly as pictured online." },
+  { type: "paragraph", text: "Use Uvalde County and the western Hill Country landscape as part of the trip. A river or foliage weekend can include a town meal, scenic road or quiet evening rather than another major attraction. The farther west you go, the more the trip should focus on the environment rather than constant movement." },
+  { type: "heading", text: "Gonzales and Goliad are strong history weekends in opposite directions" },
+  { type: "paragraph", text: "Gonzales provides Texas Revolution history within a manageable drive east of San Antonio. Goliad offers Presidio La Bahía, Mission Espíritu Santo and a broader Coastal Bend historical context. Both make more sense when visitors give the sites enough time to read exhibits and understand the surrounding town rather than treating them as marker stops." },
+  { type: "paragraph", text: "Choose one region per weekend. Gonzales can pair with nearby Central Texas towns; Goliad can pair with Coastal Bend travel. Trying to combine them into one history loop adds mileage without improving the story. A focused trip produces better context." },
+  { type: "heading", text: "Corpus Christi and Rockport belong to the two-night or long-weekend tier" },
+  { type: "paragraph", text: "The coast is close enough to tempt a rushed day trip, but a real Gulf weekend benefits from two nights. Corpus Christi offers city museums, waterfront and beach access, while Rockport emphasizes birding, seafood and a smaller coastal pace. Weather, wind and Gulf conditions should shape the plan, with an indoor backup ready if outdoor activity changes." },
+  { type: "paragraph", text: "A coastal weekend should not spend Sunday morning racing to fit one more beach stop before a long return. Decide which coast experience matters most and leave margin for the drive home. San Antonio's advantage is the number of closer Hill Country choices, so the coast should be selected when the coast itself is worth the extra time." },
+  { type: "heading", text: "The best San Antonio weekend trip changes the landscape without wasting the weekend" },
+  { type: "paragraph", text: "Choose Boerne or Comfort for minimal driving, Fredericksburg for a deeper Hill Country weekend, Bandera for western culture, New Braunfels or Wimberley for rivers and music, Garner or Lost Maples for seasonal outdoors, Gonzales or Goliad for history, and the coast when two nights are available. That framework is more useful than a flat ranking because it matches destination type to actual time." },
+  { type: "paragraph", text: "Check current road conditions, weather and official venue information before departure. Then keep the itinerary geographically coherent. San Antonio sits near enough to several Texas regions that the biggest risk is not having too few choices; it is trying to use too many of them in one weekend." },
+];
+
+export const texasGatewayBatch10OriginEnrichment: Record<string, GatewayBatch10OriginEnrichment> = {
+  "best-weekend-trips-from-houston": {
+    body: houston,
+    sourceName: "TxDOT — DriveTexas",
+    sourceUrl: "https://drivetexas.org/",
+    internalLinks: [
+      { href: "/explore/road-trips", label: "Texas road trips" },
+      { href: "/explore/small-towns", label: "Texas small towns" },
+      { href: "/browse/counties", label: "Browse Texas counties" },
+    ],
+    relatedDestinations: ["galveston-island", "caddo-lake", "san-antonio"],
+  },
+  "best-weekend-trips-from-dallas-fort-worth": {
+    body: dallas,
+    sourceName: "TxDOT — DriveTexas",
+    sourceUrl: "https://drivetexas.org/",
+    internalLinks: [
+      { href: "/explore/road-trips", label: "Texas road trips" },
+      { href: "/explore/state-parks", label: "Texas state parks" },
+      { href: "/explore/small-towns", label: "Texas small towns" },
+    ],
+    relatedDestinations: ["palo-duro-canyon", "caddo-lake", "dinosaur-valley"],
+  },
+  "best-weekend-trips-from-austin": {
+    body: austin,
+    sourceName: "TxDOT — DriveTexas",
+    sourceUrl: "https://drivetexas.org/",
+    internalLinks: [
+      { href: "/explore/road-trips", label: "Texas road trips" },
+      { href: "/explore/state-parks", label: "Texas state parks" },
+      { href: "/explore/food-bbq", label: "Texas food and barbecue" },
+    ],
+    relatedDestinations: ["fredericksburg", "enchanted-rock", "san-antonio"],
+  },
+  "best-weekend-trips-from-san-antonio": {
+    body: sanAntonio,
+    sourceName: "TxDOT — DriveTexas",
+    sourceUrl: "https://drivetexas.org/",
+    internalLinks: [
+      { href: "/explore/road-trips", label: "Texas road trips" },
+      { href: "/explore/state-parks", label: "Texas state parks" },
+      { href: "/texas-history", label: "Texas history" },
+    ],
+    relatedDestinations: ["fredericksburg", "garner-state-park", "san-antonio"],
+  },
+};
