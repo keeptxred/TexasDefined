@@ -65,7 +65,6 @@ jobs:
       - name: Validate Texas Talent flagship depth wave 2
         run: node scripts/data/validate-texas-talent-flagship-depth-wave2.mjs
 
-      # Keep future launch metadata and canonical ownership under the universal merge gate.
       - name: Validate Texas Talent launch metadata
         run: node scripts/data/validate-texas-talent-launch-metadata.mjs
 
@@ -80,6 +79,26 @@ jobs:
 
       - name: Build production application
         run: npm run build
+
+      - name: Diagnose main bundle at 1825000
+        continue-on-error: true
+        run: node -e "const fs=require('fs'),p='dist/client/assets';const f=fs.readdirSync(p).find(x=>/^main-.*\\.js$/.test(x));process.exit(fs.statSync(p+'/'+f).size<=1825000?0:1)"
+
+      - name: Diagnose main bundle at 1830000
+        continue-on-error: true
+        run: node -e "const fs=require('fs'),p='dist/client/assets';const f=fs.readdirSync(p).find(x=>/^main-.*\\.js$/.test(x));process.exit(fs.statSync(p+'/'+f).size<=1830000?0:1)"
+
+      - name: Diagnose main bundle at 1840000
+        continue-on-error: true
+        run: node -e "const fs=require('fs'),p='dist/client/assets';const f=fs.readdirSync(p).find(x=>/^main-.*\\.js$/.test(x));process.exit(fs.statSync(p+'/'+f).size<=1840000?0:1)"
+
+      - name: Diagnose main bundle at 1850000
+        continue-on-error: true
+        run: node -e "const fs=require('fs'),p='dist/client/assets';const f=fs.readdirSync(p).find(x=>/^main-.*\\.js$/.test(x));process.exit(fs.statSync(p+'/'+f).size<=1850000?0:1)"
+
+      - name: Diagnose stylesheet ceiling
+        continue-on-error: true
+        run: node -e "const fs=require('fs'),p='dist/client/assets';const a=fs.readdirSync(p).filter(x=>/^styles-.*\\.css$/.test(x));process.exit(a.every(f=>fs.statSync(p+'/'+f).size<=140000)?0:1)"
 
       - name: Validate client performance budget
         run: npm run performance:validate
