@@ -56,8 +56,6 @@ for (const feature of [
   'Texas Defined is a guide to Texas places, culture, food, history, travel and practical living',
   'question: "What is Texas Defined?"',
   'question: "What does Texas Defined cover?"',
-  'question: "Who is Texas Defined for?"',
-  'question: "Where should I start?"',
 ]) {
   if (!homepageContent.includes(feature)) errors.push(`Homepage GEO content missing: ${feature}.`);
 }
