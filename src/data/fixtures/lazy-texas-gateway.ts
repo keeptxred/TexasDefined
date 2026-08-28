@@ -2,6 +2,7 @@ import type { Article } from "../types";
 import { texasGatewayBatch3AuthorityEnrichment } from "./texas-gateway-batch3-authority-enrichment";
 import { texasGatewayBatch3CulturalEnrichment } from "./texas-gateway-batch3-cultural-enrichment";
 import { texasGatewayBatch3SeasonalEnrichment } from "./texas-gateway-batch3-seasonal-enrichment";
+import { texasGatewayBatch4AuthorityEnrichment } from "./texas-gateway-batch4-authority-enrichment";
 import { texasGatewayBatch4CulturalEnrichment } from "./texas-gateway-batch4-cultural-enrichment";
 import { isTexasGatewayIndexReadyArticle } from "./texas-gateway-index-readiness";
 
@@ -27,7 +28,8 @@ const normalizeGatewayArticle = (article: Article): Article => {
   const enrichment: Partial<Article> | undefined = texasGatewayBatch3CulturalEnrichment[article.slug]
     ?? texasGatewayBatch3AuthorityEnrichment[article.slug]
     ?? texasGatewayBatch3SeasonalEnrichment[article.slug]
-    ?? texasGatewayBatch4CulturalEnrichment[article.slug];
+    ?? texasGatewayBatch4CulturalEnrichment[article.slug]
+    ?? texasGatewayBatch4AuthorityEnrichment[article.slug];
   const internalLinks = [...(article.internalLinks ?? []), ...(enrichment?.internalLinks ?? [])]
     .map((link) => ({
       ...link,
