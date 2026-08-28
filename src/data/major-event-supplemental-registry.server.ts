@@ -35,13 +35,17 @@ export const supplementalMajorEventSlugs = [
   "great-american-scrapbook-convention",
 ] as const;
 
-export function loadSupplementalMajorEventSitemapEntriesServer() {
-  return supplementalMajorEventSlugs.flatMap((slug) => {
+export function loadSupplementalMajorEventRecordsServer() {
+  return supplementalMajorEventSlugs.map((slug) => {
     const event = getMajorEventRecordServer(slug);
-    if (!event) return [];
-    return [{
-      path: `/event/${event.slug}`,
-      lastmod: event.sourceCheckedAt?.slice(0, 10),
-    }];
+    if (!event) throw new Error(`Supplemental major-event registry entry does not resolve: ${slug}`);
+    return event;
   });
+}
+
+export function loadSupplementalMajorEventSitemapEntriesServer() {
+  return loadSupplementalMajorEventRecordsServer().map((event) => ({
+    path: `/event/${event.slug}`,
+    lastmod: event.sourceCheckedAt?.slice(0, 10),
+  }));
 }
