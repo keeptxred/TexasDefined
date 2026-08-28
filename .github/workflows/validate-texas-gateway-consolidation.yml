@@ -20,6 +20,8 @@ on:
       - "scripts/data/validate-texas-gateway-consolidation.mjs"
       - "scripts/data/validate-texas-gateway-index-readiness.mjs"
       - "scripts/data/validate-texas-gateway-production-readiness.mjs"
+      - "scripts/data/validate-texas-gateway-batch14-16-disposition.mjs"
+      - "scripts/data/texas-gateway-batch14-16-disposition.json"
       - "scripts/data/audit-texas-gateway-depth.mjs"
       - "scripts/data/audit-texas-gateway-production-readiness.mjs"
       - "scripts/data/texas-gateway-production-readiness-lib.mjs"
@@ -51,6 +53,9 @@ jobs:
 
       - name: Validate gateway integrity and lazy discovery
         run: node scripts/data/validate-texas-gateway-consolidation.mjs
+
+      - name: Validate Batch 14-16 disposition governance
+        run: node scripts/data/validate-texas-gateway-batch14-16-disposition.mjs
 
       - name: Validate gateway index-readiness staging
         run: node scripts/data/validate-texas-gateway-index-readiness.mjs
