@@ -81,7 +81,7 @@ jobs:
         run: npm run build
 
       - name: Report client budget inputs
-        run: node -e "const fs=require('fs'),p='dist/client/assets';const a=fs.readdirSync(p);const m=a.filter(x=>/^main-.*\\.js$/.test(x));const c=a.filter(x=>/^styles-.*\\.css$/.test(x));console.log('main candidates:',m.map(f=>f+'='+fs.statSync(p+'/'+f).size).join(', ')||'none');console.log('styles:',c.map(f=>f+'='+fs.statSync(p+'/'+f).size).join(', ')||'none');"
+        run: node -e "const fs=require('fs'),p='dist/client/assets';const a=fs.readdirSync(p);const m=a.filter(x=>/^main-.*\\.js$/.test(x));const c=a.filter(x=>/^styles-.*\\.css$/.test(x));const s='main candidates: '+(m.map(f=>f+'='+fs.statSync(p+'/'+f).size).join(', ')||'none')+'; styles: '+(c.map(f=>f+'='+fs.statSync(p+'/'+f).size).join(', ')||'none');console.log(s);console.log('::warning title=Client asset sizes::'+s);"
 
       - name: Diagnose main bundle at 1825000
         continue-on-error: true
