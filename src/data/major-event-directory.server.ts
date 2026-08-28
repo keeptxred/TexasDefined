@@ -1,7 +1,7 @@
 import { formatDateRange } from "@/domain/utils/format";
 import { majorEventIndexRecords } from "./major-event-index";
 import { getMajorEventRecordServer } from "./major-event-page.server";
-import { supplementalMajorEventSlugs } from "./major-event-supplemental-registry.server";
+import { loadSupplementalMajorEventRecordsServer } from "./major-event-supplemental-registry.server";
 
 export interface MajorEventGuideDirectoryItem {
   slug: string;
@@ -12,24 +12,21 @@ export interface MajorEventGuideDirectoryItem {
 }
 
 export function loadMajorEventGuideDirectoryServer(): MajorEventGuideDirectoryItem[] {
-  const slugs = [...new Set([
-    ...majorEventIndexRecords.map((event) => event.slug),
-    ...supplementalMajorEventSlugs,
-  ])];
+  const coreSlugs = new Set(majorEventIndexRecords.map((event) => event.slug));
+  const events = [
+    ...majorEventIndexRecords.map((event) => getMajorEventRecordServer(event.slug)).filter((event) => event != null),
+    ...loadSupplementalMajorEventRecordsServer().filter((event) => !coreSlugs.has(event.slug)),
+  ];
   const today = new Date().toISOString().slice(0, 10);
 
-  return slugs
-    .flatMap((slug) => {
-      const event = getMajorEventRecordServer(slug);
-      if (!event) return [];
-      return [{
-        slug: event.slug,
-        name: event.name,
-        detail: `${event.city} · ${formatDateRange(event.startDate, event.endDate, "en-US")}`,
-        startDate: event.startDate,
-        endDate: event.endDate,
-      }];
-    })
+  return events
+    .map((event) => ({
+      slug: event.slug,
+      name: event.name,
+      detail: `${event.city} · ${formatDateRange(event.startDate, event.endDate, "en-US")}`,
+      startDate: event.startDate,
+      endDate: event.endDate,
+    }))
     .sort((left, right) => {
       const leftPast = (left.endDate || left.startDate) < today;
       const rightPast = (right.endDate || right.startDate) < today;
