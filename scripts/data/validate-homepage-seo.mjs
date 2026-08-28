@@ -71,9 +71,9 @@ for (const feature of [
 
 for (const feature of [
   'id="contact"',
-  'eyebrow="Contact Texas Defined"',
-  'Corrections, source updates and general questions',
-  'texasDefinedBrand.identity.social.map((profile)',
+  '<strong className="text-foreground">Contact Texas Defined.</strong>',
+  'For corrections, source updates or general questions',
+  'texasDefinedBrand.identity.social.map((profile, index)',
   'A street address is published only when there is a verified public business location to list.',
 ]) {
   if (!aboutRoute.includes(feature)) errors.push(`Public contact feature missing: ${feature}.`);
