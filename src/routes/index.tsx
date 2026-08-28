@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
+import { homepageFaqs } from "@/content/homepage";
 import { articlesQuery, destinationsQuery, eventsQuery, guidesQuery, regionsQuery } from "@/data/queries";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 
@@ -31,8 +32,9 @@ export const Route = createFileRoute("/")({
       ...homepageDestinations.map((destination) => ({ "@type": "TouristAttraction", name: destination.name, description: destination.summary, url: `${siteUrl}/destination/${destination.slug}`, image: absoluteUrl(texasDefinedBrand, destination.hero.src), sameAs: destination.officialUrl, dateModified: destination.sourceCheckedAt, provider: destination.managingAuthority ? { "@type": "Organization", name: destination.managingAuthority } : undefined })),
     ];
     const structuredData = { "@context": "https://schema.org", "@graph": [
-      { "@type": "WebPage", "@id": `${siteUrl}/#homepage`, url: `${siteUrl}/`, name: "The Places, Stories & Life of Texas", description, isPartOf: { "@id": `${siteUrl}/#website` }, about: { "@id": `${siteUrl}/#organization` }, mainEntity: { "@id": `${siteUrl}/#editorial-picks` } },
+      { "@type": "WebPage", "@id": `${siteUrl}/#homepage`, url: `${siteUrl}/`, name: "The Places, Stories & Life of Texas", description, isPartOf: { "@id": `${siteUrl}/#website` }, about: { "@id": `${siteUrl}/#organization` }, mainEntity: { "@id": `${siteUrl}/#editorial-picks` }, hasPart: [{ "@id": `${siteUrl}/#editorial-picks` }, { "@id": `${siteUrl}/#faq` }] },
       { "@type": "ItemList", "@id": `${siteUrl}/#editorial-picks`, name: "Stories and places worth knowing", numberOfItems: curatedItems.length, itemListElement: curatedItems.map((item, index) => ({ "@type": "ListItem", position: index + 1, item })) },
+      { "@type": "FAQPage", "@id": `${siteUrl}/#faq`, mainEntity: homepageFaqs.map((item) => ({ "@type": "Question", name: item.question, acceptedAnswer: { "@type": "Answer", text: item.answer } })) },
     ] };
     return { meta: buildMeta(texasDefinedBrand, { title: "The Places, Stories & Life of Texas", description, canonicalPath: "/" }), links: [canonicalLink(texasDefinedBrand, "/")], scripts: [{ type: "application/ld+json", children: JSON.stringify(structuredData) }] };
   },
