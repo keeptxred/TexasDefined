@@ -70,7 +70,8 @@ for (const feature of [
 }
 
 for (const feature of [
-  'id="contact"',
+  '"@type": ["AboutPage", "ContactPage"]',
+  '<address id="contact"',
   '<strong className="text-foreground">Contact Texas Defined.</strong>',
   'For corrections, source updates or general questions',
   'texasDefinedBrand.identity.social.map((profile, index)',
