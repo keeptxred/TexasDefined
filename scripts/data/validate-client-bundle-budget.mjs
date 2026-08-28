@@ -43,6 +43,17 @@ async function main() {
   const assetsDir = await resolveAssetsDir();
   const entries = await readdir(assetsDir);
   const mainCandidates = entries.filter((name) => /^main-.*\.js$/.test(name));
+  const cssFiles = entries.filter((name) => /^styles-.*\.css$/.test(name));
+  const mainAssetSizes = await Promise.all(
+    mainCandidates.map(async (name) => `${name}=${(await stat(path.join(assetsDir, name))).size}`),
+  );
+  const cssAssetSizes = await Promise.all(
+    cssFiles.map(async (name) => `${name}=${(await stat(path.join(assetsDir, name))).size}`),
+  );
+  console.log(
+    `::notice title=Protected client asset sizes::main: ${mainAssetSizes.join(', ') || 'none'}; styles: ${cssAssetSizes.join(', ') || 'none'}`,
+  );
+
   if (mainCandidates.length !== 1) {
     fail(`Expected exactly one main client bundle, found ${mainCandidates.length}: ${mainCandidates.join(', ')}`);
   }
@@ -53,7 +64,6 @@ async function main() {
     fail(`Main client bundle ${mainFile} is ${mainBytes.toLocaleString()} bytes; budget is ${MAX_MAIN_BYTES.toLocaleString()} bytes (stable baseline ${STABLE_MAIN_BASELINE_BYTES.toLocaleString()} bytes).`);
   }
 
-  const cssFiles = entries.filter((name) => /^styles-.*\.css$/.test(name));
   for (const cssFile of cssFiles) {
     const cssBytes = (await stat(path.join(assetsDir, cssFile))).size;
     if (cssBytes > MAX_CSS_BYTES) {
