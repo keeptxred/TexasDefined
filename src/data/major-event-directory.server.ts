@@ -13,8 +13,13 @@ export interface MajorEventGuideDirectoryItem {
 
 export function loadMajorEventGuideDirectoryServer(): MajorEventGuideDirectoryItem[] {
   const coreSlugs = new Set(majorEventIndexRecords.map((event) => event.slug));
+  const coreEvents = majorEventIndexRecords.map(({ slug }) => {
+    const event = getMajorEventRecordServer(slug);
+    if (!event) throw new Error(`Indexed major-event entry does not resolve: ${slug}`);
+    return event;
+  });
   const events = [
-    ...majorEventIndexRecords.map((event) => getMajorEventRecordServer(event.slug)).filter((event) => event != null),
+    ...coreEvents,
     ...loadSupplementalMajorEventRecordsServer().filter((event) => !coreSlugs.has(event.slug)),
   ];
   const today = new Date().toISOString().slice(0, 10);
