@@ -1,0 +1,37 @@
+{
+  "reviewedAt": "2026-08-28",
+  "scope": "TexasDefined gateway batches 14-16",
+  "policy": "Known wrapper/overlap pages must not be promoted until their disposition is resolved. Consolidation candidates should point to the stronger successor intent; rebuild-distinct candidates remain staged until rewritten around a clearly differentiated user need.",
+  "summary": {
+    "total": 23,
+    "consolidate": 19,
+    "rebuildDistinct": 4
+  },
+  "entries": [
+    { "slug": "best-texas-birthday-weekend-trips", "batch": 14, "disposition": "rebuild-distinct", "reason": "occasion-wrapper-needs-distinct-celebration-utility" },
+    { "slug": "best-texas-anniversary-weekend-trips", "batch": 14, "disposition": "consolidate", "targetSlug": "best-romantic-weekend-getaways-in-texas", "reason": "romantic-weekend-intent-overlap" },
+    { "slug": "best-texas-friends-weekend-trips", "batch": 14, "disposition": "rebuild-distinct", "reason": "group-planning-needs-distinct-logistics" },
+    { "slug": "best-texas-trips-before-school-starts", "batch": 14, "disposition": "consolidate", "targetSlug": "best-texas-family-road-trips", "reason": "family-summer-trip-intent-overlap" },
+    { "slug": "best-texas-january-weekend-trips", "batch": 14, "disposition": "consolidate", "targetSlug": "best-winter-weekend-trips-in-texas", "reason": "winter-month-wrapper" },
+    { "slug": "best-texas-march-weekend-trips", "batch": 14, "disposition": "consolidate", "targetSlug": "best-spring-weekend-trips-in-texas", "reason": "spring-month-wrapper" },
+    { "slug": "best-texas-october-weekend-trips", "batch": 14, "disposition": "consolidate", "targetSlug": "best-fall-weekend-trips-in-texas", "reason": "fall-month-wrapper" },
+    { "slug": "best-texas-holiday-season-weekend-trips", "batch": 14, "disposition": "rebuild-distinct", "reason": "holiday-page-needs-current-event-verification" },
+
+    { "slug": "best-texas-february-weekend-trips", "batch": 15, "disposition": "consolidate", "targetSlug": "best-winter-weekend-trips-in-texas", "reason": "winter-month-wrapper" },
+    { "slug": "best-texas-april-weekend-trips", "batch": 15, "disposition": "consolidate", "targetSlug": "best-spring-weekend-trips-in-texas", "reason": "spring-month-wrapper" },
+    { "slug": "best-texas-may-weekend-trips", "batch": 15, "disposition": "consolidate", "targetSlug": "best-spring-weekend-trips-in-texas", "reason": "spring-month-wrapper" },
+    { "slug": "best-texas-june-weekend-trips", "batch": 15, "disposition": "consolidate", "targetSlug": "things-to-do-in-texas-summer-without-melting", "reason": "summer-heat-trip-overlap" },
+    { "slug": "best-texas-july-weekend-trips", "batch": 15, "disposition": "consolidate", "targetSlug": "things-to-do-in-texas-summer-without-melting", "reason": "summer-heat-trip-overlap" },
+    { "slug": "best-texas-august-weekend-trips", "batch": 15, "disposition": "consolidate", "targetSlug": "things-to-do-in-texas-summer-without-melting", "reason": "summer-heat-trip-overlap" },
+    { "slug": "best-texas-september-weekend-trips", "batch": 15, "disposition": "consolidate", "targetSlug": "best-fall-weekend-trips-in-texas", "reason": "fall-transition-wrapper" },
+    { "slug": "best-texas-november-weekend-trips", "batch": 15, "disposition": "consolidate", "targetSlug": "best-fall-weekend-trips-in-texas", "reason": "fall-month-wrapper" },
+    { "slug": "best-texas-december-weekend-trips", "batch": 15, "disposition": "consolidate", "targetSlug": "best-winter-weekend-trips-in-texas", "reason": "winter-month-wrapper" },
+
+    { "slug": "things-texans-take-very-seriously", "batch": 16, "disposition": "consolidate", "targetSlug": "things-that-define-texas", "reason": "broad-identity-overlap" },
+    { "slug": "things-that-confuse-people-from-other-states-about-texas", "batch": 16, "disposition": "consolidate", "targetSlug": "things-nobody-tells-you-before-moving-to-texas", "reason": "newcomer-intent-overlap" },
+    { "slug": "signs-youve-lived-in-texas-long-enough", "batch": 16, "disposition": "consolidate", "targetSlug": "you-know-youre-a-texan-if", "reason": "resident-identity-overlap" },
+    { "slug": "texas-summer-habits-locals-learn", "batch": 16, "disposition": "consolidate", "targetSlug": "things-you-understand-after-a-texas-summer", "reason": "summer-lifestyle-overlap" },
+    { "slug": "texas-road-trip-habits-locals-learn", "batch": 16, "disposition": "consolidate", "targetSlug": "things-you-see-on-a-texas-road-trip", "reason": "road-trip-observation-overlap" },
+    { "slug": "texas-things-people-love-to-argue-about", "batch": 16, "disposition": "rebuild-distinct", "reason": "identity-debate-page-needs-narrower-original-angle" }
+  ]
+}
