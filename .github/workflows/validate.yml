@@ -73,6 +73,9 @@ jobs:
         id: build
         run: npm run build
 
+      - name: Report protected asset sizes
+        run: node -e "const fs=require('fs'),p='dist/client/assets';const a=fs.readdirSync(p);const m=a.filter(x=>/^main-.*\\.js$/.test(x));const c=a.filter(x=>/^styles-.*\\.css$/.test(x));const s='main candidates: '+(m.map(f=>f+'='+fs.statSync(p+'/'+f).size).join(', ')||'none')+'; styles: '+(c.map(f=>f+'='+fs.statSync(p+'/'+f).size).join(', ')||'none');console.log(s);console.log('::warning title=Protected client asset sizes::'+s);"
+
       - name: Validate client performance budget
         id: budget
         run: npm run performance:validate
