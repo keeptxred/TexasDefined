@@ -14,6 +14,7 @@ export const Route = createFileRoute("/about")({
     links: [canonicalLink(texasDefinedBrand, "/about")],
     scripts: [jsonLd({ "@context": "https://schema.org", "@graph": [
       { "@type": "AboutPage", "@id": `${absoluteUrl(texasDefinedBrand, "/about")}#page`, url: absoluteUrl(texasDefinedBrand, "/about"), name: "About Texas Defined", description, isPartOf: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#website` }, about: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#organization` } },
+      { "@type": "ContactPage", "@id": `${absoluteUrl(texasDefinedBrand, "/about")}#contact-page`, url: `${absoluteUrl(texasDefinedBrand, "/about")}#contact`, name: "Contact Texas Defined", isPartOf: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#website` }, about: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#organization` } },
       { "@type": "BreadcrumbList", "@id": `${absoluteUrl(texasDefinedBrand, "/about")}#breadcrumb`, itemListElement: [{ "@type": "ListItem", position: 1, name: "Front page", item: absoluteUrl(texasDefinedBrand, "/") }, { "@type": "ListItem", position: 2, name: "About", item: absoluteUrl(texasDefinedBrand, "/about") }] },
     ] })],
   }),
@@ -70,7 +71,7 @@ function AboutPage() {
           {ACCOUNTABILITY.map((item) => <section key={item.title} className="border-t border-border pt-5"><h2 className="font-display text-2xl leading-tight">{item.title}</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">{item.body}</p></section>)}
         </div>
         <p className="mt-10 max-w-3xl border-t border-border pt-6 text-sm leading-7 text-muted-foreground">Contributor profiles are reached from article bylines and contain that writer’s published archive. Start with any story in <Link to="/explore" className="border-b border-primary text-primary">Explore Texas</Link> or <Link to="/texas-living" className="border-b border-primary text-primary">Texas Life</Link> to follow a byline to its canonical profile.</p>
-        <p id="contact" className="mt-6 max-w-3xl scroll-mt-28 text-sm leading-7 text-muted-foreground"><strong className="text-foreground">Contact Texas Defined.</strong> For corrections, source updates or general questions, use an official profile: {texasDefinedBrand.identity.social.map((profile, index) => <span key={profile.href}>{index ? " · " : ""}<a href={profile.href} target="_blank" rel="noreferrer" className="border-b border-primary text-primary">{profile.label}</a></span>)}. A street address is published only when there is a verified public business location to list.</p>
+        <address id="contact" className="mt-6 max-w-3xl scroll-mt-28 not-italic text-sm leading-7 text-muted-foreground"><strong className="text-foreground">Contact Texas Defined.</strong> For corrections, source updates or general questions, use an official profile: {texasDefinedBrand.identity.social.map((profile, index) => <span key={profile.href}>{index ? " · " : ""}<a href={profile.href} target="_blank" rel="noreferrer" className="border-b border-primary text-primary">{profile.label}</a></span>)}. A street address is published only when there is a verified public business location to list.</address>
       </Container>
     </Section>
 
