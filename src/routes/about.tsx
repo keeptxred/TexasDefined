@@ -70,20 +70,7 @@ function AboutPage() {
           {ACCOUNTABILITY.map((item) => <section key={item.title} className="border-t border-border pt-5"><h2 className="font-display text-2xl leading-tight">{item.title}</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">{item.body}</p></section>)}
         </div>
         <p className="mt-10 max-w-3xl border-t border-border pt-6 text-sm leading-7 text-muted-foreground">Contributor profiles are reached from article bylines and contain that writer’s published archive. Start with any story in <Link to="/explore" className="border-b border-primary text-primary">Explore Texas</Link> or <Link to="/texas-living" className="border-b border-primary text-primary">Texas Life</Link> to follow a byline to its canonical profile.</p>
-      </Container>
-    </Section>
-
-    <Section tone="surface">
-      <Container>
-        <div id="contact" className="scroll-mt-28 border-t-2 border-foreground pt-8">
-          <SectionHeader eyebrow="Contact Texas Defined" title="Corrections, source updates and general questions" description="Use one of Texas Defined’s official public profiles to reach the publication. A street address is published only when there is a verified public business location to list." />
-          <div className="mt-8 max-w-3xl text-base leading-8 text-muted-foreground">
-            <p>For a correction, source update, partnership question or general note, contact Texas Defined through an official profile below and include the URL of the page when your message concerns published content.</p>
-            <ul className="mt-6 flex flex-wrap gap-x-7 gap-y-3">
-              {texasDefinedBrand.identity.social.map((profile) => <li key={profile.href}><a href={profile.href} target="_blank" rel="noreferrer" className="border-b border-primary font-semibold text-primary">{profile.label}</a></li>)}
-            </ul>
-          </div>
-        </div>
+        <p id="contact" className="mt-6 max-w-3xl scroll-mt-28 text-sm leading-7 text-muted-foreground"><strong className="text-foreground">Contact Texas Defined.</strong> For corrections, source updates or general questions, use an official profile: {texasDefinedBrand.identity.social.map((profile, index) => <span key={profile.href}>{index ? " · " : ""}<a href={profile.href} target="_blank" rel="noreferrer" className="border-b border-primary text-primary">{profile.label}</a></span>)}. A street address is published only when there is a verified public business location to list.</p>
       </Container>
     </Section>
 
