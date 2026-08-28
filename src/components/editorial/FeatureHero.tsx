@@ -86,11 +86,12 @@ export function FeatureHero({ eyebrow, title, dek, image, to, params, meta, vari
             <dl className="mt-8 grid gap-x-10 gap-y-7 md:grid-cols-2">
               {homepageFaqs.map((item) => (
                 <div key={item.question} className="border-t border-border pt-5">
-                  <dt className="font-display text-xl font-semibold leading-tight text-foreground">{item.question}</dt>
+                  <dt><h3 className="font-display text-xl font-semibold leading-tight text-foreground">{item.question}</h3></dt>
                   <dd className="mt-2 text-sm leading-6 text-muted-foreground">{item.answer}</dd>
                 </div>
               ))}
             </dl>
+            <p className="mt-8 border-t border-border pt-5 text-sm leading-6 text-muted-foreground">Need to report a correction, update a source or reach the publication? <a href="/about#contact" className="border-b border-primary font-semibold text-primary">Contact Texas Defined</a>.</p>
           </div>
         </section>
       </>
