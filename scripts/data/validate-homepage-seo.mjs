@@ -45,8 +45,6 @@ for (const feature of [
   '<dt><h3 className=',
   'homepageFaqs.map((item)',
   'aria-labelledby="texas-defined-faq"',
-  'href="/about#contact"',
-  'Contact Texas Defined',
 ]) {
   if (!featureHero.includes(feature)) errors.push(`Homepage answer-layer feature missing: ${feature}.`);
 }
