@@ -76,7 +76,7 @@ function AboutPage() {
     <Section tone="surface">
       <Container>
         <div id="contact" className="scroll-mt-28 border-t-2 border-foreground pt-8">
-          <SectionHeader eyebrow="Contact Texas Defined" title="Corrections, source updates and general questions" description="Use one of Texas Defined’s official public profiles to reach the publication. We do not publish a private home address or invent a business location for search engines." />
+          <SectionHeader eyebrow="Contact Texas Defined" title="Corrections, source updates and general questions" description="Use one of Texas Defined’s official public profiles to reach the publication. A street address is published only when there is a verified public business location to list." />
           <div className="mt-8 max-w-3xl text-base leading-8 text-muted-foreground">
             <p>For a correction, source update, partnership question or general note, contact Texas Defined through an official profile below and include the URL of the page when your message concerns published content.</p>
             <ul className="mt-6 flex flex-wrap gap-x-7 gap-y-3">
