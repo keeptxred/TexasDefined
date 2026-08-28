@@ -1,0 +1,47 @@
+import { getMajorEventRecordServer } from "./major-event-page.server";
+
+export const supplementalMajorEventSlugs = [
+  "dobie-dichos",
+  "dallas-holiday-parade",
+  "schulenburg-festival",
+  "westfest",
+  "luling-watermelon-thump",
+  "national-polka-festival",
+  "gillespie-county-fair",
+  "north-texas-fair-rodeo",
+  "austin-chronicle-hot-sauce-festival",
+  "parker-county-peach-festival",
+  "buc-days",
+  "valero-texas-open",
+  "houston-auto-show",
+  "fulton-oysterfest",
+  "sandhills-stock-show-rodeo",
+  "sweetwater-rattlesnake-roundup",
+  "granbury-founders-day-jubilee",
+  "galveston-juneteenth-celebrations",
+  "larry-joe-taylor-texas-music-festival",
+  "san-antonio-marathon",
+  "rockport-art-festival",
+  "viva-el-paso",
+  "texas-shakespeare-festival",
+  "poteet-strawberry-festival",
+  "comicpalooza",
+  "tejano-conjunto-festival",
+  "great-texas-balloon-race",
+  "hidalgo-borderfest",
+  "austin-reggae-festival",
+  "texas-outdoor-musical",
+  "washington-on-the-brazos-texas-independence-day",
+  "great-american-scrapbook-convention",
+] as const;
+
+export function loadSupplementalMajorEventSitemapEntriesServer() {
+  return supplementalMajorEventSlugs.flatMap((slug) => {
+    const event = getMajorEventRecordServer(slug);
+    if (!event) return [];
+    return [{
+      path: `/event/${event.slug}`,
+      lastmod: event.sourceCheckedAt?.slice(0, 10),
+    }];
+  });
+}

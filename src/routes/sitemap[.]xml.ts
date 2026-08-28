@@ -14,6 +14,7 @@ import { FISHING_SITEMAP_ENTRIES } from "@/data/fishing/sitemap";
 import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
 import { canonicalEntityPath, isIndexableEntityPage } from "@/data/knowledge-graph/relationships";
 import { majorEventIndexRecords } from "@/data/major-event-index";
+import { loadSupplementalMajorEventSitemapEntriesServer } from "@/data/major-event-supplemental-registry.server";
 import { COUNTY_PROPERTY_RECORDS } from "@/data/property/county-property-data";
 import { isCountyPropertyIndexReady } from "@/data/property/county-property-schema";
 import { fetchAssignedShopProducts } from "@/data/shop-products-remote";
@@ -43,40 +44,6 @@ const ARTICLE_LASTMOD_BY_SLUG: Readonly<Record<string, string>> = {
   "history-of-the-texas-flag": "2026-08-20",
   "texas-flag-etiquette-display-guide": "2026-08-20",
 };
-const SUPPLEMENTAL_MAJOR_EVENT_SITEMAP: readonly SitemapEntry[] = [
-  { path: "/event/dobie-dichos", lastmod: "2026-08-27" },
-  { path: "/event/dallas-holiday-parade", lastmod: "2026-08-27" },
-  { path: "/event/schulenburg-festival", lastmod: "2026-08-27" },
-  { path: "/event/westfest", lastmod: "2026-08-27" },
-  { path: "/event/luling-watermelon-thump", lastmod: "2026-08-27" },
-  { path: "/event/national-polka-festival", lastmod: "2026-08-27" },
-  { path: "/event/gillespie-county-fair", lastmod: "2026-08-27" },
-  { path: "/event/north-texas-fair-rodeo", lastmod: "2026-08-27" },
-  { path: "/event/austin-chronicle-hot-sauce-festival", lastmod: "2026-08-27" },
-  { path: "/event/parker-county-peach-festival", lastmod: "2026-08-27" },
-  { path: "/event/buc-days", lastmod: "2026-08-27" },
-  { path: "/event/valero-texas-open", lastmod: "2026-08-27" },
-  { path: "/event/houston-auto-show", lastmod: "2026-08-27" },
-  { path: "/event/fulton-oysterfest", lastmod: "2026-08-27" },
-  { path: "/event/sandhills-stock-show-rodeo", lastmod: "2026-08-27" },
-  { path: "/event/sweetwater-rattlesnake-roundup", lastmod: "2026-08-27" },
-  { path: "/event/granbury-founders-day-jubilee", lastmod: "2026-08-27" },
-  { path: "/event/galveston-juneteenth-celebrations", lastmod: "2026-08-27" },
-  { path: "/event/larry-joe-taylor-texas-music-festival", lastmod: "2026-08-27" },
-  { path: "/event/san-antonio-marathon", lastmod: "2026-08-27" },
-  { path: "/event/rockport-art-festival", lastmod: "2026-08-27" },
-  { path: "/event/viva-el-paso", lastmod: "2026-08-27" },
-  { path: "/event/texas-shakespeare-festival", lastmod: "2026-08-27" },
-  { path: "/event/poteet-strawberry-festival", lastmod: "2026-08-27" },
-  { path: "/event/comicpalooza", lastmod: "2026-08-27" },
-  { path: "/event/tejano-conjunto-festival", lastmod: "2026-08-27" },
-  { path: "/event/great-texas-balloon-race", lastmod: "2026-08-27" },
-  { path: "/event/hidalgo-borderfest", lastmod: "2026-08-27" },
-  { path: "/event/austin-reggae-festival", lastmod: "2026-08-27" },
-  { path: "/event/texas-outdoor-musical", lastmod: "2026-08-27" },
-  { path: "/event/washington-on-the-brazos-texas-independence-day", lastmod: "2026-08-27" },
-  { path: "/event/great-american-scrapbook-convention", lastmod: "2026-08-27" },
-];
 
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
@@ -134,6 +101,7 @@ export const Route = createFileRoute("/sitemap.xml")({
         const activeCollectionSlugs = new Set(liveShopProducts.flatMap((product) => product.collectionSlugs));
         const countyPages = COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady);
         const entityPages = graph.filter(isIndexableEntityPage).filter(isTexasDefinedOwnedEntity);
+        const supplementalMajorEventSitemapEntries = loadSupplementalMajorEventSitemapEntriesServer();
 
         const entries: SitemapEntry[] = [
           ...INDEXABLE_STATIC_PATHS
@@ -145,7 +113,7 @@ export const Route = createFileRoute("/sitemap.xml")({
             path: `/event/${event.slug}`,
             lastmod: toDate(event.sourceCheckedAt),
           })),
-          ...SUPPLEMENTAL_MAJOR_EVENT_SITEMAP,
+          ...supplementalMajorEventSitemapEntries,
           ...TEXAS_VS_STATES.map((state) => ({ path: `/texas-vs/${texasVsStateSlug(state)}`, lastmod: PRIORITY_SEO_LASTMOD })),
           ...FISHING_SITEMAP_ENTRIES,
           ...fishingGuideSitemapEntries,
