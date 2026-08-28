@@ -7,6 +7,25 @@ User-agent: Bingbot
 Allow: /
 Disallow: /admin
 
+# AI search, assistant, training and indexing crawlers checked by GEO readiness tools.
+# These agents were already allowed by the wildcard policy below; listing them
+# explicitly makes the site's existing access policy unambiguous to parsers.
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: Amazonbot
+User-agent: Meta-ExternalAgent
+User-agent: CCBot
+Allow: /
+Disallow: /admin
+
 User-agent: Twitterbot
 Allow: /
 Disallow: /admin
@@ -15,11 +34,6 @@ User-agent: facebookexternalhit
 Allow: /
 Disallow: /admin
 
-User-agent: OAI-SearchBot
-User-agent: ChatGPT-User
-User-agent: PerplexityBot
-User-agent: Perplexity-User
-User-agent: Google-Extended
 User-agent: *
 Allow: /
 Disallow: /admin
