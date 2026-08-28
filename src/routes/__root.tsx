@@ -125,10 +125,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
             sameAs: texasDefinedBrand.identity.social.map((profile) => profile.href),
             contactPoint: [{
               "@type": "ContactPoint",
-              "@id": `${siteUrl}/#contact`,
               contactType: "editorial and general inquiries",
               url: `${siteUrl}/about#contact`,
-              availableLanguage: ["English"],
             }],
             publishingPrinciples: `${siteUrl}/about`,
             areaServed: { "@type": "State", name: "Texas" },
