@@ -77,15 +77,6 @@ jobs:
         id: budget
         run: npm run performance:validate
 
-      - name: Upload client performance measurement
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: client-performance-budget-report
-          path: client-performance-budget-report.json
-          if-no-files-found: ignore
-          retention-days: 1
-
       - name: Summarize CI outcome
         if: always()
         shell: bash
