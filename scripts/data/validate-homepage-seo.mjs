@@ -5,7 +5,8 @@ const root = process.cwd();
 const read = (file) => fs.readFileSync(path.join(root, file), 'utf8');
 const eagerRoute = read('src/routes/index.tsx');
 const lazyRoutePath = path.join(root, 'src/routes/index.lazy.tsx');
-const route = fs.existsSync(lazyRoutePath) ? `${eagerRoute}\n${fs.readFileSync(lazyRoutePath, 'utf8')}` : eagerRoute;
+const lazyRoute = fs.existsSync(lazyRoutePath) ? fs.readFileSync(lazyRoutePath, 'utf8') : '';
+const route = `${eagerRoute}\n${lazyRoute}`;
 const featureHero = read('src/components/editorial/FeatureHero.tsx');
 const homepageContent = read('src/content/homepage.ts');
 const rootRoute = read('src/routes/__root.tsx');
@@ -37,21 +38,20 @@ for (const feature of [
 }
 
 for (const feature of [
-  'homepageIntro.eyebrow',
-  'homepageIntro.title',
-  'homepageIntro.description',
-  '<h1 className="mt-4',
-  '<h2 className="mt-3 max-w-[15em]',
+  '<h1 className="mt-3',
+  'The places, stories & life of Texas',
+  'Texas Defined is a guide to Texas places, culture, food, history, travel and practical living',
   '<dt><h3 className=',
   'homepageFaqs.map((item)',
-  'aria-labelledby="texas-defined-faq"',
 ]) {
-  if (!featureHero.includes(feature)) errors.push(`Homepage answer-layer feature missing: ${feature}.`);
+  if (!lazyRoute.includes(feature)) errors.push(`Homepage answer-layer feature missing: ${feature}.`);
+}
+
+if (!featureHero.includes('<h2 className="mt-5 max-w-[10.5em]')) {
+  errors.push('Split homepage feature must remain an H2 beneath the stable homepage H1.');
 }
 
 for (const feature of [
-  'title: "The places, stories & life of Texas"',
-  'Texas Defined is a guide to Texas places, culture, food, history, travel and practical living',
   'question: "What is Texas Defined?"',
   'question: "What does Texas Defined cover?"',
 ]) {
