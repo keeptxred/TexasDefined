@@ -1,4 +1,4 @@
-import { readFile, readdir, stat } from 'node:fs/promises';
+import { readFile, readdir, stat, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
 const assetDirCandidates = [
@@ -6,6 +6,7 @@ const assetDirCandidates = [
   path.resolve('.output/public/assets'),
 ];
 const viteConfigPath = path.resolve('vite.config.ts');
+const budgetReportPath = path.resolve('client-performance-budget-report.json');
 // CI measured the stable, non-route-split client bundle at 1,807,457 bytes.
 // Keep less than 1% headroom so meaningful growth fails without making the
 // budget smaller than the known-good production build.
@@ -44,8 +45,20 @@ async function main() {
   const entries = await readdir(assetsDir);
   const mainCandidates = entries.filter((name) => /^main-.*\.js$/.test(name));
   const cssFiles = entries.filter((name) => /^styles-.*\.css$/.test(name));
-  const mainAssetSizes = await Promise.all(mainCandidates.map(async (name) => `${name}=${(await stat(path.join(assetsDir, name))).size}`));
-  const cssAssetSizes = await Promise.all(cssFiles.map(async (name) => `${name}=${(await stat(path.join(assetsDir, name))).size}`));
+  const mainAssets = await Promise.all(mainCandidates.map(async (name) => ({ name, bytes: (await stat(path.join(assetsDir, name))).size })));
+  const cssAssets = await Promise.all(cssFiles.map(async (name) => ({ name, bytes: (await stat(path.join(assetsDir, name))).size })));
+  const mainAssetSizes = mainAssets.map(({ name, bytes }) => `${name}=${bytes}`);
+  const cssAssetSizes = cssAssets.map(({ name, bytes }) => `${name}=${bytes}`);
+  await writeFile(budgetReportPath, `${JSON.stringify({
+    assetsDir: path.relative(process.cwd(), assetsDir),
+    limits: {
+      stableMainBaselineBytes: STABLE_MAIN_BASELINE_BYTES,
+      maxMainBytes: MAX_MAIN_BYTES,
+      maxCssBytes: MAX_CSS_BYTES,
+    },
+    mainAssets,
+    cssAssets,
+  }, null, 2)}\n`, 'utf8');
   console.log(`::notice title=Protected client asset sizes::main: ${mainAssetSizes.join(', ') || 'none'}; styles: ${cssAssetSizes.join(', ') || 'none'}`);
 
   if (mainCandidates.length !== 1) {
