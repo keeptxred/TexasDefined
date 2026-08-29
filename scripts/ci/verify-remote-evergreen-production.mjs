@@ -65,6 +65,23 @@ const extractRobotsDirectives = (html) => {
   return directives;
 };
 
+const extractPrimarySourceHref = (html) => {
+  const markerIndex = html.indexOf("Primary source:");
+  if (markerIndex < 0) return null;
+
+  const sourceBlock = html.slice(markerIndex, markerIndex + 1_500);
+  const hrefRaw = /<a\b[^>]*href=["']([^"']+)["'][^>]*>/i.exec(sourceBlock)?.[1];
+  if (!hrefRaw) return null;
+
+  try {
+    const href = new URL(decodeHtml(hrefRaw), ORIGIN);
+    if (href.protocol !== "https:" || href.origin === ORIGIN) return null;
+    return href.href;
+  } catch {
+    return null;
+  }
+};
+
 async function verifyPage(slug) {
   const url = `${ORIGIN}/article/${slug}`;
 
@@ -107,8 +124,9 @@ async function verifyPage(slug) {
       console.log(`WAIT Article-schema ${url}`);
       return false;
     }
-    if (!decoded.includes("Primary source:")) {
-      console.log(`WAIT primary-source ${url}`);
+    const primarySourceHref = extractPrimarySourceHref(decoded);
+    if (!primarySourceHref) {
+      console.log(`WAIT primary-source-link ${url}`);
       return false;
     }
     if (!decoded.includes("Sources and further reading")) {
@@ -130,7 +148,9 @@ async function verifyPage(slug) {
       return false;
     }
 
-    console.log(`PASS page=200 canonical=indexable schema=Article sources=visible hero=200 ${url}`);
+    console.log(
+      `PASS page=200 canonical=indexable schema=Article sources=https hero=200 ${url} source=${primarySourceHref}`,
+    );
     return true;
   } catch (error) {
     console.log(`WAIT request-error ${url}: ${error instanceof Error ? error.message : String(error)}`);
