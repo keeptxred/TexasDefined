@@ -14,6 +14,7 @@ import { TEXAS_KNOWLEDGE_EXPANDED_SEED } from './seed-expanded';
 import { TEXAS_KNOWLEDGE_VERIFIED_BATCH2 } from './seed-verified-batch2';
 import { TEXAS_KNOWLEDGE_VERIFIED_BATCH3 } from './seed-verified-batch3';
 import { TEXAS_KNOWLEDGE_VERIFIED_BATCH4 } from './seed-verified-batch4';
+import { TEXAS_KNOWLEDGE_VERIFIED_BATCH5 } from './seed-verified-batch5';
 import { TEXAS_KNOWLEDGE_SEED } from './seed';
 import type { TexasKnowledgeDomain, TexasKnowledgeRecord } from './types';
 
@@ -31,6 +32,7 @@ export const TEXAS_KNOWLEDGE_CATALOG: readonly TexasKnowledgeRecord[] = [
   ...TEXAS_KNOWLEDGE_VERIFIED_BATCH2,
   ...TEXAS_KNOWLEDGE_VERIFIED_BATCH3,
   ...TEXAS_KNOWLEDGE_VERIFIED_BATCH4,
+  ...TEXAS_KNOWLEDGE_VERIFIED_BATCH5,
   ...TEXAS_COUNTY_FACTS_BATCH1,
   ...TEXAS_COUNTY_FACTS_BATCH2,
   ...TEXAS_COUNTY_FACTS_BATCH3,
