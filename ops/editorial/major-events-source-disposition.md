@@ -1,6 +1,6 @@
 # Major Texas events source-disposition ledger
 
-Last reviewed: 2026-08-28
+Last reviewed: 2026-08-29
 
 This file closes the research loop on the supplied **Comprehensive Chronological Guide to 75 Major Texas Statewide Events**. The PDF is a discovery seed, not a publication source. Texas Defined publishes an event authority page only when an organizer, host, league, government agency, or equivalent first-party source supports the event identity and the date treatment used on the page.
 
@@ -48,7 +48,7 @@ Statuses used below:
 | 29 | Sweetwater Rattlesnake Roundup | Implemented | `/event/sweetwater-rattlesnake-roundup` |
 | 30 | Borderfest | Implemented/corrected | `/event/hidalgo-borderfest`; latest confirmed organizer occurrence is used rather than an unsupported 2027 projection. |
 | 31 | Fulton Oysterfest | Implemented | `/event/fulton-oysterfest` |
-| 32 | Contemporary Austin's Critter Ball | Unsupported | No current Contemporary Austin first-party event surface substantiates this seed. Do not publish until the organizer does. |
+| 32 | Contemporary Austin's Critter Ball | Replaced/corrected | The seed identity is not present on the museum's current calendar. Current organizer-confirmed annual family fundraiser is `/event/the-very-rary`; Texas Defined does not assert that it is a formal rename or direct successor. |
 | 33 | Texas Ranger Association Gathering | Deferred / non-public mismatch | TRAF's documented Waco reunion is a private Ranger-family/benefactor event and does not match the seed's public March 2027 gathering. |
 | 34 | Valero Texas Open | Implemented/corrected | `/event/valero-texas-open`; official tournament dates supersede the seed's narrower range. |
 | 35 | Fiesta San Antonio | Implemented | `/event/fiesta-san-antonio` |
@@ -97,17 +97,17 @@ Statuses used below:
 
 These are deliberately **not** publication failures. They are cases where creating Event markup would be less accurate than waiting.
 
-1. **Contemporary Austin's Critter Ball** — recheck only if The Contemporary Austin publishes an event by that name or an obvious successor.
-2. **Texas Ranger Association Gathering** — recheck if TRAF publishes a public gathering matching the discovery intent; do not convert the private reunion into a public event guide.
-3. **Stagecoach Ballroom Western Days** — require a first-party Stagecoach Ballroom or organizer event listing before publication.
-4. **Texas State Arts & Crafts Fair** — recheck Hill Country Arts Foundation / the fair site for a confirmed post-recovery return date.
-5. **Arlington Highlands Summer Fest** — require a first-party event listing matching the seed identity rather than substituting one of the center's unrelated summer programs.
-6. **Billy Bob's July 4th Picnic** — require a Billy Bob's event listing for that named event or a clearly documented successor.
-7. **Texas Rangers Fan Fest** — wait for the Rangers to announce a new scheduled occurrence; the 2026 event was canceled.
-8. **Inks Lake spring wildflowers** — keep as seasonal destination content. Individual TPWD Wildflower Walks may be calendar events, but they are not equivalent to the PDF's month-long 'viewing' seed.
+1. **Texas Ranger Association Gathering** — recheck if TRAF publishes a public gathering matching the discovery intent; do not convert the private reunion into a public event guide.
+2. **Stagecoach Ballroom Western Days** — require a first-party Stagecoach Ballroom or organizer event listing before publication.
+3. **Texas State Arts & Crafts Fair** — recheck Hill Country Arts Foundation / the fair site for a confirmed post-recovery return date.
+4. **Arlington Highlands Summer Fest** — require a first-party event listing matching the seed identity rather than substituting one of the center's unrelated summer programs.
+5. **Billy Bob's July 4th Picnic** — require a Billy Bob's event listing for that named event or a clearly documented successor.
+6. **Texas Rangers Fan Fest** — wait for the Rangers to announce a new scheduled occurrence; the 2026 event was canceled.
+7. **Inks Lake spring wildflowers** — keep as seasonal destination content. Individual TPWD Wildflower Walks may be calendar events, but they are not equivalent to the PDF's month-long 'viewing' seed.
 
 ## First-party evidence for the closeout decisions
 
+- The Very ‘Rary: https://thecontemporaryaustin.org/event/the-very-rary-2026/ and https://thecontemporaryaustin.org/the-very-rary/ — the museum confirms the October 18, 2026 event and describes it as its annual all-ages fundraiser; Texas Defined does not infer that the stale Critter Ball seed was formally renamed.
 - Texas Arts & Crafts Fair: https://www.txartsandcraftsfair.com/ — organizer says the 2025 fair was canceled after the July 4 floods and that TACF is paused while the Hill Country Arts Foundation campus recovers.
 - Texas Ranger Association Foundation reunion: https://thetexasrangers.org/reunion/ — identifies the annual Waco reunion as a private event for Rangers, families, and eligible supporters.
 - Inks Lake State Park events: https://tpwd.texas.gov/state-parks/inks-lake/park_events — TPWD publishes discrete ranger programs; spring wildflower viewing is a park-season activity, not one continuous scheduled festival.
