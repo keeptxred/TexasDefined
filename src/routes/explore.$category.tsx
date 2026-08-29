@@ -10,7 +10,7 @@ import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const legacyExploreRedirects: Record<string, string> = {
   "scenic-rivers": "/article/texas-rivers-explained",
-  "texas-dark-sky-stargazing": "/article/best-texas-stargazing-weekend-trips",
+  "texas-dark-sky-stargazing": "/explore/outdoors",
 };
 const categorySeoOverrides: Partial<Record<string, { title: string; description: string }>> = {
   outdoors: {
@@ -105,5 +105,5 @@ function CategoryNotFound() {
     <h1 className="mt-3 font-display text-3xl">We haven't made that list yet</h1>
     <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">The page may have moved, but there are still plenty of places worth the drive.</p>
     <Link to="/explore" className="eyebrow mt-6 inline-block border-b border-primary pb-1 text-primary">Find another road →</Link>
-  </Container>;
+  </Container>
 }
