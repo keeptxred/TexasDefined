@@ -17,6 +17,7 @@ on:
       - 'scripts/data/validate-texas-verified-wildlife-batch3.mjs'
       - 'scripts/data/validate-texas-verified-pest-batch4.mjs'
       - 'scripts/data/validate-texas-verified-bird-batch5.mjs'
+      - 'scripts/data/validate-texas-verified-snake-batch6.mjs'
       - 'scripts/data/validate-texas-social-balance.mjs'
       - 'scripts/data/validate-texas-home-nature-tools.mjs'
       - 'tsconfig.knowledge-bank.json'
@@ -59,6 +60,9 @@ jobs:
 
       - name: Validate verified bird batch 5
         run: node scripts/data/validate-texas-verified-bird-batch5.mjs
+
+      - name: Validate verified snake batch 6
+        run: node scripts/data/validate-texas-verified-snake-batch6.mjs
 
       - name: Validate social domain balance
         run: node scripts/data/validate-texas-social-balance.mjs
