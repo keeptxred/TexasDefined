@@ -1,0 +1,47 @@
+name: TexasDefined publication production smoke
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/texasdefined-auto-publication.yml'
+      - '.github/workflows/texasdefined-publication-production-smoke.yml'
+      - 'scripts/news/texasdefined-auto-publisher.mjs'
+      - 'scripts/data/validate-texasdefined-auto-publication.mjs'
+      - 'scripts/ci/verify-texasdefined-publication-production.mjs'
+      - 'src/routes/news*.tsx'
+      - 'src/routes/sitemap*.ts'
+      - 'src/data/articles-remote.ts'
+      - 'supabase/migrations/20260813143000_harden_texasdefined_auto_publication.sql'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/texasdefined-auto-publication.yml'
+      - '.github/workflows/texasdefined-publication-production-smoke.yml'
+      - 'scripts/news/texasdefined-auto-publisher.mjs'
+      - 'scripts/data/validate-texasdefined-auto-publication.mjs'
+      - 'scripts/ci/verify-texasdefined-publication-production.mjs'
+      - 'src/routes/news*.tsx'
+      - 'src/routes/sitemap*.ts'
+      - 'src/data/articles-remote.ts'
+      - 'supabase/migrations/20260813143000_harden_texasdefined_auto_publication.sql'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: texasdefined-publication-production-smoke-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify-publication-surfaces:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Verify live news, Canyon Lake article and sitemap membership
+        run: node scripts/ci/verify-texasdefined-publication-production.mjs

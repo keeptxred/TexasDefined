@@ -33,6 +33,20 @@ jobs:
           node-version: 24
       - name: Validate inactive publication controls
         run: node scripts/data/validate-texasdefined-auto-publication.mjs
+      - name: Report activation state safely
+        env:
+          TEXASDEFINED_AUTO_PUBLISH_ENABLED: ${{ vars.TEXASDEFINED_AUTO_PUBLISH_ENABLED }}
+        run: |
+          if [ -z "$TEXASDEFINED_AUTO_PUBLISH_ENABLED" ]; then
+            echo "TEXASDEFINED_AUTO_PUBLISH_ENABLED_PRESENT=false"
+          else
+            echo "TEXASDEFINED_AUTO_PUBLISH_ENABLED_PRESENT=true"
+          fi
+          if [ "$TEXASDEFINED_AUTO_PUBLISH_ENABLED" = "true" ]; then
+            echo "TEXASDEFINED_AUTO_PUBLISH_ENABLED_TRUE=true"
+          else
+            echo "TEXASDEFINED_AUTO_PUBLISH_ENABLED_TRUE=false"
+          fi
 
   run:
     needs: validate
@@ -52,7 +66,27 @@ jobs:
           node-version: 24
       - name: Inspect eligible queue without publishing
         if: inputs.mode == 'dry-run'
-        run: node scripts/news/texasdefined-auto-publisher.mjs --limit=3
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/news/texasdefined-auto-publisher.mjs --limit=3 | tee /tmp/texasdefined-dry-run.jsonl
+          node - <<'NODE'
+          const fs = require('node:fs');
+          const rows = fs.readFileSync('/tmp/texasdefined-dry-run.jsonl', 'utf8')
+            .split(/\r?\n/)
+            .filter(Boolean)
+            .map((line) => JSON.parse(line));
+          const queue = rows.find((row) => row.mode === 'dry-run');
+          if (!queue) throw new Error('Dry-run queue summary was not emitted.');
+          console.log(JSON.stringify({
+            mode: 'dry-run-summary',
+            eligible: queue.eligible,
+            published: 0,
+            skipped: 0,
+            failed: 0,
+            ids: queue.ids,
+          }));
+          NODE
       - name: Publish one approved eligible article
         if: inputs.mode == 'publish'
         run: node scripts/news/texasdefined-auto-publisher.mjs --publish --limit=1
