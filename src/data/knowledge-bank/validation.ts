@@ -15,6 +15,7 @@ export type KnowledgeBankValidation = {
 };
 
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
+const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const isRootRelativePath = (value: string) => value.startsWith('/') && !value.includes('://');
 
 export function validateKnowledgeBank(records: TexasKnowledgeRecord[]): KnowledgeBankValidation {
@@ -30,6 +31,17 @@ export function validateKnowledgeBank(records: TexasKnowledgeRecord[]): Knowledg
     if (!record.statement.trim()) errors.push(`${record.id} requires a statement.`);
     if (!record.subject.trim()) errors.push(`${record.id} requires a subject.`);
     if (!record.tags.length) warnings.push(`${record.id} has no tags for discovery or reuse.`);
+
+    if (record.kind === 'county-fact') {
+      if (!record.countySlug) errors.push(`${record.id} is a county-fact and requires countySlug.`);
+      else if (!SLUG.test(record.countySlug)) errors.push(`${record.id} has an invalid countySlug.`);
+    }
+    if (record.kind === 'town-fact') {
+      if (!record.townSlug) errors.push(`${record.id} is a town-fact and requires townSlug.`);
+      else if (!SLUG.test(record.townSlug)) errors.push(`${record.id} has an invalid townSlug.`);
+      if (!record.countySlug) warnings.push(`${record.id} is a town-fact with no countySlug context.`);
+      else if (!SLUG.test(record.countySlug)) errors.push(`${record.id} has an invalid countySlug.`);
+    }
 
     if (record.verification === 'verified' && !record.sources.length) errors.push(`${record.id} is marked verified but has no source.`);
     if (record.verification === 'verified' && !record.verifiedAt) errors.push(`${record.id} is marked verified but has no verifiedAt date.`);
