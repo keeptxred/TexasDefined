@@ -7,7 +7,9 @@ import type { Article } from "../types";
  * sitemap, while removing it stages the page again without breaking direct QA
  * URLs.
  */
-export const TEXAS_GATEWAY_INDEX_READY_SLUGS = new Set<string>([]);
+export const TEXAS_GATEWAY_INDEX_READY_SLUGS = new Set<string>([
+  "best-texas-stargazing-weekend-trips",
+]);
 
 export function isTexasGatewayArticle(article: Pick<Article, "brandId" | "id">): boolean {
   return article.brandId === "texasdefined" && article.id.startsWith("gateway-");
