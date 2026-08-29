@@ -8,6 +8,8 @@ const readRouteSurface = (file) => {
 };
 
 const workflow = read('.github/workflows/texasdefined-auto-publication.yml');
+const productionSmokeWorkflow = read('.github/workflows/texasdefined-publication-production-smoke.yml');
+const productionSmoke = read('scripts/ci/verify-texasdefined-publication-production.mjs');
 const publisher = read('scripts/news/texasdefined-auto-publisher.mjs');
 const migration = read('supabase/migrations/20260813143000_harden_texasdefined_auto_publication.sql');
 const env = read('.env');
@@ -23,6 +25,12 @@ for (const token of ['Report activation state safely', 'TEXASDEFINED_AUTO_PUBLIS
   if (!workflow.includes(token)) errors.push(`Workflow observability contract is missing ${token}`);
 }
 if (/^\s*schedule:/m.test(workflow)) errors.push('Auto-publication schedule must remain disabled until activation is approved.');
+for (const token of ['pull_request:', 'push:', 'Verify live news, Canyon Lake article and sitemap membership', 'verify-texasdefined-publication-production.mjs']) {
+  if (!productionSmokeWorkflow.includes(token)) errors.push(`Publication production smoke workflow is missing ${token}`);
+}
+for (const token of ['/news', '/news/2026-08-10-canyon-lake-full-capacity-recovery', 'Canyon Lake Reaches Full Capacity After a Dramatic Summer Refill', '/sitemap.xml', 'canyonLakeInSitemap: true']) {
+  if (!productionSmoke.includes(token)) errors.push(`Publication production smoke is missing ${token}`);
+}
 for (const token of ['ready_for_rewrite IS TRUE', 'classification_confidence', 'texas_relevance_score', 'source_reputation_score', 'security_invoker', 'publish_texasdefined_queue_item_v2', 'FROM anon, authenticated', "TO service_role"]) {
   if (!migration.includes(token)) errors.push(`Migration is missing ${token}`);
 }
@@ -54,4 +62,4 @@ if (errors.length) {
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
-console.log('TexasDefined auto-publication is guarded, source-gated, image-gated, disabled by default, auditable for activation/dry-run counts, and isolated to feed-backed /news routes while manual evergreen content remains on canonical /article routes.');
+console.log('TexasDefined auto-publication is guarded, source-gated, image-gated, disabled by default, auditable for activation/dry-run counts, production-smoked for /news and Canyon Lake sitemap health, and isolated to feed-backed /news routes while manual evergreen content remains on canonical /article routes.');
