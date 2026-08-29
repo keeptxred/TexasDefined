@@ -68,6 +68,9 @@ export const supplementalMajorEventSlugs = [
   "chevron-houston-marathon",
   "spurs-austin-international-half",
   "atx-open",
+  "austin-e-prix",
+  "nascar-at-cota",
+  "texas-motor-speedway-nascar-weekend",
 ] as const;
 
 export function loadSupplementalMajorEventRecordsServer() {
