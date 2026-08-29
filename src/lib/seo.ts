@@ -61,6 +61,10 @@ const TEXASDEFINED_TECHNICAL_SEO_OVERRIDES: Record<string, { title: string; desc
   "/destination/palo-duro-canyon-state-park": { title: "Palo Duro Canyon State Park Guide" },
   "/texas-vs/california": { title: "Texas vs California: Cost & Living" },
   "/article/texas-wildlife-guide": { title: "Texas Wildlife Guide: Animals & Habitats" },
+  "/article/texas-regions-explained": {
+    title: "Texas Landforms & Regions: Mountains, Plains, Coast & More",
+    description: "Explore Texas landforms and regions, from the Hill Country and Piney Woods to the Gulf Coast, High Plains, Big Bend mountains, basins and South Texas.",
+  },
   "/article/texas-farm-to-market-roads-explained": { title: "Texas Farm-to-Market Roads Explained" },
   "/article/beginners-guide-ordering-texas-barbecue": { title: "How to Order Texas Barbecue" },
   "/article/texas-septic-systems-homeowner-guide": {
