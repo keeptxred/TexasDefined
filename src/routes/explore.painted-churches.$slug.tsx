@@ -16,16 +16,27 @@ import { buildMeta, canonicalLink } from "@/lib/seo";
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
 export const Route = createFileRoute("/explore/painted-churches/$slug")({
-  loader: ({ params }) => {
+  loader: async ({ params }) => {
     const church = expandedPaintedChurchBySlug(params.slug);
     if (!church) throw notFound();
-    const profile =
+    let profile =
       paintedChurchProfileBySlug(params.slug) ??
       paintedChurchExtendedProfileBySlug(params.slug) ??
       paintedChurchStatewideProfileBySlug(params.slug) ??
       finalPaintedChurchProfileBySlug(params.slug) ??
       additionalPaintedChurchProfileBySlug(params.slug) ??
       paintedChurchAdditionProfileBySlug(params.slug);
+
+    if (!profile) {
+      const [expansionProfiles, latestProfiles] = await Promise.all([
+        import("@/data/painted-church-profiles-expansion"),
+        import("@/data/painted-church-profiles-latest"),
+      ]);
+      profile =
+        expansionProfiles.paintedChurchExpansionProfileBySlug(params.slug) ??
+        latestProfiles.latestPaintedChurchProfileBySlug(params.slug);
+    }
+
     return { church, profile };
   },
   head: ({ loaderData, params }) => {
