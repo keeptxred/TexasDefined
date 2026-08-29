@@ -20,9 +20,11 @@ const validation = read('src/data/knowledge-bank/validation.ts');
 const guides = read('src/data/texas-evergreen-guides-batch8.ts');
 const clusters = read('src/data/texas-home-nature-clusters.ts');
 const routes = read('src/lib/public-routes.ts');
-const homeGarden = read('src/routes/home-garden.tsx');
 const entityRoute = read('src/routes/$kind.$slug.tsx');
 const entityRelationships = read('src/data/knowledge-graph/relationships.ts');
+const publicGuideBoundary = read('src/data/texas-home-nature-public.ts');
+const publicGuideServer = read('src/data/texas-home-nature-public.server.ts');
+const publicGuideComponent = read('src/components/editorial/TexasHomeNatureGuide.tsx');
 
 const requiredSourceIds = [
   'texas-open-data', 'tpwd-wildlife', 'tpwd-plants', 'ebird', 'usfws-birds',
@@ -55,27 +57,55 @@ const clusterCount = (clusters.match(/\bid:\s*['\"]/g) ?? []).length;
 const stagedClusterCount = (clusters.match(/publicationState:\s*['\"]staged['\"],/g) ?? []).length;
 const plannedLinkCount = (clusters.match(/plannedCrossLinkTargets\s*:\s*\[/g) ?? []).length;
 if (!clusterCount) failures.push('Home/nature cluster inventory must contain at least one cluster.');
-if (stagedClusterCount !== clusterCount) failures.push(`Every home/nature cluster must be staged; found ${stagedClusterCount} staged of ${clusterCount}.`);
+if (stagedClusterCount !== clusterCount) failures.push(`Every home/nature cluster must remain an editorial planning inventory; found ${stagedClusterCount} staged of ${clusterCount}.`);
 if (plannedLinkCount !== clusterCount) failures.push(`Every home/nature cluster must label cross-links planning-only; found ${plannedLinkCount} of ${clusterCount}.`);
-if (/\bcrossLinkTargets\s*:/.test(clusters)) failures.push('Home/nature clusters must not expose unqualified crossLinkTargets; use plannedCrossLinkTargets until routes are verified for publication.');
+if (/\bcrossLinkTargets\s*:/.test(clusters)) failures.push('Home/nature clusters must not expose unqualified crossLinkTargets; use plannedCrossLinkTargets until individual supporting routes are verified.');
 
-const stagedGuideSlugs = [
+const approvedGuideSlugs = [
   'texas-hurricane-home-prep', 'texas-pool-guide', 'texas-pests-guide',
   'texas-snakes-guide', 'texas-wildlife-guide', 'texas-birds-guide',
   'texas-flowers-wildflowers-guide',
 ];
-const stagedGuidePaths = stagedGuideSlugs.map((slug) => `/${slug}`);
+const publishedGuideSlugs = ['texas-pool-guide', 'texas-pests-guide', 'texas-snakes-guide', 'texas-birds-guide'];
+const publishedGuidePaths = publishedGuideSlugs.map((slug) => `/${slug}`);
+const consolidatedCanonicals = {
+  'texas-hurricane-home-prep': '/article/texas-hurricane-preparation-homeowners-renters',
+  'texas-wildlife-guide': '/article/texas-wildlife-guide',
+  'texas-flowers-wildflowers-guide': '/article/texas-wildflowers-guide',
+};
 const knowledgeRecordText = `${seed}\n${expanded}\n${verifiedBatch2}\n${countyText}`;
-for (const path of stagedGuidePaths) {
-  if (routes.includes(`\"${path}\"`) || routes.includes(`'${path}'`)) failures.push(`Staged guide leaked into public route registry: ${path}`);
-  if (homeGarden.includes(path)) failures.push(`Staged guide leaked into Home & Garden links: ${path}`);
+
+for (const slug of approvedGuideSlugs) {
+  if (!guides.includes(`\"${slug}\"`) && !guides.includes(`'${slug}'`)) failures.push(`Approved evergreen guide source is missing ${slug}.`);
+}
+for (const path of publishedGuidePaths) {
+  if (!routes.includes(`\"${path}\"`) && !routes.includes(`'${path}'`)) failures.push(`Published guide is missing from indexable public route registry: ${path}`);
+  const slug = path.slice(1);
+  const shellPath = `src/routes/${slug}.tsx`;
+  const lazyPath = `src/routes/${slug}.lazy.tsx`;
+  if (!fs.existsSync(shellPath)) failures.push(`Published guide is missing route shell: ${path}`);
+  if (!fs.existsSync(lazyPath)) failures.push(`Published guide is missing lazy UI route: ${path}`);
+  if (fs.existsSync(shellPath)) {
+    const shell = read(shellPath);
+    if (!shell.includes('getTexasHomeNatureGuide')) failures.push(`Published guide route must use server boundary: ${path}`);
+    if (shell.includes('texas-evergreen-guides-batch8')) failures.push(`Published guide route must not import Batch 8 copy directly: ${path}`);
+  }
   const escaped = path.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  if (new RegExp(`\\barticlePath\\s*:\\s*['\"]${escaped}['\"]`).test(knowledgeRecordText)) failures.push(`Staged guide leaked into live knowledge articlePath: ${path}`);
-  if (!new RegExp(`\\bplannedArticlePath\\s*:\\s*['\"]${escaped}['\"]`).test(knowledgeRecordText)) failures.push(`Staged guide is missing a planning-only knowledge destination: ${path}`);
+  if (!new RegExp(`\\barticlePath\\s*:\\s*['\"]${escaped}['\"]`).test(knowledgeRecordText)) failures.push(`Published guide is missing live Knowledge Bank articlePath: ${path}`);
+  if (new RegExp(`\\bplannedArticlePath\\s*:\\s*['\"]${escaped}['\"]`).test(knowledgeRecordText)) failures.push(`Published guide still appears as a planning-only Knowledge Bank destination: ${path}`);
 }
-for (const slug of stagedGuideSlugs) {
-  if (fs.existsSync(`src/routes/${slug}.tsx`)) failures.push(`Staged guide has a public file route before publication approval: /${slug}`);
+for (const [legacySlug, canonicalPath] of Object.entries(consolidatedCanonicals)) {
+  if (fs.existsSync(`src/routes/${legacySlug}.tsx`)) failures.push(`Consolidated topic must not create a duplicate indexable route: /${legacySlug}`);
+  const escapedCanonical = canonicalPath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  if (!new RegExp(`\\barticlePath\\s*:\\s*['\"]${escapedCanonical}['\"]`).test(knowledgeRecordText)) failures.push(`Consolidated topic is missing canonical Knowledge Bank articlePath: ${canonicalPath}`);
 }
+if (!publicGuideBoundary.includes('createServerFn')) failures.push('Published home/nature guides require a createServerFn boundary.');
+if (!publicGuideBoundary.includes('texas-home-nature-public.server')) failures.push('Published home/nature server function must dynamically import its .server implementation.');
+if (!publicGuideServer.includes('texas-evergreen-guides-batch8')) failures.push('Server-only home/nature loader must own the Batch 8 long-form import.');
+if (!publicGuideServer.includes('CANONICAL_LINKS')) failures.push('Server-only guide delivery must consolidate overlapping topics to existing canonicals.');
+if (!publicGuideServer.includes('Do not make major water-level, plumbing or equipment changes from a generic storm checklist')) failures.push('Public pool guide must retain conservative equipment-specific storm guidance.');
+if (publicGuideServer.includes('Do not empty an in-ground pool simply because a hurricane is approaching')) failures.push('Public delivery must not restore the quarantined universal pool-drain claim.');
+for (const path of publishedGuidePaths) if (!publicGuideComponent.includes(path)) failures.push(`Shared guide renderer must cross-link published guide: ${path}`);
 
 for (const field of ['verification', 'socialReady', 'sources', 'socialFormats', 'usage', 'plannedArticlePath', 'engagementChoices', 'temporalScope', 'reviewBy', 'validThrough']) {
   if (!types.includes(field)) failures.push(`Knowledge record type is missing field: ${field}`);
@@ -160,14 +190,10 @@ if (observationCount < 55) failures.push(`Expected at least 55 cultural observat
 const verifiedCount = ((seed + expanded + verifiedBatch2).match(/verification:\s*['\"]verified['\"]/g) ?? []).length + countyIds.length;
 if (verifiedCount < 282) failures.push(`Expected at least 282 verified/source-backed records after statewide county coverage; found ${verifiedCount}.`);
 
-for (const slug of stagedGuideSlugs) {
-  if (!guides.includes(`\"${slug}\"`) && !guides.includes(`'${slug}'`)) failures.push(`Staged evergreen guide batch is missing ${slug}.`);
-}
-
 if (failures.length) {
   console.error('Texas knowledge bank validation failed:');
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log(`Texas knowledge bank validation passed: ${ids.length} seeded records, ${verifiedCount} verified records, ${observationCount} cultural observations/engagement prompts, ${verifiedBatch2Ids.length} second-batch verified facts, ${countyIds.length} statewide county facts, ${pairedChoiceIds.length} paired-choice prompts, ${stagedGuidePaths.length} staged/non-public practical guides, ${registeredSourceIds.size} registered sources, and ${requiredSocialFormats.length} social formats.`);
+console.log(`Texas knowledge bank validation passed: ${ids.length} seeded records, ${verifiedCount} verified records, ${observationCount} cultural observations/engagement prompts, ${verifiedBatch2Ids.length} second-batch verified facts, ${countyIds.length} statewide county facts, ${pairedChoiceIds.length} paired-choice prompts, ${publishedGuidePaths.length} newly published practical guides plus ${Object.keys(consolidatedCanonicals).length} consolidated canonical topics, ${registeredSourceIds.size} registered sources, and ${requiredSocialFormats.length} social formats.`);
