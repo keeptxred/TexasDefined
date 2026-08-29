@@ -12,7 +12,7 @@ export const Route = createFileRoute(canonicalPath)({
   head: () => ({
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath,
-      title,
+      title: title,
       description,
       type: "article",
     }),
