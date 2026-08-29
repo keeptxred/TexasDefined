@@ -8,6 +8,12 @@ import type { Destination } from "@/data/types";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
+const categorySeoOverrides: Partial<Record<string, { title: string; description: string }>> = {
+  outdoors: {
+    title: "Texas Outdoors & Wildlife: Parks, Trails, Birding & Wild Places",
+    description: "Explore Texas outdoors by region, from state parks and hiking trails to wildlife, birding, dark skies, rivers and public lands, with seasonal access and safety guidance.",
+  },
+};
 
 function validCoordinates(destination: Destination) {
   const { lat, lng } = destination.coordinates;
@@ -51,6 +57,9 @@ export const Route = createFileRoute("/explore/$category")({
     const canonicalPath = `/explore/${params.category}`;
     const categoryUrl = `${siteUrl}${canonicalPath}`;
     const indexReady = isExploreCategoryIndexReady(loaderData.category.slug);
+    const categorySeo = categorySeoOverrides[loaderData.category.slug];
+    const metaTitle = categorySeo?.title ?? loaderData.category.name;
+    const metaDescription = categorySeo?.description ?? loaderData.category.description;
     const featuredCollectionItems = params.category === "food-bbq" ? [{ "@type": "ListItem", position: 1, item: { "@type": "CollectionPage", name: "Texas Food History", description: "The history behind barbecue, chili, chicken-fried steak, breakfast tacos, Czech and German foodways and Dr Pepper.", url: `${siteUrl}/texas-food-history` } }] : [];
     const itemListElement = [
       ...featuredCollectionItems,
@@ -58,7 +67,7 @@ export const Route = createFileRoute("/explore/$category")({
       ...loaderData.destinations.map((destination, index) => ({ "@type": "ListItem", position: featuredCollectionItems.length + loaderData.articles.length + index + 1, item: destinationSchema(destination) })),
     ];
     const collectionSchema = {
-      "@type": "CollectionPage", "@id": `${categoryUrl}#collection`, url: categoryUrl, name: loaderData.category.name, description: loaderData.category.description,
+      "@type": "CollectionPage", "@id": `${categoryUrl}#collection`, url: categoryUrl, name: metaTitle, description: metaDescription,
       image: loaderData.category.image ? { "@type": "ImageObject", url: absoluteUrl(texasDefinedBrand, loaderData.category.image.src), caption: loaderData.category.image.alt, width: loaderData.category.image.width, height: loaderData.category.image.height } : undefined,
       isPartOf: { "@id": `${siteUrl}/#website` },
       mainEntity: { "@type": "ItemList", "@id": `${categoryUrl}#items`, numberOfItems: itemListElement.length, itemListElement },
@@ -69,7 +78,7 @@ export const Route = createFileRoute("/explore/$category")({
       { "@type": "ListItem", position: 3, name: loaderData.category.name, item: categoryUrl },
     ] };
     return {
-      meta: buildMeta(texasDefinedBrand, { canonicalPath, title: loaderData.category.name, description: loaderData.category.description, image: loaderData.category.image?.src, imageAlt: loaderData.category.image?.alt, robots: indexReady ? undefined : "noindex, follow, max-image-preview:large" }),
+      meta: buildMeta(texasDefinedBrand, { canonicalPath, title: metaTitle, description: metaDescription, image: loaderData.category.image?.src, imageAlt: loaderData.category.image?.alt, robots: indexReady ? undefined : "noindex, follow, max-image-preview:large" }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
       scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": [collectionSchema, breadcrumbSchema] }) }],
     };
