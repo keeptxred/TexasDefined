@@ -11,6 +11,7 @@ export * from './seed-counties-batch6';
 export * from './seed-counties-batch7';
 export * from './seed-counties-batch8';
 export * from './seed-counties-batch9';
+export * from './seed-towns-from-county-seats';
 export * from './cultural-observations';
 export * from './cultural-observations-batch2';
 export * from './home-nature-tools';
