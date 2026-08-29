@@ -30,21 +30,9 @@ for (const marker of [
   "EXACT_VENUE_INDEX.get(key)",
 ]) assert(resolver.includes(marker), `Event venue resolver missing verified exact-match marker: ${marker}`);
 
-// Guard concrete fuzzy/sub-string/geographic mechanisms rather than prose words in
-// comments. This keeps the validator from failing merely because the resolver's
-// documentation says that fuzzy matching is intentionally prohibited.
 for (const forbidden of [
-  '.includes(key)',
-  '.includes(venue)',
-  '.indexOf(',
-  '.startsWith(',
-  '.endsWith(',
-  'levenshtein(',
-  'distance(',
-  'similarity(',
-  'coordinates',
-  'countySlug',
-  'event.city',
+  '.includes(key)', '.includes(venue)', '.indexOf(', '.startsWith(', '.endsWith(',
+  'levenshtein(', 'distance(', 'similarity(', 'coordinates', 'countySlug', 'event.city',
 ]) assert(!resolver.toLowerCase().includes(forbidden.toLowerCase()), `Event venue resolver must not use fuzzy/geographic matching mechanism: ${forbidden}`);
 
 for (const broad of ["add('Houston'", "add('Dallas'", "add('Austin'", "add('San Antonio'", "add('Stadium'", "add('Arena'"]) {
@@ -67,22 +55,19 @@ assert(eventsRoute.includes('venueGuide ? { ...defaultLocation'), 'Event JSON-LD
 assert(eventsRoute.includes('const featuredVenueGuide = resolveSportsVenueEventLink(featured?.venue)'), 'Featured event must use the exact resolver.');
 assert(eventsRoute.includes('featuredVenueGuide &&'), 'Featured unmatched events must remain unlinked.');
 
-// Recurring event identity must not be keyed by occurrence date. A stale curated fixture
-// and a newer generated occurrence can legitimately disagree on dates; the generated row
-// must replace the matching name + city identity instead of producing duplicate cards/schema.
-assert(generatedEvents.includes('function eventIdentityKey(event: TexasEvent)'), 'Generated event merge must retain an explicit recurring-event identity key.');
+// Recurring event identity must not be keyed by occurrence date. Source-controlled sync rows
+// own a matching name+city identity even when a row becomes unpublished/canceled; otherwise
+// an older fixture occurrence could be resurrected after the authoritative row is withdrawn.
+assert(generatedEvents.includes('function eventIdentityKey(event: Pick<TexasEvent, "name" | "city">)'), 'Generated event merge must retain an explicit recurring-event identity key.');
 assert(generatedEvents.includes('event.name.trim().toLowerCase()'), 'Recurring-event identity must include normalized event name.');
 assert(generatedEvents.includes('event.city.trim().toLowerCase()'), 'Recurring-event identity must include normalized city.');
-assert(generatedEvents.includes('merged.set(eventIdentityKey(event), event)'), 'Curated and generated event rows must merge through the recurring-event identity key.');
+assert(generatedEvents.includes('const sourceControlledIdentities = new Set('), 'Generated event merge must track every source-controlled event identity, not only published rows.');
+assert(generatedEvents.includes('if (sourceControlledIdentities.has(eventIdentityKey(event))) continue;'), 'Curated fixtures must not resurrect an identity already owned by source-controlled event data.');
+assert(generatedEvents.includes('merged.set(eventIdentityKey(event), event)'), 'Published generated rows must merge through the recurring-event identity key.');
 assert(!generatedEvents.includes('`${event.name.toLowerCase()}:${event.startDate}`'), 'Event merge must not regress to name + date identity, which permits duplicate stale occurrences.');
 
-// A one-day event may carry an explicit endDate equal to startDate. Rendering that as
-// "August 30–30" is misleading, so the shared formatter must collapse equal endpoints.
 assert(dateFormatting.includes('if (!endIso || endIso === startIso) return formatDate(startIso, locale);'), 'Single-day date ranges must collapse equal start/end dates to one formatted date.');
 
-// Keep the 75-row discovery-seed closeout auditable. Every numbered source row must stay
-// represented exactly once, and every permanent /event/ destination named by the ledger
-// must resolve through either the client-safe core index or the server-only supplemental registry.
 const dispositionRows = eventDisposition.split('\n').filter((line) => /^\|\s*\d+\s*\|/.test(line));
 const dispositionNumbers = dispositionRows.map((line) => Number(line.match(/^\|\s*(\d+)\s*\|/)?.[1]));
 assert(dispositionRows.length === 75, `Major-event source disposition must contain exactly 75 numbered inventory rows; found ${dispositionRows.length}.`);
@@ -99,8 +84,6 @@ for (const row of dispositionRows) {
 }
 assert(eventDisposition.includes('Canonical guide remains `/texas-state-fair`; do not create a competing event authority page.'), 'State Fair discovery seed must remain assigned to the canonical /texas-state-fair guide instead of a duplicate event authority page.');
 
-// County pages must discover major-event authority through the server-only registry instead
-// of importing the long-form event tranches into the client bundle.
 assert(countyEventsServer.includes('loadSupplementalMajorEventRecordsServer'), 'County event lookup must include supplemental server-only event authority records.');
 assert(countyEventsServer.includes('event?.countySlug === normalizedCountySlug'), 'County event lookup must filter by the verified county slug.');
 assert(countyEventsServer.includes('.slice(0, 8)'), 'County event cards must stay bounded to a focused discovery set.');
@@ -110,8 +93,6 @@ assert(countyDestinations.includes('getCountyMajorEvents(county.slug)'), 'County
 assert(countyDestinations.includes('href={`/event/${event.slug}`}'), 'County major-event cards must link to permanent event authority URLs.');
 assert(!countyDestinations.includes('major-event-supplemental-registry.server'), 'County UI must not import the server-only supplemental authority registry directly.');
 
-// Permanent event guides must return the relationship by linking verified county identities
-// to the existing county browse anchor. Never invent a /county/{slug} route.
 assert(eventPage.includes('event.countySlug ? `/browse/counties#county-${event.countySlug}` : null'), 'Major event guides must derive county backlinks from the canonical county browse anchor.');
 assert(eventPage.includes('!event.relatedLinks.some((item) => item.href === countyHref)'), 'Major event guides must avoid duplicating an already-curated county backlink.');
 assert(!eventPage.includes('`/county/${event.countySlug}`'), 'Major event guides must not link to the nonexistent /county/{slug} route.');
@@ -122,4 +103,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Event integrity validated: exact sports-venue links, recurring-event dedupe, single-day date formatting, 75-seed source disposition, and bidirectional server-backed county event discovery are protected.');
+console.log('Event integrity validated: exact sports-venue links, source-controlled recurring-event precedence, single-day date formatting, 75-seed source disposition, and bidirectional server-backed county event discovery are protected.');
