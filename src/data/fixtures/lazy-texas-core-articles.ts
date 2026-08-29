@@ -7,6 +7,7 @@ import roadTrip from "@/assets/road-trip.jpg";
 import smallTown from "@/assets/small-town.jpg";
 
 import type { Article, ImageRef } from "../types";
+import { texasGatewayIndexReadyStubs } from "./texas-gateway-index-ready-stubs";
 
 const image = (src: string, alt: string): ImageRef => ({ src, alt, width: 1600, height: 1067 });
 const images = {
@@ -34,7 +35,10 @@ export const texasCoreArticleStubs: Article[] = [
   stub({ id: "ar-10", slug: "big-bend-in-winter", title: "Big Bend Is a Winter Park", dek: "Why November through February changes Big Bend: milder desert hiking, freezing nights, scarce services, busy campgrounds, long drives, and a park where checking conditions is part of the itinerary.", category: "outdoors", region: "big-bend", hero: images.bigBend, authorId: "a-hollis", publishedAt: "2026-08-20", readingMinutes: 15, tags: ["big bend", "national parks", "desert", "dark skies", "winter travel"], relatedCollections: ["campfire-kitchen"], relatedDestinations: ["big-bend-national-park"] }),
 ];
 
+texasCoreArticleStubs.push(...texasGatewayIndexReadyStubs);
+
 const coreSlugs = new Set(texasCoreArticleStubs.map((article) => article.slug));
+const gatewayReadySlugs = new Set(texasGatewayIndexReadyStubs.map((article) => article.slug));
 
 const depthSlugs = new Set([
   "bluebonnet-season-field-guide",
@@ -48,7 +52,7 @@ const depthSlugs = new Set([
 export async function loadTexasCoreArticle(brandId: string, slug: string): Promise<Article | null> {
   if (brandId !== "texasdefined") return null;
 
-  if (!coreSlugs.has(slug)) {
+  if (gatewayReadySlugs.has(slug) || !coreSlugs.has(slug)) {
     const { loadTexasGatewayArticle } = await import("./lazy-texas-gateway");
     return loadTexasGatewayArticle(brandId, slug);
   }

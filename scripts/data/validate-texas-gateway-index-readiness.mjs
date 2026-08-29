@@ -15,6 +15,7 @@ const corePath = "src/data/fixtures/lazy-texas-core-articles.ts";
 const articleRoutePath = "src/routes/article.$slug.tsx";
 const sitemapPath = "src/routes/sitemap[.]xml.ts";
 const editorialReviewPath = "scripts/data/texas-gateway-editorial-review.json";
+const editorialPromotionsPath = "scripts/data/texas-gateway-editorial-promotions.json";
 
 const readiness = read(readinessPath);
 const stubs = read(stubsPath);
@@ -91,12 +92,38 @@ for (const entry of reviewEntries) {
 for (const slug of fixtureSlugs) {
   if (!reviewBySlug.has(slug)) fail(`gateway fixture slug is missing from the editorial review: ${slug}`);
 }
-for (const slug of readySlugs) {
-  if (reviewBySlug.get(slug)?.status !== "index-ready") fail(`allowlisted gateway slug is not marked index-ready in editorial review: ${slug}`);
-}
 if (reviewEntries.length !== fixtureSlugs.size) {
   fail(`editorial review/fixture count mismatch: ${reviewEntries.length} reviewed entries, ${fixtureSlugs.size} fixture slugs`);
 }
+
+let promotionManifest;
+try {
+  promotionManifest = JSON.parse(read(editorialPromotionsPath));
+} catch (error) {
+  fail(`editorial promotion ledger is missing or invalid JSON: ${error instanceof Error ? error.message : String(error)}`);
+  promotionManifest = { promotions: [] };
+}
+const promotionEntries = Array.isArray(promotionManifest.promotions) ? promotionManifest.promotions : [];
+const promotionBySlug = new Map();
+for (const promotion of promotionEntries) {
+  if (!promotion || typeof promotion.slug !== "string" || !promotion.slug) {
+    fail("editorial promotion ledger contains an entry without a slug");
+    continue;
+  }
+  if (promotionBySlug.has(promotion.slug)) fail(`editorial promotion ledger contains duplicate slug: ${promotion.slug}`);
+  promotionBySlug.set(promotion.slug, promotion);
+  if (!reviewBySlug.has(promotion.slug)) fail(`editorial promotion references an unreviewed gateway slug: ${promotion.slug}`);
+  if (promotion.status !== "index-ready") fail(`editorial promotion must use index-ready status for ${promotion.slug}`);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(String(promotion.approvedAt ?? ""))) fail(`editorial promotion is missing an ISO approval date for ${promotion.slug}`);
+  if (typeof promotion.basis !== "string" || !promotion.basis.trim()) fail(`editorial promotion is missing its approval basis for ${promotion.slug}`);
+  if (!readySet.has(promotion.slug)) fail(`editorially promoted gateway slug is not atomically allowlisted: ${promotion.slug}`);
+}
+
+const effectiveStatus = (slug) => promotionBySlug.has(slug) ? "index-ready" : reviewBySlug.get(slug)?.status;
+for (const slug of readySlugs) {
+  if (effectiveStatus(slug) !== "index-ready") fail(`allowlisted gateway slug is not effectively index-ready in editorial governance: ${slug}`);
+}
+
 const reviewCounts = reviewEntries.reduce((counts, entry) => {
   if (entry.status === "needs-expansion") counts.needsExpansion += 1;
   if (entry.status === "remain-staged") counts.remainStaged += 1;
@@ -108,11 +135,12 @@ if (reviewSummary.total !== reviewEntries.length) fail(`editorial review summary
 for (const key of ["needsExpansion", "remainStaged", "indexReady"]) {
   if (reviewSummary[key] !== reviewCounts[key]) fail(`editorial review summary ${key} mismatch: ${reviewSummary[key]} vs ${reviewCounts[key]}`);
 }
-if (reviewCounts.indexReady !== readySlugs.length) {
-  fail(`editorial review/index-ready allowlist mismatch: ${reviewCounts.indexReady} reviewed ready vs ${readySlugs.length} allowlisted`);
-}
 if (!Number.isInteger(reviewSummary.expanded) || reviewSummary.expanded < 0 || reviewSummary.expanded > reviewEntries.length) {
   fail(`editorial review summary expanded count is invalid: ${reviewSummary.expanded}`);
+}
+const effectiveIndexReadyCount = reviewEntries.filter((entry) => effectiveStatus(entry.slug) === "index-ready").length;
+if (effectiveIndexReadyCount !== readySlugs.length) {
+  fail(`effective editorial/index-ready allowlist mismatch: ${effectiveIndexReadyCount} governed ready vs ${readySlugs.length} allowlisted`);
 }
 
 const stubSlugs = [...stubs.matchAll(/\bslug:\s*["']([^"']+)["']/g)].map((match) => match[1]);
@@ -173,6 +201,6 @@ if (stagedInboundLinks.length) {
 }
 
 if (!process.exitCode) {
-  console.log(`Gateway index-readiness contract passed: ${gatewayFiles.length} article fixture modules, ${ids.length} explicit gateway IDs, ${fixtureSlugs.size} reviewed gateway slugs, ${reviewCounts.needsExpansion} needing expansion, ${reviewCounts.remainStaged} remaining staged, ${readySlugs.length} index-ready slug(s), ${stubSlugs.length} public-discovery stub(s).`);
-  console.log("Staged gateway drafts remain directly QA-accessible but are excluded from normal discovery, public inbound linking and article indexing.");
+  console.log(`Gateway index-readiness contract passed: ${gatewayFiles.length} article fixture modules, ${ids.length} explicit gateway IDs, ${fixtureSlugs.size} reviewed gateway slugs, ${reviewCounts.needsExpansion} baseline needing expansion, ${reviewCounts.remainStaged} baseline remaining staged, ${effectiveIndexReadyCount} effectively index-ready slug(s), ${stubSlugs.length} public-discovery stub(s).`);
+  console.log("The baseline editorial audit remains immutable; explicit post-remediation promotions are ledgered separately and still require atomic allowlisting, public-discovery stubs, and the production-readiness gate.");
 }
