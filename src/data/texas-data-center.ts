@@ -46,3 +46,7 @@ export function getTexasDatasets(): Promise<TexasDataset[]> {
 export function getTexasDataset(slug: string): Promise<TexasDataset | null> {
   return loadTexasDatasetServer({ data: { slug } });
 }
+
+export const formatDatasetValue = (value: number, unit: TexasDataset['unit']) => unit === 'dollars'
+  ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(value)
+  : unit === 'percent' ? `${value.toFixed(4)}%` : new Intl.NumberFormat('en-US').format(value);
