@@ -15,10 +15,10 @@ const verifiedPropertyCounties = COUNTY_PROPERTY_RECORDS.filter(isCountyProperty
 const verifiedPropertySlugs = new Set(verifiedPropertyCounties.map((county) => county.slug));
 const popularCountySlugs = ['comal', 'travis', 'denton', 'bexar', 'harris', 'waller', 'coryell', 'polk', 'lubbock'];
 const popularCounties = popularCountySlugs.map((slug) => TEXAS_COUNTIES.find((county) => county.slug === slug)).filter((county): county is (typeof TEXAS_COUNTIES)[number] => Boolean(county));
-const countyRateDataset = getTexasDataset('county-property-tax-rates');
 
 export const Route = createFileRoute('/property-tax/counties')({
-  head: () => {
+  loader: () => getTexasDataset('county-property-tax-rates'),
+  head: ({ loaderData: countyRateDataset }) => {
     const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
     const siteUrl = absoluteUrl(texasDefinedBrand, '/');
     return {
@@ -59,6 +59,8 @@ export const Route = createFileRoute('/property-tax/counties')({
 });
 
 function CountyPropertyTaxDirectory() {
+  const countyRateDataset = Route.useLoaderData();
+
   return (
     <>
       <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
