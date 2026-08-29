@@ -1,5 +1,6 @@
 import { buildGatewayProductionManifest } from "./texas-gateway-production-readiness-lib.mjs";
 
+// Diagnostic-only audit refresh; this does not change editorial or indexation state.
 const manifest = buildGatewayProductionManifest(process.cwd());
 
 const nonEditorialBlockers = (entry) => entry.blockers.filter((blocker) => !blocker.startsWith("editorial-status:"));
