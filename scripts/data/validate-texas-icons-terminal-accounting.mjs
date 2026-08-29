@@ -7,12 +7,12 @@ const correctionsPath = "src/data/texas-icons-roster-corrections.server.ts";
 const holdsPath = "src/data/texas-icons-editorial-holds.server.ts";
 const serverPath = "src/data/texas-icons.server.ts";
 const functionsPath = "src/data/texas-icons.functions.ts";
+const graphOwnerEvidencePath = "scripts/data/validate-texas-icons-symbols-batch3.mjs";
 const sourcePaths = [
   "src/data/texas-icons-source-history-music.server.ts",
   "src/data/texas-icons-source-sports-business.server.ts",
   "src/data/texas-icons-source-media-symbols.server.ts",
 ];
-const graphOwnerEvidencePath = "scripts/data/validate-texas-icons-symbols-batch3.mjs";
 
 const failures = [];
 for (const requiredPath of [
@@ -47,39 +47,29 @@ const records = rows.slice(1).map(([rank, name, category, description]) => ({
   name,
   category,
   description,
-  slug: slugify(name ?? ""),
+  slug: slugify(name ?? "", false),
 }));
 
 if (records.length !== 250) failures.push(`Terminal accounting requires exactly 250 source rows; found ${records.length}.`);
 if (new Set(records.map((record) => record.rank)).size !== 250) failures.push("Terminal accounting requires 250 unique source ranks.");
 if (new Set(records.map((record) => record.slug)).size !== 250) failures.push("Terminal accounting requires 250 unique source slugs.");
+if (records.map((record) => record.rank).join(",") !== Array.from({ length: 250 }, (_, index) => index + 1).join(",")) {
+  failures.push("Terminal accounting requires source ranks exactly 1 through 250 in order.");
+}
+
+const aliasesByName = parseAliases(rosterSource);
+const canonicalNames = parseCanonicalNames(rosterSource);
+const sourceBySlug = new Map(records.map((record) => [record.slug, record]));
 
 const researchFiles = fs.readdirSync(dataDir)
   .filter((name) => /^texas-icons-research-.*\.server\.ts$/.test(name))
   .sort();
-const researchSlugs = new Set();
-for (const file of researchFiles) {
-  const source = fs.readFileSync(path.join(dataDir, file), "utf8");
-  for (const match of source.matchAll(/^\s{4}slug:\s*"([^"]+)",/gm)) {
-    const slug = match[1];
-    if (researchSlugs.has(slug)) failures.push(`Duplicate Texas Icons research slug across modules: ${slug}.`);
-    researchSlugs.add(slug);
-  }
-}
+const researchSlugs = collectUniqueProfileSlugs(researchFiles, "Texas Icons research");
 
 const talentFiles = fs.readdirSync(dataDir)
   .filter((name) => /^texas-talent-profiles.*\.ts$/.test(name) || name === "texas-talent.ts")
   .sort();
-const talentSlugs = new Set();
-for (const file of talentFiles) {
-  const source = fs.readFileSync(path.join(dataDir, file), "utf8");
-  for (const match of source.matchAll(/^\s{4}slug:\s*"([^"]+)",/gm)) talentSlugs.add(match[1]);
-}
-
-const aliasesByName = parseAliases(rosterSource);
-const rosterAliasSlugs = new Set([...aliasesByName.values()].flat().map(slugify));
-const canonicalNames = parseCanonicalNames(rosterSource);
-const canonicalSourceSlugs = new Set([...canonicalNames].map(slugify));
+const talentSlugs = collectProfileSlugs(talentFiles);
 
 const correctionMatches = [...correctionsSource.matchAll(
   /sourceRank:\s*(\d+),[\s\S]*?sourceName:\s*"([^"]+)",[\s\S]*?sourceSlug:\s*"([^"]+)",[\s\S]*?replacementName:\s*"([^"]+)",[\s\S]*?replacementSlug:\s*"([^"]+)"/g,
@@ -94,7 +84,6 @@ const correctionsBySourceSlug = new Map(correctionMatches.map((match) => [
     replacementSlug: match[5],
   },
 ]));
-
 const expectedCorrection = correctionsBySourceSlug.get("trey-parker");
 if (correctionsBySourceSlug.size !== 1
   || !expectedCorrection
@@ -118,24 +107,52 @@ if (!sameSet(holdSlugs, expectedHoldSlugs)) {
   failures.push(`Editorial holds must remain exactly the six documented disputed rows; found: ${[...holdSlugs].sort().join(", ")}.`);
 }
 
-// The Cotton Bowl is the one roster row intentionally owned by a knowledge-graph
-// entity rather than a canonicalPath, Texas Talent profile, or Icons research record.
-// Its dedicated final-batch validator owns the entity/alias evidence.
 const graphOwnedSlugs = new Set(["the-cotton-bowl"]);
 if (!graphOwnerEvidence.includes('const graphOwned = [247, "The Cotton Bowl"')) {
   failures.push("The Cotton Bowl knowledge-graph ownership evidence must remain explicit in the final Symbols validator.");
 }
 
-const sourceSlugs = new Set(records.map((record) => record.slug));
+const candidateSlugsByRank = new Map();
+for (const record of records) {
+  candidateSlugsByRank.set(record.rank, subjectSlugCandidates(record.name, aliasesByName.get(record.name) ?? []));
+}
+
+const researchRanksBySlug = new Map();
+const talentRanksBySlug = new Map();
+for (const record of records) {
+  const candidates = candidateSlugsByRank.get(record.rank) ?? new Set([record.slug]);
+  const matchedResearch = intersection(candidates, researchSlugs);
+  const matchedTalent = intersection(candidates, talentSlugs);
+  if (matchedResearch.size > 1) failures.push(`Rank ${record.rank} ${record.name} matches multiple Texas Icons research owners: ${[...matchedResearch].join(", ")}.`);
+  if (matchedTalent.size > 1) failures.push(`Rank ${record.rank} ${record.name} matches multiple Texas Talent owners: ${[...matchedTalent].join(", ")}.`);
+  for (const slug of matchedResearch) addRank(researchRanksBySlug, slug, record.rank);
+  for (const slug of matchedTalent) addRank(talentRanksBySlug, slug, record.rank);
+}
+for (const [slug, ranks] of researchRanksBySlug) {
+  if (ranks.size > 1) failures.push(`Texas Icons research owner ${slug} maps to multiple roster ranks: ${[...ranks].join(", ")}.`);
+}
+for (const [slug, ranks] of talentRanksBySlug) {
+  if (ranks.size > 1) failures.push(`Texas Talent owner ${slug} maps to multiple Texas Icons roster ranks: ${[...ranks].join(", ")}.`);
+}
+
 const correctionReplacementSlugs = new Set([...correctionsBySourceSlug.values()].map((entry) => entry.replacementSlug));
 for (const slug of researchSlugs) {
-  if (!sourceSlugs.has(slug) && !rosterAliasSlugs.has(slug) && !correctionReplacementSlugs.has(slug)) {
-    failures.push(`Texas Icons research has no roster, roster-alias, or documented-correction owner: ${slug}.`);
+  if (!researchRanksBySlug.has(slug) && !correctionReplacementSlugs.has(slug)) {
+    failures.push(`Texas Icons research has no roster/alias or documented-correction owner: ${slug}.`);
   }
 }
+
 for (const slug of holdSlugs) {
-  if (!sourceSlugs.has(slug)) failures.push(`Editorial hold does not map to a source roster slug: ${slug}.`);
-  if (researchSlugs.has(slug) || canonicalSourceSlugs.has(slug) || graphOwnedSlugs.has(slug) || hasTalentOwner(slug, null)) {
+  const record = sourceBySlug.get(slug);
+  if (!record) {
+    failures.push(`Editorial hold does not map to a source roster slug: ${slug}.`);
+    continue;
+  }
+  const candidates = candidateSlugsByRank.get(record.rank) ?? new Set([slug]);
+  if (canonicalNames.has(record.name)
+    || graphOwnedSlugs.has(slug)
+    || intersection(candidates, talentSlugs).size
+    || intersection(candidates, researchSlugs).size) {
     failures.push(`Editorial hold ${slug} also has a competing owner; reconcile it instead of keeping dual terminal states.`);
   }
 }
@@ -151,9 +168,9 @@ const outcomeCounts = new Map([
 const outcomesByRank = new Map();
 
 for (const record of records) {
-  let outcome = null;
-  const aliases = aliasesByName.get(record.name) ?? [];
+  const candidates = candidateSlugsByRank.get(record.rank) ?? new Set([record.slug]);
   const correction = correctionsBySourceSlug.get(record.slug);
+  let outcome = null;
   if (correction) {
     if (correction.rank !== record.rank || correction.sourceName !== record.name) {
       failures.push(`Correction source drift at rank ${record.rank}: ${record.name} (${record.slug}).`);
@@ -163,9 +180,9 @@ for (const record of records) {
     outcome = "editorial-canonical";
   } else if (graphOwnedSlugs.has(record.slug)) {
     outcome = "knowledge-graph";
-  } else if (hasTalentOwner(record.slug, aliases)) {
+  } else if (intersection(candidates, talentSlugs).size) {
     outcome = "texas-talent";
-  } else if (hasResearchOwner(record.slug, aliases)) {
+  } else if (intersection(candidates, researchSlugs).size) {
     outcome = "icon-research";
   } else if (holdSlugs.has(record.slug)) {
     outcome = "editorial-hold";
@@ -186,8 +203,8 @@ if (outcomeCounts.get("editorial-hold") !== 6) failures.push(`Expected exactly s
 if (outcomeCounts.get("knowledge-graph") !== 1) failures.push(`Expected exactly one graph-owned source row; found ${outcomeCounts.get("knowledge-graph")}.`);
 
 for (const [slug, correction] of correctionsBySourceSlug) {
-  if (!sourceSlugs.has(slug)) failures.push(`Correction source slug is absent from intake: ${slug}.`);
-  if (sourceSlugs.has(correction.replacementSlug)) failures.push(`Correction replacement ${correction.replacementSlug} must remain an explicit replacement, not a second raw intake row.`);
+  if (!sourceBySlug.has(slug)) failures.push(`Correction source slug is absent from intake: ${slug}.`);
+  if (sourceBySlug.has(correction.replacementSlug)) failures.push(`Correction replacement ${correction.replacementSlug} must remain an explicit replacement, not a second raw intake row.`);
 }
 
 const canonicalIndex = serverSource.indexOf("if (entry.canonicalPath)");
@@ -208,30 +225,66 @@ for (const token of [
 }
 
 if (failures.length) fail();
-
-const summary = [...outcomeCounts.entries()]
-  .map(([outcome, count]) => `${outcome}=${count}`)
-  .join(", ");
+const summary = [...outcomeCounts.entries()].map(([outcome, count]) => `${outcome}=${count}`).join(", ");
 console.log(`Texas Icons terminal accounting passed: all 250 intake rows have one allowed resolver outcome (${summary}); one documented correction and six editorial holds remain explicit and fail closed.`);
 
-function hasTalentOwner(sourceSlug, aliases) {
-  if (talentSlugs.has(sourceSlug)) return true;
-  for (const alias of aliases ?? []) if (talentSlugs.has(slugify(alias))) return true;
-  return false;
+function collectUniqueProfileSlugs(files, label) {
+  const result = new Set();
+  for (const file of files) {
+    const source = fs.readFileSync(path.join(dataDir, file), "utf8");
+    for (const match of source.matchAll(/^\s{4}slug:\s*"([^"]+)",/gm)) {
+      const slug = match[1];
+      if (result.has(slug)) failures.push(`Duplicate ${label} slug across modules: ${slug}.`);
+      result.add(slug);
+    }
+  }
+  return result;
 }
 
-function hasResearchOwner(sourceSlug, aliases) {
-  if (researchSlugs.has(sourceSlug)) return true;
-  for (const alias of aliases ?? []) if (researchSlugs.has(slugify(alias))) return true;
-  return false;
+function collectProfileSlugs(files) {
+  const result = new Set();
+  for (const file of files) {
+    const source = fs.readFileSync(path.join(dataDir, file), "utf8");
+    for (const match of source.matchAll(/^\s{4}slug:\s*"([^"]+)",/gm)) result.add(match[1]);
+  }
+  return result;
+}
+
+function subjectSlugCandidates(name, aliases) {
+  const result = new Set();
+  for (const value of [name, ...aliases]) {
+    result.add(slugify(value, false));
+    result.add(slugify(value, true));
+  }
+  return result;
+}
+
+function slugify(value, apostropheAsSeparator) {
+  return value
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/&/g, " and ")
+    .replace(/['’]/g, apostropheAsSeparator ? " " : "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function intersection(left, right) {
+  return new Set([...left].filter((value) => right.has(value)));
+}
+
+function addRank(map, slug, rank) {
+  const ranks = map.get(slug) ?? new Set();
+  ranks.add(rank);
+  map.set(slug, ranks);
 }
 
 function parseAliases(source) {
   const block = source.match(/const ALIASES:[\s\S]*?= \{([\s\S]*?)\n\};/)?.[1] ?? "";
   const result = new Map();
   for (const match of block.matchAll(/^\s{2}"([^"]+)":\s*\[([^\]]*)\],/gm)) {
-    const aliases = [...match[2].matchAll(/"([^"]+)"/g)].map((item) => item[1]);
-    result.set(match[1], aliases);
+    result.set(match[1], [...match[2].matchAll(/"([^"]+)"/g)].map((item) => item[1]));
   }
   return result;
 }
@@ -243,17 +296,6 @@ function parseCanonicalNames(source) {
 
 function sameSet(left, right) {
   return left.size === right.size && [...left].every((value) => right.has(value));
-}
-
-function slugify(value) {
-  return value
-    .normalize("NFKD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase()
-    .replace(/&/g, " and ")
-    .replace(/['’]/g, "")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
 }
 
 function parseCsv(source) {
@@ -268,11 +310,8 @@ function parseCsv(source) {
       if (character === '"' && next === '"') {
         field += '"';
         index += 1;
-      } else if (character === '"') {
-        quoted = false;
-      } else {
-        field += character;
-      }
+      } else if (character === '"') quoted = false;
+      else field += character;
       continue;
     }
     if (character === '"') quoted = true;
