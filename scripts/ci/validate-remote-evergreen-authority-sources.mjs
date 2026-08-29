@@ -67,4 +67,42 @@ for (const slug of REQUIRED_SLUGS) {
   }
 }
 
-console.log(`Validated ${REQUIRED_SLUGS.length} remote evergreen authority-source records.`);
+const fallbackUrl = new URL("../../src/data/remote-evergreen-source-fallbacks.ts", import.meta.url);
+const fallbackText = readFileSync(fallbackUrl, "utf8");
+const fallbacks = new Map();
+for (const line of fallbackText.split(/\r?\n/)) {
+  const match = line.match(/^\s{2}"([^"]+)": \{ name: "([^"]+)", url: "([^"]+)" \},?$/);
+  if (!match) continue;
+  fallbacks.set(match[1], { name: match[2], url: match[3] });
+}
+
+const fallbackSlugs = [...fallbacks.keys()].sort();
+if (JSON.stringify(fallbackSlugs) !== JSON.stringify(requiredSlugs)) {
+  throw new Error(`Evergreen primary-source fallback mismatch. Expected ${requiredSlugs.join(", ")}; found ${fallbackSlugs.join(", ")}`);
+}
+
+for (const slug of REQUIRED_SLUGS) {
+  const fallback = fallbacks.get(slug);
+  if (!fallback) throw new Error(`${slug} is missing its primary-source fallback`);
+  if (fallback.name.trim().length < 3) throw new Error(`${slug} has an invalid fallback source name`);
+  const url = new URL(fallback.url);
+  if (url.protocol !== "https:") throw new Error(`${slug} uses a non-HTTPS fallback source: ${fallback.url}`);
+  if (!APPROVED_SOURCE_HOSTS.has(url.hostname)) throw new Error(`${slug} uses an unapproved fallback source host: ${url.hostname}`);
+}
+
+if (!fallbackText.includes('const SOURCES_HEADING = "Sources and further reading"')) {
+  throw new Error("Evergreen source fallback must preserve the visible Sources and further reading contract");
+}
+
+const queriesUrl = new URL("../../src/data/queries.ts", import.meta.url);
+const queriesText = readFileSync(queriesUrl, "utf8");
+if (!queriesText.includes('import { ensureRemoteEvergreenSourceFallback } from "./remote-evergreen-source-fallbacks";')) {
+  throw new Error("Article query must import the compact evergreen source fallback");
+}
+for (const target of ["localArticle", "sourceHydratedLocalArticle", "remoteArticle"]) {
+  if (!queriesText.includes(`ensureRemoteEvergreenSourceFallback(${target})`)) {
+    throw new Error(`Article query must apply evergreen source fallback to ${target}`);
+  }
+}
+
+console.log(`Validated ${REQUIRED_SLUGS.length} remote evergreen authority-source records and compact production fallbacks.`);
