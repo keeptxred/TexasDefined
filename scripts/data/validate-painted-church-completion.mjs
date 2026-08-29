@@ -13,6 +13,11 @@ const extraGallery = read('src/data/painted-church-gallery-extra.ts');
 const archival = read('src/data/painted-church-archival-images-expansion.ts');
 const thenNow = read('src/routes/explore.painted-churches.then-and-now.tsx');
 const mapRoute = read('src/routes/explore.painted-churches.map.tsx');
+const detailRoute = read('src/routes/explore.painted-churches.$slug.tsx');
+const detailLazyRoute = read('src/routes/explore.painted-churches.$slug.lazy.tsx');
+const profileIndex = read('src/data/painted-church-profile-index.ts');
+const expansionProfiles = read('src/data/painted-church-profiles-expansion.ts');
+const latestProfiles = read('src/data/painted-church-profiles-latest.ts');
 const tripPlanner = read('src/routes/explore.trip-planner.tsx');
 const countyGuides = read('src/components/content/CountyGuideSections.tsx');
 const guidebook = read('src/routes/guides.tsx');
@@ -42,6 +47,30 @@ const expansionSlugs = [
 for (const slug of expansionSlugs) requireText(sourceLibrary, `slug: "${slug}"`, 'Verified expansion accounting');
 requireText(sourceLibrary, 'The collection now includes {expandedPaintedChurches.length} verified church profiles.', 'Canonical expansion count');
 requireText(sourceLibrary, 'to="/explore/painted-churches/$slug"', 'Verified-addition internal links');
+
+for (const slug of ['corpus-christi-sacred-heart-catholic-church','san-antonio-st-joseph-catholic-church','anderson-st-stanislaus-kostka']) {
+  requireText(expansionProfiles, `slug: "${slug}"`, 'Expansion detail-profile coverage');
+}
+for (const slug of ['castroville-st-louis-catholic-church','lacoste-our-lady-of-grace']) {
+  requireText(latestProfiles, `slug: "${slug}"`, 'Latest detail-profile coverage');
+}
+requireText(profileIndex, 'paintedChurchExpansionProfileBySlug(slug)', 'Canonical expansion profile resolver');
+requireText(profileIndex, 'latestPaintedChurchProfileBySlug(slug)', 'Canonical latest profile resolver');
+requireText(detailRoute, 'loader: async ({ params }) => {', 'Painted Church detail profile loader');
+requireText(detailRoute, 'await import("@/data/painted-church-profile-index")', 'Painted Church canonical profile loader');
+requireText(detailRoute, 'canonicalPaintedChurchProfileBySlug(params.slug)', 'Painted Church public canonical profile resolver');
+forbidText(detailRoute, 'painted-church-detail-profile', 'Painted Church obsolete server-wrapper path');
+forbidText(detailRoute, 'painted-church-profiles-expansion', 'Painted Church detail route eager expansion import');
+forbidText(detailRoute, 'painted-church-profiles-latest', 'Painted Church detail route eager latest import');
+forbidText(detailRoute, 'paintedChurchProfileBySlug(params.slug)', 'Painted Church obsolete hand-built resolver');
+forbidText(detailRoute, 'paintedChurchAdditionProfileBySlug(params.slug)', 'Painted Church obsolete hand-built resolver');
+requireText(detailLazyRoute, 'createLazyFileRoute("/explore/painted-churches/$slug")', 'Painted Church native lazy detail boundary');
+requireText(detailLazyRoute, '>Quick answer</p>', 'Promoted profile primary quick answer');
+requireText(detailLazyRoute, 'profile.history.map', 'Promoted profile primary history');
+requireText(detailLazyRoute, 'profile.paintings.map', 'Promoted profile primary paintings');
+requireText(detailLazyRoute, 'profile?.visitorNotes?.length', 'Promoted profile visitor notes');
+requireText(detailLazyRoute, 'profile?.sources?.length', 'Promoted profile source list');
+requireText(detailLazyRoute, '<PaintedChurchResearchDossier', 'Painted Church research dossier delivery');
 
 requireText(people, 'slug: "michaela-wegman"', 'People authority');
 requireText(people, 'umbarger-st-marys-catholic-church', 'Umbarger researcher relationship');
@@ -120,4 +149,4 @@ if (failures.length) {
   failures.forEach((failure) => console.error(`- ${failure}`));
   process.exit(1);
 }
-console.log('Painted Churches completion protected: candidate adjudication, complete public research accounting, oral-history sources, complete Then & Now accounting, current imagery and primary-source interiors, correct regional map grouping, county/history/road-trip/small-town discovery, trip-planner integration, statewide Guidebook exposure, non-stale cross-links, self-canonical sitemap coverage, Google crawl access and explicit indexing approval.');
+console.log('Painted Churches completion protected: candidate adjudication, complete public research accounting, canonical lazy detail-profile delivery for promoted churches, oral-history sources, complete Then & Now accounting, current imagery and primary-source interiors, correct regional map grouping, county/history/road-trip/small-town discovery, trip-planner integration, statewide Guidebook exposure, non-stale cross-links, self-canonical sitemap coverage, Google crawl access and explicit indexing approval.');
