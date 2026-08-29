@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 
 import { texasDefinedBrand } from '@/brand/texasdefined';
-import { TEXAS_DATASETS } from '@/data/texas-data-center';
+import { getTexasDatasets } from '@/data/texas-data-center';
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 export const description = 'Useful Texas facts, local finders and practical guidance gathered in one place — whether you are researching a move, comparing costs, planning sports travel or simply getting to know the state better.';
@@ -23,8 +23,10 @@ export const nextStops = [
 ] as const;
 
 export const Route = createFileRoute('/texas-data')({
-  head: () => {
+  loader: async () => ({ datasets: await getTexasDatasets() }),
+  head: ({ loaderData }) => {
     const pageUrl = absoluteUrl(texasDefinedBrand, '/texas-data');
+    const datasets = loaderData?.datasets ?? [];
     return {
       meta: buildMeta(texasDefinedBrand, { canonicalPath: '/texas-data', title: 'Texas Facts and Figures', description }),
       links: [canonicalLink(texasDefinedBrand, '/texas-data')],
@@ -35,7 +37,7 @@ export const Route = createFileRoute('/texas-data')({
             '@type': ['CollectionPage', 'DataCatalog'], '@id': `${pageUrl}#page`, url: pageUrl, name: 'Texas Facts and Figures', description,
             publisher: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#organization` }, isPartOf: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#website` },
             dataset: [
-              ...TEXAS_DATASETS.map((dataset) => ({ '@type': 'Dataset', '@id': `${absoluteUrl(texasDefinedBrand, `/texas-data/${dataset.slug}`)}#dataset`, name: dataset.title, description: dataset.description, url: absoluteUrl(texasDefinedBrand, `/texas-data/${dataset.slug}`), dateModified: dataset.updated, temporalCoverage: String(dataset.year) })),
+              ...datasets.map((dataset) => ({ '@type': 'Dataset', '@id': `${absoluteUrl(texasDefinedBrand, `/texas-data/${dataset.slug}`)}#dataset`, name: dataset.title, description: dataset.description, url: absoluteUrl(texasDefinedBrand, `/texas-data/${dataset.slug}`), dateModified: dataset.updated, temporalCoverage: String(dataset.year) })),
               {
                 '@type': 'Dataset',
                 '@id': `${absoluteUrl(texasDefinedBrand, sportsComparisonPath)}#dataset`,
