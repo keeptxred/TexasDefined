@@ -3,187 +3,107 @@ import path from "node:path";
 
 const dataDir = "src/data";
 const resolverPath = "src/data/texas-icons.server.ts";
-const typesPath = "src/data/texas-icons-types.ts";
 const routePath = "src/routes/texas-icons_.$slug.tsx";
-
+const hubPath = "src/routes/texas-icons.tsx";
+const sitemapPath = "src/routes/sitemap-texas-icons[.]xml.ts";
+const robotsPath = "public/robots.txt";
+const correctionsPath = "src/data/texas-icons-roster-corrections.server.ts";
 const failures = [];
 const researchFiles = fs
   .readdirSync(dataDir)
   .filter((name) => /^texas-icons-research-.*\.server\.ts$/.test(name))
   .sort();
-const stagedSlugs = new Map();
 let profileCount = 0;
+const seenSlugs = new Map();
 
-function decodeDoubleQuotedString(raw) {
-  try {
-    return JSON.parse(`"${raw}"`);
-  } catch {
-    return raw;
-  }
+for (const required of [resolverPath, routePath, hubPath, correctionsPath]) {
+  if (!fs.existsSync(required)) failures.push(`Missing Texas Icons publication contract file: ${required}`);
 }
-
-function moduleStringConstants(source) {
-  const constants = new Map();
-  for (const match of source.matchAll(
-    /^const\s+([A-Za-z_$][\w$]*)\s*=\s*"((?:\\.|[^"\\])*)";/gm,
-  )) {
-    constants.set(match[1], decodeDoubleQuotedString(match[2]));
-  }
-  return constants;
-}
-
-function publicationNoteForBlock(block, constants) {
-  const literalMatch = block.match(
-    /^\s{4}publicationNote:\s*"((?:\\.|[^"\\])*)",/m,
-  );
-  if (literalMatch) return decodeDoubleQuotedString(literalMatch[1]);
-
-  const identifierMatch = block.match(
-    /^\s{4}publicationNote:\s*([A-Za-z_$][\w$]*),/m,
-  );
-  if (identifierMatch) return constants.get(identifierMatch[1]) ?? null;
-
-  return null;
-}
-
-if (!researchFiles.length) {
-  failures.push("No staged Texas Icons research modules were found.");
-}
+if (!researchFiles.length) failures.push("No Texas Icons narrative research modules were found.");
 
 for (const file of researchFiles) {
   const source = fs.readFileSync(path.join(dataDir, file), "utf8");
-  const constants = moduleStringConstants(source);
-  const profileMatches = [...source.matchAll(/^\s{4}slug:\s*"([^"]+)",/gm)];
-
-  if (!profileMatches.length) {
-    failures.push(`${file} does not contain any top-level staged research profiles.`);
-    continue;
-  }
-
-  for (let index = 0; index < profileMatches.length; index += 1) {
-    const match = profileMatches[index];
+  const matches = [...source.matchAll(/^\s{4}slug:\s*"([^"]+)",/gm)];
+  for (let index = 0; index < matches.length; index += 1) {
+    const match = matches[index];
     const slug = match[1];
     const start = match.index ?? 0;
-    const end = profileMatches[index + 1]?.index ?? source.lastIndexOf("];\n");
+    const end = matches[index + 1]?.index ?? source.lastIndexOf("];\n");
     const block = source.slice(start, end > start ? end : source.length);
     profileCount += 1;
 
-    const previousFile = stagedSlugs.get(slug);
-    if (previousFile) {
-      failures.push(`Duplicate staged Texas Icons research slug ${slug} appears in ${previousFile} and ${file}.`);
-    } else {
-      stagedSlugs.set(slug, file);
-    }
+    const previous = seenSlugs.get(slug);
+    if (previous) failures.push(`Duplicate Texas Icons narrative slug ${slug} appears in ${previous} and ${file}.`);
+    else seenSlugs.set(slug, file);
 
-    if (!/^\s{4}editorialStatus:\s*"researched-staged",/m.test(block)) {
-      failures.push(`${file}:${slug} must remain editorialStatus \"researched-staged\".`);
+    for (const token of ["dek:", "overview:", "definingWorks:", "timeline:", "legacy:", "texasPlaces:", "sources:", "lastReviewedAt:"]) {
+      if (!block.includes(token)) failures.push(`${file}:${slug} is missing narrative field ${token}`);
     }
-
-    const note = publicationNoteForBlock(block, constants);
-    if (!note) {
-      failures.push(`${file}:${slug} must have a resolvable publicationNote readiness blocker.`);
-      continue;
-    }
-
-    if (!/noindex/i.test(note)) {
-      failures.push(`${file}:${slug} publicationNote must explicitly preserve noindex.`);
-    }
-    if (!/image[-\s]?rights/i.test(note)) {
-      failures.push(`${file}:${slug} publicationNote must explicitly preserve the image-rights blocker.`);
-    }
-    if (!/internal[-\s]?link/i.test(note)) {
-      failures.push(`${file}:${slug} publicationNote must explicitly preserve the internal-link blocker.`);
-    }
-    if (!/(pending|until|remain|keep|review|certif|complete)/i.test(note)) {
-      failures.push(`${file}:${slug} publicationNote must make clear that readiness work remains incomplete.`);
-    }
+    const urls = [...block.matchAll(/url:\s*"(https:\/\/[^\"]+)"/g)].map((candidate) => candidate[1]);
+    if (new Set(urls).size < 3) failures.push(`${file}:${slug} must retain at least three distinct HTTPS sources before publication.`);
   }
 }
+if (!profileCount) failures.push("No Texas Icons narrative profiles were audited.");
 
-if (!profileCount) {
-  failures.push("No staged Texas Icons research profiles were audited.");
+if (fs.existsSync(resolverPath)) {
+  const resolver = fs.readFileSync(resolverPath, "utf8");
+  const talentStart = resolver.indexOf("if (talentProfile)");
+  const researchStart = resolver.indexOf("if (researchProfile)");
+  const starterStart = resolver.indexOf("\n  return {", researchStart);
+  if (talentStart < 0 || researchStart < 0 || talentStart >= researchStart) failures.push("Texas Talent ownership must resolve before Texas Icons narrative research.");
+  const talentBlock = talentStart >= 0 && researchStart > talentStart ? resolver.slice(talentStart, researchStart) : "";
+  const researchBlock = researchStart >= 0 && starterStart > researchStart ? resolver.slice(researchStart, starterStart) : "";
+  const starterBlock = starterStart >= 0 ? resolver.slice(starterStart) : "";
+
+  if (!talentBlock.includes("indexableAtOwnRoute: !publishable")) failures.push("Completed Texas Talent narratives must publish at the Icons route until Talent becomes the stronger canonical owner.");
+  if (!talentBlock.includes("summary: talentProfile.dek")) failures.push("Published Talent-owned Icons pages must use the written Talent narrative summary.");
+  if (!researchBlock.includes("indexableAtOwnRoute: true")) failures.push("Completed Texas Icons narrative profiles must be indexable at their own canonical route.");
+  if (!researchBlock.includes('reuseKind: "icon-research-staged"')) failures.push("Legacy research provenance may remain, but the runtime must still identify the research profile deterministically.");
+  if (!starterBlock.includes('reuseKind: "new-starter"') || !starterBlock.includes("indexableAtOwnRoute: false")) failures.push("Pure roster/data-only starter records must remain unpublished.");
+  if (!resolver.includes('resolved.reuseKind === "texas-talent-staged"')) failures.push("The loader must expose completed Talent narrative content while the Icons route temporarily owns publication.");
+  if (!resolver.includes("enrichResearchProfilePlaceLinks(researchProfile, context)")) failures.push("Published Icons research must retain safe Texas-place enrichment.");
+  if (resolver.includes("publicationNote")) failures.push("Legacy research publication notes must not control runtime publication.");
 }
 
-const types = fs.readFileSync(typesPath, "utf8");
-const researchTypeMatch = types.match(
-  /export type TexasIconResearchProfile = TexasIconNarrativeProfile & \{([\s\S]*?)\n\};/,
-);
-if (!researchTypeMatch) {
-  failures.push("TexasIconResearchProfile type contract is missing.");
+if (fs.existsSync(correctionsPath)) {
+  const corrections = fs.readFileSync(correctionsPath, "utf8");
+  if (!corrections.includes('replacementSlug: "matt-stone"')) failures.push("Rank 223 provenance correction must remain explicit.");
+  if (!corrections.includes("indexableAtOwnRoute: true")) failures.push("The completed corrected Matt Stone narrative must publish rather than remain a hidden article.");
+}
+
+if (fs.existsSync(routePath)) {
+  const route = fs.readFileSync(routePath, "utf8");
+  if (!route.includes("if (!result.talentProfile && !result.researchProfile) throw notFound()")) failures.push("Data-only Texas Icons records must not receive standalone public article routes.");
+  if (!route.includes('type: "article"')) failures.push("Published Texas Icons narratives must emit article metadata.");
+  if (!route.includes("const narrativeProfile: TexasIconNarrativeProfile")) failures.push("Texas Icons detail pages must be backed by narrative content.");
+  if (!route.includes('type="application/ld+json"')) failures.push("Published Texas Icons narratives must emit structured data.");
+  if (route.includes("Researched draft · noindex") || route.includes("profile.publicationNote")) failures.push("Published narrative routes must not retain the old permanent-draft/noindex UI.");
+}
+
+if (fs.existsSync(hubPath)) {
+  const hub = fs.readFileSync(hubPath, "utf8");
+  if (!hub.includes("Data stays data; written profiles publish")) failures.push("Texas Icons hub must state the written-content publication rule.");
+  if (!hub.includes("hasPublicDestination")) failures.push("Texas Icons hub must not link data-only roster records to standalone pages.");
+}
+
+if (fs.existsSync(sitemapPath)) {
+  const sitemap = fs.readFileSync(sitemapPath, "utf8");
+  if (!sitemap.includes("icon.indexableAtOwnRoute") || !sitemap.includes("/texas-icons/${icon.slug}")) failures.push("Texas Icons sitemap must include only publishable own-route narratives.");
 } else {
-  const researchType = researchTypeMatch[1];
-  if (!/editorialStatus:\s*"researched-staged";/.test(researchType)) {
-    failures.push("TexasIconResearchProfile must remain locked to editorialStatus \"researched-staged\".");
-  }
-  if (/editorialStatus:[^;]*\|/.test(researchType)) {
-    failures.push("TexasIconResearchProfile editorialStatus must not gain a publishable status union.");
-  }
-  if (!/publicationNote:\s*string;/.test(researchType)) {
-    failures.push("TexasIconResearchProfile must retain its publicationNote readiness blocker.");
-  }
+  failures.push(`Missing Texas Icons narrative sitemap: ${sitemapPath}`);
 }
 
-const resolver = fs.readFileSync(resolverPath, "utf8");
-const talentBranch = resolver.indexOf("if (talentProfile)");
-const researchBranch = resolver.indexOf("if (researchProfile)");
-if (talentBranch < 0 || researchBranch < 0 || talentBranch >= researchBranch) {
-  failures.push("Texas Talent ownership must continue to resolve before Texas Icons staged research.");
-}
-
-if (talentBranch >= 0 && researchBranch > talentBranch) {
-  const talentBlock = resolver.slice(talentBranch, researchBranch);
-  if (!talentBlock.includes("indexableAtOwnRoute: false")) {
-    failures.push("Texas Talent-owned subjects must not make the Texas Icons route indexable.");
-  }
-}
-
-if (researchBranch >= 0) {
-  const researchEnd = resolver.indexOf("\n  return {", researchBranch);
-  const researchBlock = resolver.slice(
-    researchBranch,
-    researchEnd > researchBranch ? researchEnd : resolver.length,
-  );
-  if (!researchBlock.includes('reuseKind: "icon-research-staged"')) {
-    failures.push("Staged research must continue to resolve as icon-research-staged.");
-  }
-  if (!researchBlock.includes("indexableAtOwnRoute: false")) {
-    failures.push("Staged research must remain non-indexable at its own route.");
-  }
-  if (!researchBlock.includes("`/texas-icons/${entry.slug}`")) {
-    failures.push("Staged research must continue to reuse the stable Texas Icons slug.");
-  }
-}
-
-if (!resolver.includes('resolved.reuseKind === "icon-research-staged" && researchProfile')) {
-  failures.push("The server loader must expose research copy only for icon-research-staged resolution.");
-}
-
-const route = fs.readFileSync(routePath, "utf8");
-if (!route.includes("robots: loaderData.icon.indexableAtOwnRoute")) {
-  failures.push("Texas Icons route metadata must keep robots tied to indexableAtOwnRoute.");
-}
-if (!route.includes('"noindex, follow, max-image-preview:large"')) {
-  failures.push("Texas Icons route must retain the noindex fallback for staged profiles.");
-}
-if (!route.includes("const schema = talentProfile")) {
-  failures.push("Texas Icons structured data must remain gated to an owned Texas Talent profile.");
-}
-if (!route.includes("Researched draft · noindex")) {
-  failures.push("Texas Icons researched drafts must retain the visible noindex editorial marker.");
-}
-if (!route.includes("profile.publicationNote")) {
-  failures.push("Texas Icons researched drafts must continue to display their publication blocker note.");
-}
-if (!route.includes("does not emit") || !route.includes("cannot become indexable")) {
-  failures.push("Texas Icons researched-draft notice must continue to explain the closed publication boundary.");
+if (fs.existsSync(robotsPath)) {
+  const robots = fs.readFileSync(robotsPath, "utf8");
+  if (!robots.includes("Sitemap: https://texasdefined.com/sitemap-texas-icons.xml")) failures.push("robots.txt must advertise the Texas Icons narrative sitemap.");
+} else {
+  failures.push(`Missing robots file: ${robotsPath}`);
 }
 
 if (failures.length) {
-  console.error("Texas Icons staged-readiness validation failed:");
+  console.error("Texas Icons written-content publication validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log(
-  `Texas Icons staged-readiness validation passed: ${profileCount} researched profiles across ${researchFiles.length} server-only research modules retain explicit noindex, image-rights and internal-link blockers; type, resolver and route publication boundaries remain closed.`,
-);
+console.log(`Texas Icons written-content publication validation passed: ${profileCount} sourced narrative profiles publish through canonical routes, while pure data-only roster records stay without standalone article pages.`);

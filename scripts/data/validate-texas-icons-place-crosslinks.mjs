@@ -34,16 +34,21 @@ if (!failures.length) {
     failures.push("Automatic place links must use the knowledge graph's canonical route helper.");
   }
   if (!resolver.includes("enrichResearchProfilePlaceLinks(researchProfile, context)")) {
-    failures.push("Staged Texas Icons research returned to the route must pass through place-link enrichment.");
+    failures.push("Published Texas Icons research returned to the route must pass through place-link enrichment.");
   }
   if (!route.includes("place.href ?")) {
     failures.push("Texas Icons profile UI must continue rendering researched place hrefs as links when present.");
   }
-  if (!route.includes("Researched draft · noindex")) {
-    failures.push("Place-link enrichment must not remove the staged-profile noindex disclosure.");
+  const researchStart = resolver.indexOf("if (researchProfile)");
+  const starterStart = resolver.indexOf("\n  return {", researchStart);
+  const researchBlock = researchStart >= 0 && starterStart > researchStart
+    ? resolver.slice(researchStart, starterStart)
+    : "";
+  if (!researchBlock.includes('reuseKind: "icon-research-staged"') || !researchBlock.includes("indexableAtOwnRoute: true")) {
+    failures.push("Place-link enrichment must preserve publication of completed Texas Icons narratives.");
   }
-  if (!resolver.includes('reuseKind: "icon-research-staged"') || !resolver.includes("indexableAtOwnRoute: false")) {
-    failures.push("Place-link enrichment must not promote researched Icons profiles to indexable status.");
+  if (route.includes("Researched draft · noindex")) {
+    failures.push("Published narrative pages must not retain the old staged/noindex disclosure.");
   }
 }
 
@@ -53,4 +58,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Texas Icons place cross-link validation passed: manual links win, only unique index-ready knowledge-graph matches are auto-linked, and staged profiles remain noindex.");
+console.log("Texas Icons place cross-link validation passed: manual links win, only unique index-ready knowledge-graph matches are auto-linked, and completed narratives remain published.");
