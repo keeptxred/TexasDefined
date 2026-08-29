@@ -50,8 +50,12 @@ export const Route = createFileRoute("/explore/$category")({
     if (!loaderData) return { meta: [{ title: "Not found" }, { name: "robots", content: "noindex" }] };
     const canonicalPath = `/explore/${params.category}`;
     const categoryUrl = `${siteUrl}${canonicalPath}`;
-    const indexReady = isExploreCategoryIndexReady(loaderData.category.slug);
     const featuredCollectionItems = params.category === "food-bbq" ? [{ "@type": "ListItem", position: 1, item: { "@type": "CollectionPage", name: "Texas Food History", description: "The history behind barbecue, chili, chicken-fried steak, breakfast tacos, Czech and German foodways and Dr Pepper.", url: `${siteUrl}/texas-food-history` } }] : [];
+    const indexReady = isExploreCategoryIndexReady(loaderData.category.slug, {
+      articleCount: loaderData.articles.length,
+      destinationCount: loaderData.destinations.length,
+      supplementalCount: featuredCollectionItems.length,
+    });
     const itemListElement = [
       ...featuredCollectionItems,
       ...loaderData.articles.map((article, index) => ({ "@type": "ListItem", position: featuredCollectionItems.length + index + 1, item: { "@type": "Article", name: article.title, url: `${siteUrl}/article/${article.slug}`, image: absoluteUrl(texasDefinedBrand, article.hero.src) } })),

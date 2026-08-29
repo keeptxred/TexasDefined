@@ -3,6 +3,7 @@ import fs from 'node:fs';
 const registry = fs.readFileSync('src/lib/public-routes.ts', 'utf8');
 const sitemap = fs.readFileSync('src/routes/sitemap[.]xml.ts', 'utf8');
 const exploreSitemap = fs.readFileSync('src/routes/sitemap-explore[.]xml.ts', 'utf8');
+const exploreArticleCounts = fs.readFileSync('src/data/explore-category-article-counts.ts', 'utf8');
 const regionRoute = fs.readFileSync('src/routes/explore.region.$region.tsx', 'utf8');
 
 const extractArray = (name) => {
@@ -116,8 +117,14 @@ for (const [filename, aliasPath, targetPath] of migratedGuideRedirects) {
 for (const feature of [
   'supplementalExploreCategories',
   'EXPLORE_CATEGORY_SLUGS',
+  'exploreCategoryArticleCount',
   'isExploreCategoryIndexReady',
-  '.filter((slug) => EXPLORE_CATEGORY_SLUGS.has(slug) && isExploreCategoryIndexReady(slug))',
+  'const categoryCandidates =',
+  '.filter((slug) => EXPLORE_CATEGORY_SLUGS.has(slug))',
+  'isExploreCategoryIndexReady(slug, {',
+  'articleCount: exploreCategoryArticleCount(slug)',
+  'destinationCount: destinations.filter((destination) => destination.category === slug).length',
+  'supplementalCount: slug === "food-bbq" ? 1 : 0',
   'categorySlugs.map((slug)',
   '`/explore/${slug}`',
   'regionSlugs.map((regionSlug)',
@@ -127,15 +134,19 @@ for (const feature of [
 ]) {
   if (!exploreSitemap.includes(feature)) failures.push(`Explore sitemap coverage missing: ${feature}`);
 }
+for (const feature of ['EXPLORE_CATEGORY_ARTICLE_COUNTS', 'as const satisfies Partial<Record<CategorySlug, number>>', 'exploreCategoryArticleCount(category: CategorySlug)']) {
+  if (!exploreArticleCounts.includes(feature)) failures.push(`Explore sitemap lightweight article inventory missing: ${feature}`);
+}
+if (exploreSitemap.includes('@/data/index') || exploreSitemap.includes('explore-category-inventory') || exploreSitemap.includes('createServerFn')) {
+  failures.push('Explore sitemap must not depend on the full article platform or server-function inventory graph.');
+}
 
 for (const region of regionIds) {
   if (!exploreSitemap.includes(`"${region}"`)) failures.push(`Explore sitemap region registry missing: ${region}`);
 }
 
 for (const category of nonExploreCategories) {
-  if (exploreSitemap.includes(`EXPLORE_CATEGORY_SLUGS = new Set([\n  "${category}"`)) {
-    failures.push(`Non-Explore department is included in Explore sitemap categories: ${category}`);
-  }
+  if (exploreSitemap.includes(`EXPLORE_CATEGORY_SLUGS = new Set([\n  "${category}"`)) failures.push(`Non-Explore department is included in Explore sitemap categories: ${category}`);
 }
 
 for (const feature of [
@@ -153,12 +164,8 @@ for (const feature of [
   if (!regionRoute.includes(feature)) failures.push(`Indexed Explore region quality feature missing: ${feature}`);
 }
 
-if (regionRoute.includes('fixtureDestinations')) {
-  failures.push('Indexed Explore region pages must not bypass the resilient shared destination query layer.');
-}
-if (regionRoute.includes('The shared destination catalog is temporarily unavailable')) {
-  failures.push('Indexed Explore region pages must render the resilient catalog rather than an empty outage page.');
-}
+if (regionRoute.includes('fixtureDestinations')) failures.push('Indexed Explore region pages must not bypass the resilient shared destination query layer.');
+if (regionRoute.includes('The shared destination catalog is temporarily unavailable')) failures.push('Indexed Explore region pages must render the resilient catalog rather than an empty outage page.');
 
 if (failures.length) {
   console.error('Sitemap route validation failed:');
@@ -166,4 +173,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Sitemap ownership, crawl-demand partitioning, preserved-catalog remote fallback, resolved quality gates, malformed-path rejection, all ${redirects.length} governed redirects, all ${nonIndexableRoutes.length} governed noindex routes, migrated aliases and regional quality passed validation.`);
+console.log(`Sitemap ownership, crawl-demand partitioning, preserved-catalog remote fallback, resolved quality gates, lightweight sparse-category sitemap gating, malformed-path rejection, all ${redirects.length} governed redirects, all ${nonIndexableRoutes.length} governed noindex routes, migrated aliases and regional quality passed validation.`);

@@ -6,6 +6,7 @@ import { auditDestination } from "@/data/destination-audit";
 import { applyAllCuratedDestinations } from "@/data/destination-curation-all";
 import { preservedExploreDestinations } from "@/data/destination-preserved-catalog";
 import { improveDestinationCatalog } from "@/data/destination-quality";
+import { exploreCategoryArticleCount } from "@/data/explore-category-article-counts";
 import { supplementalExploreCategories } from "@/data/explore-categories";
 import { isExploreCategoryIndexReady } from "@/data/explore-category-indexability";
 import { fetchCoreExploreDestinations } from "@/data/explore-core-remote";
@@ -143,9 +144,14 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         const rawDestinations = usePreservedFallback ? preservedExploreDestinations : remoteDestinations;
         const destinations = resolveDestinationCatalog(rawDestinations);
 
-        const categorySlugs = [...new Set([...categories, ...supplementalExploreCategories]
+        const categoryCandidates = [...new Set([...categories, ...supplementalExploreCategories]
           .map((category) => category.slug)
-          .filter((slug) => EXPLORE_CATEGORY_SLUGS.has(slug) && isExploreCategoryIndexReady(slug)))];
+          .filter((slug) => EXPLORE_CATEGORY_SLUGS.has(slug)))];
+        const categorySlugs = categoryCandidates.filter((slug) => isExploreCategoryIndexReady(slug, {
+          articleCount: exploreCategoryArticleCount(slug),
+          destinationCount: destinations.filter((destination) => destination.category === slug).length,
+          supplementalCount: slug === "food-bbq" ? 1 : 0,
+        }));
         const regionSlugs = [...new Set([
           ...regions.map((region) => region.id),
           ...EXPLORE_REGION_SLUGS,
