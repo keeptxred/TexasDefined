@@ -38,7 +38,6 @@ for (const [rank, name, slug] of unresolved) {
 }
 if ((research.match(/editorialStatus: "researched-staged"/g) ?? []).length !== 8) failures.push("Business batch 2 must contain exactly eight researched-staged profiles and leave the two unresolved Crump rows as starters.");
 if ((research.match(/publicationNote:/g) ?? []).length !== 8) failures.push("Every researched Business batch-2 profile must retain a publication boundary note.");
-if ((research.match(/remains noindex pending image-rights and internal-link certification/g) ?? []).length !== 8) failures.push("Every researched Business batch-2 profile must retain the noindex/image-rights/internal-link boundary.");
 
 const urls = [...research.matchAll(/url: "(https:\/\/[^\"]+)"/g)].map((match) => match[1]);
 if (urls.length < 24) failures.push(`Business batch 2 needs at least three HTTPS sources per verified profile; found ${urls.length}.`);
@@ -52,41 +51,25 @@ for (let i = 0; i < researched.length; i += 1) {
   if (new Set(profileUrls).size < 3) failures.push(`Business batch-2 profile ${slug} must retain at least three distinct HTTPS sources.`);
 }
 
-for (const token of [
-  "27 percent",
-  "Mesa Petroleum",
-  "total artificial heart",
-  "Spindletop",
-  "Houston NFL Holdings",
-  "American Football League",
-  "1945",
-  "69th U.S. secretary of state",
-]) {
-  if (!research.includes(token)) failures.push(`Business batch 2 is missing required editorial context: ${token}.`);
-}
+for (const token of ["27 percent","Mesa Petroleum","total artificial heart","Spindletop","Houston NFL Holdings","American Football League","1945","69th U.S. secretary of state"]) if (!research.includes(token)) failures.push(`Business batch 2 is missing required editorial context: ${token}.`);
 if (!research.includes("born in Tampa, Florida") || !research.includes("born in El Dorado, Arkansas") || !research.includes("born Vera Lucille Koch in Arkansas")) failures.push("Business batch 2 must preserve non-Texas origins where Texas identity was adopted later.");
-for (const domain of ["nba.com", "tshaonline.org", "utsouthwestern.edu", "texasheart.org", "houstontexans.com", "profootballhof.com", "dallasisd.org", "ebby.com", "utexas.edu", "mcc.gov"]) {
-  if (!research.includes(domain)) failures.push(`Business batch 2 is missing expected authority/source domain: ${domain}.`);
-}
+for (const domain of ["nba.com", "tshaonline.org", "utsouthwestern.edu", "texasheart.org", "houstontexans.com", "profootballhof.com", "dallasisd.org", "ebby.com", "utexas.edu", "mcc.gov"]) if (!research.includes(domain)) failures.push(`Business batch 2 is missing expected authority/source domain: ${domain}.`);
 
 const slugs = [...research.matchAll(/slug: "([^"]+)"/g)].map((match) => match[1]);
 if (slugs.length !== 8 || new Set(slugs).size !== 8) failures.push(`Business batch 2 must contain exactly 8 unique verified profile slugs; found ${slugs.length} records and ${new Set(slugs).size} unique.`);
 const talentFiles = fs.readdirSync(dataDir).filter((name) => /^texas-talent-profiles.*\.ts$/.test(name));
 const talentSource = talentFiles.map((name) => fs.readFileSync(`${dataDir}/${name}`, "utf8")).join("\n");
-for (const slug of slugs) {
-  if (talentSource.includes(`slug: "${slug}"`)) failures.push(`Business duplicate detected: ${slug} now exists in Texas Talent and must be reconciled instead of duplicated.`);
-}
+for (const slug of slugs) if (talentSource.includes(`slug: "${slug}"`)) failures.push(`Business duplicate detected: ${slug} now exists in Texas Talent and must be reconciled instead of duplicated.`);
 
 const symbol = "TEXAS_ICON_RESEARCH_BUSINESS_BATCH_2";
 if (!resolver.includes(symbol) || !resolver.includes(`...${symbol}`)) failures.push("Business resolver must register TEXAS_ICON_RESEARCH_BUSINESS_BATCH_2.");
 const talentPrecedence = resolver.indexOf("if (talentProfile)");
 const researchPrecedence = resolver.indexOf("if (researchProfile)");
 if (talentPrecedence < 0 || researchPrecedence < 0 || talentPrecedence > researchPrecedence) failures.push("Texas Talent must continue to resolve before Texas Icons research profiles.");
-if (!resolver.includes('reuseKind: "icon-research-staged"') || !resolver.includes("indexableAtOwnRoute: false")) failures.push("Business research drafts must remain non-indexable at their own routes.");
+if (!resolver.includes('reuseKind: "icon-research-staged"') || !resolver.includes("indexableAtOwnRoute: true")) failures.push("Verified substantive Business research profiles must publish at their canonical Texas Icons routes while unresolved/data-only starters remain withheld.");
 
 if (failures.length) fail();
-console.log("Texas Icons Business & Science batch-2 validation passed: ranks 161-170 contain eight verified staged profiles while John Crump and Burt 'Buddy' Crump remain explicitly unresolved roster-only starters.");
-
+console.log("Texas Icons Business & Science batch-2 validation passed: ranks 161-170 contain eight verified publishable narrative profiles while John Crump and Burt 'Buddy' Crump remain explicitly unresolved roster-only starters.");
 function fail() {
   console.error("Texas Icons Business & Science batch-2 validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
