@@ -24,6 +24,39 @@ const targets = [
   ['/article/beginners-guide-ordering-texas-barbecue', 'How to Order Texas Barbecue'],
 ];
 
+const gscIntentTargets = [
+  [
+    '/explore/landscapes/where-does-texas-turn-into-desert',
+    'Where Does Texas Turn Into Desert? Texas Regions Explained',
+    'See where Texas shifts from plains and Hill Country into Chihuahuan Desert landscapes, and how elevation, rainfall and geography define the transition.',
+  ],
+  [
+    '/article/texas-regions-explained',
+    'Texas Landforms & Regions: Mountains, Plains, Coast & More',
+    'Explore Texas landforms and regions, from the Hill Country and Piney Woods to the Gulf Coast, High Plains, Big Bend mountains, basins and South Texas.',
+  ],
+  [
+    '/article/texas-septic-systems-homeowner-guide',
+    'Texas Septic System Design & OSSF Guide',
+    'Texas septic system design guide covering OSSF site evaluation, permits, conventional and aerobic systems, drainfields, approved plans and homeowner maintenance.',
+  ],
+  [
+    '/article/texas-rio-grande-river-guide',
+    'Rio Grande in Texas: Basin, Border, Reservoirs & River Guide',
+    "Guide to the Rio Grande in Texas, from desert canyons and the border to Amistad, Falcon, water treaties, irrigation and the river's Gulf outlet.",
+  ],
+  [
+    '/article/texas-major-cities-regional-differences',
+    'Major Texas Cities Compared: Houston, DFW, Austin & San Antonio',
+    'Compare Houston, Dallas-Fort Worth, Austin, San Antonio and Texas regions on climate, culture, jobs, driving and daily life before choosing where to live.',
+  ],
+  [
+    '/article/texas-lakes-reservoirs-explained',
+    'Texas Lakes & Reservoirs: Major Water Systems Explained',
+    'Learn why most Texas lakes are reservoirs, how dams reshape rivers, and how Lake Travis, Texoma, Canyon Lake and other systems store water.',
+  ],
+];
+
 const failures = [];
 if (!seoSource.includes('brand.identity.id === "texasdefined" && page.canonicalPath')) {
   failures.push('Phase 7 metadata overrides are no longer scoped to TexasDefined canonical paths.');
@@ -40,6 +73,16 @@ for (const [canonicalPath, expectedTitle] of targets) {
   if (fullTitle.length < 30 || fullTitle.length > 60) failures.push(`${canonicalPath}: final title length ${fullTitle.length} is outside 30–60 chars.`);
 }
 
+for (const [canonicalPath, expectedTitle, expectedDescription] of gscIntentTargets) {
+  const escapedPath = canonicalPath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const escapedTitle = expectedTitle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const escapedDescription = expectedDescription.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const overridePattern = new RegExp(
+    `"${escapedPath}"\\s*:\\s*\\{[\\s\\S]*?title\\s*:\\s*"${escapedTitle}"[\\s\\S]*?description\\s*:\\s*["']${escapedDescription}["']`,
+  );
+  if (!overridePattern.test(seoSource)) failures.push(`${canonicalPath}: expected GSC intent title/description override is missing.`);
+}
+
 const roadTripsMatch = seoSource.match(/"\/explore\/road-trips"\s*:\s*\{[\s\S]*?description\s*:\s*"([^"]+)"/);
 const roadTripsDescription = roadTripsMatch?.[1] ?? '';
 if (roadTripsDescription.length < 100 || roadTripsDescription.length > 160) {
@@ -52,4 +95,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Phase 7 technical SEO validation passed for ${targets.length} audited canonical URLs.`);
+console.log(`Phase 7 technical SEO validation passed for ${targets.length} audited canonical URLs plus ${gscIntentTargets.length} current GSC intent overrides.`);
