@@ -7,11 +7,17 @@ export type TexasIconLaunchCertification = {
   imagePolicy: "text-only-no-profile-image";
 };
 
+type LaunchableTexasIcon = {
+  slug: string;
+  reuseKind: string;
+  indexableAtOwnRoute: boolean;
+};
+
 const approvedAt = "2026-08-29";
 
 // Publication is additive and fail-closed: the underlying research records remain
-// `researched-staged`. Only slugs explicitly certified here may resolve as an
-// indexable Texas Icons research profile.
+// `researched-staged`. Only slugs explicitly certified here may be presented as
+// indexable research profiles after canonical/Talent/hold resolution has run.
 export const TEXAS_ICON_LAUNCH_CERTIFICATIONS: readonly TexasIconLaunchCertification[] = [
   {
     slug: "lyndon-b-johnson",
@@ -101,4 +107,16 @@ export const TEXAS_ICON_LAUNCH_SLUGS = TEXAS_ICON_LAUNCH_CERTIFICATIONS.map((ent
 
 export function isTexasIconResearchLaunchApproved(slug: string) {
   return TEXAS_ICON_LAUNCH_SLUG_SET.has(slug);
+}
+
+export function applyTexasIconLaunchCertification<T extends LaunchableTexasIcon>(icon: T) {
+  if (icon.reuseKind !== "icon-research-staged" || !isTexasIconResearchLaunchApproved(icon.slug)) {
+    return icon;
+  }
+
+  return {
+    ...icon,
+    reuseKind: "icon-research-ready" as const,
+    indexableAtOwnRoute: true as const,
+  };
 }
