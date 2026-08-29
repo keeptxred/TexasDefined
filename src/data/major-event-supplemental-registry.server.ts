@@ -62,6 +62,9 @@ export const supplementalMajorEventSlugs = [
   "pecan-street-festival",
   "lone-star-rally",
   "austin-city-limits-music-festival",
+  "austin-marathon",
+  "cowtown-marathon",
+  "bmw-dallas-marathon",
 ] as const;
 
 export function loadSupplementalMajorEventRecordsServer() {
