@@ -1,4 +1,4 @@
-import { buildGatewayProductionManifest } from "./texas-gateway-production-readiness-lib.mjs";
+import { buildGatewayProductionManifest } from "./texas-gateway-production-manifest.mjs";
 
 const manifest = buildGatewayProductionManifest(process.cwd());
 
@@ -30,6 +30,12 @@ const intentionallyStaged = manifest.entries
     reason: entry.editorialReason,
     blockers: nonEditorialBlockers(entry),
   }));
+
+const partitionedTotal = candidates.length + stillBlocked.length + intentionallyStaged.length;
+if (partitionedTotal !== manifest.summary.total) {
+  console.error(`Gateway editorial candidate audit coverage failed: partitioned ${partitionedTotal} of ${manifest.summary.total} production-manifest entries.`);
+  process.exit(1);
+}
 
 console.log(JSON.stringify({
   generatedAt: manifest.generatedAt,
