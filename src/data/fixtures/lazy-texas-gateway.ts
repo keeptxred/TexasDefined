@@ -20,6 +20,7 @@ import { texasGatewayBatch9CoreEnrichment } from "./texas-gateway-batch9-core-en
 import { texasGatewayBatch9SecondaryEnrichment } from "./texas-gateway-batch9-secondary-enrichment";
 import { texasGatewayBatch10OriginEnrichment } from "./texas-gateway-batch10-origin-enrichment";
 import { texasGatewayBatch10DurationEnrichment } from "./texas-gateway-batch10-duration-enrichment";
+import { texasGatewayBatch10FormatEnrichment } from "./texas-gateway-batch10-format-enrichment";
 import { texasGatewayBatch11GeneralEnrichment } from "./texas-gateway-batch11-general-enrichment";
 import { texasGatewayBatch11RadiusEnrichment } from "./texas-gateway-batch11-radius-enrichment";
 import { texasGatewayBatch12FlexibleEnrichment } from "./texas-gateway-batch12-flexible-enrichment";
@@ -69,6 +70,7 @@ const normalizeGatewayArticle = (article: Article): Article => {
     ?? texasGatewayBatch9SecondaryEnrichment[article.slug]
     ?? texasGatewayBatch10OriginEnrichment[article.slug]
     ?? texasGatewayBatch10DurationEnrichment[article.slug]
+    ?? texasGatewayBatch10FormatEnrichment[article.slug]
     ?? texasGatewayBatch11RadiusEnrichment[article.slug]
     ?? texasGatewayBatch11GeneralEnrichment[article.slug]
     ?? texasGatewayBatch12FlexibleEnrichment[article.slug]
