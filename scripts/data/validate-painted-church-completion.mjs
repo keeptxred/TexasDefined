@@ -19,6 +19,7 @@ const guidebook = read('src/routes/guides.tsx');
 const topicPaths = read('src/components/editorial/ExploreTopicPaths.tsx');
 const categoryRoute = read('src/routes/explore.$category.lazy.tsx');
 const trustRouter = read('src/components/authority/CitationCollectionTrustRouter.tsx');
+const profileShim = read('src/data/painted-church-profiles-additional.ts');
 const sitemap = read('src/routes/sitemap-explore[.]xml.ts');
 const publicRoutes = read('src/lib/public-routes.ts');
 const robots = read('public/robots.txt');
@@ -42,6 +43,8 @@ const expansionSlugs = [
 for (const slug of expansionSlugs) requireText(sourceLibrary, `slug: "${slug}"`, 'Verified expansion accounting');
 requireText(sourceLibrary, 'The collection now includes {expandedPaintedChurches.length} verified church profiles.', 'Canonical expansion count');
 requireText(sourceLibrary, 'to="/explore/painted-churches/$slug"', 'Verified-addition internal links');
+requireText(profileShim, 'canonicalPaintedChurchProfileBySlug', 'Public church-detail profile resolver shim');
+forbidText(profileShim, 'paintedChurchAdditionProfileBySlug', 'Public church-detail profile resolver shim');
 
 requireText(people, 'slug: "michaela-wegman"', 'People authority');
 requireText(people, 'umbarger-st-marys-catholic-church', 'Umbarger researcher relationship');
@@ -120,4 +123,4 @@ if (failures.length) {
   failures.forEach((failure) => console.error(`- ${failure}`));
   process.exit(1);
 }
-console.log('Painted Churches completion protected: candidate adjudication, complete public research accounting, oral-history sources, complete Then & Now accounting, current imagery and primary-source interiors, correct regional map grouping, county/history/road-trip/small-town discovery, trip-planner integration, statewide Guidebook exposure, non-stale cross-links, self-canonical sitemap coverage, Google crawl access and explicit indexing approval.');
+console.log('Painted Churches completion protected: candidate adjudication, complete public research accounting, canonical public detail profile resolution, oral-history sources, complete Then & Now accounting, current imagery and primary-source interiors, correct regional map grouping, county/history/road-trip/small-town discovery, trip-planner integration, statewide Guidebook exposure, non-stale cross-links, self-canonical sitemap coverage, Google crawl access and explicit indexing approval.');
