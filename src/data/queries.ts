@@ -6,6 +6,7 @@ import { fetchPublishedTexasEvents } from "./events-remote";
 import { supplementalExploreCategories } from "./explore-categories";
 import { guideIsAvailable } from "./guide-links";
 import { platform, scope } from "./index";
+import { ensureRemoteEvergreenSourceFallback } from "./remote-evergreen-source-fallbacks";
 import type { ArticleQuery, DestinationQuery } from "./repositories";
 import { fetchAssignedShopProducts } from "./shop-products-remote";
 import type { Destination, SearchDocument, Slug } from "./types";
@@ -19,7 +20,9 @@ export const articleQuery = (slug: Slug) => queryOptions({
   queryFn: async () => {
     const localArticle = await platform.articles.getBySlug(scope, slug);
     if (localArticle) {
-      if (localArticle.sourceName && localArticle.sourceUrl) return prepareArticleForDelivery(localArticle);
+      if (localArticle.sourceName && localArticle.sourceUrl) {
+        return prepareArticleForDelivery(ensureRemoteEvergreenSourceFallback(localArticle));
+      }
       const remoteSourceArticle = await fetchPublishedTexasDefinedEvergreenArticle(slug);
       const sourceHydratedLocalArticle = remoteSourceArticle
         ? {
@@ -28,10 +31,12 @@ export const articleQuery = (slug: Slug) => queryOptions({
             sourceUrl: localArticle.sourceUrl ?? remoteSourceArticle.sourceUrl,
           }
         : localArticle;
-      return prepareArticleForDelivery(sourceHydratedLocalArticle);
+      return prepareArticleForDelivery(ensureRemoteEvergreenSourceFallback(sourceHydratedLocalArticle));
     }
     const remoteArticle = await fetchPublishedTexasDefinedEvergreenArticle(slug);
-    return remoteArticle ? prepareArticleForDelivery(remoteArticle) : null;
+    return remoteArticle
+      ? prepareArticleForDelivery(ensureRemoteEvergreenSourceFallback(remoteArticle))
+      : null;
   },
 });
 
