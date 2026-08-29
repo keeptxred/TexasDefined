@@ -12,15 +12,17 @@ const requireCondition = (condition, message) => {
 };
 
 const serverPath = "src/data/texas-talent-related.server.ts";
+const talentServerPath = "src/data/texas-talent.server.ts";
 const functionsPath = "src/data/texas-talent.functions.ts";
 const routePath = "src/routes/admin.texas-talent.$slug.tsx";
 const pagePath = "src/routes/admin.texas-talent.$slug.lazy.tsx";
 
-for (const path of [serverPath, functionsPath, routePath, pagePath]) {
+for (const path of [serverPath, talentServerPath, functionsPath, routePath, pagePath]) {
   requireCondition(existsSync(resolve(root, path)), `missing required file ${path}`);
 }
 
 const server = read(serverPath);
+const talentServer = read(talentServerPath);
 const functions = read(functionsPath);
 const route = read(routePath);
 const page = read(pagePath);
@@ -28,10 +30,15 @@ const publicRoutes = read("src/lib/public-routes.ts");
 const sitemap = read("src/routes/sitemap[.]xml.ts");
 
 requireCondition(
-  server.includes('loadTexasKnowledgeGraph')
-    && server.includes('resolveTexasTalentEntityLinksFromGraph')
-    && server.includes('loadTexasTalentProfilesServer'),
-  "related profiles must be derived from the effective profile inventory and current Texas knowledge graph",
+  server.includes('resolveTexasTalentEntityLinksFromGraph')
+    && server.includes('TexasEntityRecord')
+    && server.includes('LoadedTexasTalentProfile'),
+  "related-profile scoring must consume the effective profile inventory and current Texas knowledge graph supplied by the existing server loader",
+);
+requireCondition(
+  !server.includes('loadTexasKnowledgeGraph')
+    && !server.includes('loadTexasTalentProfilesServer'),
+  "related-profile helper must remain parameterized and must not open a second server-loading path",
 );
 requireCondition(
   server.includes('candidate.slug !== target.slug'),
@@ -48,14 +55,21 @@ requireCondition(
   "related-profile output must retain the bounded result limit",
 );
 requireCondition(
-  functions.includes('getTexasTalentRelatedProfiles')
-    && functions.includes('texas-talent-related.server'),
-  "related-profile resolver must stay behind a server function",
+  talentServer.includes('resolveTexasTalentRelatedProfilesFromGraph')
+    && talentServer.includes('relatedProfiles,')
+    && talentServer.includes('loadTexasTalentProfilesServer(),'),
+  "existing enriched-profile server loader must derive and return the related-profile set",
 );
 requireCondition(
-  route.includes('getTexasTalentRelatedProfiles')
-    && route.includes('return { profile, relatedProfiles }'),
-  "hidden profile route must load graph-derived related profiles",
+  functions.includes('getTexasTalentProfileWithResolvedLinks')
+    && !functions.includes('getTexasTalentRelatedProfiles'),
+  "relationship data must reuse the existing Talent profile server-function boundary",
+);
+requireCondition(
+  route.includes('getTexasTalentProfileWithResolvedLinks')
+    && route.includes('relatedProfiles: profile.relatedProfiles')
+    && !route.includes('getTexasTalentRelatedProfiles'),
+  "hidden profile route must reuse the enriched profile loader rather than adding a second client-facing server function",
 );
 requireCondition(
   route.includes('noindex, nofollow, noarchive'),
@@ -86,5 +100,5 @@ requireCondition(
 );
 
 console.log(
-  "Texas Talent related-network contract passed: profile recommendations remain graph-derived, bounded, server-only and inside the hidden noindex preview.",
+  "Texas Talent related-network contract passed: profile recommendations remain graph-derived, bounded, single-boundary, server-only and inside the hidden noindex preview.",
 );
