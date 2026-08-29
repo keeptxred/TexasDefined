@@ -16,13 +16,31 @@ Publication rule: add a permanent `/event/` authority guide only when a current 
 | Houston Art Car Parade | April 10, 2027 | Orange Show publishes the 40th annual parade save-the-date and identifies Allen Parkway and Downtown Houston as the route corridor. | `/event/houston-art-car-parade` |
 | Mardi Gras! Galveston | January 29-February 9, 2027 overall festival period | Organizer publishes the overall period plus a detailed schedule concentrated on Jan. 29-31, Feb. 5-7 and Fat Tuesday, Feb. 9. The guide explicitly warns that the date span is not continuous daily programming. | `/event/mardi-gras-galveston` |
 
+## Implemented in tranche 26
+
+| Event | Date treatment | First-party basis | Destination |
+|---|---|---|---|
+| Texas State Forest Festival | September 17-20, 2026 | Organizer FAQ publishes the exact four-day Lufkin festival and daily hours at George H. Henderson Expo Center. | `/event/texas-state-forest-festival` |
+| Bayou City Art Festival Memorial Park | October 9-11, 2026 | Art Colony Association publishes the exact three-day Memorial Park festival, venue and daily gate hours. | `/event/bayou-city-art-festival-memorial-park` |
+| Western Heritage Classic | May 6-9, 2027 | Organizer publishes exact 2027 dates; Taylor County Expo Center independently lists the same event window. | `/event/western-heritage-classic` |
+| Bob Wills Day | April 22-24, 2027 | Bob Wills Day organizer publishes a three-day 2027 save-the-date; the foundation and City of Turkey document the annual last-Saturday-in-April tradition. | `/event/bob-wills-day` |
+
 ## First-party sources
+
+### Tranche 25
 
 - Marfa Lights Festival: https://visitmarfa.com/events/39th-annual-marfa-lights-festival and https://visitmarfa.com/events
 - Fredericksburg Oktoberfest: https://www.oktoberfestinfbg.com/, https://www.oktoberfestinfbg.com/fest-details, and https://www.visitfredericksburgtx.com/events/major-events-festivals/oktoberfest-2/
 - Texas Book Festival: https://texasbookfestival.org/festival/, https://texasbookfestival.org/news/2025/12/announcing-the-2026-festival-dates/, and https://texasbookfestival.org/2026-faq-for-publishers-and-invited-festival-authors/
 - Houston Art Car Parade: https://www.thehoustonartcarparade.com/, https://www.thehoustonartcarparade.com/history-of-the-houston-art-car-para, and https://www.thehoustonartcarparade.com/faq
 - Mardi Gras! Galveston: https://www.mardigrasgalveston.com/ and https://www.mardigrasgalveston.com/parade-schedule/
+
+### Tranche 26
+
+- Texas State Forest Festival: https://www.texasstateforestfestival.com/ and https://www.texasstateforestfestival.com/faq
+- Bayou City Art Festival Memorial Park: https://www.bayoucityartfestival.com/, https://www.bayoucityartfestival.com/festival-info, and https://www.houstontx.gov/events/bayou-city-art-festival.html
+- Western Heritage Classic: https://www.westernheritageclassic.com/, https://www.westernheritageclassic.com/p/events/schedule, and https://www.taylorcountyexpocenter.com/location/all-facilities
+- Bob Wills Day: https://bobwillsday.com/, https://bobwillsday.com/home-2/, https://bobwillsday.com/bwd-2/, and https://www.turkeytx.com/bob-wills-day
 
 ## Known schedule-model hold
 
