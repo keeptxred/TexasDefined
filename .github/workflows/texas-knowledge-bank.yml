@@ -13,6 +13,7 @@ on:
       - 'scripts/data/validate-texas-knowledge-bank.mjs'
       - 'scripts/data/validate-texas-knowledge-freshness.mjs'
       - 'scripts/data/validate-texas-county-knowledge.mjs'
+      - 'scripts/data/validate-texas-town-knowledge.mjs'
       - 'scripts/data/validate-texas-social-balance.mjs'
       - 'scripts/data/validate-texas-home-nature-tools.mjs'
       - 'tsconfig.knowledge-bank.json'
@@ -43,6 +44,9 @@ jobs:
 
       - name: Validate county knowledge
         run: node scripts/data/validate-texas-county-knowledge.mjs
+
+      - name: Validate town knowledge
+        run: node scripts/data/validate-texas-town-knowledge.mjs
 
       - name: Validate social domain balance
         run: node scripts/data/validate-texas-social-balance.mjs
