@@ -3,6 +3,13 @@ import { Link } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
 import type { TexasHomeNaturePublicGuide } from "@/data/texas-home-nature-public";
 
+const HOME_NATURE_GUIDES = [
+  { href: "/texas-pool-guide", label: "Texas pool guide" },
+  { href: "/texas-pests-guide", label: "Texas pests guide" },
+  { href: "/texas-snakes-guide", label: "Texas snakes guide" },
+  { href: "/texas-birds-guide", label: "Texas birds guide" },
+] as const;
+
 export function TexasHomeNatureGuide({ data }: { data: TexasHomeNaturePublicGuide }) {
   const { guide, sources, reviewedAt } = data;
   return (
@@ -28,6 +35,15 @@ export function TexasHomeNatureGuide({ data }: { data: TexasHomeNaturePublicGuid
             <h2 id="quick-answer" className="font-display text-2xl">Quick answer</h2>
             <p className="mt-4 leading-8 text-muted-foreground">{guide.quickAnswer}</p>
           </section>
+
+          <nav aria-label="Texas home and nature guides" className="mt-8 rounded-2xl border p-5">
+            <p className="text-sm font-semibold uppercase tracking-[0.15em] text-muted-foreground">Texas home &amp; nature</p>
+            <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
+              {HOME_NATURE_GUIDES.map((item) => (
+                <a key={item.href} href={item.href} className="text-sm font-semibold text-primary underline-offset-4 hover:underline">{item.label}</a>
+              ))}
+            </div>
+          </nav>
 
           <div className="mt-12 space-y-12">
             {guide.sections.map((section) => (
