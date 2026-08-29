@@ -1,4 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
+import { applyTexasIconLaunchCertification } from "@/data/texas-icons-launch";
 
 export const getTexasIcons = createServerFn({ method: "GET" }).handler(async () => {
   const [
@@ -12,14 +13,27 @@ export const getTexasIcons = createServerFn({ method: "GET" }).handler(async () 
   ]);
   const data = await loadTexasIconsServer();
   const present = (icon: (typeof data.icons)[number]) =>
-    applyTexasIconEditorialHoldSummary(applyTexasIconRosterCorrection(icon));
+    applyTexasIconLaunchCertification(
+      applyTexasIconEditorialHoldSummary(applyTexasIconRosterCorrection(icon)),
+    );
+  const icons = data.icons.map(present);
   return {
     ...data,
-    icons: data.icons.map(present),
+    icons,
     categories: data.categories.map((category) => ({
       ...category,
       icons: category.icons.map(present),
     })),
+    stats: {
+      ...data.stats,
+      researchedReady: icons.filter((entry) => entry.reuseKind === "icon-research-ready").length,
+      researchedStaged: icons.filter((entry) => entry.reuseKind === "icon-research-staged").length,
+      readyAtOwnRoute: icons.filter((entry) => entry.indexableAtOwnRoute).length,
+      researchQueue: icons.filter((entry) =>
+        entry.reuseKind === "new-starter"
+        || entry.reuseKind === "texas-talent-staged"
+        || entry.reuseKind === "icon-research-staged").length,
+    },
   };
 });
 
@@ -44,13 +58,15 @@ export const getTexasIconProfile = createServerFn({ method: "GET" })
     if (!profile) return null;
     const sanitizedSourceIcon = applyTexasIconEditorialHoldSummary(profile.icon);
     const correctedIcon = applyTexasIconRosterCorrection(sanitizedSourceIcon);
-    const icon = applyTexasIconEditorialHoldSummary(correctedIcon);
+    const icon = applyTexasIconLaunchCertification(applyTexasIconEditorialHoldSummary(correctedIcon));
     const correctedResearch = texasIconCorrectedResearchProfile(icon.slug);
     return {
       ...profile,
       icon,
       researchProfile: correctedResearch ?? profile.researchProfile,
       related: profile.related.map((candidate) =>
-        applyTexasIconEditorialHoldSummary(applyTexasIconRosterCorrection(candidate))),
+        applyTexasIconLaunchCertification(
+          applyTexasIconEditorialHoldSummary(applyTexasIconRosterCorrection(candidate)),
+        )),
     };
   });
