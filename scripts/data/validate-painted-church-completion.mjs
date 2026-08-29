@@ -13,6 +13,11 @@ const extraGallery = read('src/data/painted-church-gallery-extra.ts');
 const archival = read('src/data/painted-church-archival-images-expansion.ts');
 const thenNow = read('src/routes/explore.painted-churches.then-and-now.tsx');
 const mapRoute = read('src/routes/explore.painted-churches.map.tsx');
+const detailRoute = read('src/routes/explore.painted-churches.$slug.tsx');
+const detailProfileClient = read('src/data/painted-church-detail-profile.ts');
+const detailProfileServer = read('src/data/painted-church-detail-profile.server.ts');
+const expansionProfiles = read('src/data/painted-church-profiles-expansion.ts');
+const latestProfiles = read('src/data/painted-church-profiles-latest.ts');
 const tripPlanner = read('src/routes/explore.trip-planner.tsx');
 const countyGuides = read('src/components/content/CountyGuideSections.tsx');
 const guidebook = read('src/routes/guides.tsx');
@@ -42,6 +47,24 @@ const expansionSlugs = [
 for (const slug of expansionSlugs) requireText(sourceLibrary, `slug: "${slug}"`, 'Verified expansion accounting');
 requireText(sourceLibrary, 'The collection now includes {expandedPaintedChurches.length} verified church profiles.', 'Canonical expansion count');
 requireText(sourceLibrary, 'to="/explore/painted-churches/$slug"', 'Verified-addition internal links');
+
+for (const slug of ['corpus-christi-sacred-heart-catholic-church','san-antonio-st-joseph-catholic-church','anderson-st-stanislaus-kostka']) {
+  requireText(expansionProfiles, `slug: "${slug}"`, 'Expansion detail-profile coverage');
+}
+for (const slug of ['castroville-st-louis-catholic-church','lacoste-our-lady-of-grace']) {
+  requireText(latestProfiles, `slug: "${slug}"`, 'Latest detail-profile coverage');
+}
+requireText(detailRoute, 'loader: async ({ params }) => {', 'Painted Church detail profile loader');
+requireText(detailRoute, 'getPromotedPaintedChurchDetailProfile(params.slug)', 'Promoted Painted Church server fallback');
+requireText(detailRoute, 'paintedChurchAdditionProfileBySlug(params.slug)', 'Existing Painted Church profile fallback coverage');
+forbidText(detailRoute, 'painted-church-profiles-expansion', 'Painted Church detail route client boundary');
+forbidText(detailRoute, 'painted-church-profiles-latest', 'Painted Church detail route client boundary');
+requireText(detailProfileClient, 'createServerFn({ method: "GET" })', 'Promoted Painted Church server-function boundary');
+requireText(detailProfileClient, 'import("./painted-church-detail-profile.server")', 'Promoted Painted Church server-only resolver');
+forbidText(detailProfileClient, 'painted-church-profiles-expansion', 'Promoted Painted Church client wrapper');
+forbidText(detailProfileClient, 'painted-church-profiles-latest', 'Promoted Painted Church client wrapper');
+requireText(detailProfileServer, 'paintedChurchExpansionProfileBySlug', 'Server-only expansion profile resolver');
+requireText(detailProfileServer, 'latestPaintedChurchProfileBySlug', 'Server-only latest profile resolver');
 
 requireText(people, 'slug: "michaela-wegman"', 'People authority');
 requireText(people, 'umbarger-st-marys-catholic-church', 'Umbarger researcher relationship');
@@ -120,4 +143,4 @@ if (failures.length) {
   failures.forEach((failure) => console.error(`- ${failure}`));
   process.exit(1);
 }
-console.log('Painted Churches completion protected: candidate adjudication, complete public research accounting, oral-history sources, complete Then & Now accounting, current imagery and primary-source interiors, correct regional map grouping, county/history/road-trip/small-town discovery, trip-planner integration, statewide Guidebook exposure, non-stale cross-links, self-canonical sitemap coverage, Google crawl access and explicit indexing approval.');
+console.log('Painted Churches completion protected: candidate adjudication, complete public research accounting, server-isolated promoted detail-profile coverage, oral-history sources, complete Then & Now accounting, current imagery and primary-source interiors, correct regional map grouping, county/history/road-trip/small-town discovery, trip-planner integration, statewide Guidebook exposure, non-stale cross-links, self-canonical sitemap coverage, Google crawl access and explicit indexing approval.');
