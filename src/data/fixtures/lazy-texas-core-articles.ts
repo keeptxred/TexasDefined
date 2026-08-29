@@ -38,6 +38,7 @@ export const texasCoreArticleStubs: Article[] = [
 texasCoreArticleStubs.push(...texasGatewayIndexReadyStubs);
 
 const coreSlugs = new Set(texasCoreArticleStubs.map((article) => article.slug));
+const gatewayReadySlugs = new Set(texasGatewayIndexReadyStubs.map((article) => article.slug));
 
 const depthSlugs = new Set([
   "bluebonnet-season-field-guide",
@@ -51,7 +52,7 @@ const depthSlugs = new Set([
 export async function loadTexasCoreArticle(brandId: string, slug: string): Promise<Article | null> {
   if (brandId !== "texasdefined") return null;
 
-  if (!coreSlugs.has(slug)) {
+  if (gatewayReadySlugs.has(slug) || !coreSlugs.has(slug)) {
     const { loadTexasGatewayArticle } = await import("./lazy-texas-gateway");
     return loadTexasGatewayArticle(brandId, slug);
   }
