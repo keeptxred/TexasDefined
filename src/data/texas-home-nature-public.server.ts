@@ -4,6 +4,12 @@ import type { TexasHomeNatureGuideSlug, TexasHomeNaturePublicGuide } from "./tex
 
 const reviewedAt = "2026-08-29";
 
+const CANONICAL_LINKS: Record<string, string> = {
+  "/texas-hurricane-home-prep": "/article/texas-hurricane-preparation-homeowners-renters",
+  "/texas-wildlife-guide": "/article/texas-wildlife-guide",
+  "/texas-flowers-wildflowers-guide": "/article/texas-wildflowers-guide",
+};
+
 const SOURCE_MAP: Record<TexasHomeNatureGuideSlug, TexasHomeNaturePublicGuide["sources"]> = {
   "texas-pool-guide": [
     { name: "Pool & Hot Tub Alliance", url: "https://www.phta.org/pub/?id=e516e23c-1866-daac-99fb-fb5784d35228", note: "Cold-weather and partial-closing guidance." },
@@ -26,21 +32,30 @@ const SOURCE_MAP: Record<TexasHomeNatureGuideSlug, TexasHomeNaturePublicGuide["s
   ],
 };
 
+function canonicalHref(href: string) {
+  return CANONICAL_LINKS[href] ?? href;
+}
+
 function sanitizePublicGuide(guide: TexasEvergreenGuide): TexasEvergreenGuide {
-  if (guide.slug !== "texas-pool-guide") return guide;
+  const sections = guide.sections.map((section) => {
+    const sanitized = {
+      ...section,
+      links: section.links?.map((link) => ({ ...link, href: canonicalHref(link.href) })),
+    };
+    if (guide.slug !== "texas-pool-guide" || section.heading !== "Prepare a pool for hurricanes and severe storms") return sanitized;
+    return {
+      ...sanitized,
+      body: [
+        "Bring in loose furniture, umbrellas, toys and maintenance equipment before high winds. Do not make major water-level, plumbing or equipment changes from a generic storm checklist; follow the instructions for your pool, builder and installed equipment.",
+        "After severe weather, inspect electrical equipment and remove large debris before restarting anything that appears damaged. If the system lost power during a freeze or storm, use the manufacturer’s shutdown and restart procedure rather than improvising around pressurized or energized equipment.",
+      ],
+    };
+  });
 
   return {
     ...guide,
-    sections: guide.sections.map((section) => {
-      if (section.heading !== "Prepare a pool for hurricanes and severe storms") return section;
-      return {
-        ...section,
-        body: [
-          "Bring in loose furniture, umbrellas, toys and maintenance equipment before high winds. Do not make major water-level, plumbing or equipment changes from a generic storm checklist; follow the instructions for your pool, builder and installed equipment.",
-          "After severe weather, inspect electrical equipment and remove large debris before restarting anything that appears damaged. If the system lost power during a freeze or storm, use the manufacturer’s shutdown and restart procedure rather than improvising around pressurized or energized equipment.",
-        ],
-      };
-    }),
+    sections,
+    related: guide.related.map((item) => ({ ...item, href: canonicalHref(item.href) })),
   };
 }
 
