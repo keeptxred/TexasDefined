@@ -153,6 +153,13 @@ function manifestCounts() {
   return counts;
 }
 
+function sitemapCounts() {
+  const block = sitemap.match(/const EXPLORE_CATEGORY_ARTICLE_COUNTS = \{([\s\S]*?)\} as const;/)?.[1] ?? '';
+  const counts = new Map();
+  for (const match of block.matchAll(/^\s*"([^"]+)":\s*(\d+),?\s*$/gm)) counts.set(match[1], Number(match[2]));
+  return counts;
+}
+
 for (const feature of [
   '"@type": "CollectionPage"',
   '"@type": "ItemList"',
@@ -165,10 +172,8 @@ for (const feature of [
   'absoluteUrl(texasDefinedBrand, article.hero.src)',
   'absoluteUrl(texasDefinedBrand, destination.hero.src)',
   'isPartOf: { "@id": `${siteUrl}/#website` }',
-  'isExploreCategoryIndexReady(loaderData.category.slug, {',
-  'articleCount: loaderData.articles.length',
-  'destinationCount: loaderData.destinations.length',
-  'supplementalCount: featuredCollectionItems.length',
+  'const indexReady = isExploreCategoryIndexReady(',
+  'loaderData.articles.length + loaderData.destinations.length + featuredCollectionItems.length',
   '"noindex, follow, max-image-preview:large"',
 ]) {
   if (!route.includes(feature)) errors.push(`Explore category SEO feature missing: ${feature}.`);
@@ -176,11 +181,8 @@ for (const feature of [
 
 for (const feature of [
   'MIN_EXPLORE_CATEGORY_INDEX_ITEMS = 3',
-  'articleCount: number',
-  'destinationCount: number',
-  'supplementalCount?: number',
-  'STAGED_EXPLORE_CATEGORY_SLUGS.has(category)',
-  'exploreCategoryItemCount(inventory) >= MIN_EXPLORE_CATEGORY_INDEX_ITEMS',
+  'itemCount: number',
+  '!STAGED_EXPLORE_CATEGORY_SLUGS.has(category) && itemCount >= MIN_EXPLORE_CATEGORY_INDEX_ITEMS',
 ]) {
   if (!indexability.includes(feature)) errors.push(`Explore category indexability guard missing: ${feature}.`);
 }
@@ -195,20 +197,28 @@ for (const feature of [
 
 const derivedCounts = deriveCanonicalExploreArticleCounts();
 const checkedInCounts = manifestCounts();
+const inlineCounts = sitemapCounts();
 for (const slug of EXPLORE_CATEGORY_SLUGS) {
   const actual = derivedCounts.get(slug) ?? 0;
   const expected = Math.min(actual, ARTICLE_COUNT_CAP);
   const checkedIn = checkedInCounts.get(slug);
+  const inline = inlineCounts.get(slug) ?? 0;
   if (checkedIn !== expected) {
     errors.push(`Explore article-count manifest drift for ${slug}: checked in ${checkedIn ?? 'missing'}, expected ${expected} (canonical inventory has ${actual}).`);
+  }
+  if (inline !== expected) {
+    errors.push(`Explore sitemap article-count drift for ${slug}: inline ${inline}, expected ${expected} (canonical inventory has ${actual}).`);
   }
 }
 for (const slug of checkedInCounts.keys()) {
   if (!EXPLORE_CATEGORY_SET.has(slug)) errors.push(`Explore article-count manifest contains non-Explore category: ${slug}.`);
 }
+for (const slug of inlineCounts.keys()) {
+  if (!EXPLORE_CATEGORY_SET.has(slug)) errors.push(`Explore sitemap article-count table contains non-Explore category: ${slug}.`);
+}
 
-if (sitemap.includes('@/data/index') || sitemap.includes('explore-category-inventory') || sitemap.includes('createServerFn')) {
-  errors.push('Explore sitemap must not pull the full article platform or a server-function inventory dependency into its route graph.');
+if (sitemap.includes('@/data/index') || sitemap.includes('explore-category-inventory') || sitemap.includes('createServerFn') || sitemap.includes('explore-category-article-counts')) {
+  errors.push('Explore sitemap must not pull the full article platform or article inventory modules into its runtime route graph.');
 }
 const genericTagArchiveRoute = routeFiles.find((file) => /(^|\.)tags?\.\$[^.]+/.test(file));
 if (genericTagArchiveRoute) errors.push(`Generic tag archive route must not be introduced without an explicit indexability policy: ${genericTagArchiveRoute}.`);
@@ -272,12 +282,12 @@ for (const feature of ['supplementalExploreCategories', 'const merged = new Map'
 
 for (const feature of [
   'supplementalExploreCategories',
-  'exploreCategoryArticleCount',
+  'const EXPLORE_CATEGORY_ARTICLE_COUNTS = {',
   'const categoryCandidates =',
-  'isExploreCategoryIndexReady(slug, {',
-  'articleCount: exploreCategoryArticleCount(slug)',
-  'destinationCount: destinations.filter((destination) => destination.category === slug).length',
-  'supplementalCount: slug === "food-bbq" ? 1 : 0',
+  'const categorySlugs = categoryCandidates.filter((slug) => isExploreCategoryIndexReady(',
+  '(EXPLORE_CATEGORY_ARTICLE_COUNTS[slug as keyof typeof EXPLORE_CATEGORY_ARTICLE_COUNTS] ?? 0)',
+  '+ destinations.filter((destination) => destination.category === slug).length',
+  '+ (slug === "food-bbq" ? 1 : 0)',
   'categorySlugs.map((slug)',
   'new Map(destinations.filter((item) => item.slug)',
   'isPrimaryTripPlannerDestination(destination)',
