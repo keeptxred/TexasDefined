@@ -61,8 +61,7 @@ function TexasIconsHub() {
             <div className="max-w-3xl space-y-3 text-sm leading-7 text-muted-foreground">
               <p>
                 The 250-entry roster can exist as structured data used for directories, related-link
-                systems and editorial planning. Those short intake records are not articles and do
-                not get standalone public profile pages.
+                systems and editorial planning. Those short intake records are not articles and do not get standalone public profile pages.
               </p>
               <p>
                 Once a subject has substantive narrative depth, verified sources and the normal
