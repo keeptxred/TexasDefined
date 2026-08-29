@@ -28,3 +28,10 @@ export const getTexasTalentProfileWithResolvedLinks = createServerFn({ method: "
     const { loadTexasTalentProfileWithResolvedLinksServer } = await import("./texas-talent.server");
     return loadTexasTalentProfileWithResolvedLinksServer(data.slug);
   });
+
+export const getTexasTalentRelatedProfiles = createServerFn({ method: "GET" })
+  .inputValidator((data: { slug: string; limit?: number }) => data)
+  .handler(async ({ data }) => {
+    const { loadTexasTalentRelatedProfilesServer } = await import("./texas-talent-related.server");
+    return loadTexasTalentRelatedProfilesServer(data.slug, data.limit);
+  });
