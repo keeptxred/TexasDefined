@@ -40,6 +40,7 @@ const groups: ReadonlyArray<ResourceGroup> = [
       ['County property-tax guides', '/property-tax/counties'],
       ['File a homestead exemption', '/do/homestead-exemption'],
       ['Protest your appraisal', '/do/property-tax-protest'],
+      ['Texas septic system design & OSSF guide', '/article/texas-septic-systems-homeowner-guide'],
       ['First-time homebuyer help', '/texas-first-time-homebuyer-programs'],
       ['Texas mortgage calculator', '/texas-mortgage-calculator'],
       ['Texas home-insurance calculator', '/texas-home-insurance-calculator'],
