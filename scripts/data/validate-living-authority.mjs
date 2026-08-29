@@ -13,7 +13,10 @@ const calculatorPage = read('src/components/calculators/CalculatorPage.tsx');
 const funnel = read('src/components/monetization/EvergreenNextSteps.tsx');
 const analytics = read('src/platform/analytics.ts');
 const relocationHub = read('src/routes/moving-to-texas.lazy.tsx');
-const relocationDataCenter = read('src/routes/moving-to-texas_.data.tsx');
+const relocationDataCenter = [
+  read('src/routes/moving-to-texas_.data.tsx'),
+  read('src/routes/moving-to-texas_.data.lazy.tsx'),
+].join('\n');
 const relocationLab = read('src/components/relocation/RelocationAuthorityLab.tsx');
 const metroRelocationAuthority = read('src/components/relocation/MetroRelocationAuthority.tsx');
 const articleBody = read('src/components/editorial/ArticleBody.tsx');
@@ -91,7 +94,7 @@ if (!analytics.includes("trackTexasDefinedOutcome('partner_referral_clicked'")) 
 for (const requirement of [
   '<RelocationAuthorityLab />',
   '/moving-to-texas/data',
-  '/texas-data/texas-population-and-migration-2024',
+  '/texas-data/texas-population-and-migration-2025',
   '/texas-data/where-new-texans-came-from-2024',
   '/texas-data/texas-homeowners-premium-history',
   '/texas-data/texas-metro-payrolls-june-2026',
@@ -104,6 +107,7 @@ for (const requirement of [
   "createFileRoute('/moving-to-texas/data')",
   "const canonicalPath = '/moving-to-texas/data'",
   "'@type': ['CollectionPage', 'DataCatalog']",
+  "'texas-population-and-migration-2025'",
   "'texas-population-and-migration-2024'",
   "'where-new-texans-came-from-2024'",
   "'texas-homeowners-premium-history'",
@@ -114,15 +118,16 @@ for (const requirement of [
   'TWIA wind coverage can apply in 14 coastal counties and parts of Harris County',
   'hidden “best city” score',
   'RELOCATION_METROS',
-  'RELOCATION_SOURCES.censusMigration',
-  'RELOCATION_SOURCES.censusCountyMigration',
-  'RELOCATION_SOURCES.blsMetro',
-  'RELOCATION_SOURCES.tdiInsurance',
-  'RELOCATION_SOURCES.teaSchools',
-  'RELOCATION_SOURCES.comptrollerProperty',
-  'RELOCATION_SOURCES.txdotTraffic',
-  'RELOCATION_SOURCES.pucUtilities',
-  'RELOCATION_SOURCES.femaFlood',
+  'relocationSources.censusPopulation',
+  'relocationSources.censusMigration',
+  'relocationSources.censusCountyMigration',
+  'relocationSources.blsMetro',
+  'relocationSources.tdiInsurance',
+  'relocationSources.teaSchools',
+  'relocationSources.comptrollerProperty',
+  'relocationSources.txdotTraffic',
+  'relocationSources.pucUtilities',
+  'relocationSources.femaFlood',
   '/texas-cost-of-living-calculator',
   '/texas-salary-comparison-by-city',
   '/texas-homeownership-cost-calculator',
@@ -165,6 +170,7 @@ for (const requirement of ['geocoding.geo.census.gov', 'Public_AR_Current', 'Cur
 }
 
 for (const slug of [
+  'texas-population-and-migration-2025',
   'texas-population-and-migration-2024',
   'where-new-texans-came-from-2024',
   'texas-homeowners-premium-history',
@@ -224,11 +230,13 @@ for (const requirement of [
   '/texas-salary-comparison-by-city',
   '/texas-home-insurance-calculator',
   '/texas-homeownership-cost-calculator',
+  '/texas-data/texas-population-and-migration-2025',
   '/texas-data/texas-population-and-migration-2024',
   '/texas-data/where-new-texans-came-from-2024',
   '/texas-data/texas-homeowners-premium-history',
   '/texas-data/texas-metro-payrolls-june-2026',
   '/texas-data/texas-traffic-monitoring-coverage',
+  'RELOCATION_SOURCES.censusPopulation',
   'RELOCATION_SOURCES.censusCountyMigration',
   'RELOCATION_SOURCES.blsMetro',
   'RELOCATION_SOURCES.tdiInsurance',

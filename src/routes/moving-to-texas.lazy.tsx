@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
 import roadTrip from "@/assets/road-trip.jpg";
@@ -5,9 +6,8 @@ import { CitationTrustPanel } from "@/components/authority/CitationTrustPanel";
 import { TexasCountyComparisonTable } from "@/components/counties/TexasCountyComparisonTable";
 import { CategoryPage } from "@/components/editorial/CategoryPage";
 import { Container } from "@/components/layout/Container";
-import { RelocationAuthorityLab } from "@/components/relocation/RelocationAuthorityLab";
-import { populationRankedCounties } from "@/data/county-comparison";
 
+const RelocationAuthorityLab = lazy(() => import("@/components/relocation/RelocationAuthorityLab").then((module) => ({ default: module.RelocationAuthorityLab })));
 const description = "A clear-eyed guide to choosing a Texas city or county, understanding the cost and property context, finding a home and settling into everyday life in a very large state.";
 const imageAlt = "A two-lane Texas farm road running to the horizon";
 const arrivalTasks = [
@@ -23,10 +23,14 @@ export const Route = createLazyFileRoute("/moving-to-texas")({ component: Moving
 
 function MovingToTexasPage() {
   const { counties } = Route.useLoaderData();
-  const largestCounties = populationRankedCounties(counties, 20);
+  const largestCounties = counties
+    .filter((county) => county.population2020 != null)
+    .slice()
+    .sort((a, b) => Number(b.population2020) - Number(a.population2020) || a.name.localeCompare(b.name))
+    .slice(0, 20);
   return <>
     <CategoryPage category="moving-to-texas" eyebrow="The relocation guide" title="What to know before you move to Texas" intro={description} image={{ src: roadTrip, alt: imageAlt, width: 1600, height: 1067 }} />
-    <RelocationAuthorityLab />
+    <Suspense fallback={null}><RelocationAuthorityLab /></Suspense>
     <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
       <section className="mb-12 border-y border-border py-8" aria-labelledby="moving-texas-paperwork">
         <div className="grid gap-8 lg:grid-cols-[16rem_1fr]">
@@ -37,7 +41,8 @@ function MovingToTexasPage() {
       <div className="mb-10 flex flex-wrap gap-x-7 gap-y-3 border-b border-border pb-7 text-sm font-semibold">
         <Link to="/browse/cities" className="text-primary underline underline-offset-4">Compare Texas cities & suburbs →</Link>
         <Link to="/moving-to-texas/data" className="text-primary underline underline-offset-4">Relocation Data Center →</Link>
-        <a href="/texas-data/texas-population-and-migration-2024" className="underline underline-offset-4">Texas migration snapshot</a>
+        <a href="/texas-data/texas-population-and-migration-2025" className="underline underline-offset-4">Current Texas population snapshot</a>
+        <a href="/texas-data/texas-population-and-migration-2024" className="underline underline-offset-4">Revised 2024 population history</a>
         <a href="/texas-data/where-new-texans-came-from-2024" className="underline underline-offset-4">Where new Texans came from</a>
         <a href="/texas-data/texas-homeowners-premium-history" className="underline underline-offset-4">Insurance premium history</a>
         <a href="/texas-data/texas-metro-payrolls-june-2026" className="underline underline-offset-4">Metro jobs data</a>
