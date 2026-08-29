@@ -1,8 +1,6 @@
 import type { CategorySlug } from "@/data/types";
 
 const STAGED_EXPLORE_CATEGORY_SLUGS = new Set<CategorySlug>([
-  "outdoors",
-  "caverns",
 ]);
 
 export function isExploreCategoryIndexReady(category: CategorySlug): boolean {

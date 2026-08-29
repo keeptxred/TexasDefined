@@ -48,12 +48,13 @@ function CategoryBreadcrumb({ belongsToExplore, belongsToTexasLife, current, inv
   );
 }
 
-export function CategoryPage({ category, eyebrow, title, intro, image }: {
+export function CategoryPage({ category, eyebrow, title, intro, image, authorityHtml }: {
   category: CategorySlug;
   eyebrow: string;
   title: string;
   intro: string;
   image?: ImageRef | undefined;
+  authorityHtml?: string | null;
 }) {
   const { data: articles } = useSuspenseQuery(articlesQuery({ category }));
   const { data: destinations } = useSuspenseQuery(destinationsQuery({ category }));
@@ -118,6 +119,10 @@ export function CategoryPage({ category, eyebrow, title, intro, image }: {
         title={`What to know about ${eyebrow}`}
         items={answerItems}
       />
+
+      {belongsToExplore && authorityHtml ? (
+        <div dangerouslySetInnerHTML={{ __html: authorityHtml }} />
+      ) : null}
 
       <Suspense fallback={null}>
         <LivingAuthorityPaths currentCategory={category} />
