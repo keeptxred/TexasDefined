@@ -57,6 +57,9 @@ export const supplementalMajorEventSlugs = [
   "rodeo-austin",
   "austin-food-wine-festival",
   "san-antonio-book-festival",
+  "international-quilt-festival-houston",
+  "pecan-street-festival",
+  "lone-star-rally",
 ] as const;
 
 export function loadSupplementalMajorEventRecordsServer() {
