@@ -174,6 +174,7 @@ const verifiedBatchContracts = new Map([
   [3, { exact: 8, label: 'third-batch verified wildlife facts' }],
   [4, { exact: 6, label: 'fourth-batch verified pest facts' }],
   [5, { exact: 6, label: 'fifth-batch verified bird facts' }],
+  [6, { exact: 5, label: 'sixth-batch verified snake facts' }],
 ]);
 for (const batch of verifiedBatches) {
   const contract = verifiedBatchContracts.get(batch.number);
@@ -189,7 +190,7 @@ for (const batchNumber of verifiedBatchContracts.keys()) {
   if (!verifiedBatchIds.has(batchNumber)) failures.push(`Missing expected verified batch ${batchNumber}.`);
 }
 
-if (ids.length < 616) failures.push(`Expected at least 616 seeded knowledge records after statewide county/town coverage and verified batches 3-5; found ${ids.length}.`);
+if (ids.length < 621) failures.push(`Expected at least 621 seeded knowledge records after statewide county/town coverage and verified batches 3-6; found ${ids.length}.`);
 if (pairedChoiceIds.length < 5) failures.push(`Expected at least 5 paired Texas engagement prompts; found ${pairedChoiceIds.length}.`);
 if (batch2ObservationIds.length < 30) failures.push(`Expected at least 30 second-batch cultural observations; found ${batch2ObservationIds.length}.`);
 if (countyIds.length !== 254) failures.push(`Expected exactly 254 statewide county facts; found ${countyIds.length}.`);
@@ -203,7 +204,7 @@ for (const [, county, slug] of countyRows) {
 const observationCount = helperObservationIds.length + pairedChoiceIds.length + batch2ObservationIds.length + ((seed + expanded).match(/verification:\s*['\"]editorial-observation['\"]/g) ?? []).length;
 if (observationCount < 55) failures.push(`Expected at least 55 cultural observations/engagement prompts; found ${observationCount}.`);
 const verifiedCount = ((seed + expanded + verifiedText).match(/verification:\s*['\"]verified['\"]/g) ?? []).length + countyIds.length + townIds.length;
-if (verifiedCount < 556) failures.push(`Expected at least 556 verified/source-backed records after statewide county/town coverage and verified batches 3-5; found ${verifiedCount}.`);
+if (verifiedCount < 561) failures.push(`Expected at least 561 verified/source-backed records after statewide county/town coverage and verified batches 3-6; found ${verifiedCount}.`);
 
 for (const slug of stagedGuideSlugs) {
   if (!guides.includes(`\"${slug}\"`) && !guides.includes(`'${slug}'`)) failures.push(`Staged evergreen guide batch is missing ${slug}.`);
