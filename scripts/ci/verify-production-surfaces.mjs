@@ -39,6 +39,10 @@ const surfaces = [
   ['republic-navy', '/article/republic-of-texas-navy-history', 'The Republic of Texas Navy'],
   ['cold-war', '/article/texas-cold-war-military-history', 'Cold War Texas'],
   ['recent-wars', '/article/texas-recent-wars-military-history', 'Texas in Recent Wars'],
+  ['national-cemeteries-guide', '/article/texas-national-cemeteries-guide', 'Texas National Cemeteries'],
+  ['fort-sam-houston-national-cemetery', '/destination/fort-sam-houston-national-cemetery', 'Fort Sam Houston National Cemetery'],
+  ['houston-national-cemetery', '/destination/houston-national-cemetery', 'Houston National Cemetery'],
+  ['dallas-fort-worth-national-cemetery', '/destination/dallas-fort-worth-national-cemetery', 'Dallas-Fort Worth National Cemetery'],
   ['texas-history-military', '/texas-history', 'Military in Mexican Texas'],
 ];
 

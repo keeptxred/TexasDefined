@@ -47,7 +47,7 @@ for (const slug of protectedNationalCemeteries) {
   if (!seedSlugs.includes(slug)) failures.push(`Protected national cemetery is missing from statewide historic-site seeds: ${slug}.`);
   if (!nationalGuideSlugs.includes(slug)) failures.push(`Protected national cemetery is missing its dedicated visitor enrichment: ${slug}.`);
 }
-for (const marker of ['areaGuide:', 'sourceCheckedAt: "2026-08-21"', 'U.S. Department of Veterans Affairs — National Cemetery Administration']) {
+for (const marker of ['areaGuide:', 'sourceCheckedAt: "2026-08-29"', 'U.S. Department of Veterans Affairs — National Cemetery Administration']) {
   if (!nationalCemeteries.includes(marker)) failures.push(`National-cemetery enrichment contract missing: ${marker}`);
 }
 

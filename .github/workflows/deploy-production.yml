@@ -16,6 +16,7 @@ on:
       - 'scripts/data/validate-painted-church*.mjs'
       - 'scripts/data/validate-texas-flag-authority.mjs'
       - 'scripts/data/validate-military-history-expansion.mjs'
+      - 'scripts/data/validate-national-cemetery-authority.mjs'
       - 'scripts/seo/submit-indexnow.mjs'
       - '.github/workflows/deploy-production.yml'
   workflow_dispatch:
@@ -74,7 +75,9 @@ jobs:
 
       - name: Validate authority before deploy
         id: validation
-        run: node scripts/ci/run-validation-suite.mjs predeploy
+        run: |
+          node scripts/ci/run-validation-suite.mjs predeploy
+          node scripts/data/validate-national-cemetery-authority.mjs
 
       - name: Publish validation result
         if: always()
