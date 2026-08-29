@@ -53,6 +53,14 @@ Tranche 28 also retrofits the same multi-window treatment onto Texas Renaissance
 | Texas Craft Brewers Festival | November 14, 2026 | Festival and Texas Craft Brewers Guild publish the exact Fiesta Gardens date, entry times and 21-plus access rule. | `/event/texas-craft-brewers-festival` |
 | Texas Tribune Festival | September 24-26, 2026 | The Texas Tribune publishes the exact three-day downtown Austin festival and 100-plus-program schedule. | `/event/texas-tribune-festival` |
 
+## Implemented in tranche 30
+
+| Event | Date treatment | First-party basis | Destination |
+|---|---|---|---|
+| Rodeo Austin | March 12-27, 2027 | Rodeo Austin publishes the exact 2027 Fair & Rodeo window on its ticket and events pages and identifies the Travis County Expo Center as its long-running home. | `/event/rodeo-austin` |
+| Austin Food & Wine Festival | November 6-8, 2026 | Organizer publishes the exact 2026 festival weekend, Friday Made In Texas kickoff and Saturday-Sunday Auditorium Shores programming; ticket guidance also confirms the 21-plus admission rule. | `/event/austin-food-wine-festival` |
+| San Antonio Book Festival | April 10, 2027 | The festival's official 2027 author-submission page and public FAQ both confirm the 15th annual festival for April 10, 2027. | `/event/san-antonio-book-festival` |
+
 ## First-party sources
 
 ### Tranche 25
@@ -91,6 +99,12 @@ Tranche 28 also retrofits the same multi-window treatment onto Texas Renaissance
 - Texas Clay Festival: https://texasclayfestival.com/ and https://texasclayfestival.com/about/
 - Texas Craft Brewers Festival: https://texascraftbrewersfestival.org/, https://texascraftbrewersfestival.org/info/, and https://texascraftbrewersguild.org/
 - Texas Tribune Festival: https://festival.texastribune.org/, https://festival.texastribune.org/tickets, and https://www.texastribune.org/2026/08/18/texas-tribune-festival-2026-lineup/
+
+### Tranche 30
+
+- Rodeo Austin: https://rodeoaustin.com/tickets/, https://rodeoaustin.com/events/, and https://rodeoaustin.com/about-us/history/
+- Austin Food & Wine Festival: https://www.austinfoodandwinefestival.com/, https://www.austinfoodandwinefestival.com/tickets, and https://support.austinfoodandwinefestival.com/hc/en-us/articles/4408281052692-How-do-I-get-to-the-festival
+- San Antonio Book Festival: https://sabookfestival.org/festival-info/submit-a-book/, https://sabookfestival.org/festival-info/faqs/, and https://sabookfestival.org/about/mission-history/
 
 ## Multi-window schedule rule
 
