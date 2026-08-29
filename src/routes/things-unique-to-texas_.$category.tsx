@@ -16,8 +16,13 @@ export const Route = createFileRoute("/things-unique-to-texas/$category")({
     const path = `/things-unique-to-texas/${params.category}`;
     const origin = `https://${texasDefinedBrand.identity.domain}`;
     const methodologyUrl = `${origin}/things-unique-to-texas/methodology`;
-    const description = category?.description ?? "Explore the people, places, foods, traditions and symbols that help define Texas.";
-    const title = category ? `${category.title} — Things That Define Texas` : "Things That Define Texas";
+    const isTexasBrands = category?.slug === "texas-brands";
+    const description = isTexasBrands
+      ? "Explore famous Texas brands including H-E-B, Whataburger, Buc-ee's, Blue Bell, Shiner, Dickies and more, with origin stories and Texas cultural context."
+      : category?.description ?? "Explore the people, places, foods, traditions and symbols that help define Texas.";
+    const title = isTexasBrands
+      ? "Texas Brands: H-E-B, Whataburger, Buc-ee's & More"
+      : category ? `${category.title} — Things That Define Texas` : "Things That Define Texas";
     return {
       meta: buildMeta(texasDefinedBrand, { title, description, canonicalPath: path }),
       links: [canonicalLink(texasDefinedBrand, path)],
