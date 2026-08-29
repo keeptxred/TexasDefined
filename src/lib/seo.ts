@@ -61,8 +61,16 @@ const TEXASDEFINED_TECHNICAL_SEO_OVERRIDES: Record<string, { title: string; desc
   "/destination/palo-duro-canyon-state-park": { title: "Palo Duro Canyon State Park Guide" },
   "/texas-vs/california": { title: "Texas vs California: Cost & Living" },
   "/article/texas-wildlife-guide": { title: "Texas Wildlife Guide: Animals & Habitats" },
+  "/article/texas-regions-explained": {
+    title: "Texas Landforms & Regions: Mountains, Plains, Coast & More",
+    description: "Explore Texas landforms and regions, from the Hill Country and Piney Woods to the Gulf Coast, High Plains, Big Bend mountains, basins and South Texas.",
+  },
   "/article/texas-farm-to-market-roads-explained": { title: "Texas Farm-to-Market Roads Explained" },
   "/article/beginners-guide-ordering-texas-barbecue": { title: "How to Order Texas Barbecue" },
+  "/article/texas-septic-systems-homeowner-guide": {
+    title: "Texas Septic System Design & OSSF Guide",
+    description: "Texas septic system design guide covering OSSF site evaluation, permits, conventional and aerobic systems, drainfields, approved plans and homeowner maintenance.",
+  },
   "/article/texas-rio-grande-river-guide": {
     title: "Rio Grande in Texas: Basin, Border, Reservoirs & River Guide",
     description: "Guide to the Rio Grande in Texas, from desert canyons and the border to Amistad, Falcon, water treaties, irrigation and the river's Gulf outlet.",

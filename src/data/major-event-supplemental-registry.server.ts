@@ -43,6 +43,11 @@ export const supplementalMajorEventSlugs = [
   "bayou-city-art-festival-memorial-park",
   "western-heritage-classic",
   "bob-wills-day",
+  "lone-star-cowboy-poetry-gathering-alpine",
+  "lone-star-cowboy-poetry-gathering-bastrop",
+  "texas-jazz-festival",
+  "red-steagall-cowboy-gathering",
+  "texas-rice-festival",
 ] as const;
 
 export function loadSupplementalMajorEventRecordsServer() {
