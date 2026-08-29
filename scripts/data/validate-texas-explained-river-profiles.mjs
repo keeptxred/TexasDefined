@@ -3,6 +3,7 @@ import fs from 'node:fs';
 const read = (path) => fs.readFileSync(path, 'utf8');
 const stubs = read('src/data/fixtures/texas-explained-river-profile-stubs.ts');
 const articles = read('src/data/fixtures/texas-explained-river-profiles.ts');
+const pillar = read('src/data/fixtures/texas-rivers-explained.ts');
 const lazy = read('src/data/fixtures/lazy-evergreen.ts');
 const hub = read('src/routes/texas-explained.tsx');
 const topology = read('src/data/fixtures/newest-evergreen.ts');
@@ -15,6 +16,19 @@ const profiles = [
   ['texas-trinity-river-guide', 'https://www.twdb.texas.gov/surfacewater/rivers/river_basins/trinity/index.asp'],
   ['texas-rio-grande-river-guide', 'https://www.twdb.texas.gov/surfacewater/rivers/river_basins/riogrande/'],
 ];
+
+for (const marker of [
+  'title: "Major Rivers of Texas: Basins, Regions & Waterways Explained"',
+  'major rivers and river basins of Texas',
+  'Major Texas rivers by region and basin',
+  'West Texas and the mountains',
+  'Central Texas and the plains',
+  'Hill Country and South-Central Texas',
+  'North Texas',
+  'East Texas',
+  'href: "/article/texas-river-basins-guide"',
+  'href: "/article/texas-lakes-reservoirs-explained"',
+]) if (!pillar.includes(marker)) errors.push(`GSC river-intent contract missing: ${marker}`);
 
 for (const marker of [
   'const riversLink = { href: "/article/texas-rivers-explained"',
@@ -72,4 +86,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Texas Explained major-river batch passed: five TWDB-backed profiles are lazy-loaded, hub-visible, reciprocal with the rivers pillar, source-linked and substantive.');
+console.log('Texas Explained river authority passed: the GSC-focused statewide river title, basin/region answer layer and internal links are protected alongside five TWDB-backed, lazy-loaded, hub-visible, substantive river profiles.');
