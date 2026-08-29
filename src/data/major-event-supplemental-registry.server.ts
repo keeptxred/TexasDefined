@@ -48,6 +48,7 @@ export const supplementalMajorEventSlugs = [
   "texas-jazz-festival",
   "red-steagall-cowboy-gathering",
   "texas-rice-festival",
+  "austin-city-limits-music-festival",
 ] as const;
 
 export function loadSupplementalMajorEventRecordsServer() {
