@@ -5,8 +5,8 @@ import { articlesQuery, destinationsQuery } from "@/data/queries";
 import type { Article, Destination } from "@/data/types";
 import { buildEditorialCollectionHead, buildMeta, canonicalLink } from "@/lib/seo";
 
-const description = "Friday night lights, dusty rodeo arenas, big-league Sundays and the small rituals that turn a game into a Texas tradition.";
-const seoTitle = "Texas Sports: Football, Rodeo, Teams & Traditions";
+const description = "Texas sports guide to high school and college football, pro teams, major stadiums, rodeo, motorsports and game-day traditions across the state.";
+const seoTitle = "Texas Sports: Football, Stadiums, Teams, Rodeo & Traditions";
 
 export const Route = createFileRoute("/sports")({
   head: ({ loaderData }: { loaderData?: { articles: Article[]; destinations: Destination[] } }) => loaderData ? buildEditorialCollectionHead(texasDefinedBrand, {
