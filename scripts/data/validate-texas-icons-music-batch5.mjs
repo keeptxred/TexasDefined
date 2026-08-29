@@ -29,81 +29,32 @@ const entries = [
   { rank: 100, name: "Vanilla Ice", slug: "vanilla-ice", mode: "research" },
 ];
 
-for (const entry of entries) {
-  if (!source.includes(`${entry.rank},${entry.name},Music & Culture,`)) {
-    failures.push(`Music & Culture roster drift at rank ${entry.rank}: expected ${entry.name}.`);
-  }
-}
-
+for (const entry of entries) if (!source.includes(`${entry.rank},${entry.name},Music & Culture,`)) failures.push(`Music & Culture roster drift at rank ${entry.rank}: expected ${entry.name}.`);
 const researchEntries = entries.filter((entry) => entry.mode === "research");
 const reuseEntries = entries.filter((entry) => entry.mode === "reuse");
-if (researchEntries.length !== 8 || reuseEntries.length !== 2) {
-  failures.push("Music ranks 91–100 must remain exactly 8 research + 2 Texas Talent reuses.");
-}
-
-for (const entry of researchEntries) {
-  if (!research.includes(`slug: "${entry.slug}"`)) failures.push(`Missing music batch-5 research profile: ${entry.slug}.`);
-}
+if (researchEntries.length !== 8 || reuseEntries.length !== 2) failures.push("Music ranks 91–100 must remain exactly 8 research + 2 Texas Talent reuses.");
+for (const entry of researchEntries) if (!research.includes(`slug: "${entry.slug}"`)) failures.push(`Missing music batch-5 research profile: ${entry.slug}.`);
 if ((research.match(/editorialStatus: "researched-staged"/g) ?? []).length !== 8) failures.push("Music batch 5 must contain exactly eight researched-staged profiles.");
 if ((research.match(/publicationNote:/g) ?? []).length !== 8) failures.push("Every music batch-5 profile must retain a publication boundary note.");
 if ((research.match(/lastReviewedAt: reviewed/g) ?? []).length !== 8) failures.push("Every music batch-5 profile must retain a reviewed date.");
-if ((research.match(/remains noindex pending image-rights and internal-link certification/g) ?? []).length !== 8) failures.push("Every music batch-5 profile must explicitly retain the noindex/image-rights/internal-link publication boundary.");
 
 const sourceUrls = [...research.matchAll(/url: "(https:\/\/[^\"]+)"/g)].map((match) => match[1]);
 if (sourceUrls.length < 24) failures.push(`Music batch 5 needs at least three HTTPS sources per research profile; found ${sourceUrls.length}.`);
-for (const domain of [
-  "grammy.com",
-  "rodeohouston.com",
-  "codyjohnsonmusic.com",
-  "aaronwatson.com",
-  "asleepatthewheel.com",
-  "allmusic.com",
-  "biography.com",
-  "washingtonpost.com",
-  "latimes.com",
-]) {
-  if (!research.includes(domain)) failures.push(`Music batch 5 is missing expected authority/source domain: ${domain}.`);
-}
-
-for (const token of [
-  "Thai funk",
-  "Antone's",
-  "80,203",
-  "The Underdog",
-  "Paw Paw",
-  "2003",
-  "glam",
-  "fabricated",
-  "Carrollton",
-]) {
-  if (!research.includes(token)) failures.push(`Music batch 5 is missing required editorial context: ${token}.`);
-}
-
+for (const domain of ["grammy.com","rodeohouston.com","codyjohnsonmusic.com","aaronwatson.com","asleepatthewheel.com","allmusic.com","biography.com","washingtonpost.com","latimes.com"]) if (!research.includes(domain)) failures.push(`Music batch 5 is missing expected authority/source domain: ${domain}.`);
+for (const token of ["Thai funk","Antone's","80,203","The Underdog","Paw Paw","2003","glam","fabricated","Carrollton"]) if (!research.includes(token)) failures.push(`Music batch 5 is missing required editorial context: ${token}.`);
 for (const slug of ["leon-bridges", "erykah-badu"]) {
   if (!talent.includes(`slug: "${slug}"`)) failures.push(`${slug} must continue to reuse the existing Texas Talent profile.`);
   if (research.includes(`slug: "${slug}"`)) failures.push(`${slug} must not gain a duplicate Texas Icons research profile.`);
 }
-
-for (const token of [
-  "TEXAS_ICON_RESEARCH_MUSIC_BATCH_5",
-  'from "@/data/texas-icons-research-music-5.server"',
-  "...TEXAS_ICON_RESEARCH_MUSIC_BATCH_5",
-]) {
-  if (!resolver.includes(token)) failures.push(`Music batch-5 resolver wiring missing: ${token}.`);
-}
+for (const token of ["TEXAS_ICON_RESEARCH_MUSIC_BATCH_5",'from "@/data/texas-icons-research-music-5.server"',"...TEXAS_ICON_RESEARCH_MUSIC_BATCH_5"]) if (!resolver.includes(token)) failures.push(`Music batch-5 resolver wiring missing: ${token}.`);
 const talentPrecedence = resolver.indexOf("if (talentProfile)");
 const researchPrecedence = resolver.indexOf("if (researchProfile)");
-if (talentPrecedence < 0 || researchPrecedence < 0 || talentPrecedence > researchPrecedence) {
-  failures.push("Texas Talent must continue to resolve before Texas Icons research profiles.");
-}
-const stagedResearchBlock = resolver.match(/if \(researchProfile\) \{([\s\S]*?)\n  \}/)?.[1] ?? "";
-if (!stagedResearchBlock.includes('reuseKind: "icon-research-staged"') || !stagedResearchBlock.includes("indexableAtOwnRoute: false")) {
-  failures.push("Music batch-5 research drafts must remain non-indexable at their own routes.");
-}
+if (talentPrecedence < 0 || researchPrecedence < 0 || talentPrecedence > researchPrecedence) failures.push("Texas Talent must continue to resolve before Texas Icons research profiles.");
+const researchPublicationBlock = resolver.match(/if \(researchProfile\) \{([\s\S]*?)\n  \}/)?.[1] ?? "";
+if (!researchPublicationBlock.includes('reuseKind: "icon-research-staged"') || !researchPublicationBlock.includes("indexableAtOwnRoute: true")) failures.push("Substantive music batch-5 research profiles must publish at their canonical Texas Icons routes while data-only starter records remain withheld.");
 
 if (failures.length) fail();
-console.log("Texas Icons music batch-5 validation passed: ranks 91–100 preserve two Texas Talent reuses, eight substantive staged research profiles, source depth, factual nuance, duplicate safety and noindex publication boundaries.");
-
+console.log("Texas Icons music batch-5 validation passed: ranks 91–100 preserve two Texas Talent reuses, eight substantive sourced research profiles, source depth, factual nuance, duplicate safety and canonical written-content publication.");
 function fail() {
   console.error("Texas Icons music batch-5 validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
