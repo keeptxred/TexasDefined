@@ -27,6 +27,7 @@ import { texasGatewayBatch12FlexibleEnrichment } from "./texas-gateway-batch12-f
 import { texasGatewayBatch12SeasonFamilyEnrichment } from "./texas-gateway-batch12-season-family-enrichment";
 import { texasGatewayBatch13FlexibleEnrichment } from "./texas-gateway-batch13-flexible-enrichment";
 import { texasGatewayBatch13ScenicEnrichment } from "./texas-gateway-batch13-scenic-enrichment";
+import { texasGatewayBatch13StargazingCompletion } from "./texas-gateway-batch13-stargazing-completion";
 import { texasGatewayBatch14To16DistinctEnrichment } from "./texas-gateway-batch14-16-distinct-enrichment";
 import { isTexasGatewayIndexReadyArticle } from "./texas-gateway-index-readiness";
 
@@ -76,6 +77,7 @@ const normalizeGatewayArticle = (article: Article): Article => {
     ?? texasGatewayBatch12FlexibleEnrichment[article.slug]
     ?? texasGatewayBatch12SeasonFamilyEnrichment[article.slug]
     ?? texasGatewayBatch13FlexibleEnrichment[article.slug]
+    ?? texasGatewayBatch13StargazingCompletion[article.slug]
     ?? texasGatewayBatch13ScenicEnrichment[article.slug]
     ?? texasGatewayBatch14To16DistinctEnrichment[article.slug];
   const internalLinks = [...(article.internalLinks ?? []), ...(enrichment?.internalLinks ?? [])]
