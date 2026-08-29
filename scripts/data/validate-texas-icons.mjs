@@ -97,8 +97,8 @@ for (const slug of researchedHistorySlugs) {
   if (!research.includes(`slug: "${slug}"`)) failures.push(`History research profile missing: ${slug}.`);
 }
 if (researchedHistorySlugs.length !== 49) failures.push(`Expected 49 dedicated History & Politics research profiles; found ${researchedHistorySlugs.length}.`);
-if ((research.match(/editorialStatus: "researched-staged"/g) ?? []).length !== researchedHistorySlugs.length) failures.push("Every researched History & Politics profile must remain explicitly researched-staged.");
-if ((research.match(/publicationNote:/g) ?? []).length !== researchedHistorySlugs.length) failures.push("Every researched History & Politics profile must retain an explicit publication boundary note.");
+if ((research.match(/editorialStatus: "researched-staged"/g) ?? []).length !== researchedHistorySlugs.length) failures.push("Every researched History & Politics profile must remain explicitly researched-staged for provenance.");
+if ((research.match(/publicationNote:/g) ?? []).length !== researchedHistorySlugs.length) failures.push("Every researched History & Politics profile must retain its publication-workflow note as provenance.");
 if ((research.match(/lastReviewedAt: reviewed/g) ?? []).length !== researchedHistorySlugs.length) failures.push("Every researched History & Politics profile must retain a reviewed date.");
 const researchSourceUrls = [...research.matchAll(/url: "(https:\/\/[^\"]+)"/g)].map((match) => match[1]);
 if (researchSourceUrls.length < researchedHistorySlugs.length * 3) failures.push(`History research needs at least three HTTPS sources per profile; found ${researchSourceUrls.length} source URLs.`);
@@ -156,9 +156,9 @@ for (const token of [
 ]) if (!server.includes(token)) failures.push(`Texas Icons duplicate/research resolver contract missing: ${token}`);
 const talentPrecedence = server.indexOf("if (talentProfile)");
 const researchPrecedence = server.indexOf("if (researchProfile)");
-if (talentPrecedence < 0 || researchPrecedence < 0 || talentPrecedence > researchPrecedence) failures.push("Existing Texas Talent records must resolve before a Texas Icons research draft.");
-const stagedResearchBlock = server.match(/if \(researchProfile\) \{([\s\S]*?)\n  \}/)?.[1] ?? "";
-if (!stagedResearchBlock.includes('reuseKind: "icon-research-staged"') || !stagedResearchBlock.includes("indexableAtOwnRoute: false")) failures.push("Researched Texas Icon drafts must remain non-indexable in the resolver.");
+if (talentPrecedence < 0 || researchPrecedence < 0 || talentPrecedence > researchPrecedence) failures.push("Existing Texas Talent records must resolve before Texas Icons narrative research.");
+const narrativeResearchBlock = server.match(/if \(researchProfile\) \{([\s\S]*?)\n  \}/)?.[1] ?? "";
+if (!narrativeResearchBlock.includes('reuseKind: "icon-research-staged"') || !narrativeResearchBlock.includes("indexableAtOwnRoute: true")) failures.push("Completed sourced Texas Icons narratives must publish at their own route while retaining research provenance.");
 
 for (const token of ['createServerFn({ method: "GET" })', 'import("./texas-icons.server")', "loadTexasIconsServer", "loadTexasIconProfileServer"]) {
   if (!functions.includes(token)) failures.push(`Texas Icons server-function boundary missing: ${token}`);
@@ -169,7 +169,7 @@ if (hub.includes('import("@/data/texas-icons.server")') || profile.includes('imp
 const conditionalBlock = publicRoutes.match(/export const CONDITIONAL_INDEXABLE_PUBLIC_PATHS = \[([\s\S]*?)\] as const;/)?.[1] ?? "";
 if (!conditionalBlock.includes('"/texas-icons"')) failures.push("Texas Icons hub must remain explicitly classified as a conditional-index public route.");
 if (!/node-version:\s*22\b/.test(workflow)) failures.push("Texas Icons validation workflow must use the repository-supported Node 22 runtime.");
-if (!workflow.includes('"src/data/texas-icons-research-*.server.ts"')) failures.push("Texas Icons workflow must run when staged research profile batches change.");
+if (!workflow.includes('"src/data/texas-icons-research-*.server.ts"')) failures.push("Texas Icons workflow must run when narrative research profile batches change.");
 
 for (const token of [
   "CANONICAL_PATHS", '"/destination/the-alamo"', '"/destination/cadillac-ranch"',
@@ -177,18 +177,19 @@ for (const token of [
   '"/destination/space-center-houston"', '"/dr-pepper-texas-history"',
   '"/texas-chili-con-carne-history"', '"/article/history-of-the-texas-flag"',
 ]) if (!rosterSource.includes(token)) failures.push(`Texas Icons explicit canonical reuse missing: ${token}`);
-for (const token of ["No duplicate or thin profile pages", "noindex, follow, max-image-preview:large", "Existing canonical pages reused", "Existing Talent records reused", "Researched drafts", "Research progress alone never"]) {
-  if (!hub.includes(token)) failures.push(`Texas Icons hub safeguard missing: ${token}`);
+
+for (const token of ["Existing canonical pages reused", "Texas Talent records reused", "Written profiles published", "Data-only records", "Data stays data; written profiles publish"]) {
+  if (!hub.includes(token)) failures.push(`Texas Icons hub publication safeguard missing: ${token}`);
 }
-for (const token of ['throw redirect({ href: result.icon.href, statusCode: 301 })', "noindex, follow, max-image-preview:large", "Cross-linked profiles", "Researched draft · noindex", "profile.publicationNote", "const schema = talentProfile"]) {
-  if (!profile.includes(token)) failures.push(`Texas Icons profile safeguard missing: ${token}`);
+for (const token of ['throw redirect({ href: result.icon.href, statusCode: 301 })', "if (!result.talentProfile && !result.researchProfile) throw notFound();", "Cross-linked profiles", "const schema = {", "Research trail", "Last reviewed"]) {
+  if (!profile.includes(token)) failures.push(`Texas Icons profile publication safeguard missing: ${token}`);
 }
 if (!server.includes("getRelatedTexasIcons(entry, 8)")) failures.push("Texas Icons related-profile resolver must retain eight same-category cross-links.");
 if (!/Description (?:field|column).*roster note.*not a publishable authority citation\./s.test(rosterSource)) failures.push("Texas Icons source provenance must distinguish roster notes from authority citations.");
-if (!/short roster notes below are intake provenance,[\s\S]*not substitutes for research\./.test(hub)) failures.push("Texas Icons hub must disclose that starter notes are not researched profiles.");
+if (!/short intake records are not articles[\s\S]*do not get standalone public profile pages\./.test(hub)) failures.push("Texas Icons hub must disclose that data-only intake records are not public narrative profiles.");
 
 if (failures.length) fail();
-console.log(`Texas Icons validation passed: ${records.length} unique source records, all 50 History & Politics roster positions covered by ${researchedHistorySlugs.length} substantive staged research profiles plus one protected Texas Talent reuse, protected duplicate resolution, server-only data boundary, conditional route governance, canonical reuse, noindex publication boundaries, and eight related-profile links per record.`);
+console.log(`Texas Icons validation passed: ${records.length} unique source records, all 50 History & Politics roster positions covered by ${researchedHistorySlugs.length} substantive sourced research profiles plus one protected Texas Talent reuse, protected duplicate resolution, server-only data boundary, conditional route governance, canonical reuse, written-content publication with data-only rows withheld, and eight related-profile links per record.`);
 
 function fail() {
   console.error("Texas Icons validation failed:");

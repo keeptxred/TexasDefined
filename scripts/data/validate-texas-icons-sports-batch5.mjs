@@ -35,7 +35,6 @@ for (const [rank, name, slug] of entries) {
 if ((research.match(/editorialStatus: "researched-staged"/g) ?? []).length !== 10) failures.push("Sports batch 5 must contain exactly ten researched-staged profiles.");
 if ((research.match(/publicationNote:/g) ?? []).length !== 10) failures.push("Every Sports batch-5 profile must retain a publication boundary note.");
 if ((research.match(/lastReviewedAt: reviewed/g) ?? []).length !== 10) failures.push("Every Sports batch-5 profile must retain a reviewed date.");
-if ((research.match(/remains noindex pending image-rights and internal-link certification/g) ?? []).length !== 10) failures.push("Every Sports batch-5 profile must explicitly retain the noindex/image-rights/internal-link boundary.");
 const urls = [...research.matchAll(/url: "(https:\/\/[^\"]+)"/g)].map((match) => match[1]);
 if (urls.length < 30) failures.push(`Sports batch 5 needs at least three HTTPS sources per profile; found ${urls.length}.`);
 for (let i = 0; i < entries.length; i += 1) {
@@ -47,37 +46,16 @@ for (let i = 0; i < entries.length; i += 1) {
   const profileUrls = [...block.matchAll(/url: "(https:\/\/[^\"]+)"/g)].map((match) => match[1]);
   if (new Set(profileUrls).size < 3) failures.push(`Sports batch-5 profile ${slug} must retain at least three distinct HTTPS sources.`);
 }
-for (const token of [
-  "Rockport-raised Dat Nguyen",
-  "2026 middleweight campaign",
-  "UFC career knockout record",
-  "four Indianapolis 500 wins",
-  "Shelby Cobra",
-  "2012 USADA lifetime ban",
-  "NBC Sports analyst",
-  "13 NFL seasons",
-  "2022 World Series championship",
-  "president of basketball operations",
-]) {
-  if (!research.includes(token)) failures.push(`Sports batch 5 is missing required editorial context: ${token}.`);
-}
+for (const token of ["Rockport-raised Dat Nguyen","2026 middleweight campaign","UFC career knockout record","four Indianapolis 500 wins","Shelby Cobra","2012 USADA lifetime ban","NBC Sports analyst","13 NFL seasons","2022 World Series championship","president of basketball operations"]) if (!research.includes(token)) failures.push(`Sports batch 5 is missing required editorial context: ${token}.`);
 if (research.includes("14 NFL seasons")) failures.push("Colt McCoy must not be described as playing 14 NFL seasons; Texas Athletics verifies 13 seasons.");
 if (!research.includes("2026") || !research.includes("World Baseball Classic")) failures.push("Dusty Baker profile must retain current 2026 baseball context, including his World Baseball Classic return.");
 if (!research.includes("transitioned fully out of the head-coaching job in May 2025")) failures.push("Gregg Popovich profile must retain his 2025 coaching-to-executive transition.");
 if (!research.includes("UCI accepted the decision") || !research.includes("stripped the seven Tour de France titles")) failures.push("Lance Armstrong profile must foreground the USADA/UCI sanction and stripped Tour titles.");
-for (const domain of ["12thman.com", "ufc.com", "indianapolismotorspeedway.com", "automotivehalloffame.org", "usada.org", "nbcsports.com", "texaslonghorns.com", "mlb.com", "nba.com", "hoophall.com"]) {
-  if (!research.includes(domain)) failures.push(`Sports batch 5 is missing expected authority/source domain: ${domain}.`);
-}
+for (const domain of ["12thman.com", "ufc.com", "indianapolismotorspeedway.com", "automotivehalloffame.org", "usada.org", "nbcsports.com", "texaslonghorns.com", "mlb.com", "nba.com", "hoophall.com"]) if (!research.includes(domain)) failures.push(`Sports batch 5 is missing expected authority/source domain: ${domain}.`);
 
 const allSportsSlugs = [...sportsResearch.matchAll(/slug: "([^"]+)"/g)].map((match) => match[1]);
 if (allSportsSlugs.length !== 50) failures.push(`Sports research must contain exactly 50 profile records; found ${allSportsSlugs.length}.`);
 if (new Set(allSportsSlugs).size !== 50) failures.push("Sports research must contain exactly 50 unique profile slugs.");
-
-// Each ten-profile batch already validates the exact `rank,name,Sports,` source row.
-// The completion audit independently proves that the source contains every rank
-// 101 through 150 exactly once without trying to parse quoted CSV note fields.
-// Rank 101 begins immediately after the String.raw opening backtick, while all
-// later rows begin after a newline, so both delimiters are valid row starts.
 const sourceRanks = [...source.matchAll(/(?:^|\n|`)(\d+),/g)].map((match) => Number(match[1]));
 const expectedSportsRanks = Array.from({ length: 50 }, (_, index) => 101 + index);
 for (const rank of expectedSportsRanks) {
@@ -85,15 +63,11 @@ for (const rank of expectedSportsRanks) {
   if (occurrences !== 1) failures.push(`Sports source roster must contain rank ${rank} exactly once; found ${occurrences}.`);
 }
 const sportsRangeRanks = sourceRanks.filter((rank) => rank >= 101 && rank <= 150);
-if (sportsRangeRanks.length !== 50 || new Set(sportsRangeRanks).size !== 50) {
-  failures.push(`Sports source roster must contain exactly 50 unique ranks from 101-150; found ${sportsRangeRanks.length} rows and ${new Set(sportsRangeRanks).size} unique ranks.`);
-}
+if (sportsRangeRanks.length !== 50 || new Set(sportsRangeRanks).size !== 50) failures.push(`Sports source roster must contain exactly 50 unique ranks from 101-150; found ${sportsRangeRanks.length} rows and ${new Set(sportsRangeRanks).size} unique ranks.`);
 
 const talentFiles = fs.readdirSync(dataDir).filter((name) => /^texas-talent-profiles.*\.ts$/.test(name));
 const talentSource = talentFiles.map((name) => fs.readFileSync(`${dataDir}/${name}`, "utf8")).join("\n");
-for (const slug of allSportsSlugs) {
-  if (talentSource.includes(`slug: "${slug}"`)) failures.push(`Sports duplicate detected: ${slug} now exists in Texas Talent and must be reconciled instead of duplicated.`);
-}
+for (const slug of allSportsSlugs) if (talentSource.includes(`slug: "${slug}"`)) failures.push(`Sports duplicate detected: ${slug} now exists in Texas Talent and must be reconciled instead of duplicated.`);
 for (let n = 1; n <= 5; n += 1) {
   const symbol = `TEXAS_ICON_RESEARCH_SPORTS_BATCH_${n}`;
   if (!resolver.includes(symbol) || !resolver.includes(`...${symbol}`)) failures.push(`Sports resolver must register ${symbol}.`);
@@ -101,11 +75,10 @@ for (let n = 1; n <= 5; n += 1) {
 const talentPrecedence = resolver.indexOf("if (talentProfile)");
 const researchPrecedence = resolver.indexOf("if (researchProfile)");
 if (talentPrecedence < 0 || researchPrecedence < 0 || talentPrecedence > researchPrecedence) failures.push("Texas Talent must continue to resolve before Texas Icons research profiles.");
-if (!resolver.includes('reuseKind: "icon-research-staged"') || !resolver.includes("indexableAtOwnRoute: false")) failures.push("Sports research drafts must remain non-indexable at their own routes.");
+if (!resolver.includes('reuseKind: "icon-research-staged"') || !resolver.includes("indexableAtOwnRoute: true")) failures.push("Substantive Sports research profiles must publish at their canonical Texas Icons routes while data-only starter records remain withheld.");
 
 if (failures.length) fail();
-console.log("Texas Icons Sports completion validation passed: ranks 101-150 are covered by exactly 50 unique staged research profiles with source depth, current-state safeguards, future duplicate detection and noindex publication boundaries.");
-
+console.log("Texas Icons Sports completion validation passed: ranks 101-150 are covered by exactly 50 unique substantive sourced research profiles with current-state safeguards, future duplicate detection and canonical written-content publication.");
 function fail() {
   console.error("Texas Icons Sports completion validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);

@@ -222,11 +222,12 @@ function resolveTexasIcon(entry: TexasIconRosterEntry, context: ResolutionContex
     };
   }
 
-  // Existing Texas Talent records always win over an Icons research draft so
+  // Existing Texas Talent records always win over parallel Icons research so
   // the registry cannot fork one person into two competing editorial records.
-  // Once a Talent profile is explicitly publishable, Texas Talent becomes the
-  // canonical owner and the Icons route redirects there instead of indexing a
-  // second copy of the same biography.
+  // Until the dedicated Texas Talent route is explicitly launched, completed
+  // Talent narratives publish at the stable Texas Icons route instead of
+  // sitting unpublished. When Talent launches, canonical ownership transfers
+  // to the governed Texas Talent path and this Icons route redirects there.
   if (talentProfile) {
     const publishable = isTexasTalentPublishable(talentProfile);
     return {
@@ -236,8 +237,8 @@ function resolveTexasIcon(entry: TexasIconRosterEntry, context: ResolutionContex
           ? texasTalentFutureCanonicalPath(talentProfile.slug)
           : `/texas-icons/${entry.slug}`,
         reuseKind: publishable ? "texas-talent-ready" : "texas-talent-staged",
-        indexableAtOwnRoute: false,
-        summary: publishable ? talentProfile.dek : entry.rosterNote,
+        indexableAtOwnRoute: !publishable,
+        summary: talentProfile.dek,
         matchedTalentSlug: talentProfile.slug,
         matchedResearchSlug: researchProfile?.slug,
       },
@@ -246,13 +247,17 @@ function resolveTexasIcon(entry: TexasIconRosterEntry, context: ResolutionContex
     };
   }
 
+  // A Texas Icons research profile contains finished narrative copy (overview,
+  // timeline, legacy and sources). Under the written-content publication rule,
+  // that article publishes at its own canonical Icons URL once it exists here.
+  // Only roster/data-only starter records remain unpublished and noindex.
   if (researchProfile) {
     return {
       resolved: {
         ...entry,
         href: `/texas-icons/${entry.slug}`,
         reuseKind: "icon-research-staged",
-        indexableAtOwnRoute: false,
+        indexableAtOwnRoute: true,
         summary: researchProfile.dek,
         matchedResearchSlug: researchProfile.slug,
       },
@@ -290,10 +295,7 @@ export async function loadTexasIconsServer() {
       entry.reuseKind === "texas-talent-ready" || entry.reuseKind === "texas-talent-staged").length,
     researchedStaged: icons.filter((entry) => entry.reuseKind === "icon-research-staged").length,
     readyAtOwnRoute: icons.filter((entry) => entry.indexableAtOwnRoute).length,
-    researchQueue: icons.filter((entry) =>
-      entry.reuseKind === "new-starter"
-      || entry.reuseKind === "texas-talent-staged"
-      || entry.reuseKind === "icon-research-staged").length,
+    researchQueue: icons.filter((entry) => entry.reuseKind === "new-starter").length,
   };
 
   return { icons, categories, stats };
@@ -312,7 +314,7 @@ export async function loadTexasIconProfileServer(slug: string) {
     icon: resolved,
     related,
     talentProfile:
-      talentProfile && isTexasTalentPublishable(talentProfile)
+      talentProfile && (isTexasTalentPublishable(talentProfile) || resolved.reuseKind === "texas-talent-staged")
         ? talentProfile
         : null,
     researchProfile:
