@@ -118,6 +118,22 @@ export const searchDocumentsQuery = () => queryOptions({
       base.push(document);
       knownHrefs.add(document.href);
     }
+    const { getMajorEventGuideDirectory } = await import("./major-event-directory");
+    const majorEventGuides = await getMajorEventGuideDirectory();
+    for (const event of majorEventGuides) {
+      const href = `/event/${event.slug}`;
+      if (knownHrefs.has(href)) continue;
+      base.push({
+        id: `event-guide:${event.slug}`,
+        brandId: "texasdefined",
+        kind: "event",
+        title: event.name,
+        summary: `Permanent Texas Defined event guide · ${event.detail}`,
+        keywords: [event.name, event.detail, "Texas events", "Texas festival guide"],
+        href,
+      });
+      knownHrefs.add(href);
+    }
     const { listResolvedDestinationSearchCatalog } = await import("./destination-query-runtime");
     const destinations = await listResolvedDestinationSearchCatalog();
     const nonDestinationDocuments = base.filter((document) => document.kind !== "destination");
