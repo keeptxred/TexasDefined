@@ -117,14 +117,14 @@ for (const [filename, aliasPath, targetPath] of migratedGuideRedirects) {
 for (const feature of [
   'supplementalExploreCategories',
   'EXPLORE_CATEGORY_SLUGS',
-  'exploreCategoryArticleCount',
+  'const EXPLORE_CATEGORY_ARTICLE_COUNTS = {',
   'isExploreCategoryIndexReady',
   'const categoryCandidates =',
   '.filter((slug) => EXPLORE_CATEGORY_SLUGS.has(slug))',
-  'isExploreCategoryIndexReady(slug, {',
-  'articleCount: exploreCategoryArticleCount(slug)',
-  'destinationCount: destinations.filter((destination) => destination.category === slug).length',
-  'supplementalCount: slug === "food-bbq" ? 1 : 0',
+  'const categorySlugs = categoryCandidates.filter((slug) => isExploreCategoryIndexReady(',
+  '(EXPLORE_CATEGORY_ARTICLE_COUNTS[slug as keyof typeof EXPLORE_CATEGORY_ARTICLE_COUNTS] ?? 0)',
+  '+ destinations.filter((destination) => destination.category === slug).length',
+  '+ (slug === "food-bbq" ? 1 : 0)',
   'categorySlugs.map((slug)',
   '`/explore/${slug}`',
   'regionSlugs.map((regionSlug)',
@@ -135,10 +135,10 @@ for (const feature of [
   if (!exploreSitemap.includes(feature)) failures.push(`Explore sitemap coverage missing: ${feature}`);
 }
 for (const feature of ['EXPLORE_CATEGORY_ARTICLE_COUNTS', 'as const satisfies Partial<Record<CategorySlug, number>>', 'exploreCategoryArticleCount(category: CategorySlug)']) {
-  if (!exploreArticleCounts.includes(feature)) failures.push(`Explore sitemap lightweight article inventory missing: ${feature}`);
+  if (!exploreArticleCounts.includes(feature)) failures.push(`Explore sitemap CI-only article inventory missing: ${feature}`);
 }
-if (exploreSitemap.includes('@/data/index') || exploreSitemap.includes('explore-category-inventory') || exploreSitemap.includes('createServerFn')) {
-  failures.push('Explore sitemap must not depend on the full article platform or server-function inventory graph.');
+if (exploreSitemap.includes('@/data/index') || exploreSitemap.includes('explore-category-inventory') || exploreSitemap.includes('createServerFn') || exploreSitemap.includes('explore-category-article-counts')) {
+  failures.push('Explore sitemap must not depend on the full article platform or article-inventory modules at runtime.');
 }
 
 for (const region of regionIds) {
@@ -173,4 +173,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Sitemap ownership, crawl-demand partitioning, preserved-catalog remote fallback, resolved quality gates, lightweight sparse-category sitemap gating, malformed-path rejection, all ${redirects.length} governed redirects, all ${nonIndexableRoutes.length} governed noindex routes, migrated aliases and regional quality passed validation.`);
+console.log(`Sitemap ownership, crawl-demand partitioning, preserved-catalog remote fallback, resolved quality gates, runtime-isolated sparse-category sitemap gating, malformed-path rejection, all ${redirects.length} governed redirects, all ${nonIndexableRoutes.length} governed noindex routes, migrated aliases and regional quality passed validation.`);
