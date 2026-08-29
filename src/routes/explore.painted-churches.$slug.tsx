@@ -3,6 +3,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { PaintedChurchResearchDossier } from "@/components/editorial/PaintedChurchResearchDossier";
 import { Container } from "@/components/layout/Container";
+import { getPromotedPaintedChurchDetailProfile } from "@/data/painted-church-detail-profile";
 import { additionalPaintedChurchProfileBySlug } from "@/data/painted-church-profiles-additional";
 import { paintedChurchAdditionProfileBySlug } from "@/data/painted-church-profiles-additions";
 import { finalPaintedChurchProfileBySlug } from "@/data/painted-church-profiles-final";
@@ -16,16 +17,17 @@ import { buildMeta, canonicalLink } from "@/lib/seo";
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
 export const Route = createFileRoute("/explore/painted-churches/$slug")({
-  loader: ({ params }) => {
+  loader: async ({ params }) => {
     const church = expandedPaintedChurchBySlug(params.slug);
     if (!church) throw notFound();
-    const profile =
+    let profile =
       paintedChurchProfileBySlug(params.slug) ??
       paintedChurchExtendedProfileBySlug(params.slug) ??
       paintedChurchStatewideProfileBySlug(params.slug) ??
       finalPaintedChurchProfileBySlug(params.slug) ??
       additionalPaintedChurchProfileBySlug(params.slug) ??
       paintedChurchAdditionProfileBySlug(params.slug);
+    if (!profile) profile = await getPromotedPaintedChurchDetailProfile(params.slug);
     return { church, profile };
   },
   head: ({ loaderData, params }) => {
