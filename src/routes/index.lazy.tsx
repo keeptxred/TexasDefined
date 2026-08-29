@@ -34,6 +34,10 @@ const popularTexasSearches = [
   { title: "Texas flag", description: "History, Lone Star symbolism, display rules and related Texas symbols.", to: "/texas-flag" },
   { title: "Texas Two Step", description: "How the Texas Lottery game works, plus the path to Texas dance-hall culture.", to: "/texas-two-step" },
   { title: "Texas resources", description: "Start here for practical Texas services, moving, property, outdoors, culture and tools.", to: "/texas-resources" },
+  { title: "Texas Outdoors & Wildlife", description: "Explore parks, trails, wildlife, birding, dark skies, rivers and public lands across Texas.", to: "/explore/outdoors" },
+  { title: "Rio Grande River Guide", description: "Follow Texas' international river through its vast basin, desert country, reservoirs and border landscape.", to: "/article/texas-rio-grande-river-guide" },
+  { title: "Texas Cities & Regions", description: "Compare major Texas cities and the regional differences that shape daily life, climate, culture and growth.", to: "/article/texas-major-cities-regional-differences" },
+  { title: "Texas Lakes & Reservoirs", description: "Understand the reservoirs, river systems and water-supply geography behind the lakes Texans use most.", to: "/article/texas-lakes-reservoirs-explained" },
 ] as const;
 
 export const Route = createLazyFileRoute("/")({ component: HomePage });
