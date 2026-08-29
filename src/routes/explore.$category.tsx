@@ -38,11 +38,13 @@ export const Route = createFileRoute("/explore/$category")({
       if (destination) throw redirect({ href: `/destination/${destination.slug}`, statusCode: 301 });
       throw notFound();
     }
-    const [articles, destinations] = await Promise.all([
+    const authorityPath = category.slug === "outdoors" || category.slug === "caverns" ? `/content/explore-category-authority/${category.slug}.html` : null;
+    const [articles, destinations, authorityHtml] = await Promise.all([
       context.queryClient.ensureQueryData(articlesQuery({ category: category.slug })),
       context.queryClient.ensureQueryData(destinationsQuery({ category: category.slug })),
+      authorityPath ? fetch(import.meta.env.SSR ? `${siteUrl}${authorityPath}` : authorityPath).then((response) => response.ok ? response.text() : null) : null,
     ]);
-    return { category, articles, destinations };
+    return { category, articles, destinations, authorityHtml };
   },
   head: ({ loaderData, params }) => {
     if (!loaderData) return { meta: [{ title: "Not found" }, { name: "robots", content: "noindex" }] };
