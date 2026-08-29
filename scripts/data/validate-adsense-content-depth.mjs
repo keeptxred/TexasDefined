@@ -76,14 +76,17 @@ if (migratedIndex < 0 || genericFallbackIndex < 0 || migratedIndex > genericFall
   errors.push('Detailed migrated articles must resolve before the lightweight catalog-stub fallback.');
 }
 
+const sourceFallbackImportMarker = 'import { ensureRemoteEvergreenSourceFallback } from "./remote-evergreen-source-fallbacks";';
 const localLoadMarker = 'const localArticle = await platform.articles.getBySlug(scope, slug);';
-const localSourceFastPathMarker = 'if (localArticle.sourceName && localArticle.sourceUrl) return prepareArticleForDelivery(localArticle);';
+const localSourceFastPathMarker = 'return prepareArticleForDelivery(ensureRemoteEvergreenSourceFallback(localArticle));';
 const remoteSourceLoadMarker = 'const remoteSourceArticle = await fetchPublishedTexasDefinedEvergreenArticle(slug);';
 const sourceHydrationMarker = 'sourceName: localArticle.sourceName ?? remoteSourceArticle.sourceName,';
 const sourceUrlHydrationMarker = 'sourceUrl: localArticle.sourceUrl ?? remoteSourceArticle.sourceUrl,';
-const hydratedReturnMarker = 'return prepareArticleForDelivery(sourceHydratedLocalArticle);';
+const hydratedReturnMarker = 'return prepareArticleForDelivery(ensureRemoteEvergreenSourceFallback(sourceHydratedLocalArticle));';
 const remoteFallbackLoadMarker = 'const remoteArticle = await fetchPublishedTexasDefinedEvergreenArticle(slug);';
+const remoteFallbackReturnMarker = 'prepareArticleForDelivery(ensureRemoteEvergreenSourceFallback(remoteArticle))';
 for (const feature of [
+  sourceFallbackImportMarker,
   localLoadMarker,
   localSourceFastPathMarker,
   remoteSourceLoadMarker,
@@ -91,6 +94,7 @@ for (const feature of [
   sourceUrlHydrationMarker,
   hydratedReturnMarker,
   remoteFallbackLoadMarker,
+  remoteFallbackReturnMarker,
 ]) if (!queries.includes(feature)) errors.push(`Article query local-depth/source precedence missing: ${feature}`);
 
 const localIndex = queries.indexOf(localLoadMarker);
@@ -98,18 +102,21 @@ const localSourceFastPathIndex = queries.indexOf(localSourceFastPathMarker);
 const remoteSourceLoadIndex = queries.indexOf(remoteSourceLoadMarker);
 const hydratedReturnIndex = queries.indexOf(hydratedReturnMarker);
 const remoteFallbackIndex = queries.indexOf(remoteFallbackLoadMarker);
+const remoteFallbackReturnIndex = queries.indexOf(remoteFallbackReturnMarker);
 if (
   localIndex < 0
   || localSourceFastPathIndex < 0
   || remoteSourceLoadIndex < 0
   || hydratedReturnIndex < 0
   || remoteFallbackIndex < 0
+  || remoteFallbackReturnIndex < 0
   || localIndex > localSourceFastPathIndex
   || localSourceFastPathIndex > remoteSourceLoadIndex
   || remoteSourceLoadIndex > hydratedReturnIndex
   || hydratedReturnIndex > remoteFallbackIndex
+  || remoteFallbackIndex > remoteFallbackReturnIndex
 ) {
-  errors.push('Local enriched editorial detail must resolve first, preserve explicit sources, hydrate only missing source fields from the published remote row, and fall back to the remote article only when no local detail exists.');
+  errors.push('Local enriched editorial detail must resolve first, preserve explicit sources, hydrate only missing source fields from the published remote row, apply the governed source fallback to every delivery path, and fall back to the remote article only when no local detail exists.');
 }
 
 if (errors.length) {
@@ -118,4 +125,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('AdSense content-depth validation passed: four later finance depth overrides, the Texas HELOC authority override, 10+ minute catalog expectations, local-first detail-loader precedence, and DB-first source hydration are protected.');
+console.log('AdSense content-depth validation passed: four later finance depth overrides, the Texas HELOC authority override, 10+ minute catalog expectations, local-first detail-loader precedence, DB-first source hydration, and governed source fallbacks are protected.');
