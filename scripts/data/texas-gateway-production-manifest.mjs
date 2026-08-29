@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { buildGatewayProductionManifest as buildScannedManifest } from "./texas-gateway-production-readiness-lib.mjs";
+import { repairGatewayProductionEntries } from "./repair-texas-gateway-production-readiness.mjs";
 
 const REVIEW_PATH = "scripts/data/texas-gateway-editorial-review.json";
 const READINESS_PATH = "src/data/fixtures/texas-gateway-index-readiness.ts";
@@ -45,8 +46,9 @@ function recomputeSummary(entries) {
 
 export function buildGatewayProductionManifest(root = process.cwd()) {
   const scanned = buildScannedManifest(root);
+  const repairedScannedEntries = repairGatewayProductionEntries(root, scanned.entries);
   const review = JSON.parse(fs.readFileSync(path.join(root, REVIEW_PATH), "utf8"));
-  const scannedBySlug = new Map(scanned.entries.map((entry) => [entry.slug, entry]));
+  const scannedBySlug = new Map(repairedScannedEntries.map((entry) => [entry.slug, entry]));
   const ready = readySlugs(root);
 
   const entries = review.entries.map((editorial) => {
