@@ -4,10 +4,12 @@ const failures = [];
 const read = (path) => fs.readFileSync(path, 'utf8');
 const exists = (path) => fs.existsSync(path);
 const requireText = (content, token, label) => { if (!content.includes(token)) failures.push(`${label} missing ${token}`); };
+const forbidText = (content, token, label) => { if (content.includes(token)) failures.push(`${label} contains stale ${token}`); };
 
 const expanded = read('src/data/painted-churches-expanded.ts');
 const census = read('src/data/painted-church-census.ts');
 const hub = read('src/routes/explore.painted-churches.tsx');
+const detailRoute = read('src/routes/explore.painted-churches.$slug.tsx');
 const sitemap = read('src/routes/sitemap-explore[.]xml.ts');
 const search = read('src/data/painted-church-search.ts');
 const publicRoutes = read('src/lib/public-routes.ts');
@@ -87,6 +89,13 @@ if ((itineraries.match(/slug: "/g) ?? []).length < 8) failures.push('Itinerary l
 
 requireText(profileIndex, 'latestPaintedChurchProfileBySlug', 'Canonical profile resolver');
 requireText(researchIndex, 'latestPaintedChurchResearchBySlug', 'Canonical research resolver');
+requireText(detailRoute, 'import { canonicalPaintedChurchProfileBySlug } from "@/data/painted-church-profile-index";', 'Primary Painted Church detail resolver');
+requireText(detailRoute, 'const profile = canonicalPaintedChurchProfileBySlug(params.slug);', 'Primary Painted Church detail resolver');
+for (const token of [
+  '@/data/painted-church-profiles-additional', '@/data/painted-church-profiles-additions',
+  '@/data/painted-church-profiles-final', '@/data/painted-church-profiles-extended',
+  '@/data/painted-church-profiles-statewide', '@/data/painted-church-profiles"',
+]) forbidText(detailRoute, token, 'Primary Painted Church detail resolver');
 for (const slug of ['castroville-st-louis-catholic-church','lacoste-our-lady-of-grace']) {
   requireText(latestProfiles, `slug: "${slug}"`, 'Latest profile layer');
   requireText(latestResearch, `slug: "${slug}"`, 'Latest research layer');
@@ -139,4 +148,4 @@ if (failures.length) {
   failures.forEach((failure) => console.error(`- ${failure}`));
   process.exit(1);
 }
-console.log('Painted Churches authority protected: 27 verified churches, 14 formal records, entity authority pages, archival comparisons, county reciprocal links, visitor freshness, JSON v4/CSV datasets, search, self-canonical sitemap coverage and citation surfaces.');
+console.log('Painted Churches authority protected: 27 verified churches, 14 formal records, canonical detail-profile resolution, entity authority pages, archival comparisons, county reciprocal links, visitor freshness, JSON v4/CSV datasets, search, self-canonical sitemap coverage and citation surfaces.');
