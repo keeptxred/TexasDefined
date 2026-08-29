@@ -98,8 +98,9 @@ export async function listResolvedDestinations(params: Omit<DestinationQuery, "b
   const local = await platform.destinations.list({ ...scope, ...params });
   const preserved = preservedFor(params);
   const merged = reconcileExploreCatalog(mergeDestinations(enriched, core, preserved, local));
-  if (params.featured) return featuredFallback(merged, params.limit ?? 6);
-  return params.limit ? merged.slice(0, params.limit) : merged;
+  const scoped = params.category ? merged.filter((destination) => destination.category === params.category) : merged;
+  if (params.featured) return featuredFallback(scoped, params.limit ?? 6);
+  return params.limit ? scoped.slice(0, params.limit) : scoped;
 }
 
 export async function getResolvedDestination(slug: Slug) {
