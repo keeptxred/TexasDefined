@@ -25,6 +25,16 @@ Publication rule: add a permanent `/event/` authority guide only when a current 
 | Western Heritage Classic | May 6-9, 2027 | Organizer publishes exact 2027 dates; Taylor County Expo Center independently lists the same event window. | `/event/western-heritage-classic` |
 | Bob Wills Day | April 22-24, 2027 | Bob Wills Day organizer publishes a three-day 2027 save-the-date; the foundation and City of Turkey document the annual last-Saturday-in-April tradition. | `/event/bob-wills-day` |
 
+## Implemented in tranche 27
+
+| Event | Date treatment | First-party basis | Destination |
+|---|---|---|---|
+| Lone Star Cowboy Poetry Gathering — Alpine | February 18-20, 2027 | Organizer publishes an exact Alpine 2027 page and says Alpine's standing weekend is the third Thursday-Saturday in February. | `/event/lone-star-cowboy-poetry-gathering-alpine` |
+| Lone Star Cowboy Poetry Gathering — Bastrop | September 3-4, 2027 | Organizer publishes a separate exact Bastrop 2027 page and lodging guidance, so this is modeled as a distinct event from Alpine. | `/event/lone-star-cowboy-poetry-gathering-bastrop` |
+| Texas Jazz Festival | October 16-18, 2026 | Texas Jazz Festival Society publishes the exact Heritage Park weekend, free admission and three-stage format. | `/event/texas-jazz-festival` |
+| Red Steagall Cowboy Gathering | October 23-25, 2026 | Organizer publishes exact dates and Fort Worth Stockyards location for the 2026 Gathering. | `/event/red-steagall-cowboy-gathering` |
+| Texas Rice Festival | September 30-October 3, 2026 main festival | Organizer publishes the exact Winnie-Stowell Park main-festival window and separately identifies earlier affiliated golf and BBQ dates. | `/event/texas-rice-festival` |
+
 ## First-party sources
 
 ### Tranche 25
@@ -41,6 +51,14 @@ Publication rule: add a permanent `/event/` authority guide only when a current 
 - Bayou City Art Festival Memorial Park: https://www.bayoucityartfestival.com/, https://www.bayoucityartfestival.com/festival-info, and https://www.houstontx.gov/events/bayou-city-art-festival.html
 - Western Heritage Classic: https://www.westernheritageclassic.com/, https://www.westernheritageclassic.com/p/events/schedule, and https://www.taylorcountyexpocenter.com/location/all-facilities
 - Bob Wills Day: https://bobwillsday.com/, https://bobwillsday.com/home-2/, https://bobwillsday.com/bwd-2/, and https://www.turkeytx.com/bob-wills-day
+
+### Tranche 27
+
+- Lone Star Cowboy Poetry Gathering — Alpine: https://lonestarcowboypoetry.com/2027/alpine/index.html, https://lonestarcowboypoetry.com/welcome/index.html, and https://lonestarcowboypoetry.com/lodging/alpine/index.html
+- Lone Star Cowboy Poetry Gathering — Bastrop: https://lonestarcowboypoetry.com/2027/bastrop/index.html, https://lonestarcowboypoetry.com/welcome/index.html, and https://lonestarcowboypoetry.com/lodging/bastrop/index.html
+- Texas Jazz Festival: https://www.texasjazz-fest.org/
+- Red Steagall Cowboy Gathering: https://www.redsteagallcowboygathering.com/ and https://www.redsteagallcowboygathering.com/schedule-tickets/
+- Texas Rice Festival: https://texasricefestival.com/ and https://texasricefestival.com/festivalpark-info/ticketsfees/
 
 ## Known schedule-model hold
 
