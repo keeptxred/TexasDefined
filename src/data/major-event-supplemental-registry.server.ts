@@ -34,6 +34,11 @@ export const supplementalMajorEventSlugs = [
   "washington-on-the-brazos-texas-independence-day",
   "great-american-scrapbook-convention",
   "the-very-rary",
+  "marfa-lights-festival",
+  "fredericksburg-oktoberfest",
+  "texas-book-festival",
+  "houston-art-car-parade",
+  "mardi-gras-galveston",
 ] as const;
 
 export function loadSupplementalMajorEventRecordsServer() {
