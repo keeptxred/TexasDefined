@@ -1,6 +1,5 @@
-import { formatDateRange } from "@/domain/utils/format";
 import { majorEventIndexRecords } from "./major-event-index";
-import { getMajorEventRecordServer } from "./major-event-page.server";
+import { formatMajorEventDateLabelServer, getMajorEventRecordServer } from "./major-event-page.server";
 import { loadSupplementalMajorEventRecordsServer } from "./major-event-supplemental-registry.server";
 
 export interface MajorEventGuideDirectoryItem {
@@ -28,7 +27,7 @@ export function loadMajorEventGuideDirectoryServer(): MajorEventGuideDirectoryIt
     .map((event) => ({
       slug: event.slug,
       name: event.name,
-      detail: `${event.city} · ${formatDateRange(event.startDate, event.endDate, "en-US")}`,
+      detail: `${event.city} · ${formatMajorEventDateLabelServer(event)}`,
       startDate: event.startDate,
       endDate: event.endDate,
     }))
