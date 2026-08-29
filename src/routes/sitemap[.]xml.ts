@@ -19,6 +19,7 @@ import { COUNTY_PROPERTY_RECORDS } from "@/data/property/county-property-data";
 import { isCountyPropertyIndexReady } from "@/data/property/county-property-schema";
 import { fetchAssignedShopProducts } from "@/data/shop-products-remote";
 import { TEXAS_DATASETS } from "@/data/texas-data-center";
+import { TEXAS_ICON_LAUNCH_CERTIFICATIONS } from "@/data/texas-icons-launch";
 import { TEXAS_VS_STATES, texasVsStateSlug } from "@/data/texas-vs-states-index";
 import { isTexasDefinedOwnedEntity, isTexasDefinedOwnedStaticPath } from "@/lib/brand-route-ownership";
 import { INDEXABLE_STATIC_PATHS, isExploreSitemapOwnedPath, isIndexablePublicPath, normalizePublicPath } from "@/lib/public-routes";
@@ -109,6 +110,10 @@ export const Route = createFileRoute("/sitemap.xml")({
             .filter((path) => isTexasDefinedOwnedStaticPath(path))
             .map((path) => ({ path, lastmod: STATIC_LASTMOD_BY_PATH[path] })),
           { path: "/texas-icons" },
+          ...TEXAS_ICON_LAUNCH_CERTIFICATIONS.map((entry) => ({
+            path: `/texas-icons/${entry.slug}`,
+            lastmod: entry.approvedAt,
+          })),
           ...majorEventIndexRecords.map((event) => ({
             path: `/event/${event.slug}`,
             lastmod: toDate(event.sourceCheckedAt),
