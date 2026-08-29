@@ -2,11 +2,12 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { fetchPublishedTexasDefinedNewsArticles } from "@/data/articles-remote";
+import { isArticleIndexReady } from "@/data/fixtures/texas-gateway-index-readiness";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 export const newsQuery = {
   queryKey: ["texasdefined-live-news"] as const,
-  queryFn: () => fetchPublishedTexasDefinedNewsArticles({ limit: 60 }),
+  queryFn: async () => (await fetchPublishedTexasDefinedNewsArticles({ limit: 60 })).filter(isArticleIndexReady),
   staleTime: 5 * 60 * 1000,
 };
 

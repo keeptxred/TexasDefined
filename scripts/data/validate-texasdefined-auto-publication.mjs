@@ -42,11 +42,13 @@ if (!env.includes('ftkznprjljkhymknvhye')) errors.push('Active shared Supabase p
 
 for (const token of [
   'fetchPublishedTexasDefinedNewsArticles({ limit: 200 })',
-  '...remoteNews.map((article) => ({ path: `/news/${article.slug}`',
+  'const indexableRemoteNews = remoteNews.filter(isArticleIndexReady)',
+  '...indexableRemoteNews.map((article) => ({ path: `/news/${article.slug}`',
   'fetchPublishedTexasDefinedEvergreenArticles({ limit: 200 })',
-  '...remoteEvergreen.map((article) => ({ path: `/article/${article.slug}`',
+  'const indexableRemoteEvergreen = remoteEvergreen.filter(isArticleIndexReady)',
+  '...indexableRemoteEvergreen.map((article) => ({ path: `/article/${article.slug}`',
 ]) {
-  if (!sitemap.includes(token)) errors.push(`Published TexasDefined sitemap routing contract is missing ${token}`);
+  if (!sitemap.includes(token)) errors.push(`Published TexasDefined sitemap routing/readiness contract is missing ${token}`);
 }
 for (const token of [
   'if (kind === "evergreen") params.set("source_feed_id", "is.null")',
@@ -55,6 +57,7 @@ for (const token of [
   if (!remoteArticles.includes(token)) errors.push(`Published TexasDefined source classification contract is missing ${token}`);
 }
 if (!route.includes('fetchPublishedTexasDefinedNewsArticle')) errors.push('Live /news article route must resolve only feed-backed published stories.');
+if (!route.includes('isArticleIndexReady(article)')) errors.push('Live /news article route must noindex published stories that do not satisfy the shared public-readiness floor.');
 for (const token of ['article.hero.credit', 'article.sourceUrl', 'article.relatedDestinations']) if (!route.includes(token)) errors.push(`Live article route is missing ${token}`);
 
 if (errors.length) {
@@ -62,4 +65,4 @@ if (errors.length) {
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
-console.log('TexasDefined auto-publication is guarded, source-gated, image-gated, disabled by default, auditable for activation/dry-run counts, production-smoked for /news and Canyon Lake sitemap health, and isolated to feed-backed /news routes while manual evergreen content remains on canonical /article routes.');
+console.log('TexasDefined auto-publication is guarded, source-gated, image-gated, disabled by default, auditable for activation/dry-run counts, production-smoked for /news and Canyon Lake sitemap health, isolated to feed-backed /news routes, and additionally quality-gated before public search discovery while manual evergreen content remains on canonical /article routes.');

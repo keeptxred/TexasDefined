@@ -29,7 +29,7 @@ const PRINCIPLES = [
 ];
 
 const ACCOUNTABILITY = [
-  { title: "Named bylines", body: "Editorial stories carry a named byline when a contributor is responsible for the work. The byline links to a contributor profile with the writer’s role, biography and published archive." },
+  { title: "Visible bylines", body: "Editorial stories identify the responsible Texas Defined editorial desk or a verified individual contributor. Bylines link to a profile describing that desk or contributor and its published archive; institutional desk names are not presented as fictional people." },
   { title: "Sources and official records", body: "For facts that can change — including park access, government records, taxes, deadlines, fees and public data — Texas Defined favors the responsible agency, official record or original source and points readers there when practical." },
   { title: "Corrections and updates", body: "When we identify a material factual error, we correct the published information rather than preserving a known mistake. Time-sensitive details should still be confirmed with the responsible agency or provider before a decision." },
   { title: "Clear separation of guidance", body: "Our calculators, planning tools and explainers are informational. They are not official determinations, professional advice, quotes or guarantees, and we say so where those distinctions matter." },
@@ -70,7 +70,10 @@ function AboutPage() {
         <div className="mt-10 grid gap-x-10 gap-y-10 sm:grid-cols-2">
           {ACCOUNTABILITY.map((item) => <section key={item.title} className="border-t border-border pt-5"><h2 className="font-display text-2xl leading-tight">{item.title}</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">{item.body}</p></section>)}
         </div>
-        <p className="mt-10 max-w-3xl border-t border-border pt-6 text-sm leading-7 text-muted-foreground">Contributor profiles are reached from article bylines and contain that writer’s published archive. Start with any story in <Link to="/explore" className="border-b border-primary text-primary">Explore Texas</Link> or <Link to="/texas-living" className="border-b border-primary text-primary">Texas Life</Link> to follow a byline to its canonical profile.</p>
+        <div className="mt-10 max-w-3xl space-y-3 border-t border-border pt-6 text-sm leading-7 text-muted-foreground">
+          <p>Byline profiles are reached from article bylines and contain the editorial desk’s or contributor’s published archive. Start with any story in <Link to="/explore" className="border-b border-primary text-primary">Explore Texas</Link> or <Link to="/texas-living" className="border-b border-primary text-primary">Texas Life</Link> to follow a byline to its canonical profile.</p>
+          <p>To report a factual error or request a correction, use the <Link to="/partner-with-us" className="border-b border-primary text-primary">Texas Defined contact form</Link>, select the closest available inquiry type, and include the page URL and the fact that needs review.</p>
+        </div>
         <address id="contact" className="mt-6 max-w-3xl scroll-mt-28 not-italic text-sm leading-7 text-muted-foreground"><strong className="text-foreground">Contact Texas Defined.</strong> For corrections, source updates or general questions, use an official profile: {texasDefinedBrand.identity.social.map((profile, index) => <span key={profile.href}>{index ? " · " : ""}<a href={profile.href} target="_blank" rel="noreferrer" className="border-b border-primary text-primary">{profile.label}</a></span>)}. A street address is published only when there is a verified public business location to list.</address>
       </Container>
     </Section>

@@ -82,8 +82,8 @@ for (const marker of ['export const historicSupportingStubs', 'export async func
 }
 
 if (!sitemap.includes('platform.articles.list(scope)')) failures.push('Historic supporting sitemap discovery contract missing: platform.articles.list(scope)');
-const articleCatalogPattern = /\.\.\.articles\s*\.filter\(\(article\)\s*=>\s*!isLegacyCountySeriesArticle\(article\.slug\)\s*&&\s*isTexasGatewayIndexReadyArticle\(article\)\)\s*\.map\(\(article\)\s*=>\s*\(\{\s*path:\s*`\/article\/\$\{article\.slug\}`/s;
-if (!articleCatalogPattern.test(sitemap)) failures.push('Historic supporting sitemap discovery contract missing: quality-gated canonical article catalog.');
+const articleCatalogPattern = /\.\.\.articles\s*\.filter\(\(article\)\s*=>\s*!isLegacyCountySeriesArticle\(article\.slug\)\s*&&\s*isArticleIndexReady\(article\)\)\s*\.map\(\(article\)\s*=>\s*\(\{\s*path:\s*`\/article\/\$\{article\.slug\}`/s;
+if (!articleCatalogPattern.test(sitemap)) failures.push('Historic supporting sitemap discovery contract missing: strict quality-gated canonical article catalog.');
 
 if (failures.length) {
   console.error('Historic supporting-guide validation failed:');
@@ -91,4 +91,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Historic supporting-guide validation passed: ${guides.length} source-backed lazy guides retain substantive depth, exact licensed heroes, ${guides.reduce((count, guide) => count + guide.destinations.length, 0)} destination relationships, reciprocal discovery, thematic clusters, repository listing and quality-gated canonical sitemap publication.`);
+console.log(`Historic supporting-guide validation passed: ${guides.length} source-backed lazy guides retain substantive depth, exact licensed heroes, ${guides.reduce((count, guide) => count + guide.destinations.length, 0)} destination relationships, reciprocal discovery, thematic clusters, repository listing and strict quality-gated canonical sitemap publication.`);

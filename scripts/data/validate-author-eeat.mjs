@@ -76,7 +76,15 @@ for (const feature of [
 if (!sitemap.includes('platform.taxonomy.authors(scope)')) failures.push('Primary sitemap must load editorial bylines.');
 if (!sitemap.includes('...authors.map((author) => ({ path: `/authors/${author.id}` }))')) failures.push('Primary sitemap must publish editorial desk profiles.');
 
-for (const signal of ['Named bylines', 'Sources and official records', 'Corrections and updates', 'Clear separation of guidance']) {
+for (const signal of [
+  'Visible bylines',
+  'institutional desk names are not presented as fictional people',
+  'Sources and official records',
+  'Corrections and updates',
+  'Clear separation of guidance',
+  'To report a factual error or request a correction',
+  'to="/partner-with-us"',
+]) {
   if (!about.includes(signal)) failures.push(`About-page editorial accountability signal missing: ${signal}.`);
 }
 
@@ -90,4 +98,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Institutional editorial desks, byline identity, Homes & Land assignment, legacy fixture safety, sitemap discovery and editorial accountability signals are protected.');
+console.log('Institutional editorial desks, visible byline identity, correction reporting, Homes & Land assignment, legacy fixture safety, sitemap discovery and editorial accountability signals are protected.');
