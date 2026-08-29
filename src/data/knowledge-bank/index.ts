@@ -2,6 +2,7 @@ export * from './types';
 export * from './seed';
 export * from './seed-expanded';
 export * from './seed-verified-batch2';
+export * from './seed-verified-batch3';
 export * from './seed-counties-batch1';
 export * from './seed-counties-batch2';
 export * from './seed-counties-batch3';
