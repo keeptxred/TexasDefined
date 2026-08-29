@@ -43,6 +43,16 @@ Publication rule: add a permanent `/event/` authority guide only when a current 
 
 Tranche 28 also retrofits the same multi-window treatment onto Texas Renaissance Festival and Mardi Gras! Galveston. Their public pages retain the overall season/festival envelope for sorting, but visible schedules and Event structured data now represent only the actual organizer-supported operating windows.
 
+## Implemented in tranche 29
+
+| Event | Date treatment | First-party basis | Destination |
+|---|---|---|---|
+| Original Greek Festival Houston | October 1-3, 2026 | Organizer publishes exact dates, daily hours and the Annunciation Greek Orthodox Cathedral venue for its 60th anniversary festival. | `/event/original-greek-festival-houston` |
+| Gruene Music & Wine Festival | October 8-11, 2026 | Organizer publishes the four-day window plus separate Thursday-Sunday programs, venues and ticket treatment. | `/event/gruene-music-wine-festival` |
+| Texas Clay Festival | October 24-25, 2026 | Organizer publishes the exact two-day 34th annual festival in the Gruene Historical District and separate Saturday/Sunday hours. | `/event/texas-clay-festival` |
+| Texas Craft Brewers Festival | November 14, 2026 | Festival and Texas Craft Brewers Guild publish the exact Fiesta Gardens date, entry times and 21-plus access rule. | `/event/texas-craft-brewers-festival` |
+| Texas Tribune Festival | September 24-26, 2026 | The Texas Tribune publishes the exact three-day downtown Austin festival and 100-plus-program schedule. | `/event/texas-tribune-festival` |
+
 ## First-party sources
 
 ### Tranche 25
@@ -73,6 +83,14 @@ Tranche 28 also retrofits the same multi-window treatment onto Texas Renaissance
 - Austin City Limits Music Festival: https://www.aclfestival.com/, https://www.aclfestival.com/schedule, and https://www.aclfestival.com/tickets
 - Texas Renaissance Festival: https://www.texrenfest.com/
 - Mardi Gras! Galveston: https://www.mardigrasgalveston.com/ and https://www.mardigrasgalveston.com/parade-schedule/
+
+### Tranche 29
+
+- Original Greek Festival Houston: https://www.greekfestival.org/ and https://www.greekfestival.org/pages/attending
+- Gruene Music & Wine Festival: https://gruenemusicandwinefest.org/ and https://gruenemusicandwinefest.org/tickets/
+- Texas Clay Festival: https://texasclayfestival.com/ and https://texasclayfestival.com/about/
+- Texas Craft Brewers Festival: https://texascraftbrewersfestival.org/, https://texascraftbrewersfestival.org/info/, and https://texascraftbrewersguild.org/
+- Texas Tribune Festival: https://festival.texastribune.org/, https://festival.texastribune.org/tickets, and https://www.texastribune.org/2026/08/18/texas-tribune-festival-2026-lineup/
 
 ## Multi-window schedule rule
 
