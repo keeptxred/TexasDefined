@@ -77,7 +77,7 @@ export const TEXAS_TALENT_LAUNCH_DEPTH_WAVE7: Readonly<Record<string, TexasTalen
     legacy: [
       "Whitaker became known for performances that emphasize physical detail, vocal rhythm and psychological concentration, allowing him to move convincingly between historical figures, genre characters and intimate contemporary roles.",
       "His career also widened beyond acting through directing, producing and humanitarian work, showing how screen visibility can be converted into institutional and community-focused projects rather than remaining only a measure of celebrity.",
-      "Longview and Gregg County provide a carefully bounded East Texas origin. Keeping that claim precise strengthens the pillar's credibility while giving Texas Defined another route from county-level place coverage into nationally important film history.",
+      "Longview and Gregg County provide a carefully bounded East Texas origin. Keeping that claim precise strengthens the pillar's credibility while giving Texas Defined another route from county-level place coverage into nationally important film history. It also gives the site a durable example of careful origin-based cultural coverage.",
     ],
     texasPlaces: [
       { name: "Longview", context: "Whitaker's birthplace and earliest Texas connection, anchoring the profile in East Texas while the page clearly states that his upbringing continued outside the state." },
@@ -102,7 +102,7 @@ export const TEXAS_TALENT_LAUNCH_DEPTH_WAVE7: Readonly<Record<string, TexasTalen
     legacy: [
       "Linklater helped prove that a filmmaker could build an internationally important career while maintaining a durable creative base in Austin, strengthening the city's identity as a serious center for independent production.",
       "His formal experiments with conversation, duration and ensemble storytelling influenced filmmakers well beyond Texas, while projects from Slacker to Boyhood demonstrated that ordinary lives and elapsed time could carry ambitious cinematic structure.",
-      "The Austin Film Society makes his legacy institutional as well as artistic. Houston, Huntsville and Austin create a multi-city Texas route that connects biography, film locations, education, production infrastructure and cultural history.",
+      "The Austin Film Society makes his legacy institutional as well as artistic. Houston, Huntsville and Austin create a multi-city Texas route that connects biography, film locations, education, production infrastructure and cultural history. That infrastructure continues to matter to Austin's film identity beyond any single release.",
     ],
     texasPlaces: [
       { name: "Houston", context: "Linklater's birthplace and the first Texas anchor in a biography that later becomes much more deeply associated with Central Texas filmmaking." },
@@ -128,7 +128,7 @@ export const TEXAS_TALENT_LAUNCH_DEPTH_WAVE7: Readonly<Record<string, TexasTalen
     legacy: [
       "Megan Thee Stallion extended Houston rap's national visibility while keeping local language, confidence and regional identity prominent in a period when mainstream hip-hop careers often become geographically less specific as they grow.",
       "Her career also connects contemporary music with Texas HBCU life. Prairie View A&M and Texas Southern University make education part of the Texas story rather than a separate biographical footnote.",
-      "San Antonio, Houston and Prairie View create a multi-city route for the Talent pillar, while her collaboration with Beyoncé and place within Houston hip-hop provide strong future links to Texas music authority pages and related profiles.",
+      "San Antonio, Houston and Prairie View create a multi-city route for the Talent pillar, while her collaboration with Beyoncé and place within Houston hip-hop provide strong future links to Texas music authority pages and related profiles. That combination strengthens both music and education cross-link opportunities.",
     ],
     texasPlaces: [
       { name: "San Antonio", context: "Megan Thee Stallion's Bexar County birthplace and the first Texas point in a biography that becomes much more strongly identified with Houston." },
