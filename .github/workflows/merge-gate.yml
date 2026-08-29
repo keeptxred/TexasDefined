@@ -50,6 +50,9 @@ jobs:
       - name: Run authoritative validation suite
         run: node scripts/ci/run-validation-suite.mjs full
 
+      - name: Validate national cemetery authority cluster
+        run: node scripts/data/validate-national-cemetery-authority.mjs
+
       - name: Validate AdSense-facing finance content depth
         run: node scripts/data/validate-adsense-content-depth.mjs
 

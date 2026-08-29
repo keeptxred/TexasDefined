@@ -90,6 +90,6 @@ const nationalCemeteryDetails: Record<string, NationalCemeteryDetails> = {
 export function enrichNationalCemeteryDestination(destination: Destination): Destination {
   const details = nationalCemeteryDetails[destination.slug];
   return details
-    ? { ...destination, ...details, sourceCheckedAt: "2026-08-21", managingAuthority: "U.S. Department of Veterans Affairs — National Cemetery Administration" }
+    ? { ...destination, ...details, sourceCheckedAt: "2026-08-29", managingAuthority: "U.S. Department of Veterans Affairs — National Cemetery Administration" }
     : destination;
 }
