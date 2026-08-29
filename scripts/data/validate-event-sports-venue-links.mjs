@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises';
 
 const read = (path) => fs.readFile(path, 'utf8');
-const [resolver, eventCard, eventsRoute, corrections, generatedEvents, countyEventsServer, countyEventsBridge, countyDestinations, eventPage] = await Promise.all([
+const [resolver, eventCard, eventsRoute, corrections, generatedEvents, countyEventsServer, countyEventsBridge, countyDestinations, eventPage, dateFormatting] = await Promise.all([
   read('src/data/sports-venue-event-links.ts'),
   read('src/components/editorial/EventCard.tsx'),
   read('src/routes/events.tsx'),
@@ -11,6 +11,7 @@ const [resolver, eventCard, eventsRoute, corrections, generatedEvents, countyEve
   read('src/data/county-major-events.ts'),
   read('src/components/sports/CountySportsDestinations.tsx'),
   read('src/data/major-event-page.server.ts'),
+  read('src/domain/utils/format.ts'),
 ]);
 
 const errors = [];
@@ -72,6 +73,10 @@ assert(generatedEvents.includes('event.city.trim().toLowerCase()'), 'Recurring-e
 assert(generatedEvents.includes('merged.set(eventIdentityKey(event), event)'), 'Curated and generated event rows must merge through the recurring-event identity key.');
 assert(!generatedEvents.includes('`${event.name.toLowerCase()}:${event.startDate}`'), 'Event merge must not regress to name + date identity, which permits duplicate stale occurrences.');
 
+// A one-day event may carry an explicit endDate equal to startDate. Rendering that as
+// "August 30–30" is misleading, so the shared formatter must collapse equal endpoints.
+assert(dateFormatting.includes('if (!endIso || endIso === startIso) return formatDate(startIso, locale);'), 'Single-day date ranges must collapse equal start/end dates to one formatted date.');
+
 // County pages must discover major-event authority through the server-only registry instead
 // of importing the long-form event tranches into the client bundle.
 assert(countyEventsServer.includes('loadSupplementalMajorEventRecordsServer'), 'County event lookup must include supplemental server-only event authority records.');
@@ -95,4 +100,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Event integrity validated: exact sports-venue links, recurring-event dedupe, and bidirectional server-backed county event discovery are protected.');
+console.log('Event integrity validated: exact sports-venue links, recurring-event dedupe, single-day date formatting, and bidirectional server-backed county event discovery are protected.');
