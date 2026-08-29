@@ -10,6 +10,7 @@ const readRouteSurface = (file) => {
 const sitemap = read('src/routes/sitemap[.]xml.ts');
 const hub = readRouteSurface('src/routes/texas-data.tsx');
 const detail = read('src/routes/texas-data.$datasetSlug.tsx');
+const detailLazy = read('src/routes/texas-data.$datasetSlug.lazy.tsx');
 
 const checks = [
   [sitemap, 'TEXAS_DATASETS.map((dataset)', 'Sitemap must enumerate Texas dataset routes'],
@@ -29,10 +30,14 @@ const checks = [
   [hub, 'Data from across Texas Defined', 'Texas data hub must visibly distinguish cross-vertical reference datasets from native data briefs'],
   [hub, 'Texas Sports Venue Comparison', 'Texas data hub must visibly link the sports comparison'],
   [hub, 'Capacity and opening fields remain blank when the verified profile does not contain a usable value.', 'Texas data hub must preserve sports missing-value guidance'],
+  [detail, "const { getTexasDataset } = await import('@/data/texas-data-center')", 'Dataset detail route must keep the maintained registry behind its loader'],
   [detail, "'@type': 'Dataset'", 'Dataset pages must declare Dataset schema'],
   [detail, 'variableMeasured: loaderData.rows.map', 'Dataset schema must describe visible measurements'],
   [detail, 'isBasedOn: loaderData.sourceUrl', 'Dataset schema must identify its source'],
   [detail, "'@type': 'BreadcrumbList'", 'Dataset pages must declare breadcrumbs'],
+  [detailLazy, "createLazyFileRoute('/texas-data/$datasetSlug')", 'Dataset detail UI must remain in the lazy route'],
+  [detailLazy, 'const dataset = Route.useLoaderData()', 'Dataset detail UI must consume loader-backed data'],
+  [detailLazy, '<CitationTrustPanel', 'Dataset detail lazy route must preserve source and methodology trust UI'],
 ];
 
 const failures = checks
@@ -41,6 +46,12 @@ const failures = checks
 
 if (hub.includes("from '@/data/texas-data-center'")) {
   failures.push('Texas data hub must keep the full dataset registry behind its loader instead of statically importing it into the client bundle.');
+}
+if (detail.includes("from '@/data/texas-data-center'")) {
+  failures.push('Dataset detail route must keep the full dataset registry behind its loader instead of statically importing it into the client bundle.');
+}
+if (detail.includes('CitationTrustPanel') || detail.includes('function Page()')) {
+  failures.push('Dataset detail page UI must remain in its lazy route so it does not inflate the protected eager client bundle.');
 }
 if (hub.includes("from '@/data/sports-venue-comparison'")) {
   failures.push('Texas data hub must link the sports dataset without importing the 84-row sports comparison payload.');
@@ -55,4 +66,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Texas data SEO validation passed, including loader-backed complete dataset discovery and lightweight DataCatalog distribution metadata for the sports venue comparison.');
+console.log('Texas data SEO validation passed, including loader-backed dataset discovery and lazy detail rendering that protects the eager client bundle.');
