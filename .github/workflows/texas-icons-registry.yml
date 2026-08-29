@@ -80,6 +80,8 @@ jobs:
         run: node scripts/data/validate-texas-icons-place-crosslinks.mjs
       - name: Validate Texas Icons category authority links
         run: node scripts/data/validate-texas-icons-category-authority-links.mjs
+      - name: Validate Texas Icons research readiness boundary
+        run: node scripts/data/validate-texas-icons-readiness.mjs
       - name: Validate Texas Icons server isolation
         run: node scripts/data/validate-texas-icons-server-isolation.mjs
       - name: Production build
