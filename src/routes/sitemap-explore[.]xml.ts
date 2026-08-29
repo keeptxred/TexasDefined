@@ -30,6 +30,15 @@ const EXPLORE_CATEGORY_SLUGS = new Set([
   "lakes-rivers", "major-springs", "state-parks", "national-parks", "caverns",
   "beaches-coast", "historic-sites", "road-trips", "small-towns", "food-bbq", "outdoors",
 ]);
+const EXPLORE_CATEGORY_ARTICLE_COUNTS = {
+  "lakes-rivers": 3,
+  "state-parks": 1,
+  "historic-sites": 1,
+  "road-trips": 3,
+  "small-towns": 2,
+  "food-bbq": 3,
+  "outdoors": 3,
+} as const;
 const EXPLORE_REGION_SLUGS = [
   "hill-country", "gulf-coast", "big-bend", "panhandle", "piney-woods", "prairies-lakes", "south-texas",
 ];
@@ -143,9 +152,15 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         const rawDestinations = usePreservedFallback ? preservedExploreDestinations : remoteDestinations;
         const destinations = resolveDestinationCatalog(rawDestinations);
 
-        const categorySlugs = [...new Set([...categories, ...supplementalExploreCategories]
+        const categoryCandidates = [...new Set([...categories, ...supplementalExploreCategories]
           .map((category) => category.slug)
-          .filter((slug) => EXPLORE_CATEGORY_SLUGS.has(slug) && isExploreCategoryIndexReady(slug)))];
+          .filter((slug) => EXPLORE_CATEGORY_SLUGS.has(slug)))];
+        const categorySlugs = categoryCandidates.filter((slug) => isExploreCategoryIndexReady(
+          slug,
+          (EXPLORE_CATEGORY_ARTICLE_COUNTS[slug as keyof typeof EXPLORE_CATEGORY_ARTICLE_COUNTS] ?? 0)
+            + destinations.filter((destination) => destination.category === slug).length
+            + (slug === "food-bbq" ? 1 : 0),
+        ));
         const regionSlugs = [...new Set([
           ...regions.map((region) => region.id),
           ...EXPLORE_REGION_SLUGS,
