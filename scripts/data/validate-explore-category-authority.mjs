@@ -18,6 +18,20 @@ for (const feature of [
 ]) {
   if (!route.includes(feature)) errors.push(`Inline Explore authority loader contract missing: ${feature}.`);
 }
+
+for (const feature of [
+  'const categorySeoOverrides: Partial<Record<string, { title: string; description: string }>> = {',
+  'title: "Texas Outdoors & Wildlife: Parks, Trails, Birding & Wild Places"',
+  'description: "Explore Texas outdoors by region, from state parks and hiking trails to wildlife, birding, dark skies, rivers and public lands, with seasonal access and safety guidance."',
+  'const categorySeo = categorySeoOverrides[loaderData.category.slug];',
+  'const metaTitle = categorySeo?.title ?? loaderData.category.name;',
+  'const metaDescription = categorySeo?.description ?? loaderData.category.description;',
+  'name: metaTitle, description: metaDescription',
+  'title: metaTitle, description: metaDescription',
+]) {
+  if (!route.includes(feature)) errors.push(`Outdoors GSC metadata contract missing: ${feature}.`);
+}
+
 for (const forbidden of [
   '@/data/explore-category-authority',
   '@tanstack/react-start',
@@ -76,4 +90,4 @@ if (errors.length) {
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
-console.log('Explore Outdoors and Caverns retain 700+ words, substantive sections, official sources, internal discovery, safe static markup, inline SSR/client asset delivery, and index readiness without a helper-module bundle cost.');
+console.log('Explore Outdoors and Caverns retain 700+ words, substantive sections, official sources, internal discovery, safe static markup, inline SSR/client asset delivery, index readiness, and the GSC-focused Outdoors title/description without a helper-module bundle cost.');
