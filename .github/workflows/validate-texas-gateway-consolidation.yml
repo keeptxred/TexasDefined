@@ -21,11 +21,13 @@ on:
       - "scripts/data/validate-texas-gateway-index-readiness.mjs"
       - "scripts/data/validate-texas-gateway-production-readiness.mjs"
       - "scripts/data/validate-texas-gateway-expansion-wave1.mjs"
+      - "scripts/data/validate-texas-gateway-editorial-audit.mjs"
       - "scripts/data/validate-texas-gateway-batch14-16-disposition.mjs"
       - "scripts/data/texas-gateway-batch14-16-disposition.json"
       - "scripts/data/audit-texas-gateway-depth.mjs"
       - "scripts/data/audit-texas-gateway-production-readiness.mjs"
       - "scripts/data/audit-texas-gateway-editorial-candidates.mjs"
+      - "scripts/data/texas-gateway-editorial-candidates-lib.mjs"
       - "scripts/data/texas-gateway-production-readiness-lib.mjs"
       - "scripts/data/texas-gateway-production-manifest.mjs"
       - "scripts/data/promote-texas-gateway.mjs"
@@ -68,10 +70,13 @@ jobs:
       - name: Validate gateway expansion wave 1 content readiness
         run: node scripts/data/validate-texas-gateway-expansion-wave1.mjs
 
+      - name: Validate gateway editorial audit semantics
+        run: node scripts/data/validate-texas-gateway-editorial-audit.mjs
+
       - name: Audit gateway production-readiness backlog
         run: node scripts/data/audit-texas-gateway-production-readiness.mjs
 
-      - name: Audit gateway editorial promotion candidates
+      - name: Audit gateway editorial staging and remediation cohorts
         run: node scripts/data/audit-texas-gateway-editorial-candidates.mjs
 
       - name: Validate shared indexation contract
