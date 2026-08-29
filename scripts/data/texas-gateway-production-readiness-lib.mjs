@@ -50,7 +50,9 @@ function stringsIn(node, values = []) {
     values.push([node.head.text, ...node.templateSpans.map((span) => span.literal.text)].join(" "));
     return values;
   }
-  ts.forEachChild(node, (child) => stringsIn(child, values));
+  ts.forEachChild(node, (child) => {
+    stringsIn(child, values);
+  });
   return values;
 }
 
@@ -175,7 +177,7 @@ function parseGatewayEnrichments(root) {
             const internalHrefs = enrichmentStrings.filter((value) => /^\/[a-z0-9]/i.test(value));
             enrichmentBySlug.set(slug, {
               file: path.relative(root, full).replaceAll("\\", "/"),
-              estimatedWords: strings.reduce((sum, value) => sum + wordCount(value), 0),
+              estimatedWords: strings.reduce((sum, value) => sum + wordCount(value), 0) + wordCount(sourceName),
               paragraphCount: countBlockType(bodyNode, "paragraph"),
               headingCount: countBlockType(bodyNode, "heading"),
               listBlockCount: countBlockType(bodyNode, "list"),
