@@ -39,6 +39,10 @@ export const supplementalMajorEventSlugs = [
   "texas-book-festival",
   "houston-art-car-parade",
   "mardi-gras-galveston",
+  "texas-state-forest-festival",
+  "bayou-city-art-festival-memorial-park",
+  "western-heritage-classic",
+  "bob-wills-day",
 ] as const;
 
 export function loadSupplementalMajorEventRecordsServer() {
