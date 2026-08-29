@@ -50,7 +50,7 @@ const serverSlugs = extractSlugs(serverRegistry);
 if (JSON.stringify(bridgeSlugs) !== JSON.stringify(serverSlugs)) {
   failures.push('Sitemap-safe Texas dataset metadata must stay in exact slug parity with the full server registry.');
 }
-if (bridge.includes('sourceUrl:') || bridge.includes('methodology:') && bridge.includes('rows: [')) {
+if (bridge.includes("sourceName: '") || bridge.includes("sourceUrl: '") || bridge.includes("methodology: '") || bridge.includes('rows: [')) {
   failures.push('Texas data bridge must not duplicate source methodology and measurement rows into emitted client JavaScript.');
 }
 if (hub.includes("from '@/data/sports-venue-comparison'")) {
