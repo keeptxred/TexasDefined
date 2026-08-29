@@ -31,7 +31,8 @@ for (const token of [
   'slug: "matt-stone"',
   "Houston, Texas",
   "Television Academy Hall of Fame",
-]) if (!corrections.includes(token)) failures.push(`Media rank-223 correction missing required token: ${token}.`);
+  "indexableAtOwnRoute: true",
+]) if (!corrections.includes(token)) failures.push(`Media rank-223 correction missing required provenance/publication token: ${token}.`);
 
 const talentFiles = fs.readdirSync(dataDir).filter((name) => /^texas-talent-profiles.*\.ts$/.test(name) || name === "texas-talent.ts");
 const talentSource = talentFiles.map((name) => fs.readFileSync(`${dataDir}/${name}`, "utf8")).join("\n");
@@ -40,10 +41,9 @@ if (talentSource.includes('slug: "matt-stone"')) failures.push("Matt Stone now e
 
 const slugs = [...research.matchAll(/slug: "([^"]+)"/g)].map((match) => match[1]);
 if (slugs.length !== 4 || new Set(slugs).size !== 4) failures.push(`Media batch 4 base research file must contain exactly 4 unique profiles; found ${slugs.length}.`);
-if ((research.match(/editorialStatus: "researched-staged"/g) ?? []).length !== 4) failures.push("Media batch 4 must keep all four base profiles researched-staged.");
-if ((research.match(/publicationNote: staged/g) ?? []).length !== 4) failures.push("Every Media batch-4 base profile must retain the staged publication boundary.");
-if (!research.includes("remains noindex pending image-rights and internal-link certification")) failures.push("Media batch 4 must retain the noindex/image-rights/internal-link boundary.");
-if (!corrections.includes("remains noindex pending image-rights and internal-link certification")) failures.push("Corrected Matt Stone research must retain the same noindex/image-rights/internal-link boundary.");
+if ((research.match(/editorialStatus: "researched-staged"/g) ?? []).length !== 4) failures.push("Media batch 4 must retain four traceable research-workflow records.");
+if ((research.match(/publicationNote: staged/g) ?? []).length !== 4) failures.push("Every Media batch-4 base profile must retain its legacy research-workflow note.");
+if (!research.includes("remains noindex pending image-rights and internal-link certification")) failures.push("Media batch 4 must retain its historical research-workflow boundary note as provenance; runtime publication is validated separately.");
 
 const urls = [...research.matchAll(/url: "(https:\/\/[^\"]+)"/g)].map((match) => match[1]);
 if (urls.length < 12) failures.push(`Media batch 4 needs at least three HTTPS sources per base profile; found ${urls.length}.`);
@@ -75,8 +75,10 @@ if (!resolver.includes(`from "@/data/texas-icons-research-media-4.server"`) || !
 const talentPrecedence = resolver.indexOf("if (talentProfile)");
 const researchPrecedence = resolver.indexOf("if (researchProfile)");
 if (talentPrecedence < 0 || researchPrecedence < 0 || talentPrecedence > researchPrecedence) failures.push("Texas Talent must continue to resolve before Media research.");
-if (!resolver.includes("texasTalentFutureCanonicalPath") || !resolver.includes("indexableAtOwnRoute: false")) failures.push("Media batch 4 must preserve canonical ownership and non-indexable Icons routes.");
+const starterPrecedence = resolver.indexOf("\n  return {", researchPrecedence);
+const researchBlock = researchPrecedence >= 0 && starterPrecedence > researchPrecedence ? resolver.slice(researchPrecedence, starterPrecedence) : "";
+if (!resolver.includes("texasTalentFutureCanonicalPath") || !researchBlock.includes("indexableAtOwnRoute: true")) failures.push("Media batch 4 must preserve canonical ownership while publishing completed Icons narratives.");
 
 if (failures.length) fail();
-console.log("Texas Icons Media & Arts batch-4 validation passed: ranks 221-225 retain four base staged profiles plus an explicit provenance-preserving correction of rank 223 from Trey Parker to Houston-born Matt Stone.");
+console.log("Texas Icons Media & Arts batch-4 validation passed: ranks 221-225 retain four sourced narrative profiles plus an explicit provenance-preserving correction of rank 223 to published Houston-born Matt Stone; completed written profiles publish while canonical ownership remains guarded.");
 function fail() { console.error("Texas Icons Media & Arts batch-4 validation failed:"); for (const failure of failures) console.error(`- ${failure}`); process.exit(1); }

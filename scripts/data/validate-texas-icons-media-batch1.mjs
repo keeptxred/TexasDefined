@@ -1,6 +1,5 @@
 import fs from "node:fs";
 
-// Contract for the owner-supplied Media & Arts ranks 191-200 cohort.
 const sourcePath = "src/data/texas-icons-source-media-symbols.server.ts";
 const researchPath = "src/data/texas-icons-research-media-1.server.ts";
 const resolverPath = "src/data/texas-icons.server.ts";
@@ -27,20 +26,14 @@ const entries = [
   { rank: 200, name: "Renée Zellweger", slug: "renee-zellweger", mode: "reuse" },
 ];
 
-for (const entry of entries) {
-  if (!source.includes(`${entry.rank},${entry.name},Media & Arts,`)) failures.push(`Media & Arts roster drift at rank ${entry.rank}: expected ${entry.name}.`);
-}
+for (const entry of entries) if (!source.includes(`${entry.rank},${entry.name},Media & Arts,`)) failures.push(`Media & Arts roster drift at rank ${entry.rank}: expected ${entry.name}.`);
 const researchEntries = entries.filter((entry) => entry.mode === "research");
 const reuseEntries = entries.filter((entry) => entry.mode === "reuse");
 if (researchEntries.length !== 4 || reuseEntries.length !== 6) failures.push("Media ranks 191-200 must remain exactly 4 Icons research profiles + 6 Texas Talent reuses.");
-
-for (const entry of researchEntries) {
-  if (!research.includes(`slug: "${entry.slug}"`)) failures.push(`Missing Media batch-1 research profile: ${entry.slug}.`);
-}
+for (const entry of researchEntries) if (!research.includes(`slug: "${entry.slug}"`)) failures.push(`Missing Media batch-1 research profile: ${entry.slug}.`);
 if ((research.match(/editorialStatus: "researched-staged"/g) ?? []).length !== 4) failures.push("Media batch 1 must contain exactly four researched-staged profiles.");
 if ((research.match(/publicationNote: staged/g) ?? []).length !== 4) failures.push("Every Media batch-1 research profile must retain the shared publication boundary.");
 if ((research.match(/lastReviewedAt: reviewed/g) ?? []).length !== 4) failures.push("Every Media batch-1 research profile must retain a reviewed date.");
-if (!research.includes("remains noindex pending image-rights and internal-link certification")) failures.push("Media batch 1 must retain the noindex/image-rights/internal-link publication boundary.");
 
 const urls = [...research.matchAll(/url: "(https:\/\/[^\"]+)"/g)].map((match) => match[1]);
 if (urls.length < 12) failures.push(`Media batch 1 needs at least three HTTPS sources per research profile; found ${urls.length}.`);
@@ -52,21 +45,8 @@ for (const entry of researchEntries) {
   const profileUrls = [...block.matchAll(/url: "(https:\/\/[^\"]+)"/g)].map((match) => match[1]);
   if (new Set(profileUrls).size < 3) failures.push(`Media batch-1 profile ${entry.slug} must retain at least three distinct HTTPS sources.`);
 }
-for (const token of [
-  "born in St. Joseph, Missouri",
-  "Houston Press",
-  "San Jacinto College",
-  "Dirty Dancing",
-  "University of Texas at Austin",
-  "The Royal Tenenbaums",
-  "St. Mark's School of Texas",
-  "Bottle Rocket",
-]) {
-  if (!research.includes(token)) failures.push(`Media batch 1 is missing required accuracy/context token: ${token}.`);
-}
-for (const domain of ["utexas.edu", "utpress.utexas.edu", "walkoffame.com", "biography.com", "sanjac.edu", "oscars.org", "dallaslibrary2.org", "austinchronicle.com", "offcamera.vhx.tv"]) {
-  if (!research.includes(domain)) failures.push(`Media batch 1 is missing expected authority/source domain: ${domain}.`);
-}
+for (const token of ["born in St. Joseph, Missouri","Houston Press","San Jacinto College","Dirty Dancing","University of Texas at Austin","The Royal Tenenbaums","St. Mark's School of Texas","Bottle Rocket"]) if (!research.includes(token)) failures.push(`Media batch 1 is missing required accuracy/context token: ${token}.`);
+for (const domain of ["utexas.edu", "utpress.utexas.edu", "walkoffame.com", "biography.com", "sanjac.edu", "oscars.org", "dallaslibrary2.org", "austinchronicle.com", "offcamera.vhx.tv"]) if (!research.includes(domain)) failures.push(`Media batch 1 is missing expected authority/source domain: ${domain}.`);
 
 const talentFiles = fs.readdirSync(dataDir).filter((name) => /^texas-talent-profiles.*\.ts$/.test(name) || name === "texas-talent.ts");
 const talentSource = talentFiles.map((name) => fs.readFileSync(`${dataDir}/${name}`, "utf8")).join("\n");
@@ -74,26 +54,17 @@ for (const entry of reuseEntries) {
   if (!talentSource.includes(`slug: "${entry.slug}"`)) failures.push(`${entry.slug} must continue to reuse an existing Texas Talent record.`);
   if (research.includes(`slug: "${entry.slug}"`)) failures.push(`${entry.slug} must not gain a duplicate Texas Icons research profile.`);
 }
-for (const entry of researchEntries) {
-  if (talentSource.includes(`slug: "${entry.slug}"`)) failures.push(`${entry.slug} now exists in Texas Talent and must be reconciled instead of duplicated in Media research.`);
-}
+for (const entry of researchEntries) if (talentSource.includes(`slug: "${entry.slug}"`)) failures.push(`${entry.slug} now exists in Texas Talent and must be reconciled instead of duplicated in Media research.`);
 
-for (const token of [
-  "TEXAS_ICON_RESEARCH_MEDIA_BATCH_1",
-  'from "@/data/texas-icons-research-media-1.server"',
-  "...TEXAS_ICON_RESEARCH_MEDIA_BATCH_1",
-]) {
-  if (!resolver.includes(token)) failures.push(`Media batch-1 resolver wiring missing: ${token}.`);
-}
+for (const token of ["TEXAS_ICON_RESEARCH_MEDIA_BATCH_1",'from "@/data/texas-icons-research-media-1.server"',"...TEXAS_ICON_RESEARCH_MEDIA_BATCH_1"]) if (!resolver.includes(token)) failures.push(`Media batch-1 resolver wiring missing: ${token}.`);
 const talentPrecedence = resolver.indexOf("if (talentProfile)");
 const researchPrecedence = resolver.indexOf("if (researchProfile)");
 if (talentPrecedence < 0 || researchPrecedence < 0 || talentPrecedence > researchPrecedence) failures.push("Texas Talent must continue to resolve before Texas Icons research profiles.");
 const researchBlock = resolver.match(/if \(researchProfile\) \{([\s\S]*?)\n  \}/)?.[1] ?? "";
-if (!researchBlock.includes('reuseKind: "icon-research-staged"') || !researchBlock.includes("indexableAtOwnRoute: false")) failures.push("Media research drafts must remain non-indexable at their own routes.");
+if (!researchBlock.includes('reuseKind: "icon-research-staged"') || !researchBlock.includes("indexableAtOwnRoute: true")) failures.push("Substantive Media research profiles must publish at their canonical Texas Icons routes while data-only starter records remain withheld.");
 
 if (failures.length) fail();
-console.log("Texas Icons Media & Arts batch-1 validation passed: ranks 191-200 preserve six Texas Talent reuses, four substantive staged research profiles, source depth, duplicate safety and noindex publication boundaries.");
-
+console.log("Texas Icons Media & Arts batch-1 validation passed: ranks 191-200 preserve six Texas Talent reuses, four substantive sourced research profiles, source depth, duplicate safety and canonical written-content publication.");
 function fail() {
   console.error("Texas Icons Media & Arts batch-1 validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);

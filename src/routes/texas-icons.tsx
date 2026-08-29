@@ -38,17 +38,17 @@ function TexasIconsHub() {
           <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">
             This registry connects influential Texans, cultural institutions, sports figures,
             landmarks, foods and symbols without duplicating profiles TexasDefined already has.
-            Existing authority pages stay canonical; new subjects remain in the research queue
-            until they meet the same source, depth, image and internal-link standards as the rest
-            of the site.
+            Existing authority pages stay canonical. Pure roster data can remain internal, but once
+            TexasDefined writes a substantive sourced profile, that content publishes instead of
+            sitting in a permanent unpublished queue.
           </p>
 
           <dl className="mt-8 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-5">
             <Stat value={stats.total} label="Roster entries" />
             <Stat value={stats.canonicalReused} label="Existing canonical pages reused" />
-            <Stat value={stats.talentReused} label="Existing Talent records reused" />
-            <Stat value={stats.researchedStaged} label="Researched drafts" />
-            <Stat value={stats.researchQueue} label="Still in research queue" />
+            <Stat value={stats.talentReused} label="Texas Talent records reused" />
+            <Stat value={stats.researchedStaged} label="Written profiles published" />
+            <Stat value={stats.researchQueue} label="Data-only records" />
           </dl>
         </header>
 
@@ -56,27 +56,22 @@ function TexasIconsHub() {
           <div className="grid gap-5 lg:grid-cols-[14rem_1fr]">
             <div>
               <p className="eyebrow text-primary">Publication rule</p>
-              <h2 className="mt-2 font-display text-3xl">No duplicate or thin profile pages</h2>
+              <h2 className="mt-2 font-display text-3xl">Data stays data; written profiles publish</h2>
             </div>
             <div className="max-w-3xl space-y-3 text-sm leading-7 text-muted-foreground">
               <p>
-                The complete 250-entry directory is a standalone public index of the Texas Icons
-                roster. A roster match to an existing Texas Talent record or knowledge-graph
-                destination is reused rather than copied, and direct canonical overrides are
-                reserved for high-confidence TexasDefined authority pages.
+                The 250-entry roster can exist as structured data used for directories, related-link
+                systems and editorial planning. Those short intake records are not articles and do not get standalone public profile pages.
               </p>
               <p>
-                Roster-only starter records are cross-linked for editorial work but stay
-                <strong className="text-foreground"> noindex</strong> until the profile has
-                substantive biography or subject depth, verified sources, appropriate imagery,
-                and reviewed internal links. The short roster notes below are intake provenance,
-                not substitutes for research.
+                Once a subject has substantive narrative depth, verified sources and the normal
+                TexasDefined quality checks, the completed profile publishes at its canonical route.
+                We do not write full articles merely to leave them permanently unpublished or noindex.
               </p>
               <p>
-                A <strong className="text-foreground">researched draft</strong> has passed a
-                substantive source-and-copy pass, but its individual profile still remains noindex
-                until image rights and internal-link review are separately certified. Research progress alone never
-                turns an unfinished profile public for search.
+                Existing authority pages and Texas Talent ownership still take precedence so one
+                subject does not split into competing biographies. When a stronger canonical owner
+                exists, Texas Icons links or redirects to it rather than publishing a duplicate.
               </p>
             </div>
           </div>
@@ -106,27 +101,7 @@ function TexasIconsHub() {
                 </div>
 
                 <ol className="grid gap-px bg-border sm:grid-cols-2 xl:grid-cols-3">
-                  {category.icons.map((icon) => (
-                    <li key={icon.slug} className="bg-background">
-                      <a href={icon.href} className="group block h-full p-5 hover:bg-muted/40">
-                        <div className="flex items-start justify-between gap-4">
-                          <span className="text-xs font-semibold tabular-nums text-muted-foreground">
-                            #{String(icon.rank).padStart(3, "0")}
-                          </span>
-                          <ReuseBadge kind={icon.reuseKind} />
-                        </div>
-                        <strong className="mt-4 block font-display text-2xl leading-tight group-hover:text-primary">
-                          {icon.name}
-                        </strong>
-                        <p className="mt-3 line-clamp-3 text-sm leading-6 text-muted-foreground">
-                          {icon.summary}
-                        </p>
-                        <span className="mt-4 inline-block text-sm font-semibold text-primary">
-                          {icon.href.startsWith("/texas-icons/") ? "Open profile" : "Open canonical guide"} →
-                        </span>
-                      </a>
-                    </li>
-                  ))}
+                  {category.icons.map((icon) => <IconCard key={icon.slug} icon={icon} />)}
                 </ol>
               </div>
             </section>
@@ -134,6 +109,38 @@ function TexasIconsHub() {
         </div>
       </main>
     </Container>
+  );
+}
+
+function IconCard({ icon }: { icon: ReturnType<typeof Route.useLoaderData>["categories"][number]["icons"][number] }) {
+  const ownRoute = icon.href === `/texas-icons/${icon.slug}`;
+  const hasPublicDestination = !ownRoute || icon.indexableAtOwnRoute;
+  const card = (
+    <>
+      <div className="flex items-start justify-between gap-4">
+        <span className="text-xs font-semibold tabular-nums text-muted-foreground">
+          #{String(icon.rank).padStart(3, "0")}
+        </span>
+        <ReuseBadge kind={icon.reuseKind} />
+      </div>
+      <strong className={`mt-4 block font-display text-2xl leading-tight ${hasPublicDestination ? "group-hover:text-primary" : ""}`}>
+        {icon.name}
+      </strong>
+      <p className="mt-3 line-clamp-3 text-sm leading-6 text-muted-foreground">{icon.summary}</p>
+      <span className="mt-4 inline-block text-sm font-semibold text-primary">
+        {hasPublicDestination
+          ? icon.href.startsWith("/texas-icons/") ? "Open profile →" : "Open canonical guide →"
+          : "Data-only roster record"}
+      </span>
+    </>
+  );
+
+  return (
+    <li className="bg-background">
+      {hasPublicDestination
+        ? <a href={icon.href} className="group block h-full p-5 hover:bg-muted/40">{card}</a>
+        : <div className="block h-full p-5">{card}</div>}
+    </li>
   );
 }
 
@@ -166,11 +173,9 @@ function ReuseBadge({ kind }: { kind: string }) {
       ? "Canonical"
       : kind === "texas-talent-ready"
         ? "Existing profile"
-        : kind === "texas-talent-staged"
-          ? "Existing draft"
-          : kind === "icon-research-staged"
-            ? "Researched draft"
-            : "Research queue";
+        : kind === "texas-talent-staged" || kind === "icon-research-staged"
+          ? "Published profile"
+          : "Data only";
 
   return (
     <span className="rounded-full border border-border px-2 py-1 text-[0.64rem] font-semibold uppercase tracking-[0.1em] text-muted-foreground">

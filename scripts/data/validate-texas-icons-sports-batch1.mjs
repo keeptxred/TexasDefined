@@ -27,76 +27,35 @@ const entries = [
 ];
 
 for (const entry of entries) {
-  if (!source.includes(`${entry.rank},${entry.name},Sports,`)) {
-    failures.push(`Sports roster drift at rank ${entry.rank}: expected ${entry.name}.`);
-  }
+  if (!source.includes(`${entry.rank},${entry.name},Sports,`)) failures.push(`Sports roster drift at rank ${entry.rank}: expected ${entry.name}.`);
   if (!research.includes(`slug: "${entry.slug}"`)) failures.push(`Missing Sports batch-1 research profile: ${entry.slug}.`);
 }
-
 if ((research.match(/editorialStatus: "researched-staged"/g) ?? []).length !== 10) failures.push("Sports batch 1 must contain exactly ten researched-staged profiles.");
 if ((research.match(/publicationNote:/g) ?? []).length !== 10) failures.push("Every Sports batch-1 profile must retain a publication boundary note.");
 if ((research.match(/lastReviewedAt: reviewed/g) ?? []).length !== 10) failures.push("Every Sports batch-1 profile must retain a reviewed date.");
-if ((research.match(/remains noindex pending image-rights and internal-link certification/g) ?? []).length !== 10) failures.push("Every Sports batch-1 profile must explicitly retain the noindex/image-rights/internal-link publication boundary.");
 
 const sourceUrls = [...research.matchAll(/url: "(https:\/\/[^\"]+)"/g)].map((match) => match[1]);
 if (sourceUrls.length < 30) failures.push(`Sports batch 1 needs at least three HTTPS sources per profile; found ${sourceUrls.length}.`);
-for (const domain of [
-  "baseballhall.org",
-  "usagym.org",
-  "profootballhof.com",
-  "tshaonline.org",
-  "heisman.com",
-  "texaslonghorns.com",
-  "hoophall.com",
-  "nba.com",
-  "ibhof.com",
-  "houstonchronicle.com",
-]) {
-  if (!research.includes(domain)) failures.push(`Sports batch 1 is missing expected authority/source domain: ${domain}.`);
-}
-
-for (const token of [
-  "5,714",
-  "Spring",
-  "flex defense",
-  "Tyler Rose",
-  "18,355",
-  "Oklahoma",
-  "Vietnam",
-  "Lagos",
-  "St. Croix",
-  "age 45",
-]) {
-  if (!research.includes(token)) failures.push(`Sports batch 1 is missing required editorial context: ${token}.`);
-}
+for (const domain of ["baseballhall.org","usagym.org","profootballhof.com","tshaonline.org","heisman.com","texaslonghorns.com","hoophall.com","nba.com","ibhof.com","houstonchronicle.com"]) if (!research.includes(domain)) failures.push(`Sports batch 1 is missing expected authority/source domain: ${domain}.`);
+for (const token of ["5,714","Spring","flex defense","Tyler Rose","18,355","Oklahoma","Vietnam","Lagos","St. Croix","age 45"]) if (!research.includes(token)) failures.push(`Sports batch 1 is missing required editorial context: ${token}.`);
 
 const talentFiles = fs.readdirSync("src/data")
   .filter((name) => /^texas-talent-profiles.*\.ts$/.test(name))
   .map((name) => [name, fs.readFileSync(`src/data/${name}`, "utf8")]);
 for (const entry of entries) {
   for (const [name, talentSource] of talentFiles) {
-    if (talentSource.includes(`slug: "${entry.slug}"`)) {
-      failures.push(`${entry.slug} now exists in ${name}; reconcile to Texas Talent reuse instead of keeping a duplicate Sports research profile.`);
-    }
+    if (talentSource.includes(`slug: "${entry.slug}"`)) failures.push(`${entry.slug} now exists in ${name}; reconcile to Texas Talent reuse instead of keeping a duplicate Sports research profile.`);
   }
 }
-
-for (const token of [
-  "TEXAS_ICON_RESEARCH_SPORTS_BATCH_1",
-  'from "@/data/texas-icons-research-sports-1.server"',
-  "...TEXAS_ICON_RESEARCH_SPORTS_BATCH_1",
-]) {
-  if (!resolver.includes(token)) failures.push(`Sports batch-1 resolver wiring missing: ${token}.`);
-}
+for (const token of ["TEXAS_ICON_RESEARCH_SPORTS_BATCH_1",'from "@/data/texas-icons-research-sports-1.server"',"...TEXAS_ICON_RESEARCH_SPORTS_BATCH_1"]) if (!resolver.includes(token)) failures.push(`Sports batch-1 resolver wiring missing: ${token}.`);
 const talentPrecedence = resolver.indexOf("if (talentProfile)");
 const researchPrecedence = resolver.indexOf("if (researchProfile)");
 if (talentPrecedence < 0 || researchPrecedence < 0 || talentPrecedence > researchPrecedence) failures.push("Texas Talent must continue to resolve before Texas Icons research profiles.");
-const stagedResearchBlock = resolver.match(/if \(researchProfile\) \{([\s\S]*?)\n  \}/)?.[1] ?? "";
-if (!stagedResearchBlock.includes('reuseKind: "icon-research-staged"') || !stagedResearchBlock.includes("indexableAtOwnRoute: false")) failures.push("Sports batch-1 research drafts must remain non-indexable at their own routes.");
+const researchPublicationBlock = resolver.match(/if \(researchProfile\) \{([\s\S]*?)\n  \}/)?.[1] ?? "";
+if (!researchPublicationBlock.includes('reuseKind: "icon-research-staged"') || !researchPublicationBlock.includes("indexableAtOwnRoute: true")) failures.push("Substantive Sports batch-1 research profiles must publish at their canonical Texas Icons routes while data-only starter records remain withheld.");
 
 if (failures.length) fail();
-console.log("Texas Icons Sports batch-1 validation passed: ranks 101–110 contain ten substantive staged research profiles, no Texas Talent duplicates, source depth, factual Texas framing and noindex publication boundaries.");
-
+console.log("Texas Icons Sports batch-1 validation passed: ranks 101–110 contain ten substantive sourced research profiles, no Texas Talent duplicates, source depth, factual Texas framing and canonical written-content publication.");
 function fail() {
   console.error("Texas Icons Sports batch-1 validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);

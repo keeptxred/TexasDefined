@@ -38,7 +38,6 @@ for (const [rank, name, slug] of unresolved) {
 }
 if ((research.match(/editorialStatus: "researched-staged"/g) ?? []).length !== 7) failures.push("Business batch 4 must contain exactly seven researched-staged profiles and leave three unresolved roster rows as starters.");
 if ((research.match(/publicationNote:/g) ?? []).length !== 7) failures.push("Every researched Business batch-4 profile must retain a publication boundary note.");
-if ((research.match(/remains noindex pending image-rights and internal-link certification/g) ?? []).length !== 7) failures.push("Every researched Business batch-4 profile must retain the noindex/image-rights/internal-link boundary.");
 
 const urls = [...research.matchAll(/url: "(https:\/\/[^\"]+)"/g)].map((match) => match[1]);
 if (urls.length < 21) failures.push(`Business batch 4 needs at least three HTTPS sources per verified profile; found ${urls.length}.`);
@@ -52,41 +51,25 @@ for (let i = 0; i < researched.length; i += 1) {
   if (new Set(profileUrls).size < 3) failures.push(`Business batch-4 profile ${slug} must retain at least three distinct HTTPS sources.`);
 }
 
-for (const token of [
-  "misclassifies Boz Scaggs",
-  "not a Plano technology inventor",
-  "Clear Channel Communications",
-  "Mays Business School",
-  "owned enslaved people",
-  "Union",
-  "Communications Act of 1934",
-  "Humanities Research Center",
-]) {
-  if (!research.includes(token)) failures.push(`Business batch 4 is missing required accuracy/context token: ${token}.`);
-}
+for (const token of ["misclassifies Boz Scaggs","not a Plano technology inventor","Clear Channel Communications","Mays Business School","owned enslaved people","Union","Communications Act of 1934","Humanities Research Center"]) if (!research.includes(token)) failures.push(`Business batch 4 is missing required accuracy/context token: ${token}.`);
 if (!research.includes("born in Canton, Ohio") || !research.includes("born in Springfield, Massachusetts") || !research.includes("born in Indiana")) failures.push("Business batch 4 must preserve non-Texas origins for Scaggs, Rice and Brackenridge.");
-for (const domain of ["bozscaggs.com", "yamaha.com", "mccombs.utexas.edu", "texaslonghorns.com", "tamu.edu", "rice.edu", "tshaonline.org", "utpress.utexas.edu", "sa.gov", "president.utexas.edu", "hrc.utexas.edu"]) {
-  if (!research.includes(domain)) failures.push(`Business batch 4 is missing expected authority/source domain: ${domain}.`);
-}
+for (const domain of ["bozscaggs.com", "yamaha.com", "mccombs.utexas.edu", "texaslonghorns.com", "tamu.edu", "rice.edu", "tshaonline.org", "utpress.utexas.edu", "sa.gov", "president.utexas.edu", "hrc.utexas.edu"]) if (!research.includes(domain)) failures.push(`Business batch 4 is missing expected authority/source domain: ${domain}.`);
 
 const slugs = [...research.matchAll(/slug: "([^"]+)"/g)].map((match) => match[1]);
 if (slugs.length !== 7 || new Set(slugs).size !== 7) failures.push(`Business batch 4 must contain exactly 7 unique verified profile slugs; found ${slugs.length} records and ${new Set(slugs).size} unique.`);
 const talentFiles = fs.readdirSync(dataDir).filter((name) => /^texas-talent-profiles.*\.ts$/.test(name));
 const talentSource = talentFiles.map((name) => fs.readFileSync(`${dataDir}/${name}`, "utf8")).join("\n");
-for (const slug of slugs) {
-  if (talentSource.includes(`slug: "${slug}"`)) failures.push(`Business duplicate detected: ${slug} now exists in Texas Talent and must be reconciled instead of duplicated.`);
-}
+for (const slug of slugs) if (talentSource.includes(`slug: "${slug}"`)) failures.push(`Business duplicate detected: ${slug} now exists in Texas Talent and must be reconciled instead of duplicated.`);
 
 const symbol = "TEXAS_ICON_RESEARCH_BUSINESS_BATCH_4";
 if (!resolver.includes(symbol) || !resolver.includes(`...${symbol}`)) failures.push("Business resolver must register TEXAS_ICON_RESEARCH_BUSINESS_BATCH_4.");
 const talentPrecedence = resolver.indexOf("if (talentProfile)");
 const researchPrecedence = resolver.indexOf("if (researchProfile)");
 if (talentPrecedence < 0 || researchPrecedence < 0 || talentPrecedence > researchPrecedence) failures.push("Texas Talent must continue to resolve before Texas Icons research profiles.");
-if (!resolver.includes("texasTalentFutureCanonicalPath") || !resolver.includes("indexableAtOwnRoute: false")) failures.push("Business batch 4 must preserve Texas Talent canonical ownership and non-indexable Icons research routes.");
+if (!resolver.includes("texasTalentFutureCanonicalPath") || !resolver.includes("indexableAtOwnRoute: true")) failures.push("Business batch 4 must preserve Texas Talent canonical ownership while verified substantive Icons research publishes at its own canonical route.");
 
 if (failures.length) fail();
-console.log("Texas Icons Business & Science batch-4 validation passed: ranks 181-190 contain seven verified staged profiles while Cyrus Vance, James Truett and Margarita Salas remain explicit unresolved roster-only starters.");
-
+console.log("Texas Icons Business & Science batch-4 validation passed: ranks 181-190 contain seven verified publishable narrative profiles while Cyrus Vance, James Truett and Margarita Salas remain explicit unresolved roster-only starters.");
 function fail() {
   console.error("Texas Icons Business & Science batch-4 validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
