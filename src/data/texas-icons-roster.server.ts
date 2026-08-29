@@ -43,6 +43,7 @@ const ALIASES: Readonly<Record<string, readonly string[]>> = {
   "Renée Zellweger": ["Renee Zellweger"],
   "José Altuve": ["Jose Altuve"],
   "Hakeem Olajuwon": ["Akeem Olajuwon"],
+  "Shaquille O'Neal": ["Shaquille O-Neal"],
   "Babe Didrikson Zaharias": ["Babe Didrikson"],
   "Davy Crockett": ["David Crockett"],
   "Stephen F. Austin": ["Stephen Fuller Austin"],
