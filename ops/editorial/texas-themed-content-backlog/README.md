@@ -20,37 +20,52 @@ This directory converts the 250 supplied Texas-themed ideas into a publication-s
 ## Current totals
 
 - **250 ideas** across 12 source categories
-- **205 SEO articles / 45 social-first lists**
+- **205 SEO articles / 45 social-first lists** in the source backlog
 - **34 high / 179 medium / 37 low priority**
 - **206 evergreen / 23 seasonal / 21 annual-review**
 - **111 normalized titles**
 - **250 unique slugs**
-- **120 substantive SEO drafts across 20 waves**
-- drafted-priority mix: **34 high + 85 medium + 1 low**
-- **all 34 original high-priority ideas have substantive drafts**
+- **250/250 ideas have an explicit editorial disposition**
+- **248 publication-gated Markdown drafts**
+  - 203 source SEO ideas have distinct drafts
+  - all 45 social-first ideas have drafts
+- **1 political idea routed to KeepTXRed:** `td-list-085`
+- **1 overlapping rail-depot idea consolidated:** `td-list-224`
 
-## Twenty-wave draft coverage
+### Priority disposition
 
-1. Camping, Piney Woods, bluebonnets, native plants, courthouses, roadside attractions.
-2. Fredericksburg, Amarillo, missions, Big Bend hiking, caverns, wildflowers.
-3. Bass fishing, tubing, mountain biking, Republic of Texas, Texas women, Independence Day.
-4. Stargazing, Alamo context, civil rights, power grid, interstates, water rights.
-5. History myths, real estate, industries, business relocation, oil fields, Gulf Coast culture.
-6. Inventions, colleges, family campgrounds, Hill Country camps, zoos/aquariums, school districts.
-7. Hill Country drives, San Antonio landmarks, coastal towns, canyons, fall color, waterfalls.
-8. Brisket towns, Tex-Mex, West kolaches, chicken-fried steak, desserts, pitmaster tools.
-9. County-name origins, architecture, musicians, rail depots, cowboy life, historic bridges.
-10. Texas birds, invasive species, Austin bats, historic trees, geology and horned lizards.
-11. Hidden-gem small towns, El Paso culture, Rio Grande Valley facts, statewide road trips, ghost towns and State Capitol history/myths.
-12. Austin vs Dallas, unusual town names, Fort Worth vs Dallas, Houston diversity, antiquing towns and walkable downtowns.
-13. Fourth of July, Fiesta San Antonio, county fairs, historic churches, spring break and Juneteenth.
-14. Modern engineering, historic ruins, visionary architecture, West Texas land art, lighthouses and restored theaters.
-15. Passenger/excursion rail, TxDOT rest areas, DFW/IAH airport planning, car emergency kits, professional-driver truck stops and Houston–Austin driving.
-16. No-income-tax implications, ranch-value factors, job sectors, suburban home styles, handmade Texas goods and custom bootmaking.
-17. School field trips, children’s museums, college-major research, Texas children’s books, unusual high-school mascots and conservation education.
-18. College sports rivalries, Texas-linked Olympic history, State Fair culture, Rangers, Astros and Spurs franchise milestones.
-19. Movies and television tied to Texas, authors/literary landmarks, visual artists, specialty museums and live-theater destinations.
-20. Backyard barbecue, Texas-style chili, regional taco trails, dance-hall food, fish fries and San Antonio puffy tacos.
+- **High:** 34 drafted / 34 total
+- **Medium:** 177 drafted + 1 routed to KTR + 1 consolidated / 179 total
+- **Low:** 37 drafted / 37 total
+
+See `DISPOSITIONS.md` for the two non-draft outcomes.
+
+## Draft coverage
+
+Waves 1–20 created the first 120 authority drafts across camping, regions, Texas history, utilities/law, economy, family/education, travel, food, architecture, transportation, sports and arts.
+
+Waves 21–41 completed the remaining backlog with:
+
+21. Texas language, highway etiquette, visitor surprises, football culture and regional identity.
+22. Wildlife safety, climbing, Gulf marine life, heat, weather and nature centers.
+23. Soils, accents, insects, porches, woodworking and building materials.
+24. Texas State Guard, livestock, country music, cemeteries, rural traditions and pecans.
+25. H-E-B/product culture, Texas companies, souvenirs, shopping districts, fashion and outlets.
+26. High-school stadiums, Austin music, public golf, country festivals, coaches and Houston Rodeo.
+27. Photogenic places, public underground sites, castle-like structures, ranch architecture and rock formations.
+28. Buc-ee’s, Whataburger, H-E-B food brands, craft breweries, salsa and food festivals.
+29. Austin food trucks, Gulf oysters, Hill Country wine, chicken-fried chicken, western wear and farmers markets.
+30. Flea markets, college-life orientation, luxury resorts, cowboy hats, historic general stores and local honey.
+31. Swimming holes, sunsets, geographic wonders, Texas-city songs, Longhorn history and legal hunting/OHV access.
+32. Texas Rangers, outlaws, haunted-hotel folklore, battles, Indigenous history and shipwrecks.
+33. Oil booms, speeches, cattle barons and museum/archive discoveries.
+34. Small-town festivals, Cowboys history, historic theaters, family attractions, songs about Texas women and sports broadcasters.
+35. Historical law-enforcement cases, defunct brands, outdoor patios and North Texas stargazing.
+36. Medium-priority social identity/seasonal concepts.
+37–38. Remaining low-priority Texas identity and pop-culture social concepts.
+39. Low-priority food, West Texas and folklore concepts.
+40. Low-priority education/family and roadside/architecture concepts.
+41. Remaining seasonal, DFW-driving and rural-life concepts.
 
 ## Publication safety
 
@@ -58,6 +73,6 @@ Every CSV row remains `publish_approved=no`. Every Markdown draft declares `stat
 
 Drafts are editorial assets only under `ops/editorial`. They are **not** connected to routes, runtime article fixtures, CMS publishing, sitemaps, deployment, social posting or automation. Promotion to any live system requires a separate explicit editorial decision.
 
-Freshness and verification can be stricter in the draft layer than in the source backlog. Current examples include official school/higher-ed data, tax/water law, wildlife status, transportation conditions, event calendars, sports records, Texas Film Commission production/location verification, literary landmarks, museum/theater access, food safety and current restaurant/dance-hall service.
+Freshness and verification can be stricter in the draft layer than in the source backlog. Current/high-risk examples include school/higher-ed data, tax/water law, wildlife and hunting rules, transportation conditions, extreme heat, events, sports records, Texas Film Commission production/location claims, food safety, restaurant/business status, alcohol-related travel, public/private access, law-enforcement/court history and Indigenous terminology.
 
-See `drafts/README.md` for exact files and promotion rules.
+See `drafts/README.md` for promotion rules and `DISPOSITIONS.md` for the two intentional non-draft outcomes.
