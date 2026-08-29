@@ -1,12 +1,15 @@
 import fs from 'node:fs/promises';
 
 const read = (path) => fs.readFile(path, 'utf8');
-const [resolver, eventCard, eventsRoute, corrections, generatedEvents] = await Promise.all([
+const [resolver, eventCard, eventsRoute, corrections, generatedEvents, countyEventsServer, countyEventsBridge, countyDestinations] = await Promise.all([
   read('src/data/sports-venue-event-links.ts'),
   read('src/components/editorial/EventCard.tsx'),
   read('src/routes/events.tsx'),
   read('src/data/knowledge-graph/current-entity-corrections.ts'),
   read('src/data/events-generated.ts'),
+  read('src/data/county-major-events.server.ts'),
+  read('src/data/county-major-events.ts'),
+  read('src/components/sports/CountySportsDestinations.tsx'),
 ]);
 
 const errors = [];
@@ -68,10 +71,21 @@ assert(generatedEvents.includes('event.city.trim().toLowerCase()'), 'Recurring-e
 assert(generatedEvents.includes('merged.set(eventIdentityKey(event), event)'), 'Curated and generated event rows must merge through the recurring-event identity key.');
 assert(!generatedEvents.includes('`${event.name.toLowerCase()}:${event.startDate}`'), 'Event merge must not regress to name + date identity, which permits duplicate stale occurrences.');
 
+// County pages must discover major-event authority through the server-only registry instead
+// of importing the long-form event tranches into the client bundle.
+assert(countyEventsServer.includes('loadSupplementalMajorEventRecordsServer'), 'County event lookup must include supplemental server-only event authority records.');
+assert(countyEventsServer.includes('event?.countySlug === normalizedCountySlug'), 'County event lookup must filter by the verified county slug.');
+assert(countyEventsServer.includes('.slice(0, 8)'), 'County event cards must stay bounded to a focused discovery set.');
+assert(countyEventsBridge.includes('createServerFn'), 'County major-event lookup must cross a server-function boundary.');
+assert(countyEventsBridge.includes('await import("./county-major-events.server")'), 'County event authority records must remain dynamically imported server-side.');
+assert(countyDestinations.includes('getCountyMajorEvents(county.slug)'), 'County pages must load major-event links by county identity.');
+assert(countyDestinations.includes('href={`/event/${event.slug}`}'), 'County major-event cards must link to permanent event authority URLs.');
+assert(!countyDestinations.includes('major-event-supplemental-registry.server'), 'County UI must not import the server-only supplemental authority registry directly.');
+
 if (errors.length) {
   console.error('Event integrity validation failed:');
   errors.forEach((error) => console.error(`- ${error}`));
   process.exit(1);
 }
 
-console.log('Event integrity validated: exact sports-venue links and recurring-event identity dedupe are protected.');
+console.log('Event integrity validated: exact sports-venue links, recurring-event dedupe, and server-backed county event discovery are protected.');
