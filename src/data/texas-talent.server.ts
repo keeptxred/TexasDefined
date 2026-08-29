@@ -28,6 +28,7 @@ import {
   auditTexasTalentEntityLinksFromGraph,
   resolveTexasTalentEntityLinksFromGraph,
 } from "@/data/texas-talent-links.server";
+import { resolveTexasTalentRelatedProfilesFromGraph } from "@/data/texas-talent-related.server";
 import { TEXAS_TALENT_READINESS } from "@/data/texas-talent-readiness";
 import { TEXAS_TALENT_READINESS_BATCH3 } from "@/data/texas-talent-readiness-batch3";
 import { TEXAS_TALENT_READINESS_BATCH4 } from "@/data/texas-talent-readiness-batch4";
@@ -164,11 +165,18 @@ export async function loadTexasTalentProfileWithResolvedLinksServer(slug: string
   const graph = await loadTexasKnowledgeGraph();
   const resolvedInternalLinks = resolveTexasTalentEntityLinksFromGraph(storedProfile, graph);
   const certifiedProfile = applyTexasTalentMechanicalLinkCertificationFromGraph(storedProfile, graph);
+  const relatedProfiles = resolveTexasTalentRelatedProfilesFromGraph(
+    storedProfile,
+    loadTexasTalentProfilesServer(),
+    graph,
+    6,
+  );
 
   return {
     ...certifiedProfile,
     storedInternalLinkReview: storedProfile.readiness.internalLinkReview,
     resolvedInternalLinks,
+    relatedProfiles,
     linkAudit: auditTexasTalentEntityLinksFromGraph(storedProfile, graph),
     launchMetadata: buildTexasTalentLaunchMetadata(storedProfile),
     launchAssessment: assessTexasTalentLaunchReadiness(certifiedProfile),
