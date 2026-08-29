@@ -17,9 +17,14 @@ const DATA_DESK_LINKS = [
     note: "The relocation-specific catalog for migration, jobs, insurance, traffic, source vintages and methodology.",
   },
   {
+    href: "/texas-data/texas-population-and-migration-2025",
+    label: "Current Texas population and migration snapshot",
+    note: "Current Census Vintage 2025 statewide population estimate and components of change.",
+  },
+  {
     href: "/texas-data/texas-population-and-migration-2024",
-    label: "Texas population and migration",
-    note: "Statewide components of population change from Census estimates.",
+    label: "Revised Texas 2024 population history",
+    note: "The 2023–2024 period restated on the same Vintage 2025 series for consistent historical comparison.",
   },
   {
     href: "/texas-data/where-new-texans-came-from-2024",
@@ -34,7 +39,7 @@ const DATA_DESK_LINKS = [
   {
     href: "/texas-data/texas-metro-payrolls-june-2026",
     label: "Texas metro employment",
-    note: "BLS metropolitan nonfarm payroll employment for June 2026.",
+    note: "BLS metropolitan nonfarm payroll employment for June 2026; next monthly release is scheduled September 2, 2026.",
   },
   {
     href: "/texas-data/texas-traffic-monitoring-coverage",
@@ -51,6 +56,7 @@ const CALCULATOR_LINKS = [
 ] as const;
 
 const RESEARCH_SOURCES = [
+  RELOCATION_SOURCES.censusPopulation,
   RELOCATION_SOURCES.censusCountyMigration,
   RELOCATION_SOURCES.blsMetro,
   RELOCATION_SOURCES.tdiInsurance,
