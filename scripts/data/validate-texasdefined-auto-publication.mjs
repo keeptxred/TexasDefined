@@ -19,6 +19,9 @@ const errors = [];
 for (const token of ['workflow_dispatch:', 'mode:', 'dry-run', 'publish', 'TEXASDEFINED_AUTO_PUBLISH_ENABLED', 'PUBLISH_TEXASDEFINED']) {
   if (!workflow.includes(token)) errors.push(`Workflow is missing ${token}`);
 }
+for (const token of ['Report activation state safely', 'TEXASDEFINED_AUTO_PUBLISH_ENABLED_PRESENT=false', 'TEXASDEFINED_AUTO_PUBLISH_ENABLED_TRUE=false', "mode: 'dry-run-summary'", 'published: 0', 'skipped: 0', 'failed: 0']) {
+  if (!workflow.includes(token)) errors.push(`Workflow observability contract is missing ${token}`);
+}
 if (/^\s*schedule:/m.test(workflow)) errors.push('Auto-publication schedule must remain disabled until activation is approved.');
 for (const token of ['ready_for_rewrite IS TRUE', 'classification_confidence', 'texas_relevance_score', 'source_reputation_score', 'security_invoker', 'publish_texasdefined_queue_item_v2', 'FROM anon, authenticated', "TO service_role"]) {
   if (!migration.includes(token)) errors.push(`Migration is missing ${token}`);
@@ -51,4 +54,4 @@ if (errors.length) {
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
-console.log('TexasDefined auto-publication is guarded, source-gated, image-gated, disabled by default, and isolated to feed-backed /news routes while manual evergreen content remains on canonical /article routes.');
+console.log('TexasDefined auto-publication is guarded, source-gated, image-gated, disabled by default, auditable for activation/dry-run counts, and isolated to feed-backed /news routes while manual evergreen content remains on canonical /article routes.');
