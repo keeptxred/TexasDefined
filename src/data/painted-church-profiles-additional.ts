@@ -1,7 +1,7 @@
-// Compatibility shim: canonical additions now live in painted-church-profiles-additions.ts.
-// Keep this export temporarily so older route imports do not fork the data source.
-import { paintedChurchAdditionProfileBySlug } from "./painted-church-profiles-additions";
+// Compatibility shim: older route imports resolve through the canonical profile index.
+// Keep this export temporarily so the public detail route cannot drift from newer profile layers.
+import { canonicalPaintedChurchProfileBySlug } from "./painted-church-profile-index";
 
 export function additionalPaintedChurchProfileBySlug(slug: string) {
-  return paintedChurchAdditionProfileBySlug(slug);
+  return canonicalPaintedChurchProfileBySlug(slug);
 }
