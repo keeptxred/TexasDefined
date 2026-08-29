@@ -57,6 +57,17 @@ export const supplementalMajorEventSlugs = [
   "texas-craft-brewers-festival",
   "texas-tribune-festival",
   "san-antonio-beer-festival",
+  "rodeo-austin",
+  "san-antonio-book-festival",
+  "pecan-street-festival",
+  "lone-star-rally",
+  "austin-city-limits-music-festival",
+  "austin-marathon",
+  "cowtown-marathon",
+  "bmw-dallas-marathon",
+  "chevron-houston-marathon",
+  "spurs-austin-international-half",
+  "atx-open",
 ] as const;
 
 export function loadSupplementalMajorEventRecordsServer() {
