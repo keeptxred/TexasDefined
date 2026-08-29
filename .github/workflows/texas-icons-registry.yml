@@ -9,11 +9,13 @@ on:
       - "src/data/texas-icons-source-*.server.ts"
       - "src/data/texas-icons-research-*.server.ts"
       - "src/data/texas-icons-editorial-holds.server.ts"
+      - "src/data/texas-icons-launch.ts"
       - "src/data/texas-icons.server.ts"
       - "src/data/texas-icons.functions.ts"
       - "src/lib/public-routes.ts"
       - "src/routes/texas-icons.tsx"
       - "src/routes/texas-icons_.$slug.tsx"
+      - "src/routes/sitemap[.]xml.ts"
       - "scripts/data/validate-texas-icons*.mjs"
       - ".github/workflows/texas-icons-registry.yml"
   workflow_dispatch:
@@ -76,12 +78,16 @@ jobs:
         run: node scripts/data/validate-texas-icons-roster-corrections.mjs
       - name: Validate Texas Icons disputed-intake editorial holds
         run: node scripts/data/validate-texas-icons-editorial-holds.mjs
+      - name: Validate Texas Icons terminal accounting
+        run: node scripts/data/validate-texas-icons-terminal-accounting.mjs
       - name: Validate Texas Icons place cross-links
         run: node scripts/data/validate-texas-icons-place-crosslinks.mjs
       - name: Validate Texas Icons category authority links
         run: node scripts/data/validate-texas-icons-category-authority-links.mjs
       - name: Validate Texas Icons research readiness boundary
         run: node scripts/data/validate-texas-icons-readiness.mjs
+      - name: Validate Texas Icons certified launch cohort
+        run: node scripts/data/validate-texas-icons-launch.mjs
       - name: Validate Texas Icons server isolation
         run: node scripts/data/validate-texas-icons-server-isolation.mjs
       - name: Production build
