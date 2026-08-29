@@ -12,6 +12,7 @@ import { TEXAS_CULTURAL_OBSERVATIONS_BATCH2 } from './cultural-observations-batc
 import { TEXAS_CULTURAL_OBSERVATIONS } from './cultural-observations';
 import { TEXAS_KNOWLEDGE_EXPANDED_SEED } from './seed-expanded';
 import { TEXAS_KNOWLEDGE_VERIFIED_BATCH2 } from './seed-verified-batch2';
+import { TEXAS_KNOWLEDGE_VERIFIED_BATCH3 } from './seed-verified-batch3';
 import { TEXAS_KNOWLEDGE_SEED } from './seed';
 import type { TexasKnowledgeDomain, TexasKnowledgeRecord } from './types';
 
@@ -27,6 +28,7 @@ export const TEXAS_KNOWLEDGE_CATALOG: readonly TexasKnowledgeRecord[] = [
   ...TEXAS_KNOWLEDGE_SEED,
   ...TEXAS_KNOWLEDGE_EXPANDED_SEED,
   ...TEXAS_KNOWLEDGE_VERIFIED_BATCH2,
+  ...TEXAS_KNOWLEDGE_VERIFIED_BATCH3,
   ...TEXAS_COUNTY_FACTS_BATCH1,
   ...TEXAS_COUNTY_FACTS_BATCH2,
   ...TEXAS_COUNTY_FACTS_BATCH3,
