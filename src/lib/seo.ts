@@ -83,6 +83,10 @@ const TEXASDEFINED_TECHNICAL_SEO_OVERRIDES: Record<string, { title: string; desc
     title: "Texas Lakes & Reservoirs: Major Water Systems Explained",
     description: "Learn why most Texas lakes are reservoirs, how dams reshape rivers, and how Lake Travis, Texoma, Canyon Lake and other systems store water.",
   },
+  "/article/texas-national-parks-big-bend-guadalupe-guide": {
+    title: "Big Bend & Guadalupe Mountains National Parks: Texas Guide",
+    description: "Compare Big Bend National Park and Guadalupe Mountains National Park in Texas, including landscapes, hiking, access, seasons and which park fits your trip.",
+  },
 };
 
 const SOCIAL_IMAGE_FALLBACKS: Partial<Record<BrandConfig["identity"]["id"], { src: string; alt: string; type: string }>> = {
