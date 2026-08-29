@@ -50,7 +50,9 @@ function stringsIn(node, values = []) {
     values.push([node.head.text, ...node.templateSpans.map((span) => span.literal.text)].join(" "));
     return values;
   }
-  ts.forEachChild(node, (child) => stringsIn(child, values));
+  ts.forEachChild(node, (child) => {
+    stringsIn(child, values);
+  });
   return values;
 }
 
