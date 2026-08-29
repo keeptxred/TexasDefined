@@ -1,15 +1,13 @@
-import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
 import { resolveTexasTalentEntityLinksFromGraph } from "@/data/texas-talent-links.server";
-import { loadTexasTalentProfilesServer } from "@/data/texas-talent.server";
+import type { TexasEntityRecord } from "@/data/knowledge-graph/types";
+import type { LoadedTexasTalentProfile } from "@/data/texas-talent-launch";
 import type { TexasTalentVerifiedInternalLink } from "@/data/texas-talent-readiness";
 
 export type TexasTalentRelatedProfile = {
   slug: string;
   name: string;
-  category: string;
   texasConnection: string;
   sameCategory: boolean;
-  score: number;
   sharedDestinations: readonly TexasTalentVerifiedInternalLink[];
 };
 
@@ -20,15 +18,12 @@ function linkWeight(link: TexasTalentVerifiedInternalLink) {
   return 2;
 }
 
-export async function loadTexasTalentRelatedProfilesServer(
-  slug: string,
+export function resolveTexasTalentRelatedProfilesFromGraph(
+  target: LoadedTexasTalentProfile,
+  profiles: readonly LoadedTexasTalentProfile[],
+  graph: readonly TexasEntityRecord[],
   limit = 6,
-): Promise<readonly TexasTalentRelatedProfile[]> {
-  const profiles = loadTexasTalentProfilesServer();
-  const target = profiles.find((profile) => profile.slug === slug);
-  if (!target) return [];
-
-  const graph = await loadTexasKnowledgeGraph();
+): readonly TexasTalentRelatedProfile[] {
   const targetLinks = resolveTexasTalentEntityLinksFromGraph(target, graph);
   const targetPaths = new Set(targetLinks.map((link) => link.href));
 
@@ -44,7 +39,6 @@ export async function loadTexasTalentRelatedProfilesServer(
       return {
         slug: candidate.slug,
         name: candidate.name,
-        category: candidate.category,
         texasConnection: candidate.texasConnection,
         sameCategory,
         score,
@@ -57,5 +51,6 @@ export async function loadTexasTalentRelatedProfilesServer(
         || b.sharedDestinations.length - a.sharedDestinations.length
         || a.name.localeCompare(b.name),
     )
-    .slice(0, Math.max(1, Math.min(limit, 8)));
+    .slice(0, Math.max(1, Math.min(limit, 8)))
+    .map(({ score: _score, ...candidate }) => candidate);
 }
