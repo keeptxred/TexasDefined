@@ -3,12 +3,6 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { PaintedChurchResearchDossier } from "@/components/editorial/PaintedChurchResearchDossier";
 import { Container } from "@/components/layout/Container";
-import { additionalPaintedChurchProfileBySlug } from "@/data/painted-church-profiles-additional";
-import { paintedChurchAdditionProfileBySlug } from "@/data/painted-church-profiles-additions";
-import { finalPaintedChurchProfileBySlug } from "@/data/painted-church-profiles-final";
-import { paintedChurchExtendedProfileBySlug } from "@/data/painted-church-profiles-extended";
-import { paintedChurchStatewideProfileBySlug } from "@/data/painted-church-profiles-statewide";
-import { paintedChurchProfileBySlug } from "@/data/painted-church-profiles";
 import { expandedPaintedChurchBySlug, expandedPaintedChurches } from "@/data/painted-churches-expanded";
 import { paintedChurchGalleryBySlug } from "@/data/painted-church-gallery";
 import { buildMeta, canonicalLink } from "@/lib/seo";
@@ -16,16 +10,11 @@ import { buildMeta, canonicalLink } from "@/lib/seo";
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
 export const Route = createFileRoute("/explore/painted-churches/$slug")({
-  loader: ({ params }) => {
+  loader: async ({ params }) => {
     const church = expandedPaintedChurchBySlug(params.slug);
     if (!church) throw notFound();
-    const profile =
-      paintedChurchProfileBySlug(params.slug) ??
-      paintedChurchExtendedProfileBySlug(params.slug) ??
-      paintedChurchStatewideProfileBySlug(params.slug) ??
-      finalPaintedChurchProfileBySlug(params.slug) ??
-      additionalPaintedChurchProfileBySlug(params.slug) ??
-      paintedChurchAdditionProfileBySlug(params.slug);
+    const { canonicalPaintedChurchProfileBySlug } = await import("@/data/painted-church-profile-index");
+    const profile = canonicalPaintedChurchProfileBySlug(params.slug);
     return { church, profile };
   },
   head: ({ loaderData, params }) => {
