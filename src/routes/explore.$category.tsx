@@ -8,6 +8,10 @@ import type { Destination } from "@/data/types";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
+const legacyExploreRedirects: Record<string, string> = {
+  "scenic-rivers": "/article/texas-rivers-explained",
+  "texas-dark-sky-stargazing": "/article/best-texas-stargazing-weekend-trips",
+};
 const categorySeoOverrides: Partial<Record<string, { title: string; description: string }>> = {
   outdoors: {
     title: "Texas Outdoors & Wildlife: Parks, Trails, Birding & Wild Places",
@@ -36,6 +40,12 @@ function destinationSchema(destination: Destination) {
 }
 
 export const Route = createFileRoute("/explore/$category")({
+  beforeLoad: ({ params, location }) => {
+    const target = legacyExploreRedirects[params.category];
+    if (target) {
+      throw redirect({ href: `${target}${location.searchStr || ""}`, statusCode: 301 });
+    }
+  },
   loader: async ({ context, params }) => {
     const categories = await context.queryClient.ensureQueryData(categoriesQuery());
     const category = categories.find((item) => item.slug === params.category);
