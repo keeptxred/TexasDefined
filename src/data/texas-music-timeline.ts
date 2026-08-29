@@ -120,6 +120,16 @@ export const TEXAS_MUSIC_TIMELINE: readonly TexasMusicTimelineEntry[] = [
     sourceLabel: "Billy Bob's Texas — Official History",
   },
   {
+    year: "1982",
+    title: "Selena y Los Dinos make Corpus Christi their base",
+    place: "Corpus Christi / Coastal Bend",
+    summary:
+      "After the Quintanilla family moved to Corpus Christi, Selena y Los Dinos built their career inside a South Texas Tejano ecosystem of dance halls, nightclubs, record stores, labels and studios that helped carry regional music to much larger audiences.",
+    href: "/corpus-christi-music-history",
+    sourceUrl: "https://www.tshaonline.org/handbook/entries/quintanilla-perez-selena-selena",
+    sourceLabel: "Handbook of Texas — Selena Quintanilla Perez",
+  },
+  {
     year: "1980s onward",
     title: "Texas hip-hop builds regional systems",
     place: "Houston, Port Arthur and Dallas-Fort Worth",
