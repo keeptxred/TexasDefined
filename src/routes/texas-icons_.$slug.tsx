@@ -92,15 +92,22 @@ function TexasIconProfilePage() {
                     ? "Existing Texas Talent record"
                     : icon.reuseKind === "texas-talent-staged"
                       ? "Existing Texas Talent draft"
-                      : icon.reuseKind === "icon-research-staged"
-                        ? "Texas Icons researched draft"
-                        : "Texas Icons research queue"
+                      : icon.reuseKind === "icon-research-ready"
+                        ? "Published Texas Icons research"
+                        : icon.reuseKind === "icon-research-staged"
+                          ? "Texas Icons researched draft"
+                          : "Texas Icons research queue"
                 }
               />
             </dl>
           </header>
 
-          {researchProfile ? <ResearchDraftNotice profile={researchProfile} /> : null}
+          {researchProfile && icon.reuseKind === "icon-research-staged"
+            ? <ResearchDraftNotice profile={researchProfile} />
+            : null}
+          {researchProfile && icon.reuseKind === "icon-research-ready"
+            ? <PublishedResearchNotice profile={researchProfile} />
+            : null}
 
           {narrativeProfile ? (
             <NarrativeProfile profile={narrativeProfile} />
@@ -181,6 +188,27 @@ function ResearchDraftNotice({ profile }: { profile: TexasIconResearchProfile })
             This research is visible for editorial review and cross-linking, but it does not emit
             publishable structured data and cannot become indexable merely because the copy exists.
           </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function PublishedResearchNotice({ profile }: { profile: TexasIconResearchProfile }) {
+  return (
+    <section className="border-b border-border py-8">
+      <div className="grid gap-5 lg:grid-cols-[14rem_1fr]">
+        <div>
+          <p className="eyebrow text-primary">Editorial status</p>
+          <h2 className="mt-2 font-display text-3xl">Source-reviewed profile</h2>
+        </div>
+        <div className="max-w-3xl space-y-3 text-sm leading-7 text-muted-foreground">
+          <p>
+            This profile has completed Texas Icons launch certification for sources, internal links,
+            and a text-only image policy. The underlying research record remains staged so later
+            ownership or quality changes can fail closed without creating a duplicate page.
+          </p>
+          <p>Research last reviewed {profile.lastReviewedAt}.</p>
         </div>
       </div>
     </section>
