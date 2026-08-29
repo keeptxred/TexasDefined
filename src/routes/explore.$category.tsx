@@ -12,6 +12,12 @@ const legacyExploreRedirects: Record<string, string> = {
   "scenic-rivers": "/article/texas-rivers-explained",
   "texas-dark-sky-stargazing": "/article/best-texas-stargazing-weekend-trips",
 };
+const categorySeoOverrides: Partial<Record<string, { title: string; description: string }>> = {
+  outdoors: {
+    title: "Texas Outdoors & Wildlife: Parks, Trails, Birding & Wild Places",
+    description: "Explore Texas outdoors by region, from state parks and hiking trails to wildlife, birding, dark skies, rivers and public lands, with seasonal access and safety guidance.",
+  },
+};
 
 function validCoordinates(destination: Destination) {
   const { lat, lng } = destination.coordinates;
@@ -65,13 +71,16 @@ export const Route = createFileRoute("/explore/$category")({
       loaderData.category.slug,
       loaderData.articles.length + loaderData.destinations.length + featuredCollectionItems.length,
     );
+    const categorySeo = categorySeoOverrides[loaderData.category.slug];
+    const metaTitle = categorySeo?.title ?? loaderData.category.name;
+    const metaDescription = categorySeo?.description ?? loaderData.category.description;
     const itemListElement = [
       ...featuredCollectionItems,
       ...loaderData.articles.map((article, index) => ({ "@type": "ListItem", position: featuredCollectionItems.length + index + 1, item: { "@type": "Article", name: article.title, url: `${siteUrl}/article/${article.slug}`, image: absoluteUrl(texasDefinedBrand, article.hero.src) } })),
       ...loaderData.destinations.map((destination, index) => ({ "@type": "ListItem", position: featuredCollectionItems.length + loaderData.articles.length + index + 1, item: destinationSchema(destination) })),
     ];
     const collectionSchema = {
-      "@type": "CollectionPage", "@id": `${categoryUrl}#collection`, url: categoryUrl, name: loaderData.category.name, description: loaderData.category.description,
+      "@type": "CollectionPage", "@id": `${categoryUrl}#collection`, url: categoryUrl, name: metaTitle, description: metaDescription,
       image: loaderData.category.image ? { "@type": "ImageObject", url: absoluteUrl(texasDefinedBrand, loaderData.category.image.src), caption: loaderData.category.image.alt, width: loaderData.category.image.width, height: loaderData.category.image.height } : undefined,
       isPartOf: { "@id": `${siteUrl}/#website` },
       mainEntity: { "@type": "ItemList", "@id": `${categoryUrl}#items`, numberOfItems: itemListElement.length, itemListElement },
@@ -82,7 +91,7 @@ export const Route = createFileRoute("/explore/$category")({
       { "@type": "ListItem", position: 3, name: loaderData.category.name, item: categoryUrl },
     ] };
     return {
-      meta: buildMeta(texasDefinedBrand, { canonicalPath, title: loaderData.category.name, description: loaderData.category.description, image: loaderData.category.image?.src, imageAlt: loaderData.category.image?.alt, robots: indexReady ? undefined : "noindex, follow, max-image-preview:large" }),
+      meta: buildMeta(texasDefinedBrand, { canonicalPath, title: metaTitle, description: metaDescription, image: loaderData.category.image?.src, imageAlt: loaderData.category.image?.alt, robots: indexReady ? undefined : "noindex, follow, max-image-preview:large" }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
       scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": [collectionSchema, breadcrumbSchema] }) }],
     };
