@@ -6,7 +6,7 @@ export const Route = createFileRoute("/admin/texas-talent/$slug")({
   beforeLoad: async ({ params }) => {
     const profile = await getTexasTalentProfileWithResolvedLinks({ data: { slug: params.slug } });
     if (!profile) throw notFound();
-    return { profile };
+    return { profile, relatedProfiles: profile.relatedProfiles };
   },
   head: ({ match }) => ({
     meta: [
