@@ -38,15 +38,15 @@ function TexasIconsHub() {
           <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">
             This registry connects influential Texans, cultural institutions, sports figures,
             landmarks, foods and symbols without duplicating profiles TexasDefined already has.
-            Existing authority pages stay canonical; new subjects remain in the research queue
-            until they meet the same source, depth, image and internal-link standards as the rest
-            of the site.
+            Existing authority pages stay canonical; researched profiles become indexable only
+            after source, image-policy and internal-link certification.
           </p>
 
-          <dl className="mt-8 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-5">
+          <dl className="mt-8 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-6">
             <Stat value={stats.total} label="Roster entries" />
             <Stat value={stats.canonicalReused} label="Existing canonical pages reused" />
             <Stat value={stats.talentReused} label="Existing Talent records reused" />
+            <Stat value={stats.researchedReady} label="Published researched profiles" />
             <Stat value={stats.researchedStaged} label="Researched drafts" />
             <Stat value={stats.researchQueue} label="Still in research queue" />
           </dl>
@@ -68,15 +68,15 @@ function TexasIconsHub() {
               <p>
                 Roster-only starter records are cross-linked for editorial work but stay
                 <strong className="text-foreground"> noindex</strong> until the profile has
-                substantive biography or subject depth, verified sources, appropriate imagery,
+                substantive biography or subject depth, verified sources, a certified image policy,
                 and reviewed internal links. The short roster notes below are intake provenance,
                 not substitutes for research.
               </p>
               <p>
-                A <strong className="text-foreground">researched draft</strong> has passed a
-                substantive source-and-copy pass, but its individual profile still remains noindex
-                until image rights and internal-link review are separately certified. Research progress alone never
-                turns an unfinished profile public for search.
+                A <strong className="text-foreground">researched draft</strong> remains noindex
+                until those separate launch checks are certified. A <strong className="text-foreground">published profile</strong>
+                has cleared that additional launch layer; the underlying research record remains
+                immutable and the canonical/Talent ownership rules still take precedence.
               </p>
             </div>
           </div>
@@ -168,9 +168,11 @@ function ReuseBadge({ kind }: { kind: string }) {
         ? "Existing profile"
         : kind === "texas-talent-staged"
           ? "Existing draft"
-          : kind === "icon-research-staged"
-            ? "Researched draft"
-            : "Research queue";
+          : kind === "icon-research-ready"
+            ? "Published profile"
+            : kind === "icon-research-staged"
+              ? "Researched draft"
+              : "Research queue";
 
   return (
     <span className="rounded-full border border-border px-2 py-1 text-[0.64rem] font-semibold uppercase tracking-[0.1em] text-muted-foreground">
