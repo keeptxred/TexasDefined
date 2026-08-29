@@ -27,7 +27,7 @@ const siteUrl = "https://texasdefined.com";
 const esc = (value: string | undefined) => (value ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\"/g, "&quot;").replace(/'/g, "&#39;");
 
 export function getMajorEventRecordServer(slug: string) {
-  return getMajorEventAuthorityServer(slug)
+  const event = getMajorEventAuthorityServer(slug)
     ?? getExpandedMajorEventAuthorityServer(slug)
     ?? getExpandedMajorEventAuthorityTranche3Server(slug)
     ?? getExpandedMajorEventAuthorityTranche4Server(slug)
@@ -50,6 +50,16 @@ export function getMajorEventRecordServer(slug: string) {
     ?? getExpandedMajorEventAuthorityTranche21Server(slug)
     ?? getExpandedMajorEventAuthorityTranche22Server(slug)
     ?? getExpandedMajorEventAuthorityTranche23Server(slug);
+  if (!event || event.slug !== "texas-renaissance-festival") return event;
+  return {
+    ...event,
+    countySlug: "grimes",
+    countyName: "Grimes County",
+    sources: [
+      ...event.sources,
+      { label: "Grimes County local governments — City of Todd Mission", url: "https://grimescountytexas.gov/index.asp?DE=3022B303-9FE9-41DE-A0CF-258F294C1D5F&SEC=FCB69960-DFD0-4FC5-BD10-AF5392EB0EF8" },
+    ],
+  };
 }
 
 export function loadMajorEventPageServer(slug: string) {
