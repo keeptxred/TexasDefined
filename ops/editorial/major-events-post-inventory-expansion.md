@@ -35,6 +35,14 @@ Publication rule: add a permanent `/event/` authority guide only when a current 
 | Red Steagall Cowboy Gathering | October 23-25, 2026 | Organizer publishes exact dates and Fort Worth Stockyards location for the 2026 Gathering. | `/event/red-steagall-cowboy-gathering` |
 | Texas Rice Festival | September 30-October 3, 2026 main festival | Organizer publishes the exact Winnie-Stowell Park main-festival window and separately identifies earlier affiliated golf and BBQ dates. | `/event/texas-rice-festival` |
 
+## Implemented in tranche 28
+
+| Event | Date treatment | First-party basis | Destination |
+|---|---|---|---|
+| Austin City Limits Music Festival | Weekend One: October 2-4, 2026; Weekend Two: October 9-11, 2026 | ACL's official site, ticket page and schedule all publish the two discrete Zilker Park weekends. The authority model now stores separate occurrence windows and emits separate Event schema nodes instead of implying continuous Oct. 2-11 programming. | `/event/austin-city-limits-music-festival` |
+
+Tranche 28 also retrofits the same multi-window treatment onto Texas Renaissance Festival and Mardi Gras! Galveston. Their public pages retain the overall season/festival envelope for sorting, but visible schedules and Event structured data now represent only the actual organizer-supported operating windows.
+
 ## First-party sources
 
 ### Tranche 25
@@ -60,6 +68,12 @@ Publication rule: add a permanent `/event/` authority guide only when a current 
 - Red Steagall Cowboy Gathering: https://www.redsteagallcowboygathering.com/ and https://www.redsteagallcowboygathering.com/schedule-tickets/
 - Texas Rice Festival: https://texasricefestival.com/ and https://texasricefestival.com/festivalpark-info/ticketsfees/
 
-## Known schedule-model hold
+### Tranche 28
 
-**Austin City Limits Music Festival** has first-party 2026 dates for two discrete weekends, October 2-4 and October 9-11. The current major-event authority model stores one `startDate`/`endDate` pair and would imply continuous programming if represented as October 2-11. Do not publish an ACL authority record until the event model can represent multiple discrete occurrence windows or the page/schema layer has an equally accurate treatment.
+- Austin City Limits Music Festival: https://www.aclfestival.com/, https://www.aclfestival.com/schedule, and https://www.aclfestival.com/tickets
+- Texas Renaissance Festival: https://www.texrenfest.com/
+- Mardi Gras! Galveston: https://www.mardigrasgalveston.com/ and https://www.mardigrasgalveston.com/parade-schedule/
+
+## Multi-window schedule rule
+
+For events that operate in two or more discrete date windows, Texas Defined keeps the outer `startDate`/`endDate` only as a sorting envelope. The event page must also carry explicit occurrence windows, display those windows to readers, and emit one `Event` structured-data node per actual occurrence window. A date envelope alone must never be used to imply programming on days the organizer does not schedule.
