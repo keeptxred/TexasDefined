@@ -4,6 +4,7 @@ import { texasDefinedBrand } from "@/brand/texasdefined";
 import { getTexasIconProfile } from "@/data/texas-icons.functions";
 import {
   TEXAS_ICON_CATEGORIES,
+  TEXAS_ICON_CATEGORY_AUTHORITY_HUBS,
   type TexasIconNarrativeProfile,
   type TexasIconResearchProfile,
 } from "@/data/texas-icons-types";
@@ -43,6 +44,7 @@ export const Route = createFileRoute("/texas-icons/$slug")({
 function TexasIconProfilePage() {
   const { icon, related, talentProfile, researchProfile } = Route.useLoaderData();
   const category = TEXAS_ICON_CATEGORIES.find((candidate) => candidate.id === icon.category);
+  const authorityHub = TEXAS_ICON_CATEGORY_AUTHORITY_HUBS[icon.category];
   const canonicalPath = `/texas-icons/${icon.slug}`;
   const narrativeProfile: TexasIconNarrativeProfile | null = talentProfile ?? researchProfile;
   const schema = talentProfile
@@ -136,9 +138,10 @@ function TexasIconProfilePage() {
                 <p className="eyebrow text-primary">Cross-linked profiles</p>
                 <h2 className="mt-2 font-display text-4xl">More {category?.label ?? "Texas icons"}</h2>
               </div>
-              <a href={`/texas-icons#${icon.category}`} className="text-sm font-semibold text-primary">
-                See the category →
-              </a>
+              <div className="flex flex-col items-end gap-2 text-sm font-semibold text-primary">
+                {authorityHub ? <a href={authorityHub.href}>{authorityHub.label} →</a> : null}
+                <a href={`/texas-icons#${icon.category}`}>See the category →</a>
+              </div>
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4">
               {related.map((candidate, index) => (
