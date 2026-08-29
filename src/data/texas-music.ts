@@ -156,6 +156,16 @@ export const TEXAS_MUSIC_RELATED_GUIDES: readonly TexasMusicRelatedGuide[] = [
     description: "Compare Austin, Houston, San Antonio, Lubbock and Dallas–Fort Worth as local systems that shaped distinct Texas music scenes.",
   },
   {
+    title: "Corpus Christi Music History",
+    href: "/corpus-christi-music-history",
+    description: "Follow the Coastal Bend's record stores, Tejano labels, studio infrastructure, regional dance circuit and Selena's Corpus Christi story.",
+  },
+  {
+    title: "Texas Music Timeline",
+    href: "/texas-music-timeline",
+    description: "Trace durable milestones linking dance halls, Black performance circuits, recording centers, counterculture rooms and regional music systems.",
+  },
+  {
     title: "Legendary Texas Music Venues",
     href: "/texas-music-venues",
     description: "Gruene Hall, Broken Spoke, Continental Club, Antone's and Billy Bob's—rooms that turned Texas music into lived culture.",
