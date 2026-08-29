@@ -66,7 +66,12 @@ export const Route = createFileRoute("/explore/$category")({
     if (!loaderData) return { meta: [{ title: "Not found" }, { name: "robots", content: "noindex" }] };
     const canonicalPath = `/explore/${params.category}`;
     const categoryUrl = `${siteUrl}${canonicalPath}`;
-    const featuredCollectionItems = params.category === "food-bbq" ? [{ "@type": "ListItem", position: 1, item: { "@type": "CollectionPage", name: "Texas Food History", description: "The history behind barbecue, chili, chicken-fried steak, breakfast tacos, Czech and German foodways and Dr Pepper.", url: `${siteUrl}/texas-food-history` } }] : [];
+    const hasWildlifeGuide = loaderData.articles.some((article) => article.slug === "texas-wildlife-guide");
+    const featuredCollectionItems = params.category === "food-bbq"
+      ? [{ "@type": "ListItem", position: 1, item: { "@type": "CollectionPage", name: "Texas Food History", description: "The history behind barbecue, chili, chicken-fried steak, breakfast tacos, Czech and German foodways and Dr Pepper.", url: `${siteUrl}/texas-food-history` } }]
+      : params.category === "outdoors" && !hasWildlifeGuide
+        ? [{ "@type": "ListItem", position: 1, item: { "@type": "Article", name: "Texas Wildlife Guide: Animals & Habitats", description: "A statewide guide to Texas wildlife and the habitats that shape where animals live, from East Texas forests and Gulf wetlands to Hill Country, prairie and desert country.", url: `${siteUrl}/article/texas-wildlife-guide` } }]
+        : [];
     const indexReady = isExploreCategoryIndexReady(
       loaderData.category.slug,
       loaderData.articles.length + loaderData.destinations.length + featuredCollectionItems.length,
