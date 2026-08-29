@@ -33,6 +33,7 @@ export const supplementalMajorEventSlugs = [
   "texas-outdoor-musical",
   "washington-on-the-brazos-texas-independence-day",
   "great-american-scrapbook-convention",
+  "the-very-rary",
 ] as const;
 
 export function loadSupplementalMajorEventRecordsServer() {
