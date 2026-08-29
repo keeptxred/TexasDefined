@@ -1,11 +1,12 @@
 import fs from 'node:fs/promises';
 
 const read = (path) => fs.readFile(path, 'utf8');
-const [resolver, eventCard, eventsRoute, corrections] = await Promise.all([
+const [resolver, eventCard, eventsRoute, corrections, generatedEvents] = await Promise.all([
   read('src/data/sports-venue-event-links.ts'),
   read('src/components/editorial/EventCard.tsx'),
   read('src/routes/events.tsx'),
   read('src/data/knowledge-graph/current-entity-corrections.ts'),
+  read('src/data/events-generated.ts'),
 ]);
 
 const errors = [];
@@ -58,10 +59,19 @@ assert(eventsRoute.includes('venueGuide ? { ...defaultLocation'), 'Event JSON-LD
 assert(eventsRoute.includes('const featuredVenueGuide = resolveSportsVenueEventLink(featured?.venue)'), 'Featured event must use the exact resolver.');
 assert(eventsRoute.includes('featuredVenueGuide &&'), 'Featured unmatched events must remain unlinked.');
 
+// Recurring event identity must not be keyed by occurrence date. A stale curated fixture
+// and a newer generated occurrence can legitimately disagree on dates; the generated row
+// must replace the matching name + city identity instead of producing duplicate cards/schema.
+assert(generatedEvents.includes('function eventIdentityKey(event: TexasEvent)'), 'Generated event merge must retain an explicit recurring-event identity key.');
+assert(generatedEvents.includes('event.name.trim().toLowerCase()'), 'Recurring-event identity must include normalized event name.');
+assert(generatedEvents.includes('event.city.trim().toLowerCase()'), 'Recurring-event identity must include normalized city.');
+assert(generatedEvents.includes('merged.set(eventIdentityKey(event), event)'), 'Curated and generated event rows must merge through the recurring-event identity key.');
+assert(!generatedEvents.includes('`${event.name.toLowerCase()}:${event.startDate}`'), 'Event merge must not regress to name + date identity, which permits duplicate stale occurrences.');
+
 if (errors.length) {
-  console.error('Event → sports venue validation failed:');
+  console.error('Event integrity validation failed:');
   errors.forEach((error) => console.error(`- ${error}`));
   process.exit(1);
 }
 
-console.log('Event → sports venue linking validated: exact verified names/aliases only, collision fail-closed behavior, stable Galaxy/Reliant routes, unchanged unmatched events, and matching UI/JSON-LD are protected.');
+console.log('Event integrity validated: exact sports-venue links and recurring-event identity dedupe are protected.');
