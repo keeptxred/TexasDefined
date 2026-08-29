@@ -36,10 +36,10 @@ for (const token of [
   "Littleton, Colorado",
   'slug: "matt-stone"',
   'editorialStatus: "researched-staged"',
-  "remains noindex pending image-rights and internal-link certification",
   "2026",
   "Television Academy Hall of Fame",
-]) if (!corrections.includes(token)) failures.push(`Rank 223 correction is missing required provenance/evidence token: ${token}.`);
+  "indexableAtOwnRoute: true",
+]) if (!corrections.includes(token)) failures.push(`Rank 223 correction is missing required provenance/publication token: ${token}.`);
 
 if (corrections.includes('replacementName: "Trey Parker"') || corrections.includes('slug: "trey-parker",\n    editorialStatus')) {
   failures.push("The corrected research profile must be Matt Stone, not a fabricated Texas Trey Parker profile.");
@@ -52,6 +52,9 @@ if (!functions.includes("loadTexasIconProfileServer(sourceSlug)")) failures.push
 if (holds.includes('"trey-parker":')) failures.push("Resolved rank 223 must not remain in the unresolved editorial-hold map.");
 if (!mediaValidator.includes('replacementSlug: "matt-stone"') && !mediaValidator.includes('"matt-stone"')) failures.push("Media batch-4 validation must acknowledge the explicit rank-223 correction.");
 
+const urls = [...corrections.matchAll(/url: "(https:\/\/[^\"]+)"/g)].map((match) => match[1]);
+if (new Set(urls).size < 4) failures.push("Published Matt Stone correction must retain at least four distinct HTTPS research sources.");
+
 const talentFiles = fs.readdirSync(dataDir).filter((name) => /^texas-talent-profiles.*\.ts$/.test(name) || name === "texas-talent.ts");
 const talentSource = talentFiles.map((name) => fs.readFileSync(`${dataDir}/${name}`, "utf8")).join("\n");
 if (talentSource.includes('slug: "matt-stone"')) failures.push("Matt Stone now exists in Texas Talent and must be reconciled rather than duplicated as corrected Icons research.");
@@ -62,7 +65,7 @@ for (const path of routes) {
 }
 
 if (failures.length) fail();
-console.log("Texas Icons roster-correction validation passed: raw rank 223 remains Trey Parker provenance, effective rank 223 is explicitly corrected to staged/noindex Houston-born Matt Stone, and duplicate/canonical boundaries remain intact.");
+console.log("Texas Icons roster-correction validation passed: raw rank 223 remains Trey Parker provenance, effective rank 223 is transparently corrected to a published Houston-born Matt Stone narrative, and duplicate/canonical boundaries remain intact.");
 
 function fail() {
   console.error("Texas Icons roster-correction validation failed:");
