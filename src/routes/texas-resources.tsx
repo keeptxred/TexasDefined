@@ -13,6 +13,7 @@ const discoveryLinks = [
   ['Texas fishing license', '/texas-fishing-license'],
   ['Moving to Texas', '/moving-to-texas'],
   ['Money & Property', '/decide/financial-tools'],
+  ['Texas septic system design & OSSF guide', '/article/texas-septic-systems-homeowner-guide'],
   ['Texas Explained', '/texas-explained'],
   ['Best places to go camping in Texas', '/best-places-to-go-camping-in-texas'],
   ['Texas vs every other state', '/texas-vs-every-state'],
