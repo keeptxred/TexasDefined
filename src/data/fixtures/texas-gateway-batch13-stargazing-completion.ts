@@ -1,10 +1,26 @@
 import type { ArticleBlock } from "../types";
-import { texasGatewayBatch13ScenicEnrichment } from "./texas-gateway-batch13-scenic-enrichment";
 
-const slug = "best-texas-stargazing-weekend-trips";
-const base = texasGatewayBatch13ScenicEnrichment[slug];
-
-const completion: ArticleBlock[] = [
+const stargazing: ArticleBlock[] = [
+  { type: "heading", text: "Dark sky is a condition, not simply a destination name" },
+  { type: "paragraph", text: "A Texas stargazing weekend succeeds when darkness, weather, moonlight and safe legal access line up at the same time. West Texas is famous for dark skies because large areas are far from major urban light, but even a remote destination can disappoint under clouds, smoke, a bright moon or poorly timed viewing. Check the moon phase, forecast and site rules before traveling. The darkest destination on a list is not automatically the best choice for the specific weekend." },
+  { type: "paragraph", text: "The National Park Service and International Dark Sky programs emphasize protecting natural darkness, but visitors still need ordinary trip planning. Know when the site closes, whether overnight access is allowed, where vehicles may park and whether a campground or program requires reservations. Do not assume a park gate remains open simply because stars are visible after dark. Official access rules control the plan." },
+  { type: "heading", text: "Big Bend and the Davis Mountains form the strongest West Texas astronomy cluster" },
+  { type: "paragraph", text: "Big Bend National Park, Big Bend Ranch State Park, Fort Davis, the Davis Mountains and the McDonald Observatory region can support a multi-day astronomy trip because the daytime landscape is also substantial. That matters: stargazing occupies only part of the night, so the weekend should still have history, scenic drives, museums, hikes or town time before sunset. A trip with strong daytime options remains worthwhile when clouds arrive unexpectedly." },
+  { type: "paragraph", text: "Distance is the major tradeoff. West Texas routes can involve long gaps between services, and night driving adds wildlife, fatigue and reduced visibility. Choose lodging or camping close enough to the intended observing site that the return after dark is reasonable. If a late program ends far from the hotel, treat that drive as part of the itinerary rather than as an afterthought." },
+  { type: "heading", text: "Moon phase can matter as much as light pollution" },
+  { type: "paragraph", text: "A bright moon can wash out faint stars and the Milky Way even at an excellent dark-sky site. For Milky Way-focused trips, darker lunar periods are usually more favorable, while moonlit nights can still be excellent for viewing the moon, bright planets and major constellations. Decide what you actually want to see before choosing dates. A family learning constellations has different needs from a photographer planning a long-exposure Milky Way image." },
+  { type: "paragraph", text: "Season changes the night sky as well as comfort. Summer offers warm nights but can bring heat and monsoon-season storms in parts of West Texas. Winter can produce clear air but cold temperatures, wind and shorter daylight. Spring can be windy. Fall can be comfortable but event calendars and popular travel periods affect lodging. There is no universal best month; the useful choice balances sky targets, weather and travel conditions." },
+  { type: "heading", text: "Protect night vision and other visitors' experience" },
+  { type: "paragraph", text: "Bright white headlights, phone screens and flashlights can destroy dark adaptation for everyone nearby. Use red-light settings where the site recommends them, dim screens and avoid unnecessary vehicle movement in observing areas. Do not use lasers unless the program or site explicitly permits them and you understand aviation and safety restrictions. A dark-sky destination works because visitors cooperate in keeping it dark." },
+  { type: "paragraph", text: "Photography should follow the same courtesy. Tripods belong in places where they do not block paths or create a fall hazard. Ask before including other people in foreground images and avoid repeatedly sweeping bright lights across an observing area while composing shots. The goal is to capture the sky without turning the site into a lighted production set." },
+  { type: "heading", text: "Weather can cancel astronomy faster than most other activities" },
+  { type: "paragraph", text: "Cloud cover, blowing dust, wildfire smoke and thunderstorms can make an otherwise perfect dark-sky trip useless for astronomy. Check more than temperature. Look at cloud forecasts, wind and active weather alerts, and use the site's own updates when available. If lightning or severe weather threatens, leave exposed observing areas and follow official safety guidance. No celestial event is worth remaining outside in a dangerous storm." },
+  { type: "paragraph", text: "Build a backup evening before departure. A local restaurant, museum program, historic hotel, indoor astronomy talk or simply an early night can save the weekend when clouds win. The next night may clear. A two-night stay has more resilience than driving hundreds of miles for one narrow observing window." },
+  { type: "heading", text: "You do not need a telescope to have a real stargazing trip" },
+  { type: "paragraph", text: "Binoculars, a reclining chair, warm layer and a simple star map can be enough for a memorable night. Start with bright constellations, the Milky Way when visible, planets and seasonal meteor showers. Give your eyes time to adapt instead of constantly checking the phone. If an observatory or park offers a ranger or astronomy program, it can add context without requiring the traveler to own specialized equipment." },
+  { type: "paragraph", text: "For telescopes and cameras, secure equipment against wind and learn the setup before arriving in darkness. Pack spare batteries because cold temperatures can reduce battery performance. Keep food and water accessible without leaving trash or attracting wildlife. Stargazing is simple in concept, but a small amount of preparation keeps the night focused on the sky rather than on equipment problems." },
+  { type: "heading", text: "Pair the sky with a daytime Texas reason to go" },
+  { type: "paragraph", text: "The strongest stargazing weekends are also real Texas trips: Fort Davis history plus astronomy, Big Bend scenery plus dark skies, Palo Duro and Panhandle history plus a night outside, or a Hill Country trip that ends at a darker rural observing area. That pairing makes the journey worthwhile even when atmospheric conditions are imperfect and prevents a long road trip from depending entirely on one clear hour after sunset." },
   { type: "heading", text: "Choose the observing site before the hotel" },
   { type: "paragraph", text: "Start a stargazing itinerary with the exact place where you expect to be after dark, not with a hotel search. A park, observatory, campground or public-use area may have operating hours, entrance rules, reservation requirements, gate closures or designated parking that determine whether it works for night viewing. Read the managing authority's current page before booking the rest of the weekend. If a site closes before the observing window you want, choose another legal location rather than assuming darkness creates access that is not available during the day." },
   { type: "paragraph", text: "Then measure the return trip. A remote dark-sky location can be an excellent observing site and still be a poor match for lodging that requires a long drive on unfamiliar roads after midnight. Night driving reduces visibility, wildlife can enter the roadway, and fatigue becomes more important after hours outdoors. Favor a shorter, simpler return route when possible, identify fuel before leaving the last full-service town and download directions before entering areas with unreliable cellular coverage. The goal is to finish the observing session without turning the drive back into the most demanding part of the night." },
@@ -14,8 +30,15 @@ const completion: ArticleBlock[] = [
 ];
 
 export const texasGatewayBatch13StargazingCompletion = {
-  [slug]: {
-    ...base,
-    body: [...(base?.body ?? []), ...completion],
+  "best-texas-stargazing-weekend-trips": {
+    body: stargazing,
+    sourceName: "National Park Service — Night Skies",
+    sourceUrl: "https://www.nps.gov/subjects/nightskies/index.htm",
+    internalLinks: [
+      { href: "/article/best-texas-weekend-trips-for-outdoor-lovers", label: "Texas weekend trips for outdoor lovers" },
+      { href: "/article/best-texas-trips-for-scenic-drives", label: "Texas scenic-drive trips" },
+      { href: "/state-parks", label: "Texas state parks" },
+    ],
+    relatedDestinations: ["big-bend-national-park", "fort-davis"],
   },
 };
