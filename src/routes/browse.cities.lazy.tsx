@@ -1,9 +1,11 @@
+import { lazy, Suspense } from "react";
 import { createLazyFileRoute } from "@tanstack/react-router";
 
 import { AnswerSummary } from "@/components/content/AnswerSummary";
 import { TexasPlaceDirectory } from "@/components/directories/TexasPlaceDirectory";
-import { CityRelocationComparison } from "@/components/relocation/CityRelocationComparison";
 import { TEXAS_CITIES } from "@/data/texas-places";
+
+const CityRelocationComparison = lazy(() => import("@/components/relocation/CityRelocationComparison").then((module) => ({ default: module.CityRelocationComparison })));
 
 export const Route = createLazyFileRoute("/browse/cities")({ component: CitiesDirectoryPage });
 
@@ -20,7 +22,7 @@ function CitiesDirectoryPage() {
         { question: "Is this an official government directory?", answer: "No. Texas Defined is an independent reference and editorial guide; verify official boundaries, services and records with the relevant public agency." },
       ]}
     />
-    <CityRelocationComparison />
+    <Suspense fallback={null}><CityRelocationComparison /></Suspense>
     <TexasPlaceDirectory mode="cities" />
   </>;
 }
