@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises';
 
 const read = (path) => fs.readFile(path, 'utf8');
-const [policies, history, articleBody, articleRoute, rodeoArticle, footballArticle, landings] = await Promise.all([
+const [policies, history, articleBody, articleRoute, rodeoArticle, footballArticle, landings, sportsRoute] = await Promise.all([
   read('src/platform/internal-link-policies.ts'),
   read('src/platform/internal-link-policy-history.ts'),
   read('src/components/editorial/ArticleBody.tsx'),
@@ -9,6 +9,7 @@ const [policies, history, articleBody, articleRoute, rodeoArticle, footballArtic
   read('src/data/fixtures/rodeo-101.ts'),
   read('src/data/fixtures/high-school-football-newcomers.ts'),
   read('src/data/sports-venue-landings.ts'),
+  read('src/routes/sports.tsx'),
 ]);
 
 const errors = [];
@@ -26,6 +27,17 @@ assert(history.includes("Current governed policies differ from release ${current
 assert(articleBody.includes("<AutoEntityLinks text={text} entities={candidates}"), 'Article body must continue to use governed contextual entity linking.');
 assert(articleBody.includes("policyForSurface('article')"), 'Article entity links must continue to use the governed article policy.');
 assert(articleRoute.includes('<ArticleBody blocks={article.body} entities={graph} />'), 'Article route must supply the verified knowledge graph to contextual body linking.');
+
+for (const marker of [
+  'const description = "Texas sports guide to high school and college football, pro teams, major stadiums, rodeo, motorsports and game-day traditions across the state.";',
+  'const seoTitle = "Texas Sports: Football, Stadiums, Teams, Rodeo & Traditions";',
+  'canonicalPath: "/sports"',
+  'title: seoTitle',
+  'description,',
+  'buildMeta(texasDefinedBrand, { title: seoTitle, description, canonicalPath: "/sports" })',
+]) {
+  assert(sportsRoute.includes(marker), `Sports GSC metadata contract missing: ${marker}`);
+}
 
 const rodeoPath = '/sports-venues/rodeo-western';
 const footballPath = '/sports-venues/high-school-football';
@@ -45,4 +57,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Sports editorial authority validated: governed article linking prefers verified sports venues, current evergreen sports guides link into relevant venue collections, link budgets stay unchanged, and editorial/sponsorship separation is protected.');
+console.log('Sports editorial authority validated: GSC-focused statewide sports metadata, governed article linking, verified venue collections, unchanged link budgets, and editorial/sponsorship separation are protected.');
