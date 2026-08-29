@@ -16,6 +16,7 @@ on:
       - 'scripts/data/validate-texas-town-knowledge.mjs'
       - 'scripts/data/validate-texas-verified-wildlife-batch3.mjs'
       - 'scripts/data/validate-texas-verified-pest-batch4.mjs'
+      - 'scripts/data/validate-texas-verified-bird-batch5.mjs'
       - 'scripts/data/validate-texas-social-balance.mjs'
       - 'scripts/data/validate-texas-home-nature-tools.mjs'
       - 'tsconfig.knowledge-bank.json'
@@ -55,6 +56,9 @@ jobs:
 
       - name: Validate verified pest batch 4
         run: node scripts/data/validate-texas-verified-pest-batch4.mjs
+
+      - name: Validate verified bird batch 5
+        run: node scripts/data/validate-texas-verified-bird-batch5.mjs
 
       - name: Validate social domain balance
         run: node scripts/data/validate-texas-social-balance.mjs
