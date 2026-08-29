@@ -44,6 +44,10 @@ const TEXASDEFINED_TECHNICAL_SEO_OVERRIDES: Record<string, { title: string; desc
     title: "Texas Road Trips & Scenic Drives",
     description: "Plan Texas road trips with scenic drives, regional routes, stop-by-stop itineraries, parks, small towns and practical trip-planning details.",
   },
+  "/explore/landscapes/where-does-texas-turn-into-desert": {
+    title: "Where Does Texas Turn Into Desert? Texas Regions Explained",
+    description: "See where Texas shifts from plains and Hill Country into Chihuahuan Desert landscapes, and how elevation, rainfall and geography define the transition.",
+  },
   "/texas-history": { title: "Texas History: People, Places & Stories" },
   "/texas-explained": { title: "Texas Explained: How the State Works" },
   "/texas-closing-cost-calculator": { title: "Texas Closing Cost Calculator" },
@@ -59,6 +63,18 @@ const TEXASDEFINED_TECHNICAL_SEO_OVERRIDES: Record<string, { title: string; desc
   "/article/texas-wildlife-guide": { title: "Texas Wildlife Guide: Animals & Habitats" },
   "/article/texas-farm-to-market-roads-explained": { title: "Texas Farm-to-Market Roads Explained" },
   "/article/beginners-guide-ordering-texas-barbecue": { title: "How to Order Texas Barbecue" },
+  "/article/texas-rio-grande-river-guide": {
+    title: "Rio Grande in Texas: Basin, Border, Reservoirs & River Guide",
+    description: "Guide to the Rio Grande in Texas, from desert canyons and the border to Amistad, Falcon, water treaties, irrigation and the river's Gulf outlet.",
+  },
+  "/article/texas-major-cities-regional-differences": {
+    title: "Major Texas Cities Compared: Houston, DFW, Austin & San Antonio",
+    description: "Compare Houston, Dallas-Fort Worth, Austin, San Antonio and Texas regions on climate, culture, jobs, driving and daily life before choosing where to live.",
+  },
+  "/article/texas-lakes-reservoirs-explained": {
+    title: "Texas Lakes & Reservoirs: Major Water Systems Explained",
+    description: "Learn why most Texas lakes are reservoirs, how dams reshape rivers, and how Lake Travis, Texoma, Canyon Lake and other systems store water.",
+  },
 };
 
 const SOCIAL_IMAGE_FALLBACKS: Partial<Record<BrandConfig["identity"]["id"], { src: string; alt: string; type: string }>> = {
