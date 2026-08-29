@@ -23,7 +23,7 @@ const articleBody = read('src/components/editorial/ArticleBody.tsx');
 const relocationData = read('src/data/relocation-authority.ts');
 const relocationAddress = read('src/data/relocation-address.ts');
 const relocationAddressServer = read('src/data/relocation-address.server.ts');
-const dataCenter = read('src/data/texas-data-center.ts');
+const dataCenter = read('src/data/texas-data-center.server.ts');
 const movingChecklist = read('src/routes/moving-to-texas-checklist.tsx');
 
 for (const target of [
@@ -144,6 +144,12 @@ for (const requirement of [
   'RELOCATION_SOURCES',
   'resolveRelocationAddress',
   'no secret “best places” score',
+  'Census geography is a research starting point',
+  'not authority for school attendance zones',
+  'utility territories',
+  'tax liability',
+  'flood status',
+  'official sources below',
 ]) {
   if (!relocationLab.includes(requirement)) failures.push(`Relocation decision lab safeguard missing: ${requirement}.`);
 }
