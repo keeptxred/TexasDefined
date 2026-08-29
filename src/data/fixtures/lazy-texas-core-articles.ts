@@ -7,6 +7,7 @@ import roadTrip from "@/assets/road-trip.jpg";
 import smallTown from "@/assets/small-town.jpg";
 
 import type { Article, ImageRef } from "../types";
+import { texasGatewayIndexReadyStubs } from "./texas-gateway-index-ready-stubs";
 
 const image = (src: string, alt: string): ImageRef => ({ src, alt, width: 1600, height: 1067 });
 const images = {
@@ -33,6 +34,8 @@ export const texasCoreArticleStubs: Article[] = [
   stub({ id: "ar-9", slug: "friday-night-and-the-texas-town", title: "Friday Night and the Texas Town", dek: "Texas high-school football is a game, a school event, a marching-band performance, a reunion and a weekly civic ritual. Here is what the stadium tells you about the town around it.", category: "sports", hero: images.smallTown, authorId: "a-dell", publishedAt: "2026-08-20", readingMinutes: 12, tags: ["football", "small towns", "friday night", "community", "high school sports"], relatedCollections: [], relatedDestinations: [] }),
   stub({ id: "ar-10", slug: "big-bend-in-winter", title: "Big Bend Is a Winter Park", dek: "Why November through February changes Big Bend: milder desert hiking, freezing nights, scarce services, busy campgrounds, long drives, and a park where checking conditions is part of the itinerary.", category: "outdoors", region: "big-bend", hero: images.bigBend, authorId: "a-hollis", publishedAt: "2026-08-20", readingMinutes: 15, tags: ["big bend", "national parks", "desert", "dark skies", "winter travel"], relatedCollections: ["campfire-kitchen"], relatedDestinations: ["big-bend-national-park"] }),
 ];
+
+texasCoreArticleStubs.push(...texasGatewayIndexReadyStubs);
 
 const coreSlugs = new Set(texasCoreArticleStubs.map((article) => article.slug));
 
