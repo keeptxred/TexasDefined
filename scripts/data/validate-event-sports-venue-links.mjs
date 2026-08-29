@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises';
 
 const read = (path) => fs.readFile(path, 'utf8');
-const [resolver, eventCard, eventsRoute, corrections, generatedEvents, countyEventsServer, countyEventsBridge, countyDestinations] = await Promise.all([
+const [resolver, eventCard, eventsRoute, corrections, generatedEvents, countyEventsServer, countyEventsBridge, countyDestinations, eventPage] = await Promise.all([
   read('src/data/sports-venue-event-links.ts'),
   read('src/components/editorial/EventCard.tsx'),
   read('src/routes/events.tsx'),
@@ -10,6 +10,7 @@ const [resolver, eventCard, eventsRoute, corrections, generatedEvents, countyEve
   read('src/data/county-major-events.server.ts'),
   read('src/data/county-major-events.ts'),
   read('src/components/sports/CountySportsDestinations.tsx'),
+  read('src/data/major-event-page.server.ts'),
 ]);
 
 const errors = [];
@@ -82,10 +83,16 @@ assert(countyDestinations.includes('getCountyMajorEvents(county.slug)'), 'County
 assert(countyDestinations.includes('href={`/event/${event.slug}`}'), 'County major-event cards must link to permanent event authority URLs.');
 assert(!countyDestinations.includes('major-event-supplemental-registry.server'), 'County UI must not import the server-only supplemental authority registry directly.');
 
+// Permanent event guides must return the relationship by linking verified county identities
+// to the existing county browse anchor. Never invent a /county/{slug} route.
+assert(eventPage.includes('event.countySlug ? `/browse/counties#county-${event.countySlug}` : null'), 'Major event guides must derive county backlinks from the canonical county browse anchor.');
+assert(eventPage.includes('!event.relatedLinks.some((item) => item.href === countyHref)'), 'Major event guides must avoid duplicating an already-curated county backlink.');
+assert(!eventPage.includes('`/county/${event.countySlug}`'), 'Major event guides must not link to the nonexistent /county/{slug} route.');
+
 if (errors.length) {
   console.error('Event integrity validation failed:');
   errors.forEach((error) => console.error(`- ${error}`));
   process.exit(1);
 }
 
-console.log('Event integrity validated: exact sports-venue links, recurring-event dedupe, and server-backed county event discovery are protected.');
+console.log('Event integrity validated: exact sports-venue links, recurring-event dedupe, and bidirectional server-backed county event discovery are protected.');
