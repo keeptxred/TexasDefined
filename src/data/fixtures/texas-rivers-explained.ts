@@ -9,8 +9,8 @@ export const texasRiversExplainedArticle: Article = {
   id: "evergreen-texas-rivers-explained",
   brandId: "texasdefined",
   slug: "texas-rivers-explained",
-  title: "The Rivers That Built Texas",
-  dek: "From the Rio Grande and Brazos to the spring-fed Guadalupe and the slow, forested rivers of East Texas, the state's waterways explain where Texans settled, how cities grew and why one part of Texas can feel so different from another.",
+  title: "Major Rivers of Texas: Basins, Regions & Waterways Explained",
+  dek: "A practical guide to the major rivers and river basins of Texas, from the Rio Grande, Brazos and Colorado to the Guadalupe, Trinity, Sabine and East Texas systems — and how mountains, plains, aquifers and reservoirs shape where the water flows.",
   category: "lakes-rivers",
   hero: {
     src: "/images/explore/lakes-rivers/guadalupe-river-state-park.jpg",
@@ -23,12 +23,14 @@ export const texasRiversExplainedArticle: Article = {
   publishedAt: "2026-08-13",
   readingMinutes: 12,
   tags: [
-    "texas rivers",
-    "river basins",
-    "brazos river",
-    "colorado river",
-    "guadalupe river",
+    "major rivers in texas",
+    "texas river basins",
+    "texas rivers map",
     "rio grande",
+    "brazos river",
+    "colorado river texas",
+    "guadalupe river",
+    "trinity river texas",
     "texas geography",
     "texas water",
   ],
@@ -42,13 +44,18 @@ export const texasRiversExplainedArticle: Article = {
       description: "Find river parks, swimming water, reservoirs and places built around Texas waterways.",
     },
     {
+      href: "/article/texas-river-basins-guide",
+      label: "Texas river basins guide",
+      description: "See how the state's major and coastal drainage basins divide Texas by watershed rather than county lines.",
+    },
+    {
       href: "/article/texas-major-springs-clear-water-guide",
       label: "Where Texas comes up from the ground",
       description: "See how springs and aquifers feed some of the state's clearest rivers and swimming holes.",
     },
     {
-      href: "/explore/lakes-rivers",
-      label: "A guide to Texas lakes",
+      href: "/article/texas-lakes-reservoirs-explained",
+      label: "Texas lakes and reservoirs explained",
       description: "Follow the river story into the reservoirs that store water, control floods and shape recreation across the state.",
     },
     {
@@ -67,6 +74,15 @@ export const texasRiversExplainedArticle: Article = {
   body: [
     p("You can understand a surprising amount of Texas by following the water. Towns grew where rivers could be crossed. Farms spread across bottomlands where floods left deep soil. Railroads, highways and county seats followed older settlement patterns. Modern cities now depend on reservoirs built into the same river systems, while summer weekends still revolve around stretches of water Texans have floated, fished and swum for generations."),
     p("The rivers do not all behave alike. A clear Hill Country stream flowing over limestone has little in common visually with a muddy Brazos bend, a cypress-lined East Texas river or the Rio Grande moving through desert canyons. That difference is the point. Texas is large enough that its rivers act like a second map of the state, revealing rainfall, geology, elevation and climate as they change from west to east."),
+    h("Major Texas rivers by region and basin"),
+    p("Texas's best-known rivers belong to several very different geographic systems. The Rio Grande and Pecos cross arid mountain and desert country in the west. The Brazos and Colorado drain broad sections of West and Central Texas before reaching the Gulf. The Guadalupe, Nueces and San Antonio systems are strongly shaped by the Edwards Plateau, limestone and springs. The Trinity links North Texas to the coast, while the Sabine and Neches carry the wetter, forested character of East Texas. The Red and Canadian connect parts of northern Texas to larger river systems beyond the state."),
+    list(
+      "West Texas and the mountains: Rio Grande, Pecos and Devils River systems move through high desert, basins and canyon country.",
+      "Central Texas and the plains: Brazos and Colorado systems cross large portions of the state and feed major reservoirs.",
+      "Hill Country and South-Central Texas: Guadalupe, San Marcos, Comal, Frio, Nueces and San Antonio waterways reflect limestone geology and spring flow.",
+      "North Texas: the Trinity drains the Dallas-Fort Worth region toward Trinity Bay, while the Red River forms much of the Texas-Oklahoma boundary.",
+      "East Texas: Sabine and Neches systems run through the wetter Piney Woods toward Sabine Lake and the Gulf Coast."
+    ),
     h("Start with the basin, not just the river"),
     p("A river makes more sense when you think about everything that drains toward it. That entire drainage area is its basin or watershed. Rain that falls on a pasture, neighborhood, canyon wall or city street eventually either soaks into the ground, evaporates or begins moving downhill through creeks and tributaries toward a larger river system."),
     p("The Texas Water Development Board recognizes 15 major river basins and eight coastal basins. The coastal basins occupy the areas between the larger named river systems and drain directly toward bays and the Gulf. On a map, those basin boundaries create a set of broad natural districts that ignore county lines and city limits."),
