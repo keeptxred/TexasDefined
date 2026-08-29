@@ -3,12 +3,12 @@ import { createFileRoute, Link, notFound } from '@tanstack/react-router';
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { CitationTrustPanel } from '@/components/authority/CitationTrustPanel';
 import { Container } from '@/components/layout/Container';
-import { formatDatasetValue, getTexasDataset } from '@/data/texas-data-center';
+import { getTexasDataset } from '@/data/texas-data-center';
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 export const Route = createFileRoute('/texas-data/$datasetSlug')({
-  loader: ({ params }) => {
-    const dataset = getTexasDataset(params.datasetSlug);
+  loader: async ({ params }) => {
+    const dataset = await getTexasDataset(params.datasetSlug);
     if (!dataset) throw notFound();
     return dataset;
   },
@@ -145,6 +145,14 @@ function Page() {
       </Container>
     </>
   );
+}
+
+function formatDatasetValue(value: number, unit: 'percent' | 'dollars' | 'count') {
+  return unit === 'dollars'
+    ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(value)
+    : unit === 'percent'
+      ? `${value.toFixed(4)}%`
+      : new Intl.NumberFormat('en-US').format(value);
 }
 
 function formatCheckedDate(value: string) {
