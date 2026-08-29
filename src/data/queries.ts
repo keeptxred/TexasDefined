@@ -12,7 +12,17 @@ import type { Destination, SearchDocument, Slug } from "./types";
 
 export const articlesQuery = (params: Omit<ArticleQuery, "brandId"> = {}) => queryOptions({
   queryKey: ["articles", scope.brandId, params],
-  queryFn: async () => (await platform.articles.list({ ...scope, ...params })).map(prepareArticleForDelivery),
+  queryFn: async () => {
+    const [{ normalizeArticleEditorialDesk }, { isArticleIndexReady }] = await Promise.all([
+      import("./editorial-desk-routing"),
+      import("./fixtures/texas-gateway-index-readiness"),
+    ]);
+    const prepareEditorialArticle = (article: Awaited<ReturnType<typeof platform.articles.list>>[number]) =>
+      normalizeArticleEditorialDesk(prepareArticleForDelivery(article));
+    return (await platform.articles.list({ ...scope, ...params }))
+      .map(prepareEditorialArticle)
+    .filter(isArticleIndexReady);
+  },
 });
 export const articleQuery = (slug: Slug) => queryOptions({
   queryKey: ["article", scope.brandId, slug],
@@ -31,7 +41,9 @@ export const articleQuery = (slug: Slug) => queryOptions({
       return prepareArticleForDelivery(sourceHydratedLocalArticle);
     }
     const remoteArticle = await fetchPublishedTexasDefinedEvergreenArticle(slug);
-    return remoteArticle ? prepareArticleForDelivery(remoteArticle) : null;
+    if (!remoteArticle) return null;
+    const { normalizeArticleEditorialDesk } = await import("./editorial-desk-routing");
+    return normalizeArticleEditorialDesk(prepareArticleForDelivery(remoteArticle));
   },
 });
 
@@ -91,7 +103,21 @@ const staticSearchDocuments: SearchDocument[] = [
 export const searchDocumentsQuery = () => queryOptions({
   queryKey: ["search-documents", scope.brandId],
   queryFn: async () => {
-    const base = await platform.search.documents(scope);
+    const [rawBase, articleCatalog, { normalizeArticleEditorialDesk }, { isArticleIndexReady }] = await Promise.all([
+      platform.search.documents(scope),
+      platform.articles.list(scope),
+      import("./editorial-desk-routing"),
+      import("./fixtures/texas-gateway-index-readiness"),
+    ]);
+    const indexableArticleHrefs = new Set(
+      articleCatalog
+        .map((article) => normalizeArticleEditorialDesk(prepareArticleForDelivery(article)))
+        .filter(isArticleIndexReady)
+        .map((article) => `/article/${article.slug}`),
+    );
+    const base = rawBase.filter(
+      (document) => document.kind !== "article" || indexableArticleHrefs.has(document.href),
+    );
     const knownHrefs = new Set(base.map((document) => document.href));
     for (const document of staticSearchDocuments) {
       if (knownHrefs.has(document.href)) continue;
