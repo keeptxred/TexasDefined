@@ -15,7 +15,7 @@ const scenicEnrichment = readFileSync(
   "utf8",
 );
 
-describe("legacy KeepTXRed Explore compatibility", () => {
+describe("legacy Explore compatibility", () => {
   it("sends Scenic Rivers to the Texas Defined rivers authority article", () => {
     expect(scenicRivers).toContain('createFileRoute("/explore/scenic-rivers")');
     expect(scenicRivers).toContain("/article/texas-rivers-explained");
