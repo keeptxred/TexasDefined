@@ -52,6 +52,11 @@ export const supplementalMajorEventSlugs = [
   "original-greek-festival-houston",
   "san-antonio-muertos-fest",
   "austin-food-wine-festival",
+  "gruene-music-wine-festival",
+  "texas-clay-festival",
+  "texas-craft-brewers-festival",
+  "texas-tribune-festival",
+  "san-antonio-beer-festival",
 ] as const;
 
 export function loadSupplementalMajorEventRecordsServer() {
