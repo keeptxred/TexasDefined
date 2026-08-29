@@ -31,17 +31,17 @@ const EXPLORE_CATEGORY_SLUGS = new Set([
   "beaches-coast", "historic-sites", "road-trips", "small-towns", "food-bbq", "outdoors",
 ]);
 const EXPLORE_CATEGORY_ARTICLE_COUNTS = {
-  "lakes-rivers": 0,
-  "major-springs": 1,
+  "lakes-rivers": 3,
+  "major-springs": 0,
   "state-parks": 1,
-  "national-parks": 1,
-  "caverns": 1,
-  "beaches-coast": 1,
+  "national-parks": 0,
+  "caverns": 0,
+  "beaches-coast": 0,
   "historic-sites": 1,
-  "road-trips": 1,
-  "small-towns": 1,
-  "food-bbq": 2,
-  "outdoors": 1,
+  "road-trips": 3,
+  "small-towns": 2,
+  "food-bbq": 3,
+  "outdoors": 3,
 } as const;
 const EXPLORE_REGION_SLUGS = [
   "hill-country", "gulf-coast", "big-bend", "panhandle", "piney-woods", "prairies-lakes", "south-texas",
