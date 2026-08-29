@@ -20,6 +20,7 @@ on:
       - "scripts/data/validate-texas-gateway-consolidation.mjs"
       - "scripts/data/validate-texas-gateway-index-readiness.mjs"
       - "scripts/data/validate-texas-gateway-production-readiness.mjs"
+      - "scripts/data/validate-texas-gateway-expansion-wave1.mjs"
       - "scripts/data/validate-texas-gateway-batch14-16-disposition.mjs"
       - "scripts/data/texas-gateway-batch14-16-disposition.json"
       - "scripts/data/audit-texas-gateway-depth.mjs"
@@ -63,6 +64,9 @@ jobs:
 
       - name: Validate gateway production-readiness promotion gate
         run: node scripts/data/validate-texas-gateway-production-readiness.mjs
+
+      - name: Validate gateway expansion wave 1 content readiness
+        run: node scripts/data/validate-texas-gateway-expansion-wave1.mjs
 
       - name: Audit gateway production-readiness backlog
         run: node scripts/data/audit-texas-gateway-production-readiness.mjs

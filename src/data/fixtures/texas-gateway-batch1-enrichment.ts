@@ -19,6 +19,15 @@ const visitingTexas: ArticleBlock[] = [
   { type: "heading", text: "Use local context to choose what is worth the detour" },
   { type: "paragraph", text: "Texas travel becomes more memorable when the stop fits the place. Eat Gulf seafood near the coast, look for Czech and German food traditions in Central Texas, visit courthouse squares in county-seat towns, and use state parks to understand the landscape rather than treating them as generic hiking stops. The same famous attraction can feel much more meaningful when the surrounding region is part of the plan." },
   { type: "paragraph", text: "A first trip does not need to prove that you saw all of Texas. A successful itinerary should leave you with a clear sense of one or two regions, enough unscheduled time to follow a good recommendation, and a list of places you now understand well enough to visit next time." },
+  { type: "heading", text: "Check roads, weather and park capacity before each long day" },
+  { type: "paragraph", text: "Texas road conditions can change because of construction, crashes, flooding, wildfire response and winter weather. DriveTexas publishes current TxDOT condition data, so it is a better same-day source than an old forum post or a screenshot from a previous trip. For a long transfer day, check the full route rather than only the weather at the destination; a storm or closure several counties away can be the part that changes the plan." },
+  { type: "paragraph", text: "State parks deserve the same last-mile check. Texas Parks and Wildlife recommends advance day-pass reservations at popular parks because capacity can fill, especially on weekends and school holidays. A day pass guarantees park entry but does not guarantee a particular parking area or attraction inside the park. If one park is the anchor of the day, confirm the reservation, current alerts, trail status and arrival window before leaving the hotel." },
+  { type: "heading", text: "Build a first-trip plan with fixed anchors and flexible space" },
+  { type: "paragraph", text: "A strong first itinerary usually has one fixed anchor per day: a reserved park, museum, mission tour, game, concert or dinner that genuinely requires a schedule. Everything around that anchor can stay flexible. This keeps a delayed meal, traffic jam or weather change from breaking the entire day and leaves room for the courthouse square, bakery, swimming hole or scenic road that becomes interesting only after you arrive." },
+  { type: "paragraph", text: "For a fly-in trip, also compare the airport with the actual region you want to explore. A cheaper flight can become a poor trade if it adds hours of driving at both ends. For a road trip, keep fuel conservative in remote country, download navigation for areas with weak service, and avoid treating an unpaved shortcut as interchangeable with a major highway. Texas rewards detours, but the good ones are chosen deliberately." },
+  { type: "heading", text: "Quick answers for a first Texas visit" },
+  { type: "paragraph", text: "How many regions should a first trip cover? Usually one major region plus a nearby contrast is enough for a long weekend or several days. Do state parks need reservations? Not every visit does, but popular parks can reach capacity and advance passes are strongly recommended. Is summer impossible? No, but outdoor time should move earlier and later in the day, with water, shade and indoor backups treated as part of the itinerary rather than emergency improvisation." },
+  { type: "paragraph", text: "What should be checked the morning of a road day? Current road conditions, route-wide weather, attraction alerts, reservation details and fuel range. What should remain flexible? Meals that do not require reservations, roadside stops and secondary attractions. The goal is not to over-plan Texas; it is to protect the few parts of the trip that are expensive, capacity-limited or safety-sensitive so the rest can stay spontaneous." },
 ];
 
 const movingTexas: ArticleBlock[] = [
@@ -31,6 +40,15 @@ const movingTexas: ArticleBlock[] = [
   { type: "heading", text: "Verify boundaries and services at the address level" },
   { type: "paragraph", text: "A Texas mailing address does not necessarily tell you the city limits, school district, county services or utility provider. Verify each one independently. School attendance zones can cross assumptions people make from neighborhood names, and electricity choice depends on the local utility structure rather than a single statewide rule." },
   { type: "paragraph", text: "The most useful move is usually the one that fits a household's work, weather tolerance, housing budget and preferred daily rhythm—not the city with the loudest national reputation. Treat Texas as several regional housing markets and lifestyles sharing one state government." },
+  { type: "heading", text: "Price insurance and flood exposure before the option period becomes stressful" },
+  { type: "paragraph", text: "The Texas Department of Insurance advises homeowners to understand what a home policy does and does not cover. Flood damage is generally not covered by a standard home policy, and flood risk is not limited to properties inside the highest-risk mapped zones. On the coast and around Galveston Bay, wind and hail coverage can also require special attention. The practical lesson is simple: request quotes for the actual address and ask what is excluded before treating the mortgage estimate as the monthly housing cost." },
+  { type: "paragraph", text: "Insurance research can also reveal property questions worth investigating before closing: roof age, prior claims, drainage, distance from the coast, replacement cost and available deductibles. A quote is not a home inspection, but a surprising premium or coverage limitation is useful information while a buyer can still compare properties. Renters should do the same exercise for contents coverage, liability and flood exposure rather than assuming the landlord's policy protects personal belongings." },
+  { type: "heading", text: "Property-tax research is local, and the county directory is the starting point" },
+  { type: "paragraph", text: "Texas property tax is administered locally through appraisal districts and taxing units rather than as one uniform statewide bill. The Comptroller maintains county-by-county appraisal and tax-office information, which is useful for verifying the agencies tied to an address. Buyers should look beyond a seller's prior tax bill because exemptions, appraised value and taxing jurisdictions can change what the next owner pays." },
+  { type: "paragraph", text: "When comparing two neighborhoods, put estimated property tax, insurance, homeowners-association dues, utility structure, toll exposure and commute cost on the same worksheet. That comparison often explains why two homes with similar sale prices have very different ownership costs. It also keeps the relocation decision grounded in the household's actual routine instead of a statewide cost-of-living average." },
+  { type: "heading", text: "Use the first month to verify systems, not just unpack boxes" },
+  { type: "paragraph", text: "After arrival, confirm the practical systems tied to the new address: vehicle and driver requirements, voter registration if desired, homestead-exemption eligibility when applicable, emergency alerts, utility contacts, trash and recycling schedules, school or childcare logistics and the route to ordinary medical care. These are not glamorous moving tasks, but finishing them early makes the new place function like home instead of a long-term hotel." },
+  { type: "paragraph", text: "The best relocation guide should therefore answer two questions at once: what costs change, and what daily systems change. Texas can be a strong fit for many households, but the fit is local. A move to a Gulf Coast suburb, an Austin apartment, a North Texas exurb and a West Texas city should not be evaluated with the same assumptions about weather, transportation, insurance or services." },
 ];
 
 const texasDifferent: ArticleBlock[] = [
@@ -43,6 +61,16 @@ const texasDifferent: ArticleBlock[] = [
   { type: "heading", text: "The useful question is why the pattern exists" },
   { type: "paragraph", text: "Rather than collecting oddities, ask what created them. Immigration shaped food and language. Railroads and cattle routes shaped towns. Oil and gas changed cities and rural landscapes. Military installations influenced whole regions. River systems, drought and storms still shape where people live and how communities prepare." },
   { type: "paragraph", text: "That approach makes Texas feel less like a collection of slogans and more like a place whose modern habits can be traced to geography, institutions and history." },
+  { type: "heading", text: "Official symbols show how deliberately Texas names its identity" },
+  { type: "paragraph", text: "The Texas State Library and Archives Commission maintains the official list of state symbols and the legislative resolutions behind them. The list reaches far beyond the flag and bluebonnet into foods, animals, music, plants, sports and cultural designations. That does not mean every symbol is equally important in daily life; it shows that Texans have repeatedly used the legislative process to attach public meaning to recognizable pieces of the state's landscape and culture." },
+  { type: "paragraph", text: "Place designations work the same way. Communities have been formally recognized for particular industries, foods, wildlife, history and traditions. Those labels are most useful when they lead to the local story behind them rather than becoming trivia. A visitor who sees a designation should ask what museum, festival, landscape, business tradition or historic site explains why the title exists." },
+  { type: "heading", text: "Courthouse towns make civic history visible on an ordinary road trip" },
+  { type: "paragraph", text: "Texas courthouses are unusually useful travel landmarks because many towns grew around them. The Texas Historical Commission's courthouse program describes these buildings as long-standing centers of public and business life, and restored courthouses remain anchors for downtown streets, festivals and community events. That makes a county-seat stop a practical way to see architecture, government and local identity in the same place." },
+  { type: "paragraph", text: "This is also why Texas can feel decentralized despite its strong statewide brand. County seats, school districts, river authorities, regional economies and distinct metro areas all create layers of local identity. The state-wide symbols are real, but so are the differences between the Valley, El Paso, East Texas, the High Plains, the Gulf and Central Texas." },
+  { type: "heading", text: "What is actually different and what is just a stereotype?" },
+  { type: "paragraph", text: "A useful test is whether the pattern can be tied to a real institution, landscape or historical pathway. The county system is measurable. The Republic era is documented. State symbols have legislative records. Barbecue and foodways have regional histories. By contrast, claims that every Texan dresses, votes, eats or talks the same way collapse as soon as the state is examined region by region." },
+  { type: "paragraph", text: "The strongest Texas stories therefore explain causes and variation. They show why a pattern developed, where it is strongest, who shaped it and how it changed. That is more durable than a list of exaggerated quirks and gives readers a framework they can use when they encounter a new town, tradition or landscape." },
+  { type: "paragraph", text: "Another useful difference is how often statewide identity and local identity coexist without cancelling one another. A resident can strongly identify with the Valley, East Texas, the Panhandle, El Paso or a particular county and still use the same state symbols and historical vocabulary as someone hundreds of miles away. That layered identity is more revealing than any claim that Texas has one uniform culture, because it explains how recognizable statewide habits persist across very different landscapes and communities." },
 ];
 
 const texasFoods: ArticleBlock[] = [
@@ -55,6 +83,16 @@ const texasFoods: ArticleBlock[] = [
   { type: "heading", text: "Use food as a way into Texas history" },
   { type: "paragraph", text: "Texas cuisine reflects Indigenous, Mexican, Tejano, Black, Southern, German, Czech and other immigrant influences, as well as ranching, agriculture and Gulf trade. A food road trip can therefore double as a history trip when it includes the towns, markets and communities that shaped what is on the plate." },
   { type: "paragraph", text: "Leave enough room in the schedule for local recommendations. The unexpected bakery, taco counter or small-town lunch stop often explains a region better than a famous destination booked months in advance." },
+  { type: "heading", text: "Build a food itinerary by meal and geography" },
+  { type: "paragraph", text: "A statewide food trip becomes manageable when each stop has a purpose. Breakfast might be tacos in San Antonio or South Texas, lunch a Czech-Texas bakery stop in Central Texas, dinner barbecue in a town with a strong pit tradition, and the next day Gulf seafood near the coast. This is more useful than stacking several famous restaurants serving the same style into one day and spending the rest of the trip in line." },
+  { type: "paragraph", text: "The official Travel Texas food-and-drink guide reflects the breadth of the state's dining scene, from barbecue and tacos to international cooking, breweries and wineries. Use that breadth as permission to compare regions. Houston's global restaurant culture, the Valley's border foodways, Central Texas smokehouses and Gulf Coast seafood all belong in the Texas food story without needing to compete for one statewide crown." },
+  { type: "heading", text: "Know what can change before you drive across the state for a meal" },
+  { type: "paragraph", text: "Small restaurants and barbecue joints can sell out, close between service periods or change hours by day. Before making a long detour, verify the current schedule directly and identify a backup nearby. For destination dining, treat the town itself as part of the outing: pair the meal with a courthouse square, museum, historic district, market or park so the trip still works if a line is longer than expected." },
+  { type: "paragraph", text: "Food safety and alcohol rules are not reasons to overcomplicate a trip, but they are reasons to plan transportation. If tasting beer, wine or spirits is part of the itinerary, designate a driver or use local transportation where available. In summer, do not leave perishable takeout sitting in a hot vehicle while sightseeing. The practical details protect the experience rather than distracting from it." },
+  { type: "heading", text: "A useful Texas food bucket list should teach comparison" },
+  { type: "paragraph", text: "Instead of declaring one brisket, taco or pie the final answer, build the list around contrasts: smoked beef and sausage, flour and corn tortillas, Gulf seafood and inland ranch cooking, old market traditions and new immigrant restaurants. Note what the region, technique and community contribute. That turns a listicle into a repeatable way to understand why Texas food changes as the road changes." },
+  { type: "paragraph", text: "A traveler who leaves Texas knowing the difference between several regional food traditions has learned more than a traveler who only collected famous names. The best guide should help readers choose a route, understand what they are tasting, verify current hours and connect the meal to the town around it." },
+  { type: "paragraph", text: "Order with the restaurant's specialty in mind rather than forcing every stop into the same comparison. A smokehouse may be strongest at brisket or sausage, a bakery at a particular Czech-Texas pastry, a Gulf restaurant at seasonal seafood, and a taco shop at a house tortilla or regional filling. Asking what a place is known for keeps the trip focused on craft and local context instead of turning every meal into a ranking contest." },
 ];
 
 const texasPlaces: ArticleBlock[] = [
@@ -67,6 +105,19 @@ const texasPlaces: ArticleBlock[] = [
   { type: "heading", text: "Make the list personal enough to be useful" },
   { type: "paragraph", text: "A family with young children, a history traveler, a birder and a long-distance hiker should not have identical top-ten lists. Start with the Texas experiences you care about—food, water, music, history, wildlife, architecture or open landscapes—then use statewide variety to choose destinations that add something new." },
   { type: "paragraph", text: "The best Texas list is the one that creates several coherent trips instead of one exhausting attempt to collect every famous place at once." },
+  { type: "heading", text: "Use a six-landscape test to avoid a repetitive bucket list" },
+  { type: "paragraph", text: "A statewide list becomes more useful when it includes genuinely different environments. One workable test is to include desert or mountains, canyon or plains, pine forest or wetland, Gulf Coast, limestone Hill Country and at least one major urban or historic landscape. The exact destinations can change, but the variety forces the trip plan to explain more of Texas than a popularity ranking clustered around one metro." },
+  { type: "paragraph", text: "That approach also makes repeat trips easier. If a first trip covers San Antonio and the Hill Country, the next could focus on Big Bend; another could combine East Texas and Caddo Lake; another could follow the Gulf. The bucket list becomes a set of coherent journeys rather than a checklist that sends travelers back and forth across the state." },
+  { type: "heading", text: "Match access and preparation to the managing authority" },
+  { type: "paragraph", text: "National parks, state parks, historic sites, wildlife areas and city attractions have different reservation systems and operating rules. A famous name on a list is not enough information to plan the day. Verify the official site for fees, current closures, tour schedules, trail conditions, parking and accessibility before committing the route around it." },
+  { type: "paragraph", text: "Remote destinations need a second layer of planning. Big Bend and other far-West Texas trips can involve long fuel gaps and limited services. Gulf and river destinations can be altered by storms or high water. Popular state parks can hit capacity. The more a place depends on weather, limited entry or a long approach drive, the more important it is to build a backup into the same region." },
+  { type: "heading", text: "Separate places worth a trip from places worth a stop" },
+  { type: "paragraph", text: "Some Texas destinations justify several days because the surrounding region adds depth: Big Bend, San Antonio, the Hill Country, the Gulf Coast and the major metros can all support layered itineraries. Others are excellent two-hour or half-day stops that make a road trip richer. Treating every place as an equal all-day attraction creates rushed schedules and can make a genuinely good stop feel disappointing." },
+  { type: "paragraph", text: "A strong destination guide should tell readers why the place matters, how much time it deserves, what it pairs with and what practical condition could change the visit. Those four answers are more useful than a longer list of names. They also help travelers build trips that feel different from one another as they continue exploring the state." },
+  { type: "heading", text: "Season and distance can change which famous place belongs on this trip" },
+  { type: "paragraph", text: "Texas destinations do not have equal value in every month. A Gulf beach, desert trail, spring-fed swimming area, migratory-bird stop and courthouse town respond differently to heat, storms, water conditions, daylight and event calendars. Instead of forcing a fixed top-ten list onto every season, ask which landscapes are at their best and which can be saved for a more comfortable or ecologically interesting time of year. That approach also reduces the temptation to spend a whole day driving toward a famous place that is poorly matched to current conditions." },
+  { type: "paragraph", text: "Distance should be evaluated in usable travel time rather than visual proximity on a statewide map. A destination that requires a long out-and-back drive may deserve an overnight stay or a separate regional trip, while a smaller place directly on the route may add more value to the day. Build clusters around a base town or corridor, keep the longest drive attached to the experience that justifies it, and leave enough daylight and energy for the return. Texas feels larger in person than it does on a planning screen, and itineraries improve when that scale is treated as part of the destination rather than dead time between attractions." },
+  { type: "paragraph", text: "For families or mixed-interest groups, choose one anchor everyone agrees is worth the drive and let the surrounding stops serve different interests: scenery, food, history, wildlife or a short walk. That produces a more resilient day than scheduling several high-effort attractions back to back. It also makes weather changes easier to absorb because the route already contains lower-exposure alternatives in the same region." },
 ];
 
 const campingTexas: ArticleBlock[] = [
@@ -79,6 +130,16 @@ const campingTexas: ArticleBlock[] = [
   { type: "heading", text: "Wildlife safety starts with food and distance" },
   { type: "paragraph", text: "Store food, trash and scented items according to the park's rules and keep wildlife wild by not feeding animals. Give snakes, javelina, deer, alligators and other animals space. A campsite is still habitat, and approaching wildlife for photographs can create risks for people and animals." },
   { type: "paragraph", text: "Know the emergency plan before cell service becomes unreliable. Tell someone the itinerary, keep the vehicle fueled, carry offline navigation when appropriate, and understand where the nearest staffed facility or ranger contact is located. Remote camping is rewarding because it is remote; that same quality makes preparation more important." },
+  { type: "heading", text: "Day use and overnight reservations solve different problems" },
+  { type: "paragraph", text: "Texas Parks and Wildlife uses day passes to manage park entry and separate reservations for overnight camping or lodging. Popular parks can stop admitting drop-in day visitors when capacity is reached, so an advance pass can protect a day trip from a full gate. An overnight reservation already includes the associated entrance arrangement, but campers still need to verify check-in procedures, vehicle limits and the exact site they reserved." },
+  { type: "paragraph", text: "Reservation windows and cancellation rules can change, which is why the current TPWD reservation page should be checked instead of copying an old timeline into a permanent checklist. The durable planning habit is to reserve the high-demand park first, then book lodging or build the road trip around that confirmed access rather than assuming the park will fit whatever dates remain." },
+  { type: "heading", text: "Choose equipment for the campsite type and exposure" },
+  { type: "paragraph", text: "A shaded developed campsite with water nearby is a different trip from a primitive walk-in site in exposed country. Before packing, confirm whether the site has electricity, potable water nearby, a tent pad, shade, vehicle access and restroom facilities. Then add equipment for the actual weather exposure: sun protection and ventilation in hot conditions, insulation for cold fronts, and a reliable rain plan where storms can arrive quickly." },
+  { type: "paragraph", text: "Do not make a natural creek, spring or lake the only drinking-water plan unless the park explicitly says the source is available and you have a treatment method appropriate to the conditions. Drought, water-quality advisories and seasonal flow can change what is usable. Carrying a known supply is especially important in desert and remote parks where a failed assumption can become a safety problem rather than an inconvenience." },
+  { type: "heading", text: "Treat the vehicle as part of the safety system" },
+  { type: "paragraph", text: "For remote camping, arrive with enough fuel for the park approach, local driving and a reasonable margin to reach the next reliable station. Keep a map or offline route, a backup light, basic first-aid supplies and enough water to handle a delay. If the route includes low-water crossings, unpaved roads or winter-weather exposure, check current conditions before committing the vehicle to the approach." },
+  { type: "paragraph", text: "The final pre-departure check should be simple: reservation, park alerts, forecast, burn restrictions, water plan, fuel, navigation and a person outside the trip who knows where you expect to be. Those habits apply whether the campsite is a family loop near a city or a primitive site hours from the nearest metro. The level of equipment changes; the planning logic does not." },
+  { type: "paragraph", text: "Also check the individual park's rules for pets, quiet hours, generators, food storage and campfires. Those details vary enough that a habit learned at one campground should not be assumed at the next, and confirming them before arrival avoids preventable conflicts at the site." },
 ];
 
 const stateFair: ArticleBlock[] = [
@@ -91,6 +152,16 @@ const stateFair: ArticleBlock[] = [
   { type: "heading", text: "Treat football and special events as separate crowd levels" },
   { type: "paragraph", text: "Certain fair days draw very different crowds because of college football, concerts or other major programs. If the fair itself is the priority, compare the official schedule before choosing a date. If a game or special event is the reason for going, build the rest of the fair visit around that fixed start time and the transportation surge around it." },
   { type: "paragraph", text: "The fair changes details every year, so a durable guide should teach visitors how to use the official schedule, map, transportation and ticket information rather than freeze one year's operating plan into permanent advice." },
+  { type: "heading", text: "Choose transportation before choosing an arrival time" },
+  { type: "paragraph", text: "The State Fair's current transportation guidance includes DART Rail access on the Green Line at Fair Park Station and MLK, Jr. Station, along with driving, parking, rideshare and regional rail options. That means the best arrival plan depends on where the visitor is staying and whether the day includes a football game or another major event. Compare transit time, parking cost and the expected crowd rather than automatically driving to the closest gate." },
+  { type: "paragraph", text: "If driving, save the official parking information and use designated lots instead of relying on an unofficial sign several blocks away without understanding the terms. If using rail, buy the fare before joining the event crowd and know which station is more convenient to the part of Fair Park you expect to use first. The important principle is to make the transportation decision before everyone is standing in a hotel lobby deciding how to get there." },
+  { type: "heading", text: "Use the daily schedule to prevent unnecessary walking" },
+  { type: "paragraph", text: "Fair Park is large, and a day can become tiring when visitors repeatedly cross the grounds for events they could have grouped by location and time. Start with two or three fixed priorities, mark them on the current map, then fill the gaps with food, exhibits and attractions nearby. This reduces backtracking and makes it easier to build in shade, indoor time and rest for children or older relatives." },
+  { type: "paragraph", text: "The same strategy helps with food. Instead of trying to eat every headline item, pick a few foods that matter to the group and share where practical. Keep water and a real meal in the plan, especially on warm days. Novelty food is part of the fair, but a full day is more enjoyable when the group is not making every decision while hungry, overheated or rushing to the next show." },
+  { type: "heading", text: "Check the official site again shortly before the visit" },
+  { type: "paragraph", text: "The State Fair publishes annual hours, schedules, visitor information, ticket offers and transportation details. Those are time-sensitive facts, so a good evergreen guide should point readers back to the current official pages instead of preserving last year's prices or show times. Recheck the daily schedule, operating hours, allowed-item rules, weather and transportation plan shortly before leaving." },
+  { type: "paragraph", text: "A successful first fair day is not measured by covering every acre. It is a day in which the group sees the traditions or events it cared about, eats a few things it wanted to try, has enough time to wander and gets in and out of Fair Park without the transportation plan becoming the dominant memory. That is why priorities, map awareness and current official information matter more than a giant checklist." },
+  { type: "paragraph", text: "Groups should choose a meeting point near a landmark before separating and keep the official map available on more than one phone. Crowds, noise and long walking distances make small coordination mistakes harder to correct than they would be on an ordinary museum day. Families can also identify indoor exhibits or seated programs that work as planned recovery stops if heat or fatigue arrives earlier than expected." },
 ];
 
 const definesTexas: ArticleBlock[] = [
@@ -103,15 +174,115 @@ const definesTexas: ArticleBlock[] = [
   { type: "heading", text: "Scale shapes the culture as much as symbolism does" },
   { type: "paragraph", text: "Long distances encourage road-trip habits and strong regional centers. Drought and storms make weather part of planning. The number of counties preserves a strong county-seat geography. Agricultural, energy and military landscapes remain visible from highways. Even the ordinary question of how far away something is often gets answered in hours rather than miles." },
   { type: "paragraph", text: "What defines Texas, then, is not one slogan. It is the accumulation of place, history, institutions and habits that remain recognizable even as the state grows and changes." },
+  { type: "heading", text: "Official symbols are a record of what Texans choose to recognize" },
+  { type: "paragraph", text: "The Texas State Library and Archives Commission maintains a legislatively documented list of state symbols. Some, such as the bluebonnet and mockingbird, are widely recognized; others identify foods, animals, music, plants, sports and cultural practices. Taken together, they show that Texas identity is continuously interpreted and formalized rather than frozen in the nineteenth century." },
+  { type: "paragraph", text: "The useful way to read those symbols is as entry points. A flower leads to prairie ecology and spring travel. A food leads to migration and regional cooking. A music designation leads to venues and communities. A state symbol becomes meaningful when it connects to a place, practice or historical story that a resident or traveler can still encounter." },
+  { type: "heading", text: "Regional variation is part of the identity, not an exception to it" },
+  { type: "paragraph", text: "El Paso's border and desert setting, the Rio Grande Valley's subtropical landscape, Houston's port and international communities, East Texas pine country, the Panhandle's plains, the Hill Country's limestone rivers and the Dallas-Fort Worth urban region all produce different daily versions of Texas. A definition that erases those differences is less accurate, not more unified." },
+  { type: "paragraph", text: "This regional approach also makes cultural claims easier to test. Barbecue traditions shift. Architecture shifts. Dominant industries shift. Languages, music scenes and migration histories shift. The statewide identity survives because people recognize the relationship among those places, not because every county looks or behaves the same." },
+  { type: "heading", text: "Institutions turn memory into something visible" },
+  { type: "paragraph", text: "Courthouses, archives, historic sites, museums, schools, churches, dance halls, rodeo grounds and public markers are places where memory is organized and repeated. The Texas Historical Commission's courthouse work is one example: county courthouses have served as centers of public and business life, and their preservation keeps civic history physically present in many downtowns." },
+  { type: "paragraph", text: "The same idea applies to living traditions. A dance hall matters because people still dance there. A barbecue market matters because techniques and family businesses continue. A festival matters because a community repeats it. Texas identity is strongest when history is connected to a practice that remains visible rather than treated as a costume stored for tourists." },
+  { type: "heading", text: "A better definition of Texas leaves room for change" },
+  { type: "paragraph", text: "Texas has grown through Indigenous history, Spanish and Mexican rule, the Republic and statehood, slavery and emancipation, immigration, ranching, railroads, oil, military expansion, urbanization, technology and global trade. Modern identity carries pieces of all of those periods. New communities and industries continue to add layers without erasing the older ones." },
+  { type: "paragraph", text: "That is why the best answer to what defines Texas is plural: landscapes, regional cultures, public institutions, foodways, music, work, migration, symbols and an unusually visible habit of naming the state itself. The details change by place and generation, but the conversation about what counts as Texas is itself one of the state's durable traditions." },
+  { type: "paragraph", text: "Contemporary growth is part of that story rather than evidence that the older identity disappeared. New neighborhoods, industries, languages and migration patterns change what Texans encounter every day, while historic places, state symbols and regional traditions remain reference points. The useful question is not whether Texas is still exactly what it once was; it is which older patterns remain influential, which have changed, and how new communities are adding to the meaning of the state." },
 ];
 
 export const texasGatewayBatch1Enrichment: Record<string, GatewayBatch1Enrichment> = {
-  "things-to-know-before-visiting-texas": { body: visitingTexas, sourceName: "Travel Texas — Things to Do in Texas", sourceUrl: "https://www.traveltexas.com/things-to-do/", relatedDestinations: ["san-antonio", "big-bend-chisos-basin"] },
-  "things-nobody-tells-you-before-moving-to-texas": { body: movingTexas, sourceName: "Texas Department of Insurance — Home insurance guide", sourceUrl: "https://www.tdi.texas.gov/pubs/consumer/cb025.html", internalLinks: [{ href: "/texas-property-tax-calculator", label: "Texas property-tax calculator" }, { href: "/texas-home-insurance-calculator", label: "Texas home-insurance calculator" }], relatedDestinations: ["houston", "san-antonio"] },
-  "things-texas-does-differently-than-every-other-state": { body: texasDifferent, sourceName: "Texas Historical Commission", sourceUrl: "https://thc.texas.gov/about", relatedDestinations: ["fredericksburg", "san-antonio"] },
-  "texas-foods-you-need-to-try": { body: texasFoods, sourceName: "Travel Texas — Food & Drink", sourceUrl: "https://www.traveltexas.com/things-to-do/food-drink/", internalLinks: [{ href: "/article/texas-food-road-trip-bucket-list", label: "Texas food road-trip bucket list" }], relatedCollections: ["smoke-and-salt"], relatedDestinations: ["lockhart"] },
-  "places-everyone-should-visit-in-texas": { body: texasPlaces, sourceName: "Travel Texas — Things to Do in Texas", sourceUrl: "https://www.traveltexas.com/things-to-do/", relatedDestinations: ["big-bend-chisos-basin", "palo-duro-canyon", "caddo-lake"] },
-  "things-to-know-before-camping-in-texas": { body: campingTexas, sourceName: "Texas Parks and Wildlife Department — Camping and Lodging", sourceUrl: "https://tpwd.texas.gov/state-parks/parks/things-to-do/camping", internalLinks: [{ href: "/state-parks", label: "Texas state parks" }, { href: "/best-places-to-go-camping-in-texas", label: "Best places to camp in Texas" }], relatedDestinations: ["palo-duro-canyon", "enchanted-rock"] },
-  "things-to-know-before-state-fair-of-texas": { body: stateFair, sourceName: "State Fair of Texas — Visitor's Guide", sourceUrl: "https://bigtex.com/visitors-guide/", internalLinks: [{ href: "/texas-state-fair", label: "State Fair of Texas guide" }], relatedDestinations: ["dallas"], relatedCollections: ["texas-events"] },
-  "things-that-define-texas": { body: definesTexas, sourceName: "Texas Historical Commission", sourceUrl: "https://thc.texas.gov/about", internalLinks: [{ href: "/texas-icons", label: "Texas icons" }], relatedDestinations: ["san-antonio", "fredericksburg"] },
+  "things-to-know-before-visiting-texas": {
+    body: visitingTexas,
+    sourceName: "Travel Texas — Things to Do in Texas",
+    sourceUrl: "https://www.traveltexas.com/things-to-do/",
+    internalLinks: [
+      { href: "/explore/state-parks", label: "Browse Texas state parks" },
+      { href: "/article/texas-weather-surprises-newcomers", label: "Texas weather surprises newcomers" },
+      { href: "/article/texas-road-trip-stops-worth-the-detour", label: "Texas road-trip stops worth the detour" },
+    ],
+    relatedDestinations: ["san-antonio", "big-bend-chisos-basin"],
+  },
+  "things-nobody-tells-you-before-moving-to-texas": {
+    body: movingTexas,
+    sourceName: "Texas Department of Insurance — Home insurance guide",
+    sourceUrl: "https://www.tdi.texas.gov/pubs/consumer/cb025.html",
+    internalLinks: [
+      { href: "/texas-property-tax-calculator", label: "Texas property-tax calculator" },
+      { href: "/texas-home-insurance-calculator", label: "Texas home-insurance calculator" },
+      { href: "/moving-to-texas", label: "Moving to Texas hub" },
+      { href: "/moving-to-texas-checklist", label: "Moving to Texas checklist" },
+      { href: "/texas-resources", label: "Texas official resources" },
+    ],
+    relatedDestinations: ["houston", "san-antonio"],
+  },
+  "things-texas-does-differently-than-every-other-state": {
+    body: texasDifferent,
+    sourceName: "Texas State Library and Archives Commission — State Symbols",
+    sourceUrl: "https://www.tsl.texas.gov/ref/abouttx/symbols",
+    internalLinks: [
+      { href: "/texas-icons", label: "Texas icons" },
+      { href: "/browse/counties", label: "Browse Texas counties" },
+      { href: "/article/things-that-define-texas", label: "Things that define Texas" },
+    ],
+    relatedDestinations: ["fredericksburg", "san-antonio"],
+  },
+  "texas-foods-you-need-to-try": {
+    body: texasFoods,
+    sourceName: "Travel Texas — Food & Drink",
+    sourceUrl: "https://www.traveltexas.com/things-to-do/food-drink/",
+    internalLinks: [
+      { href: "/article/texas-food-road-trip-bucket-list", label: "Texas food road-trip bucket list" },
+      { href: "/explore/food-bbq", label: "Explore Texas food and barbecue" },
+      { href: "/texas-food-history", label: "Texas food history" },
+    ],
+    relatedCollections: ["smoke-and-salt"],
+    relatedDestinations: ["lockhart"],
+  },
+  "places-everyone-should-visit-in-texas": {
+    body: texasPlaces,
+    sourceName: "Travel Texas — Things to Do in Texas",
+    sourceUrl: "https://www.traveltexas.com/things-to-do/",
+    internalLinks: [
+      { href: "/explore", label: "Explore Texas" },
+      { href: "/explore/state-parks", label: "Texas state parks" },
+      { href: "/explore/historic-sites", label: "Texas historic sites" },
+      { href: "/browse/cities", label: "Browse Texas cities" },
+    ],
+    relatedDestinations: ["big-bend-chisos-basin", "palo-duro-canyon", "caddo-lake"],
+  },
+  "things-to-know-before-camping-in-texas": {
+    body: campingTexas,
+    sourceName: "Texas Parks and Wildlife Department — Camping and Lodging",
+    sourceUrl: "https://tpwd.texas.gov/state-parks/parks/things-to-do/camping",
+    internalLinks: [
+      { href: "/explore/state-parks", label: "Texas state parks" },
+      { href: "/best-places-to-go-camping-in-texas", label: "Best places to camp in Texas" },
+      { href: "/explore/outdoors", label: "Texas outdoors guide" },
+      { href: "/article/texas-weather-surprises-newcomers", label: "Texas weather planning" },
+    ],
+    relatedDestinations: ["palo-duro-canyon", "enchanted-rock"],
+  },
+  "things-to-know-before-state-fair-of-texas": {
+    body: stateFair,
+    sourceName: "State Fair of Texas — Visitor's Guide",
+    sourceUrl: "https://bigtex.com/visitors-guide/",
+    internalLinks: [
+      { href: "/texas-state-fair", label: "State Fair of Texas guide" },
+      { href: "/events", label: "Texas events calendar" },
+      { href: "/article/things-to-know-before-visiting-texas", label: "First-time Texas visitor guide" },
+    ],
+    relatedDestinations: ["dallas"],
+    relatedCollections: ["texas-events"],
+  },
+  "things-that-define-texas": {
+    body: definesTexas,
+    sourceName: "Texas State Library and Archives Commission — State Symbols",
+    sourceUrl: "https://www.tsl.texas.gov/ref/abouttx/symbols",
+    internalLinks: [
+      { href: "/texas-icons", label: "Texas icons" },
+      { href: "/browse/counties", label: "Browse Texas counties" },
+      { href: "/explore/historic-sites", label: "Texas historic sites" },
+      { href: "/article/things-texas-does-differently-than-every-other-state", label: "What Texas does differently" },
+    ],
+    relatedDestinations: ["san-antonio", "fredericksburg"],
+  },
 };
