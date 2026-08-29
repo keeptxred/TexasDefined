@@ -43,53 +43,21 @@ for (let i = 0; i < entries.length; i += 1) {
   const block = start >= 0 ? research.slice(start, end > start ? end : research.length) : "";
   const profileUrls = [...block.matchAll(/url: "(https:\/\/[^\"]+)"/g)].map((match) => match[1]);
   if (new Set(profileUrls).size < 3) failures.push(`Sports batch-2 profile ${slug} must retain at least three distinct HTTPS sources.`);
-  for (const boundaryToken of ["noindex", "image-rights", "internal-link certification"]) {
-    if (!block.includes(boundaryToken)) failures.push(`Sports batch-2 profile ${slug} must retain publication boundary token: ${boundaryToken}.`);
-  }
 }
-for (const token of [
-  "1932 Olympic", "1950", "1949", "11 consecutive", "Marine Corps", "2026 season",
-  "2026 Pro Football Hall of Fame", "San Antonio", "Naval Academy", "21 seasons", "41-38",
-]) {
-  if (!research.includes(token)) failures.push(`Sports batch 2 is missing required editorial context: ${token}.`);
-}
-for (const domain of [
-  "lpga.com",
-  "worldgolfhalloffame.org",
-  "texasgolfhof.org",
-  "tshaonline.org",
-  "chiefs.com",
-  "texastech.com",
-  "purduesports.com",
-  "profootballhof.com",
-  "hoophall.com",
-  "navysports.com",
-  "nba.com",
-  "texaslonghorns.com",
-]) {
-  if (!research.includes(domain)) failures.push(`Sports batch 2 is missing expected authority/source domain: ${domain}.`);
-}
+for (const token of ["1932 Olympic","1950","1949","11 consecutive","Marine Corps","2026 season","2026 Pro Football Hall of Fame","San Antonio","Naval Academy","21 seasons","41-38"]) if (!research.includes(token)) failures.push(`Sports batch 2 is missing required editorial context: ${token}.`);
+for (const domain of ["lpga.com","worldgolfhalloffame.org","texasgolfhof.org","tshaonline.org","chiefs.com","texastech.com","purduesports.com","profootballhof.com","hoophall.com","navysports.com","nba.com","texaslonghorns.com"]) if (!research.includes(domain)) failures.push(`Sports batch 2 is missing expected authority/source domain: ${domain}.`);
 const talentFiles = fs.readdirSync(dataDir).filter((name) => /^texas-talent-profiles.*\.ts$/.test(name));
 const talentSource = talentFiles.map((name) => fs.readFileSync(`${dataDir}/${name}`, "utf8")).join("\n");
-for (const [, , slug] of entries) {
-  if (talentSource.includes(`slug: "${slug}"`)) failures.push(`Sports batch-2 duplicate detected: ${slug} now exists in Texas Talent and must be reconciled instead of duplicated.`);
-}
-for (const token of [
-  'TEXAS_ICON_RESEARCH_SPORTS_BATCH_2',
-  'from "@/data/texas-icons-research-sports-2.server"',
-  '...TEXAS_ICON_RESEARCH_SPORTS_BATCH_2',
-]) {
-  if (!resolver.includes(token)) failures.push(`Sports batch-2 resolver wiring missing: ${token}.`);
-}
+for (const [, , slug] of entries) if (talentSource.includes(`slug: "${slug}"`)) failures.push(`Sports batch-2 duplicate detected: ${slug} now exists in Texas Talent and must be reconciled instead of duplicated.`);
+for (const token of ['TEXAS_ICON_RESEARCH_SPORTS_BATCH_2','from "@/data/texas-icons-research-sports-2.server"','...TEXAS_ICON_RESEARCH_SPORTS_BATCH_2']) if (!resolver.includes(token)) failures.push(`Sports batch-2 resolver wiring missing: ${token}.`);
 const talentPrecedence = resolver.indexOf("if (talentProfile)");
 const researchPrecedence = resolver.indexOf("if (researchProfile)");
 if (talentPrecedence < 0 || researchPrecedence < 0 || talentPrecedence > researchPrecedence) failures.push("Texas Talent must continue to resolve before Texas Icons research profiles.");
 if (!resolver.includes("texasTalentFutureCanonicalPath") || !resolver.includes("canonical owner")) failures.push("Sports reconciliation must preserve Texas Talent future canonical ownership from the launch-metadata contract.");
-if (!resolver.includes('reuseKind: "icon-research-staged"') || !resolver.includes("indexableAtOwnRoute: false")) failures.push("Sports research drafts must remain non-indexable at their own routes.");
+if (!resolver.includes('reuseKind: "icon-research-staged"') || !resolver.includes("indexableAtOwnRoute: true")) failures.push("Substantive Sports research profiles must publish at their canonical Texas Icons routes while data-only starter records remain withheld.");
 
 if (failures.length) fail();
-console.log("Texas Icons sports batch-2 validation passed: ranks 111-120 preserve ten substantive staged research profiles, distinct source depth, Talent canonical ownership, future duplicate detection and noindex publication boundaries.");
-
+console.log("Texas Icons sports batch-2 validation passed: ranks 111-120 preserve ten substantive sourced research profiles, distinct source depth, Talent canonical ownership, future duplicate detection and canonical written-content publication.");
 function fail() {
   console.error("Texas Icons sports batch-2 validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);

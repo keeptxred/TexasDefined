@@ -6,7 +6,6 @@ import {
   TEXAS_ICON_CATEGORIES,
   TEXAS_ICON_CATEGORY_AUTHORITY_HUBS,
   type TexasIconNarrativeProfile,
-  type TexasIconResearchProfile,
 } from "@/data/texas-icons-types";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
@@ -20,6 +19,10 @@ export const Route = createFileRoute("/texas-icons/$slug")({
       throw redirect({ href: result.icon.href, statusCode: 301 });
     }
 
+    // Pure roster/fact data can power lists and editorial systems, but it is not
+    // a standalone article. Only a real narrative profile gets a public route.
+    if (!result.talentProfile && !result.researchProfile) throw notFound();
+
     return result;
   },
   head: ({ loaderData }) => {
@@ -30,10 +33,7 @@ export const Route = createFileRoute("/texas-icons/$slug")({
         canonicalPath,
         title: `${loaderData.icon.name}: Texas Icon`,
         description: loaderData.icon.summary,
-        type: loaderData.talentProfile || loaderData.researchProfile ? "article" : "website",
-        robots: loaderData.icon.indexableAtOwnRoute
-          ? undefined
-          : "noindex, follow, max-image-preview:large",
+        type: "article",
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
     };
@@ -46,25 +46,21 @@ function TexasIconProfilePage() {
   const category = TEXAS_ICON_CATEGORIES.find((candidate) => candidate.id === icon.category);
   const authorityHub = TEXAS_ICON_CATEGORY_AUTHORITY_HUBS[icon.category];
   const canonicalPath = `/texas-icons/${icon.slug}`;
-  const narrativeProfile: TexasIconNarrativeProfile | null = talentProfile ?? researchProfile;
-  const schema = talentProfile
-    ? {
-        "@context": "https://schema.org",
-        "@type": icon.subjectType === "group" ? "MusicGroup" : "Person",
-        name: talentProfile.name,
-        description: talentProfile.dek,
-        url: `https://texasdefined.com${canonicalPath}`,
-      }
-    : null;
+  const narrativeProfile: TexasIconNarrativeProfile = talentProfile ?? researchProfile!;
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": schemaType(icon.subjectType),
+    name: icon.name,
+    description: narrativeProfile.dek,
+    url: `https://texasdefined.com${canonicalPath}`,
+  };
 
   return (
     <>
-      {schema ? (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-        />
-      ) : null}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
       <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
         <article className="mx-auto max-w-6xl">
           <nav aria-label="Breadcrumb" className="border-b border-border pb-4 text-xs uppercase tracking-[0.14em] text-muted-foreground">
@@ -89,48 +85,16 @@ function TexasIconProfilePage() {
                 label="Profile source"
                 value={
                   icon.reuseKind === "texas-talent-ready"
-                    ? "Existing Texas Talent record"
+                    ? "Texas Talent canonical profile"
                     : icon.reuseKind === "texas-talent-staged"
-                      ? "Existing Texas Talent draft"
-                      : icon.reuseKind === "icon-research-staged"
-                        ? "Texas Icons researched draft"
-                        : "Texas Icons research queue"
+                      ? "Published from Texas Talent research"
+                      : "Published Texas Icons profile"
                 }
               />
             </dl>
           </header>
 
-          {researchProfile ? <ResearchDraftNotice profile={researchProfile} /> : null}
-
-          {narrativeProfile ? (
-            <NarrativeProfile profile={narrativeProfile} />
-          ) : (
-            <section className="grid gap-6 border-b border-border py-10 lg:grid-cols-[14rem_1fr]">
-              <div>
-                <p className="eyebrow text-primary">Editorial status</p>
-                <h2 className="mt-2 font-display text-3xl">Research before indexing</h2>
-              </div>
-              <div className="max-w-3xl space-y-4 text-base leading-7 text-muted-foreground">
-                <p>
-                  This subject is part of the 250-icon editorial roster, but TexasDefined has not
-                  promoted this starter record into an indexable profile. The route is intentionally
-                  noindex while source verification and substantive profile research are incomplete.
-                </p>
-                <p>
-                  Cross-links are live now so the editorial network has one stable slug per subject.
-                  A future research pass can deepen this same canonical record rather than creating
-                  a second page.
-                </p>
-                {icon.reuseKind === "texas-talent-staged" ? (
-                  <p>
-                    TexasDefined already has a Texas Talent research record for this subject. That
-                    existing record is being reused here and remains behind its established
-                    publication-readiness gate.
-                  </p>
-                ) : null}
-              </div>
-            </section>
-          )}
+          <NarrativeProfile profile={narrativeProfile} subjectType={icon.subjectType} />
 
           <section className="py-12">
             <div className="flex items-end justify-between gap-6 border-b border-border pb-4">
@@ -145,19 +109,7 @@ function TexasIconProfilePage() {
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4">
               {related.map((candidate, index) => (
-                <a
-                  key={candidate.slug}
-                  href={candidate.href}
-                  className={`group border-b border-border py-6 sm:px-5 ${index % 4 !== 0 ? "lg:border-l" : ""}`}
-                >
-                  <span className="text-xs font-semibold tabular-nums text-muted-foreground">#{candidate.rank}</span>
-                  <strong className="mt-2 block font-display text-2xl leading-tight group-hover:text-primary">
-                    {candidate.name}
-                  </strong>
-                  <small className="mt-3 block text-sm leading-6 text-muted-foreground">
-                    {candidate.href.startsWith("/texas-icons/") ? "Open profile" : "Open canonical guide"} →
-                  </small>
-                </a>
+                <RelatedIcon key={candidate.slug} candidate={candidate} index={index} />
               ))}
             </div>
           </section>
@@ -167,33 +119,42 @@ function TexasIconProfilePage() {
   );
 }
 
-function ResearchDraftNotice({ profile }: { profile: TexasIconResearchProfile }) {
-  return (
-    <section className="border-b border-border py-8">
-      <div className="grid gap-5 lg:grid-cols-[14rem_1fr]">
-        <div>
-          <p className="eyebrow text-primary">Editorial status</p>
-          <h2 className="mt-2 font-display text-3xl">Researched draft · noindex</h2>
-        </div>
-        <div className="max-w-3xl space-y-3 text-sm leading-7 text-muted-foreground">
-          <p>{profile.publicationNote}</p>
-          <p>
-            This research is visible for editorial review and cross-linking, but it does not emit
-            publishable structured data and cannot become indexable merely because the copy exists.
-          </p>
-        </div>
-      </div>
-    </section>
+function RelatedIcon({ candidate, index }: { candidate: { slug: string; name: string; rank: number; href: string; indexableAtOwnRoute: boolean; reuseKind: string }; index: number }) {
+  const className = `group border-b border-border py-6 sm:px-5 ${index % 4 !== 0 ? "lg:border-l" : ""}`;
+  const ownRoute = candidate.href === `/texas-icons/${candidate.slug}`;
+  const hasPublicDestination = !ownRoute || candidate.indexableAtOwnRoute;
+  const content = (
+    <>
+      <span className="text-xs font-semibold tabular-nums text-muted-foreground">#{candidate.rank}</span>
+      <strong className={`mt-2 block font-display text-2xl leading-tight ${hasPublicDestination ? "group-hover:text-primary" : ""}`}>
+        {candidate.name}
+      </strong>
+      <small className="mt-3 block text-sm leading-6 text-muted-foreground">
+        {hasPublicDestination
+          ? candidate.href.startsWith("/texas-icons/") ? "Open profile →" : "Open canonical guide →"
+          : "Data-only roster record"}
+      </small>
+    </>
   );
+  return hasPublicDestination
+    ? <a href={candidate.href} className={className}>{content}</a>
+    : <div className={className}>{content}</div>;
 }
 
-function NarrativeProfile({ profile }: { profile: TexasIconNarrativeProfile }) {
+function NarrativeProfile({
+  profile,
+  subjectType,
+}: {
+  profile: TexasIconNarrativeProfile;
+  subjectType: string;
+}) {
+  const storyHeading = subjectType === "person" ? "Life and career" : "Story and significance";
   return (
     <>
       <section className="grid gap-6 border-b border-border py-10 lg:grid-cols-[14rem_1fr]">
         <div>
           <p className="eyebrow text-primary">Texas story</p>
-          <h2 className="mt-2 font-display text-3xl">Life and career</h2>
+          <h2 className="mt-2 font-display text-3xl">{storyHeading}</h2>
         </div>
         <div className="max-w-3xl space-y-5 text-base leading-8">
           {profile.overview.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
@@ -287,6 +248,14 @@ function Fact({ label, value }: { label: string; value?: string }) {
       <dd className="mt-1 font-medium">{value}</dd>
     </div>
   ) : null;
+}
+
+function schemaType(subjectType: string) {
+  if (subjectType === "person") return "Person";
+  if (subjectType === "group") return "Organization";
+  if (subjectType === "brand") return "Organization";
+  if (subjectType === "place") return "Place";
+  return "Thing";
 }
 
 function title(value: string) {
