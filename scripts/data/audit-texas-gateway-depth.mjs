@@ -42,7 +42,9 @@ function stringValues(node, values = []) {
     if (!looksNonEditorial(combined)) values.push(combined);
     return values;
   }
-  ts.forEachChild(node, (child) => stringValues(child, values));
+  ts.forEachChild(node, (child) => {
+    stringValues(child, values);
+  });
   return values;
 }
 
