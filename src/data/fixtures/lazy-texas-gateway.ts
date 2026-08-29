@@ -1,4 +1,5 @@
 import type { Article } from "../types";
+import { texasGatewayBatch1Enrichment } from "./texas-gateway-batch1-enrichment";
 import { texasGatewayBatch3AuthorityEnrichment } from "./texas-gateway-batch3-authority-enrichment";
 import { texasGatewayBatch3CulturalEnrichment } from "./texas-gateway-batch3-cultural-enrichment";
 import { texasGatewayBatch3SeasonalEnrichment } from "./texas-gateway-batch3-seasonal-enrichment";
@@ -47,7 +48,8 @@ const JACOBS_WELL_OLD = "Jacob's Well area when open for swimming";
 const JACOBS_WELL_CURRENT = "Jacob's Well Natural Area for hiking and the spring overlook; swimming is currently closed until further notice";
 
 const normalizeGatewayArticle = (article: Article): Article => {
-  const enrichment: Partial<Article> | undefined = texasGatewayBatch3CulturalEnrichment[article.slug]
+  const enrichment: Partial<Article> | undefined = texasGatewayBatch1Enrichment[article.slug]
+    ?? texasGatewayBatch3CulturalEnrichment[article.slug]
     ?? texasGatewayBatch3AuthorityEnrichment[article.slug]
     ?? texasGatewayBatch3SeasonalEnrichment[article.slug]
     ?? texasGatewayBatch4CulturalEnrichment[article.slug]
