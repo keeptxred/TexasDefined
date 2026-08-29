@@ -77,6 +77,7 @@ for (const file of talentFiles) {
 }
 
 const aliasesByName = parseAliases(rosterSource);
+const rosterAliasSlugs = new Set([...aliasesByName.values()].flat().map(slugify));
 const canonicalNames = parseCanonicalNames(rosterSource);
 const canonicalSourceSlugs = new Set([...canonicalNames].map(slugify));
 
@@ -128,8 +129,8 @@ if (!graphOwnerEvidence.includes('const graphOwned = [247, "The Cotton Bowl"')) 
 const sourceSlugs = new Set(records.map((record) => record.slug));
 const correctionReplacementSlugs = new Set([...correctionsBySourceSlug.values()].map((entry) => entry.replacementSlug));
 for (const slug of researchSlugs) {
-  if (!sourceSlugs.has(slug) && !correctionReplacementSlugs.has(slug)) {
-    failures.push(`Staged Texas Icons research has no roster or documented-correction owner: ${slug}.`);
+  if (!sourceSlugs.has(slug) && !rosterAliasSlugs.has(slug) && !correctionReplacementSlugs.has(slug)) {
+    failures.push(`Staged Texas Icons research has no roster, roster-alias, or documented-correction owner: ${slug}.`);
   }
 }
 for (const slug of holdSlugs) {
@@ -151,6 +152,7 @@ const outcomesByRank = new Map();
 
 for (const record of records) {
   let outcome = null;
+  const aliases = aliasesByName.get(record.name) ?? [];
   const correction = correctionsBySourceSlug.get(record.slug);
   if (correction) {
     if (correction.rank !== record.rank || correction.sourceName !== record.name) {
@@ -161,9 +163,9 @@ for (const record of records) {
     outcome = "editorial-canonical";
   } else if (graphOwnedSlugs.has(record.slug)) {
     outcome = "knowledge-graph";
-  } else if (hasTalentOwner(record.slug, aliasesByName.get(record.name) ?? [])) {
+  } else if (hasTalentOwner(record.slug, aliases)) {
     outcome = "texas-talent";
-  } else if (researchSlugs.has(record.slug)) {
+  } else if (hasResearchOwner(record.slug, aliases)) {
     outcome = "icon-research-staged";
   } else if (holdSlugs.has(record.slug)) {
     outcome = "editorial-hold";
@@ -215,6 +217,12 @@ console.log(`Texas Icons terminal accounting passed: all 250 intake rows have on
 function hasTalentOwner(sourceSlug, aliases) {
   if (talentSlugs.has(sourceSlug)) return true;
   for (const alias of aliases ?? []) if (talentSlugs.has(slugify(alias))) return true;
+  return false;
+}
+
+function hasResearchOwner(sourceSlug, aliases) {
+  if (researchSlugs.has(sourceSlug)) return true;
+  for (const alias of aliases ?? []) if (researchSlugs.has(slugify(alias))) return true;
   return false;
 }
 
