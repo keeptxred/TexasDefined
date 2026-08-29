@@ -190,8 +190,9 @@ for (const marker of [
 }
 
 for (const marker of [
-  'const supportingExplainers = [', 'Go deeper', 'Five supporting explainers', 'These sit outside the core 10-guide series',
-  '/article/texas-regions-explained', '/article/why-texas-has-254-counties', '/article/texas-hill-country-what-makes-it',
+  'const supportingExplainers = [', 'Go deeper', 'Six supporting explainers', 'These sit outside the core 10-guide series',
+  '/article/texas-regions-explained', '/explore/landscapes/where-does-texas-turn-into-desert',
+  '/article/why-texas-has-254-counties', '/article/texas-hill-country-what-makes-it',
   '/article/best-native-plants-texas-yard', '/article/texas-barbecue-styles-explained',
 ]) {
   if (!route.includes(marker)) errors.push(`Texas Explained outward support-ring discovery missing: ${marker}.`);
@@ -314,4 +315,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Texas Explained collection, six-question quick-answer layer, answer-first core guides, canonical guide ordering, pillar clusters, five-page authority ring, five source-backed child support articles, reciprocal child-to-core and core-to-child discovery, structured data, search discovery and performance-sensitive registration are protected across eager and lazy homepage route surfaces.');
+console.log('Texas Explained collection, six-question quick-answer layer, answer-first core guides, canonical guide ordering, pillar clusters, five-page authority ring, six related primers including the desert-landforms guide, five source-backed child support articles, reciprocal child-to-core and core-to-child discovery, structured data, search discovery and performance-sensitive registration are protected across eager and lazy homepage route surfaces.');
