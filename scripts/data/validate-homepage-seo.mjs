@@ -47,6 +47,17 @@ for (const feature of [
   if (!lazyRoute.includes(feature)) errors.push(`Homepage answer-layer feature missing: ${feature}.`);
 }
 
+for (const [title, href] of [
+  ['Texas Outdoors & Wildlife', '/explore/outdoors'],
+  ['Rio Grande River Guide', '/article/texas-rio-grande-river-guide'],
+  ['Texas Cities & Regions', '/article/texas-major-cities-regional-differences'],
+  ['Texas Lakes & Reservoirs', '/article/texas-lakes-reservoirs-explained'],
+]) {
+  if (!lazyRoute.includes(`title: "${title}"`) || !lazyRoute.includes(`to: "${href}"`)) {
+    errors.push(`Homepage GSC discovery link missing: ${title} -> ${href}.`);
+  }
+}
+
 if (!featureHero.includes('<h2 className="mt-5 max-w-[10.5em]')) {
   errors.push('Split homepage feature must remain an H2 beneath the stable homepage H1.');
 }
@@ -122,4 +133,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Homepage identity, answer layer, FAQ schema, public contact signals, crawler access, curated ItemList and Start Here validation passed.');
+console.log('Homepage identity, answer layer, FAQ schema, public contact signals, crawler access, curated ItemList, GSC discovery links and Start Here validation passed.');
