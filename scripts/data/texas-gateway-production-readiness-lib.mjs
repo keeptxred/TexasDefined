@@ -23,6 +23,8 @@ export const GATEWAY_FILES = [
 
 const REVIEW_PATH = "scripts/data/texas-gateway-editorial-review.json";
 const READINESS_PATH = "src/data/fixtures/texas-gateway-index-readiness.ts";
+const FIXTURE_ROOT = "src/data/fixtures";
+const ENRICHMENT_FILE_RE = /^texas-gateway-.*-enrichment\.ts$/;
 const STOPWORDS = new Set(["a", "an", "and", "are", "best", "for", "from", "how", "in", "of", "on", "the", "to", "texas", "things", "trip", "trips", "weekend", "weekends", "with", "you", "your"]);
 const AUTHORITY_DOMAINS = [".gov", "tpwd.texas.gov", "nps.gov", "weather.gov", "noaa.gov", "fema.gov", "tamu.edu", "txdot.gov", "dps.texas.gov", "dshs.texas.gov"];
 
@@ -67,6 +69,15 @@ function propertyString(node, name) {
   }
   visit(node);
   return value;
+}
+
+function directProperty(node, name) {
+  if (!ts.isObjectLiteralExpression(node)) return null;
+  return node.properties.find((property) => {
+    if (!ts.isPropertyAssignment(property)) return false;
+    const key = ts.isIdentifier(property.name) || ts.isStringLiteral(property.name) ? property.name.text : null;
+    return key === name;
+  }) ?? null;
 }
 
 function propertyArrayCount(node, name) {
@@ -122,8 +133,75 @@ function articleElements(source) {
   return rows;
 }
 
+function parseGatewayEnrichments(root) {
+  const enrichmentBySlug = new Map();
+  const fixtureDir = path.join(root, FIXTURE_ROOT);
+  if (!fs.existsSync(fixtureDir)) return enrichmentBySlug;
+
+  for (const full of walk(fixtureDir)) {
+    if (!ENRICHMENT_FILE_RE.test(path.basename(full))) continue;
+    const sourceText = fs.readFileSync(full, "utf8");
+    const source = ts.createSourceFile(full, sourceText, ts.ScriptTarget.Latest, true, ts.ScriptKind.TS);
+    const arrays = new Map();
+
+    source.forEachChild((node) => {
+      if (!ts.isVariableStatement(node)) return;
+      for (const declaration of node.declarationList.declarations) {
+        if (!ts.isIdentifier(declaration.name) || !declaration.initializer || !ts.isArrayLiteralExpression(declaration.initializer)) continue;
+        arrays.set(declaration.name.text, declaration.initializer);
+      }
+    });
+
+    function visit(node) {
+      if (ts.isPropertyAssignment(node) && ts.isStringLiteral(node.name) && /^[a-z0-9-]+$/.test(node.name.text) && ts.isObjectLiteralExpression(node.initializer)) {
+        const slug = node.name.text;
+        const bodyProperty = directProperty(node.initializer, "body");
+        const sourceNameProperty = directProperty(node.initializer, "sourceName");
+        const sourceUrlProperty = directProperty(node.initializer, "sourceUrl");
+        if (bodyProperty && ts.isPropertyAssignment(bodyProperty) && ts.isIdentifier(bodyProperty.initializer)) {
+          const bodyNode = arrays.get(bodyProperty.initializer.text);
+          if (bodyNode) {
+            const strings = stringsIn(bodyNode).filter((value) => {
+              const text = value.trim();
+              return text && !text.startsWith("/") && !/^https?:\/\//i.test(text);
+            });
+            const sourceName = sourceNameProperty && ts.isPropertyAssignment(sourceNameProperty) && ts.isStringLiteral(sourceNameProperty.initializer)
+              ? sourceNameProperty.initializer.text
+              : null;
+            const sourceUrl = sourceUrlProperty && ts.isPropertyAssignment(sourceUrlProperty) && ts.isStringLiteral(sourceUrlProperty.initializer)
+              ? sourceUrlProperty.initializer.text
+              : null;
+            const enrichmentStrings = stringsIn(node.initializer);
+            const internalHrefs = enrichmentStrings.filter((value) => /^\/[a-z0-9]/i.test(value));
+            enrichmentBySlug.set(slug, {
+              file: path.relative(root, full).replaceAll("\\", "/"),
+              estimatedWords: strings.reduce((sum, value) => sum + wordCount(value), 0),
+              paragraphCount: countBlockType(bodyNode, "paragraph"),
+              headingCount: countBlockType(bodyNode, "heading"),
+              listBlockCount: countBlockType(bodyNode, "list"),
+              listItems: propertyArrayCount(bodyNode, "items"),
+              internalHrefs: [...new Set(internalHrefs)],
+              relatedCollections: propertyArrayCount(node.initializer, "relatedCollections"),
+              relatedDestinations: propertyArrayCount(node.initializer, "relatedDestinations"),
+              sourceName,
+              sourceUrl,
+              externalUrls: sourceUrl ? [sourceUrl] : [],
+              rawText: strings.join(" "),
+            });
+          }
+        }
+      }
+      ts.forEachChild(node, visit);
+    }
+    visit(source);
+  }
+
+  return enrichmentBySlug;
+}
+
 function parseGatewayArticles(root) {
   const rows = [];
+  const enrichmentBySlug = parseGatewayEnrichments(root);
   for (let index = 0; index < GATEWAY_FILES.length; index += 1) {
     const file = GATEWAY_FILES[index];
     const sourceText = read(root, file);
@@ -144,6 +222,7 @@ function parseGatewayArticles(root) {
       const sourceUrl = propertyString(element, "sourceUrl");
       const sourceName = propertyString(element, "sourceName");
       const text = element.getText(source);
+      const enrichment = enrichmentBySlug.get(identity.slug);
       rows.push({
         file,
         batch: index + 1,
@@ -151,21 +230,22 @@ function parseGatewayArticles(root) {
         slug: identity.slug,
         title,
         dek,
-        estimatedWords: strings.reduce((sum, value) => sum + wordCount(value), 0),
-        paragraphCount: countBlockType(element, "paragraph"),
-        headingCount: countBlockType(element, "heading"),
-        listBlockCount: countBlockType(element, "list"),
-        listItems,
-        internalLinkCount: new Set(internalHrefs).size,
-        relatedCollections: propertyArrayCount(element, "relatedCollections"),
-        relatedDestinations: propertyArrayCount(element, "relatedDestinations"),
-        sourceUrl,
-        sourceName,
-        externalUrls: [...new Set(externalUrls)],
+        estimatedWords: strings.reduce((sum, value) => sum + wordCount(value), 0) + (enrichment?.estimatedWords ?? 0),
+        paragraphCount: countBlockType(element, "paragraph") + (enrichment?.paragraphCount ?? 0),
+        headingCount: countBlockType(element, "heading") + (enrichment?.headingCount ?? 0),
+        listBlockCount: countBlockType(element, "list") + (enrichment?.listBlockCount ?? 0),
+        listItems: listItems + (enrichment?.listItems ?? 0),
+        internalLinkCount: new Set([...internalHrefs, ...(enrichment?.internalHrefs ?? [])]).size,
+        relatedCollections: propertyArrayCount(element, "relatedCollections") + (enrichment?.relatedCollections ?? 0),
+        relatedDestinations: propertyArrayCount(element, "relatedDestinations") + (enrichment?.relatedDestinations ?? 0),
+        sourceUrl: enrichment?.sourceUrl ?? sourceUrl,
+        sourceName: enrichment?.sourceName ?? sourceName,
+        externalUrls: [...new Set([...externalUrls, ...(enrichment?.externalUrls ?? [])])],
         hasHero: /\bhero\s*:/.test(text),
         hasAuthor: /\bauthorId\s*:/.test(text),
         hasPublishedAt: /\bpublishedAt\s*:/.test(text),
-        rawText: strings.join(" "),
+        rawText: `${strings.join(" ")} ${enrichment?.rawText ?? ""}`.trim(),
+        enrichmentFile: enrichment?.file ?? null,
       });
     }
   }
@@ -194,7 +274,7 @@ function routeCorpus(root) {
   for (const full of walk(path.join(root, "src/data/fixtures"))) {
     if (!/\.ts$/.test(full)) continue;
     const relative = path.relative(root, full).replaceAll("\\", "/");
-    if (GATEWAY_FILES.includes(relative) || relative.includes("texas-gateway-index")) continue;
+    if (GATEWAY_FILES.includes(relative) || relative.includes("texas-gateway-index") || ENRICHMENT_FILE_RE.test(path.basename(full))) continue;
     const source = fs.readFileSync(full, "utf8");
     for (const match of source.matchAll(/\bslug\s*:\s*["']([a-z0-9-]+)["']/g)) {
       add(match[1], `/article/${match[1]}`, `fixture:${relative}`);
@@ -345,6 +425,7 @@ export function buildGatewayProductionManifest(root = process.cwd()) {
         internalLinkCount: article.internalLinkCount,
         relatedTargets: relatedCount,
         sourceUrl: article.sourceUrl,
+        enrichmentFile: article.enrichmentFile,
       },
       cannibalizationCandidates: routeMatches,
       nearDuplicateGatewayCandidates: duplicates.get(article.slug) ?? [],

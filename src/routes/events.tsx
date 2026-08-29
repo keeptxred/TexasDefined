@@ -8,6 +8,7 @@ import { texasDefinedBrand } from "@/brand/texasdefined";
 import { EventCard } from "@/components/editorial/EventCard";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
+import { getMajorEventGuideDirectory } from "@/data/major-event-directory";
 import { eventsQuery, regionsQuery } from "@/data/queries";
 import { resolveSportsVenueEventLink } from "@/data/sports-venue-event-links";
 import type { TexasEvent } from "@/data/types";
@@ -27,37 +28,25 @@ const EVENT_LABELS: Record<TexasEvent["category"], string> = {
   sport: "Sports",
   culture: "Arts & Culture",
 };
-const MAJOR_EVENT_GUIDES = [
-  ["grapefest", "GrapeFest", "Grapevine · Sep. 17–20, 2026"],
-  ["texas-renaissance-festival", "Texas Renaissance Festival", "Todd Mission · Oct. 10–Nov. 29, 2026"],
-  ["texas-rose-festival", "Texas Rose Festival", "Tyler · Oct. 15–18, 2026"],
-  ["austin-film-festival", "Austin Film Festival", "Austin · Oct. 29–Nov. 5, 2026"],
-  ["wings-over-houston-airshow", "Wings Over Houston Airshow", "Houston · Oct. 31–Nov. 1, 2026"],
-  ["wurstfest", "Wurstfest", "New Braunfels · Nov. 6–15, 2026"],
-  ["dickens-on-the-strand", "Dickens on The Strand", "Galveston · Dec. 4–6, 2026"],
-  ["fort-worth-stock-show-rodeo", "Fort Worth Stock Show & Rodeo", "Fort Worth · Jan. 15–Feb. 6, 2027"],
-  ["san-antonio-stock-show-rodeo", "San Antonio Stock Show & Rodeo", "San Antonio · Feb. 11–28, 2027"],
-  ["houston-livestock-show-rodeo", "Houston Livestock Show and Rodeo", "Houston · Mar. 2–21, 2027"],
-  ["sxsw", "South by Southwest (SXSW)", "Austin · Mar. 15–21, 2027"],
-  ["scarborough-renaissance-festival", "Scarborough Renaissance Festival", "Waxahachie · Apr. 10–May 31, 2027"],
-  ["fiesta-san-antonio", "Fiesta San Antonio", "San Antonio · Apr. 15–25, 2027"],
-  ["texas-sandfest", "Texas SandFest", "Port Aransas · Apr. 16–18, 2027"],
-  ["kerrville-folk-festival", "Kerrville Folk Festival", "Kerrville · May 27–Jun. 13, 2027"],
-] as const;
 
 export const Route = createFileRoute("/events")({
   loader: async ({ context }) => {
-    const [events, regions] = await Promise.all([context.queryClient.ensureQueryData(eventsQuery({})), context.queryClient.ensureQueryData(regionsQuery())]);
-    return { events, regions };
+    const [events, regions, majorEventGuides] = await Promise.all([
+      context.queryClient.ensureQueryData(eventsQuery({})),
+      context.queryClient.ensureQueryData(regionsQuery()),
+      getMajorEventGuideDirectory(),
+    ]);
+    return { events, regions, majorEventGuides };
   },
   head: ({ loaderData }) => {
     const regions = loaderData?.regions ?? [];
     const regionName = (id: string) => regions.find((item) => item.id === id)?.name;
     const eventItems = (loaderData?.events ?? []).slice(0, 50).map((event, index) => {
       const venueGuide = resolveSportsVenueEventLink(event.venue);
+      const eventUrl = event.id.startsWith("authority:") ? `${siteUrl}/event/${event.slug}` : `${pageUrl}#${event.id}`;
       const defaultLocation = { "@type": "Place", name: [event.city, regionName(event.region), "Texas"].filter(Boolean).join(", "), address: { "@type": "PostalAddress", addressLocality: event.city, addressRegion: "TX", addressCountry: "US" } };
       const location = venueGuide ? { ...defaultLocation, name: event.venue, url: `${siteUrl}${venueGuide.href}` } : defaultLocation;
-      return { "@type": "ListItem", position: index + 1, item: { "@type": "Event", "@id": `${pageUrl}#${event.id}`, name: event.name, description: event.blurb, startDate: event.startDate, endDate: event.endDate, eventStatus: "https://schema.org/EventScheduled", eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode", url: `${pageUrl}#${event.id}`, location } };
+      return { "@type": "ListItem", position: index + 1, item: { "@type": "Event", "@id": eventUrl, name: event.name, description: event.blurb, startDate: event.startDate, endDate: event.endDate, eventStatus: "https://schema.org/EventScheduled", eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode", url: eventUrl, location } };
     });
     const graph = [
       { "@type": "CollectionPage", "@id": `${pageUrl}#page`, url: pageUrl, name: "Texas Events", description, image: { "@type": "ImageObject", url: absoluteUrl(texasDefinedBrand, bluebonnets), caption: "Bluebonnets running to a fence line in a Texas spring field", width: 1600, height: 1067 }, isPartOf: { "@id": `${siteUrl}/#website` }, mainEntity: { "@id": `${pageUrl}#events` }, breadcrumb: { "@id": `${pageUrl}#breadcrumbs` } },
@@ -73,6 +62,7 @@ function EventsPage() {
   const brand = useBrand();
   const { data: events } = useSuspenseQuery(eventsQuery({}));
   const { data: regions } = useSuspenseQuery(regionsQuery());
+  const { majorEventGuides } = Route.useLoaderData();
   const [category, setCategory] = useState<string>("all");
   const [region, setRegion] = useState<string>("all");
   const regionName = (id: string) => regions.find((item) => item.id === id)?.name;
@@ -117,7 +107,7 @@ function EventsPage() {
         <div className="grid gap-6 lg:grid-cols-[15rem_1fr] lg:items-start">
           <div><p className="eyebrow text-primary">Plan the anchor event</p><h2 className="mt-2 font-display text-3xl">Major Texas event guides</h2><p className="mt-4 text-sm leading-6 text-muted-foreground">Verified dates, official sources and practical trip-planning context for events large enough to shape a Texas weekend.</p></div>
           <div className="grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
-            {MAJOR_EVENT_GUIDES.map(([slug, name, detail]) => <Link key={slug} to="/event/$slug" params={{ slug }} className="group bg-background p-5"><strong className="font-display text-xl leading-tight group-hover:text-primary">{name}</strong><span className="mt-3 block text-sm leading-6 text-muted-foreground">{detail}</span><span className="mt-4 block text-sm font-semibold text-primary">Plan the event →</span></Link>)}
+            {majorEventGuides.map(({ slug, name, detail }) => <Link key={slug} to="/event/$slug" params={{ slug }} className="group bg-background p-5"><strong className="font-display text-xl leading-tight group-hover:text-primary">{name}</strong><span className="mt-3 block text-sm leading-6 text-muted-foreground">{detail}</span><span className="mt-4 block text-sm font-semibold text-primary">Plan the event →</span></Link>)}
           </div>
         </div>
       </Container>

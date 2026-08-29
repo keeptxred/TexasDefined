@@ -72,3 +72,12 @@ export const TEXAS_ICON_CATEGORIES: ReadonlyArray<{
     description: "Places, brands, foods, landscapes and symbols that have become shorthand for Texas.",
   },
 ];
+
+export const TEXAS_ICON_CATEGORY_AUTHORITY_HUBS: Partial<
+  Record<TexasIconCategory, { href: string; label: string }>
+> = {
+  "history-politics": { href: "/texas-history", label: "Explore Texas History" },
+  "music-culture": { href: "/texas-music", label: "Explore Texas Music" },
+  sports: { href: "/sports", label: "Explore Texas Sports" },
+  "symbols-food": { href: "/things-unique-to-texas", label: "Explore Things That Define Texas" },
+};

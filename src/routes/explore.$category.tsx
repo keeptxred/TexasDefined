@@ -2,6 +2,7 @@ import { createFileRoute, Link, notFound, redirect } from "@tanstack/react-route
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
+import { isExploreCategoryIndexReady } from "@/data/explore-category-indexability";
 import { articlesQuery, categoriesQuery, destinationQuery, destinationsQuery } from "@/data/queries";
 import type { Destination } from "@/data/types";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
@@ -37,17 +38,23 @@ export const Route = createFileRoute("/explore/$category")({
       if (destination) throw redirect({ href: `/destination/${destination.slug}`, statusCode: 301 });
       throw notFound();
     }
-    const [articles, destinations] = await Promise.all([
+    const authorityPath = category.slug === "outdoors" || category.slug === "caverns" ? `/content/explore-category-authority/${category.slug}.html` : null;
+    const [articles, destinations, authorityHtml] = await Promise.all([
       context.queryClient.ensureQueryData(articlesQuery({ category: category.slug })),
       context.queryClient.ensureQueryData(destinationsQuery({ category: category.slug })),
+      authorityPath ? fetch(import.meta.env.SSR ? `${siteUrl}${authorityPath}` : authorityPath).then((response) => response.ok ? response.text() : null) : null,
     ]);
-    return { category, articles, destinations };
+    return { category, articles, destinations, authorityHtml };
   },
   head: ({ loaderData, params }) => {
     if (!loaderData) return { meta: [{ title: "Not found" }, { name: "robots", content: "noindex" }] };
     const canonicalPath = `/explore/${params.category}`;
     const categoryUrl = `${siteUrl}${canonicalPath}`;
     const featuredCollectionItems = params.category === "food-bbq" ? [{ "@type": "ListItem", position: 1, item: { "@type": "CollectionPage", name: "Texas Food History", description: "The history behind barbecue, chili, chicken-fried steak, breakfast tacos, Czech and German foodways and Dr Pepper.", url: `${siteUrl}/texas-food-history` } }] : [];
+    const indexReady = isExploreCategoryIndexReady(
+      loaderData.category.slug,
+      loaderData.articles.length + loaderData.destinations.length + featuredCollectionItems.length,
+    );
     const itemListElement = [
       ...featuredCollectionItems,
       ...loaderData.articles.map((article, index) => ({ "@type": "ListItem", position: featuredCollectionItems.length + index + 1, item: { "@type": "Article", name: article.title, url: `${siteUrl}/article/${article.slug}`, image: absoluteUrl(texasDefinedBrand, article.hero.src) } })),
@@ -65,7 +72,7 @@ export const Route = createFileRoute("/explore/$category")({
       { "@type": "ListItem", position: 3, name: loaderData.category.name, item: categoryUrl },
     ] };
     return {
-      meta: buildMeta(texasDefinedBrand, { canonicalPath, title: loaderData.category.name, description: loaderData.category.description, image: loaderData.category.image?.src, imageAlt: loaderData.category.image?.alt }),
+      meta: buildMeta(texasDefinedBrand, { canonicalPath, title: loaderData.category.name, description: loaderData.category.description, image: loaderData.category.image?.src, imageAlt: loaderData.category.image?.alt, robots: indexReady ? undefined : "noindex, follow, max-image-preview:large" }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
       scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": [collectionSchema, breadcrumbSchema] }) }],
     };

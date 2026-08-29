@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { getTexasIcons } from "@/data/texas-icons.functions";
-import { TEXAS_ICON_CATEGORIES } from "@/data/texas-icons-types";
+import { TEXAS_ICON_CATEGORIES, TEXAS_ICON_CATEGORY_AUTHORITY_HUBS } from "@/data/texas-icons-types";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const canonicalPath = "/texas-icons";
@@ -102,6 +102,7 @@ function TexasIconsHub() {
                   <p className="eyebrow text-primary">{category.icons.length} profiles</p>
                   <h2 className="mt-2 font-display text-4xl">{category.label}</h2>
                   <p className="mt-3 text-sm leading-6 text-muted-foreground">{category.description}</p>
+                  <CategoryAuthorityLink categoryId={category.id} />
                 </div>
 
                 <ol className="grid gap-px bg-border sm:grid-cols-2 xl:grid-cols-3">
@@ -133,6 +134,20 @@ function TexasIconsHub() {
         </div>
       </main>
     </Container>
+  );
+}
+
+function CategoryAuthorityLink({ categoryId }: { categoryId: keyof typeof TEXAS_ICON_CATEGORY_AUTHORITY_HUBS | string }) {
+  const authorityHub = TEXAS_ICON_CATEGORY_AUTHORITY_HUBS[categoryId as keyof typeof TEXAS_ICON_CATEGORY_AUTHORITY_HUBS];
+  if (!authorityHub) return null;
+
+  return (
+    <a
+      href={authorityHub.href}
+      className="mt-4 inline-block text-sm font-semibold text-primary hover:underline"
+    >
+      {authorityHub.label} →
+    </a>
   );
 }
 

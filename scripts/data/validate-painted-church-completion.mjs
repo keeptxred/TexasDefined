@@ -6,11 +6,13 @@ const requireText = (content, token, label) => { if (!content.includes(token)) f
 const forbidText = (content, token, label) => { if (content.includes(token)) failures.push(`${label} contains stale ${token}`); };
 
 const census = read('src/data/painted-church-census.ts');
+const sourceLibrary = read('src/components/editorial/PaintedChurchSourceLibrary.tsx');
 const people = read('src/data/painted-church-people.ts');
 const media = read('src/routes/explore.painted-churches.media.tsx');
 const extraGallery = read('src/data/painted-church-gallery-extra.ts');
 const archival = read('src/data/painted-church-archival-images-expansion.ts');
 const thenNow = read('src/routes/explore.painted-churches.then-and-now.tsx');
+const mapRoute = read('src/routes/explore.painted-churches.map.tsx');
 const tripPlanner = read('src/routes/explore.trip-planner.tsx');
 const countyGuides = read('src/components/content/CountyGuideSections.tsx');
 const guidebook = read('src/routes/guides.tsx');
@@ -22,12 +24,24 @@ const publicRoutes = read('src/lib/public-routes.ts');
 const robots = read('public/robots.txt');
 const releaseState = read('ops/editorial/painted-churches-release-state.json');
 
-for (const slug of ['ellinger-st-marys-catholic-church','rockne-sacred-heart-catholic-church','san-antonio-san-fernando-cathedral']) {
+const candidateSlugs = ['ellinger-st-marys-catholic-church','rockne-sacred-heart-catholic-church','san-antonio-san-fernando-cathedral'];
+for (const slug of candidateSlugs) {
   requireText(census, `slug: "${slug}"`, 'Candidate adjudication');
+  requireText(sourceLibrary, `slug: "${slug}"`, 'Public research queue accounting');
 }
 requireText(census, '16-slide San Fernando Cathedral decorative-painting research group', 'San Fernando hold evidence');
 requireText(census, 'exact-building decorative evidence', 'Ellinger hold standard');
 requireText(census, 'qualifying decorative evidence', 'Rockne hold standard');
+
+const expansionSlugs = [
+  'plantersville-st-marys-catholic-church', 'corn-hill-holy-trinity-catholic-church',
+  'palestine-sacred-heart-catholic-church', 'bandera-st-stanislaus-catholic-church',
+  'corpus-christi-sacred-heart-catholic-church', 'san-antonio-st-joseph-catholic-church',
+  'anderson-st-stanislaus-kostka', 'castroville-st-louis-catholic-church', 'lacoste-our-lady-of-grace',
+];
+for (const slug of expansionSlugs) requireText(sourceLibrary, `slug: "${slug}"`, 'Verified expansion accounting');
+requireText(sourceLibrary, 'The collection now includes {expandedPaintedChurches.length} verified church profiles.', 'Canonical expansion count');
+requireText(sourceLibrary, 'to="/explore/painted-churches/$slug"', 'Verified-addition internal links');
 
 requireText(people, 'slug: "michaela-wegman"', 'People authority');
 requireText(people, 'umbarger-st-marys-catholic-church', 'Umbarger researcher relationship');
@@ -53,6 +67,8 @@ requireText(thenNow, 'const neither =', 'Then & Now coverage accounting');
 requireText(thenNow, 'Coverage accounting:', 'Then & Now coverage accounting');
 requireText(thenNow, 'Open visual-research queue', 'Then & Now backlog transparency');
 requireText(thenNow, 'paired.length + archivalOnly.length + currentOnly.length + neither.length', 'Then & Now reconciliation');
+requireText(mapRoute, '["Gillespie", "Bandera", "Karnes", "Bexar", "Medina"]', 'Medina County Painted Churches map region');
+requireText(mapRoute, 'return "Hill Country & South-Central Texas"', 'Medina County Painted Churches map region');
 
 requireText(tripPlanner, 'PaintedChurchRoutePromo', 'Trip-planner reciprocal link');
 requireText(tripPlanner, '/explore/painted-churches/routes', 'Trip-planner reciprocal link');
@@ -104,4 +120,4 @@ if (failures.length) {
   failures.forEach((failure) => console.error(`- ${failure}`));
   process.exit(1);
 }
-console.log('Painted Churches completion protected: candidate adjudication, oral-history sources, complete Then & Now accounting, current imagery and primary-source interiors, county/history/road-trip/small-town discovery, trip-planner integration, statewide Guidebook exposure, non-stale cross-links, self-canonical sitemap coverage, Google crawl access and explicit indexing approval.');
+console.log('Painted Churches completion protected: candidate adjudication, complete public research accounting, oral-history sources, complete Then & Now accounting, current imagery and primary-source interiors, correct regional map grouping, county/history/road-trip/small-town discovery, trip-planner integration, statewide Guidebook exposure, non-stale cross-links, self-canonical sitemap coverage, Google crawl access and explicit indexing approval.');

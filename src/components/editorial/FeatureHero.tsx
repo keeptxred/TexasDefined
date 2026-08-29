@@ -48,18 +48,13 @@ export function FeatureHero({ eyebrow, title, dek, image, to, params, meta, vari
         <div className="mx-auto grid w-full max-w-[1600px] lg:min-h-[610px] lg:grid-cols-[42%_58%]">
           <div className="animate-rise relative z-20 flex flex-col justify-center px-6 py-14 sm:px-10 sm:py-16 lg:px-14 xl:px-20">
             <p className="eyebrow text-primary">{editorialLabel(eyebrow)}</p>
-            <h1 className="mt-5 max-w-[10.5em] font-display text-[2.9rem] font-semibold leading-[0.98] tracking-[-0.03em] text-ink sm:text-[3.7rem] lg:text-[4.25rem]">
-              {title}
-            </h1>
+            <h2 className="mt-5 max-w-[10.5em] font-display text-[2.9rem] font-semibold leading-[0.98] tracking-[-0.03em] text-ink sm:text-[3.7rem] lg:text-[4.25rem]">{title}</h2>
             <p className="mt-6 max-w-lg text-[1.05rem] leading-7 text-muted-foreground">{dek}</p>
             <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-border/70 pt-5">
-              <Link to={to} params={params} className="eyebrow group inline-flex items-center gap-2 border-b border-primary pb-1 text-primary transition-opacity hover:opacity-70">
-                {brand.copy.readMore}<span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">→</span>
-              </Link>
+              <Link to={to} params={params} className="eyebrow group inline-flex items-center gap-2 border-b border-primary pb-1 text-primary transition-opacity hover:opacity-70">{brand.copy.readMore}<span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">→</span></Link>
               {meta && <p className="text-[0.72rem] font-medium uppercase tracking-[0.08em] text-muted-foreground">{meta}</p>}
             </div>
           </div>
-
           <div className="relative isolate min-h-[420px] w-full sm:min-h-[520px] lg:min-h-0">
             <img src={image.src} alt={image.alt} width={image.width} height={image.height} sizes="(min-width: 1024px) 58vw, 100vw" loading="eager" fetchPriority="high" decoding="async" className="animate-slow-zoom absolute inset-0 size-full object-cover" />
             <div className="pointer-events-none absolute inset-y-0 left-0 z-10 hidden w-24 bg-gradient-to-r from-background/65 to-transparent lg:block" />

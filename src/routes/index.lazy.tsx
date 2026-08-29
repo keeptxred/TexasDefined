@@ -9,6 +9,7 @@ import { FeatureHero } from "@/components/editorial/FeatureHero";
 import { GuideCard } from "@/components/editorial/GuideCard";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
+import { homepageFaqs } from "@/content/homepage";
 import { articlesQuery, destinationsQuery, eventsQuery, guidesQuery, regionsQuery } from "@/data/queries";
 import { formatReadingTime } from "@/domain/utils/format";
 
@@ -59,6 +60,7 @@ function HomePage() {
   const regionName = (id: string) => regions.find((region) => region.id === id)?.name;
 
   return <>
+    <header className="border-b border-border bg-surface px-5 py-8 sm:px-8"><div className="mx-auto max-w-6xl"><p className="eyebrow text-primary">Texas Defined</p><h1 className="mt-3 font-display text-4xl font-semibold leading-tight sm:text-5xl">The places, stories & life of Texas</h1><p className="mt-3 max-w-3xl text-base leading-7 text-muted-foreground">Texas Defined is a guide to Texas places, culture, food, history, travel and practical living for Texans, newcomers and visitors.</p><dl className="mt-6 grid gap-5 md:grid-cols-2">{homepageFaqs.map((item) => <div key={item.question}><dt><h3 className="font-display text-lg font-semibold">{item.question}</h3></dt><dd className="mt-1 text-sm leading-6 text-muted-foreground">{item.answer}</dd></div>)}</dl></div></header>
     <DollyPartonTribute />
     {hero && <FeatureHero variant="split" eyebrow="This month's feature" title={hero.title} dek={hero.dek} image={hero.hero} to="/article/$slug" params={{ slug: hero.slug }} meta={formatReadingTime(hero.readingMinutes)} />}
     {featuredDestinations.length > 0 && <Section><Container><SectionHeader eyebrow="Editor's picks" title="Places to put on your list" description="A considered mix of landscapes, towns and stops that show a different side of the state." actionLabel="Explore the full guide" actionTo="/explore" /><ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">{featuredDestinations.map((destination) => <li key={destination.id}><DestinationCard destination={destination} tone="overlay" regionLabel={regionName(destination.region)} /></li>)}</ul></Container></Section>}

@@ -53,18 +53,30 @@ function generatedRows(): TexasEvent[] {
     }));
 }
 
+function eventIdentityKey(event: Pick<TexasEvent, "name" | "city">): string {
+  return `${event.name.trim().toLowerCase()}:${event.city.trim().toLowerCase()}`;
+}
+
 export function getGeneratedTexasEvents(limit = 24): TexasEvent[] {
   const today = new Date().toISOString().slice(0, 10);
   const merged = new Map<string, TexasEvent>();
+  const sourceControlledIdentities = new Set(
+    (generatedTexasEvents as readonly GeneratedEventRow[]).map((row) => eventIdentityKey(row)),
+  );
 
   for (const event of curatedTexasEvents) {
     if ((event.endDate || event.startDate) < today) continue;
-    merged.set(`${event.name.toLowerCase()}:${event.startDate}`, event);
+    // Once an identity is source-controlled, never resurrect an older curated occurrence
+    // merely because the generated row is temporarily unpublished, canceled, or rescheduled.
+    if (sourceControlledIdentities.has(eventIdentityKey(event))) continue;
+    merged.set(eventIdentityKey(event), event);
   }
 
+  // Generated rows are refreshed from source-controlled event sync output and intentionally
+  // own a matching fixture identity even when an older fixture carries stale dates.
   for (const event of generatedRows()) {
     if ((event.endDate || event.startDate) < today) continue;
-    merged.set(`${event.name.toLowerCase()}:${event.startDate}`, event);
+    merged.set(eventIdentityKey(event), event);
   }
 
   return [...merged.values()]

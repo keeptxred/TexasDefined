@@ -55,6 +55,16 @@ const extractAttribute = (html, attribute, value, target) => {
   return first.exec(html)?.[1] ?? second.exec(html)?.[1] ?? null;
 };
 
+const extractRobotsDirectives = (html) => {
+  const directives = [];
+  for (const tag of html.match(/<meta[^>]+>/gi) ?? []) {
+    if (!/name=["']robots["']/i.test(tag)) continue;
+    const content = /content=["']([^"']+)["']/i.exec(tag)?.[1];
+    if (content) directives.push(content.toLowerCase());
+  }
+  return directives;
+};
+
 async function verifyPage(slug) {
   const url = `${ORIGIN}/article/${slug}`;
 
@@ -78,13 +88,18 @@ async function verifyPage(slug) {
       return false;
     }
 
-    const robotsPattern = /<meta[^>]+name=["']robots["'][^>]+content=["']([^"']+)["']/gi;
-    for (const match of html.matchAll(robotsPattern)) {
-      const directives = match[1].toLowerCase();
-      if (directives.includes("noindex") || directives.includes("nofollow")) {
-        console.log(`WAIT robots=${directives} ${url}`);
-        return false;
-      }
+    const robotsDirectives = extractRobotsDirectives(html);
+    if (robotsDirectives.length === 0) {
+      console.log(`WAIT robots=missing ${url}`);
+      return false;
+    }
+    if (robotsDirectives.some((directives) => directives.includes("noindex") || directives.includes("nofollow"))) {
+      console.log(`WAIT robots=${robotsDirectives.join(" | ")} ${url}`);
+      return false;
+    }
+    if (!robotsDirectives.some((directives) => directives.includes("index") && directives.includes("follow"))) {
+      console.log(`WAIT robots=index-follow-missing ${robotsDirectives.join(" | ")} ${url}`);
+      return false;
     }
 
     const decoded = decodeHtml(html);

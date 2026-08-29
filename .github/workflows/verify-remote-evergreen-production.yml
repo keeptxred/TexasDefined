@@ -4,23 +4,27 @@ on:
   pull_request:
     paths:
       - '.github/workflows/verify-remote-evergreen-production.yml'
+      - 'scripts/ci/validate-remote-evergreen-authority-sources.mjs'
       - 'scripts/ci/verify-remote-evergreen-production.mjs'
       - 'src/data/remote-evergreen-authority-sources.ts'
       - 'src/data/remote-evergreen-authority-sources.test.ts'
       - 'src/data/articles-remote.ts'
+      - 'src/data/queries.ts'
       - 'src/routes/article.$slug.tsx'
-      - 'src/routes/sitemap[.]xml.ts'
+      - 'src/routes/sitemap*.ts'
   push:
     branches:
       - main
     paths:
       - '.github/workflows/verify-remote-evergreen-production.yml'
+      - 'scripts/ci/validate-remote-evergreen-authority-sources.mjs'
       - 'scripts/ci/verify-remote-evergreen-production.mjs'
       - 'src/data/remote-evergreen-authority-sources.ts'
       - 'src/data/remote-evergreen-authority-sources.test.ts'
       - 'src/data/articles-remote.ts'
+      - 'src/data/queries.ts'
       - 'src/routes/article.$slug.tsx'
-      - 'src/routes/sitemap[.]xml.ts'
+      - 'src/routes/sitemap*.ts'
   workflow_dispatch:
 
 permissions:
@@ -41,12 +45,12 @@ jobs:
           node-version: '22'
           cache: npm
       - run: npm ci --no-audit --no-fund
-      - name: Run authority-source coverage test
-        run: npx vitest run src/data/remote-evergreen-authority-sources.test.ts
+      - name: Validate authority-source coverage
+        run: node scripts/ci/validate-remote-evergreen-authority-sources.mjs
 
   verify-production:
     name: Verify 19 canonical evergreen pages on texasdefined.com
-    if: github.event_name != 'pull_request'
+    if: ${{ github.event_name != 'pull_request' }}
     needs: validate-cohort
     runs-on: ubuntu-latest
     timeout-minutes: 15

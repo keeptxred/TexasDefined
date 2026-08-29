@@ -11,7 +11,7 @@ export function formatDate(iso: string, locale = "en-US"): string {
 }
 
 export function formatDateRange(startIso: string, endIso?: string, locale = "en-US"): string {
-  if (!endIso) return formatDate(startIso, locale);
+  if (!endIso || endIso === startIso) return formatDate(startIso, locale);
   const start = new Date(`${startIso}T12:00:00Z`);
   const end = new Date(`${endIso}T12:00:00Z`);
   const sameMonth =

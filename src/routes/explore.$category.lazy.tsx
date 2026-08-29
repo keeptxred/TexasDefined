@@ -15,7 +15,7 @@ export const Route = createLazyFileRoute("/explore/$category")({ component: Expl
 
 function ExploreCategoryPage() {
   const { category } = Route.useParams();
-  const { destinations } = Route.useLoaderData();
+  const { destinations, authorityHtml } = Route.useLoaderData();
   const { data: categories } = useSuspenseQuery(categoriesQuery());
   const match = categories.find((item) => item.slug === category);
   if (!match) return null;
@@ -24,7 +24,7 @@ function ExploreCategoryPage() {
   const showFoodHistory = match.slug === "food-bbq";
 
   return <>
-    <CategoryPage category={match.slug as CategorySlug} eyebrow={match.eyebrow} title={match.name} intro={match.description} image={match.image} />
+    <CategoryPage category={match.slug as CategorySlug} eyebrow={match.eyebrow} title={match.name} intro={match.description} image={match.image} authorityHtml={authorityHtml} />
     {showFoodHistory ? <Container className="pb-10 sm:pb-14"><section className="grid gap-6 border-y border-border py-7 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center"><div><p className="eyebrow text-primary">The stories behind the Texas table</p><h2 className="mt-2 font-display text-3xl">Texas Food History</h2><p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Go beyond restaurant lists with the history behind barbecue, San Antonio chili, chicken-fried steak, breakfast tacos, German and Czech foodways and Dr Pepper's Waco origin.</p></div><Link to="/texas-food-history" className="eyebrow inline-block border-b border-primary pb-1 text-primary">Explore Texas food history →</Link></section></Container> : null}
     {showPaintedChurches ? <Container className="pb-10 sm:pb-14"><section className="grid gap-6 border-y border-border py-7 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center"><div><p className="eyebrow text-primary">Texas heritage route</p><h2 className="mt-2 font-display text-3xl">Painted Churches of Texas</h2><p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Explore the verified statewide church collection with church-by-church history, architecture, interior paintings, preservation context, visitor guidance and Schulenburg driving routes.</p></div><Link to="/explore/painted-churches" className="eyebrow inline-block border-b border-primary pb-1 text-primary">Explore the painted churches →</Link></section></Container> : null}
     <TopAttractionCollectionLinks destinations={destinations} contextLabel={match.name} />

@@ -18,7 +18,18 @@ export const articleQuery = (slug: Slug) => queryOptions({
   queryKey: ["article", scope.brandId, slug],
   queryFn: async () => {
     const localArticle = await platform.articles.getBySlug(scope, slug);
-    if (localArticle) return prepareArticleForDelivery(localArticle);
+    if (localArticle) {
+      if (localArticle.sourceName && localArticle.sourceUrl) return prepareArticleForDelivery(localArticle);
+      const remoteSourceArticle = await fetchPublishedTexasDefinedEvergreenArticle(slug);
+      const sourceHydratedLocalArticle = remoteSourceArticle
+        ? {
+            ...localArticle,
+            sourceName: localArticle.sourceName ?? remoteSourceArticle.sourceName,
+            sourceUrl: localArticle.sourceUrl ?? remoteSourceArticle.sourceUrl,
+          }
+        : localArticle;
+      return prepareArticleForDelivery(sourceHydratedLocalArticle);
+    }
     const remoteArticle = await fetchPublishedTexasDefinedEvergreenArticle(slug);
     return remoteArticle ? prepareArticleForDelivery(remoteArticle) : null;
   },
@@ -106,6 +117,22 @@ export const searchDocumentsQuery = () => queryOptions({
       if (knownHrefs.has(document.href)) continue;
       base.push(document);
       knownHrefs.add(document.href);
+    }
+    const { getMajorEventGuideDirectory } = await import("./major-event-directory");
+    const majorEventGuides = await getMajorEventGuideDirectory();
+    for (const event of majorEventGuides) {
+      const href = `/event/${event.slug}`;
+      if (knownHrefs.has(href)) continue;
+      base.push({
+        id: `event-guide:${event.slug}`,
+        brandId: "texasdefined",
+        kind: "event",
+        title: event.name,
+        summary: `Permanent Texas Defined event guide · ${event.detail}`,
+        keywords: [event.name, event.detail, "Texas events", "Texas festival guide"],
+        href,
+      });
+      knownHrefs.add(href);
     }
     const { listResolvedDestinationSearchCatalog } = await import("./destination-query-runtime");
     const destinations = await listResolvedDestinationSearchCatalog();
