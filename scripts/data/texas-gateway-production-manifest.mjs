@@ -3,6 +3,7 @@ import path from "node:path";
 import { buildGatewayProductionManifest as buildScannedManifest } from "./texas-gateway-production-readiness-lib.mjs";
 
 const REVIEW_PATH = "scripts/data/texas-gateway-editorial-review.json";
+const PROMOTIONS_PATH = "scripts/data/texas-gateway-editorial-promotions.json";
 const READINESS_PATH = "src/data/fixtures/texas-gateway-index-readiness.ts";
 
 function contentType(batch) {
@@ -31,6 +32,27 @@ function readySlugs(root) {
   return new Set([...body.matchAll(/["']([^"']+)["']/g)].map((match) => match[1]));
 }
 
+function editorialPromotions(root) {
+  const file = path.join(root, PROMOTIONS_PATH);
+  if (!fs.existsSync(file)) return new Map();
+  const parsed = JSON.parse(fs.readFileSync(file, "utf8"));
+  const entries = Array.isArray(parsed?.promotions) ? parsed.promotions : [];
+  return new Map(entries.map((entry) => [entry.slug, entry]));
+}
+
+function applyPromotion(existing, promotion) {
+  if (!promotion || promotion.status !== "index-ready") return existing;
+  const blockers = existing.blockers.filter((blocker) => !blocker.startsWith("editorial-status:"));
+  return {
+    ...existing,
+    editorialStatus: "index-ready",
+    promotion,
+    blockers,
+    readinessResult: blockers.length === 0 ? "pass" : "blocked",
+    qualityScore: Math.min(100, existing.qualityScore + 25),
+  };
+}
+
 function recomputeSummary(entries) {
   return entries.reduce((acc, entry) => {
     acc.total += 1;
@@ -47,11 +69,12 @@ export function buildGatewayProductionManifest(root = process.cwd()) {
   const scanned = buildScannedManifest(root);
   const review = JSON.parse(fs.readFileSync(path.join(root, REVIEW_PATH), "utf8"));
   const scannedBySlug = new Map(scanned.entries.map((entry) => [entry.slug, entry]));
+  const promotions = editorialPromotions(root);
   const ready = readySlugs(root);
 
   const entries = review.entries.map((editorial) => {
     const existing = scannedBySlug.get(editorial.slug);
-    if (existing) return existing;
+    if (existing) return applyPromotion(existing, promotions.get(editorial.slug));
 
     const type = contentType(editorial.batch);
     const targetMinimumWords = minimumWords(type);
@@ -98,6 +121,7 @@ export function buildGatewayProductionManifest(root = process.cwd()) {
   return {
     ...scanned,
     sourceReview: REVIEW_PATH,
+    sourcePromotions: PROMOTIONS_PATH,
     summary: recomputeSummary(entries),
     entries,
   };
