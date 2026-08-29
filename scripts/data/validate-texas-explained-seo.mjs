@@ -180,7 +180,8 @@ for (const marker of [
 }
 
 for (const marker of [
-  'const quickAnswers = [', 'Quick answers', 'Five Texas questions, answered before you dive deeper',
+  'const quickAnswers = [', 'Quick answers', 'Six Texas questions, answered before you dive deeper',
+  'What are the major rivers of Texas?', '/article/texas-rivers-explained', 'See the major rivers and basins',
   'Why are most Texas lakes man-made?', 'What is a farm-to-market road?',
   'Why do so many Texas towns have courthouse squares?', 'Why does Texas feel so different from one region to another?',
   'Why do Texas homes and land decisions depend so much on location?',
@@ -313,4 +314,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Texas Explained collection, answer-first core guides, canonical guide ordering, pillar clusters, five-page authority ring, five source-backed child support articles, reciprocal child-to-core and core-to-child discovery, structured data, search discovery and performance-sensitive registration are protected across eager and lazy homepage route surfaces.');
+console.log('Texas Explained collection, six-question quick-answer layer, answer-first core guides, canonical guide ordering, pillar clusters, five-page authority ring, five source-backed child support articles, reciprocal child-to-core and core-to-child discovery, structured data, search discovery and performance-sensitive registration are protected across eager and lazy homepage route surfaces.');
