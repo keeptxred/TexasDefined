@@ -76,6 +76,8 @@ jobs:
         run: node scripts/data/validate-texas-icons-roster-corrections.mjs
       - name: Validate Texas Icons disputed-intake editorial holds
         run: node scripts/data/validate-texas-icons-editorial-holds.mjs
+      - name: Validate Texas Icons terminal accounting
+        run: node scripts/data/validate-texas-icons-terminal-accounting.mjs
       - name: Validate Texas Icons place cross-links
         run: node scripts/data/validate-texas-icons-place-crosslinks.mjs
       - name: Validate Texas Icons category authority links
