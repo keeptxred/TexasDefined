@@ -96,6 +96,9 @@ assert(!countyDestinations.includes('major-event-supplemental-registry.server'),
 assert(eventPage.includes('event.countySlug ? `/browse/counties#county-${event.countySlug}` : null'), 'Major event guides must derive county backlinks from the canonical county browse anchor.');
 assert(eventPage.includes('!event.relatedLinks.some((item) => item.href === countyHref)'), 'Major event guides must avoid duplicating an already-curated county backlink.');
 assert(!eventPage.includes('`/county/${event.countySlug}`'), 'Major event guides must not link to the nonexistent /county/{slug} route.');
+assert(eventPage.includes('description: event.whyItMatters'), 'Major-event Event JSON-LD must include the sourced editorial description.');
+assert(!eventPage.includes(': verified dates, official sources and practical trip planning.'), 'Major-event metadata must not label recurrence-derived planning dates as universally verified.');
+assert(eventPage.includes(': dates, official sources and practical trip planning.'), 'Major-event metadata must retain neutral date/source/trip-planning description copy.');
 
 if (errors.length) {
   console.error('Event integrity validation failed:');
@@ -103,4 +106,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Event integrity validated: exact sports-venue links, source-controlled recurring-event precedence, single-day date formatting, 75-seed source disposition, and bidirectional server-backed county event discovery are protected.');
+console.log('Event integrity validated: exact sports-venue links, source-controlled recurring-event precedence, accurate date claims, single-day date formatting, 75-seed source disposition, and bidirectional server-backed county event discovery are protected.');
