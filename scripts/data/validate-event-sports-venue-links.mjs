@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises';
 
 const read = (path) => fs.readFile(path, 'utf8');
-const [resolver, eventCard, eventsRoute, corrections, generatedEvents, countyEventsServer, countyEventsBridge, countyDestinations, eventPage, dateFormatting] = await Promise.all([
+const [resolver, eventCard, eventsRoute, corrections, generatedEvents, countyEventsServer, countyEventsBridge, countyDestinations, eventPage, dateFormatting, eventDisposition, supplementalRegistry, majorEventIndex] = await Promise.all([
   read('src/data/sports-venue-event-links.ts'),
   read('src/components/editorial/EventCard.tsx'),
   read('src/routes/events.tsx'),
@@ -12,6 +12,9 @@ const [resolver, eventCard, eventsRoute, corrections, generatedEvents, countyEve
   read('src/components/sports/CountySportsDestinations.tsx'),
   read('src/data/major-event-page.server.ts'),
   read('src/domain/utils/format.ts'),
+  read('ops/editorial/major-events-source-disposition.md'),
+  read('src/data/major-event-supplemental-registry.server.ts'),
+  read('src/data/major-event-index.ts'),
 ]);
 
 const errors = [];
@@ -77,6 +80,25 @@ assert(!generatedEvents.includes('`${event.name.toLowerCase()}:${event.startDate
 // "August 30–30" is misleading, so the shared formatter must collapse equal endpoints.
 assert(dateFormatting.includes('if (!endIso || endIso === startIso) return formatDate(startIso, locale);'), 'Single-day date ranges must collapse equal start/end dates to one formatted date.');
 
+// Keep the 75-row discovery-seed closeout auditable. Every numbered source row must stay
+// represented exactly once, and every permanent /event/ destination named by the ledger
+// must resolve through either the client-safe core index or the server-only supplemental registry.
+const dispositionRows = eventDisposition.split('\n').filter((line) => /^\|\s*\d+\s*\|/.test(line));
+const dispositionNumbers = dispositionRows.map((line) => Number(line.match(/^\|\s*(\d+)\s*\|/)?.[1]));
+assert(dispositionRows.length === 75, `Major-event source disposition must contain exactly 75 numbered inventory rows; found ${dispositionRows.length}.`);
+assert(dispositionNumbers.every((value, index) => value === index + 1), 'Major-event source disposition rows must remain sequential from 1 through 75 with no gaps or duplicates.');
+
+const coreAuthoritySlugs = new Set([...majorEventIndex.matchAll(/\bslug:\s*"([^"]+)"/g)].map((match) => match[1]));
+const supplementalAuthoritySlugs = new Set([...supplementalRegistry.matchAll(/^\s+"([^"]+)",$/gm)].map((match) => match[1]));
+const authoritySlugs = new Set([...coreAuthoritySlugs, ...supplementalAuthoritySlugs]);
+for (const row of dispositionRows) {
+  const rowNumber = Number(row.match(/^\|\s*(\d+)\s*\|/)?.[1]);
+  for (const match of row.matchAll(/`\/event\/([^`]+)`/g)) {
+    assert(authoritySlugs.has(match[1]), `Major-event disposition row ${rowNumber} points to unresolved authority slug: ${match[1]}`);
+  }
+}
+assert(eventDisposition.includes('Canonical guide remains `/texas-state-fair`; do not create a competing event authority page.'), 'State Fair discovery seed must remain assigned to the canonical /texas-state-fair guide instead of a duplicate event authority page.');
+
 // County pages must discover major-event authority through the server-only registry instead
 // of importing the long-form event tranches into the client bundle.
 assert(countyEventsServer.includes('loadSupplementalMajorEventRecordsServer'), 'County event lookup must include supplemental server-only event authority records.');
@@ -100,4 +122,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Event integrity validated: exact sports-venue links, recurring-event dedupe, single-day date formatting, and bidirectional server-backed county event discovery are protected.');
+console.log('Event integrity validated: exact sports-venue links, recurring-event dedupe, single-day date formatting, 75-seed source disposition, and bidirectional server-backed county event discovery are protected.');
