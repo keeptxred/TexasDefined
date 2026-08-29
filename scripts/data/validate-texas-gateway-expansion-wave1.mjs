@@ -11,6 +11,7 @@ const WAVE1_SLUGS = [
   "things-that-define-texas",
 ];
 
+const PROMOTION_ONLY_PREFIXES = ["editorial-status:", "cannibalization:"];
 const manifest = buildGatewayProductionManifest(process.cwd());
 const bySlug = new Map(manifest.entries.map((entry) => [entry.slug, entry]));
 const errors = [];
@@ -29,9 +30,9 @@ for (const slug of WAVE1_SLUGS) {
     errors.push(`${slug}: editorial status changed before the separate promotion review (${entry.editorialStatus})`);
   }
 
-  const nonEditorialBlockers = entry.blockers.filter((blocker) => !blocker.startsWith("editorial-status:"));
-  if (nonEditorialBlockers.length) {
-    errors.push(`${slug}: remaining content-readiness blockers: ${nonEditorialBlockers.join(", ")}`);
+  const contentBlockers = entry.blockers.filter((blocker) => !PROMOTION_ONLY_PREFIXES.some((prefix) => blocker.startsWith(prefix)));
+  if (contentBlockers.length) {
+    errors.push(`${slug}: remaining content-readiness blockers: ${contentBlockers.join(", ")}`);
   }
 }
 
@@ -41,8 +42,9 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log("Gateway expansion wave 1 is content-ready under the production contract and remains deliberately staged for separate promotion review.");
+console.log("Gateway expansion wave 1 clears the content-quality contract and remains deliberately staged for separate canonical/promotion review.");
 for (const slug of WAVE1_SLUGS) {
   const entry = bySlug.get(slug);
-  console.log(`- ${slug}: ${entry.metrics.estimatedWords} words, ${entry.metrics.internalLinkCount} internal links, ${entry.metrics.relatedTargets} related targets, blockers=${entry.blockers.join(",")}`);
+  const promotionBlockers = entry.blockers.filter((blocker) => PROMOTION_ONLY_PREFIXES.some((prefix) => blocker.startsWith(prefix)));
+  console.log(`- ${slug}: ${entry.metrics.estimatedWords} words, ${entry.metrics.internalLinkCount} internal links, ${entry.metrics.relatedTargets} related targets, promotion-only=${promotionBlockers.join(",") || "none"}`);
 }
