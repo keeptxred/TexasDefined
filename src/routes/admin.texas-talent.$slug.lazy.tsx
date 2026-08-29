@@ -8,7 +8,7 @@ export const Route = createLazyFileRoute("/admin/texas-talent/$slug")({
 });
 
 function TexasTalentProfilePreview() {
-  const { profile } = Route.useRouteContext();
+  const { profile, relatedProfiles } = Route.useRouteContext();
   const category = TEXAS_TALENT_CATEGORIES.find((item) => item.id === profile.category)?.label ?? profile.category;
   const readiness = profile.readiness;
   const heroImage = readiness.imageReview.heroImage;
@@ -177,6 +177,41 @@ function TexasTalentProfilePreview() {
           </div>
         </section>
       </Container>
+
+      {relatedProfiles.length ? (
+        <section className="border-t border-border bg-surface">
+          <Container className="py-12 sm:py-16">
+            <p className="eyebrow text-primary">Related Texas Talent</p>
+            <h2 className="mt-2 font-display text-4xl">Connected by place, scene or discipline</h2>
+            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">
+              These relationships are derived from safe, currently indexable Texas Defined destinations plus the profile taxonomy. They are preview-only and never create a public Talent link by themselves.
+            </p>
+            <div className="mt-7 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2 lg:grid-cols-3">
+              {relatedProfiles.map((related) => (
+                <article key={related.slug} className="bg-background p-6">
+                  <p className="eyebrow text-primary">{related.sameCategory ? "Same discipline" : "Shared Texas context"}</p>
+                  <h3 className="mt-2 font-display text-2xl">{related.name}</h3>
+                  <p className="mt-3 text-sm leading-7 text-muted-foreground">{related.texasConnection}</p>
+                  {related.sharedDestinations.length ? (
+                    <p className="mt-4 text-xs leading-6 text-muted-foreground">
+                      Shared: {related.sharedDestinations.map((destination) => destination.label).join(" · ")}
+                    </p>
+                  ) : (
+                    <p className="mt-4 text-xs leading-6 text-muted-foreground">Related through the {category} collection.</p>
+                  )}
+                  <Link
+                    to="/admin/texas-talent/$slug"
+                    params={{ slug: related.slug }}
+                    className="mt-5 inline-block text-sm font-semibold text-primary"
+                  >
+                    Review related profile →
+                  </Link>
+                </article>
+              ))}
+            </div>
+          </Container>
+        </section>
+      ) : null}
 
       <section className="border-t border-border bg-foreground text-background">
         <Container className="py-10">
