@@ -24,6 +24,7 @@ on:
       - "scripts/data/texas-gateway-batch14-16-disposition.json"
       - "scripts/data/audit-texas-gateway-depth.mjs"
       - "scripts/data/audit-texas-gateway-production-readiness.mjs"
+      - "scripts/data/audit-texas-gateway-editorial-candidates.mjs"
       - "scripts/data/texas-gateway-production-readiness-lib.mjs"
       - "scripts/data/texas-gateway-production-manifest.mjs"
       - "scripts/data/promote-texas-gateway.mjs"
@@ -65,6 +66,9 @@ jobs:
 
       - name: Audit gateway production-readiness backlog
         run: node scripts/data/audit-texas-gateway-production-readiness.mjs
+
+      - name: Audit gateway editorial promotion candidates
+        run: node scripts/data/audit-texas-gateway-editorial-candidates.mjs
 
       - name: Validate shared indexation contract
         run: node scripts/data/validate-indexation-quality.mjs
