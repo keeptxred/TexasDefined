@@ -1,0 +1,27 @@
+name: Verify TexasDefined publisher state
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  publisher-state:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Report activation variable state safely
+        env:
+          TEXASDEFINED_AUTO_PUBLISH_ENABLED: ${{ vars.TEXASDEFINED_AUTO_PUBLISH_ENABLED }}
+        run: |
+          if [ -z "$TEXASDEFINED_AUTO_PUBLISH_ENABLED" ]; then
+            echo "TEXASDEFINED_AUTO_PUBLISH_ENABLED_PRESENT=false"
+          else
+            echo "TEXASDEFINED_AUTO_PUBLISH_ENABLED_PRESENT=true"
+          fi
+          if [ "$TEXASDEFINED_AUTO_PUBLISH_ENABLED" = "true" ]; then
+            echo "TEXASDEFINED_AUTO_PUBLISH_ENABLED_TRUE=true"
+          else
+            echo "TEXASDEFINED_AUTO_PUBLISH_ENABLED_TRUE=false"
+          fi
