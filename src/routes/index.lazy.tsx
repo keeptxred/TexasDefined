@@ -15,7 +15,7 @@ import { formatReadingTime } from "@/domain/utils/format";
 const HOMEPAGE_DESTINATION_LIMIT = 24;
 const HOMEPAGE_ROAD_TRIP_LIMIT = 8;
 const texasExplainedPicks = [
-  { title: "The Rivers That Built Texas", description: "Follow the waterways that shaped borders, settlement, cities, farming and the Texas landscape.", to: "/article/texas-rivers-explained" },
+  { title: "Major Rivers of Texas", description: "Follow Texas river basins and major waterways across mountains, plains, cities, farming country and the Gulf-bound landscape.", to: "/article/texas-rivers-explained" },
   { title: "Farm-to-Market Roads Explained", description: "Understand the state highway designations that connected rural Texas—and why many are no longer rural at all.", to: "/article/texas-farm-to-market-roads-explained" },
   { title: "The Cultural Regions of Texas", description: "See how migration and settlement created distinct regional identities inside one enormous state.", to: "/article/texas-cultural-regions-explained" },
 ] as const;
