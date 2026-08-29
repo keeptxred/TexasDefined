@@ -59,6 +59,9 @@ jobs:
       - name: Validate Batch 14-16 disposition governance
         run: node scripts/data/validate-texas-gateway-batch14-16-disposition.mjs
 
+      - name: Diagnostic audit of Gateway editorial candidates
+        run: node scripts/data/audit-texas-gateway-editorial-candidates.mjs
+
       - name: Validate gateway index-readiness staging
         run: node scripts/data/validate-texas-gateway-index-readiness.mjs
 
