@@ -24,6 +24,7 @@ const reciprocal = read(paths.reciprocal);
 const runtime = read(paths.runtime);
 const productionSmoke = read(paths.productionSmoke);
 
+// Current visitor facts were rechecked against the official VA/NCA cemetery pages on this date.
 const sourceCheckedAt = '2026-08-29';
 const cemeteries = [
   {
