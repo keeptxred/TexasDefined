@@ -133,9 +133,9 @@ const researchPrecedence = resolver.indexOf("if (researchProfile)");
 if (talentPrecedence < 0 || researchPrecedence < 0 || talentPrecedence > researchPrecedence) {
   failures.push("Texas Talent must continue to resolve before Texas Icons research profiles.");
 }
-const stagedResearchBlock = resolver.match(/if \(researchProfile\) \{([\s\S]*?)\n  \}/)?.[1] ?? "";
-if (!stagedResearchBlock.includes('reuseKind: "icon-research-staged"') || !stagedResearchBlock.includes("indexableAtOwnRoute: false")) {
-  failures.push("Music research drafts must remain non-indexable at their own routes.");
+const researchPublicationBlock = resolver.match(/if \(researchProfile\) \{([\s\S]*?)\n  \}/)?.[1] ?? "";
+if (!researchPublicationBlock.includes('reuseKind: "icon-research-staged"') || !researchPublicationBlock.includes("indexableAtOwnRoute: true")) {
+  failures.push("Substantive music research profiles must publish at their canonical Texas Icons routes while data-only starter records remain withheld.");
 }
 
 const firstTen = firstThirty.filter((entry) => entry.rank <= 60);
@@ -154,7 +154,7 @@ if (secondTenReuse.length !== 3 || secondTenResearch.length !== 7) failures.push
 if (thirdTenReuse.length !== 6 || thirdTenResearch.length !== 4) failures.push(`Music ranks 71–80 must remain 6 Talent reuses + 4 research profiles; found ${thirdTenReuse.length} reuse and ${thirdTenResearch.length} research.`);
 
 if (failures.length) fail();
-console.log("Texas Icons music validation passed: ranks 51–80 preserve 17 Texas Talent reuses, 13 substantive staged research profiles, alias-safe duplicate resolution, source depth, noindex publication boundaries, and batch-specific editorial context.");
+console.log("Texas Icons music validation passed: ranks 51–80 preserve 17 Texas Talent reuses, 13 substantive sourced research profiles, alias-safe duplicate resolution, source depth, canonical written-content publication, and batch-specific editorial context.");
 
 function fail() {
   console.error("Texas Icons music validation failed:");
