@@ -85,6 +85,19 @@ for (const requirement of [
   if (!sources.includes(requirement)) failures.push(`Relocation source freshness contract missing: ${requirement}`);
 }
 
+const continuousSourceContracts = [
+  ['teaSchools', 'freshness: "Verified August 2026"'],
+  ['comptrollerProperty', 'freshness: "Continuously maintained county directory"'],
+  ['pucUtilities', 'freshness: "Verified August 2026"'],
+  ['femaFlood', 'freshness: "Current effective FEMA mapping"'],
+];
+for (const [key, freshness] of continuousSourceContracts) {
+  const start = sources.indexOf(`${key}:`);
+  const end = start >= 0 ? sources.indexOf('\n  },', start) : -1;
+  const block = start >= 0 ? sources.slice(start, end >= 0 ? end : undefined) : '';
+  if (!block.includes(freshness)) failures.push(`Continuously maintained relocation source contract missing for ${key}: ${freshness}`);
+}
+
 if (!dataBridge.includes('await import("./texas-data-center.server")')) {
   failures.push('Texas Data Center must load the full source-backed registry through a server function.');
 }
@@ -130,4 +143,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Relocation source freshness passed (${reviewWindows.length} governed review windows; Census Vintage 2025 current, revised 2024 history retained, and the full registry remains server-only).`);
+console.log(`Relocation source freshness passed (${reviewWindows.length} release-backed review windows and ${continuousSourceContracts.length} continuously maintained source contracts; Census Vintage 2025 current, revised 2024 history retained, and the full registry remains server-only).`);
