@@ -15,7 +15,10 @@ const checks = [
   [sitemap, 'TEXAS_DATASETS.map((dataset)', 'Sitemap must enumerate Texas dataset routes'],
   [sitemap, 'lastmod: toDate(dataset.updated)', 'Dataset sitemap entries must expose update dates'],
   [hub, "'@type': ['CollectionPage', 'DataCatalog']", 'Texas data hub must declare a DataCatalog'],
-  [hub, 'TEXAS_DATASETS.map((dataset)', 'Texas data hub must link every dataset'],
+  [hub, "const { TEXAS_DATASETS } = await import('@/data/texas-data-center')", 'Texas data hub must load the complete maintained dataset registry'],
+  [hub, 'return { datasets: TEXAS_DATASETS }', 'Texas data loader must return every maintained dataset'],
+  [hub, 'const { datasets } = Route.useLoaderData()', 'Texas data hub UI must consume the complete loader-backed dataset registry'],
+  [hub, 'datasets.map((dataset', 'Texas data hub must link every loader-backed dataset'],
   [hub, 'to="/texas-data/$datasetSlug"', 'Texas data hub must use canonical dataset routes'],
   [hub, "const sportsComparisonPath = '/sports-venues/compare'", 'Texas data hub must retain the sports venue comparison as a maintained cross-vertical dataset'],
   [hub, "const sportsComparisonCsvPath = '/sports-venues/compare.csv'", 'Texas data hub must retain the sports venue comparison CSV distribution'],
@@ -36,6 +39,9 @@ const failures = checks
   .filter(([source, needle]) => !source.includes(needle))
   .map(([, , message]) => message);
 
+if (hub.includes("from '@/data/texas-data-center'")) {
+  failures.push('Texas data hub must keep the full dataset registry behind its loader instead of statically importing it into the client bundle.');
+}
 if (hub.includes("from '@/data/sports-venue-comparison'")) {
   failures.push('Texas data hub must link the sports dataset without importing the 84-row sports comparison payload.');
 }
@@ -49,4 +55,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Texas data SEO validation passed, including lightweight discovery and DataCatalog distribution metadata for the sports venue comparison.');
+console.log('Texas data SEO validation passed, including loader-backed complete dataset discovery and lightweight DataCatalog distribution metadata for the sports venue comparison.');
