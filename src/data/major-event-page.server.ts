@@ -36,6 +36,7 @@ import { getExpandedMajorEventAuthorityTranche34Server } from "./major-event-exp
 import { getExpandedMajorEventAuthorityTranche35Server } from "./major-event-expanded-authority-tranche35.server";
 import { getExpandedMajorEventAuthorityTranche36Server } from "./major-event-expanded-authority-tranche36.server";
 import { getExpandedMajorEventAuthorityTranche37Server } from "./major-event-expanded-authority-tranche37.server";
+import { getExpandedMajorEventAuthorityTranche38Server } from "./major-event-expanded-authority-tranche38.server";
 
 const siteUrl = "https://texasdefined.com";
 const esc = (value: string | undefined) => (value ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\"/g, "&quot;").replace(/'/g, "&#39;");
@@ -106,7 +107,8 @@ export function getMajorEventRecordServer(slug: string) {
     ?? getExpandedMajorEventAuthorityTranche34Server(slug)
     ?? getExpandedMajorEventAuthorityTranche35Server(slug)
     ?? getExpandedMajorEventAuthorityTranche36Server(slug)
-    ?? getExpandedMajorEventAuthorityTranche37Server(slug);
+    ?? getExpandedMajorEventAuthorityTranche37Server(slug)
+    ?? getExpandedMajorEventAuthorityTranche38Server(slug);
   if (!event) return event;
   if (event.slug === "texas-renaissance-festival") {
     return {
