@@ -3,6 +3,8 @@ import { AffordabilityCalculator } from '@/components/calculators/TexasPlanningC
 import type { LocalHomeAffordabilityProfile } from '@/data/local-home-affordability';
 
 export function LocalHomeAffordabilityPage({ profile }: { profile: LocalHomeAffordabilityProfile }) {
+  const ownershipPath = `/texas-homeownership-cost-calculator/${profile.slug}`;
+
   return (
     <CalculatorPage eyebrow={profile.eyebrow} title={profile.title} description={profile.description}>
       <nav aria-label="Breadcrumb" className="mb-8 border-b border-border pb-4 text-xs uppercase tracking-[0.14em] text-muted-foreground">
@@ -29,8 +31,8 @@ export function LocalHomeAffordabilityPage({ profile }: { profile: LocalHomeAffo
         </div>
       </section>
 
-      <section className="mt-12 grid gap-4 border-t border-border pt-10 md:grid-cols-2" aria-labelledby="local-affordability-next-heading">
-        <div className="md:col-span-2">
+      <section className="mt-12 grid gap-4 border-t border-border pt-10 md:grid-cols-3" aria-labelledby="local-affordability-next-heading">
+        <div className="md:col-span-3">
           <p className="eyebrow text-primary">Use the exact address</p>
           <h2 id="local-affordability-next-heading" className="mt-3 font-display text-3xl">Replace generic assumptions with local property costs</h2>
         </div>
@@ -38,6 +40,11 @@ export function LocalHomeAffordabilityPage({ profile }: { profile: LocalHomeAffo
           <strong className="font-display text-2xl">{profile.propertyTaxLabel}</strong>
           <span className="mt-3 block text-sm leading-6 text-muted-foreground">Build a property-tax estimate from the county, school, city and applicable special-district rates for the parcel.</span>
           <span className="eyebrow mt-5 inline-block text-primary">Open tax calculator →</span>
+        </a>
+        <a href={ownershipPath} className="border border-border p-5 hover:border-primary/60">
+          <strong className="font-display text-2xl">{profile.name} homeownership cost calculator</strong>
+          <span className="mt-3 block text-sm leading-6 text-muted-foreground">Turn the affordability range into a fuller monthly budget with mortgage, taxes, insurance, utilities, maintenance and HOA or district costs.</span>
+          <span className="eyebrow mt-5 inline-block text-primary">Build ownership budget →</span>
         </a>
         <a href={profile.relocationHref} className="border border-border p-5 hover:border-primary/60">
           <strong className="font-display text-2xl">{profile.relocationLabel}</strong>
