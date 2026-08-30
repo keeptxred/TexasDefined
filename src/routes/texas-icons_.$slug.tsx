@@ -46,13 +46,28 @@ function TexasIconProfilePage() {
   const category = TEXAS_ICON_CATEGORIES.find((candidate) => candidate.id === icon.category);
   const authorityHub = TEXAS_ICON_CATEGORY_AUTHORITY_HUBS[icon.category];
   const canonicalPath = `/texas-icons/${icon.slug}`;
+  const canonicalUrl = `https://texasdefined.com${canonicalPath}`;
   const narrativeProfile: TexasIconNarrativeProfile = talentProfile ?? researchProfile!;
   const schema = {
     "@context": "https://schema.org",
     "@type": schemaType(icon.subjectType),
     name: icon.name,
     description: narrativeProfile.dek,
-    url: `https://texasdefined.com${canonicalPath}`,
+    url: canonicalUrl,
+    isPartOf: {
+      "@type": "CollectionPage",
+      name: "250 Texas Icons",
+      url: "https://texasdefined.com/texas-icons",
+    },
+  };
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Texas Defined", item: "https://texasdefined.com/" },
+      { "@type": "ListItem", position: 2, name: "Texas Icons", item: "https://texasdefined.com/texas-icons" },
+      { "@type": "ListItem", position: 3, name: icon.name, item: canonicalUrl },
+    ],
   };
 
   return (
@@ -60,6 +75,10 @@ function TexasIconProfilePage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
         <article className="mx-auto max-w-6xl">

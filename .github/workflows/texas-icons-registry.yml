@@ -8,6 +8,7 @@ on:
       - "src/data/texas-icons-roster-corrections.server.ts"
       - "src/data/texas-icons-source-*.server.ts"
       - "src/data/texas-icons-research-*.server.ts"
+      - "src/data/texas-icons-content-enrichment.server.ts"
       - "src/data/texas-icons-editorial-holds.server.ts"
       - "src/data/texas-icons.server.ts"
       - "src/data/texas-icons.functions.ts"
@@ -15,6 +16,7 @@ on:
       - "src/routes/texas-icons.tsx"
       - "src/routes/texas-icons_.$slug.tsx"
       - "scripts/data/validate-texas-icons*.mjs"
+      - "scripts/data/audit-texas-icons*.mjs"
       - ".github/workflows/texas-icons-registry.yml"
   workflow_dispatch:
 
@@ -84,6 +86,8 @@ jobs:
         run: node scripts/data/validate-texas-icons-category-authority-links.mjs
       - name: Validate Texas Icons research readiness boundary
         run: node scripts/data/validate-texas-icons-readiness.mjs
+      - name: Audit Texas Icons content depth and SEO
+        run: node scripts/data/audit-texas-icons-content-seo.mjs
       - name: Validate Texas Icons server isolation
         run: node scripts/data/validate-texas-icons-server-isolation.mjs
       - name: Production build
