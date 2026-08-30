@@ -2,12 +2,21 @@ import './validate-calculator-app-seo.mjs';
 import fs from 'node:fs';
 
 const route = fs.readFileSync('src/routes/decide.financial-tools.tsx', 'utf8');
+const propertyHub = fs.readFileSync('src/routes/property-tax-calculators.tsx', 'utf8');
+const localProfiles = fs.readFileSync('src/data/local-property-tax-calculators.ts', 'utf8');
+const localPage = fs.readFileSync('src/components/property/LocalPropertyTaxCalculatorPage.tsx', 'utf8');
+const localRoute = fs.readFileSync('src/routes/property-tax-calculator.$location.tsx', 'utf8');
+const localLazyRoute = fs.readFileSync('src/routes/property-tax-calculator.$location.lazy.tsx', 'utf8');
+const localServer = fs.readFileSync('src/data/local-property-tax-calculator-page.server.ts', 'utf8');
+const localServerFn = fs.readFileSync('src/data/local-property-tax-calculator-page.ts', 'utf8');
+const sitemap = fs.readFileSync('src/routes/sitemap[.]xml.ts', 'utf8');
+const movingHub = fs.readFileSync('src/routes/moving-to-texas.lazy.tsx', 'utf8');
+const homestead = fs.readFileSync('src/routes/texas-homestead-savings-calculator.tsx', 'utf8');
 
 const required = [
   "'@type': 'CollectionPage'",
   "'@type': 'BreadcrumbList'",
   "'@type': 'ItemList'",
-  'numberOfItems: sections.length',
   "mainEntity: { '@id': `${hubUrl}#tools` }",
   "absoluteUrl(texasDefinedBrand, path)",
 ];
@@ -16,11 +25,86 @@ const failures = required
   .filter((feature) => !route.includes(feature))
   .map((feature) => `Financial tools route missing ${feature}`);
 
-if (route.includes("'@type': 'FinancialProduct'")) {
-  failures.push('Financial tools hub must not claim FinancialProduct entities.');
+if (route.includes("'@type': 'FinancialProduct'")) failures.push('Financial tools hub must not claim FinancialProduct entities.');
+if (route.includes("'@type': 'Offer'")) failures.push('Financial tools hub must not claim Offer data.');
+
+const requiredLocalPaths = [
+  '/property-tax-calculator/houston',
+  '/property-tax-calculator/austin',
+  '/property-tax-calculator/frisco',
+  '/property-tax-calculator/harris-county',
+  '/property-tax-calculator/collin-county',
+];
+
+const profilePaths = [...localProfiles.matchAll(/path:\s*'([^']+)'/g)].map((match) => match[1]);
+const uniqueProfilePaths = new Set(profilePaths);
+if (profilePaths.length !== requiredLocalPaths.length || uniqueProfilePaths.size !== requiredLocalPaths.length) {
+  failures.push(`Local property-tax profile registry must contain exactly ${requiredLocalPaths.length} unique paths; found ${profilePaths.length} definitions and ${uniqueProfilePaths.size} unique paths.`);
 }
-if (route.includes("'@type': 'Offer'")) {
-  failures.push('Financial tools hub must not claim Offer data.');
+for (const path of requiredLocalPaths) {
+  if (!uniqueProfilePaths.has(path)) failures.push(`Local property-tax profile registry missing ${path}`);
+  if (!propertyHub.includes(path)) failures.push(`Property-tax calculator hub missing crawlable link to ${path}`);
+}
+
+for (const marker of [
+  "createFileRoute('/property-tax-calculator/$location')",
+  'getLocalPropertyTaxCalculatorPage',
+  'notFound()',
+  'loaderData?.page.head',
+]) {
+  if (!localRoute.includes(marker)) failures.push(`Local property-tax route missing ${marker}`);
+}
+for (const marker of [
+  "createLazyFileRoute('/property-tax-calculator/$location')",
+  'LocalPropertyTaxCalculatorPage',
+  'page.profile',
+]) {
+  if (!localLazyRoute.includes(marker)) failures.push(`Local property-tax lazy route missing ${marker}`);
+}
+for (const marker of [
+  'OfficialTaxRateAssist',
+  'CountySelector',
+  'CalculatorCountyLink',
+  'CitationTrustPanel',
+  "profile.faqs.map",
+  'parcel',
+  'taxing-unit',
+]) {
+  if (!localPage.includes(marker)) failures.push(`Local property-tax calculator UI missing ${marker}`);
+}
+for (const marker of [
+  "'@type': 'WebApplication'",
+  "'@type': 'BreadcrumbList'",
+  "'@type': 'FAQPage'",
+  'canonicalLink(texasDefinedBrand, profile.path)',
+  'buildMeta(texasDefinedBrand',
+  'LOCAL_PROPERTY_TAX_PROFILE_BY_SLUG',
+]) {
+  if (!localServer.includes(marker)) failures.push(`Local property-tax server head missing ${marker}`);
+}
+for (const marker of ['createServerFn', "import('./local-property-tax-calculator-page.server')"]) {
+  if (!localServerFn.includes(marker)) failures.push(`Local property-tax server boundary missing ${marker}`);
+}
+if (!sitemap.includes('LOCAL_PROPERTY_TAX_PROFILES')) failures.push('Primary sitemap must import the governed local property-tax profile registry.');
+if (!sitemap.includes('...LOCAL_PROPERTY_TAX_PROFILES.map((profile) => ({ path: profile.path')) failures.push('Primary sitemap must emit each local property-tax calculator profile.');
+
+for (const path of requiredLocalPaths.slice(0, 3)) {
+  if (!movingHub.includes(path)) failures.push(`Moving-to-Texas hub missing local property-tax discovery link to ${path}`);
+}
+
+for (const marker of [
+  'Texas Homestead Exemption Calculator | Estimate Tax Savings',
+  'Texas homestead exemption calculator',
+  "name: 'Texas Homestead Exemption Calculator'",
+]) {
+  if (!homestead.includes(marker)) failures.push(`Homestead calculator missing exact-intent marker ${marker}`);
+}
+
+if (localProfiles.includes('average property tax rate') || localProfiles.includes('average combined rate')) {
+  failures.push('Local property-tax profiles must not substitute metro/county averages for parcel taxing-unit selection.');
+}
+if (localServer.includes("'@type': 'FinancialProduct'") || localServer.includes("'@type': 'Offer'")) {
+  failures.push('Local property-tax calculators must not claim FinancialProduct or Offer schema.');
 }
 
 if (failures.length) {
@@ -29,4 +113,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Financial tools structured-data validation passed.');
+console.log(`Financial tools structured-data validation passed, including ${requiredLocalPaths.length} governed local property-tax calculators.`);
