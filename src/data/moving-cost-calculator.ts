@@ -1,4 +1,4 @@
-export const movingCostSeoTitle = 'Texas Moving Cost Calculator: Estimate Your Move';
+export const movingCostSeoTitle = 'Texas Moving Cost Calculator: Move Budget';
 
 export const movingCostPageTitle = 'Texas moving cost calculator: estimate the full move budget';
 
