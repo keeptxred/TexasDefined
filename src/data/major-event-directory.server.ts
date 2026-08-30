@@ -1,3 +1,8 @@
+import bluebonnets from "@/assets/bluebonnets.jpg";
+import { texasDefinedBrand } from "@/brand/texasdefined";
+import { resolveSportsVenueEventLink } from "@/data/sports-venue-event-links";
+import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
+
 import type { TexasEvent, TexasRegion } from "./types";
 import { majorEventIndexRecords } from "./major-event-index";
 import { formatMajorEventDateLabelServer, getMajorEventRecordServer } from "./major-event-page.server";
@@ -20,6 +25,11 @@ interface EventDiscoveryLink {
   href: string;
   title: string;
   description: string;
+}
+
+interface EventsPageRegion {
+  id: string;
+  name: string;
 }
 
 const eventTopicLinks: EventDiscoveryLink[] = [
@@ -80,5 +90,96 @@ export function loadMajorEventLandingDirectoryServer() {
     majorEventGuides: loadMajorEventGuideDirectoryServer(),
     eventTopicLinks,
     eventRegionLinks,
+  };
+}
+
+export function buildEventsPageHeadServer(events: TexasEvent[], regions: EventsPageRegion[]) {
+  const description = "Rodeos, wildflower weekends, barbecue throwdowns, dance halls and county fairs — a curated calendar of what’s worth showing up for across Texas.";
+  const canonicalPath = "/events";
+  const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
+  const pageUrl = `${siteUrl}${canonicalPath}`;
+  const regionName = (id: string) => regions.find((item) => item.id === id)?.name;
+  const eventItems = events.slice(0, 50).map((event, index) => {
+    const venueGuide = resolveSportsVenueEventLink(event.venue);
+    const eventUrl = event.id.startsWith("authority:") ? `${siteUrl}/event/${event.slug}` : `${pageUrl}#${event.id}`;
+    const defaultLocation = {
+      "@type": "Place",
+      name: [event.city, regionName(event.region), "Texas"].filter(Boolean).join(", "),
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: event.city,
+        addressRegion: "TX",
+        addressCountry: "US",
+      },
+    };
+    const location = venueGuide
+      ? { ...defaultLocation, name: event.venue, url: `${siteUrl}${venueGuide.href}` }
+      : defaultLocation;
+
+    return {
+      "@type": "ListItem",
+      position: index + 1,
+      item: {
+        "@type": "Event",
+        "@id": eventUrl,
+        name: event.name,
+        description: event.blurb,
+        startDate: event.startDate,
+        endDate: event.endDate,
+        eventStatus: "https://schema.org/EventScheduled",
+        eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+        url: eventUrl,
+        location,
+      },
+    };
+  });
+  const graph = [
+    {
+      "@type": "CollectionPage",
+      "@id": `${pageUrl}#page`,
+      url: pageUrl,
+      name: "Texas Events",
+      description,
+      image: {
+        "@type": "ImageObject",
+        url: absoluteUrl(texasDefinedBrand, bluebonnets),
+        caption: "Bluebonnets running to a fence line in a Texas spring field",
+        width: 1600,
+        height: 1067,
+      },
+      isPartOf: { "@id": `${siteUrl}/#website` },
+      mainEntity: { "@id": `${pageUrl}#events` },
+      breadcrumb: { "@id": `${pageUrl}#breadcrumbs` },
+    },
+    {
+      "@type": "ItemList",
+      "@id": `${pageUrl}#events`,
+      name: "Texas events calendar",
+      url: pageUrl,
+      numberOfItems: eventItems.length,
+      itemListElement: eventItems,
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": `${pageUrl}#breadcrumbs`,
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Front page", item: `${siteUrl}/` },
+        { "@type": "ListItem", position: 2, name: "Events", item: pageUrl },
+      ],
+    },
+  ];
+
+  return {
+    meta: buildMeta(texasDefinedBrand, {
+      title: "Texas Events",
+      description,
+      canonicalPath,
+      image: bluebonnets,
+      imageAlt: "Bluebonnets running to a fence line in a Texas spring field",
+    }),
+    links: [canonicalLink(texasDefinedBrand, canonicalPath)],
+    scripts: eventItems.length
+      ? [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": graph }) }]
+      : [],
   };
 }
