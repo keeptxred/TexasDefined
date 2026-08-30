@@ -103,6 +103,15 @@ for (const marker of [
   "https://api.openai.com/v1/images/generations",
   "'model': 'gpt-image-2'",
   "'size': '1536x1024'",
+  "TD_IMAGE_ATTRIBUTION: Brought to you by your friends at TexasDefined.com",
+  "expected_attribution='Brought to you by your friends at TexasDefined.com'",
+  "/tmp/tdfb/attribution.txt",
+  "/tmp/tdfb/attribution-footer.png",
+  "generated-image-attributed.png",
+  "TexasDefined attribution could not be applied to the generated image; publishing is blocked.",
+  "'attribution': Path('/tmp/tdfb/attribution.txt').read_text(encoding='utf-8').strip()",
+  "stored_attribution=$(tr -d '\\r\\n' < /tmp/tdfb-stored/attribution.txt)",
+  "metadata.get('attribution') != expected_attribution",
   "actions/upload-artifact@v4",
   "actions/download-artifact@v4",
   "/tmp/tdfb/post.txt",
@@ -137,4 +146,4 @@ for (const forbidden of [
 console.log(`PASS Texas social evergreen pool: ${posts.length} posts`);
 console.log("PASS Texas Facebook queue: disabled-by-default and draft-only");
 console.log("PASS Texas social calendar: server API boundary, lazy client preview, read-only and inherited admin noindex");
-console.log("PASS TexasDefined OpenAI Facebook engagement: exact prompt, stored/reloaded image, SHA-verified publish, no fallback");
+console.log("PASS TexasDefined OpenAI Facebook engagement: exact prompt, deterministic TexasDefined.com attribution, stored/reloaded image, SHA-verified publish, no fallback");
