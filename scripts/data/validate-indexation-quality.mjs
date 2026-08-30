@@ -33,15 +33,15 @@ if (!newsIndex.includes('canonicalPath: "/news"') || !newsIndex.includes('canoni
 if (newsLayout.includes('canonicalPath') || newsLayout.includes('canonicalLink(') || newsLayout.includes('head:')) failures.push('/news parent layout must remain canonical-neutral so story children cannot inherit a second canonical.');
 if (!newsLayout.includes('Outlet')) failures.push('/news parent route must render its exact index or story child through Outlet.');
 if (!newsStory.includes('fetchPublishedTexasDefinedNewsArticle') || !newsStory.includes('const canonicalPath = `/news/${params.slug}`') || !newsStory.includes('links: [canonicalLink(texasDefinedBrand, canonicalPath)]')) failures.push('Routed news stories must be feed-backed and own a self-canonical.');
-if (!newsStory.includes('robots: isArticleIndexReady(article) ? undefined : "noindex, follow, max-image-preview:large"')) failures.push('Routed news stories must apply the shared article-readiness robots boundary.');
+if (!newsStory.includes('robots: isArticleIndexReady(article) ? undefined : "noindex, follow, max-image-preview:large"')) failures.push('Routed news stories must apply the strict full-article readiness robots boundary.');
 if (!newsIndex.includes('fetchPublishedTexasDefinedNewsArticles')) failures.push('/news listing must use the feed-backed news-only remote query.');
-if (!newsIndex.includes('.filter(isArticleIndexReady)')) failures.push('/news listing must exclude remote news below the shared article-readiness floor.');
-if (!sitemap.includes('const indexableRemoteNews = remoteNews.filter(isArticleIndexReady);')) failures.push('Primary sitemap must derive an indexable remote-news cohort through the shared readiness floor.');
+if (!newsIndex.includes('.filter(isArticleIndexReady)')) failures.push('/news listing must exclude remote news below the strict full-article readiness floor.');
+if (!sitemap.includes('const indexableRemoteNews = remoteNews.filter(isArticleIndexReady);')) failures.push('Primary sitemap must derive an indexable remote-news cohort through the strict full-article readiness floor.');
 if (!sitemap.includes('...(indexableRemoteNews.length ? [{ path: "/news" }] : [])')) failures.push('Primary sitemap must publish /news only when index-ready remote news exists.');
 if (!sitemap.includes('...indexableRemoteNews.map((article) => ({ path: `/news/${article.slug}`')) failures.push('Primary sitemap must map only index-ready remote news to /news paths.');
-if (!sitemap.includes('const indexableRemoteEvergreen = remoteEvergreen.filter(isArticleIndexReady);')) failures.push('Primary sitemap must derive an indexable manual-evergreen cohort through the shared readiness floor.');
+if (!sitemap.includes('const indexableRemoteEvergreen = remoteEvergreen.filter(isArticleIndexReady);')) failures.push('Primary sitemap must derive an indexable manual-evergreen cohort through the strict full-article readiness floor.');
 if (!sitemap.includes('...indexableRemoteEvergreen.map((article) => ({ path: `/article/${article.slug}`')) failures.push('Primary sitemap must map only index-ready manual evergreen rows to /article paths.');
-if (!rss.includes('!isLegacyCountySeriesArticle(article.slug) && isArticleIndexReady(article)')) failures.push('RSS must exclude legacy or non-index-ready editorial articles.');
+if (!rss.includes('!isLegacyCountySeriesArticle(article.slug) && isArticleDiscoveryReady(article)')) failures.push('RSS must exclude legacy or non-discovery-ready editorial catalog entries.');
 for (const marker of [
   'if (kind === "evergreen") params.set("source_feed_id", "is.null")',
   'if (kind === "news") params.set("source_feed_id", "not.is.null")',
@@ -79,25 +79,29 @@ if (!articleMetaBlock) failures.push('Could not parse normal article buildMeta b
 else {
   const robotsEntries = articleMetaBlock.match(/\brobots\s*:[^\n]+/g) ?? [];
   if (robotsEntries.length > 1 || (robotsEntries.length === 1 && !articleMetaBlock.includes(readinessRobotsContract))) {
-    failures.push('Loaded evergreen articles must use the shared article-readiness robots override.');
+    failures.push('Loaded evergreen articles must use the strict full-article readiness robots override.');
   }
 }
-if (!articleRoute.includes('shouldNoindexTexasGatewayArticle')) failures.push('Article route must apply the shared article-readiness noindex helper.');
+if (!articleRoute.includes('shouldNoindexTexasGatewayArticle')) failures.push('Article route must apply the shared full-article readiness noindex helper.');
 for (const marker of [
   'export const ARTICLE_INDEX_MIN_BODY_WORDS = 600',
+  'export const ARTICLE_DISCOVERY_MIN_READING_MINUTES = 4',
   'export function isArticleIndexReady(article: Article): boolean',
+  'export function isArticleDiscoveryReady(article: Article): boolean',
   'if (!isTexasGatewayIndexReadyArticle(article)) return false',
-  'return articleBodyWordCount(article) >= ARTICLE_INDEX_MIN_BODY_WORDS',
+  'articleBodyWordCount(article) >= ARTICLE_INDEX_MIN_BODY_WORDS',
+  'article.body.length === 0',
+  'article.readingMinutes >= ARTICLE_DISCOVERY_MIN_READING_MINUTES',
   'return !isArticleIndexReady(article)',
 ]) {
   if (!gatewayReadiness.includes(marker)) failures.push(`Article readiness floor missing: ${marker}`);
 }
-const articleCatalogPattern = /\.\.\.articles\s*\.filter\(\(article\)\s*=>\s*!isLegacyCountySeriesArticle\(article\.slug\)\s*&&\s*isArticleIndexReady\(article\)\)\s*\.map\(\(article\)\s*=>\s*\(\{\s*path:\s*`\/article\/\$\{article\.slug\}`/s;
+const articleCatalogPattern = /\.\.\.articles\s*\.filter\(\(article\)\s*=>\s*!isLegacyCountySeriesArticle\(article\.slug\)\s*&&\s*isArticleDiscoveryReady\(article\)\)\s*\.map\(\(article\)\s*=>\s*\(\{\s*path:\s*`\/article\/\$\{article\.slug\}`/s;
 if (!articleCatalogPattern.test(sitemap)) {
-  failures.push('Primary sitemap must publish only non-legacy articles that pass the shared article-readiness floor.');
+  failures.push('Primary sitemap must publish only non-legacy local article catalog entries that pass lazy-safe discovery readiness.');
 }
 for (const marker of [
-  '.map(prepareArticleForDelivery)\n    .filter(isArticleIndexReady)',
+  '.map(prepareArticleForDelivery)\n    .filter(isArticleDiscoveryReady)',
   'document.kind !== "article" || indexableArticleHrefs.has(document.href)',
 ]) {
   if (!articleQueries.includes(marker)) failures.push(`Article discovery/readiness query contract missing: ${marker}`);
@@ -190,4 +194,4 @@ if (failures.length) {
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
-console.log('Indexation quality validation passed: conditional feed-backed news, routed-news canonical isolation, strict article/news/RSS/sitemap readiness gating, canonical manual evergreen routing, public article search/listing readiness, primary-source-backed special-district evergreen authority, two parsed migrated finance deep-content batches with primary-source authority and reciprocal tools, noindex utilities, redirects, generated-page quality gates, and sitemap ownership are aligned.');
+console.log('Indexation quality validation passed: conditional feed-backed news, routed-news canonical isolation, strict full-page article/news readiness, lazy-safe RSS/sitemap/search/listing discovery readiness, canonical manual evergreen routing, primary-source-backed special-district evergreen authority, two parsed migrated finance deep-content batches with primary-source authority and reciprocal tools, noindex utilities, redirects, generated-page quality gates, and sitemap ownership are aligned.');
