@@ -3,7 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { platform, scope } from "@/data";
 import { getTexasCountyHousingCosts } from "@/data/acs-county-housing-costs.functions";
-import { fetchPublishedTexasDefinedEvergreenArticles, fetchPublishedTexasDefinedNewsArticles } from "@/data/articles-remote";
+import { fetchPublishedTexasDefinedEvergreenArticlesForSitemap, fetchPublishedTexasDefinedNewsArticlesForSitemap } from "@/data/articles-remote";
 import { loadTexasCountyGrowth } from "@/data/census-county-growth";
 import { isLegacyCountySeriesArticle } from "@/data/county-series";
 import { isArticleDiscoveryReady, isArticleIndexReady } from "@/data/fixtures/texas-gateway-index-readiness";
@@ -55,8 +55,8 @@ export const Route = createFileRoute("/sitemap.xml")({
           platform.collections.list(scope),
           platform.taxonomy.authors(scope),
           loadTexasKnowledgeGraph(),
-          fetchPublishedTexasDefinedNewsArticles({ limit: 200 }),
-          fetchPublishedTexasDefinedEvergreenArticles({ limit: 200 }),
+          fetchPublishedTexasDefinedNewsArticlesForSitemap(),
+          fetchPublishedTexasDefinedEvergreenArticlesForSitemap(),
           getTexasCountyHousingCosts(),
           loadFishingGuideSitemapEntriesServer(),
           loadFishingReportSitemapEntriesServer(),

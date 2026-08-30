@@ -5,6 +5,8 @@ import { remoteEvergreenInternalLinks } from "./remote-evergreen-internal-links"
 const supabaseUrl = String(import.meta.env.VITE_TEXASDEFINED_SUPABASE_URL || import.meta.env.VITE_SUPABASE_URL || "").replace(/\/$/, "");
 const supabaseKey = String(import.meta.env.VITE_TEXASDEFINED_SUPABASE_ANON_KEY || import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || "");
 const ARTICLE_SELECT = "id,slug,title,dek,category,region,hero_url,hero_alt,hero_credit,author_id,published_at,tags,body_json,related_collections,related_destinations,source_name,source_url";
+const SITEMAP_PAGE_SIZE = 200;
+const SITEMAP_MAX_ROWS = 10_000;
 
 type RemoteArticleKind = "all" | "evergreen" | "news";
 
@@ -89,13 +91,34 @@ function mapRow(row: Record<string, unknown>): Article | null {
   };
 }
 
-async function request(params: URLSearchParams): Promise<Article[]> {
+async function requestRows(params: URLSearchParams): Promise<Record<string, unknown>[]> {
   if (!supabaseUrl || !supabaseKey) return [];
   const response = await fetch(`${supabaseUrl}/rest/v1/texasdefined_articles?${params}`, { headers: headers() });
   if (!response.ok) throw new Error(`TexasDefined articles request failed: ${response.status}`);
   const value = await response.json();
   if (!Array.isArray(value)) return [];
-  return value.map((row) => mapRow(row as Record<string, unknown>)).filter((row): row is Article => Boolean(row));
+  return value.filter((row): row is Record<string, unknown> => Boolean(row) && typeof row === "object");
+}
+
+function mapRows(rows: Record<string, unknown>[]): Article[] {
+  return rows.map((row) => mapRow(row)).filter((row): row is Article => Boolean(row));
+}
+
+async function request(params: URLSearchParams): Promise<Article[]> {
+  return mapRows(await requestRows(params));
+}
+
+async function requestAllForSitemap(params: URLSearchParams): Promise<Article[]> {
+  const articles: Article[] = [];
+  for (let offset = 0; offset < SITEMAP_MAX_ROWS; offset += SITEMAP_PAGE_SIZE) {
+    const pageParams = new URLSearchParams(params);
+    pageParams.set("limit", String(SITEMAP_PAGE_SIZE));
+    pageParams.set("offset", String(offset));
+    const rows = await requestRows(pageParams);
+    articles.push(...mapRows(rows));
+    if (rows.length < SITEMAP_PAGE_SIZE) return articles;
+  }
+  throw new Error(`TexasDefined sitemap article inventory exceeded guarded ${SITEMAP_MAX_ROWS}-row limit`);
 }
 
 function publishedParams(options: { category?: string; limit?: number } = {}, kind: RemoteArticleKind = "all") {
@@ -145,4 +168,12 @@ export async function fetchPublishedTexasDefinedNewsArticles(options: { category
 
 export async function fetchPublishedTexasDefinedNewsArticle(slug: string): Promise<Article | null> {
   return (await request(publishedSlugParams(slug, "news")))[0] ?? null;
+}
+
+export async function fetchPublishedTexasDefinedEvergreenArticlesForSitemap(): Promise<Article[]> {
+  return requestAllForSitemap(publishedParams({}, "evergreen"));
+}
+
+export async function fetchPublishedTexasDefinedNewsArticlesForSitemap(): Promise<Article[]> {
+  return requestAllForSitemap(publishedParams({}, "news"));
 }
