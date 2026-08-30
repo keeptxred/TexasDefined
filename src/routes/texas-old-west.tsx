@@ -23,7 +23,7 @@ export const Route = createFileRoute("/texas-old-west")({
     const origin = `https://${texasDefinedBrand.identity.domain}`;
     const canonicalUrl = `${origin}${canonicalPath}`;
     return {
-      meta: buildMeta(texasDefinedBrand, { title, description, canonicalPath }),
+      meta: buildMeta(texasDefinedBrand, { title: title, description, canonicalPath }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
       scripts: [{
         type: "application/ld+json",
