@@ -105,7 +105,7 @@ if (collectionPaths.length !== requiredCollectionPaths.length) {
 if (new Set(collectionPaths).size !== collectionPaths.length) fail("event authority collection paths must be unique");
 for (const routePath of requiredCollectionPaths) {
   if (!collectionPaths.includes(routePath)) fail(`event collection registry is missing ${routePath}`);
-  if (!eventsRoute.includes(`href: "${routePath}"`)) fail(`Texas Events hub does not expose a crawlable discovery card for ${routePath}`);
+  if (!directory.includes(`href: "${routePath}"`)) fail(`Texas Events server discovery directory does not expose ${routePath}`);
   if (!publicRoutes.includes(`"${routePath}"`)) fail(`public route governance does not classify ${routePath} as indexable`);
 }
 
@@ -134,8 +134,23 @@ for (const marker of [
 ]) {
   if (!collectionLoader.includes(marker)) fail(`event collection server loader is missing protected marker: ${marker}`);
 }
-for (const marker of ["city: string", "region: TexasRegion", 'category: TexasEvent["category"]', "sourceCheckedAt?: string"]) {
-  if (!directory.includes(marker)) fail(`major-event directory is missing collection metadata marker: ${marker}`);
+for (const marker of [
+  "city: string",
+  "region: TexasRegion",
+  'category: TexasEvent["category"]',
+  "sourceCheckedAt?: string",
+  "loadMajorEventLandingDirectoryServer",
+  "eventTopicLinks",
+  "eventRegionLinks",
+]) {
+  if (!directory.includes(marker)) fail(`major-event directory is missing collection/discovery metadata marker: ${marker}`);
+}
+for (const marker of [
+  "getMajorEventLandingDirectory",
+  "eventTopicLinks.map",
+  "eventRegionLinks.map",
+]) {
+  if (!eventsRoute.includes(marker)) fail(`Texas Events hub is missing server-backed discovery marker: ${marker}`);
 }
 
 if (/major-event-expanded-authority(?:-tranche\d+)?\.server/.test(collections) || /major-event-expanded-authority(?:-tranche\d+)?\.server/.test(collectionRoute)) {
@@ -143,6 +158,9 @@ if (/major-event-expanded-authority(?:-tranche\d+)?\.server/.test(collections) |
 }
 if (collectionRoute.includes("buildMeta") || collectionRoute.includes("canonicalLink") || collectionRoute.includes('"@type": "CollectionPage"')) {
   fail("event collection SEO/schema assembly must stay server-side to protect the client bundle budget");
+}
+if (eventsRoute.includes("const EVENT_TOPIC_LINKS") || eventsRoute.includes("const EVENT_REGION_LINKS") || requiredCollectionPaths.some((routePath) => eventsRoute.includes(`href: "${routePath}"`))) {
+  fail("event discovery catalog copy must stay server-side to protect the client bundle budget");
 }
 
 const duplicateDefinitions = [...slugOwners.values()].filter((owners) => owners.length > 1).length;
