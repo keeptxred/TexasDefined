@@ -1,0 +1,157 @@
+import type { MajorEventAuthorityRecord } from "./major-event-authority.server";
+
+const records: MajorEventAuthorityRecord[] = [
+  {
+    slug: "panhandle-south-plains-fair",
+    name: "Panhandle-South Plains Fair",
+    city: "Lubbock",
+    countySlug: "lubbock",
+    countyName: "Lubbock County",
+    region: "panhandle-plains",
+    category: "culture",
+    startDate: "2026-09-25",
+    endDate: "2026-10-03",
+    venue: "Panhandle South Plains Fairgrounds",
+    officialUrl: "https://www.southplainsfair.com/",
+    sourceCheckedAt: "2026-08-30",
+    whyItMatters: "The Panhandle-South Plains Fair is a nine-day Lubbock tradition combining livestock and agricultural competition, creative exhibits, midway rides, grounds entertainment and fair food at a regional gathering rooted in the South Plains.",
+    planningSections: [
+      { title: "Use September 25-October 3 as the confirmed 2026 fair run", body: "The organizer's General Information page explicitly publishes the 2026 Panhandle-South Plains Fair for September 25 through October 3. Gate, paid-admission and carnival hours vary by day of week, so check the official operating schedule before traveling." },
+      { title: "Separate grounds hours from carnival hours", body: "The fair publishes different operating windows for gates, paid admission and the carnival. A morning livestock or exhibit visit and an evening midway visit may require different timing, so build the day around the program you actually want to see." },
+      { title: "Use Lubbock as the wider destination", body: "The fairgrounds are in Lubbock, making the event easy to pair with West Texas music, food and cultural stops. Leave room for the city rather than treating the fair as the only reason for the drive." },
+    ],
+    relatedLinks: [
+      { href: "/browse/counties#county-lubbock", label: "Explore Lubbock County", description: "Build more Lubbock and South Plains stops around the fair." },
+      { href: "/events", label: "Texas events calendar", description: "Compare other Texas fairs and fall events." },
+    ],
+    sources: [
+      { label: "Panhandle-South Plains Fair official site", url: "https://www.southplainsfair.com/" },
+      { label: "Panhandle-South Plains Fair general information", url: "https://www.southplainsfair.com/p/information/general-information" },
+      { label: "Panhandle-South Plains Fair tickets and deals", url: "https://www.southplainsfair.com/p/tickets--deals" },
+    ],
+  },
+  {
+    slug: "guadalupe-county-fair-rodeo",
+    name: "Guadalupe County Fair & Rodeo",
+    city: "Seguin",
+    countySlug: "guadalupe",
+    countyName: "Guadalupe County",
+    region: "hill-country",
+    category: "rodeo",
+    startDate: "2026-10-08",
+    endDate: "2026-10-11",
+    dateNote: "The main 2026 Fair Weekend runs October 8-11. The association separately schedules Kickoff Weekend for October 2-4; this authority page models the main fair window so Event markup does not imply continuous programming between the two weekends.",
+    venue: "Guadalupe County Fairgrounds / Seguin Events Complex",
+    officialUrl: "https://www.gcfair.org/",
+    sourceCheckedAt: "2026-08-30",
+    whyItMatters: "The Guadalupe County Fair & Rodeo is a Seguin tradition centered on agriculture, PRCA rodeo, carnival rides, exhibits, live music, contests and family programming, with a separate kickoff weekend leading into the four-day main fair.",
+    planningSections: [
+      { title: "Use October 8-11 as the main 2026 fair window", body: "The association's Fair Calendar explicitly separates Kickoff Weekend, October 2-4, from Guadalupe County Fair Weekend, October 8-11. Texas Defined uses the latter as the structured event window and treats kickoff activities as a separate planning note." },
+      { title: "Choose a rodeo night or a general fair day", body: "The ticket center lists rodeo admission Thursday through Saturday while Sunday fairgrounds admission is free. Decide whether PRCA rodeo, carnival, livestock exhibits, music or family programming is the priority before choosing a date." },
+      { title: "Check parking and grounds hours before Seguin travel", body: "The organizer publishes day-specific fairgrounds hours, parking information and accessibility details. Review Fair 411 before departure because Friday parade activity and weekend crowds can change arrival patterns." },
+    ],
+    relatedLinks: [
+      { href: "/browse/counties#county-guadalupe", label: "Explore Guadalupe County", description: "Build more Seguin and Guadalupe County stops around the fair." },
+      { href: "/events", label: "Texas events calendar", description: "Compare other Texas county fairs and rodeos." },
+    ],
+    sources: [
+      { label: "Guadalupe County Fair & Rodeo Association official site", url: "https://www.gcfair.org/" },
+      { label: "Guadalupe County Fair 2026 calendar", url: "https://www.gcfair.org/fair_calendar.php" },
+      { label: "Guadalupe County Fair 411", url: "https://www.gcfair.org/fair411.php" },
+      { label: "Guadalupe County Fair ticket center", url: "https://www.gcfair.org/ticket.php" },
+    ],
+  },
+  {
+    slug: "gregg-county-fair",
+    name: "Gregg County Fair",
+    city: "Longview",
+    countySlug: "gregg",
+    countyName: "Gregg County",
+    region: "piney-woods",
+    category: "culture",
+    startDate: "2026-09-11",
+    endDate: "2026-09-19",
+    venue: "Longview Fairgrounds and Longview Exhibit Center",
+    officialUrl: "https://greggcountyfair.com/",
+    sourceCheckedAt: "2026-08-30",
+    whyItMatters: "The Gregg County Fair is a nine-day Longview community tradition with midway rides, vendors, local entertainment, contests and family attractions, continuing a county-fair history that began in 1949.",
+    planningSections: [
+      { title: "Use September 11-19 as the confirmed 2026 fair run", body: "The Gregg County Fair's official site publishes its 77th anniversary for September 11 through 19, 2026. The City of Longview independently lists the same dates at the Longview Exhibit Center and fairgrounds." },
+      { title: "Use the daily schedule for promotions and entertainment", body: "The organizer notes that bands, contests and pricing deals change by day. Review the current schedule before choosing a date if a particular promotion or performance matters to the trip." },
+      { title: "Pair the fair with a Longview weekend", body: "The Longview location makes the fair a useful Piney Woods anchor. Build nearby food, parks or other Gregg County stops into the same trip instead of treating the midway as a stand-alone destination." },
+    ],
+    relatedLinks: [
+      { href: "/browse/counties#county-gregg", label: "Explore Gregg County", description: "Build more Longview and Gregg County stops around the fair." },
+      { href: "/events", label: "Texas events calendar", description: "Compare other East Texas fairs and fall events." },
+    ],
+    sources: [
+      { label: "Gregg County Fair official site", url: "https://greggcountyfair.com/" },
+      { label: "City of Longview Gregg County Fair listing", url: "https://www.longviewtexas.gov/Calendar.aspx?EID=9877" },
+    ],
+  },
+  {
+    slug: "permian-basin-fair-expo",
+    name: "Permian Basin Fair & Expo",
+    city: "Odessa",
+    countySlug: "ector",
+    countyName: "Ector County",
+    region: "big-bend",
+    category: "culture",
+    startDate: "2026-09-04",
+    endDate: "2026-09-13",
+    venue: "Ector County Coliseum / fairgrounds",
+    officialUrl: "https://pbfair.com/",
+    sourceCheckedAt: "2026-08-30",
+    whyItMatters: "The Permian Basin Fair & Expo marks its 50th year in 2026 with ten days of West Texas livestock competition, creative arts, carnival rides, shopping, food and arena events at the Ector County fairgrounds in Odessa.",
+    planningSections: [
+      { title: "Use September 4-13 as the confirmed 50th-anniversary run", body: "The fair's official 50th-anniversary site publishes September 4 through 13, 2026 and describes a ten-day celebration in Odessa. Use the event calendar for day-specific livestock, arena and entertainment programs." },
+      { title: "Balance livestock, exhibits and midway time", body: "The fair combines livestock shows and creative arts with carnival rides, food and shopping. Decide which side of the fair matters most before choosing an arrival time because the best schedule for an exhibitor family differs from a general evening visit." },
+      { title: "Connect the fair to Odessa", body: "The Ector County Coliseum area makes the fair a natural anchor for an Odessa trip. Leave time for local museums, food and Permian Basin history rather than limiting the visit to fairground hours." },
+    ],
+    relatedLinks: [
+      { href: "/browse/counties#county-ector", label: "Explore Ector County", description: "Build more Odessa and Permian Basin stops around the fair." },
+      { href: "/event/sandhills-stock-show-rodeo", label: "Sandhills Stock Show & Rodeo", description: "Compare Odessa's major winter livestock and rodeo tradition." },
+      { href: "/events", label: "Texas events calendar", description: "Compare other West Texas fairs and seasonal events." },
+    ],
+    sources: [
+      { label: "Permian Basin Fair & Expo official site", url: "https://pbfair.com/" },
+      { label: "Permian Basin Fair 50-year story", url: "https://pbfair.com/50-year-story/" },
+    ],
+  },
+  {
+    slug: "brazoria-county-fair",
+    name: "Brazoria County Fair",
+    city: "Angleton",
+    countySlug: "brazoria",
+    countyName: "Brazoria County",
+    region: "gulf-coast",
+    category: "rodeo",
+    startDate: "2026-10-09",
+    endDate: "2026-10-17",
+    venue: "Brazoria County Fairgrounds",
+    officialUrl: "https://www.brazoriacountyfair.com/",
+    sourceCheckedAt: "2026-08-30",
+    whyItMatters: "The Brazoria County Fair is a nine-day Gulf Coast county tradition built around livestock and agricultural competition, rodeo, concerts, carnival rides, exhibits, concessions and community contests at the Angleton fairgrounds.",
+    planningSections: [
+      { title: "Use October 9-17 as the 2026 main fair window", body: "The association describes its annual fair as a nine-day October event, and its official 2026 Country Store and attraction schedules run October 9 through 17 during fair operating hours. Affiliated contests and preparation events begin earlier, so this page models the main public fair run rather than every preliminary activity." },
+      { title: "Choose a day around livestock, rodeo or concerts", body: "Official 2026 schedules spread livestock judging, Pro Rodeo performances, concerts, contests and exhibits across the nine-day run. Review the event calendar before choosing a day because the program changes substantially across the fair." },
+      { title: "Make Angleton part of a Brazoria County trip", body: "The fairgrounds location works well with a wider Gulf Coast itinerary. Build local food, historic stops or nearby coastal communities around the fair rather than planning only for the gates." },
+    ],
+    relatedLinks: [
+      { href: "/browse/counties#county-brazoria", label: "Explore Brazoria County", description: "Build more Angleton and Brazoria County stops around the fair." },
+      { href: "/events", label: "Texas events calendar", description: "Compare other Gulf Coast fairs, rodeos and fall events." },
+    ],
+    sources: [
+      { label: "Brazoria County Fair Association official site", url: "https://www.brazoriacountyfair.com/" },
+      { label: "Brazoria County Fair Association background", url: "https://www.brazoriacountyfair.com/about.aspx" },
+      { label: "2026 Brazoria County Fair Country Store schedule", url: "https://www.brazoriacountyfair.com/p/events/country-store" },
+      { label: "Brazoria County Fair 2026 events", url: "https://www.brazoriacountyfair.com/events" },
+    ],
+  },
+];
+
+const bySlug = new Map(records.map((event) => [event.slug, event]));
+
+export function getExpandedMajorEventAuthorityTranche40Server(slug: string): MajorEventAuthorityRecord | null {
+  return bySlug.get(slug) ?? null;
+}
