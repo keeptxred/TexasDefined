@@ -19,7 +19,7 @@ export const Route = createFileRoute(canonicalPath)({
     const origin = `https://${texasDefinedBrand.identity.domain}`;
     const pageUrl = `${origin}${canonicalPath}`;
     return {
-      meta: buildMeta(texasDefinedBrand, { title, description, canonicalPath }),
+      meta: buildMeta(texasDefinedBrand, { title: "Texas Tailgating Guide: College Football, Stadiums & Game Day", description, canonicalPath }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
       scripts: [{
         type: "application/ld+json",
