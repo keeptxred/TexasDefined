@@ -16,7 +16,10 @@ const affordabilityRoute = fs.readFileSync('src/routes/texas-home-affordability-
 const affordabilityLazyRoute = fs.readFileSync('src/routes/texas-home-affordability-calculator_.$location.lazy.tsx', 'utf8');
 const affordabilityServer = fs.readFileSync('src/data/local-home-affordability-page.server.ts', 'utf8');
 const affordabilityServerFn = fs.readFileSync('src/data/local-home-affordability-page.ts', 'utf8');
+const ownershipHubRoute = fs.readFileSync('src/routes/texas-homeownership-cost-calculator.tsx', 'utf8');
 const ownershipHub = fs.readFileSync('src/routes/texas-homeownership-cost-calculator.lazy.tsx', 'utf8');
+const ownershipHubServer = fs.readFileSync('src/data/homeownership-cost-hub-page.server.ts', 'utf8');
+const ownershipHubServerFn = fs.readFileSync('src/data/homeownership-cost-hub-page.ts', 'utf8');
 const ownershipProfiles = fs.readFileSync('src/data/local-homeownership-cost.ts', 'utf8');
 const ownershipPage = fs.readFileSync('src/components/calculators/LocalHomeownershipCostPage.tsx', 'utf8');
 const ownershipRoute = fs.readFileSync('src/routes/texas-homeownership-cost-calculator_.$location.tsx', 'utf8');
@@ -235,7 +238,38 @@ if (affordabilityServer.includes("'@type': 'FinancialProduct'") || affordability
 const ownershipPaths = affordabilityLocations.map((slug) => `/texas-homeownership-cost-calculator/${slug}`);
 const ownershipCityPaths = affordabilityCityLocations.map((slug) => `/texas-homeownership-cost-calculator/${slug}`);
 for (const path of ownershipCityPaths) {
-  if (!ownershipHub.includes(path)) failures.push(`Texas homeownership cost hub missing crawlable city link to ${path}`);
+  if (!ownershipHubServer.includes(path)) failures.push(`Server-backed Texas homeownership cost hub missing crawlable city link to ${path}`);
+}
+for (const marker of [
+  'getHomeownershipCostHubPage',
+  'loader: async () => ({ hub: await getHomeownershipCostHubPage() })',
+]) {
+  if (!ownershipHubRoute.includes(marker)) failures.push(`Texas homeownership-cost hub route missing server loader marker ${marker}`);
+}
+for (const marker of [
+  "import('./homeownership-cost-hub-page.server')",
+  'createServerFn',
+  'loadHomeownershipCostHubPage',
+]) {
+  if (!ownershipHubServerFn.includes(marker)) failures.push(`Texas homeownership-cost hub server boundary missing ${marker}`);
+}
+for (const marker of [
+  'Run the full homeownership budget with city-specific property context',
+  'cards:',
+  '/texas-homeownership-cost-calculator/houston',
+  '/texas-homeownership-cost-calculator/el-paso',
+  'Texas homeownership cost calculator FAQ',
+]) {
+  if (!ownershipHubServer.includes(marker)) failures.push(`Texas homeownership-cost server hub content missing ${marker}`);
+}
+for (const marker of [
+  'Route.useLoaderData()',
+  'hub.local.cards.map',
+  'hub.categories.cards.map',
+  'hub.links.cards.map',
+  'hub.faq.items.map',
+]) {
+  if (!ownershipHub.includes(marker)) failures.push(`Texas homeownership-cost client hub missing server-rendered discovery marker ${marker}`);
 }
 for (const marker of [
   'LOCAL_HOME_AFFORDABILITY_PROFILES.map(toHomeownershipProfile)',
@@ -287,7 +321,6 @@ for (const marker of ['createServerFn', "import('./local-homeownership-cost-page
 }
 if (!sitemap.includes('LOCAL_HOMEOWNERSHIP_COST_PROFILES')) failures.push('Primary sitemap must import the governed local homeownership-cost profile registry.');
 if (!sitemap.includes('...LOCAL_HOMEOWNERSHIP_COST_PROFILES.map((profile) => ({ path: profile.ownershipPath')) failures.push('Primary sitemap must emit each local homeownership-cost profile.');
-if (!ownershipHub.includes('Run the full homeownership budget with city-specific property context')) failures.push('Texas homeownership-cost hub missing local ownership discovery section.');
 if (ownershipProfiles.includes('average home price') || ownershipProfiles.includes('average property tax rate')) failures.push('Local homeownership-cost pages must not publish unsupported city/county-average home-price or property-tax assumptions.');
 if (ownershipServer.includes("'@type': 'FinancialProduct'") || ownershipServer.includes("'@type': 'Offer'")) failures.push('Local homeownership-cost calculators must not claim FinancialProduct or Offer schema.');
 
@@ -312,4 +345,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Financial tools structured-data validation passed, including ${cityPaths.length} city and ${countyPaths.length} major-county local property-tax calculators, ${affordabilityCityLocations.length} city and ${affordabilityCountyLocations.length} county home-affordability calculators, and ${ownershipPaths.length} aligned local homeownership-cost calculators.`);
+console.log(`Financial tools structured-data validation passed, including ${cityPaths.length} city and ${countyPaths.length} major-county local property-tax calculators, ${affordabilityCityLocations.length} city and ${affordabilityCountyLocations.length} county home-affordability calculators, and ${ownershipPaths.length} aligned local homeownership-cost calculators with server-backed hub discovery.`);
