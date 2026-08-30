@@ -80,6 +80,7 @@ export const supplementalMajorEventSlugs = [
   "plano-balloon-festival",
   "cottonwood-art-festival",
   "grapevine-main-street-fest",
+  "texas-pinball-festival",
 ] as const;
 
 export function loadSupplementalMajorEventRecordsServer() {
