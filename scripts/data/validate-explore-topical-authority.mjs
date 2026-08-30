@@ -16,6 +16,7 @@ const publicRoutes = read('src/lib/public-routes.ts');
 const oldWestHub = readRouteSurface('src/routes/texas-old-west.tsx');
 const sacredPlacesHub = readRouteSurface('src/routes/texas-sacred-places.tsx');
 const scienceIndustryHub = readRouteSurface('src/routes/texas-science-technology-industry.tsx');
+const collegeTownsHub = readRouteSurface('src/routes/texas-college-towns.tsx');
 const historyHub = readRouteSurface('src/routes/texas-history.tsx');
 const topAttractionsHub = readRouteSurface('src/routes/explore.top-attractions.tsx');
 const musicAuthority = read('src/data/texas-music.ts');
@@ -57,6 +58,7 @@ for (const title of [
   'Texas flavors',
   'Family attractions',
   'Science, space & industry',
+  'College towns & campus weekends',
   'Small-town weekends',
   'Roadside & only-in-Texas',
   'Landscapes & scenery',
@@ -90,6 +92,7 @@ const requiredIntentTargets = [
   '/texas-old-west',
   '/texas-sacred-places',
   '/texas-science-technology-industry',
+  '/texas-college-towns',
   '/texas-music',
   '/texas-music-venues',
   '/texas-birds-guide',
@@ -123,6 +126,7 @@ const staticAuthorityTargets = [
   '/texas-old-west',
   '/texas-sacred-places',
   '/texas-science-technology-industry',
+  '/texas-college-towns',
   '/texas-music',
   '/texas-music-venues',
   '/texas-birds-guide',
@@ -149,6 +153,7 @@ for (const [name, path, source] of [
   ['Texas Old West', '/texas-old-west', oldWestHub],
   ['Sacred Places in Texas', '/texas-sacred-places', sacredPlacesHub],
   ['Texas Science, Space & Industry', '/texas-science-technology-industry', scienceIndustryHub],
+  ['Texas College Towns', '/texas-college-towns', collegeTownsHub],
 ]) {
   if (!source.includes(`canonicalPath = ${JSON.stringify(path)}`)) failures.push(`${name} must define its exact canonical path.`);
   for (const schemaType of ['CollectionPage', 'ItemList', 'BreadcrumbList']) {
@@ -186,6 +191,19 @@ for (const marker of [
 }
 for (const target of ['/explore/top-attractions', '/texas-stargazing-guide', '/explore/historic-sites', '/explore/beaches-coast', '/browse/cities', '/explore/trip-planner', '/texas-history']) {
   if (!scienceIndustryHub.includes(`to=${JSON.stringify(target)}`) && !scienceIndustryHub.includes(`to: ${JSON.stringify(target)}`)) failures.push(`Science, Space & Industry must surface ${target}.`);
+}
+for (const marker of [
+  'https://admissions.utexas.edu/explore/visit-campus/',
+  'https://www.tamu.edu/visit/visitor-center.html',
+  'https://www.depts.ttu.edu/admissions/visit-events/index-1.php',
+  'https://www.utep.edu/visit/',
+  'https://admissions.tcu.edu/visit/programs-events.php',
+  'Source review: August 30, 2026.',
+]) {
+  if (!collegeTownsHub.includes(marker)) failures.push(`Texas College Towns must retain protected source/context marker: ${marker}`);
+}
+for (const target of ['/sports-venues/college-sports', '/sports-venues/college-station', '/sports-venues/waco', '/sports-venues/austin-central-texas', '/sports-venues/lubbock', '/sports-venues/el-paso', '/sports-venues/dallas-fort-worth', '/browse/cities', '/events', '/explore/trip-planner', '/sports', '/explore/top-attractions', '/texas-history']) {
+  if (!collegeTownsHub.includes(`to=${JSON.stringify(target)}`) && !collegeTownsHub.includes(`to: ${JSON.stringify(target)}`) && !collegeTownsHub.includes(JSON.stringify(target))) failures.push(`Texas College Towns must surface ${target}.`);
 }
 for (const target of ['/texas-old-west', '/texas-sacred-places', '/texas-music', '/article/texas-national-cemeteries-guide']) {
   if (!historyHub.includes(target)) failures.push(`Texas History heritage architecture must surface ${target}.`);
@@ -226,4 +244,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Explore topic bridges, family-attraction authority, science/space/industry authority, heritage hubs, authority clusters, trip-intent groups, indexable authority targets, regional-to-statewide paths and trip-planning pathways are protected.');
+console.log('Explore topic bridges, family-attraction authority, science/space/industry authority, college-town authority, heritage hubs, authority clusters, trip-intent groups, indexable authority targets, regional-to-statewide paths and trip-planning pathways are protected.');
