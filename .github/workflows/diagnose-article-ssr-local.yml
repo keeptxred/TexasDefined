@@ -43,14 +43,14 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          node --input-type=module <<'NODE'
+          node --input-type=module <<'NODE' | tee /tmp/ssr-diagnostic.txt
           const cases = [
             ['about', 'http://127.0.0.1:4173/about'],
             ['fixture', 'http://127.0.0.1:4173/article/caddo-lake-cypress-morning'],
             ['remote', 'http://127.0.0.1:4173/article/sam-houston-texas-life-legacy'],
           ];
           for (const [label, url] of cases) {
-            const response = await fetch(url, { headers: { 'user-agent': 'TexasDefinedLocalSsrDiagnostic/2.0' } });
+            const response = await fetch(url, { headers: { 'user-agent': 'TexasDefinedLocalSsrDiagnostic/3.0' } });
             const html = await response.text();
             const mainStart = html.indexOf('<main');
             const mainEnd = mainStart >= 0 ? html.indexOf('</main>', mainStart) : -1;
@@ -76,6 +76,13 @@ jobs:
             console.log(`${label}-main: ${main.slice(0, 12000).replace(/\s+/g, ' ')}`);
           }
           NODE
+      - name: Preserve diagnostic output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: article-ssr-diagnostic
+          path: /tmp/ssr-diagnostic.txt
+          if-no-files-found: error
       - name: Preview log
         if: always()
         run: cat /tmp/texasdefined-preview.log || true
