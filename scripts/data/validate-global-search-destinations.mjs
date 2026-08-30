@@ -24,7 +24,7 @@ for (const feature of [
   'keywords: [...new Set(keywords)]',
   'platform.search.documents(scope)',
   'platform.articles.list(scope)',
-  '.filter(isArticleIndexReady)',
+  '.filter(isArticleDiscoveryReady)',
   'document.kind !== "article" || indexableArticleHrefs.has(document.href)',
   'fetchExploreDestinations({ limit: 5000 })',
   'fetchCoreExploreDestinations({ limit: 5000 })',
