@@ -11,6 +11,8 @@ on:
       - "src/routes/admin.social-calendar.tsx"
       - "src/routes/admin.social-calendar.lazy.tsx"
       - "scripts/data/validate-texas-social-evergreen.mjs"
+      - "scripts/social/select-facebook-engagement.mjs"
+      - ".github/workflows/auto-facebook-engagement.yml"
       - ".github/workflows/validate-texas-social-evergreen.yml"
   workflow_dispatch:
 
@@ -24,5 +26,5 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Validate evergreen social pool and draft queue safety
+      - name: Validate evergreen social pool, draft queue safety, and OpenAI Facebook pipeline
         run: node scripts/data/validate-texas-social-evergreen.mjs
