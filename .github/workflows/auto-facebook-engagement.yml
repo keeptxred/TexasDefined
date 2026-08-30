@@ -180,7 +180,7 @@ jobs:
           echo "mime_type=$mime_type" >> "$GITHUB_OUTPUT"
           echo "image_sha256=$image_sha256" >> "$GITHUB_OUTPUT"
 
-          python3 - <<'PY'
+          IMAGE_SHA256="$image_sha256" python3 - <<'PY'
           import json
           import os
           from pathlib import Path
@@ -198,8 +198,6 @@ jobs:
           }
           Path('/tmp/tdfb/metadata.json').write_text(json.dumps(metadata, ensure_ascii=False, indent=2), encoding='utf-8')
           PY
-        env:
-          IMAGE_SHA256: ${{ steps.image.outputs.image_sha256 }}
 
       - name: Store generated Facebook image
         id: store
