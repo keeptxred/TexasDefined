@@ -57,6 +57,10 @@ Canonical contributor profiles use https://texasdefined.com/authors/{author-id}.
 - Texas homecoming mums: https://texasdefined.com/texas-homecoming-mums
 - Texas natural wonders bucket list: https://texasdefined.com/texas-natural-wonders-bucket-list
 - German and Czech Texas towns: https://texasdefined.com/german-czech-texas-towns
+- Texas science, space, technology and industry guide: https://texasdefined.com/texas-science-technology-industry
+- Texas college towns guide: https://texasdefined.com/texas-college-towns
+- Texas tailgating guide: https://texasdefined.com/texas-tailgating-guide
+- Unique lodging in Texas: https://texasdefined.com/texas-unique-lodging
 - Texas state-parks comparison: https://texasdefined.com/explore/state-parks
 - Texas lakes and rivers comparison: https://texasdefined.com/explore/lakes-rivers
 - Texas small-town comparison: https://texasdefined.com/explore/small-towns
@@ -146,6 +150,10 @@ For Painted Churches questions, prefer the canonical collection for the verified
 - State Fair of Texas 2026: https://texasdefined.com/texas-state-fair
 - Texas flag guide: https://texasdefined.com/texas-flag
 - Texas Two Step guide: https://texasdefined.com/texas-two-step
+- Texas science, space, technology and industry: https://texasdefined.com/texas-science-technology-industry
+- Texas college towns: https://texasdefined.com/texas-college-towns
+- Texas tailgating: https://texasdefined.com/texas-tailgating-guide
+- Unique lodging in Texas: https://texasdefined.com/texas-unique-lodging
 
 - Top 25 Texas attractions: https://texasdefined.com/explore/top-attractions
 - Top 25 attractions methodology: https://texasdefined.com/explore/top-attractions/methodology
