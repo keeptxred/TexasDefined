@@ -176,6 +176,16 @@ export const TEXAS_MUSIC_RELATED_GUIDES: readonly TexasMusicRelatedGuide[] = [
     description: "How the rooms, floors and roadside venues of Texas became part of the state's musical infrastructure.",
   },
   {
+    title: "Texas Old West",
+    href: "/texas-old-west",
+    description: "Connect western swing and honky-tonk culture to ranching, frontier history, longhorns, rodeo and the broader western landscape.",
+  },
+  {
+    title: "Sacred Places in Texas",
+    href: "/texas-sacred-places",
+    description: "Connect church music and immigrant-community history to Painted Churches, missions, living worship and sacred heritage travel.",
+  },
+  {
     title: "Culture & Music: Things That Define Texas",
     href: "/things-unique-to-texas/culture-music",
     description: "Music, traditions, rituals and cultural touchstones in the Texas Defined reference collection.",
