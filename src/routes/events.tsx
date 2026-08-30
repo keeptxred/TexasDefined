@@ -3,15 +3,12 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 
 import bluebonnets from "@/assets/bluebonnets.jpg";
-import { useBrand } from "@/brand/context";
 import { EventCard } from "@/components/editorial/EventCard";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import { getEventsPageHead, getMajorEventLandingDirectory } from "@/data/major-event-directory";
 import { eventsQuery, regionsQuery } from "@/data/queries";
-import { resolveSportsVenueEventLink } from "@/data/sports-venue-event-links";
 import type { TexasEvent } from "@/data/types";
-import { formatDateRange } from "@/domain/utils/format";
 import { cn } from "@/lib/utils";
 
 const routeSeo = {
@@ -35,29 +32,27 @@ export const Route = createFileRoute("/events")({
       context.queryClient.ensureQueryData(regionsQuery()),
       getMajorEventLandingDirectory(),
     ]);
-    const head = await getEventsPageHead({
+    const serverPresentation = await getEventsPageHead({
       data: {
         events: events.slice(0, 50),
         regions: regions.map(({ id, name }) => ({ id, name })),
       },
     });
-    return { events, regions, head, ...landingDirectory };
+    return { events, regions, ...serverPresentation, ...landingDirectory };
   },
   head: ({ loaderData }) => loaderData?.head ?? {},
   component: EventsPage,
 });
 
 function EventsPage() {
-  const brand = useBrand();
   const { data: events } = useSuspenseQuery(eventsQuery({}));
   const { data: regions } = useSuspenseQuery(regionsQuery());
-  const { majorEventGuides, eventTopicLinks, eventRegionLinks } = Route.useLoaderData();
+  const { majorEventGuides, eventTopicLinks, eventRegionLinks, featuredVenueGuide, featuredDateLabel } = Route.useLoaderData();
   const [category, setCategory] = useState<string>("all");
   const [region, setRegion] = useState<string>("all");
   const regionName = (id: string) => regions.find((item) => item.id === id)?.name;
   const categories = ["all", ...new Set(events.map((event) => event.category))];
   const featured = events[0];
-  const featuredVenueGuide = resolveSportsVenueEventLink(featured?.venue);
   const rest = events.slice(1);
   const filtered = rest.filter((event) => (category === "all" || event.category === category) && (region === "all" || event.region === region));
 
@@ -70,7 +65,7 @@ function EventsPage() {
         <p className="eyebrow mt-10 text-ink-foreground/75">The Texas Calendar</p>
         <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">What’s happening across Texas</h1>
         <p className="mt-6 max-w-2xl text-lg leading-8 text-ink-foreground/82">{routeSeo.description}</p>
-        {featured && <div id={featured.id} className="mt-10 max-w-2xl border-t border-ink-foreground/30 pt-6"><p className="eyebrow text-ink-foreground/65">Featured event · {EVENT_LABELS[featured.category]}</p><h2 className="mt-3 font-display text-4xl leading-tight">{featured.name}</h2><p className="mt-3 text-sm leading-7 text-ink-foreground/82">{featured.blurb}</p><p className="mt-4 text-sm text-ink-foreground/65">{formatDateRange(featured.startDate, featured.endDate, brand.identity.locale)} · {featured.city}{regionName(featured.region) ? ` · ${regionName(featured.region)}` : ""}</p>{featuredVenueGuide && <p className="mt-3 text-sm text-ink-foreground/72">Venue: <a href={featuredVenueGuide.href} className="border-b border-ink-foreground/70 text-ink-foreground">{featuredVenueGuide.venueName} guide →</a></p>}<div className="flex flex-wrap gap-5">{featured.officialUrl && <a href={featured.officialUrl} target="_blank" rel="noreferrer noopener" className="eyebrow mt-5 inline-flex border-b border-ink-foreground/70 pb-1 text-ink-foreground">Event details ↗</a>}{featuredVenueGuide && <a href={featuredVenueGuide.href} className="eyebrow mt-5 inline-flex border-b border-ink-foreground/70 pb-1 text-ink-foreground">Plan the venue →</a>}</div></div>}
+        {featured && <div id={featured.id} className="mt-10 max-w-2xl border-t border-ink-foreground/30 pt-6"><p className="eyebrow text-ink-foreground/65">Featured event · {EVENT_LABELS[featured.category]}</p><h2 className="mt-3 font-display text-4xl leading-tight">{featured.name}</h2><p className="mt-3 text-sm leading-7 text-ink-foreground/82">{featured.blurb}</p><p className="mt-4 text-sm text-ink-foreground/65">{featuredDateLabel} · {featured.city}{regionName(featured.region) ? ` · ${regionName(featured.region)}` : ""}</p>{featuredVenueGuide && <p className="mt-3 text-sm text-ink-foreground/72">Venue: <a href={featuredVenueGuide.href} className="border-b border-ink-foreground/70 text-ink-foreground">{featuredVenueGuide.venueName} guide →</a></p>}<div className="flex flex-wrap gap-5">{featured.officialUrl && <a href={featured.officialUrl} target="_blank" rel="noreferrer noopener" className="eyebrow mt-5 inline-flex border-b border-ink-foreground/70 pb-1 text-ink-foreground">Event details ↗</a>}{featuredVenueGuide && <a href={featuredVenueGuide.href} className="eyebrow mt-5 inline-flex border-b border-ink-foreground/70 pb-1 text-ink-foreground">Plan the venue →</a>}</div></div>}
       </Container>
     </section>
 
