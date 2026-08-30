@@ -91,6 +91,17 @@ const INTENT_GROUPS = [
     ],
   },
   {
+    title: "Family attractions",
+    body: "Choose the kind of family day first — theme park, waterpark, zoo, aquarium, science center, children’s museum or garden — then build the rest of the city around it.",
+    links: [
+      { to: "/explore/top-attractions", label: "Top Texas attractions" },
+      { to: "/explore/attractions-comparison", label: "Compare attractions" },
+      { to: "/browse/cities", label: "Browse cities" },
+      { to: "/events", label: "Family events & festivals" },
+      { to: "/explore/trip-planner", label: "Build a family itinerary" },
+    ],
+  },
+  {
     title: "Seasonal Texas",
     body: "Plan around the seasons that actually change a Texas trip: spring wildflowers, late fall color and December town traditions.",
     links: [
