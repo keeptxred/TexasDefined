@@ -2,7 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
-import { EVENT_COLLECTIONS } from "@/data/event-collections";
+import { EVENT_COLLECTIONS, type EventCollectionDefinition } from "@/data/event-collections";
 import { getEventCollectionPage } from "@/data/event-collection-page";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
@@ -76,7 +76,7 @@ function EventCollectionPage() {
   const { page } = Route.useLoaderData();
   const related = page.relatedPaths
     .map((path) => collectionByPath.get(path))
-    .filter((item): item is NonNullable<typeof item> => Boolean(item));
+    .filter((item): item is EventCollectionDefinition => Boolean(item));
 
   return (
     <main>
@@ -168,10 +168,10 @@ function EventCollectionPage() {
               <h2 className="mt-3 font-display text-3xl">Related Texas event guides</h2>
               <div className="mt-5 grid gap-3">
                 {related.map((item) => (
-                  <Link key={item.path} to={item.path} className="border border-border bg-background p-5 hover:border-primary">
+                  <a key={item.path} href={item.path} className="border border-border bg-background p-5 hover:border-primary">
                     <strong className="font-display text-xl">{item.title}</strong>
                     <span className="mt-2 block text-sm leading-6 text-muted-foreground">{item.description}</span>
-                  </Link>
+                  </a>
                 ))}
                 <Link to="/events" className="border border-border bg-background p-5 hover:border-primary">
                   <strong className="font-display text-xl">Texas Events</strong>
