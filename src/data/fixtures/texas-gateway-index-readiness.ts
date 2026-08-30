@@ -9,6 +9,8 @@ import type { Article } from "../types";
  */
 export const TEXAS_GATEWAY_INDEX_READY_SLUGS = new Set<string>([
   "best-texas-stargazing-weekend-trips",
+  "texas-vs-california-differences",
+  "texas-vs-florida-differences",
 ]);
 
 export function isTexasGatewayArticle(article: Pick<Article, "brandId" | "id">): boolean {
