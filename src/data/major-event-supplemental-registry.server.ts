@@ -85,6 +85,9 @@ export const supplementalMajorEventSlugs = [
   "czhilispiel",
   "texas-butterfly-festival",
   "rio-grande-valley-livestock-show-rodeo",
+  "original-round-top-antiques-fair",
+  "fort-worth-food-wine-festival",
+  "houston-cinema-arts-festival",
 ] as const;
 
 export function loadSupplementalMajorEventRecordsServer() {
