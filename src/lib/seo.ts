@@ -65,6 +65,10 @@ const TEXASDEFINED_TECHNICAL_SEO_OVERRIDES: Record<string, { title: string; desc
     title: "Texas Landforms & Regions: Mountains, Plains, Coast & More",
     description: "Explore Texas landforms and regions, from the Hill Country and Piney Woods to the Gulf Coast, High Plains, Big Bend mountains, basins and South Texas.",
   },
+  "/article/texas-rivers-explained": {
+    title: "Major Rivers of Texas: Basins & Regions",
+    description: "Major rivers of Texas by basin and region, including the Rio Grande, Brazos, Colorado, Guadalupe, Trinity, Sabine and mountain-to-Gulf watershed patterns.",
+  },
   "/article/texas-farm-to-market-roads-explained": { title: "Texas Farm-to-Market Roads Explained" },
   "/article/beginners-guide-ordering-texas-barbecue": { title: "How to Order Texas Barbecue" },
   "/article/texas-septic-systems-homeowner-guide": {
