@@ -102,11 +102,19 @@ for (const marker of [
   "prompt = 'Generate an image for this Facebook post.\\n\\n' + post_text",
   "https://api.openai.com/v1/images/generations",
   "'model': 'gpt-image-2'",
+  "'size': '1536x1024'",
   "actions/upload-artifact@v4",
+  "actions/download-artifact@v4",
+  "/tmp/tdfb/post.txt",
+  "/tmp/tdfb/prompt.txt",
   "if-no-files-found: error",
-  "current_sha=$(sha256sum /tmp/tdfb/generated-image.png",
-  "-F \"post_text=</tmp/tdfb/post.txt\"",
-  "-F \"image=@/tmp/tdfb/generated-image.png;type=${MIME_TYPE}\"",
+  "path: /tmp/tdfb-stored",
+  "stored_sha=$(sha256sum /tmp/tdfb-stored/generated-image.png",
+  "stored_manifest_sha=$(tr -d '[:space:]' < /tmp/tdfb-stored/image.sha256)",
+  "cmp -s /tmp/tdfb/post.txt /tmp/tdfb-stored/post.txt",
+  "expected_prompt = 'Generate an image for this Facebook post.\\n\\n' + stored_post",
+  "-F \"post_text=</tmp/tdfb-stored/post.txt\"",
+  "-F \"image=@/tmp/tdfb-stored/generated-image.png;type=${MIME_TYPE}\"",
   "/api/public/hooks/publish-texasdefined-generated-image",
   "failing closed",
 ]) {
@@ -118,13 +126,15 @@ for (const forbidden of [
   "resolveTexasDefinedFacebookImage",
   "generic image",
   "fallback image",
+  '-F "image=@/tmp/tdfb/generated-image.png',
+  '-F "post_text=</tmp/tdfb/post.txt',
 ]) {
   if (automation.toLowerCase().includes(forbidden.toLowerCase())) {
-    throw new Error(`Facebook automation contains forbidden fallback path: ${forbidden}`);
+    throw new Error(`Facebook automation contains forbidden fallback or pre-storage publish path: ${forbidden}`);
   }
 }
 
 console.log(`PASS Texas social evergreen pool: ${posts.length} posts`);
 console.log("PASS Texas Facebook queue: disabled-by-default and draft-only");
 console.log("PASS Texas social calendar: server API boundary, lazy client preview, read-only and inherited admin noindex");
-console.log("PASS TexasDefined OpenAI Facebook engagement: exact prompt, stored image, SHA-verified publish, no fallback");
+console.log("PASS TexasDefined OpenAI Facebook engagement: exact prompt, stored/reloaded image, SHA-verified publish, no fallback");
