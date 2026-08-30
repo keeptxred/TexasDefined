@@ -32,6 +32,42 @@ const comptrollerSource: LocalPropertyTaxSource = {
   url: 'https://comptroller.texas.gov/taxes/property-tax/county-directory/',
 };
 
+function countyProfile(input: {
+  slug: string;
+  path: string;
+  name: string;
+  countySlug: string;
+  context: string;
+}): LocalPropertyTaxProfile {
+  const { slug, path, name, countySlug, context } = input;
+  return {
+    slug,
+    path,
+    name,
+    eyebrow: `${name} property taxes`,
+    title: `${name} property tax calculator`,
+    seoTitle: `${name} Property Tax Calculator | Official Local Rates`,
+    description: `Estimate ${name} property taxes using finalized county, city, school-district and selected special-district rates reported to the Texas Comptroller.`,
+    intro: `${context} The county rate is only one part of a Texas property-tax bill, so this calculator keeps the parcel's school, municipal and special-district taxing units separate.`,
+    defaultCountySlug: countySlug,
+    counties: [{ name, slug: countySlug }],
+    jurisdictionNote: `Two properties in ${name} can have different combined rates because school-district, municipal and special-district boundaries can differ by parcel.`,
+    planningPoints: [
+      `Keep ${name} selected and choose the school district that serves the parcel.`,
+      'Select a municipality only when the property is actually inside that taxing jurisdiction.',
+      'Add MUD, ESD, community-college and other special districts only when appraisal or tax records confirm parcel membership.',
+    ],
+    guideHref: `/county/${countySlug}`,
+    guideLabel: `${name} guide`,
+    sources: [comptrollerSource],
+    faqs: [
+      { question: `Is the ${name} tax rate my total property tax rate?`, answer: `No. The ${name} rate is one component. School, city and special-district rates may also apply to the parcel.` },
+      { question: `Can two ${name} homes have different tax rates?`, answer: 'Yes. Their school, municipal and special-district memberships can differ even when both properties are in the same county.' },
+      { question: 'Where should I verify the final taxing units?', answer: 'Use the parcel appraisal and tax records and the responsible local taxing offices before relying on an estimate.' },
+    ],
+  };
+}
+
 export const LOCAL_PROPERTY_TAX_PROFILES: readonly LocalPropertyTaxProfile[] = [
   {
     slug: 'houston',
@@ -183,6 +219,76 @@ export const LOCAL_PROPERTY_TAX_PROFILES: readonly LocalPropertyTaxProfile[] = [
       { question: 'Does the calculator replace the county tax statement?', answer: 'No. It is a planning estimate built from official rate data; the actual appraisal and tax records control.' },
     ],
   },
+  countyProfile({
+    slug: 'dallas-county',
+    path: '/property-tax-calculator/dallas-county',
+    name: 'Dallas County',
+    countySlug: 'dallas',
+    context: 'Dallas County includes Dallas, Irving, Garland and portions of other North Texas communities, with multiple school districts and municipal boundaries.',
+  }),
+  countyProfile({
+    slug: 'tarrant-county',
+    path: '/property-tax-calculator/tarrant-county',
+    name: 'Tarrant County',
+    countySlug: 'tarrant',
+    context: 'Tarrant County includes Fort Worth, Arlington and numerous suburban jurisdictions, so nearby parcels can carry different city, school and special-district combinations.',
+  }),
+  countyProfile({
+    slug: 'bexar-county',
+    path: '/property-tax-calculator/bexar-county',
+    name: 'Bexar County',
+    countySlug: 'bexar',
+    context: 'Bexar County includes San Antonio plus incorporated and unincorporated communities with multiple school, municipal and special-district taxing boundaries.',
+  }),
+  countyProfile({
+    slug: 'travis-county',
+    path: '/property-tax-calculator/travis-county',
+    name: 'Travis County',
+    countySlug: 'travis',
+    context: 'Travis County includes Austin and surrounding communities where school districts, municipalities, emergency-service districts and other taxing units vary by address.',
+  }),
+  countyProfile({
+    slug: 'denton-county',
+    path: '/property-tax-calculator/denton-county',
+    name: 'Denton County',
+    countySlug: 'denton',
+    context: 'Denton County crosses a dense North Texas patchwork of cities and school districts, including portions of fast-growing communities near the Dallas–Fort Worth core.',
+  }),
+  countyProfile({
+    slug: 'fort-bend-county',
+    path: '/property-tax-calculator/fort-bend-county',
+    name: 'Fort Bend County',
+    countySlug: 'fort-bend',
+    context: 'Fort Bend County includes a mix of cities, school districts and municipal utility districts across the Houston region, making special-district verification especially important.',
+  }),
+  countyProfile({
+    slug: 'montgomery-county',
+    path: '/property-tax-calculator/montgomery-county',
+    name: 'Montgomery County',
+    countySlug: 'montgomery',
+    context: 'Montgomery County includes incorporated communities and extensive unincorporated development where school, emergency-service and municipal utility districts can materially change the taxing-unit stack.',
+  }),
+  countyProfile({
+    slug: 'williamson-county',
+    path: '/property-tax-calculator/williamson-county',
+    name: 'Williamson County',
+    countySlug: 'williamson',
+    context: 'Williamson County includes rapidly growing communities north of Austin, with city, school, MUD and emergency-service district boundaries that can differ across nearby subdivisions.',
+  }),
+  countyProfile({
+    slug: 'el-paso-county',
+    path: '/property-tax-calculator/el-paso-county',
+    name: 'El Paso County',
+    countySlug: 'el-paso',
+    context: 'El Paso County includes the City of El Paso and surrounding communities with different municipal, school and other local taxing jurisdictions.',
+  }),
+  countyProfile({
+    slug: 'hidalgo-county',
+    path: '/property-tax-calculator/hidalgo-county',
+    name: 'Hidalgo County',
+    countySlug: 'hidalgo',
+    context: 'Hidalgo County spans multiple Rio Grande Valley cities, school districts and special-purpose taxing units, so the exact parcel determines the useful combined-rate scenario.',
+  }),
 ] as const;
 
 export const LOCAL_PROPERTY_TAX_PROFILE_BY_SLUG = new Map(
