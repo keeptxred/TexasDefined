@@ -41,7 +41,7 @@ const entity = readRouteSurface('src/routes/$kind.$slug.tsx');
 const health = `${files['src/routes/admin.platform-health.tsx']}\n${files['src/routes/admin.platform-health.lazy.tsx']}`;
 const rollbackPage = `${files['src/routes/admin.internal-link-rollback.tsx']}\n${files['src/routes/admin.internal-link-rollback.lazy.tsx']}`;
 
-requireSymbols(resolver, ['resolveInternalEntityLinks','InternalLinkPolicy','minimumScore','ambiguityMargin','contextWindow','scoreCandidate','rejectedAmbiguous','rejectedLowQuality','entityExposureWeights','maximumExposurePenalty','exposureBalanced'], 'resolver');
+requireSymbols(resolver, ['resolveInternalEntityLinks','InternalLinkPolicy','minimumScore','ambiguityMargin','contextWindow','scoreCandidate','countyLabelHasExplicitContext','rejectedAmbiguous','rejectedLowQuality','entityExposureWeights','maximumExposurePenalty','exposureBalanced'], 'resolver');
 requireSymbols(coverage, ['INTERNAL_LINK_SURFACES','internalLinkCoverageSummary','coveragePercent','eligibleSurfaces','activeSurfaces'], 'coverage');
 requireSymbols(memory, ['MAX_ENTITIES = 250','MAX_COUNT = 1000','recordInternalLinkExposure','internalLinkExposureWeights','internalLinkMemorySummary','overexposed','mostEngaged','unclicked'], 'memory');
 requireSymbols(quality, ['INTERNAL_LINK_QUALITY_THRESHOLDS','minimumCoveragePercent: 100','auditInternalLinkQuality'], 'quality');
@@ -69,7 +69,7 @@ requireSymbols(health, ['InternalLinkPolicyHistory','Governed internal-link poli
 requireSymbols(rollbackPage, ["createFileRoute('/admin/internal-link-rollback')",'InternalLinkRollbackPreview','noindex,nofollow','read-only','/admin/platform-health','Return to Platform Health'], 'rollback admin page');
 
 if (errors.length) fail();
-console.log('Phase 2 internal linking, immutable policy releases, discoverable read-only rollback previews, intelligent scoring, exposure balancing, analytics, and quality governance are protected.');
+console.log('Phase 2 internal linking, immutable policy releases, discoverable read-only rollback previews, intelligent scoring, explicit county context, exposure balancing, analytics, and quality governance are protected.');
 
 function requireSymbols(source, symbols, area) { for (const symbol of symbols) if (!source.includes(symbol)) errors.push(`${area} feature missing: ${symbol}`); }
 function requireText(source, text, label) { if (!source.includes(text)) errors.push(`Missing ${label}.`); }
