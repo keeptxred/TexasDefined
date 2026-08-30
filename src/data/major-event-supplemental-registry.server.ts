@@ -74,6 +74,9 @@ export const supplementalMajorEventSlugs = [
   "autumn-at-the-arboretum",
   "austin-powwow",
   "ford-holiday-river-parade",
+  "houston-ballet-nutcracker-market",
+  "texas-monthly-bbq-fest",
+  "valero-alamo-bowl",
 ] as const;
 
 export function loadSupplementalMajorEventRecordsServer() {
