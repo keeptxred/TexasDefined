@@ -142,15 +142,22 @@ for (const marker of [
   "loadMajorEventLandingDirectoryServer",
   "eventTopicLinks",
   "eventRegionLinks",
+  "buildEventsPageHeadServer",
+  '"@type": "CollectionPage"',
+  '"@type": "ItemList"',
+  '"@type": "BreadcrumbList"',
+  '"@type": "Event"',
 ]) {
-  if (!directory.includes(marker)) fail(`major-event directory is missing collection/discovery metadata marker: ${marker}`);
+  if (!directory.includes(marker)) fail(`major-event directory is missing collection/discovery/head metadata marker: ${marker}`);
 }
 for (const marker of [
   "getMajorEventLandingDirectory",
+  "getEventsPageHead",
   "eventTopicLinks.map",
   "eventRegionLinks.map",
+  "head: ({ loaderData }) => loaderData?.head ?? {}",
 ]) {
-  if (!eventsRoute.includes(marker)) fail(`Texas Events hub is missing server-backed discovery marker: ${marker}`);
+  if (!eventsRoute.includes(marker)) fail(`Texas Events hub is missing server-backed discovery/head marker: ${marker}`);
 }
 
 if (/major-event-expanded-authority(?:-tranche\d+)?\.server/.test(collections) || /major-event-expanded-authority(?:-tranche\d+)?\.server/.test(collectionRoute)) {
@@ -161,6 +168,9 @@ if (collectionRoute.includes("buildMeta") || collectionRoute.includes("canonical
 }
 if (eventsRoute.includes("const EVENT_TOPIC_LINKS") || eventsRoute.includes("const EVENT_REGION_LINKS") || requiredCollectionPaths.some((routePath) => eventsRoute.includes(`href: "${routePath}"`))) {
   fail("event discovery catalog copy must stay server-side to protect the client bundle budget");
+}
+if (eventsRoute.includes("buildMeta") || eventsRoute.includes("canonicalLink") || eventsRoute.includes('"@type": "CollectionPage"') || eventsRoute.includes('"@type": "ItemList"') || eventsRoute.includes('"@type": "BreadcrumbList"')) {
+  fail("Texas Events hub SEO/schema assembly must stay server-side to protect the client bundle budget");
 }
 
 const duplicateDefinitions = [...slugOwners.values()].filter((owners) => owners.length > 1).length;
