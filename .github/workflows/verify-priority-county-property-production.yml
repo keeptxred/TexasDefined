@@ -1,0 +1,68 @@
+name: Verify priority county property production
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/verify-priority-county-property-production.yml'
+      - '.github/workflows/merge-gate.yml'
+      - 'scripts/ci/verify-priority-county-pages.mjs'
+      - 'scripts/data/validate-county-property-enrichment.mjs'
+      - 'src/data/property/county-property-data.ts'
+      - 'src/data/property/county-property-enrichment.generated.ts'
+      - 'src/data/property/county-property-local-verification.ts'
+      - 'src/data/property/county-property-priority.test.ts'
+      - 'src/data/property/county-property-schema.ts'
+      - 'src/routes/property-tax.counties.tsx'
+      - 'src/routes/property-tax.county.$county.tsx'
+      - 'src/routes/sitemap[.]xml.ts'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/verify-priority-county-property-production.yml'
+      - 'scripts/ci/verify-priority-county-pages.mjs'
+      - 'src/data/property/county-property-data.ts'
+      - 'src/data/property/county-property-enrichment.generated.ts'
+      - 'src/data/property/county-property-local-verification.ts'
+      - 'src/data/property/county-property-priority.test.ts'
+      - 'src/data/property/county-property-schema.ts'
+      - 'src/routes/property-tax.counties.tsx'
+      - 'src/routes/property-tax.county.$county.tsx'
+      - 'src/routes/sitemap[.]xml.ts'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: priority-county-property-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate priority county overlays
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - name: Validate priority county data and indexability
+        run: npx vitest run src/data/property/county-property-priority.test.ts
+      - name: Validate county property enrichment safeguards
+        run: node scripts/data/validate-county-property-enrichment.mjs
+
+  verify-production:
+    name: Verify Travis, Bexar, Dallas and Collin live property guides
+    if: ${{ github.event_name != 'pull_request' }}
+    needs: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify live priority county pages and sitemap discovery
+        run: node scripts/ci/verify-priority-county-pages.mjs
