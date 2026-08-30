@@ -13,6 +13,7 @@ import { loadFishingReportSitemapEntriesServer } from "@/data/fishing/report-sit
 import { FISHING_SITEMAP_ENTRIES } from "@/data/fishing/sitemap";
 import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
 import { canonicalEntityPath, isIndexableEntityPage } from "@/data/knowledge-graph/relationships";
+import { LOCAL_PROPERTY_TAX_PROFILES } from "@/data/local-property-tax-calculators";
 import { majorEventIndexRecords } from "@/data/major-event-index";
 import { loadSupplementalMajorEventSitemapEntriesServer } from "@/data/major-event-supplemental-registry.server";
 import { COUNTY_PROPERTY_RECORDS } from "@/data/property/county-property-data";
@@ -110,6 +111,7 @@ export const Route = createFileRoute("/sitemap.xml")({
             .filter((path) => !isExploreSitemapOwnedPath(path))
             .filter((path) => isTexasDefinedOwnedStaticPath(path))
             .map((path) => ({ path, lastmod: STATIC_LASTMOD_BY_PATH[path] })),
+          ...LOCAL_PROPERTY_TAX_PROFILES.map((profile) => ({ path: profile.path, lastmod: "2026-08-30" })),
           { path: "/texas-icons" },
           ...majorEventIndexRecords.map((event) => ({
             path: `/event/${event.slug}`,
