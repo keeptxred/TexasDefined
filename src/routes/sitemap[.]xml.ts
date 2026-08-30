@@ -6,6 +6,7 @@ import { getTexasCountyHousingCosts } from "@/data/acs-county-housing-costs.func
 import { fetchPublishedTexasDefinedEvergreenArticles, fetchPublishedTexasDefinedNewsArticles } from "@/data/articles-remote";
 import { loadTexasCountyGrowth } from "@/data/census-county-growth";
 import { isLegacyCountySeriesArticle } from "@/data/county-series";
+import { EVENT_COLLECTIONS } from "@/data/event-collections";
 import { isArticleDiscoveryReady, isArticleIndexReady } from "@/data/fixtures/texas-gateway-index-readiness";
 import { loadFishingGuideSitemapEntriesServer } from "@/data/fishing/guide-sitemap.server";
 import { loadFishingLocalSitemapEntriesServer } from "@/data/fishing/local-sitemap.server";
@@ -111,6 +112,7 @@ export const Route = createFileRoute("/sitemap.xml")({
             .filter((path) => isTexasDefinedOwnedStaticPath(path))
             .map((path) => ({ path, lastmod: STATIC_LASTMOD_BY_PATH[path] })),
           { path: "/texas-icons" },
+          ...EVENT_COLLECTIONS.map((collection) => ({ path: collection.path })),
           ...majorEventIndexRecords.map((event) => ({
             path: `/event/${event.slug}`,
             lastmod: toDate(event.sourceCheckedAt),
