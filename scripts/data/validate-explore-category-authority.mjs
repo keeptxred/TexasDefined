@@ -20,10 +20,10 @@ const evergreenBatch2 = fs.readFileSync(path.join(root, 'src/data/texas-evergree
 const indexability = fs.readFileSync(path.join(root, 'src/data/explore-category-indexability.ts'), 'utf8');
 const retiredHelperPath = path.join(root, 'src/data/explore-category-authority.ts');
 const errors = [];
-const authoritySlugs = ['outdoors', 'caverns', 'lakes-rivers', 'beaches-coast'];
+const authoritySlugs = ['outdoors', 'caverns', 'lakes-rivers', 'beaches-coast', 'small-towns'];
 
 for (const feature of [
-  'const authorityCategorySlugs = new Set(["outdoors", "caverns", "lakes-rivers", "beaches-coast"]);',
+  'const authorityCategorySlugs = new Set(["outdoors", "caverns", "lakes-rivers", "beaches-coast", "small-towns"]);',
   'const authorityPath = authorityCategorySlugs.has(category.slug)',
   '`/content/explore-category-authority/${category.slug}.html`',
   'fetch(import.meta.env.SSR ? `${siteUrl}${authorityPath}` : authorityPath)',
@@ -40,6 +40,8 @@ for (const feature of [
   'description: "Explore Texas lakes and rivers for swimming, paddling, fishing and camping, with river flows, reservoir conditions, public access, water quality and safety planning."',
   'title: "Texas Beaches & Gulf Coast: Islands, Wildlife, Fishing & Beach Trips"',
   'description: "Explore the Texas Gulf Coast by beaches, barrier islands, bays and marshes, with public access, water quality, rip-current safety, birding, fishing and trip-planning guidance."',
+  'title: "Texas Small Towns: Downtown Squares, Local Shopping & Road Trips"',
+  'description: "Explore Texas small towns through courthouse squares, Main Street districts, local shopping, antiques, markets, food, festivals and practical road-trip planning."',
   'const categorySeo = categorySeoOverrides[loaderData.category.slug];',
   'const metaTitle = categorySeo?.title ?? loaderData.category.name;',
   'const metaDescription = categorySeo?.description ?? loaderData.category.description;',
@@ -110,6 +112,19 @@ for (const [slug, requiredMarkers] of Object.entries({
     'National Park Service — Padre Island Safety',
     '/texas-birds-guide',
     '/explore/lighthouses',
+  ],
+  'small-towns': [
+    'Texas Historical Commission — Texas Main Street Program',
+    'Texas Historical Commission — Courthouse Preservation',
+    'Texas Department of Agriculture — GO TEXAN directory',
+    'Texas Department of Agriculture — Certified Farmers Markets',
+    '/explore/road-trips',
+    '/texas-roadside-oddities',
+    '/german-czech-texas-towns',
+    '/events',
+    '/browse/cities',
+    '/explore/trip-planner',
+    'Source review: August 30, 2026.',
   ],
 })) {
   const html = fs.readFileSync(path.join(root, 'public/content/explore-category-authority', `${slug}.html`), 'utf8');
@@ -278,4 +293,4 @@ if (errors.length) {
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
-console.log('Explore Outdoors, Caverns, Lakes & Rivers, Beaches & Coast, Texas Birds, Natural Wonders, and the four-area Texas climbing guide retain substantive official-source authority, reciprocal discovery, safety boundaries, structured collection coverage and protected indexability.');
+console.log('Explore Outdoors, Caverns, Lakes & Rivers, Beaches & Coast, Small Towns, Texas Birds, Natural Wonders, and the four-area Texas climbing guide retain substantive official-source authority, reciprocal discovery, safety boundaries, structured collection coverage and protected indexability.');
