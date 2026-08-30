@@ -15,7 +15,7 @@ const targets = [
   ['/texas-closing-cost-calculator', 'Texas Closing Cost Calculator'],
   ['/texas-property-tax-estimator', 'Texas Property Tax Estimator'],
   ['/texas-home-equity-calculator', 'Texas Home Equity Calculator'],
-  ['/texas-moving-cost-calculator', 'Texas Moving Cost Calculator'],
+  ['/texas-moving-cost-calculator', 'Texas Moving Cost Calculator: Move Budget'],
   ['/property-tax-calculators', 'Texas Property Tax Calculators'],
   ['/fishing', 'Texas Fishing Guide | Lakes & Species'],
   ['/sports-venues', 'Texas Stadiums & Sports Venues'],

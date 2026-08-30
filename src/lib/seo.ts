@@ -53,7 +53,10 @@ const TEXASDEFINED_TECHNICAL_SEO_OVERRIDES: Record<string, { title: string; desc
   "/texas-closing-cost-calculator": { title: "Texas Closing Cost Calculator" },
   "/texas-property-tax-estimator": { title: "Texas Property Tax Estimator" },
   "/texas-home-equity-calculator": { title: "Texas Home Equity Calculator" },
-  "/texas-moving-cost-calculator": { title: "Texas Moving Cost Calculator" },
+  "/texas-moving-cost-calculator": {
+    title: "Texas Moving Cost Calculator: Move Budget",
+    description: "Estimate the full cost of moving to or within Texas, including transportation, packing, travel, deposits, setup costs and a contingency for the unexpected.",
+  },
   "/property-tax-calculators": { title: "Texas Property Tax Calculators" },
   "/fishing": { title: "Texas Fishing Guide | Lakes & Species" },
   "/sports-venues": { title: "Texas Stadiums & Sports Venues" },
