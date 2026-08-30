@@ -1,6 +1,8 @@
 import fs from 'node:fs';
 
 const seoSource = fs.readFileSync('src/lib/seo.ts', 'utf8');
+const fredericksburgChurchRoute = fs.readFileSync('src/routes/explore.painted-churches.$slug.tsx', 'utf8');
+const fishingSpeciesServer = fs.readFileSync('src/data/fishing/species-guide-data.server.ts', 'utf8');
 const brandSuffix = ' | Texas Defined';
 const targets = [
   ['/county/bexar', 'Bexar County, Texas Guide'],
@@ -62,6 +64,27 @@ const gscIntentTargets = [
   ],
 ];
 
+const exactQuerySourceTargets = [
+  {
+    label: '/explore/painted-churches/fredericksburg-st-marys-catholic-church',
+    source: fredericksburgChurchRoute,
+    tokens: [
+      'params.slug === "fredericksburg-st-marys-catholic-church"',
+      `"St. Mary's Catholic Church Fredericksburg TX"`,
+      `"Historic St. Mary's Catholic Church in Fredericksburg, Texas: 1906 Gothic Revival architecture, painted interior, German Catholic history and visitor planning."`,
+    ],
+  },
+  {
+    label: '/fishing/species/blue-catfish',
+    source: fishingSpeciesServer,
+    tokens: [
+      'canonicalPath === "/fishing/species/blue-catfish"',
+      '"Blue Catfish in Texas: Fishing Guide"',
+      '"Blue catfish in Texas: verified lake relationships, seasonal patterns and source-backed fishing techniques without live-bite or sponsor-ranking claims."',
+    ],
+  },
+];
+
 const failures = [];
 if (!seoSource.includes('brand.identity.id === "texasdefined" && page.canonicalPath')) {
   failures.push('Phase 7 metadata overrides are no longer scoped to TexasDefined canonical paths.');
@@ -88,6 +111,12 @@ for (const [canonicalPath, expectedTitle, expectedDescription] of gscIntentTarge
   if (!overridePattern.test(seoSource)) failures.push(`${canonicalPath}: expected GSC intent title/description override is missing.`);
 }
 
+for (const target of exactQuerySourceTargets) {
+  for (const token of target.tokens) {
+    if (!target.source.includes(token)) failures.push(`${target.label}: expected exact-query intent marker is missing: ${token}`);
+  }
+}
+
 const roadTripsMatch = seoSource.match(/"\/explore\/road-trips"\s*:\s*\{[\s\S]*?description\s*:\s*"([^"]+)"/);
 const roadTripsDescription = roadTripsMatch?.[1] ?? '';
 if (roadTripsDescription.length < 100 || roadTripsDescription.length > 160) {
@@ -100,4 +129,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Phase 7 technical SEO validation passed for ${targets.length} audited canonical URLs plus ${gscIntentTargets.length} current GSC intent overrides.`);
+console.log(`Phase 7 technical SEO validation passed for ${targets.length} audited canonical URLs, ${gscIntentTargets.length} current GSC intent overrides and ${exactQuerySourceTargets.length} exact-query source targets.`);
