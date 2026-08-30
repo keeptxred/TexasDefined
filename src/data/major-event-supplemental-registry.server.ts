@@ -81,6 +81,10 @@ export const supplementalMajorEventSlugs = [
   "cottonwood-art-festival",
   "grapevine-main-street-fest",
   "texas-pinball-festival",
+  "east-texas-yamboree",
+  "czhilispiel",
+  "texas-butterfly-festival",
+  "rio-grande-valley-livestock-show-rodeo",
 ] as const;
 
 export function loadSupplementalMajorEventRecordsServer() {
