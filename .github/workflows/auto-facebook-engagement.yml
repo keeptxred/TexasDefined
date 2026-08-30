@@ -1,6 +1,11 @@
 name: TexasDefined OpenAI Facebook Engagement
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/auto-facebook-engagement.yml"
   schedule:
     # Run both UTC variants so the intended 10:30 AM and 6:30 PM America/Chicago
     # slots remain stable across daylight-saving transitions. The slot gate below
@@ -61,6 +66,10 @@ jobs:
           if [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" ]]; then
             slot="$MANUAL_SLOT"
             dry_run="$MANUAL_DRY_RUN"
+            should_run=true
+          elif [[ "$GITHUB_EVENT_NAME" == "push" ]]; then
+            slot=morning
+            dry_run=true
             should_run=true
           else
             central_hour=$(TZ=America/Chicago date +%H)
