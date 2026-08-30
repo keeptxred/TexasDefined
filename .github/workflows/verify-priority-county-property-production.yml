@@ -7,6 +7,7 @@ on:
       - '.github/workflows/merge-gate.yml'
       - 'scripts/ci/verify-priority-county-pages.mjs'
       - 'scripts/data/validate-county-property-enrichment.mjs'
+      - 'scripts/data/validate-priority-county-property-overlays.mjs'
       - 'src/data/property/county-property-data.ts'
       - 'src/data/property/county-property-enrichment.generated.ts'
       - 'src/data/property/county-property-local-verification.ts'
@@ -20,6 +21,7 @@ on:
     paths:
       - '.github/workflows/verify-priority-county-property-production.yml'
       - 'scripts/ci/verify-priority-county-pages.mjs'
+      - 'scripts/data/validate-priority-county-property-overlays.mjs'
       - 'src/data/property/county-property-data.ts'
       - 'src/data/property/county-property-enrichment.generated.ts'
       - 'src/data/property/county-property-local-verification.ts'
@@ -48,8 +50,8 @@ jobs:
           node-version: '22'
           cache: npm
       - run: npm ci --no-audit --no-fund
-      - name: Validate priority county data and indexability
-        run: npx vitest run src/data/property/county-property-priority.test.ts
+      - name: Validate priority county data and indexability contract
+        run: node scripts/data/validate-priority-county-property-overlays.mjs
       - name: Validate county property enrichment safeguards
         run: node scripts/data/validate-county-property-enrichment.mjs
 
