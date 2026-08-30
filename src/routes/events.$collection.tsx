@@ -2,12 +2,10 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
-import { EVENT_COLLECTIONS, type EventCollectionDefinition } from "@/data/event-collections";
 import { getEventCollectionPage } from "@/data/event-collection-page";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
-const collectionByPath = new Map(EVENT_COLLECTIONS.map((collection) => [collection.path, collection]));
 
 export const Route = createFileRoute("/events/$collection")({
   loader: async ({ params }) => {
@@ -74,9 +72,6 @@ export const Route = createFileRoute("/events/$collection")({
 
 function EventCollectionPage() {
   const { page } = Route.useLoaderData();
-  const related = page.relatedPaths
-    .map((path) => collectionByPath.get(path))
-    .filter((item): item is EventCollectionDefinition => Boolean(item));
 
   return (
     <main>
@@ -167,7 +162,7 @@ function EventCollectionPage() {
               <p className="eyebrow text-primary">Keep exploring</p>
               <h2 className="mt-3 font-display text-3xl">Related Texas event guides</h2>
               <div className="mt-5 grid gap-3">
-                {related.map((item) => (
+                {page.relatedCollections.map((item) => (
                   <a key={item.path} href={item.path} className="border border-border bg-background p-5 hover:border-primary">
                     <strong className="font-display text-xl">{item.title}</strong>
                     <span className="mt-2 block text-sm leading-6 text-muted-foreground">{item.description}</span>
