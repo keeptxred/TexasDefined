@@ -49,6 +49,43 @@ jobs:
       - run: npm ci --no-audit --no-fund
       - name: Validate authority-source coverage
         run: node scripts/ci/validate-remote-evergreen-authority-sources.mjs
+      - name: Diagnostic only - inspect live evergreen SSR bytes
+        if: ${{ github.event_name == 'pull_request' && github.head_ref == 'debug/evergreen-live-html-20260830' }}
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          const url = 'https://texasdefined.com/article/sam-houston-texas-life-legacy';
+          const sourceUrl = 'https://www.tshaonline.org/handbook/entries/houston-sam';
+          const response = await fetch(url, { headers: { 'user-agent': 'Mozilla/5.0 TexasDefinedSsrDiagnostic/1.0' } });
+          const html = await response.text();
+          const indices = (needle) => {
+            const result = [];
+            let offset = 0;
+            while (true) {
+              const index = html.indexOf(needle, offset);
+              if (index < 0) return result;
+              result.push(index);
+              offset = index + needle.length;
+            }
+          };
+          const needles = ['Primary source:', sourceUrl, 'Sources and further reading', '<article', '</article>', '<body', 'Sam Houston: The Texas Life and Legacy'];
+          console.log(`status=${response.status} bytes=${html.length} contentType=${response.headers.get('content-type')}`);
+          for (const needle of needles) console.log(`${JSON.stringify(needle)} indices=${JSON.stringify(indices(needle))}`);
+          const anchors = [...html.matchAll(/<a\b[^>]*href=["']([^"']+)["'][^>]*>/gi)].map((match) => match[1]);
+          console.log(`anchorCount=${anchors.length} externalSample=${JSON.stringify(anchors.filter((href) => /^https:\/\//.test(href)).slice(0, 20))}`);
+          const probeIndices = [...new Set([
+            ...indices('Primary source:'),
+            ...indices(sourceUrl),
+            ...indices('Sources and further reading'),
+            ...indices('</article>'),
+          ])].sort((a, b) => a - b);
+          for (const index of probeIndices) {
+            const start = Math.max(0, index - 700);
+            const end = Math.min(html.length, index + 1800);
+            console.log(`--- snippet ${start}:${end} around ${index} ---`);
+            console.log(html.slice(start, end).replace(/\s+/g, ' '));
+          }
+          NODE
 
   verify-production:
     name: Verify 19 canonical evergreen pages on texasdefined.com
