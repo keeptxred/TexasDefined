@@ -23,7 +23,7 @@ if (entry.allowlisted) failures.push("competing gateway article must not remain 
 if (readinessSource.includes(`\"${SLUG}\"`)) failures.push("competing gateway slug must not remain in TEXAS_GATEWAY_INDEX_READY_SLUGS");
 if (stubsSource.includes(`slug: \"${SLUG}\"`)) failures.push("competing gateway article must not remain in public discovery stubs");
 if ((promotions.promotions ?? []).some((promotion) => promotion.slug === SLUG && promotion.status === "index-ready")) failures.push("competing gateway article must not retain an index-ready editorial promotion");
-if (!routeSource.includes('canonicalPath: "/texas-stargazing-guide"')) failures.push("canonical stargazing guide must retain its exact canonical path");
+if (!routeSource.includes(`const canonicalPath = \"${CANONICAL}\"`)) failures.push("canonical stargazing guide must retain its exact canonical path");
 
 if (failures.length) {
   console.error(`Stargazing consolidation validation failed: ${failures.join(", ")}`);
