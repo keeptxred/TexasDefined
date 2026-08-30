@@ -116,8 +116,8 @@ for (const [categoryMarker, requiredTargets] of [
     errors.push(`Explore topic paths missing protected category marker: ${categoryMarker}.`);
     continue;
   }
-  const nextCategory = topicPaths.indexOf('\n  ', start + categoryMarker.length);
-  const slice = topicPaths.slice(start, nextCategory > start ? nextCategory : undefined);
+  const end = topicPaths.indexOf('\n  ],', start + categoryMarker.length);
+  const slice = topicPaths.slice(start, end > start ? end : undefined);
   for (const target of requiredTargets) if (!slice.includes(`to: "${target}"`)) errors.push(`${categoryMarker} must retain reciprocal Explore target ${target}.`);
 }
 
