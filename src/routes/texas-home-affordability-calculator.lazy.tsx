@@ -4,6 +4,16 @@ import { AffordabilityCalculator } from '@/components/calculators/TexasPlanningC
 
 const description = 'Estimate a Texas home-price range using income, monthly debts, down payment, interest rate, property taxes and homeowners insurance.';
 
+const cityCalculators = [
+  ['Houston', '/texas-home-affordability-calculator/houston'],
+  ['Austin', '/texas-home-affordability-calculator/austin'],
+  ['Dallas', '/texas-home-affordability-calculator/dallas'],
+  ['Fort Worth', '/texas-home-affordability-calculator/fort-worth'],
+  ['San Antonio', '/texas-home-affordability-calculator/san-antonio'],
+  ['Frisco', '/texas-home-affordability-calculator/frisco'],
+  ['El Paso', '/texas-home-affordability-calculator/el-paso'],
+] as const;
+
 const faqs = [
   {
     question: 'How does a Texas home affordability calculator work?',
@@ -36,6 +46,19 @@ function TexasHomeAffordabilityCalculatorPage() {
           <p>A useful affordability estimate starts with income and monthly debt, but it should not stop at principal and interest. Property taxes, homeowners insurance and the size of the down payment can change the monthly cost and the amount of cash needed before move-in.</p>
           <p>Run several scenarios rather than treating one result as a target. A lower purchase price, a different down payment or a change in interest rate can alter both the monthly payment and the cash you keep available after closing.</p>
           <p>This calculator is designed for early planning. It does not account for every lender rule, HOA charge, special district, maintenance cost or property-specific expense.</p>
+        </div>
+      </section>
+      <section className="mt-12 border-t border-border pt-10" aria-labelledby="affordability-city-heading">
+        <p className="eyebrow text-primary">Local planning pages</p>
+        <h2 id="affordability-city-heading" className="mt-3 font-display text-3xl">Run the affordability check with city-specific ownership context</h2>
+        <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">The math is the same statewide, but the inputs are not. These pages connect the calculator to local property-tax tools and relocation guidance so you can replace generic assumptions with address-level costs.</p>
+        <div className="mt-6 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+          {cityCalculators.map(([name, href]) => (
+            <a key={href} href={href} className="group bg-background p-5">
+              <strong className="font-display text-2xl group-hover:text-primary">{name}</strong>
+              <span className="mt-2 block text-sm leading-6 text-muted-foreground">Local affordability calculator →</span>
+            </a>
+          ))}
         </div>
       </section>
       <section className="mt-12 border-t border-border pt-10" aria-labelledby="affordability-next-heading">
