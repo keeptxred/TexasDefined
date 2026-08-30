@@ -12,6 +12,72 @@ import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 const canonicalPath = "/explore/top-attractions";
 const description = "Twenty-five landmark Texas experiences, from the Alamo and River Walk to Big Bend, the Gulf Coast, museums, caverns, gardens and historic districts — with practical trip-planning guides for each stop.";
 
+const familyAttractionAnchors = [
+  {
+    category: "Theme parks",
+    name: "Six Flags Over Texas",
+    place: "Arlington",
+    href: "https://www.sixflags.com/overtexas",
+    description: "Use the official park calendar, attraction lineup, accessibility guidance and operating policies when building an Arlington theme-park day.",
+  },
+  {
+    category: "Waterparks",
+    name: "Schlitterbahn New Braunfels",
+    place: "New Braunfels",
+    href: "https://www.sixflags.com/schlitterbahnnewbraunfels",
+    description: "A Hill Country waterpark-and-resort example where operating dates, ride availability, policies and lodging options should be checked with the park before travel.",
+  },
+  {
+    category: "Zoos",
+    name: "Fort Worth Zoo",
+    place: "Fort Worth",
+    href: "https://www.fortworthzoo.org/",
+    description: "A major North Texas zoo with current visitor information, animal habitats, conservation work, accessibility resources and family programming on its official site.",
+  },
+  {
+    category: "Aquariums",
+    name: "Texas State Aquarium",
+    place: "Corpus Christi",
+    href: "https://www.texasstateaquarium.org/",
+    description: "A Gulf Coast marine-life destination where daily presentations, exhibits, conservation programming and current visitor operations come directly from the aquarium.",
+  },
+  {
+    category: "Space & science",
+    name: "Space Center Houston",
+    place: "Houston",
+    href: "https://spacecenter.org/visitor-information",
+    description: "The official visitor center of NASA Johnson Space Center, with current tram-tour availability, timed-entry information, exhibits and suggested visit lengths.",
+  },
+  {
+    category: "Science museums",
+    name: "Perot Museum of Nature and Science",
+    place: "Dallas",
+    href: "https://www.perotmuseum.org/visit/",
+    description: "A hands-on science and natural-history anchor with official visitor policies, family exhibits and current admission planning from the museum itself.",
+  },
+  {
+    category: "Children's museums",
+    name: "Children’s Museum Houston",
+    place: "Houston",
+    href: "https://www.cmhouston.org/visiting/admission",
+    description: "A child-focused museum where hours, age policies, ticketing, accessibility and family programming should be verified through the museum before arrival.",
+  },
+  {
+    category: "Botanical gardens",
+    name: "San Antonio Botanical Garden",
+    place: "San Antonio",
+    href: "https://sabgtx.org/",
+    description: "A garden-and-learning destination with family programming, trails, exhibitions and current visitor information from the managing organization.",
+  },
+] as const;
+
+const familyPlanningPaths = [
+  { to: "/explore/attractions-comparison", label: "Compare Texas attractions", description: "Compare the broader destination catalog by region, season and planning notes before committing to a full day." },
+  { to: "/browse/cities", label: "Browse Texas cities", description: "Pair a family anchor with nearby museums, parks, food and neighborhoods instead of treating it as an isolated stop." },
+  { to: "/events", label: "Check Texas events", description: "Look for seasonal festivals, special exhibits, sports and recurring events that can change the best day to visit." },
+  { to: "/explore/trip-planner", label: "Build the itinerary", description: "Sequence attraction time, drive time and nearby stops into a practical family day or multi-day trip." },
+] as const;
+
 function rankDestinations(destinations: Destination[], resolveAuthority: (destination: Destination) => Destination) {
   const bySlug = new Map(destinations.map((destination) => [destination.slug, destination]));
   return TOP_TEXAS_ATTRACTIONS.flatMap((entry) => {
@@ -48,6 +114,11 @@ export const Route = createFileRoute("/explore/top-attractions")({
             description,
             mainEntity: { "@id": `${pageUrl}#attractions` },
             isBasedOn: methodologyUrl,
+            about: [
+              { "@type": "Thing", name: "Texas visitor attractions" },
+              { "@type": "Thing", name: "Texas family attractions" },
+              { "@type": "Thing", name: "Texas trip planning" },
+            ],
           },
           {
             "@type": "ItemList",
@@ -152,6 +223,31 @@ function TopAttractionsPage() {
     </Section>
 
     <Section tone="surface">
+      <Container>
+        <SectionHeader eyebrow="Family attraction planning" title="Choose the kind of family day before choosing the ticket" description="Theme parks, waterparks, zoos, aquariums, science centers, children’s museums and botanical gardens solve different trip needs. These representative Texas anchors show the range; always use the attraction’s current first-party visitor information for hours, reservations, attraction availability and policies." />
+        <div className="mt-10 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+          {familyAttractionAnchors.map((item) => (
+            <article key={item.name} className="bg-background p-5">
+              <p className="eyebrow text-primary">{item.category} · {item.place}</p>
+              <h3 className="mt-2 font-display text-2xl leading-tight">{item.name}</h3>
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">{item.description}</p>
+              <a href={item.href} target="_blank" rel="noreferrer noopener" className="mt-5 inline-block text-sm font-semibold text-primary underline decoration-primary/40 underline-offset-4">Official visitor source ↗</a>
+            </article>
+          ))}
+        </div>
+        <div className="mt-8 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+          {familyPlanningPaths.map((item) => (
+            <Link key={item.to} to={item.to} className="group bg-background p-5">
+              <strong className="font-display text-xl leading-tight group-hover:text-primary">{item.label}</strong>
+              <span className="mt-2 block text-sm leading-6 text-muted-foreground">{item.description}</span>
+            </Link>
+          ))}
+        </div>
+        <p className="mt-6 max-w-3xl text-xs leading-6 text-muted-foreground">Family-attraction source review: August 30, 2026. This section is a planning framework, not a separate ranking; the Top 25 methodology and canonical destination guides remain the editorial authority for the ranked collection.</p>
+      </Container>
+    </Section>
+
+    <Section>
       <Container>
         <SectionHeader eyebrow="The full list" title="TexasDefined’s Top 25" description="Open any attraction for the full guide, verified planning notes, multi-source evidence, nearby places, food and lodging areas, family stops, side trips, maps and a direct handoff to the Trip Planner." />
         <ol className="mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">

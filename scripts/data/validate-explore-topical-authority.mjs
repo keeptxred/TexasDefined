@@ -16,6 +16,7 @@ const publicRoutes = read('src/lib/public-routes.ts');
 const oldWestHub = readRouteSurface('src/routes/texas-old-west.tsx');
 const sacredPlacesHub = readRouteSurface('src/routes/texas-sacred-places.tsx');
 const historyHub = readRouteSurface('src/routes/texas-history.tsx');
+const topAttractionsHub = readRouteSurface('src/routes/explore.top-attractions.tsx');
 const musicAuthority = read('src/data/texas-music.ts');
 
 for (const slug of ['lakes-rivers','major-springs','state-parks','national-parks','caverns','beaches-coast','historic-sites','road-trips','small-towns','food-bbq','outdoors','events']) {
@@ -53,6 +54,7 @@ for (const title of [
   'Old West & ranch country',
   'Music & culture',
   'Texas flavors',
+  'Family attractions',
   'Small-town weekends',
   'Roadside & only-in-Texas',
   'Landscapes & scenery',
@@ -76,6 +78,8 @@ const requiredIntentTargets = [
   '/explore/food-bbq',
   '/explore/caverns',
   '/explore/trip-planner',
+  '/explore/top-attractions',
+  '/explore/attractions-comparison',
   '/browse/cities',
   '/browse/counties',
   '/events',
@@ -105,6 +109,8 @@ for (const target of requiredIntentTargets) {
 
 const staticAuthorityTargets = [
   '/explore/trip-planner',
+  '/explore/top-attractions',
+  '/explore/attractions-comparison',
   '/browse/cities',
   '/browse/counties',
   '/events',
@@ -167,6 +173,25 @@ for (const target of ['/texas-old-west', '/texas-sacred-places']) {
   if (!musicAuthority.includes(`href: ${JSON.stringify(target)}`)) failures.push(`Texas Music related authority must surface ${target}.`);
 }
 
+for (const marker of [
+  'Family attraction planning',
+  'Family-attraction source review: August 30, 2026.',
+  'https://www.sixflags.com/overtexas',
+  'https://www.sixflags.com/schlitterbahnnewbraunfels',
+  'https://www.fortworthzoo.org/',
+  'https://www.texasstateaquarium.org/',
+  'https://spacecenter.org/visitor-information',
+  'https://www.perotmuseum.org/visit/',
+  'https://www.cmhouston.org/visiting/admission',
+  'https://sabgtx.org/',
+  'name: "Texas family attractions"',
+]) {
+  if (!topAttractionsHub.includes(marker)) failures.push(`Top attractions family authority missing protected marker: ${marker}`);
+}
+for (const target of ['/explore/attractions-comparison', '/browse/cities', '/events', '/explore/trip-planner']) {
+  if (!topAttractionsHub.includes(`to: ${JSON.stringify(target)}`)) failures.push(`Top attractions family planning must surface ${target}.`);
+}
+
 if (!categoryPage.includes('ExploreTopicPaths')) failures.push('Explore categories must render ExploreTopicPaths.');
 if (!categoryPage.includes('belongsToExplore && (')) failures.push('Explore-only category guard must remain in place for deferred topical paths.');
 if (!categoryPage.includes('<ExploreTopicPaths category={category} />')) failures.push('ExploreTopicPaths must receive the active Explore category.');
@@ -180,4 +205,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Explore topic bridges, Phase 2 heritage hubs, authority clusters, trip-intent groups, indexable authority targets, regional-to-statewide paths and trip-planning pathways are protected.');
+console.log('Explore topic bridges, family-attraction authority, Phase 2 heritage hubs, authority clusters, trip-intent groups, indexable authority targets, regional-to-statewide paths and trip-planning pathways are protected.');
