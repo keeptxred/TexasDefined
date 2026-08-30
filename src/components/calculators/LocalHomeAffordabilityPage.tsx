@@ -2,6 +2,12 @@ import { CalculatorPage } from '@/components/calculators/CalculatorPage';
 import { AffordabilityCalculator } from '@/components/calculators/TexasPlanningCalculators';
 import type { LocalHomeAffordabilityProfile } from '@/data/local-home-affordability';
 
+const nextCalculators = [
+  ['Mortgage payment', '/texas-mortgage-calculator', 'Turn a purchase-price scenario into an estimated monthly principal, interest, tax and insurance payment.'],
+  ['Down payment', '/texas-down-payment-calculator', 'Compare the cash required for the down payment with closing costs and the reserves you want to keep.'],
+  ['Closing costs', '/texas-closing-cost-calculator', 'Model transaction costs separately so the home-price target does not consume cash needed to complete the purchase.'],
+] as const;
+
 export function LocalHomeAffordabilityPage({ profile }: { profile: LocalHomeAffordabilityProfile }) {
   return (
     <CalculatorPage eyebrow={profile.eyebrow} title={profile.title} description={profile.description}>
@@ -41,9 +47,36 @@ export function LocalHomeAffordabilityPage({ profile }: { profile: LocalHomeAffo
         </a>
         <a href={profile.relocationHref} className="border border-border p-5 hover:border-primary/60">
           <strong className="font-display text-2xl">{profile.relocationLabel}</strong>
-          <span className="mt-3 block text-sm leading-6 text-muted-foreground">Compare the address-level factors that sit outside the mortgage payment: commute, utilities, jurisdiction, schools and other recurring costs.</span>
-          <span className="eyebrow mt-5 inline-block text-primary">Open relocation guide →</span>
+          <span className="mt-3 block text-sm leading-6 text-muted-foreground">Compare the local factors outside the mortgage payment: jurisdiction, schools, commute, utilities, services and other recurring costs.</span>
+          <span className="eyebrow mt-5 inline-block text-primary">Open local guide →</span>
         </a>
+      </section>
+
+      {profile.relatedLocalCalculators?.length ? (
+        <section className="mt-12 border-t border-border pt-10" aria-labelledby="related-local-affordability-heading">
+          <p className="eyebrow text-primary">County-to-city planning</p>
+          <h2 id="related-local-affordability-heading" className="mt-3 font-display text-3xl">Compare the city context inside the same regional housing decision</h2>
+          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">County boundaries are useful for taxes and records, while city pages add another layer of local ownership and relocation context. Keep the exact parcel as the source of truth when the two overlap.</p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            {profile.relatedLocalCalculators.map((item) => (
+              <a key={item.path} href={item.path} className="border border-border px-4 py-3 font-semibold hover:border-primary/60 hover:text-primary">{item.name} affordability calculator →</a>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      <section className="mt-12 border-t border-border pt-10" aria-labelledby="local-affordability-tools-heading">
+        <p className="eyebrow text-primary">Keep testing the budget</p>
+        <h2 id="local-affordability-tools-heading" className="mt-3 font-display text-3xl">Run the next home-buying calculations</h2>
+        <div className="mt-6 grid gap-4 md:grid-cols-3">
+          {nextCalculators.map(([name, href, copy]) => (
+            <a key={href} href={href} className="border border-border p-5 hover:border-primary/60">
+              <strong className="font-display text-2xl">{name}</strong>
+              <span className="mt-3 block text-sm leading-6 text-muted-foreground">{copy}</span>
+              <span className="eyebrow mt-5 inline-block text-primary">Open calculator →</span>
+            </a>
+          ))}
+        </div>
       </section>
 
       <section className="mt-12 border-t border-border pt-10" aria-labelledby="local-affordability-faq-heading">
