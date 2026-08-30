@@ -41,10 +41,10 @@ if (env.includes('qhwwmdszjgkscqxgmenf')) errors.push('Retired TexasDefined Supa
 if (!env.includes('ftkznprjljkhymknvhye')) errors.push('Active shared Supabase project is absent from .env.');
 
 for (const token of [
-  'fetchPublishedTexasDefinedNewsArticles({ limit: 200 })',
+  'fetchPublishedTexasDefinedNewsArticlesForSitemap()',
   'const indexableRemoteNews = remoteNews.filter(isArticleIndexReady)',
   '...indexableRemoteNews.map((article) => ({ path: `/news/${article.slug}`',
-  'fetchPublishedTexasDefinedEvergreenArticles({ limit: 200 })',
+  'fetchPublishedTexasDefinedEvergreenArticlesForSitemap()',
   'const indexableRemoteEvergreen = remoteEvergreen.filter(isArticleIndexReady)',
   '...indexableRemoteEvergreen.map((article) => ({ path: `/article/${article.slug}`',
 ]) {
@@ -53,8 +53,16 @@ for (const token of [
 for (const token of [
   'if (kind === "evergreen") params.set("source_feed_id", "is.null")',
   'if (kind === "news") params.set("source_feed_id", "not.is.null")',
+  'async function requestAllForSitemap',
+  'pageParams.set("offset", String(offset))',
+  'export async function fetchPublishedTexasDefinedEvergreenArticlesForSitemap()',
+  'export async function fetchPublishedTexasDefinedNewsArticlesForSitemap()',
+  'exceeded guarded ${SITEMAP_MAX_ROWS}-row limit',
 ]) {
-  if (!remoteArticles.includes(token)) errors.push(`Published TexasDefined source classification contract is missing ${token}`);
+  if (!remoteArticles.includes(token)) errors.push(`Published TexasDefined source/sitemap completeness contract is missing ${token}`);
+}
+if (sitemap.includes('fetchPublishedTexasDefinedNewsArticles({ limit: 200 })') || sitemap.includes('fetchPublishedTexasDefinedEvergreenArticles({ limit: 200 })')) {
+  errors.push('Primary sitemap must not silently cap published remote article discovery to the newest 200 rows.');
 }
 if (!route.includes('fetchPublishedTexasDefinedNewsArticle')) errors.push('Live /news article route must resolve only feed-backed published stories.');
 if (!route.includes('isArticleIndexReady(article)')) errors.push('Live /news article route must noindex published stories that do not satisfy the shared public-readiness floor.');
@@ -65,4 +73,4 @@ if (errors.length) {
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
-console.log('TexasDefined auto-publication is guarded, source-gated, image-gated, disabled by default, auditable for activation/dry-run counts, production-smoked for /news and Canyon Lake sitemap health, isolated to feed-backed /news routes, and additionally quality-gated before public search discovery while manual evergreen content remains on canonical /article routes.');
+console.log('TexasDefined auto-publication is guarded, source-gated, image-gated, disabled by default, auditable for activation/dry-run counts, production-smoked for /news and Canyon Lake sitemap health, isolated to feed-backed /news routes, complete across paginated sitemap discovery, and additionally quality-gated before public search discovery while manual evergreen content remains on canonical /article routes.');
