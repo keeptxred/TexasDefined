@@ -124,7 +124,7 @@ function EventsPage() {
         <div className="grid gap-8 lg:grid-cols-[15rem_1fr] lg:items-start">
           <div><p className="eyebrow text-primary">Browse evergreen guides</p><h2 className="mt-2 font-display text-3xl">Texas events by type</h2><p className="mt-4 text-sm leading-6 text-muted-foreground">Crawlable planning collections connect the live calendar to permanent event guides, official-source dates and deeper Texas context.</p></div>
           <div className="grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
-            {EVENT_TOPIC_LINKS.map((item) => <Link key={item.href} to={item.href} className="group bg-background p-5"><strong className="font-display text-xl leading-tight group-hover:text-primary">{item.title}</strong><span className="mt-3 block text-sm leading-6 text-muted-foreground">{item.description}</span><span className="mt-4 block text-sm font-semibold text-primary">Browse the guides →</span></Link>)}
+            {EVENT_TOPIC_LINKS.map((item) => <a key={item.href} href={item.href} className="group bg-background p-5"><strong className="font-display text-xl leading-tight group-hover:text-primary">{item.title}</strong><span className="mt-3 block text-sm leading-6 text-muted-foreground">{item.description}</span><span className="mt-4 block text-sm font-semibold text-primary">Browse the guides →</span></a>)}
           </div>
         </div>
       </Container>
@@ -135,7 +135,7 @@ function EventsPage() {
         <div className="grid gap-8 lg:grid-cols-[15rem_1fr] lg:items-start">
           <div><p className="eyebrow text-primary">Plan by geography</p><h2 className="mt-2 font-display text-3xl">Texas events by region</h2><p className="mt-4 text-sm leading-6 text-muted-foreground">Compare event weekends within one part of the state before committing to long drives between cities.</p></div>
           <div className="grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
-            {EVENT_REGION_LINKS.map((item) => <Link key={item.href} to={item.href} className="group bg-background p-5"><strong className="font-display text-xl leading-tight group-hover:text-primary">{item.title}</strong><span className="mt-3 block text-sm leading-6 text-muted-foreground">{item.description}</span><span className="mt-4 block text-sm font-semibold text-primary">Explore the region →</span></Link>)}
+            {EVENT_REGION_LINKS.map((item) => <a key={item.href} href={item.href} className="group bg-background p-5"><strong className="font-display text-xl leading-tight group-hover:text-primary">{item.title}</strong><span className="mt-3 block text-sm leading-6 text-muted-foreground">{item.description}</span><span className="mt-4 block text-sm font-semibold text-primary">Explore the region →</span></a>)}
           </div>
         </div>
       </Container>
