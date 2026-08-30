@@ -12,10 +12,19 @@ const legacyExploreRedirects: Record<string, string> = {
   "scenic-rivers": "/article/texas-rivers-explained",
   "texas-dark-sky-stargazing": "/article/best-texas-stargazing-weekend-trips",
 };
+const authorityCategorySlugs = new Set(["outdoors", "caverns", "lakes-rivers", "beaches-coast"]);
 const categorySeoOverrides: Partial<Record<string, { title: string; description: string }>> = {
   outdoors: {
     title: "Texas Outdoors & Wildlife: Parks, Trails, Birding & Wild Places",
     description: "Explore Texas outdoors by region, from state parks and hiking trails to wildlife, birding, dark skies, rivers and public lands, with seasonal access and safety guidance.",
+  },
+  "lakes-rivers": {
+    title: "Texas Lakes & Rivers: Swimming, Paddling, Fishing & Water Trips",
+    description: "Explore Texas lakes and rivers for swimming, paddling, fishing and camping, with river flows, reservoir conditions, public access, water quality and safety planning.",
+  },
+  "beaches-coast": {
+    title: "Texas Beaches & Gulf Coast: Islands, Wildlife, Fishing & Beach Trips",
+    description: "Explore the Texas Gulf Coast by beaches, barrier islands, bays and marshes, with public access, water quality, rip-current safety, birding, fishing and trip-planning guidance.",
   },
 };
 
@@ -54,7 +63,7 @@ export const Route = createFileRoute("/explore/$category")({
       if (destination) throw redirect({ href: `/destination/${destination.slug}`, statusCode: 301 });
       throw notFound();
     }
-    const authorityPath = category.slug === "outdoors" || category.slug === "caverns" ? `/content/explore-category-authority/${category.slug}.html` : null;
+    const authorityPath = authorityCategorySlugs.has(category.slug) ? `/content/explore-category-authority/${category.slug}.html` : null;
     const [articles, destinations, authorityHtml] = await Promise.all([
       context.queryClient.ensureQueryData(articlesQuery({ category: category.slug })),
       context.queryClient.ensureQueryData(destinationsQuery({ category: category.slug })),
