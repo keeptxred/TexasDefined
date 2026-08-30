@@ -47,6 +47,12 @@ jobs:
       - name: Validate retired one-time certifications
         run: node scripts/ci/validate-retired-one-time-certifications.mjs
 
+      - name: Validate date formatting SSR regression
+        run: node --experimental-strip-types --test src/domain/utils/format.test.ts
+
+      - name: Validate remote image upstream request policy
+        run: node --experimental-strip-types --test src/lib/remote-image-fetch-policy.test.ts
+
       - name: Run authoritative validation suite
         run: node scripts/ci/run-validation-suite.mjs full
 

@@ -4,6 +4,7 @@ import { countySlugForLegacyArticle } from "./data/county-series";
 import { allowedRemoteImageUrl, REMOTE_IMAGE_PATH } from "./lib/editorial-image-delivery";
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
+import { remoteImageRequestHeaders } from "./lib/remote-image-fetch-policy";
 
 type ServerEntry = {
   fetch: (request: Request, env: unknown, ctx: unknown) => Promise<Response> | Response;
@@ -105,7 +106,7 @@ async function fetchAllowedRemoteImage(initialUrl: URL) {
     const response = await fetch(target.toString(), {
       method: "GET",
       redirect: "manual",
-      headers: { Accept: "image/avif,image/webp,image/*,*/*;q=0.8" },
+      headers: remoteImageRequestHeaders(),
     });
 
     if (!REMOTE_IMAGE_REDIRECT_STATUSES.has(response.status)) return response;
