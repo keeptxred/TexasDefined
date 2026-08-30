@@ -139,7 +139,14 @@ export function resolveInternalEntityLinks(text: string, entities: TexasEntityRe
  * leaving deliberately-authored links untouched elsewhere in the rendering
  * pipeline.
  */
-function countyLabelHasExplicitContext(entity: TexasEntityRecord, label: string, text: string, start: number, end: number, policy: InternalLinkPolicy) {
+export function countyLabelHasExplicitContext(
+  entity: TexasEntityRecord,
+  label: string,
+  text: string,
+  start: number,
+  end: number,
+  policy: Pick<InternalLinkPolicy, 'countySlug'> = {},
+) {
   if (entity.kind !== 'county') return true;
   if (/\bcounty\b/i.test(label)) return true;
   if (policy.countySlug && entity.countySlug === policy.countySlug) return true;
