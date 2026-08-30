@@ -50,7 +50,7 @@ jobs:
             ['remote', 'http://127.0.0.1:4173/article/sam-houston-texas-life-legacy'],
           ];
           for (const [label, url] of cases) {
-            const response = await fetch(url, { headers: { 'user-agent': 'TexasDefinedLocalSsrDiagnostic/3.0' } });
+            const response = await fetch(url, { headers: { 'user-agent': 'TexasDefinedLocalSsrDiagnostic/4.0' } });
             const html = await response.text();
             const mainStart = html.indexOf('<main');
             const mainEnd = mainStart >= 0 ? html.indexOf('</main>', mainStart) : -1;
@@ -63,7 +63,6 @@ jobs:
               articleClose: main.includes('</article>'),
               primarySource: main.includes('Primary source:'),
               sourceHeading: main.includes('Sources and further reading'),
-              aboutText: main.includes('About Texas Defined'),
               caddoText: main.includes('Caddo Lake'),
               samHoustonText: main.includes('Sam Houston'),
               suspenseOpen: (main.match(/<!--\$[^>]*-->/g) ?? []).length,
@@ -81,7 +80,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: article-ssr-diagnostic
-          path: /tmp/ssr-diagnostic.txt
+          path: |
+            /tmp/ssr-diagnostic.txt
+            /tmp/texasdefined-preview.log
           if-no-files-found: error
       - name: Preview log
         if: always()
