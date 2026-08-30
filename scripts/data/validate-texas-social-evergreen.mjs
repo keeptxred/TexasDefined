@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { execFileSync } from "node:child_process";
 
 const root = process.cwd();
 const files = ["src/data/texas-social-evergreen.ts", "src/data/texas-social-evergreen-batch2.ts"];
@@ -69,6 +70,61 @@ for (const [label, source] of [[queueFile, queue],[apiFile, api],[calendarFile, 
   }
 }
 
+const selectorFile = "scripts/social/select-facebook-engagement.mjs";
+const selector = fs.readFileSync(path.join(root, selectorFile), "utf8");
+for (const marker of [
+  'TD_SOCIAL_SLOT',
+  'slot !== "morning" && slot !== "evening"',
+  'const message = prompt ? `${text}\\n\\n${prompt}` : text;',
+  'texasdefined-facebook-openai:',
+]) {
+  if (!selector.includes(marker)) throw new Error(`Facebook selector marker missing: ${marker}`);
+}
+
+const selected = ["morning", "evening"].map((slot) => JSON.parse(execFileSync(
+  process.execPath,
+  [path.join(root, selectorFile)],
+  {
+    cwd: root,
+    env: { ...process.env, TD_SOCIAL_DATE: "2026-08-30", TD_SOCIAL_SLOT: slot },
+    encoding: "utf8",
+  },
+)));
+if (selected.some((item) => !item.id || !item.message || !item.category)) {
+  throw new Error("Facebook selector returned an incomplete candidate");
+}
+if (selected[0].id === selected[1].id) throw new Error("Morning and evening Facebook selectors must not choose the same post");
+
+const automationFile = ".github/workflows/auto-facebook-engagement.yml";
+const automation = fs.readFileSync(path.join(root, automationFile), "utf8");
+for (const marker of [
+  'OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}',
+  "prompt = 'Generate an image for this Facebook post.\\n\\n' + post_text",
+  "https://api.openai.com/v1/images/generations",
+  "'model': 'gpt-image-2'",
+  "actions/upload-artifact@v4",
+  "if-no-files-found: error",
+  "current_sha=$(sha256sum /tmp/tdfb/generated-image.png",
+  "-F \"post_text=</tmp/tdfb/post.txt\"",
+  "-F \"image=@/tmp/tdfb/generated-image.png;type=${MIME_TYPE}\"",
+  "/api/public/hooks/publish-texasdefined-generated-image",
+  "failing closed",
+]) {
+  if (!automation.includes(marker)) throw new Error(`Facebook automation marker missing: ${marker}`);
+}
+for (const forbidden of [
+  "default.jpg",
+  "/og/default",
+  "resolveTexasDefinedFacebookImage",
+  "generic image",
+  "fallback image",
+]) {
+  if (automation.toLowerCase().includes(forbidden.toLowerCase())) {
+    throw new Error(`Facebook automation contains forbidden fallback path: ${forbidden}`);
+  }
+}
+
 console.log(`PASS Texas social evergreen pool: ${posts.length} posts`);
 console.log("PASS Texas Facebook queue: disabled-by-default and draft-only");
 console.log("PASS Texas social calendar: server API boundary, lazy client preview, read-only and inherited admin noindex");
+console.log("PASS TexasDefined OpenAI Facebook engagement: exact prompt, stored image, SHA-verified publish, no fallback");

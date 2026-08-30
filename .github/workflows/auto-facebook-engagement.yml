@@ -1,0 +1,293 @@
+name: TexasDefined OpenAI Facebook Engagement
+
+on:
+  schedule:
+    # Run both UTC variants so the intended 10:30 AM and 6:30 PM America/Chicago
+    # slots remain stable across daylight-saving transitions. The slot gate below
+    # makes the non-matching UTC run a no-op.
+    - cron: "30 15 * * *"
+    - cron: "30 16 * * *"
+    - cron: "30 23 * * *"
+    - cron: "30 0 * * *"
+  workflow_dispatch:
+    inputs:
+      slot:
+        description: TexasDefined engagement slot
+        required: true
+        default: morning
+        type: choice
+        options:
+          - morning
+          - evening
+      dry_run:
+        description: Generate and store the image without publishing to Facebook
+        required: true
+        default: true
+        type: boolean
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: texasdefined-openai-facebook-engagement
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      PUBLISHER_ORIGIN: https://keeptxred-site.freddy-coppola.workers.dev
+    steps:
+      - name: Check out TexasDefined
+        uses: actions/checkout@v4
+
+      - name: Resolve Central-time slot
+        id: slot
+        shell: bash
+        env:
+          MANUAL_SLOT: ${{ inputs.slot }}
+          MANUAL_DRY_RUN: ${{ inputs.dry_run }}
+        run: |
+          set -euo pipefail
+
+          date_key=$(TZ=America/Chicago date +%F)
+          should_run=false
+          dry_run=false
+          slot=""
+
+          if [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" ]]; then
+            slot="$MANUAL_SLOT"
+            dry_run="$MANUAL_DRY_RUN"
+            should_run=true
+          else
+            central_hour=$(TZ=America/Chicago date +%H)
+            case "$central_hour" in
+              10) slot=morning; should_run=true ;;
+              18) slot=evening; should_run=true ;;
+              *) should_run=false ;;
+            esac
+          fi
+
+          echo "date_key=$date_key" >> "$GITHUB_OUTPUT"
+          echo "slot=$slot" >> "$GITHUB_OUTPUT"
+          echo "dry_run=$dry_run" >> "$GITHUB_OUTPUT"
+          echo "should_run=$should_run" >> "$GITHUB_OUTPUT"
+          echo "TexasDefined Facebook slot: date=$date_key slot=${slot:-none} should_run=$should_run dry_run=$dry_run"
+
+      - name: Select exact TexasDefined engagement post
+        id: candidate
+        if: steps.slot.outputs.should_run == 'true'
+        shell: bash
+        env:
+          TD_SOCIAL_DATE: ${{ steps.slot.outputs.date_key }}
+          TD_SOCIAL_SLOT: ${{ steps.slot.outputs.slot }}
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/tdfb
+          node scripts/social/select-facebook-engagement.mjs > /tmp/tdfb/candidate.json
+
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          data = json.loads(Path('/tmp/tdfb/candidate.json').read_text(encoding='utf-8'))
+          message = data.get('message')
+          if not isinstance(message, str) or not message:
+              raise SystemExit('TexasDefined selector returned no exact post text')
+          Path('/tmp/tdfb/post.txt').write_text(message, encoding='utf-8')
+          PY
+
+          source_post_id=$(jq -r '.id // empty' /tmp/tdfb/candidate.json)
+          category=$(jq -r '.category // empty' /tmp/tdfb/candidate.json)
+          if [[ -z "$source_post_id" || -z "$category" || ! -s /tmp/tdfb/post.txt ]]; then
+            echo 'TexasDefined candidate is incomplete.' >&2
+            exit 1
+          fi
+          echo "source_post_id=$source_post_id" >> "$GITHUB_OUTPUT"
+          echo "category=$category" >> "$GITHUB_OUTPUT"
+          echo "Selected TexasDefined engagement post ${source_post_id} (${category})."
+
+      - name: Generate image from exact Facebook post text
+        id: image
+        if: steps.slot.outputs.should_run == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -z "${OPENAI_API_KEY:-}" ]]; then
+            echo 'OPENAI_API_KEY is missing from the TexasDefined repository secrets.' >&2
+            exit 1
+          fi
+          if [[ ! -s /tmp/tdfb/post.txt ]]; then
+            echo 'Exact Facebook post text is missing; image generation is blocked.' >&2
+            exit 1
+          fi
+
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          post_text = Path('/tmp/tdfb/post.txt').read_text(encoding='utf-8')
+          if not post_text:
+              raise SystemExit('Exact Facebook post text is empty')
+          prompt = 'Generate an image for this Facebook post.\n\n' + post_text
+          Path('/tmp/tdfb/openai-request.json').write_text(
+              json.dumps({
+                  'model': 'gpt-image-2',
+                  'prompt': prompt,
+                  'size': '1536x1024',
+              }, ensure_ascii=False),
+              encoding='utf-8',
+          )
+          Path('/tmp/tdfb/prompt.txt').write_text(prompt, encoding='utf-8')
+          PY
+
+          status=$(curl -sS -o /tmp/tdfb/openai-response.json -w '%{http_code}' \
+            --max-time 900 \
+            -X POST 'https://api.openai.com/v1/images/generations' \
+            -H "Authorization: Bearer ${OPENAI_API_KEY}" \
+            -H 'Content-Type: application/json' \
+            --data-binary @/tmp/tdfb/openai-request.json || echo 000)
+
+          if [[ "$status" != "200" ]]; then
+            echo "OpenAI image generation failed with HTTP ${status}." >&2
+            jq -r '.error.message // "No OpenAI error detail returned"' /tmp/tdfb/openai-response.json 2>/dev/null >&2 || true
+            exit 1
+          fi
+
+          image_b64=$(jq -r '.data[0].b64_json // empty' /tmp/tdfb/openai-response.json)
+          if [[ -z "$image_b64" ]]; then
+            echo 'OpenAI returned no image; Facebook publishing is blocked.' >&2
+            exit 1
+          fi
+
+          printf '%s' "$image_b64" | base64 --decode > /tmp/tdfb/generated-image.png
+          if [[ ! -s /tmp/tdfb/generated-image.png ]]; then
+            echo 'Generated image is empty; Facebook publishing is blocked.' >&2
+            exit 1
+          fi
+
+          mime_type=$(file --brief --mime-type /tmp/tdfb/generated-image.png)
+          case "$mime_type" in
+            image/png|image/jpeg|image/webp) ;;
+            *) echo "Generated asset has invalid MIME type: $mime_type" >&2; exit 1 ;;
+          esac
+
+          image_sha256=$(sha256sum /tmp/tdfb/generated-image.png | awk '{print $1}')
+          echo "$image_sha256" > /tmp/tdfb/image.sha256
+          echo "mime_type=$mime_type" >> "$GITHUB_OUTPUT"
+          echo "image_sha256=$image_sha256" >> "$GITHUB_OUTPUT"
+
+          IMAGE_SHA256="$image_sha256" python3 - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          candidate = json.loads(Path('/tmp/tdfb/candidate.json').read_text(encoding='utf-8'))
+          metadata = {
+              'source_post_id': candidate['id'],
+              'date': candidate['date'],
+              'slot': candidate['slot'],
+              'category': candidate['category'],
+              'post_text': Path('/tmp/tdfb/post.txt').read_text(encoding='utf-8'),
+              'image_prompt': Path('/tmp/tdfb/prompt.txt').read_text(encoding='utf-8'),
+              'model': 'gpt-image-2',
+              'image_sha256': os.environ['IMAGE_SHA256'],
+          }
+          Path('/tmp/tdfb/metadata.json').write_text(json.dumps(metadata, ensure_ascii=False, indent=2), encoding='utf-8')
+          PY
+
+      - name: Store generated Facebook image
+        id: store
+        if: steps.slot.outputs.should_run == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: texasdefined-facebook-${{ steps.slot.outputs.date_key }}-${{ steps.slot.outputs.slot }}-${{ steps.candidate.outputs.source_post_id }}
+          path: |
+            /tmp/tdfb/generated-image.png
+            /tmp/tdfb/image.sha256
+            /tmp/tdfb/metadata.json
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 30
+
+      - name: Publish the exact stored image to Facebook
+        if: steps.slot.outputs.should_run == 'true' && steps.slot.outputs.dry_run != 'true'
+        shell: bash
+        env:
+          MIME_TYPE: ${{ steps.image.outputs.mime_type }}
+          IMAGE_SHA256: ${{ steps.image.outputs.image_sha256 }}
+          SOURCE_POST_ID: ${{ steps.candidate.outputs.source_post_id }}
+          ARTIFACT_URL: ${{ steps.store.outputs.artifact-url }}
+        run: |
+          set -euo pipefail
+          if [[ ! -s /tmp/tdfb/generated-image.png || ! -s /tmp/tdfb/post.txt ]]; then
+            echo 'Stored image or exact post text is missing; Facebook publishing is blocked.' >&2
+            exit 1
+          fi
+
+          current_sha=$(sha256sum /tmp/tdfb/generated-image.png | awk '{print $1}')
+          if [[ "$current_sha" != "$IMAGE_SHA256" ]]; then
+            echo 'Generated image changed after storage; Facebook publishing is blocked.' >&2
+            exit 1
+          fi
+          if [[ -z "$ARTIFACT_URL" ]]; then
+            echo 'GitHub did not return an artifact storage URL; Facebook publishing is blocked.' >&2
+            exit 1
+          fi
+
+          oidc_url="${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=keeptxred-facebook"
+          oidc_token=$(curl -fsS \
+            -H "Authorization: bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" \
+            "$oidc_url" | jq -r '.value // empty')
+          if [[ -z "$oidc_token" ]]; then
+            echo 'GitHub Actions did not issue the TexasDefined Facebook OIDC token.' >&2
+            exit 1
+          fi
+
+          run_url="https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          status=$(curl -sS -o /tmp/tdfb/facebook-response.json -w '%{http_code}' \
+            --max-time 420 \
+            -X POST \
+            -H 'accept: application/json' \
+            -H "Authorization: Bearer ${oidc_token}" \
+            -F "post_text=</tmp/tdfb/post.txt" \
+            -F "image=@/tmp/tdfb/generated-image.png;type=${MIME_TYPE}" \
+            -F "image_sha256=${IMAGE_SHA256}" \
+            -F "source_post_id=${SOURCE_POST_ID}" \
+            -F "artifact_url=${ARTIFACT_URL}" \
+            -F "github_run_url=${run_url}" \
+            "${PUBLISHER_ORIGIN%/}/api/public/hooks/publish-texasdefined-generated-image" || echo 000)
+
+          cat /tmp/tdfb/facebook-response.json 2>/dev/null || true
+          echo
+          if [[ "$status" != "200" ]] || ! jq -e '.ok == true' /tmp/tdfb/facebook-response.json >/dev/null 2>&1; then
+            echo "TexasDefined Facebook publish failed with HTTP ${status}; no fallback will be attempted." >&2
+            exit 1
+          fi
+
+          if jq -e '.posted == true' /tmp/tdfb/facebook-response.json >/dev/null 2>&1; then
+            post_url=$(jq -r '.post_url // empty' /tmp/tdfb/facebook-response.json)
+            echo "Published exact generated image to Facebook: ${post_url}"
+          elif jq -e '.duplicate == true' /tmp/tdfb/facebook-response.json >/dev/null 2>&1; then
+            echo 'Exact post is already present on the TexasDefined Facebook Page; duplicate publish skipped.'
+          else
+            echo 'Publisher returned success without a post or duplicate confirmation; failing closed.' >&2
+            exit 1
+          fi
+
+      - name: Report dry-run artifact
+        if: steps.slot.outputs.should_run == 'true' && steps.slot.outputs.dry_run == 'true'
+        shell: bash
+        env:
+          ARTIFACT_URL: ${{ steps.store.outputs.artifact-url }}
+          IMAGE_SHA256: ${{ steps.image.outputs.image_sha256 }}
+        run: |
+          set -euo pipefail
+          if [[ -z "$ARTIFACT_URL" || -z "$IMAGE_SHA256" ]]; then
+            echo 'Dry-run storage verification failed.' >&2
+            exit 1
+          fi
+          echo "Dry run complete: generated image stored at ${ARTIFACT_URL}; sha256=${IMAGE_SHA256}; Facebook was not called."
