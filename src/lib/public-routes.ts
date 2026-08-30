@@ -208,6 +208,7 @@ export const INDEXABLE_STATIC_PATHS = [
   "/citation-guide",
   "/texas-agricultural-valuation-calculator",
   "/texas-budget-planner",
+  "/texas-cash-to-close-calculator",
   "/texas-closing-cost-calculator",
   "/texas-cost-of-living-calculator",
   "/texas-disabled-veteran-property-tax-calculator",
@@ -237,6 +238,7 @@ export const INDEXABLE_STATIC_PATHS = [
   "/texas-salary-comparison-by-city",
   "/texas-sales-tax-explained",
   "/texas-school-district-property-tax-comparison",
+  "/texas-seller-net-proceeds-calculator",
   "/texas-utility-cost-calculator",
 ] as const;
 
