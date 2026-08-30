@@ -1,0 +1,23 @@
+name: Validate date formatting
+
+on:
+  pull_request:
+    paths:
+      - 'src/domain/utils/format.ts'
+      - 'src/domain/utils/format.test.ts'
+      - '.github/workflows/validate-date-formatting.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Run date formatting regression tests
+        run: node --experimental-strip-types --test src/domain/utils/format.test.ts
