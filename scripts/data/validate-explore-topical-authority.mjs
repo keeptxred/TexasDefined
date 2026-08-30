@@ -13,6 +13,10 @@ const categoryPage = read('src/components/editorial/CategoryPage.tsx');
 const exploreHub = readRouteSurface('src/routes/explore.index.tsx');
 const regionalHub = read('src/components/editorial/RegionalHubSections.tsx');
 const publicRoutes = read('src/lib/public-routes.ts');
+const oldWestHub = readRouteSurface('src/routes/texas-old-west.tsx');
+const sacredPlacesHub = readRouteSurface('src/routes/texas-sacred-places.tsx');
+const historyHub = readRouteSurface('src/routes/texas-history.tsx');
+const musicAuthority = read('src/data/texas-music.ts');
 
 for (const slug of ['lakes-rivers','major-springs','state-parks','national-parks','caverns','beaches-coast','historic-sites','road-trips','small-towns','food-bbq','outdoors','events']) {
   if (!topicPaths.includes(`${JSON.stringify(slug)}:`) && !topicPaths.includes(`${slug}: [`)) failures.push(`Explore topical bridge missing for ${slug}.`);
@@ -45,6 +49,7 @@ for (const title of [
   'Park weekends',
   'Wildlife & conservation',
   'History routes',
+  'Sacred & spiritual heritage',
   'Old West & ranch country',
   'Music & culture',
   'Texas flavors',
@@ -76,6 +81,8 @@ const requiredIntentTargets = [
   '/events',
   '/fishing',
   '/texas-history',
+  '/texas-old-west',
+  '/texas-sacred-places',
   '/texas-music',
   '/texas-music-venues',
   '/texas-birds-guide',
@@ -86,6 +93,7 @@ const requiredIntentTargets = [
   '/texas-dance-halls-honky-tonks',
   '/things-unique-to-texas',
   '/things-unique-to-texas/roadside-small-towns',
+  '/things-unique-to-texas/culture-music',
   '/sports',
   '/sports-venues',
   '/sports-venues/college-sports',
@@ -102,6 +110,8 @@ const staticAuthorityTargets = [
   '/events',
   '/fishing',
   '/texas-history',
+  '/texas-old-west',
+  '/texas-sacred-places',
   '/texas-music',
   '/texas-music-venues',
   '/texas-birds-guide',
@@ -112,6 +122,7 @@ const staticAuthorityTargets = [
   '/texas-dance-halls-honky-tonks',
   '/things-unique-to-texas',
   '/things-unique-to-texas/roadside-small-towns',
+  '/things-unique-to-texas/culture-music',
   '/sports',
   '/sports-venues',
   '/sports-venues/college-sports',
@@ -120,6 +131,40 @@ const staticAuthorityTargets = [
 ];
 for (const target of staticAuthorityTargets) {
   if (!publicRoutes.includes(JSON.stringify(target))) failures.push(`Explore authority target must remain an explicitly indexable public route: ${target}.`);
+}
+
+for (const [name, path, source] of [
+  ['Texas Old West', '/texas-old-west', oldWestHub],
+  ['Sacred Places in Texas', '/texas-sacred-places', sacredPlacesHub],
+]) {
+  if (!source.includes(`canonicalPath = ${JSON.stringify(path)}`)) failures.push(`${name} must define its exact canonical path.`);
+  for (const schemaType of ['CollectionPage', 'ItemList', 'BreadcrumbList']) {
+    if (!source.includes(`\"@type\": ${JSON.stringify(schemaType)}`)) failures.push(`${name} must emit ${schemaType} structured data.`);
+  }
+  if (!source.includes('dateModified: "2026-08-30"')) failures.push(`${name} must carry an explicit source-backed launch modification date.`);
+  if (!source.includes('to="/explore/trip-planner"')) failures.push(`${name} must hand visitors into the Texas Trip Planner.`);
+  if (!source.includes('to="/texas-history"')) failures.push(`${name} must link back to the Texas History authority hub.`);
+}
+
+for (const marker of [
+  'https://thc.texas.gov/historic-sites',
+  'https://tpwd.texas.gov/state-parks/park-information/wildlife/official-state-longhorn',
+  'https://www.nps.gov/subjects/buffalosoldiers/about.htm',
+]) {
+  if (!oldWestHub.includes(marker)) failures.push(`Texas Old West must retain official authority source: ${marker}`);
+}
+for (const marker of [
+  'https://www.nps.gov/saan/index.htm',
+  'https://thc.texas.gov/historic-sites',
+  'https://www.cem.va.gov/find-cemetery/state.asp?STATE=TX',
+]) {
+  if (!sacredPlacesHub.includes(marker)) failures.push(`Sacred Places must retain official authority source: ${marker}`);
+}
+for (const target of ['/texas-old-west', '/texas-sacred-places', '/texas-music', '/article/texas-national-cemeteries-guide']) {
+  if (!historyHub.includes(target)) failures.push(`Texas History heritage architecture must surface ${target}.`);
+}
+for (const target of ['/texas-old-west', '/texas-sacred-places']) {
+  if (!musicAuthority.includes(`href: ${JSON.stringify(target)}`)) failures.push(`Texas Music related authority must surface ${target}.`);
 }
 
 if (!categoryPage.includes('ExploreTopicPaths')) failures.push('Explore categories must render ExploreTopicPaths.');
@@ -135,4 +180,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Explore topic bridges, authority clusters, trip-intent groups, indexable authority targets, regional-to-statewide paths and trip-planning pathways are protected.');
+console.log('Explore topic bridges, Phase 2 heritage hubs, authority clusters, trip-intent groups, indexable authority targets, regional-to-statewide paths and trip-planning pathways are protected.');
