@@ -53,6 +53,9 @@ jobs:
       - name: Validate remote image upstream request policy
         run: node --experimental-strip-types --test src/lib/remote-image-fetch-policy.test.ts
 
+      - name: Validate priority county property overlays
+        run: node scripts/data/validate-priority-county-property-overlays.mjs
+
       - name: Run authoritative validation suite
         run: node scripts/ci/run-validation-suite.mjs full
 
