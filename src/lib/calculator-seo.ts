@@ -69,7 +69,9 @@ export function buildCalculatorHead(
             name: options.title,
             description: options.description,
             url: pageUrl,
-            applicationCategory: options.applicationCategory ?? 'FinanceApplication',
+            ...(options.applicationCategory
+              ? { applicationCategory: options.applicationCategory }
+              : { applicationCategory: 'FinanceApplication' }),
             operatingSystem: 'Any',
             browserRequirements: 'Requires JavaScript',
             featureList: options.featureList,
