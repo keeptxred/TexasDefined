@@ -10,6 +10,10 @@ const topicPaths = fs.readFileSync(path.join(root, 'src/components/editorial/Exp
 const homeNatureGuide = fs.readFileSync(path.join(root, 'src/components/editorial/TexasHomeNatureGuide.tsx'), 'utf8');
 const homeNatureSeo = fs.readFileSync(path.join(root, 'src/lib/texas-home-nature-seo.ts'), 'utf8');
 const homeNatureServer = fs.readFileSync(path.join(root, 'src/data/texas-home-nature-public.server.ts'), 'utf8');
+const naturalWondersRoute = fs.readFileSync(path.join(root, 'src/routes/texas-natural-wonders-bucket-list.tsx'), 'utf8');
+const naturalWondersLazy = fs.readFileSync(path.join(root, 'src/routes/texas-natural-wonders-bucket-list.lazy.tsx'), 'utf8');
+const naturalWondersAuthority = fs.readFileSync(path.join(root, 'src/components/editorial/TexasNaturalWondersAuthority.tsx'), 'utf8');
+const evergreenBatch2 = fs.readFileSync(path.join(root, 'src/data/texas-evergreen-guides-batch2.ts'), 'utf8');
 const indexability = fs.readFileSync(path.join(root, 'src/data/explore-category-indexability.ts'), 'utf8');
 const retiredHelperPath = path.join(root, 'src/data/explore-category-authority.ts');
 const errors = [];
@@ -156,6 +160,66 @@ for (const marker of [
   if (!homeNatureServer.includes(marker)) errors.push(`Texas birds source/review authority missing marker: ${marker}.`);
 }
 
+for (const marker of [
+  'TexasNaturalWondersAuthority',
+  '<TexasEvergreenGuide guide={guide} />',
+  '<TexasNaturalWondersAuthority />',
+]) {
+  if (!naturalWondersLazy.includes(marker)) errors.push(`Texas Natural Wonders lazy authority integration missing marker: ${marker}.`);
+}
+for (const marker of [
+  '"@type": "CollectionPage"',
+  '"@type": "ItemList"',
+  '"@type": "Place"',
+  'const itemListElement = guide.sections.map',
+  'numberOfItems: itemListElement.length',
+  'Texas Natural Wonders Bucket List: 12 Landscapes',
+  'scripts: [{ type: "application/ld+json", children: JSON.stringify(collectionSchema) }]',
+]) {
+  if (!naturalWondersRoute.includes(marker)) errors.push(`Texas Natural Wonders structured authority missing marker: ${marker}.`);
+}
+for (const marker of [
+  'Source review: August 30, 2026.',
+  'https://www.nps.gov/bibe/index.htm',
+  'https://www.nps.gov/gumo/index.htm',
+  'https://www.nps.gov/pais/index.htm',
+  'https://tpwd.texas.gov/state-parks/palo-duro-canyon',
+  'https://tpwd.texas.gov/state-parks/caddo-lake',
+  'https://tpwd.texas.gov/state-parks/enchanted-rock',
+  'https://tpwd.texas.gov/state-parks/balmorhea',
+  'https://tpwd.texas.gov/state-parks/caprock-canyons',
+  'https://tpwd.texas.gov/state-parks/monahans-sandhills',
+  'https://tpwd.texas.gov/state-parks/devils-river',
+  'to: "/explore/outdoors"',
+  'to: "/explore/state-parks"',
+  'to: "/explore/national-parks"',
+  'to: "/explore/lakes-rivers"',
+  'to: "/explore/beaches-coast"',
+  'to: "/explore/major-springs"',
+  'to: "/explore/road-trips"',
+  'to: "/explore/trip-planner"',
+]) {
+  if (!naturalWondersAuthority.includes(marker)) errors.push(`Texas Natural Wonders provenance/discovery authority missing marker: ${marker}.`);
+}
+const naturalWonderSourceCount = (naturalWondersAuthority.match(/href: "https:\/\//g) ?? []).length;
+if (naturalWonderSourceCount < 10) errors.push(`Texas Natural Wonders authority needs at least 10 official source links; found ${naturalWonderSourceCount}.`);
+for (const heading of [
+  'Big Bend National Park',
+  'Guadalupe Mountains National Park',
+  'Palo Duro Canyon',
+  'Caddo Lake',
+  'Enchanted Rock',
+  'Padre Island National Seashore',
+  'Balmorhea and spring-fed West Texas',
+  'Caprock Canyons and the Texas State Bison Herd',
+  'Monahans Sandhills',
+  'Devils River country',
+  'Hill Country springs and limestone water',
+  'The Rio Grande canyons',
+]) {
+  if (!evergreenBatch2.includes(`heading: "${heading}"`)) errors.push(`Texas Natural Wonders 12-landscape authority lost protected section: ${heading}.`);
+}
+
 const stagedMatch = indexability.match(/STAGED_EXPLORE_CATEGORY_SLUGS\s*=\s*new Set<CategorySlug>\(\[([\s\S]*?)\]\)/);
 const stagedBody = stagedMatch?.[1] ?? '';
 for (const slug of authoritySlugs) {
@@ -167,4 +231,4 @@ if (errors.length) {
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
-console.log('Explore Outdoors, Caverns, Lakes & Rivers, Beaches & Coast, and the Texas Birds guide retain substantive official-source authority, reciprocal discovery, correct visible and structured hierarchy, safe static delivery, index readiness, and protected search-intent metadata.');
+console.log('Explore Outdoors, Caverns, Lakes & Rivers, Beaches & Coast, Texas Birds, and the 12-landscape Texas Natural Wonders guide retain substantive official-source authority, reciprocal discovery, safe delivery, structured collection coverage and protected search-intent metadata.');
