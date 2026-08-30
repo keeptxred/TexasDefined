@@ -13,6 +13,9 @@ const homeNatureServer = fs.readFileSync(path.join(root, 'src/data/texas-home-na
 const naturalWondersRoute = fs.readFileSync(path.join(root, 'src/routes/texas-natural-wonders-bucket-list.tsx'), 'utf8');
 const naturalWondersLazy = fs.readFileSync(path.join(root, 'src/routes/texas-natural-wonders-bucket-list.lazy.tsx'), 'utf8');
 const naturalWondersAuthority = fs.readFileSync(path.join(root, 'src/components/editorial/TexasNaturalWondersAuthority.tsx'), 'utf8');
+const climbingRoute = fs.readFileSync(path.join(root, 'src/routes/texas-rock-climbing-bouldering-guide.tsx'), 'utf8');
+const climbingLazy = fs.readFileSync(path.join(root, 'src/routes/texas-rock-climbing-bouldering-guide.lazy.tsx'), 'utf8');
+const publicRoutes = fs.readFileSync(path.join(root, 'src/lib/public-routes.ts'), 'utf8');
 const evergreenBatch2 = fs.readFileSync(path.join(root, 'src/data/texas-evergreen-guides-batch2.ts'), 'utf8');
 const indexability = fs.readFileSync(path.join(root, 'src/data/explore-category-indexability.ts'), 'utf8');
 const retiredHelperPath = path.join(root, 'src/data/explore-category-authority.ts');
@@ -116,7 +119,7 @@ for (const [slug, requiredMarkers] of Object.entries({
 for (const [categoryMarker, requiredTargets] of [
   ['"lakes-rivers": [', ['/explore/outdoors', '/explore/state-parks', '/explore/trip-planner', '/fishing']],
   ['"beaches-coast": [', ['/explore/outdoors', '/explore/state-parks', '/explore/road-trips', '/explore/trip-planner', '/texas-birds-guide']],
-  ['outdoors: [', ['/explore/lakes-rivers', '/explore/beaches-coast', '/fishing', '/texas-birds-guide']],
+  ['outdoors: [', ['/explore/lakes-rivers', '/explore/beaches-coast', '/fishing', '/texas-birds-guide', '/texas-rock-climbing-bouldering-guide']],
 ]) {
   const start = topicPaths.indexOf(categoryMarker);
   if (start < 0) {
@@ -193,6 +196,7 @@ for (const marker of [
   'to: "/explore/outdoors"',
   'to: "/explore/state-parks"',
   'to: "/explore/national-parks"',
+  'to: "/texas-rock-climbing-bouldering-guide"',
   'to: "/explore/lakes-rivers"',
   'to: "/explore/beaches-coast"',
   'to: "/explore/major-springs"',
@@ -220,6 +224,49 @@ for (const heading of [
   if (!evergreenBatch2.includes(`heading: "${heading}"`)) errors.push(`Texas Natural Wonders 12-landscape authority lost protected section: ${heading}.`);
 }
 
+for (const marker of [
+  'const canonicalPath = "/texas-rock-climbing-bouldering-guide";',
+  'Texas Rock Climbing & Bouldering: 4 Public Areas',
+  '"@type": "CollectionPage"',
+  '"@type": "ItemList"',
+  '"@type": "Place"',
+  'Hueco Tanks State Park & Historic Site',
+  'Enchanted Rock State Natural Area',
+  'Lake Mineral Wells State Park & Trailway',
+  'Milton Reimers Ranch Park',
+  'numberOfItems: itemListElement.length',
+  'Outdoors & Wildlife',
+]) {
+  if (!climbingRoute.includes(marker)) errors.push(`Texas climbing structured authority missing marker: ${marker}.`);
+}
+for (const marker of [
+  'Texas Rock Climbing &amp; Bouldering',
+  'Texas climbing is a patchwork, not one rulebook',
+  'This is a trip-planning guide, not climbing instruction',
+  'Rock climbing and bouldering can result in serious injury or death.',
+  'Hueco Tanks State Park & Historic Site',
+  'Enchanted Rock State Natural Area',
+  'Lake Mineral Wells State Park & Trailway',
+  'Milton Reimers Ranch Park',
+  'https://tpwd.texas.gov/state-parks/hueco-tanks',
+  'https://tpwd.texas.gov/state-parks/enchanted-rock/more-info/rock-climb',
+  'https://tpwd.texas.gov/state-parks/lake-mineral-wells/rock-climbing',
+  'https://parks.traviscountytx.gov/images/docs/Reimers_Park_Trails_Map.pdf',
+  'Source review: August 30, 2026.',
+  'to: "/explore/outdoors"',
+  'to: "/texas-natural-wonders-bucket-list"',
+  'to: "/explore/state-parks"',
+  'to: "/explore/road-trips"',
+  'to: "/explore/trip-planner"',
+]) {
+  if (!climbingLazy.includes(marker)) errors.push(`Texas climbing visitor authority missing marker: ${marker}.`);
+}
+const climbingSourceCount = (climbingLazy.match(/href: "https:\/\//g) ?? []).length;
+if (climbingSourceCount < 4) errors.push(`Texas climbing guide needs at least four first-party source links; found ${climbingSourceCount}.`);
+const climbingAreaCount = (climbingLazy.match(/name: "(?:Hueco Tanks State Park & Historic Site|Enchanted Rock State Natural Area|Lake Mineral Wells State Park & Trailway|Milton Reimers Ranch Park)"/g) ?? []).length;
+if (climbingAreaCount !== 4) errors.push(`Texas climbing guide must retain exactly four protected public climbing areas; found ${climbingAreaCount}.`);
+if (!publicRoutes.includes('"/texas-rock-climbing-bouldering-guide"')) errors.push('Texas climbing guide must remain explicitly registered as an indexable static public route.');
+
 const stagedMatch = indexability.match(/STAGED_EXPLORE_CATEGORY_SLUGS\s*=\s*new Set<CategorySlug>\(\[([\s\S]*?)\]\)/);
 const stagedBody = stagedMatch?.[1] ?? '';
 for (const slug of authoritySlugs) {
@@ -231,4 +278,4 @@ if (errors.length) {
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
-console.log('Explore Outdoors, Caverns, Lakes & Rivers, Beaches & Coast, Texas Birds, and the 12-landscape Texas Natural Wonders guide retain substantive official-source authority, reciprocal discovery, safe delivery, structured collection coverage and protected search-intent metadata.');
+console.log('Explore Outdoors, Caverns, Lakes & Rivers, Beaches & Coast, Texas Birds, Natural Wonders, and the four-area Texas climbing guide retain substantive official-source authority, reciprocal discovery, safety boundaries, structured collection coverage and protected indexability.');
