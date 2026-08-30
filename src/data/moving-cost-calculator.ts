@@ -1,6 +1,6 @@
 export const movingCostSeoTitle = 'Texas Moving Cost Calculator: Move Budget';
 
-export const movingCostPageTitle = 'Texas moving cost calculator: estimate the full move budget';
+export const movingCostPageTitle = 'Texas Moving Cost Calculator | Plan the Full Move Budget';
 
 export const movingCostDescription =
   'Estimate the full cost of moving to or within Texas, including transportation, packing, travel, deposits, setup costs and a contingency for the unexpected.';
@@ -14,7 +14,7 @@ export const movingCostFaqs = [
   {
     question: 'What should I include in a Texas moving budget?',
     answer:
-      'Include transportation or mover charges, packing materials, travel, storage if needed, utility or service deposits, temporary lodging, pet or childcare costs and a reserve for setup purchases or schedule changes.',
+      'Include transportation or mover charges, packing materials, travel, storage if needed, utility and service deposits, temporary lodging, pet or childcare costs and a reserve for setup purchases or schedule changes.',
   },
   {
     question: 'Should I budget separately for the first month after moving?',
