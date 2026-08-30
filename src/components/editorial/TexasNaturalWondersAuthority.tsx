@@ -19,6 +19,7 @@ const planningPaths = [
   { to: "/explore/outdoors", label: "Outdoors & wildlife", description: "Move from the bucket list into Texas trails, habitats, public lands and wildlife planning." },
   { to: "/explore/state-parks", label: "Texas state parks", description: "Find the state-managed parks and natural areas behind many of these landscapes." },
   { to: "/explore/national-parks", label: "National parks", description: "Plan Big Bend and Guadalupe Mountains with the wider protected-land context." },
+  { to: "/texas-rock-climbing-bouldering-guide", label: "Rock climbing & bouldering", description: "Connect granite domes, desert rock and public climbing areas to current land-manager access rules." },
   { to: "/explore/lakes-rivers", label: "Lakes & rivers", description: "Connect Caddo Lake, Devils River and spring-fed landscapes to water-trip planning." },
   { to: "/explore/beaches-coast", label: "Beaches & Gulf Coast", description: "Build Padre Island and barrier-island landscapes into a Gulf Coast route." },
   { to: "/explore/major-springs", label: "Springs & swimming", description: "Go deeper on Balmorhea and the aquifer-fed springs that shape Central and West Texas." },
