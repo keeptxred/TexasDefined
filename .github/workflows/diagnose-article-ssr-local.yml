@@ -39,33 +39,41 @@ jobs:
           done
           cat /tmp/texasdefined-preview.log
           exit 1
-      - name: Inspect raw article HTML
+      - name: Inspect raw route HTML
         shell: bash
         run: |
           set -euo pipefail
           node --input-type=module <<'NODE'
           const cases = [
+            ['about', 'http://127.0.0.1:4173/about'],
             ['fixture', 'http://127.0.0.1:4173/article/caddo-lake-cypress-morning'],
             ['remote', 'http://127.0.0.1:4173/article/sam-houston-texas-life-legacy'],
           ];
           for (const [label, url] of cases) {
-            const response = await fetch(url, { headers: { 'user-agent': 'TexasDefinedLocalSsrDiagnostic/1.0' } });
+            const response = await fetch(url, { headers: { 'user-agent': 'TexasDefinedLocalSsrDiagnostic/2.0' } });
             const html = await response.text();
+            const mainStart = html.indexOf('<main');
+            const mainEnd = mainStart >= 0 ? html.indexOf('</main>', mainStart) : -1;
+            const main = mainStart >= 0 && mainEnd >= 0 ? html.slice(mainStart, mainEnd + 7) : '';
             const probes = {
               status: response.status,
               bytes: html.length,
-              articleOpen: html.includes('<article'),
-              articleClose: html.includes('</article>'),
-              primarySource: html.includes('Primary source:'),
-              sourceHeading: html.includes('Sources and further reading'),
-              caddoTitle: html.includes('Caddo Lake'),
-              samHoustonTitle: html.includes('Sam Houston'),
-              bodyIndex: html.indexOf('<body'),
+              mainBytes: main.length,
+              articleOpen: main.includes('<article'),
+              articleClose: main.includes('</article>'),
+              primarySource: main.includes('Primary source:'),
+              sourceHeading: main.includes('Sources and further reading'),
+              aboutText: main.includes('About Texas Defined'),
+              caddoText: main.includes('Caddo Lake'),
+              samHoustonText: main.includes('Sam Houston'),
+              suspenseOpen: (main.match(/<!--\$[^>]*-->/g) ?? []).length,
+              suspenseClose: (main.match(/<!--\/\$-->/g) ?? []).length,
+              templateCount: (main.match(/<template\b/g) ?? []).length,
+              mainIndex: mainStart,
               articleIndex: html.indexOf('<article'),
             };
             console.log(`${label}: ${JSON.stringify(probes)}`);
-            const bodyIndex = html.indexOf('<body');
-            if (bodyIndex >= 0) console.log(`${label}-body-sample: ${html.slice(bodyIndex, bodyIndex + 2500).replace(/\s+/g, ' ')}`);
+            console.log(`${label}-main: ${main.slice(0, 12000).replace(/\s+/g, ' ')}`);
           }
           NODE
       - name: Preview log
