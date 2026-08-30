@@ -4,6 +4,8 @@ import path from "node:path";
 const dataDir = "src/data";
 const routePath = "src/routes/texas-icons_.$slug.tsx";
 const resolverPath = "src/data/texas-icons.server.ts";
+const functionsPath = "src/data/texas-icons.functions.ts";
+const enrichmentPath = "src/data/texas-icons-content-enrichment.server.ts";
 const typesPath = "src/data/texas-icons-types.ts";
 const failures = [];
 const researchFiles = fs.readdirSync(dataDir)
@@ -17,7 +19,14 @@ const section = (block, field, nextField) => {
   return block.match(pattern)?.[1] ?? "";
 };
 
+const enrichmentSource = fs.readFileSync(enrichmentPath, "utf8");
+const enrichmentBySlug = new Map();
+for (const match of enrichmentSource.matchAll(/^\s{2}"([^"]+)":\s*\{\s*\n\s{4}legacyAppend:\s*\[(.*?)\]\s*,?\s*\n\s{2}\},/gms)) {
+  enrichmentBySlug.set(match[1], strings(match[2]));
+}
+
 let profileCount = 0;
+let enrichedProfileCount = 0;
 let totalNarrativeWords = 0;
 let totalOverviewWords = 0;
 let totalLegacyWords = 0;
@@ -38,12 +47,15 @@ for (const file of researchFiles) {
     const timelineBlock = section(block, "timeline", "legacy");
     const timelineValues = strings(timelineBlock);
     const legacyValues = strings(section(block, "legacy", "texasPlaces"));
+    const enrichmentValues = enrichmentBySlug.get(slug) ?? [];
+    if (enrichmentValues.length) enrichedProfileCount += 1;
+    const effectiveLegacyValues = [...legacyValues, ...enrichmentValues];
     const placesBlock = section(block, "texasPlaces", "sources");
     const placeValues = strings(placesBlock).filter((value) => !value.startsWith("/"));
     const sourcesBlock = section(block, "sources", "lastReviewedAt");
     const overviewWords = overviewValues.reduce((sum, value) => sum + words(value), 0);
-    const legacyWords = legacyValues.reduce((sum, value) => sum + words(value), 0);
-    const narrativeWords = [...overviewValues, ...worksValues, ...timelineValues, ...legacyValues, ...placeValues]
+    const legacyWords = effectiveLegacyValues.reduce((sum, value) => sum + words(value), 0);
+    const narrativeWords = [...overviewValues, ...worksValues, ...timelineValues, ...effectiveLegacyValues, ...placeValues]
       .reduce((sum, value) => sum + words(value), 0);
     const timelineCount = (timelineBlock.match(/\{\s*year:/g) ?? []).length;
     const places = (placesBlock.match(/\{\s*name:/g) ?? []).length;
@@ -54,16 +66,13 @@ for (const file of researchFiles) {
     totalLegacyWords += legacyWords;
     placeCount += places;
 
-    // Judge the profile as a complete page, not by forcing every subsection to
-    // the same arbitrary length. Timelines, defining points and Texas-place
-    // context are substantive copy too and should count toward depth.
     if (overviewValues.length < 2) failures.push(`${file}:${slug} needs at least two overview paragraphs; found ${overviewValues.length}.`);
     if (overviewWords < 55) failures.push(`${file}:${slug} overview is too thin at ${overviewWords} words; minimum is 55.`);
     if (worksValues.length < 3) failures.push(`${file}:${slug} needs at least three defining-work/context points; found ${worksValues.length}.`);
     if (timelineCount < 2) failures.push(`${file}:${slug} needs at least two timeline milestones; found ${timelineCount}.`);
-    if (legacyValues.length < 1 || legacyWords < 20) failures.push(`${file}:${slug} legacy section is too thin at ${legacyWords} words; minimum is 20.`);
+    if (effectiveLegacyValues.length < 1 || legacyWords < 20) failures.push(`${file}:${slug} legacy section is too thin at ${legacyWords} words; minimum is 20.`);
     if (places < 1) failures.push(`${file}:${slug} needs at least one Texas-place/context entry.`);
-    if (narrativeWords < 180) failures.push(`${file}:${slug} full narrative is thin at ${narrativeWords} words across overview, defining points, timeline, legacy and Texas-place context; minimum is 180.`);
+    if (narrativeWords < 180) failures.push(`${file}:${slug} effective full narrative is thin at ${narrativeWords} words across overview, defining points, timeline, legacy and Texas-place context; minimum is 180.`);
     if (new Set(sourceUrls).size < 3) failures.push(`${file}:${slug} needs at least three distinct HTTPS sources; found ${new Set(sourceUrls).size}.`);
   }
 }
@@ -72,6 +81,9 @@ if (profileCount < 190) failures.push(`Expected the completed narrative registry
 
 const resolver = fs.readFileSync(resolverPath, "utf8");
 if (!resolver.includes("enrichResearchProfilePlaceLinks(researchProfile, context)")) failures.push("Texas Icons research must retain safe runtime enrichment of verified Texas-place internal links.");
+const functions = fs.readFileSync(functionsPath, "utf8");
+if (!functions.includes('import("./texas-icons-content-enrichment.server")') || !functions.includes("enrichTexasIconNarrativeContent(researchProfile)")) failures.push("Texas Icons public profile server function must apply audited narrative enrichment before returning research content.");
+if (enrichedProfileCount < 21) failures.push(`Expected at least 21 audit-driven narrative enrichments; found ${enrichedProfileCount}.`);
 
 const route = fs.readFileSync(routePath, "utf8");
 for (const token of [
@@ -93,8 +105,8 @@ for (const category of ["history-politics", "music-culture", "sports", "business
   if (!types.includes(`id: "${category}"`)) failures.push(`Texas Icons category metadata is missing ${category}.`);
 }
 
-console.log(`Texas Icons content audit reviewed ${profileCount} narrative profiles across ${researchFiles.length} server-only research modules.`);
-console.log(`Full narrative words: ${totalNarrativeWords}; overview words: ${totalOverviewWords}; legacy words: ${totalLegacyWords}; Texas-place entries: ${placeCount}.`);
+console.log(`Texas Icons content audit reviewed ${profileCount} narrative profiles across ${researchFiles.length} server-only research modules and applied ${enrichedProfileCount} targeted depth enrichments.`);
+console.log(`Effective full narrative words: ${totalNarrativeWords}; overview words: ${totalOverviewWords}; legacy words: ${totalLegacyWords}; Texas-place entries: ${placeCount}.`);
 
 if (failures.length) {
   console.error(`Texas Icons content/SEO audit failed with ${failures.length} issue(s):`);
@@ -102,4 +114,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Texas Icons content/SEO audit passed: every researched narrative meets the full-page depth/source contract and the public route retains canonical metadata, structured data, related-profile links, authority bridges, safe Texas-place enrichment and visible research sources.");
+console.log("Texas Icons content/SEO audit passed: every researched narrative meets the effective full-page depth/source contract and the public route retains canonical metadata, structured data, related-profile links, authority bridges, safe Texas-place enrichment and visible research sources.");
