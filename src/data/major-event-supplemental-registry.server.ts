@@ -92,6 +92,11 @@ export const supplementalMajorEventSlugs = [
   "east-texas-state-fair",
   "conroe-cajun-catfish-festival",
   "comal-county-fair-rodeo",
+  "cuero-turkeyfest",
+  "come-and-take-it-celebration",
+  "texas-mushroom-festival",
+  "seguin-pecan-fest",
+  "hopkins-county-stew-contest",
 ] as const;
 
 export function loadSupplementalMajorEventRecordsServer() {
