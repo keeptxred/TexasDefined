@@ -68,6 +68,12 @@ function Page() {
     <Container className="py-14 sm:py-20">
       <article className="mx-auto max-w-4xl">
         <p className="max-w-2xl text-base leading-8 text-muted-foreground">Work through the list in order, or jump to the part that matches where you are in the move. Where a statewide agency owns the rule or lookup, the checklist links directly to that official source.</p>
+        <aside className="mt-8 border-y border-border py-6" aria-labelledby="checklist-budget-heading">
+          <p className="eyebrow text-primary">Before move day</p>
+          <h2 id="checklist-budget-heading" className="mt-2 font-display text-3xl">Price the whole move, not just the truck</h2>
+          <p className="mt-3 max-w-2xl text-sm leading-7 text-muted-foreground">Transportation, packing, travel, storage, deposits and setup costs can land in the same few weeks. Build the one-time budget first, then keep it separate from the new recurring household costs.</p>
+          <Link to="/texas-moving-cost-calculator" className="mt-4 inline-block font-semibold text-primary underline underline-offset-4">Open the Texas moving cost calculator →</Link>
+        </aside>
         <div className="mt-12 border-t-2 border-foreground">
           {groups.map((group, groupIndex) => (
             <section key={group.title} className="grid gap-6 border-b border-border py-9 sm:grid-cols-[9rem_1fr]">
@@ -90,7 +96,7 @@ function Page() {
           ))}
         </div>
         <aside className="mt-10 border-t border-border pt-6 text-sm leading-7 text-muted-foreground"><p className="eyebrow text-primary">Before you rely on it</p><p className="mt-3">Rules, deadlines, service territories and address assignments can change. The official links above were checked on August 26, 2026; confirm the current requirement with the responsible state or local office before acting.</p></aside>
-        <footer className="mt-8 flex flex-wrap gap-x-7 gap-y-3 border-t border-border pt-6 text-sm font-semibold"><Link to="/moving-to-texas" className="text-primary underline underline-offset-4">Back to the Texas relocation hub</Link><Link to="/texas-resources" className="underline underline-offset-4">Texas resources</Link><Link to="/find-my-dmv" className="underline underline-offset-4">Find DMV / county office</Link><Link to="/find-my-school-district" className="underline underline-offset-4">Find school district</Link></footer>
+        <footer className="mt-8 flex flex-wrap gap-x-7 gap-y-3 border-t border-border pt-6 text-sm font-semibold"><Link to="/texas-moving-cost-calculator" className="text-primary underline underline-offset-4">Estimate moving costs</Link><Link to="/moving-to-texas" className="text-primary underline underline-offset-4">Back to the Texas relocation hub</Link><Link to="/texas-resources" className="underline underline-offset-4">Texas resources</Link><Link to="/find-my-dmv" className="underline underline-offset-4">Find DMV / county office</Link><Link to="/find-my-school-district" className="underline underline-offset-4">Find school district</Link></footer>
       </article>
     </Container>
   </>;
