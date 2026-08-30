@@ -1,4 +1,3 @@
-import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, notFound, Link } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
@@ -12,6 +11,7 @@ import { shouldNoindexTexasGatewayArticle } from "@/data/fixtures/texas-gateway-
 import { articleQuery, articlesQuery, authorsQuery, categoriesQuery, destinationsQuery } from "@/data/queries";
 import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
 import { canonicalEntityPath } from "@/data/knowledge-graph/relationships";
+import { remoteEvergreenAuthoritySources } from "@/data/remote-evergreen-authority-sources";
 import { formatDate, formatReadingTime } from "@/domain/utils/format";
 import { absoluteUrl, buildMeta, canonicalLink, schemaTypeForEntityKind } from "@/lib/seo";
 
@@ -119,22 +119,39 @@ function wordCount(value: string) {
   return value.trim().split(/\s+/).filter(Boolean).length;
 }
 
+function articlePrimarySource(article: { slug: string; sourceName?: string; sourceUrl?: string }) {
+  const fallback = remoteEvergreenAuthoritySources[article.slug]?.[0];
+  const url = article.sourceUrl ?? fallback?.url;
+  if (!url) return null;
+  return {
+    label: article.sourceName ?? fallback?.label ?? "Source material",
+    url,
+  };
+}
+
+function hasSourcesAndFurtherReading(body: FaqBlock[]) {
+  return body.some(
+    (block) => block.type === "heading" && block.text?.trim().toLowerCase() === "sources and further reading",
+  );
+}
+
 export const Route = createFileRoute("/article/$slug")({
   loader: async ({ context, params }) => {
     const article = await context.queryClient.ensureQueryData(articleQuery(params.slug));
     if (!article) throw notFound();
-    const [authors, categories, , destinations, graph] = await Promise.all([
+    const [authors, categories, related, destinations, graph] = await Promise.all([
       context.queryClient.ensureQueryData(authorsQuery()),
       context.queryClient.ensureQueryData(categoriesQuery()),
       context.queryClient.ensureQueryData(articlesQuery({ category: article.category, limit: 4 })),
       context.queryClient.ensureQueryData(destinationsQuery({ limit: 5000 })),
       loadTexasKnowledgeGraph(),
     ]);
-    return { article, authors, categories, destinations, graph };
+    return { article, authors, categories, related, destinations, graph };
   },
   head: ({ loaderData, params }) => {
     if (!loaderData) return { meta: [{ title: "Unavailable" }, { name: "robots", content: "noindex, nofollow" }] };
     const { article, authors, categories, destinations, graph } = loaderData;
+    const primarySource = articlePrimarySource(article);
     const canonicalPath = `/article/${params.slug}`;
     const articleUrl = `${siteUrl}${canonicalPath}`;
     const imageUrl = absoluteUrl(texasDefinedBrand, article.hero.src);
@@ -209,7 +226,7 @@ export const Route = createFileRoute("/article/$slug")({
       isAccessibleForFree: true,
       author: { "@id": authorId },
       publisher: { "@id": `${siteUrl}/#organization` },
-      ...(article.sourceUrl ? { citation: article.sourceUrl } : {}),
+      ...(article.sourceUrl ? { citation: article.sourceUrl } : primarySource ? { citation: primarySource.url } : {}),
       ...((texasExplainedPillarSlugs.has(article.slug) || texasExplainedSupportSlugs.has(article.slug)) ? {
         isPartOf: {
           "@type": "CollectionPage",
@@ -287,12 +304,10 @@ export const Route = createFileRoute("/article/$slug")({
 });
 
 function ArticlePage() {
-  const { slug } = Route.useParams();
-  const { graph, categories, destinations } = Route.useLoaderData();
-  const { data: article } = useSuspenseQuery(articleQuery(slug));
-  const { data: authors } = useSuspenseQuery(authorsQuery());
-  const { data: related } = useSuspenseQuery(articlesQuery(article ? { category: article.category, limit: 4 } : { limit: 4 }));
-  if (!article) return null;
+  const { article, graph, categories, destinations, authors, related } = Route.useLoaderData();
+  const primarySource = articlePrimarySource(article);
+  const authoritySources = remoteEvergreenAuthoritySources[article.slug] ?? [];
+  const hasAuthoritySourceSection = hasSourcesAndFurtherReading(article.body);
   const author = authors.find((item) => item.id === article.authorId) ?? null;
   const categoryName = categories.find((category) => category.slug === article.category)?.name
     ?? article.category.replace(/-/g, " ");
@@ -368,7 +383,14 @@ function ArticlePage() {
       </section>}
       <div id={isTexasExplainedPillar ? "guide-body" : undefined} className="mt-10 scroll-mt-28"><ArticleBody blocks={article.body} entities={graph} /></div>
       {article.hero.credit && <p className="mt-10 text-xs text-muted-foreground">Image credit: {article.hero.credit}</p>}
-      {article.sourceUrl && <p className="mt-4 text-xs leading-6 text-muted-foreground">Primary source: <a href={article.sourceUrl} target="_blank" rel="noreferrer" className="font-semibold text-foreground underline decoration-border underline-offset-4 hover:text-primary">{article.sourceName || "Source material"} ↗</a></p>}
+      {primarySource && <p className="mt-4 text-xs leading-6 text-muted-foreground">Primary source: <a href={primarySource.url} target="_blank" rel="noreferrer" className="font-semibold text-foreground underline decoration-border underline-offset-4 hover:text-primary">{primarySource.label} ↗</a></p>}
+      {!hasAuthoritySourceSection && authoritySources.length > 0 && <section className="mt-10 border-t border-border pt-6" aria-labelledby="authority-sources-heading">
+        <h2 id="authority-sources-heading" className="font-display text-2xl">Sources and further reading</h2>
+        <ul className="mt-4 space-y-3 text-sm leading-6 text-muted-foreground">{authoritySources.map((source) => <li key={source.url}>
+          <a href={source.url} target="_blank" rel="noreferrer" className="font-semibold text-foreground underline decoration-border underline-offset-4 hover:text-primary">{source.label} ↗</a>
+          <span className="block">{source.scope}</span>
+        </li>)}</ul>
+      </section>}
       {internalLinks.length > 0 && <aside className="mt-14 border-y border-border py-8" aria-label="Related reading">
         <p className="eyebrow text-primary">Related reading</p>
         <ul className="mt-5 divide-y divide-border">{internalLinks.map((item) => <li key={item.href} className="py-4 first:pt-0 last:pb-0">

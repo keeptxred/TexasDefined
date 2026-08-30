@@ -33,6 +33,8 @@ const APPROVED_SOURCE_HOSTS = new Set([
 
 const sourceUrl = new URL("../../src/data/remote-evergreen-authority-sources.ts", import.meta.url);
 const sourceText = readFileSync(sourceUrl, "utf8");
+const articleRouteUrl = new URL("../../src/routes/article.$slug.tsx", import.meta.url);
+const articleRouteText = readFileSync(articleRouteUrl, "utf8");
 const entries = new Map();
 
 for (const line of sourceText.split(/\r?\n/)) {
@@ -67,4 +69,21 @@ for (const slug of REQUIRED_SLUGS) {
   }
 }
 
-console.log(`Validated ${REQUIRED_SLUGS.length} remote evergreen authority-source records.`);
+for (const marker of [
+  'import { remoteEvergreenAuthoritySources } from "@/data/remote-evergreen-authority-sources";',
+  'const [authors, categories, related, destinations, graph] = await Promise.all([',
+  'return { article, authors, categories, related, destinations, graph };',
+  'const { article, graph, categories, destinations, authors, related } = Route.useLoaderData();',
+  'const primarySource = articlePrimarySource(article);',
+  'citation: primarySource.url',
+  'Primary source:',
+  'Sources and further reading',
+]) {
+  if (!articleRouteText.includes(marker)) throw new Error(`Article route is missing SSR authority-source marker: ${marker}`);
+}
+
+if (articleRouteText.includes('useSuspenseQuery(articleQuery(')) {
+  throw new Error('Article route must render the loader-resolved article directly instead of launching a second suspense article query.');
+}
+
+console.log(`Validated ${REQUIRED_SLUGS.length} remote evergreen authority-source records plus SSR source rendering and loader-data reuse.`);
