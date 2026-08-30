@@ -1,3 +1,4 @@
+import type { TexasEvent, TexasRegion } from "./types";
 import { majorEventIndexRecords } from "./major-event-index";
 import { formatMajorEventDateLabelServer, getMajorEventRecordServer } from "./major-event-page.server";
 import { loadSupplementalMajorEventRecordsServer } from "./major-event-supplemental-registry.server";
@@ -5,9 +6,14 @@ import { loadSupplementalMajorEventRecordsServer } from "./major-event-supplemen
 export interface MajorEventGuideDirectoryItem {
   slug: string;
   name: string;
+  city: string;
+  countyName?: string;
+  region: TexasRegion;
+  category: TexasEvent["category"];
   detail: string;
   startDate: string;
   endDate?: string;
+  sourceCheckedAt?: string;
 }
 
 export function loadMajorEventGuideDirectoryServer(): MajorEventGuideDirectoryItem[] {
@@ -27,9 +33,14 @@ export function loadMajorEventGuideDirectoryServer(): MajorEventGuideDirectoryIt
     .map((event) => ({
       slug: event.slug,
       name: event.name,
+      city: event.city,
+      countyName: event.countyName,
+      region: event.region,
+      category: event.category,
       detail: `${event.city} · ${formatMajorEventDateLabelServer(event)}`,
       startDate: event.startDate,
       endDate: event.endDate,
+      sourceCheckedAt: event.sourceCheckedAt,
     }))
     .sort((left, right) => {
       const leftPast = (left.endDate || left.startDate) < today;
