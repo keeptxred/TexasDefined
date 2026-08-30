@@ -14,17 +14,34 @@ const sourcePolicyParagraphs = [
 function buildCollectionHead(collection: (typeof EVENT_COLLECTIONS)[number], items: ReturnType<typeof loadMajorEventGuideDirectoryServer>) {
   const canonicalPath = collection.path;
   const pageUrl = `${siteUrl}${canonicalPath}`;
-  const itemListElement = items.map((event, index) => ({
-    "@type": "ListItem",
-    position: index + 1,
-    item: {
-      "@type": "WebPage",
-      "@id": `${siteUrl}/event/${event.slug}#page`,
-      url: `${siteUrl}/event/${event.slug}`,
-      name: event.name,
-      description: event.detail,
-    },
-  }));
+  const itemListElement = items.map((event, index) => {
+    const eventUrl = `${siteUrl}/event/${event.slug}`;
+    return {
+      "@type": "ListItem",
+      position: index + 1,
+      item: {
+        "@type": "Event",
+        "@id": `${eventUrl}#event`,
+        url: eventUrl,
+        name: event.name,
+        description: event.detail,
+        startDate: event.startDate,
+        endDate: event.endDate,
+        eventStatus: "https://schema.org/EventScheduled",
+        eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+        location: {
+          "@type": "Place",
+          name: event.city,
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: event.city,
+            addressRegion: "TX",
+            addressCountry: "US",
+          },
+        },
+      },
+    };
+  });
   const graph = [
     {
       "@type": "CollectionPage",
