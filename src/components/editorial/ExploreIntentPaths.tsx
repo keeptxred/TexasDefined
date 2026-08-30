@@ -113,6 +113,17 @@ const INTENT_GROUPS = [
     ],
   },
   {
+    title: "College towns & campus weekends",
+    body: "Pair campus visits, traditions and game days with the museums, food, music and city districts that make Texas college towns worth a full weekend.",
+    links: [
+      { to: "/texas-college-towns", label: "Texas college towns guide" },
+      { to: "/sports-venues/college-sports", label: "College sports venues" },
+      { to: "/browse/cities", label: "Browse college-town cities" },
+      { to: "/events", label: "Events & festivals" },
+      { to: "/explore/trip-planner", label: "Build a campus weekend" },
+    ],
+  },
+  {
     title: "Seasonal Texas",
     body: "Plan around the seasons that actually change a Texas trip: spring wildflowers, late fall color and December town traditions.",
     links: [
