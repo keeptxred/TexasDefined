@@ -81,6 +81,8 @@ export const INDEXABLE_STATIC_PATHS = [
   "/texas-flag",
   "/texas-vs-every-state",
   "/texas-history",
+  "/texas-old-west",
+  "/texas-sacred-places",
   "/texas-music",
   "/texas-music-timeline",
   "/texas-blues",
