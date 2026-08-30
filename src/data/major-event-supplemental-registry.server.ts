@@ -71,6 +71,9 @@ export const supplementalMajorEventSlugs = [
   "austin-e-prix",
   "nascar-at-cota",
   "texas-motor-speedway-nascar-weekend",
+  "autumn-at-the-arboretum",
+  "austin-powwow",
+  "ford-holiday-river-parade",
 ] as const;
 
 export function loadSupplementalMajorEventRecordsServer() {
