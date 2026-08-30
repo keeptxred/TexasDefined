@@ -99,7 +99,7 @@ for (const marker of [
   'CountySelector',
   'CalculatorCountyLink',
   'CitationTrustPanel',
-  "profile.faqs.map",
+  'profile.faqs.map',
   'parcel',
   'taxing-unit',
 ]) {
@@ -125,7 +125,22 @@ for (const path of cityPaths) {
   if (!movingHub.includes(path)) failures.push(`Moving-to-Texas hub missing local property-tax discovery link to ${path}`);
 }
 
-const affordabilityLocations = ['houston', 'austin', 'dallas', 'fort-worth', 'san-antonio', 'frisco', 'el-paso'];
+const affordabilityCityLocations = ['houston', 'austin', 'dallas', 'fort-worth', 'san-antonio', 'frisco', 'el-paso'];
+const affordabilityCountyLocations = [
+  'harris-county',
+  'dallas-county',
+  'tarrant-county',
+  'bexar-county',
+  'travis-county',
+  'collin-county',
+  'denton-county',
+  'fort-bend-county',
+  'montgomery-county',
+  'williamson-county',
+  'el-paso-county',
+  'hidalgo-county',
+];
+const affordabilityLocations = [...affordabilityCityLocations, ...affordabilityCountyLocations];
 const affordabilityPaths = affordabilityLocations.map((slug) => `/texas-home-affordability-calculator/${slug}`);
 for (const slug of affordabilityLocations) {
   if (!affordabilityProfiles.includes(`slug: '${slug}'`)) failures.push(`Local affordability profile registry missing ${slug}`);
@@ -141,6 +156,25 @@ for (const marker of [
   'Frisco spans Collin and Denton counties',
 ]) {
   if (!affordabilityProfiles.includes(marker)) failures.push(`Local affordability profile contract missing ${marker}`);
+}
+for (const marker of [
+  'function countyProfile(',
+  "kind: 'county'",
+  'propertyTaxHref: `/property-tax-calculator/${slug}`',
+  'relocationHref: `/county/${countySlug}`',
+  'relatedLocalCalculators',
+  'Fort Bend County combines incorporated communities',
+  'Hidalgo County spans multiple Rio Grande Valley cities',
+]) {
+  if (!affordabilityProfiles.includes(marker)) failures.push(`County affordability profile contract missing ${marker}`);
+}
+for (const marker of [
+  'const countyCalculators = [',
+  'County planning hubs',
+  'not a countywide cost average',
+  'County affordability hub →',
+]) {
+  if (!affordabilityHub.includes(marker)) failures.push(`Texas home affordability hub county-discovery contract missing ${marker}`);
 }
 for (const marker of [
   "createFileRoute('/texas-home-affordability-calculator/$location')",
@@ -162,6 +196,10 @@ for (const marker of [
   'Make the estimate local',
   'profile.propertyTaxHref',
   'profile.relocationHref',
+  'profile.relatedLocalCalculators',
+  'County-to-city planning',
+  'nextCalculators',
+  'Open local guide →',
   'profile.faqs.map',
   'planning calculator, not a lending decision',
 ]) {
@@ -183,7 +221,7 @@ for (const marker of ['createServerFn', "import('./local-home-affordability-page
 if (!sitemap.includes('LOCAL_HOME_AFFORDABILITY_PROFILES')) failures.push('Primary sitemap must import the governed local home-affordability profile registry.');
 if (!sitemap.includes('...LOCAL_HOME_AFFORDABILITY_PROFILES.map((profile) => ({ path: profile.path')) failures.push('Primary sitemap must emit each local home-affordability profile.');
 if (!affordabilityHub.includes('Run the affordability check with city-specific ownership context')) failures.push('Texas home affordability hub missing local planning discovery section.');
-if (affordabilityProfiles.includes('average home price') || affordabilityProfiles.includes('average property tax rate')) failures.push('Local affordability pages must not publish unsupported city-average home-price or property-tax assumptions.');
+if (affordabilityProfiles.includes('average home price') || affordabilityProfiles.includes('average property tax rate')) failures.push('Local affordability pages must not publish unsupported city/county-average home-price or property-tax assumptions.');
 if (affordabilityServer.includes("'@type': 'FinancialProduct'") || affordabilityServer.includes("'@type': 'Offer'")) failures.push('Local affordability calculators must not claim FinancialProduct or Offer schema.');
 
 for (const marker of [
@@ -207,4 +245,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Financial tools structured-data validation passed, including ${cityPaths.length} city and ${countyPaths.length} major-county local property-tax calculators plus ${affordabilityLocations.length} city home-affordability calculators.`);
+console.log(`Financial tools structured-data validation passed, including ${cityPaths.length} city and ${countyPaths.length} major-county local property-tax calculators plus ${affordabilityCityLocations.length} city and ${affordabilityCountyLocations.length} county home-affordability calculators.`);
