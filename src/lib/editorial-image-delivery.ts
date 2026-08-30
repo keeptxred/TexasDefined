@@ -1,4 +1,5 @@
 import { HOMES_LAND_EDITORIAL_DESK_ID } from "@/data/editorial-desks";
+import { normalizeArticleEditorialDesk } from "@/data/editorial-desk-routing";
 import type { Article, Destination, ImageRef } from "@/data/types";
 
 export const REMOTE_IMAGE_PATH = "/media/remote";
@@ -42,10 +43,11 @@ function deliveryAuthorId(article: Article) {
 }
 
 export function prepareArticleForDelivery(article: Article): Article {
-  const hero = deliverImage(article.hero);
-  const authorId = deliveryAuthorId(article);
+  const normalizedArticle = normalizeArticleEditorialDesk(article);
+  const hero = deliverImage(normalizedArticle.hero);
+  const authorId = deliveryAuthorId(normalizedArticle);
   let bodyChanged = false;
-  const body = article.body.map((block) => {
+  const body = normalizedArticle.body.map((block) => {
     if (block.type !== "image") return block;
     const image = deliverImage(block.image);
     if (image === block.image) return block;
