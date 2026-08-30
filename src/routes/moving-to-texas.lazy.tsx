@@ -24,6 +24,15 @@ const localTaxTools = [
   ["Austin", "/property-tax-calculator/austin", "Travis, Williamson or Hays County starting points with local school, city and district rates."],
   ["Frisco", "/property-tax-calculator/frisco", "Collin or Denton County starting points with address-specific school and local taxing units."],
 ] as const;
+const localAffordabilityTools = [
+  ["Houston", "/texas-home-affordability-calculator/houston"],
+  ["Austin", "/texas-home-affordability-calculator/austin"],
+  ["Dallas", "/texas-home-affordability-calculator/dallas"],
+  ["Fort Worth", "/texas-home-affordability-calculator/fort-worth"],
+  ["San Antonio", "/texas-home-affordability-calculator/san-antonio"],
+  ["Frisco", "/texas-home-affordability-calculator/frisco"],
+  ["El Paso", "/texas-home-affordability-calculator/el-paso"],
+] as const;
 
 export const Route = createLazyFileRoute("/moving-to-texas")({ component: MovingToTexasPage });
 
@@ -49,6 +58,12 @@ function MovingToTexasPage() {
         <div className="flex flex-wrap items-end justify-between gap-4"><div><p className="eyebrow text-primary">Monthly housing reality</p><h2 id="moving-texas-local-tax" className="mt-2 font-display text-3xl">Estimate local property taxes before comparing places</h2></div><Link to="/property-tax-calculators" className="text-sm font-semibold text-primary">All property-tax tools →</Link></div>
         <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Texas property taxes are parcel-specific. These city starting points load official local rate choices instead of assigning a metro-wide average, so you can match the county, school district, municipality and special districts to an actual address.</p>
         <div className="mt-6 grid gap-4 md:grid-cols-3">{localTaxTools.map(([name, href, copy]) => <a key={href} href={href} className="border border-border p-5 hover:border-primary"><strong className="font-display text-2xl">{name} property tax calculator</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">{copy}</span></a>)}</div>
+      </section>
+
+      <section className="mb-12 border-b border-border pb-10" aria-labelledby="moving-texas-affordability">
+        <div className="flex flex-wrap items-end justify-between gap-4"><div><p className="eyebrow text-primary">What can the monthly budget carry?</p><h2 id="moving-texas-affordability" className="mt-2 font-display text-3xl">Compare home affordability with local ownership costs attached</h2></div><Link to="/texas-home-affordability-calculator" className="text-sm font-semibold text-primary">Statewide affordability calculator →</Link></div>
+        <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Income and debt set the starting range, but taxes, insurance, utilities, HOA charges, transportation and the cash you keep after closing determine whether a home fits the household budget. Use a local page, then replace every generic assumption with the exact property's numbers.</p>
+        <div className="mt-6 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">{localAffordabilityTools.map(([name, href]) => <a key={href} href={href} className="group bg-background p-5"><strong className="font-display text-2xl group-hover:text-primary">{name}</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Home affordability calculator →</span></a>)}</div>
       </section>
 
       <div className="mb-10 flex flex-wrap gap-x-7 gap-y-3 border-b border-border pb-7 text-sm font-semibold">
