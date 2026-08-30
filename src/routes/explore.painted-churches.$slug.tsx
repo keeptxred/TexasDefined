@@ -20,6 +20,15 @@ export const Route = createFileRoute("/explore/painted-churches/$slug")({
     const { church, profile } = loaderData;
     const canonicalPath = `/explore/painted-churches/${params.slug}`;
     const url = `${siteUrl}${canonicalPath}`;
+    const isFredericksburgStMarys = params.slug === "fredericksburg-st-marys-catholic-church";
+    const metaTitle = isFredericksburgStMarys
+      ? "St. Mary's Catholic Church Fredericksburg TX"
+      : `${church.shortName} | History, Architecture & Paintings`;
+    const metaDescription = isFredericksburgStMarys
+      ? "Historic St. Mary's Catholic Church in Fredericksburg, Texas: 1906 Gothic Revival architecture, painted interior, German Catholic history and visitor planning."
+      : profile
+        ? `${church.shortName}: history, architecture, age, artists, interior paintings, preservation, location and visitor planning.`
+        : `${church.summary} Location, designation, visitor planning, sources and photography for ${church.shortName}.`;
     const churchSchema = {
       "@type": "Church",
       "@id": `${url}#church`,
@@ -49,10 +58,8 @@ export const Route = createFileRoute("/explore/painted-churches/$slug")({
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
-        title: `${church.shortName} | History, Architecture & Paintings`,
-        description: profile
-          ? `${church.shortName}: history, architecture, age, artists, interior paintings, preservation, location and visitor planning.`
-          : `${church.summary} Location, designation, visitor planning, sources and photography for ${church.shortName}.`,
+        title: metaTitle,
+        description: metaDescription,
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
       scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": [churchSchema, breadcrumbSchema] }) }],
