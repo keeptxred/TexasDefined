@@ -28,13 +28,26 @@ const failures = required
 if (route.includes("'@type': 'FinancialProduct'")) failures.push('Financial tools hub must not claim FinancialProduct entities.');
 if (route.includes("'@type': 'Offer'")) failures.push('Financial tools hub must not claim Offer data.');
 
-const requiredLocalPaths = [
+const cityPaths = [
   '/property-tax-calculator/houston',
   '/property-tax-calculator/austin',
   '/property-tax-calculator/frisco',
-  '/property-tax-calculator/harris-county',
-  '/property-tax-calculator/collin-county',
 ];
+const countyPaths = [
+  '/property-tax-calculator/harris-county',
+  '/property-tax-calculator/dallas-county',
+  '/property-tax-calculator/tarrant-county',
+  '/property-tax-calculator/bexar-county',
+  '/property-tax-calculator/travis-county',
+  '/property-tax-calculator/collin-county',
+  '/property-tax-calculator/denton-county',
+  '/property-tax-calculator/fort-bend-county',
+  '/property-tax-calculator/montgomery-county',
+  '/property-tax-calculator/williamson-county',
+  '/property-tax-calculator/el-paso-county',
+  '/property-tax-calculator/hidalgo-county',
+];
+const requiredLocalPaths = [...cityPaths, ...countyPaths];
 
 const profilePaths = [...localProfiles.matchAll(/path:\s*'([^']+)'/g)].map((match) => match[1]);
 const uniqueProfilePaths = new Set(profilePaths);
@@ -44,6 +57,19 @@ if (profilePaths.length !== requiredLocalPaths.length || uniqueProfilePaths.size
 for (const path of requiredLocalPaths) {
   if (!uniqueProfilePaths.has(path)) failures.push(`Local property-tax profile registry missing ${path}`);
   if (!propertyHub.includes(path)) failures.push(`Property-tax calculator hub missing crawlable link to ${path}`);
+}
+
+for (const marker of [
+  'function countyProfile(',
+  'defaultCountySlug: countySlug',
+  'counties: [{ name, slug: countySlug }]',
+  'The county rate is only one part of a Texas property-tax bill',
+  'Add MUD, ESD, community-college and other special districts only when appraisal or tax records confirm parcel membership.',
+]) {
+  if (!localProfiles.includes(marker)) failures.push(`Major-county calculator profile contract missing ${marker}`);
+}
+for (const marker of ['const countyTools = [', 'Major county calculators', 'Build an address-level scenario in a major Texas county']) {
+  if (!propertyHub.includes(marker)) failures.push(`Property-tax calculator hub major-county discovery contract missing ${marker}`);
 }
 
 for (const marker of [
@@ -88,7 +114,7 @@ for (const marker of ['createServerFn', "import('./local-property-tax-calculator
 if (!sitemap.includes('LOCAL_PROPERTY_TAX_PROFILES')) failures.push('Primary sitemap must import the governed local property-tax profile registry.');
 if (!sitemap.includes('...LOCAL_PROPERTY_TAX_PROFILES.map((profile) => ({ path: profile.path')) failures.push('Primary sitemap must emit each local property-tax calculator profile.');
 
-for (const path of requiredLocalPaths.slice(0, 3)) {
+for (const path of cityPaths) {
   if (!movingHub.includes(path)) failures.push(`Moving-to-Texas hub missing local property-tax discovery link to ${path}`);
 }
 
@@ -113,4 +139,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Financial tools structured-data validation passed, including ${requiredLocalPaths.length} governed local property-tax calculators.`);
+console.log(`Financial tools structured-data validation passed, including ${cityPaths.length} city and ${countyPaths.length} major-county local property-tax calculators.`);
