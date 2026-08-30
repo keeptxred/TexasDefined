@@ -4,6 +4,16 @@ import { OfficialHomeownershipCostCalculator } from '@/components/calculators/Of
 
 const description = 'Combine a Texas mortgage, property taxes, homeowners insurance, maintenance, utilities, HOA or district costs and other recurring expenses into a fuller homeownership budget, with official local property-tax rate autofill.';
 
+const cityOwnershipCalculators = [
+  ['Houston', '/texas-homeownership-cost-calculator/houston'],
+  ['Austin', '/texas-homeownership-cost-calculator/austin'],
+  ['Dallas', '/texas-homeownership-cost-calculator/dallas'],
+  ['Fort Worth', '/texas-homeownership-cost-calculator/fort-worth'],
+  ['San Antonio', '/texas-homeownership-cost-calculator/san-antonio'],
+  ['Frisco', '/texas-homeownership-cost-calculator/frisco'],
+  ['El Paso', '/texas-homeownership-cost-calculator/el-paso'],
+] as const;
+
 const faqs = [
   {
     question: 'What costs should a Texas homeowner budget beyond the mortgage?',
@@ -33,6 +43,20 @@ function TexasHomeownershipCostCalculatorPage() {
   return (
     <CalculatorPage eyebrow="Beyond the mortgage" title="Texas homeownership cost calculator" description={description}>
       <OfficialHomeownershipCostCalculator />
+
+      <section className="mt-12 border-t border-border pt-10" aria-labelledby="ownership-city-heading">
+        <p className="eyebrow text-primary">Local ownership budgets</p>
+        <h2 id="ownership-city-heading" className="mt-3 font-display text-3xl">Run the full homeownership budget with city-specific property context</h2>
+        <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">The budget categories are the same statewide, but the inputs are not. These local pages connect the calculator to city or county property-tax tools and relocation research so taxes, insurance, utilities, HOA or district charges, maintenance and transportation can be replaced with address-level assumptions.</p>
+        <div className="mt-6 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+          {cityOwnershipCalculators.map(([name, href]) => (
+            <a key={href} href={href} className="group bg-background p-5">
+              <strong className="font-display text-2xl group-hover:text-primary">{name}</strong>
+              <span className="mt-2 block text-sm leading-6 text-muted-foreground">Local ownership-cost calculator →</span>
+            </a>
+          ))}
+        </div>
+      </section>
 
       <section className="mt-14 border-t border-border pt-10" aria-labelledby="ownership-stack-heading">
         <p className="eyebrow text-primary">Build the whole monthly stack</p>
