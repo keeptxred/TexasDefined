@@ -97,6 +97,7 @@ export const INDEXABLE_STATIC_PATHS = [
   "/texas-old-west",
   "/texas-sacred-places",
   "/texas-science-technology-industry",
+  "/texas-college-towns",
   "/texas-music",
   "/texas-music-timeline",
   "/texas-blues",
