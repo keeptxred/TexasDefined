@@ -4,7 +4,7 @@ import { prepareArticleForDelivery, prepareDestinationForDelivery } from "@/lib/
 import { fetchPublishedTexasDefinedEvergreenArticle } from "./articles-remote";
 import { fetchPublishedTexasEvents } from "./events-remote";
 import { supplementalExploreCategories } from "./explore-categories";
-import { isArticleIndexReady } from "./fixtures/texas-gateway-index-readiness";
+import { isArticleDiscoveryReady } from "./fixtures/texas-gateway-index-readiness";
 import { guideIsAvailable } from "./guide-links";
 import { platform, scope } from "./index";
 import type { ArticleQuery, DestinationQuery } from "./repositories";
@@ -15,7 +15,7 @@ export const articlesQuery = (params: Omit<ArticleQuery, "brandId"> = {}) => que
   queryKey: ["articles", scope.brandId, params],
   queryFn: async () => (await platform.articles.list({ ...scope, ...params }))
     .map(prepareArticleForDelivery)
-    .filter(isArticleIndexReady),
+    .filter(isArticleDiscoveryReady),
 });
 export const articleQuery = (slug: Slug) => queryOptions({
   queryKey: ["article", scope.brandId, slug],
@@ -101,7 +101,7 @@ export const searchDocumentsQuery = () => queryOptions({
     const indexableArticleHrefs = new Set(
       articleCatalog
         .map(prepareArticleForDelivery)
-        .filter(isArticleIndexReady)
+        .filter(isArticleDiscoveryReady)
         .map((article) => `/article/${article.slug}`),
     );
     const base = rawBase.filter(
