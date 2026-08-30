@@ -25,6 +25,10 @@ function TexasUtilityCostCalculatorPage() {
       <section className="mt-10 border-t border-border pt-9">
         <p className="eyebrow text-primary">Related Texas planning tools</p>
         <div className="mt-5 grid gap-4 md:grid-cols-3">
+          <Link to="/texas-moving-cost-calculator" className="border border-border p-5 hover:border-primary/50">
+            <strong className="font-display text-xl">Texas moving cost calculator</strong>
+            <span className="mt-2 block text-sm leading-6 text-muted-foreground">Add utility deposits and setup to the one-time moving budget, then keep recurring bills here.</span>
+          </Link>
           <Link to="/article/$slug" params={{ slug: 'texas-utility-costs-guide' }} className="border border-border p-5 hover:border-primary/50">
             <strong className="font-display text-xl">How to estimate Texas utility costs</strong>
             <span className="mt-2 block text-sm leading-6 text-muted-foreground">Build an address-specific utility budget and understand why one statewide average is rarely enough.</span>
