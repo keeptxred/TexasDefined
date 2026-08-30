@@ -56,6 +56,7 @@ const TOPIC_PATHS: Partial<Record<CategorySlug, TopicLink[]>> = {
   ],
   "small-towns": [
     { to: "/explore/painted-churches", label: "Painted Churches", description: "Connect immigrant communities, parish history and painted interiors across small-town Texas." },
+    { to: "/explore/food-bbq", label: "Food & barbecue", description: "Pair town squares and main streets with regional food traditions and destination meals." },
     { to: "/things-unique-to-texas/roadside-small-towns", label: "Unique roadside & small-town Texas", description: "Connect courthouse squares and main streets with only-in-Texas stops and regional character." },
     { to: "/texas-dance-halls-honky-tonks", label: "Dance halls & honky-tonks", description: "Find living music traditions and historic gathering places rooted in Texas towns." },
     { to: "/explore/road-trips", label: "Road trips", description: "String several towns together with scenic roads and worthwhile stops." },
