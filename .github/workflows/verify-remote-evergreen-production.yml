@@ -12,6 +12,10 @@ on:
       - 'src/data/articles-remote.ts'
       - 'src/data/queries.ts'
       - 'src/domain/utils/format.ts'
+      - 'src/lib/editorial-image-delivery.ts'
+      - 'src/lib/remote-image-fetch-policy.ts'
+      - 'src/lib/remote-image-fetch-policy.test.ts'
+      - 'src/server.ts'
       - 'src/routes/article.$slug.tsx'
       - 'src/routes/sitemap*.ts'
   push:
@@ -27,6 +31,10 @@ on:
       - 'src/data/articles-remote.ts'
       - 'src/data/queries.ts'
       - 'src/domain/utils/format.ts'
+      - 'src/lib/editorial-image-delivery.ts'
+      - 'src/lib/remote-image-fetch-policy.ts'
+      - 'src/lib/remote-image-fetch-policy.test.ts'
+      - 'src/server.ts'
       - 'src/routes/article.$slug.tsx'
       - 'src/routes/sitemap*.ts'
   workflow_dispatch:
