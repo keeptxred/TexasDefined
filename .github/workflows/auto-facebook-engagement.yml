@@ -9,9 +9,9 @@ on:
     - cron: "30 16 * * *"
     - cron: "30 23 * * *"
     - cron: "30 0 * * *"
-    # One-time live scheduled canary for August 30, 2026 at 1:00 PM America/Chicago.
+    # One-time live scheduled canary for August 30, 2026 at 1:35 PM America/Chicago.
     # Removed immediately after the scheduled Facebook publish is verified.
-    - cron: "0 18 30 8 *"
+    - cron: "35 18 30 8 *"
   workflow_dispatch:
     inputs:
       slot:
@@ -66,7 +66,7 @@ jobs:
             slot="$MANUAL_SLOT"
             dry_run="$MANUAL_DRY_RUN"
             should_run=true
-          elif [[ "$GITHUB_EVENT_NAME" == "schedule" && "$SCHEDULE_CRON" == "0 18 30 8 *" ]]; then
+          elif [[ "$GITHUB_EVENT_NAME" == "schedule" && "$SCHEDULE_CRON" == "35 18 30 8 *" ]]; then
             slot=morning
             dry_run=false
             should_run=true
