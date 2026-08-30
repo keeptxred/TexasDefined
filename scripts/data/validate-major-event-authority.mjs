@@ -112,11 +112,8 @@ for (const routePath of requiredCollectionPaths) {
 for (const marker of [
   'createFileRoute("/events/$collection")',
   'getEventCollectionPage',
-  'canonicalPath',
-  '"@type": "CollectionPage"',
-  '"@type": "ItemList"',
-  '"@type": "BreadcrumbList"',
-  'Verified occurrence first, evergreen planning second',
+  'head: ({ loaderData }) => loaderData?.page.head ?? {}',
+  'sourcePolicyTitle',
   'to="/event/$slug"',
 ]) {
   if (!collectionRoute.includes(marker)) fail(`event collection route is missing protected marker: ${marker}`);
@@ -127,6 +124,13 @@ for (const marker of [
   'event.category === collection.value',
   'event.region === collection.value',
   'latestSourceCheck',
+  'canonicalPath',
+  'buildMeta',
+  'canonicalLink',
+  '"@type": "CollectionPage"',
+  '"@type": "ItemList"',
+  '"@type": "BreadcrumbList"',
+  'Verified occurrence first, evergreen planning second',
 ]) {
   if (!collectionLoader.includes(marker)) fail(`event collection server loader is missing protected marker: ${marker}`);
 }
@@ -136,6 +140,9 @@ for (const marker of ["city: string", "region: TexasRegion", 'category: TexasEve
 
 if (/major-event-expanded-authority(?:-tranche\d+)?\.server/.test(collections) || /major-event-expanded-authority(?:-tranche\d+)?\.server/.test(collectionRoute)) {
   fail("crawlable event collection definitions/routes must not import server-only long-form event authority tranches into the client surface");
+}
+if (collectionRoute.includes("buildMeta") || collectionRoute.includes("canonicalLink") || collectionRoute.includes('"@type": "CollectionPage"')) {
+  fail("event collection SEO/schema assembly must stay server-side to protect the client bundle budget");
 }
 
 const duplicateDefinitions = [...slugOwners.values()].filter((owners) => owners.length > 1).length;
