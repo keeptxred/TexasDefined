@@ -16,6 +16,13 @@ const affordabilityRoute = fs.readFileSync('src/routes/texas-home-affordability-
 const affordabilityLazyRoute = fs.readFileSync('src/routes/texas-home-affordability-calculator_.$location.lazy.tsx', 'utf8');
 const affordabilityServer = fs.readFileSync('src/data/local-home-affordability-page.server.ts', 'utf8');
 const affordabilityServerFn = fs.readFileSync('src/data/local-home-affordability-page.ts', 'utf8');
+const ownershipHub = fs.readFileSync('src/routes/texas-homeownership-cost-calculator.lazy.tsx', 'utf8');
+const ownershipProfiles = fs.readFileSync('src/data/local-homeownership-cost.ts', 'utf8');
+const ownershipPage = fs.readFileSync('src/components/calculators/LocalHomeownershipCostPage.tsx', 'utf8');
+const ownershipRoute = fs.readFileSync('src/routes/texas-homeownership-cost-calculator_.$location.tsx', 'utf8');
+const ownershipLazyRoute = fs.readFileSync('src/routes/texas-homeownership-cost-calculator_.$location.lazy.tsx', 'utf8');
+const ownershipServer = fs.readFileSync('src/data/local-homeownership-cost-page.server.ts', 'utf8');
+const ownershipServerFn = fs.readFileSync('src/data/local-homeownership-cost-page.ts', 'utf8');
 const sitemap = fs.readFileSync('src/routes/sitemap[.]xml.ts', 'utf8');
 const movingHub = fs.readFileSync('src/routes/moving-to-texas.lazy.tsx', 'utf8');
 const homestead = fs.readFileSync('src/routes/texas-homestead-savings-calculator.tsx', 'utf8');
@@ -161,6 +168,7 @@ for (const marker of [
   'AffordabilityCalculator',
   'Make the estimate local',
   'profile.propertyTaxHref',
+  'ownershipPath',
   'profile.relocationHref',
   'profile.faqs.map',
   'planning calculator, not a lending decision',
@@ -186,6 +194,64 @@ if (!affordabilityHub.includes('Run the affordability check with city-specific o
 if (affordabilityProfiles.includes('average home price') || affordabilityProfiles.includes('average property tax rate')) failures.push('Local affordability pages must not publish unsupported city-average home-price or property-tax assumptions.');
 if (affordabilityServer.includes("'@type': 'FinancialProduct'") || affordabilityServer.includes("'@type': 'Offer'")) failures.push('Local affordability calculators must not claim FinancialProduct or Offer schema.');
 
+const ownershipPaths = affordabilityLocations.map((slug) => `/texas-homeownership-cost-calculator/${slug}`);
+for (const path of ownershipPaths) {
+  if (!ownershipHub.includes(path)) failures.push(`Texas homeownership cost hub missing crawlable link to ${path}`);
+}
+for (const marker of [
+  'LOCAL_HOME_AFFORDABILITY_PROFILES.map(toHomeownershipProfile)',
+  'LOCAL_HOMEOWNERSHIP_COST_PROFILES',
+  'LOCAL_HOMEOWNERSHIP_COST_PROFILE_BY_SLUG',
+  'parcel-specific property taxes',
+  'No. The calculator can load finalized local taxing-unit rates',
+]) {
+  if (!ownershipProfiles.includes(marker)) failures.push(`Local homeownership-cost profile contract missing ${marker}`);
+}
+for (const marker of [
+  "createFileRoute('/texas-homeownership-cost-calculator/$location')",
+  'getLocalHomeownershipCostPage',
+  'notFound()',
+  'loaderData?.page.head',
+]) {
+  if (!ownershipRoute.includes(marker)) failures.push(`Local homeownership-cost route missing ${marker}`);
+}
+for (const marker of [
+  "createLazyFileRoute('/texas-homeownership-cost-calculator/$location')",
+  'LocalHomeownershipCostPage',
+  'page.profile',
+]) {
+  if (!ownershipLazyRoute.includes(marker)) failures.push(`Local homeownership-cost lazy route missing ${marker}`);
+}
+for (const marker of [
+  'OfficialHomeownershipCostCalculator',
+  'Make the budget address-specific',
+  'profile.propertyTaxHref',
+  'affordabilityPath',
+  'profile.relocationHref',
+  'profile.ownershipFaqs.map',
+  'planning calculator, not a mortgage quote',
+]) {
+  if (!ownershipPage.includes(marker)) failures.push(`Local homeownership-cost calculator UI missing ${marker}`);
+}
+for (const marker of [
+  "'@type': 'WebApplication'",
+  "'@type': 'BreadcrumbList'",
+  "'@type': 'FAQPage'",
+  'canonicalLink(texasDefinedBrand, profile.ownershipPath)',
+  'buildMeta(texasDefinedBrand',
+  'LOCAL_HOMEOWNERSHIP_COST_PROFILE_BY_SLUG',
+]) {
+  if (!ownershipServer.includes(marker)) failures.push(`Local homeownership-cost server head missing ${marker}`);
+}
+for (const marker of ['createServerFn', "import('./local-homeownership-cost-page.server')"]) {
+  if (!ownershipServerFn.includes(marker)) failures.push(`Local homeownership-cost server boundary missing ${marker}`);
+}
+if (!sitemap.includes('LOCAL_HOMEOWNERSHIP_COST_PROFILES')) failures.push('Primary sitemap must import the governed local homeownership-cost profile registry.');
+if (!sitemap.includes('...LOCAL_HOMEOWNERSHIP_COST_PROFILES.map((profile) => ({ path: profile.ownershipPath')) failures.push('Primary sitemap must emit each local homeownership-cost profile.');
+if (!ownershipHub.includes('Run the full homeownership budget with city-specific property context')) failures.push('Texas homeownership-cost hub missing local ownership discovery section.');
+if (ownershipProfiles.includes('average home price') || ownershipProfiles.includes('average property tax rate')) failures.push('Local homeownership-cost pages must not publish unsupported city-average home-price or property-tax assumptions.');
+if (ownershipServer.includes("'@type': 'FinancialProduct'") || ownershipServer.includes("'@type': 'Offer'")) failures.push('Local homeownership-cost calculators must not claim FinancialProduct or Offer schema.');
+
 for (const marker of [
   'Texas Homestead Exemption Calculator | Estimate Tax Savings',
   'Texas homestead exemption calculator',
@@ -207,4 +273,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Financial tools structured-data validation passed, including ${cityPaths.length} city and ${countyPaths.length} major-county local property-tax calculators plus ${affordabilityLocations.length} city home-affordability calculators.`);
+console.log(`Financial tools structured-data validation passed, including ${cityPaths.length} city and ${countyPaths.length} major-county local property-tax calculators plus ${affordabilityLocations.length} city home-affordability calculators and ${ownershipPaths.length} local homeownership-cost calculators.`);
