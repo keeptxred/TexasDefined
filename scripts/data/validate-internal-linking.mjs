@@ -54,7 +54,7 @@ requireSymbols(analytics, ['internal_link_shown','internal_link_clicked','Inters
 requireSymbols(memoryCard, ['Tracked entities','Link impressions','Most exposed','Most engaged','Shown but unclicked'], 'memory health card');
 requireSymbols(historyCard, ['Current release','Change class','fingerprintMatches'], 'policy history card');
 requireSymbols(rollbackCard, ['previewInternalLinkPolicyRollback','Internal-link policy rollback preview','preview only','changeCount'], 'rollback preview card');
-requireSymbols(articleBody, ['INTERNAL_LINK_POLICIES.article',"policyForSurface('article')",'articlePolicy.pageBudget'], 'article integration');
+requireSymbols(articleBody, ['INTERNAL_LINK_POLICIES.article',"policyForSurface('article')",'articlePolicy.pageBudget','countyLabelHasExplicitContext'], 'article integration');
 requireSymbols(guide, ["INTERNAL_LINK_POLICIES['property-tax-guide']","policyForSurface('property-tax-guide')",'surfacePolicy.pageBudget'], 'guide integration');
 requireSymbols(destination, ['INTERNAL_LINK_POLICIES.destination','policyForSurface','destinationPolicy','excludedEntityIds','surfacePolicy.pageBudget'], 'destination integration');
 requireSymbols(previewApi, ["createFileRoute('/api/internal-links')",'50000','entityExposureWeights','x-robots-tag'], 'preview API');
@@ -70,6 +70,7 @@ requireSymbols(rollbackPage, ["createFileRoute('/admin/internal-link-rollback')"
 
 if (errors.length) fail();
 console.log('Phase 2 internal linking, immutable policy releases, discoverable read-only rollback previews, intelligent scoring, explicit county context, exposure balancing, analytics, and quality governance are protected.');
+await import('./validate-wildflower-authority.mjs');
 
 function requireSymbols(source, symbols, area) { for (const symbol of symbols) if (!source.includes(symbol)) errors.push(`${area} feature missing: ${symbol}`); }
 function requireText(source, text, label) { if (!source.includes(text)) errors.push(`Missing ${label}.`); }
