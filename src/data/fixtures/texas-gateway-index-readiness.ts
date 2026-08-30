@@ -8,7 +8,6 @@ import type { Article, ArticleBlock } from "../types";
  * URLs.
  */
 export const TEXAS_GATEWAY_INDEX_READY_SLUGS = new Set<string>([
-  "best-texas-stargazing-weekend-trips",
   "texas-vs-california-differences",
   "texas-vs-florida-differences",
   "texas-traditions-you-should-experience",
@@ -41,10 +40,6 @@ function blockWordCount(block: ArticleBlock): number {
   return text.trim().split(/\s+/).filter(Boolean).length;
 }
 
-export function articleBodyWordCount(article: Pick<Article, "body">): number {
-  return article.body.reduce((total, block) => total + blockWordCount(block), 0);
-}
-
 function hasValidOptionalSource(article: Pick<Article, "sourceName" | "sourceUrl">): boolean {
   const name = article.sourceName?.trim() ?? "";
   const url = article.sourceUrl?.trim() ?? "";
@@ -74,6 +69,10 @@ function hasArticleReadinessMetadata(article: Article): boolean {
 export function isArticleIndexReady(article: Article): boolean {
   return hasArticleReadinessMetadata(article)
     && articleBodyWordCount(article) >= ARTICLE_INDEX_MIN_BODY_WORDS;
+}
+
+export function articleBodyWordCount(article: Pick<Article, "body">): number {
+  return article.body.reduce((total, block) => total + blockWordCount(block), 0);
 }
 
 /**
