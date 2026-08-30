@@ -1,4 +1,5 @@
 import type { MajorEventAuthorityRecord } from "./major-event-authority.server";
+import { getExpandedMajorEventAuthorityTranche35Server } from "./major-event-expanded-authority-tranche35.server";
 
 const records: MajorEventAuthorityRecord[] = [
   {
@@ -91,5 +92,5 @@ const records: MajorEventAuthorityRecord[] = [
 const bySlug = new Map(records.map((event) => [event.slug, event]));
 
 export function getExpandedMajorEventAuthorityTranche34Server(slug: string): MajorEventAuthorityRecord | null {
-  return bySlug.get(slug) ?? null;
+  return bySlug.get(slug) ?? getExpandedMajorEventAuthorityTranche35Server(slug);
 }
