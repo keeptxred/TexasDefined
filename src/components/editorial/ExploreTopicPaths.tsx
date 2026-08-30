@@ -88,6 +88,7 @@ const TOPIC_PATHS: Partial<Record<CategorySlug, TopicLink[]>> = {
     { to: "/texas-natural-wonders-bucket-list", label: "Texas natural wonders", description: "Move from recreation into the canyons, mountains, springs, caves and coast that define the landscape." },
     { to: "/texas-rock-climbing-bouldering-guide", label: "Rock climbing & bouldering", description: "Plan four public climbing areas around land-manager access, conservation and visitor-safety rules." },
     { to: "/texas-mountain-biking-guide", label: "Mountain biking", description: "Compare five public trail systems across desert mountains, canyon country, the Hill Country and East Texas pines." },
+    { to: "/texas-horseback-riding-guide", label: "Horseback riding", description: "Plan five public-land riding destinations around Coggins documentation, permits, trail sharing, water and equestrian facilities." },
     { to: "/best-places-to-go-camping-in-texas", label: "Best camping in Texas", description: "Choose an overnight base by region, season and camping style before heading deeper outdoors." },
     { to: "/explore/lakes-rivers", label: "Lakes & rivers", description: "Plan swimming, paddling and water weekends around current conditions and public access." },
     { to: "/explore/beaches-coast", label: "Beaches & Gulf Coast", description: "Move into barrier islands, bays, coastal habitat, surf safety and Gulf trip planning." },
