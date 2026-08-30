@@ -1,11 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
-import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
 import { getEventCollectionPage } from "@/data/event-collection-page";
-import { buildMeta, canonicalLink } from "@/lib/seo";
-
-const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
 export const Route = createFileRoute("/events/$collection")({
   loader: async ({ params }) => {
@@ -13,60 +9,7 @@ export const Route = createFileRoute("/events/$collection")({
     if (!page) throw notFound();
     return { page };
   },
-  head: ({ loaderData }) => {
-    if (!loaderData) return {};
-    const { page } = loaderData;
-    const canonicalPath = `/events/${page.slug}`;
-    const pageUrl = `${siteUrl}${canonicalPath}`;
-    const itemListElement = page.items.map((event, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      item: {
-        "@type": "WebPage",
-        "@id": `${siteUrl}/event/${event.slug}#page`,
-        url: `${siteUrl}/event/${event.slug}`,
-        name: event.name,
-        description: event.detail,
-      },
-    }));
-    const graph = [
-      {
-        "@type": "CollectionPage",
-        "@id": `${pageUrl}#page`,
-        url: pageUrl,
-        name: page.title,
-        description: page.description,
-        isPartOf: { "@id": `${siteUrl}/#website` },
-        mainEntity: { "@id": `${pageUrl}#events` },
-        breadcrumb: { "@id": `${pageUrl}#breadcrumbs` },
-      },
-      {
-        "@type": "ItemList",
-        "@id": `${pageUrl}#events`,
-        name: page.title,
-        numberOfItems: itemListElement.length,
-        itemListElement,
-      },
-      {
-        "@type": "BreadcrumbList",
-        "@id": `${pageUrl}#breadcrumbs`,
-        itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Front page", item: `${siteUrl}/` },
-          { "@type": "ListItem", position: 2, name: "Texas Events", item: `${siteUrl}/events` },
-          { "@type": "ListItem", position: 3, name: page.title, item: pageUrl },
-        ],
-      },
-    ];
-    return {
-      meta: buildMeta(texasDefinedBrand, {
-        title: page.title,
-        description: page.description,
-        canonicalPath,
-      }),
-      links: [canonicalLink(texasDefinedBrand, canonicalPath)],
-      scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": graph }) }],
-    };
-  },
+  head: ({ loaderData }) => loaderData?.page.head ?? {},
   component: EventCollectionPage,
 });
 
@@ -152,10 +95,9 @@ function EventCollectionPage() {
           <div className="grid gap-8 lg:grid-cols-[1fr_1fr]">
             <div>
               <p className="eyebrow text-primary">Source policy</p>
-              <h2 className="mt-3 font-display text-3xl">Verified occurrence first, evergreen planning second</h2>
+              <h2 className="mt-3 font-display text-3xl">{page.sourcePolicyTitle}</h2>
               <div className="mt-5 space-y-4 text-sm leading-7 text-muted-foreground">
-                <p>Texas Defined uses permanent event-guide URLs, but it does not assume that an annual tradition repeats on the same dates every year. Organizer or host sources control the occurrence shown on each guide. When a future date is derived from an explicit recurrence rule rather than a dedicated annual schedule, the guide says so.</p>
-                <p>The event page is the stable planning layer: why the event matters, how to approach the destination, related county or culture resources, and the official sources used for verification. Operational details such as gates, tickets, road closures, weather procedures and daily programs should always be rechecked with the organizer before travel.</p>
+                {page.sourcePolicyParagraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
               </div>
             </div>
             <div>
