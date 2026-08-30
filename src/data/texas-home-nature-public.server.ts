@@ -2,7 +2,7 @@ import { getTexasEvergreenGuideBatch8 } from "./texas-evergreen-guides-batch8";
 import type { TexasEvergreenGuide } from "./texas-evergreen-guides";
 import type { TexasHomeNatureGuideSlug, TexasHomeNaturePublicGuide } from "./texas-home-nature-public";
 
-const reviewedAt = "2026-08-29";
+const defaultReviewedAt = "2026-08-29";
 
 const CANONICAL_LINKS: Record<string, string> = {
   "/texas-hurricane-home-prep": "/article/texas-hurricane-preparation-homeowners-renters",
@@ -28,6 +28,8 @@ const SOURCE_MAP: Record<TexasHomeNatureGuideSlug, TexasHomeNaturePublicGuide["s
   ],
   "texas-birds-guide": [
     { name: "Texas Parks and Wildlife Department", url: "https://tpwd.texas.gov/huntwild/wild/species/", note: "Official Texas species profiles and wildlife references." },
+    { name: "Texas Parks and Wildlife Department — Great Texas Wildlife Trails", url: "https://tpwd.texas.gov/huntwild/wildlife/wildlife-trails/", note: "Regional wildlife-viewing trail systems and birding destinations across Texas." },
+    { name: "Texas Parks and Wildlife Department — Birding in State Parks", url: "https://tpwd.texas.gov/state-parks/parks/things-to-do/birding-in-state-parks", note: "Birding opportunities, habitat context and park-based trip planning." },
     { name: "U.S. Fish and Wildlife Service", url: "https://www.fws.gov/program/migratory-birds", note: "Migratory-bird conservation and migration reference." },
   ],
 };
@@ -62,5 +64,6 @@ function sanitizePublicGuide(guide: TexasEvergreenGuide): TexasEvergreenGuide {
 export function loadTexasHomeNatureGuideServer(slug: TexasHomeNatureGuideSlug): TexasHomeNaturePublicGuide {
   const guide = getTexasEvergreenGuideBatch8(slug);
   if (!guide) throw new Error(`Unknown Texas home/nature guide: ${slug}`);
+  const reviewedAt = slug === "texas-birds-guide" ? "2026-08-30" : defaultReviewedAt;
   return { guide: sanitizePublicGuide(guide), sources: SOURCE_MAP[slug], reviewedAt };
 }
