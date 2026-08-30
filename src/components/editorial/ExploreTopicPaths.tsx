@@ -14,6 +14,7 @@ type TopicLink = { to: string; label: string; description: string };
 const TOPIC_PATHS: Partial<Record<CategorySlug, TopicLink[]>> = {
   "lakes-rivers": [
     { to: "/explore/major-springs", label: "Springs & swimming", description: "Pair rivers and lakes with clear spring-fed water and swimming holes." },
+    { to: "/texas-paddling-guide", label: "Texas paddling", description: "Plan five official paddling trails around launch access, route length, water levels, wind and current conditions." },
     { to: "/fishing", label: "Texas fishing", description: "Go deeper lake by lake with target species, techniques, reports and local fishing resources." },
     { to: "/best-places-to-go-camping-in-texas", label: "Best camping in Texas", description: "Turn a lake or river trip into an overnight plan with standout campsites by region, season and camping style." },
     { to: "/explore/outdoors", label: "Outdoors & wildlife", description: "Connect waterways to habitat, wildlife viewing, public lands, heat safety and seasonal outdoor planning." },
@@ -90,6 +91,7 @@ const TOPIC_PATHS: Partial<Record<CategorySlug, TopicLink[]>> = {
     { to: "/texas-mountain-biking-guide", label: "Mountain biking", description: "Compare five public trail systems across desert mountains, canyon country, the Hill Country and East Texas pines." },
     { to: "/texas-horseback-riding-guide", label: "Horseback riding", description: "Plan five public-land riding destinations around Coggins documentation, permits, trail sharing, water and equestrian facilities." },
     { to: "/texas-ohv-guide", label: "OHV legal riding", description: "Find legal Texas OHV venues and plan around decals, vehicle classes, land-manager maps, permits and current closures." },
+    { to: "/texas-paddling-guide", label: "Texas paddling", description: "Compare five official paddling trails from city lakes and bayous to Caddo swamp and Gulf Coast flats." },
     { to: "/best-places-to-go-camping-in-texas", label: "Best camping in Texas", description: "Choose an overnight base by region, season and camping style before heading deeper outdoors." },
     { to: "/explore/lakes-rivers", label: "Lakes & rivers", description: "Plan swimming, paddling and water weekends around current conditions and public access." },
     { to: "/explore/beaches-coast", label: "Beaches & Gulf Coast", description: "Move into barrier islands, bays, coastal habitat, surf safety and Gulf trip planning." },
