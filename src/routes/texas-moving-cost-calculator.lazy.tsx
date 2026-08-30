@@ -5,7 +5,6 @@ import { MovingCostCalculator } from '@/components/calculators/MovingCostCalcula
 import {
   movingCostDescription,
   movingCostFaqs,
-  movingCostPageTitle,
   movingCostSources,
 } from '@/data/moving-cost-calculator';
 
@@ -37,7 +36,7 @@ export const Route = createLazyFileRoute('/texas-moving-cost-calculator')({ comp
 
 function TexasMovingCostCalculatorPage() {
   return (
-    <CalculatorPage eyebrow="Moving to or within Texas" title={movingCostPageTitle} description={movingCostDescription}>
+    <CalculatorPage eyebrow="Moving to or within Texas" title="Texas Moving Cost Calculator | Plan the Full Move Budget" description={movingCostDescription}>
       <MovingCostCalculator />
 
       <section className="mt-14 border-t border-border pt-10" aria-labelledby="moving-cost-method-heading">
