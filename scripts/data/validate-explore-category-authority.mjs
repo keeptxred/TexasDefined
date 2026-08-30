@@ -127,10 +127,10 @@ for (const [categoryMarker, requiredTargets] of [
 for (const marker of [
   'const isBirdGuide = guide.slug === "texas-birds-guide";',
   'Plan a Texas birding trip',
-  'to="/explore/outdoors"',
-  'to="/explore/beaches-coast"',
-  'to="/explore/state-parks"',
-  'to="/explore/lakes-rivers"',
+  'href: "/explore/outdoors"',
+  'href: "/explore/beaches-coast"',
+  'href: "/explore/state-parks"',
+  'href: "/explore/lakes-rivers"',
   'Outdoors &amp; Wildlife',
   'to="/home-garden"',
 ]) {
