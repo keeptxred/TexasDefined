@@ -52,7 +52,7 @@ for (const source of [eventCard, eventServerHead]) {
 assert(eventCard.includes('venueGuide &&'), 'Regular event cards must leave unmatched events without a venue-guide link.');
 assert(eventCard.includes('Plan the venue'), 'Matched regular events must expose the venue-planning link.');
 assert(eventServerHead.includes('const venueGuide = resolveSportsVenueEventLink(event.venue)'), 'Event JSON-LD must resolve venue links from the stored venue value only.');
-assert(eventServerHead.includes('venueGuide ? { ...defaultLocation'), 'Event JSON-LD must preserve its existing default location when no exact venue match exists.');
+assert(/const location = venueGuide\s*\?\s*\{\s*\.\.\.defaultLocation[\s\S]*?\}\s*:\s*defaultLocation;/.test(eventServerHead), 'Event JSON-LD must preserve its existing default location when no exact venue match exists.');
 assert(eventServerHead.includes('resolveSportsVenueEventLink(featured?.venue)'), 'Featured event must use the exact resolver on the server presentation boundary.');
 assert(eventsRoute.includes('featuredVenueGuide &&'), 'Featured unmatched events must remain unlinked.');
 assert(eventsRoute.includes('featuredVenueGuide, featuredDateLabel'), 'Featured venue/date presentation must be consumed from server-owned route data.');
