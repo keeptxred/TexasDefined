@@ -8,7 +8,6 @@ import type { Article, ArticleBlock } from "../types";
  * URLs.
  */
 export const TEXAS_GATEWAY_INDEX_READY_SLUGS = new Set<string>([
-  "best-texas-stargazing-weekend-trips",
   "texas-vs-california-differences",
   "texas-vs-florida-differences",
   "texas-traditions-you-should-experience",

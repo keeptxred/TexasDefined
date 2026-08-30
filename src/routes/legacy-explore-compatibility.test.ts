@@ -7,8 +7,8 @@ const riversArticle = readFileSync(
   new URL("../data/fixtures/texas-rivers-explained.ts", import.meta.url),
   "utf8",
 );
-const scenicEnrichment = readFileSync(
-  new URL("../data/fixtures/texas-gateway-batch13-scenic-enrichment.ts", import.meta.url),
+const stargazingRoute = readFileSync(
+  new URL("./texas-stargazing-guide.tsx", import.meta.url),
   "utf8",
 );
 
@@ -21,11 +21,11 @@ describe("legacy Explore compatibility", () => {
     expect(riversArticle).toContain('slug: "texas-rivers-explained"');
   });
 
-  it("resolves the retired Dark Sky alias to the stargazing authority article", () => {
+  it("resolves the retired Dark Sky alias to the canonical stargazing guide", () => {
     expect(categoryRoute).toContain(
-      '"texas-dark-sky-stargazing": "/article/best-texas-stargazing-weekend-trips"',
+      '"texas-dark-sky-stargazing": "/texas-stargazing-guide"',
     );
-    expect(scenicEnrichment).toContain('"best-texas-stargazing-weekend-trips"');
+    expect(stargazingRoute).toContain('const canonicalPath = "/texas-stargazing-guide"');
   });
 
   it("loads only public legacy shared itineraries through the publishable-key boundary", () => {
