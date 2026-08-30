@@ -8,6 +8,7 @@ on:
       - "src/data/texas-icons-roster-corrections.server.ts"
       - "src/data/texas-icons-source-*.server.ts"
       - "src/data/texas-icons-research-*.server.ts"
+      - "src/data/texas-icons-content-enrichment.server.ts"
       - "src/data/texas-icons-editorial-holds.server.ts"
       - "src/data/texas-icons.server.ts"
       - "src/data/texas-icons.functions.ts"
