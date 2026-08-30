@@ -208,33 +208,92 @@ jobs:
           path: |
             /tmp/tdfb/generated-image.png
             /tmp/tdfb/image.sha256
+            /tmp/tdfb/post.txt
+            /tmp/tdfb/prompt.txt
             /tmp/tdfb/metadata.json
           if-no-files-found: error
           compression-level: 0
           retention-days: 30
 
+      - name: Reload exact stored Facebook artifact
+        if: steps.slot.outputs.should_run == 'true'
+        uses: actions/download-artifact@v4
+        with:
+          name: texasdefined-facebook-${{ steps.slot.outputs.date_key }}-${{ steps.slot.outputs.slot }}-${{ steps.candidate.outputs.source_post_id }}
+          path: /tmp/tdfb-stored
+
+      - name: Verify stored Facebook artifact round trip
+        id: stored
+        if: steps.slot.outputs.should_run == 'true'
+        shell: bash
+        env:
+          IMAGE_SHA256: ${{ steps.image.outputs.image_sha256 }}
+        run: |
+          set -euo pipefail
+          for required in generated-image.png image.sha256 post.txt prompt.txt metadata.json; do
+            if [[ ! -s "/tmp/tdfb-stored/${required}" ]]; then
+              echo "Stored Facebook artifact is missing ${required}; publishing is blocked." >&2
+              exit 1
+            fi
+          done
+
+          stored_sha=$(sha256sum /tmp/tdfb-stored/generated-image.png | awk '{print $1}')
+          stored_manifest_sha=$(tr -d '[:space:]' < /tmp/tdfb-stored/image.sha256)
+          if [[ "$stored_sha" != "$IMAGE_SHA256" || "$stored_manifest_sha" != "$IMAGE_SHA256" ]]; then
+            echo 'Stored Facebook image SHA-256 does not match the generated image; publishing is blocked.' >&2
+            exit 1
+          fi
+          if ! cmp -s /tmp/tdfb/post.txt /tmp/tdfb-stored/post.txt; then
+            echo 'Stored Facebook post text changed after artifact storage; publishing is blocked.' >&2
+            exit 1
+          fi
+
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          stored_post = Path('/tmp/tdfb-stored/post.txt').read_text(encoding='utf-8')
+          stored_prompt = Path('/tmp/tdfb-stored/prompt.txt').read_text(encoding='utf-8')
+          metadata = json.loads(Path('/tmp/tdfb-stored/metadata.json').read_text(encoding='utf-8'))
+          expected_prompt = 'Generate an image for this Facebook post.\n\n' + stored_post
+          if stored_prompt != expected_prompt:
+              raise SystemExit('Stored image prompt no longer equals the required prefix plus exact post text')
+          if metadata.get('post_text') != stored_post:
+              raise SystemExit('Stored metadata post text does not match the stored exact post text')
+          if metadata.get('image_prompt') != stored_prompt:
+              raise SystemExit('Stored metadata image prompt does not match the stored prompt')
+          PY
+
+          stored_mime_type=$(file --brief --mime-type /tmp/tdfb-stored/generated-image.png)
+          case "$stored_mime_type" in
+            image/png|image/jpeg|image/webp) ;;
+            *) echo "Stored Facebook asset has invalid MIME type: $stored_mime_type" >&2; exit 1 ;;
+          esac
+          echo "mime_type=$stored_mime_type" >> "$GITHUB_OUTPUT"
+          echo "image_sha256=$stored_sha" >> "$GITHUB_OUTPUT"
+
       - name: Publish the exact stored image to Facebook
         if: steps.slot.outputs.should_run == 'true' && steps.slot.outputs.dry_run != 'true'
         shell: bash
         env:
-          MIME_TYPE: ${{ steps.image.outputs.mime_type }}
-          IMAGE_SHA256: ${{ steps.image.outputs.image_sha256 }}
+          MIME_TYPE: ${{ steps.stored.outputs.mime_type }}
+          IMAGE_SHA256: ${{ steps.stored.outputs.image_sha256 }}
           SOURCE_POST_ID: ${{ steps.candidate.outputs.source_post_id }}
           ARTIFACT_URL: ${{ steps.store.outputs.artifact-url }}
         run: |
           set -euo pipefail
-          if [[ ! -s /tmp/tdfb/generated-image.png || ! -s /tmp/tdfb/post.txt ]]; then
-            echo 'Stored image or exact post text is missing; Facebook publishing is blocked.' >&2
-            exit 1
-          fi
-
-          current_sha=$(sha256sum /tmp/tdfb/generated-image.png | awk '{print $1}')
-          if [[ "$current_sha" != "$IMAGE_SHA256" ]]; then
-            echo 'Generated image changed after storage; Facebook publishing is blocked.' >&2
+          if [[ ! -s /tmp/tdfb-stored/generated-image.png || ! -s /tmp/tdfb-stored/post.txt ]]; then
+            echo 'Reloaded stored image or exact post text is missing; Facebook publishing is blocked.' >&2
             exit 1
           fi
           if [[ -z "$ARTIFACT_URL" ]]; then
             echo 'GitHub did not return an artifact storage URL; Facebook publishing is blocked.' >&2
+            exit 1
+          fi
+
+          current_sha=$(sha256sum /tmp/tdfb-stored/generated-image.png | awk '{print $1}')
+          if [[ "$current_sha" != "$IMAGE_SHA256" ]]; then
+            echo 'Stored Facebook image changed after verification; publishing is blocked.' >&2
             exit 1
           fi
 
@@ -253,8 +312,8 @@ jobs:
             -X POST \
             -H 'accept: application/json' \
             -H "Authorization: Bearer ${oidc_token}" \
-            -F "post_text=</tmp/tdfb/post.txt" \
-            -F "image=@/tmp/tdfb/generated-image.png;type=${MIME_TYPE}" \
+            -F "post_text=</tmp/tdfb-stored/post.txt" \
+            -F "image=@/tmp/tdfb-stored/generated-image.png;type=${MIME_TYPE}" \
             -F "image_sha256=${IMAGE_SHA256}" \
             -F "source_post_id=${SOURCE_POST_ID}" \
             -F "artifact_url=${ARTIFACT_URL}" \
@@ -270,7 +329,7 @@ jobs:
 
           if jq -e '.posted == true' /tmp/tdfb/facebook-response.json >/dev/null 2>&1; then
             post_url=$(jq -r '.post_url // empty' /tmp/tdfb/facebook-response.json)
-            echo "Published exact generated image to Facebook: ${post_url}"
+            echo "Published exact stored OpenAI image to Facebook: ${post_url}"
           elif jq -e '.duplicate == true' /tmp/tdfb/facebook-response.json >/dev/null 2>&1; then
             echo 'Exact post is already present on the TexasDefined Facebook Page; duplicate publish skipped.'
           else
@@ -283,11 +342,11 @@ jobs:
         shell: bash
         env:
           ARTIFACT_URL: ${{ steps.store.outputs.artifact-url }}
-          IMAGE_SHA256: ${{ steps.image.outputs.image_sha256 }}
+          IMAGE_SHA256: ${{ steps.stored.outputs.image_sha256 }}
         run: |
           set -euo pipefail
-          if [[ -z "$ARTIFACT_URL" || -z "$IMAGE_SHA256" ]]; then
-            echo 'Dry-run storage verification failed.' >&2
+          if [[ -z "$ARTIFACT_URL" || -z "$IMAGE_SHA256" || ! -s /tmp/tdfb-stored/generated-image.png ]]; then
+            echo 'Dry-run storage round-trip verification failed.' >&2
             exit 1
           fi
-          echo "Dry run complete: generated image stored at ${ARTIFACT_URL}; sha256=${IMAGE_SHA256}; Facebook was not called."
+          echo "Dry run complete: generated image was stored, reloaded, and SHA-verified at ${ARTIFACT_URL}; sha256=${IMAGE_SHA256}; Facebook was not called."
