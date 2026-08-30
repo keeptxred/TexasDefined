@@ -26,6 +26,17 @@ const INTENT_GROUPS = [
     ],
   },
   {
+    title: "Unique places to stay",
+    body: "Build an overnight around historic park lodges, CCC cabins and unusual lodging where the stay itself is part of the Texas destination.",
+    links: [
+      { to: "/texas-unique-lodging", label: "Unique Texas lodging guide" },
+      { to: "/explore/state-parks", label: "Texas state parks" },
+      { to: "/texas-history", label: "Historic Texas" },
+      { to: "/explore/road-trips", label: "Road trips" },
+      { to: "/explore/trip-planner", label: "Build an overnight route" },
+    ],
+  },
+  {
     title: "Wildlife & conservation",
     body: "Follow bird migration, refuge habitat, public lands and the ecosystems that make each region distinct.",
     links: [
