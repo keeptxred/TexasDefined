@@ -212,7 +212,7 @@ jobs:
 
           "${image_convert[@]}" \
             -size "${width}x${footer_height}" \
-            xc:'rgba(0,0,0,0.74)' \
+            xc:'#111111' \
             -font DejaVu-Sans \
             -fill white \
             -gravity center \
@@ -237,7 +237,6 @@ jobs:
             exit 1
           fi
           mv /tmp/tdfb/generated-image-attributed.png /tmp/tdfb/generated-image.png
-          rm -f /tmp/tdfb/attribution-footer.png
 
           attributed_mime_type=$(file --brief --mime-type /tmp/tdfb/generated-image.png)
           if [[ "$attributed_mime_type" != "image/png" ]]; then
@@ -283,6 +282,7 @@ jobs:
             /tmp/tdfb/post.txt
             /tmp/tdfb/prompt.txt
             /tmp/tdfb/attribution.txt
+            /tmp/tdfb/attribution-footer.png
             /tmp/tdfb/metadata.json
           if-no-files-found: error
           compression-level: 0
@@ -303,7 +303,7 @@ jobs:
           IMAGE_SHA256: ${{ steps.image.outputs.image_sha256 }}
         run: |
           set -euo pipefail
-          for required in generated-image.png image.sha256 post.txt prompt.txt attribution.txt metadata.json; do
+          for required in generated-image.png image.sha256 post.txt prompt.txt attribution.txt attribution-footer.png metadata.json; do
             if [[ ! -s "/tmp/tdfb-stored/${required}" ]]; then
               echo "Stored Facebook artifact is missing ${required}; publishing is blocked." >&2
               exit 1
@@ -355,6 +355,46 @@ jobs:
             echo "Stored attributed Facebook asset has invalid MIME type: $stored_mime_type" >&2
             exit 1
           fi
+
+          if command -v magick >/dev/null 2>&1; then
+            image_convert=(magick)
+            image_identify=(magick identify)
+            image_compare=(magick compare)
+          elif command -v convert >/dev/null 2>&1 && command -v identify >/dev/null 2>&1 && command -v compare >/dev/null 2>&1; then
+            image_convert=(convert)
+            image_identify=(identify)
+            image_compare=(compare)
+          else
+            echo 'ImageMagick verification tools are missing after attribution rendering; publishing is blocked.' >&2
+            exit 1
+          fi
+
+          stored_width=$("${image_identify[@]}" -format '%w' /tmp/tdfb-stored/generated-image.png)
+          stored_height=$("${image_identify[@]}" -format '%h' /tmp/tdfb-stored/generated-image.png)
+          stored_footer_width=$("${image_identify[@]}" -format '%w' /tmp/tdfb-stored/attribution-footer.png)
+          stored_footer_height=$("${image_identify[@]}" -format '%h' /tmp/tdfb-stored/attribution-footer.png)
+          if [[ "$stored_footer_width" != "$stored_width" || ! "$stored_footer_height" =~ ^[0-9]+$ || "$stored_footer_height" -lt 80 || "$stored_footer_height" -gt 120 ]]; then
+            echo 'Stored TexasDefined attribution footer dimensions are invalid; publishing is blocked.' >&2
+            exit 1
+          fi
+
+          "${image_convert[@]}" \
+            /tmp/tdfb-stored/generated-image.png \
+            -gravity south \
+            -crop "${stored_width}x${stored_footer_height}+0+0" \
+            +repage \
+            /tmp/tdfb-stored/rendered-footer-proof.png
+
+          pixel_diff=$("${image_compare[@]}" -metric AE \
+            /tmp/tdfb-stored/attribution-footer.png \
+            /tmp/tdfb-stored/rendered-footer-proof.png \
+            null: 2>&1 || true)
+          if [[ "$pixel_diff" != "0" ]]; then
+            echo "Stored Facebook image does not contain the exact rendered TexasDefined.com footer; pixel difference=${pixel_diff}; publishing is blocked." >&2
+            exit 1
+          fi
+          rm -f /tmp/tdfb-stored/rendered-footer-proof.png
+
           echo "mime_type=$stored_mime_type" >> "$GITHUB_OUTPUT"
           echo "image_sha256=$stored_sha" >> "$GITHUB_OUTPUT"
 
@@ -368,7 +408,7 @@ jobs:
           ARTIFACT_URL: ${{ steps.store.outputs.artifact-url }}
         run: |
           set -euo pipefail
-          if [[ ! -s /tmp/tdfb-stored/generated-image.png || ! -s /tmp/tdfb-stored/post.txt || ! -s /tmp/tdfb-stored/attribution.txt ]]; then
+          if [[ ! -s /tmp/tdfb-stored/generated-image.png || ! -s /tmp/tdfb-stored/post.txt || ! -s /tmp/tdfb-stored/attribution.txt || ! -s /tmp/tdfb-stored/attribution-footer.png ]]; then
             echo 'Reloaded stored image, exact post text, or attribution is missing; Facebook publishing is blocked.' >&2
             exit 1
           fi
@@ -438,8 +478,8 @@ jobs:
           IMAGE_SHA256: ${{ steps.stored.outputs.image_sha256 }}
         run: |
           set -euo pipefail
-          if [[ -z "$ARTIFACT_URL" || -z "$IMAGE_SHA256" || ! -s /tmp/tdfb-stored/generated-image.png || ! -s /tmp/tdfb-stored/attribution.txt ]]; then
+          if [[ -z "$ARTIFACT_URL" || -z "$IMAGE_SHA256" || ! -s /tmp/tdfb-stored/generated-image.png || ! -s /tmp/tdfb-stored/attribution.txt || ! -s /tmp/tdfb-stored/attribution-footer.png ]]; then
             echo 'Dry-run storage round-trip verification failed.' >&2
             exit 1
           fi
-          echo "Dry run complete: generated image was attributed, stored, reloaded, and SHA-verified at ${ARTIFACT_URL}; sha256=${IMAGE_SHA256}; Facebook was not called."
+          echo "Dry run complete: generated image was attributed, stored, reloaded, pixel-verified, and SHA-verified at ${ARTIFACT_URL}; sha256=${IMAGE_SHA256}; Facebook was not called."
