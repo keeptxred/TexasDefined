@@ -1,10 +1,11 @@
 import fs from 'node:fs/promises';
 
 const read = (path) => fs.readFile(path, 'utf8');
-const [resolver, eventCard, eventsRoute, corrections, generatedEvents, countyEventsServer, countyEventsBridge, countyDestinations, eventPage, dateFormatting, eventDisposition, supplementalRegistry, majorEventIndex] = await Promise.all([
+const [resolver, eventCard, eventsRoute, eventServerHead, corrections, generatedEvents, countyEventsServer, countyEventsBridge, countyDestinations, eventPage, dateFormatting, eventDisposition, supplementalRegistry, majorEventIndex] = await Promise.all([
   read('src/data/sports-venue-event-links.ts'),
   read('src/components/editorial/EventCard.tsx'),
   read('src/routes/events.tsx'),
+  read('src/data/major-event-directory.server.ts'),
   read('src/data/knowledge-graph/current-entity-corrections.ts'),
   read('src/data/events-generated.ts'),
   read('src/data/county-major-events.server.ts'),
@@ -45,15 +46,16 @@ assert(resolver.includes("href: '/sports-venue/reliant-stadium'"), 'Reliant/NRG 
 assert(resolver.includes("add('NRG Stadium', reliant)"), 'NRG Stadium must remain an explicit former-name alias, not a fuzzy match.');
 assert(!resolver.includes('/sports-venue/galaxy-stadium'), 'Galaxy Stadium must preserve the stable /sports-venue/jones-att-stadium canonical route from the verified entity slug.');
 
-for (const source of [eventCard, eventsRoute]) {
+for (const source of [eventCard, eventServerHead]) {
   assert(source.includes('resolveSportsVenueEventLink'), 'Event UI/schema must use the shared exact sports venue resolver.');
 }
 assert(eventCard.includes('venueGuide &&'), 'Regular event cards must leave unmatched events without a venue-guide link.');
 assert(eventCard.includes('Plan the venue'), 'Matched regular events must expose the venue-planning link.');
-assert(eventsRoute.includes('const venueGuide = resolveSportsVenueEventLink(event.venue)'), 'Event JSON-LD must resolve venue links from the stored venue value only.');
-assert(eventsRoute.includes('venueGuide ? { ...defaultLocation'), 'Event JSON-LD must preserve its existing default location when no exact venue match exists.');
-assert(eventsRoute.includes('const featuredVenueGuide = resolveSportsVenueEventLink(featured?.venue)'), 'Featured event must use the exact resolver.');
+assert(eventServerHead.includes('const venueGuide = resolveSportsVenueEventLink(event.venue)'), 'Event JSON-LD must resolve venue links from the stored venue value only.');
+assert(/const location = venueGuide\s*\?\s*\{\s*\.\.\.defaultLocation[\s\S]*?\}\s*:\s*defaultLocation;/.test(eventServerHead), 'Event JSON-LD must preserve its existing default location when no exact venue match exists.');
+assert(eventServerHead.includes('resolveSportsVenueEventLink(featured?.venue)'), 'Featured event must use the exact resolver on the server presentation boundary.');
 assert(eventsRoute.includes('featuredVenueGuide &&'), 'Featured unmatched events must remain unlinked.');
+assert(eventsRoute.includes('featuredVenueGuide, featuredDateLabel'), 'Featured venue/date presentation must be consumed from server-owned route data.');
 
 // Recurring event identity must not be keyed by occurrence date. Source-controlled sync rows
 // own a matching name+city identity even when a row becomes unpublished/canceled; otherwise
@@ -106,4 +108,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Event integrity validated: exact sports-venue links, source-controlled recurring-event precedence, accurate date claims, single-day date formatting, 75-seed source disposition, and bidirectional server-backed county event discovery are protected.');
+console.log('Event integrity validated: exact sports-venue links, server-owned event schema presentation, source-controlled recurring-event precedence, accurate date claims, single-day date formatting, 75-seed source disposition, and bidirectional server-backed county event discovery are protected.');
