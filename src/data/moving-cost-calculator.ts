@@ -51,4 +51,4 @@ export const movingCostSources = [
     name: 'FMCSA — Avoid unexpected moving costs',
     url: 'https://www.fmcsa.dot.gov/consumer-protection/protect-your-move/how-can-i-avoid-unexpected-moving-costs',
   },
-] as const;
+];
