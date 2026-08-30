@@ -9,9 +9,6 @@ on:
     - cron: "30 16 * * *"
     - cron: "30 23 * * *"
     - cron: "30 0 * * *"
-    # Temporary live scheduled test for August 30, 2026. Run every five minutes
-    # during the current UTC hour until one real schedule event publishes successfully.
-    - cron: "*/5 19 30 8 *"
   workflow_dispatch:
     inputs:
       slot:
@@ -53,7 +50,6 @@ jobs:
         env:
           MANUAL_SLOT: ${{ inputs.slot }}
           MANUAL_DRY_RUN: ${{ inputs.dry_run }}
-          SCHEDULE_CRON: ${{ github.event.schedule }}
         run: |
           set -euo pipefail
 
@@ -65,10 +61,6 @@ jobs:
           if [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" ]]; then
             slot="$MANUAL_SLOT"
             dry_run="$MANUAL_DRY_RUN"
-            should_run=true
-          elif [[ "$GITHUB_EVENT_NAME" == "schedule" && "$SCHEDULE_CRON" == "*/5 19 30 8 *" ]]; then
-            slot=morning
-            dry_run=false
             should_run=true
           else
             central_hour=$(TZ=America/Chicago date +%H)
