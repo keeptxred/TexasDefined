@@ -1,7 +1,15 @@
 /** Brand-agnostic formatting and slug helpers. No React, no fetching. */
 
+function parseDisplayDate(value: string): Date | null {
+  const trimmed = value.trim();
+  const calendarDate = /^(\d{4}-\d{2}-\d{2})(?:$|[T\s])/.exec(trimmed)?.[1];
+  const date = new Date(calendarDate ? `${calendarDate}T12:00:00Z` : trimmed);
+  return Number.isNaN(date.getTime()) ? null : date;
+}
+
 export function formatDate(iso: string, locale = "en-US"): string {
-  const date = new Date(`${iso}T12:00:00Z`);
+  const date = parseDisplayDate(iso);
+  if (!date) return iso;
   return new Intl.DateTimeFormat(locale, {
     year: "numeric",
     month: "long",
@@ -12,8 +20,9 @@ export function formatDate(iso: string, locale = "en-US"): string {
 
 export function formatDateRange(startIso: string, endIso?: string, locale = "en-US"): string {
   if (!endIso || endIso === startIso) return formatDate(startIso, locale);
-  const start = new Date(`${startIso}T12:00:00Z`);
-  const end = new Date(`${endIso}T12:00:00Z`);
+  const start = parseDisplayDate(startIso);
+  const end = parseDisplayDate(endIso);
+  if (!start || !end) return `${formatDate(startIso, locale)} – ${formatDate(endIso, locale)}`;
   const sameMonth =
     start.getUTCFullYear() === end.getUTCFullYear() && start.getUTCMonth() === end.getUTCMonth();
   const month = new Intl.DateTimeFormat(locale, { month: "long", timeZone: "UTC" });
