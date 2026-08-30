@@ -39,7 +39,7 @@ const INTENT_GROUPS = [
     title: "History routes",
     body: "Pair missions, lighthouses, painted churches, museums, battlefields and old towns into a route that explains the place as you go.",
     links: [
-      { to: "/texas-history", label: "Texas history" },
+      { to: "/texas-history", label: "Texas history & heritage" },
       { to: "/explore/lighthouses", label: "Texas lighthouses" },
       { to: "/explore/painted-churches", label: "Painted Churches of Texas" },
       { to: "/explore/historic-sites", label: "Historic sites" },
@@ -48,9 +48,21 @@ const INTENT_GROUPS = [
     ],
   },
   {
-    title: "Old West & ranch country",
-    body: "Connect rodeo, cattle culture, dance halls, historic towns and the roads that still carry Texas western heritage.",
+    title: "Sacred & spiritual heritage",
+    body: "Visit missions, Painted Churches, memorial landscapes and historic religious communities with worship, burial, cultural sensitivity and visitor access kept distinct.",
     links: [
+      { to: "/texas-sacred-places", label: "Sacred places in Texas" },
+      { to: "/explore/painted-churches", label: "Painted Churches" },
+      { to: "/explore/painted-churches/heritage", label: "Religious & immigrant heritage" },
+      { to: "/explore/historic-sites", label: "Historic sites & missions" },
+      { to: "/german-czech-texas-towns", label: "German & Czech Texas towns" },
+    ],
+  },
+  {
+    title: "Old West & ranch country",
+    body: "Connect rodeo, cattle culture, frontier forts, Native history, dance halls and the roads that still carry Texas western heritage.",
+    links: [
+      { to: "/texas-old-west", label: "Texas Old West guide" },
       { to: "/sports-venues/rodeo-western", label: "Rodeo & western venues" },
       { to: "/texas-dance-halls-honky-tonks", label: "Dance halls & honky-tonks" },
       { to: "/explore/historic-sites", label: "Historic sites" },
@@ -64,6 +76,7 @@ const INTENT_GROUPS = [
       { to: "/texas-music", label: "Texas music" },
       { to: "/texas-music-venues", label: "Music venues" },
       { to: "/texas-dance-halls-honky-tonks", label: "Dance halls & honky-tonks" },
+      { to: "/things-unique-to-texas/culture-music", label: "Culture & music reference" },
       { to: "/explore/painted-churches", label: "Painted Churches" },
     ],
   },

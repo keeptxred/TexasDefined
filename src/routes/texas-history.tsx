@@ -23,6 +23,8 @@ export const Route = createFileRoute("/texas-history")({
     breadcrumbParentPath: "/texas-living",
     items: [
       { type: "WebPage" as const, name: "Texas Historic Sites & Museums", url: "/explore/historic-sites", description: "A statewide guide to battlefields, missions, museums, homes, forts and monuments." },
+      { type: "WebPage" as const, name: "Texas Old West", url: "/texas-old-west", description: "A visitor-focused authority guide connecting ranching, cattle trails, frontier forts, Native history, Buffalo Soldiers, rodeo and western culture." },
+      { type: "WebPage" as const, name: "Sacred Places in Texas", url: "/texas-sacred-places", description: "A respectful visitor guide to Painted Churches, missions, religious heritage and memorial landscapes." },
       { type: "WebPage" as const, name: "Battleship Texas (BB-35)", url: "/article/battleship-texas-bb-35-history-restoration", description: "A full history of the surviving dreadnought from 1914 through both World Wars, preservation and the Galveston restoration." },
       { type: "WebPage" as const, name: "Painted Churches of Texas", url: "/explore/painted-churches", description: "A source-checked statewide collection connecting church history, immigrant communities, architecture, decorative arts and preservation." },
       { type: "WebPage" as const, name: "Official Texas Capital Designations", url: "/texas-capital-designations", description: "A source-backed directory of current specialty capital titles enacted by the Texas Legislature." },
