@@ -210,7 +210,7 @@ export function buildEditorialCollectionHead(brand: BrandConfig, page: Editorial
       name: item.name,
       url: absoluteUrl(brand, item.url),
       ...(item.description ? { description: item.description } : {}),
-      ...(item.image ? { image: absoluteUrl(brand, item.image) : {}),
+      ...(item.image ? { image: absoluteUrl(brand, item.image) } : {}),
     },
   }));
 
