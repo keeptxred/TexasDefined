@@ -6,12 +6,15 @@ const routePath = path.join(root, 'src/routes/explore.$category.tsx');
 const route = fs.readFileSync(routePath, 'utf8');
 const lazyRoute = fs.readFileSync(path.join(root, 'src/routes/explore.$category.lazy.tsx'), 'utf8');
 const categoryPage = fs.readFileSync(path.join(root, 'src/components/editorial/CategoryPage.tsx'), 'utf8');
+const topicPaths = fs.readFileSync(path.join(root, 'src/components/editorial/ExploreTopicPaths.tsx'), 'utf8');
 const indexability = fs.readFileSync(path.join(root, 'src/data/explore-category-indexability.ts'), 'utf8');
 const retiredHelperPath = path.join(root, 'src/data/explore-category-authority.ts');
 const errors = [];
+const authoritySlugs = ['outdoors', 'caverns', 'lakes-rivers', 'beaches-coast'];
 
 for (const feature of [
-  'const authorityPath = category.slug === "outdoors" || category.slug === "caverns"',
+  'const authorityCategorySlugs = new Set(["outdoors", "caverns", "lakes-rivers", "beaches-coast"]);',
+  'const authorityPath = authorityCategorySlugs.has(category.slug)',
   '`/content/explore-category-authority/${category.slug}.html`',
   'fetch(import.meta.env.SSR ? `${siteUrl}${authorityPath}` : authorityPath)',
   'return { category, articles, destinations, authorityHtml }',
@@ -23,13 +26,17 @@ for (const feature of [
   'const categorySeoOverrides: Partial<Record<string, { title: string; description: string }>> = {',
   'title: "Texas Outdoors & Wildlife: Parks, Trails, Birding & Wild Places"',
   'description: "Explore Texas outdoors by region, from state parks and hiking trails to wildlife, birding, dark skies, rivers and public lands, with seasonal access and safety guidance."',
+  'title: "Texas Lakes & Rivers: Swimming, Paddling, Fishing & Water Trips"',
+  'description: "Explore Texas lakes and rivers for swimming, paddling, fishing and camping, with river flows, reservoir conditions, public access, water quality and safety planning."',
+  'title: "Texas Beaches & Gulf Coast: Islands, Wildlife, Fishing & Beach Trips"',
+  'description: "Explore the Texas Gulf Coast by beaches, barrier islands, bays and marshes, with public access, water quality, rip-current safety, birding, fishing and trip-planning guidance."',
   'const categorySeo = categorySeoOverrides[loaderData.category.slug];',
   'const metaTitle = categorySeo?.title ?? loaderData.category.name;',
   'const metaDescription = categorySeo?.description ?? loaderData.category.description;',
   'name: metaTitle, description: metaDescription',
   'title: metaTitle, description: metaDescription',
 ]) {
-  if (!route.includes(feature)) errors.push(`Outdoors GSC metadata contract missing: ${feature}.`);
+  if (!route.includes(feature)) errors.push(`Explore authority SEO contract missing: ${feature}.`);
 }
 
 for (const forbidden of [
@@ -59,7 +66,7 @@ for (const feature of [
 }
 
 const htmlWordCount = (html) => (html.replace(/<[^>]+>/g, ' ').match(/[A-Za-z0-9]+(?:['’][A-Za-z0-9]+)*/g) ?? []).length;
-for (const slug of ['outdoors', 'caverns']) {
+for (const slug of authoritySlugs) {
   const assetPath = path.join(root, 'public/content/explore-category-authority', `${slug}.html`);
   if (!fs.existsSync(assetPath)) {
     errors.push(`Static Explore authority asset missing: ${slug}.`);
@@ -79,9 +86,44 @@ for (const slug of ['outdoors', 'caverns']) {
   if (!html.includes('Official sources') || !html.includes('Keep exploring')) errors.push(`Static Explore authority asset must retain explicit source and internal-discovery sections: ${slug}.`);
 }
 
+for (const [slug, requiredMarkers] of Object.entries({
+  'lakes-rivers': [
+    'Texas Parks &amp; Wildlife — Texas Paddling Trails',
+    'Texas Water Development Board — Water Data for Texas',
+    'TCEQ — Clean Rivers Program',
+    '/fishing',
+    '/explore/major-springs',
+  ],
+  'beaches-coast': [
+    'Texas General Land Office — Planning Your Visit',
+    'National Weather Service — Rip Current Safety',
+    'National Park Service — Padre Island Safety',
+    '/texas-birds-guide',
+    '/explore/lighthouses',
+  ],
+})) {
+  const html = fs.readFileSync(path.join(root, 'public/content/explore-category-authority', `${slug}.html`), 'utf8');
+  for (const marker of requiredMarkers) if (!html.includes(marker)) errors.push(`${slug} authority asset missing protected marker: ${marker}.`);
+}
+
+for (const [categoryMarker, requiredTargets] of [
+  ['"lakes-rivers": [', ['/explore/outdoors', '/explore/state-parks', '/explore/trip-planner', '/fishing']],
+  ['"beaches-coast": [', ['/explore/outdoors', '/explore/state-parks', '/explore/road-trips', '/explore/trip-planner', '/texas-birds-guide']],
+  ['outdoors: [', ['/explore/lakes-rivers', '/explore/beaches-coast', '/fishing', '/texas-birds-guide']],
+]) {
+  const start = topicPaths.indexOf(categoryMarker);
+  if (start < 0) {
+    errors.push(`Explore topic paths missing protected category marker: ${categoryMarker}.`);
+    continue;
+  }
+  const end = topicPaths.indexOf('\n  ],', start + categoryMarker.length);
+  const slice = topicPaths.slice(start, end > start ? end : undefined);
+  for (const target of requiredTargets) if (!slice.includes(`to: "${target}"`)) errors.push(`${categoryMarker} must retain reciprocal Explore target ${target}.`);
+}
+
 const stagedMatch = indexability.match(/STAGED_EXPLORE_CATEGORY_SLUGS\s*=\s*new Set<CategorySlug>\(\[([\s\S]*?)\]\)/);
 const stagedBody = stagedMatch?.[1] ?? '';
-for (const slug of ['outdoors', 'caverns']) {
+for (const slug of authoritySlugs) {
   if (new RegExp(`["']${slug}["']`).test(stagedBody)) errors.push(`Remediated Explore category remains staged noindex after authority expansion: ${slug}.`);
 }
 
@@ -90,4 +132,4 @@ if (errors.length) {
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
-console.log('Explore Outdoors and Caverns retain 700+ words, substantive sections, official sources, internal discovery, safe static markup, inline SSR/client asset delivery, index readiness, and the GSC-focused Outdoors title/description without a helper-module bundle cost.');
+console.log('Explore Outdoors, Caverns, Lakes & Rivers, and Beaches & Coast retain 700+ words, substantive sections, official sources, reciprocal discovery, safe static markup, inline SSR/client asset delivery, index readiness, and protected search-intent metadata without helper-module bundle cost.');
