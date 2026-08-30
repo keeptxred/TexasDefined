@@ -10,17 +10,35 @@ const HOME_NATURE_GUIDES = [
   { href: "/texas-birds-guide", label: "Texas birds guide" },
 ] as const;
 
+const BIRDING_TRIP_PATHS = [
+  { href: "/explore/outdoors", label: "Outdoors & wildlife", description: "Plan around habitat, public land, weather and wildlife-viewing conditions." },
+  { href: "/explore/beaches-coast", label: "Beaches & Gulf Coast", description: "Connect migration and shorebird habitat to barrier islands, marshes and coastal access." },
+  { href: "/explore/state-parks", label: "Texas state parks", description: "Use managed public lands as birding, trail and camping anchors across the state." },
+  { href: "/explore/lakes-rivers", label: "Lakes & rivers", description: "Add riparian habitat, reservoirs and water-focused wildlife stops to the trip." },
+] as const;
+
 export function TexasHomeNatureGuide({ data }: { data: TexasHomeNaturePublicGuide }) {
   const { guide, sources, reviewedAt } = data;
+  const isBirdGuide = guide.slug === "texas-birds-guide";
   return (
     <main className="pb-20">
       <Container className="pt-8">
         <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground">
           <Link to="/" className="hover:text-foreground">Front page</Link>
           <span aria-hidden="true"> / </span>
-          <Link to="/texas-living" className="hover:text-foreground">Texas Life</Link>
-          <span aria-hidden="true"> / </span>
-          <Link to="/home-garden" className="hover:text-foreground">Home &amp; Garden</Link>
+          {isBirdGuide ? (
+            <>
+              <Link to="/explore" className="hover:text-foreground">Explore Texas</Link>
+              <span aria-hidden="true"> / </span>
+              <Link to="/explore/outdoors" className="hover:text-foreground">Outdoors &amp; Wildlife</Link>
+            </>
+          ) : (
+            <>
+              <Link to="/texas-living" className="hover:text-foreground">Texas Life</Link>
+              <span aria-hidden="true"> / </span>
+              <Link to="/home-garden" className="hover:text-foreground">Home &amp; Garden</Link>
+            </>
+          )}
         </nav>
       </Container>
 
@@ -35,6 +53,20 @@ export function TexasHomeNatureGuide({ data }: { data: TexasHomeNaturePublicGuid
             <h2 id="quick-answer" className="font-display text-2xl">Quick answer</h2>
             <p className="mt-4 leading-8 text-muted-foreground">{guide.quickAnswer}</p>
           </section>
+
+          {isBirdGuide ? (
+            <nav aria-label="Plan a Texas birding trip" className="mt-8 rounded-2xl border p-5">
+              <p className="text-sm font-semibold uppercase tracking-[0.15em] text-muted-foreground">Plan a Texas birding trip</p>
+              <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                {BIRDING_TRIP_PATHS.map((item) => (
+                  <Link key={item.href} to={item.href} className="rounded-xl border p-4 transition-colors hover:bg-muted/40">
+                    <strong className="text-sm text-primary">{item.label}</strong>
+                    <span className="mt-1 block text-xs leading-5 text-muted-foreground">{item.description}</span>
+                  </Link>
+                ))}
+              </div>
+            </nav>
+          ) : null}
 
           <nav aria-label="Texas home and nature guides" className="mt-8 rounded-2xl border p-5">
             <p className="text-sm font-semibold uppercase tracking-[0.15em] text-muted-foreground">Texas home &amp; nature</p>
@@ -72,7 +104,7 @@ export function TexasHomeNatureGuide({ data }: { data: TexasHomeNaturePublicGuid
 
           <section className="mt-14 border-t pt-10" aria-labelledby="sources">
             <h2 id="sources" className="font-display text-3xl">Sources and current guidance</h2>
-            <p className="mt-3 leading-7 text-muted-foreground">Texas conditions and equipment vary. These sources support the factual guidance on this page; local officials and manufacturer instructions should control when conditions or equipment-specific procedures differ.</p>
+            <p className="mt-3 leading-7 text-muted-foreground">{isBirdGuide ? "Migration, habitat, access and wildlife conditions change by season and place. These state and federal sources support the birding guidance on this page; check the managing land agency for current access, closures and same-day conditions." : "Texas conditions and equipment vary. These sources support the factual guidance on this page; local officials and manufacturer instructions should control when conditions or equipment-specific procedures differ."}</p>
             <ul className="mt-6 space-y-4">
               {sources.map((source) => (
                 <li key={source.url} className="rounded-xl border p-4">
