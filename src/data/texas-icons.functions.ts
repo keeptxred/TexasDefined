@@ -34,10 +34,12 @@ export const getTexasIconProfile = createServerFn({ method: "GET" })
         texasIconCorrectedResearchProfile,
         texasIconCorrectionSourceSlug,
       },
+      { enrichTexasIconNarrativeContent },
     ] = await Promise.all([
       import("./texas-icons.server"),
       import("./texas-icons-editorial-holds.server"),
       import("./texas-icons-roster-corrections.server"),
+      import("./texas-icons-content-enrichment.server"),
     ]);
     const sourceSlug = texasIconCorrectionSourceSlug(data.slug);
     const profile = await loadTexasIconProfileServer(sourceSlug);
@@ -46,10 +48,11 @@ export const getTexasIconProfile = createServerFn({ method: "GET" })
     const correctedIcon = applyTexasIconRosterCorrection(sanitizedSourceIcon);
     const icon = applyTexasIconEditorialHoldSummary(correctedIcon);
     const correctedResearch = texasIconCorrectedResearchProfile(icon.slug);
+    const researchProfile = correctedResearch ?? profile.researchProfile;
     return {
       ...profile,
       icon,
-      researchProfile: correctedResearch ?? profile.researchProfile,
+      researchProfile: researchProfile ? enrichTexasIconNarrativeContent(researchProfile) : null,
       related: profile.related.map((candidate) =>
         applyTexasIconEditorialHoldSummary(applyTexasIconRosterCorrection(candidate))),
     };
