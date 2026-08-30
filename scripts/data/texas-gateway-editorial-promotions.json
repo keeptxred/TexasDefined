@@ -5,6 +5,18 @@
       "status": "index-ready",
       "approvedAt": "2026-08-29",
       "basis": "explicit-owner-production-approval-after-mechanical-readiness"
+    },
+    {
+      "slug": "texas-vs-california-differences",
+      "status": "index-ready",
+      "approvedAt": "2026-08-29",
+      "basis": "explicit-owner-production-approval-after-mechanical-readiness"
+    },
+    {
+      "slug": "texas-vs-florida-differences",
+      "status": "index-ready",
+      "approvedAt": "2026-08-29",
+      "basis": "explicit-owner-production-approval-after-mechanical-readiness"
     }
   ]
 }
