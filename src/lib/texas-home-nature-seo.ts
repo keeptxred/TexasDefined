@@ -8,6 +8,21 @@ export function texasHomeNatureGuideHead(data: TexasHomeNaturePublicGuide | unde
   if (!data) return { meta: [{ title: "Unavailable" }, { name: "robots", content: "noindex, nofollow" }] };
   const { guide, sources, reviewedAt } = data;
   const pageUrl = `${siteUrl}${canonicalPath}`;
+  const isBirdGuide = guide.slug === "texas-birds-guide";
+  const articleSection = isBirdGuide ? "Texas Outdoors & Wildlife" : "Texas Home & Nature";
+  const breadcrumbs = isBirdGuide
+    ? [
+        { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
+        { "@type": "ListItem", position: 2, name: "Explore Texas", item: `${siteUrl}/explore` },
+        { "@type": "ListItem", position: 3, name: "Outdoors & Wildlife", item: `${siteUrl}/explore/outdoors` },
+        { "@type": "ListItem", position: 4, name: guide.title, item: pageUrl },
+      ]
+    : [
+        { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
+        { "@type": "ListItem", position: 2, name: "Texas Life", item: `${siteUrl}/texas-living` },
+        { "@type": "ListItem", position: 3, name: "Home & Garden", item: `${siteUrl}/home-garden` },
+        { "@type": "ListItem", position: 4, name: guide.title, item: pageUrl },
+      ];
   const schema = {
     "@context": "https://schema.org",
     "@graph": [
@@ -32,7 +47,7 @@ export function texasHomeNatureGuideHead(data: TexasHomeNaturePublicGuide | unde
         description: guide.dek,
         datePublished: "2026-08-29",
         dateModified: reviewedAt,
-        articleSection: "Texas Home & Nature",
+        articleSection,
         isAccessibleForFree: true,
         author: { "@id": `${siteUrl}/#organization` },
         publisher: { "@id": `${siteUrl}/#organization` },
@@ -41,12 +56,7 @@ export function texasHomeNatureGuideHead(data: TexasHomeNaturePublicGuide | unde
       {
         "@type": "BreadcrumbList",
         "@id": `${pageUrl}#breadcrumbs`,
-        itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
-          { "@type": "ListItem", position: 2, name: "Texas Life", item: `${siteUrl}/texas-living` },
-          { "@type": "ListItem", position: 3, name: "Home & Garden", item: `${siteUrl}/home-garden` },
-          { "@type": "ListItem", position: 4, name: guide.title, item: pageUrl },
-        ],
+        itemListElement: breadcrumbs,
       },
     ],
   };
