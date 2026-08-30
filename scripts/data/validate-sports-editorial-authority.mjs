@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises';
 
 const read = (path) => fs.readFile(path, 'utf8');
-const [policies, history, articleBody, articleRoute, rodeoArticle, footballArticle, landings, sportsRoute] = await Promise.all([
+const [policies, history, articleBody, articleRoute, rodeoArticle, footballArticle, landings, sportsRoute, sportsLazy, tailgatingRoute, tailgatingLazy, publicRoutes] = await Promise.all([
   read('src/platform/internal-link-policies.ts'),
   read('src/platform/internal-link-policy-history.ts'),
   read('src/components/editorial/ArticleBody.tsx'),
@@ -10,6 +10,10 @@ const [policies, history, articleBody, articleRoute, rodeoArticle, footballArtic
   read('src/data/fixtures/high-school-football-newcomers.ts'),
   read('src/data/sports-venue-landings.ts'),
   read('src/routes/sports.tsx'),
+  read('src/routes/sports.lazy.tsx'),
+  read('src/routes/texas-tailgating-guide.tsx'),
+  read('src/routes/texas-tailgating-guide.lazy.tsx'),
+  read('src/lib/public-routes.ts'),
 ]);
 
 const errors = [];
@@ -39,6 +43,43 @@ for (const marker of [
   assert(sportsRoute.includes(marker), `Sports GSC metadata contract missing: ${marker}`);
 }
 
+for (const marker of [
+  'const canonicalPath = "/texas-tailgating-guide";',
+  'Texas Tailgating Guide: College Football, Stadiums & Game Day',
+  '"@type": "Article"',
+  '"@type": "ItemList"',
+  '"@type": "BreadcrumbList"',
+  'dateModified: "2026-08-30"',
+  'articleSection: "Texas Sports & Game Day"',
+]) {
+  assert(tailgatingRoute.includes(marker), `Texas tailgating structured authority missing marker: ${marker}`);
+}
+
+for (const marker of [
+  'Tailgating in Texas starts with the rules for that exact place',
+  'Ticket, parking, tailgate, stadium',
+  'Aggieland · Texas A&M',
+  'Austin · Texas',
+  'Lubbock · Texas Tech',
+  'Arlington · major pro events',
+  'Source review: August 30, 2026.',
+  'https://12thman.com/tailgating',
+  'https://12thman.com/tailgating/rules',
+  'https://texaslonghorns.com/sports/2026/2/10/football-fan-guide',
+  'https://texastech.com/sports/2026/8/18/football-parking-map',
+  'https://texastech.com/sports/2026/8/20/raider-alley',
+]) {
+  assert(tailgatingLazy.includes(marker), `Texas tailgating visitor/source authority missing marker: ${marker}`);
+}
+
+for (const target of ['/sports', '/sports-venues', '/sports-venues/college-sports', '/texas-college-towns', '/events/sports-events', '/explore/trip-planner']) {
+  assert(tailgatingLazy.includes(`to=${JSON.stringify(target)}`), `Texas tailgating guide must retain visitor-planning link to ${target}.`);
+}
+const tailgatingSourceCount = (tailgatingLazy.match(/["']https:\/\//g) ?? []).length;
+assert(tailgatingSourceCount >= 5, `Texas tailgating guide needs at least five first-party source URLs in its source registry; found ${tailgatingSourceCount}.`);
+assert(sportsLazy.includes('to="/texas-tailgating-guide"'), 'Texas Sports must surface the tailgating guide from its sports-culture section.');
+assert(publicRoutes.includes('"/texas-tailgating-guide"'), 'Texas tailgating guide must remain explicitly registered as an indexable static public route.');
+
 const rodeoPath = '/sports-venues/rodeo-western';
 const footballPath = '/sports-venues/high-school-football';
 assert(rodeoArticle.includes(`href:\"${rodeoPath}\"`), 'Rodeo evergreen guide must link to the relevant verified Western-sports venue collection.');
@@ -57,4 +98,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Sports editorial authority validated: GSC-focused statewide sports metadata, governed article linking, verified venue collections, unchanged link budgets, and editorial/sponsorship separation are protected.');
+console.log('Sports editorial authority validated: statewide sports metadata, governed article linking, verified venue collections, Texas tailgating visitor authority, first-party game-day sources, unchanged link budgets, and editorial/sponsorship separation are protected.');

@@ -10,9 +10,9 @@ import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const legacyExploreRedirects: Record<string, string> = {
   "scenic-rivers": "/article/texas-rivers-explained",
-  "texas-dark-sky-stargazing": "/article/best-texas-stargazing-weekend-trips",
+  "texas-dark-sky-stargazing": "/texas-stargazing-guide",
 };
-const authorityCategorySlugs = new Set(["outdoors", "caverns", "lakes-rivers", "beaches-coast"]);
+const authorityCategorySlugs = new Set(["outdoors", "caverns", "lakes-rivers", "beaches-coast", "small-towns"]);
 const categorySeoOverrides: Partial<Record<string, { title: string; description: string }>> = {
   outdoors: {
     title: "Texas Outdoors & Wildlife: Parks, Trails, Birding & Wild Places",
@@ -25,6 +25,10 @@ const categorySeoOverrides: Partial<Record<string, { title: string; description:
   "beaches-coast": {
     title: "Texas Beaches & Gulf Coast: Islands, Wildlife, Fishing & Beach Trips",
     description: "Explore the Texas Gulf Coast by beaches, barrier islands, bays and marshes, with public access, water quality, rip-current safety, birding, fishing and trip-planning guidance.",
+  },
+  "small-towns": {
+    title: "Texas Small Towns: Downtown Squares, Local Shopping & Road Trips",
+    description: "Explore Texas small towns through courthouse squares, Main Street districts, local shopping, antiques, markets, food, festivals and practical road-trip planning.",
   },
 };
 

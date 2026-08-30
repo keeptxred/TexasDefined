@@ -15,6 +15,9 @@ const regionalHub = read('src/components/editorial/RegionalHubSections.tsx');
 const publicRoutes = read('src/lib/public-routes.ts');
 const oldWestHub = readRouteSurface('src/routes/texas-old-west.tsx');
 const sacredPlacesHub = readRouteSurface('src/routes/texas-sacred-places.tsx');
+const scienceIndustryHub = readRouteSurface('src/routes/texas-science-technology-industry.tsx');
+const collegeTownsHub = readRouteSurface('src/routes/texas-college-towns.tsx');
+const uniqueLodgingHub = readRouteSurface('src/routes/texas-unique-lodging.tsx');
 const historyHub = readRouteSurface('src/routes/texas-history.tsx');
 const topAttractionsHub = readRouteSurface('src/routes/explore.top-attractions.tsx');
 const musicAuthority = read('src/data/texas-music.ts');
@@ -48,6 +51,7 @@ for (const target of requiredTopicalTargets) {
 for (const title of [
   'Water weekends',
   'Park weekends',
+  'Unique places to stay',
   'Wildlife & conservation',
   'History routes',
   'Sacred & spiritual heritage',
@@ -55,6 +59,8 @@ for (const title of [
   'Music & culture',
   'Texas flavors',
   'Family attractions',
+  'Science, space & industry',
+  'College towns & campus weekends',
   'Small-town weekends',
   'Roadside & only-in-Texas',
   'Landscapes & scenery',
@@ -87,10 +93,14 @@ const requiredIntentTargets = [
   '/texas-history',
   '/texas-old-west',
   '/texas-sacred-places',
+  '/texas-science-technology-industry',
+  '/texas-college-towns',
+  '/texas-unique-lodging',
   '/texas-music',
   '/texas-music-venues',
   '/texas-birds-guide',
   '/texas-natural-wonders-bucket-list',
+  '/texas-stargazing-guide',
   '/texas-food-trail',
   '/texas-food-history',
   '/texas-roadside-oddities',
@@ -118,10 +128,14 @@ const staticAuthorityTargets = [
   '/texas-history',
   '/texas-old-west',
   '/texas-sacred-places',
+  '/texas-science-technology-industry',
+  '/texas-college-towns',
+  '/texas-unique-lodging',
   '/texas-music',
   '/texas-music-venues',
   '/texas-birds-guide',
   '/texas-natural-wonders-bucket-list',
+  '/texas-stargazing-guide',
   '/texas-food-trail',
   '/texas-food-history',
   '/texas-roadside-oddities',
@@ -142,6 +156,8 @@ for (const target of staticAuthorityTargets) {
 for (const [name, path, source] of [
   ['Texas Old West', '/texas-old-west', oldWestHub],
   ['Sacred Places in Texas', '/texas-sacred-places', sacredPlacesHub],
+  ['Texas Science, Space & Industry', '/texas-science-technology-industry', scienceIndustryHub],
+  ['Texas College Towns', '/texas-college-towns', collegeTownsHub],
 ]) {
   if (!source.includes(`canonicalPath = ${JSON.stringify(path)}`)) failures.push(`${name} must define its exact canonical path.`);
   for (const schemaType of ['CollectionPage', 'ItemList', 'BreadcrumbList']) {
@@ -166,6 +182,63 @@ for (const marker of [
 ]) {
   if (!sacredPlacesHub.includes(marker)) failures.push(`Sacred Places must retain official authority source: ${marker}`);
 }
+for (const marker of [
+  'https://spacecenter.org/visitor-information',
+  'https://mcdonaldobservatory.org/visit/',
+  'https://lonestarflight.org/',
+  'https://galvestonrrmuseum.org/about-us/',
+  'https://texasmaritimemuseum.org/',
+  'https://petroleummuseum.org/',
+  'Source review: August 30, 2026.',
+]) {
+  if (!scienceIndustryHub.includes(marker)) failures.push(`Science, Space & Industry must retain protected source/context marker: ${marker}`);
+}
+for (const target of ['/explore/top-attractions', '/texas-stargazing-guide', '/explore/historic-sites', '/explore/beaches-coast', '/browse/cities', '/explore/trip-planner', '/texas-history']) {
+  if (!scienceIndustryHub.includes(`to=${JSON.stringify(target)}`) && !scienceIndustryHub.includes(`to: ${JSON.stringify(target)}`)) failures.push(`Science, Space & Industry must surface ${target}.`);
+}
+for (const marker of [
+  'https://admissions.utexas.edu/explore/visit-campus/',
+  'https://www.tamu.edu/visit/visitor-center.html',
+  'https://www.depts.ttu.edu/admissions/visit-events/index-1.php',
+  'https://www.utep.edu/visit/',
+  'https://admissions.tcu.edu/visit/programs-events.php',
+  'Source review: August 30, 2026.',
+]) {
+  if (!collegeTownsHub.includes(marker)) failures.push(`Texas College Towns must retain protected source/context marker: ${marker}`);
+}
+for (const target of ['/sports-venues/college-sports', '/sports-venues/college-station', '/sports-venues/waco', '/sports-venues/austin-central-texas', '/sports-venues/lubbock', '/sports-venues/el-paso', '/sports-venues/dallas-fort-worth', '/browse/cities', '/events', '/explore/trip-planner', '/sports', '/explore/top-attractions', '/texas-history']) {
+  if (!collegeTownsHub.includes(`to=${JSON.stringify(target)}`) && !collegeTownsHub.includes(`to: ${JSON.stringify(target)}`) && !collegeTownsHub.includes(JSON.stringify(target))) failures.push(`Texas College Towns must surface ${target}.`);
+}
+
+for (const marker of [
+  'const canonicalPath = "/texas-unique-lodging";',
+  'Unique Places to Stay in Texas: Park Lodges & Historic Cabins',
+  '"@type": "Article"',
+  '"@type": "ItemList"',
+  '"@type": "BreadcrumbList"',
+  'dateModified: "2026-08-30"',
+  'articleSection: "Texas Travel & Lodging"',
+  'Stay somewhere that is part of the Texas destination',
+  'Indian Lodge · Davis Mountains',
+  'San Solomon Motor Courts · Balmorhea',
+  'Bastrop State Park cabins · Lost Pines',
+  'Caddo Lake State Park cabins · Piney Woods',
+  'Palo Duro Canyon cabins and glamping · Panhandle',
+  'https://tpwd.texas.gov/state-parks/indian-lodge',
+  'https://tpwd.texas.gov/state-parks/balmorhea/fees-facilities/motel-rooms',
+  'https://tpwd.texas.gov/state-parks/bastrop/fees-facilities/cabins',
+  'https://tpwd.texas.gov/state-parks/caddo-lake/fees-facilities/caddo-lodging',
+  'https://tpwd.texas.gov/state-parks/palo-duro-canyon/fees-facilities/cabins',
+  'Source review: August 30, 2026.',
+]) {
+  if (!uniqueLodgingHub.includes(marker)) failures.push(`Texas Unique Lodging must retain protected authority marker: ${marker}`);
+}
+for (const target of ['/explore/state-parks', '/texas-history', '/texas-old-west', '/explore/road-trips', '/browse/cities', '/explore/trip-planner']) {
+  if (!uniqueLodgingHub.includes(`to=${JSON.stringify(target)}`) && !uniqueLodgingHub.includes(`to: ${JSON.stringify(target)}`) && !uniqueLodgingHub.includes(JSON.stringify(target))) failures.push(`Texas Unique Lodging must surface ${target}.`);
+}
+const lodgingSourceCount = (uniqueLodgingHub.match(/["']https:\/\/tpwd\.texas\.gov/g) ?? []).length;
+if (lodgingSourceCount < 5) failures.push(`Texas Unique Lodging needs at least five first-party TPWD source URLs; found ${lodgingSourceCount}.`);
+
 for (const target of ['/texas-old-west', '/texas-sacred-places', '/texas-music', '/article/texas-national-cemeteries-guide']) {
   if (!historyHub.includes(target)) failures.push(`Texas History heritage architecture must surface ${target}.`);
 }
@@ -205,4 +278,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Explore topic bridges, family-attraction authority, Phase 2 heritage hubs, authority clusters, trip-intent groups, indexable authority targets, regional-to-statewide paths and trip-planning pathways are protected.');
+console.log('Explore topic bridges, family-attraction authority, science/space/industry authority, college-town authority, unique-lodging authority, heritage hubs, authority clusters, trip-intent groups, indexable authority targets, regional-to-statewide paths and trip-planning pathways are protected.');

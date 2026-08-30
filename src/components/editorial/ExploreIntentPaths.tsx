@@ -26,6 +26,17 @@ const INTENT_GROUPS = [
     ],
   },
   {
+    title: "Unique places to stay",
+    body: "Build an overnight around historic park lodges, CCC cabins and unusual lodging where the stay itself is part of the Texas destination.",
+    links: [
+      { to: "/texas-unique-lodging", label: "Unique Texas lodging guide" },
+      { to: "/explore/state-parks", label: "Texas state parks" },
+      { to: "/texas-history", label: "Historic Texas" },
+      { to: "/explore/road-trips", label: "Road trips" },
+      { to: "/explore/trip-planner", label: "Build an overnight route" },
+    ],
+  },
+  {
     title: "Wildlife & conservation",
     body: "Follow bird migration, refuge habitat, public lands and the ecosystems that make each region distinct.",
     links: [
@@ -99,6 +110,28 @@ const INTENT_GROUPS = [
       { to: "/browse/cities", label: "Browse cities" },
       { to: "/events", label: "Family events & festivals" },
       { to: "/explore/trip-planner", label: "Build a family itinerary" },
+    ],
+  },
+  {
+    title: "Science, space & industry",
+    body: "Connect spaceflight, astronomy, aviation, railroads, maritime systems and energy heritage to the Texas places where science and engineering become visible.",
+    links: [
+      { to: "/texas-science-technology-industry", label: "Science, space & industry guide" },
+      { to: "/explore/top-attractions", label: "Major science attractions" },
+      { to: "/texas-stargazing-guide", label: "Astronomy & stargazing" },
+      { to: "/explore/historic-sites", label: "Industrial & transportation history" },
+      { to: "/explore/trip-planner", label: "Build a science itinerary" },
+    ],
+  },
+  {
+    title: "College towns & campus weekends",
+    body: "Pair campus visits, traditions and game days with the museums, food, music and city districts that make Texas college towns worth a full weekend.",
+    links: [
+      { to: "/texas-college-towns", label: "Texas college towns guide" },
+      { to: "/sports-venues/college-sports", label: "College sports venues" },
+      { to: "/browse/cities", label: "Browse college-town cities" },
+      { to: "/events", label: "Events & festivals" },
+      { to: "/explore/trip-planner", label: "Build a campus weekend" },
     ],
   },
   {

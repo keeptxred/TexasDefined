@@ -1,4 +1,3 @@
-import bigBend from "@/assets/big-bend.jpg";
 import bluebonnets from "@/assets/bluebonnets.jpg";
 import roadTrip from "@/assets/road-trip.jpg";
 import smallTown from "@/assets/small-town.jpg";
@@ -13,23 +12,6 @@ const image = (src: string, alt: string): ImageRef => ({ src, alt, width: 1600, 
  * TEXAS_GATEWAY_INDEX_READY_SLUGS. Full article bodies remain lazy-loaded.
  */
 export const texasGatewayIndexReadyStubs: Article[] = [
-  {
-    id: "gateway-b13-stars",
-    brandId: "texasdefined",
-    slug: "best-texas-stargazing-weekend-trips",
-    title: "15 Best Texas Stargazing Weekend Trips",
-    dek: "Pair dark skies with a real daytime destination so the weekend still works before sunset.",
-    category: "outdoors",
-    hero: image(bigBend, "The Chisos Mountains rising over the Big Bend desert"),
-    authorId: "a-dell",
-    publishedAt: "2026-08-20",
-    readingMinutes: 8,
-    tags: ["texas stargazing", "dark skies texas", "texas astronomy trip"],
-    body: [],
-    internalLinks: [],
-    relatedCollections: [],
-    relatedDestinations: ["big-bend-national-park", "fort-davis"],
-  },
   {
     id: "gateway-tx-vs-ca",
     brandId: "texasdefined",
