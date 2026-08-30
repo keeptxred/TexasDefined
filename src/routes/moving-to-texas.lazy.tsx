@@ -19,6 +19,11 @@ const arrivalTasks = [
   ["Texas cost-of-living calculator", "/texas-cost-of-living-calculator", "Compare household-budget assumptions before choosing a city or signing a lease."],
   ["Texas resources", "/texas-resources", "Open Texas Defined's practical guidebook for moving, driving, property, money, travel and everyday Texas life."],
 ] as const;
+const localTaxTools = [
+  ["Houston", "/property-tax-calculator/houston", "Harris, Fort Bend or Montgomery County starting points with parcel-level taxing-unit selection."],
+  ["Austin", "/property-tax-calculator/austin", "Travis, Williamson or Hays County starting points with local school, city and district rates."],
+  ["Frisco", "/property-tax-calculator/frisco", "Collin or Denton County starting points with address-specific school and local taxing units."],
+] as const;
 
 export const Route = createLazyFileRoute("/moving-to-texas")({ component: MovingToTexasPage });
 
@@ -39,6 +44,13 @@ function MovingToTexasPage() {
           <div className="grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2">{arrivalTasks.map(([title, to, copy]) => <Link key={to} to={to} className="group bg-background p-5"><h3 className="font-display text-2xl leading-tight transition-colors group-hover:text-primary">{title}</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{copy}</p><span className="eyebrow mt-5 inline-block text-primary">Open guide →</span></Link>)}</div>
         </div>
       </section>
+
+      <section className="mb-12 border-b border-border pb-10" aria-labelledby="moving-texas-local-tax">
+        <div className="flex flex-wrap items-end justify-between gap-4"><div><p className="eyebrow text-primary">Monthly housing reality</p><h2 id="moving-texas-local-tax" className="mt-2 font-display text-3xl">Estimate local property taxes before comparing places</h2></div><Link to="/property-tax-calculators" className="text-sm font-semibold text-primary">All property-tax tools →</Link></div>
+        <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Texas property taxes are parcel-specific. These city starting points load official local rate choices instead of assigning a metro-wide average, so you can match the county, school district, municipality and special districts to an actual address.</p>
+        <div className="mt-6 grid gap-4 md:grid-cols-3">{localTaxTools.map(([name, href, copy]) => <a key={href} href={href} className="border border-border p-5 hover:border-primary"><strong className="font-display text-2xl">{name} property tax calculator</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">{copy}</span></a>)}</div>
+      </section>
+
       <div className="mb-10 flex flex-wrap gap-x-7 gap-y-3 border-b border-border pb-7 text-sm font-semibold">
         <Link to="/texas-moving-cost-calculator" className="text-primary underline underline-offset-4">Estimate the one-time moving budget →</Link>
         <Link to="/browse/cities" className="text-primary underline underline-offset-4">Compare Texas cities & suburbs →</Link>
