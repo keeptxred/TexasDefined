@@ -3,23 +3,19 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 
 import bluebonnets from "@/assets/bluebonnets.jpg";
-import { useBrand } from "@/brand/context";
-import { texasDefinedBrand } from "@/brand/texasdefined";
 import { EventCard } from "@/components/editorial/EventCard";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
-import { getMajorEventGuideDirectory } from "@/data/major-event-directory";
+import { getEventsPageHead, getMajorEventLandingDirectory } from "@/data/major-event-directory";
 import { eventsQuery, regionsQuery } from "@/data/queries";
-import { resolveSportsVenueEventLink } from "@/data/sports-venue-event-links";
 import type { TexasEvent } from "@/data/types";
-import { formatDateRange } from "@/domain/utils/format";
-import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 
-const description = "Rodeos, wildflower weekends, barbecue throwdowns, dance halls and county fairs — a curated calendar of what’s worth showing up for across Texas.";
-const canonicalPath = "/events";
-const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
-const pageUrl = `${siteUrl}${canonicalPath}`;
+const routeSeo = {
+  title: "Texas Events",
+  description: "Rodeos, wildflower weekends, barbecue throwdowns, dance halls and county fairs — a curated calendar of what’s worth showing up for across Texas.",
+  canonicalPath: "/events",
+} as const;
 const EVENT_LABELS: Record<TexasEvent["category"], string> = {
   music: "Live Music",
   food: "Food & Drink",
@@ -31,44 +27,32 @@ const EVENT_LABELS: Record<TexasEvent["category"], string> = {
 
 export const Route = createFileRoute("/events")({
   loader: async ({ context }) => {
-    const [events, regions, majorEventGuides] = await Promise.all([
+    const [events, regions, landingDirectory] = await Promise.all([
       context.queryClient.ensureQueryData(eventsQuery({})),
       context.queryClient.ensureQueryData(regionsQuery()),
-      getMajorEventGuideDirectory(),
+      getMajorEventLandingDirectory(),
     ]);
-    return { events, regions, majorEventGuides };
-  },
-  head: ({ loaderData }) => {
-    const regions = loaderData?.regions ?? [];
-    const regionName = (id: string) => regions.find((item) => item.id === id)?.name;
-    const eventItems = (loaderData?.events ?? []).slice(0, 50).map((event, index) => {
-      const venueGuide = resolveSportsVenueEventLink(event.venue);
-      const eventUrl = event.id.startsWith("authority:") ? `${siteUrl}/event/${event.slug}` : `${pageUrl}#${event.id}`;
-      const defaultLocation = { "@type": "Place", name: [event.city, regionName(event.region), "Texas"].filter(Boolean).join(", "), address: { "@type": "PostalAddress", addressLocality: event.city, addressRegion: "TX", addressCountry: "US" } };
-      const location = venueGuide ? { ...defaultLocation, name: event.venue, url: `${siteUrl}${venueGuide.href}` } : defaultLocation;
-      return { "@type": "ListItem", position: index + 1, item: { "@type": "Event", "@id": eventUrl, name: event.name, description: event.blurb, startDate: event.startDate, endDate: event.endDate, eventStatus: "https://schema.org/EventScheduled", eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode", url: eventUrl, location } };
+    const serverPresentation = await getEventsPageHead({
+      data: {
+        events: events.slice(0, 50),
+        regions: regions.map(({ id, name }) => ({ id, name })),
+      },
     });
-    const graph = [
-      { "@type": "CollectionPage", "@id": `${pageUrl}#page`, url: pageUrl, name: "Texas Events", description, image: { "@type": "ImageObject", url: absoluteUrl(texasDefinedBrand, bluebonnets), caption: "Bluebonnets running to a fence line in a Texas spring field", width: 1600, height: 1067 }, isPartOf: { "@id": `${siteUrl}/#website` }, mainEntity: { "@id": `${pageUrl}#events` }, breadcrumb: { "@id": `${pageUrl}#breadcrumbs` } },
-      { "@type": "ItemList", "@id": `${pageUrl}#events`, name: "Texas events calendar", url: pageUrl, numberOfItems: eventItems.length, itemListElement: eventItems },
-      { "@type": "BreadcrumbList", "@id": `${pageUrl}#breadcrumbs`, itemListElement: [{ "@type": "ListItem", position: 1, name: "Front page", item: `${siteUrl}/` }, { "@type": "ListItem", position: 2, name: "Events", item: pageUrl }] },
-    ];
-    return { meta: buildMeta(texasDefinedBrand, { title: "Texas Events", description, canonicalPath, image: bluebonnets, imageAlt: "Bluebonnets running to a fence line in a Texas spring field" }), links: [canonicalLink(texasDefinedBrand, canonicalPath)], scripts: eventItems.length ? [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": graph }) }] : [] };
+    return { events, regions, ...serverPresentation, ...landingDirectory };
   },
+  head: ({ loaderData }) => loaderData?.head ?? {},
   component: EventsPage,
 });
 
 function EventsPage() {
-  const brand = useBrand();
   const { data: events } = useSuspenseQuery(eventsQuery({}));
   const { data: regions } = useSuspenseQuery(regionsQuery());
-  const { majorEventGuides } = Route.useLoaderData();
+  const { majorEventGuides, eventTopicLinks, eventRegionLinks, featuredVenueGuide, featuredDateLabel } = Route.useLoaderData();
   const [category, setCategory] = useState<string>("all");
   const [region, setRegion] = useState<string>("all");
   const regionName = (id: string) => regions.find((item) => item.id === id)?.name;
   const categories = ["all", ...new Set(events.map((event) => event.category))];
   const featured = events[0];
-  const featuredVenueGuide = resolveSportsVenueEventLink(featured?.venue);
   const rest = events.slice(1);
   const filtered = rest.filter((event) => (category === "all" || event.category === category) && (region === "all" || event.region === region));
 
@@ -80,8 +64,8 @@ function EventsPage() {
         <nav aria-label="Breadcrumb" className="text-[0.72rem] font-medium uppercase tracking-[0.12em] text-ink-foreground/65"><ol className="flex items-center gap-2"><li><Link to="/" className="hover:text-ink-foreground">Front page</Link></li><li aria-hidden="true">/</li><li aria-current="page">Events</li></ol></nav>
         <p className="eyebrow mt-10 text-ink-foreground/75">The Texas Calendar</p>
         <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">What’s happening across Texas</h1>
-        <p className="mt-6 max-w-2xl text-lg leading-8 text-ink-foreground/82">{description}</p>
-        {featured && <div id={featured.id} className="mt-10 max-w-2xl border-t border-ink-foreground/30 pt-6"><p className="eyebrow text-ink-foreground/65">Featured event · {EVENT_LABELS[featured.category]}</p><h2 className="mt-3 font-display text-4xl leading-tight">{featured.name}</h2><p className="mt-3 text-sm leading-7 text-ink-foreground/82">{featured.blurb}</p><p className="mt-4 text-sm text-ink-foreground/65">{formatDateRange(featured.startDate, featured.endDate, brand.identity.locale)} · {featured.city}{regionName(featured.region) ? ` · ${regionName(featured.region)}` : ""}</p>{featuredVenueGuide && <p className="mt-3 text-sm text-ink-foreground/72">Venue: <a href={featuredVenueGuide.href} className="border-b border-ink-foreground/70 text-ink-foreground">{featuredVenueGuide.venueName} guide →</a></p>}<div className="flex flex-wrap gap-5">{featured.officialUrl && <a href={featured.officialUrl} target="_blank" rel="noreferrer noopener" className="eyebrow mt-5 inline-flex border-b border-ink-foreground/70 pb-1 text-ink-foreground">Event details ↗</a>}{featuredVenueGuide && <a href={featuredVenueGuide.href} className="eyebrow mt-5 inline-flex border-b border-ink-foreground/70 pb-1 text-ink-foreground">Plan the venue →</a>}</div></div>}
+        <p className="mt-6 max-w-2xl text-lg leading-8 text-ink-foreground/82">{routeSeo.description}</p>
+        {featured && <div id={featured.id} className="mt-10 max-w-2xl border-t border-ink-foreground/30 pt-6"><p className="eyebrow text-ink-foreground/65">Featured event · {EVENT_LABELS[featured.category]}</p><h2 className="mt-3 font-display text-4xl leading-tight">{featured.name}</h2><p className="mt-3 text-sm leading-7 text-ink-foreground/82">{featured.blurb}</p><p className="mt-4 text-sm text-ink-foreground/65">{featuredDateLabel} · {featured.city}{regionName(featured.region) ? ` · ${regionName(featured.region)}` : ""}</p>{featuredVenueGuide && <p className="mt-3 text-sm text-ink-foreground/72">Venue: <a href={featuredVenueGuide.href} className="border-b border-ink-foreground/70 text-ink-foreground">{featuredVenueGuide.venueName} guide →</a></p>}<div className="flex flex-wrap gap-5">{featured.officialUrl && <a href={featured.officialUrl} target="_blank" rel="noreferrer noopener" className="eyebrow mt-5 inline-flex border-b border-ink-foreground/70 pb-1 text-ink-foreground">Event details ↗</a>}{featuredVenueGuide && <a href={featuredVenueGuide.href} className="eyebrow mt-5 inline-flex border-b border-ink-foreground/70 pb-1 text-ink-foreground">Plan the venue →</a>}</div></div>}
       </Container>
     </section>
 
@@ -97,6 +81,28 @@ function EventsPage() {
             <Link to="/texas-dance-halls-honky-tonks" className="group bg-background p-5"><strong className="font-display text-2xl leading-tight group-hover:text-primary">Dance halls & honky-tonks</strong><span className="mt-3 block text-sm leading-6 text-muted-foreground">Two-step culture, Western swing, historic community halls and how to plan a live-music weekend.</span><span className="mt-4 block text-sm font-semibold text-primary">Read the guide →</span></Link>
             <Link to="/texas-homecoming-mums" className="group bg-background p-5"><strong className="font-display text-2xl leading-tight group-hover:text-primary">Texas homecoming mums</strong><span className="mt-3 block text-sm leading-6 text-muted-foreground">How a school flower became an oversized wearable tradition tied to football, clubs and homecoming week.</span><span className="mt-4 block text-sm font-semibold text-primary">Read the guide →</span></Link>
             <Link to="/german-czech-texas-towns" className="group bg-background p-5"><strong className="font-display text-2xl leading-tight group-hover:text-primary">German & Czech Texas heritage</strong><span className="mt-3 block text-sm leading-6 text-muted-foreground">Connect festivals and music to the towns, churches, bakeries and halls that preserve the deeper history.</span><span className="mt-4 block text-sm font-semibold text-primary">Read the guide →</span></Link>
+          </div>
+        </div>
+      </Container>
+    </section>
+
+    <section className="border-b border-border py-10">
+      <Container>
+        <div className="grid gap-8 lg:grid-cols-[15rem_1fr] lg:items-start">
+          <div><p className="eyebrow text-primary">Browse evergreen guides</p><h2 className="mt-2 font-display text-3xl">Texas events by type</h2><p className="mt-4 text-sm leading-6 text-muted-foreground">Crawlable planning collections connect the live calendar to permanent event guides, official-source dates and deeper Texas context.</p></div>
+          <div className="grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
+            {eventTopicLinks.map((item) => <a key={item.href} href={item.href} className="group bg-background p-5"><strong className="font-display text-xl leading-tight group-hover:text-primary">{item.title}</strong><span className="mt-3 block text-sm leading-6 text-muted-foreground">{item.description}</span><span className="mt-4 block text-sm font-semibold text-primary">Browse the guides →</span></a>)}
+          </div>
+        </div>
+      </Container>
+    </section>
+
+    <section className="border-b border-border bg-surface py-10">
+      <Container>
+        <div className="grid gap-8 lg:grid-cols-[15rem_1fr] lg:items-start">
+          <div><p className="eyebrow text-primary">Plan by geography</p><h2 className="mt-2 font-display text-3xl">Texas events by region</h2><p className="mt-4 text-sm leading-6 text-muted-foreground">Compare event weekends within one part of the state before committing to long drives between cities.</p></div>
+          <div className="grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+            {eventRegionLinks.map((item) => <a key={item.href} href={item.href} className="group bg-background p-5"><strong className="font-display text-xl leading-tight group-hover:text-primary">{item.title}</strong><span className="mt-3 block text-sm leading-6 text-muted-foreground">{item.description}</span><span className="mt-4 block text-sm font-semibold text-primary">Explore the region →</span></a>)}
           </div>
         </div>
       </Container>
