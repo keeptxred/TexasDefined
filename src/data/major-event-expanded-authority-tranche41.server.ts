@@ -1,6 +1,10 @@
 import type { MajorEventAuthorityRecord } from "./major-event-authority.server";
 
-const records: MajorEventAuthorityRecord[] = [
+type MajorEventAuthorityRecordWithWindows = MajorEventAuthorityRecord & {
+  occurrenceWindows?: Array<{ label?: string; startDate: string; endDate?: string }>;
+};
+
+const records: MajorEventAuthorityRecordWithWindows[] = [
   {
     slug: "texas-state-championship-fiddlers-frolics",
     name: "Texas State Championship Fiddlers' Frolics",
@@ -42,6 +46,12 @@ const records: MajorEventAuthorityRecord[] = [
     startDate: "2027-01-25",
     endDate: "2027-01-30",
     dateNote: "The organizer's 2027 featured-event calendar spans January 25-30, including the Product Costume Style Show, Royal Coronation, Fun Fair, Parade of Oranges and Royal Ball. These are separate scheduled Fiesta events rather than one continuously open six-day venue.",
+    occurrenceWindows: [
+      { label: "Product Costume Style Show", startDate: "2027-01-25", endDate: "2027-01-25" },
+      { label: "Royal Coronation", startDate: "2027-01-28", endDate: "2027-01-28" },
+      { label: "Fun Fair", startDate: "2027-01-29", endDate: "2027-01-29" },
+      { label: "Parade of Oranges and Royal Ball", startDate: "2027-01-30", endDate: "2027-01-30" },
+    ],
     venue: "Mission Event Center and downtown Mission venues",
     officialUrl: "https://www.texascitrusfiesta.com/",
     sourceCheckedAt: "2026-08-30",
@@ -132,6 +142,12 @@ const records: MajorEventAuthorityRecord[] = [
     startDate: "2026-10-06",
     endDate: "2026-10-10",
     dateNote: "The organizer lists 2026 festival programming on Tuesday October 6, Thursday October 8, Friday October 9 and Saturday October 10. Texas Defined models those as separate scheduled windows rather than implying continuous programming on Wednesday.",
+    occurrenceWindows: [
+      { label: "Goober Games", startDate: "2026-10-06", endDate: "2026-10-06" },
+      { label: "Royal Coronation", startDate: "2026-10-08", endDate: "2026-10-08" },
+      { label: "Friday festival and Kiddie Parade", startDate: "2026-10-09", endDate: "2026-10-09" },
+      { label: "Saturday festival and Grand Parade", startDate: "2026-10-10", endDate: "2026-10-10" },
+    ],
     venue: "Downtown Floresville and Floresville Event Center",
     officialUrl: "https://floresvillepeanutfestival.org/",
     sourceCheckedAt: "2026-08-30",
@@ -184,6 +200,6 @@ const records: MajorEventAuthorityRecord[] = [
 
 const bySlug = new Map(records.map((event) => [event.slug, event]));
 
-export function getExpandedMajorEventAuthorityTranche41Server(slug: string): MajorEventAuthorityRecord | null {
+export function getExpandedMajorEventAuthorityTranche41Server(slug: string): MajorEventAuthorityRecordWithWindows | null {
   return bySlug.get(slug) ?? null;
 }
