@@ -145,6 +145,7 @@ export const INDEXABLE_STATIC_PATHS = [
   "/texas-horseback-riding-guide",
   "/texas-ohv-guide",
   "/texas-paddling-guide",
+  "/texas-stargazing-guide",
   "/german-czech-texas-towns",
   "/texas-brand-origin-stories",
   "/made-in-texas",

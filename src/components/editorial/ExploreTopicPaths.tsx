@@ -92,6 +92,7 @@ const TOPIC_PATHS: Partial<Record<CategorySlug, TopicLink[]>> = {
     { to: "/texas-horseback-riding-guide", label: "Horseback riding", description: "Plan five public-land riding destinations around Coggins documentation, permits, trail sharing, water and equestrian facilities." },
     { to: "/texas-ohv-guide", label: "OHV legal riding", description: "Find legal Texas OHV venues and plan around decals, vehicle classes, land-manager maps, permits and current closures." },
     { to: "/texas-paddling-guide", label: "Texas paddling", description: "Compare five official paddling trails from city lakes and bayous to Caddo swamp and Gulf Coast flats." },
+    { to: "/texas-stargazing-guide", label: "Stargazing & dark skies", description: "Plan Texas's five International Dark Sky Parks around moon phase, Bortle ratings, weather, access and night-sky stewardship." },
     { to: "/best-places-to-go-camping-in-texas", label: "Best camping in Texas", description: "Choose an overnight base by region, season and camping style before heading deeper outdoors." },
     { to: "/explore/lakes-rivers", label: "Lakes & rivers", description: "Plan swimming, paddling and water weekends around current conditions and public access." },
     { to: "/explore/beaches-coast", label: "Beaches & Gulf Coast", description: "Move into barrier islands, bays, coastal habitat, surf safety and Gulf trip planning." },
