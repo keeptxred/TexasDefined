@@ -54,7 +54,7 @@ jobs:
         run: node --experimental-strip-types --test src/lib/remote-image-fetch-policy.test.ts
 
       - name: Validate priority county property overlays
-        run: npx vitest run src/data/property/county-property-priority.test.ts
+        run: node scripts/data/validate-priority-county-property-overlays.mjs
 
       - name: Run authoritative validation suite
         run: node scripts/ci/run-validation-suite.mjs full
