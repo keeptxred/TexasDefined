@@ -1,14 +1,22 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { texasDefinedBrand } from '@/brand/texasdefined';
+import { movingCostDescription, movingCostFaqs, movingCostSeoTitle } from '@/data/moving-cost-calculator';
 import { buildCalculatorHead } from '@/lib/calculator-seo';
-
-const description = 'Estimate a Texas move by combining transportation or movers, packing, travel, deposits, utility setup and a contingency so the first month is not built around the truck price alone.';
 
 export const Route = createFileRoute('/texas-moving-cost-calculator')({
   head: () => buildCalculatorHead(texasDefinedBrand, {
     canonicalPath: '/texas-moving-cost-calculator',
-    title: 'Texas Moving Cost Calculator | Plan the Full Move Budget',
-    description,
-    featureList: ['Estimate transportation and moving help', 'Add packing and travel costs', 'Include deposits and setup expenses', 'Leave room for the unexpected'],
+    title: movingCostSeoTitle,
+    description: movingCostDescription,
+    featureList: [
+      'Estimate a rough transportation baseline from move distance and bedrooms',
+      'Replace the baseline with a written mover or truck estimate',
+      'Add packing, travel, storage, deposits and setup expenses',
+      'Choose a contingency percentage for the unexpected',
+      'Compare one-time moving costs with recurring Texas household costs',
+    ],
+    faqs: movingCostFaqs,
+    breadcrumbParent: { name: 'Moving to Texas', path: '/moving-to-texas' },
+    applicationCategory: 'FinanceApplication',
   }),
 });
