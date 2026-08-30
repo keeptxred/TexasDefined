@@ -4,22 +4,17 @@ import { useState } from "react";
 
 import bluebonnets from "@/assets/bluebonnets.jpg";
 import { useBrand } from "@/brand/context";
-import { texasDefinedBrand } from "@/brand/texasdefined";
 import { EventCard } from "@/components/editorial/EventCard";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
-import { getMajorEventLandingDirectory } from "@/data/major-event-directory";
+import { getEventsPageHead, getMajorEventLandingDirectory } from "@/data/major-event-directory";
 import { eventsQuery, regionsQuery } from "@/data/queries";
 import { resolveSportsVenueEventLink } from "@/data/sports-venue-event-links";
 import type { TexasEvent } from "@/data/types";
 import { formatDateRange } from "@/domain/utils/format";
-import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 
 const description = "Rodeos, wildflower weekends, barbecue throwdowns, dance halls and county fairs — a curated calendar of what’s worth showing up for across Texas.";
-const canonicalPath = "/events";
-const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
-const pageUrl = `${siteUrl}${canonicalPath}`;
 const EVENT_LABELS: Record<TexasEvent["category"], string> = {
   music: "Live Music",
   food: "Food & Drink",
@@ -36,25 +31,15 @@ export const Route = createFileRoute("/events")({
       context.queryClient.ensureQueryData(regionsQuery()),
       getMajorEventLandingDirectory(),
     ]);
-    return { events, regions, ...landingDirectory };
-  },
-  head: ({ loaderData }) => {
-    const regions = loaderData?.regions ?? [];
-    const regionName = (id: string) => regions.find((item) => item.id === id)?.name;
-    const eventItems = (loaderData?.events ?? []).slice(0, 50).map((event, index) => {
-      const venueGuide = resolveSportsVenueEventLink(event.venue);
-      const eventUrl = event.id.startsWith("authority:") ? `${siteUrl}/event/${event.slug}` : `${pageUrl}#${event.id}`;
-      const defaultLocation = { "@type": "Place", name: [event.city, regionName(event.region), "Texas"].filter(Boolean).join(", "), address: { "@type": "PostalAddress", addressLocality: event.city, addressRegion: "TX", addressCountry: "US" } };
-      const location = venueGuide ? { ...defaultLocation, name: event.venue, url: `${siteUrl}${venueGuide.href}` } : defaultLocation;
-      return { "@type": "ListItem", position: index + 1, item: { "@type": "Event", "@id": eventUrl, name: event.name, description: event.blurb, startDate: event.startDate, endDate: event.endDate, eventStatus: "https://schema.org/EventScheduled", eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode", url: eventUrl, location } };
+    const head = await getEventsPageHead({
+      data: {
+        events: events.slice(0, 50),
+        regions: regions.map(({ id, name }) => ({ id, name })),
+      },
     });
-    const graph = [
-      { "@type": "CollectionPage", "@id": `${pageUrl}#page`, url: pageUrl, name: "Texas Events", description, image: { "@type": "ImageObject", url: absoluteUrl(texasDefinedBrand, bluebonnets), caption: "Bluebonnets running to a fence line in a Texas spring field", width: 1600, height: 1067 }, isPartOf: { "@id": `${siteUrl}/#website` }, mainEntity: { "@id": `${pageUrl}#events` }, breadcrumb: { "@id": `${pageUrl}#breadcrumbs` } },
-      { "@type": "ItemList", "@id": `${pageUrl}#events`, name: "Texas events calendar", url: pageUrl, numberOfItems: eventItems.length, itemListElement: eventItems },
-      { "@type": "BreadcrumbList", "@id": `${pageUrl}#breadcrumbs`, itemListElement: [{ "@type": "ListItem", position: 1, name: "Front page", item: `${siteUrl}/` }, { "@type": "ListItem", position: 2, name: "Events", item: pageUrl }] },
-    ];
-    return { meta: buildMeta(texasDefinedBrand, { title: "Texas Events", description, canonicalPath, image: bluebonnets, imageAlt: "Bluebonnets running to a fence line in a Texas spring field" }), links: [canonicalLink(texasDefinedBrand, canonicalPath)], scripts: eventItems.length ? [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": graph }) }] : [] };
+    return { events, regions, head, ...landingDirectory };
   },
+  head: ({ loaderData }) => loaderData?.head ?? {},
   component: EventsPage,
 });
 
