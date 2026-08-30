@@ -85,7 +85,8 @@ const TOPIC_PATHS: Partial<Record<CategorySlug, TopicLink[]>> = {
   ],
   outdoors: [
     { to: "/explore/state-parks", label: "State parks", description: "Start with protected public land for trails, camping and wildlife." },
-    { to: "/texas-birds-guide", label: "Texas birds guide", description: "Plan wildlife outings around habitat, migration and birding seasons across Texas." },
+    { to: "/texas-birds-guide", label: "Texas birds guide", description: "Plan bird-specific outings around habitat, migration and birding seasons across Texas." },
+    { to: "/texas-wildlife-watching-guide", label: "Wildlife watching", description: "Explore five Great Texas Wildlife Trail regions for mammals, bats, reptiles, butterflies and broader safe wildlife viewing." },
     { to: "/texas-natural-wonders-bucket-list", label: "Texas natural wonders", description: "Move from recreation into the canyons, mountains, springs, caves and coast that define the landscape." },
     { to: "/texas-rock-climbing-bouldering-guide", label: "Rock climbing & bouldering", description: "Plan four public climbing areas around land-manager access, conservation and visitor-safety rules." },
     { to: "/texas-mountain-biking-guide", label: "Mountain biking", description: "Compare five public trail systems across desert mountains, canyon country, the Hill Country and East Texas pines." },
