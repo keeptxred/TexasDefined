@@ -2,6 +2,7 @@ import fs from 'node:fs';
 
 const registry = fs.readFileSync('src/lib/public-routes.ts', 'utf8');
 const sitemap = fs.readFileSync('src/routes/sitemap[.]xml.ts', 'utf8');
+const remoteArticles = fs.readFileSync('src/data/articles-remote.ts', 'utf8');
 const exploreSitemap = fs.readFileSync('src/routes/sitemap-explore[.]xml.ts', 'utf8');
 const exploreArticleCounts = fs.readFileSync('src/data/explore-category-article-counts.ts', 'utf8');
 const regionRoute = fs.readFileSync('src/routes/explore.region.$region.tsx', 'utf8');
@@ -77,6 +78,23 @@ if (!exploreSitemap.includes('isExploreSitemapOwnedPath(normalized)')) failures.
 if (!exploreSitemap.includes('normalizePublicPath(path)')) failures.push('Explore sitemap does not normalize/reject malformed paths.');
 if (!sitemap.includes('Promise.allSettled')) failures.push('Primary sitemap must convert upstream failures into an explicit retryable response.');
 if (!sitemap.includes('status: 503') || !sitemap.includes('"retry-after": "300"')) failures.push('Primary sitemap must return retryable 503 semantics on core data failure.');
+
+for (const feature of [
+  'const SITEMAP_PAGE_SIZE = 200',
+  'const SITEMAP_MAX_ROWS = 10_000',
+  'requestAllForSitemap',
+  'pageParams.set("offset", String(offset))',
+  'if (rows.length < SITEMAP_PAGE_SIZE) return articles',
+  'fetchPublishedTexasDefinedNewsArticlesForSitemap',
+  'fetchPublishedTexasDefinedEvergreenArticlesForSitemap',
+]) {
+  if (!remoteArticles.includes(feature)) failures.push(`Remote article sitemap pagination contract missing: ${feature}`);
+}
+if (!remoteArticles.includes('exceeded guarded ${SITEMAP_MAX_ROWS}-row limit')) failures.push('Remote article sitemap pagination must fail closed rather than silently truncate at its guard limit.');
+if (!sitemap.includes('fetchPublishedTexasDefinedNewsArticlesForSitemap()')) failures.push('Primary sitemap must use the paginated remote news inventory.');
+if (!sitemap.includes('fetchPublishedTexasDefinedEvergreenArticlesForSitemap()')) failures.push('Primary sitemap must use the paginated remote evergreen inventory.');
+if (sitemap.includes('fetchPublishedTexasDefinedNewsArticles({ limit: 200 })') || sitemap.includes('fetchPublishedTexasDefinedEvergreenArticles({ limit: 200 })')) failures.push('Primary sitemap must not silently truncate remote article inventory to the newest 200 rows.');
+
 for (const feature of [
   'const remoteConfigured = hasExploreRemoteData()',
   'let enrichedFailed = !remoteConfigured',
@@ -173,4 +191,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Sitemap ownership, crawl-demand partitioning, preserved-catalog remote fallback, resolved quality gates, runtime-isolated sparse-category sitemap gating, malformed-path rejection, all ${redirects.length} governed redirects, all ${nonIndexableRoutes.length} governed noindex routes, migrated aliases and regional quality passed validation.`);
+console.log(`Sitemap ownership, complete paginated remote-article coverage, crawl-demand partitioning, preserved-catalog remote fallback, resolved quality gates, runtime-isolated sparse-category sitemap gating, malformed-path rejection, all ${redirects.length} governed redirects, all ${nonIndexableRoutes.length} governed noindex routes, migrated aliases and regional quality passed validation.`);
