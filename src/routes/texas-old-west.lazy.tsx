@@ -74,7 +74,7 @@ function TexasOldWestPage() {
       <Container className="py-12 sm:py-16">
         <p className="eyebrow text-primary">Official sources & deeper context</p><h2 className="mt-3 font-display text-3xl">Check the managing authority before a special trip</h2><p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Hours, access, events and preservation work can change. Use the official site for current visitor details, especially at historic sites and active event venues.</p>
         <ul className="mt-6 grid gap-3 text-sm font-semibold md:grid-cols-3"><li><a href="https://thc.texas.gov/historic-sites" target="_blank" rel="noreferrer" className="text-primary">Texas Historical Commission historic sites ↗</a></li><li><a href="https://tpwd.texas.gov/state-parks/park-information/wildlife/official-state-longhorn" target="_blank" rel="noreferrer" className="text-primary">TPWD Official State Longhorn Herd ↗</a></li><li><a href="https://www.nps.gov/subjects/buffalosoldiers/about.htm" target="_blank" rel="noreferrer" className="text-primary">National Park Service Buffalo Soldiers ↗</a></li></ul>
-        <div className="mt-8 border-t border-border pt-6 text-sm font-semibold"><Link to="/texas-history" className="text-primary">Continue into Texas History →</Link></div>
+        <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 border-t border-border pt-6 text-sm font-semibold"><Link to="/texas-history" className="text-primary">Continue into Texas History →</Link><Link to="/texas-sacred-places" className="text-primary">Sacred Places & religious heritage →</Link></div>
       </Container>
     </section>
   </>;
