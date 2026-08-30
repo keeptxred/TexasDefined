@@ -1,0 +1,126 @@
+import type { MajorEventAuthorityRecord } from "./major-event-authority.server";
+
+const records: MajorEventAuthorityRecord[] = [
+  {
+    slug: "plano-balloon-festival",
+    name: "H-E-B | Central Market Plano Balloon Festival",
+    city: "Plano",
+    countySlug: "collin",
+    countyName: "Collin County",
+    region: "prairies-lakes",
+    category: "seasonal",
+    startDate: "2026-09-17",
+    endDate: "2026-09-20",
+    venue: "Oak Point Park / Red Tail Pavilion",
+    officialUrl: "https://www.planoballoonfest.org/",
+    sourceCheckedAt: "2026-08-30",
+    whyItMatters: "The Plano Balloon Festival is a four-day North Texas destination event built around scheduled hot-air-balloon launches and glows, live entertainment, family attractions, food and a long-running nonprofit festival tradition in Collin County.",
+    planningSections: [
+      { title: "Use September 17-20 as the confirmed 2026 festival window", body: "The organizer publishes festival operating hours for Thursday, September 17 through Sunday, September 20, 2026 at Oak Point Park. Thursday and Friday are evening-focused, Saturday runs from early morning through night, and Sunday closes after the morning program." },
+      { title: "Treat balloon activity as weather-dependent", body: "The organizer explicitly warns that launches, displays, glows and tethered rides can be restricted by wind or adverse weather. Build the trip around the festival weekend, but check the same-day official schedule before counting on a specific balloon activity." },
+      { title: "Plan arrival around the program you value most", body: "Morning balloon launches, evening glows, fireworks, stage entertainment and family attractions occur at different times. Review the official schedule before choosing parking and arrival time rather than assuming every marquee activity runs continuously." },
+    ],
+    relatedLinks: [
+      { href: "/browse/counties#county-collin", label: "Explore Collin County", description: "Build more Plano and Collin County stops around the festival." },
+      { href: "/event/great-texas-balloon-race", label: "Great Texas Balloon Race", description: "Compare another major Texas hot-air-balloon destination event." },
+      { href: "/events", label: "Texas events calendar", description: "Compare other fall festivals across Texas." },
+    ],
+    sources: [
+      { label: "Plano Balloon Festival official hours and directions", url: "https://www.planoballoonfest.org/directions.aspx" },
+      { label: "Plano Balloon Festival official 2026 schedule", url: "https://www.planoballoonfest.org/events" },
+      { label: "Plano Balloon Festival official festival facts", url: "https://www.planoballoonfest.org/p/about" },
+    ],
+  },
+  {
+    slug: "cottonwood-art-festival",
+    name: "Cottonwood Art Festival",
+    city: "Richardson",
+    countySlug: "dallas",
+    countyName: "Dallas County",
+    region: "prairies-lakes",
+    category: "culture",
+    startDate: "2026-10-03",
+    endDate: "2026-10-04",
+    venue: "Cottonwood Park",
+    officialUrl: "https://cottonwoodartfestival.com/",
+    sourceCheckedAt: "2026-08-30",
+    whyItMatters: "Cottonwood Art Festival turns Richardson's Cottonwood Park into a large juried outdoor art destination with nationally selected artists, live music, food and hands-on children's programming, extending a local festival tradition that began in 1969.",
+    planningSections: [
+      { title: "Use October 3-4 as the confirmed fall 2026 window", body: "The organizer publishes the fall festival for Saturday, October 3 and Sunday, October 4, 2026 at Cottonwood Park, with longer Saturday hours and a Sunday afternoon close." },
+      { title: "Plan for an outdoor art-festival footprint", body: "The festival describes nearly 200 exhibiting artists selected from a much larger applicant pool, plus food, music and children's activities. Comfortable walking time matters more here than a single stage schedule, so leave room to browse rather than trying to rush the grounds." },
+      { title: "Keep the spring 2027 return on the calendar", body: "The organizer already publishes May 1-2, 2027 as the next spring Cottonwood Art Festival. Texas Defined keeps this page anchored to the nearer fall 2026 occurrence while noting that the same event identity returns in spring." },
+    ],
+    relatedLinks: [
+      { href: "/browse/counties#county-dallas", label: "Explore Dallas County", description: "Build more Richardson and Dallas County stops around the festival." },
+      { href: "/event/main-st-fort-worth-arts-festival", label: "MAIN ST. Fort Worth Arts Festival", description: "Compare another large North Texas juried arts festival." },
+      { href: "/events", label: "Texas events calendar", description: "Find more Texas arts and culture events." },
+    ],
+    sources: [
+      { label: "Cottonwood Art Festival official information", url: "https://cottonwoodartfestival.com/information/" },
+      { label: "Cottonwood Art Festival official site", url: "https://cottonwoodartfestival.com/" },
+    ],
+  },
+  {
+    slug: "grapevine-main-street-fest",
+    name: "Grapevine Main Street Fest",
+    city: "Grapevine",
+    countySlug: "tarrant",
+    countyName: "Tarrant County",
+    region: "prairies-lakes",
+    category: "culture",
+    startDate: "2027-05-14",
+    endDate: "2027-05-16",
+    venue: "Historic Main Street Grapevine",
+    officialUrl: "https://www.grapevinetexasusa.com/main-street-fest/",
+    sourceCheckedAt: "2026-08-30",
+    whyItMatters: "Grapevine Main Street Fest is a three-day North Texas destination festival that fills Historic Main Street with live entertainment, a carnival and midway, craft-beverage experiences, shopping, food vendors, family programming and arts activity.",
+    planningSections: [
+      { title: "Use May 14-16 as the confirmed 2027 festival window", body: "The Grapevine Convention & Visitors Bureau already publishes the 43rd annual Main Street Fest for Friday, May 14 through Sunday, May 16, 2027, including official operating hours for each day." },
+      { title: "Treat Historic Main Street as the festival district", body: "Programming stretches through the downtown corridor rather than operating as one isolated stage. Plan time for festival attractions, Main Street shops, food and the craft-beverage areas instead of trying to see the event as a single performance." },
+      { title: "Check the admission window before arriving", body: "The organizer publishes different admission conditions by day and time. Recheck the official general-information page when tickets go on sale so the trip plan reflects current weekend-pass and daily-admission rules." },
+    ],
+    relatedLinks: [
+      { href: "/browse/counties#county-tarrant", label: "Explore Tarrant County", description: "Build more Grapevine and Tarrant County stops around the festival." },
+      { href: "/event/grapefest", label: "GrapeFest", description: "Compare Grapevine's major fall wine festival with its spring Main Street tradition." },
+      { href: "/events", label: "Texas events calendar", description: "Find other spring destination festivals across Texas." },
+    ],
+    sources: [
+      { label: "Grapevine Main Street Fest official page", url: "https://www.grapevinetexasusa.com/main-street-fest/" },
+      { label: "Grapevine Main Street Fest official general information", url: "https://www.grapevinetexasusa.com/main-street-fest/general-information/" },
+    ],
+  },
+  {
+    slug: "texas-pinball-festival",
+    name: "Texas Pinball Festival",
+    city: "Frisco",
+    region: "prairies-lakes",
+    category: "culture",
+    startDate: "2027-03-17",
+    endDate: "2027-03-21",
+    dateNote: "The organizer's 2027 headline window is March 17-21. The core public show traditionally occupies Friday through Sunday, with technical, exhibitor and setup programming earlier in the week; check the final 2027 schedule as it is released.",
+    venue: "Embassy Suites Dallas-Frisco Hotel and Convention Center",
+    officialUrl: "https://texaspinball.com/",
+    sourceCheckedAt: "2026-08-30",
+    whyItMatters: "The Texas Pinball Festival brings hundreds of playable machines, tournaments, seminars, collectors, manufacturers and enthusiasts together in Frisco, making it a distinctive North Texas destination event centered on arcade history, restoration and competitive play.",
+    planningSections: [
+      { title: "Use March 17-21 as the organizer-published 2027 window", body: "The festival's official home page announces March 17 through 21, 2027 in Frisco. The organizer says 2027 passes go on sale in fall 2026, so recheck the ticket and schedule pages before booking around a particular session." },
+      { title: "Separate the public show from pre-festival programming", body: "The current event format includes technical and exhibitor activity before the main public Friday-through-Sunday show. Use the final 2027 schedule to determine whether an earlier arrival adds value for your ticket type or interests." },
+      { title: "Plan for a hands-on convention rather than a passive expo", body: "The festival emphasizes hundreds of playable machines alongside tournaments, seminars, vendors and collector activity. Leave enough time to play and explore the floor instead of treating it as a quick exhibit walk-through." },
+    ],
+    relatedLinks: [
+      { href: "/events", label: "Texas events calendar", description: "Compare other Texas conventions and destination events." },
+      { href: "/explore/prairies-lakes", label: "Prairies & Lakes", description: "Build a broader North Texas trip around Frisco." },
+    ],
+    sources: [
+      { label: "Texas Pinball Festival official home page", url: "https://texaspinball.com/" },
+      { label: "Texas Pinball Festival attendee information", url: "https://texaspinball.com/attendees/" },
+      { label: "Texas Pinball Festival schedule", url: "https://texaspinball.com/schedule/" },
+    ],
+  },
+];
+
+const bySlug = new Map(records.map((event) => [event.slug, event]));
+
+export function getExpandedMajorEventAuthorityTranche37Server(slug: string): MajorEventAuthorityRecord | null {
+  return bySlug.get(slug) ?? null;
+}

@@ -77,6 +77,10 @@ export const supplementalMajorEventSlugs = [
   "houston-ballet-nutcracker-market",
   "texas-monthly-bbq-fest",
   "valero-alamo-bowl",
+  "plano-balloon-festival",
+  "cottonwood-art-festival",
+  "grapevine-main-street-fest",
+  "texas-pinball-festival",
 ] as const;
 
 export function loadSupplementalMajorEventRecordsServer() {
