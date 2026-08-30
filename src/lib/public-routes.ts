@@ -127,6 +127,7 @@ export const INDEXABLE_STATIC_PATHS = [
   "/texas-dance-halls-honky-tonks",
   "/texas-homecoming-mums",
   "/texas-natural-wonders-bucket-list",
+  "/texas-rock-climbing-bouldering-guide",
   "/german-czech-texas-towns",
   "/texas-brand-origin-stories",
   "/made-in-texas",
