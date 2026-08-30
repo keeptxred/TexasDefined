@@ -282,7 +282,7 @@ export const REDIRECT_ONLY_PATHS = [
   "/historic-site/fanthorp-inn-state-historic-site",
   "/historic-site/lipantitlan-state-historic-site",
   "/historic-site/lyndon-b-johnson-state-park-state-historic-site",
-  "/historic-site/washington-on-the-brazos-state-park-state-historic-site",
+  "/historic-site/washington-on-the-brazos-state-historic-site",
   "/state-park/atlanta-state-park",
   "/state-park/eisenhower-state-park",
   "/state-park/fort-boggy-state-park",
