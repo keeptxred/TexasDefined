@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "site": "TexasDefined",
   "canonicalDomain": "https://texasdefined.com",
-  "asOf": "2026-08-19",
+  "asOf": "2026-08-30",
   "purpose": "Machine-readable index of maintained TexasDefined reference resources intended for factual retrieval, comparison and citation.",
   "resources": [
     { "url": "https://texasdefined.com/citation-guide", "type": "citation-policy", "topic": "TexasDefined citation guidance", "title": "How to Cite TexasDefined References & Data", "trust": ["canonical-url-guidance", "official-source-precedence", "provenance"] },
@@ -35,6 +35,10 @@
     { "url": "https://texasdefined.com/texas-homecoming-mums", "type": "culture-reference", "topic": "Texas homecoming mums", "title": "Texas Homecoming Mums Explained", "trust": ["historical-context", "local-variation-caveat", "answer-layer"] },
     { "url": "https://texasdefined.com/texas-natural-wonders-bucket-list", "type": "travel-reference", "topic": "Texas natural wonders", "title": "Texas Natural Wonders Bucket List", "trust": ["regional-context", "planning-caveat", "conservation-caveat", "canonical-cross-links"] },
     { "url": "https://texasdefined.com/german-czech-texas-towns", "type": "heritage-travel-reference", "topic": "German and Czech Texas heritage", "title": "German & Czech Texas Towns", "trust": ["historical-context", "heritage-network", "canonical-cross-links", "planning-caveat"] },
+    { "url": "https://texasdefined.com/texas-science-technology-industry", "type": "science-industry-travel-reference", "topic": "Texas science, space, technology and industry destinations", "title": "Texas Science, Space, Technology & Industry", "trust": ["official-sources", "source-review-date", "operations-caveat", "canonical-cross-links", "visitor-planning"] },
+    { "url": "https://texasdefined.com/texas-college-towns", "type": "college-town-travel-reference", "topic": "Texas college towns and campus weekends", "title": "Texas College Towns & Campus Weekends", "trust": ["first-party-campus-sources", "source-review-date", "game-day-caveat", "canonical-cross-links", "visitor-planning"] },
+    { "url": "https://texasdefined.com/texas-tailgating-guide", "type": "sports-travel-reference", "topic": "Texas tailgating and game-day travel", "title": "Texas Tailgating Guide", "trust": ["first-party-athletics-sources", "source-review-date", "event-day-caveat", "safety-caveat", "canonical-cross-links"] },
+    { "url": "https://texasdefined.com/texas-unique-lodging", "type": "lodging-travel-reference", "topic": "Texas park lodges and historic cabins", "title": "Unique Lodging in Texas", "trust": ["first-party-TPWD-sources", "source-review-date", "availability-caveat", "no-ranking-claim", "canonical-cross-links"] },
     { "url": "https://texasdefined.com/texas-brand-origin-stories", "type": "brand-culture-reference", "topic": "Texas brand origins", "title": "Texas Brand Origin Stories", "trust": ["primary-brand-history-sources", "origin-vs-current-ownership-distinction", "canonical-cross-links"] },
     { "url": "https://texasdefined.com/dr-pepper-texas-history", "type": "brand-history-reference", "topic": "Dr Pepper Texas history", "title": "Dr Pepper in Texas", "trust": ["Dr-Pepper-Museum-source", "Waco-1885-origin", "origin-vs-current-ownership-distinction"] },
 
