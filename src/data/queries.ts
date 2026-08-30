@@ -4,6 +4,7 @@ import { prepareArticleForDelivery, prepareDestinationForDelivery } from "@/lib/
 import { fetchPublishedTexasDefinedEvergreenArticle } from "./articles-remote";
 import { fetchPublishedTexasEvents } from "./events-remote";
 import { supplementalExploreCategories } from "./explore-categories";
+import { isArticleIndexReady } from "./fixtures/texas-gateway-index-readiness";
 import { guideIsAvailable } from "./guide-links";
 import { platform, scope } from "./index";
 import type { ArticleQuery, DestinationQuery } from "./repositories";
@@ -12,7 +13,9 @@ import type { Destination, SearchDocument, Slug } from "./types";
 
 export const articlesQuery = (params: Omit<ArticleQuery, "brandId"> = {}) => queryOptions({
   queryKey: ["articles", scope.brandId, params],
-  queryFn: async () => (await platform.articles.list({ ...scope, ...params })).map(prepareArticleForDelivery),
+  queryFn: async () => (await platform.articles.list({ ...scope, ...params }))
+    .map(prepareArticleForDelivery)
+    .filter(isArticleIndexReady),
 });
 export const articleQuery = (slug: Slug) => queryOptions({
   queryKey: ["article", scope.brandId, slug],
@@ -91,7 +94,19 @@ const staticSearchDocuments: SearchDocument[] = [
 export const searchDocumentsQuery = () => queryOptions({
   queryKey: ["search-documents", scope.brandId],
   queryFn: async () => {
-    const base = await platform.search.documents(scope);
+    const [rawBase, articleCatalog] = await Promise.all([
+      platform.search.documents(scope),
+      platform.articles.list(scope),
+    ]);
+    const indexableArticleHrefs = new Set(
+      articleCatalog
+        .map(prepareArticleForDelivery)
+        .filter(isArticleIndexReady)
+        .map((article) => `/article/${article.slug}`),
+    );
+    const base = rawBase.filter(
+      (document) => document.kind !== "article" || indexableArticleHrefs.has(document.href),
+    );
     const knownHrefs = new Set(base.map((document) => document.href));
     for (const document of staticSearchDocuments) {
       if (knownHrefs.has(document.href)) continue;
