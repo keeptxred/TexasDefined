@@ -75,8 +75,8 @@ for (const marker of [
 for (const target of ['/sports', '/sports-venues', '/sports-venues/college-sports', '/texas-college-towns', '/events/sports-events', '/explore/trip-planner']) {
   assert(tailgatingLazy.includes(`to=${JSON.stringify(target)}`), `Texas tailgating guide must retain visitor-planning link to ${target}.`);
 }
-const tailgatingSourceCount = (tailgatingLazy.match(/href="https:\/\//g) ?? []).length;
-assert(tailgatingSourceCount >= 5, `Texas tailgating guide needs at least five first-party source links; found ${tailgatingSourceCount}.`);
+const tailgatingSourceCount = (tailgatingLazy.match(/["']https:\/\//g) ?? []).length;
+assert(tailgatingSourceCount >= 5, `Texas tailgating guide needs at least five first-party source URLs in its source registry; found ${tailgatingSourceCount}.`);
 assert(sportsLazy.includes('to="/texas-tailgating-guide"'), 'Texas Sports must surface the tailgating guide from its sports-culture section.');
 assert(publicRoutes.includes('"/texas-tailgating-guide"'), 'Texas tailgating guide must remain explicitly registered as an indexable static public route.');
 
