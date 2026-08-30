@@ -10,7 +10,7 @@ import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const legacyExploreRedirects: Record<string, string> = {
   "scenic-rivers": "/article/texas-rivers-explained",
-  "texas-dark-sky-stargazing": "/article/best-texas-stargazing-weekend-trips",
+  "texas-dark-sky-stargazing": "/texas-stargazing-guide",
 };
 const authorityCategorySlugs = new Set(["outdoors", "caverns", "lakes-rivers", "beaches-coast"]);
 const categorySeoOverrides: Partial<Record<string, { title: string; description: string }>> = {
