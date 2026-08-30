@@ -27,6 +27,7 @@ const sitemap = read(sitemapPath);
 if (!readiness.includes("TEXAS_GATEWAY_INDEX_READY_SLUGS")) fail("missing explicit index-ready allowlist");
 if (!readiness.includes('article.id.startsWith("gateway-")')) fail("gateway identity must remain explicit and scoped to gateway-* article IDs");
 if (!readiness.includes("shouldNoindexTexasGatewayArticle")) fail("missing staged-page noindex helper");
+if (!readiness.includes("if (!isTexasGatewayIndexReadyArticle(article)) return false")) fail("strict readiness must preserve the explicit gateway allowlist as its first boundary");
 
 if (!loader.includes("function loadAllTexasGatewayArticles()")) fail("direct QA loader must retain access to the full gateway set");
 if (!/loadTexasGatewayArticle[\s\S]*loadAllTexasGatewayArticles\(\)/.test(loader)) fail("direct gateway lookup must resolve from the full staged+ready set");
@@ -35,7 +36,7 @@ if (!loader.includes("return articles.filter(isTexasGatewayIndexReadyArticle);")
 if (!articleRoute.includes('shouldNoindexTexasGatewayArticle(article) ? "noindex, follow, max-image-preview:large" : undefined')) {
   fail("article metadata must noindex staged gateway drafts while preserving followed links");
 }
-if (!sitemap.includes("isTexasGatewayIndexReadyArticle(article)")) fail("sitemap must defensively filter staged gateway drafts");
+if (!sitemap.includes("isArticleIndexReady(article)")) fail("sitemap must defensively apply strict readiness, which includes staged gateway quarantine");
 
 const gatewayFixtureDir = path.join(root, "src/data/fixtures");
 const nonArticleGatewayFiles = new Set([
