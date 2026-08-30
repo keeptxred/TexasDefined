@@ -6,6 +6,7 @@ const routePath = path.join(root, 'src/routes/explore.$category.tsx');
 const route = fs.readFileSync(routePath, 'utf8');
 const lazyRoute = fs.readFileSync(path.join(root, 'src/routes/explore.$category.lazy.tsx'), 'utf8');
 const categoryPage = fs.readFileSync(path.join(root, 'src/components/editorial/CategoryPage.tsx'), 'utf8');
+const topicPaths = fs.readFileSync(path.join(root, 'src/components/editorial/ExploreTopicPaths.tsx'), 'utf8');
 const indexability = fs.readFileSync(path.join(root, 'src/data/explore-category-indexability.ts'), 'utf8');
 const retiredHelperPath = path.join(root, 'src/data/explore-category-authority.ts');
 const errors = [];
@@ -105,6 +106,21 @@ for (const [slug, requiredMarkers] of Object.entries({
   for (const marker of requiredMarkers) if (!html.includes(marker)) errors.push(`${slug} authority asset missing protected marker: ${marker}.`);
 }
 
+for (const [categoryMarker, requiredTargets] of [
+  ['"lakes-rivers": [', ['/explore/outdoors', '/explore/state-parks', '/explore/trip-planner', '/fishing']],
+  ['"beaches-coast": [', ['/explore/outdoors', '/explore/state-parks', '/explore/road-trips', '/explore/trip-planner', '/texas-birds-guide']],
+  ['outdoors: [', ['/explore/lakes-rivers', '/explore/beaches-coast', '/fishing', '/texas-birds-guide']],
+]) {
+  const start = topicPaths.indexOf(categoryMarker);
+  if (start < 0) {
+    errors.push(`Explore topic paths missing protected category marker: ${categoryMarker}.`);
+    continue;
+  }
+  const nextCategory = topicPaths.indexOf('\n  ', start + categoryMarker.length);
+  const slice = topicPaths.slice(start, nextCategory > start ? nextCategory : undefined);
+  for (const target of requiredTargets) if (!slice.includes(`to: "${target}"`)) errors.push(`${categoryMarker} must retain reciprocal Explore target ${target}.`);
+}
+
 const stagedMatch = indexability.match(/STAGED_EXPLORE_CATEGORY_SLUGS\s*=\s*new Set<CategorySlug>\(\[([\s\S]*?)\]\)/);
 const stagedBody = stagedMatch?.[1] ?? '';
 for (const slug of authoritySlugs) {
@@ -116,4 +132,4 @@ if (errors.length) {
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
-console.log('Explore Outdoors, Caverns, Lakes & Rivers, and Beaches & Coast retain 700+ words, substantive sections, official sources, internal discovery, safe static markup, inline SSR/client asset delivery, index readiness, and protected search-intent metadata without helper-module bundle cost.');
+console.log('Explore Outdoors, Caverns, Lakes & Rivers, and Beaches & Coast retain 700+ words, substantive sections, official sources, reciprocal discovery, safe static markup, inline SSR/client asset delivery, index readiness, and protected search-intent metadata without helper-module bundle cost.');
