@@ -21,6 +21,11 @@ function SportsPage() {
               <p className="mt-3 text-sm leading-6 text-muted-foreground">Go beyond schedules and scores with evergreen guides to the teams and rituals that became part of Texas identity.</p>
             </div>
             <div className="grid gap-5 md:grid-cols-2">
+              <Link to="/texas-tailgating-guide" className="group border-t border-border py-5">
+                <strong className="block font-display text-2xl group-hover:text-primary">Texas tailgating and game-day planning</strong>
+                <span className="mt-2 block text-sm leading-6 text-muted-foreground">Build college and pro football weekends around official parking, tailgating zones, stadium entry and the traditions that start before kickoff.</span>
+                <span className="mt-3 block text-sm font-semibold text-primary">Open the Texas tailgating guide →</span>
+              </Link>
               <Link to="/article/$slug" params={{ slug: "san-antonio-spurs-texas-basketball-culture" }} className="group border-t border-border py-5">
                 <strong className="block font-display text-2xl group-hover:text-primary">San Antonio Spurs: basketball and city identity</strong>
                 <span className="mt-2 block text-sm leading-6 text-muted-foreground">How championships, continuity and a team-first culture became woven into San Antonio's modern civic identity.</span>
