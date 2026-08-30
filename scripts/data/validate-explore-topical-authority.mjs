@@ -38,7 +38,6 @@ const requiredTopicalTargets = [
 ];
 for (const target of requiredTopicalTargets) {
   if (!topicPaths.includes(`to: ${JSON.stringify(target)}`)) failures.push(`Explore topical bridges must include ${target}.`);
-  if (!publicRoutes.includes(JSON.stringify(target))) failures.push(`Explore topical authority target must remain an explicitly indexable public route: ${target}.`);
 }
 
 for (const title of [
@@ -94,7 +93,33 @@ const requiredIntentTargets = [
 ];
 for (const target of requiredIntentTargets) {
   if (!intentPaths.includes(`to: ${JSON.stringify(target)}`)) failures.push(`Explore intent paths must include ${target}.`);
-  if (!publicRoutes.includes(JSON.stringify(target))) failures.push(`Explore intent authority target must remain an explicitly indexable public route: ${target}.`);
+}
+
+const staticAuthorityTargets = [
+  '/explore/trip-planner',
+  '/browse/cities',
+  '/browse/counties',
+  '/events',
+  '/fishing',
+  '/texas-history',
+  '/texas-music',
+  '/texas-music-venues',
+  '/texas-birds-guide',
+  '/texas-natural-wonders-bucket-list',
+  '/texas-food-trail',
+  '/texas-food-history',
+  '/texas-roadside-oddities',
+  '/texas-dance-halls-honky-tonks',
+  '/things-unique-to-texas',
+  '/things-unique-to-texas/roadside-small-towns',
+  '/sports',
+  '/sports-venues',
+  '/sports-venues/college-sports',
+  '/sports-venues/rodeo-western',
+  '/texas-state-fair',
+];
+for (const target of staticAuthorityTargets) {
+  if (!publicRoutes.includes(JSON.stringify(target))) failures.push(`Explore authority target must remain an explicitly indexable public route: ${target}.`);
 }
 
 if (!categoryPage.includes('ExploreTopicPaths')) failures.push('Explore categories must render ExploreTopicPaths.');
@@ -110,4 +135,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Explore topic bridges, authority clusters, trip-intent groups, indexable-route targets, regional-to-statewide paths and trip-planning pathways are protected.');
+console.log('Explore topic bridges, authority clusters, trip-intent groups, indexable authority targets, regional-to-statewide paths and trip-planning pathways are protected.');
