@@ -4,7 +4,7 @@ import { Container } from '@/components/layout/Container';
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 const canonicalPath = '/property-tax-calculators';
-const description = 'Free Texas property-tax calculators using official local taxing-unit rates for parcel estimates, local city and county scenarios, bill breakdowns, comparisons, homestead savings, protests, escrow and more.';
+const description = 'Free Texas property-tax calculators using official local taxing-unit rates for parcel estimates, major-county and city scenarios, bill breakdowns, comparisons, homestead savings, protests, escrow and more.';
 
 const tools = [
   ['Property tax estimator', 'Choose the county, ISD, city and applicable special districts, then estimate annual and monthly property tax from finalized Comptroller-reported rates.', '/texas-property-tax-estimator', 'I want to estimate taxes for a property'],
@@ -21,17 +21,34 @@ const tools = [
   ['Agricultural valuation', 'Compare market-value and productivity-value tax scenarios using a selected set of official local taxing-unit rates.', '/texas-agricultural-valuation-calculator', 'I am evaluating agricultural valuation'],
 ] as const;
 
-const localTools = [
-  ['Houston property tax calculator', '/property-tax-calculator/houston', 'Start with Harris, Fort Bend or Montgomery County, then choose the school, city and special districts serving the parcel.'],
-  ['Austin property tax calculator', '/property-tax-calculator/austin', 'Start with Travis, Williamson or Hays County and build the actual local taxing-unit stack.'],
-  ['Frisco property tax calculator', '/property-tax-calculator/frisco', 'Choose Collin or Denton County, then verify the city, school district and other parcel taxing units.'],
-  ['Harris County property tax calculator', '/property-tax-calculator/harris-county', 'Keep Harris County selected and add only the municipality, school and special districts that apply to the property.'],
-  ['Collin County property tax calculator', '/property-tax-calculator/collin-county', 'Keep Collin County selected and build the parcel-specific city, school and special-district scenario.'],
+const cityTools = [
+  ['Houston property tax calculator', '/property-tax-calculator/houston', 'Harris, Fort Bend or Montgomery County starting points with parcel-specific school, city and special-district selection.'],
+  ['Austin property tax calculator', '/property-tax-calculator/austin', 'Travis, Williamson or Hays County starting points with the actual local taxing-unit stack.'],
+  ['Frisco property tax calculator', '/property-tax-calculator/frisco', 'Collin or Denton County starting points with parcel school, city and other taxing units.'],
 ] as const;
 
+const countyTools = [
+  ['Harris County', '/property-tax-calculator/harris-county'],
+  ['Dallas County', '/property-tax-calculator/dallas-county'],
+  ['Tarrant County', '/property-tax-calculator/tarrant-county'],
+  ['Bexar County', '/property-tax-calculator/bexar-county'],
+  ['Travis County', '/property-tax-calculator/travis-county'],
+  ['Collin County', '/property-tax-calculator/collin-county'],
+  ['Denton County', '/property-tax-calculator/denton-county'],
+  ['Fort Bend County', '/property-tax-calculator/fort-bend-county'],
+  ['Montgomery County', '/property-tax-calculator/montgomery-county'],
+  ['Williamson County', '/property-tax-calculator/williamson-county'],
+  ['El Paso County', '/property-tax-calculator/el-paso-county'],
+  ['Hidalgo County', '/property-tax-calculator/hidalgo-county'],
+] as const;
+
+const localToolsForSchema = [
+  ...cityTools.map(([name, path, itemDescription]) => ({ name, path, itemDescription })),
+  ...countyTools.map(([name, path]) => ({ name: `${name} property tax calculator`, path, itemDescription: `Build a parcel-specific ${name} property-tax estimate from official county, school, city and applicable special-district rates.` })),
+];
 const allToolsForSchema = [
   ...tools.map(([name, itemDescription, path]) => ({ name, itemDescription, path })),
-  ...localTools.map(([name, path, itemDescription]) => ({ name, itemDescription, path })),
+  ...localToolsForSchema,
 ];
 
 export const Route = createFileRoute('/property-tax-calculators')({
@@ -61,15 +78,24 @@ function Page() {
         <nav aria-label="Breadcrumb" className="border-b border-border pb-4 text-xs uppercase tracking-[0.14em] text-muted-foreground"><Link to="/">Front page</Link><span className="mx-2">/</span><Link to="/property">Property</Link><span className="mx-2">/</span><span>Calculators</span></nav>
         <header className="grid gap-8 border-b border-border py-10 lg:grid-cols-[minmax(0,1fr)_19rem] lg:items-end">
           <div><p className="eyebrow text-primary">Property Taxes</p><h1 className="mt-3 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">Texas property-tax calculators</h1><p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Free planning tools for Texas homeowners, homebuyers and landowners. Local-rate tools load finalized county, city, school-district and special-district rates reported to the Texas Comptroller while keeping parcel-specific jurisdictions and exemptions visible.</p></div>
-          <p className="border-l border-border pl-6 text-sm leading-6 text-muted-foreground">There is no single Texas, Houston, Austin, Frisco or countywide combined property-tax rate. The exact parcel determines which local taxing units actually apply.</p>
+          <p className="border-l border-border pl-6 text-sm leading-6 text-muted-foreground">There is no single Texas, citywide or countywide combined property-tax rate. The exact parcel determines which local taxing units actually apply.</p>
         </header>
 
         <section className="border-b border-border py-10">
-          <p className="eyebrow text-primary">Local calculators</p>
-          <h2 className="mt-2 font-display text-4xl">Start with the city or county, finish with the parcel</h2>
-          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These local pages are not fixed-rate doorway calculators. They use the same official-rate engine as the statewide estimator, then require you to choose the school district, municipality and special districts that actually serve the property.</p>
-          <div className="mt-7 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {localTools.map(([title, href, copy]) => <a key={href} href={href} className="rounded-md border border-border p-5 hover:border-primary/50"><strong className="font-display text-2xl">{title}</strong><span className="mt-3 block text-sm leading-6 text-muted-foreground">{copy}</span><span className="eyebrow mt-5 inline-block text-primary">Open local calculator →</span></a>)}
+          <p className="eyebrow text-primary">City starting points</p>
+          <h2 className="mt-2 font-display text-4xl">Start with the city, finish with the parcel</h2>
+          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These pages do not assign a metro average. They narrow the county choices first, then use the same official-rate engine as the statewide estimator so the school district, municipality and special districts remain explicit.</p>
+          <div className="mt-7 grid gap-4 md:grid-cols-3">
+            {cityTools.map(([title, href, copy]) => <a key={href} href={href} className="rounded-md border border-border p-5 hover:border-primary/50"><strong className="font-display text-2xl">{title}</strong><span className="mt-3 block text-sm leading-6 text-muted-foreground">{copy}</span><span className="eyebrow mt-5 inline-block text-primary">Open city calculator →</span></a>)}
+          </div>
+        </section>
+
+        <section className="border-b border-border py-10">
+          <p className="eyebrow text-primary">Major county calculators</p>
+          <h2 className="mt-2 font-display text-4xl">Build an address-level scenario in a major Texas county</h2>
+          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">County selection is only the first layer. Every calculator below preselects the county, then requires the parcel's actual school, municipality and applicable special districts before the combined estimate is useful.</p>
+          <div className="mt-7 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
+            {countyTools.map(([name, href]) => <a key={href} href={href} className="group bg-background p-5"><strong className="font-display text-2xl group-hover:text-primary">{name}</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Official local-rate calculator →</span></a>)}
           </div>
         </section>
 
@@ -84,7 +110,7 @@ function Page() {
         </section>
 
         <section className="grid gap-8 border-t border-border py-10 lg:grid-cols-2">
-          <div><p className="eyebrow text-primary">Need the local context?</p><h2 className="mt-2 font-display text-3xl">Start with your county guide</h2><p className="mt-4 text-sm leading-7 text-muted-foreground">The county guides surface finalized county, school, city and special-district rate tables alongside appraisal, exemption, protest and payment resources.</p><Link to="/property-tax/counties" className="mt-5 inline-block font-semibold text-primary underline decoration-primary/40 underline-offset-4">Browse all 254 county property-tax guides →</Link></div>
+          <div><p className="eyebrow text-primary">Need another county?</p><h2 className="mt-2 font-display text-3xl">Browse all 254 county guides</h2><p className="mt-4 text-sm leading-7 text-muted-foreground">Texas Defined maintains county guides with finalized county, school, city and special-district rate tables alongside appraisal, exemption, protest and payment resources.</p><Link to="/property-tax/counties" className="mt-5 inline-block font-semibold text-primary underline decoration-primary/40 underline-offset-4">Browse all county property-tax guides →</Link></div>
           <div><p className="eyebrow text-primary">Need the rules first?</p><h2 className="mt-2 font-display text-3xl">Read the Texas property-tax guide</h2><p className="mt-4 text-sm leading-7 text-muted-foreground">Understand appraised value, taxable value, taxing units, exemptions, protests and payments before interpreting a calculator result.</p><Link to="/learn/property-taxes" className="mt-5 inline-block font-semibold text-primary underline decoration-primary/40 underline-offset-4">How Texas property taxes work →</Link></div>
         </section>
 
