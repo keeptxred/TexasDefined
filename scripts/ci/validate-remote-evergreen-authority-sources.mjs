@@ -33,9 +33,14 @@ const APPROVED_SOURCE_HOSTS = new Set([
 
 const sourceUrl = new URL("../../src/data/remote-evergreen-authority-sources.ts", import.meta.url);
 const sourceText = readFileSync(sourceUrl, "utf8");
+const fallbackUrl = new URL("../../src/data/remote-evergreen-source-fallbacks.ts", import.meta.url);
+const fallbackText = readFileSync(fallbackUrl, "utf8");
+const queriesUrl = new URL("../../src/data/queries.ts", import.meta.url);
+const queriesText = readFileSync(queriesUrl, "utf8");
 const articleRouteUrl = new URL("../../src/routes/article.$slug.tsx", import.meta.url);
 const articleRouteText = readFileSync(articleRouteUrl, "utf8");
 const entries = new Map();
+const fallbacks = new Map();
 
 for (const line of sourceText.split(/\r?\n/)) {
   const entryMatch = line.match(/^\s{2}"([^"]+)": \[(.*)\],?$/);
@@ -49,10 +54,20 @@ for (const line of sourceText.split(/\r?\n/)) {
   entries.set(slug, sources);
 }
 
+for (const line of fallbackText.split(/\r?\n/)) {
+  const match = line.match(/^\s{2}"([^"]+)": \{ name: "([^"]+)", url: "([^"]+)" \},?$/);
+  if (!match) continue;
+  fallbacks.set(match[1], { name: match[2], url: match[3] });
+}
+
 const actualSlugs = [...entries.keys()].sort();
+const fallbackSlugs = [...fallbacks.keys()].sort();
 const requiredSlugs = [...REQUIRED_SLUGS].sort();
 if (JSON.stringify(actualSlugs) !== JSON.stringify(requiredSlugs)) {
   throw new Error(`Evergreen authority cohort mismatch. Expected ${requiredSlugs.join(", ")}; found ${actualSlugs.join(", ")}`);
+}
+if (JSON.stringify(fallbackSlugs) !== JSON.stringify(requiredSlugs)) {
+  throw new Error(`Evergreen primary-source fallback mismatch. Expected ${requiredSlugs.join(", ")}; found ${fallbackSlugs.join(", ")}`);
 }
 
 for (const slug of REQUIRED_SLUGS) {
@@ -67,6 +82,40 @@ for (const slug of REQUIRED_SLUGS) {
     if (url.protocol !== "https:") throw new Error(`${slug} uses a non-HTTPS authority source: ${source.url}`);
     if (!APPROVED_SOURCE_HOSTS.has(url.hostname)) throw new Error(`${slug} uses an unapproved authority-source host: ${url.hostname}`);
   }
+
+  const fallback = fallbacks.get(slug);
+  if (!fallback) throw new Error(`${slug} is missing its compact primary-source fallback`);
+  if (fallback.name.trim().length < 3) throw new Error(`${slug} has an invalid fallback source name`);
+  const fallbackParsedUrl = new URL(fallback.url);
+  if (fallbackParsedUrl.protocol !== "https:") throw new Error(`${slug} uses a non-HTTPS fallback source: ${fallback.url}`);
+  if (!APPROVED_SOURCE_HOSTS.has(fallbackParsedUrl.hostname)) throw new Error(`${slug} uses an unapproved fallback source host: ${fallbackParsedUrl.hostname}`);
+  if (fallback.url !== sources[0].url || fallback.name !== sources[0].label) {
+    throw new Error(`${slug} compact fallback must exactly match the first audited authority source`);
+  }
+}
+
+for (const marker of [
+  'const SOURCES_HEADING = "Sources and further reading";',
+  'export function ensureRemoteEvergreenSourceFallback(article: Article): Article',
+  'const sourceName = article.sourceName?.trim() || fallback.name;',
+  'const sourceUrl = article.sourceUrl?.trim() || fallback.url;',
+  '{ type: "heading" as const, text: SOURCES_HEADING }',
+  'return { ...article, sourceName, sourceUrl, body };',
+]) {
+  if (!fallbackText.includes(marker)) throw new Error(`Compact evergreen source fallback is missing marker: ${marker}`);
+}
+
+for (const marker of [
+  'import { ensureRemoteEvergreenSourceFallback } from "./remote-evergreen-source-fallbacks";',
+  'return prepareArticleForDelivery(ensureRemoteEvergreenSourceFallback(article));',
+  'if (localArticle.sourceName && localArticle.sourceUrl) return prepareArticleDetail(localArticle);',
+  'return prepareArticleDetail(sourceHydratedLocalArticle);',
+  'return remoteArticle ? prepareArticleDetail(remoteArticle) : null;',
+]) {
+  if (!queriesText.includes(marker)) throw new Error(`Article query is missing synchronous evergreen fallback marker: ${marker}`);
+}
+if (queriesText.includes('await import("./remote-evergreen-authority-sources")')) {
+  throw new Error("Article query must not depend on a runtime dynamic authority-source import for the governed 19-page fallback.");
 }
 
 for (const marker of [
@@ -86,4 +135,4 @@ if (articleRouteText.includes('useSuspenseQuery(articleQuery(')) {
   throw new Error('Article route must render the loader-resolved article directly instead of launching a second suspense article query.');
 }
 
-console.log(`Validated ${REQUIRED_SLUGS.length} remote evergreen authority-source records plus SSR source rendering and loader-data reuse.`);
+console.log(`Validated ${REQUIRED_SLUGS.length} audited authority records, exact compact synchronous fallbacks, all article delivery paths, and SSR source rendering.`);
