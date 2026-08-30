@@ -114,7 +114,7 @@ for (const marker of [
   'getEventCollectionPage',
   'head: ({ loaderData }) => loaderData?.page.head ?? {}',
   'sourcePolicyTitle',
-  'to="/event/$slug"',
+  'href={`/event/${event.slug}`}',
 ]) {
   if (!collectionRoute.includes(marker)) fail(`event collection route is missing protected marker: ${marker}`);
 }
