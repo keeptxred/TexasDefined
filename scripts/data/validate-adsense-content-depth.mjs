@@ -8,6 +8,7 @@ const financeDepth3 = read('src/data/fixtures/finance-evergreen-depth-3.ts');
 const helocDepth = read('src/data/fixtures/finance-heloc-depth.ts');
 const fixtureRepositories = read('src/data/fixtures/repositories.ts');
 const queries = read('src/data/queries.ts');
+const evergreenSourceFallbacks = read('src/data/remote-evergreen-source-fallbacks.ts');
 
 const depth3Slugs = [
   'renting-vs-buying-in-texas',
@@ -76,36 +77,40 @@ if (migratedIndex < 0 || genericFallbackIndex < 0 || migratedIndex > genericFall
   errors.push('Detailed migrated articles must resolve before the lightweight catalog-stub fallback.');
 }
 
+const sourceFallbackImportMarker = 'import { ensureRemoteEvergreenSourceFallback } from "./remote-evergreen-source-fallbacks";';
+const syncPrepareMarker = 'return prepareArticleForDelivery(ensureRemoteEvergreenSourceFallback(article));';
 const localLoadMarker = 'const localArticle = await platform.articles.getBySlug(scope, slug);';
-const localSourceFastPathMarker = 'if (localArticle.sourceName && localArticle.sourceUrl) return prepareArticleForDelivery(localArticle);';
+const localSourceFastPathMarker = 'if (localArticle.sourceName && localArticle.sourceUrl) return prepareArticleDetail(localArticle);';
 const remoteSourceLoadMarker = 'const remoteSourceArticle = await fetchPublishedTexasDefinedEvergreenArticle(slug);';
 const sourceHydrationMarker = 'sourceName: localArticle.sourceName ?? remoteSourceArticle.sourceName,';
 const sourceUrlHydrationMarker = 'sourceUrl: localArticle.sourceUrl ?? remoteSourceArticle.sourceUrl,';
-const authorityImportMarker = 'await import("./remote-evergreen-authority-sources")';
-const authorityLookupMarker = 'remoteEvergreenAuthoritySources[article.slug] ?? []';
-const authorityNameFallbackMarker = 'sourceName: article.sourceName ?? primarySource.label,';
-const authorityUrlFallbackMarker = 'sourceUrl: article.sourceUrl ?? primarySource.url,';
-const authoritySectionMarker = 'block.text.trim().toLowerCase() === "sources and further reading"';
-const authoritySectionAppendMarker = '{ type: "heading", text: "Sources and further reading" }';
 const hydratedReturnMarker = 'return prepareArticleDetail(sourceHydratedLocalArticle);';
 const remoteFallbackLoadMarker = 'const remoteArticle = await fetchPublishedTexasDefinedEvergreenArticle(slug);';
 const remoteFallbackReturnMarker = 'return remoteArticle ? prepareArticleDetail(remoteArticle) : null;';
 for (const feature of [
+  sourceFallbackImportMarker,
+  syncPrepareMarker,
   localLoadMarker,
   localSourceFastPathMarker,
   remoteSourceLoadMarker,
   sourceHydrationMarker,
   sourceUrlHydrationMarker,
-  authorityImportMarker,
-  authorityLookupMarker,
-  authorityNameFallbackMarker,
-  authorityUrlFallbackMarker,
-  authoritySectionMarker,
-  authoritySectionAppendMarker,
   hydratedReturnMarker,
   remoteFallbackLoadMarker,
   remoteFallbackReturnMarker,
 ]) if (!queries.includes(feature)) errors.push(`Article query local-depth/source precedence missing: ${feature}`);
+
+for (const marker of [
+  'const SOURCES_HEADING = "Sources and further reading";',
+  'sourceName = article.sourceName?.trim() || fallback.name',
+  'sourceUrl = article.sourceUrl?.trim() || fallback.url',
+  '{ type: "heading" as const, text: SOURCES_HEADING }',
+  'return { ...article, sourceName, sourceUrl, body };',
+]) if (!evergreenSourceFallbacks.includes(marker)) errors.push(`Evergreen synchronous source fallback missing: ${marker}`);
+
+if (queries.includes('await import("./remote-evergreen-authority-sources")')) {
+  errors.push('Article delivery must not depend on a runtime dynamic authority-source import for the governed 19-page fallback.');
+}
 
 const localIndex = queries.indexOf(localLoadMarker);
 const localSourceFastPathIndex = queries.indexOf(localSourceFastPathMarker);
@@ -126,7 +131,7 @@ if (
   || hydratedReturnIndex > remoteFallbackIndex
   || remoteFallbackIndex > remoteFallbackReturnIndex
 ) {
-  errors.push('Local enriched editorial detail must resolve first, preserve explicit sources, hydrate missing fields from the published remote row, then fall back to the audited evergreen authority registry before returning an unattributed article.');
+  errors.push('Local enriched editorial detail must resolve first, preserve explicit sources, hydrate missing fields from the published remote row, apply the synchronous governed source fallback to every delivery path, and only then fall back to a remote article.');
 }
 
 if (errors.length) {
@@ -135,4 +140,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('AdSense content-depth validation passed: four later finance depth overrides, the Texas HELOC authority override, 10+ minute catalog expectations, migrated-detail precedence, local-first detail-loader precedence, DB-first source hydration, audited evergreen authority fallback, and visible source-section recovery are protected.');
+console.log('AdSense content-depth validation passed: four later finance depth overrides, the Texas HELOC authority override, 10+ minute catalog expectations, migrated-detail precedence, local-first detail-loader precedence, DB-first source hydration, synchronous governed evergreen source fallback, and visible source-section recovery are protected.');
