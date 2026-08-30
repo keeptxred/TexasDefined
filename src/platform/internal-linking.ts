@@ -88,9 +88,10 @@ export function resolveInternalEntityLinks(text: string, entities: TexasEntityRe
       const escaped = label.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
       const match = new RegExp(`\\b${escaped}\\b`, 'i').exec(text);
       if (!match) continue;
-      diagnostics.candidates += 1;
       const start = match.index;
       const end = start + match[0].length;
+      if (!countyLabelHasExplicitContext(entity, match[0], text, start, end, policy)) continue;
+      diagnostics.candidates += 1;
       const context = text.slice(Math.max(0, start - policy.contextWindow), Math.min(text.length, end + policy.contextWindow)).toLowerCase();
       const scored = scoreCandidate(entity, label, context, policy, authorityScores);
       if (scored.reasons.some((reason) => reason.startsWith('exposure-penalty:'))) diagnostics.exposureBalanced += 1;
@@ -129,6 +130,24 @@ export function resolveInternalEntityLinks(text: string, entities: TexasEntityRe
   const matches = accepted.sort((a, b) => a.start - b.start).map((candidate) => ({ start: candidate.start, end: candidate.end, label: candidate.label, entity: candidate.entity, href: canonicalEntityPath(candidate.entity), score: candidate.score, reasons: candidate.reasons }));
   diagnostics.accepted = matches.length;
   return { matches, diagnostics };
+}
+
+/**
+ * Counties frequently share names with plants, colors, occupations and ordinary
+ * nouns (Live Oak, Orange, Wood, Bee, Falls, etc.). A bare alias is therefore
+ * unsafe for automatic linking. Keep explicit county phrases linkable while
+ * leaving deliberately-authored links untouched elsewhere in the rendering
+ * pipeline.
+ */
+function countyLabelHasExplicitContext(entity: TexasEntityRecord, label: string, text: string, start: number, end: number, policy: InternalLinkPolicy) {
+  if (entity.kind !== 'county') return true;
+  if (/\bcounty\b/i.test(label)) return true;
+  if (policy.countySlug && entity.countySlug === policy.countySlug) return true;
+
+  const escaped = label.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const immediateContext = text.slice(Math.max(0, start - 28), Math.min(text.length, end + 28));
+  return new RegExp(`\\b${escaped}\\s+County\\b`, 'i').test(immediateContext)
+    || new RegExp(`\\bCounty(?:\\s+of)?\\s+${escaped}\\b`, 'i').test(immediateContext);
 }
 
 export function internalLinkCoverage(texts: string[], entities: TexasEntityRecord[], policy: Partial<InternalLinkPolicy> = {}) {
