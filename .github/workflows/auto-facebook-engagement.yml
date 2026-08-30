@@ -40,6 +40,7 @@ jobs:
     env:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       PUBLISHER_ORIGIN: https://keeptxred-site.freddy-coppola.workers.dev
+      TD_IMAGE_ATTRIBUTION: Brought to you by your friends at TexasDefined.com
     steps:
       - name: Check out TexasDefined
         uses: actions/checkout@v4
@@ -175,6 +176,76 @@ jobs:
             *) echo "Generated asset has invalid MIME type: $mime_type" >&2; exit 1 ;;
           esac
 
+          expected_attribution='Brought to you by your friends at TexasDefined.com'
+          if [[ "${TD_IMAGE_ATTRIBUTION:-}" != "$expected_attribution" ]]; then
+            echo 'TexasDefined image attribution configuration is missing or incorrect; publishing is blocked.' >&2
+            exit 1
+          fi
+          printf '%s\n' "$TD_IMAGE_ATTRIBUTION" > /tmp/tdfb/attribution.txt
+
+          if command -v magick >/dev/null 2>&1; then
+            image_convert=(magick)
+            image_identify=(magick identify)
+          elif command -v convert >/dev/null 2>&1 && command -v identify >/dev/null 2>&1; then
+            image_convert=(convert)
+            image_identify=(identify)
+          else
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq imagemagick
+            image_convert=(convert)
+            image_identify=(identify)
+          fi
+
+          width=$("${image_identify[@]}" -format '%w' /tmp/tdfb/generated-image.png)
+          height=$("${image_identify[@]}" -format '%h' /tmp/tdfb/generated-image.png)
+          if [[ ! "$width" =~ ^[0-9]+$ || ! "$height" =~ ^[0-9]+$ || "$width" -lt 600 || "$height" -lt 400 ]]; then
+            echo "Generated image dimensions are invalid for attribution overlay: ${width}x${height}" >&2
+            exit 1
+          fi
+
+          footer_height=$(( height / 11 ))
+          (( footer_height < 80 )) && footer_height=80
+          (( footer_height > 120 )) && footer_height=120
+          point_size=$(( width / 46 ))
+          (( point_size < 24 )) && point_size=24
+          (( point_size > 38 )) && point_size=38
+
+          "${image_convert[@]}" \
+            -size "${width}x${footer_height}" \
+            xc:'rgba(0,0,0,0.74)' \
+            -font DejaVu-Sans \
+            -fill white \
+            -gravity center \
+            -pointsize "$point_size" \
+            -annotate +0+0 "$TD_IMAGE_ATTRIBUTION" \
+            /tmp/tdfb/attribution-footer.png
+
+          if [[ ! -s /tmp/tdfb/attribution-footer.png ]]; then
+            echo 'TexasDefined attribution footer could not be rendered; publishing is blocked.' >&2
+            exit 1
+          fi
+
+          "${image_convert[@]}" \
+            /tmp/tdfb/generated-image.png \
+            /tmp/tdfb/attribution-footer.png \
+            -gravity south \
+            -composite \
+            /tmp/tdfb/generated-image-attributed.png
+
+          if [[ ! -s /tmp/tdfb/generated-image-attributed.png ]]; then
+            echo 'TexasDefined attribution could not be applied to the generated image; publishing is blocked.' >&2
+            exit 1
+          fi
+          mv /tmp/tdfb/generated-image-attributed.png /tmp/tdfb/generated-image.png
+          rm -f /tmp/tdfb/attribution-footer.png
+
+          attributed_mime_type=$(file --brief --mime-type /tmp/tdfb/generated-image.png)
+          if [[ "$attributed_mime_type" != "image/png" ]]; then
+            echo "Attributed Facebook asset has invalid MIME type: $attributed_mime_type" >&2
+            exit 1
+          fi
+          mime_type="$attributed_mime_type"
+
           image_sha256=$(sha256sum /tmp/tdfb/generated-image.png | awk '{print $1}')
           echo "$image_sha256" > /tmp/tdfb/image.sha256
           echo "mime_type=$mime_type" >> "$GITHUB_OUTPUT"
@@ -193,6 +264,7 @@ jobs:
               'category': candidate['category'],
               'post_text': Path('/tmp/tdfb/post.txt').read_text(encoding='utf-8'),
               'image_prompt': Path('/tmp/tdfb/prompt.txt').read_text(encoding='utf-8'),
+              'attribution': Path('/tmp/tdfb/attribution.txt').read_text(encoding='utf-8').strip(),
               'model': 'gpt-image-2',
               'image_sha256': os.environ['IMAGE_SHA256'],
           }
@@ -210,6 +282,7 @@ jobs:
             /tmp/tdfb/image.sha256
             /tmp/tdfb/post.txt
             /tmp/tdfb/prompt.txt
+            /tmp/tdfb/attribution.txt
             /tmp/tdfb/metadata.json
           if-no-files-found: error
           compression-level: 0
@@ -230,7 +303,7 @@ jobs:
           IMAGE_SHA256: ${{ steps.image.outputs.image_sha256 }}
         run: |
           set -euo pipefail
-          for required in generated-image.png image.sha256 post.txt prompt.txt metadata.json; do
+          for required in generated-image.png image.sha256 post.txt prompt.txt attribution.txt metadata.json; do
             if [[ ! -s "/tmp/tdfb-stored/${required}" ]]; then
               echo "Stored Facebook artifact is missing ${required}; publishing is blocked." >&2
               exit 1
@@ -248,27 +321,40 @@ jobs:
             exit 1
           fi
 
+          expected_attribution='Brought to you by your friends at TexasDefined.com'
+          stored_attribution=$(tr -d '\r\n' < /tmp/tdfb-stored/attribution.txt)
+          if [[ "$stored_attribution" != "$expected_attribution" ]]; then
+            echo 'Stored Facebook image attribution is missing or incorrect; publishing is blocked.' >&2
+            exit 1
+          fi
+
           python3 - <<'PY'
           import json
           from pathlib import Path
 
           stored_post = Path('/tmp/tdfb-stored/post.txt').read_text(encoding='utf-8')
           stored_prompt = Path('/tmp/tdfb-stored/prompt.txt').read_text(encoding='utf-8')
+          stored_attribution = Path('/tmp/tdfb-stored/attribution.txt').read_text(encoding='utf-8').strip()
           metadata = json.loads(Path('/tmp/tdfb-stored/metadata.json').read_text(encoding='utf-8'))
           expected_prompt = 'Generate an image for this Facebook post.\n\n' + stored_post
+          expected_attribution = 'Brought to you by your friends at TexasDefined.com'
           if stored_prompt != expected_prompt:
               raise SystemExit('Stored image prompt no longer equals the required prefix plus exact post text')
+          if stored_attribution != expected_attribution:
+              raise SystemExit('Stored attribution no longer equals the required TexasDefined.com footer')
           if metadata.get('post_text') != stored_post:
               raise SystemExit('Stored metadata post text does not match the stored exact post text')
           if metadata.get('image_prompt') != stored_prompt:
               raise SystemExit('Stored metadata image prompt does not match the stored prompt')
+          if metadata.get('attribution') != expected_attribution:
+              raise SystemExit('Stored metadata attribution does not match the required TexasDefined.com footer')
           PY
 
           stored_mime_type=$(file --brief --mime-type /tmp/tdfb-stored/generated-image.png)
-          case "$stored_mime_type" in
-            image/png|image/jpeg|image/webp) ;;
-            *) echo "Stored Facebook asset has invalid MIME type: $stored_mime_type" >&2; exit 1 ;;
-          esac
+          if [[ "$stored_mime_type" != "image/png" ]]; then
+            echo "Stored attributed Facebook asset has invalid MIME type: $stored_mime_type" >&2
+            exit 1
+          fi
           echo "mime_type=$stored_mime_type" >> "$GITHUB_OUTPUT"
           echo "image_sha256=$stored_sha" >> "$GITHUB_OUTPUT"
 
@@ -282,12 +368,19 @@ jobs:
           ARTIFACT_URL: ${{ steps.store.outputs.artifact-url }}
         run: |
           set -euo pipefail
-          if [[ ! -s /tmp/tdfb-stored/generated-image.png || ! -s /tmp/tdfb-stored/post.txt ]]; then
-            echo 'Reloaded stored image or exact post text is missing; Facebook publishing is blocked.' >&2
+          if [[ ! -s /tmp/tdfb-stored/generated-image.png || ! -s /tmp/tdfb-stored/post.txt || ! -s /tmp/tdfb-stored/attribution.txt ]]; then
+            echo 'Reloaded stored image, exact post text, or attribution is missing; Facebook publishing is blocked.' >&2
             exit 1
           fi
           if [[ -z "$ARTIFACT_URL" ]]; then
             echo 'GitHub did not return an artifact storage URL; Facebook publishing is blocked.' >&2
+            exit 1
+          fi
+
+          expected_attribution='Brought to you by your friends at TexasDefined.com'
+          stored_attribution=$(tr -d '\r\n' < /tmp/tdfb-stored/attribution.txt)
+          if [[ "$stored_attribution" != "$expected_attribution" ]]; then
+            echo 'TexasDefined attribution verification failed immediately before publish; publishing is blocked.' >&2
             exit 1
           fi
 
@@ -345,8 +438,8 @@ jobs:
           IMAGE_SHA256: ${{ steps.stored.outputs.image_sha256 }}
         run: |
           set -euo pipefail
-          if [[ -z "$ARTIFACT_URL" || -z "$IMAGE_SHA256" || ! -s /tmp/tdfb-stored/generated-image.png ]]; then
+          if [[ -z "$ARTIFACT_URL" || -z "$IMAGE_SHA256" || ! -s /tmp/tdfb-stored/generated-image.png || ! -s /tmp/tdfb-stored/attribution.txt ]]; then
             echo 'Dry-run storage round-trip verification failed.' >&2
             exit 1
           fi
-          echo "Dry run complete: generated image was stored, reloaded, and SHA-verified at ${ARTIFACT_URL}; sha256=${IMAGE_SHA256}; Facebook was not called."
+          echo "Dry run complete: generated image was attributed, stored, reloaded, and SHA-verified at ${ARTIFACT_URL}; sha256=${IMAGE_SHA256}; Facebook was not called."
