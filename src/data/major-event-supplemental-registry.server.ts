@@ -97,6 +97,12 @@ export const supplementalMajorEventSlugs = [
   "texas-mushroom-festival",
   "seguin-pecan-fest",
   "hopkins-county-stew-contest",
+  "texas-state-championship-fiddlers-frolics",
+  "texas-citrus-fiesta",
+  "caldwell-kolache-festival",
+  "texas-czech-heritage-fest",
+  "floresville-peanut-festival",
+  "crossroads-of-texas-country-festival",
 ] as const;
 
 export function loadSupplementalMajorEventRecordsServer() {

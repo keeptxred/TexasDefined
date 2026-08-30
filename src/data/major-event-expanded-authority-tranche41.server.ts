@@ -1,0 +1,205 @@
+import type { MajorEventAuthorityRecord } from "./major-event-authority.server";
+
+type MajorEventAuthorityRecordWithWindows = MajorEventAuthorityRecord & {
+  occurrenceWindows?: Array<{ label?: string; startDate: string; endDate?: string }>;
+};
+
+const records: MajorEventAuthorityRecordWithWindows[] = [
+  {
+    slug: "texas-state-championship-fiddlers-frolics",
+    name: "Texas State Championship Fiddlers' Frolics",
+    city: "Hallettsville",
+    countySlug: "lavaca",
+    countyName: "Lavaca County",
+    region: "south-texas",
+    category: "music",
+    startDate: "2027-04-23",
+    endDate: "2027-04-25",
+    dateNote: "The organizer says the festival is always built around the fourth Saturday in April and its current format runs Friday through Sunday. Applying that published recurrence to 2027 yields April 23-25. Recheck the organizer when the dedicated 2027 schedule is released.",
+    venue: "Knights of Columbus Hall",
+    officialUrl: "https://fiddlersfrolics.com/",
+    sourceCheckedAt: "2026-08-30",
+    whyItMatters: "The Texas State Championship Fiddlers' Frolics is a three-day Hallettsville heritage festival combining championship fiddling, country music, a major barbecue cook-off and generations of Texas string-band tradition.",
+    planningSections: [
+      { title: "Use the fourth-Saturday rule for the 2027 planning window", body: "The organizer closes its current schedule by saying the festival returns every year around the fourth Saturday in April. With the established Friday-through-Sunday format, that maps to April 23-25, 2027. Texas Defined labels the dates as recurrence-derived until the organizer publishes the year-specific program." },
+      { title: "Choose the day around the competition you want", body: "The current format spreads youth and other fiddle divisions across Saturday, with senior and Texas State Championship competition on Sunday, while major entertainment also runs Friday and Saturday nights. Use the organizer's next schedule to pick the best day rather than assuming every day is interchangeable." },
+      { title: "Make Hallettsville part of the weekend", body: "The KC grounds are in Hallettsville, so the festival can anchor a broader Lavaca County trip. Leave room for the town and surrounding Czech-German-Texas heritage rather than treating the grounds as the only stop." },
+    ],
+    relatedLinks: [
+      { href: "/browse/counties#county-lavaca", label: "Explore Lavaca County", description: "Build more Hallettsville and Lavaca County stops around the festival." },
+      { href: "/texas-music", label: "Texas Music", description: "Continue into Texas Defined's statewide music-history and destination coverage." },
+      { href: "/events", label: "Texas events calendar", description: "Compare other Texas music and heritage events." },
+    ],
+    sources: [
+      { label: "Fiddlers' Frolics official site", url: "https://fiddlersfrolics.com/" },
+      { label: "Fiddlers' Frolics official event schedule", url: "https://fiddlersfrolics.com/event-schedule/" },
+    ],
+  },
+  {
+    slug: "texas-citrus-fiesta",
+    name: "Texas Citrus Fiesta",
+    city: "Mission",
+    countySlug: "hidalgo",
+    countyName: "Hidalgo County",
+    region: "south-texas",
+    category: "culture",
+    startDate: "2027-01-25",
+    endDate: "2027-01-30",
+    dateNote: "The organizer's 2027 featured-event calendar spans January 25-30, including the Product Costume Style Show, Royal Coronation, Fun Fair, Parade of Oranges and Royal Ball. These are separate scheduled Fiesta events rather than one continuously open six-day venue.",
+    occurrenceWindows: [
+      { label: "Product Costume Style Show", startDate: "2027-01-25", endDate: "2027-01-25" },
+      { label: "Royal Coronation", startDate: "2027-01-28", endDate: "2027-01-28" },
+      { label: "Fun Fair", startDate: "2027-01-29", endDate: "2027-01-29" },
+      { label: "Parade of Oranges and Royal Ball", startDate: "2027-01-30", endDate: "2027-01-30" },
+    ],
+    venue: "Mission Event Center and downtown Mission venues",
+    officialUrl: "https://www.texascitrusfiesta.com/",
+    sourceCheckedAt: "2026-08-30",
+    whyItMatters: "The Texas Citrus Fiesta has celebrated Mission and the Rio Grande Valley's citrus-growing heritage since 1932 through elaborate citrus-themed costumes, royal traditions, community festivities and the downtown Parade of Oranges.",
+    planningSections: [
+      { title: "Choose a featured event before booking the trip", body: "The 2027 organizer calendar spreads major Fiesta programs across January 25, 28, 29 and 30 rather than operating as one continuous festival site. Pick the Product Costume Style Show, coronation, Fun Fair, parade or Royal Ball first, then build the trip around that exact date." },
+      { title: "Use January 30 for the parade", body: "The organizer specifically schedules the 2027 Parade of Oranges for Saturday, January 30 at noon along Conway Avenue. Arrive with enough time for downtown access and review the official route before departure." },
+      { title: "Connect the Fiesta to the Rio Grande Valley", body: "Mission's citrus story is regional, so the event works well as the fixed point of a broader Hidalgo County trip. Leave room for nearby Valley destinations instead of treating one Fiesta program as the entire visit." },
+    ],
+    relatedLinks: [
+      { href: "/browse/counties#county-hidalgo", label: "Explore Hidalgo County", description: "Build more Mission and Rio Grande Valley stops around the Fiesta." },
+      { href: "/events", label: "Texas events calendar", description: "Compare other Texas winter heritage events." },
+    ],
+    sources: [
+      { label: "Texas Citrus Fiesta official site", url: "https://www.texascitrusfiesta.com/" },
+      { label: "Texas Citrus Fiesta official event list", url: "https://www.texascitrusfiesta.com/event-list" },
+      { label: "Parade of Oranges official page", url: "https://www.texascitrusfiesta.com/parade-of-oranges" },
+    ],
+  },
+  {
+    slug: "caldwell-kolache-festival",
+    name: "Caldwell Kolache Festival",
+    city: "Caldwell",
+    countySlug: "burleson",
+    countyName: "Burleson County",
+    region: "prairies-lakes",
+    category: "food",
+    startDate: "2026-09-12",
+    endDate: "2026-09-12",
+    venue: "Downtown Caldwell",
+    officialUrl: "https://www.burlesoncountytx.com/",
+    sourceCheckedAt: "2026-08-30",
+    whyItMatters: "Caldwell's Kolache Festival turns the town's Czech-Texan heritage into a large one-day downtown gathering centered on kolaches, polka music, folk traditions, crafts, contests, vintage vehicles and family programming.",
+    planningSections: [
+      { title: "Use September 12 as the confirmed 2026 festival date", body: "The Burleson County Chamber lists the 41st annual Kolache Festival for Saturday, September 12, 2026 in downtown Caldwell. The City of Caldwell also describes the event as an annual second-Saturday-in-September tradition." },
+      { title: "Arrive early for the downtown footprint", body: "The festival draws a large crowd into Caldwell's central streets and square. Use Chamber parking and program information before traveling, and plan to walk between food, music, crafts and heritage activities." },
+      { title: "Treat the food as part of a heritage trip", body: "The kolaches matter, but the festival also reflects the Czech history of Caldwell and Burleson County. Leave time for the town itself and connect the event to Texas Defined's broader Czech-Texan coverage." },
+    ],
+    relatedLinks: [
+      { href: "/browse/counties#county-burleson", label: "Explore Burleson County", description: "Build more Caldwell and Burleson County stops around the festival." },
+      { href: "/german-czech-texas-towns", label: "German and Czech Texas towns", description: "Connect Caldwell to the broader Czech-Texan heritage landscape." },
+      { href: "/events", label: "Texas events calendar", description: "Compare other Texas heritage and food festivals." },
+    ],
+    sources: [
+      { label: "Burleson County Chamber of Commerce", url: "https://www.burlesoncountytx.com/" },
+      { label: "City of Caldwell — Kolache Festival history", url: "https://caldwelltx.gov/history" },
+      { label: "2026 Kolache Festival vendor information", url: "https://business.burlesoncountytx.com/form/view/37596" },
+    ],
+  },
+  {
+    slug: "texas-czech-heritage-fest",
+    name: "Texas Czech Heritage Fest & Muziky",
+    city: "La Grange",
+    countySlug: "fayette",
+    countyName: "Fayette County",
+    region: "prairies-lakes",
+    category: "culture",
+    startDate: "2026-10-16",
+    endDate: "2026-10-17",
+    venue: "Texas Czech Heritage & Cultural Center",
+    officialUrl: "https://czechtexas.org/",
+    sourceCheckedAt: "2026-08-30",
+    whyItMatters: "Heritage Fest & Muziky brings Czech-Texan music, food, traditional skills, museum collections, agricultural demonstrations and community history together at the Texas Czech Heritage & Cultural Center in La Grange.",
+    planningSections: [
+      { title: "Use October 16-17 as the confirmed 2026 weekend", body: "The Texas Czech Heritage & Cultural Center publishes Heritage Fest & Muziky for Friday and Saturday, October 16-17, 2026. Friday begins with an evening atmosphere, while Saturday carries the larger daytime heritage program and closing concert." },
+      { title: "Allow time for the museum campus", body: "The festival is more than stage entertainment. Demonstrations, museum spaces, the Czech village and heritage exhibits are part of the event, so arrive early enough to explore the campus before the evening performance." },
+      { title: "Connect La Grange to the wider Czech-Texan story", body: "Fayette County is central to Texas's Czech and German settlement history. Pair the festival with La Grange and nearby heritage communities rather than making the cultural center a stand-alone stop." },
+    ],
+    relatedLinks: [
+      { href: "/browse/counties#county-fayette", label: "Explore Fayette County", description: "Build more La Grange and Fayette County stops around the festival." },
+      { href: "/german-czech-texas-towns", label: "German and Czech Texas towns", description: "Continue into Texas Defined's Czech-Texan heritage cluster." },
+      { href: "/events", label: "Texas events calendar", description: "Compare other Texas heritage festivals." },
+    ],
+    sources: [
+      { label: "Texas Czech Heritage & Cultural Center", url: "https://czechtexas.org/" },
+      { label: "Heritage Fest 2026 official event page", url: "https://czechtexas.org/event/save-the-date-heritage-fest-2026-at-the-texas-czech-heritage-cultural-center/" },
+      { label: "Heritage Fest & Muziky 2026 organizer announcement", url: "https://czechtexas.org/sponsorship-opportunities-now-available-for-heritage-fest-muziky-2026/" },
+    ],
+  },
+  {
+    slug: "floresville-peanut-festival",
+    name: "Floresville Peanut Festival",
+    city: "Floresville",
+    countySlug: "wilson",
+    countyName: "Wilson County",
+    region: "south-texas",
+    category: "food",
+    startDate: "2026-10-06",
+    endDate: "2026-10-10",
+    dateNote: "The organizer lists 2026 festival programming on Tuesday October 6, Thursday October 8, Friday October 9 and Saturday October 10. Texas Defined models those as separate scheduled windows rather than implying continuous programming on Wednesday.",
+    occurrenceWindows: [
+      { label: "Goober Games", startDate: "2026-10-06", endDate: "2026-10-06" },
+      { label: "Royal Coronation", startDate: "2026-10-08", endDate: "2026-10-08" },
+      { label: "Friday festival and Kiddie Parade", startDate: "2026-10-09", endDate: "2026-10-09" },
+      { label: "Saturday festival and Grand Parade", startDate: "2026-10-10", endDate: "2026-10-10" },
+    ],
+    venue: "Downtown Floresville and Floresville Event Center",
+    officialUrl: "https://floresvillepeanutfestival.org/",
+    sourceCheckedAt: "2026-08-30",
+    whyItMatters: "The Floresville Peanut Festival is an 82-year South Texas tradition built around Wilson County's peanut-growing identity, with royal ceremonies, children's games, downtown parades, live entertainment, food and a large courthouse-square festival.",
+    planningSections: [
+      { title: "Choose the specific festival day", body: "The 2026 organizer calendar is discontinuous: Goober Games are Tuesday, coronation is Thursday, and the main downtown festival runs Friday and Saturday. Use the event you want to see rather than treating October 6-10 as five continuous public festival days." },
+      { title: "Use Saturday for the Grand Parade and full downtown day", body: "The organizer schedules the 2026 Grand Parade for Saturday, October 10 at 10 a.m. Downtown market and food activity then continues through the day, making Saturday the strongest single-day choice for visitors seeking the broadest festival experience." },
+      { title: "Plan for a courthouse-square festival", body: "The festival emphasizes free grounds admission and downtown street activity. Review the organizer's closures, parking guidance and current map before traveling, then leave room for Floresville and Wilson County outside the main festival footprint." },
+    ],
+    relatedLinks: [
+      { href: "/browse/counties#county-wilson", label: "Explore Wilson County", description: "Build more Floresville and Wilson County stops around the festival." },
+      { href: "/food", label: "Texas food and BBQ", description: "Continue into Texas Defined's statewide food coverage." },
+      { href: "/events", label: "Texas events calendar", description: "Compare other Texas agricultural and fall festivals." },
+    ],
+    sources: [
+      { label: "Floresville Peanut Festival official site", url: "https://floresvillepeanutfestival.org/" },
+      { label: "Floresville Peanut Festival official parade page", url: "https://floresvillepeanutfestival.org/parades" },
+      { label: "City of Floresville 2026 festival listing", url: "https://www.floresvilletx.gov/calendar-event/peanut-festival-2026/" },
+    ],
+  },
+  {
+    slug: "crossroads-of-texas-country-festival",
+    name: "Crossroads of Texas GO TEXAN Country Festival",
+    city: "Waxahachie",
+    countySlug: "ellis",
+    countyName: "Ellis County",
+    region: "prairies-lakes",
+    category: "culture",
+    startDate: "2026-10-24",
+    endDate: "2026-10-24",
+    venue: "Downtown Waxahachie",
+    officialUrl: "https://www.waxahachiecvb.com/events/2026/crossroads-of-texas-country-festival",
+    sourceCheckedAt: "2026-08-30",
+    whyItMatters: "Waxahachie's Crossroads of Texas GO TEXAN Country Festival is a large one-day downtown celebration of Texas music, food, art, makers and community identity around the historic Ellis County courthouse square.",
+    planningSections: [
+      { title: "Use October 24 as the confirmed 2026 date", body: "Visit Waxahachie publishes the 2026 festival for Saturday, October 24 from 9 a.m. to 7 p.m. in downtown Waxahachie. Use the city destination office's current page for final stages, vendors and operating details." },
+      { title: "Treat the courthouse square as the venue", body: "The festival fills the historic downtown with artists, craftspeople, music and food. Plan to park outside the immediate event footprint and walk, and arrive earlier if browsing vendors is as important as the headline entertainment." },
+      { title: "Extend the day in Waxahachie", body: "The festival can anchor a broader Ellis County outing. Leave time for the historic downtown architecture and other local stops rather than driving in only for a single stage performance." },
+    ],
+    relatedLinks: [
+      { href: "/browse/counties#county-ellis", label: "Explore Ellis County", description: "Build more Waxahachie and Ellis County stops around the festival." },
+      { href: "/events", label: "Texas events calendar", description: "Compare other Texas arts, food and music festivals." },
+    ],
+    sources: [
+      { label: "Visit Waxahachie official festival page", url: "https://www.waxahachiecvb.com/events/2026/crossroads-of-texas-country-festival" },
+      { label: "Visit Waxahachie 2026 artist and vendor information", url: "https://www.waxahachiecvb.com/f/69" },
+    ],
+  },
+];
+
+const bySlug = new Map(records.map((event) => [event.slug, event]));
+
+export function getExpandedMajorEventAuthorityTranche41Server(slug: string): MajorEventAuthorityRecordWithWindows | null {
+  return bySlug.get(slug) ?? null;
+}
