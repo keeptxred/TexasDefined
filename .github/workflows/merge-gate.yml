@@ -56,6 +56,9 @@ jobs:
       - name: Validate horseback riding authority
         run: node scripts/data/validate-horseback-riding-authority.mjs
 
+      - name: Validate OHV authority
+        run: node scripts/data/validate-ohv-authority.mjs
+
       - name: Validate national cemetery authority cluster
         run: node scripts/data/validate-national-cemetery-authority.mjs
 
