@@ -14,6 +14,21 @@ const cityCalculators = [
   ['El Paso', '/texas-home-affordability-calculator/el-paso'],
 ] as const;
 
+const countyCalculators = [
+  ['Harris County', '/texas-home-affordability-calculator/harris-county'],
+  ['Dallas County', '/texas-home-affordability-calculator/dallas-county'],
+  ['Tarrant County', '/texas-home-affordability-calculator/tarrant-county'],
+  ['Bexar County', '/texas-home-affordability-calculator/bexar-county'],
+  ['Travis County', '/texas-home-affordability-calculator/travis-county'],
+  ['Collin County', '/texas-home-affordability-calculator/collin-county'],
+  ['Denton County', '/texas-home-affordability-calculator/denton-county'],
+  ['Fort Bend County', '/texas-home-affordability-calculator/fort-bend-county'],
+  ['Montgomery County', '/texas-home-affordability-calculator/montgomery-county'],
+  ['Williamson County', '/texas-home-affordability-calculator/williamson-county'],
+  ['El Paso County', '/texas-home-affordability-calculator/el-paso-county'],
+  ['Hidalgo County', '/texas-home-affordability-calculator/hidalgo-county'],
+] as const;
+
 const faqs = [
   {
     question: 'How does a Texas home affordability calculator work?',
@@ -49,7 +64,7 @@ function TexasHomeAffordabilityCalculatorPage() {
         </div>
       </section>
       <section className="mt-12 border-t border-border pt-10" aria-labelledby="affordability-city-heading">
-        <p className="eyebrow text-primary">Local planning pages</p>
+        <p className="eyebrow text-primary">City planning pages</p>
         <h2 id="affordability-city-heading" className="mt-3 font-display text-3xl">Run the affordability check with city-specific ownership context</h2>
         <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">The math is the same statewide, but the inputs are not. These pages connect the calculator to local property-tax tools and relocation guidance so you can replace generic assumptions with address-level costs.</p>
         <div className="mt-6 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
@@ -57,6 +72,19 @@ function TexasHomeAffordabilityCalculatorPage() {
             <a key={href} href={href} className="group bg-background p-5">
               <strong className="font-display text-2xl group-hover:text-primary">{name}</strong>
               <span className="mt-2 block text-sm leading-6 text-muted-foreground">Local affordability calculator →</span>
+            </a>
+          ))}
+        </div>
+      </section>
+      <section className="mt-12 border-t border-border pt-10" aria-labelledby="affordability-county-heading">
+        <p className="eyebrow text-primary">County planning hubs</p>
+        <h2 id="affordability-county-heading" className="mt-3 font-display text-3xl">Connect the home-price range to parcel taxes and county context</h2>
+        <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">County pages are a planning bridge, not a countywide cost average. Each one points to the parcel-specific property-tax calculator, county guide and related city calculator where available so school, municipal, special-district, insurance and recurring ownership costs stay visible.</p>
+        <div className="mt-6 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
+          {countyCalculators.map(([name, href]) => (
+            <a key={href} href={href} className="group bg-background p-5">
+              <strong className="font-display text-2xl group-hover:text-primary">{name}</strong>
+              <span className="mt-2 block text-sm leading-6 text-muted-foreground">County affordability hub →</span>
             </a>
           ))}
         </div>
