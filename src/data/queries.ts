@@ -9,7 +9,33 @@ import { guideIsAvailable } from "./guide-links";
 import { platform, scope } from "./index";
 import type { ArticleQuery, DestinationQuery } from "./repositories";
 import { fetchAssignedShopProducts } from "./shop-products-remote";
-import type { Destination, SearchDocument, Slug } from "./types";
+import type { Article, Destination, SearchDocument, Slug } from "./types";
+
+async function prepareArticleDetail(article: Article): Promise<Article> {
+  if (article.sourceName && article.sourceUrl) return prepareArticleForDelivery(article);
+
+  const { remoteEvergreenAuthoritySources } = await import("./remote-evergreen-authority-sources");
+  const authoritySources = remoteEvergreenAuthoritySources[article.slug] ?? [];
+  if (!authoritySources.length) return prepareArticleForDelivery(article);
+
+  const primarySource = authoritySources[0];
+  const hasAuthoritySection = article.body.some(
+    (block) => block.type === "heading" && block.text.trim().toLowerCase() === "sources and further reading",
+  );
+  const sourceHydratedArticle: Article = {
+    ...article,
+    sourceName: article.sourceName ?? primarySource.label,
+    sourceUrl: article.sourceUrl ?? primarySource.url,
+    body: hasAuthoritySection
+      ? article.body
+      : [
+          ...article.body,
+          { type: "heading", text: "Sources and further reading" },
+          { type: "list", items: authoritySources.map((source) => `${source.label}: ${source.url}`) },
+        ],
+  };
+  return prepareArticleForDelivery(sourceHydratedArticle);
+}
 
 export const articlesQuery = (params: Omit<ArticleQuery, "brandId"> = {}) => queryOptions({
   queryKey: ["articles", scope.brandId, params],
@@ -31,10 +57,10 @@ export const articleQuery = (slug: Slug) => queryOptions({
             sourceUrl: localArticle.sourceUrl ?? remoteSourceArticle.sourceUrl,
           }
         : localArticle;
-      return prepareArticleForDelivery(sourceHydratedLocalArticle);
+      return prepareArticleDetail(sourceHydratedLocalArticle);
     }
     const remoteArticle = await fetchPublishedTexasDefinedEvergreenArticle(slug);
-    return remoteArticle ? prepareArticleForDelivery(remoteArticle) : null;
+    return remoteArticle ? prepareArticleDetail(remoteArticle) : null;
   },
 });
 
