@@ -15,6 +15,7 @@ const regionalHub = read('src/components/editorial/RegionalHubSections.tsx');
 const publicRoutes = read('src/lib/public-routes.ts');
 const oldWestHub = readRouteSurface('src/routes/texas-old-west.tsx');
 const sacredPlacesHub = readRouteSurface('src/routes/texas-sacred-places.tsx');
+const scienceIndustryHub = readRouteSurface('src/routes/texas-science-technology-industry.tsx');
 const historyHub = readRouteSurface('src/routes/texas-history.tsx');
 const topAttractionsHub = readRouteSurface('src/routes/explore.top-attractions.tsx');
 const musicAuthority = read('src/data/texas-music.ts');
@@ -55,6 +56,7 @@ for (const title of [
   'Music & culture',
   'Texas flavors',
   'Family attractions',
+  'Science, space & industry',
   'Small-town weekends',
   'Roadside & only-in-Texas',
   'Landscapes & scenery',
@@ -87,10 +89,12 @@ const requiredIntentTargets = [
   '/texas-history',
   '/texas-old-west',
   '/texas-sacred-places',
+  '/texas-science-technology-industry',
   '/texas-music',
   '/texas-music-venues',
   '/texas-birds-guide',
   '/texas-natural-wonders-bucket-list',
+  '/texas-stargazing-guide',
   '/texas-food-trail',
   '/texas-food-history',
   '/texas-roadside-oddities',
@@ -118,10 +122,12 @@ const staticAuthorityTargets = [
   '/texas-history',
   '/texas-old-west',
   '/texas-sacred-places',
+  '/texas-science-technology-industry',
   '/texas-music',
   '/texas-music-venues',
   '/texas-birds-guide',
   '/texas-natural-wonders-bucket-list',
+  '/texas-stargazing-guide',
   '/texas-food-trail',
   '/texas-food-history',
   '/texas-roadside-oddities',
@@ -142,6 +148,7 @@ for (const target of staticAuthorityTargets) {
 for (const [name, path, source] of [
   ['Texas Old West', '/texas-old-west', oldWestHub],
   ['Sacred Places in Texas', '/texas-sacred-places', sacredPlacesHub],
+  ['Texas Science, Space & Industry', '/texas-science-technology-industry', scienceIndustryHub],
 ]) {
   if (!source.includes(`canonicalPath = ${JSON.stringify(path)}`)) failures.push(`${name} must define its exact canonical path.`);
   for (const schemaType of ['CollectionPage', 'ItemList', 'BreadcrumbList']) {
@@ -165,6 +172,20 @@ for (const marker of [
   'https://www.cem.va.gov/find-cemetery/state.asp?STATE=TX',
 ]) {
   if (!sacredPlacesHub.includes(marker)) failures.push(`Sacred Places must retain official authority source: ${marker}`);
+}
+for (const marker of [
+  'https://spacecenter.org/visitor-information',
+  'https://mcdonaldobservatory.org/visit/',
+  'https://lonestarflight.org/',
+  'https://galvestonrrmuseum.org/about-us/',
+  'https://texasmaritimemuseum.org/',
+  'https://petroleummuseum.org/',
+  'Source review: August 30, 2026.',
+]) {
+  if (!scienceIndustryHub.includes(marker)) failures.push(`Science, Space & Industry must retain protected source/context marker: ${marker}`);
+}
+for (const target of ['/explore/top-attractions', '/texas-stargazing-guide', '/explore/historic-sites', '/explore/beaches-coast', '/browse/cities', '/explore/trip-planner', '/texas-history']) {
+  if (!scienceIndustryHub.includes(`to=${JSON.stringify(target)}`) && !scienceIndustryHub.includes(`to: ${JSON.stringify(target)}`)) failures.push(`Science, Space & Industry must surface ${target}.`);
 }
 for (const target of ['/texas-old-west', '/texas-sacred-places', '/texas-music', '/article/texas-national-cemeteries-guide']) {
   if (!historyHub.includes(target)) failures.push(`Texas History heritage architecture must surface ${target}.`);
@@ -205,4 +226,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Explore topic bridges, family-attraction authority, Phase 2 heritage hubs, authority clusters, trip-intent groups, indexable authority targets, regional-to-statewide paths and trip-planning pathways are protected.');
+console.log('Explore topic bridges, family-attraction authority, science/space/industry authority, heritage hubs, authority clusters, trip-intent groups, indexable authority targets, regional-to-statewide paths and trip-planning pathways are protected.');

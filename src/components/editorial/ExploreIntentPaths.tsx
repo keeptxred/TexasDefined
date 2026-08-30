@@ -102,6 +102,17 @@ const INTENT_GROUPS = [
     ],
   },
   {
+    title: "Science, space & industry",
+    body: "Connect spaceflight, astronomy, aviation, railroads, maritime systems and energy heritage to the Texas places where science and engineering become visible.",
+    links: [
+      { to: "/texas-science-technology-industry", label: "Science, space & industry guide" },
+      { to: "/explore/top-attractions", label: "Major science attractions" },
+      { to: "/texas-stargazing-guide", label: "Astronomy & stargazing" },
+      { to: "/explore/historic-sites", label: "Industrial & transportation history" },
+      { to: "/explore/trip-planner", label: "Build a science itinerary" },
+    ],
+  },
+  {
     title: "Seasonal Texas",
     body: "Plan around the seasons that actually change a Texas trip: spring wildflowers, late fall color and December town traditions.",
     links: [
