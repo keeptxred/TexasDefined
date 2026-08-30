@@ -69,10 +69,6 @@ const deepCalculatorContracts = [
     'Texas Down Payment Calculator | Cash Needed to Buy a Home', 'Keep the down payment, closing costs and reserves in one plan', 'Texas down payment calculator FAQ',
     'to="/article/texas-house-down-payment-guide"', 'to="/texas-closing-cost-calculator"', 'to="/texas-home-affordability-calculator"', 'https://welcomehome.tdhca.texas.gov/',
   ]],
-  ['Homeownership cost', 'src/routes/texas-homeownership-cost-calculator.tsx', [
-    'Texas Homeownership Cost Calculator | Beyond the Mortgage', 'The mortgage payment is only one part of owning the house', 'Texas homeownership cost calculator FAQ',
-    'to="/texas-utility-cost-calculator"', 'to="/texas-home-insurance-calculator"', 'to="/article/true-cost-of-owning-a-home-in-texas"', 'to="/article/muds-pids-hoas-special-districts-texas"',
-  ]],
   ['Refinance', 'src/routes/texas-refinance-savings-calculator.tsx', [
     'Texas Refinance Calculator | Savings & Break-Even Estimate', 'Compare break-even and the repayment clock together', 'Texas refinance calculator FAQ',
     'to="/article/should-you-refinance-texas-mortgage"', 'to="/texas-mortgage-payoff-calculator"', 'https://www.consumerfinance.gov/owning-a-home/compare/',
@@ -115,10 +111,29 @@ for (const [label, filename, markers] of deepCalculatorContracts) {
   for (const marker of markers) if (!route.includes(marker)) failures.push(`${label} calculator indexing-depth contract missing ${marker}.`);
 }
 
+// Homeownership-cost depth is intentionally split across the eager SEO route,
+// the lazy renderer, and server-owned content. Validate the complete rendered
+// contract instead of requiring server-owned prose to remain in the client bundle.
+const ownershipRoute = readRouteSurface('src/routes/texas-homeownership-cost-calculator.tsx');
+const ownershipServer = fs.readFileSync('src/data/homeownership-cost-hub-page.server.ts', 'utf8');
+for (const marker of ['Texas Homeownership Cost Calculator | Beyond the Mortgage', 'getHomeownershipCostHubPage', 'hub.stack.paragraphs.map', 'hub.links.cards.map', 'hub.faq.items.map']) {
+  if (!ownershipRoute.includes(marker)) failures.push(`Homeownership cost calculator route/render contract missing ${marker}.`);
+}
+for (const marker of [
+  'The mortgage payment is only one part of owning the house',
+  'Texas homeownership cost calculator FAQ',
+  '/texas-utility-cost-calculator',
+  '/texas-home-insurance-calculator',
+  '/article/true-cost-of-owning-a-home-in-texas',
+  '/article/muds-pids-hoas-special-districts-texas',
+]) {
+  if (!ownershipServer.includes(marker)) failures.push(`Homeownership cost calculator server-owned indexing-depth contract missing ${marker}.`);
+}
+
 if (failures.length) {
   console.error('Calculator application SEO validation failed:');
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log('Calculator WebPage, WebApplication, canonical relationship, breadcrumb, and priority calculator indexing-depth validation passed.');
+console.log('Calculator WebPage, WebApplication, canonical relationship, breadcrumb, and priority calculator indexing-depth validation passed, including server-owned homeownership depth.');
