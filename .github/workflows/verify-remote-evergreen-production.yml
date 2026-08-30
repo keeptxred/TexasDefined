@@ -11,6 +11,7 @@ on:
       - 'src/data/remote-evergreen-source-fallbacks.ts'
       - 'src/data/articles-remote.ts'
       - 'src/data/queries.ts'
+      - 'src/domain/utils/format.ts'
       - 'src/routes/article.$slug.tsx'
       - 'src/routes/sitemap*.ts'
   push:
@@ -25,6 +26,7 @@ on:
       - 'src/data/remote-evergreen-source-fallbacks.ts'
       - 'src/data/articles-remote.ts'
       - 'src/data/queries.ts'
+      - 'src/domain/utils/format.ts'
       - 'src/routes/article.$slug.tsx'
       - 'src/routes/sitemap*.ts'
   workflow_dispatch:
