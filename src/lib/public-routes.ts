@@ -51,6 +51,7 @@ export const INDEXABLE_STATIC_PATHS = [
   "/fishing/species",
   "/fishing/species/largemouth-bass",
   "/sports",
+  "/texas-tailgating-guide",
   "/sports-venues",
   "/sports-venues/compare",
   "/sports-venues/dallas-fort-worth",
