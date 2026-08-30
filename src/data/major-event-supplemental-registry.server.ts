@@ -92,6 +92,11 @@ export const supplementalMajorEventSlugs = [
   "east-texas-state-fair",
   "conroe-cajun-catfish-festival",
   "comal-county-fair-rodeo",
+  "panhandle-south-plains-fair",
+  "guadalupe-county-fair-rodeo",
+  "gregg-county-fair",
+  "permian-basin-fair-expo",
+  "brazoria-county-fair",
 ] as const;
 
 export function loadSupplementalMajorEventRecordsServer() {
