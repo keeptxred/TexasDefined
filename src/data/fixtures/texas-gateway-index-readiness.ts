@@ -18,6 +18,7 @@ export const TEXAS_GATEWAY_INDEX_READY_SLUGS = new Set<string>([
 
 export const ARTICLE_INDEX_MIN_BODY_WORDS = 600;
 export const ARTICLE_INDEX_MIN_DEK_CHARS = 80;
+export const ARTICLE_DISCOVERY_MIN_READING_MINUTES = 4;
 
 export function isTexasGatewayArticle(article: Pick<Article, "brandId" | "id">): boolean {
   return article.brandId === "texasdefined" && article.id.startsWith("gateway-");
@@ -57,18 +58,41 @@ function hasValidOptionalSource(article: Pick<Article, "sourceName" | "sourceUrl
   }
 }
 
-/**
- * Conservative public-discovery boundary for editorial articles.
- * Direct URLs remain usable for QA/history, but pages that do not meet this
- * minimum are noindexed and withheld from normal search/discovery surfaces.
- */
-export function isArticleIndexReady(article: Article): boolean {
+function hasArticleReadinessMetadata(article: Article): boolean {
   if (!isTexasGatewayIndexReadyArticle(article)) return false;
   if (!article.title.trim() || article.dek.trim().length < ARTICLE_INDEX_MIN_DEK_CHARS) return false;
   if (!article.authorId.trim()) return false;
   if (!article.hero?.src?.trim() || !article.hero?.alt?.trim()) return false;
-  if (!hasValidOptionalSource(article)) return false;
-  return articleBodyWordCount(article) >= ARTICLE_INDEX_MIN_BODY_WORDS;
+  return hasValidOptionalSource(article);
+}
+
+/**
+ * Strict route-level boundary for a fully loaded editorial article. Direct URLs
+ * remain usable for QA/history, but a full article must carry substantive body
+ * depth before it can be indexed.
+ */
+export function isArticleIndexReady(article: Article): boolean {
+  return hasArticleReadinessMetadata(article)
+    && articleBodyWordCount(article) >= ARTICLE_INDEX_MIN_BODY_WORDS;
+}
+
+/**
+ * Catalog-level boundary for list/search/RSS/sitemap surfaces.
+ *
+ * TexasDefined deliberately represents many validated long-form articles as
+ * lightweight lazy stubs whose body is omitted from the catalog bundle and
+ * loaded only on the detail route. A completely omitted body may therefore use
+ * the stub's conservative reading-time signal, but a partially populated thin
+ * body can never use that escape hatch. The full detail route still applies
+ * `isArticleIndexReady`, so lazy delivery does not weaken page-level indexing.
+ */
+export function isArticleDiscoveryReady(article: Article): boolean {
+  if (!hasArticleReadinessMetadata(article)) return false;
+  const bodyWords = articleBodyWordCount(article);
+  if (bodyWords >= ARTICLE_INDEX_MIN_BODY_WORDS) return true;
+  return bodyWords === 0
+    && article.body.length === 0
+    && article.readingMinutes >= ARTICLE_DISCOVERY_MIN_READING_MINUTES;
 }
 
 /**
