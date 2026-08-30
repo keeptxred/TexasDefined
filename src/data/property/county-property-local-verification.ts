@@ -105,4 +105,100 @@ export const COUNTY_PROPERTY_LOCAL_VERIFICATION: Record<string, CountyPropertyLo
       'https://www.haskellcountytx.gov/page/haskell.County.Assessor.Collector',
     ],
   },
+  travis: {
+    appraisalDistrict: {
+      websiteUrl: 'https://traviscad.org/',
+    },
+    taxOffice: {
+      websiteUrl: 'https://tax-office.traviscountytx.gov/properties/taxes',
+    },
+    links: {
+      appraisalDistrictUrl: 'https://traviscad.org/',
+      taxOfficeUrl: 'https://tax-office.traviscountytx.gov/properties/taxes',
+      propertySearchUrl: 'https://traviscad.org/propertysearch',
+      paymentUrl: 'https://tax-office.traviscountytx.gov/properties/taxes/payment-methods/online',
+      protestUrl: 'https://traviscad.org/protests',
+      exemptionUrl: 'https://traviscad.org/homesteadexemptions',
+    },
+    lastVerifiedAt: '2026-08-30',
+    sourceUrls: [
+      'https://traviscad.org/',
+      'https://traviscad.org/propertysearch',
+      'https://traviscad.org/protests',
+      'https://traviscad.org/homesteadexemptions',
+      'https://tax-office.traviscountytx.gov/properties/taxes',
+      'https://tax-office.traviscountytx.gov/properties/taxes/payment-methods/online',
+    ],
+  },
+  bexar: {
+    appraisalDistrict: {
+      websiteUrl: 'https://bcad.org/',
+    },
+    taxOffice: {
+      name: 'Albert Uresti',
+      websiteUrl: 'https://www.bexar.org/1515/Tax-Assessor-Collector',
+    },
+    links: {
+      appraisalDistrictUrl: 'https://bcad.org/',
+      taxOfficeUrl: 'https://www.bexar.org/1515/Tax-Assessor-Collector',
+      paymentUrl: 'https://www.bexar.org/1529/Property-Tax?ssp=1',
+      protestUrl: 'https://bcad.org/online-portal/',
+      exemptionUrl: 'https://help.bcad.org/hc/en-us/categories/49253196573075-Exemption-Information',
+    },
+    lastVerifiedAt: '2026-08-30',
+    sourceUrls: [
+      'https://bcad.org/',
+      'https://bcad.org/online-portal/',
+      'https://help.bcad.org/hc/en-us/categories/49253196573075-Exemption-Information',
+      'https://www.bexar.org/1515/Tax-Assessor-Collector',
+      'https://www.bexar.org/1529/Property-Tax?ssp=1',
+    ],
+  },
+  dallas: {
+    appraisalDistrict: {
+      websiteUrl: 'https://dallascad.org/default.aspx',
+    },
+    taxOffice: {
+      websiteUrl: 'https://www.dallascounty.org/departments/tax/',
+    },
+    links: {
+      appraisalDistrictUrl: 'https://dallascad.org/default.aspx',
+      taxOfficeUrl: 'https://www.dallascounty.org/departments/tax/',
+      propertySearchUrl: 'https://dallascad.org/SearchAddr.aspx',
+      paymentUrl: 'https://www.dallascounty.org/departments/tax/pay-property-tax.php',
+      exemptionUrl: 'https://bppr.dallascad.org/forms.aspx',
+    },
+    lastVerifiedAt: '2026-08-30',
+    sourceUrls: [
+      'https://dallascad.org/default.aspx',
+      'https://dallascad.org/SearchAddr.aspx',
+      'https://bppr.dallascad.org/forms.aspx',
+      'https://www.dallascounty.org/departments/tax/',
+      'https://www.dallascounty.org/departments/tax/pay-property-tax.php',
+    ],
+  },
+  collin: {
+    appraisalDistrict: {
+      websiteUrl: 'https://collincad.org/',
+    },
+    taxOffice: {
+      name: 'Scott Grigg',
+      websiteUrl: 'https://www.collincountytx.gov/Tax-Assessor',
+    },
+    links: {
+      appraisalDistrictUrl: 'https://collincad.org/',
+      taxOfficeUrl: 'https://www.collincountytx.gov/Tax-Assessor',
+      propertySearchUrl: 'https://collincad.org/search/',
+      paymentUrl: 'https://taxpublic.collincountytx.gov/',
+      exemptionUrl: 'https://collincad.org/category/forms/residential-exemptions/',
+    },
+    lastVerifiedAt: '2026-08-30',
+    sourceUrls: [
+      'https://collincad.org/',
+      'https://collincad.org/search/',
+      'https://collincad.org/category/forms/residential-exemptions/',
+      'https://www.collincountytx.gov/Tax-Assessor',
+      'https://taxpublic.collincountytx.gov/',
+    ],
+  },
 };
