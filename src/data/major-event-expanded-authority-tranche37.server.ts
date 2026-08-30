@@ -60,6 +60,35 @@ const records: MajorEventAuthorityRecord[] = [
       { label: "Cottonwood Art Festival official site", url: "https://cottonwoodartfestival.com/" },
     ],
   },
+  {
+    slug: "grapevine-main-street-fest",
+    name: "Grapevine Main Street Fest",
+    city: "Grapevine",
+    countySlug: "tarrant",
+    countyName: "Tarrant County",
+    region: "prairies-lakes",
+    category: "culture",
+    startDate: "2027-05-14",
+    endDate: "2027-05-16",
+    venue: "Historic Main Street Grapevine",
+    officialUrl: "https://www.grapevinetexasusa.com/main-street-fest/",
+    sourceCheckedAt: "2026-08-30",
+    whyItMatters: "Grapevine Main Street Fest is a three-day North Texas destination festival that fills Historic Main Street with live entertainment, a carnival and midway, craft-beverage experiences, shopping, food vendors, family programming and arts activity.",
+    planningSections: [
+      { title: "Use May 14-16 as the confirmed 2027 festival window", body: "The Grapevine Convention & Visitors Bureau already publishes the 43rd annual Main Street Fest for Friday, May 14 through Sunday, May 16, 2027, including official operating hours for each day." },
+      { title: "Treat Historic Main Street as the festival district", body: "Programming stretches through the downtown corridor rather than operating as one isolated stage. Plan time for festival attractions, Main Street shops, food and the craft-beverage areas instead of trying to see the event as a single performance." },
+      { title: "Check the admission window before arriving", body: "The organizer publishes different admission conditions by day and time. Recheck the official general-information page when tickets go on sale so the trip plan reflects current weekend-pass and daily-admission rules." },
+    ],
+    relatedLinks: [
+      { href: "/browse/counties#county-tarrant", label: "Explore Tarrant County", description: "Build more Grapevine and Tarrant County stops around the festival." },
+      { href: "/event/grapefest", label: "GrapeFest", description: "Compare Grapevine's major fall wine festival with its spring Main Street tradition." },
+      { href: "/events", label: "Texas events calendar", description: "Find other spring destination festivals across Texas." },
+    ],
+    sources: [
+      { label: "Grapevine Main Street Fest official page", url: "https://www.grapevinetexasusa.com/main-street-fest/" },
+      { label: "Grapevine Main Street Fest official general information", url: "https://www.grapevinetexasusa.com/main-street-fest/general-information/" },
+    ],
+  },
 ];
 
 const bySlug = new Map(records.map((event) => [event.slug, event]));
