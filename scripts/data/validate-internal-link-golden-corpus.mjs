@@ -14,8 +14,11 @@ if (!errors.length) {
   const panel = fs.readFileSync(required[1], 'utf8');
   const api = fs.readFileSync(required[2], 'utf8');
   const page = `${fs.readFileSync(required[3], 'utf8')}\n${fs.readFileSync(required[4], 'utf8')}`;
-  for (const id of ['canonical-travel-place','county-context-disambiguation','topic-priority','unsafe-ambiguity-rejected','self-link-prevention','exposure-penalty']) {
+  for (const id of ['canonical-travel-place','county-context-disambiguation','topic-priority','county-common-word-regression','county-explicit-common-name','unsafe-ambiguity-rejected','self-link-prevention','exposure-penalty']) {
     if (!corpus.includes(`id: '${id}'`)) errors.push(`Missing golden test case: ${id}`);
+  }
+  for (const collision of ['Live Oak County','Orange County','Wood County','Bee County','Falls County']) {
+    if (!corpus.includes(collision)) errors.push(`Missing county collision fixture: ${collision}`);
   }
   for (const feature of ['runInternalLinkGoldenCorpus','resolveInternalEntityLinks','expectedEntityIds','expectedRejectedAmbiguous','expectedReason','passedCount','failedCount']) {
     if (!corpus.includes(feature)) errors.push(`Golden corpus feature missing: ${feature}`);
@@ -30,4 +33,4 @@ if (errors.length) {
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
-console.log('Phase 2 golden corpus, diagnostics API, and read-only admin test page are protected.');
+console.log('Phase 2 golden corpus, county collision regressions, diagnostics API, and read-only admin test page are protected.');

@@ -18,6 +18,20 @@ import type { Article, ArticleBlock, SearchDocument } from "./types";
 const TEXAS_UNDERGROUND_SLUG = "texas-caverns-caves-first-timers-guide";
 const RANDALL_COUNTY_ARTICLE_SLUG = "randall-county-canyon-palo-duro-texas";
 const TOM_GREEN_COUNTY_ARTICLE_SLUG = "tom-green-county-san-angelo-concho-texas";
+const WILDFLOWER_ARTICLE_SLUGS = new Set([
+  "texas-wildflowers-guide",
+  "texas-bluebonnet-guide",
+  "texas-indian-paintbrush-guide",
+  "texas-indian-blanket-guide",
+  "texas-winecup-guide",
+  "texas-prairie-verbena-guide",
+  "texas-horsemint-guide",
+  "texas-mexican-hat-guide",
+  "texas-black-eyed-susan-guide",
+  "texas-purple-coneflower-guide",
+  "texas-goldenrod-guide",
+  "texas-maximilian-sunflower-guide",
+]);
 const ARTICLE_SLUG_ALIASES: Partial<Record<string, string>> = {
   "el-paso-county-pass-missions-borderlands-texas": "el-paso-county-missions-rio-grande-texas",
 };
@@ -276,21 +290,31 @@ const loadDirectTexasDefinedArticles = async () => {
   return [tomGreenModule.tomGreenCountySanAngeloConchoArticle, randallModule.randallCountyCanyonPaloDuroArticle];
 };
 
+const loadWildflowerTexasDefinedArticles = async () => {
+  const { texasWildflowerArticles } = await import("./fixtures/texas-wildflower-species");
+  return texasWildflowerArticles;
+};
+
+const articleMatchesQuery = (article: Article, query: Parameters<typeof fixturePlatform.articles.list>[0]) =>
+  !isLegacyCountySeriesArticle(article.slug) &&
+  (!query.category || query.category === article.category) &&
+  (!query.tag || article.tags.includes(query.tag)) &&
+  (query.featured === undefined || Boolean(article.featured) === query.featured) &&
+  query.excludeSlug !== article.slug;
+
 const articleRepository = {
   async list(query: Parameters<typeof fixturePlatform.articles.list>[0]) {
     const rows = (await fixturePlatform.articles.list(query)).filter((article) => !isLegacyCountySeriesArticle(article.slug));
     if (query.brandId !== "texasdefined") return rows.map(normalizeArticle);
 
-    const directArticles = await loadDirectTexasDefinedArticles();
-    const eligibleDirect = directArticles.filter((article) =>
-      !isLegacyCountySeriesArticle(article.slug) &&
-      (!query.category || query.category === article.category) &&
-      (!query.tag || article.tags.includes(query.tag)) &&
-      (query.featured === undefined || Boolean(article.featured) === query.featured) &&
-      query.excludeSlug !== article.slug &&
-      !rows.some((row) => row.slug === article.slug)
-    );
-    const merged = [...eligibleDirect, ...rows];
+    const [directArticles, wildflowerArticles] = await Promise.all([
+      loadDirectTexasDefinedArticles(),
+      loadWildflowerTexasDefinedArticles(),
+    ]);
+    const eligibleDirect = directArticles.filter((article) => articleMatchesQuery(article, query) && !rows.some((row) => row.slug === article.slug));
+    const occupiedSlugs = new Set([...rows, ...eligibleDirect].map((article) => article.slug));
+    const eligibleWildflowers = wildflowerArticles.filter((article) => articleMatchesQuery(article, query) && !occupiedSlugs.has(article.slug));
+    const merged = [...eligibleDirect, ...rows, ...eligibleWildflowers];
     const limited = query.limit ? merged.slice(0, query.limit) : merged;
     return limited.map(normalizeArticle);
   },
@@ -299,6 +323,11 @@ const articleRepository = {
     slug: Parameters<typeof fixturePlatform.articles.getBySlug>[1],
   ) {
     if (scope.brandId === "texasdefined") {
+      if (WILDFLOWER_ARTICLE_SLUGS.has(slug)) {
+        const wildflowerArticles = await loadWildflowerTexasDefinedArticles();
+        const wildflowerArticle = wildflowerArticles.find((article) => article.slug === slug);
+        if (wildflowerArticle) return normalizeArticle(wildflowerArticle);
+      }
       if (slug === "caddo-lake-cypress-morning") {
         const { caddoLakeCypressMorningArticle } = await import("./fixtures/caddo-lake-cypress-morning");
         return normalizeArticle(caddoLakeCypressMorningArticle);
@@ -326,6 +355,18 @@ const searchRepository = {
       if (document.kind !== "article") return document;
       return { ...document, href: canonicalizeCountyHref(document.href) };
     });
+    if (searchScope.brandId === "texasdefined") {
+      const wildflowerArticles = await loadWildflowerTexasDefinedArticles();
+      rewritten.push(...wildflowerArticles.map((article): SearchDocument => ({
+        id: `article:${article.slug}`,
+        brandId: "texasdefined",
+        kind: "article",
+        title: article.title,
+        summary: article.dek,
+        keywords: article.tags,
+        href: `/article/${article.slug}`,
+      })));
+    }
     return [...new Map(rewritten.map((document) => [document.href, document])).values()];
   },
 };
