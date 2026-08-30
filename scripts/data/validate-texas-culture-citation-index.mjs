@@ -41,7 +41,7 @@ const required = [
 
 if (index) {
   if (index.schemaVersion !== 1) failures.push('Texas culture citation index requires schemaVersion 1.');
-  if (index.asOf !== '2026-08-19') failures.push(`citation-magnets.json asOf must remain 2026-08-19; found ${index.asOf ?? 'missing'}.`);
+  if (index.asOf !== '2026-08-30') failures.push(`citation-magnets.json asOf must remain 2026-08-30; found ${index.asOf ?? 'missing'}.`);
   const resources = new Map((index.resources ?? []).map((resource) => [resource.url, resource]));
   for (const [url, type] of required) {
     const resource = resources.get(url);
