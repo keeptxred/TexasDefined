@@ -36,6 +36,7 @@ const expect = (condition, message) => { if (!condition) errors.push(message); }
 
 expect(manifest.schemaVersion === 1, 'citation-magnets.json must use schemaVersion 1');
 expect(manifest.canonicalDomain === 'https://texasdefined.com', 'citation manifest canonicalDomain must be TexasDefined');
+expect(manifest.asOf === '2026-08-30', 'citation manifest freshness date must reflect the 2026-08-30 authority expansion');
 expect(Array.isArray(manifest.resources) && manifest.resources.length >= 22, 'citation manifest must retain at least 22 maintained resources');
 
 const urls = manifest.resources.map((resource) => resource.url);
@@ -68,10 +69,26 @@ const requiredManifestUrls = [
   'https://texasdefined.com/explore/top-attractions',
   'https://texasdefined.com/explore/top-attractions/methodology',
   'https://texasdefined.com/explore/top-attractions/road-trips',
+  'https://texasdefined.com/texas-science-technology-industry',
+  'https://texasdefined.com/texas-college-towns',
+  'https://texasdefined.com/texas-tailgating-guide',
+  'https://texasdefined.com/texas-unique-lodging',
   'https://texasdefined.com/find-my-dmv',
   'https://texasdefined.com/find-my-school-district',
 ];
 for (const url of requiredManifestUrls) expect(urls.includes(url), `required citation target missing from manifest: ${url}`);
+
+const authorityTrustContracts = new Map([
+  ['https://texasdefined.com/texas-science-technology-industry', ['official-sources', 'source-review-date', 'operations-caveat', 'canonical-cross-links', 'visitor-planning']],
+  ['https://texasdefined.com/texas-college-towns', ['first-party-campus-sources', 'source-review-date', 'game-day-caveat', 'canonical-cross-links', 'visitor-planning']],
+  ['https://texasdefined.com/texas-tailgating-guide', ['first-party-athletics-sources', 'source-review-date', 'event-day-caveat', 'safety-caveat', 'canonical-cross-links']],
+  ['https://texasdefined.com/texas-unique-lodging', ['first-party-TPWD-sources', 'source-review-date', 'availability-caveat', 'no-ranking-claim', 'canonical-cross-links']],
+]);
+for (const [url, markers] of authorityTrustContracts) {
+  const resource = manifest.resources.find((item) => item.url === url);
+  expect(Boolean(resource), `destination authority citation resource missing: ${url}`);
+  for (const marker of markers) expect(resource?.trust?.includes(marker), `${url} citation resource is missing trust marker ${marker}`);
+}
 
 for (const label of ['Sources', 'Methodology', 'Last verified']) expect(trustPanel.includes(`>${label}<`), `CitationTrustPanel must retain visible ${label} label`);
 
@@ -161,4 +178,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Citation magnet validation passed for ${manifest.resources.length} TexasDefined resources, including the multi-source Top 25 authority cluster and Census Vintage 2025 county growth.`);
+console.log(`Citation magnet validation passed for ${manifest.resources.length} TexasDefined resources, including the multi-source Top 25 authority cluster, Census Vintage 2025 county growth, and four source-backed destination authority guides.`);
