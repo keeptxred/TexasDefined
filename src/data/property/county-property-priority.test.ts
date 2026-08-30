@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { getCountyPropertyRecordBySlug } from './county-property-data';
+import { COUNTY_PROPERTY_RECORDS, getCountyPropertyRecordBySlug } from './county-property-data';
 import { isCountyPropertyIndexReady } from './county-property-schema';
 
 const verifiedCounties = {
@@ -52,6 +52,13 @@ describe('priority county property-tax verification', () => {
       for (const host of expectedHosts) expect([...hosts].some((value) => value === host || value.endsWith(`.${host}`)), `${slug}:${host}`).toBe(true);
       expect(hosts.size, slug).toBeGreaterThanOrEqual(2);
     }
+  });
+
+  it('reports the exact governed statewide property-guide readiness cohort', () => {
+    const ready = COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady).map((record) => record.slug).sort();
+    console.log(`COUNTY_PROPERTY_READY count=${ready.length} slugs=${ready.join(',')}`);
+    for (const slug of Object.keys(verifiedCounties)) expect(ready, slug).toContain(slug);
+    expect(ready.length).toBeLessThan(254);
   });
 
   it('uses Bell CAD for Bell County property-tax search and payment', () => {
