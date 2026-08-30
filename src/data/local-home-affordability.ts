@@ -2,6 +2,7 @@ export type LocalHomeAffordabilityProfile = {
   slug: string;
   path: string;
   name: string;
+  kind: 'city' | 'county';
   eyebrow: string;
   title: string;
   seoTitle: string;
@@ -13,25 +14,40 @@ export type LocalHomeAffordabilityProfile = {
   propertyTaxLabel: string;
   relocationHref: string;
   relocationLabel: string;
+  relatedLocalCalculators?: readonly { name: string; path: string }[];
   faqs: readonly { question: string; answer: string }[];
 };
 
 function profile(input: {
   slug: string;
   name: string;
+  kind?: 'city' | 'county';
   context: string;
   propertyTaxHref: string;
   propertyTaxLabel: string;
   relocationHref: string;
   relocationLabel: string;
   planningPoints: readonly string[];
+  relatedLocalCalculators?: readonly { name: string; path: string }[];
 }): LocalHomeAffordabilityProfile {
-  const { slug, name, context, propertyTaxHref, propertyTaxLabel, relocationHref, relocationLabel, planningPoints } = input;
+  const {
+    slug,
+    name,
+    kind = 'city',
+    context,
+    propertyTaxHref,
+    propertyTaxLabel,
+    relocationHref,
+    relocationLabel,
+    planningPoints,
+    relatedLocalCalculators,
+  } = input;
   const path = `/texas-home-affordability-calculator/${slug}`;
   return {
     slug,
     path,
     name,
+    kind,
     eyebrow: `${name} home affordability`,
     title: `${name} home affordability calculator`,
     seoTitle: `${name} Home Affordability Calculator | Texas Defined`,
@@ -43,6 +59,7 @@ function profile(input: {
     propertyTaxLabel,
     relocationHref,
     relocationLabel,
+    relatedLocalCalculators,
     faqs: [
       {
         question: `Is this ${name} affordability calculator a mortgage approval?`,
@@ -58,6 +75,32 @@ function profile(input: {
       },
     ],
   };
+}
+
+function countyProfile(input: {
+  slug: string;
+  name: string;
+  countySlug: string;
+  context: string;
+  relatedLocalCalculators?: readonly { name: string; path: string }[];
+}): LocalHomeAffordabilityProfile {
+  const { slug, name, countySlug, context, relatedLocalCalculators } = input;
+  return profile({
+    slug,
+    name,
+    kind: 'county',
+    context,
+    propertyTaxHref: `/property-tax-calculator/${slug}`,
+    propertyTaxLabel: `${name} property-tax calculator`,
+    relocationHref: `/county/${countySlug}`,
+    relocationLabel: `${name} guide`,
+    relatedLocalCalculators,
+    planningPoints: [
+      `Start with the exact ${name} parcel and verify its school district, municipality and special districts before estimating property taxes.`,
+      'Replace generic insurance, HOA, utility and maintenance assumptions with property-specific numbers before setting a purchase-price target.',
+      'Compare the monthly housing result with closing cash, emergency reserves, transportation and other recurring household obligations.',
+    ],
+  });
 }
 
 export const LOCAL_HOME_AFFORDABILITY_PROFILES: readonly LocalHomeAffordabilityProfile[] = [
@@ -158,6 +201,89 @@ export const LOCAL_HOME_AFFORDABILITY_PROFILES: readonly LocalHomeAffordabilityP
       'Replace generic insurance and utility assumptions with property-specific estimates when possible.',
       'Leave room for maintenance, moving costs and cash reserves instead of using the calculator result as a maximum target.',
     ],
+  }),
+  countyProfile({
+    slug: 'harris-county',
+    name: 'Harris County',
+    countySlug: 'harris',
+    context: 'Harris County spans Houston, other incorporated cities and extensive unincorporated areas. School districts, municipal boundaries, MUDs, emergency-service districts, flood-control and other taxing units can change the monthly ownership picture by parcel, and insurance exposure should be priced for the exact property.',
+    relatedLocalCalculators: [{ name: 'Houston', path: '/texas-home-affordability-calculator/houston' }],
+  }),
+  countyProfile({
+    slug: 'dallas-county',
+    name: 'Dallas County',
+    countySlug: 'dallas',
+    context: 'Dallas County contains Dallas, Irving, Garland and other municipalities with multiple school districts and local taxing boundaries. A county label narrows the search, but the exact parcel still controls the tax stack, insurance assumptions and repeated transportation costs that belong in an affordability decision.',
+    relatedLocalCalculators: [{ name: 'Dallas', path: '/texas-home-affordability-calculator/dallas' }],
+  }),
+  countyProfile({
+    slug: 'tarrant-county',
+    name: 'Tarrant County',
+    countySlug: 'tarrant',
+    context: 'Tarrant County includes Fort Worth, Arlington and a large suburban network where school-district, municipal and special-district boundaries differ across nearby addresses. Buyers should model those parcel costs together with insurance, HOA and transportation rather than relying on one countywide ownership estimate.',
+    relatedLocalCalculators: [{ name: 'Fort Worth', path: '/texas-home-affordability-calculator/fort-worth' }],
+  }),
+  countyProfile({
+    slug: 'bexar-county',
+    name: 'Bexar County',
+    countySlug: 'bexar',
+    context: 'Bexar County includes San Antonio plus incorporated and unincorporated communities served by different school, municipal and special-purpose districts. The right affordability scenario therefore starts with the parcel and then adds its actual tax, insurance, utility and neighborhood obligations.',
+    relatedLocalCalculators: [{ name: 'San Antonio', path: '/texas-home-affordability-calculator/san-antonio' }],
+  }),
+  countyProfile({
+    slug: 'travis-county',
+    name: 'Travis County',
+    countySlug: 'travis',
+    context: 'Travis County includes Austin and surrounding communities where city limits, school districts, emergency-service districts, utility arrangements and other local boundaries can shift across addresses. Model the exact parcel before comparing the apparent affordability of neighborhoods on purchase price alone.',
+    relatedLocalCalculators: [{ name: 'Austin', path: '/texas-home-affordability-calculator/austin' }],
+  }),
+  countyProfile({
+    slug: 'collin-county',
+    name: 'Collin County',
+    countySlug: 'collin',
+    context: 'Collin County includes fast-growing communities such as Plano, McKinney, Allen and part of Frisco. School, city, MUD and other local boundaries can change across subdivisions, so property taxes, HOA costs, insurance and commute patterns should all be verified for the specific address.',
+    relatedLocalCalculators: [{ name: 'Frisco', path: '/texas-home-affordability-calculator/frisco' }],
+  }),
+  countyProfile({
+    slug: 'denton-county',
+    name: 'Denton County',
+    countySlug: 'denton',
+    context: 'Denton County crosses a dense North Texas patchwork of cities, school districts and special-purpose jurisdictions, including part of Frisco and other rapidly growing communities. The exact address determines which local costs belong in the monthly affordability model.',
+    relatedLocalCalculators: [{ name: 'Frisco', path: '/texas-home-affordability-calculator/frisco' }],
+  }),
+  countyProfile({
+    slug: 'fort-bend-county',
+    name: 'Fort Bend County',
+    countySlug: 'fort-bend',
+    context: 'Fort Bend County combines incorporated communities, Houston-area addresses and extensive municipal utility district coverage. MUDs, school districts, city boundaries, insurance and commuting choices can materially change recurring ownership costs, making parcel-level verification especially important.',
+    relatedLocalCalculators: [{ name: 'Houston', path: '/texas-home-affordability-calculator/houston' }],
+  }),
+  countyProfile({
+    slug: 'montgomery-county',
+    name: 'Montgomery County',
+    countySlug: 'montgomery',
+    context: 'Montgomery County includes incorporated communities and substantial unincorporated growth north of Houston. School, emergency-service and municipal utility districts can add different local tax obligations, while commute, insurance, utilities and HOA costs can vary sharply by development.',
+    relatedLocalCalculators: [{ name: 'Houston', path: '/texas-home-affordability-calculator/houston' }],
+  }),
+  countyProfile({
+    slug: 'williamson-county',
+    name: 'Williamson County',
+    countySlug: 'williamson',
+    context: 'Williamson County includes rapidly growing communities north of Austin where city, school, MUD and emergency-service district boundaries can differ across nearby subdivisions. Buyers should combine the parcel tax stack with insurance, HOA, utility and transportation costs before setting a target purchase price.',
+    relatedLocalCalculators: [{ name: 'Austin', path: '/texas-home-affordability-calculator/austin' }],
+  }),
+  countyProfile({
+    slug: 'el-paso-county',
+    name: 'El Paso County',
+    countySlug: 'el-paso',
+    context: 'El Paso County includes the City of El Paso and surrounding communities with different school, municipal and other local taxing jurisdictions. A useful affordability comparison keeps those parcel taxes alongside insurance, utilities, maintenance, transportation and the cash required at closing.',
+    relatedLocalCalculators: [{ name: 'El Paso', path: '/texas-home-affordability-calculator/el-paso' }],
+  }),
+  countyProfile({
+    slug: 'hidalgo-county',
+    name: 'Hidalgo County',
+    countySlug: 'hidalgo',
+    context: 'Hidalgo County spans multiple Rio Grande Valley cities, school districts and special-purpose taxing units. Because those boundaries and recurring property costs vary by address, buyers should use the parcel record and property-specific insurance and household-cost estimates rather than a countywide affordability shortcut.',
   }),
 ] as const;
 
