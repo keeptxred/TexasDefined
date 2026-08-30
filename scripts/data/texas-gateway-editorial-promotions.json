@@ -17,6 +17,24 @@
       "status": "index-ready",
       "approvedAt": "2026-08-29",
       "basis": "explicit-owner-production-approval-after-mechanical-readiness"
+    },
+    {
+      "slug": "texas-traditions-you-should-experience",
+      "status": "index-ready",
+      "approvedAt": "2026-08-29",
+      "basis": "explicit-owner-production-approval-after-mechanical-readiness"
+    },
+    {
+      "slug": "mistakes-first-time-visitors-make-in-texas",
+      "status": "index-ready",
+      "approvedAt": "2026-08-29",
+      "basis": "explicit-owner-production-approval-after-mechanical-readiness"
+    },
+    {
+      "slug": "texas-bucket-list-by-season",
+      "status": "index-ready",
+      "approvedAt": "2026-08-29",
+      "basis": "explicit-owner-production-approval-after-mechanical-readiness"
     }
   ]
 }
