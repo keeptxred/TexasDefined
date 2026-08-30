@@ -1,6 +1,7 @@
 import bluebonnets from "@/assets/bluebonnets.jpg";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { resolveSportsVenueEventLink } from "@/data/sports-venue-event-links";
+import { formatDateRange } from "@/domain/utils/format";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 
 import type { TexasEvent, TexasRegion } from "./types";
@@ -168,18 +169,25 @@ export function buildEventsPageHeadServer(events: TexasEvent[], regions: EventsP
       ],
     },
   ];
+  const featured = events[0];
 
   return {
-    meta: buildMeta(texasDefinedBrand, {
-      title: "Texas Events",
-      description,
-      canonicalPath,
-      image: bluebonnets,
-      imageAlt: "Bluebonnets running to a fence line in a Texas spring field",
-    }),
-    links: [canonicalLink(texasDefinedBrand, canonicalPath)],
-    scripts: eventItems.length
-      ? [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": graph }) }]
-      : [],
+    head: {
+      meta: buildMeta(texasDefinedBrand, {
+        title: "Texas Events",
+        description,
+        canonicalPath,
+        image: bluebonnets,
+        imageAlt: "Bluebonnets running to a fence line in a Texas spring field",
+      }),
+      links: [canonicalLink(texasDefinedBrand, canonicalPath)],
+      scripts: eventItems.length
+        ? [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": graph }) }]
+        : [],
+    },
+    featuredVenueGuide: resolveSportsVenueEventLink(featured?.venue),
+    featuredDateLabel: featured
+      ? formatDateRange(featured.startDate, featured.endDate, texasDefinedBrand.identity.locale)
+      : undefined,
   };
 }
