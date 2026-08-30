@@ -7,6 +7,9 @@ const route = fs.readFileSync(routePath, 'utf8');
 const lazyRoute = fs.readFileSync(path.join(root, 'src/routes/explore.$category.lazy.tsx'), 'utf8');
 const categoryPage = fs.readFileSync(path.join(root, 'src/components/editorial/CategoryPage.tsx'), 'utf8');
 const topicPaths = fs.readFileSync(path.join(root, 'src/components/editorial/ExploreTopicPaths.tsx'), 'utf8');
+const homeNatureGuide = fs.readFileSync(path.join(root, 'src/components/editorial/TexasHomeNatureGuide.tsx'), 'utf8');
+const homeNatureSeo = fs.readFileSync(path.join(root, 'src/lib/texas-home-nature-seo.ts'), 'utf8');
+const homeNatureServer = fs.readFileSync(path.join(root, 'src/data/texas-home-nature-public.server.ts'), 'utf8');
 const indexability = fs.readFileSync(path.join(root, 'src/data/explore-category-indexability.ts'), 'utf8');
 const retiredHelperPath = path.join(root, 'src/data/explore-category-authority.ts');
 const errors = [];
@@ -121,6 +124,38 @@ for (const [categoryMarker, requiredTargets] of [
   for (const target of requiredTargets) if (!slice.includes(`to: "${target}"`)) errors.push(`${categoryMarker} must retain reciprocal Explore target ${target}.`);
 }
 
+for (const marker of [
+  'const isBirdGuide = guide.slug === "texas-birds-guide";',
+  'Plan a Texas birding trip',
+  'href: "/explore/outdoors"',
+  'href: "/explore/beaches-coast"',
+  'href: "/explore/state-parks"',
+  'href: "/explore/lakes-rivers"',
+  'Outdoors &amp; Wildlife',
+  'to="/home-garden"',
+]) {
+  if (!homeNatureGuide.includes(marker)) errors.push(`Texas birds visible authority placement missing marker: ${marker}.`);
+}
+for (const marker of [
+  'const isBirdGuide = guide.slug === "texas-birds-guide";',
+  'const articleSection = isBirdGuide ? "Texas Outdoors & Wildlife" : "Texas Home & Nature";',
+  'name: "Explore Texas", item: `${siteUrl}/explore`',
+  'name: "Outdoors & Wildlife", item: `${siteUrl}/explore/outdoors`',
+  'name: "Home & Garden", item: `${siteUrl}/home-garden`',
+  'itemListElement: breadcrumbs',
+]) {
+  if (!homeNatureSeo.includes(marker)) errors.push(`Texas birds structured authority placement missing marker: ${marker}.`);
+}
+for (const marker of [
+  'Texas Parks and Wildlife Department — Great Texas Wildlife Trails',
+  'https://tpwd.texas.gov/huntwild/wildlife/wildlife-trails/',
+  'Texas Parks and Wildlife Department — Birding in State Parks',
+  'https://tpwd.texas.gov/state-parks/parks/things-to-do/birding-in-state-parks',
+  'slug === "texas-birds-guide" ? "2026-08-30" : defaultReviewedAt',
+]) {
+  if (!homeNatureServer.includes(marker)) errors.push(`Texas birds source/review authority missing marker: ${marker}.`);
+}
+
 const stagedMatch = indexability.match(/STAGED_EXPLORE_CATEGORY_SLUGS\s*=\s*new Set<CategorySlug>\(\[([\s\S]*?)\]\)/);
 const stagedBody = stagedMatch?.[1] ?? '';
 for (const slug of authoritySlugs) {
@@ -132,4 +167,4 @@ if (errors.length) {
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
-console.log('Explore Outdoors, Caverns, Lakes & Rivers, and Beaches & Coast retain 700+ words, substantive sections, official sources, reciprocal discovery, safe static markup, inline SSR/client asset delivery, index readiness, and protected search-intent metadata without helper-module bundle cost.');
+console.log('Explore Outdoors, Caverns, Lakes & Rivers, Beaches & Coast, and the Texas Birds guide retain substantive official-source authority, reciprocal discovery, correct visible and structured hierarchy, safe static delivery, index readiness, and protected search-intent metadata.');
