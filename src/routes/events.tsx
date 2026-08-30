@@ -28,6 +28,23 @@ const EVENT_LABELS: Record<TexasEvent["category"], string> = {
   sport: "Sports",
   culture: "Arts & Culture",
 };
+const EVENT_TOPIC_LINKS = [
+  { href: "/events/rodeos", title: "Rodeos & western events", description: "Stock shows, county fairs and rodeo weekends with permanent sourced planning guides." },
+  { href: "/events/food-festivals", title: "Food festivals", description: "Barbecue, chili, Oktoberfest, harvest, beer, wine and local food traditions." },
+  { href: "/events/music-festivals", title: "Music festivals", description: "Texas country, folk, jazz, blues and other major live-music gatherings." },
+  { href: "/events/arts-culture", title: "Arts & culture", description: "Art, film, books, heritage festivals, parades and community traditions." },
+  { href: "/events/seasonal-events", title: "Seasonal & holiday events", description: "Wildflowers, holiday parades, fall traditions and other seasonal anchors." },
+  { href: "/events/sports-events", title: "Sports events", description: "Races, tournaments and major competition weekends across Texas." },
+] as const;
+const EVENT_REGION_LINKS = [
+  { href: "/events/hill-country-events", title: "Hill Country", description: "Austin, New Braunfels, Fredericksburg, Kerrville and the surrounding region." },
+  { href: "/events/gulf-coast-events", title: "Gulf Coast", description: "Houston, Galveston, the Coastal Bend and island event weekends." },
+  { href: "/events/north-texas-events", title: "North Texas", description: "Dallas-Fort Worth, Prairies & Lakes cities and nearby fair and festival towns." },
+  { href: "/events/south-texas-events", title: "South Texas", description: "San Antonio, border traditions, Valley festivals and regional rodeos." },
+  { href: "/events/piney-woods-events", title: "East Texas & Piney Woods", description: "Rose, forest, music and small-town traditions across East Texas." },
+  { href: "/events/big-bend-events", title: "Big Bend & Far West", description: "Remote destination events around Terlingua, Alpine, Marfa and Far West Texas." },
+  { href: "/events/panhandle-events", title: "Panhandle", description: "Source-qualified High Plains and Panhandle event guides without padded listings." },
+] as const;
 
 export const Route = createFileRoute("/events")({
   loader: async ({ context }) => {
@@ -97,6 +114,28 @@ function EventsPage() {
             <Link to="/texas-dance-halls-honky-tonks" className="group bg-background p-5"><strong className="font-display text-2xl leading-tight group-hover:text-primary">Dance halls & honky-tonks</strong><span className="mt-3 block text-sm leading-6 text-muted-foreground">Two-step culture, Western swing, historic community halls and how to plan a live-music weekend.</span><span className="mt-4 block text-sm font-semibold text-primary">Read the guide →</span></Link>
             <Link to="/texas-homecoming-mums" className="group bg-background p-5"><strong className="font-display text-2xl leading-tight group-hover:text-primary">Texas homecoming mums</strong><span className="mt-3 block text-sm leading-6 text-muted-foreground">How a school flower became an oversized wearable tradition tied to football, clubs and homecoming week.</span><span className="mt-4 block text-sm font-semibold text-primary">Read the guide →</span></Link>
             <Link to="/german-czech-texas-towns" className="group bg-background p-5"><strong className="font-display text-2xl leading-tight group-hover:text-primary">German & Czech Texas heritage</strong><span className="mt-3 block text-sm leading-6 text-muted-foreground">Connect festivals and music to the towns, churches, bakeries and halls that preserve the deeper history.</span><span className="mt-4 block text-sm font-semibold text-primary">Read the guide →</span></Link>
+          </div>
+        </div>
+      </Container>
+    </section>
+
+    <section className="border-b border-border py-10">
+      <Container>
+        <div className="grid gap-8 lg:grid-cols-[15rem_1fr] lg:items-start">
+          <div><p className="eyebrow text-primary">Browse evergreen guides</p><h2 className="mt-2 font-display text-3xl">Texas events by type</h2><p className="mt-4 text-sm leading-6 text-muted-foreground">Crawlable planning collections connect the live calendar to permanent event guides, official-source dates and deeper Texas context.</p></div>
+          <div className="grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
+            {EVENT_TOPIC_LINKS.map((item) => <Link key={item.href} to={item.href} className="group bg-background p-5"><strong className="font-display text-xl leading-tight group-hover:text-primary">{item.title}</strong><span className="mt-3 block text-sm leading-6 text-muted-foreground">{item.description}</span><span className="mt-4 block text-sm font-semibold text-primary">Browse the guides →</span></Link>)}
+          </div>
+        </div>
+      </Container>
+    </section>
+
+    <section className="border-b border-border bg-surface py-10">
+      <Container>
+        <div className="grid gap-8 lg:grid-cols-[15rem_1fr] lg:items-start">
+          <div><p className="eyebrow text-primary">Plan by geography</p><h2 className="mt-2 font-display text-3xl">Texas events by region</h2><p className="mt-4 text-sm leading-6 text-muted-foreground">Compare event weekends within one part of the state before committing to long drives between cities.</p></div>
+          <div className="grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+            {EVENT_REGION_LINKS.map((item) => <Link key={item.href} to={item.href} className="group bg-background p-5"><strong className="font-display text-xl leading-tight group-hover:text-primary">{item.title}</strong><span className="mt-3 block text-sm leading-6 text-muted-foreground">{item.description}</span><span className="mt-4 block text-sm font-semibold text-primary">Explore the region →</span></Link>)}
           </div>
         </div>
       </Container>
