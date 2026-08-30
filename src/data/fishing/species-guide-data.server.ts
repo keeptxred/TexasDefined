@@ -34,7 +34,13 @@ function titleCase(value: string) {
 function buildFishingSpeciesProfileHead(entry: NonNullable<SpeciesProfileHeadEntry>) {
   const { species, canonicalPath, lakes, sources } = entry;
   const url = `${origin}${canonicalPath}`;
-  const description = `${species.commonName} fishing in Texas: verified complete-lake relationships, seasonal patterns and source-backed technique applications without live-bite or sponsor-ranking claims.`;
+  const isBlueCatfish = canonicalPath === "/fishing/species/blue-catfish";
+  const title = isBlueCatfish
+    ? "Blue Catfish in Texas: Fishing Guide"
+    : `${species.commonName} Fishing in Texas — Lakes, Seasons & Techniques`;
+  const description = isBlueCatfish
+    ? "Blue catfish in Texas: verified lake relationships, seasonal patterns and source-backed fishing techniques without live-bite or sponsor-ranking claims."
+    : `${species.commonName} fishing in Texas: verified complete-lake relationships, seasonal patterns and source-backed technique applications without live-bite or sponsor-ranking claims.`;
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -83,7 +89,7 @@ function buildFishingSpeciesProfileHead(entry: NonNullable<SpeciesProfileHeadEnt
 
   return {
     meta: buildMeta(texasDefinedBrand, {
-      title: `${species.commonName} Fishing in Texas — Lakes, Seasons & Techniques`,
+      title,
       description,
       canonicalPath,
     }),
