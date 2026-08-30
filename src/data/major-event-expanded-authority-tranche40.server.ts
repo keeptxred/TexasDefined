@@ -1,0 +1,158 @@
+import type { MajorEventAuthorityRecord } from "./major-event-authority.server";
+
+const records: MajorEventAuthorityRecord[] = [
+  {
+    slug: "cuero-turkeyfest",
+    name: "Cuero Turkeyfest",
+    city: "Cuero",
+    countySlug: "dewitt",
+    countyName: "DeWitt County",
+    region: "south-texas",
+    category: "culture",
+    startDate: "2026-10-09",
+    endDate: "2026-10-11",
+    venue: "Cuero City Park",
+    officialUrl: "https://www.turkeyfest.org/",
+    sourceCheckedAt: "2026-08-30",
+    whyItMatters: "Cuero Turkeyfest turns the town's long-running turkey-racing identity into a three-day South Texas destination built around the Great Gobbler Gallop, parade traditions, live music, family events and community fundraising.",
+    planningSections: [
+      { title: "Use October 9-11 as the confirmed 2026 festival window", body: "The organizer publishes the 53rd annual Turkeyfest for October 9 through 11, 2026. Use the current schedule for race, parade, music and gate times because the weekend program changes by day." },
+      { title: "Plan around the Great Gobbler Gallop and parade", body: "Turkeyfest's signature identity is the racing rivalry built around Cuero's Ruby Begonia, with the annual parade and other heritage programming surrounding the race. Arrive early on the day those traditions matter most to your trip." },
+      { title: "Keep Cuero and DeWitt County in the itinerary", body: "The festival is strongest as a small-town cultural weekend rather than a single concert stop. Leave time for downtown Cuero and other DeWitt County places around your fixed festival hours." },
+    ],
+    relatedLinks: [
+      { href: "/browse/counties#county-dewitt", label: "Explore DeWitt County", description: "Build more Cuero and DeWitt County stops around Turkeyfest." },
+      { href: "/events", label: "Texas events calendar", description: "Compare other Texas heritage and fall festivals." },
+    ],
+    sources: [
+      { label: "Cuero Turkeyfest official site", url: "https://www.turkeyfest.org/" },
+      { label: "Cuero Turkeyfest official schedule", url: "https://www.turkeyfest.org/schedule-of-events" },
+      { label: "Cuero Turkeyfest official history", url: "https://www.turkeyfest.org/our-story" },
+    ],
+  },
+  {
+    slug: "come-and-take-it-celebration",
+    name: "Come and Take It Celebration",
+    city: "Gonzales",
+    countySlug: "gonzales",
+    countyName: "Gonzales County",
+    region: "prairies-lakes",
+    category: "culture",
+    startDate: "2026-10-02",
+    endDate: "2026-10-04",
+    venue: "Downtown Gonzales",
+    officialUrl: "https://gonzalestexas.com/",
+    sourceCheckedAt: "2026-08-30",
+    whyItMatters: "The Come and Take It Celebration gives travelers a direct way to connect Gonzales's Texas Revolution history with a living three-day community festival in the town where the first fighting of the revolution began in October 1835.",
+    planningSections: [
+      { title: "Use October 2-4 as the 2026 celebration weekend", body: "The Gonzales Chamber calendar lists the 2026 Come and Take It Celebration beginning Friday, October 2, and the event's established first-full-weekend-of-October pattern supports the three-day Friday-through-Sunday window." },
+      { title: "Pair the festival with the historic sites", body: "The celebration is most meaningful when the festival is connected to the Gonzales Memorial Museum, the historic downtown and the broader Texas Independence story rather than treated as a generic street fair." },
+      { title: "Expect a downtown festival footprint", body: "Use the Chamber and visitor-center information for the final program, street access, parking and vendor details. Build walking time into the day because downtown activity is part of the experience." },
+    ],
+    relatedLinks: [
+      { href: "/browse/counties#county-gonzales", label: "Explore Gonzales County", description: "Connect the celebration to more Gonzales County history and places." },
+      { href: "/texas-history", label: "Texas history", description: "Continue into Texas Defined's broader Texas-history authority coverage." },
+      { href: "/events", label: "Texas events calendar", description: "Compare other Texas history and heritage events." },
+    ],
+    sources: [
+      { label: "Gonzales Chamber of Commerce & Agriculture", url: "https://gonzalestexas.com/" },
+      { label: "Gonzales visitor information", url: "https://gonzalestexas.com/visitor-information/" },
+    ],
+  },
+  {
+    slug: "texas-mushroom-festival",
+    name: "Texas Mushroom Festival",
+    city: "Madisonville",
+    countySlug: "madison",
+    countyName: "Madison County",
+    region: "prairies-lakes",
+    category: "food",
+    startDate: "2026-10-17",
+    endDate: "2026-10-17",
+    venue: "Downtown Madisonville",
+    officialUrl: "https://txmushfest.org/",
+    sourceCheckedAt: "2026-08-30",
+    whyItMatters: "The Texas Mushroom Festival has grown from a local food demonstration into a Madisonville destination that combines mushroom-focused food, arts, exhibits, family programming and live entertainment around the city's distinctive mushroom identity.",
+    planningSections: [
+      { title: "Use October 17 as the confirmed 2026 festival date", body: "The organizer identifies the 25th annual Texas Mushroom Festival for October 17, 2026, and the City of Madisonville separately lists the festival on that date. Treat the event as a one-day downtown anchor and use the organizer for final hours." },
+      { title: "Build the day around food and exhibits", body: "The festival mixes mushroom-centered food with art, photography, a car showcase, children's activities and entertainment. Review the current program before arrival so the day is not reduced to a single tasting stop." },
+      { title: "Use Madisonville as the base", body: "The event is city-centered and works naturally with other Madison County stops. Leave time on either side of the festival for the town rather than driving in only for one scheduled activity." },
+    ],
+    relatedLinks: [
+      { href: "/browse/counties#county-madison", label: "Explore Madison County", description: "Build more Madisonville and Madison County stops around the festival." },
+      { href: "/food", label: "Texas food and BBQ", description: "Continue into Texas Defined's statewide food coverage." },
+      { href: "/events", label: "Texas events calendar", description: "Compare other Texas food and fall festivals." },
+    ],
+    sources: [
+      { label: "Texas Mushroom Festival official site", url: "https://txmushfest.org/" },
+      { label: "City of Madisonville events calendar", url: "https://madisonvilletexas.gov/events" },
+      { label: "City of Madisonville tourism", url: "https://madisonvilletexas.gov/tourism" },
+    ],
+  },
+  {
+    slug: "seguin-pecan-fest",
+    name: "Seguin Pecan Fest",
+    city: "Seguin",
+    countySlug: "guadalupe",
+    countyName: "Guadalupe County",
+    region: "hill-country",
+    category: "food",
+    startDate: "2026-10-24",
+    endDate: "2026-10-24",
+    venue: "Downtown Seguin and Central Park",
+    officialUrl: "https://visitseguin.com/pecan-fest/",
+    sourceCheckedAt: "2026-08-30",
+    whyItMatters: "Seguin Pecan Fest turns one of the city's defining agricultural identities into a full-day fall destination with downtown markets, heritage activities, performances, pecan-focused food and programming across multiple Seguin locations.",
+    planningSections: [
+      { title: "Use October 24 as the confirmed 2026 festival date", body: "Destination Seguin publishes Pecan Fest for Saturday, October 24, 2026, with the core downtown program centered on Central Park. Check individual participating venues because some companion activities extend beyond the central footprint." },
+      { title: "Treat the festival as a distributed downtown event", body: "Pecan Fest combines the central downtown program with additional heritage and vendor activity around Seguin. Comfortable walking shoes and a simple stop-by-stop plan make the day easier than treating Central Park as the only destination." },
+      { title: "Connect the event to Seguin's pecan identity", body: "The festival works best as part of a broader Seguin visit. Leave room for local history, downtown businesses and other Guadalupe County stops before or after the main festival hours." },
+    ],
+    relatedLinks: [
+      { href: "/browse/counties#county-guadalupe", label: "Explore Guadalupe County", description: "Build more Seguin and Guadalupe County stops around Pecan Fest." },
+      { href: "/food", label: "Texas food and BBQ", description: "Continue into Texas Defined's statewide food coverage." },
+      { href: "/events", label: "Texas events calendar", description: "Compare other Texas food and fall festivals." },
+    ],
+    sources: [
+      { label: "Destination Seguin Pecan Fest", url: "https://visitseguin.com/pecan-fest/" },
+      { label: "Destination Seguin 2026 Pecan Fest event listing", url: "https://visitseguin.com/events/2026-pecan-fest/" },
+      { label: "Destination Seguin annual events", url: "https://visitseguin.com/events/annual-events/" },
+    ],
+  },
+  {
+    slug: "hopkins-county-stew-contest",
+    name: "World Champion Hopkins County Stew Contest",
+    city: "Sulphur Springs",
+    countySlug: "hopkins",
+    countyName: "Hopkins County",
+    region: "prairies-lakes",
+    category: "food",
+    startDate: "2026-10-24",
+    endDate: "2026-10-24",
+    dateNote: "The Hopkins County Chamber states that the contest is held on the fourth Saturday in October. Applying that published recurrence to 2026 yields October 24; recheck the Chamber's current-year contest page before traveling.",
+    venue: "Buford Park",
+    officialUrl: "https://hopkinschamber.org/hopkins-county-stew-contest/",
+    sourceCheckedAt: "2026-08-30",
+    whyItMatters: "The World Champion Hopkins County Stew Contest is a distinctive East Texas food tradition in which more than a hundred teams cook chicken or beef stew over wood fires and feed thousands of visitors in Sulphur Springs.",
+    planningSections: [
+      { title: "Use the fourth-Saturday recurrence as the planning date", body: "The Hopkins County Chamber says the contest is held on the fourth Saturday in October. In 2026 that date is October 24. Texas Defined labels the date as recurrence-derived until the Chamber posts any year-specific operational changes." },
+      { title: "Arrive before the tasting rush", body: "The Chamber says teams begin early so judging samples are ready by midmorning and spectators then move among the camps. Plan an early arrival if tasting broadly is the priority rather than waiting until late afternoon." },
+      { title: "Build Sulphur Springs into the trip", body: "The stew contest is one of Hopkins County's signature annual events. Pair it with downtown Sulphur Springs and other county stops rather than treating Buford Park as the only destination." },
+    ],
+    relatedLinks: [
+      { href: "/browse/counties#county-hopkins", label: "Explore Hopkins County", description: "Build more Sulphur Springs and Hopkins County stops around the contest." },
+      { href: "/food", label: "Texas food and BBQ", description: "Continue into Texas Defined's statewide food coverage." },
+      { href: "/events", label: "Texas events calendar", description: "Compare other Texas food festivals and cook-offs." },
+    ],
+    sources: [
+      { label: "Hopkins County Chamber stew contest", url: "https://hopkinschamber.org/hopkins-county-stew-contest/" },
+      { label: "Hopkins County Chamber of Commerce", url: "https://hopkinschamber.org/" },
+    ],
+  },
+];
+
+const bySlug = new Map(records.map((event) => [event.slug, event]));
+
+export function getExpandedMajorEventAuthorityTranche40Server(slug: string): MajorEventAuthorityRecord | null {
+  return bySlug.get(slug) ?? null;
+}
