@@ -11,6 +11,9 @@ export const TEXAS_GATEWAY_INDEX_READY_SLUGS = new Set<string>([
   "best-texas-stargazing-weekend-trips",
   "texas-vs-california-differences",
   "texas-vs-florida-differences",
+  "texas-traditions-you-should-experience",
+  "mistakes-first-time-visitors-make-in-texas",
+  "texas-bucket-list-by-season",
 ]);
 
 export function isTexasGatewayArticle(article: Pick<Article, "brandId" | "id">): boolean {
