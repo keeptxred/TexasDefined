@@ -89,6 +89,34 @@ const records: MajorEventAuthorityRecord[] = [
       { label: "Grapevine Main Street Fest official general information", url: "https://www.grapevinetexasusa.com/main-street-fest/general-information/" },
     ],
   },
+  {
+    slug: "texas-pinball-festival",
+    name: "Texas Pinball Festival",
+    city: "Frisco",
+    region: "prairies-lakes",
+    category: "culture",
+    startDate: "2027-03-17",
+    endDate: "2027-03-21",
+    dateNote: "The organizer's 2027 headline window is March 17-21. The core public show traditionally occupies Friday through Sunday, with technical, exhibitor and setup programming earlier in the week; check the final 2027 schedule as it is released.",
+    venue: "Embassy Suites Dallas-Frisco Hotel and Convention Center",
+    officialUrl: "https://texaspinball.com/",
+    sourceCheckedAt: "2026-08-30",
+    whyItMatters: "The Texas Pinball Festival brings hundreds of playable machines, tournaments, seminars, collectors, manufacturers and enthusiasts together in Frisco, making it a distinctive North Texas destination event centered on arcade history, restoration and competitive play.",
+    planningSections: [
+      { title: "Use March 17-21 as the organizer-published 2027 window", body: "The festival's official home page announces March 17 through 21, 2027 in Frisco. The organizer says 2027 passes go on sale in fall 2026, so recheck the ticket and schedule pages before booking around a particular session." },
+      { title: "Separate the public show from pre-festival programming", body: "The current event format includes technical and exhibitor activity before the main public Friday-through-Sunday show. Use the final 2027 schedule to determine whether an earlier arrival adds value for your ticket type or interests." },
+      { title: "Plan for a hands-on convention rather than a passive expo", body: "The festival emphasizes hundreds of playable machines alongside tournaments, seminars, vendors and collector activity. Leave enough time to play and explore the floor instead of treating it as a quick exhibit walk-through." },
+    ],
+    relatedLinks: [
+      { href: "/events", label: "Texas events calendar", description: "Compare other Texas conventions and destination events." },
+      { href: "/explore/prairies-lakes", label: "Prairies & Lakes", description: "Build a broader North Texas trip around Frisco." },
+    ],
+    sources: [
+      { label: "Texas Pinball Festival official home page", url: "https://texaspinball.com/" },
+      { label: "Texas Pinball Festival attendee information", url: "https://texaspinball.com/attendees/" },
+      { label: "Texas Pinball Festival schedule", url: "https://texaspinball.com/schedule/" },
+    ],
+  },
 ];
 
 const bySlug = new Map(records.map((event) => [event.slug, event]));
