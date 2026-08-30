@@ -3,6 +3,7 @@ import fs from 'node:fs';
 const seoSource = fs.readFileSync('src/lib/seo.ts', 'utf8');
 const fredericksburgChurchRoute = fs.readFileSync('src/routes/explore.painted-churches.$slug.tsx', 'utf8');
 const fishingSpeciesServer = fs.readFileSync('src/data/fishing/species-guide-data.server.ts', 'utf8');
+const stateFairRoute = fs.readFileSync('src/routes/texas-state-fair.tsx', 'utf8');
 const brandSuffix = ' | Texas Defined';
 const targets = [
   ['/county/bexar', 'Bexar County, Texas Guide'],
@@ -81,6 +82,16 @@ const exactQuerySourceTargets = [
       'canonicalPath === "/fishing/species/blue-catfish"',
       '"Blue Catfish in Texas: Fishing Guide"',
       '"Blue catfish in Texas: verified lake relationships, seasonal patterns and source-backed fishing techniques without live-bite or sponsor-ranking claims."',
+    ],
+  },
+  {
+    label: '/texas-state-fair',
+    source: stateFairRoute,
+    tokens: [
+      '"State Fair of Texas 2026: Dates & Guide"',
+      '"State Fair of Texas 2026 runs Sept. 25–Oct. 18 at Fair Park in Dallas. Plan tickets, hours, DART, parking, food, rides, Big Tex and daily events."',
+      'startDate: "2026-09-25"',
+      'endDate: "2026-10-18"',
     ],
   },
 ];
