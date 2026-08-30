@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { platform, scope } from "@/data";
 import { isLegacyCountySeriesArticle } from "@/data/county-series";
+import { isArticleIndexReady } from "@/data/fixtures/texas-gateway-index-readiness";
 
 const origin = `https://${texasDefinedBrand.identity.domain}`;
 const feedUrl = `${origin}/rss.xml`;
@@ -18,7 +19,7 @@ export const Route = createFileRoute("/rss.xml")({
     handlers: {
       GET: async () => {
         const eligibleArticles = (await platform.articles.list(scope))
-          .filter((article) => !isLegacyCountySeriesArticle(article.slug));
+          .filter((article) => !isLegacyCountySeriesArticle(article.slug) && isArticleIndexReady(article));
         const pinnedArticles = eligibleArticles.filter((article) => PINNED_DISCOVERY_SLUGS.has(article.slug));
         const recentArticles = eligibleArticles
           .filter((article) => !PINNED_DISCOVERY_SLUGS.has(article.slug))
