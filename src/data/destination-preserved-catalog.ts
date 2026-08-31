@@ -9,6 +9,7 @@ import { militaryMuseumDestinations } from "./military-museum-destinations";
 import { dfwMuseumDestinations } from "./museum-expansion-dfw";
 import { houstonGalvestonMuseumDestinations } from "./museum-expansion-houston-galveston";
 import type { Destination } from "./types";
+import { nationalWildlifeRefugeDestinations } from "./wildlife-destinations";
 
 const newBraunfelsSeasonalFallback: Destination = {
   id: "preserved-new-braunfels",
@@ -77,5 +78,6 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   militaryMuseumDestinations,
   houstonGalvestonMuseumDestinations,
   dfwMuseumDestinations,
+  nationalWildlifeRefugeDestinations,
   [newBraunfelsSeasonalFallback],
 );
