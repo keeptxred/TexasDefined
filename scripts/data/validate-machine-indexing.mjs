@@ -24,6 +24,9 @@ const citationGuideSource = fs.readFileSync(path.join(root, 'src/routes/citation
 const robotsSource = fs.readFileSync(path.join(root, 'public/robots.txt'), 'utf8');
 const rootRouteSource = fs.readFileSync(path.join(root, 'src/routes/__root.tsx'), 'utf8');
 const articleRouteSource = fs.readFileSync(path.join(root, 'src/routes/article.$slug.tsx'), 'utf8');
+const texasSymbolsRouteSource = fs.readFileSync(path.join(root, 'src/routes/texas-symbols.tsx'), 'utf8');
+const texasSymbolsLazySource = fs.readFileSync(path.join(root, 'src/routes/texas-symbols.lazy.tsx'), 'utf8');
+const texasSymbolsDataSource = fs.readFileSync(path.join(root, 'src/data/texas-symbols.ts'), 'utf8');
 const requiredDiscoveryTargets = [
   '/api/knowledge-graph',
   '/api/ai/entities',
@@ -75,6 +78,7 @@ const requiredDiscoveryTargets = [
   '/texas-dance-halls-honky-tonks',
   '/texas-music',
   '/texas-history',
+  '/texas-symbols',
   '/texas-homecoming-mums',
   '/texas-natural-wonders-bucket-list',
   '/german-czech-texas-towns',
@@ -121,6 +125,8 @@ for (const feature of [
   'use venue or event operators for current schedules, admission, closures and visitor operations',
   'use the statewide hub as the canonical collection entry point for historic sites, heritage themes and supporting guides',
   'use linked official agency or operator sources for current access, hours, closures, preservation status and visitor operations',
+  'Texas State Library and Archives Commission list as controlling authority',
+  'current-versus-historical designation distinction',
 ]) {
   if (!llmsSource.includes(feature)) errors.push(`llms.txt machine guidance missing: ${feature}`);
 }
@@ -198,6 +204,7 @@ if (citationIndex) {
     'https://texasdefined.com/texas-dance-halls-honky-tonks',
     'https://texasdefined.com/texas-music',
     'https://texasdefined.com/texas-history',
+    'https://texasdefined.com/texas-symbols',
     'https://texasdefined.com/texas-homecoming-mums',
     'https://texasdefined.com/texas-natural-wonders-bucket-list',
     'https://texasdefined.com/german-czech-texas-towns',
@@ -213,6 +220,10 @@ if (citationIndex) {
   const historyResource = (citationIndex.resources ?? []).find((resource) => resource.url === 'https://texasdefined.com/texas-history');
   for (const marker of ['statewide-authority-hub', 'official-source-backed-destinations', 'collection-schema', 'current-visitor-operations-caveat', 'canonical-cross-links']) {
     if (!historyResource?.trust?.includes(marker)) errors.push(`Texas History citation resource must retain ${marker}.`);
+  }
+  const symbolsResource = (citationIndex.resources ?? []).find((resource) => resource.url === 'https://texasdefined.com/texas-symbols');
+  for (const marker of ['TSLAC-official-source', 'legislative-resolution-citations', 'collection-schema', 'historical-designation-separation', 'canonical-cross-links']) {
+    if (!symbolsResource?.trust?.includes(marker)) errors.push(`Texas Symbols citation resource must retain ${marker}.`);
   }
   const outdoorAuthorityUrls = [
     'https://texasdefined.com/texas-rock-climbing-bouldering-guide',
@@ -242,6 +253,31 @@ if (citationIndex) {
       if (!resource.trust?.includes(trustMarker)) errors.push(`${resource.url} citation resource is missing ${trustMarker} trust guidance.`);
     }
   }
+}
+
+for (const feature of [
+  'canonicalPath: "/texas-symbols"',
+  '"@type": "CollectionPage"',
+  '"@type": "ItemList"',
+  '"@type": "BreadcrumbList"',
+]) {
+  if (!texasSymbolsRouteSource.includes(feature)) errors.push(`Texas Symbols route authority contract missing: ${feature}`);
+}
+for (const feature of [
+  'Verify with {sourceName}',
+  'Texas State Library and Archives Commission',
+  '<Link to="/texas-history"',
+  'historicalTexasSymbols',
+]) {
+  if (!texasSymbolsLazySource.includes(feature)) errors.push(`Texas Symbols visible source/discovery contract missing: ${feature}`);
+}
+for (const feature of [
+  'https://www.tsl.texas.gov/ref/abouttx/symbols',
+  'Texas State Library and Archives Commission',
+  'resolution:',
+  'historical: true',
+]) {
+  if (!texasSymbolsDataSource.includes(feature)) errors.push(`Texas Symbols official-source/data contract missing: ${feature}`);
 }
 
 for (const feature of [
@@ -326,4 +362,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`TexasDefined machine endpoints, provenance, ${requiredDiscoveryTargets.length} protected llms.txt discovery targets, Texas culture including statewide music, history and outdoor authority citation resources, current sports identity/schema, robots policy, and core Organization/WebSite/Article schema contracts are protected.`);
+console.log(`TexasDefined machine endpoints, provenance, ${requiredDiscoveryTargets.length} protected llms.txt discovery targets, Texas culture including statewide music, history, official symbols and outdoor authority citation resources, current sports identity/schema, robots policy, and core Organization/WebSite/Article schema contracts are protected.`);
