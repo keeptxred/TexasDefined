@@ -36,7 +36,7 @@ for (const marker of [
   'Cash to close',
   'Monthly ownership',
   'Replace estimates with primary sources',
-  'planning calculator, not a lending decision',
+  'This guide organizes the research; it does not replace those documents or professional advice.',
 ]) {
   if (!lazyRoute.includes(marker)) failures.push(`Texas homebuyer UI missing ${marker}`);
 }
@@ -57,8 +57,9 @@ for (const marker of [
   if (!data.includes(marker)) failures.push(`Texas homebuyer data contract missing ${marker}`);
 }
 
-const stepCount = [...data.matchAll(/^  \['[^\n]+', '[^\n]+'\],$/gm)].length;
-if (stepCount < 9) failures.push(`Texas homebuyer journey must preserve at least nine explicit purchase-planning steps; found ${stepCount}.`);
+const stepBlock = data.match(/export const TEXAS_HOMEBUYER_STEPS = \[([\s\S]*?)\] as const;/)?.[1] ?? '';
+const stepCount = [...stepBlock.matchAll(/^\s*\['[^\n]+', '[^\n]+'\],$/gm)].length;
+if (stepCount !== 9) failures.push(`Texas homebuyer journey must preserve exactly nine explicit purchase-planning steps; found ${stepCount}.`);
 
 const cityPaths = [
   '/texas-home-affordability-calculator/houston',
@@ -125,4 +126,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Texas homebuyer journey validation passed with ${cityPaths.length} local affordability entry points, primary-source research links, server-built schema, and reciprocal cash-to-close discovery.`);
+console.log(`Texas homebuyer journey validation passed with ${stepCount} purchase-planning steps, ${cityPaths.length} local affordability entry points, primary-source research links, server-built schema, and reciprocal cash-to-close discovery.`);
