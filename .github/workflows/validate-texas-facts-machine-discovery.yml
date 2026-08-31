@@ -3,7 +3,7 @@ name: Validate Texas Facts machine discovery
 on:
   pull_request:
     paths:
-      - 'src/routes/llms[.]txt.ts'
+      - 'src/routes/llms*.ts'
       - 'public/citation-magnets.json'
       - 'scripts/data/validate-texas-facts-machine-discovery.mjs'
       - 'scripts/data/validate-texas-facts-provenance.mjs'
@@ -12,10 +12,12 @@ on:
       - 'src/data/texas-facts.functions.ts'
       - 'src/routes/texas-facts.tsx'
       - 'src/routes/texas-facts.lazy.tsx'
+      - '.github/workflows/validate-texas-facts-machine-discovery.yml'
   push:
-    branches: [main]
+    branches:
+      - main
     paths:
-      - 'src/routes/llms[.]txt.ts'
+      - 'src/routes/llms*.ts'
       - 'public/citation-magnets.json'
       - 'scripts/data/validate-texas-facts-machine-discovery.mjs'
       - 'scripts/data/validate-texas-facts-provenance.mjs'
@@ -24,6 +26,8 @@ on:
       - 'src/data/texas-facts.functions.ts'
       - 'src/routes/texas-facts.tsx'
       - 'src/routes/texas-facts.lazy.tsx'
+      - '.github/workflows/validate-texas-facts-machine-discovery.yml'
+  workflow_dispatch:
 
 permissions:
   contents: read
