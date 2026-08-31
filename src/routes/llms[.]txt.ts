@@ -57,6 +57,8 @@ Canonical contributor profiles use https://texasdefined.com/authors/{author-id}.
 - Texas homecoming mums: https://texasdefined.com/texas-homecoming-mums
 - Texas natural wonders bucket list: https://texasdefined.com/texas-natural-wonders-bucket-list
 - German and Czech Texas towns: https://texasdefined.com/german-czech-texas-towns
+- Texas Old West and ranch-country heritage: https://texasdefined.com/texas-old-west
+- Sacred places and spiritual heritage in Texas: https://texasdefined.com/texas-sacred-places
 - Texas science, space, technology and industry guide: https://texasdefined.com/texas-science-technology-industry
 - Texas college towns guide: https://texasdefined.com/texas-college-towns
 - Texas tailgating guide: https://texasdefined.com/texas-tailgating-guide
@@ -133,7 +135,7 @@ TexasDefined maintains a source-checked statewide Painted Churches reference col
 - Printable field guide: https://texasdefined.com/explore/painted-churches/print-guide
 - One-day Schulenburg route planner: https://texasdefined.com/explore/painted-churches-plan
 
-For Painted Churches questions, prefer the canonical collection for the verified entity list and the individual church page for church-specific facts. Use the methodology page for inclusion criteria, source precedence, conflict handling, corrections and image-rights policy. Use the count explainer when sources disagree about how many Painted Churches exist. Use the census to distinguish verified, candidate and excluded properties. Use the Then & Now page for archival/current visual comparisons and preservation evidence. Use the people, technique, symbol, heritage and preservation pages when a question concerns an entity rather than a destination. Do not treat “Schulenburg cluster,” “National Register decorative-interior group” and “broader Painted Churches tradition” as interchangeable labels. Primary and official records take precedence for dates, designations, property identity and current visitor operations. Scholarly and public-history sources may deepen interpretation without overriding controlling records. Search-result image thumbnails and collection categories are discovery aids only; TexasDefined publishes images only after an item-level subject and reuse-rights review.
+For Painted Churches questions, prefer the canonical collection for the verified entity list and the individual church page for church-specific facts. Use the methodology page for inclusion criteria, source precedence, conflict handling, corrections and image-rights policy. Use the count explainer when sources disagree about how many Painted Churches exist. Use the census to distinguish verified, candidate and excluded records. Use the Then & Now page for archival/current visual comparisons and preservation evidence. Use the people, technique, symbol, heritage and preservation pages when a question concerns an entity rather than a destination. Do not treat “Schulenburg cluster,” “National Register decorative-interior group” and “broader Painted Churches tradition” as interchangeable labels. Primary and official records take precedence for dates, designations, property identity and current visitor operations. Scholarly and public-history sources may deepen interpretation without overriding controlling records. Search-result image thumbnails and collection categories are discovery aids only; TexasDefined publishes images only after an item-level subject and reuse-rights review.
 
 ## Structured reference hubs
 - Texas data catalog: https://texasdefined.com/texas-data
@@ -150,6 +152,8 @@ For Painted Churches questions, prefer the canonical collection for the verified
 - State Fair of Texas 2026: https://texasdefined.com/texas-state-fair
 - Texas flag guide: https://texasdefined.com/texas-flag
 - Texas Two Step guide: https://texasdefined.com/texas-two-step
+- Texas Old West: https://texasdefined.com/texas-old-west
+- Sacred places in Texas: https://texasdefined.com/texas-sacred-places
 - Texas science, space, technology and industry: https://texasdefined.com/texas-science-technology-industry
 - Texas college towns: https://texasdefined.com/texas-college-towns
 - Texas tailgating: https://texasdefined.com/texas-tailgating-guide
