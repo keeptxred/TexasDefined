@@ -6,7 +6,6 @@ import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import { destinationsQuery } from "@/data/queries";
 import type { Destination } from "@/data/types";
-import { nationalWildlifeRefugeSlugs } from "@/data/wildlife-destinations";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const canonicalPath = "/explore/wildlife";
@@ -14,14 +13,18 @@ const description = "Explore Texas national wildlife refuges, wildlife-rich stat
 
 const wildlifeTerms = /wildlife|birding|birds|bison|longhorn|alligator|bat\b|zoo|aquarium|refuge|sanctuary|nature center|conservation/i;
 
+function isFederalRefuge(destination: Destination) {
+  return destination.managingAuthority === "U.S. Fish and Wildlife Service" && /national wildlife refuge/i.test(destination.name);
+}
+
 function isWildlifeDestination(destination: Destination) {
-  if (nationalWildlifeRefugeSlugs.has(destination.slug)) return true;
+  if (isFederalRefuge(destination)) return true;
   const haystack = [destination.name, destination.summary, ...destination.highlights].join(" ");
   return wildlifeTerms.test(haystack);
 }
 
 function wildlifeRank(destination: Destination) {
-  if (nationalWildlifeRefugeSlugs.has(destination.slug)) return 0;
+  if (isFederalRefuge(destination)) return 0;
   if (/wildlife refuge|wildlife center|sanctuary/i.test(destination.name)) return 1;
   if (/zoo|aquarium|wildlife ranch/i.test(destination.name)) return 2;
   if (destination.category === "state-parks") return 3;
@@ -91,8 +94,8 @@ export const Route = createFileRoute("/explore/wildlife")({
 
 function WildlifeHubPage() {
   const destinations = Route.useLoaderData();
-  const refuges = destinations.filter((destination) => nationalWildlifeRefugeSlugs.has(destination.slug));
-  const otherWildlife = destinations.filter((destination) => !nationalWildlifeRefugeSlugs.has(destination.slug));
+  const refuges = destinations.filter(isFederalRefuge);
+  const otherWildlife = destinations.filter((destination) => !isFederalRefuge(destination));
 
   return <>
     <Container className="pb-8 pt-12 sm:pt-16">
