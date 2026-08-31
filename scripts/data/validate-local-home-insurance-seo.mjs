@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 
 const affordabilityProfiles = fs.readFileSync('src/data/local-home-affordability.ts', 'utf8');
+const affordabilityPage = fs.readFileSync('src/components/calculators/LocalHomeAffordabilityPage.tsx', 'utf8');
 const insuranceProfiles = fs.readFileSync('src/data/local-home-insurance.ts', 'utf8');
 const insuranceHub = fs.readFileSync('src/routes/texas-home-insurance-calculator.lazy.tsx', 'utf8');
 const insurancePage = fs.readFileSync('src/components/calculators/LocalHomeInsurancePage.tsx', 'utf8');
@@ -86,12 +87,16 @@ for (const marker of ['createServerFn', "import('./local-home-insurance-page.ser
   if (!insuranceServerFn.includes(marker)) failures.push(`Local home-insurance server boundary missing ${marker}`);
 }
 
-for (const marker of [
-  'const insurancePath = `/texas-home-insurance-calculator/${profile.slug}`',
-  'title: `${profile.name} home-insurance calculator`',
-]) {
-  if (!ownershipPage.includes(marker)) failures.push(`Local ownership-to-insurance discovery missing ${marker}`);
+for (const [source, label] of [[ownershipPage, 'ownership'], [affordabilityPage, 'affordability']]) {
+  for (const marker of [
+    'const insurancePath = `/texas-home-insurance-calculator/${profile.slug}`',
+    'title: `${profile.name} home-insurance calculator`',
+  ]) {
+    if (!source.includes(marker)) failures.push(`Local ${label}-to-insurance discovery missing ${marker}`);
+  }
 }
+if (!affordabilityPage.includes('without personal information')) failures.push('Local affordability-to-insurance discovery must preserve the private-planning value proposition.');
+
 if (!sitemap.includes('LOCAL_HOME_INSURANCE_PROFILES')) failures.push('Primary sitemap must import the governed local home-insurance registry.');
 if (!sitemap.includes('...LOCAL_HOME_INSURANCE_PROFILES.map((profile) => ({ path: profile.insurancePath')) failures.push('Primary sitemap must emit every governed local home-insurance page.');
 
@@ -108,4 +113,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Local home-insurance authority validation passed for ${uniqueLocations.size} aligned city/county planning pages.`);
+console.log(`Local home-insurance authority validation passed for ${uniqueLocations.size} aligned city/county planning pages with bidirectional housing-funnel links.`);
