@@ -82,9 +82,11 @@ const nextCalculators: readonly LocalHousingPlannerLink[] = [
 export function LocalHomeAffordabilityPage({ profile }: { profile: LocalHomeAffordabilityProfile }) {
   const ownershipPath = `/texas-homeownership-cost-calculator/${profile.slug}`;
   const insurancePath = `/texas-home-insurance-calculator/${profile.slug}`;
+  const mortgagePath = `/texas-mortgage-calculator/${profile.slug}`;
   const faqs = profile.faqs.map((faq) => faq);
   const links: LocalHousingPlannerLink[] = [
     { href: profile.propertyTaxHref, title: profile.propertyTaxLabel, copy: 'Build a property-tax estimate from the county, school, city and applicable special-district rates for the parcel.', action: 'Open tax calculator →' },
+    { href: mortgagePath, title: `${profile.name} mortgage payment calculator`, copy: 'Turn the local home-price scenario into principal, interest, parcel-specific taxes and property-specific insurance.', action: 'Build mortgage payment →' },
     { href: ownershipPath, title: `${profile.name} homeownership cost calculator`, copy: 'Turn the affordability range into a fuller monthly budget with mortgage, taxes, insurance, utilities, maintenance and HOA or district costs.', action: 'Build ownership budget →' },
     { href: insurancePath, title: `${profile.name} home-insurance calculator`, copy: 'Model an insurance planning range without personal information, then replace it with property-specific insurer quotes.', action: 'Estimate insurance →' },
     { href: profile.relocationHref, title: profile.relocationLabel, copy: 'Compare the local factors outside the mortgage payment: jurisdiction, schools, commute, utilities, services and other recurring costs.', action: 'Open local guide →' },
