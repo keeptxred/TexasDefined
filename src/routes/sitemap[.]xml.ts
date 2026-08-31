@@ -14,6 +14,7 @@ import { FISHING_SITEMAP_ENTRIES } from "@/data/fishing/sitemap";
 import { LOCAL_HOME_AFFORDABILITY_PROFILES } from "@/data/local-home-affordability";
 import { LOCAL_HOME_INSURANCE_PROFILES } from "@/data/local-home-insurance";
 import { LOCAL_HOMEOWNERSHIP_COST_PROFILES } from "@/data/local-homeownership-cost";
+import { LOCAL_MORTGAGE_PROFILES } from "@/data/local-mortgage";
 import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
 import { canonicalEntityPath, isIndexableEntityPage } from "@/data/knowledge-graph/relationships";
 import { LOCAL_PROPERTY_TAX_PROFILES } from "@/data/local-property-tax-calculators";
@@ -118,6 +119,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           ...LOCAL_HOME_AFFORDABILITY_PROFILES.map((profile) => ({ path: profile.path, lastmod: "2026-08-30" })),
           ...LOCAL_HOMEOWNERSHIP_COST_PROFILES.map((profile) => ({ path: profile.ownershipPath, lastmod: "2026-08-30" })),
           ...LOCAL_HOME_INSURANCE_PROFILES.map((profile) => ({ path: profile.insurancePath, lastmod: "2026-08-30" })),
+          ...LOCAL_MORTGAGE_PROFILES.map((profile) => ({ path: profile.mortgagePath, lastmod: "2026-08-30" })),
           { path: "/texas-icons" },
           ...majorEventIndexRecords.map((event) => ({
             path: `/event/${event.slug}`,
