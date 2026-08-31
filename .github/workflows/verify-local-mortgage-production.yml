@@ -1,0 +1,71 @@
+name: Verify local mortgage production
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/verify-local-mortgage-production.yml'
+      - 'scripts/ci/verify-local-mortgage-pages.mjs'
+      - 'scripts/data/validate-local-mortgage-seo.mjs'
+      - 'src/components/calculators/LocalHomeAffordabilityPage.tsx'
+      - 'src/components/calculators/LocalHomeInsurancePage.tsx'
+      - 'src/components/calculators/LocalHomeownershipCostPage.tsx'
+      - 'src/components/calculators/LocalMortgagePage.tsx'
+      - 'src/components/calculators/OfficialMortgageCalculator.tsx'
+      - 'src/data/local-home-affordability.ts'
+      - 'src/data/local-mortgage.ts'
+      - 'src/data/local-mortgage-page*.ts'
+      - 'src/routes/texas-mortgage-calculator*.tsx'
+      - 'src/routes/sitemap*.ts'
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/verify-local-mortgage-production.yml'
+      - 'scripts/ci/verify-local-mortgage-pages.mjs'
+      - 'scripts/data/validate-local-mortgage-seo.mjs'
+      - 'src/components/calculators/LocalHomeAffordabilityPage.tsx'
+      - 'src/components/calculators/LocalHomeInsurancePage.tsx'
+      - 'src/components/calculators/LocalHomeownershipCostPage.tsx'
+      - 'src/components/calculators/LocalMortgagePage.tsx'
+      - 'src/components/calculators/OfficialMortgageCalculator.tsx'
+      - 'src/data/local-home-affordability.ts'
+      - 'src/data/local-mortgage.ts'
+      - 'src/data/local-mortgage-page*.ts'
+      - 'src/routes/texas-mortgage-calculator*.tsx'
+      - 'src/routes/sitemap*.ts'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: local-mortgage-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-contract:
+    name: Validate local mortgage authority
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - name: Validate governed local mortgage inventory and SEO contract
+        run: node scripts/data/validate-local-mortgage-seo.mjs
+
+  verify-production:
+    name: Verify 19 live local mortgage pages
+    if: ${{ github.event_name != 'pull_request' }}
+    needs: validate-contract
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify local pages, schema, cross-links and sitemap discovery
+        run: node scripts/ci/verify-local-mortgage-pages.mjs
