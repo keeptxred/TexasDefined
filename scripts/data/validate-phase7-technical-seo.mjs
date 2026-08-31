@@ -134,15 +134,17 @@ for (const token of [
   "const canonicalPath = '/texas-facts';",
   "const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);",
   "'@type': 'CollectionPage'",
+  "'@type': 'ItemList'",
   "'@type': 'BreadcrumbList'",
   "name: '100 Essential Facts About Texas'",
   "name: 'Texas Facts', item: pageUrl",
+  'citation: item.sources.map((source) => source.url)',
 ]) {
-  if (!texasFactsRoute.includes(token)) failures.push(`/texas-facts: safe page-level schema marker is missing: ${token}`);
+  if (!texasFactsRoute.includes(token)) failures.push(`/texas-facts: provenance-backed page schema marker is missing: ${token}`);
 }
-for (const forbiddenType of ['FAQPage', 'ClaimReview', 'ItemList']) {
+for (const forbiddenType of ['FAQPage', 'ClaimReview']) {
   if (texasFactsRoute.includes(`'@type': '${forbiddenType}'`) || texasFactsRoute.includes(`\"@type\": \"${forbiddenType}\"`)) {
-    failures.push(`/texas-facts: ${forbiddenType} schema must not be emitted until claim-level provenance supports it.`);
+    failures.push(`/texas-facts: ${forbiddenType} schema must not be emitted by the sourced reference collection.`);
   }
 }
 
@@ -171,4 +173,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Phase 7 technical SEO validation passed for ${targets.length} audited canonical URLs, ${gscIntentTargets.length} current GSC intent overrides, ${exactQuerySourceTargets.length} exact-query source targets, the provenance-safe Texas Facts page-schema boundary and durable Texas agriculture facts.`);
+console.log(`Phase 7 technical SEO validation passed for ${targets.length} audited canonical URLs, ${gscIntentTargets.length} current GSC intent overrides, ${exactQuerySourceTargets.length} exact-query source targets, the provenance-backed Texas Facts CollectionPage/ItemList boundary and durable Texas agriculture facts.`);
