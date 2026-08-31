@@ -2,14 +2,14 @@ import { useMemo, useState } from 'react';
 import { OfficialTaxRateAssist } from '@/components/property/OfficialTaxRateAssist';
 import { CalculatorResult, CountySelector, CurrencyInput, PercentageInput, ResultGrid, NumberInput, formatMoney } from '@/components/property/PropertyCalculatorFramework';
 
-export function OfficialMortgageCalculator() {
+export function OfficialMortgageCalculator({ defaultCountySlug = '' }: { defaultCountySlug?: string }) {
   const [price, setPrice] = useState(400000);
   const [down, setDown] = useState(80000);
   const [rate, setRate] = useState(6.5);
   const [years, setYears] = useState(30);
   const [propertyTaxRate, setPropertyTaxRate] = useState(2.1);
   const [insurance, setInsurance] = useState(2400);
-  const [county, setCounty] = useState('');
+  const [county, setCounty] = useState(defaultCountySlug);
   const [rateYear, setRateYear] = useState(2025);
 
   const result = useMemo(() => {
