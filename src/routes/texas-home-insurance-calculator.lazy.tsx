@@ -5,6 +5,16 @@ import { HomeInsuranceCalculator } from '@/components/calculators/TexasPlanningC
 const description =
   'Estimate Texas homeowners insurance cost from replacement cost, rate assumptions, wind or flood coverage, and deductibles—without entering personal information.';
 
+const localInsurancePages = [
+  ['Houston', '/texas-home-insurance-calculator/houston'],
+  ['Austin', '/texas-home-insurance-calculator/austin'],
+  ['Dallas', '/texas-home-insurance-calculator/dallas'],
+  ['Fort Worth', '/texas-home-insurance-calculator/fort-worth'],
+  ['San Antonio', '/texas-home-insurance-calculator/san-antonio'],
+  ['Frisco', '/texas-home-insurance-calculator/frisco'],
+  ['El Paso', '/texas-home-insurance-calculator/el-paso'],
+] as const;
+
 const faqs = [
   {
     question: 'How can I estimate homeowners insurance in Texas?',
@@ -46,6 +56,14 @@ function HomeInsuranceCalculatorPage() {
         <div className="mt-4 max-w-3xl space-y-3 text-base leading-7 text-muted-foreground">
           <p>The calculator itself does not ask for your name, email address, phone number, street address, date of birth, or other contact details. You can model a home-insurance estimate using only replacement cost, an estimated insurance rate, optional wind or flood additions, and a deductible or discount credit.</p>
           <p>This is a self-service planning estimate rather than an insurer quote. Use it to test a household budget before deciding whether to request personalized pricing from an insurance company or agent.</p>
+        </div>
+      </section>
+      <section className="mt-12 border-t border-border pt-10" aria-labelledby="insurance-local-heading">
+        <p className="eyebrow text-primary">Local planning context</p>
+        <h2 id="insurance-local-heading" className="mt-3 font-display text-3xl">Start with a Texas city, then replace assumptions with property-specific quotes</h2>
+        <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">The calculator math is statewide, but the property and coverage inputs are not. These local planning pages connect the insurance estimate to the same address's property taxes, affordability, ownership costs and relocation research without inventing a city-average premium.</p>
+        <div className="mt-6 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+          {localInsurancePages.map(([name, href]) => <a key={href} href={href} className="group bg-background p-5"><strong className="font-display text-2xl group-hover:text-primary">{name}</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Local insurance planning calculator →</span></a>)}
         </div>
       </section>
       <section className="mt-14 border-t border-border pt-10" aria-labelledby="insurance-estimate-heading">
