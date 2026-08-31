@@ -1,0 +1,67 @@
+name: Verify local home insurance production
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/verify-local-home-insurance-production.yml'
+      - 'scripts/ci/verify-local-home-insurance-pages.mjs'
+      - 'scripts/data/validate-local-home-insurance-seo.mjs'
+      - 'src/components/calculators/LocalHomeAffordabilityPage.tsx'
+      - 'src/components/calculators/LocalHomeInsurancePage.tsx'
+      - 'src/components/calculators/LocalHomeownershipCostPage.tsx'
+      - 'src/data/local-home-affordability.ts'
+      - 'src/data/local-home-insurance.ts'
+      - 'src/data/local-home-insurance-page*.ts'
+      - 'src/routes/texas-home-insurance-calculator*.tsx'
+      - 'src/routes/sitemap*.ts'
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/verify-local-home-insurance-production.yml'
+      - 'scripts/ci/verify-local-home-insurance-pages.mjs'
+      - 'scripts/data/validate-local-home-insurance-seo.mjs'
+      - 'src/components/calculators/LocalHomeAffordabilityPage.tsx'
+      - 'src/components/calculators/LocalHomeInsurancePage.tsx'
+      - 'src/components/calculators/LocalHomeownershipCostPage.tsx'
+      - 'src/data/local-home-affordability.ts'
+      - 'src/data/local-home-insurance.ts'
+      - 'src/data/local-home-insurance-page*.ts'
+      - 'src/routes/texas-home-insurance-calculator*.tsx'
+      - 'src/routes/sitemap*.ts'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: local-home-insurance-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-contract:
+    name: Validate local home-insurance authority
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - name: Validate governed local insurance inventory and SEO contract
+        run: node scripts/data/validate-local-home-insurance-seo.mjs
+
+  verify-production:
+    name: Verify 19 live local home-insurance pages
+    if: ${{ github.event_name != 'pull_request' }}
+    needs: validate-contract
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify local pages, schema, cross-links and sitemap discovery
+        run: node scripts/ci/verify-local-home-insurance-pages.mjs

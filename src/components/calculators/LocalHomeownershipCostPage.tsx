@@ -4,11 +4,12 @@ import type { LocalHomeownershipCostProfile } from '@/data/local-homeownership-c
 
 export function LocalHomeownershipCostPage({ profile }: { profile: LocalHomeownershipCostProfile }) {
   const affordabilityPath = `/texas-home-affordability-calculator/${profile.slug}`;
+  const insurancePath = `/texas-home-insurance-calculator/${profile.slug}`;
   const faqs = profile.ownershipFaqs.map((faq) => faq);
   const links: LocalHousingPlannerLink[] = [
     { href: profile.propertyTaxHref, title: profile.propertyTaxLabel, copy: "Build the property-tax line from the parcel's county, school, city and applicable special districts." },
     { href: affordabilityPath, title: `${profile.name} affordability calculator`, copy: 'Work backward from income, debt, down payment and recurring housing costs to a possible price range.' },
-    { href: '/texas-home-insurance-calculator', title: 'Home-insurance calculator', copy: 'Create a planning estimate, then replace it with an address-specific insurer quote.' },
+    { href: insurancePath, title: `${profile.name} home-insurance calculator`, copy: 'Create a private planning estimate, then replace it with property-specific insurer quotes and policy terms.' },
     { href: profile.relocationHref, title: profile.relocationLabel, copy: 'Research commute, utilities, jurisdiction, schools and other recurring costs outside the mortgage.' },
   ];
 
