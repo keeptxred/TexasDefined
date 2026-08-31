@@ -1,7 +1,8 @@
 import { Link, createLazyFileRoute } from '@tanstack/react-router';
 
 import { Container } from '@/components/layout/Container';
-import { TEXAS_ESSENTIAL_FACTS, TEXAS_ESSENTIAL_FACT_CATEGORIES } from '@/data/texas-essential-facts';
+import { TEXAS_ESSENTIAL_FACT_CATEGORIES } from '@/data/texas-essential-facts';
+import { PROVENANCED_TEXAS_ESSENTIAL_FACTS } from '@/data/texas-essential-facts-provenance';
 
 import { description } from './texas-facts';
 
@@ -17,7 +18,7 @@ function TexasFactsPage() {
           </nav>
           <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">Texas reference desk</p>
           <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.98] sm:text-6xl lg:text-7xl">100 Essential Facts About Texas</h1>
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">A practical reference to the history, geography, culture, industry and civic structure that explain why Texas feels different. We favor durable facts here; current-law and current-ranking claims belong in separately maintained guides where they can be rechecked.</p>
+          <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">A practical reference to the history, geography, culture, industry and civic structure that explain why Texas feels different. Every fact links to the authoritative or institutional source used to support it; current-law and current-ranking claims remain subject to the controlling official source.</p>
           <div className="mt-10 flex flex-wrap gap-3 text-sm font-semibold">
             {TEXAS_ESSENTIAL_FACT_CATEGORIES.map((category) => <a key={category.slug} href={`#${category.slug}`} className="border border-border bg-background px-4 py-2 hover:border-primary/50 hover:text-primary">{category.label}</a>)}
           </div>
@@ -28,7 +29,7 @@ function TexasFactsPage() {
         <Container>
           <div className="max-w-4xl">
             {TEXAS_ESSENTIAL_FACT_CATEGORIES.map((category) => {
-              const facts = TEXAS_ESSENTIAL_FACTS.filter((item) => item.category === category.slug);
+              const facts = PROVENANCED_TEXAS_ESSENTIAL_FACTS.filter((item) => item.category === category.slug);
               return <section key={category.slug} id={category.slug} className="scroll-mt-24 border-b border-border py-12 first:pt-0">
                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">{facts.length} facts</p>
                 <h2 className="mt-2 font-display text-4xl sm:text-5xl">{category.label}</h2>
@@ -39,7 +40,10 @@ function TexasFactsPage() {
                     <div>
                       <h3 className="font-display text-2xl">{item.title}</h3>
                       <p className="mt-2 leading-7 text-muted-foreground">{item.fact}</p>
-                      {item.href ? <a href={item.href} className="mt-3 inline-block text-sm font-semibold underline decoration-primary/40 underline-offset-4 hover:text-primary">Read the Texas Defined guide →</a> : null}
+                      <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-sm">
+                        {item.sources.map((source) => <a key={source.url} href={source.url} target="_blank" rel="noreferrer" className="font-semibold underline decoration-primary/40 underline-offset-4 hover:text-primary">Source: {source.name} ↗</a>)}
+                        {item.href ? <a href={item.href} className="font-semibold underline decoration-primary/40 underline-offset-4 hover:text-primary">Read the Texas Defined guide →</a> : null}
+                      </div>
                     </div>
                   </li>)}
                 </ol>
