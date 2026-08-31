@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { destinationsQuery } from "@/data/queries";
 import type { Destination } from "@/data/types";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
@@ -28,6 +27,9 @@ function wildlifeRank(destination: Destination) {
 
 export const Route = createFileRoute("/explore/wildlife")({
   loader: async ({ context }) => {
+    // Keep the full destination query/catalog graph off the initial client bundle.
+    // The wildlife hub needs it only when this route is actually visited.
+    const { destinationsQuery } = await import("@/data/queries");
     const destinations = await context.queryClient.ensureQueryData(destinationsQuery({ limit: 5000 }));
     return destinations
       .filter(isWildlifeDestination)
