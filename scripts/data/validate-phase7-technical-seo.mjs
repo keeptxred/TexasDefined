@@ -4,6 +4,7 @@ const seoSource = fs.readFileSync('src/lib/seo.ts', 'utf8');
 const fredericksburgChurchRoute = fs.readFileSync('src/routes/explore.painted-churches.$slug.tsx', 'utf8');
 const fishingSpeciesServer = fs.readFileSync('src/data/fishing/species-guide-data.server.ts', 'utf8');
 const stateFairRoute = fs.readFileSync('src/routes/texas-state-fair.tsx', 'utf8');
+const texasFactsRoute = fs.readFileSync('src/routes/texas-facts.tsx', 'utf8');
 const brandSuffix = ' | Texas Defined';
 const targets = [
   ['/county/bexar', 'Bexar County, Texas Guide'],
@@ -128,6 +129,22 @@ for (const target of exactQuerySourceTargets) {
   }
 }
 
+for (const token of [
+  "const canonicalPath = '/texas-facts';",
+  "const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);",
+  "'@type': 'CollectionPage'",
+  "'@type': 'BreadcrumbList'",
+  "name: '100 Essential Facts About Texas'",
+  "name: 'Texas Facts', item: pageUrl",
+]) {
+  if (!texasFactsRoute.includes(token)) failures.push(`/texas-facts: safe page-level schema marker is missing: ${token}`);
+}
+for (const forbiddenType of ['FAQPage', 'ClaimReview', 'ItemList']) {
+  if (texasFactsRoute.includes(`'@type': '${forbiddenType}'`) || texasFactsRoute.includes(`\"@type\": \"${forbiddenType}\"`)) {
+    failures.push(`/texas-facts: ${forbiddenType} schema must not be emitted until claim-level provenance supports it.`);
+  }
+}
+
 const roadTripsMatch = seoSource.match(/"\/explore\/road-trips"\s*:\s*\{[\s\S]*?description\s*:\s*"([^"]+)"/);
 const roadTripsDescription = roadTripsMatch?.[1] ?? '';
 if (roadTripsDescription.length < 100 || roadTripsDescription.length > 160) {
@@ -140,4 +157,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Phase 7 technical SEO validation passed for ${targets.length} audited canonical URLs, ${gscIntentTargets.length} current GSC intent overrides and ${exactQuerySourceTargets.length} exact-query source targets.`);
+console.log(`Phase 7 technical SEO validation passed for ${targets.length} audited canonical URLs, ${gscIntentTargets.length} current GSC intent overrides, ${exactQuerySourceTargets.length} exact-query source targets and the provenance-safe Texas Facts page-schema boundary.`);
