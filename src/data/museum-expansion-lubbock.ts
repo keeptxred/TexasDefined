@@ -1,0 +1,68 @@
+import type { Destination } from "./types";
+
+const SOURCE_CHECKED_AT = "2026-08-30";
+
+export const lubbockMuseumDestinations: Destination[] = [
+  {
+    id: "museum-expansion-buddy-holly-center",
+    brandId: "texasdefined",
+    slug: "buddy-holly-center-lubbock",
+    name: "Buddy Holly Center",
+    summary: "The Buddy Holly Center is a Lubbock music museum, visual-arts center and historic-site destination preserving Buddy Holly's legacy and the music of West Texas inside the city's renovated Fort Worth and Denver Depot.",
+    category: "historic-sites",
+    region: "panhandle",
+    nearestTown: "Lubbock",
+    county: "Lubbock County",
+    coordinates: { lat: 33.578622, lng: -101.843286 },
+    hero: {
+      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Lubbock_April_2022_06_(Buddy_Holly_Center).jpg?width=1600",
+      alt: "Buddy Holly Center in the historic Fort Worth and Denver Depot in Lubbock, Texas",
+      width: 1600,
+      height: 1067,
+      credit: "Michael Barera · Wikimedia Commons · CC BY-SA 4.0",
+    },
+    bestSeason: "Year-round indoor museum; spring and fall make it especially easy to combine the galleries with downtown Lubbock, the Buddy and Maria Elena Holly Plaza and other West Texas music stops.",
+    entryNote: "The City of Lubbock currently lists hours Tuesday through Saturday 10 a.m.–5 p.m. and Sunday 1–5 p.m., with Mondays and city holidays closed. Buddy Holly Galleries admission is currently $10 for general admission, with reduced and free categories; the Fine Arts Gallery is free. Confirm the city page before visiting.",
+    highlights: ["Buddy Holly Galleries", "West Texas music history", "Fine Arts Gallery", "Historic railroad depot"],
+    body: [
+      "The Buddy Holly Center gives Lubbock a museum anchored in the life and influence of its most internationally recognized musician while placing that story inside the broader music culture of West Texas. The City of Lubbock operates the center with a dual mission: preserving and promoting Buddy Holly and regional music history while presenting contemporary visual arts. That combination makes the visit more than a single-artist memorial and gives travelers a direct connection between Holly's career, the local scene that shaped him and the continuing cultural life of the city.",
+      "The building contributes its own layer of history. The center occupies the renovated Fort Worth and Denver Depot, so the experience combines music exhibits with a historic transportation landmark rather than a purpose-built gallery box. The paid Buddy Holly Galleries focus on the singer, songwriter and guitarist's career and legacy, while the Fine Arts Gallery presents changing exhibitions and remains free to enter. Visitors can therefore make the center either a focused music-history stop or part of a broader downtown arts itinerary.",
+      "The strongest visit extends outside the galleries. The nearby Buddy and Maria Elena Holly Plaza and West Texas Walk of Fame reinforce Lubbock's music identity, while downtown restaurants and performance venues make the center easy to pair with an evening in the city. Because the museum sits in the Depot District, it also works naturally with other Lubbock cultural stops such as the American Windmill Museum, Silent Wings Museum and Texas Tech collections for a full day that moves from music to transportation, technology and regional history.",
+    ],
+    officialUrl: "https://www.mylubbock.us/220/Buddy-Holly-Center",
+    managingAuthority: "City of Lubbock",
+    address: "1801 Crickets Ave, Lubbock, TX 79401",
+    sourceCheckedAt: SOURCE_CHECKED_AT,
+  },
+  {
+    id: "museum-expansion-american-windmill-museum",
+    brandId: "texasdefined",
+    slug: "american-windmill-museum-lubbock",
+    name: "American Windmill Museum",
+    summary: "The American Windmill Museum in Lubbock is a technology and regional-history museum devoted to windmills and wind power, with restored machines, interpretive exhibits and outdoor displays tracing how wind energy shaped settlement, agriculture and engineering.",
+    category: "historic-sites",
+    region: "panhandle",
+    nearestTown: "Lubbock",
+    county: "Lubbock County",
+    coordinates: { lat: 33.5793, lng: -101.823 },
+    hero: {
+      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Windmills_at_the_American_Wind_Power_Center.jpg?width=1600",
+      alt: "Historic windmills and a modern wind turbine at the American Windmill Museum in Lubbock",
+      width: 1600,
+      height: 1200,
+      credit: "mhamilton456 · Wikimedia Commons · CC BY 4.0",
+    },
+    bestSeason: "Year-round museum; spring and fall are most comfortable for spending additional time among the outdoor windmills and combining the museum with other Lubbock attractions.",
+    entryNote: "The museum's current official pages agree on core hours Tuesday through Saturday from 10 a.m. to 5 p.m. but conflict on Sunday opening and list different admission prices. Confirm the museum's current Admission/Visit page before making a Sunday trip or relying on a quoted ticket price.",
+    highlights: ["Historic windmill collection", "Wind-energy technology", "Indoor and outdoor exhibits", "Agricultural and engineering history"],
+    body: [
+      "The American Windmill Museum uses an everyday piece of Plains technology to tell a much larger story about settlement, water and engineering. Its restored windmills show how ranches, farms and communities turned wind into dependable mechanical power long before modern utility-scale turbines appeared on the Texas horizon. The museum describes itself as the largest windmill museum in the world, and the range of machines makes it possible to compare designs, manufacturers and changing approaches to wind power rather than seeing a single nostalgic ranch windmill in isolation.",
+      "The collection works on several levels. Visitors interested in machinery can study gears, towers, pumps and manufacturers, while families can follow the simpler story of how wind helped move water and support life in dry country. The museum's main hall contains more than a hundred windmills with interpretive signage, and the outdoor grounds place historic machines alongside modern wind-energy technology. That contrast is especially useful in West Texas, where contemporary wind farms make the transition from mechanical windmills to electrical generation visible across the wider landscape.",
+      "The museum sits east of central Lubbock on Canyon Lake Drive, making it easy to combine with other city museums rather than treating it as a remote rural stop. Pairing it with the Buddy Holly Center creates a distinctly Lubbock day that moves from music culture to Plains technology; Silent Wings Museum adds aviation history, while Texas Tech's museums broaden the trip into natural science, art and regional collections. Because the museum's own current visitor pages disagree about Sunday operations and admission pricing, checking the official site immediately before arrival is particularly important here.",
+    ],
+    officialUrl: "https://windmill.com/visit/admission/",
+    managingAuthority: "American Windmill Museum",
+    address: "1701 Canyon Lake Dr, Lubbock, TX 79403",
+    sourceCheckedAt: SOURCE_CHECKED_AT,
+  },
+];
