@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+<title id="title">Houston Interactive Aquarium editorial illustration</title><desc id="desc">Stylized sharks, rays and north Houston aquarium scene.</desc>
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#005f73"/><stop offset="1" stop-color="#001f2d"/></linearGradient></defs><rect width="1600" height="900" fill="url(#g)"/><path d="M0 690q250-110 500 0t500 0t600 0v210H0z" fill="#001923"/>
+<path d="M460 410c150-75 300-45 430 55l-75 20 42 45c-160 10-290-25-397-120z" fill="#94d2bd"/><path d="M980 555c85-65 180-65 260 0-62-20-92 38-130 65-38-27-68-85-130-65z" fill="#ee9b00"/>
+<g fill="#caf0f8" opacity=".5"><circle cx="300" cy="310" r="12"/><circle cx="335" cy="260" r="22"/><circle cx="1260" cy="300" r="16"/><circle cx="1320" cy="245" r="28"/></g>
+<text x="90" y="110" fill="white" font-family="Arial,Helvetica,sans-serif" font-size="48" font-weight="700">HOUSTON INTERACTIVE AQUARIUM</text><text x="92" y="162" fill="#d8f3f6" font-family="Arial,Helvetica,sans-serif" font-size="25">&amp; Animal Preserve · TexasDefined visitor guide</text>
+</svg>
