@@ -6,6 +6,7 @@ import { legacyLakeDestinations } from "./fixtures/legacy-lakes";
 import { historicSiteDestinations } from "./historic-sites";
 import { militaryHistoryDestinations } from "./military-history-destinations";
 import { militaryMuseumDestinations } from "./military-museum-destinations";
+import { austinMuseumDestinations } from "./museum-expansion-austin";
 import { dfwMuseumDestinations } from "./museum-expansion-dfw";
 import { houstonGalvestonMuseumDestinations } from "./museum-expansion-houston-galveston";
 import type { Destination } from "./types";
@@ -77,5 +78,6 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   militaryMuseumDestinations,
   houstonGalvestonMuseumDestinations,
   dfwMuseumDestinations,
+  austinMuseumDestinations,
   [newBraunfelsSeasonalFallback],
 );
