@@ -5,6 +5,7 @@ import type { TexasEntityRecord } from "@/data/knowledge-graph";
 import { AutoEntityLinks } from "@/components/content/AutoEntityLinks";
 import { ShopTheStory } from "@/components/commerce/ShopTheStory";
 import { INTERNAL_LINK_POLICIES, policyForSurface } from '@/platform/internal-link-policies';
+import { countyLabelHasExplicitContext } from '@/platform/internal-linking';
 
 const articlePolicy = INTERNAL_LINK_POLICIES.article;
 const MetroRelocationAuthority = lazy(() => import("@/components/relocation/MetroRelocationAuthority").then((module) => ({ default: module.MetroRelocationAuthority })));
@@ -44,8 +45,16 @@ export function ArticleBody({ blocks, entities = [] }: { blocks: ArticleBlock[];
   const render = (text: string, requestedLinks: number) => {
     if (remainingLinks <= 0) return text;
     const candidates = available();
-    const normalized = text.toLowerCase();
-    candidates.forEach((entity) => { if ([entity.name, ...entity.aliases].some((label) => label.length >= 4 && normalized.includes(label.toLowerCase()))) linked.add(entity.id); });
+    candidates.forEach((entity) => {
+      const matched = [entity.name, ...entity.aliases].some((rawLabel) => {
+        const label = rawLabel.trim();
+        if (label.length < 4) return false;
+        const escaped = label.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const match = new RegExp(`\\b${escaped}\\b`, 'i').exec(text);
+        return Boolean(match && countyLabelHasExplicitContext(entity, match[0], text, match.index, match.index + match[0].length));
+      });
+      if (matched) linked.add(entity.id);
+    });
     const maxLinks = Math.min(requestedLinks, articlePolicy.blockBudget, remainingLinks);
     remainingLinks -= maxLinks;
     return <AutoEntityLinks text={text} entities={candidates} maxLinks={maxLinks} policy={policyForSurface('article')} />;
