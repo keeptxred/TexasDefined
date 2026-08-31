@@ -167,6 +167,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         ])];
         const staticPaths = [
           "/explore",
+          "/explore/aquariums",
           "/explore/trip-planner",
           "/explore/attractions-comparison",
           ...PAINTED_CHURCH_STATIC_PATHS,
