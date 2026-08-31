@@ -52,7 +52,7 @@ export function LocalMortgagePage({ profile }: { profile: LocalMortgageProfile }
     faqTitle={`${profile.name} mortgage calculator FAQ`}
     faqs={profile.mortgageFaqs}
     disclaimer="This is a planning calculator, not a mortgage quote, preapproval, Loan Estimate, tax statement or insurance quote. Verify the lender terms, exact parcel, taxing units, insurance and other recurring costs before making a financial commitment."
-    related={profile.relatedLocalCalculators?.length ? { eyebrow: 'County-to-city planning', title: 'Compare the city context inside the same regional housing decision', copy: 'County boundaries help define property-tax and record systems while city pages add another local planning layer. The exact parcel and lender documents remain the source of truth.', items: profile.relatedLocalCalculators.map((item) => ({ name: item.name, path: item.path.replace('/texas-home-affordability-calculator/', '/texas-mortgage-calculator/') })) } : undefined}
+    related={profile.relatedLocalCalculators?.length ? { eyebrow: 'County-to-city planning', title: 'Compare the city context inside the same regional housing decision', copy: 'County boundaries help define property-tax and record systems while city pages add another local planning layer. The exact parcel and lender documents remain the source of truth.', items: profile.relatedLocalCalculators.map((item) => ({ name: item.name, path: item.path.replace('/texas-home-affordability-calculator/', '/texas-mortgage-calculator/'), label: `${item.name} mortgage payment calculator →` })) } : undefined}
     next={{ eyebrow: 'Replace estimates with official documents', title: 'Move from a planning payment to transaction-specific numbers', links: officialResearchLinks }}
   />;
 }
