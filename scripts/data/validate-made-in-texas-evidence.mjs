@@ -2,6 +2,7 @@ import fs from 'node:fs';
 
 const madeSource = fs.readFileSync('src/data/made-in-texas.ts', 'utf8');
 const evidenceSource = fs.readFileSync('src/data/made-in-texas-evidence.ts', 'utf8');
+const routeSource = fs.readFileSync('src/routes/made-in-texas.tsx', 'utf8');
 const failures = [];
 
 const decodeTsString = (value) => value.replace(/\\'/g, "'").replace(/\\\\/g, '\\');
@@ -87,10 +88,26 @@ const madeCount = [...entries.values()].filter((entry) => entry.relationship ===
 const queuedCount = madeCount - verifiedCount;
 if (queuedCount !== 0) failures.push(`Every made-or-processed entry must have authoritative evidence; ${queuedCount} entries remain unmatched.`);
 
+for (const marker of [
+  "const canonicalPath = '/made-in-texas';",
+  "'@type': 'CollectionPage'",
+  "'@type': 'BreadcrumbList'",
+  "name: 'Made, Built & Born in Texas'",
+  "name: 'Made in Texas', item: pageUrl",
+]) {
+  if (!routeSource.includes(marker)) failures.push(`Made in Texas page-level schema contract is missing: ${marker}`);
+}
+
+for (const forbiddenType of ['ItemList', 'Product', 'Organization', 'ClaimReview', 'FAQPage']) {
+  if (routeSource.includes(`'@type': '${forbiddenType}'`) || routeSource.includes(`\"@type\": \"${forbiddenType}\"`)) {
+    failures.push(`Made in Texas must not emit ${forbiddenType} schema until relationship-level provenance supports item-level claims.`);
+  }
+}
+
 if (failures.length) {
   console.error('Made in Texas evidence validation failed:');
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log(`Made in Texas evidence validation passed: ${verifiedCount} authoritative evidence records map only to made-or-processed entries; 0 made-or-processed entries remain eligible for source review.`);
+console.log(`Made in Texas evidence validation passed: ${verifiedCount} authoritative evidence records map only to made-or-processed entries; 0 made-or-processed entries remain eligible for source review; page-level CollectionPage/BreadcrumbList schema remains provenance-safe.`);
