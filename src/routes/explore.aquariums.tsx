@@ -18,7 +18,10 @@ export const Route = createFileRoute(canonicalPath)({
     const destinations = loaderData ?? [];
     return {
       meta: buildMeta(texasDefinedBrand, { canonicalPath, title: "Texas Aquariums & Marine Life | Texas Defined", description }),
-      links: [canonicalLink(texasDefinedBrand, canonicalPath)],
+      links: [
+        canonicalLink(texasDefinedBrand, canonicalPath),
+        { rel: "alternate", type: "application/json", href: "/aquariums.json", title: "Texas Aquariums & Marine Life machine-readable collection" },
+      ],
       scripts: [jsonLd({
         "@context": "https://schema.org",
         "@type": "CollectionPage",
