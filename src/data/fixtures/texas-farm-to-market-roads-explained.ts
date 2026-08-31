@@ -60,14 +60,19 @@ export const texasFarmToMarketRoadsExplainedArticle: Article = {
       description: "Put FM and RM roads into the larger geography of plains, forests, coast, Hill Country and West Texas.",
     },
     {
-      href: "https://www.txdot.gov/about/newsroom/stories/fm-vs-rm-and-other-uniquely-texan-highways.html",
-      label: "TxDOT: FM vs. RM and other Texas highways",
-      description: "TxDOT's overview of Farm-to-Market, Ranch-to-Market and other Texas highway designations.",
+      href: "https://ftp.txdot.gov/pub/txdot-info/tpp/2050/meeting-materials/round-02/rural-transportation.pdf",
+      label: "TxDOT: Rural Transportation and the Texas Economy",
+      description: "Official TxDOT planning material covering the Farm-to-Market system, FM/RM designations and their rural transportation role.",
     },
     {
       href: "https://www.txdot.gov/projects/planning/highway-designations/glossary.html",
       label: "TxDOT highway designations glossary",
       description: "Official definitions for FM, RM, SH, Loop, Spur, Park Road, Recreational Road and other state-system designations.",
+    },
+    {
+      href: "https://www.txdot.gov/data-maps/roadway-inventory.html",
+      label: "TxDOT roadway inventory",
+      description: "TxDOT's annually updated roadway inventory and reports, including mileage grouped by highway system.",
     },
   ],
   relatedCollections: [],
@@ -94,7 +99,7 @@ export const texasFarmToMarketRoadsExplainedArticle: Article = {
     p("There is also one true Ranch Road: Ranch Road 1, associated with the LBJ Ranch in the Hill Country. TxDOT treats it as part of the Farm-to-Market system. That single route is a good reminder that Texas highway nomenclature is orderly right up until it becomes delightfully specific."),
 
     h("How big is the system?"),
-    p("The FM and RM network is not a handful of scenic backroads. TxDOT says the system now includes more than 3,400 routes. Most carry FM designations, with a smaller group signed RM. Collectively they form one of the defining layers of the Texas road map."),
+    p("The FM and RM network is not a handful of scenic backroads. TxDOT's roadway inventory tracks Farm-to-Market and Ranch-to-Market mileage as distinct parts of the state highway system and publishes those statistics annually. Together, the systems span tens of thousands of centerline miles and form one of the defining layers of the Texas road map."),
     p("That scale matters because the system fills the spaces between the Interstate, U.S. Highway and State Highway networks. Open a map of Texas and zoom away from the metropolitan cores. The fine web of FM and RM routes is what turns blank rural space into connected communities."),
 
     h("The Texas highway alphabet"),
