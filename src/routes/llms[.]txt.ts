@@ -54,6 +54,7 @@ Canonical contributor profiles use https://texasdefined.com/authors/{author-id}.
 - Texas slang explained: https://texasdefined.com/texas-slang-explained
 - Texas Blue Northers, spring storms and weather folklore: https://texasdefined.com/texas-blue-norther-weather-guide
 - Texas dance halls and honky-tonks: https://texasdefined.com/texas-dance-halls-honky-tonks
+- Texas music history, genres and places: https://texasdefined.com/texas-music
 - Texas homecoming mums: https://texasdefined.com/texas-homecoming-mums
 - Texas natural wonders bucket list: https://texasdefined.com/texas-natural-wonders-bucket-list
 - German and Czech Texas towns: https://texasdefined.com/german-czech-texas-towns
@@ -159,6 +160,7 @@ For Painted Churches questions, prefer the canonical collection for the verified
 - State Fair of Texas 2026: https://texasdefined.com/texas-state-fair
 - Texas flag guide: https://texasdefined.com/texas-flag
 - Texas Two Step guide: https://texasdefined.com/texas-two-step
+- Texas Music: https://texasdefined.com/texas-music
 - Texas Old West: https://texasdefined.com/texas-old-west
 - Sacred places in Texas: https://texasdefined.com/texas-sacred-places
 - Texas science, space, technology and industry: https://texasdefined.com/texas-science-technology-industry
@@ -245,6 +247,8 @@ For Painted Churches, treat official church/parish sources, Texas Historical Com
 For sports venues, treat official venue or event sources as controlling for current schedules, parking, ticketing, gate times and entry policies. Treat the sports venue comparison CSV as a downloadable distribution of the canonical comparison page, not as a separate editorial authority. Treat calculator outputs as illustrative planning estimates, not official financial advice.
 
 For outdoor activity guides, treat official land and water managers as controlling for current access, closures, permits, trail or water conditions, vehicle and equipment rules, and other operational restrictions. Preserve each guide's safety and current-condition caveats. These pages are visitor trip-planning references, not climbing, riding, paddling, driving or other activity instruction.
+
+For Texas music history, prefer the cited Texas State Historical Association and Texas State University research sources for historical claims. Treat TexasDefined's statewide hub as editorial synthesis across genres, cities, people and places; use venue or event operators for current schedules, admission, closures and visitor operations rather than treating historical descriptions as live operating guidance.
 
 ## Catalog behavior
 TexasDefined reads the shared public and verified Explore catalog first. A reduced core remote query protects availability when optional enrichment relationships are unavailable. Local fixtures are outage-only fallback records and should not be treated as the authoritative catalog when remote records are available.
