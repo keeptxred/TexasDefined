@@ -13,11 +13,15 @@ export const sixFlagsOverTexasMeaningArticle: Article = {
   category:"texas-history", hero:{src:sixFlagsHero,alt:"The Texas State Capitol in Austin with flags flying on poles out front",width:1600,height:900},
   authorId:"a-marisol", publishedAt:"2026-08-07", readingMinutes:10,
   tags:["six flags over texas","texas history","texas flags","republic of texas","texas identity"], featured:true,
+  sourceName:"Texas State Library and Archives Commission — Six Flags of Texas",
+  sourceUrl:"https://www.tsl.texas.gov/ref/abouttx/sixflags.html",
   internalLinks:[
     {href:"/texas-history",label:"Keep exploring Texas history",description:"More stories about the people, places and turning points that shaped the state."},
     {href:"/article/why-texas-has-254-counties",label:"Why Texas has 254 counties",description:"See how distance and settlement shaped another part of the Texas map."},
     {href:"/explore/historic-sites",label:"Explore historic Texas sites",description:"Find forts, missions, courthouses and landmarks across the state."},
-    {href:"/explore",label:"Explore Texas",description:"Turn the history into a road trip."}
+    {href:"/explore",label:"Explore Texas",description:"Turn the history into a road trip."},
+    {href:"https://www.tsl.texas.gov/ref/abouttx/sixflags.html",label:"Texas State Library — Six Flags of Texas",description:"Official state reference for the six governments, their chronology and the standardized historical flag designs."},
+    {href:"https://www.tsl.texas.gov/ref/abouttx/secession/2feb1861.html",label:"Texas Declaration of Causes, February 2, 1861",description:"Texas State Library transcription of the primary secession record used to document the state's stated reasons for leaving the Union."}
   ], relatedCollections:[], relatedDestinations:[],
   body:[
     p("Most Texans know the phrase before they know the history. Six Flags Over Texas sounds like a brand, a theme park and a piece of state shorthand all at once. But the phrase came first. It refers to the six national governments whose flags have flown over territory that became Texas."),
