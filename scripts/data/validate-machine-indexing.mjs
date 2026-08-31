@@ -76,6 +76,8 @@ const requiredDiscoveryTargets = [
   '/texas-homecoming-mums',
   '/texas-natural-wonders-bucket-list',
   '/german-czech-texas-towns',
+  '/texas-old-west',
+  '/texas-sacred-places',
   '/texas-science-technology-industry',
   '/texas-college-towns',
   '/texas-tailgating-guide',
@@ -182,6 +184,8 @@ if (citationIndex) {
     'https://texasdefined.com/texas-homecoming-mums',
     'https://texasdefined.com/texas-natural-wonders-bucket-list',
     'https://texasdefined.com/german-czech-texas-towns',
+    'https://texasdefined.com/texas-old-west',
+    'https://texasdefined.com/texas-sacred-places',
   ]) {
     if (!citationUrls.has(url)) errors.push(`Machine-readable citation index is missing Texas culture resource ${url}.`);
   }
