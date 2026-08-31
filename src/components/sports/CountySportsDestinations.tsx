@@ -1,6 +1,6 @@
 import { use } from 'react';
 
-import { aquariumMarineDestinationsForCounty } from '@/data/aquarium-marine-destinations';
+import { aquariumMarineLinksForCounty } from '@/data/aquarium-marine-county-links';
 import { getCountyMajorEvents } from '@/data/county-major-events';
 import { canonicalEntityPath } from '@/data/knowledge-graph/relationships';
 import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
@@ -10,7 +10,7 @@ const siteUrl = 'https://texasdefined.com';
 
 export function CountySportsDestinations({ county, venues }: { county: TexasEntityRecord; venues: TexasEntityRecord[] }) {
   const majorEvents = use(getCountyMajorEvents(county.slug));
-  const aquariumDestinations = aquariumMarineDestinationsForCounty(county.slug);
+  const aquariumDestinations = aquariumMarineLinksForCounty(county.slug);
   if (!venues.length && !majorEvents.length && !aquariumDestinations.length) return null;
 
   const displayedVenues = venues.slice(0, 12);
@@ -62,7 +62,6 @@ export function CountySportsDestinations({ county, venues }: { county: TexasEnti
             {aquariumDestinations.map((destination) => <a key={destination.slug} href={`/destination/${destination.slug}`} className="group border-t border-border py-5">
               <span className="eyebrow text-primary">Aquarium guide</span>
               <strong className="mt-2 block font-display text-2xl leading-tight group-hover:text-primary">{destination.name}</strong>
-              <span className="mt-3 block line-clamp-3 text-sm leading-6 text-muted-foreground">{destination.summary}</span>
               <span className="mt-3 block text-sm font-semibold text-primary">Plan a visit →</span>
             </a>)}
           </div>
