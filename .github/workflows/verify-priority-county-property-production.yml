@@ -15,9 +15,10 @@ on:
       - 'src/data/property/county-property-schema.ts'
       - 'src/routes/property-tax.counties.tsx'
       - 'src/routes/property-tax.county.$county.tsx'
-      - 'src/routes/sitemap[.]xml.ts'
+      - 'src/routes/sitemap*.ts'
   push:
-    branches: [main]
+    branches:
+      - main
     paths:
       - '.github/workflows/verify-priority-county-property-production.yml'
       - 'scripts/ci/verify-priority-county-pages.mjs'
@@ -29,7 +30,7 @@ on:
       - 'src/data/property/county-property-schema.ts'
       - 'src/routes/property-tax.counties.tsx'
       - 'src/routes/property-tax.county.$county.tsx'
-      - 'src/routes/sitemap[.]xml.ts'
+      - 'src/routes/sitemap*.ts'
   workflow_dispatch:
 
 permissions:
@@ -40,7 +41,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  validate:
+  validate-cohort:
     name: Validate priority county overlays
     runs-on: ubuntu-latest
     steps:
@@ -58,7 +59,7 @@ jobs:
   verify-production:
     name: Verify Travis, Bexar, Dallas and Collin live property guides
     if: ${{ github.event_name != 'pull_request' }}
-    needs: validate
+    needs: validate-cohort
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
