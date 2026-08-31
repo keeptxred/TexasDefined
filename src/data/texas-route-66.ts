@@ -192,7 +192,7 @@ export const TEXAS_ROUTE_66_STOPS: readonly TexasRoute66Stop[] = [
     ],
     internalLinks: [
       { label: "Cadillac Ranch destination guide", to: "/destination/cadillac-ranch" },
-      { label: "Palo Duro Canyon destination guide", to: "/destination/palo-duro-canyon" },
+      { label: "Palo Duro Canyon destination guide", to: "/destination/palo-duro-canyon-state-park" },
       { label: "Texas roadside oddities guide", to: "/texas-roadside-oddities" },
     ],
   },
