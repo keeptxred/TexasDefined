@@ -1,12 +1,24 @@
 import { createFileRoute } from '@tanstack/react-router';
 
 import { texasDefinedBrand } from '@/brand/texasdefined';
+import { PROVENANCED_TEXAS_ESSENTIAL_FACTS } from '@/data/texas-essential-facts-provenance';
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
-export const description = 'A sourced-minded guide to essential Texas facts covering the Republic, geography, symbols, culture, industry and government.';
+export const description = 'A source-backed guide to essential Texas facts covering the Republic, geography, symbols, culture, industry and government.';
 
 const canonicalPath = '/texas-facts';
 const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
+const factItems = PROVENANCED_TEXAS_ESSENTIAL_FACTS.map((item) => ({
+  '@type': 'ListItem',
+  position: item.id,
+  item: {
+    '@type': 'CreativeWork',
+    '@id': `${pageUrl}#fact-${item.id}`,
+    name: item.title,
+    text: item.fact,
+    citation: item.sources.map((source) => source.url),
+  },
+}));
 
 export const Route = createFileRoute(canonicalPath)({
   head: () => ({
@@ -27,6 +39,15 @@ export const Route = createFileRoute(canonicalPath)({
           description,
           isPartOf: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#website` },
           publisher: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#organization` },
+          mainEntity: { '@id': `${pageUrl}#facts` },
+          breadcrumb: { '@id': `${pageUrl}#breadcrumb` },
+        },
+        {
+          '@type': 'ItemList',
+          '@id': `${pageUrl}#facts`,
+          name: '100 source-backed facts about Texas',
+          numberOfItems: factItems.length,
+          itemListElement: factItems,
         },
         {
           '@type': 'BreadcrumbList',
