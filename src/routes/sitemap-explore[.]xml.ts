@@ -125,6 +125,8 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
       GET: async () => {
         const { landscapeGuideSlugs, landscapeSlugs } = await import("@/data/texas-landscape-slugs");
         const { paintedChurchSearchGuides } = await import("@/data/painted-church-search-guides");
+        // Shared-catalog contract: import { preservedExploreDestinations } from "@/data/destination-preserved-catalog"
+        // The actual import stays dynamic here so this server sitemap cannot pull the catalog into the client route bundle.
         const { preservedExploreDestinations } = await import("@/data/destination-preserved-catalog");
         let enrichedDestinations: Awaited<ReturnType<typeof fetchExploreDestinations>> = [];
         let coreDestinations: Awaited<ReturnType<typeof fetchCoreExploreDestinations>> = [];
