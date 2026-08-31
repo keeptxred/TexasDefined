@@ -5,6 +5,7 @@ const fredericksburgChurchRoute = fs.readFileSync('src/routes/explore.painted-ch
 const fishingSpeciesServer = fs.readFileSync('src/data/fishing/species-guide-data.server.ts', 'utf8');
 const stateFairRoute = fs.readFileSync('src/routes/texas-state-fair.tsx', 'utf8');
 const texasFactsRoute = fs.readFileSync('src/routes/texas-facts.tsx', 'utf8');
+const texasFactsData = fs.readFileSync('src/data/texas-essential-facts.ts', 'utf8');
 const brandSuffix = ' | Texas Defined';
 const targets = [
   ['/county/bexar', 'Bexar County, Texas Guide'],
@@ -145,6 +146,19 @@ for (const forbiddenType of ['FAQPage', 'ClaimReview', 'ItemList']) {
   }
 }
 
+for (const token of [
+  "Cotton has shaped Texas agriculture for generations, with the High Plains developing into one of the state's defining cotton-growing regions.",
+  'Cattle ranching has shaped Texas agriculture, land use and cultural identity for centuries.',
+]) {
+  if (!texasFactsData.includes(token)) failures.push(`/texas-facts: durable agriculture wording is missing: ${token}`);
+}
+for (const staleRankingClaim of [
+  'leading U.S. cotton-producing state in most years',
+  'largest cattle inventory of any U.S. state',
+]) {
+  if (texasFactsData.includes(staleRankingClaim)) failures.push(`/texas-facts: time-sensitive ranking claim must not remain in the durable-facts collection: ${staleRankingClaim}`);
+}
+
 const roadTripsMatch = seoSource.match(/"\/explore\/road-trips"\s*:\s*\{[\s\S]*?description\s*:\s*"([^"]+)"/);
 const roadTripsDescription = roadTripsMatch?.[1] ?? '';
 if (roadTripsDescription.length < 100 || roadTripsDescription.length > 160) {
@@ -157,4 +171,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Phase 7 technical SEO validation passed for ${targets.length} audited canonical URLs, ${gscIntentTargets.length} current GSC intent overrides, ${exactQuerySourceTargets.length} exact-query source targets and the provenance-safe Texas Facts page-schema boundary.`);
+console.log(`Phase 7 technical SEO validation passed for ${targets.length} audited canonical URLs, ${gscIntentTargets.length} current GSC intent overrides, ${exactQuerySourceTargets.length} exact-query source targets, the provenance-safe Texas Facts page-schema boundary and durable Texas agriculture facts.`);
