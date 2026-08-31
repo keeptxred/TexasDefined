@@ -27,6 +27,9 @@ const articleRouteSource = fs.readFileSync(path.join(root, 'src/routes/article.$
 const texasSymbolsRouteSource = fs.readFileSync(path.join(root, 'src/routes/texas-symbols.tsx'), 'utf8');
 const texasSymbolsLazySource = fs.readFileSync(path.join(root, 'src/routes/texas-symbols.lazy.tsx'), 'utf8');
 const texasSymbolsDataSource = fs.readFileSync(path.join(root, 'src/data/texas-symbols.ts'), 'utf8');
+const texasFlagRouteSource = fs.readFileSync(path.join(root, 'src/routes/texas-flag.tsx'), 'utf8');
+const prioritySearchSeoSource = fs.readFileSync(path.join(root, 'src/lib/priority-search-seo.ts'), 'utf8');
+const prioritySearchPagesSource = fs.readFileSync(path.join(root, 'src/data/priority-search-pages.ts'), 'utf8');
 const requiredDiscoveryTargets = [
   '/api/knowledge-graph',
   '/api/ai/entities',
@@ -205,6 +208,7 @@ if (citationIndex) {
     'https://texasdefined.com/texas-music',
     'https://texasdefined.com/texas-history',
     'https://texasdefined.com/texas-symbols',
+    'https://texasdefined.com/texas-flag',
     'https://texasdefined.com/texas-homecoming-mums',
     'https://texasdefined.com/texas-natural-wonders-bucket-list',
     'https://texasdefined.com/german-czech-texas-towns',
@@ -224,6 +228,10 @@ if (citationIndex) {
   const symbolsResource = (citationIndex.resources ?? []).find((resource) => resource.url === 'https://texasdefined.com/texas-symbols');
   for (const marker of ['TSLAC-official-source', 'legislative-resolution-citations', 'collection-schema', 'historical-designation-separation', 'canonical-cross-links']) {
     if (!symbolsResource?.trust?.includes(marker)) errors.push(`Texas Symbols citation resource must retain ${marker}.`);
+  }
+  const flagResource = (citationIndex.resources ?? []).find((resource) => resource.url === 'https://texasdefined.com/texas-flag');
+  for (const marker of ['Texas-Government-Code-Chapter-3100', 'TSLAC-archival-source', 'official-source-precedence', 'priority-search-schema', 'canonical-cross-links']) {
+    if (!flagResource?.trust?.includes(marker)) errors.push(`Texas Flag citation resource must retain ${marker}.`);
   }
   const outdoorAuthorityUrls = [
     'https://texasdefined.com/texas-rock-climbing-bouldering-guide',
@@ -278,6 +286,30 @@ for (const feature of [
   'historical: true',
 ]) {
   if (!texasSymbolsDataSource.includes(feature)) errors.push(`Texas Symbols official-source/data contract missing: ${feature}`);
+}
+
+for (const feature of [
+  'createFileRoute("/texas-flag")',
+  'buildPrioritySearchHead',
+  'canonicalPath: "/texas-flag"',
+]) {
+  if (!texasFlagRouteSource.includes(feature)) errors.push(`Texas Flag canonical/schema route contract missing: ${feature}`);
+}
+for (const feature of [
+  '"@type": "WebPage"',
+  '"@type": "ItemList"',
+  '"@type": "BreadcrumbList"',
+]) {
+  if (!prioritySearchSeoSource.includes(feature)) errors.push(`Priority-search structured-data contract missing for Texas Flag: ${feature}`);
+}
+for (const feature of [
+  '"texas-flag": {',
+  'https://www.tsl.texas.gov/exhibits/texas175/flag.html',
+  'https://statutes.capitol.texas.gov/Docs/GV/pdf/GV.3100.pdf',
+  'https://www.tsl.texas.gov/ref/abouttx/flagdes',
+  'Texas Government Code Chapter 3100',
+]) {
+  if (!prioritySearchPagesSource.includes(feature)) errors.push(`Texas Flag controlling-source contract missing: ${feature}`);
 }
 
 for (const feature of [
@@ -362,4 +394,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`TexasDefined machine endpoints, provenance, ${requiredDiscoveryTargets.length} protected llms.txt discovery targets, Texas culture including statewide music, history, official symbols and outdoor authority citation resources, current sports identity/schema, robots policy, and core Organization/WebSite/Article schema contracts are protected.`);
+console.log(`TexasDefined machine endpoints, provenance, ${requiredDiscoveryTargets.length} protected llms.txt discovery targets, Texas culture including statewide music, history, official symbols, the Texas Flag and outdoor authority citation resources, current sports identity/schema, robots policy, and core Organization/WebSite/Article schema contracts are protected.`);
