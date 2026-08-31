@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+<title id="title">SEA LIFE San Antonio editorial illustration</title><desc id="desc">Stylized ocean tunnel and San Antonio skyline.</desc>
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#073b4c"/><stop offset="1" stop-color="#118ab2"/></linearGradient></defs>
+<rect width="1600" height="900" fill="url(#g)"/><path d="M0 650 Q300 560 600 650 T1200 650 T1800 650 V900 H0Z" fill="#062d3b" opacity=".78"/>
+<path d="M300 700 C300 360 1300 360 1300 700" fill="none" stroke="#d7f5ff" stroke-width="34" opacity=".78"/>
+<g fill="#ffd166" opacity=".92"><path d="M530 330l90-45-18 35 18 35z"/><path d="M930 265l115-55-22 42 22 42z"/><path d="M1170 430l80-38-16 30 16 30z"/></g>
+<circle cx="790" cy="205" r="58" fill="#e7fbff" opacity=".22"/><circle cx="875" cy="155" r="20" fill="#e7fbff" opacity=".28"/>
+<text x="110" y="120" fill="white" font-family="Arial,Helvetica,sans-serif" font-size="54" font-weight="700">SEA LIFE SAN ANTONIO</text><text x="112" y="174" fill="#d7f5ff" font-family="Arial,Helvetica,sans-serif" font-size="26">Downtown aquarium · TexasDefined visitor guide</text>
+</svg>
