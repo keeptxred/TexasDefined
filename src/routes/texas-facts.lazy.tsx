@@ -3,8 +3,6 @@ import { Link, createLazyFileRoute } from '@tanstack/react-router';
 import { Container } from '@/components/layout/Container';
 import { TEXAS_ESSENTIAL_FACT_CATEGORIES } from '@/data/texas-essential-facts';
 
-import { description } from './texas-facts';
-
 export const Route = createLazyFileRoute('/texas-facts')({ component: TexasFactsPage });
 
 function TexasFactsPage() {
