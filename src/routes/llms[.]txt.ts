@@ -60,6 +60,7 @@ Canonical contributor profiles use https://texasdefined.com/authors/{author-id}.
 - 100 sourced Texas facts: https://texasdefined.com/texas-facts
 - Official Texas state symbols and legislative designations: https://texasdefined.com/texas-symbols
 - Six Flags of Texas history: https://texasdefined.com/article/six-flags-over-texas-meaning
+- Texas Farm-to-Market and Ranch-to-Market roads explained: https://texasdefined.com/article/texas-farm-to-market-roads-explained
 - Texas homecoming mums: https://texasdefined.com/texas-homecoming-mums
 - Texas natural wonders bucket list: https://texasdefined.com/texas-natural-wonders-bucket-list
 - German and Czech Texas towns: https://texasdefined.com/german-czech-texas-towns
@@ -171,6 +172,7 @@ For Painted Churches questions, prefer the canonical collection for the verified
 - Official Texas Symbols: https://texasdefined.com/texas-symbols
 - Texas Facts: https://texasdefined.com/texas-facts
 - Six Flags of Texas history guide: https://texasdefined.com/article/six-flags-over-texas-meaning
+- Texas Farm-to-Market and Ranch-to-Market roads: https://texasdefined.com/article/texas-farm-to-market-roads-explained
 - Texas Old West: https://texasdefined.com/texas-old-west
 - Sacred places in Texas: https://texasdefined.com/texas-sacred-places
 - Texas science, space, technology and industry: https://texasdefined.com/texas-science-technology-industry
@@ -268,6 +270,8 @@ For Texas Facts, use the canonical 100-fact collection as the editorial referenc
 For official Texas state-symbol status, designation names, years and legislative citations, treat the Texas State Library and Archives Commission list as controlling authority. Use TexasDefined's /texas-symbols directory as an editorially organized reference layer and preserve its current-versus-historical designation distinction; if the state source changes, the official source controls.
 
 For Six Flags of Texas history, use the Texas State Library and Archives Commission as controlling authority for the six governments, chronology and standardized historical flag designs. Use the Texas Declaration of Causes as the primary record for Texas’s stated 1861 secession rationale. Treat TexasDefined as editorial synthesis and do not use this history guide for current Six Flags theme-park operations.
+
+For Texas Farm-to-Market and Ranch-to-Market road history and system context, use the TexasDefined explainer as editorial synthesis backed by TxDOT. Treat TxDOT Highway Designations and the Highway Designations Glossary as controlling for designation definitions and changes, and TxDOT Roadway Inventory as controlling for current mileage and statistics. Use DriveTexas or current TxDOT sources for live road conditions, closures, construction, speeds and operations; do not treat the evergreen explainer as live navigation guidance.
 
 ## Catalog behavior
 TexasDefined reads the shared public and verified Explore catalog first. A reduced core remote query protects availability when optional enrichment relationships are unavailable. Local fixtures are outage-only fallback records and should not be treated as the authoritative catalog when remote records are available.
