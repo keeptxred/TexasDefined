@@ -32,7 +32,7 @@ type LocalHousingPlannerProps = {
     eyebrow: string;
     title: string;
     copy: string;
-    items: readonly { path: string; name: string }[];
+    items: readonly { path: string; name: string; label?: string }[];
   };
   next?: {
     eyebrow: string;
@@ -63,7 +63,7 @@ export function LocalHousingPlannerPage(props: LocalHousingPlannerProps) {
         <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-4">{props.links.map((item) => <a key={item.href} href={item.href} className="border border-border p-5 hover:border-primary/60"><strong className="font-display text-xl">{item.title}</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">{item.copy}</span>{item.action ? <span className="eyebrow mt-5 inline-block text-primary">{item.action}</span> : null}</a>)}</div>
       </section>
 
-      {props.related?.items.length ? <section className="mt-12 border-t border-border pt-10" aria-labelledby="related-local-housing-heading"><p className="eyebrow text-primary">{props.related.eyebrow}</p><h2 id="related-local-housing-heading" className="mt-3 font-display text-3xl">{props.related.title}</h2><p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">{props.related.copy}</p><div className="mt-6 flex flex-wrap gap-3">{props.related.items.map((item) => <a key={item.path} href={item.path} className="border border-border px-4 py-3 font-semibold hover:border-primary/60 hover:text-primary">{item.name} affordability calculator →</a>)}</div></section> : null}
+      {props.related?.items.length ? <section className="mt-12 border-t border-border pt-10" aria-labelledby="related-local-housing-heading"><p className="eyebrow text-primary">{props.related.eyebrow}</p><h2 id="related-local-housing-heading" className="mt-3 font-display text-3xl">{props.related.title}</h2><p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">{props.related.copy}</p><div className="mt-6 flex flex-wrap gap-3">{props.related.items.map((item) => <a key={item.path} href={item.path} className="border border-border px-4 py-3 font-semibold hover:border-primary/60 hover:text-primary">{item.label ?? `${item.name} affordability calculator →`}</a>)}</div></section> : null}
 
       {props.next ? <section className="mt-12 border-t border-border pt-10" aria-labelledby="local-housing-next-heading"><p className="eyebrow text-primary">{props.next.eyebrow}</p><h2 id="local-housing-next-heading" className="mt-3 font-display text-3xl">{props.next.title}</h2><div className="mt-6 grid gap-4 md:grid-cols-3">{props.next.links.map((item) => <a key={item.href} href={item.href} className="border border-border p-5 hover:border-primary/60"><strong className="font-display text-2xl">{item.title}</strong><span className="mt-3 block text-sm leading-6 text-muted-foreground">{item.copy}</span>{item.action ? <span className="eyebrow mt-5 inline-block text-primary">{item.action}</span> : null}</a>)}</div></section> : null}
 
