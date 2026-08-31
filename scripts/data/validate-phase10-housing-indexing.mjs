@@ -17,7 +17,7 @@ const productionWorkflow = read('.github/workflows/verify-housing-index-surfaces
 
 const dynamicRoutes = [
   ['property tax', 'src/routes/property-tax-calculator.$location.tsx', "/property-tax-calculator/$location"],
-  ['affordability', 'src/routes/texas-home-affordability-calculator.$location.tsx', "/texas-home-affordability-calculator/$location"],
+  ['affordability', 'src/routes/texas-home-affordability-calculator_.$location.tsx', "/texas-home-affordability-calculator/$location"],
   ['homeownership cost', 'src/routes/texas-homeownership-cost-calculator_.$location.tsx', "/texas-homeownership-cost-calculator/$location"],
   ['home insurance', 'src/routes/texas-home-insurance-calculator_.$location.tsx', "/texas-home-insurance-calculator/$location"],
   ['mortgage', 'src/routes/texas-mortgage-calculator_.$location.tsx', "/texas-mortgage-calculator/$location"],
