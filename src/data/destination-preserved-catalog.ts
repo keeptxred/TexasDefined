@@ -8,6 +8,7 @@ import { militaryHistoryDestinations } from "./military-history-destinations";
 import { militaryMuseumDestinations } from "./military-museum-destinations";
 import { austinMuseumDestinations } from "./museum-expansion-austin";
 import { dfwMuseumDestinations } from "./museum-expansion-dfw";
+import { georgeWBushMuseumDestinations } from "./museum-expansion-george-w-bush";
 import { houstonGalvestonMuseumDestinations } from "./museum-expansion-houston-galveston";
 import { sanAntonioMuseumDestinations } from "./museum-expansion-san-antonio";
 import { sanAntonioContemporaryMuseumDestinations } from "./museum-expansion-san-antonio-contemporary";
@@ -81,6 +82,7 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   militaryMuseumDestinations,
   houstonGalvestonMuseumDestinations,
   dfwMuseumDestinations,
+  georgeWBushMuseumDestinations,
   austinMuseumDestinations,
   sanAntonioMuseumDestinations,
   sanAntonioContemporaryMuseumDestinations,
