@@ -36,6 +36,7 @@ export function TopAttractionRoadTripsContent({ trips }: { trips: ResolvedTopAtt
               <p className="eyebrow text-muted-foreground">Planning logic</p>
               <p className="mt-2 text-sm leading-6 text-muted-foreground">{trip.planningNote}</p>
             </div>
+            {trip.id === "texas-panhandle" && <a href="/explore/route-66/texas-road-trip" className="eyebrow mt-6 inline-block border-b border-primary pb-1 text-primary">Drive the complete Texas Route 66 guide →</a>}
             {trip.destinations[0] && <Link to="/explore/trip-planner" search={{ destination: trip.destinations[0].slug }} className="eyebrow mt-6 inline-block border-b border-primary pb-1 text-primary">Start this route in Trip Planner →</Link>}
           </div>
           <ol className="grid gap-8 sm:grid-cols-2">
