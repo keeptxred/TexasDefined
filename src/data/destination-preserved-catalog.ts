@@ -9,6 +9,7 @@ import { militaryMuseumDestinations } from "./military-museum-destinations";
 import { austinMuseumDestinations } from "./museum-expansion-austin";
 import { dfwMuseumDestinations } from "./museum-expansion-dfw";
 import { houstonGalvestonMuseumDestinations } from "./museum-expansion-houston-galveston";
+import { sanAntonioMuseumDestinations } from "./museum-expansion-san-antonio";
 import type { Destination } from "./types";
 
 const newBraunfelsSeasonalFallback: Destination = {
@@ -79,5 +80,6 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   houstonGalvestonMuseumDestinations,
   dfwMuseumDestinations,
   austinMuseumDestinations,
+  sanAntonioMuseumDestinations,
   [newBraunfelsSeasonalFallback],
 );
