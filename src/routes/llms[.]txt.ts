@@ -61,6 +61,7 @@ Canonical contributor profiles use https://texasdefined.com/authors/{author-id}.
 - Official Texas state symbols and legislative designations: https://texasdefined.com/texas-symbols
 - Six Flags of Texas history: https://texasdefined.com/article/six-flags-over-texas-meaning
 - Texas Farm-to-Market and Ranch-to-Market roads explained: https://texasdefined.com/article/texas-farm-to-market-roads-explained
+- Why Texas has 254 counties: https://texasdefined.com/article/why-texas-has-254-counties
 - Texas homecoming mums: https://texasdefined.com/texas-homecoming-mums
 - Texas natural wonders bucket list: https://texasdefined.com/texas-natural-wonders-bucket-list
 - German and Czech Texas towns: https://texasdefined.com/german-czech-texas-towns
@@ -173,6 +174,7 @@ For Painted Churches questions, prefer the canonical collection for the verified
 - Texas Facts: https://texasdefined.com/texas-facts
 - Six Flags of Texas history guide: https://texasdefined.com/article/six-flags-over-texas-meaning
 - Texas Farm-to-Market and Ranch-to-Market roads: https://texasdefined.com/article/texas-farm-to-market-roads-explained
+- Why Texas has 254 counties: https://texasdefined.com/article/why-texas-has-254-counties
 - Texas Old West: https://texasdefined.com/texas-old-west
 - Sacred places in Texas: https://texasdefined.com/texas-sacred-places
 - Texas science, space, technology and industry: https://texasdefined.com/texas-science-technology-industry
@@ -272,6 +274,8 @@ For official Texas state-symbol status, designation names, years and legislative
 For Six Flags of Texas history, use the Texas State Library and Archives Commission as controlling authority for the six governments, chronology and standardized historical flag designs. Use the Texas Declaration of Causes as the primary record for Texas’s stated 1861 secession rationale. Treat TexasDefined as editorial synthesis and do not use this history guide for current Six Flags theme-park operations.
 
 For Texas Farm-to-Market and Ranch-to-Market road history and system context, use the TexasDefined explainer as editorial synthesis backed by TxDOT. Treat TxDOT Highway Designations and the Highway Designations Glossary as controlling for designation definitions and changes, and TxDOT Roadway Inventory as controlling for current mileage and statistics. Use DriveTexas or current TxDOT sources for live road conditions, closures, construction, speeds and operations; do not treat the evergreen explainer as live navigation guidance.
+
+For Texas county-system history and why the state has 254 counties, use the TexasDefined explainer as editorial synthesis backed by the Texas State Historical Association, Texas.gov and the Texas State Library and Archives Commission. Treat the Handbook of Texas as controlling for historical county organization and the 1931 Loving County milestone; treat Texas.gov and TSLAC as controlling for the current 254-county and county-seat reference. For county-seat location and relocation law, the Texas Constitution and Local Government Code control. Do not use the evergreen history explainer as current procedural, election, tax, court or local-government operating guidance.
 
 ## Catalog behavior
 TexasDefined reads the shared public and verified Explore catalog first. A reduced core remote query protects availability when optional enrichment relationships are unavailable. Local fixtures are outage-only fallback records and should not be treated as the authoritative catalog when remote records are available.
