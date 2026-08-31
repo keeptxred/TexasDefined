@@ -26,8 +26,14 @@ const officialResearchLinks: readonly LocalHousingPlannerLink[] = [
 export function LocalHomeInsurancePage({ profile }: { profile: LocalHomeInsuranceProfile }) {
   const affordabilityPath = `/texas-home-affordability-calculator/${profile.slug}`;
   const ownershipPath = `/texas-homeownership-cost-calculator/${profile.slug}`;
+  const mortgagePath = `/texas-mortgage-calculator/${profile.slug}`;
   const insuranceProfile = { ...profile, planningPoints: profile.insurancePlanningPoints };
   const links: LocalHousingPlannerLink[] = [
+    {
+      href: mortgagePath,
+      title: `${profile.name} mortgage calculator`,
+      copy: 'Put the insurance number into the same monthly payment view as principal, interest and parcel-specific property taxes.',
+    },
     {
       href: ownershipPath,
       title: `${profile.name} homeownership cost calculator`,
@@ -63,7 +69,7 @@ export function LocalHomeInsurancePage({ profile }: { profile: LocalHomeInsuranc
       planningEyebrow="No local-average shortcut"
       planningTitle={`Build a property-specific ${profile.name} insurance estimate`}
       linksEyebrow="Connect insurance to the full housing budget"
-      linksTitle="Use the same address across taxes, affordability and ownership-cost planning"
+      linksTitle="Use the same address across mortgage, taxes, affordability and ownership-cost planning"
       links={links}
       faqTitle={`${profile.name} home insurance calculator FAQ`}
       faqs={profile.insuranceFaqs}
