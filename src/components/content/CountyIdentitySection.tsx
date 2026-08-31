@@ -4,6 +4,7 @@ import { CountyHistoricSites } from '@/components/content/CountyHistoricSites';
 import { CountyMadeBuiltBorn } from '@/components/content/CountyMadeBuiltBorn';
 import { CountySeasonalPlanning } from '@/components/content/CountySeasonalPlanning';
 import { CountyStatewideContextSection } from '@/components/content/CountyStatewideContextSection';
+import { CountyWildlifeDestinations } from '@/components/content/CountyWildlifeDestinations';
 import { CountyTaxRateSection } from '@/components/property/CountyTaxRateSection';
 import type { CountyProfile } from '@/data/county-profile';
 
@@ -62,7 +63,7 @@ export function CountyIdentitySection({ countyName, region, profile }: { countyN
     { href: '/texas-explained', label: 'All 10 Texas Explained guides' },
   ];
 
-  if (!hasIdentitySignal) return <><CountySeasonalPlanning countySlug={slug} countyName={countyName} /><CountyTaxRateSection countySlug={slug} countyName={countyName} /><CountyMadeBuiltBorn countySlug={slug} /></>;
+  if (!hasIdentitySignal) return <><CountyWildlifeDestinations countyName={countyName} /><CountySeasonalPlanning countySlug={slug} countyName={countyName} /><CountyTaxRateSection countySlug={slug} countyName={countyName} /><CountyMadeBuiltBorn countySlug={slug} /></>;
 
   return (
     <>
@@ -89,6 +90,7 @@ export function CountyIdentitySection({ countyName, region, profile }: { countyN
               <a href="/texas-explained" className="mt-3 inline-block text-sm font-semibold text-primary">Explore Texas Explained →</a>
             </div>
             <CountyHistoricSites countyName={countyName} />
+            <CountyWildlifeDestinations countyName={countyName} />
             <CountyStatewideContextSection countyName={countyName} countySlug={slug} />
           </div>
         </div>
