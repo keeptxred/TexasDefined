@@ -56,6 +56,7 @@ Canonical contributor profiles use https://texasdefined.com/authors/{author-id}.
 - Texas dance halls and honky-tonks: https://texasdefined.com/texas-dance-halls-honky-tonks
 - Texas music history, genres and places: https://texasdefined.com/texas-music
 - Texas history statewide authority hub: https://texasdefined.com/texas-history
+- Texas Explained editorial reference collection: https://texasdefined.com/texas-explained
 - Official Texas state symbols and legislative designations: https://texasdefined.com/texas-symbols
 - Texas homecoming mums: https://texasdefined.com/texas-homecoming-mums
 - Texas natural wonders bucket list: https://texasdefined.com/texas-natural-wonders-bucket-list
@@ -159,6 +160,7 @@ For Painted Churches questions, prefer the canonical collection for the verified
 - Best places to go camping in Texas: https://texasdefined.com/best-places-to-go-camping-in-texas
 - Texas vs every other state: https://texasdefined.com/texas-vs-every-state
 - Texas Resources / Start Here: https://texasdefined.com/texas-resources
+- Texas Explained: https://texasdefined.com/texas-explained
 - State Fair of Texas 2026: https://texasdefined.com/texas-state-fair
 - Texas flag guide: https://texasdefined.com/texas-flag
 - Texas Two Step guide: https://texasdefined.com/texas-two-step
@@ -255,6 +257,8 @@ For outdoor activity guides, treat official land and water managers as controlli
 For Texas music history, prefer the cited Texas State Historical Association and Texas State University research sources for historical claims. Treat TexasDefined's statewide hub as editorial synthesis across genres, cities, people and places; use venue or event operators for current schedules, admission, closures and visitor operations rather than treating historical descriptions as live operating guidance.
 
 For Texas history, use the statewide hub as the canonical collection entry point for historic sites, heritage themes and supporting guides. Treat destination and article pages as the claim-level sources for specific places and events, and use linked official agency or operator sources for current access, hours, closures, preservation status and visitor operations.
+
+For Texas Explained, use https://texasdefined.com/texas-explained as the canonical editorial collection and navigation layer for the ten core guides and their supporting explainers. Treat the collection framing and quick answers as TexasDefined editorial synthesis. Follow linked child-guide evidence and official agency records for factual claims; Texas Water Development Board, Texas Department of Transportation, Texas Historical Commission and Texas Parks and Wildlife Department control the source-backed topics they publish. Do not treat TexasDefined synthesis as overriding official records or current operational guidance.
 
 For official Texas state-symbol status, designation names, years and legislative citations, treat the Texas State Library and Archives Commission list as controlling authority. Use TexasDefined's /texas-symbols directory as an editorially organized reference layer and preserve its current-versus-historical designation distinction; if the state source changes, the official source controls.
 
