@@ -4,7 +4,6 @@ import { texasDefinedBrand } from "@/brand/texasdefined";
 import { isPrimaryTripPlannerDestination } from "@/data/destination-availability";
 import { auditDestination } from "@/data/destination-audit";
 import { applyAllCuratedDestinations } from "@/data/destination-curation-all";
-import { preservedExploreDestinations } from "@/data/destination-preserved-catalog";
 import { improveDestinationCatalog } from "@/data/destination-quality";
 import { supplementalExploreCategories } from "@/data/explore-categories";
 import { isExploreCategoryIndexReady } from "@/data/explore-category-indexability";
@@ -126,6 +125,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
       GET: async () => {
         const { landscapeGuideSlugs, landscapeSlugs } = await import("@/data/texas-landscape-slugs");
         const { paintedChurchSearchGuides } = await import("@/data/painted-church-search-guides");
+        const { preservedExploreDestinations } = await import("@/data/destination-preserved-catalog");
         let enrichedDestinations: Awaited<ReturnType<typeof fetchExploreDestinations>> = [];
         let coreDestinations: Awaited<ReturnType<typeof fetchCoreExploreDestinations>> = [];
         const remoteConfigured = hasExploreRemoteData();
@@ -169,6 +169,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           "/explore",
           "/explore/trip-planner",
           "/explore/attractions-comparison",
+          "/explore/wildlife",
           ...PAINTED_CHURCH_STATIC_PATHS,
           "/explore/top-attractions",
           "/explore/top-attractions/methodology",
