@@ -1,0 +1,42 @@
+name: Validate Texas Facts machine discovery
+
+on:
+  pull_request:
+    paths:
+      - 'src/routes/llms[.]txt.ts'
+      - 'public/citation-magnets.json'
+      - 'scripts/data/validate-texas-facts-machine-discovery.mjs'
+      - 'scripts/data/validate-texas-facts-provenance.mjs'
+      - 'src/data/texas-essential-fact-sources.server.ts'
+      - 'src/data/texas-essential-facts-provenance.server.ts'
+      - 'src/data/texas-facts.functions.ts'
+      - 'src/routes/texas-facts.tsx'
+      - 'src/routes/texas-facts.lazy.tsx'
+  push:
+    branches: [main]
+    paths:
+      - 'src/routes/llms[.]txt.ts'
+      - 'public/citation-magnets.json'
+      - 'scripts/data/validate-texas-facts-machine-discovery.mjs'
+      - 'scripts/data/validate-texas-facts-provenance.mjs'
+      - 'src/data/texas-essential-fact-sources.server.ts'
+      - 'src/data/texas-essential-facts-provenance.server.ts'
+      - 'src/data/texas-facts.functions.ts'
+      - 'src/routes/texas-facts.tsx'
+      - 'src/routes/texas-facts.lazy.tsx'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate Texas Facts machine discovery
+        run: node scripts/data/validate-texas-facts-machine-discovery.mjs
