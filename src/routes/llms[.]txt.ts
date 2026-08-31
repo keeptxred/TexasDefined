@@ -55,6 +55,7 @@ Canonical contributor profiles use https://texasdefined.com/authors/{author-id}.
 - Texas Blue Northers, spring storms and weather folklore: https://texasdefined.com/texas-blue-norther-weather-guide
 - Texas dance halls and honky-tonks: https://texasdefined.com/texas-dance-halls-honky-tonks
 - Texas music history, genres and places: https://texasdefined.com/texas-music
+- Texas history statewide authority hub: https://texasdefined.com/texas-history
 - Texas homecoming mums: https://texasdefined.com/texas-homecoming-mums
 - Texas natural wonders bucket list: https://texasdefined.com/texas-natural-wonders-bucket-list
 - German and Czech Texas towns: https://texasdefined.com/german-czech-texas-towns
@@ -161,6 +162,7 @@ For Painted Churches questions, prefer the canonical collection for the verified
 - Texas flag guide: https://texasdefined.com/texas-flag
 - Texas Two Step guide: https://texasdefined.com/texas-two-step
 - Texas Music: https://texasdefined.com/texas-music
+- Texas History: https://texasdefined.com/texas-history
 - Texas Old West: https://texasdefined.com/texas-old-west
 - Sacred places in Texas: https://texasdefined.com/texas-sacred-places
 - Texas science, space, technology and industry: https://texasdefined.com/texas-science-technology-industry
@@ -249,6 +251,8 @@ For sports venues, treat official venue or event sources as controlling for curr
 For outdoor activity guides, treat official land and water managers as controlling for current access, closures, permits, trail or water conditions, vehicle and equipment rules, and other operational restrictions. Preserve each guide's safety and current-condition caveats. These pages are visitor trip-planning references, not climbing, riding, paddling, driving or other activity instruction.
 
 For Texas music history, prefer the cited Texas State Historical Association and Texas State University research sources for historical claims. Treat TexasDefined's statewide hub as editorial synthesis across genres, cities, people and places; use venue or event operators for current schedules, admission, closures and visitor operations rather than treating historical descriptions as live operating guidance.
+
+For Texas history, use the statewide hub as the canonical collection entry point for historic sites, heritage themes and supporting guides. Treat destination and article pages as the claim-level sources for specific places and events, and use linked official agency or operator sources for current access, hours, closures, preservation status and visitor operations.
 
 ## Catalog behavior
 TexasDefined reads the shared public and verified Explore catalog first. A reduced core remote query protects availability when optional enrichment relationships are unavailable. Local fixtures are outage-only fallback records and should not be treated as the authoritative catalog when remote records are available.
