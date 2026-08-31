@@ -4,6 +4,16 @@ import { OfficialMortgageCalculator } from '@/components/calculators/OfficialMor
 
 const description = 'Estimate a Texas mortgage payment with down payment, principal, interest, official local property-tax rates and homeowners insurance in one monthly housing-cost view.';
 
+const localMortgagePages = [
+  ['Houston', '/texas-mortgage-calculator/houston'],
+  ['Austin', '/texas-mortgage-calculator/austin'],
+  ['Dallas', '/texas-mortgage-calculator/dallas'],
+  ['Fort Worth', '/texas-mortgage-calculator/fort-worth'],
+  ['San Antonio', '/texas-mortgage-calculator/san-antonio'],
+  ['Frisco', '/texas-mortgage-calculator/frisco'],
+  ['El Paso', '/texas-mortgage-calculator/el-paso'],
+] as const;
+
 const faqs = [
   {
     question: 'What does a Texas mortgage calculator include?',
@@ -35,6 +45,15 @@ function TexasMortgageCalculatorPage() {
   return (
     <CalculatorPage eyebrow="Texas mortgage payment calculator" title="Texas mortgage payment calculator with taxes and insurance" description={description}>
       <OfficialMortgageCalculator />
+
+      <section className="mt-12 border-t border-border pt-10" aria-labelledby="mortgage-local-heading">
+        <p className="eyebrow text-primary">Local payment planning</p>
+        <h2 id="mortgage-local-heading" className="mt-3 font-display text-3xl">Start with a Texas city, then make the payment parcel-specific</h2>
+        <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">The loan math is statewide, but property taxes and insurance are address-specific. These local pages connect the mortgage calculator to the matching property-tax, insurance, affordability and ownership-cost research without publishing a city-average tax rate or insurance premium.</p>
+        <div className="mt-6 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+          {localMortgagePages.map(([name, href]) => <a key={href} href={href} className="group bg-background p-5"><strong className="font-display text-2xl group-hover:text-primary">{name}</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Local mortgage payment calculator →</span></a>)}
+        </div>
+      </section>
 
       <section className="mt-14 border-t border-border pt-10" aria-labelledby="mortgage-cost-heading">
         <p className="eyebrow text-primary">Beyond principal and interest</p>
