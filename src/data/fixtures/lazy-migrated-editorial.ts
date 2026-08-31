@@ -95,7 +95,10 @@ export async function loadMigratedEditorialArticle(brandId: string, slug: string
   }
   if (financeDepth3SlugSet.has(slug)) {
     const { financeEvergreenDepth3Articles } = await import("./finance-evergreen-depth-3");
-    return financeEvergreenDepth3Articles.find((article) => article.slug === slug) ?? null;
+    const article = financeEvergreenDepth3Articles.find((article) => article.slug === slug) ?? null;
+    if (!article) return null;
+    const { enrichFinanceIndexReadyArticle } = await import("./finance-index-readiness-enrichment");
+    return enrichFinanceIndexReadyArticle(article);
   }
   if (relocationDepthSlugSet.has(slug)) {
     const { relocationEvergreenDepthArticles } = await import("./relocation-evergreen-depth");

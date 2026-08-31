@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import './validate-finance-index-readiness.mjs';
 
 const read = (file) => fs.readFileSync(file, 'utf8');
 const errors = [];
