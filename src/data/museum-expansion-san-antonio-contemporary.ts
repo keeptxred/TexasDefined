@@ -1,0 +1,68 @@
+import type { Destination } from "./types";
+
+const SOURCE_CHECKED_AT = "2026-08-30";
+
+export const sanAntonioContemporaryMuseumDestinations: Destination[] = [
+  {
+    id: "museum-expansion-artpace",
+    brandId: "texasdefined",
+    slug: "artpace-san-antonio",
+    name: "Artpace",
+    summary: "Artpace is a free contemporary art center in downtown San Antonio built around an internationally recognized artist-in-residence program, with rotating exhibitions of work created by Texas, national and international artists.",
+    category: "historic-sites",
+    region: "south-texas",
+    nearestTown: "San Antonio",
+    county: "Bexar County",
+    coordinates: { lat: 29.429819, lng: -98.494301 },
+    hero: {
+      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Artpace_san_antonio.jpg?width=1600",
+      alt: "Artpace contemporary art center on North Main Avenue in downtown San Antonio",
+      width: 1600,
+      height: 1067,
+      credit: "Larry D. Moore · Wikimedia Commons",
+    },
+    bestSeason: "Year-round indoor art destination; fall through spring is most comfortable for walking between Artpace, downtown plazas and nearby cultural stops.",
+    entryNote: "Admission is free and walk-ins are welcome. Current public hours are Monday through Friday 10 a.m.–5 p.m. and Saturday–Sunday noon–5 p.m.; free parking is available at 513 N Flores. Check the exhibition calendar before visiting because gallery installations rotate.",
+    highlights: ["International Artist-in-Residence program", "Free contemporary art exhibitions", "Texas, national and international artists", "Downtown San Antonio"],
+    body: [
+      "Artpace is less a museum built around a permanent collection than a working laboratory for contemporary art. Three times each year, a guest curator selects one Texas artist, one national artist and one international artist to live and work in San Antonio, giving them time and space to develop new projects that culminate in public exhibitions. That residency model makes artistic process central to the institution rather than something hidden behind the finished work.",
+      "Because exhibitions turn over with the residency and gallery calendar, no two visits are guaranteed to look alike. Visitors may encounter installations, sculpture, video, painting or other experimental work, often with interpretive material that explains the artist's project and the ideas behind it. The compact footprint means a self-guided visit can be relatively quick, but people who read closely or attend talks and openings can spend much longer engaging with the work.",
+      "Artpace sits in Downtown West a few blocks from Main Plaza, the River Walk and central civic landmarks. Free admission and a dedicated parking lot across the street make it easy to add to a downtown itinerary without the time commitment of a large encyclopedic museum. It also provides useful context for Ruby City: both institutions grew from Linda Pace's commitment to contemporary art, but Artpace emphasizes the creation of new work through residencies while Ruby City presents the foundation collection and curated exhibitions.",
+    ],
+    officialUrl: "https://artpace.org/visit/",
+    managingAuthority: "Artpace San Antonio",
+    address: "445 N Main Ave, San Antonio, TX 78205",
+    sourceCheckedAt: SOURCE_CHECKED_AT,
+  },
+  {
+    id: "museum-expansion-ruby-city",
+    brandId: "texasdefined",
+    slug: "ruby-city-san-antonio",
+    name: "Ruby City",
+    summary: "Ruby City is a free contemporary art center just south of downtown San Antonio, presenting the Linda Pace Foundation Collection and changing exhibitions inside a distinctive crimson building designed by Adjaye Associates.",
+    category: "historic-sites",
+    region: "south-texas",
+    nearestTown: "San Antonio",
+    county: "Bexar County",
+    coordinates: { lat: 29.41304, lng: -98.50188 },
+    hero: {
+      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Ruby_city_outside.jpg?width=1600",
+      alt: "Crimson exterior of Ruby City contemporary art center in San Antonio",
+      width: 1600,
+      height: 1067,
+      credit: "Dror Baldinger / Ruby City · Wikimedia Commons · CC BY-SA 4.0",
+    },
+    bestSeason: "Year-round indoor galleries; fall through spring is especially comfortable for pairing the museum with Chris Park and the surrounding Southtown-area arts campus.",
+    entryNote: "Ruby City is free and open Thursday through Sunday from 10 a.m.–6 p.m. Advance booking is not required for ordinary visits, though some programs require registration and groups of 10 or more should arrange ahead. Check the current exhibition calendar before visiting.",
+    highlights: ["Linda Pace Foundation Collection", "Adjaye Associates architecture", "Free admission", "Chris Park and Studio arts campus"],
+    body: [
+      "Ruby City grew from artist, collector and philanthropist Linda Pace's vision for a permanent home where San Antonio could encounter contemporary art. The Linda Pace Foundation collection now includes more than 1,400 paintings, sculptures, installations and video works, while rotating exhibitions bring those holdings into conversation with invited artists and changing curatorial themes.",
+      "The building is part of the experience. Adjaye Associates translated Pace's dream of a jewel-like red structure into a faceted two-story museum clad in deep crimson concrete panels. The architecture is bold without overwhelming the galleries, and the broader campus extends across Camp Street to Chris Park and Studio, giving visitors public green space and an auxiliary exhibition venue in addition to the main museum.",
+      "Ruby City is small enough to combine with a Southtown or downtown day but substantial enough to reward repeat visits as exhibitions change. Admission is always free, and visitors can continue from the main galleries into Chris Park or nearby arts destinations without committing to a conventional full-day museum schedule. Pairing Ruby City with Artpace is especially useful for understanding Linda Pace's legacy: one institution supports artists making new work, while the other preserves and presents the collection and cultural infrastructure she envisioned.",
+    ],
+    officialUrl: "https://rubycity.org/visit/",
+    managingAuthority: "Linda Pace Foundation / Ruby City",
+    address: "150 Camp St, San Antonio, TX 78204",
+    sourceCheckedAt: SOURCE_CHECKED_AT,
+  },
+];
