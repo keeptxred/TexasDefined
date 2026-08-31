@@ -3,7 +3,7 @@ const sha = process.env.GITHUB_SHA ?? 'local';
 const runId = process.env.GITHUB_RUN_ID ?? Date.now().toString();
 
 const surfaces = [
-  ['aquarium-hub', '/explore/aquariums', ['Texas aquariums and marine-life destinations', 'Texas State Aquarium', 'The Dallas World Aquarium']],
+  ['aquarium-hub', '/explore/aquariums', ['Texas aquariums & marine life', 'Texas State Aquarium', 'The Dallas World Aquarium']],
   ['explore-sitemap', '/sitemap-explore.xml', ['/explore/aquariums', '/destination/texas-state-aquarium', '/destination/dallas-world-aquarium']],
   ['texas-state-aquarium', '/destination/texas-state-aquarium', ['Texas State Aquarium', 'Nueces County', 'Official visitor information']],
   ['dallas-world-aquarium', '/destination/dallas-world-aquarium', ['The Dallas World Aquarium', 'Dallas County', 'Official visitor information']],
@@ -18,9 +18,21 @@ const surfaces = [
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+function normalizeForAssertions(body) {
+  return body
+    .replace(/&amp;/gi, '&')
+    .replace(/&quot;/gi, '"')
+    .replace(/(?:&#39;|&apos;)/gi, "'")
+    .replace(/&nbsp;/gi, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 async function verifySurface(label, path, needles) {
   let lastStatus = 'network-error';
   let lastBody = '';
+  let lastComparableBody = '';
   let lastError = '';
   let lastChallenge = false;
 
@@ -39,8 +51,9 @@ async function verifySurface(label, path, needles) {
       lastStatus = String(response.status);
       lastChallenge = response.headers.get('cf-mitigated')?.toLowerCase() === 'challenge';
       lastBody = await response.text();
+      lastComparableBody = normalizeForAssertions(lastBody);
       lastError = '';
-      const missing = needles.filter((needle) => !lastBody.includes(needle));
+      const missing = needles.filter((needle) => !lastComparableBody.includes(needle));
 
       if (!lastChallenge && response.ok && missing.length === 0) {
         console.log(`[${label}] verified (${response.status})`);
@@ -60,7 +73,7 @@ async function verifySurface(label, path, needles) {
     if (attempt < 8) await sleep(10_000);
   }
 
-  const missing = needles.filter((needle) => !lastBody.includes(needle));
+  const missing = needles.filter((needle) => !lastComparableBody.includes(needle));
   const reason = lastError
     || (lastChallenge ? 'Cloudflare returned cf-mitigated: challenge' : '')
     || (lastStatus !== '200' ? `HTTP ${lastStatus}` : `missing expected text: ${missing.join(' | ')}`);
