@@ -27,6 +27,9 @@ export const texasCourthousesTownSquareArticle: Article = {
     { href: "/texas-history", label: "Texas History", description: "More stories about the institutions and places that shaped the state." },
     { href: "/explore/small-towns", label: "Explore small towns", description: "Find Texas communities where the courthouse still anchors the center of town." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 counties and their local places." },
+    { href: "https://thc.texas.gov/preserve/grants-tax-credits-and-funding/courthouse-grant-program", label: "Texas Historic Courthouse Preservation grant program", description: "Texas Historical Commission history, eligibility context and current grant-program information for historic county courthouses." },
+    { href: "https://thc.texas.gov/preserve/grants-tax-credits-and-funding/courthouse-grant-program/current-courthouse-grant-projects", label: "Current Texas courthouse grant projects", description: "Texas Historical Commission's current project and award page; use this source for live participation, grant and restoration totals." },
+    { href: "https://thc.texas.gov/review/state-project-review/courthouse-review-and-compliance", label: "Texas courthouse review and compliance", description: "Texas Historical Commission overview of the statutes, designations and review requirements protecting buildings that serve or have served as county courthouses." },
     { href: "https://thc.texas.gov/preserve/preservation-programs/courthouse-preservation/restored-historic-courthouses", label: "Restored historic Texas courthouses", description: "Texas Historical Commission pages for courthouse restoration projects around the state." },
   ],
   relatedCollections: [], relatedDestinations: [],
@@ -76,8 +79,8 @@ export const texasCourthousesTownSquareArticle: Article = {
 
     h("Restoration is about more than pretty architecture"),
     p("Restoring an old courthouse can preserve craftsmanship that would be difficult to reproduce today, but the larger value is urban. A functioning courthouse brings daily activity to the center of town. A restored square can also support surrounding businesses and make historic streets worth maintaining."),
-    p("As of August 2026, the Texas Historical Commission says the preservation program has assisted 107 historic county courthouses with more than $400 million in grants: 81 counties received full-restoration construction projects and 26 received emergency or planning assistance. The agency's separate stewardship program offers preservation training and technical assistance to all 254 counties."),
-    p("The strongest preservation projects treat the courthouse, sidewalks, storefronts, trees, parking and public space as one connected place rather than saving a single building in isolation."),
+    p("As of August 2026, THC's current grant-program page reports more than $400 million awarded since the program began and 81 counties with full-restoration funding. The agency's separate stewardship program offers preservation training and technical assistance to all 254 counties."),
+    p("Program participation, award totals and active grant rounds change over time; consult THC's current grant-projects and grant-program pages for the latest figures. The strongest preservation projects treat the courthouse, sidewalks, storefronts, trees, parking and public space as one connected place rather than saving a single building in isolation."),
 
     h("The courthouse square is a ready-made Texas road-trip network"),
     p("Because every county needed a seat of government, courthouse towns form a statewide network of historic centers rather than a single heritage corridor. A traveler can compare East Texas brick squares, Hill Country stone courthouses, Panhandle civic buildings, Gulf Coast county seats and West Texas monuments without leaving the same basic civic idea."),
