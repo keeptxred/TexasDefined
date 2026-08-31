@@ -13,6 +13,7 @@ import { georgeWBushMuseumDestinations } from "./museum-expansion-george-w-bush"
 import { houstonGalvestonMuseumDestinations } from "./museum-expansion-houston-galveston";
 import { sanAntonioMuseumDestinations } from "./museum-expansion-san-antonio";
 import { sanAntonioContemporaryMuseumDestinations } from "./museum-expansion-san-antonio-contemporary";
+import { statewideMuseumExpansionDestinations } from "./museum-expansion-statewide";
 import { wacoMuseumDestinations } from "./museum-expansion-waco";
 import type { Destination } from "./types";
 
@@ -89,5 +90,6 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   sanAntonioMuseumDestinations,
   sanAntonioContemporaryMuseumDestinations,
   wacoMuseumDestinations,
+  statewideMuseumExpansionDestinations,
   [newBraunfelsSeasonalFallback],
 );
