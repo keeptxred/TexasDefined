@@ -3,7 +3,7 @@ import { loadPrioritySearchPage } from "@/data/priority-search-page";
 import { buildPrioritySearchHead } from "@/lib/priority-search-seo";
 
 // PrioritySearchPage UI is intentionally delivered from texas-flag.lazy.tsx.
-const canonicalPath = "/texas-flag";
+const canonicalPath: "/texas-flag" = "/texas-flag";
 const faq = [
   { question: "When was the current Texas flag adopted?", answer: "The familiar Lone Star design was adopted by the Republic of Texas in 1839 and remains the state flag today." },
   { question: "What do the Texas flag colors mean?", answer: "Texas law assigns blue to loyalty, white to purity and red to bravery. The single white five-pointed Lone Star is the flag's defining symbol." },
