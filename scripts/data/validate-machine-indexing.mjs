@@ -73,6 +73,7 @@ const requiredDiscoveryTargets = [
   '/texas-slang-explained',
   '/texas-blue-norther-weather-guide',
   '/texas-dance-halls-honky-tonks',
+  '/texas-music',
   '/texas-homecoming-mums',
   '/texas-natural-wonders-bucket-list',
   '/german-czech-texas-towns',
@@ -115,6 +116,8 @@ for (const feature of [
   'official venue or event sources as controlling for current schedules, parking, ticketing, gate times and entry policies',
   'official land and water managers as controlling for current access, closures, permits, trail or water conditions',
   'visitor trip-planning references, not climbing, riding, paddling, driving or other activity instruction',
+  'Texas State Historical Association and Texas State University research sources',
+  'use venue or event operators for current schedules, admission, closures and visitor operations',
 ]) {
   if (!llmsSource.includes(feature)) errors.push(`llms.txt machine guidance missing: ${feature}`);
 }
@@ -190,6 +193,7 @@ if (citationIndex) {
     'https://texasdefined.com/texas-slang-explained',
     'https://texasdefined.com/texas-blue-norther-weather-guide',
     'https://texasdefined.com/texas-dance-halls-honky-tonks',
+    'https://texasdefined.com/texas-music',
     'https://texasdefined.com/texas-homecoming-mums',
     'https://texasdefined.com/texas-natural-wonders-bucket-list',
     'https://texasdefined.com/german-czech-texas-towns',
@@ -197,6 +201,10 @@ if (citationIndex) {
     'https://texasdefined.com/texas-sacred-places',
   ]) {
     if (!citationUrls.has(url)) errors.push(`Machine-readable citation index is missing Texas culture resource ${url}.`);
+  }
+  const musicResource = (citationIndex.resources ?? []).find((resource) => resource.url === 'https://texasdefined.com/texas-music');
+  for (const marker of ['TSHA-primary-sources', 'Texas-State-University-source', 'statewide-authority-hub', 'current-venue-operations-caveat', 'canonical-cross-links']) {
+    if (!musicResource?.trust?.includes(marker)) errors.push(`Texas Music citation resource must retain ${marker}.`);
   }
   const outdoorAuthorityUrls = [
     'https://texasdefined.com/texas-rock-climbing-bouldering-guide',
@@ -310,4 +318,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`TexasDefined machine endpoints, provenance, ${requiredDiscoveryTargets.length} protected llms.txt discovery targets, Texas culture and outdoor authority citation resources, current sports identity/schema, robots policy, and core Organization/WebSite/Article schema contracts are protected.`);
+console.log(`TexasDefined machine endpoints, provenance, ${requiredDiscoveryTargets.length} protected llms.txt discovery targets, Texas culture including statewide music and outdoor authority citation resources, current sports identity/schema, robots policy, and core Organization/WebSite/Article schema contracts are protected.`);
