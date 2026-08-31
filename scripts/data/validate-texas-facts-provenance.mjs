@@ -8,7 +8,7 @@ const lazyData = fs.readFileSync('src/routes/texas-facts.lazy.tsx', 'utf8');
 
 const failures = [];
 const factIds = [...factData.matchAll(/\bfact\((\d+),/g)].map((match) => Number(match[1]));
-const assignmentIds = [...sourceData.matchAll(/^\s*(\d+): \[/gm)].map((match) => Number(match[1]));
+const assignmentIds = [...sourceData.matchAll(/(?:^|[,\s])\s*(\d+): \[/gm)].map((match) => Number(match[1]));
 const expectedIds = Array.from({ length: 100 }, (_, index) => index + 1);
 const unique = (values) => [...new Set(values)].sort((a, b) => a - b);
 
