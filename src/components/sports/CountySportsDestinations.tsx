@@ -1,5 +1,6 @@
 import { use } from 'react';
 
+import { aquariumMarineLinksForCounty } from '@/data/aquarium-marine-county-links';
 import { getCountyMajorEvents } from '@/data/county-major-events';
 import { canonicalEntityPath } from '@/data/knowledge-graph/relationships';
 import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
@@ -9,7 +10,8 @@ const siteUrl = 'https://texasdefined.com';
 
 export function CountySportsDestinations({ county, venues }: { county: TexasEntityRecord; venues: TexasEntityRecord[] }) {
   const majorEvents = use(getCountyMajorEvents(county.slug));
-  if (!venues.length && !majorEvents.length) return null;
+  const aquariumDestinations = aquariumMarineLinksForCounty(county.slug);
+  if (!venues.length && !majorEvents.length && !aquariumDestinations.length) return null;
 
   const displayedVenues = venues.slice(0, 12);
   const collectionLinks = uniqueCollectionLinks(venues).slice(0, 6);
@@ -28,8 +30,48 @@ export function CountySportsDestinations({ county, venues }: { county: TexasEnti
       url: `${siteUrl}${canonicalEntityPath(venue)}`,
     })),
   } : null;
+  const aquariumJsonLd = aquariumDestinations.length ? {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    '@id': `${siteUrl}${canonicalPath}#aquariums-marine-life`,
+    name: `Aquariums and marine-life destinations in ${county.name}`,
+    numberOfItems: aquariumDestinations.length,
+    itemListElement: aquariumDestinations.map((destination, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: destination.name,
+      url: `${siteUrl}/destination/${destination.slug}`,
+    })),
+  } : null;
 
   return <>
+    {aquariumDestinations.length ? <section className="border-b border-border py-12" aria-labelledby="county-aquariums-heading">
+      {aquariumJsonLd ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(aquariumJsonLd) }} /> : null}
+      <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">
+        <div>
+          <p className="eyebrow text-primary">Aquariums & marine life</p>
+          <h2 id="county-aquariums-heading" className="mt-2 font-display text-4xl">Marine-life destinations in {county.name}</h2>
+          <p className="mt-3 text-sm leading-6 text-muted-foreground">TexasDefined aquarium guides assigned to this county, with current official visitor sources and trip-planning context.</p>
+        </div>
+        <div>
+          <div className="border-y border-border py-5">
+            <h3 className="font-display text-2xl">What aquariums and marine-life attractions are in {county.name}?</h3>
+            <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">TexasDefined currently has {aquariumDestinations.length} aquarium or marine-life guide{aquariumDestinations.length === 1 ? '' : 's'} connected to {county.name}. Open a guide for what to expect, planning notes and the attraction’s current first-party visitor source.</p>
+          </div>
+          <div className="mt-7 grid gap-x-7 sm:grid-cols-2 xl:grid-cols-3">
+            {aquariumDestinations.map((destination) => <a key={destination.slug} href={`/destination/${destination.slug}`} className="group border-t border-border py-5">
+              <span className="eyebrow text-primary">Aquarium guide</span>
+              <strong className="mt-2 block font-display text-2xl leading-tight group-hover:text-primary">{destination.name}</strong>
+              <span className="mt-3 block text-sm font-semibold text-primary">Plan a visit →</span>
+            </a>)}
+          </div>
+          <div className="mt-8 border-t border-border pt-6">
+            <a href="/explore/aquariums" className="text-sm font-semibold underline decoration-primary/40 underline-offset-4 hover:text-primary">Explore all Texas aquariums & marine life →</a>
+          </div>
+        </div>
+      </div>
+    </section> : null}
+
     {majorEvents.length ? <section className="border-b border-border py-12" aria-labelledby="county-major-events-heading">
       <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">
         <div>
