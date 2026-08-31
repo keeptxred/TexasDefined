@@ -82,6 +82,13 @@ const requiredDiscoveryTargets = [
   '/texas-college-towns',
   '/texas-tailgating-guide',
   '/texas-unique-lodging',
+  '/texas-rock-climbing-bouldering-guide',
+  '/texas-mountain-biking-guide',
+  '/texas-horseback-riding-guide',
+  '/texas-ohv-guide',
+  '/texas-paddling-guide',
+  '/texas-stargazing-guide',
+  '/texas-birds-guide',
   '/sports',
   '/sports-venues',
   '/sports-venues/dallas-fort-worth',
@@ -106,6 +113,8 @@ for (const feature of [
   'Missing fields are omitted rather than inferred',
   'calculator outputs as illustrative planning estimates',
   'official venue or event sources as controlling for current schedules, parking, ticketing, gate times and entry policies',
+  'official land and water managers as controlling for current access, closures, permits, trail or water conditions',
+  'visitor trip-planning references, not climbing, riding, paddling, driving or other activity instruction',
 ]) {
   if (!llmsSource.includes(feature)) errors.push(`llms.txt machine guidance missing: ${feature}`);
 }
@@ -189,6 +198,24 @@ if (citationIndex) {
   ]) {
     if (!citationUrls.has(url)) errors.push(`Machine-readable citation index is missing Texas culture resource ${url}.`);
   }
+  const outdoorAuthorityUrls = [
+    'https://texasdefined.com/texas-rock-climbing-bouldering-guide',
+    'https://texasdefined.com/texas-mountain-biking-guide',
+    'https://texasdefined.com/texas-horseback-riding-guide',
+    'https://texasdefined.com/texas-ohv-guide',
+    'https://texasdefined.com/texas-paddling-guide',
+    'https://texasdefined.com/texas-stargazing-guide',
+    'https://texasdefined.com/texas-birds-guide',
+  ];
+  for (const url of outdoorAuthorityUrls) {
+    if (!citationUrls.has(url)) errors.push(`Machine-readable citation index is missing outdoor authority resource ${url}.`);
+    const resource = (citationIndex.resources ?? []).find((item) => item.url === url);
+    for (const trustMarker of ['source-review-date', 'canonical-cross-links']) {
+      if (!resource?.trust?.includes(trustMarker)) errors.push(`${url} citation resource is missing ${trustMarker} trust guidance.`);
+    }
+  }
+  const stargazingResource = (citationIndex.resources ?? []).find((resource) => resource.url === 'https://texasdefined.com/texas-stargazing-guide');
+  if (!stargazingResource?.trust?.includes('canonical-intent-owner')) errors.push('Texas stargazing citation resource must preserve canonical-intent-owner guidance.');
   const weatherResource = (citationIndex.resources ?? []).find((resource) => resource.url === 'https://texasdefined.com/texas-blue-norther-weather-guide');
   for (const marker of ['TSHA-terminology-source', 'NWS-meteorology-source', 'safety-first', 'folklore-vs-forecast-distinction']) {
     if (!weatherResource?.trust?.includes(marker)) errors.push(`Texas weather citation resource is missing ${marker} trust guidance.`);
@@ -283,4 +310,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`TexasDefined machine endpoints, provenance, ${requiredDiscoveryTargets.length} llms.txt discovery targets, Texas culture citation resources including sourced weather-language guidance, current sports identity/schema, robots policy, and core Organization/WebSite/Article schema contracts are protected.`);
+console.log(`TexasDefined machine endpoints, provenance, ${requiredDiscoveryTargets.length} protected llms.txt discovery targets, Texas culture and outdoor authority citation resources, current sports identity/schema, robots policy, and core Organization/WebSite/Article schema contracts are protected.`);
