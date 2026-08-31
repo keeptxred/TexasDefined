@@ -31,6 +31,8 @@ export const whyTexasHas254CountiesArticle: Article = {
     "texas geography",
   ],
   featured: true,
+  sourceName: "Texas State Historical Association — County Organization",
+  sourceUrl: "https://www.tshaonline.org/handbook/entries/county-organization",
   internalLinks: [
     {
       href: "/browse/counties",
@@ -58,6 +60,21 @@ export const whyTexasHas254CountiesArticle: Article = {
       description: "Move from the map to parks, towns, rivers, regions and destinations across the state.",
     },
     {
+      href: "https://www.tshaonline.org/handbook/entries/county-organization",
+      label: "Handbook of Texas: County Organization",
+      description: "Texas State Historical Association history of county government, county creation and the organization of Texas's 254th county in 1931.",
+    },
+    {
+      href: "https://statutes.capitol.texas.gov/Docs/CN/pdf/CN.9.pdf",
+      label: "Texas Constitution, Article IX",
+      description: "Official constitutional text governing counties, including the geographic-center rule for relocating county seats.",
+    },
+    {
+      href: "https://statutes.capitol.texas.gov/Docs/LG/pdf/LG.73.pdf",
+      label: "Texas Local Government Code, Chapter 73",
+      description: "Current Texas law governing the location and relocation of county seats, including the five-mile geographic-center rule.",
+    },
+    {
       href: "https://www.texas.gov/local-government-resources/",
       label: "Texas.gov local government resources",
       description: "Official Texas portal confirming the state's 254 counties and linking residents to county and local-government services.",
@@ -81,7 +98,7 @@ export const whyTexasHas254CountiesArticle: Article = {
     p("That practical problem—distance—helps explain why Texas ended up with more counties than any other state. The story is also about settlement, transportation, politics and the way new communities kept pushing westward across a very large piece of land."),
 
     h("Texas started with far fewer counties"),
-    p("The map did not begin with 254 neat pieces. Under the Republic of Texas and during the early years of statehood, the political map was much simpler. As population spread outward, large early counties were repeatedly divided to create new ones."),
+    p("The map did not begin with 254 neat pieces. The Handbook of Texas traces Texas county government back to 23 Spanish-Mexican municipalities at independence in 1836; under the Republic those municipalities became counties, and by 1845 Texas had 36 regular counties. As population spread outward, new counties continued to be organized."),
     p("A county that worked when only a few settlements were scattered across a broad area could become impractical once farms, ranches and towns appeared farther from the county seat. Creating another county moved government closer to the people living there."),
     p("The process happened again and again. Parent counties were split. New county seats were chosen. Courthouses went up. Towns competed for the economic and political advantages that came with becoming the center of county government."),
 
@@ -91,9 +108,9 @@ export const whyTexasHas254CountiesArticle: Article = {
     p("Texas county boundaries therefore developed around a simple practical goal: make local government local enough to use."),
 
     h("Why so many county seats sit near the middle"),
-    p("Look at older Texas county seats on a map and a pattern appears: many were placed near the geographic center of the county or at least in a location intended to be reasonably accessible from several directions."),
-    p("The logic was straightforward. If residents were traveling by horseback, wagon or primitive road, a centrally located courthouse reduced the maximum distance most people had to travel."),
-    p("Reality was rarely perfect. Rivers, railroads, existing towns, land donations and political rivalries influenced the final choice. Still, accessibility was a powerful force in shaping both county lines and county-seat locations."),
+    p("The geographic-center idea is written into Texas law. Article IX of the Texas Constitution protects a county seat located within five miles of the county's geographic center from removal except by a two-thirds vote, while a majority can move a more distant seat to a point within five miles of the center."),
+    p("The Local Government Code carries the same principle into the organization of a new county: its first county seat may not be more than five miles from the geographic center unless at least two-thirds of voters approve the site."),
+    p("Reality was rarely as simple as drawing a dot at the exact center. Rivers, railroads, existing towns, land donations and political rivalries influenced final locations. Still, Texas's constitutional and statutory rules show how strongly accessibility shaped the county-seat system."),
 
     h("The courthouse made a town matter"),
     p("Winning county-seat status could change the future of a Texas town. Lawyers, clerks, merchants, newspapers, hotels and restaurants followed courthouse traffic. Election days, trials, land transactions and public meetings brought people into town from the surrounding countryside."),
@@ -111,7 +128,7 @@ export const whyTexasHas254CountiesArticle: Article = {
     p("The counties may be large by eastern Texas standards, but they still broke an immense region into units that could support courts, records and elected local government."),
 
     h("Why did Texas stop at 254?"),
-    p("By the early twentieth century, the basic county map was essentially complete. Population had spread across the state, the major waves of county creation had passed and transportation was improving quickly."),
+    p("Texas has had 254 counties since the organization of Loving County in 1931, according to the Handbook of Texas. By then, the major waves of county creation had passed and transportation was improving quickly."),
     p("Once roads, automobiles and communications made longer distances easier to manage, the pressure to keep subdividing counties weakened. Creating a new county also meant creating another layer of offices, records, elections and public expense."),
     p("The result is a map that preserves the needs of an earlier Texas even though the way Texans move through the state has changed dramatically."),
 
