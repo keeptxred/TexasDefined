@@ -147,7 +147,7 @@ for (const forbiddenType of ['FAQPage', 'ClaimReview', 'ItemList']) {
 }
 
 for (const token of [
-  "Cotton has shaped Texas agriculture for generations, with the High Plains developing into one of the state's defining cotton-growing regions.",
+  "Cotton has shaped Texas agriculture for generations, with the High Plains developing into one of the state\\'s defining cotton-growing regions.",
   'Cattle ranching has shaped Texas agriculture, land use and cultural identity for centuries.',
 ]) {
   if (!texasFactsData.includes(token)) failures.push(`/texas-facts: durable agriculture wording is missing: ${token}`);
