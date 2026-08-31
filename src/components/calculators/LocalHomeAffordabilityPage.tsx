@@ -32,7 +32,7 @@ type LocalHousingPlannerProps = {
     eyebrow: string;
     title: string;
     copy: string;
-    items: readonly { path: string; name: string }[];
+    items: readonly { path: string; name: string; label?: string }[];
   };
   next?: {
     eyebrow: string;
@@ -63,7 +63,7 @@ export function LocalHousingPlannerPage(props: LocalHousingPlannerProps) {
         <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-4">{props.links.map((item) => <a key={item.href} href={item.href} className="border border-border p-5 hover:border-primary/60"><strong className="font-display text-xl">{item.title}</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">{item.copy}</span>{item.action ? <span className="eyebrow mt-5 inline-block text-primary">{item.action}</span> : null}</a>)}</div>
       </section>
 
-      {props.related?.items.length ? <section className="mt-12 border-t border-border pt-10" aria-labelledby="related-local-housing-heading"><p className="eyebrow text-primary">{props.related.eyebrow}</p><h2 id="related-local-housing-heading" className="mt-3 font-display text-3xl">{props.related.title}</h2><p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">{props.related.copy}</p><div className="mt-6 flex flex-wrap gap-3">{props.related.items.map((item) => <a key={item.path} href={item.path} className="border border-border px-4 py-3 font-semibold hover:border-primary/60 hover:text-primary">{item.name} affordability calculator →</a>)}</div></section> : null}
+      {props.related?.items.length ? <section className="mt-12 border-t border-border pt-10" aria-labelledby="related-local-housing-heading"><p className="eyebrow text-primary">{props.related.eyebrow}</p><h2 id="related-local-housing-heading" className="mt-3 font-display text-3xl">{props.related.title}</h2><p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">{props.related.copy}</p><div className="mt-6 flex flex-wrap gap-3">{props.related.items.map((item) => <a key={item.path} href={item.path} className="border border-border px-4 py-3 font-semibold hover:border-primary/60 hover:text-primary">{item.label ?? `${item.name} affordability calculator →`}</a>)}</div></section> : null}
 
       {props.next ? <section className="mt-12 border-t border-border pt-10" aria-labelledby="local-housing-next-heading"><p className="eyebrow text-primary">{props.next.eyebrow}</p><h2 id="local-housing-next-heading" className="mt-3 font-display text-3xl">{props.next.title}</h2><div className="mt-6 grid gap-4 md:grid-cols-3">{props.next.links.map((item) => <a key={item.href} href={item.href} className="border border-border p-5 hover:border-primary/60"><strong className="font-display text-2xl">{item.title}</strong><span className="mt-3 block text-sm leading-6 text-muted-foreground">{item.copy}</span>{item.action ? <span className="eyebrow mt-5 inline-block text-primary">{item.action}</span> : null}</a>)}</div></section> : null}
 
@@ -82,9 +82,11 @@ const nextCalculators: readonly LocalHousingPlannerLink[] = [
 export function LocalHomeAffordabilityPage({ profile }: { profile: LocalHomeAffordabilityProfile }) {
   const ownershipPath = `/texas-homeownership-cost-calculator/${profile.slug}`;
   const insurancePath = `/texas-home-insurance-calculator/${profile.slug}`;
+  const mortgagePath = `/texas-mortgage-calculator/${profile.slug}`;
   const faqs = profile.faqs.map((faq) => faq);
   const links: LocalHousingPlannerLink[] = [
     { href: profile.propertyTaxHref, title: profile.propertyTaxLabel, copy: 'Build a property-tax estimate from the county, school, city and applicable special-district rates for the parcel.', action: 'Open tax calculator →' },
+    { href: mortgagePath, title: `${profile.name} mortgage payment calculator`, copy: 'Turn the local home-price scenario into principal, interest, parcel-specific taxes and property-specific insurance.', action: 'Build mortgage payment →' },
     { href: ownershipPath, title: `${profile.name} homeownership cost calculator`, copy: 'Turn the affordability range into a fuller monthly budget with mortgage, taxes, insurance, utilities, maintenance and HOA or district costs.', action: 'Build ownership budget →' },
     { href: insurancePath, title: `${profile.name} home-insurance calculator`, copy: 'Model an insurance planning range without personal information, then replace it with property-specific insurer quotes.', action: 'Estimate insurance →' },
     { href: profile.relocationHref, title: profile.relocationLabel, copy: 'Compare the local factors outside the mortgage payment: jurisdiction, schools, commute, utilities, services and other recurring costs.', action: 'Open local guide →' },
