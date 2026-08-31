@@ -71,24 +71,24 @@ for (const prefix of ['"/admin"', '"/api/"']) {
 
 for (const marker of [
   "createFileRoute('/buying-a-home-in-texas')",
-  'loaderData?.page.head',
+  'loaderData?.head',
 ]) {
   if (!buyerRoute.includes(marker)) failures.push(`Texas homebuyer route missing ${marker}.`);
 }
-for (const marker of ['Nine steps', 'Property taxes', 'Homeowners insurance', 'Closing']) {
-  if (!buyerPage.toLowerCase().includes(marker.toLowerCase())) failures.push(`Texas homebuyer journey missing visible planning concept: ${marker}.`);
+for (const marker of ['nine-step', 'property taxes', 'homeowners insurance', 'closing']) {
+  if (!buyerPage.toLowerCase().includes(marker)) failures.push(`Texas homebuyer journey missing visible planning concept: ${marker}.`);
 }
 
 for (const marker of [
   "const origin = 'https://texasdefined.com'",
-  'canonical === url',
+  'canonical === item.url',
   'sitemap.includes(url)',
   'hasNoindex(html)',
   "'WebApplication'",
   "'FAQPage'",
   "'HowTo'",
   'invalid-slug-phase10',
-  'status === 404',
+  'response.status === 404',
   '92 governed housing URLs',
 ]) {
   if (!productionVerifier.includes(marker)) failures.push(`Phase 10 production verifier missing contract marker: ${marker}`);
