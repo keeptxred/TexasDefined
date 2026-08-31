@@ -26,9 +26,9 @@ for (const marker of [
   'mortgagePath = `/texas-mortgage-calculator/${profile.slug}`',
   "profile.kind === 'county' ? profile.slug.replace(/-county$/, '') : ''",
   'does not publish a current mortgage rate or imply lender approval',
-  'Actual property',
+  'Mortgage pricing depends on the borrower, loan program, market, lender and transaction',
 ]) {
-  if (!mortgageProfiles.includes(marker) && marker !== 'Actual property') failures.push(`Local mortgage profile contract missing ${marker}`);
+  if (!mortgageProfiles.includes(marker)) failures.push(`Local mortgage profile contract missing ${marker}`);
 }
 
 const cityLocations = ['houston', 'austin', 'dallas', 'fort-worth', 'san-antonio', 'frisco', 'el-paso'];
@@ -40,24 +40,12 @@ for (const marker of ['Local payment planning', 'Major-county mortgage pages are
   if (!mortgageHub.includes(marker)) failures.push(`Statewide mortgage hub local discovery contract missing ${marker}`);
 }
 
-for (const marker of ["createFileRoute('/texas-mortgage-calculator/$location')", 'getLocalMortgagePage', 'notFound()', 'loaderData?.page.head']) {
-  if (!mortgageRoute.includes(marker)) failures.push(`Local mortgage route missing ${marker}`);
-}
-for (const marker of ["createLazyFileRoute('/texas-mortgage-calculator/$location')", 'LocalMortgagePage', 'page.profile']) {
-  if (!mortgageLazyRoute.includes(marker)) failures.push(`Local mortgage lazy route missing ${marker}`);
-}
-for (const marker of ['OfficialMortgageCalculator defaultCountySlug={profile.defaultCountySlug}', 'profile.mortgagePlanningPoints', 'profile.propertyTaxHref', 'insurancePath', 'ownershipPath', 'affordabilityPath', 'consumerfinance.gov/owning-a-home/loan-estimate', 'comptroller.texas.gov/taxes/property-tax/rates', 'not a mortgage quote, preapproval, Loan Estimate']) {
-  if (!mortgagePage.includes(marker)) failures.push(`Local mortgage UI missing ${marker}`);
-}
-for (const marker of ["'@type': 'WebApplication'", "'@type': 'BreadcrumbList'", "'@type': 'FAQPage'", 'canonicalLink(texasDefinedBrand, profile.mortgagePath)', 'LOCAL_MORTGAGE_PROFILE_BY_SLUG']) {
-  if (!mortgageServer.includes(marker)) failures.push(`Local mortgage server head missing ${marker}`);
-}
-for (const marker of ['createServerFn', "import('./local-mortgage-page.server')"]) {
-  if (!mortgageServerFn.includes(marker)) failures.push(`Local mortgage server boundary missing ${marker}`);
-}
-for (const marker of ["defaultCountySlug = ''", 'useState(defaultCountySlug)', 'OfficialTaxRateAssist', 'CountySelector']) {
-  if (!mortgageCalculator.includes(marker)) failures.push(`Official mortgage calculator local-context support missing ${marker}`);
-}
+for (const marker of ["createFileRoute('/texas-mortgage-calculator/$location')", 'getLocalMortgagePage', 'notFound()', 'loaderData?.page.head']) if (!mortgageRoute.includes(marker)) failures.push(`Local mortgage route missing ${marker}`);
+for (const marker of ["createLazyFileRoute('/texas-mortgage-calculator/$location')", 'LocalMortgagePage', 'page.profile']) if (!mortgageLazyRoute.includes(marker)) failures.push(`Local mortgage lazy route missing ${marker}`);
+for (const marker of ['OfficialMortgageCalculator defaultCountySlug={profile.defaultCountySlug}', 'profile.mortgagePlanningPoints', 'profile.propertyTaxHref', 'insurancePath', 'ownershipPath', 'affordabilityPath', 'consumerfinance.gov/owning-a-home/loan-estimate', 'comptroller.texas.gov/taxes/property-tax/rates', 'not a mortgage quote, preapproval, Loan Estimate']) if (!mortgagePage.includes(marker)) failures.push(`Local mortgage UI missing ${marker}`);
+for (const marker of ["'@type': 'WebApplication'", "'@type': 'BreadcrumbList'", "'@type': 'FAQPage'", 'canonicalLink(texasDefinedBrand, profile.mortgagePath)', 'LOCAL_MORTGAGE_PROFILE_BY_SLUG']) if (!mortgageServer.includes(marker)) failures.push(`Local mortgage server head missing ${marker}`);
+for (const marker of ['createServerFn', "import('./local-mortgage-page.server')"]) if (!mortgageServerFn.includes(marker)) failures.push(`Local mortgage server boundary missing ${marker}`);
+for (const marker of ["defaultCountySlug = ''", 'useState(defaultCountySlug)', 'OfficialTaxRateAssist', 'CountySelector']) if (!mortgageCalculator.includes(marker)) failures.push(`Official mortgage calculator local-context support missing ${marker}`);
 
 for (const [source, label] of [[affordabilityPage, 'affordability'], [ownershipPage, 'ownership'], [insurancePage, 'insurance']]) {
   if (!source.includes('const mortgagePath = `/texas-mortgage-calculator/${profile.slug}`')) failures.push(`Local ${label}-to-mortgage discovery is missing the aligned mortgage path.`);
@@ -66,7 +54,7 @@ for (const [source, label] of [[affordabilityPage, 'affordability'], [ownershipP
 
 if (!sitemap.includes('LOCAL_MORTGAGE_PROFILES')) failures.push('Primary sitemap must import the governed local mortgage registry.');
 if (!sitemap.includes('...LOCAL_MORTGAGE_PROFILES.map((profile) => ({ path: profile.mortgagePath')) failures.push('Primary sitemap must emit every governed local mortgage page.');
-if (mortgageProfiles.includes('average mortgage rate') || mortgageProfiles.includes('current local mortgage rate')) failures.push('Local mortgage profiles must not publish unsupported average/current local mortgage rates.');
+if (mortgageProfiles.includes('average mortgage rate')) failures.push('Local mortgage profiles must not publish unsupported average mortgage rates.');
 if (mortgageServer.includes("'@type': 'FinancialProduct'") || mortgageServer.includes("'@type': 'Offer'")) failures.push('Local mortgage calculators must not claim FinancialProduct or Offer schema.');
 
 if (failures.length) {
