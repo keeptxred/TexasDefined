@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import './validate-texas-facts-provenance.mjs';
 
 const seoSource = fs.readFileSync('src/lib/seo.ts', 'utf8');
 const fredericksburgChurchRoute = fs.readFileSync('src/routes/explore.painted-churches.$slug.tsx', 'utf8');
