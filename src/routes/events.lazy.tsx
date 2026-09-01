@@ -10,11 +10,7 @@ import { eventsQuery, regionsQuery } from "@/data/queries";
 import type { TexasEvent } from "@/data/types";
 import { cn } from "@/lib/utils";
 
-const routeSeo = {
-  title: "Texas Events",
-  description: "Rodeos, wildflower weekends, barbecue throwdowns, dance halls and county fairs — a curated calendar of what’s worth showing up for across Texas.",
-  canonicalPath: "/events",
-} as const;
+const routeDescription = "Rodeos, wildflower weekends, barbecue throwdowns, dance halls and county fairs — a curated calendar of what’s worth showing up for across Texas.";
 const EVENT_LABELS: Record<TexasEvent["category"], string> = {
   music: "Live Music",
   food: "Food & Drink",
@@ -46,7 +42,7 @@ function EventsPage() {
         <nav aria-label="Breadcrumb" className="text-[0.72rem] font-medium uppercase tracking-[0.12em] text-ink-foreground/65"><ol className="flex items-center gap-2"><li><Link to="/" className="hover:text-ink-foreground">Front page</Link></li><li aria-hidden="true">/</li><li aria-current="page">Events</li></ol></nav>
         <p className="eyebrow mt-10 text-ink-foreground/75">The Texas Calendar</p>
         <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">What’s happening across Texas</h1>
-        <p className="mt-6 max-w-2xl text-lg leading-8 text-ink-foreground/82">{routeSeo.description}</p>
+        <p className="mt-6 max-w-2xl text-lg leading-8 text-ink-foreground/82">{routeDescription}</p>
         {featured && <div id={featured.id} className="mt-10 max-w-2xl border-t border-ink-foreground/30 pt-6"><p className="eyebrow text-ink-foreground/65">Featured event · {EVENT_LABELS[featured.category]}</p><h2 className="mt-3 font-display text-4xl leading-tight">{featured.name}</h2><p className="mt-3 text-sm leading-7 text-ink-foreground/82">{featured.blurb}</p><p className="mt-4 text-sm text-ink-foreground/65">{featuredDateLabel} · {featured.city}{regionName(featured.region) ? ` · ${regionName(featured.region)}` : ""}</p>{featuredVenueGuide && <p className="mt-3 text-sm text-ink-foreground/72">Venue: <a href={featuredVenueGuide.href} className="border-b border-ink-foreground/70 text-ink-foreground">{featuredVenueGuide.venueName} guide →</a></p>}<div className="flex flex-wrap gap-5">{featured.officialUrl && <a href={featured.officialUrl} target="_blank" rel="noreferrer noopener" className="eyebrow mt-5 inline-flex border-b border-ink-foreground/70 pb-1 text-ink-foreground">Event details ↗</a>}{featuredVenueGuide && <a href={featuredVenueGuide.href} className="eyebrow mt-5 inline-flex border-b border-ink-foreground/70 pb-1 text-ink-foreground">Plan the venue →</a>}</div></div>}
       </Container>
     </section>
