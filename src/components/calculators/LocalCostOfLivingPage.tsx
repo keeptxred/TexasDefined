@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router';
-import { useMemo, useState } from 'react';
+import { useMemo, useState, type Dispatch, type SetStateAction } from 'react';
 
 import type { LocalCostOfLivingProfile } from '@/data/local-cost-of-living';
 
@@ -52,7 +52,7 @@ export function LocalCostOfLivingPage({ profile }: { profile: LocalCostOfLivingP
     const target = sum(targetBudget);
     return { current, target, difference: target - current };
   }, [currentBudget, targetBudget]);
-  const update = (setter: React.Dispatch<React.SetStateAction<Budget>>, key: BudgetKey, value: number) => setter((budget) => ({ ...budget, [key]: value }));
+  const update = (setter: Dispatch<SetStateAction<Budget>>, key: BudgetKey, value: number) => setter((budget) => ({ ...budget, [key]: value }));
 
   return <main className="container py-10 lg:py-14">
     <nav className="text-sm text-muted-foreground" aria-label="Breadcrumb"><Link to="/" className="hover:text-primary">Home</Link><span aria-hidden="true"> / </span><Link to="/texas-cost-of-living-calculator" className="hover:text-primary">Texas cost of living calculator</Link><span aria-hidden="true"> / </span><span>{profile.name}</span></nav>
