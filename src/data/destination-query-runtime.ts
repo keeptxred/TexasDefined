@@ -11,6 +11,9 @@ import type { Slug } from "./types";
 // filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved))
 // reconcileExploreCatalog(mergeDestinations(enriched, core, preservedExploreDestinations))
 // reconcileDestinationHeroes(applyExploreHeroAssets(applyStateParkHeroAssets(destinations)))
+// return reconcileExploreCatalog(
+// Enriched destination search index unavailable; merging core and preserved catalogs
+// Core remote destination search index unavailable; retaining preserved destinations
 // enrichHistoricSiteCatalog
 // enrichHistoricSiteDestination
 // enrichRemainingHistoricSiteAreaGuide
