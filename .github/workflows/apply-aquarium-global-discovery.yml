@@ -1,0 +1,62 @@
+name: Apply aquarium global discovery patch
+
+on:
+  push:
+    branches:
+      - seo/aquarium-global-discovery-2026-08-31
+    paths:
+      - '.github/workflows/apply-aquarium-global-discovery.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+        with:
+          ref: seo/aquarium-global-discovery-2026-08-31
+          fetch-depth: 0
+
+      - name: Add aquarium references to global discovery indexes
+        shell: python
+        run: |
+          from pathlib import Path
+
+          llms_path = Path('src/routes/llms[.]txt.ts')
+          llms = llms_path.read_text()
+          llms_marker = '- Attractions catalog comparison: https://texasdefined.com/explore/attractions-comparison\n'
+          llms_addition = (
+              '- Texas aquarium and marine-life reference collection: https://texasdefined.com/explore/aquariums\n'
+              '- Texas aquarium and marine-life machine-readable JSON: https://texasdefined.com/aquariums.json\n'
+          )
+          if 'https://texasdefined.com/explore/aquariums' not in llms:
+              if llms_marker not in llms:
+                  raise SystemExit('llms.txt insertion marker not found')
+              llms = llms.replace(llms_marker, llms_marker + llms_addition, 1)
+              llms_path.write_text(llms)
+
+          citation_path = Path('public/citation-magnets.json')
+          citation = citation_path.read_text()
+          citation_marker = '    { "url": "https://texasdefined.com/explore/attractions-comparison", "type": "catalog-comparison", "topic": "Texas attractions", "title": "Texas Attractions Comparison", "trust": ["official-sources", "scope-caveat", "methodology"] },\n'
+          citation_addition = (
+              '    { "url": "https://texasdefined.com/explore/aquariums", "type": "travel-reference-collection", "topic": "Texas aquariums, marine-life conservation and aquatic zoo exhibits", "title": "Texas Aquariums & Marine Life", "trust": ["17-destination-source-reviewed-collection", "first-party-visitor-source-precedence", "ItemList-schema", "canonical-destination-links", "current-operations-caveat"] },\n'
+              '    { "url": "https://texasdefined.com/aquariums.json", "type": "machine-readable-travel-collection", "topic": "Texas aquarium and marine-life destination collection", "title": "Texas Aquariums & Marine Life JSON", "trust": ["17-canonical-destinations", "ordered-collection", "first-party-visitor-source-precedence", "canonical-page-link", "machine-readable"] },\n'
+          )
+          if '"url": "https://texasdefined.com/explore/aquariums"' not in citation:
+              if citation_marker not in citation:
+                  raise SystemExit('citation index insertion marker not found')
+              citation = citation.replace(citation_marker, citation_marker + citation_addition, 1)
+          citation = citation.replace('"asOf": "2026-08-30"', '"asOf": "2026-08-31"', 1)
+          citation_path.write_text(citation)
+
+      - name: Remove one-time patch workflow and commit
+        run: |
+          git rm .github/workflows/apply-aquarium-global-discovery.yml
+          git config user.name "TexasDefined Automation"
+          git config user.email "actions@users.noreply.github.com"
+          git add 'src/routes/llms[.]txt.ts' public/citation-magnets.json
+          git commit -m "Add aquarium global machine discovery references"
+          git push origin HEAD:seo/aquarium-global-discovery-2026-08-31
