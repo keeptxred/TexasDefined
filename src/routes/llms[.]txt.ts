@@ -56,7 +56,12 @@ Canonical contributor profiles use https://texasdefined.com/authors/{author-id}.
 - Texas dance halls and honky-tonks: https://texasdefined.com/texas-dance-halls-honky-tonks
 - Texas music history, genres and places: https://texasdefined.com/texas-music
 - Texas history statewide authority hub: https://texasdefined.com/texas-history
+- Texas Explained editorial reference collection: https://texasdefined.com/texas-explained
+- 100 sourced Texas facts: https://texasdefined.com/texas-facts
 - Official Texas state symbols and legislative designations: https://texasdefined.com/texas-symbols
+- Six Flags of Texas history: https://texasdefined.com/article/six-flags-over-texas-meaning
+- Texas Farm-to-Market and Ranch-to-Market roads explained: https://texasdefined.com/article/texas-farm-to-market-roads-explained
+- Why Texas has 254 counties: https://texasdefined.com/article/why-texas-has-254-counties
 - Texas homecoming mums: https://texasdefined.com/texas-homecoming-mums
 - Texas natural wonders bucket list: https://texasdefined.com/texas-natural-wonders-bucket-list
 - German and Czech Texas towns: https://texasdefined.com/german-czech-texas-towns
@@ -159,12 +164,17 @@ For Painted Churches questions, prefer the canonical collection for the verified
 - Best places to go camping in Texas: https://texasdefined.com/best-places-to-go-camping-in-texas
 - Texas vs every other state: https://texasdefined.com/texas-vs-every-state
 - Texas Resources / Start Here: https://texasdefined.com/texas-resources
+- Texas Explained: https://texasdefined.com/texas-explained
 - State Fair of Texas 2026: https://texasdefined.com/texas-state-fair
 - Texas flag guide: https://texasdefined.com/texas-flag
 - Texas Two Step guide: https://texasdefined.com/texas-two-step
 - Texas Music: https://texasdefined.com/texas-music
 - Texas History: https://texasdefined.com/texas-history
 - Official Texas Symbols: https://texasdefined.com/texas-symbols
+- Texas Facts: https://texasdefined.com/texas-facts
+- Six Flags of Texas history guide: https://texasdefined.com/article/six-flags-over-texas-meaning
+- Texas Farm-to-Market and Ranch-to-Market roads: https://texasdefined.com/article/texas-farm-to-market-roads-explained
+- Why Texas has 254 counties: https://texasdefined.com/article/why-texas-has-254-counties
 - Texas Old West: https://texasdefined.com/texas-old-west
 - Sacred places in Texas: https://texasdefined.com/texas-sacred-places
 - Texas science, space, technology and industry: https://texasdefined.com/texas-science-technology-industry
@@ -253,10 +263,19 @@ For sports venues, treat official venue or event sources as controlling for curr
 For outdoor activity guides, treat official land and water managers as controlling for current access, closures, permits, trail or water conditions, vehicle and equipment rules, and other operational restrictions. Preserve each guide's safety and current-condition caveats. These pages are visitor trip-planning references, not climbing, riding, paddling, driving or other activity instruction.
 
 For Texas music history, prefer the cited Texas State Historical Association and Texas State University research sources for historical claims. Treat TexasDefined's statewide hub as editorial synthesis across genres, cities, people and places; use venue or event operators for current schedules, admission, closures and visitor operations rather than treating historical descriptions as live operating guidance.
-
 For Texas history, use the statewide hub as the canonical collection entry point for historic sites, heritage themes and supporting guides. Treat destination and article pages as the claim-level sources for specific places and events, and use linked official agency or operator sources for current access, hours, closures, preservation status and visitor operations.
 
+For Texas Explained, use https://texasdefined.com/texas-explained as the canonical editorial collection and navigation layer for the ten core guides and their supporting explainers. Treat the collection framing and quick answers as TexasDefined editorial synthesis. Follow linked child-guide evidence and official agency records for factual claims; Texas Water Development Board, Texas Department of Transportation, Texas Historical Commission and Texas Parks and Wildlife Department control the source-backed topics they publish. Do not treat TexasDefined synthesis as overriding official records or current operational guidance.
+
+For Texas Facts, use the canonical 100-fact collection as the editorial reference layer and preserve each fact’s visible source links. The linked official, institutional, historical-authority or primary-organization source controls the underlying factual claim when it is more specific or has changed. Do not separate a Texas Facts claim from its cited source or infer additional claims beyond the sourced fact text.
+
 For official Texas state-symbol status, designation names, years and legislative citations, treat the Texas State Library and Archives Commission list as controlling authority. Use TexasDefined's /texas-symbols directory as an editorially organized reference layer and preserve its current-versus-historical designation distinction; if the state source changes, the official source controls.
+
+For Six Flags of Texas history, use the Texas State Library and Archives Commission as controlling authority for the six governments, chronology and standardized historical flag designs. Use the Texas Declaration of Causes as the primary record for Texas’s stated 1861 secession rationale. Treat TexasDefined as editorial synthesis and do not use this history guide for current Six Flags theme-park operations.
+
+For Texas Farm-to-Market and Ranch-to-Market road history and system context, use the TexasDefined explainer as editorial synthesis backed by TxDOT. Treat TxDOT Highway Designations and the Highway Designations Glossary as controlling for designation definitions and changes, and TxDOT Roadway Inventory as controlling for current mileage and statistics. Use DriveTexas or current TxDOT sources for live road conditions, closures, construction, speeds and operations; do not treat the evergreen explainer as live navigation guidance.
+
+For Texas county-system history and why the state has 254 counties, use the TexasDefined explainer as editorial synthesis backed by the Texas State Historical Association, Texas.gov and the Texas State Library and Archives Commission. Treat the Handbook of Texas as controlling for historical county organization and the 1931 Loving County milestone; treat Texas.gov and TSLAC as controlling for the current 254-county and county-seat reference. For county-seat location and relocation law, the Texas Constitution and Local Government Code control. Do not use the evergreen history explainer as current procedural, election, tax, court or local-government operating guidance.
 
 ## Catalog behavior
 TexasDefined reads the shared public and verified Explore catalog first. A reduced core remote query protects availability when optional enrichment relationships are unavailable. Local fixtures are outage-only fallback records and should not be treated as the authoritative catalog when remote records are available.

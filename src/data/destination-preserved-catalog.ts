@@ -1,3 +1,4 @@
+import { aquariumMarineDestinations } from "./aquarium-marine-destinations";
 import { topAttractionDestinations } from "./destination-curation-top-attractions";
 import { topAttractionExpansionDestinations } from "./destination-curation-top-attractions-fallbacks";
 import { isDestinationPhotoPlaceholder } from "./explore-hero-reconciliation";
@@ -6,6 +7,19 @@ import { legacyLakeDestinations } from "./fixtures/legacy-lakes";
 import { historicSiteDestinations } from "./historic-sites";
 import { militaryHistoryDestinations } from "./military-history-destinations";
 import { militaryMuseumDestinations } from "./military-museum-destinations";
+import { austinMuseumDestinations } from "./museum-expansion-austin";
+import { dfwMuseumDestinations } from "./museum-expansion-dfw";
+import { georgeWBushMuseumDestinations } from "./museum-expansion-george-w-bush";
+import { houstonGalvestonMuseumDestinations } from "./museum-expansion-houston-galveston";
+import { sanAntonioMuseumDestinations } from "./museum-expansion-san-antonio";
+import { sanAntonioContemporaryMuseumDestinations } from "./museum-expansion-san-antonio-contemporary";
+import { statewideMuseumExpansionDestinations } from "./museum-expansion-statewide";
+import { statewideMuseumExpansionWave2Destinations } from "./museum-expansion-statewide-wave2";
+import { statewideMuseumExpansionWave3Destinations } from "./museum-expansion-statewide-wave3";
+import { statewideMuseumExpansionWave4Destinations } from "./museum-expansion-statewide-wave4";
+import { statewideMuseumExpansionWave5Destinations } from "./museum-expansion-statewide-wave5";
+import { statewideMuseumExpansionWave6Destinations } from "./museum-expansion-statewide-wave6";
+import { wacoMuseumDestinations } from "./museum-expansion-waco";
 import type { Destination } from "./types";
 
 const newBraunfelsSeasonalFallback: Destination = {
@@ -66,6 +80,7 @@ function mergePreservedDestinations(...groups: Destination[][]): Destination[] {
  * curation module's import-time mutation of topAttractionDestinations.
  */
 export const preservedExploreDestinations = mergePreservedDestinations(
+  aquariumMarineDestinations,
   topAttractionDestinations,
   topAttractionExpansionDestinations,
   legacyExploreDestinations,
@@ -73,5 +88,18 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   historicSiteDestinations,
   militaryHistoryDestinations,
   militaryMuseumDestinations,
+  houstonGalvestonMuseumDestinations,
+  dfwMuseumDestinations,
+  georgeWBushMuseumDestinations,
+  austinMuseumDestinations,
+  sanAntonioMuseumDestinations,
+  sanAntonioContemporaryMuseumDestinations,
+  wacoMuseumDestinations,
+  statewideMuseumExpansionDestinations,
+  statewideMuseumExpansionWave2Destinations,
+  statewideMuseumExpansionWave3Destinations,
+  statewideMuseumExpansionWave4Destinations,
+  statewideMuseumExpansionWave5Destinations,
+  statewideMuseumExpansionWave6Destinations,
   [newBraunfelsSeasonalFallback],
 );

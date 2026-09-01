@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "collection": "Texas Aquariums & Marine Life",
+  "canonicalPage": "https://texasdefined.com/explore/aquariums",
+  "asOf": "2026-08-31",
+  "scope": "TexasDefined source-reviewed destination guides for aquariums, marine-life conservation and research centers, and aquatic exhibits within major Texas zoos.",
+  "sourcePolicy": "Use each canonical destination guide for TexasDefined context and its linked first-party visitor source for current hours, admission, closures, encounters and other day-of-visit operations.",
+  "entries": [
+    { "position": 1, "name": "Texas State Aquarium", "slug": "texas-state-aquarium", "url": "https://texasdefined.com/destination/texas-state-aquarium" },
+    { "position": 2, "name": "The Dallas World Aquarium", "slug": "dallas-world-aquarium", "url": "https://texasdefined.com/destination/dallas-world-aquarium" },
+    { "position": 3, "name": "Moody Gardens", "slug": "moody-gardens", "url": "https://texasdefined.com/destination/moody-gardens" },
+    { "position": 4, "name": "SEA LIFE Grapevine Aquarium", "slug": "sea-life-grapevine-aquarium", "url": "https://texasdefined.com/destination/sea-life-grapevine-aquarium" },
+    { "position": 5, "name": "SEA LIFE San Antonio Aquarium", "slug": "sea-life-san-antonio-aquarium", "url": "https://texasdefined.com/destination/sea-life-san-antonio-aquarium" },
+    { "position": 6, "name": "Downtown Aquarium Houston", "slug": "downtown-aquarium-houston", "url": "https://texasdefined.com/destination/downtown-aquarium-houston" },
+    { "position": 7, "name": "Children's Aquarium Dallas at Fair Park", "slug": "childrens-aquarium-dallas-fair-park", "url": "https://texasdefined.com/destination/childrens-aquarium-dallas-fair-park" },
+    { "position": 8, "name": "San Antonio Aquarium", "slug": "san-antonio-aquarium", "url": "https://texasdefined.com/destination/san-antonio-aquarium" },
+    { "position": 9, "name": "Austin Aquarium", "slug": "austin-aquarium", "url": "https://texasdefined.com/destination/austin-aquarium" },
+    { "position": 10, "name": "Houston Interactive Aquarium & Animal Preserve", "slug": "houston-interactive-aquarium-animal-preserve", "url": "https://texasdefined.com/destination/houston-interactive-aquarium-animal-preserve" },
+    { "position": 11, "name": "Sea Center Texas", "slug": "sea-center-texas", "url": "https://texasdefined.com/destination/sea-center-texas" },
+    { "position": 12, "name": "Sea Turtle, Inc.", "slug": "sea-turtle-inc", "url": "https://texasdefined.com/destination/sea-turtle-inc" },
+    { "position": 13, "name": "UT Marine Science Institute Patton Center", "slug": "ut-marine-science-institute-patton-center", "url": "https://texasdefined.com/destination/ut-marine-science-institute-patton-center" },
+    { "position": 14, "name": "Science Spectrum Museum & Aquarium", "slug": "science-spectrum-museum-aquarium", "url": "https://texasdefined.com/destination/science-spectrum-museum-aquarium" },
+    { "position": 15, "name": "Houston Zoo", "slug": "houston-zoo", "url": "https://texasdefined.com/destination/houston-zoo" },
+    { "position": 16, "name": "Fort Worth Zoo", "slug": "fort-worth-zoo", "url": "https://texasdefined.com/destination/fort-worth-zoo" },
+    { "position": 17, "name": "San Antonio Zoo", "slug": "san-antonio-zoo", "url": "https://texasdefined.com/destination/san-antonio-zoo" }
+  ]
+}
