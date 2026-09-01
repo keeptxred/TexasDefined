@@ -20,7 +20,7 @@ export const Route = createFileRoute("/explore/wildlife")({
   head: () => {
     const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
     return {
-      meta: buildMeta(texasDefinedBrand, { canonicalPath, title, description }),
+      meta: buildMeta(texasDefinedBrand, { canonicalPath, title: title, description }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
       scripts: [jsonLd({
         "@context": "https://schema.org",
