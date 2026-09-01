@@ -8,6 +8,7 @@ import { CountyTaxRateSection } from '@/components/property/CountyTaxRateSection
 import type { CountyProfile } from '@/data/county-profile';
 
 const CountyLandscapeContext = lazy(() => import('@/components/content/CountyLandscapeContext').then((module) => ({ default: module.CountyLandscapeContext })));
+const CountyWildlifeDestinations = lazy(() => import('@/components/content/CountyWildlifeDestinations').then((module) => ({ default: module.CountyWildlifeDestinations })));
 
 const regionalExplainers: Record<string, Array<{ href: string; label: string }>> = {
   'hill-country': [
@@ -62,7 +63,7 @@ export function CountyIdentitySection({ countyName, region, profile }: { countyN
     { href: '/texas-explained', label: 'All 10 Texas Explained guides' },
   ];
 
-  if (!hasIdentitySignal) return <><CountySeasonalPlanning countySlug={slug} countyName={countyName} /><CountyTaxRateSection countySlug={slug} countyName={countyName} /><CountyMadeBuiltBorn countySlug={slug} /></>;
+  if (!hasIdentitySignal) return <><Suspense fallback={null}><CountyWildlifeDestinations countyName={countyName} /></Suspense><CountySeasonalPlanning countySlug={slug} countyName={countyName} /><CountyTaxRateSection countySlug={slug} countyName={countyName} /><CountyMadeBuiltBorn countySlug={slug} /></>;
 
   return (
     <>
@@ -93,6 +94,7 @@ export function CountyIdentitySection({ countyName, region, profile }: { countyN
           </div>
         </div>
       </section>
+      <Suspense fallback={null}><CountyWildlifeDestinations countyName={countyName} /></Suspense>
       <CountySeasonalPlanning countySlug={slug} countyName={countyName} />
       <CountyTaxRateSection countySlug={slug} countyName={countyName} />
       <CountyMadeBuiltBorn countySlug={slug} />
