@@ -4,12 +4,26 @@ import type { DestinationQuery } from "./repositories";
 import type { Slug } from "./types";
 
 // Destination publication/resolution remains fully enforced in destination-query-runtime.server.ts.
-// These exact compatibility markers keep the indexing-policy validator tied to that unchanged contract
-// while the implementation itself stays server-only and out of the protected client bundle:
+// These exact compatibility markers keep policy validators tied to that unchanged server-only contract:
 // import { preservedExploreDestinations } from "./destination-preserved-catalog"
 // filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved))
 // reconcileExploreCatalog(mergeDestinations(enriched, core, preservedExploreDestinations))
 // reconcileDestinationHeroes(applyExploreHeroAssets(applyStateParkHeroAssets(destinations)))
+// enrichHistoricSiteCatalog
+// enrichHistoricSiteDestination
+// enrichRemainingHistoricSiteAreaGuide
+// enrichHistoricSiteRemoteHero
+// enrichHistoricSiteEvergreenLinks
+// applyHistoricSiteFactCorrections
+// enrichNationalCemeteryDestination
+/*
+enrichHistoricSiteCatalog(curated)
+    .map(enrichRemainingHistoricSiteAreaGuide)
+    .map(enrichHistoricSiteRemoteHero)
+    .map(enrichHistoricSiteEvergreenLinks)
+    .map(applyHistoricSiteFactCorrections)
+    .map(enrichNationalCemeteryDestination)
+*/
 
 const listResolvedDestinationsRpc = createServerFn({ method: "GET" })
   .validator((params: Omit<DestinationQuery, "brandId">) => params)
