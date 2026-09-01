@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 
 import { CalculatorPage } from '@/components/calculators/CalculatorPage';
+import { HousingPartnerCta } from '@/components/partners/HousingPartnerCta';
 import { AffordabilityCalculator } from '@/components/calculators/TexasPlanningCalculators';
 import type { LocalHomeAffordabilityProfile } from '@/data/local-home-affordability';
 
@@ -28,6 +29,12 @@ type LocalHousingPlannerProps = {
   faqTitle: string;
   faqs: readonly { question: string; answer: string }[];
   disclaimer: string;
+  partner?: {
+    partnershipType: 'insurance' | 'mortgage' | 'real-estate';
+    sourcePath: string;
+    title: string;
+    copy: string;
+  };
   related?: {
     eyebrow: string;
     title: string;
@@ -67,6 +74,8 @@ export function LocalHousingPlannerPage(props: LocalHousingPlannerProps) {
 
       {props.next ? <section className="mt-12 border-t border-border pt-10" aria-labelledby="local-housing-next-heading"><p className="eyebrow text-primary">{props.next.eyebrow}</p><h2 id="local-housing-next-heading" className="mt-3 font-display text-3xl">{props.next.title}</h2><div className="mt-6 grid gap-4 md:grid-cols-3">{props.next.links.map((item) => <a key={item.href} href={item.href} className="border border-border p-5 hover:border-primary/60"><strong className="font-display text-2xl">{item.title}</strong><span className="mt-3 block text-sm leading-6 text-muted-foreground">{item.copy}</span>{item.action ? <span className="eyebrow mt-5 inline-block text-primary">{item.action}</span> : null}</a>)}</div></section> : null}
 
+      {props.partner ? <HousingPartnerCta {...props.partner} /> : null}
+
       <section className="mt-12 border-t border-border pt-10" aria-labelledby="local-housing-faq-heading"><p className="eyebrow text-primary">Common questions</p><h2 id="local-housing-faq-heading" className="mt-3 font-display text-3xl">{props.faqTitle}</h2><div className="mt-6 divide-y divide-border border-y border-border">{props.faqs.map((faq) => <div key={faq.question} className="py-6"><h3 className="font-display text-2xl">{faq.question}</h3><p className="mt-3 max-w-3xl text-base leading-7 text-muted-foreground">{faq.answer}</p></div>)}</div></section>
       <p className="mt-10 border-t border-border pt-6 text-sm leading-6 text-muted-foreground">{props.disclaimer}</p>
     </CalculatorPage>
@@ -91,5 +100,5 @@ export function LocalHomeAffordabilityPage({ profile }: { profile: LocalHomeAffo
     { href: insurancePath, title: `${profile.name} home-insurance calculator`, copy: 'Model an insurance planning range without personal information, then replace it with property-specific insurer quotes.', action: 'Estimate insurance →' },
     { href: profile.relocationHref, title: profile.relocationLabel, copy: 'Compare the local factors outside the mortgage payment: jurisdiction, schools, commute, utilities, services and other recurring costs.', action: 'Open local guide →' },
   ];
-  return <LocalHousingPlannerPage profile={profile} calculator={<AffordabilityCalculator />} eyebrow={profile.eyebrow} title={profile.title} description={profile.description} intro={profile.intro} breadcrumbLabel="Home affordability" breadcrumbHref="/texas-home-affordability-calculator" planningEyebrow="Make the estimate local" planningTitle={`What to verify before calling a ${profile.name} home affordable`} linksEyebrow="Use the exact address" linksTitle="Replace generic assumptions with local property costs" links={links} faqTitle={`${profile.name} home affordability FAQ`} faqs={faqs} disclaimer="This is a planning calculator, not a lending decision, appraisal, tax statement or insurance quote. Verify the actual property, financing terms and recurring ownership costs before making a financial commitment." related={profile.relatedLocalCalculators?.length ? { eyebrow: 'County-to-city planning', title: 'Compare the city context inside the same regional housing decision', copy: 'County boundaries are useful for taxes and records, while city pages add another layer of local ownership and relocation context. Keep the exact parcel as the source of truth when the two overlap.', items: profile.relatedLocalCalculators } : undefined} next={{ eyebrow: 'Keep testing the budget', title: 'Run the next home-buying calculations', links: nextCalculators }} />;
+  return <LocalHousingPlannerPage profile={profile} calculator={<AffordabilityCalculator />} eyebrow={profile.eyebrow} title={profile.title} description={profile.description} intro={profile.intro} breadcrumbLabel="Home affordability" breadcrumbHref="/texas-home-affordability-calculator" planningEyebrow="Make the estimate local" planningTitle={`What to verify before calling a ${profile.name} home affordable`} linksEyebrow="Use the exact address" linksTitle="Replace generic assumptions with local property costs" links={links} faqTitle={`${profile.name} home affordability FAQ`} faqs={faqs} disclaimer="This is a planning calculator, not a lending decision, appraisal, tax statement or insurance quote. Verify the actual property, financing terms and recurring ownership costs before making a financial commitment." partner={{ partnershipType: 'real-estate', sourcePath: `/texas-home-affordability-calculator/${profile.slug}`, title: `Serve homebuyers and movers researching ${profile.name}?`, copy: 'Texas Defined can review clearly disclosed real-estate or relocation partnerships on relevant housing-planning surfaces without selling rankings, calculator outcomes or reader financial data.' }} related={profile.relatedLocalCalculators?.length ? { eyebrow: 'County-to-city planning', title: 'Compare the city context inside the same regional housing decision', copy: 'County boundaries are useful for taxes and records, while city pages add another layer of local ownership and relocation context. Keep the exact parcel as the source of truth when the two overlap.', items: profile.relatedLocalCalculators } : undefined} next={{ eyebrow: 'Keep testing the budget', title: 'Run the next home-buying calculations', links: nextCalculators }} />;
 }
