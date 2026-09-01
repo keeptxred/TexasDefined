@@ -65,7 +65,17 @@ function finishHistoricSiteEnrichment(destination: Destination) {
 
 function applyResolvedHero(destination: Destination) {
   return enrichAquariumMarineDestination(
-    finishHistoricSiteEnrichment(improveDestinationQuality(applyAllCuratedDestination(applyExploreHeroAsset(applyStateParkHeroAsset(applyDestinationHeroOverride(destination))))))),
+    finishHistoricSiteEnrichment(
+      improveDestinationQuality(
+        applyAllCuratedDestination(
+          applyExploreHeroAsset(
+            applyStateParkHeroAsset(
+              applyDestinationHeroOverride(destination),
+            ),
+          ),
+        ),
+      ),
+    ),
   );
 }
 
