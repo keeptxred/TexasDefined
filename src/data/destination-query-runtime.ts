@@ -9,6 +9,7 @@ import type { Slug } from "./types";
 // fetchExploreDestinations({ limit: 5000 })
 // fetchCoreExploreDestinations({ limit: 5000 })
 // filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved))
+// function reconcileExploreCatalog
 // reconcileExploreCatalog(mergeDestinations(enriched, core, preservedExploreDestinations))
 // reconcileDestinationHeroes(applyExploreHeroAssets(applyStateParkHeroAssets(destinations)))
 // return reconcileExploreCatalog(
