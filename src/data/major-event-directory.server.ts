@@ -99,38 +99,18 @@ export function buildEventsPageHeadServer(events: TexasEvent[], regions: EventsP
   const canonicalPath = "/events";
   const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
   const pageUrl = `${siteUrl}${canonicalPath}`;
-  const regionName = (id: string) => regions.find((item) => item.id === id)?.name;
   const eventItems = events.slice(0, 50).map((event, index) => {
-    const venueGuide = resolveSportsVenueEventLink(event.venue);
     const eventUrl = event.id.startsWith("authority:") ? `${siteUrl}/event/${event.slug}` : `${pageUrl}#${event.id}`;
-    const defaultLocation = {
-      "@type": "Place",
-      name: [event.city, regionName(event.region), "Texas"].filter(Boolean).join(", "),
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: event.city,
-        addressRegion: "TX",
-        addressCountry: "US",
-      },
-    };
-    const location = venueGuide
-      ? { ...defaultLocation, name: event.venue, url: `${siteUrl}${venueGuide.href}` }
-      : defaultLocation;
 
     return {
       "@type": "ListItem",
       position: index + 1,
       item: {
-        "@type": "Event",
+        "@type": "WebPage",
         "@id": eventUrl,
+        url: eventUrl,
         name: event.name,
         description: event.blurb,
-        startDate: event.startDate,
-        endDate: event.endDate,
-        eventStatus: "https://schema.org/EventScheduled",
-        eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-        url: eventUrl,
-        location,
       },
     };
   });
