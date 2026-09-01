@@ -7,7 +7,14 @@ const lazyRoute = fs.readFileSync(path.join(root, 'src/routes/events.lazy.tsx'),
 const visibleRoute = `${route}\n${lazyRoute}`;
 const serverHead = fs.readFileSync(path.join(root, 'src/data/major-event-directory.server.ts'), 'utf8');
 const eventLeaf = fs.readFileSync(path.join(root, 'src/data/major-event-page.server.ts'), 'utf8');
-const enrichment = fs.readFileSync(path.join(root, 'src/data/major-event-schema-enrichment.server.ts'), 'utf8');
+const enrichmentRegistry = fs.readFileSync(path.join(root, 'src/data/major-event-schema-enrichment.server.ts'), 'utf8');
+const enrichmentBatchFiles = fs.readdirSync(path.join(root, 'src/data'))
+  .filter((name) => /^major-event-schema-enrichment-batch\d+\.server\.ts$/.test(name))
+  .sort();
+const enrichment = [
+  enrichmentRegistry,
+  ...enrichmentBatchFiles.map((name) => fs.readFileSync(path.join(root, 'src/data', name), 'utf8')),
+].join('\n');
 const eventIndex = fs.readFileSync(path.join(root, 'src/data/major-event-index.ts'), 'utf8');
 const wrapper = fs.readFileSync(path.join(root, 'src/data/major-event-directory.ts'), 'utf8');
 const errors = [];
@@ -63,6 +70,7 @@ for (const feature of [
 
 const enrichedSlugs = [...enrichment.matchAll(/\n\s+slug: "([a-z0-9-]+)",/g)].map((match) => match[1]);
 if (enrichedSlugs.length < 9) errors.push(`Expected at least 9 source-verified Event enrichment records, found ${enrichedSlugs.length}.`);
+if (new Set(enrichedSlugs).size !== enrichedSlugs.length) errors.push('Event enrichment records must not duplicate slugs across batches.');
 for (const slug of enrichedSlugs) {
   if (!eventIndex.includes(`slug: "${slug}"`)) errors.push(`Event enrichment slug is not present in the client-safe major-event index: ${slug}.`);
 }
