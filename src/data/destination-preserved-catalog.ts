@@ -44,6 +44,7 @@ import { statewideMuseumExpansionWave27Destinations } from "./museum-expansion-s
 import { wacoMuseumDestinations } from "./museum-expansion-waco";
 import { nationalWildlifeRefugeDestinations } from "./national-wildlife-refuge-destinations";
 import type { Destination } from "./types";
+import { wildlifeManagementAreaDestinations } from "./wildlife-management-area-destinations";
 
 const newBraunfelsSeasonalFallback: Destination = {
   id: "preserved-new-braunfels",
@@ -147,5 +148,6 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   statewideMuseumExpansionWave26Destinations,
   statewideMuseumExpansionWave27Destinations,
   nationalWildlifeRefugeDestinations,
+  wildlifeManagementAreaDestinations,
   [newBraunfelsSeasonalFallback],
 );
