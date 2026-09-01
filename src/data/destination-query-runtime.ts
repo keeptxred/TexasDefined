@@ -8,6 +8,12 @@ import type { Slug } from "./types";
 // import { preservedExploreDestinations } from "./destination-preserved-catalog"
 // fetchExploreDestinations({ limit: 5000 })
 // fetchCoreExploreDestinations({ limit: 5000 })
+// fetchExploreDestinations(options)
+// fetchCoreExploreDestinations(options)
+// platform.destinations.list
+// fetchExploreDestination(slug)
+// fetchCoreExploreDestination(slug)
+// platform.destinations.getBySlug
 // filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved))
 // function reconcileExploreCatalog
 // reconcileExploreCatalog(mergeDestinations(enriched, core, preservedExploreDestinations))
