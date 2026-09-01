@@ -17,6 +17,7 @@ const cityMappings = [
 
 const affordabilityPages = cityMappings.map((item) => ({ ...item, path: `/texas-home-affordability-calculator/${item.slug}` }));
 const costOfLivingPages = cityMappings.map((item) => ({ ...item, path: `/texas-cost-of-living-calculator/${item.slug}` }));
+const salaryNeededPages = cityMappings.map((item) => ({ ...item, path: `/texas-salary-needed-calculator/${item.slug}`, costPath: `/texas-cost-of-living-calculator/${item.slug}` }));
 
 const propertyTaxSamples = [
   { path: '/property-tax-calculator/dallas-county', name: 'Dallas County' },
@@ -110,6 +111,37 @@ for (const page of costOfLivingPages) {
   }
 }
 
+for (const page of salaryNeededPages) {
+  const label = `salary-needed:${page.slug}`;
+  try {
+    const { response, body } = await fetchProduction(page.path);
+    const canonicalUrl = `${origin}${page.path}`;
+    const required = [
+      `Salary needed to live in ${page.name} calculator`,
+      `href="${page.costPath}"`,
+      `href="${page.tax}"`,
+      `href="${page.relocation}"`,
+      canonicalUrl,
+      'WebApplication',
+      'BreadcrumbList',
+      'FAQPage',
+      'Monthly household budget',
+      'Planning only.',
+    ];
+    const missing = required.filter((needle) => !body.includes(needle));
+    const hasNoindex = /<meta[^>]+(?:name=["']robots["'][^>]+content=["'][^"']*noindex|content=["'][^"']*noindex[^"']*["'][^>]+name=["']robots["'])/i.test(body);
+    if (!response.ok) fail(label, `HTTP ${response.status}`);
+    else if (hasNoindex) fail(label, 'unexpected robots noindex');
+    else if (missing.length) fail(label, `missing ${missing.join(', ')}`);
+    else {
+      console.log(`[${label}] verified (${response.status})`);
+      appendSummary(`| ✅ pass | ${label} | 200, H1/copy, canonical, indexable, local cost + tax + relocation links, WebApplication/BreadcrumbList/FAQPage |\n`);
+    }
+  } catch (error) {
+    fail(label, error instanceof Error ? error.message : String(error));
+  }
+}
+
 for (const page of propertyTaxSamples) {
   const label = `property-tax:${page.path.split('/').at(-1)}`;
   try {
@@ -137,6 +169,7 @@ try {
     const expectedPaths = [
       ...affordabilityPages.map((page) => page.path),
       ...costOfLivingPages.map((page) => page.path),
+      ...salaryNeededPages.map((page) => page.path),
       ...propertyTaxSamples.map((page) => page.path),
     ];
     const missing = expectedPaths.filter((path) => !body.includes(`${origin}${path}`));
@@ -151,4 +184,4 @@ try {
 }
 
 if (process.exitCode) process.exit(process.exitCode);
-console.log(`Local financial production verification passed (${affordabilityPages.length} affordability pages, ${costOfLivingPages.length} cost-of-living pages, ${propertyTaxSamples.length} property-tax samples, sitemap membership).`);
+console.log(`Local financial production verification passed (${affordabilityPages.length} affordability pages, ${costOfLivingPages.length} cost-of-living pages, ${salaryNeededPages.length} salary-needed pages, ${propertyTaxSamples.length} property-tax samples, sitemap membership).`);
