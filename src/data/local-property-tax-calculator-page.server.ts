@@ -1,5 +1,7 @@
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { LOCAL_PROPERTY_TAX_PROFILE_BY_SLUG } from '@/data/local-property-tax-calculators';
+import { getCountyPropertyRecordBySlug } from '@/data/property/county-property-data';
+import { isCountyPropertyIndexReady } from '@/data/property/county-property-schema';
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 export function loadLocalPropertyTaxCalculatorPageServer(slug: string) {
@@ -9,6 +11,12 @@ export function loadLocalPropertyTaxCalculatorPageServer(slug: string) {
   const pageUrl = absoluteUrl(texasDefinedBrand, profile.path);
   const siteUrl = absoluteUrl(texasDefinedBrand, '/');
   const calculatorsUrl = absoluteUrl(texasDefinedBrand, '/property-tax-calculators');
+  const countyRecord = profile.defaultCountySlug && profile.counties.length === 1
+    ? getCountyPropertyRecordBySlug(profile.defaultCountySlug)
+    : undefined;
+  const verifiedCountyGuide = countyRecord && isCountyPropertyIndexReady(countyRecord)
+    ? { href: `/property-tax/county/${countyRecord.slug}`, label: `${countyRecord.name} verified property-tax guide` }
+    : null;
 
   const head = {
     meta: buildMeta(texasDefinedBrand, {
@@ -52,5 +60,5 @@ export function loadLocalPropertyTaxCalculatorPageServer(slug: string) {
     })],
   };
 
-  return { profile, head };
+  return { profile, verifiedCountyGuide, head };
 }
