@@ -3,6 +3,8 @@ import { z } from 'zod';
 
 import { savePartnerInquiry } from '@/data/partner-inquiry.server';
 
+const partnerSourcePattern = /^\/(?:partner-with-us|sports-venues|sports-venue\/[a-z0-9-]+|texas-(?:mortgage|home-insurance|home-affordability|homeownership-cost)-calculator(?:\/[a-z0-9-]+)?|property-tax-calculators|moving-to-texas)$/;
+
 const partnerInquirySchema = z.object({
   contactName: z.string().trim().min(2).max(120),
   email: z.string().trim().email().max(320),
@@ -10,7 +12,7 @@ const partnerInquirySchema = z.object({
   website: z.string().trim().max(500),
   partnershipType: z.enum(['insurance', 'mortgage', 'real-estate', 'moving', 'travel', 'sports-travel', 'sponsorship', 'other']),
   message: z.string().trim().min(20).max(5000),
-  sourcePath: z.string().trim().max(500).regex(/^\/(?:partner-with-us|sports-venues|sports-venue\/[a-z0-9-]+)$/).default('/partner-with-us'),
+  sourcePath: z.string().trim().max(500).regex(partnerSourcePattern).default('/partner-with-us'),
   addressLine2: z.string().max(200).default(''),
 });
 
