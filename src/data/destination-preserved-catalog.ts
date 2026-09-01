@@ -1,3 +1,4 @@
+import { animalSanctuaryDestinations } from "./animal-sanctuary-destinations";
 import { aquariumMarineDestinations } from "./aquarium-marine-destinations";
 import { topAttractionDestinations } from "./destination-curation-top-attractions";
 import { topAttractionExpansionDestinations } from "./destination-curation-top-attractions-fallbacks";
@@ -102,6 +103,7 @@ function mergePreservedDestinations(...groups: Destination[][]): Destination[] {
  * curation module's import-time mutation of topAttractionDestinations.
  */
 export const preservedExploreDestinations = mergePreservedDestinations(
+  animalSanctuaryDestinations,
   aquariumMarineDestinations,
   topAttractionDestinations,
   topAttractionExpansionDestinations,
