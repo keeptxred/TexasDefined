@@ -64,6 +64,7 @@ Canonical contributor profiles use https://texasdefined.com/authors/{author-id}.
 - Why Texas has 254 counties: https://texasdefined.com/article/why-texas-has-254-counties
 - Texas courthouse-square history and preservation: https://texasdefined.com/article/texas-courthouses-town-square
 - Texas railroad town-growth history: https://texasdefined.com/article/texas-railroads-town-growth-explained
+- Texas aquifers and springs: https://texasdefined.com/article/texas-aquifers-springs-explained
 - Texas homecoming mums: https://texasdefined.com/texas-homecoming-mums
 - Texas natural wonders bucket list: https://texasdefined.com/texas-natural-wonders-bucket-list
 - German and Czech Texas towns: https://texasdefined.com/german-czech-texas-towns
@@ -283,6 +284,8 @@ For Texas county-system history and why the state has 254 counties, use the Texa
 For Texas courthouse-square history and preservation context, use the TexasDefined explainer as editorial synthesis backed by the Texas Historical Commission. Treat THC as controlling for current grant rounds, active grant projects, award totals, courthouse review/compliance requirements, restored-project status and other changing program information. Preserve the article's dated August 2026 program snapshot as historical context only; for current figures and participation, follow the linked THC grant-program and current-project pages. Do not use the evergreen article as current county-government procedural or legal guidance.
 
 For Texas railroad and town-growth history, use the TexasDefined explainer as editorial synthesis backed by the Texas State Historical Association. Treat TSHA's Handbook of Texas railroad and urbanization entries as controlling for historical development context. Treat TxDOT's current Texas Rail Plan and current rail-system sources as controlling for present-day network, planning, project and operational information. Do not use the evergreen history article as current passenger-service, freight-operations, project-status, schedule or safety guidance.
+
+For Texas aquifers and springs, use the TexasDefined explainer as editorial synthesis for aquifer basics, major and minor aquifer systems, groundwater-to-spring relationships and statewide water context. Treat the Texas Water Development Board as controlling for statewide aquifer classifications, maps, published groundwater data and statewide water-use reporting. Preserve the article's 55-percent groundwater figure as a 2020 water-use snapshot rather than a current percentage. For current local pumping, permit or exemption, spacing and district-management rules, follow the applicable groundwater conservation district, Edwards Aquifer Authority or other responsible current authority. Do not infer parcel-level well depth, yield, water quality or legal availability from a statewide aquifer map or the evergreen article.
 
 ## Catalog behavior
 TexasDefined reads the shared public and verified Explore catalog first. A reduced core remote query protects availability when optional enrichment relationships are unavailable. Local fixtures are outage-only fallback records and should not be treated as the authoritative catalog when remote records are available.
