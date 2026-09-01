@@ -29,7 +29,15 @@ type State = CalculatorState & {
   rateYear: number;
 };
 
-export function LocalPropertyTaxCalculatorPage({ profile }: { profile: LocalPropertyTaxProfile }) {
+type VerifiedCountyGuide = { href: string; label: string } | null;
+
+export function LocalPropertyTaxCalculatorPage({
+  profile,
+  verifiedCountyGuide,
+}: {
+  profile: LocalPropertyTaxProfile;
+  verifiedCountyGuide?: VerifiedCountyGuide;
+}) {
   const defaults: State = {
     homeValue: 400000,
     schoolExemption: 0,
@@ -144,7 +152,9 @@ export function LocalPropertyTaxCalculatorPage({ profile }: { profile: LocalProp
             <CountySelector value={state.county} onChange={(county) => setState((current) => ({ ...current, county }))} />
           </div>
           <OfficialTaxRateAssist countySlug={state.county} onApply={applyOfficialRates} title={`Use official rates for this ${profile.name} scenario`} />
-          <CalculatorCountyLink countySlug={state.county} />
+          {verifiedCountyGuide && state.county === profile.defaultCountySlug
+            ? <a href={verifiedCountyGuide.href} className="text-sm font-semibold underline decoration-primary/50 underline-offset-4">{verifiedCountyGuide.label} →</a>
+            : <CalculatorCountyLink countySlug={state.county} />}
         </CalculatorSection>
 
         <section className="border-y border-border py-10" aria-labelledby={`${profile.slug}-result-heading`}>

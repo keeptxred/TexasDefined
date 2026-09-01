@@ -3,6 +3,7 @@ import { createFileRoute, Link } from '@tanstack/react-router';
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { CitationTrustPanel } from '@/components/authority/CitationTrustPanel';
 import { Container } from '@/components/layout/Container';
+import { MAJOR_COUNTY_PROPERTY_TAX_CALCULATORS, countyPropertyTaxCalculatorTarget } from '@/data/property/county-calculator-targets';
 import { COUNTY_PROPERTY_RECORDS } from '@/data/property/county-property-data';
 import { isCountyPropertyIndexReady } from '@/data/property/county-property-schema';
 import { formatDatasetValue, getTexasDataset } from '@/data/texas-data-center';
@@ -10,7 +11,7 @@ import { TEXAS_COUNTIES } from '@/data/texas-places';
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 const canonicalPath = '/property-tax/counties';
-const description = 'Compare selected adopted county government property-tax rates, browse verified county property-tax guides, and use Texas county guides when local tax-office verification is still pending.';
+const description = 'Compare selected adopted county government property-tax rates, browse verified county property-tax guides, and move from any Texas county into a parcel-specific official-rate calculator.';
 const verifiedPropertyCounties = COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady);
 const verifiedPropertySlugs = new Set(verifiedPropertyCounties.map((county) => county.slug));
 const popularCountySlugs = ['comal', 'travis', 'denton', 'bexar', 'harris', 'waller', 'coryell', 'polk', 'lubbock'];
@@ -22,7 +23,7 @@ export const Route = createFileRoute('/property-tax/counties')({
     const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
     const siteUrl = absoluteUrl(texasDefinedBrand, '/');
     return {
-      meta: buildMeta(texasDefinedBrand, { canonicalPath, title: 'Texas Property Tax by County | Verified Local Guides & Comparison', description }),
+      meta: buildMeta(texasDefinedBrand, { canonicalPath, title: 'Texas Property Tax by County | Guides & Calculators', description }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
       scripts: [jsonLd({
         '@context': 'https://schema.org',
@@ -69,7 +70,7 @@ function CountyPropertyTaxDirectory() {
           <div>
             <p className="eyebrow text-primary">Verified local tax resources</p>
             <h1 className="mt-3 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">Texas property tax by county</h1>
-            <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground sm:text-xl">Compare selected adopted county government rates and open county property-tax guides only where TexasDefined has recently verified distinct local appraisal-district and tax-office sources. Every Texas county remains available through its broader county guide while local tax verification is pending.</p>
+            <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground sm:text-xl">Compare selected adopted county government rates, open verified county property-tax guides, and move from any of Texas' 254 counties into an official-rate calculator with the county already selected when a dedicated local calculator is not available.</p>
           </div>
           <p className="border-l border-border pl-6 text-sm leading-6 text-muted-foreground">Texas does not have one statewide property-tax rate. A county government rate is only one layer; school, city and special-district rates can be much larger parts of the combined bill.</p>
         </header>
@@ -92,8 +93,22 @@ function CountyPropertyTaxDirectory() {
         </section> : null}
 
         <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[minmax(0,1fr)_20rem]">
-          <div><p className="eyebrow text-primary">How to use these guides</p><h2 className="mt-2 font-display text-4xl">Start with the county, finish with the parcel</h2><div className="mt-5 space-y-4 text-base leading-8 text-muted-foreground"><p>A verified property-tax guide is the fastest way to find the correct appraisal district, tax office, exemption resources and payment starting points. Where local tax-office verification is still pending, use the broader county guide rather than an incomplete property-tax page.</p><p>Comparing county government rates can be useful for orientation, but those rates alone do not determine an individual bill. School districts, cities and special districts can make two properties in the same county materially different.</p></div><div className="mt-6 flex flex-wrap gap-5 text-sm font-semibold"><Link to="/learn/property-taxes" className="text-primary underline decoration-primary/40 underline-offset-4">How Texas property taxes work →</Link><Link to="/learn/appraisal-districts" className="text-primary underline decoration-primary/40 underline-offset-4">Texas appraisal-district directory →</Link><Link to="/property-tax-calculators" className="text-primary underline decoration-primary/40 underline-offset-4">Property-tax calculators →</Link><Link to="/do/homestead-exemption" className="text-primary underline decoration-primary/40 underline-offset-4">Homestead exemption guide →</Link></div></div>
+          <div><p className="eyebrow text-primary">How to use these guides</p><h2 className="mt-2 font-display text-4xl">Start with the county, finish with the parcel</h2><div className="mt-5 space-y-4 text-base leading-8 text-muted-foreground"><p>A verified property-tax guide is the fastest way to find the correct appraisal district, tax office, exemption resources and payment starting points. Where local tax-office verification is still pending, use the broader county guide rather than an incomplete property-tax page.</p><p>The calculator flow is separate from guide indexability. Every county can open the official-rate estimator, but only source-verified county tax guides and the governed major-county calculator pages are promoted as standalone search destinations.</p></div><div className="mt-6 flex flex-wrap gap-5 text-sm font-semibold"><Link to="/learn/property-taxes" className="text-primary underline decoration-primary/40 underline-offset-4">How Texas property taxes work →</Link><Link to="/learn/appraisal-districts" className="text-primary underline decoration-primary/40 underline-offset-4">Texas appraisal-district directory →</Link><Link to="/property-tax-calculators" className="text-primary underline decoration-primary/40 underline-offset-4">Property-tax calculators →</Link><Link to="/do/homestead-exemption" className="text-primary underline decoration-primary/40 underline-offset-4">Homestead exemption guide →</Link></div></div>
           <aside className="border-l border-border pl-6"><p className="eyebrow text-muted-foreground">Popular counties</p><div className="mt-4 flex flex-col gap-3">{popularCounties.map((county) => verifiedPropertySlugs.has(county.slug) ? <Link key={county.code} to="/property-tax/county/$county" params={{ county: county.slug }} className="font-display text-xl hover:text-primary">{county.name} tax guide →</Link> : <Link key={county.code} to="/county/$slug" params={{ slug: county.slug }} className="font-display text-xl hover:text-primary">{county.name} guide →</Link>)}</div></aside>
+        </section>
+
+        <section className="border-b border-border py-10" aria-labelledby="major-county-calculators">
+          <p className="eyebrow text-primary">Major-county calculators</p>
+          <h2 id="major-county-calculators" className="mt-2 font-display text-4xl">Dedicated property-tax calculators for 12 major Texas counties</h2>
+          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These pages preselect the county but still require the actual school district, municipality and applicable special districts. They do not publish a fake countywide combined rate.</p>
+          <div className="mt-7 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
+            {MAJOR_COUNTY_PROPERTY_TAX_CALCULATORS.map((item) => (
+              <a key={item.countySlug} href={item.calculatorPath} className="group bg-background p-5">
+                <strong className="font-display text-2xl group-hover:text-primary">{item.countyName}</strong>
+                <span className="mt-2 block text-sm leading-6 text-muted-foreground">Official local-rate calculator →</span>
+              </a>
+            ))}
+          </div>
         </section>
 
         <section className="border-b border-border py-10">
@@ -112,13 +127,21 @@ function CountyPropertyTaxDirectory() {
         </section>
 
         <section className="py-10">
-          <div className="border-b border-border pb-4"><p className="eyebrow text-primary">All 254 counties</p><h2 className="mt-2 font-display text-4xl">Browse county reference guides</h2><p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Counties without a verified local property-tax guide link to their substantive county reference page instead of an incomplete tax placeholder.</p></div>
+          <div className="border-b border-border pb-4"><p className="eyebrow text-primary">All 254 counties</p><h2 className="mt-2 font-display text-4xl">Browse county references and open a calculator</h2><p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Counties without a verified local property-tax guide link to their substantive county reference page instead of an incomplete tax placeholder. Every county also gets a calculator path: a dedicated major-county page where available, otherwise the statewide estimator with that county preselected.</p></div>
           <ul className="grid sm:grid-cols-2 lg:grid-cols-4">
-            {TEXAS_COUNTIES.map((county, index) => (
-              <li key={county.code} className={`border-b border-border ${index % 4 !== 0 ? 'lg:border-l lg:border-border' : ''}`}>
-                {verifiedPropertySlugs.has(county.slug) ? <Link to="/property-tax/county/$county" params={{ county: county.slug }} className="group block h-full py-5 sm:px-4"><span className="text-[0.68rem] uppercase tracking-[0.14em] text-primary">Verified property-tax guide</span><strong className="mt-1 block font-display text-xl leading-tight group-hover:text-primary">{county.name}</strong><span className="mt-3 block text-sm font-semibold">Local tax resources →</span></Link> : <Link to="/county/$slug" params={{ slug: county.slug }} className="group block h-full py-5 sm:px-4"><span className="text-[0.68rem] uppercase tracking-[0.14em] text-muted-foreground">County reference</span><strong className="mt-1 block font-display text-xl leading-tight group-hover:text-primary">{county.name}</strong><span className="mt-3 block text-sm font-semibold">County guide →</span></Link>}
-              </li>
-            ))}
+            {TEXAS_COUNTIES.map((county, index) => {
+              const calculatorTarget = countyPropertyTaxCalculatorTarget(county.slug);
+              return (
+                <li key={county.code} className={`border-b border-border ${index % 4 !== 0 ? 'lg:border-l lg:border-border' : ''}`}>
+                  <div className="h-full py-5 sm:px-4">
+                    {verifiedPropertySlugs.has(county.slug)
+                      ? <Link to="/property-tax/county/$county" params={{ county: county.slug }} className="group block"><span className="text-[0.68rem] uppercase tracking-[0.14em] text-primary">Verified property-tax guide</span><strong className="mt-1 block font-display text-xl leading-tight group-hover:text-primary">{county.name}</strong><span className="mt-3 block text-sm font-semibold">Local tax resources →</span></Link>
+                      : <Link to="/county/$slug" params={{ slug: county.slug }} className="group block"><span className="text-[0.68rem] uppercase tracking-[0.14em] text-muted-foreground">County reference</span><strong className="mt-1 block font-display text-xl leading-tight group-hover:text-primary">{county.name}</strong><span className="mt-3 block text-sm font-semibold">County guide →</span></Link>}
+                    <a href={calculatorTarget.href} rel={calculatorTarget.follow ? undefined : 'nofollow'} className="mt-4 inline-block border-t border-border pt-3 text-sm font-semibold text-primary">Calculate {county.name} taxes →</a>
+                  </div>
+                </li>
+              );
+            })}
           </ul>
         </section>
 

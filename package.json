@@ -18,7 +18,7 @@
     "destinations:audit:strict": "node scripts/data/audit-trip-planner-destinations.mjs --strict",
     "data:validate:editorial-images": "node scripts/data/validate-editorial-image-duplicates.mjs",
     "generated-pages:validate": "node scripts/data/validate-generated-page-quality.mjs",
-    "county-property:validate": "node scripts/data/validate-county-property-enrichment.mjs",
+    "county-property:validate": "node scripts/data/validate-county-property-enrichment.mjs && node scripts/data/validate-county-property-calculator-flow.mjs",
     "performance:validate": "node scripts/data/validate-client-bundle-budget.mjs",
     "major-events:validate": "node scripts/data/validate-major-event-authority.mjs",
     "fishing:validate": "node scripts/data/validate-fishing-platform.mjs && node scripts/data/validate-fishing-showcase-lakes.mjs && node scripts/data/validate-fishing-lakes-directory.mjs && node scripts/data/validate-fishing-guide-platform.mjs && node scripts/data/validate-fishing-report-platform.mjs && node scripts/data/validate-fishing-local-platform.mjs && node scripts/data/validate-fishing-planner-platform.mjs && node scripts/data/validate-fishing-regulations.mjs && node scripts/data/validate-fishing-seasons.mjs && node scripts/data/validate-fishing-techniques.mjs && node scripts/data/validate-fishing-species-depth.mjs && node scripts/data/validate-fishing-lake-expansion.mjs",
