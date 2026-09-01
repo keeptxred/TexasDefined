@@ -14,7 +14,8 @@ const [
   quickAnswers,
   enrichmentAll,
   currentCorrections,
-  partnerRoute,
+  partnerRouteEager,
+  partnerRouteLazy,
   partnerFunctions,
   partnerServer,
   partnerMigration,
@@ -29,11 +30,13 @@ const [
   read('src/data/sports-venue-enrichment-all.ts'),
   read('src/data/knowledge-graph/current-entity-corrections.ts'),
   read('src/routes/partner-with-us.tsx'),
+  read('src/routes/partner-with-us.lazy.tsx'),
   read('src/data/partner-inquiry.functions.ts'),
   read('src/data/partner-inquiry.server.ts'),
   read('supabase/migrations/20260814034617_allow_sports_travel_partner_inquiries.sql'),
 ]);
 
+const partnerRoute = `${partnerRouteEager}\n${partnerRouteLazy}`;
 const errors = [];
 const assert = (condition, message) => { if (!condition) errors.push(message); };
 const countSeedRows = (source) => [...source.matchAll(/^\s{2}\[(?:'|")/gm)].length;
