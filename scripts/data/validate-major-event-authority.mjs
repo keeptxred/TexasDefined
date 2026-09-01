@@ -11,6 +11,7 @@ const collectionLoaderPath = path.join(dataDir, "event-collection-page.server.ts
 const directoryPath = path.join(dataDir, "major-event-directory.server.ts");
 const collectionRoutePath = path.join(root, "src", "routes", "events.$collection.tsx");
 const eventsRoutePath = path.join(root, "src", "routes", "events.tsx");
+const entityRoutePath = path.join(root, "src", "routes", "$kind.$slug.lazy.tsx");
 const publicRoutesPath = path.join(root, "src", "lib", "public-routes.ts");
 
 const read = (file) => fs.readFileSync(file, "utf8");
@@ -27,6 +28,7 @@ const collectionLoader = read(collectionLoaderPath);
 const directory = read(directoryPath);
 const collectionRoute = read(collectionRoutePath);
 const eventsRoute = read(eventsRoutePath);
+const entityRoute = read(entityRoutePath);
 const publicRoutes = read(publicRoutesPath);
 const trancheFiles = fs
   .readdirSync(dataDir)
@@ -129,6 +131,7 @@ for (const marker of [
   'canonicalLink',
   '"@type": "CollectionPage"',
   '"@type": "ItemList"',
+  '"@type": "WebPage"',
   '"@type": "BreadcrumbList"',
   'Verified occurrence first, evergreen planning second',
 ]) {
@@ -146,7 +149,7 @@ for (const marker of [
   '"@type": "CollectionPage"',
   '"@type": "ItemList"',
   '"@type": "BreadcrumbList"',
-  '"@type": "Event"',
+  '"@type": "WebPage"',
 ]) {
   if (!directory.includes(marker)) fail(`major-event directory is missing collection/discovery/head metadata marker: ${marker}`);
 }
@@ -158,6 +161,15 @@ for (const marker of [
   "head: ({ loaderData }) => loaderData?.head ?? {}",
 ]) {
   if (!eventsRoute.includes(marker)) fail(`Texas Events hub is missing server-backed discovery/head marker: ${marker}`);
+}
+for (const marker of [
+  '"@type": "Event"',
+  'description: event.whyItMatters',
+  'startDate: window.startDate',
+  'eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode"',
+  'location: { "@type": "Place"',
+]) {
+  if (!loader.includes(marker)) fail(`dedicated event occurrence schema is missing protected marker: ${marker}`);
 }
 
 if (/major-event-expanded-authority(?:-tranche\d+)?\.server/.test(collections) || /major-event-expanded-authority(?:-tranche\d+)?\.server/.test(collectionRoute)) {
@@ -171,6 +183,16 @@ if (eventsRoute.includes("const EVENT_TOPIC_LINKS") || eventsRoute.includes("con
 }
 if (eventsRoute.includes("buildMeta") || eventsRoute.includes("canonicalLink") || eventsRoute.includes('"@type": "CollectionPage"') || eventsRoute.includes('"@type": "ItemList"') || eventsRoute.includes('"@type": "BreadcrumbList"')) {
   fail("Texas Events hub SEO/schema assembly must stay server-side to protect the client bundle budget");
+}
+if (directory.includes('"@type": "Event"')) {
+  fail("Texas Events hub must not emit Event rich-result entities from a collection/listing page; link to dedicated event guides as WebPage items instead");
+}
+if (collectionLoader.includes('"@type": "Event"')) {
+  fail("event collection pages must not emit Event rich-result entities; dedicated /event/:slug pages own occurrence markup");
+}
+const genericEventKinds = "['fair','rodeo','festival','holiday-event','sporting-event'].includes(kind)";
+if (entityRoute.includes(`${genericEventKinds}) return 'Event'`) || !entityRoute.includes(`${genericEventKinds}) return 'Thing'`)) {
+  fail("generic knowledge-graph event-like records must stay neutral until verified occurrence data exists on a dedicated event page");
 }
 
 const duplicateDefinitions = [...slugOwners.values()].filter((owners) => owners.length > 1).length;
