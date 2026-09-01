@@ -3,6 +3,8 @@ import path from 'node:path';
 
 const root = process.cwd();
 const route = fs.readFileSync(path.join(root, 'src/routes/events.tsx'), 'utf8');
+const lazyRoute = fs.readFileSync(path.join(root, 'src/routes/events.lazy.tsx'), 'utf8');
+const visibleRoute = `${route}\n${lazyRoute}`;
 const serverHead = fs.readFileSync(path.join(root, 'src/data/major-event-directory.server.ts'), 'utf8');
 const wrapper = fs.readFileSync(path.join(root, 'src/data/major-event-directory.ts'), 'utf8');
 const errors = [];
@@ -26,10 +28,15 @@ for (const feature of [
 for (const feature of [
   'aria-label="Breadcrumb"',
   'aria-current="page"',
+]) {
+  if (!visibleRoute.includes(feature)) errors.push(`Visible Events SEO feature missing across eager/lazy route surfaces: ${feature}.`);
+}
+
+for (const feature of [
   'getEventsPageHead',
   'head: ({ loaderData }) => loaderData?.head ?? {}',
 ]) {
-  if (!route.includes(feature)) errors.push(`Visible/server-backed Events SEO feature missing: ${feature}.`);
+  if (!route.includes(feature)) errors.push(`Server-backed Events SEO feature missing from eager route: ${feature}.`);
 }
 
 for (const feature of [
@@ -41,7 +48,7 @@ for (const feature of [
 }
 
 if (route.includes('"@type": "CollectionPage"') || route.includes('"@type": "ItemList"') || route.includes('"@type": "BreadcrumbList"')) {
-  errors.push('Heavy Events structured-data assembly must remain server-owned rather than returning to the client route.');
+  errors.push('Heavy Events structured-data assembly must remain server-owned rather than returning to the eager client route.');
 }
 
 if (errors.length) {
@@ -50,4 +57,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Events server-owned CollectionPage, Event ItemList, canonical metadata, and visible breadcrumb validation passed.');
+console.log('Events server-owned CollectionPage, Event ItemList, canonical metadata, and eager/lazy visible breadcrumb validation passed.');
