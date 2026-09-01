@@ -1,0 +1,196 @@
+import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
+import type { Destination, ImageRef } from "./types";
+
+const SOURCE_CHECKED_AT = "2026-08-31";
+
+function museumPlaceholder(name: string): ImageRef {
+  return {
+    src: DESTINATION_PHOTO_PLACEHOLDER,
+    alt: `${name} — destination-specific photograph not yet available`,
+    width: 1600,
+    height: 1067,
+  };
+}
+
+/**
+ * Ninth statewide museum coverage wave. This group closes additional East and
+ * South Texas gaps while resolving stale county-museum labels to the active
+ * institutions visitors can actually reach today.
+ */
+export const statewideMuseumExpansionWave9Destinations: Destination[] = [
+  {
+    id: "museum-statewide-wave9-east-texas",
+    brandId: "texasdefined",
+    slug: "museum-of-east-texas-lufkin",
+    name: "Museum of East Texas",
+    summary: "Lufkin's Museum of East Texas is a free community art museum in a historic former Episcopal church, presenting rotating exhibitions, East Texas artists, broader American and international work, family programs and one of the region's strongest arts-education calendars.",
+    category: "historic-sites",
+    region: "piney-woods",
+    nearestTown: "Lufkin",
+    county: "Angelina County",
+    coordinates: { lat: 31.343796, lng: -94.725486 },
+    hero: museumPlaceholder("Museum of East Texas"),
+    bestSeason: "Year-round indoor museum; fall through spring is especially comfortable for pairing the galleries with downtown Lufkin and other Piney Woods stops.",
+    entryNote: "Admission is currently free. The museum lists Tuesday-Friday hours from 10 a.m. to 5 p.m. and Saturday-Sunday from 1 to 5 p.m.; holiday and exhibit-installation schedules can change.",
+    highlights: ["Free admission", "Historic 1906 church setting", "Rotating art exhibitions", "Family and arts-education programs"],
+    body: [
+      "The Museum of East Texas grew from a community effort to transform the fire-damaged shell of St. Cyprian's Episcopal Church into a cultural center. Since opening in 1976, it has become a regional arts institution rather than a narrowly local display space.",
+      "Its collection and exhibitions balance East Texas artists with broader American, Latin American and European work, while classes, field trips and family programming make education a central part of the museum's role. The historic church architecture gives the galleries a setting that is itself part of the experience.",
+      "For TexasDefined, the museum adds a needed Lufkin cultural anchor that complements forestry, regional history and outdoor Piney Woods coverage. It can strengthen Angelina County cross-links without duplicating broader Lufkin or East Texas destination pages."
+    ],
+    officialUrl: "https://www.metlufkin.org/visit",
+    managingAuthority: "Museum of East Texas",
+    address: "503 N 2nd St, Lufkin, TX 75901",
+    sourceCheckedAt: SOURCE_CHECKED_AT,
+  },
+  {
+    id: "museum-statewide-wave9-rusk-depot",
+    brandId: "texasdefined",
+    slug: "rusk-county-depot-museum-history-center-henderson",
+    name: "Rusk County Depot Museum & History Center",
+    summary: "Henderson's Rusk County Depot Museum & History Center combines a county-history museum, a 1901 railroad depot, children's discovery space and a walkable campus of preserved buildings representing East Texas home life, agriculture, timber, oil, railroads and small-town industry.",
+    category: "historic-sites",
+    region: "piney-woods",
+    nearestTown: "Henderson",
+    county: "Rusk County",
+    coordinates: { lat: 32.15875, lng: -94.794817 },
+    hero: museumPlaceholder("Rusk County Depot Museum & History Center"),
+    bestSeason: "Fall through spring for the most comfortable time across the outdoor grounds; the main museum and discovery center add year-round indoor value.",
+    entryNote: "Admission is currently free, with donations welcomed. The museum lists Monday-Friday hours from 10 a.m. to 4 p.m. and Saturday from 9 a.m. to 1 p.m.",
+    highlights: ["1901 railroad depot", "Twelve historic structures", "Operational cotton-gin history", "Children's Discovery Center"],
+    body: [
+      "The Rusk County Depot Museum began with a railroad depot in 1978 and grew into a multi-building history campus. The Arnold Building now serves as the main visitor center while the former depot supports children's discovery programming.",
+      "The grounds preserve structures and equipment tied to the county's rural and industrial past, including cabins, a caboose, cotton gin, country store, doctor's office, sawmill, syrup mill, oilfield display and other working-life artifacts. Inside, interpretation reaches from Caddo and Cherokee history through settlement, ranching, timber, mining and military service.",
+      "For TexasDefined, this becomes the canonical Rusk County museum anchor and gives Henderson a deeper heritage network than a single downtown page. It can cross-link East Texas industry, rail history, the Heritage Syrup Festival and county travel content."
+    ],
+    officialUrl: "https://www.ruskcountyhistory.org/",
+    managingAuthority: "Rusk County Depot Museum & History Center / Rusk County Historical Commission partners",
+    address: "514 N High St, Henderson, TX 75652",
+    sourceCheckedAt: SOURCE_CHECKED_AT,
+  },
+  {
+    id: "museum-statewide-wave9-falfurrias-heritage",
+    brandId: "texasdefined",
+    slug: "heritage-museum-falfurrias",
+    name: "The Heritage Museum at Falfurrias",
+    summary: "The Heritage Museum at Falfurrias preserves Brooks County frontier, ranching, Texas Ranger and community history through artifacts, maps, personal papers, themed exhibits and a remarkable photographic archive documenting South Texas families and places.",
+    category: "historic-sites",
+    region: "south-texas",
+    nearestTown: "Falfurrias",
+    county: "Brooks County",
+    coordinates: { lat: 27.2315, lng: -98.1438 },
+    hero: museumPlaceholder("The Heritage Museum at Falfurrias"),
+    bestSeason: "Fall through spring for the most comfortable South Texas road trip; the museum itself is primarily an indoor stop.",
+    entryNote: "Admission is currently free. City information lists Tuesday-Friday hours and limited second- and fourth-Saturday access, but locally operated hours vary across current sources; call ahead before making a special trip.",
+    highlights: ["Texas Ranger Room", "Carol Dryden photo-negative archive", "Brooks County ranching history", "Falfurrias pioneer collections"],
+    body: [
+      "The Heritage Museum gives Falfurrias a locally focused institution whose collections reach beyond pioneer household objects. Ranching, cattle brands, early schools, military service and notable Brooks County residents all appear in displays tied to the development of South Texas.",
+      "Its Texas Ranger Room is especially distinctive because Brooks County was named for Ranger captain James A. Brooks and Falfurrias served as a Ranger-area headquarters. The museum also holds the Carol Dryden Collection, roughly 99,000 photographic negatives documenting people and places across Falfurrias and neighboring communities.",
+      "For TexasDefined, the page replaces vague Brooks County museum wording with the current institution visitors can actually find. It creates useful links among Falfurrias, ranching, South Texas heritage, Texas Ranger history and county-level travel planning."
+    ],
+    officialUrl: "https://www.falfurrias.us/Directory.aspx?did=8",
+    managingAuthority: "The Heritage Museum at Falfurrias / City of Falfurrias-supported museum board",
+    address: "415 N St Mary's St, Falfurrias, TX 78355",
+    sourceCheckedAt: SOURCE_CHECKED_AT,
+  },
+  {
+    id: "museum-statewide-wave9-zapata-county",
+    brandId: "texasdefined",
+    slug: "zapata-county-museum-history",
+    name: "Zapata County Museum of History",
+    summary: "Zapata County Museum of History interprets the Rio Grande county from geology and natural history through Indigenous and borderlands history, Old Zapata, Falcon Dam-era displacement and modern community life using bilingual exhibits, artifacts and guided interpretation.",
+    category: "historic-sites",
+    region: "south-texas",
+    nearestTown: "Zapata",
+    county: "Zapata County",
+    coordinates: { lat: 26.90292, lng: -99.2687 },
+    hero: museumPlaceholder("Zapata County Museum of History"),
+    bestSeason: "Fall through early spring for comfortable South Texas travel; the museum is an all-weather indoor history stop.",
+    entryNote: "Zapata County currently lists Tuesday-Friday hours from 10 a.m. to 4 p.m. Weekend access is limited, so confirm current tours and admission before traveling.",
+    highlights: ["Bilingual county-history interpretation", "Old Zapata and Falcon Dam story", "Regional geology and natural history", "Rio Grande community history"],
+    body: [
+      "Zapata County Museum of History tells a regional story that begins before settlement, using geology and natural history to establish the landscape before moving into human history. That broad structure makes the museum useful for understanding why communities developed where they did along the Rio Grande.",
+      "A defining chapter is the loss and relocation of Old Zapata as Falcon Dam and reservoir reshaped the county. The museum preserves community memory around that displacement while also documenting Indigenous history, ranching, border culture and modern life through bilingual interpretation.",
+      "For TexasDefined, the destination provides a needed Zapata County anchor linking Falcon Lake, South Texas road trips, borderlands history and community heritage through one source-checked canonical page."
+    ],
+    officialUrl: "https://www.co.zapata.tx.us/page/zapata.county.museum",
+    managingAuthority: "Zapata County Museum of History / Zapata County",
+    address: "805 N US Hwy 83, Zapata, TX 78076",
+    sourceCheckedAt: SOURCE_CHECKED_AT,
+  },
+  {
+    id: "museum-statewide-wave9-whitehead",
+    brandId: "texasdefined",
+    slug: "whitehead-memorial-museum-del-rio",
+    name: "Whitehead Memorial Museum",
+    summary: "Del Rio's Whitehead Memorial Museum is a multi-building pioneer-village museum preserving Val Verde County history through historic structures, regional artifacts, borderlands culture, irrigation history and community exhibits spread across more than two acres.",
+    category: "historic-sites",
+    region: "big-bend",
+    nearestTown: "Del Rio",
+    county: "Val Verde County",
+    coordinates: { lat: 29.352174, lng: -100.89815 },
+    hero: museumPlaceholder("Whitehead Memorial Museum"),
+    bestSeason: "Fall through spring for the most comfortable movement between the museum's outdoor and indoor exhibit spaces.",
+    entryNote: "The museum's current programming lists Tuesday-Saturday hours from 10 a.m. to 6 p.m. and Sunday from 1 to 5 p.m. Check the official site for admission and special-event schedule changes.",
+    highlights: ["Pioneer-village campus", "Val Verde County artifacts", "Historic San Felipe irrigation canal", "Multiple preserved exhibit buildings"],
+    body: [
+      "The Whitehead Memorial Museum grew from the donation of the old Perry Mercantile Building in 1962 into a walkable historic campus. Rather than concentrating interpretation in one gallery, it spreads regional history across a collection of structures and exhibit sites.",
+      "The museum's subject matter reflects Del Rio's borderlands setting and long economic history, with domestic, ranching, civic and cultural collections alongside the surviving San Felipe irrigation canal system. That variety makes the site more like a compact local-history village than a single-room county museum.",
+      "For TexasDefined, Whitehead is the stronger current authority destination behind generic Val Verde County museum wording. It can connect Del Rio, Seminole Canyon-area travel, border history, irrigation heritage and county pages without creating a duplicate local-history URL."
+    ],
+    officialUrl: "https://whiteheadmuseum.org/",
+    managingAuthority: "Whitehead Memorial Museum",
+    address: "1308 S Main St, Del Rio, TX 78840",
+    sourceCheckedAt: SOURCE_CHECKED_AT,
+  },
+  {
+    id: "museum-statewide-wave9-briscoe-garner",
+    brandId: "texasdefined",
+    slug: "briscoe-garner-museum-uvalde",
+    name: "Briscoe-Garner Museum",
+    summary: "The Briscoe-Garner Museum in Uvalde occupies John Nance Garner's National Historic Landmark home and interprets the lives and political legacies of Vice President Garner and Texas Governor Dolph Briscoe through photographs, documents, artifacts and the historic residence itself.",
+    category: "historic-sites",
+    region: "hill-country",
+    nearestTown: "Uvalde",
+    county: "Uvalde County",
+    coordinates: { lat: 29.21261, lng: -99.792358 },
+    hero: museumPlaceholder("Briscoe-Garner Museum"),
+    bestSeason: "Year-round historic-house museum; fall through spring is most comfortable for combining it with downtown Uvalde and Hill Country drives.",
+    entryNote: "The Briscoe Center currently lists Wednesday-Saturday hours from 9 a.m. to 3 p.m. Guided tours are by appointment, and university holiday closures apply.",
+    highlights: ["John Nance Garner National Historic Landmark home", "Vice-presidential history", "Dolph Briscoe exhibits", "University of Texas Briscoe Center stewardship"],
+    body: [
+      "The Briscoe-Garner Museum resolves older Uvalde county-museum wording to a current institution with statewide significance. John Nance Garner lived in the 1920 house for decades, and the home later became a museum dedicated to his political career and personal story.",
+      "The University of Texas at Austin's Briscoe Center for American History now operates the site and expanded the interpretation to include Governor Dolph Briscoe, another major Uvalde political figure. The historic home, documents and artifacts turn twentieth-century Texas political history into a place-based visitor experience.",
+      "For TexasDefined, the museum creates a natural link between Uvalde County travel, Texas political history, historic homes and Hill Country heritage without forcing those stories into a generic local-history page."
+    ],
+    officialUrl: "https://briscoecenter.org/visit/briscoe-garner-museum/",
+    managingAuthority: "Dolph Briscoe Center for American History, The University of Texas at Austin",
+    address: "333 N Park St, Uvalde, TX 78801",
+    sourceCheckedAt: SOURCE_CHECKED_AT,
+  },
+  {
+    id: "museum-statewide-wave9-frio-pioneer-jail",
+    brandId: "texasdefined",
+    slug: "frio-pioneer-jail-museum-pearsall",
+    name: "Frio Pioneer Jail Museum",
+    summary: "Pearsall's Frio Pioneer Jail Museum occupies the 1884 Old Frio County Jail, preserving the sheriff's residence, original jail cells, county photographs and artifacts tied to ranching, drought, Prohibition and everyday life in early Frio County.",
+    category: "historic-sites",
+    region: "south-texas",
+    nearestTown: "Pearsall",
+    county: "Frio County",
+    coordinates: { lat: 28.887778, lng: -99.093056 },
+    hero: museumPlaceholder("Frio Pioneer Jail Museum"),
+    bestSeason: "Fall through spring for the most comfortable South Texas travel; the historic building itself is the main destination in any season.",
+    entryNote: "The locally operated museum has limited public hours and volunteer-dependent access. Call ahead before making a special trip; Texas Time Travel currently lists free admission.",
+    highlights: ["1884 Old Frio County Jail", "Original jail cells", "Sheriff's residence exhibits", "Recorded Texas Historic Landmark"],
+    body: [
+      "The Old Frio County Jail served Pearsall for more than eighty years and remains one of the county's most intact nineteenth-century civic buildings. The museum uses the former sheriff's residence downstairs and the preserved cells upstairs to tell local history in the building where part of that history happened.",
+      "Artifacts range from photographs and social ephemera to ranching and drought-era tools, while the jail itself preserves stories of law enforcement and Prohibition. The structure is listed on the National Register of Historic Places and carries Recorded Texas Historic Landmark status.",
+      "For TexasDefined, Frio Pioneer Jail Museum is the strongest current answer to older Frio County museum labels. It gives Pearsall a canonical heritage stop that can cross-link South Texas road trips, courthouse history and county pages while clearly warning visitors about limited access."
+    ],
+    officialUrl: "https://friopioneerjailmuseum.com/",
+    managingAuthority: "Frio Pioneer Jail Museum Association",
+    address: "E Medina St at S Pecan St, Pearsall, TX 78061",
+    sourceCheckedAt: SOURCE_CHECKED_AT,
+  },
+];
