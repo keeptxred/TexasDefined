@@ -35,6 +35,13 @@ export const destinationHeroOverrides: Record<string, ImageRef> = {
     height: 3312,
     credit: "Matthewrutledge · Public domain · Wikimedia Commons",
   },
+  "big-boggy-national-wildlife-refuge": {
+    src: "https://www.fws.gov/sites/default/files/images/2025-12/colonial-waterbirds-2-woody-woodrow.jpg",
+    alt: "Colonial waterbirds nesting on Dressing Point Island in Big Boggy National Wildlife Refuge",
+    width: 2056,
+    height: 924,
+    credit: "Woody Woodrow/USFWS · Public domain",
+  },
   "caddo-lake-national-wildlife-refuge": {
     src: "https://commons.wikimedia.org/wiki/Special:FilePath/Caddo%20Lake%20National%20Wildlife%20Refuge%2C%20TX%20%285169475023%29.jpg",
     alt: "Wetland and forest habitat at Caddo Lake National Wildlife Refuge in East Texas",
@@ -114,7 +121,7 @@ export const destinationHeroOverrides: Record<string, ImageRef> = {
   },
   "mcfaddin-national-wildlife-refuge": {
     src: "https://www.fws.gov/sites/default/files/2021-06/RESILIENCE-McFaddin-Refuge-TX-after-Hurricane-Harvey-2017-%28USFWS%29.jpg",
-    alt: "Coastal wetland landscape at McFaddin National Wildlife Refuge on the upper Texas coast",
+    alt: "Floodwaters across McFaddin National Wildlife Refuge after Hurricane Harvey in 2017",
     width: 1280,
     height: 959,
     credit: "USFWS · Public domain",
