@@ -1,11 +1,16 @@
-export const movingCostSeoTitle = 'Texas Moving Cost Calculator: Move Budget';
+export const movingCostSeoTitle = 'Texas Moving Cost Calculator & Moving Cost Estimator';
 
 export const movingCostPageTitle = 'Texas Moving Cost Calculator | Plan the Full Move Budget';
 
 export const movingCostDescription =
-  'Estimate the full cost of moving to or within Texas, including transportation, packing, travel, deposits, setup costs and a contingency for the unexpected.';
+  'Use this Texas moving cost calculator and moving cost estimator to build a practical moving estimate for transportation, movers, packing, travel, storage, deposits, setup costs and contingency.';
 
 export const movingCostFaqs = [
+  {
+    question: 'How can I estimate moving costs to Texas?',
+    answer:
+      'Start with the distance and household size to create a rough moving estimate, then add packing, travel, storage, deposits, temporary lodging and setup costs. Replace the calculator baseline with current written mover or truck estimates as soon as you have them.',
+  },
   {
     question: 'How much should I budget to move to Texas?',
     answer:
@@ -34,7 +39,7 @@ export const movingCostFaqs = [
   {
     question: 'Is this Texas moving calculator a mover quote?',
     answer:
-      'No. It is a planning worksheet. The built-in transportation figure is a rough budgeting baseline, not a Texas market average or a binding quote. Get current written estimates and confirm services, dates, liability or insurance options and access conditions before booking.',
+      'No. It is a planning worksheet and moving cost estimator, not a binding mover quote. The built-in transportation figure is a rough budgeting baseline, not a Texas market average. Get current written estimates and confirm services, dates, liability or insurance options and access conditions before booking.',
   },
 ] as const;
 

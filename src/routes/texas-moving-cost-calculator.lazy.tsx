@@ -8,6 +8,8 @@ import {
   movingCostSources,
 } from '@/data/moving-cost-calculator';
 
+const pageTitle = 'Texas Moving Cost Calculator | Plan the Full Move Budget';
+
 const examples = [
   {
     label: 'Shorter 2-bedroom move',
@@ -36,14 +38,14 @@ export const Route = createLazyFileRoute('/texas-moving-cost-calculator')({ comp
 
 function TexasMovingCostCalculatorPage() {
   return (
-    <CalculatorPage eyebrow="Moving to or within Texas" title="Texas Moving Cost Calculator | Plan the Full Move Budget" description={movingCostDescription}>
+    <CalculatorPage eyebrow="Moving to or within Texas" title={pageTitle} description={movingCostDescription}>
       <MovingCostCalculator />
 
       <section className="mt-14 border-t border-border pt-10" aria-labelledby="moving-cost-method-heading">
-        <p className="eyebrow text-primary">How the estimate works</p>
+        <p className="eyebrow text-primary">Moving estimate methodology</p>
         <h2 id="moving-cost-method-heading" className="mt-3 font-display text-3xl">The move costs more than transportation</h2>
         <div className="mt-5 max-w-3xl space-y-4 text-base leading-7 text-muted-foreground">
-          <p>The calculator separates transportation from packing, travel, storage, deposits and setup costs. If you already have a written mover or truck estimate, enter it and the calculator uses that number. If you do not, it uses a rough transportation baseline so you can build a first-pass budget.</p>
+          <p>The calculator separates transportation from packing, travel, storage, deposits and setup costs. If you already have a written mover or truck estimate, enter it and the calculator uses that number. If you do not, it uses a rough transportation baseline so you can build a first-pass moving estimate.</p>
           <p>The built-in baseline is intentionally transparent: <strong className="text-foreground">$900 + $2.25 per mile + $650 per bedroom</strong>. It is a planning heuristic, not a published Texas average, live mover pricing or a promise about what a move should cost. Replace it with written estimates as the move becomes real.</p>
           <p>The contingency is also adjustable. A reserve can help cover schedule changes, an extra hotel night, storage, replacement supplies, service deposits or other costs that were not obvious when the move was first priced.</p>
         </div>
