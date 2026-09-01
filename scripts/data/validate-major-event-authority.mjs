@@ -191,7 +191,7 @@ if (collectionLoader.includes('"@type": "Event"')) {
   fail("event collection pages must not emit Event rich-result entities; dedicated /event/:slug pages own occurrence markup");
 }
 const genericEventKinds = "['fair','rodeo','festival','holiday-event','sporting-event'].includes(kind)";
-if (entityRoute.includes(`${genericEventKinds}) return 'Event'`) || !entityRoute.includes(`${genericEventKinds}) return 'Thing'`)) {
+if (entityRoute.includes(`${genericEventKinds} return 'Event'`) || !entityRoute.includes(`${genericEventKinds} return 'Thing'`)) {
   fail("generic knowledge-graph event-like records must stay neutral until verified occurrence data exists on a dedicated event page");
 }
 
