@@ -55,6 +55,7 @@ import { statewideMuseumExpansionWave38Destinations } from "./museum-expansion-s
 import { statewideMuseumExpansionWave39Destinations } from "./museum-expansion-statewide-wave39";
 import { statewideMuseumExpansionWave40Destinations } from "./museum-expansion-statewide-wave40";
 import { statewideMuseumExpansionWave41Destinations } from "./museum-expansion-statewide-wave41";
+import { statewideMuseumExpansionWave42Destinations } from "./museum-expansion-statewide-wave42";
 import { wacoMuseumDestinations } from "./museum-expansion-waco";
 import { nationalWildlifeRefugeDestinations } from "./national-wildlife-refuge-destinations";
 import { wildlifeManagementAreaWave1Destinations } from "./wildlife-management-area-destinations-wave1";
@@ -80,7 +81,7 @@ const newBraunfelsSeasonalFallback: Destination = {
     credit: "Darrylpearson · Wikimedia Commons · CC BY-SA 4.0",
   },
   bestSeason: "Late spring through early fall for river recreation; fall through spring for town exploring",
-  entryNote: "River rules, flows and tubing access change with weather and season. Check current city and outfitter information before planning a float.",
+  entryNote: "River rules, flows and tubing access change with weather and season. Check current city and outfitter information before arrival, especially after heavy rain or during peak summer weekends when parking and shuttle logistics matter.",
   highlights: ["Comal River", "Guadalupe River", "Gruene Historic District", "German-Texan heritage"],
   body: [
     "New Braunfels is defined by water as much as history. The Comal runs directly through town, while the Guadalupe creates a larger recreation corridor nearby.",
@@ -176,6 +177,7 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   statewideMuseumExpansionWave39Destinations,
   statewideMuseumExpansionWave40Destinations,
   statewideMuseumExpansionWave41Destinations,
+  statewideMuseumExpansionWave42Destinations,
   nationalWildlifeRefugeDestinations,
   wildlifeManagementAreaWave1Destinations,
   wildlifeManagementAreaWave2Destinations,
