@@ -53,6 +53,7 @@ import { statewideMuseumExpansionWave36Destinations } from "./museum-expansion-s
 import { statewideMuseumExpansionWave37Destinations } from "./museum-expansion-statewide-wave37";
 import { statewideMuseumExpansionWave38Destinations } from "./museum-expansion-statewide-wave38";
 import { statewideMuseumExpansionWave39Destinations } from "./museum-expansion-statewide-wave39";
+import { statewideMuseumExpansionWave40Destinations } from "./museum-expansion-statewide-wave40";
 import { wacoMuseumDestinations } from "./museum-expansion-waco";
 import { nationalWildlifeRefugeDestinations } from "./national-wildlife-refuge-destinations";
 import { wildlifeManagementAreaWave1Destinations } from "./wildlife-management-area-destinations-wave1";
@@ -172,6 +173,7 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   statewideMuseumExpansionWave37Destinations,
   statewideMuseumExpansionWave38Destinations,
   statewideMuseumExpansionWave39Destinations,
+  statewideMuseumExpansionWave40Destinations,
   nationalWildlifeRefugeDestinations,
   wildlifeManagementAreaWave1Destinations,
   wildlifeManagementAreaWave2Destinations,
