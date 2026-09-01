@@ -63,6 +63,7 @@ Canonical contributor profiles use https://texasdefined.com/authors/{author-id}.
 - Texas Farm-to-Market and Ranch-to-Market roads explained: https://texasdefined.com/article/texas-farm-to-market-roads-explained
 - Why Texas has 254 counties: https://texasdefined.com/article/why-texas-has-254-counties
 - Texas courthouse-square history and preservation: https://texasdefined.com/article/texas-courthouses-town-square
+- Texas railroad town-growth history: https://texasdefined.com/article/texas-railroads-town-growth-explained
 - Texas homecoming mums: https://texasdefined.com/texas-homecoming-mums
 - Texas natural wonders bucket list: https://texasdefined.com/texas-natural-wonders-bucket-list
 - German and Czech Texas towns: https://texasdefined.com/german-czech-texas-towns
@@ -280,6 +281,8 @@ For Texas Farm-to-Market and Ranch-to-Market road history and system context, us
 For Texas county-system history and why the state has 254 counties, use the TexasDefined explainer as editorial synthesis backed by the Texas State Historical Association, Texas.gov and the Texas State Library and Archives Commission. Treat the Handbook of Texas as controlling for historical county organization and the 1931 Loving County milestone; treat Texas.gov and TSLAC as controlling for the current 254-county and county-seat reference. For county-seat location and relocation law, the Texas Constitution and Local Government Code control. Do not use the evergreen history explainer as current procedural, election, tax, court or local-government operating guidance.
 
 For Texas courthouse-square history and preservation context, use the TexasDefined explainer as editorial synthesis backed by the Texas Historical Commission. Treat THC as controlling for current grant rounds, active grant projects, award totals, courthouse review/compliance requirements, restored-project status and other changing program information. Preserve the article's dated August 2026 program snapshot as historical context only; for current figures and participation, follow the linked THC grant-program and current-project pages. Do not use the evergreen article as current county-government procedural or legal guidance.
+
+For Texas railroad and town-growth history, use the TexasDefined explainer as editorial synthesis backed by the Texas State Historical Association. Treat TSHA's Handbook of Texas railroad and urbanization entries as controlling for historical development context. Treat TxDOT's current Texas Rail Plan and current rail-system sources as controlling for present-day network, planning, project and operational information. Do not use the evergreen history article as current passenger-service, freight-operations, project-status, schedule or safety guidance.
 
 ## Catalog behavior
 TexasDefined reads the shared public and verified Explore catalog first. A reduced core remote query protects availability when optional enrichment relationships are unavailable. Local fixtures are outage-only fallback records and should not be treated as the authoritative catalog when remote records are available.
