@@ -17,6 +17,11 @@ export function missingDestinationHero(destination: Destination): ImageRef {
   };
 }
 
+export function applyDestinationHeroOverride(destination: Destination): Destination {
+  const overriddenHero = destinationHeroOverrides[destination.slug];
+  return overriddenHero ? { ...destination, hero: overriddenHero } : destination;
+}
+
 /**
  * A named destination may never borrow another destination's photograph.
  * Within a catalog, every non-placeholder hero source must belong to only one slug.
@@ -27,8 +32,7 @@ export function reconcileDestinationHeroes(destinations: Destination[]): Destina
   const ownerByHero = new Map<string, string>();
 
   return destinations.map((destination) => {
-    const overriddenHero = destinationHeroOverrides[destination.slug];
-    const reconciledDestination = overriddenHero ? { ...destination, hero: overriddenHero } : destination;
+    const reconciledDestination = applyDestinationHeroOverride(destination);
     const src = reconciledDestination.hero?.src?.trim();
     if (!src || isDestinationPhotoPlaceholder(src)) {
       return { ...reconciledDestination, hero: missingDestinationHero(reconciledDestination) };
