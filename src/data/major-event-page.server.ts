@@ -156,6 +156,7 @@ export function loadMajorEventPageServer(slug: string) {
   if (!event) return null;
   const occurrenceWindows = getMajorEventOccurrenceWindowsServer(event);
   const dateLabel = formatMajorEventDateLabelServer(event);
+  const eventYear = new Date(occurrenceWindows[0]?.startDate ?? event.startDate).getUTCFullYear();
   const canonicalUrl = `${siteUrl}/event/${event.slug}`;
   const placeLine = [event.city && `${event.city}, Texas`, event.countyName].filter(Boolean).join(" · ");
   const planning = event.planningSections.map((item) => `<section class="mt-8"><h2 class="font-display text-2xl">${esc(item.title)}</h2><p class="mt-3 leading-7 text-muted-foreground">${esc(item.body)}</p></section>`).join("");
@@ -199,8 +200,8 @@ export function loadMajorEventPageServer(slug: string) {
     slug: event.slug,
     name: event.name,
     city: event.city,
-    title: `${event.name}: Dates & Texas Travel Guide`,
-    description: `${event.name} in ${event.city}: dates, official sources and practical trip planning.`,
+    title: `${event.name} ${eventYear}: Dates & Texas Travel Guide`,
+    description: `${event.name} ${eventYear} in ${event.city}, Texas: confirmed dates, location, official sources and practical trip planning.`,
     html,
     jsonLd,
   };
