@@ -1,6 +1,7 @@
 import { createLazyFileRoute, Link } from '@tanstack/react-router';
 import { CalculatorPage } from '@/components/calculators/CalculatorPage';
 import { SalaryComparisonCalculator } from '@/components/calculators/TexasHomeFinanceCalculators';
+import { LOCAL_SALARY_NEEDED_PROFILES } from '@/data/local-salary-needed';
 
 const description = 'Compare a salary between Texas cities using adjustable cost-of-living assumptions, then test the result against take-home pay, housing and utility costs instead of treating one index as an exact required salary.';
 
@@ -11,14 +12,13 @@ const faqs = [
   { question: 'What should I verify before accepting a job in another Texas city?', answer: 'Price the likely housing area, commute, utilities, insurance and other address-level costs. A metro-wide salary comparison is more useful when paired with the neighborhood and work corridor the household would actually use.' },
 ];
 
-export const Route = createLazyFileRoute('/texas-salary-comparison-by-city')({
-  component: TexasSalaryComparisonPage,
-});
+export const Route = createLazyFileRoute('/texas-salary-comparison-by-city')({ component: TexasSalaryComparisonPage });
 
 function TexasSalaryComparisonPage() {
   return <CalculatorPage eyebrow="Before you take the job" title="Compare salaries between Texas cities" description={description}>
     <SalaryComparisonCalculator />
     <section className="mt-14 border-t border-border pt-10" aria-labelledby="salary-city-heading"><p className="eyebrow text-primary">Use the comparison as a starting point</p><h2 id="salary-city-heading" className="mt-3 font-display text-3xl">A citywide index cannot see your housing or commute</h2><div className="mt-5 max-w-3xl space-y-4 text-base leading-7 text-muted-foreground"><p>A cost-adjusted salary is useful for orientation, but it is not a personal offer threshold. The household still has to choose a home, commute, utility setup and spending pattern inside the destination metro.</p><p>Adjust the assumptions, then verify the largest categories with the place you are actually considering. A job with a higher salary can still reduce flexibility if housing and transportation rise faster than the paycheck.</p></div></section>
+    <section className="mt-12 border-t border-border pt-10" aria-labelledby="local-salary-needed-heading"><p className="eyebrow text-primary">Plan from your own household costs</p><h2 id="local-salary-needed-heading" className="mt-3 font-display text-3xl">Estimate the salary your city budget may need</h2><p className="mt-4 max-w-3xl text-base leading-7 text-muted-foreground">These local planners work backward from your own monthly budget, savings target and editable deduction assumptions. They do not publish a made-up salary requirement for an entire city.</p><div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{LOCAL_SALARY_NEEDED_PROFILES.map((profile) => <Link key={profile.slug} to={profile.salaryPath} className="border border-border p-5 hover:border-primary"><strong className="font-display text-xl">Salary needed in {profile.name}</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Build a household income target from your expected {profile.name} costs.</span></Link>)}</div></section>
     <section className="mt-12 border-t border-border pt-10" aria-labelledby="salary-city-links-heading"><p className="eyebrow text-primary">Turn the comparison into a relocation budget</p><h2 id="salary-city-links-heading" className="mt-3 font-display text-3xl">Compare income with the costs you will actually carry</h2><div className="mt-6 grid gap-4 md:grid-cols-3">
       <Link to="/texas-salary-calculator" className="border border-border p-5 hover:border-primary"><strong className="font-display text-xl">Texas salary calculator</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Convert a salary scenario into an estimated take-home paycheck.</span></Link>
       <Link to="/texas-cost-of-living-calculator" className="border border-border p-5 hover:border-primary"><strong className="font-display text-xl">Cost of living</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Change the household spending assumptions behind the city comparison.</span></Link>
