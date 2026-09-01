@@ -67,8 +67,8 @@ export const texasRailroadsTownGrowthGuideStub: Article = {
   readingMinutes: 9,
   tags: ["texas railroads", "texas towns", "settlement", "transportation", "county seats", "TxDOT rail"],
   featured: false,
-  sourceName: "Texas Department of Transportation",
-  sourceUrl: "https://www.txdot.gov/projects/planning/freight-rail.html",
+  sourceName: "Texas State Historical Association — Railroads",
+  sourceUrl: "https://www.tshaonline.org/handbook/entries/railroads",
   body: [], relatedCollections: [], relatedDestinations: [],
 };
 
