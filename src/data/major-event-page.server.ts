@@ -41,6 +41,10 @@ import { getExpandedMajorEventAuthorityTranche38Server } from "./major-event-exp
 import { getExpandedMajorEventAuthorityTranche39Server } from "./major-event-expanded-authority-tranche39.server";
 import { getExpandedMajorEventAuthorityTranche40Server } from "./major-event-expanded-authority-tranche40.server";
 import { getExpandedMajorEventAuthorityTranche41Server } from "./major-event-expanded-authority-tranche41.server";
+import {
+  getMajorEventSchemaEnrichmentServer,
+  getMajorEventSchemaOccurrenceEnrichmentServer,
+} from "./major-event-schema-enrichment.server";
 
 const siteUrl = "https://texasdefined.com";
 const esc = (value: string | undefined) => (value ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\"/g, "&quot;").replace(/'/g, "&#39;");
@@ -165,8 +169,34 @@ export function loadMajorEventPageServer(slug: string) {
     ? [{ href: countyHref, label: `Explore ${event.countyName ?? "the county"}`, description: `Continue from ${event.name} into the county guide for places, communities and local resources.` }, ...event.relatedLinks]
     : event.relatedLinks;
   const related = relatedItems.map((item) => `<li><a class="font-semibold text-primary underline" href="${esc(item.href)}">${esc(item.label)}</a><span class="text-muted-foreground"> — ${esc(item.description)}</span></li>`).join("");
-  const sources = event.sources.map((source) => `<li><a class="font-semibold text-primary underline" href="${esc(source.url)}" target="_blank" rel="noreferrer noopener">${esc(source.label)} ↗</a></li>`).join("");
-  const html = `<nav class="mb-8 text-sm text-muted-foreground"><a href="/">Front page</a> / <a href="/events">Texas Events</a> / ${esc(event.name)}</nav><header class="border-b border-border pb-8"><p class="eyebrow text-primary">Major Texas event</p><h1 class="mt-3 font-display text-5xl sm:text-6xl">${esc(event.name)}</h1><p class="mt-5 text-lg text-muted-foreground">${esc(dateLabel)} · ${esc(placeLine)}</p>${event.dateNote ? `<p class="mt-4 text-sm text-muted-foreground">${esc(event.dateNote)}</p>` : ""}<p class="mt-5"><a class="font-semibold text-primary underline" href="${esc(event.officialUrl)}" target="_blank" rel="noreferrer noopener">Official event information ↗</a></p></header><section class="mt-12"><h2 class="font-display text-3xl">Why plan around ${esc(event.name)}?</h2><p class="mt-4 leading-7 text-muted-foreground">${esc(event.whyItMatters)}</p></section><section class="mt-12 border-t border-border pt-8"><h2 class="font-display text-3xl">Plan the visit</h2>${planning}</section><section class="mt-12 border-t border-border pt-8"><h2 class="font-display text-3xl">Keep exploring</h2><ul class="mt-4 space-y-3">${related}</ul></section><section class="mt-10 border-t border-border pt-8"><h2 class="font-display text-3xl">Official sources</h2><ul class="mt-4 space-y-3">${sources}</ul></section>`;
+  const schemaEnrichment = getMajorEventSchemaEnrichmentServer(event.slug);
+  const displayOffers = [
+    ...(schemaEnrichment?.offers ?? []),
+    ...Object.values(schemaEnrichment?.occurrences ?? {}).flatMap((item) => item.offers ?? []),
+  ].filter((offer, index, offers) => offers.findIndex((candidate) => `${candidate.name}|${candidate.url}|${candidate.price}` === `${offer.name}|${offer.url}|${offer.price}`) === index);
+  const displayPerformers = [
+    ...(schemaEnrichment?.performers ?? []),
+    ...Object.values(schemaEnrichment?.occurrences ?? {}).flatMap((item) => item.performers ?? []),
+  ].filter((item, index, performers) => performers.findIndex((candidate) => `${candidate.type}|${candidate.name}|${candidate.url ?? ""}` === `${item.type}|${item.name}|${item.url ?? ""}`) === index);
+  const organizerMarkup = schemaEnrichment?.organizer
+    ? `<p><strong>Organizer:</strong> <a class="font-semibold text-primary underline" href="${esc(schemaEnrichment.organizer.url)}" target="_blank" rel="noreferrer noopener">${esc(schemaEnrichment.organizer.name)} ↗</a></p>`
+    : "";
+  const offersMarkup = displayOffers.length
+    ? `<div><h3 class="font-display text-xl">Verified admission options</h3><ul class="mt-2 space-y-2">${displayOffers.map((offer) => `<li><a class="font-semibold text-primary underline" href="${esc(offer.url)}" target="_blank" rel="noreferrer noopener">${esc(offer.name)} — $${offer.price.toFixed(2)} ${offer.priceCurrency} ↗</a></li>`).join("")}</ul></div>`
+    : "";
+  const performersMarkup = displayPerformers.length
+    ? `<div><h3 class="font-display text-xl">Announced performers</h3><p class="mt-2 text-muted-foreground">${displayPerformers.map((item) => item.url ? `<a class="font-semibold text-primary underline" href="${esc(item.url)}" target="_blank" rel="noreferrer noopener">${esc(item.name)} ↗</a>` : esc(item.name)).join(", ")}</p></div>`
+    : "";
+  const imageMarkup = schemaEnrichment?.image
+    ? `<figure><img class="w-full rounded-xl" src="${esc(schemaEnrichment.image.url)}" alt="${esc(schemaEnrichment.image.alt)}" loading="lazy" decoding="async" /><figcaption class="mt-2 text-sm text-muted-foreground"><a class="underline" href="${esc(schemaEnrichment.image.sourceUrl)}" target="_blank" rel="noreferrer noopener">Image source ↗</a></figcaption></figure>`
+    : "";
+  const enrichmentMarkup = schemaEnrichment
+    ? `<section class="mt-12 border-t border-border pt-8"><h2 class="font-display text-3xl">Verified event details</h2><div class="mt-4 space-y-5">${imageMarkup}${organizerMarkup}${offersMarkup}${performersMarkup}<p class="text-sm text-muted-foreground">Official-source details checked ${esc(schemaEnrichment.verifiedAt)}. Ticket prices and lineups can change; confirm the linked official source before purchasing or traveling.</p></div></section>`
+    : "";
+  const mergedSources = [...event.sources, ...(schemaEnrichment?.sources ?? [])]
+    .filter((source, index, sources) => sources.findIndex((candidate) => candidate.url === source.url) === index);
+  const sources = mergedSources.map((source) => `<li><a class="font-semibold text-primary underline" href="${esc(source.url)}" target="_blank" rel="noreferrer noopener">${esc(source.label)} ↗</a></li>`).join("");
+  const html = `<nav class="mb-8 text-sm text-muted-foreground"><a href="/">Front page</a> / <a href="/events">Texas Events</a> / ${esc(event.name)}</nav><header class="border-b border-border pb-8"><p class="eyebrow text-primary">Major Texas event</p><h1 class="mt-3 font-display text-5xl sm:text-6xl">${esc(event.name)}</h1><p class="mt-5 text-lg text-muted-foreground">${esc(dateLabel)} · ${esc(placeLine)}</p>${event.dateNote ? `<p class="mt-4 text-sm text-muted-foreground">${esc(event.dateNote)}</p>` : ""}<p class="mt-5"><a class="font-semibold text-primary underline" href="${esc(event.officialUrl)}" target="_blank" rel="noreferrer noopener">Official event information ↗</a></p></header><section class="mt-12"><h2 class="font-display text-3xl">Why plan around ${esc(event.name)}?</h2><p class="mt-4 leading-7 text-muted-foreground">${esc(event.whyItMatters)}</p></section>${enrichmentMarkup}<section class="mt-12 border-t border-border pt-8"><h2 class="font-display text-3xl">Plan the visit</h2>${planning}</section><section class="mt-12 border-t border-border pt-8"><h2 class="font-display text-3xl">Keep exploring</h2><ul class="mt-4 space-y-3">${related}</ul></section><section class="mt-10 border-t border-border pt-8"><h2 class="font-display text-3xl">Official sources</h2><ul class="mt-4 space-y-3">${sources}</ul></section>`;
   const venueGuide = resolveSportsVenueEventLink(event.venue);
   const defaultLocation = {
     "@type": "Place",
@@ -181,18 +211,44 @@ export function loadMajorEventPageServer(slug: string) {
   const location = venueGuide
     ? { ...defaultLocation, name: event.venue, url: `${siteUrl}${venueGuide.href}` }
     : defaultLocation;
-  const schemaEvents = occurrenceWindows.map((window) => ({
-    "@type": "Event",
-    name: window.label ? `${event.name} — ${window.label}` : event.name,
-    description: event.whyItMatters,
-    url: canonicalUrl,
-    startDate: window.startDate,
-    endDate: window.endDate,
-    eventStatus: "https://schema.org/EventScheduled",
-    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-    sameAs: event.officialUrl,
-    location,
-  }));
+  const schemaEvents = occurrenceWindows.map((window) => {
+    const occurrenceEnrichment = getMajorEventSchemaOccurrenceEnrichmentServer(event.slug, window.label);
+    const organizer = occurrenceEnrichment?.organizer
+      ? {
+          "@type": occurrenceEnrichment.organizer.type,
+          name: occurrenceEnrichment.organizer.name,
+          ...(occurrenceEnrichment.organizer.url ? { url: occurrenceEnrichment.organizer.url } : {}),
+        }
+      : undefined;
+    const offers = occurrenceEnrichment?.offers?.map((offer) => ({
+      "@type": "Offer",
+      name: offer.name,
+      url: offer.url,
+      price: offer.price,
+      priceCurrency: offer.priceCurrency,
+    }));
+    const performers = occurrenceEnrichment?.performers?.map((item) => ({
+      "@type": item.type,
+      name: item.name,
+      ...(item.url ? { url: item.url } : {}),
+    }));
+    return {
+      "@type": "Event",
+      name: window.label ? `${event.name} — ${window.label}` : event.name,
+      description: event.whyItMatters,
+      url: canonicalUrl,
+      startDate: window.startDate,
+      endDate: window.endDate,
+      eventStatus: "https://schema.org/EventScheduled",
+      eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+      sameAs: event.officialUrl,
+      location,
+      ...(occurrenceEnrichment?.image ? { image: [occurrenceEnrichment.image.url] } : {}),
+      ...(organizer ? { organizer } : {}),
+      ...(offers?.length ? { offers } : {}),
+      ...(performers?.length ? { performer: performers } : {}),
+    };
+  });
   const jsonLd = JSON.stringify(schemaEvents.length === 1
     ? { "@context": "https://schema.org", ...schemaEvents[0] }
     : { "@context": "https://schema.org", "@graph": schemaEvents });
