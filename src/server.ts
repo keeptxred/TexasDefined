@@ -29,6 +29,7 @@ const ENTITY_REDIRECTS: Record<string, string> = {
   "/cavern/natural-bridge-caverns": "/destination/natural-bridge-caverns",
   "/beach/padre-island-national-seashore": "/destination/padre-island-national-seashore",
   "/historic-site/the-alamo": "/destination/the-alamo",
+  "/destination/courthouse-on-the-square-museum-denton": "/destination/denton-county-courthouse-on-the-square-museum",
   "/sports-venue/nrg-stadium": "/sports-venue/reliant-stadium",
   "/article/best-places-for-fall-colors-in-texas": "/article/best-texas-state-parks-for-fall-colors",
 };
