@@ -5,6 +5,7 @@ import { CitationTrustPanel } from '@/components/authority/CitationTrustPanel';
 import { Container } from '@/components/layout/Container';
 import { CountyPropertyTaxTemplate } from '@/components/property/CountyPropertyTaxTemplate';
 import { CountyTaxRateSection } from '@/components/property/CountyTaxRateSection';
+import { countyPropertyTaxCalculatorTarget } from '@/data/property/county-calculator-targets';
 import { getCountyPropertyRecordBySlug } from '@/data/property/county-property-data';
 import { isCountyPropertyIndexReady } from '@/data/property/county-property-schema';
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
@@ -96,6 +97,7 @@ export const Route = createFileRoute('/property-tax/county/$county')({
 
 function CountyPropertyTaxPage() {
   const { county } = Route.useLoaderData();
+  const calculatorTarget = countyPropertyTaxCalculatorTarget(county.slug);
   const sources = county.sourceUrls.map((url) => ({
     name: sourceName(url),
     url,
@@ -116,6 +118,25 @@ function CountyPropertyTaxPage() {
     <>
       <CountyPropertyTaxTemplate county={county} />
       <Container className="pb-12 sm:pb-16">
+        <section className="border-y border-border py-10" aria-labelledby="county-calculator-flow-heading">
+          <p className="eyebrow text-primary">Turn the rate data into a parcel estimate</p>
+          <h2 id="county-calculator-flow-heading" className="mt-2 font-display text-4xl">Calculate {county.name} property taxes</h2>
+          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">
+            {calculatorTarget.kind === 'local'
+              ? `Open the dedicated ${county.name} calculator, then choose the school district, municipality and only the special districts that actually serve the parcel.`
+              : `Open the statewide official-rate estimator with ${county.name} preselected, then choose the school district, municipality and only the special districts that actually serve the parcel.`}
+          </p>
+          <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            <a href={calculatorTarget.href} rel={calculatorTarget.follow ? undefined : 'nofollow'} className="border border-primary p-5 hover:bg-surface">
+              <span className="eyebrow text-primary">Primary calculator</span>
+              <strong className="mt-2 block font-display text-2xl">Estimate {county.name} taxes →</strong>
+              <span className="mt-2 block text-sm leading-6 text-muted-foreground">Use official local taxing-unit rates without substituting a countywide combined average.</span>
+            </a>
+            <a href="/texas-homestead-savings-calculator" className="border border-border p-5 hover:border-primary"><strong className="font-display text-xl">Homestead exemption calculator</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Model entered exemptions against the local rates that apply.</span></a>
+            <a href="/texas-property-tax-protest-savings-calculator" className="border border-border p-5 hover:border-primary"><strong className="font-display text-xl">Protest savings calculator</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Compare a proposed appraisal with a lower supportable value.</span></a>
+            <a href="/texas-property-tax-rate-history" className="border border-border p-5 hover:border-primary"><strong className="font-display text-xl">Tax-rate history</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Look up finalized local taxing-unit rates across available years.</span></a>
+          </div>
+        </section>
         <CountyTaxRateSection countySlug={county.slug} countyName={county.name} />
         <CitationTrustPanel
           sources={sources}

@@ -8,5 +8,5 @@ export const Route = createLazyFileRoute('/property-tax-calculator/$location')({
 
 function Page() {
   const { page } = Route.useLoaderData();
-  return <LocalPropertyTaxCalculatorPage profile={page.profile} />;
+  return <LocalPropertyTaxCalculatorPage profile={page.profile} verifiedCountyGuide={page.verifiedCountyGuide} />;
 }
