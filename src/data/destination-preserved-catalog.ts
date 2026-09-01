@@ -44,6 +44,7 @@ import { statewideMuseumExpansionWave27Destinations } from "./museum-expansion-s
 import { statewideMuseumExpansionWave28Destinations } from "./museum-expansion-statewide-wave28";
 import { statewideMuseumExpansionWave29Destinations } from "./museum-expansion-statewide-wave29";
 import { statewideMuseumExpansionWave30Destinations } from "./museum-expansion-statewide-wave30";
+import { statewideMuseumExpansionWave31Destinations } from "./museum-expansion-statewide-wave31";
 import { wacoMuseumDestinations } from "./museum-expansion-waco";
 import { nationalWildlifeRefugeDestinations } from "./national-wildlife-refuge-destinations";
 import { wildlifeManagementAreaWave1Destinations } from "./wildlife-management-area-destinations-wave1";
@@ -153,6 +154,7 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   statewideMuseumExpansionWave28Destinations,
   statewideMuseumExpansionWave29Destinations,
   statewideMuseumExpansionWave30Destinations,
+  statewideMuseumExpansionWave31Destinations,
   nationalWildlifeRefugeDestinations,
   wildlifeManagementAreaWave1Destinations,
   [newBraunfelsSeasonalFallback],
