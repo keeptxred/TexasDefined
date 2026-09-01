@@ -56,6 +56,9 @@ jobs:
       - name: Validate priority county property overlays
         run: node scripts/data/validate-priority-county-property-overlays.mjs
 
+      - name: Validate Phase 10 housing index-suppression contract
+        run: node scripts/data/validate-phase10-housing-indexing.mjs
+
       - name: Run authoritative validation suite
         run: node scripts/ci/run-validation-suite.mjs full
 

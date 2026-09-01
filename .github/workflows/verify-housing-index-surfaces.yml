@@ -1,0 +1,81 @@
+name: Verify housing index surfaces
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/verify-housing-index-surfaces.yml'
+      - 'scripts/ci/verify-housing-index-surfaces.mjs'
+      - 'scripts/data/validate-phase10-housing-indexing.mjs'
+      - 'src/lib/public-routes.ts'
+      - 'src/routes/sitemap*.ts'
+      - 'src/routes/buying-a-home-in-texas*.tsx'
+      - 'src/data/texas-homebuyer-journey*'
+      - 'src/data/local-property-tax-calculators.ts'
+      - 'src/data/local-property-tax-calculator-page*'
+      - 'src/routes/property-tax-calculator*.tsx'
+      - 'src/data/local-home-affordability*'
+      - 'src/routes/texas-home-affordability-calculator*.tsx'
+      - 'src/data/local-homeownership-cost*'
+      - 'src/routes/texas-homeownership-cost-calculator*.tsx'
+      - 'src/data/local-home-insurance*'
+      - 'src/routes/texas-home-insurance-calculator*.tsx'
+      - 'src/data/local-mortgage*'
+      - 'src/routes/texas-mortgage-calculator*.tsx'
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/verify-housing-index-surfaces.yml'
+      - 'scripts/ci/verify-housing-index-surfaces.mjs'
+      - 'scripts/data/validate-phase10-housing-indexing.mjs'
+      - 'src/lib/public-routes.ts'
+      - 'src/routes/sitemap*.ts'
+      - 'src/routes/buying-a-home-in-texas*.tsx'
+      - 'src/data/texas-homebuyer-journey*'
+      - 'src/data/local-property-tax-calculators.ts'
+      - 'src/data/local-property-tax-calculator-page*'
+      - 'src/routes/property-tax-calculator*.tsx'
+      - 'src/data/local-home-affordability*'
+      - 'src/routes/texas-home-affordability-calculator*.tsx'
+      - 'src/data/local-homeownership-cost*'
+      - 'src/routes/texas-homeownership-cost-calculator*.tsx'
+      - 'src/data/local-home-insurance*'
+      - 'src/routes/texas-home-insurance-calculator*.tsx'
+      - 'src/data/local-mortgage*'
+      - 'src/routes/texas-mortgage-calculator*.tsx'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: housing-index-surfaces-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-contract:
+    name: Validate Phase 10 housing index contract
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - name: Audit routing, sitemap and fail-closed indexability contracts
+        run: node scripts/data/validate-phase10-housing-indexing.mjs
+
+  verify-production:
+    name: Verify 92 live housing planning URLs
+    if: ${{ github.event_name != 'pull_request' }}
+    needs: validate-contract
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify live HTTP, canonicals, noindex, schema, sitemap and invalid-slug handling
+        run: node scripts/ci/verify-housing-index-surfaces.mjs
