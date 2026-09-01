@@ -16,7 +16,7 @@ import {
   texasRiverBasinsGuideStub,
   texasSettlementPatternsGuideStub,
 } from "./texas-explained-support-stubs";
-import { texasExplainedSupportStubs2 } from "./texas-explained-support-stubs-2";
+import { texasExplainedSupportStubs2, texasRailroadsTownGrowthGuideStub } from "./texas-explained-support-stubs-2";
 import { texasExplainedRiverProfileStubs } from "./texas-explained-river-profile-stubs";
 import { texasExplainedReservoirProfileStubs } from "./texas-explained-reservoir-profile-stubs";
 import { texasExplainedRoadSystemStubs } from "./texas-explained-road-system-stubs";
@@ -146,6 +146,12 @@ const buyingLandOfficialLinks: NonNullable<Article["internalLinks"]> = [
   { href: "https://www.txdot.gov/manuals/mnt/use/uses_of_right_of_way_long_term/access_driveways-i1001099.html", label: "TxDOT state-highway driveway access", description: "Official guidance for new or modified access driveways on the Texas state highway system." },
 ];
 
+const texasRailroadHistoryOfficialLinks: NonNullable<Article["internalLinks"]> = [
+  { href: "https://www.tshaonline.org/handbook/entries/railroads", label: "Handbook of Texas: Railroads", description: "Texas State Historical Association history of railroad development, expansion, consolidation and its relationship to Texas economic growth." },
+  { href: "https://www.tshaonline.org/handbook/entries/urbanization", label: "Handbook of Texas: Urbanization", description: "TSHA history of how rail access accelerated commerce and population growth in connected Texas towns while bypassed communities lost advantages." },
+  { href: "https://www.txdot.gov/projects/projects-studies/statewide/texas-rail-plan-update.html", label: "2024 Texas Rail Plan", description: "Current TxDOT statewide rail-system planning, network context and project priorities." },
+];
+
 const texasWildlifeOfficialLinks: NonNullable<Article["internalLinks"]> = [
   { href: "https://tpwd.texas.gov/huntwild/wild/species/", label: "Texas wildlife fact sheets", description: "Official TPWD species profiles for mammals, reptiles, birds and other Texas wildlife." },
   { href: "https://tpwd.texas.gov/wildlife/wildlife-diversity/urban-wildlife-program/", label: "TPWD Urban Wildlife Program", description: "Official guidance for wildlife in Texas cities and fast-growing metropolitan areas." },
@@ -197,7 +203,15 @@ export async function loadLazyEvergreenArticle(brandId: string, slug: string): P
   if (texasExplainedSupportStubs2.some((article) => article.slug === slug)) {
     const supportModule = await import("./texas-explained-support-articles-2");
     const article = Object.values(supportModule).find((candidate) => candidate.slug === slug);
-    return article ?? null;
+    if (!article) return null;
+    if (slug === texasRailroadsTownGrowthGuideStub.slug) {
+      return addSourceLinks({
+        ...article,
+        sourceName: "Texas State Historical Association — Railroads",
+        sourceUrl: "https://www.tshaonline.org/handbook/entries/railroads",
+      }, texasRailroadHistoryOfficialLinks);
+    }
+    return article;
   }
 
   if (texasExplainedRiverProfileStubs.some((article) => article.slug === slug)) {
