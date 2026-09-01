@@ -3,6 +3,7 @@ import path from 'node:path';
 
 const routeTree = fs.readFileSync('src/routeTree.gen.ts', 'utf8');
 const registry = fs.readFileSync('src/lib/public-routes.ts', 'utf8');
+const sitemap = fs.readFileSync('src/routes/sitemap[.]xml.ts', 'utf8');
 const failures = [];
 
 const extractArray = (name) => {
@@ -68,6 +69,61 @@ for (const routePath of derivedRedirects) {
 }
 const redirects = [...new Set([...explicitRedirects, ...derivedRedirects])];
 const classified = new Set([...indexable, ...conditional, ...redirects, ...nonIndexable]);
+
+const dynamicFinancialRouteContracts = [
+  {
+    pattern: '/property-tax-calculator/$location',
+    routeFile: 'src/routes/property-tax-calculator.$location.tsx',
+    profileFile: 'src/data/local-property-tax-calculators.ts',
+    profileMap: 'LOCAL_PROPERTY_TAX_PROFILE_BY_SLUG',
+    sitemapRegistry: 'LOCAL_PROPERTY_TAX_PROFILES',
+    sitemapPath: 'profile.path',
+  },
+  {
+    pattern: '/texas-home-affordability-calculator/$location',
+    routeFile: 'src/routes/texas-home-affordability-calculator_.$location.tsx',
+    profileFile: 'src/data/local-home-affordability.ts',
+    profileMap: 'LOCAL_HOME_AFFORDABILITY_PROFILE_BY_SLUG',
+    sitemapRegistry: 'LOCAL_HOME_AFFORDABILITY_PROFILES',
+    sitemapPath: 'profile.path',
+  },
+  {
+    pattern: '/texas-homeownership-cost-calculator/$location',
+    routeFile: 'src/routes/texas-homeownership-cost-calculator_.$location.tsx',
+    profileFile: 'src/data/local-homeownership-cost.ts',
+    profileMap: 'LOCAL_HOMEOWNERSHIP_COST_PROFILE_BY_SLUG',
+    sitemapRegistry: 'LOCAL_HOMEOWNERSHIP_COST_PROFILES',
+    sitemapPath: 'profile.ownershipPath',
+  },
+  {
+    pattern: '/texas-home-insurance-calculator/$location',
+    routeFile: 'src/routes/texas-home-insurance-calculator_.$location.tsx',
+    profileFile: 'src/data/local-home-insurance.ts',
+    profileMap: 'LOCAL_HOME_INSURANCE_PROFILE_BY_SLUG',
+    sitemapRegistry: 'LOCAL_HOME_INSURANCE_PROFILES',
+    sitemapPath: 'profile.insurancePath',
+  },
+  {
+    pattern: '/texas-mortgage-calculator/$location',
+    routeFile: 'src/routes/texas-mortgage-calculator_.$location.tsx',
+    profileFile: 'src/data/local-mortgage.ts',
+    profileMap: 'LOCAL_MORTGAGE_PROFILE_BY_SLUG',
+    sitemapRegistry: 'LOCAL_MORTGAGE_PROFILES',
+    sitemapPath: 'profile.mortgagePath',
+  },
+];
+for (const contract of dynamicFinancialRouteContracts) {
+  const routeSource = sourceByFile.get(contract.routeFile) ?? '';
+  const profileSource = sourceByFile.get(contract.profileFile) ?? '';
+  const prefix = contract.pattern.slice(0, contract.pattern.indexOf('$location'));
+  const handRegisteredChildren = indexable.filter((routePath) => routePath.startsWith(prefix));
+  if (!routeSource.includes(`createFileRoute('${contract.pattern}')`) && !routeSource.includes(`createFileRoute("${contract.pattern}")`)) failures.push(`Governed dynamic calculator route source is missing ${contract.pattern} (${contract.routeFile}).`);
+  if (!routeSource.includes('notFound()')) failures.push(`Governed dynamic calculator route must fail closed for unknown slugs with notFound(): ${contract.pattern}.`);
+  if (!profileSource.includes(contract.profileMap)) failures.push(`Governed dynamic calculator family is missing its slug allowlist map ${contract.profileMap} (${contract.profileFile}).`);
+  if (handRegisteredChildren.length) failures.push(`Dynamic calculator children must come from the governed profile registry, not INDEXABLE_STATIC_PATHS (${contract.pattern}): ${handRegisteredChildren.join(', ')}.`);
+  const sitemapMarker = `...${contract.sitemapRegistry}.map((profile) => ({ path: ${contract.sitemapPath}`;
+  if (!sitemap.includes(sitemapMarker)) failures.push(`Primary sitemap must emit ${contract.pattern} children only from ${contract.sitemapRegistry}.`);
+}
 
 const registeredStaticPublicPaths = new Set([...routeTree.matchAll(/\bpath:\s*'([^']+)'/g)].map((match) => normalize(match[1])).filter(shouldCountPublicRoute));
 for (const entry of sourceRouteEntries) if (shouldCountPublicRoute(entry.path)) registeredStaticPublicPaths.add(entry.path);
@@ -145,4 +201,4 @@ for (const routePath of [...indexable, ...conditional]) {
   if (conditional.includes(routePath) && !/noindex/i.test(routeSource)) failures.push(`Conditional route does not expose an explicit noindex state: ${routePath} (${routeFile}).`);
 }
 if (failures.length) { console.error('Public-route governance validation failed:'); for (const failure of failures) console.error(`- ${failure}`); process.exit(1); }
-console.log(`Public-route governance passed for ${registeredStaticPublicPaths.size} static routes, ${indexable.length} always-indexable routes, ${conditional.length} conditional routes, and ${redirects.length} verified permanent redirect-only routes (${explicitRedirects.length} explicitly registered, ${derivedRedirects.length} source-derived before de-duplication); every permanent redirect is explicitly crawl-governed and normal site content does not link back into redirect-only URLs unless an exact verified runtime normalizer maps the legacy source path to its canonical target.`);
+console.log(`Public-route governance passed for ${registeredStaticPublicPaths.size} static routes, ${indexable.length} always-indexable routes, ${conditional.length} conditional routes, ${redirects.length} verified permanent redirect-only routes, and ${dynamicFinancialRouteContracts.length} governed dynamic financial-calculator families (${explicitRedirects.length} explicitly registered redirects, ${derivedRedirects.length} source-derived before de-duplication); every governed dynamic calculator family rejects unknown slugs, stays registry-backed in the sitemap, and avoids hand-registering child URLs in INDEXABLE_STATIC_PATHS.`);
