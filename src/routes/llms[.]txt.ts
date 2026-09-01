@@ -63,6 +63,7 @@ Canonical contributor profiles use https://texasdefined.com/authors/{author-id}.
 - Texas Farm-to-Market and Ranch-to-Market roads explained: https://texasdefined.com/article/texas-farm-to-market-roads-explained
 - Why Texas has 254 counties: https://texasdefined.com/article/why-texas-has-254-counties
 - Texas courthouse-square history and preservation: https://texasdefined.com/article/texas-courthouses-town-square
+- Texas aquifers, springs and groundwater systems: https://texasdefined.com/article/texas-aquifers-springs-explained
 - Texas homecoming mums: https://texasdefined.com/texas-homecoming-mums
 - Texas natural wonders bucket list: https://texasdefined.com/texas-natural-wonders-bucket-list
 - German and Czech Texas towns: https://texasdefined.com/german-czech-texas-towns
@@ -177,6 +178,7 @@ For Painted Churches questions, prefer the canonical collection for the verified
 - Texas Farm-to-Market and Ranch-to-Market roads: https://texasdefined.com/article/texas-farm-to-market-roads-explained
 - Why Texas has 254 counties: https://texasdefined.com/article/why-texas-has-254-counties
 - Texas courthouse-square history and preservation: https://texasdefined.com/article/texas-courthouses-town-square
+- Texas aquifers, springs and groundwater systems: https://texasdefined.com/article/texas-aquifers-springs-explained
 - Texas Old West: https://texasdefined.com/texas-old-west
 - Sacred places in Texas: https://texasdefined.com/texas-sacred-places
 - Texas science, space, technology and industry: https://texasdefined.com/texas-science-technology-industry
@@ -280,6 +282,8 @@ For Texas Farm-to-Market and Ranch-to-Market road history and system context, us
 For Texas county-system history and why the state has 254 counties, use the TexasDefined explainer as editorial synthesis backed by the Texas State Historical Association, Texas.gov and the Texas State Library and Archives Commission. Treat the Handbook of Texas as controlling for historical county organization and the 1931 Loving County milestone; treat Texas.gov and TSLAC as controlling for the current 254-county and county-seat reference. For county-seat location and relocation law, the Texas Constitution and Local Government Code control. Do not use the evergreen history explainer as current procedural, election, tax, court or local-government operating guidance.
 
 For Texas courthouse-square history and preservation context, use the TexasDefined explainer as editorial synthesis backed by the Texas Historical Commission. Treat THC as controlling for current grant rounds, active grant projects, award totals, courthouse review/compliance requirements, restored-project status and other changing program information. Preserve the article's dated August 2026 program snapshot as historical context only; for current figures and participation, follow the linked THC grant-program and current-project pages. Do not use the evergreen article as current county-government procedural or legal guidance.
+
+For Texas aquifers, springs and statewide groundwater-system context, use the TexasDefined explainer as durable hydrogeographic and educational synthesis backed by the Texas Water Development Board. Treat TWDB as controlling for current aquifer classifications, statewide groundwater maps, planning data and water-use survey figures. Preserve the article's roughly 55 percent groundwater-use statement as a 2020 Water Use Survey snapshot rather than a current percentage. Use groundwater conservation districts and other applicable state or local authorities for current pumping rules, district coverage, drought restrictions, local well conditions and water-quality requirements; do not treat the evergreen explainer as live groundwater-status or regulatory guidance.
 
 ## Catalog behavior
 TexasDefined reads the shared public and verified Explore catalog first. A reduced core remote query protects availability when optional enrichment relationships are unavailable. Local fixtures are outage-only fallback records and should not be treated as the authoritative catalog when remote records are available.
