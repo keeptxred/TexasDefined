@@ -4,11 +4,14 @@ const stubs = fs.readFileSync('src/data/fixtures/texas-explained-support-stubs-2
 const loader = fs.readFileSync('src/data/fixtures/lazy-evergreen.ts', 'utf8');
 const articleSource = fs.readFileSync('src/data/fixtures/texas-explained-support-articles-2.ts', 'utf8');
 const articleRoute = fs.readFileSync('src/routes/article.$slug.tsx', 'utf8');
+const llms = fs.readFileSync('src/routes/llms[.]txt.ts', 'utf8');
+const citationMagnets = JSON.parse(fs.readFileSync('public/citation-magnets.json', 'utf8'));
 const failures = [];
 
 const railroadHistory = 'https://www.tshaonline.org/handbook/entries/railroads';
 const urbanizationHistory = 'https://www.tshaonline.org/handbook/entries/urbanization';
 const currentRailPlan = 'https://www.txdot.gov/projects/projects-studies/statewide/texas-rail-plan-update.html';
+const railroadMachineUrl = 'https://texasdefined.com/article/texas-railroads-town-growth-explained';
 
 const railroadStubMatch = stubs.match(/export const texasRailroadsTownGrowthGuideStub:[\s\S]*?export const texasRuralWellsWaterGuideStub:/);
 const railroadStub = railroadStubMatch?.[0] ?? '';
@@ -54,10 +57,39 @@ for (const token of [
   if (!articleRoute.includes(token)) failures.push(`Article route source/citation contract missing: ${token}`);
 }
 
+for (const token of [
+  `- Texas railroad town-growth history: ${railroadMachineUrl}`,
+  "Treat TSHA's Handbook of Texas railroad and urbanization entries as controlling for historical development context.",
+  "Treat TxDOT's current Texas Rail Plan and current rail-system sources as controlling for present-day network, planning, project and operational information.",
+  'Do not use the evergreen history article as current passenger-service, freight-operations, project-status, schedule or safety guidance.',
+]) {
+  if (!llms.includes(token)) failures.push(`Texas railroad machine-discovery guidance missing: ${token}`);
+}
+
+const railroadMagnets = citationMagnets.resources?.filter((resource) => resource.url === railroadMachineUrl) ?? [];
+if (railroadMagnets.length !== 1) {
+  failures.push(`Texas railroad citation-magnet entry count must be exactly one; found ${railroadMagnets.length}.`);
+} else {
+  const railroadMagnet = railroadMagnets[0];
+  for (const token of [
+    'TSHA-railroad-history',
+    'TSHA-urbanization-history',
+    'TxDOT-current-rail-network',
+    'official-source-precedence',
+    'Article-schema-citation',
+    'current-operations-caveat',
+  ]) {
+    if (!railroadMagnet.trust?.includes(token)) failures.push(`Texas railroad citation-magnet trust contract missing: ${token}`);
+  }
+  if (railroadMagnet.trust?.includes('TxDOT-primary-source')) {
+    failures.push('Texas railroad citation magnet must not present TxDOT as the primary historical source.');
+  }
+}
+
 if (failures.length) {
   console.error('Texas railroad town-growth authority validation failed:');
   failures.forEach((failure) => console.error(`- ${failure}`));
   process.exit(1);
 }
 
-console.log('Texas railroad town-growth authority validation passed: TSHA controls the historical railroad and urbanization claims, TxDOT remains the current rail-system source, and the canonical Article citation contract stays intact.');
+console.log('Texas railroad town-growth authority validation passed: TSHA controls historical railroad and urbanization claims, TxDOT controls current rail-system information, the Article citation contract stays intact, and both machine-discovery surfaces remain fail-closed.');
