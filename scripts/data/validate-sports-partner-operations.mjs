@@ -4,7 +4,7 @@ import path from 'node:path';
 const root = process.cwd();
 const read = (file) => fs.readFile(path.join(root, file), 'utf8');
 
-const [migration, promotionMigration, server, functions, promotionServer, promotionFunctions, routeHead, routeLazy, adminLayout, partnerRoute, venueGuide, venueDirectory] = await Promise.all([
+const [migration, promotionMigration, server, functions, promotionServer, promotionFunctions, routeHead, routeLazy, adminLayout, partnerRouteHead, partnerRouteLazy, venueGuide, venueDirectory] = await Promise.all([
   read('supabase/migrations/20260814040011_create_texasdefined_admin_access_keys.sql'),
   read('supabase/migrations/20260814042306_link_sports_partner_leads_to_sponsors.sql'),
   read('src/data/sports-partner-leads.server.ts'),
@@ -15,14 +15,16 @@ const [migration, promotionMigration, server, functions, promotionServer, promot
   read('src/routes/admin.sports-partners.lazy.tsx'),
   read('src/routes/admin.tsx'),
   read('src/routes/partner-with-us.tsx'),
+  read('src/routes/partner-with-us.lazy.tsx'),
   read('src/routes/sports-venue.$slug.tsx'),
   read('src/routes/sports-venues.tsx'),
 ]);
 
-// TanStack file routes split route metadata from the lazy operator UI. Validate
+// TanStack file routes split route metadata from lazy operator/public UI. Validate
 // both halves as one protected route so lazy loading cannot hide missing privacy,
 // access-control, promotion, attribution, or workflow behavior.
 const route = `${routeHead}\n${routeLazy}`;
+const partnerRoute = `${partnerRouteHead}\n${partnerRouteLazy}`;
 
 const errors = [];
 const assert = (condition, message) => { if (!condition) errors.push(message); };
