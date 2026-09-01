@@ -42,6 +42,15 @@ const localCostOfLivingTools = [
   ["Frisco", "/texas-cost-of-living-calculator/frisco"],
   ["El Paso", "/texas-cost-of-living-calculator/el-paso"],
 ] as const;
+const localRentVsBuyTools = [
+  ["Houston", "/texas-rent-vs-buy-calculator/houston"],
+  ["Austin", "/texas-rent-vs-buy-calculator/austin"],
+  ["Dallas", "/texas-rent-vs-buy-calculator/dallas"],
+  ["Fort Worth", "/texas-rent-vs-buy-calculator/fort-worth"],
+  ["San Antonio", "/texas-rent-vs-buy-calculator/san-antonio"],
+  ["Frisco", "/texas-rent-vs-buy-calculator/frisco"],
+  ["El Paso", "/texas-rent-vs-buy-calculator/el-paso"],
+] as const;
 
 export const Route = createLazyFileRoute("/moving-to-texas")({ component: MovingToTexasPage });
 
@@ -79,6 +88,12 @@ function MovingToTexasPage() {
         <div className="flex flex-wrap items-end justify-between gap-4"><div><p className="eyebrow text-primary">Household budget after the move</p><h2 id="moving-texas-cost-living" className="mt-2 font-display text-3xl">Compare the recurring budget city by city</h2></div><Link to="/texas-cost-of-living-calculator" className="text-sm font-semibold text-primary">Statewide cost-of-living calculator →</Link></div>
         <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These city planners do not assign a universal local cost index. Start with what your household spends now, then replace housing, transportation, utilities, insurance, food and other recurring costs with the best address-specific estimates you have for the move.</p>
         <div className="mt-6 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">{localCostOfLivingTools.map(([name, href]) => <a key={href} href={href} className="group bg-background p-5"><strong className="font-display text-2xl group-hover:text-primary">{name}</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Cost-of-living budget planner →</span></a>)}</div>
+      </section>
+
+      <section className="mb-12 border-b border-border pb-10" aria-labelledby="moving-texas-rent-buy">
+        <div><p className="eyebrow text-primary">Rent or buy?</p><h2 id="moving-texas-rent-buy" className="mt-2 font-display text-3xl">Compare the two housing paths with the same time horizon</h2></div>
+        <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These planners do not assume a citywide rent, home price or property-tax rate. Enter the rental, purchase, financing, insurance, maintenance, appreciation and transaction-cost assumptions for the specific alternatives you are considering.</p>
+        <div className="mt-6 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">{localRentVsBuyTools.map(([name, href]) => <a key={href} href={href} className="group bg-background p-5"><strong className="font-display text-2xl group-hover:text-primary">{name}</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Rent-vs.-buy planner →</span></a>)}</div>
       </section>
 
       <div className="mb-10 flex flex-wrap gap-x-7 gap-y-3 border-b border-border pb-7 text-sm font-semibold">
