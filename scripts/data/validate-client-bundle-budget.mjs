@@ -63,6 +63,11 @@ async function main() {
 }
 
 main().catch((error) => {
-  console.error(error instanceof Error ? error.message : error);
+  const message = error instanceof Error ? error.message : String(error);
+  if (process.env.GITHUB_ACTIONS === 'true') {
+    console.error(`::error title=Client performance budget::${message}`);
+  } else {
+    console.error(message);
+  }
   process.exit(1);
 });
