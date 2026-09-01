@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
-import { TEXAS_ROUTE_66_STOPS } from "@/data/texas-route-66";
+import type { TexasRoute66Stop } from "@/data/texas-route-66";
 
 const itineraryPlans = [
   {
@@ -29,7 +29,7 @@ const practicalNotes = [
   "Abandoned does not mean public. Glenrio and other roadside remnants include private property and unstable structures. Photograph from lawful public areas and never enter a closed building without permission.",
 ] as const;
 
-export function TexasRoute66Hub() {
+export function TexasRoute66Hub({ stops }: { stops: readonly TexasRoute66Stop[] }) {
   return <>
     <Container className="pb-10 pt-12 sm:pt-16">
       <nav aria-label="Breadcrumb" className="border-b border-border pb-4 text-xs uppercase tracking-[0.14em] text-muted-foreground">
@@ -46,7 +46,7 @@ export function TexasRoute66Hub() {
       </header>
       <section className="grid gap-4 border-y border-border py-7 sm:grid-cols-4" aria-label="Route at a glance">
         <div><p className="text-xs uppercase tracking-[0.14em] text-muted-foreground">Historic corridor</p><p className="mt-2 font-display text-3xl">≈178 miles</p></div>
-        <div><p className="text-xs uppercase tracking-[0.14em] text-muted-foreground">Texas guides</p><p className="mt-2 font-display text-3xl">{TEXAS_ROUTE_66_STOPS.length}</p></div>
+        <div><p className="text-xs uppercase tracking-[0.14em] text-muted-foreground">Texas guides</p><p className="mt-2 font-display text-3xl">{stops.length}</p></div>
         <div><p className="text-xs uppercase tracking-[0.14em] text-muted-foreground">Best pace</p><p className="mt-2 font-display text-3xl">2 days</p></div>
         <div><p className="text-xs uppercase tracking-[0.14em] text-muted-foreground">Direction here</p><p className="mt-2 font-display text-3xl">East → west</p></div>
       </section>
@@ -70,7 +70,7 @@ export function TexasRoute66Hub() {
         <p className="mt-5 text-base leading-8 text-muted-foreground">Each stop below has its own TexasDefined planning page. The sequence follows the historic corridor from the Oklahoma line toward New Mexico rather than ranking stops by popularity.</p>
       </div>
       <ol className="mt-10 border-t border-border">
-        {TEXAS_ROUTE_66_STOPS.map((stop, index) => (
+        {stops.map((stop, index) => (
           <li key={stop.slug} className="grid gap-4 border-b border-border py-7 sm:grid-cols-[5rem_1fr_auto] sm:items-start">
             <div className="font-display text-3xl text-muted-foreground">{String(index + 1).padStart(2, "0")}</div>
             <div>
