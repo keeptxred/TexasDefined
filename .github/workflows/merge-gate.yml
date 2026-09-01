@@ -62,6 +62,9 @@ jobs:
       - name: Run authoritative validation suite
         run: node scripts/ci/run-validation-suite.mjs full
 
+      - name: Validate Texas aquifers machine discovery
+        run: node scripts/data/validate-texas-aquifers-springs-machine-discovery.mjs
+
       - name: Validate mountain biking authority
         run: node scripts/data/validate-mountain-biking-authority.mjs
 
