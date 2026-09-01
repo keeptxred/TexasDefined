@@ -99,6 +99,7 @@ export function buildEventsPageHeadServer(events: TexasEvent[], regions: EventsP
   const canonicalPath = "/events";
   const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
   const pageUrl = `${siteUrl}${canonicalPath}`;
+  void regions;
   const eventItems = events.slice(0, 50).map((event, index) => {
     const eventUrl = event.id.startsWith("authority:") ? `${siteUrl}/event/${event.slug}` : `${pageUrl}#${event.id}`;
 
