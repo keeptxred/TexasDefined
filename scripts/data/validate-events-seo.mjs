@@ -28,7 +28,10 @@ for (const feature of [
   'eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode"',
   'description: event.whyItMatters',
   'startDate: window.startDate',
-  'location: { "@type": "Place"',
+  'const defaultLocation = {',
+  '"@type": "Place"',
+  'const location = venueGuide',
+  'location,',
 ]) {
   if (!eventLeaf.includes(feature)) errors.push(`Dedicated Event leaf SEO feature missing: ${feature}.`);
 }
@@ -63,4 +66,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Events server-owned CollectionPage/WebPage ItemList, dedicated Event leaf schema, canonical metadata, and visible breadcrumb validation passed.');
+console.log('Events server-owned CollectionPage/WebPage ItemList, dedicated enriched Event leaf schema, canonical metadata, and visible breadcrumb validation passed.');
