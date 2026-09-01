@@ -11,6 +11,7 @@ const collectionLoaderPath = path.join(dataDir, "event-collection-page.server.ts
 const directoryPath = path.join(dataDir, "major-event-directory.server.ts");
 const collectionRoutePath = path.join(root, "src", "routes", "events.$collection.tsx");
 const eventsRoutePath = path.join(root, "src", "routes", "events.tsx");
+const eventsLazyRoutePath = path.join(root, "src", "routes", "events.lazy.tsx");
 const publicRoutesPath = path.join(root, "src", "lib", "public-routes.ts");
 
 const read = (file) => fs.readFileSync(file, "utf8");
@@ -27,6 +28,8 @@ const collectionLoader = read(collectionLoaderPath);
 const directory = read(directoryPath);
 const collectionRoute = read(collectionRoutePath);
 const eventsRoute = read(eventsRoutePath);
+const eventsLazyRoute = read(eventsLazyRoutePath);
+const eventsVisibleRoute = `${eventsRoute}\n${eventsLazyRoute}`;
 const publicRoutes = read(publicRoutesPath);
 const trancheFiles = fs
   .readdirSync(dataDir)
@@ -153,11 +156,15 @@ for (const marker of [
 for (const marker of [
   "getMajorEventLandingDirectory",
   "getEventsPageHead",
-  "eventTopicLinks.map",
-  "eventRegionLinks.map",
   "head: ({ loaderData }) => loaderData?.head ?? {}",
 ]) {
-  if (!eventsRoute.includes(marker)) fail(`Texas Events hub is missing server-backed discovery/head marker: ${marker}`);
+  if (!eventsRoute.includes(marker)) fail(`Texas Events eager route is missing server-backed discovery/head marker: ${marker}`);
+}
+for (const marker of [
+  "eventTopicLinks.map",
+  "eventRegionLinks.map",
+]) {
+  if (!eventsVisibleRoute.includes(marker)) fail(`Texas Events eager/lazy UI is missing server-backed discovery marker: ${marker}`);
 }
 
 if (/major-event-expanded-authority(?:-tranche\d+)?\.server/.test(collections) || /major-event-expanded-authority(?:-tranche\d+)?\.server/.test(collectionRoute)) {

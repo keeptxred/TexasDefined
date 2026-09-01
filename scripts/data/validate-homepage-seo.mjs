@@ -10,7 +10,10 @@ const route = `${eagerRoute}\n${lazyRoute}`;
 const featureHero = read('src/components/editorial/FeatureHero.tsx');
 const homepageContent = read('src/content/homepage.ts');
 const rootRoute = read('src/routes/__root.tsx');
-const aboutRoute = read('src/routes/about.tsx');
+const aboutEagerRoute = read('src/routes/about.tsx');
+const aboutLazyRoutePath = path.join(root, 'src/routes/about.lazy.tsx');
+const aboutLazyRoute = fs.existsSync(aboutLazyRoutePath) ? fs.readFileSync(aboutLazyRoutePath, 'utf8') : '';
+const aboutRoute = `${aboutEagerRoute}\n${aboutLazyRoute}`;
 const robots = read('public/robots.txt');
 const errors = [];
 

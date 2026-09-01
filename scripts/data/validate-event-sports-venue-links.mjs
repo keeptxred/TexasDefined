@@ -1,10 +1,11 @@
 import fs from 'node:fs/promises';
 
 const read = (path) => fs.readFile(path, 'utf8');
-const [resolver, eventCard, eventsRoute, eventServerHead, corrections, generatedEvents, countyEventsServer, countyEventsBridge, countyDestinations, eventPage, dateFormatting, eventDisposition, supplementalRegistry, majorEventIndex] = await Promise.all([
+const [resolver, eventCard, eventsRoute, eventsLazyRoute, eventServerHead, corrections, generatedEvents, countyEventsServer, countyEventsBridge, countyDestinations, eventPage, dateFormatting, eventDisposition, supplementalRegistry, majorEventIndex] = await Promise.all([
   read('src/data/sports-venue-event-links.ts'),
   read('src/components/editorial/EventCard.tsx'),
   read('src/routes/events.tsx'),
+  read('src/routes/events.lazy.tsx'),
   read('src/data/major-event-directory.server.ts'),
   read('src/data/knowledge-graph/current-entity-corrections.ts'),
   read('src/data/events-generated.ts'),
@@ -17,6 +18,7 @@ const [resolver, eventCard, eventsRoute, eventServerHead, corrections, generated
   read('src/data/major-event-supplemental-registry.server.ts'),
   read('src/data/major-event-index.ts'),
 ]);
+const eventsVisibleRoute = `${eventsRoute}\n${eventsLazyRoute}`;
 
 const errors = [];
 const assert = (condition, message) => { if (!condition) errors.push(message); };
@@ -54,8 +56,8 @@ assert(eventCard.includes('Plan the venue'), 'Matched regular events must expose
 assert(eventServerHead.includes('const venueGuide = resolveSportsVenueEventLink(event.venue)'), 'Event JSON-LD must resolve venue links from the stored venue value only.');
 assert(/const location = venueGuide\s*\?\s*\{\s*\.\.\.defaultLocation[\s\S]*?\}\s*:\s*defaultLocation;/.test(eventServerHead), 'Event JSON-LD must preserve its existing default location when no exact venue match exists.');
 assert(eventServerHead.includes('resolveSportsVenueEventLink(featured?.venue)'), 'Featured event must use the exact resolver on the server presentation boundary.');
-assert(eventsRoute.includes('featuredVenueGuide &&'), 'Featured unmatched events must remain unlinked.');
-assert(eventsRoute.includes('featuredVenueGuide, featuredDateLabel'), 'Featured venue/date presentation must be consumed from server-owned route data.');
+assert(eventsVisibleRoute.includes('featuredVenueGuide &&'), 'Featured unmatched events must remain unlinked.');
+assert(eventsVisibleRoute.includes('featuredVenueGuide, featuredDateLabel'), 'Featured venue/date presentation must be consumed from server-owned route data.');
 
 // Recurring event identity must not be keyed by occurrence date. Source-controlled sync rows
 // own a matching name+city identity even when a row becomes unpublished/canceled; otherwise
@@ -108,4 +110,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Event integrity validated: exact sports-venue links, server-owned event schema presentation, source-controlled recurring-event precedence, accurate date claims, single-day date formatting, 75-seed source disposition, and bidirectional server-backed county event discovery are protected.');
+console.log('Event integrity validated: exact sports-venue links, server-owned event schema presentation, lazy-safe featured presentation, source-controlled recurring-event precedence, accurate date claims, single-day date formatting, 75-seed source disposition, and bidirectional server-backed county event discovery are protected.');

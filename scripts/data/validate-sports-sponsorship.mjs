@@ -4,7 +4,7 @@ import path from 'node:path';
 const root = process.cwd();
 const read = (file) => fs.readFile(path.join(root, file), 'utf8');
 
-const [schemaMigration, deliveryMigration, server, functions, component, directory, guide, galaxy, adminHead, adminLazy, adminNav, partnerPage, salesPlaybook] = await Promise.all([
+const [schemaMigration, deliveryMigration, server, functions, component, directory, guide, galaxy, adminHead, adminLazy, adminNav, partnerPageHead, partnerPageLazy, salesPlaybook] = await Promise.all([
   read('supabase/migrations/20260814041151_create_governed_sports_sponsorship.sql'),
   read('supabase/migrations/20260814041302_govern_sports_sponsor_delivery.sql'),
   read('src/data/sports-sponsorship.server.ts'),
@@ -17,13 +17,15 @@ const [schemaMigration, deliveryMigration, server, functions, component, directo
   read('src/routes/admin.sports-sponsors.lazy.tsx'),
   read('src/routes/admin.tsx'),
   read('src/routes/partner-with-us.tsx'),
+  read('src/routes/partner-with-us.lazy.tsx'),
   read('docs/SPORTS_SPONSORSHIP_SALES_PLAYBOOK.md'),
 ]);
 
-// The sponsorship console is deliberately split into route metadata and a lazy
-// operator UI. Treat both files as one route contract while retaining all
+// The sponsorship console and public partner page deliberately split route
+// metadata from lazy UI. Treat each pair as one contract while retaining all
 // security, approval, privacy, reporting and commercial-integrity assertions.
 const admin = `${adminHead}\n${adminLazy}`;
+const partnerPage = `${partnerPageHead}\n${partnerPageLazy}`;
 
 const errors = [];
 const assert = (condition, message) => { if (!condition) errors.push(message); };

@@ -69,6 +69,23 @@ const PAINTED_CHURCH_STATIC_PATHS = [
   "/explore/painted-churches/then-and-now",
 ] as const;
 
+const TEXAS_ROUTE_66_STATIC_PATHS = [
+  "/explore/route-66/texas-road-trip",
+  "/explore/route-66/shamrock",
+  "/explore/route-66/lela",
+  "/explore/route-66/mclean",
+  "/explore/route-66/alanreed",
+  "/explore/route-66/groom",
+  "/explore/route-66/conway",
+  "/explore/route-66/washburn",
+  "/explore/route-66/amarillo",
+  "/explore/route-66/bushland",
+  "/explore/route-66/wildorado",
+  "/explore/route-66/vega",
+  "/explore/route-66/adrian",
+  "/explore/route-66/glenrio",
+] as const;
+
 function escapeXml(value: string): string {
   return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\"/g, "&quot;").replace(/'/g, "&apos;");
 }
@@ -175,6 +192,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           "/explore/top-attractions",
           "/explore/top-attractions/methodology",
           "/explore/top-attractions/road-trips",
+          ...TEXAS_ROUTE_66_STATIC_PATHS,
           "/explore/landscapes",
           ...landscapeSlugs.map((slug) => `/explore/landscapes/${slug}`),
           ...landscapeGuideSlugs.map((slug) => `/explore/landscapes/${slug}`),
