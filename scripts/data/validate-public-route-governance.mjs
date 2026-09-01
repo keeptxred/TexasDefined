@@ -111,6 +111,14 @@ const dynamicFinancialRouteContracts = [
     sitemapRegistry: 'LOCAL_MORTGAGE_PROFILES',
     sitemapPath: 'profile.mortgagePath',
   },
+  {
+    pattern: '/texas-cost-of-living-calculator/$location',
+    routeFile: 'src/routes/texas-cost-of-living-calculator_.$location.tsx',
+    profileFile: 'src/data/local-cost-of-living.ts',
+    profileMap: 'LOCAL_COST_OF_LIVING_PROFILE_BY_SLUG',
+    sitemapRegistry: 'LOCAL_COST_OF_LIVING_PROFILES',
+    sitemapPath: 'profile.path',
+  },
 ];
 for (const contract of dynamicFinancialRouteContracts) {
   const routeSource = sourceByFile.get(contract.routeFile) ?? '';
