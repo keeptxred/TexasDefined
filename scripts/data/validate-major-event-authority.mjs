@@ -167,7 +167,10 @@ for (const marker of [
   'description: event.whyItMatters',
   'startDate: window.startDate',
   'eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode"',
-  'location: { "@type": "Place"',
+  'const defaultLocation = {',
+  '"@type": "Place"',
+  'const location = venueGuide',
+  'location,',
 ]) {
   if (!loader.includes(marker)) fail(`dedicated event occurrence schema is missing protected marker: ${marker}`);
 }
