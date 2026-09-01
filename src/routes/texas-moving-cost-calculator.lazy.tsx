@@ -5,9 +5,10 @@ import { MovingCostCalculator } from '@/components/calculators/MovingCostCalcula
 import {
   movingCostDescription,
   movingCostFaqs,
-  movingCostPageTitle,
   movingCostSources,
 } from '@/data/moving-cost-calculator';
+
+const pageTitle = 'Texas Moving Cost Calculator | Plan the Full Move Budget';
 
 const examples = [
   {
@@ -37,12 +38,12 @@ export const Route = createLazyFileRoute('/texas-moving-cost-calculator')({ comp
 
 function TexasMovingCostCalculatorPage() {
   return (
-    <CalculatorPage eyebrow="Moving to or within Texas" title={movingCostPageTitle} description={movingCostDescription}>
+    <CalculatorPage eyebrow="Moving to or within Texas" title={pageTitle} description={movingCostDescription}>
       <MovingCostCalculator />
 
       <section className="mt-14 border-t border-border pt-10" aria-labelledby="moving-cost-method-heading">
         <p className="eyebrow text-primary">Moving estimate methodology</p>
-        <h2 id="moving-cost-method-heading" className="mt-3 font-display text-3xl">How this moving cost estimator builds a first-pass budget</h2>
+        <h2 id="moving-cost-method-heading" className="mt-3 font-display text-3xl">The move costs more than transportation</h2>
         <div className="mt-5 max-w-3xl space-y-4 text-base leading-7 text-muted-foreground">
           <p>The calculator separates transportation from packing, travel, storage, deposits and setup costs. If you already have a written mover or truck estimate, enter it and the calculator uses that number. If you do not, it uses a rough transportation baseline so you can build a first-pass moving estimate.</p>
           <p>The built-in baseline is intentionally transparent: <strong className="text-foreground">$900 + $2.25 per mile + $650 per bedroom</strong>. It is a planning heuristic, not a published Texas average, live mover pricing or a promise about what a move should cost. Replace it with written estimates as the move becomes real.</p>
