@@ -13,6 +13,8 @@ on:
       - 'vite.config.*'
       - 'tsconfig*.json'
       - 'scripts/ci/**'
+      - 'scripts/data/validate-public-route-governance.mjs'
+      - 'scripts/data/validate-sitemap-routes.mjs'
       - 'scripts/data/validate-painted-church*.mjs'
       - 'scripts/data/validate-texas-flag-authority.mjs'
       - 'scripts/data/validate-military-history-expansion.mjs'
