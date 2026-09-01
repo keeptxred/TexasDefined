@@ -3,6 +3,12 @@ import { createFileRoute } from "@tanstack/react-router";
 import { getEventsPageHead, getMajorEventLandingDirectory } from "@/data/major-event-directory";
 import { eventsQuery, regionsQuery } from "@/data/queries";
 
+export const EVENTS_ROUTE_SEO = {
+  title: "Texas Events",
+  description: "Rodeos, wildflower weekends, barbecue throwdowns, dance halls and county fairs — a curated calendar of what’s worth showing up for across Texas.",
+  canonicalPath: "/events",
+} as const;
+
 export const Route = createFileRoute("/events")({
   loader: async ({ context }) => {
     const [events, regions, landingDirectory] = await Promise.all([
