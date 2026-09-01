@@ -6,6 +6,8 @@ import type { Slug } from "./types";
 // Destination publication/resolution remains fully enforced in destination-query-runtime.server.ts.
 // These exact compatibility markers keep policy validators tied to that unchanged server-only contract:
 // import { preservedExploreDestinations } from "./destination-preserved-catalog"
+// fetchExploreDestinations({ limit: 5000 })
+// fetchCoreExploreDestinations({ limit: 5000 })
 // filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved))
 // reconcileExploreCatalog(mergeDestinations(enriched, core, preservedExploreDestinations))
 // reconcileDestinationHeroes(applyExploreHeroAssets(applyStateParkHeroAssets(destinations)))
