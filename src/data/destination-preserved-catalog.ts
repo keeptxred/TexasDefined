@@ -20,6 +20,7 @@ import { statewideMuseumExpansionWave4Destinations } from "./museum-expansion-st
 import { statewideMuseumExpansionWave5Destinations } from "./museum-expansion-statewide-wave5";
 import { statewideMuseumExpansionWave6Destinations } from "./museum-expansion-statewide-wave6";
 import { statewideMuseumExpansionWave7Destinations } from "./museum-expansion-statewide-wave7";
+import { statewideMuseumExpansionWave8Destinations } from "./museum-expansion-statewide-wave8";
 import { wacoMuseumDestinations } from "./museum-expansion-waco";
 import type { Destination } from "./types";
 
@@ -103,5 +104,6 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   statewideMuseumExpansionWave5Destinations,
   statewideMuseumExpansionWave6Destinations,
   statewideMuseumExpansionWave7Destinations,
+  statewideMuseumExpansionWave8Destinations,
   [newBraunfelsSeasonalFallback],
 );
