@@ -7,7 +7,7 @@ import { TEXAS_ICON_SOURCE_HISTORY_MUSIC } from "@/data/texas-icons-source-histo
 import { TEXAS_ICON_SOURCE_SPORTS_BUSINESS } from "@/data/texas-icons-source-sports-business.server";
 import { TEXAS_ICON_SOURCE_MEDIA_SYMBOLS } from "@/data/texas-icons-source-media-symbols.server";
 
-// The source fragments above are the exact intake supplied by the site owner on 2026-08-25.
+// The source fragments above preserve the exact intake supplied by the site owner on 2026-08-25.
 // Their Description field is a roster note, not a publishable authority citation.
 const RAW_TEXAS_ICON_CSV = [
   "Rank,Name,Category,Description",
@@ -15,6 +15,18 @@ const RAW_TEXAS_ICON_CSV = [
   TEXAS_ICON_SOURCE_SPORTS_BUSINESS,
   TEXAS_ICON_SOURCE_MEDIA_SYMBOLS,
 ].join("\n");
+
+// These disputed intake rows were explicitly removed from the active Texas Icons roster by the site owner
+// on 2026-09-01. They remain only in the preserved raw intake fragments above for provenance and must never
+// surface through the hub, category lists, related lists, or profile routes.
+const REMOVED_TEXAS_ICON_INTAKE_SLUGS = new Set<string>([
+  "john-crump",
+  "burt-buddy-crump",
+  "cyrus-vance",
+  "james-truett",
+  "margarita-salas",
+  "slick-woods",
+]);
 
 const CATEGORY_MAP: Record<string, TexasIconCategory> = {
   "History & Politics": "history-politics",
@@ -205,11 +217,11 @@ function buildRoster(): readonly TexasIconRosterEntry[] {
       aliases: ALIASES[name] ?? [],
       ...(CANONICAL_PATHS[name] ? { canonicalPath: CANONICAL_PATHS[name] } : {}),
     } satisfies TexasIconRosterEntry;
-  });
+  }).filter((entry) => !REMOVED_TEXAS_ICON_INTAKE_SLUGS.has(entry.slug));
 
   const slugs = roster.map((entry) => entry.slug);
   const names = roster.map((entry) => normalizeTexasIconKey(entry.name));
-  if (roster.length !== 250) throw new Error(`Texas Icons roster must contain 250 records; found ${roster.length}.`);
+  if (roster.length !== 244) throw new Error(`Active Texas Icons roster must contain 244 records after owner-directed intake removals; found ${roster.length}.`);
   if (new Set(slugs).size !== roster.length) throw new Error("Texas Icons roster contains duplicate slugs.");
   if (new Set(names).size !== roster.length) throw new Error("Texas Icons roster contains normalized duplicate names.");
   return roster;
