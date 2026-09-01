@@ -1,3 +1,4 @@
+import { destinationHeroOverrides } from "./destination-hero-overrides";
 import type { Destination, ImageRef } from "./types";
 
 export const DESTINATION_PHOTO_PLACEHOLDER = "/images/texasdefined-destination-placeholder.svg";
@@ -26,17 +27,19 @@ export function reconcileDestinationHeroes(destinations: Destination[]): Destina
   const ownerByHero = new Map<string, string>();
 
   return destinations.map((destination) => {
-    const src = destination.hero?.src?.trim();
+    const overriddenHero = destinationHeroOverrides[destination.slug];
+    const reconciledDestination = overriddenHero ? { ...destination, hero: overriddenHero } : destination;
+    const src = reconciledDestination.hero?.src?.trim();
     if (!src || isDestinationPhotoPlaceholder(src)) {
-      return { ...destination, hero: missingDestinationHero(destination) };
+      return { ...reconciledDestination, hero: missingDestinationHero(reconciledDestination) };
     }
 
     const owner = ownerByHero.get(src);
-    if (owner && owner !== destination.slug) {
-      return { ...destination, hero: missingDestinationHero(destination) };
+    if (owner && owner !== reconciledDestination.slug) {
+      return { ...reconciledDestination, hero: missingDestinationHero(reconciledDestination) };
     }
 
-    ownerByHero.set(src, destination.slug);
-    return destination;
+    ownerByHero.set(src, reconciledDestination.slug);
+    return reconciledDestination;
   });
 }
