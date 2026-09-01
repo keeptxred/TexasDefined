@@ -119,6 +119,14 @@ const dynamicFinancialRouteContracts = [
     sitemapRegistry: 'LOCAL_COST_OF_LIVING_PROFILES',
     sitemapPath: 'profile.path',
   },
+  {
+    pattern: '/texas-salary-needed-calculator/$location',
+    routeFile: 'src/routes/texas-salary-needed-calculator_.$location.tsx',
+    profileFile: 'src/data/local-salary-needed.ts',
+    profileMap: 'LOCAL_SALARY_NEEDED_PROFILE_BY_SLUG',
+    sitemapRegistry: 'LOCAL_SALARY_NEEDED_PROFILES',
+    sitemapPath: 'profile.salaryPath',
+  },
 ];
 for (const contract of dynamicFinancialRouteContracts) {
   const routeSource = sourceByFile.get(contract.routeFile) ?? '';
