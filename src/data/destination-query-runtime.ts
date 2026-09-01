@@ -5,7 +5,7 @@ import { applyAllCuratedDestination, applyAllCuratedDestinations } from "./desti
 import { preservedExploreDestinations } from "./destination-preserved-catalog";
 import { improveDestinationCatalog, improveDestinationQuality } from "./destination-quality";
 import { fetchCoreExploreDestination, fetchCoreExploreDestinations } from "./explore-core-remote";
-import { isDestinationPhotoPlaceholder, reconcileDestinationHeroes } from "./explore-hero-reconciliation";
+import { applyDestinationHeroOverride, isDestinationPhotoPlaceholder, reconcileDestinationHeroes } from "./explore-hero-reconciliation";
 import { applyExploreHeroAsset, applyExploreHeroAssets } from "./explore-heroes";
 import { fetchExploreDestination, fetchExploreDestinations } from "./explore-remote";
 import { enrichRemainingHistoricSiteAreaGuide } from "./historic-site-area-guides-extra";
@@ -65,7 +65,7 @@ function finishHistoricSiteEnrichment(destination: Destination) {
 
 function applyResolvedHero(destination: Destination) {
   return enrichAquariumMarineDestination(
-    finishHistoricSiteEnrichment(improveDestinationQuality(applyAllCuratedDestination(applyExploreHeroAsset(applyStateParkHeroAsset(destination))))),
+    finishHistoricSiteEnrichment(improveDestinationQuality(applyAllCuratedDestination(applyExploreHeroAsset(applyStateParkHeroAsset(applyDestinationHeroOverride(destination))))))),
   );
 }
 
