@@ -4,6 +4,7 @@ const migration = fs.readFileSync('supabase/migrations/20260814023200_create_par
 const serverWriter = fs.readFileSync('src/data/partner-inquiry.server.ts', 'utf8');
 const serverFn = fs.readFileSync('src/data/partner-inquiry.functions.ts', 'utf8');
 const route = fs.readFileSync('src/routes/partner-with-us.tsx', 'utf8');
+const lazyRoute = fs.readFileSync('src/routes/partner-with-us.lazy.tsx', 'utf8');
 const footer = fs.readFileSync('src/components/layout/Footer.tsx', 'utf8');
 const publicRoutes = fs.readFileSync('src/lib/public-routes.ts', 'utf8');
 const errors = [];
@@ -41,15 +42,28 @@ if (serverFn.includes('client.server')) errors.push('Partner inquiry function wr
 for (const token of [
   "createFileRoute('/partner-with-us')",
   "title: 'Partner With Texas Defined'",
+  "validateSearch:",
+  "sourcePath: sanitizePartnerSource(search.source)",
+]) {
+  if (!route.includes(token)) errors.push(`Partner With Us route shell missing ${token}`);
+}
+
+for (const token of [
+  "createLazyFileRoute('/partner-with-us')",
   'Paid relationships do not buy editorial coverage, favorable rankings or changes to factual conclusions.',
   'Submissions are stored privately for Texas Defined to review.',
   'name="addressLine2"',
   "await submitPartnerInquiry({ data:",
   'Submit partnership inquiry',
 ]) {
-  if (!route.includes(token)) errors.push(`Partner With Us route missing ${token}`);
+  if (!lazyRoute.includes(token)) errors.push(`Partner With Us lazy form missing ${token}`);
 }
-if (route.includes('client.server') || route.includes('supabaseAdmin')) errors.push('Public partner route must not import privileged database code.');
+
+for (const [name, source] of [['route shell', route], ['lazy form', lazyRoute]]) {
+  if (source.includes('client.server') || source.includes('supabaseAdmin')) {
+    errors.push(`Public partner ${name} must not import privileged database code.`);
+  }
+}
 if (!footer.includes('<Link to="/partner-with-us"')) errors.push('Partner With Us must be discoverable from the footer.');
 if (!publicRoutes.includes('"/partner-with-us"')) errors.push('Partner With Us must be governed as a public indexable route.');
 
@@ -59,4 +73,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Partner inquiry validation passed: public form, TanStack input validation, server boundary, editorial-independence copy, private RLS storage and service-role-only database access are protected.');
+console.log('Partner inquiry validation passed: lazy public form, TanStack input validation, route/search boundary, editorial-independence copy, private RLS storage and service-role-only database access are protected.');
