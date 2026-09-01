@@ -20,6 +20,8 @@ const partnershipOptions = [
   ['other', 'Other'],
 ] as const;
 
+const housingPartnerTypes = new Set(['insurance', 'mortgage', 'real-estate']);
+
 const sportsLaunchPackages = [
   {
     name: 'Single Venue',
@@ -43,10 +45,18 @@ const sportsLaunchPackages = [
   },
 ] as const;
 
+const housingPartnershipStandards = [
+  ['Useful next step', 'A placement must help a Texas homeowner, buyer or mover take a relevant next step; it cannot replace the calculator result or editorial guidance.'],
+  ['Commercially separate', 'Sponsored placements are visually separated from editorial material, explicitly labeled and use sponsored/nofollow link attributes where applicable.'],
+  ['No ranking influence', 'Payment cannot buy favorable rankings, calculator inputs, factual conclusions, editorial coverage or a preferred position inside comparison logic.'],
+  ['No consumer-data handoff', 'Texas Defined does not sell or pass calculator inputs to partners. Partnership inquiries on this page are business-to-business submissions only.'],
+] as const;
+
 function PartnerWithUsPage() {
   const search = Route.useSearch();
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
+  const isHousingReferral = search.partnershipType ? housingPartnerTypes.has(search.partnershipType) : false;
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -98,6 +108,19 @@ function PartnerWithUsPage() {
             </ul>
           </div>
 
+          <div className="mt-8 border-b border-border pb-8">
+            <p className="eyebrow text-primary">Housing & relocation partnerships</p>
+            <h3 className="mt-2 font-display text-3xl">Reach readers without buying the answer</h3>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">Texas Defined's housing tools are designed around address-level taxes, insurance, affordability, financing and ownership costs. We can review clearly disclosed partner placements on relevant housing and relocation surfaces, but commercial participation never changes the calculator, source hierarchy or editorial result.</p>
+            <div className="mt-5 grid gap-4 sm:grid-cols-2">
+              {housingPartnershipStandards.map(([title, detail]) => <article key={title} className="border-t border-border pt-4">
+                <h4 className="font-display text-2xl">{title}</h4>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">{detail}</p>
+              </article>)}
+            </div>
+            <p className="mt-5 text-xs leading-6 text-muted-foreground">Housing partnership availability and scope are reviewed manually. Texas Defined does not promise leads, approvals, rankings or financial outcomes, and does not activate a paid housing placement merely because an inquiry is submitted.</p>
+          </div>
+
           <div className="mt-8">
             <p className="eyebrow text-primary">Founding sports rates</p>
             <h3 className="mt-2 font-display text-3xl">Launch with one useful placement</h3>
@@ -121,6 +144,7 @@ function PartnerWithUsPage() {
           <p className="mt-4 text-sm leading-7 text-muted-foreground">This form is for business and sponsorship inquiries. Submissions are stored privately for Texas Defined to review.</p>
 
           {search.partnershipType === 'sports-travel' ? <p className="mt-4 border-l-2 border-primary pl-4 text-sm leading-6 text-muted-foreground">Sports-travel partnership is preselected because you arrived from a Texas Defined sports venue resource.</p> : null}
+          {isHousingReferral ? <p className="mt-4 border-l-2 border-primary pl-4 text-sm leading-6 text-muted-foreground">A housing partnership category is preselected because you arrived from a Texas Defined home-planning resource. This is a business inquiry only; no calculator inputs or reader financial data are attached.</p> : null}
           {status === 'sent' ? <div className="mt-7 border-y border-border py-6" role="status"><p className="font-semibold">Inquiry received.</p><p className="mt-2 text-sm leading-6 text-muted-foreground">Thank you. Texas Defined can review the details you submitted and follow up using the email address provided.</p></div> : null}
 
           <form onSubmit={submit} className="mt-8 grid gap-5" noValidate>
