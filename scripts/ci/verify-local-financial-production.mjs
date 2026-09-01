@@ -5,7 +5,7 @@ const sha = process.env.GITHUB_SHA ?? 'local';
 const runId = process.env.GITHUB_RUN_ID ?? Date.now().toString();
 const summaryPath = process.env.GITHUB_STEP_SUMMARY;
 
-const affordabilityPages = [
+const cityMappings = [
   { slug: 'houston', name: 'Houston', tax: '/property-tax-calculator/houston', relocation: '/article/moving-to-houston-address-checklist' },
   { slug: 'austin', name: 'Austin', tax: '/property-tax-calculator/austin', relocation: '/article/moving-to-austin-guide' },
   { slug: 'dallas', name: 'Dallas', tax: '/property-tax-calculator/dallas-county', relocation: '/article/moving-to-dallas-fort-worth-guide' },
@@ -13,7 +13,10 @@ const affordabilityPages = [
   { slug: 'san-antonio', name: 'San Antonio', tax: '/property-tax-calculator/bexar-county', relocation: '/article/moving-to-san-antonio-guide' },
   { slug: 'frisco', name: 'Frisco', tax: '/property-tax-calculator/frisco', relocation: '/article/moving-to-dallas-fort-worth-guide' },
   { slug: 'el-paso', name: 'El Paso', tax: '/property-tax-calculator/el-paso-county', relocation: '/article/moving-to-el-paso-guide' },
-].map((item) => ({ ...item, path: `/texas-home-affordability-calculator/${item.slug}` }));
+];
+
+const affordabilityPages = cityMappings.map((item) => ({ ...item, path: `/texas-home-affordability-calculator/${item.slug}` }));
+const costOfLivingPages = cityMappings.map((item) => ({ ...item, path: `/texas-cost-of-living-calculator/${item.slug}` }));
 
 const propertyTaxSamples = [
   { path: '/property-tax-calculator/dallas-county', name: 'Dallas County' },
@@ -76,6 +79,37 @@ for (const page of affordabilityPages) {
   }
 }
 
+for (const page of costOfLivingPages) {
+  const label = `cost-of-living:${page.slug}`;
+  try {
+    const { response, body } = await fetchProduction(page.path);
+    const canonicalUrl = `${origin}${page.path}`;
+    const required = [
+      `${page.name} cost of living calculator`,
+      `${page.name} Cost of Living Calculator | Texas Defined`,
+      `href="${page.tax}"`,
+      `href="${page.relocation}"`,
+      canonicalUrl,
+      'WebApplication',
+      'BreadcrumbList',
+      'FAQPage',
+      'No citywide average or preset local index is used.',
+      'Planning only.',
+    ];
+    const missing = required.filter((needle) => !body.includes(needle));
+    const hasNoindex = /<meta[^>]+(?:name=["']robots["'][^>]+content=["'][^"']*noindex|content=["'][^"']*noindex[^"']*["'][^>]+name=["']robots["'])/i.test(body);
+    if (!response.ok) fail(label, `HTTP ${response.status}`);
+    else if (hasNoindex) fail(label, 'unexpected robots noindex');
+    else if (missing.length) fail(label, `missing ${missing.join(', ')}`);
+    else {
+      console.log(`[${label}] verified (${response.status})`);
+      appendSummary(`| ✅ pass | ${label} | 200, title/H1/copy, canonical, indexable, local tax + relocation links, WebApplication/BreadcrumbList/FAQPage |\n`);
+    }
+  } catch (error) {
+    fail(label, error instanceof Error ? error.message : String(error));
+  }
+}
+
 for (const page of propertyTaxSamples) {
   const label = `property-tax:${page.path.split('/').at(-1)}`;
   try {
@@ -100,7 +134,11 @@ try {
   const { response, body } = await fetchProduction('/sitemap.xml');
   if (!response.ok) fail('sitemap', `HTTP ${response.status}`);
   else {
-    const expectedPaths = [...affordabilityPages.map((page) => page.path), ...propertyTaxSamples.map((page) => page.path)];
+    const expectedPaths = [
+      ...affordabilityPages.map((page) => page.path),
+      ...costOfLivingPages.map((page) => page.path),
+      ...propertyTaxSamples.map((page) => page.path),
+    ];
     const missing = expectedPaths.filter((path) => !body.includes(`${origin}${path}`));
     if (missing.length) fail('sitemap', `missing ${missing.join(', ')}`);
     else {
@@ -113,4 +151,4 @@ try {
 }
 
 if (process.exitCode) process.exit(process.exitCode);
-console.log(`Local financial production verification passed (${affordabilityPages.length} affordability pages, ${propertyTaxSamples.length} property-tax samples, sitemap membership).`);
+console.log(`Local financial production verification passed (${affordabilityPages.length} affordability pages, ${costOfLivingPages.length} cost-of-living pages, ${propertyTaxSamples.length} property-tax samples, sitemap membership).`);
