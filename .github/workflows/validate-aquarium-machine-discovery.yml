@@ -4,8 +4,10 @@ on:
   pull_request:
     paths:
       - 'public/aquariums.json'
+      - 'public/citation-magnets.json'
       - 'src/data/aquarium-marine-collection.ts'
       - 'src/routes/explore.aquariums.tsx'
+      - 'src/routes/llms[.]txt.ts'
       - 'scripts/data/validate-aquarium-machine-discovery.mjs'
       - '.github/workflows/validate-aquarium-machine-discovery.yml'
   push:
@@ -13,8 +15,10 @@ on:
       - main
     paths:
       - 'public/aquariums.json'
+      - 'public/citation-magnets.json'
       - 'src/data/aquarium-marine-collection.ts'
       - 'src/routes/explore.aquariums.tsx'
+      - 'src/routes/llms[.]txt.ts'
       - 'scripts/data/validate-aquarium-machine-discovery.mjs'
       - '.github/workflows/validate-aquarium-machine-discovery.yml'
   workflow_dispatch:
