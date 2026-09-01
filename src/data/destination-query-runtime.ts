@@ -16,6 +16,8 @@ import type { Slug } from "./types";
 // enrichHistoricSiteEvergreenLinks
 // applyHistoricSiteFactCorrections
 // enrichNationalCemeteryDestination
+// import { enrichHistoricSiteEvergreenLinks } from "./historic-site-evergreen-links";
+// enrichHistoricSiteEvergreenLinks(
 /*
 enrichHistoricSiteCatalog(curated)
     .map(enrichRemainingHistoricSiteAreaGuide)
