@@ -1,3 +1,4 @@
+import './validate-local-cost-of-living-seo.mjs';
 import fs from 'node:fs';
 
 const readRouteSurface = (file) => {
@@ -111,9 +112,6 @@ for (const [label, filename, markers] of deepCalculatorContracts) {
   for (const marker of markers) if (!route.includes(marker)) failures.push(`${label} calculator indexing-depth contract missing ${marker}.`);
 }
 
-// Homeownership-cost depth is intentionally split across the eager SEO route,
-// the lazy renderer, and server-owned content. Validate the complete rendered
-// contract instead of requiring server-owned prose to remain in the client bundle.
 const ownershipRoute = readRouteSurface('src/routes/texas-homeownership-cost-calculator.tsx');
 const ownershipServer = fs.readFileSync('src/data/homeownership-cost-hub-page.server.ts', 'utf8');
 for (const marker of ['Texas Homeownership Cost Calculator | Beyond the Mortgage', 'getHomeownershipCostHubPage', 'hub.stack.paragraphs.map', 'hub.links.cards.map', 'hub.faq.items.map']) {
