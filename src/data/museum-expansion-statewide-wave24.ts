@@ -13,61 +13,12 @@ function museumPlaceholder(name: string): ImageRef {
 }
 
 /**
- * Twenty-fourth statewide museum wave. This group closes four current county-
- * history gaps from the original museum inventory after reconciliation against
- * the Wave 23 canonical catalog and current institutional visitor sources.
+ * Twenty-fourth statewide museum wave after canonical reconciliation. Ellis
+ * County Museum and Denton County Courthouse-on-the-Square Museum are owned by
+ * their earlier Wave 22 canonical records; this file retains only the museum
+ * destinations that were genuinely new in Wave 24.
  */
 export const statewideMuseumExpansionWave24Destinations: Destination[] = [
-  {
-    id: "museum-statewide-wave24-ellis-county",
-    brandId: "texasdefined",
-    slug: "ellis-county-museum-waxahachie",
-    name: "Ellis County Museum",
-    summary: "The Ellis County Museum occupies an 1889 landmark on Waxahachie's courthouse square and preserves county history through artifacts, photographs, archives and exhibits tied to settlement, commerce, transportation and everyday life across Ellis County.",
-    category: "historic-sites",
-    region: "prairies-lakes",
-    nearestTown: "Waxahachie",
-    county: "Ellis County",
-    coordinates: { lat: 32.38487, lng: -96.8477 },
-    hero: museumPlaceholder("Ellis County Museum"),
-    bestSeason: "Year-round indoor museum; spring and fall are especially comfortable for combining it with the Ellis County Courthouse, downtown architecture and a Waxahachie walking itinerary.",
-    entryNote: "Admission is currently free. The museum lists Monday-Saturday hours from 10 a.m. to 5 p.m. and Sunday from noon to 4 p.m.; verify holiday or special-event changes before making a dedicated trip.",
-    highlights: ["1889 historic building", "Ellis County local history", "Courthouse-square setting", "Photographs, artifacts and archives"],
-    body: [
-      "The Ellis County Museum gives Waxahachie's celebrated courthouse square a dedicated county-history institution rather than leaving the surrounding historic buildings without interpretive context. Its 1889 home is itself part of the story, connecting collections to the commercial district that grew around county government and rail-era development.",
-      "Inside, artifacts, photographs and documentary material follow communities across Ellis County through settlement, agriculture, transportation, business and changing everyday life. The museum's countywide mission makes it useful beyond a single-city narrative even though its downtown location makes it easy to include in a Waxahachie visit.",
-      "For TexasDefined, this page creates a canonical Ellis County history anchor that can cross-link courthouse architecture, Waxahachie, county travel, railroad history and nearby heritage destinations while preserving the museum as a distinct visitor stop."
-    ],
-    officialUrl: "https://www.elliscountymuseum.org/planyourvisit",
-    managingAuthority: "Ellis County Museum",
-    address: "201 S College St, Waxahachie, TX 75165",
-    sourceCheckedAt: SOURCE_CHECKED_AT,
-  },
-  {
-    id: "museum-statewide-wave24-denton-courthouse",
-    brandId: "texasdefined",
-    slug: "courthouse-on-the-square-museum-denton",
-    name: "Courthouse-on-the-Square Museum",
-    summary: "Denton County's Courthouse-on-the-Square Museum interprets local history inside the restored 1896 courthouse at the center of downtown Denton, combining county collections with one of North Texas's most recognizable historic civic buildings.",
-    category: "historic-sites",
-    region: "prairies-lakes",
-    nearestTown: "Denton",
-    county: "Denton County",
-    coordinates: { lat: 33.215, lng: -97.13298 },
-    hero: museumPlaceholder("Courthouse-on-the-Square Museum"),
-    bestSeason: "Year-round museum; fall through spring is especially comfortable for pairing it with Denton's walkable downtown square and other Denton County heritage stops.",
-    entryNote: "Denton County currently lists free admission, Monday-Friday hours from 10 a.m. to 4 p.m. and Saturday hours from 11 a.m. to 3 p.m.; the museum is closed Sundays. Check county notices for holiday or courthouse-event changes.",
-    highlights: ["1896 Denton County Courthouse", "Free county-history museum", "Historic downtown Denton", "Restored civic architecture"],
-    body: [
-      "The Courthouse-on-the-Square Museum works because the building and the collections reinforce one another. The 1896 courthouse remains the architectural centerpiece of downtown Denton, while museum interpretation inside helps visitors understand the county institutions, communities and people that developed around it.",
-      "The courthouse was restored in the early 2000s and continues to function as a preserved public landmark rather than a detached architectural relic. Exhibitions and county-history material add context to the square, making the site useful to visitors who might otherwise photograph the exterior and leave without understanding its civic role.",
-      "For TexasDefined, the museum gives Denton County a strong county-history node that can connect Denton city coverage, courthouse-square architecture, North Texas road trips and nearby cultural destinations through one current canonical page."
-    ],
-    officialUrl: "https://www.dentoncounty.gov/Facilities/Facility/Details/CourthouseontheSquare-Museum-11",
-    managingAuthority: "Denton County Office of History and Culture",
-    address: "110 W Hickory St, Denton, TX 76201",
-    sourceCheckedAt: SOURCE_CHECKED_AT,
-  },
   {
     id: "museum-statewide-wave24-lampasas-county",
     brandId: "texasdefined",
