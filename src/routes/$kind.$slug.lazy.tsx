@@ -237,6 +237,8 @@ function schemaType(kind: string) {
   if (['county','region','metro-area'].includes(kind)) return 'AdministrativeArea';
   if (kind === 'museum') return 'Museum';
   if (['historic-site','mission','battlefield','attraction'].includes(kind)) return 'TouristAttraction';
-  if (['fair','rodeo','festival','holiday-event','sporting-event'].includes(kind)) return 'Event';
+  // Generic knowledge-graph records do not carry occurrence dates/locations.
+  // Reserve Schema.org Event for dedicated /event/:slug pages with verified occurrence data.
+  if (['fair','rodeo','festival','holiday-event','sporting-event'].includes(kind)) return 'Thing';
   return 'Place';
 }

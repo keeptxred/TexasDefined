@@ -20,25 +20,11 @@ function buildCollectionHead(collection: (typeof EVENT_COLLECTIONS)[number], ite
       "@type": "ListItem",
       position: index + 1,
       item: {
-        "@type": "Event",
-        "@id": `${eventUrl}#event`,
+        "@type": "WebPage",
+        "@id": eventUrl,
         url: eventUrl,
         name: event.name,
         description: event.detail,
-        startDate: event.startDate,
-        endDate: event.endDate,
-        eventStatus: "https://schema.org/EventScheduled",
-        eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-        location: {
-          "@type": "Place",
-          name: event.city,
-          address: {
-            "@type": "PostalAddress",
-            addressLocality: event.city,
-            addressRegion: "TX",
-            addressCountry: "US",
-          },
-        },
       },
     };
   });

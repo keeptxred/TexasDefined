@@ -48,13 +48,13 @@ assert(resolver.includes("href: '/sports-venue/reliant-stadium'"), 'Reliant/NRG 
 assert(resolver.includes("add('NRG Stadium', reliant)"), 'NRG Stadium must remain an explicit former-name alias, not a fuzzy match.');
 assert(!resolver.includes('/sports-venue/galaxy-stadium'), 'Galaxy Stadium must preserve the stable /sports-venue/jones-att-stadium canonical route from the verified entity slug.');
 
-for (const source of [eventCard, eventServerHead]) {
+for (const source of [eventCard, eventPage]) {
   assert(source.includes('resolveSportsVenueEventLink'), 'Event UI/schema must use the shared exact sports venue resolver.');
 }
 assert(eventCard.includes('venueGuide &&'), 'Regular event cards must leave unmatched events without a venue-guide link.');
 assert(eventCard.includes('Plan the venue'), 'Matched regular events must expose the venue-planning link.');
-assert(eventServerHead.includes('const venueGuide = resolveSportsVenueEventLink(event.venue)'), 'Event JSON-LD must resolve venue links from the stored venue value only.');
-assert(/const location = venueGuide\s*\?\s*\{\s*\.\.\.defaultLocation[\s\S]*?\}\s*:\s*defaultLocation;/.test(eventServerHead), 'Event JSON-LD must preserve its existing default location when no exact venue match exists.');
+assert(eventPage.includes('const venueGuide = resolveSportsVenueEventLink(event.venue)'), 'Dedicated Event JSON-LD must resolve venue links from the stored venue value only.');
+assert(/const location = venueGuide\s*\?\s*\{\s*\.\.\.defaultLocation[\s\S]*?\}\s*:\s*defaultLocation;/.test(eventPage), 'Dedicated Event JSON-LD must preserve its existing default location when no exact venue match exists.');
 assert(eventServerHead.includes('resolveSportsVenueEventLink(featured?.venue)'), 'Featured event must use the exact resolver on the server presentation boundary.');
 assert(eventsVisibleRoute.includes('featuredVenueGuide &&'), 'Featured unmatched events must remain unlinked.');
 assert(eventsVisibleRoute.includes('featuredVenueGuide, featuredDateLabel'), 'Featured venue/date presentation must be consumed from server-owned route data.');
@@ -110,4 +110,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Event integrity validated: exact sports-venue links, server-owned event schema presentation, lazy-safe featured presentation, source-controlled recurring-event precedence, accurate date claims, single-day date formatting, 75-seed source disposition, and bidirectional server-backed county event discovery are protected.');
+console.log('Event integrity validated: exact sports-venue links on dedicated Event leaf schema, server-owned event presentation, lazy-safe featured presentation, source-controlled recurring-event precedence, accurate date claims, single-day date formatting, 75-seed source disposition, and bidirectional server-backed county event discovery are protected.');
