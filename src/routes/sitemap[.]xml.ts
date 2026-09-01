@@ -19,6 +19,7 @@ import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
 import { canonicalEntityPath, isIndexableEntityPage } from "@/data/knowledge-graph/relationships";
 import { LOCAL_MORTGAGE_PROFILES } from "@/data/local-mortgage";
 import { LOCAL_PROPERTY_TAX_PROFILES } from "@/data/local-property-tax-calculators";
+import { LOCAL_RENT_VS_BUY_PROFILES } from "@/data/local-rent-vs-buy";
 import { LOCAL_SALARY_NEEDED_PROFILES } from "@/data/local-salary-needed";
 import { majorEventIndexRecords } from "@/data/major-event-index";
 import { loadSupplementalMajorEventSitemapEntriesServer } from "@/data/major-event-supplemental-registry.server";
@@ -110,6 +111,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           ...LOCAL_MORTGAGE_PROFILES.map((profile) => ({ path: profile.mortgagePath, lastmod: "2026-08-30" })),
           ...LOCAL_COST_OF_LIVING_PROFILES.map((profile) => ({ path: profile.path, lastmod: "2026-09-01" })),
           ...LOCAL_SALARY_NEEDED_PROFILES.map((profile) => ({ path: profile.salaryPath, lastmod: "2026-09-01" })),
+          ...LOCAL_RENT_VS_BUY_PROFILES.map((profile) => ({ path: profile.rentVsBuyPath, lastmod: "2026-09-01" })),
           { path: "/texas-icons" },
           ...majorEventIndexRecords.map((event) => ({ path: `/event/${event.slug}`, lastmod: toDate(event.sourceCheckedAt) })),
           ...supplementalMajorEventSitemapEntries,
@@ -122,7 +124,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           ...indexableRemoteNews.map((article) => ({ path: `/news/${article.slug}`, lastmod: toDate(article.publishedAt) })),
           ...indexableRemoteEvergreen.map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(article.publishedAt) })),
           ...(countyGrowth.available ? [{ path: "/texas-data/county-growth", lastmod: "2026-03-17" }] : []),
-          ...(countyHousingCosts?.available ? [{ path: "/texas-data/county-housing-costs", lastmod: toDate(countyHousingCosts.generatedAt ?? undefined) }] : []),
+          ...(countyHousingCosts?.available ? [{ path: "/texas-data/county-housing-costs", lastmod: toDate(countyHousingCosts.generatedAt ?? undefined) } : []),
           ...collections.filter((collection) => activeCollectionSlugs.has(collection.slug)).map((collection) => ({ path: `/shop/${collection.slug}` })),
           ...authors.map((author) => ({ path: `/authors/${author.id}` })),
           ...articles.filter((article) => !isLegacyCountySeriesArticle(article.slug) && isArticleIndexReady(article)).map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(ARTICLE_LASTMOD_BY_SLUG[article.slug] ?? article.publishedAt) })),
