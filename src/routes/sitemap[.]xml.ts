@@ -11,6 +11,7 @@ import { loadFishingGuideSitemapEntriesServer } from "@/data/fishing/guide-sitem
 import { loadFishingLocalSitemapEntriesServer } from "@/data/fishing/local-sitemap.server";
 import { loadFishingReportSitemapEntriesServer } from "@/data/fishing/report-sitemap.server";
 import { FISHING_SITEMAP_ENTRIES } from "@/data/fishing/sitemap";
+import { LOCAL_COST_OF_LIVING_PROFILES } from "@/data/local-cost-of-living";
 import { LOCAL_HOME_AFFORDABILITY_PROFILES } from "@/data/local-home-affordability";
 import { LOCAL_HOME_INSURANCE_PROFILES } from "@/data/local-home-insurance";
 import { LOCAL_HOMEOWNERSHIP_COST_PROFILES } from "@/data/local-homeownership-cost";
@@ -106,6 +107,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           ...LOCAL_HOMEOWNERSHIP_COST_PROFILES.map((profile) => ({ path: profile.ownershipPath, lastmod: "2026-08-30" })),
           ...LOCAL_HOME_INSURANCE_PROFILES.map((profile) => ({ path: profile.insurancePath, lastmod: "2026-08-30" })),
           ...LOCAL_MORTGAGE_PROFILES.map((profile) => ({ path: profile.mortgagePath, lastmod: "2026-08-30" })),
+          ...LOCAL_COST_OF_LIVING_PROFILES.map((profile) => ({ path: profile.path, lastmod: "2026-09-01" })),
           { path: "/texas-icons" },
           ...majorEventIndexRecords.map((event) => ({ path: `/event/${event.slug}`, lastmod: toDate(event.sourceCheckedAt) })),
           ...supplementalMajorEventSitemapEntries,
