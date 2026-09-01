@@ -5,6 +5,8 @@ const runId = process.env.GITHUB_RUN_ID ?? Date.now().toString();
 const surfaces = [
   ['aquarium-hub', '/explore/aquariums', ['Texas aquariums & marine life', 'Texas State Aquarium', 'The Dallas World Aquarium']],
   ['aquarium-machine-index', '/aquariums.json', ['Texas Aquariums & Marine Life', 'texas-state-aquarium', 'san-antonio-zoo']],
+  ['aquarium-llms-discovery', '/llms.txt', ['https://texasdefined.com/explore/aquariums', 'https://texasdefined.com/aquariums.json']],
+  ['aquarium-citation-index', '/citation-magnets.json', ['https://texasdefined.com/explore/aquariums', 'https://texasdefined.com/aquariums.json']],
   ['explore-sitemap', '/sitemap-explore.xml', ['/explore/aquariums', '/destination/texas-state-aquarium', '/destination/dallas-world-aquarium']],
   ['texas-state-aquarium', '/destination/texas-state-aquarium', ['Texas State Aquarium', 'Nueces County', 'Official visitor information']],
   ['dallas-world-aquarium', '/destination/dallas-world-aquarium', ['The Dallas World Aquarium', 'Dallas County', 'Official visitor information']],
