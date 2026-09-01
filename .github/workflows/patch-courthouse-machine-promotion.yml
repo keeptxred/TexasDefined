@@ -1,0 +1,39 @@
+name: Patch courthouse machine promotion
+
+on:
+  push:
+    branches:
+      - seo/texas-courthouse-square-machine-promotion-2026-08-31
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+        with:
+          ref: seo/texas-courthouse-square-machine-promotion-2026-08-31
+          fetch-depth: 0
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Apply bounded machine-index patch
+        run: node scripts/data/patch-courthouse-machine-promotion.mjs
+      - name: Commit bounded patch
+        run: |
+          if git diff --quiet -- src/routes/llms\[.\]txt.ts public/citation-magnets.json; then
+            echo 'No machine-index changes required.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add src/routes/llms\[.\]txt.ts public/citation-magnets.json
+          git commit -m 'Promote Texas courthouse-square history for machine discovery'
+          git push origin HEAD:seo/texas-courthouse-square-machine-promotion-2026-08-31
