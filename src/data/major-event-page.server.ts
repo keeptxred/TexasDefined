@@ -1,4 +1,5 @@
 import { formatDateRange } from "@/domain/utils/format";
+import { resolveSportsVenueEventLink } from "@/data/sports-venue-event-links";
 import { getMajorEventAuthorityServer } from "./major-event-authority.server";
 import { getExpandedMajorEventAuthorityServer } from "./major-event-expanded-authority.server";
 import { getExpandedMajorEventAuthorityTranche3Server } from "./major-event-expanded-authority-tranche3.server";
@@ -165,6 +166,20 @@ export function loadMajorEventPageServer(slug: string) {
   const related = relatedItems.map((item) => `<li><a class="font-semibold text-primary underline" href="${esc(item.href)}">${esc(item.label)}</a><span class="text-muted-foreground"> — ${esc(item.description)}</span></li>`).join("");
   const sources = event.sources.map((source) => `<li><a class="font-semibold text-primary underline" href="${esc(source.url)}" target="_blank" rel="noreferrer noopener">${esc(source.label)} ↗</a></li>`).join("");
   const html = `<nav class="mb-8 text-sm text-muted-foreground"><a href="/">Front page</a> / <a href="/events">Texas Events</a> / ${esc(event.name)}</nav><header class="border-b border-border pb-8"><p class="eyebrow text-primary">Major Texas event</p><h1 class="mt-3 font-display text-5xl sm:text-6xl">${esc(event.name)}</h1><p class="mt-5 text-lg text-muted-foreground">${esc(dateLabel)} · ${esc(placeLine)}</p>${event.dateNote ? `<p class="mt-4 text-sm text-muted-foreground">${esc(event.dateNote)}</p>` : ""}<p class="mt-5"><a class="font-semibold text-primary underline" href="${esc(event.officialUrl)}" target="_blank" rel="noreferrer noopener">Official event information ↗</a></p></header><section class="mt-12"><h2 class="font-display text-3xl">Why plan around ${esc(event.name)}?</h2><p class="mt-4 leading-7 text-muted-foreground">${esc(event.whyItMatters)}</p></section><section class="mt-12 border-t border-border pt-8"><h2 class="font-display text-3xl">Plan the visit</h2>${planning}</section><section class="mt-12 border-t border-border pt-8"><h2 class="font-display text-3xl">Keep exploring</h2><ul class="mt-4 space-y-3">${related}</ul></section><section class="mt-10 border-t border-border pt-8"><h2 class="font-display text-3xl">Official sources</h2><ul class="mt-4 space-y-3">${sources}</ul></section>`;
+  const venueGuide = resolveSportsVenueEventLink(event.venue);
+  const defaultLocation = {
+    "@type": "Place",
+    name: event.venue || event.city,
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: event.city,
+      addressRegion: "TX",
+      addressCountry: "US",
+    },
+  };
+  const location = venueGuide
+    ? { ...defaultLocation, name: event.venue, url: `${siteUrl}${venueGuide.href}` }
+    : defaultLocation;
   const schemaEvents = occurrenceWindows.map((window) => ({
     "@type": "Event",
     name: window.label ? `${event.name} — ${window.label}` : event.name,
@@ -175,7 +190,7 @@ export function loadMajorEventPageServer(slug: string) {
     eventStatus: "https://schema.org/EventScheduled",
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     sameAs: event.officialUrl,
-    location: { "@type": "Place", name: event.venue || event.city, address: { "@type": "PostalAddress", addressLocality: event.city, addressRegion: "TX", addressCountry: "US" } },
+    location,
   }));
   const jsonLd = JSON.stringify(schemaEvents.length === 1
     ? { "@context": "https://schema.org", ...schemaEvents[0] }
