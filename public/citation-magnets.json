@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "site": "TexasDefined",
   "canonicalDomain": "https://texasdefined.com",
-  "asOf": "2026-08-30",
+  "asOf": "2026-08-31",
   "purpose": "Machine-readable index of maintained TexasDefined reference resources intended for factual retrieval, comparison and citation.",
   "resources": [
     { "url": "https://texasdefined.com/citation-guide", "type": "citation-policy", "topic": "TexasDefined citation guidance", "title": "How to Cite TexasDefined References & Data", "trust": ["canonical-url-guidance", "official-source-precedence", "provenance"] },
@@ -65,6 +65,8 @@
     { "url": "https://texasdefined.com/explore/small-towns", "type": "travel-comparison", "topic": "Texas small towns", "title": "Texas Small Towns", "trust": ["official-sources", "scope-caveat"] },
     { "url": "https://texasdefined.com/explore/road-trips", "type": "travel-comparison", "topic": "Texas road trips", "title": "Texas Road Trips", "trust": ["official-sources", "live-condition-caveat"] },
     { "url": "https://texasdefined.com/explore/attractions-comparison", "type": "catalog-comparison", "topic": "Texas attractions", "title": "Texas Attractions Comparison", "trust": ["official-sources", "scope-caveat", "methodology"] },
+    { "url": "https://texasdefined.com/explore/aquariums", "type": "travel-reference-collection", "topic": "Texas aquariums, marine-life conservation and aquatic zoo exhibits", "title": "Texas Aquariums & Marine Life", "trust": ["17-destination-source-reviewed-collection", "first-party-visitor-source-precedence", "ItemList-schema", "canonical-destination-links", "current-operations-caveat"] },
+    { "url": "https://texasdefined.com/aquariums.json", "type": "machine-readable-travel-collection", "topic": "Texas aquarium and marine-life destination collection", "title": "Texas Aquariums & Marine Life JSON", "trust": ["17-canonical-destinations", "ordered-collection", "first-party-visitor-source-precedence", "canonical-page-link", "machine-readable"] },
     { "url": "https://texasdefined.com/explore/top-attractions", "type": "curated-travel-reference", "topic": "Top Texas attractions", "title": "Top 25 Texas Attractions", "trust": ["controlling-visitor-sources", "supporting-authority-sources", "review-dates", "editorial-methodology", "trip-assessment", "downloadable-checklist", "downloadable-csv", "downloadable-json"] },
     { "url": "https://texasdefined.com/explore/top-attractions/methodology", "type": "travel-methodology", "topic": "Top Texas attractions methodology", "title": "Top 25 Texas Attractions Methodology", "trust": ["selection-criteria", "source-precedence", "multi-source-evidence-hierarchy", "assessment-scale", "corrections-policy", "provenance"] },
     { "url": "https://texasdefined.com/explore/top-attractions/road-trips", "type": "travel-itinerary-reference", "topic": "Top Texas attraction road trips", "title": "Top 25 Texas Attraction Road Trips", "trust": ["editorial-route-logic", "canonical-destination-links", "official-source-precedence", "planning-caveat"] },

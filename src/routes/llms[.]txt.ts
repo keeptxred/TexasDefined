@@ -83,6 +83,8 @@ Canonical contributor profiles use https://texasdefined.com/authors/{author-id}.
 - Texas small-town comparison: https://texasdefined.com/explore/small-towns
 - Texas road-trip comparison: https://texasdefined.com/explore/road-trips
 - Attractions catalog comparison: https://texasdefined.com/explore/attractions-comparison
+- Texas aquarium and marine-life reference collection: https://texasdefined.com/explore/aquariums
+- Texas aquarium and marine-life machine-readable JSON: https://texasdefined.com/aquariums.json
 - Top 25 Texas attractions reference collection: https://texasdefined.com/explore/top-attractions
 - Top 25 selection and source methodology: https://texasdefined.com/explore/top-attractions/methodology
 - Top 25 Texas attraction road-trip collection: https://texasdefined.com/explore/top-attractions/road-trips
