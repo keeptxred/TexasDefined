@@ -201,7 +201,7 @@ export function loadMajorEventPageServer(slug: string) {
     name: event.name,
     city: event.city,
     title: `${event.name} ${eventYear}: Dates & Texas Travel Guide`,
-    description: `${event.name} ${eventYear} in ${event.city}, Texas: confirmed dates, location, official sources and practical trip planning.`,
+    description: `${event.name} ${eventYear} in ${event.city}, Texas: dates, official sources and practical trip planning.`,
     html,
     jsonLd,
   };
