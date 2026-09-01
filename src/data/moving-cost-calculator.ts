@@ -1,6 +1,6 @@
 export const movingCostSeoTitle = 'Texas Moving Cost Calculator & Moving Cost Estimator';
 
-export const movingCostPageTitle = 'Texas Moving Cost Calculator | Estimate Your Full Move Budget';
+export const movingCostPageTitle = 'Texas Moving Cost Calculator | Plan the Full Move Budget';
 
 export const movingCostDescription =
   'Use this Texas moving cost calculator and moving cost estimator to build a practical moving estimate for transportation, movers, packing, travel, storage, deposits, setup costs and contingency.';
