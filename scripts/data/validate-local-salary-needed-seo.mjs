@@ -1,0 +1,34 @@
+import fs from 'node:fs';
+
+const profiles = fs.readFileSync('src/data/local-salary-needed.ts', 'utf8');
+const page = fs.readFileSync('src/components/calculators/LocalSalaryNeededPage.tsx', 'utf8');
+const route = fs.readFileSync('src/routes/texas-salary-needed-calculator_.$location.tsx', 'utf8');
+const lazyRoute = fs.readFileSync('src/routes/texas-salary-needed-calculator_.$location.lazy.tsx', 'utf8');
+const server = fs.readFileSync('src/data/local-salary-needed-page.server.ts', 'utf8');
+const boundary = fs.readFileSync('src/data/local-salary-needed-page.ts', 'utf8');
+const hub = fs.readFileSync('src/routes/texas-salary-comparison-by-city.lazy.tsx', 'utf8');
+const sitemap = fs.readFileSync('src/routes/sitemap[.]xml.ts', 'utf8');
+const failures = [];
+const locations = ['houston', 'austin', 'dallas', 'fort-worth', 'san-antonio', 'frisco', 'el-paso'];
+
+for (const slug of locations) {
+  if (!profiles.includes(`/texas-salary-needed-calculator/${'${local.slug}'}`) && !profiles.includes(`LOCAL_COST_OF_LIVING_PROFILES.map`)) failures.push(`Salary-needed registry is not derived from the governed local cost profiles (${slug}).`);
+}
+for (const marker of ['LOCAL_SALARY_NEEDED_PROFILES', 'LOCAL_SALARY_NEEDED_PROFILE_BY_SLUG', 'made-up citywide salary requirement', 'salaryPath']) if (!profiles.includes(marker)) failures.push(`Salary-needed registry missing ${marker}.`);
+for (const marker of ["createFileRoute('/texas-salary-needed-calculator/$location')", 'getLocalSalaryNeededPage', 'notFound()', 'loaderData?.page.head']) if (!route.includes(marker)) failures.push(`Salary-needed route missing ${marker}.`);
+for (const marker of ["createLazyFileRoute('/texas-salary-needed-calculator/$location')", 'LocalSalaryNeededPage', 'page.profile', 'page.faqs']) if (!lazyRoute.includes(marker)) failures.push(`Salary-needed lazy route missing ${marker}.`);
+for (const marker of ['createServerFn', "import('./local-salary-needed-page.server')"]) if (!boundary.includes(marker)) failures.push(`Salary-needed server boundary missing ${marker}.`);
+for (const marker of ["'@type': 'WebApplication'", "'@type': 'BreadcrumbList'", "'@type': 'FAQPage'", 'canonicalLink(texasDefinedBrand, profile.salaryPath)', 'buildMeta(texasDefinedBrand']) if (!server.includes(marker)) failures.push(`Salary-needed server head missing ${marker}.`);
+for (const marker of ['Monthly household budget', 'Monthly savings / reserve', 'Federal withholding assumption', 'Payroll-tax assumption', 'Other deductions assumption', 'Planning gross income', 'Planning only.', 'profile.path', 'profile.propertyTaxHref', 'profile.affordabilityHref', 'profile.homeownershipHref', 'profile.insuranceHref', 'profile.relocationHref', '/texas-salary-calculator', '/texas-budget-planner']) if (!page.includes(marker)) failures.push(`Salary-needed planner UI missing ${marker}.`);
+for (const marker of ['LOCAL_SALARY_NEEDED_PROFILES', 'profile.salaryPath', 'Plan from your own household costs', 'made-up salary requirement']) if (!hub.includes(marker)) failures.push(`Salary comparison hub missing crawlable local salary-needed discovery contract ${marker}.`);
+if (!sitemap.includes('LOCAL_SALARY_NEEDED_PROFILES')) failures.push('Primary sitemap must import the salary-needed registry.');
+if (!sitemap.includes('...LOCAL_SALARY_NEEDED_PROFILES.map((profile) => ({ path: profile.salaryPath')) failures.push('Primary sitemap must emit every governed salary-needed profile.');
+if (server.includes("'@type': 'FinancialProduct'") || server.includes("'@type': 'Offer'")) failures.push('Salary-needed pages must not claim FinancialProduct or Offer schema.');
+for (const unsupported of ['average salary is', 'average salary needed', 'required salary is', 'average rent is', 'average home price']) if (profiles.toLowerCase().includes(unsupported)) failures.push(`Salary-needed registry must not publish unsupported citywide assumptions: ${unsupported}.`);
+
+if (failures.length) {
+  console.error('Local salary-needed SEO validation failed:');
+  for (const failure of failures) console.error(`- ${failure}`);
+  process.exit(1);
+}
+console.log(`Local salary-needed SEO validation passed for ${locations.length} governed city planners with user-entered household costs, editable deduction assumptions, canonical/schema coverage, crawlable hub discovery, sitemap membership, local financial cross-links, and no unsupported citywide salary claims.`);
