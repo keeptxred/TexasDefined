@@ -127,7 +127,7 @@ function CountyPropertyTaxDirectory() {
         </section>
 
         <section className="py-10">
-          <div className="border-b border-border pb-4"><p className="eyebrow text-primary">All 254 counties</p><h2 className="mt-2 font-display text-4xl">Browse county references and open a calculator</h2><p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Counties without a verified local property-tax guide still link to their substantive county reference page. Every county also gets a calculator path: a dedicated major-county page where available, otherwise the statewide estimator with that county preselected.</p></div>
+          <div className="border-b border-border pb-4"><p className="eyebrow text-primary">All 254 counties</p><h2 className="mt-2 font-display text-4xl">Browse county references and open a calculator</h2><p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Counties without a verified local property-tax guide link to their substantive county reference page instead of an incomplete tax placeholder. Every county also gets a calculator path: a dedicated major-county page where available, otherwise the statewide estimator with that county preselected.</p></div>
           <ul className="grid sm:grid-cols-2 lg:grid-cols-4">
             {TEXAS_COUNTIES.map((county, index) => {
               const calculatorTarget = countyPropertyTaxCalculatorTarget(county.slug);
