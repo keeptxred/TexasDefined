@@ -7,6 +7,8 @@ const lazyRoute = fs.readFileSync(path.join(root, 'src/routes/events.lazy.tsx'),
 const visibleRoute = `${route}\n${lazyRoute}`;
 const serverHead = fs.readFileSync(path.join(root, 'src/data/major-event-directory.server.ts'), 'utf8');
 const eventLeaf = fs.readFileSync(path.join(root, 'src/data/major-event-page.server.ts'), 'utf8');
+const enrichment = fs.readFileSync(path.join(root, 'src/data/major-event-schema-enrichment.server.ts'), 'utf8');
+const eventIndex = fs.readFileSync(path.join(root, 'src/data/major-event-index.ts'), 'utf8');
 const wrapper = fs.readFileSync(path.join(root, 'src/data/major-event-directory.ts'), 'utf8');
 const errors = [];
 
@@ -34,8 +36,38 @@ for (const feature of [
   '"@type": "Place"',
   'const location = venueGuide',
   'location,',
+  'getMajorEventSchemaEnrichmentServer',
+  'getMajorEventSchemaOccurrenceEnrichmentServer',
+  '"@type": "Offer"',
+  '...(occurrenceEnrichment?.image ? { image:',
+  '...(organizer ? { organizer } : {})',
+  '...(offers?.length ? { offers } : {})',
+  '...(performers?.length ? { performer: performers } : {})',
+  'Verified event details',
+  'Official-source details checked',
 ]) {
   if (!eventLeaf.includes(feature)) errors.push(`Dedicated Event leaf SEO feature missing: ${feature}.`);
+}
+
+for (const feature of [
+  'export interface MajorEventSchemaEnrichment',
+  'export function getMajorEventSchemaEnrichmentServer',
+  'export function getMajorEventSchemaOccurrenceEnrichmentServer',
+  'verifiedAt:',
+  'organizer:',
+  'offers:',
+  'performers:',
+]) {
+  if (!enrichment.includes(feature)) errors.push(`Verified Event enrichment registry feature missing: ${feature}.`);
+}
+
+const enrichedSlugs = [...enrichment.matchAll(/\n\s+slug: "([a-z0-9-]+)",/g)].map((match) => match[1]);
+if (enrichedSlugs.length < 9) errors.push(`Expected at least 9 source-verified Event enrichment records, found ${enrichedSlugs.length}.`);
+for (const slug of enrichedSlugs) {
+  if (!eventIndex.includes(`slug: "${slug}"`)) errors.push(`Event enrichment slug is not present in the client-safe major-event index: ${slug}.`);
+}
+if (enrichment.includes('/assets/og/palo-duro-canyon.webp')) {
+  errors.push('Generic site Open Graph imagery must not be used as representative Event schema imagery.');
 }
 
 for (const feature of [
@@ -73,4 +105,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Events server-owned CollectionPage/WebPage ItemList, dedicated enriched Event leaf schema, canonical metadata, and eager/lazy visible breadcrumb validation passed.');
+console.log('Events server-owned CollectionPage/WebPage ItemList, dedicated source-verified Event leaf enrichment, canonical metadata, and eager/lazy visible breadcrumb validation passed.');
