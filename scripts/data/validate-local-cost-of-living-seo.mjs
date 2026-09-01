@@ -13,9 +13,7 @@ const failures = [];
 const locations = ['houston', 'austin', 'dallas', 'fort-worth', 'san-antonio', 'frisco', 'el-paso'];
 
 for (const slug of locations) {
-  const path = `/texas-cost-of-living-calculator/${slug}`;
   if (!profiles.includes(`slug: '${slug}'`)) failures.push(`Local cost-of-living registry missing ${slug}.`);
-  if (!hub.includes(path)) failures.push(`Statewide cost-of-living hub missing crawlable link to ${path}.`);
 }
 
 for (const marker of [
@@ -79,7 +77,14 @@ for (const marker of [
 for (const marker of ['createServerFn', "import('./local-cost-of-living-page.server')"]) {
   if (!serverBoundary.includes(marker)) failures.push(`Local cost-of-living server boundary missing ${marker}.`);
 }
-if (!hub.includes('Build a city budget without pretending one average fits everyone')) failures.push('Statewide cost-of-living hub missing local authority discovery section.');
+for (const marker of [
+  "import { LOCAL_COST_OF_LIVING_PROFILES } from '@/data/local-cost-of-living'",
+  'LOCAL_COST_OF_LIVING_PROFILES.map((profile)',
+  'to={profile.path}',
+  'Build a city budget without pretending one average fits everyone',
+]) {
+  if (!hub.includes(marker)) failures.push(`Statewide cost-of-living hub missing registry-driven discovery contract ${marker}.`);
+}
 if (!sitemap.includes('LOCAL_COST_OF_LIVING_PROFILES')) failures.push('Primary sitemap must import the local cost-of-living registry.');
 if (!sitemap.includes('...LOCAL_COST_OF_LIVING_PROFILES.map((profile) => ({ path: profile.path')) failures.push('Primary sitemap must emit each local cost-of-living profile.');
 if (server.includes("'@type': 'FinancialProduct'") || server.includes("'@type': 'Offer'")) failures.push('Local cost-of-living pages must not claim FinancialProduct or Offer schema.');
@@ -92,4 +97,4 @@ if (failures.length) {
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
-console.log(`Local cost-of-living SEO validation passed for ${locations.length} city planners with governed routing, canonical/schema coverage, crawlable hub discovery, sitemap membership, local financial cross-links, and no unsupported citywide cost assumptions.`);
+console.log(`Local cost-of-living SEO validation passed for ${locations.length} city planners with governed routing, canonical/schema coverage, registry-driven crawlable hub discovery, sitemap membership, local financial cross-links, and no unsupported citywide cost assumptions.`);
