@@ -74,7 +74,7 @@ export const wildlifeManagementAreaWave2Destinations: Destination[] = [
     summary: "Guadalupe Delta WMA protects a multi-unit coastal wetland complex around the Guadalupe River delta, preserving marsh, river and bay habitat important to waterfowl and other Gulf Coast wildlife.",
     region: "gulf-coast",
     nearestTown: "Port Lavaca",
-    county: "Calhoun County",
+    county: "Calhoun, Victoria and Refugio counties",
     coordinates: { lat: 28.56, lng: -96.67 },
     address: "13815 S Hwy 35, Port Lavaca, TX 77979",
     bestSeason: "Fall through spring for waterfowl, cooler hiking and wetland wildlife viewing.",
