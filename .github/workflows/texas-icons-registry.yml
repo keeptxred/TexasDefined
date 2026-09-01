@@ -1,5 +1,6 @@
 name: Texas Icons Registry
 
+# Validation-only touch: rerun the complete registry against current protected main.
 on:
   pull_request:
     paths:
