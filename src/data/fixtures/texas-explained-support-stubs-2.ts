@@ -32,7 +32,7 @@ export const texasPrairiesGrasslandsGuideStub: Article = {
   tags: ["texas prairie", "texas grasslands", "blackland prairie", "wildflowers", "wildlife habitat", "TPWD"],
   featured: false,
   sourceName: "Texas Parks and Wildlife Department",
-  sourceUrl: "https://tpwd.texas.gov/huntwild/wild/wildlife_diversity/wildscapes/ecoregions/",
+  sourceUrl: "https://tpwd.texas.gov/education/hunter-education/online-course/wildlife-conservation/texas-ecoregions",
   body: [], relatedCollections: [], relatedDestinations: ["palo-duro-canyon-state-park"],
 };
 
