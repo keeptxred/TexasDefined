@@ -13,9 +13,17 @@ export { TEXAS_ENTITY_REGISTRY, findTexasEntity, relationshipsFor, validateTexas
 type CityMetroAuthorityModule = typeof import('../city-metro-authority-seeds');
 let cityMetroAuthorityPromise: Promise<CityMetroAuthorityModule> | undefined;
 
+type WildlifeSpeciesModule = typeof import('./wildlife-species');
+let wildlifeSpeciesPromise: Promise<WildlifeSpeciesModule> | undefined;
+
 function loadCityMetroAuthorityModule() {
   cityMetroAuthorityPromise ??= import('../city-metro-authority-seeds');
   return cityMetroAuthorityPromise;
+}
+
+function loadWildlifeSpeciesModule() {
+  wildlifeSpeciesPromise ??= import('./wildlife-species');
+  return wildlifeSpeciesPromise;
 }
 
 export function entitiesByKind(kind: TexasEntityKind) {
@@ -53,14 +61,19 @@ export function searchTexasKnowledgeGraph(query: string, limit = 25): TexasEntit
 export async function loadTexasKnowledgeGraph(options: { query?: string; limit?: number } = {}): Promise<TexasEntityRecord[]> {
   let remote: TexasEntityRecord[] = [];
   let cityMetroAuthority: CityMetroAuthorityModule | undefined;
+  let wildlifeSpecies: WildlifeSpeciesModule | undefined;
   try {
-    [remote, cityMetroAuthority] = await Promise.all([
+    [remote, cityMetroAuthority, wildlifeSpecies] = await Promise.all([
       fetchExploreGraphEntities(options).catch((error) => {
         console.error('Explore knowledge graph unavailable; using static registry', error);
         return [];
       }),
       loadCityMetroAuthorityModule().catch((error) => {
         console.error('City/metro authority enrichment unavailable; keeping verified placeholders gated', error);
+        return undefined;
+      }),
+      loadWildlifeSpeciesModule().catch((error) => {
+        console.error('Wildlife species authority unavailable; keeping core graph available', error);
         return undefined;
       }),
     ]);
@@ -70,6 +83,7 @@ export async function loadTexasKnowledgeGraph(options: { query?: string; limit?:
 
   const merged = new Map<string, TexasEntityRecord>();
   for (const entity of TEXAS_ENTITY_REGISTRY) merged.set(entity.id, entity);
+  for (const entity of wildlifeSpecies?.TEXAS_WILDLIFE_SPECIES ?? []) merged.set(entity.id, entity);
   for (const entity of cityMetroAuthority?.cityMetroAuthoritySeedEntities() ?? []) merged.set(entity.id, entity);
   for (const entity of remote) {
     const existing = merged.get(entity.id);
@@ -95,9 +109,6 @@ export async function loadTexasKnowledgeGraph(options: { query?: string; limit?:
     }
   }
 
-  // Local-office sitemap eligibility must use the same checked-in verified data
-  // as the public property-tax pages. Do not make sitemap publication depend on
-  // live request-time scraping of 508 office pages.
   for (const entity of graph) {
     if (entity.kind !== 'appraisal-district' && entity.kind !== 'tax-office') continue;
     const enriched = enrichLocalOfficeEntityFromSnapshot(entity);
@@ -117,6 +128,19 @@ export async function findCompleteTexasEntity(value: string): Promise<TexasEntit
   if (!normalized) return undefined;
   const staticMatch = findTexasEntity(value);
   if (staticMatch) return enrichAuthoritativeEntity(staticMatch);
+
+  try {
+    const wildlifeSpecies = await loadWildlifeSpeciesModule();
+    const wildlifeMatch = wildlifeSpecies.TEXAS_WILDLIFE_SPECIES.find((entity) =>
+      entity.id.toLowerCase() === normalized
+      || entity.slug.toLowerCase() === normalized
+      || entity.name.toLowerCase() === normalized
+      || entity.aliases.some((alias) => alias.toLowerCase() === normalized),
+    );
+    if (wildlifeMatch) return wildlifeMatch;
+  } catch (error) {
+    console.error('Wildlife species authority lookup unavailable', error);
+  }
 
   try {
     const cityMetroAuthority = await loadCityMetroAuthorityModule();
@@ -153,10 +177,6 @@ async function enrichCountyGeographyEntity(entity: TexasEntityRecord): Promise<T
     ]);
     return {
       ...entity,
-      // A generated Census/geography reference description is not the same as
-      // a completed TexasDefined county-series editorial profile. Keep the
-      // description empty for unfinished counties so SSR and hydration agree
-      // on the existing in-progress state used by the county route.
       description: editorialComplete ? countyProfileDescription(entity.name, profile) : undefined,
       coordinates: profile.latitude != null && profile.longitude != null
         ? { latitude: profile.latitude, longitude: profile.longitude }
