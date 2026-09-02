@@ -27,50 +27,15 @@ function wma(input: Omit<Destination, "id" | "brandId" | "category" | "hero" | "
 /**
  * Fourth statewide Texas Wildlife Management Area authority wave.
  *
- * This wave covers the current South Texas Plains regional WMA inventory.
- * Records retain the shared destination-photo placeholder so the existing
- * destination-readiness gate keeps them staged until subject-specific licensed
- * imagery is attached.
+ * Chaparral and James E. Daughtrey are already canonicalized in Wave 1. Keep
+ * this wave limited to Las Palomas so the preserved catalog does not carry
+ * duplicate destination records with conflicting TPWD identifiers.
+ *
+ * The shared destination-photo placeholder intentionally keeps the record
+ * staged behind the existing destination-readiness/indexing gate until
+ * subject-specific licensed imagery is attached.
  */
 export const wildlifeManagementAreaWave4Destinations: Destination[] = [
-  wma({
-    slug: "chaparral-wildlife-management-area",
-    name: "Chaparral Wildlife Management Area",
-    summary: "Chaparral Wildlife Management Area protects 15,200 acres of South Texas brush country in La Salle and Dimmit counties and serves as a major TPWD research, demonstration and public-education landscape for native wildlife and habitat management.",
-    region: "south-texas",
-    nearestTown: "Cotulla",
-    county: "La Salle and Dimmit counties",
-    coordinates: { lat: 28.31, lng: -99.42 },
-    address: "64 Chaparral WMA Dr, Cotulla, TX 78014",
-    bestSeason: "April through August for general non-consumptive public use; cooler spring mornings are especially comfortable for the driving route, nature trails and wildlife viewing.",
-    entryNote: "General non-consumptive public use is normally available April 1 through August 31 because public hunts dominate much of September through March. Registration is required. Visitors age 17 and older generally need an Annual Public Hunting or Limited Public Use permit for WMA use, with current TPWD exceptions for the driving tour and designated nature trails. Confirm current hunt closures and access rules before traveling.",
-    highlights: ["South Texas thornscrub", "Wildlife research and habitat demonstrations", "Driving tour and nature trails", "Wheelchair-accessible wildlife viewing tower"],
-    body: [
-      "Chaparral WMA is one of TPWD's best-known South Texas research landscapes, preserving a large block of Tamaulipan brush country while supporting long-running studies of white-tailed deer, quail, javelina, predators, vegetation and land-management practices.",
-      "For non-hunting visitors, the public experience is concentrated in the warmer half of the year. A driving route and nature trails open roughly 1,200 acres to vehicle, foot and bicycle exploration, and a wheelchair-accessible observation tower adds a practical wildlife-viewing stop.",
-      "The WMA is not operated like a conventional state park. Hunt schedules, permits and registration shape access, so visitors should check current TPWD notices before departure and avoid assuming that every tract or road is open on a given day."
-    ],
-    officialUrl: "https://tpwd.texas.gov/huntwild/hunt/wma/find_a_wma/list/?id=7",
-  }),
-  wma({
-    slug: "james-e-daughtrey-wildlife-management-area",
-    name: "James E. Daughtrey Wildlife Management Area",
-    summary: "James E. Daughtrey Wildlife Management Area protects South Texas brush, shoreline and wildlife habitat around Choke Canyon Reservoir in Live Oak and McMullen counties, with access centered on managed hunting, wildlife research and reservoir recreation.",
-    region: "south-texas",
-    nearestTown: "Tilden",
-    county: "Live Oak and McMullen counties",
-    coordinates: { lat: 28.47, lng: -98.45 },
-    address: "198 Wildlife Ranch Rd, Tilden, TX 78072",
-    bestSeason: "April through midsummer for general non-hunting access, with spring offering the most comfortable temperatures for wildlife viewing and reservoir-area recreation.",
-    entryNote: "Public access is limited and permit-oriented. TPWD generally allows non-hunting public use from April 1 through August 1 and closes general access during scheduled hunts. Choke Canyon Reservoir facilities, including the San Miguel boat ramp, can also be affected by hunt dates and water levels. Verify current WMA and reservoir notices before traveling.",
-    highlights: ["Choke Canyon Reservoir habitat", "South Texas brush-country wildlife", "Wildlife research and management", "Seasonal public access and hunting"],
-    body: [
-      "James E. Daughtrey WMA links South Texas brush-country management with the much larger Choke Canyon Reservoir landscape. TPWD describes the WMA and reservoir together as an important wildlife complex, while the managed WMA land itself is only part of that broader acreage.",
-      "The area supports white-tailed deer, turkey, quail, javelina, waterfowl and other brush-country species, and it functions as both a research site and a public-hunting destination. Reservoir shorelines add another ecological layer, but water access and WMA land access follow different rules.",
-      "Travelers should plan around current permit and hunt calendars rather than treating the site as an always-open recreation area. Low reservoir levels can also change boat-ramp availability and shoreline access."
-    ],
-    officialUrl: "https://tpwd.texas.gov/huntwild/hunt/wma/find_a_wma/list/?id=8",
-  }),
   wma({
     slug: "las-palomas-wildlife-management-area",
     name: "Las Palomas Wildlife Management Area",
@@ -88,6 +53,6 @@ export const wildlifeManagementAreaWave4Destinations: Destination[] = [
       "The WMA was historically associated with protection of white-winged dove nesting habitat, but its units now support a broader South Texas wildlife community and provide strategically placed public lands within one of the country's most distinctive birding regions.",
       "Public access is unit-specific. Anacua, Arroyo Colorado, Baird, Carricitos, Chapote, Ebony, Longoria, Taormina and Tucker are among the units TPWD identifies for public use, so a successful visit starts by selecting a unit, reviewing its map and checking hunt closures before departure."
     ],
-    officialUrl: "https://tpwd.texas.gov/huntwild/hunt/wma/find_a_wma/list/?id=12",
+    officialUrl: "https://tpwd.texas.gov/huntwild/hunt/wma/find_a_wma/list/?id=47",
   }),
 ];

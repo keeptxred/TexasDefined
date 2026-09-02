@@ -27,10 +27,11 @@ function wma(input: Omit<Destination, "id" | "brandId" | "category" | "hero" | "
 /**
  * Seventh statewide Texas Wildlife Management Area authority wave.
  *
- * Completes the seven remaining Gulf Coast WMAs from the superseded Gulf Coast
- * roster after D.R. Wintermann landed independently in Wave 6. These remain
- * staged behind the normal destination-photo readiness gate until licensed
- * subject-specific imagery is attached.
+ * Candy Cain Abshier and Justin Hurst are already canonicalized in Wave 1.
+ * This wave contains the remaining unique Gulf Coast WMA records so preserved
+ * catalog deduplication does not carry dead copies of those destinations.
+ * Placeholder imagery keeps these records staged behind the normal destination
+ * readiness gate until licensed subject-specific imagery is attached.
  */
 export const wildlifeManagementAreaWave7Destinations: Destination[] = [
   wma({
@@ -50,42 +51,6 @@ export const wildlifeManagementAreaWave7Destinations: Destination[] = [
       "Because this is a working wildlife area rather than a developed park, trip planning should start with current TPWD access rules and marine conditions.",
     ],
     officialUrl: "https://tpwd.texas.gov/huntwild/hunt/wma/find_a_wma/list/?id=35",
-  }),
-  wma({
-    slug: "candy-cain-abshier-wildlife-management-area",
-    name: "Candy Cain Abshier Wildlife Management Area",
-    summary: "Candy Cain Abshier Wildlife Management Area protects 207 acres near Smith Point in Chambers County, combining coastal prairie, freshwater ponds and a live-oak woodlot that becomes an important migrant-bird fallout site.",
-    region: "gulf-coast",
-    nearestTown: "Smith Point",
-    county: "Chambers County",
-    coordinates: { lat: 29.53, lng: -94.76 },
-    bestSeason: "Spring migration for trans-Gulf migrant fallout and late summer through fall for the Smith Point hawk migration.",
-    entryNote: "Open year-round. Adult visitors generally need a Limited Public Use or Annual Public Hunting permit. The WMA has wildlife-viewing infrastructure but no conventional campground or full-service park facilities, so bring water and verify current TPWD rules before arrival.",
-    highlights: ["Spring migrant fallout habitat", "Smith Point hawk migration", "Live-oak woodlot", "Wildlife observation tower"],
-    body: [
-      "Candy Cain Abshier WMA sits at a strategic point between Galveston Bay and Trinity Bay, where migrating birds encounter one of the Texas coast's few public-access woodland refuges after or before crossing the Gulf.",
-      "A roughly 60-acre live-oak stand and freshwater ponds diversify the surrounding coastal prairie and make the site especially valuable during migration.",
-      "The area is also associated with the long-running Smith Point hawk watch, making late summer and fall another strong season for bird-focused visits.",
-    ],
-    officialUrl: "https://tpwd.texas.gov/huntwild/hunt/wma/find_a_wma/list/?id=36",
-  }),
-  wma({
-    slug: "justin-hurst-wildlife-management-area",
-    name: "Justin Hurst Wildlife Management Area",
-    summary: "Justin Hurst Wildlife Management Area is a large Brazoria County coastal-wetland complex near Jones Creek, combining marsh, prairie and bottomland habitats within TPWD's Central Coast Wetlands Ecosystem Project.",
-    region: "gulf-coast",
-    nearestTown: "Jones Creek",
-    county: "Brazoria County",
-    coordinates: { lat: 29.07, lng: -95.45 },
-    bestSeason: "Fall through spring for cooler wildlife viewing, with year-round access on the Jones Creek and Live Oak nature loops.",
-    entryNote: "The Jones Creek and Live Oak nature loops are open year-round. Other portions are available for special-permit hunts and scheduled tours, so access varies by tract and date. Check current TPWD notices before entering areas beyond the public nature loops.",
-    highlights: ["Jones Creek Nature Loop", "Live Oak Nature Loop", "Central Coast wetland habitat", "Hunting, fishing and wildlife viewing"],
-    body: [
-      "Justin Hurst WMA protects a broad mosaic of coastal wetlands and uplands west of Freeport and forms part of TPWD's Central Coast Wetlands Ecosystem Project.",
-      "The two nature loops provide the most dependable year-round public experience, while other portions of the WMA operate around special hunts, research and scheduled tours.",
-      "Because TPWD materials describe different acreage contexts for the managed units and broader complex, this profile focuses on the landscape and access rules rather than presenting a misleading single acreage figure.",
-    ],
-    officialUrl: "https://tpwd.texas.gov/huntwild/hunt/wma/find_a_wma/list/?id=41",
   }),
   wma({
     slug: "nannie-m-stringfellow-wildlife-management-area",
