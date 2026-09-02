@@ -1,0 +1,315 @@
+import type { Destination } from "./types";
+
+const sourceCheckedAt = "2026-09-02";
+
+export const smallTownWave5Destinations: Destination[] = [
+  {
+    id: "small-town-goliad",
+    brandId: "texasdefined",
+    slug: "goliad",
+    name: "Goliad",
+    summary: "Goliad is a South Texas courthouse town on the San Antonio River where Spanish mission history, Presidio La Bahía, the 1836 Goliad campaign, historic downtown streets and nearby parkland create one of the state's most concentrated Texas Revolution destinations.",
+    category: "small-towns",
+    region: "south-texas",
+    nearestTown: "Goliad",
+    county: "Goliad",
+    coordinates: { lat: 28.6683, lng: -97.3883 },
+    hero: {
+      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Goliad%20courthouse.jpg?width=1600",
+      alt: "Goliad County Courthouse in the historic center of Goliad, Texas",
+      width: 1685,
+      height: 1571,
+      credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons",
+    },
+    bestSeason: "Fall through spring for historic touring and river walks; summer visits work best with early outdoor stops and midday time in museums or shaded sites",
+    entryNote: "Several of Goliad's most important sites are active parks, museums or religious properties with separate hours and fees. Confirm current mission, presidio, battlefield and park access before arrival, especially on holidays or event weekends.",
+    highlights: ["Presidio La Bahía", "Mission Espíritu Santo", "Goliad campaign history", "historic courthouse square", "San Antonio River", "Texas Revolution"],
+    body: [
+      "Goliad occupies an unusually important place in the long history of South Texas. Spanish colonial settlement centered on Mission Espíritu Santo and Presidio La Bahía, creating a mission-presidio community decades before the Texas Revolution. The modern courthouse square and surrounding historic district preserve a later civic center, but the visitor experience is strongest when the town and the older Spanish sites are understood together rather than as separate attractions.",
+      "The events of 1836 give Goliad statewide significance. Colonel James Fannin and Texian forces surrendered after the Battle of Coleto, and hundreds of prisoners were later executed in what became known as the Goliad Massacre. Presidio La Bahía, Fannin Battleground and memorial sites interpret that campaign, while Goliad State Park and Mission Espíritu Santo add the deeper colonial context. The San Antonio River links much of this landscape physically as well as historically.",
+      "A first visit should allow enough time to move between downtown and the mission-presidio area without rushing. Start with the courthouse square or visitor information, then devote a substantial block to Presidio La Bahía and Mission Espíritu Santo before adding battlefield or river stops. Commemorative events can draw much larger crowds than an ordinary weekend, and summer heat makes exposed historic grounds demanding. An overnight stay gives the history room to unfold chronologically rather than becoming a checklist of monuments.",
+    ],
+    officialUrl: "https://www.visitgoliad.com/",
+    sourceCheckedAt,
+    directions: "Goliad is the Goliad County seat at the junction of US 59 and US 77A/183 in South Texas. The courthouse square and the mission-presidio corridor along the San Antonio River are the two main visitor anchors.",
+    accessibilityNotes: "Downtown is relatively compact, but historic fortifications, mission grounds, battlefield terrain and river areas vary. Confirm accessible entrances, parking and paths with each historic site or park before travel.",
+    areaGuide: {
+      intro: "Build Goliad chronologically: begin with the Spanish mission-presidio landscape, connect it to the 1836 campaign, then use downtown and the river for the later civic story and practical breaks.",
+      nearbyAttractions: [
+        { name: "Presidio La Bahía", description: "A reconstructed and preserved Spanish colonial fort complex central to both Goliad's eighteenth-century history and the 1836 campaign." },
+        { name: "Mission Espíritu Santo", description: "The mission site at Goliad State Park provides the essential Spanish colonial context for understanding the community before the Texas Revolution." },
+      ],
+      foodAndDrink: [
+        { name: "Courthouse square and central Goliad", description: "Local restaurants and cafes around the historic center provide the easiest meal break between heritage sites." },
+      ],
+      lodging: [
+        { name: "Central Goliad", description: "Best for quick access to downtown history, restaurants and the mission-presidio corridor." },
+        { name: "Regional South Texas stays", description: "Useful when Goliad is one stop in a larger Victoria, Refugio or coastal-plains history itinerary." },
+      ],
+      neighborhoods: [
+        { name: "Historic courthouse square", description: "The later civic center of Goliad, with preserved architecture, visitor services and walkable local businesses." },
+      ],
+      familyStops: [
+        { name: "Mission Espíritu Santo", description: "A visually clear place to introduce Spanish colonial life before discussing the more difficult 1836 history." },
+        { name: "San Antonio River corridor", description: "An outdoor break between historic stops; current park and trail conditions should guide the plan." },
+      ],
+      sideTrips: [
+        { name: "South Texas region", description: "Connect Goliad with other mission, coastal-plains and ranching destinations across South Texas.", href: "/explore/region/south-texas" },
+        { name: "Texas Trip Planner", description: "Build a Texas Revolution or South Texas history route around Goliad.", href: "/explore/trip-planner?destination=goliad" },
+      ],
+    },
+    authorityGuide: {
+      whyItMatters: "Goliad lets visitors follow Spanish colonial settlement, Mexican-era Texas and the Texas Revolution across a compact landscape where the mission, presidio, battlefield memory, river and later county seat all remain legible.",
+      assessment: {
+        recommendedVisit: "One full day; one night for a slower chronological tour of the mission, presidio, 1836 sites and downtown.",
+        physicalEffort: "Low to moderate",
+        weatherExposure: "Mixed indoor/outdoor",
+        planningLevel: "Moderate",
+        familyFit: "Strong for history-focused families, with careful age-appropriate treatment of the Goliad Massacre and enough outdoor space to break up museum time.",
+        firstTimeValue: "Very high for Texas history because the concentration of Spanish colonial and Revolution-era sites is unusually strong.",
+      },
+      itineraries: [
+        { label: "Half day", duration: "4-5 hours", steps: ["Visit Mission Espíritu Santo or Presidio La Bahía", "Orient around the courthouse square", "Add one focused 1836 memorial or battlefield stop"] },
+        { label: "Full day", duration: "8-10 hours", steps: ["Begin with the mission-presidio complex", "Break for lunch downtown", "Follow the 1836 story through memorial and battlefield sites", "Finish with the river or courthouse district"] },
+        { label: "Overnight", duration: "1 night", steps: ["Give the Spanish colonial sites a dedicated block", "Use the following morning for the 1836 campaign and downtown", "Leave room for a South Texas regional side trip rather than compressing every stop into one day"] },
+      ],
+      sources: [
+        { label: "Visit Goliad", url: "https://www.visitgoliad.com/", scope: "Official destination planning, history, attractions and current visitor information" },
+        { label: "Visit Goliad attractions", url: "https://www.visitgoliad.com/attractions", scope: "Current mission, presidio, battlefield, museum and outdoor attraction context" },
+      ],
+    },
+    featured: true,
+  },
+  {
+    id: "small-town-gonzales",
+    brandId: "texasdefined",
+    slug: "gonzales",
+    name: "Gonzales",
+    summary: "Gonzales is a Guadalupe River town where the first military clash of the Texas Revolution, the 'Come and Take It' story, a broad historic district, museums and nearby Palmetto State Park create a strong history-and-outdoors weekend east of San Antonio.",
+    category: "small-towns",
+    region: "prairies-lakes",
+    nearestTown: "Gonzales",
+    county: "Gonzales",
+    coordinates: { lat: 29.5016, lng: -97.4525 },
+    hero: {
+      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Gonzales%20courthouse%202005.jpg?width=1600",
+      alt: "Gonzales County Courthouse in historic downtown Gonzales, Texas",
+      width: 750,
+      height: 597,
+      credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons",
+    },
+    bestSeason: "Fall through spring for historic walking and park time; early October brings major Come and Take It programming, while summer outdoor visits should be planned around heat",
+    entryNote: "Festival weekends can change traffic, parking and museum schedules dramatically. Confirm current hours for museums and historic properties, and check Palmetto State Park reservations and conditions before building the day around the park.",
+    highlights: ["Come and Take It history", "Texas Revolution", "Gonzales Memorial Museum", "historic downtown", "Guadalupe River", "Palmetto State Park"],
+    body: [
+      "Gonzales is inseparable from the opening of the Texas Revolution. In October 1835, Mexican troops attempted to recover a small cannon previously provided to the settlement, and the resulting confrontation became the Battle of Gonzales. The 'Come and Take It' slogan and flag grew into one of the state's most recognizable symbols, but the town's value is broader than that single episode. A large historic district, courthouse architecture, museums and preserved homes help place the Revolution inside the longer story of settlement, ranching and civic life.",
+      "The Gonzales Memorial Museum and other local history sites make it possible to follow the 1835 events with more context than a roadside marker can provide. Murals and monuments bring the story into the public landscape, while the Guadalupe River and nearby Palmetto State Park give the trip an outdoor dimension. The park's unusual vegetation and CCC-era structures are distinct from the open agricultural landscape around Gonzales, making it a useful second-day contrast rather than simply another history stop.",
+      "For a first visit, begin in the historic center and use the museum to establish the Revolution timeline before following markers, homes or monuments around town. Save Palmetto State Park for a separate half day if hiking, paddling or nature viewing matters. The annual Come and Take It Celebration creates a very different version of Gonzales than an ordinary weekend, so travelers seeking either festival energy or quiet historical touring should plan accordingly. One night is enough to combine a serious history day with an outdoor block.",
+    ],
+    officialUrl: "https://www.gonzales.texas.gov/p/departments/tourgonzales",
+    sourceCheckedAt,
+    directions: "Gonzales is the Gonzales County seat southeast of Austin and east of San Antonio, near the junction of US 90A and US 183. The courthouse and historic district are the best first orientation points.",
+    accessibilityNotes: "Downtown and museum access is generally easier than some historic homes, monuments and natural trails. Confirm individual building access and current Palmetto State Park accessible facilities before travel.",
+    areaGuide: {
+      intro: "Use downtown and the museum to understand the 1835 story first, then add preserved homes, the Guadalupe River or Palmetto State Park instead of treating every site as an isolated marker.",
+      nearbyAttractions: [
+        { name: "Palmetto State Park", description: "A compact state park with unusual palmetto vegetation, trails, water recreation and CCC history west of Gonzales.", href: "/destination/palmetto-state-park" },
+        { name: "Gonzales Memorial Museum", description: "The essential local museum for the Come and Take It cannon, Texas Revolution context and community history." },
+      ],
+      foodAndDrink: [
+        { name: "Historic downtown", description: "Local restaurants and cafes around the courthouse district make it easy to combine meals with a walking itinerary." },
+      ],
+      lodging: [
+        { name: "Central Gonzales", description: "Best for travelers prioritizing museums, historic architecture and short drives to local sites." },
+        { name: "Regional road-trip stays", description: "Useful if Gonzales is paired with other Central-South Texas Revolution or state-park destinations." },
+      ],
+      neighborhoods: [
+        { name: "Gonzales historic district", description: "Courthouse architecture, museums, preserved homes and public monuments create the primary heritage zone." },
+      ],
+      familyStops: [
+        { name: "Gonzales Memorial Museum", description: "A focused indoor stop that gives children enough context to make later monuments and markers meaningful." },
+        { name: "Palmetto State Park", description: "A useful outdoor counterpoint to a history-heavy day, with current park conditions and reservations checked in advance.", href: "/destination/palmetto-state-park" },
+      ],
+      sideTrips: [
+        { name: "Palmetto State Park", description: "Reserve a separate outdoor block for the park rather than squeezing it between downtown history stops.", href: "/destination/palmetto-state-park" },
+        { name: "Prairies & Lakes region", description: "Connect Gonzales with other Central Texas courthouse towns, parks and river destinations.", href: "/explore/region/prairies-lakes" },
+      ],
+    },
+    authorityGuide: {
+      whyItMatters: "Gonzales preserves the opening chapter of the Texas Revolution inside a still-functioning courthouse town, making the famous Come and Take It episode part of a broader historical landscape rather than an isolated slogan.",
+      assessment: {
+        recommendedVisit: "One full day; one night if adding Palmetto State Park or a deeper historic-house itinerary.",
+        physicalEffort: "Low to moderate",
+        weatherExposure: "Mixed indoor/outdoor",
+        planningLevel: "Moderate",
+        familyFit: "Strong for families studying Texas history, especially when museum time is balanced with the park or river landscape.",
+        firstTimeValue: "Very high for Texas Revolution history and strong for a weekend that also needs an outdoor component.",
+      },
+      itineraries: [
+        { label: "Half day", duration: "4-5 hours", steps: ["Start at the Gonzales Memorial Museum", "Walk the courthouse and historic district", "Visit a Come and Take It monument, mural or preserved site"] },
+        { label: "Full day", duration: "8-10 hours", steps: ["Use the morning for museums and downtown history", "Break for lunch in the historic center", "Follow additional Revolution sites or historic homes", "Finish with the Guadalupe River or a short outdoor stop"] },
+        { label: "Weekend", duration: "1-2 nights", steps: ["Give Gonzales history a dedicated day", "Use a second half day for Palmetto State Park", "Leave room for festival programming or another regional history stop when relevant"] },
+      ],
+      sources: [
+        { label: "Tour Gonzales — City of Gonzales", url: "https://www.gonzales.texas.gov/p/departments/tourgonzales", scope: "Official visitor information, Texas Revolution history, museums and current destination planning" },
+        { label: "Tour Gonzales — Play", url: "https://www.gonzales.texas.gov/p/departments/tourgonzales/play", scope: "Current attractions, historic sites, parks and visitor activities" },
+      ],
+    },
+    featured: true,
+  },
+  {
+    id: "small-town-nacogdoches",
+    brandId: "texasdefined",
+    slug: "nacogdoches",
+    name: "Nacogdoches",
+    summary: "Nacogdoches is an East Texas university town with deep Spanish and Mexican-era roots, brick-paved historic streets, museums, gardens, trails and Stephen F. Austin State University, making the self-described oldest town in Texas a complete Piney Woods destination.",
+    category: "small-towns",
+    region: "piney-woods",
+    nearestTown: "Nacogdoches",
+    county: "Nacogdoches",
+    coordinates: { lat: 31.6035, lng: -94.6555 },
+    hero: {
+      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Nacogdoches%20downtown.jpg?width=1600",
+      alt: "Historic brick streets and storefronts in downtown Nacogdoches, Texas",
+      width: 1200,
+      height: 804,
+      credit: "Chris Litherland / Photolitherland · CC BY 3.0 · Wikimedia Commons",
+    },
+    bestSeason: "Spring for azaleas and gardens, fall through spring for downtown and trail walking, and summer mornings for outdoor stops before the East Texas heat and humidity build",
+    entryNote: "Garden bloom timing, university events and festivals can change crowds and lodging demand. Check current museum, garden and trail information before arrival, and do not assume peak azalea or fall-color timing from the calendar alone.",
+    highlights: ["historic downtown", "oldest-town history", "Stephen F. Austin State University", "gardens and azaleas", "Lanana Creek Trail", "Piney Woods"],
+    body: [
+      "Nacogdoches occupies one of the deepest historical layers of any Texas town. Spanish activity, the El Camino Real corridor, Mexican-era settlement and later Republic and statehood history all shaped the community before the modern university era. Downtown's brick streets, historic commercial buildings, museums and public spaces make that long chronology visible without requiring travelers to drive between every stop. The result is a town where early Texas history is embedded in an active civic center rather than isolated at one historic site.",
+      "Stephen F. Austin State University adds a major cultural and educational dimension, including gardens, museums, performances and a younger local rhythm. Nacogdoches is also known for public gardens, azalea season and the wooded Lanana Creek Trail, which runs through parts of the city and connects visitors to the Piney Woods landscape. Those outdoor and university assets distinguish Nacogdoches from a courthouse-town itinerary and make it practical for a two-day trip.",
+      "A first visit should start downtown with a history-oriented walking route or museum, then add the university and gardens as a separate block. Spring bloom weekends and major SFA events can make the city much busier, so hotel and restaurant planning matter more than the population might suggest. Heat and humidity favor early trail or garden time in summer. Two nights allow one heritage day and one gardens-university-outdoors day without reducing the city to a pass-through stop.",
+    ],
+    officialUrl: "https://www.visitnacogdoches.org/",
+    sourceCheckedAt,
+    directions: "Nacogdoches is the Nacogdoches County seat in Deep East Texas, centered near US 59/I-69 and State Highway 7. Historic downtown and the Stephen F. Austin State University area form the two main visitor clusters.",
+    accessibilityNotes: "Downtown and university facilities offer many accessible routes, but older buildings, garden paths and natural trail sections vary. Confirm specific museum, garden and trail accessibility before travel.",
+    areaGuide: {
+      intro: "Treat Nacogdoches as two connected districts—historic downtown and the SFA/gardens area—then use trails and Piney Woods scenery to link the history and university sides of the trip.",
+      nearbyAttractions: [
+        { name: "Historic downtown Nacogdoches", description: "Brick streets, older commercial buildings, museums and public history form the essential first-visit core." },
+        { name: "Stephen F. Austin State University gardens", description: "University gardens and arboretum collections reinforce Nacogdoches' Garden Capital identity and are especially popular in spring." },
+      ],
+      foodAndDrink: [
+        { name: "Downtown and university corridors", description: "Local restaurants, coffee shops and bars are distributed between the historic center and the SFA area." },
+      ],
+      lodging: [
+        { name: "Downtown and central Nacogdoches", description: "Best for heritage-focused trips and easy access to local restaurants." },
+        { name: "SFA and north-central area", description: "Convenient for university events, gardens and campus-centered visits." },
+      ],
+      neighborhoods: [
+        { name: "Historic downtown", description: "The strongest concentration of brick streets, historic architecture, museums and early-Texas interpretation." },
+      ],
+      familyStops: [
+        { name: "Lanana Creek Trail", description: "A wooded urban trail that offers an outdoor break between cultural stops; check current trail conditions after heavy rain." },
+        { name: "SFA gardens", description: "Flexible outdoor time for families interested in plants, seasonal color and a less structured attraction." },
+      ],
+      sideTrips: [
+        { name: "Piney Woods region", description: "Connect Nacogdoches with East Texas forests, lakes, historic towns and wildlife destinations.", href: "/explore/region/piney-woods" },
+        { name: "Texas Trip Planner", description: "Build an East Texas route around Nacogdoches and nearby Piney Woods destinations.", href: "/explore/trip-planner?destination=nacogdoches" },
+      ],
+    },
+    authorityGuide: {
+      whyItMatters: "Nacogdoches combines some of Texas' oldest Spanish, Mexican and Anglo settlement history with a modern university, serious public gardens and Piney Woods trails, giving it more layers than a single historic-downtown visit suggests.",
+      assessment: {
+        recommendedVisit: "One full day at minimum; two nights for downtown history, SFA, gardens and trails.",
+        physicalEffort: "Low to moderate",
+        weatherExposure: "Mixed indoor/outdoor",
+        planningLevel: "Moderate",
+        familyFit: "Strong for families who want a mix of history, gardens, campus culture and easy outdoor time.",
+        firstTimeValue: "High because the city offers both unusually deep Texas history and a broader university-and-gardens experience.",
+      },
+      itineraries: [
+        { label: "Half day", duration: "4-5 hours", steps: ["Walk historic downtown", "Choose one museum or heritage stop", "Finish with a short garden or Lanana Creek Trail visit"] },
+        { label: "Full day", duration: "8-10 hours", steps: ["Begin downtown with history and architecture", "Break for lunch", "Explore the SFA area and gardens", "Use late afternoon for a trail, gallery or seasonal outdoor stop"] },
+        { label: "Weekend", duration: "2 nights", steps: ["Give downtown and early Texas history one dedicated day", "Use the second day for SFA, gardens and trails", "Keep one flexible block for a Piney Woods side trip or seasonal event"] },
+      ],
+      sources: [
+        { label: "Visit Nacogdoches", url: "https://www.visitnacogdoches.org/", scope: "Official destination planning, current events, lodging and visitor information" },
+        { label: "Visit Nacogdoches — Tours and Trails", url: "https://www.visitnacogdoches.org/things-to-do/tours-trails/", scope: "Historic walking, trails and current self-guided visitor options" },
+        { label: "Visit Nacogdoches — Arts and Culture", url: "https://www.visitnacogdoches.org/things-to-do/arts-culture/", scope: "Current museums, arts, heritage and cultural attractions" },
+      ],
+    },
+    featured: true,
+  },
+  {
+    id: "small-town-palestine",
+    brandId: "texasdefined",
+    slug: "palestine",
+    name: "Palestine",
+    summary: "Palestine is an East Texas railroad and courthouse town with a large historic building inventory, a walkable downtown, dogwood-season scenery, museums and the Texas State Railroad, giving it one of the Piney Woods' strongest architecture-and-rail weekend combinations.",
+    category: "small-towns",
+    region: "piney-woods",
+    nearestTown: "Palestine",
+    county: "Anderson",
+    coordinates: { lat: 31.7621, lng: -95.6308 },
+    hero: {
+      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Anderson%20County%20Courthouse%20Palestine%20Wiki%20%281%20of%201%29.jpg?width=1600",
+      alt: "Anderson County Courthouse in historic Palestine, Texas",
+      width: 1799,
+      height: 1121,
+      credit: "Renelibrary · CC BY-SA 4.0 · Wikimedia Commons",
+    },
+    bestSeason: "Spring for dogwoods and garden events, fall through spring for historic walking and rail excursions, and summer mornings for outdoor architecture tours before heat and humidity peak",
+    entryNote: "Texas State Railroad excursions, seasonal dogwood events and holiday trains can sell out, while historic-property access varies by site. Reserve ticketed rail experiences directly and check the current Palestine visitor calendar before travel.",
+    highlights: ["historic downtown", "Anderson County Courthouse", "Texas State Railroad", "dogwood season", "historic architecture", "Piney Woods"],
+    body: [
+      "Palestine developed as an Anderson County seat and major railroad community, and those two roles remain visible in the city's architecture. Downtown contains commercial buildings, civic landmarks and neighborhoods from multiple periods, while the courthouse and railroad heritage help explain why the city grew into a regional center. Visit Palestine promotes more than a thousand historic sites and structures across the community, making architecture and self-guided touring a central part of the destination rather than a small side activity.",
+      "Rail history gives Palestine its most recognizable visitor experience. The Texas State Railroad operates excursions through the East Texas landscape, pairing historic rail travel with the wooded scenery that defines the region. Spring adds another identity through dogwoods, gardens and seasonal events, while museums and cultural stops provide indoor alternatives when weather is poor. This combination supports both a history-focused trip and a family weekend without requiring every hour to revolve around the train.",
+      "A first visit should separate the ticketed railroad experience from downtown exploration instead of expecting both to fit casually into a short afternoon. Reserve the train first if it is the priority, then build walking, museums and food around that fixed time. Dogwood and holiday periods can create significant demand for lodging and popular departures. One or two nights make it possible to see the architecture and neighborhoods at a slower pace while still allowing a substantial rail or Piney Woods excursion.",
+    ],
+    officialUrl: "https://www.visitpalestine.com/",
+    sourceCheckedAt,
+    directions: "Palestine is the Anderson County seat in East Texas at the junction of US 79, US 84 and US 287. Historic downtown and the courthouse area are the best visitor orientation zone, with rail facilities outside the immediate walking core.",
+    accessibilityNotes: "Downtown sidewalks and many public facilities are accessible, but historic buildings, older neighborhoods and rail equipment vary. Confirm accessible boarding and seating directly with the railroad and specific attractions before travel.",
+    areaGuide: {
+      intro: "Plan Palestine around one fixed-time anchor—often the railroad—then use downtown architecture, museums and seasonal outdoor stops to fill the rest of the day without over-scheduling.",
+      nearbyAttractions: [
+        { name: "Texas State Railroad", description: "A ticketed heritage railroad experience through the East Texas landscape; reserve current excursions directly with the operator." },
+        { name: "Historic Palestine", description: "Downtown and surrounding neighborhoods contain a broad inventory of historic civic, commercial and residential architecture." },
+      ],
+      foodAndDrink: [
+        { name: "Historic downtown", description: "Restaurants, cafes and local businesses are concentrated around the walkable central district and pair naturally with architecture tours." },
+      ],
+      lodging: [
+        { name: "Central Palestine", description: "Best for downtown architecture, restaurants and museums." },
+        { name: "Regional Piney Woods stays", description: "Useful when the railroad is part of a broader East Texas forest, lake or small-town itinerary." },
+      ],
+      neighborhoods: [
+        { name: "Historic downtown and courthouse district", description: "The primary walking area for civic landmarks, older commercial buildings, food and visitor services." },
+      ],
+      familyStops: [
+        { name: "Texas State Railroad", description: "The signature family experience when current excursion schedules and ticket availability fit the trip." },
+        { name: "Seasonal dogwood routes", description: "A flexible spring outdoor activity; bloom timing varies with weather, so current visitor updates matter." },
+      ],
+      sideTrips: [
+        { name: "Piney Woods region", description: "Connect Palestine with East Texas forests, lakes, wildlife destinations and other historic towns.", href: "/explore/region/piney-woods" },
+        { name: "Texas Trip Planner", description: "Build a Piney Woods rail-and-history route around Palestine.", href: "/explore/trip-planner?destination=palestine" },
+      ],
+    },
+    authorityGuide: {
+      whyItMatters: "Palestine preserves the architecture of a major East Texas county seat and railroad center while still offering an active heritage-rail experience and seasonal Piney Woods scenery.",
+      assessment: {
+        recommendedVisit: "One full day; one or two nights if the Texas State Railroad and deeper architecture touring are both priorities.",
+        physicalEffort: "Low to moderate",
+        weatherExposure: "Mixed indoor/outdoor",
+        planningLevel: "High",
+        familyFit: "Strong when the railroad is part of the itinerary, with downtown and seasonal outdoor stops offering flexible alternatives.",
+        firstTimeValue: "High for rail, architecture and East Texas history, particularly during spring dogwood or major seasonal rail periods.",
+      },
+      itineraries: [
+        { label: "Half day", duration: "4-5 hours", steps: ["Walk historic downtown and the courthouse district", "Choose one museum or architecture route", "Finish with local food or a seasonal dogwood stop"] },
+        { label: "Full day", duration: "8-10 hours", steps: ["Use the morning for downtown architecture and history", "Break for lunch", "Take a reserved railroad excursion or another major attraction", "Return for dinner and an evening walk"] },
+        { label: "Weekend", duration: "1-2 nights", steps: ["Give the railroad its own fixed-time block", "Use another half or full day for downtown and historic neighborhoods", "Keep one flexible period for dogwoods, a Piney Woods drive or another East Texas stop"] },
+      ],
+      sources: [
+        { label: "Visit Palestine", url: "https://www.visitpalestine.com/", scope: "Official destination planning, events, rail, dogwood and current visitor information" },
+        { label: "Visit Palestine Visitor Center", url: "https://www.visitpalestine.com/visitor-center", scope: "Current visitor-center resources, historic-site inventory and self-guided planning" },
+      ],
+    },
+    featured: true,
+  },
+];
