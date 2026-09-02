@@ -50,6 +50,36 @@ jobs:
               raise SystemExit('Generated-path registry parser not found')
           governance = governance.replace(old, new, 1)
           governance_path.write_text(governance)
+
+          explore_validator_path = Path('scripts/data/validate-explore-route-registration.mjs')
+          explore_validator = explore_validator_path.read_text()
+          old_trip_contract = '''for (const feature of [
+            'createFileRoute("/explore/trip-planner")',
+            'canonicalPath: "/explore/trip-planner"',
+            'robots: "noindex, follow"',
+            'links: [canonicalLink(texasDefinedBrand, "/explore/trip-planner")]',
+          ]) {
+            if (!tripPlanner.includes(feature)) failures.push(`Trip Planner shell contract missing: ${feature}.`);
+          }
+          '''
+          new_trip_contract = '''for (const feature of [
+            'createFileRoute("/explore/trip-planner")',
+            'head: ({ match })',
+            'const hasQueryState = Boolean(match.search.destination || match.search.trip)',
+            'canonicalPath: "/explore/trip-planner"',
+            'robots: hasQueryState ? "noindex, follow" : undefined',
+            'links: [canonicalLink(texasDefinedBrand, "/explore/trip-planner")]',
+          ]) {
+            if (!tripPlanner.includes(feature)) failures.push(`Trip Planner shell contract missing: ${feature}.`);
+          }
+          if (/robots:\s*["']noindex, follow["']/.test(tripPlanner)) {
+            failures.push('Trip Planner clean route must remain indexable; only destination/trip query states may emit noindex, follow.');
+          }
+          '''
+          if old_trip_contract not in explore_validator:
+              raise SystemExit('Trip Planner validator contract block not found')
+          explore_validator = explore_validator.replace(old_trip_contract, new_trip_contract, 1)
+          explore_validator_path.write_text(explore_validator)
       - name: Validate governance repair
         run: |
           node scripts/data/validate-public-route-governance.mjs
@@ -60,6 +90,6 @@ jobs:
           set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add src/lib/public-routes.ts scripts/data/validate-public-route-governance.mjs
-          git commit -m 'fix: classify full public route ids after route generation'
+          git add src/lib/public-routes.ts scripts/data/validate-public-route-governance.mjs scripts/data/validate-explore-route-registration.mjs
+          git commit -m 'fix: classify full route ids and protect planner query indexing'
           git push origin HEAD:fix/discovery-route-tree-production-20260902
