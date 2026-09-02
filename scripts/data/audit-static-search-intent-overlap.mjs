@@ -2,6 +2,10 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const root = process.cwd();
+const stopWords = new Set([
+  'a','an','and','are','as','at','be','best','by','for','from','guide','how','in','is','it','of','on','or','the','to','texas','texasdefined','with','your',
+  '2025','2026','calculator','calculators','explained','find','free','help','official','plan','planning','state','statewide','tool','tools',
+]);
 const registrySource = fs.readFileSync(path.join(root, 'src/lib/public-routes.ts'), 'utf8');
 const indexableBlock = registrySource.match(/export const INDEXABLE_STATIC_PATHS = \[([\s\S]*?)\] as const;/)?.[1] ?? '';
 const indexablePaths = new Set([...indexableBlock.matchAll(/"(\/[^"]+)"/g)].map((match) => match[1]));
@@ -136,11 +140,6 @@ function findMatchingBrace(source, start) {
   }
   return -1;
 }
-
-const stopWords = new Set([
-  'a','an','and','are','as','at','be','best','by','for','from','guide','how','in','is','it','of','on','or','the','to','texas','texasdefined','with','your',
-  '2025','2026','calculator','calculators','explained','find','free','help','official','plan','planning','state','statewide','tool','tools',
-]);
 
 function tokens(value) {
   if (!value) return new Set();
