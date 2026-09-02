@@ -42,7 +42,7 @@ for (const feature of [
   'Texas Defined Editorial Desk',
   'Texas Defined Food & Culture Desk',
   'Texas Defined Travel & Outdoors Desk',
-  'Texas Defined Homes & Land Desk',
+  'Texas Defined Homes & Property Desk',
   'Texas Defined History & Heritage Desk',
   'HOMES_LAND_EDITORIAL_DESK_ID',
   'HISTORY_HERITAGE_EDITORIAL_DESK_ID',
