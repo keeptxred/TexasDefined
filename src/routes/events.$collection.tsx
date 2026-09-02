@@ -1,4 +1,4 @@
-import { createFileRoute, notFound } from "@tanstack/react-router";
+import { Link, createFileRoute, notFound } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
 import { getEventCollectionPage } from "@/data/event-collection-page";
@@ -12,6 +12,13 @@ export const Route = createFileRoute("/events/$collection")({
   head: ({ loaderData }) => loaderData?.page.head ?? {},
   component: EventCollectionPage,
 });
+
+function EventGuideLink({ event, className, children }: { event: { slug: string; href: string }; className?: string; children: React.ReactNode }) {
+  if (event.href === `/event/${event.slug}`) {
+    return <Link to="/event/$slug" params={{ slug: event.slug }} className={className}>{children}</Link>;
+  }
+  return <a href={event.href} className={className}>{children}</a>;
+}
 
 function EventCollectionPage() {
   const { page } = Route.useLoaderData();
@@ -42,7 +49,7 @@ function EventCollectionPage() {
 
       <section className="pt-12">
         <div className="flex flex-wrap items-end justify-between gap-4 border-b border-border pb-6"><div><p className="eyebrow text-primary">Permanent planning pages</p><h2 className="mt-2 font-display text-4xl">Verified event guides</h2></div><a href="/events" className="text-sm font-semibold text-primary">Full Texas calendar →</a></div>
-        {page.items.length ? <ul className="grid gap-px border-x border-b border-border bg-border sm:grid-cols-2 lg:grid-cols-3">{page.items.map((event) => <li key={event.href} className="bg-background p-6"><p className="eyebrow text-muted-foreground">{event.city}{event.countyName ? ` · ${event.countyName}` : ""}</p><h3 className="mt-3 font-display text-2xl leading-tight"><a href={event.href} className="hover:text-primary">{event.name}</a></h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{event.detail}</p><a href={event.href} className="mt-5 inline-block text-sm font-semibold text-primary">Dates, sources & planning →</a></li>)}</ul> : <p className="border-x border-b border-border p-8 text-sm leading-7 text-muted-foreground">No permanent event guide currently meets the source standard for this collection; Texas Defined does not pad the page with invented dates.</p>}
+        {page.items.length ? <ul className="grid gap-px border-x border-b border-border bg-border sm:grid-cols-2 lg:grid-cols-3">{page.items.map((event) => <li key={event.href} className="bg-background p-6"><p className="eyebrow text-muted-foreground">{event.city}{event.countyName ? ` · ${event.countyName}` : ""}</p><h3 className="mt-3 font-display text-2xl leading-tight"><EventGuideLink event={event} className="hover:text-primary">{event.name}</EventGuideLink></h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{event.detail}</p><EventGuideLink event={event} className="mt-5 inline-block text-sm font-semibold text-primary">Dates, sources & planning →</EventGuideLink></li>)}</ul> : <p className="border-x border-b border-border p-8 text-sm leading-7 text-muted-foreground">No permanent event guide currently meets the source standard for this collection; Texas Defined does not pad the page with invented dates.</p>}
       </section>
 
       <section className="pt-12">
