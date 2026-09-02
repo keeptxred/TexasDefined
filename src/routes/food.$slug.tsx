@@ -2,13 +2,13 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
-import { getFoodDestination } from "@/data/food-destinations";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
 export const Route = createFileRoute("/food/$slug")({
-  loader: ({ params }) => {
+  loader: async ({ params }) => {
+    const { getFoodDestination } = await import("@/data/food-destinations");
     const destination = getFoodDestination(params.slug);
     if (!destination) throw notFound();
     return { destination };
