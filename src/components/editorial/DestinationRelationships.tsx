@@ -22,6 +22,13 @@ const CAMPING_DESTINATION_SLUGS = new Set([
   "brazos-bend-state-park",
   "big-bend-national-park",
   "guadalupe-mountains-national-park",
+  "inks-lake-state-park",
+  "colorado-bend-state-park",
+  "caprock-canyons-state-park",
+  "dinosaur-valley-state-park",
+  "pedernales-falls-state-park",
+  "lake-whitney-state-park",
+  "lake-tawakoni-state-park",
 ]);
 
 const AREA_GROUPS: Array<{

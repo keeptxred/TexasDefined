@@ -11,17 +11,19 @@ const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
 
 export const Route = createFileRoute(canonicalPath)({
   loader: async ({ context }) => {
-    // Load the comparison dataset only for this guide so it stays out of the global route bundle.
-    const [{ CAMPING_DISCOVERY_PROFILES }, destinations] = await Promise.all([
+    // Load comparison datasets only for this guide so they stay out of the global route bundle.
+    const [{ CAMPING_DISCOVERY_PROFILES }, { CAMPING_DISCOVERY_PROFILES_WAVE2 }, destinations] = await Promise.all([
       import("@/data/camping/discovery"),
+      import("@/data/camping/profiles-wave2"),
       context.queryClient.ensureQueryData(destinationsQuery({ limit: 5000 })),
     ]);
+    const profiles = [...CAMPING_DISCOVERY_PROFILES, ...CAMPING_DISCOVERY_PROFILES_WAVE2];
     const bySlug = new Map(destinations.map((destination) => [destination.slug, destination]));
-    return { entries: CAMPING_DISCOVERY_PROFILES.map((profile) => ({ profile, destination: bySlug.get(profile.destinationSlug) })) };
+    return { entries: profiles.map((profile) => ({ profile, destination: bySlug.get(profile.destinationSlug) })) };
   },
   head: ({ loaderData }) => {
     const profiles = loaderData?.entries.map(({ profile }) => profile) ?? [];
-    const modified = profiles.map((profile) => profile.verifiedAt).sort().at(-1) ?? "2026-09-01";
+    const modified = profiles.map((profile) => profile.verifiedAt).sort().at(-1) ?? "2026-09-02";
     return {
       meta: buildMeta(texasDefinedBrand, { canonicalPath, title: title, description }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
