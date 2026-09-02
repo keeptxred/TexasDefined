@@ -16,14 +16,15 @@ function profileAnchor(profile: { destinationSlug: string; profileSlug?: unknown
 export const Route = createFileRoute(canonicalPath)({
   loader: async ({ context }) => {
     // Load comparison datasets only for this guide so they stay out of the global route bundle.
-    const [{ CAMPING_DISCOVERY_PROFILES }, { CAMPING_DISCOVERY_PROFILES_WAVE2 }, { CAMPING_DISCOVERY_PROFILES_WAVE3 }, { CAMPING_DISCOVERY_PROFILES_WAVE4 }, destinations] = await Promise.all([
+    const [{ CAMPING_DISCOVERY_PROFILES }, { CAMPING_DISCOVERY_PROFILES_WAVE2 }, { CAMPING_DISCOVERY_PROFILES_WAVE3 }, { CAMPING_DISCOVERY_PROFILES_WAVE4 }, { CAMPING_DISCOVERY_PROFILES_WAVE5 }, destinations] = await Promise.all([
       import("@/data/camping/discovery"),
       import("@/data/camping/profiles-wave2"),
       import("@/data/camping/profiles-wave3"),
       import("@/data/camping/profiles-wave4"),
+      import("@/data/camping/profiles-wave5"),
       context.queryClient.ensureQueryData(destinationsQuery({ limit: 5000 })),
     ]);
-    const profiles = [...CAMPING_DISCOVERY_PROFILES, ...CAMPING_DISCOVERY_PROFILES_WAVE2, ...CAMPING_DISCOVERY_PROFILES_WAVE3, ...CAMPING_DISCOVERY_PROFILES_WAVE4];
+    const profiles = [...CAMPING_DISCOVERY_PROFILES, ...CAMPING_DISCOVERY_PROFILES_WAVE2, ...CAMPING_DISCOVERY_PROFILES_WAVE3, ...CAMPING_DISCOVERY_PROFILES_WAVE4, ...CAMPING_DISCOVERY_PROFILES_WAVE5];
     const bySlug = new Map(destinations.map((destination) => [destination.slug, destination]));
     return { entries: profiles.map((profile) => ({ profile, destination: bySlug.get(profile.destinationSlug) })) };
   },
