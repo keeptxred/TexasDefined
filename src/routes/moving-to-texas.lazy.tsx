@@ -42,6 +42,15 @@ const localCostOfLivingTools = [
   ["Frisco", "/texas-cost-of-living-calculator/frisco"],
   ["El Paso", "/texas-cost-of-living-calculator/el-paso"],
 ] as const;
+const localSalaryNeededTools = [
+  ["Houston", "/texas-salary-needed-calculator/houston"],
+  ["Austin", "/texas-salary-needed-calculator/austin"],
+  ["Dallas", "/texas-salary-needed-calculator/dallas"],
+  ["Fort Worth", "/texas-salary-needed-calculator/fort-worth"],
+  ["San Antonio", "/texas-salary-needed-calculator/san-antonio"],
+  ["Frisco", "/texas-salary-needed-calculator/frisco"],
+  ["El Paso", "/texas-salary-needed-calculator/el-paso"],
+] as const;
 
 export const Route = createLazyFileRoute("/moving-to-texas")({ component: MovingToTexasPage });
 
@@ -79,6 +88,12 @@ function MovingToTexasPage() {
         <div className="flex flex-wrap items-end justify-between gap-4"><div><p className="eyebrow text-primary">Household budget after the move</p><h2 id="moving-texas-cost-living" className="mt-2 font-display text-3xl">Compare the recurring budget city by city</h2></div><Link to="/texas-cost-of-living-calculator" className="text-sm font-semibold text-primary">Statewide cost-of-living calculator →</Link></div>
         <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These city planners do not assign a universal local cost index. Start with what your household spends now, then replace housing, transportation, utilities, insurance, food and other recurring costs with the best address-specific estimates you have for the move.</p>
         <div className="mt-6 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">{localCostOfLivingTools.map(([name, href]) => <a key={href} href={href} className="group bg-background p-5"><strong className="font-display text-2xl group-hover:text-primary">{name}</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Cost-of-living budget planner →</span></a>)}</div>
+      </section>
+
+      <section className="mb-12 border-b border-border pb-10" aria-labelledby="moving-texas-salary-needed">
+        <div className="flex flex-wrap items-end justify-between gap-4"><div><p className="eyebrow text-primary">Income target after the budget</p><h2 id="moving-texas-salary-needed" className="mt-2 font-display text-3xl">Work backward from the local budget to a salary target</h2></div><Link to="/texas-salary-comparison-by-city" className="text-sm font-semibold text-primary">Texas salary planning tools →</Link></div>
+        <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These city planners start with your own household budget and savings target, then let you edit federal, payroll and other deduction assumptions. They do not publish a made-up citywide salary requirement. Build the local cost budget first, then use the salary planner as a transparent bridge from take-home needs to a gross-income target.</p>
+        <div className="mt-6 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">{localSalaryNeededTools.map(([name, href]) => <a key={href} href={href} className="group bg-background p-5"><strong className="font-display text-2xl group-hover:text-primary">{name}</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Salary-needed budget planner →</span></a>)}</div>
       </section>
 
       <div className="mb-10 flex flex-wrap gap-x-7 gap-y-3 border-b border-border pb-7 text-sm font-semibold">
