@@ -8,11 +8,11 @@ const summaryPath = process.env.GITHUB_STEP_SUMMARY;
 const reportPath = process.env.STATEWIDE_FINANCIAL_DISCOVERY_REPORT ?? '.artifacts/statewide-financial-discovery.json';
 
 const surfaces = [
-  { path: '/texas-moving-cost-calculator', marker: 'Connect the one-time move to the monthly Texas budget' },
-  { path: '/texas-cost-of-living-calculator', marker: 'Verify the categories that matter most to the move' },
-  { path: '/texas-salary-comparison-by-city', marker: 'Compare income with the costs you will actually carry' },
-  { path: '/texas-salary-calculator', marker: 'Compare pay with Texas living costs' },
-  { path: '/texas-budget-planner', marker: 'Use the other Texas tools to improve the budget inputs' },
+  { path: '/texas-moving-cost-calculator', marker: 'Connect the one-time move to the monthly Texas budget', statusContext: 'td-fin-debug-moving' },
+  { path: '/texas-cost-of-living-calculator', marker: 'Verify the categories that matter most to the move', statusContext: 'td-fin-debug-cost' },
+  { path: '/texas-salary-comparison-by-city', marker: 'Compare income with the costs you will actually carry', statusContext: 'td-fin-debug-compare' },
+  { path: '/texas-salary-calculator', marker: 'Compare pay with Texas living costs', statusContext: 'td-fin-debug-salary' },
+  { path: '/texas-budget-planner', marker: 'Use the other Texas tools to improve the budget inputs', statusContext: 'td-fin-debug-budget' },
 ];
 
 const diagnostics = [];
@@ -63,6 +63,52 @@ function formatLinkDiagnostics(body, rawHrefs, linkPathnames) {
     `sameOriginPaths=${pathSample.length ? pathSample.join(';') : '(none)'}`,
     `hrefSample=${hrefSample.length ? hrefSample.join(';') : '(none)'}`,
   ].join(' | ');
+}
+
+function compactPath(path) {
+  return path
+    .replace('/texas-', '')
+    .replace('-calculator', '')
+    .replace('-by-city', '')
+    .replace('-planner', '')
+    .replaceAll('-', '_');
+}
+
+async function publishDiagnosticStatus(surface, diagnostic) {
+  const token = process.env.GH_TOKEN ?? process.env.GITHUB_TOKEN;
+  const repository = process.env.GITHUB_REPOSITORY;
+  if (!token || !repository || sha === 'local') return;
+
+  const missingPeers = diagnostic.missingPeers.map(compactPath).join(',') || 'none';
+  const missingSignals = diagnostic.missingPageSignals.length || 0;
+  const description = [
+    `http=${diagnostic.status ?? 'err'}`,
+    `bytes=${diagnostic.bodyBytes ?? 0}`,
+    `anchors=${diagnostic.anchorCount ?? 0}`,
+    `missing=${missingPeers}`,
+    `signals=${missingSignals}`,
+    `noindex=${diagnostic.hasNoindex ? 1 : 0}`,
+  ].join(' ');
+
+  try {
+    const response = await fetch(`https://api.github.com/repos/${repository}/statuses/${sha}`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/vnd.github+json',
+        'X-GitHub-Api-Version': '2022-11-28',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        state: diagnostic.error || diagnostic.status !== 200 || diagnostic.hasNoindex || diagnostic.missingPeers.length || diagnostic.missingPageSignals.length ? 'failure' : 'success',
+        context: surface.statusContext,
+        description: description.slice(0, 140),
+      }),
+    });
+    if (!response.ok) console.log(`::warning title=Diagnostic status unavailable::${surface.path} status publication returned ${response.status}.`);
+  } catch (error) {
+    console.log(`::warning title=Diagnostic status unavailable::${surface.path}: ${error instanceof Error ? error.message : String(error)}`);
+  }
 }
 
 function writeDiagnostics() {
@@ -128,6 +174,8 @@ for (const surface of surfaces) {
       hasNoindex,
     });
 
+    await publishDiagnosticStatus(surface, diagnostic);
+
     if (!response.ok) fail(surface.path, `HTTP ${response.status} | ${linkDiagnostics}`);
     else if (hasNoindex) fail(surface.path, `unexpected robots noindex | ${linkDiagnostics}`);
     else if (missingPageSignals.length) fail(surface.path, `missing page signals: ${missingPageSignals.join(', ')} | ${linkDiagnostics}`);
@@ -138,6 +186,7 @@ for (const surface of surfaces) {
     }
   } catch (error) {
     diagnostic.error = error instanceof Error ? error.message : String(error);
+    await publishDiagnosticStatus(surface, diagnostic);
     fail(surface.path, diagnostic.error);
   }
 }
