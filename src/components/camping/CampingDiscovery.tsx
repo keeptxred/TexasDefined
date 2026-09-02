@@ -17,6 +17,10 @@ const styleLabels: Record<CampingStyle, string> = {
   beach: "Beach",
   backcountry: "Backcountry",
   group: "Group",
+  cabin: "Cabin",
+  glamping: "Glamping",
+  airstream: "Airstream",
+  bungalow: "Bungalow",
 };
 
 const amenityLabels: Partial<Record<CampingAmenity, string>> = {
@@ -31,6 +35,7 @@ const amenityLabels: Partial<Record<CampingAmenity, string>> = {
   restrooms: "Restrooms",
   showers: "Showers",
   "ada-site": "ADA site",
+  pets: "Pet friendly",
   shade: "Shade",
   swimming: "Swimming",
   "lake-access": "Lake access",
@@ -71,13 +76,13 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
 
   return <>
     <div className="mt-8 grid gap-4 rounded-sm border border-border bg-background p-5 md:grid-cols-2 lg:grid-cols-4">
-      <label className="text-sm"><span className="block font-semibold">Camping style</span><select value={style} onChange={(event) => setStyle(event.target.value as CampingStyle | "all")} className="mt-2 w-full border border-border bg-background px-3 py-2"><option value="all">All styles</option>{Object.entries(styleLabels).map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select></label>
+      <label className="text-sm"><span className="block font-semibold">Camping or lodging style</span><select value={style} onChange={(event) => setStyle(event.target.value as CampingStyle | "all")} className="mt-2 w-full border border-border bg-background px-3 py-2"><option value="all">All styles</option>{Object.entries(styleLabels).map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select></label>
       <label className="text-sm"><span className="block font-semibold">Region</span><select value={region} onChange={(event) => setRegion(event.target.value)} className="mt-2 w-full border border-border bg-background px-3 py-2"><option value="all">All regions</option>{Object.entries(regionLabels).map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select></label>
       <label className="flex items-center gap-3 border border-border px-4 py-3 text-sm"><input type="checkbox" checked={fullHookup} onChange={(event) => setFullHookup(event.target.checked)} /><span><strong className="block">Full hookup</strong><span className="text-muted-foreground">Only when explicitly verified</span></span></label>
       <label className="flex items-center gap-3 border border-border px-4 py-3 text-sm"><input type="checkbox" checked={waterCamping} onChange={(event) => setWaterCamping(event.target.checked)} /><span><strong className="block">Water-focused</strong><span className="text-muted-foreground">Lake, river, Gulf or swimming</span></span></label>
     </div>
 
-    <p className="mt-5 text-sm text-muted-foreground">Showing {filtered.length} of {entries.length} verified public-camping profiles. Missing amenity data means “not yet verified,” not “not available.”</p>
+    <p className="mt-5 text-sm text-muted-foreground">Showing {filtered.length} of {entries.length} verified public camping and outdoor-lodging profiles. Missing amenity data means “not yet verified,” not “not available.”</p>
 
     <div className="mt-7 grid gap-6 lg:grid-cols-2">
       {filtered.map(({ profile, destination }) => {

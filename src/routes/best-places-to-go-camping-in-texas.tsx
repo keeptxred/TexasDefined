@@ -5,7 +5,7 @@ import { destinationsQuery } from "@/data/queries";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const title = "Texas Camping & RV Campground Guide";
-const description = "Find verified public camping in Texas by RV, tent, primitive, beach, full-hookup, water access and region, with official reservation sources and links to destination, county, fishing and trip-planning guides.";
+const description = "Find verified public camping and outdoor lodging in Texas by RV, tent, primitive, beach, cabins, glamping, full-hookup, water access and region, with official reservation sources and planning links.";
 const canonicalPath = "/best-places-to-go-camping-in-texas";
 const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
 
@@ -16,13 +16,14 @@ function profileAnchor(profile: { destinationSlug: string; profileSlug?: unknown
 export const Route = createFileRoute(canonicalPath)({
   loader: async ({ context }) => {
     // Load comparison datasets only for this guide so they stay out of the global route bundle.
-    const [{ CAMPING_DISCOVERY_PROFILES }, { CAMPING_DISCOVERY_PROFILES_WAVE2 }, { CAMPING_DISCOVERY_PROFILES_WAVE3 }, destinations] = await Promise.all([
+    const [{ CAMPING_DISCOVERY_PROFILES }, { CAMPING_DISCOVERY_PROFILES_WAVE2 }, { CAMPING_DISCOVERY_PROFILES_WAVE3 }, { CAMPING_DISCOVERY_PROFILES_WAVE4 }, destinations] = await Promise.all([
       import("@/data/camping/discovery"),
       import("@/data/camping/profiles-wave2"),
       import("@/data/camping/profiles-wave3"),
+      import("@/data/camping/profiles-wave4"),
       context.queryClient.ensureQueryData(destinationsQuery({ limit: 5000 })),
     ]);
-    const profiles = [...CAMPING_DISCOVERY_PROFILES, ...CAMPING_DISCOVERY_PROFILES_WAVE2, ...CAMPING_DISCOVERY_PROFILES_WAVE3];
+    const profiles = [...CAMPING_DISCOVERY_PROFILES, ...CAMPING_DISCOVERY_PROFILES_WAVE2, ...CAMPING_DISCOVERY_PROFILES_WAVE3, ...CAMPING_DISCOVERY_PROFILES_WAVE4];
     const bySlug = new Map(destinations.map((destination) => [destination.slug, destination]));
     return { entries: profiles.map((profile) => ({ profile, destination: bySlug.get(profile.destinationSlug) })) };
   },
@@ -48,7 +49,7 @@ export const Route = createFileRoute(canonicalPath)({
           {
             "@type": "ItemList",
             "@id": `${pageUrl}#camping-directory`,
-            name: "Verified Texas public camping destinations and campgrounds",
+            name: "Verified Texas public camping destinations, campgrounds and outdoor lodging",
             numberOfItems: entries.length,
             itemListElement: entries.map(({ profile, destination }, index) => ({
               "@type": "ListItem",
