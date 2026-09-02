@@ -22,6 +22,7 @@ function EventCollectionPage() {
       <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">{page.title}</h1>
       <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">{page.lead}</p>
       <p className="mt-6 text-sm text-muted-foreground">{page.itemCount.toLocaleString("en-US")} verified event guides{page.latestSourceCheck ? ` · Latest source check: ${page.latestSourceCheck}` : ""}</p>
+      {!page.shouldIndex && <p className="mt-3 max-w-3xl text-xs leading-6 text-muted-foreground">{page.indexabilityNote}</p>}
     </Container></section>
 
     <Container className="py-12 sm:py-16">
@@ -41,7 +42,7 @@ function EventCollectionPage() {
 
       <section className="pt-12">
         <div className="flex flex-wrap items-end justify-between gap-4 border-b border-border pb-6"><div><p className="eyebrow text-primary">Permanent planning pages</p><h2 className="mt-2 font-display text-4xl">Verified event guides</h2></div><a href="/events" className="text-sm font-semibold text-primary">Full Texas calendar →</a></div>
-        {page.items.length ? <ul className="grid gap-px border-x border-b border-border bg-border sm:grid-cols-2 lg:grid-cols-3">{page.items.map((event) => <li key={event.slug} className="bg-background p-6"><p className="eyebrow text-muted-foreground">{event.city}{event.countyName ? ` · ${event.countyName}` : ""}</p><h3 className="mt-3 font-display text-2xl leading-tight"><a href={`/event/${event.slug}`} className="hover:text-primary">{event.name}</a></h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{event.detail}</p><a href={`/event/${event.slug}`} className="mt-5 inline-block text-sm font-semibold text-primary">Dates, sources & planning →</a></li>)}</ul> : <p className="border-x border-b border-border p-8 text-sm leading-7 text-muted-foreground">No permanent event guide currently meets the source standard for this collection; Texas Defined does not pad the page with invented dates.</p>}
+        {page.items.length ? <ul className="grid gap-px border-x border-b border-border bg-border sm:grid-cols-2 lg:grid-cols-3">{page.items.map((event) => <li key={event.href} className="bg-background p-6"><p className="eyebrow text-muted-foreground">{event.city}{event.countyName ? ` · ${event.countyName}` : ""}</p><h3 className="mt-3 font-display text-2xl leading-tight"><a href={event.href} className="hover:text-primary">{event.name}</a></h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{event.detail}</p><a href={event.href} className="mt-5 inline-block text-sm font-semibold text-primary">Dates, sources & planning →</a></li>)}</ul> : <p className="border-x border-b border-border p-8 text-sm leading-7 text-muted-foreground">No permanent event guide currently meets the source standard for this collection; Texas Defined does not pad the page with invented dates.</p>}
       </section>
 
       <section className="pt-12">
