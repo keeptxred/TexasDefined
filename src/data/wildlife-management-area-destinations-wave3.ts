@@ -27,8 +27,9 @@ function wma(input: Omit<Destination, "id" | "brandId" | "category" | "hero" | "
 /**
  * First Pineywoods Wildlife Management Area authority wave.
  *
- * TPWD's current Pineywoods inventory contains eleven WMAs. This wave adds the
- * first five visitor-relevant authorities while preserving the normal
+ * TPWD's current Pineywoods inventory contains eleven WMAs. Alazan Bayou is
+ * already present in the statewide Wave 1 set, so this wave adds four more
+ * visitor-relevant Pineywoods authorities while preserving the normal
  * destination-photo readiness gate until subject-specific imagery is attached.
  */
 export const wildlifeManagementAreaWave3Destinations: Destination[] = [
@@ -46,21 +47,6 @@ export const wildlifeManagementAreaWave3Destinations: Destination[] = [
     body: ["Alabama Creek WMA is a large Pineywoods management area embedded within Davy Crockett National Forest and operated through a cooperative agreement between TPWD and the U.S. Forest Service.", "Its forest-management work creates a mix of pine, hardwood and riparian habitats used by deer, turkey, squirrels, migratory birds and other East Texas wildlife.", "The WMA is intentionally primitive. Visitors should use current Forest Service and TPWD maps, carry water and be prepared for seasonal road closures, insects and hunting activity."],
     officialUrl: "https://tpwd.texas.gov/huntwild/hunt/wma/find_a_wma/list/?id=25",
     managingAuthority: "U.S. Forest Service and Texas Parks and Wildlife Department",
-  }),
-  wma({
-    slug: "alazan-bayou-wildlife-management-area",
-    name: "Alazan Bayou Wildlife Management Area",
-    summary: "Alazan Bayou WMA protects 2,063 acres of mature bottomland hardwood forest and old-field habitat along the Angelina River south of Nacogdoches.",
-    region: "piney-woods",
-    nearestTown: "Nacogdoches",
-    county: "Nacogdoches County",
-    coordinates: { lat: 31.51, lng: -94.69 },
-    address: "8096 FM 2782, Nacogdoches, TX 75964",
-    bestSeason: "Fall through spring for comfortable wildlife viewing and camping; winter and early spring flooding can reshape access in the Angelina River bottomlands.",
-    entryNote: "Open year-round and registration is required. Visitors age 17 and older currently need either an Annual Public Hunting Permit or Limited Public Use Permit. Primitive camping is available; bring water and insect protection.",
-    highlights: ["Angelina River bottomlands", "Mature hardwood forest", "Wintering waterfowl habitat", "Primitive camping"],
-    body: ["Alazan Bayou preserves mature East Texas bottomland hardwoods along the Angelina River, with Loco Bayou and Moral Creek adding additional wetland and floodplain habitat.", "Seasonal overbank flooding is part of the WMA's ecology and supports waterfowl, deer, turkey, squirrels and other wildlife, but it can also limit practical access.", "Visitors should register, carry the required public-use permit when applicable and check current water and road conditions before entering."],
-    officialUrl: "https://tpwd.texas.gov/huntwild/hunt/wma/find_a_wma/list/?id=26",
   }),
   wma({
     slug: "angelina-neches-dam-b-wildlife-management-area",
