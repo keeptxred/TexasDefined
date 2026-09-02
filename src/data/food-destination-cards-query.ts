@@ -9,6 +9,7 @@ export type FoodDestinationCard = {
   knownFor: string[];
 };
 
+// Keep source-rich food profiles behind a manual dynamic-import boundary so discovery cards do not inflate the main client bundle.
 export const foodDestinationCardsQuery = () => queryOptions({
   queryKey: ["food-destination-cards"],
   staleTime: Infinity,
