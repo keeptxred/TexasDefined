@@ -3,9 +3,7 @@ import { createLazyFileRoute, Link, useNavigate } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
-import { TEXAS_WILDLIFE_SPECIES } from "@/data/knowledge-graph/wildlife-species";
 import { searchDocumentsQuery } from "@/data/queries";
-import type { SearchDocument } from "@/data/types";
 import { search, type SearchHit } from "@/domain/search/engine";
 import {
   SEARCH_INPUT_PLACEHOLDER,
@@ -15,19 +13,8 @@ import {
   TEXAS_EXPLAINED_SEARCH_COPY,
 } from "./search";
 
-const wildlifeSearchDocuments: SearchDocument[] = TEXAS_WILDLIFE_SPECIES.map((species) => ({
-  id: species.id,
-  brandId: texasDefinedBrand.identity.id,
-  kind: "destination",
-  title: species.name,
-  summary: species.description ?? `Texas wildlife reference for ${species.name}.`,
-  keywords: [...species.aliases, species.region ?? "", ...(species.tags ?? [])].filter(Boolean),
-  href: `/wildlife-species/${species.slug}`,
-}));
-
 const startingPoints = [
   { to: "/explore", label: "Explore Texas", copy: "Parks, water, road trips, small towns and places worth making the drive for." },
-  { to: "/explore/wildlife", label: "Wildlife & Public Lands", copy: "Wildlife refuges, management areas, birding destinations and Texas species." },
   { to: "/explore/painted-churches", label: "Painted Churches", copy: "Historic sanctuaries, painted interiors, church-by-church guides and the Schulenburg heritage route." },
   SPORTS_SEARCH_STARTING_POINT,
   { to: "/events", label: "Texas Events", copy: "Rodeos, festivals, fairs, live music and things happening around the state." },
@@ -38,8 +25,8 @@ const startingPoints = [
 ] as const;
 
 const recoveryLinks = [
-  ["/explore", "Explore Texas"], ["/explore/wildlife", "Wildlife & Public Lands"], ["/events", "Texas Events"],
-  ["/browse/cities", "Cities"], ["/browse/counties", "Counties"], ["/explore/trip-planner", "Trip Planner"], ["/texas-explained", "Texas Explained"],
+  ["/explore", "Explore Texas"], ["/events", "Texas Events"], ["/browse/cities", "Cities"],
+  ["/browse/counties", "Counties"], ["/explore/trip-planner", "Trip Planner"], ["/texas-explained", "Texas Explained"],
 ] as const;
 
 export const Route = createLazyFileRoute("/search")({ component: SearchPage });
@@ -47,8 +34,7 @@ export const Route = createLazyFileRoute("/search")({ component: SearchPage });
 function SearchPage() {
   const { q } = Route.useSearch();
   const navigate = useNavigate({ from: "/search" });
-  const { data: baseDocuments } = useSuspenseQuery(searchDocumentsQuery());
-  const documents = [...baseDocuments, ...wildlifeSearchDocuments];
+  const { data: documents } = useSuspenseQuery(searchDocumentsQuery());
   const query = (q ?? "").trim();
   const results: SearchHit[] = query ? search(documents, { term: query, brandId: texasDefinedBrand.identity.id }) : [];
 
@@ -85,7 +71,6 @@ function SearchPage() {
 }
 
 function kindLabel(kind: string, id?: string) {
-  if (id?.startsWith("wildlife-species:")) return "Wildlife species";
   if (id?.startsWith("painted-church:") || id?.startsWith("painted-church-guide:")) return "Painted church";
   return SEARCH_KIND_LABELS[kind.toLowerCase()] ?? kind.replaceAll("-", " ").replace(/\b\w/g, (letter) => letter.toUpperCase());
 }
