@@ -1,0 +1,65 @@
+name: Fix route governance once
+
+on:
+  push:
+    branches:
+      - fix/discovery-route-tree-production-20260902
+    paths:
+      - '.github/workflows/fix-route-governance-once.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/discovery-route-tree-production-20260902
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - name: Repair governance classification inputs
+        shell: python
+        run: |
+          from pathlib import Path
+
+          registry_path = Path('src/lib/public-routes.ts')
+          registry = registry_path.read_text()
+          planner_line = '  "/explore/trip-planner",\n'
+          if planner_line not in registry:
+              raise SystemExit('Trip Planner indexable registry entry not found')
+          registry = registry.replace(planner_line, '', 1)
+          conditional_marker = 'export const CONDITIONAL_INDEXABLE_PUBLIC_PATHS = [\n'
+          if conditional_marker not in registry:
+              raise SystemExit('Conditional registry marker not found')
+          registry = registry.replace(conditional_marker, conditional_marker + planner_line, 1)
+          registry_path.write_text(registry)
+
+          governance_path = Path('scripts/data/validate-public-route-governance.mjs')
+          governance = governance_path.read_text()
+          governance = governance.replace("const routeTree = fs.readFileSync('src/routeTree.gen.ts', 'utf8');\n", '', 1)
+          old = "const registeredStaticPublicPaths = new Set([...routeTree.matchAll(/\\bpath:\\s*'([^']+)'/g)].map((match) => normalize(match[1])).filter(shouldCountPublicRoute));"
+          new = "const registeredStaticPublicPaths = new Set(sourceRouteEntries.map((entry) => entry.path).filter(shouldCountPublicRoute));"
+          if old not in governance:
+              raise SystemExit('Generated-path registry parser not found')
+          governance = governance.replace(old, new, 1)
+          governance_path.write_text(governance)
+      - name: Validate governance repair
+        run: |
+          node scripts/data/validate-public-route-governance.mjs
+          node scripts/data/validate-explore-route-registration.mjs
+      - name: Commit governance repair
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add src/lib/public-routes.ts scripts/data/validate-public-route-governance.mjs
+          git commit -m 'fix: classify full public route ids after route generation'
+          git push origin HEAD:fix/discovery-route-tree-production-20260902
