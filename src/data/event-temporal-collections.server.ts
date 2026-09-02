@@ -2,11 +2,13 @@ import type { TexasEvent, TexasRegion } from "./types";
 
 export interface TemporalEventDirectoryItem {
   slug: string;
+  href: string;
   name: string;
   city: string;
   countyName?: string;
   region: TexasRegion;
   category: TexasEvent["category"];
+  detail: string;
   startDate: string;
   endDate?: string;
   sourceCheckedAt?: string;
@@ -24,6 +26,7 @@ export interface TemporalEventCollectionDefinition {
   planningPoints: [string, string, string];
   relatedPaths: string[];
   minimumIndexableItems: number;
+  indexPolicy: "always-noindex" | "qualified";
   filterKind: "this-weekend" | "this-month" | "month" | "fall" | "christmas" | "county-fairs" | "houston-area" | "dfw-area";
   month?: number;
 }
@@ -35,6 +38,7 @@ export interface ResolvedTemporalEventCollection extends TemporalEventCollection
   dateContext: string;
   items: TemporalEventDirectoryItem[];
   shouldIndex: boolean;
+  indexabilityNote: string;
 }
 
 const temporalCollections: TemporalEventCollectionDefinition[] = [
@@ -50,10 +54,11 @@ const temporalCollections: TemporalEventCollectionDefinition[] = [
     planningPoints: [
       "Open the permanent event guide and recheck the official organizer before leaving; operating hours, tickets, road closures and weather procedures can still change.",
       "Use the host city and county as the planning radius instead of stacking unrelated events from opposite sides of Texas into one itinerary.",
-      "When this view has too few source-qualified guides, Texas Defined keeps it useful for people but removes it from search indexing rather than padding it with weak listings.",
+      "This rolling weekend view stays noindex even when it is useful to readers; Texas Defined reserves indexable URLs for durable discovery pages rather than continuously mutating date snapshots.",
     ],
     relatedPaths: ["/events/this-month", "/events/fall-festivals", "/events/food-festivals"],
     minimumIndexableItems: 4,
+    indexPolicy: "always-noindex",
     filterKind: "this-weekend",
   },
   {
@@ -68,10 +73,11 @@ const temporalCollections: TemporalEventCollectionDefinition[] = [
     planningPoints: [
       "Compare date windows first, then open the event guide for the exact city, county, venue and current source check.",
       "For multi-day fairs and festivals, choose the specific performance, parade, competition or operating day before booking lodging.",
-      "Texas Defined automatically withholds indexing when a rolling month does not contain enough verified authority pages to justify a standalone search result.",
+      "This rolling month view stays noindex so search engines are directed toward permanent event guides and durable seasonal or regional landing pages.",
     ],
     relatedPaths: ["/events/this-weekend", "/events/rodeos", "/events/arts-culture"],
     minimumIndexableItems: 6,
+    indexPolicy: "always-noindex",
     filterKind: "this-month",
   },
   {
@@ -90,6 +96,7 @@ const temporalCollections: TemporalEventCollectionDefinition[] = [
     ],
     relatedPaths: ["/events/fall-festivals", "/events/county-fairs", "/events/rodeos"],
     minimumIndexableItems: 6,
+    indexPolicy: "qualified",
     filterKind: "month",
     month: 9,
   },
@@ -109,6 +116,7 @@ const temporalCollections: TemporalEventCollectionDefinition[] = [
     ],
     relatedPaths: ["/events/september-events", "/events/food-festivals", "/events/seasonal-events"],
     minimumIndexableItems: 6,
+    indexPolicy: "qualified",
     filterKind: "fall",
   },
   {
@@ -127,6 +135,7 @@ const temporalCollections: TemporalEventCollectionDefinition[] = [
     ],
     relatedPaths: ["/events/seasonal-events", "/events/this-month", "/events/arts-culture"],
     minimumIndexableItems: 4,
+    indexPolicy: "qualified",
     filterKind: "christmas",
   },
   {
@@ -145,6 +154,7 @@ const temporalCollections: TemporalEventCollectionDefinition[] = [
     ],
     relatedPaths: ["/events/rodeos", "/events/fall-festivals", "/events/food-festivals"],
     minimumIndexableItems: 4,
+    indexPolicy: "qualified",
     filterKind: "county-fairs",
   },
   {
@@ -163,6 +173,7 @@ const temporalCollections: TemporalEventCollectionDefinition[] = [
     ],
     relatedPaths: ["/events/gulf-coast-events", "/events/rodeos", "/events/arts-culture"],
     minimumIndexableItems: 4,
+    indexPolicy: "qualified",
     filterKind: "houston-area",
   },
   {
@@ -181,6 +192,7 @@ const temporalCollections: TemporalEventCollectionDefinition[] = [
     ],
     relatedPaths: ["/events/north-texas-events", "/events/county-fairs", "/events/food-festivals"],
     minimumIndexableItems: 4,
+    indexPolicy: "qualified",
     filterKind: "dfw-area",
   },
 ];
@@ -195,7 +207,7 @@ function texasDateParts(now: Date) {
     month: "2-digit",
     day: "2-digit",
   }).formatToParts(now);
-  const value = (type: Intl.DateTimeFormatPartTypes) => Number(parts.find((part) => part.type === type)?.value ?? 0);
+  const value = (type: "year" | "month" | "day") => Number(parts.find((part) => part.type === type)?.value ?? 0);
   return { year: value("year"), month: value("month"), day: value("day") };
 }
 
@@ -242,9 +254,8 @@ function resolveMonth(year: number, month: number) {
   return { start: isoFromParts(year, month, 1), end: isoFromParts(year, month, lastDayOfMonth(year, month)) };
 }
 
-function resolveSeasonYear(todayParts: ReturnType<typeof texasDateParts>, seasonStartMonth: number, seasonEndMonth: number) {
-  const afterSeason = todayParts.month > seasonEndMonth;
-  return afterSeason ? todayParts.year + 1 : todayParts.year;
+function resolveSeasonYear(todayParts: ReturnType<typeof texasDateParts>, seasonEndMonth: number) {
+  return todayParts.month > seasonEndMonth ? todayParts.year + 1 : todayParts.year;
 }
 
 function holidayName(name: string) {
@@ -252,7 +263,7 @@ function holidayName(name: string) {
 }
 
 function countyFairName(name: string) {
-  return /\b(county fair|fair & rodeo|fair and rodeo|state fair)\b/i.test(name);
+  return /\b(countounty fair|county fair|fair & rodeo|fair and rodeo|state fair)\b/i.test(name);
 }
 
 function resolveFilter(definition: TemporalEventCollectionDefinition, events: TemporalEventDirectoryItem[], now: Date) {
@@ -281,14 +292,14 @@ function resolveFilter(definition: TemporalEventCollectionDefinition, events: Te
       break;
     }
     case "fall": {
-      const year = resolveSeasonYear(parts, 9, 11);
+      const year = resolveSeasonYear(parts, 11);
       start = isoFromParts(year, 9, 1);
       end = isoFromParts(year, 11, 30);
       filtered = events.filter((event) => event.category !== "sport" && overlaps(event, start, end));
       break;
     }
     case "christmas": {
-      const year = parts.month > 12 ? parts.year + 1 : parts.year;
+      const year = parts.month === 1 && parts.day <= 5 ? parts.year - 1 : parts.year;
       start = isoFromParts(year, 11, 15);
       end = isoFromParts(year + 1, 1, 5);
       filtered = events.filter((event) => holidayName(event.name) && overlaps(event, start, end));
@@ -331,6 +342,13 @@ export function resolveTemporalEventCollectionServer(slug: string, events: Tempo
   const dynamicTitle = definition.filterKind === "this-weekend" || definition.filterKind === "this-month"
     ? `${definition.title}: ${dateContext}`
     : definition.title;
+  const shouldIndex = definition.indexPolicy === "qualified" && items.length >= definition.minimumIndexableItems;
+  const indexabilityNote = definition.indexPolicy === "always-noindex"
+    ? "This rolling date view is intentionally noindex,follow so search engines prioritize durable event guides and stable seasonal or regional landing pages."
+    : shouldIndex
+      ? "This stable collection currently meets the verified-guide threshold for indexing."
+      : "This stable collection remains available for readers but is temporarily noindex until enough verified guides qualify; Texas Defined does not pad thin date views with weak listings.";
+
   return {
     ...definition,
     title: dynamicTitle,
@@ -338,6 +356,7 @@ export function resolveTemporalEventCollectionServer(slug: string, events: Tempo
     lead: `${definition.lead} Current verified window: ${dateContext}.`,
     dateContext,
     items,
-    shouldIndex: items.length >= definition.minimumIndexableItems,
+    shouldIndex,
+    indexabilityNote,
   };
 }
